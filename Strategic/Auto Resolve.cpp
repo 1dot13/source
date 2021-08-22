@@ -72,6 +72,7 @@
 	#include "CampaignStats.h"				// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "MilitiaIndividual.h"			// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "Reinforcement.h"
@@ -2190,6 +2191,13 @@ void CreateAutoResolveInterface()
 	ubEliteMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, ELITE_MILITIA );
 	ubRegMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, REGULAR_MILITIA );
 	ubGreenMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, GREEN_MILITIA );
+
+	// see if we get any bonus militia from nearby towns
+	UINT8 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
+	RebelCommand::GetBonusMilitia(gpAR->ubSectorX, gpAR->ubSectorY, bonusGreenMilitia, bonusRegularMilitia, bonusEliteMilitia, FALSE); // no need to create a group for autoresolve as we're just increasing local militia pop
+	ubEliteMilitia += bonusEliteMilitia;
+	ubRegMilitia += bonusRegularMilitia;
+	ubGreenMilitia += bonusGreenMilitia;
 
 	// This block should be unnecessary.	If the counts do not line up, there is a bug.
 #if 0

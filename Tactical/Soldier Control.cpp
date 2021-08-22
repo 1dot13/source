@@ -125,6 +125,7 @@
 #include "LightEffects.h"		// added by Flugente for CreatePersonalLight()
 #include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
 #include "strategic town loyalty.h"		// added by Flugente for gTownLoyalty
+#include "Rebel Command.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -21382,7 +21383,7 @@ extern FLOAT GetAdministrationPercentage( INT16 sX, INT16 sY );
 FLOAT		SOLDIERTYPE::GetAdministrationModifier()
 {
 	if ( ADMINISTRATION_BONUS( this->bAssignment ) )
-		return 1.0f + GetAdministrationPercentage( this->sSectorX, this->sSectorY ) / 100.0f;
+		return 1.0f + GetAdministrationPercentage( this->sSectorX, this->sSectorY ) / 100.0f + RebelCommand::GetAssignmentBonus(this->sSectorX, this->sSectorY);
 
 	return 1.0f;
 }

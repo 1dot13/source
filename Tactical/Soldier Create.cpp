@@ -47,6 +47,7 @@
 	#include "Interface.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "connect.h"
@@ -1763,6 +1764,10 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	pSoldier->flags.bHasKeys							= pCreateStruct->fHasKeys;
 	pSoldier->ubSoldierClass				= pCreateStruct->ubSoldierClass;
 
+	pSoldier->sSectorX = pCreateStruct->sSectorX;
+	pSoldier->sSectorY = pCreateStruct->sSectorY;
+	pSoldier->bSectorZ = pCreateStruct->bSectorZ;
+
 	// Flugente: soldier profiles
 	// silversurfer: Don't replace tanks!
 	if ( !ARMED_VEHICLE( pCreateStruct ) && !ENEMYROBOT( pCreateStruct ) )
@@ -1821,6 +1826,12 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	if ( gGameExternalOptions.fAssignTraitsToMilitia && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) )
 		AssignTraitsToSoldier( pSoldier, pCreateStruct );
 
+	// if rebel command is enabled, apply bonuses and penalties
+	if (SOLDIER_CLASS_MILITIA(pSoldier->ubSoldierClass))
+		RebelCommand::ApplyMilitiaBonuses(pSoldier);
+	if ((SOLDIER_CLASS_ENEMY(pSoldier->ubSoldierClass) || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT))
+		RebelCommand::ApplyEnemyPenalties(pSoldier);
+
 	// Flugente: enemy roles
 	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyOfficers && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
 	{
@@ -1831,7 +1842,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			UINT8 numofficers = HighestEnemyOfficersInSector( officertype );
 
 			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers
-			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax )
+			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax && !RebelCommand::NeutraliseRole(pSoldier) )
 				pSoldier->usSoldierFlagMask |= SOLDIER_ENEMY_OFFICER;
 		}
 	}
@@ -4907,7 +4918,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		}
 
 		// Now assign the trait
-		if ( Chance( iChance ) )
+		if ( Chance( iChance ) && !RebelCommand::NeutraliseRole(pSoldier) )
 		{
 			if ( !ATraitAssigned )
 			{
@@ -5283,7 +5294,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
 		{
 			// if we have a radio set, give us the corresponding trait so we can use it...
-			if ( fRadioSetFound )
+			if ( fRadioSetFound && !RebelCommand::NeutraliseRole(pSoldier))
 			{
 				// this is a minor trait, so try to first fill the minor slot if possible
 				// reasoning: this trait has to be one of the first evaluated - getting a radio set is rare, so e want to make sure we become a radio guy if we're lucky
@@ -5307,7 +5318,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		}
 
 		// HEAVY WEAPONS TRAIT 
-		if ( foundMortar || foundRocketlauncher || foundGrenadelauncher )
+		if ( (foundMortar || foundRocketlauncher || foundGrenadelauncher) && !RebelCommand::NeutraliseRole(pSoldier) )
 		{
 			// setup basic chances based on soldier type
 			if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
@@ -5837,7 +5848,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		}
 
 		// Flugente: enemy roles: allow medics
-		if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyMedics && gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned) )
+		if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyMedics && gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned) && !RebelCommand::NeutraliseRole(pSoldier))
 		{
 			// if we have a radio set, give us the corresponding trait so we can use it...
 			if ( fFirstAidKitFound )

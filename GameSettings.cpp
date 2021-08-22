@@ -82,6 +82,8 @@
 
 #define				CREATURES_SETTINGS_FILE			"Creatures_Settings.ini"
 
+#define				REBEL_COMMAND_SETTINGS_FILE		"RebelCommand_Settings.ini"
+
 #define				CD_ROOT_DIR						"DATA\\"
 
 GAME_SETTINGS		gGameSettings;
@@ -94,6 +96,7 @@ HELICOPTER_SETTINGS gHelicopterSettings;
 MORALE_SETTINGS gMoraleSettings;
 REPUTATION_SETTINGS gReputationSettings;
 CREATURES_SETTINGS gCreaturesSettings;
+REBELCOMMAND_SETTINGS gRebelCommandSettings;
 CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
 
 MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
@@ -112,6 +115,40 @@ extern BOOLEAN DoJA2FilesExistsOnDrive( CHAR8 *zCdLocation );
 BOOLEAN GetCDromDriveLetter( STR8	pString );
 BOOLEAN	IsDriveLetterACDromDrive( STR pDriveLetter );
 void		CDromEjectionErrorMessageBoxCallBack( UINT8 bExitValue );
+
+// helper function for reading numerical arrays
+template<typename T>
+void FillArrayValues(CIniReader& iniReader, const STR8 sectionName, const STR8 settingName, T& vec)
+{
+	using namespace std;
+	STRING512 textBuffer;
+	iniReader.ReadString(sectionName, settingName, NULL, textBuffer, _countof(textBuffer));
+
+	string str, token;
+	string delim = ",";
+	size_t offset = 0, prevOffset = 0;
+
+	// sanitise input
+	vec.clear();
+	str = textBuffer;
+	str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+	vector<FLOAT> tempVec;
+	do
+	{
+		offset = str.find(delim, prevOffset);
+		token = str.substr(prevOffset, offset-prevOffset);
+		prevOffset = offset + delim.length();
+
+		tempVec.push_back(stof(token.c_str()));
+	} while (offset != string::npos);
+
+	// assign values
+	for (const auto val : tempVec)
+	{
+		vec.push_back(val);
+	}
+}
 
 // these wrappers have the benefit that changing the location of the variable (gameinitoptionscreen/ini/ingame options) doesn't require huge changes throughout the code
 // additionally, turning off a feature (for UB, for MP...) can be done here without additional checks in the code
@@ -2319,6 +2356,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fMiniEventsEnabled = iniReader.ReadBoolean("Mini Events Settings", "MINI_EVENTS_ENABLED", FALSE);
 	gGameExternalOptions.fMiniEventsMinHoursBetweenEvents = iniReader.ReadInteger("Mini Events Settings", "MINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS", 120, 24, 24000);
 	gGameExternalOptions.fMiniEventsMaxHoursBetweenEvents = iniReader.ReadInteger("Mini Events Settings", "MINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS", 240, 24, 24000);
+
+	// Rebel Command
+	gGameExternalOptions.fRebelCommandEnabled = iniReader.ReadBoolean("Rebel Command Settings", "REBEL_COMMAND_ENABLED", FALSE);
 }
 
 
@@ -3802,6 +3842,95 @@ void LoadCreaturesSettings()
 	gCreaturesSettings.ubCrepitusFeedingSectorX					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_X", 9);
 	gCreaturesSettings.ubCrepitusFeedingSectorY					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Y", 10);
 	gCreaturesSettings.ubCrepitusFeedingSectorZ					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Z", 2);
+}
+
+void LoadRebelCommandSettings()
+{
+	CIniReader iniReader(REBEL_COMMAND_SETTINGS_FILE);
+
+	gRebelCommandSettings.fIncomeModifier = iniReader.ReadFloat("Rebel Command Settings", "INCOME_MODIFIER", 1.5f, 1.0f, 100.0f);
+
+	gRebelCommandSettings.iMaxLoyaltyNovice = iniReader.ReadInteger("Rebel Command Settings", "MAX_LOYALTY_NOVICE", 80, 20, 100);
+	gRebelCommandSettings.iMaxLoyaltyExperienced = iniReader.ReadInteger("Rebel Command Settings", "MAX_LOYALTY_EXPERIENCED", 70, 20, 100);
+	gRebelCommandSettings.iMaxLoyaltyExpert = iniReader.ReadInteger("Rebel Command Settings", "MAX_LOYALTY_EXPERT", 60, 20, 100);
+	gRebelCommandSettings.iMaxLoyaltyInsane = iniReader.ReadInteger("Rebel Command Settings", "MAX_LOYALTY_INSANE", 50, 20, 100);
+
+	gRebelCommandSettings.iAdminActionCostIncreaseRegional = iniReader.ReadInteger("Rebel Command Settings", "ADMIN_ACTION_COST_INCREASE_REGIONAL", 13, 1, 100);
+	gRebelCommandSettings.iAdminActionCostIncreaseNational = iniReader.ReadInteger("Rebel Command Settings", "ADMIN_ACTION_COST_INCREASE_NATIONAL", 6, 1, 100);
+
+	gRebelCommandSettings.fLoyaltyGainModifier = iniReader.ReadFloat("Rebel Command Settings", "BASE_LOYALTY_GAIN_MODIFIER", 0.5f, 0.1f, 1.0f);
+
+	std::vector<FLOAT> vec;
+
+	// militia upgrades
+	FillArrayValues(iniReader, "Rebel Command Settings", "MILITIA_STATS_UPGRADE_COSTS", gRebelCommandSettings.iMilitiaUpgradeCosts);
+	gRebelCommandSettings.iMilitiaStatBonusPerLevel = iniReader.ReadInteger("Rebel Command Settings", "MILITIA_STAT_BONUS_PER_LEVEL", 2, 0, 5);
+	gRebelCommandSettings.iMilitiaMarksmanshipBonusPerLevel = iniReader.ReadInteger("Rebel Command Settings", "MILITIA_MARKSMANSHIP_BONUS_PER_LEVEL", 2, 0, 5);
+	
+	// directives
+	FillArrayValues(iniReader, "Rebel Command Settings", "GATHER_SUPPLIES_COSTS", gRebelCommandSettings.iGatherSuppliesCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "GATHER_SUPPLIES_INCOME", gRebelCommandSettings.iGatherSuppliesIncome);
+
+	gRebelCommandSettings.uSupportMilitiaProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "SUPPORT_MILITIA_PROGRESS_REQUIREMENT", 25, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "SUPPORT_MILITIA_COSTS", gRebelCommandSettings.iSupportMilitiaCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "SUPPORT_MILITIA_DISCOUNT", gRebelCommandSettings.fSupportMilitiaDiscounts);
+
+	gRebelCommandSettings.uTrainMilitiaProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "TRAIN_MILITIA_PROGRESS_REQUIREMENT", 10, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "TRAIN_MILITIA_COSTS", gRebelCommandSettings.iTrainMilitiaCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "TRAIN_MILITIA_DISCOUNT", gRebelCommandSettings.fTrainMilitiaDiscount);
+	FillArrayValues(iniReader, "Rebel Command Settings", "TRAIN_MILITIA_SPEED_BONUS", gRebelCommandSettings.iTrainMilitiaSpeedBonus);
+
+	gRebelCommandSettings.uCreatePropagandaProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "CREATE_PROPAGANDA_PROGRESS_REQUIREMENT", 33, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "CREATE_PROPAGANDA_COSTS", gRebelCommandSettings.iCreatePropagandaCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "CREATE_PROPAGANDA_MODIFIER", gRebelCommandSettings.fCreatePropagandaModifier);
+
+	gRebelCommandSettings.uEliteMilitiaProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "ELITE_MILITIA_PROGRESS_REQUIREMENT", 50, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "ELITE_MILITIA_COSTS", gRebelCommandSettings.iEliteMilitiaCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "ELITE_MILITIA_PER_DAY", gRebelCommandSettings.iEliteMilitiaPerDay);
+
+	gRebelCommandSettings.uHvtStrikesProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "HVT_STRIKES_PROGRESS_REQUIREMENT", 33, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "HVT_STRIKES_COSTS", gRebelCommandSettings.iHvtStrikesCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "HVT_STRIKES_CHANCE", gRebelCommandSettings.iHvtStrikesChance);
+
+	gRebelCommandSettings.uSpottersProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "SPOTTERS_PROGRESS_REQUIREMENT", 50, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "SPOTTERS_COSTS", gRebelCommandSettings.iSpottersCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "SPOTTERS_MODIFIER", gRebelCommandSettings.iSpottersModifier);
+
+	gRebelCommandSettings.uRaidMinesProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "RAID_MINES_PROGRESS_REQUIREMENT", 0, 0, 100);
+	gRebelCommandSettings.iRaidMinesFailChance = iniReader.ReadInteger("Rebel Command Settings", "RAID_MINES_FAIL_CHANCE", 15, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "RAID_MINES_COSTS", gRebelCommandSettings.iRaidMinesCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "RAID_MINES_PERCENTAGE", gRebelCommandSettings.fRaidMinesPercentage);
+
+	// admin actions
+	gRebelCommandSettings.iSupplyLineMaxLoyaltyIncrease = iniReader.ReadInteger("Rebel Command Settings", "SUPPLY_LINE_MAX_LOYALTY_INCREASE", 10, 1, 100);
+
+	gRebelCommandSettings.iRebelRadioDailyLoyaltyGain = iniReader.ReadInteger("Rebel Command Settings", "REBEL_RADIO_DAILY_LOYALTY_GAIN", 400, 1, 10000);
+
+	gRebelCommandSettings.iSafehouseReinforceChance = iniReader.ReadUINT32("Rebel Command Settings", "SAFEHOUSE_REINFORCE_CHANCE", 75, 0, 100);
+	gRebelCommandSettings.iSafehouseMinimumSoldiers = iniReader.ReadInteger("Rebel Command Settings", "SAFEHOUSE_MINIMUM_SOLDIERS", 2, 0, 10);
+	gRebelCommandSettings.iSafehouseBonusSoldiers = iniReader.ReadInteger("Rebel Command Settings", "SAFEHOUSE_BONUS_SOLDIERS", 4, 0, 10);
+
+	gRebelCommandSettings.iSupplyDisruptionEnemyStatLoss = iniReader.ReadInteger("Rebel Command Settings", "SUPPLY_DISRUPTION_ENEMY_STAT_LOSS", 5, 0, 100);
+
+	// SCOUTS - no variable effect, but included here for completeness
+
+	gRebelCommandSettings.iDeadDropsDailyIntel = iniReader.ReadInteger("Rebel Command Settings", "DEAD_DROPS_DAILY_INTEL", 25, 0, 100);
+
+	gRebelCommandSettings.iSmugglersDailySupplies = iniReader.ReadInteger("Rebel Command Settings", "SMUGGLERS_DAILY_SUPPLIES", 25, 0, 100);
+
+	gRebelCommandSettings.iWarehousesDailyMilitiaGuns = iniReader.ReadInteger("Rebel Command Settings", "WAREHOUSES_DAILY_MILITIA_RESOURCE_GUNS", 2, 0, 100);
+	gRebelCommandSettings.iWarehousesDailyMilitiaArmour = iniReader.ReadInteger("Rebel Command Settings", "WAREHOUSES_DAILY_MILITIA_RESOURCE_ARMOUR", 2, 0, 100);
+	gRebelCommandSettings.iWarehousesDailyMilitiaMisc = iniReader.ReadInteger("Rebel Command Settings", "WAREHOUSES_DAILY_MILITIA_RESOURCE_MISC", 2, 0, 100);
+
+	gRebelCommandSettings.iTaxesDailyIncome = iniReader.ReadInteger("Rebel Command Settings", "TAXES_DAILY_INCOME", 500, 0, 10000);
+	gRebelCommandSettings.iTaxesDailyLoyaltyLoss = iniReader.ReadInteger("Rebel Command Settings", "TAXES_DAILY_LOYALTY_LOSS", 250, 0, 10000);
+
+	gRebelCommandSettings.iAssistCiviliansDailyVolunteers = iniReader.ReadInteger("Rebel Command Settings", "ASSIST_CIVILIANS_DAILY_VOLUNTEERS", 10, 0, 100);
+
+	gRebelCommandSettings.iMercSupportBonus = iniReader.ReadInteger("Rebel Command Settings", "MERC_SUPPORT_BONUS", 25, 0, 100);
+
+	gRebelCommandSettings.iMiningPolicyBonus = iniReader.ReadInteger("Rebel Command Settings", "MINING_POLICY_BONUS", 10, 0, 100);
+
 }
 
 void FreeGameExternalOptions()

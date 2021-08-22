@@ -228,4 +228,5 @@
 #include "Debug Control.h"
 #include "expat.h"
 #include "MiniEvents.h"
+#include "Rebel Command.h"
 #endif

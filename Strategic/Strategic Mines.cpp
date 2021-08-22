@@ -23,6 +23,7 @@
 	#include "history.h"
 	#include "Facilities.h"
 	#include "ASD.h"		// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -693,8 +694,7 @@ void HandleIncomeFromMines( void )
 	INT32 iIncome = 0;
 	INT32 iIncome_Enemy = 0;	// Flugente: new AI gets money from mines
 
-	// HEADROCK HAM 3.6: Modifier from Facilities
-	INT32 iFacilityModifier = 0;
+	INT32 iModifier = 0;
 
 	// mine each mine, check if we own it and such
 	for ( INT8 bCounter = 0; bCounter < MAX_NUMBER_OF_MINES; ++bCounter )
@@ -702,10 +702,12 @@ void HandleIncomeFromMines( void )
 		if ( PlayerControlsMine( bCounter ) )
 		{
 			// HEADROCK HAM 3.6: Add facility modifier as a percentage
-			iFacilityModifier = 100 + MineIncomeModifierFromFacility( bCounter );
+			// add rebel command bonus
+			iModifier = 100 + MineIncomeModifierFromFacility( bCounter ) + RebelCommand::GetMiningPolicyBonus(gMineStatus[bCounter].bAssociatedTown);
 
 			// mine this mine
-			iIncome += (MineAMine( bCounter ) * iFacilityModifier) / 100;
+			iIncome += (MineAMine( bCounter ) * iModifier) / 100;
+
 		}
 		else
 		{
@@ -717,6 +719,8 @@ void HandleIncomeFromMines( void )
 	// HEADROCK HAM B1: Affected by external INI Option.
 	iIncome = (iIncome * gGameExternalOptions.usMineIncomePercentage) / 100;
 	iIncome_Enemy = (iIncome_Enemy * gGameExternalOptions.usMineIncomePercentage) / 100;
+
+	RebelCommand::RaidMines(iIncome, iIncome_Enemy);
 
 	if( iIncome )
 	{
@@ -736,7 +740,7 @@ UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex, BOOLEAN fIncludeFacilities 
 	// (miner loyalty, % town controlled, monster infestation level, and current max removal rate may all in fact change)
 	UINT32 uiAmtExtracted = 0;
 	// HEADROCK HAM 3.6: Facilities can now modify income
-	INT32 iFacilityModifier = 0;
+	INT32 iModifier = 0;
 
 	if(PlayerControlsMine(bMineIndex))
 	{
@@ -752,8 +756,9 @@ UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex, BOOLEAN fIncludeFacilities 
 		if (bMineIndex && fIncludeFacilities)
 		{
 			// HEADROCK HAM 3.6: Facility modifier applied as a percentage
-			iFacilityModifier = 100 + MineIncomeModifierFromFacility( bMineIndex );
-			uiAmtExtracted = (uiAmtExtracted * iFacilityModifier) / 100;
+			// add rebel command bonus
+			iModifier = 100 + MineIncomeModifierFromFacility( bMineIndex ) + RebelCommand::GetMiningPolicyBonus(gMineStatus[bMineIndex].bAssociatedTown);
+			uiAmtExtracted = (uiAmtExtracted * iModifier) / 100;
 		}
 	}
 

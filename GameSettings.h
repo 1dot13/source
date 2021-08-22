@@ -1584,6 +1584,9 @@ typedef struct
 	UINT16 fMiniEventsMinHoursBetweenEvents;
 	UINT16 fMiniEventsMaxHoursBetweenEvents;
 
+	// Rebel Command
+	BOOLEAN fRebelCommandEnabled;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
@@ -1684,6 +1687,90 @@ typedef struct
 	UINT8 ubCrepitusFeedingSectorY;
 	UINT8 ubCrepitusFeedingSectorZ;
 } CREATURES_SETTINGS;
+
+typedef struct
+{
+	FLOAT fIncomeModifier;
+
+	INT8 iMaxLoyaltyNovice;
+	INT8 iMaxLoyaltyExperienced;
+	INT8 iMaxLoyaltyExpert;
+	INT8 iMaxLoyaltyInsane;
+
+	INT16 iAdminActionCostIncreaseRegional;
+	INT16 iAdminActionCostIncreaseNational;
+
+	FLOAT fLoyaltyGainModifier;
+	INT32 iMilitiaStatBonusPerLevel;
+	INT32 iMilitiaMarksmanshipBonusPerLevel;
+	std::vector<INT32> iMilitiaUpgradeCosts;
+	
+	// directives
+	// this directive is always available
+	std::vector<INT32> iGatherSuppliesCosts;
+	std::vector<INT32> iGatherSuppliesIncome;
+
+	UINT8 uSupportMilitiaProgressRequirement;
+	std::vector<INT32> iSupportMilitiaCosts;
+	std::vector<FLOAT> fSupportMilitiaDiscounts;
+
+	UINT8 uTrainMilitiaProgressRequirement;
+	std::vector<INT32> iTrainMilitiaCosts;
+	std::vector<FLOAT> fTrainMilitiaDiscount;
+	std::vector<INT32> iTrainMilitiaSpeedBonus;
+
+	UINT8 uCreatePropagandaProgressRequirement;
+	std::vector<INT32> iCreatePropagandaCosts;
+	std::vector<FLOAT> fCreatePropagandaModifier;
+
+	UINT8 uEliteMilitiaProgressRequirement;
+	std::vector<INT32> iEliteMilitiaCosts;
+	std::vector<INT32> iEliteMilitiaPerDay;
+
+	UINT8 uHvtStrikesProgressRequirement;
+	std::vector<INT32> iHvtStrikesCosts;
+	std::vector<INT32> iHvtStrikesChance;
+
+	UINT8 uSpottersProgressRequirement;
+	std::vector<INT32> iSpottersCosts;
+	std::vector<INT32> iSpottersModifier;
+
+	UINT8 uRaidMinesProgressRequirement;
+	INT32 iRaidMinesFailChance;
+	std::vector<INT32> iRaidMinesCosts;
+	std::vector<FLOAT> fRaidMinesPercentage;
+
+	// admin actions
+	INT32 iSupplyLineMaxLoyaltyIncrease;
+
+	INT32 iRebelRadioDailyLoyaltyGain;
+
+	UINT32 iSafehouseReinforceChance;
+	INT32 iSafehouseMinimumSoldiers;
+	INT32 iSafehouseBonusSoldiers;
+
+	INT32 iSupplyDisruptionEnemyStatLoss;
+
+	// SCOUTS - no variable effect, but included here for completeness
+
+	INT32 iDeadDropsDailyIntel;
+
+	INT32 iSmugglersDailySupplies;
+
+	INT32 iWarehousesDailyMilitiaGuns;
+	INT32 iWarehousesDailyMilitiaArmour;
+	INT32 iWarehousesDailyMilitiaMisc;
+
+	INT32 iTaxesDailyIncome;
+	INT32 iTaxesDailyLoyaltyLoss;
+
+	INT32 iAssistCiviliansDailyVolunteers;
+
+	INT32 iMercSupportBonus;
+
+	INT32 iMiningPolicyBonus;
+
+} REBELCOMMAND_SETTINGS;
 
 typedef struct
 {
@@ -2458,6 +2545,8 @@ extern REPUTATION_SETTINGS gReputationSettings;
 
 extern CREATURES_SETTINGS gCreaturesSettings;
 
+extern REBELCOMMAND_SETTINGS gRebelCommandSettings;
+
 // HEADROCK HAM 4: CTH constants read from a separate INI file
 extern CTH_CONSTANTS gGameCTHConstants;
 
@@ -2479,6 +2568,7 @@ void LoadHelicopterRepairRefuelSettings();
 void LoadMoraleSettings();
 void LoadReputationSettings();
 void LoadCreaturesSettings();
+void LoadRebelCommandSettings();
 void FreeGameExternalOptions();
 
 void InitGameOptions();

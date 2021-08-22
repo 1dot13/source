@@ -475,6 +475,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Rebel Command.h"
+				>
+			</File>
+			<File
 				RelativePath="Reinforcement.h"
 				>
 			</File>
@@ -684,6 +688,10 @@
 			</File>
 			<File
 				RelativePath="Quests.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Rebel Command.cpp"
 				>
 			</File>
 			<File

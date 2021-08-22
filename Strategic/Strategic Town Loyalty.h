@@ -183,6 +183,9 @@ INT32 GetNumberOfWholeTownsUnderControl( void );
 // is all the sectors of this town under control by the player
 INT32 IsTownUnderCompleteControlByPlayer( INT8 bTownId );
 
+// are all town sectors under control by the enemy
+INT32 IsTownUnderCompleteControlByEnemy(INT8 bTownId);
+
 // used when monsters attack a town sector without going through tactical and they win
 void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 ubHowMany, BOOLEAN aBandits );
 

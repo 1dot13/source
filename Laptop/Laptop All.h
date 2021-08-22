@@ -141,4 +141,5 @@
 #include "BriefingRoom_Data.h"
 #include "Encyclopedia_new.h"
 #include "Encyclopedia_Data_new.h"
+#include "Rebel Command.h"
 #endif

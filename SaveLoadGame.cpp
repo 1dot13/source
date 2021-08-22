@@ -118,6 +118,7 @@
 	#include "PMC.h"				// added by Flugente
 	#include "ASD.h"				// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include		"BobbyR.h"
@@ -4499,6 +4500,12 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 
+	if (!RebelCommand::Save(hFile))
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing rebel command data" );
+		goto FAILED_TO_SAVE;
+	}
+
 	//Close the saved game file
 	FileClose( hFile );
 
@@ -6360,6 +6367,18 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	else
 	{
 		InitIndividualMilitiaData();
+	}
+
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load rebel command data..." );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
+
+	if ( !RebelCommand::Load( hFile ) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Rebel Command data Load failed" ) );
+		FileClose( hFile );
+		return(FALSE);
 	}
 
 #if LOADSAVEGAME_LOGTIME

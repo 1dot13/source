@@ -26,6 +26,7 @@
 	#include "Isometric Utils.h"	// added by Flugente for NOWHERE
 	#include "strategic.h"			// added by Flugente
 	#include "message.h"			// added by Flugente for ScreenMsg(...)
+	#include "Rebel Command.h"
 #endif
 
 #include "Luaglobal.h"
@@ -155,6 +156,8 @@ CHAR16	zString[128];
 #endif
 	
 	HourlyDrugUpdate();
+
+	RebelCommand::HourlyUpdate();
 
 	// WANNE: This check should avoid the resaving of a loaded auto-save game, when entering tactical
 	BOOLEAN doAutoSave = TRUE;

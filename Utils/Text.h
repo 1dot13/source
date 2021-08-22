@@ -3115,6 +3115,11 @@ extern STR16	szFactoryText[];
 
 extern STR16	szTurncoatText[];
 
+extern STR16	szRebelCommandText[];
+extern STR16	szRebelCommandHelpText[];
+extern STR16	szRebelCommandAdminActionsText[];
+extern STR16	szRebelCommandDirectivesText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

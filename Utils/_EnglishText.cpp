@@ -4640,6 +4640,7 @@ STR16 pTransactionText[] =
 	L"Trained workers", // Flugente: train workers
 	L"Drill militia in %s",	// Flugente: drill militia
 	L"Mini event", // rftr: mini events
+	L"Funds transferred from rebel command", // rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =
@@ -5092,6 +5093,7 @@ STR16 pBookMarkStrings[] =
 	L"Militia Overview",
 	L"R.I.S.",
 	L"Factories",
+	L"A.R.C.",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5198,7 +5200,7 @@ STR16 pWebPagesTitles[] =
 	L"Contract",
 	L"Comments",
 	L"McGillicutty's Mortuary",
-	L"",
+	L"", //LAPTOP_MODE_SIRTECH
 	L"URL not found.",
 	L"%s Press Council - Conflict Summary",
 	L"%s Press Council - Battle Reports",
@@ -5224,6 +5226,9 @@ STR16 pWebPagesTitles[] =
 	L"Encyclopedia - Data",
 	L"Briefing Room",
 	L"Briefing Room - Data",
+	L"", //LAPTOP_MODE_BRIEFING_ROOM_ENTER
+	L"", //LAPTOP_MODE_AIM_MEMBERS_ARCHIVES_NEW
+	L"A.R.C.",
 };
 
 STR16 pShowBookmarkString[] =
@@ -7028,6 +7033,7 @@ STR16 gzLaptopHelpText[] =
 	L"Militia Overview",
 	L"Recon Intelligence Services",
 	L"Controlled factories",
+	L"Arulco Rebel Command",
 };
 
 
@@ -11673,6 +11679,147 @@ STR16 gLbeStatsDesc[14] =
 	L"MOLLE Pouch",
 	L"Compatible backpacks:",
 	L"Compatible combat packs:",
+};
+
+STR16 szRebelCommandText[] =
+{
+	L"Arulco Rebel Command - National Overview",
+	L"Arulco Rebel Command - Regional Overview",
+	L"Switch to Regional Overview",
+	L"Switch to National Overview",
+	L"Supplies:",
+	L"Incoming Supplies",
+	L"/day",
+	L"Current Directive",
+	L"Improve Directive ($%d)",
+	L"Improving the selected directive will cost $%d. Confirm expenditure?",
+	L"Insufficient funds.",
+	L"New directive will take effect at 00:00.",
+	L"Militia Overview",
+	L"Green:",
+	L"Regular:",
+	L"Elite:",
+	L"Projected Daily Total:",
+	L"Volunteer Pool:",
+	L"Resources Available:",
+	L"Guns:",
+	L"Armour:",
+	L"Misc:",
+	L"Training Cost:",
+	L"Upkeep Cost Per Soldier Per Day:",
+	L"Training Speed Bonus:",
+	L"Combat Bonuses:",
+	L"Physical Stats Bonus:",
+	L"Marksmanship Bonus:",
+	L"Upgrade Stats ($%d)",
+	L"Upgrading militia stats will cost $%d. Confirm expenditure?",
+	L"Region:",
+	L"Next",
+	L"Previous",
+	L"Administration Team:",
+	L"None",
+	L"Active",
+	L"Inactive",
+	L"Loyalty:",
+	L"Maximum Loyalty:",
+	L"Deploy Administration Team (%d supplies)",
+	L"Reactivate Administration Team (%d supplies)",
+	L"It is currently not safe to deploy an administration team to this region. You must establish a foothold by controlling at least one town sector first.",
+	L"No regional actions available in Omerta.",
+	L"Administration teams can be deployed to other regions once you capture at least one town sector. Once active, they will be able to expand your influence and power in the region. However, they will need supplies to operate and enact policies.",
+	L"Be mindful of where you choose to direct supplies. Enacting regional policies will increase supply costs for other policies in the same region and nationally (to a lesser extent).",
+	L"Administrative Actions:",
+	L"Establish %s",
+	L"Improve %s",
+	L"Current Tier: %d",
+	L"Taking any administrative action in this region will cost %d supplies.",
+	L"Dead drop intel gain: %d",
+	L"Smuggler supply gain: %d",
+	L"A small group of militia from a nearby safehouse have joined the battle!",
+	L"[A.R.C. WEBSITE AVAILABLE] With the delivery of food and basic supplies to Omerta, you have convinced the rebels that you're here to make an impact. You have been granted access to the command system they've been working on, which is now available through your laptop.",
+	L"It is currently not safe to reactivate the administration team here. Recapture a town sector first.",
+	L"Mine raid successful. Stole $%d.",
+};
+
+STR16 szRebelCommandHelpText[] =
+{
+	L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
+	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
+	L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
+	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
+	L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
+};
+
+// follows a specific format:
+// x:	"Admin Action Button Text",
+// x+1:	"Admin action description text",
+STR16 szRebelCommandAdminActionsText[] =
+{
+	L"Supply Line",
+	L"Distribute much-needed supplies amongst the local population. Increases maximum regional loyalty.",
+	L"Rebel Radio",
+	L"Begin broadcasting rebel public radio in the region. The town gains loyalty daily.",
+	L"Safehouses",
+	L"Construct rebel safehouses in the countryside, far from prying eyes. Bonus militia may join you in combat when operating in this region.",
+	L"Supply Disruption",
+	L"The rebels will try to disrupt enemy movements in the area by targetting their supplies. Enemies fighting in this region are weaker.",
+	L"Scout Patrols",
+	L"Start regular scout patrols to monitor hostile activity in the area. Enemy groups will be spotted further from town.",
+	L"Dead Drops",
+	L"Set up dead drops for rebel scouts and infiltrators to deliver their intel. Provides daily intel.",
+	L"Smugglers",
+	L"Enlist the aid of smugglers to bring in supplies for the rebels. Provides an unreliable daily supply boost.",
+	L"Militia Warehouses",
+	L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
+	L"Regional Taxes",
+	L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
+	L"Civilian Aid",
+	L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
+	L"Merc Support",
+	L"Set up facilities to directly support your mercs assigned in the town. Increases the effectiveness of merc assignments (doctoring, repairing, militia training, etc).",
+	L"Mining Policy",
+	L"Import better equipment and work with the town's miners to create more balanced and efficient shift schedules. Increases the town's mine income.",
+};
+
+// follows a specific format:
+// x:	"Directive Name",
+// x+1:	"Directive Bonus Description",
+// x+2:	"Directive Help Text",
+// x+3:	"Directive Improvement Button Description",
+STR16 szRebelCommandDirectivesText[] =
+{
+	L"Gather Supplies",
+	L"Gain an additional %.0f supplies per day.",
+	L"Increase daily supply income by amassing supplies from\nsympathetic locals, and seeking aid from international aid groups.",
+	L"Improving this directive will increase the amount of supplies that the rebels can gather daily.",
+	L"Support Militia",
+	L"Reduce militia daily upkeep costs. Militia daily upkeep cost modifier: %.2f.",
+	L"The rebels will help out with logistics about the militia\nyou've trained, reducing the strain on your wallet.",
+	L"Improving this directive will reduce the daily upkeep costs of your militia.",
+	L"Train Militia",
+	L"Reduce militia training costs and increase militia training speed. Militia training cost modifier: %.2f. Militia training speed modifier: %.2f.",
+	L"The rebels will assist when you are training militia,\nincreasing the efficiency at which you can train them.",
+	L"Improving this directive will further reduce training cost and increase training speed.",
+	L"Propaganda Campaign",
+	L"Town loyalty rises faster. Loyalty gain modifier: %.2f.",
+	L"Your victories and feats will be embellished as news reaches\nthe locals.",
+	L"Improving this directive will increase how quickly town loyalty rises.",
+	L"Deploy Elites",
+	L"%.0f elite militia appear in Omerta each day.",
+	L"The rebels release a small number of their highly-trained forces to your command.",
+	L"Improving this directive will increase the number of militia\nthat appear each day.",
+	L"High Value Target Strikes",
+	L"Enemy groups are less likely to have specialised soldiers.",
+	L"Surgical strikes will be conducted against enemy groups. Officers,\nmedics, radio operators, and other specialists are targetted.",
+	L"Improving this directive will make strikes more successful and effective.",
+	L"Spotter Teams",
+	L"When in combat, approximate enemy locations are revealed in the overhead map (press INSERT button in tactical).",
+	L"A small team will be attached to each of your squads, providing\napproximate locations of enemies when in combat.",
+	L"Improving this directive will make the locations of unspotted enemies more precise.",
+	L"Raid Mines",
+	L"Steal some income from mines not under your control. This directive becomes less useful as you claim mines.",
+	L"Conduct smash-and-grab raids on hostile mines. While not always\nsuccessful, the raids that do succeed should provide a\nsmall income bump.",
+	L"Improving this directive will increase the maximum value of stolen income.",
 };
 
 #endif //ENGLISH

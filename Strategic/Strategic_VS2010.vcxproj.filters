@@ -105,7 +105,10 @@
     <ClInclude Include="QuestText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Reinforcement.h">
+    <ClInclude Include="Rebel Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="Reinforcement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scheduling.h">
@@ -263,7 +266,10 @@
     <ClCompile Include="Quests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Reinforcement.cpp">
+    <ClCompile Include="Rebel Command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="Reinforcement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scheduling.cpp">

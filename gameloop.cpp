@@ -149,6 +149,8 @@ BOOLEAN InitializeGame(void)
 	LoadReputationSettings();
 	// Load creatures settings
 	LoadCreaturesSettings();
+	// Load rebel command settings
+	LoadRebelCommandSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

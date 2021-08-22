@@ -57,6 +57,7 @@
     <ClInclude Include="Quest Debug System.h" />
     <ClInclude Include="Quests.h" />
     <ClInclude Include="QuestText.h" />
+    <ClInclude Include="Rebel Command.h" />
     <ClInclude Include="Reinforcement.h" />
     <ClInclude Include="Scheduling.h" />
     <ClInclude Include="Strategic AI.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Queen Command.cpp" />
     <ClCompile Include="Quest Debug System.cpp" />
     <ClCompile Include="Quests.cpp" />
+    <ClCompile Include="Rebel Command.cpp" />
     <ClCompile Include="Reinforcement.cpp" />
     <ClCompile Include="Scheduling.cpp" />
     <ClCompile Include="Strategic AI.cpp" />

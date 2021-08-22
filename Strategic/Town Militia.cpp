@@ -34,6 +34,7 @@
 	#include "MilitiaIndividual.h"				// added by Flugente
 	#include "Campaign.h"						// added by Flugente
 	#include "message.h"						// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
@@ -832,7 +833,7 @@ BOOLEAN ServeNextFriendlySectorInTown( INT16 *sNeighbourX, INT16 *sNeighbourY )
 
 void HandleInterfaceMessageForCostOfTrainingMilitia( SOLDIERTYPE *pSoldier )
 {
-	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost;
+	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost * RebelCommand::GetMilitiaTrainingCostModifier();
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 
 	CHAR16 sString[ 128 ];
@@ -937,7 +938,7 @@ void HandleInterfaceMessageForContinuingTrainingMilitia( SOLDIERTYPE *pSoldier )
 	INT32 iCounter = 0;
 
 	INT32 iMinLoyaltyToTrain = gGameExternalOptions.iMinLoyaltyToTrain;
-	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost;
+	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost * RebelCommand::GetMilitiaTrainingCostModifier();
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 
@@ -1642,7 +1643,7 @@ void ContinueTrainingInThisSector( UINT8 ubMilitiaType )
 
 void PayForTrainingInSector( UINT8 ubSector )
 {
-	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost;
+	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost * RebelCommand::GetMilitiaTrainingCostModifier();
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia6");
 
 	INT32 CostMultiplyer = 0;
@@ -2083,7 +2084,7 @@ UINT32 CalcMilitiaUpkeep( void )
 		}
 	}
 
-	return uiTotalPayment;
+	return uiTotalPayment * RebelCommand::GetMilitiaUpkeepCostModifier();
 }
 
 // Flugente: our militia volunteer pool is limited

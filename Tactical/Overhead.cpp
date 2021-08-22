@@ -116,6 +116,7 @@
 #include "Creature Spreading.h"			// added by Flugente forResetCreatureAttackVariables()
 #include "finances.h"					// added by Flugente
 #include "MilitiaIndividual.h"			// added by Flugente
+#include "Rebel Command.h"
 #endif
 #include "connect.h"
 
@@ -182,6 +183,7 @@ INT32       giPauseAllAITimer = 0;
 BOOLEAN sniperwarning;
 BOOLEAN biggunwarning;
 BOOLEAN gogglewarning;
+BOOLEAN checkBonusMilitia;
 //BOOLEAN airstrikeavailable;
 
 TacticalStatusType  gTacticalStatus;
@@ -992,6 +994,14 @@ BOOLEAN ExecuteOverhead( )
             }
         }
     }
+
+	// check if bonus militia join us
+	if (checkBonusMilitia == TRUE && gGameExternalOptions.fRebelCommandEnabled && gubPBSectorZ == 0)
+	{
+		UINT8 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
+		RebelCommand::GetBonusMilitia(gubPBSectorX, gubPBSectorY, bonusGreenMilitia, bonusRegularMilitia, bonusEliteMilitia, TRUE);
+		checkBonusMilitia = FALSE;
+	}
 
     for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
     {
@@ -6748,6 +6758,7 @@ void SetEnemyPresence( )
                 sniperwarning = FALSE;
                 biggunwarning = FALSE;
                 gogglewarning = FALSE;
+                checkBonusMilitia = TRUE;
                 //          airstrikeavailable = TRUE;
             }
             else

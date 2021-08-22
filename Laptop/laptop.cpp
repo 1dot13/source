@@ -93,6 +93,7 @@
 	#include "MilitiaWebsite.h"				// added by Flugente
 	#include "Intelmarket.h"				// added by Flugente
 	#include "FacilityProduction.h"			// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "connect.h"
@@ -1081,6 +1082,11 @@ INT32 EnterLaptop()
 			SetBookMark( PRODUCTION_BOOKMARK );
 		else
 			RemoveBookmark( PRODUCTION_BOOKMARK );
+
+		if (gGameExternalOptions.fRebelCommandEnabled && gubQuest[QUEST_FOOD_ROUTE] == QUESTDONE)
+			SetBookMark( REBELCOMMAND_BOOKMARK );
+		else
+			RemoveBookmark( REBELCOMMAND_BOOKMARK );
 	}
 
 	LoadLoadPending( );
@@ -1530,6 +1536,10 @@ void RenderLaptop()
 
 		case LAPTOP_MODE_FACILITY_PRODUCTION:
 			RenderFacilityProduction();
+			break;
+
+		case LAPTOP_MODE_REBEL_COMMAND:
+			RebelCommand::RenderWebsite();
 			break;
 	}
 
@@ -2011,6 +2021,10 @@ void EnterNewLaptopMode()
 		case LAPTOP_MODE_FACILITY_PRODUCTION:
 			EnterFacilityProduction();
 			break;
+
+		case LAPTOP_MODE_REBEL_COMMAND:
+			RebelCommand::EnterWebsite();
+			break;
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2305,6 +2319,10 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_FACILITY_PRODUCTION:
 			HandleFacilityProduction();
+			break;
+
+		case LAPTOP_MODE_REBEL_COMMAND:
+			RebelCommand::HandleWebsite();
 			break;
 	}
 }
@@ -2907,6 +2925,10 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_FACILITY_PRODUCTION:
 			ExitFacilityProduction();
+			break;
+
+		case LAPTOP_MODE_REBEL_COMMAND:
+			RebelCommand::ExitWebsite();
 			break;
 	}
 
@@ -4584,6 +4606,27 @@ void GoToWebPage(INT32 iPageId )
 			{
 				// reset flag and set load pending flag
 				LaptopSaveInfo.fVisitedBookmarkAlready[PRODUCTION_BOOKMARK] = TRUE;
+				fLoadPendingFlag = TRUE;
+			}
+			else
+			{
+				// fast reload
+				fLoadPendingFlag = TRUE;
+				fFastLoadFlag = TRUE;
+			}
+		}
+		break;
+
+		case REBELCOMMAND_BOOKMARK:
+		{
+			guiCurrentWWWMode = LAPTOP_MODE_REBEL_COMMAND;
+			guiCurrentLaptopMode = LAPTOP_MODE_REBEL_COMMAND;
+
+			// do we have to have a World Wide Wait
+			if ( LaptopSaveInfo.fVisitedBookmarkAlready[REBELCOMMAND_BOOKMARK] == FALSE )
+			{
+				// reset flag and set load pending flag
+				LaptopSaveInfo.fVisitedBookmarkAlready[REBELCOMMAND_BOOKMARK] = TRUE;
 				fLoadPendingFlag = TRUE;
 			}
 			else

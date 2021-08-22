@@ -38,6 +38,7 @@
 	#include "Facilities.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "Luaglobal.h"
@@ -293,7 +294,6 @@ void IncrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyIncrease )
 	UINT32 uiRemainingIncrement;
 	INT16 sThisIncrement;
 
-
 	AssertGE (bTownId, BLANK_SECTOR);
 	AssertLT (bTownId, NUM_TOWNS);
 
@@ -302,6 +302,9 @@ void IncrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyIncrease )
 	{
 		return;
 	}
+
+	// if rebel command is enabled, apply gain modifier
+	uiLoyaltyIncrease *= RebelCommand::GetLoyaltyGainModifier();
 
 	// modify loyalty change by town's individual attitude toward rebelling (20 is typical)
 	uiLoyaltyIncrease *= (5 * gubTownRebelSentiment[ bTownId ]);
@@ -393,6 +396,9 @@ void UpdateTownLoyaltyRating( INT8 bTownId )
 		{
 			ubMaxLoyalty = MAX_LOYALTY_VALUE;
 		}
+
+		// if playing with rebel command, limit max loyalty
+		ubMaxLoyalty = min(ubMaxLoyalty, RebelCommand::GetMaxTownLoyalty(bTownId));
 
 		// check if we'd be going over the max
 		if( (gTownLoyalty[ bTownId ].ubRating + sRatingChange ) >= ubMaxLoyalty )

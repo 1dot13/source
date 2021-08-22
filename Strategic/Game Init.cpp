@@ -63,6 +63,7 @@
 	#include "PMC.h"								// added by Flugente
 	#include "ASD.h"								// added by Flugente
 	#include "MiniEvents.h"
+	#include "Rebel Command.h"
 #endif
 
 #include "Vehicles.h"
@@ -820,6 +821,8 @@ fFirstTimeInMapScreen = TRUE;
 	#endif	
 
 		InitMiniEvents();
+
+		RebelCommand::Init();
 
 		return( TRUE );
 	}

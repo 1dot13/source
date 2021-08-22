@@ -76,6 +76,7 @@
 	#include "ASD.h"				// added by Flugente
 	#include "Strategic AI.h"
 	#include "MiniEvents.h"
+	#include "Rebel Command.h"
 #endif
 #include <vector>
 #include <queue>
@@ -6214,7 +6215,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			// a normal training session costs gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier
 			// it promotes gGameExternalOptions.iTrainingSquadSize militia with gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular points each
 			// thus a point costs gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier / ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular) points
-			FLOAT costperpoint = (FLOAT)( gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier / ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular ) );
+			FLOAT costperpoint = (FLOAT)( RebelCommand::GetMilitiaTrainingCostModifier() * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier / ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular ) );
 
 			FLOAT totalcost = drillpoints * costperpoint;
 
@@ -9208,6 +9209,9 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	{
 		sTrainingBonus += gGameExternalOptions.ubRpcBonusToTrainMilitia;
 	}
+
+	// apply training bonus from rebel command
+	sTrainingBonus += RebelCommand::GetMilitiaTrainingSpeedBonus();
 
 	// HEADROCK HAM 3.5: Training bonus given by local facilities
 	if (pTrainer->bSectorZ == 0)

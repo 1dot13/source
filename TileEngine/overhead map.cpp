@@ -23,6 +23,7 @@
 	#include "Interactive Tiles.h"
 	#include "gameloop.h"
 	#include "Action Items.h"	// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "connect.h"
@@ -662,16 +663,30 @@ void GoIntoOverheadMap( )
 	giXC += dX, giYC += dY;
 	}
 	if(WORLD_MAX == 129600){
-		if(NightTime()){
-			gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionNight];
-		}else{
-			gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionDay];
+		if (RebelCommand::ShowApproximateEnemyLocations())
+		{
+			gubGridDivisor = ubResolutionTable360[RebelCommand::GetApproximateEnemyLocationResolutionIndex()];
+		}
+		else
+		{
+			if(NightTime()){
+				gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionNight];
+			}else{
+				gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionDay];
+			}
 		}
 	}else{
-		if(NightTime()){
-			gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionNight];
-		}else{
-			gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionDay];
+		if (RebelCommand::ShowApproximateEnemyLocations())
+		{
+			gubGridDivisor = ubResolutionTable160[RebelCommand::GetApproximateEnemyLocationResolutionIndex()];
+		}
+		else
+		{
+			if(NightTime()){
+				gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionNight];
+			}else{
+				gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionDay];
+			}
 		}
 	}
 	gusGridFrameX = WORLD_COLS * 4;
@@ -1408,7 +1423,8 @@ void RenderOverheadOverlays()
 	UINT16 jamcolour = Get16BPPColor( FROMRGB( 36, 219, 151 ) );
 
 	BOOLEAN marklastenemy = FALSE;
-	if ( gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] && gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft )
+	if ( (gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] && gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft)
+		|| RebelCommand::ShowApproximateEnemyLocations())
 		marklastenemy = TRUE;
 	
 	for( i = 0; i < end; ++i )

@@ -30,6 +30,7 @@
 	#include "Town Militia.h"	// added by Flugente
 	#include "Campaign.h"		// added by Flugente
 	#include "Strategic AI.h"
+	#include "Rebel Command.h"
 #endif
 
 #include "Luaglobal.h"
@@ -741,6 +742,8 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				{
 					EndQuest( QUEST_FOOD_ROUTE, 10, MAP_ROW_A );
 					SetFactTrue( FACT_FOOD_QUEST_OVER );
+
+					RebelCommand::ShowWebsiteAvailableMessage();
 				}
 				break;
 			case NPC_ACTION_DELAYED_MAKE_BRENDA_LEAVE:
