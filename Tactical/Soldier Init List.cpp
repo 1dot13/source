@@ -1671,7 +1671,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				// silversurfer: Replace body type. Militia tanks are not allowed.
 				if( curr->pBasicPlacement->fDetailedPlacement )
 				{
-					if ( ARMED_VEHICLE( curr->pDetailedPlacement ) )
+					if ( curr->pDetailedPlacement && ARMED_VEHICLE( curr->pDetailedPlacement ) )
 					{
 						curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 						// check for better spot next to the tank so the militia doesn't get stuck in the tank
@@ -1680,7 +1680,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 							curr->pBasicPlacement->usStartingGridNo = iNewSpot;
 					}
 				}
-				else if ( ARMED_VEHICLE( curr->pBasicPlacement ) )
+				else if ( curr->pBasicPlacement && ARMED_VEHICLE( curr->pBasicPlacement ) )
 				{
 					curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 					// check for better spot next to the tank so the militia doesn't get stuck in the tank
