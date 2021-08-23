@@ -5298,10 +5298,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
-		<szItemName>HK 416 14"</szItemName>
-		<szLongItemName>黑克勒-科赫416 14"</szLongItemName>
+		<szItemName>HK 416 14'</szItemName>
+		<szLongItemName>黑克勒-科赫416 14'</szLongItemName>
 		<szItemDesc>黑克勒-科赫416结合了G36和M4的所有优点，14英寸枪管版。</szItemDesc>
-		<szBRName>HK 416 14"</szBRName>
+		<szBRName>HK 416 14'</szBRName>
 		<szBRDesc>改进了英国的SA80之后，黑克勒-科赫又着手于增强美国的M4。黑克勒-科赫416可以作为M4的升级附件购买，也可以作为使用黑克勒-科赫造的下机匣的整套武器购买。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8146,10 +8146,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1018</uiIndex>
-		<szItemName>电池</szItemName>
-		<szLongItemName>电池</szLongItemName>
+		<szItemName>蓄电池</szItemName>
+		<szLongItemName>蓄电池</szLongItemName>
 		<szItemDesc>15V化学物电池。</szItemDesc>
-		<szBRName>电池</szBRName>
+		<szBRName>蓄电池</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12672,182 +12672,182 @@
 		<szBRName>一袋米</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
-	<!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
+	<!-- 阔刀地雷物品项，这些仅用于地图编辑器，不应在其他情况下使用。-->
 	<ITEM>
-		<uiIndex>1584</uiIndex><!-->NORTHEAST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1584</uiIndex><!-->东北方向（仅用于地图编辑器）-->
+		<szItemName>东北M18阔刀地雷</szItemName>
+		<szLongItemName>东北M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>东北M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1585</uiIndex><!-->EAST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1585</uiIndex><!-->东方向（仅用于地图编辑器）-->
+		<szItemName>东M18阔刀地雷</szItemName>
+		<szLongItemName>东M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>东M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1586</uiIndex><!-->SOUTHEAST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1586</uiIndex><!-->东南方向（仅用于地图编辑器）-->
+		<szItemName>东南M18阔刀地雷</szItemName>
+		<szLongItemName>东南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>东南M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1587</uiIndex><!-->SOUTH DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1587</uiIndex><!-->南方向（仅用于地图编辑器）-->
+		<szItemName>南M18阔刀地雷</szItemName>
+		<szLongItemName>南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>南M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1588</uiIndex><!-->SOUTHWEST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1588</uiIndex><!-->西南方向（仅用于地图编辑器）-->
+		<szItemName>西南M18阔刀地雷</szItemName>
+		<szLongItemName>西南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>西南M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1589</uiIndex><!-->WEST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1589</uiIndex><!-->西方向（仅用于地图编辑器）-->
+		<szItemName>西M18阔刀地雷</szItemName>
+		<szLongItemName>西M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>西M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1590</uiIndex><!-->NORTHWEST DIRECTION (map editor only)-->
-		<szItemName>M18阔刀地雷</szItemName>
-		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<uiIndex>1590</uiIndex><!-->西北方向（仅用于地图编辑器）-->
+		<szItemName>西北M18阔刀地雷</szItemName>
+		<szLongItemName>西北M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>M18阔刀地雷</szBRName>
+		<szBRName>西北M18阔刀地雷</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
-	<!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
+	<!-- 绊线物品项，这些仅用于地图编辑器，不应在其他情况下使用。-->
 	<ITEM>
-		<uiIndex>1591</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1591</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线A</szItemName>
+		<szLongItemName>绊线A</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线A</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1592</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1592</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线B</szItemName>
+		<szLongItemName>绊线B</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线B</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1593</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1593</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线C</szItemName>
+		<szLongItemName>绊线C</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线C</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1594</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1594</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线D</szItemName>
+		<szLongItemName>绊线D</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线D</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1595</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1595</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线E</szItemName>
+		<szLongItemName>绊线E</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线E</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1596</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1596</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线F</szItemName>
+		<szLongItemName>绊线F</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线F</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1597</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1597</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线G</szItemName>
+		<szLongItemName>绊线G</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线G</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1598</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1598</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线H</szItemName>
+		<szLongItemName>绊线H</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线H</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1599</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1599</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线I</szItemName>
+		<szLongItemName>绊线I</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线I</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1600</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1600</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线J</szItemName>
+		<szLongItemName>绊线J</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线J</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1601</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1601</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线K</szItemName>
+		<szLongItemName>绊线K</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线K</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1602</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1602</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线L</szItemName>
+		<szLongItemName>绊线L</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线L</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1603</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1603</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线M</szItemName>
+		<szLongItemName>绊线M</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线M</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1604</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1604</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线N</szItemName>
+		<szLongItemName>绊线N</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线</szBRName>
+		<szBRName>绊线N</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1605</uiIndex>
-		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<uiIndex>1605</uiIndex>   <!--（仅用于地图编辑器）-->
+		<szItemName>绊线O</szItemName>
+		<szLongItemName>绊线O</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>Tripwire</szBRName>
+		<szBRName>绊线O</szBRName>
 		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12988,18 +12988,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1623</uiIndex>
-		<szItemName>random NATO AR number 1</szItemName>
-		<szLongItemName>random NATO AR 1</szLongItemName>
+		<szItemName>随机北约AR编号1</szItemName>
+		<szLongItemName>随机北约AR编号1</szLongItemName>
 		<szItemDesc>如果你看到这个信息，说明Flugente还没有做好这个道具，是他的错！</szItemDesc>
-		<szBRName>random NATO AR 1</szBRName>
+		<szBRName>随机北约AR编号1</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1624</uiIndex>
-		<szItemName>random WP AR number 1</szItemName>
-		<szLongItemName>random WP AR 1</szLongItemName>
+		<szItemName>随机WP AR编号1</szItemName>
+		<szLongItemName>随机WP AR编号1</szLongItemName>
 		<szItemDesc>如果你看到这个信息，说明Flugente还没有做好这个道具，是他的错！</szItemDesc>
-		<szBRName>random WP AR 1</szBRName>
+		<szBRName>随机WP AR编号1</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13620,27 +13620,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1702</uiIndex>
-		<szItemName>SMALL_SMOKE</szItemName>
-		<szLongItemName>SMALL_SMOKE</szLongItemName>
-		<szItemDesc></szItemDesc>
-		<szBRName>SMALL_SMOKE</szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>小型烟雾</szItemName>
+		<szLongItemName>小型烟雾</szLongItemName>
+		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
+		<szBRName>小型烟雾</szBRName>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1703</uiIndex>
-		<szItemName>GAS_EXPLOSION</szItemName>
-		<szLongItemName>GAS_EXPLOSION</szLongItemName>
-		<szItemDesc>GAS_EXPLOSION</szItemDesc>
-		<szBRName>GAS_EXPLOSION</szBRName>
-		<szBRDesc>GAS_EXPLOSION</szBRDesc>
+		<szItemName>瓦斯爆炸</szItemName>
+		<szLongItemName>瓦斯爆炸</szLongItemName>
+		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
+		<szBRName>瓦斯爆炸</szBRName>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1704</uiIndex>
-		<szItemName>FRAG_EXPLOSION</szItemName>
-		<szLongItemName>FRAG_EXPLOSION</szLongItemName>
-		<szItemDesc>FRAG_EXPLOSION</szItemDesc>
-		<szBRName>FRAG_EXPLOSION</szBRName>
-		<szBRDesc>FRAG_EXPLOSION</szBRDesc>
+		<szItemName>手雷类爆炸</szItemName>
+		<szLongItemName>手雷类爆炸</szLongItemName>
+		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
+		<szBRName>手雷类爆炸</szBRName>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1705</uiIndex>
@@ -13683,93 +13683,93 @@
 		<szBRDesc>不用再睡在肮脏的地面上！好梦，宝贝。</szBRDesc>
 	</ITEM>
 	<ITEM>
-    <uiIndex>1710</uiIndex>
-    <szItemName>手术用口罩</szItemName>
-    <szLongItemName>手术用口罩</szLongItemName>
-    <szItemDesc>这个简单的口罩可以保护你免受在空气中传播的细菌。</szItemDesc>
-    <szBRName>手术用口罩</szBRName>
-    <szBRDesc>如果你是一个医生或者是生活在亚洲的大城市，那么你就需要它了。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1711</uiIndex>
-    <szItemName>手术用手套</szItemName>
-    <szLongItemName>手术用手套</szLongItemName>
-    <szItemDesc>当你接触患者时这种手套可以保护你不受感染。</szItemDesc>
-    <szBRName>手术用手套</szBRName>
-    <szBRDesc>当你接触患者时这种手套可以保护你不受感染，仅医药用，不适用于滑雪。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1712</uiIndex>
-    <szItemName>瘟疫用药物</szItemName>
-    <szLongItemName>瘟疫用药物</szLongItemName>
-    <szItemDesc>这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szItemDesc>
-    <szBRName>瘟疫用药物</szBRName>
-    <szBRDesc>这物品不在网店出售。这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1713</uiIndex>
-    <szItemName>破伤风药物</szItemName>
-    <szLongItemName>破伤风药物</szLongItemName>
-    <szItemDesc>这种注射剂用于破伤风，不过用起来可能会有些刺痛。</szItemDesc>
-    <szBRName>破伤风药物</szBRName>
-    <szBRDesc>这物品不在网店出售。这种注射剂用于破伤风，不过用起来可能会有些刺痛</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1714</uiIndex>
-    <szItemName>霍乱药物</szItemName>
-    <szLongItemName>霍乱药物</szLongItemName>
-    <szItemDesc>用于治疗霍乱用的。</szItemDesc>
-    <szBRName>霍乱药物</szBRName>
-    <szBRDesc>这物品不在网店出售。用于治疗霍乱用的</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1715</uiIndex>
-    <szItemName>防水袋</szItemName>
-    <szLongItemName>防水袋</szLongItemName>
-    <szItemDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋。</szItemDesc>
-    <szBRName>防水袋</szBRName>
-    <szBRDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋用于解决长途征程。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1716</uiIndex>
-    <szItemName>武器包携行具</szItemName>
-    <szLongItemName>武器包携行具</szLongItemName>
-    <szItemDesc>轻量化和简约化并有防水系统。</szItemDesc>
-    <szBRName>武器包携行具</szBRName>
-    <szBRDesc>轻量化和简约化并有防水系统。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1717</uiIndex>
-    <szItemName>快速装载设备</szItemName>
-    <szLongItemName>快速装载设备</szLongItemName>
-    <szItemDesc>用于安全存放快速装载设备的重型口袋。</szItemDesc>
-    <szBRName>快速装载设备</szBRName>
-    <szBRDesc>用于安全存放快速装载设备的重型口袋。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1718</uiIndex>
-    <szItemName>单枪袋</szItemName>
-    <szLongItemName>单枪袋</szLongItemName>
-    <szItemDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szItemDesc>
-    <szBRName>单枪袋</szBRName>
-    <szBRDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1719</uiIndex>
-    <szItemName>弹鼓袋</szItemName>
-    <szLongItemName>弹鼓袋</szLongItemName>
-    <szItemDesc>最适合携带弹鼓装的弹药。</szItemDesc>
-    <szBRName>弹鼓袋</szBRName>
-    <szBRDesc>最适合携带弹鼓装的弹药。</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1720</uiIndex>
-    <szItemName>战术系带</szItemName>
-    <szLongItemName>战术系带</szLongItemName>
-    <szItemDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szItemDesc>
-    <szBRName>战术系带</szBRName>
-    <szBRDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szBRDesc>
-  </ITEM>
+		<uiIndex>1710</uiIndex>
+		<szItemName>手术用口罩</szItemName>
+		<szLongItemName>手术用口罩</szLongItemName>
+		<szItemDesc>这个简单的口罩可以保护你免受在空气中传播的细菌。</szItemDesc>
+		<szBRName>手术用口罩</szBRName>
+		<szBRDesc>如果你是一个医生或者是生活在亚洲的大城市，那么你就需要它了。</szBRDesc>
+	  </ITEM>
+	<ITEM>
+		<uiIndex>1711</uiIndex>
+		<szItemName>手术用手套</szItemName>
+		<szLongItemName>手术用手套</szLongItemName>
+		<szItemDesc>当你接触患者时这种手套可以保护你不受感染。</szItemDesc>
+		<szBRName>手术用手套</szBRName>
+		<szBRDesc>当你接触患者时这种手套可以保护你不受感染，仅医药用，不适用于滑雪。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1712</uiIndex>
+		<szItemName>瘟疫用药物</szItemName>
+		<szLongItemName>瘟疫用药物</szLongItemName>
+		<szItemDesc>这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szItemDesc>
+		<szBRName>瘟疫用药物</szBRName>
+		<szBRDesc>这物品不在网店出售。这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1713</uiIndex>
+		<szItemName>破伤风药物</szItemName>
+		<szLongItemName>破伤风药物</szLongItemName>
+		<szItemDesc>这种注射剂用于破伤风，不过用起来可能会有些刺痛。</szItemDesc>
+		<szBRName>破伤风药物</szBRName>
+		<szBRDesc>这物品不在网店出售。这种注射剂用于破伤风，不过用起来可能会有些刺痛</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1714</uiIndex>
+		<szItemName>霍乱药物</szItemName>
+		<szLongItemName>霍乱药物</szLongItemName>
+		<szItemDesc>用于治疗霍乱用的。</szItemDesc>
+		<szBRName>霍乱药物</szBRName>
+		<szBRDesc>这物品不在网店出售。用于治疗霍乱用的</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1715</uiIndex>
+		<szItemName>防水袋</szItemName>
+		<szLongItemName>防水袋</szLongItemName>
+		<szItemDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋。</szItemDesc>
+		<szBRName>防水袋</szBRName>
+		<szBRDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋用于解决长途征程。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1716</uiIndex>
+		<szItemName>武器包携行具</szItemName>
+		<szLongItemName>武器包携行具</szLongItemName>
+		<szItemDesc>轻量化和简约化并有防水系统。</szItemDesc>
+		<szBRName>武器包携行具</szBRName>
+		<szBRDesc>轻量化和简约化并有防水系统。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1717</uiIndex>
+		<szItemName>快速装载设备</szItemName>
+		<szLongItemName>快速装载设备</szLongItemName>
+		<szItemDesc>用于安全存放快速装载设备的重型口袋。</szItemDesc>
+		<szBRName>快速装载设备</szBRName>
+		<szBRDesc>用于安全存放快速装载设备的重型口袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1718</uiIndex>
+		<szItemName>单枪袋</szItemName>
+		<szLongItemName>单枪袋</szLongItemName>
+		<szItemDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szItemDesc>
+		<szBRName>单枪袋</szBRName>
+		<szBRDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1719</uiIndex>
+		<szItemName>弹鼓袋</szItemName>
+		<szLongItemName>弹鼓袋</szLongItemName>
+		<szItemDesc>最适合携带弹鼓装的弹药。</szItemDesc>
+		<szBRName>弹鼓袋</szBRName>
+		<szBRDesc>最适合携带弹鼓装的弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1720</uiIndex>
+		<szItemName>战术系带</szItemName>
+		<szLongItemName>战术系带</szLongItemName>
+		<szItemDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szItemDesc>
+		<szBRName>战术系带</szBRName>
+		<szBRDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szBRDesc>
+	</ITEM>
   <ITEM>
 		<uiIndex>1721</uiIndex>
 		<szItemName>木板，小号</szItemName>
@@ -13914,29 +13914,29 @@
 		<szBRName>迷你火箭</szBRName>
 		<szBRDesc>Bobby Ray网店无货!</szBRDesc>		
 	</ITEM>
-  <ITEM>
-    <uiIndex>1739</uiIndex>
-    <szItemName>Roof Collapse Smoke</szItemName>
-    <szLongItemName>Roof Collapse Smoke</szLongItemName>
-    <szItemDesc>内部项目，不要使用!!!</szItemDesc>
-    <szBRName>Roof Collapse Smoke</szBRName>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1740</uiIndex>
-    <szItemName>苏打</szItemName>
-    <szLongItemName>苏打</szLongItemName>
-    <szItemDesc>对于一个混合的工业糖和化学物质，你不真的想知道，这肯定是令人耳目一新。</szItemDesc>
-    <szBRName>苏打</szBRName>
-    <szBRDesc>网店无货.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1741</uiIndex>
-    <szItemName>捕兽夹</szItemName>
-    <szLongItemName>捕兽夹</szLongItemName>
-    <szItemDesc>任何人不小心踩到，将不得不停留一段时间。</szItemDesc>
-    <szBRName>捕兽夹</szBRName>
-    <szBRDesc>强烈推介.</szBRDesc>
-  </ITEM>
+	<ITEM>
+		<uiIndex>1739</uiIndex>
+		<szItemName>屋顶塌陷烟雾</szItemName>
+		<szLongItemName>屋顶塌陷烟雾</szLongItemName>
+		<szItemDesc>内部项目，不要使用!!!</szItemDesc>
+		<szBRName>屋顶塌陷烟雾</szBRName>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1740</uiIndex>
+		<szItemName>苏打</szItemName>
+		<szLongItemName>苏打</szLongItemName>
+		<szItemDesc>对于一个混合的工业糖和化学物质，你不真的想知道，这肯定是令人耳目一新。</szItemDesc>
+		<szBRName>苏打</szBRName>
+		<szBRDesc>网店无货。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1741</uiIndex>
+		<szItemName>捕兽夹</szItemName>
+		<szLongItemName>捕兽夹</szLongItemName>
+		<szItemDesc>任何人不小心踩到，将不得不停留一段时间。</szItemDesc>
+		<szBRName>捕兽夹</szBRName>
+		<szBRDesc>强烈推介。</szBRDesc>
+	</ITEM>
 	<ITEM>
 		<uiIndex>1742</uiIndex>
 		<szItemName>木制护盾</szItemName>
