@@ -88,8 +88,8 @@ typedef struct DirectiveSaveInfo {
 typedef struct RegionSaveInfo
 {
 	RegionAdminStatus adminStatus = RAS_NONE;
-	RebelCommandAdminActions actions[REBEL_COMMAND_MAX_ACTIONS_PER_REGION] = { RCAA_SUPPLY_LINE, RCAA_NONE, RCAA_NONE, RCAA_NONE, RCAA_NONE, RCAA_NONE, };
-	UINT8 actionLevels[REBEL_COMMAND_MAX_ACTIONS_PER_REGION] = { 0, 0, 0, 0, 0, 0 };
+	RebelCommandAdminActions actions[REBEL_COMMAND_MAX_ACTIONS_PER_REGION];
+	UINT8 actionLevels[REBEL_COMMAND_MAX_ACTIONS_PER_REGION];
 	UINT8 ubMaxLoyalty = 50;
 
 	INT32 GetAdminDeployCost(INT16 numAdminTeams) { return 10 * numAdminTeams * numAdminTeams; };
