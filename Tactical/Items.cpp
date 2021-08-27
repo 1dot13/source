@@ -12827,6 +12827,55 @@ UINT16 GetFirstExplosiveOfType(UINT16 expType)
 	return 0;
 }
 
+// sevenfm: same as GetFirstExplosiveOfType, but check only hand grenades
+UINT16 GetFirstHandGrenadeOfType(UINT16 expType)
+{
+	for (UINT16 i = 0; i < gMAXITEMS_READ; i++)
+	{
+		if (ItemIsHandGrenade(i) &&
+			Item[i].ubCoolness > 0 &&
+			Explosive[Item[i].ubClassIndex].ubType == expType)
+			return i;
+	}
+
+	return 0;
+}
+
+// sevenfm: use to substitute default item with first matching if needed
+UINT16 GetHandGrenadeOfType(UINT16 usDefaultItem, UINT16 usType)
+{
+	UINT16 usSmokeItem = usDefaultItem;
+
+	if (usSmokeItem > 0 &&
+		ItemIsHandGrenade(usSmokeItem) &&
+		Item[usSmokeItem].ubCoolness > 0 &&
+		Explosive[Item[usSmokeItem].ubClassIndex].ubType == usType)
+		return usSmokeItem;
+
+	usSmokeItem = GetFirstHandGrenadeOfType(EXPLOSV_SMOKE);
+
+	if (usSmokeItem > 0 &&
+		ItemIsHandGrenade(usSmokeItem) &&
+		Item[usSmokeItem].ubCoolness > 0 &&
+		Explosive[Item[usSmokeItem].ubClassIndex].ubType == usType)
+		return usSmokeItem;
+
+	return 0;
+}
+
+// sevenfm: check if item is valid hand grenade
+BOOLEAN ItemIsHandGrenade(UINT16 usItem)
+{
+	if (usItem > 0 &&
+		Item[usItem].usItemClass == IC_GRENADE &&
+		Item[usItem].ubCursor == TOSSCURS)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 // WDS - Smart goggle switching
 OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier, INT8 * bSlot, BOOLEAN * isAttach, BOOLEAN searchAllInventory )
 {

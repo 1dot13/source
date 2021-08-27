@@ -379,11 +379,14 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		Item[usItem].usBuddyItem == 0 &&
 		Explosive[Item[usItem].ubClassIndex].ubDamage > 20)
 	{
-		UINT16 usSmokeItem = SMOKE_GRENADE;
-		if (HasItemFlag(usItem, JUMP_GRENADE))
-			NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 1, 0);
-		else
-			NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 2, 1);
+		UINT16 usSmokeItem = GetHandGrenadeOfType(SMOKE_GRENADE, EXPLOSV_SMOKE);
+		if (usSmokeItem)
+		{
+			if (HasItemFlag(usItem, JUMP_GRENADE))
+				NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 1, 0);
+			else
+				NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 2, 1);
+		}		
 	}
 }
 
