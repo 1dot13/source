@@ -209,6 +209,10 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 
 				guiBaseJA2Clock += BASETIMESLICE;
 
+				// Terapevt suggested fix
+				if ((INT32)guiBaseJA2Clock < 0)
+					guiBaseJA2Clock = 0;
+
 				// detect overflow
 				if (uiOldClock > guiBaseJA2Clock)
 				{
