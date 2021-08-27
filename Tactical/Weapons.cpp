@@ -10740,18 +10740,18 @@ BOOLEAN WasPrevBulletATracer( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon )
 	}
  }
 
-UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
+UINT8 GetAutofireShotsPerFiveAPs( UINT16 usItem )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAutofireShotsPerFiveAPs"));
 
 //	HEADROCK HAM B2.6: Added overall modifier
-	if (Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP > 0)
+	if (Weapon[ usItem ].bAutofireShotsPerFiveAP > 0)
 	{
-		UINT8 usAutoFireShots = Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP;
+		UINT8 usAutoFireShots = Weapon[ usItem ].bAutofireShotsPerFiveAP;
 
 		// modify by ini values
-		if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
-			usAutoFireShots *= gItemSettings.fAFShotsPer5APModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		if ( Item[ usItem ].usItemClass == IC_GUN )
+			usAutoFireShots *= gItemSettings.fAFShotsPer5APModifierGun[ Weapon[ usItem ].ubWeaponType ];
 
 		// WANNE: Fix by Headrock
 		// Weapons shouldn't ever lose their Bp5AP due to this modifier.
@@ -10759,10 +10759,15 @@ UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 		
 		//return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 0);
 	}
-	else
-		return 0;
 
+	return 0;
 }
+
+UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
+{
+	return GetAutofireShotsPerFiveAPs( pObj->usItem );
+}
+
 UINT16 GetMagSize( OBJECTTYPE *pObj, UINT8 subObject )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetMagSize"));

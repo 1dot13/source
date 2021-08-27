@@ -1723,15 +1723,15 @@ INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* p
 }
 
 // HEADROCK HAM 4: Same as above, without percent modifiers.
-INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
+INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, UINT16 usItem )
 {
 	INT32 aps, iModifiedAPs;
 
-	iModifiedAPs = Weapon[ pObj->usItem ].bBurstAP;
+	iModifiedAPs = Weapon[ usItem ].bBurstAP;
 	// modify by ini values
 	// although the function says "no modifier" the ini values represent our new base value
-	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
-		iModifiedAPs *= gItemSettings.fBurstAPModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	if ( Item[ usItem ].usItemClass == IC_GUN )
+		iModifiedAPs *= gItemSettings.fBurstAPModifierGun[ Weapon[ usItem ].ubWeaponType ];
 
 	aps =	( iModifiedAPs * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
 
@@ -1741,6 +1741,11 @@ INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 	else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
 
 	return (UINT8) aps;
+}
+
+INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
+{
+	return CalcAPsToBurstNoModifier( bBaseActionPoints, pObj->usItem );
 }
 
 INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire, SOLDIERTYPE* pSoldier )
@@ -1804,14 +1809,13 @@ INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAu
 }
 
 // HEADROCK HAM 4: Same as above, without modifiers
-INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
+INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, UINT16 usItem, UINT8 bDoAutofire )
 {
- 
-	INT32 aps=APBPConstants[AP_MAXIMUM] + 1;
-	if ( GetAutofireShotsPerFiveAPs (pObj) )
+	INT32 aps = APBPConstants[AP_MAXIMUM] + 1;
+	if ( GetAutofireShotsPerFiveAPs ( usItem ) )
 	{
 		const INT32 autofireaps =
-		aps = ( ( APBPConstants[AUTOFIRE_SHOTS_AP_VALUE] * bDoAutofire * bBaseActionPoints ) / GetAutofireShotsPerFiveAPs(pObj) + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
+		aps = ( ( APBPConstants[AUTOFIRE_SHOTS_AP_VALUE] * bDoAutofire * bBaseActionPoints ) / GetAutofireShotsPerFiveAPs( usItem ) + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
 
 		aps = __max( aps, ( autofireaps + 1 ) / 2 );
 
@@ -1819,6 +1823,11 @@ INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, U
 	}
 
 	return (UINT8) aps;
+}
+
+INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
+{
+	return CalcAPsToAutofireNoModifier( bBaseActionPoints, pObj->usItem, bDoAutofire );
 }
 
 INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime )
@@ -2144,26 +2153,26 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLD
 }
 
 // HEADROCK HAM 4: Same function as above, except no modifier.
-INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
+INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, UINT16 usItem )
 {
 	INT32	Top, Bottom;
 	FLOAT	rof;
 
-	rof = Weapon[ pObj->usItem ].ubShotsPer4Turns;
+	rof = Weapon[usItem].ubShotsPer4Turns;
 
 	// modify by ini values
 	// although this function says "no modifiers" our ini values are supposed to provide new base values
-	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
-		rof *= gItemSettings.fShotsPer4TurnsModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
-	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+	if ( Item[usItem].usItemClass == IC_GUN )
+		rof *= gItemSettings.fShotsPer4TurnsModifierGun[Weapon[usItem].ubWeaponType];
+	else if ( Item[usItem].usItemClass == IC_LAUNCHER )
 		rof *= gItemSettings.fShotsPer4TurnsModifierLauncher;
-	else if ( Item[ pObj->usItem ].usItemClass == IC_BLADE )
+	else if ( Item[usItem].usItemClass == IC_BLADE )
 		rof *= gItemSettings.fShotsPer4TurnsModifierBlade;
-	else if ( Item[ pObj->usItem ].usItemClass == IC_PUNCH )
+	else if ( Item[usItem].usItemClass == IC_PUNCH )
 		rof *= gItemSettings.fShotsPer4TurnsModifierPunch;
-	else if ( Item[ pObj->usItem ].usItemClass == IC_TENTACLES )
+	else if ( Item[usItem].usItemClass == IC_TENTACLES )
 		rof *= gItemSettings.fShotsPer4TurnsModifierTentacle;
-	else if ( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
+	else if ( Item[usItem].usItemClass == IC_THROWING_KNIFE )
 		rof *= gItemSettings.fShotsPer4TurnsModifierThrowKnife;
 
 	Top = 8 * bAPs * 100;
@@ -2176,6 +2185,11 @@ INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * 
 	}
 
 	return baseAPsToShootOrStab;
+}
+
+INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
+{
+	return BaseAPsToShootOrStabNoModifier( bAPs, bAimSkill, pObj->usItem );
 }
 
 void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise, INT16 bAimTime )

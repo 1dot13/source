@@ -501,6 +501,7 @@ BOOLEAN IsWeapon ( UINT16 itemIndex );
 UINT8 GetDamage ( OBJECTTYPE *pObj );
 // HEADROCK HAM 4: Same function as above, but without modifiers from attached items.
 UINT8 GetBasicDamage ( OBJECTTYPE *pObj );
+UINT8 GetAutofireShotsPerFiveAPs( UINT16 usItem );
 UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj );
 UINT8 GetBaseAutoFireCost( OBJECTTYPE *pObj );
 UINT8 GetBurstPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );

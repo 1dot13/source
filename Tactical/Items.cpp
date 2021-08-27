@@ -15832,3 +15832,33 @@ BOOLEAN CanDelayGrenadeExplosion( UINT16 usItem )
 
 	return TRUE;
 }
+
+FLOAT GetBestScopeMagFactorForGun(UINT16 ausItemGun)
+{
+	FLOAT bestscopemagfactor = 1.0f;
+
+	for ( UINT16 usItem = 1; usItem < gMAXITEMS_READ; ++usItem )
+	{
+		if ( ValidAttachment( usItem, ausItemGun )  )
+		{
+			if ( bestscopemagfactor < Item[usItem].scopemagfactor )
+				bestscopemagfactor = Item[usItem].scopemagfactor;
+		}
+	}
+
+	return bestscopemagfactor;
+}
+
+bool HasScopeMagFactorForGun( UINT16 ausItemGun, FLOAT aFactor )
+{
+	for ( UINT16 usItem = 1; usItem < gMAXITEMS_READ; ++usItem )
+	{
+		if ( ValidAttachment( usItem, ausItemGun ) )
+		{
+			if ( std::fabs( Item[usItem].scopemagfactor - aFactor ) < 0.1 )
+				return true;
+		}
+	}
+
+	return false;
+}
