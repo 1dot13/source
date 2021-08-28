@@ -230,9 +230,9 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 			} else if (r & _TYPE_PAIR) {
 				NumberPair* nl = ii->second.numberPair;
 				// TODO: resolve compiler warning about usigned/signed and the comparison ops?!?
-				sgn = (nl->second > cmp_val) ? -1 : (nl->first < cmp_val) ? 1 : 0;
+				sgn = (nl->second < cmp_val) ? -1 : (nl->first > cmp_val) ? 1 : 0;
 			} else {
-				sgn = (ii->second.number > cmp_val) ? -1 : (ii->second.number < cmp_val) ? 1 : 0;
+				sgn = (ii->second.number < cmp_val) ? -1 : (ii->second.number > cmp_val) ? 1 : 0;
 			}
 		} else if (r & _TYPE_STRING) {
 			// string comparison is quite costly at the moment. should be avoided or reimplemented.
