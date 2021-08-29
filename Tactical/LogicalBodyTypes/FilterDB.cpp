@@ -87,7 +87,6 @@ namespace LogicalBodyTypes {
 				data->criterionType |= Filter::_TYPE_ENUM;
 			}
 			else if (strcmp(name, "FILTER") == 0) {
-				data->criterionType = ord;
 				data->criterionType |= Filter::_TYPE_FILTER;
 			}
 			else throw XMLParseException("Unexpected element (unknown criterion)!", name, data->pParser);
