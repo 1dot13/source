@@ -11733,6 +11733,13 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"[A.R.C. WEBSITE AVAILABLE] With the delivery of food and basic supplies to Omerta, you have convinced the rebels that you're here to make an impact. You have been granted access to the command system they've been working on, which is now available through your laptop.",
 	L"It is currently not safe to reactivate the administration team here. Recapture a town sector first.",
 	L"Mine raid successful. Stole $%d.",
+	L"Insufficient Intel to create turncoats!",
+	L"Change Admin Action",
+	L"Cancel",
+	L"Confirm",
+	L"<",
+	L">",
+	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
 };
 
 STR16 szRebelCommandHelpText[] = // TODO.Translate
@@ -11773,6 +11780,12 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 	L"Set up facilities to directly support your mercs assigned in the town. Increases the effectiveness of merc assignments (doctoring, repairing, militia training, etc).",
 	L"Mining Policy",
 	L"Import better equipment and work with the town's miners to create more balanced and efficient shift schedules. Increases the town's mine income.",
+	L"Pathfinders",
+	L"The locals guide your teams through shortcuts in the area. Reduces on-foot travel time in the region.",
+	L"Harriers",
+	L"The rebels harass nearby enemy groups, significantly increasing their travel time in the region.",
+	L"Fortifications",
+	L"Set up killzones and defensive positions. Friendly forces are more effective when fighting in this town. Autoresolve only.",
 };
 
 // follows a specific format:
@@ -11814,6 +11827,14 @@ STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 	L"Steal some income from mines not under your control. This directive becomes less useful as you claim mines.",
 	L"Conduct smash-and-grab raids on hostile mines. While not always\nsuccessful, the raids that do succeed should provide a\nsmall income bump.",
 	L"Improving this directive will increase the maximum value of stolen income.",
+	L"Create Turncoats",
+	L"Create %.0f turncoats in a random enemy group per day. Consumes %.1f Intel per day.",
+	L"Convince enemy soldiers to betray their army and work for you\nthrough a combination of bribery, threats, and blackmail.",
+	L"Improving this directive will increase the number of soldiers turned daily.",
+	L"Draft Civilians",
+	L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
+	L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
+	L"Improving this directive will increase the number of volunteers gained per day.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

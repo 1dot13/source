@@ -4472,6 +4472,16 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usAttack -= (usAttack * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
 	}
 
+	// check fortifications bonus
+	if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA
+		|| pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA
+		|| pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA
+		|| (pTarget->uiFlags & CELL_MERC))
+	{
+		usDefence += (usDefence * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
+		usAttack -= (usAttack * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
+	}
+
 	// reapair values
 	usAttack = max(0, min(1000, usAttack ));
 	usDefence = max(0, min(1000, usDefence ));

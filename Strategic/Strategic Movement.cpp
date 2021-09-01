@@ -52,6 +52,7 @@
 	#include "Militia Control.h"	// added by Flugente for ResetMilitia()
 	#include "Creature Spreading.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "MilitiaSquads.h"
@@ -3611,6 +3612,8 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (fSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot)) / 100) );
 
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - stravelbackground_foot) / 100));
+
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - RebelCommand::GetPathfindersSpeedBonus(ubSector)) / 100));
 			}
 			// all other types (except air)
 			else if ( fAir )
@@ -3641,6 +3644,8 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		}
 
 		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * iBestTraverseTime;
+
+		iBestTraverseTime = iBestTraverseTime * (100 + RebelCommand::GetHarriersSpeedPenalty(ubSector)) / 100;
 	}
 	///////////////////////////////////////////////////////////////////////////////
 

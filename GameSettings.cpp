@@ -3901,6 +3901,16 @@ void LoadRebelCommandSettings()
 	FillArrayValues(iniReader, "Rebel Command Settings", "RAID_MINES_COSTS", gRebelCommandSettings.iRaidMinesCosts);
 	FillArrayValues(iniReader, "Rebel Command Settings", "RAID_MINES_PERCENTAGE", gRebelCommandSettings.fRaidMinesPercentage);
 
+	gRebelCommandSettings.uCreateTurncoatsProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "CREATE_TURNCOATS_PROGRESS_REQUIREMENT", 33, 0, 100);
+	gRebelCommandSettings.fCreateTurncoatsIntelCost = iniReader.ReadFloat("Rebel Command Settings", "CREATE_TURNCOATS_INTEL_COST", 20.f, 0.f, 1000.f);
+	FillArrayValues(iniReader, "Rebel Command Settings", "CREATE_TURNCOATS_COSTS", gRebelCommandSettings.iCreateTurncoatsCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "CREATE_TURNCOATS_PER_DAY", gRebelCommandSettings.iCreateTurncoatsPerDay);
+
+	gRebelCommandSettings.uDraftProgressRequirement = iniReader.ReadUINT8("Rebel Command Settings", "DRAFT_PROGRESS_REQUIREMENT", 25, 0, 100);
+	FillArrayValues(iniReader, "Rebel Command Settings", "DRAFT_COSTS", gRebelCommandSettings.iDraftCosts);
+	FillArrayValues(iniReader, "Rebel Command Settings", "DRAFT_PER_DAY_MODIFIER", gRebelCommandSettings.iDraftPerDayModifier);
+	FillArrayValues(iniReader, "Rebel Command Settings", "DRAFT_LOYALTY_LOSS_PER_DAY", gRebelCommandSettings.iDraftLoyaltyLossPerDay);
+
 	// admin actions
 	gRebelCommandSettings.iSupplyLineMaxLoyaltyIncrease = iniReader.ReadInteger("Rebel Command Settings", "SUPPLY_LINE_MAX_LOYALTY_INCREASE", 10, 1, 100);
 
@@ -3930,6 +3940,12 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iMercSupportBonus = iniReader.ReadInteger("Rebel Command Settings", "MERC_SUPPORT_BONUS", 25, 0, 100);
 
 	gRebelCommandSettings.iMiningPolicyBonus = iniReader.ReadInteger("Rebel Command Settings", "MINING_POLICY_BONUS", 10, 0, 100);
+
+	gRebelCommandSettings.uPathfindersSpeedBonus = iniReader.ReadUINT8("Rebel Command Settings", "PATHFINDERS_SPEED_BONUS", 20, 0, 100);
+
+	gRebelCommandSettings.uHarriersSpeedPenalty = iniReader.ReadUINT8("Rebel Command Settings", "HARRIERS_SPEED_PENALTY", 50, 0, 100);
+
+	gRebelCommandSettings.iFortificationsBonus = iniReader.ReadInteger("Rebel Command Settings", "FORTIFICATIONS_BONUS", 10, 0, 100);
 
 }
 

@@ -21,6 +21,8 @@ enum RebelCommandDirectives
 	RCD_HVT_STRIKES,
 	RCD_SPOTTERS,
 	RCD_RAID_MINES,
+	RCD_CREATE_TURNCOATS,
+	RCD_DRAFT,
 
 	RCD_NUM_DIRECTIVES
 };
@@ -40,6 +42,9 @@ enum RebelCommandAdminActions
 	RCAA_ASSIST_CIVILIANS,
 	RCAA_MERC_SUPPORT,
 	RCAA_MINING_POLICY,
+	RCAA_PATHFINDERS,
+	RCAA_HARRIERS,
+	RCAA_FORTIFICATIONS,
 
 	RCAA_NUM_ACTIONS
 };
@@ -122,11 +127,14 @@ UINT8 GetApproximateEnemyLocationResolutionIndex();
 FLOAT GetAssignmentBonus(INT16 x, INT16 y);
 INT32 GetMiningPolicyBonus(INT16 townId);
 void GetBonusMilitia(INT16 x, INT16 y, UINT8& green, UINT8& regular, UINT8& elite, BOOLEAN createGroup);
+INT16 GetFortificationsBonus(UINT8 sector);
+FLOAT GetHarriersSpeedPenalty(UINT8 sector);
 FLOAT GetLoyaltyGainModifier();
 UINT8 GetMaxTownLoyalty(INT8 townId);
 INT16 GetMilitiaTrainingSpeedBonus();
 FLOAT GetMilitiaTrainingCostModifier();
 FLOAT GetMilitiaUpkeepCostModifier();
+FLOAT GetPathfindersSpeedBonus(UINT8 sector);
 BOOLEAN NeutraliseRole(const SOLDIERTYPE* pSoldier);
 void RaidMines(INT32 &playerIncome, INT32 &enemyIncome);
 BOOLEAN ShowApproximateEnemyLocations();

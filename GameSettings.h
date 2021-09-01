@@ -1740,6 +1740,16 @@ typedef struct
 	std::vector<INT32> iRaidMinesCosts;
 	std::vector<FLOAT> fRaidMinesPercentage;
 
+	UINT8 uCreateTurncoatsProgressRequirement;
+	FLOAT fCreateTurncoatsIntelCost;
+	std::vector<INT32> iCreateTurncoatsCosts;
+	std::vector<INT32> iCreateTurncoatsPerDay;
+
+	UINT8 uDraftProgressRequirement;
+	std::vector<INT32> iDraftCosts;
+	std::vector<INT32> iDraftPerDayModifier;
+	std::vector<INT32> iDraftLoyaltyLossPerDay;
+
 	// admin actions
 	INT32 iSupplyLineMaxLoyaltyIncrease;
 
@@ -1769,6 +1779,12 @@ typedef struct
 	INT32 iMercSupportBonus;
 
 	INT32 iMiningPolicyBonus;
+
+	UINT8 uPathfindersSpeedBonus;
+
+	UINT8 uHarriersSpeedPenalty;
+
+	INT16 iFortificationsBonus;
 
 } REBELCOMMAND_SETTINGS;
 
