@@ -3963,7 +3963,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"视野中没有敌军。",
 	L"没有足够的行动点数(AP)。",
 	L"没人使用遥控器。",
-	L"扫射光了子弹!",
+	L"射光了子弹!",
 	L"敌兵",
 	L"异形",
 	L"民兵",
@@ -4639,7 +4639,8 @@ STR16 pTransactionText[] =
 	L"修理SAM基地",//L"SAM site repair", // Flugente: SAM repair
 	L"培训工人",//L"Trained workers", // Flugente: train workers
 	L"在%s区域训练民兵",	//L"Drill militia in %s", Flugente: drill militia
-	L"Mini event", // rftr: mini events // TODO: translate
+	L"微型事件", //L"Mini event", rftr: mini events // TODO: translate
+	L"从反抗军司令部转移资金", //L"Funds transferred from rebel command", rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =
@@ -5092,6 +5093,7 @@ STR16 pBookMarkStrings[] =
 	L"民兵总览",//L"Militia Overview",
 	L"R.I.S",
 	L"工厂",	//L"Factories", TODO.Translate
+	L"A.R.C",   //L"A.R.C",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5204,26 +5206,29 @@ STR16 pWebPagesTitles[] =
 	L"%s新闻发布会 - 战役报告",
 	L"%s新闻发布会 - 最新消息",
 	L"%s新闻发布会 - 关于我们",
-	L"佣兵喜欢或不喜欢你 - 关于我们", //L"Mercs Love or Dislike You - About us",
-	L"佣兵喜欢或不喜欢你 - 队伍分析", //L"Mercs Love or Dislike You - Analyze a team",
-	L"佣兵喜欢或不喜欢你 - 成对分析", //L"Mercs Love or Dislike You - Pairwise comparison",
-	L"佣兵喜欢或不喜欢你 - 个人分析", //L"Mercs Love or Dislike You - Personality",
+	L"佣兵之家 - 关于我们", //L"Mercs Love or Dislike You - About us",
+	L"佣兵之家 - 队伍分析", //L"Mercs Love or Dislike You - Analyze a team",
+	L"佣兵之家 - 成对分析", //L"Mercs Love or Dislike You - Pairwise comparison",
+	L"佣兵之家 - 个人分析", //L"Mercs Love or Dislike You - Personality",
 	L"世界卫生组织 - 关于世界卫生组织", //L"WHO - About WHO",
-	L"世界卫生组织 - 阿鲁克的疾病", //L"WHO - Disease in Arulco",
+	L"世界卫生组织 - Arulco的疾病", //L"WHO - Disease in Arulco",
 	L"世界卫生组织 - 有用的贴士", //L"WHO - Helpful Tips",
 	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
 	L"民兵总览", //L"Militia Overview",
-	L"Recon情报服务 - 情报需求",		//L"Recon Intelligence Services - Information Requests",
-	L"Recon情报服务 - 情报验证",	//L"Recon Intelligence Services - Information Verification",
-	L"Recon情报服务 - 关于我们",	//L"Recon Intelligence Services - About us",
+	L"侦察情报局 - 情报需求",		//L"Recon Intelligence Services - Information Requests",
+	L"侦察情报局 - 情报验证",	//L"Recon Intelligence Services - Information Verification",
+	L"侦察情报局 - 关于我们",	//L"Recon Intelligence Services - About us",
 	L"工厂概况",	//L"Factory Overview", TODO.Translate
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
 	L"简报室",
 	L"简报室 - 数据",
+	L"", //LAPTOP_MODE_BRIEFING_ROOM_ENTER
+	L"", //LAPTOP_MODE_AIM_MEMBERS_ARCHIVES_NEW
+	L"A.R.C",   //L"A.R.C",
 };
 
 STR16 pShowBookmarkString[] =
@@ -6381,7 +6386,7 @@ STR16		zOptionsToggleText[] =
 	L"属性进度条", //L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
-	L"佣兵造型 (WIP)", //L"Use Logical Bodytypes",
+	L"佣兵外观造型", //L"Use Logical Bodytypes",
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
@@ -6442,7 +6447,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用铁血联盟1代的佣兵选择方式。",
 
 	//Show movement path
-	L"打开时，会实时显示移动路径(可用 |S|h|i|f|t 键来打开或者关闭)。",
+	L"打开时，会实时显示移动路径(可用|S|h|i|f|t键来打开或者关闭)。",
 
 	//show misses
 	L"打开时，会显示未击中目标的子弹落点。",
@@ -6457,7 +6462,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用公制系统，否则使用英制系统。",
 
 	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。\n切换虚拟佣兵光照。 (|G)",
+	L"打开时，佣兵移动时会照亮地表，切换虚拟佣兵光照。（|G）\n（关闭这个选项会使游戏的显示速度变快）",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -6466,55 +6471,55 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，光标靠近门时会自动定位到门上。",
 
 	//glow items
-	L"打开时，物品会不断的闪烁。(|C|t|r|l+|A|l|t+|I)",
+	L"打开时，物品会不断的闪烁。（|C|t|r|l+|A|l|t+|I）",
 
 	//toggle tree tops
-	L"打开时，显示树冠。(|T)",
+	L"打开时，显示树冠。（|T）",
 
 	//smart tree tops
 	L"打开时，不显示位于可见佣兵和鼠标附近的树冠。", //L"When ON, hides tree tops near visible mercs and cursor position.", TODO.Translate
 
 	//toggle wireframe
-	L"打开时，显示未探明的墙的轮廓。(|C|t|r|l+|A|l|t+|W)",
+	L"打开时，显示未探明的墙的轮廓。（|C|t|r|l+|A|l|t+|W）",
 
-	L"打开时，移动时的光标为3D式样。(|H|o|m|e)",
+	L"打开时，移动时的光标为3D式样。（|H|o|m|e）",
 
 	// Options for 1.13
 	L"打开时，在光标上显示命中机率。",
 	L"打开时，榴弹发射器点射使用点射的准星。",
 	L"打开时，敌人行动中有时会带有对白。", // Changed from Enemies Drop All Items - SANDRO
-	L"打开时，榴弹发射器允许采用较高仰角发射榴弹(|Q)。",
-	L"打开时，潜行状态未被敌人发现时不会进入回合制模式，除非按下 |C|t|r|l+|X 。 (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"打开时，按空格键自动切换到下一小队(|S|p|a|c|e)。",
+	L"打开时，榴弹发射器允许采用较高仰角发射榴弹。（|Q）",
+	L"打开时，潜行状态未被敌人发现时不会进入回合制模式。\n除非按下 |C|t|r|l+|X 。（|C|t|r|l+|S|h|i|f|t+|X）", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"打开时，按空格键自动切换到下一小队。（|S|p|a|c|e）",
 	L"打开时，显示物品阴影。",
 	L"打开时，用格数显示武器射程。",
 	L"打开时，单发曳光弹也显示曳光。",
 	L"打开时，下雨时能听到雨水音效。",	//"When ON, you will hear rain noises when it is raining.",
 	L"打开时，允许乌鸦出现。",
-	L"打开时，把光标定位在敌人身上并且按下 |A|l|t 键会显示敌兵装备信息窗口。",
-	L"打开时，游戏将在玩家回合后自动存盘",
+	L"打开时，把光标定位在敌人身上并且按下|A|l|t键会显示敌兵装备信息窗口。",
+	L"打开时，游戏将在玩家回合后自动存盘。",
 	L"打开时，Skyrider保持沉默。",
 	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
-	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭。（可以通过快捷键 (|C|t|r|l+|T) 来控制打开或关闭强制回合制模式）",
+	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭。\n（可以通过快捷键 (|C|t|r|l+|T) 来控制打开或关闭强制回合制模式）",
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时，战略地图将会根据探索状态显示不同的着色。",
 	L"打开时，当你射击时会显示间隔子弹图像。",
-	L"打开时，佣兵外观可随装备改变。\n(该特性还在测试阶段，可能会使佣兵不可见)", //L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",
+	L"打开时，佣兵外观可随着武器或防具装备的改变而改变佣兵外观造型。\n(该特性基本完成，可能还存在部分会使佣兵或敌人隐形)", //L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时，显示佣兵脸部装备图。",
-	L"打开时，佣兵肖像右下角显示脸部装备图标",
-	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
+	L"打开时，佣兵肖像右下角显示脸部装备图标。",
+	L"打开时，在交换位置和其它动作时光标不切换。键入|x可以快速切换。",
 	L"打开时，佣兵训练时不会随时汇报进程。",
 	L"打开时，佣兵修理时不会随时汇报进程。",
 	L"打开时，佣兵医疗时不会随时汇报进程。",
 	L"打开时，敌军回合将被大幅加速。",
 
-	L"打开时，被击毙的敌人将有可能变成僵尸！杀出个黎明！",
+	L"打开时，被击毙的敌人将有可能变成僵尸。（生化危机模式）",
 	L"打开时，在区域物品栏界面，点击佣兵身上空白的携行具位置会弹窗匹配拾取物品。",
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
-	L"当选择了多个佣兵，他们在前进时会保持彼此的间距。(|C|t|r|l+|A|l|t+|G)",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
+	L"打开时，当选择了多个佣兵，他们在前进时会保持彼此的间距。（|C|t|r|l+|A|l|t+|G）",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7022,12 +7027,13 @@ STR16 gzLaptopHelpText[] =
 	L"百科全书",
 	L"简报室",
 	L"战役历史",
-	L"佣兵喜欢或不喜欢你", //L"Mercenaries Love or Dislike You",
+	L"佣兵之家", //L"Mercenaries Love or Dislike You",
 	L"世界卫生组织", //L"World Health Organization",
 	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
 	L"民兵总览",//L"Militia Overview",
-	L"Recon情报服务",	//L"Recon Intelligence Services",
+	L"侦察情报局",	//L"Recon Intelligence Services",
 	L"已占领的工厂",	//L"Controlled factories", TODO.Translate
+	L"Arulco反抗军司令部",   //L"Arulco Rebel Command",
 };
 
 
@@ -8145,7 +8151,7 @@ STR16 sEnemyTauntsFireGun[]=
 STR16 sEnemyTauntsFireLauncher[]=
 {
 
-	L"把你们做成烤肉！",// L"We have a barbecue here.",
+	L"把你们做成烤肉！",// L"Barbecue time!",
 	L"送给你的礼物！",// L"I got a present for ya.",
 	L"灰飞烟灭吧！",// L"Bam!",
 	L"说“茄子”！",// L"Smile!",
@@ -8291,28 +8297,28 @@ STR16 gzUDBAdvIndexTooltipText[]=
 
 STR16 szUDBGenWeaponsStatsTooltipText[]=
 {
-	L"|精|度",
-	L"|杀|伤|力",
-	L"|射|程",
-	L"|操|控|难|度",
-	L"|精|瞄|等|级",
-	L"|瞄|准|镜|倍|率",
-	L"|红|点|效|果",
-	L"|消|焰",
-	L"|噪|音",
-	L"|可|靠|性",
-	L"|修|理|难|度",
-	L"|精|瞄|最|低|有|效|距|离",
-	L"|命|中|率|修|正",	
-	L"|举|枪|A|P",
-	L"|单|发|A|P",
-	L"|点|射|A|P",
-	L"|连|发|A|P",
-	L"|换|弹|匣|A|P",
-	L"|手|动|上|弹|A|P",
-	L"",
-	L"|后|坐|力",
-	L"|连|发|子|弹|数/5|A|P",
+	L"|精|度",   //L"|A|c|c|u|r|a|c|y",
+	L"|杀|伤|力",   //L"|D|a|m|a|g|e",
+	L"|射|程",   //L"|R|a|n|g|e",
+	L"|操|控|难|度",   //L"|H|a|n|d|l|i|n|g |D|i|f|f|i|c|u|l|t|y",
+	L"|精|瞄|等|级",   //L"|A|l|l|o|w|e|d |A|i|m|i|n|g |L|e|v|e|l|s",
+	L"|瞄|准|镜|倍|率",   //L"|S|c|o|p|e |M|a|g|n|i|f|i|c|a|t|i|o|n |F|a|c|t|o|r",
+	L"|红|点|效|果",   //L"|P|r|o|j|e|c|t|i|o|n |F|a|c|t|o|r",
+	L"|消|焰",   //L"|H|i|d|d|e|n |M|u|z|z|l|e |F|l|a|s|h",
+	L"|噪|音",   //L"|L|o|u|d|n|e|s|s",
+	L"|可|靠|性",   //L"|R|e|l|i|a|b|i|l|i|t|y",
+	L"|修|理|难|度",   //L"|R|e|p|a|i|r |E|a|s|e",
+	L"|精|瞄|最|低|有|效|距|离",   //L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s",
+	L"|命|中|率|修|正",	   //L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r",
+	L"|举|枪|A|P",   //L"|A|P|s |t|o |R|e|a|d|y",
+	L"|单|发|A|P",   //L"|A|P|s |t|o |A|t|t|a|c|k",
+	L"|点|射|A|P",   //L"|A|P|s |t|o |B|u|r|s|t",
+	L"|连|发|A|P",   //L"|A|P|s |t|o |A|u|t|o|f|i|r|e",
+	L"|换|弹|匣|A|P",   //L"|A|P|s |t|o |R|e|l|o|a|d",
+	L"|手|动|上|弹|A|P",   //L"|A|P|s |t|o |R|e|c|h|a|m|b|e|r",
+	L"|横|向|后|坐|力",   //L"|L|a|t|e|r|a|l |R|e|c|o|i|l",	// No longer used
+	L"|后|坐|力",   //L"|T|o|t|a|l |R|e|c|o|i|l",
+	L"|连|发|子|弹|数/5|A|P",   //L"|A|u|t|o|f|i|r|e |B|u|l|l|e|t|s |p|e|r |5 |A|P|s",
 };
 
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
@@ -8336,8 +8342,8 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n连发模式下，该武器一次齐射三发子弹所需的AP。\n \n超过3发子弹，则需要额外的AP。\n \n如果该图标发灰，则该武器不可连发。\n \n该数值越低越好。",
 	L"\n \n重新装填榴弹/更换弹匣所需的AP。\n \n该数值越低越好。",
 	L"\n \n在射击间歇为该武器手动上弹的AP消耗。\n \n该数值越低越好。",
-	L"",	// No longer used!
-	L"\n \n该参数是武器枪口在单发或自动模式下每发子弹所造成的最大偏移量。\n \n该数值越低越好。",
+	L"\n \n该参数是武器枪口在单发或连发时每颗子弹所造成的水平偏移量。\n \n正数表示向右移动。\n \n负数表示向左移动。\n \n越接近0越好。",	//L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.", // No longer used
+	L"\n \n该参数是武器枪口在单发或自动模式下每发子弹所造成的最大偏移量。\n \n该数值越低越好。",   //L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", //HEADROCK HAM 5: Altered to reflect unified number.
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
 	L"\n \n决定了修理该武器的难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
@@ -8630,7 +8636,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|最|佳|激|光|距|离",//L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",
 	L"|后|坐|修|正|比|例",//L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
 	L"|掰|击|锤|射|击",	//L"|F|a|n |t|h|e |H|a|m|m|e|r",
-	L"|配|置|结|构", //L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
+	L"|枪|管|配|置", //L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -9968,7 +9974,7 @@ STR16	szCampaignStatsOperationSuffix[] =
 STR16	szMercCompareWebSite[] =
 {
 	// main page
-	L"佣兵喜欢你或不喜欢你", //L"Mercs Love or Dislike You",
+	L"佣兵之家", //L"Mercs Love or Dislike You",
 	L"互联网上最好的团队分析专家", //L"Your #1 teambuilding experts on the web",
 
 	L"关于我们", //L"About us",
@@ -11477,7 +11483,7 @@ STR16	szGearTemplateText[] =
 
 STR16	szIntelWebsiteText[] =
 {
-	L"Recon 情报服务",	//L"Recon Intelligence Services",
+	L"侦察情报局",	//L"Recon Intelligence Services",
 	L"你想要知道的情报",	//L"Your need to know base",
 	L"情报需求",	//L"Information Requests",
 	L"情报验证",	//L"Information Verification",
@@ -11677,78 +11683,78 @@ STR16 gLbeStatsDesc[14] =
 
 STR16 szRebelCommandText[] = // TODO.Translate
 {
-	L"Arulco Rebel Command - National Overview",
-	L"Arulco Rebel Command - Regional Overview",
-	L"Switch to Regional Overview",
-	L"Switch to National Overview",
-	L"Supplies:",
-	L"Incoming Supplies",
-	L"/day",
-	L"Current Directive",
-	L"Improve Directive ($%d)",
-	L"Improving the selected directive will cost $%d. Confirm expenditure?",
-	L"Insufficient funds.",
-	L"New directive will take effect at 00:00.",
-	L"Militia Overview",
-	L"Green:",
-	L"Regular:",
-	L"Elite:",
-	L"Projected Daily Total:",
-	L"Volunteer Pool:",
-	L"Resources Available:",
-	L"Guns:",
-	L"Armour:",
-	L"Misc:",
-	L"Training Cost:",
-	L"Upkeep Cost Per Soldier Per Day:",
-	L"Training Speed Bonus:",
-	L"Combat Bonuses:",
-	L"Physical Stats Bonus:",
-	L"Marksmanship Bonus:",
-	L"Upgrade Stats ($%d)",
-	L"Upgrading militia stats will cost $%d. Confirm expenditure?",
-	L"Region:",
-	L"Next",
-	L"Previous",
-	L"Administration Team:",
-	L"None",
-	L"Active",
-	L"Inactive",
-	L"Loyalty:",
-	L"Maximum Loyalty:",
-	L"Deploy Administration Team (%d supplies)",
-	L"Reactivate Administration Team (%d supplies)",
-	L"It is currently not safe to deploy an administration team to this region. You must establish a foothold by controlling at least one town sector first.",
-	L"No regional actions available in Omerta.",
-	L"Administration teams can be deployed to other regions once you capture at least one town sector. Once active, they will be able to expand your influence and power in the region. However, they will need supplies to operate and enact policies.",
-	L"Be mindful of where you choose to direct supplies. Enacting regional policies will increase supply costs for other policies in the same region and nationally (to a lesser extent).",
-	L"Administrative Actions:",
-	L"Establish %s",
-	L"Improve %s",
-	L"Current Tier: %d",
-	L"Taking any administrative action in this region will cost %d supplies.",
-	L"Dead drop intel gain: %d",
-	L"Smuggler supply gain: %d",
-	L"A small group of militia from a nearby safehouse have joined the battle!",
-	L"[A.R.C. WEBSITE AVAILABLE] With the delivery of food and basic supplies to Omerta, you have convinced the rebels that you're here to make an impact. You have been granted access to the command system they've been working on, which is now available through your laptop.",
-	L"It is currently not safe to reactivate the administration team here. Recapture a town sector first.",
-	L"Mine raid successful. Stole $%d.",
-	L"Insufficient Intel to create turncoats!",
-	L"Change Admin Action",
-	L"Cancel",
-	L"Confirm",
-	L"<",
-	L">",
-	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"Arulco反抗军司令部 - 国家总览",   //L"Arulco Rebel Command - National Overview",
+	L"Arulco反抗军司令部 - 地区总览",   //L"Arulco Rebel Command - Regional Overview",
+	L"点击地区总览",   //L"Switch to Regional Overview",
+	L"点击国家总览",   //L"Switch to National Overview",
+	L"物资：",   //L"Supplies:",
+	L"后勤物资",   //L"Incoming Supplies",
+	L"  /天",   //L"/day",
+	L"当前项目",   //L"Current Directive",
+	L"升级项目（$%d）",   //L"Improve Directive ($%d)",
+	L"升级所选项目将花费$%d。确认支付?",   //L"Improving the selected directive will cost $%d. Confirm expenditure?",
+	L"后勤物资或资金供应不足",   //L"Insufficient funds.",
+	L"新项目将于00:00开始生效",   //L"New directive will take effect at 00:00.",
+	L"民兵总览",   //L"Militia Overview",
+	L"新兵：",   //L"Green:",
+	L"正规军：",   //L"Regular:",
+	L"精英：",   //L"Elite:",
+	L"预计每日总数：",   //L"Projected Daily Total:",
+	L"志愿者总数：",   //L"Volunteer Pool:",
+	L"可用资源：",   //L"Resources Available:",
+	L"枪支：",   //L"Guns:",
+	L"防弹衣：",   //L"Armour:",
+	L"杂物：",   //L"Misc:",
+	L"训练费用：",   //L"Training Cost:",
+	L"士兵每人每天维持费用：",   //L"Upkeep Cost Per Soldier Per Day:", 
+	L"训练速度加成：",   //L"Training Speed Bonus:",
+	L"战斗加成：",   //L"Combat Bonuses:",
+	L"装备加成：",   //L"Physical Stats Bonus:", 
+	L"枪法加成：",   //L"Marksmanship Bonus:",
+	L"提升等级（$%d）",   //L"Upgrade Stats ($%d)", 
+	L"提升民兵等级需要$%d。确认支付?",   //L"Upgrading militia stats will cost $%d. Confirm expenditure?",
+	L"地区：",   //L"Region:",
+	L"下一个",   //L"Next",
+	L"上一个",   //L"Previous",
+	L"指挥部：",   //L"Administration Team:",
+	L"无",   //L"None",
+	L"激活",   //L"Active",
+	L"闲置",   //L"Inactive",
+	L"忠诚度：",   //L"Loyalty:",
+	L"最高忠诚度：",   //L"Maximum Loyalty:",
+	L"部署指挥部（%d后勤物资）",   //L"Deploy Administration Team (%d supplies)",
+	L"重新激活指挥部（%d后勤物资）",   //L"Reactivate Administration Team (%d supplies)",
+	L"目前该地区部署指挥部不安全，你必须先打下至少一个城镇区域来扩展基地。",   //L"It is currently not safe to deploy an administration team to this region. You must establish a foothold by controlling at least one town sector first.",
+	L"目前在Omerta不能进行区域行动。",   //L"No regional actions available in Omerta.",
+	L"一旦你占领了至少一个城镇区域，指挥部就可以部署到其区域。一旦活跃起来，它们将能够扩大你在该地区的影响力和军事力量。然而，他们需要后勤物资来运作和制定政策。",   //L"Administration teams can be deployed to other regions once you capture at least one town sector. Once active, they will be able to expand your influence and power in the region. However, they will need supplies to operate and enact policies.",
+	L"请注意你选择的地区，制定区域政策将增加同一区域和全国（在较小程度上）其他政策的物资成本。",   //L"Be mindful of where you choose to direct supplies. Enacting regional policies will increase supply costs for other policies in the same region and nationally (to a lesser extent).",
+	L"指挥部指令：",   //L"Administrative Actions:",
+	L"建立 %s",   //L"Establish %s",
+	L"升级 %s",   //L"Improve %s",
+	L"当前：%d",   //L"Current Tier: %d",
+	L"在该地区采取任何指挥部指令都会消耗%d后勤物资。",   //L"Taking any administrative action in this region will cost %d supplies.",
+	L"情报传递站收益：%d",   //L"Dead drop intel gain: %d",
+	L"走私贩提供收益：%d",   //L"Smuggler supply gain: %d",
+	L"一小队民兵从附近的秘密基地加入了战斗! ",   //L"A small group of militia from a nearby safehouse have joined the battle!",
+	L"通过给Omerta运送食物和物资，你已经得到反抗军的信任。并授权你访问他们的指挥系统，通过你的笔记本电脑访问A.R.C反抗军司令部网站。",   //L"[A.R.C. WEBSITE AVAILABLE] With the delivery of food and basic supplies to Omerta, you have convinced the rebels that you're here to make an impact. You have been granted access to the command system they've been working on, which is now available through your laptop.",
+	L"目前恢复这里的指挥部并不安全。必须先夺回一个城镇区域。",   //L"It is currently not safe to reactivate the administration team here. Recapture a town sector first.",
+	L"突袭矿井成功。获取$%d。",   //L"Mine raid successful. Stole $%d.",
+	L"没有足够的情报点数来策反敌人！",   //L"Insufficient Intel to create turncoats!",
+	L"更改指令操作",   //L"Change Admin Action",
+	L"取消",   //L"Cancel", 
+	L"确认",   //L"Confirm",
+	L"<",   //L"<",
+	L">",   //L">",
+	L"更改此指令操作将花费$%d并重置。确认支出？",   //L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
 };
 
 STR16 szRebelCommandHelpText[] = // TODO.Translate
 {
-	L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
-	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
-	L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
-	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
-	L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
+	L"|物|资\n \n食物、水、医疗用品、武器以及任何\n反抗军认为有用的物资。反抗军会自动收集。",   //L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
+	L"|后|勤|物|资\n \n反抗军每天都会自动收集物资。当你\n占领更多的城镇时，他们每天能够\n找到的物资补给量将会增加。",   //L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
+	L"|当|前|项|目\n \n你可以选择反抗军优先进行的战略目标。\n当你选定好战略目标时，新的项目指令将生效。",   //L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
+	L"|指|挥|部\n \n指挥部一旦部署，就会负责处理\n该区域内的日常事务。包括支持当地人，制造\n反抗宣传，制定地区政策等等。",   //L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
+	L"|最|高|忠|诚|度\n \n你需要说服当地人完全信任你。这可以\n通过为他们建立物资供应来实现，表明\n你打算改善他们的生活质量。",   //L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
 };
 
 // follows a specific format:
@@ -11756,36 +11762,36 @@ STR16 szRebelCommandHelpText[] = // TODO.Translate
 // x+1:	"Admin action description text",
 STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 {
-	L"Supply Line",
-	L"Distribute much-needed supplies amongst the local population. Increases maximum regional loyalty.",
-	L"Rebel Radio",
-	L"Begin broadcasting rebel public radio in the region. The town gains loyalty daily.",
-	L"Safehouses",
-	L"Construct rebel safehouses in the countryside, far from prying eyes. Bonus militia may join you in combat when operating in this region.",
-	L"Supply Disruption",
-	L"The rebels will try to disrupt enemy movements in the area by targetting their supplies. Enemies fighting in this region are weaker.",
-	L"Scout Patrols",
-	L"Start regular scout patrols to monitor hostile activity in the area. Enemy groups will be spotted further from town.",
-	L"Dead Drops",
-	L"Set up dead drops for rebel scouts and infiltrators to deliver their intel. Provides daily intel.",
-	L"Smugglers",
-	L"Enlist the aid of smugglers to bring in supplies for the rebels. Provides an unreliable daily supply boost.",
-	L"Militia Warehouses",
-	L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
-	L"Regional Taxes",
-	L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
-	L"Civilian Aid",
-	L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
-	L"Merc Support",
-	L"Set up facilities to directly support your mercs assigned in the town. Increases the effectiveness of merc assignments (doctoring, repairing, militia training, etc).",
-	L"Mining Policy",
-	L"Import better equipment and work with the town's miners to create more balanced and efficient shift schedules. Increases the town's mine income.",
-	L"Pathfinders",
-	L"The locals guide your teams through shortcuts in the area. Reduces on-foot travel time in the region.",
-	L"Harriers",
-	L"The rebels harass nearby enemy groups, significantly increasing their travel time in the region.",
-	L"Fortifications",
-	L"Set up killzones and defensive positions. Friendly forces are more effective when fighting in this town. Autoresolve only.",
+	L"补给线",   //L"Supply Line",
+	L"向当地人分发生活必需品。增加最大地区忠诚度。",   //L"Distribute much-needed supplies amongst the local population. Increases maximum regional loyalty.",
+	L"反抗军电台",   //L"Rebel Radio",
+	L"开始在该地区播放反抗军公共广播。城镇每天都会获得忠诚度。",   //L"Begin broadcasting rebel public radio in the region. The town gains loyalty daily.",
+	L"秘密基地",   //L"Safehouses", 
+	L"在乡下建造反抗军的秘密基地，远离窥探者的目光。当你在这个地区作战时，会有额外的民兵加入战斗。",   //L"Construct rebel safehouses in the countryside, far from prying eyes. Bonus militia may join you in combat when operating in this region.",
+	L"后勤干扰",   //L"Supply Disruption",
+	L"反抗军将以敌方的后勤线路为目标，干扰敌人在该地区的活动。在这个地区的敌人会被削弱。",   //L"The rebels will try to disrupt enemy movements in the area by targetting their supplies. Enemies fighting in this region are weaker.",
+	L"侦察巡逻队",   //L"Scout Patrols",
+	L"开始定期侦察巡逻，监视该地区的敌对活动。敌人会在离城镇更远的地方被发现。",   //L"Start regular scout patrols to monitor hostile activity in the area. Enemy groups will be spotted further from town.",
+	L"情报传递站",   //L"Dead Drops",
+	L"为反抗军侦察员和渗透者设立情报站，以传递情报。提供日常情报工作。",   //L"Set up dead drops for rebel scouts and infiltrators to deliver their intel. Provides daily intel.",
+	L"走私团队",   //L"Smugglers",
+	L"争取走私贩的帮助，为反抗军提供物资。可使每日物资得到增加。",   //L"Enlist the aid of smugglers to bring in supplies for the rebels. Provides an unreliable daily supply boost.",
+	L"民兵武器库",   //L"Militia Warehouses",
+	L"在偏远地区建造仓库，让反抗军为民兵储备武器。提供每日民兵资源。",   //L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
+	L"税务局",   //L"Regional Taxes",
+	L"从当地人那里筹集资金来帮助你。这是一种永久的行为。增加每日收入，但地区忠诚度会逐日下降。",   //L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
+	L"民间援助",   //L"Civilian Aid",
+	L"指派一些反抗军直接协助和支持该地区的平民。增加每天志愿者的总数。",   //L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
+	L"私人佣兵团",   //L"Merc Support",
+	L"建立直接支持你的雇佣兵设施。增加雇佣兵工作的效率（医疗，修理，民兵训练等）",   //L"Set up facilities to directly support your mercs assigned in the town. Increases the effectiveness of merc assignments (doctoring, repairing, militia training, etc).",
+	L"矿产管理",   //L"Mining Policy",
+	L"进口更好的设备，与镇上的矿工合作，作出更平衡、更有效的排班表。增加城镇矿产的收入。",   //L"Import better equipment and work with the town's miners to create more balanced and efficient shift schedules. Increases the town's mine income.",
+	L"探路者",   //L"Pathfinders",
+	L"当地人会引导您的队伍通过该地区。大大减少徒步行军时间。",   //L"The locals guide your teams through shortcuts in the area. Reduces on-foot travel time in the region.",
+	L"鹞式战机",   //L"Harriers",
+	L"反抗军骚扰附近的敌军，大大增加他们在该地区的行军时间。",   //
+	L"防御工事",   //L"Fortifications",
+	L"建立杀伤区和防御阵地。友军在这个城镇战斗时更有效。仅限于自动战斗。",   //L"Set up killzones and defensive positions. Friendly forces are more effective when fighting in this town. Autoresolve only.",
 };
 
 // follows a specific format:
@@ -11795,46 +11801,46 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 // x+3:	"Directive Improvement Button Description",
 STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 {
-	L"Gather Supplies",
-	L"Gain an additional %.0f supplies per day.",
-	L"Increase daily supply income by amassing supplies from\nsympathetic locals, and seeking aid from international aid groups.",
-	L"Improving this directive will increase the amount of supplies that the rebels can gather daily.",
-	L"Support Militia",
-	L"Reduce militia daily upkeep costs. Militia daily upkeep cost modifier: %.2f.",
-	L"The rebels will help out with logistics about the militia\nyou've trained, reducing the strain on your wallet.",
-	L"Improving this directive will reduce the daily upkeep costs of your militia.",
-	L"Train Militia",
-	L"Reduce militia training costs and increase militia training speed. Militia training cost modifier: %.2f. Militia training speed modifier: %.2f.",
-	L"The rebels will assist when you are training militia,\nincreasing the efficiency at which you can train them.",
-	L"Improving this directive will further reduce training cost and increase training speed.",
-	L"Propaganda Campaign",
-	L"Town loyalty rises faster. Loyalty gain modifier: %.2f.",
-	L"Your victories and feats will be embellished as news reaches\nthe locals.",
-	L"Improving this directive will increase how quickly town loyalty rises.",
-	L"Deploy Elites",
-	L"%.0f elite militia appear in Omerta each day.",
-	L"The rebels release a small number of their highly-trained forces to your command.",
-	L"Improving this directive will increase the number of militia\nthat appear each day.",
-	L"High Value Target Strikes",
-	L"Enemy groups are less likely to have specialised soldiers.",
-	L"Surgical strikes will be conducted against enemy groups. Officers,\nmedics, radio operators, and other specialists are targetted.",
-	L"Improving this directive will make strikes more successful and effective.",
-	L"Spotter Teams",
-	L"When in combat, approximate enemy locations are revealed in the overhead map (press INSERT button in tactical).",
-	L"A small team will be attached to each of your squads, providing\napproximate locations of enemies when in combat.",
-	L"Improving this directive will make the locations of unspotted enemies more precise.",
-	L"Raid Mines",
-	L"Steal some income from mines not under your control. This directive becomes less useful as you claim mines.",
-	L"Conduct smash-and-grab raids on hostile mines. While not always\nsuccessful, the raids that do succeed should provide a\nsmall income bump.",
-	L"Improving this directive will increase the maximum value of stolen income.",
-	L"Create Turncoats",
-	L"Create %.0f turncoats in a random enemy group per day. Consumes %.1f Intel per day.",
-	L"Convince enemy soldiers to betray their army and work for you\nthrough a combination of bribery, threats, and blackmail.",
-	L"Improving this directive will increase the number of soldiers turned daily.",
-	L"Draft Civilians",
-	L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
-	L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
-	L"Improving this directive will increase the number of volunteers gained per day.",
+	L"收集物资",   //L"Gather Supplies",
+	L"每日额外获得%.0f后勤物资。",   //L"Gain an additional %.0f supplies per day.",
+	L"从有同情心的当地人那里积累物资，并向\n国际救援组织寻求援助，以增加每日后勤供应。",   //L"Increase daily supply income by amassing supplies from\nsympathetic locals, and seeking aid from international aid groups.",
+	L"升级此项将增加反抗军每日收集物资的数量。",   //L"Improving this directive will increase the amount of supplies that the rebels can gather daily.",
+	L"支援民兵",   //L"Support Militia",
+	L"减少民兵每日维护费用。                    民兵每日维护费用调整：%.2f。",   //L"Reduce militia daily upkeep costs. Militia daily upkeep cost modifier: %.2f.",
+	L"反抗军会帮你解决训练民兵\n后勤问题，减轻你的钱包负担。",   //L"The rebels will help out with logistics about the militia\nyou've trained, reducing the strain on your wallet.",
+	L"升级此项将会减少民兵的日常维护成本。",   //L"Improving this directive will reduce the daily upkeep costs of your militia.",
+	L"训练民兵",   //L"Train Militia",
+	L"降低民兵训练成本，提高民兵训练速度。      民兵训练费用调整：%.2f。                 民兵训练速度调整：%.2f。",   //L"Reduce militia training costs and increase militia training speed. Militia training cost modifier: %.2f. Militia training speed modifier: %.2f.",
+	L"当你训练民兵时，反抗军会协助你，提高训练效率。",   //L"The rebels will assist when you are training militia,\nincreasing the efficiency at which you can train them.",
+	L"升级此项将进一步降低训练成本和提高训练速度。",   //L"Improving this directive will further reduce training cost and increase training speed.",
+	L"宣传活动",   //L"Propaganda Campaign",
+	L"城镇的忠诚度上升得更快。                  忠诚加值修正值：%.2f。",   //L"Town loyalty rises faster. Loyalty gain modifier: %.2f.",
+	L"对当地人美化你的胜利和功绩。",   //L"Your victories and feats will be embellished as news reaches\nthe locals.",
+	L"升级此项将提高城镇忠诚度的上升速度。",   //L"Improving this directive will increase how quickly town loyalty rises.",
+	L"部署精兵",   //L"Deploy Elites",
+	L"Omerta每天出现%.0f精锐民兵。",   //L"%.0f elite militia appear in Omerta each day.",
+	L"反抗军将一小部分训练有素的部队交给你指挥。",   //L"The rebels release a small number of their highly-trained forces to your command.",
+	L"升级此项将会增加每天训练的民兵数量。",   //L"Improving this directive will increase the number of militia\nthat appear each day.",
+	L"打击重点目标",   //L"High Value Target Strikes",
+	L"敌军不太可能有重点目标，除了女王。",   //L"Enemy groups are less likely to have specialised soldiers.",
+	L"对敌军进行外科手术式打击。\n军官、医务人员、无线电操作员和其他专家\n都是重点打击目标。",   //L"Surgical strikes will be conducted against enemy groups. Officers,\nmedics, radio operators, and other specialists are targetted.",
+	L"升级此项将使打击目标更加成功和有效。",   //L"Improving this directive will make strikes more successful and effective.",
+	L"侦查小队",   //L"Spotter Teams",
+	L"在战斗中，敌人的大致位置会显示在战术地图上（在战术界面中按INSERT键）",   //L"When in combat, approximate enemy locations are revealed in the overhead map (press INSERT button in tactical).",
+	L"每支部队都有一个侦查小队，在战斗中\n提供敌人的大致位置。",   //L"A small team will be attached to each of your squads, providing\napproximate locations of enemies when in combat.",
+	L"升级此项将会使敌人的位置更精确。",   //L"Improving this directive will make the locations of unspotted enemies more precise.",
+	L"突袭矿井",   //L"Raid Mines",
+	L"从不受你控制的矿井获取一些收入。当你占领该矿井时，这个指令就没多大用处了。",   //L"Steal some income from mines not under your control. This directive becomes less useful as you claim mines.",
+	L"突袭敌方矿井。虽然不是次次成功，一旦\n成功了，多多少少会为你增加少量的收入。",   //L"Conduct smash-and-grab raids on hostile mines. While not always\nsuccessful, the raids that do succeed should provide a\nsmall income bump.",
+	L"升级此项将会增加突袭矿井收入的最大值。",   //L"Improving this directive will increase the maximum value of stolen income.",
+	L"策反敌军",   //L"Create Turncoats",
+	L"每天随机在敌人队伍中策反%.0f名士兵。          每天消耗%.1f情报点数。",   //L"Create %.0f turncoats in a random enemy group per day. Consumes %.1f Intel per day.",
+	L"通过贿赂、威胁和勒索，说服敌军士兵\n背叛他们的军队并为你工作。",   //L"Convince enemy soldiers to betray their army and work for you\nthrough a combination of bribery, threats, and blackmail.",
+	L"升级此项将会增加每天士兵人数。",   //L"Improving this directive will increase the number of soldiers turned daily.",
+	L"征召平民",   //L"Draft Civilians",
+	L"每天获得%.0f名志愿者。所有城镇每天都会失去一些忠诚度。",   //L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
+	L"征召平民作为民兵新兵。不过民众\n可能不会对此感到高兴。随着您\n占领更多城镇，效率会提高。",   //L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
+	L"升级此项将会增加每天志愿者人数。",   //L"Improving this directive will increase the number of volunteers gained per day.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
