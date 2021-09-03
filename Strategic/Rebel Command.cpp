@@ -364,7 +364,7 @@ void DeployOrReactivateAdminTeam(INT16 regionId)
 
 	if (rebelCommandSaveInfo.regions[regionId].adminStatus == RAS_INACTIVE)
 	{
-		if (IsTownUnderCompleteControlByEnemy(regionId))
+		if (IsTownUnderCompleteControlByEnemy(static_cast<INT8>(regionId)))
 		{
 			DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, szRebelCommandText[RCT_NOT_SAFE_TO_REACTIVATE_ADMIN_TEAM], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return;
@@ -622,13 +622,13 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 		y += 18;
 		btnId = CreateTextButton(szRebelCommandText[RCT_PREV_ARROW], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y, 35, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
-				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex--; if (adminActionChangeIndex < 0) adminActionChangeIndex = adminActionChangeList.size() - 1; });
+				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex--; if (adminActionChangeIndex < 0) adminActionChangeIndex = static_cast<INT8>(adminActionChangeList.size() - 1); });
 			});
 		adminActionChangeBtnIds.push_back(btnId);
 
 		btnId = CreateTextButton(szRebelCommandText[RCT_NEXT_ARROW], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x+35, y, 35, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
-				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex++; if (adminActionChangeIndex >= adminActionChangeList.size()) adminActionChangeIndex = 0; });
+				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex++; if (adminActionChangeIndex >= static_cast<INT8>(adminActionChangeList.size())) adminActionChangeIndex = 0; });
 			});
 		adminActionChangeBtnIds.push_back(btnId);
 
@@ -753,7 +753,7 @@ BOOLEAN EnterWebsite()
 		directivesList.push_back(std::make_pair(RCD_RAID_MINES, szRebelCommandDirectivesText[RCDT_RAID_MINES]));
 	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uCreateTurncoatsProgressRequirement)
 		directivesList.push_back(std::make_pair(RCD_CREATE_TURNCOATS, szRebelCommandDirectivesText[RCDT_CREATE_TURNCOATS]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uDraftProgressRequirement)
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uDraftProgressRequirement && gGameExternalOptions.fMilitiaVolunteerPool == TRUE)
 		directivesList.push_back(std::make_pair(RCD_DRAFT, szRebelCommandDirectivesText[RCDT_DRAFT]));
 
 	REBEL_COMMAND_DROPDOWN.SetEntries(directivesList);
@@ -2186,7 +2186,7 @@ void DailyUpdate()
 
 	// increment supplies
 	const UINT8 progress = CurrentPlayerProgressPercentage();
-	iIncomingSuppliesPerDay = progress * gRebelCommandSettings.fIncomeModifier + static_cast<INT32>((directive == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	iIncomingSuppliesPerDay = static_cast<INT32>(progress * gRebelCommandSettings.fIncomeModifier + (directive == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
 	rebelCommandSaveInfo.iSupplies += iIncomingSuppliesPerDay;
 
 	// get regional bonuses
@@ -2334,12 +2334,12 @@ void Init()
 	}
 
 	// set base values
-	iIncomingSuppliesPerDay = CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier;
+	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier);
 	rebelCommandSaveInfo.iSelectedDirective = RCD_GATHER_SUPPLIES;
 	rebelCommandSaveInfo.iActiveDirective = RCD_GATHER_SUPPLIES;
 	rebelCommandSaveInfo.iMilitiaStatsLevel = 0;
 	// let's be nice and give some supplies to people who enable this feature partway through a campaign so they don't start from zero
-	rebelCommandSaveInfo.iSupplies = GetWorldDay() * CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier / 3;
+	rebelCommandSaveInfo.iSupplies = static_cast<INT32>(GetWorldDay() * CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier / 3);
 
 	// initialise admin actions -- first one is always supply line
 	std::vector<RebelCommandAdminActions> actions;
@@ -2635,7 +2635,7 @@ template<> void DropDownTemplate<DROPDOWN_REBEL_COMMAND_DIRECTIVE>::SetRefresh()
 	using namespace RebelCommand;
 	const INT16 newDirective = REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey();
 	rebelCommandSaveInfo.iSelectedDirective = newDirective;
-	iIncomingSuppliesPerDay = CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + static_cast<INT32>((newDirective == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + (newDirective == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
 
 	redraw = TRUE;
 }

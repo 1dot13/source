@@ -263,6 +263,32 @@ void IntelBuyButtonCallback( GUI_BUTTON *btn, INT32 reason )
 
 void EnterIntelmarket()
 {
+	std::vector<std::pair<INT16, STR16> > dropdownvector;
+
+	for ( INT16 i = 0; i < 16; ++i )
+	{
+		if ( !( LaptopSaveInfo.usMapIntelFlags & ( 1 << i ) ) )
+		{
+			swprintf( gIntelBuyMapPartNamesStr[i], szIntelWebsiteText[TEXT_INTEL_MAPREGION_1 + i] );
+			gIntelBuyMapPartNamesStr[i][63] = '/0';
+
+			dropdownvector.push_back( std::make_pair( i, gIntelBuyMapPartNamesStr[i] ) );
+		}
+	}
+
+	if ( !dropdownvector.empty() )
+	{
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetEntries( dropdownvector );
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetHelpText( szIntelWebsiteText[TEXT_INTEL_DROPDOWN_HELPTEXT] );
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().Create( LAPTOP_SCREEN_UL_X, MCA_START_CONTENT_Y + 40 );
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 137, 16, 231 ) ) );
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetColorMarked( Get16BPPColor( FROMRGB( 137, 16, 231 ) ) );
+	}
+	else
+	{
+		DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().ClearEntries();
+	}
+
 	InitDefaults_IM();
 	
 	BuildIntelInfoArray();
@@ -302,33 +328,6 @@ void HandleIntelmarket()
 {
 	if ( fIntelRedraw )
 	{
-		UINT8 count = 0;
-		std::vector<std::pair<INT16, STR16> > dropdownvector;
-
-		for ( INT16 i = 0; i < 16; ++i )
-		{
-			if ( !( LaptopSaveInfo.usMapIntelFlags & ( 1 << i ) ) )
-			{
-				swprintf( gIntelBuyMapPartNamesStr[i], szIntelWebsiteText[TEXT_INTEL_MAPREGION_1 + i] );
-				gIntelBuyMapPartNamesStr[i][63] = '/0';
-
-				dropdownvector.push_back( std::make_pair( i, gIntelBuyMapPartNamesStr[i] ) );
-			}
-		}
-
-		if ( !dropdownvector.empty() )
-		{
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetEntries( dropdownvector );
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetHelpText( szIntelWebsiteText[TEXT_INTEL_DROPDOWN_HELPTEXT] );
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().Create( LAPTOP_SCREEN_UL_X, MCA_START_CONTENT_Y + 40 );
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 137, 16, 231 ) ) );
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().SetColorMarked( Get16BPPColor( FROMRGB( 137, 16, 231 ) ) );
-		}
-		else
-		{
-			DropDownTemplate<DROPDOWN_INTEL_BUY>::getInstance().ClearEntries();
-		}
-
 		RenderIntelmarket();
 
 		fIntelRedraw = FALSE;
