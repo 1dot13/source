@@ -1598,7 +1598,7 @@ HiddenEvents =
 				TopButtonText = "... oversee and coordinate the teams over radio.",
 				BottomButtonText = "... lead one of the strike teams.",
 				Resolution = function(topButton)
-					CSetMercCoordinates(selectedProfileId, 10, 1, 1)
+					CSetMercCoordinates(selectedProfileId, 10, 1, 0)
 					CSendMercOnMiniEvent(selectedProfileId, 1)
 					CAddIntel(100)
 
