@@ -2538,6 +2538,8 @@
 <AnimSurface name="BGMRIFLE_IDLE_HERO_PADS" file="Anims\LOBOT\BGM\S_R_STD_HERO_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="BGMRIFLE_IDLE_HERO_CAMOHELMET" file="Anims\LOBOT\BGM\S_R_STD_HERO_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="BGMRIFLE_IDLE_HERO_LSLEEVE" file="Anims\LOBOT\BGM\S_R_STD_HERO_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMRIFLE_IDLE_HERO_CAMOLSLEEVE" file="Anims\LOBOT\BGM\S_R_STD_HERO_CAMOLSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMRIFLE_IDLE_HERO_CAMOLEGS" file="Anims\LOBOT\BGM\S_R_STD_HERO_camolegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <!-- Walk, rifle idle -->
 <AnimSurface name="BGMRIFLE_WALK_HERO_HEAD" file="Anims\LOBOT\BGM\S_R_WALK_HERO_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRIFLE_WALK_HERO_HANDS" file="Anims\LOBOT\BGM\S_R_WALK_HERO_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
@@ -2577,6 +2579,8 @@
 <AnimSurface name="BGMRIFLE_WALK_HERO_PADS" file="Anims\LOBOT\BGM\S_R_WALK_HERO_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRIFLE_WALK_HERO_CAMOHELMET" file="Anims\LOBOT\BGM\S_R_WALK_HERO_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRIFLE_WALK_HERO_LSLEEVE" file="Anims\LOBOT\BGM\S_R_WALK_HERO_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMRIFLE_WALK_HERO_CAMOLSLEEVE" file="Anims\LOBOT\BGM\S_R_WALK_HERO_camoLSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMRIFLE_WALK_HERO_CAMOLEGS" file="Anims\LOBOT\BGM\S_R_WALK_HERO_camolegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <!-- Run, rifle idle -->
 <AnimSurface name="BGMRUNNING_HERO_HEAD" file="Anims\LOBOT\BGM\S_R_RUN_HERO_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRUNNING_HERO_HANDS" file="Anims\LOBOT\BGM\S_R_RUN_HERO_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
@@ -2616,6 +2620,8 @@
 <AnimSurface name="BGMRUNNING_HERO_PADS" file="Anims\LOBOT\BGM\S_R_RUN_HERO_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRUNNING_HERO_CAMOHELMET" file="Anims\LOBOT\BGM\S_R_RUN_HERO_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMRUNNING_HERO_LSLEEVE" file="Anims\LOBOT\BGM\S_R_RUN_HERO_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMRUNNING_HERO_CAMOLEGS" file="Anims\LOBOT\BGM\S_R_RUN_HERO_camolegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMRUNNING_HERO_CAMOLSLEEVE" file="Anims\LOBOT\BGM\S_R_RUN_HERO_camoLSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <!-- Standing, rifle aim & shoot -->
 <AnimSurface name="BGMRIFLE_AIM_HERO_HEAD" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="BGMRIFLE_AIM_HERO_HANDS" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
@@ -2655,6 +2661,8 @@
 <AnimSurface name="BGMRIFLE_AIM_HERO_PADS" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="BGMRIFLE_AIM_HERO_CAMOHELMET" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="BGMRIFLE_AIM_HERO_LSLEEVE" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="BGMRIFLE_AIM_HERO_CAMOLSLEEVE" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_camoLSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="BGMRIFLE_AIM_HERO_CAMOLEGS" file="Anims\LOBOT\BGM\S_SR_AIM_HERO_camolegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <!-- Standing, rifle, get hit -->
 <AnimSurface name="BGMRIFLE_HIT_HERO_HEAD" file="Anims\LOBOT\BGM\S_HIT_HERO_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 <AnimSurface name="BGMRIFLE_HIT_HERO_HANDS" file="Anims\LOBOT\BGM\S_HIT_HERO_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />

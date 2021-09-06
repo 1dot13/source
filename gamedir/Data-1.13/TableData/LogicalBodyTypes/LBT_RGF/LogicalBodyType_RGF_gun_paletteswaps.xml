@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LogicalAnimationSurfaces>
+	<Layer name="gun">
+		<LayerProp filter="HasBlackAKInHand" palette="guns_v2_pal_swap">
+			<Surface name="LBT_RGF_RIFLE_OPEN_AK47" animsurface="RGFOPEN" />
+			<Surface name="LBT_RGFRIFLE_WALK_CROUCH_AK47" animsurface="RGFCROUCH_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_WALK_AK47" animsurface="RGFWALK_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_IDLE_AK47" animsurface="RGFSTANDING" />
+			<Surface name="LBT_RGFBASICWALK_AK47" animsurface="RGFWALKING" />
+			<Surface name="LBT_RGFRUNNING_AK47" animsurface="RGFRUNNING" />
+			<Surface name="LBT_RGFRIFLE_CROUCH_AK47" animsurface="RGFCROUCHING" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_AK47" animsurface="RGFSIDESTEP" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_AIM_AK47" animsurface="RGFSIDESTEP_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_SWAT_AK47" animsurface="RGFSNEAKING" />
+			<Surface name="LBT_RGFRIFLE_RAISE_AK47" animsurface="RGFRAISE" />
+			<Surface name="LBT_RGFRIFLE_AIM_AK47" animsurface="RGFSTANDAIM" />
+			<Surface name="LBT_RGFRIFLE_HIP_AK47" animsurface="RGF_HIP_AIM" />
+			<Surface name="LBT_RGFRIFLE_CR_AIM_AK47" animsurface="RGFCROUCHAIM" />
+			<Surface name="LBT_RGFRIFLE_PRONE_AK47" animsurface="RGFPRONE" />
+			<Surface name="LBT_RGFRIFLE_HIT_AK47" animsurface="RGFRHIT" />
+			<Surface name="LBT_RGFRIFLE_PAIN_AK47" animsurface="RGFHURTSTANDINGR" />
+			<Surface name="LBT_RGFRIFLE_COWER_AK47" animsurface="RGFCOWER" />
+			<Surface name="LBT_RGFRIFLE_PRN_COWER_AK47" animsurface="RGF_COWER_PRONE" />
+			<Surface name="LBT_RGFRIFLE_WALK_HURT_AK47" animsurface="RGFHURTWALKINGR" />
+			<Surface name="LBT_RGFRIFLE_KICKDOOR_AK47" animsurface="RGFKICKDOOR" />
+			<!--<Surface name="LBT_RGFRIFLE_SQUISH_AK47" animsurface="RGF_SQUISH" />
+			<Surface name="LBT_RGFRIFLE_LOOK_AK47" animsurface="RGF_LOOK" />
+			<Surface name="LBT_RGFRIFLE_SPIT_AK47" animsurface="RGF_SPIT" />-->
+			<Surface name="LBT_RGFRIFLE_DRUNK_AK47" animsurface="RGFDRUNK" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_AK47" animsurface="RGFBAYONET_S_S" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_L_AK47" animsurface="RGFBAYONET_S_P" />
+			<Surface name="LBT_RGFRIFLE_LOW_AK47" animsurface="RGFSHOOT_LOW" />
+			<Surface name="LBT_RGFRIFLE_ROLL_SIDE_AK47" animsurface="RGFROLL_PR" />
+			<Surface name="LBT_RGFRIFLE_LOOK_AK47" animsurface="RGFALOOK" />
+			<Surface name="LBT_RGFRIFLE_CLEAN_AK47" animsurface="RGFCLEAN" />
+		</LayerProp>
+		<LayerProp filter="HasBlackPatriotInHand" palette="guns_v2_pal_swap">
+			<Surface name="LBT_RGF_RIFLE_OPEN_PATRIOT" animsurface="RGFOPEN" />
+			<Surface name="LBT_RGFRIFLE_WALK_CROUCH_PATRIOT" animsurface="RGFCROUCH_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_WALK_PATRIOT" animsurface="RGFWALK_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_IDLE_PATRIOT" animsurface="RGFSTANDING" />
+			<Surface name="LBT_RGFBASICWALK_PATRIOT" animsurface="RGFWALKING" />
+			<Surface name="LBT_RGFRUNNING_PATRIOT" animsurface="RGFRUNNING" />
+			<Surface name="LBT_RGFRIFLE_CROUCH_PATRIOT" animsurface="RGFCROUCHING" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_PATRIOT" animsurface="RGFSIDESTEP" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_AIM_PATRIOT" animsurface="RGFSIDESTEP_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_SWAT_PATRIOT" animsurface="RGFSNEAKING" />
+			<Surface name="LBT_RGFRIFLE_RAISE_PATRIOT" animsurface="RGFRAISE" />
+			<Surface name="LBT_RGFRIFLE_AIM_PATRIOT" animsurface="RGFSTANDAIM" />
+			<Surface name="LBT_RGFRIFLE_HIP_PATRIOT" animsurface="RGF_HIP_AIM" />
+			<Surface name="LBT_RGFRIFLE_CR_AIM_PATRIOT" animsurface="RGFCROUCHAIM" />
+			<Surface name="LBT_RGFRIFLE_PRONE_PATRIOT" animsurface="RGFPRONE" />
+			<Surface name="LBT_RGFRIFLE_HIT_PATRIOT" animsurface="RGFRHIT" />
+			<Surface name="LBT_RGFRIFLE_PAIN_PATRIOT" animsurface="RGFHURTSTANDINGR" />
+			<Surface name="LBT_RGFRIFLE_COWER_PATRIOT" animsurface="RGFCOWER" />
+			<Surface name="LBT_RGFRIFLE_PRN_COWER_PATRIOT" animsurface="RGF_COWER_PRONE" />
+			<Surface name="LBT_RGFRIFLE_WALK_HURT_PATRIOT" animsurface="RGFHURTWALKINGR" />
+			<Surface name="LBT_RGFRIFLE_KICKDOOR_PATRIOT" animsurface="RGFKICKDOOR" />
+			<!--<Surface name="LBT_RGFRIFLE_SQUISH_PATRIOT" animsurface="RGF_SQUISH" />
+			<Surface name="LBT_RGFRIFLE_LOOK_PATRIOT" animsurface="RGF_LOOK" />
+			<Surface name="LBT_RGFRIFLE_SPIT_PATRIOT" animsurface="RGF_SPIT" />-->
+			<Surface name="LBT_RGFRIFLE_DRUNK_PATRIOT" animsurface="RGFDRUNK" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_PATRIOT" animsurface="RGFBAYONET_S_S" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_L_PATRIOT" animsurface="RGFBAYONET_S_P" />
+			<Surface name="LBT_RGFRIFLE_LOW_PATRIOT" animsurface="RGFSHOOT_LOW" />
+			<Surface name="LBT_RGFRIFLE_ROLL_SIDE_PATRIOT" animsurface="RGFROLL_PR" />
+			<Surface name="LBT_RGFRIFLE_LOOK_PATRIOT" animsurface="RGFALOOK" />
+			<Surface name="LBT_RGFRIFLE_CLEAN_PATRIOT" animsurface="RGFCLEAN" />
+		</LayerProp>
+		<LayerProp filter="HasBlackSniperInHand" palette="guns_v2_pal_swap">
+			<Surface name="LBT_RGF_RIFLE_OPEN_TRG42" animsurface="RGFOPEN" />
+			<Surface name="LBT_RGFRIFLE_WALK_CROUCH_TRG42" animsurface="RGFCROUCH_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_WALK_TRG42" animsurface="RGFWALK_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_IDLE_TRG42" animsurface="RGFSTANDING" />
+			<Surface name="LBT_RGFBASICWALK_TRG42" animsurface="RGFWALKING" />
+			<Surface name="LBT_RGFRUNNING_TRG42" animsurface="RGFRUNNING" />
+			<Surface name="LBT_RGFRIFLE_CROUCH_TRG42" animsurface="RGFCROUCHING" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_TRG42" animsurface="RGFSIDESTEP" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_AIM_TRG42" animsurface="RGFSIDESTEP_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_SWAT_TRG42" animsurface="RGFSNEAKING" />
+			<Surface name="LBT_RGFRIFLE_RAISE_TRG42" animsurface="RGFRAISE" />
+			<Surface name="LBT_RGFRIFLE_AIM_TRG42" animsurface="RGFSTANDAIM" />
+			<Surface name="LBT_RGFRIFLE_HIP_TRG42" animsurface="RGF_HIP_AIM" />
+			<Surface name="LBT_RGFRIFLE_CR_AIM_TRG42" animsurface="RGFCROUCHAIM" />
+			<Surface name="LBT_RGFRIFLE_PRONE_TRG42" animsurface="RGFPRONE" />
+			<Surface name="LBT_RGFRIFLE_HIT_TRG42" animsurface="RGFRHIT" />
+			<Surface name="LBT_RGFRIFLE_PAIN_TRG42" animsurface="RGFHURTSTANDINGR" />
+			<Surface name="LBT_RGFRIFLE_COWER_TRG42" animsurface="RGFCOWER" />
+			<Surface name="LBT_RGFRIFLE_PRN_COWER_TRG42" animsurface="RGF_COWER_PRONE" />
+			<Surface name="LBT_RGFRIFLE_WALK_HURT_TRG42" animsurface="RGFHURTWALKINGR" />
+			<Surface name="LBT_RGFRIFLE_KICKDOOR_TRG42" animsurface="RGFKICKDOOR" />
+			<!--<Surface name="LBT_RGFRIFLE_SQUISH_TRG42" animsurface="RGF_SQUISH" />
+			<Surface name="LBT_RGFRIFLE_LOOK_TRG42" animsurface="RGF_LOOK" />
+			<Surface name="LBT_RGFRIFLE_SPIT_TRG42" animsurface="RGF_SPIT" />-->
+			<Surface name="LBT_RGFRIFLE_DRUNK_TRG42" animsurface="RGFDRUNK" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_TRG42" animsurface="RGFBAYONET_S_S" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_L_TRG42" animsurface="RGFBAYONET_S_P" />
+			<Surface name="LBT_RGFRIFLE_LOW_TRG42" animsurface="RGFSHOOT_LOW" />
+			<Surface name="LBT_RGFRIFLE_ROLL_SIDE_TRG42" animsurface="RGFROLL_PR" />
+			<Surface name="LBT_RGFRIFLE_LOOK_TRG42" animsurface="RGFALOOK" />
+			<Surface name="LBT_RGFRIFLE_CLEAN_TRG42" animsurface="RGFCLEAN" />
+		</LayerProp>
+		<LayerProp filter="HasBlackSemiAutoRifleInHand" palette="guns_v2_pal_swap">
+			<Surface name="LBT_RGF_RIFLE_OPEN_M14" animsurface="RGFOPEN" />
+			<Surface name="LBT_RGFRIFLE_WALK_CROUCH_M14" animsurface="RGFCROUCH_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_WALK_M14" animsurface="RGFWALK_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_IDLE_M14" animsurface="RGFSTANDING" />
+			<Surface name="LBT_RGFBASICWALK_M14" animsurface="RGFWALKING" />
+			<Surface name="LBT_RGFRUNNING_M14" animsurface="RGFRUNNING" />
+			<Surface name="LBT_RGFRIFLE_CROUCH_M14" animsurface="RGFCROUCHING" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_M14" animsurface="RGFSIDESTEP" />
+			<Surface name="LBT_RGFRIFLE_SIDESTEP_AIM_M14" animsurface="RGFSIDESTEP_R_RDY" />
+			<Surface name="LBT_RGFRIFLE_SWAT_M14" animsurface="RGFSNEAKING" />
+			<Surface name="LBT_RGFRIFLE_RAISE_M14" animsurface="RGFRAISE" />
+			<Surface name="LBT_RGFRIFLE_AIM_M14" animsurface="RGFSTANDAIM" />
+			<Surface name="LBT_RGFRIFLE_HIP_M14" animsurface="RGF_HIP_AIM" />
+			<Surface name="LBT_RGFRIFLE_CR_AIM_M14" animsurface="RGFCROUCHAIM" />
+			<Surface name="LBT_RGFRIFLE_PRONE_M14" animsurface="RGFPRONE" />
+			<Surface name="LBT_RGFRIFLE_HIT_M14" animsurface="RGFRHIT" />
+			<Surface name="LBT_RGFRIFLE_PAIN_M14" animsurface="RGFHURTSTANDINGR" />
+			<Surface name="LBT_RGFRIFLE_COWER_M14" animsurface="RGFCOWER" />
+			<Surface name="LBT_RGFRIFLE_PRN_COWER_M14" animsurface="RGF_COWER_PRONE" />
+			<Surface name="LBT_RGFRIFLE_WALK_HURT_M14" animsurface="RGFHURTWALKINGR" />
+			<Surface name="LBT_RGFRIFLE_KICKDOOR_M14" animsurface="RGFKICKDOOR" />
+			<!--<Surface name="LBT_RGFRIFLE_SQUISH_M14" animsurface="RGF_SQUISH" />
+			<Surface name="LBT_RGFRIFLE_LOOK_M14" animsurface="RGF_LOOK" />
+			<Surface name="LBT_RGFRIFLE_SPIT_M14" animsurface="RGF_SPIT" />-->
+			<Surface name="LBT_RGFRIFLE_DRUNK_M14" animsurface="RGFDRUNK" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_M14" animsurface="RGFBAYONET_S_S" />
+			<Surface name="LBT_RGFRIFLE_BAYONET_L_M14" animsurface="RGFBAYONET_S_P" />
+			<Surface name="LBT_RGFRIFLE_LOW_M14" animsurface="RGFSHOOT_LOW" />
+			<Surface name="LBT_RGFRIFLE_ROLL_SIDE_M14" animsurface="RGFROLL_PR" />
+			<Surface name="LBT_RGFRIFLE_LOOK_M14" animsurface="RGFALOOK" />
+			<Surface name="LBT_RGFRIFLE_CLEAN_M14" animsurface="RGFCLEAN" />
+		</LayerProp>
+	</Layer>
+</LogicalAnimationSurfaces>

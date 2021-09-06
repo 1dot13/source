@@ -150,6 +150,12 @@
 			</LayerProp>
 	</Layer>
 	<Layer name="legs">
+		<LayerProp filter="CamoPants" palette="hats">
+			<Surface name="BGMRIFLE_IDLE_HERO_CAMOLEGS" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_WALK_HERO_CAMOLEGS" animsurface="BGMWALKING" />
+			<Surface name="BGMRUNNING_HERO_CAMOLEGS" animsurface="BGMRUNNING" />
+			<Surface name="BGMRIFLE_AIM_HERO_CAMOLEGS" animsurface="BGMSTANDAIM" />
+		</LayerProp>
 		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
 			<Surface name="BGMEMPTY_RUN_LEGS" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMDUAL_SDSTP_LEGS" animsurface="BGMSIDESTEP" />
@@ -3125,6 +3131,14 @@
 			<Surface name="BGMEMPTY_KARATESPINK_PADS" animsurface="RGMSPINKICK" />
 			<Surface name="BGMLAW_PADS" animsurface="BGMROCKET" />
 			<Surface name="BGMLAW_CR_PADS" animsurface="BGMCRROCKET" />
+		</LayerProp>
+	</Layer>
+	<Layer name="shirt">
+		<LayerProp filter="CamoLongsleeves" palette="hats">
+			<Surface name="BGMRIFLE_IDLE_HERO_CAMOLSLEEVE" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_WALK_HERO_CAMOLSLEEVE" animsurface="BGMWALKING" />
+			<Surface name="BGMRUNNING_HERO_CAMOLSLEEVE" animsurface="BGMRUNNING" />
+			<Surface name="BGMRIFLE_AIM_HERO_CAMOLSLEEVE" animsurface="BGMSTANDAIM" />
 		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>

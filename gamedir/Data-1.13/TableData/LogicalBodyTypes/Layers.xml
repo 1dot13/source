@@ -5,6 +5,7 @@
 	<Layer name="body" render="1" shadow="0">2</Layer>
 	<Layer name="head" render="1" shadow="0">4</Layer>
 	<Layer name="hands" render="1" shadow="0">3</Layer>
+	<Layer name="shirt" render="1" shadow="0">8</Layer>
 	<Layer name="vest" render="1" shadow="0">8</Layer>
 	<Layer name="legrig" render="1" shadow="0">10</Layer>
 	<Layer name="knees" render="1" shadow="0">11</Layer>
