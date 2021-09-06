@@ -43,7 +43,7 @@
 #include		"Cheats.h"
 #include		"connect.h"
 #include		"WorldMan.h"
-
+#include		"Init.h"
 #include		"Game Events.h"
 #include		"PostalService.h"
 extern CPostalService gPostalService;
@@ -863,6 +863,12 @@ void ExitOptionsScreen()
 	if( guiOptionsScreen == GAME_SCREEN )
 	{
 		EnterTacticalScreen( );
+	}
+
+	if (guiOptionsScreen == SAVE_LOAD_SCREEN && guiPreviousOptionScreen == MAINMENU_SCREEN)
+	{
+		giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+		InitDependingGameStyleOptions();
 	}
 
 	RemoveButton( guiOptGotoSaveGameBtn );
