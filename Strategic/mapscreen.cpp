@@ -613,6 +613,7 @@ MOUSE_REGION gMapScreenMaskRegion;
 MOUSE_REGION gTrashCanRegion;
 MOUSE_REGION gMapMercWeightRegion;
 MOUSE_REGION gMapMercCamoRegion;
+extern MOUSE_REGION gMapMessageRegion;
 
 // mouse regions for team info panel
 MOUSE_REGION gTeamListNameRegion[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
@@ -718,6 +719,7 @@ extern BOOLEAN gfMilitiaPopupCreated;
 // PROTOTYPES
 // basic input
 void GetMapKeyboardInput( UINT32 *puiNewEvent );
+void PollWheelInMapView(UINT32 *puiNewEvent);
 void PollLeftButtonInMapView( UINT32 *puiNewEvent );
 void PollRightButtonInMapView( UINT32 *puiNewEvent );
 
@@ -6467,6 +6469,7 @@ UINT32 HandleMapUI( )
 	// Get mouse
 	PollLeftButtonInMapView( &uiNewEvent );
 	PollRightButtonInMapView( &uiNewEvent );
+	PollWheelInMapView(&uiNewEvent);
 
 	// Switch on event
 	switch( uiNewEvent )
@@ -8886,6 +8889,26 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
+void PollWheelInMapView(UINT32 *puiNewEvent)
+{
+	gMapMessageRegion.WheelState = gMapMessageRegion.WheelState * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+
+	if (gMapMessageRegion.uiFlags & MSYS_MOUSE_IN_AREA)
+	{
+		if (gMapMessageRegion.WheelState != 0)
+		{			
+			if (gMapMessageRegion.WheelState > 0)
+			{
+				MapScreenMsgScrollUp(1);
+			}
+			else
+			{
+				MapScreenMsgScrollDown(1);
+			}
+			ResetWheelState(&gMapMessageRegion);
+		}
+	}
+}
 
 void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 {

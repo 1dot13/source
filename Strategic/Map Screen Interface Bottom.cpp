@@ -162,6 +162,7 @@ UINT32 guiMapBottomTimeButtonsImage[ 2 ];
 
 // mouse regions
 MOUSE_REGION gMapMessageScrollBarRegion;
+MOUSE_REGION gMapMessageRegion;
 MOUSE_REGION gMapPauseRegion;
 
 MOUSE_REGION gTimeCompressionMask[ 3 ];
@@ -1045,12 +1046,16 @@ void CreateMapScreenBottomMessageScrollBarRegion( void )
 		MSYS_DefineRegion( &gMapMessageScrollBarRegion, MESSAGE_SCROLL_AREA_START_X, MESSAGE_SCROLL_AREA_START_Y,
 								MESSAGE_SCROLL_AREA_END_X, MESSAGE_SCROLL_AREA_END_Y,
 								MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenMessageScrollBarCallBack );
+
+		MSYS_DefineRegion(&gMapMessageRegion, (INT16)(xResOffset + 4), MESSAGE_SCROLL_AREA_START_Y, MESSAGE_SCROLL_AREA_END_X, MESSAGE_SCROLL_AREA_END_Y,
+			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);
 }
 
 
 void DeleteMapScreenBottomMessageScrollRegion( void )
 {
 	MSYS_RemoveRegion( &gMapMessageScrollBarRegion );
+	MSYS_RemoveRegion(&gMapMessageRegion);
 }
 
 
