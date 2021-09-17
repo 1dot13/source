@@ -91,7 +91,9 @@ enum //GraphicIDs for the panel
 	TITLE_BAR_PIECE,
 	TOP_COLUMN,
 	BOTTOM_COLUMN,
-	UNINVOLVED_HEADER
+	UNINVOLVED_HEADER,
+	BOTTOM_LINE,
+	BOTTOM_END
 };
 
 // WDS - make number of mercenaries, etc. be configurable
@@ -1330,8 +1332,20 @@ void RenderPreBattleInterface()
 			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xResOffset, 6 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
+		//Draw the bottom edges
+		for (i = 0; i < max(guiNumUninvolved, 1); i++)
+		{
+			y = BOTTOM_Y - ROW_HEIGHT * (i + 1) + 1;
+			BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		}
+
 		y = BOTTOM_Y - ACTUAL_HEIGHT - ROW_HEIGHT * max( guiNumUninvolved, 1 );
-		BltVideoObject( guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 10 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 20 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 30 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_END, 0 + xResOffset, BOTTOM_Y + 1 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
 
 		SetFont( BLOCKFONT );
 		SetFontForeground( FONT_BEIGE );
