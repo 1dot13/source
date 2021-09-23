@@ -2773,19 +2773,25 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: penalize locations too far from noise gridno
-			if (PythSpacesAway(sGridNo, sPos) > MAX_FLANK_DIST_RED)
+			if (PythSpacesAway(sGridNo, sPos) > MAX_FLANK_DIST_RED - 5)
 			{
 				sTempDist = sTempDist / 2;
 			}
 
-			// sevenfm: try to flank closer to vision distance limit for faster flanking
-			if (PythSpacesAway(sGridNo, sPos) > sDistanceVisible + 10)
+			// avoid moving too far from noise gridno
+			if (PythSpacesAway(sGridNo, sPos) > MAX_FLANK_DIST_RED && pSoldier->aiData.bAttitude != CUNNINGSOLO)
+			{
+				continue;
+			}
+
+			// sevenfm: avoid moving too close to enemy vision range
+			if (PythSpacesAway(sGridNo, sPos) < sDistanceVisible + 5)
 			{
 				sTempDist = sTempDist / 2;
 			}
 
 			// sevenfm: penalize locations with no sight cover from noise gridno (supposed that we are sneaking)
-			if( //PythSpacesAway( sGridNo, sPos) <= sDistanceVisible &&
+			if( PythSpacesAway( sGridNo, sPos) <= (INT16)MAX_VISION_RANGE &&
 				LocationToLocationLineOfSightTest( sGridNo, pSoldier->pathing.bLevel, sPos, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) )
 			{
 				//continue;
