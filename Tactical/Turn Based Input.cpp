@@ -3165,7 +3165,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					BeginAutoBandage( );
+					if (DialogueQueueIsEmpty())//shadooow: trying to use autobandage during conversation will mess up game
+					{
+						BeginAutoBandage();
+					}
 				}
 				break;
 

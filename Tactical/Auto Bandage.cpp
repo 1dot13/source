@@ -53,7 +53,7 @@ BOOLEAN gfAutoBandageFailed;
 INT32 iEndAutoBandageButton[ 2 ];
 INT32 iEndAutoBandageButtonImage[ 2 ];
 
-
+extern BOOLEAN gfConversationPending;
 extern FACETYPE *gpCurrentTalkingFace;
 extern INT32 giMercPanelImage;
 MOUSE_REGION gAutoBandageRegion;
@@ -168,7 +168,7 @@ void HandleAutoBandagePending( )
 	{
 		// All dailogue done, music, etc...
 		//if ( gubMusicMode != MUSIC_TACTICAL_VICTORY && DialogueQueueIsEmpty( ) )
-		if ( !DialogueQueueIsEmpty( ) )
+		if (!DialogueQueueIsEmpty( ) || gfConversationPending)
 		{
 			return;
 		}
