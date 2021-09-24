@@ -13589,10 +13589,21 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 	{
 		// Behave like the background region, closing the box.
 		OBJECTTYPE *pTemp = gpItemDescPrevObject;
+		BOOLEAN fShopkeeperItem = FALSE;
+		// remember if this is a shopkeeper's item we're viewing ( pShopKeeperItemDescObject will get nuked on deletion )
+		if (guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE && pShopKeeperItemDescObject != NULL)
+		{
+			fShopkeeperItem = TRUE;
+		}
 		DeleteItemDescriptionBox( );
 		if (pTemp != NULL)
 		{
 			InternalInitItemDescriptionBox( pTemp, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
+			if (fShopkeeperItem)
+			{
+				pShopKeeperItemDescObject = pTemp;
+				StartSKIDescriptionBox();
+			}
 		}	
 	}
 }
