@@ -1208,6 +1208,9 @@ typedef struct
 	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
 	UINT16 usMinDistanceFriendlySuppression;
 	
+	// sevenfm: new suppression tolerance calculation
+	BOOLEAN fNewSuppressionCode;
+
 	// HEADROCK HAM 3.4: This controls the intensity of Hiding the Bullet Count during combat. The higher it is, the more intense the effect. Negative values reduce the effect.
 	UINT16 usBulletHideIntensity;
 		

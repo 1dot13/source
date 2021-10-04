@@ -1662,6 +1662,7 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
 	gGameExternalOptions.usMinDistanceFriendlySuppression		= iniReader.ReadInteger("Tactical Suppression Fire Settings","MIN_DISTANCE_FRIENDLY_SUPPRESSION", 30, 0, 65000);
 
+	gGameExternalOptions.fNewSuppressionCode					= iniReader.ReadBoolean("Tactical Suppression Fire Settings", "NEW_SUPPRESSION_CODE", FALSE);
 
 	//################# Tactical Weather Settings ##################
 	

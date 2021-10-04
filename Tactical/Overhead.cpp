@@ -8746,20 +8746,38 @@ BOOLEAN AttackOnGroupWitnessed( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget )
 
 INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 {
-    INT8        bTolerance;
+    INT8 bTolerance;
 
     // Calculate basic tolerance value
-    bTolerance = pSoldier->stats.bExpLevel * 2;
-    if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
-    {
-        // give +1 for every 10% morale from 50, for a maximum bonus/penalty of 5.
-        bTolerance += ( pSoldier->aiData.bMorale - 50 ) / 10;
-    }
-    else
-    {
-        // give +2 for every morale category from normal, for a max change of 4
-        bTolerance += ( pSoldier->aiData.bAIMorale - MORALE_NORMAL ) * 2;
-    }
+	if (gGameExternalOptions.fNewSuppressionCode)
+	{
+		INT8 bToleranceMorale;
+		INT8 bToleranceSkill;
+
+		if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
+			bToleranceMorale = pSoldier->aiData.bMorale;
+		else
+			bToleranceMorale = 20 + pSoldier->aiData.bAIMorale * 20 - pSoldier->aiData.bShock / 4;
+
+		// limit base tolerance to 75% when having max morale and experience level
+		bToleranceSkill = (bToleranceMorale + 20 * pSoldier->stats.bExpLevel) / 4;
+		// calculate tolerance as percent of max tolerance from INI
+		bTolerance = gGameExternalOptions.ubSuppressionToleranceMax * bToleranceSkill / 100;
+	}
+	else
+	{
+		bTolerance = pSoldier->stats.bExpLevel * 2;
+		if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
+		{
+			// give +1 for every 10% morale from 50, for a maximum bonus/penalty of 5.
+			bTolerance += (pSoldier->aiData.bMorale - 50) / 10;
+		}
+		else
+		{
+			// give +2 for every morale category from normal, for a max change of 4
+			bTolerance += (pSoldier->aiData.bAIMorale - MORALE_NORMAL) * 2;
+		}
+	}    
 
     if ( pSoldier->ubProfile != NO_PROFILE )
     {
@@ -8808,7 +8826,8 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     }
 
     // HEADROCK HAM 3.2: This is actually a feature from HAM 2.9. It adds bonuses/penalties for nearby friends.
-    if (gGameExternalOptions.fFriendliesAffectTolerance)
+	// sevenfm: disabled with new code as nearby friends should help morale which affects base tolerance
+	if (gGameExternalOptions.fFriendliesAffectTolerance && !gGameExternalOptions.fNewSuppressionCode)
     {
         bTolerance += CheckStatusNearbyFriendlies( pSoldier );
     }
@@ -8818,6 +8837,7 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     {
         bTolerance += pSoldier->bTilesMoved / gGameExternalOptions.ubTilesMovedPerBonusTolerancePoint;
     }
+
     // HEADROCK HAM 3.6: This value has moved here. It reduces tolerance if the character is massively shocked.
     if (gGameExternalOptions.ubCowerEffectOnSuppression != 0)
     {
@@ -8828,8 +8848,11 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     }
 
     // SANDRO - STOMP traits - squadleader's bonus to suppression tolerance
-    if ( gGameOptions.fNewTraitSystem && IS_MERC_BODY_TYPE(pSoldier) && 
-            (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
+	// sevenfm: disabled as EffectiveExpLevel and morale bonus also affect tolerance
+	if (!gGameExternalOptions.fNewSuppressionCode &&
+		gGameOptions.fNewTraitSystem && 
+		IS_MERC_BODY_TYPE(pSoldier) && 
+		(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
     {
         UINT8 ubNumberOfSL = GetSquadleadersCountInVicinity( pSoldier, FALSE, FALSE );
         // Also take ourselves into account
@@ -8842,11 +8865,17 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
         bTolerance += (bTolerance * gSkillTraitValues.ubSLOverallSuppresionBonusPercent * ubNumberOfSL / 100);
     }
 
-	// Flugente: add personal bonus to suppresion tolerance
-	bTolerance = (bTolerance * (100 + pSoldier->GetSuppressionResistanceBonus() ) / 100);
+	// sevenfm: make sure bTolerance is not negative before next calculation
+	bTolerance = max(bTolerance, 0);
 
-    bTolerance = __max(bTolerance, gGameExternalOptions.ubSuppressionToleranceMin);
-    bTolerance = __min(bTolerance, gGameExternalOptions.ubSuppressionToleranceMax);
+	// Flugente: add personal bonus to suppression tolerance
+	// sevenfm: apply in HandleSuppressionFire to AP loss instead
+	if (!gGameExternalOptions.fNewSuppressionCode)
+		bTolerance = (bTolerance * (100 + pSoldier->GetSuppressionResistanceBonus() ) / 100);
+
+    bTolerance = max(bTolerance, gGameExternalOptions.ubSuppressionToleranceMin);
+    bTolerance = min(bTolerance, gGameExternalOptions.ubSuppressionToleranceMax);
+
     return( bTolerance );
 }
 
@@ -9245,6 +9274,12 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     }
                 }
             }
+
+			// sevenfm: reduce AP loss because of suppression resistance
+			if (sPointsLost > 0 && gGameExternalOptions.fNewSuppressionCode)
+			{
+				sPointsLost -= sPointsLost * pSoldier->GetSuppressionResistanceBonus() / 200;
+			}
 
             // Reduce action points!
             // HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
