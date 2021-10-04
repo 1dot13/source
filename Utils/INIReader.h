@@ -43,6 +43,9 @@ public:
 	DOUBLE ReadDouble(const STR8 szSection, const STR8 szKey, DOUBLE defaultValue, DOUBLE minValue, DOUBLE maxValue);
 	FLOAT  ReadFloat (const STR8 szSection, const STR8 szKey, FLOAT  defaultValue, FLOAT  minValue, FLOAT  maxValue);
 
+	void ReadFloatArray(const STR8 szSection, const STR8 szKey, std::vector<FLOAT>& vec);
+	void ReadINT32Array(const STR8 szSection, const STR8 szKey, std::vector<INT32>& vec);
+
 	BOOLEAN ReadBoolean(const STR8	szSection, const STR8 szKey, bool bolDefaultValue, bool bolDisplayError = true);
 
 	void ReadString(const STR8 szSection, const STR8 szKey, const STR8 szDefaultValue, STR8 input_buffer, size_t buffer_size);

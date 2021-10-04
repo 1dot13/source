@@ -253,6 +253,80 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 	return iniValueReadFromFile;
 }
 
+void CIniReader::ReadFloatArray(const STR8 szSection, const STR8 szKey, std::vector<FLOAT>& vec)
+{
+	// read the array as a string
+	STRING512 textBuffer;
+	ReadString(szSection, szKey, "", textBuffer, _countof(textBuffer));
+
+	std::string str, token;
+	std::string delim = ",";
+	size_t offset = 0, prevOffset = 0;
+
+	// sanitise input
+	vec.clear();
+	str = textBuffer;
+	str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+	// split into array
+	try
+	{
+		do
+		{
+			offset = str.find(delim, prevOffset);
+			token = str.substr(prevOffset, offset - prevOffset);
+			prevOffset = offset + delim.length();
+
+			vec.push_back(std::stof(token.c_str()));
+		} while (offset != std::string::npos);
+	}
+	catch (...)
+	{
+		std::stringstream errMessage;
+		errMessage << "There was an error reading array [" << szSection << "][" << szKey << "] in file [" << m_szFileName << "]. Defaulting to [0].";
+		iniErrorMessages.push(errMessage.str());
+
+		vec.push_back(0);
+	}
+}
+
+void CIniReader::ReadINT32Array(const STR8 szSection, const STR8 szKey, std::vector<INT32>& vec)
+{
+	// read the array as a string
+	STRING512 textBuffer;
+	ReadString(szSection, szKey, "", textBuffer, _countof(textBuffer));
+
+	std::string str, token;
+	std::string delim = ",";
+	size_t offset = 0, prevOffset = 0;
+
+	// sanitise input
+	vec.clear();
+	str = textBuffer;
+	str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+
+	// split into array
+	try
+	{
+		do
+		{
+			offset = str.find(delim, prevOffset);
+			token = str.substr(prevOffset, offset - prevOffset);
+			prevOffset = offset + delim.length();
+
+			vec.push_back(std::stoi(token.c_str()));
+		} while (offset != std::string::npos);
+	}
+	catch (...)
+	{
+		std::stringstream errMessage;
+		errMessage << "There was an error reading array [" << szSection << "][" << szKey << "] in file [" << m_szFileName << "]. Defaulting to [0].";
+		iniErrorMessages.push(errMessage.str());
+
+		vec.push_back(0);
+	}
+}
+
 BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool defaultValue, bool bolDisplayError)
 {
 #ifndef USE_VFS
