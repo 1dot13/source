@@ -1776,3 +1776,21 @@ void DissolveMilitiaGroup( UINT8 uGroupId )
 		RemovePGroup( pGroup );
 	}
 }
+
+void DissolveAllMilitiaGroupsInSector( INT16 sMapX, INT16 sMapY )
+{
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == sMapX && pGroup->ubSectorY == sMapY )
+		{
+			GROUP* pDeleteGroup = pGroup;
+			pGroup = pGroup->next;
+
+			DissolveMilitiaGroup( pDeleteGroup->ubGroupID );
+		}
+		else
+			pGroup = pGroup->next;
+	}
+}
+

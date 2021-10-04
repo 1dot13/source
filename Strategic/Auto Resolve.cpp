@@ -2678,21 +2678,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	// Flugente: after we fought, move any militia in groups into the sector garrison - the player will likely want to rethink orders for the survivors
 	// Flugente: in case militia died we have to lower the group sizes
 	// loop over all militia groups that are in this sector and alter their size. If a group has size 0 delete it. If any militia are left place them into this sector
-	{
-		GROUP* pGroup = gpGroupList;
-		while ( pGroup )
-		{
-			if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
-			{
-				GROUP* pDeleteGroup = pGroup;
-				pGroup = pGroup->next;
-
-				DissolveMilitiaGroup( pDeleteGroup->ubGroupID );
-			}
-			else
-				pGroup = pGroup->next;
-		}
-	}
+	DissolveAllMilitiaGroupsInSector(gpAR->ubSectorX, gpAR->ubSectorY);
 
 	//Record and process all enemy deaths
 	for( i = 0; i < MAX_AR_TEAM_SIZE; ++i )

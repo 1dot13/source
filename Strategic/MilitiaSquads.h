@@ -46,6 +46,8 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 ui
 // delete a militia group and transfer its militia to the sector they are in
 void DissolveMilitiaGroup( UINT8 uGroupId );
 
+void DissolveAllMilitiaGroupsInSector( INT16 sMapX, INT16 sMapY );
+
 BOOLEAN MilitiaGroupEntersCurrentSector( UINT8 usGroupId, INT16 sMapX, INT16 sMapY );
 
 #endif

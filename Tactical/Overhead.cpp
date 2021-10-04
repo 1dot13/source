@@ -117,6 +117,7 @@
 #include "finances.h"					// added by Flugente
 #include "MilitiaIndividual.h"			// added by Flugente
 #include "Rebel Command.h"
+#include "MilitiaSquads.h"
 #endif
 #include "connect.h"
 
@@ -7927,6 +7928,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             }
 
             HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap();
+            // rftr: dissolve any militia groups in the sector
+            DissolveAllMilitiaGroupsInSector( gWorldSectorX, gWorldSectorY );
             //gfStrategicMilitiaChangesMade = TRUE;
 
 
