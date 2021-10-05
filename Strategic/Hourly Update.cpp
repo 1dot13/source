@@ -376,7 +376,7 @@ void HourlyLarryUpdate()
 	{
 		pSoldier = MercPtrs[ cnt ];
 
-		if ( pSoldier && pSoldier->bActive && ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) ) )
+		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep && ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) ) )
 		{
 			fTookDrugs = FALSE;
 
