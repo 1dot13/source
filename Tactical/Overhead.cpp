@@ -8753,11 +8753,12 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 	{
 		INT8 bToleranceMorale;
 		INT8 bToleranceSkill;
+		UINT8 ubMaxShock = gGameExternalOptions.ubMaxSuppressionShock;
 
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
 			bToleranceMorale = pSoldier->aiData.bMorale;
 		else
-			bToleranceMorale = 20 + pSoldier->aiData.bAIMorale * 20 - pSoldier->aiData.bShock / 4;
+			bToleranceMorale = (20 + 80 * pSoldier->stats.bLife / max(OKLIFE, pSoldier->stats.bLifeMax) - 40 * min(ubMaxShock, pSoldier->aiData.bShock) / max(1, ubMaxShock));
 
 		// limit base tolerance to 75% when having max morale and experience level
 		bToleranceSkill = (bToleranceMorale + 20 * pSoldier->stats.bExpLevel) / 4;
