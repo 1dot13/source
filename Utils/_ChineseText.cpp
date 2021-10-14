@@ -5731,6 +5731,9 @@ STR16			BobbyRText[] =
 	L"晕眩: ", //L"Stun:",			// Weapon's Stun Damage
 	L"防护: ", //L"Protect:",		// Armour's Protection
 	L"伪装: ", //L"Camo:",			// Armour's Camouflage
+	L"Armor Pen:",		// Ammo's Armour Piercing modifier (see AmmoTypes.xml - armourImpactReduction)
+	L"Dmg Mod:",		// Ammo's Bullet Tumble modifier (see AmmoTypes.xml - afterArmourDamage)
+	L"Projectiles:",	// Ammo's bullet count (for buckshot) (see AmmoTypes.xml - numberOfBullets)
 	L"单价: ",	//"Cost:",			// Cost of the item
 	L"库存: ",	//"In stock:",			// The number of items still in the store's inventory
 	L"购买量: ",	//"Qty on Order:",		// The number of items on order

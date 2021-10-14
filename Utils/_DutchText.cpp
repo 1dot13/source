@@ -5720,6 +5720,9 @@ STR16			BobbyRText[] =
 	L"Stun:",			// Weapon's Stun Damage
 	L"Protect:",		// Armour's Protection
 	L"Camo:",			// Armour's Camouflage
+	L"Armor Pen:",		// Ammo's Armour Piercing modifier (see AmmoTypes.xml - armourImpactReduction)
+	L"Dmg Mod:",		// Ammo's Bullet Tumble modifier (see AmmoTypes.xml - afterArmourDamage)
+	L"Projectiles:",	// Ammo's bullet count (for buckshot) (see AmmoTypes.xml - numberOfBullets)
 	L"Kost:",			// Cost of the item
 	L"Aanwezig:",			// The number of items still in the store's inventory
 	L"# Besteld:",		// The number of items on order

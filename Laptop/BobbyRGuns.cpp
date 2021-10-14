@@ -338,6 +338,9 @@ UINT16 DisplayExplosiveDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight
 UINT16 DisplayExplosiveStunDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayProtection(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayCamo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayAmmoArmourPierceModifier(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayAmmoDamageModifier(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayAmmoProjectileCount(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 void CreateMouseRegionForBigImage(UINT16 usPosY, UINT8 ubCount, INT16 *pItemNumbers );
 // HEADROCK HAM 4: Now can purchase ALL items available.
 void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems );
@@ -1869,6 +1872,11 @@ BOOLEAN DisplayAmmoInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16
 	//Magazine
 	usHeight = DisplayMagazine(usHeight, usIndex, usFontHeight);
 
+	// rftr: display ammo stats
+	usHeight = DisplayAmmoArmourPierceModifier(usHeight, usIndex, usFontHeight);
+	usHeight = DisplayAmmoDamageModifier(usHeight, usIndex, usFontHeight);
+	usHeight = DisplayAmmoProjectileCount(usHeight, usIndex, usFontHeight);
+
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
 
@@ -2327,6 +2335,59 @@ UINT16 DisplayCamo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	swprintf(sTemp, L"%d", Item[ usIndex ].camobonus);
 	wcscat( sTemp, L"%%" );
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayAmmoArmourPierceModifier(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16 sTemp[10];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_ARMOUR_PIERCING_MODIFIER], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	// armour piercing modifier
+	const FLOAT armourImpactReductionModifier = (FLOAT)AmmoTypes[Magazine[Item[usIndex].ubClassIndex].ubAmmoType].armourImpactReductionMultiplier / (FLOAT)AmmoTypes[Magazine[Item[usIndex].ubClassIndex].ubAmmoType].armourImpactReductionDivisor;
+	swprintf(sTemp, L"%1.2f", armourImpactReductionModifier);
+	UINT8 color = BOBBYR_ITEM_DESC_TEXT_COLOR_ALT;
+	if (armourImpactReductionModifier > 1.0f)
+		color = FONT_MCOLOR_DKRED;
+	else if (armourImpactReductionModifier < 1.0f)
+		color = FONT_MCOLOR_LTGREEN;
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, color, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayAmmoDamageModifier(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16 sTemp[10];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_BULLET_TUMBLE_MODIFIER], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	// body damage modifier (bullet tumble)
+	const FLOAT afterArmourDamageModifier = (FLOAT)AmmoTypes[Magazine[Item[usIndex].ubClassIndex].ubAmmoType].afterArmourDamageMultiplier / (FLOAT)AmmoTypes[Magazine[Item[usIndex].ubClassIndex].ubAmmoType].afterArmourDamageDivisor;
+	swprintf(sTemp, L"%1.2f", afterArmourDamageModifier);
+	UINT8 color = BOBBYR_ITEM_DESC_TEXT_COLOR_ALT;
+	if (afterArmourDamageModifier > 1.0f)
+		color = FONT_MCOLOR_LTGREEN;
+	else if (afterArmourDamageModifier < 1.0f)
+		color = FONT_MCOLOR_DKRED;
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, color, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayAmmoProjectileCount(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	const UINT8 numProjectiles = AmmoTypes[Magazine[Item[usIndex].ubClassIndex].ubAmmoType].numberOfBullets;
+	if (numProjectiles == 1)
+		return(usPosY);
+
+	CHAR16 sTemp[4];
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_NUM_PROJECTILES], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	swprintf(sTemp, L"%d", numProjectiles);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+
 	usPosY += usFontHeight + 2;
 	return(usPosY);
 }
