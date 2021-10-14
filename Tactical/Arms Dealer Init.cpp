@@ -1242,7 +1242,8 @@ BOOLEAN IsMercADealer( UINT8 ubMercID )
 	//loop through the list of arms dealers
 	for ( UINT8 cnt = 0; cnt<NUM_ARMS_DEALERS; ++cnt )
 	{
-		if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
+		if (!armsDealerInfo[cnt].ubShopKeeperID) break;
+		else if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
 			return( TRUE );
 	}
 	return( FALSE );
