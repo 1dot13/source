@@ -3584,8 +3584,11 @@ static int l_gubBoxerID(lua_State *L)
 		UINT8 val = lua_tointeger( L, 1 );
 		UINT8 val2 = lua_tointeger( L, 2 );
 
-		if ( val <= 2 )
+		if (val <= 2)
+		{
 			gubBoxerID[val] = val2;
+			DebugQuestInfo(String("Lua: set gubBoxerID[%d] %d", val, gubBoxerID[val]));
+		}
 	}
 
 	return 0;
@@ -8195,6 +8198,7 @@ static int l_SetgfBoxerFought (lua_State *L)
 		BOOLEAN Bool	= lua_toboolean( L, 2 );
 
 		gfBoxerFought[id] = Bool;
+		DebugQuestInfo(String("lua: set gfBoxerFought[%d] %d ", id, Bool));
 	}
 		
 	return 0;
@@ -8203,7 +8207,10 @@ static int l_SetgfBoxerFought (lua_State *L)
 static int l_SetgfBoxersResting(lua_State *L)
 {
 	if (lua_gettop(L))
+	{
 		gfBoxersResting = lua_toboolean(L, 1);
+		DebugQuestInfo(String("lua: set gfBoxersResting %d", gfBoxersResting));
+	}
 
 	return 0;
 }
@@ -8211,7 +8218,10 @@ static int l_SetgfBoxersResting(lua_State *L)
 static int l_SetgubBoxersRests(lua_State *L)
 {
 	if (lua_gettop(L))
+	{
 		gubBoxersRests = lua_tointeger(L, 1);
+		DebugQuestInfo(String("lua: set gubBoxersRests %d ", gubBoxersRests));
+	}
 
 	return 0;
 }
@@ -10605,6 +10615,7 @@ static int l_ResetBoxers( lua_State *L )
 		gubBoxerID[i] = NOBODY;
 		// sevenfm: keep gfBoxerFought[] unchanged as it will be reset every day at 16:00 by HourlyQuestUpdate(), HourlyUpdate.lua		
 		//gfBoxerFought[i] = FALSE;
+		DebugQuestInfo(String("Lua: reset boxer gubBoxerID[%d] %d", i, gubBoxerID[i]));
 	}
 
 	return 0;

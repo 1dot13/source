@@ -1871,6 +1871,7 @@ void ResetOncePerConvoRecordsForNPC( UINT8 ubNPC )
 		return;
 	}
 	ResetOncePerConvoRecords( gpNPCQuoteInfoArray[ ubNPC ] );
+	DebugQuestInfo(String("reset QUOTE_FLAG_SAID for profile %d", ubNPC));
 }
 
 void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
@@ -1933,6 +1934,8 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	SOLDIERTYPE *					pNPC;
 	BOOLEAN								fAttemptingToGiveItem;
 
+	DebugQuestInfo(String("Converse: merc<%d> to NPC <%d> %d data %d", ubMerc, ubNPC, bApproach, uiApproachData));
+
 	// we have to record whether an item is being given in order to determine whether,
 	// in the case where the approach is overridden, we need to return the item to the
 	// player
@@ -1986,6 +1989,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	{
 		case NPC_INITIAL_QUOTE:
 			// reset stuff
+			DebugQuestInfo(String("ResetOncePerConvoRecords for <%d>", ubNPC));
 			ResetOncePerConvoRecords( pNPCQuoteInfoArray );
 
 			// CHEAP HACK
@@ -1994,6 +1998,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 			if ( ubNPC == DARREN && CheckFact( 281, DARREN ) == FALSE )
 			{
 				TURN_FLAG_OFF( pNPCQuoteInfoArray[11].fFlags, QUOTE_FLAG_SAID );
+				DebugQuestInfo(String("reset QUOTE_FLAG_SAID for <%d> 'DARREN'", ubNPC));
 			}
 
 			// turn the NPC to face us
@@ -2769,6 +2774,8 @@ void TriggerNPCRecord( UINT8 ubTriggerNPC, UINT8 ubTriggerNPCRec )
 	NPCQuoteInfo *pQuotePtr;
 	BOOLEAN      fDisplayDialogue = TRUE;
 
+	DebugQuestInfo(String("TriggerNPCRecord: <%d> record %d", ubTriggerNPC, ubTriggerNPCRec));
+
 	if (EnsureQuoteFileLoaded( ubTriggerNPC ) == FALSE)
 	{
 		// error!!!
@@ -2796,6 +2803,8 @@ void TriggerNPCRecordImmediately( UINT8 ubTriggerNPC, UINT8 ubTriggerNPCRec )
 	// Check if we have a quote to trigger...
 	NPCQuoteInfo *pQuotePtr;
 	BOOLEAN      fDisplayDialogue = TRUE;
+
+	DebugQuestInfo(String("TriggerNPCRecordImmediately: <%d> record %d", ubTriggerNPC, ubTriggerNPCRec));
 
 	if (EnsureQuoteFileLoaded( ubTriggerNPC ) == FALSE)
 	{

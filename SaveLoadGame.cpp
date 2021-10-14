@@ -6847,6 +6847,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		fclose( fp_timelog );
 #endif
 
+	DebugQuestInfo("\n--------- Game loaded ---------");
+
 	return( TRUE );
 }
 

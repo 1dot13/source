@@ -275,6 +275,8 @@ enum
 
 BOOLEAN InitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pSrcSoldier, INT8 bApproach, UINT32 uiApproachData )
 {
+	DebugQuestInfo(String("InitiateConversation: from [%d] to [%d] %d data %d", pSrcSoldier->ubID, pDestSoldier->ubID, bApproach, uiApproachData));
+
 	// ATE: OK, let's check the status of the Q
 	// If it has something in it....delay this until after....
 	if ( DialogueQueueIsEmptyOrSomebodyTalkingNow( ) )
@@ -1404,6 +1406,7 @@ BOOLEAN	NPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, UINT8 ubTargetAp
 {
 	//CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_TRIGGER_NPC, ubTargetNPC, ubTargetRecord, fShowDialogueMenu, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
 	CHECKF( SpecialCharacterDialogueEventWithExtraParam( DIALOGUE_SPECIAL_EVENT_TRIGGER_NPC, ubTargetNPC, ubTargetRecord, fShowDialogueMenu, ubTargetApproach, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
+	DebugQuestInfo(String("NPCTriggerNPC: <%d>, record %d, %d, display %d", ubTargetNPC, ubTargetRecord, ubTargetApproach, fShowDialogueMenu));
 
 	return( TRUE );
 }
@@ -1412,6 +1415,7 @@ BOOLEAN	NPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, UINT8 ubTargetAp
 BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubRecordNum )
 {
 	CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_GOTO_GRIDNO, ubTargetNPC, usGridNo, ubRecordNum, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
+	DebugQuestInfo(String("NPCGotoGridNo: <%d>, rec %d, usGridNo %d", ubTargetNPC, ubRecordNum, usGridNo));
 
 	return( TRUE );
 }
@@ -1420,6 +1424,7 @@ BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubRecordNum )
 BOOLEAN	NPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum )
 {
 	CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_DO_ACTION, ubTargetNPC, usActionCode, ubQuoteNum, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
+	DebugQuestInfo(String("NPCDoAction:<%d>, action code %d, quote num %d", ubTargetNPC, usActionCode, ubQuoteNum));
 
 	return( TRUE );
 }
@@ -1427,6 +1432,7 @@ BOOLEAN	NPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum )
 BOOLEAN	NPCClosePanel( )
 {
 	CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_CLOSE_PANEL, 0, 0, 0, 0, DIALOGUE_NPC_UI ) != FALSE );
+	DebugQuestInfo(String("NPCClosePanel"));
 
 	return( TRUE );
 }
@@ -1471,7 +1477,7 @@ BOOLEAN SourceSoldierPointerIsValidAndReachableForGive( SOLDIERTYPE * pGiver )
 
 void HandleNPCItemGiven( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos )
 {
-
+	DebugQuestInfo(String("HandleNPCItemGiven: <%d> item %d inv %d", ubNPC, pObject->usItem, bInvPos));
 	// Give it to the NPC soldier
 //	AutoPlaceObject( gpDestSoldier, pObject, FALSE );
 
@@ -1504,6 +1510,8 @@ void HandleNPCItemGiven( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos )
 
 void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShowDialogueMenu, UINT8 ubTargetApproach )
 {
+	DebugQuestInfo(String("HandleNPCTriggerNPC: <%d>, record %d, %d, display %d", ubTargetNPC, ubTargetRecord, ubTargetApproach, fShowDialogueMenu));
+
 	SOLDIERTYPE *pSoldier;
 
 	pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
@@ -1668,6 +1676,8 @@ void HandleWaitTimerForNPCTrigger( )
 
 void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubQuoteNum )
 {
+	DebugQuestInfo(String("HandleNPCItemGiven:<%d> GridNo %d quote num %d", ubTargetNPC, usGridNo, ubQuoteNum));
+
 	SOLDIERTYPE			 *pSoldier;
 	// OK, Move to gridNo!
 

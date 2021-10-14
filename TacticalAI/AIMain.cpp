@@ -216,6 +216,7 @@ STR szAction[] = {
 // sevenfm
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
+BOOLEAN gfLogsEnabled = TRUE;
 
 void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 {
@@ -223,10 +224,8 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-	if (!gGameExternalOptions.fAIDecisionInfo)
-	{
+	if (!gfLogsEnabled)
 		return;
-	}
 
 	memset(buf, 0, 1024 * sizeof(char));
 
@@ -307,6 +306,12 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 		fputs("\n", DebugFile);
 		fclose(DebugFile);
 	}
+	else
+	{
+		// cannot open file in Logs folder, stop logging
+		gfLogsEnabled = FALSE;
+		return;
+	}
 
 	// also log to individual file for selected soldier
 	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
@@ -319,6 +324,46 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 		fputs(msg, DebugFile);
 		fputs("\n", DebugFile);
 		fclose(DebugFile);
+	}
+}
+
+extern	UINT32			guiDay;
+extern	UINT32			guiHour;
+extern	UINT32			guiMin;
+
+void DebugQuestInfo(STR szOutput)
+{
+	/*CHAR16 buf16[1024];
+	memset(buf16, 0, 1024 * sizeof(wchar_t));
+
+	if (strlen(szOutput) > 0)
+	{
+		mbstowcs(buf16, szOutput, 1024 - 1);
+		AddTacticalDebugMessage(buf16);
+	}*/
+	CHAR8 buf[1024];
+
+	if (!gfLogsEnabled)
+		return;
+
+	FILE*	DebugFile;
+
+	DebugFile = fopen("Logs\\QuestInfo.txt", "a+t");
+	if (DebugFile != NULL)
+	{
+		// first write game clock and date/time
+		sprintf(buf, "%d Day %d %d:%d ", GetJA2Clock(), guiDay, guiHour, guiMin);
+		fputs(buf, DebugFile);
+
+		fputs(szOutput, DebugFile);
+		fputs("\n", DebugFile);
+		fclose(DebugFile);
+	}
+	else
+	{
+		// cannot open file in Logs folder, stop logging
+		gfLogsEnabled = FALSE;
+		return;
 	}
 }
 
@@ -354,6 +399,7 @@ BOOLEAN InitAI( void )
 
 	// sevenfm: Clear the AI debug txt file to prevent it from getting huge
 	remove("Logs\\AI_Decisions.txt");
+	//remove("Logs\\QuestInfo.txt");
 
 	// remove all individual files
 	CHAR8	buf[1024];

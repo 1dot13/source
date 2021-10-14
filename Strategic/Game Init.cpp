@@ -538,6 +538,8 @@ void ShutdownStrategicLayer()
 	ClearTacticalMessageQueue();
 }
 
+extern void DebugQuestInfo(STR szOutput);
+
 BOOLEAN InitNewGame( BOOLEAN fReset )
 {	
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame");
@@ -832,8 +834,6 @@ fFirstTimeInMapScreen = TRUE;
 		gubScreenCount = 2;
 		return( TRUE );
 	}
-
-	
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame done");
 	return( TRUE );

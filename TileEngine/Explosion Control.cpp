@@ -2004,7 +2004,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			}
 
 		}
-		else if ( pExplosive->ubType == EXPLOSV_SMOKE || pExplosive->ubType == EXPLOSV_SMOKE_DEBRIS | pExplosive->ubType == EXPLOSV_SMOKE_FIRERETARDANT )//dnl ch40 200909
+		else if ( pExplosive->ubType == EXPLOSV_SMOKE || pExplosive->ubType == EXPLOSV_SMOKE_DEBRIS || pExplosive->ubType == EXPLOSV_SMOKE_FIRERETARDANT )//dnl ch40 200909
 		{
 			// robots are unaffected by smoke
 			if( AM_A_ROBOT(pSoldier) )

@@ -70,17 +70,19 @@ extern void	GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemInde
 
 extern void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpReward, UINT8 bException );
 
+extern void DebugQuestInfo(STR szOutput);
 
 void SetFactTrue( UINT16 usFact )
 {
 	// This function is here just for control flow purposes (debug breakpoints)
 	// and code is more readable that way
 
-	// must intercept when Jake is first trigered to start selling fuel
+	// must intercept when Jake is first triggered to start selling fuel
 	if ( ( usFact == FACT_ESTONI_REFUELLING_POSSIBLE ) && ( CheckFact( usFact, 0 ) == FALSE ) )
 	{
 		// give him some gas...
 		GuaranteeAtLeastXItemsOfIndex( ARMS_DEALER_JAKE, GAS_CAN, ( UINT8 ) ( 4 + Random( 3 ) ) );
+		DebugQuestInfo(String("guarantee X items of %d (GAS_CAN) for dealer %d (ARMS_DEALER_JAKE)", GAS_CAN, ARMS_DEALER_JAKE));
 	}
 
 	gubFact[usFact] = TRUE;
@@ -89,6 +91,7 @@ void SetFactTrue( UINT16 usFact )
 void SetFactFalse( UINT16 usFact )
 {
 	gubFact[usFact] = FALSE;
+	DebugQuestInfo(String("fact %d false", usFact));
 }
 
 BOOLEAN CheckForNewShipment( void )
@@ -1381,6 +1384,7 @@ UINT8 GetFact( UINT16 usFact )
 
 void StartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 {
+	DebugQuestInfo(String("start quest %d sector %d %d", ubQuest, sSectorX, sSectorY));
 	InternalStartQuest( ubQuest, sSectorX, sSectorY, TRUE );
 }
 
@@ -1409,6 +1413,7 @@ void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 
 void EndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 {
+	DebugQuestInfo(String("end quest %d sector %d %d", ubQuest, sSectorX, sSectorY));
 	InternalEndQuest( ubQuest, sSectorX, sSectorY, TRUE );
 }
 
@@ -1565,6 +1570,8 @@ void InitQuestEngine()
 	memset(gubQuest, 0, sizeof(gubQuest));
 	memset(gubFact,	0, sizeof(gubFact));
 
+	DebugQuestInfo(String("\nInit Quest Engine"));
+
 	// semi-hack to make the letter quest start right away
 	CheckForQuests( 1 );
 
@@ -1583,6 +1590,8 @@ void InitQuestEngine()
 	gfBoxersResting = FALSE;
 
 	InitLUAModderData( );
+
+	DebugQuestInfo(String("reset gubBoxersRests 0, gubBoxingMatchesWon 0, gfBoxersResting FALSE gubCambriaMedicalObjects %d", gubCambriaMedicalObjects));
 }
 
 

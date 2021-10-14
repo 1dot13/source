@@ -1578,7 +1578,6 @@ typedef struct
 	BOOLEAN fAITacticalRetreat;
 	BOOLEAN fAIMovementMode;
 	BOOLEAN fAIPathTweaks;
-	BOOLEAN fAIDecisionInfo;
 	BOOLEAN fAIShootUnseen;
 	BOOLEAN fAISafeSuppression;
 

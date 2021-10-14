@@ -3162,13 +3162,15 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	//Moa: removed this function and replaced by the handling function.
 	//SectorInventoryCooldownFunctions(sSectorX, sSectorY, bSectorZ);
 	//moved from SectorInventoryCooldownFunctions. Invisible items are handled as well.
-	//Since we have allready loaded the items previously we can use the globals here.
+	//Since we have already loaded the items previously we can use the globals here.
 	HandleSectorCooldownFunctions( sSectorX, sSectorY, (INT8)bSectorZ, gWorldItems, guiNumWorldItems, TRUE );
 	//Update LastTimePlayerWasInSector
 	SetLastTimePlayerWasInSector( );
 
 	//Save to tempfile
 	SaveWorldItemsToTempItemFile( sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems );
+
+	DebugQuestInfo(String("--- Enter Sector %s%s Level %d ---", pVertStrings[sSectorY], pHortStrings[sSectorX], bSectorZ));
 
 	return TRUE; //because the map was loaded.
 }

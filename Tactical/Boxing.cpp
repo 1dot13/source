@@ -145,6 +145,7 @@ void EndBoxingMatch( SOLDIERTYPE * pLoser )
 		SetBoxingState( WON_ROUND );
 		gfLastBoxingMatchWonByPlayer = TRUE;
 		gubBoxingMatchesWon++;
+		DebugQuestInfo(String("EndBoxingMatch: gubBoxingMatchesWon %d gfLastBoxingMatchWonByPlayer %d", gubBoxingMatchesWon, gfLastBoxingMatchWonByPlayer));
 	}
 	TriggerNPCRecord( DARREN, 22 );
 }
@@ -303,6 +304,7 @@ void CountPeopleInBoxingRingAndDoActions( void )
 				// start match!
 				SetBoxingState(BOXING);
 				gfLastBoxingMatchWonByPlayer = FALSE;
+				DebugQuestInfo(String("Start Match: gfLastBoxingMatchWonByPlayer %d", gfLastBoxingMatchWonByPlayer));
 
 #ifdef JA2TESTVERSION
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Boxer APs %d %d", pInRing[0]->bActionPoints, pInRing[1]->bActionPoints );
@@ -347,6 +349,7 @@ BOOLEAN CheckOnBoxers( void )
 				{
 					// no weapon and not a civilian so this guy is a boxer
 					gubBoxerID[ uiLoop ] = ubID;
+					DebugQuestInfo(String("CheckOnBoxers: set gubBoxerID[%d] %d", ubID, gubBoxerID[uiLoop]));
 				}
 			}
 		}
@@ -401,6 +404,7 @@ BOOLEAN PickABoxer( void )
 					CancelAIAction( pBoxer, TRUE );
 					RESETTIMECOUNTER( pBoxer->timeCounters.AICounter, 0 );
 					gfBoxerFought[ uiLoop ] = TRUE;
+					DebugQuestInfo(String("PickABoxer: set gfBoxerFought[%d] %d", uiLoop, gfBoxerFought[uiLoop]));
 					// improve stats based on the # of rests these guys have had
 					pBoxer->stats.bStrength = __min( 100, pBoxer->stats.bStrength + gubBoxersRests * 5 );
 					pBoxer->stats.bDexterity = __min( 100, pBoxer->stats.bDexterity + gubBoxersRests * 5 );
@@ -529,6 +533,8 @@ void BoxingMovementCheck( SOLDIERTYPE * pSoldier )
 
 void SetBoxingState( INT8 bNewState )
 {
+	DebugQuestInfo(String("SetBoxingState: %d", bNewState));
+
 	if ( gTacticalStatus.bBoxingState == NOT_BOXING )
 	{
 		if ( bNewState != NOT_BOXING )
@@ -549,6 +555,7 @@ void SetBoxingState( INT8 bNewState )
 				// set one boxer to be set as boxed so that the game will allow another
 				// fight to occur
 				gfBoxerFought[ 0 ] = TRUE;
+				DebugQuestInfo(String("SetBoxingState: set one boxer to be set as boxed so that the game will allow another, gfBoxerFought[ 0 ] %d", gfBoxerFought[0]));
 			}
 		}
 	}
