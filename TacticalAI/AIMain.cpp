@@ -352,7 +352,7 @@ void DebugQuestInfo(STR szOutput)
 	if (DebugFile != NULL)
 	{
 		// first write game clock and date/time
-		sprintf(buf, "%d Day %d %d:%d ", GetJA2Clock(), guiDay, guiHour, guiMin);
+		sprintf(buf, "(%d) Day %d %d:%d ", GetJA2Clock(), guiDay, guiHour, guiMin);
 		fputs(buf, DebugFile);
 
 		fputs(szOutput, DebugFile);
