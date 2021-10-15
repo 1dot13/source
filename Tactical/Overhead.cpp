@@ -8753,7 +8753,7 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 	{
 		// limit base tolerance to 75% when having max morale and experience level
 		// calculate tolerance as percent of max tolerance from INI
-		bTolerance = gGameExternalOptions.ubSuppressionToleranceMax * (pSoldier->aiData.bMorale + 20 * EffectiveExpLevel(pSoldier, TRUE)) / 400;
+		bTolerance = gGameExternalOptions.ubSuppressionToleranceMax * (100 + pSoldier->aiData.bMorale + 10 * EffectiveExpLevel(pSoldier, TRUE)) / 400;
 	}
 	else
 	{
@@ -10926,30 +10926,29 @@ INT8 CheckStatusNearbyFriendliesSimple(SOLDIERTYPE *pSoldier)
 		{
 			sDistance = PythSpacesAway(pSoldier->sGridNo, pFriend->sGridNo);
 
-			// modifier depends on distance
-			iModifier = 1.0f * (FLOAT)sMinDistance / (FLOAT)max(sMinDistance, sDistance);
+			iModifier = 1.0f;
 
-			if (pFriend->stats.bLife >= OKLIFE)
-			{
-				// suppressed, half bonus
-				if(pFriend->IsCowering() || pFriend->IsUnconscious())
-				{
-					iModifier = iModifier / 2;
-				}
-			}
-			else
+			if (pFriend->stats.bLife < OKLIFE)
 			{
 				// dying, negative effect
-				iModifier = -iModifier;
+				iModifier = -1.0f;
 			}
+			else if (pFriend->IsCowering() || pFriend->IsUnconscious())
+			{
+				// suppressed, negative modifier
+				iModifier = -0.5f;
+			}
+
+			// modifier depends on distance
+			iModifier = iModifier * (FLOAT)sMinDistance / (FLOAT)max(sMinDistance, sDistance);
 
 			iFriendBonus += iModifier;
 		}
 	}
 
 	// Add no more than five points for nearby friends.
-	iFriendBonus = min(iFriendBonus, 3.0f);
-	iFriendBonus = max(iFriendBonus, -3.0f);
+	iFriendBonus = min(iFriendBonus, 5.0f);
+	iFriendBonus = max(iFriendBonus, -5.0f);
 
 	return (INT8)iFriendBonus;
 }
