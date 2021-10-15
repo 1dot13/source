@@ -170,7 +170,19 @@ INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 {
 	INT8 morale = 0;
 
-	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
+	// sevenfm: use bMorale for both player and AI
+	if (pSoldier->aiData.bMorale > 50)
+	{
+		// give +1 at 55, +3 at 65, up to +5 at 95 and above
+		morale = (pSoldier->aiData.bMorale - 45) / 10;
+	}
+	else
+	{
+		// give penalties down to -20 at 0 (-2 at 45, -4 by 40...)
+		morale = (pSoldier->aiData.bMorale - 50) * 2 / 5;
+	}
+
+	/*if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
 	{
 		if (pSoldier->aiData.bMorale > 50)
 		{
@@ -199,7 +211,7 @@ INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 			default:
 				morale = 0;
 		}
-	}
+	}*/
 
 	// Flugente: morale modifiers
 	morale = max( morale, morale * pSoldier->GetMoraleModifier( ) );

@@ -966,6 +966,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			Soldier.uiAnimSubFlags |= SUB_ANIM_BIGGUYTHREATENSTANCE;
 		}
 
+		// sevenfm: max morale for AI soldiers
+		if (Soldier.ubProfile == NO_PROFILE)
+		{
+			Soldier.aiData.bMorale = 60 + 2 * Soldier.stats.bExpLevel + Random(20);
+		}
+
 		//For inventory, look for any face class items that may be located in the big pockets and if found, move
 		//that item to a face slot and clear the pocket!
 		if( Soldier.bTeam != OUR_TEAM )

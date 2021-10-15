@@ -8755,13 +8755,8 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 		INT8 bToleranceSkill;
 		UINT8 ubMaxShock = gGameExternalOptions.ubMaxSuppressionShock;
 
-		if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
-			bToleranceMorale = pSoldier->aiData.bMorale;
-		else
-			bToleranceMorale = (20 + 80 * pSoldier->stats.bLife / max(OKLIFE, pSoldier->stats.bLifeMax) - 40 * min(ubMaxShock, pSoldier->aiData.bShock) / max(1, ubMaxShock));
-
 		// limit base tolerance to 75% when having max morale and experience level
-		bToleranceSkill = (bToleranceMorale + 20 * pSoldier->stats.bExpLevel) / 4;
+		bToleranceSkill = (pSoldier->aiData.bMorale + 20 * pSoldier->stats.bExpLevel) / 4;
 		// calculate tolerance as percent of max tolerance from INI
 		bTolerance = gGameExternalOptions.ubSuppressionToleranceMax * bToleranceSkill / 100;
 	}
@@ -9024,27 +9019,6 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
             // The default is obviously 100%. You can increase or decrease it, at will.
             // PLEASE NOTE that AP loss governs ALL OTHER SUPPRESSION EFFECTS.
-			// sevenfm: commented out duplicated code: we don't want to apply ubFinalSuppressionEffectivness twice
-			// ubPointsLost = ( ubPointsLost * sFinalSuppressionEffectiveness ) / 100;
-
-            // This is an upper cap for the number of APs we can lose per attack.
-			// sevenfm: commented out duplicated code:
-			/*
-            if (usLimitSuppressionAPsLostPerAttack > 0)
-            {
-                if (ubPointsLost > usLimitSuppressionAPsLostPerAttack)
-                {
-                    // Flugente: eh.. wouldn't this _always_ be 255? I suspect this should be __min
-                    //ubPointsLost = __max(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
-                    ubPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
-                }
-            }
-			*/
-
-            // INI-Controlled intensity. SuppressionEffectiveness acts as a percentage applied to the number of lost APs. 
-            // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
-            // The default is obviously 100%. You can increase or decrease it, at will.
-            // PLEASE NOTE that AP loss governs ALL OTHER SUPPRESSION EFFECTS.
             sPointsLost = ( sPointsLost * sFinalSuppressionEffectiveness ) / 100;
 
             // This is an upper cap for the number of APs we can lose per attack.
@@ -9134,7 +9108,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             {
                 for ( ubLoop2 = 0; ubLoop2 < (sPointsLost / APBPConstants[AP_LOST_PER_MORALE_DROP]); ubLoop2++ )
                 {
-                    HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+					// sevenfm: morale loss for AI soldiers
+					if (pSoldier->ubProfile == NO_PROFILE)
+					{
+						if (IS_MERC_BODY_TYPE(pSoldier))
+						{
+							pSoldier->aiData.bMorale = max(20 + 2 * pSoldier->stats.bExpLevel, pSoldier->aiData.bMorale - 4);
+						}
+					}
+					else
+					{
+						HandleMoraleEvent(pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+					}
 					// sevenfm: update ubLastMorale
 					pSoldier->ubLastMorale++;
                 }

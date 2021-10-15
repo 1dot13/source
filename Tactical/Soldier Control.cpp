@@ -7967,6 +7967,18 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		// reduce the effects of any residual shock from past injuries by half
 		this->aiData.bShock /= 2;
 
+		// sevenfm: increase morale for AI soldiers
+		if (this->ubProfile == NO_PROFILE &&
+			!(this->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
+			!AM_A_ROBOT(this) &&
+			!ARMED_VEHICLE(this) &&
+			this->aiData.bShock == 0 &&
+			!this->aiData.bUnderFire &&
+			this->aiData.bMorale < 80 + 2 * this->stats.bExpLevel)
+		{
+			this->aiData.bMorale = __min(80 + 2 * this->stats.bExpLevel, this->aiData.bMorale + 2 + this->stats.bExpLevel / 5);
+		}
+
 		// if this person has heard a noise that hasn't been investigated
 		if ( this->aiData.sNoiseGridno != NOWHERE )
 		{

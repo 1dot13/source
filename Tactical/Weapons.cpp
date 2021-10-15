@@ -2460,6 +2460,30 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
 	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
 
+	// sevenfm: reduce shock when firing gun, for autofire shots - apply once
+	SOLDIERTYPE* pTarget = SimpleFindSoldier(sTargetGridNo, pSoldier->bTargetLevel);
+	if (gGameExternalOptions.fNewSuppressionCode &&
+		Item[usUBItem].usItemClass == IC_GUN && 
+		pTarget && 
+		(pSoldier->bDoBurst == 1 || pSoldier->bDoBurst == 0))
+	{
+		UINT16 noisefactor = GetPercentNoiseVolume(pObjHand);
+		UINT8 ubDamage = Weapon[usUBItem].ubImpact;
+
+		INT8 bShotsToFire = 1;
+		if (pSoldier->bDoBurst)
+		{
+			bShotsToFire = pSoldier->bDoAutofire ? pSoldier->bDoAutofire : GetShotsPerBurst(pObjHand);
+		}
+		// calculate shock reduction value 0-50%
+		UINT8 ubShockReductPercent = (50 - 400 / (bShotsToFire + 8)) * noisefactor * Weapon[usUBItem].ubAttackVolume / (50 * 100);
+		if (pSoldier->IsValidSecondHandShot())
+			ubShockReductPercent = ubShockReductPercent * 3 / 2;
+		ubShockReductPercent = __min(50, ubShockReductPercent);
+
+		pSoldier->aiData.bShock -= pSoldier->aiData.bShock * ubShockReductPercent / 100;
+	}
+
 	// CALC MUZZLE SWAY
 	if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE )
 	{
@@ -3200,6 +3224,30 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
 
 	usItemNum = pSoldier->usAttackingWeapon;
+
+	// sevenfm: reduce shock when firing gun, for autofire shots - apply once
+	SOLDIERTYPE* pTarget = SimpleFindSoldier(sTargetGridNo, pSoldier->bTargetLevel);
+	if (gGameExternalOptions.fNewSuppressionCode &&
+		Item[usUBItem].usItemClass == IC_GUN && 
+		pTarget && 
+		(pSoldier->bDoBurst == 1 || pSoldier->bDoBurst == 0))
+	{
+		UINT16 noisefactor = GetPercentNoiseVolume(pObjUsed);
+		UINT8 ubDamage = Weapon[usUBItem].ubImpact;
+
+		INT8 bShotsToFire = 1;
+		if (pSoldier->bDoBurst)
+		{
+			bShotsToFire = pSoldier->bDoAutofire ? pSoldier->bDoAutofire : GetShotsPerBurst(pObjUsed);
+		}
+		// calculate shock reduction value 0-50%
+		UINT8 ubShockReductPercent = (50 - 400 / (bShotsToFire + 8)) * noisefactor * Weapon[usUBItem].ubAttackVolume / (50 * 100);
+		if (pSoldier->IsValidSecondHandShot())
+			ubShockReductPercent = ubShockReductPercent * 3 / 2;
+		ubShockReductPercent = __min(50, ubShockReductPercent);
+
+		pSoldier->aiData.bShock -= pSoldier->aiData.bShock * ubShockReductPercent / 100;
+	}
 
 	// DEDUCT APs
 	if (pSoldier->bDoBurst)
