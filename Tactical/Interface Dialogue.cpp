@@ -1,4 +1,3 @@
-
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 	#include "PreBattle Interface.h"
@@ -75,6 +74,7 @@
 	#include "Map Screen Helicopter.h"
 	#include "Cheats.h"
 	#include "Overhead.h"
+	#include "Soldier Control.h"
 #endif
 
 #include "LuaInitNPCs.h"
@@ -3729,7 +3729,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
 					{
 						// Are we in this sector, On the current squad?
-						if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->stats.bLife < pSoldier->stats.bLifeMax && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL && PythSpacesAway( pSoldier->sGridNo, pSoldier2->sGridNo ) < HOSPITAL_PATIENT_DISTANCE )
+						if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && (pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0) && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL && PythSpacesAway( pSoldier->sGridNo, pSoldier2->sGridNo ) < HOSPITAL_PATIENT_DISTANCE )
 						{
 							SetSoldierAssignment( pSoldier, ASSIGNMENT_HOSPITAL, 0, 0, 0 );
 							TriggerNPCRecord( pSoldier->ubProfile, 2 );
@@ -4520,6 +4520,12 @@ UINT32 CalcPatientMedicalCost( SOLDIERTYPE * pSoldier )
 
 	uiCost = 10 * ( pSoldier->stats.bLifeMax - pSoldier->stats.bLife );
 
+	for (UINT8 index = 0; index < NUM_DAMAGABLE_STATS; ++index)
+	{
+		// charge additional $150 for every damaged stat point
+		uiCost += (150 * pSoldier->ubCriticalStatDamage[index]);
+	}
+
 	if ( pSoldier->stats.bLife < OKLIFE )
 	{
 		// charge additional $25 for every point below OKLIFE he is
@@ -4577,7 +4583,7 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 		pSoldier = MercPtrs[ cnt ];
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
 		{
-			if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax )
+			if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0)
 			{
 				if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= HOSPITAL_PATIENT_DISTANCE)
 				{

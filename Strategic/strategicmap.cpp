@@ -3170,7 +3170,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	//Save to tempfile
 	SaveWorldItemsToTempItemFile( sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems );
 
-	DebugQuestInfo(String("--- Enter Sector %s%s Level %d ---", pVertStrings[sSectorY], pHortStrings[sSectorX], bSectorZ));
+	DebugQuestInfo(String("Enter Sector %s%s Level %d", pVertStrings[sSectorY], pHortStrings[sSectorX], bSectorZ));
 
 	return TRUE; //because the map was loaded.
 }

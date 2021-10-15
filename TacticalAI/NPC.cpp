@@ -1934,7 +1934,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	SOLDIERTYPE *					pNPC;
 	BOOLEAN								fAttemptingToGiveItem;
 
-	DebugQuestInfo(String("Converse: merc <%d> to NPC <%d> %d data %d", ubMerc, ubNPC, bApproach, uiApproachData));
+	DebugQuestInfo(String("Converse: merc <%d> to NPC <%d> approach %d data %d", ubMerc, ubNPC, bApproach, uiApproachData));
 
 	// we have to record whether an item is being given in order to determine whether,
 	// in the case where the approach is overridden, we need to return the item to the
