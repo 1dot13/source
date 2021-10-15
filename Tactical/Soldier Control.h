@@ -1871,6 +1871,7 @@ public:
 	UINT8		ShockLevelPercent(void);
 	BOOLEAN		TakenLargeHit(void);
 	BOOLEAN		IsCowering(void);
+	BOOLEAN		IsUnconscious(void);
 	BOOLEAN		IsGivingAid(void);
 
 	// sevenfm: for player mercs

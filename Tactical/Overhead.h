@@ -291,6 +291,8 @@ SOLDIERTYPE * ReduceAttackBusyCount( );
 INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier );
 // HEADROCK HAM 3.2: A new function for checking the condition of nearby friendlies and returning a modifier.
 INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier );
+// sevenfm: simplified version
+INT8 CheckStatusNearbyFriendliesSimple(SOLDIERTYPE *pSoldier);
 
 void CommonEnterCombatModeCode( );
 void CheckForPotentialAddToBattleIncrement( SOLDIERTYPE *pSoldier );

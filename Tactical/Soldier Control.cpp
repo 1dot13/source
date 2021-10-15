@@ -26104,6 +26104,14 @@ BOOLEAN SOLDIERTYPE::IsCowering(void)
 	return FALSE;
 }
 
+BOOLEAN SOLDIERTYPE::IsUnconscious(void)
+{
+	if (this->bCollapsed && this->bBreath < OKBREATH)
+		return TRUE;
+
+	return FALSE;
+}
+
 void SOLDIERTYPE::StopCoweringAnimation(void)
 {
 	if (this->usAnimState == COWERING)
