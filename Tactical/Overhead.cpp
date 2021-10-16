@@ -10907,21 +10907,23 @@ INT8 CheckStatusNearbyFriendliesSimple(SOLDIERTYPE *pSoldier)
 	INT16 sDistance;
 	INT16 sMinDistance = TACTICAL_RANGE / 4;
 
-	if (!pSoldier || !IS_MERC_BODY_TYPE(pSoldier) || pSoldier->stats.bLife < OKLIFE || pSoldier->IsCowering() || pSoldier->IsUnconscious())
+	if (!pSoldier || !pSoldier->bActive || TileIsOutOfBounds(pSoldier->sGridNo) || !IS_MERC_BODY_TYPE(pSoldier) || pSoldier->stats.bLife < OKLIFE || pSoldier->IsCowering() || pSoldier->IsUnconscious())
 	{
 		return 0;
 	}
 
 	// Run through each friendly.
-	for (UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++)
+	for (UINT8 ubFriend = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; ubFriend <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; ubFriend ++)
 	{
-		pFriend = MercPtrs[ iCounter ];
+		pFriend = MercPtrs[ ubFriend ];
 
 		// Make sure that character is alive and active
 		if (pFriend && 
 			pFriend != pSoldier && 
 			pFriend->bActive && 
 			IS_MERC_BODY_TYPE(pFriend) &&
+			!TileIsOutOfBounds(pFriend->sGridNo) &&
+			//LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, pFriend->sGridNo, pFriend->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS))
 			SoldierToSoldierLineOfSightTest(pSoldier, pFriend, TRUE, CALC_FROM_ALL_DIRS))
 		{
 			sDistance = PythSpacesAway(pSoldier->sGridNo, pFriend->sGridNo);

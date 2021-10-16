@@ -4248,7 +4248,7 @@ BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlim
 		else
 		{
 			gbForceWeaponReady = true;
-			iDistanceVisible = DistanceVisible(pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sSpot, pSoldier->pathing.bLevel, CoweringShockLevel(pSoldier), GetPercentTunnelVision(pSoldier));
+			iDistanceVisible = DistanceVisible(pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sSpot, pSoldier->pathing.bLevel, pSoldier->IsCowering(), GetPercentTunnelVision(pSoldier));
 			gbForceWeaponReady = false;
 			//iDistanceVisible = pSoldier->GetMaxDistanceVisible(sSpot, pSoldier->pathing.bLevel, CALC_FROM_WANTED_DIR);
 		}
@@ -4338,7 +4338,7 @@ BOOLEAN SightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited)
 		else
 		{
 			gbForceWeaponReady = true;
-			iDistanceVisible = DistanceVisible(pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sSpot, pSoldier->pathing.bLevel, CoweringShockLevel(pSoldier), GetPercentTunnelVision(pSoldier));
+			iDistanceVisible = DistanceVisible(pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sSpot, pSoldier->pathing.bLevel, pSoldier->IsCowering(), GetPercentTunnelVision(pSoldier));
 			gbForceWeaponReady = false;
 			//iDistanceVisible = pSoldier->GetMaxDistanceVisible(sSpot, pSoldier->pathing.bLevel, CALC_FROM_WANTED_DIR);
 		}		

@@ -8589,7 +8589,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 			 //&& Menptr[BestShot.ubOpponent].pathing.bLevel == 0 
 			 && pSoldier->aiData.bOrders != SNIPER &&
 			 BestShot.ubFriendlyFireChance < 5 &&
-			 !CoweringShockLevel( MercPtrs[BestShot.ubOpponent] ) &&
+			 !MercPtrs[BestShot.ubOpponent]->IsCowering() &&
 			 !AICheckIsFlanking( pSoldier ) &&
 			 LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, MercPtrs[BestShot.ubOpponent]->sGridNo, MercPtrs[BestShot.ubOpponent]->pathing.bLevel, TRUE, NO_DISTANCE_LIMIT ) &&
 			 //Weapon[pSoldier->inv[BestShot.bWeaponIn].usItem].ubWeaponType == GUN_LMG ) &&	//Weapon[usInHand].ubWeaponClass == MGCLASS

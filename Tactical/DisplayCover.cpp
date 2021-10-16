@@ -604,7 +604,7 @@ static void CalculateCoverFromEnemies()
 		}
 
 		pOpponents.push_back(pOpponent);
-		bCowering.push_back(CoweringShockLevel(pOpponent));
+		bCowering.push_back(pOpponent->IsCowering());
 		tunnelVision.push_back(GetPercentTunnelVision(pOpponent));
 	}
 

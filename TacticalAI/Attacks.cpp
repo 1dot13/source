@@ -337,7 +337,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 			(pOpponent->stats.bLife < OKLIFE ||
 			pOpponent->bCollapsed && pOpponent->bBreath == 0 ||
 			pOpponent->IsCowering() ||
-			CoweringShockLevel(pOpponent) ||
+			pOpponent->IsCowering() ||
 			pOpponent->IsZombie() ||
 			!IS_MERC_BODY_TYPE(pOpponent)))
 		{
@@ -1146,7 +1146,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			Explosive[Item[usGrenade].ubClassIndex].ubType == EXPLOSV_SMOKE &&
 			(FindAIUsableObjClass(pOpponent, IC_GUN) == NO_SLOT ||
 			(pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE) ||
-			CoweringShockLevel(pOpponent) > 50 ||
+			pOpponent->ShockLevelPercent() > 50 ||
 			EffectiveMarksmanship(pOpponent) < 90 && !IsScoped(&pOpponent->inv[HANDPOS]) && !pOpponent->aiData.bLastAttackHit))
 		{
 			continue;

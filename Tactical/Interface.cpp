@@ -3620,7 +3620,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	// draw suppression shock bar
 	if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
 	{
-		dPercentage = (FLOAT)( __min(100, ( (FLOAT)100 * CalcEffectiveShockLevel( pSoldier ) ) / CalcSuppressionTolerance( pSoldier ) ) ) / (FLOAT)100;
+		dPercentage = (min(100.0f, 100.0f * CalcEffectiveShockLevel(pSoldier) / max(1.0f, CalcSuppressionTolerance(pSoldier)))) / 100.0f;
 		dWidth		=	dPercentage * sWidth;
 		DrawBar( sXPos+3, sYPos+1+2*interval, (INT32)dWidth, sHeight, COLOR_ORANGE, Get16BPPColor( FROMRGB( 220, 140, 0 ) ), pDestBuf );
 	}
