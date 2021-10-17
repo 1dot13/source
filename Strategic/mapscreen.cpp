@@ -7050,6 +7050,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						fTeamPanelDirty = TRUE;
 						fCharacterInfoPanelDirty = TRUE;
 					}
+					else if (fShowMapScreenMovementList)
+					{
+						fShowMapScreenMovementList = FALSE;
+						CreateDestroyMovementBox(0, 0, 0);
+					}
 					else
 					{
 						RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
