@@ -2721,8 +2721,11 @@ void DrawCharHealth( INT16 sCharNum )
 		DrawString( sString, usX, CHAR_HP_Y, CHAR_FONT );
 		usX += StringPixLength( sString, CHAR_FONT );
 
-
-		if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeHealthTime)&& ( pSoldier->timeChanges.uiChangeHealthTime != 0 ) )
+		if (gGameOptions.fNewTraitSystem && pSoldier->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] > 0)
+		{
+			SetFontForeground(FONT_RED);
+		}
+		else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeHealthTime)&& ( pSoldier->timeChanges.uiChangeHealthTime != 0 ) )
 		{
 			if( pSoldier->usValueGoneUp & HEALTH_INCREASE )
 			{
