@@ -6003,15 +6003,16 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	{
 		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle(pSoldier->iVehicleId);
 
+		if (pSoldier->iVehicleId == iHelicopterVehicleId)
+			; // intentionally do nothing to skip the following checks
 		// too damaged?
-		if (pVehicle->stats.bLife < OKLIFE)
+		else if (pVehicle->stats.bLife < OKLIFE)
 		{
 			*pbErrorNumber = 47;
 			return(FALSE);
 		}
-
 		// out of fuel?
-		if (!VehicleHasFuel(pVehicle))
+		else if (!VehicleHasFuel(pVehicle))
 		{
 			*pbErrorNumber = 42;
 			return(FALSE);
