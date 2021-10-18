@@ -1511,7 +1511,7 @@ void CheckMiniEvents(UINT32 nextEventId)
 static void QueueNextMiniEvent(UINT32 nextEventId, UINT32 hoursToNextMiniEvent)
 {
 	const UINT32 timestamp = GetWorldTotalMin() + gGameExternalOptions.fMiniEventsMinHoursBetweenEvents * 60 + Random((gGameExternalOptions.fMiniEventsMaxHoursBetweenEvents - gGameExternalOptions.fMiniEventsMinHoursBetweenEvents) * 60);
-	AddStrategicEvent(EVENT_MINIEVENT, hoursToNextMiniEvent > 0 ? hoursToNextMiniEvent : timestamp, nextEventId);
+	AddStrategicEvent(EVENT_MINIEVENT, hoursToNextMiniEvent > 0 ? GetWorldTotalMin() + 60 * hoursToNextMiniEvent : timestamp, nextEventId);
 }
 
 // LUA STUFF FOLLOWS
