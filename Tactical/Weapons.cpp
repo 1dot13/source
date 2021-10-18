@@ -8487,6 +8487,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 								if ( bStatLoss > 0 )
 								{
 									pTarget->stats.bLifeMax -= bStatLoss;
+									pTarget->bBleeding -= bStatLoss;
 									// SANDRO - added this for healing lost stats feature
 									pTarget->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] += bStatLoss;
 
