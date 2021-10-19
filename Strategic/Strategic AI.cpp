@@ -7072,15 +7072,16 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 	
 	if ( asdUpgrade && groupSize > 0 )
 	{
+		if ( gGameExternalOptions.fASDAssignsTanks && ASDSoldierUpgradeToTank( ) )
+		{
+			troopCount--;
+			tankCount++;
+		}
+
 		if ( gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
 		{
 			troopCount--;
 			jeepCount++;
-		}
-		else if ( gGameExternalOptions.fASDAssignsTanks && ASDSoldierUpgradeToTank( ) )
-		{
-			troopCount--;
-			tankCount++;
 		}
 
 		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
