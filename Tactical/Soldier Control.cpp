@@ -16829,7 +16829,8 @@ BOOLEAN		SOLDIERTYPE::UsesScubaGear( )
 	if ( !(this->inv[HEAD1POS].exists( ) && HasItemFlag( this->inv[HEAD1POS].usItem, SCUBA_MASK )) && !(this->inv[HEAD2POS].exists( ) && HasItemFlag( this->inv[HEAD2POS].usItem, SCUBA_MASK )) )
 		return FALSE;
 
-	if ( !this->inv[CPACKPOCKPOS].exists( ) || !HasItemFlag( this->inv[CPACKPOCKPOS].usItem, SCUBA_BOTTLE ) )
+	if (!(this->inv[CPACKPOCKPOS].exists() && HasItemFlag(this->inv[CPACKPOCKPOS].usItem, SCUBA_BOTTLE)) &&
+		!(this->inv[BPACKPOCKPOS].exists() && HasItemFlag(this->inv[BPACKPOCKPOS].usItem, SCUBA_BOTTLE)))
 		return FALSE;
 
 	return TRUE;
