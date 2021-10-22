@@ -86,6 +86,7 @@ Points of interest:
 #define		DIRECTIVE_TEXT(id)		RCDT_##id##, RCDT_##id##_EFFECT, RCDT_##id##_DESC, RCDT_##id##_IMPROVE,
 
 #define		ADMIN_ACTION_CHANGE_COST	15000
+#define		GRANT_SUPPLIES_LOYALTY_GAIN	1000
 
 #define		REBEL_COMMAND_DROPDOWN		DropDownTemplate<DROPDOWN_REBEL_COMMAND_DIRECTIVE>::getInstance()
 
@@ -183,7 +184,9 @@ enum RebelCommandHelpText // keep this synced with szRebelCommandHelpText in the
 	RCHT_SUPPLIES_INCOME,
 	RCHT_DIRECTIVES,
 	RCHT_ADMIN_TEAM,
+	RCHT_LOYALTY,
 	RCHT_MAX_LOYALTY,
+	RCHT_GRANT_SUPPLIES,
 };
 
 // this must be kept in the same order as RebelCommandDirectives in the header
@@ -214,6 +217,7 @@ void ButtonHelper(GUI_BUTTON* btn, INT32 reason, voidFunc onClick);
 void ClearAllButtons();
 void ClearAllHelpTextRegions();
 void DeployOrReactivateAdminTeam(INT16 regionId);
+void DropdownSetup();
 void GetDirectiveEffect(const RebelCommandDirectives directive, STR16 text);
 INT32 GetDirectiveImprovementCost(const RebelCommandDirectives directive);
 void ImproveDirective(const RebelCommandDirectives directiveId);
@@ -231,26 +235,19 @@ void UpdateAdminActionChangeList(INT16 regionId);
 
 INT32 GetAdminActionCostForRegion(INT16 regionId);
 INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminAction);
+UINT8 GetRegionLoyalty(INT16 regionId);
 void HandleScouting();
 void SetupInfo();
 void UpgradeMilitiaStats();
 
 // buttons
-INT32 dbgAdvanceDayBtnId = -1;
-INT32 dbgPrintBtnId = -1;
-std::vector<INT32> adminActionBtnIds;
-std::vector<INT32> adminActionChangeBtnIds;
+std::vector<INT32> btnIds;
 ChangeAdminActionState adminActionChangeState;
-INT32 adminTeamBtnId = -1;
-INT32 improveDirectiveBtnId = -1;
-INT32 regionNextBtnId = -1;
-INT32 regionPrevBtnId = -1;
-INT32 upgradeMilitiaStatsBtnId = -1;
-INT32 viewSwapBtnId = -1;
 
 // help text regions
 MOUSE_REGION adminTeamHelpTextRegion;
 MOUSE_REGION directiveDescriptionHelpTextRegion;
+MOUSE_REGION loyaltyHelpTextRegion;
 MOUSE_REGION maxLoyaltyHelpTextRegion;
 MOUSE_REGION suppliesHelpTextRegion;
 MOUSE_REGION suppliesIncomeHelpTextRegion;
@@ -284,71 +281,18 @@ void ButtonHelper(GUI_BUTTON* btn, INT32 reason, voidFunc onClick)
 
 void ClearAllButtons()
 {
-	for (const auto btnId : adminActionBtnIds)
+	for (const auto btnId : btnIds)
 	{
 		RemoveButton(btnId);
 	}
-	adminActionBtnIds.clear();
-
-	for (const auto btnId : adminActionChangeBtnIds)
-	{
-		RemoveButton(btnId);
-	}
-	adminActionChangeBtnIds.clear();
-
-	if (adminTeamBtnId != -1)
-	{
-		RemoveButton(adminTeamBtnId);
-		adminTeamBtnId = -1;
-	}
-
-	if (improveDirectiveBtnId != -1)
-	{
-		RemoveButton(improveDirectiveBtnId);
-		improveDirectiveBtnId = -1;
-	}
-
-	if (regionNextBtnId != -1)
-	{
-		RemoveButton(regionNextBtnId);
-		regionNextBtnId = -1;
-	}
-
-	if (regionPrevBtnId != -1)
-	{
-		RemoveButton(regionPrevBtnId);
-		regionPrevBtnId = -1;
-	}
-
-	if (viewSwapBtnId != -1)
-	{
-		RemoveButton(viewSwapBtnId);
-		viewSwapBtnId = -1;
-	}
-
-	if (upgradeMilitiaStatsBtnId != -1)
-	{
-		RemoveButton(upgradeMilitiaStatsBtnId);
-		upgradeMilitiaStatsBtnId = -1;
-	}
-
-	if (dbgAdvanceDayBtnId != -1)
-	{
-		RemoveButton(dbgAdvanceDayBtnId);
-		dbgAdvanceDayBtnId = -1;
-	}
-
-	if (dbgPrintBtnId != -1)
-	{
-		RemoveButton(dbgPrintBtnId);
-		dbgPrintBtnId = -1;
-	}
+	btnIds.clear();
 }
 
 void ClearAllHelpTextRegions()
 {
 	MSYS_RemoveRegion(&adminTeamHelpTextRegion);
 	MSYS_RemoveRegion(&directiveDescriptionHelpTextRegion);
+	MSYS_RemoveRegion(&loyaltyHelpTextRegion);
 	MSYS_RemoveRegion(&maxLoyaltyHelpTextRegion);
 	MSYS_RemoveRegion(&suppliesHelpTextRegion);
 	MSYS_RemoveRegion(&suppliesIncomeHelpTextRegion);
@@ -393,6 +337,36 @@ void DeployOrReactivateAdminTeam(INT16 regionId)
 
 }
 
+void DropdownSetup()
+{
+	// set directives list
+	std::vector<std::pair<INT16, STR16>> directivesList;
+	directivesList.push_back(std::make_pair(RCD_GATHER_SUPPLIES, szRebelCommandDirectivesText[RCDT_GATHER_SUPPLIES]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uSupportMilitiaProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_SUPPORT_MILITIA, szRebelCommandDirectivesText[RCDT_SUPPORT_MILITIA]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uTrainMilitiaProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_TRAIN_MILITIA, szRebelCommandDirectivesText[RCDT_TRAIN_MILITIA]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uCreatePropagandaProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_CREATE_PROPAGANDA, szRebelCommandDirectivesText[RCDT_CREATE_PROPAGANDA]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uEliteMilitiaProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_ELITE_MILITIA, szRebelCommandDirectivesText[RCDT_ELITE_MILITIA]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uHvtStrikesProgressRequirement && gGameExternalOptions.fEnemyRoles == TRUE && gGameExternalOptions.fAssignTraitsToEnemy == TRUE)
+		directivesList.push_back(std::make_pair(RCD_HVT_STRIKES, szRebelCommandDirectivesText[RCDT_HVT_STRIKES]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uSpottersProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_SPOTTERS, szRebelCommandDirectivesText[RCDT_SPOTTERS]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uRaidMinesProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_RAID_MINES, szRebelCommandDirectivesText[RCDT_RAID_MINES]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uCreateTurncoatsProgressRequirement)
+		directivesList.push_back(std::make_pair(RCD_CREATE_TURNCOATS, szRebelCommandDirectivesText[RCDT_CREATE_TURNCOATS]));
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uDraftProgressRequirement && gGameExternalOptions.fMilitiaVolunteerPool == TRUE)
+		directivesList.push_back(std::make_pair(RCD_DRAFT, szRebelCommandDirectivesText[RCDT_DRAFT]));
+
+	REBEL_COMMAND_DROPDOWN.SetEntries(directivesList);
+	REBEL_COMMAND_DROPDOWN.SetHelpText(szRebelCommandHelpText[RCHT_DIRECTIVES]);
+	REBEL_COMMAND_DROPDOWN.SetSelectedEntryKey(rebelCommandSaveInfo.iSelectedDirective);
+	REBEL_COMMAND_DROPDOWN.Create(WEBSITE_LEFT + 5, WEBSITE_TOP + 98);
+}
+
 INT32 GetAdminActionCostForRegion(INT16 regionId)
 {
 	INT16 totalLocalActions = 0;
@@ -410,7 +384,7 @@ INT32 GetAdminActionCostForRegion(INT16 regionId)
 		}
 	}
 
-	return totalNationalActions * gRebelCommandSettings.iAdminActionCostIncreaseNational + totalLocalActions * gRebelCommandSettings.iAdminActionCostIncreaseRegional;
+	return (rebelCommandSaveInfo.uSupplyDropCount + totalNationalActions) * gRebelCommandSettings.iAdminActionCostIncreaseNational + totalLocalActions * gRebelCommandSettings.iAdminActionCostIncreaseRegional;
 }
 
 INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminAction)
@@ -427,6 +401,11 @@ INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminActio
 	}
 
 	return -1;
+}
+
+UINT8 GetRegionLoyalty(INT16 regionId)
+{
+	return gTownLoyalty[regionId].ubRating;
 }
 
 void GetDirectiveEffect(const RebelCommandDirectives directive, STR16 text)
@@ -580,7 +559,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 			ButtonList[btnId]->UserData[0] = iCurrentRegionId;
 			ButtonList[btnId]->UserData[1] = actionIndex;
 
-			adminActionBtnIds.push_back(btnId);
+			btnIds.push_back(btnId);
 		}
 
 		y += 22;
@@ -599,7 +578,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 				{
 					ButtonHelper(btn, reason, [btn]() { adminActionChangeState = CAAS_CHANGING; });
 				});
-			adminActionChangeBtnIds.push_back(btnId);
+			btnIds.push_back(btnId);
 		}
 	}
 	else if (actionIndex == 5 && adminActionChangeState == CAAS_CHANGING)
@@ -617,20 +596,20 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 			{
 				ButtonHelper(btn, reason, [btn]() { adminActionChangeState = CAAS_INIT; });
 			});
-		adminActionChangeBtnIds.push_back(btnId);
+		btnIds.push_back(btnId);
 
 		y += 18;
 		btnId = CreateTextButton(szRebelCommandText[RCT_PREV_ARROW], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y, 35, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex--; if (adminActionChangeIndex < 0) adminActionChangeIndex = static_cast<INT8>(adminActionChangeList.size() - 1); });
 			});
-		adminActionChangeBtnIds.push_back(btnId);
+		btnIds.push_back(btnId);
 
 		btnId = CreateTextButton(szRebelCommandText[RCT_NEXT_ARROW], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x+35, y, 35, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				ButtonHelper(btn, reason, [btn]() { adminActionChangeIndex++; if (adminActionChangeIndex >= static_cast<INT8>(adminActionChangeList.size())) adminActionChangeIndex = 0; });
 			});
-		adminActionChangeBtnIds.push_back(btnId);
+		btnIds.push_back(btnId);
 
 		btnId = CreateTextButton(szRebelCommandText[RCT_CONFIRM], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x+70, y, 70, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
@@ -658,7 +637,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 					});
 				});
 			});
-		adminActionChangeBtnIds.push_back(btnId);
+		btnIds.push_back(btnId);
 	}
 }
 
@@ -734,32 +713,6 @@ BOOLEAN EnterWebsite()
 	FilenameForBPP("LAPTOP\\BackGroundTile.sti", VObjectDesc.ImageFile);
 	AddVideoObject(&VObjectDesc, &guiInsuranceBackGround);
 
-	// set directives list
-	std::vector<std::pair<INT16, STR16>> directivesList;
-	directivesList.push_back(std::make_pair(RCD_GATHER_SUPPLIES, szRebelCommandDirectivesText[RCDT_GATHER_SUPPLIES]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uSupportMilitiaProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_SUPPORT_MILITIA, szRebelCommandDirectivesText[RCDT_SUPPORT_MILITIA]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uTrainMilitiaProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_TRAIN_MILITIA, szRebelCommandDirectivesText[RCDT_TRAIN_MILITIA]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uCreatePropagandaProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_CREATE_PROPAGANDA, szRebelCommandDirectivesText[RCDT_CREATE_PROPAGANDA]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uEliteMilitiaProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_ELITE_MILITIA, szRebelCommandDirectivesText[RCDT_ELITE_MILITIA]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uHvtStrikesProgressRequirement && gGameExternalOptions.fEnemyRoles == TRUE && gGameExternalOptions.fAssignTraitsToEnemy == TRUE)
-		directivesList.push_back(std::make_pair(RCD_HVT_STRIKES, szRebelCommandDirectivesText[RCDT_HVT_STRIKES]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uSpottersProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_SPOTTERS, szRebelCommandDirectivesText[RCDT_SPOTTERS]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uRaidMinesProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_RAID_MINES, szRebelCommandDirectivesText[RCDT_RAID_MINES]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uCreateTurncoatsProgressRequirement)
-		directivesList.push_back(std::make_pair(RCD_CREATE_TURNCOATS, szRebelCommandDirectivesText[RCDT_CREATE_TURNCOATS]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uDraftProgressRequirement && gGameExternalOptions.fMilitiaVolunteerPool == TRUE)
-		directivesList.push_back(std::make_pair(RCD_DRAFT, szRebelCommandDirectivesText[RCDT_DRAFT]));
-
-	REBEL_COMMAND_DROPDOWN.SetEntries(directivesList);
-	REBEL_COMMAND_DROPDOWN.SetHelpText(szRebelCommandHelpText[RCHT_DIRECTIVES]);
-	REBEL_COMMAND_DROPDOWN.SetSelectedEntryKey(rebelCommandSaveInfo.iSelectedDirective);
-	REBEL_COMMAND_DROPDOWN.Create(WEBSITE_LEFT + 5, WEBSITE_TOP + 98);
 
 	RenderWebsite();
 
@@ -820,6 +773,8 @@ void HandleWebsite()
 
 void RenderWebsite()
 {
+	REBEL_COMMAND_DROPDOWN.Destroy();
+
 	ClearAllButtons();
 	ClearAllHelpTextRegions();
 
@@ -883,24 +838,30 @@ void RenderHeader(RebelCommandText titleText)
 	// DEBUG
 	if (CHEATER_CHEAT_LEVEL())
 	{
+		INT32 btnId;
 		usPosX = WEBSITE_LEFT + 400;
 		usPosY = WEBSITE_TOP + 380;
-		dbgAdvanceDayBtnId = CreateTextButton(L"DEBUG MAGIC!", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 14, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
+		btnId = CreateTextButton(L"DEBUG MAGIC!", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 14, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
 			ButtonHelper(btn, reason, []() { DEBUG_DAY(); });
 			});
+		btnIds.push_back(btnId);
 
 		usPosY = WEBSITE_TOP + 365;
-		dbgPrintBtnId = CreateTextButton(L"DEBUG PRINT!", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 14, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
+		btnId = CreateTextButton(L"DEBUG PRINT!", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 14, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
 			ButtonHelper(btn, reason, []() { DEBUG_PRINT(); });
 			});
+		btnIds.push_back(btnId);
 	}
 
 }
 
 void RenderNationalOverview()
 {
+	DropdownSetup();
+
 	CHAR16 sText[500];
 	UINT16 usPosX, usPosY;
+	INT32 btnId;
 
 	// title
 	RenderHeader(RCT_NATIONAL_OVERVIEW);
@@ -908,10 +869,11 @@ void RenderNationalOverview()
 	// view swap button
 	usPosX = WEBSITE_LEFT + 350;
 	usPosY = WEBSITE_TOP + 1;
-	viewSwapBtnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_REGIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_REGIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 		{
 			ButtonHelper(btn, reason, []() { ToggleWebsiteView(); });
 		});
+	btnIds.push_back(btnId);
 
 	// incoming supplies
 	usPosX = WEBSITE_LEFT + 1;
@@ -920,6 +882,7 @@ void RenderNationalOverview()
 
 	usPosX = WEBSITE_LEFT + 5;
 	usPosY += 10;
+	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + (rebelCommandSaveInfo.iSelectedDirective == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
 	swprintf(sText, L"%d", iIncomingSuppliesPerDay);
 	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT14ARIAL, iIncomingSuppliesPerDay > 0 ? FONT_GREEN : FONT_MCOLOR_LTRED, FONT_MCOLOR_BLACK, FALSE, 0);
 
@@ -962,13 +925,14 @@ void RenderNationalOverview()
 	if (rebelCommandSaveInfo.directives[directive].CanImprove())
 	{
 		swprintf(sText, szRebelCommandText[RCT_IMPROVE_DIRECTIVE], GetDirectiveImprovementCost(static_cast<RebelCommandDirectives>(directive)));
-		improveDirectiveBtnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 200, 24, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 200, 24, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				ButtonHelper(btn, reason, [btn]() { ImproveDirective(static_cast<RebelCommandDirectives>(btn->UserData[0])); });
 			});
+		btnIds.push_back(btnId);
 
-		Assert(ButtonList[improveDirectiveBtnId]);
-		ButtonList[improveDirectiveBtnId]->UserData[0] = REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey();
+		Assert(ButtonList[btnId]);
+		ButtonList[btnId]->UserData[0] = REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey();
 	}
 
 	// directive effect
@@ -1196,9 +1160,10 @@ void RenderNationalOverview()
 	if (rebelCommandSaveInfo.iMilitiaStatsLevel < static_cast<UINT8>(gRebelCommandSettings.iMilitiaUpgradeCosts.size()))
 	{
 		swprintf(sText, szRebelCommandText[RCT_MILITIA_UPGRADE_STATS], gRebelCommandSettings.iMilitiaUpgradeCosts[rebelCommandSaveInfo.iMilitiaStatsLevel]);
-		upgradeMilitiaStatsBtnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 150, 25, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
+		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 150, 25, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
 			ButtonHelper(btn, reason, []() { UpgradeMilitiaStats(); });
 			});
+		btnIds.push_back(btnId);
 	}
 
 	// dropdown - has to be last, or else things after this will be drawn twice
@@ -1209,6 +1174,7 @@ void RenderRegionalOverview()
 {
 	CHAR16 sText[800];
 	UINT16 usPosX, usPosY;
+	INT32 btnId;
 
 	// title
 	RenderHeader(RCT_REGIONAL_OVERVIEW);
@@ -1216,10 +1182,11 @@ void RenderRegionalOverview()
 	// view swap button
 	usPosX = WEBSITE_LEFT + 350;
 	usPosY = WEBSITE_TOP + 1;
-	viewSwapBtnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_NATIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_NATIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 		{
 			ButtonHelper(btn, reason, []() { ToggleWebsiteView(); });
 		});
+	btnIds.push_back(btnId);
 
 	// region 
 	usPosX = WEBSITE_LEFT + 1;
@@ -1227,24 +1194,26 @@ void RenderRegionalOverview()
 	DrawTextToScreen(szRebelCommandText[RCT_REGION], usPosX, usPosY, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// next region
-	usPosX = WEBSITE_LEFT + 300;
-	regionNextBtnId = CreateTextButton(szRebelCommandText[RCT_NEXT], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+	usPosX = WEBSITE_LEFT + 334;
+	btnId = CreateTextButton(szRebelCommandText[RCT_NEXT], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 82, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 		{
 			ButtonHelper(btn, reason, []()
 				{
 					RegionNavNext();
 				});
 		});
+	btnIds.push_back(btnId);
 
 	// prev region
-	usPosX = WEBSITE_LEFT + 400;
-	regionPrevBtnId = CreateTextButton(szRebelCommandText[RCT_PREV], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+	usPosX = WEBSITE_LEFT + 417;
+	btnId = CreateTextButton(szRebelCommandText[RCT_PREV], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 82, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 		{
 			ButtonHelper(btn, reason, []()
 				{
 					RegionNavPrev();
 				});
 		});
+	btnIds.push_back(btnId);
 
 	// region value
 	usPosX = WEBSITE_LEFT + 5;
@@ -1291,35 +1260,43 @@ void RenderRegionalOverview()
 	MSYS_SetRegionUserData(&adminTeamHelpTextRegion, 0, 0);
 
 	// vertical line between admin team and loyalty
-	usPosX = WEBSITE_LEFT + 164;
+	usPosX = WEBSITE_LEFT + 105;
 	usPosY += 5;
 	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 
 	// loyalty
-	usPosX += 30;
+	usPosX += 15;
 	usPosY -= 5;
 	DrawTextToScreen(szRebelCommandText[RCT_LOYALTY], usPosX, usPosY, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// loyalty value
 	usPosX += 10;
 	usPosY += 12;
-	swprintf(sText, L"%d", gTownLoyalty[iCurrentRegionId].ubRating);
+	swprintf(sText, L"%d", GetRegionLoyalty(iCurrentRegionId));
 	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 	INT32 width = 0;
-	INT32 value = gTownLoyalty[iCurrentRegionId].ubRating;
+	INT32 value = GetRegionLoyalty(iCurrentRegionId);
 	do {
 		width += value % 10 == 1 ? 6 : 8;
 		value /= 10;
 	} while (value != 0);
 	DrawTextToScreen(L"%%", usPosX + width, usPosY + 3, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
+	// loyalty region
+	usPosX -= 10;
+	usPosY -= 12;
+	MSYS_DefineRegion(&loyaltyHelpTextRegion, usPosX, usPosY, usPosX + 100, usPosY + 35, MSYS_PRIORITY_HIGH,
+		CURSOR_LAPTOP_SCREEN, [](MOUSE_REGION* pRegion, INT32 iReason) { SetRegionHelpText(iReason, loyaltyHelpTextRegion, RCHT_LOYALTY); }, MSYS_NO_CALLBACK);
+	MSYS_AddRegion(&loyaltyHelpTextRegion);
+	MSYS_SetRegionUserData(&loyaltyHelpTextRegion, 0, 0);
+
 	// vertical line between loyalty and max loyalty
-	usPosX = WEBSITE_LEFT + 334;
-	usPosY -= 7;
+	usPosX = WEBSITE_LEFT + 195;
+	usPosY += 5;
 	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 
 	// max loyalty
-	usPosX += 30;
+	usPosX += 15;
 	usPosY -= 5;
 	DrawTextToScreen(szRebelCommandText[RCT_LOYALTY_MAX], usPosX, usPosY, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
@@ -1343,6 +1320,39 @@ void RenderRegionalOverview()
 		CURSOR_LAPTOP_SCREEN, [](MOUSE_REGION* pRegion, INT32 iReason) { SetRegionHelpText(iReason, maxLoyaltyHelpTextRegion, RCHT_MAX_LOYALTY); }, MSYS_NO_CALLBACK);
 	MSYS_AddRegion(&maxLoyaltyHelpTextRegion);
 	MSYS_SetRegionUserData(&maxLoyaltyHelpTextRegion, 0, 0);
+	
+	// vertical line between max loyalty and supply grant
+	usPosX = WEBSITE_LEFT + 325;
+	usPosY += 5;
+	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
+
+	if (iCurrentRegionId != OMERTA && rebelCommandSaveInfo.regions[iCurrentRegionId].adminStatus == RAS_ACTIVE)
+	{
+		// supply grant
+		usPosX = WEBSITE_LEFT + 334;
+		btnId = CreateTextButton(L"Grant 100 Supplies", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 165, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+			{
+				ButtonHelper(btn, reason, []()
+					{
+						if (rebelCommandSaveInfo.iSupplies >= 100)
+						{
+							rebelCommandSaveInfo.iSupplies -= 100;
+							IncrementTownLoyalty(iCurrentRegionId, static_cast<UINT32>(GRANT_SUPPLIES_LOYALTY_GAIN));
+
+							if (rebelCommandSaveInfo.uSupplyDropCount < 255)
+								rebelCommandSaveInfo.uSupplyDropCount++;
+						}
+						else
+						{
+							DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, szRebelCommandText[RCT_INSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+						}
+					});
+			});
+		btnIds.push_back(btnId);
+		
+		// supply grant region
+		SetButtonFastHelpText(btnId, szRebelCommandHelpText[RCHT_GRANT_SUPPLIES]);
+	}
 
 	// deploy/reactivate admin teams (if applicable)
 	// if we're displaying any of these, early exit since everything else is locked behind the admin team's deployment
@@ -1361,7 +1371,7 @@ void RenderRegionalOverview()
 
 		return;
 	}
-	else if (!gTownLoyalty[iCurrentRegionId].fStarted || gTownLoyalty[iCurrentRegionId].ubRating == 0)
+	else if (!gTownLoyalty[iCurrentRegionId].fStarted || GetRegionLoyalty(iCurrentRegionId) == 0)
 	{
 		usPosX = WEBSITE_LEFT + 150;
 		usPosY = WEBSITE_TOP + 175;
@@ -1381,14 +1391,14 @@ void RenderRegionalOverview()
 		usPosX = WEBSITE_LEFT + 100;
 		usPosY = WEBSITE_TOP + 150;
 		swprintf(sText, szRebelCommandText[RCT_DEPLOY_ADMIN_TEAM], adminDeployCost);
-		adminTeamBtnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(btn->UserData[0]); });
 			});
+		btnIds.push_back(btnId);
 
-		Assert(ButtonList[adminTeamBtnId]);
-		ButtonList[adminTeamBtnId]->UserData[0] = iCurrentRegionId;
-
+		Assert(ButtonList[btnId]);
+		ButtonList[btnId]->UserData[0] = iCurrentRegionId;
 		return;
 	}
 	else if (rebelCommandSaveInfo.regions[iCurrentRegionId].adminStatus == RAS_INACTIVE)
@@ -1403,18 +1413,19 @@ void RenderRegionalOverview()
 		usPosX = WEBSITE_LEFT + 100;
 		usPosY = WEBSITE_TOP + 150;
 		swprintf(sText, szRebelCommandText[RCT_REACTIVATE_ADMIN_TEAM], adminReactivateCost / 2);
-		adminTeamBtnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(btn->UserData[0]); });
 			});
+		btnIds.push_back(btnId);
 
-		Assert(ButtonList[adminTeamBtnId]);
-		ButtonList[adminTeamBtnId]->UserData[0] = iCurrentRegionId;
+		Assert(ButtonList[btnId]);
+		ButtonList[btnId]->UserData[0] = iCurrentRegionId;
 
 		return;
 	}
 
-	// line between region info and admin info
+	// line between admin info and admin actions
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 30;
 	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
@@ -1481,6 +1492,8 @@ void ApplyEnemyPenalties(SOLDIERTYPE* pSoldier)
 
 	// need to get dist between soldier and town.
 	// run through all towns, check manhattan distance
+	UINT8 foundLevel = 0;
+	UINT8 foundLoyalty = 0;
 	for (int a = FIRST_TOWN; a < NUM_TOWNS; ++a)
 	{
 		// make sure town has active admins
@@ -1498,25 +1511,37 @@ void ApplyEnemyPenalties(SOLDIERTYPE* pSoldier)
 			continue;
 
 		// get all sectors with this townid
-		std::vector<std::pair<INT16, INT16>> sectors;
+		std::vector<std::tuple<INT16, INT16, UINT8>> sectors;
 		for (int x = MINIMUM_VALID_X_COORDINATE; x <= MAXIMUM_VALID_X_COORDINATE; ++x)
 			for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
 				if (GetTownIdForSector(x, y) == a)
-					sectors.push_back(std::pair<INT16, INT16>(x, y));
+					sectors.push_back(std::tuple<INT16, INT16, UINT8>(x, y, GetRegionLoyalty(a)));
 
 		// check if soldier is within range of the city
-		for (const auto pair : sectors)
+		for (const auto tuple : sectors)
 		{
-			const INT16 x = std::get<0>(pair);
-			const INT16 y = std::get<1>(pair);
+			const INT16 x = std::get<0>(tuple);
+			const INT16 y = std::get<1>(tuple);
+			const UINT8 loyalty = std::get<2>(tuple);
 
 			if (abs(x - pSoldier->sSectorX) + abs(y - pSoldier->sSectorY) <= level)
 			{
-				applyPenalties(pSoldier, level);
-				return;
+				if (level > foundLevel)
+				{
+					foundLevel = level;
+					foundLoyalty = loyalty;
+				}
+				else if (level == foundLevel)
+				{
+					foundLoyalty = max(loyalty, foundLoyalty);
+				}
 			}
 		}
 	}
+
+	// loyalty determines success rate
+	if (foundLevel > 0 && Random(100) <= foundLoyalty)
+		applyPenalties(pSoldier, foundLevel);
 }
 
 void ApplyMilitiaBonuses(SOLDIERTYPE* pMilitia)
@@ -1592,10 +1617,6 @@ void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& el
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;
 	
-	// chance for militia to show up
-	if (Random(100) >= gRebelCommandSettings.iSafehouseReinforceChance)
-		return;
-
 	const auto createBonusMilitia = [sx, sy, &green, &regular, &elite, createGroup](UINT8 level)
 	{
 		if (level == 1)
@@ -1649,7 +1670,8 @@ void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& el
 		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szRebelCommandText[RCT_BONUS_MILITIA_JOINED]);
 	};
 	
-	BOOLEAN found = FALSE;
+	UINT8 foundLevel = 0;
+	UINT8 foundLoyalty = 0;
 	for (int a = FIRST_TOWN; a < NUM_TOWNS; ++a)
 	{
 		// make sure town has active admins
@@ -1667,34 +1689,38 @@ void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& el
 			continue;
 
 		// get all sectors with this townid
-		std::vector<std::pair<INT16, INT16>> sectors;
+		std::vector<std::tuple<INT16, INT16, UINT8>> sectors;
 		for (int x = MINIMUM_VALID_X_COORDINATE; x <= MAXIMUM_VALID_X_COORDINATE; ++x)
 			for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
 				if (GetTownIdForSector(x, y) == a)
-					sectors.push_back(std::pair<INT16, INT16>(x, y));
+					sectors.push_back(std::tuple<INT16, INT16, UINT8>(x, y, GetRegionLoyalty(a)));
 
 		// check if sector is within range of the city
-		for (const auto pair : sectors)
+		for (const auto tuple : sectors)
 		{
-			const INT16 x = std::get<0>(pair);
-			const INT16 y = std::get<1>(pair);
+			const INT16 x = std::get<0>(tuple);
+			const INT16 y = std::get<1>(tuple);
+			const UINT8 loyalty = std::get<2>(tuple);
 
-			if (abs(x - sx) + abs(y - sy) <= level)
+			// safehouse effect is only for sectors in or immediately adjacent to a town
+			if (abs(x - sx) + abs(y - sy) <= 1)
 			{
-				if (level == 2)
+				if (level > foundLevel)
 				{
-					createBonusMilitia(level);
-					return;
+					foundLevel = level;
+					foundLoyalty = loyalty;
 				}
-
-				// let's keep searching to see if we are in range of a level 2 bonus
-				found = TRUE;
+				else if (level == foundLevel)
+				{
+					foundLoyalty = max(loyalty, foundLoyalty);
+				}
 			}
 		}
 	}
 
-	if (found)
-		createBonusMilitia(1);
+	// loyalty determines success rate
+	if (foundLevel > 0 && Random(100) <= min(foundLoyalty, gRebelCommandSettings.iSafehouseReinforceChance))
+		createBonusMilitia(foundLevel);
 }
 
 INT16 GetFortificationsBonus(UINT8 sector)
@@ -2219,6 +2245,7 @@ void DailyUpdate()
 		foundCoolness:
 		coolness = max(coolness, 1);
 
+		const UINT8 loyalty = GetRegionLoyalty(a);
 		for (int b = 0; b < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++b)
 		{
 			const INT8 level = rebelCommandSaveInfo.regions[a].actionLevels[b];
@@ -2241,27 +2268,27 @@ void DailyUpdate()
 				break;
 
 			case RCAA_DEAD_DROPS:
-				intelGain += (Random(static_cast<UINT32>(info.adminActions[RCAA_DEAD_DROPS].fValue1)) * level);
+				intelGain += Random(static_cast<UINT32>(info.adminActions[RCAA_DEAD_DROPS].fValue1 * level * loyalty / 100.f));
 				break;
 				
 			case RCAA_SMUGGLERS:
-				supplyGain += static_cast<INT16>((Random(static_cast<UINT32>(info.adminActions[RCAA_SMUGGLERS].fValue1)) * level));
+				supplyGain += Random(static_cast<UINT32>(info.adminActions[RCAA_SMUGGLERS].fValue1 * level * loyalty / 100.f));
 				break;
 
 			case RCAA_WAREHOUSES:
 				AddResources(
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) / 100.f),
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) / 100.f),
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) / 100.f));
+					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) * loyalty / 10000.f),
+					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) * loyalty / 10000.f),
+					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) * loyalty / 10000.f));
 				break;
 
 			case RCAA_TAXES:
-				moneyGain += static_cast<INT16>(info.adminActions[RCAA_TAXES].fValue1 * coolness * level * level);
+				moneyGain += static_cast<INT16>(info.adminActions[RCAA_TAXES].fValue1 * coolness * level * loyalty * (75.f + Random(26))/ 10000.f);
 				DecrementTownLoyalty(a, static_cast<UINT32>(info.adminActions[RCAA_TAXES].fValue2 * level));
 				break;
 
 			case RCAA_ASSIST_CIVILIANS:
-				AddVolunteers(static_cast<FLOAT>(info.adminActions[RCAA_ASSIST_CIVILIANS].fValue1 * level * Random(100) / 100.f));
+				AddVolunteers(static_cast<FLOAT>(info.adminActions[RCAA_ASSIST_CIVILIANS].fValue1 * level * loyalty / 100.f));
 				break;
 
 

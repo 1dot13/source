@@ -110,8 +110,9 @@ typedef struct SaveInfo
 	INT32 iActiveDirective = RCD_GATHER_SUPPLIES;
 	INT32 iSelectedDirective = RCD_GATHER_SUPPLIES;
 	INT8 iMilitiaStatsLevel = 0;
+	UINT8 uSupplyDropCount = 0;
 
-	INT8 filler[20];
+	INT8 filler[19];
 } SaveInfo;
 
 extern SaveInfo rebelCommandSaveInfo;
