@@ -632,14 +632,15 @@ INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& 
 
 	INT16 scaler = -(ANIM_STAND+1 - ubStance); // stand = 7-6 => 10%, crouch = 7-3 => 66%, prone = 7-1 => 100%;
 
-	UINT8 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness;
-	
-	effectiveness += (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CAMO));
+	INT16 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness + pSoldier->GetBackgroundValue(BG_PERC_CAMO);
 
 	if (ProfileHasSkillTrait(pSoldier->ubProfile, SURVIVAL_NT))
 	{
 		effectiveness += gSkillTraitValues.ubSVCamoEffectivenessBonus;
 	}
+
+	effectiveness = min(100, effectiveness);
+	effectiveness = max(-100, effectiveness);
 
 	scaler = effectiveness * scaler / 6;
 
@@ -675,9 +676,7 @@ INT8 GetDetailedSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const
 	
 	INT16 scaler = -(ANIM_STAND+1 - max(ANIM_PRONE, ubStance - bStanceModifier)); // stand = 7-6 => 10%, crouch = 7-3 => 66%, prone = 7-1 => 100%;
 
-	UINT8 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness;
-	
-	effectiveness += (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CAMO));
+	INT16 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness + pSoldier->GetBackgroundValue(BG_PERC_CAMO);
 
 	if (ProfileHasSkillTrait(pSoldier->ubProfile, SURVIVAL_NT))
 	{
