@@ -2101,6 +2101,7 @@ typedef struct
 	INT8 sSVFoodConsumption;					// alters food consumption rate
 	INT8 sSVDrinkConsumption;
 	UINT8 usSVSnakeDefense;						// increases chance to evade a snake attack
+	UINT8 ubSVCamoEffectivenessBonus;
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

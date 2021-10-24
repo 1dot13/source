@@ -397,7 +397,6 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"-%d%s travel time needed between sectors if traveling in vehicle (except helicopter)\n",
 	L"-%d%s less energy spent for travelling between sectors\n",
 	L"-%d%s weather penalties\n",
-	//L"+%d%s camouflage effectiveness\n",
 	L"-%d%s worn out speed of camouflage by water or time\n",
 	L"Can spot tracks up to %d tiles away\n",
 
@@ -405,6 +404,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"%s%d%% food consumption\n",
 	L"%s%d%% water consumption\n",
 	L"+%d%% snake evasion\n",
+	L"+%d%% camouflage effectiveness\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

@@ -398,7 +398,6 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"-%d%s Reisezeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
 	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
 	L"-%d%s Einfluss durch schlechtes Wetter\n",
-	//L"+%d%s Tarnungs-Effektivität\n",
 	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
 	L"Kann Spuren bis zu %d Felder weit erkennen\n",
 
@@ -406,6 +405,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"%s%d%% food consumption\n",
 	L"%s%d%% water consumption\n",
 	L"+%d%% snake evasion\n",	// TODO.Translate
+	L"+%d%% Tarnungs-Effektivität\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

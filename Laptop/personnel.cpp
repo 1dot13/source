@@ -8365,6 +8365,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					}
 				}
 
+				if ( gSkillTraitValues.ubSVCamoEffectivenessBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[10], gSkillTraitValues.ubSVCamoEffectivenessBonus );
+					wcscat( apStr, atStr );
+				}
+
 				break;
 			}
 			case NO_SKILLTRAIT_NT:

@@ -395,7 +395,6 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont dans un véhicule (sauf l'hélicoptère)\n",
 	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",
 	L"-%d%s de pénalités du temps\n",
-	//L"+%d%s d'efficacité du camouflage\n",
 	L"-%d%s de l'usure du camouflage due au temps ou à l'eau\n",
 	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 
@@ -403,6 +402,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"%s%d%% food consumption\n",
 	L"%s%d%% water consumption\n",
 	L"+%d%% snake evasion\n",	// TODO.Translate
+	L"+%d%% d'efficacité du camouflage\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

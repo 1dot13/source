@@ -397,7 +397,6 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"队伍在区域间乘车移动的速度 +%d%s \n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
 	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
-    //L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
 	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
 	L"能够发现%d格之内的脚印 \n",	//L"Can spot tracks up to %d tiles away\n",
 
@@ -405,6 +404,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"食物消耗 %s%d%%\n",//L" %s%d%% food consumption\n",
 	L"水 消 耗 %s%d%%\n",//L" %s%d%% water consumption\n",
 	L"回避几率 +%d%%\n",	//L"+%d%% snake evasion\n", 
+    L"迷彩涂装效果 +%d%%\n",// L"+%d%s camouflage effectiveness\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

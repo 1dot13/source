@@ -402,6 +402,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"%s%d%% food consumption\n",
 	L"%s%d%% water consumption\n",
 	L"+%d%% snake evasion\n",	// TODO.Translate
+	L"+%d%% camouflage effectiveness\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

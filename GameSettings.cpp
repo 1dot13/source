@@ -2685,6 +2685,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.sSVFoodConsumption						= iniReader.ReadInteger( "Survival", "FOOD_CONSUMPTION", -20, -100, 100 );
 	gSkillTraitValues.sSVDrinkConsumption						= iniReader.ReadInteger( "Survival", "DRINK_CONSUMPTION", -10, -100, 100 );
 	gSkillTraitValues.usSVSnakeDefense							= iniReader.ReadInteger( "Survival", "SNAKE_EVADE_BONUS", 10, 0, 50 );
+	gSkillTraitValues.ubSVCamoEffectivenessBonus				= iniReader.ReadInteger( "Survival", "CAMO_EFFECTIVENESS_BONUS", 20, 0, 100);
 }
 
 //DBrot: Grids
