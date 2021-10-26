@@ -13833,7 +13833,8 @@ INT16 GetReliability( OBJECTTYPE * pObj )
 	
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 	{
-		if(iter->exists())
+		// sevenfm: attached weapons should not add reliability
+		if(iter->exists() && !(Item[iter->usItem].usItemClass & IC_WEAPON))
 			bonus += Item[iter->usItem].bReliability;
 	}
 
