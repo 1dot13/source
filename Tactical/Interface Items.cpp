@@ -2592,7 +2592,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 					{
 						fHatchItOut = TRUE;
 					}
-					else if ( !pObject->exists() )	// Nothing in sPocket.  Display silouhette.
+					else if ( !pObject->exists() )	// Nothing in sPocket.  Display silhouette.
 					{
 						INVRenderSilhouette( guiSAVEBUFFER, lbePocket, 0, sX, sY, gSMInvData[ sPocket ].sWidth, gSMInvData[ sPocket ].sHeight);
 					}
@@ -2632,7 +2632,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 				default:
 					/*if ( pObject->exists() == false )
 					{
-						// Display appropriate silouhette
+						// Display appropriate silhouette
 					}*/
 					break;
 			}
@@ -8302,7 +8302,7 @@ void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject )
 		if(lbePocket == 0){	// Deactivate Pocket
 			DrawHatchOnInventory( guiSAVEBUFFER, sX, sY, (UINT16)(LBEInvPocketXY[cnt].sWidth-1), (UINT16)(LBEInvPocketXY[cnt].sHeight-1), 0 );
 		}
-		else if(pObject == NULL){	// Nothing in sPocket.  Display silouhette.
+		else if(pObject == NULL){	// Nothing in sPocket.  Display silhouette.
 			INVRenderSilhouette( guiSAVEBUFFER, lbePocket, 0, sX, sY, LBEInvPocketXY[cnt].sWidth, LBEInvPocketXY[cnt].sHeight);
 		}
 		else if(pObject != NULL){
@@ -8369,10 +8369,12 @@ void DeleteItemDescriptionBox( )
 			originalIter != gOriginalAttachments.end() && newIter != (*gpItemDescObject)[0]->attachments.end();
 			++originalIter, ++newIter)
 			{
-				if(originalIter->exists()){
+				if(originalIter->exists())
+				{
 					originalSize++;
 				}
-				if(newIter->exists()){
+				if(newIter->exists())
+				{
 					newSize++;
 				}
 				// silversurfer: If we replaced one attachment with another the size will not differ so we need to check content too.
@@ -8383,33 +8385,58 @@ void DeleteItemDescriptionBox( )
 				}
 			}
 
-
-			if (newSize != originalSize || bAttachmentsDiffer) {
+			if (newSize != originalSize || bAttachmentsDiffer) 
+			{
 				//an attachment was changed, find the change
 				for (originalIter = gOriginalAttachments.begin(), newIter = (*gpItemDescObject)[0]->attachments.begin();
 					originalIter != gOriginalAttachments.end() && newIter != (*gpItemDescObject)[0]->attachments.end();
-					++originalIter, ++newIter) {
-					if (*originalIter == *newIter) {
+					++originalIter, ++newIter) 
+				{
+					if (*originalIter == *newIter) 
+					{
 						continue;
 					}
-					else {
+					else 
+					{
 						break;
 					}
 				}
-				if (newSize < originalSize) {
+				if (newSize < originalSize) 
+				{
 					//an attachment was removed, charge APs
 					ubAPCost = AttachmentAPCost(originalIter->usItem,gpItemDescObject, gpAttachSoldier ); // SANDRO - added argument
 				}
-				else {
+				else 
+				{
 					//an attachment was added charge APs
-					//lalien: changed to charge AP's for reloading a GL/RL
-					if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].cannon )
+
+					// sevenfm: check if we are attaching grenade to launcher
+					OBJECTTYPE *pLauncher = NULL;
+					// check if loading GL
+					if (Item[gpItemDescObject->usItem].usItemClass & IC_WEAPON && Item[newIter->usItem].usItemClass & IC_EXPLOSV)
 					{
-						ubAPCost = GetAPsToReload( gpItemDescObject );
+						for (attachmentList::iterator iter = (*gpItemDescObject)[0]->attachments.begin(); iter != (*gpItemDescObject)[0]->attachments.end(); ++iter)
+						{
+							if (iter->exists() && ValidLaunchable(newIter->usItem, iter->usItem))
+							{
+								pLauncher = &(*iter);
+							}
+						}
+					}
+
+					if (Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && ValidLaunchable(newIter->usItem, gpItemDescObject->usItem) ||
+						Item[gpItemDescObject->usItem].cannon)
+					{
+						//lalien: changed to charge AP's for reloading a GL/RL
+						ubAPCost = GetAPsToReload(gpItemDescObject);
+					}
+					else if (pLauncher)
+					{
+						ubAPCost = GetAPsToReload(pLauncher);
 					}
 					else
 					{
-						ubAPCost = AttachmentAPCost(newIter->usItem,gpItemDescObject, gpAttachSoldier); // SANDRO - added argument
+						ubAPCost = AttachmentAPCost(newIter->usItem, gpItemDescObject, gpAttachSoldier); // SANDRO - added argument
 					}
 				}
 			}

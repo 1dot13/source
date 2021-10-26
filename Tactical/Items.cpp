@@ -2301,6 +2301,8 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 
 	if( UsingNewAttachmentSystem() )
 	{
+		BOOLEAN foundValidAttachment = FALSE;
+
 		//It's possible we've entered this function without being passed the usAttachmentSlotIndexVector parameter
 		if(usAttachmentSlotIndexVector.empty())
 			usAttachmentSlotIndexVector = GetItemSlots(pObj);
@@ -2310,7 +2312,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 			return FALSE;
 		
 		//Madd: Common Attachment Framework
-		if ( pubAPCost && IsAttachmentPointAvailable( pObj, subObject, usAttachment ) )
+		if (pubAPCost && IsAttachmentPointAvailable(pObj, subObject, usAttachment))
 		{
 			*pubAPCost = Item[usAttachment].ubAttachToPointAPCost;
 
@@ -2319,21 +2321,39 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 		else
 		{
 			//Check if the attachment is valid with the main item
-			if ( ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem) )
-				return TRUE;
+			foundValidAttachment = (ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem));
 
 			//Loop through all attachment points on the main item
-			for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
+			for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end() && !foundValidAttachment; ++iter)
 			{
-				if ( iter->exists() )
+				if (iter->exists())
 				{
-					if ( ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem) )
-						return TRUE;
+					foundValidAttachment = (ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem));
+				}
+			}
+
+			// sevenfm: determine if we attach launchable to launcher
+			if (foundValidAttachment && pubAPCost)
+			{
+				if (Item[pObj->usItem].usItemClass == IC_LAUNCHER && ValidLaunchable(usAttachment, pObj->usItem))
+				{
+					*pubAPCost = GetAPsToReload(pObj);
+				}
+				else if (Item[pObj->usItem].usItemClass & IC_WEAPON && Item[usAttachment].usItemClass & IC_EXPLOSV)
+				{
+					for (attachmentList::iterator iter_launcher = (*pObj)[0]->attachments.begin(); iter_launcher != (*pObj)[0]->attachments.end(); ++iter_launcher)
+					{
+						if (iter_launcher->exists() && ValidLaunchable(usAttachment, iter_launcher->usItem))
+						{
+							*pubAPCost = GetAPsToReload(&(*iter_launcher));
+							break;
+						}
+					}
 				}
 			}
 		}
 
-		return FALSE;
+		return foundValidAttachment;
 	}
 
 	return( ValidAttachment(usAttachment, pObj->usItem, pubAPCost) );
@@ -2364,8 +2384,27 @@ UINT8 AttachmentAPCost( UINT16 usAttachment, OBJECTTYPE * pObj, SOLDIERTYPE * pS
 
 	ValidAttachment(usAttachment, pObj, &ubAPCost, subObject, usAttachmentSlotIndexVector);
 
+	BOOLEAN fLaunchable = FALSE;
+	if (Item[pObj->usItem].usItemClass == IC_LAUNCHER && ValidLaunchable(usAttachment, pObj->usItem))
+	{
+		fLaunchable = TRUE;
+	}
+	// sevenfm: different cost when attaching grenade to attached launcher
+	else if (Item[pObj->usItem].usItemClass & IC_WEAPON && Item[usAttachment].usItemClass & IC_EXPLOSV)
+	{
+		OBJECTTYPE *pLauncher;
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && ValidLaunchable(usAttachment, iter->usItem))
+			{
+				fLaunchable = TRUE;
+			}
+		}
+	}
+
 	// SANDRO - STOMP traits - Ambidextrous attaching objects speed bonus
-	if ( pSoldier != NULL )
+	// sevenfm: don't apply when attaching launchable to launcher
+	if (pSoldier != NULL && !fLaunchable)
 	{
 		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 		{
@@ -3669,7 +3708,11 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 
 		if ( usReloadSound != 0 && !IsAutoResolveActive() )
 		{
-			PlayJA2Sample( usReloadSound, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+			// sevenfm: set volume and pan based on soldier's gridno when reloading
+			if (!TileIsOutOfBounds(pSoldier->sGridNo))
+				PlayJA2Sample(usReloadSound, RATE_11025, SoundVolume((INT8)HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+			else
+				PlayJA2Sample( usReloadSound, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		}
 	}
 
