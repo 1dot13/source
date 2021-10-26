@@ -257,6 +257,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	UINT16						usRaiseGunCost = 0;
 	UINT16						usTurningCost = 0;
 
+	//shadooow: automatically close EDB when opened and trying to use any weapon or action
+	if (gfInItemDescBox)
+	{
+		DeleteItemDescriptionBox();
+	}
+
 	// Remove any previous actions
 	pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
 
