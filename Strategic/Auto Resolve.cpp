@@ -4598,7 +4598,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		
 		ubLocation = AIM_SHOT_TORSO;
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
+		//ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - increased mercs' offense/deffense rating
@@ -4672,7 +4672,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		else
 			ubLocation = AIM_SHOT_TORSO;
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
+		//ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - increased mercs' offense/deffense rating
@@ -4709,8 +4709,13 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			ubLocation = AIM_SHOT_LEGS;
 		else
 			ubLocation = AIM_SHOT_TORSO;
+		
+		if (usDefence >= pTarget->usDefence)
+			iRandom = PreRandom(usDefence - pTarget->usDefence);
+		else
+			iRandom = -PreRandom(pTarget->usDefence - usDefence);
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
+		ubAccuracy = (UINT8)((usAttack - usDefence + iRandom)/10);
 		// HEADROCK HAM 5: Added argument
 		iImpact = BulletImpact( pAttacker->pSoldier, NULL, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4746,7 +4751,12 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			return;
 		}
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
+		if (usDefence >= pTarget->usDefence)
+			iRandom = PreRandom(usDefence - pTarget->usDefence);
+		else
+			iRandom = -PreRandom(pTarget->usDefence - usDefence);
+
+		ubAccuracy = (UINT8)((usAttack - usDefence + iRandom)/10);
 
 		//Determine attacking weapon.
 		pAttacker->pSoldier->usAttackingWeapon = 0;
