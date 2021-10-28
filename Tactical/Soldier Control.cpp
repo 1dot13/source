@@ -7199,6 +7199,13 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 	BOOLEAN						fAdvancePath = TRUE;
 	UINT8							fFlags = 0;
 
+	//shadooow: if collapsed and enough breath, get up first and wait for new input
+	if (this->bCollapsed && this->bBreath >= OKBREATH)
+	{
+		this->BeginSoldierGetup();
+		if(!this->bCollapsed) return FALSE;
+	}
+
 	// Ifd this code, make true if a player
 	if ( fFromUI == 3 )
 	{

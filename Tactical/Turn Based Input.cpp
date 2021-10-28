@@ -6306,6 +6306,10 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 					if (gAnimControl[pSoldier->usAnimState].ubEndHeight != ubAnimHeight)
 						pSoldier->usPendingAnimation = usNewState;
 				}
+				else if (pSoldier->bCollapsed && pSoldier->bBreath >= OKBREATH)
+				{
+					pSoldier->BeginSoldierGetup();
+				}
 				else
 				{
 					UIHandleSoldierStanceChange(pSoldier->ubID, ubAnimHeight);
