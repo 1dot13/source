@@ -5200,12 +5200,6 @@ UINT32 MapScreenHandle(void)
 		MSYS_DefineRegion( &gMapScreenMaskRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_LOW,
 							CURSOR_NORMAL, MSYS_NO_CALLBACK, MapScreenMarkRegionBtnCallback);
 		
-		// region for detailed merc weight
-		MSYS_DefineRegion( &gMapMercWeightRegion, (MAP_WEIGHT_X + 2), (MAP_WEIGHT_Y), (MAP_WEIGHT_X + 28), (MAP_WEIGHT_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-
-		// region for detailed merc camo
-		MSYS_DefineRegion( &gMapMercCamoRegion, ( MAP_CAMMO_X + 2), ( MAP_CAMMO_Y ), (MAP_CAMMO_X + 28), (MAP_CAMMO_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback );
-
 		// set help text for item glow region
 		SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 
@@ -5256,8 +5250,6 @@ UINT32 MapScreenHandle(void)
 		MSYS_AddRegion( &gMapViewRegion);
 		MSYS_AddRegion( &gCharInfoFaceRegion);
 		MSYS_AddRegion( &gMPanelRegion);
-		MSYS_AddRegion( &gMapMercWeightRegion );
-		MSYS_AddRegion( &gMapMercCamoRegion );
 
 	if ( !gfFadeOutDone && !gfFadeIn )
 	{
@@ -8556,8 +8548,6 @@ INT32 iCounter2 = 0;
 	MSYS_RemoveRegion( &gCharInfoHandRegion );
 	MSYS_RemoveRegion( &gMPanelRegion);
 	MSYS_RemoveRegion( &gMapScreenMaskRegion );
-	MSYS_RemoveRegion( &gMapMercWeightRegion );
-	MSYS_RemoveRegion( &gMapMercCamoRegion);
 	fInMapMode = FALSE;
 
 	// remove team panel sort button
@@ -9253,8 +9243,6 @@ void CreateDestroyMapInvButton()
 
 	InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
 	MSYS_EnableRegion(&gMPanelRegion);
-	MSYS_EnableRegion(&gMapMercWeightRegion);
-	MSYS_EnableRegion(&gMapMercCamoRegion);
 	
 	// switch hand region help text to "Exit Inventory"
 	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
@@ -9275,8 +9263,6 @@ void CreateDestroyMapInvButton()
 	//UnloadButtonImage( giMapInvButtonImage );
 	fTeamPanelDirty=TRUE;
 	MSYS_DisableRegion(&gMPanelRegion);
-	MSYS_DisableRegion(&gMapMercWeightRegion);
-	MSYS_DisableRegion(&gMapMercCamoRegion);
 
 	// switch hand region help text to "Enter Inventory"
 	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
@@ -13331,6 +13317,12 @@ void CreateDestroyTrashCanRegion( void )
 		MSYS_DefineRegion( &gTrashCanRegion, 	TRASH_CAN_X, TRASH_CAN_Y, TRASH_CAN_X + TRASH_CAN_WIDTH, TRASH_CAN_Y + TRASH_CAN_HEIGHT , MSYS_PRIORITY_HIGHEST - 4 ,
 							MSYS_NO_CURSOR, TrashCanMoveCallback, TrashCanBtnCallback );
 
+		// region for detailed merc weight
+		MSYS_DefineRegion(&gMapMercWeightRegion, (MAP_WEIGHT_X + 2), (MAP_WEIGHT_Y), (MAP_WEIGHT_X + 28), (MAP_WEIGHT_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL);
+
+		// region for detailed merc camo
+		MSYS_DefineRegion(&gMapMercCamoRegion, (MAP_CAMMO_X + 2), (MAP_CAMMO_Y), (MAP_CAMMO_X + 28), (MAP_CAMMO_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback);
+
 		// done inventory button define
 		giMapInvButtonDoneImage = LoadButtonImage( "INTERFACE\\done_button2.sti" ,-1,0,-1,1,-1 );
 	giMapInvDoneButton = QuickCreateButton( giMapInvButtonDoneImage, INV_BTN_X, INV_BTN_Y,
@@ -13364,6 +13356,8 @@ void CreateDestroyTrashCanRegion( void )
 		// trash can region
 		fCreated = FALSE;
 		MSYS_RemoveRegion( &gTrashCanRegion );
+		MSYS_RemoveRegion(&gMapMercWeightRegion);
+		MSYS_RemoveRegion(&gMapMercCamoRegion);
 
 		// map inv done button
 		RemoveButton( giMapInvDoneButton );
