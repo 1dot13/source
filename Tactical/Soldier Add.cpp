@@ -1194,6 +1194,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		pSoldier->usQuoteSaidFlags &= (~SOLDIER_QUOTE_SAID_SMELLED_CREATURE);
 		pSoldier->usQuoteSaidFlags &= (~SOLDIER_QUOTE_SAID_WORRIED_ABOUT_CREATURES);
 
+		BOOLEAN gfEnteredFromTacticalPlacement = FALSE;
 		// Add to interface if the are ours
 		if ( pSoldier->bTeam == CREATURE_TEAM )
 		{
@@ -1286,6 +1287,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			{
 				pSoldier->ubInsertionDirection = pSoldier->ubInsertionDirection - 100;
 				fCalculateDirection = FALSE;
+				gfEnteredFromTacticalPlacement = TRUE;
 			}
 
 			if ( fCalculateDirection )
@@ -1315,8 +1317,8 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		}
 
 		//Add
-		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME || pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO)
-			AddSoldierToSectorGridNo( pSoldier, sGridNo, pSoldier->ubDirection, false, usAnimState, usAnimCode );
+		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME || (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !gfEnteredFromTacticalPlacement))
+			AddSoldierToSectorGridNo( pSoldier, sGridNo, pSoldier->ubDirection, TRUE, -1, 0);//shadooow: hack to make sure animations aren't changed
 		else
 			AddSoldierToSectorGridNo( pSoldier, sGridNo, ubDirection, fUseAnimation, usAnimState, usAnimCode );
 
@@ -1719,7 +1721,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( usAnimState, usAnimCode, TRUE );
 					}
-					else if ( pSoldier->ubBodyType != CROW && ubInsertionCode != INSERTION_CODE_GRIDNO)
+					else if ( pSoldier->ubBodyType != CROW)
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( STANDING, 1, TRUE );
 					}
