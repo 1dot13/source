@@ -1495,7 +1495,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					FreeUpNPCFromRoofClimb( pSoldier );
 				}
-				pSoldier->usUIMovementMode = WALKING;
+				if(pSoldier->usUIMovementMode != RUNNING)
+					pSoldier->usUIMovementMode = WALKING;
 
 				// ATE: Handle sight...
 				HandleSight( pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT );
