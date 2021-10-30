@@ -102,12 +102,12 @@ enum //GraphicIDs for the panel
 //The start of the black space
 #define TOP_Y							113
 //The end of the black space
-#define BOTTOM_Y					(349+(OUR_TEAM_SIZE_NO_VEHICLE-18)*ROW_HEIGHT)
-//#define BOTTOM_Y					349
+//#define BOTTOM_Y					(349+(OUR_TEAM_SIZE_NO_VEHICLE-18)*ROW_HEIGHT)
+#define BOTTOM_Y					349
 //The internal height of the uninvolved panel
 #define INTERNAL_HEIGHT		27
 //The actual height of the uninvolved panel
-#define ACTUAL_HEIGHT			34
+#define ACTUAL_HEIGHT			24
 
 BOOLEAN gfDisplayPotentialRetreatPaths = FALSE;
 UINT16 gusRetreatButtonLeft, gusRetreatButtonTop, gusRetreatButtonRight, gusRetreatButtonBottom;
@@ -1332,20 +1332,18 @@ void RenderPreBattleInterface()
 			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xResOffset, 6 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 10, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 20, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 30, VO_BLT_SRCTRANSPARENCY, NULL);
 		//Draw the bottom edges
 		for (i = 0; i < max(guiNumUninvolved, 1); i++)
 		{
-			y = BOTTOM_Y - ROW_HEIGHT * (i + 1) + 1;
+			y = BOTTOM_Y + ROW_HEIGHT * (i + 1) + 30;
 			BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
 		}
-
-		y = BOTTOM_Y - ACTUAL_HEIGHT - ROW_HEIGHT * max( guiNumUninvolved, 1 );
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 10 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 20 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + 30 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_END, 0 + xResOffset, BOTTOM_Y + 1 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xResOffset, BOTTOM_Y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_END, 0 + xResOffset, BOTTOM_Y + yResOffset + 35 + ROW_HEIGHT * max(guiNumUninvolved, 1), VO_BLT_SRCTRANSPARENCY, NULL);
 
 		SetFont( BLOCKFONT );
 		SetFontForeground( FONT_BEIGE );
@@ -1413,12 +1411,12 @@ void RenderPreBattleInterface()
 		//Draw the bottom columns
 		for( i = 0; i < (INT32)max( guiNumUninvolved, 1 ); i++ )
 		{
-			y = BOTTOM_Y - ROW_HEIGHT * (i+1) + 1;
+			y = BOTTOM_Y + ROW_HEIGHT * (i+1) + 1 + ACTUAL_HEIGHT;
 			BltVideoObject( guiSAVEBUFFER, hVObject, BOTTOM_COLUMN, 161 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
         // WDS - make number of mercenaries, etc. be configurable
-		for( i = 0; i < (INT32)(/*21*/3+ OUR_TEAM_SIZE_NO_VEHICLE - max( guiNumUninvolved, 1 )); i++ )
+		for( i = 0; i < (INT32)(25/*3+ OUR_TEAM_SIZE_NO_VEHICLE - max( guiNumUninvolved, 1 )*/); i++ )
 		{
 			y = TOP_Y + ROW_HEIGHT * i;
 			BltVideoObject( guiSAVEBUFFER, hVObject, TOP_COLUMN, 186 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1519,13 +1517,13 @@ void RenderPreBattleInterface()
 			SetFontForeground( FONT_YELLOW );
 			wcscpy( str, gpStrategicString[ STR_PB_NONE ] );
 			x = 17 + (52-StringPixLength( str, BLOCKFONT2)) / 2;
-			y = BOTTOM_Y - ROW_HEIGHT + 2;
+			y = BOTTOM_Y + ROW_HEIGHT + 2 + ACTUAL_HEIGHT;
 			mprintf( x + xResOffset, y + yResOffset, str );
 		}
 		else
 		{			
 			pGroup = gpGroupList;
-			y = BOTTOM_Y - ROW_HEIGHT * guiNumUninvolved + 2;
+			y = BOTTOM_Y + ROW_HEIGHT + 2 + ACTUAL_HEIGHT;
 			for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 			{
 				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
@@ -1570,10 +1568,12 @@ void RenderPreBattleInterface()
 		// mark any and ALL pop up boxes as altered
 		MarkAllBoxesAsAltered( );
 
-		if( !guiNumUninvolved || gfZoomDone == FALSE )		
-			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 359 + yResOffset );				
-		else		
-			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, y + yResOffset );				
+		if(!gfZoomDone)
+			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 359 + yResOffset );
+		else if(!guiNumUninvolved)		
+			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 389 + yResOffset );
+		else
+			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, y + yResOffset );
 
 		// restore font destinanation buffer to the frame buffer
 		SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
