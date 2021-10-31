@@ -2440,7 +2440,7 @@ BOOLEAN DrawCTHIndicator()
 	INT16 sRight = gsVIEWPORT_END_X;
 	INT16 sBottom = gsVIEWPORT_WINDOW_END_Y;
 
-	iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sLeft, sTop, sRight, sBottom);
+	iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE | BGND_FLAG_IGNORE_RAIN, NULL, sLeft, sTop, sRight, sBottom);
 
 	if ( iBack != -1 )
 	{

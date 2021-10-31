@@ -598,10 +598,10 @@ void RainClipVideoOverlay()
 	{
 		pCurr = gVideoOverlays[ uiIndex ].pBackground;
 
-		if( pCurr->sLeft < gRainRegion.right ||
+		if(!(pCurr->uiFlags & BGND_FLAG_IGNORE_RAIN) && (pCurr->sLeft < gRainRegion.right ||
 			pCurr->sTop < gRainRegion.bottom ||
 			pCurr->sRight >= gRainRegion.left ||
-			pCurr->sBottom >= gRainRegion.top )
+			pCurr->sBottom >= gRainRegion.top))
 				ColorFillVideoSurfaceArea( guiRainRenderSurface, pCurr->sLeft, pCurr->sTop, pCurr->sRight, pCurr->sBottom, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	}
 }
