@@ -4379,7 +4379,7 @@ BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 {
 	INT16 sAttack;
-	UINT16 sDefence;
+	INT16 sDefence;
 	UINT8 ubImpact;
 	UINT8 ubLocation;
 	INT16 sAccuracy;
@@ -4489,7 +4489,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fCannon = TRUE;
 
 		// cannons have a huge splash zone, so they are much more likely to hit
-		sAttack *= 1.5;
+		sAttack = (INT16)(sAttack * 1.5);
 	}
 	// if our target is a tank, we use heavy weapons if we have any
 	else if ( (ARMED_VEHICLE( pTarget->pSoldier ) || ENEMYROBOT( pTarget->pSoldier )) && FireAntiTankWeapon( pAttacker ) )
@@ -4497,7 +4497,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fAntiTank = TRUE;
 
 		// hitting a tank with an rpg isn't easy
-		sAttack *= 0.8;
+		sAttack = (INT16)(sAttack * 0.8);
 	}
 	else if( !FireAShot( pAttacker ) )
 	{
@@ -4664,7 +4664,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 		UINT8 ubAmmoType = Magazine[Item[(&pAttacker->pSoldier->inv[pAttacker->bWeaponSlot])->usItem].ubClassIndex].ubAmmoType;
 				
-		ubImpact *= AmmoTypes[ubAmmoType].dDamageModifierTank;
+		ubImpact = (UINT8)(ubImpact * AmmoTypes[ubAmmoType].dDamageModifierTank);
 
 		iRandom = Random( 100 );
 		if ( iRandom < 15 )
@@ -4715,7 +4715,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		if (sDefence >= pTarget->usDefence)
 			iRandom = PreRandom(sDefence - pTarget->usDefence);
 		else
-			iRandom = -PreRandom(pTarget->usDefence - sDefence);
+			iRandom = -(INT16)PreRandom(pTarget->usDefence - sDefence);
 
 		sAccuracy = (sAttack - sDefence + iRandom) / 10;
 
@@ -4757,7 +4757,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		if (sDefence >= pTarget->usDefence)
 			iRandom = PreRandom(sDefence - pTarget->usDefence);
 		else
-			iRandom = -PreRandom(pTarget->usDefence - sDefence);
+			iRandom = -(INT16)PreRandom(pTarget->usDefence - sDefence);
 
 		sAccuracy = (sAttack - sDefence + iRandom) / 10;
 
