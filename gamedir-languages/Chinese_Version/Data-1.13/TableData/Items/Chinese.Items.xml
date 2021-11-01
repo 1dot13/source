@@ -8154,11 +8154,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1019</uiIndex>
-		<szItemName>埃索汽油</szItemName>
-		<szLongItemName>埃索汽油</szLongItemName>
-		<szItemDesc>一桶埃索汽油。可笑的是，你从未在这里见过埃索的加油站。</szItemDesc>
-		<szBRName>埃索汽油</szBRName>
-		<szBRDesc>我们可以保证，这绝对是你在市场上可以找到的最好的汽油了。（一年包退，包装破损无效）</szBRDesc>
+		<szItemName>埃索机油</szItemName>
+		<szLongItemName>埃索机油</szLongItemName>
+		<szItemDesc>一罐埃索牌机油。有趣的是，你从未在这里见过埃索的加油站。</szItemDesc>
+		<szBRName>埃索机油</szBRName>
+		<szBRDesc>我们可以保证，这绝对是你在市场上可以找到的最好的机油了。（一年包退，包装破损无效）</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1020</uiIndex>
@@ -12314,11 +12314,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1539</uiIndex>
-		<szItemName>万能解药</szItemName>
-		<szLongItemName>万能解药</szLongItemName>
-		<szItemDesc>这个万能解药可以在一段时间后缓慢消除中毒影响。警告：可能导致暂时失明和重度偏头痛。</szItemDesc>
-		<szBRName>万能解药</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szItemName>无此物品</szItemName>
+		<szLongItemName>无此物品</szLongItemName>
+		<szItemDesc>不卖这个,如果你看到了说明游戏快要挂了。</szItemDesc>
+		<szBRName>无此物品</szBRName>
+		<szBRDesc>不卖这个,如果你看到了说明游戏快要挂了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1540</uiIndex>
