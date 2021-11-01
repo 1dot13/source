@@ -1634,7 +1634,9 @@ UINT32 AutoBandageMercs()
 
 			// SANDRO - added safety check
 			cnt++;
-			if( cnt > 500 )
+			// sevenfm: INT8 cannot be larger than 127, should be 50 probably as in other check here
+			//if( cnt > 500 )
+			if (cnt > 50)
 				break;
 		}
 	}
@@ -4376,11 +4378,11 @@ BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 
 void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 {
-	UINT16 usAttack;
-	UINT16 usDefence;
+	INT16 sAttack;
+	UINT16 sDefence;
 	UINT8 ubImpact;
 	UINT8 ubLocation;
-	UINT8 ubAccuracy;
+	INT16 sAccuracy;
 	INT32 iRandom;
 	INT32 iImpact;
 	INT32 iNewLife;
@@ -4393,69 +4395,69 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 	pAttacker->uiFlags |= CELL_FIREDATTARGET | CELL_DIRTY;
 	if( pAttacker->usAttack < 950 )
-		usAttack = (UINT16)(pAttacker->usAttack + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pAttacker->usAttack ));
+		sAttack = (INT16)(pAttacker->usAttack + PreRandom(max(0, (INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - (INT16)pAttacker->usAttack)));
 	else
-		usAttack = (UINT16)(950 + PreRandom( 50 ));
+		sAttack = 950 + PreRandom(50);
 
 	if( pTarget->uiFlags & CELL_RETREATING && !(pAttacker->uiFlags & CELL_FEMALECREATURE) )
 	{
 		//Attacking a retreating merc is harder.	Modify the attack value to 70% of it's value.
 		//This allows retreaters to have a better chance of escaping.
-		usAttack = usAttack * 7 / 10;
+		sAttack = sAttack * 7 / 10;
 	}
 
 	if( pTarget->usDefence < 950 )
-		usDefence = (UINT16)(pTarget->usDefence + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pTarget->usDefence ));
+		sDefence = (INT16)(pTarget->usDefence + PreRandom(max(0, (INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - (INT16)pTarget->usDefence)));
 	else
-		usDefence = (UINT16)(950 + PreRandom( 50 ));
+		sDefence = 950 + PreRandom(50);
 
 	///////////////////////////////////////////////////////////////////////////////////////////
-	// SANDRO - Iincrease Militia Strength in autoresolve battles 
-	// because the attack and defense is limited to max 1000, rather than only increasing the attack of milita,
+	// SANDRO - Increase Militia Strength in autoresolve battles 
+	// because the attack and defense is limited to max 1000, rather than only increasing the attack of militia,
 	// decrease the defense of target - so +100% bonus means +50% attack of attacker and -50% defense of target
 
-	//if militita is attacking increase attack by half and decrease the defense of enemy
+	//if militia is attacking increase attack by half and decrease the defense of enemy
 	if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaAutoresolveStrength != 0)
 	{
-		usAttack += (usAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
-		usDefence -= (usDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		sAttack += (sAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		sDefence -= (sDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
 	}
 	else if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaAutoresolveStrength != 0)
 	{
-		usAttack += (usAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
-		usDefence -= (usDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		sAttack += (sAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		sDefence -= (sDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
 	}
 	else if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaAutoresolveStrength != 0)
 	{
-		usAttack += (usAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
-		usDefence -= (usDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		sAttack += (sAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		sDefence -= (sDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
 	}
 	else if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)
 	{
-		usAttack += (usAttack * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
-		usDefence -= (usDefence * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
+		sAttack += (sAttack * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
+		sDefence -= (sDefence * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
 	}
 
 	//if enemy is attacking decrease his attack by half and increase the defense of militia by half
 	if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaAutoresolveStrength != 0)
 	{
-		usDefence += (usDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
-		usAttack -= (usAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		sDefence += (sDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		sAttack -= (sAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
 	}
 	else if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaAutoresolveStrength != 0)
 	{
-		usDefence += (usDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
-		usAttack -= (usAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		sDefence += (sDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		sAttack -= (sAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
 	}
 	else if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaAutoresolveStrength != 0)
 	{
-		usDefence += (usDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
-		usAttack -= (usAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		sDefence += (sDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		sAttack -= (sAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
 	}
 	else if (pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0)
 	{
-		usDefence += (usDefence * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
-		usAttack -= (usAttack * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
+		sDefence += (sDefence * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
+		sAttack -= (sAttack * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
 	}
 
 	// check fortifications bonus
@@ -4464,13 +4466,13 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		|| pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA
 		|| (pTarget->uiFlags & CELL_MERC))
 	{
-		usDefence += (usDefence * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
-		usAttack -= (usAttack * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
+		sDefence += (sDefence * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
+		sAttack -= (sAttack * RebelCommand::GetFortificationsBonus(GetAutoResolveSectorID()) / 200);
 	}
 
-	// reapair values
-	usAttack = max(0, min(1000, usAttack ));
-	usDefence = max(0, min(1000, usDefence ));
+	// repair values
+	sAttack = max(0, min(1000, sAttack ));
+	sDefence = max(0, min(1000, sDefence ));
 	///////////////////////////////////////////////////////////////////////////////////////////
 
 	if( pAttacker->uiFlags & (CELL_FEMALECREATURE | CELL_BLOODCAT | CELL_ZOMBIE) )
@@ -4487,7 +4489,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fCannon = TRUE;
 
 		// cannons have a huge splash zone, so they are much more likely to hit
-		usAttack *= 1.5;
+		sAttack *= 1.5;
 	}
 	// if our target is a tank, we use heavy weapons if we have any
 	else if ( (ARMED_VEHICLE( pTarget->pSoldier ) || ENEMYROBOT( pTarget->pSoldier )) && FireAntiTankWeapon( pAttacker ) )
@@ -4495,7 +4497,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fAntiTank = TRUE;
 
 		// hitting a tank with an rpg isn't easy
-		usAttack *= 0.8;
+		sAttack *= 0.8;
 	}
 	else if( !FireAShot( pAttacker ) )
 	{
@@ -4509,9 +4511,9 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			{
 				//except for creatures
 				if( fKnife )
-					usAttack = usAttack * 6 / 10;
+					sAttack = sAttack * 6 / 10;
 				else
-					usAttack = usAttack * 4 / 10;
+					sAttack = sAttack * 4 / 10;
 			}
 		}
 	}
@@ -4543,11 +4545,11 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		}
 	}
 
-	if( usAttack < usDefence )
+	if( sAttack < sDefence )
 	{
 		if( pTarget->pSoldier->stats.bLife >= OKLIFE || !PreRandom( 5 ) )
 		{
-			//Attacker misses -- use up a round of ammo.	If target is unconcious, then 80% chance of hitting.
+			//Attacker misses -- use up a round of ammo.	If target is unconscious, then 80% chance of hitting.
 			pTarget->uiFlags |= CELL_DODGEDATTACK | CELL_DIRTY;
 
 			if( fMelee )
@@ -4601,7 +4603,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		//ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - increased mercs' offense/deffense rating
+		// SANDRO - increased mercs' offense/defense rating
 		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
 		{
 			ubImpact += (ubImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
@@ -4675,7 +4677,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		//ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - increased mercs' offense/deffense rating
+		// SANDRO - increased mercs' offense/defense rating
 		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
 		{
 			ubImpact += (ubImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
@@ -4710,16 +4712,17 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		else
 			ubLocation = AIM_SHOT_TORSO;
 		
-		if (usDefence >= pTarget->usDefence)
-			iRandom = PreRandom(usDefence - pTarget->usDefence);
+		if (sDefence >= pTarget->usDefence)
+			iRandom = PreRandom(sDefence - pTarget->usDefence);
 		else
-			iRandom = -PreRandom(pTarget->usDefence - usDefence);
+			iRandom = -PreRandom(pTarget->usDefence - sDefence);
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + iRandom)/10);
+		sAccuracy = (sAttack - sDefence + iRandom) / 10;
+
 		// HEADROCK HAM 5: Added argument
-		iImpact = BulletImpact( pAttacker->pSoldier, NULL, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
+		iImpact = BulletImpact( pAttacker->pSoldier, NULL, pTarget->pSoldier, ubLocation, ubImpact, sAccuracy, NULL );
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - increased mercs' offense/deffense rating
+		// SANDRO - increased mercs' offense/defense rating
 		if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)
 		{
 			iImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus /150);
@@ -4751,12 +4754,12 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			return;
 		}
 
-		if (usDefence >= pTarget->usDefence)
-			iRandom = PreRandom(usDefence - pTarget->usDefence);
+		if (sDefence >= pTarget->usDefence)
+			iRandom = PreRandom(sDefence - pTarget->usDefence);
 		else
-			iRandom = -PreRandom(pTarget->usDefence - usDefence);
+			iRandom = -PreRandom(pTarget->usDefence - sDefence);
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + iRandom)/10);
+		sAccuracy = (sAttack - sDefence + iRandom) / 10;
 
 		//Determine attacking weapon.
 		pAttacker->pSoldier->usAttackingWeapon = 0;
@@ -4774,13 +4777,13 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			//switch items
 			tempItem = pAttacker->pSoldier->inv[ HANDPOS ];
 			pAttacker->pSoldier->inv[ HANDPOS ] = pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ]; //CTD
-			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
+			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, sAccuracy, (BOOLEAN)(fKnife || fClaw) );
 			pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ] = pAttacker->pSoldier->inv[ HANDPOS ];
 			pAttacker->pSoldier->inv[ HANDPOS ] = tempItem;
 		}
 		else
 		{
-			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
+			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, sAccuracy, (BOOLEAN)(fKnife || fClaw) );
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - increased mercs' offense/deffense rating
@@ -4801,20 +4804,22 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			iImpact = 0;
 		}
 
-		// WANNE: Just for safty.
+		// WANNE: Just for safety.
 		if (iImpact < 0)
 			iImpact = 0;
 		
 		iNewLife = pTarget->pSoldier->stats.bLife - iImpact;
 
 		if( pAttacker->uiFlags & CELL_MERC )
-		{ //Attacker is a player, so increment the number of shots that hit.
+		{ 
+			//Attacker is a player, so increment the number of shots that hit.
 			gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usShotsHit++;
 			// MARKSMANSHIP GAIN: Attacker's shot hits
 			StatChange( pAttacker->pSoldier, MARKAMT, 6, FALSE );		// in addition to 3 for taking a shot
 		}
 		if( pTarget->uiFlags & CELL_MERC )
-		{ //Target is a player, so increment the times he has been wounded.
+		{ 
+			//Target is a player, so increment the times he has been wounded.
 			if( iImpact > 1 )
 				gMercProfiles[ pTarget->pSoldier->ubProfile ].records.usTimesWoundedStabbed++;
 			// EXPERIENCE GAIN: Took some damage
@@ -4867,7 +4872,8 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			}
 			
 			if( pAttacker->uiFlags & CELL_MERC )
-			{ //Player killed the enemy soldier -- update his stats as well as any assisters.
+			{ 
+				//Player killed the enemy soldier -- update his stats as well as any assisters.
 				/////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - experimental - more specific statistics of mercs
 				switch(pTarget->pSoldier->ubSoldierClass)
