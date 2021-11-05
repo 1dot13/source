@@ -1043,12 +1043,21 @@ void RenderSetShadows(BOOLEAN fShadows)
 inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
 {
 	UINT16 * pShadeTable;
-	// Shade guy always lighter than sceane default!
+	// Shade guy always lighter than scene default!
 	{
-		UINT8 ubShadeLevel;
-		ubShadeLevel = (pNode->ubShadeLevel & 0x0f);
+		const auto GridNo = pSoldier->sGridNo;
+		UINT8 ubShadeLevel = gpWorldLevelData[GridNo].pLandHead->ubShadeLevel;
+		// If merc is on a roof, shade according to roof brightness
+		if (pSoldier->pathing.bLevel > 0 && gpWorldLevelData[GridNo].pRoofHead != NULL)
+		{
+			ubShadeLevel = gpWorldLevelData[GridNo].pRoofHead->ubShadeLevel;
+		}
+
+		ubShadeLevel = (ubShadeLevel & 0x0f);
 		ubShadeLevel = __max(ubShadeLevel - 2, DEFAULT_SHADE_LEVEL);
-		ubShadeLevel |= (pNode->ubShadeLevel & 0x30);
+		ubShadeLevel |= (ubShadeLevel & 0x30);
+
+
 		if (pSoldier->flags.fBeginFade)
 		{
 			pShadeTable = pPaletteTable->pCurrentShade = pPaletteTable->pShades[pSoldier->ubFadeLevel];
