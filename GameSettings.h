@@ -137,6 +137,44 @@ enum
 	NUM_ALL_GAME_OPTIONS,
 };	
 
+// this enum needs to be kept in sync with z113FeaturesToggleText, z113FeaturesHelpText, and z113FeaturesPanelText
+enum
+{
+	FF_FEATURES_SCREEN, // meta!
+	FF_NCTH,
+	FF_INTEL, // potential issue: enabling this feature mid-campaign may require users to manually re-open the email for the RIS website...
+	FF_PRISONERS,
+	FF_MINES_REQUIRE_WORKERS,
+	FF_ENEMY_AMBUSHES,
+	FF_ENEMY_ASSASSINS,
+	FF_ENEMY_ROLES,
+	FF_ENEMY_ROLE_MEDIC,
+	FF_ENEMY_ROLE_OFFICER,
+	FF_ENEMY_ROLE_GENERAL,
+	FF_KERBERUS,
+	FF_FOOD,
+	FF_DISEASE,
+	FF_ASD,
+	FF_ASD_HELICOPTERS,
+	FF_ENEMY_VEHICLES_CAN_MOVE,
+	FF_ZOMBIES,
+	FF_BLOODCAT_RAIDS,
+	FF_BANDIT_RAIDS,
+	FF_ZOMBIE_RAIDS,
+	FF_MILITIA_VOLUNTEER_POOL,
+	FF_ALLOW_TACTICAL_MILITIA_COMMAND,
+	FF_ALLOW_STRATEGIC_MILITIA_COMMAND,
+	FF_MILITIA_USE_SECTOR_EQUIPMENT,
+	FF_MILITIA_REQUIRE_RESOURCES,
+	FF_ENHANCED_CLOSE_COMBAT_SYSTEM,
+	FF_IMPROVED_INTERRUPT_SYSTEM,
+	FF_OVERHEATING,
+	FF_MINI_EVENTS,
+	FF_REBEL_COMMAND,
+
+	NUM_FEATURE_FLAGS,
+};
+
 
 typedef struct
 {
@@ -148,6 +186,9 @@ typedef struct
 
 	//The following are set from the status of the toggle boxes in the Options Screen
 	BOOLEAN				fOptions[ NUM_ALL_GAME_OPTIONS + 1 ];	// Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )
+
+	//The following are set from the status of the toggle boxes in the Features Screen
+	BOOLEAN				fFeatures[NUM_FEATURE_FLAGS];
 
 	UINT32				uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..' (not sure why this is in Game Settings )
 
@@ -2593,6 +2634,10 @@ void FreeGameExternalOptions();
 void InitGameOptions();
 
 void InitGameSettings();
+
+void InitFeatureFlags();
+BOOLEAN SaveFeatureFlags();
+BOOLEAN LoadFeatureFlags();
 
 BOOLEAN GetCDLocation( );
 

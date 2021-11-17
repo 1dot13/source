@@ -218,7 +218,7 @@ void HandleMainMenuScreen()
 
 			case LOAD_GAME:
 				// Select the game which is to be restored
-				guiPreviousOptionScreen = guiCurrentScreen;
+				SetOptionsPreviousScreen(guiCurrentScreen);
 				guiMainMenuExitScreen = SAVE_LOAD_SCREEN;
 				gbHandledMainMenu = 0;
 				gfSaveGame = FALSE;
@@ -226,7 +226,7 @@ void HandleMainMenuScreen()
 				break;
 
 			case PREFERENCES:
-				guiPreviousOptionScreen = guiCurrentScreen;
+				SetOptionsPreviousScreen(guiCurrentScreen);
 				guiMainMenuExitScreen = OPTIONS_SCREEN;
 				gbHandledMainMenu = 0;
 				gfMainMenuScreenExit = TRUE;
@@ -372,6 +372,7 @@ void InitDependingGameStyleOptions()
 	
 	// WANNE: Initialize again, because if differs from SP to MP game!
 	LoadGameSettings();
+	LoadFeatureFlags();
 
 	FreeGameExternalOptions();
 

@@ -177,7 +177,7 @@ CHAR16	zString[128];
 				{
 					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
-						guiPreviousOptionScreen = guiCurrentScreen;
+						SetOptionsPreviousScreen(guiCurrentScreen);
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT1);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
 
@@ -192,7 +192,7 @@ CHAR16	zString[128];
 				{
 					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
-						guiPreviousOptionScreen = guiCurrentScreen;
+						SetOptionsPreviousScreen(guiCurrentScreen);
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT2);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT2,zString);
 
@@ -207,7 +207,7 @@ CHAR16	zString[128];
 				{
 					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
-						guiPreviousOptionScreen = guiCurrentScreen;
+						SetOptionsPreviousScreen(guiCurrentScreen);
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT3);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT3,zString);
 
@@ -222,7 +222,7 @@ CHAR16	zString[128];
 				{
 					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
-						guiPreviousOptionScreen = guiCurrentScreen;
+						SetOptionsPreviousScreen(guiCurrentScreen);
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT4);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT4,zString);
 
@@ -237,7 +237,7 @@ CHAR16	zString[128];
 				{
 					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
-						guiPreviousOptionScreen = guiCurrentScreen;
+						SetOptionsPreviousScreen(guiCurrentScreen);
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT5);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT5,zString);
 
@@ -264,7 +264,7 @@ CHAR16	zString[128];
 		else if( gGameExternalOptions.ubExtremeIronManSavingTimeNotification == 0 )
 		{
 			gfSaveGame = TRUE;
-			guiPreviousOptionScreen = guiCurrentScreen;
+			SetOptionsPreviousScreen(guiCurrentScreen);
 			SetPendingNewScreen( SAVE_LOAD_SCREEN );
 		}
 	}

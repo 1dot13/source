@@ -4906,7 +4906,7 @@ void BtnOptionsCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		guiPreviousOptionScreen = guiCurrentScreen;
+		SetOptionsPreviousScreen(guiCurrentScreen);
 		LeaveTacticalScreen( OPTIONS_SCREEN );
 
 	}

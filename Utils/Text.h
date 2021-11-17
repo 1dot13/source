@@ -2054,6 +2054,9 @@ enum
 	OPT_NEXT,
 	OPT_PREV,
 	OPT_DONE,
+	OPT_113_FEATURES,
+	OPT_NEW_IN_113,
+	OPT_OPTIONS,
 	OPT_SOUND_FX,
 	OPT_SPEECH,
 	OPT_MUSIC,
@@ -2064,6 +2067,10 @@ enum
 
 extern	STR16	zOptionsText[];
 
+extern	STR16	z113FeaturesScreenText[]; // main UI text
+extern	STR16	z113FeaturesToggleText[]; // toggle button text
+extern	STR16	z113FeaturesHelpText[]; // hover text
+extern	STR16	z113FeaturesPanelText[]; // left panel text
 
 //used with the gMoneyStatsDesc[]
 enum

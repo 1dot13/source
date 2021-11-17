@@ -6,7 +6,6 @@
 	#include	"Video.h"
 	#include	"Font Control.h"
 	#include	"Game Clock.h"
-	#include	"Render Dirty.h"
 	#include	"Text Input.h"
 	#include	"WordWrap.h"
 	#include	"SaveLoadScreen.h"
@@ -47,100 +46,6 @@
 #include		"Game Events.h"
 #include		"PostalService.h"
 extern CPostalService gPostalService;
-
-/////////////////////////////////
-//
-//	Defines
-//
-/////////////////////////////////
-#define	OPT_MAIN_FONT							FONT10ARIAL
-#define	OPT_SLIDER_FONT							FONT12ARIAL
-
-#define	OPT_MAIN_COLOR							OPT_BUTTON_ON_COLOR
-#define	OPT_HIGHLIGHT_COLOR						FONT_MCOLOR_WHITE
-
-// these both could be established at run time, then never worry about it again
-// derived from "OPTIONSCREENBASE.sti"
-#define	OPTIONS_SCREEN_WIDTH					638
-#define	OPTIONS_SCREEN_HEIGHT					478
-
-#define	OPTIONS__TOP_LEFT_X						iScreenWidthOffset
-#define	OPTIONS__TOP_LEFT_Y						iScreenHeightOffset
-#define	OPTIONS__BOTTOM_RIGHT_X					OPTIONS__TOP_LEFT_X + OPTIONS_SCREEN_WIDTH
-#define	OPTIONS__BOTTOM_RIGHT_Y					OPTIONS__TOP_LEFT_Y + OPTIONS_SCREEN_HEIGHT
-
-#define	OPT_SAVE_BTN_X							iScreenWidthOffset + 50
-#define	OPT_SAVE_BTN_Y							iScreenHeightOffset + 438
-
-#define	OPT_LOAD_BTN_X							iScreenWidthOffset + 120
-#define	OPT_LOAD_BTN_Y							OPT_SAVE_BTN_Y
-
-#define	OPT_QUIT_BTN_X							iScreenWidthOffset + 190
-#define	OPT_QUIT_BTN_Y							OPT_SAVE_BTN_Y
-// ary-05/05/2009 : need more option screen toggles : Add in buttons that allow for options column paging
-#define	OPT_PREV_BTN_X							iScreenWidthOffset + 310
-#define	OPT_PREV_BTN_Y							OPT_SAVE_BTN_Y 
-
-#define	OPT_PAGE_X								iScreenWidthOffset + 364
-#define	OPT_PAGE_Y								OPT_SAVE_BTN_Y + 7
-
-#define	OPT_NEXT_BTN_X							iScreenWidthOffset + 420
-#define	OPT_NEXT_BTN_Y							OPT_SAVE_BTN_Y 
-
-#define	OPT_DONE_BTN_X							iScreenWidthOffset + 550
-#define	OPT_DONE_BTN_Y							OPT_SAVE_BTN_Y
-
-#define	OPT_GAP_BETWEEN_TOGGLE_BOXES			18
-
-//Text
-#define	OPT_TOGGLE_BOX_FIRST_COL_TEXT_X			OPT_TOGGLE_BOX_FIRST_COLUMN_X + OPT_SPACE_BETWEEN_TEXT_AND_TOGGLE_BOX
-#define	OPT_TOGGLE_BOX_FIRST_COL_TEXT_Y			OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y
-
-#define	OPT_TOGGLE_BOX_SECOND_TEXT_X			OPT_TOGGLE_BOX_SECOND_COLUMN_X + OPT_SPACE_BETWEEN_TEXT_AND_TOGGLE_BOX
-#define	OPT_TOGGLE_BOX_SECOND_TEXT_Y			OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y
-
-//toggle boxes
-#define	OPT_SPACE_BETWEEN_TEXT_AND_TOGGLE_BOX	30
-#define	OPT_TOGGLE_TEXT_OFFSET_Y				2
-
-#define	OPT_TOGGLE_BOX_FIRST_COLUMN_X			iScreenWidthOffset + 260
-#define	OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y		iScreenHeightOffset + 82
-
-#define	OPT_TOGGLE_BOX_SECOND_COLUMN_X			iScreenWidthOffset + 435
-#define	OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y	OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y
-
-#define	OPT_TOGGLE_BOX_TEXT_WIDTH				OPT_TOGGLE_BOX_SECOND_COLUMN_X - OPT_TOGGLE_BOX_FIRST_COLUMN_X - 20
-
-// Slider bar defines
-#define	OPT_GAP_BETWEEN_SLIDER_BARS				60
-#define	OPT_SLIDER_BAR_SIZE						258
-
-#define	OPT_SLIDER_TEXT_WIDTH					45
-
-#define	OPT_SOUND_FX_TEXT_X						iScreenWidthOffset + 38
-#define	OPT_SOUND_FX_TEXT_Y						iScreenHeightOffset + 87
-
-#define	OPT_SPEECH_TEXT_X						iScreenWidthOffset + 85
-#define	OPT_SPEECH_TEXT_Y						OPT_SOUND_FX_TEXT_Y
-
-#define	OPT_MUSIC_TEXT_X						iScreenWidthOffset + 137
-#define	OPT_MUSIC_TEXT_Y						OPT_SOUND_FX_TEXT_Y
-
-#define	OPT_TEXT_TO_SLIDER_OFFSET_Y				25
-
-#define	OPT_SOUND_EFFECTS_SLIDER_X				iScreenWidthOffset + 56
-#define	OPT_SOUND_EFFECTS_SLIDER_Y				iScreenHeightOffset + 126
-
-#define	OPT_SPEECH_SLIDER_X						iScreenWidthOffset + 107
-#define	OPT_SPEECH_SLIDER_Y						OPT_SOUND_EFFECTS_SLIDER_Y
-
-#define	OPT_MUSIC_SLIDER_X						iScreenWidthOffset + 158
-#define	OPT_MUSIC_SLIDER_Y						OPT_SOUND_EFFECTS_SLIDER_Y
-
-#define	OPT_MUSIC_SLIDER_PLAY_SOUND_DELAY		75
-
-#define	OPT_FIRST_COLUMN_TOGGLE_CUT_OFF			18
-#define	MAX_NUMBER_OF_OPTION_TOGGLES			(OPT_FIRST_COLUMN_TOGGLE_CUT_OFF * 2)
 
 /////////////////////////////////
 //
@@ -201,6 +106,11 @@ INT32		giGotoLoadBtnImage;
 void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32		guiQuitButton;
 INT32		giQuitBtnImage;
+
+// 1.13 Features Button
+void Btn113FeaturesCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32 gui113FeaturesButton;
+INT32 gi113FeaturesBtnImage;
 
 // arynn : need more option screen toggles : Add in button that allow for options column paging
 // Options Screen globals
@@ -265,7 +175,6 @@ void			RenderOptionsScreen();
 void			ExitOptionsScreen();
 void			HandleOptionsScreen();
 void			GetOptionsScreenUserInput();
-
 
 void			SoundFXSliderChangeCallBack( INT32 iNewValue );
 void			SpeechSliderChangeCallBack( INT32 iNewValue );
@@ -716,7 +625,7 @@ BOOLEAN EnterOptionsScreen()
 													OPT_SAVE_BTN_X, OPT_SAVE_BTN_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnOptGotoSaveGameCallback);
 	SpecifyDisabledButtonStyle( guiOptGotoSaveGameBtn, DISABLED_STYLE_HATCHED );
-	if( guiPreviousOptionScreen == MAINMENU_SCREEN || !CanGameBeSaved() )
+	if( guiPreviousOptionScreen == MAINMENU_SCREEN || !CanGameBeSaved() || guiPreviousOptionScreen == GAME_INIT_OPTIONS_SCREEN )
 	{
 		DisableButton( guiOptGotoSaveGameBtn );
 	}
@@ -741,6 +650,19 @@ BOOLEAN EnterOptionsScreen()
 													DEFAULT_MOVE_CALLBACK, BtnOptQuitCallback);
 	SpecifyDisabledButtonStyle( guiQuitButton, DISABLED_STYLE_HATCHED );
 //	DisableButton( guiQuitButton );
+
+	// 1.13 Features Button
+	gi113FeaturesBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );
+	gui113FeaturesButton = CreateIconAndTextButton( gi113FeaturesBtnImage, zOptionsText[OPT_NEW_IN_113], OPT_BUTTON_FONT2,
+													FONT_MCOLOR_LTYELLOW, DEFAULT_SHADOW,
+													FONT_MCOLOR_LTYELLOW, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													OPT_SWAP_BTN_X, OPT_SWAP_BTN_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, Btn113FeaturesCallback);
+	if (is_networked)
+	{
+		DisableButton(gui113FeaturesButton);
+	}
 
 // ary-05/05/2009 : need more option screen toggles : Add in buttons that allow for options column paging
 	// Previous Column of options
@@ -874,6 +796,7 @@ void ExitOptionsScreen()
 	RemoveButton( guiOptGotoSaveGameBtn );
 	RemoveButton( guiOptGotoLoadGameBtn );
 	RemoveButton( guiQuitButton );
+	RemoveButton( gui113FeaturesButton );
 	RemoveButton( guiOptNextButton );// ary-05/05/2009 : more option screen toggles
 	RemoveButton( guiOptPrevButton );
 	RemoveButton( guiDoneButton );
@@ -881,6 +804,7 @@ void ExitOptionsScreen()
 	UnloadButtonImage( giOptionsButtonImages );
 	UnloadButtonImage( giGotoLoadBtnImage );
 	UnloadButtonImage( giQuitBtnImage );
+	UnloadButtonImage( gi113FeaturesBtnImage);
 	UnloadButtonImage( giOptNextBtnImage );// ary-05/05/2009 : more option screen toggles
 	UnloadButtonImage( giOptPrevBtnImage );
 	UnloadButtonImage( giDoneBtnImage );
@@ -1131,6 +1055,13 @@ void SetOptionsExitScreen( UINT32 uiExitScreen )
 	gfOptionsScreenExit	= TRUE;
 }
 
+void SetOptionsPreviousScreen( UINT32 uiPrevScreen, BOOLEAN setFeaturesToo )
+{
+	guiPreviousOptionScreen = uiPrevScreen;
+	if (setFeaturesToo == TRUE)
+		FeaturesScreen::SetPreviousScreen(uiPrevScreen, FALSE);
+}
+
 void BtnOptGotoSaveGameCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1202,6 +1133,27 @@ void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(	btn->Area.RegionTopLeftX,		btn->Area.RegionTopLeftY, 
 							btn->Area.RegionBottomRightX,	btn->Area.RegionBottomRightY);
+	}
+}
+
+void Btn113FeaturesCallback(GUI_BUTTON* btn, INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		SetOptionsExitScreen(FEATURES_SCREEN);
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 }
 

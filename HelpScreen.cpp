@@ -817,6 +817,7 @@ void ExitHelpScreen()
 	gHelpScreen.fForceHelpScreenToComeUp = FALSE;
 
 	SaveGameSettings();
+	SaveFeatureFlags();
 }
 
 

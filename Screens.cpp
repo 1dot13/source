@@ -57,6 +57,7 @@ Screens GameScreens[MAX_SCREENS] =
 	{ AutoResolveScreenInit,			AutoResolveScreenHandle,			AutoResolveScreenShutdown		},
 	{ SaveLoadScreenInit,					SaveLoadScreenHandle,					SaveLoadScreenShutdown			},
 	{ OptionsScreenInit,					OptionsScreenHandle,					OptionsScreenShutdown				},
+	{ FeaturesScreen::Init,					FeaturesScreen::Handle,					FeaturesScreen::Shutdown				},
 	{ ShopKeeperScreenInit,				ShopKeeperScreenHandle,				ShopKeeperScreenShutdown		},
 	{ SexScreenInit,							SexScreenHandle,							SexScreenShutdown						},
 	{ GameInitOptionsScreenInit,	GameInitOptionsScreenHandle,	GameInitOptionsScreenShutdown		},

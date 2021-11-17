@@ -1360,7 +1360,7 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 		//if( FileExists( "..\\AutoSave.pls" ) && CanGameBeSaved() )
 		if (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE] == TRUE && CanGameBeSaved() )
 		{
-			guiPreviousOptionScreen = guiCurrentScreen;
+			SetOptionsPreviousScreen(guiCurrentScreen);
 
 			//increment end turn number
 			++guiLastSaveGameNum;

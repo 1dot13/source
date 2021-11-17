@@ -23,6 +23,7 @@
 	#include "overhead map.h"
 	#include "DropDown.h"		// added by Flugente
 	#include "Utilities.h"		// added by Flugente for FilenameForBPP(...)
+	#include "FeaturesScreen.h"
 #endif
 
 #define		MSGBOX_DEFAULT_WIDTH							300
@@ -1853,6 +1854,11 @@ void DoScreenIndependantMessageBoxWithRect( const STR16 zString, UINT32 usFlags,
 	else if( guiCurrentScreen == OPTIONS_SCREEN )
 	{
 		DoOptionsMessageBoxWithRect( MSG_BOX_BASIC_STYLE, zString, OPTIONS_SCREEN, usFlags, ReturnCallback, pCenteringRect );
+	}
+
+	else if( guiCurrentScreen == FEATURES_SCREEN )
+	{
+		FeaturesScreen::DoMessageBoxWithRect( MSG_BOX_BASIC_STYLE, zString, FEATURES_SCREEN, usFlags, ReturnCallback, pCenteringRect );
 	}
 
 	// Tactical

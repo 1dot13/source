@@ -237,6 +237,7 @@
     <ClCompile Include="aniviewscreen.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Fade Screen.cpp" />
+    <ClCompile Include="FeaturesScreen.cpp" />
     <ClCompile Include="GameInitOptionsScreen.cpp" />
     <ClCompile Include="gameloop.cpp" />
     <ClCompile Include="gamescreen.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Cheats.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="Fade Screen.h" />
+    <ClInclude Include="FeaturesScreen.h" />
     <ClInclude Include="GameInitOptionsScreen.h" />
     <ClInclude Include="gameloop.h" />
     <ClInclude Include="gamescreen.h" />

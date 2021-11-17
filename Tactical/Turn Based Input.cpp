@@ -1832,7 +1832,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						gfSaveGame = FALSE;
 						gfCameDirectlyFromGame = TRUE;
 
-						guiPreviousOptionScreen = GAME_SCREEN;
+						SetOptionsPreviousScreen(GAME_SCREEN);
 						
 						EscapeUILock();
 						// cancel, the player can move when it is not its turn!
@@ -1856,7 +1856,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						gfSaveGame = FALSE;
 						gfCameDirectlyFromGame = TRUE;
 
-						guiPreviousOptionScreen = GAME_SCREEN;
+						SetOptionsPreviousScreen(GAME_SCREEN);
 						LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 					}
 				}
@@ -4116,7 +4116,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if ( !fDisableMapInterfaceDueToBattle )
 							{
 								// go to Options screen
-								guiPreviousOptionScreen = GAME_SCREEN;
+								SetOptionsPreviousScreen(GAME_SCREEN);
 								LeaveTacticalScreen( OPTIONS_SCREEN );
 							}
 						}
@@ -4241,7 +4241,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								gfSaveGame = TRUE;
 								gfCameDirectlyFromGame = TRUE;
 
-								guiPreviousOptionScreen = GAME_SCREEN;
+								SetOptionsPreviousScreen(GAME_SCREEN);
 								LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 							}
 							else
@@ -4273,7 +4273,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								//if the game CAN be saved
 								if ( CanGameBeSaved() )
 								{
-									guiPreviousOptionScreen = GAME_SCREEN;
+									SetOptionsPreviousScreen(GAME_SCREEN);
 									//guiPreviousOptionScreen = guiCurrentScreen;
 									DoQuickSave();
 								}

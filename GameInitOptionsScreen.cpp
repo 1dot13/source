@@ -62,6 +62,8 @@
 //buttons
 #define		GIO_CANCEL_X							iScreenWidthOffset + ((320 - 115) / 2)  
 
+#define		GIO_113FEATURES_X						iScreenWidthOffset + 263
+
 #define		GIO_BTN_START_X							iScreenWidthOffset + 320 + 105
 #define		GIO_BTN_START_Y							iScreenHeightOffset + 435
  
@@ -409,6 +411,11 @@ void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	guiGIOCancelButton;
 INT32		giGIOCancelBtnImage;
 
+// 1.13 Features Button
+void BtnGIO113FeaturesCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32	guiGIO113FeaturesButton;
+INT32		giGIO113FeaturesBtnImage;
+
 // MP LOAD Button
 void MPBtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	MPguiGIOCancelButton;
@@ -720,6 +727,16 @@ BOOLEAN		EnterGIOScreen()
 													GIO_CANCEL_X, GIO_BTN_START_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIOCancelCallback );
 	SpecifyButtonSoundScheme( guiGIOCancelButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+
+	//1.13 Features button
+	giGIO113FeaturesBtnImage = UseLoadedButtonImage( giGIODoneBtnImage, -1,1,-1,3,-1 );
+	guiGIO113FeaturesButton = CreateIconAndTextButton( giGIO113FeaturesBtnImage, zOptionsText[OPT_113_FEATURES], OPT_BUTTON_FONT,
+													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
+													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													GIO_113FEATURES_X, GIO_BTN_START_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIO113FeaturesCallback );
+	SpecifyButtonSoundScheme( guiGIO113FeaturesButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// DIFFICULTY SETTING
@@ -1875,8 +1892,10 @@ BOOLEAN		ExitGIOScreen()
 
 	// Destroy Basic buttons
 	RemoveButton( guiGIOCancelButton );
+	RemoveButton( guiGIO113FeaturesButton );
 	RemoveButton( guiGIODoneButton );
 	UnloadButtonImage( giGIOCancelBtnImage );
+	UnloadButtonImage( giGIO113FeaturesBtnImage );
 	UnloadButtonImage( giGIODoneBtnImage );
 
 	// Destroy Difficulty setting buttons
@@ -1987,7 +2006,7 @@ void HandleGIOScreen()
 				gubGIOExitScreen = SAVE_LOAD_SCREEN;
 				gfSaveGame = FALSE;
 				gfGIOScreenExit	= TRUE;
-				guiPreviousOptionScreen = GAME_INIT_OPTIONS_SCREEN;
+				SetOptionsPreviousScreen(GAME_INIT_OPTIONS_SCREEN);
 				break;
 
 			case GIO_EXIT:
@@ -2191,6 +2210,23 @@ void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		gubGameOptionScreenHandler = GIO_CANCEL;
+
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+}
+
+void BtnGIO113FeaturesCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		gubGameOptionScreenHandler = GIO_113FEATURES;
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
@@ -2494,6 +2530,8 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 //buttons
 #define		GIO_CANCEL_X							iScreenWidthOffset + ((320 - 115) / 2)  
 
+#define		GIO_113FEATURES_X						iScreenWidthOffset + 263
+
 #define		GIO_BTN_START_X							iScreenWidthOffset + 320 + 105
 #define		GIO_BTN_START_Y							iScreenHeightOffset + 435
  
@@ -2701,6 +2739,7 @@ enum
 	GIO_CANCEL,
 	GIO_EXIT,
 	GIO_IRON_MAN_MODE,
+	GIO_113FEATURES,
 	MP_LOAD
 };
 
@@ -2743,6 +2782,11 @@ INT32		giGIODoneBtnImage;
 void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	guiGIOCancelButton;
 INT32		giGIOCancelBtnImage;
+
+// 1.13 Features Button
+void BtnGIO113FeaturesCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32	guiGIO113FeaturesButton;
+INT32		giGIO113FeaturesBtnImage;
 
 // MP LOAD Button
 void MPBtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
@@ -3043,6 +3087,16 @@ BOOLEAN		EnterGIOScreen()
 													GIO_CANCEL_X, GIO_BTN_START_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIOCancelCallback );
 	SpecifyButtonSoundScheme( guiGIOCancelButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+
+	//1.13 Features button
+	giGIO113FeaturesBtnImage = UseLoadedButtonImage( giGIODoneBtnImage, -1,1,-1,3,-1 );
+	guiGIO113FeaturesButton = CreateIconAndTextButton( giGIO113FeaturesBtnImage, zOptionsText[OPT_113_FEATURES], OPT_BUTTON_FONT,
+													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
+													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													GIO_113FEATURES_X, GIO_BTN_START_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIO113FeaturesCallback );
+	SpecifyButtonSoundScheme( guiGIO113FeaturesButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// DIFFICULTY SETTING
@@ -4155,8 +4209,10 @@ BOOLEAN		ExitGIOScreen()
 
 	// Destroy Basic buttons
 	RemoveButton( guiGIOCancelButton );
+	RemoveButton( guiGIO113FeaturesButton );
 	RemoveButton( guiGIODoneButton );
 	UnloadButtonImage( giGIOCancelBtnImage );
+	UnloadButtonImage( giGIO113FeaturesBtnImage );
 	UnloadButtonImage( giGIODoneBtnImage );
 
 	// Destroy Difficulty setting buttons
@@ -4261,7 +4317,7 @@ void HandleGIOScreen()
 				gubGIOExitScreen = SAVE_LOAD_SCREEN;
 				gfSaveGame = FALSE;
 				gfGIOScreenExit	= TRUE;
-				guiPreviousOptionScreen = GAME_INIT_OPTIONS_SCREEN;
+				SetOptionsPreviousScreen(GAME_INIT_OPTIONS_SCREEN);
 				break;
 
 			case GIO_EXIT:
@@ -4281,6 +4337,12 @@ void HandleGIOScreen()
 
 			case GIO_IRON_MAN_MODE:
 				DisplayMessageToUserAboutGameDifficulty();
+				break;
+
+			case GIO_113FEATURES:
+				gubGIOExitScreen = FEATURES_SCREEN;
+				FeaturesScreen::SetPreviousScreen(GAME_INIT_OPTIONS_SCREEN);
+				gfGIOScreenExit = TRUE;
 				break;
 		}
 
@@ -4462,6 +4524,23 @@ void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		gubGameOptionScreenHandler = GIO_CANCEL;
+
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+}
+
+void BtnGIO113FeaturesCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		gubGameOptionScreenHandler = GIO_113FEATURES;
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}

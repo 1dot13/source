@@ -196,6 +196,7 @@ BOOLEAN InitializeGame(void)
 
 	//Loads the saved (if any) general JA2 game settings
 	LoadGameSettings();
+	LoadFeatureFlags();
 
 	guiCurrentScreen = INIT_SCREEN;
 
@@ -214,7 +215,7 @@ void ShutdownGame(void)
 
 	//Save the general save game settings to disk
 	SaveGameSettings();
-
+	SaveFeatureFlags();
 
 	//shutdown the file database manager
 	ShutDownFileDatabase( );

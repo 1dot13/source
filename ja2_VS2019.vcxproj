@@ -79,7 +79,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -215,10 +215,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master_VS2019</TargetName>
+    <TargetName>Ja2</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
-    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>j:\ja2\Trunk\</OutDir>
+    <IntDir>c:\temp\vs\trunk\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -347,7 +347,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>Multiplayer\raknet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Winmm.lib;RakNetLibStatic.lib;ws2_32.lib;DbgHelp.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;RakNetLibStatic.lib;ws2_32.lib;DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
@@ -477,6 +477,7 @@
     <ClCompile Include="aniviewscreen.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Fade Screen.cpp" />
+    <ClCompile Include="FeaturesScreen.cpp" />
     <ClCompile Include="GameInitOptionsScreen.cpp" />
     <ClCompile Include="gameloop.cpp" />
     <ClCompile Include="gamescreen.cpp" />
@@ -517,6 +518,7 @@
     <ClInclude Include="Cheats.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="Fade Screen.h" />
+    <ClInclude Include="FeaturesScreen.h" />
     <ClInclude Include="GameInitOptionsScreen.h" />
     <ClInclude Include="gameloop.h" />
     <ClInclude Include="gamescreen.h" />

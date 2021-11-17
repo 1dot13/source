@@ -7,6 +7,7 @@
 #include "Button System.h"
 #include <list>
 #include <vfs/Core/vfs_string.h>
+#include "FeaturesScreen.h"
 
 extern UINT32 EditScreenInit(void);
 extern UINT32 EditScreenHandle(void);

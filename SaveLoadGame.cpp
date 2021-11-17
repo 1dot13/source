@@ -4529,6 +4529,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	//Save the save game settings
 	SaveGameSettings();
+	SaveFeatureFlags();
 
 	//
 	// Display a screen message that the save was succesful
@@ -6583,7 +6584,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	//Save the save game settings
 	SaveGameSettings();
-
+	SaveFeatureFlags();
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );

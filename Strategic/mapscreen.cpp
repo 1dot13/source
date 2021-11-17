@@ -8078,7 +8078,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							//if the game CAN be saved
 							if( CanGameBeSaved() )
 							{
-								guiPreviousOptionScreen = guiCurrentScreen;
+								SetOptionsPreviousScreen(guiCurrentScreen);
 								DoQuickSave();
 							}
 							else

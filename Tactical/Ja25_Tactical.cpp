@@ -1936,6 +1936,7 @@ void HandlePlayerHittingSwitchToLaunchMissles()
 	//
 	gGameSettings.fPlayerFinishedTheGame = TRUE;
 	SaveGameSettings();
+	SaveFeatureFlags();
 
 	//Update the quest log
 	InternalEndQuest( QUEST_DESTROY_MISSLES, -1, -1, TRUE );
