@@ -734,4 +734,9 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>If a spy talks to unalerted enemies, they can try to secretly recruit them to their cause.</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>142</uiIndex>
+    <szName>Check out the Features Screen to toggle 1.13 features on and off! You can access it through the Options Screen.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>

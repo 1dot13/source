@@ -714,4 +714,10 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>Press [SHIFT]+[L] to quickly transform flashlight in the hand.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>138</uiIndex>
+    <szName>Check out the Features Screen to toggle 1.13 features on and off! You can access it through the Options Screen.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+
 </LOADSCREENHINTS>
