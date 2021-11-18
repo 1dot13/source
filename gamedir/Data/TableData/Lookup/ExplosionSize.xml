@@ -12,4 +12,12 @@
 		<id>2</id>
 		<name>HighExplosive</name>
 	</ExplosionSize>
+	<ExplosionSize>
+		<id>3</id>
+		<name>Big Bada Boom</name>
+	</ExplosionSize>
+	<ExplosionSize>
+		<id>4</id>
+		<name>Flame / Flame retardant</name>
+	</ExplosionSize>
 </JA2Data>
