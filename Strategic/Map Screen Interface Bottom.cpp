@@ -59,10 +59,40 @@
 
 #include "connect.h"
 
-/* CHRISL: Adjusted settings to allow new Map_Screen_Bottom_800x600.sti to work.  This is needed if we
-want to have the new inventory panel not overlap the message text area. */
-#define MAP_BOTTOM_X							0
-#define MAP_BOTTOM_Y							(SCREEN_HEIGHT - 121)	//359
+
+struct UILayout_BottomButtons
+{
+	SGPPoint CompressTime;
+	SGPPoint CompressLess;
+	SGPPoint Laptop;
+	SGPPoint Options;
+	SGPPoint Tactical;
+	SGPPoint ScrollUp;
+	SGPPoint ScrollDown;
+};
+struct UILayout_BottomTexts
+{
+	SGPRectangle BalanceTitle;
+	SGPRectangle IncomeTitle;
+	SGPRectangle ExpensesTitle;
+	SGPRectangle CurrentBalance;
+	SGPRectangle CurrentIncome;
+	SGPRectangle CurrentExpenses;
+	SGPRectangle CompressTime;
+	SGPRectangle LoadedSector;
+};
+struct BottomUILayout
+{
+	SGPRectangle Region;
+	UILayout_BottomButtons Button;
+	UILayout_BottomTexts Text;
+};
+
+BottomUILayout UI_BOTTOM;
+UINT16 UI_BOTTOM_X;
+UINT16 UI_BOTTOM_Y;
+UINT16 MAP_BOTTOM_LAPTOP_X;
+UINT16 MAP_BOTTOM_LAPTOP_Y;
 
 //#define MESSAGE_SCROLL_AREA_START_X				(SCREEN_WIDTH - 534)	//330
 //#define MESSAGE_SCROLL_AREA_END_X				(SCREEN_WIDTH - 522)	//344
@@ -240,6 +270,10 @@ void HandleLoadOfMapBottomGraphics( void )
 	{
 		FilenameForBPP( "INTERFACE\\map_screen_bottom.sti", VObjectDesc.ImageFile );
 	}
+	else if (iResolution == _1280x720)
+	{
+		FilenameForBPP("INTERFACE\\map_screen_bottom_1280x720.sti", VObjectDesc.ImageFile);
+	}
 	else if (iResolution < _1024x768)
 	{
 		FilenameForBPP( "INTERFACE\\map_screen_bottom_800x600.sti", VObjectDesc.ImageFile );
@@ -315,7 +349,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
 
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0, xResOffset + MAP_BOTTOM_X, MAP_BOTTOM_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0, UI_BOTTOM.Region.x, UI_BOTTOM.Region.y, VO_BLT_SRCTRANSPARENCY,NULL );
 	
 		// WANNE - MP: Radarmap image should be displayed on every sector in multiplayer game
 		if( GetSectorFlagStatus( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, SF_ALREADY_VISITED ) == TRUE 
@@ -337,8 +371,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 		// dirty buttons
 		MarkButtonsDirty( );
 
-		// TODO.RW.ARSP: Check: Is the height 121 OK?
-		RestoreExternBackgroundRect( xResOffset + MAP_BOTTOM_X, MAP_BOTTOM_Y, SCREEN_WIDTH - MAP_BOTTOM_X - 2 * xResOffset, 121 );
+		RestoreExternBackgroundRect(UI_BOTTOM.Region);
 
 		// re render radar map
 		RenderRadarScreen( );
@@ -392,20 +425,20 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 {
 	// laptop
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,6,-1,15,-1 );
-	guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], xResOffset + (xResSize - 184), (SCREEN_HEIGHT - 70),
+	guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], UI_BOTTOM.Button.Laptop.iX, UI_BOTTOM.Button.Laptop.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnLaptopCallback);
 
 	// tactical
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,7,-1,16,-1 );
 
-	guiMapBottomExitButtons[ MAP_EXIT_TO_TACTICAL ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ], xResOffset + (xResSize - 144), (SCREEN_HEIGHT - 70),
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalCallback);
+	guiMapBottomExitButtons[ MAP_EXIT_TO_TACTICAL ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ], UI_BOTTOM.Button.Tactical.iX, UI_BOTTOM.Button.Tactical.iY,
+									BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+									(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalCallback);
 
 	// options
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,18,-1,19,-1 );
-	guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], xResOffset + (xResSize - 182), (SCREEN_HEIGHT - 108),
+	guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], UI_BOTTOM.Button.Options.iX, UI_BOTTOM.Button.Options.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnOptionsFromMapScreenCallback);
 
@@ -421,12 +454,12 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 
 	// time compression buttons
 	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,10,1,-1,3,-1 );
-	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], xResOffset + (xResSize - 112), (SCREEN_HEIGHT - 24),
+	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], UI_BOTTOM.Button.CompressTime.iX, UI_BOTTOM.Button.CompressTime.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2 ,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressMoreMapScreenCallback);
 
 	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9,0,-1,2,-1 );
-	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], xResOffset + (xResSize - 174), (SCREEN_HEIGHT - 24),
+	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], UI_BOTTOM.Button.CompressLess.iX, UI_BOTTOM.Button.CompressLess.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2,
 					(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressLessMapScreenCallback);
 
@@ -443,10 +476,10 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
   guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
 	guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
 
-	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], xResOffset + (xResSize - 306), (SCREEN_HEIGHT - 109),
+	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], UI_BOTTOM.Button.ScrollUp.iX, UI_BOTTOM.Button.ScrollUp.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageUpMapScreenCallback);
-	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], xResOffset + (xResSize - 306), (SCREEN_HEIGHT - 28),
+	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], UI_BOTTOM.Button.ScrollDown.iX, UI_BOTTOM.Button.ScrollDown.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
 
@@ -630,7 +663,13 @@ void DrawNameOfLoadedSector( void )
 	GetSectorIDString( sSelMapX, sSelMapY, ( INT8 )( iCurrentMapSectorZ ),sString, TRUE );
 	ReduceStringLength( sString, 80, COMPFONT );
 
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 92), (SCREEN_HEIGHT - 55), 80, 16, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 
+		UI_BOTTOM.Text.LoadedSector.x, 
+		UI_BOTTOM.Text.LoadedSector.y, 
+		UI_BOTTOM.Text.LoadedSector.width, 
+		UI_BOTTOM.Text.LoadedSector.height,
+		COMPFONT, &sFontX, &sFontY, sString 
+	);
 
 	mprintf( sFontX, sFontY, L"%s", sString );
 }
@@ -975,7 +1014,7 @@ void DisplayCompressMode( void )
 	}
 
 	// ABCDEFG
-	RestoreExternBackgroundRect( xResOffset + (xResSize - 151), (SCREEN_HEIGHT - 24), 63, 13 );
+	RestoreExternBackgroundRect(UI_BOTTOM.Text.CompressTime);
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 	SetFont( COMPFONT );
 
@@ -1001,7 +1040,7 @@ void DisplayCompressMode( void )
 	SetFontForeground( usColor );
 	SetFontBackground( FONT_BLACK );
 
-	FindFontCenterCoordinates( xResOffset + (xResSize - 151), (SCREEN_HEIGHT - 24), 33, 13, sString, COMPFONT, &sX, &sY );
+	FindFontCenterCoordinates(UI_BOTTOM.Text.CompressTime.x, UI_BOTTOM.Text.CompressTime.y, 33, 13, sString, COMPFONT, &sX, &sY );
 		
 	mprintf( sX, sY, sString );
 
@@ -1011,7 +1050,11 @@ void DisplayCompressMode( void )
 
 void CreateCompressModePause( void )
 {
-	MSYS_DefineRegion( &gMapPauseRegion, xResOffset + (xResSize - 153), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 118), (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGH,
+	const auto tlx = UI_BOTTOM.Text.CompressTime.x;
+	const auto tly = UI_BOTTOM.Text.CompressTime.y;
+	const auto brx = tlx + UI_BOTTOM.Text.CompressTime.width;
+	const auto bry = tly + UI_BOTTOM.Text.CompressTime.height;
+	MSYS_DefineRegion( &gMapPauseRegion, tlx, tly, brx, bry, MSYS_PRIORITY_HIGH,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressModeClickCallback );
 
 	SetRegionFastHelpText( &gMapPauseRegion, pMapScreenBottomFastHelp[ 7 ] );
@@ -1043,12 +1086,21 @@ void DeleteMessageSliderBar( void )
 
 void CreateMapScreenBottomMessageScrollBarRegion( void )
 {
-		MSYS_DefineRegion( &gMapMessageScrollBarRegion, MESSAGE_SCROLL_AREA_START_X, MESSAGE_SCROLL_AREA_START_Y,
-								MESSAGE_SCROLL_AREA_END_X, MESSAGE_SCROLL_AREA_END_Y,
-								MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenMessageScrollBarCallBack );
+		MSYS_DefineRegion( &gMapMessageScrollBarRegion,
+			MESSAGE_SCROLL_AREA_START_X, 
+			MESSAGE_SCROLL_AREA_START_Y,
+			MESSAGE_SCROLL_AREA_END_X, 
+			MESSAGE_SCROLL_AREA_END_Y,
+			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenMessageScrollBarCallBack 
+		);
 
-		MSYS_DefineRegion(&gMapMessageRegion, (INT16)(xResOffset + 16), MESSAGE_SCROLL_AREA_START_Y-16, MESSAGE_SCROLL_AREA_END_X-22, MESSAGE_SCROLL_AREA_END_Y+12,
-			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);
+		MSYS_DefineRegion( &gMapMessageRegion,
+			UI_BOTTOM.Region.x + 16,
+			MESSAGE_SCROLL_AREA_START_Y-16, 
+			MESSAGE_SCROLL_AREA_END_X-22, 
+			MESSAGE_SCROLL_AREA_END_Y+12,
+			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK
+		);
 }
 
 
@@ -1462,12 +1514,7 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	swprintf( sString, L"%s", pMapScreenBottomText[ 0 ] );
 
 	// center it
-	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
-	//VarFindFontCenterCoordinates( (1024 - 637), (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	// CHRISL: Use this if we want to display from the left edge
-	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 111), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates(UI_BOTTOM.Text.BalanceTitle.x, UI_BOTTOM.Text.BalanceTitle.y, UI_BOTTOM.Text.BalanceTitle.width, UI_BOTTOM.Text.BalanceTitle.height, COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1475,12 +1522,7 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	swprintf( sString, L"%s", zMarksMapScreenText[ 2 ] );
 
 	// center it
-	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
-	//VarFindFontCenterCoordinates( (1024 - 637), (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	// CHRISL: Use this if we want to display from the left edge
-	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.	
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 74), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates(UI_BOTTOM.Text.IncomeTitle.x, UI_BOTTOM.Text.IncomeTitle.y, UI_BOTTOM.Text.IncomeTitle.width, UI_BOTTOM.Text.IncomeTitle.height, COMPFONT, &sFontX, &sFontY, sString );
 
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1489,7 +1531,7 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 
 	// HEADROCK HAM 3.6: Projected expenses for today, with facilities (and in the future, merc contracts) taken into
 	// account.
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 37), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates(UI_BOTTOM.Text.ExpensesTitle.x, UI_BOTTOM.Text.ExpensesTitle.y, UI_BOTTOM.Text.ExpensesTitle.width, UI_BOTTOM.Text.ExpensesTitle.height, COMPFONT, &sFontX, &sFontY, sString );
 
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1520,7 +1562,13 @@ void DisplayCurrentBalanceForMapBottom( void )
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 95), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 
+		UI_BOTTOM.Text.CurrentBalance.x, 
+		UI_BOTTOM.Text.CurrentBalance.y, 
+		UI_BOTTOM.Text.CurrentBalance.width, 
+		UI_BOTTOM.Text.CurrentBalance.height, 
+		COMPFONT, &sFontX, &sFontY, sString 
+	);
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1549,16 +1597,31 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 	if( ( fDisabled ) && ( fCreated == FALSE ) )
 	{
 		// mask over compress more button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], xResOffset + (xResSize - 112), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 112) + 13, (SCREEN_HEIGHT - 24) + 16, MSYS_PRIORITY_HIGHEST - 1,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ],
+			UI_BOTTOM.Button.CompressTime.iX,
+			UI_BOTTOM.Button.CompressTime.iY,
+			UI_BOTTOM.Button.CompressTime.iX + 13,
+			UI_BOTTOM.Button.CompressTime.iY + 16,
+			MSYS_PRIORITY_HIGHEST - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback
+		);
 
 		// mask over compress less button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], xResOffset + (xResSize - 174), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 174) + 13, (SCREEN_HEIGHT - 24) + 16, MSYS_PRIORITY_HIGHEST - 1,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ],
+			UI_BOTTOM.Button.CompressLess.iX, 
+			UI_BOTTOM.Button.CompressLess.iY,
+			UI_BOTTOM.Button.CompressLess.iX + 13,
+			UI_BOTTOM.Button.CompressLess.iY + 16,
+			MSYS_PRIORITY_HIGHEST - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback 
+		);
 
 		// mask over pause game button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], xResOffset + (xResSize - 153), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 153) + 118, (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGHEST - 1,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ],
+			UI_BOTTOM.Text.CompressTime.x,
+			UI_BOTTOM.Text.CompressTime.y,
+			UI_BOTTOM.Text.CompressTime.width,
+			UI_BOTTOM.Text.CompressTime.height,
+			MSYS_PRIORITY_HIGHEST - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback 
+		);
 		RemoveMouseRegionForPauseOfClock();
 		fCreated = TRUE;
 	}
@@ -1618,7 +1681,13 @@ void DisplayProjectedDailyMineIncome( void )
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 58), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 
+		UI_BOTTOM.Text.CurrentIncome.x, 
+		UI_BOTTOM.Text.CurrentIncome.y,
+		UI_BOTTOM.Text.CurrentIncome.width,
+		UI_BOTTOM.Text.CurrentIncome.height,
+		COMPFONT, &sFontX, &sFontY, sString 
+	);
 
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1669,7 +1738,13 @@ void DisplayProjectedDailyExpenses( void )
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
-	VarFindFontCenterCoordinates( xResOffset + (xResSize - 278), (SCREEN_HEIGHT - 21), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates(
+		UI_BOTTOM.Text.CurrentExpenses.x, 
+		UI_BOTTOM.Text.CurrentExpenses.y, 
+		UI_BOTTOM.Text.CurrentExpenses.width,
+		UI_BOTTOM.Text.CurrentExpenses.height,
+		COMPFONT, &sFontX, &sFontY, sString 
+	);
 
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -2066,10 +2141,74 @@ void ChangeCurrentMapscreenMessageIndex( UINT8 ubNewMessageIndex )
 	fMapScreenBottomDirty = TRUE;
 }
 
+
 void InitMapScreenInterfaceBottomCoords( void )
 {
-	// HEADROCK HAM 3.6: Message window is now as wide as possible.
-	MESSAGE_SCROLL_AREA_START_X = xResOffset + xResSize - 307;
-	MESSAGE_SCROLL_AREA_END_X = xResOffset + xResSize - 293;
-}
+	if (isWidescreenUI())
+	{
+		UI_BOTTOM.Region = { 0, (SCREEN_HEIGHT - 116), 1280, 116 };
+		const auto x = UI_BOTTOM.Region.x;
+		const auto y = UI_BOTTOM.Region.y;
+		const auto width = UI_BOTTOM.Region.width;
+		const auto height = UI_BOTTOM.Region.height;
+		UI_BOTTOM.Text.CompressTime = { x + 1129,  y + 94, 34, 13 };
+		UI_BOTTOM.Text.BalanceTitle = { x + 1002, y + 5, 78, 10 };
+		UI_BOTTOM.Text.IncomeTitle = { x + 1002, y + 42, 78, 10 };
+		UI_BOTTOM.Text.ExpensesTitle = { x + 1002, y + 79, 78, 10 };
+		UI_BOTTOM.Text.CurrentBalance= { x + 1002, y + 22, 78, 10 };
+		UI_BOTTOM.Text.CurrentIncome= { x + 1002, y + 59, 78, 10 };
+		UI_BOTTOM.Text.CurrentExpenses= { x + 1002, y + 96, 78, 10 };
+		UI_BOTTOM.Text.LoadedSector = { x + (width - 92), y + (height - 55), 80, 16, };
 
+		UI_BOTTOM.Button.CompressTime = { x + 1168, y + 94 };
+		UI_BOTTOM.Button.CompressLess = { x + 1106, y + 94 };
+		UI_BOTTOM.Button.Laptop = { x + 1096, y + 48 };
+		UI_BOTTOM.Button.Options = { x + 1098, y + 10 };
+		UI_BOTTOM.Button.Tactical = { x + 1136, y + 48 };
+		UI_BOTTOM.Button.ScrollUp = { x + 718, y + 9 };
+		UI_BOTTOM.Button.ScrollDown = { x + 718, y + 90 };
+
+		// For external use
+		UI_BOTTOM_X = x;
+		UI_BOTTOM_Y = y;
+		MAP_BOTTOM_LAPTOP_X = UI_BOTTOM.Button.Laptop.iX;
+		MAP_BOTTOM_LAPTOP_Y = UI_BOTTOM.Button.Laptop.iY;
+
+		// HEADROCK HAM 3.6: Message window is now as wide as possible.
+		MESSAGE_SCROLL_AREA_START_X = x + 718;
+		MESSAGE_SCROLL_AREA_END_X = x + 732;
+	}
+	else
+	{
+		UI_BOTTOM.Region = { xResOffset, (SCREEN_HEIGHT - 121), xResSize, 121 };
+		const auto x = UI_BOTTOM.Region.x;
+		const auto y = UI_BOTTOM.Region.y;
+		const auto width = UI_BOTTOM.Region.width;
+		const auto height = UI_BOTTOM.Region.height;
+		UI_BOTTOM.Text.CompressTime = { x + width - 153,  y + 96, 34, 13 };
+		UI_BOTTOM.Text.BalanceTitle = { x + width - 278, y + 10, 78, 10 };
+		UI_BOTTOM.Text.IncomeTitle = { x + width - 278, y + 47, 78, 10 };
+		UI_BOTTOM.Text.ExpensesTitle = { x + width - 278, y + 84, 78, 10 };
+		UI_BOTTOM.Text.CurrentBalance = { x + width - 278, y + height - 94, 78, 10 };
+		UI_BOTTOM.Text.CurrentIncome = { x + width - 278, y + height - 57, 78, 10 };
+		UI_BOTTOM.Text.CurrentExpenses = { x + width - 278, y + height - 20, 78, 10 };
+		UI_BOTTOM.Text.LoadedSector = { x + (width - 92), y + (height - 55), 80, 16, };
+
+		UI_BOTTOM.Button.CompressTime = { x + (width - 112), y + 97 };
+		UI_BOTTOM.Button.CompressLess = { x + (width - 174), y + 97 };
+		UI_BOTTOM.Button.Laptop = { x + (width - 184), y + 51 };
+		UI_BOTTOM.Button.Options = { x + (width - 182), y + 13 };
+		UI_BOTTOM.Button.Tactical = { x + (width - 144), y + 51 };
+		UI_BOTTOM.Button.ScrollUp = { x + (width - 306), y + 12 };
+		UI_BOTTOM.Button.ScrollDown = { x + (width - 306), y + 93 };
+
+		UI_BOTTOM_X = x;
+		UI_BOTTOM_Y = y;
+		MAP_BOTTOM_LAPTOP_X = UI_BOTTOM.Button.Laptop.iX;
+		MAP_BOTTOM_LAPTOP_Y = UI_BOTTOM.Button.Laptop.iY;
+
+		// HEADROCK HAM 3.6: Message window is now as wide as possible.
+		MESSAGE_SCROLL_AREA_START_X = xResOffset + xResSize - 307;
+		MESSAGE_SCROLL_AREA_END_X = xResOffset + xResSize - 293;
+	}
+}

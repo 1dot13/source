@@ -279,6 +279,7 @@ enum
 };
 
 extern void CreateDestroyMapInvButton();
+extern void DestroyMapCharInvIOregions();
 
 //Autoresolve sets this variable which defaults to -1 when not needed.
 INT16 gsEnemyGainedControlOfSectorID = -1;
@@ -593,7 +594,14 @@ void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 
 	//Set up mapscreen for removal
 	SetPendingNewScreen( AUTORESOLVE_SCREEN );
-	CreateDestroyMapInvButton();
+	if (isWidescreenUI())
+	{
+		DestroyMapCharInvIOregions();
+	}
+	else
+	{
+		CreateDestroyMapInvButton();
+	}
 	RenderButtons();
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");

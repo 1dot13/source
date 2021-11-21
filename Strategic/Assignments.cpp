@@ -88,6 +88,7 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
+extern int POP_UP_BOX_X;
 
 #include "MilitiaSquads.h"
 // HEADROCK HAM 3.5: Include Facility data
@@ -15410,7 +15411,7 @@ void CreateAssignmentsBox( void )
 
  // will create attribute pop up menu for mapscreen assignments
 
-	AssignmentPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigAssignmentPosition.iX;
+ AssignmentPosition.iX = POP_UP_BOX_X;
 
 	if( giBoxY != 0 )
 	{

@@ -175,6 +175,7 @@ BOOLEAN BltVideoObject(  UINT32	uiDestVSurface,
 												 INT32  iDestY, 
 												 UINT32 fBltFlags, 
 												 blt_fx *pBltFx );
+BOOLEAN BltVideoObject(UINT32 uiDestVSurface, HVOBJECT hSrcVObject, UINT16 usRegionIndex, SGPRectangle Region, UINT32 fBltFlags, blt_fx* pBltFx);
 
 BOOLEAN BltVideoObjectFromIndex(  UINT32	uiDestVSurface,
 												 UINT32 uiSrcVObject, 

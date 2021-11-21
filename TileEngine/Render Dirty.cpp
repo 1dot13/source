@@ -674,6 +674,11 @@ BOOLEAN RestoreExternBackgroundRect( INT16 sLeft, INT16 sTop, INT16 sWidth, INT1
 	return(TRUE);
 }
 
+BOOLEAN RestoreExternBackgroundRect(SGPRectangle rect)
+{
+	return RestoreExternBackgroundRect(rect.x, rect.y, rect.width, rect.height);
+}
+
 
 BOOLEAN RestoreExternBackgroundRectGivenID( INT32 iBack )
 {

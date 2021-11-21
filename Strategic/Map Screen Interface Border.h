@@ -35,10 +35,6 @@ enum{
 
 // HEADROCK HAM 4: Turned these into EXTERNS to allow dynamic modification
 //#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
-extern UINT16 MAP_LEVEL_MARKER_X;
-extern UINT16 MAP_LEVEL_MARKER_Y;
-extern UINT16 MAP_LEVEL_MARKER_DELTA;
-extern UINT16 MAP_LEVEL_MARKER_WIDTH;
 
 extern BOOLEAN fShowTownFlag;
 extern BOOLEAN fShowMineFlag;
@@ -107,5 +103,8 @@ void MapBorderButtonOn( UINT8 ubBorderButtonIndex );
 
 // HEADROCK HAM 4: Initialize coordinates for Map Border buttons
 void InitMapBorderButtonCoordinates();
+
+void DisableMapBorderButtons(void);
+void EnableMapBorderButtons(void);
 
 #endif

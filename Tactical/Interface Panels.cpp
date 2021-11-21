@@ -80,6 +80,10 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
+extern int UI_CHARINV_REGION_X;
+extern int UI_CHARINV_REGION_Y;
+extern int UI_CHARINV_REGION_W;
+extern int UI_CHARINV_REGION_H;
 
 
 /*
@@ -1538,7 +1542,14 @@ BOOLEAN InitializeSMPanelCoordsOld()
 
 //dnl	INTERFACE_CLOCK_X		=	xResOffset + (xResSize - 86);
 //dnl	INTERFACE_CLOCK_Y		= ( 119	+ INV_INTERFACE_START_Y );
-	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+	if (isWidescreenUI())
+	{
+		INTERFACE_CLOCK_X = SCREEN_WIDTH - 86;
+	}
+	else
+	{
+		INTERFACE_CLOCK_X = SCREEN_WIDTH - xResOffset - 86;
+	}
 	INTERFACE_CLOCK_Y		= SCREEN_HEIGHT - 24;
 	LOCATION_NAME_X			=	xResOffset + (xResSize - 92);
 	LOCATION_NAME_Y			= ( 65	+ INTERFACE_START_Y	);
@@ -1898,7 +1909,14 @@ BOOLEAN InitializeSMPanelCoordsNew()
 
 //dnl	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
 //dnl	INTERFACE_CLOCK_Y		= ( 119	+ INV_INTERFACE_START_Y );
-	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+	if (isWidescreenUI())
+	{
+		INTERFACE_CLOCK_X = SCREEN_WIDTH - 86;
+	}
+	else
+	{
+		INTERFACE_CLOCK_X		= SCREEN_WIDTH - xResOffset - 86;
+	}
 	INTERFACE_CLOCK_Y		= SCREEN_HEIGHT - 24;
 	LOCATION_NAME_X			= xResOffset + (xResSize - 92);
 	LOCATION_NAME_Y			= ( 89	+ INTERFACE_START_Y	);
@@ -7345,8 +7363,8 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			// want the inv done button shutdown and the region behind the keyring shaded
 			//ForceButtonUnDirty( giMapInvDoneButton );
 			// shade the background
-			ShadowVideoSurfaceRect( FRAME_BUFFER , 0, 107, 261, 359 );
-			InvalidateRegion( 0, 107, 261, 359 );
+			ShadowVideoSurfaceRect( FRAME_BUFFER, UI_CHARINV_REGION_X, UI_CHARINV_REGION_Y, UI_CHARINV_REGION_X + UI_CHARINV_REGION_W, UI_CHARINV_REGION_Y + UI_CHARINV_REGION_H);
+			InvalidateRegion(UI_CHARINV_REGION_X, UI_CHARINV_REGION_Y, UI_CHARINV_REGION_X + UI_CHARINV_REGION_W, UI_CHARINV_REGION_Y + UI_CHARINV_REGION_H);
 		}
 
 		//CHRISL: In OIV mode, we don't want to offset the keyring popup.

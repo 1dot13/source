@@ -182,6 +182,7 @@ extern void BeginLoadScreen( void );
 extern void EndLoadScreen();
 
 extern		CPostalService		gPostalService;
+extern void initMapViewAndBorderCoordinates(void);
 
 //Global variable used
 #ifdef JA2BETAVERSION
@@ -4803,6 +4804,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		gGameOptions.ubAttachmentSystem = SaveGameHeader.sInitialGameOptions.ubAttachmentSystem;
 	}
 
+	// Have to initialize map UI Coordinates, because inventory panel layout location depends on them.
+	initMapViewAndBorderCoordinates();
 	if((UsingNewInventorySystem() == true))
 	{
 		if(IsNIVModeValid(true) == FALSE){

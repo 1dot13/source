@@ -507,6 +507,10 @@ BOOLEAN BltVideoObject(	UINT32	uiDestVSurface,
 	return( TRUE );
 }
 
+BOOLEAN BltVideoObject(UINT32 uiDestVSurface, HVOBJECT hSrcVObject, UINT16 usRegionIndex, SGPRectangle Region, UINT32 fBltFlags, blt_fx* pBltFx)
+{
+	return BltVideoObject(uiDestVSurface, hSrcVObject, usRegionIndex, Region.x, Region.y, fBltFlags, pBltFx);
+}
 // *******************************************************************************
 // Video Object Manipulation Functions
 // *******************************************************************************

@@ -120,6 +120,7 @@ BOOLEAN SaveBackgroundRects(void);
 BOOLEAN InvalidateBackgroundRects(void);
 BOOLEAN UpdateSaveBuffer(void);
 BOOLEAN RestoreExternBackgroundRect( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight );
+BOOLEAN RestoreExternBackgroundRect(SGPRectangle rect);
 void SetBackgroundRectFilled( UINT32 uiBackgroundID );
 BOOLEAN EmptyBackgroundRects( void );
 

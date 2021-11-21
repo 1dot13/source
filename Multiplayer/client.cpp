@@ -2628,6 +2628,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		else
 		{
 			// WANNE - MP: We have to re-initialize the correct interface
+			// Have to initialize map UI Coordinates, because inventory panel layout location depends on them.
+			initMapViewAndBorderCoordinates();
 			if((UsingNewInventorySystem() == true))
 			{
 				InitNewInventorySystem();
@@ -2824,6 +2826,8 @@ void reapplySETTINGS()
 	gGameOptions.ubSquadSize = 6;
 	
 	// WANNE - MP: We have to re-initialize the correct interface
+	// Have to initialize map UI Coordinates, because inventory panel layout location depends on them.
+	initMapViewAndBorderCoordinates();
 	if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
 	{
 		InitNewInventorySystem();

@@ -63,6 +63,11 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
+extern int CHAR_BAR_INFO_X;
+extern int CHAR_BAR_INFO_Y;
+extern UILayout_Map UI_MAP;
+extern UILayout_CharPanelIconRegion UI_CHAR_Icon;
+extern UILayout_CharList UI_CHARLIST;
 
 // marke strogg more mercs
 extern UINT8 FIRSTmercTOdisplay = 0 ; 
@@ -870,7 +875,7 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 66 + xResOffset, Y_START - 1, 118 + 1 - 67, yHeight );
+		RestoreExternBackgroundRect(UI_CHARLIST.xAssignment, UI_CHARLIST.y - 1, UI_CHARLIST.widthAssignment + 1, yHeight);
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -897,7 +902,7 @@ void RestoreBackgroundForDestinationGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 182 + xResOffset, Y_START - 1, 217 + 1 - 182, yHeight );
+		RestoreExternBackgroundRect(UI_CHARLIST.xETA, UI_CHARLIST.y - 1, UI_CHARLIST.widthETA + 1, yHeight );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -927,7 +932,7 @@ void RestoreBackgroundForContractGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 222 + xResOffset, Y_START - 1, 250 + 1 - 222, yHeight ) ;
+		RestoreExternBackgroundRect(UI_CHARLIST.xTimeRemaining, UI_CHARLIST.y - 1, UI_CHARLIST.widthTimeRemaining + 1, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -961,7 +966,7 @@ void RestoreBackgroundForSleepGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 123 + xResOffset, Y_START - 1, 142 + 1 - 123, yHeight ) ;
+		RestoreExternBackgroundRect(UI_CHARLIST.xSleep, UI_CHARLIST.y - 1, UI_CHARLIST.widthSleep + 1, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -1351,7 +1356,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 	HVOBJECT hHandle;
 	UINT8 ubCount = 0;
 
-	UINT16 selectedCharArrowX = xResOffset + 1;
+	UINT16 selectedCharArrowX = UI_CHARLIST.Region.x + 1;
 
 	// blit an arrow by the name of each merc in a selected list
 	if( bSelectedInfoChar == -1 )
@@ -1377,7 +1382,8 @@ void HandleDisplayOfSelectedMercArrows( void )
 
 	// now blit one by the selected merc
 	// marke strogg more mercs
-	sYPosition = Y_START+( ( bSelectedInfoChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) ) - 1;
+	const auto y = UI_CHARLIST.y;
+	sYPosition = y + ( ( bSelectedInfoChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) ) - 1;
 
 	GetVideoObject( &hHandle, guiSelectedCharArrow );
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,selectedCharArrowX, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
@@ -1393,7 +1399,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 			// are they in the selected list or int he same mvt group as this guy
 			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
 			{
-				sYPosition = Y_START+( ubCount * ( Y_SIZE + 2) ) - 1;
+				sYPosition = y + ( ubCount * ( Y_SIZE + 2) ) - 1;
 
 				GetVideoObject( &hHandle, guiSelectedCharArrow );
 				BltVideoObject( guiSAVEBUFFER , hHandle, 0,selectedCharArrowX, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
@@ -1886,8 +1892,13 @@ void HandleGroupAboutToArrive( void )
 
 void CreateMapStatusBarsRegion( void )
 {
-	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X + xResOffset - 3, BAR_INFO_Y + yResOffset - 42,(INT16)( BAR_INFO_X + xResOffset + 17), (INT16)(BAR_INFO_Y + yResOffset), MSYS_PRIORITY_HIGH + 5,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	MSYS_DefineRegion( &gMapStatusBarsRegion, 
+		CHAR_BAR_INFO_X - 3,
+		CHAR_BAR_INFO_Y - 42,
+		CHAR_BAR_INFO_X + 17,
+		CHAR_BAR_INFO_Y,
+		MSYS_PRIORITY_HIGH + 5,	MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK)
+	;
 
 	return;
 }
@@ -2159,7 +2170,7 @@ void UpdateMapScreenAssignmentPositions( void )
 	else
 	{ 
 		// marke strogg more mercs
-		giBoxY = ( Y_START + ( bSelectedAssignChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) );
+		giBoxY = (UI_CHARLIST.y + ( bSelectedAssignChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) );
 	}
 
 	AssignmentPosition.iY = giBoxY;
@@ -2319,7 +2330,7 @@ void UpdateMapScreenMilitiaControlPositions( void )
 	}
 	else
 	{
-		giBoxY = ( Y_START + ( bSelectedAssignChar ) * ( Y_SIZE + 2 ) );
+		giBoxY = (UI_CHARLIST.y + ( bSelectedAssignChar ) * ( Y_SIZE + 2 ) );
 	}
 
 	MilitiaControlPosition.iY = giBoxY;
@@ -3730,7 +3741,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CreatePopUpBoxForMovementBox( void )
 {
-	SGPPoint MovePosition = {450 + xResOffset, 100 + yResOffset};
+	SGPPoint MovePosition = { UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2, UI_MAP.ViewRegion.y + 100 };
 	SGPPoint Position;
 	SGPRect Dimensions;
 
@@ -3795,15 +3806,15 @@ void CreatePopUpBoxForMovementBox( void )
 	GetBoxSize( ghMoveBox, &Dimensions );
 
 	// adjust position to try to keep it in the map area as best as possible
-	if ( Position.iX + Dimensions.iRight >= ( MAP_VIEW_START_X + MAP_VIEW_WIDTH ) )
+	if ( Position.iX + Dimensions.iRight >= (UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width) )
 	{
-		Position.iX = max( MAP_VIEW_START_X, ( MAP_VIEW_START_X + MAP_VIEW_WIDTH ) - Dimensions.iRight );
+		Position.iX = max(UI_MAP.ViewRegion.x, (UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width) - Dimensions.iRight );
 		SetBoxPosition( ghMoveBox, Position );
 	}
 
-	if ( Position.iY + Dimensions.iBottom >= ( MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) )
+	if ( Position.iY + Dimensions.iBottom >= (UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height) )
 	{
-		Position.iY = max( MAP_VIEW_START_Y, ( MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) - Dimensions.iBottom );
+		Position.iY = max( UI_MAP.ViewRegion.y, (UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height) - Dimensions.iBottom );
 		SetBoxPosition( ghMoveBox, Position );
 	}
 }
@@ -5643,14 +5654,26 @@ void CreateDestroyInsuranceMouseRegionForMercs( BOOLEAN fCreate )
 
 	if( ( fCreated == FALSE ) && ( fCreate == TRUE ) )
 	{
-		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y  + yResOffset + CHAR_ICON_HEIGHT,
-						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+		const auto x = UI_CHAR_Icon.x;
+		const auto y = UI_CHAR_Icon.y;
+		const auto width = UI_CHAR_Icon.width;
+		const auto height = UI_CHAR_Icon.height;
+		const auto spacing = UI_CHAR_Icon.spacing;
 
-		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING  + yResOffset + CHAR_ICON_HEIGHT,
-						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+		MSYS_DefineRegion( &gContractIconRegion, 
+			x, y, x + width, y + height,
+			MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK 
+		);
 
-		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING )  + yResOffset + CHAR_ICON_HEIGHT,
-						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );  
+		MSYS_DefineRegion( &gInsuranceIconRegion, 
+			x, y + spacing, x + width, y + height + spacing,
+			MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK 
+		);
+
+		MSYS_DefineRegion( &gDepositIconRegion, 
+			x, y + ( 2 * spacing), x + width, y + ( 2 * spacing) + height,
+			MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK 
+		);  
 
 		fCreated = TRUE;
 	}
@@ -6708,14 +6731,14 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 	//Convert the sector value into screen values.
 	GetScreenXYFromMapXY( sSectorX, sSectorY, &sScreenX, &sScreenY );
 	// make sure we are on the border
-	if( sScreenX < MAP_GRID_X )
+	if( sScreenX < UI_MAP.GridSize.iX)
 	{
-		sScreenX = MAP_GRID_X;
+		sScreenX = UI_MAP.GridSize.iX;
 	}
 	sScreenY--; //Carterism ritual
-	if( sScreenY < MAP_GRID_Y )
+	if( sScreenY < UI_MAP.GridSize.iY )
 	{
-		sScreenY = MAP_GRID_Y;
+		sScreenY = UI_MAP.GridSize.iY;
 	}
 
 	uiTimer = GetJA2Clock();
@@ -6738,13 +6761,13 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 		}
 	}
 
-	RestoreExternBackgroundRect(	(INT16)(sScreenX + 1), (INT16)(sScreenY - 1),	MAP_GRID_X , MAP_GRID_Y );
+	RestoreExternBackgroundRect(	(INT16)(sScreenX + 1), (INT16)(sScreenY - 1),	UI_MAP.GridSize.iX , UI_MAP.GridSize.iY );
 
 	// blit object to frame buffer
 	BltVideoObject( FRAME_BUFFER, hHandle, ubFrame, sScreenX, sScreenY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	// invalidate region on frame buffer
-	InvalidateRegion( sScreenX, sScreenY - 1, sScreenX + MAP_GRID_X , sScreenY + MAP_GRID_Y );
+	InvalidateRegion( sScreenX, sScreenY - 1, sScreenX + UI_MAP.GridSize.iX , sScreenY + UI_MAP.GridSize.iY );
 }
 
 

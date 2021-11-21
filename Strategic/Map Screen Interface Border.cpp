@@ -39,31 +39,9 @@
 #include "ub_config.h"
 #endif
 
-// HEADROCK HAM 4: Now defining X/Y coordinates for Map Bottom buttons. Some day perhaps variable coordinates?
-UINT16 MAP_BORDER_TOWN_BTN_X;
-UINT16 MAP_BORDER_TOWN_BTN_Y;
-UINT16	MAP_BORDER_MINE_BTN_X;
-UINT16 MAP_BORDER_MINE_BTN_Y;
-UINT16 MAP_BORDER_TEAMS_BTN_X;
-UINT16	MAP_BORDER_TEAMS_BTN_Y;
-UINT16	MAP_BORDER_AIRSPACE_BTN_X;
-UINT16 MAP_BORDER_AIRSPACE_BTN_Y;
-UINT16	MAP_BORDER_ITEM_BTN_X;
-UINT16 MAP_BORDER_ITEM_BTN_Y;
-UINT16	MAP_BORDER_MILITIA_BTN_X;
-UINT16 MAP_BORDER_MILITIA_BTN_Y;
-UINT16 MAP_BORDER_DISEASE_BTN_X;	// Flugente: disease
-UINT16 MAP_BORDER_DISEASE_BTN_Y;
-
-//UINT16 MAP_BORDER_WEATHER_BTN_X;	// Flugente: weather		// WANNE: Dynamic X position
-UINT16 MAP_BORDER_WEATHER_BTN_Y;
-//UINT16 MAP_BORDER_INTEL_BTN_X;	// Flugente: intel			// WANNE: Dynamic X position
-UINT16 MAP_BORDER_INTEL_BTN_Y;
-
-UINT16 MAP_LEVEL_MARKER_X;
-UINT16 MAP_LEVEL_MARKER_Y;
-UINT16 MAP_LEVEL_MARKER_DELTA;
-UINT16 MAP_LEVEL_MARKER_WIDTH;
+extern UINT16 UI_BOTTOM_X;
+extern UINT16 UI_BOTTOM_Y;
+extern UILayout_Map UI_MAP;
 
 // extern to anchored button in winbart97
 extern GUI_BUTTON *gpAnchoredButton;
@@ -150,6 +128,10 @@ BOOLEAN LoadMapBorderGraphics( void )
 	{
 		FilenameForBPP( "INTERFACE\\MBS.sti", VObjectDesc.ImageFile );
 	}
+	else if (iResolution == _1280x720)
+	{
+		FilenameForBPP("INTERFACE\\MBS_1280x720.sti", VObjectDesc.ImageFile);
+	}
 	else if (iResolution < _1024x768)
 	{
 		FilenameForBPP( "INTERFACE\\MBS_800x600.sti", VObjectDesc.ImageFile );
@@ -201,9 +183,9 @@ void RenderMapBorder( void )
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
 	
-	BltVideoObject( guiSAVEBUFFER, hHandle, 0, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( guiSAVEBUFFER, hHandle, 0, UI_MAP.BorderRegion.x, UI_MAP.BorderRegion.y, VO_BLT_SRCTRANSPARENCY, NULL );
 
-	RestoreExternBackgroundRect( xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT - 121 - 2 * yResOffset);
+	RestoreExternBackgroundRect(UI_MAP.BorderRegion.x, UI_MAP.BorderRegion.y, SCREEN_WIDTH, SCREEN_HEIGHT - 121);
 
 	// show the level marker
 	DisplayCurrentLevelMarker( );
@@ -229,8 +211,8 @@ void RenderMapBorderEtaPopUp( void )
 	GetVideoObject(&hHandle, guiMapBorderEtaPopUp );
 
 	// coordinates should depend on the actual ETA display
-	UINT16 xVal = (CLOCK_ETA_X - 10) ;
-	UINT16 yVal = (CLOCK_Y_START - 7);
+	UINT16 xVal = (UI_MAP.ETA.Clock_X - 10) ;
+	UINT16 yVal = (UI_MAP.ETA.Start_Y - 7);
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
 		BltVideoObject( FRAME_BUFFER , hHandle, 0, xVal, yVal, VO_BLT_SRCTRANSPARENCY,NULL );
@@ -253,37 +235,37 @@ BOOLEAN CreateButtonsForMapBorder( void )
 
 	// towns
 	giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,5,-1,14,-1 );
-	giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], MAP_BORDER_TOWN_BTN_X, MAP_BORDER_TOWN_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], UI_MAP.Button.Town.iX, UI_MAP.Button.Town.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTownCallback);
 	
 	// mines
 	giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,4,-1,13,-1 );
-	giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], MAP_BORDER_MINE_BTN_X, MAP_BORDER_MINE_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], UI_MAP.Button.Mine.iX, UI_MAP.Button.Mine.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMineCallback);
 
 	// people
 	giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,3,-1,12,-1 );
-	giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], MAP_BORDER_TEAMS_BTN_X, MAP_BORDER_TEAMS_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], UI_MAP.Button.Teams.iX, UI_MAP.Button.Teams.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTeamCallback);
 
 	// militia
 	giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,8,-1,17,-1 );
-	giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], MAP_BORDER_MILITIA_BTN_X, MAP_BORDER_MILITIA_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], UI_MAP.Button.Militia.iX, UI_MAP.Button.Militia.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMilitiaCallback);
 
 	// airspace
 	giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,2,-1,11,-1 );
-	giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], MAP_BORDER_AIRSPACE_BTN_X, MAP_BORDER_AIRSPACE_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], UI_MAP.Button.Airspace.iX, UI_MAP.Button.Airspace.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnAircraftCallback);
 
 	// items
 	giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,1,-1,10,-1 );
-	giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], MAP_BORDER_ITEM_BTN_X, MAP_BORDER_ITEM_BTN_Y,
+	giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], UI_MAP.Button.Inventory.iX, UI_MAP.Button.Inventory.iY,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnItemCallback);
 				
@@ -302,7 +284,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], MSYS_NO_CURSOR );
 
-	UINT16 nextButtonX = MAP_BORDER_DISEASE_BTN_X - 43;
+	UINT16 nextButtonX = UI_MAP.Button.Disease.iX - 43;
 		
 	// Flugente: disease
 	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
@@ -315,7 +297,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 		if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] < 0 )
 			giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
 
-		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], nextButtonX, MAP_BORDER_DISEASE_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], nextButtonX, UI_MAP.Button.Disease.iY,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnDiseaseCallback );
 
@@ -341,7 +323,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 			x = MAP_BORDER_DISEASE_BTN_X;
 		*/
 
-		giMapBorderButtons[MAP_BORDER_WEATHER_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN], nextButtonX, MAP_BORDER_WEATHER_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_WEATHER_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN], nextButtonX, UI_MAP.Button.Weather_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnWeatherCallback );
 
@@ -367,7 +349,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 			x = MAP_BORDER_WEATHER_BTN_X;
 		*/
 
-		giMapBorderButtons[MAP_BORDER_INTEL_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN], nextButtonX, MAP_BORDER_INTEL_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_INTEL_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN], nextButtonX, UI_MAP.Button.Intel_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnIntelCallback );
 
@@ -466,6 +448,24 @@ void DeleteMapBorderButtons( void )
 			UnloadButtonImage( giMapBorderButtonsImage[i] );
 
 		giMapBorderButtonsImage[i] = -1;
+	}
+}
+
+void DisableMapBorderButtons(void)
+{
+	for (int i = 0; i < NUM_MAP_BORDER_BTNS; ++i)
+	{
+		if (giMapBorderButtons[i] != -1)
+			DisableButton( giMapBorderButtons[i] );
+	}
+}
+
+void EnableMapBorderButtons(void)
+{
+	for (int i = 0; i < NUM_MAP_BORDER_BTNS; ++i)
+	{
+		if (giMapBorderButtons[i] != -1)
+			EnableButton(giMapBorderButtons[i]);
 	}
 }
 
@@ -860,9 +860,9 @@ void DisplayCurrentLevelMarker( void )
 
 	// it's actually a white rectangle, not a green arrow!
 	GetVideoObject(&hHandle, guiLEVELMARKER );
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0,	MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject( guiSAVEBUFFER , hHandle, 0, UI_MAP.LevelMarkerArea.x + 1, UI_MAP.LevelMarkerArea.y + (UI_MAP.LevelMarkerArea.height * ( INT16 )iCurrentMapSectorZ ), VO_BLT_SRCTRANSPARENCY,NULL );
 
-	RestoreExternBackgroundRect(MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), 55, 9);
+	RestoreExternBackgroundRect(UI_MAP.LevelMarkerArea.x + 1, UI_MAP.LevelMarkerArea.y + (UI_MAP.LevelMarkerArea.height * ( INT16 )iCurrentMapSectorZ ), 55, 9);
 }
 
 void CreateMouseRegionsForLevelMarkers( void )
@@ -872,8 +872,11 @@ void CreateMouseRegionsForLevelMarkers( void )
 
 	for( sCounter = 0; sCounter	< 4 ; ++sCounter )
 	{
-		MSYS_DefineRegion(&LevelMouseRegions[ sCounter ], MAP_LEVEL_MARKER_X, ( INT16 )( MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * sCounter ) ),	MAP_LEVEL_MARKER_X + MAP_LEVEL_MARKER_WIDTH, ( INT16 )( MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( sCounter + 1 ) ) ), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR,
-			MSYS_NO_CALLBACK, LevelMarkerBtnCallback );
+		const auto tlx = UI_MAP.LevelMarkerArea.x;
+		const auto tly = UI_MAP.LevelMarkerArea.y + UI_MAP.LevelMarkerArea.height * sCounter;
+		const auto brx = tlx + UI_MAP.LevelMarkerArea.width;
+		const auto bry = tly + UI_MAP.LevelMarkerArea.height;
+		MSYS_DefineRegion(&LevelMouseRegions[ sCounter ], tlx, tly, brx, bry, MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, LevelMarkerBtnCallback );
 
 		MSYS_SetRegionUserData(&LevelMouseRegions[sCounter],0,sCounter);
 
@@ -1439,32 +1442,78 @@ void MapBorderButtonOn( UINT8 ubBorderButtonIndex )
 	ButtonList[ giMapBorderButtons[ ubBorderButtonIndex ] ]->uiFlags |= BUTTON_CLICKED_ON;
 }
 
+
 // HEADROCK HAM 4: Init the coordinates for all Map Border buttons
 void InitMapBorderButtonCoordinates()
 {
-	UINT32 buttonOffset = 155;	// 160
+	if (isWidescreenUI())
+	{
+		// Map border buttons are located in the map bottom ui bar for widescreen UI
+		const UINT16 firstColumn = UI_BOTTOM_X + 746;
+		const UINT16 secondColumn = UI_BOTTOM_X + 788;
+		const UINT16 thirdColumn = UI_BOTTOM_X + 831;
+		const UINT16 fourthColumn = UI_BOTTOM_X + 874;
+		const UINT16 fifthColumn = UI_BOTTOM_X + 917;
+		const UINT16 sixthColumn = UI_BOTTOM_X + 960;
+		const UINT16 firstRow = UI_BOTTOM_Y + 1; //SCREEN_HEIGHT - 115;
+		const UINT16 SecondRow = UI_BOTTOM_Y + 38; //SCREEN_HEIGHT - 78;
+		
+		
+		UI_MAP.Button.Town = { firstColumn, firstRow };
+		UI_MAP.Button.Mine = { secondColumn, firstRow };
+		UI_MAP.Button.Teams = { fifthColumn, firstRow };
+		UI_MAP.Button.Militia = { sixthColumn, firstRow };
+		UI_MAP.Button.Airspace = { firstColumn, SecondRow};
+		UI_MAP.Button.Inventory = { secondColumn, SecondRow };
+		UI_MAP.Button.Disease = { thirdColumn, SecondRow };
+		UI_MAP.Button.Weather_Y = SecondRow;
+		UI_MAP.Button.Intel_Y = SecondRow;
+		UI_MAP.LevelMarkerArea = { UI_BOTTOM_X + 840, UI_BOTTOM_Y, 55, 8 };
+	}
+	else if (iResolution < _800x600)
+	{
+		const UINT16 xOffset = 43;
+		UI_MAP.Button.Town = { UI_MAP.BorderRegion.x + 35, UI_MAP.BorderRegion.y + 325 };
+		UI_MAP.Button.Mine = { UI_MAP.Button.Town.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Teams = { UI_MAP.Button.Mine.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Militia = { UI_MAP.Button.Teams.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Airspace = { UI_MAP.Button.Militia.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Inventory = { UI_MAP.Button.Airspace.iX + xOffset, UI_MAP.Button.Town.iY };
 
-	MAP_BORDER_TOWN_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 152;
-	MAP_BORDER_TOWN_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_MINE_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 109;
-	MAP_BORDER_MINE_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_TEAMS_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 66;
-	MAP_BORDER_TEAMS_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_AIRSPACE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 20;
-	MAP_BORDER_AIRSPACE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_ITEM_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 63;
-	MAP_BORDER_ITEM_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_MILITIA_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 23;
-	MAP_BORDER_MILITIA_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_DISEASE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 190;
-	MAP_BORDER_DISEASE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	//MAP_BORDER_WEATHER_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 233;			// WANNE: Dynamic X position
-	MAP_BORDER_WEATHER_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	//MAP_BORDER_INTEL_BTN_X		= xResOffset + MAP_BORDER_X + ( ( SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset ) / 2 ) + 276;	// WANNE: Dynamic X position
-	MAP_BORDER_INTEL_BTN_Y		= ( SCREEN_HEIGHT - yResOffset - buttonOffset );
+		UI_MAP.Button.Disease = { UI_MAP.BorderRegion.x + 361, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Weather_Y = UI_MAP.Button.Town.iY;
+		UI_MAP.Button.Intel_Y = UI_MAP.Button.Town.iY;
+		UI_MAP.LevelMarkerArea = { UI_MAP.BorderRegion.x + 303, UI_MAP.Button.Town.iY, 55, 8 };
 
-	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
-	MAP_LEVEL_MARKER_Y 			= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_LEVEL_MARKER_DELTA 		= 8;
-	MAP_LEVEL_MARKER_WIDTH 		= 55;	
+	}
+	else if (iResolution < _1024x768)
+	{
+		const UINT16 xOffset = 43;
+		UI_MAP.Button.Town = { UI_MAP.BorderRegion.x + 115, UI_MAP.BorderRegion.y + 444 };
+		UI_MAP.Button.Mine = { UI_MAP.Button.Town.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Teams = { UI_MAP.Button.Mine.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Militia = { UI_MAP.Button.Teams.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Airspace = { UI_MAP.Button.Militia.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Inventory = { UI_MAP.Button.Airspace.iX + xOffset, UI_MAP.Button.Town.iY };
+
+		UI_MAP.Button.Disease = { UI_MAP.BorderRegion.x + 450, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Weather_Y = UI_MAP.Button.Town.iY; 
+		UI_MAP.Button.Intel_Y = UI_MAP.Button.Town.iY;
+		UI_MAP.LevelMarkerArea = { UI_MAP.BorderRegion.x + 383, UI_MAP.Button.Town.iY, 55, 8 };
+	}
+	else
+	{
+		const UINT16 xOffset = 43;
+		UI_MAP.Button.Town = { UI_MAP.BorderRegion.x + 228, UI_MAP.BorderRegion.y + 612 };
+		UI_MAP.Button.Mine = { UI_MAP.Button.Town.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Teams = { UI_MAP.Button.Mine.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Militia = { UI_MAP.Button.Teams.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Airspace = { UI_MAP.Button.Militia.iX + xOffset, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Inventory = { UI_MAP.Button.Airspace.iX + xOffset, UI_MAP.Button.Town.iY };
+
+		UI_MAP.Button.Disease = { UI_MAP.BorderRegion.x + 560, UI_MAP.Button.Town.iY };
+		UI_MAP.Button.Weather_Y = UI_MAP.Button.Town.iY;
+		UI_MAP.Button.Intel_Y = UI_MAP.Button.Town.iY;
+		UI_MAP.LevelMarkerArea = { UI_MAP.BorderRegion.x + 495, UI_MAP.Button.Town.iY, 55, 8 };
+	}
 }

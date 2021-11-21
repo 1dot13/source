@@ -96,6 +96,15 @@ typedef CHAR8 SGPFILENAME[SGPFILENAME_LEN];
 #endif
 
 typedef struct
+{
+	INT32 x;
+	INT32 y;
+	INT32 width;
+	INT32 height;
+
+} SGPRectangle;
+
+typedef struct
 { 
 	INT32 iLeft;
 	INT32 iTop;

@@ -52,6 +52,76 @@ extern INT8 NUM_TOWNS;
 #define FIRST_TOWN	OMERTA
 //#define PALACE			NUM_TOWNS
 
+struct UILayout_CharPanelIconRegion
+{
+	INT32 x;
+	INT32 y;
+	INT32 width;
+	INT32 height;
+	INT32 spacing;
+};
+
+struct UILayout_MapBorderButtons
+{
+	SGPPoint Town;
+	SGPPoint Mine;
+	SGPPoint Teams;
+	SGPPoint Militia;
+	SGPPoint Airspace;
+	SGPPoint Inventory;
+	SGPPoint Disease;
+	UINT16 Weather_Y; // Dynamic x position
+	UINT16 Intel_Y; // Dynamic x position
+};
+
+struct UILayout_ETA
+{
+	int Start_Y;
+	int Clock_X;
+	int Hour_X;
+	int Min_X;
+};
+
+struct UILayout_HeliETA
+{
+	SGPRectangle PopupBox;
+	int Upper_Popup_Y;
+	int Alternate_Height;
+};
+
+struct UILayout_Map
+{
+	SGPRectangle BorderRegion;
+	SGPRectangle ViewRegion;
+	SGPRectangle Alphabet;
+	SGPRectangle Numbers;
+	SGPRectangle LevelMarkerArea;
+	SGPPoint LevelString;
+	SGPPoint GridSize;
+	UILayout_MapBorderButtons Button;
+	UILayout_ETA ETA;
+	UILayout_HeliETA HeliETA;
+};
+
+struct UILayout_CharList
+{
+	SGPRectangle Region;
+	SGPPoint Title;
+	int y;
+	int yOffset;
+	int xName;
+	int widthName;
+	int xAssignment;
+	int widthAssignment;
+	int xSleep;
+	int widthSleep;
+	int xLocation;
+	int widthLocation;
+	int xETA;
+	int widthETA;
+	int xTimeRemaining;
+	int widthTimeRemaining;
+};
 
 extern BOOLEAN fCharacterInfoPanelDirty;
 extern BOOLEAN fTeamPanelDirty;
@@ -105,6 +175,7 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
 BOOLEAN InitializeInvPanelCoordsOld( );
 BOOLEAN InitializeInvPanelCoordsNew( );
 BOOLEAN InitializeInvPanelCoordsVehicle( );
+void initMapViewAndBorderCoordinates(void);
 
 // HEADROCK HAM 3.6: Calculate daily cost for all mercs who have one.
 INT32 GetTotalContractExpenses ( void );
@@ -153,5 +224,7 @@ void ConvertMinTimeToETADayHourMinString( UINT32 uiTimeInMin, STR16 sString );
 
 // Flugente: bandaging during retreat
 void RetreatBandageCallback( UINT8 ubResult );
+
+bool isWidescreenUI(void);
 
 #endif

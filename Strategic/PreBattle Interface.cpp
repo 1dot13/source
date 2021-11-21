@@ -61,6 +61,7 @@
 extern void InitializeTacticalStatusAtBattleStart();
 extern BOOLEAN gfDelayAutoResolveStart;
 extern BOOLEAN gfTransitionMapscreenToAutoResolve;
+extern UILayout_Map UI_MAP;
 
 #ifdef JA2BETAVERSION
 extern BOOLEAN gfExitViewer;
@@ -1052,8 +1053,8 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	uiStartTime = GetJA2Clock();
 
 	GetScreenXYFromMapXY( gubPBSectorX, gubPBSectorY, &sStartLeft, &sStartTop );
-	sStartLeft += MAP_GRID_X / 2;
-	sStartTop += MAP_GRID_Y / 2;
+	sStartLeft += UI_MAP.GridSize.iX / 2;
+	sStartTop += UI_MAP.GridSize.iY / 2;
 	sEndLeft = 131 + xResOffset;
 	sEndTop = 180 + yResOffset;
 

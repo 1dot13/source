@@ -84,6 +84,8 @@
 //const UINT32 INTERFACE_START_Y			= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
 //const UINT32 INV_INTERFACE_START_Y		= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 
+extern UILayout_Map UI_MAP;
+
 int INTERFACE_WIDTH;//			= 640;
 int INTERFACE_HEIGHT;//		= 120;
 int INV_INTERFACE_HEIGHT;//	= 140;
@@ -889,7 +891,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	}
 	//SetButtonSavedRect( iActionIcons[ WALK_ICON ] );
 
-	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		SetButtonFastHelpText( iActionIcons[ WALK_ICON ], TacticalStr[ DRIVE_POPUPTEXT ] );
 	}
@@ -4563,9 +4565,9 @@ void BeginMapUIMessage( UINT8 ubPosition, STR16 pFontString, ... )
 		// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
 		memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
 		// Set Overlay
-		VideoOverlayDesc.sLeft	= 20 + MAP_VIEW_START_X + ( MAP_VIEW_WIDTH - gusUIMessageWidth ) / 2;
+		VideoOverlayDesc.sLeft	= 20 + UI_MAP.ViewRegion.x + (UI_MAP.ViewRegion.width - gusUIMessageWidth ) / 2;
 
-		VideoOverlayDesc.sTop	= MAP_VIEW_START_Y + ( MAP_VIEW_HEIGHT - gusUIMessageHeight ) / 2;
+		VideoOverlayDesc.sTop	= UI_MAP.ViewRegion.y + (UI_MAP.ViewRegion.height - gusUIMessageHeight ) / 2;
 
 		if( ubPosition == MSG_MAP_UI_POSITION_UPPER )
 		{

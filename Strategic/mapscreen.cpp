@@ -179,192 +179,126 @@ extern INT8			gbCompatibleApplyItem;
 void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
 #endif
 
-// CHRISL: Reclassify all coordinates as int variables and declare their values in an initialization function.
-int TOWN_INFO_X;
-int TOWN_INFO_Y;
+struct UILayout_CharStatusBars
+{
+	INT32 x;
+	INT32 y;
+	INT32 offset;
+};
 
+struct UILayout_CharPanelButtons
+{
+	SGPPoint Up;
+	SGPPoint Down;
+	SGPPoint Contract;
+};
+
+struct UILayout_CharPanelTextLocations
+{
+	SGPRectangle CurrentAssignment;
+	SGPRectangle CurrentHealth;
+	SGPRectangle CurrentHitpoints;
+	SGPRectangle CurrentMorale;
+	SGPRectangle Pay;
+	SGPRectangle Salary;
+	SGPRectangle TimeRemaining;
+	SGPRectangle Medical;
+	SGPPoint Assignment;
+	SGPPoint Attributes;
+	SGPPoint Attributes2;
+	SGPPoint Health;
+	SGPPoint Morale;
+	SGPPoint Condition;
+	int CurrentAssignment_Y2;
+};
+
+struct UILayout_CharPanelAttributes
+{
+	SGPPoint AGL;
+	SGPPoint DEX;
+	SGPPoint STR;
+	SGPPoint LDR;
+	SGPPoint WIS;
+	SGPPoint LVL;
+	SGPPoint MRK;
+	SGPPoint MEC;
+	SGPPoint EXP;
+	SGPPoint MED;
+	int width;
+	int height;
+};
+
+struct UILayout_CharPanel
+{
+	SGPRectangle Region;
+	SGPRectangle FacePicture;
+	SGPRectangle FullName;
+	SGPRectangle NickName;
+	SGPRectangle HandItem;
+	UILayout_CharStatusBars Statusbars;
+	UILayout_CharPanelButtons Button;
+	UILayout_CharPanelTextLocations Text;
+	UILayout_CharPanelAttributes Attr;
+	UILayout_CharPanelIconRegion Icon;
+};
+
+struct UILayout_CharInvButtons
+{
+	SGPRectangle Trashcan;
+	SGPPoint Done;
+};
+
+struct UILayout_CharInvText
+{
+	SGPPoint Armor;
+	SGPPoint ArmorLabel;
+	SGPPoint ArmorPercent;
+	SGPPoint Weight;
+	SGPPoint WeightLabel;
+	SGPPoint WeightPercent;
+	SGPPoint Camo;
+	SGPPoint CamoLabel;
+	SGPPoint CamoPercent;
+	INT32 PercentWidth;
+	INT32 PercentHeight;
+};
+
+struct UILayout_CharInv
+{
+	SGPRectangle Region;
+	SGPPoint BodyPanel;
+	UILayout_CharInvButtons Button;
+	UILayout_CharInvText Text;
+};
+
+UILayout_Map UI_MAP;
+UILayout_CharPanel UI_CHARPANEL;
+UILayout_CharPanelIconRegion UI_CHAR_Icon;
+UILayout_CharInv UI_CHARINV;
+int UI_CHARINV_REGION_X;
+int UI_CHARINV_REGION_Y;
+int UI_CHARINV_REGION_W;
+int UI_CHARINV_REGION_H;
+
+UILayout_CharList UI_CHARLIST;
+extern UINT16 MAP_BOTTOM_LAPTOP_X;
+extern UINT16 MAP_BOTTOM_LAPTOP_Y;
+
+int CHAR_BAR_INFO_X;
+int CHAR_BAR_INFO_Y;
 int PLAYER_INFO_X;
 int PLAYER_INFO_Y;
-
 // item description
 int MAP_ITEMDESC_START_X;
 int MAP_ITEMDESC_START_Y;
-
-int INV_REGION_X;
 int INV_REGION_Y;
-int INV_REGION_WIDTH;
-int INV_REGION_HEIGHT;
-int INV_BTN_X;
-int INV_BTN_Y;
-int INV_BDROP_X;
-int INV_BDROP_Y;
-
-int MAP_ARMOR_LABEL_X;
-int MAP_ARMOR_LABEL_Y;
-int MAP_ARMOR_X;
-int MAP_ARMOR_Y;
-int MAP_ARMOR_PERCENT_X;
-int MAP_ARMOR_PERCENT_Y;
-
-int MAP_WEIGHT_LABEL_X;
-int MAP_WEIGHT_LABEL_Y;
-int MAP_WEIGHT_X;
-int MAP_WEIGHT_Y;
-int MAP_WEIGHT_PERCENT_X;
-int MAP_WEIGHT_PERCENT_Y;
-
-int MAP_CAMMO_LABEL_X;
-int MAP_CAMMO_LABEL_Y;
-int MAP_CAMMO_X;
-int MAP_CAMMO_Y;
-int MAP_CAMMO_PERCENT_X;
-int MAP_CAMMO_PERCENT_Y;
-
-int MAP_PERCENT_WIDTH;
-int MAP_PERCENT_HEIGHT;
-
 int MAP_INV_STATS_TITLE_FONT_COLOR;
-int MAP_INV_STATS_TEXT_FONT_COLOR;
-
-int PLAYER_INFO_FACE_START_X;
-int PLAYER_INFO_FACE_START_Y;
-int PLAYER_INFO_FACE_END_X;
-int PLAYER_INFO_FACE_END_Y;
-
-int INV_BODY_X;
-int INV_BODY_Y;
-
-int NAME_X;
-int NAME_WIDTH;
-
-int ASSIGN_X;
-int ASSIGN_WIDTH;
-int SLEEP_X;
-int SLEEP_WIDTH;
-int LOC_X;
-int LOC_WIDTH;
-int DEST_ETA_X;
-int DEST_ETA_WIDTH;
-int TIME_REMAINING_X;
-int TIME_REMAINING_WIDTH;
-
-int CLOCK_Y_START;
-
-int DEST_PLOT_X;
-int DEST_PLOT_Y;
-
-int CLOCK_ETA_X;
-int CLOCK_HOUR_X_START;
-int CLOCK_MIN_X_START;
-
-// contract
-int CONTRACT_X;
-int CONTRACT_Y;
-
-// trash can
-int TRASH_CAN_X;
-int TRASH_CAN_Y;
-int TRASH_CAN_WIDTH;
-int TRASH_CAN_HEIGHT;
-
 // keyring
 int MAP_KEYRING_X;
 int MAP_KEYRING_Y;
-
-//Text offsets
-int Y_OFFSET;
-
 // The boxes defines
-int TRAIN_Y_OFFSET;
-int TRAIN_X_OFF;
-int TRAIN_WID;
-int TRAIN_HEIG;
-int STRING_X_OFFSET;
-int STRING_Y_OFFSET;
 int POP_UP_BOX_X;
-int POP_UP_BOX_Y;
-int POP_UP_BOX_WIDTH;
-int POP_UP_BOX_HEIGHT;
-int MOUSE_PTR_Y_OFFSET;
-int POP_UP_Y_OFFSET;
-int TRAIN_TEXT_Y_OFFSET;
 
-
-// char stat positions
-int STR_X;
-int STR_Y;
-int DEX_X;
-int DEX_Y;
-int AGL_X;
-int AGL_Y;
-int LDR_X;
-int LDR_Y;
-int WIS_X;
-int WIS_Y;
-int LVL_X;
-int LVL_Y;
-int MRK_X;
-int MRK_Y;
-int MEC_X;
-int MEC_Y;
-int EXP_X;
-int EXP_Y;
-int MED_X;
-int MED_Y;
-
-int STAT_WID;
-int STAT_HEI;
-
-int PIC_NAME_X;
-int PIC_NAME_Y;
-int PIC_NAME_WID;
-int PIC_NAME_HEI;
-int CHAR_NAME_X;
-int CHAR_NAME_Y;
-int CHAR_NAME_WID;
-int CHAR_NAME_HEI;
-int CHAR_LOC_X;
-int CHAR_LOC_Y;
-int CHAR_LOC_WID;
-int CHAR_LOC_HEI;
-int CHAR_TIME_REMAINING_X;
-int CHAR_TIME_REMAINING_Y;
-int CHAR_TIME_REMAINING_WID;
-int CHAR_TIME_REMAINING_HEI;
-int CHAR_SALARY_X;
-int CHAR_SALARY_Y;
-int CHAR_SALARY_WID;
-int CHAR_SALARY_HEI;
-int CHAR_MEDICAL_X;
-int CHAR_MEDICAL_Y;
-int CHAR_MEDICAL_WID;
-int CHAR_MEDICAL_HEI;
-int CHAR_ASSIGN_X;
-int CHAR_ASSIGN1_Y;
-int CHAR_ASSIGN2_Y;
-int CHAR_ASSIGN_WID;
-int CHAR_ASSIGN_HEI;
-int CHAR_HP_X;
-int CHAR_HP_Y;
-int CHAR_HP_WID;
-int CHAR_HP_HEI;
-int CHAR_MORALE_X;
-int CHAR_MORALE_Y;
-int CHAR_MORALE_WID;
-int CHAR_MORALE_HEI;
-
-int CROSS_X;
-int CROSS_Y;
-int CROSS_HEIGHT;
-int CROSS_WIDTH;
-int CHAR_PAY_X;
-int CHAR_PAY_Y;
-int CHAR_PAY_HEI;
-int CHAR_PAY_WID;
-int SOLDIER_PIC_X;
-int SOLDIER_PIC_Y;
-int SOLDIER_HAND_X;
-int SOLDIER_HAND_Y;
 
 // OJW: MP POSITIONS
 int MP_BTN_Y;
@@ -476,6 +410,8 @@ SGPPoint gMapSortButtons[ MAX_SORT_METHODS ]={
 	{178,113},
 	{216,113},
 };
+
+
 
 // map screen's inventory panel pockets - top right corner coordinates
 INV_REGION_DESC gMapScreenInvPocketXY[NUM_INV_SLOTS];	// ARRAY FOR INV PANEL INTERFACE ITEM POSITIONS
@@ -591,8 +527,9 @@ extern void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
 // HEADROCK HAM B2.8: Function to switch team's goggles uniformly
 extern void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision);
-
 extern void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier );
+extern BOOLEAN ValidSelectableCharForNextOrPrev(INT32 iNewCharSlot);
+
 
 UINT32	guiCHARLIST;
 UINT32	guiCHARINFO;
@@ -953,6 +890,8 @@ void MAPBeginItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubHandPos );
 void CreateDestroyMapInvButton();
 void PrevInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason );
 void NextInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason );
+void CreateMapCharInvIOregions();
+void DestroyMapCharInvIOregions();
 
 // check if cursor needs to be set to checkmark or to the walking guy?
 void UpdateCursorIfInLastSector( void );
@@ -1063,6 +1002,7 @@ void DumpSectorDifficultyInfo( void );
 void DumpItemsList( void );
 #endif
 
+
 BOOLEAN IsMercInActiveSector(SOLDIERTYPE * pSoldier)
 {
 	if(pSoldier->sSectorX != sSelMapX)
@@ -1153,658 +1093,764 @@ void BeginDeleteAllCallBack( UINT8 bExitValue )
 #endif
 }
 
-// CHRISL: New functions to handle initialization of inventory coordinates
+
+void InitializeInvPanelCoords()
+{
+	{
+		//UI_CHARPANEL.Region = {
+		//	UI_MAP.BorderRegion.x - 261,
+		//	0,
+		//	261, 106
+		//};
+		const auto x = UI_CHARPANEL.Region.x;
+		const auto y = UI_CHARPANEL.Region.y;
+
+		UI_CHARPANEL.FacePicture = {
+			x + 9,
+			y + 20,
+			60, 63
+		};
+
+		UI_CHARPANEL.NickName = {
+			x + 8,
+			y + 69,
+			52,
+			6
+		};
+
+		UI_CHARPANEL.FullName = {
+			x + 14,
+			y + 5,
+			150,
+			6
+		};
+
+		UI_CHARPANEL.HandItem = {
+			x + 4,
+			y + 81,
+			59, 20
+		};
+
+		UI_CHARPANEL.Statusbars = { x + 66, y + 61, 6 };
+		// For extern use
+		CHAR_BAR_INFO_X = UI_CHARPANEL.Statusbars.x;
+		CHAR_BAR_INFO_Y = UI_CHARPANEL.Statusbars.y;
+
+		UI_CHARPANEL.Button.Up = { x + 67, y + 68 };
+		UI_CHARPANEL.Button.Down = { x + 67, y + 87 };
+		UI_CHARPANEL.Button.Contract = { x + 185, y + 50 };
+
+		UI_CHARPANEL.Text.Assignment = { x + 220, y + 4 };
+		UI_CHARPANEL.Text.Attributes = { x + 88, y + 22 };
+		UI_CHARPANEL.Text.Attributes2 = { x + 133, y + 22 };
+		UI_CHARPANEL.Text.Health = { x + 87, y + 80 };
+		UI_CHARPANEL.Text.Morale = { x + 87, y + 94 };
+		UI_CHARPANEL.Text.Condition = { x + 87, y + 80 };
+
+		UI_CHARPANEL.Icon = {
+			x + 187,
+			y + 64,
+			10, 10, 13
+		};
+		// For extern use
+		UI_CHAR_Icon = UI_CHARPANEL.Icon;
+
+		{
+			const int x1 = x + 112;
+			const int x2 = x + 159;
+			const int y1 = y + 22;
+			const int yOffset = 10;
+			// First column
+			UI_CHARPANEL.Attr.AGL = { x1, y1 };
+			UI_CHARPANEL.Attr.DEX = { x1, y1 + yOffset };
+			UI_CHARPANEL.Attr.STR = { x1, y1 + yOffset * 2 };
+			UI_CHARPANEL.Attr.LDR = { x1, y1 + yOffset * 3 };
+			UI_CHARPANEL.Attr.WIS = { x1, y1 + yOffset * 4 };
+			// Second column
+			UI_CHARPANEL.Attr.LVL = { x2, y1 };
+			UI_CHARPANEL.Attr.MRK = { x2, y1 + yOffset };
+			UI_CHARPANEL.Attr.MEC = { x2, y1 + yOffset * 2 };
+			UI_CHARPANEL.Attr.EXP = { x2, y1 + yOffset * 3 };
+			UI_CHARPANEL.Attr.MED = { x2, y1 + yOffset * 4 };
+			UI_CHARPANEL.Attr.width = 15;
+			UI_CHARPANEL.Attr.height = GetFontHeight(CHAR_FONT);
+		}
+		UI_CHARPANEL.Text.CurrentHitpoints = {
+			x + 133,
+			y + 80,
+			42, 10
+		};
+
+		UI_CHARPANEL.Text.CurrentMorale = {
+			x + 133,
+			y + 94,
+			42, 7
+		};
+
+		UI_CHARPANEL.Text.Pay = {
+			x + 150,
+			y + 84,
+			45, GetFontHeight(CHAR_FONT)
+		};
+
+		UI_CHARPANEL.Text.TimeRemaining = {
+			x + 207,
+			y + 65,
+			51, GetFontHeight(CHAR_FONT)
+		};
+
+		UI_CHARPANEL.Text.Salary = {
+			UI_CHARPANEL.Text.TimeRemaining.x,
+			y + 79,
+			UI_CHARPANEL.Text.TimeRemaining.width - 8,
+			UI_CHARPANEL.Text.TimeRemaining.height
+		};
+
+		UI_CHARPANEL.Text.Medical = {
+			UI_CHARPANEL.Text.TimeRemaining.x,
+			y + 93,
+			UI_CHARPANEL.Text.TimeRemaining.width - 8,
+			UI_CHARPANEL.Text.TimeRemaining.height
+		};
+
+		UI_CHARPANEL.Text.CurrentAssignment = {
+			x + 182,
+			y + 18,
+			79, 10
+		};
+		UI_CHARPANEL.Text.CurrentAssignment_Y2 = y + 31;
+	}
+	// END Charpanel
+
+	// BEGIN Strategic merc inventory
+	{
+		//UI_CHARINV.Region = {
+		//	UI_MAP.BorderRegion.x - 262,
+		//	UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+		//	262, 490
+		//};
+		const auto x = UI_CHARINV.Region.x;
+		const auto y = UI_CHARINV.Region.y;
+		// For extern use
+		PLAYER_INFO_X = x;
+		PLAYER_INFO_Y = y;
+		UI_CHARINV_REGION_X = UI_CHARINV.Region.x;
+		UI_CHARINV_REGION_Y = UI_CHARINV.Region.y;
+		UI_CHARINV_REGION_W = UI_CHARINV.Region.width;
+		UI_CHARINV_REGION_H = UI_CHARINV.Region.height;
+
+		// item description region
+		MAP_ITEMDESC_START_X = x;
+		MAP_ITEMDESC_START_Y = y;
+
+		UI_CHARINV.Button.Done = {x + 226, y + 19};
+		UI_CHARINV.Button.Trashcan = { x + 209, y + 59, 28, 22 };
+
+		UI_CHARINV.Text.Armor = { x + 137, y + 79 };
+		UI_CHARINV.Text.ArmorLabel = { x + 136, y + 69 };
+		UI_CHARINV.Text.ArmorPercent = { x + 158, y + 79 };
+		
+		UI_CHARINV.Text.Weight = { x + 188, y + 113 };
+		UI_CHARINV.Text.WeightLabel = { x + 185, y + 102 };
+		UI_CHARINV.Text.WeightPercent = { x + 208, y + 113 };
+
+		UI_CHARINV.Text.Camo = { x + 223, y + 113 };
+		UI_CHARINV.Text.CamoLabel = { x + 223, y + 102 };
+		UI_CHARINV.Text.CamoPercent = { x + 243, y + 113 };
+
+		UI_CHARINV.Text.PercentWidth = 20;
+		UI_CHARINV.Text.PercentHeight = 10;
+
+		UI_CHARINV.BodyPanel = { x + 31, y + 8 };
+
+		// X, Y Location of Map screen's Camouflage region
+		gSCamoXY.sX = UI_CHARINV.BodyPanel.iX;
+		gSCamoXY.sY = UI_CHARINV.BodyPanel.iY;
+
+		//For extern use
+		MAP_KEYRING_X = x + 186;
+		MAP_KEYRING_Y = y + 19;
+
+
+		gMapScreenInvPocketXY[0].sX = x + 131;	gMapScreenInvPocketXY[0].sY = y + 9;		// HELMETPOS
+		gMapScreenInvPocketXY[1].sX = x + 131;	gMapScreenInvPocketXY[1].sY = y + 37;		// VESTPOS
+		gMapScreenInvPocketXY[2].sX = x + 131;	gMapScreenInvPocketXY[2].sY = y + 97;		// LEGPOS
+		gMapScreenInvPocketXY[3].sX = x + 14;	gMapScreenInvPocketXY[3].sY = y + 9;		// HEAD1POS
+		gMapScreenInvPocketXY[4].sX = x + 14;	gMapScreenInvPocketXY[4].sY = y + 32;		// HEAD2POS
+		gMapScreenInvPocketXY[5].sX = x + 14;	gMapScreenInvPocketXY[5].sY = y + 86;		// HANDPOS
+		gMapScreenInvPocketXY[6].sX = x + 14;	gMapScreenInvPocketXY[6].sY = y + 110;		// SECONDHANDPOS
+		gMapScreenInvPocketXY[7].sX = x + 186;	gMapScreenInvPocketXY[7].sY = y + 156;		// VESTPOCK
+		gMapScreenInvPocketXY[8].sX = x + 29;	gMapScreenInvPocketXY[8].sY = y + 256;		// LTHIGHPOCK
+		gMapScreenInvPocketXY[9].sX = x + 112;	gMapScreenInvPocketXY[9].sY = y + 256;		// RTHIGHPOCK
+		gMapScreenInvPocketXY[10].sX = x + 194;	gMapScreenInvPocketXY[10].sY = y + 256;		// CPACKPOCK
+		gMapScreenInvPocketXY[11].sX = x + 173;	gMapScreenInvPocketXY[11].sY = y + 439;		// BPACKPOCK
+		gMapScreenInvPocketXY[12].sX = x + 95;	gMapScreenInvPocketXY[12].sY = y + 156;		// GUNSLINGPOCKPOS
+		gMapScreenInvPocketXY[13].sX = x + 36;	gMapScreenInvPocketXY[13].sY = y + 156;		// KNIFEPOCKPOS
+		gMapScreenInvPocketXY[14].sX = x + 186;	gMapScreenInvPocketXY[14].sY = y + 336;		// BIGPOCK1
+		gMapScreenInvPocketXY[15].sX = x + 186;	gMapScreenInvPocketXY[15].sY = y + 360;		// BIGPOCK2
+		gMapScreenInvPocketXY[16].sX = x + 186;	gMapScreenInvPocketXY[16].sY = y + 384;		// BIGPOCK3
+		gMapScreenInvPocketXY[17].sX = x + 98;	gMapScreenInvPocketXY[17].sY = y + 379;		// BIGPOCK4
+		gMapScreenInvPocketXY[18].sX = x + 98;	gMapScreenInvPocketXY[18].sY = y + 403;		// BIGPOCK5
+		gMapScreenInvPocketXY[19].sX = x + 98;	gMapScreenInvPocketXY[19].sY = y + 427;		// BIGPOCK6
+		gMapScreenInvPocketXY[20].sX = x + 98;	gMapScreenInvPocketXY[20].sY = y + 451;		// BIGPOCK7
+		gMapScreenInvPocketXY[21].sX = x + 202;	gMapScreenInvPocketXY[21].sY = y + 188;		// MEDPOCK1
+		gMapScreenInvPocketXY[22].sX = x + 202;	gMapScreenInvPocketXY[22].sY = y + 212;		// MEDPOCK2
+		gMapScreenInvPocketXY[23].sX = x + 29;	gMapScreenInvPocketXY[23].sY = y + 336;		// MEDPOCK3
+		gMapScreenInvPocketXY[24].sX = x + 112;	gMapScreenInvPocketXY[24].sY = y + 336;		// MEDPOCK4
+		gMapScreenInvPocketXY[25].sX = x + 22;	gMapScreenInvPocketXY[25].sY = y + 188;		// SMALLPOCK1
+		gMapScreenInvPocketXY[26].sX = x + 58;	gMapScreenInvPocketXY[26].sY = y + 188;		// SMALLPOCK2
+		gMapScreenInvPocketXY[27].sX = x + 94;	gMapScreenInvPocketXY[27].sY = y + 188;		// SMALLPOCK3
+		gMapScreenInvPocketXY[28].sX = x + 130;	gMapScreenInvPocketXY[28].sY = y + 188;		// SMALLPOCK4
+		gMapScreenInvPocketXY[29].sX = x + 166;	gMapScreenInvPocketXY[29].sY = y + 188;		// SMALLPOCK5
+		gMapScreenInvPocketXY[30].sX = x + 22;	gMapScreenInvPocketXY[30].sY = y + 212;		// SMALLPOCK6
+		gMapScreenInvPocketXY[31].sX = x + 58;	gMapScreenInvPocketXY[31].sY = y + 212;		// SMALLPOCK7
+		gMapScreenInvPocketXY[32].sX = x + 94;	gMapScreenInvPocketXY[32].sY = y + 212;		// SMALLPOCK8	
+		gMapScreenInvPocketXY[33].sX = x + 130;	gMapScreenInvPocketXY[33].sY = y + 212;		// SMALLPOCK9
+		gMapScreenInvPocketXY[34].sX = x + 166;	gMapScreenInvPocketXY[34].sY = y + 212;		// SMALLPOCK10
+		gMapScreenInvPocketXY[35].sX = x + 18;	gMapScreenInvPocketXY[35].sY = y + 288;		// SMALLPOCK11
+		gMapScreenInvPocketXY[36].sX = x + 54;	gMapScreenInvPocketXY[36].sY = y + 288;		// SMALLPOCK12
+		gMapScreenInvPocketXY[37].sX = x + 18;	gMapScreenInvPocketXY[37].sY = y + 312;		// SMALLPOCK13
+		gMapScreenInvPocketXY[38].sX = x + 54;	gMapScreenInvPocketXY[38].sY = y + 312;		// SMALLPOCK14
+		gMapScreenInvPocketXY[39].sX = x + 100;	gMapScreenInvPocketXY[39].sY = y + 288;		// SMALLPOCK15
+		gMapScreenInvPocketXY[40].sX = x + 136;	gMapScreenInvPocketXY[40].sY = y + 288;		// SMALLPOCK16
+		gMapScreenInvPocketXY[41].sX = x + 100;	gMapScreenInvPocketXY[41].sY = y + 312;		// SMALLPOCK17
+		gMapScreenInvPocketXY[42].sX = x + 136;	gMapScreenInvPocketXY[42].sY = y + 312;		// SMALLPOCK18
+		gMapScreenInvPocketXY[43].sX = x + 183;	gMapScreenInvPocketXY[43].sY = y + 288;		// SMALLPOCK19
+		gMapScreenInvPocketXY[44].sX = x + 219;	gMapScreenInvPocketXY[44].sY = y + 288;		// SMALLPOCK20
+		gMapScreenInvPocketXY[45].sX = x + 183;	gMapScreenInvPocketXY[45].sY = y + 312;		// SMALLPOCK21
+		gMapScreenInvPocketXY[46].sX = x + 219;	gMapScreenInvPocketXY[46].sY = y + 312;		// SMALLPOCK22
+		gMapScreenInvPocketXY[47].sX = x + 26;	gMapScreenInvPocketXY[47].sY = y + 379;		// SMALLPOCK23
+		gMapScreenInvPocketXY[48].sX = x + 26;	gMapScreenInvPocketXY[48].sY = y + 403;		// SMALLPOCK24
+		gMapScreenInvPocketXY[49].sX = x + 26;	gMapScreenInvPocketXY[49].sY = y + 427;		// SMALLPOCK25
+		gMapScreenInvPocketXY[50].sX = x + 26;	gMapScreenInvPocketXY[50].sY = y + 451;		// SMALLPOCK26
+		gMapScreenInvPocketXY[51].sX = x + 62;	gMapScreenInvPocketXY[51].sY = y + 379;		// SMALLPOCK27
+		gMapScreenInvPocketXY[52].sX = x + 62;	gMapScreenInvPocketXY[52].sY = y + 403;		// SMALLPOCK28
+		gMapScreenInvPocketXY[53].sX = x + 62;	gMapScreenInvPocketXY[53].sY = y + 427;		// SMALLPOCK29
+		gMapScreenInvPocketXY[54].sX = x + 62;	gMapScreenInvPocketXY[54].sY = y + 451;		// SMALLPOCK30
+	}
+	// END Strategic merc inventory
+
+	// BEGIN Character list
+	{
+		//UI_CHARLIST.Region = { 0, 0, 254, 600 };
+		const auto x = UI_CHARLIST.Region.x;
+
+		UI_CHARLIST.y = UI_CHARLIST.Region.y + 26;
+		UI_CHARLIST.yOffset = 2;
+		UI_CHARLIST.Title = { x, UI_CHARLIST.Region.y + 5 - 113 }; // 113 comes from gMapSortButtons y-coordinate
+		UI_CHARLIST.xName = x + 4;
+		UI_CHARLIST.widthName = 51;
+		UI_CHARLIST.xAssignment = x + 60;
+		UI_CHARLIST.widthAssignment = 51;
+		UI_CHARLIST.xSleep = x + 116;
+		UI_CHARLIST.widthSleep = 19;
+		UI_CHARLIST.xLocation = x + 140;
+		UI_CHARLIST.widthLocation = 32;
+		UI_CHARLIST.xETA = x + 177;
+		UI_CHARLIST.widthETA = 33;
+		UI_CHARLIST.xTimeRemaining = x + 215;
+		UI_CHARLIST.widthTimeRemaining = 28;
+
+		//For extern use
+		POP_UP_BOX_X = x + 120;
+	}
+	MAP_INV_STATS_TITLE_FONT_COLOR = 6;
+}
+
 BOOLEAN InitializeInvPanelCoordsOld()
 {
-	PLAYER_INFO_Y					= yResOffset + 107;
-	TOWN_INFO_Y						= yResOffset + 1;
-
-		  
-	PLAYER_INFO_X					= xResOffset + 0;
-	TOWN_INFO_X						= xResOffset + 0;
-	MAP_ITEMDESC_START_X			= xResOffset + 0;
-	INV_BDROP_X						= xResOffset + 0;
-	MAP_WEIGHT_LABEL_X				= xResOffset + 173;
-	MAP_ARMOR_LABEL_X				= xResOffset + 208;
-	MAP_ARMOR_X						= xResOffset + 209;
-	MAP_ARMOR_PERCENT_X				= xResOffset + 229;	
-	MAP_WEIGHT_X					= xResOffset + 176;
-	MAP_WEIGHT_PERCENT_X			= xResOffset + 196;
-	MAP_CAMMO_LABEL_X				= xResOffset + 178;
-	MAP_CAMMO_X					 	= xResOffset + 176;
-	MAP_CAMMO_PERCENT_X				= xResOffset + 196;	
-	PLAYER_INFO_FACE_START_X		= xResOffset + 9;	
-	PLAYER_INFO_FACE_END_X			= xResOffset + 60;	
-	INV_BODY_X						= xResOffset + 71;	
-	NAME_X							= xResOffset + 4;
-	ASSIGN_X						= xResOffset + 60;	
-	SLEEP_X							= xResOffset + 116;	
-	LOC_X							= xResOffset + 140;
-	DEST_ETA_X						= xResOffset + 177;	
-	TIME_REMAINING_X				= xResOffset + 215;	
-	CONTRACT_X						= xResOffset + 185;
-	TRASH_CAN_X						= xResOffset + 176;	
-	MAP_KEYRING_X					= xResOffset + 217;	//218/165 on Inventory_Bottom_Panel.sti
-	POP_UP_BOX_X					= xResOffset + 120;	
-	STR_X							= xResOffset + 112;	
-	LVL_X							= xResOffset + 159;	
-	CHAR_HP_X						= xResOffset + 133;
-	CROSS_X							= xResOffset + 195;
-	CHAR_PAY_X						= xResOffset + 150;
-	SOLDIER_PIC_X					= xResOffset + 9;
-	SOLDIER_HAND_X					= xResOffset + 6;
-	CHAR_MORALE_X					= xResOffset + 133;
-	PIC_NAME_X						= xResOffset + 8;
-	CHAR_NAME_X					 	= xResOffset + 14;
-	CHAR_LOC_X						= xResOffset + 76;
-	CHAR_ASSIGN_X					= xResOffset + 182;
-	CHAR_TIME_REMAINING_X			= xResOffset + 207;
-
-	// Inventory slots
-	gMapScreenInvPocketXY[HELMETPOS].sX = PLAYER_INFO_X + 204;		gMapScreenInvPocketXY[HELMETPOS].sY = PLAYER_INFO_Y + 9;	// HELMETPOS
-	gMapScreenInvPocketXY[VESTPOS].sX = PLAYER_INFO_X + 204;		gMapScreenInvPocketXY[VESTPOS].sY = PLAYER_INFO_Y + 38;	// VESTPOS
-	gMapScreenInvPocketXY[LEGPOS].sX = PLAYER_INFO_X + 204;			gMapScreenInvPocketXY[LEGPOS].sY = PLAYER_INFO_Y + 98;	// LEGPOS,
-	gMapScreenInvPocketXY[HEAD1POS].sX = PLAYER_INFO_X + 21;		gMapScreenInvPocketXY[HEAD1POS].sY = PLAYER_INFO_Y + 9;	// HEAD1POS
-	gMapScreenInvPocketXY[HEAD2POS].sX = PLAYER_INFO_X + 21;		gMapScreenInvPocketXY[HEAD2POS].sY = PLAYER_INFO_Y + 33;	// HEAD2POS
-	gMapScreenInvPocketXY[HANDPOS].sX = PLAYER_INFO_X + 21;			gMapScreenInvPocketXY[HANDPOS].sY = PLAYER_INFO_Y + 87;	// HANDPOS,
-	gMapScreenInvPocketXY[SECONDHANDPOS].sX = PLAYER_INFO_X + 21;	gMapScreenInvPocketXY[SECONDHANDPOS].sY = PLAYER_INFO_Y + 111;	// SECONDHANDPOS
-	gMapScreenInvPocketXY[BIGPOCK1POS].sX = PLAYER_INFO_X + 98;		gMapScreenInvPocketXY[BIGPOCK1POS].sY = PLAYER_INFO_Y + 144;	// BIGPOCK1
-	gMapScreenInvPocketXY[BIGPOCK2POS].sX = PLAYER_INFO_X + 98;		gMapScreenInvPocketXY[BIGPOCK2POS].sY = PLAYER_INFO_Y + 168;	// BIGPOCK2
-	gMapScreenInvPocketXY[BIGPOCK3POS].sX = PLAYER_INFO_X + 98;		gMapScreenInvPocketXY[BIGPOCK3POS].sY = PLAYER_INFO_Y + 192;	// BIGPOCK3
-	gMapScreenInvPocketXY[BIGPOCK4POS].sX = PLAYER_INFO_X + 98;		gMapScreenInvPocketXY[BIGPOCK4POS].sY = PLAYER_INFO_Y + 216;	// BIGPOCK4
-	gMapScreenInvPocketXY[SMALLPOCK1POS].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[SMALLPOCK1POS].sY = PLAYER_INFO_Y + 144;	// SMALLPOCK1
-	gMapScreenInvPocketXY[SMALLPOCK2POS].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[SMALLPOCK2POS].sY = PLAYER_INFO_Y + 168;	// SMALLPOCK2
-	gMapScreenInvPocketXY[SMALLPOCK3POS].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[SMALLPOCK3POS].sY = PLAYER_INFO_Y + 192;	// SMALLPOCK3
-	gMapScreenInvPocketXY[SMALLPOCK4POS].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[SMALLPOCK4POS].sY = PLAYER_INFO_Y + 216;	// SMALLPOCK4
-	gMapScreenInvPocketXY[SMALLPOCK5POS].sX = PLAYER_INFO_X + 60;	gMapScreenInvPocketXY[SMALLPOCK5POS].sY = PLAYER_INFO_Y + 144;	// SMALLPOCK5
-	gMapScreenInvPocketXY[SMALLPOCK6POS].sX = PLAYER_INFO_X + 60;	gMapScreenInvPocketXY[SMALLPOCK6POS].sY = PLAYER_INFO_Y + 168;	// SMALLPOCK6
-	gMapScreenInvPocketXY[SMALLPOCK7POS].sX = PLAYER_INFO_X + 60;	gMapScreenInvPocketXY[SMALLPOCK7POS].sY = PLAYER_INFO_Y + 192;	// SMALLPOCK7
-	gMapScreenInvPocketXY[SMALLPOCK8POS].sX = PLAYER_INFO_X + 60;	gMapScreenInvPocketXY[SMALLPOCK8POS].sY = PLAYER_INFO_Y + 216;	// SMALLPOCK8
-
-	// item description
-	NAME_WIDTH						= 51;
-	ASSIGN_WIDTH					= 51;
-	SLEEP_WIDTH						= 19; 
-	LOC_WIDTH						= 32;
-	DEST_ETA_WIDTH					= 33;
-	TIME_REMAINING_WIDTH			= 28;	
-	CHAR_HP_WID						= 42;
-	CHAR_MORALE_WID					= 42;	
-	PIC_NAME_WID					= 52;
-	CHAR_NAME_WID					= 150;
-	CHAR_TIME_REMAINING_WID			= 51;		
-	MAP_ITEMDESC_START_Y			= PLAYER_INFO_Y;
-	INV_REGION_X					= PLAYER_INFO_X;
-	INV_REGION_Y					= PLAYER_INFO_Y;
-	INV_REGION_WIDTH				= 261;
-	INV_REGION_HEIGHT				= 359-94;
-	INV_BTN_X						= PLAYER_INFO_X + 217;
-	INV_BTN_Y						= PLAYER_INFO_Y + 210;
-	INV_BDROP_Y						= 0;	// Not used in old inventory
-	MAP_ARMOR_LABEL_Y				= yResOffset + 180;
-	MAP_ARMOR_Y						= yResOffset + 189;
-	MAP_ARMOR_PERCENT_Y				= yResOffset + 190;
-	MAP_WEIGHT_LABEL_Y				= yResOffset + 256;
-	MAP_WEIGHT_Y					= yResOffset + 266;
-	MAP_WEIGHT_PERCENT_Y			= yResOffset + 266;
-	MAP_CAMMO_LABEL_Y				= yResOffset + 283;
-	MAP_CAMMO_Y						= yResOffset + 292;
-	MAP_CAMMO_PERCENT_Y				= yResOffset + 293;
-	MAP_PERCENT_WIDTH				= 20;
-	MAP_PERCENT_HEIGHT				= 10;
-	MAP_INV_STATS_TITLE_FONT_COLOR	= 6;
-	MAP_INV_STATS_TEXT_FONT_COLOR	= 5;
-	PLAYER_INFO_FACE_START_Y		= yResOffset + 17;
-	PLAYER_INFO_FACE_END_Y			= yResOffset + 76;
-	INV_BODY_Y						= yResOffset + 116;
-
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI())
 	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 262,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
 
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
 
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484) + xResOffset;
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518) + xResOffset;
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538) + xResOffset;
+		UI_CHARLIST.Region = { 0, 0, 254, 600 };
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _1024x768)
 	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 120);
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 262,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
 
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 80);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 120);
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
 
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 80) + xResOffset;
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 80) + xResOffset;
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 80) + xResOffset;
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 540 };
+	}
+	else if (iResolution >= _800x600)
+	{
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 260,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
+
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 373
+		};
+
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 372 };
 	}
 	else
 	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 285);
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 260,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
 
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 180);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 285);
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 252
+		};
 
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 180) + xResOffset;
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 180) + xResOffset;
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 180) + xResOffset;
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 254 };
 	}
 
-	// contract
-	CONTRACT_Y						= yResOffset + 50;
+	{
+		//UI_CHARPANEL.Region = {
+		//	UI_MAP.BorderRegion.x - 261,
+		//	0,
+		//	261, 106
+		//};
+		const auto x = UI_CHARPANEL.Region.x;
+		const auto y = UI_CHARPANEL.Region.y;
 
-	// trash can
-	TRASH_CAN_Y						= 211 + PLAYER_INFO_Y;
-	TRASH_CAN_WIDTH					= 193 - 165;
-	TRASH_CAN_HEIGHT				= 239 - 217;
+		UI_CHARPANEL.FacePicture = {
+			x + 9,
+			y + 20,
+			60, 63
+		};
 
-	// keyring
-	MAP_KEYRING_Y					= yResOffset + 271;
+		UI_CHARPANEL.NickName = {
+			x + 8,
+			y + 69,
+			52,
+			6
+		};
 
-	//Text offsets
-	Y_OFFSET						= 2;
+		UI_CHARPANEL.FullName = {
+			x + 14,
+			y + 5,
+			150,
+			6
+		};
 
-	// The boxes defines
-	TRAIN_Y_OFFSET					= 53;
-	TRAIN_X_OFF						= 65;
-	TRAIN_WID						= 80;
-	TRAIN_HEIG						= 47;
-	STRING_X_OFFSET					= 10;
-	STRING_Y_OFFSET					= 5;
-	POP_UP_BOX_Y					= yResOffset + 0;
-	POP_UP_BOX_WIDTH				= 60;
-	POP_UP_BOX_HEIGHT				= 100;
-	MOUSE_PTR_Y_OFFSET				= 3;
-	POP_UP_Y_OFFSET					= 3;
-	TRAIN_TEXT_Y_OFFSET				= 4;
+		UI_CHARPANEL.HandItem = {
+			x + 6,
+			y + 81,
+			59, 20
+		};
 
-	// char stat positions
-	STR_Y							= yResOffset + 42;
-	DEX_X							= STR_X;
-	DEX_Y							= yResOffset + 32;
-	AGL_X							= STR_X;
-	AGL_Y							= yResOffset + 22;
-	LDR_X							= STR_X;
-	LDR_Y							= yResOffset + 52;
-	WIS_X							= STR_X;
-	WIS_Y							= yResOffset + 62;
-	LVL_Y							= AGL_Y;
-	MRK_X							= LVL_X;
-	MRK_Y							= DEX_Y;
-	MEC_X							= LVL_X;
-	MEC_Y							= STR_Y;
-	EXP_X							= LVL_X;
-	EXP_Y							= LDR_Y;
-	MED_X							= LVL_X;
-	MED_Y							= WIS_Y;
+		UI_CHARPANEL.Statusbars = { x + 66, y + 61, 6 };
+		// For extern use
+		CHAR_BAR_INFO_X = UI_CHARPANEL.Statusbars.x;
+		CHAR_BAR_INFO_Y = UI_CHARPANEL.Statusbars.y;
 
-	STAT_WID						= 15;
-	STAT_HEI						= GetFontHeight(CHAR_FONT);
+		UI_CHARPANEL.Button.Up = { x + 67, y + 68 };
+		UI_CHARPANEL.Button.Down = { x + 67, y + 87 };
+		UI_CHARPANEL.Button.Contract = { x + 185, y + 50 };
 
-	PIC_NAME_Y						= yResOffset + 66 + 3;
-	PIC_NAME_HEI					= yResOffset + 75 - PIC_NAME_Y;
-	CHAR_NAME_Y						= yResOffset + 2 + 3;
-	CHAR_NAME_HEI					= yResOffset + 11 - CHAR_NAME_Y;
-	CHAR_LOC_Y						= yResOffset + 84;
-	CHAR_LOC_WID					= 16;
-	CHAR_LOC_HEI					= 9;
-	CHAR_TIME_REMAINING_Y			= yResOffset + 65;
-	CHAR_TIME_REMAINING_HEI			= GetFontHeight(CHAR_FONT);
-	CHAR_SALARY_X					= CHAR_TIME_REMAINING_X;
-	CHAR_SALARY_Y					= yResOffset + 79;
-	CHAR_SALARY_WID					= CHAR_TIME_REMAINING_WID - 8;
-	CHAR_SALARY_HEI					= CHAR_TIME_REMAINING_HEI;
-	CHAR_MEDICAL_X					= CHAR_TIME_REMAINING_X;
-	CHAR_MEDICAL_Y					= yResOffset + 93;
-	CHAR_MEDICAL_WID				= CHAR_TIME_REMAINING_WID - 8;
-	CHAR_MEDICAL_HEI				= CHAR_TIME_REMAINING_HEI;
-	CHAR_ASSIGN1_Y					= yResOffset + 18;
-	CHAR_ASSIGN2_Y					= yResOffset + 31;
-	CHAR_ASSIGN_WID					= 257 - 178;
-	CHAR_ASSIGN_HEI					= 39 - 29;
-	CHAR_MORALE_HEI					= yResOffset + 101 - CHAR_MORALE_Y;
-	CHAR_HP_Y						= yResOffset + 77 + 3;
-	CHAR_HP_HEI						= yResOffset + 90 - CHAR_HP_Y;
-	CHAR_MORALE_Y					= yResOffset + 91 + 3;
-	CROSS_Y							= yResOffset + 83;
-	CROSS_HEIGHT					= 20;
-	CROSS_WIDTH						= 20;
-	CHAR_PAY_Y						= yResOffset + 80 + 4;
-	CHAR_PAY_HEI					= GetFontHeight(CHAR_FONT);
-	CHAR_PAY_WID					= CROSS_X-CHAR_PAY_X;
-	SOLDIER_PIC_Y					= yResOffset + 20;
-	SOLDIER_HAND_Y					= yResOffset + 81;
+		UI_CHARPANEL.Text.Assignment = { x + 220, y + 4 };
+		UI_CHARPANEL.Text.Attributes = { x + 88, y + 22 };
+		UI_CHARPANEL.Text.Attributes2 = { x + 133, y + 22 };
+		UI_CHARPANEL.Text.Health = { x + 87, y + 80 };
+		UI_CHARPANEL.Text.Morale = { x + 87, y + 94 };
+		UI_CHARPANEL.Text.Condition = { x + 87, y + 80 };
 
-	gSCamoXY.sX = INV_BODY_X;	
-	gSCamoXY.sY = INV_BODY_Y;	// X, Y Location of Map screen's Camouflage region
+		UI_CHARPANEL.Icon = {
+			x + 187,
+			y + 64,
+			10, 10, 13
+		};
+		// For extern use
+		UI_CHAR_Icon = UI_CHARPANEL.Icon;
+
+		{
+			const int x1 = x + 112;
+			const int x2 = x + 159;
+			const int y1 = y + 22;
+			const int yOffset = 10;
+			// First column
+			UI_CHARPANEL.Attr.AGL = { x1, y1 };
+			UI_CHARPANEL.Attr.DEX = { x1, y1 + yOffset };
+			UI_CHARPANEL.Attr.STR = { x1, y1 + yOffset * 2 };
+			UI_CHARPANEL.Attr.LDR = { x1, y1 + yOffset * 3 };
+			UI_CHARPANEL.Attr.WIS = { x1, y1 + yOffset * 4 };
+			// Second column
+			UI_CHARPANEL.Attr.LVL = { x2, y1 };
+			UI_CHARPANEL.Attr.MRK = { x2, y1 + yOffset };
+			UI_CHARPANEL.Attr.MEC = { x2, y1 + yOffset * 2 };
+			UI_CHARPANEL.Attr.EXP = { x2, y1 + yOffset * 3 };
+			UI_CHARPANEL.Attr.MED = { x2, y1 + yOffset * 4 };
+			UI_CHARPANEL.Attr.width = 15;
+			UI_CHARPANEL.Attr.height = GetFontHeight(CHAR_FONT);
+		}
+		UI_CHARPANEL.Text.CurrentHitpoints = {
+			x + 133,
+			y + 80,
+			42, 10
+		};
+
+		UI_CHARPANEL.Text.CurrentMorale = {
+			x + 133,
+			y + 94,
+			42, 7
+		};
+
+		UI_CHARPANEL.Text.Pay = {
+			x + 150,
+			y + 84,
+			45, GetFontHeight(CHAR_FONT)
+		};
+
+		UI_CHARPANEL.Text.TimeRemaining = {
+			x + 207,
+			y + 65,
+			51, GetFontHeight(CHAR_FONT)
+		};
+
+		UI_CHARPANEL.Text.Salary = {
+			UI_CHARPANEL.Text.TimeRemaining.x,
+			y + 79,
+			UI_CHARPANEL.Text.TimeRemaining.width - 8,
+			UI_CHARPANEL.Text.TimeRemaining.height
+		};
+
+		UI_CHARPANEL.Text.Medical = {
+			UI_CHARPANEL.Text.TimeRemaining.x,
+			y + 93,
+			UI_CHARPANEL.Text.TimeRemaining.width - 8,
+			UI_CHARPANEL.Text.TimeRemaining.height
+		};
+
+		UI_CHARPANEL.Text.CurrentAssignment = {
+			x + 182,
+			y + 18,
+			79, 10
+		};
+		UI_CHARPANEL.Text.CurrentAssignment_Y2 = y + 31;
+	}
+	// END Charpanel
+
+	// BEGIN Strategic merc inventory
+	{
+		//UI_CHARINV.Region = {
+		//	UI_MAP.BorderRegion.x - 262,
+		//	UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+		//	262, 490
+		//};
+		const auto x = UI_CHARINV.Region.x;
+		const auto y = UI_CHARINV.Region.y;
+		// For extern use
+		PLAYER_INFO_X = x;
+		PLAYER_INFO_Y = y;
+
+		// item description region
+		MAP_ITEMDESC_START_X = x;
+		MAP_ITEMDESC_START_Y = y;
+
+		UI_CHARINV.Button.Done = { x + 217, y + 210 };
+		UI_CHARINV.Button.Trashcan = { x + 177, y + 210, 29, 24 };
+
+		UI_CHARINV.Text.Armor = { x + 210, y + 81 };
+		UI_CHARINV.Text.ArmorLabel = { x + 209, y + 71 };
+		UI_CHARINV.Text.ArmorPercent = { x + 231, y + 81 };
+
+		UI_CHARINV.Text.Weight = { x + 177, y + 158 };
+		UI_CHARINV.Text.WeightLabel = { x + 174, y + 147 };
+		UI_CHARINV.Text.WeightPercent = { x + 197, y + 158 };
+
+		UI_CHARINV.Text.Camo = { x + 177, y + 185 };
+		UI_CHARINV.Text.CamoLabel = { x + 177, y + 174 };
+		UI_CHARINV.Text.CamoPercent = { x + 197, y + 185 };
+
+		UI_CHARINV.Text.PercentWidth = 20;
+		UI_CHARINV.Text.PercentHeight = 10;
+
+		UI_CHARINV.BodyPanel = { x + 71, y + 9 };
+
+		// X, Y Location of Map screen's Camouflage region
+		gSCamoXY.sX = UI_CHARINV.BodyPanel.iX;
+		gSCamoXY.sY = UI_CHARINV.BodyPanel.iY;
+
+
+		//For extern use
+		MAP_KEYRING_X = x + 218;
+		MAP_KEYRING_Y = y + 165;
+
+
+		// Inventory slots
+		gMapScreenInvPocketXY[HELMETPOS].sX = x + 204;		gMapScreenInvPocketXY[HELMETPOS].sY = y + 9;	// HELMETPOS
+		gMapScreenInvPocketXY[VESTPOS].sX = x + 204;		gMapScreenInvPocketXY[VESTPOS].sY = y + 38;	// VESTPOS
+		gMapScreenInvPocketXY[LEGPOS].sX = x + 204;			gMapScreenInvPocketXY[LEGPOS].sY = y + 98;	// LEGPOS,
+		gMapScreenInvPocketXY[HEAD1POS].sX = x + 21;		gMapScreenInvPocketXY[HEAD1POS].sY = y + 9;	// HEAD1POS
+		gMapScreenInvPocketXY[HEAD2POS].sX = x + 21;		gMapScreenInvPocketXY[HEAD2POS].sY = y + 33;	// HEAD2POS
+		gMapScreenInvPocketXY[HANDPOS].sX = x + 21;			gMapScreenInvPocketXY[HANDPOS].sY = y + 87;	// HANDPOS,
+		gMapScreenInvPocketXY[SECONDHANDPOS].sX = x + 21;	gMapScreenInvPocketXY[SECONDHANDPOS].sY = y + 111;	// SECONDHANDPOS
+		gMapScreenInvPocketXY[BIGPOCK1POS].sX = x + 98;		gMapScreenInvPocketXY[BIGPOCK1POS].sY = y + 144;	// BIGPOCK1
+		gMapScreenInvPocketXY[BIGPOCK2POS].sX = x + 98;		gMapScreenInvPocketXY[BIGPOCK2POS].sY = y + 168;	// BIGPOCK2
+		gMapScreenInvPocketXY[BIGPOCK3POS].sX = x + 98;		gMapScreenInvPocketXY[BIGPOCK3POS].sY = y + 192;	// BIGPOCK3
+		gMapScreenInvPocketXY[BIGPOCK4POS].sX = x + 98;		gMapScreenInvPocketXY[BIGPOCK4POS].sY = y + 216;	// BIGPOCK4
+		gMapScreenInvPocketXY[SMALLPOCK1POS].sX = x + 22;	gMapScreenInvPocketXY[SMALLPOCK1POS].sY = y + 144;	// SMALLPOCK1
+		gMapScreenInvPocketXY[SMALLPOCK2POS].sX = x + 22;	gMapScreenInvPocketXY[SMALLPOCK2POS].sY = y + 168;	// SMALLPOCK2
+		gMapScreenInvPocketXY[SMALLPOCK3POS].sX = x + 22;	gMapScreenInvPocketXY[SMALLPOCK3POS].sY = y + 192;	// SMALLPOCK3
+		gMapScreenInvPocketXY[SMALLPOCK4POS].sX = x + 22;	gMapScreenInvPocketXY[SMALLPOCK4POS].sY = y + 216;	// SMALLPOCK4
+		gMapScreenInvPocketXY[SMALLPOCK5POS].sX = x + 60;	gMapScreenInvPocketXY[SMALLPOCK5POS].sY = y + 144;	// SMALLPOCK5
+		gMapScreenInvPocketXY[SMALLPOCK6POS].sX = x + 60;	gMapScreenInvPocketXY[SMALLPOCK6POS].sY = y + 168;	// SMALLPOCK6
+		gMapScreenInvPocketXY[SMALLPOCK7POS].sX = x + 60;	gMapScreenInvPocketXY[SMALLPOCK7POS].sY = y + 192;	// SMALLPOCK7
+		gMapScreenInvPocketXY[SMALLPOCK8POS].sX = x + 60;	gMapScreenInvPocketXY[SMALLPOCK8POS].sY = y + 216;	// SMALLPOCK8
+	}
+	// END Strategic merc inventory
+
+	// BEGIN Character list
+	{
+		//UI_CHARLIST.Region = { 0, 0, 254, 600 };
+		const auto x = UI_CHARLIST.Region.x;
+
+		UI_CHARLIST.y = UI_CHARLIST.Region.y + 26;
+		UI_CHARLIST.yOffset = 2;
+		UI_CHARLIST.Title = { x, UI_CHARLIST.Region.y + 5 - 113 }; // 113 comes from gMapSortButtons y-coordinate
+		UI_CHARLIST.xName = x + 4;
+		UI_CHARLIST.widthName = 51;
+		UI_CHARLIST.xAssignment = x + 60;
+		UI_CHARLIST.widthAssignment = 51;
+		UI_CHARLIST.xSleep = x + 116;
+		UI_CHARLIST.widthSleep = 19;
+		UI_CHARLIST.xLocation = x + 140;
+		UI_CHARLIST.widthLocation = 32;
+		UI_CHARLIST.xETA = x + 177;
+		UI_CHARLIST.widthETA = 33;
+		UI_CHARLIST.xTimeRemaining = x + 215;
+		UI_CHARLIST.widthTimeRemaining = 28;
+
+		//For extern use
+		POP_UP_BOX_X = x + 120;
+	}
+	MAP_INV_STATS_TITLE_FONT_COLOR = 6;
 
 	//OJW - MP interface changes
 	InitializeMPCoordinates();
-
-	return ( TRUE );
+	
+	return TRUE;
 }
+
+
 BOOLEAN InitializeInvPanelCoordsNew()
 {
-	PLAYER_INFO_Y					= yResOffset + 107;
-	TOWN_INFO_Y						= yResOffset + 1;
-
-	PLAYER_INFO_X					= xResOffset + 0;
-	TOWN_INFO_X						= xResOffset + 0;
-	MAP_ITEMDESC_START_X			= xResOffset + 0;
-	MAP_ARMOR_LABEL_X				= xResOffset + 136;	
-	MAP_ARMOR_X					   	= xResOffset + 138;
-	MAP_ARMOR_PERCENT_X				= xResOffset + 158;
-	MAP_WEIGHT_LABEL_X				= xResOffset + 185;
-	MAP_WEIGHT_X					= xResOffset + 188;
-	MAP_WEIGHT_PERCENT_X			= xResOffset + 208;
-	MAP_CAMMO_LABEL_X				= xResOffset + 226;
-	MAP_CAMMO_X						= xResOffset + 224;
-	MAP_CAMMO_PERCENT_X				= xResOffset + 244;
-	PLAYER_INFO_FACE_START_X		= xResOffset + 9;
-	PLAYER_INFO_FACE_END_X			= xResOffset + 60;
-	INV_BODY_X						= xResOffset + 31;	
-	NAME_X							= xResOffset + 4;
-	ASSIGN_X						= xResOffset + 60;
-	SLEEP_X							= xResOffset + 116;
-	LOC_X							= xResOffset + 140;
-	DEST_ETA_X						= xResOffset + 177;
-	TIME_REMAINING_X				= xResOffset + 215;	
-	CONTRACT_X						= xResOffset + 185;
-	TRASH_CAN_X						= xResOffset + 209;
-	MAP_KEYRING_X					= xResOffset + 186; //184/19 on Inventory_Bottom_Panel.sti
-	POP_UP_BOX_X					= xResOffset + 120;
-	STR_X							= xResOffset + 112;	
-	LVL_X							= xResOffset + 159;
-	PIC_NAME_X						= xResOffset + 8;
-	CHAR_NAME_X						= xResOffset + 14;	
-	CHAR_LOC_X						= xResOffset + 76;
-	CHAR_TIME_REMAINING_X			= xResOffset + 207;
-	CHAR_ASSIGN_X					= xResOffset + 182;			
-	CHAR_HP_X						= xResOffset + 133;
-	CHAR_MORALE_X					= xResOffset + 133;	
-	CROSS_X							= xResOffset + 195;
-	CHAR_PAY_X						= xResOffset + 150;
-	SOLDIER_PIC_X					= xResOffset + 9;
-	SOLDIER_HAND_X					= xResOffset + 6;	
-
-	// Inventory slots
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI())
 	{
-		gMapScreenInvPocketXY[0].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[0].sY = PLAYER_INFO_Y + 9;		// HELMETPOS
-		gMapScreenInvPocketXY[1].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[1].sY = PLAYER_INFO_Y + 38;		// VESTPOS
-		gMapScreenInvPocketXY[2].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[2].sY = PLAYER_INFO_Y + 97;		// LEGPOS
-		gMapScreenInvPocketXY[3].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[3].sY = PLAYER_INFO_Y + 9;		// HEAD1POS
-		gMapScreenInvPocketXY[4].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[4].sY = PLAYER_INFO_Y + 32;		// HEAD2POS
-		gMapScreenInvPocketXY[5].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[5].sY = PLAYER_INFO_Y + 86;		// HANDPOS
-		gMapScreenInvPocketXY[6].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[6].sY = PLAYER_INFO_Y + 110;		// SECONDHANDPOS
-		gMapScreenInvPocketXY[7].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[7].sY = PLAYER_INFO_Y + 134;		// VESTPOCK
-		gMapScreenInvPocketXY[8].sX = PLAYER_INFO_X + 29;	gMapScreenInvPocketXY[8].sY = PLAYER_INFO_Y + 197;		// LTHIGHPOCK
-		gMapScreenInvPocketXY[9].sX = PLAYER_INFO_X + 112;	gMapScreenInvPocketXY[9].sY = PLAYER_INFO_Y + 197;		// RTHIGHPOCK
-		gMapScreenInvPocketXY[10].sX = PLAYER_INFO_X + 194;	gMapScreenInvPocketXY[10].sY = PLAYER_INFO_Y + 197;		// CPACKPOCK
-		gMapScreenInvPocketXY[11].sX = PLAYER_INFO_X + 173;	gMapScreenInvPocketXY[11].sY = PLAYER_INFO_Y + 332;		// BPACKPOCK
-		gMapScreenInvPocketXY[12].sX = PLAYER_INFO_X + 95;	gMapScreenInvPocketXY[12].sY = PLAYER_INFO_Y + 134;		// GUNSLINGPOCKPOS
-		gMapScreenInvPocketXY[13].sX = PLAYER_INFO_X + 36;	gMapScreenInvPocketXY[13].sY = PLAYER_INFO_Y + 134;		// KNIFEPOCKPOS
-		gMapScreenInvPocketXY[14].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[14].sY = PLAYER_INFO_Y + 260;		// BIGPOCK1
-		gMapScreenInvPocketXY[15].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[15].sY = PLAYER_INFO_Y + 281;		// BIGPOCK2
-		gMapScreenInvPocketXY[16].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[16].sY = PLAYER_INFO_Y + 302;		// BIGPOCK3
-		gMapScreenInvPocketXY[17].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[17].sY = PLAYER_INFO_Y + 281;		// BIGPOCK4
-		gMapScreenInvPocketXY[18].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[18].sY = PLAYER_INFO_Y + 302;		// BIGPOCK5
-		gMapScreenInvPocketXY[19].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[19].sY = PLAYER_INFO_Y + 323;		// BIGPOCK6
-		gMapScreenInvPocketXY[20].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[20].sY = PLAYER_INFO_Y + 344;		// BIGPOCK7
-		gMapScreenInvPocketXY[21].sX = PLAYER_INFO_X + 202;	gMapScreenInvPocketXY[21].sY = PLAYER_INFO_Y + 155;		// MEDPOCK1
-		gMapScreenInvPocketXY[22].sX = PLAYER_INFO_X + 202;	gMapScreenInvPocketXY[22].sY = PLAYER_INFO_Y + 176;		// MEDPOCK2
-		gMapScreenInvPocketXY[23].sX = PLAYER_INFO_X + 29;	gMapScreenInvPocketXY[23].sY = PLAYER_INFO_Y + 260;		// MEDPOCK3
-		gMapScreenInvPocketXY[24].sX = PLAYER_INFO_X + 111;	gMapScreenInvPocketXY[24].sY = PLAYER_INFO_Y + 260;		// MEDPOCK4
-		gMapScreenInvPocketXY[25].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[25].sY = PLAYER_INFO_Y + 155;		// SMALLPOCK1
-		gMapScreenInvPocketXY[26].sX = PLAYER_INFO_X + 58;	gMapScreenInvPocketXY[26].sY = PLAYER_INFO_Y + 155;		// SMALLPOCK2
-		gMapScreenInvPocketXY[27].sX = PLAYER_INFO_X + 94;	gMapScreenInvPocketXY[27].sY = PLAYER_INFO_Y + 155;		// SMALLPOCK3
-		gMapScreenInvPocketXY[28].sX = PLAYER_INFO_X + 130;	gMapScreenInvPocketXY[28].sY = PLAYER_INFO_Y + 155;		// SMALLPOCK4
-		gMapScreenInvPocketXY[29].sX = PLAYER_INFO_X + 166;	gMapScreenInvPocketXY[29].sY = PLAYER_INFO_Y + 155;		// SMALLPOCK5
-		gMapScreenInvPocketXY[30].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[30].sY = PLAYER_INFO_Y + 176;		// SMALLPOCK6
-		gMapScreenInvPocketXY[31].sX = PLAYER_INFO_X + 58;	gMapScreenInvPocketXY[31].sY = PLAYER_INFO_Y + 176;		// SMALLPOCK7
-		gMapScreenInvPocketXY[32].sX = PLAYER_INFO_X + 94;	gMapScreenInvPocketXY[32].sY = PLAYER_INFO_Y + 176;		// SMALLPOCK8	
-		gMapScreenInvPocketXY[33].sX = PLAYER_INFO_X + 130;	gMapScreenInvPocketXY[33].sY = PLAYER_INFO_Y + 176;		// SMALLPOCK9
-		gMapScreenInvPocketXY[34].sX = PLAYER_INFO_X + 166;	gMapScreenInvPocketXY[34].sY = PLAYER_INFO_Y + 176;		// SMALLPOCK10
-		gMapScreenInvPocketXY[35].sX = PLAYER_INFO_X + 18;	gMapScreenInvPocketXY[35].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK11
-		gMapScreenInvPocketXY[36].sX = PLAYER_INFO_X + 54;	gMapScreenInvPocketXY[36].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK12
-		gMapScreenInvPocketXY[37].sX = PLAYER_INFO_X + 18;	gMapScreenInvPocketXY[37].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK13
-		gMapScreenInvPocketXY[38].sX = PLAYER_INFO_X + 54;	gMapScreenInvPocketXY[38].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK14
-		gMapScreenInvPocketXY[39].sX = PLAYER_INFO_X + 100;	gMapScreenInvPocketXY[39].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK15
-		gMapScreenInvPocketXY[40].sX = PLAYER_INFO_X + 136;	gMapScreenInvPocketXY[40].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK16
-		gMapScreenInvPocketXY[41].sX = PLAYER_INFO_X + 100;	gMapScreenInvPocketXY[41].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK17
-		gMapScreenInvPocketXY[42].sX = PLAYER_INFO_X + 136;	gMapScreenInvPocketXY[42].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK18
-		gMapScreenInvPocketXY[43].sX = PLAYER_INFO_X + 183;	gMapScreenInvPocketXY[43].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK19
-		gMapScreenInvPocketXY[44].sX = PLAYER_INFO_X + 219;	gMapScreenInvPocketXY[44].sY = PLAYER_INFO_Y + 218;		// SMALLPOCK20
-		gMapScreenInvPocketXY[45].sX = PLAYER_INFO_X + 183;	gMapScreenInvPocketXY[45].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK21
-		gMapScreenInvPocketXY[46].sX = PLAYER_INFO_X + 219;	gMapScreenInvPocketXY[46].sY = PLAYER_INFO_Y + 239;		// SMALLPOCK22
-		gMapScreenInvPocketXY[47].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[47].sY = PLAYER_INFO_Y + 281;		// SMALLPOCK23
-		gMapScreenInvPocketXY[48].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[48].sY = PLAYER_INFO_Y + 302;		// SMALLPOCK24
-		gMapScreenInvPocketXY[49].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[49].sY = PLAYER_INFO_Y + 323;		// SMALLPOCK25
-		gMapScreenInvPocketXY[50].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[50].sY = PLAYER_INFO_Y + 344;		// SMALLPOCK26
-		gMapScreenInvPocketXY[51].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[51].sY = PLAYER_INFO_Y + 281;		// SMALLPOCK27
-		gMapScreenInvPocketXY[52].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[52].sY = PLAYER_INFO_Y + 302;		// SMALLPOCK28
-		gMapScreenInvPocketXY[53].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[53].sY = PLAYER_INFO_Y + 323;		// SMALLPOCK29
-		gMapScreenInvPocketXY[54].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[54].sY = PLAYER_INFO_Y + 344;		// SMALLPOCK30
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 262,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
+
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
+
+		UI_CHARLIST.Region = { 0, 0, 254, 600 };
+	}
+	else if (iResolution >= _1024x768)
+	{
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 260,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
+
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
+
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 540};
+	}
+	else if (iResolution >= _800x600)
+	{
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 260,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
+
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
+
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 372 };
 	}
 	else
 	{
-		gMapScreenInvPocketXY[0].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[0].sY = PLAYER_INFO_Y + 9;		// HELMETPOS
-		gMapScreenInvPocketXY[1].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[1].sY = PLAYER_INFO_Y + 37;		// VESTPOS
-		gMapScreenInvPocketXY[2].sX = PLAYER_INFO_X + 131;	gMapScreenInvPocketXY[2].sY = PLAYER_INFO_Y + 97;		// LEGPOS
-		gMapScreenInvPocketXY[3].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[3].sY = PLAYER_INFO_Y + 9;		// HEAD1POS
-		gMapScreenInvPocketXY[4].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[4].sY = PLAYER_INFO_Y + 32;		// HEAD2POS
-		gMapScreenInvPocketXY[5].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[5].sY = PLAYER_INFO_Y + 86;		// HANDPOS
-		gMapScreenInvPocketXY[6].sX = PLAYER_INFO_X + 14;	gMapScreenInvPocketXY[6].sY = PLAYER_INFO_Y + 110;		// SECONDHANDPOS
-		gMapScreenInvPocketXY[7].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[7].sY = PLAYER_INFO_Y + 156;		// VESTPOCK
-		gMapScreenInvPocketXY[8].sX = PLAYER_INFO_X + 29;	gMapScreenInvPocketXY[8].sY = PLAYER_INFO_Y + 256;		// LTHIGHPOCK
-		gMapScreenInvPocketXY[9].sX = PLAYER_INFO_X + 112;	gMapScreenInvPocketXY[9].sY = PLAYER_INFO_Y + 256;		// RTHIGHPOCK
-		gMapScreenInvPocketXY[10].sX = PLAYER_INFO_X + 194;	gMapScreenInvPocketXY[10].sY = PLAYER_INFO_Y + 256;		// CPACKPOCK
-		gMapScreenInvPocketXY[11].sX = PLAYER_INFO_X + 173;	gMapScreenInvPocketXY[11].sY = PLAYER_INFO_Y + 439;		// BPACKPOCK
-		gMapScreenInvPocketXY[12].sX = PLAYER_INFO_X + 95;	gMapScreenInvPocketXY[12].sY = PLAYER_INFO_Y + 156;		// GUNSLINGPOCKPOS
-		gMapScreenInvPocketXY[13].sX = PLAYER_INFO_X + 36;	gMapScreenInvPocketXY[13].sY = PLAYER_INFO_Y + 156;		// KNIFEPOCKPOS
-		gMapScreenInvPocketXY[14].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[14].sY = PLAYER_INFO_Y + 336;		// BIGPOCK1
-		gMapScreenInvPocketXY[15].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[15].sY = PLAYER_INFO_Y + 360;		// BIGPOCK2
-		gMapScreenInvPocketXY[16].sX = PLAYER_INFO_X + 186;	gMapScreenInvPocketXY[16].sY = PLAYER_INFO_Y + 384;		// BIGPOCK3
-		gMapScreenInvPocketXY[17].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[17].sY = PLAYER_INFO_Y + 379;		// BIGPOCK4
-		gMapScreenInvPocketXY[18].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[18].sY = PLAYER_INFO_Y + 403;		// BIGPOCK5
-		gMapScreenInvPocketXY[19].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[19].sY = PLAYER_INFO_Y + 427;		// BIGPOCK6
-		gMapScreenInvPocketXY[20].sX = PLAYER_INFO_X + 98;	gMapScreenInvPocketXY[20].sY = PLAYER_INFO_Y + 451;		// BIGPOCK7
-		gMapScreenInvPocketXY[21].sX = PLAYER_INFO_X + 202;	gMapScreenInvPocketXY[21].sY = PLAYER_INFO_Y + 188;		// MEDPOCK1
-		gMapScreenInvPocketXY[22].sX = PLAYER_INFO_X + 202;	gMapScreenInvPocketXY[22].sY = PLAYER_INFO_Y + 212;		// MEDPOCK2
-		gMapScreenInvPocketXY[23].sX = PLAYER_INFO_X + 29;	gMapScreenInvPocketXY[23].sY = PLAYER_INFO_Y + 336;		// MEDPOCK3
-		gMapScreenInvPocketXY[24].sX = PLAYER_INFO_X + 112;	gMapScreenInvPocketXY[24].sY = PLAYER_INFO_Y + 336;		// MEDPOCK4
-		gMapScreenInvPocketXY[25].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[25].sY = PLAYER_INFO_Y + 188;		// SMALLPOCK1
-		gMapScreenInvPocketXY[26].sX = PLAYER_INFO_X + 58;	gMapScreenInvPocketXY[26].sY = PLAYER_INFO_Y + 188;		// SMALLPOCK2
-		gMapScreenInvPocketXY[27].sX = PLAYER_INFO_X + 94;	gMapScreenInvPocketXY[27].sY = PLAYER_INFO_Y + 188;		// SMALLPOCK3
-		gMapScreenInvPocketXY[28].sX = PLAYER_INFO_X + 130;	gMapScreenInvPocketXY[28].sY = PLAYER_INFO_Y + 188;		// SMALLPOCK4
-		gMapScreenInvPocketXY[29].sX = PLAYER_INFO_X + 166;	gMapScreenInvPocketXY[29].sY = PLAYER_INFO_Y + 188;		// SMALLPOCK5
-		gMapScreenInvPocketXY[30].sX = PLAYER_INFO_X + 22;	gMapScreenInvPocketXY[30].sY = PLAYER_INFO_Y + 212;		// SMALLPOCK6
-		gMapScreenInvPocketXY[31].sX = PLAYER_INFO_X + 58;	gMapScreenInvPocketXY[31].sY = PLAYER_INFO_Y + 212;		// SMALLPOCK7
-		gMapScreenInvPocketXY[32].sX = PLAYER_INFO_X + 94;	gMapScreenInvPocketXY[32].sY = PLAYER_INFO_Y + 212;		// SMALLPOCK8	
-		gMapScreenInvPocketXY[33].sX = PLAYER_INFO_X + 130;	gMapScreenInvPocketXY[33].sY = PLAYER_INFO_Y + 212;		// SMALLPOCK9
-		gMapScreenInvPocketXY[34].sX = PLAYER_INFO_X + 166;	gMapScreenInvPocketXY[34].sY = PLAYER_INFO_Y + 212;		// SMALLPOCK10
-		gMapScreenInvPocketXY[35].sX = PLAYER_INFO_X + 18;	gMapScreenInvPocketXY[35].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK11
-		gMapScreenInvPocketXY[36].sX = PLAYER_INFO_X + 54;	gMapScreenInvPocketXY[36].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK12
-		gMapScreenInvPocketXY[37].sX = PLAYER_INFO_X + 18;	gMapScreenInvPocketXY[37].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK13
-		gMapScreenInvPocketXY[38].sX = PLAYER_INFO_X + 54;	gMapScreenInvPocketXY[38].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK14
-		gMapScreenInvPocketXY[39].sX = PLAYER_INFO_X + 100;	gMapScreenInvPocketXY[39].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK15
-		gMapScreenInvPocketXY[40].sX = PLAYER_INFO_X + 136;	gMapScreenInvPocketXY[40].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK16
-		gMapScreenInvPocketXY[41].sX = PLAYER_INFO_X + 100;	gMapScreenInvPocketXY[41].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK17
-		gMapScreenInvPocketXY[42].sX = PLAYER_INFO_X + 136;	gMapScreenInvPocketXY[42].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK18
-		gMapScreenInvPocketXY[43].sX = PLAYER_INFO_X + 183;	gMapScreenInvPocketXY[43].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK19
-		gMapScreenInvPocketXY[44].sX = PLAYER_INFO_X + 219;	gMapScreenInvPocketXY[44].sY = PLAYER_INFO_Y + 288;		// SMALLPOCK20
-		gMapScreenInvPocketXY[45].sX = PLAYER_INFO_X + 183;	gMapScreenInvPocketXY[45].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK21
-		gMapScreenInvPocketXY[46].sX = PLAYER_INFO_X + 219;	gMapScreenInvPocketXY[46].sY = PLAYER_INFO_Y + 312;		// SMALLPOCK22
-		gMapScreenInvPocketXY[47].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[47].sY = PLAYER_INFO_Y + 379;		// SMALLPOCK23
-		gMapScreenInvPocketXY[48].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[48].sY = PLAYER_INFO_Y + 403;		// SMALLPOCK24
-		gMapScreenInvPocketXY[49].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[49].sY = PLAYER_INFO_Y + 427;		// SMALLPOCK25
-		gMapScreenInvPocketXY[50].sX = PLAYER_INFO_X + 26;	gMapScreenInvPocketXY[50].sY = PLAYER_INFO_Y + 451;		// SMALLPOCK26
-		gMapScreenInvPocketXY[51].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[51].sY = PLAYER_INFO_Y + 379;		// SMALLPOCK27
-		gMapScreenInvPocketXY[52].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[52].sY = PLAYER_INFO_Y + 403;		// SMALLPOCK28
-		gMapScreenInvPocketXY[53].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[53].sY = PLAYER_INFO_Y + 427;		// SMALLPOCK29
-		gMapScreenInvPocketXY[54].sX = PLAYER_INFO_X + 62;	gMapScreenInvPocketXY[54].sY = PLAYER_INFO_Y + 451;		// SMALLPOCK30
+		UI_CHARPANEL.Region = {
+			UI_MAP.BorderRegion.x - 260,
+			UI_MAP.BorderRegion.y,
+			262, 106
+		};
+
+		UI_CHARINV.Region = {
+			UI_CHARPANEL.Region.x,
+			UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height,
+			262, 490
+		};
+		UI_CHARLIST.Region = { UI_CHARINV.Region.x, UI_CHARINV.Region.y, 262, 254 };
 	}
 
-	// item description
-	MAP_ITEMDESC_START_Y			= PLAYER_INFO_Y;
-	INV_REGION_X					= PLAYER_INFO_X;
-	INV_REGION_Y					= PLAYER_INFO_Y;
-	INV_REGION_WIDTH				= 261;
-	INV_REGION_HEIGHT				= 490;
-	INV_BTN_X						= PLAYER_INFO_X + 226;
-	INV_BTN_Y						= PLAYER_INFO_Y + 19;
-	INV_BDROP_X						= PLAYER_INFO_X + 220;
-	INV_BDROP_Y						= PLAYER_INFO_Y + 441;
-
-	MAP_ARMOR_LABEL_Y				= yResOffset + 177;
-	MAP_ARMOR_Y						= yResOffset + 187;
-	MAP_ARMOR_PERCENT_Y				= yResOffset + 188;
-
-	MAP_WEIGHT_LABEL_Y				= yResOffset + 209;
-	MAP_WEIGHT_Y					= yResOffset + 219;
-	MAP_WEIGHT_PERCENT_Y			= yResOffset + 219;
-
-	MAP_CAMMO_LABEL_Y				= yResOffset + 209;
-	MAP_CAMMO_Y						= yResOffset + 219;
-	MAP_CAMMO_PERCENT_Y				= yResOffset + 219;
-
-	MAP_PERCENT_WIDTH				= 20;
-	MAP_PERCENT_HEIGHT				= 10;
-
-	MAP_INV_STATS_TITLE_FONT_COLOR	= 6;
-	MAP_INV_STATS_TEXT_FONT_COLOR	= 5;
-
-	PLAYER_INFO_FACE_START_Y		= yResOffset + 17;
-	PLAYER_INFO_FACE_END_Y			= yResOffset + 76;
-
-	INV_BODY_Y						= 8 + PLAYER_INFO_Y;
-	NAME_WIDTH						= 51;
-
-	ASSIGN_WIDTH					= 51;
-	SLEEP_WIDTH						= 19;
-	LOC_WIDTH						= 32;
-	DEST_ETA_WIDTH					= 33;
-	TIME_REMAINING_WIDTH			= 28;
-
-	// contract
-	CONTRACT_Y						= yResOffset + 50;
-
-	// trash can
-	TRASH_CAN_Y						= 59 + PLAYER_INFO_Y;
-	TRASH_CAN_WIDTH					= 193 - 165;
-	TRASH_CAN_HEIGHT				= 239 - 217;
-
-	// keyring
-	MAP_KEYRING_Y					= yResOffset + 126;
-
-	//Text offsets
-	Y_OFFSET						= 2;
-
-	// The boxes defines
-	TRAIN_Y_OFFSET					= 53;
-	TRAIN_X_OFF						= 65;
-	TRAIN_WID						= 80;
-	TRAIN_HEIG						= 47;
-	STRING_X_OFFSET					= 10;
-	STRING_Y_OFFSET					= 5;
-	POP_UP_BOX_Y					= yResOffset + 0;
-	POP_UP_BOX_WIDTH				= 60;
-	POP_UP_BOX_HEIGHT				= 100;
-	MOUSE_PTR_Y_OFFSET				= 3;
-	POP_UP_Y_OFFSET					= 3;
-	TRAIN_TEXT_Y_OFFSET				= 4;
-
-	// char stat positions
-	STR_Y							= yResOffset + 42;
-	DEX_X							= STR_X;
-	DEX_Y							= yResOffset + 32;
-	AGL_X							= STR_X;
-	AGL_Y							= yResOffset + 22;
-	LDR_X							= STR_X;
-	LDR_Y							= yResOffset + 52;
-	WIS_X							= STR_X;
-	WIS_Y							= yResOffset + 62;
-	LVL_Y							= AGL_Y;
-	MRK_X							= LVL_X;
-	MRK_Y							= DEX_Y;
-	MEC_X							= LVL_X;
-	MEC_Y							= STR_Y;
-	EXP_X							= LVL_X;
-	EXP_Y							= LDR_Y;
-	MED_X							= LVL_X;
-	MED_Y							= WIS_Y;
-
-	STAT_WID						= 15;
-	STAT_HEI						= GetFontHeight(CHAR_FONT);
-
-	PIC_NAME_Y						= yResOffset + 66 + 3;
-	PIC_NAME_WID					= 52;
-	PIC_NAME_HEI					= yResOffset + 75 - PIC_NAME_Y;
-	CHAR_NAME_Y						= yResOffset + 2 + 3;
-	CHAR_NAME_WID					= 150;
-	CHAR_NAME_HEI					= yResOffset + 11 - CHAR_NAME_Y;
-	CHAR_LOC_Y						= yResOffset + 84;
-	CHAR_LOC_WID					= 16;
-	CHAR_LOC_HEI					= 9;
-
-	CHAR_TIME_REMAINING_Y			= yResOffset + 65;
-	CHAR_TIME_REMAINING_WID			= 51;
-	CHAR_TIME_REMAINING_HEI			= GetFontHeight(CHAR_FONT);
-	CHAR_SALARY_X					= CHAR_TIME_REMAINING_X;
-	CHAR_SALARY_Y					= yResOffset + 79;
-	CHAR_SALARY_WID					= CHAR_TIME_REMAINING_WID - 8;
-	CHAR_SALARY_HEI					= CHAR_TIME_REMAINING_HEI;
-	CHAR_MEDICAL_X					= CHAR_TIME_REMAINING_X;
-	CHAR_MEDICAL_Y					= yResOffset + 93;
-	CHAR_MEDICAL_WID				= CHAR_TIME_REMAINING_WID - 8;
-	CHAR_MEDICAL_HEI				= CHAR_TIME_REMAINING_HEI;
-	CHAR_ASSIGN1_Y					= yResOffset + 18;
-	CHAR_ASSIGN2_Y					= yResOffset + 31;
-	CHAR_ASSIGN_WID					= 257 - 178;
-	CHAR_ASSIGN_HEI					= 39 - 29;
-	CHAR_HP_Y						= yResOffset + 77 + 3;
-	CHAR_HP_WID						= 42;
-	CHAR_HP_HEI						= yResOffset + 90 - CHAR_HP_Y;
-	CHAR_MORALE_Y					= yResOffset + 91 + 3;
-	CHAR_MORALE_WID					= 42;
-	CHAR_MORALE_HEI					= yResOffset + 101 - CHAR_MORALE_Y;
-
-	CROSS_Y							= yResOffset + 83;
-	CROSS_HEIGHT					= 20;
-	CROSS_WIDTH						= 20;
-	CHAR_PAY_Y						= yResOffset + 80 + 4;
-	CHAR_PAY_HEI					= GetFontHeight(CHAR_FONT);
-	CHAR_PAY_WID					= CROSS_X-CHAR_PAY_X;
-	SOLDIER_PIC_Y					= yResOffset + 20;
-	SOLDIER_HAND_Y					= yResOffset + 81;
-
-	gSCamoXY.sX = INV_BODY_X;	
-	gSCamoXY.sY = INV_BODY_Y;	// X, Y Location of Map screen's Camouflage region
+	InitializeInvPanelCoords();
 
 	//OJW - MP interface changes
 	InitializeMPCoordinates();
 
-	return ( TRUE );
+	return TRUE;
 }
 
 void InitializeMPCoordinates()
 {
 	//OJW - MP interface changes
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	const auto x = UI_CHARLIST.Region.x;
+	const auto y = UI_CHARLIST.Region.y;
+	if (isWidescreenUI())
 	{
-		MP_BTN_Y = 268 + yResOffset;
+		MP_BTN_Y = y + 507;
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _1024x768)
 	{
-		MP_BTN_Y = 386 + yResOffset;
+		MP_BTN_Y = 448 + y;
+	}
+	else if (iResolution >= _800x600)
+	{
+		MP_BTN_Y = 280 + y;
 	}
 	else
 	{
-		MP_BTN_Y = 554 + yResOffset;
+		MP_BTN_Y = 162 + y;
 	}
-
+	
 	MP_ROWSTART_Y = MP_BTN_Y + 21;
-	MP_PLAYER_X = 5 + xResOffset;
-	MP_PLAYER_W = 75 + yResOffset;
-	MP_TEAM_X = 84 + xResOffset;
-	MP_TEAM_W = 40 + yResOffset;
-	MP_COMPASS_X = 130 + xResOffset;
-	MP_COMPASS_W = 19 + yResOffset;
-	MP_GAMEINFO_X = 154 + xResOffset;
-	MP_GAMEINFO_W = 81 + yResOffset;
-
+	MP_PLAYER_X = 5 + x;
+	MP_PLAYER_W = 75 + x;
+	MP_TEAM_X = 84 + x;
+	MP_TEAM_W = 40 + x;
+	MP_COMPASS_X = 130 + x;
+	MP_COMPASS_W = 19 + x;
+	MP_GAMEINFO_X = 154 + x;
+	MP_GAMEINFO_W = 81 + x;
 	// End of MP interface changes
 }
+
 BOOLEAN InitializeInvPanelCoordsVehicle( )
 {
 	InitializeInvPanelCoordsNew();
 	
+	const auto x = UI_CHARINV.Region.x;
+	const auto y = UI_CHARINV.Region.y;
 	// Inventory slots
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		gMapScreenInvPocketXY[14].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[14].sY = PLAYER_INFO_Y + 89;
-		gMapScreenInvPocketXY[15].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[15].sY = PLAYER_INFO_Y + 89;
-		gMapScreenInvPocketXY[16].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[16].sY = PLAYER_INFO_Y + 89;
-		gMapScreenInvPocketXY[17].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[17].sY = PLAYER_INFO_Y + 110;
-		gMapScreenInvPocketXY[18].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[18].sY = PLAYER_INFO_Y + 110;
-		gMapScreenInvPocketXY[19].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[19].sY = PLAYER_INFO_Y + 110;
-		gMapScreenInvPocketXY[20].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[20].sY = PLAYER_INFO_Y + 131;
-		gMapScreenInvPocketXY[21].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[21].sY = PLAYER_INFO_Y + 131;
-		gMapScreenInvPocketXY[22].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[22].sY = PLAYER_INFO_Y + 131;
-		gMapScreenInvPocketXY[23].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[23].sY = PLAYER_INFO_Y + 152;
-		gMapScreenInvPocketXY[24].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[24].sY = PLAYER_INFO_Y + 152;
-		gMapScreenInvPocketXY[25].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[25].sY = PLAYER_INFO_Y + 152;
-		gMapScreenInvPocketXY[26].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[26].sY = PLAYER_INFO_Y + 173;
-		gMapScreenInvPocketXY[27].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[27].sY = PLAYER_INFO_Y + 173;
-		gMapScreenInvPocketXY[28].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[28].sY = PLAYER_INFO_Y + 173;
-		gMapScreenInvPocketXY[29].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[29].sY = PLAYER_INFO_Y + 194;
-		gMapScreenInvPocketXY[30].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[30].sY = PLAYER_INFO_Y + 194;
-		gMapScreenInvPocketXY[31].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[31].sY = PLAYER_INFO_Y + 194;
-		gMapScreenInvPocketXY[32].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[32].sY = PLAYER_INFO_Y + 215;
-		gMapScreenInvPocketXY[33].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[33].sY = PLAYER_INFO_Y + 215;
-		gMapScreenInvPocketXY[34].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[34].sY = PLAYER_INFO_Y + 215;
-		gMapScreenInvPocketXY[35].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[35].sY = PLAYER_INFO_Y + 236;
-		gMapScreenInvPocketXY[36].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[36].sY = PLAYER_INFO_Y + 236;
-		gMapScreenInvPocketXY[37].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[37].sY = PLAYER_INFO_Y + 236;
-		gMapScreenInvPocketXY[38].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[38].sY = PLAYER_INFO_Y + 257;
-		gMapScreenInvPocketXY[39].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[39].sY = PLAYER_INFO_Y + 257;
-		gMapScreenInvPocketXY[40].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[40].sY = PLAYER_INFO_Y + 257;
-		gMapScreenInvPocketXY[41].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[41].sY = PLAYER_INFO_Y + 278;
-		gMapScreenInvPocketXY[42].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[42].sY = PLAYER_INFO_Y + 278;
-		gMapScreenInvPocketXY[43].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[43].sY = PLAYER_INFO_Y + 278;
-		gMapScreenInvPocketXY[44].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[44].sY = PLAYER_INFO_Y + 299;
-		gMapScreenInvPocketXY[45].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[45].sY = PLAYER_INFO_Y + 299;
-		gMapScreenInvPocketXY[46].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[46].sY = PLAYER_INFO_Y + 299;
-		gMapScreenInvPocketXY[47].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[47].sY = PLAYER_INFO_Y + 320;
-		gMapScreenInvPocketXY[48].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[48].sY = PLAYER_INFO_Y + 320;
-		gMapScreenInvPocketXY[49].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[49].sY = PLAYER_INFO_Y + 320;
-		gMapScreenInvPocketXY[50].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[50].sY = PLAYER_INFO_Y + 341;
-		gMapScreenInvPocketXY[51].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[51].sY = PLAYER_INFO_Y + 341;
-		gMapScreenInvPocketXY[52].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[52].sY = PLAYER_INFO_Y + 341;
+		gMapScreenInvPocketXY[14].sX = x + 37;	gMapScreenInvPocketXY[14].sY = y + 89;
+		gMapScreenInvPocketXY[15].sX = x + 104;	gMapScreenInvPocketXY[15].sY = y + 89;
+		gMapScreenInvPocketXY[16].sX = x + 171;	gMapScreenInvPocketXY[16].sY = y + 89;
+		gMapScreenInvPocketXY[17].sX = x + 37;	gMapScreenInvPocketXY[17].sY = y + 110;
+		gMapScreenInvPocketXY[18].sX = x + 104;	gMapScreenInvPocketXY[18].sY = y + 110;
+		gMapScreenInvPocketXY[19].sX = x + 171;	gMapScreenInvPocketXY[19].sY = y + 110;
+		gMapScreenInvPocketXY[20].sX = x + 37;	gMapScreenInvPocketXY[20].sY = y + 131;
+		gMapScreenInvPocketXY[21].sX = x + 104;	gMapScreenInvPocketXY[21].sY = y + 131;
+		gMapScreenInvPocketXY[22].sX = x + 171;	gMapScreenInvPocketXY[22].sY = y + 131;
+		gMapScreenInvPocketXY[23].sX = x + 37;	gMapScreenInvPocketXY[23].sY = y + 152;
+		gMapScreenInvPocketXY[24].sX = x + 104;	gMapScreenInvPocketXY[24].sY = y + 152;
+		gMapScreenInvPocketXY[25].sX = x + 171;	gMapScreenInvPocketXY[25].sY = y + 152;
+		gMapScreenInvPocketXY[26].sX = x + 37;	gMapScreenInvPocketXY[26].sY = y + 173;
+		gMapScreenInvPocketXY[27].sX = x + 104;	gMapScreenInvPocketXY[27].sY = y + 173;
+		gMapScreenInvPocketXY[28].sX = x + 171;	gMapScreenInvPocketXY[28].sY = y + 173;
+		gMapScreenInvPocketXY[29].sX = x + 37;	gMapScreenInvPocketXY[29].sY = y + 194;
+		gMapScreenInvPocketXY[30].sX = x + 104;	gMapScreenInvPocketXY[30].sY = y + 194;
+		gMapScreenInvPocketXY[31].sX = x + 171;	gMapScreenInvPocketXY[31].sY = y + 194;
+		gMapScreenInvPocketXY[32].sX = x + 37;	gMapScreenInvPocketXY[32].sY = y + 215;
+		gMapScreenInvPocketXY[33].sX = x + 104;	gMapScreenInvPocketXY[33].sY = y + 215;
+		gMapScreenInvPocketXY[34].sX = x + 171;	gMapScreenInvPocketXY[34].sY = y + 215;
+		gMapScreenInvPocketXY[35].sX = x + 37;	gMapScreenInvPocketXY[35].sY = y + 236;
+		gMapScreenInvPocketXY[36].sX = x + 104;	gMapScreenInvPocketXY[36].sY = y + 236;
+		gMapScreenInvPocketXY[37].sX = x + 171;	gMapScreenInvPocketXY[37].sY = y + 236;
+		gMapScreenInvPocketXY[38].sX = x + 37;	gMapScreenInvPocketXY[38].sY = y + 257;
+		gMapScreenInvPocketXY[39].sX = x + 104;	gMapScreenInvPocketXY[39].sY = y + 257;
+		gMapScreenInvPocketXY[40].sX = x + 171;	gMapScreenInvPocketXY[40].sY = y + 257;
+		gMapScreenInvPocketXY[41].sX = x + 37;	gMapScreenInvPocketXY[41].sY = y + 278;
+		gMapScreenInvPocketXY[42].sX = x + 104;	gMapScreenInvPocketXY[42].sY = y + 278;
+		gMapScreenInvPocketXY[43].sX = x + 171;	gMapScreenInvPocketXY[43].sY = y + 278;
+		gMapScreenInvPocketXY[44].sX = x + 37;	gMapScreenInvPocketXY[44].sY = y + 299;
+		gMapScreenInvPocketXY[45].sX = x + 104;	gMapScreenInvPocketXY[45].sY = y + 299;
+		gMapScreenInvPocketXY[46].sX = x + 171;	gMapScreenInvPocketXY[46].sY = y + 299;
+		gMapScreenInvPocketXY[47].sX = x + 37;	gMapScreenInvPocketXY[47].sY = y + 320;
+		gMapScreenInvPocketXY[48].sX = x + 104;	gMapScreenInvPocketXY[48].sY = y + 320;
+		gMapScreenInvPocketXY[49].sX = x + 171;	gMapScreenInvPocketXY[49].sY = y + 320;
+		gMapScreenInvPocketXY[50].sX = x + 37;	gMapScreenInvPocketXY[50].sY = y + 341;
+		gMapScreenInvPocketXY[51].sX = x + 104;	gMapScreenInvPocketXY[51].sY = y + 341;
+		gMapScreenInvPocketXY[52].sX = x + 171;	gMapScreenInvPocketXY[52].sY = y + 341;
 	}
 	else
 	{
-		gMapScreenInvPocketXY[14].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[14].sY = PLAYER_INFO_Y + 156;
-		gMapScreenInvPocketXY[15].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[15].sY = PLAYER_INFO_Y + 156;
-		gMapScreenInvPocketXY[16].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[16].sY = PLAYER_INFO_Y + 156;
-		gMapScreenInvPocketXY[17].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[17].sY = PLAYER_INFO_Y + 180;
-		gMapScreenInvPocketXY[18].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[18].sY = PLAYER_INFO_Y + 180;
-		gMapScreenInvPocketXY[19].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[19].sY = PLAYER_INFO_Y + 180;
-		gMapScreenInvPocketXY[20].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[20].sY = PLAYER_INFO_Y + 204;
-		gMapScreenInvPocketXY[21].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[21].sY = PLAYER_INFO_Y + 204;
-		gMapScreenInvPocketXY[22].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[22].sY = PLAYER_INFO_Y + 204;
-		gMapScreenInvPocketXY[23].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[23].sY = PLAYER_INFO_Y + 228;
-		gMapScreenInvPocketXY[24].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[24].sY = PLAYER_INFO_Y + 228;
-		gMapScreenInvPocketXY[25].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[25].sY = PLAYER_INFO_Y + 228;
-		gMapScreenInvPocketXY[26].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[26].sY = PLAYER_INFO_Y + 252;
-		gMapScreenInvPocketXY[27].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[27].sY = PLAYER_INFO_Y + 252;
-		gMapScreenInvPocketXY[28].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[28].sY = PLAYER_INFO_Y + 252;
-		gMapScreenInvPocketXY[29].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[29].sY = PLAYER_INFO_Y + 276;
-		gMapScreenInvPocketXY[30].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[30].sY = PLAYER_INFO_Y + 276;
-		gMapScreenInvPocketXY[31].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[31].sY = PLAYER_INFO_Y + 276;
-		gMapScreenInvPocketXY[32].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[32].sY = PLAYER_INFO_Y + 300;
-		gMapScreenInvPocketXY[33].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[33].sY = PLAYER_INFO_Y + 300;
-		gMapScreenInvPocketXY[34].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[34].sY = PLAYER_INFO_Y + 300;
-		gMapScreenInvPocketXY[35].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[35].sY = PLAYER_INFO_Y + 324;
-		gMapScreenInvPocketXY[36].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[36].sY = PLAYER_INFO_Y + 324;
-		gMapScreenInvPocketXY[37].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[37].sY = PLAYER_INFO_Y + 324;
-		gMapScreenInvPocketXY[38].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[38].sY = PLAYER_INFO_Y + 348;
-		gMapScreenInvPocketXY[39].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[39].sY = PLAYER_INFO_Y + 348;
-		gMapScreenInvPocketXY[40].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[40].sY = PLAYER_INFO_Y + 348;
-		gMapScreenInvPocketXY[41].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[41].sY = PLAYER_INFO_Y + 372;
-		gMapScreenInvPocketXY[42].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[42].sY = PLAYER_INFO_Y + 372;
-		gMapScreenInvPocketXY[43].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[43].sY = PLAYER_INFO_Y + 372;
-		gMapScreenInvPocketXY[44].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[44].sY = PLAYER_INFO_Y + 396;
-		gMapScreenInvPocketXY[45].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[45].sY = PLAYER_INFO_Y + 396;
-		gMapScreenInvPocketXY[46].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[46].sY = PLAYER_INFO_Y + 396;
-		gMapScreenInvPocketXY[47].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[47].sY = PLAYER_INFO_Y + 420;
-		gMapScreenInvPocketXY[48].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[48].sY = PLAYER_INFO_Y + 420;
-		gMapScreenInvPocketXY[49].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[49].sY = PLAYER_INFO_Y + 420;
-		gMapScreenInvPocketXY[50].sX = PLAYER_INFO_X + 37;	gMapScreenInvPocketXY[50].sY = PLAYER_INFO_Y + 444;
-		gMapScreenInvPocketXY[51].sX = PLAYER_INFO_X + 104;	gMapScreenInvPocketXY[51].sY = PLAYER_INFO_Y + 444;
-		gMapScreenInvPocketXY[52].sX = PLAYER_INFO_X + 171;	gMapScreenInvPocketXY[52].sY = PLAYER_INFO_Y + 444;
+		gMapScreenInvPocketXY[14].sX = x + 37;	gMapScreenInvPocketXY[14].sY = y + 156;
+		gMapScreenInvPocketXY[15].sX = x + 104;	gMapScreenInvPocketXY[15].sY = y + 156;
+		gMapScreenInvPocketXY[16].sX = x + 171;	gMapScreenInvPocketXY[16].sY = y + 156;
+		gMapScreenInvPocketXY[17].sX = x + 37;	gMapScreenInvPocketXY[17].sY = y + 180;
+		gMapScreenInvPocketXY[18].sX = x + 104;	gMapScreenInvPocketXY[18].sY = y + 180;
+		gMapScreenInvPocketXY[19].sX = x + 171;	gMapScreenInvPocketXY[19].sY = y + 180;
+		gMapScreenInvPocketXY[20].sX = x + 37;	gMapScreenInvPocketXY[20].sY = y + 204;
+		gMapScreenInvPocketXY[21].sX = x + 104;	gMapScreenInvPocketXY[21].sY = y + 204;
+		gMapScreenInvPocketXY[22].sX = x + 171;	gMapScreenInvPocketXY[22].sY = y + 204;
+		gMapScreenInvPocketXY[23].sX = x + 37;	gMapScreenInvPocketXY[23].sY = y + 228;
+		gMapScreenInvPocketXY[24].sX = x + 104;	gMapScreenInvPocketXY[24].sY = y + 228;
+		gMapScreenInvPocketXY[25].sX = x + 171;	gMapScreenInvPocketXY[25].sY = y + 228;
+		gMapScreenInvPocketXY[26].sX = x + 37;	gMapScreenInvPocketXY[26].sY = y + 252;
+		gMapScreenInvPocketXY[27].sX = x + 104;	gMapScreenInvPocketXY[27].sY = y + 252;
+		gMapScreenInvPocketXY[28].sX = x + 171;	gMapScreenInvPocketXY[28].sY = y + 252;
+		gMapScreenInvPocketXY[29].sX = x + 37;	gMapScreenInvPocketXY[29].sY = y + 276;
+		gMapScreenInvPocketXY[30].sX = x + 104;	gMapScreenInvPocketXY[30].sY = y + 276;
+		gMapScreenInvPocketXY[31].sX = x + 171;	gMapScreenInvPocketXY[31].sY = y + 276;
+		gMapScreenInvPocketXY[32].sX = x + 37;	gMapScreenInvPocketXY[32].sY = y + 300;
+		gMapScreenInvPocketXY[33].sX = x + 104;	gMapScreenInvPocketXY[33].sY = y + 300;
+		gMapScreenInvPocketXY[34].sX = x + 171;	gMapScreenInvPocketXY[34].sY = y + 300;
+		gMapScreenInvPocketXY[35].sX = x + 37;	gMapScreenInvPocketXY[35].sY = y + 324;
+		gMapScreenInvPocketXY[36].sX = x + 104;	gMapScreenInvPocketXY[36].sY = y + 324;
+		gMapScreenInvPocketXY[37].sX = x + 171;	gMapScreenInvPocketXY[37].sY = y + 324;
+		gMapScreenInvPocketXY[38].sX = x + 37;	gMapScreenInvPocketXY[38].sY = y + 348;
+		gMapScreenInvPocketXY[39].sX = x + 104;	gMapScreenInvPocketXY[39].sY = y + 348;
+		gMapScreenInvPocketXY[40].sX = x + 171;	gMapScreenInvPocketXY[40].sY = y + 348;
+		gMapScreenInvPocketXY[41].sX = x + 37;	gMapScreenInvPocketXY[41].sY = y + 372;
+		gMapScreenInvPocketXY[42].sX = x + 104;	gMapScreenInvPocketXY[42].sY = y + 372;
+		gMapScreenInvPocketXY[43].sX = x + 171;	gMapScreenInvPocketXY[43].sY = y + 372;
+		gMapScreenInvPocketXY[44].sX = x + 37;	gMapScreenInvPocketXY[44].sY = y + 396;
+		gMapScreenInvPocketXY[45].sX = x + 104;	gMapScreenInvPocketXY[45].sY = y + 396;
+		gMapScreenInvPocketXY[46].sX = x + 171;	gMapScreenInvPocketXY[46].sY = y + 396;
+		gMapScreenInvPocketXY[47].sX = x + 37;	gMapScreenInvPocketXY[47].sY = y + 420;
+		gMapScreenInvPocketXY[48].sX = x + 104;	gMapScreenInvPocketXY[48].sY = y + 420;
+		gMapScreenInvPocketXY[49].sX = x + 171;	gMapScreenInvPocketXY[49].sY = y + 420;
+		gMapScreenInvPocketXY[50].sX = x + 37;	gMapScreenInvPocketXY[50].sY = y + 444;
+		gMapScreenInvPocketXY[51].sX = x + 104;	gMapScreenInvPocketXY[51].sY = y + 444;
+		gMapScreenInvPocketXY[52].sX = x + 171;	gMapScreenInvPocketXY[52].sY = y + 444;
 	}
 
 	return ( TRUE );
@@ -1830,30 +1876,6 @@ BOOLEAN SetInfoChar( UINT8 ubID )
 
 	return ( FALSE );
 }
-
-
-//silversurfer: not used anywhere
-/*void DisplayDestinationOfCurrentDestMerc( void )
-{
-	// will display the dest of the current dest merc
-	CHAR16 sString[ 32 ];
-	INT16 sX, sY;
-	INT16 sSector;
-
-	SetFont( MAP_SCREEN_FONT );
-
-	sSector = GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[ bSelectedDestChar ].usSolID] );
-
-	SetBoxForeground(ghVehicleBox, FONT_LTGREEN);
-	SetBoxBackground(ghVehicleBox, FONT_BLACK);
-
-	swprintf( sString, L"%s%s", pMapVertIndex[ sSector / MAP_WORLD_X ], pMapHortIndex[ sSector % MAP_WORLD_X ] );
-	FindFontCenterCoordinates(DEST_PLOT_X, DEST_PLOT_Y ,70 ,GetFontHeight( MAP_SCREEN_FONT ) ,sString , MAP_SCREEN_FONT, &sX, &sY);
-
-	RestoreExternBackgroundRect( DEST_PLOT_X, DEST_PLOT_Y ,70 ,GetFontHeight( MAP_SCREEN_FONT ) );
-	mprintf( sX, sY, sString );
-}*/
-
 
 
 void ContractBoxGlow( void )
@@ -1957,27 +1979,32 @@ void ContractListRegionBoxGlow( UINT16 usCount )
 	sYAdd = 0;
 
 	// y start position of box
-	usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE) + sYAdd );
+	usY = ( UI_CHARLIST.yOffset * usCount - 1 ) + (UI_CHARLIST.y + (usCount * Y_SIZE) + sYAdd );
 
 	// glow contract box
 	usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	RectangleDraw( TRUE, TIME_REMAINING_X, usY, TIME_REMAINING_X + TIME_REMAINING_WIDTH, usY + GetFontHeight( MAP_SCREEN_FONT ) + 2, usColor, pDestBuf );
-	InvalidateRegion(TIME_REMAINING_X - 1, usY, TIME_REMAINING_X + TIME_REMAINING_WIDTH + 1, usY + GetFontHeight( MAP_SCREEN_FONT ) + 3 );
+	
+	const auto x = UI_CHARLIST.xTimeRemaining;
+	const auto width = UI_CHARLIST.widthTimeRemaining;
+	RectangleDraw( TRUE, x, usY, x + width, usY + GetFontHeight( MAP_SCREEN_FONT ) + 2, usColor, pDestBuf );
+	InvalidateRegion(x - 1, usY, x + width + 1, usY + GetFontHeight( MAP_SCREEN_FONT ) + 3 );
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
 
 void GlowFace( void )
 {
- static INT32 iColorNum =10;
- static BOOLEAN fDelta=FALSE;
- static BOOLEAN fOldFaceGlow = FALSE;
- UINT16 usColor;
- UINT32 uiDestPitchBYTES;
- UINT8	*pDestBuf;
-
+	static INT32 iColorNum =10;
+	static BOOLEAN fDelta=FALSE;
+	static BOOLEAN fOldFaceGlow = FALSE;
+	const auto xStart = UI_CHARPANEL.FacePicture.x;
+	const auto yStart = UI_CHARPANEL.FacePicture.y;
+	const auto xEnd = UI_CHARPANEL.FacePicture.x + UI_CHARPANEL.FacePicture.width;
+	const auto yEnd = UI_CHARPANEL.FacePicture.y + UI_CHARPANEL.FacePicture.height;
+	const auto Width = UI_CHARPANEL.FacePicture.width;
+	const auto Height = UI_CHARPANEL.FacePicture.height;
 
 	// not glowing right now, leave
 	if( fShowFaceHightLight == FALSE )
@@ -1987,7 +2014,7 @@ void GlowFace( void )
 
 		if( fOldFaceGlow == TRUE )
 		{
-			RestoreExternBackgroundRect( xResOffset + 9, yResOffset + 18, 52, ( UINT16 )( 46 ) );
+			RestoreExternBackgroundRect(xStart, yStart, Width + 1, Height + 1);
 		}
 
 		fOldFaceGlow = FALSE;
@@ -2013,20 +2040,22 @@ void GlowFace( void )
 		iColorNum--;
 
 	// glow contract box
-	usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	UINT16 usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
+	UINT32 uiDestPitchBYTES;
+	UINT8 *pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	RectangleDraw( TRUE, xResOffset + 9, yResOffset + 18, xResOffset + 60, yResOffset + 63 , usColor, pDestBuf );
-	InvalidateRegion( xResOffset + 9, yResOffset + 18, xResOffset + 61, yResOffset + 64 );
+
+	RectangleDraw( TRUE, xStart, yStart, xEnd, yEnd, usColor, pDestBuf );
+	InvalidateRegion(xStart, yStart, xEnd + 1 , yEnd + 1 );
 	UnLockVideoSurface( FRAME_BUFFER );
 	
 	// restore background
 	if((iColorNum==0)||(iColorNum==1))
-		RestoreExternBackgroundRect( xResOffset + 9, yResOffset + 18, 61 - 9 , ( UINT16 )( 64 - 18 ) );  
+		RestoreExternBackgroundRect(xStart, yStart, Width + 1, Height + 1);
 }
 
-
+// Draws the pulsating red rectangle around the character panel inventory slot
 void GlowItem( void )
 {
 	static INT32 iColorNum =10;
@@ -2072,18 +2101,24 @@ void GlowItem( void )
 		iColorNum--;
 
 	// restore background
+	const auto x = UI_CHARPANEL.HandItem.x;
+	const auto y = UI_CHARPANEL.HandItem.y;
+	const auto width = UI_CHARPANEL.HandItem.width;
+	const auto height = UI_CHARPANEL.HandItem.height;
 	if((iColorNum==0)||(iColorNum==1))
 	{
-		RestoreExternBackgroundRect( xResOffset + 3, yResOffset + 80, (65 - 3 ), ( UINT16 )( 105 - 80 ) );
+		RestoreExternBackgroundRect(x, y, width + 1, height + 1 );
 		RenderHandPosItem();
 	}
 
-	// glow contract box
 	usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	RectangleDraw( TRUE, xResOffset + 3, yResOffset + 80, xResOffset + 64, yResOffset + 104 , usColor, pDestBuf );
-	InvalidateRegion( xResOffset + 3, yResOffset + 80, xResOffset + 65, yResOffset + 105 );
+
+	const auto xEnd = x + width;
+	const auto yEnd = y + height;
+	RectangleDraw( TRUE, x, y, xEnd, yEnd, usColor, pDestBuf );
+	InvalidateRegion(x, y, xEnd + 1, yEnd + 1);
 
 	UnLockVideoSurface( FRAME_BUFFER );
 }
@@ -2094,10 +2129,10 @@ void GlowTrashCan( void )
  static INT32 iColorNum =10;
  static BOOLEAN fDelta=FALSE;
  static BOOLEAN fOldTrashCanGlow = FALSE;
- UINT16 usColor;
- UINT32 uiDestPitchBYTES;
- UINT8	*pDestBuf;
-
+ const auto x = UI_CHARINV.Button.Trashcan.x;
+ const auto y = UI_CHARINV.Button.Trashcan.y;
+ const auto width = UI_CHARINV.Button.Trashcan.width;
+ const auto height = UI_CHARINV.Button.Trashcan.height;
 
 	if( fShowInventoryFlag == FALSE )
 	{
@@ -2112,7 +2147,7 @@ void GlowTrashCan( void )
 
 		if( fOldTrashCanGlow == TRUE )
 		{
-			RestoreExternBackgroundRect( TRASH_CAN_X, TRASH_CAN_Y, ( UINT16 )( TRASH_CAN_WIDTH + 2 ), ( UINT16 )( TRASH_CAN_HEIGHT + 2 ) );
+			RestoreExternBackgroundRect(x, y, ( UINT16 )(width + 2 ), ( UINT16 )(height + 2 ) );
 		}
 
 		fOldTrashCanGlow = FALSE;
@@ -2127,16 +2162,17 @@ void GlowTrashCan( void )
 	fOldTrashCanGlow = TRUE;
 
 	// glow contract box
-	usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	UINT16 usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
+	UINT32 uiDestPitchBYTES;
+	UINT8* pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	RectangleDraw( TRUE, TRASH_CAN_X, TRASH_CAN_Y , TRASH_CAN_X + TRASH_CAN_WIDTH, TRASH_CAN_Y + TRASH_CAN_HEIGHT , usColor, pDestBuf );
-	InvalidateRegion( TRASH_CAN_X, TRASH_CAN_Y, TRASH_CAN_X + TRASH_CAN_WIDTH + 1, TRASH_CAN_Y + TRASH_CAN_HEIGHT + 1 );
+	RectangleDraw( TRUE, x, y, x + width, y + height, usColor, pDestBuf );
+	InvalidateRegion( x, y, x + width + 1, y + height + 1 );
 	UnLockVideoSurface( FRAME_BUFFER );
 
 	// restore background
 	if((iColorNum==0)||(iColorNum==1))
-		RestoreExternBackgroundRect( TRASH_CAN_X, TRASH_CAN_Y, ( UINT16 )( TRASH_CAN_WIDTH + 2 ), ( UINT16 )( TRASH_CAN_HEIGHT + 2 ) );
+		RestoreExternBackgroundRect( x, y, ( UINT16 )( width + 2 ), ( UINT16 )( height + 2 ) );
 }
 
 
@@ -2175,7 +2211,7 @@ void DrawFace( INT16 sCharNumber )
 	fReDrawFace = FALSE;
 
 	// render their face
-	RenderSoldierFace( pSoldier, SOLDIER_PIC_X, SOLDIER_PIC_Y, TRUE );
+	RenderSoldierFace( pSoldier, UI_CHARPANEL.FacePicture.x, UI_CHARPANEL.FacePicture.y, TRUE );
 
 	return;
 }
@@ -2187,8 +2223,8 @@ void RenderHandPosItem( void )
 	SOLDIERTYPE	*pSoldier = NULL;
 	// renders the inventory item in char's right hand
 
-	// ARM: if already in the inventory panel, don't show the item again here, seeing it twice is confusing
-	if ( fShowInventoryFlag )
+	// ARM: if already in the inventory panel, don't show the item again here, seeing it twice is confusing. Same for widescreen UI, where the inventory panel is always visible.
+	if ( fShowInventoryFlag || isWidescreenUI())
 	{
 		return;
 	}
@@ -2218,36 +2254,40 @@ void RenderHandPosItem( void )
 	SetFontForeground(CHAR_INFO_PANEL_BLOCK_COLOR);
 	SetFontBackground(FONT_BLACK);
 
-	INVRenderItem( guiSAVEBUFFER, pSoldier, &(pSoldier->inv[HANDPOS]), SOLDIER_HAND_X, SOLDIER_HAND_Y,	58, 23, DIRTYLEVEL2, NULL, 0, FALSE, 0);
+	INVRenderItem( guiSAVEBUFFER, pSoldier, &(pSoldier->inv[HANDPOS]), UI_CHARPANEL.HandItem.x, UI_CHARPANEL.HandItem.y,	58, 23, DIRTYLEVEL2, NULL, 0, FALSE, 0);
 }
 
 
 
 void RenderIconsForUpperLeftCornerPiece( INT8 bCharNumber )
 {
-	HVOBJECT hHandle;
+	const auto x = UI_CHARPANEL.Icon.x;
+	const auto y = UI_CHARPANEL.Icon.y;
+	const auto height = UI_CHARPANEL.Icon.height;
+	const auto spacing = UI_CHARPANEL.Icon.spacing;
 
+	HVOBJECT hHandle;
 	GetVideoObject(&hHandle, guiULICONS);
 
 	// if merc is an AIM merc
 	if( Menptr[ gCharactersList[ bCharNumber ].usSolID ].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 	{
 		// finite contract length icon
-		BltVideoObject( guiSAVEBUFFER, hHandle, 0, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject( guiSAVEBUFFER, hHandle, 0, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	// if merc has life insurance
 	if( Menptr[ gCharactersList[ bCharNumber ].usSolID ].usLifeInsurance > 0 )
 	{
 		// draw life insurance icon
-		BltVideoObject( guiSAVEBUFFER, hHandle, 2, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject( guiSAVEBUFFER, hHandle, 2, x, y + spacing, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	// if merc has a medical deposit
 	if( Menptr[ gCharactersList[ bCharNumber ].usSolID ].usMedicalDeposit > 0 )
 	{
 		// draw medical deposit icon
-		BltVideoObject( guiSAVEBUFFER, hHandle, 1, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject( guiSAVEBUFFER, hHandle, 1, x, y + ( 2 * spacing), VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 }
 
@@ -2276,7 +2316,11 @@ void DrawPay(INT16 sCharNumber)
 	swprintf( sString, L"%d", uiSalary );
 
 	// right justify salary
-	FindFontRightCoordinates(CHAR_PAY_X,CHAR_PAY_Y , CHAR_PAY_WID,CHAR_PAY_HEI ,sString , CHAR_FONT, &usX, &usY);
+	const auto x = UI_CHARPANEL.Text.Pay.x;
+	const auto y = UI_CHARPANEL.Text.Pay.y;
+	const auto w = UI_CHARPANEL.Text.Pay.width;
+	const auto h = UI_CHARPANEL.Text.Pay.height;
+	FindFontRightCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
 
 	// draw salary
 	DrawString(sString,usX, usY, CHAR_FONT);
@@ -2325,20 +2369,20 @@ void DrawCharBars( void )
 		}
 
 		// current health
-		DrawLifeUIBarEx( pSoldier, BAR_INFO_X + xResOffset, BAR_INFO_Y + yResOffset,3,42, TRUE, FRAME_BUFFER );
+		DrawLifeUIBarEx( pSoldier, UI_CHARPANEL.Statusbars.x, UI_CHARPANEL.Statusbars.y, 3, 42, TRUE, FRAME_BUFFER );
 
 		// robot doesn't have energy/fuel
 		if ( !AM_A_ROBOT( pSoldier ) )
 		{
 			// current energy/fuel
-			DrawBreathUIBarEx( pSoldier, BAR_INFO_X + xResOffset + 6, BAR_INFO_Y + yResOffset,3,42, TRUE, FRAME_BUFFER );
+			DrawBreathUIBarEx( pSoldier, UI_CHARPANEL.Statusbars.x + UI_CHARPANEL.Statusbars.offset, UI_CHARPANEL.Statusbars.y, 3,42, TRUE, FRAME_BUFFER );
 		}
 
 		// vehicles and robot don't have morale
 		if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )
 		{
 			// draw morale bar
-			DrawMoraleUIBarEx( pSoldier, BAR_INFO_X + xResOffset + 12, BAR_INFO_Y + yResOffset,3,42, TRUE, FRAME_BUFFER );
+			DrawMoraleUIBarEx( pSoldier, UI_CHARPANEL.Statusbars.x + UI_CHARPANEL.Statusbars.offset*2, UI_CHARPANEL.Statusbars.y, 3,42, TRUE, FRAME_BUFFER );
 		}
 
 	}
@@ -2391,8 +2435,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(STR_X, STR_Y ,STAT_WID ,STAT_HEI ,sString, CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, STR_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.STR.iX, 
+		UI_CHARPANEL.Attr.STR.iY, 
+		UI_CHARPANEL.Attr.width, 
+		UI_CHARPANEL.Attr.height, 
+		sString, CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.STR.iY,CHAR_FONT );
 
 	// dexterity
 	swprintf( sString, L"%d", pSoldier->stats.bDexterity + pSoldier->bExtraDexterity );
@@ -2423,8 +2473,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(DEX_X,DEX_Y ,STAT_WID ,STAT_HEI ,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, DEX_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.DEX.iX,
+		UI_CHARPANEL.Attr.DEX.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.DEX.iY,CHAR_FONT );
 
 	// agility
 	swprintf( sString, L"%d", pSoldier->stats.bAgility + pSoldier->bExtraAgility );
@@ -2455,8 +2511,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(AGL_X,AGL_Y,STAT_WID ,STAT_HEI ,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, AGL_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.AGL.iX,
+		UI_CHARPANEL.Attr.AGL.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.AGL.iY,CHAR_FONT );
 
 	// wisdom
 	swprintf( sString, L"%d", pSoldier->stats.bWisdom + pSoldier->bExtraWisdom );
@@ -2487,8 +2549,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates( WIS_X,WIS_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, WIS_Y,CHAR_FONT );
+	FindFontRightCoordinates( 
+		UI_CHARPANEL.Attr.WIS.iX,
+		UI_CHARPANEL.Attr.WIS.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.WIS.iY,CHAR_FONT );
 
 	// leadership
 	swprintf( sString, L"%d", pSoldier->stats.bLeadership );
@@ -2515,8 +2583,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(LDR_X,LDR_Y,STAT_WID,STAT_HEI, sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, LDR_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.LDR.iX,
+		UI_CHARPANEL.Attr.LDR.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.LDR.iY,CHAR_FONT );
 
 	// experience level
 	swprintf( sString, L"%d", pSoldier->stats.bExpLevel + pSoldier->bExtraExpLevel );
@@ -2542,8 +2616,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(LVL_X,LVL_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, LVL_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.LVL.iX,
+		UI_CHARPANEL.Attr.LVL.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.LVL.iY,CHAR_FONT );
 
 	// marksmanship
 	swprintf( sString, L"%d", pSoldier->stats.bMarksmanship );
@@ -2570,8 +2650,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(MRK_X,MRK_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, MRK_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.MRK.iX,
+		UI_CHARPANEL.Attr.MRK.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.MRK.iY,CHAR_FONT );
 
 	// mechanical
 	swprintf( sString, L"%d", pSoldier->stats.bMechanical );
@@ -2598,8 +2684,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(MEC_X,MEC_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, MEC_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.MEC.iX,
+		UI_CHARPANEL.Attr.MEC.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.MEC.iY,CHAR_FONT );
 	
 	// explosives
 	swprintf( sString, L"%d", pSoldier->stats.bExplosive );
@@ -2626,8 +2718,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(EXP_X,EXP_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, EXP_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.EXP.iX,
+		UI_CHARPANEL.Attr.EXP.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+	DrawString(sString,usX, UI_CHARPANEL.Attr.EXP.iY,CHAR_FONT );
 
 	// medical
 	swprintf( sString, L"%d", pSoldier->stats.bMedical );
@@ -2654,8 +2752,14 @@ void DrawCharStats( INT16 sCharNum )
 	}
 
 	// right justify
-	FindFontRightCoordinates(MED_X,MED_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
- 	DrawString(sString,usX, MED_Y,CHAR_FONT );
+	FindFontRightCoordinates(
+		UI_CHARPANEL.Attr.MED.iX,
+		UI_CHARPANEL.Attr.MED.iY,
+		UI_CHARPANEL.Attr.width,
+		UI_CHARPANEL.Attr.height,
+		sString , CHAR_FONT, &usX, &usY
+	);
+ 	DrawString(sString, usX, UI_CHARPANEL.Attr.MED.iY, CHAR_FONT );
 
 	SetFontForeground(CHAR_TEXT_FONT_COLOR);
 
@@ -2670,7 +2774,10 @@ void DrawCharHealth( INT16 sCharNum )
 	CHAR16 sString[9];
 	INT16 usX, usY;
 	SOLDIERTYPE *pSoldier = NULL;
-
+	const auto x = UI_CHARPANEL.Text.CurrentHitpoints.x;
+	const auto y = UI_CHARPANEL.Text.CurrentHitpoints.y;
+	const auto width = UI_CHARPANEL.Text.CurrentHitpoints.width;
+	const auto height = UI_CHARPANEL.Text.CurrentHitpoints.height;
 
 	pSoldier = &Menptr[gCharactersList[sCharNum].usSolID];
 
@@ -2678,7 +2785,7 @@ void DrawCharHealth( INT16 sCharNum )
 	{
 		// find starting X coordinate by centering all 3 substrings together, then print them separately (different colors)!
 		swprintf( sString, L"%d/%d", pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
-		FindFontCenterCoordinates(CHAR_HP_X, CHAR_HP_Y, CHAR_HP_WID, CHAR_HP_HEI, sString, CHAR_FONT, &usX, &usY);
+		FindFontCenterCoordinates(x, y, width, height, sString, CHAR_FONT, &usX, &usY);
 
 
 		if ( pSoldier->stats.bLifeMax > 0 )
@@ -2712,14 +2819,14 @@ void DrawCharHealth( INT16 sCharNum )
 
 		// current life
 		swprintf( sString, L"%d", pSoldier->stats.bLife );
-		DrawString( sString, usX, CHAR_HP_Y, CHAR_FONT );
+		DrawString( sString, usX, y, CHAR_FONT );
 		usX += StringPixLength( sString, CHAR_FONT );
 
 
 		// slash
 		SetFontForeground(CHAR_TEXT_FONT_COLOR);
 		wcscpy( sString, L"/" );
-		DrawString( sString, usX, CHAR_HP_Y, CHAR_FONT );
+		DrawString( sString, usX, y, CHAR_FONT );
 		usX += StringPixLength( sString, CHAR_FONT );
 
 		if (gGameOptions.fNewTraitSystem && pSoldier->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] > 0)
@@ -2744,15 +2851,15 @@ void DrawCharHealth( INT16 sCharNum )
 
 		// maximum life
 		swprintf( sString, L"%d", pSoldier->stats.bLifeMax );
-		DrawString( sString, usX, CHAR_HP_Y, CHAR_FONT );
+		DrawString( sString, usX, y, CHAR_FONT );
 	}
 	else
 	{
 		// POW - health unknown
 		SetFontForeground(CHAR_TEXT_FONT_COLOR);
 		swprintf( sString, pPOWStrings[ 1 ] );
-		FindFontCenterCoordinates(CHAR_HP_X, CHAR_HP_Y, CHAR_HP_WID, CHAR_HP_HEI, sString, CHAR_FONT, &usX, &usY);
-		DrawString(sString, usX, CHAR_HP_Y, CHAR_FONT);
+		FindFontCenterCoordinates(x, y, width, height, sString, CHAR_FONT, &usX, &usY);
+		DrawString(sString, usX, y, CHAR_FONT);
 	}
 
 
@@ -2818,7 +2925,7 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		wcscpy(sString, gMercProfiles[usMercProfileID].zNickname);
 	}
 
-	FindFontCenterCoordinates(PIC_NAME_X, PIC_NAME_Y, PIC_NAME_WID, PIC_NAME_HEI, sString, CHAR_FONT, &usX, &usY);
+	FindFontCenterCoordinates(UI_CHARPANEL.NickName.x, UI_CHARPANEL.NickName.y, UI_CHARPANEL.NickName.width, UI_CHARPANEL.NickName.height, sString, CHAR_FONT, &usX, &usY);
 	DrawString(sString, usX, usY, CHAR_FONT);
 
 
@@ -2845,7 +2952,7 @@ void DrawCharacterInfo(INT16 sCharNumber)
  	}
 
 
-	FindFontCenterCoordinates(CHAR_NAME_X, CHAR_NAME_Y, CHAR_NAME_WID, CHAR_NAME_HEI, sString, CHAR_FONT, &usX, &usY);
+	FindFontCenterCoordinates(UI_CHARPANEL.FullName.x, UI_CHARPANEL.FullName.y, UI_CHARPANEL.FullName.width, UI_CHARPANEL.FullName.height, sString, CHAR_FONT, &usX, &usY);
 	DrawString(sString, usX, usY, CHAR_FONT);
 
 
@@ -2864,9 +2971,14 @@ void DrawCharacterInfo(INT16 sCharNumber)
 			wcscpy( sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}
 
-	FindFontCenterCoordinates( CHAR_ASSIGN_X, CHAR_ASSIGN1_Y, CHAR_ASSIGN_WID, CHAR_ASSIGN_HEI, sString, CHAR_FONT, &usX, &usY );
-	DrawString( sString, usX, usY, CHAR_FONT );
-
+	{
+		const auto x = UI_CHARPANEL.Text.CurrentAssignment.x;
+		const auto y = UI_CHARPANEL.Text.CurrentAssignment.y;
+		const auto w = UI_CHARPANEL.Text.CurrentAssignment.width;
+		const auto h = UI_CHARPANEL.Text.CurrentAssignment.height;
+		FindFontCenterCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
+		DrawString(sString, usX, usY, CHAR_FONT);
+	}
 
 	// second assignment line
 
@@ -2937,7 +3049,11 @@ void DrawCharacterInfo(INT16 sCharNumber)
 
 	if ( wcslen( sString ) > 0 )
 	{
-		FindFontCenterCoordinates(CHAR_ASSIGN_X, CHAR_ASSIGN2_Y ,CHAR_ASSIGN_WID ,CHAR_ASSIGN_HEI ,sString , CHAR_FONT, &usX, &usY);
+		const auto x = UI_CHARPANEL.Text.CurrentAssignment.x;
+		const auto y = UI_CHARPANEL.Text.CurrentAssignment_Y2;
+		const auto w = UI_CHARPANEL.Text.CurrentAssignment.width;
+		const auto h = UI_CHARPANEL.Text.CurrentAssignment.height;
+		FindFontCenterCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
 		DrawString(sString, usX, usY, CHAR_FONT );
 	}
 
@@ -3042,9 +3158,14 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	SetFontBackground(FONT_BLACK);
 
 	// center and draw
-	FindFontCenterCoordinates(CHAR_TIME_REMAINING_X, CHAR_TIME_REMAINING_Y, CHAR_TIME_REMAINING_WID, CHAR_TIME_REMAINING_HEI, sString, CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX,usY, CHAR_FONT);
-
+	{
+		const auto x = UI_CHARPANEL.Text.TimeRemaining.x;
+		const auto y = UI_CHARPANEL.Text.TimeRemaining.y;
+		const auto w = UI_CHARPANEL.Text.TimeRemaining.width;
+		const auto h = UI_CHARPANEL.Text.TimeRemaining.height;
+		FindFontCenterCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
+		DrawString(sString, usX, usY, CHAR_FONT);
+	}
 
 	// salary
 	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
@@ -3073,10 +3194,14 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	// insert commas and dollar sign
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
-
-	FindFontRightCoordinates(CHAR_SALARY_X, CHAR_SALARY_Y, CHAR_SALARY_WID, CHAR_SALARY_HEI, sString, CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX,usY, CHAR_FONT);
-
+	{
+		const auto x = UI_CHARPANEL.Text.Salary.x;
+		const auto y = UI_CHARPANEL.Text.Salary.y;
+		const auto w = UI_CHARPANEL.Text.Salary.width;
+		const auto h = UI_CHARPANEL.Text.Salary.height;
+		FindFontRightCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
+		DrawString(sString, usX, usY, CHAR_FONT);
+	}
 
 	// medical deposit
 	if( gMercProfiles[ Menptr[ gCharactersList[ sCharNumber ].usSolID ].ubProfile ].sMedicalDepositAmount > 0 )
@@ -3086,9 +3211,14 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		// insert commas and dollar sign
 		InsertCommasForDollarFigure( sString );
 		InsertDollarSignInToString( sString );
-
-		FindFontRightCoordinates(CHAR_MEDICAL_X, CHAR_MEDICAL_Y, CHAR_MEDICAL_WID, CHAR_MEDICAL_HEI, sString, CHAR_FONT, &usX, &usY);
-		DrawString(sString,usX,CHAR_MEDICAL_Y, CHAR_FONT);
+		{
+			const auto x = UI_CHARPANEL.Text.Medical.x;
+			const auto y = UI_CHARPANEL.Text.Medical.y;
+			const auto w = UI_CHARPANEL.Text.Medical.width;
+			const auto h = UI_CHARPANEL.Text.Medical.height;
+			FindFontRightCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
+			DrawString(sString, usX, y, CHAR_FONT);
+		}
 	}
 
 /*
@@ -3118,9 +3248,14 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		swprintf( sString, pPOWStrings[ 1 ] );
 	}
 
-	FindFontCenterCoordinates(CHAR_MORALE_X, CHAR_MORALE_Y, CHAR_MORALE_WID, CHAR_MORALE_HEI, sString, CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX,CHAR_MORALE_Y, CHAR_FONT);
-
+	{
+		const auto x = UI_CHARPANEL.Text.CurrentMorale.x;
+		const auto y = UI_CHARPANEL.Text.CurrentMorale.y;
+		const auto w = UI_CHARPANEL.Text.CurrentMorale.width;
+		const auto h = UI_CHARPANEL.Text.CurrentMorale.height;
+		FindFontCenterCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
+		DrawString(sString, usX, y, CHAR_FONT);
+	}
 
 	return;
 }
@@ -3186,123 +3321,155 @@ void DisplayCharacterInfo( void )
 		//pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		pDestBuf = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
 
+		const auto STAT_WIDTH = UI_CHARPANEL.Attr.width;
+		const auto STAT_HEIGHT = UI_CHARPANEL.Attr.height;
 		// AGI
 		if (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (AGL_Y-1);
-			ClipRect.iBottom = (AGL_Y-1) + STAT_HEI;
-			ClipRect.iLeft = AGL_X;
-			ClipRect.iRight = AGL_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.AGL.iX;
+			const auto y = UI_CHARPANEL.Attr.AGL.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// DEX
 		if (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (DEX_Y-1);
-			ClipRect.iBottom = (DEX_Y-1) + STAT_HEI;
-			ClipRect.iLeft = DEX_X;
-			ClipRect.iRight = DEX_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.DEX.iX;
+			const auto y = UI_CHARPANEL.Attr.DEX.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// STR
 		if (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (STR_Y-1);
-			ClipRect.iBottom = (STR_Y-1) + STAT_HEI;
-			ClipRect.iLeft = STR_X;
-			ClipRect.iRight = STR_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.STR.iX;
+			const auto y = UI_CHARPANEL.Attr.STR.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// WIS
 		if (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (WIS_Y-1);
-			ClipRect.iBottom = (WIS_Y-1) + STAT_HEI;
-			ClipRect.iLeft = WIS_X;
-			ClipRect.iRight = WIS_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.WIS.iX;
+			const auto y = UI_CHARPANEL.Attr.WIS.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// MRK
 		if (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (MRK_Y-1);
-			ClipRect.iBottom = (MRK_Y-1) + STAT_HEI;
-			ClipRect.iLeft = MRK_X;
-			ClipRect.iRight = MRK_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.MRK.iX;
+			const auto y = UI_CHARPANEL.Attr.MRK.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// LDR
 		if (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (LDR_Y-1);
-			ClipRect.iBottom = (LDR_Y-1) + STAT_HEI;
-			ClipRect.iLeft = LDR_X;
-			ClipRect.iRight = LDR_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.LDR.iX;
+			const auto y = UI_CHARPANEL.Attr.LDR.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// MECH
 		if (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (MEC_Y-1);
-			ClipRect.iBottom = (MEC_Y-1) + STAT_HEI;
-			ClipRect.iLeft = MEC_X;
-			ClipRect.iRight = MEC_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.MEC.iX;
+			const auto y = UI_CHARPANEL.Attr.MEC.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// EXPLO
 		if (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (EXP_Y-1);
-			ClipRect.iBottom = (EXP_Y-1) + STAT_HEI;
-			ClipRect.iLeft = EXP_X;
-			ClipRect.iRight = EXP_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.EXP.iX;
+			const auto y = UI_CHARPANEL.Attr.EXP.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// MED
 		if (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (MED_Y-1);
-			ClipRect.iBottom = (MED_Y-1) + STAT_HEI;
-			ClipRect.iLeft = MED_X;
-			ClipRect.iRight = MED_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.MED.iX;
+			const auto y = UI_CHARPANEL.Attr.MED.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
 		// EXPLEVEL
 		if (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain)
 		{
-			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, pSoldier->stats.bExpLevel);
-			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
-			ClipRect.iTop = (LVL_Y-1);
-			ClipRect.iBottom = (LVL_Y-1) + STAT_HEI;
-			ClipRect.iLeft = LVL_X;
-			ClipRect.iRight = LVL_X + ubBarWidth;
+			const auto x = UI_CHARPANEL.Attr.LVL.iX;
+			const auto y = UI_CHARPANEL.Attr.LVL.iY;
+
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, pSoldier->stats.bExpLevel);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
+			ClipRect.iTop = (y-1);
+			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
+			ClipRect.iLeft = x;
+			ClipRect.iRight = x + ubBarWidth;
 			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 		}
 
@@ -3477,7 +3644,7 @@ void DisplayGroundEta( void )
 	SetFontForeground( FONT_LTGREEN );
 	SetFontBackground( FONT_BLACK );
 
-	mprintf( CLOCK_ETA_X, CLOCK_Y_START, pEtaString[ 0 ] );
+	mprintf(UI_MAP.ETA.Clock_X, UI_MAP.ETA.Start_Y, pEtaString[ 0 ] );
 
 	// if less than one day
 	if( ( iTotalTime / ( 60 * 24 ) ) < 1 )
@@ -3505,7 +3672,6 @@ void HighLightAssignLine()
 	static BOOLEAN fDelta=FALSE;
 	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	INT16 usCount = 0;
-	UINT16 usX;
 	UINT16 usY;
 	INT16 usVehicleCount = 0;
 
@@ -3541,34 +3707,37 @@ void HighLightAssignLine()
 	else
 		iColorNum--;
 
-	usY = ( Y_OFFSET * giAssignHighLine - 1 ) + ( Y_START + ( giAssignHighLine * Y_SIZE ) );	
+	const auto yStart = UI_CHARLIST.y;
+	const auto yOffset = UI_CHARLIST.yOffset;
+	usY = (yOffset * giAssignHighLine - 1 ) + (yStart + ( giAssignHighLine * Y_SIZE ) );
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	// marke strogg more mercs
+	const auto usX = UI_CHARLIST.xAssignment;
+	const auto width = UI_CHARLIST.widthAssignment;
 	for( usCount = 0; usCount < maxNumberOfMercVisibleInStrategyList; usCount++ )
 	{
 		if( IsCharacterSelectedForAssignment( usCount ) == TRUE )
 		{
-			usX=ASSIGN_X;
-			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			usY=(yOffset * usCount-1)+(yStart +(usCount*Y_SIZE));
 
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
 
 			LineDraw(TRUE, usX, usY, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
-			LineDraw(TRUE, usX+ASSIGN_WIDTH, usY, usX+ASSIGN_WIDTH, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+			LineDraw(TRUE, usX + width, usY, usX + width, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			if( ( usCount == 0 ) || ( usCount != 0 ? !( IsCharacterSelectedForAssignment( ( UINT16 )( usCount - 1 ) ) ) : 0 ) )
 			{
-				LineDraw( TRUE, usX, usY, usX+ASSIGN_WIDTH, usY, usColor,pDestBuf);
+				LineDraw( TRUE, usX, usY, usX + width, usY, usColor,pDestBuf);
 			}
 
 			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForAssignment( ( UINT16 )( usCount + 1 ) ) ) : 0) )
 			{
-				LineDraw(TRUE, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX+ASSIGN_WIDTH, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+				LineDraw(TRUE, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX + width, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
 
-			InvalidateRegion( usX, usY, usX+ASSIGN_WIDTH+1, usY+GetFontHeight(MAP_SCREEN_FONT)+3);
+			InvalidateRegion( usX, usY, usX + width + 1, usY+GetFontHeight(MAP_SCREEN_FONT)+3);
 		}
 	}
 
@@ -3585,7 +3754,6 @@ void HighLightDestLine()
 	static BOOLEAN fDelta=FALSE;
 	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	UINT16 usCount = 0;
-	UINT16 usX;
 	UINT16 usY;
 	//UINT16 usVehicleCont = 0;
 
@@ -3625,32 +3793,33 @@ void HighLightDestLine()
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	// marke strogg more mercs
+	const auto usX = UI_CHARLIST.xETA;
+	const auto width = UI_CHARLIST.widthETA;
 	for( usCount = 0; usCount < maxNumberOfMercVisibleInStrategyList; usCount++ )
 	{
 		if( CharacterIsGettingPathPlotted( usCount ) == TRUE )
 		{
-			usX=DEST_ETA_X-4;
-			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			usY=(UI_CHARLIST.yOffset*usCount-1)+(UI_CHARLIST.y +(usCount*Y_SIZE));
 
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
 
 			if( ( usCount == 0 ) || ( usCount != 0 ? !( CharacterIsGettingPathPlotted( ( UINT16 )( usCount - 1 ) ) ) : 0 ))
 			{
-				LineDraw( TRUE, usX+4, usY, usX+DEST_ETA_WIDTH+4, usY, usColor,pDestBuf);
+				LineDraw( TRUE, usX, usY, usX + width, usY, usColor,pDestBuf);
 			}
 			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( CharacterIsGettingPathPlotted( ( UINT16 )( usCount + 1 ) ) ) : 0) )
 			{
-				LineDraw(TRUE, usX+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX+DEST_ETA_WIDTH+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+				LineDraw(TRUE, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX + width, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
 
 
-			LineDraw(TRUE, usX+4, usY, usX+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
-			LineDraw(TRUE, usX+DEST_ETA_WIDTH+4, usY, usX+DEST_ETA_WIDTH+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+			LineDraw(TRUE, usX, usY, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+			LineDraw(TRUE, usX+ width, usY, usX + width, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 
-			InvalidateRegion( usX, usY, usX + DEST_ETA_WIDTH + 5, usY + GetFontHeight(MAP_SCREEN_FONT)+3 );
+			InvalidateRegion( usX - 4, usY, usX + width + 1, usY + GetFontHeight(MAP_SCREEN_FONT)+3 );
 		}
 	}
-	//InvalidateRegion( usX+4, usY, DEST_ETA_WIDTH-10, usY+GetFontHeight(MAP_SCREEN_FONT)+3);
+	//InvalidateRegion( usX+4, usY, width-10, usY+GetFontHeight(MAP_SCREEN_FONT)+3);
 	//InvalidateRegion( usX+10, usY, usX+ASSIGN_WIDTH, usY+GetFontHeight(MAP_SCREEN_FONT)+3);
 	UnLockVideoSurface( FRAME_BUFFER );
 }
@@ -3666,7 +3835,6 @@ void HighLightSleepLine()
 	static BOOLEAN fDelta=FALSE;
 	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	UINT16 usCount = 0;
-	UINT16 usX, usX2;
 	UINT16 usY;
 	//UINT16 usVehicleCount = 0;
 
@@ -3705,31 +3873,33 @@ void HighLightSleepLine()
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-// marke strogg more mercs Ok, we have to watch for to use only 18 display lines insedead of MAX_CHARACTER_COUNT
+	// marke strogg more mercs Ok, we have to watch for to use only 18 display lines insedead of MAX_CHARACTER_COUNT
+	const auto x = UI_CHARLIST.xSleep;
+	const auto xEnd = UI_CHARLIST.xSleep + UI_CHARLIST.widthSleep;
+	const auto y = UI_CHARLIST.y;
+	const auto yOffset = UI_CHARLIST.yOffset;
+
 	for( usCount = 0; usCount < maxNumberOfMercVisibleInStrategyList; usCount++ )
 	{
 		if( IsCharacterSelectedForSleep( usCount ) == TRUE )
 		{
-			usX=SLEEP_X-4;
-			usX2 = SLEEP_X + SLEEP_WIDTH;
-
-			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			usY=(yOffset*usCount-1)+(y +(usCount*Y_SIZE));
 
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
 
 			if( ( usCount == 0 ) || ( usCount != 0 ? !( IsCharacterSelectedForSleep( ( UINT16 )( usCount - 1 ) ) ) : 0 ) )
 			{
-				LineDraw( TRUE, usX+4, usY, usX2, usY, usColor,pDestBuf);
+				LineDraw( TRUE, x, usY, xEnd, usY, usColor,pDestBuf);
 			}
 			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForSleep( ( UINT16 )( usCount + 1 ) ) ) : 0) )
 			{
-				LineDraw(TRUE, usX+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX2, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+				LineDraw(TRUE, x, usY+GetFontHeight(MAP_SCREEN_FONT)+2, xEnd, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
 
-			LineDraw(TRUE, usX+ 4, usY, usX + 4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
-			LineDraw(TRUE, usX2, usY, usX2, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+			LineDraw(TRUE, x, usY, x, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
+			LineDraw(TRUE, xEnd, usY, xEnd, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 
-			InvalidateRegion( usX, usY, usX2 + 5, usY + GetFontHeight(MAP_SCREEN_FONT)+3 );
+			InvalidateRegion( x - 4, usY, xEnd + 5, usY + GetFontHeight(MAP_SCREEN_FONT)+3 );
 		}
 	}
 	UnLockVideoSurface( FRAME_BUFFER );
@@ -4561,10 +4731,14 @@ UINT32 MapScreenHandle(void)
 		}
 		else
 		{
-			CreateDestroyMapInvButton();
-			// define our progress bar
-			//CreateProgressBar( 0, 118, 183, 522, 202 );
-
+			if (isWidescreenUI())
+			{
+				CreateMapCharInvIOregions();
+			}
+			else
+			{
+				CreateDestroyMapInvButton();
+			}
 		}
 		return( MAP_SCREEN );
 	}
@@ -4637,63 +4811,17 @@ UINT32 MapScreenHandle(void)
 		{
 			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 		
-			if (iResolution >= _640x480 && iResolution < _800x600)
+			if (isWidescreenUI())
+			{
+				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1280x720.pcx");
+			}
+			else if (iResolution < _800x600)
 			{
 				// ------------
 				// 336 x 288	(size without the black area on top and left
 				// Important:	The size (including black area on top and left) of the PCX file has to be an even number for width and height,
 				//				otherwise the blitting method which shrinks the image by 50% does not work.
 				// ------------
-				
-				MAP_GRID_X = 21;		// Horizontal size of a square
-				MAP_GRID_Y = 18;		// Vertical size of a square
-
-				MAP_BORDER_X_OFFSET	= (((SCREEN_WIDTH - 261) - 380) / 2);	// 380: Width of the MBS.sti file
-				MAP_BORDER_Y_OFFSET = (((SCREEN_HEIGHT - 121) - 360) / 2);  // 360: Height of the MBS.sti file
-
-				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);	// 9: Constant, do not change it.
-				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);	// 10: Constant, do not change it.
-				
-				// Maus Area (Ist die reine Größe der Karte/2 (ohne dem schwarzen Rand (links und oben))
-				MAP_VIEW_WIDTH = 336;			// Width of the map (without the black area on the left)
-				MAP_VIEW_HEIGHT	= 288 + 10;		// Height of the map (without the black area on the top) + constant value of 10
-
-				
-				MAP_FONT = BLOCKFONT2;
-
-				// The postion of the map numbers (1-16) above the map (horizontal)
-				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 31);
-				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 11);
-				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
-
-				// The position of the latters (A-P) on the left side of the map (vertical)
-				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 15);
-				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 29);
-				
-				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
-
-				ETA_FONT = BLOCKFONT2;
-
-				// standard ETA box
-				CLOCK_Y_START					= 300;
-				DEST_PLOT_X						= 420;
-				DEST_PLOT_Y						= 345;
-				CLOCK_ETA_X						= 440;
-				CLOCK_HOUR_X_START				= 478;
-				CLOCK_MIN_X_START				= 494;
-
-				// Helicopter ETA box
-				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
-				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset);
-				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset);
-				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
-				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
-				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 74;
-
-				// Map Level string
-				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208);
-				MAP_LEVEL_STRING_Y	= (SCREEN_HEIGHT - 175);
-
 				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
 			}
 			else if (iResolution < _1024x768)
@@ -4701,52 +4829,6 @@ UINT32 MapScreenHandle(void)
 				// ------------
 				// 480 x 400
 				// ------------
-
-				MAP_GRID_X = 30;
-				MAP_GRID_Y = 25;
-
-				MAP_BORDER_X_OFFSET	= (SCREEN_WIDTH - 800)/ 2 +(((800 - 261) - 540) / 2);
-				MAP_BORDER_Y_OFFSET = (SCREEN_HEIGHT - 600)/ 2 +(((600 - 121) - 480) / 2);
-
-				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);
-				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);
-				
-				MAP_VIEW_WIDTH = 480;				
-				MAP_VIEW_HEIGHT	= 400 + 10 + 7;
-
-				// The numbers on the horizontal line
-				MAP_FONT = BLOCKFONT2;
-
-				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 38);
-				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 15);
-				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
-
-				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 19);
-				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 36);
-				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
-
-				ETA_FONT = BLOCKFONT2;
-
-				// standard ETA box
-				CLOCK_Y_START					= (250 + iScreenHeightOffset + 108);
-				DEST_PLOT_X						= (400 + iScreenWidthOffset + 10);
-				DEST_PLOT_Y						= (250 + iScreenHeightOffset + 148) - yResOffset;
-				CLOCK_ETA_X						= (400 + iScreenWidthOffset + 30);
-				CLOCK_HOUR_X_START				= (400 + iScreenWidthOffset + 68);
-				CLOCK_MIN_X_START				= (400 + iScreenWidthOffset + 84);
-
-				// Helicopter ETA box
-				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
-				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 58);
-				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 40);
-				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
-				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
-				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 74;
-
-				// Map Level string
-				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 800)/ 2 + (800 - 208 - 80);
-				MAP_LEVEL_STRING_Y	= (SCREEN_WIDTH - 600)/ 2 + (600 - 175);
-
 				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
 			}
 			else
@@ -4754,300 +4836,256 @@ UINT32 MapScreenHandle(void)
 				// ------------
 				// 688 x 560
 				// ------------
-
-				MAP_GRID_X = 43;
-				MAP_GRID_Y = 35;
-
-				MAP_BORDER_X_OFFSET	= (SCREEN_WIDTH - 1024)/ 2 +(((1024 - 261) - 764) / 2);
-				MAP_BORDER_Y_OFFSET = (SCREEN_HEIGHT - 768)/ 2 +(((768 - 121) - 648) / 2);
-
-				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);
-				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);
-
-				MAP_VIEW_WIDTH = 688;			
-				MAP_VIEW_HEIGHT = 560 + 10 + 17;
-
-				MAP_FONT = FONT12ARIAL;
-
-				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 53);
-				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 19);
-				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
-
-				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 24);
-				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 44);
-				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
-
-				ETA_FONT = FONT12ARIAL;
-
-				// standard ETA box
-				CLOCK_Y_START					= (250 + iScreenHeightOffset + 190);
-				DEST_PLOT_X						= (400 + iScreenWidthOffset + 10);
-				DEST_PLOT_Y						= (250 + iScreenHeightOffset + 240);
-				CLOCK_ETA_X						= (400 + iScreenWidthOffset + 30);
-				CLOCK_HOUR_X_START				= (400 + iScreenWidthOffset + 68);
-				CLOCK_MIN_X_START				= (400 + iScreenWidthOffset + 84);
-
-				// Helicopter ETA box
-				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
-				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 120);
-				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 100);
-				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
-				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 76;
-				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 97;
-
-				// Map Level string
-				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 1024)/ 2 + (1024 - 208 - 187);
-				MAP_LEVEL_STRING_Y	= (SCREEN_HEIGHT - 768)/ 2 + (768 - 175);
-
 				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1024x768.pcx");
 			}
-
+			initMapViewAndBorderCoordinates();
 			LoadMapBorderGraphics( );
 
-		//fInterfacePanelDirty=DIRTYLEVEL2;
-		//RenderTacticalInterface();
+			//fInterfacePanelDirty=DIRTYLEVEL2;
+			//RenderTacticalInterface();
 		
-		// Grab the Map image
+			// Grab the Map image
 
 		
-		CHECKF(AddVideoSurface(&vs_desc, &guiBIGMAP));
+			CHECKF(AddVideoSurface(&vs_desc, &guiBIGMAP));
 
-		vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
-		strcpy(vs_desc.ImageFile, "INTERFACE\\popupbackground.pcx");
-		CHECKF(AddVideoSurface(&vs_desc, &guiPOPUPTEX));
+			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+			strcpy(vs_desc.ImageFile, "INTERFACE\\popupbackground.pcx");
+			CHECKF(AddVideoSurface(&vs_desc, &guiPOPUPTEX));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\SAM.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiSAMICON));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\SAM.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiSAMICON));
 
-		// VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		// FilenameForBPP("INTERFACE\\s_map.sti", VObjectDesc.ImageFile);
-		// CHECKF( AddVideoObject( &VObjectDesc, &guiMAP ) );
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
+			// VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			// FilenameForBPP("INTERFACE\\s_map.sti", VObjectDesc.ImageFile);
+			// CHECKF( AddVideoObject( &VObjectDesc, &guiMAP ) );
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
 
-		// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-		if (iResolution >= _640x480 && iResolution < _800x600)
-			FilenameForBPP("INTERFACE\\map_pathing_arrows_640.sti", VObjectDesc.ImageFile);
-		else if (iResolution < _1024x768)
-			FilenameForBPP("INTERFACE\\map_pathing_arrows_800.sti", VObjectDesc.ImageFile);
-		else
-			FilenameForBPP("INTERFACE\\map_pathing_arrows_1024.sti", VObjectDesc.ImageFile);
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP("INTERFACE\\map_pathing_arrows_1024.sti", VObjectDesc.ImageFile);
+			else if (iResolution >= _800x600)
+				FilenameForBPP("INTERFACE\\map_pathing_arrows_800.sti", VObjectDesc.ImageFile);
+			else
+				FilenameForBPP("INTERFACE\\map_pathing_arrows_640.sti", VObjectDesc.ImageFile);
 		
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMapPathingArrows));
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMapPathingArrows));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\Mine_1.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel1));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\Mine_1.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel1));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\Mine_2.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel2));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\Mine_2.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel2));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\Mine_3.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel3));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\Mine_3.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel3));
 
-		//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		//FilenameForBPP("INTERFACE\\addonslcp.sti", VObjectDesc.ImageFile);
-		//CHECKF(AddVideoObject(&VObjectDesc, &guiCORNERADDONS));
+			//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			//FilenameForBPP("INTERFACE\\addonslcp.sti", VObjectDesc.ImageFile);
+			//CHECKF(AddVideoObject(&VObjectDesc, &guiCORNERADDONS));
 
-		//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		//FilenameForBPP("INTERFACE\\mapborder.sti", VObjectDesc.ImageFile);
-		//CHECKF(AddVideoObject(&VObjectDesc, &guiMAPBORDER));
+			//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			//FilenameForBPP("INTERFACE\\mapborder.sti", VObjectDesc.ImageFile);
+			//CHECKF(AddVideoObject(&VObjectDesc, &guiMAPBORDER));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\sleepicon.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiSleepIcon));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\sleepicon.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiSleepIcon));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\charinfo.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARINFO));
-		/*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
-		CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\charinfo.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiCHARINFO));
+			/*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
+			CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		if (!is_networked)
-		{
-			if (iResolution >= _640x480 && iResolution < _800x600)
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			if (!is_networked)
 			{
-				FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
-			}
-			else if (iResolution < _1024x768)
-			{
-				FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+				if (iResolution == _1280x720)
+				{
+					FilenameForBPP("INTERFACE\\newgoldpiece3_1280x720.sti", VObjectDesc.ImageFile);
+				}
+				else if (iResolution >= _1024x768)
+				{
+					FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+				}
+				else if (iResolution >= _800x600)
+				{
+					FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+				}
+				else
+				{
+					FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+				}
 			}
 			else
 			{
-				FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+				// OJW - 20081204 - change mapscreen interface for MP games
+				if (iResolution == _1280x720)
+				{
+					FilenameForBPP("INTERFACE\\mpgoldpiece3_1280x720.sti", VObjectDesc.ImageFile);
+				}
+				else if (iResolution >= _1024x768)
+				{
+					FilenameForBPP("INTERFACE\\mpgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+				}
+				else if (iResolution >= _800x600)
+				{
+						FilenameForBPP("INTERFACE\\mpgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+				}
+				else
+				{
+						FilenameForBPP("INTERFACE\\mpgoldpiece3.sti", VObjectDesc.ImageFile );
+				}
 			}
-		}
-		else
-		{
-			// OJW - 20081204 - change mapscreen interface for MP games
-			if (iResolution >= _640x480 && iResolution < _800x600)
-			{
-					FilenameForBPP("INTERFACE\\mpgoldpiece3.sti", VObjectDesc.ImageFile );
-			}
-			else if (iResolution < _1024x768)
-			{
-					FilenameForBPP("INTERFACE\\mpgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
-			}
+			CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
+
+
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP("INTERFACE\\boxes_1024x768.sti", VObjectDesc.ImageFile);
+			else if (iResolution >= _800x600)
+				FilenameForBPP("INTERFACE\\boxes_800x600.sti", VObjectDesc.ImageFile);
 			else
-			{
-				FilenameForBPP("INTERFACE\\mpgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
-			}
-		}
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
+				FilenameForBPP("INTERFACE\\boxes.sti", VObjectDesc.ImageFile);
 
-		//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		//FilenameForBPP("INTERFACE\\mapbordercorner.sti", VObjectDesc.ImageFile);
-		//CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCORNER));
+			CHECKF(AddVideoObject(&VObjectDesc, &guiCHARICONS));
 
-		// VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		// FilenameForBPP("INTERFACE\\popup.sti", VObjectDesc.ImageFile);
-		// CHECKF(AddVideoObject(&VObjectDesc, &guiPOPUPBORDERS));
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-
-		if (iResolution >= _640x480 && iResolution < _800x600)
-			FilenameForBPP("INTERFACE\\boxes.sti", VObjectDesc.ImageFile);
-		else if (iResolution < _1024x768)
-			FilenameForBPP("INTERFACE\\boxes_800x600.sti", VObjectDesc.ImageFile);
-		else
-			FilenameForBPP("INTERFACE\\boxes_1024x768.sti", VObjectDesc.ImageFile);
-
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARICONS));
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\incross.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCROSS));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\incross.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiCROSS));
 		
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP( "INTERFACE\\IntelMapSymbols.sti", VObjectDesc.ImageFile );
-		CHECKF( AddVideoObject( &VObjectDesc, &guiINTEL ) );
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		if (iResolution >= _640x480 && iResolution < _800x600)
-		{
-			FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);
-		}
-		else if (iResolution < _1024x768)
-		{
-			FilenameForBPP("INTERFACE\\mapinv_800x600.sti", VObjectDesc.ImageFile);
-		}
-		else
-		{
-			FilenameForBPP("INTERFACE\\mapinv_1024x768.sti", VObjectDesc.ImageFile);
-		}
-
-		if(!AddVideoObject(&VObjectDesc, &guiMAPINV))
-		{
-			FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);		
-			CHECKF(AddVideoObject(&VObjectDesc, &guiMAPINV));
-		}
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\map_inv_2nd_gun_cover.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMapInvSecondHandBlockout));
-
-		// the upper left corner piece icons
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\top_left_corner_icons.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiULICONS));
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\map_item.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiORTAICON));
-
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\prison.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiTIXAICON));
-		
-		for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
-		{
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-			
-			if ( gfIconTown[iCounter2] == TRUE )
+			FilenameForBPP( "INTERFACE\\IntelMapSymbols.sti", VObjectDesc.ImageFile );
+			CHECKF( AddVideoObject( &VObjectDesc, &guiINTEL ) );
+
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			if (isWidescreenUI() || iResolution >= _1024x768)
 			{
-				strcpy(VObjectDesc.ImageFile, gHiddenIcon[iCounter2].IconSti);
+				FilenameForBPP("INTERFACE\\mapinv_1024x768.sti", VObjectDesc.ImageFile);
+			}
+			else if (iResolution >= _800x600)
+			{
+				FilenameForBPP("INTERFACE\\mapinv_800x600.sti", VObjectDesc.ImageFile);
 			}
 			else
 			{
-				FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);
 			}
-				
-			if (!FileExists(VObjectDesc.ImageFile))
+
+			if(!AddVideoObject(&VObjectDesc, &guiMAPINV))
 			{
-				FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);		
+				CHECKF(AddVideoObject(&VObjectDesc, &guiMAPINV));
 			}
+
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\map_inv_2nd_gun_cover.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMapInvSecondHandBlockout));
+
+			// the upper left corner piece icons
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\top_left_corner_icons.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiULICONS));
+
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\map_item.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiORTAICON));
+
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\prison.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiTIXAICON));
+		
+			for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
+			{
+				VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			
+				if ( gfIconTown[iCounter2] == TRUE )
+				{
+					strcpy(VObjectDesc.ImageFile, gHiddenIcon[iCounter2].IconSti);
+				}
+				else
+				{
+					FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				}
+				
+				if (!FileExists(VObjectDesc.ImageFile))
+				{
+					FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				}
 				
 				
-			CHECKF(AddVideoObject(&VObjectDesc, &guiIcon2[iCounter2]));
-		}
+				CHECKF(AddVideoObject(&VObjectDesc, &guiIcon2[iCounter2]));
+			}
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		// HEADROCK HAM 5.4: Larger icons for merc movement
-		if (iResolution >= _640x480 && iResolution < _800x600)
-			FilenameForBPP("INTERFACE\\merc_between_sector_icons_640.sti", VObjectDesc.ImageFile);
-		else if (iResolution < _1024x768)
-			FilenameForBPP("INTERFACE\\merc_between_sector_icons_800.sti", VObjectDesc.ImageFile);
-		else 
-			FilenameForBPP("INTERFACE\\merc_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			// HEADROCK HAM 5.4: Larger icons for merc movement
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP("INTERFACE\\merc_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+			else if (iResolution >= _800x600)
+				FilenameForBPP("INTERFACE\\merc_between_sector_icons_800.sti", VObjectDesc.ImageFile);
+			else
+				FilenameForBPP("INTERFACE\\merc_between_sector_icons_640.sti", VObjectDesc.ImageFile);
 
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONS));
+			CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONS));
 
-		// HEADROCK HAM 5.1: Enemies between sectors
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			// HEADROCK HAM 5.1: Enemies between sectors
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-		if (iResolution >= _640x480 && iResolution < _800x600)
-			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_640.sti", VObjectDesc.ImageFile);
-		else if (iResolution < _1024x768)
-			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_800.sti", VObjectDesc.ImageFile);
-		else 
-			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP("INTERFACE\\enemy_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+			else if (iResolution >= _800x600)
+				FilenameForBPP("INTERFACE\\enemy_between_sector_icons_800.sti", VObjectDesc.ImageFile);
+			else
+				FilenameForBPP("INTERFACE\\enemy_between_sector_icons_640.sti", VObjectDesc.ImageFile);
 
-		CHECKF(AddVideoObject(&VObjectDesc, &guiENEMYBETWEENSECTORICONS));
+			CHECKF(AddVideoObject(&VObjectDesc, &guiENEMYBETWEENSECTORICONS));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\GreenArr.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiLEVELMARKER));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\GreenArr.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiLEVELMARKER));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-		// HEADROCK HAM 5: Resolution-dependent icon
-		if (iResolution >= _640x480 && iResolution < _800x600)
-			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_640.sti", VObjectDesc.ImageFile);
-		else if (iResolution < _1024x768)
-			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_800.sti", VObjectDesc.ImageFile);
-		else 
-			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_1024.sti", VObjectDesc.ImageFile);
+			// HEADROCK HAM 5: Resolution-dependent icon
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_1024.sti", VObjectDesc.ImageFile);
+			else if (iResolution >= _800x600)
+				FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_800.sti", VObjectDesc.ImageFile);
+			else
+				FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_640.sti", VObjectDesc.ImageFile);
 
-		CHECKF(AddVideoObject(&VObjectDesc, &guiHelicopterIcon));
+			CHECKF(AddVideoObject(&VObjectDesc, &guiHelicopterIcon));
 
-		if ( iResolution >= _640x480 && iResolution < _800x600 )
-			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_640.sti", VObjectDesc.ImageFile );
-		else if ( iResolution < _1024x768 )
-			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_800.sti", VObjectDesc.ImageFile );
-		else
-			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_1024.sti", VObjectDesc.ImageFile );
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_1024.sti", VObjectDesc.ImageFile );
+			else if ( iResolution >= _800x600)
+				FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_800.sti", VObjectDesc.ImageFile );
+			else
+				FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_640.sti", VObjectDesc.ImageFile );
 
-		CHECKF( AddVideoObject( &VObjectDesc, &guiEnemyHelicopterIcon ) );
+			CHECKF( AddVideoObject( &VObjectDesc, &guiEnemyHelicopterIcon ) );
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\eta_pop_up.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderEtaPopUp));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\eta_pop_up.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderEtaPopUp));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
 
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\pos2_alternate.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectorsAlternate));
+			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\pos2_alternate.sti", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectorsAlternate));
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 			FilenameForBPP("INTERFACE\\secondary_gun_hidden.sti", VObjectDesc.ImageFile);
@@ -5064,12 +5102,12 @@ UINT32 MapScreenHandle(void)
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 			
-			if (iResolution >= _640x480 && iResolution < _800x600)
-				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite.sti" );
-			else if (iResolution < _1024x768)
+			if (isWidescreenUI() || iResolution >= _1024x768)
+				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite_1024x768.sti" );
+			else if (iResolution >= _800x600)
 				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite_800x600.sti" );
 			else
-				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite_1024x768.sti" );
+				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite.sti" );
 			
 			AddVideoObject( &VObjectDesc, &guiSectorLocatorGraphicID );
 
@@ -5186,17 +5224,40 @@ UINT32 MapScreenHandle(void)
 
 
 		// set up regions
-		MSYS_DefineRegion( &gMapViewRegion, MAP_VIEW_START_X + MAP_GRID_X, MAP_VIEW_START_Y + MAP_GRID_Y,MAP_VIEW_START_X + MAP_VIEW_WIDTH+MAP_GRID_X-1, MAP_VIEW_START_Y + MAP_VIEW_HEIGHT-1 + 8, MSYS_PRIORITY_HIGH - 3,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+		MSYS_DefineRegion( &gMapViewRegion, 
+			UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX, 
+			UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY,
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width+UI_MAP.GridSize.iX-1, 
+			UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height-1 + 8, 
+			MSYS_PRIORITY_HIGH - 3,	MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK 
+		);
 		
-		MSYS_DefineRegion( &gCharInfoHandRegion, ((INT16)( xResOffset + 4 )), ((INT16)( yResOffset + 81 )) ,((INT16)( xResOffset + 62 )), ((INT16)( yResOffset + 103 )), MSYS_PRIORITY_HIGH,
-								MSYS_NO_CURSOR, ItemRegionMvtCallback , ItemRegionBtnCallback );
+		// No enter or exit merc inventory in strategic map on widescreen UI
+		if (!isWidescreenUI())
+		{
+			MSYS_DefineRegion(&gCharInfoHandRegion,
+				UI_CHARPANEL.HandItem.x,
+				UI_CHARPANEL.HandItem.y,
+				UI_CHARPANEL.HandItem.x + UI_CHARPANEL.HandItem.width,
+				UI_CHARPANEL.HandItem.y + UI_CHARPANEL.HandItem.height,
+				MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, ItemRegionMvtCallback, ItemRegionBtnCallback
+			);
+		}
+		MSYS_DefineRegion( &gCharInfoFaceRegion, 
+			UI_CHARPANEL.FacePicture.x, 
+			UI_CHARPANEL.FacePicture.y, 
+			UI_CHARPANEL.FacePicture.x + UI_CHARPANEL.FacePicture.width, 
+			UI_CHARPANEL.FacePicture.y + UI_CHARPANEL.FacePicture.height, 
+			MSYS_PRIORITY_HIGH,	MSYS_NO_CURSOR, MSYS_NO_CALLBACK, FaceRegionBtnCallback 
+		);
 
-		MSYS_DefineRegion( &gCharInfoFaceRegion, (INT16) PLAYER_INFO_FACE_START_X, (INT16) PLAYER_INFO_FACE_START_Y, (INT16) PLAYER_INFO_FACE_END_X, (INT16) PLAYER_INFO_FACE_END_Y, MSYS_PRIORITY_HIGH,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, FaceRegionBtnCallback );
-
-		MSYS_DefineRegion(&gMPanelRegion, INV_REGION_X, INV_REGION_Y, INV_REGION_X+INV_REGION_WIDTH, INV_REGION_Y+INV_REGION_HEIGHT, MSYS_PRIORITY_HIGH,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK,InvmaskRegionBtnCallBack);
+		MSYS_DefineRegion(&gMPanelRegion, 
+			UI_CHARINV.Region.x,
+			UI_CHARINV.Region.y,
+			UI_CHARINV.Region.x + UI_CHARINV.Region.width,
+			UI_CHARINV.Region.y + UI_CHARINV.Region.height,
+			MSYS_PRIORITY_HIGH,	MSYS_NO_CURSOR, MSYS_NO_CALLBACK,InvmaskRegionBtnCallBack
+		);
 		// screen mask for animated cursors
 		MSYS_DefineRegion( &gMapScreenMaskRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_LOW,
 							CURSOR_NORMAL, MSYS_NO_CALLBACK, MapScreenMarkRegionBtnCallback);
@@ -5210,9 +5271,12 @@ UINT32 MapScreenHandle(void)
 		giMapContractButtonImage = LoadButtonImage( "INTERFACE\\contractbutton.sti" ,-1,0,-1,1,-1 );
 
 		// buttonmake
-		giMapContractButton= QuickCreateButton( giMapContractButtonImage, CONTRACT_X + 5, CONTRACT_Y - 1,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
-										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)ContractButtonCallback);
+		giMapContractButton= QuickCreateButton( giMapContractButtonImage, 
+			UI_CHARPANEL.Button.Contract.iX + 5, 
+			UI_CHARPANEL.Button.Contract.iY - 1,
+			BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
+			(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)ContractButtonCallback
+		);
 
 		SpecifyButtonText( giMapContractButton, pContractButtonString[ 0 ] );
 		SpecifyButtonFont( giMapContractButton, MAP_SCREEN_FONT );
@@ -5248,14 +5312,16 @@ UINT32 MapScreenHandle(void)
 		CreateMapStatusBarsRegion( );
 
 		// Add region
-		MSYS_AddRegion( &gMapViewRegion);
-		MSYS_AddRegion( &gCharInfoFaceRegion);
-		MSYS_AddRegion( &gMPanelRegion);
+		MSYS_AddRegion( &gMapViewRegion );
+		MSYS_AddRegion( &gCharInfoFaceRegion );
+		MSYS_AddRegion( &gMPanelRegion );
+		MSYS_AddRegion( &gMapMercWeightRegion );
+		MSYS_AddRegion( &gMapMercCamoRegion );
 
-	if ( !gfFadeOutDone && !gfFadeIn )
-	{
-		MSYS_SetCurrentCursor(SCREEN_CURSOR);
-	}
+		if ( !gfFadeOutDone && !gfFadeIn )
+		{
+			MSYS_SetCurrentCursor(SCREEN_CURSOR);
+		}
 		MSYS_DisableRegion(&gMPanelRegion);
 
 		// create contract box
@@ -5277,13 +5343,17 @@ UINT32 MapScreenHandle(void)
 		CreateMercRemoveAssignBox( );
 
 		// test message
-	// TestMessageSystem( );
+		// TestMessageSystem( );
 
 		// fill in
 		ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( RGB_NEAR_BLACK ) );
 		ColorFillVideoSurfaceArea(	FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( RGB_NEAR_BLACK ) );
 
 
+		if (isWidescreenUI())
+		{
+			CreateMapCharInvIOregions();
+		}
 		if( ( fFirstTimeInMapScreen == TRUE ) && ( AnyMercsHired( ) == FALSE ) )
 		{
 			// render both panels for the restore
@@ -5512,10 +5582,12 @@ UINT32 MapScreenHandle(void)
 	HandlePreBattleInterfaceWithInventoryPanelUp( );
 
 	// create destroy trash can region
-	CreateDestroyTrashCanRegion( );
-
-	// update these buttons
-	UpdateStatusOfMapSortButtons( );
+	if (!isWidescreenUI())
+	{
+		CreateDestroyTrashCanRegion();
+		// update these buttons
+		UpdateStatusOfMapSortButtons( );
+	}
 
 	// if in inventory mode, make sure it's still ok
 	CheckForInventoryModeCancellation();
@@ -6037,8 +6109,8 @@ void SetDayAlternate(STR16 pStringA, ...)
 	String[3]=L' ';
 	String[4]=0;
 
-	uiX=CLOCK_HOUR_X_START-9;
-	uiY=CLOCK_Y_START;
+	uiX= UI_MAP.ETA.Hour_X - 9;
+	uiY= UI_MAP.ETA.Start_Y;
 
 	SetFont( ETA_FONT );
 	SetFontForeground( FONT_LTGREEN );
@@ -6069,8 +6141,8 @@ void SetHourAlternate(STR16 pStringA, ...)
 	String[2]=gsTimeStrings[ 0 ][ 0 ];
 	String[3]=L' ';
 	String[4]= 0;
-	uiX=CLOCK_MIN_X_START-5;
-	uiY=CLOCK_Y_START;
+	uiX = UI_MAP.ETA.Min_X - 5;
+	uiY = UI_MAP.ETA.Start_Y;
 	DrawString(String, uiX, uiY, ETA_FONT);
 
 	SetFont( ETA_FONT );
@@ -6101,8 +6173,8 @@ void SetClockHour(STR16 pStringA, ...)
 	String[2]=gsTimeStrings[ 0 ][ 0 ];
 	String[3]=L' ';
 	String[4]=0;
-	uiX=CLOCK_HOUR_X_START-8;
-	uiY=CLOCK_Y_START;
+	uiX = UI_MAP.ETA.Hour_X - 8;
+	uiY = UI_MAP.ETA.Start_Y;
 
 	SetFont( ETA_FONT );
 	SetFontForeground( FONT_LTGREEN );
@@ -6134,17 +6206,20 @@ void SetClockMin(STR16 pStringA, ...)
 	SetFontForeground( FONT_LTGREEN );
 	SetFontBackground( FONT_BLACK );
 
-	mprintf( CLOCK_MIN_X_START-5, CLOCK_Y_START, String );
+	mprintf(UI_MAP.ETA.Min_X - 5, UI_MAP.ETA.Start_Y, String );
 }
 
 void DrawName(STR16 pName, INT16 sRowIndex, INT32 iFont)
 {
 	INT16 usX=0;
 	INT16 usY=0;
-
-	FindFontCenterCoordinates((short)NAME_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE)), (short)NAME_WIDTH, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
+	const auto x = UI_CHARLIST.xName + 1;
+	const auto y = UI_CHARLIST.y + (sRowIndex * Y_SIZE);
+	const auto yOffset = UI_CHARLIST.yOffset;
+	const auto width = UI_CHARLIST.widthName;
+	FindFontCenterCoordinates(x, y, width, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
 	
-	DrawString( pName, (UINT16)usX, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), iFont);
+	DrawString( pName, (UINT16)usX, ((UINT16)(usY+(yOffset*sRowIndex+1))), iFont);
 }
 
 
@@ -6157,7 +6232,7 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 
 	GetMapscreenMercAssignmentString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString );
 
-	FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE)), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+	FindFontCenterCoordinates((short)UI_CHARLIST.xAssignment + 1, (short)(UI_CHARLIST.y + (sRowIndex*Y_SIZE)), (short)UI_CHARLIST.widthAssignment, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	
 	SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ sCharNumber ].usSolID ];
 
@@ -6245,18 +6320,18 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 			}
 		}
 
-		ubBarWidth = (ASSIGN_WIDTH * ubProgress) / usMaxProgress;
-		ubBarWidth = __max(0, __min(ubBarWidth, ASSIGN_WIDTH));
-		ClipRect.iTop = (usY+(Y_OFFSET*sRowIndex+1))-1;
+		ubBarWidth = (UI_CHARLIST.widthAssignment * ubProgress) / usMaxProgress;
+		ubBarWidth = __max(0, __min(ubBarWidth, UI_CHARLIST.widthAssignment));
+		ClipRect.iTop = (usY+(UI_CHARLIST.yOffset *sRowIndex+1))-1;
 		ClipRect.iBottom = ClipRect.iTop + Y_SIZE;
-		ClipRect.iLeft = ASSIGN_X+2;
-		ClipRect.iRight = ASSIGN_X + ubBarWidth;
+		ClipRect.iLeft = UI_CHARLIST.xAssignment + 2;
+		ClipRect.iRight = UI_CHARLIST.xAssignment + ubBarWidth;
 		Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
 
 		UnLockVideoSurface( uiDestBuffer );
 	}
 	
-	DrawString(sString, (UINT16)usX, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), iFont);
+	DrawString(sString, (UINT16)usX, ((UINT16)(usY+(UI_CHARLIST.yOffset *sRowIndex+1))), iFont);
 }
 
 
@@ -6268,10 +6343,10 @@ void DrawLocation(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 
 	GetMapscreenMercLocationString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString );
 
-	FindFontCenterCoordinates((short)LOC_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE)), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+	FindFontCenterCoordinates((short)UI_CHARLIST.xLocation + 1, (short)(UI_CHARLIST.y + (sRowIndex*Y_SIZE)), (short)UI_CHARLIST.widthLocation, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	
 	// draw string
-	DrawString( sString,((UINT16)(usX)), ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), ((UINT32)iFont));
+	DrawString( sString,((UINT16)(usX)), ((UINT16)(usY+(UI_CHARLIST.yOffset *sRowIndex+1))), ((UINT32)iFont));
 }
 
 
@@ -6288,9 +6363,9 @@ void DrawDestination(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		return;
 	}
 
-	FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE)), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+	FindFontCenterCoordinates((short)UI_CHARLIST.xETA + 1, (short)(UI_CHARLIST.y + (sRowIndex*Y_SIZE)), (short)UI_CHARLIST.widthETA, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	
-	DrawString( sString,((UINT16)(usX)), ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), ((UINT32)iFont));
+	DrawString( sString,((UINT16)(usX)), ((UINT16)(usY+(UI_CHARLIST.yOffset *sRowIndex+1))), ((UINT32)iFont));
 }
 
 
@@ -6312,9 +6387,9 @@ void DrawTimeRemaining( INT16 sCharNumber, INT32 iFont, UINT8 ubFontColor )
 	SetFont(iFont);
 	SetFontForeground( ubFontColor );
 
-	FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(Y_START+(sCharNumber*Y_SIZE)), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+	FindFontCenterCoordinates((short)UI_CHARLIST.xTimeRemaining + 1, (short)(UI_CHARLIST.y + (sCharNumber*Y_SIZE)), (short)UI_CHARLIST.widthTimeRemaining, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	
-	DrawString(sString,((UINT16)(usX)), ((UINT16)(usY+(Y_OFFSET*sCharNumber+1))), ((UINT32)iFont));
+	DrawString(sString,((UINT16)(usX)), ((UINT16)(usY+(UI_CHARLIST.yOffset *sCharNumber+1))), ((UINT32)iFont));
 }
 
 
@@ -6460,7 +6535,10 @@ UINT32 HandleMapUI( )
 	// Get Input from keyboard
 	GetMapKeyboardInput( &uiNewEvent );
 
-	CreateDestroyMapInvButton();
+	if (!isWidescreenUI())
+	{
+		CreateDestroyMapInvButton();
+	}
 
 	// Get mouse
 	PollLeftButtonInMapView( &uiNewEvent );
@@ -8545,10 +8623,12 @@ INT32 iCounter2 = 0;
 	DestroyMouseRegionsForTeamList( );
 
 	MSYS_RemoveRegion( &gMapViewRegion );
-	MSYS_RemoveRegion( &gCharInfoFaceRegion);
+	MSYS_RemoveRegion( &gCharInfoFaceRegion );
 	MSYS_RemoveRegion( &gCharInfoHandRegion );
-	MSYS_RemoveRegion( &gMPanelRegion);
+	MSYS_RemoveRegion( &gMPanelRegion );
 	MSYS_RemoveRegion( &gMapScreenMaskRegion );
+	MSYS_RemoveRegion( &gMapMercWeightRegion );
+	MSYS_RemoveRegion( &gMapMercCamoRegion );
 	fInMapMode = FALSE;
 
 	// remove team panel sort button
@@ -8569,7 +8649,14 @@ INT32 iCounter2 = 0;
 	HandleShutDownOfMapScreenWhileExternfaceIsTalking( );
 
 	fShowInventoryFlag = FALSE;
-	CreateDestroyMapInvButton();
+	if (isWidescreenUI())
+	{
+		DestroyMapCharInvIOregions();
+	}
+	else
+	{
+		CreateDestroyMapInvButton();
+	}
 
 	// no longer can we show assignments menu
 	fShowAssignmentMenu = FALSE;
@@ -8639,6 +8726,7 @@ INT32 iCounter2 = 0;
 
 	fShowInventoryFlag = FALSE;
 	CreateDestroyTrashCanRegion( );
+	DeleteKeyRingPopup();
 
 	if ( !fDuringFade )
 	{
@@ -8827,10 +8915,10 @@ BOOLEAN GetMapXY( INT16 sX, INT16 sY, INT16 *psMapWorldX, INT16 *psMapWorldY )
 	INT16 sMapX, sMapY;
 
 	// Subtract start of map view
-	sMapX = sX - MAP_VIEW_START_X;//+2*MAP_GRID_X;
-	sMapY = sY - MAP_VIEW_START_Y;
+	sMapX = sX - UI_MAP.ViewRegion.x;//+2*UI_MAP.GridSize.iX;
+	sMapY = sY - UI_MAP.ViewRegion.y;
 
-	if ( sMapX < MAP_GRID_X || sMapY < MAP_GRID_Y )
+	if ( sMapX < UI_MAP.GridSize.iX || sMapY < UI_MAP.GridSize.iY )
 	{
 		return( FALSE );
 	}
@@ -8840,13 +8928,13 @@ BOOLEAN GetMapXY( INT16 sX, INT16 sY, INT16 *psMapWorldX, INT16 *psMapWorldY )
 		return (FALSE);
 	}
 
-	if ( sMapX > MAP_VIEW_WIDTH+MAP_GRID_X-1 || sMapY > MAP_VIEW_HEIGHT+7/* +MAP_VIEW_HEIGHT */ )
+	if ( sMapX > UI_MAP.ViewRegion.width+UI_MAP.GridSize.iX-1 || sMapY > UI_MAP.ViewRegion.height+7/* +UI_MAP.ViewArea.height */ )
 	{
 		return( FALSE );
 	}
 
-	*psMapWorldX = ( sMapX / MAP_GRID_X );
- 	*psMapWorldY = ( sMapY / MAP_GRID_Y );
+	*psMapWorldX = ( sMapX / UI_MAP.GridSize.iX );
+ 	*psMapWorldY = ( sMapY / UI_MAP.GridSize.iY );
 
 	return( TRUE );
 }
@@ -8880,8 +8968,8 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	if(gbPixelDepth==16)
 	{
 		// DB Need to add a radar color for 8-bit
-		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	MAP_GRID_X, sScreenY +	MAP_GRID_Y - 1, usLineColor, pDestBuf );
-		InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + DMAP_GRID_X + 1, sScreenY + DMAP_GRID_Y - 1 );
+		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	UI_MAP.GridSize.iX, sScreenY +	UI_MAP.GridSize.iY - 1, usLineColor, pDestBuf );
+		InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + UI_MAP.GridSize.iX + 1 + 1, sScreenY + UI_MAP.GridSize.iY + 1 - 1 );
 	}
 
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
@@ -8915,7 +9003,7 @@ void PollWheelInMapView(UINT32 *puiNewEvent)
 			if (gMapMessageScrollBarRegion.WheelState > 0)
 			{
 				MapScreenMsgScrollUp(1);
-			}
+}
 			else
 			{
 				MapScreenMsgScrollDown(1);
@@ -8923,7 +9011,7 @@ void PollWheelInMapView(UINT32 *puiNewEvent)
 			ResetWheelState(&gMapMessageScrollBarRegion);
 		}
 	}
-	
+
 }
 
 void PollLeftButtonInMapView( UINT32 *puiNewEvent )
@@ -9194,102 +9282,123 @@ void PopupText( STR16 pFontString, ...	)
 }
 
 
-/*
-void BtnINVCallback(GUI_BUTTON *btn,INT32 reason)
+void CreateMapCharInvIOregions()
 {
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(fMapInventoryItem)
-			return;
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-		fCharacterInfoPanelDirty = TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-		btn->uiFlags&= ~(BUTTON_CLICKED_ON);
-
-		if(!fMapInventoryItem)
-		{
-		fShowInventoryFlag = FALSE;
-		}
-
-		// set help text for item glow region
-		if( fShowInventoryFlag )
-		{
-			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
-		}
+		// CHRISL: Setup default coords
+		// Have to initialize map UI Coordinates, because inventory panel layout location depends on them.
+		initMapViewAndBorderCoordinates();
+		if ((UsingNewInventorySystem() == true))
+			InitializeInvPanelCoordsNew();
 		else
-		{
-			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
-		}
+			InitializeInvPanelCoordsOld();
 
+		InitInvSlotInterface(gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE);
+		MSYS_EnableRegion(&gMPanelRegion);
+		MSYS_EnableRegion(&gMapMercWeightRegion);
+		MSYS_EnableRegion(&gMapMercCamoRegion);
+
+		// dirty character info panel	( Why? ARM )
+		fCharacterInfoPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
-		}
-	}
+		fResetMapCoords = TRUE;
+
+		// Create trashcan and keyring buttons
+		fShowInventoryFlag = TRUE;
+		CreateDestroyTrashCanRegion();
+		// Remove map inventory button, since widescreen res always has character inventory visible
+		RemoveButton(giMapInvDoneButton);
+		fShowInventoryFlag = FALSE;
 }
-*/
+
+
+void DestroyMapCharInvIOregions()
+{
+	ShutdownInvSlotInterface();
+
+	fTeamPanelDirty = TRUE;
+	MSYS_DisableRegion(&gMPanelRegion);
+	MSYS_DisableRegion(&gMapMercWeightRegion);
+	MSYS_DisableRegion(&gMapMercCamoRegion);
+
+	RemoveTeamPanelSortButtonsForMapScreen();
+}
 
 
 void CreateDestroyMapInvButton()
 {
- static BOOLEAN fOldShowInventoryFlag=FALSE;
+	static BOOLEAN fOldShowInventoryFlag=FALSE;
+	if( fShowInventoryFlag && !fOldShowInventoryFlag )
+	{
+		// create inventory button
+		fOldShowInventoryFlag=TRUE;
+		//giMapInvButtonImage=	LoadButtonImage( "INTERFACE\\mapinv.sti" ,-1,1,-1,2,-1 );
+		//giMapInvButton= QuickCreateButton( giMapInvButtonImage, INV_BTN_X-1, INV_BTN_Y,
+							//				BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+							//				BUTTON_NO_CALLBACK, (GUI_CALLBACK)BtnINVCallback);
+		// disable allmouse regions in this space
+		fTeamPanelDirty=TRUE;
 
- if( fShowInventoryFlag && !fOldShowInventoryFlag )
- {
-	// create inventory button
-	fOldShowInventoryFlag=TRUE;
-	//giMapInvButtonImage=	LoadButtonImage( "INTERFACE\\mapinv.sti" ,-1,1,-1,2,-1 );
-	//giMapInvButton= QuickCreateButton( giMapInvButtonImage, INV_BTN_X-1, INV_BTN_Y,
-						//				BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-						//				BUTTON_NO_CALLBACK, (GUI_CALLBACK)BtnINVCallback);
-	// disable allmouse regions in this space
-	fTeamPanelDirty=TRUE;
+		// CHRISL: Setup default coords
+		// Have to initialize map UI Coordinates, because inventory panel layout location depends on them.
+		initMapViewAndBorderCoordinates();
+		if((UsingNewInventorySystem() == true))
+			InitializeInvPanelCoordsNew();
+		else
+			InitializeInvPanelCoordsOld();
 
-	// CHRISL: Setup default coords
-	if((UsingNewInventorySystem() == true))
-		InitializeInvPanelCoordsNew();
-	else
-		InitializeInvPanelCoordsOld();
+		InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
+		MSYS_EnableRegion(&gMPanelRegion);
+		MSYS_EnableRegion(&gMapMercWeightRegion);
+		MSYS_EnableRegion(&gMapMercCamoRegion);
 
-	InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
-	MSYS_EnableRegion(&gMPanelRegion);
-	
-	// switch hand region help text to "Exit Inventory"
-	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
+		// switch hand region help text to "Exit Inventory"
+		SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
 
-	// reset inventory item help text
-	memset( gubMAP_HandInvDispText, 0, sizeof( gubMAP_HandInvDispText ) );
+		// reset inventory item help text
+		memset( gubMAP_HandInvDispText, 0, sizeof( gubMAP_HandInvDispText ) );
 
-	// dirty character info panel	( Why? ARM )
-	fCharacterInfoPanelDirty=TRUE;
-	fResetMapCoords=TRUE;
- }
- else if( !fShowInventoryFlag && fOldShowInventoryFlag )
- {
-	// destroy inventory button
-	ShutdownInvSlotInterface( );
-	fOldShowInventoryFlag=FALSE;
-	//RemoveButton( giMapInvButton );
-	//UnloadButtonImage( giMapInvButtonImage );
-	fTeamPanelDirty=TRUE;
-	MSYS_DisableRegion(&gMPanelRegion);
+		// dirty character info panel	( Why? ARM )
+		fCharacterInfoPanelDirty=TRUE;
+		fResetMapCoords=TRUE;
+	}
+	else if( !fShowInventoryFlag && fOldShowInventoryFlag )
+	{
+		// destroy inventory button
+		ShutdownInvSlotInterface( );
+		fOldShowInventoryFlag=FALSE;
+		//RemoveButton( giMapInvButton );
+		//UnloadButtonImage( giMapInvButtonImage );
+		fTeamPanelDirty=TRUE;
+		MSYS_DisableRegion(&gMPanelRegion);
+		MSYS_DisableRegion(&gMapMercWeightRegion);
+		MSYS_DisableRegion(&gMapMercCamoRegion);
 
-	// switch hand region help text to "Enter Inventory"
-	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
+		// switch hand region help text to "Enter Inventory"
+		SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 
-	// force immediate reblit of item in HANDPOS now that it's not blitted while in inventory mode
-	fCharacterInfoPanelDirty=TRUE;
- }
+		// force immediate reblit of item in HANDPOS now that it's not blitted while in inventory mode
+		fCharacterInfoPanelDirty=TRUE;
+	}
 }
 
+
+void BltEmptyCharInvPanel()
+{
+	UINT32 uiDestPitchBYTES;
+	UINT16* pDestBuf;
+	HVOBJECT hCharListHandle;
+
+	UINT8 stiIndex = 0;
+	if (UsingNewInventorySystem())
+	{
+		stiIndex = 1;
+	}
+
+	pDestBuf = (UINT16*)LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
+	GetVideoObject(&hCharListHandle, guiMAPINV);
+	Blt8BPPDataTo16BPPBufferTransparent(pDestBuf, uiDestPitchBYTES, hCharListHandle, UI_CHARINV.Region.x, UI_CHARINV.Region.y, stiIndex);
+	UnLockVideoSurface(guiSAVEBUFFER);
+}
 
 
 void BltCharInvPanel()
@@ -9303,13 +9412,21 @@ void BltCharInvPanel()
 	UINT8 disOpt = 0;
 
 	// make sure we're here legally
-	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
+	// In widescreen UI, draw an empty inv panel if no accessible inventory
+	const BOOLEAN isAccessibleInventory = MapCharacterHasAccessibleInventory(bSelectedInfoChar);
+	if (isWidescreenUI() && !isAccessibleInventory)
+	{
+		BltEmptyCharInvPanel();
+		return;
+	}
+	else
+	{
+		Assert(isAccessibleInventory);
+	}
 
 	GetSoldier( &pSoldier, gCharactersList[bSelectedInfoChar].usSolID );
+	Assert(pSoldier);
 
-
-	pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
-	GetVideoObject(&hCharListHandle, guiMAPINV);
 	// CHRISL: Changed last parameter so we can display graphic based on inventory system used
 	if((UsingNewInventorySystem() == true) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
@@ -9339,11 +9456,18 @@ void BltCharInvPanel()
 		InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, FALSE);
 	}
 
-	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, PLAYER_INFO_X, PLAYER_INFO_Y, disOpt);
+
+	pDestBuf = (UINT16*)LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
+	GetVideoObject(&hCharListHandle, guiMAPINV);
+	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, UI_CHARINV.Region.x, UI_CHARINV.Region.y, disOpt);
 	UnLockVideoSurface( guiSAVEBUFFER ); 
 	
-	Assert( pSoldier );
-	CreateDestroyMapInvButton();
+
+	if (!isWidescreenUI())
+	{
+		CreateDestroyMapInvButton();
+	}
+
 
 	if (gfCheckForMouseOverItem)
 	{
@@ -9367,7 +9491,7 @@ void BltCharInvPanel()
 		}
 	}
 
-	RenderInvBodyPanel(pSoldier, INV_BODY_X, INV_BODY_Y );
+	RenderInvBodyPanel(pSoldier, UI_CHARINV.BodyPanel.iX, UI_CHARINV.BodyPanel.iY);
 
 	// reset font destination buffer to the save buffer
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
@@ -9388,49 +9512,50 @@ void BltCharInvPanel()
 	SetFontForeground( MAP_INV_STATS_TITLE_FONT_COLOR );
 
 	// CHRISL: Only display next three values if we're a merc
-//	if(!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	if(!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
 		// print armor/weight/camo labels
-		mprintf( MAP_ARMOR_LABEL_X, MAP_ARMOR_LABEL_Y, pInvPanelTitleStrings[ 0 ] );
+		mprintf(UI_CHARINV.Text.ArmorLabel.iX, UI_CHARINV.Text.ArmorLabel.iY, pInvPanelTitleStrings[ 0 ] );
 
 		#ifdef CHINESE
-			mprintf( MAP_ARMOR_PERCENT_X, MAP_ARMOR_PERCENT_Y, ChineseSpecString1 );
+			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, ChineseSpecString1 );
 		#else
-			mprintf( MAP_ARMOR_PERCENT_X, MAP_ARMOR_PERCENT_Y, L"%%" );
+			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, L"%%" );
 		#endif
 
-		mprintf( MAP_WEIGHT_LABEL_X, MAP_WEIGHT_LABEL_Y, pInvPanelTitleStrings[ 1 ]  );
+		mprintf(UI_CHARINV.Text.WeightLabel.iX, UI_CHARINV.Text.WeightLabel.iY, pInvPanelTitleStrings[ 1 ]  );
 		
 		#ifdef CHINESE
-			mprintf( MAP_WEIGHT_PERCENT_X, MAP_WEIGHT_PERCENT_Y, ChineseSpecString1 );
+			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, ChineseSpecString1 );
 		#else
-			mprintf( MAP_WEIGHT_PERCENT_X, MAP_WEIGHT_PERCENT_Y, L"%%" );
+			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, L"%%" );
 		#endif
 
-		mprintf( MAP_CAMMO_LABEL_X, MAP_CAMMO_LABEL_Y, pInvPanelTitleStrings[ 2 ]  );
+		mprintf(UI_CHARINV.Text.CamoLabel.iX, UI_CHARINV.Text.CamoLabel.iY, pInvPanelTitleStrings[ 2 ]  );
 		
 		#ifdef CHINESE
-			mprintf( MAP_CAMMO_PERCENT_X, MAP_CAMMO_PERCENT_Y, ChineseSpecString1 );
+			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, ChineseSpecString1 );
 		#else
-			mprintf( MAP_CAMMO_PERCENT_X, MAP_CAMMO_PERCENT_Y, L"%%" );
+			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, L"%%" );
 		#endif
 
+		const auto width = UI_CHARINV.Text.PercentWidth;
+		const auto height = UI_CHARINV.Text.PercentHeight;
 		// display armor value
 		swprintf( sString, L"%3d", ArmourPercent( pSoldier ) );
-		FindFontRightCoordinates(MAP_ARMOR_X, MAP_ARMOR_Y, MAP_PERCENT_WIDTH, MAP_PERCENT_HEIGHT, sString, BLOCKFONT2, &usX, &usY);
+		FindFontRightCoordinates( UI_CHARINV.Text.Armor.iX, UI_CHARINV.Text.Armor.iY, width, height, sString, BLOCKFONT2, &usX, &usY );
 		mprintf( usX, usY, sString ); 
 
 		// Display weight value
 		swprintf( sString, L"%3d", CalculateCarriedWeight( pSoldier ) );
-		FindFontRightCoordinates(MAP_WEIGHT_X, MAP_WEIGHT_Y, MAP_PERCENT_WIDTH, MAP_PERCENT_HEIGHT, sString, BLOCKFONT2, &usX, &usY);
+		FindFontRightCoordinates(UI_CHARINV.Text.Weight.iX, UI_CHARINV.Text.Weight.iY, width, height, sString, BLOCKFONT2, &usX, &usY);
 		mprintf( usX, usY, sString ); 
 		
 		ApplyEquipmentBonuses(pSoldier);
 
 		// Display camo value
 		swprintf( sString, L"%3d", max(0, min(max((pSoldier->bCamo + pSoldier->wornCamo), max((pSoldier->urbanCamo+pSoldier->wornUrbanCamo), max((pSoldier->desertCamo+pSoldier->wornDesertCamo), (pSoldier->snowCamo+pSoldier->wornSnowCamo)))),100)) );
-		FindFontRightCoordinates(MAP_CAMMO_X, MAP_CAMMO_Y, MAP_PERCENT_WIDTH, MAP_PERCENT_HEIGHT, sString, BLOCKFONT2, &usX, &usY);
+		FindFontRightCoordinates(UI_CHARINV.Text.Camo.iX, UI_CHARINV.Text.Camo.iY, width, height, sString, BLOCKFONT2, &usX, &usY);
 		mprintf( usX, usY, sString );
 
 		if( fCharacterInfoPanelDirty )
@@ -9513,7 +9638,11 @@ void BltCharInvPanel()
 	if( InKeyRingPopup( ) )
 	{
 		// shade the background
-		ShadowVideoSurfaceRect( guiSAVEBUFFER , PLAYER_INFO_X, PLAYER_INFO_Y, PLAYER_INFO_X + 261,	PLAYER_INFO_Y + ( 359 - 107 ));
+		const auto x = UI_CHARINV.Region.x;
+		const auto y = UI_CHARINV.Region.y;
+		const auto width = UI_CHARINV.Region.width;
+		const auto height = UI_CHARINV.Region.height;
+		ShadowVideoSurfaceRect( guiSAVEBUFFER , x, y, x + width, y + height);
 	}
 	else
 	{
@@ -9619,7 +9748,15 @@ void MAPInvMoveCallback( MOUSE_REGION *pRegion, INT32 iReason )
 	}
 
 	// make sure we're here legally
-	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
+	const BOOLEAN isLegal = MapCharacterHasAccessibleInventory(bSelectedInfoChar);
+	if (!isLegal && isWidescreenUI())
+	{
+		return;
+	}
+	else
+	{
+		Assert(isLegal);
+	}
 
 	GetSoldier( &pSoldier, gCharactersList[ bSelectedInfoChar ].usSolID );
 
@@ -9696,7 +9833,15 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 
 	// make sure we're here legally
-	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
+	const BOOLEAN isLegal = MapCharacterHasAccessibleInventory(bSelectedInfoChar);
+	if (!isLegal && isWidescreenUI())
+	{
+		return;
+	}
+	else
+	{
+		Assert(isLegal);
+	}
 
 	GetSoldier( &pSoldier, gCharactersList[ bSelectedInfoChar ].usSolID );
 
@@ -10232,30 +10377,30 @@ void RenderAttributeStringsForUpperLeftHandCorner( UINT32 uiBufferToRenderTo )
 	SetFontDestBuffer( uiBufferToRenderTo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	// assignment strings
-	DrawString( pUpperLeftMapScreenStrings[ 0 ], (UINT16)(xResOffset + 220 - StringPixLength( pUpperLeftMapScreenStrings[0], CHAR_FONT)/2), yResOffset + 6, CHAR_FONT);
+	DrawString( pUpperLeftMapScreenStrings[ 0 ], (UINT16)(UI_CHARPANEL.Text.Assignment.iX - StringPixLength( pUpperLeftMapScreenStrings[0], CHAR_FONT)/2), UI_CHARPANEL.Text.Assignment.iY, CHAR_FONT);
 
 	// vehicles and robot don't have attributes, contracts, or morale
 	if ( ( pSoldier == NULL ) || ( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) ) )
 	{
 		// health
-		DrawString(pUpperLeftMapScreenStrings[ 2 ], xResOffset + 87, yResOffset + 80, CHAR_FONT);
+		DrawString(pUpperLeftMapScreenStrings[ 2 ], UI_CHARPANEL.Text.Health.iX, UI_CHARPANEL.Text.Health.iY, CHAR_FONT);
 
 		for( iCounter = 0; iCounter < 5; iCounter++ )
 		{
-			DrawString(pShortAttributeStrings[ iCounter ], xResOffset + 88, ( INT16 )( yResOffset + 22 + iCounter * 10 ) ,CHAR_FONT );
-			DrawString(pShortAttributeStrings[ iCounter + 5 ] ,xResOffset + 133, ( INT16 )( yResOffset + 22 + iCounter * 10 ), CHAR_FONT );
+			DrawString(pShortAttributeStrings[ iCounter ], UI_CHARPANEL.Text.Attributes.iX, ( INT16 )(UI_CHARPANEL.Text.Attributes.iY + iCounter * 10 ) ,CHAR_FONT );
+			DrawString(pShortAttributeStrings[ iCounter + 5 ] , UI_CHARPANEL.Text.Attributes2.iX, ( INT16 )(UI_CHARPANEL.Text.Attributes2.iY + iCounter * 10 ), CHAR_FONT );
 		}
 
 		// contract
 		//DrawString(pUpperLeftMapScreenStrings[ 1 ], 194, 52,	CHAR_FONT);
 
 		// morale
-		DrawString(pUpperLeftMapScreenStrings[ 3 ], xResOffset + 87, yResOffset + 94,	CHAR_FONT);
+		DrawString(pUpperLeftMapScreenStrings[ 3 ], UI_CHARPANEL.Text.Morale.iX, UI_CHARPANEL.Text.Morale.iY,	CHAR_FONT);
 	}
 	else
 	{
 		// condition
-		DrawString(pUpperLeftMapScreenStrings[ 4 ], xResOffset + 87, yResOffset + 80, CHAR_FONT);
+		DrawString(pUpperLeftMapScreenStrings[ 4 ], UI_CHARPANEL.Text.Condition.iX, UI_CHARPANEL.Text.Condition.iY, CHAR_FONT);
 	}
 
 	// restore buffer
@@ -10529,42 +10674,84 @@ void BlitBackgroundToSaveBuffer( void )
 void CreateMouseRegionsForTeamList( void )
 {
 	// will create mouse regions for assignments, path plotting, character info selection
-	INT16 sCounter = 0;
-	INT16 sYAdd = 0;
 	// the info region...is the background for the list itself
-
 	// OJW - MP
 	int max_rows = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 	if (is_networked)
 		max_rows = 7; // <TODO> check this value is correct / unhardcode it
 
-	for( sCounter = 0; sCounter < max_rows; sCounter++ )
+	const auto xName = UI_CHARLIST.xName;
+	const auto xEndName = xName + UI_CHARLIST.widthName;
+	const auto xAssignment= UI_CHARLIST.xAssignment;
+	const auto xEndAssignment = xAssignment + UI_CHARLIST.widthAssignment;
+	const auto xLocation= UI_CHARLIST.xLocation;
+	const auto xEndLocation= xLocation + UI_CHARLIST.widthLocation;
+	const auto xETA= UI_CHARLIST.xETA;
+	const auto xEndETA= xETA + UI_CHARLIST.widthETA;
+	const auto xTime= UI_CHARLIST.xTimeRemaining;
+	const auto xEndTime= xTime+ UI_CHARLIST.widthTimeRemaining;
+	const auto xSleep= UI_CHARLIST.xSleep;
+	const auto xEndSleep= xSleep+ UI_CHARLIST.widthSleep;
+
+	const auto y = UI_CHARLIST.y;
+
+	for(INT16 sCounter = 0; sCounter < max_rows; sCounter++ )
 	{
-		sYAdd = 0;
-		
+		const auto yStart = y + (sCounter) * (Y_SIZE + 2);
+		const auto yEnd = y + (sCounter + 1) * (Y_SIZE + 2);
 		// name region
-		MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ], NAME_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), NAME_X + NAME_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL,
-							MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ], 
+			xName,
+			yStart,
+			xEndName,
+			yEnd,
+			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack 
+		);
 
 		// assignment region
-		MSYS_DefineRegion( &gTeamListAssignmentRegion[ sCounter ], ASSIGN_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), ASSIGN_X + ASSIGN_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
-							MSYS_NO_CURSOR, TeamListAssignmentRegionMvtCallBack, TeamListAssignmentRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListAssignmentRegion[ sCounter ], 
+			xAssignment,
+			yStart,
+			xEndAssignment,
+			yEnd,
+			MSYS_PRIORITY_NORMAL + 1, MSYS_NO_CURSOR, TeamListAssignmentRegionMvtCallBack, TeamListAssignmentRegionBtnCallBack 
+		);
 
 		// location region (same function as name regions, so uses the same callbacks)
-		MSYS_DefineRegion( &gTeamListLocationRegion[ sCounter ], LOC_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), LOC_X + LOC_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
-							MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListLocationRegion[ sCounter ],
+			xLocation,
+			yStart,
+			xEndLocation,
+			yEnd,
+			MSYS_PRIORITY_NORMAL + 1, MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack 
+		);
 
 		// destination region
-		MSYS_DefineRegion( &gTeamListDestinationRegion[ sCounter ], DEST_ETA_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), DEST_ETA_X + DEST_ETA_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
-							MSYS_NO_CURSOR, TeamListDestinationRegionMvtCallBack, TeamListDestinationRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListDestinationRegion[ sCounter ], 
+			xETA,
+			yStart,
+			xEndETA,
+			yEnd,
+			MSYS_PRIORITY_NORMAL + 1, MSYS_NO_CURSOR, TeamListDestinationRegionMvtCallBack, TeamListDestinationRegionBtnCallBack 
+		);
 
 		// contract region
-		MSYS_DefineRegion( &gTeamListContractRegion[ sCounter ], TIME_REMAINING_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), TIME_REMAINING_X + TIME_REMAINING_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
-							MSYS_NO_CURSOR, TeamListContractRegionMvtCallBack, TeamListContractRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListContractRegion[ sCounter ], 
+			xTime,
+			yStart,
+			xEndTime,
+			yEnd,
+			MSYS_PRIORITY_NORMAL + 1, MSYS_NO_CURSOR, TeamListContractRegionMvtCallBack, TeamListContractRegionBtnCallBack 
+		);
 
 		// sleep region
-		MSYS_DefineRegion( &gTeamListSleepRegion[ sCounter ], SLEEP_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), SLEEP_X + SLEEP_WIDTH, ( INT16 )( yResOffset + 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
-							MSYS_NO_CURSOR, TeamListSleepRegionMvtCallBack, TeamListSleepRegionBtnCallBack );
+		MSYS_DefineRegion( &gTeamListSleepRegion[ sCounter ], 
+			xSleep,
+			yStart,
+			xEndSleep,
+			yEnd,
+			MSYS_PRIORITY_NORMAL + 1, MSYS_NO_CURSOR, TeamListSleepRegionMvtCallBack, TeamListSleepRegionBtnCallBack 
+		);
 
 
 		MSYS_SetRegionUserData(&gTeamListNameRegion[sCounter],0,sCounter);
@@ -10595,7 +10782,7 @@ void DestroyMouseRegionsForTeamList( void )
 
 	for( sCounter = 0; sCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCounter++ )
 	{
-	MSYS_RemoveRegion( &gTeamListNameRegion[ sCounter ]);
+		MSYS_RemoveRegion( &gTeamListNameRegion[ sCounter ]);
 		MSYS_RemoveRegion( &gTeamListAssignmentRegion[ sCounter ]);
 		MSYS_RemoveRegion( &gTeamListSleepRegion[ sCounter ]);
 		MSYS_RemoveRegion( &gTeamListDestinationRegion[ sCounter ]);
@@ -10850,7 +11037,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			return;
 		}
 
-		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE )
+		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
 			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay, FALSE ))
@@ -10913,7 +11100,10 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			// select this character
 			ChangeSelectedInfoChar( ( INT8 ) iValue+ FIRSTmercTOdisplay, TRUE );
 			
-			RequestToggleMercInventoryPanel();
+			if (!isWidescreenUI())
+			{
+				RequestToggleMercInventoryPanel();
+			}
 
 			// highlight
 			giDestHighLine = -1;
@@ -11002,7 +11192,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			return;
 		}
 
-		if( gCharactersList[ iValue  + FIRSTmercTOdisplay].fValid == TRUE )
+		if( gCharactersList[ iValue  + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
 			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue  + FIRSTmercTOdisplay, FALSE ))
@@ -11241,7 +11431,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			return;
 		}
 
-		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE )
+		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
 			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay , FALSE ))
@@ -11551,7 +11741,7 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 // marke strogg more mercs must add skipped mercs FIRSTmercTOdisplay
 	iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
-	if( gCharactersList[ iValue ].fValid == TRUE )
+	if( gCharactersList[ iValue ].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 	{
 		if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 		{
@@ -11862,68 +12052,97 @@ void RenderMapRegionBackground( void )
 }
 
 
-void RenderTeamRegionBackground( void )
+void RenderTeamRegionBackgroundWideScreen(void)
 {
-	HVOBJECT hHandle;
-
 	// renders to save buffer when dirty flag set
-	if( fTeamPanelDirty == FALSE )
+	if (fTeamPanelDirty == FALSE)
 	{
 		// not dirty, leave
 		return;
 	}
 
-	// show inventory or the team list?
-	if(fShowInventoryFlag == FALSE )
-	{
-		GetVideoObject(&hHandle, guiCHARLIST);
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0,PLAYER_INFO_X, PLAYER_INFO_Y , VO_BLT_SRCTRANSPARENCY,NULL );
-	}
-	else
-	{
-		BltCharInvPanel();
-	}
+	// show inventory and the team list
+	HVOBJECT hHandle;
+	GetVideoObject(&hHandle, guiCHARLIST);
+	BltVideoObject(guiSAVEBUFFER, hHandle, 0, UI_CHARLIST.Region, VO_BLT_SRCTRANSPARENCY, NULL);
 
-	if ( !fShowInventoryFlag )
-	{
-		// if we are not in inventory mode, show character list
-		HandleHighLightingOfLinesInTeamPanel( );
-
-		DisplayCharacterList();
-	}
-
+	HandleHighLightingOfLinesInTeamPanel();
+	DisplayCharacterList();
 	fDrawCharacterList = FALSE;
-	
+
+
 	// display arrows by selected people
-	HandleDisplayOfSelectedMercArrows( );
-	DisplayIconsForMercsAsleep(	);
+	HandleDisplayOfSelectedMercArrows();
+	DisplayIconsForMercsAsleep();
 
 	// reset dirty flag
 	fTeamPanelDirty = FALSE;
 	gfRenderPBInterface = TRUE;
 
 	// mark all pop ups as dirty
-	MarkAllBoxesAsAltered( );
+	MarkAllBoxesAsAltered();
 
 	// restore background for area
-	if(fShowInventoryFlag == TRUE && UsingNewInventorySystem() == false)
-	{
-		RestoreExternBackgroundRect( 0 + xResOffset, 107 + yResOffset, 261, SCREEN_HEIGHT - 107 - 121 - yResOffset);
-	}
-	else if(fShowInventoryFlag == TRUE && iResolution >= _640x480 && iResolution < _800x600)
-	{
-		RestoreExternBackgroundRect( 0 + xResOffset, 107 + yResOffset, 261, SCREEN_HEIGHT - 107 - yResOffset );
-	}
-	else if(fShowInventoryFlag == TRUE && iResolution < _1024x768)
-	{
-		RestoreExternBackgroundRect( 0 + xResOffset, 107 + yResOffset, 261, SCREEN_HEIGHT - 107 - yResOffset );
-	}
-	else if(fShowInventoryFlag == FALSE || iResolution >= _1024x768)
-	{
-		RestoreExternBackgroundRect( 0 + xResOffset, 107 + yResOffset, 261, SCREEN_HEIGHT - 107 - 121 - yResOffset );
-	}
-	
+	RestoreExternBackgroundRect(UI_CHARLIST.Region);
+
 	MapscreenMarkButtonsDirty();
+}
+
+
+void RenderCharacterInventoryWideScreen(void)
+{
+	if (!gfItemDescTransformPopupVisible)
+	{
+		BltCharInvPanel();
+		RestoreExternBackgroundRect(UI_CHARINV.Region);
+	}
+}
+
+
+void RenderTeamRegionBackground( void )
+{
+	if (isWidescreenUI())
+	{
+		RenderTeamRegionBackgroundWideScreen();
+		RenderCharacterInventoryWideScreen();
+	}
+	else
+	{
+		// renders to save buffer when dirty flag set
+		if (fTeamPanelDirty == FALSE)
+		{
+			// not dirty, leave
+			return;
+		}
+
+		// show inventory or the team list?
+		if (fShowInventoryFlag == FALSE)
+		{
+			HVOBJECT hHandle;
+			GetVideoObject(&hHandle, guiCHARLIST);
+			BltVideoObject(guiSAVEBUFFER, hHandle, 0, UI_CHARLIST.Region, VO_BLT_SRCTRANSPARENCY, NULL);
+			HandleHighLightingOfLinesInTeamPanel();
+			DisplayCharacterList();
+			HandleDisplayOfSelectedMercArrows();
+			DisplayIconsForMercsAsleep();
+			RestoreExternBackgroundRect(UI_CHARLIST.Region);
+		}
+		else
+		{
+			BltCharInvPanel();
+			RestoreExternBackgroundRect(UI_CHARINV.Region);
+		}
+
+		fDrawCharacterList = FALSE;
+
+		// reset dirty flag
+		fTeamPanelDirty = FALSE;
+		gfRenderPBInterface = TRUE;
+
+		// mark all pop ups as dirty
+		MarkAllBoxesAsAltered();
+		MapscreenMarkButtonsDirty();
+	}
 }
 
 
@@ -11941,7 +12160,7 @@ void RenderCharacterInfoBackground( void )
 
 	// the upleft hand corner character info panel
 	GetVideoObject(&hHandle, guiCHARINFO);
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0,TOWN_INFO_X, TOWN_INFO_Y , VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject(guiSAVEBUFFER, hHandle, 0, UI_CHARPANEL.Region.x, UI_CHARPANEL.Region.y, VO_BLT_SRCTRANSPARENCY, NULL);
 
 	UpdateHelpTextForMapScreenMercIcons( );
 
@@ -11969,7 +12188,7 @@ void RenderCharacterInfoBackground( void )
 	MarkAllBoxesAsAltered( );
 
 	// restore background for area
-	RestoreExternBackgroundRect( xResOffset + 0, yResOffset + 0, 261, 107 );
+	RestoreExternBackgroundRect(UI_CHARPANEL.Region);
 }
 
 void DetermineIfContractMenuCanBeShown( void )
@@ -13332,18 +13551,35 @@ void CreateDestroyTrashCanRegion( void )
 		fCreated = TRUE;
 
 		// trash can
-		MSYS_DefineRegion( &gTrashCanRegion, 	TRASH_CAN_X, TRASH_CAN_Y, TRASH_CAN_X + TRASH_CAN_WIDTH, TRASH_CAN_Y + TRASH_CAN_HEIGHT , MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, TrashCanMoveCallback, TrashCanBtnCallback );
+		MSYS_DefineRegion( &gTrashCanRegion, 
+			UI_CHARINV.Button.Trashcan.x,
+			UI_CHARINV.Button.Trashcan.y,
+			UI_CHARINV.Button.Trashcan.x + UI_CHARINV.Button.Trashcan.width,
+			UI_CHARINV.Button.Trashcan.y + UI_CHARINV.Button.Trashcan.height,
+			MSYS_PRIORITY_HIGHEST - 4 ,	MSYS_NO_CURSOR, TrashCanMoveCallback, TrashCanBtnCallback 
+		);
 
 		// region for detailed merc weight
-		MSYS_DefineRegion(&gMapMercWeightRegion, (MAP_WEIGHT_X + 2), (MAP_WEIGHT_Y), (MAP_WEIGHT_X + 28), (MAP_WEIGHT_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL);
+		MSYS_DefineRegion(&gMapMercWeightRegion, 
+			UI_CHARINV.Text.Weight.iX + 2,
+			UI_CHARINV.Text.Weight.iY,
+			UI_CHARINV.Text.Weight.iX + 28,
+			UI_CHARINV.Text.Weight.iY + 10,
+			MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL
+		);
 
 		// region for detailed merc camo
-		MSYS_DefineRegion(&gMapMercCamoRegion, (MAP_CAMMO_X + 2), (MAP_CAMMO_Y), (MAP_CAMMO_X + 28), (MAP_CAMMO_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback);
+		MSYS_DefineRegion(&gMapMercCamoRegion,
+			UI_CHARINV.Text.Camo.iX + 2,
+			UI_CHARINV.Text.Camo.iY,
+			UI_CHARINV.Text.Camo.iX + 28,
+			UI_CHARINV.Text.Camo.iY + 10,
+			MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback
+		);
 
 		// done inventory button define
 		giMapInvButtonDoneImage = LoadButtonImage( "INTERFACE\\done_button2.sti" ,-1,0,-1,1,-1 );
-	giMapInvDoneButton = QuickCreateButton( giMapInvButtonDoneImage, INV_BTN_X, INV_BTN_Y,
+	giMapInvDoneButton = QuickCreateButton( giMapInvButtonDoneImage, UI_CHARINV.Button.Done.iX, UI_CHARINV.Button.Done.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										( GUI_CALLBACK )BtnGenericMouseMoveButtonCallback, ( GUI_CALLBACK)DoneInventoryMapBtnCallback );
 
@@ -13487,7 +13723,14 @@ void HandlePreBattleInterfaceWithInventoryPanelUp( void )
 
 		// kill inventory panel
 		fShowInventoryFlag = FALSE;
-		CreateDestroyMapInvButton();
+		if (isWidescreenUI())
+		{
+			DestroyMapCharInvIOregions();
+		}
+		else
+		{
+			CreateDestroyMapInvButton();
+		}
 	}
 }
 
@@ -13783,7 +14026,7 @@ void CreateDestroyMapCharacterScrollButtons( void )
 		giCharInfoButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
 
 		// set the button value
-		giCharInfoButton[ 0 ] = QuickCreateButton( giCharInfoButtonImage[ 0 ], xResOffset + 67, yResOffset + 69,
+		giCharInfoButton[ 0 ] = QuickCreateButton( giCharInfoButtonImage[ 0 ], UI_CHARPANEL.Button.Up.iX, UI_CHARPANEL.Button.Up.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)PrevInventoryMapBtnCallback );
 
@@ -13791,7 +14034,7 @@ void CreateDestroyMapCharacterScrollButtons( void )
 		giCharInfoButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
 
 		// set the button value
-		giCharInfoButton[ 1 ] = QuickCreateButton( giCharInfoButtonImage[ 1 ], xResOffset + 67, yResOffset + 87,
+		giCharInfoButton[ 1 ] = QuickCreateButton( giCharInfoButtonImage[ 1 ], UI_CHARPANEL.Button.Down.iX, UI_CHARPANEL.Button.Down.iY,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)NextInventoryMapBtnCallback );
 
@@ -13975,7 +14218,7 @@ void AddTeamPanelSortButtonsForMapScreen( void )
 	{
 		giMapSortButtonImage[ iCounter ] = LoadButtonImage( filename, -1, iImageIndex[ iCounter ] , -1, iImageIndex[ iCounter ] + 6 , -1 );
 
-		giMapSortButton[ iCounter ]= QuickCreateButton( giMapSortButtonImage[ iCounter ], ( INT16 )( xResOffset + gMapSortButtons[ iCounter ].iX ), ( INT16 )( yResOffset + gMapSortButtons[ iCounter ].iY ),
+		giMapSortButton[ iCounter ]= QuickCreateButton( giMapSortButtonImage[ iCounter ], ( INT16 )(UI_CHARLIST.Title.iX + gMapSortButtons[ iCounter ].iX ), ( INT16 )(UI_CHARLIST.Title.iY + gMapSortButtons[ iCounter ].iY ),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapSortBtnCallback );
 
@@ -14001,7 +14244,7 @@ void AddMPButtonsForMapScreen( void )
 
 		if (iCounter < MAX_MP_BUTTONS)
 		{
-			UINT16 xButtonPos  = gMapMPButtonsX[ iCounter ] + xResOffset;
+			UINT16 xButtonPos  = gMapMPButtonsX[ iCounter ] + UI_CHARLIST.Region.x;
 
 			// buttonmake
 			giMapMPButton[ iCounter ]= QuickCreateButton( giMapMPButtonImage[ iCounter ], ( INT16 )( xButtonPos ), ( INT16 )( MP_BTN_Y ),
@@ -14351,11 +14594,14 @@ void RemoveTeamPanelSortButtonsForMapScreen( void )
 
 	for( iCounter = 0; iCounter < MAX_SORT_METHODS; iCounter++ )
 	{
-		UnloadButtonImage( giMapSortButtonImage[ iCounter ] );
-		RemoveButton( giMapSortButton[ iCounter ] );
+		if (giMapSortButtonImage[iCounter] != -1)
+		{
+			UnloadButtonImage(giMapSortButtonImage[iCounter]);
+			RemoveButton(giMapSortButton[iCounter]);
 
-		giMapSortButtonImage[ iCounter ] = -1;
-		giMapSortButton[ iCounter ] = -1;
+			giMapSortButtonImage[iCounter] = -1;
+			giMapSortButton[iCounter] = -1;
+		}
 	}
 	return;
 }
@@ -14469,8 +14715,7 @@ void DisplayIconsForMercsAsleep( void )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter + FIRSTmercTOdisplay ].usSolID ];
 			if( pSoldier->bActive && pSoldier->flags.fMercAsleep && CanChangeSleepStatusForSoldier( pSoldier ) )
 			{
-				//BltVideoObject( guiSAVEBUFFER , hHandle, 0, 125, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
-				BltVideoObject( guiSAVEBUFFER , hHandle, 0, SLEEP_X + 2, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
+				BltVideoObject( guiSAVEBUFFER , hHandle, 0, UI_CHARLIST.xSleep + 2, ( INT16 )(UI_CHARLIST.y + (iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
 			}
 		}
 	}
@@ -14482,32 +14727,36 @@ void DisplayIconsForMercsAsleep( void )
 //		mapscreen and we have new email to read.
 void CheckForAndRenderNewMailOverlay()
 {
+	const UINT16 xOffset = 7;
+	const UINT16 yOffset = 6;
+	const auto x = MAP_BOTTOM_LAPTOP_X + xOffset;
+	const auto y = MAP_BOTTOM_LAPTOP_Y + yOffset;
+
 	if( fNewMailFlag )
 	{
 		if( GetJA2Clock() % 1000 < 667 )
 		{
 			if( ButtonList[ guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] ]->uiFlags & BUTTON_CLICKED_ON )
 			{ 
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 1, xResOffset + (xResSize - 175), (SCREEN_HEIGHT - 62), VO_BLT_SRCTRANSPARENCY, NULL );
-				InvalidateRegion( xResOffset + (xResSize - 175), (SCREEN_HEIGHT - 62), xResOffset + (xResSize - 160), (SCREEN_HEIGHT - 52 ));
+				BltVideoObjectFromIndex(FRAME_BUFFER, guiNewMailIcons, 1, x + 2, y + 2, VO_BLT_SRCTRANSPARENCY, NULL);
+				InvalidateRegion(x, y, x + 25 - xOffset, y + 15 - yOffset);
 			}
 			else
 			{	
 				//button is up, so draw the icon normally
-				//BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, 464, 417, VO_BLT_SRCTRANSPARENCY, NULL );
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, xResOffset + (xResSize - 176), (SCREEN_HEIGHT - 63), VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, x + 1, y + 1, VO_BLT_SRCTRANSPARENCY, NULL );
 				if( !(ButtonList[ guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] ]->uiFlags & BUTTON_ENABLED ) )
 				{
 					UINT32 uiDestPitchBYTES;
 					UINT8	*pDestBuf;
-					SGPRect area = { xResOffset + (xResSize - 177), (SCREEN_HEIGHT - 63), xResOffset + (xResSize - 163), (SCREEN_HEIGHT - 55) };
+					SGPRect area = { x + 2, y + 1, x + 25 - xOffset, y + 15 - yOffset };
 
 					pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 					Blt16BPPBufferHatchRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &area );
 					UnLockVideoSurface( FRAME_BUFFER );
 				}
 
-				InvalidateRegion( xResOffset + (xResSize - 177), (SCREEN_HEIGHT - 63), xResOffset + (xResSize - 159), (SCREEN_HEIGHT - 50) );
+				InvalidateRegion(x, y, x + 25 - xOffset, y + 15 - yOffset);
 			}
 		}
 		else
@@ -14576,9 +14825,12 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 
-
-	Assert( bCharNumber >= 0 );
-	Assert( bCharNumber < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	//Assert( bCharNumber >= 0 );
+	//Assert( bCharNumber < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	if (bCharNumber < 0 || bCharNumber > giMAXIMUM_NUMBER_OF_PLAYER_SLOTS)
+	{
+		return(FALSE);
+	}
 
 	// invalid character slot selected?
 	if( gCharactersList[ bCharNumber ].fValid == FALSE )
@@ -16481,7 +16733,7 @@ void RestoreMapSectorCursor( INT16 sMapX, INT16 sMapY )
 
 	sScreenY -= 1;
 
-	RestoreExternBackgroundRect( sScreenX, sScreenY, DMAP_GRID_X, DMAP_GRID_Y );
+	RestoreExternBackgroundRect( sScreenX, sScreenY, UI_MAP.GridSize.iX + 1, UI_MAP.GridSize.iY + 1);
 }
 
 void RequestToggleMercInventoryPanel( void )
@@ -17205,4 +17457,237 @@ bool placeItemInVehicle(SOLDIERTYPE *pSoldier, OBJECTTYPE &item) {
 	}
 
 	return (item.ubNumberOfObjects == 0);
+}
+
+bool isWidescreenUI(void)
+{
+	return (iResolution == _1280x720);
+}
+
+
+void initMapViewAndBorderCoordinates(void)
+{
+	if (isWidescreenUI())
+	{
+		MAP_FONT = FONT12ARIAL;
+		ETA_FONT = BLOCKFONT2;
+		
+		UI_MAP.GridSize = { 43, 35 };
+		UI_MAP.BorderRegion = {SCREEN_WIDTH - 764, 0, 764, 605}; // mbs_1280x720.sti
+		
+		UI_MAP.ViewRegion = { 
+			UI_MAP.BorderRegion.x + 9,
+			UI_MAP.BorderRegion.y + 10, 
+			UI_MAP.GridSize.iX * MAXIMUM_VALID_X_COORDINATE, 
+			UI_MAP.GridSize.iY * MAXIMUM_VALID_Y_COORDINATE + 27
+		};
+		
+		// Strategic map numbers and letters. Numbers are on the horizontal line.
+		UI_MAP.Numbers = {
+			UI_MAP.BorderRegion.x + 53, 
+			UI_MAP.BorderRegion.y + 19, 
+			UI_MAP.GridSize.iX, 
+			GetFontHeight(MAP_FONT) 
+		};
+		
+		UI_MAP.Alphabet = { 
+			UI_MAP.BorderRegion.x + 24, 
+			UI_MAP.BorderRegion.y + 44, 
+			GetFontHeight(MAP_FONT),  
+			UI_MAP.GridSize.iY
+		};
+
+		UI_MAP.LevelString = {
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2,
+			UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 25
+		};
+
+		// standard ETA box
+		UI_MAP.ETA.Clock_X = UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2;
+		UI_MAP.ETA.Start_Y = UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 15;
+		UI_MAP.ETA.Hour_X = UI_MAP.ETA.Clock_X + 38;
+		UI_MAP.ETA.Min_X = UI_MAP.ETA.Clock_X + 54;
+
+
+		// Helicopter ETA box
+		UI_MAP.HeliETA.PopupBox = {
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2,
+			UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 100,
+			120,
+			76
+		};
+		UI_MAP.HeliETA.Upper_Popup_Y = (50 + iScreenHeightOffset - 100);
+		UI_MAP.HeliETA.Alternate_Height = 97;
+	}
+	else if (iResolution < _800x600)
+	{
+		MAP_FONT = BLOCKFONT2;
+		ETA_FONT = BLOCKFONT2;
+
+		UI_MAP.GridSize = { 21, 18 };
+		UI_MAP.BorderRegion = { 
+			SCREEN_WIDTH - xResOffset - 380, 
+			yResOffset,
+			380, 
+			360 
+		};
+
+		UI_MAP.ViewRegion = {
+			UI_MAP.BorderRegion.x + 9,
+			UI_MAP.BorderRegion.y + 10,
+			UI_MAP.GridSize.iX * MAXIMUM_VALID_X_COORDINATE,
+			UI_MAP.GridSize.iY * MAXIMUM_VALID_Y_COORDINATE + 10
+		};
+
+		// Strategic map numbers and letters. Numbers are on the horizontal line.
+		UI_MAP.Numbers = {
+			UI_MAP.BorderRegion.x + 31,
+			UI_MAP.BorderRegion.y + 11,
+			UI_MAP.GridSize.iX,
+			GetFontHeight(MAP_FONT)
+		};
+
+		UI_MAP.Alphabet = {
+			UI_MAP.BorderRegion.x + 15,
+			UI_MAP.BorderRegion.y + 29,
+			GetFontHeight(MAP_FONT),
+			UI_MAP.GridSize.iY
+		};
+
+		UI_MAP.LevelString = {
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2,
+			(SCREEN_HEIGHT - 175)
+		};
+
+		// standard ETA box
+		UI_MAP.ETA.Clock_X = UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2;
+		UI_MAP.ETA.Start_Y = UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 15;
+		UI_MAP.ETA.Hour_X = UI_MAP.ETA.Clock_X + 38;
+		UI_MAP.ETA.Min_X = UI_MAP.ETA.Clock_X + 54;
+
+
+		// Helicopter ETA box
+		UI_MAP.HeliETA.PopupBox = {
+			 (400 + iScreenWidthOffset),
+			 (250 + iScreenHeightOffset),
+			 120,
+			 68
+		};
+		UI_MAP.HeliETA.Upper_Popup_Y = (50 + iScreenHeightOffset);
+		UI_MAP.HeliETA.Alternate_Height = 74;
+	}
+	else if (iResolution < _1024x768)
+	{
+		MAP_FONT = BLOCKFONT2;
+		ETA_FONT = BLOCKFONT2;
+
+		UI_MAP.GridSize = { 30, 25 };
+		UI_MAP.BorderRegion = {
+			SCREEN_WIDTH - xResOffset - 540,
+			yResOffset,
+			540,
+			479
+		};
+
+		UI_MAP.ViewRegion = {
+			UI_MAP.BorderRegion.x + 9,
+			UI_MAP.BorderRegion.y + 10,
+			UI_MAP.GridSize.iX * MAXIMUM_VALID_X_COORDINATE,
+			UI_MAP.GridSize.iY * MAXIMUM_VALID_Y_COORDINATE + 17
+		};
+
+		// Strategic map numbers and letters. Numbers are on the horizontal line.
+		UI_MAP.Numbers = {
+			UI_MAP.BorderRegion.x + 38,
+			UI_MAP.BorderRegion.y + 15,
+			UI_MAP.GridSize.iX,
+			GetFontHeight(MAP_FONT)
+		};
+
+		UI_MAP.Alphabet = {
+			UI_MAP.BorderRegion.x + 19,
+			UI_MAP.BorderRegion.y + 36,
+			GetFontHeight(MAP_FONT),
+			UI_MAP.GridSize.iY
+		};
+
+		UI_MAP.LevelString = {
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2,
+			UI_MAP.ViewRegion.y + (600 - 175)
+		};
+
+		// standard ETA box
+		UI_MAP.ETA.Clock_X = UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2;
+		UI_MAP.ETA.Start_Y = UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 15;
+		UI_MAP.ETA.Hour_X = UI_MAP.ETA.Clock_X + 38;
+		UI_MAP.ETA.Min_X = UI_MAP.ETA.Clock_X + 54;
+
+
+		// Helicopter ETA box
+		UI_MAP.HeliETA.PopupBox = {
+			 (400 + iScreenWidthOffset),
+			 (250 + iScreenHeightOffset + 58),
+			 120,
+			 68
+		};
+		UI_MAP.HeliETA.Upper_Popup_Y = (50 + iScreenHeightOffset - 40);
+		UI_MAP.HeliETA.Alternate_Height = 74;
+	}
+	else
+	{
+		MAP_FONT = FONT12ARIAL;
+		ETA_FONT = FONT12ARIAL;
+
+		UI_MAP.GridSize = { 43, 35 };
+		UI_MAP.BorderRegion = { 
+			SCREEN_WIDTH - xResOffset - 764, 
+			yResOffset, 
+			764, 
+			647 
+		};
+
+		UI_MAP.ViewRegion = {
+			UI_MAP.BorderRegion.x + 9,
+			UI_MAP.BorderRegion.y + 10,
+			UI_MAP.GridSize.iX * MAXIMUM_VALID_X_COORDINATE,
+			UI_MAP.GridSize.iY * MAXIMUM_VALID_Y_COORDINATE + 27
+		};
+
+		// Strategic map numbers and letters. Numbers are on the horizontal line.
+		UI_MAP.Numbers = {
+			UI_MAP.BorderRegion.x + 53,
+			UI_MAP.BorderRegion.y + 19,
+			UI_MAP.GridSize.iX,
+			GetFontHeight(MAP_FONT)
+		};
+
+		UI_MAP.Alphabet = {
+			UI_MAP.BorderRegion.x + 24,
+			UI_MAP.BorderRegion.y + 44,
+			GetFontHeight(MAP_FONT),
+			UI_MAP.GridSize.iY
+		};
+
+		UI_MAP.LevelString = {
+			UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2,
+			UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 25
+		};
+
+		// standard ETA box
+		UI_MAP.ETA.Clock_X = UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2;
+		UI_MAP.ETA.Start_Y = UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 15;
+		UI_MAP.ETA.Hour_X = UI_MAP.ETA.Clock_X + 38;
+		UI_MAP.ETA.Min_X = UI_MAP.ETA.Clock_X + 54;
+
+
+		// Helicopter ETA box
+		UI_MAP.HeliETA.PopupBox = {
+			 (400 + iScreenWidthOffset),
+			 (250 + iScreenHeightOffset + 120),
+			 120,
+			 76
+		};
+		UI_MAP.HeliETA.Upper_Popup_Y = (50 + iScreenHeightOffset - 100);
+		UI_MAP.HeliETA.Alternate_Height = 97;
+	}
 }

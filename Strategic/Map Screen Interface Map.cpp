@@ -66,6 +66,7 @@ extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
 extern UINT8 gMilitiaGroupId;
 extern UINT8 gNewMilitiaGroupId;
 extern PathStPtr gpMilitiaPreviousMercPath;
+extern UILayout_Map UI_MAP;
 
 UINT16	MAP_GRID_X;
 UINT16  MAP_GRID_Y;
@@ -274,8 +275,6 @@ UINT16 MAP_LEVEL_STRING_Y;
 #define WEST_OFFSET_Y  0
 #define WEST_TO_SOUTH_OFFSET_Y  0
 #define EAST_TO_NORTH_OFFSET_Y  0
-#define RED_WEST_OFF_X  -MAP_GRID_X
-#define RED_EAST_OFF_X  MAP_GRID_X
 #define RED_NORTH_OFF_Y -21
 #define RED_SOUTH_OFF_Y 21
 
@@ -621,8 +620,8 @@ void DrawIconL(INT32 MAP_GRID_X2, INT32 MAP_GRID_Y2, INT32 i )
 {
 	HVOBJECT hHandle;
 		
-	INT16 sX = (UINT16)(MAP_VIEW_START_X + MAP_GRID_X + (MAP_GRID_X2 * MAP_GRID_X) / 10);
-	INT16 sY = (UINT16)(MAP_VIEW_START_Y + MAP_GRID_Y + ((MAP_GRID_Y2 * MAP_GRID_Y) / 10) + 1);
+	const UINT16 sX = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX + (MAP_GRID_X2 * UI_MAP.GridSize.iX) / 10;
+	const UINT16 sY = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY + ((MAP_GRID_Y2 * UI_MAP.GridSize.iY) / 10) + 1;
 	
 	INT8 ubVidObjIndex = 1;
 
@@ -658,7 +657,11 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 		else
 			SetFontForeground(MAP_INDEX_COLOR);
 
-		FindFontCenterCoordinates(((INT16)(MAP_HORT_INDEX_X+( iCount - 1) *MAP_GRID_X)), MAP_HORT_INDEX_Y, MAP_GRID_X, MAP_HORT_HEIGHT, pMapHortIndex[iCount], MAP_FONT, &usX, &usY);
+		const auto left = UI_MAP.Numbers.x + UI_MAP.Numbers.width * (iCount - 1);
+		const auto top = UI_MAP.Numbers.y;
+		const auto width = UI_MAP.Numbers.width;
+		const auto height = UI_MAP.Numbers.height;
+		FindFontCenterCoordinates(left, top, width, height, pMapHortIndex[iCount], MAP_FONT, &usX, &usY);
 		mprintf(usX,usY,pMapHortIndex[iCount]);
 
 		if ( fDrawCursors && (iCount == sSelMapY) && ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
@@ -668,12 +671,16 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 		else
 			SetFontForeground(MAP_INDEX_COLOR);
 
-		FindFontCenterCoordinates(MAP_VERT_INDEX_X, ((INT16)(MAP_VERT_INDEX_Y+ ( iCount - 1) *MAP_GRID_Y)), MAP_HORT_HEIGHT, MAP_GRID_Y, pMapVertIndex[iCount], MAP_FONT, &usX, &usY);
+		const auto vertLeft = UI_MAP.Alphabet.x;
+		const auto vertTop = UI_MAP.Alphabet.y + UI_MAP.Alphabet.height * (iCount - 1);
+		const auto vertWidth = UI_MAP.Alphabet.width;
+		const auto vertHeight = UI_MAP.Alphabet.height;
+		FindFontCenterCoordinates(vertLeft, vertTop, vertWidth, vertHeight, pMapVertIndex[iCount], MAP_FONT, &usX, &usY);
 		mprintf(usX,usY,pMapVertIndex[iCount]);
 	}
 
-	InvalidateRegion(MAP_VERT_INDEX_X, MAP_VERT_INDEX_Y,MAP_VERT_INDEX_X+MAP_HORT_HEIGHT,  MAP_VERT_INDEX_Y+( iCount - 1 ) * MAP_GRID_Y );
-	InvalidateRegion(MAP_HORT_INDEX_X, MAP_HORT_INDEX_Y,MAP_HORT_INDEX_X + ( iCount - 1) * MAP_GRID_X,  MAP_HORT_INDEX_Y+ MAP_HORT_HEIGHT);
+	InvalidateRegion(UI_MAP.Alphabet.x, UI_MAP.Alphabet.y, UI_MAP.Alphabet.x+ UI_MAP.Alphabet.width, UI_MAP.Alphabet.y + UI_MAP.Alphabet.height * ( iCount - 1 ) );
+	InvalidateRegion(UI_MAP.Numbers.x, UI_MAP.Numbers.y, UI_MAP.Numbers.x + ( iCount - 1) * UI_MAP.Numbers.width, UI_MAP.Numbers.y + UI_MAP.Numbers.height);
 
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 }
@@ -944,10 +951,10 @@ void fillMapColoursForSamSiteAirSpace( INT32( &colorMap )[ MAXIMUM_VALID_Y_COORD
 
 UINT32 DrawMap(void)
 {
-	MapScreenRect.iLeft = MAP_VIEW_START_X + MAP_GRID_X - 2;
-	MapScreenRect.iTop = MAP_VIEW_START_Y + MAP_GRID_Y - 1;
-	MapScreenRect.iRight = MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X;
-	MapScreenRect.iBottom = MAP_VIEW_START_Y + MAP_VIEW_HEIGHT - 10 + MAP_GRID_Y;
+	MapScreenRect.iLeft = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX - 2;
+	MapScreenRect.iTop = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY - 1;
+	MapScreenRect.iRight = UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width - 1 + UI_MAP.GridSize.iX;
+	MapScreenRect.iBottom = UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height - 10 + UI_MAP.GridSize.iY;
 
 	if (!iCurrentMapSectorZ)
 	{	// Aboveground sectors
@@ -961,7 +968,7 @@ UINT32 DrawMap(void)
 		UINT32 uiSrcPitchBYTES;
 		UINT8 *pSrcBuf = LockVideoSurface(guiBIGMAP, &uiSrcPitchBYTES);
 
-		Blt8BPPDataTo16BPPBufferHalf(pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, MAP_VIEW_START_X + 1, MAP_VIEW_START_Y);
+		Blt8BPPDataTo16BPPBufferHalf(pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, UI_MAP.ViewRegion.x + 1, UI_MAP.ViewRegion.y);
 
 		UnLockVideoSurface(guiBIGMAP);
 		UnLockVideoSurface(guiSAVEBUFFER);
@@ -1123,8 +1130,8 @@ UINT32 DrawMap(void)
 
 void GetScreenXYFromMapXY( INT16 sMapX, INT16 sMapY, INT16 *psX, INT16 *psY )
 {
-	*psX = ( sMapX * MAP_GRID_X ) + MAP_VIEW_START_X;
-	*psY = ( sMapY * MAP_GRID_Y ) + MAP_VIEW_START_Y;
+	*psX = ( sMapX * UI_MAP.GridSize.iX ) + UI_MAP.ViewRegion.x;
+	*psY = ( sMapY * UI_MAP.GridSize.iY ) + UI_MAP.ViewRegion.y;
 }
 
 
@@ -1174,8 +1181,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen1");
 				wcscpy( sStringA, L"");
 			}
 
-			usX = (UINT16) (MAP_VIEW_START_X + MAP_GRID_X +  (pTownPoints[ bTown ].x * MAP_GRID_X) / 10);
-			usY = (UINT16) (MAP_VIEW_START_Y + MAP_GRID_Y + ((pTownPoints[ bTown ].y * MAP_GRID_Y) / 10) + 1);
+			usX = (UINT16) (UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX +  (pTownPoints[ bTown ].x * UI_MAP.GridSize.iX) / 10);
+			usY = (UINT16) (UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY + ((pTownPoints[ bTown ].y * UI_MAP.GridSize.iY) / 10) + 1);
 
 			// red for low loyalty, green otherwise
 			SetFontForeground( ( UINT8 ) ( fLoyaltyTooLowToTrainMilitia ? FONT_MCOLOR_RED : FONT_MCOLOR_LTGREEN ) );
@@ -1205,7 +1212,7 @@ void DrawTownLabels(STR16 pString, STR16 pStringA, UINT16 usFirstX, UINT16 usFir
 	SetFont( MapTownLabelsFont );
 
 	// if within view region...render, else don't
-	if( ( usFirstX > MAP_VIEW_START_X + MAP_VIEW_WIDTH )||( usFirstX < MAP_VIEW_START_X )|| (usFirstY < MAP_VIEW_START_Y ) || ( usFirstY > MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) )
+	if( ( usFirstX > UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width)||( usFirstX < UI_MAP.ViewRegion.x)|| (usFirstY < UI_MAP.ViewRegion.y) || ( usFirstY > UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height) )
 	{
 		return;
 	}
@@ -1226,7 +1233,7 @@ void DrawTownLabels(STR16 pString, STR16 pStringA, UINT16 usFirstX, UINT16 usFir
 	VarFindFontCenterCoordinates(( INT16 )( usFirstX ), ( INT16 )usFirstY, StringPixLength( pString, MapTownLabelsFont), 0, MapTownLabelsFont, &sSecondX, &sSecondY, pStringA);
 
 	// make sure we don't go past left edge (Grumm)
-	sPastEdge = (MAP_VIEW_START_X + 23) - sSecondX;
+	sPastEdge = (UI_MAP.ViewRegion.x + 23) - sSecondX;
 
 	if (sPastEdge > 0)
 		sSecondX += sPastEdge;
@@ -1481,20 +1488,20 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	UINT8 iconOffsetX = 0;
 	UINT8 iconOffsetY = 0;
 	
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI() || iResolution >= _1024x768)
 	{
-		iconOffsetX = 2;
-		iconOffsetY = 9;
+		iconOffsetX = 12;
+		iconOffsetY = 13;
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _800x600 && iResolution < _1024x768)
 	{
 		iconOffsetX = 8;
 		iconOffsetY = 12;
 	}
 	else
 	{
-		iconOffsetX = 12;
-		iconOffsetY = 13;
+		iconOffsetX = 2;
+		iconOffsetY = 9;
 	}
 
 	// grab the x and y postions
@@ -1505,13 +1512,13 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GetVideoObject(&hIconHandle, guiCHARICONS);
 
 	// check if we are zoomed in...need to offset in case for scrolling purposes
-	sXPosition = ( INT16 )( iconOffsetX + ( MAP_VIEW_START_X + ( sSectorX * MAP_GRID_X + 1 )  ) - 1 );
-	sYPosition = ( INT16 )( ( ( iconOffsetY + ( yResOffset + sSectorY * MAP_GRID_Y ) + 1 )  ) );
+	sXPosition = ( INT16 )( iconOffsetX + (UI_MAP.ViewRegion.x + ( sSectorX * UI_MAP.GridSize.iX + 1 )  ) - 1 );
+	sYPosition = ( INT16 )( ( ( iconOffsetY + (UI_MAP.ViewRegion.y + sSectorY * UI_MAP.GridSize.iY ) + 1 )  ) );
 	sYPosition -= 2;
 
 	// small question mark
 	BltVideoObject(guiSAVEBUFFER, hIconHandle, SMALL_QUESTION_MARK, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( sXPosition ,sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
+	InvalidateRegion( sXPosition ,sYPosition, sXPosition + UI_MAP.GridSize.iX + 1, sYPosition + UI_MAP.GridSize.iY + 1);
 }
 
 void ShowTeamAndVehicles(INT32 fShowFlags)
@@ -1576,10 +1583,10 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 	sScreenX += 1;
 
 	// compensate for original BIG_MAP blit being done at MAP_VIEW_START_X + 1
-	clip.iLeft = 2 * ( sScreenX - ( MAP_VIEW_START_X + 1 ) );
-	clip.iTop  = 2 * ( sScreenY - MAP_VIEW_START_Y );
-	clip.iRight  = clip.iLeft + ( 2 * MAP_GRID_X );
-	clip.iBottom = clip.iTop  + ( 2 * MAP_GRID_Y );
+	clip.iLeft = 2 * ( sScreenX - (UI_MAP.ViewRegion.x + 1 ) );
+	clip.iTop  = 2 * ( sScreenY - UI_MAP.ViewRegion.y);
+	clip.iRight  = clip.iLeft + ( 2 * UI_MAP.GridSize.iX );
+	clip.iBottom = clip.iTop  + ( 2 * UI_MAP.GridSize.iY );
 
 	if( iColor == MAP_SHADE_BLACK )
 	{
@@ -1587,7 +1594,7 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 		sScreenY -= 1;
 
 		// simply shade darker
-		ShadowVideoSurfaceRect( guiSAVEBUFFER, sScreenX, sScreenY, sScreenX + MAP_GRID_X - 1, sScreenY + MAP_GRID_Y - 1 );
+		ShadowVideoSurfaceRect( guiSAVEBUFFER, sScreenX, sScreenY, sScreenX + UI_MAP.GridSize.iX - 1, sScreenY + UI_MAP.GridSize.iY - 1 );
 	}
 	else if ( iColor < MAP_SHADE_MAX )
 	{
@@ -1658,10 +1665,10 @@ BOOLEAN ShadeMapElements(const INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ M
 
 			// compensate for original BIG_MAP blit being done at MAP_VIEW_START_X + 1
 			SGPRect clip;
-			clip.iLeft = 2 * (sScreenX - (MAP_VIEW_START_X + 1));
-			clip.iTop = 2 * (sScreenY - MAP_VIEW_START_Y);
-			clip.iRight = clip.iLeft + (2 * MAP_GRID_X);
-			clip.iBottom = clip.iTop + (2 * MAP_GRID_Y);
+			clip.iLeft = 2 * (sScreenX - (UI_MAP.ViewRegion.x + 1));
+			clip.iTop = 2 * (sScreenY - UI_MAP.ViewRegion.y);
+			clip.iRight = clip.iLeft + (2 * UI_MAP.GridSize.iX);
+			clip.iBottom = clip.iTop + (2 * UI_MAP.GridSize.iY);
 
 
 			const auto iColor = colorMap[y][x];
@@ -1672,8 +1679,8 @@ BOOLEAN ShadeMapElements(const INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ M
 
 				auto X1 = sScreenX;
 				auto Y1 = sScreenY;
-				auto X2 = sScreenX + MAP_GRID_X - 1;
-				auto Y2 = sScreenY + MAP_GRID_Y - 1;
+				auto X2 = sScreenX + UI_MAP.GridSize.iX - 1;
+				auto Y2 = sScreenY + UI_MAP.GridSize.iY - 1;
 #ifdef _DEBUG
 				if (X1 < 0)
 					X1 = 0;
@@ -1746,23 +1753,23 @@ BOOLEAN ShadeMapElements(const INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ M
 
 void InitializeMilitiaPopup(void)
 {
-	UINT16 xVal = 330 + xResOffset;
-	UINT16 yVal = 25 + yResOffset;
+	const UINT16 xVal = 330 + xResOffset;
+	const UINT16 yVal = 25 + yResOffset;
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI() || iResolution >= _1024x768)
 	{
-		MAP_MILITIA_BOX_POS_X = xVal;
-		MAP_MILITIA_BOX_POS_Y = yVal;
+		MAP_MILITIA_BOX_POS_X = xVal + 190;
+		MAP_MILITIA_BOX_POS_Y = yVal + 285;
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _800x600)
 	{
 		MAP_MILITIA_BOX_POS_X = xVal + 77;
 		MAP_MILITIA_BOX_POS_Y = yVal + 116;
 	}
 	else
 	{
-		MAP_MILITIA_BOX_POS_X = xVal + 190;
-		MAP_MILITIA_BOX_POS_Y = yVal + 285;
+		MAP_MILITIA_BOX_POS_X = xVal;
+		MAP_MILITIA_BOX_POS_Y = yVal;
 	}
 }
 
@@ -1779,6 +1786,8 @@ BOOLEAN InitializePalettesForMap( void )
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
  		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
+	else if (iResolution == _1280x720)
+		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1280x720.pcx");
 	else if (iResolution < _1024x768)
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
 	else
@@ -2582,8 +2591,8 @@ BOOLEAN TracePathRoute(BOOLEAN fCheckFlag, BOOLEAN fForceUpDate, PathStPtr pPath
 			
 			iX=(pNode->uiSectorId%MAP_WORLD_X);
 			iY=(pNode->uiSectorId/MAP_WORLD_X);
-			iX=(iX*MAP_GRID_X)+MAP_VIEW_START_X;
-			iY=(iY*MAP_GRID_Y)+MAP_VIEW_START_Y;
+			iX=(iX*UI_MAP.GridSize.iX) + UI_MAP.ViewRegion.x;
+			iY=(iY*UI_MAP.GridSize.iY) + UI_MAP.ViewRegion.y;
 
 			iArrowX=iX;
 			iArrowY=iY;
@@ -2813,8 +2822,8 @@ BOOLEAN TracePathRoute(BOOLEAN fCheckFlag, BOOLEAN fForceUpDate, PathStPtr pPath
 		{
 			iX=(pNode->uiSectorId%MAP_WORLD_X);
 			iY=(pNode->uiSectorId/MAP_WORLD_X);
-			iX=(iX*MAP_GRID_X)+MAP_VIEW_START_X;
-			iY=(iY*MAP_GRID_Y)+MAP_VIEW_START_Y;
+			iX=(iX*UI_MAP.GridSize.iX) + UI_MAP.ViewRegion.x;
+			iY=(iY*UI_MAP.GridSize.iY) + UI_MAP.ViewRegion.y;
 
 			iArrowX=iX;
 			iArrowY=iY;
@@ -2917,10 +2926,10 @@ BOOLEAN TracePathRoute(BOOLEAN fCheckFlag, BOOLEAN fForceUpDate, PathStPtr pPath
 			if(!fUTurnFlag)
 			{
 				BltVideoObject(FRAME_BUFFER, hMapHandle, (UINT16)iArrow, iArrowX, iArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-				InvalidateRegion( iArrowX, iArrowY, iArrowX + 2 * MAP_GRID_X, iArrowY + 2 * MAP_GRID_Y );
+				InvalidateRegion( iArrowX, iArrowY, iArrowX + 2 * UI_MAP.GridSize.iX, iArrowY + 2 * UI_MAP.GridSize.iY );
 			}
 
-			InvalidateRegion( iX, iY, iX + 2 * MAP_GRID_X, iY + 2 * MAP_GRID_Y );
+			InvalidateRegion( iX, iY, iX + 2 * UI_MAP.GridSize.iX, iY + 2 * UI_MAP.GridSize.iY );
 
 			fUTurnFlag=FALSE;
 		}
@@ -3091,23 +3100,23 @@ BOOLEAN TraceCharAnimatedRoute( PathStPtr pPath, BOOLEAN fCheckFlag, BOOLEAN fFo
 	iX = (pCurrentNode->uiSectorId % MAP_WORLD_X);
 	iY = (pCurrentNode->uiSectorId / MAP_WORLD_X);
 
-	iX = (iX*MAP_GRID_X) + MAP_VIEW_START_X;
-	iY = (iY*MAP_GRID_Y) + MAP_VIEW_START_Y;
+	iX = (iX*UI_MAP.GridSize.iX) + UI_MAP.ViewRegion.x;
+	iY = (iY*UI_MAP.GridSize.iY) + UI_MAP.ViewRegion.y;
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI() || iResolution >= _1024x768)
 	{
-		iArrowX = iX - 4;
-		iArrowY = iY - 4;
+		iArrowX = iX - 6;
+		iArrowY = iY - 6;
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _800x600)
 	{
 		iArrowX = iX - 5;
 		iArrowY = iY - 5;
 	}
-	else 
+	else
 	{
-		iArrowX = iX - 6;
-		iArrowY = iY - 6;
+		iArrowX = iX - 4;
+		iArrowY = iY - 4;
 	}
 
 	// Find the next node
@@ -3313,21 +3322,21 @@ BOOLEAN IsTheCursorAllowedToHighLightThisSector( INT16 sSectorX, INT16 sSectorY 
 void RestoreBackgroundForMapGrid( INT16 sMapX, INT16 sMapY )
 {
 	// screen values
-	INT16 sX = (sMapX * MAP_GRID_X) + MAP_VIEW_START_X;
-	INT16 sY = (sMapY * MAP_GRID_Y) + MAP_VIEW_START_Y;
+	INT16 sX = (sMapX * UI_MAP.GridSize.iX) + UI_MAP.ViewRegion.x;
+	INT16 sY = (sMapY * UI_MAP.GridSize.iY) + UI_MAP.ViewRegion.y;
 
 	// restore background
-	RestoreExternBackgroundRect( sX, sY ,DMAP_GRID_X ,DMAP_GRID_Y );
+	RestoreExternBackgroundRect( sX, sY , UI_MAP.GridSize.iX + 1, UI_MAP.GridSize.iY + 1);
 }
 
 
 void ClipBlitsToMapViewRegion( void )
 {
 	// the standard mapscreen rectangle doesn't work for clipping while zoomed...
-	SGPRect ZoomedMapScreenClipRect={	MAP_VIEW_START_X + MAP_GRID_X, 
-										MAP_VIEW_START_Y + MAP_GRID_Y - 1, 
-										MAP_VIEW_START_X + MAP_VIEW_WIDTH + MAP_GRID_X, 
-										MAP_VIEW_START_Y + MAP_VIEW_HEIGHT + MAP_GRID_Y - 10 };
+	SGPRect ZoomedMapScreenClipRect={	UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX, 
+										UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY - 1, 
+										UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width + UI_MAP.GridSize.iX, 
+										UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height + UI_MAP.GridSize.iY - 10 };
 	SGPRect *pRectToUse;
 
 	pRectToUse = &MapScreenRect;
@@ -3480,8 +3489,8 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 			int tYD = sDest / MAP_WORLD_X;
 
 			// Find sector's top-left pixel on the screen.
-			INT16 sSectorPosX = MAP_VIEW_START_X + (sX * MAP_GRID_X);
-			INT16 sSectorPosY = MAP_VIEW_START_Y + (sY * MAP_GRID_Y);
+			INT16 sSectorPosX = UI_MAP.ViewRegion.x + (sX * UI_MAP.GridSize.iX);
+			INT16 sSectorPosY = UI_MAP.ViewRegion.y + (sY * UI_MAP.GridSize.iY);
 
 			// This is the sectorID in plain 0-256. Most of the functions will use this instead of sSource and sDest.
 			INT16 sSourceSector = SECTOR( tXS, tYS );
@@ -3591,7 +3600,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 			if( !( iDirection % 2 ) )
 			{
 				// guys exiting north or south from this sector. Center the arrow.
-				sOffsetX = (MAP_GRID_X / 2);
+				sOffsetX = (UI_MAP.GridSize.iX / 2);
 
 				if( fEntering > 0 )
 				{
@@ -3621,14 +3630,14 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 				else
 				{
 					// going south
-					sOffsetY = MAP_GRID_Y;
+					sOffsetY = UI_MAP.GridSize.iY;
 				}
 			}
 			else
 			{
 				// guys exiting east or west from this sector. Center the arrow.
 
-				sOffsetY = (MAP_GRID_Y / 2);
+				sOffsetY = (UI_MAP.GridSize.iY / 2);
 
 				if( fEntering > 0 )
 				{
@@ -3653,7 +3662,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 				if( iDirection == 1 )
 				{
 					// going east
-					sOffsetX = MAP_GRID_X;
+					sOffsetX = UI_MAP.GridSize.iX;
 				}
 				else
 				{
@@ -4031,7 +4040,7 @@ void ShowNonPlayerGroupsInMotion( INT16 sX, INT16 sY, UINT8 usTeam )
 					if (sDeltaY < 0)
 					{
 						ubDirection = 0;
-						sOffsetX = (MAP_GRID_X / 2);
+						sOffsetX = (UI_MAP.GridSize.iX / 2);
 						sOffsetY = 0;
 						iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 						iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight);
@@ -4039,22 +4048,22 @@ void ShowNonPlayerGroupsInMotion( INT16 sX, INT16 sY, UINT8 usTeam )
 					else if (sDeltaX > 0)
 					{
 						ubDirection = 1;
-						sOffsetX = MAP_GRID_X;
-						sOffsetY = (MAP_GRID_Y / 2);
+						sOffsetX = UI_MAP.GridSize.iX;
+						sOffsetY = (UI_MAP.GridSize.iY / 2);
 						iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
 					}
 					else if (sDeltaY > 0)
 					{
 						ubDirection = 2;
-						sOffsetX = (MAP_GRID_X / 2);
-						sOffsetY = MAP_GRID_Y;
+						sOffsetX = (UI_MAP.GridSize.iX / 2);
+						sOffsetY = UI_MAP.GridSize.iY;
 						iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 					}
 					else if (sDeltaX < 0)
 					{
 						ubDirection = 3;
 						sOffsetX = 0;
-						sOffsetY = (MAP_GRID_Y / 2);
+						sOffsetY = (UI_MAP.GridSize.iY / 2);
 						iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth);
 						iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
 					}
@@ -4064,8 +4073,8 @@ void ShowNonPlayerGroupsInMotion( INT16 sX, INT16 sY, UINT8 usTeam )
 						iconOffsetY -= 1;
 					}
 					
-					iX = MAP_VIEW_START_X+( sX * MAP_GRID_X ) + sOffsetX + iconOffsetX;
-					iY = MAP_VIEW_START_Y + ( sY * MAP_GRID_Y ) + sOffsetY + iconOffsetY;
+					iX = UI_MAP.ViewRegion.x+( sX * UI_MAP.GridSize.iX ) + sOffsetX + iconOffsetX;
+					iY = UI_MAP.ViewRegion.y + ( sY * UI_MAP.GridSize.iY ) + sOffsetY + iconOffsetY;
 
 					// Flugente: depending on which team's direction we show there is an offset to the images
 					// Note that we also need a x or y offset if multiple teamsare moving in the same sector, but currently that won't happen
@@ -4143,7 +4152,7 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 	if ( StrategicMap[sector].usFlags & MILITIA_MOVE_NORTH )
 	{
 		ubDirection = 4;
-		sOffsetX = (MAP_GRID_X / 2);
+		sOffsetX = (UI_MAP.GridSize.iX / 2);
 		sOffsetY = 0;
 		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight);
@@ -4151,22 +4160,22 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_EAST )
 	{
 		ubDirection = 5;
-		sOffsetX = MAP_GRID_X;
-		sOffsetY = (MAP_GRID_Y / 2);
+		sOffsetX = UI_MAP.GridSize.iX;
+		sOffsetY = (UI_MAP.GridSize.iY / 2);
 		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
 	}
 	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_SOUTH )
 	{
 		ubDirection = 6;
-		sOffsetX = (MAP_GRID_X / 2);
-		sOffsetY = MAP_GRID_Y;
+		sOffsetX = (UI_MAP.GridSize.iX / 2);
+		sOffsetY = UI_MAP.GridSize.iY;
 		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 	}
 	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_WEST )
 	{
 		ubDirection = 7;
 		sOffsetX = 0;
-		sOffsetY = (MAP_GRID_Y / 2);
+		sOffsetY = (UI_MAP.GridSize.iY / 2);
 		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth);
 		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
 	}
@@ -4176,8 +4185,8 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 		iconOffsetY -= 1;
 	}
 					
-	iX = MAP_VIEW_START_X+( sX * MAP_GRID_X ) + sOffsetX + iconOffsetX;
-	iY = MAP_VIEW_START_Y + ( sY * MAP_GRID_Y ) + sOffsetY + iconOffsetY;
+	iX = UI_MAP.ViewRegion.x+( sX * UI_MAP.GridSize.iX ) + sOffsetX + iconOffsetX;
+	iY = UI_MAP.ViewRegion.y + ( sY * UI_MAP.GridSize.iY ) + sOffsetY + iconOffsetY;
 		
 	BltVideoObject(guiSAVEBUFFER, hIconHandle, ubDirection , ( INT16 ) iX, ( INT16 ) iY , VO_BLT_SRCTRANSPARENCY, NULL );
 				
@@ -4225,19 +4234,19 @@ void DisplayDistancesForHelicopter( void )
 	
 	if ( GetMouseMapXY( &sMapX, &sMapY ) && ( sMapY >= 13 ) )
 	{
-		sYPosition = MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
+		sYPosition = UI_MAP.HeliETA.Upper_Popup_Y;
 	}
 	else
 	{
-		sYPosition = MAP_HELICOPTER_ETA_POPUP_Y;
+		sYPosition = UI_MAP.HeliETA.PopupBox.y;
 	}
 
 	if( ( sOldYPosition != 0 ) && ( sOldYPosition != sYPosition ) )
 	{
 		if( !gGameExternalOptions.fAlternativeHelicopterFuelSystem )
-			RestoreExternBackgroundRect( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition, MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+			RestoreExternBackgroundRect(UI_MAP.HeliETA.PopupBox.x, sOldYPosition, UI_MAP.HeliETA.PopupBox.width + 20, UI_MAP.HeliETA.PopupBox.height);
 		else
-			RestoreExternBackgroundRect( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition, MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT );
+			RestoreExternBackgroundRect(UI_MAP.HeliETA.PopupBox.x, sOldYPosition, UI_MAP.HeliETA .PopupBox.width + 20, UI_MAP.HeliETA.Alternate_Height);
 	}
 
 	sOldYPosition = sYPosition;
@@ -4249,14 +4258,16 @@ void DisplayDistancesForHelicopter( void )
 	else
 		GetVideoObject( &hHandle, guiMapBorderHeliSectors );
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
-		imageIndex = 0;
-	else if (iResolution < _1024x768)
+	if (isWidescreenUI() || iResolution >= _1024x768)
+	{
+		imageIndex = 2;
+	}
+	else if (iResolution >= _800x600)
 		imageIndex = 1;
 	else
-		imageIndex = 2;
+		imageIndex = 0;
 		
-	BltVideoObject( FRAME_BUFFER, hHandle, imageIndex, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( FRAME_BUFFER, hHandle, imageIndex, UI_MAP.HeliETA.PopupBox.x, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
 	sDistanceToGo = ( INT16 )DistanceOfIntendedHelicopterPath( );
@@ -4280,7 +4291,7 @@ void DisplayDistancesForHelicopter( void )
 	SetFontBackground( FONT_BLACK );
 
 	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_TOTAL_DISTANCE ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5, sString );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5, sString );
 
 /*
   if ( IsSectorOutOfTheWay( sMapX, sMapY ) )
@@ -4294,27 +4305,27 @@ void DisplayDistancesForHelicopter( void )
 	}
 
 	swprintf( sString, L"%d", sTotalOfTrip );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, MAP_HELICOPTER_ETA_POPUP_Y + 5, MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, UI_MAP.HeliETA.PopupBox.y + 5, UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, sYPosition + 5, sString );
 
 	SetFontForeground( FONT_LTGREEN );
 
 	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_SAFE ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + GetFontHeight( MAP_FONT ), sString );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + GetFontHeight( MAP_FONT ), sString );
 
 	swprintf( sString, L"%d", sNumSafeSectors );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 2 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 2 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + GetFontHeight( MAP_FONT ) ), sString );
 
 	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_UNSAFE ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 2 * GetFontHeight( MAP_FONT ), sString );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 2 * GetFontHeight( MAP_FONT ), sString );
 
 	swprintf( sString, L"%d", sNumUnSafeSectors );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 2 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 2 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 2 * GetFontHeight( MAP_FONT ) ), sString );
 
 	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_TOTAL_COST ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ), sString );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ), sString );
 	
 	// calculate the cost of the trip based on the number of safe and unsafe sectors it will pass through
 	// HEADROCK HAM 3.5: Externalized Base Cost. Also includes hourly-calculated facility modifier.
@@ -4328,13 +4339,13 @@ void DisplayDistancesForHelicopter( void )
 	swprintf( sString, L"%d", uiTripCost );
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 3 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 3 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ) ), sString );
 
 	SetFontForeground( FONT_LTGREEN );
 
 	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_ETA ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ), sString );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ), sString );
 
 	// get travel time for the last path segment
 	iTime = GetPathTravelTimeDuringPlotting( pTempHelicopterPath );
@@ -4343,38 +4354,38 @@ void DisplayDistancesForHelicopter( void )
 	iTime += GetPathTravelTimeDuringPlotting( pVehicleList[ iHelicopterVehicleId ].pMercPath );
 
 	swprintf( sString, L"%d%s %d%s", iTime / 60, gsTimeStrings[0], iTime % 60, gsTimeStrings[1] );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) ( sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ) ), sString );
 
 
 	// show # of passengers aboard the chopper
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_PASSENGERS ] );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_PASSENGERS ] );
 	swprintf( sString, L"%d", GetNumberOfPassengersInHelicopter() );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 5 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 5 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ) ), sString );
 
 	// show remaining fuel
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 6 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_REMAINING_FUEL ] );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 6 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_REMAINING_FUEL ] );
 	swprintf( sString, L"%d", sRemainingFuel );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 6 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 6 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	if( sRemainingFuel < sDistToRefuelSite )
 		SetFontForeground( FONT_LTRED );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 6 * GetFontHeight( MAP_FONT ) ), sString );
 	SetFontForeground( FONT_LTGREEN );
 
 	// show distance to the nearest refuel site
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 7 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_DISTANCE_TO_REFUEL_SITE ] );
+	mprintf(UI_MAP.HeliETA.PopupBox.x + 5, sYPosition + 5 + 7 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_DISTANCE_TO_REFUEL_SITE ] );
 	swprintf( sString, L"%d", sDistToRefuelSite );
-	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 7 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 7 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	if( sRemainingFuel < sDistToRefuelSite )
 		SetFontForeground( FONT_LTRED );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 7 * GetFontHeight( MAP_FONT ) ), sString );
 	SetFontForeground( FONT_LTGREEN );
 
 	if( !gGameExternalOptions.fAlternativeHelicopterFuelSystem )
-		InvalidateRegion( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition,  MAP_HELICOPTER_ETA_POPUP_X + MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, sOldYPosition + MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+		InvalidateRegion(UI_MAP.HeliETA.PopupBox.x, sOldYPosition, UI_MAP.HeliETA.PopupBox.x + UI_MAP.HeliETA.PopupBox.width + 20, sOldYPosition + UI_MAP.HeliETA.PopupBox.height);
 	else
-		InvalidateRegion( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition,  MAP_HELICOPTER_ETA_POPUP_X + MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, sOldYPosition + MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT );
+		InvalidateRegion(UI_MAP.HeliETA.PopupBox.x, sOldYPosition, UI_MAP.HeliETA.PopupBox.x + UI_MAP.HeliETA.PopupBox.width + 20, sOldYPosition + UI_MAP.HeliETA.Alternate_Height);
 }
 
 
@@ -4455,10 +4466,10 @@ void DisplayPositionOfHelicopter( void )
 			}
 
 			// grab min and max locations to interpolate sub sector position
-			minX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubSectorX );
-			maxX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubNextX );
-			minY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubSectorY );
-			maxY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubNextY );
+			minX = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX * ( pGroup->ubSectorX );
+			maxX = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX * ( pGroup->ubNextX );
+			minY = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY * ( pGroup->ubSectorY );
+			maxY = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY * ( pGroup->ubNextY );
 
 			AssertMsg( ( minX >= 0 ) && ( minX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
 			AssertMsg( ( maxX >= 0 ) && ( maxX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
@@ -4501,7 +4512,7 @@ void DisplayPositionOfHelicopter( void )
 			SetFontForeground( FONT_WHITE );
 			SetFontBackground( FONT_BLACK );
 
-			mprintf( x + (MAP_GRID_X / 2) - 4, y + (MAP_GRID_Y / 2) - 4, sString );
+			mprintf( x + (UI_MAP.GridSize.iX / 2) - 4, y + (UI_MAP.GridSize.iY / 2) - 4, sString );
 
 			InvalidateRegion( x, y, x + usIconWidth, y + usIconHeight );
 
@@ -4555,10 +4566,10 @@ void DisplayPositionOfEnemyHelicopter()
 		UINT8 sector_y = SECTORY( sector );
 		
 		// grab min and max locations to interpolate sub sector position
-		minX = MAP_VIEW_START_X + MAP_GRID_X * (sector_x);
-		maxX = MAP_VIEW_START_X + MAP_GRID_X * (sector_x);
-		minY = MAP_VIEW_START_Y + MAP_GRID_Y * (sector_y);
-		maxY = MAP_VIEW_START_Y + MAP_GRID_Y * (sector_y);
+		minX = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX * (sector_x);
+		maxX = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX * (sector_x);
+		minY = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY * (sector_y);
+		maxY = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY * (sector_y);
 
 		AssertMsg( (minX >= 0) && (minX < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
 		AssertMsg( (maxX >= 0) && (maxX < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
@@ -4611,8 +4622,8 @@ void DisplayDestinationOfHelicopter( void )
 		sMapX = sSector % MAP_WORLD_X;
 		sMapY = sSector / MAP_WORLD_X;
 
-		x = MAP_VIEW_START_X + ( MAP_GRID_X * sMapX ) + 1;
-		y = MAP_VIEW_START_Y + ( MAP_GRID_Y * sMapY ) + 3;
+		x = UI_MAP.ViewRegion.x + ( UI_MAP.GridSize.iX * sMapX ) + 1;
+		y = UI_MAP.ViewRegion.y + ( UI_MAP.GridSize.iY * sMapY ) + 3;
 
 		AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
 		AssertMsg( ( y >= 0 ) && ( y < (UINT32)SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
@@ -4626,8 +4637,8 @@ void DisplayDestinationOfHelicopter( void )
 
 		if (iResolution >= _800x600)
 		{
-			x = x + (MAP_GRID_X / 2) - 10;
-			y = y + 1 + (MAP_GRID_Y / 2) - 10;
+			x = x + (UI_MAP.GridSize.iX / 2) - 10;
+			y = y + 1 + (UI_MAP.GridSize.iY / 2) - 10;
 		}
 
 		InvalidateRegion( x, y, x + HELI_SHADOW_ICON_WIDTH, y + HELI_SHADOW_ICON_HEIGHT );
@@ -4726,12 +4737,12 @@ void BlitMineIcon( INT16 sMapX, INT16 sMapY )
 	GetVideoObject( &hHandle, guiMINEICON );
 
 	pDestBuf2 = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, MAP_VIEW_START_X+MAP_GRID_X - 1, MAP_VIEW_START_Y+MAP_GRID_Y - 1, MAP_VIEW_WIDTH+1,MAP_VIEW_HEIGHT-9 );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, UI_MAP.ViewRegion.x+UI_MAP.GridSize.iX - 1, UI_MAP.ViewRegion.y+UI_MAP.GridSize.iY - 1, UI_MAP.ViewRegion.width+1,UI_MAP.ViewRegion.height-9 );
 	UnLockVideoSurface(guiSAVEBUFFER);
 
 	GetScreenXYFromMapXY( ( INT16 )( sMapX ), ( INT16 )( sMapY ), &sScreenX, &sScreenY );
 	// when not zoomed, the x,y returned is the top left CORNER of the map square in question
-	BltVideoObject( guiSAVEBUFFER, hHandle, 1, sScreenX + MAP_GRID_X / 4, sScreenY + MAP_GRID_Y / 4, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( guiSAVEBUFFER, hHandle, 1, sScreenX + UI_MAP.GridSize.iX / 4, sScreenY + UI_MAP.GridSize.iY / 4, VO_BLT_SRCTRANSPARENCY, NULL );
 }
 
 
@@ -4745,12 +4756,12 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 	GetScreenXYFromMapXY( ( INT16 )( sMapX ), ( INT16 )( sMapY ), &sScreenX, &sScreenY );
 
 	// set coordinates for start of mine text
-	sScreenX += MAP_GRID_X / 2;			// centered around middle of mine square
-	sScreenY += MAP_GRID_Y + 1;			// slightly below
+	sScreenX += UI_MAP.GridSize.iX / 2;			// centered around middle of mine square
+	sScreenY += UI_MAP.GridSize.iY + 1;			// slightly below
 
 	// show detailed mine info (name, production rate, daily production)
 
-	SetFontDestBuffer( guiSAVEBUFFER, MAP_VIEW_START_X, MAP_VIEW_START_Y, MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );
+	SetFontDestBuffer( guiSAVEBUFFER, UI_MAP.ViewRegion.x, UI_MAP.ViewRegion.y, UI_MAP.ViewRegion.x+UI_MAP.ViewRegion.width+UI_MAP.GridSize.iX, UI_MAP.ViewRegion.y+UI_MAP.ViewRegion.height+7, FALSE );
 
 	// HEADROCK HAM 5: Variable Font
 	INT32 MapMineLabelsFont;
@@ -4851,7 +4862,7 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
-	SetFontDestBuffer( FRAME_BUFFER, MAP_VIEW_START_X, MAP_VIEW_START_Y, MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );
+	SetFontDestBuffer( FRAME_BUFFER, UI_MAP.ViewRegion.x, UI_MAP.ViewRegion.y, UI_MAP.ViewRegion.x+UI_MAP.ViewRegion.width+UI_MAP.GridSize.iX, UI_MAP.ViewRegion.y+UI_MAP.ViewRegion.height+7, FALSE );
 }
 
 
@@ -4861,7 +4872,7 @@ void AdjustXForLeftMapEdge(STR16 wString, INT16 *psX, INT32 iFont)
 	INT16 sStartingX, sPastEdge;
 
 	sStartingX = *psX - (StringPixLengthArg( iFont, wcslen(wString), wString ) / 2);
-	sPastEdge = (MAP_VIEW_START_X + 23) - sStartingX;
+	sPastEdge = (UI_MAP.ViewRegion.x + 23) - sStartingX;
 
 	if (sPastEdge > 0)
 		*psX += sPastEdge;
@@ -4895,8 +4906,8 @@ void BlitTownGridMarkers( void )
 		{
 			// get location on screen
 			GetScreenXYFromMapXY( ( INT16 )( pTownLocationsList[ iCounter ] % MAP_WORLD_X ), ( INT16 )( pTownLocationsList[ iCounter ] / MAP_WORLD_X ), &sScreenX, &sScreenY );
-			sWidth = MAP_GRID_X - 1;
-			sHeight= MAP_GRID_Y;
+			sWidth = UI_MAP.GridSize.iX - 1;
+			sHeight= UI_MAP.GridSize.iY;
 
 			sScreenX += 2;
 
@@ -4955,8 +4966,8 @@ void BlitMineGridMarkers( void )
 		// get location on screen
 		//GetScreenXYFromMapXY( ( INT16 )(  gMineLocation[ iCounter ].sSectorX ), ( INT16 )(  gMineLocation[ iCounter ].sSectorY ), &sScreenX, &sScreenY );
 		GetScreenXYFromMapXY( ( INT16 )(  gMineStatus[ iCounter ].sSectorX ), ( INT16 )(  gMineStatus[ iCounter ].sSectorY ), &sScreenX, &sScreenY );
-		sWidth = MAP_GRID_X;
-		sHeight= MAP_GRID_Y;
+		sWidth = UI_MAP.GridSize.iX;
+		sHeight= UI_MAP.GridSize.iY;
 
 		// draw rectangle
 		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX + sWidth, sScreenY + sHeight - 1, usColor, pDestBuf );
@@ -5025,14 +5036,14 @@ void DisplayLevelString( void )
 		return;
 	}
 
-	SetFontDestBuffer( guiSAVEBUFFER, xResOffset + MAP_VIEW_START_X, MAP_VIEW_START_Y, xResOffset + MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );
+	SetFontDestBuffer( guiSAVEBUFFER, UI_MAP.ViewRegion.x, UI_MAP.ViewRegion.y, UI_MAP.ViewRegion.x+UI_MAP.ViewRegion.width+UI_MAP.GridSize.iX, UI_MAP.ViewRegion.y+UI_MAP.ViewRegion.height+7, FALSE );
 
 	SetFont( MAP_FONT );
 	SetFontForeground( MAP_INDEX_COLOR );
 	SetFontBackground( FONT_BLACK );
 	swprintf( sString, L"%s %d", sMapLevelString[ 0 ], iCurrentMapSectorZ );
 
-	mprintf(  MAP_LEVEL_STRING_X, MAP_LEVEL_STRING_Y, sString  );
+	mprintf(UI_MAP.LevelString.iX, UI_MAP.LevelString.iY, sString  );
 
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 }
@@ -6611,7 +6622,7 @@ BOOLEAN ShadeUndergroundMapElem( INT16 sSectorX, INT16 sSectorY )
 
 	sScreenX += 1;
 
-	ShadowVideoSurfaceRect( guiSAVEBUFFER, sScreenX, sScreenY, sScreenX + MAP_GRID_X - 2, sScreenY + MAP_GRID_Y - 2 );
+	ShadowVideoSurfaceRect( guiSAVEBUFFER, sScreenX, sScreenY, sScreenX + UI_MAP.GridSize.iX - 2, sScreenY + UI_MAP.GridSize.iY - 2 );
 
 	return( TRUE );
 }
@@ -6673,6 +6684,12 @@ void HandleLowerLevelMapBlit( void )
 		offsetY = yVal;
 		imageIndex = 0;
 	}
+	else if (iResolution == _1280x720)
+	{
+		offsetX = xVal + 21;
+		offsetY = yVal + 17;
+		imageIndex = 2;
+	}
 	else if (iResolution < _1024x768)
 	{
 		offsetX = xVal + 8;
@@ -6687,7 +6704,7 @@ void HandleLowerLevelMapBlit( void )
 	}
 
 	// handle the blt of the sublevel
-	BltVideoObject( guiSAVEBUFFER, hHandle, imageIndex, MAP_VIEW_START_X + offsetX, MAP_VIEW_START_Y + offsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( guiSAVEBUFFER, hHandle, imageIndex, UI_MAP.ViewRegion.x + offsetX, UI_MAP.ViewRegion.y + offsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	// handle shading of sublevels
 	ShadeSubLevelsNotVisited( );
@@ -7138,8 +7155,8 @@ void ShowSAMSitesOnStrategicMap( void )
 				MapSAMSiteFont = FONT14ARIAL;
 			}
 
-			INT16 sLabelX = sX + (MAP_GRID_X / 2);
-			INT16 sLabelY = sY + MAP_GRID_Y + 2;
+			INT16 sLabelX = sX + (UI_MAP.GridSize.iX / 2);
+			INT16 sLabelY = sY + UI_MAP.GridSize.iY + 2;
 
 			wcscpy( wString, pLandTypeStrings[ SAM_SITE ] );
 
@@ -7147,8 +7164,8 @@ void ShowSAMSitesOnStrategicMap( void )
 			sLabelX -= StringPixLength( wString, MapSAMSiteFont) / 2;
 
 			// if within view region...render, else don't
-			if( ( sLabelX > MAP_VIEW_START_X + MAP_VIEW_WIDTH  ) || ( sLabelX < MAP_VIEW_START_X ) ||
-					( sLabelY > MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) || ( sLabelY < MAP_VIEW_START_Y ) )
+			if( ( sLabelX > UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width  ) || ( sLabelX < UI_MAP.ViewRegion.x ) ||
+					( sLabelY > UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height ) || ( sLabelY < UI_MAP.ViewRegion.y ) )
 			{
 				continue;
 			}
@@ -7206,17 +7223,17 @@ void ShowSAMSitesOnStrategicMap( void )
 				MapHeliSiteFont = FONT14ARIAL;
 			}
 
-			INT16 sLabelX = sX + (MAP_GRID_X / 2);
+			INT16 sLabelX = sX + (UI_MAP.GridSize.iX / 2);
 			INT16 sLabelY;
 			if ( IsThisSectorASAMSector( sSectorX, sSectorY, 0 ) )
 			{
 				if (iResolution <= _800x600 )
-					sLabelY = sY + MAP_GRID_Y + 10;
+					sLabelY = sY + UI_MAP.GridSize.iY + 10;
 				else
-					sLabelY = sY + MAP_GRID_Y + 16;
+					sLabelY = sY + UI_MAP.GridSize.iY + 16;
 			}
 			else
-				sLabelY = sY + MAP_GRID_Y + 2;
+				sLabelY = sY + UI_MAP.GridSize.iY + 2;
 
 			wcscpy( wString, pLandTypeStrings[ REFUEL_SITE ] );
 
@@ -7224,8 +7241,8 @@ void ShowSAMSitesOnStrategicMap( void )
 			sLabelX -= StringPixLength( wString, MapHeliSiteFont) / 2;
 
 			// if within view region...render, else don't
-			if( ( sLabelX > MAP_VIEW_START_X + MAP_VIEW_WIDTH  ) || ( sLabelX < MAP_VIEW_START_X ) ||
-					( sLabelY > MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) || ( sLabelY < MAP_VIEW_START_Y ) )
+			if( ( sLabelX > UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width  ) || ( sLabelX < UI_MAP.ViewRegion.x ) ||
+					( sLabelY > UI_MAP.ViewRegion.y + UI_MAP.ViewRegion.height ) || ( sLabelY < UI_MAP.ViewRegion.y ) )
 			{
 				continue;
 			}
@@ -7284,8 +7301,8 @@ void BlitSAMGridMarkers( void )
 
 		// get location on screen
 		GetScreenXYFromMapXY( gpSamSectorX[ iCounter ], gpSamSectorY[ iCounter ], &sScreenX, &sScreenY );
-		sWidth = MAP_GRID_X;
-		sHeight= MAP_GRID_Y;
+		sWidth = UI_MAP.GridSize.iX;
+		sHeight= UI_MAP.GridSize.iY;
 
 		// draw rectangle
 		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX + sWidth, sScreenY + sHeight - 1, usColor, pDestBuf );
@@ -7302,8 +7319,8 @@ void BlitSAMGridMarkers( void )
 
 		// get location on screen
 		GetScreenXYFromMapXY( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ], &sScreenX, &sScreenY );
-		sWidth = MAP_GRID_X;
-		sHeight= MAP_GRID_Y;
+		sWidth = UI_MAP.GridSize.iX;
+		sHeight= UI_MAP.GridSize.iY;
 
 		// draw rectangle
 		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX + sWidth, sScreenY + sHeight - 1, usColor, pDestBuf );
@@ -7416,8 +7433,8 @@ void ShowDiseaseOnMap()
 
 			if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || gubFact[FACT_DISEASE_WHODATA_ACCESS] ) )
 			{
-				sXCorner = (INT16)( MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) );
-				sYCorner = (INT16)( MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) );
+				sXCorner = (INT16)( UI_MAP.ViewRegion.x + ( sMapX * UI_MAP.GridSize.iX ) );
+				sYCorner = (INT16)( UI_MAP.ViewRegion.y + ( sMapY * UI_MAP.GridSize.iY ) );
 
 				if ( pSectorInfo->usNumCorpses > 0 )
 				{
@@ -7425,7 +7442,7 @@ void ShowDiseaseOnMap()
 
 					swprintf( sString, L"%d", pSectorInfo->usNumCorpses );
 
-					FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
+					FindFontCenterCoordinates( sXCorner, sYCorner, UI_MAP.GridSize.iX, UI_MAP.GridSize.iY, sString, MapItemsFont, &usXPos, &usYPos );
 
 					mprintf( usXPos, usYPos, sString );
 				}
@@ -7439,7 +7456,7 @@ void ShowDiseaseOnMap()
 
 					sYCorner += GetFontHeight( MapItemsFont );
 
-					FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
+					FindFontCenterCoordinates( sXCorner, sYCorner, UI_MAP.GridSize.iX, UI_MAP.GridSize.iY, sString, MapItemsFont, &usXPos, &usYPos );
 
 					mprintf( usXPos, usYPos, sString );
 				}
@@ -7492,12 +7509,12 @@ void ShowItemsOnMap( void )
 
 				if ( uiItemCnt > 0 )
 				{
-					sXCorner = ( INT16 )( MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) );
-					sYCorner = ( INT16 )( MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) );
+					sXCorner = ( INT16 )( UI_MAP.ViewRegion.x + ( sMapX * UI_MAP.GridSize.iX ) );
+					sYCorner = ( INT16 )( UI_MAP.ViewRegion.y + ( sMapY * UI_MAP.GridSize.iY ) );
 
 					swprintf( sString, L"%d", uiItemCnt );
 
-					FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
+					FindFontCenterCoordinates( sXCorner, sYCorner, UI_MAP.GridSize.iX, UI_MAP.GridSize.iY, sString, MapItemsFont, &usXPos, &usYPos );
 	//				sXPos -= StringPixLength( sString, MAP_FONT ) / 2;
 
 					gprintfdirty( usXPos, usYPos, sString );
@@ -7527,27 +7544,27 @@ void DrawMapBoxIcon( HVOBJECT hIconHandle, UINT16 usVOIndex, INT16 sMapX, INT16 
 		return;
 	}
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	if (isWidescreenUI() || iResolution >= _1024x768)
 	{
-		iconSize = 3;
+		iconSize = 6;
 	}
-	else if (iResolution < _1024x768)
+	else if (iResolution >= _800x600)
 	{
 		iconSize = 4;
 	}
 	else
 	{
-		iconSize = 6;
+		iconSize = 3;
 	}
 
 	iColumnNumber = ubIconPosition % MERC_ICONS_PER_LINE;
 	iRowNumber	= ubIconPosition / MERC_ICONS_PER_LINE;
 
-	iX = MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) + iconOffsetX + ( iconSize * iColumnNumber );
-	iY = MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) + iconOffsetY + ( iconSize * iRowNumber );
+	iX = UI_MAP.ViewRegion.x + ( sMapX * UI_MAP.GridSize.iX ) + iconOffsetX + ( iconSize * iColumnNumber );
+	iY = UI_MAP.ViewRegion.y + ( sMapY * UI_MAP.GridSize.iY ) + iconOffsetY + ( iconSize * iRowNumber );
 
 	BltVideoObject( guiSAVEBUFFER, hIconHandle, usVOIndex , iX, iY, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( iX, iY, iX + DMAP_GRID_X, iY + DMAP_GRID_Y );
+	InvalidateRegion( iX, iY, iX + UI_MAP.GridSize.iX + 1, iY + UI_MAP.GridSize.iY + 1);
 }
 
 
@@ -7599,8 +7616,8 @@ void DrawBullseye()
 
 	if (iResolution >= _800x600)
 	{
-		sX = sX + MAP_GRID_X / 2 - 10;
-		sY = sY + 1 + MAP_GRID_Y / 2 - 10;
+		sX = sX + UI_MAP.GridSize.iX / 2 - 10;
+		sY = sY + 1 + UI_MAP.GridSize.iY / 2 - 10;
 	}
 
 	BltVideoObject( guiSAVEBUFFER, hHandle, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -7616,7 +7633,7 @@ void HideExistenceOfUndergroundMapSector( UINT8 ubSectorX, UINT8 ubSectorY )
 	GetScreenXYFromMapXY( ubSectorX, ubSectorY, &sScreenX, &sScreenY );
 
 	// fill it with near black
-	ColorFillVideoSurfaceArea( guiSAVEBUFFER, sScreenX + 1, sScreenY, sScreenX + MAP_GRID_X,	sScreenY + MAP_GRID_Y - 1, gusUndergroundNearBlack );
+	ColorFillVideoSurfaceArea( guiSAVEBUFFER, sScreenX + 1, sScreenY, sScreenX + UI_MAP.GridSize.iX,	sScreenY + UI_MAP.GridSize.iY - 1, gusUndergroundNearBlack );
 }
 
 
@@ -8686,8 +8703,8 @@ void ShowIntelOnMap()
 		UINT8 sector_y = SECTORY( sector );
 
 		// grab min and max locations to interpolate sub sector position
-		x0 = MAP_VIEW_START_X + MAP_GRID_X * ( sector_x );
-		y0 = MAP_VIEW_START_Y + MAP_GRID_Y * ( sector_y );
+		x0 = UI_MAP.ViewRegion.x + UI_MAP.GridSize.iX * ( sector_x );
+		y0 = UI_MAP.ViewRegion.y + UI_MAP.GridSize.iY * ( sector_y );
 
 		AssertMsg( ( x0 >= 0 ) && ( x0 < SCREEN_WIDTH ), String( "ShowIntelOnMap: Invalid minX = %d", x0 ) );
 		AssertMsg( ( y0 >= 0 ) && ( y0 < SCREEN_HEIGHT ), String( "ShowIntelOnMap: Invalid minY = %d", y0 ) );
@@ -8714,7 +8731,7 @@ void ShowIntelOnMap()
 		// restore clip blits
 		RestoreClipRegionToFullScreen();
 		
-		FindFontCenterCoordinates( x0, y0, MAP_GRID_X, MAP_GRID_Y, gMapIntelData[sector].shorttext, MapItemsFont, &usXPos, &usYPos );
+		FindFontCenterCoordinates( x0, y0, UI_MAP.GridSize.iX, UI_MAP.GridSize.iY, gMapIntelData[sector].shorttext, MapItemsFont, &usXPos, &usYPos );
 
 		mprintf( usXPos, usYPos, gMapIntelData[sector].shorttext );
 	}

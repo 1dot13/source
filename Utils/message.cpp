@@ -1047,7 +1047,10 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	// HEADROCK HAM 3.6: Allow for longer lines.
 	// Lejardo ARSProject
 	MAP_LINE_WIDTH = (INTERFACE_WIDTH - 330);
-
+	if (iResolution == _1280x720)
+	{
+		MAP_LINE_WIDTH = 685;
+	}
 	pStringWrapperHead=LineWrap(uiFont, MAP_LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
 	pStringWrapper=pStringWrapperHead;
 	if(!pStringWrapper)
@@ -1136,14 +1139,20 @@ void DisplayStringsInMapScreenMessageList( void )
 	UINT8	ubLinesPrinted;
 	INT16 sY;
 	UINT16 usSpacing;
-
+	UINT16 MessageStartX = (SCREEN_WIDTH - INTERFACE_WIDTH) / 2;
+	UINT16 MessageEndX = MessageStartX + (INTERFACE_WIDTH - 330);
+	if (iResolution == _1280x720)
+	{
+		MessageStartX = 0;
+		MessageEndX = 705;
+	}
 	//SetFontDestBuffer( FRAME_BUFFER, 17, 360 + 6, 407, 360 + 101, FALSE );
 
 	// CHRISL: Change both X paramters so they dynamically generate from right edge of screen
 	//SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - 509), (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 233), (SCREEN_HEIGHT - 114) + 101, FALSE );
 	// CHRISL: Use this setup if we want message box on the left side
 	// HEADROCK HAM 3.6: Message window now as wide as possible. The money screen has been moved to the right side.
-	SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 17, (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + (INTERFACE_WIDTH - 330), (SCREEN_HEIGHT - 114) + 101, FALSE );
+	SetFontDestBuffer( FRAME_BUFFER, MessageStartX + 17, (SCREEN_HEIGHT - 114), MessageEndX, (SCREEN_HEIGHT - 114) + 101, FALSE );
 
 	SetFont( MAP_SCREEN_MESSAGE_FONT );		// no longer supports variable fonts
 	SetFontBackground( FONT_BLACK );
@@ -1177,7 +1186,7 @@ void DisplayStringsInMapScreenMessageList( void )
 		// CHRISL: Change X parameter to dynamically generate from right edge of screen
 		//mprintf_coded( (SCREEN_WIDTH - 506), sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 		// CHRISL: Use this line if we want to display from the left edge
-		mprintf_coded( (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
+		mprintf_coded(MessageStartX + 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 
 		sY = sY + usSpacing;
 

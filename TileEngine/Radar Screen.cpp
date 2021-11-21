@@ -30,7 +30,8 @@ extern BOOLEAN AreInMeanwhile();
 #include "connect.h"
 
 extern INT32 iCurrentMapSectorZ;
-
+extern UINT16 UI_BOTTOM_X;
+extern UINT16 UI_BOTTOM_Y;
 void AdjustWorldCenterFromRadarCoords( INT16 sRadarX, INT16 sRadarY );
 
 
@@ -80,10 +81,18 @@ MOUSE_REGION gRadarRegionSquadList[ NUMBER_OF_SQUADS ];
 
 void InitRadarScreenCoords( )
 {
+	if (isWidescreenUI())
+	{
+		RADAR_WINDOW_STRAT_X = UI_BOTTOM_X + 1182;
+		RADAR_WINDOW_STRAT_Y = UI_BOTTOM_Y + 9;
+	}
+	else
+	{
+		RADAR_WINDOW_STRAT_X 	= xResOffset + (xResSize - 97);
+		RADAR_WINDOW_STRAT_Y 	= (SCREEN_HEIGHT - 107);
+	}
 	RADAR_WINDOW_TM_X 		= xResOffset + (xResSize - 97);
 	RADAR_WINDOW_SM_X 		= xResOffset + (xResSize - 97);
-	RADAR_WINDOW_STRAT_X 	= xResOffset + (xResSize - 97);
-	RADAR_WINDOW_STRAT_Y 	= (SCREEN_HEIGHT - 107);
 
 	RADAR_WINDOW_TM_Y = (INTERFACE_START_Y + 13);
 	RADAR_WINDOW_SM_Y = ((UsingNewInventorySystem() == false)) ? (INV_INTERFACE_START_Y + 33) : (INV_INTERFACE_START_Y + 116);
