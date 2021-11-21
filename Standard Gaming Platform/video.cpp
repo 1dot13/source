@@ -288,28 +288,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	}
 	else	// fullscreen mode
 	{
-		// Buggler: Get Primary Screen Supported Resolutions
-		DEVMODE DevMode;
-		BOOLEAN fResSupported = FALSE;
-		for( INT32 iModeNum = 0; EnumDisplaySettings( 0, iModeNum, &DevMode ) != 0; iModeNum++ )
-		{
-			if (SCREEN_WIDTH == DevMode.dmPelsWidth && SCREEN_HEIGHT == DevMode.dmPelsHeight )
-			{
-				fResSupported = TRUE;
-				break;
-			}
-		}
-
-		if ( !fResSupported )
-		{
-			CHAR16 sString[ 256 ];
-			swprintf( sString, Additional113Text[ADDTEXT_DIFFRES_REQUIRED], SCREEN_WIDTH, SCREEN_HEIGHT );
-			MessageBoxW( NULL, sString, APPLICATION_NAMEW, MB_ICONEXCLAMATION);
-			PostQuitMessage(1);
-			return FALSE;
-		}		
-		else
-			hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, "Jagged Alliance 2", WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
+		hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, "Jagged Alliance 2", WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
 	}
 	if (hWindow == NULL)
 	{
@@ -386,6 +365,12 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 		ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, gbPixelDepth, 0, 0 );
 		if (ReturnCode != DD_OK)
 		{
+			IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL);
+
+			CHAR16 sString[256];
+			swprintf(sString, Additional113Text[ADDTEXT_DIFFRES_REQUIRED], SCREEN_WIDTH, SCREEN_HEIGHT);
+			MessageBoxW(NULL, sString, APPLICATION_NAMEW, MB_ICONEXCLAMATION);
+			PostQuitMessage(1);
 			DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 			return FALSE;
 		}
