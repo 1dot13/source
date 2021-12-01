@@ -368,6 +368,7 @@ enum
 	GIO_CANCEL,
 	GIO_EXIT,
 	GIO_IRON_MAN_MODE,
+	GIO_113FEATURES,
 	MP_LOAD
 };
 
@@ -2026,6 +2027,12 @@ void HandleGIOScreen()
 
 			case GIO_IRON_MAN_MODE:
 				DisplayMessageToUserAboutGameDifficulty();
+				break;
+
+			case GIO_113FEATURES:
+				gubGIOExitScreen = FEATURES_SCREEN;
+				FeaturesScreen::SetPreviousScreen(GAME_INIT_OPTIONS_SCREEN);
+				gfGIOScreenExit = TRUE;
 				break;
 		}
 
