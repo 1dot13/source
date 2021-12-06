@@ -23,7 +23,7 @@
 <AnimSurface name="LBT_RGFRIFLE_HIT_UZI" file="Anims\LOBOT\RGF\F_HIT_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 <AnimSurface name="LBT_RGFRIFLE_PAIN_UZI" file="Anims\LOBOT\RGF\F_R_PAIN_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="LBT_RGFRIFLE_COWER_UZI" file="Anims\LOBOT\RGF\F_R_COWER_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
-<AnimSurface name="LBT_RGFRIFLE_PRN_COWER_UZI" file="Anims\LOBOT\RGF\S_R_PRNCOW_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGFRIFLE_PRN_COWER_UZI" file="Anims\LOBOT\RGF\S_R_PRNCOW_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="11" profile="-1" />
 <AnimSurface name="LBT_RGFRIFLE_ROLL_SIDE_UZI" file="Anims\LOBOT\RGF\S_R_ROLL_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="LBT_RGFRIFLE_LOOK_UZI" file="Anims\LOBOT\RGF\F_R_LOOK_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="LBT_RGFRIFLE_CLEAN_UZI" file="Anims\LOBOT\RGF\F_R_CLEAN_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
