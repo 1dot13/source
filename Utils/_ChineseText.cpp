@@ -2365,7 +2365,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"此时无法分配任务",	//L"Assignment not possible at the moment",
 	L"没有能够训练的民兵。",	//L"No militia that can be drilled present.",
 
-	L"%s 已经完全的探索了 %s。",	//L"%s has fully explored %s." TODO.Translate
+	L"%s 已经完全的探索了 %s。",	//L"%s has fully explored %s."
 };
 
 // the country and its noun in the game
@@ -2479,8 +2479,8 @@ STR16 pAssignmentStrings[] =
 	L"训练民兵",	//L"DMilitia",
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
-	L"探索",	//L"Explore" TODO.Translate
-	L"事件"  //L"Event"  rftr: merc is on a mini event  TODO: translate
+	L"探索",	//L"Explore"
+	L"事件"  //L"Event"  rftr: merc is on a mini event
 };
 
 
@@ -2590,7 +2590,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
-	L"探索事项",	//L"Exploration", TODO.Translate
+	L"探索事项",	//L"Exploration",
 };
 
 
@@ -2659,7 +2659,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
-	L"探索事项",	//L"Exploration", TODO.Translate
+	L"探索事项",	//L"Exploration",
 };
 
 
@@ -2733,7 +2733,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 STR16 pTrainingStrings[] =
 {
 	L"锻炼", // tell merc to train self
-  L"民兵",// tell merc to train town
+    L"民兵",// tell merc to train town
 	L"教练", // tell merc to act as trainer
 	L"学员", // tell merc to be train by other
 };
@@ -2784,7 +2784,7 @@ STR16 pAssignMenuStrings[] =
 	L"筑防",		//L"Fortify", fortify sector
 	L"情报", //L"Intel", covert assignments
 	L"管理",	//L"Administer",
-	L"探索",	//L"Explore", TODO.Translate
+	L"探索",	//L"Explore",
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -2859,7 +2859,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率。",
 	L"增加中断几率(标记区域以外)。", //L"Increase interrupt modifier (malus outside of area)",
-	L"移动时拖人或尸体。",	//L"Drag a person, corpse or structure while you move.", TODO.Translate
+	L"移动时拖人或尸体。",	//L"Drag a person, corpse or structure while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2875,7 +2875,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的技能（如自动武器）\n", //L" - a gun-related trait\n",
 	L" - 举起枪（瞄准状态）\n", //L" - aimed gun\n",
-	L" - 在佣兵旁边放下人或尸体\n",	//L" - prone person, corpse or structure next to merc\n", TODO.Translate
+	L" - 在佣兵旁边放下人或尸体\n",	//L" - prone person, corpse or structure next to merc\n",
 	L" - 下蹲姿势\n", //L" - crouched position\n",
 	L" - 清空主手装备\n",	//L" - free main hand\n",
 	L" - 潜伏技能\n",	//L" - covert trait\n",
@@ -3538,7 +3538,7 @@ STR16 gpStrategicString[] =
 	L"民兵无法移动到这。（RESTRICT_ROAMING = TRUE）", //L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 	L"战术中心无人兼职，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
 
-	L"机器人",								//L"Robot", STR_AR_ROBOT_NAME, TODO: translate
+	L"机器人",								//L"Robot", STR_AR_ROBOT_NAME,
 	L"坦克",							//STR_AR_TANK_NAME,
 	L"吉普",						//	L"Jeep",  STR_AR_JEEP_NAME
 
@@ -4261,7 +4261,7 @@ STR16 pMapPopUpInventoryText[] =
 	L"存货",
 	L"离开",
 	L"修理",	//L"Repair",
-	L"工厂",	//L"Factories", TODO.Translate
+	L"工厂",	//L"Factories",
 };
 
 // town strings
@@ -4273,7 +4273,7 @@ STR16 pwTownInfoStrings[] =
 	L"占领度",				// how much of town is controlled
 	L"无",				// none of this town
 	L"矿区",			// mine associated with this town
-	L"忠诚度",				// 5 // the loyalty level of this town
+	L"忠诚度     ",//(后空5格，工厂生产会档住其它字) // 5 // the loyalty level of this town
 	L"民兵",				// the forces in the town trained by the player
 	L"",
 	L"主要设施",			// main facilities in this town
@@ -4328,7 +4328,7 @@ STR16 pwMiscSectorStrings[] =
 	L"否",
 	L"状态/软件状态:", //L"Status/Software status:",
 
-	L"其它情报", //L"Additional Intel", TODO:Translate
+	L"其它情报", //L"Additional Intel",
 };
 
 // error strings for inventory
@@ -4639,7 +4639,7 @@ STR16 pTransactionText[] =
 	L"修理SAM基地",//L"SAM site repair", // Flugente: SAM repair
 	L"培训工人",//L"Trained workers", // Flugente: train workers
 	L"在%s区域训练民兵",	//L"Drill militia in %s", Flugente: drill militia
-	L"微型事件", //L"Mini event", rftr: mini events // TODO: translate
+	L"微型事件", //L"Mini event", rftr: mini events
 	L"从反抗军司令部转移资金", //L"Funds transferred from rebel command", rftr: rebel command
 };
 
@@ -5092,7 +5092,7 @@ STR16 pBookMarkStrings[] =
 	L"安保公司", //L"Kerberus",
 	L"民兵总览",//L"Militia Overview",
 	L"R.I.S",
-	L"工厂",	//L"Factories", TODO.Translate
+	L"工厂",	//L"Factories",
 	L"A.R.C",   //L"A.R.C",
 };
 
@@ -5220,7 +5220,7 @@ STR16 pWebPagesTitles[] =
 	L"侦察情报局 - 情报需求",		//L"Recon Intelligence Services - Information Requests",
 	L"侦察情报局 - 情报验证",	//L"Recon Intelligence Services - Information Verification",
 	L"侦察情报局 - 关于我们",	//L"Recon Intelligence Services - About us",
-	L"工厂概况",	//L"Factory Overview", TODO.Translate
+	L"工厂概况",	//L"Factory Overview",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -5731,9 +5731,9 @@ STR16			BobbyRText[] =
 	L"晕眩: ", //L"Stun:",			// Weapon's Stun Damage
 	L"防护: ", //L"Protect:",		// Armour's Protection
 	L"伪装: ", //L"Camo:",			// Armour's Camouflage
-	L"Armor Pen:",		// Ammo's Armour Piercing modifier (see AmmoTypes.xml - armourImpactReduction)
-	L"Dmg Mod:",		// Ammo's Bullet Tumble modifier (see AmmoTypes.xml - afterArmourDamage)
-	L"Projectiles:",	// Ammo's bullet count (for buckshot) (see AmmoTypes.xml - numberOfBullets)
+	L"侵彻力：",		//L"Armor Pen:", Ammo's Armour Piercing modifier (see AmmoTypes.xml - armourImpactReduction)
+	L"翻搅力：",		//L"Dmg Mod:", Ammo's Bullet Tumble modifier (see AmmoTypes.xml - afterArmourDamage)
+	L"弹丸量：",	//L"Projectiles:", Ammo's bullet count (for buckshot) (see AmmoTypes.xml - numberOfBullets)
 	L"单价: ",	//"Cost:",			// Cost of the item
 	L"库存: ",	//"In stock:",			// The number of items still in the store's inventory
 	L"购买量: ",	//"Qty on Order:",		// The number of items on order
@@ -6176,9 +6176,9 @@ STR16	zOptionsText[] =
 	L"下一页", //L"Next",
 	L"上一页", //L"Prev",
 	L"完成",	//"Done",
-	L"1.13 Features",
-	L"New in 1.13",
-	L"Options",
+	L"1.13 特征功能",	//L"1.13 Features",
+	L"特征选项",	//L"New in 1.13",
+	L"选项",	//L"Options",
 
 	//Text above the slider bars
 	L"特效",	//"Effects",
@@ -6193,114 +6193,114 @@ STR16	zOptionsText[] =
 
 STR16	z113FeaturesScreenText[] =
 {
-	L"1.13 FEATURE TOGGLES",
-	L"Changing these settings during a campaign will affect your experience.",
-	L"Hover over a feature to display more information. Some features may be configurable in JA2_Options.ini (or other specified file).",
+	L"1.13 特征功能",	//L"1.13 FEATURE TOGGLES",
+	L"在游戏中更改这些选项将影响您的游戏体验。",	//L"Changing these settings during a campaign will affect your experience.",
+	L"将鼠标悬停在功能按钮上以获得更多信息。某些功能需要在JA2_Options.ini（或其他文件）中设置。",	//L"Hover over a feature to display more information. Some features may be configurable in JA2_Options.ini (or other specified file).",
 };
 
 STR16	z113FeaturesToggleText[] =
 {
-	L"Use These Overrides",
-	L"New Chance to Hit",
-	L"Intel",
-	L"Prisoners",
-	L"Mines Require Workers",
-	L"Enemy Ambushes",
-	L"Enemy Assassins",
-	L"Enemy Roles",
-	L"Enemy Role: Medic",
-	L"Enemy Role: Officer",
-	L"Enemy Role: General",
-	L"Kerberus",
-	L"Mercs Need Food",
-	L"Disease",
-	L"Arulco Strategic Division",
-	L"ASD: Helicopters",
-	L"Enemy Vehicles Can Move",
-	L"Zombies",
-	L"Bloodcat Raids",
-	L"Bandit Raids",
-	L"Zombie Raids",
-	L"Militia Volunteer Pool",
-	L"Tactical Militia Command",
-	L"Strategic Militia Command",
-	L"Militia Uses Sector Equipment",
-	L"Militia Requires Resources",
-	L"Enhanced Close Combat",
-	L"Improved Interrupt System",
-	L"Weapon Overheating",
-	L"Mini Events",
-	L"Arulco Rebel Command",
+	L"开启特征功能",	//L"Use These Overrides",
+	L"新NCTH瞄准系统",	//L"New Chance to Hit",
+	L"情报功能",	//L"Intel",
+	L"俘虏功能",	//L"Prisoners",
+	L"矿井管理功能",	//L"Mines Require Workers",
+	L"敌军伏击功能",	//L"Enemy Ambushes",
+	L"女王刺客功能",	//L"Enemy Assassins",
+	L"敌军角色功能",	//L"Enemy Roles",
+	L"敌军角色功能：医生",	//L"Enemy Role: Medic",
+	L"敌军角色功能：军官",	//L"Enemy Role: Officer",
+	L"敌军角色功能：将军",	//L"Enemy Role: General",
+	L"Kerberus安保公司功能",	//L"Kerberus",
+	L"食物系统",	//L"Mercs Need Food",
+	L"疾病系统",	//L"Disease",
+	L"敌军战略司令部功能",	//L"Arulco Strategic Division",
+	L"敌军直升机功能",	//L"ASD: Helicopters",
+	L"敌军战斗车功能",	//L"Enemy Vehicles Can Move",
+	L"僵尸系统",	//L"Zombies",
+	L"血猫袭击功能",	//L"Bloodcat Raids",
+	L"土匪袭击功能",	//L"Bandit Raids",
+	L"僵尸袭击功能",	//L"Zombie Raids",
+	L"民兵储备功能",	//L"Militia Volunteer Pool",
+	L"民兵战术命令功能",	//L"Tactical Militia Command",
+	L"民兵战略命令功能",	//L"Strategic Militia Command",
+	L"民兵武装装备功能",	//L"Militia Uses Sector Equipment",
+	L"民兵需要资源功能",	//L"Militia Requires Resources",
+	L"强化近战功能",	//L"Enhanced Close Combat",
+	L"新中断功能",	//L"Improved Interrupt System",
+	L"武器过热功能",	//L"Weapon Overheating",	
+	L"随机事件功能",	//L"Mini Events",
+	L"反抗军司令部功能",	//L"Arulco Rebel Command",
 };
 
 STR16	z113FeaturesHelpText[] =
 {
-	L"|U|s|e |T|h|e|s|e |O|v|e|r|r|i|d|e|s\n \nAllow this screen to override some feature toggles present in JA2_Options.ini.\nHover over a feature to see which flag is overridden.\nThese toggles have no effect if this option is disabled.",
-	L"|N|C|T|H\nOverrides [Tactical Gameplay Settings] NCTH\n \nUse the new chance to hit system.\n \nFor tweakable values, see CTHConstants.ini.",
-	L"|I|n|t|e|l\nOverrides [Intel Settings] RESOURCE_INTEL\n \nA new resource gained through covert means.",
-	L"|P|r|i|s|o|n|e|r|s\nOverrides [Strategic Gameplay Settings] ALLOW_TAKE_PRISONERS\n \nCapture enemy soldiers and interrogate them.\n \nConfigurable Options:\nENEMY_CAN_SURRENDER\nDISPLAY_SURRENDER_VALUES\nSURRENDER_MULTIPLIER\nPRISONER_RETURN_TO_ARMY_CHANCE\nPRISONER_DEFECT_CHANCE\nPRISONER_INTEL_CHANCE\nPRISONER_RANSOM_CHANCE\nPRISONER_INTERROGATION_POINTS_ADMIN\nPRISONER_INTERROGATION_POINTS_REGULAR\nPRISONER_INTERROGATION_POINTS_ELITE\nPRISONER_INTERROGATION_POINTS_OFFICER\nPRISONER_INTERROGATION_POINTS_GENERAL\nPRISONER_INTERROGATION_POINTS_CIVILIAN",
-	L"|M|i|n|e|s |R|e|q|u|i|r|e |W|o|r|k|e|r|s\nOverrides [Financial Settings] MINE_REQUIRES_WORKERS\n \nMines require workers to operate.\n \nConfigurable Options:\nWORKERRATE_PRESENT_INITIALLY\nWORKER_TRAINING_COST\nWORKER_TRAINING_POINTS",
-	L"|E|n|e|m|y |A|m|b|u|s|h|e|s\nOverrides [Tactical Difficulty Settings] ENABLE_CHANCE_OF_ENEMY_AMBUSHES\n \nEnemy forces can ambush your mercs as they move in the strategic view.\n \nConfigurable Options:\nENEMY_AMBUSHES_CHANCE_MODIFIER\nAMBUSH_MERCS_SPREAD\nAMBUSH_MERCS_SPREAD_RADIUS\nAMBUSH_ENEMY_ENCIRCLEMENT\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS1\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS2",
-	L"|E|n|e|m|y |A|s|s|a|s|s|i|n|s\nOverrides [Tactical Difficulty Settings] ENEMY_ASSASSINS\n \nAssassins can infiltrate your militia.\nRequires the new trait system.\n \nConfigurable Options:\nASSASSIN_MINIMUM_PROGRESS\nASSASSIN_MINIMUM_MILITIA\nASSASSIN_PROPABILITY_MODIFIER",
-	L"|E|n|e|m|y |R|o|l|e|s\nOverrides [Tactical Enemy Role Settings] ENEMYROLES\n \nSpecialists can appear in enemy groups.\n \nConfigurable Options:\nENEMYROLES_TURNSTOUNCOVER",
-	L"|E|n|e|m|y |R|o|l|e|: |M|e|d|i|c\nOverrides [Tactical Enemy Role Settings] ENEMY_MEDICS\n \nMedics can appear in enemy groups.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_MEDICS_MEDKITDRAINFACTOR\nENEMY_MEDICS_SEARCHRADIUS\nENEMY_MEDICS_WOUND_MINAMOUNT\nENEMY_MEDICS_HEAL_SELF",
-	L"|E|n|e|m|y |R|o|l|e|: |O|f|f|i|c|e|r\nOverrides [Tactical Enemy Role Settings] ENEMY_OFFICERS\n \nOfficers can appear in enemy groups.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_OFFICERS_REQUIREDTEAMSIZE\nENEMY_OFFICERS_MAX\nENEMY_OFFICERS_SUPPRESSION_RESISTANCE_BONUS\nENEMY_OFFICERS_MORALE_MODIFIER\nENEMY_OFFICERS_SURRENDERSTRENGTHBONUS",
-	L"|E|n|e|m|y |R|o|l|e|: |G|e|n|e|r|a|l\nOverrides [Tactical Enemy Role Settings] ENEMY_GENERALS\n \nGenerals increase enemy strategic movement and decision speeds.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_GENERALS_NUMBER\nENEMY_GENERALS_BODYGUARDS_NUMBER\nENEMY_GENERALS_STRATEGIC_DECISION_SPEEDBONUS\nENEMY_GENERALS_STRATEGIC_MOVEMENT_SPEEDBONUS",
-	L"|K|e|r|b|e|r|u|s\nOverrides [PMC Settings] PMC\n \nHire militia from a private military company.\n \nConfigurable Options:\nPMC_MAX_REGULARS\nPMC_MAX_VETERANS",
-	L"|F|o|o|d\nOverrides [Tactical Food Settings] FOOD\n \nYour mercs require food and water to survive.\n \nConfigurable Options:\nFOOD_DIGESTION_HOURLY_BASE_FOOD\nFOOD_DIGESTION_HOURLY_BASE_DRINK\nFOOD_DIGESTION_SLEEP\nFOOD_DIGESTION_TRAVEL_VEHICLE\nFOOD_DIGESTION_TRAVEL\nFOOD_DIGESTION_ASSIGNMENT\nFOOD_DIGESTION_ONDUTY\nFOOD_DIGESTION_COMBAT\nFOOD_DECAY_IN_SECTORS\nFOOD_DECAY_MODIFICATOR\nFOOD_EATING_SOUNDS",
-	L"|D|i|s|e|a|s|e\nOverrides [Disease Settings] DISEASE\n \nYour mercs can catch diseases.\n \nConfigurable Options:\nDISEASE_STRATEGIC\nDISEASE_WHO_SUBSCRIPTIONCOST\nDISEASE_CONTAMINATES_ITEMS\nDISEASE_SEVERE_LIMITATIONS",
-	L"|A|S|D\nOverrides [Strategic Additional Enemy AI Settings] ASD_ACTIVE\n \nThe Arulcan army gains mechanised forces.\n \nConfigurable Options:\nASD_COST_FUEL/JEEP/TANK/ROBOT\nASD_TIME_FUEL/JEEP/TANK/ROBOT\nASD_ASSIGNS_JEEPS/TANKS/ROBOTS\nASD_FUEL_REQUIRED_JEEP/TANK/ROBOT\nJEEP_MINIMUM_PROGRESS\nTANK_MINIMUM_PROGRESS\nROBOT_MINIMUM_PROGRESS",
-	L"|A|S|D |H|e|l|i|c|o|p|t|e|r|s\nOverrides [Enemy Helicopter Settings] ENEMYHELI_ACTIVE\n \nThe AI can use helicopters to deploy troops.\nRequires the Arulco Special Division feature to be enabled.\n \nConfigurable Options:\nASD_COST_HELI\nASD_TIME_HELI\nENEMYHELI_DEFINITE_UNLOCK_AT_PROGRESS\nENEMYHELI_HP\nENEMYHELI_HP_REPAIRTIME\nENEMYHELI_HP_COST\nENEMYHELI_FUEL\nENEMYHELI_FUEL_REFUELTIME",
-	L"|E|n|e|m|y |V|e|h|i|c|l|e|s |C|a|n |M|o|v|e\nOverrides [Tactical Gameplay Settings] ENEMY_TANKS_CAN_MOVE_IN_TACTICAL\n \nHostile jeeps and tanks can move in combat.\n \nConfigurable Options:\nALLOW_TANKS_DRIVING_OVER_PEOPLE\nTANKS_RAMMING_MAX_STRUCTURE_ARMOUR\nENEMY_JEEP_RAMMING_MAX_STRUCTURE_ARMOUR",
-	L"|Z|o|m|b|i|e|s\nOverrides the \"Allow Zombies\" toggle in the options menu.\n \nThe dead walk!\n \nConfigurable Options:\nZOMBIE_RISE_BEHAVIOUR\nZOMBIE_SPAWN_WAVES\nZOMBIE_RISE_WAVE_FREQUENCY\nZOMBIE_CAN_CLIMB\nZOMBIE_CAN_JUMP_WINDOWS\nZOMBIE_EXPLODING_CIVS\nZOMBIE_DAMAGE_RESISTANCE\nZOMBIE_BREATH_DAMAGE_RESISTANCE\nZOMBIE_ONLY_HEADSHOTS_WORK\nZOMBIE_DIFFICULTY_LEVEL\nZOMBIE_RISE_WITH_ARMOUR\nZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL",
-	L"|B|l|o|o|d|c|a|t |R|a|i|d|s\nOverrides [Raid Settings] RAID_BLOODCATS\n \nHungry predators stalk the night.\n \nConfigurable Options:\nRAID_MAXSIZE_BLOODCATS\nRAID_MAXATTACKSPERNIGHT_BLOODCATS",
-	L"|B|a|n|d|i|t |R|a|i|d|s\nOverrides [Raid Settings] RAID_BANDITS\n \nOpportunistic bandits may attack your towns.\n \nConfigurable Options:\nRAID_MAXSIZE_BANDITS\nRAID_MAXATTACKSPERNIGHT_BANDITS",
-	L"|Z|o|m|b|i|e |R|a|i|d|s\nOverrides [Raid Settings] RAID_ZOMBIES\n \nThe dead raid!\nRequires the Zombies feature to be enabled.\n \nConfigurable Options:\nRAID_MAXSIZE_ZOMBIES\nRAID_MAXATTACKSPERNIGHT_ZOMBIES",
-	L"|M|i|l|i|t|i|a |V|o|l|u|n|t|e|e|r |P|o|o|l\nOverrides [Militia Volunteer Pool Settings] MILITIA_VOLUNTEER_POOL\n \nVolunteers are required to train militia.\n \nConfigurable Options:\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_LIBERATION\nMILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_HOURLY",
-	L"|T|a|c|t|i|c|a|l |M|i|l|i|t|i|a |C|o|m|m|a|n|d\nOverrides [Tactical Interface Settings] ALLOW_TACTICAL_MILITIA_COMMAND\n \nIssue commands to militia in tactical view.",
-	L"|S|t|r|a|t|e|g|i|c |M|i|l|i|t|i|a |C|o|m|m|a|n|d\nOverrides [Militia Strategic Movement Settings] ALLOW_MILITIA_STRATEGIC_COMMAND\n \nIssue commands to militia in the strategic map.\n \nConfigurable Options:\nMILITIA_STRATEGIC_COMMAND_REQUIRES_MERC",
-	L"|M|i|l|i|t|i|a |U|s|e|s |S|e|c|t|o|r |E|q|u|i|p|m|e|n|t\nOverrides [Militia Equipment Settings] MILITIA_USE_SECTOR_EQUIPMENT\n \nMilitia uses gear from their current sector.\nNot compatible with the Militia Requires Resources feature.\n \nConfigurable Options:\nMILITIA_USE_SECTOR_EQUIPMENT_ARMOUR\nMILITIA_USE_SECTOR_EQUIPMENT_FACE\nMILITIA_USE_SECTOR_EQUIPMENT_MELEE\nMILITIA_USE_SECTOR_EQUIPMENT_GUN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO\nMILITIA_USE_SECTOR_EQUIPMENT_GUN_ATTACHMENTS\nMILITIA_USE_SECTOR_EQUIPMENT_GRENADE\nMILITIA_USE_SECTOR_EQUIPMENT_LAUNCHER\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT\nMILITIA_USE_SECTOR_EQUIPMENT_CLASS_SPECIFIC_TABOOS",
-	L"|M|i|l|i|t|i|a |R|e|q|u|i|r|e|s |R|e|s|o|u|r|c|e|s\nOverrides [Militia Resource Settings] MILITIA_REQUIRE_RESOURCES\n \nMilitia require resources to be trained.\nNot compatible with the Militia Uses Sector Equipment feature.\n \nConfigurable Options:\nMILITIA_RESOURCES_PROGRESSFACTOR\nMILITIA_RESOURCES_ITEMCLASSMOD_AMMO_BULLET\nMILITIA_RESOURCES_ITEMCLASSMOD_GUN\nMILITIA_RESOURCES_ITEMCLASSMOD_ARMOUR\nMILITIA_RESOURCES_ITEMCLASSMOD_MELEE\nMILITIA_RESOURCES_ITEMCLASSMOD_BOMB\nMILITIA_RESOURCES_ITEMCLASSMOD_GRENADE\nMILITIA_RESOURCES_ITEMCLASSMOD_FACE\nMILITIA_RESOURCES_ITEMCLASSMOD_LBE\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_LOW\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_MEDIUM\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_HIGH\nMILITIA_RESOURCES_WEAPONMOD_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_M_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_SMG\nMILITIA_RESOURCES_WEAPONMOD_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_SN_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_AS_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_LMG\nMILITIA_RESOURCES_WEAPONMOD_SHOTGUN",
-	L"|E|n|h|a|n|c|e|d |C|l|o|s|e |C|o|m|b|a|t\nOverrides [Tactical Gameplay Settings] ENHANCED_CLOSE_COMBAT_SYSTEM\n \nA general improvement to the close combat system.",
-	L"|I|m|p|r|o|v|e|d |I|n|t|e|r|r|u|p|t |S|y|s|t|e|m\nOverrides [Tactical Gameplay Settings] IMPROVED_INTERRUPT_SYSTEM\n \nAn overhaul of the interrupt mechanic.\n \nConfigurable Options:\nBASIC_PERCENTAGE_APS_REGISTERED\nPERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL\nBASIC_REACTION_TIME_LENGTH\nALLOW_COLLECTIVE_INTERRUPTS\nALLOW_INSTANT_INTERRUPTS_ON_SPOTTING",
-	L"|O|v|e|r|h|e|a|t|i|n|g\nOverrides [Tactical Weapon Overheating Settings] OVERHEATING\n \nWeapons can overheat.\n \nConfigurable Options:\nOVERHEATING_DISPLAY_JAMPERCENTAGE\nOVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET\nOVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL",
-	L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
-	L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",
+	L"|开|启|特|征|功|能\n \n允许以下功能覆盖JA2_Options.ini中的设置。\n \n将鼠标悬停在按钮上查看具体替换的项目内容。\n \n如果禁用此选项功能将以JA2_Options.ini中设置为准。\n \n",	//L"|U|s|e |T|h|e|s|e |O|v|e|r|r|i|d|e|s\n \nAllow this screen to override some feature toggles present in JA2_Options.ini.\nHover over a feature to see which flag is overridden.\nThese toggles have no effect if this option is disabled.",
+	L"|新|N|C|T|H|瞄|准|系|统\n \n[Tactical Gameplay Settings] NCTH\n \n启用新命中系统。\n \n详细的内容设定请查看CTHConstants.ini。\n \n",	   //L"|N|C|T|H\nOverrides [Tactical Gameplay Settings] NCTH\n \nUse the new chance to hit system.\n \nFor tweakable values, see CTHConstants.ini.",	
+	L"|情|报|功|能\n \n[Intel Settings] RESOURCE_INTEL\n \n通过一些秘密行动获得的新资源。\n \n",	//L"|I|n|t|e|l\nOverrides [Intel Settings] RESOURCE_INTEL\n \nA new resource gained through covert means.",
+	L"|俘|虏|功|能\n \n[Strategic Gameplay Settings] ALLOW_TAKE_PRISONERS\n \n允许俘虏敌军并审问他们。\n \n配置选项：\nENEMY_CAN_SURRENDER\nDISPLAY_SURRENDER_VALUES\nSURRENDER_MULTIPLIER\nPRISONER_RETURN_TO_ARMY_CHANCE\nPRISONER_DEFECT_CHANCE\nPRISONER_INTEL_CHANCE\nPRISONER_RANSOM_CHANCE\nPRISONER_INTERROGATION_POINTS_ADMIN\nPRISONER_INTERROGATION_POINTS_REGULAR\nPRISONER_INTERROGATION_POINTS_ELITE\nPRISONER_INTERROGATION_POINTS_OFFICER\nPRISONER_INTERROGATION_POINTS_GENERAL\nPRISONER_INTERROGATION_POINTS_CIVILIAN\n \n",   //L"|P|r|i|s|o|n|e|r|s\nOverrides [Strategic Gameplay Settings] ALLOW_TAKE_PRISONERS\n \nCapture enemy soldiers and interrogate them.\n \nConfigurable Options:\nENEMY_CAN_SURRENDER\nDISPLAY_SURRENDER_VALUES\nSURRENDER_MULTIPLIER\nPRISONER_RETURN_TO_ARMY_CHANCE\nPRISONER_DEFECT_CHANCE\nPRISONER_INTEL_CHANCE\nPRISONER_RANSOM_CHANCE\nPRISONER_INTERROGATION_POINTS_ADMIN\nPRISONER_INTERROGATION_POINTS_REGULAR\nPRISONER_INTERROGATION_POINTS_ELITE\nPRISONER_INTERROGATION_POINTS_OFFICER\nPRISONER_INTERROGATION_POINTS_GENERAL\nPRISONER_INTERROGATION_POINTS_CIVILIAN",
+	L"|矿|井|管|理|功|能\n \n[Financial Settings] MINE_REQUIRES_WORKERS\n \n矿井需要培训工人。\n \n配置选项：\nWORKERRATE_PRESENT_INITIALLY\nWORKER_TRAINING_COST\nWORKER_TRAINING_POINTS\n \n",	//L"|M|i|n|e|s |R|e|q|u|i|r|e |W|o|r|k|e|r|s\nOverrides [Financial Settings] MINE_REQUIRES_WORKERS\n \nMines require workers to operate.\n \nConfigurable Options:\nWORKERRATE_PRESENT_INITIALLY\nWORKER_TRAINING_COST\nWORKER_TRAINING_POINTS",
+	L"|敌|军|伏|击|功|能\n \n[Tactical Difficulty Settings] ENABLE_CHANCE_OF_ENEMY_AMBUSHES\n \n允许敌人伏击玩家的小队。\n \n配置选项：\nENEMY_AMBUSHES_CHANCE_MODIFIER\nAMBUSH_MERCS_SPREAD\nAMBUSH_MERCS_SPREAD_RADIUS\nAMBUSH_ENEMY_ENCIRCLEMENT\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS1\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS2\n \n",	//L"|E|n|e|m|y |A|m|b|u|s|h|e|s\nOverrides [Tactical Difficulty Settings] ENABLE_CHANCE_OF_ENEMY_AMBUSHES\n \nEnemy forces can ambush your mercs as they move in the strategic view.\n \nConfigurable Options:\nENEMY_AMBUSHES_CHANCE_MODIFIER\nAMBUSH_MERCS_SPREAD\nAMBUSH_MERCS_SPREAD_RADIUS\nAMBUSH_ENEMY_ENCIRCLEMENT\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS1\nAMBUSH_ENEMY_ENCIRCLEMENT_RADIUS2",
+	L"|女|王|刺|客|功|能\n \n[Tactical Difficulty Settings] ENEMY_ASSASSINS\n \n女王将派刺客潜入你的民兵中。\n \n需要使用\"新技能系统\"。\n \n配置选项：\nASSASSIN_MINIMUM_PROGRESS\nASSASSIN_MINIMUM_MILITIA\nASSASSIN_PROPABILITY_MODIFIER\n \n",	//L"|E|n|e|m|y |A|s|s|a|s|s|i|n|s\nOverrides [Tactical Difficulty Settings] ENEMY_ASSASSINS\n \nAssassins can infiltrate your militia.\nRequires the new trait system.\n \nConfigurable Options:\nASSASSIN_MINIMUM_PROGRESS\nASSASSIN_MINIMUM_MILITIA\nASSASSIN_PROPABILITY_MODIFIER",
+	L"|敌|军|角|色|功|能\n \n[Tactical Enemy Role Settings] ENEMYROLES\n \n允许敌军扮演多种角色并获得一些能力。\n \n配置选项：\nENEMYROLES_TURNSTOUNCOVER\n \n",	//L"|E|n|e|m|y |R|o|l|e|s\nOverrides [Tactical Enemy Role Settings] ENEMYROLES\n \nSpecialists can appear in enemy groups.\n \nConfigurable Options:\nENEMYROLES_TURNSTOUNCOVER",
+	L"|敌|军|角|色|功|能|：|医|生\n \n[Tactical Enemy Role Settings] ENEMY_MEDICS\n \n医疗兵将出现在敌军角色中。\n \n需要开启\"敌军角色功能\"。\n \n配置选项：\nENEMY_MEDICS_MEDKITDRAINFACTOR\nENEMY_MEDICS_SEARCHRADIUS\nENEMY_MEDICS_WOUND_MINAMOUNT\nENEMY_MEDICS_HEAL_SELF\n \n",	//L"|E|n|e|m|y |R|o|l|e|: |M|e|d|i|c\nOverrides [Tactical Enemy Role Settings] ENEMY_MEDICS\n \nMedics can appear in enemy groups.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_MEDICS_MEDKITDRAINFACTOR\nENEMY_MEDICS_SEARCHRADIUS\nENEMY_MEDICS_WOUND_MINAMOUNT\nENEMY_MEDICS_HEAL_SELF",
+	L"|敌|军|角|色|功|能|：|军|官\n \n[Tactical Enemy Role Settings] ENEMY_OFFICERS\n \n军官将出现在敌军角色中。\n \n需要开启\"敌军角色功能\"。\n \n配置选项：\nENEMY_OFFICERS_REQUIREDTEAMSIZE\nENEMY_OFFICERS_MAX\nENEMY_OFFICERS_SUPPRESSION_RESISTANCE_BONUS\nENEMY_OFFICERS_MORALE_MODIFIER\nENEMY_OFFICERS_SURRENDERSTRENGTHBONUS\n \n",	//L"|E|n|e|m|y |R|o|l|e|: |O|f|f|i|c|e|r\nOverrides [Tactical Enemy Role Settings] ENEMY_OFFICERS\n \nOfficers can appear in enemy groups.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_OFFICERS_REQUIREDTEAMSIZE\nENEMY_OFFICERS_MAX\nENEMY_OFFICERS_SUPPRESSION_RESISTANCE_BONUS\nENEMY_OFFICERS_MORALE_MODIFIER\nENEMY_OFFICERS_SURRENDERSTRENGTHBONUS",
+	L"|敌|军|角|色|功|能|：|将|军\n \n[Tactical Enemy Role Settings] ENEMY_GENERALS\n \n将军会提高敌人的战略移动和决策速度。\n \n需要开启\"敌军角色功能\"。\n \n配置选项：\nENEMY_GENERALS_NUMBER\nENEMY_GENERALS_BODYGUARDS_NUMBER\nENEMY_GENERALS_STRATEGIC_DECISION_SPEEDBONUS\nENEMY_GENERALS_STRATEGIC_MOVEMENT_SPEEDBONUS\n \n",	//L"|E|n|e|m|y |R|o|l|e|: |G|e|n|e|r|a|l\nOverrides [Tactical Enemy Role Settings] ENEMY_GENERALS\n \nGenerals increase enemy strategic movement and decision speeds.\nRequires the Enemy Roles feature to be enabled.\n \nConfigurable Options:\nENEMY_GENERALS_NUMBER\nENEMY_GENERALS_BODYGUARDS_NUMBER\nENEMY_GENERALS_STRATEGIC_DECISION_SPEEDBONUS\nENEMY_GENERALS_STRATEGIC_MOVEMENT_SPEEDBONUS",
+	L"|K|e|r|b|e|r|u|s|安|保|公|司|功|能\n \n一家私人军事承包商,允许玩家雇佣安保力量。\n \n配置选项：\nPMC_MAX_REGULARS\nPMC_MAX_VETERANS\n \n",	//L"|K|e|r|b|e|r|u|s\nOverrides [PMC Settings] PMC\n \nHire militia from a private military company.\n \nConfigurable Options:\nPMC_MAX_REGULARS\nPMC_MAX_VETERANS",
+	L"|食|物|系|统\n \n[Tactical Food Settings] FOOD\n \n你的佣兵需要食物和水才能生存。\n \n配置选项：\nFOOD_DIGESTION_HOURLY_BASE_FOOD\nFOOD_DIGESTION_HOURLY_BASE_DRINK\nFOOD_DIGESTION_SLEEP\nFOOD_DIGESTION_TRAVEL_VEHICLE\nFOOD_DIGESTION_TRAVEL\nFOOD_DIGESTION_ASSIGNMENT\nFOOD_DIGESTION_ONDUTY\nFOOD_DIGESTION_COMBAT\nFOOD_DECAY_IN_SECTORS\nFOOD_DECAY_MODIFICATOR\nFOOD_EATING_SOUNDS\n \n",	//L"|F|o|o|d\nOverrides [Tactical Food Settings] FOOD\n \nYour mercs require food and water to survive.\n \nConfigurable Options:\nFOOD_DIGESTION_HOURLY_BASE_FOOD\nFOOD_DIGESTION_HOURLY_BASE_DRINK\nFOOD_DIGESTION_SLEEP\nFOOD_DIGESTION_TRAVEL_VEHICLE\nFOOD_DIGESTION_TRAVEL\nFOOD_DIGESTION_ASSIGNMENT\nFOOD_DIGESTION_ONDUTY\nFOOD_DIGESTION_COMBAT\nFOOD_DECAY_IN_SECTORS\nFOOD_DECAY_MODIFICATOR\nFOOD_EATING_SOUNDS",
+	L"|疾|病|系|统\n \n[Disease Settings] DISEASE\n \n你的佣兵会生病。\n \n配置选项：\nDISEASE_STRATEGIC\nDISEASE_WHO_SUBSCRIPTIONCOST\nDISEASE_CONTAMINATES_ITEMS\nDISEASE_SEVERE_LIMITATIONS\n \n",	//L"|D|i|s|e|a|s|e\nOverrides [Disease Settings] DISEASE\n \nYour mercs can catch diseases.\n \nConfigurable Options:\nDISEASE_STRATEGIC\nDISEASE_WHO_SUBSCRIPTIONCOST\nDISEASE_CONTAMINATES_ITEMS\nDISEASE_SEVERE_LIMITATIONS",
+	L"|敌|军|战|略|司|令|部|功|能\n \n[Strategic Additional Enemy AI Settings] ASD_ACTIVE\n \n女王将获得机械化部队。\n \n配置选项：\nASD_COST_FUEL/JEEP/TANK/ROBOT\nASD_TIME_FUEL/JEEP/TANK/ROBOT\nASD_ASSIGNS_JEEPS/TANKS/ROBOTS\nASD_FUEL_REQUIRED_JEEP/TANK/ROBOT\nJEEP_MINIMUM_PROGRESS\nTANK_MINIMUM_PROGRESS\nROBOT_MINIMUM_PROGRESS\n \n",	//L"|A|S|D\nOverrides [Strategic Additional Enemy AI Settings] ASD_ACTIVE\n \nThe Arulcan army gains mechanised forces.\n \nConfigurable Options:\nASD_COST_FUEL/JEEP/TANK/ROBOT\nASD_TIME_FUEL/JEEP/TANK/ROBOT\nASD_ASSIGNS_JEEPS/TANKS/ROBOTS\nASD_FUEL_REQUIRED_JEEP/TANK/ROBOT\nJEEP_MINIMUM_PROGRESS\nTANK_MINIMUM_PROGRESS\nROBOT_MINIMUM_PROGRESS",
+	L"|敌|军|直|升|机|功|能\n \n[Enemy Helicopter Settings] ENEMYHELI_ACTIVE\n \n女王将使用直升机快速部署部队。\n \n需要开启\"敌军战略司令部功能\"。\n \n配置选项：\nASD_COST_HELI\nASD_TIME_HELI\nENEMYHELI_DEFINITE_UNLOCK_AT_PROGRESS\nENEMYHELI_HP\nENEMYHELI_HP_REPAIRTIME\nENEMYHELI_HP_COST\nENEMYHELI_FUEL\nENEMYHELI_FUEL_REFUELTIME\n \n",	//L"|A|S|D |H|e|l|i|c|o|p|t|e|r|s\nOverrides [Enemy Helicopter Settings] ENEMYHELI_ACTIVE\n \nThe AI can use helicopters to deploy troops.\nRequires the Arulco Special Division feature to be enabled.\n \nConfigurable Options:\nASD_COST_HELI\nASD_TIME_HELI\nENEMYHELI_DEFINITE_UNLOCK_AT_PROGRESS\nENEMYHELI_HP\nENEMYHELI_HP_REPAIRTIME\nENEMYHELI_HP_COST\nENEMYHELI_FUEL\nENEMYHELI_FUEL_REFUELTIME",
+	L"|敌|军|战|斗|车|功|能\n \n[Tactical Gameplay Settings] ENEMY_TANKS_CAN_MOVE_IN_TACTICAL\n \n敌军的战斗吉普车和坦克可以在战斗中移动。\n \n配置选项：\nALLOW_TANKS_DRIVING_OVER_PEOPLE\nTANKS_RAMMING_MAX_STRUCTURE_ARMOUR\nENEMY_JEEP_RAMMING_MAX_STRUCTURE_ARMOUR",	//L"|E|n|e|m|y |V|e|h|i|c|l|e|s |C|a|n |M|o|v|e\nOverrides [Tactical Gameplay Settings] ENEMY_TANKS_CAN_MOVE_IN_TACTICAL\n \nHostile jeeps and tanks can move in combat.\n \nConfigurable Options:\nALLOW_TANKS_DRIVING_OVER_PEOPLE\nTANKS_RAMMING_MAX_STRUCTURE_ARMOUR\nENEMY_JEEP_RAMMING_MAX_STRUCTURE_ARMOUR",
+	L"|僵|尸|系|统\n \n覆盖选项中的\"僵尸模式\"。\n \n生化危机！九死一生！\n \n配置选项：\nZOMBIE_RISE_BEHAVIOUR\nZOMBIE_SPAWN_WAVES\nZOMBIE_RISE_WAVE_FREQUENCY\nZOMBIE_CAN_CLIMB\nZOMBIE_CAN_JUMP_WINDOWS\nZOMBIE_EXPLODING_CIVS\nZOMBIE_DAMAGE_RESISTANCE\nZOMBIE_BREATH_DAMAGE_RESISTANCE\nZOMBIE_ONLY_HEADSHOTS_WORK\nZOMBIE_DIFFICULTY_LEVEL\nZOMBIE_RISE_WITH_ARMOUR\nZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL\n \n",	//L"|Z|o|m|b|i|e|s\nOverrides the \"Allow Zombies\" toggle in the options menu.\n \nThe dead walk!\n \nConfigurable Options:\nZOMBIE_RISE_BEHAVIOUR\nZOMBIE_SPAWN_WAVES\nZOMBIE_RISE_WAVE_FREQUENCY\nZOMBIE_CAN_CLIMB\nZOMBIE_CAN_JUMP_WINDOWS\nZOMBIE_EXPLODING_CIVS\nZOMBIE_DAMAGE_RESISTANCE\nZOMBIE_BREATH_DAMAGE_RESISTANCE\nZOMBIE_ONLY_HEADSHOTS_WORK\nZOMBIE_DIFFICULTY_LEVEL\nZOMBIE_RISE_WITH_ARMOUR\nZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL",
+	L"|血|猫|袭|击|功|能\n \n[Raid Settings] RAID_BLOODCATS\n \n血猫将对你发动夜袭。\n \n配置选项：\nRAID_MAXSIZE_BLOODCATS\nRAID_MAXATTACKSPERNIGHT_BLOODCATS\n \n",	//L"|B|l|o|o|d|c|a|t |R|a|i|d|s\nOverrides [Raid Settings] RAID_BLOODCATS\n \nHungry predators stalk the night.\n \nConfigurable Options:\nRAID_MAXSIZE_BLOODCATS\nRAID_MAXATTACKSPERNIGHT_BLOODCATS",
+	L"|土|匪|袭|击|功|能\n \n[Raid Settings] RAID_BANDITS\n \n土匪将伺机对你的城镇发动袭击。\n \n配置选项：\nRAID_MAXSIZE_BANDITS\nRAID_MAXATTACKSPERNIGHT_BANDITS\n \n",	//L"|B|a|n|d|i|t |R|a|i|d|s\nOverrides [Raid Settings] RAID_BANDITS\n \nOpportunistic bandits may attack your towns.\n \nConfigurable Options:\nRAID_MAXSIZE_BANDITS\nRAID_MAXATTACKSPERNIGHT_BANDITS",
+	L"|僵|尸|袭|击|功|能\n \n[Raid Settings] RAID_ZOMBIES\n \n丧尸突袭！\n \n需要开启\"僵尸系统\"。\n \n配置选项：\nRAID_MAXSIZE_ZOMBIES\nRAID_MAXATTACKSPERNIGHT_ZOMBIES\n \n",	//L"|Z|o|m|b|i|e |R|a|i|d|s\nOverrides [Raid Settings] RAID_ZOMBIES\n \nThe dead raid!\nRequires the Zombies feature to be enabled.\n \nConfigurable Options:\nRAID_MAXSIZE_ZOMBIES\nRAID_MAXATTACKSPERNIGHT_ZOMBIES",
+	L"|民|兵|储|备|功|能\n \n[Militia Volunteer Pool Settings] MILITIA_VOLUNTEER_POOL\n \n没有志愿者就不能训练民兵。\n \n配置选项：\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_LIBERATION\nMILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_HOURLY\n \n",	//L"|M|i|l|i|t|i|a |V|o|l|u|n|t|e|e|r |P|o|o|l\nOverrides [Militia Volunteer Pool Settings] MILITIA_VOLUNTEER_POOL\n \nVolunteers are required to train militia.\n \nConfigurable Options:\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_LIBERATION\nMILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM\nMILITIA_VOLUNTEER_POOL_GAINFACTOR_HOURLY",
+	L"|民|兵|战|术|命|令|功|能\n \n[Tactical Interface Settings] ALLOW_TACTICAL_MILITIA_COMMAND\n \n允许在战术界面对佣兵下达战术命令。\n \n",	//L"|T|a|c|t|i|c|a|l |M|i|l|i|t|i|a |C|o|m|m|a|n|d\nOverrides [Tactical Interface Settings] ALLOW_TACTICAL_MILITIA_COMMAND\n \nIssue commands to militia in tactical view.",	
+	L"|民|兵|战|略|命|令|功|能\n \n[Militia Strategic Movement Settings] ALLOW_MILITIA_STRATEGIC_COMMAND\n \n允许在战略界面对民兵下达移动命令。\n \n配置选项：\nMILITIA_STRATEGIC_COMMAND_REQUIRES_MERC\n \n",	//L"|S|t|r|a|t|e|g|i|c |M|i|l|i|t|i|a |C|o|m|m|a|n|d\nOverrides [Militia Strategic Movement Settings] ALLOW_MILITIA_STRATEGIC_COMMAND\n \nIssue commands to militia in the strategic map.\n \nConfigurable Options:\nMILITIA_STRATEGIC_COMMAND_REQUIRES_MERC",
+	L"|民|兵|武|装|装|备|功|能\n \n[Militia Equipment Settings] MILITIA_USE_SECTOR_EQUIPMENT\n \n民兵的武器装备需要从当前区域获取。\n \n与\"民兵需要资源功能\"不兼容。\n \n配置选项：\nMILITIA_USE_SECTOR_EQUIPMENT_ARMOUR\nMILITIA_USE_SECTOR_EQUIPMENT_FACE\nMILITIA_USE_SECTOR_EQUIPMENT_MELEE\nMILITIA_USE_SECTOR_EQUIPMENT_GUN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO\nMILITIA_USE_SECTOR_EQUIPMENT_GUN_ATTACHMENTS\nMILITIA_USE_SECTOR_EQUIPMENT_GRENADE\nMILITIA_USE_SECTOR_EQUIPMENT_LAUNCHER\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT\nMILITIA_USE_SECTOR_EQUIPMENT_CLASS_SPECIFIC_TABOOS\n \n",	//L"|M|i|l|i|t|i|a |U|s|e|s |S|e|c|t|o|r |E|q|u|i|p|m|e|n|t\nOverrides [Militia Equipment Settings] MILITIA_USE_SECTOR_EQUIPMENT\n \nMilitia uses gear from their current sector.\nNot compatible with the Militia Requires Resources feature.\n \nConfigurable Options:\nMILITIA_USE_SECTOR_EQUIPMENT_ARMOUR\nMILITIA_USE_SECTOR_EQUIPMENT_FACE\nMILITIA_USE_SECTOR_EQUIPMENT_MELEE\nMILITIA_USE_SECTOR_EQUIPMENT_GUN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO\nMILITIA_USE_SECTOR_EQUIPMENT_GUN_ATTACHMENTS\nMILITIA_USE_SECTOR_EQUIPMENT_GRENADE\nMILITIA_USE_SECTOR_EQUIPMENT_LAUNCHER\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX\nMILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT\nMILITIA_USE_SECTOR_EQUIPMENT_CLASS_SPECIFIC_TABOOS",	
+	L"|民|兵|需|要|资|源|功|能\n \n[Militia Resource Settings] MILITIA_REQUIRE_RESOURCES\n \n训练和升级民兵需要消耗资源。\n \n与\"民兵武装装备功能\"不兼容。\n \n配置选项：\nMILITIA_RESOURCES_PROGRESSFACTOR\nMILITIA_RESOURCES_ITEMCLASSMOD_AMMO_BULLET\nMILITIA_RESOURCES_ITEMCLASSMOD_GUN\nMILITIA_RESOURCES_ITEMCLASSMOD_ARMOUR\nMILITIA_RESOURCES_ITEMCLASSMOD_MELEE\nMILITIA_RESOURCES_ITEMCLASSMOD_BOMB\nMILITIA_RESOURCES_ITEMCLASSMOD_GRENADE\nMILITIA_RESOURCES_ITEMCLASSMOD_FACE\nMILITIA_RESOURCES_ITEMCLASSMOD_LBE\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_LOW\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_MEDIUM\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_HIGH\nMILITIA_RESOURCES_WEAPONMOD_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_M_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_SMG\nMILITIA_RESOURCES_WEAPONMOD_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_SN_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_AS_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_LMG\nMILITIA_RESOURCES_WEAPONMOD_SHOTGUN\n \n",	//L"|M|i|l|i|t|i|a |R|e|q|u|i|r|e|s |R|e|s|o|u|r|c|e|s\nOverrides [Militia Resource Settings] MILITIA_REQUIRE_RESOURCES\n \nMilitia require resources to be trained.\nNot compatible with the Militia Uses Sector Equipment feature.\n \nConfigurable Options:\nMILITIA_RESOURCES_PROGRESSFACTOR\nMILITIA_RESOURCES_ITEMCLASSMOD_AMMO_BULLET\nMILITIA_RESOURCES_ITEMCLASSMOD_GUN\nMILITIA_RESOURCES_ITEMCLASSMOD_ARMOUR\nMILITIA_RESOURCES_ITEMCLASSMOD_MELEE\nMILITIA_RESOURCES_ITEMCLASSMOD_BOMB\nMILITIA_RESOURCES_ITEMCLASSMOD_GRENADE\nMILITIA_RESOURCES_ITEMCLASSMOD_FACE\nMILITIA_RESOURCES_ITEMCLASSMOD_LBE\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_LOW\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_MEDIUM\nMILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_HIGH\nMILITIA_RESOURCES_WEAPONMOD_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_M_PISTOL\nMILITIA_RESOURCES_WEAPONMOD_SMG\nMILITIA_RESOURCES_WEAPONMOD_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_SN_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_AS_RIFLE\nMILITIA_RESOURCES_WEAPONMOD_LMG\nMILITIA_RESOURCES_WEAPONMOD_SHOTGUN",
+	L"|强|化|近|战|功|能\n \n[Tactical Gameplay Settings] ENHANCED_CLOSE_COMBAT_SYSTEM\n \n对近战系统的全面改进。\n \n",	//L"|E|n|h|a|n|c|e|d |C|l|o|s|e |C|o|m|b|a|t\nOverrides [Tactical Gameplay Settings] ENHANCED_CLOSE_COMBAT_SYSTEM\n \nA general improvement to the close combat system.",
+	L"|新|中|断|功|能\n \n[Tactical Gameplay Settings] IMPROVED_INTERRUPT_SYSTEM\n \n对中断机制的全面改进。\n \n配置选项：\nBASIC_PERCENTAGE_APS_REGISTERED\nPERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL\nBASIC_REACTION_TIME_LENGTH\nALLOW_COLLECTIVE_INTERRUPTS\nALLOW_INSTANT_INTERRUPTS_ON_SPOTTING\n \n",	//L"|I|m|p|r|o|v|e|d |I|n|t|e|r|r|u|p|t |S|y|s|t|e|m\nOverrides [Tactical Gameplay Settings] IMPROVED_INTERRUPT_SYSTEM\n \nAn overhaul of the interrupt mechanic.\n \nConfigurable Options:\nBASIC_PERCENTAGE_APS_REGISTERED\nPERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL\nBASIC_REACTION_TIME_LENGTH\nALLOW_COLLECTIVE_INTERRUPTS\nALLOW_INSTANT_INTERRUPTS_ON_SPOTTING",	
+	L"|武|器|过|热|功|能\n \n[Tactical Weapon Overheating Settings] OVERHEATING\n \n连续射击将导致武器过热。\n \n配置选项：\nOVERHEATING_DISPLAY_JAMPERCENTAGE\nOVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET\nOVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL\n \n",	//L"|O|v|e|r|h|e|a|t|i|n|g\nOverrides [Tactical Weapon Overheating Settings] OVERHEATING\n \nWeapons can overheat.\n \nConfigurable Options:\nOVERHEATING_DISPLAY_JAMPERCENTAGE\nOVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET\nOVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL",
+	L"|随|机|事|件|功|能\n \n[Mini Events Settings] MINI_EVENTS_ENABLED\n \n可能发生一些随机互动事件。\n \n配置选项：\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \n详细信息请查看MiniEvents.lua。\n \n",	//L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
+	L"|反|抗|军|司|令|部|功|能\n \n[Rebel Command Settings] REBEL_COMMAND_ENABLED\n \n允许你升级占领的城镇，控制反抗军在战略层面上运作。\n \n详细的内容设定请查看RebelCommand_Settings.ini。\n \n",	//L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",	
 };
 
 STR16	z113FeaturesPanelText[] =
 {
-	L"Use the options here to enable some of 1.13's many features. If enabled, the toggle boxes here will take precedence over some booleans in JA2_Options.ini. If disabled, these boxes will have no effect.",
-	L"New Chance to Hit (NCTH) is a complete overhaul of the vanilla chance-to-hit system. Compared to the vanilla system, it takes into account more variables when determining the trajectory of a fired bullet.",
-	L"You can acquire and spend Intel, a resource closely tied to espionage and information brokering. Intel can be gained by spies, interrogating prisoners, and other ways. It can then be spent at a black market for rare weapons, or at the Recon Intelligence Services website for enemy info.",
-	L"Allows you to take prisoners, which can be done by demanding their surrender in combat, or by handcuffing incapacitated soldiers. Once captured, they can be sent to a prison you own and interrogated, which can result in money, intel, or their defection to your militia.",
-	L"You will need to invest a little bit in a mine before you can reap its full benefits. Workers are trained like militia, costing time and money. Note that losing control of a sector may cause worker loss!",
-	L"Enemy groups have a chance to ambush your squad. If your squad is ambushed, they will be placed in the centre of the map with the enemy group encircling them.",
-	L"The queen can now send out assassins. These are elite soldiers that are covert ops experts. They will disguise as members of your militia, and, when the time is right, they will suddenly attack your mercs. New trait system required and new inventory system recommended.",
-	L"A variety of enemy types can appear in enemy groups, increasing their overall effectiveness. A small icon will appear next to an enemy who has been observed to have a role. Roles include weapon and equipment specialists, and soldiers carrying keys or keycards.",
-	L"Requires the Enemy Roles feature to be enabled. Enemy medics can bandage their wounded comrades and perform field surgery on them.",
-	L"Requires the Enemy Roles feature to be enabled. Enemy lieutenants and captains provide sector-wide bonuses for their squad.",
-	L"Requires the Enemy Roles feature to be enabled. Generals provide strategic bonuses to the enemy army and may be present in enemy-controlled towns. As high-value targets, they are protected by a small retinue of bodyguards and may flee when they sense danger.",
-	L"Some time after you have trained militia, Kerberus will offer its services to you. On their website, you can order security personnel from them, which will act as militia. They require a high down payment but require no training time.",
-	L"Your team needs food and water to survive. Without them, they will starve and suffer severe penalties. Keep an eye on the quality of food you're consuming!",
-	L"It is possible for your team to catch illnesses from a variety of sources: open wounds, corpses, swamp insects, etc. A disease will give certain mali, and in extreme cases, cause death. Most diseases can be treated by doctors or medicines, and there are items that can provide protection.",
-	L"The Arulco Special Division is responsible for ordering and deploying mechanised units to the Arulcan army. It uses income gained from mines to purchase vehicles for use against you.",
-	L"Requires the Arulco Strategic Division feature to be enabled. At a certain point in your campaign, the ASD can start using helicopters to deploy small squads of elite soldiers to harass you.",
-	L"Enemy jeeps and tanks can move around during combat, and may even try to run over your mercs. They will also destroy some obstacles by ramming them.",
-	L"Zombies rise from corpses!",
-	L"Arulco's deadly bloodcats can attack vulnerable town sectors at night. Civilian deaths will cause loyalty losses.",
-	L"Taking advantage of open warfare, bandits can attack vulnerable town sectors. Civilian deaths will cause loyalty losses.",
-	L"Requires the Zombies feature to be enabled. Zombies can swarm town sectors. Civilian deaths will cause loyalty losses.",
-	L"Before you can train militia, you need willing volunteers. You will need to control both town sectors and the surrounding farmland to bolster your recruit pool.",
-	L"Allows you to give commands to militia while in the tactical view. To do this, speak with any militia and a command menu will appear. Mercs wearing Extended Ears or Radio Sets can issue commands to militia that are out of line of sight.",
-	L"Allows you to give sector movement commands to militia while in the strategic map. You may need to be in the same sector (unless you have a Radio Operator or someone staffing an HQ) to issue strategic movement orders.",
-	L"Militia gear will not be randomly generated, but taken from the sector the militia is currently stationed in. Militia will return their gear to their sector when a new sector is loaded. Gear can be manually dropped in tactical via the 'Ctrl' + '.' menu, under 'militia inspection'. Gear can be prohibited to the militia by hovering over it in the strategic inventory and pressing 'TAB' + 'LMB'. It is up to you to sufficiently distribute gear to your militia.",
-	L"In order to be trained, militia require 3 resources: Guns, Armour, and Misc. These can be obtained by converting dropped items in the strategic item view, and ALT + Right clicking on an item. Green Militia just require a Gun, Veteran Militia require a Gun + Armour, and Elite Militia require Gun + Armour + Misc.",
-	L"General improvements to the close combat system. Head strikes deal more damage, but are harder to hit. Leg strikes are easier to land, but do less damage. Damage increased to surprised and prone targets. Stealing all items is possible on a knocked-down victim. Several other minor tweaks.",
-	L"The Improved Interrupt System (IIS) completely changes how the game determines whether an interrupt occurs. Instead of interrupting as soon as a hostile enters line of sight, the game tracks several variables to simulate a soldier's ability to react and gain an interrupt.",
-	L"Weapon barrels heat up as you fire them, potentially opening the door for jams, misfires, and faster weapon degradation. Weapons with replaceable barrels will probably be very useful to keep things cool.",
-	L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
-	L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
+	L"这个选项可以开启一些1.13新功能，启用后以下选项的生效优先级将高于JA2_Options.ini文件中的设置。如果禁用此项，以下选项将不生效。",	//L"Use the options here to enable some of 1.13's many features. If enabled, the toggle boxes here will take precedence over some booleans in JA2_Options.ini. If disabled, these boxes will have no effect.",
+	L"新NCTH瞄准系统对命中机制进行了全面改进，在射击时需要更复杂的计算和更多的变量。",	//L"New Chance to Hit (NCTH) is a complete overhaul of the vanilla chance-to-hit system. Compared to the vanilla system, it takes into account more variables when determining the trajectory of a fired bullet.",
+	L"你可以获取和消耗情报点数。这种资源与间谍和情报贩子密切相关。可以通过间谍活动、审讯俘虏或其他方式获得情报点数。可以在黑市购买稀有武器，也可以在情报网站上购买敌人的信息。",	//L"You can acquire and spend Intel, a resource closely tied to espionage and information brokering. Intel can be gained by spies, interrogating prisoners, and other ways. It can then be spent at a black market for rare weapons, or at the Recon Intelligence Services website for enemy info.",
+	L"允许抓捕俘虏。可以通过在战斗中劝降或者用手铐铐住不能行动的敌人来抓捕俘虏。被俘虏的敌人可以送到监狱中进行审问。审问会带来金钱、情报或者将敌人策反进你的民兵队伍。",	//L"Allows you to take prisoners, which can be done by demanding their surrender in combat, or by handcuffing incapacitated soldiers. Once captured, they can be sent to a prison you own and interrogated, which can result in money, intel, or their defection to your militia.",
+	L"在矿场上先投资才能获得它的全部收益。工人像民兵一样需要金钱和时间来训练。注意！如果失去对城镇的控制将导致工人流失！",	//L"You will need to invest a little bit in a mine before you can reap its full benefits. Workers are trained like militia, costing time and money. Note that losing control of a sector may cause worker loss!",
+	L"敌军有机率会伏击你的小队。如果的你小队遭到伏击，你的小队将会出现在地图中央并被敌人包围。",	//L"Enemy groups have a chance to ambush your squad. If your squad is ambushed, they will be placed in the centre of the map with the enemy group encircling them.",
+	L"女王现在会派出刺客。这些精英士兵是秘密行动的专家，他们会伪装成你的民兵，伺机对你的佣兵发动突袭。需要使用\"新技能系统\"，也强烈建议使用\"新物品系统\"。",	//L"The queen can now send out assassins. These are elite soldiers that are covert ops experts. They will disguise as members of your militia, and, when the time is right, they will suddenly attack your mercs. New trait system required and new inventory system recommended.",
+	L"敌军中将出现各种技能类型的敌人。被观察到的士兵身边将出现一个标识身份的小图标，身份包括无线电操作员、狙击手、迫击炮炮手和持有钥匙的敌人。",	//L"A variety of enemy types can appear in enemy groups, increasing their overall effectiveness. A small icon will appear next to an enemy who has been observed to have a role. Roles include weapon and equipment specialists, and soldiers carrying keys or keycards.",
+	L"需要开启\"敌军角色功能\"，敌军医生会给战友进行包扎和手术。",	//L"Requires the Enemy Roles feature to be enabled. Enemy medics can bandage their wounded comrades and perform field surgery on them.",	
+	L"需要开启\"敌军角色功能\"，敌军的上尉(班长)和中尉(班副)将对整个小队提供战术指挥加成。",	//L"Requires the Enemy Roles feature to be enabled. Enemy lieutenants and captains provide sector-wide bonuses for their squad.",
+	L"将军会为敌军提供战略加成奖励，他们会出现在敌军控制的城镇中，将军拥有自己的精英保镖，会在预感到危险时逃跑。",	//L"Requires the Enemy Roles feature to be enabled. Generals provide strategic bonuses to the enemy army and may be present in enemy-controlled towns. As high-value targets, they are protected by a small retinue of bodyguards and may flee when they sense danger.",
+	L"Kerberus安保公司将会为您提供安保人员，您可以从他们的网站上雇佣有经验的安保人员充当民兵。虽然价格很高，但是你不必在花时间训练他们。",	//L"Some time after you have trained militia, Kerberus will offer its services to you. On their website, you can order security personnel from them, which will act as militia. They require a high down payment but require no training time.",
+	L"你的佣兵需要食物和水才能生存。挨饿将遭受严厉的惩罚。要注意食物的质量，小心吃坏肚子！",	//L"Your team needs food and water to survive. Without them, they will starve and suffer severe penalties. Keep an eye on the quality of food you're consuming!",
+	L"伤口、尸体、沼泽、昆虫都可能导致您的佣兵生病，一些疾病会引起并发症，严重时会导致死亡。医生和药品可以治疗大多数疾病，还有一些装备可以预防疾病。",	//L"It is possible for your team to catch illnesses from a variety of sources: open wounds, corpses, swamp insects, etc. A disease will give certain mali, and in extreme cases, cause death. Most diseases can be treated by doctors or medicines, and there are items that can provide protection.",
+	L"敌军战略司令部负责订购并向陆军部署机械化部队，使用从矿山获得的收入购买战车来对付你！",	//L"The Arulco Special Division is responsible for ordering and deploying mechanised units to the Arulcan army. It uses income gained from mines to purchase vehicles for use against you.",
+	L"需要开启\"敌军战略司令部功能\"，当游戏达到一定进度时，敌军战略司令部开始使用直升机部署精锐小队士兵来骚扰你。",	//L"Requires the Arulco Strategic Division feature to be enabled. At a certain point in your campaign, the ASD can start using helicopters to deploy small squads of elite soldiers to harass you.",
+	L"敌人的战斗吉普车和坦克可以在战斗中四处移动，移动撞击会摧毁一些障碍物，甚至会试图碾过你的佣兵。",	//L"Enemy jeeps and tanks can move around during combat, and may even try to run over your mercs. They will also destroy some obstacles by ramming them.",
+	L"僵尸会从尸体中复活！（生化危机）",	//L"Zombies rise from corpses!",
+	L"致命的血猫可以在夜间对城镇发动突袭。平民死亡将造成忠诚度降低。",	//L"Arulco's deadly bloodcats can attack vulnerable town sectors at night. Civilian deaths will cause loyalty losses.",
+	L"土匪会袭击防御薄弱的城镇，平民死亡将造成忠诚度降低。",	//L"Taking advantage of open warfare, bandits can attack vulnerable town sectors. Civilian deaths will cause loyalty losses.",
+	L"需要开启\"僵尸系统\"，僵尸会成群的冲击城镇各区，平民死亡将造成忠诚度降低。",	//L"Requires the Zombies feature to be enabled. Zombies can swarm town sectors. Civilian deaths will cause loyalty losses.",
+	L"没有志愿者就不能继续训练民兵，控制城镇和周边的农田可以增加志愿者加入的数量。",	//L"Before you can train militia, you need willing volunteers. You will need to control both town sectors and the surrounding farmland to bolster your recruit pool.",
+	L"允许您在战术地图中向民兵下达命令。要执行此操作，请与任意民兵对话，然后会出现命令菜单。使用无线电的佣兵可以向不在视野范围内的民兵下达命令。",	//L"Allows you to give commands to militia while in the tactical view. To do this, speak with any militia and a command menu will appear. Mercs wearing Extended Ears or Radio Sets can issue commands to militia that are out of line of sight.",
+	L"允许您在战略地图中向民兵下达移动命令。您需要佣兵和民兵在同一区域（除非相邻区域有佣兵操作无线电或民兵指挥部有工作人员）才能发布战略移动命令。",	//L"Allows you to give sector movement commands to militia while in the strategic map. You may need to be in the same sector (unless you have a Radio Operator or someone staffing an HQ) to issue strategic movement orders.",
+	L"民兵装备不会随机生成，而是从民兵目前驻扎的区域获取。您需要充分地给民兵分配装备。当一个新的区域被装载时，民兵将把他们的装备放回他们的区域。在战术地图下，通过按\"CTRL+ .\"弹出菜单，选则militia inspection手动放下物品。如果要使民兵无法接触某些装备，则在战略模式下的物品栏中对其按下\"TAB + 鼠标左键\"。",	//L"Militia gear will not be randomly generated, but taken from the sector the militia is currently stationed in. Militia will return their gear to their sector when a new sector is loaded. Gear can be manually dropped in tactical via the 'Ctrl' + '.' menu, under 'militia inspection'. Gear can be prohibited to the militia by hovering over it in the strategic inventory and pressing 'TAB' + 'LMB'. It is up to you to sufficiently distribute gear to your militia.",
+	L"民兵需要消耗枪支、护甲、杂物才能训练，在战略地图仓库中按\"alt+鼠标右键\"将道具添加进民兵资源，绿色民兵需要消耗枪支，老兵需要枪支+盔甲，精兵消耗枪支+盔甲+杂物。",	//L"In order to be trained, militia require 3 resources: Guns, Armour, and Misc. These can be obtained by converting dropped items in the strategic item view, and ALT + Right clicking on an item. Green Militia just require a Gun, Veteran Militia require a Gun + Armour, and Elite Militia require Gun + Armour + Misc.",
+	L"对近战系统的全面改进。头部更难被击中但会造成更多伤害，击中腿部更容易倒地，但伤害更小。偷袭将造成更多的伤害。可以拿走被击晕目标身上的道具。还有一些其它小调整。",	//L"General improvements to the close combat system. Head strikes deal more damage, but are harder to hit. Leg strikes are easier to land, but do less damage. Damage increased to surprised and prone targets. Stealing all items is possible on a knocked-down victim. Several other minor tweaks.",
+	L"新的中断系统（IIS）完全改变了中断发生的方式，不在是目标进入视野时发生中断，而是以若干个变量模拟士兵的反应能力来判断是否发生中断。",	//L"The Improved Interrupt System (IIS) completely changes how the game determines whether an interrupt occurs. Instead of interrupting as soon as a hostile enters line of sight, the game tracks several variables to simulate a soldier's ability to react and gain an interrupt.",	
+	L"武器的枪管在开火时会升温，这会导致频繁的武器故障。带有可更换枪管的武器对保持冷却非常有用。",	//L"Weapon barrels heat up as you fire them, potentially opening the door for jams, misfires, and faster weapon degradation. Weapons with replaceable barrels will probably be very useful to keep things cool.",
+	L"在游戏过程中，可能会弹出简短的事件。您可以从两个选项中选择一个，这可能会产生积极或消极的影响。事件可以影响各种各样的事情，但主要是你的佣兵。",	//L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
+	L"在完成反抗军食物运送任务后，你可以访问他们的（A.R.C）指挥部网站。在这里你可以设定反抗军的政策，也可以为占领区单独设置地方政策。这将带来丰厚的奖励。作为代价，城镇的民忠会上升得更慢，所以你需要更加努力地让当地人信任你。",	//L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
 };
 
 
@@ -6595,7 +6595,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，显示树冠。（|T）",
 
 	//smart tree tops
-	L"打开时，不显示位于可见佣兵和鼠标附近的树冠。", //L"When ON, hides tree tops near visible mercs and cursor position.", TODO.Translate
+	L"打开时，不显示位于可见佣兵和鼠标附近的树冠。", //L"When ON, hides tree tops near visible mercs and cursor position.",
 
 	//toggle wireframe
 	L"打开时，显示未探明的墙的轮廓。（|C|t|r|l+|A|l|t+|W）",
@@ -6693,7 +6693,7 @@ STR16	gzGIOScreenText[] =
 	L"读取联机游戏",
 	L"游戏初始设置（仅在服务器设置时有效）",
 	// Added by SANDRO
-	L"特殊技能",
+	L"技能系统",
 	L"旧",
 	L"新",
 	L"IMP 数量",
@@ -7150,7 +7150,7 @@ STR16 gzLaptopHelpText[] =
 	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
 	L"民兵总览",//L"Militia Overview",
 	L"侦察情报局",	//L"Recon Intelligence Services",
-	L"已占领的工厂",	//L"Controlled factories", TODO.Translate
+	L"已占领的工厂",	//L"Controlled factories",
 	L"Arulco反抗军司令部",   //L"Arulco Rebel Command",
 };
 
@@ -7624,7 +7624,7 @@ STR16 New113Message[] =
 	L"是的*",	//L"Yes*",
 	L"是的",	//L"Yes",
 	L"不",	//L"No",
-	L"%s将%s应用于%s。", //L"%s applied %s to %s.", TODO.Translate
+	L"%s将%s应用于%s。", //L"%s applied %s to %s.",
 };
 
 STR16 New113HAMMessage[] =
@@ -8626,7 +8626,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|管|理|能|力|增|益|器",	//L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
 	L"|间|谍|能|力|增|益|器",	//L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
 	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t",
-	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o", 49	TODO.Translate
+	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",
 	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
 };
 
@@ -8681,7 +8681,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这个工具可以\n提高%i%%的管理工作的效率。",	//L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的间谍能力。",	//L"\n \nThis item improves your hacking skills by %i%%.",
 	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.",
-	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.", 49	 TODO.Translate
+	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.",
 	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
 };
 
@@ -8928,7 +8928,7 @@ STR16 gzMapInventoryFilterOptions[] =
 };
 
 // MercCompare (MeLoDy)
-// TODO.Translate
+
 STR16 gzMercCompare[] =
 {
 	L"???",
@@ -9266,7 +9266,7 @@ STR16	szBackgroundText_Value[]=
 	L" 间谍技能: %s%d ",//L" hacking skill: %s%d ",
 	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
 	L" %s%d%% 管理效率 \n",	//L" %s%d%% administration effectiveness\n",
-	L" %s%d%% 探索效率\n",	//L" %s%d%% exploration effectiveness\n", TODO.Translate
+	L" %s%d%% 探索效率\n",	//L" %s%d%% exploration effectiveness\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -11266,7 +11266,7 @@ STR16	szDiseaseText[] =
 
 	L"高度的痛苦会导致人格分裂\n",	//L"High amount of distress can cause a personality split\n",
 	L"在%s'库存中发现污染物品。\n", //L"Contaminated items found in %s' inventory.\n",
-	L"每当我们遇到这种情况的时候, 会增加一个新的伤残属性。\n",	//L"Whenever we get this, a new disability is added.\n", TODO.Translate
+	L"每当我们遇到这种情况的时候, 会增加一个新的伤残属性。\n",	//L"Whenever we get this, a new disability is added.\n",
 
 	L"只有一只手还能用。\n",	//L"Only one hand can be used.\n",
 	L"只有一只手还能用。\n已使用医用夹板来加快治疗进程。\n",	//L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
@@ -11303,7 +11303,7 @@ STR16 szIMPGearWebSiteText[] =
 
 	// IMP Gear Entrance
 	L"I.M.P 装备",  //	L"I.M.P. Equipment", 
-	L"额外花费: %d$ (%d$ 预付款)",	//L"Additional Cost: %d$ (%d$ prepaid)", TODO.Translate
+	L"额外花费: %d$ (%d$ 预付款)",	//L"Additional Cost: %d$ (%d$ prepaid)",
 };
 
 STR16 szIMPGearDropDownText[] =
@@ -11480,7 +11480,7 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"%s 当前载入的区域尚未激活。",//L"%s is not active in the currently loaded sector.",
 	L"%s 已经被提升为熟练民兵",//L"%s has been promoted to regular militia",
 	L"%s 已经被提升为精英民兵",//L"%s has been promoted to elite militia",
-	L"状态: 逃兵",	//L"Status: Deserted",  //TODO:Translate
+	L"状态: 逃兵",	//L"Status: Deserted",
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
@@ -11759,9 +11759,9 @@ STR16	szFactoryText[] =
 	L"%s: 的生产进程 %s 已因为资金短缺而被关闭。",	//L"%s: Production of %s switched off due to insufficient funds.",
 	L"%s: 的生产进程 %s 已因为缺少一个佣兵作为工作人员而被关闭。",	//L"%s: Production of %s switched off as it requires a merc to staff the facility.",
 	L"%s: 的生产进程 %s 已因为缺少必要的物品而被关闭。",	//L"%s: Production of %s switched off due to required items missing.",
-	L"制造列表",	//L"Item to build",
+	L"     制造列表          ", //(前空5格，后空10格)	//L"Item to build",
 
-	L"生产筹备",	//L"Preproducts", 5
+	L"生产筹备                         ", //(后空25格)	//L"Preproducts", 5
 	L"h/物品",	//L"h/item",
 };
 
@@ -11799,7 +11799,7 @@ STR16 gLbeStatsDesc[14] =
 	L"兼容战斗包：", //L"Compatible combat packs:",
 };
 
-STR16 szRebelCommandText[] = // TODO.Translate
+STR16 szRebelCommandText[] =
 {
 	L"Arulco反抗军司令部 - 国家总览",   //L"Arulco Rebel Command - National Overview",
 	L"Arulco反抗军司令部 - 地区总览",   //L"Arulco Rebel Command - Regional Overview",
@@ -11866,21 +11866,21 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"更改此指令操作将花费$%d并重置。确认支出？",   //L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
 };
 
-STR16 szRebelCommandHelpText[] = // TODO.Translate
+STR16 szRebelCommandHelpText[] =
 {
 	L"|物|资\n \n食物、水、医疗用品、武器以及任何\n反抗军认为有用的物资。反抗军会自动收集。",   //L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
 	L"|后|勤|物|资\n \n反抗军每天都会自动收集物资。当你\n占领更多的城镇时，他们每天能够\n找到的物资补给量将会增加。",   //L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
 	L"|当|前|项|目\n \n你可以选择反抗军优先进行的战略目标。\n当你选定好战略目标时，新的项目指令将生效。",   //L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
 	L"|指|挥|部\n \n指挥部一旦部署，就会负责处理\n该区域内的日常事务。包括支持当地人，制造\n反抗宣传，制定地区政策等等。",   //L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
-	L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
+	L"|忠|诚|度\n \n许多行政命令的有效性取决于\n该地区的忠诚度，提高忠诚度\n能得到最大利益化。",   //L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
 	L"|最|高|忠|诚|度\n \n你需要说服当地人完全信任你。这可以\n通过为他们建立物资供应来实现，表明\n你打算改善他们的生活质量。",   //L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
-	L"|G|r|a|n|t |S|u|p|p|l|i|e|s\n \nSend supplies to the admin team here and allow them to use them\nas needed. This will increase the region's loyalty by a small amount\neach time you do this. However, doing this will slightly increase\nthe cost of enacting regional policies.",
+	L"|援|助|物|资\n \n将物资送到此处的反抗军手里，并允许\n他们根据需要使用。这将少量增加\n该地区的忠诚度，但是会略微增加制定\n该地区政策的成本。",   //L"|G|r|a|n|t |S|u|p|p|l|i|e|s\n \nSend supplies to the admin team here and allow them to use them\nas needed. This will increase the region's loyalty by a small amount\neach time you do this. However, doing this will slightly increase\nthe cost of enacting regional policies.",
 };
 
 // follows a specific format:
 // x:	"Admin Action Button Text",
 // x+1:	"Admin action description text",
-STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
+STR16 szRebelCommandAdminActionsText[] =
 {
 	L"补给线",   //L"Supply Line",
 	L"向当地人分发生活必需品。增加最大地区忠诚度。",   //L"Distribute much-needed supplies amongst the local population. Increases maximum regional loyalty.",
@@ -11919,7 +11919,7 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 // x+1:	"Directive Bonus Description",
 // x+2:	"Directive Help Text",
 // x+3:	"Directive Improvement Button Description",
-STR16 szRebelCommandDirectivesText[] = // TODO.Translate
+STR16 szRebelCommandDirectivesText[] =
 {
 	L"收集物资",   //L"Gather Supplies",
 	L"每日额外获得%.0f后勤物资。",   //L"Gain an additional %.0f supplies per day.",
@@ -11940,7 +11940,7 @@ STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 	L"部署精兵",   //L"Deploy Elites",
 	L"Omerta每天出现%.0f精锐民兵。",   //L"%.0f elite militia appear in Omerta each day.",
 	L"反抗军将一小部分训练有素的部队交给你指挥。",   //L"The rebels release a small number of their highly-trained forces to your command.",
-	L"升级此项将会增加每天训练的民兵数量。",   //L"Improving this directive will increase the number of militia\nthat appear each day.",
+	L"升级此项将会增加每天训练的民兵数量。",   //L"Improving this directive will increase the number of militia that appear each day.",
 	L"打击重点目标",   //L"High Value Target Strikes",
 	L"敌军不太可能有重点目标，除了女王。",   //L"Enemy groups are less likely to have specialised soldiers.",
 	L"对敌军进行外科手术式打击。\n军官、医务人员、无线电操作员和其他专家\n都是重点打击目标。",   //L"Surgical strikes will be conducted against enemy groups. Officers,\nmedics, radio operators, and other specialists are targetted.",
