@@ -561,4 +561,8 @@ szName            要显示的文本，最多190个字符
     <uiIndex>137</uiIndex>
     <szName>按 [SHIFT]+[L] 可以快速替换手中的手电筒。</szName>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>138</uiIndex>
+    <szName>1.13特征功能可以打开和关闭！您可以通过特征选项访问它。</szName>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>

@@ -240,4 +240,26 @@
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 	
+	<FACILITYTYPE>
+		<ubIndex>23</ubIndex>
+		<szFacilityName>T恤工厂</szFacilityName>
+		<szFacilityShortName>工厂</szFacilityShortName>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>24</ubIndex>
+		<szFacilityName>乡下人农场</szFacilityName>
+		<szFacilityShortName>农场</szFacilityShortName>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>25</ubIndex>
+		<szFacilityName>炸弹车间</szFacilityName>
+		<szFacilityShortName>车间</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>这个装备精良的车间拥有制造炸弹所需的工具。非常危险，但这是值得的。</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
 </FACILITYTYPES>

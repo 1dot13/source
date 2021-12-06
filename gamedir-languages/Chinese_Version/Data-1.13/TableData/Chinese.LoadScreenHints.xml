@@ -561,4 +561,24 @@ szName            要显示的文本，最多190个字符
     <uiIndex>137</uiIndex>
     <szName>按 [SHIFT]+[L] 可以快速替换手中的手电筒。</szName>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>138</uiIndex>
+    <szName>经过一场艰苦的战斗后，急救箱用完了吗？你可以用一把刀在尸体上取得他们的衣服，把衣服切成碎布，然后把这些碎布结合起来，制成临时绷带。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>139</uiIndex>
+    <szName>你可以手持防暴盾牌来阻挡敌人的火力。更好的护盾可以阻挡更多的伤害。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>140</uiIndex>
+    <szName>如果您将空手悬停在地图结构上，有时可以与之交互。有时候它只是一个声音。。。有时候，这很重要。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>141</uiIndex>
+    <szName>如果一个间谍与不忠诚的敌人交谈，可以尝试秘密招募他们。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>142</uiIndex>
+    <szName>1.13特征功能可以打开和关闭！您可以通过特征选项访问它。</szName>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
