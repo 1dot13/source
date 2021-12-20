@@ -5426,7 +5426,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 	INT32							iBPCpst = 0;
 
 	// Make sure the merc is not collapsed!
-	if (!IsValidStance(pSoldier, ANIM_CROUCH) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) && !IsValidStance(pSoldier, ANIM_STAND) ) )
+	if (!(IsValidStance(pSoldier, ANIM_CROUCH) || IsValidStance(pSoldier, ANIM_STAND)) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER )))
 	{
 		if ( pSoldier->bCollapsed && pSoldier->bBreath < OKBREATH )
 		{
