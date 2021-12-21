@@ -5876,43 +5876,40 @@ INT32	RandomizeLocation(INT32 sSpot, INT8 bLevel, UINT8 ubTimes, SOLDIERTYPE *pS
 	UINT8 ubDirection;
 	UINT8 ubMovementCost;
 	INT32 sTempSpot;
-	INT32 sSpotArray[NUM_WORLD_DIRECTIONS + 1];
-	UINT8 ubSpots;
 
+	std::vector<INT32> spots;
+	std::vector<INT32>::iterator iter;
+
+	// store original location
+	spots.push_back(sSpot);
+
+	// find all spots reachable within ubTimes steps
 	for (UINT8 ubCnt = 0; ubCnt < ubTimes; ubCnt++)
 	{
-		// store original location
-		ubSpots = 1;
-		sSpotArray[0] = sSpot;
-
-		// find adjacent locations
-		for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+		for (iter = spots.begin(); iter != spots.end(); iter++)
 		{
-			sTempSpot = NewGridNo(sSpot, DirectionInc(ubDirection));
-
-			if (sTempSpot != sSpot)
+			// find adjacent locations
+			for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
 			{
-				ubMovementCost = gubWorldMovementCosts[sTempSpot][ubDirection][bLevel];
+				sTempSpot = NewGridNo(*iter, DirectionInc(ubDirection));
 
-				if (ubMovementCost < TRAVELCOST_BLOCKED &&
-					IsLocationSittableExcludingPeople(sTempSpot, bLevel) &&
-					(!pSightSoldier || SoldierToVirtualSoldierLineOfSightTest(pSightSoldier, sTempSpot, bLevel, ANIM_STAND, TRUE, NO_DISTANCE_LIMIT)))
+				if (sTempSpot != *iter)
 				{
-					sSpotArray[ubSpots] = sTempSpot;
-					ubSpots++;
+					ubMovementCost = gubWorldMovementCosts[sTempSpot][ubDirection][bLevel];
+
+					if (ubMovementCost < TRAVELCOST_BLOCKED &&
+						std::find(spots.begin(), spots.end(), sTempSpot) == spots.end() &&
+						IsLocationSittableExcludingPeople(sTempSpot, bLevel) &&
+						(!pSightSoldier || SoldierToVirtualSoldierLineOfSightTest(pSightSoldier, sTempSpot, bLevel, ANIM_STAND, TRUE, NO_DISTANCE_LIMIT)))
+					{
+						spots.push_back(sTempSpot);
+					}
 				}
 			}
 		}
-		// find random location
-		sSpot = sSpotArray[Random(ubSpots)];
-		// stop if could not find any adjacent spot
-		if (ubSpots < 2)
-		{
-			break;
-		}
 	}
 
-	return sSpot;
+	return spots[Random(spots.size())];
 }
 
 INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxDistance)
