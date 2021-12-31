@@ -32,6 +32,10 @@
 			<Surface name="LBT_RGMRIFLE_LOW_AK47" animsurface="RGMSHOOT_LOW" />
 			<Surface name="LBT_RGMRIFLE_HIP_LOW_AK47" animsurface="RGM_HIP_LOW" />
 			<Surface name="LBT_RGMRIFLE_ROLL_SIDE_AK47" animsurface="RGMROLL_PR" />
+			<Surface name="WATER_RIFLE_IDLE_AK47" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_AK47" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_AK47" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_AK47" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasBlackPatriotInHand" palette="guns_v2_pal_swap">
 			<Surface name="LBT_RGM_RIFLE_OPEN_PATRIOT" animsurface="RGMOPEN" />
@@ -64,6 +68,10 @@
 			<Surface name="LBT_RGMRIFLE_LOW_PATRIOT" animsurface="RGMSHOOT_LOW" />
 			<Surface name="LBT_RGMRIFLE_HIP_LOW_PATRIOT" animsurface="RGM_HIP_LOW" />
 			<Surface name="LBT_RGMRIFLE_ROLL_SIDE_PATRIOT" animsurface="RGMROLL_PR" />
+			<Surface name="WATER_RIFLE_IDLE_PATRIOT" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_PATRIOT" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_PATRIOT" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_PATRIOT" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasBlackSniperInHand" palette="guns_v2_pal_swap">
 			<Surface name="LBT_RGM_RIFLE_OPEN_TRG42" animsurface="RGMOPEN" />
@@ -96,6 +104,10 @@
 			<Surface name="LBT_RGMRIFLE_LOW_TRG42" animsurface="RGMSHOOT_LOW" />
 			<Surface name="LBT_RGMRIFLE_HIP_LOW_TRG42" animsurface="RGM_HIP_LOW" />
 			<Surface name="LBT_RGMRIFLE_ROLL_SIDE_TRG42" animsurface="RGMROLL_PR" />
+			<Surface name="WATER_RIFLE_IDLE_TRG42" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_TRG42" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_TRG42" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_TRG42" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasBlackSemiAutoRifleInHand" palette="guns_v2_pal_swap">
 			<Surface name="LBT_RGM_RIFLE_OPEN_M14" animsurface="RGMOPEN" />
@@ -128,6 +140,10 @@
 			<Surface name="LBT_RGMRIFLE_LOW_M14" animsurface="RGMSHOOT_LOW" />
 			<Surface name="LBT_RGMRIFLE_HIP_LOW_M14" animsurface="RGM_HIP_LOW" />
 			<Surface name="LBT_RGMRIFLE_ROLL_SIDE_M14" animsurface="RGMROLL_PR" />
+			<Surface name="WATER_RIFLE_IDLE_M14" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_M14" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_M14" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_M14" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>
