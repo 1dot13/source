@@ -148,6 +148,8 @@ extern void HandleTBPickUpBackpacks( void );
 extern void HandleTBDropBackpacks( void );
 extern void HandleTBLocatePrevMerc( void );
 extern void HandleTBLocateNextMerc( void );
+extern void HandleTBLevelDown(void);
+extern void HandleTBLevelUp(void);
 extern void HandleTBSwapGoogles( void );
 extern void HandleTBSwapSidearm( void );
 extern void HandleTBSwapKnife( void );
@@ -1957,7 +1959,7 @@ void HandleAltMouseRTWheel(void)
 			else if (_KeyDown(SHIFT))			// SHIFT
 				HandleTBCycleThroughVisibleEnemiesBackward();
 			else
-				;
+				HandleTBLevelUp();
 		}
 		else										// wheel down
 		{
@@ -1983,7 +1985,7 @@ void HandleAltMouseRTWheel(void)
 			else if (_KeyDown(SHIFT))			// SHIFT
 				HandleTBCycleThroughVisibleEnemies();
 			else
-				;
+				HandleTBLevelDown();
 		}
 	}
 }

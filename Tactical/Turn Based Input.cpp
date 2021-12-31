@@ -336,6 +336,8 @@ void HandleTBGotoHigherStance(void);
 void HandleTBGotoLowerStance(void);
 void HandleTBLocateNextMerc( void );
 void HandleTBLocatePrevMerc( void );
+void HandleTBLevelDown(void);
+void HandleTBLevelUp(void);
 void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
@@ -5614,7 +5616,7 @@ void HandleRadioCursorClick(INT32 usMapPos, UINT32 *puiNewEvent)
 		INT32 sMoveSpot = usMapPos;
 		BOOLEAN fClimbingNecessary;
 		INT32 sClimbSpot;
-		INT32 iPathCost = EstimatePathCostToLocation(pTMilitiaSoldier, sMoveSpot, gsInterfaceLevel, FALSE, &fClimbingNecessary, &sClimbSpot);
+		INT32 iPathCost = EstimatePathCostToLocation(pTMilitiaSoldier, sMoveSpot, (INT8)gsInterfaceLevel, FALSE, &fClimbingNecessary, &sClimbSpot);
 
 		// See if we can get there
 		if (iPathCost > 0)
@@ -7251,7 +7253,7 @@ void HandleAltMouseTBWheel( void )
 			else if (_KeyDown(SHIFT))			// SHIFT
 				HandleTBCycleThroughVisibleEnemiesBackward();
 			else
-				;
+				HandleTBLevelUp();
 		}
 		else										// wheel down
 		{
@@ -7277,7 +7279,7 @@ void HandleAltMouseTBWheel( void )
 			else if (_KeyDown(SHIFT))			// SHIFT
 				HandleTBCycleThroughVisibleEnemies();
 			else
-				;
+				HandleTBLevelDown();
 		}
 	}
 }
@@ -8193,6 +8195,38 @@ void HandleTBLocatePrevMerc( void )
 		HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
 		// Center to guy....
 		LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+	}
+}
+
+void HandleTBLevelDown(void)
+{
+	if (gsInterfaceLevel > 0 &&
+		gpItemPointer == NULL &&
+		(gsCurInterfacePanel != SM_PANEL || ButtonList[iSMPanelButtons[UPDOWN_BUTTON]]->uiFlags & BUTTON_ENABLED))
+	{
+		UIHandleChangeLevel(NULL);
+
+		if (gsCurInterfacePanel == SM_PANEL)
+		{
+			// Remember soldier's new value
+			gpSMCurrentMerc->bUIInterfaceLevel = (INT8)gsInterfaceLevel;
+		}
+	}
+}
+
+void HandleTBLevelUp(void)
+{
+	if (gsInterfaceLevel == 0 &&
+		gpItemPointer == NULL &&
+		(gsCurInterfacePanel != SM_PANEL || ButtonList[iSMPanelButtons[UPDOWN_BUTTON]]->uiFlags & BUTTON_ENABLED))
+	{
+		UIHandleChangeLevel(NULL);
+
+		if (gsCurInterfacePanel == SM_PANEL)
+		{
+			// Remember soldier's new value
+			gpSMCurrentMerc->bUIInterfaceLevel = (INT8)gsInterfaceLevel;
+		}
 	}
 }
 
