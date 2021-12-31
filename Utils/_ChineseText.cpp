@@ -6622,7 +6622,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时，战略地图将会根据探索状态显示不同的着色。",
 	L"打开时，当你射击时会显示间隔子弹图像。",
-	L"打开时，佣兵外观可随着武器或防具装备的改变而改变佣兵外观造型。\n(该特性基本完成，可能还存在部分会使佣兵或敌人隐形)", //L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",
+	L"打开时，佣兵外观可随着武器或防具装备的改变而改变佣兵外观造型。\n(该特性基本完成，可能还存在部分会使佣兵或敌人隐形)", //L"When ON, mercenary body graphic can change along with equipped gear.",	\\TODO.Translate
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时，显示佣兵脸部装备图。",
 	L"打开时，佣兵肖像右下角显示脸部装备图标。",

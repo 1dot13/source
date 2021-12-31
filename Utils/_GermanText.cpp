@@ -6363,7 +6363,7 @@ STR16 zOptionsToggleText[] =
 	L"Status Trainingsfortschritt",			// Show progress towards stat increase
 	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektil-Grafik",			// Show alternate bullet graphics (tracers)
-	L"Logical Bodytypes (WIP)",
+	L"Logical Bodytypes",
 	L"Söldnerrang anzeigen.",					// shows mercs ranks
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",
@@ -6481,7 +6481,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden die Söldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefärbt.",
 	L"Wenn diese Funktion aktiviert ist, werden geschossene Projektile visuell mit Tracer-Effekten dargestellt.",
-	L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",	// TODO.Translate
+	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
 	L"Wenn diese Funktion aktiviert ist, werden die Ränge der Söldner in der Strategischen Karte vor dem Namen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",

@@ -6497,7 +6497,7 @@ STR16		zOptionsToggleText[] =
 	L"Afficher la progression",					// Show progress towards stat increase
 	L"Couleur alternative carte",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
-	L"Logical Bodytypes (WIP)",
+	L"Logical Bodytypes",
 	L"Afficher grade du mercenaire",						// shows mercs ranks
 	L"Afficher équip. sur portrait",
 	L"Afficher icônes sur portrait",
@@ -6615,7 +6615,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, affiche une barre de progression sur chaque compétence",
 	L"Si activé, la carte stratégique sera colorée différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
-	L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",	// TODO.Translate
+	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
 	L"Si activée, le grade sera affiché devant le nom du merc. dans la carte stratégique.",
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
 	L"Si activé, vous verrez les icônes correspondant à l'équipement porté en bas à droite du portrait.",
