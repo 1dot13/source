@@ -4604,11 +4604,22 @@ void HandleSettingTheSelectedListOfMercs( void )
 	{
 		INT8 pbErrorNumber = -1;
 		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
-		if (!CanCharacterMoveInStrategic(pSoldier, &pbErrorNumber))
+		INT8 bSquadValue = pSoldier->bAssignment;
+
+		// find number of characters in particular squad.
+		for (INT8 bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter)
 		{
-			SetSelectedDestChar(-1);
-			giDestHighLine = -1;
-			return;
+			// valid slot?
+			if (Squad[bSquadValue][bCounter] != NULL && !CanCharacterMoveInStrategic(Squad[bSquadValue][bCounter], &pbErrorNumber))
+			{
+				if (pbErrorNumber != -1)
+				{
+					ReportMapScreenMovementError(pbErrorNumber);
+				}
+				SetSelectedDestChar(-1);
+				giDestHighLine = -1;
+				return;
+			}
 		}
 		// set cursor
 		SetUpCursorForStrategicMap( );
