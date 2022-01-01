@@ -23300,6 +23300,15 @@ void MercStealFromMerc( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarget )
 	}
 }
 
+void AbandonBoxingDueToSurrenderCallback(UINT8 ubExitValue)
+{
+	if (ubExitValue == MSG_BOX_RETURN_YES)
+	{
+		SetBoxingState(DISQUALIFIED);
+		TriggerNPCRecord(DARREN, 21);
+	}
+}
+
 SOLDIERTYPE				*pTMilitiaSoldier;//global pointer
 BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValidate )
 {
@@ -23374,6 +23383,12 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			if ( (gSkillTraitValues.fCOTurncoats || gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && pTSoldier->CanBeCaptured( ) )
 			{
 				// AP costs are handled inside the callback (PrisonerSurrenderMessageBoxCallBack)
+				if (gTacticalStatus.bBoxingState != NOT_BOXING)
+				{
+					// pop up dialogue asking whether the player wants to abandon the fight
+					DoMessageBox(MSG_BOX_BASIC_STYLE, Message[STR_ABANDON_FIGHT], GAME_SCREEN, (UINT8)MSG_BOX_FLAG_YESNO, AbandonBoxingDueToSurrenderCallback, NULL);
+					return FALSE;
+				}
 				HandleSurrenderOffer( pTSoldier );
 				return(FALSE);
 			}
