@@ -4602,13 +4602,21 @@ void HandleSettingTheSelectedListOfMercs( void )
 
 	if( GetSelectedDestChar() != -1 )
 	{
+		INT8 pbErrorNumber = -1;
+		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
+		if (!CanCharacterMoveInStrategic(pSoldier, &pbErrorNumber))
+		{
+			SetSelectedDestChar(-1);
+			giDestHighLine = -1;
+			return;
+		}
 		// set cursor
 		SetUpCursorForStrategicMap( );
 		fTeamPanelDirty = TRUE;
 		fMapPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
 
-		DeselectSelectedListMercsWhoCantMoveWithThisGuy( &( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] ) );
+		DeselectSelectedListMercsWhoCantMoveWithThisGuy( pSoldier );
 
 		// remember the current paths for all selected characters so we can restore them if need be
 		RememberPreviousPathForAllSelectedChars();
