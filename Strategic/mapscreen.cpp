@@ -7634,6 +7634,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								SetSectorFlag(sSectorX, sSectorY, (UINT8)0, SF_PLAYER_KNOWS_ENEMIES_ARE_HERE);
 							}
 						}
+						fMapPanelDirty = TRUE;
 					}
 					break;
 				case 'b':
