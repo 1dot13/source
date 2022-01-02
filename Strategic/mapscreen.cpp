@@ -7623,7 +7623,19 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						}
 					break;
 
-
+				case 'A':
+					if (fCtrl && CHEATER_CHEAT_LEVEL())//reveal all sectors and show enemies
+					{
+						for (INT16 sSectorX = 0; sSectorX < MAP_WORLD_X; sSectorX++)
+						{
+							for (INT16 sSectorY = 0; sSectorY < MAP_WORLD_Y; sSectorY++)
+							{
+								SetSectorFlag(sSectorX, sSectorY, (UINT8)0, SF_ALREADY_VISITED);
+								SetSectorFlag(sSectorX, sSectorY, (UINT8)0, SF_PLAYER_KNOWS_ENEMIES_ARE_HERE);
+							}
+						}
+					}
+					break;
 				case 'b':
 /*
 						// CTRL-B: make player's perception of all sectors correct!
