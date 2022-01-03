@@ -194,6 +194,74 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 	return isValid;
 }
 
+void UpdateFeatureFlags()
+{
+	// do we need to override some ini settings?
+	if (gGameSettings.fFeatures[FF_FEATURES_SCREEN])
+	{
+		gGameExternalOptions.fUseNCTH = gGameSettings.fFeatures[FF_NCTH];
+		if (gGameSettings.fFeatures[FF_DROP_ALL])
+			gGameExternalOptions.fEnemiesDropAllItems = 1;
+		else if (gGameSettings.fFeatures[FF_DROP_ALL_DAMAGED])
+			gGameExternalOptions.fEnemiesDropAllItems = 2;
+		else
+			gGameExternalOptions.fEnemiesDropAllItems = 0;
+
+		gGameExternalOptions.sSuppressionEffectiveness = gGameSettings.fFeatures[FF_SUPPRESSION] ? 100 : 0;
+		gGameExternalOptions.ubSendTroopsToDrassen = gGameSettings.fFeatures[FF_TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN];
+		if (gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI])
+			gGameExternalOptions.ubAgressiveStrategicAI = 1;
+		else if (gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI_2])
+			gGameExternalOptions.ubAgressiveStrategicAI = 2;
+		else
+			gGameExternalOptions.ubAgressiveStrategicAI = 0;
+		
+		gGameExternalOptions.fIntelResource = gGameSettings.fFeatures[FF_INTEL];
+		gGameExternalOptions.fAllowPrisonerSystem = gGameSettings.fFeatures[FF_PRISONERS];
+		gGameExternalOptions.fMineRequiresWorkers = gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS];
+		gGameExternalOptions.fEnableChanceOfEnemyAmbushes = gGameSettings.fFeatures[FF_ENEMY_AMBUSHES];
+		gGameExternalOptions.fEnemyAssassins = gGameSettings.fFeatures[FF_ENEMY_ASSASSINS];
+		gGameExternalOptions.fEnemyRoles = gGameSettings.fFeatures[FF_ENEMY_ROLES];
+		gGameExternalOptions.fEnemyMedics = gGameSettings.fFeatures[FF_ENEMY_ROLE_MEDIC];
+		gGameExternalOptions.fEnemyOfficers = gGameSettings.fFeatures[FF_ENEMY_ROLE_OFFICER];
+		gGameExternalOptions.fEnemyGenerals = gGameSettings.fFeatures[FF_ENEMY_ROLE_GENERAL];
+		gGameExternalOptions.fPMC = gGameSettings.fFeatures[FF_KERBERUS];
+		gGameExternalOptions.fFoodSystem = gGameSettings.fFeatures[FF_FOOD];
+		gGameExternalOptions.fDisease = gGameSettings.fFeatures[FF_DISEASE];
+		gGameExternalOptions.fDynamicOpinions = gGameSettings.fFeatures[FF_DYNAMIC_OPINIONS];
+		gGameExternalOptions.fDynamicDialogue = gGameSettings.fFeatures[FF_DYNAMIC_DIALOGUE];
+		gGameExternalOptions.fASDActive = gGameSettings.fFeatures[FF_ASD];
+		gGameExternalOptions.fEnemyHeliActive = gGameSettings.fFeatures[FF_ASD_HELICOPTERS];
+		gGameExternalOptions.fEnemyTanksCanMoveInTactical = gGameSettings.fFeatures[FF_ENEMY_VEHICLES_CAN_MOVE];
+		gGameSettings.fOptions[TOPTION_ZOMBIES] = gGameSettings.fFeatures[FF_ZOMBIES];
+		gGameExternalOptions.gRaid_Bloodcats = gGameSettings.fFeatures[FF_BLOODCAT_RAIDS];
+		gGameExternalOptions.gRaid_Bandits = gGameSettings.fFeatures[FF_BANDIT_RAIDS];
+		gGameExternalOptions.gRaid_Zombies = gGameSettings.fFeatures[FF_ZOMBIE_RAIDS];
+		gGameExternalOptions.fMilitiaVolunteerPool = gGameSettings.fFeatures[FF_MILITIA_VOLUNTEER_POOL];
+		gGameExternalOptions.fAllowTacticalMilitiaCommand = gGameSettings.fFeatures[FF_ALLOW_TACTICAL_MILITIA_COMMAND];
+		gGameExternalOptions.fMilitiaStrategicCommand = gGameSettings.fFeatures[FF_ALLOW_STRATEGIC_MILITIA_COMMAND];
+		gGameExternalOptions.fMilitiaUseSectorInventory = gGameSettings.fFeatures[FF_MILITIA_USE_SECTOR_EQUIPMENT];
+		gGameExternalOptions.fMilitiaResources = gGameSettings.fFeatures[FF_MILITIA_REQUIRE_RESOURCES];
+		gGameExternalOptions.fEnhancedCloseCombatSystem = gGameSettings.fFeatures[FF_ENHANCED_CLOSE_COMBAT_SYSTEM];
+		gGameExternalOptions.fImprovedInterruptSystem = gGameSettings.fFeatures[FF_IMPROVED_INTERRUPT_SYSTEM];
+		gGameExternalOptions.fWeaponOverheating = gGameSettings.fFeatures[FF_OVERHEATING];
+		gGameExternalOptions.gfAllowRain = gGameSettings.fFeatures[FF_ALLOW_RAIN];
+		gGameExternalOptions.gfAllowLightning = gGameSettings.fFeatures[FF_ALLOW_LIGHTNING];
+		gGameExternalOptions.gfAllowSandStorms = gGameSettings.fFeatures[FF_ALLOW_SANDSTORM];
+		gGameExternalOptions.gfAllowSnow = gGameSettings.fFeatures[FF_ALLOW_SNOW];
+		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
+		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
+	}
+	else
+	{
+		// reload options, since we may have overwritten them
+		CIniReader iniReader(GAME_SETTINGS_FILE, TRUE);
+		gGameSettings.fOptions[TOPTION_ZOMBIES] = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ZOMBIES",FALSE);
+		LoadGameExternalOptions();
+	}
+}
+
+
 BOOLEAN LoadGameSettings()
 {	
 	try
@@ -390,6 +458,12 @@ BOOLEAN LoadFeatureFlags()
 			// don't show an error if we can't find the setting
 			gGameSettings.fFeatures[FF_FEATURES_SCREEN]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_FEATURES_SCREEN", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_NCTH]							= iniReader.ReadBoolean("JA2 Feature Flags", "FF_NCTH", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_DROP_ALL]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_DROP_ALL", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_DROP_ALL_DAMAGED]				= iniReader.ReadBoolean("JA2 Feature Flags", "FF_DROP_ALL_DAMAGED", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_SUPPRESSION]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_SUPPRESSION", TRUE, FALSE);
+			gGameSettings.fFeatures[FF_TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN]= iniReader.ReadBoolean("JA2 Feature Flags", "FF_TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI]			= iniReader.ReadBoolean("JA2 Feature Flags", "FF_AGGRESSIVE_STRATEGIC_AI", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI_2]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_AGGRESSIVE_STRATEGIC_AI_2", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_INTEL]							= iniReader.ReadBoolean("JA2 Feature Flags", "FF_INTEL", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_PRISONERS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_PRISONERS", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS]			= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINES_REQUIRE_WORKERS", FALSE, FALSE);
@@ -402,6 +476,8 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_KERBERUS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_KERBERUS", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_FOOD]							= iniReader.ReadBoolean("JA2 Feature Flags", "FF_FOOD", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_DISEASE]							= iniReader.ReadBoolean("JA2 Feature Flags", "FF_DISEASE", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_DYNAMIC_OPINIONS]				= iniReader.ReadBoolean("JA2 Feature Flags", "FF_DYNAMIC_OPINIONS", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_DYNAMIC_DIALOGUE]				= iniReader.ReadBoolean("JA2 Feature Flags", "FF_DYNAMIC_DIALOGUE", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_ASD]								= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ASD", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_ASD_HELICOPTERS]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ASD_HELICOPTERS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_ENEMY_VEHICLES_CAN_MOVE]			= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ENEMY_VEHICLES_CAN_MOVE", FALSE, FALSE);
@@ -417,6 +493,10 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_ENHANCED_CLOSE_COMBAT_SYSTEM]	= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ENHANCED_CLOSE_COMBAT_SYSTEM", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_IMPROVED_INTERRUPT_SYSTEM]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_IMPROVED_INTERRUPT_SYSTEM", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_OVERHEATING]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_OVERHEATING", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_ALLOW_RAIN]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_RAIN", TRUE, FALSE);
+			gGameSettings.fFeatures[FF_ALLOW_LIGHTNING]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_LIGHTNING", TRUE, FALSE);
+			gGameSettings.fFeatures[FF_ALLOW_SANDSTORM]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SANDSTORM", TRUE, FALSE);
+			gGameSettings.fFeatures[FF_ALLOW_SNOW]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SNOW", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINI_EVENTS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINI_EVENTS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_REBEL_COMMAND]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_REBEL_COMMAND", FALSE, FALSE);
 		}
@@ -428,40 +508,7 @@ BOOLEAN LoadFeatureFlags()
 		InitFeatureFlags();
 	}
 
-	// do we need to override some ini settings?
-	if (gGameSettings.fFeatures[FF_FEATURES_SCREEN])
-	{
-		gGameExternalOptions.fUseNCTH = gGameSettings.fFeatures[FF_NCTH];
-		gGameExternalOptions.fIntelResource = gGameSettings.fFeatures[FF_INTEL];
-		gGameExternalOptions.fAllowPrisonerSystem = gGameSettings.fFeatures[FF_PRISONERS];
-		gGameExternalOptions.fMineRequiresWorkers = gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS];
-		gGameExternalOptions.fEnableChanceOfEnemyAmbushes = gGameSettings.fFeatures[FF_ENEMY_AMBUSHES];
-		gGameExternalOptions.fEnemyAssassins = gGameSettings.fFeatures[FF_ENEMY_ASSASSINS];
-		gGameExternalOptions.fEnemyRoles = gGameSettings.fFeatures[FF_ENEMY_ROLES];
-		gGameExternalOptions.fEnemyMedics = gGameSettings.fFeatures[FF_ENEMY_ROLE_MEDIC];
-		gGameExternalOptions.fEnemyOfficers = gGameSettings.fFeatures[FF_ENEMY_ROLE_OFFICER];
-		gGameExternalOptions.fEnemyGenerals = gGameSettings.fFeatures[FF_ENEMY_ROLE_GENERAL];
-		gGameExternalOptions.fPMC = gGameSettings.fFeatures[FF_KERBERUS];
-		gGameExternalOptions.fFoodSystem = gGameSettings.fFeatures[FF_FOOD];
-		gGameExternalOptions.fDisease = gGameSettings.fFeatures[FF_DISEASE];
-		gGameExternalOptions.fASDActive = gGameSettings.fFeatures[FF_ASD];
-		gGameExternalOptions.fEnemyHeliActive = gGameSettings.fFeatures[FF_ASD_HELICOPTERS];
-		gGameExternalOptions.fEnemyTanksCanMoveInTactical = gGameSettings.fFeatures[FF_ENEMY_VEHICLES_CAN_MOVE];
-		gGameSettings.fOptions[TOPTION_ZOMBIES] = gGameSettings.fFeatures[FF_ZOMBIES];
-		gGameExternalOptions.gRaid_Bloodcats = gGameSettings.fFeatures[FF_BLOODCAT_RAIDS];
-		gGameExternalOptions.gRaid_Bandits = gGameSettings.fFeatures[FF_BANDIT_RAIDS];
-		gGameExternalOptions.gRaid_Zombies = gGameSettings.fFeatures[FF_ZOMBIE_RAIDS];
-		gGameExternalOptions.fMilitiaVolunteerPool = gGameSettings.fFeatures[FF_MILITIA_VOLUNTEER_POOL];
-		gGameExternalOptions.fAllowTacticalMilitiaCommand = gGameSettings.fFeatures[FF_ALLOW_TACTICAL_MILITIA_COMMAND];
-		gGameExternalOptions.fMilitiaStrategicCommand = gGameSettings.fFeatures[FF_ALLOW_STRATEGIC_MILITIA_COMMAND];
-		gGameExternalOptions.fMilitiaUseSectorInventory = gGameSettings.fFeatures[FF_MILITIA_USE_SECTOR_EQUIPMENT];
-		gGameExternalOptions.fMilitiaResources = gGameSettings.fFeatures[FF_MILITIA_REQUIRE_RESOURCES];
-		gGameExternalOptions.fEnhancedCloseCombatSystem = gGameSettings.fFeatures[FF_ENHANCED_CLOSE_COMBAT_SYSTEM];
-		gGameExternalOptions.fImprovedInterruptSystem = gGameSettings.fFeatures[FF_IMPROVED_INTERRUPT_SYSTEM];
-		gGameExternalOptions.fWeaponOverheating = gGameSettings.fFeatures[FF_OVERHEATING];
-		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
-		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
-	}
+	UpdateFeatureFlags();
 
 	return TRUE;
 }
@@ -638,6 +685,12 @@ BOOLEAN SaveFeatureFlags()
 		settings << "[JA2 Feature Flags]" << endl;
 		settings << "FF_FEATURES_SCREEN						= " << (gGameSettings.fFeatures[FF_FEATURES_SCREEN] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_NCTH								= " << (gGameSettings.fFeatures[FF_NCTH] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_DROP_ALL							= " << (gGameSettings.fFeatures[FF_DROP_ALL] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_DROP_ALL_DAMAGED					= " << (gGameSettings.fFeatures[FF_DROP_ALL_DAMAGED] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_SUPPRESSION							= " << (gGameSettings.fFeatures[FF_SUPPRESSION] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN= " << (gGameSettings.fFeatures[FF_TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_AGGRESSIVE_STRATEGIC_AI				= " << (gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_AGGRESSIVE_STRATEGIC_AI_2			= " << (gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI_2] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_INTEL								= " << (gGameSettings.fFeatures[FF_INTEL] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_PRISONERS							= " << (gGameSettings.fFeatures[FF_PRISONERS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINES_REQUIRE_WORKERS				= " << (gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS] ? "TRUE" : "FALSE") << endl;
@@ -650,6 +703,8 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_KERBERUS							= " << (gGameSettings.fFeatures[FF_KERBERUS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_FOOD								= " << (gGameSettings.fFeatures[FF_FOOD] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_DISEASE								= " << (gGameSettings.fFeatures[FF_DISEASE] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_DYNAMIC_OPINIONS					= " << (gGameSettings.fFeatures[FF_DYNAMIC_OPINIONS] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_DYNAMIC_DIALOGUE					= " << (gGameSettings.fFeatures[FF_DYNAMIC_DIALOGUE] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_ASD									= " << (gGameSettings.fFeatures[FF_ASD] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_ASD_HELICOPTERS						= " << (gGameSettings.fFeatures[FF_ASD_HELICOPTERS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_ENEMY_VEHICLES_CAN_MOVE				= " << (gGameSettings.fFeatures[FF_ENEMY_VEHICLES_CAN_MOVE] ? "TRUE" : "FALSE") << endl;
@@ -665,6 +720,10 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_ENHANCED_CLOSE_COMBAT_SYSTEM		= " << (gGameSettings.fFeatures[FF_ENHANCED_CLOSE_COMBAT_SYSTEM] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_IMPROVED_INTERRUPT_SYSTEM			= " << (gGameSettings.fFeatures[FF_IMPROVED_INTERRUPT_SYSTEM] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_OVERHEATING							= " << (gGameSettings.fFeatures[FF_OVERHEATING] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_ALLOW_RAIN							= " << (gGameSettings.fFeatures[FF_ALLOW_RAIN] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_ALLOW_LIGHTNING						= " << (gGameSettings.fFeatures[FF_ALLOW_LIGHTNING] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_ALLOW_SANDSTORM						= " << (gGameSettings.fFeatures[FF_ALLOW_SANDSTORM] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_ALLOW_SNOW							= " << (gGameSettings.fFeatures[FF_ALLOW_SNOW] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINI_EVENTS							= " << (gGameSettings.fFeatures[FF_MINI_EVENTS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_REBEL_COMMAND						= " << (gGameSettings.fFeatures[FF_REBEL_COMMAND] ? "TRUE" : "FALSE") << endl;
 
@@ -684,47 +743,7 @@ BOOLEAN SaveFeatureFlags()
 			}
 		}
 
-		// do we need to override some ini settings?
-		if (gGameSettings.fFeatures[FF_FEATURES_SCREEN])
-		{
-			gGameExternalOptions.fUseNCTH = gGameSettings.fFeatures[FF_NCTH];
-			gGameExternalOptions.fIntelResource = gGameSettings.fFeatures[FF_INTEL];
-			gGameExternalOptions.fAllowPrisonerSystem = gGameSettings.fFeatures[FF_PRISONERS];
-			gGameExternalOptions.fMineRequiresWorkers = gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS];
-			gGameExternalOptions.fEnableChanceOfEnemyAmbushes = gGameSettings.fFeatures[FF_ENEMY_AMBUSHES];
-			gGameExternalOptions.fEnemyAssassins = gGameSettings.fFeatures[FF_ENEMY_ASSASSINS];
-			gGameExternalOptions.fEnemyRoles = gGameSettings.fFeatures[FF_ENEMY_ROLES];
-			gGameExternalOptions.fEnemyMedics = gGameSettings.fFeatures[FF_ENEMY_ROLE_MEDIC];
-			gGameExternalOptions.fEnemyOfficers = gGameSettings.fFeatures[FF_ENEMY_ROLE_OFFICER];
-			gGameExternalOptions.fEnemyGenerals = gGameSettings.fFeatures[FF_ENEMY_ROLE_GENERAL];
-			gGameExternalOptions.fPMC = gGameSettings.fFeatures[FF_KERBERUS];
-			gGameExternalOptions.fFoodSystem = gGameSettings.fFeatures[FF_FOOD];
-			gGameExternalOptions.fDisease = gGameSettings.fFeatures[FF_DISEASE];
-			gGameExternalOptions.fASDActive = gGameSettings.fFeatures[FF_ASD];
-			gGameExternalOptions.fEnemyHeliActive = gGameSettings.fFeatures[FF_ASD_HELICOPTERS];
-			gGameExternalOptions.fEnemyTanksCanMoveInTactical = gGameSettings.fFeatures[FF_ENEMY_VEHICLES_CAN_MOVE];
-			gGameSettings.fOptions[TOPTION_ZOMBIES] = gGameSettings.fFeatures[FF_ZOMBIES];
-			gGameExternalOptions.gRaid_Bloodcats = gGameSettings.fFeatures[FF_BLOODCAT_RAIDS];
-			gGameExternalOptions.gRaid_Bandits = gGameSettings.fFeatures[FF_BANDIT_RAIDS];
-			gGameExternalOptions.gRaid_Zombies = gGameSettings.fFeatures[FF_ZOMBIE_RAIDS];
-			gGameExternalOptions.fMilitiaVolunteerPool = gGameSettings.fFeatures[FF_MILITIA_VOLUNTEER_POOL];
-			gGameExternalOptions.fAllowTacticalMilitiaCommand = gGameSettings.fFeatures[FF_ALLOW_TACTICAL_MILITIA_COMMAND];
-			gGameExternalOptions.fMilitiaStrategicCommand = gGameSettings.fFeatures[FF_ALLOW_STRATEGIC_MILITIA_COMMAND];
-			gGameExternalOptions.fMilitiaUseSectorInventory = gGameSettings.fFeatures[FF_MILITIA_USE_SECTOR_EQUIPMENT];
-			gGameExternalOptions.fMilitiaResources = gGameSettings.fFeatures[FF_MILITIA_REQUIRE_RESOURCES];
-			gGameExternalOptions.fEnhancedCloseCombatSystem = gGameSettings.fFeatures[FF_ENHANCED_CLOSE_COMBAT_SYSTEM];
-			gGameExternalOptions.fImprovedInterruptSystem = gGameSettings.fFeatures[FF_IMPROVED_INTERRUPT_SYSTEM];
-			gGameExternalOptions.fWeaponOverheating = gGameSettings.fFeatures[FF_OVERHEATING];
-			gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
-			gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
-		}
-		else
-		{
-			// reload options, since we may have overwritten them
-			CIniReader iniReader(GAME_SETTINGS_FILE, TRUE);
-			gGameSettings.fOptions[TOPTION_ZOMBIES] = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ZOMBIES",FALSE);
-			LoadGameExternalOptions();
-		}
+		UpdateFeatureFlags();
 	}
 
 	return( TRUE );

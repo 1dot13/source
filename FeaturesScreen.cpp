@@ -108,7 +108,6 @@ void Establish_Features_Screen_Rules(void);				// define the display rules
 void Build_Features_List_Reinterpretation(void);			// interpret rules and build a set of which options are used for use in options screen
 void Create_Toggle_Buttons(void);				// these two are blcok removals from functions, an isolation of toggle create/destroy
 void Destroy_Toggle_Buttons(void);
-void Handle_ButtonStyle_Options(UINT8 Button_UserData_1);
 
 // Next Button
 void BtnOptNextCallback(GUI_BUTTON* btn, INT32 reason);
@@ -163,6 +162,8 @@ void			HandleScreen();
 void			GetUserInput();
 void			SetToggleBoxes();
 void			SetExitScreen(UINT32 uiExitScreen);
+void			NextPage();
+void			PreviousPage();
 
 void			ConfirmQuitToMainMenuMessageBoxCallBack(UINT8 bExitValue);
 void			HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEAN fState, BOOLEAN fDown, BOOLEAN fPlaySound);
@@ -197,6 +198,7 @@ UINT32	Handle()
 		gfFeaturesScreenEntry = FALSE;
 		gfFeaturesScreenExit = FALSE;
 		gfRedrawFeaturesScreen = TRUE;
+		RenderScreen();
 
 		//Blit the background to the save buffer
 		BlitBufferToBuffer(guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -328,7 +330,7 @@ void Build_Features_List_Reinterpretation(void)
 void Create_Toggle_Buttons(void)
 {
 	UINT16	counter1;
-	UINT16	usPosY, usBoxPosX, usTextPosX;
+	UINT16	usPosY = 0, usBoxPosX, usTextPosX;
 	UINT16	usTextWidth, usTextHeight;
 
 	//
@@ -706,19 +708,21 @@ void HandleScreen()
 void RenderScreen()
 {
 	HVOBJECT hPixHandle;
-	UINT16	usPosY, usPosX;
+	UINT16	usPosY = 0, usPosX;
 	UINT16	usWidth = 0;
 	UINT8	count;
 	CHAR16	sPage[60];
 
 	//Get and display the background image
-	GetVideoObject(&hPixHandle, guiFeaturesBackGroundImage);
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset, iScreenHeightOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+	if (GetVideoObject(&hPixHandle, guiFeaturesBackGroundImage))
+		BltVideoObject(FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset, iScreenHeightOffset, VO_BLT_SRCTRANSPARENCY, NULL);
 
 	//Get and display the titla image
-	GetVideoObject(&hPixHandle, guiFeaturesAddOnImages);
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset, iScreenHeightOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 1, iScreenWidthOffset, iScreenHeightOffset + 434, VO_BLT_SRCTRANSPARENCY, NULL);
+	if (GetVideoObject(&hPixHandle, guiFeaturesAddOnImages))
+	{
+		BltVideoObject(FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset, iScreenHeightOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+		BltVideoObject(FRAME_BUFFER, hPixHandle, 1, iScreenWidthOffset, iScreenHeightOffset + 434, VO_BLT_SRCTRANSPARENCY, NULL);
+	}
 
 	DrawLeftPanel();
 
@@ -751,7 +755,8 @@ void RenderScreen()
 
 		usWidth = StringPixLength(z113FeaturesToggleText[toggle_box_array[count]], OPT_MAIN_FONT);
 
-		UINT8 fontColor = (count == 0 || gGameSettings.fFeatures[FF_FEATURES_SCREEN]) ?
+		// set the colour of the toggle box text
+		UINT8 fontColor = (count == 0 && OptionsList_Column_Offset == 0) || gGameSettings.fFeatures[FF_FEATURES_SCREEN] ?
 			OPT_MAIN_COLOR : FONT_GRAY7;
 
 		//if the string is going to wrap, move the string up a bit
@@ -813,6 +818,24 @@ void GetUserInput()
 				gfSaveGame = FALSE;
 				break;
 
+			// toggle between features and options screen
+			case TAB:
+				SetExitScreen(OPTIONS_SCREEN);
+				break;
+
+			// page left
+			case 'a':
+			case 'A':
+			case LEFTARROW:
+				PreviousPage();
+				break;
+
+			// page right
+			case 'd':
+			case 'D':
+			case RIGHTARROW:
+				NextPage();
+				break;
 
 #ifdef JA2TESTVERSION
 
@@ -876,6 +899,75 @@ void GetUserInput()
 			}
 		}
 	}
+	
+	// mousewheel input
+	if (OptionsList_Column_Offset > 0)
+	{
+		BOOL act = FALSE;
+
+		// check general screen mouseregion
+		if (gSelectedToggleBoxAreaRegion.WheelState > 0)
+		{
+			act = TRUE;
+		}
+
+		// check toggle box mouseregions
+		for (int i = 0; i < MAX_NUMBER_OF_OPTION_TOGGLES; ++i)
+		{
+			if (act) break;
+			if (gSelectedOptionTextRegion[i].WheelState > 0)
+			{
+				act = TRUE;
+			}
+		}
+
+		if (act) PreviousPage();
+	}
+
+	if (OptionsList_Column_Offset < Max_Number_Of_Pages-2)
+	{
+		BOOL act = FALSE;
+
+		// check general screen mouseregion
+		if (gSelectedToggleBoxAreaRegion.WheelState < 0)
+		{
+			act = TRUE;
+		}
+
+		// check toggle box mouseregions
+		for (int i = 0; i < MAX_NUMBER_OF_OPTION_TOGGLES; ++i)
+		{
+			if (act) break;
+			if (gSelectedOptionTextRegion[i].WheelState < 0)
+			{
+				act = TRUE;
+			}
+		}
+
+		if (act) NextPage();
+	}
+}
+
+void NextPage()
+{
+	ExitScreen();
+
+	OptionsList_Column_Offset++;
+	if (OptionsList_Column_Offset >= Max_Number_Of_Pages - 1) // ary-05/05/2009 : Max_Number_Of_Pages
+		OptionsList_Column_Offset = (Max_Number_Of_Pages - 2);
+
+	Init();
+}
+
+void PreviousPage()
+{
+	ExitScreen();
+
+	OptionsList_Column_Offset--;
+	if(OptionsList_Column_Offset < 0)
+		OptionsList_Column_Offset = 0;
+
+	Init();
 }
 
 void SetExitScreen(UINT32 uiExitScreen)
@@ -1099,13 +1191,6 @@ void BtnOptionsTogglesCallback(GUI_BUTTON* btn, INT32 reason)
 	}
 }
 
-void Handle_ButtonStyle_Options(UINT8 Button_UserData_1)
-{
-	// note : This function is where all immediately apply effects occur
-	//		:	These options represent button like applications. 
-	//		:	They are meant to be clicked on, then performed, then reset to off
-}
-
 void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEAN fState, BOOLEAN fDown, BOOLEAN fPlaySound)
 {
 	//Button_UserData_0 = which toggle box within guiFeaturesToggles[Button_UserData_0]
@@ -1117,6 +1202,22 @@ void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEA
 	{
 		switch (Button_UserData_1)
 		{
+		// FF_DROP_ALL and FF_DROP_ALL_DAMAGED are mutually exclusive
+		case FF_DROP_ALL:
+			gGameSettings.fFeatures[FF_DROP_ALL_DAMAGED] = FALSE;
+			break;
+		case FF_DROP_ALL_DAMAGED:
+			gGameSettings.fFeatures[FF_DROP_ALL] = FALSE;
+			break;
+
+		// counterattack/aggressive AI mutual exclusive toggles
+		case FF_AGGRESSIVE_STRATEGIC_AI:
+			gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI_2] = FALSE;
+			break;
+		case FF_AGGRESSIVE_STRATEGIC_AI_2:
+			gGameSettings.fFeatures[FF_AGGRESSIVE_STRATEGIC_AI] = FALSE;
+			break;
+
 		// FF_MILITIA_USE_SECTOR_EQUIPMENT and FF_MILITIA_REQUIRE_RESOURCES are mutually exclusive
 		case FF_MILITIA_REQUIRE_RESOURCES:
 			gGameSettings.fFeatures[FF_MILITIA_USE_SECTOR_EQUIPMENT] = FALSE;
@@ -1131,6 +1232,11 @@ void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEA
 		case FF_ENEMY_ROLE_GENERAL:
 			gGameSettings.fFeatures[FF_ENEMY_ROLES] = TRUE;
 			break;
+		
+		// dynamic opinions and dialogue
+		case FF_DYNAMIC_DIALOGUE:
+			gGameSettings.fFeatures[FF_DYNAMIC_OPINIONS] = TRUE;
+			break;
 
 		// arulco strategic division
 		case FF_ASD_HELICOPTERS:
@@ -1141,15 +1247,17 @@ void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEA
 		case FF_ZOMBIE_RAIDS:
 			gGameSettings.fFeatures[FF_ZOMBIES] = TRUE;
 			break;
+		
+		// rain/lightning
+		case FF_ALLOW_LIGHTNING:
+			gGameSettings.fFeatures[FF_ALLOW_RAIN] = TRUE;
+			break;
 		}
 
 		gGameSettings.fFeatures[Button_UserData_1] = TRUE;
 
 		if (fDown)
 			DrawCheckBoxButtonOn(guiFeaturesToggles[Button_UserData_0]);
-
-		Handle_ButtonStyle_Options(Button_UserData_1);
-
 	}
 	else
 	{
@@ -1162,6 +1270,11 @@ void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEA
 			gGameSettings.fFeatures[FF_ENEMY_ROLE_GENERAL] = FALSE;
 			break;
 
+		// dynamic opinions and dialogue
+		case FF_DYNAMIC_OPINIONS:
+			gGameSettings.fFeatures[FF_DYNAMIC_DIALOGUE] = FALSE;
+			break;
+
 		// arulco strategic division
 		case FF_ASD:
 			gGameSettings.fFeatures[FF_ASD_HELICOPTERS] = FALSE;
@@ -1171,6 +1284,11 @@ void HandleOptionToggle(UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLEA
 		// zombies
 		case FF_ZOMBIES:
 			gGameSettings.fFeatures[FF_ZOMBIE_RAIDS] = FALSE;
+			break;
+
+		// rain/lightning
+		case FF_ALLOW_RAIN:
+			gGameSettings.fFeatures[FF_ALLOW_LIGHTNING] = FALSE;
 			break;
 		}
 

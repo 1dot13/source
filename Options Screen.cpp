@@ -175,6 +175,8 @@ void			RenderOptionsScreen();
 void			ExitOptionsScreen();
 void			HandleOptionsScreen();
 void			GetOptionsScreenUserInput();
+void			NextPage();
+void			PreviousPage();
 
 void			SoundFXSliderChangeCallBack( INT32 iNewValue );
 void			SpeechSliderChangeCallBack( INT32 iNewValue );
@@ -983,6 +985,24 @@ void GetOptionsScreenUserInput()
 					gfSaveGame = FALSE;
 					break;
 
+				// toggle between features and options screen
+				case TAB:
+					SetOptionsExitScreen(FEATURES_SCREEN);
+					break;
+
+				// page left
+				case 'a':
+				case 'A':
+				case LEFTARROW:
+					PreviousPage();
+					break;
+
+				// page right
+				case 'd':
+				case 'D':
+				case RIGHTARROW:
+					NextPage();
+					break;
 
 #ifdef JA2TESTVERSION
 
@@ -1046,6 +1066,75 @@ void GetOptionsScreenUserInput()
 			}
 		}
 	}
+
+	// mousewheel input
+	if (OptionsList_Column_Offset > 0)
+	{
+		BOOL act = FALSE;
+
+		// check general screen mouseregion
+		if (gSelectedToggleBoxAreaRegion.WheelState > 0)
+		{
+			act = TRUE;
+		}
+
+		// check toggle box mouseregions
+		for (int i = 0; i < MAX_NUMBER_OF_OPTION_TOGGLES; ++i)
+		{
+			if (act) break;
+			if (gSelectedOptionTextRegion[i].WheelState > 0)
+			{
+				act = TRUE;
+			}
+		}
+
+		if (act) PreviousPage();
+	}
+
+	if (OptionsList_Column_Offset < Max_Number_Of_Pages-2)
+	{
+		BOOL act = FALSE;
+
+		// check general screen mouseregion
+		if (gSelectedToggleBoxAreaRegion.WheelState < 0)
+		{
+			act = TRUE;
+		}
+
+		// check toggle box mouseregions
+		for (int i = 0; i < MAX_NUMBER_OF_OPTION_TOGGLES; ++i)
+		{
+			if (act) break;
+			if (gSelectedOptionTextRegion[i].WheelState < 0)
+			{
+				act = TRUE;
+			}
+		}
+
+		if (act) NextPage();
+	}
+}
+
+void NextPage()
+{
+	ExitOptionsScreen();
+
+	OptionsList_Column_Offset++;
+	if (OptionsList_Column_Offset >= Max_Number_Of_Pages - 1) // ary-05/05/2009 : Max_Number_Of_Pages
+		OptionsList_Column_Offset = (Max_Number_Of_Pages - 2);
+
+	OptionsScreenInit();	// ary-05/05/2009 : This is important to refresh the screen properly, it stores a new SAVE_BUFFER
+}
+
+void PreviousPage()
+{
+	ExitOptionsScreen();
+
+	OptionsList_Column_Offset--;
+	if(OptionsList_Column_Offset < 0)
+		OptionsList_Column_Offset = 0;
+
+	OptionsScreenInit();	// ary-05/05/2009 : This is important to refresh the screen properly, it stores a new SAVE_BUFFER
 }
 
 void SetOptionsExitScreen( UINT32 uiExitScreen )
@@ -1170,12 +1259,7 @@ void BtnOptPrevCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		ExitOptionsScreen();
-
-		OptionsList_Column_Offset--;
-		if(OptionsList_Column_Offset < 0) OptionsList_Column_Offset = 0;
-
-		OptionsScreenInit();	// ary-05/05/2009 : This is important to refresh the screen properly, it stores a new SAVE_BUFFER
+		PreviousPage();
 
 		InvalidateRegion(	btn->Area.RegionTopLeftX,		btn->Area.RegionTopLeftY, 
 							btn->Area.RegionBottomRightX,	btn->Area.RegionBottomRightY);
@@ -1200,13 +1284,7 @@ void BtnOptNextCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		ExitOptionsScreen();
-
-		OptionsList_Column_Offset++;
-		if(	OptionsList_Column_Offset >= Max_Number_Of_Pages) // ary-05/05/2009 : Max_Number_Of_Pages
-			OptionsList_Column_Offset = (Max_Number_Of_Pages-1);
-
-		OptionsScreenInit();	// ary-05/05/2009 : This is important to refresh the screen properly, it stores a new SAVE_BUFFER
+		NextPage();
 
 		InvalidateRegion(	btn->Area.RegionTopLeftX,		btn->Area.RegionTopLeftY, 
 							btn->Area.RegionBottomRightX,	btn->Area.RegionBottomRightY);
