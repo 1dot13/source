@@ -92,8 +92,6 @@ void CopyToTemp ( BRIEFINGROOM_M_DATA *Ency, BOOLEAN bFiltr, INT32 sort, INT32 T
 void ResetTemp();
 void UnLoadMenuButtons ();
 
-#define MAX_NUMBER_OF_OPTION_TOGGLES 5
-
 #ifdef ENCYCLOPEDIA_WORKS
 MOUSE_REGION	gSelectedEncyclopediaTextRegion[ MAX_FILTR_LOCATION_BUTTONS ];
 #endif
