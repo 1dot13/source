@@ -10,7 +10,7 @@
 <LogicalBodyTypes>
 	<!-- Bodytypes should be ordered from most specific -> most general -->
 	<!-- ExcludedObjects filter in the beginning is used to exclude LOBOT system for certain types. In this case filter ExcludedObjects is set up to limit LOBOT only for soldiers with a profile. -->
-	<LogicalBodyType filter="ExcludedObjects" />
+	<!--<LogicalBodyType filter="ExcludedObjects" />--> <!-- Commented out because unfortunately, an IMP mercenary can have an ubFaceIndex 200 EVEN THOUGH normally merc profile 200 means no profile -->
 	<LogicalBodyType filter="IsRegularMaleAverage" cachesize="256">&LobotRGMguns;&LobotRGM;</LogicalBodyType>
 	<LogicalBodyType filter="IsBigMale" cachesize="256">&LobotBGMguns;&LobotBGM;</LogicalBodyType>
 	<LogicalBodyType filter="IsFemale" cachesize="256">&LobotRGFguns;&LobotRGF;</LogicalBodyType>
