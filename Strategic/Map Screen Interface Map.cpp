@@ -1491,7 +1491,7 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	if (isWidescreenUI() || iResolution >= _1024x768)
 	{
 		iconOffsetX = 12;
-		iconOffsetY = 13;
+		iconOffsetY = 3;
 	}
 	else if (iResolution >= _800x600 && iResolution < _1024x768)
 	{
