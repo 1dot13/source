@@ -81,6 +81,7 @@ INT32		giOptionsMessageBox = -1;			// Options pop up messages index value
 
 INT8		gbHighLightedOptionText = -1;
 
+BOOLEAN		gfOptionsScreenUnloading = FALSE;
 //BOOLEAN		gfHideBloodAndGoreOption=FALSE;	//all this blood gore option enforcment is unused
 												//If a germany build we are to hide the blood and gore option
 
@@ -226,10 +227,12 @@ UINT32	OptionsScreenHandle()
 		BlitBufferToBuffer( guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	}
+	else
+	{
+		GetOptionsScreenUserInput();
+	}
 
 	RestoreBackgroundRects();
-
-	GetOptionsScreenUserInput();
 
 	HandleOptionsScreen();
 
@@ -759,11 +762,16 @@ BOOLEAN EnterOptionsScreen()
 	gfSettingOfDontAnimateSmoke = gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ];
 
 	gfSettingOfTacticalFaceIcon = gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ];
+	gfOptionsScreenUnloading = FALSE;
 	return( TRUE );
 }
 
 void ExitOptionsScreen()
 {
+	if (gfOptionsScreenUnloading == TRUE)
+		return;
+
+	gfOptionsScreenUnloading = TRUE;
 
 	if( gfExitOptionsDueToMessageBox )
 	{
@@ -963,6 +971,13 @@ void GetOptionsScreenUserInput()
 		{
 			switch( Event.usParam )
 			{
+				case 'q':
+				case 'Q':
+					//Confirm the Exit to the main menu screen
+					DoOptionsMessageBox(	MSG_BOX_BASIC_STYLE, zOptionsText[OPT_RETURN_TO_MAIN], OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, 
+											ConfirmQuitToMainMenuMessageBoxCallBack );
+				break;
+
 				case ESC:
 					SetOptionsExitScreen( guiPreviousOptionScreen );
 					break;

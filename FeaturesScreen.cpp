@@ -796,6 +796,13 @@ void GetUserInput()
 		{
 			switch (Event.usParam)
 			{
+			case 'q':
+			case 'Q':
+				//Confirm the Exit to the main menu screen
+				DoMessageBox(MSG_BOX_BASIC_STYLE, zOptionsText[OPT_RETURN_TO_MAIN], FEATURES_SCREEN, MSG_BOX_FLAG_YESNO,
+					ConfirmQuitToMainMenuMessageBoxCallBack);
+			break;
+
 			case ESC:
 				SetExitScreen(guiPreviousScreen);
 				break;
