@@ -975,7 +975,6 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 
 	*piCollisionID = iCollisionCode;
 
-
 	// If We hit the ground
 	if ( iCollisionCode > COLLISION_NONE )
 	{
@@ -990,17 +989,34 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 
 		if ( iCollisionCode == COLLISION_WINDOW_NORTHWEST || iCollisionCode == COLLISION_WINDOW_NORTHEAST || iCollisionCode == COLLISION_WINDOW_SOUTHWEST || iCollisionCode == COLLISION_WINDOW_SOUTHEAST )
 		{
-			if ( !pObject->fTestObject )
+			// sevenfm: added requirements for object to break window
+			if (Item[pObject->Obj.usItem].ubWeight >= 4 &&
+				Item[pObject->Obj.usItem].sinks &&
+				!Item[pObject->Obj.usItem].unaerodynamic &&
+				(Item[pObject->Obj.usItem].metal || Item[pObject->Obj.usItem].rock))
 			{
-				// Break window!
-				PhysicsDebugMsg( String( "Object %d: Collision Window", pObject->iID ) );
+				if (!pObject->fTestObject)
+				{
+					// Break window!
+					PhysicsDebugMsg(String("Object %d: Collision Window", pObject->iID));
 
-				sGridNo = MAPROWCOLTOPOS( ( (INT16)pObject->Position.y / CELL_Y_SIZE ), ( (INT16)pObject->Position.x / CELL_X_SIZE ) );
+					sGridNo = MAPROWCOLTOPOS(((INT16)pObject->Position.y / CELL_Y_SIZE), ((INT16)pObject->Position.x / CELL_X_SIZE));
 
-				ObjectHitWindow( sGridNo, usStructureID, FALSE, TRUE );
+					ObjectHitWindow(sGridNo, usStructureID, FALSE, TRUE);
+				}
+				*piCollisionID = COLLISION_NONE;
+				return(FALSE);
 			}
-			*piCollisionID = COLLISION_NONE;
-			return( FALSE );
+			else
+			{
+				// A wall, do stuff
+				vTemp.x = dNormalX;
+				vTemp.y = dNormalY;
+				vTemp.z = dNormalZ;
+
+				fDoCollision = TRUE;
+				dElasity = (float)1.1;
+			}
 		}
 
 		// ATE: IF detonate on impact, stop now!
