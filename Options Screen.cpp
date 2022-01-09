@@ -1074,9 +1074,9 @@ void GetOptionsScreenUserInput()
 					SetErrorMode( SEM_FAILCRITICALERRORS );
 					break;
 
-				case 'q':
+//				case 'q':
 //					ShouldMercSayPrecedentToRepeatOneSelf( 11, 99 );
-					break;
+//					break;
 #endif
 			}
 		}
