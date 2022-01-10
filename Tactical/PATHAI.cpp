@@ -2640,7 +2640,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND);//Moa: added backpack check
+	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && s->inv[BPACKPOCKPOS].exists() == true
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)s->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[s->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[s->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)));//Moa: added backpack check
 
 	// Flugente: nonswimmers are those who are not mercs and not boats
 	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );

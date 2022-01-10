@@ -122,7 +122,9 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 
 	//CHRISL: We can't jump a fence while wearing a backpack, to consider fences as impassible
 	// SANDRO - Headrocks change to backpack check implemented
-	if(sSwitchValue == TRAVELCOST_FENCE && UsingNewInventorySystem() == true && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND)
+	if(sSwitchValue == TRAVELCOST_FENCE && UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 	{
 		return(-1);
 	}
