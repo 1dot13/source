@@ -50,6 +50,7 @@
 			<Surface name="BGMRIFLE_AIM_SHADOW" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SHADOW" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SHADOW" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SHADOW" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SHADOW" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SHADOW" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_SHADOW" animsurface="BGMHOPFENCE" />
@@ -206,6 +207,7 @@
 			<Surface name="BGMRIFLE_AIM_LEGS" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_LEGS" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_LEGS" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_LEGS" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_LEGS" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_LEGS" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_LEGS" animsurface="BGMHOPFENCE" />
@@ -354,6 +356,7 @@
 			<Surface name="BGMRIFLE_AIM_TORSO" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_TORSO" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_TORSO" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_TORSO" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_TORSO" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_TORSO" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_TORSO" animsurface="BGMHOPFENCE" />
@@ -501,6 +504,7 @@
 			<Surface name="BGMRIFLE_AIM_LSLEEVE" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_LSLEEVE" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_LSLEEVE" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_LSLEEVE" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_LSLEEVE" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_LSLEEVE" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_LSLEEVE" animsurface="BGMHOPFENCE" />
@@ -648,6 +652,7 @@
 			<Surface name="BGMRIFLE_AIM_HANDS" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_HANDS" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_HANDS" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_HANDS" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_HANDS" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_HANDS" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_HANDS" animsurface="BGMHOPFENCE" />
@@ -797,6 +802,7 @@
 			<Surface name="BGMRIFLE_AIM_HEAD" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_HEAD" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_HEAD" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_HEAD" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_HEAD" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_HEAD" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_HEAD" animsurface="BGMHOPFENCE" />
@@ -939,6 +945,7 @@
 			<Surface name="BGMRIFLE_AIM_CAMOHELMET" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_CAMOHELMET" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_CAMOHELMET" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_CAMOHELMET" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_CAMOHELMET" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_CAMOHELMET" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_CAMOHELMET" animsurface="BGMRHIT" />
@@ -1081,6 +1088,7 @@
 			<Surface name="BGMRIFLE_AIM_HELMET" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_HELMET" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_HELMET" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_HELMET" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_HELMET" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_HELMET" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_HELMET" animsurface="BGMRHIT" />
@@ -1224,6 +1232,7 @@
 			<Surface name="BGMRIFLE_AIM_BERET" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_BERET" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_BERET" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_BERET" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_BERET" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_BERET" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_SIDESTEP_BERET" animsurface="BGMSIDESTEP" />
@@ -1366,6 +1375,7 @@
 			<Surface name="BGMRIFLE_AIM_BOONEY" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_BOONEY" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_BOONEY" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_BOONEY" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_BOONEY" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_BOONEY" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_SIDESTEP_BOONEY" animsurface="BGMSIDESTEP" />
@@ -1508,6 +1518,7 @@
 			<Surface name="BGMRIFLE_AIM_BCAP" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_BCAP" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_BCAP" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_BCAP" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_BCAP" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_BCAP" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_SIDESTEP_BCAP" animsurface="BGMSIDESTEP" />
@@ -1844,6 +1855,7 @@
 			<Surface name="BGMRIFLE_AIM_RR" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_RR" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_RR" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_RR" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_RR" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_RR" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_RR" animsurface="BGMRHIT" />
@@ -1890,6 +1902,7 @@
 			<Surface name="BGMRIFLE_AIM_P90" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_P90" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_P90" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_P90" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_P90" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_P90" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_P90" animsurface="BGMRHIT" />
@@ -1936,6 +1949,7 @@
 			<Surface name="BGMRIFLE_AIM_M1A1" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_M1A1" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_M1A1" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_M1A1" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_M1A1" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_M1A1" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_M1A1" animsurface="BGMRHIT" />
@@ -1982,6 +1996,7 @@
 			<Surface name="BGMRIFLE_AIM_PPSH41" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PPSH41" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PPSH41" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PPSH41" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PPSH41" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PPSH41" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_PPSH41" animsurface="BGMRHIT" />
@@ -2028,6 +2043,7 @@
 			<Surface name="BGMRIFLE_AIM_UZI" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_UZI" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_UZI" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_UZI" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_UZI" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_UZI" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_UZI" animsurface="BGMRHIT" />
@@ -2074,6 +2090,7 @@
 			<Surface name="BGMRIFLE_AIM_MP5" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_MP5" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_MP5" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_MP5" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_MP5" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_MP5" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_MP5" animsurface="BGMRHIT" />
@@ -2120,6 +2137,7 @@
 			<Surface name="BGMRIFLE_AIM_SAIGA" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SAIGA" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SAIGA" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SAIGA" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SAIGA" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SAIGA" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_SAIGA" animsurface="BGMRHIT" />
@@ -2166,6 +2184,7 @@
 			<Surface name="BGMRIFLE_AIM_SPAS12" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SPAS12" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SPAS12" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SPAS12" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SPAS12" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SPAS12" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_SPAS12" animsurface="BGMRHIT" />
@@ -2212,6 +2231,7 @@
 			<Surface name="BGMRIFLE_AIM_SHTGN" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SHTGN" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SHTGN" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SHTGN" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SHTGN" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SHTGN" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_SHTGN" animsurface="BGMRHIT" />
@@ -2258,6 +2278,7 @@
 			<Surface name="BGMRIFLE_AIM_AK47" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_AK47" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_AK47" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_AK47" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_AK47" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_AK47" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_AK47" animsurface="BGMRHIT" />
@@ -2304,6 +2325,7 @@
 			<Surface name="BGMRIFLE_AIM_DRAGUNOV" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_DRAGUNOV" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_DRAGUNOV" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_DRAGUNOV" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_DRAGUNOV" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_DRAGUNOV" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_DRAGUNOV" animsurface="BGMRHIT" />
@@ -2350,6 +2372,7 @@
 			<Surface name="BGMRIFLE_AIM_PSG1" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PSG1" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PSG1" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PSG1" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PSG1" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PSG1" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_PSG1" animsurface="BGMRHIT" />
@@ -2396,6 +2419,7 @@
 			<Surface name="BGMRIFLE_AIM_PATRIOT" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PATRIOT" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PATRIOT" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PATRIOT" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PATRIOT" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PATRIOT" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_PATRIOT" animsurface="BGMRHIT" />
@@ -2442,6 +2466,7 @@
 			<Surface name="BGMRIFLE_AIM_M82" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_M82" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_M82" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_M82" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_M82" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_M82" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_M82" animsurface="BGMRHIT" />
@@ -2488,6 +2513,7 @@
 			<Surface name="BGMRIFLE_AIM_TRG42" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_TRG42" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_TRG42" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_TRG42" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_TRG42" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_TRG42" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_TRG42" animsurface="BGMRHIT" />
@@ -2534,6 +2560,7 @@
 			<Surface name="BGMRIFLE_AIM_RPK" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_RPK" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_RPK" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_RPK" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_RPK" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_RPK" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_RPK" animsurface="BGMRHIT" />
@@ -2580,6 +2607,7 @@
 			<Surface name="BGMRIFLE_AIM_PKM" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PKM" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PKM" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PKM" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PKM" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PKM" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_PKM" animsurface="BGMRHIT" />
@@ -2626,6 +2654,7 @@
 			<Surface name="BGMRIFLE_AIM_SAW" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SAW" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SAW" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SAW" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SAW" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SAW" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_SAW" animsurface="BGMRHIT" />
@@ -2672,6 +2701,7 @@
 			<Surface name="BGMRIFLE_AIM_M14" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_M14" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_M14" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_M14" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_M14" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_M14" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_M14" animsurface="BGMRHIT" />
@@ -2718,6 +2748,7 @@
 			<Surface name="BGMRIFLE_AIM_MOSIN" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_MOSIN" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_MOSIN" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_MOSIN" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_MOSIN" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_MOSIN" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_MOSIN" animsurface="BGMRHIT" />
@@ -2764,6 +2795,7 @@
 			<Surface name="BGMRIFLE_AIM_FAL" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_FAL" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_FAL" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_FAL" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_FAL" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_FAL" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_FAL" animsurface="BGMRHIT" />
@@ -2810,6 +2842,7 @@
 			<Surface name="BGMRIFLE_AIM_FAMAS" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_FAMAS" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_FAMAS" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_FAMAS" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_FAMAS" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_FAMAS" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_FAMAS" animsurface="BGMRHIT" />
@@ -2856,6 +2889,7 @@
 			<Surface name="BGMRIFLE_AIM_SCARH" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_SCARH" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_SCARH" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_SCARH" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_SCARH" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_SCARH" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_SCARH" animsurface="BGMRHIT" />
@@ -2902,6 +2936,7 @@
 			<Surface name="BGMRIFLE_AIM_MKL" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_MKL" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_MKL" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_MKL" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_MKL" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_MKL" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_MKL" animsurface="BGMRHIT" />
@@ -2924,6 +2959,9 @@
 			<Surface name="BGM_WATER_RIFLE_WALK_MKL" animsurface="BGMWATER_R_WALK" />
 			<Surface name="BGM_WATER_RIFLE_AIM_MKL" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_MKL" animsurface="BGM_WATER_HIP_AIM" />
+		</LayerProp>
+		<LayerProp filter="HasG11InHand" palette="guns_v2">
+			<Surface name="BGMRIFLE_IDLE_G11" animsurface="BGMTHREATENSTAND" />
 		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="BGM_RIFLE_OPEN_AR" animsurface="BGMOPEN" />
@@ -2948,6 +2986,7 @@
 			<Surface name="BGMRIFLE_AIM_AR" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_AR" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_AR" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_AR" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_AR" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_AR" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_AR" animsurface="BGMRHIT" />
@@ -3175,6 +3214,7 @@
 			<Surface name="BGMRIFLE_AIM_GMASK" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_GMASK" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_GMASK" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_GMASK" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_GMASK" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_GMASK" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_GMASK" animsurface="BGMRHIT" />
@@ -3317,6 +3357,7 @@
 			<Surface name="BGMRIFLE_AIM_NVG" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_NVG" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_NVG" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_NVG" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_NVG" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_NVG" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_NVG" animsurface="BGMRHIT" />
@@ -3461,6 +3502,7 @@
 			<Surface name="BGMRIFLE_AIM_VEST" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_VEST" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_VEST" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_VEST" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_VEST" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_VEST" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_VEST" animsurface="BGMRHIT" />
@@ -3608,6 +3650,7 @@
 			<Surface name="BGMRIFLE_AIM_BP" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_BP" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_BP" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_BP" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_BP" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_BP" animsurface="BGMPRONE" />
 			<Surface name="BGM_PUNCH_BP" animsurface="BGMPUNCH" />
@@ -3750,6 +3793,7 @@
 			<Surface name="BGMRIFLE_AIM_PADS" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PADS" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PADS" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PADS" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PADS" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PADS" animsurface="BGMPRONE" />
 			<Surface name="BGM_HOP_PADS" animsurface="BGMHOPFENCE" />

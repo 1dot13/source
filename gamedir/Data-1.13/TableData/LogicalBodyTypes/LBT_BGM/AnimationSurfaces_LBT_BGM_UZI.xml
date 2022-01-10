@@ -49,6 +49,7 @@
 <AnimSurface name="BGMRIFLE_CROUCH_BIGM_UZI" file="Anims\LOBOT\BGM\M_R_C_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 <AnimSurface name="BGMRIFLE_CR_AIM_HERO_UZI" file="Anims\LOBOT\BGM\M_CR_AIM_HERO_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
 <AnimSurface name="BGMRIFLE_PRONE_HERO_UZI" file="Anims\LOBOT\BGM\M_R_PRN_HERO_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMRIFLE_HIP_HERO_UZI" file="Anims\LOBOT\BGM\M_R_HIP_AIM_HERO_UZI.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <!-- 1 Handed Uzi -->
 <AnimSurface name="BGM_CROUCHWALK_UZI_1H" file="Anims\LOBOT\BGM\cr_walk_pistol_UZI_1H.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="BGM_CROUCHWALK_DUAL_UZI_1H" file="Anims\LOBOT\BGM\cr_walk_dual_UZI_1H.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />

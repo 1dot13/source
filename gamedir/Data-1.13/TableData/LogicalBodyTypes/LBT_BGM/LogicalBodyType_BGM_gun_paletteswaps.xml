@@ -24,6 +24,7 @@
 			<Surface name="BGMRIFLE_AIM_AK47" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_AK47" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_AK47" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_AK47" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_AK47" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_AK47" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_AK47" animsurface="BGMRHIT" />
@@ -70,6 +71,7 @@
 			<Surface name="BGMRIFLE_AIM_PATRIOT" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_PATRIOT" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_PATRIOT" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_PATRIOT" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_PATRIOT" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_PATRIOT" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_PATRIOT" animsurface="BGMRHIT" />
@@ -116,6 +118,7 @@
 			<Surface name="BGMRIFLE_AIM_TRG42" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_TRG42" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_TRG42" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_TRG42" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_TRG42" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_TRG42" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_TRG42" animsurface="BGMRHIT" />
@@ -162,6 +165,7 @@
 			<Surface name="BGMRIFLE_AIM_M14" animsurface="BGMSTANDAIM2" />
 			<Surface name="BGMRIFLE_AIM_M14" animsurface="BGMSRAIMALT" />
 			<Surface name="BGMRIFLE_HIP_M14" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_M14" animsurface="BGMHIPAIMALT" />
 			<Surface name="BGMRIFLE_CR_AIM_HERO_M14" animsurface="BGMCROUCHAIM" />
 			<Surface name="BGMRIFLE_PRONE_HERO_M14" animsurface="BGMPRONE" />
 			<Surface name="BGMRIFLE_HIT_HERO_M14" animsurface="BGMRHIT" />
