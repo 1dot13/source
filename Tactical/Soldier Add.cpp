@@ -1581,7 +1581,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 	{
 		pSoldier->usSoldierFlagMask &= ~SOLDIER_AIRDROP;
 
-		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 )
+		if ((gGameExternalOptions.ubSkyriderHotLZ == 1 || gGameExternalOptions.ubSkyriderHotLZ == 3))
 		{
 			gfIgnoreScrolling = FALSE;
 			INT16 sNewCenterWorldX, sNewCenterWorldY;
