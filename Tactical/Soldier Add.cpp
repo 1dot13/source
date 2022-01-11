@@ -42,7 +42,7 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
+extern BOOLEAN gfHandleHeli;
 // Adds a soldier to a world gridno and set's direction
 void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode );
 
@@ -1317,7 +1317,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		}
 
 		//Add
-		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME || (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !gfEnteredFromTacticalPlacement))
+		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME || (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !gfHandleHeli && !gfEnteredFromTacticalPlacement))
 			AddSoldierToSectorGridNo( pSoldier, sGridNo, pSoldier->ubDirection, TRUE, -1, 0);//shadooow: hack to make sure animations aren't changed
 		else
 			AddSoldierToSectorGridNo( pSoldier, sGridNo, ubDirection, fUseAnimation, usAnimState, usAnimCode );
