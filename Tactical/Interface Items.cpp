@@ -1065,7 +1065,7 @@ BOOLEAN UseNASDesc(OBJECTTYPE *pObject){
 	if(pObject->exists() == FALSE)
 		return FALSE;
 	// silversurfer: We allow it now but only in EDB.
-	if(guiCurrentScreen == MAP_SCREEN && !UsingEDBSystem() ) //Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true && gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT])
+	if(guiCurrentScreen == MAP_SCREEN && !UsingEDBSystem() && Item[pObject->usItem].usItemClass & IC_LBEGEAR) //Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true && gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT])
 		return FALSE;	// the map screen can't support NAS and LBEGEAR.
 	return (/*Item[pObject->usItem].usItemClass != IC_LBEGEAR && Item[pObject->usItem].usItemClass != IC_MONEY && */UsingNewAttachmentSystem()==true);
 }
