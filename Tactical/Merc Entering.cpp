@@ -568,6 +568,7 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 #else
 				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;				
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				MercPtrs[gusHeliSeats[cnt]]->ubDirection = EAST;
 				// sevenfm: if soldiers land into enemy sector, use gsGridNoSweetSpot
 				//MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
 				MercPtrs[gusHeliSeats[cnt]]->usStrategicInsertionData = gsGridNoSweetSpot;
