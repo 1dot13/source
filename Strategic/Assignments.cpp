@@ -287,6 +287,7 @@ BOOLEAN fFirstClickInAssignmentScreenMask = FALSE;
 extern BOOLEAN gfRenderPBInterface;
 extern BOOLEAN fMapScreenBottomDirty;
 extern SOLDIERTYPE *pMilitiaTrainerSoldier;
+extern BOOLEAN gfCantRetreatInPBI;
 
 // in the mapscreen?
 extern BOOLEAN fInMapMode;
@@ -13030,6 +13031,7 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( pSoldier->bOldAssignment == VEHICLE && pSoldier->iVehicleId == iHelicopterVehicleId && NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 				{
 					UINT8 ubGroupID = MoveAllInHelicopterToFootMovementGroup( iValue );
+					gfCantRetreatInPBI = TRUE;//shadooow: disable retreat if hotdrops can only be done in center of the map
 					CheckConditionsForBattle( GetGroup( ubGroupID ) );
 				}
 				// old normal handling
