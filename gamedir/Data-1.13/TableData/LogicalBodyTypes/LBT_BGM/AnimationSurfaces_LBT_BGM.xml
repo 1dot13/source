@@ -200,7 +200,6 @@
 <AnimSurface name="BGMRIFLE_IDLE_PADS" file="Anims\LOBOT\BGM\M_R_STD_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="BGMRIFLE_IDLE_CAMOHELMET" file="Anims\LOBOT\BGM\M_R_STD_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="BGMRIFLE_IDLE_LSLEEVE" file="Anims\LOBOT\BGM\M_R_STD_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
-<AnimSurface name="BGMRIFLE_IDLE_G11" file="Anims\LOBOT\BGM\M_R_STD_G11.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <!-- Walk, rifle idle -->
 <AnimSurface name="BGMBASICWALK_HEAD" file="Anims\LOBOT\BGM\M_R_WALK_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMBASICWALK_HANDS" file="Anims\LOBOT\BGM\M_R_WALK_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
