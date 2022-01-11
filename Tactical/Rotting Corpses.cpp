@@ -2171,6 +2171,16 @@ BOOLEAN TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 					GetPaletteRepIndexFromID(pCorpse->def.VestPal, &vestpal);
 					GetPaletteRepIndexFromID(pCorpse->def.PantsPal, &pantspal);
 
+					// sevenfm: reuse object data to store non-standard palette values
+					UINT32 uiFlag = 0;
+					uiFlag += (headpal & 0xff);
+					uiFlag += (skinpal & 0xff) << 8;
+					uiFlag += (vestpal & 0xff) << 16;
+					uiFlag += (pantspal & 0xff) << 24;
+					gTempObject[0]->data.ubWireNetworkFlag = uiFlag;
+					// sevenfm: store palette flags
+					gTempObject[0]->data.sRepairThreshold = pCorpse->def.usFlags & (ROTTING_CORPSE_USE_STEALTH_PALETTE | ROTTING_CORPSE_USE_CAMO_PALETTE | ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE | ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE | ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE);
+
 					switch ( headpal )
 					{
 					case 0:
@@ -2335,67 +2345,93 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 
 	Corpse.sHeightAdjustment = 0;
 
-	// check the objects flagmask and set the corpse palette IDs accordingly
+	UINT32 uiFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+	INT16 sCamoFlag = (*pObj)[0]->data.sRepairThreshold;
 
-	// Hair
-	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BROWN )
-		SET_PALETTEREP_ID( Corpse.HeadPal,	"BROWNHEAD" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLACK )
-		SET_PALETTEREP_ID( Corpse.HeadPal,	"BLACKHEAD" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_WHITE )
-		SET_PALETTEREP_ID( Corpse.HeadPal,	"WHITEHEAD" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLOND )
-		SET_PALETTEREP_ID( Corpse.HeadPal,	"BLONDHEAD" );
-	else
-		SET_PALETTEREP_ID( Corpse.HeadPal,	"REDHEAD" );
+	if (uiFlag > 0)
+	{
+		// sevenfm: set values directly from stored IDs
+		UINT8 headpal = (uiFlag & 0xff);
+		UINT8 skinpal = ((uiFlag >> 8) & 0xff);
+		UINT8 vestpal = ((uiFlag >> 16) & 0xff);
+		UINT8 pantspal = ((uiFlag >> 24) & 0xff);
 
-	// Skin
-	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_PINK )
-		SET_PALETTEREP_ID( Corpse.SkinPal,	"PINKSKIN" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_TAN )
-		SET_PALETTEREP_ID( Corpse.SkinPal,	"TANSKIN" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_DARK )
-		SET_PALETTEREP_ID( Corpse.SkinPal,	"DARKSKIN" );
-	else
-		SET_PALETTEREP_ID( Corpse.SkinPal,	"BLACKSKIN" );
+		SET_PALETTEREP_ID(Corpse.HeadPal, gpPalRep[headpal].ID);
+		SET_PALETTEREP_ID(Corpse.SkinPal, gpPalRep[skinpal].ID);
+		SET_PALETTEREP_ID(Corpse.VestPal, gpPalRep[vestpal].ID);
+		SET_PALETTEREP_ID(Corpse.PantsPal, gpPalRep[pantspal].ID);
 
-	// Vest
-	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BROWN )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"BROWNVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_grey )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"greyVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GREEN )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"GREENVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_JEAN )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"JEANVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_RED )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"REDVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLUE )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"BLUEVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_YELLOW )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"YELLOWVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_WHITE )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"WHITEVEST" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"BLACKSHIRT" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GYELLOW )
-		SET_PALETTEREP_ID( Corpse.VestPal,	"GYELLOWSHIRT" );
+		// also restore camo status
+		if (sCamoFlag > 0)
+		{
+			Corpse.usFlags |= sCamoFlag;
+		}
+	}
 	else
-		SET_PALETTEREP_ID( Corpse.VestPal,	"PURPLESHIRT" );
+	{
+		// sevenfm: use default way for standard palette
+		// check the objects flagmask and set the corpse palette IDs accordingly
 
-	// Pants
-	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"GREENPANTS" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_JEAN )
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"JEANPANTS" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_TAN )
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"TANPANTS" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK )
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"BLACKPANTS" );
-	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLUE )
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"BLUEPANTS" );
-	else
-		SET_PALETTEREP_ID( Corpse.PantsPal,	"BEIGEPANTS" );
+		// Hair
+		if ((*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BROWN)
+			SET_PALETTEREP_ID(Corpse.HeadPal, "BROWNHEAD");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLACK)
+			SET_PALETTEREP_ID(Corpse.HeadPal, "BLACKHEAD");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_WHITE)
+			SET_PALETTEREP_ID(Corpse.HeadPal, "WHITEHEAD");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLOND)
+			SET_PALETTEREP_ID(Corpse.HeadPal, "BLONDHEAD");
+		else
+			SET_PALETTEREP_ID(Corpse.HeadPal, "REDHEAD");
+
+		// Skin
+		if ((*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_PINK)
+			SET_PALETTEREP_ID(Corpse.SkinPal, "PINKSKIN");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_TAN)
+			SET_PALETTEREP_ID(Corpse.SkinPal, "TANSKIN");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_DARK)
+			SET_PALETTEREP_ID(Corpse.SkinPal, "DARKSKIN");
+		else
+			SET_PALETTEREP_ID(Corpse.SkinPal, "BLACKSKIN");
+
+		// Vest
+		if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BROWN)
+			SET_PALETTEREP_ID(Corpse.VestPal, "BROWNVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_grey)
+			SET_PALETTEREP_ID(Corpse.VestPal, "greyVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GREEN)
+			SET_PALETTEREP_ID(Corpse.VestPal, "GREENVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_JEAN)
+			SET_PALETTEREP_ID(Corpse.VestPal, "JEANVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_RED)
+			SET_PALETTEREP_ID(Corpse.VestPal, "REDVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLUE)
+			SET_PALETTEREP_ID(Corpse.VestPal, "BLUEVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_YELLOW)
+			SET_PALETTEREP_ID(Corpse.VestPal, "YELLOWVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_WHITE)
+			SET_PALETTEREP_ID(Corpse.VestPal, "WHITEVEST");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK)
+			SET_PALETTEREP_ID(Corpse.VestPal, "BLACKSHIRT");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GYELLOW)
+			SET_PALETTEREP_ID(Corpse.VestPal, "GYELLOWSHIRT");
+		else
+			SET_PALETTEREP_ID(Corpse.VestPal, "PURPLESHIRT");
+
+		// Pants
+		if ((*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN)
+			SET_PALETTEREP_ID(Corpse.PantsPal, "GREENPANTS");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_JEAN)
+			SET_PALETTEREP_ID(Corpse.PantsPal, "JEANPANTS");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_TAN)
+			SET_PALETTEREP_ID(Corpse.PantsPal, "TANPANTS");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK)
+			SET_PALETTEREP_ID(Corpse.PantsPal, "BLACKPANTS");
+		else if ((*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLUE)
+			SET_PALETTEREP_ID(Corpse.PantsPal, "BLUEPANTS");
+		else
+			SET_PALETTEREP_ID(Corpse.PantsPal, "BEIGEPANTS");
+	}
 	
 	Corpse.ubDirection = NORTH;
 	Corpse.uiTimeOfDeath = GetWorldTotalMin();
