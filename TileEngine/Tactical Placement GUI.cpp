@@ -1444,9 +1444,20 @@ void PlaceMercs()
 			{
 				PickUpMercPiece( i );
 			}
-			gubSelectedGroupID = 0;
-			gbSelectedMercID = 0;
-			SetCursorMerc( 0 );
+			if (ButtonList[iTPButtons[SPREAD_BUTTON]]->uiFlags & BUTTON_ENABLED)
+			{
+				gubSelectedGroupID = 0;
+				gbSelectedMercID = 0;
+				SetCursorMerc(0);
+			}
+			else//spread button disabled mean hotdrop
+			{
+				gubSelectedGroupID = gMercPlacement[0].pSoldier->ubGroupID;
+				ButtonList[iTPButtons[GROUP_BUTTON]]->uiFlags |= BUTTON_CLICKED_ON | BUTTON_DIRTY;
+				gubDefaultButton = GROUP_BUTTON;
+				gbSelectedMercID = 0;
+				SetCursorMerc(gbSelectedMercID);
+			}
 			gfEveryonePlaced = FALSE;
 			break;
 		default:
@@ -1485,8 +1496,18 @@ void GroupPlacementsCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			btn->uiFlags &= ~BUTTON_CLICKED_ON;
 			btn->uiFlags |= BUTTON_DIRTY;
-			gubDefaultButton = CLEAR_BUTTON;
-			gubSelectedGroupID = 0;
+			if (ButtonList[iTPButtons[SPREAD_BUTTON]]->uiFlags & BUTTON_ENABLED)
+			{
+				gubDefaultButton = CLEAR_BUTTON;
+				gubSelectedGroupID = 0;
+			}
+			else//spread button disabled mean hotdrop
+			{
+				gubDefaultButton = CLEAR_BUTTON;
+				gubSelectedGroupID = 0;
+				gbSelectedMercID = -1;
+				SetCursorMerc(gbSelectedMercID);
+			}
 		}
 		else
 		{
