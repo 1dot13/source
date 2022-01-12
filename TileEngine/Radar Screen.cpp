@@ -29,6 +29,7 @@ extern INT8	gbWorldSectorZ;
 extern BOOLEAN AreInMeanwhile();
 #include "connect.h"
 
+extern BOOLEAN gfTacticalPlacementGUIActive;
 extern INT32 iCurrentMapSectorZ;
 extern UINT16 UI_BOTTOM_X;
 extern UINT16 UI_BOTTOM_Y;
@@ -279,7 +280,7 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	INT16 sRadarX, sRadarY;
 
 	// check if we are allowed to do anything?
-	if( fRenderRadarScreen == FALSE )
+	if( fRenderRadarScreen == FALSE || gfTacticalPlacementGUIActive)
 	{
 		return;
 	}
