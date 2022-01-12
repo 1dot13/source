@@ -1409,7 +1409,6 @@ void ChooseRandomEdgepoints()
 				// have the merc look outward. We add + 100 because later on we use this to signify that we want really enforce this direction
 				gMercPlacement[i].pSoldier->ubInsertionDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, gMercPlacement[i].pSoldier->usStrategicInsertionData ) + 100;
 			}
-			else if(gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1 && gMercPlacement[i].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)
 			else
 			{
 				gMercPlacement[ i ].pSoldier->usStrategicInsertionData = ChooseMapEdgepoint( &gMercPlacement[ i ].ubStrategicInsertionCode, lastValidICode );
