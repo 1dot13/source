@@ -1265,7 +1265,7 @@ void TacticalPlacementHandle()
 					gfValidCursor = TRUE;
 				}
 			}
-			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
+			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER || (gGameExternalOptions.ubSkyriderHotLZ == 1 && gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER))
 			{
 				if (gusMouseYPos >= (iOffsetVertical + CENTERENTRYPTS_TOP_Y) &&		// N
 					gusMouseYPos <= (iOffsetVertical + CENTERENTRYPTS_BOTTOM_Y) &&	// S
