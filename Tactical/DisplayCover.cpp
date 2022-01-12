@@ -381,9 +381,6 @@ BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 
 void AddCoverObjectsToViewArea()
 {
-	if ( gsMaxCellY < 0 )
-		return;
-
 	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
@@ -415,21 +412,6 @@ void RemoveCoverObjectsFromViewArea()
 {
 	if ( gubDrawMode == DRAW_MODE_OFF && gNoRedraw )
 		return;
-
-	// Not needed for removing cover objects anymore, but this is the only place where we update the global gsMin & gsMaxCell variables and they're needed for adding cover objects.
-	INT16 usTmp;
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
-
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
-
-	// Flugente: hey, wouldn't it be cool if we DIDN'T access an array with implausible values?
-	gsMinCellX = max( 0, gsMinCellX );
-	gsMaxCellX = min( COVER_X_CELLS, gsMaxCellX );
-	gsMinCellY = max( 0, gsMinCellY );
-	gsMaxCellY = min( COVER_Y_CELLS, gsMaxCellY );
-
 
 	// Go through the whole gCoverViewArea when removing cover objects. Otherwise we don't clean up tiles that are not in the viewport which results in an annoying visual bug.
 	register INT32 ubX, ubY, ubZ;
@@ -467,6 +449,22 @@ void RemoveCoverObjectsFromViewArea()
 	gNoRedraw = (gubDrawMode == DRAW_MODE_OFF);
 }
 
+void updateCoverViewArea()
+{
+	INT16 usTmp;
+	GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp);
+	GetScreenXYWorldCell(gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp);
+
+	GetScreenXYWorldCell(gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY);
+	GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY);
+
+	// Sanity check because of array access
+	gsMinCellX = max(0, gsMinCellX);
+	gsMaxCellX = min(COVER_X_CELLS, gsMaxCellX);
+	gsMinCellY = max(0, gsMinCellY);
+	gsMaxCellY = min(COVER_Y_CELLS, gsMaxCellY);
+}
+
 // ubRadius in times of y or x cell sizes
 BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius )
 {
@@ -501,6 +499,7 @@ void DisplayCover( BOOLEAN forceUpdate )
 	{
 		// remove old cover objects
 		RemoveCoverObjectsFromViewArea();
+		updateCoverViewArea();
 
 		switch ( gubDrawMode )
 		{
