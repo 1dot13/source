@@ -245,6 +245,7 @@ extern BOOLEAN ValidateSoldierInitLinks( UINT8 ubCode );
 #endif
 
 extern BOOLEAN fFirstTimeInGameScreen; // added by Flugente
+extern UINT32 uiSoundSample;
 
 //////////////////////////////////////////////////////
 //
@@ -2749,6 +2750,12 @@ BOOLEAN DoQuickLoad()
 	if( guiCurrentScreen == GAME_SCREEN )
 	{
 		PauseTime( FALSE );
+	}
+
+	// Remove sound
+	if (uiSoundSample != NO_SAMPLE)
+	{
+		SoundStop(uiSoundSample);
 	}
 
 	//Do a fade out before we load the game
