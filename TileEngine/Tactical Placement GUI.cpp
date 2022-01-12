@@ -363,6 +363,7 @@ void InitTacticalPlacementGUI()
 			if ( MercPtrs[ i ]->bTeam == gbPlayerNum && (gGameExternalOptions.ubSkyriderHotLZ == 1 || gGameExternalOptions.ubSkyriderHotLZ == 3) && MercPtrs[ i ]->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
 				AddMercToHeli( MercPtrs[ i ]->ubID );
+				DisableButton(iTPButtons[SPREAD_BUTTON]);
 
 				gMercPlacement[ giPlacements ].ubStrategicInsertionCode = INSERTION_CODE_CHOPPER;
 				MercPtrs[ i ]->ubStrategicInsertionCode					= INSERTION_CODE_CHOPPER;
@@ -1207,7 +1208,7 @@ void TacticalPlacementHandle()
 								if(islocked!=1)GroupPlacementsCallback( ButtonList[ iTPButtons[ GROUP_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
 								break;
 				case 's':
-								if(islocked!=1)SpreadPlacementsCallback( ButtonList[ iTPButtons[ SPREAD_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
+								if(islocked!=1 && ButtonList[iTPButtons[SPREAD_BUTTON]]->uiFlags & BUTTON_ENABLED) SpreadPlacementsCallback( ButtonList[ iTPButtons[ SPREAD_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
 								break;
 				case 'x':
 					if( InputEvent.usKeyState & ALT_DOWN )
