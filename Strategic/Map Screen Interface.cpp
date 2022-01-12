@@ -3240,7 +3240,7 @@ void DeselectSoldierForMovement( SOLDIERTYPE *pSoldier )
 }
 
 
-void SelectSquadForMovement( INT32 iSquadNumber )
+void SelectSquadForMovement( INT32 iSquadNumber, BOOLEAN fCheckCanMove = TRUE )
 {
 	INT32 iCounter = 0, iCount = 0;
 	BOOLEAN fSomeCantMove = FALSE;
@@ -3265,7 +3265,7 @@ void SelectSquadForMovement( INT32 iSquadNumber )
 				if ( pSoldier && pSoldier->bActive )
 				{
 					// is he able & allowed to move?	(Report only the first reason for failure encountered)
-					if ( CanMoveBoxSoldierMoveStrategically( pSoldier, fFirstFailure ) )
+					if (!fCheckCanMove || CanMoveBoxSoldierMoveStrategically( pSoldier, fFirstFailure ) )
 					{
 						SelectSoldierForMovement( pSoldier );
 					}
@@ -4529,7 +4529,7 @@ void HandleMoveoutOfSectorMovementTroops( void )
 					if( fSoldierIsMoving[ iCounter ] )
 					{
 						// mark this new squad as moving too, so those moving can join it
-						SelectSquadForMovement( iSquadNumber );
+						SelectSquadForMovement( iSquadNumber , FALSE);
 					}
 				}
 				else
