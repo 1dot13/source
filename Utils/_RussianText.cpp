@@ -3500,7 +3500,7 @@ STR16 gpStrategicString[] =
 	//Various strings (translate word for word)
 
 	L"Сектор",
-	L"Выбор точек входа",
+	L"Выбор точек входа (используйте стрелки для скроллинга карты)",
 
 	//Strings used for various popup message boxes.  Can be as long as desired.
 

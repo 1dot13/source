@@ -3500,7 +3500,7 @@ STR16 gpStrategicString[] =
 	//Various strings (translate word for word)
 
 	L"Sector",
-	L"Choose entry positions",
+	L"Choose entry positions (use arrow keys to scroll map)",
 
 	//Strings used for various popup message boxes.  Can be as long as desired.
 
