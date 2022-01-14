@@ -12694,12 +12694,19 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 			return;
 		}
 #endif
+		//shadooow: it makes no sense, but if someone wants to dismiss vehicle then do not popup the department box and drop its items in current sector without asking
+		if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
+		{
+			StrategicRemoveMerc(pSoldier);
+			HandleLeavingOfEquipmentInCurrentSector(pSoldier->ubID);
+			return;
+		}
 
 		// WANNE: Nothing to do here, when we want to dismiss the robot
 		BOOLEAN	fAmIaRobot = AM_A_ROBOT( pSoldier );
 
 		// Flugente: If merc is unconscious, just fire him anyway (if talking stuff is called, this leads to a geme lock)
-		if (!fAmIaRobot && pSoldier->stats.bLife > CONSCIOUSNESS )		
+		if (!fAmIaRobot && pSoldier->stats.bLife > CONSCIOUSNESS )
 		{
 			if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) || ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) )
 			{
