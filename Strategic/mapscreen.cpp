@@ -16259,6 +16259,8 @@ void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 	{
 		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
 			swprintf( sString, L" %s", gSquadNameVector[pSoldier->bAssignment].c_str() );
+		else if(pSoldier->bVehicleID != 0 && pSoldier->bAssignment == ASSIGNMENT_DEAD)
+			wcscpy(sString, L"Wrecked");
 		else
 			wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}
