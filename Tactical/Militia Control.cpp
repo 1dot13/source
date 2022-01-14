@@ -103,7 +103,7 @@ void RebuildMilitiaControlBox( void );
 
 //funktions for soldier control
 extern INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem );
-extern SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK );
+extern SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK, BOOLEAN fReturnVehicleDriver = TRUE );
 extern SOLDIERTYPE *pTMilitiaSoldier;
 extern BOOLEAN SoldierCanAffordNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 

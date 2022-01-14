@@ -670,7 +670,7 @@ BOOLEAN BasicCanCharacterDrillMilitia( SOLDIERTYPE *pSoldier );
 // Can this character EVER work in any facility?
 BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier );
 
-SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK );
+SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK, BOOLEAN fReturnVehicleDriver = TRUE );
 
 BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubRepairPtsLeft );
 BOOLEAN CleanObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubCleaningPtsLeft );
@@ -12614,7 +12614,7 @@ void SquadMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void RemoveMercMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for contract region
-	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE, FALSE );
 	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
@@ -19429,7 +19429,7 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 	return( TRUE );
 }
 
-SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
+SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK, BOOLEAN fReturnVehicleDriver )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -19459,7 +19459,7 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 		Assert( pSoldier->bActive );
 		// anv: don't assert, handle...
 		//Assert( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) );
-		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		if(fReturnVehicleDriver && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			pSoldier = GetDriver( pSoldier->iVehicleId );
 		}
