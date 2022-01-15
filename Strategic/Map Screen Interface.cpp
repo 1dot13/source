@@ -1573,18 +1573,31 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 
 	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
-		for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
+		if (fShowMapInventoryPool && Menptr[uiMercId].sSectorX == sSelMapX && Menptr[uiMercId].sSectorY == sSelMapY && Menptr[uiMercId].bSectorZ == iCurrentMapSectorZ)
 		{
-			// slot found,
-			// check if actual item
-			if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
 			{
-				invTemporaryBeforeDrop[uiFoundItems] = Menptr[ uiMercId ].inv[ iCounter ];
-				uiFoundItems++;
+				if (Menptr[uiMercId].inv[iCounter].exists())
+				{
+					AutoPlaceObjectInInventoryStash(&Menptr[uiMercId].inv[iCounter], Menptr[uiMercId].sGridNo, Menptr[uiMercId].pathing.bLevel);
+				}
 			}
 		}
-		// anv: add all items at once (less file operations = less lag)
-		AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+		else
+		{
+			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
+			{
+				// slot found,
+				// check if actual item
+				if (Menptr[uiMercId].inv[iCounter].exists() == true)
+				{
+					invTemporaryBeforeDrop[uiFoundItems] = Menptr[uiMercId].inv[iCounter];
+					uiFoundItems++;
+				}
+			}
+			// anv: add all items at once (less file operations = less lag)
+			AddItemsToUnLoadedSector(Menptr[uiMercId].sSectorX, Menptr[uiMercId].sSectorY, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]), Menptr[uiMercId].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE);
+		}
 	}
 	else
 	{
