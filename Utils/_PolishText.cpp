@@ -6632,7 +6632,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, kursor będzie pokazywał szansę na trafienie.",
 	L"Jeśli WŁĄCZONE, seria z granatnika będzie używała kursora serii z broni palnej.",
 	L"Jeśli WŁĄCZONE, to wrogowie będą czasami komentować pewne akcje.", // Changed from Enemies Drop All Items - SANDRO
-	L"Jeśli WŁĄCZONE, granatniki będą strzelały pod wysokim kątem. ( |Q )",
+	L"Jeśli WŁĄCZONE, granatniki będą strzelały pod wysokim kątem. (|A|l|t+|Q)",
 	L"Jeśli WŁĄCZONE, zapobiega przejściu do trybu turowego po zauważeniu wroga podczas skradania. Aby wymusić tryb turowy z tą opcją aktywną naciśnij |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"Jeśli WŁĄCZONE, |S|p|a|c|j|a wybiera kolejny oddział.",
 	L"Jeśli WŁĄCZONE, pokazywane będą cienie przedmiotów.",

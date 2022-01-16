@@ -6642,7 +6642,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在光标上显示命中机率。",
 	L"打开时，榴弹发射器点射使用点射的准星。",
 	L"打开时，敌人行动中有时会带有对白。", // Changed from Enemies Drop All Items - SANDRO
-	L"打开时，榴弹发射器允许采用较高仰角发射榴弹。（|Q）",
+	L"打开时，榴弹发射器允许采用较高仰角发射榴弹。（|A|l|t+|Q）",
 	L"打开时，潜行状态未被敌人发现时不会进入回合制模式。\n除非按下 |C|t|r|l+|X 。（|C|t|r|l+|S|h|i|f|t+|X）", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"打开时，按空格键自动切换到下一小队。（|S|p|a|c|e）",
 	L"打开时，显示物品阴影。",

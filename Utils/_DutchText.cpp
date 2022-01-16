@@ -6630,7 +6630,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"When ON, GL burst uses burst cursor.",
 	L"When ON, enemies will occasionally comment certain actions.", // Changed from Enemies Drop All Items - SANDRO
-	L"When ON, grenade launchers fire grenades at higher angles. (|Q)",
+	L"When ON, grenade launchers fire grenades at higher angles. (|A|l|t+|Q)",
 	L"When ON, the turn based mode will not be entered when sneaking unnoticed and seeing an enemy unless pressing |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"When ON, |S|p|a|c|e selects next squad automatically.",
 	L"When ON, item shadows will be shown.",

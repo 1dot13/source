@@ -6635,7 +6635,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, affiche une barre de probabilités de succès sur le curseur.",
 	L"Si activé, les rafales de lance-grenades ont un curseur de rafale.",
 	L"Si activé, les ennemis feront de temps en temps des remarques sur certaines actions.", // Changed from Enemies Drop All Items - SANDRO
-	L"Si activé, les grenades des lance-grenades ont un grand angle (|Q).",
+	L"Si activé, les grenades des lance-grenades ont un grand angle (|A|l|t+|Q).",
 	L"Si activé, le mode tour par tour ne sera pas actif, si vous n'êtes pas vu ou entendu par l'ennemi à moins d'appuyer sur |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"Si activé, |E|S|P|A|C|E sélectionne l'escouade suivante.",
 	L"Si activé, les ombres d'objets sont affichées.",
