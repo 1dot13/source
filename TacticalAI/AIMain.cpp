@@ -52,6 +52,7 @@
 #include "Queen Command.h"
 #include "points.h"
 #include "Soldier Functions.h" // added by SANDRO
+#include "Text.h"	// sevenfm
 #endif
 
 #include "connect.h"
@@ -80,9 +81,6 @@ extern UINT8 gubElementsOnExplosionQueue;
 extern BOOLEAN gfWaitingForTriggerTimer;
 
 UINT8 gubAICounter;
-
-extern STR16 gStrAction[];
-extern STR szAction[];
 
 //
 // Commented out/ to fix:
@@ -703,7 +701,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
 
-			//ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, gStrAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
 			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
 
 #ifdef JA2TESTVERSION
@@ -1906,7 +1904,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 {
 	INT32 iRetCode;
 	//NumMessage("ExecuteAction - Guy#",pSoldier->ubID);
-
+	//ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Execute action: [%d] %s %s data %d", pSoldier->ubID, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
 
 	// in most cases, merc will change location, or may cause damage to opponents,
 	// so a new cover check will be necessary.  Exceptions handled individually.

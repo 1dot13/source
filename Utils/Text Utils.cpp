@@ -4,6 +4,9 @@
 	#include "text.h"
 	#include "Fileman.h"
 	#include "GameSettings.h"
+	// sevenfm
+	#include <codecvt>
+	#include <string>
 #endif
 
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
@@ -1300,3 +1303,27 @@ void ParseCommandLine (
    ++*numargs;
 }
 
+inline std::string narrow(std::wstring const& text)
+{
+	std::locale const loc("");
+	wchar_t const* from = text.c_str();
+	std::size_t const len = text.size();
+	std::vector<char> buffer(len + 1);
+	std::use_facet<std::ctype<wchar_t> >(loc).narrow(from, from + len, '_', &buffer[0]);
+
+	return std::string(&buffer[0], &buffer[len]);
+}
+
+// convert UTF-8 string to wstring
+std::wstring utf8_to_wstring(const std::string& str)
+{
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+	return myconv.from_bytes(str);
+}
+
+// convert wstring to UTF-8 string
+std::string wstring_to_utf8(const std::wstring& str)
+{
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+	return myconv.to_bytes(str);
+}

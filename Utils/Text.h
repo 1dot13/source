@@ -1799,6 +1799,13 @@ BOOLEAN LoadItemProsAndCons( UINT16 usIndex, STR16 pProsString, STR16 pConsStrin
 BOOLEAN LoadBRDesc(UINT16 ubIndex, STR16 pDescString );
 BOOLEAN LoadBRName(UINT16 ubIndex, STR16 pNameString );
 
+// sevenfm
+inline std::string narrow(std::wstring const& text);
+// convert UTF-8 string to wstring
+std::wstring utf8_to_wstring(const std::string& str);
+// convert wstring to UTF-8 string
+std::string wstring_to_utf8(const std::wstring& str);
+
 enum
 {
 	//Coordinating simultaneous arrival dialog strings
