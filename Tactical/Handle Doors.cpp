@@ -51,7 +51,7 @@
 #endif
 
 BOOLEAN gfSetPerceivedDoorState = FALSE;
-
+extern BOOLEAN gfPlayerMercHeardNoise;
 
 BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations );
 
@@ -1161,6 +1161,9 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 		cnt++;
 	};
 
+	// sevenfm: reset code to detect heard noise
+	gfPlayerMercHeardNoise = FALSE;
+
 	if (pSoldier && pSoldier->ubDoorOpeningNoise > 0)
 	{		
 		//shadooow: noise handling moved here so we can work with modified value of pSoldier->ubDoorOpeningNoise
@@ -1281,8 +1284,11 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 				uiSoundID = METAL_DOOR_OPEN;
 			}
 
-			// OK, We must know what sound to play, for now use same sound for all doors...
-			PlayJA2Sample( uiSoundID, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+			if (pSoldier && pSoldier->bVisible == TRUE || gfPlayerMercHeardNoise)
+			{
+				// OK, We must know what sound to play, for now use same sound for all doors...
+				PlayJA2Sample(uiSoundID, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+			}
 		}
 
 		if (((gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY) ||
@@ -1408,8 +1414,11 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 				uiSoundID = METAL_DOOR_CLOSE;
 			}
 
-			// OK, We must know what sound to play, for now use same sound for all doors...
-			PlayJA2Sample(uiSoundID, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+			if (pSoldier && pSoldier->bVisible == TRUE || gfPlayerMercHeardNoise)
+			{
+				// OK, We must know what sound to play, for now use same sound for all doors...
+				PlayJA2Sample(uiSoundID, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+			}
 		}
 	}
 

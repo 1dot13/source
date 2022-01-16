@@ -5784,7 +5784,7 @@ void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType
 	// else if noiseMaker's NOBODY, no opplist changes or interrupts are possible
 }
 
-
+BOOLEAN gfPlayerMercHeardNoise = FALSE;
 
 void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
@@ -6019,6 +6019,15 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				continue;
 			}
 
+			// Can the listener hear noise of that volume given his circumstances?
+			ubEffVolume = CalcEffVolume(pSoldier, sGridNo, bLevel, ubNoiseType, ubBaseVolume, bCheckTerrain, pSoldier->bOverTerrainType, ubSourceTerrType);
+
+			// sevenfm: indicate that player team heard noise
+			if (bTeam == gbPlayerNum && ubEffVolume > 0)
+			{
+				gfPlayerMercHeardNoise = TRUE;
+			}
+
 			// if a the noise maker is a person, not just NOBODY
 			if (ubNoiseMaker < TOTAL_SOLDIERS)
 			{
@@ -6147,14 +6156,10 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				pSoldier->ubMiscSoldierFlags |= SOLDIER_MISC_HEARD_GUNSHOT;
 			}
 
-			// Can the listener hear noise of that volume given his circumstances?
-			ubEffVolume = CalcEffVolume(pSoldier,sGridNo,bLevel,ubNoiseType,ubBaseVolume,bCheckTerrain,pSoldier->bOverTerrainType,ubSourceTerrType);
-
 #ifdef RECORDOPPLIST
 			fprintf(OpplistFile,"PN: guy %d - effVol=%d,chkTer=%d,pSoldier->tType=%d,srcTType=%d\n",
 			bLoop,effVolume,bCheckTerrain,pSoldier->terrtype,ubSourceTerrType);
 #endif
-
 
 			if (ubEffVolume > 0)
 			{
