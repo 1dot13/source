@@ -42,6 +42,15 @@ public:
 		}
 	}
 
+	BOOLEAN Active()
+	{
+		if (gPopup != NULL && fInitialized && gPopup->Visible())
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	UINT16 GetMaxPosX()
 	{
 		if ( gPopup )

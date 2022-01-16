@@ -164,6 +164,15 @@ UINT32 guiUITargetSoldierId = NOBODY;
 // sevenfm: for cover dialog
 extern COVER_DRAW_MODE gubDrawMode;
 
+extern TraitSelection	gTraitSelection;
+extern SkillSelection	gSkillSelection;
+extern ArtillerySector	gArtillerySector;
+extern ArtilleryTeam	gArtilleryTeam;
+extern ReinforcementSector	gReinforcementSector;
+extern ReinforcementNumber	gReinforcementNumber;
+extern SoldierSelection	gSoldierSelection;
+extern DragSelection	gDragSelection;
+
 extern  MOUSE_REGION    gMPanelRegion;
 
 extern UINT32 guiNewUICursor;
@@ -341,6 +350,7 @@ void HandleTBLevelUp(void);
 void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
+void HandleTBSkillsMenu(void);
 
 void HandleTacticalReload(void);
 void HandleTacticalTakeItem( void );
@@ -2060,60 +2070,119 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				MercPtrs[ gusSelectedSoldier ]->flags.fDoSpread				= FALSE;
 			}
 
-
-			// Befone anything, delete popup box!
+			// Before anything, delete popup box!
 			EndUIMessage( );
 
 			// CANCEL FROM PLANNING MODE!
 			if ( InUIPlanMode( ) )
 			{
 				EndUIPlan( );
+				continue;
 			}
 
 			if ( InItemDescriptionBox( ) )
 			{
 				DeleteItemDescriptionBox( );
+				continue;
 			}
 			else if( InKeyRingPopup( ) )
 			{
 				DeleteKeyRingPopup( );
+				continue;
+			}
+
+			if (gDragSelection.Active())
+			{
+				gDragSelection.Cancel();
+				continue;
+			}
+			else if (gReinforcementNumber.Active())
+			{
+				gReinforcementNumber.Cancel();
+				continue;
+			}
+			else if (gSoldierSelection.Active())
+			{
+				gSoldierSelection.Cancel();
+				continue;
+			}
+			else if (gArtilleryTeam.Active())
+			{
+				gArtilleryTeam.Cancel();
+				continue;
+			}
+			else if (gArtillerySector.Active())
+			{
+				gArtillerySector.Cancel();
+				continue;
+			}
+			else if (gReinforcementSector.Active())
+			{
+				gReinforcementSector.Cancel();
+				continue;
+			}
+			else if (gSkillSelection.Active())
+			{
+				gSkillSelection.Cancel();
+				continue;
+			}
+			else if (gTraitSelection.Active())
+			{
+				gTraitSelection.Cancel();
+				continue;
 			}
 
 			if ( gCurrentUIMode == MENU_MODE )
 			{
 				// If we get a hit here and we're in menu mode, quit the menu mode
 				EndMenuEvent( guiCurrentEvent );
+				continue;
 			}
 
-			if ( gCurrentUIMode == HANDCURSOR_MODE )
+			if (gCurrentUIMode == HANDCURSOR_MODE || gCurrentUIMode == RADIOCURSOR_MODE)
 			{
 				*puiNewEvent = A_CHANGE_TO_MOVE;
+				continue;
 			}
 
-			if (gCurrentUIMode == RADIOCURSOR_MODE)
+			if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 			{
-				*puiNewEvent = A_CHANGE_TO_MOVE;
-			}
-
-			if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
-			{
-				if ( gusSelectedSoldier != NOBODY )
+				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect)
+				{
+					// ATE: OK, stop any mercs who are moving by selection method....
+					StopRubberBandedMercFromMoving();
+					continue;
+				}
+				else if (gusSelectedSoldier != NOBODY &&
+					MercPtrs[gusSelectedSoldier] &&
+					!(gAnimControl[MercPtrs[gusSelectedSoldier]->usAnimState].uiFlags & ANIM_STATIONARY))
 				{
 					// If soldier is not stationary, stop
-					MercPtrs[ gusSelectedSoldier ]->StopSoldier(	);
+					MercPtrs[gusSelectedSoldier]->StopSoldier();
 					*puiNewEvent = A_CHANGE_TO_MOVE;
-
-					// sevenfm: also stop dragging
-					if (MercPtrs[gusSelectedSoldier]->IsDraggingSomeone(false))
-					{
-						MercPtrs[gusSelectedSoldier]->CancelDrag();
-						DirtyMercPanelInterface(MercPtrs[gusSelectedSoldier], DIRTYLEVEL2);
-					}
+					continue;
 				}
-				// ATE: OK, stop any mercs who are moving by selection method....
-				StopRubberBandedMercFromMoving( );
 			}
 
+			// sevenfm: also stop dragging
+			if (gusSelectedSoldier != NOBODY &&
+				MercPtrs[gusSelectedSoldier] &&
+				MercPtrs[gusSelectedSoldier]->IsDraggingSomeone(false))
+			{
+				MercPtrs[gusSelectedSoldier]->CancelDrag();
+				DirtyMercPanelInterface(MercPtrs[gusSelectedSoldier], DIRTYLEVEL2);
+				continue;
+			}
+
+			// sevenfm: unready weapon
+			if (gusSelectedSoldier != NOBODY &&
+				MercPtrs[gusSelectedSoldier] &&
+				WeaponReady(MercPtrs[gusSelectedSoldier]))
+			{
+				MercPtrs[gusSelectedSoldier]->InternalSoldierReadyWeapon(MercPtrs[gusSelectedSoldier]->ubDirection, TRUE, FALSE);
+				HandleSight(MercPtrs[gusSelectedSoldier], SIGHT_LOOK);
+				continue;
+			}
 		}
 
 		// CHECK ESC KEYS HERE....
@@ -2121,7 +2190,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 		{
 			StopAnyCurrentlyTalkingSpeech( );
 		}
-
 
 		// IF UI HAS LOCKED, ONLY ALLOW EXIT!
 		if ( gfDisableRegionActive || gfUserTurnRegionActive )
@@ -3020,12 +3088,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					DisplaySectorItemsInfo();
 				else
 				{
-					// Flugente: trait skill selection menu. Yes, screw squad 13				
-					INT32 usMapPos;
-					if ( GetMouseMapPos( &usMapPos ) )
-					{
-						TraitsMenu(usMapPos);
-					}
+					HandleTBSkillsMenu();
 				}
 				break;
 
@@ -3163,14 +3226,18 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 					SetSteadyStateAmbience( ubAmbientSound );
 
+#else
+					//shadooow: trying to use autobandage during conversation will mess up game
+					// sevenfm: don't try to activate autobandage in hostile sector
+					if (!(gTacticalStatus.uiFlags & INCOMBAT) && NumEnemyInSector() == 0 && DialogueQueueIsEmpty())
+					{
+						BeginAutoBandage();
+					}
 #endif
 				}
 				else
 				{
-					if (DialogueQueueIsEmpty())//shadooow: trying to use autobandage during conversation will mess up game
-					{
-						BeginAutoBandage();
-					}
+					HandleTBSkillsMenu();
 				}
 				break;
 
@@ -4155,26 +4222,26 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'q':
 				if( fCtrl )
 				{
-					// used for cheat mode functions
-					HandleTBSwapHands( );												
-				}
-				else if ( fAlt )
-				{
-					// used for cheat mode functions
-					HandleTBSwapGunsling( );
-				}
-				else
-				{
-					if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] )
+					if (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE])
 					{
 						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
+						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_GL_LOW_ANGLE]);
 					}
 					else
 					{
 						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
+						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_GL_HIGH_ANGLE]);
 					}
+
+					//HandleTBSwapHands( );
+				}
+				else if ( fAlt )
+				{
+					HandleTBSwapGunsling( );
+				}
+				else
+				{
+					SetScopeMode(usMapPos);
 				}
 				break;
 			
@@ -9339,4 +9406,19 @@ BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 	}
 
 	return FALSE;
+}
+
+void HandleTBSkillsMenu(void)
+{
+	// Flugente: trait skill selection menu.
+	INT32 usMapPos;
+	if (GetMouseMapPos(&usMapPos))
+	{
+		TraitsMenu(usMapPos);
+	}
+	else if (gusSelectedSoldier != NOBODY && MercPtrs[gusSelectedSoldier] && !TileIsOutOfBounds(MercPtrs[gusSelectedSoldier]->sGridNo))
+	{
+		LocateGridNo(MercPtrs[gusSelectedSoldier]->sGridNo);
+		TraitsMenu(MercPtrs[gusSelectedSoldier]->sGridNo);
+	}
 }

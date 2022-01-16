@@ -162,6 +162,7 @@
 		BOOLEAN refresh(void);
 		BOOLEAN forceDraw(void);
 		BOOLEAN callOption(int optIndex);
+		BOOLEAN Visible(void) { return this->PopupVisible; };
 
 		INT32 getBoxId() const {
 			return this->boxId;
