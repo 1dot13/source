@@ -31,8 +31,6 @@
 <AnimSurface name="RGF_PICKUP_FOX_CAMOHELMET" file="Anims\LOBOT\RGF\F_PICKUP_FOX_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 <AnimSurface name="RGF_PICKUP_FOX_LSLEEVE" file="Anims\LOBOT\RGF\F_PICKUP_FOX_lsleeve.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 
-<!-- note that this is an external entity, so it is not a valid xml file by itself -->
-<!-- NOTE! Filenames have a 27 character limit. If they're longer, JA will crash when trying to load said file-->
 <!-- Crouched walk, rifle at the ready -->
 <AnimSurface name="RGF_RIFLE_WALK_CROUCH_HEAD" file="Anims\LOBOT\RGF\F_R_SWAT_AIM_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_RIFLE_WALK_CROUCH_HANDS" file="Anims\LOBOT\RGF\F_R_SWAT_AIM_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
@@ -2635,6 +2633,24 @@
 <AnimSurface name="RGF_CROUCH_MORTAR_LSLEEVE" file="Anims\LOBOT\RGF\F_MORTAR_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="51" profile="-1" />
 <AnimSurface name="RGF_CROUCH_MORTAR_BCAP" file="Anims\LOBOT\RGF\F_MORTAR_bcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="51" profile="-1" />
 <AnimSurface name="RGF_CROUCH_MORTAR_MORTAR" file="Anims\LOBOT\RGF\F_MORTAR_mortar.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="51" profile="-1" />
+<!-- Elliot, you IDIOT! -->
+<AnimSurface name="RGF_SLAP_HEAD" file="Anims\LOBOT\RGF\F_N_SLAP_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_HANDS" file="Anims\LOBOT\RGF\F_N_SLAP_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_TORSO" file="Anims\LOBOT\RGF\F_N_SLAP_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_LEGS" file="Anims\LOBOT\RGF\F_N_SLAP_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_SHADOW" file="Anims\LOBOT\RGF\F_N_SLAP_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_BP" file="Anims\LOBOT\RGF\F_N_SLAP_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_BERET" file="Anims\LOBOT\RGF\F_N_SLAP_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_VEST" file="Anims\LOBOT\RGF\F_N_SLAP_vest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_HELMET" file="Anims\LOBOT\RGF\F_N_SLAP_helmet.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_GMASK" file="Anims\LOBOT\RGF\F_N_SLAP_gasmask.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_NVG" file="Anims\LOBOT\RGF\F_N_SLAP_NVG.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_BOONEY" file="Anims\LOBOT\RGF\F_N_SLAP_BOONEY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_PADS" file="Anims\LOBOT\RGF\F_N_SLAP_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_CAMOHELMET" file="Anims\LOBOT\RGF\F_N_SLAP_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_LSLEEVE" file="Anims\LOBOT\RGF\F_N_SLAP_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+<AnimSurface name="RGF_SLAP_BCAP" file="Anims\LOBOT\RGF\F_N_SLAP_BCAP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="37" profile="-1" />
+
 <!-- WATER ANIMS -->
 <!-- Standing, rifle idle -->
 <AnimSurface name="RGF_WATER_RIFLE_IDLE_HEAD" file="Anims\LOBOT\RGF\FW_R_STD_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />

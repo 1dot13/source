@@ -122,6 +122,7 @@
 			<Surface name="RGF_RIFLE_CLEAN_SHADOW" animsurface="RGFCLEAN"/>
 			<Surface name="RGF_HELIDROP_SHADOW" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_SHADOW" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_SHADOW" animsurface="RGFSLAP" />			
 			<!-- DEFAULT ANIMS AS PLACEHOLDERS -->
 			<Surface name="RGF_BURN" animsurface="RGMBURN"/>
 			<Surface name="RGF_BLOWUP" animsurface="BODYEXPLODE"/>
@@ -268,6 +269,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_LEGS" animsurface="RGFWATER_DBLSHT"/>
 			<Surface name="RGF_HELIDROP_LEGS" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_LEGS" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_LEGS" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="body">
@@ -408,6 +410,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_TORSO" animsurface="RGFWATER_DBLSHT"/>
 			<Surface name="RGF_HELIDROP_TORSO" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_TORSO" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_TORSO" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="hands">
@@ -549,6 +552,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_LSLEEVE" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_LSLEEVE" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_LSLEEVE" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_LSLEEVE" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="HasPistolOrMPistolInLeftHand">
 			<Surface name="RGF_EMPTY_RUN_HANDS" animsurface="RGFPISTOL_RUN"/>
@@ -688,6 +692,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_HANDS" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_HANDS" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_HANDS" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_HANDS" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="head">
@@ -829,6 +834,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_HEAD" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_HEAD" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_HEAD" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_HEAD" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="helmet">
@@ -965,6 +971,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_CAMOHELMET" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_CAMOHELMET" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_CAMOHELMET" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_CAMOHELMET" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="IsWearingHelmetAndHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_RUN_HELMET" animsurface="RGFPISTOL_RUN"/>
@@ -1099,6 +1106,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_HELMET" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_HELMET" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_HELMET" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_HELMET" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="IsWearingBeretAndHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_RUN_BERET" animsurface="RGFPISTOL_RUN"/>
@@ -1233,6 +1241,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_BERET" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_BERET" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_BERET" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_BERET" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="IsWearingHatAndHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_RUN_BOONEY" animsurface="RGFPISTOL_RUN"/>
@@ -1367,6 +1376,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_BOONEY" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_BOONEY" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_BOONEY" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_BOONEY" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="IsWearingBallcapAndHasPistol">
 			<Surface name="RGF_EMPTY_RUN_BCAP" animsurface="RGFPISTOL_RUN"/>
@@ -1501,6 +1511,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_BCAP" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_BCAP" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_BCAP" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_BCAP" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="gun">
@@ -2935,6 +2946,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_GMASK" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_GMASK" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_GMASK" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_GMASK" animsurface="RGFSLAP" />			
 		</LayerProp>
 		<LayerProp filter="IsWearingNVGandHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_WALK_NVG" animsurface="RGFNOTHING_WALK"/>
@@ -3070,6 +3082,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_NVG" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_NVG" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_NVG" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_NVG" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="vest">
@@ -3208,6 +3221,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_VEST" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_VEST" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_VEST" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_VEST" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="backpack">
@@ -3343,6 +3357,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_BP" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_BP" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_BP" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_BP" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 	<Layer name="knees">
@@ -3477,6 +3492,7 @@
 			<Surface name="RGF_WATER_DUAL_AIM_PADS" animsurface="RGFWATER_DBLSHT" />
 			<Surface name="RGF_HELIDROP_PADS" animsurface="RGFHELIDROP" />
 			<Surface name="RGF_CROUCH_MORTAR_PADS" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_PADS" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>
