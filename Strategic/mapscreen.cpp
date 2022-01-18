@@ -3309,7 +3309,8 @@ void DisplayCharacterInfo( void )
 	// is displayed behind the current stat value, as see on the character's info panel.
 	// This section draws STRATEGIC info pages. Another section is in Interface Panels.cpp and draws TACTICAL info pages.
 	// The feature is toggled by Options-Menu switch, and its color is determined in the INI files.
-	{ 
+	if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] )
+	{
 		SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[bSelectedInfoChar].usSolID ];
 	
 		UINT8	*pDestBuf;
@@ -6243,7 +6244,8 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		}
 	}
 
-	if ( pSoldier->bAssignment >= TRAIN_SELF &&
+	if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] &&
+		pSoldier->bAssignment >= TRAIN_SELF &&
 		pSoldier->bAssignment <= TRAIN_BY_OTHER &&
 		pSoldier->bAssignment != TRAIN_TEAMMATE )
 	{
@@ -16945,7 +16947,7 @@ INT32 GetTotalContractExpenses ( void )
 				}
 			}
 		}
-		else if(pSoldier->bAssignment != ASSIGNMENT_DEAD && (pSoldier->bAssignment != ASSIGNMENT_POW || pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC))
+		else if(pSoldier->bAssignment != ASSIGNMENT_DEAD && pSoldier->bAssignment != ASSIGNMENT_POW)
 		{
 			iTotalCost += gMercProfiles[ pSoldier->ubProfile ].sSalary;
 		}
