@@ -9025,6 +9025,29 @@ void PollWheelInMapView(UINT32 *puiNewEvent)
 		}
 	}
 
+	// Scroll through mercenaries if the mouse is inside any of these three panels. Couldn't use MOUSE_REGION wheelstates because it would've been messy due to the panels having higher priority mouse regions on top of the larger areas.
+	// This way there are only three cleanly defined areas to check for.
+	SGPPoint	MousePos;
+	GetMousePos(&MousePos);
+	const auto x = MousePos.iX;
+	const auto y = MousePos.iY;
+	if (
+		( (UI_CHARINV.Region.x < x && x < (UI_CHARINV.Region.x + UI_CHARINV.Region.width))  && (UI_CHARINV.Region.y < y && y < (UI_CHARINV.Region.y + UI_CHARINV.Region.height)) ) ||
+		((UI_CHARPANEL.Region.x < x && x < (UI_CHARPANEL.Region.x + UI_CHARPANEL.Region.width)) && (UI_CHARPANEL.Region.y < y && y < (UI_CHARPANEL.Region.y + UI_CHARPANEL.Region.height))) ||
+		((UI_CHARLIST.Region.x < x && x < (UI_CHARLIST.Region.x + UI_CHARLIST.Region.width)) && (UI_CHARLIST.Region.y < y && y < (UI_CHARLIST.Region.y + UI_CHARLIST.Region.height)))
+		)
+	{
+		const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+		if (Wheelstate < 0)
+		{
+			GoToNextCharacterInList();
+		}
+		else if (Wheelstate > 0)
+		{
+			GoToPrevCharacterInList();
+		}
+		_WheelValue = 0;
+	}
 }
 
 void PollLeftButtonInMapView( UINT32 *puiNewEvent )

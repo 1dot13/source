@@ -213,7 +213,6 @@ UINT32 uiNumberOfUnSeenItems = 0;
 //MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_SLOT_COUNT ];
 MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_MAX_SLOTS ];
 MOUSE_REGION MapInventoryPoolMask;
-MOUSE_REGION MapInventoryPageScrollArea;
 // HEADROCK HAM 5: This rectangle describes the inventory. It is used to limit cursor movement while waiting for zoom input.
 SGPRect MapInventoryRect;
 
@@ -925,14 +924,6 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		// create buttons
 		CreateMapInventoryButtons( );
 
-		// Create mouseregion for page scroll
-		MSYS_DefineRegion( 
-			&MapInventoryPageScrollArea,
-			UI_MAP.BorderRegion.x, UI_MAP.BorderRegion.y,
-			UI_MAP.BorderRegion.x + UI_MAP.BorderRegion.width, UI_MAP.BorderRegion.y + UI_MAP.BorderRegion.height,
-			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK
-		);
-
 		// Flugente: certain features need to alter an item's temperature value depending on the time passed
 		// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
 		// as if these checks are always performed in any sector
@@ -984,8 +975,6 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		DestroyMapInventoryButtons( );
 
 		DestroyInventoryPoolDoneButton( );
-
-		MSYS_RemoveRegion(&MapInventoryPageScrollArea);
 
 		// HEADROCK HAM 5: Destroy big item graphics.
 		if (fMapInventoryZoom)
@@ -6318,53 +6307,25 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::v
 }
 
 
-void ResetMapInventoryWheelStates(void)
-{
-	MapInventoryPageScrollArea.WheelState = 0;
-	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
-	{
-		MapInventoryPoolSlots[i].WheelState = 0;
-	}
-}
 
 void HandleMousePageScroll(void)
 {
-	boolean scroll = false;
-	if (MapInventoryPageScrollArea.WheelState > 0)
+	SGPPoint	MousePos;
+	GetMousePos(&MousePos);
+	const auto x = MousePos.iX;
+	const auto y = MousePos.iY;
+	if ( (UI_MAP.BorderRegion.x < x && x < (UI_MAP.BorderRegion.x + UI_MAP.BorderRegion.width)) && (UI_MAP.BorderRegion.y < y && y < (UI_MAP.BorderRegion.y + UI_MAP.BorderRegion.height)) )
 	{
-		scroll = true;
-	}
-	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
-	{
-		if (MapInventoryPoolSlots[i].WheelState > 0)
+		const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+		if (Wheelstate < 0)
 		{
-			scroll = true;
-			break;
+			MapInvNextPage();
 		}
-	}
-	if (scroll == true)
-	{
-		MapInvPreviousPage();
-		ResetMapInventoryWheelStates();
-		return;
-	}
-	
-	if (MapInventoryPageScrollArea.WheelState < 0)
-	{
-		scroll = true;
-	}
-	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
-	{
-		if (MapInventoryPoolSlots[i].WheelState < 0)
+		else if (Wheelstate > 0)
 		{
-			scroll = true;
-			break;
+			MapInvPreviousPage();
 		}
-	}
-	if (scroll == true)
-	{
-		MapInvNextPage();
-		ResetMapInventoryWheelStates();
+		_WheelValue = 0;
 	}
 }
 
