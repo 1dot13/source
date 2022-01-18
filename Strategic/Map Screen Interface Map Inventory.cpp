@@ -213,6 +213,7 @@ UINT32 uiNumberOfUnSeenItems = 0;
 //MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_SLOT_COUNT ];
 MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_MAX_SLOTS ];
 MOUSE_REGION MapInventoryPoolMask;
+MOUSE_REGION MapInventoryPageScrollArea;
 // HEADROCK HAM 5: This rectangle describes the inventory. It is used to limit cursor movement while waiting for zoom input.
 SGPRect MapInventoryRect;
 
@@ -407,6 +408,10 @@ void MapInventoryFilterToggle( UINT32 uiFlags );
 void MapInventoryFilterSet( UINT32 uiFlags );
 void HandleSetFilterButtons();
 void InitMapInventoryCoordinates(void);
+void HandleMousePageScroll(void);
+void MapInvNextPage(void);
+void MapInvPreviousPage(void);
+
 
 //dnl ch75 271013 ClearAllItemPools and RefreshItemPools are relocated from "Handle Items.cpp"
 void ClearAllItemPools()
@@ -920,6 +925,14 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		// create buttons
 		CreateMapInventoryButtons( );
 
+		// Create mouseregion for page scroll
+		MSYS_DefineRegion( 
+			&MapInventoryPageScrollArea,
+			UI_MAP.BorderRegion.x, UI_MAP.BorderRegion.y,
+			UI_MAP.BorderRegion.x + UI_MAP.BorderRegion.width, UI_MAP.BorderRegion.y + UI_MAP.BorderRegion.height,
+			MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK
+		);
+
 		// Flugente: certain features need to alter an item's temperature value depending on the time passed
 		// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
 		// as if these checks are always performed in any sector
@@ -971,6 +984,8 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		DestroyMapInventoryButtons( );
 
 		DestroyInventoryPoolDoneButton( );
+
+		MSYS_RemoveRegion(&MapInventoryPageScrollArea);
 
 		// HEADROCK HAM 5: Destroy big item graphics.
 		if (fMapInventoryZoom)
@@ -2770,56 +2785,32 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo, IN
 
 void MapInventoryPoolNextBtn( GUI_BUTTON *btn, INT32 reason )
 {
-		if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 	  btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
-
-			// if can go to next page, go there
-			if( iCurrentInventoryPoolPage < ( iLastInventoryPoolPage ) )
-			{
-				iCurrentInventoryPoolPage++;
-				//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
-				if (gpItemPointer != NULL)
-				{
-					fChangedInventorySlots = TRUE;
-					gfCheckForCursorOverMapSectorInventoryItem = TRUE;
-				}
-				fMapPanelDirty = TRUE;
-			}
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			MapInvNextPage();
 		}
 	}
 }
 
 void MapInventoryPoolPrevBtn( GUI_BUTTON *btn, INT32 reason )
 {
-		if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 	  btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
-
-			// if can go to next page, go there
-			if( iCurrentInventoryPoolPage > 0 )
-			{
-				iCurrentInventoryPoolPage--;
-				//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
-				if (gpItemPointer != NULL)
-				{
-					fChangedInventorySlots = TRUE;
-					gfCheckForCursorOverMapSectorInventoryItem = TRUE;
-				}
-				fMapPanelDirty = TRUE;
-			}
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			MapInvPreviousPage();
 		}
 	}
 }
@@ -3800,6 +3791,7 @@ void HandleMapSectorInventory( void )
 	{
 		HandleMouseInCompatableItemForMapSectorInventory( iCurrentlyHighLightedItem );
 	}
+	HandleMousePageScroll();
 }
 
 
@@ -6322,6 +6314,89 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::v
 	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
 	{
 		HandleItemCooldownFunctions( &(pWorldItem[ uiCount ].object), tickspassed * ( fUndo ? -NUM_SEC_PER_TACTICAL_TURN : NUM_SEC_PER_TACTICAL_TURN ), (sMapZ > 0) );
+	}
+}
+
+
+void ResetMapInventoryWheelStates(void)
+{
+	MapInventoryPageScrollArea.WheelState = 0;
+	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
+	{
+		MapInventoryPoolSlots[i].WheelState = 0;
+	}
+}
+
+void HandleMousePageScroll(void)
+{
+	boolean scroll = false;
+	if (MapInventoryPageScrollArea.WheelState > 0)
+	{
+		scroll = true;
+	}
+	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
+	{
+		if (MapInventoryPoolSlots[i].WheelState > 0)
+		{
+			scroll = true;
+			break;
+		}
+	}
+	if (scroll == true)
+	{
+		MapInvPreviousPage();
+		ResetMapInventoryWheelStates();
+		return;
+	}
+	
+	if (MapInventoryPageScrollArea.WheelState < 0)
+	{
+		scroll = true;
+	}
+	for (UINT32 i = 0; i < MAP_INVENTORY_POOL_SLOT_COUNT; i++)
+	{
+		if (MapInventoryPoolSlots[i].WheelState < 0)
+		{
+			scroll = true;
+			break;
+		}
+	}
+	if (scroll == true)
+	{
+		MapInvNextPage();
+		ResetMapInventoryWheelStates();
+	}
+}
+
+void MapInvNextPage(void)
+{
+	// if can go to next page, go there
+	if (iCurrentInventoryPoolPage < iLastInventoryPoolPage)
+	{
+		iCurrentInventoryPoolPage++;
+		//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
+		if (gpItemPointer != NULL)
+		{
+			fChangedInventorySlots = TRUE;
+			gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+		}
+		fMapPanelDirty = TRUE;
+	}
+}
+
+void MapInvPreviousPage(void)
+{
+	// if can go to next page, go there
+	if (iCurrentInventoryPoolPage > 0)
+	{
+		iCurrentInventoryPoolPage--;
+		//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
+		if (gpItemPointer != NULL)
+		{
+			fChangedInventorySlots = TRUE;
+			gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+		}
+		fMapPanelDirty = TRUE;
 	}
 }
 
