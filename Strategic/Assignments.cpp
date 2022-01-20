@@ -803,7 +803,8 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 	}
 
 	//shadooow: disable changing assignment on POW mercs to prevent to break them free improperly
-	if (pSoldier->bAssignment == ASSIGNMENT_POW)
+	// Asdow: Prevent changing assignment for mercs in transit
+	if (pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == IN_TRANSIT)
 		return(FALSE);
 
 	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0 )
