@@ -4357,6 +4357,7 @@ STR16 pMovementMenuStrings[] =
 	L"Rotta spostamento esercito", 		// done with movement menu, start plotting movement
 	L"Annulla", 		// cancel this menu
 	L"Altro",		// title for group of mercs not on squads nor in vehicles
+	L"Select all",		// Select all squads TODO: Translate
 };
 
 

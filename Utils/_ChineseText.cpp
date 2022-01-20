@@ -4375,6 +4375,7 @@ STR16 pMovementMenuStrings[] =
 	L"安排行军路线",	// done with movement menu, start plotting movement
 	L"取消",		// cancel this menu
 	L"其它",		// title for group of mercs not on squads nor in vehicles
+	L"Select all",		// Select all squads TODO: Translate
 };
 
 

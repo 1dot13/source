@@ -120,6 +120,7 @@ enum{
 	DONE_REGION,
 	CANCEL_REGION,
 	OTHER_REGION,
+	ALL_SQUADS
 };
 
 UINT16 usVehicleY = 0;
@@ -3858,6 +3859,10 @@ void AddStringsToMoveBox( void )
 	// blank line
 	AddMonoString(&hStringHandle, L"" );
 
+	// add Select all line
+	swprintf(sString, L"%s", pMovementMenuStrings[4]);
+	AddMonoString(&hStringHandle, sString);
+
 
 	// add squads
 	for( iCount = 0; iCount < giNumberOfSquadsInSectorMoving; iCount++ )
@@ -4038,6 +4043,15 @@ void BuildMouseRegionsForMoveBox( void )
 	// blank line
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
 						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	iCounter++;
+
+	// Select all line
+	MSYS_DefineRegion(&gMoveMenuRegion[iCounter], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + iFontHeight * iCounter), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + iFontHeight * (iCounter + 1)), MSYS_PRIORITY_HIGHEST,
+		MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback);
+	// set user defines
+	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 0, iCounter);
+	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 1, ALL_SQUADS);
+	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 2, giNumberOfSquadsInSectorMoving);
 	iCounter++;
 
 	// calc total number of "moving" lines in the box
@@ -4243,7 +4257,24 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			giDblClickTimersForMoveBoxMouseRegions[ iMoveBoxLine ] = iClickTime;
 
-			if( iRegionType == SQUAD_REGION )
+			if (iRegionType == ALL_SQUADS)
+			{
+				if (IsAnythingSelectedForMoving())
+				{
+					for (int i = 0; i < iListIndex; i++)
+					{
+						DeselectSquadForMovement(iSquadMovingList[i]);
+					}
+				}
+				else
+				{
+					for (int i = 0; i < iListIndex; i++)
+					{
+						SelectSquadForMovement(iSquadMovingList[i]);
+					}
+				}
+			}
+			else if( iRegionType == SQUAD_REGION )
 			{
 				// is the squad moving
 				if( fSquadIsMoving[ iListIndex ] == TRUE )

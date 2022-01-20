@@ -4363,6 +4363,7 @@ STR16 pMovementMenuStrings[] =
 	L"Teken Reisroute", 		// done with movement menu, start plotting movement
 	L"Stop", 		// cancel this menu
 	L"Anders",		// title for group of mercs not on squads nor in vehicles
+	L"Select all",		// Select all squads TODO: Translate
 };
 
 

@@ -4375,6 +4375,7 @@ STR16 pMovementMenuStrings[] =
 	L"Путь", 		// done with movement menu, start plotting movement
 	L"Отмена", 		// cancel this menu
 	L"Другое",		// title for group of mercs not on squads nor in vehicles
+	L"Выбрать все",	// Select all squads
 };
 
 

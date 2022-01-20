@@ -4367,6 +4367,7 @@ STR16 pMovementMenuStrings[] =
 	L"Route", 		// done with movement menu, start plotting movement
 	L"Annuler", 		// cancel this menu
 	L"Autre",		// title for group of mercs not on squads nor in vehicles
+	L"Select all",		// Select all squads TODO: Translate
 };
 
 
