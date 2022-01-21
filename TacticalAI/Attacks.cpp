@@ -1337,7 +1337,10 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	}
 
 	// militia always try to spare grenades unless under attack or using flares
-	if (pSoldier->bTeam == MILITIA_TEAM && !pSoldier->aiData.bUnderFire && !Item[usGrenade].flare)
+	if (pSoldier->bTeam == MILITIA_TEAM && 
+		!pSoldier->aiData.bUnderFire && 
+		!Item[usGrenade].flare &&
+		!fRocketLauncher)
 	{
 		fSpare = TRUE;
 	}
