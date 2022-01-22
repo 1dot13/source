@@ -11199,11 +11199,12 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
     if ( ubExitValue == 1 )
     {
+		SOLDIERTYPE *pSoldierToSurrender = MercPtrs[prisonerdialoguetargetID];
         DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
         if ( !gGameExternalOptions.fEnemyCanSurrender )
         {
-            StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
+            StartCivQuote(pSoldierToSurrender);
             return;
         }
 
@@ -11256,39 +11257,34 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		// We justify this storywise by these soldiers being very determined leaders who don't allow surrender categorically.
 		BOOLEAN fNoSurrender = FALSE;
 		
-        // enemy team and creature team (bandits can be captured)
-        firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-        lastid  = gTacticalStatus.Team[CREATURE_TEAM].bLastID;
-        for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
-        {
-            if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
-            {
-                enemysidestrength += pSoldier->GetSurrenderStrength();
+        // shadooow: rewritten to only check soldiers from the same team
+		firstid = gTacticalStatus.Team[pSoldierToSurrender->bTeam].bFirstID;
+		lastid = gTacticalStatus.Team[pSoldierToSurrender->bTeam].bLastID;
+		for (uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+		{
+			if (pSoldier->bActive && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ))
+			{
+				if (pSoldierToSurrender->bTeam == CIV_TEAM)
+				{
+					// hostile civs with a profile cannot be captured, as stated above, the entire team cannot surrender
+					if (!pSoldier->aiData.bNeutral && pSoldier->bSide == 1 && zCivGroupName[pSoldier->ubCivilianGroup].fCanBeCaptured && pSoldier->ubProfile != NO_PROFILE)
+						fNoSurrender = TRUE;
 
-				if ( pSoldier->ubProfile != NO_PROFILE || ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier) )
-					fNoSurrender = TRUE;
-            }
-        }
+					// a civilian can only be captured if his faction is allowed to. This should prevent the player from exploiting a huge numerical superiority against small enemy groups, like lone assassins.
+					if (!pSoldier->CanBeCaptured())
+						continue;
 
-		// hostile civs
-        firstid = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-        lastid  = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
-        for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
-        {
-            if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
-            {
-				// hostile civs with a profile cannot be captured, as stated above, the entire team cannot surrender
-				if ( !pSoldier->aiData.bNeutral && pSoldier->bSide == 1 && zCivGroupName[pSoldier->ubCivilianGroup].fCanBeCaptured && pSoldier->ubProfile != NO_PROFILE )
-					fNoSurrender = TRUE;
-
-				// a civilian can only be captured if his faction is allowed to. This should prevent the player from exploiting a huge numerical superiority against small enemy groups, like lone assassins.
-				if ( !pSoldier->CanBeCaptured() )
-					continue;
-
-				// if a civilian is not neutral and on the enemy side, add his strength to the team
-				enemysidestrength += pSoldier->GetSurrenderStrength( );
-            }
-        }
+					// if a civilian is not neutral and on the enemy side, add his strength to the team
+					enemysidestrength += pSoldier->GetSurrenderStrength();
+				}
+				else
+				{
+					enemysidestrength += pSoldier->GetSurrenderStrength();
+					if (pSoldier->ubProfile != NO_PROFILE || ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+						fNoSurrender = TRUE;
+				}
+			}
+		}
 
 		// enemy team gets a bonus if it has officers around
 		UINT8 officertype = OFFICER_NONE;
@@ -11305,8 +11301,6 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		if ( !fNoSurrender && playersidestrength >= gGameExternalOptions.fSurrenderMultiplier * enemysidestrength )
         {
             // it is enough to simply set all soldiers to captured
-            firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-            lastid  = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
             for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
             {
                 if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
