@@ -8234,12 +8234,28 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						if ( ( GetSelectedDestChar() != -1) && !fPlotForHelicopter && !fPlotForMilitia && (iCurrentMapSectorZ == 0) && (GetMouseMapXY( &sMapX, &sMapY )) )
 						{
 							INT16 sDeltaX, sDeltaY;
-							INT16 sPrevX, sPrevY;
+							INT16 sPrevX = 0, sPrevY = 0;
 							SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[GetSelectedDestChar()].usSolID ];
 
 							// can't teleport to where we already are
 							if ( ( sMapX == pSoldier->sSectorX ) && ( sMapY == pSoldier->sSectorY ) )
 								break;
+
+							// figure out where they would've come from						
+							if (pTempCharacterPath)
+							{
+								pTempCharacterPath = MoveToEndOfPathList(pTempCharacterPath);
+								UINT32 sSectorId = pTempCharacterPath->pPrev->uiSectorId;
+								sPrevX = GET_X_FROM_STRATEGIC_INDEX(sSectorId);
+								sPrevY = GET_Y_FROM_STRATEGIC_INDEX(sSectorId);
+							}
+							else if (pTempHelicopterPath)
+							{
+								pTempHelicopterPath = MoveToEndOfPathList(pTempHelicopterPath);
+								UINT32 sSectorId = pTempHelicopterPath->pPrev->uiSectorId;
+								sPrevX = GET_X_FROM_STRATEGIC_INDEX(sSectorId);
+								sPrevY = GET_Y_FROM_STRATEGIC_INDEX(sSectorId);
+							}
 
 							// cancel movement plotting
 							AbortMovementPlottingMode( );
@@ -8261,40 +8277,42 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								AddPlayerToGroup( ubGroupId, pSoldier );
 							}
 
-							// figure out where they would've come from
-							sDeltaX = sMapX - pSoldier->sSectorX;
-							sDeltaY = sMapY - pSoldier->sSectorY;
+							//shadooow: this should now only happen when teleporting into inaccessible sectors
+							if (!sPrevX || !sPrevY)
+							{
+								// figure out where they would've come from
+								sDeltaX = sMapX - pSoldier->sSectorX;
+								sDeltaY = sMapY - pSoldier->sSectorY;
 
-							if ( abs( sDeltaX ) >= abs( sDeltaY ) )
-							{
-								// use East or West
-								if( sDeltaX > 0 )
+								if ( abs( sDeltaX ) >= abs( sDeltaY ) )
 								{
-									// came in from the West
-									sPrevX = sMapX - 1;
+									// use East or West
+									if( sDeltaX > 0 )
+									{
+										// came in from the West
+										sPrevX = sMapX - 1;
+									}
+									else
+									{
+										// came in from the East
+										sPrevX = sMapX + 1;
+									}
 									sPrevY = sMapY;
 								}
 								else
 								{
-									// came in from the East
-									sPrevX = sMapX + 1;
-									sPrevY = sMapY;
-								}
-							}
-							else
-							{
-								// use North or South
-								if( sDeltaY > 0 )
-								{
-									// came in from the North
+									// use North or South
+									if( sDeltaY > 0 )
+									{
+										// came in from the North
+										sPrevY = sMapY - 1;
+									}
+									else
+									{
+										// came in from the South
+										sPrevY = sMapY + 1;
+									}
 									sPrevX = sMapX;
-									sPrevY = sMapY - 1;
-								}
-								else
-								{
-									// came in from the South
-									sPrevX = sMapX;
-									sPrevY = sMapY + 1;
 								}
 							}
 
