@@ -505,7 +505,6 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 		iMyPosValue /= pMe->aiData.bOppCnt;
 	}
 
-
 	// if my positional value is worth something at all here
 	if (iMyPosValue > 0)
 	{
@@ -533,13 +532,12 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 			iRangeFactor = (iRangeChange * iRCD) / 2;
 
 			// sevenfm: reduce range bonus depending on cover
-			if (gGameExternalOptions.fAIBetterCover)
+			if (gGameExternalOptions.fAIBetterCover &&
+				pMe->aiData.bAIMorale < MORALE_FEARLESS &&
+				AIGunRange(pMe) >= PythSpacesAway(sMyGridNo, sHisGridNo) &&
+				!AnyCoverFromSpot(sMyGridNo, bMyLevel, sHisGridNo, bHisLevel))
 			{
-				if (!AnyCoverFromSpot(sMyGridNo, bMyLevel, sHisGridNo, bHisLevel) &&
-					CountSeenEnemiesLastTurn(pMe) > CountNearbyFriends(pMe, sMyGridNo, TACTICAL_RANGE / 2))
-				{
-					iRangeFactor = iRangeFactor * (100 - bHisCTGT * __min(Threat[uiThreatIndex].iAPs, APBPConstants[AP_MAXIMUM]) / APBPConstants[AP_MAXIMUM]) / 100;
-				}
+				iRangeFactor = iRangeFactor * (100 - bHisCTGT * Threat[uiThreatIndex].iAPs / (2 * APBPConstants[AP_MAXIMUM])) / 100;
 			}
 
 #ifdef DEBUGCOVER
@@ -626,14 +624,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	UINT32 uiLoop;
 	INT32 iCurrentCoverValue, iCoverValue, iBestCoverValue;
 	INT32	iCurrentScale = -1, iCoverScale = -1, iBestCoverScale = -1;
-	INT32	iDistFromOrigin, iDistCoverFromOrigin, iThreatCertainty;
+	INT32	iDistFromOrigin, iDistCoverFromOrigin;
+	//INT32 iThreatCertainty;
 	INT32 sGridNo, sBestCover = NOWHERE;
 	INT32 iPathCost;
 	INT32	iThreatRange, iClosestThreatRange = 1500;
 //	INT16 sClosestThreatGridno = NOWHERE;
 	INT32	iMyThreatValue;
-	INT32	sThreatLoc;
-	INT32 iMaxThreatRange;
+	//INT32	sThreatLoc;
+	//INT32 iMaxThreatRange;
 	UINT32	uiThreatCnt = 0;
 	INT32 iMaxMoveTilesLeft, iSearchRange, iRoamRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
@@ -641,7 +640,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	INT32	*		pusLastLoc;
 	INT8 *		pbPersOL;
 	INT8 *		pbPublOL;
-	SOLDIERTYPE *pOpponent;
+	//SOLDIERTYPE *pOpponent;
 	UINT16 usMovementMode;
 
 	UINT8	ubBackgroundLightLevel;
