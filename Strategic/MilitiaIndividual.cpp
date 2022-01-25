@@ -27,7 +27,8 @@ std::vector<MILITIA> gIndividualMilitiaVector;
 
 MILITIA::MILITIA()
 {
-	memset( this, 0, sizeof(MILITIA) );
+	memset( this, 0, sizeof(SIZEOF_MILITIA_POD) );
+	this->history.clear();
 }
 
 BOOLEAN

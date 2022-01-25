@@ -58,8 +58,7 @@ struct
 	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
-}
-typedef facilitytypeParseData;
+} typedef facilitytypeParseData;
 
 BOOLEAN FacilityTypes_TextOnly;
 
@@ -172,8 +171,6 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 		else if(strcmp(name, "FACILITYTYPE") == 0 && pData->curElement == FACILITYTYPE_LIST)
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
-
-			memset( &pData->curFacilityTypeData, 0, sizeof(FACILITYTYPE) );
 
 			// Set all values to default before applying XML data
 			InitFacilityTypeEntry( pData );
@@ -1306,7 +1303,6 @@ BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion)
 	XML_SetCharacterDataHandler(parser, facilitytypeCharacterDataHandle);
 
 
-	memset(&pData,0,sizeof(pData));
 	pData.maxArraySize = MAXITEMS;
 	pData.curIndex = 0;
 
