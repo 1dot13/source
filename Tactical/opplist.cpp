@@ -5784,8 +5784,6 @@ void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType
 	// else if noiseMaker's NOBODY, no opplist changes or interrupts are possible
 }
 
-BOOLEAN gfPlayerMercHeardNoise = FALSE;
-
 void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 	SOLDIERTYPE *pSoldier;
@@ -5853,13 +5851,12 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 	*/
 
 	// if we have now somehow obtained a valid terrain type //shadooow: and it is not a noise from doors
-	if (ubNoiseType != NOISE_CREAKING && ((ubSourceTerrType >= FLAT_GROUND) || (ubSourceTerrType <= DEEP_WATER)))
+	if (ubNoiseType != NOISE_CREAKING && ubSourceTerrType >= FLAT_GROUND && ubSourceTerrType <= DEEP_WATER)
 	{
 		//NumMessage("Source Terrain Type = ",ubSourceTerrType);
 		bCheckTerrain = TRUE;
 	}
 	// else give up trying to get terrain type, just assume sound isn't muffled
-
 
 	// DETERMINE THE *PERCEIVED* SOURCE OF THE NOISE
 	switch (ubNoiseType)
@@ -6021,12 +6018,6 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 
 			// Can the listener hear noise of that volume given his circumstances?
 			ubEffVolume = CalcEffVolume(pSoldier, sGridNo, bLevel, ubNoiseType, ubBaseVolume, bCheckTerrain, pSoldier->bOverTerrainType, ubSourceTerrType);
-
-			// sevenfm: indicate that player team heard noise
-			if (bTeam == gbPlayerNum && ubEffVolume > 0)
-			{
-				gfPlayerMercHeardNoise = TRUE;
-			}
 
 			// if a the noise maker is a person, not just NOBODY
 			if (ubNoiseMaker < TOTAL_SOLDIERS)
