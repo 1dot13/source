@@ -9359,8 +9359,8 @@ void CreateMapCharInvIOregions()
 		// Create trashcan and keyring buttons
 		fShowInventoryFlag = TRUE;
 		CreateDestroyTrashCanRegion();
-		// Remove map inventory button, since widescreen res always has character inventory visible
-		RemoveButton(giMapInvDoneButton);
+		// Disable map inventory button, since widescreen res always has character inventory visible
+		DisableButton(giMapInvDoneButton);
 		fShowInventoryFlag = FALSE;
 }
 
@@ -12148,7 +12148,11 @@ void RenderCharacterInventoryWideScreen(void)
 	if (!gfItemDescTransformPopupVisible)
 	{
 		BltCharInvPanel();
-		RestoreExternBackgroundRect(UI_CHARINV.Region);
+		MarkAllBoxesAsAltered();
+		if (!InItemDescriptionBox())
+		{
+			RestoreExternBackgroundRect(UI_CHARINV.Region);
+		}
 	}
 }
 

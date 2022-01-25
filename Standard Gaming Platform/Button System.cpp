@@ -1309,7 +1309,8 @@ void RemoveButton(INT32 iButtonID)
 		if( gfIgnoreShutdownAssertions )
 		#endif
 			return;
-		AssertMsg( 0, "Attempting to remove a button that has already been deleted." );
+		sprintf(str, "Attempting to remove a button that has already been deleted. ButtonID %d", iButtonID);
+		AssertMsg( 0, str );
 	}
 
 	//If we happen to be in the middle of a callback, and attempt to delete a button,
