@@ -77,7 +77,7 @@ class SOLDIERTYPE;
 #include "connect.h"
 #include "fresh_header.h"
 #define		NO_JUMP											0
-#define		MAX_ANIFRAMES_PER_FLASH			2
+#define		MAX_ANIFRAMES_PER_FLASH			3
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10
 #define		TIME_FOR_RANDOM_ANIM_CHECK	1
 
@@ -592,6 +592,18 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					break;
 				}
 
+				{
+					OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
+					if (IsFlashSuppressor(pObjAttHand, pSoldier))
+					{
+						pSoldier->flags.fMuzzleFlash = FALSE;
+					}
+					else
+					{
+						pSoldier->flags.fMuzzleFlash = TRUE;
+					}
+					DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("UseGun: Muzzle flash = %d", pSoldier->flags.fMuzzleFlash));
+				}
 				if ( !pSoldier->flags.fMuzzleFlash )
 				{
 					break;
