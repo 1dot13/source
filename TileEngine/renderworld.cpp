@@ -671,10 +671,10 @@ void ClearBackgroundRectanglesForDecal()
 {
 	for ( int i = 0; i < gDecalBackgroundRectableCounter; ++i )
 	{
-		if ( gDecalBackgroundRectangle[i] != 0 && gDecalBackgroundRectangle[i] != -1 )
+		if (gDecalBackgroundRectangle[i] != -1 )
 		{
 			FreeBackgroundRect( gDecalBackgroundRectangle[i] );
-			gDecalBackgroundRectangle[i] = 0;
+			gDecalBackgroundRectangle[i] = -1;
 		}
 	}
 
