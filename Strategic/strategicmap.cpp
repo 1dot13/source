@@ -3167,8 +3167,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	//Update LastTimePlayerWasInSector
 	SetLastTimePlayerWasInSector( );
 
-	//Save to tempfile
-	SaveWorldItemsToTempItemFile( sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems );
+	UpdateWorldItems(sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems);
 
 	DebugQuestInfo(String("Enter Sector %s%s Level %d", pVertStrings[sSectorY], pHortStrings[sSectorX], bSectorZ));
 

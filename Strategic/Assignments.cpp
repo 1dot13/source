@@ -89,6 +89,7 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 extern int POP_UP_BOX_X;
+extern WorldItems gAllWorldItems;
 
 #include "MilitiaSquads.h"
 // HEADROCK HAM 3.5: Include Facility data
@@ -8891,17 +8892,17 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		else
 		{
 			// not loaded, load
-			// get total number, visable and invisible
-			BOOLEAN fReturn = GetNumberOfWorldItemsFromTempItemFile( targetX, targetY, bZ, &( uiTotalNumberOfRealItems_Target ), FALSE );
-			Assert( fReturn );
-
-			if( uiTotalNumberOfRealItems_Target > 0 )
 			{
-				// allocate space for the list
-				pWorldItem_Target.resize(uiTotalNumberOfRealItems_Target);//dnl ch75 271013
-
-				// now load into mem
-				LoadWorldItemsFromTempItemFile(  targetX,  targetY, bZ, pWorldItem_Target );
+				const auto i = FindWorldItemSector(targetX, targetY, bZ);
+				if (i != -1)
+				{
+					uiTotalNumberOfRealItems_Target = gAllWorldItems.NumItems[i];
+					pWorldItem_Target = gAllWorldItems.Items[i];
+				}
+				else
+				{
+					uiTotalNumberOfRealItems_Target = 0;
+				}
 			}
 		}
 		
@@ -9027,8 +9028,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		}
 		else
 		{
-			//Save the Items to the the file
-			SaveWorldItemsToTempItemFile( targetX, targetY, bZ, uiTotalNumberOfRealItems_Target, pWorldItem_Target );
+			UpdateWorldItems(targetX, targetY, bZ, uiTotalNumberOfRealItems_Target, pWorldItem_Target);
 		}
 
 		// award a bit of experience to the movers

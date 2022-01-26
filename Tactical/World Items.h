@@ -139,4 +139,22 @@ void ResizeWorldItems(void);//dnl ch75 271013
 void RefreshWorldItemsIntoItemPools( std::vector<WORLDITEM>& pItemList, INT32 iNumberOfItems );//dnl ch75 271013
 void CoolDownWorldItems( );			// Flugente: Cool/decay down all items in this sector
 
+struct SectorCoords
+{
+	INT16 x;
+	INT16 y;
+	INT16 z;
+};
+
+struct WorldItems
+{
+	std::vector<SectorCoords> sectors;
+	std::vector<UINT32> NumItems;
+	std::vector<std::vector<WORLDITEM>> Items;
+};
+void UpdateWorldItems(INT16 x, INT16 y, INT16 z, UINT32 nItems, std::vector<WORLDITEM> &Items);
+void AddSectorItemsToWorldItems(INT16 x, INT16 y, INT16 z, UINT32 nItems, std::vector<WORLDITEM> &Items);
+INT32 FindWorldItemSector(INT16 x, INT16 y, INT16 z);
+bool SectorIsInWorldItems(INT16 x, INT16 y, INT16 z);
+
 #endif

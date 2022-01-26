@@ -55,6 +55,7 @@ void HourlyFactoryUpdate();	// Flugente: update factories
 void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+extern WorldItems gAllWorldItems;
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
@@ -841,36 +842,29 @@ void HourlyStealUpdate()
 
 BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
 {
-	// open sector inv
 	UINT32 uiTotalNumberOfRealItems = 0;
 	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
-	BOOLEAN fReturn = FALSE;
 
+	// open sector inventory
 	if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
 	{
 		uiTotalNumberOfRealItems = guiNumWorldItems;
-
 		pWorldItem = gWorldItems;
 	}
 	else
 	{
-		// not loaded, load
-		// get total number, visable and invisible
-		fReturn = GetNumberOfWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
-		Assert( fReturn );
-
-		if ( uiTotalNumberOfRealItems > 0 )
+		// Check for unloaded sector
+		const auto i = FindWorldItemSector( sSectorX, sSectorY, bSectorZ);
+		if (i != -1)
 		{
-			// allocate space for the list
-			pWorldItem.resize( uiTotalNumberOfRealItems );//dnl ch75 271013
-
-														  // now load into mem
-			LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, pWorldItem );
+			uiTotalNumberOfRealItems = gAllWorldItems.NumItems[i];
+			pWorldItem = gAllWorldItems.Items[i];
 		}
 	}
 
 	if ( !uiTotalNumberOfRealItems )
 		return FALSE;
+
 
 	BOOLEAN removedsth = FALSE;
 	OBJECTTYPE* pObj = NULL;
@@ -906,7 +900,6 @@ BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT1
 	if ( removedsth )
 	{
 		// save the changed inventory
-		// open sector inv
 		if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
 		{
 			guiNumWorldItems = uiTotalNumberOfRealItems;
@@ -914,8 +907,7 @@ BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT1
 		}
 		else
 		{
-			//Save the Items to the the file
-			SaveWorldItemsToTempItemFile( sSectorX, sSectorY, bSectorZ, uiTotalNumberOfRealItems, pWorldItem );
+			UpdateWorldItems(sSectorX, sSectorY, bSectorZ, uiTotalNumberOfRealItems, pWorldItem);
 		}
 
 		return TRUE;
@@ -927,34 +919,26 @@ BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT1
 UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
 {
 	UINT32 numfound = 0;
-
-	// open sector inv
 	UINT32 uiTotalNumberOfRealItems = 0;
 	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
-	BOOLEAN fReturn = FALSE;
 
+	// open sector inv
 	if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
 	{
 		uiTotalNumberOfRealItems = guiNumWorldItems;
-
 		pWorldItem = gWorldItems;
 	}
 	else
 	{
-		// not loaded, load
-		// get total number, visable and invisible
-		fReturn = GetNumberOfWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
-		Assert( fReturn );
-
-		if ( uiTotalNumberOfRealItems > 0 )
+		// Check for unloaded sector
+		const auto i = FindWorldItemSector(sSectorX, sSectorY, bSectorZ);
+		if (i != -1)
 		{
-			// allocate space for the list
-			pWorldItem.resize( uiTotalNumberOfRealItems );//dnl ch75 271013
-
-														  // now load into mem
-			LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, pWorldItem );
+			uiTotalNumberOfRealItems = gAllWorldItems.NumItems[i];
+			pWorldItem = gAllWorldItems.Items[i];
 		}
 	}
+
 
 	OBJECTTYPE* pObj = NULL;
 	for ( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...

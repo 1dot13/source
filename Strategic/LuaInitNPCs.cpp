@@ -82,6 +82,7 @@ extern UINT8	gubWaitingForAllMercsToExitCode;
 extern	BOOLEAN	gfDoneWithSplashScreen;
 extern UINT32 iStringToUseLua;
 extern INT8 Test;
+extern INT32 GetAmountOfWorldItems(INT16 x, INT16 y, INT16 z);
 
 static int l_HireMerc (lua_State *L);
 
@@ -629,7 +630,7 @@ static int l_AddSameDayStrategicEvent(lua_State *L);
 static int l_FunctionCheckForKingpinsMoneyMissing(lua_State *L);
 
 static int l_MoveItemPools(lua_State *L);
-static int l_GetNumberOfWorldItemsFromTempItemFile(lua_State *L);
+static int l_GetNumberOfWorldItems(lua_State *L);
 
 static int l_gubFact(lua_State *L);
 
@@ -1276,7 +1277,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "GetWorldItemsObjectItem", l_gWorldItemsObjectItem);
 	lua_register(L, "GetWorldItemsObjectDataMoney", l_gWorldItemsObjectDataMoney);	
 	lua_register(L, "MoveItemPools", l_MoveItemPools);
-	lua_register(L, "GetNumberOfWorldItemsFromTempItemFile", l_GetNumberOfWorldItemsFromTempItemFile);
+	lua_register(L, "GetNumberOfWorldItems", l_GetNumberOfWorldItems);
 	lua_register(L, "ItemExistsAtLocation", l_ItemExistsAtLocation);
 	lua_register(L, "AddCreateItemToPool", l_CreateItemToPool);
 	lua_register(L, "AddCreateItemsToUnLoadedSector", l_CreateToUnLoadedSector);
@@ -4934,23 +4935,19 @@ return 0;
 }
 
 
-static int l_GetNumberOfWorldItemsFromTempItemFile(lua_State *L)
+static int l_GetNumberOfWorldItems(lua_State *L)
 {
 
-	if ( lua_gettop(L) >= 5 )
+	if ( lua_gettop(L) >= 3 )
 	{
-		 INT16 sMapX = lua_tointeger(L,1);
-		 INT16 sMapY = lua_tointeger(L,2);
-		 INT8 bMapZ = lua_tointeger(L,3);
-		 UINT32 puiNumberOfItems = lua_tointeger(L,4);
-		 BOOLEAN fIfEmptyCreate = lua_toboolean(L,5);
-
-	
-		BOOLEAN Bool = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &puiNumberOfItems, fIfEmptyCreate );
-
-		lua_pushboolean(L, Bool);
+		INT16 sMapX = lua_tointeger(L,1);
+		INT16 sMapY = lua_tointeger(L,2);
+		INT8 bMapZ = lua_tointeger(L,3);
 		
-	}		
+
+		INT32 NumItems = GetAmountOfWorldItems(sMapX, sMapY, bMapZ);
+		lua_pushinteger(L, NumItems);
+	}
 		
 return 1;
 }

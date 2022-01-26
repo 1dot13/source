@@ -35,6 +35,130 @@
 //Global dynamic array of all of the items in a loaded map.
 std::vector<WORLDITEM> gWorldItems;//dnl ch75 261013
 UINT32				guiNumWorldItems = 0;
+WorldItems gAllWorldItems; // World items for all unloaded sectors
+
+INT32 FindWorldItemSector(INT16 x, INT16 y, INT16 z)
+{
+	for (size_t i = 0; i < gAllWorldItems.sectors.size(); i++)
+	{
+		const auto sector = gAllWorldItems.sectors[i];
+		if (sector.x == x && sector.y == y && sector.z == z)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+bool SectorIsInWorldItems(INT16 x, INT16 y, INT16 z)
+{
+	for (size_t i = 0; i < gAllWorldItems.sectors.size(); i++)
+	{
+		const auto sector = gAllWorldItems.sectors[i];
+		if (sector.x == x && sector.y == y && sector.z == z)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void AddSectorItemsToWorldItems(INT16 x, INT16 y, INT16 z, UINT32 nItems, std::vector<WORLDITEM> &Items)
+{
+	gAllWorldItems.sectors.push_back(SectorCoords{ x, y, z });
+	gAllWorldItems.NumItems.push_back(nItems);
+	gAllWorldItems.Items.push_back(Items);
+}
+
+void RemoveSectorFromWorldItems(INT16 x, INT16 y, INT16 z)
+{
+	for (size_t i = 0; i < gAllWorldItems.sectors.size(); i++)
+	{
+		const auto sector = gAllWorldItems.sectors[i];
+		if (sector.x == x && sector.y == y && sector.z == z)
+		{
+			gAllWorldItems.sectors.erase(gAllWorldItems.sectors.begin() + i);
+			gAllWorldItems.NumItems.erase(gAllWorldItems.NumItems.begin() + i);
+			gAllWorldItems.Items.erase(gAllWorldItems.Items.begin() + i);
+		}
+	}
+}
+
+void UpdateWorldItems(INT16 x, INT16 y, INT16 z, UINT32 nItems, std::vector<WORLDITEM> &Items)
+{
+	if (nItems == 0)
+	{
+		RemoveSectorFromWorldItems(x, y, z);
+		ReSetSectorFlag(x, y, z, SF_ITEM_TEMP_FILE_EXISTS);
+	}
+	else if (SectorIsInWorldItems(x, y, z))
+	{
+		const auto i = FindWorldItemSector(x, y, z);
+		gAllWorldItems.NumItems[i] = nItems;
+		gAllWorldItems.Items[i] = Items;
+	}
+	else
+	{
+		AddSectorItemsToWorldItems(x, y, z, nItems, Items);
+		SetSectorFlag(x, y, z, SF_ITEM_TEMP_FILE_EXISTS);
+	}
+
+	UINT32 visibleItemCount = 0;
+	for (size_t i = 0; i < nItems; ++i)
+	{
+		// if visible to player, then state fact
+		if (IsMapScreenWorldItemVisibleInMapInventory(&Items[i]))
+		{
+			visibleItemCount += Items[i].object.ubNumberOfObjects;
+		}
+	}	
+	SetNumberOfVisibleWorldItemsInSectorStructureForSector(x, y, z, visibleItemCount);
+}
+
+void ClearAllWorldItems(void)
+{
+	gAllWorldItems.sectors.clear();
+	gAllWorldItems.NumItems.clear();
+	gAllWorldItems.Items.clear();
+}
+
+INT32 GetAmountOfWorldItems(INT16 x, INT16 y, INT16 z)
+{
+	const auto i = FindWorldItemSector(x,y, z);
+	if (i != -1)
+	{
+		return gAllWorldItems.NumItems[i];
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+void PruneWorldItems(void)
+{
+	for (size_t i = 0; i < gAllWorldItems.Items.size(); i++)
+	{
+		std::vector<WORLDITEM>& items = gAllWorldItems.Items[i];
+		for (INT32 j = items.size()-1; j > 0; j--)
+		{
+				if (items[j].fExists == false)
+				{
+					items.erase(items.begin()+j);
+				}
+		}
+		if (gAllWorldItems.Items[i].size() > 0)
+		{
+			gAllWorldItems.NumItems[i] = gAllWorldItems.Items[i].size();
+		}
+		else
+		{
+			gAllWorldItems.sectors.erase(gAllWorldItems.sectors.begin() + i);
+			gAllWorldItems.NumItems.erase(gAllWorldItems.NumItems.begin() + i);
+			gAllWorldItems.Items.erase(gAllWorldItems.Items.begin() + i);
+		}
+	}
+}
 
 WORLDBOMB *		gWorldBombs = NULL;
 UINT32				guiNumWorldBombs = 0;

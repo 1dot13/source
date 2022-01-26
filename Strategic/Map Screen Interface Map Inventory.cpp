@@ -50,6 +50,7 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 extern UILayout_Map UI_MAP;
+extern WorldItems gAllWorldItems;
 
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
@@ -1175,8 +1176,7 @@ void SaveSeenAndUnseenItems( void )
 	}
 	else
 	{
-		Assert(SaveWorldItemsToTempItemFile(sSelMapX, sSelMapY, iCurrentMapSectorZ, uiNumberOfSeenItems + uiNumberOfUnSeenItems, pInventoryPoolList, FALSE));
-		SetNumberOfVisibleWorldItemsInSectorStructureForSector(sSelMapX, sSelMapY, iCurrentMapSectorZ, uiTotalNumberOfVisibleItems);
+		UpdateWorldItems(sSelMapX, sSelMapY, iCurrentMapSectorZ, uiNumberOfSeenItems + uiNumberOfUnSeenItems, pInventoryPoolList);
 	}
 #endif
 }
@@ -2345,13 +2345,23 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	}
 	else// if map not loaded, use tempfile to build lists
 	{
-		Assert(GetNumberOfWorldItemsFromTempItemFile(sMapX, sMapY, (INT8)sMapZ, &uiTotalNumberOfItems, FALSE));
+		const auto ii = FindWorldItemSector(sMapX, sMapY, (INT8)sMapZ);
+		if (ii == -1)
+		{
+			uiTotalNumberOfItems = 0;
+		}
+		else
+		{
+			uiTotalNumberOfItems = gAllWorldItems.NumItems[ii];
+			pInventoryPoolList = gAllWorldItems.Items[ii];
+		}
+		
 		uiNumOfSlots = (uiTotalNumberOfItems / MAP_INVENTORY_POOL_SLOT_COUNT + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
 		if(pInventoryPoolList.size() < uiNumOfSlots)
 			pInventoryPoolList.resize(uiNumOfSlots);
 		if(pUnSeenItems.size() < uiNumOfSlots)
 			pUnSeenItems.resize(uiNumOfSlots);
-		Assert(LoadWorldItemsFromTempItemFile(sMapX, sMapY, (INT8)sMapZ, pInventoryPoolList));
+
 		uiNumberOfSeenItems = uiTotalNumberOfItems;
 		uiNumberOfUnSeenItems = 0;
 		pipl = &pInventoryPoolList.front();

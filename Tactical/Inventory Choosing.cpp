@@ -21,6 +21,7 @@
 	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 #endif
+extern WorldItems gAllWorldItems;
 
 /*
 #define ENEMYAMMODROPRATE       100 //Madd 50      // % of time enemies drop ammunition
@@ -3766,9 +3767,7 @@ void SpawnFittingAmmo(SOLDIERCREATE_STRUCT *pp, OBJECTTYPE* pObj, UINT8 ammotype
 
 void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, INT8 bSoldierClass)
 {
-	BOOLEAN fReturn					= FALSE;
 	UINT32 uiTotalNumberOfRealItems = 0;
-	UINT32 uiNumOriginalItems		= 0;
 	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
 	SOLDIERCREATE_STRUCT tmp;
 	UINT32 uiCount					= 0;
@@ -3788,25 +3787,22 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	else
 	{
 		// not loaded, load
-		// get total number, visable and invisible
-		fReturn = GetNumberOfWorldItemsFromTempItemFile( sTargetX, sTargetY, 0, &( uiTotalNumberOfRealItems ), TRUE );
-		Assert( fReturn );
-
-		if( uiTotalNumberOfRealItems > 0 )
+		const auto ii = FindWorldItemSector(sTargetX, sTargetY, 0);
+		if (ii != -1)
 		{
-			// allocate space for the list
-			pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
-
-			// now load into mem
-			LoadWorldItemsFromTempItemFile(  sTargetX,  sTargetY, 0, pWorldItem );
+			uiTotalNumberOfRealItems = gAllWorldItems.NumItems[ii];
+			pWorldItem = gAllWorldItems.Items[ii];
+		}
+		else
+		{
+			uiTotalNumberOfRealItems = 10;
+			pWorldItem.resize(uiTotalNumberOfRealItems);
 		}
 	}
 
-	uiNumOriginalItems = uiTotalNumberOfRealItems;
 
 	// we note the last item existing in the inventory (but not ammo, as we delete those). We use this to assess how much we really need to increase the inventory
 	UINT32 existingitemsfound = 0;
-
 	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
 	{
 		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
@@ -3888,8 +3884,7 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	}
 	else
 	{
-		//Save the Items to the the file
-		SaveWorldItemsToTempItemFile( sTargetX, sTargetY, 0, uiTotalNumberOfRealItems, pWorldItem );
+		UpdateWorldItems(sTargetX, sTargetY, 0, uiTotalNumberOfRealItems, pWorldItem);
 	}
 }
 
@@ -3999,21 +3994,15 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	}
 	else
 	{
-		// not loaded, load
-		// get total number, visable and invisible
-		fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( uiTotalNumberOfRealItems ), FALSE );
-		Assert( fReturn );
-
-		if( uiTotalNumberOfRealItems > 0 )
+		const auto ii = FindWorldItemSector(sMapX, sMapY, (INT8)(sMapZ));
+		if (ii != -1)
 		{
-			// allocate space for the list
-			pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
-
-			if ( !uiTotalNumberOfRealItems )
-				return;
-
-			// now load into mem
-			LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, ( INT8 ) ( sMapZ ), pWorldItem );
+			uiTotalNumberOfRealItems = gAllWorldItems.NumItems[ii];
+			pWorldItem = gAllWorldItems.Items[ii];
+		}
+		else
+		{
+			uiTotalNumberOfRealItems = 0;
 		}
 	}
 
@@ -4694,7 +4683,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	else
 	{
 		//Save the Items to the the file
-		SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pWorldItem );
+		UpdateWorldItems(sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pWorldItem);
 	}
 
 	///////////////////////////////// Exit /////////////////////////////////////////////////////////

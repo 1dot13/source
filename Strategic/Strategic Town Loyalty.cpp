@@ -46,6 +46,7 @@
 #include "Interface.h"
 
 #include "GameInitOptionsScreen.h"
+extern WorldItems gAllWorldItems;
 
 // loyalty Omerta drops to and maxes out at if the player betrays the rebels
 #define HOSTILE_OMERTA_LOYALTY_RATING		10
@@ -1128,19 +1129,20 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 	if( gWorldSectorX != sSectorX || gWorldSectorY != sSectorY || gbWorldSectorZ != sSectorZ )
 	{
 		// if the player has never been there, there's no temp file, and 0 items will get returned, preventing any stealing
-		GetNumberOfWorldItemsFromTempItemFile( sSectorX, sSectorY, ( UINT8 )sSectorZ, &uiNumberOfItems, FALSE );
+		const auto ii = FindWorldItemSector(sSectorX, sSectorY, (UINT8)sSectorZ);
+		if (ii != -1)
+		{
+			uiNumberOfItems = gAllWorldItems.NumItems[ii];
+			pItemList = gAllWorldItems.Items[ii];
+		}
 
 		if( uiNumberOfItems == 0 )
 		{
 			return;
 		}
 
-		pItemList.resize(uiNumberOfItems);//dnl ch75 271013
 
-		// now load items
-		LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, ( UINT8 )sSectorZ, pItemList );
 		uiNewTotal = uiNumberOfItems;
-
 		// set up item list ptrs
 		for( iCounter = 0; iCounter < uiNumberOfItems ; ++iCounter )
 		{

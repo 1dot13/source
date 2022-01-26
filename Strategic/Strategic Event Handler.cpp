@@ -40,6 +40,7 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
+extern WorldItems gAllWorldItems;
 
 
 #define		MEDUNA_ITEM_DROP_OFF_GRIDNO			10959
@@ -427,9 +428,6 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	// This function moves all the items that Pablos has stolen
 	// (or items that were delayed) to the arrival location for new shipments,
 	INT32			sStartGridNo;
-	UINT32		uiNumWorldItems, uiLoop;
-	BOOLEAN		fOk;
-	std::vector<WORLDITEM> pTemp;//dnl ch75 271013
 	UINT8			ubLoop;
 
 	if (uiReason == NPC_SYSTEM_EVENT_ACTION_PARAM_BONUS + NPC_ACTION_RETURN_STOLEN_SHIPMENT_ITEMS )
@@ -502,24 +500,24 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	else
 	{
 		// otherwise load the saved items from the item file and change the records of their locations
-		fOk = GetNumberOfWorldItemsFromTempItemFile( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, &uiNumWorldItems, FALSE );
-		if (!fOk)
+		std::vector<WORLDITEM> pTemp;
+		UINT32 uiNumWorldItems = 0;
+
+		const auto ii = FindWorldItemSector(BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z);
+		if (ii != -1)
 		{
-			return;
+			uiNumWorldItems = gAllWorldItems.NumItems[ii];
+			pTemp = gAllWorldItems.Items[ii];
 		}
-		pTemp.resize(uiNumWorldItems);//dnl ch75 271013
-		fOk = LoadWorldItemsFromTempItemFile( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, pTemp );
-		if (fOk)
+		
+		for (UINT32 uiLoop = 0; uiLoop < uiNumWorldItems; uiLoop++)
 		{
-			for (uiLoop = 0; uiLoop < uiNumWorldItems; uiLoop++)
+			if (pTemp[uiLoop].sGridNo == PABLOS_STOLEN_DEST_GRIDNO)
 			{
-				if (pTemp[uiLoop].sGridNo == PABLOS_STOLEN_DEST_GRIDNO)
-				{
-					pTemp[uiLoop].sGridNo = BOBBYR_SHIPPING_DEST_GRIDNO;
-				}
+				pTemp[uiLoop].sGridNo = BOBBYR_SHIPPING_DEST_GRIDNO;
 			}
-			AddWorldItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 0, uiNumWorldItems, pTemp, TRUE );
 		}
+		AddWorldItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 0, uiNumWorldItems, pTemp, TRUE );
 	}
 }
 
