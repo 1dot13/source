@@ -364,6 +364,7 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber );
 
 //Hotkey Assignment
 void HandleBobbyRGunsKeyBoardInput();
+void HandleBobbyRayMouseWheel(void);
 
 void GameInitBobbyRGuns()
 {
@@ -447,6 +448,7 @@ void HandleBobbyRGuns()
 {
 	//Hotkey Assignment
 	HandleBobbyRGunsKeyBoardInput();
+	HandleBobbyRayMouseWheel();
 }
 
 void RenderBobbyRGuns()
@@ -4024,6 +4026,67 @@ void HandleBobbyRGunsKeyBoardInput()
 			extern void HandleDefaultEvent(InputAtom *Event);
 			HandleDefaultEvent(&InputEvent);
 		}
+	}
+}
+
+void HandleBobbyRayMouseWheel(void)
+{
+	// Purchase and unpurchase via mousewheel if pressing ctrl
+	for (size_t i = 0; i < BOBBYR_NUM_WEAPONS_ON_PAGE; i++)
+	{
+		auto &mouseRegion = gSelectedBigImageRegion[i];
+		auto wheelState = mouseRegion.WheelState * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+		if (mouseRegion.uiFlags & MSYS_MOUSE_IN_AREA)
+		{
+			if (_KeyDown(17)) // CTRL
+			{
+				UINT16 usItemNum = (UINT16)MSYS_GetRegionUserData(&mouseRegion, 0);
+				if (wheelState < 0)
+				{
+					PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[usItemNum], FALSE);
+				}
+				else if (wheelState > 0)
+				{
+					UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[usItemNum], FALSE);
+				}
+				ResetWheelState(&mouseRegion);
+
+				fReDrawScreenFlag = TRUE;
+				fPausedReDrawScreenFlag = TRUE;
+			}
+		}
+	}
+
+	// Scroll through pages with regular mouse wheel
+	SGPPoint	MousePos;
+	GetMousePos(&MousePos);
+	const auto x = MousePos.iX;
+	const auto y = MousePos.iY;
+	if ( (LAPTOP_SCREEN_UL_X < x && x < LAPTOP_SCREEN_LR_X) && (LAPTOP_SCREEN_WEB_UL_Y < y && y < LAPTOP_SCREEN_WEB_LR_Y) )
+	{
+		if (!_KeyDown(17)) // CTRL
+		{
+			const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+			if (Wheelstate < 0)
+			{
+				if (gubCurPage < gubNumPages - 1)
+				{
+					gubCurPage++;
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				}
+			}
+			else if (Wheelstate > 0)
+			{
+				if (gubCurPage > 0)
+				{
+					gubCurPage--;
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				}
+			}
+		}
+		_WheelValue = 0;
 	}
 }
 

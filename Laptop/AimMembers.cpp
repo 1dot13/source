@@ -704,6 +704,7 @@ UINT8	GetStatColor( INT8 bStat );
 
 //Hotkey Assignment
 void HandleAimMemberKeyBoardInput();
+void HandleAimMemberMouseInput(void);
 
 void WaitForMercToFinishTalkingOrUserToClick();
 
@@ -1080,7 +1081,7 @@ void HandleAIMMembers()
 	}
 
 	HandleAimMemberKeyBoardInput();
-
+	HandleAimMemberMouseInput();
 	MarkButtonsDirty( );
 }
 
@@ -1757,6 +1758,57 @@ void BtnWeaponboxSelectButtonCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
+void PreviousAimMember(void)
+{
+	InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+	if (gbCurrentIndex > 0)
+	{
+		if (_KeyDown(17)) // CTRL
+			gbCurrentIndex = 0;
+		else if (_KeyDown(16)) // SHIFT
+			gbCurrentIndex = __max(gbCurrentIndex - 10, 0);
+		else
+			gbCurrentIndex--;
+	}
+	else
+		gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+
+	gfRedrawScreen = TRUE;
+
+	//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+	gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+	gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+
+	gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+}
+
+void NextAimMember(void)
+{
+	InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+	if (gbCurrentIndex < MAX_NUMBER_MERCS - 1)
+	{
+		if (_KeyDown(17)) // CTRL
+			gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+		else if (_KeyDown(16)) // SHIFT
+			gbCurrentIndex = __min(MAX_NUMBER_MERCS - 1, gbCurrentIndex + 10);
+		else
+			gbCurrentIndex++;
+	}
+	else
+		gbCurrentIndex = 0;
+
+	//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+	gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+
+	gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+
+	gfRedrawScreen = TRUE;
+
+	gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+}
+
 void BtnPreviousButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 
@@ -1772,28 +1824,7 @@ BOOLEAN Stop = FALSE;
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-			InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
-
-			if( gbCurrentIndex > 0)
-			{
-				if (_KeyDown( 17 ) ) // CTRL
-					gbCurrentIndex = 0;
-				else if (_KeyDown( 16 ) ) // SHIFT
-					gbCurrentIndex = __max(gbCurrentIndex - 10, 0);
-				else
-					gbCurrentIndex--;
-			}
-			else
-				gbCurrentIndex = MAX_NUMBER_MERCS - 1;
-
-			gfRedrawScreen = TRUE;
-
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
-			gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
-
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+			PreviousAimMember();
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		}
 	}
@@ -1854,29 +1885,7 @@ BOOLEAN Stop = FALSE;
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
-
-			if( gbCurrentIndex < MAX_NUMBER_MERCS - 1 )
-			{
-				if (_KeyDown( 17 ) ) // CTRL
-					gbCurrentIndex = MAX_NUMBER_MERCS - 1;
-				else if (_KeyDown( 16 ) ) // SHIFT
-					gbCurrentIndex = __min(MAX_NUMBER_MERCS - 1, gbCurrentIndex + 10);
-				else
-					gbCurrentIndex++;
-			}
-			else
-				gbCurrentIndex = 0;
-
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 
-			
-			gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
-
-			gfRedrawScreen = TRUE;
-
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-
+			NextAimMember();
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		}
 	}
@@ -5214,6 +5223,27 @@ void HandleAimMemberKeyBoardInput()
 	}
 }
 
+
+void HandleAimMemberMouseInput(void)
+{
+	gSelectedFaceRegion.WheelState = gSelectedFaceRegion.WheelState * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+
+	if (gSelectedFaceRegion.uiFlags & MSYS_MOUSE_IN_AREA)
+	{
+		if (gSelectedFaceRegion.WheelState != 0)
+		{
+			if (gSelectedFaceRegion.WheelState > 0)
+			{
+				PreviousAimMember();
+			}
+			else
+			{
+				NextAimMember();
+			}
+			ResetWheelState(&gSelectedFaceRegion);
+		}
+	}
+}
 
 void WaitForMercToFinishTalkingOrUserToClick()
 {
