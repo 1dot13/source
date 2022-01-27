@@ -42,15 +42,10 @@ typedef enum
 
 } FACILITYTYPE_PARSE_STAGE;
 
-struct
+typedef struct
 {
 	FACILITYTYPE_PARSE_STAGE	curElement;
-
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
-
-	FACILITYTYPE	curFacilityTypeData;
-	FACILITYASSIGNMENTTYPE curAssignmentData;
-	PRODUCTION_LINE curProductionData;
 	INT16			curAssignmentType;
 	INT16			curRisk;
 	INT16			curProduction;
@@ -58,7 +53,11 @@ struct
 	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
-} typedef facilitytypeParseData;
+	FACILITYTYPE	curFacilityTypeData;
+	FACILITYASSIGNMENTTYPE curAssignmentData;
+	PRODUCTION_LINE curProductionData;
+} facilitytypeParseData;
+#define FACILITYTYPEPARSEDATA_SIZE_OF_POD offsetof(facilitytypeParseData, curFacilityTypeData)
 
 BOOLEAN FacilityTypes_TextOnly;
 
@@ -173,6 +172,7 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 			pData->curElement = FACILITYTYPE_TYPE;
 
 			// Set all values to default before applying XML data
+			memset(&pData->curFacilityTypeData, 0, FACILITYTYPE_SIZEOF_POD);
 			InitFacilityTypeEntry( pData );
 
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"MergeStartElementHandle: setting memory for curMerge");
@@ -1303,6 +1303,7 @@ BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion)
 	XML_SetCharacterDataHandler(parser, facilitytypeCharacterDataHandle);
 
 
+	memset(&pData, 0, FACILITYTYPEPARSEDATA_SIZE_OF_POD);
 	pData.maxArraySize = MAXITEMS;
 	pData.curIndex = 0;
 

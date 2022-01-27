@@ -333,6 +333,7 @@ typedef struct FACILITYTYPE
 	std::vector<PRODUCTION_LINE> ProductionData;
 
 } FACILITYTYPE;
+#define FACILITYTYPE_SIZEOF_POD offsetof(FACILITYTYPE, ProductionData)
 
 // HEADROCK HAM 3.5: Maximum number of different facility types
 #define MAX_NUM_FACILITY_TYPES 255
