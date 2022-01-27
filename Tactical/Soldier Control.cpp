@@ -10741,22 +10741,22 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	}
 
 	// OK, if here, let's see if we should drop our weapon....
-	if ( !dropiteminmainhand && ubReason != TAKE_DAMAGE_BLOODLOSS && !(AM_A_ROBOT( this )) )
+	if (!dropiteminmainhand && ubReason != TAKE_DAMAGE_BLOODLOSS && !(AM_A_ROBOT(this)) && !(this->bTeam == CIV_TEAM && this->ubProfile != NO_PROFILE))
 	{
 		INT16 sTestOne, sTestTwo, sChanceToDrop;
 		INT8	bVisible = -1;
 
 		sTestOne = EffectiveStrength( this, FALSE );
-		sTestTwo = (2 * (__max( sLifeDeduct, (sBreathLoss / 100) )));
+		sTestTwo = 2 * max(sLifeDeduct, (sBreathLoss / 100));
 		
-		if ( this->ubAttackerID != NOBODY && MercPtrs[this->ubAttackerID]->ubBodyType == BLOODCAT )
+		if (this->ubAttackerID != NOBODY && MercPtrs[this->ubAttackerID]->ubBodyType == BLOODCAT)
 		{
 			// bloodcat boost, let them make people drop items more
 			sTestTwo += 20;
 		}
 
 		// If damage > effective strength....
-		sChanceToDrop = (__max( 0, (sTestTwo - sTestOne) ));
+		sChanceToDrop = sTestTwo - sTestOne;
 
 		// ATE: Increase odds of NOT dropping an UNDROPPABLE OBJECT
 		if ( (this->inv[HANDPOS].fFlags & OBJECT_UNDROPPABLE) )
@@ -10768,7 +10768,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Chance To Drop Weapon: str: %d Dam: %d Chance: %d", sTestOne, sTestTwo, sChanceToDrop );
 #endif
 
-		if ( Random( 100 ) < (UINT16)sChanceToDrop )
+		if ((INT16)Random(100) < sChanceToDrop)
 		{
 			dropiteminmainhand = true;			
 		}
