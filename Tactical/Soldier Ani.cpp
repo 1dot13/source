@@ -594,7 +594,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				{
 					OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
-					if (IsFlashSuppressor(pObjAttHand, pSoldier))
+					if (IsFlashSuppressor(pObjAttHand, pSoldier) || (*pObjAttHand)[0]->data.gun.bGunAmmoStatus < 0)
 					{
 						pSoldier->flags.fMuzzleFlash = FALSE;
 					}
