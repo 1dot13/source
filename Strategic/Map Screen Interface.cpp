@@ -4259,7 +4259,17 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 			if (iRegionType == ALL_SQUADS)
 			{
-				if (IsAnythingSelectedForMoving())
+				bool all_selected_already = true;
+				for (int i = 0; i < iListIndex; i++)
+				{
+					if (!AllSoldiersInSquadSelected(iSquadMovingList[i]))
+					{
+						all_selected_already = false;
+						break;
+					}
+				}
+				
+				if (all_selected_already)
 				{
 					for (int i = 0; i < iListIndex; i++)
 					{
