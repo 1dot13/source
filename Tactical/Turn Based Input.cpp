@@ -6018,7 +6018,7 @@ INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 
 			// Check if we are over an item pool, take precedence over that.....
 			// EXCEPT FOR SWITCHES!
-			if ( GetItemPool( sIntTileGridNo, &pItemPool, pSoldier->pathing.bLevel ) && !( pStructure->fFlags & ( STRUCTURE_SWITCH | STRUCTURE_ANYDOOR ) ) )
+			if ((pStructure->fFlags & STRUCTURE_OPEN || !(pStructure->fFlags & STRUCTURE_OPENABLE)) && !(pStructure->fFlags & (STRUCTURE_SWITCH|STRUCTURE_ANYDOOR)) && GetItemPool(sIntTileGridNo, &pItemPool, pSoldier->pathing.bLevel))
 			{
 				if ( AM_AN_EPC( pSoldier ) )
 				{
