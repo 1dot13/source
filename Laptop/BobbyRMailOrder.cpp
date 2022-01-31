@@ -1025,8 +1025,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 	UINT16	usStringLength;
 	UINT16	usPixLength;
 	CHAR16	OneChar[2];
-	INT32		iGrandTotal;
-	INT32		iSubTotal;
+	INT32 iSubTotal = 0;
 	UINT32 uiDestPitchBYTES;
 	UINT8	*pDestBuf;
 	HVOBJECT	hArrowHandle;
@@ -1067,12 +1066,6 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 		guiSubTotal = 0;
 		giGrandTotal = 0;
 	}
-	else
-	{
-		iSubTotal = 0;
-		iGrandTotal = 0;
-	}
-
 
 	if( pBobbyRayPurchase == NULL )
 	{
