@@ -81,6 +81,7 @@ enum GROUP_TYPE
 	GROUP_TYPE_PATROL
 };
 
+void ASDInitializePatrolGroup(GROUP *pGroup);
 void InitializeGroup(const GROUP_TYPE groupType, const UINT8 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade);
 void InitializeGroup(const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &troopCount, UINT8 &eliteCount, UINT8 &robotCount, UINT8 &jeepCount, UINT8 &tankCount, const BOOLEAN asdUpgrade);
 

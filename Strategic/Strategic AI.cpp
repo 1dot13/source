@@ -3146,7 +3146,10 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 		ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
-		InitializeGroup(GROUP_TYPE_PATROL, (UINT8)iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
+		if (gGameExternalOptions.fASDActive && Random(10) < gGameOptions.ubDifficultyLevel)
+		{
+			ASDInitializePatrolGroup(pGroup);
+		}
 		//Madd: unlimited reinforcements?
 		if ( !gfUnlimitedTroops )
 			giReinforcementPool -= iReinforcementsApproved;
@@ -3236,7 +3239,10 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 
 			pGroup = CreateNewEnemyGroupDepartingFromSector( gGarrisonGroup[ iSrcGarrisonID ].ubSectorID, 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 			ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
-			InitializeGroup(GROUP_TYPE_PATROL, (UINT8)iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
+			if (gGameExternalOptions.fASDActive && Random(10) < gGameOptions.ubDifficultyLevel)
+			{
+				ASDInitializePatrolGroup(pGroup);
+			}
 			RemoveSoldiersFromGarrisonBasedOnComposition( iSrcGarrisonID, pGroup->ubGroupSize );
 			pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 			pGroup->ubMoveType = ONE_WAY;
@@ -7045,6 +7051,40 @@ GROUP* FindPendingGroupForGarrisonSector( UINT8 ubSectorID )
 		}
 	}
 	return NULL;
+}
+
+//Shadooow: new function to upgrade patrols groups with ASD to avoid overriding default patrol team composition
+void ASDInitializePatrolGroup(GROUP *pGroup)
+{
+	if (pGroup->ubGroupSize > 0 && pGroup->pEnemyGroup->ubNumElites > 0)
+	{
+		if (gGameExternalOptions.fASDAssignsTanks && ASDSoldierUpgradeToTank())
+		{
+			pGroup->pEnemyGroup->ubNumElites--;
+			pGroup->pEnemyGroup->ubNumTanks++;
+		}
+
+		if (pGroup->pEnemyGroup->ubNumElites > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep())
+		{
+			pGroup->pEnemyGroup->ubNumElites--;
+			pGroup->pEnemyGroup->ubNumJeeps++;
+		}
+
+		if (pGroup->pEnemyGroup->ubNumTroops > 0 && gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot())
+		{
+			int numRobots = 1 + Random(gGameOptions.ubDifficultyLevel);
+			if (numRobots > pGroup->pEnemyGroup->ubNumTroops)
+			{
+				pGroup->pEnemyGroup->ubNumRobots += pGroup->pEnemyGroup->ubNumTroops;
+				pGroup->pEnemyGroup->ubNumTroops = 0;
+			}
+			else
+			{
+				pGroup->pEnemyGroup->ubNumRobots += numRobots;
+				pGroup->pEnemyGroup->ubNumTroops -= numRobots;
+			}
+		}
+	}
 }
 
 void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade )
