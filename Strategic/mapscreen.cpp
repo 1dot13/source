@@ -9400,7 +9400,15 @@ void CreateDestroyMapInvButton()
 		else
 			InitializeInvPanelCoordsOld();
 
-		InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
+		if (bSelectedInfoChar != -1 && gCharactersList[bSelectedInfoChar].fValid)
+		{
+			SOLDIERTYPE* pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
+			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			{
+				InitInvSlotInterface(gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE);
+			}
+		}
+
 		MSYS_EnableRegion(&gMPanelRegion);
 		MSYS_EnableRegion(&gMapMercWeightRegion);
 		MSYS_EnableRegion(&gMapMercCamoRegion);
