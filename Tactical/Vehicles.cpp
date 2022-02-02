@@ -320,6 +320,7 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 	pVehicleList[ iCount ].iOutOfSound			= gNewVehicle[ ubType ].iNewEnterVehicleSndID;
 	pVehicleList[ iCount ].ubProfileID			= ubType; //gNewVehicle[ ubType ].ubNewVehicleTypeProfileID;//gNewVehicle[ ubType ].uiIndex;  //gNewVehicle[ ubType ].ubNewVehicleTypeProfileID;  //
 	pVehicleList[ iCount ].ubMovementGroup	= gubVehicleMovementGroups[ iCount ];
+	pVehicleList[ iCount ].ubDriver = NOBODY;
 
 	// ATE: Add movement mask to group...
 	pGroup = GetGroup( pVehicleList[ iCount ].ubMovementGroup );
