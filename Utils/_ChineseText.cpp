@@ -4375,7 +4375,7 @@ STR16 pMovementMenuStrings[] =
 	L"安排行军路线",	// done with movement menu, start plotting movement
 	L"取消",		// cancel this menu
 	L"其它",		// title for group of mercs not on squads nor in vehicles
-	L"Select all",		// Select all squads TODO: Translate
+	L"全选",		//L"Select all", Select all squads TODO: Translate
 };
 
 
@@ -11592,11 +11592,11 @@ STR16	szInteractiveActionText[] =
 	L"%s阅读了文件，但没找到新的内容。",//L"%s reads the file, but learns nothing new.",
 
 	L"%s离开了这个，没有意义。",//L"%s can't make sense out of this.",
-	L"%s不能使用网络。",//L"%s couldn't use the watertap.",
+	L"%s不能使用水龙头。",//L"%s couldn't use the watertap.",
 	L"%s买了一个%s。",//L"%s has bought a %s.",
 	L"%s没有足够的钱。那真让人难为情。",//L"%s doesn't have enough money. That's just embarassing.",
 
-	L"%s在使用网络",//L"%s drank from water tap",
+	L"%s使用水龙头喝水。",//L"%s drank from water tap",
 	L"这台机器看起来无法工作。", //L"This machine doesn't seem to be working.",
 };
 
