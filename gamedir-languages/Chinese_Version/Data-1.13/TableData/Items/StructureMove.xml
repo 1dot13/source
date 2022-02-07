@@ -1,12 +1,12 @@
 ﻿<STRUCTURESLIST>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>气瓶</szTileSetDisplayName>
+		<szTileSetDisplayName>Gas cylinder</szTileSetDisplayName>
 		<szTileSetName>ASTUFF1.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- sandbag -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>BASEFRN1.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -27,7 +27,7 @@
 		<allowedtile>20</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!-- sandbag -->
-		<szTileSetDisplayName>沙袋</szTileSetDisplayName>
+		<szTileSetDisplayName>Sandbags</szTileSetDisplayName>
 		<szTileSetName>sandbag.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -40,7 +40,7 @@
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- snow sandbag -->
-		<szTileSetDisplayName>沙袋</szTileSetDisplayName>
+		<szTileSetDisplayName>Sandbags</szTileSetDisplayName>
 		<szTileSetName>SNOW_BAG.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -53,7 +53,7 @@
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- winter crates -->
-		<szTileSetDisplayName>板条箱</szTileSetDisplayName>
+		<szTileSetDisplayName>Crate</szTileSetDisplayName>
 		<szTileSetName>2CRATE.sti</szTileSetName>
 		<allowedtile>1</allowedtile>
 		<allowedtile>2</allowedtile>
@@ -63,17 +63,17 @@
 		<allowedtile>6</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>桶</szTileSetDisplayName>
+		<szTileSetDisplayName>Barrel</szTileSetDisplayName>
 		<szTileSetName>2DRUMS.sti</szTileSetName>
 		<allowedtile>6</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>桶</szTileSetDisplayName>
+		<szTileSetDisplayName>Barrel</szTileSetDisplayName>
 		<szTileSetName>DRUM_01.sti</szTileSetName>
 		<allowedtile>6</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>桶</szTileSetDisplayName>
+		<szTileSetDisplayName>Barrel</szTileSetDisplayName>
 		<szTileSetName>drum_02.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -84,7 +84,7 @@
 		<allowedtile>6</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>轮胎</szTileSetDisplayName>
+		<szTileSetDisplayName>Tire</szTileSetDisplayName>
 		<szTileSetName>dump.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -92,7 +92,7 @@
 		<allowedtile>3</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FLAT_R3.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -106,7 +106,7 @@
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FURN_4.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>12</allowedtile>
@@ -115,7 +115,7 @@
 		<allowedtile>15</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FURN_5.sti</szTileSetName>
 		<allowedtile>1</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -129,7 +129,7 @@
 		<allowedtile>16</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FURN_6.sti</szTileSetName>
 		<allowedtile>10</allowedtile>
 		<allowedtile>11</allowedtile>
@@ -143,7 +143,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FURN_7.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -165,7 +165,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>FURN_8.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -179,29 +179,29 @@
 		<allowedtile>13</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- Barrel -->
-		<szTileSetDisplayName>桶</szTileSetDisplayName>
+		<szTileSetDisplayName>Barrel</szTileSetDisplayName>
 		<szTileSetName>FURN_MIX.sti</szTileSetName>
 		<allowedtile>2</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>废品</szTileSetDisplayName>
+		<szTileSetDisplayName>Debris</szTileSetDisplayName>
 		<szTileSetName>GASTUF1.sti</szTileSetName>
 		<allowedtile>7</allowedtile>
 		<allowedtile>8</allowedtile>
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Chair</szTileSetDisplayName>
 		<szTileSetName>G-FURN.sti</szTileSetName>
 		<allowedtile>14</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Chair</szTileSetDisplayName>
 		<szTileSetName>G-FURNX.sti</szTileSetName>
 		<allowedtile>14</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>储物柜</szTileSetDisplayName>
+		<szTileSetDisplayName>Locker</szTileSetDisplayName>
 		<szTileSetName>H-FURN1.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -209,7 +209,7 @@
 		<allowedtile>7</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>H-FURN2.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -226,7 +226,7 @@
 		<allowedtile>12</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>破旧的家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Shabby Furniture</szTileSetDisplayName>
 		<szTileSetName>HILFURN1.sti</szTileSetName>
 		<allowedtile>2</allowedtile>
 		<allowedtile>3</allowedtile>
@@ -241,7 +241,7 @@
 		<allowedtile>17</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- lockers -->
-		<szTileSetDisplayName>储物柜</szTileSetDisplayName>
+		<szTileSetDisplayName>Locker</szTileSetDisplayName>
 		<szTileSetName>JAILSTUF.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -253,7 +253,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- Chairs -->
-		<szTileSetDisplayName>椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Chair</szTileSetDisplayName>
 		<szTileSetName>JAILSTF2.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -261,7 +261,7 @@
 		<allowedtile>7</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- lockers -->
-		<szTileSetDisplayName>储物柜</szTileSetDisplayName>
+		<szTileSetDisplayName>Locker</szTileSetDisplayName>
 		<szTileSetName>JAILSTF3.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -273,7 +273,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>LAWLESS.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -285,7 +285,7 @@
 		<allowedtile>11</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>LAWLESS2.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -297,7 +297,7 @@
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>LAWLESS4.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>2</allowedtile>
@@ -310,12 +310,12 @@
 		<allowedtile>10</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>桶</szTileSetDisplayName>
+		<szTileSetDisplayName>Barrel</szTileSetDisplayName>
 		<szTileSetName>I_CRATES.sti</szTileSetName>
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>M-FURN1.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -327,7 +327,7 @@
 		<allowedtile>11</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>M-FURN3.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -347,7 +347,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Chair</szTileSetDisplayName>
 		<szTileSetName>M-FURN4.sti</szTileSetName>
 		<allowedtile>20</allowedtile>
 		<allowedtile>21</allowedtile>
@@ -355,7 +355,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>气瓶</szTileSetDisplayName>
+		<szTileSetDisplayName>Gas Cylinder</szTileSetDisplayName>
 		<szTileSetName>M-OUT2.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -363,7 +363,7 @@
 		<allowedtile>3</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>O_FURN.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -375,7 +375,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>旧家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Old Furniture</szTileSetDisplayName>
 		<szTileSetName>OLD_FURN.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -395,7 +395,7 @@
 		<allowedtile>17</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>装饰品</szTileSetDisplayName>
+		<szTileSetDisplayName>Fancy decoration</szTileSetDisplayName>
 		<szTileSetName>P-FURN1.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -408,7 +408,7 @@
 		<allowedtile>19</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>欧式家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Fancy furniture</szTileSetDisplayName>
 		<szTileSetName>P-FURN2.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
@@ -422,7 +422,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>天鹅绒椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Velvet chair</szTileSetDisplayName>
 		<szTileSetName>P-FURN3.sti</szTileSetName>
 		<allowedtile>15</allowedtile>
 		<allowedtile>16</allowedtile>
@@ -430,7 +430,7 @@
 		<allowedtile>18</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>P-FURN4.sti</szTileSetName>
 		<allowedtile>10</allowedtile>
 		<allowedtile>11</allowedtile>
@@ -444,7 +444,7 @@
 		<allowedtile>23</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>SCHOOL.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -466,7 +466,7 @@
 		<allowedtile>22</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>椅子</szTileSetDisplayName>
+		<szTileSetDisplayName>Chair</szTileSetDisplayName>
 		<szTileSetName>SEWFURN.sti</szTileSetName>
 		<allowedtile>8</allowedtile>
 		<allowedtile>9</allowedtile>
@@ -474,7 +474,7 @@
 		<allowedtile>11</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>货柜</szTileSetDisplayName>
+		<szTileSetDisplayName>Container</szTileSetDisplayName>
 		<szTileSetName>SHOP.sti</szTileSetName>
 		<allowedtile>6</allowedtile>
 		<allowedtile>7</allowedtile>
@@ -482,7 +482,7 @@
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!--  -->
-		<szTileSetDisplayName>家具</szTileSetDisplayName>
+		<szTileSetDisplayName>Furniture</szTileSetDisplayName>
 		<szTileSetName>TR_FURN1.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>
@@ -494,14 +494,14 @@
 		<allowedtile>8</allowedtile>
 	</STRUCTURE>	
 	<STRUCTURE><!-- packages -->
-		<szTileSetDisplayName>柜子</szTileSetDisplayName>
+		<szTileSetDisplayName>Package</szTileSetDisplayName>
 		<szTileSetName>WORKSHOP.sti</szTileSetName>
 		<allowedtile>4</allowedtile>
 		<allowedtile>5</allowedtile>
 		<allowedtile>6</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- packages -->
-		<szTileSetDisplayName>柜子</szTileSetDisplayName>
+		<szTileSetDisplayName>Package</szTileSetDisplayName>
 		<szTileSetName>WORKSHP2.sti</szTileSetName>
 		<allowedtile>2</allowedtile>
 		<allowedtile>4</allowedtile>
@@ -511,7 +511,7 @@
 		<allowedtile>11</allowedtile>
 	</STRUCTURE>
 	<STRUCTURE><!-- crates -->
-		<szTileSetDisplayName>板条箱</szTileSetDisplayName>
+		<szTileSetDisplayName>Crate</szTileSetDisplayName>
 		<szTileSetName>WP_STUF1.sti</szTileSetName>
 		<allowedtile>7</allowedtile>
 		<allowedtile>8</allowedtile>

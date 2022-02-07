@@ -4738,11 +4738,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
-		<szItemName>狙击枪消声器</szItemName>
-		<szLongItemName>狙击枪消声器</szLongItemName>
-		<szItemDesc>非常大的狙击枪消声器，可在某些狙击枪上使用。</szItemDesc>
-		<szBRName>狙击枪消声器</szBRName>
-		<szBRDesc>狙击枪消声器，可在某些狙击枪上使用。非常大的尺寸，导致了极高的价格和重量。</szBRDesc>
+		<szItemName>狙击枪消音器</szItemName>
+		<szLongItemName>狙击枪消音器</szLongItemName>
+		<szItemDesc>非常大的狙击枪消音器，可在某些狙击枪上使用。</szItemDesc>
+		<szBRName>狙击枪消音器</szBRName>
+		<szBRDesc>狙击枪消音器，可在某些狙击枪上使用。非常大的尺寸，导致了极高的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -5884,9 +5884,9 @@
 		<uiIndex>735</uiIndex>
 		<szItemName>SVU</szItemName>
 		<szLongItemName>SVU</szLongItemName>
-		<szItemDesc>SVU战术步枪是SVD的无托改型，为适合在近距离战斗中使用，在枪口上还有特制的消声消焰装置。</szItemDesc>
+		<szItemDesc>SVU战术步枪是SVD的无托改型，为适合在近距离战斗中使用，在枪口上还有特制的消音消焰装置。</szItemDesc>
 		<szBRName>SVU</szBRName>
-		<szBRDesc>SVU战术步枪比SVD结构更加紧凑，枪口装有特制的消声消焰装置使发射时的声音和火焰更难被敌人察觉。</szBRDesc>
+		<szBRDesc>SVU战术步枪比SVD结构更加紧凑，枪口装有特制的消音消焰装置使发射时的声音和火焰更难被敌人察觉。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>736</uiIndex>
@@ -8098,11 +8098,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1012</uiIndex>
-		<szItemName>突击步枪消声器</szItemName>
-		<szLongItemName>突击步枪消声器</szLongItemName>
-		<szItemDesc>可用在大部分卡宾枪或者突击步枪上的消声器，可以降低枪声和枪口焰，但还算不上无声。</szItemDesc>
-		<szBRName>突击步枪消声器</szBRName>
-		<szBRDesc>可用在大部分卡宾枪或者突击步枪上的消声器。注意：他并非百分百的有效，配合亚音速弹使用效果更佳。</szBRDesc>
+		<szItemName>突击步枪消音器</szItemName>
+		<szLongItemName>突击步枪消音器</szLongItemName>
+		<szItemDesc>可用在大部分卡宾枪或者突击步枪上的消音器，可以降低枪声和枪口焰，但还算不上无声。</szItemDesc>
+		<szBRName>突击步枪消音器</szBRName>
+		<szBRDesc>可用在大部分卡宾枪或者突击步枪上的消音器。注意：他并非百分百的有效，配合亚音速弹使用效果更佳。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1013</uiIndex>
@@ -10676,7 +10676,7 @@
 		<uiIndex>1334</uiIndex>
 		<szItemName>AR57 6"-S</szItemName>
 		<szLongItemName>AR57 6"-Silenced</szLongItemName>
-		<szItemDesc>M16换装5.7x28mm弹（FN-P90制式子弹）所需要升级的机匣，这套是6英寸枪管消声版的。枪管较短所以射程只比一般手枪远一点点、</szItemDesc>
+		<szItemDesc>M16换装5.7x28mm弹（FN-P90制式子弹）所需要升级的机匣，这套是6英寸枪管消音版的。枪管较短所以射程只比一般手枪远一点点、</szItemDesc>
 		<szBRName>AR57 6"-Silenced</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
@@ -10702,7 +10702,7 @@
 		<szLongItemName>AR57 6"-S upper</szLongItemName>
 		<szItemDesc>升级M4A1或M4 Commando到AR57 6S所需更换的机匣。</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
-		<szBRDesc>如果你喜欢M4系列的小体积，那么请用这个能让M4 Commando或M4A1使用5.7mm弹的新型机匣，这套是6英寸枪管消声版的，自带Gemtech消声器。</szBRDesc>
+		<szBRDesc>如果你喜欢M4系列的小体积，那么请用这个能让M4 Commando或M4A1使用5.7mm弹的新型机匣，这套是6英寸枪管消音版的，自带Gemtech消音器。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1338</uiIndex>
