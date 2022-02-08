@@ -779,6 +779,31 @@ void PhysicsDeleteObject( REAL_OBJECT *pObject )
 
 INT16 gsWaterSplashSoundNum = -1;
 
+void PlaySplashSound(INT32 sGridNo)
+{
+	// sevenfm: also play sound
+	CHAR8	zFilename[512];
+	// prepare water splash sound
+	if (gsWaterSplashSoundNum < 0)
+	{
+		gsWaterSplashSoundNum = 0;
+		do
+		{
+			gsWaterSplashSoundNum++;
+			sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", gsWaterSplashSoundNum);
+		} while (FileExists(zFilename));
+		gsWaterSplashSoundNum--;
+	}
+	if (gsWaterSplashSoundNum > 0)
+	{
+		sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(gsWaterSplashSoundNum) + 1);
+		if (FileExists(zFilename))
+		{
+			PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+		}
+	}
+}
+
 BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 {
 	vector_3			vTemp;
@@ -1113,26 +1138,15 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					pNode->pLevelNode->sRelativeZ	= (INT16)CONVERT_HEIGHTUNITS_TO_PIXELS( (INT16)pObject->Position.z );
 
 					// sevenfm: also play sound
-					CHAR8	zFilename[512];
-					// prepare water splash sound
-					if (gsWaterSplashSoundNum < 0)
-					{
-						gsWaterSplashSoundNum = 0;
-						do
-						{
-							gsWaterSplashSoundNum++;
-							sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", gsWaterSplashSoundNum);
-						} while (FileExists(zFilename));
-						gsWaterSplashSoundNum--;
-					}
-					if (gsWaterSplashSoundNum > 0)
-					{
-						sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(gsWaterSplashSoundNum) + 1);
-						if (FileExists(zFilename))
-						{
-							PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
-						}
-					}
+					UINT16 usItem = pObject->Obj.usItem;
+					INT32 sGridNo = pObject->sGridNo;
+
+					if (HasItemFlag(usItem, CORPSE))
+						PlayJA2Sample(ENTER_DEEP_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+					else if (Item[usItem].ubWeight > 10)
+						PlayJA2Sample(ENTER_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+					else
+						PlaySplashSound(sGridNo);
 				}
 			}
 

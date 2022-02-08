@@ -101,6 +101,7 @@ extern BOOL GetBetterObject_InventoryPool( UINT16 usItem, INT16 status, UINT32& 
 extern BOOL GetFittingAmmo_InventoryPool( UINT8 usCalibre, UINT8 usAmmoType, UINT32& arLoop );
 
 extern BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 usReplaceItem );
+extern void PlaySplashSound(INT32 sGridNo);
 
 extern std::vector<WORLDITEM> pInventoryPoolList;
 extern INT32 GetAttachmentInfoIndex( UINT16 usItem );
@@ -2114,7 +2115,22 @@ void SoldierHandleDropItem( SOLDIERTYPE *pSoldier )
 	{
 		if ( pSoldier->bVisible != -1 )
 		{
-			PlayJA2Sample( THROW_IMPACT_2, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+			if (Water(pSoldier->sGridNo, pSoldier->pathing.bLevel))
+			{
+				UINT16 usItem = pSoldier->pTempObject->usItem;
+				INT32 sGridNo = pSoldier->sGridNo;
+
+				if (HasItemFlag(usItem, CORPSE))
+					PlayJA2Sample(ENTER_DEEP_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+				else if (Item[usItem].ubWeight > 10)
+					PlayJA2Sample(ENTER_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+				else
+					PlaySplashSound(sGridNo);
+			}
+			else
+			{
+				PlayJA2Sample(THROW_IMPACT_2, RATE_11025, SoundVolume(MIDVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+			}
 		}
 
 		AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );

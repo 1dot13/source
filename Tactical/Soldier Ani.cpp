@@ -115,6 +115,7 @@ extern UINT8 gubInterruptProvoker;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 extern bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+extern void PlaySplashSound(INT32 sGridNo);
 
 // Animation code explanations!
 //
@@ -3190,7 +3191,22 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					if ( pSoldier->bVisible != -1 )
 					{
-						PlayJA2Sample( THROW_IMPACT_2, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+						if (Water(pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel))
+						{
+							UINT16 usItem = pSoldier->pTempObject->usItem;
+							INT32 sGridNo = pSoldier->aiData.sPendingActionData2;
+
+							if (HasItemFlag(usItem, CORPSE))
+								PlayJA2Sample(ENTER_DEEP_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+							else if (Item[usItem].ubWeight > 10)
+								PlayJA2Sample(ENTER_WATER_1, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+							else
+								PlaySplashSound(sGridNo);
+						}
+						else
+						{
+							PlayJA2Sample(THROW_IMPACT_2, RATE_11025, SoundVolume(MIDVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+						}
 					}
 
 					AddItemToPool( pSoldier->aiData.sPendingActionData2, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );

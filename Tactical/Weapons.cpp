@@ -5872,14 +5872,13 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	}
 	else
 	{
-		if ( sZPos == 0 )
-		{
+		if (Water(sGridNo, bLevel))
+			PlayJA2Sample(S_WATER_IMPACT1, RATE_11025, uiMissVolume, 1, SoundDir(sGridNo));
+		else if ( sZPos == 0 )
 			PlayJA2Sample( MISS_G2 , RATE_11025, 5, 1, SoundDir( sGridNo ) );
-		}
 		else
-		{
 			PlayJA2Sample( MISS_1 + Random(8), RATE_11025, 5, 1, SoundDir( sGridNo ) );
-		}
+
 		RemoveBullet( iBullet );
 	}
 
@@ -5915,14 +5914,12 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 
 			if ( !fStopped || !DoSpecialEffectAmmoMiss( ubAttackerID, usWeaponIndex, sGridNo, sXPos, sYPos, sZPos, FALSE, TRUE, iBullet ) )
 			{
-				if ( sZPos == 0 )
-				{
+				if (Water(sGridNo, bLevel))
+					PlayJA2Sample(S_WATER_IMPACT1, RATE_11025, uiMissVolume, 1, SoundDir(sGridNo));
+				else if ( sZPos == 0 )
 					PlayJA2Sample( MISS_G2 , RATE_11025, uiMissVolume, 1, SoundDir( sGridNo ) );
-				}
 				else
-				{
 					PlayJA2Sample( MISS_1 + Random(8), RATE_11025, uiMissVolume, 1, SoundDir( sGridNo ) );
-				}
 
 				// Default hit is the ground
 				usMissTileIndex = FIRSTMISS1;
