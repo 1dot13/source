@@ -1916,14 +1916,16 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 																if ( Random( 100 ) < 10 )
 																{
 																	// Play sound
-																	PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																	if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+																		PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 																}
 															}
 															else
 															{
 
 																// Play sound
-																PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+																	PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 															}
 														}
 													}
@@ -1937,21 +1939,24 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 																if ( Random( 100 ) < 10 )
 																{
 																	// Play sound
-																	PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																	if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+																		PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 																}
 															}
 															else
 															{
 
 																// Play sound
-																PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+																	PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 															}
 														}
 													}
 													else
 													{
 														// Play sound
-														PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+														if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+															PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 													}
 												}
 												else
@@ -2758,7 +2763,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 						if ( usSoundID != 0 )
 						{
-							PlayJA2Sample( usSoundID, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+							if (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE))
+								PlayJA2Sample( usSoundID, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 						}
 					}
 				}
@@ -3347,7 +3353,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				break;
 
 			case 778:
-				if ( !pSoldier->bStealthMode )
+				if (!pSoldier->bStealthMode && (pSoldier->bVisible == TRUE || TeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE)))
 				{
 					PlaySoldierJA2Sample( pSoldier->ubID, ENTER_DEEP_WATER_1, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 				}
