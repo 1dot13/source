@@ -370,7 +370,7 @@ void HandleTacticalTransformItem( void );
 void HandleTacticalTransformFlashlight(void);
 void HandleTacticalTransformLaser(void);
 void HandleTacticalTransformScope(void);
-BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation );
+BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation, BOOLEAN fTactical = FALSE);
 BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 
@@ -8752,7 +8752,7 @@ void HandleTacticalTransformItem(void)
 
 	usItem = pSoldier->inv[HANDPOS].usItem;
 
-	if (FindTransformation(usItem, &pTransformation))
+	if (FindTransformation(usItem, &pTransformation, TRUE))
 	{
 		if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
 			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
@@ -8772,7 +8772,7 @@ void HandleTacticalTransformItem(void)
 	}
 }
 
-BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation )
+BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation, BOOLEAN fTactical)
 {
 	// find transformation
 	for ( UINT32 x = 0; x < MAXITEMS + 1; ++x )
@@ -8781,7 +8781,10 @@ BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation
 		{
 			break;
 		}
-		if ( Transform[x].usItem == usItem )
+		if (Transform[x].usItem == usItem &&
+			(!fTactical ||
+			HasItemFlag(usItem, CORPSE) ||
+			Transform[x].usResult[0] != usItem && Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass))
 		{
 			*pTransformation = &Transform[x];
 			return TRUE;
