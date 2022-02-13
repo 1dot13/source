@@ -369,9 +369,12 @@ void HandleTacticalAmmoCrates( UINT8 magType );
 void HandleTacticalTransformItem( void );
 void HandleTacticalTransformFlashlight(void);
 void HandleTacticalTransformLaser(void);
+void HandleTacticalTransformStock(void);
 void HandleTacticalTransformScope(void);
 BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation, BOOLEAN fTactical = FALSE);
+BOOLEAN FindTransformationStock(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
+BOOLEAN FindStockTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
@@ -4217,6 +4220,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'P':
+
+				HandleTacticalTransformStock();
+
 				break;
 
 			case 'q':
@@ -8793,6 +8799,27 @@ BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation,
 	return FALSE;
 }
 
+BOOLEAN FindTransformationStock(UINT16 usItem, TransformInfoStruct **pTransformation)
+{
+	// find transformation
+	for (UINT32 x = 0; x < MAXITEMS + 1; ++x)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != usItem && 
+			Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass &&
+			Item[Transform[x].usItem].ItemSize != Item[Transform[x].usResult[0]].ItemSize)
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 void HandleTacticalMoveItems( void )
 {
 	// Move all sector items to current mercs feet
@@ -9224,6 +9251,89 @@ void HandleTacticalTransformLaser(void)
 	}
 }
 
+void HandleTacticalTransformStock(void)
+{
+	UINT16 usItem;
+	TransformInfoStruct *pTransformation;
+	OBJECTTYPE* pObj;
+
+	SOLDIERTYPE* pSoldier;
+	if (!GetSoldier(&pSoldier, gusSelectedSoldier))
+		return;
+
+	if (!pSoldier->inv[HANDPOS].exists())
+		return;
+
+	// ATE: Don't do this if in a fire animation.....
+	if (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_FIRE)
+		return;
+
+	// don't do this when EDB is active
+	if (gpItemDescObject)
+		return;
+
+	usItem = pSoldier->inv[HANDPOS].usItem;
+
+	// check if can transform item
+	if (FindTransformationStock(usItem, &pTransformation))
+	{
+		if (pTransformation->usAPCost > 0 && (gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED))
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+		else
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+		// let's pretend we are calling this from EDB
+		gpItemDescObject = &pSoldier->inv[HANDPOS];
+		gpItemDescObject->TransformObject(pSoldier, 0, pTransformation, NULL);
+
+		// cleanup
+		gpItemDescObject = NULL;
+
+		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+		gfUIForceReExamineCursorData = TRUE;
+
+		return;
+	}
+
+	// check attachments
+	attachmentList::iterator iter;
+	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// check all attachments, search for available transformations
+	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (iter->exists() && Item[iter->usItem].usItemClass == IC_MISC && Item[iter->usItem].attachmentclass & AC_STOCK)
+		{
+			usItem = Item[iter->usItem].uiIndex;
+
+			// check flashlight transformation
+			if (FindStockTransformation(usItem, &pTransformation) &&
+				pTransformation->usResult[0] != 0)
+			{
+				if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+				else
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+				// let's pretend we are calling this from EDB
+				gpItemDescObject = pObj;
+				gpItemDescOrigAttachmentObject = &(*iter);
+
+				gpItemDescOrigAttachmentObject->TransformObject(pSoldier, 0, pTransformation, gpItemDescObject);
+
+				// cleanup
+				gpItemDescObject = NULL;
+				gpItemDescOrigAttachmentObject = NULL;
+
+				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+				gfUIForceReExamineCursorData = TRUE;
+
+				return;
+			}
+		}
+	}
+}
+
 void HandleTacticalTransformFlashlight(void)
 {
 	UINT16 usItem;
@@ -9322,8 +9432,31 @@ BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 		}
 		if (Transform[x].usItem == usItem &&
 			Transform[x].usResult[0] != 0 &&
+			Transform[x].usResult[0] != usItem &&
 			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
 			Item[Transform[x].usResult[0]].attachmentclass & AC_LASER)
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOLEAN FindStockTransformation(UINT16 usItem, TransformInfoStruct **pTransformation)
+{
+	// find transformation
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Transform[x].usResult[0] != usItem &&
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
+			Item[Transform[x].usResult[0]].attachmentclass & AC_STOCK)
 		{
 			*pTransformation = &Transform[x];
 			return TRUE;
