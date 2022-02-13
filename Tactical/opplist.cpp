@@ -77,7 +77,7 @@ extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType, STR16 zNoiseMessage );
 void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
 void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
-UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2);
+UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 ubTerrType1, UINT8 ubTerrType2);
 void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
 void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir,  STR16 zNoiseMessage = NULL );
 void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumNewEnemies );
@@ -5790,7 +5790,6 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 	UINT8 bLoop, bTeam;
 	UINT8 ubLoudestEffVolume, ubEffVolume;
 //	UINT8 ubPlayVolume;
-	INT8 bCheckTerrain = FALSE;
 	UINT8 ubSourceTerrType, ubSource;
 	INT8 bTellPlayer = FALSE, bHeard, bSeen;
 	UINT8 ubHeardLoudestBy = NOBODY, ubNoiseDir = 0xff, ubLoudestNoiseDir = 0xff;
@@ -5849,14 +5848,6 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 		ubSourceTerrType = TTypeList[Terrain(sGridNo)];
 	}
 	*/
-
-	// if we have now somehow obtained a valid terrain type //shadooow: and it is not a noise from doors
-	if (ubNoiseType != NOISE_CREAKING && ubSourceTerrType >= FLAT_GROUND && ubSourceTerrType <= DEEP_WATER)
-	{
-		//NumMessage("Source Terrain Type = ",ubSourceTerrType);
-		bCheckTerrain = TRUE;
-	}
-	// else give up trying to get terrain type, just assume sound isn't muffled
 
 	// DETERMINE THE *PERCEIVED* SOURCE OF THE NOISE
 	switch (ubNoiseType)
@@ -6017,7 +6008,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 			}
 
 			// Can the listener hear noise of that volume given his circumstances?
-			ubEffVolume = CalcEffVolume(pSoldier, sGridNo, bLevel, ubNoiseType, ubBaseVolume, bCheckTerrain, pSoldier->bOverTerrainType, ubSourceTerrType);
+			ubEffVolume = CalcEffVolume(pSoldier, sGridNo, bLevel, ubNoiseType, ubBaseVolume, pSoldier->bOverTerrainType, ubSourceTerrType);
 
 			// if a the noise maker is a person, not just NOBODY
 			if (ubNoiseMaker < TOTAL_SOLDIERS)
@@ -6148,8 +6139,8 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 			}
 
 #ifdef RECORDOPPLIST
-			fprintf(OpplistFile,"PN: guy %d - effVol=%d,chkTer=%d,pSoldier->tType=%d,srcTType=%d\n",
-			bLoop,effVolume,bCheckTerrain,pSoldier->terrtype,ubSourceTerrType);
+			fprintf(OpplistFile,"PN: guy %d - effVol=%d,pSoldier->tType=%d,srcTType=%d\n",
+			bLoop,effVolume,pSoldier->terrtype,ubSourceTerrType);
 #endif
 
 			if (ubEffVolume > 0)
@@ -6283,8 +6274,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 
 
 
-UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume,
-			UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2)
+UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 ubTerrType1, UINT8 ubTerrType2)
 {
 	INT32 iEffVolume, iDistance;
 
@@ -6405,24 +6395,20 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubN
 	// if we still have a chance of hearing this, and the terrain types are known
 	if (iEffVolume > 0)
 	{
-		if (bCheckTerrain)
+		// if, between noise and listener, one is outside and one is inside
+
+		// NOTE: This is a pretty dumb way of doing things, since it won't detect
+		// the presence of walls between 2 spots both inside or both outside, but
+		// given our current system it's the best that we can do
+
+		if (((ubTerrType1 == FLAT_FLOOR) && (ubTerrType2 != FLAT_FLOOR)) ||
+			((ubTerrType1 != FLAT_FLOOR) && (ubTerrType2 == FLAT_FLOOR)))
 		{
-			// if, between noise and listener, one is outside and one is inside
+			//PopMessage("Sound is muffled by wall(s)");
 
-			// NOTE: This is a pretty dumb way of doing things, since it won't detect
-			// the presence of walls between 2 spots both inside or both outside, but
-			// given our current system it's the best that we can do
-
-			if (((ubTerrType1 == FLAT_FLOOR) && (ubTerrType2 != FLAT_FLOOR)) ||
-				((ubTerrType1 != FLAT_FLOOR) && (ubTerrType2 == FLAT_FLOOR)))
-			{
-				//PopMessage("Sound is muffled by wall(s)");
-
-				// sound is muffled, reduce the effective volume of the noise
-				iEffVolume -= 5;
-			}
+			// sound is muffled, reduce the effective volume of the noise
+			iEffVolume -= 5;
 		}
-
 	}
 
 	//NumMessage("effVolume = ",ubEffVolume);
