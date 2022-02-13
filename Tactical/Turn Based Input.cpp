@@ -8790,7 +8790,8 @@ BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation,
 		if (Transform[x].usItem == usItem &&
 			(!fTactical ||
 			HasItemFlag(usItem, CORPSE) ||
-			Transform[x].usResult[0] != usItem && Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass))
+			Transform[x].usResult[0] != usItem && Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass ||
+			Transform[x].usResult[0] != usItem && Item[Transform[x].usResult[0]].ItemSize == Item[usItem].ItemSize))
 		{
 			*pTransformation = &Transform[x];
 			return TRUE;
