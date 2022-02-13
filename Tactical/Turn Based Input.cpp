@@ -372,9 +372,9 @@ void HandleTacticalTransformLaser(void);
 void HandleTacticalTransformStock(void);
 void HandleTacticalTransformScope(void);
 BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation, BOOLEAN fTactical = FALSE);
-BOOLEAN FindTransformationStock(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindStockTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
+BOOLEAN FindFlashlightTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
@@ -8800,27 +8800,6 @@ BOOLEAN FindTransformation(UINT16 usItem, TransformInfoStruct **pTransformation,
 	return FALSE;
 }
 
-BOOLEAN FindTransformationStock(UINT16 usItem, TransformInfoStruct **pTransformation)
-{
-	// find transformation
-	for (UINT32 x = 0; x < MAXITEMS + 1; ++x)
-	{
-		if (Transform[x].usItem == (UINT16)-1)
-		{
-			break;
-		}
-		if (Transform[x].usItem == usItem &&
-			Transform[x].usResult[0] != usItem && 
-			Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass &&
-			Item[Transform[x].usItem].ItemSize != Item[Transform[x].usResult[0]].ItemSize)
-		{
-			*pTransformation = &Transform[x];
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
 void HandleTacticalMoveItems( void )
 {
 	// Move all sector items to current mercs feet
@@ -9276,7 +9255,7 @@ void HandleTacticalTransformStock(void)
 	usItem = pSoldier->inv[HANDPOS].usItem;
 
 	// check if can transform item
-	if (FindTransformationStock(usItem, &pTransformation))
+	if (FindStockTransformation(usItem, &pTransformation))
 	{
 		if (pTransformation->usAPCost > 0 && (gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED))
 			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
@@ -9359,9 +9338,7 @@ void HandleTacticalTransformFlashlight(void)
 	usItem = pSoldier->inv[HANDPOS].usItem;
 
 	// first try a transformation of item
-	if (FindTransformation(usItem, &pTransformation) &&
-		pTransformation->usResult[0] != 0 &&
-		Item[usItem].usFlashLightRange != Item[pTransformation->usResult[0]].usFlashLightRange)
+	if (FindFlashlightTransformation(usItem, &pTransformation))
 	{
 		if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
 			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
@@ -9394,9 +9371,7 @@ void HandleTacticalTransformFlashlight(void)
 			usItem = Item[iter->usItem].uiIndex;
 
 			// check flashlight transformation
-			if (FindTransformation(usItem, &pTransformation) &&
-				pTransformation->usResult[0] != 0 &&
-				Item[usItem].usFlashLightRange != Item[pTransformation->usResult[0]].usFlashLightRange)
+			if (FindFlashlightTransformation(usItem, &pTransformation))
 			{
 				if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
@@ -9456,8 +9431,29 @@ BOOLEAN FindStockTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 		if (Transform[x].usItem == usItem &&
 			Transform[x].usResult[0] != 0 &&
 			Transform[x].usResult[0] != usItem &&
-			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
-			Item[Transform[x].usResult[0]].attachmentclass & AC_STOCK)
+			(Item[Transform[x].usResult[0]].usItemClass == Item[usItem].usItemClass && Transform[x].usResult[0] != usItem && Item[Transform[x].usResult[0]].ItemSize != Item[usItem].ItemSize ||
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&	Item[Transform[x].usResult[0]].attachmentclass & AC_STOCK))
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOLEAN FindFlashlightTransformation(UINT16 usItem, TransformInfoStruct **pTransformation)
+{
+	// find transformation
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Transform[x].usResult[0] != usItem &&
+			Item[Transform[x].usResult[0]].usFlashLightRange != Item[usItem].usFlashLightRange)
 		{
 			*pTransformation = &Transform[x];
 			return TRUE;
