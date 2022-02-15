@@ -6660,10 +6660,13 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	{
 		if ( !CompatibleFaceItem( pObj->usItem, pSoldier->inv[ HEAD2POS ].usItem ) )
 		{
-			CHAR16	zTemp[ 150 ];
-
-			swprintf( zTemp, Message[ STR_CANT_USE_TWO_ITEMS ], ItemNames[ pObj->usItem ], ItemNames[ pSoldier->inv[ HEAD2POS ].usItem ] );
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, zTemp );
+			if (gpItemPointer)
+			{
+				CHAR16	zTemp[150];
+				swprintf(zTemp, Message[STR_CANT_USE_TWO_ITEMS], ItemNames[pObj->usItem], ItemNames[pSoldier->inv[HEAD2POS].usItem]);
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, zTemp);
+			}
+			
 			return( FALSE );
 		}
 	}
@@ -6671,10 +6674,13 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	{
 		if ( !CompatibleFaceItem( pObj->usItem, pSoldier->inv[ HEAD1POS ].usItem ) )
 		{
-			CHAR16	zTemp[ 150 ];
-
-			swprintf( zTemp, Message[ STR_CANT_USE_TWO_ITEMS ], ItemNames[ pObj->usItem ], ItemNames[ pSoldier->inv[ HEAD1POS ].usItem ] );
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, zTemp );
+			if (gpItemPointer)
+			{
+				CHAR16	zTemp[150];
+				swprintf(zTemp, Message[STR_CANT_USE_TWO_ITEMS], ItemNames[pObj->usItem], ItemNames[pSoldier->inv[HEAD1POS].usItem]);
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, zTemp);
+			}
+			
 			return( FALSE );
 		}
 	}

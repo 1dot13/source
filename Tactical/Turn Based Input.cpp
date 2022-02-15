@@ -6634,6 +6634,8 @@ void SwapGoggles(SOLDIERTYPE *pTeamSoldier)
 		{
 			if(CanItemFitInPosition(pTeamSoldier, &pTeamSoldier->inv[slotToUse], swapSlot, TRUE))
 				SwapObjs( pTeamSoldier, slotToUse, pGoggles, TRUE );
+			else if (swapSlot == HELMETPOS)
+				SwapObjs(pTeamSoldier, slotToUse, pGoggles, TRUE);
 			else if((pTeamSoldier->inv[HELMETPOS].exists()== true && pTeamSoldier->inv[HELMETPOS].AttachObject(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE)) ||
 				AutoPlaceObject(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE))
 				pGoggles->MoveThisObjectTo(pTeamSoldier->inv[slotToUse], 1, pTeamSoldier, slotToUse);
