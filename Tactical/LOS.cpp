@@ -3929,15 +3929,17 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 			}
 			else if (pStructure->fFlags & STRUCTURE_ROOF)
 			{
-				// only consider roofs if the flag is set; don't add them to the array since they
-				// are a special case
-				if (pBullet->fCheckForRoof)
+				// only consider roofs if the flag is set; don't add them to the array since they are a special case
+				// sevenfm: always check roof
+				//if (pBullet->fCheckForRoof)
 				{
 					pRoofStructure = pStructure;
 
 					if ( pRoofStructure )
 					{
-						qLastZ = pBullet->qCurrZ - pBullet->qIncrZ;
+						// sevenfm: improved check to catch roof crossing
+						//qLastZ = pBullet->qCurrZ - pBullet->qIncrZ;
+						qLastZ = pBullet->qCurrZ - pBullet->qIncrZ * 10;
 
 						// if just on going to next tile we cross boundary, then roof stops bullet here!
 						if ( (qLastZ > qWallHeight && pBullet->qCurrZ <= qWallHeight) || (qLastZ < qWallHeight && pBullet->qCurrZ >= qWallHeight))
@@ -3948,7 +3950,6 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 							return( 0 );
 						}
 					}
-
 				}
 			}
 			else if (pStructure->fFlags & STRUCTURE_PERSON)
