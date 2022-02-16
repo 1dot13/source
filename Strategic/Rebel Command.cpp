@@ -35,6 +35,7 @@ How to add a new admin action:
 - add to SetupInfo to read from game settings
 - add to Init to add to pool of valid actions on game start
 - add admin-action-specific effect
+- if effect applies outside of towns, add help text range band as appropriate to SetupAdminActionBox
 
 Points of interest:
 - Init() - set up rebel command for the first time
@@ -187,6 +188,10 @@ enum RebelCommandHelpText // keep this synced with szRebelCommandHelpText in the
 	RCHT_LOYALTY,
 	RCHT_MAX_LOYALTY,
 	RCHT_GRANT_SUPPLIES,
+	RCHT_AA_TOWN_ONLY,
+	RCHT_AA_TOWN_PLUS_ONE,
+	RCHT_AA_TOWN_PLUS_TWO,
+	RCHT_AA_TOWN_PLUS_THREE,
 };
 
 // this must be kept in the same order as RebelCommandDirectives in the header
@@ -245,6 +250,7 @@ std::vector<INT32> btnIds;
 ChangeAdminActionState adminActionChangeState;
 
 // help text regions
+MOUSE_REGION adminActionHelpTextRegion[6];
 MOUSE_REGION adminTeamHelpTextRegion;
 MOUSE_REGION directiveDescriptionHelpTextRegion;
 MOUSE_REGION loyaltyHelpTextRegion;
@@ -290,6 +296,8 @@ void ClearAllButtons()
 
 void ClearAllHelpTextRegions()
 {
+	for (int a = 0; a < 6; a++)
+		MSYS_RemoveRegion(&adminActionHelpTextRegion[a]);
 	MSYS_RemoveRegion(&adminTeamHelpTextRegion);
 	MSYS_RemoveRegion(&directiveDescriptionHelpTextRegion);
 	MSYS_RemoveRegion(&loyaltyHelpTextRegion);
@@ -528,6 +536,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 	CHAR16 text[200];
 	INT16 x;
 	INT16 y;
+	INT16 helpTextY;
 
 	switch (actionIndex % 3)
 	{
@@ -537,6 +546,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 	}
 
 	y = WEBSITE_TOP + 125 + 110 * (actionIndex / 3);
+	helpTextY = y;
 
 	if (actionIndex < 5 || adminActionChangeState == CAAS_INIT)
 	{
@@ -569,6 +579,8 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 		y += 13;
 		DisplayWrappedString(x, y, 140, 2, FONT10ARIAL, FONT_MCOLOR_BLACK, szRebelCommandAdminActionsText[descriptionText], FONT_MCOLOR_BLACK, FALSE, 0);
 
+		helpTextY = y;
+
 		// special case for index 5: show state change button
 		if (actionIndex == 5)
 		{
@@ -590,6 +602,8 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 
 		y += 22;
 		DisplayWrappedString(x, y, 140, 2, FONT10ARIAL, FONT_MCOLOR_BLACK, szRebelCommandAdminActionsText[newAction*2+1], FONT_MCOLOR_BLACK, FALSE, 0);
+
+		helpTextY = y;
 
 		y += 81;
 		INT32 btnId = CreateTextButton(szRebelCommandText[RCT_CANCEL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y, 140, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
@@ -639,6 +653,46 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 			});
 		btnIds.push_back(btnId);
 	}
+
+	// admin action help text region
+	MSYS_DefineRegion(&adminActionHelpTextRegion[actionIndex], x, helpTextY, x + 140, helpTextY + 68, MSYS_PRIORITY_HIGH,
+		CURSOR_LAPTOP_SCREEN, [](MOUSE_REGION* pRegion, INT32 iReason)
+		{
+			const INT32 index = MSYS_GetRegionUserData(pRegion, 0);
+			const RebelCommandAdminActions aa = (index == 5 && adminActionChangeState == CAAS_CHANGING) ?
+				adminActionChangeList[adminActionChangeIndex] :
+				rebelCommandSaveInfo.regions[iCurrentRegionId].actions[index];
+
+			CHAR16 text[250];
+			switch (aa)
+			{
+			case RCAA_SAFEHOUSES:
+				// 1 tile range
+				swprintf(text, szRebelCommandHelpText[RCHT_AA_TOWN_PLUS_ONE]);
+				break;
+
+			case RCAA_SUPPLY_DISRUPTION:
+			case RCAA_PATHFINDERS:
+			case RCAA_HARRIERS:
+				// 1-2 tile range
+				swprintf(text, szRebelCommandHelpText[RCHT_AA_TOWN_PLUS_TWO]);
+				break;
+
+			case RCAA_SCOUTS:
+				// 2-3 tile range
+				swprintf(text, szRebelCommandHelpText[RCHT_AA_TOWN_PLUS_THREE]);
+				break;
+
+			default:
+				// apply in cities only
+				swprintf(text, szRebelCommandHelpText[RCHT_AA_TOWN_ONLY]);
+				break;
+			}
+
+			SetRegionFastHelpText(&adminActionHelpTextRegion[index], text);
+		}, MSYS_NO_CALLBACK);
+	MSYS_AddRegion(&adminActionHelpTextRegion[actionIndex]);
+	MSYS_SetRegionUserData(&adminActionHelpTextRegion[actionIndex], 0, actionIndex);
 }
 
 void SetDirectiveDescriptionHelpText(INT32 reason, MOUSE_REGION& region, RebelCommandDirectives text)
