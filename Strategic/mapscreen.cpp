@@ -9058,10 +9058,12 @@ void PollWheelInMapView(UINT32 *puiNewEvent)
 		const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
 		if (Wheelstate < 0)
 		{
+			fResetMapCoords = TRUE;
 			GoToNextCharacterInList();
 		}
 		else if (Wheelstate > 0)
 		{
+			fResetMapCoords = TRUE;
 			GoToPrevCharacterInList();
 		}
 		_WheelValue = 0;
