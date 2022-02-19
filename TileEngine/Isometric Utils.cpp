@@ -1277,7 +1277,15 @@ INT16 MapY( INT32 sGridNo )
 	return( sYPos );
 }
 
-
+bool GridNoOnWalkableWorldTile(INT32 sGridNo)
+{
+	MAP_ELEMENT *pMapElement = &(gpWorldLevelData[sGridNo]);
+	//Shadooow: as far as I know, Drassen Mine (tileset id 23) is the only map where the base land height isn't 0
+	//if there are more, add them into this hardcoded check
+	UINT8 sDefaultTilesetLandHeight = giCurrentTilesetID == 23 ? 80 : 0;
+	//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"GridNoOnWalkableWorldTile, tileset id: %i, gridno height level: %i", giCurrentTilesetID, pMapElement->sHeight);
+	return pMapElement->sHeight == sDefaultTilesetLandHeight;
+}
 
 BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo )
 {
@@ -1296,7 +1304,7 @@ BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo )
 	if ( sWorldX >= 30 && sWorldX <= (gsTRX - gsTLX - 30) && sWorldY >= 20 && sWorldY <= (gsBLY - gsTLY - 10) )
 #endif
 	{
-		return( TRUE );
+		return GridNoOnWalkableWorldTile(sGridNo);
 	}
 
 	return( FALSE );
