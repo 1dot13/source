@@ -2774,14 +2774,6 @@ INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
 
 	sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
 
-	if ( gubWorldMovementCosts[ sGridNo ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
-	{
-		if ( usMoveModeToUse == RUNNING && pSoldier->usAnimState != RUNNING )
-		{
-			sCost += GetAPsStartRun( pSoldier ); // changed by SANDRO
-		}
-	}
-
 	return( (INT8)sCost );
 }
 
