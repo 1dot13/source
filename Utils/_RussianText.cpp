@@ -6533,7 +6533,6 @@ STR16		zOptionsToggleText[] =
 	L"Молчаливый пилот вертолёта",
 	L"Подробное описание предметов",		//Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
-	L"Подсветить навык к повышению",		//Stat Progress Bars	// Show progress towards stat increase
 	L"Новая расцветка стратег. карты",	//Alternate Strategy-Map Colors //Change color scheme of Strategic Map
 	L"Заметная летящая пуля",				// Show alternate bullet graphics (tracers)
 	L"Новая анимация экипировки",

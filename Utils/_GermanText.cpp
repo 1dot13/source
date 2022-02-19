@@ -6397,7 +6397,6 @@ STR16 zOptionsToggleText[] =
 	L"Stummer Skyrider",
 	L"Erw. Gegenstandsinfo",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
-	L"Status Trainingsfortschritt",			// Show progress towards stat increase
 	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektil-Grafik",			// Show alternate bullet graphics (tracers)
 	L"Logical Bodytypes",

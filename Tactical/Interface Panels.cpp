@@ -2590,7 +2590,6 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			// is displayed behind the current stat value, as see on the character's info panel.
 			// This section draws TACTICAL info pages. Another section is in mapscreen.cpp and draws STRATEGIC info pages.
 			// The feature is toggled by Options-Menu switch, and its color is determined in the INI files.
-			if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] )
 			{
 				UINT8	*pDestBuf;
 				UINT32 uiDestPitchBYTES = 0;

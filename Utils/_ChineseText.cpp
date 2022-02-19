@@ -6538,7 +6538,6 @@ STR16		zOptionsToggleText[] =
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	L"增强属性框(EDB)", //L"Enhanced Description Box",
 	L"强制回合制模式",						// add forced turn mode
-	L"属性进度条", //L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
 	L"佣兵外观造型", //L"Use Logical Bodytypes",

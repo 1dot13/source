@@ -6527,7 +6527,6 @@ STR16		zOptionsToggleText[] =
 	L"Cichy Skyrider",
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 	L"Wymuś tryb turowy",					// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
 	L"Logical Bodytypes",

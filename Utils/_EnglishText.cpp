@@ -6538,7 +6538,6 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Enhanced Description Box",
 	L"Forced Turn Mode",					// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase
 	L"Alternate Strategy Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate Bullet Graphics",			// Show alternate bullet graphics (tracers)
 	L"Logical Bodytypes",

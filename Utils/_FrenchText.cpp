@@ -6531,7 +6531,6 @@ STR16		zOptionsToggleText[] =
 	L"Silence Skyrider !",
 	L"EDB (mod rajoutant info utiles)",
 	L"Mode tour par tour forcé",			// add forced turn mode
-	L"Afficher la progression",					// Show progress towards stat increase
 	L"Couleur alternative carte",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
 	L"Logical Bodytypes",
