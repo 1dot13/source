@@ -124,7 +124,7 @@
 #include "Utilities.h"					// added by Flugente
 #include "AIInternals.h"				// sevenfm
 #include "Interface Cursors.h"			// sevenfm
-
+#include "strategic.h"					// shadooow for CreateNewMerc
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -290,6 +290,7 @@ void	QueryTBWheel( UINT32 *puiNewEvent );
 void	QueryTBX1Button( UINT32 *puiNewEvent );
 void	QueryTBX2Button( UINT32 *puiNewEvent );
 
+void	MercCreationCallBack(UINT8 ubResult);
 void	ItemCreationCallBack( UINT8 ubResult );
 void	CheatCreateItem();
 // silversurfer: added for merc portrait swapping in tactical
@@ -1636,6 +1637,63 @@ void CheatCreateItem( )
 		if ( !AutoPlaceObject( MercPtrs[ gusSelectedSoldier ], &newobj, FALSE ) )
 			AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
 	}
+}
+
+INT32 mappos = 0;
+
+void CheatNewMerc(int nProfileID)
+{
+		if (nProfileID >= NUM_PROFILES || nProfileID < 0)
+		{
+			ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Invalid Profile ID.");
+			return;
+		}
+
+		MERC_HIRE_STRUCT HireMercStruct;
+		memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));		
+		HireMercStruct.ubProfileID = nProfileID;
+
+		//DEF: temp
+		HireMercStruct.sSectorX = gWorldSectorX;
+		HireMercStruct.sSectorY = gWorldSectorY;
+		HireMercStruct.bSectorZ = gbWorldSectorZ;
+		HireMercStruct.ubInsertionCode = INSERTION_CODE_GRIDNO;
+		HireMercStruct.usInsertionData = mappos;
+		HireMercStruct.fCopyProfileItemsOver = TRUE;
+		HireMercStruct.iTotalContractLength = 7;
+
+		//specify when the merc should arrive
+		HireMercStruct.uiTimeTillMercArrives = 0;
+
+		//if we succesfully hired the merc
+		INT8 bReturnCode = HireMerc(&HireMercStruct);
+
+		if (bReturnCode == MERC_HIRE_FAILED)
+		{
+			ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Merc hire failed:	Either already hired or dislikes you.");
+		}
+		// WDS - make number of mercenaries, etc. be configurable
+		else if (bReturnCode == MERC_HIRE_OVER_PLAYER_LIMIT)
+		{
+			ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Can't hire that many mercs.");
+		}
+		else
+		{
+			// Get soldier from profile
+			SOLDIERTYPE *pSoldier = FindSoldierByProfileID(nProfileID, FALSE);
+
+			MercArrivesCallback(pSoldier->ubID);
+			SelectSoldier(pSoldier->ubID, FALSE, TRUE);
+		}
+}
+
+void MercCreationCallBack(UINT8 ubResult)
+{
+	if (ubResult == MSG_BOX_RETURN_OK && wcscmp(gszMsgBoxInputString, L"") > 0)
+	{
+		CheatNewMerc(_wtoi(gszMsgBoxInputString));
+	}
+	memset(gszMsgBoxInputString, 0, sizeof(gszMsgBoxInputString));
 }
 
 void ItemCreationCallBack( UINT8 ubResult )
@@ -3638,7 +3696,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
-						*puiNewEvent = I_NEW_MERC;
+						//*puiNewEvent = I_NEW_MERC;
+						if (GetMouseMapPos(&mappos))
+						{
+							DoMessageBox(MSG_BOX_BASIC_SMALL_BUTTONS, L"Enter ProfileID", GAME_SCREEN, MSG_BOX_FLAG_INPUTBOX, MercCreationCallBack, NULL);
+						}
 					}
 				}
 				else
