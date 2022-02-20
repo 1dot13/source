@@ -2964,34 +2964,34 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '1':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if (CHEATER_CHEAT_LEVEL())
 					{
 						//ChangeSoldiersBodyType( TANK_NW, TRUE );
 						// MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_CREATURE;
 						//EVENT_InitNewSoldierAnim( MercPtrs[ gusSelectedSoldier ], CRIPPLE_BEG, 0 , TRUE );
 					}
-					else
-					{
-						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem1 );
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem1 );
 				}
 				else
 					ChangeCurrentSquad( 0 );
 				break;
 
 			case '2':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if (CHEATER_CHEAT_LEVEL())
 					{
-						ChangeSoldiersBodyType( INFANT_MONSTER, TRUE );
+						ChangeSoldiersBodyType(INFANT_MONSTER, TRUE);
 					}
-					else
-					{
-						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem2 );
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem2 );
 				}
 				else if( fCtrl ) //toggle between the different npc debug modes
 				{
@@ -3005,21 +3005,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '3':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if (CHEATER_CHEAT_LEVEL())
 					{
-						MercPtrs[ gusSelectedSoldier ]->EVENT_InitNewSoldierAnim( KID_SKIPPING, 0 , TRUE );
+						MercPtrs[gusSelectedSoldier]->EVENT_InitNewSoldierAnim(KID_SKIPPING, 0, TRUE);
 
 						//ChangeSoldiersBodyType( LARVAE_MONSTER, TRUE );
 						//MercPtrs[ gusSelectedSoldier ]->usAttackingWeapon = TANK_CANNON;
 						//LocateSoldier( gusSelectedSoldier, FALSE );
 						//EVENT_FireSoldierWeapon( MercPtrs[ gusSelectedSoldier ], sMapPos );
 					}
-					else
-					{
-						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem3 );
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem3 );
 				}
 				else if( fCtrl ) //toggle between the different npc debug modes
 				{
@@ -3034,16 +3034,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '4':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if (CHEATER_CHEAT_LEVEL())
 					{
-						ChangeSoldiersBodyType( CRIPPLECIV, TRUE );
+						ChangeSoldiersBodyType(CRIPPLECIV, TRUE);
 					}
-					else
-					{
-						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem4 );
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem4 );
 				}
 				else
 					ChangeCurrentSquad( 3 );
@@ -3052,16 +3052,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '5':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if (CHEATER_CHEAT_LEVEL())
 					{
-						ChangeSoldiersBodyType( YAM_MONSTER, TRUE );
+						ChangeSoldiersBodyType(YAM_MONSTER, TRUE);
 					}
-					else
-					{
-						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem5 );
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem5 );
 				}
 				else
 				{
@@ -3073,16 +3073,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '6':
-				if( fAlt )
+				if (fCtrl && fAlt)
 				{
 					if (CHEATER_CHEAT_LEVEL())
 					{
 						ChangeSoldiersBodyType(BLOODCAT, TRUE);
 					}
-					else
-					{
-						HandleTacticalTakeInvItem(gGameExternalOptions.iQuickItem6);
-					}
+				}
+				else if( fAlt )
+				{
+					HandleTacticalTakeInvItem(gGameExternalOptions.iQuickItem6);
 				}
 				else
 				{
