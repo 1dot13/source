@@ -14183,15 +14183,26 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 	// OK, check if we were going to throw something, and give it back if so!
 	if ( this->pTempObject != NULL && fFromSightingEnemy )
 	{
-		// Place it back into inv....
-		AutoPlaceObject( this, this->pTempObject, FALSE );
+		if ( this->pThrowParams->ubActionCode == THROW_ARM_ITEM )
+		{
+			if (!this->inv[HANDPOS].exists())
+			{
+				// put the one-handed weapon in the guy's hand...
+				if (!PlaceObject(this, HANDPOS, this->pTempObject))
+				{
+					AutoPlaceObject(this, this->pTempObject, FALSE);
+				}
+			}	
+			//AXP 25.03.2007: Not needed anymore, grenade costs are only deducted on throwing the object
+			//AXP 24.03.2007: Give APs back if we wanted to throw grenade, but interrupt/spotting occured
+			//DeductPoints( this, -MinAPsToAttack( this, this->sTargetGridNo, FALSE ), 0 );
+		}
+		else
+		{
+			// Place it back into inv....
+			AutoPlaceObject(this, this->pTempObject, FALSE);
+		}
 
-		//AXP 25.03.2007: Not needed anymore, grenade costs are only deducted on throwing the object
-		//AXP 24.03.2007: Give APs back if we wanted to throw grenade, but interrupt/spotting occured
-		//if ( this->pThrowParams->ubActionCode == THROW_ARM_ITEM )
-		//{
-		//	DeductPoints( this, -MinAPsToAttack( this, this->sTargetGridNo, FALSE ), 0 );
-		//}
 
 		OBJECTTYPE::DeleteMe( &this->pTempObject );
 		this->usPendingAnimation = NO_PENDING_ANIMATION;
