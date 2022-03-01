@@ -10133,38 +10133,45 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		iChance = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (pSoldier->stats.bExpLevel * 10) ) / 4;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - old/new traits
-		if (gGameOptions.fNewTraitSystem && (pSoldier->bTeam == OUR_TEAM || (pSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fAssignTraitsToEnemy) || (pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fAssignTraitsToMilitia)))
+		// sevenfm: apply penalty to enemy/militia only if traits can be assigned to compensate
+		// otherwise AI will not be able to shoot because of extremely low CTH
+		if (pSoldier->bTeam == OUR_TEAM ||
+			pSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fAssignTraitsToEnemy ||
+			pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fAssignTraitsToMilitia)
 		{
-			if ( Item[ usHandItem ].mortar )
+			// SANDRO - old/new traits
+			if (gGameOptions.fNewTraitSystem)
 			{
-				if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
-					iChance += gSkillTraitValues.sCtHModifierMortar * max( 0, 100 - gSkillTraitValues.ubHWMortarCtHPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT )) / 100;
+				if (Item[usHandItem].mortar)
+				{
+					if (HAS_SKILL_TRAIT(pSoldier, HEAVY_WEAPONS_NT))
+						iChance += gSkillTraitValues.sCtHModifierMortar * max(0, 100 - gSkillTraitValues.ubHWMortarCtHPenaltyReduction * NUM_SKILL_TRAITS(pSoldier, HEAVY_WEAPONS_NT)) / 100;
+					else
+						iChance += gSkillTraitValues.sCtHModifierMortar; // -60% for untrained mercs
+				}
 				else
-					iChance += gSkillTraitValues.sCtHModifierMortar; // -60% for untrained mercs
+				{
+					iChance += gSkillTraitValues.bCtHModifierGrenadeLaunchers; // -25% for untrained mercs
+
+					if (HAS_SKILL_TRAIT(pSoldier, HEAVY_WEAPONS_NT))
+						iChance += gSkillTraitValues.ubHWBonusCtHGrenadeLaunchers * NUM_SKILL_TRAITS(pSoldier, HEAVY_WEAPONS_NT); // +25% per trait - SANDRO
+				}
 			}
 			else
 			{
-				iChance += gSkillTraitValues.bCtHModifierGrenadeLaunchers; // -25% for untrained mercs
+				// This feature is available only if not having new traits on - SANDRO
+				// Also.. this was moved here before the Heavy Weapons bonus
+				// HEADROCK HAM 3.2: External divisor for CTH with mortars, now that they are more prevalent in the battlefield.
+				if (Item[usHandItem].mortar)
+				{
+					iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
+				}
 
-				if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
-					iChance += gSkillTraitValues.ubHWBonusCtHGrenadeLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait - SANDRO
-			}
-		}
-		else
-		{
-			// This feature is available only if not having new traits on - SANDRO
-			// Also.. this was moved here before the Heavy Weapons bonus
-			// HEADROCK HAM 3.2: External divisor for CTH with mortars, now that they are more prevalent in the battlefield.
-			if ( Item[ usHandItem ].mortar )
-			{
-				iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
-			}
-
-			// heavy weapons trait helps out
-			if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS_OT ))
-			{
-				iChance += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT );
+				// heavy weapons trait helps out
+				if (HAS_SKILL_TRAIT(pSoldier, HEAVY_WEAPS_OT))
+				{
+					iChance += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS(pSoldier, HEAVY_WEAPS_OT);
+				}
 			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
