@@ -4472,9 +4472,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if ( fCtrl && fShift )
 				{
-					//SaveGame( SAVE__TIMED_AUTOSAVE_SLOT1, L"Auto Save 1" );
-					swprintf( zString, L"%s %d",pMessageStrings[ 90 ],SAVE__TIMED_AUTOSAVE_SLOT1);
-					DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
+					if (CHEATER_CHEAT_LEVEL())
+					{
+						swprintf(zString, L"%s cheat", pMessageStrings[MSG_SAVE_AUTOSAVE_TEXT]);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1, zString);
+					}
 				}
 				else if ( fAlt && fShift )
 				{	
