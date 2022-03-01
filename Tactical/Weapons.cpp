@@ -10134,7 +10134,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - old/new traits
-		if ( gGameOptions.fNewTraitSystem ) 
+		if (gGameOptions.fNewTraitSystem && (pSoldier->bTeam == OUR_TEAM || (pSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fAssignTraitsToEnemy) || (pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fAssignTraitsToMilitia)))
 		{
 			if ( Item[ usHandItem ].mortar )
 			{
