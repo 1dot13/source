@@ -21,6 +21,7 @@
 	#include "opplist.h"
 	#include "Buildings.h"
 	#include "Dialogue Control.h"	// added by Flugente
+	#include "Map Information.h"	// added by Shadooow
 #endif
 #include "connect.h"
 #include "PATHAI.H"
@@ -30,6 +31,7 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 extern INT16 EffectiveDexterity(SOLDIERTYPE* pSoldier, BOOLEAN fTrainer);
+extern bool GridNoOnWalkableWorldTile(INT32 sGridNo);
 
 #define NO_TEST_OBJECT												0
 #define TEST_OBJECT_NO_COLLISIONS							1
@@ -2295,6 +2297,12 @@ FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees, INT32
 	// OK, use a fake gridno, find the new gridno based on range, use height of merc, end height of ground,
 	// 45 degrees
 	sSrcGridNo	= INT32(WORLD_COLS/2+double(WORLD_COLS)*WORLD_ROWS/5.914);
+	//shadooow: so it looks like it doesn't work in all maps afterall...
+	//note that my hack will not work in custom made maps where neither 4408 and center GridNo aren't walkable, if such map exists then we need to solve this in some other way
+	if (!GridNoOnWalkableWorldTile(sSrcGridNo))
+	{
+		sSrcGridNo = gMapInformation.sCenterGridNo;
+	}
 	sDestGridNo = sSrcGridNo + ( sRange * WORLD_COLS );
 
 //	sSrcGridNo	= 4408;
