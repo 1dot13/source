@@ -6648,7 +6648,6 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
 	L"Si cette option est activée et que des ennemis sont présents,\nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|T).",	// add forced turn mode
-	L"Si activé, affiche une barre de progression sur chaque compétence",
 	L"Si activé, la carte stratégique sera colorée différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
 	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate

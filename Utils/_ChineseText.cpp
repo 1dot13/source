@@ -6655,7 +6655,6 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，Skyrider保持沉默。",
 	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
 	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭。\n（可以通过快捷键 (|C|t|r|l+|T) 来控制打开或关闭强制回合制模式）",
-	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时，战略地图将会根据探索状态显示不同的着色。",
 	L"打开时，当你射击时会显示间隔子弹图像。",
 	L"打开时，佣兵外观可随着武器或防具装备的改变而改变佣兵外观造型。", //L"When ON, mercenary body graphic can change along with equipped gear.",

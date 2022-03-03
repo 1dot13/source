@@ -6655,7 +6655,6 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
 	L"When ON and enemy present, turn-based mode persists until sector is free. (|C|t|r|l+|T)",	// add forced turn mode
-	L"When ON, shows character progress towards gaining levels.",
 	L"When ON, the strategic map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.",
 	L"When ON, mercenary body graphic can change along with equipped gear.",

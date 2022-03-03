@@ -6645,7 +6645,6 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, Skyrider nie będzie nic mówił.",
 	L"Jeśli WŁĄCZONE, gra będzie obciążała procesor w mniejszym stopniu.",
 	L"Jeśli WŁĄCZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|t|r|l+|T).",	// add forced turn mode
-	L"Jeśli WŁĄCZONE, pokazuje postęp w doświadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Jeśli WŁĄCZONE, zastępuje starą animację pocisku nową.",
 	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
