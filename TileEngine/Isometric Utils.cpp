@@ -11,7 +11,7 @@
 	#include "Random.h"
 	#include "Pathai.h"
 #endif
-
+#include "Map Information.h"
 
 UINT32 guiForceRefreshMousePositionCalculation = 0;
 
@@ -1279,12 +1279,10 @@ INT16 MapY( INT32 sGridNo )
 
 bool GridNoOnWalkableWorldTile(INT32 sGridNo)
 {
+	//Shadooow: this will compare sGridNo height with height of the center grid of the map, as long as the center of the map is on a walkable height it will work properly
 	MAP_ELEMENT *pMapElement = &(gpWorldLevelData[sGridNo]);
-	//Shadooow: as far as I know, Drassen Mine (tileset id 23) is the only map where the base land height isn't 0
-	//if there are more, add them into this hardcoded check
-	UINT8 sDefaultTilesetLandHeight = giCurrentTilesetID == 23 ? 80 : 0;
-	//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"GridNoOnWalkableWorldTile, tileset id: %i, gridno height level: %i", giCurrentTilesetID, pMapElement->sHeight);
-	return pMapElement->sHeight == sDefaultTilesetLandHeight;
+	MAP_ELEMENT *pMapElementCenter = &(gpWorldLevelData[gMapInformation.sCenterGridNo]);
+	return pMapElement->sHeight == pMapElementCenter->sHeight;
 }
 
 BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo )
