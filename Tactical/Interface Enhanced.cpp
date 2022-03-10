@@ -4300,7 +4300,11 @@ void DeleteEnhancedDescBox( UINT32 guiCurrentItemDescriptionScreen )
 	DeleteVideoObjectFromIndex( guiItemInfoExplosiveIcon );
 	// HEADROCK HAM 4: Delete new icons
 	DeleteVideoObjectFromIndex( guiItemInfoSecondaryIcon );
-	DeleteVideoObjectFromIndex( guiItemInfoAdvancedIcon );
+	if (guiItemInfoAdvancedIcon != 0)
+	{
+		DeleteVideoObjectFromIndex(guiItemInfoAdvancedIcon);
+		guiItemInfoAdvancedIcon = 0;
+	}
 	DeleteVideoObjectFromIndex( guiItemInfoWH40KIcon );
 
 	if ( UsingEDBSystem() > 0 )
