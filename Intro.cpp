@@ -24,7 +24,9 @@
 	#include "soldier profile type.h"
 	#include "MessageBoxScreen.h"
 	#include "sgp_logger.h"
-#include "INIReader.h"
+	#include "Soldier Profile.h"
+	#include "Game Init.h"
+	#include "INIReader.h"
 #endif
 
 #include <vfs/Core/vfs.h>
