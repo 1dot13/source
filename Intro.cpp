@@ -358,7 +358,7 @@ UINT32	IntroScreenHandle( void )
 		InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	}
 
-	RestoreBackgroundRects();
+	//RestoreBackgroundRects();//shadooow: fixes graphical artefacts visible around end game videos
 
 
 	GetIntroScreenUserInput();
