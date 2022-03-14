@@ -393,7 +393,7 @@ Test = 0;
 	SetMusicMode( MUSIC_NONE );
 
 	// WANNE: No we have an INI option for the choise if the intro should be played
-	if (!iPlayIntro)
+	if (!iPlayIntro && gbIntroScreenMode != INTRO_ENDING)
 	{
 		PrepareToExitIntroScreen();
 		return( TRUE );
