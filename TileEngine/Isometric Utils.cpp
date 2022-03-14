@@ -12,6 +12,7 @@
 	#include "Pathai.h"
 #endif
 #include "Map Information.h"
+#include "meanwhile.h"
 
 UINT32 guiForceRefreshMousePositionCalculation = 0;
 
@@ -1279,6 +1280,7 @@ INT16 MapY( INT32 sGridNo )
 
 bool GridNoOnWalkableWorldTile(INT32 sGridNo)
 {
+	if (AreInMeanwhile()) return true;
 	//Shadooow: this will compare sGridNo height with height of the center grid of the map, as long as the center of the map is on a walkable height it will work properly
 	MAP_ELEMENT *pMapElement = &(gpWorldLevelData[sGridNo]);
 	MAP_ELEMENT *pMapElementCenter = &(gpWorldLevelData[gMapInformation.sCenterGridNo]);
