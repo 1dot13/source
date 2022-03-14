@@ -57,7 +57,6 @@ Screens GameScreens[MAX_SCREENS] =
 	{ AutoResolveScreenInit,			AutoResolveScreenHandle,			AutoResolveScreenShutdown		},
 	{ SaveLoadScreenInit,					SaveLoadScreenHandle,					SaveLoadScreenShutdown			},
 	{ OptionsScreenInit,					OptionsScreenHandle,					OptionsScreenShutdown				},
-	{ FeaturesScreen::Init,					FeaturesScreen::Handle,					FeaturesScreen::Shutdown				},
 	{ ShopKeeperScreenInit,				ShopKeeperScreenHandle,				ShopKeeperScreenShutdown		},
 	{ SexScreenInit,							SexScreenHandle,							SexScreenShutdown						},
 	{ GameInitOptionsScreenInit,	GameInitOptionsScreenHandle,	GameInitOptionsScreenShutdown		},
@@ -71,6 +70,7 @@ Screens GameScreens[MAX_SCREENS] =
 	{ MPConnectScreenInit,					MPConnectScreenHandle,					MPConnectScreenShutdown				}, // OJW - 20090422
 
 	{ MiniGameScreenInit,					MiniGameScreenHandle,					MiniGameScreenShutdown				},	// added by Flugente
+	{ FeaturesScreen::Init,					FeaturesScreen::Handle,					FeaturesScreen::Shutdown			}, //rftr
 
 #ifdef JA2BETAVERSION
 	{ AIViewerScreenInit,					AIViewerScreenHandle,			AIViewerScreenShutdown			},
