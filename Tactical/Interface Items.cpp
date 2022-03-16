@@ -9922,17 +9922,15 @@ void EndItemStackPopupWithItemInHand( )
 	}
 }
 
-void ShadowNIVPanel()
+void ShadowNIVPanel(UINT16 startX1, UINT16 startY1)
 {
 	// WANNE: Instead of blitting the sti overlap interface, shade the inventory. Looks much better and is the same than in OIV
-	UINT16 startX1, startX2, startX3;
-	UINT16 startY1, startY2, startY3;
+	UINT16 startX2, startX3;
+	UINT16 startY2, startY3;
 	UINT16 endX1, endX2, endX3;
 	UINT16 endY1, endY2, endY3;
 	
 	// First rectangle
-	startX1 = gsItemPopupInvX;
-	startY1 = gsItemPopupInvY;
 	endX1 = SCREEN_WIDTH - xResOffset;
 	endY1 = startY1 + 109;
 	ShadowVideoSurfaceRect( FRAME_BUFFER, startX1, startY1, endX1 , endY1  );
@@ -9988,7 +9986,7 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 				ShadowVideoSurfaceRect( FRAME_BUFFER, gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvX + gsItemPopupInvWidth , gsItemPopupInvY + gsItemPopupInvHeight  );
 			else if(UsingNewInventorySystem() == true && iResolution >= _800x600 /* && guiItemDescBoxBackground != 0 */ && guiCurrentScreen != MAP_SCREEN)
 			{
-				ShadowNIVPanel();
+				ShadowNIVPanel(gsItemPopupInvX, gsItemPopupInvY);
 				
 
 				/*
@@ -10252,7 +10250,7 @@ void RenderKeyRingPopup( BOOLEAN fFullRender )
 				ShadowVideoSurfaceRect( FRAME_BUFFER, 0, gsKeyRingPopupInvY, gsKeyRingPopupInvX + gsKeyRingPopupInvWidth , gsKeyRingPopupInvY + gsKeyRingPopupInvHeight );
 			else if(UsingNewInventorySystem() == true && iResolution >= _800x600 /* && guiItemDescBoxBackground != 0 */ && guiCurrentScreen != MAP_SCREEN)
 			{
-				ShadowNIVPanel();
+				ShadowNIVPanel(gsKeyRingPopupInvX, gsKeyRingPopupInvY);
 
 				/*
 				if (iResolution >= _640x480 && iResolution < _800x600)
