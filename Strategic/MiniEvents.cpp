@@ -275,8 +275,8 @@ namespace MiniEventHelpers
 		const INT8 troopAdjustment = static_cast<INT8>(lua_tointeger(LS, 4));
 		const INT8 eliteAdjustment = static_cast<INT8>(lua_tointeger(LS, 5));
 		const INT8 robotAdjustment = gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots ? static_cast<INT8>(lua_tointeger(LS, 6)) : 0;
-		const INT8 jeepAdjustment = gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots ? static_cast<INT8>(lua_tointeger(LS, 7)) : 0;
-		const INT8 tankAdjustment = gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots ? static_cast<INT8>(lua_tointeger(LS, 8)) : 0;
+		const INT8 jeepAdjustment = gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsJeeps ? static_cast<INT8>(lua_tointeger(LS, 7)) : 0;
+		const INT8 tankAdjustment = gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsTanks ? static_cast<INT8>(lua_tointeger(LS, 8)) : 0;
 
 		SECTORINFO *sector = &(SectorInfo[SECTOR(x,y)]);
 		if (!sector)
