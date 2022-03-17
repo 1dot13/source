@@ -197,6 +197,7 @@ void SelectDescendBoxRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void DrawSelectLight(UINT8 ubMode, UINT8 ubImage);
 INT32 QsortCompare( const void *pNum1, const void *pNum2);
 INT32 CompareValue(const INT32 Num1, const INT32 Num2);
+INT32 CompareName(const STR16 name1, const STR16 name2);
 BOOLEAN SortMercArray(void);
 
 
@@ -213,10 +214,11 @@ void HandleAimSortKeyBoardInput();
 
 void GameInitAimSort()
 {
+	// initial sort is by name, ascending (A-Z)
 	gubCurrentSortMode=12;
 	gubOldSortMode=12;
-	gubCurrentListMode=AIM_DESCEND;
-	gubOldListMode=AIM_DESCEND;
+	gubCurrentListMode=AIM_ASCEND;
+	gubOldListMode=AIM_ASCEND;
 }
 
 BOOLEAN EnterAimSort()
@@ -891,15 +893,6 @@ void SelectNameBoxRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 			DrawSelectLight(gubCurrentSortMode, AIM_SORT_ON);
 			DrawSelectLight(gubOldSortMode, AIM_SORT_OFF);
 			gubOldSortMode = gubCurrentSortMode;
-
-			// Name sort in descending order only
-			if(gubCurrentListMode != AIM_DESCEND) 
-			{
-				gubCurrentListMode = AIM_DESCEND;
-				DrawSelectLight(gubCurrentListMode, AIM_SORT_ON);
-				DrawSelectLight(gubOldListMode, AIM_SORT_OFF);
-				gubOldListMode = gubCurrentListMode;
-			}
 		}
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
@@ -917,8 +910,7 @@ void SelectAscendBoxRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		// Name sort in descending order only
-		if(gubCurrentListMode != AIM_ASCEND && (gubCurrentSortMode != 12))
+		if(gubCurrentListMode != AIM_ASCEND)
 		{
 			gubCurrentListMode = AIM_ASCEND;
 			DrawSelectLight(gubCurrentListMode, AIM_SORT_ON);
@@ -1041,7 +1033,7 @@ INT32 QsortCompare( const void *pNum1, const void *pNum2)
 			break;
 		//Name						CHAR16	zNickname
 		case 12:
-			return( wcscmp(gMercProfiles[ Num1 ].zNickname, gMercProfiles[Num2].zNickname ) );
+			return (CompareName(gMercProfiles[Num1].zNickname, gMercProfiles[Num2].zNickname));
 			break;
 
 		default:
@@ -1081,7 +1073,22 @@ INT32 CompareValue(const INT32 Num1, const INT32 Num2)
 	return( 0 );
 }
 
+INT32 CompareName(const STR16 name1, const STR16 name2)
+{
+	INT16 result = wcscmp(name1, name2);
+	if (result == 0) return 0;
 
+	if (gubCurrentListMode == AIM_ASCEND)
+	{
+		return result < 0 ? -1 : 1;
+	}
+	else if (gubCurrentListMode == AIM_DESCEND)
+	{
+		return result > 0 ? -1 : 1;
+	}
+
+	return 0;
+}
 
 void HandleAimSortKeyBoardInput()
 {
