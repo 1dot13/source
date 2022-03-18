@@ -804,8 +804,15 @@ BOOLEAN LoadMercProfiles(void)
 					//get the item
 					usItem = gMercProfiles[ uiLoop ].inv[ uiLoop2 ];
 
+					// for an item stack, we obviously need to account fot the number of items
+					// for single items, the number is not always set, so just to be sure...
+					// initialise to first gearkit
+					int number = 1;
+					if ( gMercProfileGear[uiLoop][0].iNumber.size( ) >= uiLoop2 )
+						number = max( 1, gMercProfileGear[uiLoop][0].iNumber[uiLoop2] );
+
 					//add the cost
-					tempGearCost += Item[ usItem ].usPrice;
+					tempGearCost += (Item[ usItem ].usPrice * number);
 				}
 			}
 			//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
