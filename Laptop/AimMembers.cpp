@@ -5459,79 +5459,77 @@ void DisplayAimMemberClickOnFaceHelpText()
 	DrawTextToScreen( AimMemberText[3], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
 	// Buggler: skills/traits tooltip on merc portrait
-	if( gGameExternalOptions.fShowSkillsInHirePage == TRUE )
+
+	// clear string value
+	swprintf( sString, L"");
+
+	if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
 	{
-		// clear string value
-		swprintf( sString, L"");
+		UINT8 ubTempSkillArray[30];
+		INT8 bNumSkillTraits = 0;
 
-		if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
+		// lets rearrange our skills to a temp array
+		// we also get the number of lines (skills) to be displayed 
+		for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
 		{
-			UINT8 ubTempSkillArray[30];
-			INT8 bNumSkillTraits = 0;
-
-			// lets rearrange our skills to a temp array
-			// we also get the number of lines (skills) to be displayed 
-			for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+			if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 2 )
 			{
-				if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 2 )
-				{
-					ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
-					bNumSkillTraits++;
-				}
-				else if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 1 )
-				{
-					ubTempSkillArray[bNumSkillTraits] = ubCnt;
-					bNumSkillTraits++;
-				}
+				ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+				bNumSkillTraits++;
 			}
-
-			if ( bNumSkillTraits == 0 )
+			else if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 1 )
 			{
-				swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+				ubTempSkillArray[bNumSkillTraits] = ubCnt;
+				bNumSkillTraits++;
+			}
+		}
+
+		if ( bNumSkillTraits == 0 )
+		{
+			swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+		}
+		else
+		{
+			for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+			{
+				swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
+				wcscat( sString, sTemp );
+			}
+		}
+	}
+	else
+	{
+		INT8 bSkill1 = 0, bSkill2 = 0; 	
+		bSkill1 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[0];
+		bSkill2 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[1];
+
+		if ( bSkill1 == 0 && bSkill2 == 0 )
+		{
+			swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+		}
+		else
+		{
+			//if the 2 skills are the same, add the '(expert)' at the end
+			if( bSkill1 == bSkill2 )
+			{
+				swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
 			}
 			else
 			{
-				for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+				//Display the first skill
+				if( bSkill1 != 0 )
 				{
-					swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
+					swprintf( sString, L"%s\n", gzMercSkillText[bSkill1] );
+				}
+				if( bSkill2 != 0 )
+				{
+					swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
 					wcscat( sString, sTemp );
 				}
 			}
 		}
-		else
-		{
-			INT8 bSkill1 = 0, bSkill2 = 0; 	
-			bSkill1 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[0];
-			bSkill2 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[1];
-
-			if ( bSkill1 == 0 && bSkill2 == 0 )
-			{
-				swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
-			}
-			else
-			{
-				//if the 2 skills are the same, add the '(expert)' at the end
-				if( bSkill1 == bSkill2 )
-				{
-					swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
-				}
-				else
-				{
-					//Display the first skill
-					if( bSkill1 != 0 )
-					{
-						swprintf( sString, L"%s\n", gzMercSkillText[bSkill1] );
-					}
-					if( bSkill2 != 0 )
-					{
-						swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
-						wcscat( sString, sTemp );
-					}
-				}
-			}
-		}
-		SetRegionFastHelpText( &gSelectedFaceRegion, sString );
 	}
+	SetRegionFastHelpText( &gSelectedFaceRegion, sString );
 }
 
 void CreateWeaponBoxMouseRegions()
@@ -5640,15 +5638,28 @@ void EnableWeaponKitSelectionButtons()
 	{
 		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 		{
+			bool bShow;
+			INT16 usItem;
 			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{
+				bShow = false;
 				for(int j=INV_START_POS; j<NUM_INV_SLOTS; ++j)
 				{
-					if(gMercProfileGear[gbCurrentSoldier][i].inv[j] != NONE)
+					usItem = gMercProfileGear[gbCurrentSoldier][i].inv[j];
+					if(usItem != NONE)
 					{
-						ShowButton( giWeaponboxSelectionButton[i] );
-						break;
-					}
+						bShow = true;
+						if (gGameExternalOptions.fDisease) break;
+						else if (Item[usItem].usItemClass & IC_DISEASE)
+						{
+							bShow = false;
+							break;
+						}
+					}					
+				}
+				if (bShow)
+				{
+					ShowButton(giWeaponboxSelectionButton[i]);
 				}
 			}
 		}

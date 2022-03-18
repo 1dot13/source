@@ -1067,9 +1067,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableRecruitableJA1Natives	= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_JA1_NATIVES", TRUE);
 	gGameExternalOptions.usMERCBankruptWarning			= iniReader.ReadInteger("Recruitment Settings", "MERC_BANKRUPT_WARNING", 5000, 5000, 50000 );
 
-	// Buggler: setting to show/hide skills/traits in AIM & MERC hiring page
-	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
-
 	gGameExternalOptions.ubMercRandomStats					= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_STATS", 0, 0, 4);
 	gGameExternalOptions.fMercRandomGearKits				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GEAR_KITS", FALSE); //Jenilee
 	gGameExternalOptions.fMercRandomBellDistribution		= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_BELL_DISTRIBUTION", TRUE);

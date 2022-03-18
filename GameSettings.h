@@ -1414,8 +1414,6 @@ typedef struct
 
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
 
-	BOOLEAN fShowSkillsInHirePage;
-
 	UINT8 ubMercRandomStats;
 	
 	BOOLEAN fMercRandomBellDistribution;
