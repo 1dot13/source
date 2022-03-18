@@ -32,6 +32,7 @@
 	#include "GameSettings.h"
 	#include "Personnel.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
+	#include "mousesystem.h"
 #endif
 
 #include "Cheats.h"
@@ -277,11 +278,14 @@ void LoadAndDisplayMercBio( UINT8 ubMercID );
 void DisplayMercsStats( UINT8 ubMercID );
 BOOLEAN MercFilesHireMerc(UINT8 ubMercID);
 void EnableDisableMercFilesNextPreviousButton( );
+void NextMercMember();
+void PrevMercMember();
 
 UINT8	GetStatsColor( INT8 bStat );
 
 //Hotkey Assignment
 void HandleMercsFilesKeyBoardInput( );
+void HandleMercsFilesMouseInput( );
 
 //JMich_MMG: Declaration of the display inventory function
 BOOLEAN DisplayMERCMercsInventory(UINT8 ubMercID);
@@ -522,6 +526,7 @@ void ExitMercsFiles()
 void HandleMercsFiles()
 {
 	HandleMercsFilesKeyBoardInput( );
+	HandleMercsFilesMouseInput();
 }
 
 void RenderMercsFiles()
@@ -659,31 +664,7 @@ void BtnMercNextButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-			if (gfKeyState [ CTRL ])
-				gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
-			else if (gfKeyState [ SHIFT ])
-			{
-				if (gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex - 10)
-					gubCurMercIndex += 10;
-				else
-					gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
-			}
-			else
-			{
-				if( gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex-1 )
-					gubCurMercIndex++;
-			}
-			// WANNE: If current profile has an alternate profile, skip the next one, because it is the alternate profile,
-			// otherwise we have both profiles available in MERC!
-			//if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-			//{
-			//	gubCurMercIndex++;
-			//}
-
-			fReDrawScreenFlag = TRUE;
-
-			//Enable or disable the buttons
-			EnableDisableMercFilesNextPreviousButton( );
+			NextMercMember();
 
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		}
@@ -758,31 +739,8 @@ void BtnMercPrevButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			if (gfKeyState [ CTRL ])
-				gubCurMercIndex = 0;
-			else if (gfKeyState [ SHIFT ])
-			{
-				if ( gubCurMercIndex > 10)
-					gubCurMercIndex -= 10;
-				else
-					gubCurMercIndex = 0;
-			}
-			else
-			{
-				if( gubCurMercIndex > 0 )
-					gubCurMercIndex--;
-			}
-			// WANNE: If current profile has an alternate profile, skip the previous one, because it is the alternate profile,
-			// otherwise we have both profiles available in MERC!
-			if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-			{
-				gubCurMercIndex--;
-			}
 
-			fReDrawScreenFlag = TRUE;
-
-			//Enable or disable the buttons
-			EnableDisableMercFilesNextPreviousButton( );
+			PrevMercMember();
 
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		}
@@ -1314,75 +1272,19 @@ void HandleMercsFilesKeyBoardInput( )
 			{
 				case LEFTARROW:
 				case 'a':
-					// previous button
-					if (gfKeyState [ CTRL ])
-						gubCurMercIndex = 0;
-					else if ( gubCurMercIndex > 0 )
-						gubCurMercIndex--;
-					// WANNE: If current profile has an alternate profile, skip the previous one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-						gubCurMercIndex--;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
+					PrevMercMember();
 					break;
 				case RIGHTARROW:
 				case 'd':
-					// next button
-					if (gfKeyState [ CTRL ])
-						gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
-					else if ( gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex-1 )
-						gubCurMercIndex++;
-					// WANNE: If current profile has an alternate profile, skip the next one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					//if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-					//	gubCurMercIndex++;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
-				break;
+					NextMercMember();
+					break;
 				case SHIFT_LEFTARROW:
 				case 'A':
-					// previous button
-					if (gfKeyState [ CTRL ])
-						gubCurMercIndex = 0;
-					else if ( gubCurMercIndex > 10)
-						gubCurMercIndex -= 10;
-					else
-						gubCurMercIndex = 0;
-					// WANNE: If current profile has an alternate profile, skip the previous one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-						gubCurMercIndex--;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
+					PrevMercMember();
 					break;
 				case SHIFT_RIGHTARROW:
 				case 'D':
-					// next button
-					if (gfKeyState [ CTRL ])
-						gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
-					else if (gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex - 10)
-						gubCurMercIndex += 10;
-					else
-						gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
-					// WANNE: If current profile has an alternate profile, skip the next one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					//if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-					//	gubCurMercIndex++;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
+					NextMercMember();
 				break;
 				case ENTER:
 				case 'e':
@@ -1491,38 +1393,38 @@ void HandleMercsFilesKeyBoardInput( )
 			{
 				case LEFTARROW:
 				case 'a':
-					// previous button
-					if( gubCurMercIndex > 0 )
-						gubCurMercIndex--;
-					// WANNE: If current profile has an alternate profile, skip the previous one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-						gubCurMercIndex--;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
+					PrevMercMember();
 					break;
 				case RIGHTARROW:
 				case 'd':
-					// next button
-					if( gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex-1 )
-						gubCurMercIndex++;
-					// WANNE: If current profile has an alternate profile, skip the next one, because it is the alternate profile,
-					// otherwise we have both profiles available in MERC!
-					//if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
-					//	gubCurMercIndex++;
-
-					RenderMercsFiles( );
-
-					//Enable or disable the buttons
-					EnableDisableMercFilesNextPreviousButton( );
-				break;
+					NextMercMember();
+					break;
 			}
 		}
 	}
 }
+
+void HandleMercsFilesMouseInput()
+{
+	gMercSelectedFaceRegion.WheelState = gMercSelectedFaceRegion.WheelState * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+
+	if (gMercSelectedFaceRegion.uiFlags & MSYS_MOUSE_IN_AREA)
+	{
+		if (gMercSelectedFaceRegion.WheelState != 0)
+		{
+			if (gMercSelectedFaceRegion.WheelState > 0)
+			{
+				PrevMercMember();
+			}
+			else
+			{
+				NextMercMember();
+			}
+			ResetWheelState(&gMercSelectedFaceRegion);
+		}
+	}
+}
+
 //JMich_MMG: Kit Selection Buttons
 void CreateMercKitSelectionButtons()
 {
@@ -1911,3 +1813,64 @@ void MercProcessHireAfterGear()
 		gfJustHiredAMercMerc = TRUE;
 	}
 }
+
+void NextMercMember()
+{
+	if (gfKeyState [ CTRL ])
+		gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
+	else if (gfKeyState [ SHIFT ])
+	{
+		if (gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex - 10)
+			gubCurMercIndex += 10;
+		else
+			gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
+	}
+	else
+	{
+		if( gubCurMercIndex <= LaptopSaveInfo.gubLastMercIndex-1 )
+			gubCurMercIndex++;
+	}
+	// WANNE: If current profile has an alternate profile, skip the next one, because it is the alternate profile,
+	// otherwise we have both profiles available in MERC!
+	//if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
+	//{
+	//	gubCurMercIndex++;
+	//}
+
+	fReDrawScreenFlag = TRUE;
+	RenderMercsFiles();
+
+	//Enable or disable the buttons
+	EnableDisableMercFilesNextPreviousButton( );
+}
+
+void PrevMercMember()
+{
+	if (gfKeyState [ CTRL ])
+		gubCurMercIndex = 0;
+	else if (gfKeyState [ SHIFT ])
+	{
+		if ( gubCurMercIndex > 10)
+			gubCurMercIndex -= 10;
+		else
+			gubCurMercIndex = 0;
+	}
+	else
+	{
+		if( gubCurMercIndex > 0 )
+			gubCurMercIndex--;
+	}
+	// WANNE: If current profile has an alternate profile, skip the previous one, because it is the alternate profile,
+	// otherwise we have both profiles available in MERC!
+	if (gConditionsForMercAvailability[ GetAvailableMercIndex(gubCurMercIndex) ].uiAlternateIndex != 255)
+	{
+		gubCurMercIndex--;
+	}
+
+	fReDrawScreenFlag = TRUE;
+	RenderMercsFiles();
+
+	//Enable or disable the buttons
+	EnableDisableMercFilesNextPreviousButton( );
+}
+
