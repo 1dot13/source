@@ -1242,9 +1242,17 @@ void InitStrategicAI()
 		{
 			if ( i != OMERTA_WELCOME_WAGON )
 			{
-				gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
-				gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
-				gArmyComp[ i ].bAdminPercentage = max(0,gArmyComp[ i ].bAdminPercentage - iPercentElitesBonus);
+				gArmyComp[i].bElitePercentage = min(100, gArmyComp[i].bElitePercentage + iPercentElitesBonus);
+				if (gArmyComp[i].bTroopPercentage >= iPercentElitesBonus)
+				{
+					gArmyComp[i].bTroopPercentage = gArmyComp[i].bTroopPercentage - iPercentElitesBonus;
+				}
+				else
+				{
+					INT8 diff = iPercentElitesBonus - gArmyComp[i].bTroopPercentage;
+					gArmyComp[i].bTroopPercentage = 0;
+					gArmyComp[i].bAdminPercentage = max(0, gArmyComp[i].bAdminPercentage - diff);
+				}
 			}
 		}
 	}
