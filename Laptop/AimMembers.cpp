@@ -5638,28 +5638,15 @@ void EnableWeaponKitSelectionButtons()
 	{
 		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 		{
-			bool bShow;
-			INT16 usItem;
 			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{
-				bShow = false;
 				for(int j=INV_START_POS; j<NUM_INV_SLOTS; ++j)
 				{
-					usItem = gMercProfileGear[gbCurrentSoldier][i].inv[j];
-					if(usItem != NONE)
+					if(gMercProfileGear[gbCurrentSoldier][i].inv[j] != NONE)
 					{
-						bShow = true;
-						if (gGameExternalOptions.fDisease) break;
-						else if (Item[usItem].usItemClass & IC_DISEASE)
-						{
-							bShow = false;
-							break;
-						}
-					}					
-				}
-				if (bShow)
-				{
-					ShowButton(giWeaponboxSelectionButton[i]);
+						ShowButton( giWeaponboxSelectionButton[i] );
+						break;
+					}
 				}
 			}
 		}
