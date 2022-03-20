@@ -319,7 +319,7 @@ void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 
 
-	pNewStructure = SwapStructureForPartner( sGridNo, pStructure );
+	pNewStructure = SwapStructureForPartnerAndStoreChangeInMap( sGridNo, pStructure );
 	if ( pNewStructure != NULL)
 	{
 		RecompileLocalMovementCosts( sGridNo );
