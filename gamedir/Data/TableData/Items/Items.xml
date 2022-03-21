@@ -199,6 +199,16 @@
 		<emptybloodbag>0</emptybloodbag>
 		<medicalsplint>0</medicalsplint>
 		<sFireResistance>0</sFireResistance>
+		<RobotDamageReduction>1.0</RobotDamageReduction>
+		<RobotStrBonus>0</RobotStrBonus>
+		<RobotAgiBonus>0</RobotAgiBonus>
+		<RobotDexBonus>0</RobotDexBonus>
+		<ProvidesRobotCamo>0</ProvidesRobotCamo>
+		<ProvidesRobotNightVision>0</ProvidesRobotNightVision>
+		<ProvidesRobotLaserBonus>0</ProvidesRobotLaserBonus>
+		<RobotChassisSkillGrant>0</RobotChassisSkillGrant>
+		<RobotTargetingSkillGrant>0</RobotTargetingSkillGrant>
+		<RobotUtilitySkillGrant>0</RobotUtilitySkillGrant>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -5629,6 +5639,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<AimBonus>-2</AimBonus>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<RobotDamageReduction>0.9</RobotDamageReduction>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -6464,6 +6475,7 @@
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7184,6 +7196,7 @@
 		<BestLaserRange>90</BestLaserRange>
 		<ProjectionFactor>1.2</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotLaserBonus>1</ProvidesRobotLaserBonus>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7340,6 +7353,7 @@
 		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8635,6 +8649,9 @@
 		<Attachment>1</Attachment>
 		<HiddenAttachment>1</HiddenAttachment>
 		<Inseparable>1</Inseparable>
+		<RobotStrBonus>10</RobotStrBonus>
+		<RobotAgiBonus>10</RobotAgiBonus>
+		<RobotDexBonus>10</RobotDexBonus>
 		<PercentBurstFireAPReduction>80</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>50</PercentAutofireAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>

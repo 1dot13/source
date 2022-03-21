@@ -199,6 +199,16 @@
 		<emptybloodbag>0</emptybloodbag>
 		<medicalsplint>0</medicalsplint>
 		<sFireResistance>0</sFireResistance>
+		<RobotDamageReduction>1.0</RobotDamageReduction>
+		<RobotStrBonus>0</RobotStrBonus>
+		<RobotAgiBonus>0</RobotAgiBonus>
+		<RobotDexBonus>0</RobotDexBonus>
+		<ProvidesRobotCamo>0</ProvidesRobotCamo>
+		<ProvidesRobotNightVision>0</ProvidesRobotNightVision>
+		<ProvidesRobotLaserBonus>0</ProvidesRobotLaserBonus>
+		<RobotChassisSkillGrant>0</RobotChassisSkillGrant>
+		<RobotTargetingSkillGrant>0</RobotTargetingSkillGrant>
+		<RobotUtilitySkillGrant>0</RobotUtilitySkillGrant>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -5717,6 +5727,7 @@
 		<APBonus>-1</APBonus>
 		<StealthBonus>-3</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<RobotDamageReduction>0.9</RobotDamageReduction>
 		<STAND_MODIFIERS>
 			<PercentBase>-15</PercentBase>
 			<PercentCap>-6</PercentCap>
@@ -6611,6 +6622,7 @@
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7336,6 +7348,7 @@
 		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotLaserBonus>1</ProvidesRobotLaserBonus>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7492,6 +7505,7 @@
 		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8336,6 +8350,7 @@
 		<DesertCamoBonus>10</DesertCamoBonus>
 		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-3</PercentBase>
 			<PercentCap>-1</PercentCap>
@@ -8381,6 +8396,7 @@
 		<DesertCamoBonus>10</DesertCamoBonus>
 		<StealthBonus>-5</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-1</PercentBase>
 			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
@@ -9112,6 +9128,9 @@
 		<PercentBurstFireAPReduction>80</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>50</PercentAutofireAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<RobotStrBonus>10</RobotStrBonus>
+		<RobotAgiBonus>10</RobotAgiBonus>
+		<RobotDexBonus>10</RobotDexBonus>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -24649,6 +24668,7 @@
 		<AimBonus>-1</AimBonus>
 		<CamoBonus>50</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -25943,6 +25963,7 @@
 		<AimBonus>-1</AimBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -25986,6 +26007,7 @@
 		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -26029,6 +26051,7 @@
 		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -29449,6 +29472,7 @@
 		<StealthBonus>-15</StealthBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotLaserBonus>1</ProvidesRobotLaserBonus>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31249,6 +31273,7 @@
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<ProjectionFactor>1.6</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotLaserBonus>1</ProvidesRobotLaserBonus>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31806,6 +31831,7 @@
 		<CaveVisionRangeBonus>15</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31841,6 +31867,7 @@
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotNightVision>1</ProvidesRobotNightVision>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -34091,6 +34118,7 @@
 		<APBonus>-2</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -34133,6 +34161,7 @@
 		<APBonus>-5</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -34176,6 +34205,7 @@
 		<APBonus>-4</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -35354,6 +35384,7 @@
 		<APBonus>-1</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -35397,6 +35428,7 @@
 		<APBonus>-4</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -35440,6 +35472,7 @@
 		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
 			<PercentCap>-3</PercentCap>
@@ -37477,6 +37510,7 @@
 		<CamoBonus>40</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -50610,6 +50644,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<RobotUtilitySkillGrant>21</RobotUtilitySkillGrant>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
