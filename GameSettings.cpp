@@ -1715,6 +1715,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSoldiersWearAnyArmour				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIERS_ALWAYS_WEAR_ANY_ARMOR", FALSE);
 
 	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
+	gGameExternalOptions.fRobotUpgradeable					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_UPGRADEABLE", TRUE); 
 	
 	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
 	gGameExternalOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);

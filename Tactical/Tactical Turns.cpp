@@ -246,28 +246,31 @@ void HandleTacticalEndTurn( )
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
 		{
-			if ( pSoldier->bActive && pSoldier->stats.bLife > 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
+			if ( pSoldier->bActive && pSoldier->stats.bLife > 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 			{
 				// Handle everything from getting breath back, to bleeding, etc
 				pSoldier->EVENT_BeginMercTurn( TRUE, 0 );
 
-				// Handle Player services
-				HandlePlayerServices( pSoldier );
-
-				// if time is up, turn off xray
-				if ( pSoldier->uiXRayActivatedTime && uiTime > pSoldier->uiXRayActivatedTime + XRAY_TIME )
+				if (!AM_A_ROBOT(pSoldier))
 				{
-					TurnOffXRayEffects( pSoldier );
-				}
+					// Handle Player services
+					HandlePlayerServices( pSoldier );
 
-				// Handle stat changes if ness.
-				//if ( fCheckStats )
-				//{
-				////	UpdateStats( pSoldier );
-				//}
-								
-				// Flugente: update multi-turn actions
-				pSoldier->UpdateMultiTurnAction();
+					// if time is up, turn off xray
+					if ( pSoldier->uiXRayActivatedTime && uiTime > pSoldier->uiXRayActivatedTime + XRAY_TIME )
+					{
+						TurnOffXRayEffects( pSoldier );
+					}
+
+					// Handle stat changes if ness.
+					//if ( fCheckStats )
+					//{
+					////	UpdateStats( pSoldier );
+					//}
+									
+					// Flugente: update multi-turn actions
+					pSoldier->UpdateMultiTurnAction();
+				}
 			}
 		}
 

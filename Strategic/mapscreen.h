@@ -175,6 +175,7 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
 BOOLEAN InitializeInvPanelCoordsOld( );
 BOOLEAN InitializeInvPanelCoordsNew( );
 BOOLEAN InitializeInvPanelCoordsVehicle( );
+BOOLEAN InitializeInvPanelCoordsRobot( );
 void initMapViewAndBorderCoordinates(void);
 
 // HEADROCK HAM 3.6: Calculate daily cost for all mercs who have one.

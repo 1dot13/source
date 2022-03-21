@@ -299,7 +299,18 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "emptybloodbag" ) == 0 ||
 				strcmp(name, "medicalsplint" ) == 0 ||
 				strcmp(name, "sFireResistance" ) == 0 ||
-				strcmp(name, "usAdministrationModifier" ) == 0))
+				strcmp(name, "usAdministrationModifier" ) == 0) ||
+				strcmp(name, "RobotDamageReduction") == 0 ||
+				strcmp(name, "RobotStrBonus") == 0 ||
+				strcmp(name, "RobotAgiBonus") == 0 ||
+				strcmp(name, "RobotDexBonus") == 0 ||
+				strcmp(name, "RobotTargetingSkillGrant") == 0 ||
+				strcmp(name, "RobotChassisSkillGrant") == 0 ||
+				strcmp(name, "RobotUtilitySkillGrant") == 0 ||
+				strcmp(name, "ProvidesRobotCamo") == 0 ||
+				strcmp(name, "ProvidesRobotNightVision") == 0 ||
+				strcmp(name, "ProvidesRobotLaserBonus") == 0
+				)
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1553,6 +1564,56 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.usAdministrationModifier = (UINT8)atol( pData->szCharData );
 		}
+		else if (strcmp(name, "RobotDamageReduction") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.fRobotDamageReductionModifier = (FLOAT)atof(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotStrBonus") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotStrBonus = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotAgiBonus") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotAgiBonus = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotDexBonus") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotDexBonus = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotTargetingSkillGrant") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotTargetingSkillGrant = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotChassisSkillGrant") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotChassisSkillGrant = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "RobotUtilitySkillGrant") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.bRobotUtilitySkillGrant = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "ProvidesRobotCamo") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.fProvidesRobotCamo = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "ProvidesRobotNightVision") == 0)
+		{
+			pData->curElement == ELEMENT;
+			pData->curItem.fProvidesRobotNightVision = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "ProvidesRobotLaserBonus") == 0)
+		{
+			pData->curElement == ELEMENT;
+			pData->curItem.fProvidesRobotLaserBonus = (BOOLEAN)atol(pData->szCharData);
+		}
 
 										
 		--pData->maxReadDepth;
@@ -2197,6 +2258,16 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );
 			FilePrintf(hFile,"\t\t<sFireResistance>%d</sFireResistance>\r\n",							Item[cnt].sFireResistance );
 			FilePrintf(hFile,"\t\t<usAdministrationModifier>%d</usAdministrationModifier>\r\n",			Item[cnt].usAdministrationModifier );
+			FilePrintf(hFile,"\t\t<RobotDamageReductionModifier>%f</RobotDamageReductionModifier>\r\n",	Item[cnt].fRobotDamageReductionModifier );
+			FilePrintf(hFile,"\t\t<RobotStrBonus>%d</RobotStrBonus>\r\n",								Item[cnt].bRobotStrBonus );
+			FilePrintf(hFile,"\t\t<RobotAgiBonus>%d</RobotAgiBonus>\r\n",								Item[cnt].bRobotAgiBonus );
+			FilePrintf(hFile,"\t\t<RobotDexBonus>%d</RobotDexBonus>\r\n",								Item[cnt].bRobotDexBonus );
+			FilePrintf(hFile,"\t\t<RobotTargetingSkillGrant>%d</RobotTargetingSkillGrant>\r\n",			Item[cnt].bRobotTargetingSkillGrant );
+			FilePrintf(hFile,"\t\t<RobotChassisSkillGrant>%d</RobotChassisSkillGrant>\r\n",				Item[cnt].bRobotChassisSkillGrant );
+			FilePrintf(hFile,"\t\t<RobotUtilitySkillGrant>%d</RobotUtilitySkillGrant>\r\n",				Item[cnt].bRobotUtilitySkillGrant );
+			FilePrintf(hFile,"\t\t<ProvidesRobotCamo>%d</ProvidesRobotCamo>\r\n",						Item[cnt].fProvidesRobotCamo );
+			FilePrintf(hFile,"\t\t<ProvidesRobotNightVision>%d</ProvidesRobotNightVision>\r\n",			Item[cnt].fProvidesRobotNightVision );
+			FilePrintf(hFile,"\t\t<ProvidesRobotLaserBonus>%d</ProvidesRobotLaserBonus>\r\n",			Item[cnt].fProvidesRobotLaserBonus );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

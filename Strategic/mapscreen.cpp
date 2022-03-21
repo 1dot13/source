@@ -114,10 +114,12 @@
 	#include "Auto Bandage.h"	// added by Flugente
 	#include "Food.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"	// added by Flugente
+	#include "WordWrap.h"
 #endif
 
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"
+#include "vobject.h"
 
 #ifdef JA2UB
 #include "laptop.h"
@@ -261,6 +263,16 @@ struct UILayout_CharInvText
 	SGPPoint CamoPercent;
 	INT32 PercentWidth;
 	INT32 PercentHeight;
+
+	SGPPoint RobotWeaponLabel;
+	SGPPoint RobotAmmoLabel;
+	SGPPoint RobotTargetingLabel;
+	SGPPoint RobotTargetingBonus;
+	SGPPoint RobotChassisLabel;
+	SGPPoint RobotChassisBonus;
+	SGPPoint RobotUtilityLabel;
+	SGPPoint RobotUtilityBonus;
+	SGPPoint RobotInventoryLabel;
 };
 
 struct UILayout_CharInv
@@ -540,6 +552,7 @@ UINT32	guiMapInvSecondHandBlockout;
 UINT32	guiULICONS;
 UINT32	guiNewMailIcons;
 UINT32	guiLEVELMARKER;		// the white rectangle highlighting the current level on the map border
+UINT32	guiMapScreenAttachmentSlot;
 
 // misc mouse regions
 MOUSE_REGION gCharInfoFaceRegion;
@@ -1261,6 +1274,16 @@ void InitializeInvPanelCoords()
 		UI_CHARINV.Text.PercentWidth = 20;
 		UI_CHARINV.Text.PercentHeight = 10;
 
+		UI_CHARINV.Text.RobotWeaponLabel = {x + 15, y + 140};
+		UI_CHARINV.Text.RobotAmmoLabel = {x + 140, y + 140};
+		UI_CHARINV.Text.RobotTargetingLabel = {x + 15, y + 190};
+		UI_CHARINV.Text.RobotTargetingBonus = {x + 85, y + 200};
+		UI_CHARINV.Text.RobotChassisLabel = {x + 15, y + 240};
+		UI_CHARINV.Text.RobotChassisBonus = {x + 85, y + 250};
+		UI_CHARINV.Text.RobotUtilityLabel = {x + 15, y + 290};
+		UI_CHARINV.Text.RobotUtilityBonus = {x + 85, y + 300};
+		UI_CHARINV.Text.RobotInventoryLabel = {x + 15, y + 340};
+
 		UI_CHARINV.BodyPanel = { x + 31, y + 8 };
 
 		// X, Y Location of Map screen's Camouflage region
@@ -1854,6 +1877,31 @@ BOOLEAN InitializeInvPanelCoordsVehicle( )
 	}
 
 	return ( TRUE );
+}
+
+BOOLEAN InitializeInvPanelCoordsRobot()
+{
+	InitializeInvPanelCoordsNew();
+	
+	const auto x = UI_CHARINV.Region.x;
+	const auto y = UI_CHARINV.Region.y;
+
+	// Inventory slots
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
+		// NIV is not usable at 640x480, so nothing happens
+	}
+	else
+	{
+		gMapScreenInvPocketXY[HANDPOS].sX = x + 21; gMapScreenInvPocketXY[HANDPOS].sY = y + 150;
+		gMapScreenInvPocketXY[14].sX = x + 146;	gMapScreenInvPocketXY[14].sY = y + 150;
+		gMapScreenInvPocketXY[15].sX = x + 21;	gMapScreenInvPocketXY[15].sY = y + 200;
+		gMapScreenInvPocketXY[16].sX = x + 21;	gMapScreenInvPocketXY[16].sY = y + 250;
+		gMapScreenInvPocketXY[17].sX = x + 21;	gMapScreenInvPocketXY[17].sY = y + 300;
+		gMapScreenInvPocketXY[18].sX = x + 21;	gMapScreenInvPocketXY[18].sY = y + 350;
+	}
+
+	return TRUE;
 }
 
 // the tries to select a mapscreen character by his soldier ID
@@ -5113,6 +5161,10 @@ UINT32 MapScreenHandle(void)
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 			FilenameForBPP("INTERFACE\\BullsEye.sti", VObjectDesc.ImageFile);
 			CHECKF(AddVideoObject(&VObjectDesc, &guiBULLSEYE));
+
+			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("INTERFACE\\ATTACHMENT_SLOT.STI", VObjectDesc.ImageFile);
+			CHECKF(AddVideoObject( &VObjectDesc, &guiMapScreenAttachmentSlot));
 
 			HandleLoadOfMapBottomGraphics( );
 
@@ -9403,7 +9455,7 @@ void CreateDestroyMapInvButton()
 		if (bSelectedInfoChar != -1 && gCharactersList[bSelectedInfoChar].fValid)
 		{
 			SOLDIERTYPE* pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
-			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(pSoldier))
 			{
 				InitInvSlotInterface(gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE);
 			}
@@ -9471,7 +9523,7 @@ void BltCharInvPanel()
 	SOLDIERTYPE	*pSoldier;
 	CHAR16 sString[ 32 ];
 	INT16 usX, usY;
-	UINT8 disOpt = 0;
+	UINT8 mapInvIndex = 0;
 
 	// make sure we're here legally
 	// In widescreen UI, draw an empty inv panel if no accessible inventory
@@ -9499,7 +9551,19 @@ void BltCharInvPanel()
 			InitInventoryVehicle(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE);
 			fResetMapCoords=FALSE;
 		}
-		disOpt = 2;
+		mapInvIndex = 2;
+	}
+	else if (UsingNewInventorySystem() && AM_A_ROBOT(pSoldier))
+	{
+		if (fResetMapCoords)
+		{
+			InitializeInvPanelCoordsRobot();
+			InitInventoryRobot(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE);
+
+			fResetMapCoords = FALSE;
+		}
+
+		mapInvIndex = 3;
 	}
 	else if((UsingNewInventorySystem() == true))
 	{
@@ -9510,7 +9574,7 @@ void BltCharInvPanel()
 			InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, TRUE);
 			fResetMapCoords=FALSE;
 		}
-		disOpt = 1;
+		mapInvIndex = 1;
 	}
 	else
 	{
@@ -9521,9 +9585,20 @@ void BltCharInvPanel()
 
 	pDestBuf = (UINT16*)LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
 	GetVideoObject(&hCharListHandle, guiMAPINV);
-	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, UI_CHARINV.Region.x, UI_CHARINV.Region.y, disOpt);
+	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, UI_CHARINV.Region.x, UI_CHARINV.Region.y, mapInvIndex);
 	UnLockVideoSurface( guiSAVEBUFFER ); 
-	
+
+	// this soldier is a robot - the above initialisation set up the UI background, and this will draw the individual attachment slots
+	if (UsingNewInventorySystem() && AM_A_ROBOT(pSoldier))
+	{
+		// draw slot for robot's installed weapon
+		BltVideoObjectFromIndex(guiSAVEBUFFER, guiMapScreenAttachmentSlot, 1, UI_CHARINV.Text.RobotWeaponLabel.iX, UI_CHARINV.Text.RobotWeaponLabel.iY + 10, VO_BLT_SRCTRANSPARENCY, NULL);
+
+		// draw robot upgrade slots
+		for (int a = 0; a <= NUM_INV_SLOTS; ++a)
+			if (robotInv[a])
+				BltVideoObjectFromIndex(guiSAVEBUFFER, guiMapScreenAttachmentSlot, 1, gMapScreenInvPocketXY[a].sX - 6, gMapScreenInvPocketXY[a].sY, VO_BLT_SRCTRANSPARENCY, NULL);
+	}
 
 	if (!isWidescreenUI())
 	{
@@ -9574,7 +9649,7 @@ void BltCharInvPanel()
 	SetFontForeground( MAP_INV_STATS_TITLE_FONT_COLOR );
 
 	// CHRISL: Only display next three values if we're a merc
-	if(!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+	if(!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(pSoldier))
 	{
 		// print armor/weight/camo labels
 		mprintf(UI_CHARINV.Text.ArmorLabel.iX, UI_CHARINV.Text.ArmorLabel.iY, pInvPanelTitleStrings[ 0 ] );
@@ -9694,7 +9769,117 @@ void BltCharInvPanel()
 			swprintf( pStr, gzMiscItemStatsFasthelp[35], totalweight / 10.0 );
 			
 			SetRegionFastHelpText( &(gMapMercWeightRegion), pStr );
+
 		}
+	}
+	else if (AM_A_ROBOT(pSoldier))
+	{
+		// draw robot upgrade text labels
+		mprintf(UI_CHARINV.Text.RobotWeaponLabel.iX, UI_CHARINV.Text.RobotWeaponLabel.iY, szRobotText[ ROBOT_TEXT_INSTALLED_WEAPON ] );
+		mprintf(UI_CHARINV.Text.RobotAmmoLabel.iX, UI_CHARINV.Text.RobotAmmoLabel.iY, szRobotText[ ROBOT_TEXT_SLOT_AMMO ] );
+		mprintf(UI_CHARINV.Text.RobotTargetingLabel.iX, UI_CHARINV.Text.RobotTargetingLabel.iY, szRobotText[ ROBOT_TEXT_SLOT_TARGETING ] );
+		mprintf(UI_CHARINV.Text.RobotChassisLabel.iX, UI_CHARINV.Text.RobotChassisLabel.iY, szRobotText[ ROBOT_TEXT_SLOT_CHASSIS ] );
+		mprintf(UI_CHARINV.Text.RobotUtilityLabel.iX, UI_CHARINV.Text.RobotUtilityLabel.iY, szRobotText[ ROBOT_TEXT_SLOT_UTILITY ] );
+		mprintf(UI_CHARINV.Text.RobotInventoryLabel.iX, UI_CHARINV.Text.RobotInventoryLabel.iY, szRobotText[ ROBOT_TEXT_SLOT_INVENTORY ] );
+
+		// draw robot upgrade bonus text
+		CHAR16 text[500];
+		UINT32 fontColour = FONT_MCOLOR_RED;
+
+		// robot targeting bonus
+		if (Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_LASER]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_NIGHT_VISION]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].bRobotTargetingSkillGrant > 0)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_SKILL_GRANTED], gzMercSkillTextNew[Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].bRobotTargetingSkillGrant]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_NO_BONUS]);
+			fontColour = FONT_MCOLOR_RED;
+		}
+		DisplayWrappedString(UI_CHARINV.Text.RobotTargetingBonus.iX, UI_CHARINV.Text.RobotTargetingBonus.iY, 170, 2, FONT10ARIAL, fontColour, text, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// robot chassis bonus
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotStrBonus > 0 || Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotAgiBonus > 0 || Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotDexBonus > 0)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_STAT_BONUSES]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_CAMO]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fRobotDamageReductionModifier > 0.0f && Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fRobotDamageReductionModifier < 1.0f)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_PLATE]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotChassisSkillGrant > 0)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_SKILL_GRANTED], gzMercSkillTextNew[Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotChassisSkillGrant]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_NO_BONUS]);
+			fontColour = FONT_MCOLOR_RED;
+		}
+		DisplayWrappedString(UI_CHARINV.Text.RobotChassisBonus.iX, UI_CHARINV.Text.RobotChassisBonus.iY, 170, 2, FONT10ARIAL, fontColour, text, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// robot utility bonus
+		if ( HasItemFlag( pSoldier->inv[ROBOT_UTILITY_SLOT].usItem, CLEANING_KIT ) )
+		{
+			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_CLEANING_KIT]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if ( HasItemFlag(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem, RADIO_SET ) )
+		{
+			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_RADIO]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].metaldetector == 1)
+		{
+			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_METAL_DETECTOR]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].xray == 1)
+		{
+			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_XRAY]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else if (Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].bRobotUtilitySkillGrant > 0)
+		{
+			swprintf(text, szRobotText[ROBOT_TEXT_SKILL_GRANTED], gzMercSkillTextNew[Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].bRobotUtilitySkillGrant]);
+			fontColour = FONT_MCOLOR_LTGREEN;
+		}
+		else
+		{
+			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_NO_BONUS]);
+			fontColour = FONT_MCOLOR_RED;
+		}
+		DisplayWrappedString(UI_CHARINV.Text.RobotUtilityBonus.iX, UI_CHARINV.Text.RobotUtilityBonus.iY, 170, 2, FONT10ARIAL, fontColour, text, FONT_MCOLOR_BLACK, FALSE, 0);
+	}
+
+	if(!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(pSoldier))
+	{
+		MSYS_EnableRegion(&gMapMercCamoRegion);
+		MSYS_EnableRegion(&gMapMercWeightRegion);
+	}
+	else
+	{
+		MSYS_DisableRegion(&gMapMercCamoRegion);
+		MSYS_DisableRegion(&gMapMercWeightRegion);
 	}
 
 	if( InKeyRingPopup( ) )
@@ -9921,7 +10106,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			
 			if ( pSoldier->inv[ uiHandPos ].exists() == false )
 			{
-				if ( gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS] == TRUE && !IsVehicle( pSoldier ) ) // the_bob : enable popups for picking items from sector inv
+				if ( gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS] == TRUE && !IsVehicle( pSoldier ) && !AM_A_ROBOT(pSoldier)) // the_bob : enable popups for picking items from sector inv
 				{
 					if ( _KeyDown(CTRL) )
 					{
@@ -9942,11 +10127,18 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				return;
 			}
 
+			// rftr: robot can't unequip weapon
+			if (AM_A_ROBOT(pSoldier) && uiHandPos == HANDPOS)
+			{
+				DoMessageBox(MSG_BOX_BASIC_STYLE, szRobotText[ROBOT_TEXT_CANNOT_CHANGE_INSTALLED_WEAPON], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL);
+				return;
+			}
+
 			/* CHRISL: For New Inventory system.  Are we removing an existing LBE item?  If so, we need to pull
 			all items in the relevant IC Group pockets out of the soldiers inventory and put them into the LBE items
 			inventory. But first, find out if we already have a LBE item inventory for this item and this merc.  If we 
 			do, remove the items from it and place them into the sector the LBE inventory is located in.*/
-			if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(pSoldier))
 			{
 				/*if we pick up a backpack without reactivating the drop pack button, and we have a
 				dropkey, reactivate the button*/
@@ -10064,6 +10256,13 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			}
 			else if ( ValidAttachment( usNewItemIndex, usOldItemIndex ) )
 			{
+				// rftr: robot can't equip weapon attachments
+				if (AM_A_ROBOT(pSoldier) && uiHandPos == HANDPOS)
+				{
+					DoMessageBox(MSG_BOX_BASIC_STYLE, szRobotText[ROBOT_TEXT_CANNOT_ADD_ATTACHMENTS], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL);
+					return;
+				}
+
 				// it's an attempt to attach; bring up the inventory panel
 				if ( !InItemDescriptionBox( ) )
 				{
@@ -10118,7 +10317,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				// else handle normally
 			}
 
-			if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(pSoldier))
 			{
 				if((uiHandPos == VESTPOCKPOS || uiHandPos == LTHIGHPOCKPOS || uiHandPos == RTHIGHPOCKPOS || uiHandPos == CPACKPOCKPOS || uiHandPos == BPACKPOCKPOS) && CanItemFitInPosition(pSoldier, gpItemPointer, uiHandPos, FALSE))
 				{
@@ -10213,6 +10412,13 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		// Return if empty
 		if (pSoldier->inv[ uiHandPos ].exists() == false )
 		{
+			return;
+		}
+
+		// rftr: robot can't equip weapon attachments
+		if (AM_A_ROBOT(pSoldier) && uiHandPos == HANDPOS)
+		{
+			DoMessageBox(MSG_BOX_BASIC_STYLE, szRobotText[ROBOT_TEXT_CANNOT_ADD_ATTACHMENTS], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL);
 			return;
 		}
 
@@ -14913,8 +15119,8 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
 				// ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||
 				// And added this instead:
 			( (!gGameExternalOptions.fVehicleInventory) && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) ) ||
-			( AM_A_ROBOT( pSoldier ) ) ||
-			( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
+			( AM_A_ROBOT( pSoldier ) && !gGameExternalOptions.fRobotUpgradeable) ||
+			( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC && !AM_A_ROBOT( pSoldier ) ) ||
 			( pSoldier->stats.bLife < OKLIFE )
 		)
 	{

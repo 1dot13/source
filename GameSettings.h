@@ -1566,6 +1566,7 @@ typedef struct
 	UINT8	ubGridResolutionNight;					//DBrot: how precise we want to show their location - adjust for shorter night time ranges ... or don't
 
 	BOOLEAN fRobotNoReadytime;						//DBrot: should the robot need to ready his gun?
+	BOOLEAN fRobotUpgradeable;						// rftr: is madlab's robot upgradeable?
 
 	// Flugente: externalised squad names
 	BOOLEAN fUseXMLSquadNames;

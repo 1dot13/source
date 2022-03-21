@@ -3085,7 +3085,27 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
 	{
-		(*pObjAttHand)[0]->data.objectStatus--;
+		if (AM_A_ROBOT(pSoldier) && HasItemFlag(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem, CLEANING_KIT))
+		{
+			OBJECTTYPE* pRobotCleaningKit = &pSoldier->inv[ROBOT_UTILITY_SLOT];
+			if ((*pRobotCleaningKit)[0]->data.objectStatus > 0)
+			{
+				(*pRobotCleaningKit)[0]->data.objectStatus--;
+				if ((*pRobotCleaningKit)[0]->data.objectStatus <= 0)
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szRobotText[ROBOT_TEXT_CLEANING_KIT_DEPLETED] );
+					pRobotCleaningKit->RemoveObjectsFromStack(1);
+				}
+			}
+			else
+			{
+				(*pObjAttHand)[0]->data.objectStatus--;
+			}
+		}
+		else
+		{
+			(*pObjAttHand)[0]->data.objectStatus--;
+		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -3881,7 +3901,27 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
 	{
-		(*pObjUsed)[0]->data.objectStatus--;
+		if (AM_A_ROBOT(pSoldier) && HasItemFlag(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem, CLEANING_KIT))
+		{
+			OBJECTTYPE* pRobotCleaningKit = &pSoldier->inv[ROBOT_UTILITY_SLOT];
+			if ((*pRobotCleaningKit)[0]->data.objectStatus > 0)
+			{
+				(*pRobotCleaningKit)[0]->data.objectStatus--;
+				if ((*pRobotCleaningKit)[0]->data.objectStatus <= 0)
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szRobotText[ROBOT_TEXT_CLEANING_KIT_DEPLETED] );
+					pRobotCleaningKit->RemoveObjectsFromStack(1);
+				}
+			}
+			else
+			{
+				(*pObjUsed)[0]->data.objectStatus--;
+			}
+		}
+		else
+		{
+			(*pObjUsed)[0]->data.objectStatus--;
+		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -7431,9 +7471,17 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// Equipment Modifiers
 	iChance += GetGearToHitBonus ( pSoldier );
 
-	INT16 moda = GetToHitBonus( pInHand, iRange, bLightLevel, stance && iRange > MIN_PRONE_RANGE );
-	INT16 modb = GetToHitBonus( pInHand, iRange, bLightLevel, gAnimControl[ pSoldier->usAnimState ].ubEndHeight && iRange > MIN_PRONE_RANGE );
-	iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	{
+		iChance += GetToHitBonus(&(pSoldier->inv[ROBOT_TARGETING_SLOT]), iRange, bLightLevel, FALSE);
+	}
+	else
+	{
+		INT16 moda = GetToHitBonus(pInHand, iRange, bLightLevel, stance && iRange > MIN_PRONE_RANGE);
+		INT16 modb = GetToHitBonus(pInHand, iRange, bLightLevel, gAnimControl[pSoldier->usAnimState].ubEndHeight && iRange > MIN_PRONE_RANGE);
+		iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb) / 100);
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -8068,6 +8116,24 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		else
 		{
 			damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierCivilianVehicle;
+		}
+	}
+
+	// robot plating damage resistance
+	if (AM_A_ROBOT(pTarget))
+	{
+		FLOAT robotDamageReduction = Item[pTarget->inv[ROBOT_CHASSIS_SLOT].usItem].fRobotDamageReductionModifier;
+		if (robotDamageReduction > 0.0f && robotDamageReduction < 1.0f)
+		{
+			// apply damage reduction, then degrade armour plate based on original damage
+			damagefactor *= Item[pTarget->inv[ROBOT_CHASSIS_SLOT].usItem].fRobotDamageReductionModifier;
+			OBJECTTYPE* pRobotPlate = &(pTarget->inv[ROBOT_CHASSIS_SLOT]);
+			(*pRobotPlate)[0]->data.objectStatus -= max(1, iOrigImpact/12);
+			if((*pRobotPlate)[0]->data.objectStatus <= 0)
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szRobotText[ROBOT_TEXT_PLATE_DESTROYED]);
+				pRobotPlate->RemoveObjectsFromStack(1);
+			}
 		}
 	}
 
@@ -9940,6 +10006,42 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 			}
 		}
 	}
+
+	if (AM_A_ROBOT(pSoldier) && gGameOptions.fNewTraitSystem )
+	{
+		const INT8 targetingSkill = Item[usOldItem].bRobotTargetingSkillGrant;
+		const INT8 chassisSkill = Item[usOldItem].bRobotChassisSkillGrant;
+		const INT8 utilitySkill = Item[usOldItem].bRobotUtilitySkillGrant;
+		for (int a = 0; a < 30; ++a)
+		{
+			if (targetingSkill > 0)
+			{
+				if (pSoldier->stats.ubSkillTraits[a] == targetingSkill)
+					pSoldier->stats.ubSkillTraits[a] = 0;
+
+				if (gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] == targetingSkill)
+					gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = 0;
+			}
+
+			if (chassisSkill > 0)
+			{
+				if (pSoldier->stats.ubSkillTraits[a] == chassisSkill)
+					pSoldier->stats.ubSkillTraits[a] = 0;
+
+				if (gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] == chassisSkill)
+					gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = 0;
+			}
+
+			if (utilitySkill > 0)
+			{
+				if (pSoldier->stats.ubSkillTraits[a] == utilitySkill)
+					pSoldier->stats.ubSkillTraits[a] = 0;
+
+				if (gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] == utilitySkill)
+					gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = 0;
+			}
+		}
+	}
 }
 
 
@@ -11062,6 +11164,11 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 		gCTHDisplay.ProjectionFactor = 1.0;
 		gCTHDisplay.iBestLaserRange = GetBestLaserRange( pWeapon );
 		iHighestMagFactor = 1.0;
+	}
+
+	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	{
+		gCTHDisplay.iBestLaserRange = max(gCTHDisplay.iBestLaserRange, GetBestLaserRange(&pSoldier->inv[ROBOT_TARGETING_SLOT]));
 	}
 
 	gCTHDisplay.FinalMagFactor = iHighestMagFactor;

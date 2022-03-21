@@ -1343,6 +1343,22 @@ void InitInventoryVehicle(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCa
 		MSYS_SetRegionUserData( &gSMInvRegion[ cnt ], 0, cnt );
 	}
 }
+void InitInventoryRobot(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity)
+{
+	for(int cnt=INV_START_POS; cnt<NUM_INV_SLOTS; cnt++)
+	{
+		MSYS_RemoveRegion( &gSMInvRegion[ cnt ]);
+		if(robotInv[cnt] || cnt == HANDPOS)
+			InitInvData(gSMInvData[cnt], TRUE, INV_BAR_DX, INV_BAR_DY, BIG_INV_SLOT_WIDTH, BIG_INV_SLOT_HEIGHT, pRegionDesc[cnt].sX, pRegionDesc[cnt].sY);
+		else
+			InitInvData(gSMInvData[cnt], FALSE, 0, 0, 0, 0, 0, 0);
+		MSYS_DefineRegion( &gSMInvRegion[ cnt ], gSMInvData[ cnt ].sX, gSMInvData[ cnt ].sY, (INT16)(gSMInvData[ cnt ].sX + gSMInvData[ cnt ].sWidth), (INT16)(gSMInvData[ cnt ].sY + gSMInvData[ cnt ].sHeight), ( INT8 )( fSetHighestPrioity ? MSYS_PRIORITY_HIGHEST : MSYS_PRIORITY_HIGH ),
+							 MSYS_NO_CURSOR, INVMoveCallback, INVClickCallback ); 
+		// Add region
+		MSYS_AddRegion( &gSMInvRegion[ cnt ] );
+		MSYS_SetRegionUserData( &gSMInvRegion[ cnt ], 0, cnt );
+	}
+}
 // CHRISL: Function to recreate inventory mouse regions
 void InitInventorySoldier(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity, BOOLEAN fNIVmode)
 {
@@ -1777,6 +1793,8 @@ INT16 pocketTypeInSlot(SOLDIERTYPE *pSoldier, INT16 sPocket){
 	if((UsingNewInventorySystem() == false) && !oldInv[sPocket])
 		return lbePocket;
 	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
+		return lbePocket;
+	if(pSoldier && AM_A_ROBOT(pSoldier) && !robotInv[sPocket])
 		return lbePocket;
 
 	switch (icClass[sPocket])
@@ -2542,6 +2560,10 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
 		return;
 
+	if(pSoldier && AM_A_ROBOT(pSoldier) && !robotInv[sPocket] && UsingNewInventorySystem() && sPocket != HANDPOS)
+		return;
+
+
 	INT16 sX, sY, newX, newY;
 	INT16	sBarX, sBarY;
 	OBJECTTYPE  *pObject;
@@ -2559,7 +2581,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	sX = gSMInvData[ sPocket ].sX;
 	sY = gSMInvData[ sPocket ].sY;
 
-	if ( UsingNewInventorySystem() && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+	if ( UsingNewInventorySystem() && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !(AM_A_ROBOT(pSoldier)) )
 	{
 		// If sPocket is not an equiped pocket, gather pocket information
 		if(icClass[sPocket] != ITEM_NOT_FOUND)
@@ -2757,6 +2779,9 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 		}
 	}
 #endif
+
+	if (AM_A_ROBOT(pSoldier) && sPocket == HANDPOS)
+		fHatchItOut = FALSE;
 
 	if ( fHatchItOut )
 	{
@@ -14477,6 +14502,8 @@ BOOLEAN CheckPocketEmpty( SOLDIERTYPE *pSoldier, INT16 sPocket )
 	if((UsingNewInventorySystem() == false) && !oldInv[sPocket])
 		return FALSE;
 	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
+		return FALSE;
+	if(pSoldier && AM_A_ROBOT(pSoldier) && !robotInv[sPocket] && UsingNewInventorySystem())
 		return FALSE;
 
 	BOOLEAN		bResult = FALSE;

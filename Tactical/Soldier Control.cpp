@@ -1993,7 +1993,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	}
 
 	// If tired, reduce action points accordingly (by up to 1/2)
-	if ( this->bBreath < 100 && !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+	if ( this->bBreath < 100 && !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT(this))
 		ubPoints -= (ubPoints * (100 - this->bBreath)) / 200;
 
 	if ( this->sWeightCarriedAtTurnStart > 100 )
@@ -18078,6 +18078,32 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] )
 		this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT]--;
 
+	if (AM_A_ROBOT(this) && Item[this->inv[ROBOT_UTILITY_SLOT].usItem].xray == 1)
+	{
+		if (this->usSkillCooldown[SOLDIER_COOLDOWN_ROBOT_XRAY])
+			this->usSkillCooldown[SOLDIER_COOLDOWN_ROBOT_XRAY]--;
+		else if(this->bInSector)
+		{
+			// this allows the robot to do an x-ray ping if there are enemies in sector
+			SOLDIERTYPE* pTeamSoldier = Menptr;
+			INT32 cnt = 0;
+			for (; cnt < TOTAL_SOLDIERS; pTeamSoldier++, cnt++)
+			{
+				if (pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0)
+				{
+					if (!pTeamSoldier->aiData.bNeutral && (pTeamSoldier->bSide != 0))
+					{
+						this->usSkillCooldown[SOLDIER_COOLDOWN_ROBOT_XRAY] += 2;
+						ActivateXRayDevice(this);
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szRobotText[ROBOT_TEXT_XRAY_ACTIVATED] );
+						break;
+					}
+				}
+			}
+
+		}
+	}
+
 	// if soldier was seen this turn, increase his observed counter
 	if ( this->usSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )
 	{
@@ -18589,6 +18615,15 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill, INT32 sGridNo )
 
 BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 {
+	// special case: robot upgraded with a radio set
+	if (AM_A_ROBOT(this))
+	{
+		if (HasItemFlag(this->inv[ROBOT_UTILITY_SLOT].usItem, RADIO_SET))
+			return !fCheckForAP || EnoughPoints(this, APBPConstants[AP_RADIO], 0, FALSE);
+
+		return FALSE;
+	}
+
 	// only radio operators can use this equipment
 	if ( !NUM_SKILL_TRAITS( this, RADIO_OPERATOR_NT ) )
 		return FALSE;
@@ -18619,6 +18654,9 @@ BOOLEAN SOLDIERTYPE::UseRadio( )
 		pObj = &(inv[CPACKPOCKPOS]);
 	else
 		pObj = GetObjectWithFlag( RADIO_SET );
+
+	if (AM_A_ROBOT(this))
+		pObj = &(inv[ROBOT_UTILITY_SLOT]);
 
 	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
 	{

@@ -50,6 +50,14 @@ INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 		iEffStrength = 0;
 	}
 
+	if (AM_A_ROBOT(pSoldier))
+	{
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotStrBonus > 0)
+		{
+			iEffStrength += Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotStrBonus;
+		}
+	}
+
 	// Flugente: diseases can affect stat effectivity
 	INT16 diseaseeffect = 0;
 	if ( gGameExternalOptions.fDisease )
@@ -92,6 +100,14 @@ INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 	INT32	iEffAgility;
 
 	iEffAgility = pSoldier->stats.bAgility;
+
+	if (AM_A_ROBOT(pSoldier))
+	{
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotAgiBonus > 0)
+		{
+			iEffAgility += Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotAgiBonus;
+		}
+	}
 
 	if ( !fTrainer )
 		iEffAgility += pSoldier->bExtraAgility;
@@ -265,6 +281,14 @@ INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 	INT32	iEffDexterity;
 
 	iEffDexterity = pSoldier->stats.bDexterity;
+
+	if (AM_A_ROBOT(pSoldier))
+	{
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotDexBonus > 0)
+		{
+			iEffDexterity += Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].bRobotDexBonus;
+		}
+	}
 
 	if ( !fTrainer )
 		iEffDexterity += pSoldier->bExtraDexterity;

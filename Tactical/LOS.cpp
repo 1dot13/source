@@ -8640,6 +8640,10 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 
 	//INT32 iLaserRange = GetBestLaserRange(&(pShooter->inv[pSoldier->ubAttackingHand]));
 	INT16 sLaserRange = GetBestLaserRange(pWeapon);
+	if (AM_A_ROBOT(pShooter) && Item[pShooter->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	{
+		sLaserRange = max(sLaserRange, GetBestLaserRange(&pShooter->inv[ROBOT_TARGETING_SLOT]));
+	}
 	// laser pointers can provide a percentage bonus to base aperture
 	if (sLaserRange > 0
 		&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )

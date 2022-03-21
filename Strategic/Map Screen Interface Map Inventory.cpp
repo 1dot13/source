@@ -2549,6 +2549,10 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 						}
 					}
 				}
+				else if (AM_A_ROBOT(pSoldier))
+				{
+					// intentionally do nothing for madlab's robot
+				}
 				else
 				{
 					if (AutoPlaceObject(pSoldier,gpItemPointer,FALSE,NO_SLOT,TRUE)) //doesn't work for vehicles :p

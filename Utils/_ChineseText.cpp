@@ -12002,6 +12002,32 @@ STR16 szRebelCommandDirectivesText[] =
 	L"升级此项将会增加每天志愿者人数。",   //L"Improving this directive will increase the number of volunteers gained per day.",
 };
 
+STR16 szRobotText[] = // TODO: Translate
+{
+	L"The robot's installed weapon cannot be changed.",
+	L"It is not possible to add attachments to the robot's weapon.",
+	L"Installed Weapon",
+	L"Reserve Ammo",
+	L"Targeting Upgrade",
+	L"Chassis Upgrade",
+	L"Utility Upgrade",
+	L"Storage",
+	L"No Bonus",
+	L"The laser bonuses of this item are applied to the robot.",
+	L"The night- and cave-vision bonuses of this item are applied to the robot.",
+	L"This kit degrades instead of the robot's weapon.",
+	L"The robot's cleaning kit was depleted!",
+	L"Mines adjacent to the robot are automatically flagged.",
+	L"Periodic X-Ray scans during combat. No batteries required.",
+	L"The robot has activated an x-ray scan!",
+	L"The robot can use the radio set.",
+	L"The robot's chassis is strengthened, giving it better combat performance.",
+	L"The camouflage bonuses of this item are applied to the robot.",
+	L"The robot is tougher and takes less damage.",
+	L"The robot's extra armour plating was destroyed!",
+	L"The robot gains the benefit of the %s skill trait.",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

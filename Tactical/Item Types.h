@@ -1202,6 +1202,18 @@ typedef struct
 
 	// Flugente: a modifier for administration effectiveness
 	UINT8	usAdministrationModifier;
+
+	// rftr: robot attachments
+	FLOAT	fRobotDamageReductionModifier;
+	INT8	bRobotStrBonus;
+	INT8	bRobotAgiBonus;
+	INT8	bRobotDexBonus;
+	INT8	bRobotTargetingSkillGrant;
+	INT8	bRobotChassisSkillGrant;
+	INT8	bRobotUtilitySkillGrant;
+	BOOLEAN	fProvidesRobotCamo;
+	BOOLEAN	fProvidesRobotNightVision;
+	BOOLEAN fProvidesRobotLaserBonus;
 } INVTYPE;
 
 
@@ -1723,6 +1735,14 @@ const INT8	oldInv[NUM_INV_SLOTS] =		{ 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
 
 // Determines which pockets to use for vehicles in the new inventory system.
 const INT8	vehicleInv[NUM_INV_SLOTS]=	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
+
+// Determines which pockets to use for Madlab's Robot in the new inventory system.
+const INT8	robotInv[NUM_INV_SLOTS]=	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+#define		ROBOT_AMMO_SLOT			14
+#define		ROBOT_TARGETING_SLOT	15
+#define		ROBOT_CHASSIS_SLOT		16
+#define		ROBOT_UTILITY_SLOT		17
+#define		ROBOT_INVENTORY_SLOT	18
 
 // Determines the default pocket
 const INT16	icDefault[NUM_INV_SLOTS] =	{

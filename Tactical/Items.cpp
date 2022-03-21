@@ -1493,6 +1493,12 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	if (pSoldier != NULL && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)) {
 		pIndex = VEHICLE_POCKET_TYPE;
 	}
+	else if (pSoldier && AM_A_ROBOT(pSoldier)) {
+		if (bSlot != ROBOT_AMMO_SLOT)
+			return 1;
+		
+		pIndex = VEHICLE_POCKET_TYPE;
+	}
 	// IC Group Slots
 	else if (bSlot == GUNSLINGPOCKPOS) {
 		pIndex = GUNSLING_POCKET_TYPE;
@@ -1635,6 +1641,12 @@ INT8 FindMetalDetectorInHand( SOLDIERTYPE * pSoldier )
 	if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && Item[pSoldier->inv[SECONDHANDPOS].usItem].metaldetector )
 	{
 		return( SECONDHANDPOS );
+	}
+
+	// rftr: a metal detector can be installed into the robot
+	if ( pSoldier && AM_A_ROBOT(pSoldier) && (&(pSoldier->inv[ROBOT_UTILITY_SLOT]))->exists() && Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].metaldetector )
+	{
+		return( ROBOT_UTILITY_SLOT );
 	}
 
 	return( NO_SLOT );
@@ -1821,6 +1833,8 @@ INT8 FindEmptySlotWithin( SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper )
 		if((UsingNewInventorySystem() == false) && !oldInv[bLoop])
 			continue;
 		if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !vehicleInv[bLoop])
+			continue;
+		if(AM_A_ROBOT(pSoldier) && !robotInv[bLoop])
 			continue;
 		if (pSoldier->inv[bLoop].exists() == false)
 		{
@@ -6273,6 +6287,77 @@ BOOLEAN CanItemFitInVehicle( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos,
 	return( TRUE );
 }
 
+BOOLEAN CanItemFitInRobot(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, INT8 bPos, BOOLEAN fDoingPlacement)
+{
+	if((UsingNewInventorySystem() == false) || !(AM_A_ROBOT(pSoldier)))
+		return(FALSE);
+	if(!robotInv[bPos])
+		return(FALSE);
+
+	switch (bPos)
+	{
+	case ROBOT_AMMO_SLOT:
+		// no ammo boxes or ammo crates, and calibre has to match equipped gun
+		return
+			(Item[pObj->usItem].usItemClass & IC_AMMO) &&
+			(Magazine[Item[pObj->usItem].ubClassIndex].ubMagType != AMMO_BOX) &&
+			(Magazine[Item[pObj->usItem].ubClassIndex].ubMagType != AMMO_CRATE) &&
+			(Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre == Weapon[pSoldier->inv[HANDPOS].usItem].ubCalibre);
+
+	case ROBOT_TARGETING_SLOT:
+		if (Item[pObj->usItem].fProvidesRobotLaserBonus)
+			return(TRUE);
+
+		if (Item[pObj->usItem].fProvidesRobotNightVision)
+			return(TRUE);
+
+		if (Item[pObj->usItem].bRobotTargetingSkillGrant > 0)
+			return(TRUE);
+
+		return(FALSE);
+
+	case ROBOT_CHASSIS_SLOT:
+		if (Item[pObj->usItem].bRobotStrBonus > 0 || Item[pObj->usItem].bRobotAgiBonus > 0 || Item[pObj->usItem].bRobotDexBonus > 0)
+			return(TRUE);
+
+		if (Item[pObj->usItem].fProvidesRobotCamo)
+			return(TRUE);
+
+		if (Item[pObj->usItem].fRobotDamageReductionModifier > 0.0f && Item[pObj->usItem].fRobotDamageReductionModifier < 1.0f)
+			return(TRUE);
+
+		if (Item[pObj->usItem].bRobotChassisSkillGrant > 0)
+			return(TRUE);
+
+		return(FALSE);
+
+	case ROBOT_UTILITY_SLOT:
+		if (HasItemFlag(pObj->usItem, CLEANING_KIT))
+			return(TRUE);
+
+		if (HasItemFlag( pObj->usItem, RADIO_SET ))
+			return(TRUE);
+
+		if (Item[pObj->usItem].metaldetector == 1)
+			return(TRUE);
+
+		if (Item[pObj->usItem].xray == 1)
+			return(TRUE);
+
+		if (Item[pObj->usItem].bRobotUtilitySkillGrant > 0)
+			return(TRUE);
+
+		return(FALSE);
+
+	// anything except ammo goes in the inventory, but has no effect on the robot
+	case ROBOT_INVENTORY_SLOT:
+		return (Item[pObj->usItem].usItemClass & IC_AMMO) == 0;
+
+	// item doesn't fall into any of the above categories
+	default:
+		return(FALSE);
+	}
+}
 
 BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos, BOOLEAN fDoingPlacement )
 {
@@ -6285,6 +6370,8 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 	{
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			return ( CanItemFitInVehicle( pSoldier, pObj, bPos, fDoingPlacement ) );
+		else if ( AM_A_ROBOT(pSoldier) && bPos != HANDPOS)
+			return ( CanItemFitInRobot( pSoldier, pObj, bPos, fDoingPlacement ) );
 	}
 	else if ( !oldInv[bPos] )
 		return(FALSE);
@@ -6654,6 +6741,67 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 		return( FALSE );
 	}
 
+	if (AM_A_ROBOT(pSoldier))
+	{
+		if (bPos == ROBOT_AMMO_SLOT)
+		{
+			PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+		}
+		else if (bPos == ROBOT_TARGETING_SLOT || bPos == ROBOT_CHASSIS_SLOT || bPos == ROBOT_UTILITY_SLOT)
+		{
+			PlayJA2Sample(REMOVING_TEXT, RATE_11025, SoundVolume(MIDVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+
+			const INT8 targetingSkill = Item[pObj->usItem].bRobotTargetingSkillGrant;
+			const INT8 chassisSkill = Item[pObj->usItem].bRobotChassisSkillGrant;
+			const INT8 utilitySkill = Item[pObj->usItem].bRobotUtilitySkillGrant;
+			if (gGameOptions.fNewTraitSystem && (targetingSkill > 0 || chassisSkill > 0 || utilitySkill > 0))
+			{
+				BOOLEAN profileSet = FALSE;
+				BOOLEAN soldierSet = FALSE;
+				for (int a = 0; a < 30; ++a)
+				{
+					if (!profileSet && gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] == 0)
+					{
+						profileSet = TRUE;
+						switch (bPos)
+						{
+						case ROBOT_TARGETING_SLOT:
+							gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = targetingSkill;
+							break;
+
+						case ROBOT_CHASSIS_SLOT:
+							gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = chassisSkill;
+							break;
+
+						case ROBOT_UTILITY_SLOT:
+							gMercProfiles[pSoldier->ubProfile].bSkillTraits[a] = utilitySkill;
+							break;
+						}
+					}
+
+					if (!soldierSet && pSoldier->stats.ubSkillTraits[a] == 0)
+					{
+						soldierSet = TRUE;
+						switch (bPos)
+						{
+						case ROBOT_TARGETING_SLOT:
+							pSoldier->stats.ubSkillTraits[a] = targetingSkill;
+							break;
+
+						case ROBOT_CHASSIS_SLOT:
+							pSoldier->stats.ubSkillTraits[a] = chassisSkill;
+							break;
+
+						case ROBOT_UTILITY_SLOT:
+							pSoldier->stats.ubSkillTraits[a] = utilitySkill;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	// If the position is either head slot, then the item must be IC_FACE (checked in
 	// CanItemFitInPosition).
 	if ( bPos == HEAD1POS )
@@ -6695,7 +6843,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	}
 
     // Lesh: bugfix - replacing weapon in auto with another weapon w/o auto-mode
-    if (bPos == HANDPOS && Item[ pObj->usItem ].usItemClass == IC_GUN)
+    if (bPos == HANDPOS && Item[ pObj->usItem ].usItemClass == IC_GUN && !AM_A_ROBOT(pSoldier))
     {
 		//Madd: added code for nosemiauto tag
 		if (!Weapon[ Item[pObj->usItem].ubClassIndex ].NoSemiAuto)
@@ -6871,6 +7019,12 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			break;
 			}
 		//if we didn't reload, then we know we are stacking or swapping!
+
+		if (bPos == HANDPOS && AM_A_ROBOT(pSoldier))
+		{
+			DoMessageBox(MSG_BOX_BASIC_STYLE, szRobotText[ROBOT_TEXT_CANNOT_CHANGE_INSTALLED_WEAPON], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL);
+			return FALSE;
+		}
 
 		if (IsSlotASmallPocket(bPos) == true && FitsInSmallPocket(pObj) == false) {
 			//there is nothing we can do, just return
@@ -10082,7 +10236,7 @@ void ActivateXRayDevice( SOLDIERTYPE * pSoldier )
 	SOLDIERTYPE *	pSoldier2;
 	UINT32				uiSlot;
 
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].needsbatteries && pSoldier->inv[ HANDPOS ].exists() == true)
+	if ( Item[pSoldier->inv[ HANDPOS ].usItem].needsbatteries && pSoldier->inv[ HANDPOS ].exists() == true && !AM_A_ROBOT(pSoldier) )
 	{
 		// check for batteries
 		OBJECTTYPE* pBatteries = FindAttachedBatteries( &(pSoldier->inv[HANDPOS]) );
@@ -11281,6 +11435,13 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
+	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+	{
+		return bonus += BonusReduceMore(
+			NightBonusScale( Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].nightvisionrangebonus, bLightLevel ),
+			(pSoldier->inv[ROBOT_TARGETING_SLOT])[0]->data.objectStatus );
+	}
+
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
 	bool usingGunScope = WeaponReady(pSoldier);
 	// CHRISL:
@@ -11378,6 +11539,13 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	OBJECTTYPE *pObj;
 	UINT16 usItem;
 	INVTYPE *pItem;
+
+	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+	{
+		return bonus += BonusReduceMore(
+			NightBonusScale( Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].cavevisionrangebonus, bLightLevel ),
+			(pSoldier->inv[ROBOT_TARGETING_SLOT])[0]->data.objectStatus );
+	}
 
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
 	bool usingGunScope = WeaponReady(pSoldier);
@@ -12615,46 +12783,56 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
+	if (AM_A_ROBOT(pSoldier))
 	{
-		if ( pSoldier->inv[bLoop].exists() )
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
 		{
-			ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
-			if ( UsingNewInventorySystem() )
-				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
-				{
-					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus );
-				}
-				else if ( bLoop == LEGPOS )
-				{
-					FLOAT fLegPenalty = 0;
-					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
-					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
-					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
-					// Using thigh rigs. Only apply partial bonus from armor pants.
-					if ( fLegPenalty > 0 )
-						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus * fLegPenalty / 2 );
-				}
+			ttl += GetCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
 	}
-
-	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if( UsingNewInventorySystem() )
+	else
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
+		for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 		{
-			if ( pSoldier->inv[bLoop].exists() == true )
+			if ( pSoldier->inv[bLoop].exists() )
+			{
 				ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
+				if ( UsingNewInventorySystem() )
+					if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
+					{
+						// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus );
+					}
+					else if ( bLoop == LEGPOS )
+					{
+						FLOAT fLegPenalty = 0;
+						// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+						fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+						fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+						// Using thigh rigs. Only apply partial bonus from armor pants.
+						if ( fLegPenalty > 0 )
+							ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus * fLegPenalty / 2 );
+					}
+			}
 		}
 
-		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
-		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetCamoBonus(&pSoldier->inv[HANDPOS]);
-		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		// CHRISL: Add additional loop for LBE items while using new inventory system
+		if( UsingNewInventorySystem() )
+		{
+			for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
+			{
+				if ( pSoldier->inv[bLoop].exists() == true )
+					ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
+			}
+
+			//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+			if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetCamoBonus(&pSoldier->inv[HANDPOS]);
+			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		}
 	}
 
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
@@ -12664,46 +12842,56 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
+	if (AM_A_ROBOT(pSoldier))
 	{
-		if ( pSoldier->inv[bLoop].exists() )
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
 		{
-			ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
-			if ( UsingNewInventorySystem() )
-				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
-				{
-					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus );
-				}
-				else if ( bLoop == LEGPOS )
-				{
-					FLOAT fLegPenalty = 0;
-					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
-					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
-					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
-					// Using thigh rigs. Only apply partial bonus from armor pants.
-					if ( fLegPenalty > 0 )
-						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus * fLegPenalty / 2 );
-				}
+			ttl += GetUrbanCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
 	}
-
-	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if( UsingNewInventorySystem() )
+	else
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
+		for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 		{
-			if ( pSoldier->inv[bLoop].exists() == true )
+			if (pSoldier->inv[bLoop].exists())
+			{
 				ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
+				if (UsingNewInventorySystem())
+					if (bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists())
+					{
+						// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+						ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverVestModifier) * Item[pSoldier->inv[bLoop].usItem].urbanCamobonus);
+					}
+					else if (bLoop == LEGPOS)
+					{
+						FLOAT fLegPenalty = 0;
+						// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+						fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+						fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+						// Using thigh rigs. Only apply partial bonus from armor pants.
+						if (fLegPenalty > 0)
+							ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverPantsModifier) * Item[pSoldier->inv[bLoop].usItem].urbanCamobonus * fLegPenalty / 2);
+					}
+			}
 		}
 
-		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
-		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetUrbanCamoBonus(&pSoldier->inv[HANDPOS]);
-		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetUrbanCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		// CHRISL: Add additional loop for LBE items while using new inventory system
+		if (UsingNewInventorySystem())
+		{
+			for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
+			{
+				if (pSoldier->inv[bLoop].exists() == true)
+					ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
+			}
+
+			//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+			if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetUrbanCamoBonus(&pSoldier->inv[HANDPOS]);
+			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetUrbanCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		}
 	}
 
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
@@ -12713,46 +12901,56 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	if (AM_A_ROBOT(pSoldier))
 	{
-		if ( pSoldier->inv[bLoop].exists() == true )
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
 		{
-			ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
-			if ( UsingNewInventorySystem() )
-				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
-				{
-					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus );
-				}
-				else if ( bLoop == LEGPOS )
-				{
-					FLOAT fLegPenalty = 0;
-					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
-					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
-					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
-					// Using thigh rigs. Only apply partial bonus from armor pants.
-					if ( fLegPenalty > 0 )
-						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus * fLegPenalty / 2 );
-				}
+			ttl += GetDesertCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
 	}
-
-	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if((UsingNewInventorySystem() == true))
+	else
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+		for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
 		{
-			if ( pSoldier->inv[bLoop].exists() == true )
+			if (pSoldier->inv[bLoop].exists() == true)
+			{
 				ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
+				if (UsingNewInventorySystem())
+					if (bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists())
+					{
+						// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+						ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverVestModifier) * Item[pSoldier->inv[bLoop].usItem].desertCamobonus);
+					}
+					else if (bLoop == LEGPOS)
+					{
+						FLOAT fLegPenalty = 0;
+						// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+						fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+						fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+						// Using thigh rigs. Only apply partial bonus from armor pants.
+						if (fLegPenalty > 0)
+							ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverPantsModifier) * Item[pSoldier->inv[bLoop].usItem].desertCamobonus * fLegPenalty / 2);
+					}
+			}
 		}
 
-		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
-		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetDesertCamoBonus(&pSoldier->inv[HANDPOS]);
-		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetDesertCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		// CHRISL: Add additional loop for LBE items while using new inventory system
+		if ((UsingNewInventorySystem() == true))
+		{
+			for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+			{
+				if (pSoldier->inv[bLoop].exists() == true)
+					ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
+			}
+
+			//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+			if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetDesertCamoBonus(&pSoldier->inv[HANDPOS]);
+			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetDesertCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		}
 	}
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
@@ -12761,46 +12959,56 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
+	if (AM_A_ROBOT(pSoldier))
 	{
-		if ( pSoldier->inv[bLoop].exists() == true )
+		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
 		{
-			ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
-			if ( UsingNewInventorySystem() )
-				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
-				{
-					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus );
-				}
-				else if ( bLoop == LEGPOS )
-				{
-					FLOAT fLegPenalty = 0;
-					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
-					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
-					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
-					// Using thigh rigs. Only apply partial bonus from armor pants.
-					if ( fLegPenalty > 0 )
-						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus * fLegPenalty / 2 );
-				}
+			ttl += GetSnowCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
 	}
-
-	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if((UsingNewInventorySystem() == true))
+	else
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+		for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 		{
-			if ( pSoldier->inv[bLoop].exists() == true )
+			if (pSoldier->inv[bLoop].exists() == true)
+			{
 				ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
+				if (UsingNewInventorySystem())
+					if (bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists())
+					{
+						// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+						ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverVestModifier) * Item[pSoldier->inv[bLoop].usItem].snowCamobonus);
+					}
+					else if (bLoop == LEGPOS)
+					{
+						FLOAT fLegPenalty = 0;
+						// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+						fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+						fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+						// Using thigh rigs. Only apply partial bonus from armor pants.
+						if (fLegPenalty > 0)
+							ttl -= (INT16)((1.0 - gItemSettings.fCamoLBEoverPantsModifier) * Item[pSoldier->inv[bLoop].usItem].snowCamobonus * fLegPenalty / 2);
+					}
+			}
 		}
 
-		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
-		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetSnowCamoBonus(&pSoldier->inv[HANDPOS]);
-		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetSnowCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-			ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		// CHRISL: Add additional loop for LBE items while using new inventory system
+		if ((UsingNewInventorySystem() == true))
+		{
+			for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+			{
+				if (pSoldier->inv[bLoop].exists() == true)
+					ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
+			}
+
+			//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+			if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetSnowCamoBonus(&pSoldier->inv[HANDPOS]);
+			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetSnowCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+				ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
+		}
 	}
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
