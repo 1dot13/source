@@ -80,8 +80,8 @@ typedef struct Info {
 extern Info info;
 
 typedef struct DirectiveSaveInfo {
-	INT8 iLevel = 0;
-	RebelCommandDirectives id = RCD_NONE;
+	INT8 iLevel;
+	RebelCommandDirectives id;
 
 	BOOLEAN CanImprove() { return id != RCD_NONE && (size_t)iLevel < info.directives[id].iCostToImprove.size() && info.directives[id].GetCostToImprove(iLevel); }
 	void Improve() { iLevel++; }
@@ -92,10 +92,10 @@ typedef struct DirectiveSaveInfo {
 
 typedef struct RegionSaveInfo
 {
-	RegionAdminStatus adminStatus = RAS_NONE;
+	RegionAdminStatus adminStatus;
 	RebelCommandAdminActions actions[REBEL_COMMAND_MAX_ACTIONS_PER_REGION];
 	UINT8 actionLevels[REBEL_COMMAND_MAX_ACTIONS_PER_REGION];
-	UINT8 ubMaxLoyalty = 50;
+	UINT8 ubMaxLoyalty;
 
 	INT32 GetAdminDeployCost(INT16 numAdminTeams) { return 10 * numAdminTeams * numAdminTeams; };
 	INT32 GetAdminReactivateCost(INT16 numAdminTeams) { return GetAdminDeployCost(numAdminTeams) / 4; };
@@ -106,11 +106,11 @@ typedef struct SaveInfo
 	RegionSaveInfo regions[MAX_TOWNS];
 	DirectiveSaveInfo directives[20];
 
-	INT32 iSupplies = 0;
-	INT32 iActiveDirective = RCD_GATHER_SUPPLIES;
-	INT32 iSelectedDirective = RCD_GATHER_SUPPLIES;
-	INT8 iMilitiaStatsLevel = 0;
-	UINT8 uSupplyDropCount = 0;
+	INT32 iSupplies;
+	INT32 iActiveDirective;
+	INT32 iSelectedDirective;
+	INT8 iMilitiaStatsLevel;
+	UINT8 uSupplyDropCount;
 
 	INT8 filler[19];
 } SaveInfo;
