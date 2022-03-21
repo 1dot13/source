@@ -372,7 +372,6 @@ void InitDependingGameStyleOptions()
 	
 	// WANNE: Initialize again, because if differs from SP to MP game!
 	LoadGameSettings();
-	LoadFeatureFlags();
 
 	FreeGameExternalOptions();
 
@@ -380,6 +379,8 @@ void InitDependingGameStyleOptions()
 	LoadGameAPBPConstants();
 	// Load ja2_options.ini
 	LoadGameExternalOptions();
+	// Load feature flags after external options, since it overwrites them (if enabled)
+	LoadFeatureFlags();
 	// Load new STOMP ini - SANDRO
 	LoadSkillTraitsExternalSettings();
 	// HEADROCK HAM 4: CTH constants
