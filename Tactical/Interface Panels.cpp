@@ -5325,12 +5325,11 @@ BOOLEAN InitializeTEAMPanel(	)
 
 	}
 
-
-	//DEfine region for selected guy panel
-	//MSYS_DefineRegion( &gSM_SELMERCPanalRegion, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y, SM_SELMERC_FACE_X + SM_SELMERC_FACE_WIDTH, SM_SELMERC_FACE_Y + SM_SELMERC_FACE_HEIGHT, MSYS_PRIORITY_NORMAL,
-	//					CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
-	// Add region
-	//MSYS_AddRegion( &gSM_SELMERCPanalRegion );
+	// sevenfm: clear panel area
+	if (INTERFACE_START_X > 0)
+	{
+		ColorFillVideoSurfaceArea(guiSAVEBUFFER, 0, INV_INTERFACE_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+	}
 
 	return( TRUE );
 }
