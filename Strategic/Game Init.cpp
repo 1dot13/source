@@ -1191,6 +1191,8 @@ void ReStartingGame()
 
 		// HEADROCK PROFEX: Create mercopinions xml output
 		WriteMercOpinions();
+
+		WriteMercStartingGearStats();
 	}
 
 	// Reload quote files

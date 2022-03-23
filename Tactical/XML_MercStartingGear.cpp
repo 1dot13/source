@@ -655,7 +655,6 @@ BOOLEAN ReadInMercStartingGearStats(STR fileName, BOOLEAN localizedVersion)
 	return( TRUE );
 }
 
-/*
 BOOLEAN WriteMercStartingGearStats()
 {
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writemercstartinggearstats");
@@ -666,143 +665,95 @@ BOOLEAN WriteMercStartingGearStats()
 	hFile = FileOpen( "TABLEDATA\\MercStartingGear out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt, gearkit;
 		CHAR16 str[100];
 
+		FilePrintf(hFile, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
 		FilePrintf(hFile,"<MERCGEARLIST>\r\n");
 		for(cnt = 0;cnt < NUM_PROFILES;cnt++)
 		{
-
 			FilePrintf(hFile,"\t<MERCGEAR>\r\n");
-			FilePrintf(hFile,"\t\t<mIndex>%d</mIndex>\r\n",								cnt );
-			//FilePrintf(hFile,"\t\t<mName>%d</mName>\r\n",								gMercProfileGear[cnt].mName  );
-
-			
-			int j = -1;
-			for (int i=0;i<80;i++)
-			{
-				j++;
-				if ( i<(int)strlen(gMercProfileGear[cnt][gearkit].mName))
-				{
-					str[i] = gMercProfileGear[cnt][gearkit].mName [j];
-				}
-				else
-				{
-					str[i] ='\0';
-				}
-			}
-			STR16 szRemainder = str;
-			FilePrintf(hFile,"\t\t<mName>");
-			while(szRemainder[HELMETPOS] != '\0')
-			{
-				UINT32 uiCharLoc = wcscspn(szRemainder, L"&<>\'\"\0");
-				CHAR16 invChar = szRemainder[uiCharLoc];
-				
-				if(uiCharLoc)
-				{
-					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%S",szRemainder);
-					szRemainder[uiCharLoc] = invChar;
-				}
-
-				szRemainder += uiCharLoc;
-
-				switch(invChar)
-				{
-					case '&':
-						FilePrintf(hFile,"&amp;");
-						szRemainder++;
-					break;
-
-					case '<':
-						FilePrintf(hFile,"&lt;");
-						szRemainder++;
-					break;
-
-					case '>':
-						FilePrintf(hFile,"&gt;");
-						szRemainder++;
-					break;
-
-					case '\'':
-						FilePrintf(hFile,"&apos;");
-						szRemainder++;
-					break;
-
-					case '\"':
-						FilePrintf(hFile,"&quot;");
-						szRemainder++;
-					break;
-				}
-			}
-			FilePrintf(hFile,"</mName>\r\n");
+			FilePrintf(hFile,"\t\t<mIndex>%d</mIndex>\r\n",								cnt);
+			FilePrintf(hFile,"\t\t<mName>%s</mName>\r\n",								gMercProfileGear[cnt][0].mName);
 			for(gearkit = 0; gearkit < NUM_MERCSTARTINGGEAR_KITS; gearkit++)
 			{
-				FilePrintf(hFile,"\t\t<mHelmet>%d</mHelmet>\r\n",						gMercProfileGear[cnt][gearkit].inv[HELMETPOS]  );
-				FilePrintf(hFile,"\t\t<mVest>%d</mVest>\r\n",							gMercProfileGear[cnt][gearkit].inv[VESTPOS]   );
-				FilePrintf(hFile,"\t\t<mLeg>%d</mLeg>\r\n",								gMercProfileGear[cnt][gearkit].inv[LEGPOS]   );
-				FilePrintf(hFile,"\t\t<mWeapon>%d</mWeapon>\r\n",						gMercProfileGear[cnt][gearkit].inv[HANDPOS]   );
-				FilePrintf(hFile,"\t\t<mHelmetStatus>%d</mHelmetStatus>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[HELMETPOS]   );
-				FilePrintf(hFile,"\t\t<mVestStatus>%d</mVestStatus>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[VESTPOS]   );
-				FilePrintf(hFile,"\t\t<mLegStatus>%d</mLegStatus>\r\n",					gMercProfileGear[cnt][gearkit].iStatus[LEGPOS]   );
-				FilePrintf(hFile,"\t\t<mWeaponStatus>%d</mWeaponStatus>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[HANDPOS]   );
-				FilePrintf(hFile,"\t\t<mHelmetDrop>%d</mHelmetDrop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[HELMETPOS]   );
-				FilePrintf(hFile,"\t\t<mVestDrop>%d</mVestDrop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[VESTPOS]   );
-				FilePrintf(hFile,"\t\t<mLegDrop>%d</mLegDrop>\r\n",						gMercProfileGear[cnt][gearkit].iDrop[LEGPOS]   );
-				FilePrintf(hFile,"\t\t<mWeaponDrop>%d</mWeaponDrop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[HANDPOS]   );
-				FilePrintf(hFile,"\t\t<mBig0>%d</mBig0>\r\n",							gMercProfileGear[cnt][gearkit].inv[BIGPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mBig1>%d</mBig1>\r\n",							gMercProfileGear[cnt][gearkit].inv[BIGPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mBig2>%d</mBig2>\r\n",							gMercProfileGear[cnt][gearkit].inv[BIGPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mBig3>%d</mBig3>\r\n",							gMercProfileGear[cnt][gearkit].inv[BIGPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mBig0Quantity>%d</mBig0Quantity>\r\n",			gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mBig1Quantity>%d</mBig1Quantity>\r\n",			gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mBig2Quantity>%d</mBig2Quantity>\r\n",			gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mBig3Quantity>%d</mBig3Quantity>\r\n",			gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mBig0Status>%d</mBig0Status>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mBig1Status>%d</mBig1Status>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mBig2Status>%d</mBig2Status>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mBig3Status>%d</mBig3Status>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mBig0Drop>%d</mBig0Drop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mBig1Drop>%d</mBig1Drop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mBig2Drop>%d</mBig2Drop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mBig3Drop>%d</mBig3Drop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mSmall0>%d</mSmall0>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mSmall1>%d</mSmall1>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mSmall2>%d</mSmall2>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mSmall3>%d</mSmall3>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mSmall4>%d</mSmall4>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK5POS]   );
-				FilePrintf(hFile,"\t\t<mSmall5>%d</mSmall5>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK6POS]   );
-				FilePrintf(hFile,"\t\t<mSmall6>%d</mSmall6>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK7POS]   );
-				FilePrintf(hFile,"\t\t<mSmall7>%d</mSmall7>\r\n",						gMercProfileGear[cnt][gearkit].inv[SMALLPOCK8POS]   );
-				FilePrintf(hFile,"\t\t<mSmall0Quantity>%d</mSmall0Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mSmall1Quantity>%d</mSmall1Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mSmall2Quantity>%d</mSmall2Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mSmall3Quantity>%d</mSmall3Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mSmall4Quantity>%d</mSmall4Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK5POS]   );
-				FilePrintf(hFile,"\t\t<mSmall5Quantity>%d</mSmall5Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK6POS]   );
-				FilePrintf(hFile,"\t\t<mSmall6Quantity>%d</mSmall6Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK7POS]   );
-				FilePrintf(hFile,"\t\t<mSmall7Quantity>%d</mSmall7Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK8POS]   );
-				FilePrintf(hFile,"\t\t<mSmall0Status>%d</mSmall0Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK1POS]   );
-				FilePrintf(hFile,"\t\t<mSmall1Status>%d</mSmall1Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK2POS]   );
-				FilePrintf(hFile,"\t\t<mSmall2Status>%d</mSmall2Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK3POS]   );
-				FilePrintf(hFile,"\t\t<mSmall3Status>%d</mSmall3Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK4POS]   );
-				FilePrintf(hFile,"\t\t<mSmall4Status>%d</mSmall4Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK5POS]   );
-				FilePrintf(hFile,"\t\t<mSmall5Status>%d</mSmall5Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK6POS]   );
-				FilePrintf(hFile,"\t\t<mSmall6Status>%d</mSmall6Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK7POS]   );
-				FilePrintf(hFile,"\t\t<mSmall7Status>%d</mSmall7Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK8POS]   );
-				FilePrintf(hFile,"\t\t<lVest>%d</lVest>\r\n",							gMercProfileGear[cnt][gearkit].lbe[0]   );
-				FilePrintf(hFile,"\t\t<lLeftThigh>%d</lLeftThigh>\r\n",					gMercProfileGear[cnt][gearkit].lbe[1]   );
-				FilePrintf(hFile,"\t\t<lRightThigh>%d</lRightThigh>\r\n",				gMercProfileGear[cnt][gearkit].lbe[2]   );
-				FilePrintf(hFile,"\t\t<lCPack>%d</lCPack>\r\n",							gMercProfileGear[cnt][gearkit].lbe[3]   );
-				FilePrintf(hFile,"\t\t<lBPack>%d</lBPack>\r\n",							gMercProfileGear[cnt][gearkit].lbe[4]   );
-				FilePrintf(hFile,"\t\t<lVestStatus>%d</lVestStatus>\r\n",				gMercProfileGear[cnt][gearkit].lStatus[0]   );
-				FilePrintf(hFile,"\t\t<lLeftThighStatus>%d</lLeftThighStatus>\r\n",		gMercProfileGear[cnt][gearkit].lStatus[1]   );
-				FilePrintf(hFile,"\t\t<lRightThighStatus>%d</lRightThighStatus>\r\n",	gMercProfileGear[cnt][gearkit].lStatus[2]   );
-				FilePrintf(hFile,"\t\t<lCPackStatus>%d</lCPackStatus>\r\n",				gMercProfileGear[cnt][gearkit].lStatus[3]   );
-				FilePrintf(hFile,"\t\t<lBPackStatus>%d</lBPackStatus>\r\n",				gMercProfileGear[cnt][gearkit].lStatus[4]   );
-			}
+				if (gearkit > 0 && gMercProfileGear[cnt][gearkit].mGearKitName[0] == '\0')
+				{
+					FilePrintf(hFile, "\t\t<GEARKIT>\r\n");
+					FilePrintf(hFile, "\t\t\t<mAbsolutePrice>%d</mAbsolutePrice>\r\n",	gMercProfileGear[cnt][gearkit].AbsolutePrice);
+					FilePrintf(hFile, "\t\t</GEARKIT>\r\n");
+					continue;
+				}
+				FilePrintf(hFile, "\t\t<GEARKIT>\r\n");
+				FilePrintf(hFile, "\t\t\t<mPriceMod>%d</mPriceMod>\r\n",				gMercProfileGear[cnt][gearkit].PriceModifier);
+				FilePrintf(hFile, "\t\t\t<mGearKitName>%s</mGearKitName>\r\n",			gMercProfileGear[cnt][gearkit].mGearKitName);
+				FilePrintf(hFile, "\t\t\t<mAbsolutePrice>%d</mAbsolutePrice>\r\n",		gMercProfileGear[cnt][gearkit].AbsolutePrice);
+				FilePrintf(hFile, "\t\t\t<mHelmet>%d</mHelmet>\r\n",					gMercProfileGear[cnt][gearkit].inv[HELMETPOS]);
+				FilePrintf(hFile, "\t\t\t<mHelmetDrop>%d</mHelmetDrop>\r\n",			gMercProfileGear[cnt][gearkit].iDrop[HELMETPOS]);
+				FilePrintf(hFile, "\t\t\t<mHelmetStatus>%d</mHelmetStatus>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[HELMETPOS]);
+				FilePrintf(hFile, "\t\t\t<mVest>%d</mVest>\r\n",						gMercProfileGear[cnt][gearkit].inv[VESTPOS]);
+				FilePrintf(hFile, "\t\t\t<mVestDrop>%d</mVestDrop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[VESTPOS]);
+				FilePrintf(hFile, "\t\t\t<mVestStatus>%d</mVestStatus>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[VESTPOS]);
+				FilePrintf(hFile, "\t\t\t<mLeg>%d</mLeg>\r\n",							gMercProfileGear[cnt][gearkit].inv[LEGPOS]);
+				FilePrintf(hFile, "\t\t\t<mLegDrop>%d</mLegDrop>\r\n",					gMercProfileGear[cnt][gearkit].iDrop[LEGPOS]);
+				FilePrintf(hFile, "\t\t\t<mLegStatus>%d</mLegStatus>\r\n",				gMercProfileGear[cnt][gearkit].iStatus[LEGPOS]);
+				FilePrintf(hFile, "\t\t\t<mWeapon>%d</mWeapon>\r\n",					gMercProfileGear[cnt][gearkit].inv[HANDPOS]);
+				FilePrintf(hFile, "\t\t\t<mWeaponDrop>%d</mWeaponDrop>\r\n",			gMercProfileGear[cnt][gearkit].iDrop[HANDPOS]);				
+				FilePrintf(hFile, "\t\t\t<mWeaponStatus>%d</mWeaponStatus>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[HANDPOS]);
+				FilePrintf(hFile, "\t\t\t<mBig0>%d</mBig0>\r\n",						gMercProfileGear[cnt][gearkit].inv[BIGPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mBig0Status>%d</mBig0Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mBig0Quantity>%d</mBig0Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mBig0Drop>%d</mBig0Drop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mBig1>%d</mBig1>\r\n",						gMercProfileGear[cnt][gearkit].inv[BIGPOCK2POS]);				
+				FilePrintf(hFile, "\t\t\t<mBig1Status>%d</mBig1Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mBig1Quantity>%d</mBig1Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mBig1Drop>%d</mBig1Drop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mBig2>%d</mBig2>\r\n",						gMercProfileGear[cnt][gearkit].inv[BIGPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mBig2Status>%d</mBig2Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mBig2Quantity>%d</mBig2Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mBig2Drop>%d</mBig2Drop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mBig3>%d</mBig3>\r\n",						gMercProfileGear[cnt][gearkit].inv[BIGPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mBig3Status>%d</mBig3Status>\r\n",			gMercProfileGear[cnt][gearkit].iStatus[BIGPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mBig3Quantity>%d</mBig3Quantity>\r\n",		gMercProfileGear[cnt][gearkit].iNumber[BIGPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mBig3Drop>%d</mBig3Drop>\r\n",				gMercProfileGear[cnt][gearkit].iDrop[BIGPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall0>%d</mSmall0>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall0Status>%d</mSmall0Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK1POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall0Quantity>%d</mSmall0Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK1POS]);				
+				FilePrintf(hFile, "\t\t\t<mSmall1>%d</mSmall1>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall1Status>%d</mSmall1Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall1Quantity>%d</mSmall1Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK2POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall2>%d</mSmall2>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall2Status>%d</mSmall2Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK3POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall2Quantity>%d</mSmall2Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK3POS]);				
+				FilePrintf(hFile, "\t\t\t<mSmall3>%d</mSmall3>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall3Status>%d</mSmall3Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK4POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall3Quantity>%d</mSmall3Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK4POS]);				
+				FilePrintf(hFile, "\t\t\t<mSmall4>%d</mSmall4>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK5POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall4Status>%d</mSmall4Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK5POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall4Quantity>%d</mSmall4Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK5POS]);				
+				FilePrintf(hFile, "\t\t\t<mSmall5>%d</mSmall5>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK6POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall5Status>%d</mSmall5Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK6POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall5Quantity>%d</mSmall5Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK6POS]);				
+				FilePrintf(hFile, "\t\t\t<mSmall6>%d</mSmall6>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK7POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall6Status>%d</mSmall6Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK7POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall6Quantity>%d</mSmall6Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK7POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall7>%d</mSmall7>\r\n",					gMercProfileGear[cnt][gearkit].inv[SMALLPOCK8POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall7Status>%d</mSmall7Status>\r\n",		gMercProfileGear[cnt][gearkit].iStatus[SMALLPOCK8POS]);
+				FilePrintf(hFile, "\t\t\t<mSmall7Quantity>%d</mSmall7Quantity>\r\n",	gMercProfileGear[cnt][gearkit].iNumber[SMALLPOCK8POS]);
+				FilePrintf(hFile, "\t\t\t<lVest>%d</lVest>\r\n",						gMercProfileGear[cnt][gearkit].lbe[0]);
+				FilePrintf(hFile, "\t\t\t<lVestStatus>%d</lVestStatus>\r\n",			gMercProfileGear[cnt][gearkit].lStatus[0]);
+				FilePrintf(hFile, "\t\t\t<lLeftThigh>%d</lLeftThigh>\r\n",				gMercProfileGear[cnt][gearkit].lbe[1]);
+				FilePrintf(hFile, "\t\t\t<lLeftThighStatus>%d</lLeftThighStatus>\r\n",	gMercProfileGear[cnt][gearkit].lStatus[1]);
+				FilePrintf(hFile, "\t\t\t<lRightThigh>%d</lRightThigh>\r\n",			gMercProfileGear[cnt][gearkit].lbe[2]);
+				FilePrintf(hFile, "\t\t\t<lRightThighStatus>%d</lRightThighStatus>\r\n",gMercProfileGear[cnt][gearkit].lStatus[2]);
+				FilePrintf(hFile, "\t\t\t<lCPack>%d</lCPack>\r\n",						gMercProfileGear[cnt][gearkit].lbe[3]);
+				FilePrintf(hFile, "\t\t\t<lCPackStatus>%d</lCPackStatus>\r\n",			gMercProfileGear[cnt][gearkit].lStatus[3]);
+				FilePrintf(hFile, "\t\t\t<lBPack>%d</lBPack>\r\n",						gMercProfileGear[cnt][gearkit].lbe[4]);
+				FilePrintf(hFile, "\t\t\t<lBPackStatus>%d</lBPackStatus>\r\n",			gMercProfileGear[cnt][gearkit].lStatus[4]);
+				FilePrintf(hFile, "\t\t</GEARKIT>\r\n");
+			}			
 			FilePrintf(hFile,"\t</MERCGEAR>\r\n");
 		}
 		FilePrintf(hFile,"</MERCGEARLIST>\r\n");
@@ -811,4 +762,3 @@ BOOLEAN WriteMercStartingGearStats()
 
 	return( TRUE );
 }
-*/
