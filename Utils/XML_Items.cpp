@@ -309,7 +309,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "RobotUtilitySkillGrant") == 0 ||
 				strcmp(name, "ProvidesRobotCamo") == 0 ||
 				strcmp(name, "ProvidesRobotNightVision") == 0 ||
-				strcmp(name, "ProvidesRobotLaserBonus") == 0
+				strcmp(name, "ProvidesRobotLaserBonus") == 0 ||
+				strcmp(name, "FoodSystemExclusive") == 0 ||
+				strcmp(name, "DiseaseSystemExclusive") == 0
 				)
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -1614,8 +1616,19 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement == ELEMENT;
 			pData->curItem.fProvidesRobotLaserBonus = (BOOLEAN)atol(pData->szCharData);
 		}
+		else if (strcmp(name, "FoodSystemExclusive") == 0)
+		{
+			pData->curElement == ELEMENT;
+			if (atol(pData->szCharData))
+				pData->curItem.usLimitedToSystem|= 1;
+		}
+		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
+		{
+			pData->curElement == ELEMENT;
+			if (atol(pData->szCharData))
+			pData->curItem.usLimitedToSystem|= 2;
+		}
 
-										
 		--pData->maxReadDepth;
 	}
 

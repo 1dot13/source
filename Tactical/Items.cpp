@@ -1282,6 +1282,12 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 			return FALSE;
 	}
 
+	//shadooow: exclude also any item that is limited to specific system and this system isn't enabled
+	if (((Item[usItemIndex].usLimitedToSystem & 1) && !UsingFoodSystem()) || ((Item[usItemIndex].usLimitedToSystem & 2) && !gGameExternalOptions.fDisease))
+	{
+		return FALSE;
+	}
+
 	//if the user has selected the reduced gun list
 	if( !gGameOptions.fGunNut )
 	{

@@ -5638,15 +5638,28 @@ void EnableWeaponKitSelectionButtons()
 	{
 		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 		{
+			bool bShow;
+			INT16 usItem;
 			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{
+				bShow = false;
 				for(int j=INV_START_POS; j<NUM_INV_SLOTS; ++j)
 				{
-					if(gMercProfileGear[gbCurrentSoldier][i].inv[j] != NONE)
+					usItem = gMercProfileGear[gbCurrentSoldier][i].inv[j];
+					if(usItem != NONE)
 					{
-						ShowButton( giWeaponboxSelectionButton[i] );
-						break;
-					}
+						bShow = true;
+						//shadooow: if any of the item in kit is limited to specific system and this system isn't enabled then disable the whole kit from selection
+						if (((Item[usItem].usLimitedToSystem & 1) && !UsingFoodSystem()) || ((Item[usItem].usLimitedToSystem & 2) && !gGameExternalOptions.fDisease))
+						{
+							bShow = false;
+							break;
+						}
+					}					
+				}
+				if (bShow)
+				{
+					ShowButton(giWeaponboxSelectionButton[i]);
 				}
 			}
 		}
