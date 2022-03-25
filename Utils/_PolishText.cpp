@@ -3234,6 +3234,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Więcej...",		// 47
 	L"Intel",			// for INTEL	// TODO.Translate
 	L"różne",			// for VARIOUSSKILLS
+	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
 };
 //////////////////////////////////////////////////////////
 

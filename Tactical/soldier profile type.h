@@ -182,6 +182,8 @@ typedef enum
 // Flugente: these aren't really traits, but it is convenient to pretend so
 #define INTEL	(2 * NEWTRAIT_MERCSKILL_EXPERTOFFSET + 2)
 #define VARIOUSSKILLS	(INTEL + 1)
+// sevenfm: add autobandage to skills menu
+#define AUTOBANDAGESKILLS (VARIOUSSKILLS + 1)
 
 // SANDRO - new set of character traits
 typedef enum

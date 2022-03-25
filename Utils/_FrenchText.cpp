@@ -3234,9 +3234,10 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
 	L"Placeholder",		// for survival (minor trait)
-	L"Plus...",         // 47
+	L"Plus...",        	// 47
 	L"Intel",			// for INTEL	// TODO.Translate
 	L"Divers",			// for VARIOUSSKILLS
+	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
 };
 //////////////////////////////////////////////////////////
 

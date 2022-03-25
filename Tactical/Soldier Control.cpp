@@ -162,6 +162,9 @@ extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, U
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
+// sevenfm: check availability of actions
+extern BOOLEAN CheckAutoBandage(void);
+
 // Enumerate extended directions
 enum
 {
@@ -24360,6 +24363,12 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	// Flugente: compatibility with skills
 	if ( uiSkillTraitNumber == INTEL || uiSkillTraitNumber == VARIOUSSKILLS )
 		return TRUE;
+
+	// sevenfm: add Autobandage option to skills menu
+	if (uiSkillTraitNumber == AUTOBANDAGESKILLS)
+	{
+		return CheckAutoBandage();
+	}
 
 	INT8 bNumMajorTraitsCounted = 0;
 	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;

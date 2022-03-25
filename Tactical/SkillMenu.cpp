@@ -27,6 +27,7 @@ extern INT8 bSelectedInfoChar;
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
+extern void BeginAutoBandage();
 
 UINT16 usTraitMenuPosX = 0;
 UINT16 usTraitMenuPosY = 0;
@@ -70,6 +71,14 @@ SkillSelection	gSkillSelection;
 void Wrapper_Function_SkillSelection( UINT32 aVal)		{	gSkillSelection.Functions(aVal);	}
 void Wrapper_Setup_SkillSelection( UINT32 aVal)			{	gSkillSelection.Setup(aVal);	}
 void Wrapper_Cancel_SkillSelection( UINT32 aVal )		{	gSkillSelection.Cancel();	}
+
+void Wrapper_Setup_AutobandageSelection(UINT32 aVal)
+{
+	gSkillSelection.Cancel();
+	gTraitSelection.Cancel();
+
+	BeginAutoBandage();
+}
 /////////////////////////////// Skill Selection ////////////////////////////////////////////
 
 /////////////////////////////// Artillery Sector Selection ////////////////////////////////////////////
@@ -141,16 +150,25 @@ TraitSelection::Setup( UINT32 aVal )
 	CHAR16 pStr[300];
 
 	// create entries for the sub-menus for each trait
-	const UINT8 num = 3;
+	const UINT8 num = 4;
 	UINT8 traitarray[num];
 	traitarray[0] = RADIO_OPERATOR_NT;
 	traitarray[1] = INTEL;
 	traitarray[2] = VARIOUSSKILLS;
+	traitarray[3] = AUTOBANDAGESKILLS;
+
 	for ( int i = 0; i < num; ++i)
 	{
 		swprintf( pStr, gzMercSkillTextNew[traitarray[i]] );
 
-		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Setup_SkillSelection, traitarray[i] ) );
+		if (traitarray[i] == AUTOBANDAGESKILLS)
+		{
+			pOption = new POPUP_OPTION(&std::wstring(pStr), new popupCallbackFunction<void, UINT32>(&Wrapper_Setup_AutobandageSelection, traitarray[i]));
+		}
+		else
+		{
+			pOption = new POPUP_OPTION(&std::wstring(pStr), new popupCallbackFunction<void, UINT32>(&Wrapper_Setup_SkillSelection, traitarray[i]));
+		}
 
 		// if we cannot perform this skill, grey it out
 		if ( !HAS_SKILL_TRAIT(pSoldier, traitarray[i]) )

@@ -3241,7 +3241,8 @@ STR16 gzMercSkillTextNew[] =
 	L"生还者",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
-	L"多种技能",			// for VARIOUSSKILLS
+	L"多种技能",		// for VARIOUSSKILLS
+	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
 };
 //////////////////////////////////////////////////////////
 

@@ -313,6 +313,9 @@ void HandleMouseTBMButton( UINT32 *puiNewEvent );
 void HandleMouseTBX1Button( UINT32 *puiNewEvent );
 void HandleMouseTBX2Button( UINT32 *puiNewEvent );
 
+// sevenfm: check availability for actions
+BOOLEAN CheckAutoBandage(void);
+
 // sevenfm: common functionality
 void HandleTBSelectAllMercs( void );
 void HandleTBToggleStealthAll( void );
@@ -3290,7 +3293,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 #else
 					//shadooow: trying to use autobandage during conversation will mess up game
 					// sevenfm: don't try to activate autobandage in hostile sector
-					if (!(gTacticalStatus.uiFlags & INCOMBAT) && NumEnemyInSector() == 0 && DialogueQueueIsEmpty())
+					if (CheckAutoBandage())
 					{
 						BeginAutoBandage();
 					}
@@ -9620,4 +9623,14 @@ void HandleTBSkillsMenu(void)
 		LocateGridNo(MercPtrs[gusSelectedSoldier]->sGridNo);
 		TraitsMenu(MercPtrs[gusSelectedSoldier]->sGridNo);
 	}
+}
+
+BOOLEAN CheckAutoBandage(void)
+{
+	if (!(gTacticalStatus.uiFlags & INCOMBAT) && NumEnemyInSector() == 0 && DialogueQueueIsEmpty())
+	{
+		return TRUE;
+	}
+
+	return FALSE;
 }

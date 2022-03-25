@@ -3241,7 +3241,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for survival (minor trait)
 	L"Ещё...",			// 47
 	L"Intel",			// for INTEL	// TODO.Translate
-	L"различные",		// for VARIOUSSKILLS	
+	L"Различные",		// for VARIOUSSKILLS	
+	L"Автоперевязка",	// for AUTOBANDAGESKILLS
 };
 //////////////////////////////////////////////////////////
 

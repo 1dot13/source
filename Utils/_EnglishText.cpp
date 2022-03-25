@@ -3242,6 +3242,7 @@ STR16 gzMercSkillTextNew[] =
 	L"More...",			// 47
 	L"Intel",			// for INTEL
 	L"various",			// for VARIOUSSKILLS
+	L"Bandage Mercs",	// for AUTOBANDAGESKILLS
 };
 //////////////////////////////////////////////////////////
 

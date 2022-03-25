@@ -3271,6 +3271,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Mehr...",			// 47
 	L"Intel",			// for INTEL	// TODO.Translate
 	L"diverse",			// for VARIOUSSKILLS
+	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
 };
 
 // This is pop up help text for the options that are available to the merc
