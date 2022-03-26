@@ -5480,6 +5480,39 @@ BOOLEAN IsThisSectorASAMSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	return (FALSE);
 }
 
+void RepairSamSite( UINT16 strategicIndex )
+{
+	INT8 repairAmount = 0;
+	switch (gGameOptions.ubDifficultyLevel)
+	{
+	case DIF_LEVEL_EASY:	repairAmount = AI_SAMSITE_REPAIR_EASY; break;
+	case DIF_LEVEL_MEDIUM:	repairAmount = AI_SAMSITE_REPAIR_MEDIUM; break;
+	case DIF_LEVEL_HARD:	repairAmount = AI_SAMSITE_REPAIR_HARD; break;
+	case DIF_LEVEL_INSANE:	repairAmount = AI_SAMSITE_REPAIR_INSANE; break;
+	}
+
+	if ( StrategicMap[strategicIndex].fEnemyControlled && (StrategicMap[strategicIndex].usFlags & SAMSITE_REPAIR_ORDERED) && IsThisSectorASAMSector( GET_X_FROM_STRATEGIC_INDEX( strategicIndex ), GET_Y_FROM_STRATEGIC_INDEX( strategicIndex ), 0 ) )
+	{
+		if (StrategicMap[strategicIndex].bSAMCondition > 100 - repairAmount)
+			StrategicMap[strategicIndex].bSAMCondition = 100;
+		else
+			StrategicMap[strategicIndex].bSAMCondition += repairAmount;
+
+		if (StrategicMap[strategicIndex].sSamHackStatus > 100 - repairAmount)
+			StrategicMap[strategicIndex].sSamHackStatus = 100;
+		else
+			StrategicMap[strategicIndex].sSamHackStatus += repairAmount;
+
+		if (StrategicMap[strategicIndex].bSAMCondition < 100 || StrategicMap[strategicIndex].sSamHackStatus < 100)
+			AddStrategicEvent(EVENT_SAMSITE_REPAIRED, GetWorldTotalMin() + 24 * 60, strategicIndex);
+		else
+			StrategicMap[strategicIndex].usFlags &= ~SAMSITE_REPAIR_ORDERED;
+
+		if (StrategicMap[strategicIndex].bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK)
+			UpdateSAMDoneRepair( GET_X_FROM_STRATEGIC_INDEX( strategicIndex ), GET_Y_FROM_STRATEGIC_INDEX( strategicIndex ), 0 );
+	}
+}
+
 
 // is this sector part of the town?
 BOOLEAN SectorIsPartOfTown( INT8 bTownId, INT16 sSectorX, INT16 sSectorY )

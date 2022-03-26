@@ -83,6 +83,10 @@ extern	BOOLEAN		gfUseAlternateMap;
 #define		SECTOR_INFO_TO_STRATEGIC_INDEX( i )		( CALCULATE_STRATEGIC_INDEX ( SECTORX( i ), SECTORY( i ) ) )
 #define		STRATEGIC_INDEX_TO_SECTOR_INFO( i )		( SECTOR(	GET_X_FROM_STRATEGIC_INDEX( i ), GET_Y_FROM_STRATEGIC_INDEX( i ) ) )
 
+#define AI_SAMSITE_REPAIR_EASY		20
+#define AI_SAMSITE_REPAIR_MEDIUM	25
+#define AI_SAMSITE_REPAIR_HARD		34
+#define AI_SAMSITE_REPAIR_INSANE	50
 
 // grab the town id value
 UINT8 GetTownIdForSector( INT16 sMapX, INT16 sMapY );
@@ -127,6 +131,8 @@ void UpdateAirspaceControl( void );
 BOOLEAN DoesSamCoverSector( UINT8 usSam, UINT8 usSector, BOOLEAN* apSamIsWorking = NULL );
 
 BOOLEAN IsThisSectorASAMSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+
+void RepairSamSite( UINT16 aSector );
 
 // init sam sites
 void InitializeSAMSites( void );

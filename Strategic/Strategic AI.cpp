@@ -2252,12 +2252,13 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 
 					if( IsThisSectorASAMSector( pGroup->ubSectorX, pGroup->ubSectorY, 0 ) )
 					{
-						int stratsector = CALCULATE_STRATEGIC_INDEX( pGroup->ubSectorX, pGroup->ubSectorY );
-						StrategicMap[stratsector].bSAMCondition = 100;
-						StrategicMap[stratsector].sSamHackStatus = 100;
-						StrategicMap[stratsector].usFlags &= ~SAMSITE_REPAIR_ORDERED;
-
-						UpdateSAMDoneRepair( pGroup->ubSectorX, pGroup->ubSectorY, 0 );
+						UINT16 stratsector = CALCULATE_STRATEGIC_INDEX( pGroup->ubSectorX, pGroup->ubSectorY );
+						if ((StrategicMap[stratsector].usFlags & SAMSITE_REPAIR_ORDERED) == 0 && (StrategicMap[stratsector].bSAMCondition < 100 || StrategicMap[stratsector].sSamHackStatus < 100))
+						{
+							StrategicMap[stratsector].usFlags |= SAMSITE_REPAIR_ORDERED;
+							AddStrategicEvent(EVENT_SAMSITE_REPAIRED, GetWorldTotalMin() + 24 * 60, stratsector);
+						}
+							
 					}
 				}
 				else

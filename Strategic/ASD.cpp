@@ -1332,17 +1332,6 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id )
 	}
 }
 
-void RepairSamSite( UINT8 aSector )
-{
-	if ( IsThisSectorASAMSector( SECTORX( aSector ), SECTORY( aSector ), 0 ) )
-	{
-		StrategicMap[aSector].bSAMCondition = 100;
-		StrategicMap[aSector].usFlags &= ~SAMSITE_REPAIR_ORDERED;
-
-		UpdateSAMDoneRepair( SECTORX( aSector ), SECTORY( aSector ), 0 );
-	}
-}
-
 UINT8 NumPlayerAirSpaceOnHeliPath( UINT8 aStart, UINT8 aEnd )
 {
 	UINT8 samcontacts = 0;

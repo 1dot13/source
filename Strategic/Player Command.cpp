@@ -266,6 +266,11 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 
 		StrategicMap[ usMapSector ].fEnemyControlled = FALSE;
 		SectorInfo[ SECTOR( sMapX, sMapY ) ].fPlayer[ bMapZ ] = TRUE;
+		if (IsThisSectorASAMSector(sMapX, sMapY, bMapZ))
+		{
+			StrategicMap[usMapSector].usFlags &= ~SAMSITE_REPAIR_ORDERED;
+			DeleteStrategicEvent(EVENT_SAMSITE_REPAIRED, CALCULATE_STRATEGIC_INDEX(sMapX, sMapY));
+		}
 
 		bTownId = StrategicMap[ usMapSector ].bNameId;
 
