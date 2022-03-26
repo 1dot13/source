@@ -3242,7 +3242,7 @@ STR16 gzMercSkillTextNew[] =
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
 	L"多种技能",		// for VARIOUSSKILLS
-	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
+	L"治疗佣兵",	//L"Bandage Mercs", for AUTOBANDAGESKILLS
 };
 //////////////////////////////////////////////////////////
 
@@ -12003,30 +12003,30 @@ STR16 szRebelCommandDirectivesText[] =
 	L"升级此项将会增加每天志愿者人数。",   //L"Improving this directive will increase the number of volunteers gained per day.",
 };
 
-STR16 szRobotText[] = // TODO: Translate
+STR16 szRobotText[] =
 {
-	L"The robot's installed weapon cannot be changed.",
-	L"It is not possible to add attachments to the robot's weapon.",
-	L"Installed Weapon",
-	L"Reserve Ammo",
-	L"Targeting Upgrade",
-	L"Chassis Upgrade",
-	L"Utility Upgrade",
-	L"Storage",
-	L"No Bonus",
-	L"The laser bonuses of this item are applied to the robot.",
-	L"The night- and cave-vision bonuses of this item are applied to the robot.",
-	L"This kit degrades instead of the robot's weapon.",
-	L"The robot's cleaning kit was depleted!",
-	L"Mines adjacent to the robot are automatically flagged.",
-	L"Periodic X-Ray scans during combat. No batteries required.",
-	L"The robot has activated an x-ray scan!",
-	L"The robot can use the radio set.",
-	L"The robot's chassis is strengthened, giving it better combat performance.",
-	L"The camouflage bonuses of this item are applied to the robot.",
-	L"The robot is tougher and takes less damage.",
-	L"The robot's extra armour plating was destroyed!",
-	L"The robot gains the benefit of the %s skill trait.",
+	L"已经安装在机器人身上的武器不能替换。",   //L"The robot's installed weapon cannot be changed.",
+	L"机器人的武器不能安装附件。",   //L"It is not possible to add attachments to the robot's weapon.",
+	L"武器已安装",   //L"Installed Weapon",
+	L"装填弹药",   //L"Reserve Ammo",
+	L"瞄准更新",   //L"Targeting Upgrade", 
+	L"底座更新",   //L"Chassis Upgrade",
+	L"功能更新",   //L"Utility Upgrade",
+	L"存储仓",   //L"Storage",  
+	L"没有效果",   //L"No Bonus", 
+	L"激光附件效果应用到机器人。",   //L"The laser bonuses of this item are applied to the robot.", 
+	L"夜视仪效果应用到机器人。",   //L"The night- and cave-vision bonuses of this item are applied to the robot.", 
+	L"配套工具应用于机器人的武器。",   //L"This kit degrades instead of the robot's weapon.",
+	L"机器人的配套工具耐久耗尽！",   //L"The robot's cleaning kit was depleted!",
+	L"机器人相邻的地雷会自动插旗。",   //L"Mines adjacent to the robot are automatically flagged.",
+	L"战斗过程定期使用金属探测器。不需要电池。",   //L"Periodic X-Ray scans during combat. No batteries required.",
+	L"机器人已经激活金属探测器！",   //L"The robot has activated an x-ray scan!",
+	L"机器人可以使用无线电通信设备。",   //L"The robot can use the radio set.",
+	L"机器人的底座加强，将带来更好的战斗表现。",   //L"The robot's chassis is strengthened, giving it better combat performance.",
+	L"伪装效果应用到机器人。",   //L"The camouflage bonuses of this item are applied to the robot.", 
+	L"机器人更加坚固，降低伤害。",   //L"The robot is tougher and takes less damage.", 
+	L"机器人的额外装甲破坏了！",   //L"The robot's extra armour plating was destroyed!",  
+	L"机器人附加%s技能效果。",   //L"The robot gains the benefit of the %s skill trait.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
