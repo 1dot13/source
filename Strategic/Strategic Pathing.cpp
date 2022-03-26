@@ -1658,9 +1658,6 @@ void VerifyAllMercsInGroupAreOnSameSquad( GROUP *pGroup )
 
 void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 {
-	INT32 iDelta = 0;
-	INT32 iOldDelta = 0;
-	BOOLEAN fFirstNode = TRUE;
 	PathStPtr pNode = pHeadOfPath;
 	GROUP *pGroup = NULL;
 	WAYPOINT *wp = NULL;
@@ -1700,7 +1697,7 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 
 
 	// if group has no path planned at all
-	if( ( pNode == NULL ) || ( pNode->pNext == NULL ) )
+	if ( pNode == NULL )
 	{
 		// and it's a player group, and it's between sectors
 		// NOTE: AI groups never reverse direction between sectors, Kris cheats & teleports them back to their current sector!
@@ -1714,44 +1711,36 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 	}
 
 
-	// if we're currently between sectors
-	if( pGroup->fBetweenSectors )
-	{
-		// figure out which direction we're already going in	(Otherwise iOldDelta starts at 0)
-		iOldDelta = CALCULATE_STRATEGIC_INDEX( pGroup->ubNextX, pGroup->ubNextY ) - CALCULATE_STRATEGIC_INDEX( pGroup->ubSectorX, pGroup->ubSectorY );
-	}
+	UINT32 uiCurrentSectorId = CALCULATE_STRATEGIC_INDEX(pGroup->ubSectorX, pGroup->ubSectorY);
+	UINT32 uiTargetSectorId = pGroup->fBetweenSectors ? CALCULATE_STRATEGIC_INDEX(pGroup->ubNextX, pGroup->ubNextY) : INVALID_STRATEGIC_INDEX;
+	UINT32 uiPrevNodeSectorId = INVALID_STRATEGIC_INDEX;  // relates to path node, not to the group we work with
 
 	// build a brand new list of waypoints, one for initial direction, and another for every "direction change" thereafter
-	while( pNode->pNext )
+	while (pNode != NULL)
 	{
-		iDelta = pNode->pNext->uiSectorId - pNode->uiSectorId;
-		Assert( iDelta != 0 );		// same sector should never repeat in the path list
+		Assert(uiPrevNodeSectorId != pNode->uiSectorId);
+		uiPrevNodeSectorId = pNode->uiSectorId;
 
-		// Waypoints are only added at "pivot points" - whenever there is a change in orthogonal direction.
-		// If we're NOT currently between sectors, iOldDelta will start off at 0, which means that the first node can't be
-		// added as a waypoint.	This is what we want - for stationary mercs, the first node in a path is the CURRENT sector.
-		if( ( iOldDelta != 0 ) && ( iDelta != iOldDelta ) )
+		// if we are between sectors, we have to skip the first waypoint to the place we are already going to.
+		if (pGroup->fBetweenSectors && pNode->uiSectorId == uiTargetSectorId)
 		{
-			// add this strategic sector as a waypoint
-			AddWaypointStrategicIDToPGroup( pGroup, pNode->uiSectorId );
+			uiTargetSectorId = INVALID_STRATEGIC_INDEX;  // reset to invalid so that it won't enter this branch anymore
 		}
-
-		// remember this delta
-		iOldDelta = iDelta;
-
+		else if (pNode->uiSectorId == uiCurrentSectorId)  // also skip this first waypoint as we are already in
+		{
+			uiCurrentSectorId = INVALID_STRATEGIC_INDEX;  // reset to invalid so that it won't enter this branch anymore
+		}
+		else  // everything is OK, add this strategic sector as a waypoint
+		{
+			AddWaypointStrategicIDToPGroup(pGroup, pNode->uiSectorId);
+		}
 		pNode = pNode->pNext;
-		fFirstNode = FALSE;
 	}
-
-
-	// there must have been at least one next node, or we would have bailed out on "no path" earlier
-	Assert( !fFirstNode );
-
-	// the final destination sector - always add a waypoint for it
-	AddWaypointStrategicIDToPGroup( pGroup, pNode->uiSectorId );
+	
 
 	// at this point, the final sector in the path must be identical to this group's last waypoint
 	wp = GetFinalWaypoint( pGroup );
+	pNode = GetLastNodeOfPath( pHeadOfPath );
 	AssertMsg( wp, "Path exists, but no waypoints were added!	AM-0" );
 	AssertMsg( pNode->uiSectorId == ( UINT32 ) CALCULATE_STRATEGIC_INDEX( wp->x, wp->y ), "Last waypoint differs from final path sector!	AM-0" );
 
@@ -1949,6 +1938,17 @@ INT32 GetLengthOfPath( PathStPtr pHeadPath )
 	}
 
 	return( iLength );
+}
+
+INT32 GetLengthOfPath( WAYPOINT* pHeadWaypoint )
+{
+	INT32 iLength = 0;
+	while (pHeadWaypoint)
+	{
+		pHeadWaypoint = pHeadWaypoint->next;
+		iLength++;
+	}
+	return iLength;
 }
 
 INT32 GetLengthOfMercPath( SOLDIERTYPE *pSoldier )
@@ -2217,4 +2217,18 @@ void AddSectorToFrontOfMercPath( PathStPtr *ppMercPath, UINT8 ubSectorX, UINT8 u
 	}
 
 	*ppMercPath = pNode;
+}
+
+
+PathStPtr GetLastNodeOfPath(PathStPtr pNode)
+{
+	if (pNode)
+	{
+		while (pNode->pNext)
+		{
+			pNode = pNode->pNext;
+		}
+	}
+
+	return pNode;
 }

@@ -113,6 +113,7 @@ BOOLEAN MoveGroupToOriginalSector( UINT8 ubGroupID );
 
 // get length of path
 INT32 GetLengthOfPath( PathStPtr pHeadPath );
+INT32 GetLengthOfPath( WAYPOINT* pHeadWaypoint );
 INT32 GetLengthOfMercPath( SOLDIERTYPE *pSoldier );
 
 // is the path empty?
@@ -120,6 +121,8 @@ BOOLEAN CheckIfPathIsEmpty( PathStPtr pHeadPath );
 
 PathStPtr GetSoldierMercPathPtr( SOLDIERTYPE *pSoldier );
 PathStPtr GetGroupMercPathPtr( GROUP *pGroup );
+
+PathStPtr GetLastNodeOfPath( PathStPtr pNode );
 
 UINT8 GetSoldierGroupId( SOLDIERTYPE *pSoldier );
 

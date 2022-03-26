@@ -4783,7 +4783,7 @@ BOOLEAN GroupAtFinalDestination( GROUP *pGroup )
 	}
 
 	// if we're there
-	if( ( pGroup->ubSectorX == wp->x ) && ( pGroup->ubSectorY == wp->y ) )
+	if( ( GetLengthOfPath(pGroup->pWaypoints) <= 1 ) && ( pGroup->ubSectorX == wp->x ) && ( pGroup->ubSectorY == wp->y ) )
 	{
 		return TRUE;
 	}

@@ -74,9 +74,10 @@ extern	BOOLEAN		gfUseAlternateMap;
 #define			CHECK_DIR_Y_DELTA							( WORLD_TILE_Y * 10 )
 
 // get index into aray
-#define		CALCULATE_STRATEGIC_INDEX( x, y )			( x + ( y * MAP_WORLD_X ) )
+#define	CALCULATE_STRATEGIC_INDEX( x, y )			( x + ( y * MAP_WORLD_X ) )
 #define	GET_X_FROM_STRATEGIC_INDEX( i )				( i % MAP_WORLD_X )
 #define	GET_Y_FROM_STRATEGIC_INDEX( i )				( i / MAP_WORLD_X )
+#define	INVALID_STRATEGIC_INDEX                     ( 0 )
 
 // macros to convert between the 2 different sector numbering systems
 #define		SECTOR_INFO_TO_STRATEGIC_INDEX( i )		( CALCULATE_STRATEGIC_INDEX ( SECTORX( i ), SECTORY( i ) ) )
