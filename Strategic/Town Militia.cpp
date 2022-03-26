@@ -418,11 +418,17 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	}
 
 	// Flugente: if we trained militia, the PMC notices us and offers their services
-	if ( gGameExternalOptions.fPMC && !IsBookMarkSet( PMC_BOOKMARK ) )
-		AddStrategicEvent( EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0 );
+	if (gGameExternalOptions.fPMC && !IsBookMarkSet(PMC_BOOKMARK) && !(gStrategicStatus.usEnricoEmailFlags & ENRICO_EMAIL_SENT_PMC))
+	{	
+		AddStrategicEvent(EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0);
+		gStrategicStatus.usEnricoEmailFlags |= ENRICO_EMAIL_SENT_PMC;
+	}
 
-	if ( gGameExternalOptions.fIndividualMilitia && !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
-		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
+	if (gGameExternalOptions.fIndividualMilitia && !IsBookMarkSet(MILITIAROSTER_BOOKMARK) && !(gStrategicStatus.usEnricoEmailFlags & ENRICO_EMAIL_SENT_MILITIAROSTER))
+	{
+		AddStrategicEvent(EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(4)), 0);
+		gStrategicStatus.usEnricoEmailFlags |= ENRICO_EMAIL_SENT_MILITIAROSTER;
+	}
 }
 
 // feed this a SOLDIER_CLASS_, it will return you a _MITILIA rank, or -1 if the guy's not militia
