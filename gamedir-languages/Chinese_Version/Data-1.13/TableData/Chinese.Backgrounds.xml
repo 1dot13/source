@@ -360,44 +360,44 @@
 	<!-- PGmale 1 -->
 	<BACKGROUND>
 		<uiIndex>51</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 2 -->
 	<BACKGROUND>
 		<uiIndex>52</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 3 -->
 	<BACKGROUND>
 		<uiIndex>53</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGLady 1 -->
 	<BACKGROUND>
 		<uiIndex>54</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGLady 2 -->
 	<BACKGROUND>
 		<uiIndex>55</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGLady 3 -->
 	<BACKGROUND>
 		<uiIndex>56</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Miguel -->
 	<BACKGROUND>
@@ -437,9 +437,9 @@
 	<!-- Robot -->
 	<BACKGROUND>
 		<uiIndex>62</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Hamous -->
 	<BACKGROUND>
@@ -458,9 +458,9 @@
 	<!-- Eskimo -->
 	<BACKGROUND>
 		<uiIndex>65</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Dynamo -->
 	<BACKGROUND>
@@ -500,9 +500,9 @@
 	<!-- Combat jeep -->
 	<BACKGROUND>
 		<uiIndex>71</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Maddog -->
 	<BACKGROUND>
@@ -542,9 +542,9 @@
 	<!-- Enrico -->
 	<BACKGROUND>
 		<uiIndex>77</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Carmen -->
 	<BACKGROUND>
@@ -591,9 +591,9 @@
 	<!-- Bob -->
 	<BACKGROUND>
 		<uiIndex>84</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Brenda -->
 	<BACKGROUND>
@@ -710,9 +710,9 @@
 	<!-- Fatima -->
 	<BACKGROUND>
 		<uiIndex>101</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Warden -->
 	<BACKGROUND>
@@ -731,16 +731,16 @@
 	<!-- Gabby -->
 	<BACKGROUND>
 		<uiIndex>104</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Ernest -->
 	<BACKGROUND>
 		<uiIndex>105</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Fred -->
 	<BACKGROUND>
@@ -955,16 +955,16 @@
 	<!-- Endgame Crowd -->
 	<BACKGROUND>
 		<uiIndex>136</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Endgame Crowd -->
 	<BACKGROUND>
 		<uiIndex>137</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Waldo -->
 	<BACKGROUND>
@@ -1123,37 +1123,37 @@
 	<!-- Hummer -->
 	<BACKGROUND>
 		<uiIndex>160</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- El Dorado -->
 	<BACKGROUND>
 		<uiIndex>161</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Ice Cream Truck -->
 	<BACKGROUND>
 		<uiIndex>162</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Heli -->
 	<BACKGROUND>
 		<uiIndex>163</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Army Jeep -->
 	<BACKGROUND>
 		<uiIndex>164</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Gaston -->
 	<BACKGROUND>
@@ -1186,9 +1186,9 @@
 	<!-- PGmale 4 -->
 	<BACKGROUND>
 		<uiIndex>169</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Monk  -->
 	<BACKGROUND>
@@ -1347,23 +1347,23 @@
 	<!-- PGmale 5 -->
 	<BACKGROUND>
 		<uiIndex>192</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 6 -->
 	<BACKGROUND>
 		<uiIndex>193</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 7 -->
 	<BACKGROUND>
 		<uiIndex>194</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- John -->
 	<BACKGROUND>
@@ -1396,114 +1396,114 @@
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>199</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>200</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Jeep 1 -->
 	<BACKGROUND>
 		<uiIndex>201</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Jeep 2 -->
 	<BACKGROUND>
 		<uiIndex>202</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Jeep 3 -->
 	<BACKGROUND>
 		<uiIndex>203</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>204</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>205</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>206</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>207</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>208</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>209</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>210</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>211</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>212</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>213</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>214</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<!-- chaotic Buns -->
@@ -1516,23 +1516,23 @@
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>216</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>217</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>218</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Jorge -->
 	<BACKGROUND>
@@ -1782,9 +1782,9 @@
 	<!-- Empty -->
 	<BACKGROUND>
 		<uiIndex>254</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>空的</szName>
+		<szShortName>空的</szShortName>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND>
 	<!-- Barry -->
 	<BACKGROUND>
