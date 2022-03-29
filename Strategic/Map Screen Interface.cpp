@@ -3860,8 +3860,11 @@ void AddStringsToMoveBox( void )
 	AddMonoString(&hStringHandle, L"" );
 
 	// add Select all line
-	swprintf(sString, L"%s", pMovementMenuStrings[4]);
-	AddMonoString(&hStringHandle, sString);
+	if (giNumberOfSquadsInSectorMoving > 1)
+	{
+		swprintf(sString, L"%s", pMovementMenuStrings[4]);
+		AddMonoString(&hStringHandle, sString);
+	}
 
 
 	// add squads
@@ -4046,13 +4049,16 @@ void BuildMouseRegionsForMoveBox( void )
 	iCounter++;
 
 	// Select all line
-	MSYS_DefineRegion(&gMoveMenuRegion[iCounter], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + iFontHeight * iCounter), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + iFontHeight * (iCounter + 1)), MSYS_PRIORITY_HIGHEST,
-		MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback);
-	// set user defines
-	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 0, iCounter);
-	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 1, ALL_SQUADS);
-	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 2, giNumberOfSquadsInSectorMoving);
-	iCounter++;
+	if (giNumberOfSquadsInSectorMoving > 1)
+	{
+		MSYS_DefineRegion(&gMoveMenuRegion[iCounter], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + iFontHeight * iCounter), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + iFontHeight * (iCounter + 1)), MSYS_PRIORITY_HIGHEST,
+			MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback);
+		// set user defines
+		MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 0, iCounter);
+		MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 1, ALL_SQUADS);
+		MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 2, giNumberOfSquadsInSectorMoving);
+		iCounter++;
+	}
 
 	// calc total number of "moving" lines in the box
 	iTotalNumberOfLines = giNumberOfSoldiersInSectorMoving + giNumberOfSquadsInSectorMoving + giNumberOfVehiclesInSectorMoving;
