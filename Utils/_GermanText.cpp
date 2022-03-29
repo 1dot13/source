@@ -2851,15 +2851,26 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Abhöraktion starten",
 	L"Verstärkung rufen",
 	L"Radiogerät ausschalten",
+	L"Radio: Activate all turncoats",
 
 	// spy
 	L"Hide assignment",		// TODO.Translate
 	L"Get Intel assignment",
+	L"Recruit turncoat",
+	L"Activate turncoat",
+	L"Activate all turncoats",
+
+	// disguise
+	L"Disguise",
+	L"Remove disguise",
+	L"Test disguise",
+	L"Remove clothes",
 
 	// various
 	L"Spotter",
 	L"Fokus",
 	L"Greifen",
+	L"Fill canteens",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2872,15 +2883,26 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Das Radiogerät verwenden, um feindliche Bewegungen zu orten.",
 	L"Verstärkung aus dem Nachbarsektor anfordern.",
 	L"Radiogerät ausschalten.",
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
 	// spy
 	L"Assignment: hide among the population.",		// TODO.Translate
 	L"Assignment: hide among the population and gather intel.",
+	L"Try to turn an enemy into a turncoat.",
+	L"Order previously turned soldier to betray their comrades and join you.",
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
+
+	// disguise
+	L"Try to disguise with the merc's current clothes.",
+	L"Remove the disguise, but clothes remain worn.",
+	L"Test the viability of the disguise.",
+	L"Remove any extra clothes.",
 
 	// various
 	L"Bestimmtes Gebiet beobachten, damit Scharfschützen einen Bonus auf deren Treffsicherheit erhalten.",
 	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
 	L"Drag a person, corpse or structure while you move.",
+	L"Refill your squad's canteens with water from this sector.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2904,6 +2926,14 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - single merc\n",
 	L" - no alarm raised\n",
 	L" - civilian or soldier disguise\n",
+	L" - being our turn\n",
+	L" - turned enemy soldier\n",
+	L" - enemy soldier\n",
+	L" - surface sector\n",
+	L" - not being under suspicion\n",
+	L" - not disguised\n",
+	L" - not in combat\n",
+	L" - friendly controlled sector\n",
 };
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate
@@ -3270,6 +3300,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for survival (minor trait)
 	L"Mehr...",			// 47
 	L"Intel",			// for INTEL	// TODO.Translate
+	L"Disguise",		// for DISGUISE
 	L"diverse",			// for VARIOUSSKILLS
 	L"Bandage Mercs",	// for AUTOBANDAGESKILLS	//TODO.Translate
 };

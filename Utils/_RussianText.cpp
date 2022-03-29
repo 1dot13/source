@@ -2831,10 +2831,17 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Activate turncoat",
 	L"Activate all turncoats",
 
+	// disguise
+	L"Disguise",
+	L"Remove disguise",
+	L"Test disguise",
+	L"Remove clothes",
+
 	// various
 	L"Наблюдатель",
 	L"Focus",	// TODO.Translate
 	L"Drag",
+	L"Fill canteens",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2856,10 +2863,17 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Order previously turned soldier to betray their comrades and join you.",
 	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
+	// disguise
+	L"Try to disguise with the merc's current clothes.",
+	L"Remove the disguise, but clothes remain worn.",
+	L"Test the viability of the disguise.",
+	L"Remove any extra clothes.",
+
 	// various
 	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
 	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
 	L"Drag a person, corpse or structure while you move.",
+	L"Refill your squad's canteens with water from this sector.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2888,6 +2902,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - enemy soldier\n",
 	L" - surface sector\n",
 	L" - not being under suspicion\n",
+	L" - not disguised\n",
+	L" - not in combat\n",
+	L" - friendly controlled sector\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3241,6 +3258,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for survival (minor trait)
 	L"Ещё...",			// 47
 	L"Intel",			// for INTEL	// TODO.Translate
+	L"Disguise",		// for DISGUISE
 	L"Различные",		// for VARIOUSSKILLS	
 	L"Автоперевязка",	// for AUTOBANDAGESKILLS
 };

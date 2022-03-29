@@ -2831,10 +2831,17 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"激活被策反的敌军", // L"Activate turncoat", 
 	L"激活所有被策反的敌军", // L"Activate all turncoats", 
 
+	// disguise
+	L"Disguise",
+	L"Remove disguise",
+	L"Test disguise",
+	L"Remove clothes",
+
 	// various
 	L"侦查员",
 	L"聚焦", //L"Focus",	
 	L"拖拽", //L"Drag",
+	L"Fill canteens",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2856,10 +2863,17 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"命令所有已被策反的敌军叛变并加入你的部队。", // L"Order previously turned soldier to betray their comrades and join you.", 
 	L"命令战区内所有已被策反的敌军叛变并加入你的部队。", // L"Order all previously turned soldiers in the sector to betray their comrades and join you.", 
 
+	// disguise
+	L"Try to disguise with the merc's current clothes.",
+	L"Remove the disguise, but clothes remain worn.",
+	L"Test the viability of the disguise.",
+	L"Remove any extra clothes.",
+
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率。",
 	L"增加标记区域内中断几率（标记区域外减少中断几率）", //L"Increase interrupt modifier (malus outside of area)",
 	L"移动时拖人或尸体。",	//L"Drag a person, corpse or structure while you move.",
+	L"Refill your squad's canteens with water from this sector.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2888,6 +2902,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 敌军士兵\n", //L" - enemy soldier\n", 
 	L" - 显露伪装\n", //L" - surface sector\n", 
 	L" - 没有被怀疑\n", //L" - not being under suspicion\n", 
+	L" - not disguised\n",
+	L" - not in combat\n",
+	L" - friendly controlled sector\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3241,6 +3258,7 @@ STR16 gzMercSkillTextNew[] =
 	L"生还者",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
+	L"Disguise",		// for DISGUISE
 	L"多种技能",		// for VARIOUSSKILLS
 	L"治疗佣兵",	//L"Bandage Mercs", for AUTOBANDAGESKILLS
 };

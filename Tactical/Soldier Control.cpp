@@ -18292,6 +18292,18 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 		}
 		break;
 
+	case SKILLS_DISGUISE_APPLY_DISGUISE:
+	case SKILLS_DISGUISE_REMOVE_CLOTHES:
+		if (IS_MERC_BODY_TYPE(this) && !(usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER)))
+			canuse = TRUE;
+		break;
+
+	case SKILLS_DISGUISE_REMOVE_DISGUISE:
+	case SKILLS_DISGUISE_TEST_DISGUISE:
+		if (IS_MERC_BODY_TYPE(this) && usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER))
+			canuse = TRUE;
+		break;
+
 	case SKILLS_SPOTTER:
 		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_SPOTTER], 0, FALSE )) && CanSpot( ) )
 			canuse = TRUE;
@@ -18311,6 +18323,11 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 
 		// TODO: a better check would be whether we can drag anything at the moment - CanDrag is more used for a specific person
 		if ( CanDragInPrinciple() )
+			canuse = TRUE;
+		break;
+
+	case SKILLS_FILL_CANTEENS:
+		if ( !((guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector || gusSelectedSoldier == NOBODY) )
 			canuse = TRUE;
 		break;
 
@@ -18410,6 +18427,23 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 		return TRUE;
 		break;
 
+	case SKILLS_DISGUISE_APPLY_DISGUISE:
+		this->Disguise();
+		this->SpySelfTest();
+		return TRUE;
+
+	case SKILLS_DISGUISE_REMOVE_DISGUISE:
+		this->LooseDisguise();
+		return TRUE;
+
+	case SKILLS_DISGUISE_TEST_DISGUISE:
+		this->SpySelfTest();
+		return TRUE;
+
+	case SKILLS_DISGUISE_REMOVE_CLOTHES:
+		this->Strip();
+		return TRUE;
+
 	case SKILLS_SPOTTER:
 		return BecomeSpotter( usMapPos );
 		break;
@@ -18441,6 +18475,10 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 			SetDragOrderCorpse( ID - NOBODY );
 
 		return TRUE;
+		break;
+
+	case SKILLS_FILL_CANTEENS:
+		SectorFillCanteens();
 		break;
 
 	default:
@@ -18574,6 +18612,18 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill, INT32 sGridNo )
 
 			break;
 
+		case SKILLS_DISGUISE_APPLY_DISGUISE:
+		case SKILLS_DISGUISE_REMOVE_CLOTHES:
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOT_DISGUISED] );
+			wcscat( skilldescarray, atStr );
+			break;
+
+		case SKILLS_DISGUISE_REMOVE_DISGUISE:
+		case SKILLS_DISGUISE_TEST_DISGUISE:
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_DISGUISE_CIV_OR_MIL] );
+			wcscat( skilldescarray, atStr );
+			break;
+
 		case SKILLS_SPOTTER:
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_SPOTTER] );
 			wcscat( skilldescarray, atStr );
@@ -18604,6 +18654,15 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill, INT32 sGridNo )
 			wcscat( skilldescarray, atStr );
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_FREEHANDS] );
+			wcscat( skilldescarray, atStr );
+
+			break;
+
+		case SKILLS_FILL_CANTEENS:
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOT_IN_COMBAT] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_FRIENDLY_SECTOR] );
 			wcscat( skilldescarray, atStr );
 
 			break;
@@ -24361,7 +24420,7 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 		return FALSE;
 
 	// Flugente: compatibility with skills
-	if ( uiSkillTraitNumber == INTEL || uiSkillTraitNumber == VARIOUSSKILLS )
+	if ( uiSkillTraitNumber == INTEL || uiSkillTraitNumber == DISGUISE || uiSkillTraitNumber == VARIOUSSKILLS )
 		return TRUE;
 
 	// sevenfm: add Autobandage option to skills menu
