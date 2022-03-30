@@ -30,7 +30,7 @@ AnimationSurfaceType* SurfaceCache::GetLoadedSurface(UINT32 idx) {
 			node->loaded = LoadSurface(node->surface, node->structFile);
 			// TODO more sensible handling of errors
 			if (!node->loaded) {
-				SET_ERROR("Error: a surface could not be laoded!");
+				SET_ERROR("Error: a surface could not be loaded! Surface file: %s", node->surface->Filename);
 				return NULL;
 			}
 			loadedElements++;
@@ -62,7 +62,7 @@ AnimationSurfaceType* SurfaceCache::GetLoadedSurface(UINT32 idx) {
 			node->loaded = LoadSurface(node->surface, node->structFile);
 			// TODO more sensible handling of errors
 			if (!node->loaded) {
-				SET_ERROR("Error: a surface could not be laoded!");
+				SET_ERROR("Error: a surface could not be loaded!");
 				return NULL;
 			}
 		}
@@ -90,14 +90,13 @@ bool SurfaceCache::UnloadSurface(AnimationSurfaceType* animSurfaceType) {
 
 bool SurfaceCache::LoadSurface(AnimationSurfaceType* animSurfaceType, STRUCTURE_FILE_REF* pStructureFileRef) {
 	AuxObjectData *pAuxData;
-	AnimDebugMsg("SurfaceCache::LoadSurface");
-	// Load into memory
 	VOBJECT_DESC VObjectDesc;
 	HVOBJECT hVObject;
 	HIMAGE hImage;
 	CHAR8 sFilename[48];
 	// Create video object
 	FilenameForBPP(animSurfaceType->Filename, sFilename);
+	AnimDebugMsg(String("SurfaceCache::LoadSurface, %s", sFilename));
 	hImage = CreateImage(sFilename, IMAGE_ALLDATA);
 	if (hImage == NULL) return TRUE == SET_ERROR("Error: Could not load animation file %s", sFilename);
 	
@@ -127,7 +126,8 @@ bool SurfaceCache::LoadSurface(AnimationSurfaceType* animSurfaceType, STRUCTURE_
 		if (AddZStripInfoToVObject(hVObject, pStructureFileRef, TRUE, sStartFrame) == FALSE) {
 			DestroyImage(hImage);
 			DeleteVideoObject(hVObject);
-			SET_ERROR("Animation structure ZStrip creation error: %s", sFilename);
+			AnimDebugMsg(String("Animation structure ZStrip creation error: %s", sFilename));
+			SET_ERROR(String("Animation structure ZStrip creation error: %s", sFilename));
 			return false;
 		}
 	}
@@ -137,7 +137,7 @@ bool SurfaceCache::LoadSurface(AnimationSurfaceType* animSurfaceType, STRUCTURE_
 	animSurfaceType->hVideoObject = hVObject;
 	// Determine if we have a problem with #frames + directions ( ie mismatch )
 	if ((animSurfaceType->uiNumDirections * animSurfaceType->uiNumFramesPerDir ) != animSurfaceType->hVideoObject->usNumberOfObjects) {
-		AnimDebugMsg(String("Surface Database: WARNING!!! Surface %d has #frames mismatch.", usSurfaceIndex));
+		AnimDebugMsg(String("Surface Database: WARNING!!! Surface %d has #frames mismatch. Filename %s", animSurfaceType->ubName, animSurfaceType->Filename));
 	}
 	return true;
 }
