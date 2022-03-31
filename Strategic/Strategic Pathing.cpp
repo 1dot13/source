@@ -1712,7 +1712,6 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 
 
 	UINT32 uiCurrentSectorId = CALCULATE_STRATEGIC_INDEX(pGroup->ubSectorX, pGroup->ubSectorY);
-	UINT32 uiTargetSectorId = pGroup->fBetweenSectors ? CALCULATE_STRATEGIC_INDEX(pGroup->ubNextX, pGroup->ubNextY) : INVALID_STRATEGIC_INDEX;
 	UINT32 uiPrevNodeSectorId = INVALID_STRATEGIC_INDEX;  // relates to path node, not to the group we work with
 
 	// build a brand new list of waypoints, one for initial direction, and another for every "direction change" thereafter
@@ -1721,12 +1720,7 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 		Assert(uiPrevNodeSectorId != pNode->uiSectorId);
 		uiPrevNodeSectorId = pNode->uiSectorId;
 
-		// if we are between sectors, we have to skip the first waypoint to the place we are already going to.
-		if (pGroup->fBetweenSectors && pNode->uiSectorId == uiTargetSectorId)
-		{
-			uiTargetSectorId = INVALID_STRATEGIC_INDEX;  // reset to invalid so that it won't enter this branch anymore
-		}
-		else if (pNode->uiSectorId == uiCurrentSectorId)  // also skip this first waypoint as we are already in
+		if (pNode->uiSectorId == uiCurrentSectorId)  // skip this first waypoint as we are already in
 		{
 			uiCurrentSectorId = INVALID_STRATEGIC_INDEX;  // reset to invalid so that it won't enter this branch anymore
 		}
