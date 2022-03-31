@@ -1461,6 +1461,15 @@ UINT32 InitializeJA2(void)
 	//}
 	SGP_TRYCATCH_RETHROW(LoadExternalGameplayData(TABLEDATA_DIRECTORY, false),L"Loading external data failed");
 
+	// sun_alf: set itemId to each Magazine to avoid searching over Item[] on each MagazineClassIndexToItemType() call.
+	for (int i = 0; i < gMAXITEMS_READ; i++)
+	{
+		if (Item[i].usItemClass == IC_AMMO)
+		{
+			Magazine[Item[i].ubClassIndex].uiIndex = Item[i].uiIndex;
+		}
+	}
+
 	// Load external text
 	LoadAllExternalText();
 

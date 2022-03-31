@@ -7982,25 +7982,8 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 
 UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 {
-	// Note: if any ammo items in the item table are separated from the main group,
-	// this function will have to be rewritten to scan the item table for an item
-	// with item class ammo, which has class index usMagIndex
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType" ) );
-	
-	// WANNE: Now ammo can be inserted anywhere in Items.xml (before only on index > 70 [FIRST_AMMO] (fix by Realist)
-	//for (usLoop = FIRST_AMMO; usLoop < MAXITEMS; usLoop++)
-	UINT16 usLoop;
-	for (usLoop = 0; usLoop < gMAXITEMS_READ; ++usLoop )
-	{
-		if (Item[usLoop].ubClassIndex == usMagIndex && Item[usLoop].usItemClass == IC_AMMO )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: return %d", usLoop ) );
-			return( usLoop );
-		}
-	}
-
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: return none, got to %d", usLoop ) );
-	return(NONE);
+	// sun_alf: uiIndex is according itemId now 
+	return Magazine[usMagIndex].uiIndex;
 }
 
 
@@ -8133,14 +8116,16 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness
 	usLoop = 0;
 	while ( Magazine[ usLoop ].ubCalibre != NOAMMO )
 	{
+		// make sure we have space for additional possible mag
+		if (usPossibleMagCnt >= MAX_AMMO_TYPES_PER_GUN)
+			break;
+
 		loopItem = MagazineClassIndexToItemType(usLoop);
 
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
 				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize && ItemIsLegal(loopItem)
 				&& maxCoolness >= Item[loopItem].ubCoolness )
 		{
-			// store it! (make sure array is big enough)
-			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
 			// Madd: check to see if allowed by army
 			if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].ubChoices > 0 )
 			{

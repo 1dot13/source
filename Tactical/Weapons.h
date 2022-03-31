@@ -398,7 +398,8 @@ typedef struct
 	UINT8	ubAmmoType;
 	UINT8   ubMagType;
 
-	UINT32 uiIndex;
+	// sun_alf: once Magazines.xml is parsed, classIndex of a mag is index in Magazine[], and uiIndex field is not in use anymore,
+	UINT32 uiIndex;  // so let's use it as itemId, i.e. back reference to Item[].
 } MAGTYPE;
 
 typedef struct
