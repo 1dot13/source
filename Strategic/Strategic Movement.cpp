@@ -163,6 +163,18 @@ UINT8 NumberMercsInVehicleGroup( GROUP *pGroup );
 // waiting for input from user
 BOOLEAN gfWaitingForInput = FALSE;
 
+static WAYPOINT* GetWaypointAtIndex( WAYPOINT *waypoints, UINT8 index)
+{
+	WAYPOINT *wp = waypoints;
+	while ( index-- )
+	{ //Traverse through the waypoint list to the next waypoint ID
+		Assert( wp );
+		wp = wp->next;
+	}
+	Assert( wp );
+	return wp;
+}
+
 //Player grouping functions
 //.........................
 //Creates a new player group, returning the unique ID of that group. This is the first
@@ -1435,7 +1447,6 @@ void DeployGroupToSector( GROUP *pGroup )
 //at the next sector during a move and the area is clear.
 void CalculateNextMoveIntention( GROUP *pGroup )
 {
-	INT32 i;
 	WAYPOINT *wp;
 
 	Assert( pGroup );
@@ -1463,14 +1474,7 @@ void CalculateNextMoveIntention( GROUP *pGroup )
 	*/
 
 	//Determine if we are at a waypoint.
-	i = pGroup->ubNextWaypointID;
-	wp = pGroup->pWaypoints;
-	while( i-- )
-	{ //Traverse through the waypoint list to the next waypoint ID
-		Assert( wp );
-		wp = wp->next;
-	}
-	Assert( wp );
+	wp = GetWaypointAtIndex( pGroup->pWaypoints, pGroup->ubNextWaypointID );
 
 	//We have the next waypoint, now check if we are actually there.
 	if( pGroup->ubSectorX == wp->x && pGroup->ubSectorY == wp->y )
@@ -2753,7 +2757,6 @@ void DelayEnemyGroupsIfPathsCross( GROUP *pPlayerGroup )
 void InitiateGroupMovementToNextSector( GROUP *pGroup )
 {
 	INT32 dx, dy;
-	INT32 i;
 	UINT8 ubDirection;
 	UINT8 ubSector;
 	WAYPOINT *wp;
@@ -2762,15 +2765,8 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	UINT32 uiSleepMinutes = 0;
 
 	Assert( pGroup );
-	i = pGroup->ubNextWaypointID;
-	wp = pGroup->pWaypoints;
-	while ( i-- )
-	{
-		//Traverse through the waypoint list to the next waypoint ID
-		Assert( wp );
-		wp = wp->next;
-	}
-	Assert( wp );
+
+	wp = GetWaypointAtIndex( pGroup->pWaypoints, pGroup->ubNextWaypointID );
 
 	// the sector we are currently in
 	ubSector = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
@@ -4782,8 +4778,19 @@ BOOLEAN GroupAtFinalDestination( GROUP *pGroup )
 		return TRUE;
 	}
 
-	// if we're there
-	if( ( GetLengthOfPath(pGroup->pWaypoints) <= 1 ) && ( pGroup->ubSectorX == wp->x ) && ( pGroup->ubSectorY == wp->y ) )
+	// Waypoints of OUR_TEAM are being processed in a different way than ENEMY/MILITIA_TEAM:
+	// waypoints are shortened on each OUR_TEAM's visit of a sector, while ENEMY/MILITIA_TEAM keeps waypoints
+	// intact and increments ubNextWaypointID instead.
+	//   OUR_TEAM: at final waypoint, if there are only 1 left;
+	//   others: at final waypoint, if ubNextWaypointID index points to the last waypoint in chain;
+	BOOLEAN bTeamSpecificCondition = FALSE;
+	if ( pGroup->usGroupTeam == OUR_TEAM )
+		bTeamSpecificCondition = GetLengthOfPath( pGroup->pWaypoints ) <= 1;
+	else
+		bTeamSpecificCondition = GetWaypointAtIndex( pGroup->pWaypoints, pGroup->ubNextWaypointID ) == wp;
+
+	// we're there, if at final waypoint and current sector == final wp sector
+	if ( bTeamSpecificCondition && (pGroup->ubSectorX == wp->x) && (pGroup->ubSectorY == wp->y))
 	{
 		return TRUE;
 	}
@@ -4997,7 +5004,7 @@ void UpdatePersistantGroupsFromOldSave( UINT32 uiSavedGameVersion )
 BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY )
 {
 	WAYPOINT *wp;
-	INT32 i, dx, dy;
+	INT32 dx, dy;
 	UINT8 ubOrigX, ubOrigY;
 
 	Assert( pGroup );
@@ -5009,19 +5016,13 @@ BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSect
 	ubOrigX = pGroup->ubSectorX;
 	ubOrigY = pGroup->ubSectorY;
 
-	i = pGroup->ubNextWaypointID;
 	wp = pGroup->pWaypoints;
 
 	if( !wp )
 	{ //This is a floating group!?
 		return FALSE;
 	}
-	while( i-- )
-	{ //Traverse through the waypoint list to the next waypoint ID
-		Assert( wp );
-		wp = wp->next;
-	}
-	Assert( wp );
+	wp = GetWaypointAtIndex( wp, pGroup->ubNextWaypointID );
 
 
 	while( wp )

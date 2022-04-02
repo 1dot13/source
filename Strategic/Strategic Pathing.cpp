@@ -1697,7 +1697,7 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 
 
 	// if group has no path planned at all
-	if ( pNode == NULL )
+	if ( pNode == NULL || pNode->pNext == NULL )
 	{
 		// and it's a player group, and it's between sectors
 		// NOTE: AI groups never reverse direction between sectors, Kris cheats & teleports them back to their current sector!
