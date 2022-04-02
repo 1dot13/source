@@ -1620,13 +1620,13 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement == ELEMENT;
 			if (atol(pData->szCharData))
-				pData->curItem.usLimitedToSystem|= 1;
+				pData->curItem.usLimitedToSystem|= FOOD_SYSTEM_FLAG;
 		}
 		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
 		{
 			pData->curElement == ELEMENT;
 			if (atol(pData->szCharData))
-			pData->curItem.usLimitedToSystem|= 2;
+			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
 		}
 
 		--pData->maxReadDepth;

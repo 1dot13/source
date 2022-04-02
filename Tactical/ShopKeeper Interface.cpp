@@ -2901,7 +2901,7 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 		}
 
 		//shadooow: do not sell any item that is limited to specific system and this system isn't enabled
-		if (((Item[iter->object.usItem].usLimitedToSystem & 1) && !UsingFoodSystem()) || ((Item[iter->object.usItem].usLimitedToSystem & 2) && !gGameExternalOptions.fDisease))
+		if (((Item[iter->object.usItem].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[iter->object.usItem].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
 		{
 			++iter;
 			continue;

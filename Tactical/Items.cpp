@@ -1283,7 +1283,7 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	}
 
 	//shadooow: exclude also any item that is limited to specific system and this system isn't enabled
-	if (((Item[usItemIndex].usLimitedToSystem & 1) && !UsingFoodSystem()) || ((Item[usItemIndex].usLimitedToSystem & 2) && !gGameExternalOptions.fDisease))
+	if (((Item[usItemIndex].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[usItemIndex].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
 	{
 		return FALSE;
 	}

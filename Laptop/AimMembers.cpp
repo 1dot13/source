@@ -5650,7 +5650,7 @@ void EnableWeaponKitSelectionButtons()
 					{
 						bShow = true;
 						//shadooow: if any of the item in kit is limited to specific system and this system isn't enabled then disable the whole kit from selection
-						if (((Item[usItem].usLimitedToSystem & 1) && !UsingFoodSystem()) || ((Item[usItem].usLimitedToSystem & 2) && !gGameExternalOptions.fDisease))
+						if (((Item[usItem].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[usItem].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
 						{
 							bShow = false;
 							break;

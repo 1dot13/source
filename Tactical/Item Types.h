@@ -947,6 +947,10 @@ extern OBJECTTYPE gTempObject;
 // autofiretohitbonus,
 // bursttohitbonus
 
+// bitflags for usLimitedToSystem
+#define FOOD_SYSTEM_FLAG		1
+#define DISEASE_SYSTEM_FLAG		2
+
 typedef struct
 {
 	UINT32		usItemClass;
