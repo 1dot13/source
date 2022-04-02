@@ -2214,16 +2214,19 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect)
 				{
 					// ATE: OK, stop any mercs who are moving by selection method....
-					StopRubberBandedMercFromMoving();
+					BOOLEAN fFound = StopRubberBandedMercFromMoving();
 
 					// sevenfm: unready weapon for all selected
-					UINT8 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-					for (SOLDIERTYPE *pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++)
+					if (!fFound)
 					{
-						if (pSoldier->bActive && pSoldier->bInSector && pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED && WeaponReady(pSoldier))
+						UINT8 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+						for (SOLDIERTYPE *pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++)
 						{
-							pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE);
-							HandleSight(pSoldier, SIGHT_LOOK);
+							if (pSoldier->bActive && pSoldier->bInSector && pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED && WeaponReady(pSoldier))
+							{
+								pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE);
+								HandleSight(pSoldier, SIGHT_LOOK);
+							}
 						}
 					}
 

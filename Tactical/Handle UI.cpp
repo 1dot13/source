@@ -5911,14 +5911,16 @@ void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 }
 
 
-void StopRubberBandedMercFromMoving( )
+BOOLEAN StopRubberBandedMercFromMoving(void)
 {
 	if ( !gTacticalStatus.fAtLeastOneGuyOnMultiSelect || ( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
-		return;
+		return FALSE;
 	}
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
+
+	SOLDIERTYPE *pSoldier;
+	INT32		cnt;
+	BOOLEAN		fFound = FALSE;
 
 	// OK, loop through all guys who are 'multi-selected' and
 	// check if our currently selected guy is among the
@@ -5930,6 +5932,10 @@ void StopRubberBandedMercFromMoving( )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 			{
+				if (!(gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_STATIONARY))
+				{
+					fFound = TRUE;
+				}
 				pSoldier->flags.fDelayedMovement = FALSE;
 				pSoldier->pathing.sFinalDestination = pSoldier->sGridNo;
 				pSoldier->StopSoldier( );
@@ -5937,6 +5943,7 @@ void StopRubberBandedMercFromMoving( )
 		}
 	}
 
+	return fFound;
 }
 
 

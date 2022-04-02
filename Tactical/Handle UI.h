@@ -363,7 +363,7 @@ void ChangeInterfaceLevel( INT16 sLevel );
 void EndRubberBanding( );
 void ResetMultiSelection( );
 void EndMultiSoldierSelection( BOOLEAN fAcknowledge );
-void StopRubberBandedMercFromMoving( );
+BOOLEAN StopRubberBandedMercFromMoving(void);
 
 BOOLEAN SelectedGuyInBusyAnimation( );
 
