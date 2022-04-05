@@ -217,8 +217,8 @@ void GameInitAimSort()
 	// initial sort is by name, ascending (A-Z)
 	gubCurrentSortMode=12;
 	gubOldSortMode=12;
-	gubCurrentListMode=AIM_ASCEND;
-	gubOldListMode=AIM_ASCEND;
+	gubCurrentListMode = AIM_DESCEND;
+	gubOldListMode = AIM_DESCEND;
 }
 
 BOOLEAN EnterAimSort()
