@@ -735,7 +735,7 @@ void BuildSectorsWithSoldiersList( void )
 	// fills array with pressence of player controlled characters
 	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
 	{
-		if(pTeamSoldier->bActive)
+		if(pTeamSoldier->bActive && pTeamSoldier->bSectorZ < 4)
 		{
 			fSectorsWithSoldiers[ CALCULATE_STRATEGIC_INDEX(pTeamSoldier->sSectorX, pTeamSoldier->sSectorY ) ][ pTeamSoldier->bSectorZ ] = TRUE;
 		}
