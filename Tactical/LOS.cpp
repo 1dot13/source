@@ -3809,6 +3809,35 @@ INT32 CTGTHandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStruc
 	return( iImpactReduction );
 }
 
+static BOOLEAN PositionAllowsHit(BULLET * pBullet, STRUCTURE *	pStructure)
+{
+	const UINT32 uiBottomCrouchHitChance = 60;  // bullet flies from roof to ground
+	const UINT32 uiBottomProneHitChance = 30;   // bullet flies from roof to ground
+	const UINT32 uiCrouchHitChance = 50;        // bullet flies from roof to roof OR from ground to ground 
+	const UINT32 uiProneHitChance = 10;         // bullet flies from roof to roof OR from ground to ground
+	const UINT32 uiTopCrouchHitChance = 20;     // bullet flies from ground to roof
+	const UINT32 uiTopProneHitChance = 0;       // bullet flies from ground to roof
+
+	// First of all, check if current stance allows to be hit accidentally (considering standing stance gives 100% hit prob in any case)
+	UINT8 mercStance = gAnimControl[MercPtrs[pStructure->usStructureID]->usAnimState].ubEndHeight;
+	BOOLEAN fPositionAllowsHit = mercStance == ANIM_STAND;
+
+	// Now check for additional stances, if this option is enabled and the check still makes sense
+	if (gGameExternalOptions.fAllowTargetHeadAndLegIfProne == TRUE && fPositionAllowsHit == FALSE && pBullet->pFirer != NULL)
+	{
+		UINT32 chance = 0;
+		if (pBullet->pFirer->pathing.bLevel > MercPtrs[pStructure->usStructureID]->pathing.bLevel)  // if firer is on roof and merc is not,
+			chance = mercStance == ANIM_CROUCH ? uiBottomCrouchHitChance : uiBottomProneHitChance;    // then hit is possible disregarding stance
+		else if (pBullet->pFirer->pathing.bLevel == MercPtrs[pStructure->usStructureID]->pathing.bLevel)  // if both on roof or ground
+			chance = mercStance == ANIM_CROUCH ? uiCrouchHitChance : uiProneHitChance;
+		else  // if merc is on roof and firer is not
+			chance = mercStance == ANIM_CROUCH ? uiTopCrouchHitChance : uiTopProneHitChance;
+
+		fPositionAllowsHit = Chance(chance);
+	}
+
+	return fPositionAllowsHit;
+}
 
 UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 {
@@ -3966,11 +3995,8 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 						// in actually moving the bullet, we consider only count friends as targets if the bullet is unaimed
 						// (buckshot), if they are the intended target, or beyond the range of automatic friendly fire hits
 						// OR a 1 in 30 chance occurs
-						if ( (gGameExternalOptions.fAllowTargetHeadAndLegIfProne || gAnimControl[MercPtrs[pStructure->usStructureID]->usAnimState].ubEndHeight == ANIM_STAND) &&
-							( (pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS) ||
-							(!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED)
-							)
-							)
+						if (PositionAllowsHit(pBullet, pStructure) &&
+							(pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS || !pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED))
 						{
 							// could hit this person!
 							gpLocalStructure[iNumLocalStructures] = pStructure;
@@ -7243,13 +7269,11 @@ void MoveBullet( INT32 iBullet )
 							iNumLocalStructures++;
 						}
 					}
-					else if ( MercPtrs[ pStructure->usStructureID ]->bVisible == TRUE &&
-							  (gGameExternalOptions.fAllowTargetHeadAndLegIfProne || gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight == ANIM_STAND ) &&
-						( (pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS) ||
-						(!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED) ||
-						PreRandom( 100 ) < MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE
-						)
-						)
+					else if (MercPtrs[pStructure->usStructureID]->bVisible == TRUE &&
+							PositionAllowsHit(pBullet, pStructure) &&
+							(pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS || 
+							!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED ||
+							PreRandom( 100 ) < MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE))
 					{
 						// could hit this person!
 						gpLocalStructure[iNumLocalStructures] = pStructure;
