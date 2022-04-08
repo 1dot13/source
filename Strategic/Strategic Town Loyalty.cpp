@@ -1106,10 +1106,30 @@ void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsD
 }
 
 
-void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT8 ubChance )
+static BOOLEAN CanRemoveWorldItem( WORLDITEM *worlditem, UINT32 uiMaxWeight, UINT32 *pStackWeight )
 {
+	BOOLEAN result = FALSE;
+	UINT32 uiChance = 10UL * Item[worlditem->object.usItem].ubCoolness;
+
+	UINT32 uiStackWeight = 0;
+	for ( int objIndex = 0; objIndex < worlditem->object.ubNumberOfObjects; objIndex++ )
+		uiStackWeight += worlditem->object.GetWeightOfObjectInStack( objIndex );
+
+	if ( Chance( uiChance ) && uiStackWeight <= uiMaxWeight )
+		result = TRUE;
+
+	*pStackWeight = uiStackWeight;
+	return result;
+}
+
+
+void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT32 uiNumEnemies )
+{
+	const UINT32 uiCarryWeightPerSoldier = 30;  // 3 kg
+
 	// remove random items in sector
-	UINT32 uiNumberOfItems = 0, iCounter = 0;
+	UINT32 uiNumberOfItems = 0, iCounter = 0, uiStackWeight = 0;
+	UINT32 uiWeightToSteal = uiCarryWeightPerSoldier * uiNumEnemies;
 	std::vector<WORLDITEM> pItemList;//dnl ch75 271013
 	UINT32 uiNewTotal = 0;
 	CHAR16 wSectorName[ 128 ];
@@ -1149,11 +1169,12 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 			//if the item exists, and is visible and reachable, see if it should be stolen
 			if ( pItemList[ iCounter ].fExists && pItemList[ iCounter ].bVisible == TRUE && pItemList[ iCounter ].usFlags & WORLD_ITEM_REACHABLE )
 			{
-				if ( Chance( ubChance ) )
+				if ( CanRemoveWorldItem( &pItemList[iCounter], uiWeightToSteal, &uiStackWeight ) )
 				{
 					// remove
 					--uiNewTotal;
 					pItemList[ iCounter ].fExists = FALSE;
+					uiWeightToSteal -= uiStackWeight;
 
 					// debug message
 					ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"%s stolen in %s!", ItemNames[ pItemList[ iCounter ].object.usItem ], wSectorName );
@@ -1174,9 +1195,11 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 			// note, can't do reachable test here because we'd have to do a path call...
 			if ( gWorldItems[ iCounter ].fExists && gWorldItems[ iCounter ].bVisible == TRUE )
 			{
-				if ( Chance( ubChance ) )
+				if ( CanRemoveWorldItem( &gWorldItems[iCounter], uiWeightToSteal, &uiStackWeight ) )
 				{
 					RemoveItemFromPool( gWorldItems[ iCounter ].sGridNo , iCounter, gWorldItems[ iCounter ].ubLevel );
+					uiWeightToSteal -= uiStackWeight;
+					
 					// debug message
 					ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"%s stolen in %s!", ItemNames[ gWorldItems[ iCounter ].object.usItem ], wSectorName );
 				}

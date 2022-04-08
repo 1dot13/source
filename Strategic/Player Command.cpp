@@ -457,7 +457,6 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 	UINT16 usMapSector = 0;
 	BOOLEAN fWasPlayerControlled = FALSE;
 	INT8 bTownId = 0;
-	UINT8 ubTheftChance;
 	UINT8 ubSectorID;
 
 	//KM : August 6, 1999 Patch fix
@@ -558,14 +557,11 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 		// stealing should fail anyway 'cause there shouldn't be a temp file for unvisited sectors, but let's check anyway
 		if ( GetSectorFlagStatus( sMapX, sMapY, ( UINT8 ) bMapZ, SF_ALREADY_VISITED ) == TRUE )
 		{
-			// enemies can steal items left lying about (random chance).	The more there are, the more they take!
-			ubTheftChance = 5 * NumEnemiesInAnySector( sMapX, sMapY, bMapZ );
-			// max 90%, some stuff may just simply not get found
-			if (ubTheftChance > 90 )
-			{
-				ubTheftChance = 90;
-			}
-			RemoveRandomItemsInSector( sMapX, sMapY, bMapZ, ubTheftChance );
+			// Enemies can steal items left lying about, each one can carry out up to X kg (defined in RemoveRandomItemsInSector).
+			// Don't care underground sectors here -- we are in overground code branch.
+			UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+			GetNumberOfStationaryEnemiesInSector( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumRobots, &ubNumTanks, &ubNumJeeps );
+			RemoveRandomItemsInSector( sMapX, sMapY, bMapZ, (UINT32)ubNumAdmins + ubNumTroops + ubNumElites );
 		}
 
 		// don't touch fPlayer flag for a surface sector lost to the enemies!

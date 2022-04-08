@@ -137,7 +137,7 @@ BOOLEAN HandleLoyaltyAdjustmentForRobbery( SOLDIERTYPE *pSoldier );
 void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsDmg );
 
 // remove random item from this sector
-void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT8 ubChance );
+void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT32 uiNumEnemies );
 
 // get the shortest distance between these two towns via roads
 INT32 GetTownDistances( UINT8 ubTown, UINT8 ubTownA );
