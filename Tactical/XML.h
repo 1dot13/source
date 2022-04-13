@@ -52,6 +52,7 @@ typedef PARSE_STAGE;
 #define MAX_CHAR_1000_DATA_LENGTH		1000
 
 #define TABLEDATA_DIRECTORY						"TableData\\"
+#define TABLEDATA_LAPTOP_DIRECTORY				"Laptop\\"
 
 #define GERMAN_PREFIX							"German."
 #define RUSSIAN_PREFIX							"Russian."
@@ -182,6 +183,7 @@ typedef PARSE_STAGE;
 #define LAPTOPBOBBYRAYSTEXTFILENAME				"Laptop\\BobbyRays.xml"
 #define LAPTOPFLORISTLOCATIONFILENAME			"Laptop\\FloristPositions.xml"
 #define LAPTOPFUNERALLOCATIONFILENAME			"Laptop\\FuneralPositions.xml"
+#define LAPTOPADDITIONALFILESFILENAME			"AdditionalFiles.xml"
 
 #define EMAILSENDERNAMELIST						"Email\\EmailSenderNameList.xml"
 #define EMAILMERCAVAILABLE						"Email\\EmailMercAvailable.xml"

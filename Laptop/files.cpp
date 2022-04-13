@@ -3,6 +3,7 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
+	#include <list>
 	#include "laptop.h"
 	#include "files.h"
 	#include "Game clock.h"
@@ -17,6 +18,9 @@
 	// HEADROCK PROFEX: This is required to display the proper facial image.
 	#include "Soldier Profile.h"
 	#include "GameSettings.h"
+	#include "XML.h"
+	#include "expat.h"
+	#include "Debug Control.h"
 #endif
 
 #ifdef JA2UB
@@ -54,6 +58,7 @@
 #define LENGTH_OF_ENRICO_FILE						68
 #endif
 #define MAX_FILE_MESSAGE_PAGE_SIZE			325
+#define MAX_TEXT_FILE_MESSAGE_PAGE_SIZE		(350)
 #define VIEWER_MESSAGE_BODY_START_Y			FILES_LIST_Y
 #define PREVIOUS_FILE_PAGE_BUTTON_X									iScreenWidthOffset + 553
 #define PREVIOUS_FILE_PAGE_BUTTON_Y									iScreenHeightOffset + 53
@@ -205,6 +210,247 @@ FileRecordWidthPtr CreateWidthRecordsForAruloIntelFile( void );
 FileRecordWidthPtr CreateWidthRecordsForTerroristFile( void );
 FileRecordWidthPtr CreateRecordWidth( 	INT32 iRecordNumber, INT32 iRecordWidth, INT32 iRecordHeightAdjustment, UINT8 ubFlags );
 
+// sun_alf: functionality of additional files processing
+#define ADDFILES_NAME_MAX_LENGTH    (16)
+#define ADDFILES_PATH_MAX_LENGTH    (128)
+typedef struct
+{
+	CHAR16		name[ADDFILES_NAME_MAX_LENGTH + 1];  // in-game displayed name of file
+	CHAR8		path[ADDFILES_PATH_MAX_LENGTH + 1];  // local path to file under "/Laptop" dir
+	BOOLEAN		atInit;     // is the file available from game init
+	UINT8		font;       // font code
+	UINT8		textColor;  // text color code
+	UINT8		bkgdColor;  // text background color code
+	UINT8       fileCode;   // file code to integrate with vanilla files (starts with ADDITIONAL_FILE_0)
+} AdditionalFiles_Descriptor;
+
+typedef enum
+{
+	ADDFILES_ELEMENT_NONE = 0,
+	ADDFILES_ELEMENT_ADDITIONALFILES,
+	ADDFILES_ELEMENT_FILE,
+	ADDFILES_ELEMENT,
+} AdditionalFiles_ParseStage;
+
+typedef struct
+{
+	AdditionalFiles_ParseStage curElement;
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH + 1];
+	UINT32		currentDepth;
+	UINT32		maxReadDepth;
+	UINT8		fileCode;
+
+	AdditionalFiles_Descriptor parsedData;
+} AdditionalFiles_ParseData;
+
+static BOOLEAN HandleAdditionalTextFile( FilesUnitPtr file );
+
+static std::list<AdditionalFiles_Descriptor> g_AdditionalFilesList;
+
+
+static AdditionalFiles_Descriptor* AdditionalFiles_GetDescriptor( UINT8 ubCode )
+{
+	for ( AdditionalFiles_Descriptor &item : g_AdditionalFilesList )
+	{
+		if ( item.fileCode == ubCode )
+		{
+			return &item;
+		}
+	}
+	return NULL;
+}
+
+static AdditionalFiles_Descriptor* AdditionalFiles_LoadTextFile( FilesUnitPtr file )
+{
+	AdditionalFiles_Descriptor *descr = AdditionalFiles_GetDescriptor( file->ubCode );
+
+	if ( descr )
+	{
+		ClearFileStringList();
+
+		CHAR8 fileName[MAX_PATH + 1] = TABLEDATA_DIRECTORY TABLEDATA_LAPTOP_DIRECTORY;
+		strncat( fileName, descr->path, MAX_PATH );
+		if ( FileExists( fileName ) )
+		{
+			HWFILE hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+			if ( hFile )
+			{
+				std::string utf8Line;
+				while ( FileReadLine( hFile, &utf8Line ) )
+				{
+					std::wstring wcharLine = utf8_to_wstring( utf8Line );
+					AddStringToFilesList( (STR16) wcharLine.c_str() );
+				}
+				FileClose( hFile );
+			}
+		}
+	}
+
+	return descr;
+}
+
+static INT32 AdditionalFiles_GetFontHandler( UINT8 font )
+{
+	INT32 iFont = (INT32)font;
+	if ( IsFontLoaded( iFont ) == FALSE )
+		iFont = FILES_TEXT_FONT;
+
+	return iFont;
+}
+
+static BOOLEAN AdditionalFiles_IsValid( AdditionalFiles_Descriptor *descr )
+{
+	BOOLEAN result = FALSE;
+	CHAR8 fileName[MAX_PATH] = TABLEDATA_DIRECTORY TABLEDATA_LAPTOP_DIRECTORY;
+	strcat( fileName, descr->path );
+	BOOLEAN exists = FileExists( fileName );
+
+	if ( exists && wcslen( descr->name ) > 0 &&
+		(INT32)descr->font <= MAX_FONTS &&
+		ADDITIONAL_FILE_0 <= descr->fileCode && descr->fileCode <= ADDITIONAL_FILE_MAX )
+	{
+		result = TRUE;
+	}
+		
+	return result;
+}
+
+// Process the opening tag in this expat callback.
+static void XMLCALL AdditionalFiles_StartElementHandler( void *userData, const XML_Char *name, const XML_Char **atts )
+{
+	AdditionalFiles_ParseData *pData = (AdditionalFiles_ParseData*) userData;
+
+	if ( pData->currentDepth <= pData->maxReadDepth )
+	{
+		if ( strcmp( name, "AdditionalFiles" ) == 0 && pData->curElement == ADDFILES_ELEMENT_NONE )
+		{
+			pData->fileCode = ADDITIONAL_FILE_0;  // assign ID to each <File> entry
+			pData->curElement = ADDFILES_ELEMENT_ADDITIONALFILES;
+			pData->maxReadDepth++;
+		}
+		else if ( strcmp( name, "File" ) == 0 && pData->curElement == ADDFILES_ELEMENT_ADDITIONALFILES )
+		{
+			memset( &pData->parsedData, 0, sizeof(pData->parsedData) );
+			pData->curElement = ADDFILES_ELEMENT_FILE;
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == ADDFILES_ELEMENT_FILE &&
+			(strcmp( name, "Name" ) == 0 ||
+			strcmp( name, "Path" ) == 0 ||
+			strcmp( name, "AtInit" ) == 0 ||
+			strcmp( name, "Font" ) == 0 ||
+			strcmp( name, "TextColor" ) == 0 ||
+			strcmp( name, "BkgdColor" ) == 0) )
+		{
+			pData->curElement = ADDFILES_ELEMENT;
+			pData->maxReadDepth++;
+		}
+		pData->szCharData[0] = '\0';
+	}
+	pData->currentDepth++;
+}
+
+// Process any text content in this callback.
+static void XMLCALL AdditionalFiles_CharacterDataHandler( void *userData, const XML_Char *str, int len )
+{
+	AdditionalFiles_ParseData *pData = (AdditionalFiles_ParseData*) userData;
+
+	if ( pData->currentDepth <= pData->maxReadDepth && strlen( pData->szCharData ) < MAX_CHAR_DATA_LENGTH )
+		strncat( pData->szCharData, str, __min( (unsigned int)len, MAX_CHAR_DATA_LENGTH - strlen( pData->szCharData ) ) );
+}
+
+// Process the closing tag in this expat callback.
+static void XMLCALL AdditionalFiles_EndElementHandler( void *userData, const XML_Char *name )
+{
+	AdditionalFiles_ParseData *pData = (AdditionalFiles_ParseData*) userData;
+
+	if ( pData->currentDepth <= pData->maxReadDepth )
+	{
+		if ( pData->curElement == ADDFILES_ELEMENT_ADDITIONALFILES && strcmp( name, "AdditionalFiles" ) == 0 )
+		{
+			pData->curElement = ADDFILES_ELEMENT_NONE;
+		}
+		else if ( pData->curElement == ADDFILES_ELEMENT_FILE && strcmp( name, "File" ) == 0 )
+		{
+			pData->parsedData.fileCode = pData->fileCode++;
+			if ( AdditionalFiles_IsValid( &pData->parsedData ) == TRUE )
+			{
+				g_AdditionalFilesList.push_back( pData->parsedData );
+			}
+
+			pData->curElement = ADDFILES_ELEMENT_ADDITIONALFILES;
+		}
+		else if ( pData->curElement == ADDFILES_ELEMENT )
+		{
+			if ( strcmp( name, "Name" ) == 0 )
+			{
+				std::string strName( pData->szCharData );
+				std::wstring wstrName = utf8_to_wstring( strName );
+				wcsncpy( pData->parsedData.name, wstrName.c_str(), ADDFILES_NAME_MAX_LENGTH );
+			}
+			else if ( strcmp( name, "Path" ) == 0 )
+				strncpy( (CHAR8*)pData->parsedData.path, pData->szCharData, ADDFILES_PATH_MAX_LENGTH );
+			else if ( strcmp( name, "AtInit" ) == 0 )
+				pData->parsedData.atInit = (BOOLEAN)atol( pData->szCharData );
+			else if ( strcmp( name, "Font" ) == 0 )
+				pData->parsedData.font = (UINT8)atol( pData->szCharData );
+			else if ( strcmp( name, "TextColor" ) == 0 )
+				pData->parsedData.textColor = (UINT8)atol( pData->szCharData );
+			else if ( strcmp( name, "BkgdColor" ) == 0 )
+				pData->parsedData.bkgdColor = (UINT8)atol( pData->szCharData );
+			
+			pData->curElement = ADDFILES_ELEMENT_FILE;
+		}
+
+		pData->maxReadDepth--;
+	}
+	pData->currentDepth--;
+}
+
+// Parse AdditionalFiles.xml and build list of file descriptors
+static void LocateAdditionalFiles( )
+{
+	g_AdditionalFilesList.clear();
+
+	CHAR8 fileName[MAX_PATH] = TABLEDATA_DIRECTORY TABLEDATA_LAPTOP_DIRECTORY;
+	strcat( fileName, LAPTOPADDITIONALFILESFILENAME );
+
+	if ( FileExists( fileName ) )
+	{
+		HWFILE hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+		if ( hFile )
+		{
+			UINT32 uiBytesRead;
+			UINT32 uiFileSize = FileGetSize( hFile );
+			CHAR8 *fileBuffer = (CHAR8*)MemAlloc( uiFileSize + 1 );
+
+			if ( FileRead( hFile, fileBuffer, uiFileSize, &uiBytesRead ) )
+			{
+				XML_Parser parser = XML_ParserCreate( NULL );
+				XML_SetElementHandler( parser, AdditionalFiles_StartElementHandler, AdditionalFiles_EndElementHandler );
+				XML_SetCharacterDataHandler( parser, AdditionalFiles_CharacterDataHandler );
+
+				AdditionalFiles_ParseData pData;
+				memset( &pData, 0, sizeof( pData ) );
+				XML_SetUserData( parser, &pData );
+
+				fileBuffer[uiFileSize] = 0;  // put a safe-guard null terminator
+				if ( XML_Parse( parser, fileBuffer, uiFileSize, TRUE ) != XML_STATUS_OK )
+				{
+					CHAR8 errorBuf[MAX_CHAR_DATA_LENGTH];
+					sprintf( errorBuf, "XML Parser Error in %s: %s at line %d", LAPTOPADDITIONALFILESFILENAME, XML_ErrorString( XML_GetErrorCode( parser ) ), XML_GetCurrentLineNumber( parser ) );
+					LiveMessage( errorBuf );
+				}
+
+				XML_ParserFree( parser );
+			}
+
+			MemFree( fileBuffer );
+			FileClose( hFile );
+		}
+	}
+}
+
 
 UINT32 AddFilesToPlayersLog(UINT8 ubCode, UINT32 uiDate, UINT8 ubFormat, STR8 pFirstPicFile, STR8 pSecondPicFile )
 {
@@ -229,10 +475,10 @@ UINT32 AddFilesToPlayersLog(UINT8 ubCode, UINT32 uiDate, UINT8 ubFormat, STR8 pF
 	// return unique id of this transaction
 	return uiId;
 }
+
 void GameInitFiles( )
 {
-
-	if (	(FileExists( FILES_DAT_FILE ) == TRUE ) )
+	if ( FileExists( FILES_DAT_FILE ) == TRUE )
 	{
 		FileClearAttributes( FILES_DAT_FILE );
 		FileDelete( FILES_DAT_FILE );
@@ -241,14 +487,16 @@ void GameInitFiles( )
 	ClearFilesList( );
 
 	// add background check by RIS
-
-	//#ifdef JA2UB
-	//if ( gGameUBOptions.RISRAPORT == TRUE )
-	//	AddFilesToPlayersLog( ENRICO_BACKGROUND, 0,255, NULL, NULL );
-	//#else
 	AddFilesToPlayersLog( ENRICO_BACKGROUND, 0,255, NULL, NULL );
-	//#endif
-	
+
+	// additional files: add all available from game beginning files
+	LocateAdditionalFiles();
+	for ( AdditionalFiles_Descriptor item : g_AdditionalFilesList )
+	{
+		if ( item.atInit )
+			AddFilesToPlayersLog( item.fileCode, 0, FFORMAT_ADDITIONAL_TEXT, NULL, NULL );
+	}
+
 	//mission briefing by Jazz
 	//AddFilesToPlayersLog( MISSION_BRIEFING, 0,4, NULL, NULL );
 }
@@ -274,6 +522,10 @@ void EnterFiles()
 	// now set start states
 	HandleFileViewerButtonStates( );
 
+	// Re-locate additional files: parse AdditionalFiles.xml and build descriptors. Processing from scratch on each Laptop
+	// files mode opening come handy for modders, also it follows such rule of this (files.cpp) module.
+	LocateAdditionalFiles( );
+
 	// build files list
 	OpenAndReadFilesFile( );
 
@@ -292,7 +544,6 @@ void EnterFiles()
 
 void ExitFiles()
 {
-
 	// write files list out to disk
 	OpenAndWriteFilesFile( );
 
@@ -306,6 +557,9 @@ void ExitFiles()
 
 	// remove files
 	RemoveFiles( );
+
+	// clear and allow to re-load all the stuff at next Laptop opening
+	g_AdditionalFilesList.clear();
 }
 
 void HandleFiles()
@@ -703,13 +957,22 @@ void DisplayFilesList( void )
 	{
 		if (iCounter==iHighLightFileLine)
 		{
-		// render highlight
-		GetVideoObject(&hHandle, guiHIGHLIGHT);
-		BltVideoObject(FRAME_BUFFER, hHandle, 0, FILES_SENDER_TEXT_X - 5, iScreenHeightOffset + ( ( iCounter + 9 ) * BLOCK_HEIGHT) + ( iCounter * 2 ) - 4 , VO_BLT_SRCTRANSPARENCY,NULL);
-
+			// render highlight
+			GetVideoObject(&hHandle, guiHIGHLIGHT);
+			BltVideoObject(FRAME_BUFFER, hHandle, 0, FILES_SENDER_TEXT_X - 5, iScreenHeightOffset + ( ( iCounter + 9 ) * BLOCK_HEIGHT) + ( iCounter * 2 ) - 4 , VO_BLT_SRCTRANSPARENCY,NULL);
 		}
 
-		mprintf(FILES_SENDER_TEXT_X, iScreenHeightOffset + (( iCounter + 9 ) * BLOCK_HEIGHT) + ( iCounter * 2 ) - 2 ,pFilesSenderList[pFilesList->ubCode]);
+		if ( pFilesList->ubCode <= LAST_JA2_VANILLA_FILE )
+		{
+			mprintf( FILES_SENDER_TEXT_X, iScreenHeightOffset + ((iCounter + 9) * BLOCK_HEIGHT) + (iCounter * 2) - 2, pFilesSenderList[pFilesList->ubCode] );
+		}
+		else  // additional file case
+		{
+			AdditionalFiles_Descriptor *descr = AdditionalFiles_GetDescriptor( pFilesList->ubCode );
+			if ( descr )
+				mprintf( FILES_SENDER_TEXT_X, iScreenHeightOffset + ((iCounter + 9) * BLOCK_HEIGHT) + (iCounter * 2) - 2, descr->name );
+		}
+
 		iCounter++;
 		pFilesList=pFilesList->Next;
 	}
@@ -836,11 +1099,10 @@ BOOLEAN DisplayFormattedText( void )
 	UINT16 usFirstHeight = 0;
 	UINT16 usSecondWidth;
 	UINT16 usSecondHeight;
-	INT32 iCounter=0;
-	INT32 iLength=0;
-	INT32 iHeight=0;
-	INT32 iOffSet=0;
-	INT32 iMessageCode;
+	UINT32 uiCounter = 0;
+	UINT32 uiLength = 0;
+	UINT32 uiHeight = 0;
+	UINT32 uiOffSet = 0;
 	CHAR16 sString[2048];
 	HVOBJECT hHandle;
 	UINT32 uiFirstTempPicture;
@@ -852,15 +1114,10 @@ BOOLEAN DisplayFormattedText( void )
 	fWaitAFrame = FALSE;
 
 	// get the file that was highlighted
-	while(iCounter < iHighLightFileLine)
+	for ( INT32 i = 0; i < iHighLightFileLine; i++ )
 	{
-	iCounter++;
-		pFilesList=pFilesList->Next;
+		pFilesList = pFilesList->Next;
 	}
-
-	// message code found, reset counter
-	iMessageCode = pFilesList->ubCode;
-	iCounter=0;
 
 	// set file as read
 	pFilesList->fRead = TRUE;
@@ -873,49 +1130,33 @@ BOOLEAN DisplayFormattedText( void )
 	BltVideoObject(FRAME_BUFFER, hHandle, 0, FILE_VIEWER_X, FILE_VIEWER_Y - 4, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	// get the offset in the file
-	while( iCounter < iMessageCode)
+	if ( pFilesList->ubCode <= LAST_JA2_VANILLA_FILE )
 	{
-	// increment increment offset
-	iOffSet+=ubFileRecordsLength[iCounter];
-
-		// increment counter
-		iCounter++;
+		uiOffSet = ubFileOffsets[pFilesList->ubCode];
+		uiLength = ubFileRecordsLength[pFilesList->ubCode];
 	}
-
-	iLength = ubFileRecordsLength[pFilesList->ubCode];
-
-	if( pFilesList->ubFormat < ENRICO_BACKGROUND )
-	{
-
-	LoadEncryptedDataFromFile("BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * (iOffSet) * 2, FILE_STRING_SIZE * iLength * 2);
-	}
-
-	// reset counter
-	iCounter=0;
 
 	// no shadow
 	SetFontShadow(NO_SHADOW);
 
 	switch( pFilesList->ubFormat )
 	{
-	case 0:
-
+		case 0:
 			// no format, all text
-
-			while(iLength > iCounter)
+			while(uiLength > uiCounter)
 			{
-		 // read one record from file manager file
-			LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( iOffSet + iCounter ) * 2, FILE_STRING_SIZE * 2 );
+				// read one record from file manager file
+				LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( uiOffSet + uiCounter ) * 2, FILE_STRING_SIZE * 2 );
 
-			// display string and get height
-		iHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + iHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
+				// display string and get height
+				uiHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + uiHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
 
-			// increment file record counter
-			iCounter++;
+				// increment file record counter
+				uiCounter++;
 			}
-	 break;
+			break;
 
-	 case 1:
+		case 1:
 
 			// second format, one picture, all text below
 
@@ -933,26 +1174,26 @@ BOOLEAN DisplayFormattedText( void )
 		// blt background to screen
 		BltVideoObject(FRAME_BUFFER, hHandle, 0, FILE_VIEWER_X + 4 + ( FILE_VIEWER_WIDTH - usFirstWidth ) / 2, FILE_VIEWER_Y + 10, VO_BLT_SRCTRANSPARENCY,NULL);
 
-			iHeight = usFirstHeight + 20;
+			uiHeight = usFirstHeight + 20;
 
 
-			while(iLength > iCounter)
+			while(uiLength > uiCounter)
 			{
+				// read one record from file manager file
+				LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( uiOffSet + uiCounter ) * 2, FILE_STRING_SIZE * 2 );
 
-		 // read one record from file manager file
-			LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( iOffSet + iCounter ) * 2, FILE_STRING_SIZE * 2 );
+				// display string and get height
+				uiHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + uiHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
 
-			// display string and get height
-		iHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + iHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
-
-			// increment file record counter
-			iCounter++;
+				// increment file record counter
+				uiCounter++;
 			}
 
 		// delete video object
 			DeleteVideoObjectFromIndex( uiFirstTempPicture );
 
 		break;
+
 		case 2:
 
 			// third format, two pictures, side by side with all text below
@@ -998,39 +1239,42 @@ BOOLEAN DisplayFormattedText( void )
 			DeleteVideoObjectFromIndex(uiSecondTempPicture);
 
 			// put in text
-			iHeight = usFirstHeight + 20;
+			uiHeight = usFirstHeight + 20;
 
 
-			while(iLength > iCounter)
+			while(uiLength > uiCounter)
 			{
+				// read one record from file manager file
+				LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( uiOffSet + uiCounter ) * 2, FILE_STRING_SIZE * 2 );
 
-		 // read one record from file manager file
-			LoadEncryptedDataFromFile( "BINARYDATA\\Files.edt", sString, FILE_STRING_SIZE * ( iOffSet + iCounter ) * 2, FILE_STRING_SIZE * 2 );
+				// display string and get height
+				uiHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + uiHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
 
-			// display string and get height
-		iHeight += IanDisplayWrappedString(FILE_VIEWER_X + 4, ( UINT16 )( FILE_VIEWER_Y + iHeight ), FILE_VIEWER_WIDTH, FILE_GAP, FILES_TEXT_FONT, FILE_TEXT_COLOR, sString,0,FALSE,0);
-
-			// increment file record counter
-			iCounter++;
+				// increment file record counter
+				uiCounter++;
 			}
 
 
 		break;
 
 		case 3:
-		// picture on the left, with text on right and below
-		// load first graphic
+			// picture on the left, with text on right and below
+			// load first graphic
 			HandleSpecialTerroristFile( pFilesList->ubCode, pFilesList->pPicFileNameList[ 0 ] );
-		break;
+			break;
+
 		case 4:
-		// picture on the left, with text on right and below
-		// load first graphic
-		   HandleMissionBriefingFiles( pFilesList->ubFormat );
-		break;
+			// picture on the left, with text on right and below
+			// load first graphic
+			HandleMissionBriefingFiles( pFilesList->ubFormat );
+			break;
+
+		case FFORMAT_ADDITIONAL_TEXT:
+			HandleAdditionalTextFile( pFilesList );
+			break;
+
 		default:
 			HandleSpecialFiles( pFilesList->ubFormat );
-	 break;
-
 	}
 
 	HandleFileViewerButtonStates( );
@@ -1262,6 +1506,59 @@ BOOLEAN HandleMissionBriefingFiles( UINT8 ubFormat )
 	}
 
 	return ( TRUE );
+}
+
+static BOOLEAN HandleAdditionalTextFile( FilesUnitPtr file )
+{
+	AdditionalFiles_Descriptor *descr = AdditionalFiles_LoadTextFile( file );
+
+	if ( descr == NULL )
+		return FALSE;
+
+	// set up font
+	INT32 uiFont = AdditionalFiles_GetFontHandler( descr->font );
+	UINT8 ubFontColor = descr->textColor;
+	UINT8 ubFontBgColor = descr->bkgdColor;
+	UINT32 uiFlags = IAN_WRAP_NO_SHADOW;
+	
+	// Create list of width(s). Actually, text file view needs only one of it.
+	FileRecordWidthPtr widthList = CreateRecordWidth( 0, FILE_VIEWER_WIDTH, 0, 0 );
+	FileStringPtr pFileString = GetFirstStringOnThisPage( pFileStringList,
+			uiFont, FILE_VIEWER_WIDTH, FILE_GAP, giFilesPage, MAX_TEXT_FILE_MESSAGE_PAGE_SIZE, widthList );
+
+	// move through list and display
+	UINT16 usPositionOnPage = 0;
+	while ( pFileString )
+	{
+		UINT16 drawnStringHeight = IanWrappedStringHeight( FILE_VIEWER_X + 4, FILE_VIEWER_Y + usPositionOnPage,
+				FILE_VIEWER_WIDTH, FILE_GAP, uiFont, ubFontColor, pFileString->pString, ubFontBgColor, FALSE, uiFlags );
+
+		// if the string we are going to draw fits current page, then draw it, otherwise stop drawing current page
+		if ( usPositionOnPage + drawnStringHeight < MAX_TEXT_FILE_MESSAGE_PAGE_SIZE )
+		{
+			usPositionOnPage += IanDisplayWrappedString( FILE_VIEWER_X + 4, FILE_VIEWER_Y + usPositionOnPage,
+					FILE_VIEWER_WIDTH, FILE_GAP, uiFont, ubFontColor, pFileString->pString, ubFontBgColor, FALSE, uiFlags );
+		}
+		else
+		{
+			break;
+		}
+
+		pFileString = pFileString->Next;
+	}
+
+	if ( pFileString == NULL )
+	{
+		fOnLastFilesPageFlag = TRUE;
+	}
+	else
+	{
+		fOnLastFilesPageFlag = FALSE;
+	}
+
+	ClearOutWidthRecordsList( widthList );
+
+	return TRUE;
 }
 
 //-------------------------------------------

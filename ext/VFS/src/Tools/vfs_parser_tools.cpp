@@ -34,36 +34,42 @@
 /*************************************************************************************/
 /*************************************************************************************/
 
-vfs::CReadLine::CReadLine(vfs::tReadableFile& rFile)
-: _file(rFile), _buffer_pos(0), _eof(false)
+vfs::CReadLine::CReadLine(vfs::tReadableFile& rFile, bool autoControlFile)
+	: _file(rFile), _buffer_pos(0), _auto_ctrl_file(autoControlFile)
 {
 	memset(_buffer,0,sizeof(_buffer));
 
 	vfs::COpenReadFile rfile(&_file);
-	_bytes_left = rfile->getSize();
+	vfs::size_t startReadPosition = _file.getReadPosition();
+	_bytes_left = startReadPosition >= rfile->getSize() ? 0 : rfile->getSize() - startReadPosition;
 	fillBuffer();
-	vfs::UByte utf8bom[3] = {0xef,0xbb,0xbf};
-	if(memcmp(utf8bom, &_buffer[0],3) == 0)
+
+	if (startReadPosition == 0)
 	{
-		_buffer_pos += 3;
+		vfs::UByte utf8bom[3] = { 0xef, 0xbb, 0xbf };
+		if (memcmp( utf8bom, &_buffer[0], 3) == 0 )
+		{
+			_buffer_pos += 3;
+		}
 	}
 	rfile.release();
 };
 
 vfs::CReadLine::~CReadLine()
 {
-	if(_file.isOpenRead())
+	if (_auto_ctrl_file && _file.isOpenRead())
 	{
 		_file.close();
 	}
 }
 
-bool vfs::CReadLine::fillBuffer()
+bool vfs::CReadLine::fillBuffer(bool refill)
 {
-	if(_eof)
+	if (_bytes_left == 0 || (_auto_ctrl_file == false && refill == true))
 	{
 		return false;
 	}
+
 	vfs::size_t bytesRead = BUFFER_SIZE < _bytes_left ? BUFFER_SIZE : _bytes_left;
 	try
 	{
@@ -79,7 +85,6 @@ bool vfs::CReadLine::fillBuffer()
 	}
 
 	_bytes_left -= bytesRead;
-	_eof = (_bytes_left == 0);
 
 
 	// bite-wise read files usually terminate a line with \n (or \r\n on WIN32)
@@ -136,7 +141,7 @@ bool vfs::CReadLine::fromBuffer(std::string& line)
 					}
 					else
 					{
-						done = !fillBuffer();
+						done = !fillBuffer(true);
 					}
 				}
 				else if(*temp == '\n' || *temp == 0)
@@ -148,12 +153,12 @@ bool vfs::CReadLine::fromBuffer(std::string& line)
 			}
 			else
 			{
-				done = !fillBuffer();
+				done = !fillBuffer(true);
 			}
 		}
 		else
 		{
-			done = !fillBuffer();
+			done = !fillBuffer(true);
 		}
 	}
 	return false;
@@ -162,7 +167,16 @@ bool vfs::CReadLine::fromBuffer(std::string& line)
 bool vfs::CReadLine::getLine(std::string& line)
 {
 	line.clear();
-	return fromBuffer(line);
+	bool gotLine = fromBuffer(line);
+	
+	// If file handler is controlled by caller, we have to read to EOL or EOF. So if happened to read over EOL (due to buffering),
+	// then we need to move caret back to a position where just fetched line ends (EOL).
+	if (_auto_ctrl_file == false && _buffer_pos < _buffer_last)
+	{
+		vfs::offset_t offset = (vfs::offset_t)_buffer_pos - _buffer_last;  // "lesser - greater" intentionally to get negative offset
+		_file.setReadPosition(offset, _file.SD_CURRENT);
+	}
+	return gotLine;
 }
 
 /*************************************************************************************/

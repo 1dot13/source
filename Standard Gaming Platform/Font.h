@@ -9,6 +9,8 @@
 //#endif
 #include "Font Control.h"
 
+#define		MAX_FONTS				25
+
 #define		DEFAULT_SHADOW			2
 #define		MILITARY_SHADOW			67
 #define		NO_SHADOW						0
@@ -129,6 +131,7 @@ UINT16 *GetFontObjectPalette16BPP(INT32 iFont);
 
 void DestroyEnglishTransTable( void );
 
+extern BOOLEAN	IsFontLoaded(INT32 iFont);
 extern HVOBJECT	GetFontObject(INT32 iFont);
 extern UINT32		gprintf(INT32 x, INT32 y, const STR16 pFontString, ...);
 extern UINT32	gprintfDirty(INT32 x, INT32 y, const STR16 pFontString, ...);

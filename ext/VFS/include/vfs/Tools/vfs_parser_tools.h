@@ -37,10 +37,10 @@ namespace vfs
 	{
 		static const vfs::size_t BUFFER_SIZE = 1024;
 	public:
-		CReadLine(vfs::tReadableFile& rFile);
+		CReadLine(vfs::tReadableFile& rFile, bool autoControlFile = true);
 		~CReadLine();
 
-		bool fillBuffer();
+		bool fillBuffer(bool refill = false);
 		bool fromBuffer(std::string& line);
 		bool getLine(std::string& line);
 	private:
@@ -49,7 +49,7 @@ namespace vfs
 		vfs::size_t			_bytes_left;
 		vfs::size_t			_buffer_pos;
 		vfs::size_t			_buffer_last;
-		bool				_eof;
+		bool				_auto_ctrl_file;  // if false the object user checks for EOF and closes file
 
 		void operator=(CReadLine const& rl);
 	};

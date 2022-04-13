@@ -57,6 +57,7 @@ using namespace std;
 #ifdef USE_VFS
 
 #include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Tools/vfs_parser_tools.h>
 #include <map>
 
 struct SOperation
@@ -778,6 +779,40 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 
 	return(fRet);
 #endif
+}
+
+BOOLEAN FileReadLine( HWFILE hFile, std::string* pDest )
+{
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if ( pFile && FileCheckEndOfFile( hFile ) == FALSE && (s_mapFiles[pFile].op == SOperation::READ) )
+	{
+		vfs::tReadableFile *pRF = vfs::tReadableFile::cast( pFile );
+		if ( pRF && pDest )
+		{
+			vfs::CReadLine rl( *pRF, false );
+			rl.getLine( *pDest );
+			return TRUE;
+		}
+	}
+#endif  // ifdef USE_VFS
+	return FALSE;
+}
+
+BOOLEAN FileReadLine( HWFILE hFile, STR8 pDest, UINT32 uiDestSize, UINT32 *puiBytesRead )
+{
+	std::string	sBuffer;
+	BOOLEAN result = (pDest != NULL) && FileReadLine( hFile, &sBuffer );
+	if ( result )
+	{
+		if ( puiBytesRead )
+			*puiBytesRead = sBuffer.length();
+		
+		UINT32 uiCountToCopy = min( sBuffer.length(), uiDestSize - 1 );
+		sBuffer.copy( pDest, uiCountToCopy );
+		pDest[uiCountToCopy] = '\0';  // method copy() does not put a null-terminator
+	}
+	return result;
 }
 
 //**************************************************************************

@@ -39,7 +39,6 @@
 #define PALETTE_SIZE	 768
 #define STRING_DELIMITER 0
 #define ID_BLACK		 0
-#define MAX_FONTS				25
 
 //*******************************************************
 //
@@ -282,9 +281,7 @@ void SetRGBFontShadow( UINT16 usFontShadow16 )
 //*****************************************************************************
 BOOLEAN ResetFontObjectPalette(INT32 iFont)
 {
-	Assert(iFont >= 0);
-	Assert(iFont <= MAX_FONTS);
-	Assert(FontObjs[iFont] !=NULL);
+	Assert(IsFontLoaded(iFont));
 
 	SetFontObjectPalette8BPP(iFont, FontObjs[iFont]->pPaletteEntry);
 
@@ -301,11 +298,8 @@ BOOLEAN ResetFontObjectPalette(INT32 iFont)
 //*****************************************************************************
 UINT16 *SetFontObjectPalette8BPP(INT32 iFont, SGPPaletteEntry *pPal8)
 {
-UINT16 *pPal16;
-
-	Assert(iFont >= 0);
-	Assert(iFont <= MAX_FONTS);
-	Assert(FontObjs[iFont] !=NULL);
+	UINT16 *pPal16;
+	Assert(IsFontLoaded(iFont));
 
 	if((pPal16=Create16BPPPalette(pPal8))==NULL)
 		return(NULL);
@@ -324,9 +318,7 @@ UINT16 *pPal16;
 //*****************************************************************************
 UINT16 *SetFontObjectPalette16BPP(INT32 iFont, UINT16 *pPal16)
 {
-	Assert(iFont >= 0);
-	Assert(iFont <= MAX_FONTS);
-	Assert(FontObjs[iFont] !=NULL);
+	Assert(IsFontLoaded(iFont));
 
 	FontObjs[iFont]->p16BPPPalette=pPal16;
 	FontObjs[iFont]->pShadeCurrent=pPal16;
@@ -343,11 +335,23 @@ UINT16 *SetFontObjectPalette16BPP(INT32 iFont, UINT16 *pPal16)
 //*****************************************************************************
 UINT16 *GetFontObjectPalette16BPP(INT32 iFont)
 {
-	Assert(iFont >= 0);
-	Assert(iFont <= MAX_FONTS);
-	Assert(FontObjs[iFont] !=NULL);
+	Assert(IsFontLoaded(iFont));
 
 	return(FontObjs[iFont]->p16BPPPalette);
+}
+
+//*****************************************************************************
+// IsFontLoaded
+//
+//	Returns TRUE if font at iFont into memory, FALSE otherwise.
+//
+//*****************************************************************************
+BOOLEAN IsFontLoaded(INT32 iFont)
+{
+	Assert(iFont >= 0);
+	Assert(iFont <= MAX_FONTS);
+
+	return (FontObjs[iFont] != NULL);
 }
 
 //*****************************************************************************
@@ -358,9 +362,7 @@ UINT16 *GetFontObjectPalette16BPP(INT32 iFont)
 //*****************************************************************************
 HVOBJECT GetFontObject(INT32 iFont)
 {
-	Assert(iFont >= 0);
-	Assert(iFont <= MAX_FONTS);
-	Assert(FontObjs[iFont] !=NULL);
+	Assert(IsFontLoaded(iFont));
 
 	return(FontObjs[iFont]);
 }
@@ -434,9 +436,7 @@ UINT32					LoadIndex;
 //*****************************************************************************
 void UnloadFont(UINT32 FontIndex)
 {
-	Assert(FontIndex >= 0);
-	Assert(FontIndex < MAX_FONTS);
-	Assert(FontObjs[FontIndex]!=NULL);
+	Assert(IsFontLoaded(FontIndex));
 
 	DeleteVideoObject(FontObjs[FontIndex]);
 	FontObjs[FontIndex]=NULL;
@@ -728,9 +728,8 @@ UINT32 GetHeight(HVOBJECT hSrcVObject, INT16 ssIndex)
 //*****************************************************************************
 UINT16 GetFontHeight(INT32 FontNum)
 {
-	Assert(FontNum >= 0);
-	Assert(FontNum <= MAX_FONTS);
-	Assert(FontObjs[FontNum]!=NULL);
+	Assert(IsFontLoaded(FontNum));
+
     if ( iUseWinFonts ) {
 	    INT32 MapFont;
 	    MapFont = WinFontMap[FontNum];
@@ -974,9 +973,6 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 //*****************************************************************************
 BOOLEAN SetFont(INT32 iFontIndex)
 {
-	//Assert(iFontIndex >= 0);
-	//Assert(iFontIndex <= MAX_FONTS);
-	//Assert(FontObjs[iFontIndex]!=NULL);
 	SGP_THROW_IFFALSE( iFontIndex >= 0 ,"negative font index");
 	SGP_THROW_IFFALSE( iFontIndex <= MAX_FONTS, "font index > MAX_FONTS" );
 	SGP_THROW_IFFALSE( FontObjs[iFontIndex]!=NULL, "font is not initialized" );
