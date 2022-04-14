@@ -76,7 +76,7 @@ BOOLEAN CheckPendingNonPlayerTeam(UINT8 usTeam);
 // Flugente: turncoats
 UINT16 NumTurncoatsOfClassInSector( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
 BOOLEAN TurncoatsInSector( INT16 sSectorX, INT16 sSectorY );
-bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOOLEAN alsoRemoveFromGroup );
 bool AddOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
 void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY );
 

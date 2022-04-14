@@ -7281,7 +7281,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 					// Flugente: turncoats
 					if ( pTeamSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
-						RemoveOneTurncoat( sMapX, sMapY, pTeamSoldier->ubSoldierClass );
+						RemoveOneTurncoat( sMapX, sMapY, pTeamSoldier->ubSoldierClass, FALSE );
 
 					// Flugente: campaign stats
 					gCurrentIncident.AddStat( pTeamSoldier, CAMPAIGNHISTORY_TYPE_PRISONER );

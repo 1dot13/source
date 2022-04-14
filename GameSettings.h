@@ -2103,6 +2103,7 @@ typedef struct
 	BOOLEAN fCOTurncoats;							// can we create enemy turncoats that can be ordered to betray their comrades?
 	BOOLEAN	fCOTurncoats_SectorActivationRequiresRadioOperator;	// activating turncoats sector-wide requires a radio operator
 	INT32	sCOTurncoats_PlayerConvinctionBonus;
+	BOOLEAN fCOTurncoatsActivateInAutoResolve;
 
 	// RADIO OPERATOR
 	BOOLEAN fROAllowArtillery;						// artillery can be forbidden for all teams with this setting

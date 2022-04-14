@@ -3245,7 +3245,7 @@ BOOLEAN TurncoatsInSector( INT16 sSectorX, INT16 sSectorY )
 	return FALSE;
 }
 
-bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
+bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOOLEAN alsoRemoveFromGroup )
 {
 	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
 	// probably isn't. But I need this bit to work.
@@ -3315,14 +3315,20 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 			{
 			case SOLDIER_CLASS_ADMINISTRATOR:
 				pSector->ubNumAdmins_Turncoat--;
+				if (alsoRemoveFromGroup)
+					pSector->ubNumAdmins--;
 				return true;
 				break;
 			case SOLDIER_CLASS_ARMY:
 				pSector->ubNumTroops_Turncoat--;
+				if (alsoRemoveFromGroup)
+					pSector->ubNumTroops--;
 				return true;
 				break;
 			case SOLDIER_CLASS_ELITE:
 				pSector->ubNumElites_Turncoat--;
+				if (alsoRemoveFromGroup)
+					pSector->ubNumElites--;
 				return true;
 				break;
 			default:
@@ -3342,8 +3348,11 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumAdmins )
 						{
 							pGroup->pEnemyGroup->ubNumAdmins_Turncoat--;
-							pGroup->pEnemyGroup->ubNumAdmins--;
-							pGroup->ubGroupSize--;
+							if (alsoRemoveFromGroup)
+							{
+								pGroup->pEnemyGroup->ubNumAdmins--;
+								pGroup->ubGroupSize--;
+							}
 							return true;
 						}
 						break;
@@ -3351,8 +3360,11 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumTroops )
 						{
 							pGroup->pEnemyGroup->ubNumTroops_Turncoat--;
-							pGroup->pEnemyGroup->ubNumTroops--;
-							pGroup->ubGroupSize--;
+							if (alsoRemoveFromGroup)
+							{
+								pGroup->pEnemyGroup->ubNumTroops--;
+								pGroup->ubGroupSize--;
+							}
 							return true;
 						}
 						break;
@@ -3360,8 +3372,11 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumElites )
 						{
 							pGroup->pEnemyGroup->ubNumElites_Turncoat--;
-							pGroup->pEnemyGroup->ubNumElites--;
-							pGroup->ubGroupSize--;
+							if (alsoRemoveFromGroup)
+							{
+								pGroup->pEnemyGroup->ubNumElites--;
+								pGroup->ubGroupSize--;
+							}
 							return true;
 						}
 						break;

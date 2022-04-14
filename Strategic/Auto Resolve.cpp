@@ -3107,6 +3107,8 @@ void CalculateAutoResolveInfo()
 	}
 	else
 	{
+		ActivateTurncoatsForAutoResolve( gpAR->ubSectorX, gpAR->ubSectorY );
+
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
 			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubRobots, &gpAR->ubTanks, &gpAR->ubJeeps );
 

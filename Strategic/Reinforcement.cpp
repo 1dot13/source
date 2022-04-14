@@ -107,6 +107,59 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	}
 }
 
+void ActivateTurncoatsForAutoResolve( INT16 sSectorX, INT16 sSectorY )
+{
+	if (!gSkillTraitValues.fCOTurncoatsActivateInAutoResolve)
+		return;
+
+	if (!gGameExternalOptions.gfAllowReinforcements)
+		return;
+
+	if ( ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA )&& ( !zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcementsOmerta ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
+		return;
+	
+	UINT16 ubAdminTurncoats = NumTurncoatsOfClassInSector(sSectorX, sSectorY, SOLDIER_CLASS_ADMINISTRATOR);
+	UINT16 ubTroopTurncoats = NumTurncoatsOfClassInSector(sSectorX, sSectorY, SOLDIER_CLASS_ARMY);
+	UINT16 ubEliteTurncoats = NumTurncoatsOfClassInSector(sSectorX, sSectorY, SOLDIER_CLASS_ELITE);
+
+	for (int i = 0; i < ubAdminTurncoats; ++i) RemoveOneTurncoat(sSectorX, sSectorY, SOLDIER_CLASS_ADMINISTRATOR, TRUE);
+	for (int i = 0; i < ubTroopTurncoats; ++i) RemoveOneTurncoat(sSectorX, sSectorY, SOLDIER_CLASS_ARMY, TRUE);
+	for (int i = 0; i < ubEliteTurncoats; ++i) RemoveOneTurncoat(sSectorX, sSectorY, SOLDIER_CLASS_ELITE, TRUE);
+
+	StrategicAddMilitiaToSector(sSectorX, sSectorY, GREEN_MILITIA, ubAdminTurncoats);
+	StrategicAddMilitiaToSector(sSectorX, sSectorY, REGULAR_MILITIA, ubTroopTurncoats);
+	StrategicAddMilitiaToSector(sSectorX, sSectorY, ELITE_MILITIA, ubEliteTurncoats);
+
+	UINT16 pusMoveDir[4][3];	//first column in this matrix is number of sector, except for 4th row
+	UINT8 ubDirNumber;
+	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
+
+	for (UINT8 i = 0; i < ubDirNumber; ++i)
+	{
+		GROUP* pGroup = gpGroupList;
+		while ( pGroup )
+		{
+			if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == SECTORX(pusMoveDir[i][0]) && pGroup->ubSectorY == SECTORY(pusMoveDir[i][0]) )
+			{
+				ubAdminTurncoats = pGroup->pEnemyGroup->ubNumAdmins_Turncoat;
+				ubTroopTurncoats = pGroup->pEnemyGroup->ubNumTroops_Turncoat;
+				ubEliteTurncoats = pGroup->pEnemyGroup->ubNumElites_Turncoat;
+
+				for (int j = 0; j < ubAdminTurncoats; ++j) RemoveOneTurncoat(SECTORX(pusMoveDir[i][0]), SECTORY(pusMoveDir[i][0]), SOLDIER_CLASS_ADMINISTRATOR, TRUE);
+				for (int j = 0; j < ubTroopTurncoats; ++j) RemoveOneTurncoat(SECTORX(pusMoveDir[i][0]), SECTORY(pusMoveDir[i][0]), SOLDIER_CLASS_ARMY, TRUE);
+				for (int j = 0; j < ubEliteTurncoats; ++j) RemoveOneTurncoat(SECTORX(pusMoveDir[i][0]), SECTORY(pusMoveDir[i][0]), SOLDIER_CLASS_ELITE, TRUE);
+
+				// since we're going directly to autoresolve, add miliita directly to sector after removing from a reinforcement group
+				StrategicAddMilitiaToSector(sSectorX, sSectorY, GREEN_MILITIA, ubAdminTurncoats);
+				StrategicAddMilitiaToSector(sSectorX, sSectorY, REGULAR_MILITIA, ubTroopTurncoats);
+				StrategicAddMilitiaToSector(sSectorX, sSectorY, ELITE_MILITIA, ubEliteTurncoats);
+			}
+
+			pGroup = pGroup->next;
+		}
+	}
+}
+
 UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
 {
 	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;

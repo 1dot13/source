@@ -2834,6 +2834,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.fCOTurncoats							= iniReader.ReadBoolean( "Covert Ops", "COVERT_TURNCOATS", TRUE );
 	gSkillTraitValues.fCOTurncoats_SectorActivationRequiresRadioOperator = iniReader.ReadBoolean( "Covert Ops", "COVERT_TURNCOATS_SECTOR_ACTIVATION_REQUIRES_RADIOOPERATOR", FALSE );
 	gSkillTraitValues.sCOTurncoats_PlayerConvinctionBonus	= iniReader.ReadInteger( "Covert Ops", "COVERT_TURNCOATS_PLAYER_CONVINCTION_BONUS", 0, -100, 100 );
+	gSkillTraitValues.fCOTurncoatsActivateInAutoResolve		= iniReader.ReadBoolean( "Covert Ops", "COVERT_TURNCOATS_ACTIVATE_IN_AUTORESOLVE", FALSE );
 	
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);

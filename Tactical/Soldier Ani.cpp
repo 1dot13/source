@@ -114,7 +114,7 @@ extern UINT8 gubInterruptProvoker;
 
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
-extern bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+extern bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOOLEAN alsoRemoveFromGroup );
 extern void PlaySplashSound(INT32 sGridNo);
 
 // Animation code explanations!
@@ -4212,7 +4212,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		
 		// Flugente: turncoats
 		if ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
-			RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+			RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass, FALSE );
 
 		// Flugente: additional dialogue
 		if ( pSoldier->ubProfile != NO_PROFILE )

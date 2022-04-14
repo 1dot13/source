@@ -10286,7 +10286,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		{
 			this->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
 
-			RemoveOneTurncoat( this->sSectorX, this->sSectorY, this->ubSoldierClass );
+			RemoveOneTurncoat( this->sSectorX, this->sSectorY, this->ubSoldierClass, FALSE );
 		}
 	}
 
@@ -21804,7 +21804,7 @@ BOOLEAN		SOLDIERTYPE::OrderTurnCoatToSwitchSides( UINT16 usID )
 	{
 		// remove turncoat property
 		pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
-		RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+		RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass, TRUE );
 
 		MakeCivHostile( pSoldier );
 
@@ -21834,7 +21834,7 @@ void		SOLDIERTYPE::OrderAllTurnCoatToSwitchSides()
 				{
 					// remove turncoat property
 					pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
-					RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+					RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass, TRUE );
 
 					MakeCivHostile( pSoldier );
 				}
