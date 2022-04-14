@@ -2832,16 +2832,16 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"激活所有被策反的敌军", // L"Activate all turncoats", 
 
 	// disguise
-	L"Disguise",
-	L"Remove disguise",
-	L"Test disguise",
-	L"Remove clothes",
+	L"伪装", //L"Disguise",
+	L"解除伪装", //L"Remove disguise",
+	L"测试伪装", //L"Test disguise",
+	L"脱掉伪装服", //L"Remove clothes",
 
 	// various
 	L"侦查员",
 	L"聚焦", //L"Focus",	
 	L"拖拽", //L"Drag",
-	L"Fill canteens",
+	L"填装水壶", //L"Fill canteens", 
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2864,16 +2864,16 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"命令战区内所有已被策反的敌军叛变并加入你的部队。", // L"Order all previously turned soldiers in the sector to betray their comrades and join you.", 
 
 	// disguise
-	L"Try to disguise with the merc's current clothes.",
-	L"Remove the disguise, but clothes remain worn.",
-	L"Test the viability of the disguise.",
-	L"Remove any extra clothes.",
+	L"试着用现有的衣服来伪装成平民或敌军。", //L"Try to disguise with the merc's current clothes.", 
+	L"解除伪装，但伪装服仍然穿着。", //L"Remove the disguise, but clothes remain worn.", 
+	L"测试伪装是否有效。", //L"Test the viability of the disguise.",
+	L"脱掉伪装的衣服。", //L"Remove any extra clothes.",
 
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率。",
 	L"增加标记区域内中断几率（标记区域外减少中断几率）", //L"Increase interrupt modifier (malus outside of area)",
-	L"移动时拖人或尸体。",	//L"Drag a person, corpse or structure while you move.",
-	L"Refill your squad's canteens with water from this sector.",
+	L"移动时拖动物品，人或尸体。",	//L"Drag a person, corpse or structure while you move.",
+	L"用这个区域的水源填装小队所有的水壶。", //L"Refill your squad's canteens with water from this sector.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2889,7 +2889,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的技能（如自动武器）\n", //L" - a gun-related trait\n",
 	L" - 举起枪（瞄准状态）\n", //L" - aimed gun\n",
-	L" - 在佣兵旁边放下人或尸体\n",	//L" - prone person, corpse or structure next to merc\n",
+	L" - 在佣兵旁边有物品，人或尸体\n",	//L" - prone person, corpse or structure next to merc\n",
 	L" - 下蹲姿势\n", //L" - crouched position\n",
 	L" - 清空主手装备\n",	//L" - free main hand\n",
 	L" - 潜伏技能\n",	//L" - covert trait\n",
@@ -2902,9 +2902,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 敌军士兵\n", //L" - enemy soldier\n", 
 	L" - 显露伪装\n", //L" - surface sector\n", 
 	L" - 没有被怀疑\n", //L" - not being under suspicion\n", 
-	L" - not disguised\n",
-	L" - not in combat\n",
-	L" - friendly controlled sector\n",
+	L" - 没有伪装\n", //L" - not disguised\n",
+	L" - 不在战斗中\n", //L" - not in combat\n",
+	L" - 我方控制区\n", //L" - friendly controlled sector\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3258,7 +3258,7 @@ STR16 gzMercSkillTextNew[] =
 	L"生还者",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
-	L"Disguise",		// for DISGUISE
+	L"伪装",		//L"Disguise", for DISGUISE
 	L"多种技能",		// for VARIOUSSKILLS
 	L"治疗佣兵",	//L"Bandage Mercs", for AUTOBANDAGESKILLS
 };
@@ -3510,11 +3510,11 @@ STR16 gpStrategicString[] =
 
 	//The help text for the four buttons.  Use \n to denote new line (just like enter).
 
-	L"清除所有佣兵的位置，然后一个一个对他们进行布置。(|c)\n",
-	L"每按一次，就会重新随机分散地布置佣兵。(|s)\n",
-	L"集中所有佣兵，选择你想布置的地方。(|g)\n",
-	L"完成佣兵布置后，请按本按钮确认。(|E|n|t|e|r)\n",
-	L"开始战斗前，你必须对所有佣兵完成布置。\n",
+	L"清除所有佣兵的位置，然后一个一个对他们进行布置。（|c）" ,
+	L"每按一次，就会重新随机分散地布置佣兵。（|s）",
+	L"集中所有佣兵，选择你想布置的地方。（|g）",
+	L"完成佣兵布置后，请按本按钮确认。（|E|n|t|e|r）",
+	L"开始战斗前，你必须对所有佣兵完成布置。",
 
 	//Various strings (translate word for word)
 
@@ -3533,13 +3533,13 @@ STR16 gpStrategicString[] =
 
 	//These entries are for button popup help text for the prebattle interface.  All popup help
 	//text supports the use of \n to denote new line.  Do not use spaces before or after the \n.
-	L"自动解决战斗，不需要\n载入该分区地图。",
+	L"自动解决战斗，不需要\n载入该分区地图。(|A)",
 	L"当玩家在攻击时，无法使用\n自动战斗功能。",
 	L"进入该分区和敌军作战(|E)",
 	L"将小队撤退到先前的分区。(|R)",				//singular version
 	L"将所有小队撤退到先前的分区。(|R)", //multiple groups with same previous sector
 
-	//various popup messages for battle conditions.  
+	//various popup messages for battle conditions.
 
 	//%c%d is the sector -- ex:  A9
 	L"敌军向你的民兵发起了攻击，在分区%c%d。",
@@ -3547,7 +3547,7 @@ STR16 gpStrategicString[] =
 	L"异形向你的民兵发起了攻击，在分区%c%d。",
 	//1st %d refers to the number of civilians eaten by monsters,  %c%d is the sector -- ex:  A9
 	//Note:  the minimum number of civilians eaten will be two.
-	L"异形攻击了%s分区，吃掉了%d名平民。",
+	L"异形吃掉了%d名平民，在%s分区。",   //注：这里的%d和%s可以随意放前面或后面。L"Creatures attack and kill %d civilians in sector %s.",
 	//%s is the sector location -- ex:  A9: Omerta
 	L"敌军向你的%s分区发起了攻击，你的佣兵中没人能进行战斗。",
 	//%s is the sector location -- ex:  A9: Omerta
@@ -3570,10 +3570,10 @@ STR16 gpStrategicString[] =
 	L"土匪攻击",	//L"BANDIT ATTACK",
 	L"僵尸",	//L"Zombie",
 	L"土匪",	//L"Bandit",
-	L"土匪攻击%s分区，并杀死了%d名平民。",	//L"Bandits attack and kill %d civilians in sector %s.",
+	L"土匪杀死了%d名平民，在%s分区。",	//注：这里的%d和%s不可以随意放前面或后面，一定要按英文顺序，不然会出错。L"Bandits attack and kill %d civilians in sector %s.",
 };
 
-STR16 gpGameClockString[] = 
+STR16 gpGameClockString[] =
 {
 	//This is the day represented in the game clock.  Must be very short, 4 characters max.
 	L"日",
