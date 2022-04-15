@@ -358,7 +358,7 @@ void DropdownSetup()
 		directivesList.push_back(std::make_pair(RCD_CREATE_PROPAGANDA, szRebelCommandDirectivesText[RCDT_CREATE_PROPAGANDA]));
 	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uEliteMilitiaProgressRequirement)
 		directivesList.push_back(std::make_pair(RCD_ELITE_MILITIA, szRebelCommandDirectivesText[RCDT_ELITE_MILITIA]));
-	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uHvtStrikesProgressRequirement && gGameExternalOptions.fEnemyRoles == TRUE && gGameExternalOptions.fAssignTraitsToEnemy == TRUE)
+	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uHvtStrikesProgressRequirement && gGameExternalOptions.fEnemyRoles == TRUE)
 		directivesList.push_back(std::make_pair(RCD_HVT_STRIKES, szRebelCommandDirectivesText[RCDT_HVT_STRIKES]));
 	if (HighestPlayerProgressPercentage() >= gRebelCommandSettings.uSpottersProgressRequirement)
 		directivesList.push_back(std::make_pair(RCD_SPOTTERS, szRebelCommandDirectivesText[RCDT_SPOTTERS]));
@@ -471,7 +471,7 @@ void ImproveDirective(const RebelCommandDirectives directive)
 			const INT32 cost = rebelCommandSaveInfo.directives[directive].GetCostToImprove();
 			rebelCommandSaveInfo.directives[directive].Improve();
 
-			LaptopSaveInfo.iCurrentBalance -= cost;
+			AddTransactionToPlayersBook(REBEL_COMMAND_SPENDING, 0, GetWorldTotalMin(), -cost);
 
 			RenderWebsite();
 		}
@@ -644,7 +644,7 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 							rebelCommandSaveInfo.regions[iCurrentRegionId].actions[5] = static_cast<RebelCommandAdminActions>(adminActionChangeList[adminActionChangeIndex]);
 
 							UpdateAdminActionChangeList(iCurrentRegionId);
-							LaptopSaveInfo.iCurrentBalance -= ADMIN_ACTION_CHANGE_COST;
+							AddTransactionToPlayersBook(REBEL_COMMAND_SPENDING, 0, GetWorldTotalMin(), -ADMIN_ACTION_CHANGE_COST);
 
 							RenderWebsite();
 						}
@@ -2041,7 +2041,7 @@ FLOAT GetPathfindersSpeedBonus(UINT8 sector)
 
 BOOLEAN NeutraliseRole(const SOLDIERTYPE* pSoldier)
 {
-	if (!gGameExternalOptions.fRebelCommandEnabled || !gGameExternalOptions.fEnemyRoles || !gGameExternalOptions.fAssignTraitsToEnemy)
+	if (!gGameExternalOptions.fRebelCommandEnabled || !gGameExternalOptions.fEnemyRoles)
 		return FALSE;
 
 	if (rebelCommandSaveInfo.iActiveDirective != RCD_HVT_STRIKES)
@@ -2685,7 +2685,7 @@ void UpgradeMilitiaStats()
 		{
 			const INT32 cost = gRebelCommandSettings.iMilitiaUpgradeCosts[rebelCommandSaveInfo.iMilitiaStatsLevel++];
 
-			LaptopSaveInfo.iCurrentBalance -= cost;
+			AddTransactionToPlayersBook(REBEL_COMMAND_SPENDING, 0, GetWorldTotalMin(), -cost);
 
 			RenderWebsite();
 		}

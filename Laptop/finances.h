@@ -61,6 +61,7 @@ enum
 	PROMOTE_MILITIA,		// Flugente: drill militia
 	MINI_EVENT,				// rftr: mini events
 	REBEL_COMMAND,			// rftr: rebel command
+	REBEL_COMMAND_SPENDING,	// rftr: rebel command
 	TEXT_NUM_FINCANCES
 };
 

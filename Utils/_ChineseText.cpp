@@ -4661,6 +4661,7 @@ STR16 pTransactionText[] =
 	L"在%s区域训练民兵",	//L"Drill militia in %s", Flugente: drill militia
 	L"微型事件", //L"Mini event", rftr: mini events
 	L"从反抗军司令部转移资金", //L"Funds transferred from rebel command", rftr: rebel command
+	L"Funds transferred to rebel command", // rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =

@@ -4667,6 +4667,8 @@ STR16 pTransactionText[] =
 	L"Trained workers", // Flugente: train workers
 	L"Drill militia in %s",	// Flugente: drill militia	// TODO.Translate
 	L"Mini event", // rftr: mini events // TODO: translate
+	L"Funds transferred from rebel command", // rftr: rebel command
+	L"Funds transferred to rebel command", // rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =

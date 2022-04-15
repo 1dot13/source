@@ -4665,6 +4665,8 @@ STR16 pTransactionText[] =
 	L"Arbeiter trainiert", // Flugente: train workers
 	L"Miliz in %s ausbilden",	// Flugente: drill militia
 	L"Mini event", // rftr: mini events // TODO: translate
+	L"Funds transferred from rebel command", // rftr: rebel command
+	L"Funds transferred to rebel command", // rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =

@@ -4661,6 +4661,7 @@ STR16 pTransactionText[] =
 	L"Drill militia in %s",	// Flugente: drill militia
 	L"Mini event", // rftr: mini events
 	L"Funds transferred from rebel command", // rftr: rebel command
+	L"Funds transferred to rebel command", // rftr: rebel command
 };
 
 STR16 pTransactionAlternateText[] =
