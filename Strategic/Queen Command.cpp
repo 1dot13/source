@@ -3316,19 +3316,28 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOO
 			case SOLDIER_CLASS_ADMINISTRATOR:
 				pSector->ubNumAdmins_Turncoat--;
 				if (alsoRemoveFromGroup)
+				{
 					pSector->ubNumAdmins--;
+					pSector->ubAdminsInBattle -= (pSector->ubAdminsInBattle == 0 ? 0 : 1);
+				}
 				return true;
 				break;
 			case SOLDIER_CLASS_ARMY:
 				pSector->ubNumTroops_Turncoat--;
 				if (alsoRemoveFromGroup)
+				{
 					pSector->ubNumTroops--;
+					pSector->ubTroopsInBattle -= (pSector->ubTroopsInBattle == 0 ? 0 : 1);
+				}
 				return true;
 				break;
 			case SOLDIER_CLASS_ELITE:
 				pSector->ubNumElites_Turncoat--;
 				if (alsoRemoveFromGroup)
+				{
 					pSector->ubNumElites--;
+					pSector->ubElitesInBattle -= (pSector->ubElitesInBattle == 0 ? 0 : 1);
+				}
 				return true;
 				break;
 			default:
@@ -3351,6 +3360,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOO
 							if (alsoRemoveFromGroup)
 							{
 								pGroup->pEnemyGroup->ubNumAdmins--;
+								pGroup->pEnemyGroup->ubAdminsInBattle -= (pGroup->pEnemyGroup->ubAdminsInBattle == 0 ? 0 : 1);
 								pGroup->ubGroupSize--;
 							}
 							return true;
@@ -3363,6 +3373,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOO
 							if (alsoRemoveFromGroup)
 							{
 								pGroup->pEnemyGroup->ubNumTroops--;
+								pGroup->pEnemyGroup->ubTroopsInBattle -= (pGroup->pEnemyGroup->ubTroopsInBattle == 0 ? 0 : 1);
 								pGroup->ubGroupSize--;
 							}
 							return true;
@@ -3375,6 +3386,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass, BOO
 							if (alsoRemoveFromGroup)
 							{
 								pGroup->pEnemyGroup->ubNumElites--;
+								pGroup->pEnemyGroup->ubElitesInBattle -= (pGroup->pEnemyGroup->ubElitesInBattle == 0 ? 0 : 1);
 								pGroup->ubGroupSize--;
 							}
 							return true;

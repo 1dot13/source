@@ -4487,23 +4487,14 @@ void MakeCivHostile(SOLDIERTYPE *pSoldier)
 			if ( oldclass == SOLDIER_CLASS_ARMY )
 			{
 				pSoldier->ubSoldierClass = SOLDIER_CLASS_REG_MILITIA;
-
-				SectorInfo[sector].ubNumTroops = max( 0, SectorInfo[sector].ubNumTroops - 1 );
-				SectorInfo[sector].ubTroopsInBattle = max( 0, SectorInfo[sector].ubTroopsInBattle - 1 );
 			}
 			else if ( oldclass == SOLDIER_CLASS_ELITE )
 			{
 				pSoldier->ubSoldierClass = SOLDIER_CLASS_ELITE_MILITIA;
-
-				SectorInfo[sector].ubNumElites = max( 0, SectorInfo[sector].ubNumElites - 1 );
-				SectorInfo[sector].ubElitesInBattle = max( 0, SectorInfo[sector].ubElitesInBattle - 1 );
 			}
 			else
 			{
 				pSoldier->ubSoldierClass = SOLDIER_CLASS_GREEN_MILITIA;
-
-				SectorInfo[sector].ubNumAdmins = max( 0, SectorInfo[sector].ubNumAdmins - 1 );
-				SectorInfo[sector].ubAdminsInBattle = max( 0, SectorInfo[sector].ubAdminsInBattle - 1 );
 			}
 
 			StrategicAddMilitiaToSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass - 4, 1 );
