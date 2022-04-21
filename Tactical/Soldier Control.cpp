@@ -24402,6 +24402,58 @@ void BeginSoldierClimbWallUp( SOLDIERTYPE *pSoldier )
 }
 //------------------------------------------------------------------------------------------
 
+void SOLDIERTYPE::BreakWindow(void)
+{
+	if (this->inv[HANDPOS].exists() &&
+		this->inv[HANDPOS][0]->data.objectStatus >= USABLE &&
+		(Item[this->inv[HANDPOS].usItem].crowbar &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[this->inv[HANDPOS].usItem].twohanded && Item[this->inv[HANDPOS].usItem].metal))
+	{
+		this->usAttackingWeapon = this->inv[HANDPOS].usItem;
+		this->aiData.bAction = AI_ACTION_KNIFE_STAB;
+		this->aiData.usActionData = this->sGridNo;
+		this->aiData.ubPendingAction = NO_PENDING_ACTION;
+		this->sTargetGridNo = this->sGridNo;
+		this->bTargetLevel = this->pathing.bLevel;
+		//this->sLastTarget		= sGridNo;	//dnl ch73 021013
+		this->ubTargetID = NOBODY; //WhoIsThere2(this->sTargetGridNo, this->bTargetLevel);
+		this->EVENT_InitNewSoldierAnim(CROWBAR_ATTACK, 0, FALSE);
+		SetUIBusy(this->ubID);
+
+		DeductPoints(this, GetAPsToBreakWindow(this, FALSE), BP_USE_CROWBAR);
+	}
+}
+
+BOOLEAN SOLDIERTYPE::CanBreakWindow(void)
+{
+	if (this->stats.bLife >= OKLIFE &&
+		!this->IsUnconscious() &&
+		IS_MERC_BODY_TYPE(this) &&
+		this->inv[HANDPOS].exists() &&
+		this->inv[HANDPOS][0]->data.objectStatus >= USABLE &&
+		(Item[this->inv[HANDPOS].usItem].crowbar &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[this->inv[HANDPOS].usItem].twohanded && Item[this->inv[HANDPOS].usItem].metal))
+	{
+		//INT32 sWindowGridNo = this->sTargetGridNo;
+		INT32 sWindowGridNo = this->sGridNo;
+		if (this->ubDirection == NORTH || this->ubDirection == WEST)
+			sWindowGridNo = NewGridNo(this->sGridNo, (UINT16)DirectionInc((UINT8)this->ubDirection));
+
+		// is there really an intact window that we jump through?
+		if (IsJumpableWindowPresentAtGridNo(sWindowGridNo, this->ubDirection, TRUE) && !IsJumpableWindowPresentAtGridNo(sWindowGridNo, this->ubDirection, FALSE))
+		{
+			STRUCTURE * pStructure = FindStructure(sWindowGridNo, STRUCTURE_WALLNWINDOW);
+			if (pStructure && !(pStructure->fFlags & STRUCTURE_OPEN))
+			{
+				// intact window found
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 BOOLEAN DoesSoldierWearGasMask( SOLDIERTYPE *pSoldier )//dnl ch40 200909
 {
 	INT8 bPosOfMask = FindGasMask( pSoldier );

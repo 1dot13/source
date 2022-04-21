@@ -4657,3 +4657,13 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 
 	return ( iKickPower );
 }
+
+INT16 GetAPsToBreakWindow(SOLDIERTYPE *pSoldier, BOOLEAN fStance)
+{
+	if (fStance)
+	{
+		return MinAPsToPunch(pSoldier, pSoldier->sGridNo);
+	}
+
+	return MinAPsToPunch(pSoldier, NOWHERE);
+}

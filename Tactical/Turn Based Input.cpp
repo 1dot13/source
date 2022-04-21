@@ -2959,6 +2959,20 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case '\\':
+				if (gusSelectedSoldier != NOBODY)
+				{
+					SOLDIERTYPE *pSoldier;
+					if (GetSoldier(&pSoldier, gusSelectedSoldier))
+					{
+						if (pSoldier->CanBreakWindow() && EnoughPoints(pSoldier, GetAPsToBreakWindow(pSoldier, TRUE), BP_USE_CROWBAR, TRUE))
+							pSoldier->BreakWindow();
+						//else if (pSoldier->CanStartDrag())
+							//pSoldier->StartDrag();
+					}
+				}
+				break;
+
 #if 0//dnl ch75 021113
 			case '\"':
 				Testing(1);

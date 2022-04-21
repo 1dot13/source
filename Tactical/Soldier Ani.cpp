@@ -376,6 +376,36 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 			case 430:
 				{
+					// sevenfm: breaking window with crowbar code
+					if (pSoldier->inv[HANDPOS].exists() &&
+						(Item[pSoldier->inv[HANDPOS].usItem].crowbar &&	Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+						Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[pSoldier->inv[HANDPOS].usItem].twohanded && Item[pSoldier->inv[HANDPOS].usItem].metal))
+					{
+						INT32 sWindowGridNo = pSoldier->sTargetGridNo;
+						if (pSoldier->ubDirection == NORTH || pSoldier->ubDirection == WEST)
+							sWindowGridNo = NewGridNo(pSoldier->sGridNo, (UINT16)DirectionInc((UINT8)pSoldier->ubDirection));
+
+						// is there really an intact window that we jump through?
+						if (IsJumpableWindowPresentAtGridNo(sWindowGridNo, pSoldier->ubDirection, TRUE) && !IsJumpableWindowPresentAtGridNo(sWindowGridNo, pSoldier->ubDirection, FALSE))
+						{
+							STRUCTURE * pStructure = FindStructure(sWindowGridNo, STRUCTURE_WALLNWINDOW);
+							if (pStructure && !(pStructure->fFlags & STRUCTURE_OPEN))
+							{
+								// intact window found. Smash it!
+								WindowHit(sWindowGridNo, pStructure->usStructureID, (pSoldier->ubDirection == SOUTH || pSoldier->ubDirection == EAST), TRUE);
+								// damage weapon
+								if (Chance(50 - 10 * min(5, Item[pSoldier->inv[HANDPOS].usItem].bReliability)))
+								{
+									pSoldier->inv[HANDPOS][0]->data.objectStatus--;
+									if (Random(100) < Item[pSoldier->inv[HANDPOS].usItem].usDamageChance)
+									{
+										pSoldier->inv[HANDPOS][0]->data.sRepairThreshold--;
+									}
+								}
+							}
+						}
+					}
+
 					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: case 430");
 					// SHOOT GUN
 					// MAKE AN EVENT, BUT ONLY DO STUFF IF WE OWN THE GUY!
@@ -386,7 +416,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					SFireWeapon.bTargetCubeLevel= pSoldier->bTargetCubeLevel;
 					if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
 					{
-						//only carry on if own werc
+						//only carry on if own merc
 						AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
 				
 						//hayden

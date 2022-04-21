@@ -1789,6 +1789,9 @@ public:
 	void ChangeToFlybackAnimation( UINT8 flyBackDirection );
 	void ChangeToFallbackAnimation( UINT8 fallBackDirection );
 
+	// sevenfm
+	void BreakWindow(void);
+	BOOLEAN CanBreakWindow(void);
 
 	void UpdateRobotControllerGivenController( void );
 	void UpdateRobotControllerGivenRobot( void );
