@@ -739,4 +739,44 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>Check out the Features Screen to toggle 1.13 features on and off! You can access it through the Options Screen.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
+ <LOADSCREENHINT>
+    <uiIndex>143</uiIndex>
+    <szName>Press [\] to break window glass with crowbar or any two handed weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>144</uiIndex>
+    <szName>Press [A] to open Skills Menu, which has many useful actions.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>145</uiIndex>
+    <szName>Press [SHIFT]+[P] to quickly transform stock on a weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>146</uiIndex>
+    <szName>Press [ALT]+[Q] to change throwing angle when using grenade launcher.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>147</uiIndex>
+    <szName>Press [ALT]+[A] to start auto bandaging mercs.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>148</uiIndex>
+    <szName>Press [Q] to change scope mode for weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>149</uiIndex>
+    <szName>Press [ESC] to: close skill menu, stop moving, stop dragging, unready weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>150</uiIndex>
+    <szName>Use arrow keys when deploying mercs to move map, useful for big maps.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
