@@ -562,7 +562,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
 
 		// Flugente: dragging someone
-		if ( pSoldier->IsDraggingSomeone( ) )
+		if ( pSoldier->IsDragging( ) )
 			sPoints *= gItemSettings.fDragAPCostModifier;
 
 		// Flugente: scuba fins reduce movement cost in water, but increase cost on land
@@ -4299,7 +4299,7 @@ INT16 GetAPsStartRun( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->IsRiotShieldEquipped( ) )
 		val *= gItemSettings.fShieldMovementAPCostModifier;
 
-	if ( pSoldier->IsDraggingSomeone( ) )
+	if ( pSoldier->IsDragging( ) )
 		val *= gItemSettings.fDragAPCostModifier;
 
 	// Athletics trait
@@ -4667,3 +4667,19 @@ INT16 GetAPsToBreakWindow(SOLDIERTYPE *pSoldier, BOOLEAN fStance)
 
 	return MinAPsToPunch(pSoldier, NOWHERE);
 }
+
+INT16 GetAPsToStartDrag(SOLDIERTYPE *pSoldier, BOOLEAN fStance)
+{
+	INT16 sAPCost = 0;
+
+	if (fStance && gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_CROUCH)
+	{
+		if (gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_CROUCH)
+			sAPCost += GetAPsCrouch(pSoldier, TRUE);
+		else
+			sAPCost += GetAPsProne(pSoldier, TRUE);
+	}
+
+	return sAPCost;
+}
+

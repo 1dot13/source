@@ -2246,7 +2246,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			// sevenfm: also stop dragging
 			if (gusSelectedSoldier != NOBODY &&
 				MercPtrs[gusSelectedSoldier] &&
-				MercPtrs[gusSelectedSoldier]->IsDraggingSomeone(false))
+				MercPtrs[gusSelectedSoldier]->IsDragging(false))
 			{
 				MercPtrs[gusSelectedSoldier]->CancelDrag();
 				DirtyMercPanelInterface(MercPtrs[gusSelectedSoldier], DIRTYLEVEL2);
@@ -2965,10 +2965,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SOLDIERTYPE *pSoldier;
 					if (GetSoldier(&pSoldier, gusSelectedSoldier))
 					{
-						if (pSoldier->CanBreakWindow() && EnoughPoints(pSoldier, GetAPsToBreakWindow(pSoldier, TRUE), BP_USE_CROWBAR, TRUE))
-							pSoldier->BreakWindow();
-						//else if (pSoldier->CanStartDrag())
-							//pSoldier->StartDrag();
+						if (pSoldier->CanBreakWindow())
+						{
+							if (EnoughPoints(pSoldier, GetAPsToBreakWindow(pSoldier, TRUE), BP_USE_CROWBAR, TRUE))
+								pSoldier->BreakWindow();
+						}
+						else if (pSoldier->CanStartDrag())
+						{
+							INT32 sNewGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(pSoldier->ubDirection));
+
+							if (!TileIsOutOfBounds(sNewGridNo) && sNewGridNo != pSoldier->sGridNo)
+							{
+								if (EnoughPoints(pSoldier, GetAPsToStartDrag(pSoldier, sNewGridNo), 0, TRUE))
+									pSoldier->StartDrag();
+							}
+						}
 					}
 				}
 				break;

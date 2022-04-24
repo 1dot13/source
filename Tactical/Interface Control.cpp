@@ -689,12 +689,12 @@ void DrawExplosionWarning( INT32 sGridno, INT8 sLevel, INT8 sDelay )
 
 // Flugente: draw a circle around a gridno
 // For now, we aren't using usColour, but that will likely change in the future
-void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThickness, UINT16 usColour )
+void DrawTraitRadius(INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThickness, UINT16 usColour)
 {
-	if ( TileIsOutOfBounds( sGridno ) )
+	if (TileIsOutOfBounds(sGridno))
 		return;
 
-	if ( sRadius <= 0 )
+	if (sRadius <= 0)
 		return;
 
 	UINT32					uiDestPitchBYTES;
@@ -703,52 +703,50 @@ void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThicknes
 	INT16					sScreenX, sScreenY;
 
 	// Get screen pos of gridno......
-	GetGridNoScreenXY( sGridno, &sScreenX, &sScreenY );
+	GetGridNoScreenXY(sGridno, &sScreenX, &sScreenY);
 
-	// ATE: If we are on a higher interface level, substract....
-	if ( sLevel == 1 )
+	// ATE: If we are on a higher interface level, subtract....
+	if (sLevel == 1)
 		sScreenY -= 50;
-		
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
 
 	// make sure to check for these boundaries later on, and only draw inside them
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
-	
+	SetClippingRegionAndImageWidth(uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y);
+
 	// we determine the biggest rectangle we have to reserve
 	INT32 best_xl = 99999;
 	INT32 best_xr = 0;
 	INT32 best_yl = 99999;
 	INT32 best_yr = 0;
 	BOOLEAN sthdrawn = FALSE;
-		
+
 	INT16 radius_inner = sRadius - sThickness / 2;
 	INT16 radius_outer = sRadius + sThickness / 2;
-		
+
 	// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
-	INT32 xl = max( gsVIEWPORT_START_X, sScreenX - radius_outer );
-	INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
-	INT32 yl = max( gsVIEWPORT_WINDOW_START_Y, sScreenY - radius_outer );
-	INT32 yr = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
+	INT32 xl = max(gsVIEWPORT_START_X, sScreenX - radius_outer);
+	INT32 xr = min(gsVIEWPORT_END_X, sScreenX + radius_outer);
+	INT32 yl = max(gsVIEWPORT_WINDOW_START_Y, sScreenY - radius_outer);
+	INT32 yr = min(gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer);
 
-	best_xl = min( best_xl, xl );
-	best_xr = max( best_xr, xr );
-	best_yl = min( best_yl, yl );
-	best_yr = max( best_yr, yr );
+	best_xl = min(best_xl, xl);
+	best_xr = max(best_xr, xr);
+	best_yl = min(best_yl, yl);
+	best_yr = max(best_yr, yr);
 
-	UINT16 blue = Get16BPPColor( FROMRGB( 0, 0, 255 ) );
-
-	for ( INT32 x = xl; x <= xr; ++x )
+	for (INT32 x = xl; x <= xr; ++x)
 	{
 		FLOAT xdiffsquared = (FLOAT)((sScreenX - x) * (sScreenX - x));
 
-		for ( INT32 y = yl; y <= yr; ++y )
+		for (INT32 y = yl; y <= yr; ++y)
 		{
-			FLOAT diff = sqrt( (FLOAT)(xdiffsquared + 4 * (sScreenY - y) * (sScreenY - y)) );
+			FLOAT diff = sqrt((FLOAT)(xdiffsquared + 4 * (sScreenY - y) * (sScreenY - y)));
 
-			if ( radius_inner <= diff && diff <= radius_outer )
+			if (radius_inner <= diff && diff <= radius_outer)
 			{
 				// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
-				PixelAlterColour( FALSE, x, y, blue, pDestBuf );
+				PixelAlterColour(FALSE, x, y, usColour, pDestBuf);
 
 				sthdrawn = TRUE;
 			}
@@ -771,7 +769,7 @@ void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThicknes
 		}
 	}
 
-	UnLockVideoSurface( FRAME_BUFFER );
+	UnLockVideoSurface(FRAME_BUFFER);
 }
 
 void RenderTopmostTacticalInterface( )

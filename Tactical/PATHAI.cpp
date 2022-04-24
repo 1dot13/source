@@ -3667,7 +3667,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 
 				// Flugente: dragging someone
-				if ( s->IsDraggingSomeone( ) )
+				if ( s->IsDragging( ) )
 				{
 					ubAPCost *= gItemSettings.fDragAPCostModifier;
 				}
@@ -4782,7 +4782,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					}
 				
 					// Flugente: dragging someone
-					if ( pSold->IsDraggingSomeone( ) )
+					if ( pSold->IsDragging( ) )
 					{
 						sMovementAPsCost *= gItemSettings.fDragAPCostModifier;
 					}
@@ -4922,7 +4922,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				}
 
 				// Flugente: dragging someone
-				if ( pSold->IsDraggingSomeone() )
+				if ( pSold->IsDragging() )
 				{
 					sPointsWalk *= gItemSettings.fDragAPCostModifier;
 					sPointsCrawl *= gItemSettings.fDragAPCostModifier;

@@ -2184,7 +2184,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: drag stuff
-			if (MercPtrs[pFace->ubSoldierID]->IsDraggingSomeone())
+			if (MercPtrs[pFace->ubSoldierID]->IsDragging())
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 31);
 				++bNumRightIcons;
