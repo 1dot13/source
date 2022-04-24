@@ -1842,6 +1842,12 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 		dTargetZ += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[sTargetGridNo].sHeight );
 	}
 
+	// rftr: unactivated turncoats intentionally try to miss - aim high
+	if (gSkillTraitValues.fCOTurncoats && pSoldier && (pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT))
+	{
+		dTargetZ += 100.f;
+	}
+
 	*pdXPos = dTargetX;
 	*pdYPos = dTargetY;
 	*pdZPos = dTargetZ;
@@ -9121,6 +9127,10 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 
 UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime, UINT8 ubMode )
 {
+	// rftr: unactivated turncoats intentionally try to miss
+	if (gSkillTraitValues.fCOTurncoats && pAttacker && (pAttacker->usSoldierFlagMask2 & SOLDIER_TURNCOAT))
+		return gGameExternalOptions.ubMinimumCTH;
+
 	UINT16 usInHand;
 	UINT8 ubBandaged;
 	INT32 iAttRating, iDefRating;
@@ -10176,6 +10186,10 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 
 UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
 {
+	// rftr: unactivated turncoats intentionally try to miss
+	if (gSkillTraitValues.fCOTurncoats && pSoldier && (pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT))
+		return gGameExternalOptions.ubMinimumCTH;
+
 	INT32 iChance, iMaxRange, iRange;
 	UINT16	usHandItem;
 	INT8 bPenalty, bBandaged;

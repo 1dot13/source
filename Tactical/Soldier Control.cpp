@@ -16169,6 +16169,10 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	if ( !pSoldier )
 		return TRUE;
 
+	// rftr: turncoats ignore suspicious people/behaviour
+	if (gSkillTraitValues.fCOTurncoats && (pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT))
+		return TRUE;
+
 	// if we don't have the Flag: not covert
 	// important: no messages up to this point. the function will get called a lot, up to this point there is nothing unusual
 	if ( !(this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER)) )
