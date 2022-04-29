@@ -217,6 +217,11 @@ void UpdateFeatureFlags()
 			gGameExternalOptions.ubAgressiveStrategicAI = 0;
 		
 		gGameExternalOptions.fIntelResource = gGameSettings.fFeatures[FF_INTEL];
+		if (gGameExternalOptions.fIntelResource)
+		{
+			gGameExternalOptions.bExtraCivilians = TRUE;
+			gGameExternalOptions.bExtraMerchants = TRUE;
+		}
 		gGameExternalOptions.fAllowPrisonerSystem = gGameSettings.fFeatures[FF_PRISONERS];
 		gGameExternalOptions.fMineRequiresWorkers = gGameSettings.fFeatures[FF_MINES_REQUIRE_WORKERS];
 		gGameExternalOptions.fEnableChanceOfEnemyAmbushes = gGameSettings.fFeatures[FF_ENEMY_AMBUSHES];
