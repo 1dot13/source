@@ -6575,6 +6575,7 @@ STR16		zOptionsToggleText[] =
 	L"Show LBE Content",
 	L"Invert Mouse Wheel",
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances
+	L"Show enemy location",					// show locator on last known enemy location
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray Shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6692,7 +6693,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector will be highlighted.",
 	L"When ON, will show the contents of an LBE item; otherwise, regular NAS interface will be shown.",
 	L"When ON, inverts mouse wheel directions.",
-	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|A|l|t+|G)",
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)",
+	L"When ON, shows last known enemy location.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

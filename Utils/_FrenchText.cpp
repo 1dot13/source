@@ -6581,9 +6581,10 @@ STR16		zOptionsToggleText[] =
 	L"Situer ennemi restant",				
 	L"Afficher contenu LBE/DESC.",				
 	L"Inverser molette/souris",
-	L"Déplacement tactique",					// when multiple mercs are selected, they will try to keep their relative distances
+	L"Déplacement tactique",				// when multiple mercs are selected, they will try to keep their relative distances
+	L"Show enemy location",					// show locator on last known enemy location
 	L"--Options mode triche--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
+	L"Forcer envois Bobby Ray",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--OPTIONS DE DEBUG--",					// an example options screen options header (pure text)
 	L"Afficher déviation balle",					// Screen messages showing amount and direction of shot deviation.	
@@ -6698,7 +6699,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.",
 	L"Si activé, inverse le sens de la molette de la souris.",
-	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|C|t|r|l+|A|l|t+|G)",
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
+	L"When ON, shows last known enemy location.",	//TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

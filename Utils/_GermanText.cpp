@@ -6448,6 +6448,7 @@ STR16 zOptionsToggleText[] =
 	L"Tascheninhalt anzeigen",			
 	L"Mausradrichtung umkehren",
 	L"Bewegung in Formation",				// when multiple mercs are selected, they will try to keep their relative distances
+	L"Show enemy location",					// show locator on last known enemy location
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6565,7 +6566,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
 	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Taschen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
-	L"Wenn diese Funktion aktiviert ist und mehrere Sölnder ausgewählt sind, werden sich diese in Formation (in relativen Abständen zueinander) bewegen. (|C|t|r|l+|A|l|t+|G)",
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
+	L"When ON, shows last known enemy location.",	//TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

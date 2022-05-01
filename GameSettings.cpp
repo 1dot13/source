@@ -341,6 +341,7 @@ BOOLEAN LoadGameSettings()
 			gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]			= FALSE;
 
 		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  TRUE ); // Flugente: mercenary formations
+		gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ENEMY_LOCATION"			   ,  FALSE); // sevenfm: show locations of known enemies
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
 		gGameSettings.fOptions[TOPTION_USE_LOGICAL_BODYTYPES]			= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_LOGICAL_BODYTYPES"			   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
@@ -620,6 +621,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_ENABLE_INVENTORY_POPUPS          = " << (gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS]			?    "TRUE" : "FALSE" ) << endl; // the_bob : enable popups for picking items from sector inv
 		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_ENEMY_LOCATION			  = " << (gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				?	 "TRUE" : "FALSE" ) << endl;
 
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
@@ -847,6 +849,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						= FALSE;
 	
 	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercenary formations
+	gGameSettings.fOptions[ TOPTION_SHOW_ENEMY_LOCATION ]				= FALSE;	// sevenfm: show locations of known enemies
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	

@@ -101,6 +101,9 @@ enum
 	// Flugente: mercenary formations
 	TOPTION_MERCENARY_FORMATIONS,
 
+	// sevenfm: new settings
+	TOPTION_SHOW_ENEMY_LOCATION,
+
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments

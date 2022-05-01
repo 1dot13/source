@@ -4500,6 +4500,69 @@ void HandleExplosionWarningAnimations( )
 					}
 				}
 			}
+
+			// show known opponents
+			if (gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION] &&
+				gTacticalStatus.ubCurrentTeam == gbPlayerNum &&
+				!gTacticalStatus.fAtLeastOneGuyOnMultiSelect &&
+				pSoldier->stats.bLife >= OKLIFE &&
+				!pSoldier->IsUnconscious() &&
+				IS_MERC_BODY_TYPE(pSoldier) &&
+				!pSoldier->IsSpotting())
+			{
+				SOLDIERTYPE *pOpponent;
+				INT8 bKnowledge;
+				INT32 sSpot;
+				INT8 bLevel;
+
+				// look through this man's personal & public opplists for opponents known
+				for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+				{
+					pOpponent = MercSlots[uiLoop];
+
+					// if this merc is inactive, at base, on assignment, or dead
+					if (!pOpponent || !ValidOpponent(pSoldier, pOpponent))
+					{
+						continue;			// next merc
+					}
+
+					bKnowledge = Knowledge(pSoldier, pOpponent->ubID);
+
+					// if this opponent is unknown personally and publicly
+					if (bKnowledge == NOT_HEARD_OR_SEEN || bKnowledge > SEEN_LAST_TURN || bKnowledge < HEARD_LAST_TURN)
+					{
+						continue;
+					}
+
+					// obtain opponent's location and level
+					sSpot = KnownLocation(pSoldier, pOpponent->ubID);
+					bLevel = KnownLevel(pSoldier, pOpponent->ubID);
+
+					if (TileIsOutOfBounds(sSpot))
+					{
+						continue;
+					}
+
+					if (pOpponent->bVisible != -1)
+					{
+						continue;
+					}
+
+					// show location
+					usColor = Get16BPPColor(FROMRGB(96, 96, 96));
+					sRadius = (INT32)(sqrt(0.5) * (20));
+
+					if (bLevel > 0)
+					{
+						DrawTraitRadius(sSpot, bLevel, sRadius, 2, usColor);
+						DrawTraitRadius(sSpot, bLevel, sRadius + 4, 2, usColor);
+					}
+					else
+					{
+						DrawTraitRadius(sSpot, bLevel, sRadius, 2, usColor);
+					}
+				}
+			}
 		}
 	}
 }
