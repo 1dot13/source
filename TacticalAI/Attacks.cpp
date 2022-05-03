@@ -2061,7 +2061,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 				ubRawAPCost = ubMinAPCost;
 
 			// sevenfm: 100AP system
-			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / max(1,(ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]));
 			//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 			//NumMessage("hitRate = ",iHitRate);
 
