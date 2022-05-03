@@ -581,4 +581,36 @@ szName            要显示的文本，最多190个字符
     <uiIndex>142</uiIndex>
     <szName>1.13特征功能可以打开和关闭！您可以通过特征选项访问它。</szName>
   </LOADSCREENHINT>
+ <LOADSCREENHINT>
+    <uiIndex>143</uiIndex>
+    <szName>按 [\] 键可以用撬棍或任何双手武器打碎窗户玻璃。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>144</uiIndex>
+    <szName>按 [A] 打开技能菜单，里面有很多有用的技能操作。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>145</uiIndex>
+    <szName>按 [SHIFT]+[P] 快速折叠或展开武器枪托。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>146</uiIndex>
+    <szName>当使用榴弹发射器时，按 [ALT]+[Q] 可以改变投掷角度。（有误）</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>147</uiIndex>
+    <szName>按 [ALT]+[A] 佣兵会自动包扎伤口。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>148</uiIndex>
+    <szName>按 [Q] 更改武器瞄具模式。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>149</uiIndex>
+    <szName>按 [ESC] 可以关闭技能菜单，停止移动，停止拖动，停止武器瞄准。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>150</uiIndex>
+    <szName>在大地图部署佣兵进入战术地图时，使用方向键移动地图非常有用。</szName>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
