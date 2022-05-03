@@ -4661,7 +4661,7 @@ STR16 pTransactionText[] =
 	L"在%s区域训练民兵",	//L"Drill militia in %s", Flugente: drill militia
 	L"微型事件", //L"Mini event", rftr: mini events
 	L"从反抗军司令部转移资金", //L"Funds transferred from rebel command", rftr: rebel command
-	L"Funds transferred to rebel command", // rftr: rebel command
+	L"资金转移到反抗军司令部", //L"Funds transferred to rebel command", rftr: rebel command 
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6575,7 +6575,7 @@ STR16		zOptionsToggleText[] =
 	L"显示LBE(携行具)物品",
 	L"反转鼠标滚轮",                 //L"Invert mouse wheel",
 	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
-	L"Show enemy location",			// show locator on last known enemy location
+	L"显示已知敌人位置",			//L"Show enemy location", show locator on last known enemy location
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6693,8 +6693,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
-	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
-	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"打开时，当选择多个佣兵，在前进时会保持彼此的间距。|C|t|r|l+|A|l|t+|G \n（按|S|h|i|f|t+点击人物头像可以加入或移出队伍）", //L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", TODO.Translate
+	L"打开时，会显示已知敌人最后移动的位置。",	//L"When ON, shows last known enemy location.",   TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
