@@ -9674,7 +9674,7 @@ void LimitImpactPointByFacing( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, FLOA
 	// splitting a tile into 125 "cubes", stacked 5 x 5 x 5.  Each "cube" is 2 units wide, 2 units deep and about
 	// 6 units tall.  A standing merc in the JSD files is represented by a "plus sign" shaped construct that is
 	// 3 "cubes" tall, 3 "cubes" wide and 1 "cube" deep.  A crouching soldier is 2 x 3 x 2 and a prone soldier is
-	// 1 x 3 x 5.  This means if we're shooting at a standind target from the side, we effectively have 1/3 the
+	// 1 x 3 x 5.  This means if we're shooting at a standing target from the side, we effectively have 1/3 the
 	// chance to hit as we would a target that was facing us.  Unfortunately, the graphical cursor can't display
 	// this information so it will appear as though you have the same chance of hitting regardless of the targets
 	// facing.
@@ -9690,61 +9690,76 @@ void LimitImpactPointByFacing( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, FLOA
 	// 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
+	// sevenfm: only allow this mechanics for standing human bodytype, as in other cases it may result in balance issues
+	if(!pShooter ||
+		!pTarget ||
+		!IS_MERC_BODY_TYPE(pTarget) && !IS_CIV_BODY_TYPE(pTarget) ||
+		gAnimControl[pTarget->usAnimState].ubEndHeight < ANIM_STAND ||
+		pShooter->bAimShotLocation == AIM_SHOT_HEAD)
+	{
+		return;
+	}
+	
 	UINT8	iShooterFacing = pShooter->ubDirection;
-	UINT8	iTargetFacing = pShooter->ubDirection;
+	UINT8	iTargetFacing = pTarget->ubDirection;
 	FLOAT	iDivisor = gGameCTHConstants.SIDE_FACING_DIVISOR;
-
-	if(pTarget)
-		iTargetFacing = pTarget->ubDirection;
 
 	switch (iTargetFacing)
 	{
 		case 0:
-			if(iShooterFacing == 2 || iShooterFacing == 6){
+			if(iShooterFacing == 2 || iShooterFacing == 6)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 1:
-			if(iShooterFacing == 3 || iShooterFacing == 7){
+			if(iShooterFacing == 3 || iShooterFacing == 7)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 2:
-			if(iShooterFacing == 0 || iShooterFacing == 4){
+			if(iShooterFacing == 0 || iShooterFacing == 4)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 3:
-			if(iShooterFacing == 1 || iShooterFacing == 5){
+			if(iShooterFacing == 1 || iShooterFacing == 5)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 4:
-			if(iShooterFacing == 2 || iShooterFacing == 6){
+			if(iShooterFacing == 2 || iShooterFacing == 6)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 5:
-			if(iShooterFacing == 3 || iShooterFacing == 7){
+			if(iShooterFacing == 3 || iShooterFacing == 7)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 6:
-			if(iShooterFacing == 0 || iShooterFacing == 4){
+			if(iShooterFacing == 0 || iShooterFacing == 4)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		case 7:
-			if(iShooterFacing == 1 || iShooterFacing == 5){
+			if(iShooterFacing == 1 || iShooterFacing == 5)
+			{
 				*dShotOffsetX /= iDivisor;
-				*dShotOffsetY /= iDivisor;
+				//*dShotOffsetY /= iDivisor;
 			}
 			break;
 		default:
