@@ -9693,8 +9693,9 @@ void LimitImpactPointByFacing( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, FLOA
 	// sevenfm: only allow this mechanics for standing human bodytype, as in other cases it may result in balance issues
 	if(!pShooter ||
 		!pTarget ||
+		gGameCTHConstants.SIDE_FACING_DIVISOR <= 1.0f ||
 		!IS_MERC_BODY_TYPE(pTarget) && !IS_CIV_BODY_TYPE(pTarget) ||
-		gAnimControl[pTarget->usAnimState].ubEndHeight < ANIM_STAND ||
+		gAnimControl[pTarget->usAnimState].ubEndHeight < ANIM_CROUCH ||
 		pShooter->bAimShotLocation == AIM_SHOT_HEAD)
 	{
 		return;
@@ -9703,6 +9704,10 @@ void LimitImpactPointByFacing( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, FLOA
 	UINT8	iShooterFacing = pShooter->ubDirection;
 	UINT8	iTargetFacing = pTarget->ubDirection;
 	FLOAT	iDivisor = gGameCTHConstants.SIDE_FACING_DIVISOR;
+
+	// sevenfm: lower modifier for crouched
+	if (gAnimControl[pTarget->usAnimState].ubEndHeight == ANIM_CROUCH)
+		iDivisor = 1.0f + (iDivisor - 1.0f) / 2.0f;
 
 	switch (iTargetFacing)
 	{
