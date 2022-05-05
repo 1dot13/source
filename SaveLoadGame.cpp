@@ -6843,6 +6843,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	RemoveLoadingScreenProgressBar();
 
+	// sevenfm: reset sound map
+	ResetSoundMap();
+
 	//if( SaveGameHeader.fWorldLoaded )
 	//{
 	#ifdef NEWMUSIC

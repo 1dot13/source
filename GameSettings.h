@@ -529,6 +529,7 @@ typedef struct
 	BOOLEAN fDebugSSA;
 	UINT8	ubVolumeSSA;
 	BOOLEAN fNWSS;
+	BOOLEAN fLimitSimultaneousSound;
 
 	// WDS - Option to turn off stealing
 	BOOLEAN fStealingDisabled;

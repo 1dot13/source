@@ -1190,6 +1190,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDebugSSA							= iniReader.ReadBoolean("Sound Settings", "DEBUG_SSA", false, false);
 	gGameExternalOptions.ubVolumeSSA						= iniReader.ReadInteger("Sound Settings", "VOLUME_SSA", 50, 1, 127);
 	gGameExternalOptions.fNWSS								= iniReader.ReadBoolean("Sound Settings", "NWSS", false, false);
+	gGameExternalOptions.fLimitSimultaneousSound			= iniReader.ReadBoolean("Sound Settings", "LIMIT_SIMULTANEOUS_SOUND", true, false);
 
 	//################# Tactical Interface Settings #################
 

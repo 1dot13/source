@@ -79,6 +79,9 @@ extern UINT32	SoundPlayRandom(STR pFilename, RANDOMPARMS *pParms);
 extern BOOLEAN	SoundServiceStreams(void);
 extern BOOLEAN	SoundServiceRandom(void);
 
+// sevenfm
+void ResetSoundMap(void);
+
 // Sound instance manipulation functions
 extern BOOLEAN	SoundStopAll(void);
 extern BOOLEAN	SoundStopAllRandom(void);
