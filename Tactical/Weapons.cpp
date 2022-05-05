@@ -7769,6 +7769,36 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 				uiChance = (UINT32)(dChance - dMaxChanceReduction);
 			}
 		}
+
+		// sevenfm: take into account target facing
+		SOLDIERTYPE* pTarget = SimpleFindSoldier(sGridNo, bTargetLevel);
+
+		if (pTarget &&
+			gGameCTHConstants.SIDE_FACING_DIVISOR <= 1.0f &&
+			(IS_MERC_BODY_TYPE(pTarget) || IS_CIV_BODY_TYPE(pTarget)) &&
+			gAnimControl[pTarget->usAnimState].ubEndHeight > ANIM_PRONE &&
+			pSoldier->bAimShotLocation != AIM_SHOT_HEAD &&
+			pSoldier->ubDirection != pTarget->ubDirection &&
+			pSoldier->ubDirection != gOppositeDirection[pTarget->ubDirection])
+		{
+			FLOAT iDivisor = 1.0f;
+
+			if (pSoldier->ubDirection == gOneCDirection[pTarget->ubDirection] ||
+				pSoldier->ubDirection == gOneCCDirection[pTarget->ubDirection] ||
+				pSoldier->ubDirection == gOneCDirection[gOppositeDirection[pTarget->ubDirection]] ||
+				pSoldier->ubDirection == gOneCCDirection[gOppositeDirection[pTarget->ubDirection]] ||
+				gAnimControl[pTarget->usAnimState].ubEndHeight == ANIM_CROUCH)
+			{
+				iDivisor = 1.5f;
+			}
+			else if (pSoldier->ubDirection == gTwoCDirection[pTarget->ubDirection] ||
+				pSoldier->ubDirection == gTwoCCDirection[gOppositeDirection[pTarget->ubDirection]])
+			{
+				iDivisor = 2.0f;
+			}
+
+			uiChance = (UINT32)(uiChance / iDivisor);
+		}
 	}
 
 	if (gGameExternalOptions.fAIExtraSuppression)
