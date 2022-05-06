@@ -28,6 +28,7 @@
 	//#include "english.h"
 	//#include "input.h"
 	#include <ctime>
+	#include <chrono>
 #endif
 
 // Uncomment this to disable the startup of sound hardware
@@ -291,7 +292,13 @@ void ShutdownSoundManager(void)
 //
 //*******************************************************************************
 
-std::map<std::string, std::time_t, std::less<>> gSoundMap;
+std::map<std::string, uint64_t, std::less<>> gSoundMap;
+
+uint64_t TimeMS()
+{
+	using namespace std::chrono;
+	return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
 
 UINT32 SoundPlay(STR pFilename, SOUNDPARMS *pParms)
 {
@@ -305,7 +312,7 @@ UINT32 SoundPlay(STR pFilename, SOUNDPARMS *pParms)
 			if (gGameExternalOptions.fLimitSimultaneousSound)
 				//!_KeyDown(SHIFT))
 			{
-				std::time_t curtime = std::time(0);
+				uint64_t curtime = TimeMS();
 				std::string filename(pFilename);
 
 				if (gSoundMap[filename] > curtime)
@@ -314,7 +321,7 @@ UINT32 SoundPlay(STR pFilename, SOUNDPARMS *pParms)
 				}
 
 				// set delay for this sound type
-				gSoundMap[filename] = curtime + 1;
+				gSoundMap[filename] = curtime + 50;
 			}
 
 			if ((uiSample = SoundLoadSample(pFilename)) != NO_SAMPLE)
