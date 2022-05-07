@@ -7241,6 +7241,10 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		this->StopCoweringAnimation();
 	}
 
+	// sevenfm: set WALKING when sidestepping, this should fix running instead of sidestepping with weapon raised in turnbased mode
+	if (usMoveAnimState == RUNNING && this->bReverse)
+		usMoveAnimState = WALKING;
+
 	this->bGoodContPath = FALSE;
 
 	if ( this->flags.fDelayedMovement )
