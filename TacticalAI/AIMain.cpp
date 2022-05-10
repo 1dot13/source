@@ -53,6 +53,7 @@
 #include "points.h"
 #include "Soldier Functions.h" // added by SANDRO
 #include "Text.h"	// sevenfm
+#include "english.h" // sevenfm: for ESC key
 #endif
 
 #include "connect.h"
@@ -114,8 +115,8 @@ INT8 gbDiff[MAX_DIFF_PARMS][5] =
 	{    4,    6,     8,    10,     13  }      // DIFF_MAX_COVER_RANGE
 };
 
-
-
+// sevenfm
+extern time_t gtTimeSinceMercAIStart;
 
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier );
 
@@ -696,7 +697,14 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 	if (gfTurnBasedAI)
 	{
-		if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
+		time_t tCurrentTime = time(0);
+		UINT32 uiShortDelay = 10;
+		UINT32 uiDelay = (UINT32)gGameExternalOptions.gubDeadLockDelay;
+		UINT32 uiTime = (UINT32)(tCurrentTime - gtTimeSinceMercAIStart);
+		BOOLEAN fKeyPressed = _KeyDown(ESC);
+
+		if ((uiTime > uiDelay || uiTime > uiShortDelay && fKeyPressed) && !gfUIInDeadlock)
+		//if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
 		{
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
@@ -1042,6 +1050,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 #endif
 
 	gTacticalStatus.uiTimeSinceMercAIStart = GetJA2Clock();
+	gtTimeSinceMercAIStart = time(0);
 
 	DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3 , "Clock set" );
 

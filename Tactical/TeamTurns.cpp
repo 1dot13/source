@@ -65,6 +65,9 @@ extern INT8 STRAIGHT;
 //extern UINT8 gubSpeedUpAnimationFactor;
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 
+// sevenfm
+time_t gtTimeSinceMercAIStart;
+
 void RecalculateSoldiersAniSpeed()
 {
 	UINT32 uiLoop;
@@ -763,7 +766,8 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 	pActingSoldier->SetSoldierAsUnderAiControl(	);
 	DebugAI( String( "Giving AI control to %d", pActingSoldier->ubID ) );
 	pActingSoldier->flags.fTurnInProgress = TRUE;
-	gTacticalStatus.uiTimeSinceMercAIStart = GetJA2Clock();
+	gTacticalStatus.uiTimeSinceMercAIStart = GetJA2Clock();	
+	gtTimeSinceMercAIStart = time(0);	// sevenfm: also remember system time
 
 	if ( gTacticalStatus.ubTopMessageType != COMPUTER_TURN_MESSAGE)
 	{
