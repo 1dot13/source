@@ -730,105 +730,98 @@ void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 }
 
-
-BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
+BOOLEAN AttemptToBlowUpLock(SOLDIERTYPE * pSoldier, DOOR * pDoor)
 {
 	INT32	iResult;
-	INT8	bSlot = NO_SLOT;
+	INT8	bSlot;
+	BOOLEAN fSuccess = FALSE;
 
-	bSlot = FindLockBomb( pSoldier );
+	bSlot = FindLockBomb(pSoldier);
 	if (bSlot == NO_SLOT)
 	{
-		return( FALSE );
+		return fSuccess;
 	}
 
+	// sevenfm: remember damage as item will be removed
+	UINT16 usDamage = Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage;
+	UINT16 usItem = pSoldier->inv[bSlot].usItem;
+
+	// Remove the explosive.....
+	pSoldier->inv[bSlot].RemoveObjectsFromStack(1);
+	DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+
 	// Flugente: flat bonus to using door breaching charges
-	iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, (INT8)pSoldier->GetBackgroundValue(BG_BONUS_BREACHINGCHARGE) );
+	iResult = SkillCheck(pSoldier, PLANTING_BOMB_CHECK, (INT8)pSoldier->GetBackgroundValue(BG_BONUS_BREACHINGCHARGE));
 	if (iResult >= -20)
 	{
 		// Do explosive graphic....
-		{
-			ANITILE_PARAMS	AniParams;
-			INT32 sGridNo;
-			INT16						sX, sY, sZ;
+		ANITILE_PARAMS	AniParams;
+		INT32 sGridNo;
+		INT16						sX, sY, sZ;
 
-			// Get gridno
-			sGridNo = pDoor->sGridNo;
+		// Get gridno
+		sGridNo = pDoor->sGridNo;
 
-			// Get sX, sy;
-			sX = CenterX( sGridNo );
-			sY = CenterY( sGridNo );
+		// Get sX, sy;
+		sX = CenterX(sGridNo);
+		sY = CenterY(sGridNo);
 
-			// Get Z position, based on orientation....
-			sZ = 20;
+		// Get Z position, based on orientation....
+		sZ = 20;
 
-			AniParams.sGridNo							= sGridNo;
-			AniParams.ubLevelID						= ANI_TOPMOST_LEVEL;
-			AniParams.sDelay							= (INT16)( 100 );
-			AniParams.sStartFrame					= 0;
-			AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
-			AniParams.sX									= sX;
-			AniParams.sY									= sY;
-			AniParams.sZ									= sZ;
+		AniParams.sGridNo = sGridNo;
+		AniParams.ubLevelID = ANI_TOPMOST_LEVEL;
+		AniParams.sDelay = (INT16)(100);
+		AniParams.sStartFrame = 0;
+		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+		AniParams.sX = sX;
+		AniParams.sY = sY;
+		AniParams.sZ = sZ;
 
-			strcpy( AniParams.zCachedFile, "TILECACHE\\MINIBOOM.STI" );
+		strcpy(AniParams.zCachedFile, "TILECACHE\\MINIBOOM.STI");
+		CreateAnimationTile(&AniParams);
+		PlayJA2Sample(SMALL_EXPLODE_1, RATE_11025, SoundVolume((INT8)HIGHVOLUME, sGridNo), 1, SoundDir(sGridNo));
 
-			CreateAnimationTile( &AniParams );
+		// possibly damage lock
+		UINT16 usExplosiveDamage;
 
-			PlayJA2Sample( SMALL_EXPLODE_1 , RATE_11025, SoundVolume( (INT8)HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
-
-			// Remove the explosive.....
-			bSlot = FindLockBomb( pSoldier );
-			if (bSlot != NO_SLOT)
-			{
-				pSoldier->inv[ bSlot ].RemoveObjectsFromStack(1);
-				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-			}
-		}
-
-		// Not sure if this makes sense, but the explosive is small.
-		// Double the damage here as we are damaging a lock rather than a person
-		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
-		{
-			// greatly increase the effectiveness of shaped charge
-			pDoor->bLockDamage += (Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage * 2 * gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
-		}
+		if (!gGameOptions.fNewTraitSystem)
+			usExplosiveDamage = usDamage * 2;
+		else if (HAS_SKILL_TRAIT(pSoldier, DEMOLITIONS_NT))
+			usExplosiveDamage = usDamage * gSkillTraitValues.ubDEShapedChargeDamageMultiplier;
 		else
-		{
-			pDoor->bLockDamage += Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage * 2;
-		}
+			usExplosiveDamage = usDamage;
 
-		if (pDoor->bLockDamage > LockTable[ pDoor->ubLockID ].ubSmashDifficulty )
+		// sevenfm: catch overflow
+		if (pDoor->bLockDamage + usExplosiveDamage > 127)
+			pDoor->bLockDamage = 127;
+		else
+			pDoor->bLockDamage += usExplosiveDamage;
+
+		// sevenfm: only damage lock if opening possible, check actual damage in case of reaching max INT8
+		if (LockTable[pDoor->ubLockID].ubSmashDifficulty != OPENING_NOT_POSSIBLE &&
+			max(pDoor->bLockDamage, usExplosiveDamage) > LockTable[pDoor->ubLockID].ubSmashDifficulty)
 		{
 			// succeeded! door can never be locked again, so remove from door list...
-			RemoveDoorInfoFromTable( pDoor->sGridNo );
+			RemoveDoorInfoFromTable(pDoor->sGridNo);
 			// award experience points? ... SANDRO - sure!
-			StatChange( pSoldier, EXPLODEAMT, ( 10 ), FALSE );
-			// also add to records - door successfuly breached
-			gMercProfiles[ pSoldier->ubProfile ].records.usLocksBreached++;
+			StatChange(pSoldier, EXPLODEAMT, (10), FALSE);
+			// also add to records - door successfully breached
+			gMercProfiles[pSoldier->ubProfile].records.usLocksBreached++;
+
+			fSuccess = TRUE;
 
 			// Flugente: additional dialogue
-			AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_LOCKBOMB, 1 );
-
-			return( TRUE );
+			AdditionalTacticalCharacterDialogue_CallsLua(pSoldier, ADE_LOCKBOMB, 0);
 		}
-
-		// Flugente: additional dialogue
-		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_LOCKBOMB, 0 );
 	}
 	else
 	{
-		bSlot = FindLockBomb( pSoldier );
-		if (bSlot != NO_SLOT)
-		{
-			pSoldier->inv[ bSlot ].RemoveObjectsFromStack(1);
-			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-		}
-
 		// OOPS! ... BOOM!
-		IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[bSlot].usItem, 0 );
-	}
-	return( FALSE );
+		IgniteExplosion(NOBODY, pSoldier->sX, pSoldier->sY, (INT16)(gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, usItem, 0);
+	}	
+
+	return fSuccess;
 }
 
 //dnl ch42 250909
