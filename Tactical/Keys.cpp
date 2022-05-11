@@ -745,6 +745,7 @@ BOOLEAN AttemptToBlowUpLock(SOLDIERTYPE * pSoldier, DOOR * pDoor)
 	// sevenfm: remember damage as item will be removed
 	UINT16 usDamage = Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage;
 	UINT16 usItem = pSoldier->inv[bSlot].usItem;
+	UINT8 ubVolume = Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubVolume;
 
 	// Remove the explosive.....
 	pSoldier->inv[bSlot].RemoveObjectsFromStack(1);
@@ -814,6 +815,9 @@ BOOLEAN AttemptToBlowUpLock(SOLDIERTYPE * pSoldier, DOOR * pDoor)
 			// Flugente: additional dialogue
 			AdditionalTacticalCharacterDialogue_CallsLua(pSoldier, ADE_LOCKBOMB, 0);
 		}
+
+		// sevenfm: also make noise
+		MakeNoise(pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_EXPLOSION);
 	}
 	else
 	{
