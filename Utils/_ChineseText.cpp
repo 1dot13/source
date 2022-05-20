@@ -3547,7 +3547,7 @@ STR16 gpStrategicString[] =
 	L"异形向你的民兵发起了攻击，在分区%c%d。",
 	//1st %d refers to the number of civilians eaten by monsters,  %c%d is the sector -- ex:  A9
 	//Note:  the minimum number of civilians eaten will be two.
-	L"异形吃掉了%d名平民，在%s分区。",   //注：这里的%d和%s可以随意放前面或后面。L"Creatures attack and kill %d civilians in sector %s.",
+	L"生物（血猫，异形，僵尸）袭击了%s分区，杀死%d平民。",   //注：这里原本的%d和%s在中文中要反过来放，不然会出错。（%d和%s在中文中要反过来） L"Creatures attack and kill %d civilians in sector %s.",
 	//%s is the sector location -- ex:  A9: Omerta
 	L"敌军向你的%s分区发起了攻击，你的佣兵中没人能进行战斗。",
 	//%s is the sector location -- ex:  A9: Omerta
@@ -3570,7 +3570,7 @@ STR16 gpStrategicString[] =
 	L"土匪攻击",	//L"BANDIT ATTACK",
 	L"僵尸",	//L"Zombie",
 	L"土匪",	//L"Bandit",
-	L"土匪杀死了%d名平民，在%s分区。",	//注：这里的%d和%s不可以随意放前面或后面，一定要按英文顺序，不然会出错。L"Bandits attack and kill %d civilians in sector %s.",
+	L"土匪杀死了%d名平民，在%s分区。",	//注：这里的%d和%s不可以随意放前面或后面，一定要按英文顺序，不然会出错。（%d和%s 在中文中不能反过来。） L"Bandits attack and kill %d civilians in sector %s.",
 };
 
 STR16 gpGameClockString[] =
