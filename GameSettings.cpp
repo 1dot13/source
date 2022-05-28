@@ -1117,6 +1117,9 @@ void LoadGameExternalOptions()
 
 	//tais: percentage that the merc's salary rises when he/she levels up
 	gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage		= (FLOAT)iniReader.ReadInteger("Financial Settings","MERC_LEVEL_UP_SALARY_INCREASE_PERCENTAGE",25, 0, 1000);
+	gGameExternalOptions.uMaxMercSalaryIncreaseDaily				= (UINT32)iniReader.ReadUINT32("Financial Settings","MERC_LEVEL_UP_MAXIMUM_SALARY_INCREASE_DAILY", 100000, 0, 100000);
+	gGameExternalOptions.uMaxMercSalaryIncreaseWeekly				= (UINT32)iniReader.ReadUINT32("Financial Settings","MERC_LEVEL_UP_MAXIMUM_SALARY_INCREASE_WEEKLY", 100000, 0, 100000);
+	gGameExternalOptions.uMaxMercSalaryIncreaseBiweekly				= (UINT32)iniReader.ReadUINT32("Financial Settings","MERC_LEVEL_UP_MAXIMUM_SALARY_INCREASE_BIWEEKLY", 100000, 0, 100000);
 
 	// Flugente: mine income can depend on the number or workers we have
 	gGameExternalOptions.fMineRequiresWorkers							= iniReader.ReadBoolean( "Financial Settings", "MINE_REQUIRES_WORKERS", FALSE );

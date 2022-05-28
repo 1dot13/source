@@ -1409,6 +1409,9 @@ typedef struct
 	BOOLEAN ubShowSuppressionScaleAsterisk;
 
 	FLOAT gMercLevelUpSalaryIncreasePercentage;
+	UINT32 uMaxMercSalaryIncreaseDaily;
+	UINT32 uMaxMercSalaryIncreaseWeekly;
+	UINT32 uMaxMercSalaryIncreaseBiweekly;
 
 	// Flugente: mine income can depend on the number or workers we have
 	BOOLEAN fMineRequiresWorkers;

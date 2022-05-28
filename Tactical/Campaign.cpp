@@ -836,11 +836,11 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 				// increase all salaries and medical deposits, once for each level gained
 				for (uiLevelCnt = 0; uiLevelCnt < (UINT32) sPtsChanged; ++uiLevelCnt)
 				{
-					pProfile->sSalary				= (INT16) CalcNewSalary(pProfile->sSalary,					fChangeTypeIncrease, MAX_DAILY_SALARY);
-					pProfile->uiWeeklySalary		=		  CalcNewSalary(pProfile->uiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY);
-					pProfile->uiBiWeeklySalary		=	      CalcNewSalary(pProfile->uiBiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY);
-					pProfile->sTrueSalary			= (INT16) CalcNewSalary(pProfile->sTrueSalary,				fChangeTypeIncrease, MAX_DAILY_SALARY);
-					pProfile->sMedicalDepositAmount = (INT16) CalcNewSalary(pProfile->sMedicalDepositAmount,	fChangeTypeIncrease, MAX_DAILY_SALARY);
+					pProfile->sSalary				= (INT16) CalcNewSalary(pProfile->sSalary,					fChangeTypeIncrease, MAX_DAILY_SALARY, gGameExternalOptions.uMaxMercSalaryIncreaseDaily);
+					pProfile->uiWeeklySalary		=		  CalcNewSalary(pProfile->uiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY, gGameExternalOptions.uMaxMercSalaryIncreaseWeekly);
+					pProfile->uiBiWeeklySalary		=	      CalcNewSalary(pProfile->uiBiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY, gGameExternalOptions.uMaxMercSalaryIncreaseBiweekly);
+					pProfile->sTrueSalary			= (INT16) CalcNewSalary(pProfile->sTrueSalary,				fChangeTypeIncrease, MAX_DAILY_SALARY, gGameExternalOptions.uMaxMercSalaryIncreaseDaily);
+					pProfile->sMedicalDepositAmount = (INT16) CalcNewSalary(pProfile->sMedicalDepositAmount,	fChangeTypeIncrease, MAX_DAILY_SALARY, gGameExternalOptions.uMaxMercSalaryIncreaseDaily);
 
 					//if (pSoldier != NULL)
 						// DON'T increase the *effective* medical deposit, it's already been paid out
@@ -1094,10 +1094,10 @@ void HandleAnyStatChangesAfterAttack( void )
 }
 
 
-UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit)
+UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit, UINT32 uiIncreaseCap)
 {
-  UINT32 uiNewSalary;
-  FLOAT SalaryMultiplier = (FLOAT) ((gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage / 100) + 1);
+  UINT32 uiNewSalary = 0;
+  const FLOAT SalaryMultiplier = (FLOAT) ((gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage / 100) + 1);
 
 	// if he was working for free, it's still free!
 	if (uiOldSalary == 0)
@@ -1116,6 +1116,8 @@ UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit)
 
   // round it off to a reasonable multiple
   uiNewSalary = RoundOffSalary(uiNewSalary);
+
+  uiNewSalary = min(uiNewSalary, uiOldSalary + uiIncreaseCap);
 
 	// let's set some reasonable limits here, lest it get silly one day
 	if (uiNewSalary > uiMaxLimit)
