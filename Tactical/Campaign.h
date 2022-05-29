@@ -71,7 +71,7 @@ void UpdateStats( SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );
 void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile, UINT8 ubReason = 0 );
 void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );
 
-UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit);
+UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit, UINT32 uiIncreaseCap);
 UINT32 RoundOffSalary(UINT32 uiSalary);
 UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel);
 
