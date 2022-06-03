@@ -113,6 +113,7 @@ INT32 FindWorldItem( UINT16 usItem );
 void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorMapVersion );
 void SaveWorldItemsToMap(HWFILE fp, float dMajorMapVersion, UINT8 ubMinorMapVersion);//dnl ch33 150909
 
+void ClearAllWorldItems();
 void TrashWorldItems();
 
 typedef struct

@@ -64,6 +64,7 @@
 	#include "ASD.h"								// added by Flugente
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
+	#include "World Items.h"
 #endif
 
 #include "Vehicles.h"
@@ -724,6 +725,9 @@ fFirstTimeInMapScreen = TRUE;
 
 		// this is for the "mercs climbing down from a rope" animation, NOT Skyrider!!
 		ResetHeliSeats( );
+
+		TrashWorldItems();
+		ClearAllWorldItems();
 
 #ifdef LUA_GAME_INIT_NEW_GAME
 		
