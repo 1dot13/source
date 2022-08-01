@@ -11364,62 +11364,68 @@ STR16 szIMPGearWebSiteText[] =	// TODO.Translate
 	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
 
-STR16 szIMPGearDropDownText[] =
+STR16 szIMPGearPocketText[] =
 {
-	L"Select LBE vest",
-	L"Select LBE combat pack",
-	L"Select LBE backpack",
-	L"Select LBE holster",
-	L"Select LBE holster",
-
-	L"Select main gun",
-	L"Select ammo",
-	L"Select sidearm",
-	L"Select additional ammo",
-	L"Select melee weapon",
-
 	L"Select helmet",
 	L"Select vest",
 	L"Select pants",
 	L"Select face gear",
 	L"Select face gear",
 
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-};
+	L"Select main gun",
+	L"Select sidearm",
 
-STR16 szIMPGearDropDownNoneText[] =
-{
-	L"No LBE vest",
-	L"No LBE combat pack",
-	L"No LBE backpack",
-	L"No LBE holster",
-	L"No LBE holster",
+	L"Select LBE vest",
+	L"Select left LBE holster",
+	L"Select right LBE holster",
+	L"Select LBE combat pack",
+	L"Select LBE backpack",
 
-	L"No gun",
-	L"No ammo",
-	L"No gun",
-	L"No ammo",
-	L"No weapon",
+	L"Select launcher / rifle",
+	L"Select melee weapon",
 
-	L"No helmet",
-	L"No vest",
-	L"No pants",
-	L"No face gear",
-	L"No face gear",
-
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
+	L"Select additional items", //BIGPOCK1POS
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select medkit", //MEDPOCK1POS
+	L"Select medkit",
+	L"Select medkit",
+	L"Select medkit",
+	L"Select main gun ammo", //SMALLPOCK1POS
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select launcher / rifle ammo", //SMALLPOCK6POS
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select sidearm ammo", //SMALLPOCK11POS
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select additional items", //SMALLPOCK19POS
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items",
+	L"Select additional items", //SMALLPOCK30POS
+	L"Left click to select item / Right click to close window",
 };
 
 STR16 szMilitiaStrategicMovementText[] =

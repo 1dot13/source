@@ -36,6 +36,28 @@
 #include "IMP Gear Entrance.h"
 #endif
 
+extern BOOLEAN gfGlowTimerExpired;
+BOOLEAN fShowIMPItemHighLight = FALSE;
+struct rgbcolorImpGear
+{
+	UINT8 ubRed;
+	UINT8 ubGreen;
+	UINT8 ubBlue;
+};
+rgbcolorImpGear GlowColorsA[] = {
+	{0,0,0},
+	{25,0,0},
+	{50,0,0},
+	{75,0,0},
+	{100,0,0},
+	{125,0,0},
+	{150,0,0},
+	{175,0,0},
+	{200,0,0},
+	{225,0,0},
+	{250,0,0},
+};
+extern BOOLEAN bBigBody;
 
 //*******************************************************************
 //
@@ -58,55 +80,33 @@
 // Local Variables
 //
 //*******************************************************************
+INV_REGIONS gIMPGearInvData[NUM_INV_SLOTS];
+MOUSE_REGION gIMPGearInvRegion[NUM_INV_SLOTS];
+MOUSE_REGION gIMPGearInvPoolRegion[25];
+UINT32 gIMPInvDoneButtonImage;
+UINT32 gIMPInvDoneButton;
+UINT32 gIMPInvArrowButtonImage[2];
+UINT32 gIMPInvArrowButton[2];
+INT32 gIMPCurrentInventoryPoolPage = 0;
+INT32 gIMPLastInventoryPoolPage = 0;
+INT32 gCurrentImpGearChoices = 0;
+std::map< UINT16, std::vector<std::pair<INT16, STR16> > > gIMPPossibleItems;
+std::map< UINT16, std::pair<INT16, UINT8> > gIMPPocketSelectedItems; //Stores what item and amount is currently selected in merc inventory
+UINT32 gIMPGlowX = 0;
+UINT32 gIMPGlowY = 0;
 
-BOOLEAN gfIMPGear_Redraw = FALSE;
 
 // this is the Done	button
 INT32 giIMPGearFinishButton;
 INT32 giIMPGearFinishButtonImage;
 
-// We access the dropdowns via pointers, which we identify with these enums
-// They corrspond with the enums in Dropdown.h
-// NOTE: make sure that there are as many of these enums as there are DropDowns for this site. Otherwise odd things migt happen - consider yourself warned.
-enum impgeardropdownenums
-{
-	IMPGEAR_DROPDOWN_LBE1 = 0,
-	IMPGEAR_DROPDOWN_LBE2,
-	IMPGEAR_DROPDOWN_LBE3,
-	IMPGEAR_DROPDOWN_LBE4,
-	IMPGEAR_DROPDOWN_LBE5,
 
-	IMPGEAR_DROPDOWN_GUN_1,
-	IMPGEAR_DROPDOWN_AMMO_1,
-	IMPGEAR_DROPDOWN_GUN_2,
-	IMPGEAR_DROPDOWN_AMMO_2,
-	IMPGEAR_DROPDOWN_MELEE,
-		
-	IMPGEAR_DROPDOWN_HELMET,
-	IMPGEAR_DROPDOWN_VEST,
-	IMPGEAR_DROPDOWN_LEGS,
-	IMPGEAR_DROPDOWN_FACE1,
-	IMPGEAR_DROPDOWN_FACE2,
-
-	IMPGEAR_DROPDOWN_MISC_1,
-	IMPGEAR_DROPDOWN_MISC_2,
-	IMPGEAR_DROPDOWN_MISC_3,
-	IMPGEAR_DROPDOWN_MISC_4,
-	IMPGEAR_DROPDOWN_MISC_5,
-	IMPGEAR_DROPDOWN_MISC_6,
-	IMPGEAR_DROPDOWN_MISC_7,
-
-	IMPGEAR_DROPDOWN_MAX,
-};
-
-// as accessing DropDowns via parameter is tedious, we use pointers, which allows looping
-DropDownBase* pIMPGEARDropDown[IMPGEAR_DROPDOWN_MAX] = {NULL};
 INT16 gIMPGearGun1 = -1;
 INT16 gIMPGearGun2 = -1;
+INT16 gIMPGearGun3 = -1;
 
 // a set of all items that we can choose from
 std::set<UINT16> gIMPGearPossibleItems;
-
 // a map with all items we have selected, and how many we want
 std::map<UINT16, UINT8> gIMPGearSelectedItems;
 
@@ -115,184 +115,99 @@ extern BOOLEAN	gfSkillTraitQuestions2[20];
 
 extern BOOLEAN	gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS];
 
-// +/- buttons to alter the number of items
-INT32 gIMPGearAddButtonImage[2];
-INT32 gIMPGearAddButton[2 * IMPGEAR_DROPDOWN_MAX] = {-1};
-BOOLEAN gIMPGearButtonCreated[2 * IMPGEAR_DROPDOWN_MAX] = {FALSE};
-
-UINT8 gIMPGearCount[IMPGEAR_DROPDOWN_MAX] = {0};
-UINT8 gIMPGearMaximum[IMPGEAR_DROPDOWN_MAX] = {0};
-
 // cost of IMP gear
 INT32 gIMPGearCost = 0;
 
 extern BOOLEAN fNewIMPGearMethodUsed;
+
 
 //*******************************************************************
 //
 // Function Prototypes
 //
 //*******************************************************************
-
-
 void		IMPGearDisplay( );
 void		BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason );
-
 // determine all items that are selectable according to xml and choices
 void		CalculatePossibleItems();
-
 // store the selected gear
 void		StoreSelectedIMPGear();
+void		InitImpGearCoords(void);
+void		RenderImpGearSelectionChoices(UINT32 userData);
+void		DisplayPagesForImpInventoryPool(void);
+void		DistributePossibleItemsToVectors(void);
+void		DrawImpGearInventoryPool(void);
+void SetChoiceForPocket(INT32 pocket, INT32 index, UINT8 amount);
+void IMPInvMoveCallback(MOUSE_REGION* pRegion, INT32 iReason);
+void IMPInventoryPoolSelectCallback(MOUSE_REGION* pRegion, INT32 iReason);
+extern void HandleCommonGlowTimer();
+extern BOOLEAN RestoreExternBackgroundRect(INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight);
+extern void SetClippingRegionAndImageWidth(
+	int iImageWidth,
+	int iClipStartX,
+	int iClipStartY,
+	int iClipWidth,
+	int iClipHeight
+);
+extern void RectangleDraw(BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8* ScreenPtr);
+void GlowImpInvPoolItem(void);
+void IMPGearHandleMousePageScroll(void);
+void RenderIMPGearBodytype(void);
+void IMPInventoryPoolDoneBtn(GUI_BUTTON* btn, INT32 reason);
+void ImpInventoryPoolNextBtn(GUI_BUTTON* btn, INT32 reason);
+void ImpInventoryPoolPrevBtn(GUI_BUTTON* btn, INT32 reason);
 
-// fill dropdowns with items
-void		DistributePossibleItemsOnDropDowns();
-
-void		GearAddButtonCallback( GUI_BUTTON *btn, INT32 reason );
-
-
-//*******************************************************************
-//
-// DropDown instances
-//
-//*******************************************************************
-
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_GUN_1>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_AMMO_1>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_GUN_2>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_AMMO_2>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MELEE>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE1>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE2>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE3>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE4>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE5>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_HELMET>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_VEST>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_LEGS>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_FACE1>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_FACE2>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_1>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_2>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_3>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_4>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_5>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_6>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
-template<>	void	DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_7>::SetRefresh( )			{ gfIMPGear_Redraw = TRUE; }
 
 void EnterIMPGear( void )
 {
 	RenderProfileBackGround( );
 
 	giIMPGearFinishButtonImage = LoadButtonImage( "LAPTOP\\button_5.sti", -1, 0, -1, 1, -1 );
-	giIMPGearFinishButton = CreateIconAndTextButton( giIMPGearFinishButtonImage, pImpButtonText[11], FONT12ARIAL,
-														  FONT_WHITE, DEFAULT_SHADOW,
-														  FONT_WHITE, DEFAULT_SHADOW,
-														  TEXT_CJUSTIFIED,
-														  LAPTOP_SCREEN_UL_X + (350), LAPTOP_SCREEN_WEB_UL_Y + (340), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-														  BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPGearFinishCallback );
-
+	giIMPGearFinishButton = CreateIconAndTextButton( 
+		giIMPGearFinishButtonImage, pImpButtonText[11], FONT12ARIAL,
+		FONT_WHITE, DEFAULT_SHADOW,
+		FONT_WHITE, DEFAULT_SHADOW,
+		TEXT_CJUSTIFIED,
+		LAPTOP_SCREEN_UL_X + (350), LAPTOP_SCREEN_WEB_UL_Y + (340), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPGearFinishCallback 
+	);
 	SetButtonCursor( giIMPGearFinishButton, CURSOR_WWW );
 
-	// we access the dropdowns via pointers, which allows us to loop over them
-	// for each category, we set a maximum of items that can be stacked at once, as multiple magazines are reasonably, but multiple guns are a no-no
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE1] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE1>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LBE1] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE2] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE2>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LBE2] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE3] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE3>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LBE3] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE4] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE4>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LBE4] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE5] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LBE5>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LBE5] = 1;
 
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_1] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_GUN_1>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_GUN_1] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_AMMO_1>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_AMMO_1] = 6;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_2] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_GUN_2>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_GUN_2] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_AMMO_2>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_AMMO_2] = 6;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MELEE] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MELEE>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MELEE] = 1;
+	// create done and next/previous page buttons for inventory pool
+	gIMPInvDoneButtonImage = LoadButtonImage("INTERFACE\\done_button.sti", -1, 0, -1, 1, -1);
+	gIMPInvDoneButton = QuickCreateButton(gIMPInvDoneButtonImage, gIMPInvPoolLayout.x + 247, gIMPInvPoolLayout.y + 187,
+		BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+		(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)IMPInventoryPoolDoneBtn);
 
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_HELMET] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_HELMET>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_HELMET] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_VEST] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_VEST>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_VEST] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LEGS] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_LEGS>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_LEGS] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_FACE1] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_FACE1>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_FACE1] = 1;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_FACE2] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_FACE2>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_FACE2] = 1;
+	gIMPInvArrowButtonImage[0] = LoadButtonImage("INTERFACE\\map_screen_bottom_arrows.sti", 10, 1, -1, 3, -1);
+	gIMPInvArrowButton[0] = QuickCreateButton(gIMPInvArrowButtonImage[0], gIMPInvPoolLayout.x + 223, gIMPInvPoolLayout.y + 189,
+		BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+		(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)ImpInventoryPoolNextBtn);
 
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_1] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_1>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_1] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_2] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_2>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_2] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_3] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_3>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_3] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_4] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_4>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_4] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_5] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_5>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_5] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_6] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_6>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_6] = 4;
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_7] = &DropDownTemplate<DROPDOWNNR_IMPGEAR_MISC_7>::getInstance( );
-	gIMPGearMaximum[IMPGEAR_DROPDOWN_MISC_7] = 4;
-	
+
+	gIMPInvArrowButtonImage[1] = LoadButtonImage("INTERFACE\\map_screen_bottom_arrows.sti", 9, 0, -1, 2, -1);
+	gIMPInvArrowButton[1] = QuickCreateButton(gIMPInvArrowButtonImage[1], gIMPInvPoolLayout.x + 150, gIMPInvPoolLayout.y + 189,
+		BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+		(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)ImpInventoryPoolPrevBtn);
+
+	SetButtonCursor(gIMPInvDoneButton, CURSOR_WWW);
+	SetButtonCursor(gIMPInvArrowButton[0], CURSOR_WWW);
+	SetButtonCursor(gIMPInvArrowButton[1], CURSOR_WWW);
+
+	// Hide and disable them for now
+	DisableButton(gIMPInvDoneButton);
+	DisableButton(gIMPInvArrowButton[0]);
+	DisableButton(gIMPInvArrowButton[1]);
+	HideButton(gIMPInvDoneButton);
+	HideButton(gIMPInvArrowButton[0]);
+	HideButton(gIMPInvArrowButton[1]);
+
+
+	InitImpGearCoords();
 	// determine all possible items
 	CalculatePossibleItems();
-
-	DistributePossibleItemsOnDropDowns();	
-
-	UINT16 usX = LAPTOP_SCREEN_UL_X + 20 + IMP_GEAR_ITEMDISPLAY_WIDTH;
-	UINT16 usY = LAPTOP_SCREEN_WEB_UL_Y + 30;
-
-	int placement = 0;
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		gIMPGearCount[i] = min( 1, gIMPGearMaximum[i]);
-
-		if ( i == IMPGEAR_DROPDOWN_LBE1 )
-		{
-			usX = LAPTOP_SCREEN_UL_X + 20 + IMP_GEAR_ITEMDISPLAY_WIDTH + 230;
-			placement = 5;
-		}
-		else if ( i == IMPGEAR_DROPDOWN_HELMET )
-		{
-			usX = LAPTOP_SCREEN_UL_X + 20 + IMP_GEAR_ITEMDISPLAY_WIDTH + 230;
-			placement = 0;
-		}
-		else if ( i == IMPGEAR_DROPDOWN_MISC_1 )
-		{
-			usX = LAPTOP_SCREEN_UL_X + 20 + IMP_GEAR_ITEMDISPLAY_WIDTH;
-			placement = 5;
-		}
-		else if ( i == IMPGEAR_DROPDOWN_GUN_1 )
-		{
-			usX = LAPTOP_SCREEN_UL_X + 20 + IMP_GEAR_ITEMDISPLAY_WIDTH;
-			placement = 0;
-		}
-
-		// if not using LBE gear, don't show any
-		if ( !UsingNewInventorySystem() )
-		{
-			if ( i >= IMPGEAR_DROPDOWN_LBE1 && i < IMPGEAR_DROPDOWN_LBE5 )
-				continue;
-		}
-
-		pIMPGEARDropDown[i]->SetHelpText( szIMPGearDropDownText[i] );
-		pIMPGEARDropDown[i]->Create( usX, usY + placement * (IMP_GEAR_ITEMDISPLAY_HEIGHT + IMP_GEAR_SPACE_BETWEEN_BOXES) );
-
-		++placement;
-	}
-
-	// load the images for the +/- buttons
-	gIMPGearAddButtonImage[0] = LoadButtonImage( "INTERFACE\\plusminusbuttons.sti", -1, 2, -1, 2, -1 );
-	gIMPGearAddButtonImage[1] = LoadButtonImage( "INTERFACE\\plusminusbuttons.sti", -1, 3, -1, 3, -1 );
+	DistributePossibleItemsToVectors();
 }
 
 
@@ -300,200 +215,299 @@ void RenderIMPGear( void )
 {
 	//render the metal background graphic
 	RenderProfileBackGround( );
-
+	RenderImpGearSelection( );
+	RenderIMPGearBodytype( );
 	IMPGearDisplay( );
-
-	// reversed order - lower boxes first. It is otherwise possible that open boxes are overlayed by closed boxes
-	for ( int i = IMPGEAR_DROPDOWN_MAX - 1; i >= 0; --i )
-	{
-		if ( pIMPGEARDropDown[i] )
-			pIMPGEARDropDown[i]->Display( );
-	}
-
-	// we have to destroy and recreate the +/- buttons on every refresh, as they would otherwise get overdrawn or work when they shouldn't be there
-	for ( int i = 0; i < 2 * IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		if ( gIMPGearButtonCreated[i] )
-		{
-			// delete militia panel bottom
-			RemoveButton( gIMPGearAddButton[i] );
-
-			gIMPGearButtonCreated[i] = FALSE;
-		}
-	}
-
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		// if dropdown is displayed, has real items in it and can be bought in bulk, add '+'/'-'-buttons
-		if ( pIMPGEARDropDown[i] && pIMPGEARDropDown[i]->IsDisplayed( ) && pIMPGEARDropDown[i]->HasEntries( ) && pIMPGEARDropDown[i]->GetSelectedEntryKey( ) > 0 && gIMPGearMaximum[i] > 1 )
-		{
-			// '+' button
-			gIMPGearAddButton[i] = QuickCreateButton( gIMPGearAddButtonImage[0], pIMPGEARDropDown[i]->GetX( ) - 6, pIMPGEARDropDown[i]->GetY(), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1, BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)GearAddButtonCallback );
-			ButtonList[gIMPGearAddButton[i]]->UserData[0] = i;
-			gIMPGearButtonCreated[i] = TRUE;
-
-			// '-' button
-			gIMPGearAddButton[IMPGEAR_DROPDOWN_MAX + i] = QuickCreateButton( gIMPGearAddButtonImage[1], pIMPGEARDropDown[i]->GetX( ) - 6, pIMPGEARDropDown[i]->GetY( ) + IMP_GEAR_ITEMDISPLAY_HEIGHT - 6, BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1, BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)GearAddButtonCallback );
-			ButtonList[gIMPGearAddButton[IMPGEAR_DROPDOWN_MAX + i]]->UserData[0] = IMPGEAR_DROPDOWN_MAX + i;
-			gIMPGearButtonCreated[IMPGEAR_DROPDOWN_MAX + i] = TRUE;
-		}
-	}
 }
 
 
 void ExitIMPGear( void )
 {
-	// before we leave, we store all the gear that was selected (the dropdowns will be destroyed, so we cannot get the values from them later on)
+	// before we leave, we store all the gear that was selected
 	StoreSelectedIMPGear();
-
-	for ( int i = 0; i < 2 * IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		if ( gIMPGearButtonCreated[i] )
-		{
-			RemoveButton( gIMPGearAddButton[i] );
-			gIMPGearButtonCreated[i] = FALSE;
-		}
-	}
-
-	UnloadButtonImage( gIMPGearAddButtonImage[0] );
-	UnloadButtonImage( gIMPGearAddButtonImage[1] );
-
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		if ( pIMPGEARDropDown[i] )
-		{
-			pIMPGEARDropDown[i]->Destroy( );
-			pIMPGEARDropDown[i] = NULL;
-		}
-	}
 
 	gIMPGearGun1 = -1;
 	gIMPGearGun2 = -1;
+	gIMPGearGun3 = -1;
 
 	RemoveButton( giIMPGearFinishButton );
 	UnloadButtonImage( giIMPGearFinishButtonImage );
+	RemoveButton(gIMPInvDoneButton);
+	UnloadButtonImage(gIMPInvDoneButtonImage);
+	RemoveButton(gIMPInvArrowButton[0]);
+	UnloadButtonImage(gIMPInvArrowButtonImage[0]);
+	RemoveButton(gIMPInvArrowButton[1]);
+	UnloadButtonImage(gIMPInvArrowButtonImage[1]);
+
+	for (UINT8 cnt = 0; cnt < NUM_INV_SLOTS; cnt++)
+	{
+		MSYS_RemoveRegion(&gIMPGearInvRegion[cnt]);
+	}
+	for (size_t i = 0; i < 25; i++)
+	{
+		MSYS_RemoveRegion(&gIMPGearInvPoolRegion[i]);
+	}
 }
 
 
 void HandleIMPGear( void )
 {
-	if ( gfIMPGear_Redraw )
-	{
-		RenderIMPGear( );
-		gfIMPGear_Redraw = FALSE;
-	}
-
 	InvalidateRegion( LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_WEB_UL_Y, LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y );
+	IMPGearHandleMousePageScroll();
+	HandleCommonGlowTimer();
+	GlowImpInvPoolItem();
 }
+
 
 void IMPGearDisplay( )
 {
 	//Display the title
 	DrawTextToScreen( szIMPGearWebSiteText[5], IMP_GEAR__TITLE_X, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	// depending on guns selected, we need to alter the ammochoices	
+	// Add default ammo for guns & sidearm in case the gun was changed
+	if (gIMPPossibleItems[HANDPOS].size() > 1)
 	{
-		if ( pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_1]->HasEntries() )
+		INT16 currentWeapon = gIMPPocketSelectedItems[HANDPOS].first;
+		if (gIMPPossibleItems[SMALLPOCK1POS].size() <= 1 || gIMPGearGun1 != currentWeapon)
 		{
-			if ( !pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->HasEntries( ) || gIMPGearGun1 != pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_1]->GetSelectedEntryKey( ) )
+			gIMPGearGun1 = currentWeapon;
+
+			std::vector<std::pair<INT16, STR16> > entries;
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+
+			if (Item[gIMPGearGun1].usItemClass & IC_GUN)
 			{
-				gIMPGearGun1 = pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_1]->GetSelectedEntryKey( );
-
-				std::vector<std::pair<INT16, STR16> > entries;
-				entries.push_back( std::make_pair( 0, szIMPGearDropDownNoneText[IMPGEAR_DROPDOWN_AMMO_1] ) );
-
-				if ( Item[gIMPGearGun1].usItemClass & IC_GUN )
+				WEAPONTYPE* pWeapon = &(Weapon[gIMPGearGun1]);
+				UINT16 usLoop = 0;
+				while (Magazine[usLoop].ubCalibre != NOAMMO)
 				{
-					WEAPONTYPE* pWeapon = &(Weapon[gIMPGearGun1]);
-					UINT16 usLoop = 0;
-					while ( Magazine[usLoop].ubCalibre != NOAMMO )
+					if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && Magazine[usLoop].ubMagSize == pWeapon->ubMagSize)
 					{
-						if ( Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && Magazine[usLoop].ubMagSize == pWeapon->ubMagSize )//&& AmmoTypes[Magazine[usLoop].ubAmmoType].standardIssue )
-						{
-							UINT16 mag = MagazineClassIndexToItemType( usLoop );
+						UINT16 mag = MagazineClassIndexToItemType(usLoop);
 
-							entries.push_back( std::make_pair( mag, Item[mag].szItemName ) );
-						}
-
-						++usLoop;
+						entries.push_back(std::make_pair(mag, Item[mag].szItemName));
 					}
+					++usLoop;
 				}
-			
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->SetEntries( entries );
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->SetNthEntry( 1 );
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->Create( pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->GetX(), pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->GetY() );
+			}
+
+			for (size_t i = SMALLPOCK1POS; i < SMALLPOCK6POS; i++)
+			{
+				gIMPPossibleItems[i] = entries;
+			}
+
+			// Add default magazine for pockets, set to empty if no gun
+			for (size_t i = SMALLPOCK1POS; i < SMALLPOCK6POS; i++)
+			{
+				if (currentWeapon != 0)
+				{
+					SetChoiceForPocket(i, 1, 1);
+				}
+				else
+				{
+					SetChoiceForPocket(i, 0, 1);
+				}
+			}
+
+			if (!UsingNewInventorySystem()) //Only 4 magazine slots for old inventory
+			{
+				SetChoiceForPocket(SMALLPOCK5POS, 0, 0);
 			}
 		}
 	}
 
+	if (gIMPPossibleItems[SECONDHANDPOS].size() > 1)
 	{
-		if ( pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_2]->HasEntries() )
+		INT16 currentWeapon = gIMPPocketSelectedItems[SECONDHANDPOS].first;
+		if (gIMPPossibleItems[SMALLPOCK11POS].size() <= 1 || gIMPGearGun2 != currentWeapon)
 		{
-			if ( !pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->HasEntries( ) || gIMPGearGun2 != pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_2]->GetSelectedEntryKey( ) )
+			gIMPGearGun2 = currentWeapon;
+
+
+			std::vector<std::pair<INT16, STR16> > entries;
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+
+
+			if (Item[gIMPGearGun2].usItemClass & IC_GUN)
 			{
-				gIMPGearGun2 = pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_2]->GetSelectedEntryKey();
-
-				std::vector<std::pair<INT16, STR16> > entries;
-				entries.push_back( std::make_pair( 0, szIMPGearDropDownNoneText[IMPGEAR_DROPDOWN_AMMO_2] ) );
-
-				if ( Item[gIMPGearGun2].usItemClass & IC_GUN )
+				WEAPONTYPE* pWeapon = &(Weapon[gIMPGearGun2]);
+				UINT16 usLoop = 0;
+				while (Magazine[usLoop].ubCalibre != NOAMMO)
 				{
-					WEAPONTYPE* pWeapon = &(Weapon[gIMPGearGun2]);
-					UINT16 usLoop = 0;
-					while ( Magazine[usLoop].ubCalibre != NOAMMO )
+					if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && Magazine[usLoop].ubMagSize == pWeapon->ubMagSize)
 					{
-						if ( Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && Magazine[usLoop].ubMagSize == pWeapon->ubMagSize )//&& AmmoTypes[Magazine[usLoop].ubAmmoType].standardIssue )
-						{
-							UINT16 mag = MagazineClassIndexToItemType( usLoop );
+						UINT16 mag = MagazineClassIndexToItemType(usLoop);
 
-							entries.push_back( std::make_pair( mag, Item[mag].szItemName ) );
-						}
-
-						++usLoop;
+						entries.push_back(std::make_pair(mag, Item[mag].szItemName));
 					}
+					++usLoop;
 				}
-				else if ( Item[gIMPGearGun2].usItemClass & IC_LAUNCHER )
+			}
+
+			for (size_t i = SMALLPOCK11POS; i < SMALLPOCK19POS; i++)
+			{
+				gIMPPossibleItems[i] = entries;
+			}
+
+
+			// Add default magazine for first 4 pockets
+			if (currentWeapon != 0)
+			{
+				for (size_t i = SMALLPOCK11POS; i < SMALLPOCK15POS; i++)
 				{
-					std::set<UINT16>::iterator itend = gIMPGearPossibleItems.end( );
-					for ( std::set<UINT16>::iterator it = gIMPGearPossibleItems.begin( ); it != itend; ++it )
-					{
-						UINT16 usItem = (*it);
-
-						if ( ValidLaunchable( usItem, gIMPGearGun2 ) )
-							entries.push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-					}
+					SetChoiceForPocket(i, 1, 1);
 				}
-
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->SetEntries( entries );
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->SetNthEntry( 1 );
-				pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->Create( pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->GetX( ), pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_2]->GetY( ) );
+			}
+			else
+			{
+				for (size_t i = SMALLPOCK11POS; i < SMALLPOCK19POS; i++)
+				{
+					SetChoiceForPocket(i, 0, 1);
+				}
 			}
 		}
 	}
+
+	if (gIMPPossibleItems[GUNSLINGPOCKPOS].size() > 1)
+	{
+		INT16 currentWeapon = gIMPPocketSelectedItems[GUNSLINGPOCKPOS].first;
+		if (gIMPPossibleItems[SMALLPOCK6POS].size() <= 1 || gIMPGearGun3 != currentWeapon)
+		{
+			gIMPGearGun3 = currentWeapon;
+
+			std::vector<std::pair<INT16, STR16> > entries;
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+
+			if (Item[gIMPGearGun3].usItemClass & IC_GUN)
+			{
+				WEAPONTYPE* pWeapon = &(Weapon[gIMPGearGun3]);
+				UINT16 usLoop = 0;
+				while (Magazine[usLoop].ubCalibre != NOAMMO)
+				{
+					if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && Magazine[usLoop].ubMagSize == pWeapon->ubMagSize)
+					{
+						UINT16 mag = MagazineClassIndexToItemType(usLoop);
+
+						entries.push_back(std::make_pair(mag, Item[mag].szItemName));
+					}
+					++usLoop;
+				}
+			}
+			else if ( Item[gIMPGearGun3].usItemClass & IC_LAUNCHER )
+			{
+				std::set<UINT16>::iterator itend = gIMPGearPossibleItems.end( );
+				for ( std::set<UINT16>::iterator it = gIMPGearPossibleItems.begin( ); it != itend; ++it )
+				{
+					UINT16 usItem = (*it);
+
+					if ( ValidLaunchable( usItem, gIMPGearGun3 ) )
+						entries.push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
+				}
+			}
+
+
+			for (size_t i = SMALLPOCK6POS; i < SMALLPOCK11POS; i++)
+			{
+				gIMPPossibleItems[i] = entries;
+			}
+
+			// Add default magazine for pockets
+			for (size_t i = SMALLPOCK6POS; i < SMALLPOCK11POS; i++)
+			{
+				if (currentWeapon != 0)
+				{
+					SetChoiceForPocket(i, 1, 1);
+				}
+				else
+				{
+					SetChoiceForPocket(i, 0, 1);
+				}
+			}
+
+			if (!UsingNewInventorySystem()) //Only 4 magazine slots for old inventory
+			{
+				SetChoiceForPocket(SMALLPOCK10POS, 0, 0);
+			}
+		}
+	}
+
+
 
 	gIMPGearCost = 0;
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		if ( pIMPGEARDropDown[i] && pIMPGEARDropDown[i]->IsDisplayed( ) && pIMPGEARDropDown[i]->HasEntries( ) )
+	// Draw selected gear and silhouettes for empty pockets
+	for (const auto& kv : gIMPPocketSelectedItems) {
+		UINT16 x = 0;
+		UINT16 y = 0;
+
+		auto pocket = kv.first;
+		INT16 sItem = kv.second.first;
+		UINT8 amount = kv.second.second;
+
+		// Offset so item graphics are more in the center of the slots. Going by the item region coordinates misplaces small pocket items for some reason
+		UINT16 xOffset = -7;
+		if (pocket == HEAD1POS || pocket == HEAD2POS || pocket == KNIFEPOCKPOS || ( MEDPOCK4POS < pocket && pocket < NUM_INV_SLOTS))
 		{
-			// if something is shown, it has to appear at least once...
-			gIMPGearCount[i] = max( 1, gIMPGearCount[i] );
+			xOffset = -14;
+		}
 
-			INT16 sItem = (UINT16)pIMPGEARDropDown[i]->GetSelectedEntryKey( );
+		
+		x = gIMPGearInvData[pocket].sX + xOffset; 
+		y = gIMPGearInvData[pocket].sY;
 
-			DisplayGear( (UINT16)sItem, pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH, pIMPGEARDropDown[i]->GetY( ), TRUE, gIMPGearCount[i], TRUE );
-
-			if ( sItem > 0 )
+		if (sItem > 0)
+		{
+			DisplayGear((UINT16)sItem, x, y, FALSE, amount, FALSE);
+			gIMPGearCost += amount * Item[sItem].usPrice;
+		}
+		else // Render silhouette if no item
+		{
+			INT16 silhouetteIndex = 12;
+			switch (pocket)
 			{
-				gIMPGearCost += gIMPGearCount[i] * Item[sItem].usPrice;
+			case HANDPOS:			silhouetteIndex = 5;	break;
+			case SECONDHANDPOS:		silhouetteIndex = 13;	break; // Sidearm
+			case VESTPOCKPOS:		silhouetteIndex = 0;	break;
+			case LTHIGHPOCKPOS:		silhouetteIndex = 1;	break;
+			case RTHIGHPOCKPOS:		silhouetteIndex = 2;	break;
+			case CPACKPOCKPOS:		silhouetteIndex = 3;	break;
+			case BPACKPOCKPOS:		silhouetteIndex = 4;	break;
+			case GUNSLINGPOCKPOS:	silhouetteIndex = 6;	break; // Launcher / 2-handed weapon
+			case KNIFEPOCKPOS:		silhouetteIndex = 11;	break;
+			case MEDPOCK1POS:
+			case MEDPOCK2POS:
+			case MEDPOCK3POS:
+			case MEDPOCK4POS:		silhouetteIndex = 24;	break; // Medkit/Toolkit
+			case SMALLPOCK1POS:
+			case SMALLPOCK2POS:
+			case SMALLPOCK3POS:
+			case SMALLPOCK4POS:
+			case SMALLPOCK5POS:
+			case SMALLPOCK6POS:
+			case SMALLPOCK7POS:
+			case SMALLPOCK8POS:
+			case SMALLPOCK9POS:
+			case SMALLPOCK10POS:	silhouetteIndex = 18;	break; // Main gun ammo
+			case SMALLPOCK11POS:
+			case SMALLPOCK12POS:
+			case SMALLPOCK13POS:
+			case SMALLPOCK14POS:
+			case SMALLPOCK15POS:
+			case SMALLPOCK16POS:
+			case SMALLPOCK17POS:
+			case SMALLPOCK18POS:	silhouetteIndex = 16;	break; // Sidearm ammo
+
+			default:
+				break;
+			}
+
+				if (pocket > HEAD2POS)
+			{
+				INVRenderSilhouette(FRAME_BUFFER, ITEM_NOT_FOUND, silhouetteIndex, x - xOffset, y, gIMPGearInvData[pocket].sWidth, gIMPGearInvData[pocket].sHeight);
 			}
 		}
-		else
-		{
-			gIMPGearCount[i] = 0;
-		}
 	}
-	
+
+	// Display extra cost
 	if ( gIMPGearCost > gGameExternalOptions.iIMPProfileCost )
 	{
 		CHAR16 wTemp[50];
@@ -501,6 +515,7 @@ void IMPGearDisplay( )
 		DrawTextToScreen( wTemp, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 360, LAPTOP_TEXT_WIDTH, FONT12ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	}
 }
+
 
 void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround, UINT8 aNumber, BOOLEAN fDisplayNumber )
 {
@@ -553,6 +568,7 @@ void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBack
 	}
 }
 
+
 void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	// btn callback for IMP personality quiz answer button
@@ -568,6 +584,7 @@ void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
+
 INT32	GetIMPGearCost( )
 {
 	if ( IsIMPGearUsed( ) )
@@ -575,6 +592,7 @@ INT32	GetIMPGearCost( )
 
 	return 0;
 }
+
 
 void AddItemCategoryToPossibleGear(UINT8 aCategory)
 {
@@ -587,6 +605,7 @@ void AddItemCategoryToPossibleGear(UINT8 aCategory)
 		}
 	}
 }
+
 
 void CalculatePossibleItems()
 {
@@ -732,156 +751,19 @@ void StoreSelectedIMPGear()
 {
 	gIMPGearSelectedItems.clear();
 
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
+	for (const auto& kv : gIMPPocketSelectedItems) 
 	{
-		if ( pIMPGEARDropDown[i] && pIMPGEARDropDown[i]->IsDisplayed( ) && pIMPGEARDropDown[i]->HasEntries( ) )
+		auto pocket = kv.first;
+		INT16 sItem = kv.second.first;
+		UINT8 amount = kv.second.second;
+		if (sItem)
 		{
-			UINT16 usItem = (UINT16)pIMPGEARDropDown[i]->GetSelectedEntryKey( );
-
-			if ( usItem )
-			{
-				// add item (make sure it is at least 1)
-				gIMPGearSelectedItems[usItem] = max( 1, gIMPGearSelectedItems[usItem] + gIMPGearCount[i] );
-			}
+			// add item (make sure it is at least 1)
+			gIMPGearSelectedItems[sItem] = max( 1, gIMPGearSelectedItems[sItem] + amount );
 		}
 	}
 }
 
-void DistributePossibleItemsOnDropDowns()
-{
-	// these vectors contain the items to be shown in the dropdowns
-	std::map< UINT16, std::vector<std::pair<INT16, STR16> > > entryvec;
-	
-	// it is always possible to not select something
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		entryvec[i].push_back( std::make_pair( 0, szIMPGearDropDownNoneText[i] ) );
-	}
-
-	std::set<UINT16>::iterator itend = gIMPGearPossibleItems.end( );
-	for ( std::set<UINT16>::iterator it = gIMPGearPossibleItems.begin(); it != itend; ++it )
-	{
-		UINT16 usItem = (*it);
-
-		if ( Item[usItem].usItemClass & IC_GUN )
-		{
-			entryvec[IMPGEAR_DROPDOWN_GUN_1].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-
-			if ( !Item[usItem].twohanded )
-				entryvec[IMPGEAR_DROPDOWN_GUN_2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-		else if ( Item[usItem].usItemClass & IC_LAUNCHER )
-		{
-			entryvec[IMPGEAR_DROPDOWN_GUN_2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-		else if ( Item[usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH) )
-		{
-			entryvec[IMPGEAR_DROPDOWN_MELEE].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-		else if ( Item[usItem].usItemClass & IC_ARMOUR )
-		{
-			if ( Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_HELMET )
-				entryvec[IMPGEAR_DROPDOWN_HELMET].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			else if ( Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_VEST )
-				entryvec[IMPGEAR_DROPDOWN_VEST].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			else if ( Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_LEGGINGS )
-				entryvec[IMPGEAR_DROPDOWN_LEGS].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-		else if ( Item[usItem].usItemClass & IC_LBEGEAR )
-		{
-			switch ( LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass )
-			{
-			case THIGH_PACK:
-				entryvec[IMPGEAR_DROPDOWN_LBE4].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_LBE5].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				break;
-			case VEST_PACK:
-				entryvec[IMPGEAR_DROPDOWN_LBE1].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				break;
-			case COMBAT_PACK:
-				entryvec[IMPGEAR_DROPDOWN_LBE2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				break;
-			case BACKPACK:
-				entryvec[IMPGEAR_DROPDOWN_LBE3].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				break;			
-			default:
-				entryvec[IMPGEAR_DROPDOWN_LBE4].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_LBE5].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				break;
-			}
-		}
-		else if ( Item[usItem].usItemClass & IC_FACE )
-		{
-			entryvec[IMPGEAR_DROPDOWN_FACE1].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_FACE2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-		else if ( Item[usItem].usItemClass & ( IC_GRENADE | IC_BOMB ) )
-		{
-			// ignore item if it is a launchable - we already list it under ammo if a launcher is selected
-			BOOLEAN found = FALSE;
-			UINT16 iLoop = 0;
-			while ( Launchable[iLoop][0] != 0 )
-			{
-				if ( Launchable[iLoop][0] == usItem )
-				{
-					found = TRUE;
-					break;
-				}
-
-				++iLoop;
-			}
-
-			if ( !found )
-			{
-				entryvec[IMPGEAR_DROPDOWN_MISC_1].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_3].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_4].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_5].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_6].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-				entryvec[IMPGEAR_DROPDOWN_MISC_7].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			}
-		}
-		else
-		{
-			entryvec[IMPGEAR_DROPDOWN_MISC_1].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_2].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_3].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_4].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_5].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_6].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-			entryvec[IMPGEAR_DROPDOWN_MISC_7].push_back( std::make_pair( usItem, Item[usItem].szItemName ) );
-		}
-	}
-
-	// check for oddities...
-	SGP_THROW_IFFALSE( pIMPGEARDropDown[0] != NULL, L"Bad pointer in DistributePossibleItemsOnDropDowns. How did you do that?" );
-
-	for ( int i = 0; i < IMPGEAR_DROPDOWN_MAX; ++i )
-	{
-		pIMPGEARDropDown[i]->SetEntries( entryvec[i] );
-	}
-
-	// per default, each dropdown selects 'no item'. Here we set some defaults
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_GUN_1]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_AMMO_1]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MELEE]->SetNthEntry( 1 );
-
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE1]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE2]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LBE3]->SetNthEntry( 1 );
-
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_HELMET]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_VEST]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_LEGS]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_FACE1]->SetNthEntry( 1 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_FACE2]->SetNthEntry( 2 );
-
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_1]->SetNthEntry( 4 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_2]->SetNthEntry( 3 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_3]->SetNthEntry( 2 );
-	pIMPGEARDropDown[IMPGEAR_DROPDOWN_MISC_4]->SetNthEntry( 1 );
-}
 
 void GiveIMPSelectedGear( MERCPROFILESTRUCT *pProfile )
 {
@@ -892,35 +774,711 @@ void GiveIMPSelectedGear( MERCPROFILESTRUCT *pProfile )
 	}
 }
 
-void GearAddButtonCallback( GUI_BUTTON *btn, INT32 reason )
+
+
+void ImpInvNextPage(void)
 {
-	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	// if can go to next page, go there
+	if (gIMPCurrentInventoryPoolPage < gIMPLastInventoryPoolPage)
+	{
+		gIMPCurrentInventoryPoolPage++;
+		fShowIMPItemHighLight = FALSE;
+		DrawImpGearInventoryPool();
+	}
+}
+
+void ImpInvPreviousPage(void)
+{
+	// if can go to next page, go there
+	if (gIMPCurrentInventoryPoolPage > 0)
+	{
+		gIMPCurrentInventoryPoolPage--;	
+		fShowIMPItemHighLight = FALSE;
+		DrawImpGearInventoryPool();
+	}
+}
+
+void ImpInventoryPoolNextBtn(GUI_BUTTON* btn, INT32 reason)
+{
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
 		btn->uiFlags |= (BUTTON_CLICKED_ON);
 	}
-	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	else if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		if ( btn->uiFlags & BUTTON_CLICKED_ON )
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
-
-			INT32 id = btn->UserData[0];
-
-			if ( id >= 0 )
-			{
-				if ( id < IMPGEAR_DROPDOWN_MAX )
-				{
-					// increase
-					gIMPGearCount[id] = min( gIMPGearCount[id] + 1, gIMPGearMaximum[id] );
-				}
-				else if ( id < 2 * IMPGEAR_DROPDOWN_MAX )
-				{
-					// decrease
-					gIMPGearCount[id - IMPGEAR_DROPDOWN_MAX] = max( gIMPGearCount[id - IMPGEAR_DROPDOWN_MAX] - 1, 1 );
-				}
-			}
-
-			RenderIMPGear( );
+			ImpInvNextPage();
 		}
 	}
+}
+
+void ImpInventoryPoolPrevBtn(GUI_BUTTON* btn, INT32 reason)
+{
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
+	}
+	else if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
+			ImpInvPreviousPage();
+		}
+	}
+}
+
+
+void IMPGearHandleMousePageScroll(void)
+{
+	SGPPoint	MousePos;
+	GetMousePos(&MousePos);
+	const auto x = MousePos.iX;
+	const auto y = MousePos.iY;
+	const auto xmin = gIMPInvPoolLayout.x; const auto ymin = gIMPInvPoolLayout.y;
+	const auto xmax = gIMPInvPoolLayout.x + gIMPInvPoolLayout.width; const auto ymax = gIMPInvPoolLayout.y + gIMPInvPoolLayout.height;
+
+	if ((xmin < x && x < xmax) && (ymin < y && y < ymax))
+	{
+		const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+		if (Wheelstate < 0)
+		{
+			ImpInvNextPage();
+		}
+		else if (Wheelstate > 0)
+		{
+			ImpInvPreviousPage();
+		}
+		_WheelValue = 0;
+	}
+}
+
+
+void IMPCloseInventoryPool(void)
+{
+	fShowIMPItemHighLight = FALSE;
+
+	for (UINT8 cnt = 0; cnt < NUM_INV_SLOTS; cnt++)
+	{
+		MSYS_EnableRegion(&gIMPGearInvRegion[cnt]);
+	}
+	for (size_t i = 0; i < 25; i++)
+	{
+		MSYS_DisableRegion(&gIMPGearInvPoolRegion[i]);
+	}
+
+	DisableButton(gIMPInvDoneButton);
+	DisableButton(gIMPInvArrowButton[0]);
+	DisableButton(gIMPInvArrowButton[1]);
+	HideButton(gIMPInvDoneButton);
+	HideButton(gIMPInvArrowButton[0]);
+	HideButton(gIMPInvArrowButton[1]);
+
+	RenderIMPGear();
+}
+
+
+void IMPInventoryPoolDoneBtn(GUI_BUTTON* btn, INT32 reason)
+{
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
+	}
+	else if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
+		}
+		IMPCloseInventoryPool();
+	}
+}
+
+
+void IMPInventoryPoolSelectCallback(MOUSE_REGION* pRegion, INT32 iReason)
+{
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN || iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
+	{
+		PlayButtonSound(giIMPGearFinishButton, BUTTON_SOUND_CLICKED_ON);
+	}
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		PlayButtonSound(giIMPGearFinishButton, BUTTON_SOUND_CLICKED_OFF);
+		INT32 slot = MSYS_GetRegionUserData(pRegion, 0);
+
+		INT32 itemIndex = slot + gIMPCurrentInventoryPoolPage * 25;
+		if (itemIndex < gIMPPossibleItems[gCurrentImpGearChoices].size())
+		{
+			SetChoiceForPocket(gCurrentImpGearChoices, itemIndex, 1);
+
+			// Redraw and enable glow
+			DrawImpGearInventoryPool();
+		}
+	}
+	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
+	{
+		IMPCloseInventoryPool();
+	}
+}
+
+
+void IMPInvMoveCallback(MOUSE_REGION* pRegion, INT32 iReason)
+{
+	// Empty on purpose
+}
+
+
+void IMPInvClickCallback(MOUSE_REGION* pRegion, INT32 iReason)
+{
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		PlayButtonSound(giIMPGearFinishButton, BUTTON_SOUND_CLICKED_ON);
+	}
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		PlayButtonSound(giIMPGearFinishButton, BUTTON_SOUND_CLICKED_OFF);
+
+		// Set current gear and pages
+		gCurrentImpGearChoices = MSYS_GetRegionUserData(pRegion, 0);
+		gIMPCurrentInventoryPoolPage = 0;
+		gIMPLastInventoryPoolPage = gIMPPossibleItems[gCurrentImpGearChoices].size() / 25;
+
+		// Disable inv pocket mouse regions so we don't accidentally click them
+		for (UINT8 cnt = 0; cnt < NUM_INV_SLOTS; cnt++)
+		{
+			MSYS_DisableRegion(&gIMPGearInvRegion[cnt]);
+		}
+
+		for (size_t i = 0; i < 25; i++)
+		{
+			MSYS_EnableRegion(&gIMPGearInvPoolRegion[i]);
+		}
+
+		EnableButton(gIMPInvDoneButton);
+		EnableButton(gIMPInvArrowButton[0]);
+		EnableButton(gIMPInvArrowButton[1]);
+
+		DrawImpGearInventoryPool();
+		fShowIMPItemHighLight = TRUE;
+	}
+}
+
+void InitImpGearCoords(void)
+{
+	const auto x = gIMPGearLayout.x;
+	const auto y = gIMPGearLayout.y;
+
+	if (UsingNewInventorySystem())
+	{
+		const auto vestRow1y = 40;
+		const auto vestRow2y = 64;
+
+		gIMPGearInvData[HELMETPOS].sX = x + 125;		gIMPGearInvData[HELMETPOS].sY = y + 8;					gIMPGearInvData[HELMETPOS].sWidth = HEAD_INV_SLOT_WIDTH; gIMPGearInvData[HELMETPOS].sHeight = HEAD_INV_SLOT_HEIGHT;		// HELMETPOS
+		gIMPGearInvData[VESTPOS].sX = x + 125;			gIMPGearInvData[VESTPOS].sY = y + 36;					gIMPGearInvData[VESTPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[VESTPOS].sHeight = VEST_INV_SLOT_HEIGHT; // VESTPOS
+		gIMPGearInvData[LEGPOS].sX = x + 125;			gIMPGearInvData[LEGPOS].sY = y + 96;					gIMPGearInvData[LEGPOS].sWidth = LEGS_INV_SLOT_WIDTH; gIMPGearInvData[LEGPOS].sHeight = LEGS_INV_SLOT_HEIGHT; // LEGPOS
+		gIMPGearInvData[HEAD1POS].sX = x + 12;			gIMPGearInvData[HEAD1POS].sY = y + 8;					gIMPGearInvData[HEAD1POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[HEAD1POS].sHeight = SM_INV_SLOT_HEIGHT; // HEAD1POS
+		gIMPGearInvData[HEAD2POS].sX = x + 12;			gIMPGearInvData[HEAD2POS].sY = y + 31;					gIMPGearInvData[HEAD2POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[HEAD2POS].sHeight = SM_INV_SLOT_HEIGHT; // HEAD2POS
+		gIMPGearInvData[HANDPOS].sX = x + 14;			gIMPGearInvData[HANDPOS].sY = y + 86;					gIMPGearInvData[HANDPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[HANDPOS].sHeight = BIG_INV_SLOT_HEIGHT; // HANDPOS
+		gIMPGearInvData[SECONDHANDPOS].sX = x + 14;		gIMPGearInvData[SECONDHANDPOS].sY = y + 110;			gIMPGearInvData[SECONDHANDPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[SECONDHANDPOS].sHeight = BIG_INV_SLOT_HEIGHT; // SECONDHANDPOS
+		gIMPGearInvData[VESTPOCKPOS].sX = x + 207;		gIMPGearInvData[VESTPOCKPOS].sY = y + 8;				gIMPGearInvData[VESTPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[VESTPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // VESTPOCK
+		gIMPGearInvData[LTHIGHPOCKPOS].sX = x + 32;		gIMPGearInvData[LTHIGHPOCKPOS].sY = y + 144;			gIMPGearInvData[LTHIGHPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[LTHIGHPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // LTHIGHPOCK
+		gIMPGearInvData[RTHIGHPOCKPOS].sX = x + 115;	gIMPGearInvData[RTHIGHPOCKPOS].sY = y + 144;			gIMPGearInvData[RTHIGHPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[RTHIGHPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // RTHIGHPOCK
+		gIMPGearInvData[CPACKPOCKPOS].sX = x + 206;		gIMPGearInvData[CPACKPOCKPOS].sY = y + 96;				gIMPGearInvData[CPACKPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[CPACKPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // CPACKPOCK
+		gIMPGearInvData[BPACKPOCKPOS].sX = x + 277;		gIMPGearInvData[BPACKPOCKPOS].sY = y + 96;				gIMPGearInvData[BPACKPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[BPACKPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // BPACKPOCK
+		gIMPGearInvData[GUNSLINGPOCKPOS].sX = x + 281;	gIMPGearInvData[GUNSLINGPOCKPOS].sY = y + 8;			gIMPGearInvData[GUNSLINGPOCKPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[GUNSLINGPOCKPOS].sHeight = BIG_INV_SLOT_HEIGHT; // GUNSLINGPOCKPOS
+		gIMPGearInvData[KNIFEPOCKPOS].sX = x + 371;		gIMPGearInvData[KNIFEPOCKPOS].sY = y + 8;				gIMPGearInvData[KNIFEPOCKPOS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[KNIFEPOCKPOS].sHeight = SM_INV_SLOT_HEIGHT; // KNIFEPOCKPOS
+		gIMPGearInvData[BIGPOCK1POS].sX = x + 198;		gIMPGearInvData[BIGPOCK1POS].sY = y + 176;				gIMPGearInvData[BIGPOCK1POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK1POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK1
+		gIMPGearInvData[BIGPOCK2POS].sX = x + 198;		gIMPGearInvData[BIGPOCK2POS].sY = y + 200;				gIMPGearInvData[BIGPOCK2POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK2POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK2
+		gIMPGearInvData[BIGPOCK3POS].sX = x + 198;		gIMPGearInvData[BIGPOCK3POS].sY = y + 224;				gIMPGearInvData[BIGPOCK3POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK3POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK3
+		gIMPGearInvData[BIGPOCK4POS].sX = x + 344;		gIMPGearInvData[BIGPOCK4POS].sY = y + 128;				gIMPGearInvData[BIGPOCK4POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK4POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK4
+		gIMPGearInvData[BIGPOCK5POS].sX = x + 344;		gIMPGearInvData[BIGPOCK5POS].sY = y + 152;				gIMPGearInvData[BIGPOCK5POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK5POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK5
+		gIMPGearInvData[BIGPOCK6POS].sX = x + 344;		gIMPGearInvData[BIGPOCK6POS].sY = y + 176;				gIMPGearInvData[BIGPOCK6POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK6POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK6
+		gIMPGearInvData[BIGPOCK7POS].sX = x + 344;		gIMPGearInvData[BIGPOCK7POS].sY = y + 200;				gIMPGearInvData[BIGPOCK7POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK7POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK7
+		gIMPGearInvData[MEDPOCK1POS].sX = x + 190;		gIMPGearInvData[MEDPOCK1POS].sY = y + vestRow1y;		gIMPGearInvData[MEDPOCK1POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK1POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK1
+		gIMPGearInvData[MEDPOCK2POS].sX = x + 190;		gIMPGearInvData[MEDPOCK2POS].sY = y + vestRow2y;		gIMPGearInvData[MEDPOCK2POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK2POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK2
+		gIMPGearInvData[MEDPOCK3POS].sX = x + 32;		gIMPGearInvData[MEDPOCK3POS].sY = y + 224;				gIMPGearInvData[MEDPOCK3POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK3POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK3
+		gIMPGearInvData[MEDPOCK4POS].sX = x + 115;		gIMPGearInvData[MEDPOCK4POS].sY = y + 224;				gIMPGearInvData[MEDPOCK4POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK4POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK4
+		gIMPGearInvData[SMALLPOCK1POS].sX = x + 241;	gIMPGearInvData[SMALLPOCK1POS].sY = y + vestRow1y;		gIMPGearInvData[SMALLPOCK1POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK1POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK1
+		gIMPGearInvData[SMALLPOCK2POS].sX = x + 277;	gIMPGearInvData[SMALLPOCK2POS].sY = y + vestRow1y;		gIMPGearInvData[SMALLPOCK2POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK2POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK2
+		gIMPGearInvData[SMALLPOCK3POS].sX = x + 313;	gIMPGearInvData[SMALLPOCK3POS].sY = y + vestRow1y;		gIMPGearInvData[SMALLPOCK3POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK3POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK3
+		gIMPGearInvData[SMALLPOCK4POS].sX = x + 349;	gIMPGearInvData[SMALLPOCK4POS].sY = y + vestRow1y;		gIMPGearInvData[SMALLPOCK4POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK4POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK4
+		gIMPGearInvData[SMALLPOCK5POS].sX = x + 385;	gIMPGearInvData[SMALLPOCK5POS].sY = y + vestRow1y;		gIMPGearInvData[SMALLPOCK5POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK5POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK5
+		gIMPGearInvData[SMALLPOCK6POS].sX = x + 241;	gIMPGearInvData[SMALLPOCK6POS].sY = y + vestRow2y;		gIMPGearInvData[SMALLPOCK6POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK6POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK6
+		gIMPGearInvData[SMALLPOCK7POS].sX = x + 277;	gIMPGearInvData[SMALLPOCK7POS].sY = y + vestRow2y;		gIMPGearInvData[SMALLPOCK7POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK7POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK7
+		gIMPGearInvData[SMALLPOCK8POS].sX = x + 313;	gIMPGearInvData[SMALLPOCK8POS].sY = y + vestRow2y;		gIMPGearInvData[SMALLPOCK8POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK8POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK8	
+		gIMPGearInvData[SMALLPOCK9POS].sX = x + 349;	gIMPGearInvData[SMALLPOCK9POS].sY = y + vestRow2y;		gIMPGearInvData[SMALLPOCK9POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK9POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK9
+		gIMPGearInvData[SMALLPOCK10POS].sX = x + 385;	gIMPGearInvData[SMALLPOCK10POS].sY = y + vestRow2y;		gIMPGearInvData[SMALLPOCK10POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK10POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK10
+		gIMPGearInvData[SMALLPOCK11POS].sX = x + 21;	gIMPGearInvData[SMALLPOCK11POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK11POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK11POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK11
+		gIMPGearInvData[SMALLPOCK12POS].sX = x + 57;	gIMPGearInvData[SMALLPOCK12POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK12POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK12POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK12
+		gIMPGearInvData[SMALLPOCK13POS].sX = x + 21;	gIMPGearInvData[SMALLPOCK13POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK13POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK13POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK13
+		gIMPGearInvData[SMALLPOCK14POS].sX = x + 57;	gIMPGearInvData[SMALLPOCK14POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK14POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK14POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK14
+		gIMPGearInvData[SMALLPOCK15POS].sX = x + 103;	gIMPGearInvData[SMALLPOCK15POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK15POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK15POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK15
+		gIMPGearInvData[SMALLPOCK16POS].sX = x + 139;	gIMPGearInvData[SMALLPOCK16POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK16POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK16POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK16
+		gIMPGearInvData[SMALLPOCK17POS].sX = x + 103;	gIMPGearInvData[SMALLPOCK17POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK17POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK17POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK17
+		gIMPGearInvData[SMALLPOCK18POS].sX = x + 139;	gIMPGearInvData[SMALLPOCK18POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK18POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK18POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK18
+		gIMPGearInvData[SMALLPOCK19POS].sX = x + 195;	gIMPGearInvData[SMALLPOCK19POS].sY = y + 128;			gIMPGearInvData[SMALLPOCK19POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK19POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK19
+		gIMPGearInvData[SMALLPOCK20POS].sX = x + 231;	gIMPGearInvData[SMALLPOCK20POS].sY = y + 128;			gIMPGearInvData[SMALLPOCK20POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK20POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK20
+		gIMPGearInvData[SMALLPOCK21POS].sX = x + 195;	gIMPGearInvData[SMALLPOCK21POS].sY = y + 152;			gIMPGearInvData[SMALLPOCK21POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK21POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK21
+		gIMPGearInvData[SMALLPOCK22POS].sX = x + 231;	gIMPGearInvData[SMALLPOCK22POS].sY = y + 152;			gIMPGearInvData[SMALLPOCK22POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK22POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK22
+		gIMPGearInvData[SMALLPOCK23POS].sX = x + 272;	gIMPGearInvData[SMALLPOCK23POS].sY = y + 128;			gIMPGearInvData[SMALLPOCK23POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK23POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK23
+		gIMPGearInvData[SMALLPOCK24POS].sX = x + 272;	gIMPGearInvData[SMALLPOCK24POS].sY = y + 152;			gIMPGearInvData[SMALLPOCK24POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK24POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK24
+		gIMPGearInvData[SMALLPOCK25POS].sX = x + 272;	gIMPGearInvData[SMALLPOCK25POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK25POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK25POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK25
+		gIMPGearInvData[SMALLPOCK26POS].sX = x + 272;	gIMPGearInvData[SMALLPOCK26POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK26POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK26POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK26
+		gIMPGearInvData[SMALLPOCK27POS].sX = x + 308;	gIMPGearInvData[SMALLPOCK27POS].sY = y + 128;			gIMPGearInvData[SMALLPOCK27POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK27POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK27
+		gIMPGearInvData[SMALLPOCK28POS].sX = x + 308;	gIMPGearInvData[SMALLPOCK28POS].sY = y + 152;			gIMPGearInvData[SMALLPOCK28POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK28POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK28
+		gIMPGearInvData[SMALLPOCK29POS].sX = x + 308;	gIMPGearInvData[SMALLPOCK29POS].sY = y + 176;			gIMPGearInvData[SMALLPOCK29POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK29POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK29
+		gIMPGearInvData[SMALLPOCK30POS].sX = x + 308;	gIMPGearInvData[SMALLPOCK30POS].sY = y + 200;			gIMPGearInvData[SMALLPOCK30POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK30POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK30
+	}
+	else
+	{
+		gIMPGearInvData[HELMETPOS].sX = x + 205;		gIMPGearInvData[HELMETPOS].sY = y + 10;					gIMPGearInvData[HELMETPOS].sWidth = HEAD_INV_SLOT_WIDTH; gIMPGearInvData[HELMETPOS].sHeight = HEAD_INV_SLOT_HEIGHT;		// HELMETPOS
+		gIMPGearInvData[VESTPOS].sX = x + 205;			gIMPGearInvData[VESTPOS].sY = y + 38;					gIMPGearInvData[VESTPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[VESTPOS].sHeight = VEST_INV_SLOT_HEIGHT; // VESTPOS
+		gIMPGearInvData[LEGPOS].sX = x + 205;			gIMPGearInvData[LEGPOS].sY = y + 98;					gIMPGearInvData[LEGPOS].sWidth = LEGS_INV_SLOT_WIDTH; gIMPGearInvData[LEGPOS].sHeight = LEGS_INV_SLOT_HEIGHT; // LEGPOS
+		gIMPGearInvData[HEAD1POS].sX = x + 21;			gIMPGearInvData[HEAD1POS].sY = y + 9;					gIMPGearInvData[HEAD1POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[HEAD1POS].sHeight = SM_INV_SLOT_HEIGHT; // HEAD1POS
+		gIMPGearInvData[HEAD2POS].sX = x + 21;			gIMPGearInvData[HEAD2POS].sY = y + 33;					gIMPGearInvData[HEAD2POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[HEAD2POS].sHeight = SM_INV_SLOT_HEIGHT; // HEAD2POS
+		gIMPGearInvData[HANDPOS].sX = x + 22;			gIMPGearInvData[HANDPOS].sY = y + 87;					gIMPGearInvData[HANDPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[HANDPOS].sHeight = BIG_INV_SLOT_HEIGHT; // HANDPOS
+		gIMPGearInvData[SECONDHANDPOS].sX = x + 22;		gIMPGearInvData[SECONDHANDPOS].sY = y + 111;			gIMPGearInvData[SECONDHANDPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[SECONDHANDPOS].sHeight = BIG_INV_SLOT_HEIGHT; // SECONDHANDPOS
+		gIMPGearInvData[GUNSLINGPOCKPOS].sX = x + 98;	gIMPGearInvData[GUNSLINGPOCKPOS].sY = y + 144;			gIMPGearInvData[GUNSLINGPOCKPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[GUNSLINGPOCKPOS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK1
+		gIMPGearInvData[KNIFEPOCKPOS].sX = x + 98;		gIMPGearInvData[KNIFEPOCKPOS].sY = y + 169;				gIMPGearInvData[KNIFEPOCKPOS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[KNIFEPOCKPOS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK2
+		gIMPGearInvData[MEDPOCK1POS].sX = x + 98;		gIMPGearInvData[MEDPOCK1POS].sY = y + 192;				gIMPGearInvData[MEDPOCK1POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK1POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK3
+		gIMPGearInvData[MEDPOCK2POS].sX = x + 98;		gIMPGearInvData[MEDPOCK2POS].sY = y + 217;				gIMPGearInvData[MEDPOCK2POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK2POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK4
+		gIMPGearInvData[SMALLPOCK1POS].sX = x + 23;		gIMPGearInvData[SMALLPOCK1POS].sY = y + 144;			gIMPGearInvData[SMALLPOCK1POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK1POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK1
+		gIMPGearInvData[SMALLPOCK2POS].sX = x + 23;		gIMPGearInvData[SMALLPOCK2POS].sY = y + 168;			gIMPGearInvData[SMALLPOCK2POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK2POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK2
+		gIMPGearInvData[SMALLPOCK3POS].sX = x + 23;		gIMPGearInvData[SMALLPOCK3POS].sY = y + 192;			gIMPGearInvData[SMALLPOCK3POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK3POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK3
+		gIMPGearInvData[SMALLPOCK4POS].sX = x + 23;		gIMPGearInvData[SMALLPOCK4POS].sY = y + 216;			gIMPGearInvData[SMALLPOCK4POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK4POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK4
+		gIMPGearInvData[SMALLPOCK11POS].sX = x + 61;		gIMPGearInvData[SMALLPOCK11POS].sY = y + 144;			gIMPGearInvData[SMALLPOCK11POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK11POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK5
+		gIMPGearInvData[SMALLPOCK12POS].sX = x + 61;		gIMPGearInvData[SMALLPOCK12POS].sY = y + 168;			gIMPGearInvData[SMALLPOCK12POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK12POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK6
+		gIMPGearInvData[SMALLPOCK13POS].sX = x + 61;		gIMPGearInvData[SMALLPOCK13POS].sY = y + 192;			gIMPGearInvData[SMALLPOCK13POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK13POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK7
+		gIMPGearInvData[SMALLPOCK14POS].sX = x + 61;		gIMPGearInvData[SMALLPOCK14POS].sY = y + 216;			gIMPGearInvData[SMALLPOCK14POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK14POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK8	
+		gIMPGearInvData[SMALLPOCK6POS].sX = x + 180;	gIMPGearInvData[SMALLPOCK6POS].sY = y + 144;			gIMPGearInvData[SMALLPOCK6POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK6POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK9
+		gIMPGearInvData[SMALLPOCK7POS].sX = x + 180;	gIMPGearInvData[SMALLPOCK7POS].sY = y + 168;			gIMPGearInvData[SMALLPOCK7POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK7POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK10
+		gIMPGearInvData[SMALLPOCK8POS].sX = x + 180;	gIMPGearInvData[SMALLPOCK8POS].sY = y + 192;			gIMPGearInvData[SMALLPOCK8POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK8POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK11
+		gIMPGearInvData[SMALLPOCK9POS].sX = x + 180;	gIMPGearInvData[SMALLPOCK9POS].sY = y + 216;			gIMPGearInvData[SMALLPOCK9POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK9POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK12
+		gIMPGearInvData[SMALLPOCK19POS].sX = x + 219;	gIMPGearInvData[SMALLPOCK19POS].sY = y + 144;			gIMPGearInvData[SMALLPOCK19POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK19POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK13
+		gIMPGearInvData[SMALLPOCK20POS].sX = x + 219;	gIMPGearInvData[SMALLPOCK20POS].sY = y + 168;			gIMPGearInvData[SMALLPOCK20POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK20POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK14
+		gIMPGearInvData[SMALLPOCK21POS].sX = x + 219;	gIMPGearInvData[SMALLPOCK21POS].sY = y + 192;			gIMPGearInvData[SMALLPOCK21POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK21POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK15
+		gIMPGearInvData[SMALLPOCK22POS].sX = x + 219;	gIMPGearInvData[SMALLPOCK22POS].sY = y + 216;			gIMPGearInvData[SMALLPOCK22POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK22POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK16
+
+		// Move unused slots to lower right corner so they are unreachable
+		gIMPGearInvData[VESTPOCKPOS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[VESTPOCKPOS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[VESTPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[VESTPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // VESTPOCK
+		gIMPGearInvData[LTHIGHPOCKPOS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[LTHIGHPOCKPOS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[LTHIGHPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[LTHIGHPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // LTHIGHPOCK
+		gIMPGearInvData[RTHIGHPOCKPOS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[RTHIGHPOCKPOS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[RTHIGHPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[RTHIGHPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // RTHIGHPOCK
+		gIMPGearInvData[CPACKPOCKPOS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[CPACKPOCKPOS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[CPACKPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[CPACKPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // CPACKPOCK
+		gIMPGearInvData[BPACKPOCKPOS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BPACKPOCKPOS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BPACKPOCKPOS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[BPACKPOCKPOS].sHeight = VEST_INV_SLOT_HEIGHT; // BPACKPOCK
+		gIMPGearInvData[BIGPOCK1POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK1POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK1POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK1POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK1
+		gIMPGearInvData[BIGPOCK2POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK2POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK2POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK2POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK2
+		gIMPGearInvData[BIGPOCK3POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK3POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK3POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK3POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK3
+		gIMPGearInvData[BIGPOCK4POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK4POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK4POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK4POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK4
+		gIMPGearInvData[BIGPOCK5POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK5POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK5POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK5POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK5
+		gIMPGearInvData[BIGPOCK6POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK6POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK6POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK6POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK6
+		gIMPGearInvData[BIGPOCK7POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[BIGPOCK7POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[BIGPOCK7POS].sWidth = BIG_INV_SLOT_WIDTH; gIMPGearInvData[BIGPOCK7POS].sHeight = BIG_INV_SLOT_HEIGHT; // BIGPOCK7
+		gIMPGearInvData[MEDPOCK3POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[MEDPOCK3POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[MEDPOCK3POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK3POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK3
+		gIMPGearInvData[MEDPOCK4POS].sX = SCREEN_WIDTH + 1;		gIMPGearInvData[MEDPOCK4POS].sY = SCREEN_HEIGHT + 1;				gIMPGearInvData[MEDPOCK4POS].sWidth = VEST_INV_SLOT_WIDTH; gIMPGearInvData[MEDPOCK4POS].sHeight = VEST_INV_SLOT_HEIGHT; // MEDPOCK4
+		gIMPGearInvData[SMALLPOCK5POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK5POS].sY = SCREEN_HEIGHT + 1;		gIMPGearInvData[SMALLPOCK5POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK5POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK5
+		gIMPGearInvData[SMALLPOCK10POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK10POS].sY = SCREEN_HEIGHT + 1;		gIMPGearInvData[SMALLPOCK10POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK10POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK10
+		gIMPGearInvData[SMALLPOCK15POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK15POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK15POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK15POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK15
+		gIMPGearInvData[SMALLPOCK16POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK16POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK16POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK16POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK16
+		gIMPGearInvData[SMALLPOCK17POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK17POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK17POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK17POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK17
+		gIMPGearInvData[SMALLPOCK18POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK18POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK18POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK18POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK18
+		gIMPGearInvData[SMALLPOCK23POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK23POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK23POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK23POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK23
+		gIMPGearInvData[SMALLPOCK24POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK24POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK24POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK24POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK24
+		gIMPGearInvData[SMALLPOCK25POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK25POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK25POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK25POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK25
+		gIMPGearInvData[SMALLPOCK26POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK26POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK26POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK26POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK26
+		gIMPGearInvData[SMALLPOCK27POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK27POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK27POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK27POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK27
+		gIMPGearInvData[SMALLPOCK28POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK28POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK28POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK28POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK28
+		gIMPGearInvData[SMALLPOCK29POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK29POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK29POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK29POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK29
+		gIMPGearInvData[SMALLPOCK30POS].sX = SCREEN_WIDTH + 1;	gIMPGearInvData[SMALLPOCK30POS].sY = SCREEN_HEIGHT + 1;			gIMPGearInvData[SMALLPOCK30POS].sWidth = SM_INV_SLOT_WIDTH; gIMPGearInvData[SMALLPOCK30POS].sHeight = SM_INV_SLOT_HEIGHT; // SMALLPOCK30
+	}
+
+	// Add regions for inventory pocket slots
+	for (UINT8 cnt = 0; cnt < NUM_INV_SLOTS; ++cnt)
+	{
+		MSYS_DefineRegion(&gIMPGearInvRegion[cnt], 
+			gIMPGearInvData[cnt].sX, gIMPGearInvData[cnt].sY, 
+			(INT16)(gIMPGearInvData[cnt].sX + gIMPGearInvData[cnt].sWidth), (INT16)(gIMPGearInvData[cnt].sY + gIMPGearInvData[cnt].sHeight),
+			MSYS_PRIORITY_HIGH, CURSOR_WWW, IMPInvMoveCallback, IMPInvClickCallback
+		);
+
+		// Add region
+		MSYS_AddRegion(&gIMPGearInvRegion[cnt]);
+		MSYS_SetRegionUserData(&gIMPGearInvRegion[cnt], 0, cnt);
+
+		SetRegionFastHelpText(&gIMPGearInvRegion[cnt], szIMPGearPocketText[cnt]);
+	}
+
+	// Inventory pool slots
+	for (size_t i = 0; i < 25; i++)
+	{
+		const UINT32 xOffset = gIMPInvPoolLayout.x + 24; // top left coords of the first item slot in selection grid sti
+		const UINT32 yOffset = gIMPInvPoolLayout.y + 8;
+		const UINT32 xStep = 72; // steps to the next slot column and row
+		const UINT32 yStep = 32;
+		const auto x = xOffset + (UINT8)((i) % 5) * xStep;
+		const auto y = yOffset + (UINT8)((i) / 5) * yStep;
+
+		MSYS_DefineRegion(&gIMPGearInvPoolRegion[i],
+			x, y,
+			x + 60, y + 22,
+			MSYS_PRIORITY_HIGH, CURSOR_WWW, IMPInvMoveCallback, IMPInventoryPoolSelectCallback
+		);
+
+		// Add region
+		MSYS_AddRegion(&gIMPGearInvPoolRegion[i]);
+		MSYS_SetRegionUserData(&gIMPGearInvPoolRegion[i], 0, i);
+		SetRegionFastHelpText(&gIMPGearInvPoolRegion[i], szIMPGearPocketText[55]);
+		MSYS_DisableRegion(&gIMPGearInvPoolRegion[i]);
+	}
+}
+
+
+void DisplayPagesForImpInventoryPool(void)
+{
+	// get the current and last pages and display them
+	CHAR16 sString[32];
+	INT16 sX, sY;
+
+	SetFont(COMPFONT);
+	SetFontForeground(183);
+	SetFontBackground(FONT_BLACK);
+
+	// set the buffer
+	SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+	// grab current and last pages
+	swprintf(sString, L"%d / %d", gIMPCurrentInventoryPoolPage + 1, gIMPLastInventoryPoolPage + 1);
+
+	// grab centered coords
+	FindFontCenterCoordinates(
+		gIMPInvPoolLayout.x + 170,
+		gIMPInvPoolLayout.y + 190,
+		46, 13, sString, BLOCKFONT2, &sX, &sY
+	);
+
+	mprintf(sX, sY, sString);
+
+	SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+}
+
+
+void DrawItemTextToInvPool(STR16 itemName, UINT32 x, UINT32 y)
+{
+	// the name
+	CHAR16 sString[64];
+	wcscpy(sString, itemName);
+
+	if (StringPixLength(sString, SMALLCOMPFONT) >= (65))
+	{
+		ReduceStringLength(sString, (INT16)(65 - StringPixLength(L" ...", SMALLCOMPFONT)), SMALLCOMPFONT);
+	}
+
+	INT16 sX, sY;
+	FindFontCenterCoordinates(
+		x,
+		y,
+		65, 6, sString, SMALLCOMPFONT, &sX, &sY
+	);
+
+	SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+	SetFont(SMALLCOMPFONT);
+	SetFontForeground(FONT_GRAY2);
+	SetFontBackground(FONT_BLACK);
+
+	mprintf(sX,	sY,	sString);
+}
+
+
+void RenderImpGearSelectionChoices(UINT32 pocket)
+{
+	const UINT32 xOffset = gIMPInvPoolLayout.x + 24; // top left coords of the first item slot in selection grid sti
+	const UINT32 yOffset = gIMPInvPoolLayout.y + 8;
+	const UINT32 xStep = 72; // steps to the next slot column and row
+	const UINT32 yStep = 32;
+	
+	const UINT32 pageShift = gIMPCurrentInventoryPoolPage * 25;
+	UINT32 end = gIMPPossibleItems[pocket].size();
+	if (gIMPCurrentInventoryPoolPage < gIMPLastInventoryPoolPage)
+	{
+		end = pageShift + 25;
+	}
+
+	for (UINT32 i = 0 + pageShift; i < end; i++)
+	{
+		const auto item = gIMPPossibleItems[pocket][i].first;
+		const auto x = xOffset + (UINT8)((i - pageShift)%5) * xStep;
+		const auto y = yOffset + (UINT8)((i - pageShift)/5)* yStep;
+
+		DisplayGear(item, x, y, FALSE, 1, FALSE);
+
+		// Coordinates for item text
+		const auto xText = x;
+		const auto yText = y + 24;
+		DrawItemTextToInvPool(gIMPPossibleItems[pocket][i].second, xText, yText);
+
+
+		// Check if currently selected item is shown in pool and adjust glow coordinates
+		if (item == gIMPPocketSelectedItems[pocket].first)
+		{
+			gIMPGlowX = x;
+			gIMPGlowY = y;
+			fShowIMPItemHighLight = TRUE;
+		}
+	}
+}
+
+
+void DrawImpGearInventoryPool(void)
+{
+	RenderImpGearSelectionGrid();
+	ShowButton(gIMPInvDoneButton);
+	ShowButton(gIMPInvArrowButton[0]);
+	ShowButton(gIMPInvArrowButton[1]);
+	DisplayPagesForImpInventoryPool();
+	RenderImpGearSelectionChoices(gCurrentImpGearChoices);
+}
+
+
+
+void SetChoiceForPocket(INT32 pocket, INT32 index, UINT8 amount)
+{
+	if (gIMPPossibleItems[pocket].size() > index)
+	{
+		gIMPPocketSelectedItems[pocket] = std::make_pair(gIMPPossibleItems[pocket][index].first, amount);
+	}
+}
+
+
+void DistributePossibleItemsToVectors(void)
+{
+	// these vectors contain the possible items in selection screen pockets
+	gIMPPossibleItems.clear();
+
+	// it is always possible to not select something
+	for (int i = 0; i < NUM_INV_SLOTS; ++i)
+	{
+		gIMPPossibleItems[i].push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+		SetChoiceForPocket(i, 0, 1); // Initialize all selections to empty at first
+	}
+
+	std::set<UINT16>::iterator itend = gIMPGearPossibleItems.end();
+	for (std::set<UINT16>::iterator it = gIMPGearPossibleItems.begin(); it != itend; ++it)
+	{
+		UINT16 usItem = (*it);
+
+		if (Item[usItem].usItemClass & IC_GUN)
+		{
+			gIMPPossibleItems[HANDPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+
+			if (Item[usItem].twohanded) {
+				gIMPPossibleItems[GUNSLINGPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName)); 
+			}
+			else { 
+				gIMPPossibleItems[SECONDHANDPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName)); 
+			}
+		}
+		else if (Item[usItem].usItemClass & IC_LAUNCHER)
+		{
+			gIMPPossibleItems[GUNSLINGPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+		}
+		else if (Item[usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH))
+		{
+			gIMPPossibleItems[KNIFEPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+		}
+		else if (Item[usItem].usItemClass & IC_ARMOUR)
+		{
+			if (Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_HELMET)
+				gIMPPossibleItems[HELMETPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			else if (Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_VEST)
+				gIMPPossibleItems[VESTPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			else if (Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_LEGGINGS)
+				gIMPPossibleItems[LEGPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+		}
+		else if (Item[usItem].usItemClass & IC_LBEGEAR)
+		{
+			switch (LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass)
+			{
+			case THIGH_PACK:
+				gIMPPossibleItems[LTHIGHPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				gIMPPossibleItems[RTHIGHPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				break;
+			case VEST_PACK:
+				gIMPPossibleItems[VESTPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				break;
+			case COMBAT_PACK:
+				gIMPPossibleItems[CPACKPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				break;
+			case BACKPACK:
+				gIMPPossibleItems[BPACKPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				break;
+			default:
+				gIMPPossibleItems[LTHIGHPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				gIMPPossibleItems[RTHIGHPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				break;
+			}
+		}
+		else if (Item[usItem].usItemClass & IC_FACE)
+		{
+			gIMPPossibleItems[HEAD1POS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			gIMPPossibleItems[HEAD2POS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+		}
+		else if (Item[usItem].usItemClass & (IC_GRENADE | IC_BOMB))
+		{
+			// ignore item if it is a launchable - we already list it under ammo if a launcher is selected
+			BOOLEAN found = FALSE;
+			UINT16 iLoop = 0;
+			while (Launchable[iLoop][0] != 0)
+			{
+				if (Launchable[iLoop][0] == usItem)
+				{
+					found = TRUE;
+					break;
+				}
+
+				++iLoop;
+			}
+
+			if (!found)
+			{
+				for (size_t i = BIGPOCK1POS; i < MEDPOCK1POS; i++)
+				{
+					gIMPPossibleItems[i].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				}
+				for (size_t i = SMALLPOCK19POS; i < NUM_INV_SLOTS; i++)
+				{
+					gIMPPossibleItems[i].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+				}
+			}
+		}
+		else if (Item[usItem].usItemClass & (IC_MEDKIT | IC_KIT))
+		{
+			for (size_t i = MEDPOCK1POS; i < SMALLPOCK1POS; i++)
+			{
+				gIMPPossibleItems[i].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			}
+		}
+		else
+		{
+			for (size_t i = BIGPOCK1POS; i < MEDPOCK1POS; i++)
+			{
+				gIMPPossibleItems[i].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			}
+			for (size_t i = SMALLPOCK19POS; i < NUM_INV_SLOTS; i++)
+			{
+				gIMPPossibleItems[i].push_back(std::make_pair(usItem, Item[usItem].szItemName));
+			}
+		}
+	}
+
+
+	//Assign default choices to select pockets
+	SetChoiceForPocket(HELMETPOS, 1, 1);
+	SetChoiceForPocket(VESTPOS, 1, 1);
+	SetChoiceForPocket(LEGPOS, 1, 1);
+	SetChoiceForPocket(HEAD1POS, 1, 1);
+	SetChoiceForPocket(HEAD2POS, 2, 1);
+
+	SetChoiceForPocket(HANDPOS, 1, 1);
+	SetChoiceForPocket(KNIFEPOCKPOS, 1, 1);
+	SetChoiceForPocket(MEDPOCK1POS, 1, 1);
+
+	if (UsingNewInventorySystem())
+	{
+		SetChoiceForPocket(VESTPOCKPOS, 1, 1);
+		SetChoiceForPocket(CPACKPOCKPOS, 1, 1);
+		SetChoiceForPocket(BPACKPOCKPOS, 1, 1);
+		SetChoiceForPocket(LTHIGHPOCKPOS, 1, 1);
+		SetChoiceForPocket(RTHIGHPOCKPOS, 1, 1);
+
+		SetChoiceForPocket(SMALLPOCK19POS, 4, 1);
+		SetChoiceForPocket(SMALLPOCK20POS, 3, 1);
+		SetChoiceForPocket(SMALLPOCK21POS, 2, 1);
+		SetChoiceForPocket(SMALLPOCK22POS, 1, 1);
+		SetChoiceForPocket(SMALLPOCK23POS, 1, 1);
+	}
+	else
+	{
+		SetChoiceForPocket(SMALLPOCK19POS, 4, 1);
+		SetChoiceForPocket(SMALLPOCK20POS, 3, 1);
+		SetChoiceForPocket(SMALLPOCK21POS, 2, 1);
+		SetChoiceForPocket(SMALLPOCK22POS, 1, 1);
+	}
+
+}
+
+void GlowImpInvPoolItem(void)
+{
+	static INT32 iColorNum = 10;
+	static BOOLEAN fDelta = FALSE;
+	static BOOLEAN fOldItemGlow = FALSE;
+	UINT32 uiDestPitchBYTES;
+	UINT8* pDestBuf;
+
+	// not glowing right now, leave
+	if (fShowIMPItemHighLight == FALSE)
+	{
+		iColorNum = 0;
+		fDelta = TRUE;
+		fOldItemGlow = FALSE;
+		return;
+	}
+
+	// if not ready to change glow phase yet, leave
+	if (!gfGlowTimerExpired)
+		return;
+
+
+	fOldItemGlow = TRUE;
+
+	// change direction of glow?
+	if ((iColorNum == 0) || (iColorNum == 10))
+	{
+		fDelta = !fDelta;
+	}
+
+	// increment color
+	if (!fDelta)
+		iColorNum++;
+	else
+		iColorNum--;
+
+	// restore background
+	auto x = gIMPGlowX;
+	auto y = gIMPGlowY;
+	const auto width = 60;
+	const auto height = 24;
+
+	UINT16 usColor = Get16BPPColor(FROMRGB(GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue));
+	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
+	SetClippingRegionAndImageWidth(uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	const auto xEnd = x + width;
+	const auto yEnd = y + height;
+	RectangleDraw(TRUE, x, y, xEnd, yEnd, usColor, pDestBuf);
+	InvalidateRegion(x, y, xEnd + 1, yEnd + 1);
+	UnLockVideoSurface(FRAME_BUFFER);
+}
+
+void RenderIMPGearBodytype(void)
+{
+	UINT32 index =2; // Regular male
+	if (bBigBody)
+	{
+		index = 3; // Big male
+	}
+	if (!fCharacterIsMale)
+	{
+		index = 4; // Female
+	}
+
+	INT32 x = gIMPGearLayout.x + 31;
+	INT32 y = gIMPGearLayout.y + 8;
+	if (!UsingNewInventorySystem())
+	{
+		x = gIMPGearLayout.x + 71;
+		y = gIMPGearLayout.y + 9;
+	}
+
+	BltVideoObjectFromIndex(FRAME_BUFFER, gIMPINVENTORY, index, x, y, VO_BLT_SRCTRANSPARENCY, NULL);
 }

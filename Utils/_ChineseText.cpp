@@ -11363,62 +11363,68 @@ STR16 szIMPGearWebSiteText[] =
 	L"额外花费: %d$ (%d$ 预付款)",	//L"Additional Cost: %d$ (%d$ prepaid)",
 };
 
-STR16 szIMPGearDropDownText[] =
+STR16 szIMPGearPocketText[] =
 {
-	L"选择LBE背心",  //L"Select LBE vest",  
-	L"选择LBE战斗包",  //L"Select LBE combat pack", 
-	L"选择LBE背包",  //L"Select LBE backpack",
-	L"选择LBE皮套",  //L"Select LBE holster", 
-	L"选择LBE皮套",  //L"Select LBE holster",
-
-	L"选择主枪",  //	L"Select main gun", 
-	L"选择弹药",  //L"Select ammo",
-	L"选择手枪",  //L"Select sidearm", 
-	L"选择额外弹药",  //L"Select additional ammo",
-	L"选择武器",  //L"Select melee weapon", 
-
 	L"选择头盔",  //L"Select helmet", 
 	L"选择背心",  //	L"Select vest", 
 	L"选择裤子",  //L"Select pants",
 	L"选择头部装备",  //L"Select face gear",
 	L"选择头部装备",  //	L"Select face gear",
 
-	L"选择附加物品",  //L"Select additional items",
-	L"选择附加物品",  //L"Select additional items", 
-	L"选择附加物品",  //L"Select additional items",
-	L"选择附加物品",  //L"Select additional items",
-	L"选择附加物品",  //L"Select additional items", 
-	L"选择附加物品",  //L"Select additional items", 
-	L"选择附加物品",  //L"Select additional items", 
-};
+	L"选择主枪",  //	L"Select main gun", 
+	L"选择手枪",  //L"Select sidearm", 
 
-STR16 szIMPGearDropDownNoneText[] =
-{
-	L"没有LBE背心",  //L"No LBE vest", 
-	L"没有LBE战斗包",  //	L"No LBE combat pack",
-	L"没有LBE背包",  //L"No LBE backpack",
-	L"没有LBE皮套",  //L"No LBE holster",
-	L"没有LBE皮套",  //L"No LBE holster",
+	L"选择LBE背心",  //L"Select LBE vest",  
+	L"选择LBE皮套", //L"Select left LBE holster",
+	L"选择LBE皮套", //L"Select right LBE holster",
+	L"选择LBE战斗包",  //L"Select LBE combat pack", 
+	L"选择LBE背包",  //L"Select LBE backpack",
 
-	L"没有枪",  //L"No gun",
-	L"没有弹药",  //L"No ammo", 
-	L"没有枪",  //	L"No gun", 
-	L"没有弹药",  //L"No ammo",  
-	L"没有武器",  //L"No weapon",
+	L"Select launcher / rifle",
+	L"选择武器",  //L"Select melee weapon", 
 
-	L"没有头盔",  //L"No helmet",
-	L"没有背心",  //L"No vest",
-	L"没有裤子",  //L"No pants", 
-	L"没有头部装备",  //L"No face gear",
-	L"没有头部装备",  //	L"No face gear",
-
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
-	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品", //L"Select additional items", //BIGPOCK1POS
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"Select medkit", //MEDPOCK1POS
+	L"Select medkit",
+	L"Select medkit",
+	L"Select medkit",
+	L"Select main gun ammo", //SMALLPOCK1POS
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select launcher / rifle ammo", //SMALLPOCK6POS
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select sidearm ammo", //SMALLPOCK11POS
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"选择附加物品", //L"Select additional items", //SMALLPOCK19POS
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items",
+	L"选择附加物品", //L"Select additional items", //SMALLPOCK30POS
+	L"Left click to select item / Right click to close window",
 };
 
 STR16 szMilitiaStrategicMovementText[] =

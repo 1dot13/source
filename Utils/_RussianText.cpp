@@ -11358,62 +11358,68 @@ STR16 szIMPGearWebSiteText[] =
 	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
 
-STR16 szIMPGearDropDownText[] =
+STR16 szIMPGearPocketText[] =
 {
-	L"Выбрать разгр. жилета",
-	L"Выбрать разгр. ранец",
-	L"Выбрать разгр. рюкзак",
-	L"Выбрать разгр. кобуру",
-	L"Выбрать разгр. кобуру", 
-	
-	L"Выбрать осн. оружие",
-	L"Выбрать патроны",
-	L"Выбрать доп. оружие",
-	L"Выбрать доп. патроны",
-	L"Выбрать оружие ближ. боя",
-	
-	L"Выбрать шлем",
-	L"Выбрать жилет",
-	L"Выбрать поножи",
-	L"Выбрать для лица",
-	L"Выбрать для лица",
+	L"Выбрать шлем", //L"Select helmet",
+	L"Выбрать жилет", //L"Select vest",
+	L"Выбрать поножи", //L"Select pants",
+	L"Выбрать для лица", //L"Select face gear",
+	L"Выбрать для лица", //L"Select face gear",
 
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-	L"Выбрать доп. предметы",
-};
+	L"Выбрать осн. оружие", //L"Select main gun",
+	L"Выбрать доп. оружие", //L"Select sidearm",
 
-STR16 szIMPGearDropDownNoneText[] =
-{
-	L"Нет разгр. жилета",
-	L"Нет разгр. ранца",
-	L"Нет разгр. рюкзака",
-	L"Нет разгр. кобуры",
-	L"Нет разгр. кобуры", 
-	
-	L"Нет оружий",
-	L"Нет патронов",
-	L"Нет оружия",
-	L"Нет патровно",
-	L"Нет оружия",
-	
-	L"Нет шлема",
-	L"Нет жилета",
-	L"Нет поножей",
-	L"Нет ничего для лица",
-	L"Нет ничего для лица",
+	L"Выбрать разгр. жилета", //L"Select LBE vest",  
+	L"Выбрать разгр. кобуру", //L"Select left LBE holster",
+	L"Выбрать разгр. кобуру", //L"Select right LBE holster",
+	L"Выбрать разгр. ранец", //L"Select LBE combat pack",
+	L"Выбрать разгр. рюкзак", //L"Select LBE backpack",
 
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
-	L"Нет доп. предметов",
+	L"Select launcher / rifle",
+	L"Выбрать оружие ближ. боя", //L"Select melee weapon",
+
+	L"Выбрать доп. предметы", //L"Select additional items", //BIGPOCK1POS
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Select medkit", //MEDPOCK1POS
+	L"Select medkit",
+	L"Select medkit",
+	L"Select medkit",
+	L"Select main gun ammo", //SMALLPOCK1POS
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select launcher / rifle ammo", //SMALLPOCK6POS
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select sidearm ammo", //SMALLPOCK11POS
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Выбрать доп. предметы", //L"Select additional items", //SMALLPOCK19POS
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items",
+	L"Выбрать доп. предметы", //L"Select additional items", //SMALLPOCK30POS
+	L"Left click to select item / Right click to close window",
 };
 
 STR16 szMilitiaStrategicMovementText[] =

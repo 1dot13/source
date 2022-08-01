@@ -40,7 +40,6 @@ UINT32 guiATTRIBUTEBAR;
 UINT32 guiBUTTON2IMAGE;
 UINT32 guiBUTTON1IMAGE;
 UINT32 guiBUTTON4IMAGE;
-//UINT32 guiPORTRAITFRAME; // duplicate definition, look up a few lines (jonathanl)
 UINT32 guiMAININDENT;
 UINT32 guiLONGINDENT;
 UINT32 guiSHORTINDENT;
@@ -56,6 +55,10 @@ UINT32 guiSHORT2HINDENT;
 // These 2 added - SANDRO
 UINT32 guiASTARTLEVEL;
 UINT32 guiCOLORCHOICEFRAME;
+UINT32 gIMPINVENTORY;
+SGPRectangle gIMPGearLayout;
+SGPRectangle gIMPInvPoolLayout;
+
 
 // position defines
 #define CHAR_PROFILE_BACKGROUND_TILE_WIDTH 125
@@ -1495,3 +1498,63 @@ void RenderColorChoiceFrame(INT16 sX, INT16 sY)
 
 
 
+BOOLEAN LoadImpGearSelection(void)
+{
+	VOBJECT_DESC VObjectDesc;
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//if (UsingNewInventorySystem())
+	{
+		FilenameForBPP("INTERFACE\\ImpGearSelection.sti", VObjectDesc.ImageFile);
+	}
+	CHECKF(AddVideoObject(&VObjectDesc, &gIMPINVENTORY));
+
+	gIMPGearLayout = { LAPTOP_SCREEN_UL_X + 37,  LAPTOP_SCREEN_WEB_UL_Y + 48, 429, 257 };
+	if (!UsingNewInventorySystem())
+	{
+		gIMPGearLayout = { LAPTOP_SCREEN_UL_X + 118,  LAPTOP_SCREEN_WEB_UL_Y + 48, 261, 249 };
+	}
+
+	gIMPInvPoolLayout = { LAPTOP_SCREEN_UL_X + 57,  LAPTOP_SCREEN_WEB_UL_Y + 68, 389, 217};
+
+	return (TRUE);
+}
+
+void DeleteImpGearSelection(void)
+{
+	DeleteVideoObjectFromIndex(gIMPINVENTORY);
+	return;
+}
+
+extern BOOLEAN Blt8BPPDataTo16BPPBufferTransparent(UINT16* pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex);
+
+void RenderImpGearSelection(void)
+{
+	UINT32 uiDestPitchBYTES;
+	UINT16* pDestBuf;
+	HVOBJECT hCharListHandle;
+
+	UINT8 stiIndex = 0;
+	if (!UsingNewInventorySystem())
+	{
+		stiIndex = 5;
+	}
+
+	pDestBuf = (UINT16*)LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
+	GetVideoObject(&hCharListHandle, gIMPINVENTORY);
+	Blt8BPPDataTo16BPPBufferTransparent(pDestBuf, uiDestPitchBYTES, hCharListHandle, gIMPGearLayout.x, gIMPGearLayout.y, stiIndex);
+	UnLockVideoSurface(FRAME_BUFFER);
+}
+
+void RenderImpGearSelectionGrid(void)
+{
+	UINT32 uiDestPitchBYTES;
+	UINT16* pDestBuf;
+	HVOBJECT hCharListHandle;
+
+	UINT8 stiIndex = 1;
+
+	pDestBuf = (UINT16*)LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
+	GetVideoObject(&hCharListHandle, gIMPINVENTORY);
+	Blt8BPPDataTo16BPPBufferTransparent(pDestBuf, uiDestPitchBYTES, hCharListHandle, gIMPInvPoolLayout.x, gIMPInvPoolLayout.y, stiIndex);
+	UnLockVideoSurface(FRAME_BUFFER);
+}

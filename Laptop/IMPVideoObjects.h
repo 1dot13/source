@@ -154,6 +154,11 @@ BOOLEAN LoadColorChoiceFrame( void );
 void DeleteColorChoiceFrame( void );
 void RenderColorChoiceFrame(INT16 sX, INT16 sY);
 
+BOOLEAN LoadImpGearSelection(void);
+void DeleteImpGearSelection(void);
+void RenderImpGearSelection(void);
+void RenderImpGearSelectionGrid(void);
+
 // graphical handles
 
 extern UINT32 guiBACKGROUND;
@@ -174,6 +179,10 @@ extern UINT32 guiATTRIBUTEFRAME;
 extern UINT32 guiATTRIBUTESCREENINDENT1;
 extern UINT32 guiATTRIBUTESCREENINDENT2;
 extern UINT32 guiSLIDERBAR;
+extern UINT32 gIMPINVENTORY;
+extern UINT32 gIMPFIGURES[3];
+extern SGPRectangle gIMPGearLayout;
+extern SGPRectangle gIMPInvPoolLayout;
 
 #endif
 

@@ -3028,8 +3028,7 @@ extern STR16	szSpyText[];
 extern STR16	szFoodText[];
 
 extern STR16	szIMPGearWebSiteText[];
-extern STR16	szIMPGearDropDownText[];
-extern STR16	szIMPGearDropDownNoneText[];
+extern STR16	szIMPGearPocketText[];
 
 // Flugente: militia movement
 extern STR16	szMilitiaStrategicMovementText[];
