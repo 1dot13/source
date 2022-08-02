@@ -581,6 +581,7 @@ void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )
 
 		iCurrentImpPage = IMP_FINISH;
 		iCurrentProfileMode = IMP__FINISH;
+		fShowIMPItemHighLight = FALSE;
 	}
 }
 
