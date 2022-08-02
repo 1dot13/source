@@ -6428,7 +6428,7 @@ void CommonEnterCombatModeCode( )
     // Loop through all mercs and make go
     for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, ++cnt )
     {
-        if ( pSoldier->bActive )
+        if ( pSoldier && pSoldier->bActive )
         {
             if ( pSoldier->bInSector && pSoldier->ubBodyType != CROW )
             {
@@ -6440,7 +6440,7 @@ void CommonEnterCombatModeCode( )
                 pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 
                 // END AI actions
-				DebugAI(AI_MSG_INFO, MercPtrs[pSoldier->ubAutoBandagingMedic], String("CancelAIAction: enter combat mode"));
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: enter combat mode"));
                 CancelAIAction( pSoldier, TRUE );
 
                 // turn off AI controlled flag

@@ -6106,16 +6106,12 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 
 void ResetMultiSelection( )
 {
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-
 	// OK, loop through all guys who are 'multi-selected' and
 	// Make them move....
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
+	INT32 cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for (SOLDIERTYPE* pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
 	{
-		if ( pSoldier->bActive && pSoldier->bInSector )
+		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 			{
