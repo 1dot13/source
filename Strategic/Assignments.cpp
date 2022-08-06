@@ -10508,8 +10508,14 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 			fCharacterInfoPanelDirty = TRUE;
 
 			//shadooow: rules for item swapping rewritten to honor pocket restrictions
+			// sevenfm: for AI, just swap objects
+			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+			{
+				SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);
+				return(TRUE);
+			}
 			//nothing in main hand
-			if (!pSoldier->inv[HANDPOS].exists())
+			else if (!pSoldier->inv[HANDPOS].exists())
 			{				
 				SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);//todo: this should probably be more robust and handle potentional custom medical kit that uses both hands
 				return(TRUE);
@@ -10557,7 +10563,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 		}
 	}
 	//if we came here it means we don't have medical kit or we cannot place it into hand due to no suitable pockets for whatever merc carries in them
-	if(medkit_found)
+	if (medkit_found && (pSoldier->flags.uiStatusFlags & SOLDIER_PC))
 		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[QUICK_ITEMS_NOWHERE_TO_PLACE]);
 	if(!bAllow1stAidKit)
 		return FALSE;
