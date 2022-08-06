@@ -1664,10 +1664,20 @@ void SetOptionsScreenToggleBoxes()
 		if ( toggle_box_content_rules[ toggle_box_array[ counter ] ] == 2)
 			{ continue; }//there are no options to set for this toggle_box
 
-		if( gGameSettings.fOptions[  toggle_box_array[ counter ]  ] )
-			ButtonList[ guiOptionsToggles[ counter ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		if (gGameSettings.fOptions[toggle_box_array[counter]])
+		{
+			if (ButtonList[guiOptionsToggles[counter]])
+			{
+				ButtonList[ guiOptionsToggles[ counter ] ]->uiFlags |= BUTTON_CLICKED_ON;
+			}
+		}
 		else
-			ButtonList[ guiOptionsToggles[ counter ] ]->uiFlags &= (~BUTTON_CLICKED_ON );
+		{
+			if (ButtonList[guiOptionsToggles[counter]])
+			{
+				ButtonList[ guiOptionsToggles[ counter ] ]->uiFlags &= (~BUTTON_CLICKED_ON );
+			}
+		}
 	}
 }
 

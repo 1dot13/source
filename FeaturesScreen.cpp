@@ -1397,9 +1397,19 @@ void SetToggleBoxes()
 		}//there are no options to set for this toggle_box
 
 		if (gGameSettings.fFeatures[toggle_box_array[counter]])
-			ButtonList[guiFeaturesToggles[counter]]->uiFlags |= BUTTON_CLICKED_ON;
+		{
+			if (ButtonList[guiFeaturesToggles[counter]])
+			{
+				ButtonList[guiFeaturesToggles[counter]]->uiFlags |= BUTTON_CLICKED_ON;
+			}
+		}
 		else
-			ButtonList[guiFeaturesToggles[counter]]->uiFlags &= (~BUTTON_CLICKED_ON);
+		{
+			if (ButtonList[guiFeaturesToggles[counter]])
+			{
+				ButtonList[guiFeaturesToggles[counter]]->uiFlags &= (~BUTTON_CLICKED_ON);
+			}
+		}
 	}
 }
 
