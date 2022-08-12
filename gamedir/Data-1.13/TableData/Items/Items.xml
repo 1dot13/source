@@ -24576,7 +24576,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>807</uiIndex>
-		<szItemName>Ghillie Helmet</szItemName>
+		<szItemName>Ghillie Hood</szItemName>
 		<szLongItemName>Ghillie Hood</szLongItemName>
 		<szItemDesc>Either as a companion to the ghillie suit or on its own, the ghillie hood camouflages your most important piece of equipment: your head.</szItemDesc>
 		<szBRName>Ghillie Hood</szBRName>
@@ -24612,9 +24612,9 @@
 	<ITEM>
 		<uiIndex>808</uiIndex>
 		<szItemName>Ghillie Pants</szItemName>
-		<szLongItemName>Ghillie Leggings</szLongItemName>
+		<szLongItemName>Ghillie Pants</szLongItemName>
 		<szItemDesc>High quality jute thread is sewn directly onto military BDU trousers. The sewn-on jute thread covers the back and the front.</szItemDesc>
-		<szBRName>Ghillie Leggings</szBRName>
+		<szBRName>Ghillie Pants</szBRName>
 		<szBRDesc>Unless you plan to wear jeans under your ghillie suit, these pants are a must-have if you are going for a covert approach.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -37418,10 +37418,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1197</uiIndex>
-		<szItemName>Ghillie Hood</szItemName>
-		<szLongItemName>Ghillie Hood</szLongItemName>
-		<szItemDesc>Either as a companion to the ghillie suit or on its own, the ghillie hood camouflages your most important piece of equipment: your head.</szItemDesc>
-		<szBRName>Ghillie Hood</szBRName>
+		<szItemName>Ghillie Cover</szItemName>
+		<szLongItemName>Ghillie Cover</szLongItemName>
+		<szItemDesc>Either as a companion to the ghillie suit or on its own, the ghillie cover fits over most helmets to camouflage your most important piece of equipment: your head.</szItemDesc>
+		<szBRName>Ghillie Cover</szBRName>
 		<szBRDesc>The finishing touch for your ghillie suit. Also useful to keep the sun out of your eyes and as a mosquito net.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>8192</AttachmentClass>
@@ -37453,11 +37453,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1198</uiIndex>
-		<szItemName>Ghillie Pants</szItemName>
+		<szItemName>Ghillie Leggings</szItemName>
 		<szLongItemName>Ghillie Leggings</szLongItemName>
-		<szItemDesc>High quality jute thread is sewn directly onto military BDU trousers. The sewn-on jute thread covers the back and the front.</szItemDesc>
+		<szItemDesc>High quality jute thread completely covering the front and back is sewn directly onto baggy military BDU trousers meant to be worn over certain forms of lower body armor.</szItemDesc>
 		<szBRName>Ghillie Leggings</szBRName>
-		<szBRDesc>Unless you plan to wear jeans under your ghillie suit, these pants are a must-have if you are going for a covert approach.</szBRDesc>
+		<szBRDesc>Unless you plan to wear jeans under your ghillie suit, these leggings are a must-have if you are going for a covert approach.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>32768</AttachmentClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
@@ -37486,9 +37486,9 @@
 		<uiIndex>1199</uiIndex>
 		<szItemName>Ghillie Jacket</szItemName>
 		<szLongItemName>Ghillie Jacket</szLongItemName>
-		<szItemDesc>High quality jute thread is sewn directly on to a military BDU four-pocket coat. The sewn-on jute thread covers the entire jacket in the front and the back, and has an attached hood.</szItemDesc>
+		<szItemDesc>High quality jute thread completely covering the front and back is sewn directly onto a military BDU four-pocket coat meant to be worn over most types of upper body armor. An attached hood can also be accommodated.</szItemDesc>
 		<szBRName>Ghillie Jacket</szBRName>
-		<szBRDesc>Whether you are spying on that cute-looking girl next door, or sneaking up to that perfect spot overlooking an enemy base, this vest will make sure nobody sees you.</szBRDesc>
+		<szBRDesc>Whether you are spying on that cute-looking girl next door, or sneaking up to that perfect spot overlooking an enemy base, this jacket will help to ensure nobody sees you.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>16384</AttachmentClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
