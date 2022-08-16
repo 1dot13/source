@@ -1930,6 +1930,7 @@ BOOLEAN DisplayBigItemImage(UINT16 usIndex, UINT16 PosY)
 	LoadTileGraphicForItem(pItem, &uiImage);
 
 	GetVideoObject(&hPixHandle, uiImage);
+	if (hPixHandle == nullptr) { SET_ERROR("Error: Could not load item uiIndex %d graphics. ubGraphicType %d and ubGraphicNum %d", usIndex, pItem->ubGraphicType, pItem->ubGraphicNum); AssertMsg(false, gubErrorText); }
 
 	if(hPixHandle->ubBitDepth == 8)
 	{
