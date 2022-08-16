@@ -1401,7 +1401,7 @@ BOOLEAN InitializeInvPanelCoordsOld()
 	else if (iResolution >= _1024x768)
 	{
 		UI_CHARPANEL.Region = {
-			UI_MAP.BorderRegion.x - 262,
+			UI_MAP.BorderRegion.x - 260,
 			UI_MAP.BorderRegion.y,
 			262, 106
 		};
