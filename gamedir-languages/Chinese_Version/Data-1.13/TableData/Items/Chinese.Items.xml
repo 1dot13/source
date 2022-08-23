@@ -6458,27 +6458,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>807</uiIndex>
-		<szItemName>Ghillie头套</szItemName>
-		<szLongItemName>Ghillie头套</szLongItemName>
-		<szItemDesc>吉利头套是狙击手伪装头部的重要部件。</szItemDesc>
-		<szBRName>Ghillie头套</szBRName>
-		<szBRDesc>吉利头套是狙击手伪装头部的重要部件，同时有遮阳和防蚊作用。</szBRDesc>
+		<szItemName>吉利兜帽</szItemName>
+		<szLongItemName>吉利兜帽</szLongItemName>
+		<szItemDesc>无论是作为吉利服的伴侣还是单独使用，吉利兜帽都可以伪装您最重要的装备：您的头部。</szItemDesc>
+		<szBRName>吉利兜帽</szBRName>
+		<szBRDesc>也可用于防止阳光直射眼睛和用作蚊帐，为你的吉利服锦上添花。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>808</uiIndex>
-		<szItemName>Ghillie裤</szItemName>
-		<szLongItemName>Ghillie裤</szLongItemName>
-		<szItemDesc>吉利裤是从高级迷彩裤上切割下来的布条，穿上它可以有效伪装自己。</szItemDesc>
-		<szBRName>Ghillie裤</szBRName>
-		<szBRDesc>吉利裤是从高级迷彩裤上切割下来的布条，穿上它可以有效伪装自己。你不会想吉利服下边穿件牛仔裤吧？</szBRDesc>
+		<szItemName>吉利裤</szItemName>
+		<szLongItemName>吉利裤</szLongItemName>
+		<szItemDesc>优质的麻线直接缝在军用作训服裤子上，双面都有。</szItemDesc>
+		<szBRName>吉利裤</szBRName>
+		<szBRDesc>如果你想满足隐蔽需求，这个裤子是必备品，除非你打算在你的吉利服下穿牛仔裤。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>809</uiIndex>
-		<szItemName>Ghillie服</szItemName>
-		<szLongItemName>Ghillie服</szLongItemName>
-		<szItemDesc>吉利裤是从高级迷彩服上切割下来的布条，穿上它可以有效伪装自己。</szItemDesc>
-		<szBRName>Ghillie服</szBRName>
-		<szBRDesc>吉利裤是从高级迷彩服上切割下来的布条，穿上它可以有效伪装自己。无论你偷窥的对象是邻家女孩还是敌人基地，你都需要它。</szBRDesc>
+		<szItemName>吉利服</szItemName>
+		<szLongItemName>吉利服</szLongItemName>
+		<szItemDesc>优质的麻线直接缝制在军用作训服夹克外套上，覆盖了整个夹克的前后，并带有一个兜帽。</szItemDesc>
+		<szBRName>吉利服</szBRName>
+		<szBRDesc>无论你是监视隔壁那个可爱的女孩，还是潜伏到俯瞰敌人基地的完美观察点，这件背心都可以确保没人能发现你。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>810</uiIndex>
@@ -9578,27 +9578,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1197</uiIndex>
-		<szItemName>吉利头套</szItemName>
-		<szLongItemName>吉利头套</szLongItemName>
-		<szItemDesc>不管是作为吉利服的配件还是单独使用，这东西都是你身上最重要的零件-你的脑袋的最好的伪装用品。</szItemDesc>
-		<szBRName>吉利头套</szBRName>
-		<szBRDesc>吉利服的关键部分。也可以作为眼罩或者防蚊帽使用。</szBRDesc>
+		<szItemName>吉利头罩</szItemName>
+		<szLongItemName>吉利头罩</szLongItemName>
+		<szItemDesc>无论是作为吉利服的伴侣还是单独使用，吉利头罩都适合大多数头盔，用于伪装您最重要的装备：您的头部。</szItemDesc>
+		<szBRName>吉利头罩</szBRName>
+		<szBRDesc>也可用于防止阳光直射眼睛和用作蚊帐，为你的吉利服锦上添花。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1198</uiIndex>
-		<szItemName>吉利裤</szItemName>
-		<szLongItemName>吉利裤</szLongItemName>
-		<szItemDesc>把高品质的黄麻线缝在军用迷彩裤子上制成，黄麻线覆盖了前后。</szItemDesc>
-		<szBRName>吉利裤</szBRName>
-		<szBRDesc>除非你想在吉利服下配一条牛仔裤。这条裤子是隐瞒行动的唯一选择。</szBRDesc>
+		<szItemName>吉利紧身裤</szItemName>
+		<szLongItemName>吉利紧身裤</szLongItemName>
+		<szItemDesc>优质麻线完全覆盖双面，直接缝在宽松的作训服裤子上，方便配合穿戴某些类型的下半身防弹装备。</szItemDesc>
+		<szBRName>吉利紧身裤</szBRName>
+		<szBRDesc>如果你想满足隐蔽需求，这个紧身衣是必备品，除非你打算在你的吉利服下穿牛仔裤。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1199</uiIndex>
-		<szItemName>吉利服</szItemName>
-		<szLongItemName>吉利服</szLongItemName>
-		<szItemDesc>把高品质的黄麻线缝在军用迷彩夹克上制成，黄麻线覆盖了前后，带一个可以拆下的帽子。</szItemDesc>
-		<szBRName>吉利服</szBRName>
-		<szBRDesc>无论是偷窥可爱的邻家女孩或是潜入军事基地窃取机密，这款夹克都保证你不会被别人发现。</szBRDesc>
+		<szItemName>吉利夹克</szItemName>
+		<szLongItemName>吉利夹克</szLongItemName>
+		<szItemDesc>优质麻线直接缝制在军用作训服夹克外套上，可以兼容大多数类型的上身防弹衣，还可以安装附加的兜帽。</szItemDesc>
+		<szBRName>吉利夹克</szBRName>
+		<szBRDesc>无论你是监视隔壁那个可爱的女孩，还是潜伏到俯瞰敌人基地的完美观察点，这件背心都可以确保没人能发现你。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1200</uiIndex>
