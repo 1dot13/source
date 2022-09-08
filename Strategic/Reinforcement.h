@@ -6,7 +6,7 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 void ActivateTurncoatsForAutoResolve( INT16 sSectorX, INT16 sSectorY );
 BOOLEAN IsGroupInARightSectorToReinforce( GROUP *pGroup, INT16 sSectorX, INT16 sSectorY );
 UINT8 GetAdjacentSectors( UINT8 pSectors[4], INT16 sSectorX, INT16 sSectorY );
-UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY);
+UINT16 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY);
 UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY );
 
 //For Tactical

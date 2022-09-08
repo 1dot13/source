@@ -207,9 +207,9 @@ UINT8 GetAdjacentSectors( UINT8 pSectors[4], INT16 sSectorX, INT16 sSectorY )
 	return ubCounter;
 }
 
-UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
+UINT16 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 {
-	UINT8 ubResult = 0;
+	UINT16 ubResult = 0;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
 	

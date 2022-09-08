@@ -3116,7 +3116,8 @@ void CalculateAutoResolveInfo()
 	}
 
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
-	gpAR->ubCivs = CountAllMilitiaInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY );
+	const UINT16 militia = CountAllMilitiaInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY );
+	gpAR->ubCivs = min(militia, MAXUINT8);
 	gpAR->ubMercs = 0;
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	pGroup = gpGroupList;
