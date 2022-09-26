@@ -603,7 +603,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			AddFoodpoints(pSoldier->bDrinkLevel, powwater);
 
 		if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold )
-			AddFoodpoints(pSoldier->bDrinkLevel, powfoodadd);
+			AddFoodpoints(pSoldier->bFoodLevel, powfoodadd);
 	}
 	// while on a minievent, assume that we can feed ourselves.. somehow
 	else if (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT)
@@ -615,7 +615,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			AddFoodpoints(pSoldier->bDrinkLevel, water);
 
 		if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_NORMAL].bThreshold )
-			AddFoodpoints(pSoldier->bDrinkLevel, foodadd);
+			AddFoodpoints(pSoldier->bFoodLevel, foodadd);
 	}
 	else
 	{
