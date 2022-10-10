@@ -4937,9 +4937,8 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier )
 	{
 		// If we are controllable
-		//if ( OK_CONTROLLABLE_MERC( pSoldier) && pSoldier->bAssignment == CurrentSquad( ) )
 		if ( OK_CONTROLLABLE_MERC( pSoldier ) && (pSoldier->bAssignment == CurrentSquad( ) ||
-			(pSoldier->bAssignment == VEHICLE && GetSoldierStructureForVehicle( pSoldier->iVehicleId )->bAssignment == CurrentSquad( ))) )
+			(pSoldier->bAssignment == VEHICLE && pSoldier->iVehicleId != iHelicopterVehicleId && GetSoldierStructureForVehicle( pSoldier->iVehicleId )->bAssignment == CurrentSquad( ))) )
 		{
 			//Need to keep a copy of a good soldier, so we can access it later, and
 			//not more than once.
