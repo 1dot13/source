@@ -205,7 +205,7 @@ INT32 iCurrentInventoryPoolPage = 0;
 INT32 iLastInventoryPoolPage = 0;
 
 INT32 sObjectSourceGridNo = -1;//shadooow: I don't see much of a sense in this, we have gpItemPointerSoldier and we can use gpItemPointerSoldier->sGridNo to do this, this is actually unused
-INT8  sObjectSourseSoldierID = -1;
+INT16  sObjectSourseSoldierID = -1;
 
 // number of unseen items in sector
 UINT32 uiNumberOfUnSeenItems = 0;

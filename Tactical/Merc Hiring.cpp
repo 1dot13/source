@@ -131,7 +131,7 @@ UINT16	GetInitialHeliRandomTime();
 INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
-	UINT8		iNewIndex;
+	UINT16		iNewIndex;
 	UINT8		ubCurrentSoldier = pHireMerc->ubProfileID;
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
@@ -429,7 +429,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 }
 
 
-void MercArrivesCallback(	UINT8	ubSoldierID )
+void MercArrivesCallback(	UINT16 ubSoldierID )
 {
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERTYPE							*pSoldier;
@@ -502,7 +502,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	{
 		bool force_helidrop = true;
 		SOLDIERTYPE	*pTeamSoldier;
-		for (UINT8 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
+		for (UINT16 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
 		{
 			if (gCharactersList[cnt].fValid)
 			{
@@ -671,12 +671,12 @@ BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 		return(FALSE);
 }
 
-UINT8	NumberOfMercsOnPlayerTeam()
+UINT16	NumberOfMercsOnPlayerTeam()
 {
-	INT8			cnt;
+	UINT16			cnt;
 	SOLDIERTYPE		*pSoldier;
-	INT16			bLastTeamID;
-	UINT8			ubCount=0;
+	UINT16			bLastTeamID;
+	UINT16			ubCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -702,7 +702,7 @@ UINT8	NumberOfMercsOnPlayerTeam()
 
 void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
-	UINT8								cnt, usLastTeamID;
+	UINT16								cnt, usLastTeamID;
 	INT8								bHated;
 	SOLDIERTYPE							*pTeamSoldier;
 #ifdef JA2UB

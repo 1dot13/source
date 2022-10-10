@@ -478,10 +478,10 @@ UINT32 guiMAPCURSORS;
 UINT32 guiMapPathingArrows;
 
 // assignment selection character
-INT8 bSelectedAssignChar=-1;
+INT16 bSelectedAssignChar=-1;
 
 // current contract char
-INT8 bSelectedContractChar = -1;
+INT16 bSelectedContractChar = -1;
 
 
 // has the temp path for character or helicopter been already drawn?
@@ -604,11 +604,11 @@ BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 // Flugente: added getter/setter so that we can easily check when a new char is set
 // we also set a marker determining when we should update the squads data, so that we only check that when required
 // destination plotting character
-INT8 bSelectedDestChar = -1;
+INT16 bSelectedDestChar = -1;
 bool gSquadEncumbranceCheckNecessary = true;
 
-INT8 GetSelectedDestChar() { return bSelectedDestChar; }
-void SetSelectedDestChar( INT8 aVal )
+INT16 GetSelectedDestChar() { return bSelectedDestChar; }
+void SetSelectedDestChar( INT16 aVal )
 {
 	bSelectedDestChar = aVal;
 	gSquadEncumbranceCheckNecessary = true;

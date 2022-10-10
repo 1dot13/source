@@ -2433,7 +2433,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sXPos, sYPos;
-	UINT8						ubTargetID;
+	UINT16						ubTargetID;
 	BOOLEAN					fOk;
 
 	CHECKF( pStartSoldier );
@@ -4385,7 +4385,7 @@ UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, S
 	return( ChanceToGetThrough( pStartSoldier, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos ) );
 }
 
-UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID )
+UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT16 ubTargetID )
 {
 	FLOAT			dEndZPos;
 	INT16			sXPos;
@@ -4637,7 +4637,7 @@ void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle,
 	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
 
-INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake )
+INT8 FireBullet( UINT16 ubFirer, BULLET * pBullet, BOOLEAN fFake )
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet"));
 
@@ -5782,7 +5782,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 // Note that this function does not make provisions for Fake Firing. There is no need for it, and it would needlessly
 // complicate things anyway.
 // Also note we receive start coordinates from the bomb itself, because there's nowhere else to get them.
-INT8 FireFragmentGivenTarget( UINT8 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
+INT8 FireFragmentGivenTarget( UINT16 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
 {
 	// Artificial...
 	dStartZ++;
@@ -7023,7 +7023,7 @@ void MoveBullet( INT32 iBullet )
 	FIXEDPT					qLastZ;
 
 	SOLDIERTYPE *		pTarget;
-	UINT8						ubTargetID;
+	UINT16						ubTargetID;
 	BOOLEAN					fIntended;
 	BOOLEAN					fStopped;
 	INT8						bOldLOSIndexX;
@@ -9930,7 +9930,7 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	// If we can't see the target, but buddies can see it, CF-Accuracy drops by 50%
 	// If we can't see the target and neither can buddies, CF-Accuracy drops by 75%
 
-	UINT8 ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
+	UINT16 ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
 	INT16 sDistVis = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	gbForceWeaponNotReady = true;
 	INT16 sDistVisNoScope = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;

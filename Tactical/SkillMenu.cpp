@@ -23,7 +23,7 @@ std::vector<std::string> gTemplateVector;
 
 extern void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name );
 
-extern INT8 bSelectedInfoChar;
+extern INT16 bSelectedInfoChar;
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
@@ -395,7 +395,7 @@ SkillSelection::Functions( UINT32 aVal )
 	if ( pSoldier == NULL )
 		return;
 	
-	UINT8 ubID = WhoIsThere2(sTraitsMenuTargetGridNo, 0 );
+	UINT16 ubID = WhoIsThere2(sTraitsMenuTargetGridNo, 0 );
 
 	BOOLEAN result = pSoldier->UseSkill(aVal, sTraitsMenuTargetGridNo, ubID);
 

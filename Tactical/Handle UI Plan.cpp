@@ -46,7 +46,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 	INT8							bDirection;
 	INT32							iLoop;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8							ubNewIndex;
+	UINT16							ubNewIndex;
 
 	// Depeding on stance and direction facing, add guy!
 
@@ -122,7 +122,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 				pPlanSoldier->ChangeSoldierState( pPlanSoldier->usUIMovementMode, 0, FALSE );
 
 				// Change selected soldier
-				gusSelectedSoldier = (UINT16)pPlanSoldier->ubID;
+				gusSelectedSoldier = pPlanSoldier->ubID;
 
 				// Change global planned mode to this guy!
 				gpUIPlannedSoldier = pPlanSoldier;
@@ -165,7 +165,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 				if ( TacticalCreateSoldier( &MercCreateStruct, &ubNewIndex ) )
 				{
 					// Get pointer to soldier
-					GetSoldier( &pPlanSoldier, (UINT16)ubNewIndex );
+					GetSoldier( &pPlanSoldier, ubNewIndex );
 
 					pPlanSoldier->sPlannedTargetX = -1;
 					pPlanSoldier->sPlannedTargetY = -1;

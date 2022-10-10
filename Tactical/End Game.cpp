@@ -182,7 +182,7 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
-	UINT8		ubKillerSoldierID = NOBODY;
+	UINT16		ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
@@ -673,7 +673,7 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 			{
 //	 		gTacticalStatus.ubAttackBusyCount++;
 				DebugAttackBusy( "Killing off a queen ally.\n");
-				pTeamSoldier->EVENT_SoldierGotHit( 0, 10000, 0, pTeamSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTeamSoldier->bAimShotLocation, 0, NOWHERE );
+				pTeamSoldier->EVENT_SoldierGotHit( 0, 10000, 0, pTeamSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, pTeamSoldier->bAimShotLocation, 0, NOWHERE );
 			}
 		}
 	}
@@ -685,7 +685,7 @@ void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLe
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
-	UINT8		ubKillerSoldierID = NOBODY;
+	UINT16		ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );

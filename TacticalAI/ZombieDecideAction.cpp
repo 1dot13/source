@@ -575,7 +575,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
 	INT8	bInWater, bInDeepWater;
 	INT8	bSeekPts = 0, bHelpPts = 0, bWatchPts = 0;
 	BOOLEAN	fClimb;	
-	UINT8	ubThreatID = NOBODY;
+	UINT16	ubThreatID = NOBODY;
 	INT32	sThreatSpot = NOWHERE;
 	INT8	bThreatLevel = 0;
 
@@ -914,7 +914,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	INT8	bWeaponIn;
 	BOOLEAN	fClimb;
 	INT32	iDummy;
-	UINT8	ubThreatID = NOBODY;
+	UINT16	ubThreatID = NOBODY;
 	INT32	sThreatSpot = NOWHERE;
 	INT8	bThreatLevel = 0;
 

@@ -2853,7 +2853,7 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 		if( gpAR->pRobotCell )
 		{
 			//if robot is retreating, set the retreat time to be the same as the robot's controller.
-			UINT8 ubRobotControllerID;
+			UINT16 ubRobotControllerID;
 
 			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 
@@ -3027,7 +3027,7 @@ void MercCellMouseClickCallback( MOUSE_REGION *reg, INT32 reason )
 
 		if( gpAR->pRobotCell )
 		{ //if controller is retreating, make the robot retreat too.
-			UINT8 ubRobotControllerID;
+			UINT16 ubRobotControllerID;
 
 			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 
@@ -3751,7 +3751,7 @@ UINT8 GetUnusedMercProfileID()
 	BOOLEAN fUnique = FALSE;
 	while( !fUnique )
 	{
-		ubRandom = (UINT8)PreRandom( 40 );
+		ubRandom = (UINT8)PreRandom(CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);
 		for( i = 0; i < 19; i++ )
 		{
 			fUnique = TRUE;
@@ -3769,7 +3769,7 @@ void CreateTempPlayerMerc()
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	static INT32		iSoldierCount=0;
-	UINT8							ubID;
+	UINT16 ubID;
 
 	//Init the merc create structure with basic information
 	MercCreateStruct.bTeam									= SOLDIER_CREATE_AUTO_TEAM;

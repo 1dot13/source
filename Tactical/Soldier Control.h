@@ -809,7 +809,7 @@ public:
 	INT32												sNoiseGridno;
 	UINT8												ubNoiseVolume;
 	INT8												bLastAttackHit;
-	UINT8												ubXRayedBy;
+	UINT16												ubXRayedBy;
 	FLOAT												dHeightAdjustment;
 	INT8												bMorale;
 	INT8												bTeamMoraleMod;
@@ -829,7 +829,7 @@ public:
 	INT8												bMoved;
 	INT8												bHunting;
 	UINT8												ubLastCall;
-	UINT8												ubCaller;
+	UINT16												ubCaller;
 	INT32												sCallerGridNo;
 	UINT8												bCallPriority;
 	INT8												bCallActedUpon;
@@ -1096,8 +1096,7 @@ public:
 	// properly until it is all fixed and the files updated.
 public:
 	// ID
-	UINT8												ubID;
-	UINT8												bReserved1;
+	UINT16												ubID;
 	CHAR16											name[ 10 ];
 
 	INT16	GetMaxDistanceVisible(INT32 sGridNo = -1, INT8 bLevel = -1, int calcAsType = -1);
@@ -1128,7 +1127,7 @@ public:
 	UINT8												ubWaitActionToDo;
 	INT8												ubInsertionDirection;
 	INT8												bGunType;
-	UINT8												ubOppNum;
+	UINT16												ubOppNum;
 	INT8												bLastRenderVisibleValue;
 	UINT8												ubAttackingHand;
 	INT16												sWeightCarriedAtTurnStart;
@@ -1185,8 +1184,8 @@ public:
 
 	UINT32											uiAIDelay;
 	INT16												sReloadDelay;
-	UINT8												ubAttackerID;
-	UINT8												ubPreviousAttackerID;
+	UINT16												ubAttackerID;
+	UINT16												ubPreviousAttackerID;
 
 	INT32												sInsertionGridNo;
 
@@ -1255,7 +1254,7 @@ public:
 	UINT16											*pCurrentShade;
 	UINT8												ubFadeLevel;
 	UINT8												ubServiceCount;
-	UINT8												ubServicePartner;
+	UINT16												ubServicePartner;
 	THROW_PARAMS								*pThrowParams;
 	INT8												bReverse;
 	LEVELNODE				*pLevelNode;
@@ -1391,7 +1390,7 @@ public:
 
 	UINT8												ubSoldierClass;									//admin, elite, troop (creature types?) Nav: 2 seems to mean elite, 3 troop so admin is 1
 	UINT8												ubAPsLostToSuppression;
-	UINT8												ubSuppressorID;
+	UINT16												ubSuppressorID;
 
 	//Squad merging vars
 	UINT8												ubDesiredSquadAssignment;
@@ -1410,7 +1409,7 @@ public:
 	INT8												bBlockedByAnotherMercDirection;
 	UINT16											usAttackingWeapon;
 	INT8												bWeaponMode;
-	UINT8												ubTargetID;
+	UINT16												ubTargetID;
 	INT8												bAIScheduleProgress;
 	INT32												sOffWorldGridNo;
 	struct TAG_anitile					*pAniTile;	
@@ -1431,8 +1430,8 @@ public:
 	INT8												bOldBattleSnd;
 	INT32												iBurstSoundID;
 	INT8												bSlotItemTakenFrom;
-	UINT8												ubAutoBandagingMedic;
-	UINT8												ubRobotRemoteHolderID;
+	UINT16												ubAutoBandagingMedic;
+	UINT16												ubRobotRemoteHolderID;
 	UINT32											uiTimeOfLastContractUpdate;
 	INT8												bTypeOfLastContract;
 	INT8												bTurnsCollapsed;
@@ -1457,7 +1456,7 @@ public:
 	INT8												bRegenBoostersUsedToday;				// Flugente: not used anymore!
 	INT8												bNumPelletsHitBy;
 	INT32												sSkillCheckGridNo;
-	UINT8												ubLastEnemyCycledID;
+	UINT16												ubLastEnemyCycledID;
 
 	UINT8												ubPrevSectorID;
 	UINT8												ubNumTilesMovesSinceLastForget;
@@ -1468,7 +1467,7 @@ public:
 
 	UINT8												ubNumLocateCycles;
 	UINT8												ubDelayedMovementFlags;
-	UINT8												ubCTGTTargetID;
+	UINT16												ubCTGTTargetID;
 
 	UINT32											uiMercChecksum;
 
@@ -1508,7 +1507,7 @@ public:
 	UINT8						ubLastDamageReason;
 	INT32												sLastTwoLocations[2];
 	INT32						uiTimeSinceLastBleedGrunt;
-	UINT8						ubNextToPreviousAttackerID;
+	UINT16						ubNextToPreviousAttackerID;
 	UINT8						bDoAutofire;
 	INT8 numFlanks;
 	INT32 lastFlankSpot;
@@ -1539,7 +1538,7 @@ public:
 	UINT8	ubMilitiaAssists;		// Flugente: stores militia assists
 	INT8	sNonNPCTraderID;		// Flugente: we can set up non-NPC soldiers to be merchants, we store their dealer id here (value > 0 means arms dealer entry x)
 	//INT8	bUnusedINT8_3;
-	UINT8	usDragPersonID;			// Flugente: id of person we are dragging
+	UINT16	usDragPersonID;			// Flugente: id of person we are dragging
 
 	//INT16	bUnusedINT16_4;
 	INT16	sDragCorpseID;			// Flugente: id of corpse we are dragging
@@ -1676,7 +1675,7 @@ public:
 	void EVENT_SetSoldierDirection( UINT16	usNewDirection );
 	void EVENT_SetSoldierDesiredDirection( UINT16	usNewDirection );
 	void EVENT_FireSoldierWeapon( INT32 sTargetGridNo );
-	void EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 ubDamage, INT16 sBreathLoss, UINT16 bDirection , UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGridNo );
+	void EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 ubDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGridNo );
 	void EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection );
@@ -1717,7 +1716,7 @@ public:
 	void ChangeSoldierStance( UINT8 ubDesiredStance );
 	void StopSoldier( void );
 	void ReviveSoldier( void );
-	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
+	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT16 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
 
 	// Palette functions for soldiers
@@ -1810,7 +1809,7 @@ public:
 
 	BOOLEAN CheckSoldierHitRoof( void );
 	BOOLEAN CheckForBreathCollapse( void );
-	BOOLEAN PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValidate );
+	BOOLEAN PlayerSoldierStartTalking( UINT16 ubTargetID, BOOLEAN fValidate );
 	BOOLEAN InternalIsValidStance( INT8 bDirection, INT8 bNewStance );
 	BOOLEAN IsValidSecondHandShot( void );
 	BOOLEAN IsValidSecondHandBurst( void );
@@ -1841,7 +1840,7 @@ public:
 	void	InventoryExplosion( void );
 
 	// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
-	BOOLEAN		IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
+	BOOLEAN		IsFeedingExternal(UINT16 * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT16 * pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
 
 	// Flugente: return first found object with a specific flag from our inventory
 	OBJECTTYPE* GetObjectWithFlag( UINT64 aFlag );
@@ -1861,10 +1860,10 @@ public:
 	BOOLEAN		EquipmentTooGood( BOOLEAN fCloselook );
 	
 	// does soldier ubObserverID recognize us as his enemy?
-	BOOLEAN		SeemsLegit( UINT8 ubObserverID );
+	BOOLEAN		SeemsLegit( UINT16 ubObserverID );
 
 	// do we recognize someone else as a combatant?
-	BOOLEAN		RecognizeAsCombatant(UINT8 ubTargetID);
+	BOOLEAN		RecognizeAsCombatant(UINT16 ubTargetID);
 
 	// loose covert property
 	void		LooseDisguise( void );	

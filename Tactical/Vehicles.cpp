@@ -53,7 +53,7 @@ VEHICLETYPE *pVehicleList = NULL;
 // number of vehicle slots on the list
 UINT8 ubNumberOfVehicles = 0;
 
-// the sqaud mvt groups
+// the squad mvt groups
 extern INT8 SquadMovementGroups[ ];
 
 
@@ -180,7 +180,7 @@ INT16 sVehicleInternalOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES ][ NUMBER_OF_
 
 
 // set the driver of the vehicle
-void SetDriver( INT32 iID, UINT8 ubID );
+void SetDriver( INT32 iID, UINT16 ubID );
 
 //void RemoveSoldierFromVehicleBetweenSectors( pSoldier, iId );
 
@@ -669,7 +669,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 			// anv: are we taking driver's seat
 			if( gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].VehicleSeats[ubFinalSeatIndex].fDriver )
 			{
-				SetDriver( iId , pSoldier->ubID );
+				SetDriver( iId, pSoldier->ubID );
 			}
 			else
 			{
@@ -1577,7 +1577,7 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 }
 
 
-void SetDriver( INT32 iID, UINT8 ubID )
+void SetDriver( INT32 iID, UINT16 ubID )
 {
 	// anv: first make sure previous driver won't be driver anymore
 	if( pVehicleList[ iID ].ubDriver != NOBODY && MercPtrs[ pVehicleList[ iID ].ubDriver ]->iVehicleId == iID )
@@ -1986,7 +1986,7 @@ void AddPassangersToTeamPanel( INT32 iId )
 }
 
 
-void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT8 ubAttackerID )
+void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT16 ubAttackerID )
 {
 	if ( ubReason != TAKE_DAMAGE_GAS_FIRE && ubReason != TAKE_DAMAGE_GAS_NOTFIRE )
 	{
@@ -2015,7 +2015,7 @@ void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo
 }
 
 
-void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT8 ubAttackerID )
+void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT16 ubAttackerID )
 {
 	// check state the armor was s'posed to be in vs. the current state..the difference / orig state is % chance
 	// that a critical hit will occur
@@ -2317,7 +2317,7 @@ BOOLEAN SaveVehicleInformationToSaveGameFile( HWFILE hFile )
 			//loop through the passengers
 			for( ubPassengerCnt=0; ubPassengerCnt<10; ubPassengerCnt++)
 			{
-		TempVehicle.pPassengers[ ubPassengerCnt ] = ( SOLDIERTYPE * )NO_PROFILE;
+				TempVehicle.pPassengers[ ubPassengerCnt ] = ( SOLDIERTYPE * )NO_PROFILE;
 
 				//if there is a passenger here
 				if( pVehicleList[cnt].pPassengers[ ubPassengerCnt ] )
@@ -2428,28 +2428,28 @@ BOOLEAN LoadVehicleInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGam
 				//loop through all the passengers
 				for(ubPassengerCnt=0; ubPassengerCnt<10; ubPassengerCnt++)
 				{
-			if ( uiSavedGameVersion < 86 )
-			{
-					if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != 0 )
+					if ( uiSavedGameVersion < 86 )
 					{
-						// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
-						// ! to a UINT8 so we can get the REAL pointer to the soldier.
-						pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
+						if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != 0 )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
 						}
-			}
-			else
-			{
-					if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != ( SOLDIERTYPE * )NO_PROFILE )
+					}
+					else
 					{
-						// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
-						// ! to a UINT8 so we can get the REAL pointer to the soldier.
-						pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
+						if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != ( SOLDIERTYPE * )NO_PROFILE )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
 						}
-			else
-			{
-				pVehicleList[cnt].pPassengers[ubPassengerCnt] = NULL;
-			}
-			}
+						else
+						{
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = NULL;
+						}
+					}
 				}
 
 

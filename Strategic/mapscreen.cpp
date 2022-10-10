@@ -502,7 +502,7 @@ BOOLEAN gfMapPanelWasRedrawn = FALSE;
 UINT8 gubMAP_HandInvDispText[ NUM_INV_SLOTS ];
 
 // currently selected character's list index
-INT8 bSelectedInfoChar = -1;
+INT16 bSelectedInfoChar = -1;
 
 // map sort button images
 INT32 giMapSortButtonImage[ MAX_SORT_METHODS ] = { -1, -1, -1, -1, -1, -1 };
@@ -926,7 +926,6 @@ INT32 GetIndexForthis( SOLDIERTYPE *pSoldier );
 
 void CheckForAndRenderNewMailOverlay();
 
-BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
 void CheckForInventoryModeCancellation();
 
 void ChangeMapScreenMaskCursor( UINT16 usCursor );
@@ -1905,16 +1904,14 @@ BOOLEAN InitializeInvPanelCoordsRobot()
 }
 
 // the tries to select a mapscreen character by his soldier ID
-BOOLEAN SetInfoChar( UINT8 ubID )
+BOOLEAN SetInfoChar( UINT16 ubID )
 {
-	INT8 bCounter;
-
-	for ( bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++)
+	for (INT16 bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++)
 	{
 		// skip invalid characters
 		if ( gCharactersList[ bCounter ].fValid == TRUE )
 		{
-			if ( gCharactersList[ bCounter ].usSolID == (UINT16)ubID )
+			if ( gCharactersList[ bCounter ].usSolID == ubID )
 			{
 				ChangeSelectedInfoChar( bCounter, TRUE );
 				return( TRUE );
@@ -3985,7 +3982,7 @@ void AddCharacter( SOLDIERTYPE *pCharacter )
 	}
 
 	// copy over soldier id value
-	gCharactersList[usCount].usSolID = ( UINT16 )pCharacter->ubID;
+	gCharactersList[usCount].usSolID = pCharacter->ubID;
 
 	// valid character
 	gCharactersList[usCount].fValid = TRUE;
@@ -5338,9 +5335,19 @@ UINT32 MapScreenHandle(void)
 		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 
 		// WANNE: The number of merc we can display in the list, depends on the resolution
-		if (iResolution >= _640x480 && iResolution < _800x600)
+		if (isWidescreenUI())
 		{
-			maxNumberOfMercVisibleInStrategyList = 22;
+			if (giMAXIMUM_NUMBER_OF_PLAYER_SLOTS <= 57)
+				maxNumberOfMercVisibleInStrategyList = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			else
+				maxNumberOfMercVisibleInStrategyList = 57;
+		}
+		else if (iResolution >= _1024x768)
+		{
+			if (giMAXIMUM_NUMBER_OF_PLAYER_SLOTS <= 51)
+				maxNumberOfMercVisibleInStrategyList = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			else
+				maxNumberOfMercVisibleInStrategyList = 51;
 		}
 		else if (iResolution < _1024x768)
 		{
@@ -5348,10 +5355,7 @@ UINT32 MapScreenHandle(void)
 		}
 		else
 		{
-			if (giMAXIMUM_NUMBER_OF_PLAYER_SLOTS <= 51)
-				maxNumberOfMercVisibleInStrategyList = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-			else
-				maxNumberOfMercVisibleInStrategyList = 51;
+			maxNumberOfMercVisibleInStrategyList = 22;
 		}
 
 		// create mouse regions
@@ -7629,9 +7633,9 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							{
 								if( gCharactersList[ giHighLine ].fValid == TRUE )
 								{
-									bSelectedAssignChar = ( INT8 )giHighLine;
+									bSelectedAssignChar = ( INT16 )giHighLine;
 									RebuildAssignmentsBox( );
-									ChangeSelectedInfoChar( ( INT8 ) giHighLine, FALSE );
+									ChangeSelectedInfoChar( ( INT16 ) giHighLine, FALSE );
 									fShowAssignmentMenu = TRUE;
 								}
 							}
@@ -7639,7 +7643,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							{
 								if( gCharactersList[ bSelectedInfoChar ].fValid == TRUE )
 								{
-									bSelectedAssignChar = ( INT8 )bSelectedInfoChar;
+									bSelectedAssignChar = bSelectedInfoChar;
 									RebuildAssignmentsBox( );
 									fShowAssignmentMenu = TRUE;
 								}
@@ -11482,7 +11486,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 				return;
 			}
 
-			bSelectedAssignChar = ( INT8 ) iValue + FIRSTmercTOdisplay;
+			bSelectedAssignChar = ( INT16 ) iValue + FIRSTmercTOdisplay;
 			RebuildAssignmentsBox( );
 
 			// reset dest character
@@ -11740,7 +11744,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 
 				// select this character as the one plotting strategic movement
-				SetSelectedDestChar( (INT8)iValue + FIRSTmercTOdisplay );
+				SetSelectedDestChar( (INT16)iValue + FIRSTmercTOdisplay );
 
 				// remember the current paths for all selected characters so we can restore them if need be
 				RememberPreviousPathForAllSelectedChars();
@@ -12793,7 +12797,7 @@ void ReBuildCharactersList( void )
 
 void HandleChangeOfInfoChar( void )
 {
-	static INT8 bOldInfoChar = -1;
+	static INT16 bOldInfoChar = -1;
 
 	if( bSelectedInfoChar != bOldInfoChar )
 	{
@@ -12849,7 +12853,7 @@ void TestMessageSystem( void )
 void EnableDisableTeamListRegionsAndHelpText( void )
 {
 	// check if valid character here, if so, then do nothing..other wise set help text timer to a gazillion
-	INT8 bCharNum;
+	INT16 bCharNum;
 
 
 	for( bCharNum = 0; bCharNum < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCharNum++ )
@@ -13004,10 +13008,10 @@ void UpdatePausedStatesDueToTimeCompression( void )
 BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
 {
 	// continue this grunts dialogue, restore when done
-	static INT8 bOldSelectedInfoChar = -1;
+	static INT16 bOldSelectedInfoChar = -1;
 	static BOOLEAN fTalkingingGuy = FALSE;
 
-	INT8 bCounter = 0;
+	UINT16 bCounter = 0;
 
 
 
@@ -13665,9 +13669,9 @@ void UpdateStatusOfMapSortButtons( void )
 
 
 
-INT8 GetLastValidCharacterInTeamPanelList( void )
+INT16 GetLastValidCharacterInTeamPanelList( void )
 {
-	INT8 iCounter = 0, iValue = 0;
+	INT16 iCounter = 0, iValue = 0;
 
 	// run through the list and find the last valid guy in the list
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
@@ -14543,7 +14547,7 @@ void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse 
 	INT32 iCounter = 0, iCounterA = 0;
 	INT16 sEndSectorA, sEndSectorB;
 	INT32 iExpiryTime, iExpiryTimeA;
-	UINT8 uiID, uiIDA;
+	UINT16 uiID, uiIDA;
 	SOLDIERTYPE *pSelectedSoldier[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 	SOLDIERTYPE *pCurrentSoldier = NULL;
 	SOLDIERTYPE *pPreviousSelectedInfoChar = NULL;
@@ -15093,7 +15097,7 @@ BOOLEAN CanToggleSelectedCharInventory( void )
 
 
 
-BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
+BOOLEAN MapCharacterHasAccessibleInventory( INT16 bCharNumber )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -15606,7 +15610,7 @@ INT32 GetContractExpiryTime( SOLDIERTYPE *pSoldier )
 
 
 
-void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList )
+void ChangeSelectedInfoChar( INT16 bCharNumber, BOOLEAN fResetSelectedList )
 {
 	Assert( ( bCharNumber >= -1 ) && ( bCharNumber < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -16177,10 +16181,10 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iCounter;
 // WDS - make number of mercenaries, etc. be configurable
-	UINT8	ubSelectedMercID[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT8	ubSelectedMercIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubSelectedMercID[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16	ubSelectedMercIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 
 
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
@@ -16193,7 +16197,7 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 						!AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) && !pSoldier->flags.fMercAsleep )
 			{
 				ubSelectedMercID[ ubNumMercs ] = pSoldier->ubID;
-				ubSelectedMercIndex[ ubNumMercs ] = (UINT8)iCounter;
+				ubSelectedMercIndex[ ubNumMercs ] = (UINT16)iCounter;
 
 				ubNumMercs++;
 			}
@@ -16202,7 +16206,7 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		// select that merc so that when he speaks we're showing his portrait and not someone else
 		ChangeSelectedInfoChar( ubSelectedMercIndex[ ubChosenMerc ], FALSE );

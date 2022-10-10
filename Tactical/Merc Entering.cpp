@@ -359,7 +359,7 @@ UINT8			ubHeliScripts[ NUM_HELI_STATES ][ MAX_HELI_SCRIPT ] =
 
 
 BOOLEAN		gfHandleHeli = FALSE;
-UINT8			gusHeliSeats[ MAX_MERC_IN_HELI ];
+UINT16			gusHeliSeats[ MAX_MERC_IN_HELI ];
 INT8			gbNumHeliSeatsOccupied = 0;
 
 BOOLEAN		gfFirstGuyDown = FALSE;
@@ -396,7 +396,7 @@ void ResetHeliSeats( )
 	gbNumHeliSeatsOccupied = 0;
 }
 
-void AddMercToHeli( UINT8 ubID )
+void AddMercToHeli( UINT16 ubID )
 {
 	if ( gbNumHeliSeatsOccupied < MAX_MERC_IN_HELI )
 	{
@@ -1028,7 +1028,7 @@ void HandleFirstHeliDropOfGame( )
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
 }
 
-UINT8 SpawnAirDropElite( INT32 sGridNo )
+UINT16 SpawnAirDropElite( INT32 sGridNo )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -1079,7 +1079,7 @@ void InitiateEnemyAirDropSoldiers( INT32 sGridNo )
 
 	for ( int i = 0; i < 6; ++i )
 	{
-		UINT8 id = SpawnAirDropElite( gMapInformation.sSouthGridNo + i );
+		UINT16 id = SpawnAirDropElite( gMapInformation.sSouthGridNo + i );
 
 		if ( id == NOBODY )
 			return;

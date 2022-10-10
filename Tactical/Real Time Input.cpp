@@ -1545,7 +1545,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 				{
 					if( gfUIFullTargetFound )
 					{
-						if ( IsValidTalkableNPC( (UINT8)gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && MercPtrs[ gusUIFullTargetID ]->bTeam != ENEMY_TEAM && !ValidQuickExchangePosition( ) )
+						if ( IsValidTalkableNPC( gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && MercPtrs[ gusUIFullTargetID ]->bTeam != ENEMY_TEAM && !ValidQuickExchangePosition( ) )
 						{
 							uiMoveTargetSoldierId = gusUIFullTargetID;
 							*puiNewEvent = T_CHANGE_TO_TALKING;
@@ -1588,7 +1588,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 			if ( gfUIFullTargetFound	)
 				//if ( gfUIFullTargetFound )
 			{
-				if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) )
+				if ( IsValidTargetMerc( gusUIFullTargetID ) )
 				{
 					guiUITargetSoldierId = gusUIFullTargetID;
 
@@ -2077,7 +2077,7 @@ void HandleAltMouseRTX2Button(UINT32 *puiNewEvent)
 // sevenfm: original mouse commands functionality
 void HandleMouseRTWheel( void )
 {
-	UINT8		bID;
+	UINT16		bID;
 								// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 								if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
 									( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
@@ -2205,7 +2205,7 @@ void HandleMouseRTX2Button( UINT32 *puiNewEvent )
 			// For each guy on squad...
 			{
 				SOLDIERTYPE				*pTeamSoldier;
-				INT8					bLoop;
+				INT16					bLoop;
 				BOOLEAN					fStealthOn = FALSE;
 
 				// Check if at least one guy is on stealth....

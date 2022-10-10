@@ -187,7 +187,7 @@ BOOLEAN InternalInitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pS
 extern void EndGameMessageBoxCallBack( UINT8 ubExitValue );
 extern INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo );
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
-extern UINT8 NumCapableEnemyInSector( );
+extern UINT16 NumCapableEnemyInSector( );
 
 #ifdef JA2UB
 //JA25 UB
@@ -1042,7 +1042,7 @@ void TalkPanelClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					// open inv panel...
 					gfSwitchPanel = TRUE;
 					gbNewPanel = SM_PANEL;
-					gubNewPanelParam = (UINT8)gpSrcSoldier->ubID;
+					gubNewPanelParam = gpSrcSoldier->ubID;
 
 					// Wait!
 					gpDestSoldier->aiData.bNextAction = AI_ACTION_WAIT;
@@ -1560,7 +1560,7 @@ void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShow
 		guiWaitingForTriggerTime		= GetJA2Clock( );
 
 		// Setup locator!
-		ShowRadioLocator( (UINT8)pSoldier->ubID, SHOW_LOCATOR_FAST );
+		ShowRadioLocator( pSoldier->ubID, SHOW_LOCATOR_FAST );
 
 		// If he's visible, locate...
 		if ( pSoldier->bVisible != -1 )
@@ -1589,7 +1589,7 @@ void HandleNPCTrigger( )
 {
 	SOLDIERTYPE *pSoldier;
 	INT32				sPlayerGridNo;
-	UINT8				ubPlayerID;
+	UINT16				ubPlayerID;
 
 	pSoldier = FindSoldierByProfileID( gubTargetNPC, FALSE );
 	if (!pSoldier)
@@ -2481,7 +2481,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if (pSoldier)
 				{
 					DeleteTalkingMenu();
-					pSoldier->EVENT_SoldierGotHit( 1, 100, 10, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
+					pSoldier->EVENT_SoldierGotHit( 1, 100, 10, pSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
 				}
 				break;
 
@@ -2826,7 +2826,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					bItemIn = FindObj( pSoldier, DEED );
 					if (bItemIn != NO_SLOT)
 					{
-						AddItemToPool( 12541, &(pSoldier->inv[bItemIn]), -1 , 0, 0, 0 );
+						AddItemToPool( 12541, &(pSoldier->inv[bItemIn]), -1, 0, 0, 0 );
 						DeleteObj( &(pSoldier->inv[ bItemIn ]) );
 						RemoveObjectFromSoldierProfile( ubTargetNPC, DEED );
 					}
@@ -3225,7 +3225,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( pSoldier )
 				{
 					INT32		sNearestPC;
-					UINT8		ubID;
+					UINT16		ubID;
 					INT8		bMoneySlot;
 					INT8		bEmptySlot;
 
@@ -3358,7 +3358,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT8 ubTargetID;
+					UINT16 ubTargetID;
 					SOLDIERTYPE *pTarget;
 
 					// Target a different merc....
@@ -3478,7 +3478,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT8 ubTargetID;
+					UINT16 ubTargetID;
 					SOLDIERTYPE *pTarget;
 					INT32				cnt;
 					BOOLEAN			fGoodTarget = FALSE;
@@ -3901,7 +3901,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( !gfInTalkPanel )
 				{
 					INT32		sNearestPC;
-					UINT8		ubID;
+					UINT16		ubID;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 					if ( pSoldier )
@@ -4850,7 +4850,7 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				// He tried to lie.....
 				// Find the best conscious merc with a chance....
-				UINT8							cnt;
+				UINT16							cnt;
 				SOLDIERTYPE *			pLier = NULL;
 				SOLDIERTYPE *			pSoldier;
 

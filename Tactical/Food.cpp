@@ -105,7 +105,7 @@ BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	if ( UsingFoodSystem() )
 	{
 		// static variables to remember the last food someone was forced to eat
-		static UINT8 lasteater = 0;
+		static UINT16 lasteater = 0;
 		static UINT16 lastitem = 0;
 
 		UINT32 foodtype = Item[pObj->usItem].foodtype;
@@ -765,8 +765,8 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 
 void HourlyFoodUpdate( void )
 {
-	INT8									bMercID, bLastTeamID;
-	SOLDIERTYPE *							pSoldier = NULL;
+	UINT16 bMercID, bLastTeamID;
+	SOLDIERTYPE * pSoldier = NULL;
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
@@ -831,8 +831,8 @@ void SectorFillCanteens( void )
 			addtemperature = FOOD_WATER_POISONOUS_TEMPERATURE;
 
 		// first step: fill all canteens in inventories
-		INT8									bMercID, bLastTeamID;
-		SOLDIERTYPE *							pSoldier = NULL;
+		UINT16 bMercID, bLastTeamID;
+		SOLDIERTYPE * pSoldier = NULL;
 
 		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
@@ -905,8 +905,8 @@ void SectorFillCanteens( void )
 		INT32 drumsize = Food[Item[pWaterDrum->usItem].foodtype].bDrinkPoints;
 
 		// first step: fill all canteens in inventories
-		INT8									bMercID, bLastTeamID;
-		SOLDIERTYPE *							pSoldier = NULL;
+		UINT16 bMercID, bLastTeamID;
+		SOLDIERTYPE * pSoldier = NULL;
 
 		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;

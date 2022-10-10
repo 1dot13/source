@@ -186,7 +186,7 @@ BOOLEAN CheckNPCWithin( UINT8 ubFirstNPC, UINT8 ubSecondNPC, UINT8 ubMaxDistance
 	return( PythSpacesAway( pFirstNPC->sGridNo, pSecondNPC->sGridNo ) <= ubMaxDistance );
 }
 
-BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy )
+BOOLEAN CheckGuyVisible( UINT16 ubNPC, UINT16 ubGuy )
 {
 	// NB ONLY WORKS IF ON DIFFERENT TEAMS
 	SOLDIERTYPE * pNPC, * pGuy;
@@ -304,12 +304,12 @@ UINT32 NumWoundedMercsNearby( UINT8 ubProfileID )
 	return( bNumber );
 }
 
-INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist )
+UINT16 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pNPC;
-	SOLDIERTYPE *		pSoldier;
+	UINT16 bNumber = 0;
+	UINT32 uiLoop;
+	SOLDIERTYPE *pNPC;
+	SOLDIERTYPE *pSoldier;
 	INT32 sGridNo;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
@@ -399,7 +399,7 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	//DBrot: More Rooms
 	//UINT8						ubRoom;
 	UINT16 usRoom;
-	INT8		bLoop;
+	UINT16		bLoop;
 	SOLDIERTYPE * pSoldier;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
@@ -541,8 +541,8 @@ BOOLEAN FemalePresent( UINT8 ubProfileID )
 
 BOOLEAN CheckPlayerHasHead( void )
 {
-	INT8						bLoop;
-	SOLDIERTYPE *		pSoldier;
+	UINT16 bLoop;
+	SOLDIERTYPE * pSoldier;
 
 	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
 	{
@@ -1725,7 +1725,7 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 {
 	ScreenMsg( FONT_MCOLOR_LTBLUE, MSG_TESTVERSION, L"QUEST COMPLETED - Adding to merc records and awarding experiences (%d).", (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests) );
 
-	for ( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+	for ( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
 	{
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife >= CONSCIOUSNESS && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
 			MercPtrs[ i ]->sSectorX == sQuestSectorX && MercPtrs[ i ]->sSectorY == sQuestsSectorY && !MercPtrs[ i ]->flags.fBetweenSectors && MercPtrs[ i ]->bTeam == gbPlayerNum &&

@@ -2566,7 +2566,8 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc )
 {
 	INT32						sMyGridNo, sDist, sDesiredMercDist = 100;
-	UINT8						ubNPC, ubMerc, ubDesiredMerc = NOBODY;
+	UINT8						ubNPC;
+	UINT16 ubMerc, ubDesiredMerc = NOBODY;
 	UINT8						ubTalkDesire, ubHighestTalkDesire = 0;
 	SOLDIERTYPE *		pMerc;
 	SOLDIERTYPE *		pDesiredMerc = NULL;
@@ -2913,9 +2914,9 @@ BOOLEAN PCDoesFirstAidOnNPC( UINT8 ubNPC )
 void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 {
 	// Loop through all mercs, gather closest mercs who can see and trigger one!
-	UINT8	ubMercsInSector[ 40 ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubMercsInSector[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = { 0 }; //std::vector would probably be better here
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
 	INT32 cnt;
 
@@ -2933,7 +2934,7 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && pTeamSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 		{
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			ubNumMercs++;
 		}
 	}
@@ -2941,7 +2942,7 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		// Post action to close panel
 		NPCClosePanel( );
@@ -3649,12 +3650,12 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersi
 
 void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 {
-	UINT8						ubMercsAvailable[ 40 ] = { 0 };
-	UINT8						ubNumMercsAvailable = 0, ubChosenMerc;
-	SOLDIERTYPE *		pTeamSoldier;
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-	INT8						bTeam;
+	UINT16 ubMercsAvailable[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = { 0 };
+	UINT16 ubNumMercsAvailable = 0, ubChosenMerc;
+	SOLDIERTYPE * pTeamSoldier;
+	SOLDIERTYPE * pSoldier;
+	INT32 cnt;
+	INT8 bTeam;
 
 	// First get pointer to NPC
 	pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
@@ -3697,7 +3698,7 @@ void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 	if (ubNumMercsAvailable > 0)
 	{
 		PauseAITemporarily();
-		ubChosenMerc = (UINT8) Random( ubNumMercsAvailable );
+		ubChosenMerc = (UINT16) Random( ubNumMercsAvailable );
 		TriggerNPCWithIHateYouQuote( ubMercsAvailable[ ubChosenMerc ] );
 	}
 	else

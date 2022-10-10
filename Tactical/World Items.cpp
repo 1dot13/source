@@ -609,7 +609,7 @@ void ResizeWorldItems(void)//dnl ch75 271013
 #endif
 }
 
-INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT16 soldierID )
 {
 	UINT32	iItemIndex;
 	INT32		iReturn;

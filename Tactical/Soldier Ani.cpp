@@ -107,10 +107,10 @@ BOOLEAN HandleUnjamAnimation( SOLDIERTYPE *pSoldier );
 
 extern void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
 extern void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
-extern UINT8 NumCapableEnemyInSector( );
+extern UINT16 NumCapableEnemyInSector( );
 extern BOOLEAN gfKillingGuysForLosingBattle;
 
-extern UINT8 gubInterruptProvoker;
+extern UINT16 gubInterruptProvoker;
 
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
@@ -1167,7 +1167,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
 						{
-							send_grenade( pSoldier->pTempObject , pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->sTargetGridNo, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, iRealObjectID , true);
+							send_grenade( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->sTargetGridNo, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, iRealObjectID, true);
 						}
 					}
 
@@ -1789,7 +1789,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						pSoldier->uiTimeOfLastRandomAction = 0;
 
 						// Don't play these generally if this is the guy selected by player, as this one is "awaiting orders"
-						if (pSoldier->ubID != (UINT8)gusSelectedSoldier || Random( 10 ) == 0 ) 
+						if (pSoldier->ubID != gusSelectedSoldier || Random( 10 ) == 0 ) 
 						{
 							// Don't do any in water!
 							// Also don't play if we are in the middle of something
@@ -3130,7 +3130,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				// Reload robot....
 				{
-					UINT8				ubPerson;
+					UINT16 ubPerson;
 					SOLDIERTYPE	*pRobot;
 
 					// Get pointer...
@@ -3307,7 +3307,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				// REFUELING A VEHICLE
 				// THE GAS_CAN IS IN THE MERCS MAIN HAND AT THIS TIME
 				{
-					UINT8				ubPerson;
+					UINT16 ubPerson;
 					SOLDIERTYPE *pVehicle;
 
 					// Get pointer to vehicle...
@@ -3559,13 +3559,13 @@ BOOLEAN ShouldMercSayHappyWithGunQuote( SOLDIERTYPE *pSoldier )
 void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 //	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	std::vector<INT8>	bBuddyIndex (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
 //	INT8	bBuddyIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { -1 };
 	INT8	bTempBuddyIndex;
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 	UINT16	usQuoteNum;
@@ -3651,7 +3651,7 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 				}
 
 				// OK, a good candidate...
-				ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+				ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 				bBuddyIndex[ ubNumMercs ]	 = bTempBuddyIndex;
 				++ubNumMercs;
 			}
@@ -3661,7 +3661,7 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		switch( bBuddyIndex[ ubChosenMerc ] )
 		{
@@ -3751,10 +3751,9 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	BOOLEAN fDoSomeoneElse = FALSE;
 
 	gfLastMercTalkedAboutKillingID = pKilledSoldier->ubID;
@@ -3822,7 +3821,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 							// Can we see location?
 							if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 							{
-								ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+								ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 								ubNumMercs++;
 							}
 						}
@@ -3832,7 +3831,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 				// Did we find anybody?
 				if ( ubNumMercs > 0 )
 				{
-					ubChosenMerc = (UINT8)Random( ubNumMercs );
+					ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 					// We have a random chance of not saying our we killed a guy quote
 					if ( Random( 100 ) < 50 )
@@ -4000,8 +3999,8 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		{
 			//////////////////////////////////////////////////////////////
 			// SANDRO - some changes here
-			UINT8   ubAttacker = pSoldier->ubAttackerID; 
-			UINT8	ubAssister = pSoldier->ubPreviousAttackerID;
+			UINT16   ubAttacker = pSoldier->ubAttackerID; 
+			UINT16	ubAssister = pSoldier->ubPreviousAttackerID;
 			// If attacker is nobody, and we died, then set the last attacker(if exists) as our killer 
 			if ( ubAttacker == NOBODY )
 			{

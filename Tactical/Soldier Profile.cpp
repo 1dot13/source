@@ -1502,7 +1502,7 @@ INT16 CalcMedicalDeposit( MERCPROFILESTRUCT * pProfile )
 
 SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly )
 {
-	UINT8 ubLoop, ubLoopLimit;
+	UINT16 ubLoop, ubLoopLimit;
 	SOLDIERTYPE * pSoldier;
 
 	// sevenfm: fix for last soldier in player team
@@ -1531,13 +1531,13 @@ SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnl
 
 SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 {
-	UINT8										ubID;
+	UINT16										ubID;
 	SOLDIERTYPE							*pNewSoldier = NULL;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	UINT32									cnt;
 	INT32										sOldGridNo;
 
-	UINT8										ubOldID;
+	UINT16										ubOldID;
 	UINT32									uiOldUniqueId;
 
 	UINT32									uiSlot;

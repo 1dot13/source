@@ -394,7 +394,7 @@ INT32		giSMZipperButton			= -1;
 
 BOOLEAN		gfSwitchPanel		= FALSE;
 UINT8		gbNewPanel			= SM_PANEL;
-UINT8		gubNewPanelParam	= 0;
+UINT16		gubNewPanelParam	= 0;
 
 BOOLEAN		gfUIStanceDifferent						= FALSE;
 BOOLEAN		gfAllDisabled							= FALSE;
@@ -405,7 +405,7 @@ BOOLEAN		gfAddingMoneyToMercFromPlayersAccount	= FALSE;
 BOOLEAN		gfCheckForMouseOverItem				= FALSE;
 UINT32		guiMouseOverItemTime				= 0;
 INT8		gbCheckForMouseOverItemPos			= 0;
-UINT8		gubSelectSMPanelToMerc				= NOBODY;
+UINT16		gubSelectSMPanelToMerc				= NOBODY;
 BOOLEAN		gfReEvaluateDisabledINVPanelButtons = FALSE;
 
 UINT32		guiBrownBackgroundForTeamPanel;
@@ -573,7 +573,7 @@ void UpdateSelectedSoldier( UINT16 usSoldierID, BOOLEAN fSelect );
 
 void CheckForFacePanelStartAnims( SOLDIERTYPE *pSoldier, INT16 sPanelX, INT16 sPanelY );
 void HandleSoldierFaceFlash( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY );
-BOOLEAN PlayerExistsInSlot( UINT8 ubID );
+BOOLEAN PlayerExistsInSlot( UINT16 ubID );
 void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease, BOOLEAN fDamaged, BOOLEAN fAugmented ); // SANDRO - added argument // Flugente - me too
 
 extern void UpdateItemHatches();
@@ -597,7 +597,7 @@ void CheckForDisabledForGiveItem( )
 	INT8			bDestLevel;
 	INT32			cnt;
 	SOLDIERTYPE		*pSoldier;
-	UINT8			ubSrcSoldier;
+	UINT16			ubSrcSoldier;
 
 	// CHRISL: If Merc hasn't been set, default to first merc
 	if(gpSMCurrentMerc==NULL)
@@ -638,7 +638,7 @@ void CheckForDisabledForGiveItem( )
 	}
 	else
 	{
-		ubSrcSoldier = (UINT8)gusSelectedSoldier;
+		ubSrcSoldier = gusSelectedSoldier;
 
 		if ( gpItemPointer != NULL )
 		{
@@ -690,7 +690,7 @@ void CheckForDisabledForGiveItem( )
 	}
 }
 
-void SetSMPanelCurrentMerc( UINT8 ubNewID )
+void SetSMPanelCurrentMerc( UINT16 ubNewID )
 {
 	gubSelectSMPanelToMerc = NOBODY;
 
@@ -3729,7 +3729,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else	// item in cursor
 		{
-			UINT8			ubSrcID, ubDestID;
+			UINT16			ubSrcID, ubDestID;
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 
@@ -4217,7 +4217,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 			}
 		}
 		MoveItemToLBEItem( pSoldier, BPACKPOCKPOS );
-		AddItemToPoolAndGetIndex(pSoldier->sGridNo, &pSoldier->inv[BPACKPOCKPOS], 1, pSoldier->pathing.bLevel, 0 , -1, pSoldier->ubID, &worldKey );
+		AddItemToPoolAndGetIndex(pSoldier->sGridNo, &pSoldier->inv[BPACKPOCKPOS], 1, pSoldier->pathing.bLevel, 0, -1, pSoldier->ubID, &worldKey );
 		// Item successfully added to world
 		if(worldKey != ITEM_NOT_FOUND)
 		{
@@ -4829,7 +4829,7 @@ void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason)
 
 		sID = FindPrevActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
 
-		gubSelectSMPanelToMerc = (UINT8)sID;
+		gubSelectSMPanelToMerc = (UINT16)sID;
 
 		if ( !gfInItemPickupMenu )
 		{
@@ -4878,7 +4878,7 @@ void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason)
 		sID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
 
 		// Give him the panel!
-		gubSelectSMPanelToMerc = (UINT8)sID;
+		gubSelectSMPanelToMerc = (UINT16)sID;
 
 		if ( !gfInItemPickupMenu )
 		{
@@ -5893,7 +5893,7 @@ void BtnSquadCallback(GUI_BUTTON *btn,INT32 reason)
 
 }
 
-void SetTEAMPanelCurrentMerc( UINT8 ubNewID )
+void SetTEAMPanelCurrentMerc( UINT16 ubNewID )
 {
 	// Ignore ther ID given!
 	// ALWYAS USE CURRENT MERC!
@@ -6026,10 +6026,10 @@ void HandleMouseOverTeamFaceForContMove( BOOLEAN fOn )
 
 void MercFacePanelMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8 ubID, ubSoldierID;
+	UINT16 ubID, ubSoldierID;
 	SOLDIERTYPE	*pSoldier;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 	// If our flags are set to do this, gofoit!
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
@@ -6072,9 +6072,9 @@ void MercFacePanelMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8 ubID, ubSoldierID;
+	UINT16 ubID, ubSoldierID;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 	if ( ubID == NOBODY )
 	{
@@ -6127,9 +6127,9 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8 ubID, ubSoldierID;
+	UINT16 ubID, ubSoldierID;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 	// If our flags are set to do this, gofoit!
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
@@ -6248,7 +6248,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				gfSwitchPanel = TRUE;
 				gbNewPanel = SM_PANEL;
-				gubNewPanelParam = (UINT8)ubSoldierID;
+				gubNewPanelParam = ubSoldierID;
 				// silversurfer: This needs to be reset to TRUE because inventory view only allows radar screen to be displayed and not the squad list.
 				fRenderRadarScreen = TRUE;
 			}
@@ -6259,7 +6259,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 extern void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
 
-void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag	)
+void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 {
 	BOOLEAN fSelect = FALSE;
 
@@ -6386,7 +6386,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag	)
 
 
 
-void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed )
+void ShowRadioLocator( UINT16 ubID, UINT8 ubLocatorSpeed )
 {
 	RESETTIMECOUNTER( MercPtrs[ ubID ]->timeCounters.FlashSelCounter, FLASH_SELECTOR_DELAY );
 
@@ -6413,7 +6413,7 @@ void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed )
 	}
 }
 
-void EndRadioLocator( UINT8 ubID )
+void EndRadioLocator( UINT16 ubID )
 {
 	MercPtrs[ ubID ]->flags.fFlashLocator = FALSE;
 	MercPtrs[ ubID ]->flags.fShowLocator = FALSE;
@@ -6681,9 +6681,9 @@ void RenderSoldierTeamInv( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, UINT8 ubPa
 
 void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8 ubID, ubSoldierID;
+	UINT16 ubID, ubSoldierID;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 	// If our flags are set to do this, gofoit!
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
@@ -6731,10 +6731,10 @@ void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8		ubID, ubSoldierID;
+	UINT16		ubID, ubSoldierID;
 	UINT16	usOldHandItem;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 
 	if ( ubID == NOBODY )
@@ -6777,10 +6777,10 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8 ubID, ubSoldierID;
+	UINT16 ubID, ubSoldierID;
 	UINT16	usOldHandItem;
 
-	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
 	if ( ubID == NOBODY )
 		return;
@@ -6822,7 +6822,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 
-BOOLEAN PlayerExistsInSlot( UINT8 ubID )
+BOOLEAN PlayerExistsInSlot( UINT16 ubID )
 {
 	INT32 cnt;
 
@@ -6841,7 +6841,7 @@ BOOLEAN PlayerExistsInSlot( UINT8 ubID )
 }
 
 
-INT8 GetTeamSlotFromPlayerID( UINT8 ubID )
+INT8 GetTeamSlotFromPlayerID( UINT16 ubID )
 {
 	INT8 cnt;
 
@@ -6860,7 +6860,7 @@ INT8 GetTeamSlotFromPlayerID( UINT8 ubID )
 }
 
 
-BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID )
+BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT16 ubMercID )
 {
 	INT32 cnt;
 
@@ -6880,7 +6880,7 @@ BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID )
 }
 
 
-void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
+void AddPlayerToInterfaceTeamSlot( UINT16 ubID )
 {
 	INT32	cnt;
 
@@ -6964,7 +6964,7 @@ BOOLEAN InitTEAMSlots( )
 }
 
 
-BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT8 *pubID )
+BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT16 * pubID )
 {
 	if ( ubPanelSlot >= gGameOptions.ubSquadSize )
 	{
@@ -7141,7 +7141,7 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 	}
 }
 
-UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
+UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
 	INT32 cnt;
 	INT32 bFirstID;
@@ -7174,14 +7174,14 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 			{
 				if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY	&& OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					return( (UINT8)gTeamPanel[ cnt ].ubID );
+					return( gTeamPanel[ cnt ].ubID );
 				}
 			}
 			else
 			{
 				if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					return( (UINT8)gTeamPanel[ cnt ].ubID );
+					return( gTeamPanel[ cnt ].ubID );
 				}
 			}
 		}
@@ -7234,14 +7234,14 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 			{
 				if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY	&& OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					return( (UINT8)gTeamPanel[ cnt ].ubID );
+					return( gTeamPanel[ cnt ].ubID );
 				}
 			}
 			else
 			{
 				if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					return( (UINT8)gTeamPanel[ cnt ].ubID );
+					return( gTeamPanel[ cnt ].ubID );
 				}
 			}
 		}
@@ -7462,7 +7462,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else
 		{
-			UINT8			ubSrcID, ubDestID;
+			UINT16			ubSrcID, ubDestID;
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 
@@ -7473,7 +7473,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			}
 
 			// ATE: OK, get source, dest guy if different... check for and then charge appropriate APs
-			ubSrcID	= ( UINT8 )gCharactersList[ bSelectedInfoChar ].usSolID;
+			ubSrcID	= gCharactersList[ bSelectedInfoChar ].usSolID;
 			if ( gpItemPointerSoldier )
 			{
 				ubDestID = gpItemPointerSoldier->ubID;

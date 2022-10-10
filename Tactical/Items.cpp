@@ -9397,7 +9397,7 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT16 ubOwner )
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
@@ -15411,10 +15411,10 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
 	if ( !pSoldier || !pObject)
 		return( FALSE );
 		
-	UINT8  usSoldierFeedingTarget1 = 0;
+	UINT16  usSoldierFeedingTarget1 = 0;
 	UINT16 usGunSlot1 = 0;
 	UINT16 usAmmoSlot1 = 0;
-	UINT8  usSoldierFeedingTarget2 = 0;
+	UINT16  usSoldierFeedingTarget2 = 0;
 	UINT16 usGunSlot2 = 0;
 	UINT16 usAmmoSlot2 = 0;
 	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
@@ -15469,10 +15469,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 				continue;
 
 			// we check if that guy is feeding someone, and that someone is really us
-			UINT8  usTeamSoldierFeedingTarget1 = 0;
+			UINT16  usTeamSoldierFeedingTarget1 = 0;
 			UINT16 usGunSlot1 = 0;
 			UINT16 usAmmoSlot1 = 0;
-			UINT8  usTeamSoldierFeedingTarget2 = 0;
+			UINT16  usTeamSoldierFeedingTarget2 = 0;
 			UINT16 usGunSlot2 = 0;
 			UINT16 usAmmoSlot2 = 0;
 			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )

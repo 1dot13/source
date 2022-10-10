@@ -1105,7 +1105,7 @@ void SetfDynamicOpinionSpeechInProgress( BOOLEAN aVal )
 }
 
 
-void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue )
+void AddOpinionEvent( UINT16 usProfileA, UINT16 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue )
 {
 	if ( usProfileA == NO_PROFILE || usProfileB == NO_PROFILE )
 		return;
@@ -1669,10 +1669,9 @@ void RolloverDynamicOpinions( UINT8 usProfileA )
 // check wether other people are friends with someone else we hate. All persons must be in Arulco
 void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 {
-	INT8									bMercID, bOtherID, bThirdID;
+	UINT16									bMercID, bOtherID, bThirdID, bLastTeamID;
 	INT8									bOpinion = -1;
 	INT8									bSecondOpinion = -1;
-	INT8									bLastTeamID;
 	SOLDIERTYPE*							pOtherSoldier;
 	SOLDIERTYPE*							pThirdSoldier;
 

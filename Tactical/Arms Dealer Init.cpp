@@ -1818,7 +1818,7 @@ void RemoveRandomItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemI
 }
 
 
-BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT8 aMercID )
+BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT16 aMercID )
 {
 	//Get Dealer ID from from merc Id
 	INT8 bArmsDealer = GetArmsDealerIDFromMercID( usProfileID );

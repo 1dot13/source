@@ -837,7 +837,7 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 {
 	UINT32				uiLoop;
 	UINT16				usMaxDist;
-	UINT8					ubFriendCount, ubFriendIDs[MAXMERCS], ubFriendID;
+	UINT16					ubFriendCount, ubFriendIDs[MAXMERCS], ubFriendID;
 	UINT8				ubDirection;
 	UINT8					ubDirsLeft;
 	BOOLEAN				fDirChecked[8];
@@ -1385,7 +1385,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 }
 
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT8 *pubOpponentID)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT16 * pubOpponentID)
 {
 	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
@@ -1710,7 +1710,7 @@ INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 
 	// NOTE: skips EPCs!
 
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
 	INT32					sMinDist = WORLD_MAX;
 	INT32					sDist;
@@ -1769,7 +1769,7 @@ INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 	// used by NPCs... find the closest PC
 	// NOTE: skips EPCs!
 
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
 	INT32					sMinDist = WORLD_MAX;
 	INT32					sDist;
@@ -2028,7 +2028,7 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 BOOLEAN GuySawEnemy( SOLDIERTYPE * pSoldier, UINT8 ubMax )
 {
 	UINT8		ubTeamLoop;
-	UINT8		ubIDLoop;
+	UINT16		ubIDLoop;
 	SOLDIERTYPE *pOpponent;
 
 	for ( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ++ubTeamLoop )
@@ -2181,7 +2181,7 @@ INT32 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 {
 	// find the distance to the closest person on the same team
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
 	INT16					sMinDist = 1000;
 	INT16					sDist;
@@ -3452,9 +3452,9 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 }
 
 // Flugente: get the id of the closest soldier with a specific flag that we can currently see
-UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight )
+UINT16 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight )
 {
-	UINT8				id = NOBODY;
+	UINT16				id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
@@ -3505,9 +3505,9 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 }
 
 // get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
-UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
+UINT16 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
 {
-	UINT8				id = NOBODY;
+	UINT16				id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
@@ -3554,9 +3554,9 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 }
 
 // get the id of the closest medic (closer than x tiles) of a specific team
-UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
+UINT16 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
 {
-	UINT8				id = NOBODY;
+	UINT16				id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
@@ -3618,18 +3618,18 @@ INT16 MaxNormalVisionDistance( void )
 
 // sevenfm: check friendly soldiers between me and noise gridno
 // count only friends that are active and not stationary/onguard/sniper
-UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
+UINT16 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
 	SOLDIERTYPE * pFriend;
 	UINT8 ubFriendDir, ubMyDir;
-	UINT8 ubFriends = 0;
+	UINT16 ubFriends = 0;
 
 	CHECKF(pSoldier);
 
 	ubMyDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo));
 
 	// Run through each friendly.
-	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	for ( UINT16 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
 	{
 		pFriend = MercPtrs[ iCounter ];
 		ubFriendDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pFriend->sGridNo),CenterY(pFriend->sGridNo));
@@ -3651,17 +3651,17 @@ UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 }
 
 // sevenfm: count nearby friend soldiers
-UINT8 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+UINT16 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 {
 	SOLDIERTYPE * pFriend;
-	UINT8 ubFriendCount = 0;
+	UINT16 ubFriendCount = 0;
 
 	// safety check
 	if( !pSoldier )
 		return 0;
 
 	// Run through each friendly.
-	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	for ( UINT16 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
 	{
 		pFriend = MercPtrs[ iCounter ];
 		// Make sure that character is alive, not too shocked, and conscious, and of higher experience level
@@ -3970,7 +3970,7 @@ BOOLEAN WeAttack(INT8 bTeam)
 	SOLDIERTYPE * pFriend;
 
 	// Run through each friendly.
-	for (UINT8 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
+	for (UINT16 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
 	{
 		pFriend = MercPtrs[iCounter];
 
@@ -3994,7 +3994,7 @@ UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UIN
 	UINT8 ubFriendCount = 0;
 
 	// Run through each friendly.
-	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	for ( UINT16 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
 	{
 		pFriend = MercPtrs[ iCounter ];
 
@@ -4034,7 +4034,7 @@ UINT8 CountFriendsFlankSameSpot(SOLDIERTYPE *pSoldier, INT32 sSpot)
 	}
 
 	// Run through each friendly.
-	for (UINT8 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
+	for (UINT16 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
 	{
 		pFriend = MercPtrs[iCounter];
 
@@ -4116,7 +4116,7 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent )
 	}
 
 	// Run through each friendly.
-	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	for ( UINT16 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
 	{
 		pFriend = MercPtrs[ iCounter ];		
 
@@ -4145,17 +4145,17 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent )
 }
 
 // count friends under fire or with shock
-UINT8 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance)
+UINT16 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance)
 {
 	SOLDIERTYPE * pFriend;
-	UINT8 ubFriendCount = 0;
+	UINT16 ubFriendCount = 0;
 
 	// safety check
 	if (bTeam >= MAXTEAMS)
 		return 0;
 
 	// Run through each friendly.
-	for (UINT8 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
+	for (UINT16 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
 	{
 		pFriend = MercPtrs[iCounter];
 
@@ -4397,10 +4397,10 @@ BOOLEAN EnemySeenSoldierRecently( SOLDIERTYPE *pSoldier, UINT8 ubMax )
 	return FALSE;
 }
 
-UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier )
+UINT16 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pFriend;
-	UINT8 ubFriends = 0;
+	UINT16 ubFriends = 0;
 
 	CHECKF( pSoldier );
 
@@ -4846,13 +4846,13 @@ BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThre
 	return FALSE;
 }
 
-UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE* pSoldier )
+UINT16 CountSeenEnemiesLastTurn( SOLDIERTYPE* pSoldier )
 {
 	CHECKF(pSoldier);
 
 	UINT8	ubTeamLoop;
-	UINT8	ubIDLoop;
-	UINT8	cnt = 0;
+	UINT16	ubIDLoop;
+	UINT16	cnt = 0;
 
 	for( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ubTeamLoop++ )
 	{
@@ -5677,7 +5677,7 @@ BOOLEAN DuskLight(void)
 	return FALSE;
 }
 
-BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	INT8		bPersonalKnowledge;
 	INT8		bPublicKnowledge;
@@ -5701,7 +5701,7 @@ BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return FALSE;
 }
 
-INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5716,7 +5716,7 @@ INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return PublicKnowledge(pSoldier->bTeam, ubOpponentID);
 }
 
-INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5731,7 +5731,7 @@ INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return KnownPublicLocation(pSoldier->bTeam, ubOpponentID);
 }
 
-INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5746,7 +5746,7 @@ INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return KnownPublicLevel(pSoldier->bTeam, ubOpponentID);
 }
 
-INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5756,7 +5756,7 @@ INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return pSoldier->aiData.bOppList[ubOpponentID];
 }
 
-INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5770,7 +5770,7 @@ INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return gsLastKnownOppLoc[pSoldier->ubID][ubOpponentID];
 }
 
-INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5780,7 +5780,7 @@ INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
 	return gbLastKnownOppLevel[pSoldier->ubID][ubOpponentID];
 }
 
-INT8 PublicKnowledge(UINT8 bTeam, UINT8 ubOpponentID)
+INT8 PublicKnowledge(UINT8 bTeam, UINT16 ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{
@@ -5790,7 +5790,7 @@ INT8 PublicKnowledge(UINT8 bTeam, UINT8 ubOpponentID)
 	return gbPublicOpplist[bTeam][ubOpponentID];
 }
 
-INT32 KnownPublicLocation(UINT8 bTeam, UINT8 ubOpponentID)
+INT32 KnownPublicLocation(UINT8 bTeam, UINT16 ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{
@@ -5804,7 +5804,7 @@ INT32 KnownPublicLocation(UINT8 bTeam, UINT8 ubOpponentID)
 	return gsPublicLastKnownOppLoc[bTeam][ubOpponentID];
 }
 
-INT8 KnownPublicLevel(UINT8 bTeam, UINT8 ubOpponentID)
+INT8 KnownPublicLevel(UINT8 bTeam, UINT16 ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{
@@ -5945,14 +5945,14 @@ INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxD
 }
 
 // first call PrepareThreatlist to make threat list
-UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
+UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
 {
 	CHECKF(pSoldier);
 
 	UINT32	uiLoop;
 	INT32	sClosestOpponent = NOWHERE;
 	INT32	iRange, iClosestRange;
-	UINT8	ubClosestOpponentID = NOBODY;
+	UINT16	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
 	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
@@ -5975,14 +5975,14 @@ UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
 }
 
 // first call PrepareThreatlist to make threat list
-UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
+UINT16 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
 {
 	CHECKF(pSoldier);
 
 	UINT32	uiLoop;
 	INT32	sClosestOpponent = NOWHERE;
 	INT32	iRange, iClosestRange;
-	UINT8	ubClosestOpponentID = NOBODY;
+	UINT16	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
 	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
@@ -6103,7 +6103,7 @@ void PrepareThreatlist(SOLDIERTYPE *pSoldier)
 	}
 }
 
-UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance)
+UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance)
 {
 	CHECKF(pSoldier);
 
@@ -6113,7 +6113,7 @@ UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDista
 	INT32		sThreatLoc;
 	INT8		iThreatLevel;
 
-	UINT8		ubNum = 0;
+	UINT16		ubNum = 0;
 
 	// loop through all the enemies
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
@@ -6157,7 +6157,7 @@ UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDista
 	return ubNum;
 }
 
-UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier)
+UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier)
 {
 	CHECKF(pSoldier);
 
@@ -6167,7 +6167,7 @@ UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier)
 	INT32		sThreatLoc;
 	INT8		iThreatLevel;
 
-	UINT8		ubNum = 0;
+	UINT16		ubNum = 0;
 
 	// loop through all the enemies
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)

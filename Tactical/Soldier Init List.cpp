@@ -581,13 +581,13 @@ void SortSoldierInitList()
 }
 
 extern FLOAT gAmbushRadiusModifier;
-
+#pragma optimize("",off)
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 {
 	UINT8 ubProfile;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
 	SOLDIERTYPE *pSoldier;
-	UINT8 ubID;
+	UINT16 ubID;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld"));
 	// First check if this guy has a profile and if so check his location such that it matches!
@@ -859,7 +859,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	if(is_server)	ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"report this MP error (AddPlacementToWorld-FAIL!)");
 	return FALSE;
 }
-
+#pragma optimize("",on)
 void AddPlacementToWorldByProfileID( UINT8 ubProfile )
 {
 	SOLDIERINITNODE * curr;
@@ -1050,7 +1050,7 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 
 	return ubNumAdded;
 }
-
+#pragma optimize("",off)
 void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalRobots, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
 {
 	SOLDIERINITNODE *mark;
@@ -1605,7 +1605,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		curr = curr->next;
 	}
 }
-
+#pragma optimize("",on)
 //If we are adding militia to our map, then we do a few things differently.
 //First of all, they exist exclusively to the enemy troops, so if the militia exists in the
 //sector, then they get to use the enemy placements.	However, we remove any orders from
@@ -2377,8 +2377,8 @@ BOOLEAN SaveSoldierInitListLinks( HWFILE hfile )
 		{
 			return FALSE;
 		}
-		FileWrite( hfile, &curr->ubSoldierID, 1, &uiNumBytesWritten );
-		if( uiNumBytesWritten != 1 )
+		FileWrite( hfile, &curr->ubSoldierID, 2, &uiNumBytesWritten );
+		if( uiNumBytesWritten != 2 )
 		{
 			return FALSE;
 		}
@@ -2391,7 +2391,8 @@ BOOLEAN LoadSoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT8 ubSlots, ubNodeID;
+	UINT16 ubSoldierID;
 
 	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
@@ -2664,7 +2665,7 @@ void AddProfilesUsingProfileInsertionData()
 		if( !pSoldier )
 		{ //Create a new soldier, as this one doesn't exist
 			SOLDIERCREATE_STRUCT		MercCreateStruct;
-			UINT8									ubID;
+			UINT16 ubID;
 
 			//Set up the create struct so that we can properly create the profile soldier.
 			MercCreateStruct.initialize();
@@ -2802,7 +2803,8 @@ BOOLEAN NewWayOfLoadingEnemySoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT8 ubSlots, ubNodeID;
+	UINT16 ubSoldierID;
 
 	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
@@ -2816,8 +2818,8 @@ BOOLEAN NewWayOfLoadingEnemySoldierInitListLinks( HWFILE hfile )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2848,7 +2850,8 @@ BOOLEAN NewWayOfLoadingCivilianInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT8 ubSlots, ubNodeID;
+	UINT16 ubSoldierID;
 
 	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
@@ -2862,8 +2865,8 @@ BOOLEAN NewWayOfLoadingCivilianInitListLinks( HWFILE hfile )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2894,7 +2897,8 @@ BOOLEAN LookAtButDontProcessEnemySoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT8 ubSlots, ubNodeID;
+	UINT16 ubSoldierID;
 
 	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
@@ -2908,8 +2912,8 @@ BOOLEAN LookAtButDontProcessEnemySoldierInitListLinks( HWFILE hfile )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}

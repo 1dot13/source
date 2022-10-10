@@ -76,7 +76,7 @@ void RecountBullets(void)
 }
 
 
-INT32	CreateBullet( UINT8 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
+INT32	CreateBullet( UINT16 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
 {
 	INT32			iBulletIndex;
 	BULLET		*pBullet;

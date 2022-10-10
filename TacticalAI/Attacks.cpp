@@ -850,13 +850,13 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow");
 	// September 9, 1998: added code for LAWs (CJC)
-	UINT8	ubLoop, ubLoop2;
+	UINT16	ubLoop, ubLoop2;
 	INT32	iAttackValue;
 	INT32	iHitRate, iThreatValue, iTotalThreatValue,iOppThreatValue[MAXMERCS];
 	INT32	sGridNo, sEndGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS];
 	INT8	bFriendLevel[MAXMERCS], bOpponentLevel[MAXMERCS];
 	INT32	iEstDamage;
-	UINT8	ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
+	UINT16	ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
 	UINT8	ubMaxPossibleAimTime;
 	INT16	sRawAPCost, sMinAPcost;
 	UINT8	ubChanceToHit, ubChanceToGetThrough, ubChanceToReallyHit, ubFriendlyFireChance;
@@ -3484,9 +3484,9 @@ UINT8 UnderFire::Chance(INT8 bTeam, INT8 bSide, BOOLEAN fCheckNeutral)
 // if an enemy soldier fulfils taboo, make sure to not hit him at all!
 BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, UINT8 uCheckFriends, UINT8 aMinRating, SOLDIER_CONDITION cond, SOLDIER_CONDITION taboo)
 {
-	UINT8 ubLoop, ubLoop2;
+	UINT16 ubLoop, ubLoop2;
 	INT32 sGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS], sTabooTile[MAXMERCS];
-	UINT8 ubFriendCnt = 0,ubOpponentCnt = 0, ubTabooCnt = 0, ubOpponentID[MAXMERCS];
+	UINT16 ubFriendCnt = 0,ubOpponentCnt = 0, ubTabooCnt = 0, ubOpponentID[MAXMERCS];
 	INT32	bMaxLeft,bMaxRight,bMaxUp,bMaxDown, i, j;
 	INT8	bPersOL, bPublOL;
 	SOLDIERTYPE *pFriend;
@@ -3676,7 +3676,7 @@ BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, U
 // Get the ID of the farthest opponent  we can see, with an optional minimum range
 // puID - ID of the farthest opponent pSoldier can see
 // sRange - only return an true and give an idea if opponent found is further away than this
-BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT8* puID, INT16 sRange)
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT16 * puID, INT16 sRange)
 {
 	INT32 sGridNo;
 	UINT32 uiLoop;
@@ -3800,9 +3800,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			INT8	bTargetLevel = bLevel;
 
 			INT32	sClosestThreat;
-			UINT8	ubClosestThreatID;
-
-			ubClosestThreatID = pSoldier->ubPreviousAttackerID;
+			UINT16 ubClosestThreatID = pSoldier->ubPreviousAttackerID;
 
 			// try to find good spot for smoke
 			if (ubClosestThreatID != NOBODY &&
@@ -3901,7 +3899,7 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			SOLDIERTYPE * pFriend;
 			INT32	sClosestFriendSpot = NOWHERE;
 			INT8	bClosestFriendLevel = 0;
-			UINT8	ubClosestFriendID = NOBODY;
+			UINT16	ubClosestFriendID = NOBODY;
 
 			INT32	sFriendSpot;
 			INT8	bFriendLevel;
@@ -3914,7 +3912,7 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			UINT8	ubDirection;
 
 			// Run through each friendly.
-			for (UINT8 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
+			for (UINT16 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
 			{
 				pFriend = MercPtrs[iCounter];
 
@@ -4012,7 +4010,7 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 // check if we can toss grenade at spot, and prepare attack data
 // grenade should be in hand
-void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubOpponentID)
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT16 ubOpponentID)
 {
 	UINT16	usInHand, usGrenade;
 	INT32	iTossRange;

@@ -1225,7 +1225,7 @@ BOOLEAN IsAnythingAroundForSoldierToClean( SOLDIERTYPE * pSoldier )
 	}
 
 	// now the other merc's stuff
-	for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+	for(UINT16 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 	{
 		// Ignore self, mercs in other sectors, etc.
 		if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
@@ -1289,7 +1289,6 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 {
 	INT8	bPocket;
 	UINT8	ubItemsInPocket, ubObjectInPocketCounter;
-	INT8 bLoop;
 	OBJECTTYPE * pObj;
 	UINT8 ubPassType;
 
@@ -1340,7 +1339,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	if ( bHighestPass != - 1 )
 	{
 		// now look for items to repair on other mercs
-		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+		for( UINT16 bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 		{
 			SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
 
@@ -2052,7 +2051,7 @@ INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilit
 
 	AssertNotNIL(pSoldier);
 
-	for ( UINT8 bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+	for ( UINT16 bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 	{
 		SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
 		if ( pSoldier != pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->stats.bLife >= OKLIFE && pOtherSoldier->sSectorX == pSoldier->sSectorX && pOtherSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
@@ -5477,7 +5476,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			// first our own stuff
 			CollectCleanableItems(pSoldier, pSoldier, itemsToClean);
 			// then other mercs' stuff
-			for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+			for(UINT16 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 			{
 				// Ignore self, mercs in other sectors, etc.
 				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
@@ -5522,7 +5521,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	
 				// silversurfer: Looks strange? It's not. This function now needs the guy that does the repairs and the one that owns the stuff. 
 				CollectRepairableItems(pSoldier, pSoldier, itemsToFix);
-				for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+				for(UINT16 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 				{
 					// Ignore self, mercs in other sectors, etc.
 					if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
@@ -9501,7 +9500,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	if ( gGameOptions.fNewTraitSystem )
 	{
 		SOLDIERTYPE *	pMedic = NULL;
-		UINT8			cnt;
+		UINT16			cnt;
 		UINT16 bRegenerationBonus = 0;
 
 		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
@@ -13814,7 +13813,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							SOLDIERTYPE * pMedic = NULL;
 							SOLDIERTYPE * pBestMedic = NULL;
-							UINT8 cnt;
+							UINT16 cnt;
 							INT8 bSlot;
 
 							// Find the best doctor
@@ -14096,7 +14095,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							SOLDIERTYPE * pMedic = NULL;
 							SOLDIERTYPE * pBestMedic = NULL;
-							UINT8 cnt;
+							UINT16 cnt;
 							INT8 bSlot;
 
 							// Find the best doctor
@@ -19505,7 +19504,7 @@ void ResumeOldAssignment( SOLDIERTYPE *pSoldier )
 void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 {
 	UINT8 ubPassType;
-	INT8 bLoop;
+	UINT16 bLoop;
 	SOLDIERTYPE * pOtherSoldier;
 	SOLDIERTYPE * pBestOtherSoldier;
 	INT8 bPriority, bBestPriority = -1;

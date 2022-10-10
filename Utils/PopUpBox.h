@@ -46,6 +46,7 @@ struct popupbox{
 	UINT32 uiBuffer;
 	UINT32 uiSecondColumnMinimunOffset;
 	UINT32 uiSecondColumnCurrentOffset;
+	INT16 usSecondColumnOffsetAdjustment;
 	UINT32 uiBoxMinWidth;
 	BOOLEAN fUpdated;
 	BOOLEAN fShowBox;
@@ -74,6 +75,7 @@ void SetBoxBuffer(INT32 hBoxHandle, UINT32 uiBuffer);
 void SetBoxPosition(INT32 hBoxHandle,SGPPoint Position);
 void GetBoxPosition( INT32 hBoxHandle, SGPPoint *Position );
 UINT32 GetNumberOfLinesOfTextInBox( INT32 hBoxHandle );
+UINT32 GetNumberOfSecondaryLinesOfTextInBox(INT32 hBoxHandle);
 void SetBoxSize( INT32 hBoxHandle, SGPRect Dimensions );
 void GetBoxSize(	INT32 hBoxHandle, SGPRect *Dimensions );
 void SetBoxFlags( INT32 hBoxHandle, UINT32 uiFlags);
@@ -136,6 +138,7 @@ void HideAllBoxes( void );
 
 // add the second column monocrome string
 void AddSecondColumnMonoString( UINT32 *hStringHandle, STR16 pString );
+void AddMonoStringToSecondColumn(UINT32* hStringHandle, STR16 pString);
 
 // set the 2nd column font for this box
 void SetBoxSecondColumnFont(INT32 hBoxHandle, UINT32 uiFont);
@@ -156,6 +159,8 @@ void SetBoxSecondColumnForeground(INT32 hBoxHandle, UINT8 ubColor);
 void SetBoxSecondColumnBackground(INT32 hBoxHandle, UINT8 ubColor);
 void SetBoxSecondColumnHighLight(INT32 hBoxHandle, UINT8 ubColor);
 void SetBoxSecondColumnShade(INT32 hBoxHandle, UINT8 ubColor);
+// Manual adjustment for 2nd column offset, eg. when 1st column has a title text that's wider than the rest and you want to move 2nd column texts towards the 1st column some.
+void SetBoxSecondColumnOffsetAdjustment(INT32 hBoxHandle, INT16 x);
 
 
 // secondary shades for boxes

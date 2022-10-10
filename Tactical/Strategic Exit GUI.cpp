@@ -85,7 +85,7 @@ typedef struct
 	UINT8							ubLeaveSectorCode;
 	UINT8							ubDirection;
 	UINT8							ubNumPeopleOnSquad;
-	INT8							bSingleMoveWillIsolateEPC; //if not -1, then that means the slot number is an EPC
+	INT16							bSingleMoveWillIsolateEPC; //if not -1, then that means the slot number is an EPC
 	INT8							bHandled;
 	BOOLEAN						fRender;
 	BOOLEAN						fGotoSector;
@@ -266,8 +266,8 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 	{ //check to see if we have one selected merc and one or more EPCs.
 		//If so, don't allow the selected merc to leave by himself.
 		//Assuming that the matching squad assignment is in the same sector.
-		UINT8 ubNumMercs = 1; //selected soldier is a merc
-		UINT8 ubNumEPCs = 0;
+		UINT16 ubNumMercs = 1; //selected soldier is a merc
+		UINT16 ubNumEPCs = 0;
 		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 		{
 			if( i == gusSelectedSoldier )
@@ -282,7 +282,7 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 					//record the slot of the epc.	If there are more than one EPCs, then
 					//it doesn't matter.	This is used in building the text message explaining
 					//why the selected merc can't leave.	This is how we extract the EPC's name.
-					gExitDialog.bSingleMoveWillIsolateEPC = (INT8)i;
+					gExitDialog.bSingleMoveWillIsolateEPC = (INT16)i;
 				}
 				else
 				{ //We have more than one merc, so we will allow the selected merc to leave alone if

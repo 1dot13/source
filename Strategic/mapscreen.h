@@ -135,7 +135,7 @@ extern BOOLEAN gfInChangeArrivalSectorMode;
 extern BOOLEAN gfSkyriderEmptyHelpGiven;
 
 
-BOOLEAN SetInfoChar(UINT8 ubSolId);
+BOOLEAN SetInfoChar(UINT16 ubID);
 void EndMapScreen( BOOLEAN fDuringFade );
 void ReBuildCharactersList( void );
 
@@ -152,7 +152,7 @@ BOOLEAN CanExtendContractForCharSlot( INT8 bCharNumber );
 
 void TellPlayerWhyHeCantCompressTime( void );
 
-void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList );
+void ChangeSelectedInfoChar( INT16 bCharNumber, BOOLEAN fResetSelectedList );
 
 void MAPEndItemPointer();
 
@@ -169,7 +169,7 @@ void ExplainWhySkyriderCantFly( void );
 BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
 BOOLEAN CanChangeSleepStatusForSoldier( SOLDIERTYPE *pSoldier );
 
-BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
+BOOLEAN MapCharacterHasAccessibleInventory( INT16 bCharNumber );
 
 // CHRISL: New functions to handle initialization of inventory coordinates
 BOOLEAN InitializeInvPanelCoordsOld( );

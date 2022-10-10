@@ -2997,9 +2997,9 @@ void DestroyQuestDebugTextInputBoxes()
 
 void AddNPCToGridNo( INT32 iGridNo )
 {
-	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16										sSectorX, sSectorY;
-	UINT8									ubID;
+	SOLDIERCREATE_STRUCT MercCreateStruct;
+	INT16 sSectorX, sSectorY;
+	UINT16 ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 	MercCreateStruct.bTeam				= CIV_TEAM;
@@ -3670,10 +3670,7 @@ void IncrementActiveDropDownBox( INT16 sIncrementValue )
 
 INT16	IsMercInTheSector( UINT16 usMercID )
 {
-	if( usMercID == -1 )
-		return( FALSE );
-
-	UINT8					cnt;
+	UINT16 cnt;
 	for ( cnt=0; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		//if the merc is active

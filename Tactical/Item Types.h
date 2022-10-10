@@ -259,7 +259,7 @@ public:
 #define SIZEOF_LBENODE_POD (offsetof(LBENODE, endOfPOD))
 bool	checkLBEArrayIntegrity(bool verbose=false); // BOB: checks all worldItems for missing LBE info
 
-void	CreateLBE(OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets);
+void	CreateLBE(OBJECTTYPE* pObj, UINT16 ubID, int numSubPockets);
 bool	DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex = 0);
 void	DestroyLBE(OBJECTTYPE* pObj, int stackIndex = 0);
 void	GetLBESlots(UINT32 LBEType, std::vector<INT8>& LBESlots);
@@ -415,7 +415,7 @@ namespace ObjectDataStructs {
 			INT8		bDelay;			// >=0 values used only
 			INT8		bFrequency;		// >=0 values used only
 		};
-		UINT8	ubBombOwner;			// side which placed the bomb
+		UINT16	ubBombOwner;			// side which placed the bomb
 		UINT8	bActionValue;			// this is used by the ACTION_ITEM fake item
 		union
 		{

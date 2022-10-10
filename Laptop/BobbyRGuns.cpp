@@ -3700,11 +3700,11 @@ void OutOfStockMessageBoxCallBack( UINT8 bExitValue )
 UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID )
 {
 	UINT8	ubItemCount=0;
-	UINT8	ubMercCount;
+	UINT16	ubMercCount;
 	UINT8	ubPocketCount;
 
-	UINT8	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT8	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	UINT16	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT16	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	//loop through all the mercs on the team
 	for( ubMercCount = ubFirstID; ubMercCount <= ubLastID; ++ubMercCount )

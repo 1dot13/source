@@ -728,12 +728,12 @@ extern BOOLEAN CheckNPCWounded( UINT8 ubProfileID, BOOLEAN fByPlayerOnly );
 extern BOOLEAN CheckNPCInOkayHealth( UINT8 ubProfileID );
 extern BOOLEAN CheckNPCBleeding( UINT8 ubProfileID );
 extern BOOLEAN CheckNPCWithin( UINT8 ubFirstNPC, UINT8 ubSecondNPC, UINT8 ubMaxDistance );
-extern BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy );
+extern BOOLEAN CheckGuyVisible( UINT16 ubNPC, UINT16 ubGuy );
 extern BOOLEAN CheckNPCAt( UINT8 ubNPC, INT32 sGridNo );
 extern BOOLEAN CheckNPCIsEnemy( UINT8 ubProfileID );
 extern BOOLEAN CheckIfMercIsNearNPC( SOLDIERTYPE *pMerc, UINT8 ubProfileId );
 extern UINT32 NumWoundedMercsNearby( UINT8 ubProfileID );
-extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
+extern UINT16 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 extern BOOLEAN CheckNPCIsEPC( UINT8 ubProfileID );
 //DBrot: More Rooms
 //extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );

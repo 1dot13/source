@@ -299,7 +299,7 @@ INT32			giSKIMessageBox=-1;
 INT8			gbSelectedArmsDealerID = -1;		//Contains the enum value for the currently selected arms dealer
 
 // Flugente: while we're trading, store the ID of non-NPC dealers
-UINT8			gusIDOfCivTrader = NOBODY;
+UINT16			gusIDOfCivTrader = NOBODY;
 
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
@@ -360,7 +360,7 @@ BOOLEAN		gfDoneBusinessThisSession = FALSE;
 // this is used within SKI exclusively, to handle small faces
 UINT8			gubArrayOfEmployedMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 UINT32		guiSmallSoldiersFace[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-UINT8			gubNumberMercsInArray;
+UINT16			gubNumberMercsInArray;
 
 //The subutitled text for what the merc is saying
 CHAR16		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
@@ -392,7 +392,7 @@ extern		OBJECTTYPE			*gpItemDescObject;
 extern		OBJECTTYPE			*gpItemDescPrevObject;
 extern		OBJECTTYPE			*gpItemDescPrevObject;
 extern		void						HandleShortCutExitState( void );
-extern		UINT8						gubSelectSMPanelToMerc;
+extern		UINT16						gubSelectSMPanelToMerc;
 extern		INT32						giItemDescAmmoButton;
 
 extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurface, UINT32 fBltFlags, INT32 iDestX, INT32 iDestY, RECT *SrcRect );
@@ -875,8 +875,8 @@ BOOLEAN EnterShopKeeperInterface()
 
 	//Reinitialize the team panel to be the SM panel
 	SetCurrentInterfacePanel( SM_PANEL );
-	SetCurrentTacticalPanelCurrentMerc( (UINT8)gusSelectedSoldier );
-	SetSMPanelCurrentMerc( (UINT8)gusSelectedSoldier );
+	SetCurrentTacticalPanelCurrentMerc( gusSelectedSoldier );
+	SetSMPanelCurrentMerc( gusSelectedSoldier );
 	
 	// load the Main trade screen background image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -1132,7 +1132,7 @@ BOOLEAN ExitShopKeeperInterface()
 	UnloadButtonImage( guiSKI_InvPageDownButtonImage );
 
 	//loop through the area and delete small faces
-	for (UINT8 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
+	for (UINT16 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
 	{
 		DeleteVideoObjectFromIndex( guiSmallSoldiersFace[ ubCnt ] );
 	}
@@ -2466,7 +2466,7 @@ void EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer )
 }
 
 // Flugente: set up shopkeeper with a non-NPC
-void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
+void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT16 aMercID )
 {
 	gusIDOfCivTrader = aMercID;
 
@@ -5206,7 +5206,7 @@ int CountNumberOfItemsInTheArmsDealersOfferArea( )
 
 INT8 GetSlotNumberForMerc( UINT8 ubProfile )
 {
-	for( INT8 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
+	for( UINT16 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
 	{
 		if( gubArrayOfEmployedMercs[ bCnt ] == ubProfile )
 			return( bCnt );
@@ -6691,7 +6691,7 @@ void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sSectorX, sSectorY;
-	UINT8									ubID;
+	UINT16									ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 

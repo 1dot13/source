@@ -57,7 +57,7 @@ typedef struct
 	INT16		sSectorX;
 	INT16		sSectorY;
 	INT8		bSectorZ;
-	UINT8		ubNumOfMercsOnPlayersTeam;
+	UINT16		ubNumOfMercsOnPlayersTeam;
 	INT32		iCurrentBalance;
 
 	UINT32	uiCurrentScreen;
@@ -72,10 +72,9 @@ typedef struct
 
 	UINT32	uiRandom;
 
-	UINT8		ubFiller[500];	// WANNE: Decrease this filler by 1, for each new UINT8 variable!
+	UINT8		ubFiller[494];	// WANNE: Decrease this filler by 1, for each new UINT8 variable!
 
 } SAVED_GAME_HEADER;
-
 
 extern	UINT32		guiScreenToGotoAfterLoadingSavedGame;
 extern UINT32 guiCurrentSaveGameVersion;

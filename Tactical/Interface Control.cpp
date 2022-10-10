@@ -921,7 +921,7 @@ void RenderTopmostTacticalInterface( )
 			}
 			else
 			{
-				DrawSelectedUIAboveGuy((UINT16)pSoldier->ubID);
+				DrawSelectedUIAboveGuy(pSoldier->ubID);
 			}
 
 			DrawCounters( pSoldier );

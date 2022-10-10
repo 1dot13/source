@@ -653,7 +653,7 @@ void RenderMovingGroupsAndMercs()
 void RenderInfoInSector()
 {
 	UINT8 ubSectorX, ubSectorY;
-	UINT8 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
+	UINT16 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
 	INT32 i, xp, yp;
 
 	if( gfViewEnemies && !gbViewLevel )

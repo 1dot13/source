@@ -163,7 +163,7 @@ typedef struct
 	INT16		sYPos;
 	INT16		sZPos;
 	INT16		sRange;
-	UINT8		ubAttackerID;
+	UINT16		ubAttackerID;
 	BOOLEAN fHit;
 	UINT8		ubSpecial;
 	UINT8		ubLocation;
@@ -179,7 +179,7 @@ typedef struct
 	INT16		sZPos;
 	UINT16	usWeaponIndex;
 	INT16		bWeaponStatus;
-	UINT8		ubAttackerID;
+	UINT16		ubAttackerID;
 	UINT16	usStructureID;
 	INT32		iImpact;
 	INT32		iBullet;
@@ -193,19 +193,19 @@ typedef struct
 	UINT16	usStructureID;
 	BOOLEAN	fBlowWindowSouth;
 	BOOLEAN	fLargeForce;
-	UINT8 ubAttackerID;
+	UINT16 ubAttackerID;
 	INT32 iBullet;
 } EV_S_WINDOWHIT;
 
 typedef struct
 {
-	UINT8		ubAttackerID;
+	UINT16 ubAttackerID;
 	INT32 iBullet;
 } EV_S_MISS;
 
 typedef struct
 {
-	UINT8 ubNoiseMaker;
+	UINT16 ubNoiseMaker;
 	INT32 sGridNo;
 	UINT8 bLevel;
 	UINT8 ubTerrType;
@@ -231,7 +231,7 @@ typedef struct
 
 typedef struct
 {
-	UINT8		usSoldierID;
+	UINT16		usSoldierID;
 //	UINT32  uiUniqueId;
 	UINT16		usPathDataSize;			// Size of Path
 	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
@@ -249,7 +249,7 @@ typedef struct
 
 typedef struct
 {
-	UINT8		usSoldierID;	
+	UINT16		usSoldierID;	
 	//UINT32  uiUniqueId;
 	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
 	INT8		bActionPoints;			// current A.P. value

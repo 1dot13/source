@@ -36,7 +36,7 @@ extern UINT8 cGameType;
 extern bool allowlaptop;
 
 extern UINT8 netbTeam;
-extern UINT8 ubID_prefix;
+extern UINT16 ubID_prefix;
 extern FLOAT cDamageMultiplier;
 
 //OJW - 20081218
@@ -97,33 +97,33 @@ void send_fire( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 void send_hit(  EV_S_WEAPONHIT *SWeaponHit  );
 void send_bullet(  BULLET * pBullet, UINT16 usHandItem); 
 void send_hire( UINT8 iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLength, BOOLEAN fCopyProfileItemsOver);
-void send_dismiss( UINT8 ubCurrentSoldier);
+void send_dismiss( UINT16 ubCurrentSoldierID);
 
 void send_gui_pos(SOLDIERTYPE *pSoldier,  FLOAT dNewXPos, FLOAT dNewYPos);
 void send_gui_dir(SOLDIERTYPE *pSoldier, UINT16	usNewDirection);
 
 void send_EndTurn( UINT8 ubNextTeam );
 
-void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID );
+void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID );
 
 void send_stop (EV_S_STOP_MERC *SStopMerc);
 
 void send_interrupt(SOLDIERTYPE *pSoldier);
 
 // OJW - 20091002 - explosives
-void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID , bool bIsThrownGrenade);
+void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT16 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade);
 void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, UINT8 ubOwnerID, INT32 iRealObjectID, bool bIsDud);
-void send_plant_explosive (UINT8 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
-void send_detonate_explosive (UINT32 uiWorldIndex, UINT8 ubID);
-void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
-void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, INT32 iSmokeEffectID);
-void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID , INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT8 ubOwner );
-void send_explosivedamage( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent );
-void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, UINT8 ubID);
+void send_plant_explosive (UINT16 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
+void send_detonate_explosive (UINT32 uiWorldIndex, UINT16 ubID);
+void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
+void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, INT32 iSmokeEffectID);
+void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT16 ubOwner );
+void send_explosivedamage( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent );
+void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, UINT16 ubID);
 
 void OpenChatMsgBox(void);
 
-INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake );
+INT8 FireBullet( UINT16 ubFirer, BULLET * pBullet, BOOLEAN fFake );
 
 void reapplySETTINGS();
 
@@ -211,7 +211,7 @@ extern BOOLEAN		fClientReceivedAllFiles;
 // sick of confusing myself :)
 
 // this one should be called before passing an ID off the client
-inline UINT8 MPEncodeSoldierID( UINT8 ubID )
+inline UINT16 MPEncodeSoldierID( UINT16 ubID )
 {
 	if ( ubID < 20 )
 		return ubID + ubID_prefix; // soldier is ours
@@ -220,7 +220,7 @@ inline UINT8 MPEncodeSoldierID( UINT8 ubID )
 }
 
 // this one can be called anywhere, even if the ID was not "encoded"
-inline UINT8 MPDecodeSoldierID( UINT8 ubID )
+inline UINT16 MPDecodeSoldierID( UINT16 ubID )
 {
 	if ( ubID >= ubID_prefix && ubID < (ubID_prefix + 7) )
 		return ubID - ubID_prefix; // soldier is ours
@@ -233,7 +233,7 @@ inline bool IsOurSoldier (SOLDIERTYPE* pSoldier)
 	return pSoldier->bTeam == netbTeam || pSoldier->bTeam == 0;
 }
 
-inline bool IsOurSoldier (UINT8 ubID)
+inline bool IsOurSoldier (UINT16 ubID)
 {
 	return (ubID >= ubID_prefix && ubID < (ubID_prefix + 7)) || ubID < 20;
 }

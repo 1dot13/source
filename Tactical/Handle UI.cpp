@@ -294,7 +294,7 @@ BOOLEAN					gfResetUIMovementOptimization = FALSE;
 BOOLEAN					gfResetUIItemCursorOptimization = FALSE;
 BOOLEAN					gfBeginVehicleCursor = FALSE;
 INT32					gsOutOfRangeGridNo = NOWHERE;
-UINT8						gubOutOfRangeMerc = NOBODY;
+UINT16					gubOutOfRangeMerc = NOBODY;
 BOOLEAN					gfOKForExchangeCursor = FALSE;
 UINT32					guiUIInterfaceSwapCursorsTime = 0;
 INT32						gsJumpOverGridNo = 0;
@@ -441,7 +441,7 @@ BOOLEAN		gfUIDoNotHighlightSelMerc				= FALSE;
 BOOLEAN		gfUIHandleSelection							= FALSE;
 BOOLEAN		gfUIHandleSelectionAboveGuy			= FALSE;
 BOOLEAN		gfUIInDeadlock									= FALSE;
-UINT8			gUIDeadlockedSoldier						= NOBODY;
+UINT16			gUIDeadlockedSoldier						= NOBODY;
 BOOLEAN		gfUIHandleShowMoveGrid					= FALSE;
 INT32		gsUIHandleShowMoveGridLocation  = NOWHERE ;
 BOOLEAN		gfUIOverItemPool								= FALSE;
@@ -449,7 +449,7 @@ INT32			gfUIOverItemPoolGridNo					= 0;
 INT16			gsCurrentActionPoints						= 1;
 BOOLEAN		gfUIHandlePhysicsTrajectory			= FALSE;
 BOOLEAN		gfUIMouseOnValidCatcher					= FALSE;
-UINT8			gubUIValidCatcherID							= 0;
+UINT16			gubUIValidCatcherID							= 0;
 
 
 
@@ -577,7 +577,7 @@ UINT32	HandleTacticalUI( void )
 			gfUIInterfaceSetBusy = FALSE;
 
 			//UNLOCK UI
-			UnSetUIBusy( (UINT8)gusSelectedSoldier );
+			UnSetUIBusy( gusSelectedSoldier );
 
 			// Decrease global busy	counter...
 			gTacticalStatus.ubAttackBusyCount = 0;
@@ -1500,7 +1500,7 @@ UINT32 UIHandleTestHit( UI_EVENT *pUIEvent )
 
 		// gTacticalStatus.ubAttackBusyCount++;
 		DebugAttackBusy( "Testing a hit.\n" );
-		pSoldier->EVENT_SoldierGotHit( 1, bDamage, 10, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
+		pSoldier->EVENT_SoldierGotHit( 1, bDamage, 10, pSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
 		// callahan update end - put everything as it was
 	}
 	return( GAME_SCREEN );
@@ -1716,7 +1716,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 			// THIS IS JUST A CRUDE TEST FOR NOW
 			if ( pSoldier->stats.bLife < OKLIFE )
 			{
-				UINT8 ubID;
+				UINT16 ubID;
 				// Show reg. cursor
 				// GO INTO IDLE MODE
 				// guiPendingOverrideEvent = I_CHANGE_TO_IDLE;
@@ -1725,7 +1725,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 
 				if ( ubID != NOBODY )
 				{
-					SelectSoldier( (INT16)ubID, FALSE, FALSE );
+					SelectSoldier( ubID, FALSE, FALSE );
 				}
 				else
 				{
@@ -1963,13 +1963,13 @@ UINT32 UIHandleAOnTerrain( UI_EVENT *pUIEvent )
 
 						// Set
 						gsOutOfRangeGridNo = MercPtrs[ gusUIFullTargetID ]->sGridNo;
-						gubOutOfRangeMerc	= (UINT8)gusSelectedSoldier;
+						gubOutOfRangeMerc	= gusSelectedSoldier;
 					}
 				}
 			}
 		}
 
-		guiNewUICursor = GetProperItemCursor( (UINT8)gusSelectedSoldier, pSoldier->inv[ HANDPOS ].usItem, usMapPos, FALSE );
+		guiNewUICursor = GetProperItemCursor( gusSelectedSoldier, pSoldier->inv[ HANDPOS ].usItem, usMapPos, FALSE );
 
 		// Show UI ON GUY
 		UIHandleOnMerc( FALSE );
@@ -2123,7 +2123,7 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 	STRUCTURE					*pStructure;
 	UINT8							ubDirection = 0xff;
 	BOOLEAN						fAllMove;
-	INT8							bLoop;
+	UINT16							bLoop;
 	LEVELNODE					*pIntTile;
 	INT32 sIntTileGridNo;
 	BOOLEAN						fOldFastMove;
@@ -2745,7 +2745,7 @@ UINT32 UIHandleCAOnTerrain( UI_EVENT *pUIEvent )
 
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		guiNewUICursor = GetProperItemCursor( (UINT8)gusSelectedSoldier, pSoldier->inv[ HANDPOS ].usItem, usMapPos, TRUE );
+		guiNewUICursor = GetProperItemCursor( gusSelectedSoldier, pSoldier->inv[ HANDPOS ].usItem, usMapPos, TRUE );
 
 		UIHandleOnMerc( FALSE );
 	}
@@ -3465,7 +3465,7 @@ BOOLEAN SelectedMercCanAffordMove(	)
 	return( FALSE );
 }
 
-void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp )
+void GetMercClimbDirection( UINT16 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp )
 {
 	INT8							bNewDirection;
 	SOLDIERTYPE				*pSoldier;
@@ -3839,7 +3839,7 @@ UINT32 UIHandleIETOnTerrain( UI_EVENT *pUIEvent )
 }
 
 
-void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
+void UIHandleSoldierStanceChange( UINT16 ubSoldierID, INT8	bNewStance )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
 
@@ -4259,7 +4259,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 	LEVELNODE					*pIntTile;
 	INT8							bReturnCode = 0;
 	BOOLEAN						fPlot;
-	UINT8							ubMercID;
+	UINT16							ubMercID;
 
 	if ( (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) || _KeyDown( SHIFT ) )
 	{
@@ -5588,7 +5588,7 @@ UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 {
 	SOLDIERTYPE				*pSoldier;
-	UINT8							ubTargID;
+	UINT16							ubTargID;
 	UINT32						uiRange;
 	INT32 usMapPos;
 	BOOLEAN						fValidTalkableGuy = FALSE;
@@ -5619,7 +5619,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 
 
 	//CHECK FOR VALID TALKABLE GUY HERE
-	fValidTalkableGuy = IsValidTalkableNPCFromMouse( &ubTargID, FALSE, TRUE , FALSE );
+	fValidTalkableGuy = IsValidTalkableNPCFromMouse( &ubTargID, FALSE, TRUE, FALSE );
 
 	// USe cursor based on distance
 	// Get distance away
@@ -6374,20 +6374,20 @@ UINT32 UIHandleLAEndLockOurTurn( UI_EVENT *pUIEvent )
 
 
 
-BOOLEAN IsValidTalkableNPCFromMouse( UINT8 *pubSoldierID , BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
+BOOLEAN IsValidTalkableNPCFromMouse( UINT16 * pubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
 {
 	// Check if there is a guy here to talk to!
 	if ( gfUIFullTargetFound )
 	{
-		*pubSoldierID = (UINT8)gusUIFullTargetID;
-		return( IsValidTalkableNPC( (UINT8)gusUIFullTargetID, fGive, fAllowMercs, fCheckCollapsed ) );
+		*pubSoldierID = gusUIFullTargetID;
+		return( IsValidTalkableNPC( gusUIFullTargetID, fGive, fAllowMercs, fCheckCollapsed ) );
 	}
 
 	return( FALSE );
 }
 
 
-BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive , BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
+BOOLEAN IsValidTalkableNPC( UINT16 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
 	BOOLEAN			fValidGuy = FALSE;
@@ -6509,7 +6509,7 @@ BOOLEAN HandleTalkInit(	)
 	if ( gfUIFullTargetFound )
 	{
 		// Is he a valid NPC?
-		if ( IsValidTalkableNPC( (UINT8)gusUIFullTargetID, FALSE, TRUE , FALSE ) )
+		if ( IsValidTalkableNPC( gusUIFullTargetID, FALSE, TRUE, FALSE ) )
 		{
 			GetSoldier( &pTSoldier, gusUIFullTargetID );
 
@@ -6716,7 +6716,7 @@ BOOLEAN HandleTalkInit(	)
 
 
 
-void SetUIBusy( UINT8 ubID )
+void SetUIBusy( UINT16 ubID )
 {
 	if ( (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
@@ -6728,7 +6728,7 @@ void SetUIBusy( UINT8 ubID )
 	}
 }
 
-void UnSetUIBusy( UINT8 ubID )
+void UnSetUIBusy( UINT16 ubID )
 {
 	if ( gfUserTurnRegionActive && (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
@@ -7274,7 +7274,8 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 	INT32 sFourGrids[4], sDistance=0, sSpot, sInBetween, sInBetween2, iDoorGridNo;
 	static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
 	//INT32 cnt;
-	UINT8	ubGuyThere, ubMovementCost, ubDirection;
+	UINT16	ubGuyThere;
+	UINT8 ubMovementCost, ubDirection;
 	INT8 bTileHeight = 0;
 
 	// SANDRO: commented out to allow jumping even in cases we could get to the destination normally

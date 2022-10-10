@@ -917,7 +917,7 @@ BOOLEAN DeInitAnimationSystem( )
 
 
 
-STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( UINT8 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
+STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
 {
 	INT8	bStructDataType;
 
@@ -946,13 +946,13 @@ STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( UINT8 usSoldierID, UINT16 
 }
 
 
-STRUCTURE_FILE_REF	*GetAnimationStructureRef( UINT8 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
+STRUCTURE_FILE_REF	*GetAnimationStructureRef( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
 {
 	return( InternalGetAnimationStructureRef( usSoldierID, usSurfaceIndex, usAnimState, FALSE ) );
 }
 
 
-STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT8 usSoldierID )
+STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT16 usSoldierID )
 {
 	return( gAnimStructureDatabase[ MercPtrs[ usSoldierID ]->ubBodyType ][ DEFAULT_STRUCT ].pStructureFileRef );
 }

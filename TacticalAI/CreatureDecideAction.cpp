@@ -70,7 +70,7 @@ INT8 gbHuntCallPriority[NUM_CREATURE_CALLS] =
 void CreatureCall( SOLDIERTYPE * pCaller )
 {
 	UINT8		ubCallerType=0;
-	UINT8		ubReceiver;
+	UINT16		ubReceiver;
 	INT8		bFullPriority;
 	INT8		bPriority;
 	SOLDIERTYPE * pReceiver;

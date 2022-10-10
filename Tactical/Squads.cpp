@@ -1000,7 +1000,7 @@ void RebuildCurrentSquad( void )
 void ExamineCurrentSquadLights( void )
 {
 	// rebuilds current squad to reset faces in tactical
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 
 	// OK, we should add lights for any guy currently bInSector who is not bad OKLIFE...
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -1331,7 +1331,7 @@ void RebuildSquad( INT8 bSquadValue )
 
 void UpdateCurrentlySelectedMerc( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 {
-	UINT8	ubID;
+	UINT16	ubID;
 
 	// if this squad is the current one and and the psoldier is the currently selected soldier, get rid of 'em
 	if( bSquadValue != iCurrentTacticalSquad )

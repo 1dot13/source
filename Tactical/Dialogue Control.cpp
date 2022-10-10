@@ -176,7 +176,7 @@ UINT8							gubNumStopTimeQuotes = 2;
 #define		INITIAL_Q_SIZE				10
 HQUEUE		ghDialogueQ						= NULL;
 FACETYPE	*gpCurrentTalkingFace	= NULL;
-UINT8			gubCurrentTalkingID	= NO_PROFILE;
+UINT16			gubCurrentTalkingID	= NO_PROFILE;
 INT8			gbUIHandlerID;
 
 INT32				giNPCReferenceCount = 0;
@@ -763,7 +763,7 @@ void HandleDialogue( )
 		{
 			SOLDIERTYPE * pMike;
 			INT32	sPlayerGridNo;
-			UINT8	ubPlayerID;
+			UINT16	ubPlayerID;
 
 			pMike = FindSoldierByProfileID( MIKE, FALSE );
 			if ( pMike )
@@ -949,11 +949,11 @@ void HandleDialogue( )
 	}
 	else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_WANTS_TO_RENEW )
 	{
-		HandleMercIsWillingToRenew( (UINT8)QItem->uiSpecialEventData );
+		HandleMercIsWillingToRenew( (UINT16)QItem->uiSpecialEventData );
 	}
 	else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_NOGO_TO_RENEW )
 	{
-		HandleMercIsNotWillingToRenew( (UINT8)QItem->uiSpecialEventData );
+		HandleMercIsNotWillingToRenew( (UINT16)QItem->uiSpecialEventData );
 	}
 	else
 	{
@@ -2061,7 +2061,7 @@ BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, 
 }
 
 extern INT8 gbSelectedArmsDealerID;
-extern UINT8 gusIDOfCivTrader;
+extern UINT16 gusIDOfCivTrader;
 
 BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier )
 {
@@ -3176,8 +3176,8 @@ void HandleDialogueEnd( FACETYPE *pFace )
 					SOLDIERTYPE *pSoldier = FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE );
 					if ( pSoldier )
 					{
-						UINT8 ubSeenEnemies[ MAX_NUM_SOLDIERS ];
-						UINT8 ubSeenEnemiesCnt = 0;
+						UINT16 ubSeenEnemies[ MAX_NUM_SOLDIERS ];
+						UINT16 ubSeenEnemiesCnt = 0;
 						switch( gTacticalStatus.ubLastQuoteSaid )
 						{					
 							case QUOTE_CLOSE_CALL:					
@@ -3188,7 +3188,7 @@ void HandleDialogueEnd( FACETYPE *pFace )
 								break;
 							default:
 								// select random enemy, who we see, who sees us and isn't deaf
-								for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
+								for(UINT16 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
 								{
 									if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
 										&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )
@@ -3359,9 +3359,9 @@ void RenderSubtitleBoxOverlay( VIDEO_OVERLAY *pBlitter )
 void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 {
     // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS, 0);
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS, 0);
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 
@@ -3395,7 +3395,7 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 #endif
 			}
 
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			ubNumMercs++;
 		}
 	}
@@ -3403,7 +3403,7 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		// If we are air raid, AND red exists somewhere...
 		if ( usQuoteNum == QUOTE_AIR_RAID )
@@ -3412,7 +3412,7 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 			{
 				if ( ubMercsInSector[ cnt ] == 11 )
 				{
-					ubChosenMerc = (UINT8)cnt;
+					ubChosenMerc = (UINT16)cnt;
 					break;
 				}
 			}
@@ -3447,7 +3447,7 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 			// Add guy if he's a candidate...
 			if( pTeamSoldier->sSectorX == sSectorX && pTeamSoldier->sSectorY == sSectorY && pTeamSoldier->bSectorZ == bSectorZ	&& !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
 			{
-				ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+				ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 				++ubNumMercs;
 			}
 		}
@@ -3481,9 +3481,9 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuoteNum )
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0 );
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0 );
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 
@@ -3503,7 +3503,7 @@ void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuo
 			{
 				continue;
 			}
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			ubNumMercs++;
 		}
 	}
@@ -3511,7 +3511,7 @@ void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuo
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		if (usQuoteNum == 66)
 		{
@@ -3526,9 +3526,9 @@ void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuo
 void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuoteNum, INT8 bSex )
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8> ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16> ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
@@ -3553,7 +3553,7 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 				continue;
 			}
 
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			++ubNumMercs;
 		}
 	}
@@ -3561,7 +3561,7 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
 	}
 }

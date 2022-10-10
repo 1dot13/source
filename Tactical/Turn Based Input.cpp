@@ -295,7 +295,7 @@ void	ItemCreationCallBack( UINT8 ubResult );
 void	CheatCreateItem();
 // silversurfer: added for merc portrait swapping in tactical
 void	SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection );
-extern	INT8 GetTeamSlotFromPlayerID( UINT8 ubID );
+extern	INT8 GetTeamSlotFromPlayerID( UINT16 ubID );
 extern FACETYPE	*gpCurrentTalkingFace;
 
 // Flugente:  toggle display of enemy role indicators
@@ -1263,7 +1263,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 						if ( MercPtrs[ gusUIFullTargetID ]->bTeam != ENEMY_TEAM )
 						{
 							uiMoveTargetSoldierId = gusUIFullTargetID;
-							if ( IsValidTalkableNPC( (UINT8)gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && !ValidQuickExchangePosition( ) )
+							if ( IsValidTalkableNPC( gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && !ValidQuickExchangePosition( ) )
 							{
 								*puiNewEvent = T_CHANGE_TO_TALKING;
 								return;
@@ -1286,7 +1286,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 			if ( gfUIFullTargetFound	)
 				//if ( gfUIFullTargetFound )
 			{
-				if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) )
+				if ( IsValidTargetMerc( gusUIFullTargetID ) )
 				{
 					guiUITargetSoldierId = gusUIFullTargetID;
 
@@ -2444,7 +2444,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						{
 							if ( gusSelectedSoldier != NOBODY )
 							{ //Select next merc
-								UINT8 bID;
+								UINT16 bID;
 
 								bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
 
@@ -4159,7 +4159,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				// swap sungoggles and nightgoggles / put on gas masks
 			case 'N':
 				SOLDIERTYPE	*pTeamSoldier;
-				INT8		bLoop;
+				UINT16 bLoop;
 
 				// emergency command: everybody in this sector puts on gasmasks
 				if ( fAlt )
@@ -5443,7 +5443,7 @@ void SetScopeMode( INT32 usMapPos )
 		ManLooksForOtherTeams( MercPtrs[ gusSelectedSoldier ] );
 	}
 }
-
+#pragma optimize("", off)
 void ObliterateSector()
 {
 	INT32 cnt;
@@ -5455,8 +5455,8 @@ void ObliterateSector()
 #ifdef JA2BETAVERSION
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Obliterating Sector!" );
 #endif
-
-	for ( pTSoldier = MercPtrs[ cnt ]; cnt < MAX_NUM_SOLDIERS; pTSoldier++, cnt++ )
+	const INT32 end = MAX_NUM_SOLDIERS;
+	for ( pTSoldier = MercPtrs[ cnt ]; cnt < end; pTSoldier++, cnt++ )
 	{
 		if ( pTSoldier->bActive && !pTSoldier->aiData.bNeutral && (pTSoldier->bSide != gbPlayerNum ) )
 		{
@@ -5473,10 +5473,11 @@ void ObliterateSector()
 			//	CreateAnimationTile( &AniParams );
 			//PlayJA2Sample( EXPLOSION_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 
-			pTSoldier->EVENT_SoldierGotHit( 1, 400, 0, pTSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTSoldier->bAimShotLocation, 0, NOWHERE );
+			pTSoldier->EVENT_SoldierGotHit( 1, 400, 0, pTSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, pTSoldier->bAimShotLocation, 0, NOWHERE );
 		}
 	}
 }
+#pragma optimize("", on)
 
 void RandomizeMercProfile()
 {
@@ -5501,8 +5502,6 @@ void CreateNextCivType()
 	// Get Grid Corrdinates of mouse
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
-		INT8							iNewIndex;
-
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX		= gWorldSectorX;
 		MercCreateStruct.sSectorY		= gWorldSectorY;
@@ -5521,7 +5520,8 @@ void CreateNextCivType()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		UINT16 iNewIndex;
+		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
 
@@ -5557,8 +5557,6 @@ void CreateCow()
 	// Get Grid Corrdinates of mouse
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
-		INT8							iNewIndex;
-
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX		= gWorldSectorX;
 		MercCreateStruct.sSectorY		= gWorldSectorY;
@@ -5569,7 +5567,8 @@ void CreateCow()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		UINT16 iNewIndex;
+		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
 
@@ -5587,8 +5586,6 @@ void CreateBloodCat()
 	// Get Grid Corrdinates of mouse
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
-		INT8							iNewIndex;
-
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX		= gWorldSectorX;
 		MercCreateStruct.sSectorY		= gWorldSectorY;
@@ -5599,7 +5596,8 @@ void CreateBloodCat()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		UINT16 iNewIndex;
+		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
 
@@ -5617,8 +5615,6 @@ void CreatePlayerControlledCow()
 	// Get Grid Corrdinates of mouse
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
-		INT8							iNewIndex;
-
 		MercCreateStruct.ubProfile		= 12;
 		MercCreateStruct.sSectorX		= gWorldSectorX;
 		MercCreateStruct.sSectorY		= gWorldSectorY;
@@ -5630,7 +5626,8 @@ void CreatePlayerControlledCow()
 
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		UINT16 iNewIndex;
+		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
 
@@ -5694,7 +5691,7 @@ void CreatePlayerControlledMonster()
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		SOLDIERCREATE_STRUCT		MercCreateStruct;
-		INT8							iNewIndex;
+		UINT16 iNewIndex;
 
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX			= gWorldSectorX;
@@ -5711,7 +5708,7 @@ void CreatePlayerControlledMonster()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
 		}
@@ -6309,7 +6306,7 @@ void ChangeCurrentSquad( INT32 iSquad )
 
 void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode )
 {
-	UINT8 ubID;
+	UINT16 ubID;
 
 	if ( GetPlayerIDFromInterfaceTeamSlot( ubPanelSlot, &ubID ) )
 	{
@@ -6363,7 +6360,7 @@ void TestMeanWhile( INT32 iID )
 void EscapeUILock( )
 {
 	//UNLOCK UI
-	UnSetUIBusy( (UINT8)gusSelectedSoldier );
+	UnSetUIBusy( gusSelectedSoldier );
 
 	// Decrease global busy	counter...
 	gTacticalStatus.ubAttackBusyCount = 0;
@@ -6455,7 +6452,7 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 	{
 		if( gusSelectedSoldier != NOBODY )
 		{
-			pSoldier = MercPtrs[ (UINT8)gusSelectedSoldier ];
+			pSoldier = MercPtrs[ gusSelectedSoldier ];
 			// silversurfer: If we decide to stand up or press "s" again while we are standing we should reset movement to walk mode.
 			// If we want to run we have to press "r" which is handled elsewhere.
 			if ( ubAnimHeight == ANIM_STAND )
@@ -7321,8 +7318,8 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	if ( gpCurrentTalkingFace != NULL )
 		return;
 
-	UINT8 ubSourceMerc = (UINT8)gusSelectedSoldier;
-	UINT8 ubTargetMerc;
+	UINT16 ubSourceMerc = gusSelectedSoldier;
+	UINT16 ubTargetMerc;
 	INT32 iSourceFace;
 	INT32 iTargetFace;
 	UINT8 ubGroupID = pSoldier->ubGroupID;
@@ -7553,7 +7550,7 @@ void HandleAltMouseTBX2Button(UINT32 *puiNewEvent)
 // sevenfm: these functions keep original mouse code functionality
 void HandleMouseTBWheel( void )
 {
-	UINT8		bID;
+	UINT16		bID;
 
 	if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
 		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
@@ -7787,41 +7784,41 @@ void HandleTBJumpThroughWindow( void ){
 }
 void HandleTBToggleStealthAll( void )
 {
-			// Toggle squad's stealth mode.....
-			// For each guy on squad...
-				SOLDIERTYPE				*pTeamSoldier;
-				INT8					bLoop;
-				BOOLEAN					fStealthOn = FALSE;
+	// Toggle squad's stealth mode.....
+	// For each guy on squad...
+	SOLDIERTYPE *pTeamSoldier;
+	UINT16 bLoop;
+	BOOLEAN fStealthOn = FALSE;
 
-				// Check if at least one guy is on stealth....
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
-				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) )
-					{
-						if ( pTeamSoldier->bStealthMode )
-							fStealthOn = TRUE;
-						}
-					}
+	// Check if at least one guy is on stealth....
+	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+	{
+		if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) )
+		{
+			if ( pTeamSoldier->bStealthMode )
+				fStealthOn = TRUE;
+			}
+		}
 
-				fStealthOn = !fStealthOn;
+	fStealthOn = !fStealthOn;
 
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
-				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
-					{
-						if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
-							gfUIStanceDifferent = TRUE;
-						pTeamSoldier->bStealthMode = fStealthOn;
-					}
-				}
+	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+	{
+		if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+		{
+			if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
+				gfUIStanceDifferent = TRUE;
+			pTeamSoldier->bStealthMode = fStealthOn;
+		}
+	}
 
-				fInterfacePanelDirty = DIRTYLEVEL2;
+	fInterfacePanelDirty = DIRTYLEVEL2;
 
-				// OK, display message
-				if ( fStealthOn )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ON_STEALTHMODE ] );
-				else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_OFF_STEALTHMODE ] );
+	// OK, display message
+	if ( fStealthOn )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ON_STEALTHMODE ] );
+	else
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_OFF_STEALTHMODE ] );
 }
 void HandleTBToggleFireMode( void )
 {
@@ -7956,7 +7953,7 @@ void HandleTBSwapSidearm( void )
 void HandleTBSwapGoogles( void )
 {
 	SOLDIERTYPE	*pTeamSoldier;
-	INT8		bLoop;
+	UINT16		bLoop;
 
 	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 	{
@@ -8056,7 +8053,7 @@ void HandleTBReloadAll( void )
 				if (! ( gTacticalStatus.fEnemyInSector ) )
 				{
 					SOLDIERTYPE	*pTeamSoldier;
-					UINT8		bLoop;
+					UINT16		bLoop;
 					UINT16		bullets;		
 					OBJECTTYPE *pGun, *pAmmo, *pAmmoMags;
 
@@ -8259,7 +8256,7 @@ void HandleTBReloadAll( void )
 				else
 				{
 					SOLDIERTYPE	*pTeamSoldier;
-					UINT8		bLoop;
+					UINT16 bLoop;
 					OBJECTTYPE *pGun, *pAmmo;
 
 					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop, pTeamSoldier++)
@@ -8359,7 +8356,7 @@ void HandleTBGotoLowerStance( void )
 }
 void HandleTBLocateNextMerc( void )
 {
-	UINT8	bID;
+	UINT16	bID;
 	if ( gusSelectedSoldier != NOBODY )
 	{ //Select next merc
 		bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
@@ -8370,7 +8367,7 @@ void HandleTBLocateNextMerc( void )
 }
 void HandleTBLocatePrevMerc( void )
 {
-	UINT8	bID;
+	UINT16	bID;
 	if ( gusSelectedSoldier != NOBODY )
 	{ 
 		bID = FindPrevActiveAndAliveMerc( MercPtrs[ gusSelectedSoldier ], TRUE, TRUE );
@@ -8419,7 +8416,7 @@ void HandleTBDropBackpacks( void )
 	{
 		//SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 		SOLDIERTYPE	*pTeamSoldier;
-		UINT8		ubLoop;
+		UINT16		ubLoop;
 
 		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
 		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
@@ -8457,7 +8454,7 @@ void HandleTBPickUpBackpacks( void )
 	{
 		//SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 		SOLDIERTYPE	*pTeamSoldier;
-		UINT8		ubLoop;
+		UINT16		ubLoop;
 
 		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
 		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
@@ -8504,7 +8501,7 @@ void HandleTBSoldierRun( void )
 			 && pSoldier->usUIMovementMode != WALKING_DUAL_RDY
 			  && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
 		{
-			UIHandleSoldierStanceChange( (UINT8)pSoldier->ubID, ANIM_STAND );
+			UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
 			pSoldier->flags.fUIMovementFast = 1;
 		}
 		else
@@ -9673,4 +9670,46 @@ BOOLEAN CheckAutoBandage(void)
 	}
 
 	return FALSE;
+}
+
+void HandleTBPickUpBackpacks(BOOLEAN fAll)
+{
+	if (UsingNewInventorySystem() && (fAll || gusSelectedSoldier != NOBODY))
+	{
+		SOLDIERTYPE* pSoldier = NULL;
+		SOLDIERTYPE* pTeamSoldier;
+		UINT16 ubLoop;
+
+		if (gusSelectedSoldier != NOBODY)
+		{
+			pSoldier = MercPtrs[gusSelectedSoldier];
+		}
+
+		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
+		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
+
+		for (ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		{
+			pTeamSoldier = MercPtrs[ubLoop];
+
+			if (pTeamSoldier &&
+				OK_CONTROLLABLE_MERC(pTeamSoldier) &&
+				OK_INTERRUPT_MERC(pTeamSoldier) &&
+				!AM_A_ROBOT(pTeamSoldier) &&
+				//!pTeamSoldier->IsBoxer() &&
+				EnoughPoints(pTeamSoldier, sAPCost, iBPCost, FALSE) &&
+				(fAll || pTeamSoldier->bAssignment == pSoldier->bAssignment) &&
+				!pTeamSoldier->inv[BPACKPOCKPOS].exists() &&
+				pTeamSoldier->flags.DropPackFlag)
+			{
+				if (ChangeDropPackStatus(pTeamSoldier, FALSE))
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[11], pTeamSoldier->GetName());
+				}
+			}
+		}
+
+		fCharacterInfoPanelDirty = TRUE;
+		fInterfacePanelDirty = DIRTYLEVEL2;
+	}
 }

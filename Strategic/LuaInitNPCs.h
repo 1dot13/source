@@ -33,7 +33,7 @@ extern UINT16 PROFILLUA_sSectorX;
 extern UINT16 PROFILLUA_sSectorY;
 extern UINT8 PROFILLUA_bSectorZ;
 extern UINT8 PROFILLUA_Level;
-extern UINT8 PROFILLUA_ubID;
+extern UINT16 PROFILLUA_ubID;
 extern UINT32 PROFILLUA_sGridNo;
 extern UINT8 PROFILLUA_ubDirectiono;
 extern UINT8 PROFILLUA_bTeam;
@@ -42,7 +42,7 @@ extern UINT8  PROFILLUA2_ubProfile;
 extern UINT16 PROFILLUA2_sSectorX;
 extern UINT16 PROFILLUA2_sSectorY;
 extern UINT8  PROFILLUA2_bSectorZ;
-extern UINT8  PROFILLUA2_ubID;
+extern UINT16  PROFILLUA2_ubID;
 extern UINT32 PROFILLUA2_sGridNo;
 
 extern BOOLEAN LetHandleLoyaltyChangeForNPCAction(UINT8 ubNPCProfileId , UINT8 Init);
@@ -60,8 +60,9 @@ extern BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 
 //extern BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
 
 void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime );
-void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ,
-									   INT32 sGridNo, UINT8 bLevel, UINT8 ubId,
+void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY,
+ INT8 bSectorZ,
+									   INT32 sGridNo, UINT8 bLevel, UINT16 ubId,
 									   UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill );
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile );
 void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fHasEverBeenPlayerControlled );

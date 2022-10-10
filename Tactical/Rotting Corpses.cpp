@@ -1165,7 +1165,7 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT8										ubBodyType = CROW;
-	UINT8										iNewIndex;
+	UINT16										iNewIndex;
 	INT32 sGridNo;
 	UINT8										ubDirection;
 	SOLDIERTYPE							*pSoldier;
@@ -2970,13 +2970,13 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 																								
 	MercCreateStruct.fVisible			= TRUE;
 
-	INT8							iNewIndex;
-	if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+	UINT16 iNewIndex;
+	if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 	{
 		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
 		*	make an exception for zombies every time...
 		*/
-		SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];
+		SOLDIERTYPE* pNewSoldier = MercPtrs[ iNewIndex ];
 			
 		pNewSoldier->bActionPoints			= 60;
 		pNewSoldier->bInitialActionPoints	= 60;

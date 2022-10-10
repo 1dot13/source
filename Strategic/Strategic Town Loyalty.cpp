@@ -2133,9 +2133,9 @@ BOOLEAN DidFirstBattleTakePlaceInThisTown( INT8 bTownId )
 
 UINT32 PlayerStrength( void )
 {
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT32					uiStrength, uiTotal = 0;
+	UINT16 ubLoop;
+	SOLDIERTYPE * pSoldier;
+	UINT32 uiStrength, uiTotal = 0;
 
 	for ( ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++ )
 	{
@@ -2155,9 +2155,9 @@ UINT32 PlayerStrength( void )
 
 UINT32 EnemyStrength( void )
 {
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT32					uiStrength, uiTotal = 0;
+	UINT16 ubLoop;
+	SOLDIERTYPE * pSoldier;
+	UINT32 uiStrength, uiTotal = 0;
 
 		for ( ubLoop = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
 		{

@@ -1728,7 +1728,7 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			/////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records - times retreated counter
-			for( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			for( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
 			{
 				if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE )
 				{

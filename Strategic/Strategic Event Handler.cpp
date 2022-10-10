@@ -55,7 +55,7 @@ UINT32 guiPabloExtraDaysBribed = 0;
 
 UINT8		gubCambriaMedicalObjects;
 
-extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
+extern UINT16 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 

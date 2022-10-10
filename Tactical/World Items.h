@@ -72,7 +72,7 @@ public:
 	//Because this value is zero in the saved maps, we can't change it to 100, hence the reversal method.
 	//This check is only performed the first time a map is loaded.	Later, it is entirely skipped.
 	UINT8					ubNonExistChance;	
-	INT8					soldierID;
+	INT16					soldierID;
 	char					endOfPod;
 	OBJECTTYPE				object;
 };
@@ -100,13 +100,29 @@ public:
 	OBJECTTYPE				object;
 }; // _OLD_WORLDITEM
 
+class _WORLDITEM_INT8_ID
+{
+public:
+	BOOLEAN					fExists;
+	INT32					sGridNo;
+	UINT8					ubLevel;
+	UINT16					usFlags;
+	INT8					bRenderZHeightAboveLevel;
+	INT8					bVisible;
+	UINT8					ubNonExistChance;
+	INT8					soldierID;
+	char					endOfPod;
+	OBJECTTYPE				object;
+};
+
 #define SIZEOF_WORLDITEM_POD (offsetof(WORLDITEM, endOfPod))
 #define _OLD_SIZEOF_WORLDITEM_POD (offsetof(_OLD_WORLDITEM, endOfPod))
+#define _SIZEOF_WORLDITEM_INT8_ID_POD (offsetof(_WORLDITEM_INT8_ID, endOfPod))
 
 extern std::vector<WORLDITEM> gWorldItems;//dnl ch75 261013
 extern UINT32				guiNumWorldItems;
 
-INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID );
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT16 soldierID );
 void RemoveItemFromWorld( INT32 iItemIndex );
 INT32 FindWorldItem( UINT16 usItem );
 

@@ -2058,7 +2058,7 @@ void GetCurrentWorldSector( INT16 *psMapX, INT16 *psMapY )
 }
 
 //not in overhead.h!
-extern UINT8 NumEnemyInSector( );
+extern UINT16 NumEnemyInSector( );
 
 void HandleRPCDescriptionOfSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
@@ -2777,7 +2777,7 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 	//UINT8		ubRandomMiner[RANDOM_HEAD_MINERS] = { 106, 156, 157, 158 };
 	//UINT8		ubMiner, ubMinersPlaced, ubMine;
 	UINT8		ubThisMine;
-	UINT8		cnt;
+	UINT16		cnt;
 	SOLDIERTYPE * pSoldier;
 
 	// are we in a mine sector, on the surface?
@@ -4063,7 +4063,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 
 	// Set initial selected
 	// ATE: moved this towards top...
-	gubPreferredInitialSelectedGuy = (UINT8)gusSelectedSoldier;
+	gubPreferredInitialSelectedGuy = gusSelectedSoldier;
 
 	if ( ubJumpCode == JUMP_ALL_LOAD_NEW || ubJumpCode == JUMP_ALL_NO_LOAD )
 	{

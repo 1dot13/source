@@ -14,7 +14,7 @@ void RemoveAllPits();
 extern BOOLEAN gfShowPits;
 extern BOOLEAN gfLoadPitsWithoutArming;
 
-void HandleFallIntoPitFromAnimation( UINT8 ubID );
+void HandleFallIntoPitFromAnimation( UINT16 ubID );
 
 
 #endif

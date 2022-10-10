@@ -89,7 +89,7 @@ BOOLEAN RemoveFacesForAutoBandage( void );
 
 extern BOOLEAN CanCharacterAutoBandageTeammate( SOLDIERTYPE *pSoldier );
 extern BOOLEAN CanCharacterBeAutoBandagedByTeammate( SOLDIERTYPE *pSoldier );
-extern UINT8 NumEnemyInSector( );
+extern UINT16 NumEnemyInSector( );
 
 void BeginAutoBandage( )
 {
@@ -316,7 +316,7 @@ BOOLEAN CreateAutoBandageString( void )
 {
 	INT32				cnt;
     // WDS - make number of mercenaries, etc. be configurable
-	UINT8				ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
+	UINT16				ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
 	UINT32				uiDoctorNameStringLength = 1; // for end-of-string character
 	STR16				sTemp;
 	SOLDIERTYPE *		pSoldier;
@@ -399,7 +399,7 @@ void SetAutoBandageComplete( void )
 void AutoBandage( BOOLEAN fStart )
 {
 	SGPRect					aRect;
-	UINT8						ubLoop;
+	UINT16						ubLoop;
 	INT32						cnt;
 	SOLDIERTYPE *		pSoldier;
 

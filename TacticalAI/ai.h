@@ -175,7 +175,7 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier );
 
 INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier );
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT8 *pubOpponentID = NULL);
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT16 * pubOpponentID = NULL);
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );
 INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
@@ -220,7 +220,7 @@ BOOLEAN FindRoofClimbingPoints( SOLDIERTYPE * pSoldier, INT16 sDesiredSpot );
 INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier);
 INT32 FindSweetCoverSpot(SOLDIERTYPE *pSoldier);
 
-void FreeUpNPCFromAttacking(UINT8 ubID);
+void FreeUpNPCFromAttacking(UINT16 ubID);
 void FreeUpNPCFromPendingAction( SOLDIERTYPE * pSoldier );
 void FreeUpNPCFromTurning(SOLDIERTYPE *pSoldier, INT8 bLook);
 void FreeUpNPCFromStanceChange(SOLDIERTYPE *pSoldier );
@@ -228,7 +228,7 @@ void FreeUpNPCFromLoweringGun( SOLDIERTYPE *pSoldier );
 void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier );
 
 UINT8 GetClosestOpponent( SOLDIERTYPE *pSoldier );
-UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier );
+UINT16 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier );
 
 void HandleSoldierAI( SOLDIERTYPE *pSoldier );
 void HandleInitialRedAlert( INT8 bTeam, UINT8 ubCommunicate);
@@ -271,19 +271,19 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction );
 BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp );
 
 // HEADROCK HAM 3.6: Adding includes for A* cover calculations
-INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
-INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
-INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // Flugente: get the id of the closest soldier (coser than x tiles) of a specific team with a specific flag that we can currently see
-UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight = TRUE );
+UINT16 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight = TRUE );
 
 // get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
-UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
+UINT16 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 // get the id of the closest medic (closer than x tiles) of a specific team
-UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
+UINT16 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 // sevenfm:
 BOOLEAN NightLight(void);
@@ -291,15 +291,15 @@ BOOLEAN DuskLight(void);
 BOOLEAN InSmokeNearby(INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalVisionDistance( void );
 UINT8 MinFlankDirections( SOLDIERTYPE *pSoldier );
-UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
+UINT16 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN GuySawEnemy( SOLDIERTYPE * pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
-UINT8 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+UINT16 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountFriendsFlankSameSpot(SOLDIERTYPE *pSoldier, INT32 sSpot = NOWHERE);
 UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE );
-UINT8 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
-UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance);
-UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier);
+UINT16 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
+UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance);
+UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier);
 
 UINT8 SectorCurfew(BOOLEAN fNight);
 UINT8 TeamPercentKilled(INT8 bTeam);
@@ -308,15 +308,15 @@ UINT8 ArmyPercentKilled(void);
 UINT8 ArmyPercentKilledTolerance(void);
 
 BOOLEAN EnemySeenSoldierRecently( SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
-UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier );
+UINT16 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier );
 
 BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier );
 BOOLEAN AICheckIsFlanking( SOLDIERTYPE *pSoldier );
 
 INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
 void PrepareThreatlist(SOLDIERTYPE *pSoldier);
-UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_CURRENTLY);	// first call PrepareThreatlist to make threat list
-UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier);								// first call PrepareThreatlist to make threat list
+UINT16 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_CURRENTLY);	// first call PrepareThreatlist to make threat list
+UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier);								// first call PrepareThreatlist to make threat list
 
 BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
 BOOLEAN SightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
@@ -336,7 +336,7 @@ UINT8	TerrainDensity(INT32 sSpot, INT8 bLevel, UINT8 ubDistance, BOOLEAN fGrass)
 BOOLEAN	FindNearbyExplosiveStructure(INT32 sSpot, INT8 bLevel);
 INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot);
 BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
-UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
+UINT16 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
 BOOLEAN FindObstacleNearSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo);
@@ -387,19 +387,19 @@ BOOLEAN AICheckSpecialRole(SOLDIERTYPE *pSoldier);
 // Knowledge functions
 // *************************************************************
 
-INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
-INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
-INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
 
-BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
 
-INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
-INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
-INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
 
-INT8 PublicKnowledge(UINT8 bTeam, UINT8 ubOpponentID);
-INT32 KnownPublicLocation(UINT8 bTeam, UINT8 ubOpponentID);
-INT8 KnownPublicLevel(UINT8 bTeam, UINT8 ubOpponentID);
+INT8 PublicKnowledge(UINT8 bTeam, UINT16 ubOpponentID);
+INT32 KnownPublicLocation(UINT8 bTeam, UINT16 ubOpponentID);
+INT8 KnownPublicLevel(UINT8 bTeam, UINT16 ubOpponentID);
 
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25

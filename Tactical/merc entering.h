@@ -4,7 +4,7 @@
 extern BOOLEAN		gfIngagedInDrop;
 
 void ResetHeliSeats( );
-void AddMercToHeli( UINT8 ubID );
+void AddMercToHeli( UINT16 ubID );
 
 // Flugente: we might want to set the helicopter dropoff point without starting it at the same time
 void SetHelicopterDroppoint( INT32 sGridNo );
@@ -14,7 +14,7 @@ void StartHelicopterRun();
 
 void HandleHeliDrop( BOOLEAN fPlayer = TRUE );
 
-UINT8 SpawnAirDropElite( INT32 sGridNo );
+UINT16 SpawnAirDropElite( INT32 sGridNo );
 
 void InitiateEnemyAirDropSoldiers( INT32 sGridNo );
 void HandleEnemyAirdrop( );

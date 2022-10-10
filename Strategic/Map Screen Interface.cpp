@@ -70,8 +70,8 @@ extern UILayout_CharPanelIconRegion UI_CHAR_Icon;
 extern UILayout_CharList UI_CHARLIST;
 
 // marke strogg more mercs
-extern UINT8 FIRSTmercTOdisplay = 0 ; 
-extern UINT8 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displayed in the list depends on the resolution
+extern UINT16 FIRSTmercTOdisplay = 0 ; 
+extern UINT16 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displayed in the list depends on the resolution
 
 // inventory pool position on screen
 #define MAP_INVEN_POOL_X				300
@@ -227,7 +227,7 @@ extern UINT32 guiSAVEBUFFER;
 
 extern BOOLEAN fShowInventoryFlag;
 extern FACETYPE *gpCurrentTalkingFace;
-extern UINT8			gubCurrentTalkingID;
+extern UINT16			gubCurrentTalkingID;
 extern BOOLEAN fMapScreenBottomDirty;
 extern MOUSE_REGION	gMPanelRegion;
 
@@ -1355,7 +1355,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 {
 	INT16 sYPosition = 0;
 	HVOBJECT hHandle;
-	UINT8 ubCount = 0;
+	UINT16 ubCount = 0;
 
 	UINT16 selectedCharArrowX = UI_CHARLIST.Region.x + 1;
 
@@ -2119,8 +2119,8 @@ void FindAndSetThisContractSoldier( SOLDIERTYPE *pSoldier )
 		{
 			if( gCharactersList[ iCounter].usSolID == pSoldier->ubID )
 			{
-				ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
-				bSelectedContractChar = ( INT8 )iCounter;
+				ChangeSelectedInfoChar( ( INT16 )iCounter, TRUE );
+				bSelectedContractChar = ( INT16 )iCounter;
 				fShowContractMenu = TRUE;
 
 				// create
@@ -2373,9 +2373,9 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 {
 	PLAYERGROUP *pPlayer;
 	SOLDIERTYPE *pSoldier;
-	UINT8				ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT8				ubNumMercs = 0;
-	UINT8				ubChosenMerc;
+	UINT16				ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16				ubNumMercs = 0;
+	UINT16				ubChosenMerc;
 
 
 	// if traversing tactically, don't do this, unless time compression was required for some reason (don't go to sector)
@@ -2406,7 +2406,7 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 	// At least say quote....
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 		pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
 
 		TacticalCharacterDialogue( pSoldier, usQuoteNum );
@@ -2454,7 +2454,7 @@ BOOLEAN ValidSelectableCharForNextOrPrev( INT32 iNewCharSlot )
 	if ( fShowInventoryFlag || fHoldingItem )
 	{
 		// the new guy must have accessible inventory
-		if ( !MapCharacterHasAccessibleInventory( ( INT8 ) iNewCharSlot ) )
+		if ( !MapCharacterHasAccessibleInventory( ( INT16 ) iNewCharSlot ) )
 		{
 			return( FALSE );
 		}
@@ -3761,60 +3761,67 @@ void CreatePopUpBoxForMovementBox( void )
 
 	// create the pop up box and mouse regions for movement list
 
- // create basic box
- CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	 // create basic box
+	 CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, ( POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
 
- // which buffer will box render to
- SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
+	 // which buffer will box render to
+	 SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
 
- // border type?
- SetBorderType(ghMoveBox,guiPOPUPBORDERS);
+	 // border type?
+	 SetBorderType(ghMoveBox,guiPOPUPBORDERS);
 
- // background texture
- SetBackGroundSurface(ghMoveBox, guiPOPUPTEX);
+	 // background texture
+	 SetBackGroundSurface(ghMoveBox, guiPOPUPTEX);
 
- // margin sizes
- SetMargins( ghMoveBox, 6, 6, 4, 4 );
+	 // margin sizes
+	 SetMargins( ghMoveBox, 6, 6, 4, 4 );
 
- // space between lines
- SetLineSpace(ghMoveBox, 2);
+	 // space between lines
+	 SetLineSpace(ghMoveBox, 2);
 
- // set current box to this one
- SetCurrentBox( ghMoveBox );
+	 // set current box to this one
+	 SetCurrentBox( ghMoveBox );
 
- // add strings
- AddStringsToMoveBox( );
+	 // add strings
+	 AddStringsToMoveBox( );
 
 
- // set font type
- SetBoxFont(ghMoveBox, MAP_SCREEN_FONT);
+	 // set font type
+	 SetBoxFont(ghMoveBox, MAP_SCREEN_FONT);
 
- // set highlight color
- SetBoxHighLight(ghMoveBox, FONT_WHITE);
+	 // set highlight color
+	 SetBoxHighLight(ghMoveBox, FONT_WHITE);
 
- // unhighlighted color
- SetBoxForeground(ghMoveBox, FONT_LTGREEN);
+	 // unhighlighted color
+	 SetBoxForeground(ghMoveBox, FONT_LTGREEN);
 
- // make the header line WHITE
- SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
+	 // make the header line WHITE
+	 SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
 
- // make the done and cancel lines YELLOW
- SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
+	 // make the done and cancel lines YELLOW
+	 SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
 
 	if ( IsAnythingSelectedForMoving() )
 	{
 		SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 2, FONT_YELLOW );
 	}
 
- // background color
- SetBoxBackground(ghMoveBox, FONT_BLACK);
+	 // background color
+	 SetBoxBackground(ghMoveBox, FONT_BLACK);
 
- // shaded color..for darkened text
- SetBoxShade( ghMoveBox, FONT_BLACK );
+	 // shaded color..for darkened text
+	 SetBoxShade( ghMoveBox, FONT_BLACK );
 
+	 SetBoxSecondColumnForeground(ghMoveBox, FONT_LTGREEN);
+	 SetBoxSecondColumnBackground(ghMoveBox, FONT_BLACK);
+	 SetBoxSecondColumnHighLight(ghMoveBox, FONT_WHITE);
+	 SetBoxSecondColumnShade(ghMoveBox, FONT_BLACK);
+	 SetBoxSecondColumnFont(ghMoveBox, MAP_SCREEN_FONT);
+	 SetBoxSecondColumnMinimumOffset(ghMoveBox, 1);
+	 SetBoxSecondColumnOffsetAdjustment(ghMoveBox, -50);
 
- // resize box to text
- ResizeBoxToText( ghMoveBox );
+	 // resize box to text
+	 ResizeBoxToText( ghMoveBox );
 
 	GetBoxPosition( ghMoveBox, &Position);
 	GetBoxSize( ghMoveBox, &Dimensions );
@@ -3841,7 +3848,9 @@ void AddStringsToMoveBox( void )
 	CHAR16 sString[ 128 ], sStringB[ 128 ];
 	UINT32 hStringHandle;
 	BOOLEAN fFirstOne = TRUE;
-
+	const INT32 firstColumnMaxEntries = 4 * gGameOptions.ubSquadSize;
+	INT32 entries = 0;
+	bool isFirstColumnFull = false;
 
 	// set the current box
 	SetCurrentBox( ghMoveBox );
@@ -3854,16 +3863,19 @@ void AddStringsToMoveBox( void )
 	GetShortSectorString( sSelMapX, sSelMapY, sStringB );
 	swprintf( sString, L"%s %s", pMovementMenuStrings[ 0 ], sStringB );
 	AddMonoString(&hStringHandle, sString );
+	AddSecondColumnMonoString(&hStringHandle, L"");
 
 
 	// blank line
 	AddMonoString(&hStringHandle, L"" );
+	AddSecondColumnMonoString(&hStringHandle, L"");
 
 	// add Select all line
 	if (giNumberOfSquadsInSectorMoving > 1)
 	{
 		swprintf(sString, L"%s", pMovementMenuStrings[4]);
 		AddMonoString(&hStringHandle, sString);
+		AddSecondColumnMonoString(&hStringHandle, L"");
 	}
 
 
@@ -3885,7 +3897,15 @@ void AddStringsToMoveBox( void )
 			else
 				swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
-		AddMonoString(&hStringHandle, sString );
+		if (!isFirstColumnFull)
+		{
+			AddMonoString(&hStringHandle, sString);
+		}
+		else
+		{
+			AddMonoStringToSecondColumn(&hStringHandle, sString );
+		}
+		entries += 1;
 
 		// now add all the grunts in it
 		for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
@@ -3901,8 +3921,22 @@ void AddStringsToMoveBox( void )
 				{
 					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
-				AddMonoString(&hStringHandle, sString );
+
+				if (!isFirstColumnFull)
+				{
+					AddMonoString(&hStringHandle, sString);
+				}
+				else
+				{
+					AddMonoStringToSecondColumn(&hStringHandle, sString);
+				}
+				entries += 1;
 			}
+		}
+
+		if (entries > firstColumnMaxEntries)
+		{
+			isFirstColumnFull = true;
 		}
 	}
 
@@ -4202,7 +4236,7 @@ void ClearMouseRegionsForMoveBox( void )
 	INT32 iCounter = 0;
 
 	// run through list of mouse regions
-	for( iCounter = 0; iCounter < ( INT32 )GetNumberOfLinesOfTextInBox( ghMoveBox ); iCounter++ )
+	for( iCounter = 0; iCounter < ( INT32 )(GetNumberOfLinesOfTextInBox( ghMoveBox ) + GetNumberOfSecondaryLinesOfTextInBox(ghMoveBox)); iCounter++)
 	{
 		// remove this region
 		MSYS_RemoveRegion( &gMoveMenuRegion[ iCounter ] );
@@ -4647,11 +4681,11 @@ void HandleSettingTheSelectedListOfMercs( void )
 					// yes, then set them as the destination plotting character for movement arrow purposes
 					fFirstOne = FALSE;
 
-					SetSelectedDestChar(( INT8 )iCounter );
+					SetSelectedDestChar(( INT16 )iCounter );
 					// make DEST column glow
 					giDestHighLine = iCounter;
 
-					ChangeSelectedInfoChar( ( INT8 ) iCounter, TRUE );
+					ChangeSelectedInfoChar( ( INT16 ) iCounter, TRUE );
 				}
 
 				// add this guy to the selected list of grunts
@@ -6185,7 +6219,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
 	{
 		//DBrot: More Rooms
-		UINT8	/*ubRoom,*/ cnt;
+		UINT16	/*ubRoom,*/ cnt;
 		UINT16 usRoom;
 		SOLDIERTYPE * pSoldier2;
 

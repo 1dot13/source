@@ -522,9 +522,9 @@ BOOLEAN IsCuttableWireFenceAtGridNo( INT32 sGridNo )
 }
 
 
-BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
+BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT16 * pubID )
 {
-	UINT8 ubMerc;
+	UINT16 ubMerc;
 
 	// OK, first look for a vehicle....
 	ubMerc = WhoIsThere2( sGridNo, 0 );
@@ -558,9 +558,9 @@ BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 }
 
 
-BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
+BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT16 * pubID )
 {
-	UINT8 ubMerc;
+	UINT16 ubMerc;
 
 	// OK, first look for a vehicle....
 	ubMerc = WhoIsThere2( sGridNo, 0 );

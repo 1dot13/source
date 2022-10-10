@@ -117,7 +117,7 @@ BOOLEAN	gfExitToNewSector					= FALSE;
 BOOLEAN	gfGameScreenLocateToSoldier = FALSE;
 BOOLEAN	gfEnteringMapScreen					= FALSE;
 UINT32	uiOldMouseCursor;
-UINT8		gubPreferredInitialSelectedGuy = NOBODY;
+UINT16	gubPreferredInitialSelectedGuy = NOBODY;
 
 BOOLEAN				gfTacticalIsModal = FALSE;
 MOUSE_REGION	gTacticalDisableRegion;
@@ -1030,7 +1030,7 @@ void TacticalScreenLocateToSoldier( )
 {
 	INT32					cnt;
 	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
+	UINT16					bLastTeamID;
 	BOOLEAN				fPreferedGuyUsed = FALSE;
 
 	if ( gubPreferredInitialSelectedGuy != NOBODY )
@@ -1075,7 +1075,7 @@ void UpdateTeamPanelAssignments( )
 {
 	INT32					cnt;
 	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
+	UINT16					bLastTeamID;
 
 	// Remove all players
 	RemoveAllPlayersFromSlot( );

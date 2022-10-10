@@ -238,7 +238,7 @@ extern	MOUSE_REGION    gMPanelRegion;
 extern	BOOLEAN					fMapInventoryItem;
 extern	BOOLEAN					gfAddingMoneyToMercFromPlayersAccount;
 extern	SOLDIERTYPE			*gpSMCurrentMerc;
-extern  UINT8 gubSelectSMPanelToMerc;
+extern  UINT16 gubSelectSMPanelToMerc;
 extern	MOUSE_REGION		gSM_SELMERCMoneyRegion;
 extern	UINT32					guiMapInvSecondHandBlockout;
 
@@ -8829,7 +8829,7 @@ void DrawItemTileCursor( )
 {
 	INT32 usMapPos;
 	UINT16						usIndex;
-	UINT8							ubSoldierID;
+	UINT16							ubSoldierID;
 	INT16							sAPCost;
 	BOOLEAN						fRecalc;
 	UINT32						uiCursorFlags;
@@ -8935,7 +8935,7 @@ void DrawItemTileCursor( )
 						{
 							// OK, on a valid pass
 							gfUIMouseOnValidCatcher = 4;
-							gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+							gubUIValidCatcherID			= gusUIFullTargetID;
 						}
 						else
 						{
@@ -8944,7 +8944,7 @@ void DrawItemTileCursor( )
 							{
 								// OK, set global that this buddy can see catch...
 								gfUIMouseOnValidCatcher = TRUE;
-								gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+								gubUIValidCatcherID			= gusUIFullTargetID;
 							}
 						}
 					}
@@ -8978,7 +8978,7 @@ void DrawItemTileCursor( )
 
 				// OK, set global that this buddy can see catch...
 				gfUIMouseOnValidCatcher = 2;
-				gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+				gubUIValidCatcherID			= gusUIFullTargetID;
 
 				// If this is a robot, change to say 'reload'
 				if ( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
@@ -9175,7 +9175,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 
 
 	UINT8 ubDirection;
-	UINT8	ubSoldierID;
+	UINT16	ubSoldierID;
 	UINT16	  usItem;
 	INT16			sAPCost;
 	SOLDIERTYPE		*pSoldier=NULL;
@@ -9411,7 +9411,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 					case ANIM_CROUCH:
 					case ANIM_PRONE:
 
-						AddItemToPool( usMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+						AddItemToPool( usMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 						NotifySoldiersToLookforItems( );
 						break;
 				}
@@ -10960,7 +10960,7 @@ BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT32 sGridNo, ITEM_POO
 	// Change to INV panel if not there already...
 	gfSwitchPanel = TRUE;
 	gbNewPanel = SM_PANEL;
-	gubNewPanelParam = (UINT8)pSoldier->ubID;
+	gubNewPanelParam = pSoldier->ubID;
 
 	//Determine total #
 	cnt = 0;
@@ -12761,7 +12761,7 @@ void CancelItemPointer( )
 				if ( !AutoPlaceObject( gpItemPointerSoldier, gpItemPointer, FALSE ) )
 				{
 					// Alright, place of the friggen ground!
-					AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+					AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 					NotifySoldiersToLookforItems( );
 				}
 			}
@@ -12769,7 +12769,7 @@ void CancelItemPointer( )
 		else
 		{
 			// We drop it here.....
-			AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+			AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 			NotifySoldiersToLookforItems( );
 		}
 		EndItemPointer( );
@@ -12920,7 +12920,7 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 	// Change to INV panel if not there already...
 	gfSwitchPanel = TRUE;
 	gbNewPanel = SM_PANEL;
-	gubNewPanelParam = (UINT8)pSoldier->ubID;
+	gubNewPanelParam = pSoldier->ubID;
 
 	gItemPickupMenu.ubTotalItems = ubCount;
 

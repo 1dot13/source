@@ -125,7 +125,7 @@ bool IsSlotASmallPocket(int slot)
 	return false;
 }
 
-void CreateLBE (OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets)
+void CreateLBE (OBJECTTYPE* pObj, UINT16 ubID, int numSubPockets)
 {
 	int uniqueID;
 	LBENODE* pLBE = NULL;

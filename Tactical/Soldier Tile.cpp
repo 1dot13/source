@@ -101,7 +101,7 @@ void OutputDebugInfoForTurnBasedNextTileWaiting( SOLDIERTYPE * pSoldier )
 
 void SetDelayedTileWaiting( SOLDIERTYPE *pSoldier, INT32 sCauseGridNo, INT8 bValue )
 {
-	UINT8		ubPerson;
+	UINT16		ubPerson;
 
 	// Cancel AI Action
 	// CancelAIAction( pSoldier, TRUE );
@@ -210,7 +210,7 @@ void UnMarkMovementReserved( SOLDIERTYPE *pSoldier )
 
 INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 bLevel )
 {
-	UINT8		ubPerson;
+	UINT16		ubPerson;
 	INT32		sTempDestGridNo;
 	INT32 sNewGridNo;
 	BOOLEAN	fSwapInDoor = FALSE;
@@ -519,7 +519,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 	INT32		sCost;
 	INT32 sNewGridNo, sCheckGridNo;
 	UINT8		ubDirection, bCauseDirection;
-	UINT8		ubPerson;
+	UINT16		ubPerson;
 	UINT8		fFlags = 0;
 
 

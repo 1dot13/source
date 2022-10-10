@@ -131,7 +131,7 @@ class ATTACKTYPE
 {
 public:
 	UINT8 ubPossible;				// is this attack form possible
-	UINT8 ubOpponent;				// which soldier is the victim
+	UINT16 ubOpponent;				// which soldier is the victim
 	//CHANGED STRUCTURE VALUE BY GOTTHARD 7/14/07
 	INT16 ubAimTime;				// how many extra APs to spend on aiming
 	INT16 ubChanceToReallyHit;		// chance to hit * chance to get through cover
@@ -213,7 +213,7 @@ void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
 // sevenfm:
 void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
 void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
-void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubOpponentID);
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT16 ubOpponentID);
 INT32 FindTossSpotInDirection(INT32 sSpot, INT8 bLevel, INT32 sTargetSpot, BOOLEAN fCheckAdjacentDirections, BOOLEAN fCheckFarther);
 void CheckTossGrenadeAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubGrenadeType);
 
@@ -319,7 +319,7 @@ BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, U
 // Get the ID of the farthest opponent  we can see, with an optional minimum range
 // puID - ID of the farthest opponent pSoldier can see
 // sRange - only return true and give an idea if opponent found is further away than this
-BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT8* puID, INT16 sRange);
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT16 * puID, INT16 sRange);
 
 // are there more allies than friends in adjacent sectors?
 BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY, INT8 aZ);

@@ -387,13 +387,13 @@ typedef struct
 
 typedef struct
 {
-	UINT8	ubProfileID;
+	UINT16	ubProfileID;
 
 } send_dismiss_struct;
 
 typedef struct
 {
-	UINT8		usSoldierID;
+	UINT16		usSoldierID;
 	FLOAT dNewXPos;
 	FLOAT dNewYPos;
 
@@ -401,7 +401,7 @@ typedef struct
 
 typedef struct
 {
-	UINT8		usSoldierID;
+	UINT16		usSoldierID;
 	INT16	usNewDirection;
 
 } gui_dir;
@@ -430,12 +430,12 @@ typedef struct
 
 typedef struct
 {
-	UINT8 ubID;
+	UINT16 ubID;
 	INT8 bTeam;
-	UINT8 gubOutOfTurnPersons;
-	UINT8 gubOutOfTurnOrder[MAXMERCS];
+	UINT16 gubOutOfTurnPersons;
+	UINT16 gubOutOfTurnOrder[MAXMERCS];
 	BOOLEAN fMarkInterruptOccurred;
-	UINT8 Interrupted;
+	UINT16 Interrupted;
 } INT_STRUCT;
 
 typedef struct
@@ -475,7 +475,7 @@ typedef struct
 	float dForceY;
 	float dForceZ;
 	UINT32 sTargetGridNo;
-	UINT8 ubID;
+	UINT16 ubID;
 	UINT8 ubActionCode;
 	UINT32 uiActionData;
 	UINT16 usItem;
@@ -491,7 +491,7 @@ typedef struct
 	float dZ;
 	INT32 sGridNo;
 	bool bWasDud;
-	UINT8 ubOwnerID;
+	UINT16 ubOwnerID;
 	INT32 RealObjectID; // the local ID on the initiating client
 	UINT32 uiPreRandomIndex; // send out our current pre-random index
 } grenade_result;
@@ -499,7 +499,7 @@ typedef struct
 typedef struct
 {
 	UINT32 sGridNo;
-	UINT8 ubID;
+	UINT16 ubID;
 	UINT16 usItem;
 	UINT8 ubItemStatus;
 	UINT32 uiWorldIndex; // the local World Index of this bomb on its creators client
@@ -511,7 +511,7 @@ typedef struct
 
 typedef struct
 {
-	UINT8 ubID;
+	UINT16 ubID;
 	UINT32 uiWorldItemIndex;
 	UINT8 ubMPTeamIndex;
 	UINT32 uiPreRandomIndex; // send out our current pre-random index
@@ -521,7 +521,7 @@ typedef struct
 {
 	UINT32 uiWorldItemIndex;
 	UINT8 ubMPTeamIndex;
-	UINT8 ubID;
+	UINT16 ubID;
 	UINT32 sGridNo;
 	UINT32 uiPreRandomIndex; // send out our current pre-random index
 } disarm_struct;
@@ -531,7 +531,7 @@ typedef struct
 	INT32 sGridNo;
 	UINT8 ubRadius;
 	UINT16 usItem;
-	UINT8 ubOwner;
+	UINT16 ubOwner;
 	BOOLEAN fSubsequent;
 	INT8 bLevel;
 	INT32 iSmokeEffectID;
@@ -541,13 +541,13 @@ typedef struct
 typedef struct
 {
 	UINT8 ubDamageFunc; // 1 - gas damage , 2 - explosive damage
-	UINT8 ubSoldierID;
+	UINT16 ubSoldierID;
 	UINT16 usExplosiveClassID;
 	INT16 sSubsequent;
 	BOOL fRecompileMovementCosts;
 	INT16 sWoundAmt;
 	INT16 sBreathAmt;
-	UINT8 ubAttackerID;
+	UINT16 ubAttackerID;
 	UINT16 usItem;
 	INT32 sBombGridNo;
 	UINT32 uiDist;
@@ -571,7 +571,7 @@ int	 client_progress[4];
 int		TEAM;
 
 UINT8	netbTeam;
-UINT8	ubID_prefix;
+UINT16	ubID_prefix;
 
 bool is_connected=false;
 bool is_connecting=false;
@@ -990,7 +990,7 @@ void recieveHIT(RPCParameters *rpcParameters)
 	
 	SOLDIERTYPE *pSoldier = MercPtrs[ SWeaponHit->usSoldierID ];
 	UINT16 usSoldierID;
-	UINT8 ubAttackerID;
+	UINT16 ubAttackerID;
 
 	if((SWeaponHit->usSoldierID >= ubID_prefix) && (SWeaponHit->usSoldierID < (ubID_prefix+6))) // within our netbTeam range...
 		usSoldierID = (SWeaponHit->usSoldierID - ubID_prefix);
@@ -1017,7 +1017,7 @@ void recieveHIT(RPCParameters *rpcParameters)
 }
 
 
-void send_dismiss(UINT8 ubCurrentSoldierID)
+void send_dismiss(UINT16 ubCurrentSoldierID)
 {
 	send_dismiss_struct sDismissMerc;
 
@@ -1089,8 +1089,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	send_hire_struct* sHireMerc = (send_hire_struct*)rpcParameters->input;
 
 	SOLDIERTYPE	*pSoldier;
-	UINT8		iNewIndex;
-	UINT8		ubCount=0;
+	UINT16		iNewIndex;
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	BOOLEAN fReturn = FALSE;
@@ -1283,7 +1282,7 @@ UINT8 numenemyLAN( UINT8 ubSectorX, UINT8 ubSectorY )
 	return ubNumEnemies;
 }
 
-void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
+void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID )
 {
 	AI_STRUCT send_inv;
 	send_inv.standard_data = *pCreateStruct;
@@ -1298,7 +1297,7 @@ void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
 
 void recieveAI (RPCParameters *rpcParameters)
 {
-	UINT8 iNewIndex;
+	UINT16 iNewIndex;
 	SOLDIERTYPE *pSoldier;
 	AI_STRUCT* send_inv = (AI_STRUCT*)rpcParameters->input;
 
@@ -1921,7 +1920,7 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 
 	INT.ubID = pSoldier->ubID;
 	INT.bTeam = pSoldier->bTeam;
-	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 	INT.gubOutOfTurnPersons = gubOutOfTurnPersons;
 	
 	INT.Interrupted=gusSelectedSoldier+ubID_prefix;
@@ -1977,7 +1976,7 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 						INT->gubOutOfTurnOrder[i]=INT->gubOutOfTurnOrder[i]-ubID_prefix;
 					}
 				}
-				memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+				memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 				gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
 
 				if(INT->bTeam==netbTeam)//for us
@@ -2025,7 +2024,7 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 						INT->gubOutOfTurnOrder[i]=INT->gubOutOfTurnOrder[i]-ubID_prefix;
 					}
 				}
-				memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+				memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 				gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
 
 				AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
@@ -2141,7 +2140,7 @@ void end_interrupt ( BOOLEAN fMarkInterruptOccurred )
 	INT_STRUCT INT;
 	INT.ubID = pSoldier->ubID;
 	INT.bTeam = pSoldier->bTeam;
-	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 	INT.gubOutOfTurnPersons = gubOutOfTurnPersons;
 	INT.fMarkInterruptOccurred=fMarkInterruptOccurred;
 	if(is_server)Sawarded=false;
@@ -2182,7 +2181,7 @@ void resume_turn(RPCParameters *rpcParameters)
 			}
 		}
 
-		memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+		memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 		gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
 		EndInterrupt( INT->fMarkInterruptOccurred );
 	}
@@ -2928,7 +2927,7 @@ void recieveMAPCHANGE( RPCParameters *rpcParameters )
 }
 
 // 20091002 - OJW - Explosives
-void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID , bool bIsThrownGrenade)
+void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT16 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade)
 {
 	ubOwner = MPEncodeSoldierID(ubOwner); // translate our soldier to the "network" version
 
@@ -2993,7 +2992,7 @@ void recieveGRENADE (RPCParameters *rpcParameters)
 			CreateItem( gren->usItem, 99, newObj );
 			OBJECTTYPE::CopyToOrCreateAt(&pThrower->pTempObject, newObj);
 			// this will create a grenade and launch it
-			INT32 i = CreatePhysicalObject( pThrower->pTempObject , gren->dLifeSpan , gren->dX , gren->dY , gren->dZ , gren->dForceX , gren->dForceY , gren->dForceZ , pThrower->ubID , gren->ubActionCode , gren->uiActionData, false);
+			INT32 i = CreatePhysicalObject( pThrower->pTempObject, gren->dLifeSpan, gren->dX, gren->dY, gren->dZ, gren->dForceX, gren->dForceY, gren->dForceZ, pThrower->ubID, gren->ubActionCode, gren->uiActionData, false);
 			// save extra state info so we can check and feed it result later
 			ObjectSlots[ i ].mpRealObjectID = gren->RealObjectID;
 			ObjectSlots[ i ].mpTeam = pThrower->bTeam;
@@ -3136,7 +3135,7 @@ void recieveGRENADERESULT (RPCParameters *rpcParameters)
 	}
 }
 
-void send_plant_explosive (UINT8 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldItemIndex)
+void send_plant_explosive (UINT16 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldItemIndex)
 {
 	explosive_obj exp;
 
@@ -3184,7 +3183,7 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 			OBJECTTYPE* newObj = new OBJECTTYPE();
 			CreateItem( exp->usItem, exp->ubItemStatus, newObj );
 			INT32 iNewItemIndex;
-			OBJECTTYPE* pObj = AddItemToPoolAndGetIndex( exp->sGridNo, newObj, VISIBLE, exp->ubLevel, exp->usFlags,0, exp->ubID ,&iNewItemIndex);
+			OBJECTTYPE* pObj = AddItemToPoolAndGetIndex( exp->sGridNo, newObj, VISIBLE, exp->ubLevel, exp->usFlags,0, exp->ubID,&iNewItemIndex);
 			// need to save Item Type metadata agaist the world item
 			(*pObj)[0]->data.misc.ubBombOwner = exp->ubID + 2; // this is a hack the designers put into the game, storing the side as well (which isnt relevant in MP, but still have to do it)
 			(*pObj)[0]->data.misc.usBombItem = exp->usItem;
@@ -3237,7 +3236,7 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_detonate_explosive (UINT32 uiWorldIndex, UINT8 ubID)
+void send_detonate_explosive (UINT32 uiWorldIndex, UINT16 ubID)
 {
 	ubID = MPEncodeSoldierID(ubID);
 
@@ -3351,7 +3350,7 @@ void recieveDETONATEEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldItem, UINT8 ubID)
+void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldItem, UINT16 ubID)
 {
 	ubID = MPEncodeSoldierID(ubID);
 
@@ -3474,7 +3473,7 @@ void recieveDISARMEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID )
+void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID )
 {
 	spreadeffect_struct sef;
 
@@ -3527,7 +3526,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 					if ( gSmokeEffectData[ uiCount ].fAllocated == TRUE && gSmokeEffectData[ uiCount ].iMPTeamIndex == pSoldier->bTeam && gSmokeEffectData[ uiCount ].iMPSmokeEffectID == sef->iSmokeEffectID)
 					{
 						bFound = true;
-						SpreadEffect( sef->sGridNo , sef->ubRadius , sef->usItem , sef->ubOwner , sef->fSubsequent , sef->bLevel , uiCount , TRUE);
+						SpreadEffect( sef->sGridNo, sef->ubRadius, sef->usItem, sef->ubOwner, sef->fSubsequent, sef->bLevel, uiCount, TRUE);
 						break;
 					}
 				}
@@ -3544,7 +3543,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 			}
 			else
 			{
-				SpreadEffect( sef->sGridNo , sef->ubRadius , sef->usItem , sef->ubOwner , sef->fSubsequent , sef->bLevel , sef->iSmokeEffectID , TRUE);
+				SpreadEffect( sef->sGridNo, sef->ubRadius, sef->usItem, sef->ubOwner, sef->fSubsequent, sef->bLevel, sef->iSmokeEffectID, TRUE);
 			}
 		}
 	}
@@ -3559,7 +3558,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 	}
 }
 
-void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, INT32 iSmokeEffectID)
+void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, INT32 iSmokeEffectID)
 {
 	// i'm reusing this struct, the parameters are essentially the same
 	spreadeffect_struct sef;
@@ -3602,7 +3601,7 @@ void recieveNEWSMOKEEFFECT (RPCParameters *rpcParameters)
 			guiPreRandomIndex = sef->uiPreRandomIndex;
 
 			// start new smoke effect
-			INT32 iNewSmokeIndex = NewSmokeEffect( sef->sGridNo , sef->usItem , sef->bLevel , sef->ubOwner , TRUE );
+			INT32 iNewSmokeIndex = NewSmokeEffect( sef->sGridNo, sef->usItem, sef->bLevel, sef->ubOwner, TRUE );
 			
 			// attach remote id to local smoke effect
 			gSmokeEffectData[iNewSmokeIndex].iMPTeamIndex = pSoldier->bTeam;
@@ -3620,7 +3619,7 @@ void recieveNEWSMOKEEFFECT (RPCParameters *rpcParameters)
 	}
 }
 
-void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT8 ubOwner )
+void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT16 ubOwner )
 {
 	explosiondamage_struct exp;
 	exp.ubDamageFunc = 1;
@@ -3642,7 +3641,7 @@ void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sS
 	client->RPC("sendEXPLOSIONDAMAGE",(const char*)&exp, (int)sizeof(explosiondamage_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
-void send_explosivedamage( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent )
+void send_explosivedamage( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent )
 {
 	explosiondamage_struct exp;
 	exp.ubDamageFunc = 2;
@@ -3699,7 +3698,7 @@ void recieveEXPLOSIONDAMAGE (RPCParameters *rpcParameters)
 			}
 			else if (exp->ubDamageFunc == 2)
 			{
-				DamageSoldierFromBlast( exp->ubSoldierID , exp->ubAttackerID , exp->sBombGridNo , exp->sWoundAmt , exp->sBreathAmt , exp->uiDist , exp->usItem , exp->sSubsequent , TRUE);
+				DamageSoldierFromBlast( exp->ubSoldierID, exp->ubAttackerID, exp->sBombGridNo, exp->sWoundAmt, exp->sBreathAmt, exp->uiDist, exp->usItem, exp->sSubsequent, TRUE);
 			}
 		}
 	}
@@ -4206,7 +4205,7 @@ BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 {
 	//this send stats to other clients at intervals
-	UINT8 id = pSoldier->ubID;
+	UINT16 id = pSoldier->ubID;
 	UINT32 time = GetJA2Clock();
 
 	if(id < 20 || (is_server && id <120))
@@ -4519,7 +4518,7 @@ void recieveDISCONNECT(RPCParameters* rpcParameters)
 		// kill the dead clients mercs out of the game
 
 		UINT8 iNetbTeam = (cl_num)+5;
-		UINT8 iubID_prefix = gTacticalStatus.Team[ iNetbTeam ].bFirstID;//over here now
+		UINT16 iubID_prefix = gTacticalStatus.Team[ iNetbTeam ].bFirstID;//over here now
 
 		// kill any alive soldiers for the disconnected team
 		SOLDIERTYPE *pTeamSoldier;

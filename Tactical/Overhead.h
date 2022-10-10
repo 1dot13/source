@@ -23,12 +23,12 @@ enum
 // TACTICAL ENGINE STATUS FLAGS
 typedef struct
 {
-    UINT8           bFirstID;
-    UINT8           bLastID;
+    UINT16           bFirstID;
+    UINT16           bLastID;
     COLORVAL    RadarColor;
     INT8        bSide;
-    INT8            bMenInSector;
-    UINT8           ubLastMercToRadio;
+    INT16            bMenInSector;
+    UINT16           ubLastMercToRadio;
     INT8        bTeamActive;
     INT8        bAwareOfOpposition;
     INT8        bHuman;
@@ -69,8 +69,8 @@ struct TacticalStatusType
     INT8                                fPanicFlags;
     INT32                               sPanicTriggerGridNoUnused;
     INT16                               sHandGrid;
-    UINT8                               ubSpottersCalledForBy;
-    UINT8                               ubTheChosenOne;
+    UINT16                               ubSpottersCalledForBy;
+    UINT16                              ubTheChosenOne;
     UINT32                          uiTimeOfLastInput;
     UINT32                          uiTimeSinceDemoOn;
     UINT32                          uiCountdownToRestart;
@@ -89,13 +89,13 @@ struct TacticalStatusType
     INT8                                bRealtimeSpeed;
     UINT8                               ubEnemyIntention;
     UINT8                               ubEnemyIntendedRetreatDirection;
-    UINT8                               ubEnemySightingOnTheirTurnEnemyID;
-    UINT8                               ubEnemySightingOnTheirTurnPlayerID;
+    UINT16                               ubEnemySightingOnTheirTurnEnemyID;
+    UINT16                               ubEnemySightingOnTheirTurnPlayerID;
     BOOLEAN                         fEnemySightingOnTheirTurn;
     BOOLEAN                         fAutoBandageMode;
     UINT8                               ubAttackBusyCount;
     INT8                                bNumEnemiesFoughtInBattleUnused;
-    UINT8                               ubEngagedInConvFromActionMercID;
+    UINT16                              ubEngagedInConvFromActionMercID;
     UINT16                          usTactialTurnLimitCounter;
     BOOLEAN                         fInTopMessage;
     UINT8                               ubTopMessageType;
@@ -114,7 +114,7 @@ struct TacticalStatusType
     BOOLEAN                         fSaidCreatureFlavourQuote;
     BOOLEAN                         fHaveSeenCreature;
     BOOLEAN                         fKilledEnemyOnAttack;
-    UINT8                               ubEnemyKilledOnAttack;
+    UINT16                               ubEnemyKilledOnAttack;
     INT8                                bEnemyKilledOnAttackLevel;
     UINT16                          ubEnemyKilledOnAttackLocation;
     BOOLEAN                         fItemsSeenOnAttack;
@@ -128,7 +128,7 @@ struct TacticalStatusType
     BOOLEAN                         fCantGetThrough;
     INT32                               sCantGetThroughGridNo;
     INT32                               sCantGetThroughSoldierGridNo;
-    UINT8                               ubCantGetThroughID;
+    UINT16                               ubCantGetThroughID;
     BOOLEAN                         fDidGameJustStart;
     BOOLEAN                         fStatChangeCheatOn;
     UINT8                               ubLastRequesterTargetID;
@@ -142,10 +142,9 @@ struct TacticalStatusType
     BOOLEAN                         fHasAGameBeenStarted;
     INT8                                bConsNumTurnsWeHaventSeenButEnemyDoes;
     BOOLEAN                             fSomeoneHit;
-    UINT8                               ubPaddingSmall;
     UINT32                          uiTimeSinceLastOpplistDecay;
     INT8                                bMercArrivingQuoteBeingUsed;
-    UINT8                               ubEnemyKilledOnAttackKiller;
+    UINT16                              ubEnemyKilledOnAttackKiller;
     BOOLEAN                         fCountingDownForGuideDescription;
     INT8                                bGuideDescriptionCountDown;
     UINT8                               ubGuideDescriptionToUse;
@@ -159,7 +158,7 @@ struct TacticalStatusType
     UINT16              sCreatureTenseQuoteDelay;
     UINT32              uiCreatureTenseQuoteLastUpdate;
     // SANDRO - added these
-    UINT8                               ubLastRequesterSurgeryTargetID;
+    UINT16                               ubLastRequesterSurgeryTargetID;
     UINT8                               ubInterruptPending;
 	// sevenfm: Ctrl+D disable interrupts
 	BOOLEAN								ubDisablePlayerInterrupts;
@@ -240,11 +239,11 @@ void SlideToLocation( UINT16 usReasonID, INT32 sDestGridNo );
 
 void RebuildAllSoldierShadeTables( );
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier );
-UINT8 LastActiveTeamMember( UINT8 ubTeam );
+UINT16 LastActiveTeamMember( UINT16 ubTeam );
 BOOLEAN SoldierOnVisibleWorldTile( SOLDIERTYPE *pSoldier );
 
-UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
-UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+UINT16 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+UINT16 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
 
 BOOLEAN CheckForPlayerTeamInMissionExit( );
 void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldier );
@@ -261,7 +260,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 
 void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier );
 BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange);
-BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID );
+BOOLEAN IsValidTargetMerc( UINT16 ubSoldierID );
 
 // FUNCTIONS FOR MANIPULATING MERC SLOTS - A LIST OF ALL ACTIVE MERCS
 INT32 GetFreeMercSlot( );
@@ -323,7 +322,7 @@ BOOLEAN HostileBloodcatsPresent( );
 BOOLEAN HostileZombiesPresent( );
 BOOLEAN HostileCreaturesPresent();
 
-UINT8 NumPCsInSector( );
+UINT16 NumPCsInSector( );
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );
 void SetSoldierNeutral( SOLDIERTYPE * pSoldier );
 
@@ -351,10 +350,10 @@ extern BOOLEAN gogglewarning;
 // will a sam site under the players control shoot down an airraid?
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 // HEADROCK HAM 3.5: Externalized for First Arrival enemy check
-extern UINT8 NumEnemyInSector();
+extern UINT16 NumEnemyInSector();
 
 // Flugente
-extern UINT8 NumZombiesInSector();
+extern UINT16 NumZombiesInSector();
 
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );
@@ -371,7 +370,7 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);
 void TeamRestock(UINT8 bTeam);
 
 // are we allowed to steal access this guy's inventory?
-BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
+BOOLEAN AllowedToStealFromTeamMate( UINT16 ubID, UINT16 ubTargetID );
 
 // Flugente: is an soldier profile already used?
 BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
@@ -402,7 +401,7 @@ enum {
 };
 
 // Flugente: return number of enemy officers and highest rank found
-UINT8 HighestEnemyOfficersInSector(UINT8& aType);
+UINT16 HighestEnemyOfficersInSector(UINT8& aType);
 
 // count all soldiers in the current sector that have a specific flag set
 UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);

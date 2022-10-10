@@ -366,7 +366,7 @@ UINT32	GetTimeToFixItemBeingRepaired( UINT8 ubArmsDealer, UINT16 usItemIndex, UI
 BOOLEAN CanDealerTransactItem( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer );
 BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex );
 
-BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT8 aMercID );
+BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT16 aMercID );
 
 void		MakeObjectOutOfDealerItems( DEALER_SPECIAL_ITEM *pSpclItemInfo, OBJECTTYPE *pObject );
 void		CreateObjectForDealer( int usItem, int status, int numObjects, OBJECTTYPE *pObject );

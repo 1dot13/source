@@ -2517,7 +2517,7 @@ b=GetJA2Clock();//return s->sGridNo+6;
 	INT8	bLoopState = LOOPING_CLOCKWISE;
 	//BOOLEAN fLoopForwards = FALSE;
 	BOOLEAN	fCheckedBehind = FALSE;
-	UINT8	ubMerc;
+	UINT16	ubMerc;
 	INT32 iDestX,iDestY, iLocX, iLocY, dx, dy;
 	INT32	newLoc,curLoc;
 	//INT32 curY;

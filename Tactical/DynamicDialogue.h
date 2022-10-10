@@ -452,7 +452,7 @@ BOOLEAN LoadDynamicDialogue( HWFILE hwFile );
 
 
 //  modify usProfileA's opinion of usProfileB because of usEvent
-void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue = TRUE );
+void AddOpinionEvent( UINT16 usProfileA, UINT16 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue = TRUE );
 
 // get usProfileA's opinion of usProfileB on one of the last 4 days
 INT8 GetDynamicOpinionDay( UINT8 usProfileA, UINT8 usProfileB, UINT8 usDay );

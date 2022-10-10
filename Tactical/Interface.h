@@ -366,7 +366,7 @@ enum
 extern BOOLEAN		gfSwitchPanel;
 extern BOOLEAN		gfUIStanceDifferent;
 extern UINT8		gbNewPanel;
-extern UINT8		gubNewPanelParam;
+extern UINT16		gubNewPanelParam;
 extern INT16		gsCurInterfacePanel;
 
 extern UINT32		guiRENDERBUFFER;
@@ -458,9 +458,9 @@ BOOLEAN DrawCTHIndicator();
 
 void CreateCurrentTacticalPanelButtons( );
 void RemoveCurrentTacticalPanelButtons( );
-void SetCurrentTacticalPanelCurrentMerc( UINT8 ubID );
+void SetCurrentTacticalPanelCurrentMerc( UINT16 ubID );
 void SetCurrentInterfacePanel( UINT8 ubNewPanel );
-BOOLEAN IsMercPortraitVisible( UINT8 ubSoldierID );
+BOOLEAN IsMercPortraitVisible( UINT16 ubSoldierID );
 
 BOOLEAN InitializeCurrentPanel( );
 void ShutdownCurrentPanel( );
@@ -475,7 +475,7 @@ void HandleUpDownArrowBackgrounds( );
 
 void EndDeadlockMsg( );
 
-void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag );
+void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag );
 
 void DirtyMercPanelInterface( SOLDIERTYPE *pSoldier, UINT8 ubDirtyLevel );
 
@@ -515,7 +515,7 @@ void EndTopMessage( );
 
 void PauseRT( BOOLEAN fPause );
 
-void InitEnemyUIBar( UINT8 ubNumEnemies, UINT8 ubDoneEnemies );
+void InitEnemyUIBar( UINT16 ubNumEnemies, UINT16 ubDoneEnemies );
 
 STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier );
 

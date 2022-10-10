@@ -143,19 +143,19 @@
 #include "GameInitOptionsScreen.h"
 
 // OJW - 20090419
-UINT8   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
-UINT8   giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES = CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
-UINT8   giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-UINT8   giMAXIMUM_NUMBER_OF_ENEMIES = CODE_MAXIMUM_NUMBER_OF_ENEMIES;
-UINT8   giMAXIMUM_NUMBER_OF_CREATURES = CODE_MAXIMUM_NUMBER_OF_CREATURES;
-UINT8   giMAXIMUM_NUMBER_OF_REBELS = CODE_MAXIMUM_NUMBER_OF_REBELS;
-UINT8   giMAXIMUM_NUMBER_OF_CIVS = CODE_MAXIMUM_NUMBER_OF_CIVS;
+UINT16   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
+UINT16   giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES = CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
+UINT16   giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+UINT16   giMAXIMUM_NUMBER_OF_ENEMIES = CODE_MAXIMUM_NUMBER_OF_ENEMIES;
+UINT16   giMAXIMUM_NUMBER_OF_CREATURES = CODE_MAXIMUM_NUMBER_OF_CREATURES;
+UINT16   giMAXIMUM_NUMBER_OF_REBELS = CODE_MAXIMUM_NUMBER_OF_REBELS;
+UINT16   giMAXIMUM_NUMBER_OF_CIVS = CODE_MAXIMUM_NUMBER_OF_CIVS;
 
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
+extern void HandleTBPickUpBackpacks(BOOLEAN fAll);
 extern void HandleBestSightingPositionInRealtime();
 extern INT32 GetCurrentBalance( void );
 
@@ -372,7 +372,7 @@ CHAR8 gzDirectionStr[][ 30 ] =
 };
 
 // TEMP VALUES FOR TEAM DEFAULT POSITIONS
-UINT8 bDefaultTeamRangesMP[ MAXTEAMS ][ 2 ] = 
+UINT16 bDefaultTeamRangesMP[ MAXTEAMS ][ 2 ] = 
 
 {
     0,              19,      //20  US
@@ -388,7 +388,7 @@ UINT8 bDefaultTeamRangesMP[ MAXTEAMS ][ 2 ] =
     MAX_NUM_SOLDIERS, TOTAL_SOLDIERS - 1       // PLANNING SOLDIERS
 };
 
-UINT8 bDefaultTeamRanges[ MAXTEAMS_SP ][ 2 ] = 
+UINT16 bDefaultTeamRanges[ MAXTEAMS_SP ][ 2 ] = 
 {
     0,
     CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES-1,
@@ -420,16 +420,16 @@ COLORVAL bDefaultTeamColors[ MAXTEAMS ] =
 };
 
 // UTILITY FUNCTIONS
-INT8    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
-UINT8   NumEnemyInSector( );
-UINT8   NumEnemyInSectorExceptCreatures();
-UINT8   NumCapableEnemyInSector( );
+UINT16    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
+UINT16   NumEnemyInSector( );
+UINT16   NumEnemyInSectorExceptCreatures();
+UINT16   NumCapableEnemyInSector( );
 
 BOOLEAN KillIncompacitatedEnemyInSector( );
 BOOLEAN CheckForLosingEndOfBattle( );
 void    EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue );
-UINT8   NumEnemyInSectorNotDeadOrDying( );
-UINT8   NumBloodcatsInSectorNotDeadOrDying( );
+UINT16   NumEnemyInSectorNotDeadOrDying( );
+UINT16   NumBloodcatsInSectorNotDeadOrDying( );
 
 UINT8   gubWaitingForAllMercsToExitCode = 0;
 UINT8   gusNumMercsUntilWaitingOver = 0;
@@ -659,7 +659,7 @@ void ShutdownTacticalEngine( )
 BOOLEAN InitOverhead( )
 {
     UINT32  cnt;
-    UINT8   cnt2;
+    UINT16   cnt2;
 
     // Set pointers list
     for( cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
@@ -1331,7 +1331,7 @@ BOOLEAN ExecuteOverhead( )
 								}
 
                                 // OK, if we are the selected soldier, refresh some UI stuff
-                                if ( pSoldier->ubID == (UINT8)gusSelectedSoldier )
+                                if ( pSoldier->ubID == gusSelectedSoldier )
                                 {
                                     gfUIRefreshArrows = TRUE;
                                 }
@@ -3378,7 +3378,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
         UpdateForContOverPortrait( pOldSoldier, FALSE );
     }
 
-    gusSelectedSoldier = (UINT16)usSoldierID;
+    gusSelectedSoldier = usSoldierID;
 
     // find which squad this guy is, then set selected squad to this guy
 	if( pSoldier->bAssignment == VEHICLE )
@@ -3405,7 +3405,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
     //pSoldier->SetCheckSoldierLightFlag( );
 
     // Set interface to reflect new selection!
-    SetCurrentTacticalPanelCurrentMerc( (UINT8)usSoldierID );
+    SetCurrentTacticalPanelCurrentMerc( usSoldierID );
 
     // PLay ATTN SOUND
     if ( fAcknowledge )
@@ -3513,11 +3513,11 @@ void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator)
     {
         if ( fSetLocator == SETLOCATOR || fSetLocator == 10 )
         {
-            ShowRadioLocator((UINT8)usID, SHOW_LOCATOR_NORMAL );
+            ShowRadioLocator(usID, SHOW_LOCATOR_NORMAL );
         }
         else
         {
-            ShowRadioLocator((UINT8)usID, SHOW_LOCATOR_FAST );
+            ShowRadioLocator(usID, SHOW_LOCATOR_FAST );
         }
     }
 }
@@ -3569,7 +3569,7 @@ void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSet
 
     // Locate even if on screen
     if (fSetLocator)
-        ShowRadioLocator((UINT8) usSoldierID, SHOW_LOCATOR_NORMAL );
+        ShowRadioLocator( usSoldierID, SHOW_LOCATOR_NORMAL );
 
     // FIRST CHECK IF WE ARE ON SCREEN
     if ( GridNoOnScreen( MercPtrs[ usSoldierID ]->sGridNo ) )
@@ -4167,7 +4167,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     // killing crows/cows is not worth any experience!
     if ( ( pSoldierOld->ubBodyType != CROW ) && ( pSoldierOld->ubBodyType != COW ) ) //&& pSoldierOld->ubLastDamageReason != TAKE_DAMAGE_BLOODLOSS ) // SANDRO - why not give exp for bleeding out?
     {
-        UINT8   ubAssister = NOBODY;
+        UINT16   ubAssister = NOBODY;
 
         // if it was a kill by a player's merc
         if (pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == gbPlayerNum )
@@ -4267,7 +4267,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     CheckForEndOfBattle( FALSE );
 }
 
-UINT8 LastActiveTeamMember( UINT8 ubTeam )
+UINT16 LastActiveTeamMember( UINT16 ubTeam )
 {
     INT32 cnt;
     SOLDIERTYPE          *pSoldier;
@@ -4279,7 +4279,7 @@ UINT8 LastActiveTeamMember( UINT8 ubTeam )
     {
         if ( pSoldier->bActive )
         {
-            return( (INT8)cnt );
+            return( (UINT16)cnt );
         }
     }
 
@@ -4542,9 +4542,9 @@ void MakeCivHostile(SOLDIERTYPE *pSoldier)
 
 UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked )
 {
-    SOLDIERTYPE *       pSoldier;
-    UINT8                       ubFirstProfile = NO_PROFILE;
-    UINT8                       cnt;
+    SOLDIERTYPE * pSoldier;
+    UINT8 ubFirstProfile = NO_PROFILE;
+    UINT16 cnt;
 
     if ( pAttacked->ubCivilianGroup == NON_CIV_GROUP )
     {
@@ -4584,11 +4584,11 @@ UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked )
 
 SOLDIERTYPE * CivilianGroupMemberChangesSides( SOLDIERTYPE * pAttacked )
 {
-    SOLDIERTYPE *       pNew;
-    SOLDIERTYPE *       pNewAttacked = pAttacked;
-    SOLDIERTYPE *       pSoldier;
-    UINT8                       cnt;
-    UINT8                       ubFirstProfile = NO_PROFILE;
+    SOLDIERTYPE * pNew;
+    SOLDIERTYPE * pNewAttacked = pAttacked;
+    SOLDIERTYPE * pSoldier;
+    UINT16 cnt;
+    UINT8 ubFirstProfile = NO_PROFILE;
 
     if ( pAttacked->ubCivilianGroup == NON_CIV_GROUP )
     {
@@ -4778,11 +4778,11 @@ gTacticalStatus.fCivGroupHostile[ ubLoop ] = CIV_GROUP_HOSTILE;
 }
  */
 
-INT8 NumActiveAndConsciousTeamMembers( UINT8 ubTeam )
+UINT16 NumActiveAndConsciousTeamMembers( UINT8 ubTeam )
 {
     INT32 cnt;
     SOLDIERTYPE          *pSoldier;
-    UINT8                                   ubCount = 0;
+    UINT16 ubCount = 0;
 
     cnt = gTacticalStatus.Team[ ubTeam ].bFirstID;
 
@@ -4799,10 +4799,10 @@ INT8 NumActiveAndConsciousTeamMembers( UINT8 ubTeam )
 }
 
 
-UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
+UINT16 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
-    UINT8   bLastTeamID;
-    INT32 cnt;
+    UINT16   bLastTeamID;
+    UINT16 cnt;
     SOLDIERTYPE          *pTeamSoldier;
 
     cnt = pSoldier->ubID + 1;
@@ -4823,14 +4823,14 @@ UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
         {
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( cnt );
             }
         }
     }
@@ -4854,14 +4854,14 @@ UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
         {
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( cnt );
             }
         }
     }
@@ -4913,9 +4913,9 @@ SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier )
 }
 
 
-UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife,    BOOLEAN fOnlyRegularMercs )
+UINT16 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife,    BOOLEAN fOnlyRegularMercs )
 {
-    UINT8   bLastTeamID;
+    UINT16   bLastTeamID;
     INT32 cnt;
     SOLDIERTYPE          *pTeamSoldier;
 
@@ -4939,14 +4939,14 @@ UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
             // Check for bLife > 0
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( (UINT16)cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( (UINT16)cnt );
             }
         }
     }
@@ -4969,14 +4969,14 @@ UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
         {
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( (UINT16)cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT8)cnt );
+                return( (UINT16)cnt );
             }
         }
     }
@@ -4990,8 +4990,8 @@ UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
 BOOLEAN CheckForPlayerTeamInMissionExit( )
 {
     INT32 cnt;
-    SOLDIERTYPE          *pSoldier;
-    UINT8                                   bGuysIn = 0;
+    SOLDIERTYPE *pSoldier;
+    UINT16 bGuysIn = 0;
 
     // End the turn of player charactors
     cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -5087,10 +5087,10 @@ extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel
 // NB if making changes don't forget to update NewOKDestinationAndDirection
 BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
 {
-    UINT8                   bPerson;
-    STRUCTURE *     pStructure;
-    INT16        sDesiredLevel;
-    BOOLEAN             fOKCheckStruct;
+    UINT16 bPerson;
+    STRUCTURE *pStructure;
+    INT16 sDesiredLevel;
+    BOOLEAN fOKCheckStruct;
 
 	// sevenfm: allow civilians and NPCs with profile to go off screen
 	if (!GridNoOnVisibleWorldTile(sGridNo) && (pCurrSoldier->bTeam != CIV_TEAM || pCurrSoldier->ubProfile == NO_PROFILE))
@@ -5228,10 +5228,10 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
 // NB if making changes don't forget to update NewOKDestination
 INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, INT8 bDirection, BOOLEAN fPeopleToo, INT8 bLevel )
 {
-    UINT8                   bPerson;
-    STRUCTURE *     pStructure;
-    INT16        sDesiredLevel;
-    BOOLEAN             fOKCheckStruct;
+    UINT16 bPerson;
+    STRUCTURE *pStructure;
+    INT16 sDesiredLevel;
+    BOOLEAN fOKCheckStruct;
 
     if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
     {
@@ -5439,7 +5439,7 @@ BOOLEAN IsLocationSittableExcludingPeople( INT32 iMapIndex, BOOLEAN fOnRoof )
 
 BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange)
 {
-    UINT8 bLoop;
+    UINT16 bLoop;
     SOLDIERTYPE * pSoldier;
 
     for (bLoop=gTacticalStatus.Team[bTeam].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[bTeam].bLastID; ++bLoop, pSoldier++)
@@ -5832,14 +5832,14 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     //INT32 cnt;
     INT32 sClosest = -1, sSpot, sSpot2;
     INT32 sCloseGridNo = NOWHERE;
-    UINT32                                       uiMercFlags;
-    UINT16                                       usSoldierIndex;
-    UINT8                                           ubDir;
-    STRUCTURE                               *pDoor;
-    UINT8                                           ubWallOrientation;
-    BOOLEAN                                                                 fCheckGivenGridNo = TRUE;
-    UINT8                                                                       ubTestDirection;
-    UINT8                                                                       ubWhoIsThere;
+    UINT32 uiMercFlags;
+    UINT16 usSoldierIndex;
+    UINT8 ubDir;
+    STRUCTURE *pDoor;
+    UINT8 ubWallOrientation;
+    BOOLEAN fCheckGivenGridNo = TRUE;
+    UINT8 ubTestDirection;
+    UINT16 ubWhoIsThere;
 
     // CHECK IF WE WANT TO FORCE GRIDNO TO PERSON
     if ( psAdjustedGridNo != NULL )
@@ -6145,7 +6145,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSoldier, INT32 * psAdjustedTargetGridNo, UINT8 * pubDirection )
 {
     INT32   sSpot;  
-    UINT8   ubGuyThere;
+    UINT16   ubGuyThere;
 
     for ( UINT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; ++cnt )
     {
@@ -6883,9 +6883,9 @@ void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
 {
     // WDS - make number of mercenaries, etc. be configurable
     //  UINT8   ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-    std::vector<UINT8>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-    UINT8   ubNumMercs = 0;
-    UINT8   ubChosenMerc;
+    std::vector<UINT16>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+    UINT16   ubNumMercs = 0;
+    UINT16   ubChosenMerc;
     SOLDIERTYPE *pTeamSoldier;
     INT32 cnt;
 
@@ -6900,7 +6900,7 @@ void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
         // Add guy if he's a candidate...
         if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
         {
-            ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+            ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
             ubNumMercs++;
         }
     }
@@ -6908,7 +6908,7 @@ void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
     // If we are > 0
     if ( ubNumMercs > 0 )
     {
-        ubChosenMerc = (UINT8)Random( ubNumMercs );
+        ubChosenMerc = (UINT16)Random( ubNumMercs );
 
         MercPtrs[ ubChosenMerc ]->DoMercBattleSound( (UINT8)iBattleSnd );
     }
@@ -7402,10 +7402,6 @@ void UpdateWoundedFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	SOLDIERTYPE			*pSoldier;
 	INT32               cnt = 0;
-	UINT8               ubNumPrisoners = 0;
-	UINT8               ubNumPrisonerAdmin = 0;
-	UINT8               ubNumPrisonerTroop = 0;
-	UINT8               ubNumPrisonerElite = 0;
 
 	// Check if the battle is won!
 	// Loop through all mercs and make go
@@ -7543,7 +7539,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 	if (fBattleLost)
 	{
 		// sevenfm: count alive/dead/not covert mercs in sector/retreating from sector
-		UINT8 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT16 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 		BOOLEAN fFoundNotCovertMerc = FALSE;
 		BOOLEAN fFoundAliveMerc = FALSE;
 		BOOLEAN fFoundDeadMerc = FALSE;
@@ -7592,7 +7588,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		memset(&(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS);
 
 		// If here, the battle has been lost!
-		UnSetUIBusy((UINT8)gusSelectedSoldier);
+		UnSetUIBusy(gusSelectedSoldier);
 
 		if (gTacticalStatus.uiFlags & INCOMBAT)
 		{
@@ -7725,7 +7721,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         // battle for us
         EndAllAITurns( );
 
-        UnSetUIBusy( (UINT8)gusSelectedSoldier );
+        UnSetUIBusy( gusSelectedSoldier );
 
         // ATE:
         // If we ended battle in any team other than the player's
@@ -8011,7 +8007,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		// Flugente: in any case, reset creature attack variables
 		ResetCreatureAttackVariables();
 
-		// sevenfm: switch off radio
+        // sevenfm: pick up dropped backpacks
+        HandleTBPickUpBackpacks(TRUE);
+
+        // sevenfm: switch off radio
 		//SwitchOffAllRadio();
 		
         // If we are the server, we escape this function at the top if we think the game should still be running
@@ -8154,7 +8153,7 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
                 // If we are > ok start, this is the one!
                 if ( cnt > pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT8)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
                     SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
@@ -8182,7 +8181,7 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
                 // If we are > ok start, this is the one!
                 if ( cnt > pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT8)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
                     SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
@@ -8217,7 +8216,7 @@ void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
                 // If we are > ok start, this is the one!
                 if ( cnt < pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT8)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
                     SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
@@ -8246,7 +8245,7 @@ void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
                 // If we are > ok start, this is the one!
                 if ( cnt < pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT8)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
                     SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
@@ -8289,11 +8288,11 @@ BOOLEAN PlayerTeamFull( )
     return( TRUE );
 }
 
-UINT8 NumPCsInSector( )
+UINT16 NumPCsInSector( )
 {
     SOLDIERTYPE *pTeamSoldier;
     UINT32              cnt = 0;
-    UINT8               ubNumPlayers = 0;
+    UINT16               ubNumPlayers = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8314,11 +8313,11 @@ UINT8 NumPCsInSector( )
 }
 
 
-UINT8 NumEnemyInSector( )
+UINT16 NumEnemyInSector( )
 {
     SOLDIERTYPE *pTeamSoldier;
     INT32               cnt = 0;
-    UINT8               ubNumEnemies = 0;
+    UINT16               ubNumEnemies = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8338,11 +8337,11 @@ UINT8 NumEnemyInSector( )
 
 }
 
-UINT8 NumZombiesInSector( )
+UINT16 NumZombiesInSector( )
 {
     SOLDIERTYPE *pTeamSoldier;
-    INT32               cnt = 0;
-    UINT8               ubNumZombies = 0;
+    INT32 cnt = 0;
+    UINT16 ubNumZombies = 0;
 
     for ( pTeamSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pTeamSoldier, ++cnt )
     {
@@ -8358,11 +8357,11 @@ UINT8 NumZombiesInSector( )
     return( ubNumZombies );
 }
 
-UINT8 NumEnemyInSectorExceptCreatures()
+UINT16 NumEnemyInSectorExceptCreatures()
 {
     SOLDIERTYPE *pTeamSoldier;
-    INT32               cnt = 0;
-    UINT8               ubNumEnemies = 0;
+    INT32 cnt = 0;
+    UINT16 ubNumEnemies = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8383,11 +8382,11 @@ UINT8 NumEnemyInSectorExceptCreatures()
 }
 
 
-UINT8 NumEnemyInSectorNotDeadOrDying( )
+UINT16 NumEnemyInSectorNotDeadOrDying( )
 {
     SOLDIERTYPE *pTeamSoldier;
-    INT32               cnt = 0;
-    UINT8               ubNumEnemies = 0;
+    INT32 cnt = 0;
+    UINT16 ubNumEnemies = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8418,11 +8417,11 @@ UINT8 NumEnemyInSectorNotDeadOrDying( )
 
 }
 
-UINT8 NumBloodcatsInSectorNotDeadOrDying( )
+UINT16 NumBloodcatsInSectorNotDeadOrDying( )
 {
     SOLDIERTYPE *pTeamSoldier;
-    INT32               cnt = 0;
-    UINT8               ubNumEnemies = 0;
+    INT32 cnt = 0;
+    UINT16 ubNumEnemies = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8457,11 +8456,11 @@ UINT8 NumBloodcatsInSectorNotDeadOrDying( )
 }
 
 
-UINT8 NumCapableEnemyInSector( )
+UINT16 NumCapableEnemyInSector( )
 {
     SOLDIERTYPE *pTeamSoldier;
-    INT32               cnt = 0;
-    UINT8               ubNumEnemies = 0;
+    INT32 cnt = 0;
+    UINT16 ubNumEnemies = 0;
 
     // Check if the battle is won!
     // Loop through all mercs and make go
@@ -8505,7 +8504,7 @@ BOOLEAN CheckForLosingEndOfBattle( )
 {
     SOLDIERTYPE *pTeamSoldier;
     INT32               cnt = 0;
-    INT8                bNumDead = 0, bNumNotOK = 0, bNumInBattle = 0, bNumNotOKRealMercs = 0;
+    UINT16                bNumDead = 0, bNumNotOK = 0, bNumInBattle = 0, bNumNotOKRealMercs = 0;
     BOOLEAN         fMadeCorpse;
     BOOLEAN         fDoCapture = FALSE;
     BOOLEAN  fOnlyEPCsLeft = TRUE;
@@ -8864,9 +8863,9 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     return( bTolerance );
 }
 
-extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
+extern void IncrementWatchedLoc(UINT16 ubID, INT32 sGridNo, INT8 bLevel);
 
-void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
+void HandleSuppressionFire( UINT16 ubTargetedMerc, UINT16 ubCausedAttacker )
 {
     ///////////////////////////////////////////////////////////////////////////////
     // 
@@ -9245,7 +9244,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                         // "Soldier is pinned down!"
                         ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[1], pSoldier->GetName() );
                         // HEADROCK HAM 3.2: Added a radio locator!
-                        ShowRadioLocator( (UINT8)pSoldier->ubID, SHOW_LOCATOR_NORMAL );
+                        ShowRadioLocator( pSoldier->ubID, SHOW_LOCATOR_NORMAL );
                     }
                 }
             }
@@ -9653,7 +9652,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     SOLDIERTYPE *               pTarget;
     BOOLEAN                         fEnterCombat = FALSE;
     UINT32                      cnt;
-    UINT8                       ubID;
+    UINT16                       ubID;
 
 #if 0
     // 0verhaul:    None of this is necessary anymore with the new attack busy system
@@ -9997,7 +9996,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
     if ( gTacticalStatus.uiFlags & CHECK_SIGHT_AT_END_OF_ATTACK )
     {
-        UINT8 ubLoop;
+        UINT16 ubLoop;
         SOLDIERTYPE * pSightSoldier;
 
         AllTeamsLookForAll( FALSE );
@@ -10317,7 +10316,7 @@ void RemoveManFromTeam( INT8 bTeam )
 
 void RemoveSoldierFromTacticalSector( SOLDIERTYPE *pSoldier, BOOLEAN fAdjustSelected )
 {
-    UINT8   ubID;
+    UINT16   ubID;
     SOLDIERTYPE *pNewSoldier;
 
     // reset merc's opplist
@@ -10661,9 +10660,9 @@ void HandleCreatureTenseQuote( )
 {
     // WDS - make number of mercenaries, etc. be configurable
     //  UINT8   ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-    std::vector<UINT8>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-    UINT8   ubNumMercs = 0;
-    UINT8   ubChosenMerc;
+    std::vector<UINT16>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+    UINT16   ubNumMercs = 0;
+    UINT16   ubChosenMerc;
     SOLDIERTYPE *pTeamSoldier;
     INT32 cnt;
     INT32 uiTime;
@@ -10691,7 +10690,7 @@ void HandleCreatureTenseQuote( )
                         // Add guy if he's a candidate...
                         if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
                         {
-                            ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+                            ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
                             ubNumMercs++;
                         }
                     }
@@ -10699,7 +10698,7 @@ void HandleCreatureTenseQuote( )
                     // If we are > 0
                     if ( ubNumMercs > 0 )
                     {
-                        ubChosenMerc = (UINT8)Random( ubNumMercs );
+                        ubChosenMerc = (UINT16)Random( ubNumMercs );
 
                         DoCreatureTensionQuote ( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ] );
                     }
@@ -10812,7 +10811,7 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
     INT8 bLevelDifference = 0;
 
     // Run through each friendly.
-    for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+    for ( UINT16 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
     {
         pLeader = MercPtrs[ iCounter ];
         // Make sure that character is alive, not too shocked, and conscious, and of higher experience level
@@ -10904,7 +10903,7 @@ INT8 CheckStatusNearbyFriendliesSimple(SOLDIERTYPE *pSoldier)
 	}
 
 	// Run through each friendly.
-	for (UINT8 ubFriend = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; ubFriend <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; ubFriend ++)
+	for (UINT16 ubFriend = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; ubFriend <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; ubFriend ++)
 	{
 		pFriend = MercPtrs[ ubFriend ];
 
@@ -11047,7 +11046,7 @@ void HandleDisplayingOfPlayerLostDialogue( )
 }
 #endif
 
-static UINT8 prisonerdialoguetargetID = NOBODY;
+static UINT16 prisonerdialoguetargetID = NOBODY;
 
 void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 {
@@ -11605,7 +11604,7 @@ void TeamRestock(UINT8 bTeam)
 }
 
 // are we allowed to steal access this guy's inventory?
-BOOLEAN AllowedToStealFromTeamMate( UINT8 ubID, UINT8 ubTargetID )
+BOOLEAN AllowedToStealFromTeamMate( UINT16 ubID, UINT16 ubTargetID )
 {
 	if ( gGameExternalOptions.fAccessOtherMercInventories && ubID != ubTargetID && MercPtrs[ubID]->bTeam == MercPtrs[ubTargetID]->bTeam && !AM_AN_EPC(MercPtrs[ubTargetID]) && !IsVehicle(MercPtrs[ubTargetID]) )
 		return TRUE;
@@ -11764,11 +11763,11 @@ INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
 }
 
 // Flugente: count number of enemy officers
-UINT8 HighestEnemyOfficersInSector( UINT8& aType )
+UINT16 HighestEnemyOfficersInSector( UINT8& aType )
 {
     SOLDIERTYPE*		pSoldier;
     INT32               cnt = 0;
-	UINT8				num = 0;
+	UINT16				num = 0;
     UINT8               type = OFFICER_NONE;
 
     for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID, pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; pSoldier++, ++cnt )
@@ -11794,7 +11793,7 @@ UINT16 NumSoldiersWithFlagInSector( UINT8 aTeam, UINT32 aFlag )
 {
 	SOLDIERTYPE*		pSoldier;
 	INT32               cnt = 0;
-	UINT8				num = 0;
+	UINT16				num = 0;
 
 	for ( cnt = gTacticalStatus.Team[aTeam].bFirstID, pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[aTeam].bLastID; pSoldier++, ++cnt )
 	{

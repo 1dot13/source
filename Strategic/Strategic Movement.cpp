@@ -4366,7 +4366,7 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 
 		//Should never happen
 		Assert( sTempID != -1 );
-		pTemp->ubID = (UINT8) sTempID;
+		pTemp->ubID = (UINT16) sTempID;
 
 		pTemp->pSoldier = &Menptr[ pTemp->ubID ];
 

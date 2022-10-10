@@ -286,7 +286,7 @@ void EndCurrentContractRenewal( )
 	}
 }
 
-void HandleMercIsWillingToRenew( UINT8 ubID )
+void HandleMercIsWillingToRenew( UINT16 ubID )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
 
@@ -306,7 +306,7 @@ void HandleMercIsWillingToRenew( UINT8 ubID )
 }
 
 
-void HandleMercIsNotWillingToRenew( UINT8 ubID )
+void HandleMercIsNotWillingToRenew( UINT16 ubID )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
 
@@ -746,9 +746,9 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent )
 {
-	INT8									bMercID;
-	INT8									bLastTeamID;
-	SOLDIERTYPE *					pSoldier;
+	UINT16 bMercID;
+	UINT16 bLastTeamID;
+	SOLDIERTYPE * pSoldier;
 
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -1456,9 +1456,9 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 	SOLDIERTYPE *pSoldier = NULL, *pSoldierWhoWillQuit = NULL;
 	INT32				iCounter= 0, iNumberOnTeam = 0;
 // WDS - make number of mercenaries, etc. be configurable
-	UINT8				ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8				ubNumMercs = 0;
-	UINT8				ubChosenMerc;
+	UINT16				ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	UINT16				ubNumMercs = 0;
+	UINT16				ubChosenMerc;
 
 	gfFirstMercSayQuote = FALSE;
 
@@ -1538,7 +1538,7 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 		// OK, pick one....
 		if ( ubNumMercs > 0 )
 		{
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
+			ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
 			HandleImportantMercQuote( MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ], QUOTE_CONTRACTS_OVER );

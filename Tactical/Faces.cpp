@@ -50,8 +50,6 @@
 #endif
 
 // Defines
-#define		NUM_FACE_SLOTS					50
-
 #define		END_FACE_OVERLAY_DELAY	2000
 
 
@@ -135,7 +133,7 @@ INT32	InitSoldierFace( SOLDIERTYPE *pSoldier )
 }
 
 
-INT32	InitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitFlags )
+INT32	InitFace( UINT8 usMercProfileID, UINT16 ubSoldierID, UINT32 uiInitFlags )
 {
 	UINT32	uiBlinkFrequency;
 	UINT32	uiExpressionFrequency;
@@ -162,7 +160,7 @@ INT32	InitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitFlags )
 }
 
 
-INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitFlags, INT32 iFaceFileID, UINT32 uiBlinkFrequency, UINT32 uiExpressionFrequency )
+INT32	InternalInitFace( UINT8 usMercProfileID, UINT16 ubSoldierID, UINT32 uiInitFlags, INT32 iFaceFileID, UINT32 uiBlinkFrequency, UINT32 uiExpressionFrequency )
 {
 	FACETYPE					*pFace;
 	VOBJECT_DESC			VObjectDesc;
@@ -557,7 +555,7 @@ void DeleteFace( INT32 iFaceIndex )
 
 }
 
-void	SetAutoFaceActiveFromSoldier( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, UINT8 ubSoldierID , UINT16 usFaceX, UINT16 usFaceY )
+void	SetAutoFaceActiveFromSoldier( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, UINT16 ubSoldierID, UINT16 usFaceX, UINT16 usFaceY )
 {
 	if( ubSoldierID == NOBODY )
 	{
@@ -761,7 +759,7 @@ void InternalSetAutoFaceActive( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, 
 }
 
 
-void SetAutoFaceInActiveFromSoldier( UINT8 ubSoldierID )
+void SetAutoFaceInActiveFromSoldier( UINT16 ubSoldierID )
 {
 	// Check for valid soldier
 	CHECKV( ubSoldierID != NOBODY );
@@ -1349,7 +1347,7 @@ void SetFaceShade( SOLDIERTYPE *pSoldier, FACETYPE *pFace, BOOLEAN fExternBlit )
 	}
 }
 
-BOOLEAN RenderAutoFaceFromSoldier( UINT8 ubSoldierID )
+BOOLEAN RenderAutoFaceFromSoldier( UINT16 ubSoldierID )
 {
 	// Check for valid soldier
 	CHECKF( ubSoldierID != NOBODY );
@@ -2107,10 +2105,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// Flugente: are we supplying ammo to someone else?
 			if (gGameExternalOptions.ubExternalFeeding > 0)
 			{
-				UINT8 ubID1 = 0;
+				UINT16 ubID1 = 0;
 				UINT16 ubGunSlot1 = 0;
 				UINT16 ubFaceSlot1 = 0;
-				UINT8 ubID2 = 0;
+				UINT16 ubID2 = 0;
 				UINT16 ubGunSlot2 = 0;
 				UINT16 ubFaceSlot2 = 0;
 				if (MercPtrs[pFace->ubSoldierID]->IsFeedingExternal(&ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2))
@@ -2640,7 +2638,7 @@ BOOLEAN RenderAutoFace( INT32 iFaceIndex )
 }
 
 
-BOOLEAN ExternRenderFaceFromSoldier( UINT32 uiBuffer, UINT8 ubSoldierID, INT16 sX, INT16 sY )
+BOOLEAN ExternRenderFaceFromSoldier( UINT32 uiBuffer, UINT16 ubSoldierID, INT16 sX, INT16 sY )
 {
 	// Check for valid soldier
 	CHECKF( ubSoldierID != NOBODY );

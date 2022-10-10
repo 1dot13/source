@@ -16,7 +16,7 @@ typedef void (*MODAL_HOOK)( void );
 
 extern BOOLEAN	gfGameScreenLocateToSoldier;
 extern BOOLEAN	gfEnteringMapScreen;
-extern UINT8		gubPreferredInitialSelectedGuy;
+extern UINT16	gubPreferredInitialSelectedGuy;
 
 
 void EnterMapScreen( );

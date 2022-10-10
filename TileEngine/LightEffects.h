@@ -25,7 +25,7 @@ typedef struct
 
 	// Flugente: added variables necessary for dynamic (flash-)lighting
 	INT32		flags;
-	UINT8		ubOwner;
+	UINT16		ubOwner;
 	
 } LIGHTEFFECT;
 
@@ -55,7 +55,7 @@ void ResetLightEffects();
 BOOLEAN IsLightEffectAtTile( INT32 sGridNo );
 
 // Flugente: create and destroy light sources tied to a person
-void CreatePersonalLight( INT32 sGridNo, UINT8 ubID );
-void RemovePersonalLights( UINT8 ubID );
+void CreatePersonalLight( INT32 sGridNo, UINT16 ubID );
+void RemovePersonalLights( UINT16 ubID );
 
 #endif

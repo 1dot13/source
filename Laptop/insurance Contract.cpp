@@ -170,7 +170,7 @@ void			InsuranceContractUserTextFieldCallBack( UINT8 ubID, BOOLEAN fEntering );
 INT8			CountInsurableMercs();
 void			DisableInsuranceContractNextPreviousbuttons();
 void			CreateDestroyInsuranceContractFormButtons( BOOLEAN fCreate);
-void			HandleAcceptButton( UINT8 ubSoldierID, UINT8 ubFormID );
+void			HandleAcceptButton( UINT16 ubSoldierID, UINT8 ubFormID );
 FLOAT			DiffFromNormRatio( INT16 sThisValue, INT16 sNormalValue );
 void			InsContractNoMercsPopupCallBack( UINT8 bExitValue );
 void			BuildInsuranceArray();
@@ -752,7 +752,7 @@ void BtnInsuranceAcceptClearForm1ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm1 );
+			INT16	ubSoldierID =  GetSoldierIDFromMercID( gubMercIDForMercInForm1 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -796,7 +796,7 @@ void BtnInsuranceAcceptClearForm2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm2 );
+			INT16	ubSoldierID = GetSoldierIDFromMercID( gubMercIDForMercInForm2 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -841,7 +841,7 @@ void BtnInsuranceAcceptClearForm3ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm3 );
+			INT16	ubSoldierID = GetSoldierIDFromMercID( gubMercIDForMercInForm3 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -943,10 +943,10 @@ void SelectInsuranceContractRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 
 INT8 CountInsurableMercs()
 {
-	INT16					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-	INT8					bCount=0;
+	UINT16 cnt;
+	SOLDIERTYPE *pSoldier;
+	UINT16 bLastTeamID;
+	INT8 bCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -1071,7 +1071,7 @@ void CreateDestroyInsuranceContractFormButtons( BOOLEAN fCreate)
 
 
 
-void HandleAcceptButton( UINT8 ubSoldierID, UINT8 ubFormID )
+void HandleAcceptButton( UINT16 ubSoldierID, UINT8 ubFormID )
 {
 	//passed in either 1,2,3 should be 0,1,2
 	ubFormID--;
@@ -1459,7 +1459,7 @@ void EndInsuranceInvestigation( UINT8	ubPayoutID )
 
 
 //void InsuranceContractPayLifeInsuranceForDeadMerc( LIFE_INSURANCE_PAYOUT *pPayoutStruct )
-void InsuranceContractPayLifeInsuranceForDeadMerc( UINT8 ubPayoutID )
+void InsuranceContractPayLifeInsuranceForDeadMerc( UINT16 ubPayoutID )
 {
 	//if the mercs id number is the same what is in the soldier array
 	if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID == Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].ubID )

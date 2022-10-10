@@ -95,15 +95,15 @@ void RecalculateSoldiersAniSpeed()
 extern void DecayPublicOpplist(INT8 bTeam);
 extern void VerifyAndDecayOpplist(SOLDIERTYPE *pSoldier);
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred );
-void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate);
+void DeleteFromIntList( UINT16 ubIndex, BOOLEAN fCommunicate);
 
 #define END_OF_INTERRUPTS 255
 
-UINT8 gubOutOfTurnOrder[MAXMERCS] = { END_OF_INTERRUPTS, 0 };
-UINT8 gubOutOfTurnPersons = 0;
+UINT16 gubOutOfTurnOrder[MAXMERCS] = { END_OF_INTERRUPTS, 0 };
+UINT16 gubOutOfTurnPersons = 0;
 
 #define LATEST_INTERRUPT_GUY (gubOutOfTurnOrder[gubOutOfTurnPersons])
-#define REMOVE_LATEST_INTERRUPT_GUY()	(DeleteFromIntList( (UINT8) (gubOutOfTurnPersons), TRUE ))
+#define REMOVE_LATEST_INTERRUPT_GUY()	(DeleteFromIntList( (gubOutOfTurnPersons), TRUE ))
 #define INTERRUPTS_OVER (gubOutOfTurnPersons == 1)
 
 INT16 InterruptOnlyGuynum = NOBODY;
@@ -116,7 +116,7 @@ extern UINT8 gubSightFlags;
 
 typedef struct
 {
-	UINT8		ubOutOfTurnPersons;
+	UINT16		ubOutOfTurnPersons;
 
 	INT16		InterruptOnlyGuynum;
 	INT16		sWhoThrewRock;
@@ -510,7 +510,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"BeginTeamTurn");
 	INT32 cnt;
-	UINT8	ubID;
+	UINT16	ubID;
 	SOLDIERTYPE		*pSoldier;
 
 	//rain
@@ -792,7 +792,7 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 BOOLEAN EveryoneInInterruptListOnSameTeam( void )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EveryoneInInterruptListOnSameTeam");
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	UINT8	ubTeam = 255;
 
 	for (ubLoop = 1; ubLoop <= gubOutOfTurnPersons; ubLoop++)
@@ -814,11 +814,11 @@ BOOLEAN EveryoneInInterruptListOnSameTeam( void )
 
 void StartInterrupt( void )
 {
-	UINT8						ubFirstInterrupter;
+	UINT16						ubFirstInterrupter;
 	INT8						bTeam;
 	SOLDIERTYPE *		pSoldier;
 	SOLDIERTYPE *		pTempSoldier;
-	UINT8						ubInterrupter;
+	UINT16						ubInterrupter;
 	INT32						cnt;
 
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartInterrupt");
@@ -1120,12 +1120,12 @@ void StartInterrupt( void )
 
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 {
-	UINT8						ubInterruptedSoldier;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTempSoldier;
-	INT32						cnt;
-	BOOLEAN					fFound;
-	INT16						ubMinAPsToAttack;
+	UINT16 ubInterruptedSoldier;
+	SOLDIERTYPE * pSoldier;
+	SOLDIERTYPE * pTempSoldier;
+	INT32 cnt;
+	BOOLEAN fFound;
+	INT16 ubMinAPsToAttack;
 
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EndInterrupt");
 
@@ -1172,7 +1172,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 		} 
 				else 
 		{
-			UINT8						nubFirstInterrupter;
+			UINT16						nubFirstInterrupter;
 			INT8						nbTeam;
 			SOLDIERTYPE *				npSoldier;
 					
@@ -1499,7 +1499,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 }
 
 
-BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, INT8 bOldOppList)
+BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, INT8 bOldOppList)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StandardInterruptConditionsMet");
 //	UINT8 ubAniType;
@@ -1801,7 +1801,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 }
 
 
-INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN fUseWatchSpots )
+INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN fUseWatchSpots )
 {
 	INT32 iPoints;
 	INT8 bLightLevel;
@@ -2080,11 +2080,11 @@ BOOLEAN InterruptDuel( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent)
 }
 
 
-void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate)
+void DeleteFromIntList( UINT16 ubIndex, BOOLEAN fCommunicate)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"DeleteFromIntList");
-	UINT8 ubLoop;
-	UINT8 ubID;
+	UINT16 ubLoop;
+	UINT16 ubID;
 
 	if ( ubIndex > gubOutOfTurnPersons)
 	{
@@ -2122,10 +2122,10 @@ void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate)
 	*/
 }
 
-void AddToIntList( UINT8 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
+void AddToIntList( UINT16 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"AddToIntList");
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 
 //	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d added to int list", ubID );
 	DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: adding ID %d who %s", ubID, fGainControl ? "gains control" : "loses control" ) );
@@ -2186,11 +2186,11 @@ void AddToIntList( UINT8 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
 void VerifyOutOfTurnOrderArray()
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"VerifyOutOfTurnOrderArray");
-	UINT8		ubTeamHighest[ MAXTEAMS ] = { 0 };
+	UINT16		ubTeamHighest[ MAXTEAMS ] = { 0 };
 	UINT8		ubTeamsInList;
-	UINT8		ubNextInArrayOnTeam, ubNextIndex;
+	UINT16		ubNextInArrayOnTeam, ubNextIndex;
 	UINT8		ubTeam;
-	UINT8 ubLoop, ubLoop2;
+	UINT16 ubLoop, ubLoop2;
 	BOOLEAN	fFoundLoop = FALSE;
 
 	for (ubLoop = 1; ubLoop <= gubOutOfTurnPersons; ubLoop++)
@@ -2308,9 +2308,9 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 			{
 				StartInterrupt();
 			} 
-						else 
+			else 
 			{
-				UINT8						nubFirstInterrupter;
+				UINT16						nubFirstInterrupter;
 				INT8						nbTeam;
 				SOLDIERTYPE *				npSoldier;
 						
@@ -2384,13 +2384,14 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,String("ResolveInterruptsVs: Soldier ID = %d, APs = %d (interrupt type = %d)",pSoldier->ubID,pSoldier->bActionPoints, ubInterruptType));
-	UINT8 ubTeam, ubOpp;
-	UINT8 ubIntCnt;
-	UINT8 ubIntList[MAXMERCS];
+	UINT8 ubTeam;
+	UINT16 ubOpp;
+	UINT16 ubIntCnt;
+	UINT16 ubIntList[MAXMERCS];
 	UINT8 ubIntDiff[MAXMERCS];
 	UINT8 ubSmallestDiff;
-	UINT8 ubSlot, ubSmallestSlot;
-	UINT8 ubLoop;
+	UINT16 ubSlot, ubSmallestSlot;
+	UINT16 ubLoop;
 	BOOLEAN fIntOccurs;
 	SOLDIERTYPE * pOpponent;
 	BOOLEAN fControlChanged = FALSE;
@@ -2594,8 +2595,8 @@ BOOLEAN	SaveTeamTurnsToTheSaveGameFile( HWFILE hFile )
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
 	//Save the gubTurn Order Array
-	FileWrite( hFile, gubOutOfTurnOrder, sizeof( UINT8 ) * MAXMERCS, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( UINT8 ) * MAXMERCS )
+	FileWrite( hFile, gubOutOfTurnOrder, sizeof( UINT16 ) * MAXMERCS, &uiNumBytesWritten );
+	if( uiNumBytesWritten != sizeof( UINT16 ) * MAXMERCS )
 	{
 		return( FALSE );
 	}
@@ -2627,8 +2628,8 @@ BOOLEAN	LoadTeamTurnsFromTheSavedGameFile( HWFILE hFile )
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
 	//Load the gubTurn Order Array
-	FileRead( hFile, gubOutOfTurnOrder, sizeof( UINT8 ) * MAXMERCS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT8 ) * MAXMERCS )
+	FileRead( hFile, gubOutOfTurnOrder, sizeof( UINT16 ) * MAXMERCS, &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( UINT16 ) * MAXMERCS )
 	{
 		return( FALSE );
 	}

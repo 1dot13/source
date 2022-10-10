@@ -189,7 +189,7 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 void MercDailyUpdate()
 {
 	INT32		cnt;
-	INT8		bLastTeamID;
+	UINT16		bLastTeamID;
 	SOLDIERTYPE		*pSoldier;
 	//SOLDIERTYPE *pQuitList[ 21 ];
 	MERCPROFILESTRUCT *pProfile;
@@ -725,7 +725,7 @@ void HandleMercsAboutToLeave( SOLDIERTYPE *pMercList )
 
 // ATE: This function deals with MERC MERC and NPC's leaving because of not getting paid...
 // NOT AIM renewals....
-void MercsContractIsFinished( UINT8	ubID )
+void MercsContractIsFinished( UINT16 ubID )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -779,7 +779,7 @@ void MercsContractIsFinished( UINT8	ubID )
 }
 
 // ATE: Called for RPCs who should now complain about no pay...
-void RPCWhineAboutNoPay( UINT8	ubID )
+void RPCWhineAboutNoPay( UINT16 ubID )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -908,17 +908,14 @@ void MercComplainAboutEquipment( UINT8 ubProfile )
 
 void UpdateBuddyAndHatedCounters( void )
 {
-	INT8									bMercID;
-	INT32									iLoop;
-	INT8									bOtherID;
-	INT8									bLastTeamID;
-	UINT8									ubOtherProfileID;
-	SOLDIERTYPE						*pSoldier;
-	SOLDIERTYPE						*pOtherSoldier;
-	MERCPROFILESTRUCT			*pProfile;
-	BOOLEAN								fSameGroupOnly;
-
-	BOOLEAN								fUpdatedTimeTillNextHatedComplaint = FALSE;
+	UINT16 bMercID, bOtherID, bLastTeamID;
+	INT32 iLoop;
+	UINT8 ubOtherProfileID;
+	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pOtherSoldier;
+	MERCPROFILESTRUCT *pProfile;
+	BOOLEAN fSameGroupOnly;
+	BOOLEAN fUpdatedTimeTillNextHatedComplaint = FALSE;
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
@@ -1259,7 +1256,7 @@ void UpdateBuddyAndHatedCounters( void )
 
 void HourlyCamouflageUpdate( void )
 {
-	INT8 bMercID, bLastTeamID;
+	UINT16 bMercID, bLastTeamID;
 	SOLDIERTYPE * pSoldier;
 	BOOLEAN camoWoreOff = FALSE;
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;

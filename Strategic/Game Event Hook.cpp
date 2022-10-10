@@ -240,7 +240,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		//If a merc gets hired and they dont show up immediately, the merc gets added to the queue and shows up
 		// uiTimeTillMercArrives	minutes later
 		case EVENT_DELAYED_HIRING_OF_MERC:
-			MercArrivesCallback(	(UINT8) pEvent->uiParam );
+			MercArrivesCallback(	(UINT16) pEvent->uiParam );
 			break;
 		//handles the life insurance contract for a merc from AIM.
 		case EVENT_HANDLE_INSURED_MERCS:
@@ -248,7 +248,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		//handles when a merc is killed an there is a life insurance payout
 		case EVENT_PAY_LIFE_INSURANCE_FOR_DEAD_MERC:
-			InsuranceContractPayLifeInsuranceForDeadMerc( (UINT8) pEvent->uiParam );
+			InsuranceContractPayLifeInsuranceForDeadMerc( (UINT16) pEvent->uiParam );
 			break;
 		//gets called every day at midnight.
 		case EVENT_MERC_DAILY_UPDATE:

@@ -600,7 +600,7 @@ UINT8 NumFreeSlots( UINT8 ubTeam )
 	return ubNumFreeSlots;
 }
 
-
+#pragma optimize("",off)
 //Called when entering a sector so the campaign AI can automatically insert the
 //correct number of troops of each type based on the current number in the sector
 //in global focus (gWorldSectorX/Y)
@@ -1152,7 +1152,7 @@ BOOLEAN PrepareEnemyForUndergroundBattle()
 	Assert( FALSE );
 	return FALSE;
 }
-
+#pragma optimize("",on)
 //The queen AI layer must process the event by subtracting forces, etc.
 void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 {

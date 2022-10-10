@@ -35,7 +35,7 @@
 extern void DecayPublicOpplist( INT8 bTeam );
 
 //not in overhead.h!
-extern UINT8 NumEnemyInSector();
+extern UINT16 NumEnemyInSector();
 
 #ifdef JA2UB
 
@@ -45,10 +45,10 @@ extern UINT8 NumEnemyInSector();
 void HandleRPCDescription(	)
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 //	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc = 0;
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc = 0;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32		cnt2;
 	BOOLEAN fSAMSite = FALSE;
@@ -120,7 +120,7 @@ void HandleRPCDescription(	)
 							pTeamSoldier->ubProfile == CARLOS ||
 							pTeamSoldier->ubProfile == DIMITRI )
 						{
-							ubMercsInSector[ubNumMercs] = (UINT8)cnt2;
+							ubMercsInSector[ubNumMercs] = (UINT16)cnt2;
 							++ubNumMercs;
 						}
 					}
@@ -130,7 +130,7 @@ void HandleRPCDescription(	)
 			// If we are > 0
 			if ( ubNumMercs > 0 )
 			{
-				ubChosenMerc = (UINT8)Random( ubNumMercs );
+				ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 				TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ubMercsInSector[ubChosenMerc]], gTacticalStatus.ubGuideDescriptionToUse, DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES, 0, 0 );
 			}

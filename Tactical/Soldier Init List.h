@@ -7,7 +7,7 @@
 typedef struct SOLDIERINITNODE
 {
 	UINT8 ubNodeID;
-	UINT8 ubSoldierID;
+	UINT16 ubSoldierID;
 	BASIC_SOLDIERCREATE_STRUCT *pBasicPlacement;
 	SOLDIERCREATE_STRUCT *pDetailedPlacement;
 	SOLDIERTYPE *pSoldier;

@@ -70,7 +70,7 @@ UINT32							gScrollSlideInertiaDirection[ NUM_WORLD_DIRECTIONS ] =
 typedef struct
 {
 	INT8			bNum;
-	UINT8			ubIDs[ MAX_STACKED_MERCS ];
+	UINT16			ubIDs[ MAX_STACKED_MERCS ];
 	INT8			bCur;
 	BOOLEAN		fUseGridNo;
 	INT32		sUseGridNoGridNo;
@@ -204,7 +204,7 @@ BOOLEAN FindSoldier( INT32 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 	INT16					sXMapPos, sYMapPos, sScreenX, sScreenY;
 	INT16					sMaxScreenMercY, sHeighestMercScreenY = -32000;
 	BOOLEAN				fDoFull;
-	UINT8					ubBestMerc = NOBODY;
+	UINT16					ubBestMerc = NOBODY;
 	UINT16				usAnimSurface;
 	INT32					iMercScreenX, iMercScreenY;
 	BOOLEAN				fInScreenRect = FALSE;
@@ -525,7 +525,7 @@ BOOLEAN CycleSoldierFindStack( INT32 usMapPos )
 
 SOLDIERTYPE * SimpleFindSoldier( INT32 sGridNo, INT8 bLevel )
 {
-	UINT8 ubID;
+	UINT16 ubID;
 
 	ubID = WhoIsThere2( sGridNo, bLevel );
 	if ( ubID == NOBODY )
@@ -538,7 +538,7 @@ SOLDIERTYPE * SimpleFindSoldier( INT32 sGridNo, INT8 bLevel )
 	}
 }
 
-BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID )
+BOOLEAN IsValidTargetMerc( UINT16 ubSoldierID )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
 
@@ -1008,7 +1008,7 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 }
 
 // VERY quickly finds a soldier at gridno , ( that is visible )
-UINT8 QuickFindSoldier( INT32 sGridNo )
+UINT16 QuickFindSoldier( INT32 sGridNo )
 {
 	UINT32 cnt;
 	SOLDIERTYPE *pSoldier = NULL;
@@ -1022,7 +1022,7 @@ UINT8 QuickFindSoldier( INT32 sGridNo )
 		{
 			if ( pSoldier->sGridNo == sGridNo && pSoldier->bVisible != -1 )
 			{
-				return( (UINT8)cnt );
+				return( (UINT16)cnt );
 			}
 		}
 

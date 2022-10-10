@@ -76,7 +76,7 @@
 #define HELICOPTER_RETURN_REASON_DAMAGE 2
 
 extern FACETYPE	*gpCurrentTalkingFace;
-extern UINT8			gubCurrentTalkingID;
+extern UINT16			gubCurrentTalkingID;
 
 // current temp path for dest char
 extern PathStPtr pTempHelicopterPath;

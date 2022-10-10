@@ -166,11 +166,12 @@ public:
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
 
-	UINT8				ubSoldierID;
+	UINT16				ubSoldierID;
 	UINT8				ubInvSlot;
 	BOOLEAN				fCursorActive;
 	OBJECTTYPE			ItemPointerInfo;
 };
+#define SIZEOF_ITEM_CURSOR_SAVE_INFO_POD offsetof( ITEM_CURSOR_SAVE_INFO, ItemPointerInfo )
 
 // HEADROCK HAM 5: Enums for big-item display attachment asterisks.
 enum

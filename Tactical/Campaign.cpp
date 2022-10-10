@@ -1837,7 +1837,7 @@ void TestDumpStatChanges(void)
 void AwardExperienceBonusToActiveSquad( UINT8 ubExpBonusType )
 {
 	UINT16 usXPs = 0;
-	UINT8 ubGuynum;
+	UINT16 ubGuynum;
 	SOLDIERTYPE *pSoldier;
 
 

@@ -47,7 +47,7 @@
 extern BOOLEAN gfHiddenInterrupt;
 extern BOOLEAN gfUseAlternateQueenPosition;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
-extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
+extern void IncrementWatchedLoc(UINT16 ubID, INT32 sGridNo, INT8 bLevel);
 void LogDecideInfo(SOLDIERTYPE *pSoldier);
 void LogKnowledgeInfo(SOLDIERTYPE *pSoldier);
 
@@ -759,7 +759,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 						{
 							// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
 							SOLDIERTYPE	*pTeamSoldier;
-							for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+							for (UINT16 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
 							{
 								pTeamSoldier=MercPtrs[bLoop]; 
 
@@ -938,7 +938,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
 		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM && !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition )
 		{
-			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
 
 			if ( ubPerson != NOBODY )
 			{	
@@ -950,7 +950,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		// if we are a doctor with medical gear, we might be able to help a wounded ally
 		if ( pSoldier->CanMedicAI() )
 		{
-			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
 			// are we ourselves the patient?
 			if ( ubPerson == pSoldier->ubID )
@@ -1004,7 +1004,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		// if we are not a medic, but are wounded, seek a medic
 		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
 		{
-			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
 
 			if ( ubPerson != NOBODY )
 			{
@@ -1661,7 +1661,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
 		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 		{
-			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
 
 			if ( ubPerson != NOBODY )
 			{
@@ -1705,7 +1705,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		// if we are a doctor with medical gear, we might be able to help a wounded ally
 		if ( pSoldier->CanMedicAI() )
 		{
-			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
 			// are we ourselves the patient?
 			if ( ubPerson == pSoldier->ubID )
@@ -1759,7 +1759,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		// if we are not a medic, but are wounded, seek a medic
 		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
 		{
-			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
 
 			if ( ubPerson != NOBODY )
 			{
@@ -3286,7 +3286,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
 		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 		{
-			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
 
 			if ( ubPerson != NOBODY )
 			{
@@ -3325,7 +3325,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// if we are a doctor with medical gear, we might be able to help a wounded ally
 		if ( pSoldier->CanMedicAI() )
 		{
-			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
 			// are we ourselves the patient?
 			if ( ubPerson == pSoldier->ubID )
@@ -3379,7 +3379,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// if we are not a medic, but are wounded, seek a medic
 		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
 		{
-			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+			UINT16 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
 
 			if ( ubPerson != NOBODY )
 			{
@@ -6842,7 +6842,7 @@ L_NEWAIM:
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Make boxer close if possible]"));
 
-		UINT8 ubOpponentID;
+		UINT16 ubOpponentID;
 		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL, &ubOpponentID);
 		DebugAI(AI_MSG_INFO, pSoldier, String("boxer: found closest opponent [%d] at %d", ubOpponentID, sClosestOpponent));
 

@@ -24,8 +24,8 @@ typedef struct FASTHELPREGION {
 // Flugente: externalised squad names
 extern std::vector<std::wstring> gSquadNameVector;
 
-extern UINT8 FIRSTmercTOdisplay ;
-extern UINT8 maxNumberOfMercVisibleInStrategyList;
+extern UINT16 FIRSTmercTOdisplay ;
+extern UINT16 maxNumberOfMercVisibleInStrategyList;
 
 // String Lengths Defines
 #define MAX_NAME_LENGTH 10

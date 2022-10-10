@@ -310,9 +310,9 @@ BOOLEAN BeginAirRaid( )
 
 INT32 PickLocationNearAnyMercInSector( )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubMercsInSector[ 20 ] = { 0 };
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt=0;
 
@@ -330,7 +330,7 @@ INT32 PickLocationNearAnyMercInSector( )
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: looping %d",cnt));
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) )
 		{
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			ubNumMercs++;
 		}
 	}
@@ -339,7 +339,7 @@ INT32 PickLocationNearAnyMercInSector( )
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: number of guys %d",ubNumMercs));
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: chosen guy = %d",ubChosenMerc));
 		return( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->sGridNo );
@@ -1007,7 +1007,7 @@ void DoBombing(	)
 						}
 
 						// Drop bombs...
-						InternalIgniteExplosion( NOBODY, CenterX( sBombGridNo ), CenterY( sBombGridNo ), 0, sBombGridNo, usItem, fLocate , (UINT8)IsRoofPresentAtGridNo( sBombGridNo ) );
+						InternalIgniteExplosion( NOBODY, CenterX( sBombGridNo ), CenterY( sBombGridNo ), 0, sBombGridNo, usItem, fLocate, (UINT8)IsRoofPresentAtGridNo( sBombGridNo ) );
 
 					}
 

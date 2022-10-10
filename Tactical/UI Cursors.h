@@ -9,8 +9,8 @@
 #define REFINE_KNIFE_2				(gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes*2 : 6)
 
 
-UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated );
-void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc );
+UINT8	GetProperItemCursor( UINT16 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated );
+void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc );
 
 void HandleLeftClickCursor( SOLDIERTYPE *pSoldier );
 void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos );

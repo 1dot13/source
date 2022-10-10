@@ -157,7 +157,7 @@ extern BOOLEAN gfShiftBombPlant;
 #include "connect.h"
 
 extern void TeleportSelectedSoldier( void );
-extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode );
+extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT16 ubID, UINT16 usAnimState, UINT16 usAnimCode );
 
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
@@ -695,7 +695,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->sLastTwoLocations[1] = src.sLastTwoLocations[1];
 
 		this->ubID = src.ubID;
-		this->bReserved1 = src.bReserved1;
+		//this->bReserved1 = src.bReserved1;
 
 		this->ubBodyType = src.ubBodyType;
 		this->bActionPoints = src.bActionPoints;
@@ -1730,7 +1730,7 @@ void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier );
 UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight );
 void SelectFallAnimation( SOLDIERTYPE *pSoldier );
 BOOLEAN FullStructAlone( INT32 sGridNo, UINT8 ubRadius );
-void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
@@ -5870,9 +5870,9 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 // extern SOLDIERTYPE * FreeUpAttackerGivenTarget( UINT8 ubID, UINT8 ubTargetID );
 // extern SOLDIERTYPE * ReduceAttackBusyGivenTarget( UINT8 ubID, UINT8 ubTargetID );
 
-
+#pragma optimize("", off)
 // ATE: THIS FUNCTION IS USED FOR ALL SOLDIER TAKE DAMAGE FUNCTIONS!
-void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGrid )
+void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGrid )
 {
 	UINT8		ubCombinedLoss, ubVolume, ubReason;
 	//	SOLDIERTYPE * pNewSoldier;
@@ -6603,12 +6603,18 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( Item[usWeaponIndex].usItemClass & IC_GUN )
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GUNFIRE, ubAttackerID );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID );
+			if (ubAttackerID != NOBODY)
+			{
+				PossiblyStartEnemyTaunt(MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID);
+			}
 		}
 		else
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_THROWING_KNIFE, ubAttackerID );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID );
+			if (ubAttackerID != NOBODY)
+			{
+				PossiblyStartEnemyTaunt(MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID);
+			}
 		}
 	}
 	if ( Item[usWeaponIndex].usItemClass & IC_BLADE )
@@ -6637,7 +6643,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		// anv: taunts are called from UseHandToHand()
 	}
 }
-
+#pragma optimize("", on)
 UINT8 CalcScreamVolume( SOLDIERTYPE * pSoldier, UINT8 ubCombinedLoss )
 {
 	// NB explosions are so loud they should drown out screams
@@ -6719,7 +6725,7 @@ void DoGenericHit( SOLDIERTYPE *pSoldier, UINT8 ubSpecial, INT16 bDirection )
 }
 
 
-void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
 	INT32	usNewGridNo;
 	BOOLEAN	fBlownAway = FALSE;
@@ -9740,7 +9746,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 	}
 
 	INT8							bNewDirection;
-	UINT8							ubWhoIsThere;
+	UINT16							ubWhoIsThere;
 
 	if (FindHeigherLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel == 0))
 	{
@@ -9914,7 +9920,7 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 void SOLDIERTYPE::BeginSoldierClimbWall( void )
 {
 	INT8							bNewDirection;
-	UINT8							ubWhoIsThere;
+	UINT16							ubWhoIsThere;
 
 	if ( FindWallJumpDirection( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel == 0) )
 	{
@@ -9951,7 +9957,7 @@ void SOLDIERTYPE::BeginSoldierClimbWall( void )
 void SOLDIERTYPE::BeginSoldierClimbWallUp( void )
 {
 	INT8							bNewDirection;
-	UINT8	ubWhoIsThere;
+	UINT16	ubWhoIsThere;
 
 	if ( FindLowerLevelWall( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel > 0) )
 	{
@@ -10249,7 +10255,7 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 }
 
 
-UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
+UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT16 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
 {
 #ifdef JA2BETAVERSION
 	if ( is_networked ) {
@@ -11573,7 +11579,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 void SOLDIERTYPE::BeginSoldierClimbDownRoof(void)
 {
 	INT8							bNewDirection;
-	UINT8	ubWhoIsThere;
+	UINT16	ubWhoIsThere;
 
 	if (FindLowerLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel > 0))
 	{
@@ -12835,7 +12841,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 	if ( this->flags.uiStatusFlags & SOLDIER_MONSTER )
 	{
 		// Is there an unconscious guy at gridno......
-		UINT8 ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
+		UINT16 ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
 
 		if ( ubTargetID != NOBODY && ((MercPtrs[ubTargetID]->stats.bLife < OKLIFE && MercPtrs[ubTargetID]->stats.bLife > 0) || (MercPtrs[ubTargetID]->bBreath < OKBREATH && MercPtrs[ubTargetID]->bCollapsed)) )
 		{
@@ -13573,7 +13579,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 		this->sTargetGridNo = sGridNo;
 
 		// SET PARTNER ID
-		this->ubServicePartner = (UINT8)usSoldierIndex;
+		this->ubServicePartner = usSoldierIndex;
 
 		// SET PARTNER'S COUNT REFERENCE
 		pTSoldier->ubServiceCount++;
@@ -15104,7 +15110,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 			{
 				// resting our gun on people is allowed sometimes
-				UINT usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				UINT16 usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 				if ( usPersonID == NOBODY )
 					applybipod = TRUE;
 				else
@@ -15178,7 +15184,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 			{
 				// resting our gun on people is allowed sometimes
-				UINT usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				UINT16 usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 				if ( usPersonID == NOBODY )
 					applybipod = TRUE;
 				else
@@ -15480,7 +15486,7 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 }
 
 // Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
-BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2 )
+BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT16 * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT16 * pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2 )
 {
 	// make sure we have to check this...
 	if ( gGameExternalOptions.ubExternalFeeding == 0 )
@@ -16166,7 +16172,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 
 
 // are we in covert mode? we need to have the correct flag set, and not wear anything suspicious, or behave in a suspicious way
-BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
+BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT16 ubObserverID )
 {
 	SOLDIERTYPE* pSoldier = MercPtrs[ubObserverID];
 
@@ -16454,7 +16460,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 }
 
 // do we recognize someone else as a combatant?
-BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT8 ubTargetID )
+BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT16 ubTargetID )
 {
 	// this will only work with the new trait system
 	if ( !gGameOptions.fNewTraitSystem )
@@ -16550,7 +16556,7 @@ void	SOLDIERTYPE::LooseDisguise( void )
 
 	// rehandle sight for everybody
 	SOLDIERTYPE*		pSoldier;
-	UINT8 iLoop = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	UINT16 iLoop = gTacticalStatus.Team[OUR_TEAM].bFirstID;
 	for ( pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++iLoop, ++pSoldier )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
@@ -16793,7 +16799,7 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner( )
 	// we can only free people we are facing
 	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 
-	UINT8 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+	UINT16 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 
 	// is there somebody?
 	if ( target != NOBODY )
@@ -19050,7 +19056,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 		// as of 2013-09-25, I say it is no longer necessary to fire a signal shell first. The player can fire a signal shell (by mortar or hand) manually to mark one or more targets if he wants
 		// if he does not do so, active vox operators will be targetted. Who knows, the vox operator might be doing a heroic last stand for all we know...
-		UINT8	radiooperatorID = 0;
+		UINT16	radiooperatorID = 0;
 		//BOOLEAN signalshellfired = FALSE;
 		UINT8 mortaritemcnt = 0;
 		UINT16 mortararray[5];
@@ -19585,7 +19591,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 	// we can only free people we are facing
 	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 
-	UINT8 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+	UINT16 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 
 	// is there somebody?
 	if ( target != NOBODY )
@@ -22573,7 +22579,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT32 sGridNo, UINT8 ubDirection )
 void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 {
 	INT8 bRepairItem;
-	UINT8	ubID;
+	UINT16	ubID;
 
 	// Make sure we have a structure here....
 	bRepairItem = IsRepairableStructAtGridNo( sGridNo, &ubID );
@@ -22618,7 +22624,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT32 sGridNo, UINT8 ubDirection )
 {
 	INT8 bRefuelItem;
-	UINT8	ubID;
+	UINT16	ubID;
 
 	// Make sure we have a structure here....
 	bRefuelItem = IsRefuelableStructAtGridNo( sGridNo, &ubID );
@@ -22792,7 +22798,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 	if ( !gGameExternalOptions.fAllowPrisonerSystem )
 		return;
 
-	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->CanBeCaptured( ) )
 	{
@@ -22935,7 +22941,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY )
 	{
@@ -23071,7 +23077,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && ubPerson != this->ubID )
 	{
@@ -23142,7 +23148,7 @@ void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirec
 
 void SOLDIERTYPE::EVENT_SoldierApplySplintToPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && ubPerson != this->ubID )
 	{
@@ -23211,7 +23217,7 @@ void SOLDIERTYPE::EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usAction
 
 void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )
 {
-	UINT8 ubPerson;
+	UINT16 ubPerson;
 
 	// Make sure we have a robot here....
 	ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
@@ -23442,7 +23448,7 @@ void AbandonBoxingDueToSurrenderCallback(UINT8 ubExitValue)
 }
 
 SOLDIERTYPE				*pTMilitiaSoldier;//global pointer
-BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValidate )
+BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT16 ubTargetID, BOOLEAN fValidate )
 {
 	INT16							sFacingDir, sXPos, sYPos, sAPCost;
 	SOLDIERTYPE				*pTSoldier;
@@ -23460,7 +23466,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 	{
 		// OK, since we locked this guy from moving
 		// we should be close enough, so talk ( unless he is now dead )
-		if ( !IsValidTalkableNPC( (UINT8)ubTargetID, FALSE, FALSE, FALSE ) )
+		if ( !IsValidTalkableNPC( ubTargetID, FALSE, FALSE, FALSE ) )
 		{
 			return(FALSE);
 		}
@@ -24386,7 +24392,7 @@ void SetSoldierPersonalLightLevel( SOLDIERTYPE *pSoldier )
 void BeginSoldierClimbWallUp( SOLDIERTYPE *pSoldier )
 {
 	INT8							bNewDirection;
-	UINT8	ubWhoIsThere;
+	UINT16	ubWhoIsThere;
 
 	if ( FindLowerLevelWall( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && (pSoldier->pathing.bLevel > 0) )
 	{
@@ -24724,7 +24730,7 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 
 UINT8 GetSquadleadersCountInVicinity( SOLDIERTYPE * pSoldier, BOOLEAN fWithHigherLevel, BOOLEAN fDontCheckDistance )
 {
-	UINT8 cnt = 0;
+	UINT16 cnt = 0;
 	UINT8 ubNumberSL = 0;
 
 	// loop through all soldiers around
@@ -25091,7 +25097,7 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 		/////////////////////////////
 		SOLDIERTYPE *pInterrupter;
 		UINT8 ubInterruptersFound = 0;
-		UINT8 ubaInterruptersList[64];
+		UINT16 ubaInterruptersList[64];
 		UINT16 uCnt = 0, uiReactionTime;
 		INT16 iInjuryPenalty;
 
@@ -25609,7 +25615,7 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, INT8 bTeam )
 		{
 			BOOLEAN targetseen = FALSE;
 
-			UINT usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
+			UINT16 usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
 
 			// is someone is at the sGridNo, check wether the spotter can see any part of him check wether head can be seen)
 			if ( usID != NOBODY && SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[usID], 0, NO_DISTANCE_LIMIT, AIM_SHOT_HEAD ) > 0 )

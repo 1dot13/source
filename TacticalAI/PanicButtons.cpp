@@ -19,7 +19,7 @@ void MakeClosestEnemyChosenOne()
 	UINT32				cnt;
 	INT16					sPathCost, sShortestPath = 1000;
 	INT8					bOldKeys = -1;
-	UINT8					ubClosestEnemy = NOBODY;
+	UINT16					ubClosestEnemy = NOBODY;
 	SOLDIERTYPE *	pSoldier;
 	INT8					bPanicTrigger;
 	INT32					sPanicTriggerGridNo;

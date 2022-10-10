@@ -402,7 +402,7 @@ BOOLEAN InitAI( void )
 
 	// remove all individual files
 	CHAR8	buf[1024];
-	for (UINT8 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++)
+	for (UINT16 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++)
 	{
 		sprintf(buf, "Logs\\AI_Decisions [%d].txt", cnt);
 		remove(buf);
@@ -883,7 +883,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 {
-	UINT8					ubID;
+	UINT16 ubID;
 
 	if (gfTurnBasedAI)
 	{
@@ -1174,12 +1174,12 @@ INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 	return(sCheapestDest);
 }
 
-UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
+UINT16 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 {
 	UINT32				uiLoop;
 	INT32				iThreatVal,iMinThreat = 30000;
 	SOLDIERTYPE			*pTargetSoldier;
-	UINT8					ubTargetSoldier = NOBODY;
+	UINT16					ubTargetSoldier = NOBODY;
 
 	// Loop through all mercs
 
@@ -1263,7 +1263,7 @@ void FreeUpNPCFromPendingAction( 	SOLDIERTYPE *pSoldier )
 	}
 }
 
-void FreeUpNPCFromAttacking(UINT8 ubID)
+void FreeUpNPCFromAttacking(UINT16 ubID)
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -2659,7 +2659,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		case AI_ACTION_USE_SKILL:
 			{
-				UINT8 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
+				UINT16 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
 
 				BOOLEAN result = pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
 

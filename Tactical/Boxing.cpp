@@ -28,7 +28,7 @@
 #endif
 
 INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
-UINT8 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
+UINT16 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
 BOOLEAN gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
 BOOLEAN	gfLastBoxingMatchWonByPlayer = FALSE;
 UINT8	gubBoxingMatchesWon = 0;
@@ -331,7 +331,7 @@ void CountPeopleInBoxingRingAndDoActions( void )
 BOOLEAN CheckOnBoxers( void )
 {
 	UINT32					uiLoop;
-	UINT8						ubID;
+	UINT16						ubID;
 
 	// repick boxer IDs every time
 	if ( gubBoxerID[0] == NOBODY )
@@ -482,9 +482,9 @@ BOOLEAN AnotherFightPossible( void )
 	// a player has at least OKLIFE + 5 life
 
 	// and at least one fight HAS occurred
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT8						ubAvailable;
+	UINT16 ubLoop;
+	SOLDIERTYPE * pSoldier;
+	UINT8 ubAvailable;
 
 	ubAvailable = BoxersAvailable();
 

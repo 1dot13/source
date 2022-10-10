@@ -194,9 +194,9 @@ void AllSoldiersLookforItems( BOOLEAN RevealRoofsAndItems );
 
 void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo, INT8 bZLevel, BOOLEAN *pfSelectionList );
 
-OBJECTTYPE* AddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID = -1 );
-OBJECTTYPE* AddItemToPoolAndGetIndex( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex );
-OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex );
+OBJECTTYPE* AddItemToPool(INT32 sGridNo, OBJECTTYPE* pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT16 soldierID = -1);
+OBJECTTYPE* AddItemToPoolAndGetIndex( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT16 soldierID, INT32 * piItemIndex );
+OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT16 soldierID, INT32 * piItemIndex );
 
 INT32 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN	GetItemPool( INT32 usMapPos, ITEM_POOL **ppItemPool, UINT8 ubLevel );
@@ -328,7 +328,7 @@ extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 
 // Flugente: interactive actions
 void DoInteractiveAction( INT32 sGridNo, SOLDIERTYPE *pSoldier );
-void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSuccess );
+void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT16 ubID, BOOLEAN aSuccess );
 BOOLEAN SpendMoney( SOLDIERTYPE *pSoldier, UINT32 aAmount );			// character spends money - either from inventory or the account
 
 // Flugente: intel

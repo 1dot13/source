@@ -576,15 +576,15 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 // This causes an issue if someone enters a sector from an adjacent sector - they should be affected by their point of origin, not the current sector
 // For this reason, we add a little helper variable that stores such a sector.
 INT16 gsStrategicDiseaseOriginSector = -1;
-
-SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
+#pragma optimize("", off)
+SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID )
 {
-	SOLDIERTYPE			Soldier;
-	INT32						cnt;
-	SOLDIERTYPE			*pTeamSoldier;
-	BOOLEAN					fGuyAvail = FALSE;
-	UINT8						bLastTeamID;
-	UINT8						ubVehicleID = 0;
+	SOLDIERTYPE Soldier;
+	INT32 cnt;
+	SOLDIERTYPE *pTeamSoldier;
+	BOOLEAN fGuyAvail = FALSE;
+	UINT16 bLastTeamID;
+	UINT8 ubVehicleID = 0;
 	
 	*pubID = NOBODY;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("TacticalCreateSoldier"));
@@ -800,7 +800,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			}
 
 			// OK, set ID
-			Soldier.ubID = (UINT8)cnt;
+			Soldier.ubID = (UINT16)cnt;
 			*pubID = Soldier.ubID;
 		}
 
@@ -1273,6 +1273,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		return pSoldier;
 	}
 }
+#pragma optimize("", on)
 
 BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct )
 {
@@ -1843,9 +1844,9 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	{
 		if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT) )
 		{
-			UINT8 numenemies  = NumEnemyInSector();
+			UINT16 numenemies  = NumEnemyInSector();
 			UINT8 officertype = OFFICER_NONE;
-			UINT8 numofficers = HighestEnemyOfficersInSector( officertype );
+			UINT16 numofficers = HighestEnemyOfficersInSector( officertype );
 
 			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers
 			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax && !RebelCommand::NeutraliseRole(pSoldier) )
@@ -3083,7 +3084,7 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3116,7 +3117,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3150,7 +3151,7 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3192,7 +3193,7 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3232,7 +3233,7 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3273,7 +3274,7 @@ SOLDIERTYPE* TacticalCreateEnemyRobot()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3314,7 +3315,7 @@ SOLDIERTYPE* TacticalCreateZombie()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3388,7 +3389,7 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if (gpBattleGroup &&
@@ -3429,7 +3430,7 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3455,7 +3456,7 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier = NULL;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3504,7 +3505,7 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
 		return NULL;
 
-	UINT8					ubID = NOBODY;
+	UINT16					ubID = NOBODY;
 	SOLDIERTYPE*			pSoldier = NULL;
 	SOLDIERCREATE_STRUCT	MercCreateStruct;
 
@@ -3603,7 +3604,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3668,7 +3669,7 @@ SOLDIERTYPE* TacticalCreateBandit()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	UINT16 ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3859,7 +3860,7 @@ void CreatePrisonerOfWar()
 	}
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8						ubID;
+	UINT16						ubID;
 
 	static INT8 bPowBodyType = REGMALE;
 
@@ -3941,7 +3942,7 @@ void CreateDownedPilot( )
 	while ( TileIsOutOfBounds( sGridNo ) || FindStructure( sGridNo, STRUCTURE_BLOCKSMOVES ) || TERRAIN_IS_WATER( gpWorldLevelData[sGridNo].ubTerrainID ) || GridNoNearPlayerMercs( sGridNo, 25 ) );
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8						ubID;
+	UINT16						ubID;
 	
 	MercCreateStruct.initialize( );
 	MercCreateStruct.bTeam = CIV_TEAM;
@@ -4101,9 +4102,9 @@ void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass )
 void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID )
 {
 	// Create guy # X
-	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16										sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
-	UINT8									ubID;
+	SOLDIERCREATE_STRUCT MercCreateStruct;
+	INT16 sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
+	UINT16 ubID;
 	INT32 usMapPos;
 
 	if ( GetMouseXY( &sGridX, &sGridY ) )

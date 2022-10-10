@@ -538,7 +538,7 @@ void ResetLightEffects()
 }
 
 // Flugente: create and destroy light sources tied to a person
-void CreatePersonalLight( INT32 sGridNo, UINT8 ubID )
+void CreatePersonalLight( INT32 sGridNo, UINT16 ubID )
 {
 	INT32 iLightIndex = NewLightEffectInternal( sGridNo, 0, 1 );
 
@@ -549,7 +549,7 @@ void CreatePersonalLight( INT32 sGridNo, UINT8 ubID )
 	}
 }
 
-void RemovePersonalLights( UINT8 ubID )
+void RemovePersonalLights( UINT16 ubID )
 {
 	LIGHTEFFECT *pLight;
 

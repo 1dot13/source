@@ -74,16 +74,16 @@ extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 // HEADROCK HAM 3.6: Moved to header
 //void MakeBloodcatsHostile( void );
 
-void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType, STR16 zNoiseMessage );
-void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
-void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
+void OurNoise( UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType, STR16 zNoiseMessage );
+void TheirNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
+void ProcessNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
 UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 ubTerrType1, UINT8 ubTerrType2);
-void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
-void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir,  STR16 zNoiseMessage = NULL );
+void HearNoise(SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
+void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir,  STR16 zNoiseMessage = NULL );
 void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumNewEnemies );
 
-void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
-void SetWatchedLocAsUsed( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
+void IncrementWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel );
+void SetWatchedLocAsUsed( UINT16 ubID, INT32 sGridNo, INT8 bLevel );
 void DecayWatchedLocs( INT8 bTeam );
 
 void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT8 * pPersOL, INT8 * pbPublOL );
@@ -91,7 +91,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 // The_Bob - real time sneaking code 01/06/09
 extern void CancelItemPointer(void);
 extern BOOLEAN NobodyAlerted(void);
-extern void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed );
+extern void ShowRadioLocator( UINT16 ubID, UINT8 ubLocatorSpeed );
 //#define TESTOPPLIST
 
 // for ManSeesMan()
@@ -120,7 +120,7 @@ BOOLEAN	gfMikeShouldSayHi				= FALSE;
 BOOLEAN   gfMorrisShouldSayHi				 = FALSE;
 #endif
 
-UINT8			gubBestToMakeSighting[BEST_SIGHTING_ARRAY_SIZE];
+UINT16			gubBestToMakeSighting[BEST_SIGHTING_ARRAY_SIZE];
 UINT8			gubBestToMakeSightingSize = 0;
 //BOOLEAN		gfHumanSawSomeoneInRealtime;
 
@@ -128,11 +128,11 @@ BOOLEAN		gfDelayResolvingBestSightingDueToDoor = FALSE;
 
 #define SHOULD_BECOME_HOSTILE_SIZE 32
 
-UINT8			gubShouldBecomeHostileOrSayQuote[ SHOULD_BECOME_HOSTILE_SIZE ];
+UINT16			gubShouldBecomeHostileOrSayQuote[ SHOULD_BECOME_HOSTILE_SIZE ];
 UINT8			gubNumShouldBecomeHostileOrSayQuote;
 
 // NB this ID is set for someone opening a door
-UINT8			gubInterruptProvoker = NOBODY;
+UINT16			gubInterruptProvoker = NOBODY;
 
 INT8 gbPublicOpplist[MAXTEAMS][TOTAL_SOLDIERS];
 INT8 gbSeenOpponents[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
@@ -360,7 +360,7 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 
 void SwapBestSightingPositions( INT8 bPos1, INT8 bPos2 )
 {
-	UINT8		ubTemp;
+	UINT16 ubTemp;
 
 	ubTemp = gubBestToMakeSighting[ bPos1 ];
 	gubBestToMakeSighting[ bPos1 ] = gubBestToMakeSighting[ bPos2 ];
@@ -483,7 +483,7 @@ void HandleBestSightingPositionInRealtime( void )
 	// This function is called for handling interrupts when opening a door in non-combat or
 	// just sighting in non-combat, deciding who gets the first turn
 
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 
 	if ( gfDelayResolvingBestSightingDueToDoor )
 	{
@@ -513,7 +513,7 @@ void HandleBestSightingPositionInRealtime( void )
 					CancelItemPointer();
 					// select (and center screen on) the merc who saw the enemy
 					// HEADROCK HAM 3.6: A much-requested toggle.
-					if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
+					if (gusSelectedSoldier != MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
 						!gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
 						SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
 					// if not quiet, emit a message warning the player
@@ -582,7 +582,7 @@ void HandleBestSightingPositionInTurnbased( void )
 {
 	// This function is called for handling interrupts when opening a door in turnbased
 
-	UINT8 ubLoop, ubLoop2;
+	UINT16 ubLoop, ubLoop2;
 	BOOLEAN	fOk = FALSE;
 
 	if ( gubBestToMakeSighting[ 0 ] != NOBODY )
@@ -676,9 +676,9 @@ void InitSightArrays( void )
 	}
 }
 
-void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID )
+void AddToShouldBecomeHostileOrSayQuoteList( UINT16 ubID )
 {
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 
 	Assert( gubNumShouldBecomeHostileOrSayQuote < SHOULD_BECOME_HOSTILE_SIZE );
 
@@ -700,9 +700,9 @@ void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID )
 	gubNumShouldBecomeHostileOrSayQuote++;
 }
 
-UINT8 SelectSpeakerFromHostileOrSayQuoteList( void )
+UINT16 SelectSpeakerFromHostileOrSayQuoteList( void )
 {
-	UINT8						ubProfileList[ SHOULD_BECOME_HOSTILE_SIZE ]; // NB list of merc IDs, not profiles!
+	UINT16 ubProfileList[ SHOULD_BECOME_HOSTILE_SIZE ]; // NB list of merc IDs, not profiles!
 	UINT8 ubLoop, ubNumProfiles = 0;
 	SOLDIERTYPE *		pSoldier;
 
@@ -749,7 +749,7 @@ void CheckHostileOrSayQuoteList( void )
 	}
 	else
 	{
-		UINT8	ubSpeaker, ubLoop;
+		UINT16	ubSpeaker, ubLoop;
 		SOLDIERTYPE * pSoldier;
 
 		ubSpeaker = SelectSpeakerFromHostileOrSayQuoteList();
@@ -992,11 +992,11 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 }
 
 
-void OurTeamRadiosRandomlyAbout(UINT8 ubAbout)
+void OurTeamRadiosRandomlyAbout(UINT16 ubAbout)
 {
  INT32				iLoop;
  // WDS - make number of mercenaries, etc. be configurable
-INT8					radioCnt = 0,radioMan[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
+INT16					radioCnt = 0,radioMan[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
  SOLDIERTYPE	*pSoldier;
 
 
@@ -1025,7 +1025,7 @@ INT8					radioCnt = 0,radioMan[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
 	// if this merc is active, in this sector, and well enough to look
 	if (pSoldier->bActive && pSoldier->bInSector && (pSoldier->stats.bLife >= OKLIFE))
 	 // put him on our list, and increment the counter
-	 radioMan[radioCnt++] = (INT8)iLoop;
+	 radioMan[radioCnt++] = (INT16)iLoop;
 	}
 
 
@@ -1061,7 +1061,7 @@ INT8					radioCnt = 0,radioMan[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
 
 
 
-INT16 TeamNoLongerSeesMan( UINT8 ubTeam, SOLDIERTYPE *pOpponent, UINT8 ubExcludeID, INT8 bIteration )
+INT16 TeamNoLongerSeesMan( UINT8 ubTeam, SOLDIERTYPE *pOpponent, UINT16 ubExcludeID, INT8 bIteration )
 {
 	UINT16 bLoop;
 	SOLDIERTYPE *pMate;
@@ -1542,7 +1542,7 @@ void TurnOffEveryonesMuzzleFlashes( void )
 
 void TurnOffTeamsMuzzleFlashes( UINT8 ubTeam )
 {
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	SOLDIERTYPE *		pSoldier;
 
 	for (ubLoop = gTacticalStatus.Team[ ubTeam ].bFirstID; ubLoop <= gTacticalStatus.Team[ ubTeam ].bLastID; ubLoop++)
@@ -3062,16 +3062,16 @@ void RemoveManAsTarget(SOLDIERTYPE *pSoldier)
 {
 
  SOLDIERTYPE *pOpponent;
- UINT8 ubTarget,ubLoop;
+ UINT16 ubTarget,ubLoop;
 
 
  ubTarget = pSoldier->ubID;
 
  // clean up the public opponent lists and locations
  for (ubLoop = 0; ubLoop < MAXTEAMS; ubLoop++)
-	// never causes any additional looks
-	UpdatePublic(ubLoop,ubTarget,NOT_HEARD_OR_SEEN,NOWHERE,0);
-
+ { 	// never causes any additional looks
+	 UpdatePublic(ubLoop, ubTarget, NOT_HEARD_OR_SEEN, NOWHERE, 0);
+ }
 /*
 
 
@@ -3142,7 +3142,7 @@ IAN COMMENTED THIS OUT MAY 1997 - DO WE NEED THIS?
 
 
 
-void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
+void UpdatePublic(UINT8 ubTeam, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
 {
  INT32 cnt;
  INT8 *pbPublOL;
@@ -3203,7 +3203,7 @@ void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT
 
 
 
-void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
+void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
 {
 	/*
 #ifdef RECORDOPPLIST
@@ -3464,8 +3464,8 @@ void BetweenTurnsVisibilityAdjustments(void)
 void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirginSector, BOOLEAN fSeenJoey )
 {
 	SOLDIERTYPE		*pTeamSoldier;
-	UINT8				ubNumEnemies = 0;
-	UINT8				ubNumAllies = 0;
+	UINT16				ubNumEnemies = 0;
+	UINT16				ubNumAllies = 0;
 	UINT32			cnt;
 #ifdef JA2UB
 //Ja25 No meanwhiles
@@ -3683,12 +3683,12 @@ void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumN
 
 }
 
-void RadioSightings(SOLDIERTYPE *pSoldier, UINT8 ubAbout, UINT8 ubTeamToRadioTo )
+void RadioSightings(SOLDIERTYPE *pSoldier, UINT16 ubAbout, UINT8 ubTeamToRadioTo )
 {
  SOLDIERTYPE *pOpponent;
  INT32 	iLoop;
- UINT8 	start,end,revealedEnemies = 0,unknownEnemies = 0,stillUnseen=TRUE;
- UINT8 	scrollToGuynum = NOBODY,sightedHatedOpponent = FALSE;
+ UINT16 	start,end,revealedEnemies = 0,unknownEnemies = 0,stillUnseen=TRUE;
+ UINT16 	scrollToGuynum = NOBODY,sightedHatedOpponent = FALSE;
  //UINT8 	oppIsCivilian;
  INT8 	*pPersOL,*pbPublOL; //,dayQuote;
  BOOLEAN	fContactSeen;
@@ -5596,7 +5596,7 @@ UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 	return( ubDoorNoise );
 }
 
-void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
+void MakeNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
 {
 	EV_S_NOISE	SNoise;
 
@@ -5693,7 +5693,7 @@ void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 }
 
 
-void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
+void OurNoise( UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 #ifdef BYPASSNOISE
 	return;
@@ -5724,7 +5724,8 @@ void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 
 
 
-void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,
+void TheirNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
+ UINT8 ubVolume,
 	UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 //	SOLDIERTYPE *pSoldier;
@@ -5784,15 +5785,18 @@ void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType
 	// else if noiseMaker's NOBODY, no opplist changes or interrupts are possible
 }
 
-void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
+void ProcessNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 	SOLDIERTYPE *pSoldier;
-	UINT8 bLoop, bTeam;
+	UINT16 bLoop;
+	UINT8 bTeam;
 	UINT8 ubLoudestEffVolume, ubEffVolume;
 //	UINT8 ubPlayVolume;
-	UINT8 ubSourceTerrType, ubSource;
+	UINT8 ubSourceTerrType;
+	UINT16 ubSource;
 	INT8 bTellPlayer = FALSE, bHeard, bSeen;
-	UINT8 ubHeardLoudestBy = NOBODY, ubNoiseDir = 0xff, ubLoudestNoiseDir = 0xff;
+	UINT16 ubHeardLoudestBy = NOBODY;
+	UINT8 ubNoiseDir = 0xff, ubLoudestNoiseDir = 0xff;
 
 
 #ifdef RECORDOPPLIST
@@ -6425,8 +6429,8 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubN
 
 
 
-void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume,
-		UINT8 ubNoiseType, UINT8 *ubSeen)
+void HearNoise(SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel,
+ UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen)
 {
 	INT16		sNoiseX, sNoiseY;
 	INT8		bHadToTurn = FALSE, bSourceSeen = FALSE;
@@ -6781,7 +6785,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
     plan_lib->update_plan(pSoldier->bAIIndex, pSoldier, ai_input);
 }
 
-void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir, STR16 zNoiseMessage )
+void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir, STR16 zNoiseMessage )
 {
 	UINT8 ubVolumeIndex;
 
@@ -7509,10 +7513,10 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 
 void CheckForAlertWhenEnemyDies( SOLDIERTYPE * pDyingSoldier )
 {
-	UINT8						ubID;
-	SOLDIERTYPE *		pSoldier;
-	INT8						bDir;
-	INT16						sDistAway, sDistVisible;
+	UINT16 ubID;
+	SOLDIERTYPE * pSoldier;
+	INT8 bDir;
+	INT16 sDistAway, sDistVisible;
 
 	for ( ubID = gTacticalStatus.Team[ pDyingSoldier->bTeam ].bFirstID; ubID <= gTacticalStatus.Team[ pDyingSoldier->bTeam ].bLastID; ubID++ )
 	{
@@ -7547,8 +7551,8 @@ void CheckForAlertWhenEnemyDies( SOLDIERTYPE * pDyingSoldier )
 
 BOOLEAN ArmyKnowsOfPlayersPresence( void )
 {
-	UINT8						ubID;
-	SOLDIERTYPE *		pSoldier;
+	UINT16 ubID;
+	SOLDIERTYPE * pSoldier;
 
 	// if anyone is still left...
 	if (gTacticalStatus.Team[ ENEMY_TEAM ].bTeamActive && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector > 0 )
@@ -7568,7 +7572,7 @@ BOOLEAN ArmyKnowsOfPlayersPresence( void )
 
 BOOLEAN MercSeesCreature( SOLDIERTYPE * pSoldier )
 {
-	UINT8						ubID;
+	UINT16 ubID;
 
 	if (pSoldier->aiData.bOppCnt > 0)
 	{
@@ -7584,7 +7588,7 @@ BOOLEAN MercSeesCreature( SOLDIERTYPE * pSoldier )
 }
 
 
-INT8 FindUnusedWatchedLoc( UINT8 ubID )
+INT8 FindUnusedWatchedLoc( UINT16 ubID )
 {
 	INT8 bLoop;
 
@@ -7601,7 +7605,7 @@ INT8 FindUnusedWatchedLoc( UINT8 ubID )
 	return( -1 );
 }
 
-INT8 FindWatchedLocWithLessThanXPointsLeft( UINT8 ubID, UINT8 ubPointLimit )
+INT8 FindWatchedLocWithLessThanXPointsLeft( UINT16 ubID, UINT8 ubPointLimit )
 {
 	INT8 bLoop;
 
@@ -7615,7 +7619,7 @@ INT8 FindWatchedLocWithLessThanXPointsLeft( UINT8 ubID, UINT8 ubPointLimit )
 	return( -1 );
 }
 
-INT8 FindWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+INT8 FindWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bLoop;
 
@@ -7632,7 +7636,7 @@ INT8 FindWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 	return( -1 );
 }
 
-INT8 GetWatchedLocPoints( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+INT8 GetWatchedLocPoints( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bLoc;
 
@@ -7657,7 +7661,7 @@ INT8 GetWatchedLocPoints( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 }
 
 
-INT8 GetHighestVisibleWatchedLoc( UINT8 ubID )
+INT8 GetHighestVisibleWatchedLoc( UINT16 ubID )
 {
 	INT8	bLoop;
 	INT8	bHighestLoc = -1;
@@ -7678,7 +7682,7 @@ INT8 GetHighestVisibleWatchedLoc( UINT8 ubID )
 	return( bHighestLoc );
 }
 
-INT8 GetHighestWatchedLocPoints( UINT8 ubID )
+INT8 GetHighestWatchedLocPoints( UINT16 ubID )
 {
 	INT8	bLoop;
 	INT8	bHighestPoints = 0;
@@ -7694,10 +7698,10 @@ INT8 GetHighestWatchedLocPoints( UINT8 ubID )
 }
 
 
-void CommunicateWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoints )
+void CommunicateWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoints )
 {
-	UINT8 ubLoop;
-	INT8		bTeam, bLoopPoint, bPoint;
+	UINT16 ubLoop;
+	INT8 bTeam, bLoopPoint, bPoint;
 
 	bTeam = MercPtrs[ ubID ]->bTeam;
 
@@ -7739,7 +7743,7 @@ void CommunicateWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoin
 }
 
 
-void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+void IncrementWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bPoint;
 
@@ -7778,7 +7782,7 @@ void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 	}
 }
 
-void SetWatchedLocAsUsed( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+void SetWatchedLocAsUsed( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bPoint;
 
@@ -7792,7 +7796,7 @@ void SetWatchedLocAsUsed( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 BOOLEAN WatchedLocLocationIsEmpty( INT32 sGridNo, INT8 bLevel, INT8 bTeam )
 {
 	// look to see if there is anyone near the watched loc who is not on this team
-	UINT8	ubID;
+	UINT16	ubID;
 	INT32	sTempGridNo;
 	INT16	sX, sY;
 
@@ -7817,7 +7821,7 @@ BOOLEAN WatchedLocLocationIsEmpty( INT32 sGridNo, INT8 bLevel, INT8 bTeam )
 
 void DecayWatchedLocs( INT8 bTeam )
 {
-	UINT8	cnt, cnt2;
+	UINT16 cnt, cnt2;
 
 	// loop through all soldiers
 	for ( cnt = gTacticalStatus.Team[ bTeam ].bFirstID; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; cnt++ )

@@ -117,7 +117,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 void DecideTrueVisibility(SOLDIERTYPE *pSoldier, UINT8 ubLocate);
 void AddOneOpponent(SOLDIERTYPE *pSoldier);
 void RemoveOneOpponent(SOLDIERTYPE *pSoldier);
-void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel);
+void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalDistanceVisible( void );
 INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel, const BOOLEAN& isCowering, const UINT8& tunnelVision);
 void ResetLastKnownLocs(SOLDIERTYPE *ptr);
@@ -129,9 +129,9 @@ void InitOpponentKnowledgeSystem(void);
 void InitSoldierOppList(SOLDIERTYPE *pSoldier);
 void BetweenTurnsVisibilityAdjustments(void);
 void RemoveManAsTarget(SOLDIERTYPE *pSoldier);
-void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel );
-void RadioSightings(SOLDIERTYPE *pSoldier, UINT8 ubAbout, UINT8 ubTeamToRadioTo );
-void OurTeamRadiosRandomlyAbout(UINT8 ubAbout);
+void UpdatePublic(UINT8 ubTeam, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel );
+void RadioSightings(SOLDIERTYPE *pSoldier, UINT16 ubAbout, UINT8 ubTeamToRadioTo );
+void OurTeamRadiosRandomlyAbout(UINT16 ubAbout);
 void DebugSoldierPage1( );
 void DebugSoldierPage2( );
 void DebugSoldierPage3( );
@@ -139,8 +139,8 @@ void DebugSoldierPage4( );
 
 UINT8 MovementNoise( SOLDIERTYPE *pSoldier );
 UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier );
-void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
-void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
+void MakeNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
+void OurNoise( UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
 
 void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType);
 
@@ -151,9 +151,9 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 
 BOOLEAN MercSeesCreature( SOLDIERTYPE * pSoldier );
 
-INT8 GetWatchedLocPoints( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
-INT8 GetHighestVisibleWatchedLoc( UINT8 ubID );
-INT8 GetHighestWatchedLocPoints( UINT8 ubID );
+INT8 GetWatchedLocPoints( UINT16 ubID, INT32 sGridNo, INT8 bLevel );
+INT8 GetHighestVisibleWatchedLoc( UINT16 ubID );
+INT8 GetHighestWatchedLocPoints( UINT16 ubID );
 
 void TurnOffEveryonesMuzzleFlashes( void );
 void TurnOffTeamsMuzzleFlashes( UINT8 ubTeam );
@@ -164,7 +164,7 @@ void CheckHostileOrSayQuoteList( void );
 void InitOpplistForDoorOpening( void );
 UINT8 DoorOpeningNoise( SOLDIERTYPE * pSoldier );
 
-void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
+void AddToShouldBecomeHostileOrSayQuoteList( UINT16 ubID );
 
 //extern INT8 gbLightSighting[1][16];
 

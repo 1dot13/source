@@ -196,7 +196,7 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 
 
 
-INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOL fFromRemoteClient )
+INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, BOOL fFromRemoteClient )
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;
@@ -331,12 +331,12 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 	}
 
 	// ATE: FALSE into subsequent-- it's the first one!
-	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex , fFromRemoteClient , TRUE );
+	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex, fFromRemoteClient, TRUE );
 
 	return( iSmokeIndex );
 }
 
-INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
+INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;
