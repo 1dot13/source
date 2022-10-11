@@ -100,6 +100,7 @@ enum
 	ADMINISTRATION,					// merc boosts the effectiveness of other mercs
 	EXPLORATION,					// merc searches the sector for undiscovered items
 	ASSIGNMENT_MINIEVENT,
+	ASSIGNMENT_REBELCOMMAND,
 	NUM_ASSIGNMENTS,
 };
 

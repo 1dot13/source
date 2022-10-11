@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #include "builddefines.h"
 
 // WANNE 2 <changed some lines>
@@ -41,6 +42,7 @@
 #include "renderworld.h"//dnl ch45 051009
 #include "merc entering.h"
 #include "CampaignStats.h"		// added by Flugente
+#include "Rebel Command.h"
 
 typedef struct MERCPLACEMENT
 {
@@ -910,6 +912,7 @@ void RenderTacticalPlacementGUI()
 					if(sWorldScreenY <= PLACEMENT_OFFSET)
 					{
 						sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
+						sY += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_NORTH)/5;
 						gTPClipRect.iTop += sY;
 					}
 					break;
@@ -917,6 +920,7 @@ void RenderTacticalPlacementGUI()
 					if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET))
 					{
 						sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
+						sX += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_EAST)/5;
 						gTPClipRect.iRight -= sX;
 					}
 					break;
@@ -924,6 +928,7 @@ void RenderTacticalPlacementGUI()
 					if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET))
 					{
 						sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
+						sY += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_SOUTH)/5;
 						gTPClipRect.iBottom -= sY;
 					}
 					break;
@@ -931,6 +936,7 @@ void RenderTacticalPlacementGUI()
 					if(sWorldScreenX <= PLACEMENT_OFFSET)
 					{
 						sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
+						sX += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_WEST)/5;
 						gTPClipRect.iLeft += sX;
 					}
 					break;
@@ -1234,19 +1240,19 @@ void TacticalPlacementHandle()
 		switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode)
 		{
 		case INSERTION_CODE_NORTH:
-			if(sWorldScreenY <= PLACEMENT_OFFSET)
+			if(sWorldScreenY <= (PLACEMENT_OFFSET + RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_NORTH)))
 				gfValidCursor = TRUE;
 			break;
 		case INSERTION_CODE_EAST:
-			if(sWorldScreenX >= (MAPWIDTH - PLACEMENT_OFFSET))
+			if(sWorldScreenX >= ((MAPWIDTH - PLACEMENT_OFFSET - RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_EAST))))
 				gfValidCursor = TRUE;
 			break;
 		case INSERTION_CODE_SOUTH:
-			if(sWorldScreenY >= (MAPHEIGHT - PLACEMENT_OFFSET))
+			if(sWorldScreenY >= ((MAPHEIGHT - PLACEMENT_OFFSET - RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_SOUTH))))
 				gfValidCursor = TRUE;
 			break;
 		case INSERTION_CODE_WEST:
-			if(sWorldScreenX <= PLACEMENT_OFFSET)
+			if(sWorldScreenX <= (PLACEMENT_OFFSET + RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_WEST)))
 				gfValidCursor = TRUE;
 			break;
 		}

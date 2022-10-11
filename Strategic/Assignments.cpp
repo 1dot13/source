@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -1658,6 +1659,9 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		// check if sam site
 		if( fSamSitePresent == FALSE )
 		{
+			if (RebelCommand::CanTrainMilitiaAnywhere())
+				return( TRUE );
+
 			// nope
 			return ( FALSE );
 		}
@@ -1971,6 +1975,9 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		}
 	}
 
+	if (RebelCommand::CanTrainMilitiaAnywhere())
+		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
+
 	// Count number of trainers already operating here
 	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, TOWN_MILITIA ) >= ubFacilityTrainersAllowed )
 	{
@@ -2033,6 +2040,9 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 		{
 			return( TRUE );
 		}
+		
+		if (RebelCommand::CanTrainMilitiaAnywhere())
+			return(TRUE);
 
 		return( FALSE );
 	}
@@ -2085,7 +2095,7 @@ BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 i
 	// is there a town really here
 	if( bTownId == BLANK_SECTOR )
 	{
-		fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+		fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) || RebelCommand::CanTrainMilitiaAnywhere();
 
 		// if there is a sam site here
 		if( fSamSitePresent )
@@ -6136,7 +6146,8 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// check if we're doing a sector where militia can be trained
-	if( ( (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
+	const BOOL canTrainMilitiaAnywhere = RebelCommand::CanTrainMilitiaAnywhere();
+	if( (canTrainMilitiaAnywhere || (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
 	{
 		// init town trainer list
 	    memset( TownTrainer, 0, sizeof( TownTrainer ) );
@@ -7898,7 +7909,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 	// get town index
 	ubTownId = StrategicMap[CALCULATE_STRATEGIC_INDEX(pTrainer->sSectorX, pTrainer->sSectorY ) ].bNameId;
-	if( fSamSiteInSector == FALSE )
+	if( fSamSiteInSector == FALSE && !RebelCommand::CanTrainMilitiaAnywhere())
 	{
 		AssertNE(ubTownId, BLANK_SECTOR);
 	}
@@ -20164,6 +20175,9 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMilitiaTrainersAllowed;
 		}
 	}
+
+	if (RebelCommand::CanTrainMilitiaAnywhere())
+		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
 
 	// If we are here, then TrainersAllowed > 0. 
 	// Otherwise we'd have failed the BasicCanTrain check

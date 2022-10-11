@@ -1842,6 +1842,85 @@ typedef struct
 
 	INT16 iFortificationsBonus;
 
+	// agent missions
+	INT8 iDeepDeploymentSuccessChance;
+	INT16 iDeepDeploymentRangeNS;
+	INT16 iDeepDeploymentRangeEW;
+	INT16 iDeepDeploymentRangeNS_Bonus_Covert;
+	INT16 iDeepDeploymentRangeEW_Bonus_Covert;
+	INT16 iDeepDeploymentRangeNS_Bonus_Scouting;
+	INT16 iDeepDeploymentRangeEW_Bonus_Scouting;
+	INT16 iDeepDeploymentRangeNS_Bonus_Stealthy;
+	INT16 iDeepDeploymentRangeEW_Bonus_Stealthy;
+	INT16 iDeepDeploymentRangeNS_Bonus_Survival;
+	INT16 iDeepDeploymentRangeEW_Bonus_Survival;
+	UINT8 iDeepDeploymentDuration;
+	UINT8 iDeepDeploymentDuration_Bonus_Covert;
+	UINT8 iDeepDeploymentDuration_Bonus_Scouting;
+	UINT8 iDeepDeploymentDuration_Bonus_Stealthy;
+	UINT8 iDeepDeploymentDuration_Bonus_Survival;
+
+	INT8 iGetEnemyMovementTargetsSuccessChance;
+	UINT8 iGetEnemyMovementTargetsDuration;
+	UINT8 iGetEnemyMovementTargetsDuration_Bonus_Covert;
+	UINT8 iGetEnemyMovementTargetsDuration_Bonus_Radio;
+
+	INT8 iImproveLocalShopsSuccessChance;
+	UINT8 iImproveLocalShopsDuration;
+
+	INT8 iReduceStrategicDecisionSpeedSuccessChance;
+	FLOAT fReduceStrategicDecisionSpeedModifier;
+	FLOAT fReduceStrategicDecisionSpeedModifier_Covert;
+	FLOAT fReduceStrategicDecisionSpeedModifier_Deputy;
+	FLOAT fReduceStrategicDecisionSpeedModifier_Snitch;
+	UINT8 iReduceStrategicDecisionSpeedDuration;
+	UINT8 iReduceStrategicDecisionSpeedDuration_Bonus_Covert;
+	UINT8 iReduceStrategicDecisionSpeedDuration_Bonus_Deputy;
+	UINT8 iReduceStrategicDecisionSpeedDuration_Bonus_Snitch;
+
+	INT8 iReduceUnalertedEnemyVisionSuccessChance;
+	FLOAT fReduceUnlaertedEnemyVisionModifier;
+	FLOAT fReduceUnlaertedEnemyVisionModifier_Covert;
+	FLOAT fReduceUnlaertedEnemyVisionModifier_Radio;
+	FLOAT fReduceUnlaertedEnemyVisionModifier_Stealthy;
+	UINT8 iReduceUnalertedEnemyVisionDuration;
+	UINT8 iReduceUnalertedEnemyVisionDuration_Bonus_Covert;
+	UINT8 iReduceUnalertedEnemyVisionDuration_Bonus_Radio;
+
+	INT8 iSabotageInfantryEquipmentSuccessChance;
+	INT8 iSabotageInfantryEquipmentModifier;
+	INT8 iSabotageInfantryEquipmentModifier_Auto_Weapons;
+	INT8 iSabotageInfantryEquipmentModifier_Covert;
+	INT8 iSabotageInfantryEquipmentModifier_Demolitions;
+	INT8 iSabotageInfantryEquipmentModifier_Gunslinger;
+	INT8 iSabotageInfantryEquipmentModifier_Ranger;
+	INT8 iSabotageInfantryEquipmentModifier_Sniper;
+	UINT8 iSabotageInfantryEquipmentDuration;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Auto_Weapons;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Covert;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Demolitions;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Gunslinger;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Ranger;
+	UINT8 iSabotageInfantryEquipmentDuration_Bonus_Sniper;
+
+	INT8 iSabotageMechanicalUnitsSuccessChance;
+	INT8 iSabotageMechanicalUnitsStatLoss;
+	INT8 iSabotageMechanicalUnitsStatLoss_Covert;
+	INT8 iSabotageMechanicalUnitsStatLoss_Demolitions;
+	INT8 iSabotageMechanicalUnitsStatLoss_Heavy_Weapons;
+	UINT8 iSabotageMechanicalUnitsDuration;
+	UINT8 iSabotageMechanicalUnitsDuration_Bonus_Covert;
+	UINT8 iSabotageMechanicalUnitsDuration_Bonus_Demolitions;
+	UINT8 iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons;
+
+	INT8 iTrainMilitiaAnywhereSuccessChance;
+	INT8 iTrainMilitiaAnywhereMaxTrainers;
+	INT8 iTrainMilitiaAnywhereMaxTrainers_Teaching;
+	UINT8 iTrainMilitiaAnywhereDuration;
+	UINT8 iTrainMilitiaAnywhereDuration_Bonus_Covert;
+	UINT8 iTrainMilitiaAnywhereDuration_Bonus_Survival;
+	UINT8 iTrainMilitiaAnywhereDuration_Bonus_Teaching;
+
 } REBELCOMMAND_SETTINGS;
 
 typedef struct

@@ -36,6 +36,7 @@
 	#include "Map Information.h"
 	#include "interface dialogue.h"
 	#include "ASD.h"		// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -1197,6 +1198,8 @@ void InitStrategicAI()
 	{
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
+
+	dEnemyGeneralsSpeedupFactor *= RebelCommand::GetStrategicDecisionSpeedModifier();
 
 	giReinforcementPool		= zDiffSetting[gGameOptions.ubDifficultyLevel].iQueensInitialPoolOfTroops; 
 	giForcePercentage		= zDiffSetting[gGameOptions.ubDifficultyLevel].iInitialGarrisonPercentages; 
@@ -3456,6 +3459,8 @@ void EvaluateQueenSituation()
 	{
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
+
+	dEnemyGeneralsSpeedupFactor *= RebelCommand::GetStrategicDecisionSpeedModifier();
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
 	

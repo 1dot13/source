@@ -1,4 +1,4 @@
-//#pragma optimize("", off)
+#pragma optimize("", off)
 /*
 Rebel Command
 by rftr
@@ -14,6 +14,9 @@ Directives can be improved with money.
 
 At the start of the campaign, this feature is unavailable, but the player gains access to the ARC website as soon as they complete
 the food delivery quest for the rebels.
+
+Missions were added later and provide powerful temporary bonuses. To enable these bonuses, Supplies must be spent as well as sending
+either a generic rebel agent or one of their own mercenaries, the latter providing better mission bonuses.
 
 
 How to add a new directive:
@@ -36,6 +39,16 @@ How to add a new admin action:
 - add to Init to add to pool of valid actions on game start
 - add admin-action-specific effect
 - if effect applies outside of towns, add help text range band as appropriate to SetupAdminActionBox
+
+How to add a new mission:
+- add to the RebelCommandAgentMissions enum in the header
+- add strings to text files (szRebelCommandAgentMissionsText)
+- add values to MissionHelpers::missionInfo table in SetupInfo()
+- add to valid check in HandleStrategicEvent() (allows advance from first event/prepare to second event/active effect)
+- add to SetupMissionAgentBox() (mission description and merc bonus text)
+- add to StartMission()
+- add mission-specific functions
+- rftr todo: ???
 
 Points of interest:
 - Init() - set up rebel command for the first time
@@ -60,19 +73,21 @@ Points of interest:
 #include "finances.h"
 #include "Font Control.h"
 #include "Game Clock.h"
+#include "Game Event Hook.h"
 #include "GameSettings.h"
 #include "GameVersion.h"
 #include "input.h"
 #include "Line.h"
-#include "insurance.h"
 #include "laptop.h"
 #include "message.h"
 #include "MessageBoxScreen.h"
 #include "MilitiaIndividual.h"
 #include "mousesystem.h"
+#include "Overhead Types.h"
 #include "Queen Command.h"
 #include "random.h"
 #include "SaveLoadGame.h"
+#include "strategic.h"
 #include "strategicmap.h"
 #include "Strategic Mines.h"
 #include "Strategic Movement.h"
@@ -84,10 +99,13 @@ Points of interest:
 #include "WordWrap.h"
 #endif
 
+#include <unordered_map>
+#include <unordered_set>
+
 #define		DIRECTIVE_TEXT(id)		RCDT_##id##, RCDT_##id##_EFFECT, RCDT_##id##_DESC, RCDT_##id##_IMPROVE,
+#define		MISSION_TEXT(id)		RCAMT_##id##_TITLE, RCAMT_##id##_DESC,
 
 #define		ADMIN_ACTION_CHANGE_COST	15000
-#define		GRANT_SUPPLIES_LOYALTY_GAIN	1000
 
 #define		REBEL_COMMAND_DROPDOWN		DropDownTemplate<DROPDOWN_REBEL_COMMAND_DIRECTIVE>::getInstance()
 
@@ -97,12 +115,96 @@ Points of interest:
 #define		WEBSITE_HEIGHT	395
 
 extern UINT32 gCoolnessBySector[256];
-extern UINT32 guiInsuranceBackGround;
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
 extern GROUP *gpGroupList;
 
 namespace RebelCommand
 {
+
+namespace MissionHelpers
+{
+constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_COVERT		= 1;
+constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING	= 2;
+constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY	= 3;
+constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL	= 4;
+constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_COVERT	= 1;
+constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_DEPUTY	= 2;
+constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_SNITCH	= 3;
+constexpr UINT16 REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_COVERT		= 1;
+constexpr UINT16 REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_RADIO		= 2;
+constexpr UINT16 REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_STEALTHY	= 3;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_AUTO_WEAPONS	= 1;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_COVERT			= 2;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_DEMOLITIONS		= 3;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_GUNSLINGER		= 4;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_RANGER			= 5;
+constexpr UINT16 SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_SNIPER			= 6;
+constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_COVERT			= 1;
+constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS		= 2;
+constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS	= 3;
+constexpr UINT16 TRAIN_MILITIA_ANYWHERE_TEACHING	= 1;
+
+
+typedef struct {
+	std::vector<INT8> newSkills;
+	std::vector<INT8> oldSkills;
+	std::vector<UINT32> durationBonuses;
+	std::vector<FLOAT> floatModifiers;
+	std::vector<INT16> intModifiers;
+	std::vector<UINT16> extraBits;
+} MissionInfo;
+
+// this vector serves as a comparison table to determine which bonuses will be applied to a mission
+// see SetupInfo() for initialisation
+std::vector<MissionInfo> missionInfo;
+
+// cached param for firing the preparation/first event. used in the mission start confirmation popup callback
+UINT32 missionParam;
+
+void GetMissionInfo(RebelCommandAgentMissions mission, const MERCPROFILESTRUCT* merc, UINT32& durationBonus, FLOAT& floatModifier, INT16& intModifier, int& durationBonusSkill, int& floatModifierSkill, int& intModifierSkill, UINT16& extraBits)
+{
+	durationBonus = 0;
+	durationBonusSkill = 0;
+	floatModifier = 0;
+	floatModifierSkill = 0;
+	intModifier = 0;
+	intModifierSkill = 0;
+	extraBits = 0;
+
+	const std::vector<INT8>* skills = gGameOptions.fNewTraitSystem ? &missionInfo[mission].newSkills : &missionInfo[mission].oldSkills;
+
+	for (int i = 0; i < sizeof(merc->bSkillTraits) / sizeof(merc->bSkillTraits[0]); ++i)
+	{
+		for (size_t j = 0; j < skills->size(); ++j)
+		{
+			if (merc->bSkillTraits[i] == (*skills)[j])
+			{
+				if (missionInfo[mission].durationBonuses[j] > durationBonus)
+				{
+					durationBonus = missionInfo[mission].durationBonuses[j];
+					durationBonusSkill = (*skills)[j];
+				}
+				
+				if (missionInfo[mission].floatModifiers[j] > floatModifier)
+				{
+					floatModifier = missionInfo[mission].floatModifiers[j];
+					floatModifierSkill = (*skills)[j];
+					extraBits = missionInfo[mission].extraBits[j];
+				}
+				
+				if (missionInfo[mission].intModifiers[j] > intModifier)
+				{
+					intModifier = missionInfo[mission].intModifiers[j];
+					intModifierSkill = (*skills)[j];
+					extraBits = missionInfo[mission].extraBits[j];
+				}
+			}
+		}
+	}
+}
+
+}
+
 void DEBUG_DAY();
 void DEBUG_PRINT();
 
@@ -110,16 +212,21 @@ enum WebsiteState
 {
 	RCS_NATIONAL_OVERVIEW,
 	RCS_REGIONAL_OVERVIEW,
+	RCS_AGENT_OVERVIEW,
 };
 
 enum RebelCommandText // keep this synced with szRebelCommandText in the text files
 {
 	RCT_NATIONAL_OVERVIEW = 0,
 	RCT_REGIONAL_OVERVIEW,
+	RCT_AGENT_OVERVIEW,
+	RCT_SELECT_VIEW,
 	RCT_SWITCH_TO_REGIONAL,
 	RCT_SWITCH_TO_NATIONAL,
+	RCT_SWITCH_TO_AGENT,
 	RCT_SUPPLIES,
 	RCT_INCOMING_SUPPLIES,
+	RCT_INTEL,
 	RCT_PER_DAY,
 	RCT_CURRENT_DIRECTIVE,
 	RCT_IMPROVE_DIRECTIVE,
@@ -187,7 +294,6 @@ enum RebelCommandHelpText // keep this synced with szRebelCommandHelpText in the
 	RCHT_ADMIN_TEAM,
 	RCHT_LOYALTY,
 	RCHT_MAX_LOYALTY,
-	RCHT_GRANT_SUPPLIES,
 	RCHT_AA_TOWN_ONLY,
 	RCHT_AA_TOWN_PLUS_ONE,
 	RCHT_AA_TOWN_PLUS_TWO,
@@ -210,21 +316,123 @@ enum RebelCommandDirectivesText // keep this synced with szRebelCommandDirective
 	DIRECTIVE_TEXT(DRAFT)
 };
 
+enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentMissionsText in the text files
+{
+	//RCAMT_NOTIFY_MISSIONS_AVAILABLE,
+	RCAMT_NEW_MISSIONS_AVAILABLE_TIME,
+	RCAMT_MISSION_ACTIVE,
+	MISSION_TEXT(DEEP_DEPLOYMENT)
+	MISSION_TEXT(GET_ENEMY_MOVEMENT_TARGETS)
+	MISSION_TEXT(IMPROVE_LOCAL_SHOPS)
+	MISSION_TEXT(REDUCE_STRATEGIC_DECISION_SPEED)
+	MISSION_TEXT(REDUCE_UNALERTED_ENEMY_VISION)
+	MISSION_TEXT(SABOTAGE_INFANTRY_EQUIPMENT)
+	MISSION_TEXT(SABOTAGE_MECHANICAL_UNITS)
+	MISSION_TEXT(TRAIN_MILITIA_ANYWHERE)
+};
+
 enum ChangeAdminActionState
 {
 	CAAS_INIT,
 	CAAS_CHANGING,
 };
 
+enum MissionOverviewSubview
+{
+	MOS_MISSION_LIST,
+	MOS_ACTIVE_MISSION_EFFECTS,
+};
+
+struct MissionFirstEvent
+{
+	BOOLEAN isFirstEvent;
+	BOOLEAN sentGenericRebelAgent;
+	BOOLEAN isMissionSuccess;
+	UINT8 mercProfileId;
+	UINT8 missionId;
+	UINT8 missionDurationInHours;
+	UINT8 extraBits;
+};
+
+struct MissionSecondEvent
+{
+	BOOLEAN isSecondEvent;
+	BOOLEAN sentGenericRebelAgent;
+	UINT8 mercProfileId;
+	UINT8 missionId;
+	UINT16 extraBits;
+};
+
+// serialisation/deserialisation functions for passing information into a strategic event param
+UINT32 SerialiseMissionFirstEvent(BOOLEAN sentGenericRebelAgent, UINT8 mercProfileId, RebelCommandAgentMissions mission, UINT8 missionDuration, UINT8 extraBits)
+{
+	UINT32 ret = 0x00000000;
+
+	if (!sentGenericRebelAgent)
+		ret |= 0x01000000;
+
+	ret |= (mercProfileId << 16);
+	ret |= (static_cast<UINT8>(mission) << 8);
+	ret |= missionDuration;
+
+	// extraBits can only be 6 bits
+	extraBits &= 0x3F;
+
+	ret |= (extraBits << 25);
+
+	return ret;
+}
+
+void DeserialiseMissionFirstEvent(UINT32 param, MissionFirstEvent& evt)
+{
+	evt.isFirstEvent =           ((param >> 31) & 0x00000001) == 0;
+	evt.sentGenericRebelAgent =  ((param >> 24) & 0x00000001) == 0;
+	evt.isMissionSuccess =        (param        & 0x000000FF) > 0;
+	evt.mercProfileId =          ((param >> 16) & 0x000000FF);
+	evt.missionId =              ((param >> 8)  & 0x000000FF);
+	evt.missionDurationInHours =  (param        & 0x000000FF);
+	evt.extraBits =              ((param >> 25) & 0x0000003F);
+}
+
+UINT32 SerialiseMissionSecondEvent(BOOLEAN sentGenericRebelAgent, UINT8 mercProfileId, RebelCommandAgentMissions mission, UINT16 extraBits)
+{
+	UINT32 ret = 0x80000000;
+
+	if (!sentGenericRebelAgent)
+		ret |= 0x00010000;
+
+	ret |= (mercProfileId << 8);
+	ret |= static_cast<UINT8>(mission);
+
+	// extraBits can only be 14 bits
+	extraBits &= 0x3FFF;
+
+	ret |= (extraBits << 17);
+
+	return ret;
+}
+
+void DeserialiseMissionSecondEvent(UINT32 param, MissionSecondEvent& evt)
+{
+	evt.isSecondEvent =         ((param >> 31) & 0x00000001) == 1;
+	evt.sentGenericRebelAgent = ((param >> 16) & 0x00000001) == 0;
+	evt.mercProfileId =         ((param >> 8)  & 0x000000FF);
+	evt.missionId =              (param        & 0x000000FF);
+	evt.extraBits =             ((param >> 17) & 0x0003FFF);
+}
+
 // website functions
 template<typename voidFunc>
 void ButtonHelper(GUI_BUTTON* btn, INT32 reason, voidFunc onClick);
+INT32 CalcIncomingSuppliesPerDay(RebelCommandDirectives directive);
 void ClearAllButtons();
 void ClearAllHelpTextRegions();
 void DeployOrReactivateAdminTeam(INT16 regionId);
 void DropdownSetup();
 void GetDirectiveEffect(const RebelCommandDirectives directive, STR16 text);
 INT32 GetDirectiveImprovementCost(const RebelCommandDirectives directive);
+INT32 GetMissionCost();
+INT8 GetMissionSuccessChanceBonus(const MERCPROFILESTRUCT* merc);
 void ImproveDirective(const RebelCommandDirectives directiveId);
 void PurchaseAdminAction(INT32 regionId, INT32 actionIndex);
 void RegionNavNext();
@@ -232,12 +440,18 @@ void RegionNavPrev();
 void RenderHeader(RebelCommandText titleText);
 void RenderNationalOverview();
 void RenderRegionalOverview();
+void RenderMissionOverview();
 void SetDirectiveDescriptionHelpText(INT32 reason, MOUSE_REGION& region, RebelCommandDirectives text);
 void SetRegionHelpText(INT32 reason, MOUSE_REGION& helpTextRegion, RebelCommandHelpText text);
 void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, const UINT16 buttonText);
+BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index);
+void SetWebsiteView(WebsiteState newState);
+void StartMission(INT8 index);
 void ToggleWebsiteView();
 void UpdateAdminActionChangeList(INT16 regionId);
 
+constexpr BOOLEAN CanAdminActionBeToggled(RebelCommandAdminActions action) { return action != RebelCommandAdminActions::RCAA_SUPPLY_LINE; }
+BOOLEAN CanAdminActionBeUsed(INT32 regionIndex, INT32 actionIndex);
 INT32 GetAdminActionCostForRegion(INT16 regionId);
 INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminAction);
 UINT8 GetRegionLoyalty(INT16 regionId);
@@ -250,8 +464,10 @@ std::vector<INT32> btnIds;
 ChangeAdminActionState adminActionChangeState;
 
 // help text regions
+MOUSE_REGION adminActionActiveTextRegion[5];
 MOUSE_REGION adminActionHelpTextRegion[6];
 MOUSE_REGION adminTeamHelpTextRegion;
+//MOUSE_REGION agentNotifyToggleTextRegion;
 MOUSE_REGION directiveDescriptionHelpTextRegion;
 MOUSE_REGION loyaltyHelpTextRegion;
 MOUSE_REGION maxLoyaltyHelpTextRegion;
@@ -266,6 +482,10 @@ INT16 iCurrentRegionId = 1;
 INT32 iIncomingSuppliesPerDay = 0;
 SaveInfo rebelCommandSaveInfo;
 WebsiteState websiteState;
+//INT8 missionIndex[NUM_ARC_AGENT_SLOTS];
+INT8 agentIndex[NUM_ARC_AGENT_SLOTS];
+std::unordered_map<RebelCommandAgentMissions, UINT32> missionMap;
+MissionOverviewSubview missionOverviewSubview = MOS_MISSION_LIST;
 
 // website
 template<typename voidFunc>
@@ -285,6 +505,28 @@ void ButtonHelper(GUI_BUTTON* btn, INT32 reason, voidFunc onClick)
 	}
 }
 
+INT32 CalcIncomingSuppliesPerDay(RebelCommandDirectives directive)
+{
+	const INT32 base = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + (directive == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	const INT32 supplyUpkeep = static_cast<INT32>(gRebelCommandSettings.fIncomeModifier + 0.5f);
+	INT32 upkeepCount = 0;
+
+	for (int a = FIRST_TOWN+1; a < NUM_TOWNS; ++a)
+	{
+		// ignore this region if there is no active admin team
+		if (rebelCommandSaveInfo.regions[a].adminStatus != RAS_ACTIVE)
+			continue;
+
+		for (int b = 0; b < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++b)
+		{
+			if (rebelCommandSaveInfo.regions[a].IsActive(b) && rebelCommandSaveInfo.regions[a].GetLevel(b) > 0)
+				upkeepCount++;
+		}
+	}
+
+	return base - upkeepCount * supplyUpkeep;
+}
+
 void ClearAllButtons()
 {
 	for (const auto btnId : btnIds)
@@ -296,9 +538,12 @@ void ClearAllButtons()
 
 void ClearAllHelpTextRegions()
 {
+	for (int a = 0; a < 5; a++)
+		MSYS_RemoveRegion(&adminActionActiveTextRegion[a]);
 	for (int a = 0; a < 6; a++)
 		MSYS_RemoveRegion(&adminActionHelpTextRegion[a]);
 	MSYS_RemoveRegion(&adminTeamHelpTextRegion);
+	//MSYS_RemoveRegion(&agentNotifyToggleTextRegion);
 	MSYS_RemoveRegion(&directiveDescriptionHelpTextRegion);
 	MSYS_RemoveRegion(&loyaltyHelpTextRegion);
 	MSYS_RemoveRegion(&maxLoyaltyHelpTextRegion);
@@ -375,6 +620,19 @@ void DropdownSetup()
 	REBEL_COMMAND_DROPDOWN.Create(WEBSITE_LEFT + 5, WEBSITE_TOP + 98);
 }
 
+BOOLEAN CanAdminActionBeUsed(INT32 regionIndex, INT32 actionIndex)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled) return FALSE;
+
+	if (rebelCommandSaveInfo.regions[regionIndex].adminStatus != RAS_ACTIVE) return FALSE;
+
+	if (rebelCommandSaveInfo.regions[regionIndex].GetLevel(actionIndex) == 0) return FALSE;
+
+	if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[regionIndex].actions[actionIndex]) && !rebelCommandSaveInfo.regions[regionIndex].IsActive(actionIndex)) return FALSE;
+
+	return TRUE;
+}
+
 INT32 GetAdminActionCostForRegion(INT16 regionId)
 {
 	INT16 totalLocalActions = 0;
@@ -385,10 +643,10 @@ INT32 GetAdminActionCostForRegion(INT16 regionId)
 	{
 		for (int b = 0; b < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++b)
 		{
-			totalNationalActions += rebelCommandSaveInfo.regions[a].actionLevels[b];
+			totalNationalActions += rebelCommandSaveInfo.regions[a].GetLevel(b);
 
 			if (a == regionId)
-				totalLocalActions += rebelCommandSaveInfo.regions[a].actionLevels[b];
+				totalLocalActions += rebelCommandSaveInfo.regions[a].GetLevel(b);
 		}
 	}
 
@@ -401,7 +659,7 @@ INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminActio
 	{
 		for (int idx = 0; idx < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++idx)
 		{
-			if (rebelCommandSaveInfo.regions[regionId].actions[idx] == adminAction)
+			if (rebelCommandSaveInfo.regions[regionId].actions[idx] == adminAction && rebelCommandSaveInfo.regions[regionId].IsActive(idx))
 			{
 				return idx;
 			}
@@ -451,6 +709,17 @@ void GetDirectiveEffect(const RebelCommandDirectives directive, STR16 text)
 INT32 GetDirectiveImprovementCost(const RebelCommandDirectives directive)
 {
 	return rebelCommandSaveInfo.directives[directive].GetCostToImprove();
+}
+
+INT32 GetMissionCost()
+{
+	const INT32 additionalCost = missionMap.size() * 250;
+	return 500 + additionalCost;
+}
+
+INT8 GetMissionSuccessChanceBonus(const MERCPROFILESTRUCT* merc)
+{
+	return merc ? merc->bExpLevel * 5 : 0;
 }
 
 void ImproveDirective(const RebelCommandDirectives directive)
@@ -552,34 +821,110 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 	{
 		// show label if maxed out
 		if ((actionIndex == RCAA_SUPPLY_LINE && rebelCommandSaveInfo.regions[iCurrentRegionId].ubMaxLoyalty >= MAX_LOYALTY_VALUE)
-			|| (actionIndex != RCAA_SUPPLY_LINE && rebelCommandSaveInfo.regions[iCurrentRegionId].actionLevels[actionIndex] >= 2))
+			|| (actionIndex != RCAA_SUPPLY_LINE && rebelCommandSaveInfo.regions[iCurrentRegionId].GetLevel(actionIndex) >= 2))
 		{
 			DrawTextToScreen(szRebelCommandAdminActionsText[buttonText], x, y + 7, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 		}
 		else // show button
 		{
-			const UINT8 level = rebelCommandSaveInfo.regions[iCurrentRegionId].actionLevels[actionIndex];
+			const UINT8 level = rebelCommandSaveInfo.regions[iCurrentRegionId].GetLevel(actionIndex);
 			swprintf(text, szRebelCommandText[level == 0 ? RCT_ADMIN_ACTION_ESTABLISH : RCT_ADMIN_ACTION_IMPROVE], szRebelCommandAdminActionsText[buttonText]);
-			const INT32 btnId = CreateTextButton(text, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y, 140, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+			const INT32 btnId = CreateTextButton(text, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y, 140, 18, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 				{
-					ButtonHelper(btn, reason, [btn]() { PurchaseAdminAction(btn->UserData[0], btn->UserData[1]); });
+					ButtonHelper(btn, reason, [btn]() { PurchaseAdminAction(MSYS_GetBtnUserData(btn, 0), MSYS_GetBtnUserData(btn, 1)); });
 				});
 
-			Assert(ButtonList[btnId]);
-			ButtonList[btnId]->UserData[0] = iCurrentRegionId;
-			ButtonList[btnId]->UserData[1] = actionIndex;
+			MSYS_SetBtnUserData(btnId, 0, iCurrentRegionId);
+			MSYS_SetBtnUserData(btnId, 1, actionIndex);
 
 			btnIds.push_back(btnId);
 		}
 
 		y += 22;
-		swprintf(text, szRebelCommandText[RCT_ADMIN_ACTION_TIER], rebelCommandSaveInfo.regions[iCurrentRegionId].actionLevels[actionIndex]);
+		swprintf(text, szRebelCommandText[RCT_ADMIN_ACTION_TIER], rebelCommandSaveInfo.regions[iCurrentRegionId].GetLevel(actionIndex));
 		DrawTextToScreen(text, x, y, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
+		// show on/off switch for toggleable actions
+		if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[iCurrentRegionId].actions[actionIndex]) && rebelCommandSaveInfo.regions[iCurrentRegionId].GetLevel(actionIndex) > 0)
+		{
+			// draw checkbox text
+			DrawTextToScreen(szRebelCommandText[RCT_ACTIVE], x+125, y, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+			
+			// draw checkbox
+			const INT32 btnId = CreateCheckBoxButton(x + 128, y-3, "INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH, [](GUI_BUTTON* btn, INT32 reason) {
+				const UINT8 regionIndex = (UINT8)MSYS_GetBtnUserData( btn, 0 );
+				const UINT8 actionIndex = (UINT8)MSYS_GetBtnUserData( btn, 1 );
+
+				if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+				{
+					if (btn->uiFlags & BUTTON_CLICKED_ON)
+					{
+						// don't toggle on if we have a bad supply balance
+						if (rebelCommandSaveInfo.iSupplies <= 0)
+							return;
+
+						btn->uiFlags &= ~BUTTON_CLICKED_ON;
+						rebelCommandSaveInfo.regions[regionIndex].SetActive(actionIndex);
+					}
+					else
+					{
+						btn->uiFlags |= BUTTON_CLICKED_ON;
+						rebelCommandSaveInfo.regions[regionIndex].SetInactive(actionIndex);
+					}
+				}
+				RenderWebsite();
+			});
+
+			MSYS_SetBtnUserData( btnId, 0, iCurrentRegionId );
+			MSYS_SetBtnUserData( btnId, 1, actionIndex );
+
+			Assert(ButtonList[btnId]);
+			if (rebelCommandSaveInfo.regions[iCurrentRegionId].IsActive(actionIndex))
+				ButtonList[btnId]->uiFlags |= BUTTON_CLICKED_ON;
+
+			btnIds.push_back(btnId);
+
+			// setup mouse target for "Active" text - setting this AFTER the checkbox so we can set the button id
+			MSYS_DefineRegion(&adminActionActiveTextRegion[actionIndex-1], x+75, y-2, x+125, y+14, MSYS_PRIORITY_HIGH,
+				CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, [](MOUSE_REGION* pRegion, INT32 iReason) {
+					if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+					{
+						const UINT8	regionIndex = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+						const UINT8 actionIndex = (UINT8)MSYS_GetRegionUserData( pRegion, 1 );
+						const INT32 buttonId = MSYS_GetRegionUserData( pRegion, 2 );
+						GUI_BUTTON* btn = ButtonList[buttonId];
+
+						if (btn->uiFlags & BUTTON_CLICKED_ON)
+						{
+							// don't toggle on if we have a bad supply balance
+							if (rebelCommandSaveInfo.iSupplies <= 0)
+								return;
+
+							btn->uiFlags &= ~BUTTON_CLICKED_ON;
+							rebelCommandSaveInfo.regions[regionIndex].SetInactive(actionIndex);
+						}
+						else
+						{
+							btn->uiFlags |= BUTTON_CLICKED_ON;
+							rebelCommandSaveInfo.regions[regionIndex].SetActive(actionIndex);
+						}
+
+						RenderWebsite();
+					}
+				});
+			MSYS_AddRegion(&adminActionActiveTextRegion[actionIndex-1]);
+			MSYS_SetRegionUserData(&adminActionActiveTextRegion[actionIndex-1], 0, iCurrentRegionId);
+			MSYS_SetRegionUserData(&adminActionActiveTextRegion[actionIndex-1], 1, actionIndex);
+			MSYS_SetRegionUserData(&adminActionActiveTextRegion[actionIndex-1], 2, btnId);
+
+		}
+
 		y += 13;
-		DisplayWrappedString(x, y, 140, 2, FONT10ARIAL, FONT_MCOLOR_BLACK, szRebelCommandAdminActionsText[descriptionText], FONT_MCOLOR_BLACK, FALSE, 0);
+		const UINT8 textColor = rebelCommandSaveInfo.regions[iCurrentRegionId].IsActive(actionIndex) ? FONT_MCOLOR_BLACK : FONT_MCOLOR_DKGRAY;
+		DisplayWrappedString(x, y, 140, 2, FONT10ARIAL, textColor, szRebelCommandAdminActionsText[descriptionText], FONT_MCOLOR_BLACK, FALSE, 0);
 
 		helpTextY = y;
+
 
 		// special case for index 5: show state change button
 		if (actionIndex == 5)
@@ -711,12 +1056,27 @@ void SetRegionHelpText(INT32 reason, MOUSE_REGION& helpTextRegion, RebelCommandH
 		SetRegionFastHelpText(&helpTextRegion, L"");
 }
 
+void SetWebsiteView(WebsiteState newState)
+{
+	websiteState = newState;
+}
+
 void ToggleWebsiteView()
 {
-	if (websiteState == RCS_REGIONAL_OVERVIEW)
-		websiteState = RCS_NATIONAL_OVERVIEW;
-	else
+	switch (websiteState)
+	{
+	case RCS_NATIONAL_OVERVIEW:
 		websiteState = RCS_REGIONAL_OVERVIEW;
+		break;
+
+	case RCS_REGIONAL_OVERVIEW:
+		websiteState = RCS_AGENT_OVERVIEW;
+		break;
+
+	case RCS_AGENT_OVERVIEW:
+		websiteState = RCS_NATIONAL_OVERVIEW;
+		break;
+	}
 }
 
 void UpdateAdminActionChangeList(INT16 regionId)
@@ -747,6 +1107,16 @@ void UpdateAdminActionChangeList(INT16 regionId)
 
 BOOLEAN EnterWebsite()
 {
+	// debugging. todo: randomise missions in DailyUpdate and save them in rebelcommandsaveinfo
+	for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+	{
+		//missionIndex[i] = Random(RCAM_NUM_MISSIONS-1) + 1;
+		rebelCommandSaveInfo.availableMissions[i] = Random(RCAM_NUM_MISSIONS);
+		agentIndex[i] = -1;
+	}
+	//missionIndex[0] = RCAM_TRAIN_MILITIA_ANYWHERE;
+	//missionIndex[1] = RCAM_IMPROVE_LOCAL_SHOPS;
+
 	UpdateAdminActionChangeList(iCurrentRegionId);
 
 	// make sure we have a valid directive
@@ -760,14 +1130,6 @@ BOOLEAN EnterWebsite()
 
 	websiteState = RCS_NATIONAL_OVERVIEW;
 
-	VOBJECT_DESC VObjectDesc;
-
-	// load the background (white tile)
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("LAPTOP\\BackGroundTile.sti", VObjectDesc.ImageFile);
-	AddVideoObject(&VObjectDesc, &guiInsuranceBackGround);
-
-
 	RenderWebsite();
 
 	return(TRUE);
@@ -778,8 +1140,6 @@ void ExitWebsite()
 	ClearAllButtons();
 	ClearAllHelpTextRegions();
 	REBEL_COMMAND_DROPDOWN.Destroy();
-
-	DeleteVideoObjectFromIndex(guiInsuranceBackGround);
 }
 
 void HandleWebsite()
@@ -809,6 +1169,21 @@ void HandleWebsite()
 				RenderWebsite();
 				break;
 
+			case '1':
+				SetWebsiteView(RCS_NATIONAL_OVERVIEW);
+				RenderWebsite();
+				break;
+
+			case '2':
+				SetWebsiteView(RCS_REGIONAL_OVERVIEW);
+				RenderWebsite();
+				break;
+
+			case '3':
+				SetWebsiteView(RCS_AGENT_OVERVIEW);
+				RenderWebsite();
+				break;
+
 			default:
 				HandleKeyBoardShortCutsForLapTop(input.usEvent, input.usParam, input.usKeyState);
 				break;
@@ -833,15 +1208,19 @@ void RenderWebsite()
 	ClearAllHelpTextRegions();
 
 	// background
-	WebPageTileBackground(4, 4, 125, 100, guiInsuranceBackGround);
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, WEBSITE_LEFT, WEBSITE_TOP, WEBSITE_LEFT + WEBSITE_WIDTH, WEBSITE_TOP + WEBSITE_HEIGHT, Get16BPPColor(FROMRGB(224, 224, 224)));
 
-	SetFontShadow(FONT_MCOLOR_WHITE);
+	SetFontShadow(FONT_GRAY1);
 
 	// national/regional views
 	switch (websiteState)
 	{
 	case RCS_REGIONAL_OVERVIEW:
 		RenderRegionalOverview();
+		break;
+
+	case RCS_AGENT_OVERVIEW:
+		RenderMissionOverview();
 		break;
 
 	case RCS_NATIONAL_OVERVIEW:
@@ -861,10 +1240,11 @@ void RenderHeader(RebelCommandText titleText)
 {
 	CHAR16 sText[500];
 	UINT16 usPosX, usPosY;
+	INT32 btnId;
 
 	// title
 	usPosX = WEBSITE_LEFT + 1;
-	usPosY = WEBSITE_TOP + 3;
+	usPosY = WEBSITE_TOP + 2;
 	DrawTextToScreen(szRebelCommandText[titleText], usPosX, usPosY, 0, FONT16ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// supplies
@@ -873,10 +1253,22 @@ void RenderHeader(RebelCommandText titleText)
 	DrawTextToScreen(szRebelCommandText[RCT_SUPPLIES], usPosX, usPosY, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// supply count
-	usPosX = WEBSITE_LEFT + 50;
+	usPosX = WEBSITE_LEFT + 55;
 	usPosY = WEBSITE_TOP + 20;
 	swprintf(sText, L"%d", rebelCommandSaveInfo.iSupplies);
 	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT14ARIAL, rebelCommandSaveInfo.iSupplies > 0 ? FONT_GREEN : FONT_MCOLOR_LTRED, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// intel
+	usPosX = WEBSITE_LEFT + 150;
+	usPosY = WEBSITE_TOP + 23;
+	DrawTextToScreen(szRebelCommandText[RCT_INTEL], usPosX, usPosY, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// intel count
+	usPosX = WEBSITE_LEFT + 185;
+	usPosY = WEBSITE_TOP + 20;
+	const int intel = (int)GetIntel();
+	swprintf(sText, L"%d", intel);
+	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT14ARIAL, intel > 0 ? FONT_GREEN : FONT_MCOLOR_LTRED, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// supplies region
 	MSYS_DefineRegion(&suppliesHelpTextRegion, WEBSITE_LEFT, WEBSITE_TOP + 20, WEBSITE_LEFT + 100, WEBSITE_TOP + 35, MSYS_PRIORITY_HIGH,
@@ -884,10 +1276,47 @@ void RenderHeader(RebelCommandText titleText)
 	MSYS_AddRegion(&suppliesHelpTextRegion);
 	MSYS_SetRegionUserData(&suppliesHelpTextRegion, 0, 0);
 
+	// view select text
+	usPosX = WEBSITE_LEFT + 251;
+	usPosY = WEBSITE_TOP + 3;
+	DrawTextToScreen(szRebelCommandText[RCT_SELECT_VIEW], usPosX, usPosY, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// view swap buttons
+	usPosY = WEBSITE_TOP + 13;
+	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_NATIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 82, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			ButtonHelper(btn, reason, []() { SetWebsiteView(RCS_NATIONAL_OVERVIEW); });
+		});
+	btnIds.push_back(btnId);
+	usPosX = WEBSITE_LEFT + 334;
+	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_REGIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 82, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			ButtonHelper(btn, reason, []() { SetWebsiteView(RCS_REGIONAL_OVERVIEW); });
+		});
+	btnIds.push_back(btnId);
+	usPosX = WEBSITE_LEFT + 417;
+	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_AGENT], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 82, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			ButtonHelper(btn, reason, []() { SetWebsiteView(RCS_AGENT_OVERVIEW); });
+		});
+	btnIds.push_back(btnId);
+
 	// line at the bottom of the header
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY = WEBSITE_TOP + 35;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// DEBUG
 	if (CHEATER_CHEAT_LEVEL())
@@ -920,15 +1349,6 @@ void RenderNationalOverview()
 	// title
 	RenderHeader(RCT_NATIONAL_OVERVIEW);
 
-	// view swap button
-	usPosX = WEBSITE_LEFT + 350;
-	usPosY = WEBSITE_TOP + 1;
-	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_REGIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
-		{
-			ButtonHelper(btn, reason, []() { ToggleWebsiteView(); });
-		});
-	btnIds.push_back(btnId);
-
 	// incoming supplies
 	usPosX = WEBSITE_LEFT + 1;
 	usPosY = WEBSITE_TOP + 40;
@@ -936,7 +1356,7 @@ void RenderNationalOverview()
 
 	usPosX = WEBSITE_LEFT + 5;
 	usPosY += 10;
-	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + (rebelCommandSaveInfo.iSelectedDirective == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	iIncomingSuppliesPerDay = CalcIncomingSuppliesPerDay(static_cast<RebelCommandDirectives>(rebelCommandSaveInfo.iSelectedDirective));
 	swprintf(sText, L"%d", iIncomingSuppliesPerDay);
 	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT14ARIAL, iIncomingSuppliesPerDay > 0 ? FONT_GREEN : FONT_MCOLOR_LTRED, FONT_MCOLOR_BLACK, FALSE, 0);
 
@@ -954,14 +1374,62 @@ void RenderNationalOverview()
 	usPosX = WEBSITE_LEFT + 1;
 	usPosY -= 13;
 	MSYS_DefineRegion(&suppliesIncomeHelpTextRegion, usPosX, usPosY, usPosX + 100, usPosY + 35, MSYS_PRIORITY_HIGH,
-		CURSOR_LAPTOP_SCREEN, [](MOUSE_REGION* pRegion, INT32 iReason) { SetRegionHelpText(iReason, suppliesIncomeHelpTextRegion, RCHT_SUPPLIES_INCOME); }, MSYS_NO_CALLBACK);
+		CURSOR_LAPTOP_SCREEN, [](MOUSE_REGION* pRegion, INT32 iReason) { 
+			if (iReason == MSYS_CALLBACK_REASON_MOVE)
+			{
+				CHAR16 text[1000];
+
+				// base income
+				const INT32 base = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier);
+				swprintf(text, szRebelCommandHelpText[RCHT_SUPPLIES_INCOME], base);
+
+				// admin action upkeep
+				const INT32 supplyUpkeep = static_cast<INT32>(gRebelCommandSettings.fIncomeModifier + 0.5f);
+
+				for (int a = FIRST_TOWN+1; a < NUM_TOWNS; ++a)
+				{
+					// ignore this region if there is no active admin team
+					if (rebelCommandSaveInfo.regions[a].adminStatus != RAS_ACTIVE)
+						continue;
+
+					INT32 upkeepCount = 0;
+					for (int b = 0; b < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++b)
+					{
+						if (rebelCommandSaveInfo.regions[a].IsActive(b) && rebelCommandSaveInfo.regions[a].GetLevel(b) > 0)
+							upkeepCount++;
+					}
+
+					if (upkeepCount > 0)
+					{
+						const INT32 totalUpkeep = upkeepCount * supplyUpkeep;
+						swprintf(text, L"%s\n-%d (%s)", text, totalUpkeep, pTownNames[a]);
+					}
+				}
+
+				SetRegionFastHelpText(&suppliesIncomeHelpTextRegion, text);
+			}
+			else if (iReason == MSYS_CALLBACK_REASON_LOST_MOUSE)
+				SetRegionFastHelpText(&suppliesIncomeHelpTextRegion, L"");
+		 }, MSYS_NO_CALLBACK);
 	MSYS_AddRegion(&suppliesIncomeHelpTextRegion);
 	MSYS_SetRegionUserData(&suppliesIncomeHelpTextRegion, 0, 0);
 
 	// line between incoming supplies and directive
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 43;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// current directive 
 	usPosX = WEBSITE_LEFT + 1;
@@ -981,12 +1449,11 @@ void RenderNationalOverview()
 		swprintf(sText, szRebelCommandText[RCT_IMPROVE_DIRECTIVE], GetDirectiveImprovementCost(static_cast<RebelCommandDirectives>(directive)));
 		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 200, 24, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
-				ButtonHelper(btn, reason, [btn]() { ImproveDirective(static_cast<RebelCommandDirectives>(btn->UserData[0])); });
+				ButtonHelper(btn, reason, [btn]() { ImproveDirective(static_cast<RebelCommandDirectives>(MSYS_GetBtnUserData(btn, 0))); });
 			});
 		btnIds.push_back(btnId);
 
-		Assert(ButtonList[btnId]);
-		ButtonList[btnId]->UserData[0] = REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey();
+		MSYS_SetBtnUserData( btnId, 0, REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey() );
 	}
 
 	// directive effect
@@ -1016,7 +1483,19 @@ void RenderNationalOverview()
 	// line between directive and militia
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 10;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// militia
 	usPosX = WEBSITE_LEFT + 1;
@@ -1063,7 +1542,19 @@ void RenderNationalOverview()
 		// draw vertical line
 		usPosX += 75;
 		usPosY = militiaY - 3;
-		DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+		//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+		{
+			UINT32 uiDestPitchBYTES;
+			UINT8 *pDestBuf;
+
+			pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+			SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 38, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+			UnLockVideoSurface( FRAME_BUFFER );
+		}
 
 		// header
 		usPosX += 20;
@@ -1084,8 +1575,19 @@ void RenderNationalOverview()
 		// draw vertical line
 		usPosX += 75;
 		usPosY = militiaY - 3;
-		DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+		//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+		{
+			UINT32 uiDestPitchBYTES;
+			UINT8 *pDestBuf;
 
+			pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+			SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 38, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+			UnLockVideoSurface( FRAME_BUFFER );
+		}
 		// headers
 		usPosX += 20;
 		DrawTextToScreen(szRebelCommandText[RCT_MILITIA_RESOURCES], usPosX, usPosY, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
@@ -1112,7 +1614,19 @@ void RenderNationalOverview()
 	// line
 	usPosX = WEBSITE_LEFT + 25;
 	usPosY = militiaY + 50;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + 450, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// training cost
 	usPosX = WEBSITE_LEFT + 10;
@@ -1121,7 +1635,19 @@ void RenderNationalOverview()
 
 	// draw vertical line
 	usPosX += 120;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY - 2, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY - 2, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY - 2, usPosX, usPosY + 38, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// upkeep cost
 	usPosX += 20;
@@ -1164,7 +1690,19 @@ void RenderNationalOverview()
 	// line
 	usPosX = WEBSITE_LEFT + 25;
 	usPosY += 30;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + 450, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// training speed bonus
 	usPosX = WEBSITE_LEFT + 10;
@@ -1187,7 +1725,19 @@ void RenderNationalOverview()
 	// draw vertical line
 	usPosX = WEBSITE_LEFT + 130;
 	usPosY -= 12;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 38, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// militia physical stat bonus
 	usPosX += 20;
@@ -1233,15 +1783,6 @@ void RenderRegionalOverview()
 	// title
 	RenderHeader(RCT_REGIONAL_OVERVIEW);
 
-	// view swap button
-	usPosX = WEBSITE_LEFT + 350;
-	usPosY = WEBSITE_TOP + 1;
-	btnId = CreateTextButton(szRebelCommandText[RCT_SWITCH_TO_NATIONAL], FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 149, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
-		{
-			ButtonHelper(btn, reason, []() { ToggleWebsiteView(); });
-		});
-	btnIds.push_back(btnId);
-
 	// region 
 	usPosX = WEBSITE_LEFT + 1;
 	usPosY = WEBSITE_TOP + 40;
@@ -1277,8 +1818,20 @@ void RenderRegionalOverview()
 
 	// line between region info and admin info
 	usPosX = WEBSITE_LEFT - 1;
-	usPosY += 20;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
+	usPosY += 15;
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// admin team
 	usPosX = WEBSITE_LEFT + 1;
@@ -1316,7 +1869,19 @@ void RenderRegionalOverview()
 	// vertical line between admin team and loyalty
 	usPosX = WEBSITE_LEFT + 105;
 	usPosY += 5;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 15, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// loyalty
 	usPosX += 15;
@@ -1347,7 +1912,19 @@ void RenderRegionalOverview()
 	// vertical line between loyalty and max loyalty
 	usPosX = WEBSITE_LEFT + 195;
 	usPosY += 5;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 15, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// max loyalty
 	usPosX += 15;
@@ -1375,37 +1952,21 @@ void RenderRegionalOverview()
 	MSYS_AddRegion(&maxLoyaltyHelpTextRegion);
 	MSYS_SetRegionUserData(&maxLoyaltyHelpTextRegion, 0, 0);
 	
-	// vertical line between max loyalty and supply grant
+	// vertical line between max loyalty
 	usPosX = WEBSITE_LEFT + 325;
 	usPosY += 5;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
-
-	if (iCurrentRegionId != OMERTA && rebelCommandSaveInfo.regions[iCurrentRegionId].adminStatus == RAS_ACTIVE)
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 	{
-		// supply grant
-		usPosX = WEBSITE_LEFT + 334;
-		btnId = CreateTextButton(L"Grant 100 Supplies", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 165, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
-			{
-				ButtonHelper(btn, reason, []()
-					{
-						if (rebelCommandSaveInfo.iSupplies >= 100)
-						{
-							rebelCommandSaveInfo.iSupplies -= 100;
-							IncrementTownLoyalty(iCurrentRegionId, static_cast<UINT32>(GRANT_SUPPLIES_LOYALTY_GAIN));
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
 
-							if (rebelCommandSaveInfo.uSupplyDropCount < 255)
-								rebelCommandSaveInfo.uSupplyDropCount++;
-						}
-						else
-						{
-							DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, szRebelCommandText[RCT_INSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-						}
-					});
-			});
-		btnIds.push_back(btnId);
-		
-		// supply grant region
-		SetButtonFastHelpText(btnId, szRebelCommandHelpText[RCHT_GRANT_SUPPLIES]);
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY + 15, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
 	}
 
 	// deploy/reactivate admin teams (if applicable)
@@ -1447,12 +2008,11 @@ void RenderRegionalOverview()
 		swprintf(sText, szRebelCommandText[RCT_DEPLOY_ADMIN_TEAM], adminDeployCost);
 		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
-				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(btn->UserData[0]); });
+				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(MSYS_GetBtnUserData(btn, 0)); });
 			});
 		btnIds.push_back(btnId);
 
-		Assert(ButtonList[btnId]);
-		ButtonList[btnId]->UserData[0] = iCurrentRegionId;
+		MSYS_SetBtnUserData( btnId, 0, iCurrentRegionId );
 		return;
 	}
 	else if (rebelCommandSaveInfo.regions[iCurrentRegionId].adminStatus == RAS_INACTIVE)
@@ -1469,20 +2029,31 @@ void RenderRegionalOverview()
 		swprintf(sText, szRebelCommandText[RCT_REACTIVATE_ADMIN_TEAM], adminReactivateCost / 2);
 		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 300, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
-				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(btn->UserData[0]); });
+				ButtonHelper(btn, reason, [btn]() { DeployOrReactivateAdminTeam(MSYS_GetBtnUserData(btn, 0)); });
 			});
 		btnIds.push_back(btnId);
 
-		Assert(ButtonList[btnId]);
-		ButtonList[btnId]->UserData[0] = iCurrentRegionId;
+		MSYS_SetBtnUserData( btnId, 0, iCurrentRegionId );
 
 		return;
 	}
 
 	// line between admin info and admin actions
 	usPosX = WEBSITE_LEFT - 1;
-	usPosY += 30;
-	DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 500, usPosY, FROMRGB(240, 240, 240));
+	usPosY += 25;
+	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
+	{
+		UINT32 uiDestPitchBYTES;
+		UINT8 *pDestBuf;
+
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		LineDraw(FALSE, usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+		UnLockVideoSurface( FRAME_BUFFER );
+	}
 
 	// admin actions
 	usPosX = WEBSITE_LEFT + 1;
@@ -1505,6 +2076,587 @@ void RenderRegionalOverview()
 	usPosY = WEBSITE_TOP + WEBSITE_HEIGHT - 15;
 	swprintf(sText, szRebelCommandText[RCT_ADMIN_ACTION_COST], GetAdminActionCostForRegion(iCurrentRegionId));
 	DrawTextToScreen(sText, usPosX, usPosY, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+}
+
+BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
+{
+	CHAR16 sText[800];
+	INT32 btnId;
+	VOBJECT_DESC vObjDesc;
+	HVOBJECT hvObj;
+	char sTemp[100];
+	UINT32 image;
+	UINT32 uiDestPitchBYTES;
+	UINT8 *pDestBuf;
+
+	// temp/fixme
+	std::vector<SOLDIERTYPE*> mercs;
+	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[i];
+
+		if (pSoldier && pSoldier->bActive
+			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
+			)
+		{
+			mercs.push_back(pSoldier);
+		}
+	}
+
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	// top horizontal line
+	LineDraw(FALSE, x, y, x+230, y, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+	
+	// bottom horizontal line
+	LineDraw(FALSE, x, y+300, x+230, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+	// left vertical line
+	LineDraw(FALSE, x, y, x, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+	// right vertical line
+	LineDraw(FALSE, x+230, y, x+230, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+
+	UnLockVideoSurface( FRAME_BUFFER );
+
+	// clamp indices
+	//if (missionIndex[index] < 0) missionIndex[index] = RCAM_NUM_MISSIONS - 1;
+	//else if (missionIndex[index] >= RCAM_NUM_MISSIONS) missionIndex[index] = 0;
+	// we're reserving an index for the generic rebel agent, so no need to subtract 1 from size here
+	if (agentIndex[index] < 0) agentIndex[index] = static_cast<INT8>(mercs.size());
+	else if (agentIndex[index] > static_cast<INT8>(mercs.size())) agentIndex[index] = 0;
+
+	// draw mission title
+	switch (rebelCommandSaveInfo.availableMissions[index])
+	{
+	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_TITLE]); break;
+	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_TITLE]); break;
+	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_TITLE]); break;
+	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_TITLE]); break;
+	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_TITLE]); break;
+	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_TITLE]); break;
+	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE]); break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE]); break;
+
+	default:									swprintf(sText, L"Mission Index: %d", rebelCommandSaveInfo.availableMissions[index]); break;
+	}
+	DrawTextToScreen(sText, x+5, y+5, 0, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// draw mission base duration, in days
+	UINT8 missionDurationBase = 0;
+	switch (rebelCommandSaveInfo.availableMissions[index])
+	{
+	case RCAM_DEEP_DEPLOYMENT:					missionDurationBase = gRebelCommandSettings.iDeepDeploymentDuration; break;
+	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionDurationBase = gRebelCommandSettings.iGetEnemyMovementTargetsDuration; break;
+	case RCAM_IMPROVE_LOCAL_SHOPS:				missionDurationBase = gRebelCommandSettings.iImproveLocalShopsDuration; break;
+	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionDurationBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration; break;
+	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionDurationBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration; break;
+	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionDurationBase = gRebelCommandSettings.iSabotageInfantryEquipmentDuration; break;
+	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionDurationBase = gRebelCommandSettings.iSabotageMechanicalUnitsDuration; break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionDurationBase = gRebelCommandSettings.iTrainMilitiaAnywhereDuration; break;
+
+	default: break;
+	}
+	// convert from hours
+	missionDurationBase /= 24;
+	swprintf(sText, L"Mission duration: %d days", missionDurationBase);
+	DrawTextToScreen(sText, x+5, y+21, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// draw mission base success chance
+	int missionSuccessChanceBase = 50;
+	switch (rebelCommandSaveInfo.availableMissions[index])
+	{
+	case RCAM_DEEP_DEPLOYMENT:					missionSuccessChanceBase = gRebelCommandSettings.iDeepDeploymentSuccessChance; break;
+	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionSuccessChanceBase = gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance; break;
+	case RCAM_IMPROVE_LOCAL_SHOPS:				missionSuccessChanceBase = gRebelCommandSettings.iImproveLocalShopsSuccessChance; break;
+	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionSuccessChanceBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance; break;
+	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionSuccessChanceBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance; break;
+	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance; break;
+	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance; break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionSuccessChanceBase = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance; break;
+		
+	default: break;
+	}
+	swprintf(sText, L"Chance of success: %d%s", missionSuccessChanceBase, L"%%");
+	DrawTextToScreen(sText, x+5, y+33, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// draw mission description
+	switch (rebelCommandSaveInfo.availableMissions[index])
+	{
+	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_DESC]); break;
+	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_DESC]); break;
+	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_DESC]); break;
+	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_DESC]); break;
+	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_DESC]); break;
+	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_DESC]); break;
+	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_DESC]); break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_DESC]); break;
+
+	default: swprintf(sText, L"Mission description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus libero dui. Etiam facilisis posuere dictum. Etiam a velit viverra, interdum eros non, placerat lectus. Vivamus ut lorem id velit tempus auctor. Donec molestie, erat at molestie malesuada, diam purus tincidunt eros, vel hendrerit mi elit vitae leo. Suspendisse dui lectus, malesuada eu elementum at, viverra eu odio."); break;
+	}
+	DisplayWrappedString(x+5, y+45, 220, 2, FONT10ARIAL, FONT_MCOLOR_BLACK, sText, FONT_MCOLOR_BLACK, FALSE, 0);
+
+	// draw agent portrait
+	if (agentIndex[index] == mercs.size())
+	{
+		// draw black box for face
+		ColorFillVideoSurfaceArea(FRAME_BUFFER, x+5, y+150+10, x+5+48, y+150+10+43, Get16BPPColor(FROMRGB(64, 64, 64)));
+
+		// draw question mark
+		SetFontShadow(NO_SHADOW);
+		DrawTextToScreen(L"?", x+5+20, y+150+10+16, 0, FONT14HUMANIST, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, 0);
+		SetFontShadow(FONT_GRAY1);
+
+		// draw name
+		DrawTextToScreen(L"Name: [REDACTED]", x+55, y+150+10, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw location
+		DrawTextToScreen(L"Location: [REDACTED]", x+55, y+150+22, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw assignment
+		DrawTextToScreen(L"Assignment: None", x+55, y+150+34, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw contract
+		DrawTextToScreen(L"Contract: ---", x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+	}
+	else
+	{
+		// draw face
+		vObjDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		sprintf(sTemp, "FACES\\%02d.sti", gMercProfiles[mercs[agentIndex[index]]->ubProfile].ubFaceIndex);
+		FilenameForBPP(sTemp, vObjDesc.ImageFile);
+		CHECKF(AddVideoObject(&vObjDesc, &image));
+		GetVideoObject(&hvObj, image);
+		BltVideoObject(FRAME_BUFFER, hvObj, 0, x+5, y+150+10, VO_BLT_SRCTRANSPARENCY, NULL);
+
+		// draw name
+		swprintf(sText, L"Name: %s", gMercProfiles[mercs[agentIndex[index]]->ubProfile].zName);
+		DrawTextToScreen(sText, x+55, y+150+10, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw location
+		CHAR16 locationStr[128];
+		GetSectorIDString(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY, 0, locationStr, TRUE);
+		swprintf(sText, L"Location: %s", locationStr);
+		DrawTextToScreen(sText, x+55, y+150+22, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw assignment
+		swprintf( sText, L"Assignment: %s", pAssignmentStrings[mercs[agentIndex[index]]->bAssignment]);
+		DrawTextToScreen(sText, x+55, y+150+34, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+
+		// draw contract
+		const BOOLEAN fromAim = mercs[agentIndex[index]]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC;
+		
+		if (fromAim)
+		{
+			const INT32 endTime = mercs[agentIndex[index]]->iEndofContractTime;
+			const INT32 worldMin = GetWorldTotalMin();
+			const INT32 remaining = endTime - worldMin;
+
+			if (remaining >= 24 * 60)
+			{
+				swprintf(sText, L"Contract: %d days", remaining / (24 * 60));
+			}
+			else
+			{
+				swprintf(sText, L"Contract: %d hours", remaining / 60);
+			}
+		}
+		else
+		{
+			swprintf(sText, L"Contract: ---");
+		}
+		DrawTextToScreen(sText, x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+	}
+
+	// draw btns under face
+	btnId = CreateTextButton(L"<<", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x+5, y+150+54, 24, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			const INT8 index = MSYS_GetBtnUserData(btn, 0);
+			ButtonHelper(btn, reason, [btn, index]() { agentIndex[index]--; });
+		});
+	MSYS_SetBtnUserData(btnId, 0, index);
+	btnIds.push_back(btnId);
+
+	btnId = CreateTextButton(L">>", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x+5+24, y+150+54, 24, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			const INT8 index = MSYS_GetBtnUserData(btn, 0);
+			ButtonHelper(btn, reason, [btn, index]() { agentIndex[index]++; });
+		});
+	MSYS_SetBtnUserData(btnId, 0, index);
+	btnIds.push_back(btnId);
+
+	// draw agent bonus header text
+	swprintf(sText, L"Agent bonus:");
+	DrawTextToScreen(sText, x+5, y+150+54+20+2, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+	
+	// draw agent bonus text
+	UINT32 durationBonus = 0;
+	int durationBonusSkill = 0;
+	std::vector<STR16> agentBonusText;
+	if (agentIndex[index] < static_cast<INT8>(mercs.size()))
+	{
+		const MERCPROFILESTRUCT merc = gMercProfiles[mercs[agentIndex[index]]->ubProfile];
+		const INT8 successBonus_expLevel = GetMissionSuccessChanceBonus(&merc);
+		CHAR16 successText[100];
+		// stupid string hack to get the percent sign to display correctly
+		swprintf(successText, L"Chance of success +%d%s (%s)", successBonus_expLevel, L"%s", pShortAttributeStrings[5]); // "Lvl"
+		agentBonusText.push_back(successText);
+
+		const STR16* locSkillText = gGameOptions.fNewTraitSystem ? gzMercSkillTextNew : gzMercSkillText;
+		INT16 intModifier;
+		int intModifierSkill;
+		FLOAT floatModifier;
+		int floatModifierSkill;
+		UINT16 extraBits;
+		MissionHelpers::GetMissionInfo(static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), &merc, durationBonus, floatModifier, intModifier, durationBonusSkill, floatModifierSkill, intModifierSkill, extraBits);
+		switch (rebelCommandSaveInfo.availableMissions[index])
+		{
+		case RCAM_DEEP_DEPLOYMENT:
+		{
+			intModifier = max(intModifier, gRebelCommandSettings.iDeepDeploymentRangeEW);
+			CHAR16 rangeText[100];
+			swprintf(rangeText, L"Deployment range +%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			agentBonusText.push_back(rangeText);
+		}
+		break;
+
+		case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
+		{
+			// no special modifiers. included for completeness.
+		}
+		break;
+
+		case RCAM_IMPROVE_LOCAL_SHOPS:
+		{
+			// no special modifiers. included for completeness.
+		}
+		break;
+
+		case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:
+		{
+			floatModifier = max(floatModifier, gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier);
+			floatModifier -= 1.f;
+			floatModifier *= 100.f;
+			CHAR16 rangeText[100];
+			swprintf(rangeText, L"Time +%2.0f%s (%s)", floatModifier, L"%s", locSkillText[floatModifierSkill]);
+			agentBonusText.push_back(rangeText);
+		}
+		break;
+
+		case RCAM_REDUCE_UNALERTED_ENEMY_VISION:
+		{
+			floatModifier = max(floatModifier, gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier);
+			floatModifier *= 100.f;
+			CHAR16 text[100];
+			swprintf(text, L"Vision -%2.0f%s (%s)", floatModifier, L"%s", locSkillText[floatModifierSkill]);
+			agentBonusText.push_back(text);
+		}
+		break;
+
+		case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
+		{
+			intModifier = max(intModifier, gRebelCommandSettings.iSabotageInfantryEquipmentModifier);
+			CHAR16 text[100];
+			swprintf(text, L"Gear quality -%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			agentBonusText.push_back(text);
+		}
+		break;
+
+		case RCAM_SABOTAGE_MECHANICAL_UNITS:
+		{
+			intModifier = max(intModifier, gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss);
+			CHAR16 text[100];
+			swprintf(text, L"Overall stats -%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			agentBonusText.push_back(text);
+		}
+		break;
+
+		case RCAM_TRAIN_MILITIA_ANYWHERE:
+		{
+			intModifier = max(intModifier, 1);
+			CHAR16 text[100];
+			swprintf(text, L"Max trainers: %d (%s)", intModifier, locSkillText[intModifierSkill]);
+			agentBonusText.push_back(text);
+		}
+		break;
+
+		default: break;
+		}
+
+		if (durationBonus > 0)
+		{
+			CHAR16 durationText[100];
+			swprintf(durationText, L"Duration +%d hours (%s)", durationBonus, locSkillText[durationBonusSkill]);
+			agentBonusText.push_back(durationText);
+		}
+	}
+
+	if (agentBonusText.size() == 0)
+	{
+		DrawTextToScreen(L"None", x+10, y+150+54+20+2+11, 0, FONT10ARIAL, FONT_MCOLOR_RED, FONT_MCOLOR_BLACK, FALSE, 0);
+	}
+	else
+	{
+		for (UINT8 i = 0; i < agentBonusText.size(); ++i)
+		{
+			// the percent sign here is a hack to get it to display properly for string that need a percent sign
+			swprintf(sText, agentBonusText[i], L"%%");
+			DrawTextToScreen(sText, x+10, y+150+54+20+2+11*(i+1), 0, FONT10ARIAL, FONT_GREEN, FONT_MCOLOR_BLACK, FALSE, 0);
+		}
+	}
+
+	// draw "start mission" btn
+	swprintf(sText, L"Start Mission (%d supplies)", GetMissionCost());
+	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y+290, 231, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			const INT8 index = MSYS_GetBtnUserData(btn, 0);
+			ButtonHelper(btn, reason, [btn, index]() {
+				StartMission(index);
+			});
+		});
+	MSYS_SetBtnUserData(btnId, 0, index);
+	btnIds.push_back(btnId);
+
+	return TRUE;
+}
+
+void RenderMissionOverview()
+{
+	// randomised missions  - preserved in bitarray (24h refresh if none selected)
+	// only 1 active mission? allow multiple?
+	// increase cost based on num active missions?
+	// need a ui toggle between active missions and mission select
+	// need to convey that different folks can go on different missions, skills provide different bonuses
+	// we can probably store a lot of info in the strategic event int64 since we don't need to query it that often - on load, on mission start (send event)/end (receive event)
+	// 24 hours to find out if success/fail, then hold agent for a few days?
+	// don't need to save active missions - on load game, check strategic events (I have confirmed that strategic events are loaded before rebelcommandsaveinfo)
+	CHAR16 sText[800];
+	INT32 btnId;
+
+	// title
+	RenderHeader(RCT_AGENT_OVERVIEW);
+
+	// toggle between mission picker and active mission effects
+	switch (missionOverviewSubview)
+	{
+	case MOS_MISSION_LIST:
+		swprintf(sText, L"View active mission effects");
+		break;
+
+	case MOS_ACTIVE_MISSION_EFFECTS:
+		swprintf(sText, L"View available mission list");
+		break;
+	}
+	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, WEBSITE_LEFT + 15, WEBSITE_TOP + 40, 470, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			ButtonHelper(btn, reason, []()
+			{
+				switch (missionOverviewSubview)
+				{
+				case MOS_MISSION_LIST:
+					missionOverviewSubview = MOS_ACTIVE_MISSION_EFFECTS;
+					break;
+
+				case MOS_ACTIVE_MISSION_EFFECTS:
+					missionOverviewSubview = MOS_MISSION_LIST;
+					break;
+				}
+			});
+		});
+
+	btnIds.push_back(btnId);
+
+	// main body
+	switch (missionOverviewSubview)
+	{
+	case MOS_MISSION_LIST:
+		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+		{
+			SetupMissionAgentBox(WEBSITE_LEFT + 15 + 240 * i, WEBSITE_TOP + 65, i);
+		}
+		break;
+
+	case MOS_ACTIVE_MISSION_EFFECTS:
+		// rftr todo: run through active mission list (missionMap) and show a one-line description for each.
+		// need a scroll or pagination if several missions active
+		// otherwise, no active effects
+		DrawTextToScreen(L"No active missions.", WEBSITE_LEFT + 25, WEBSITE_TOP + 75, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		break;
+	}
+	
+	// "new missions every X hours" text
+	DrawTextToScreen(szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 17, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+}
+
+void StartMission(INT8 index)
+{
+	const INT32 cost = GetMissionCost();
+	if (rebelCommandSaveInfo.iSupplies < cost)
+	{
+		DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, szRebelCommandText[RCT_INSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return;
+	}
+	
+	// todo do something with agentIndex[index] and missionIndex[index] (rebelCommandSaveInfo.availableMissions[index])
+	// confirmation popup
+	std::vector<SOLDIERTYPE*> mercs;
+	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[i];
+
+		if (pSoldier && pSoldier->bActive
+			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
+			)
+		{
+			mercs.push_back(pSoldier);
+		}
+	}
+
+	const MERCPROFILESTRUCT merc = gMercProfiles[mercs[agentIndex[index]]->ubProfile];
+	CHAR16 text[400];
+	RebelCommandAgentMissionsText missionTitle;
+	INT8 missionSuccessChance;
+	UINT8 missionDuration;
+	UINT32 durationBonus;
+	FLOAT floatModifier;
+	INT16 intModifier;
+	int durSkill;
+	int floatSkill;
+	int intSkill;
+	UINT16 extraBits;
+
+	MissionHelpers::GetMissionInfo(static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), &merc, durationBonus, floatModifier, intModifier, durSkill, floatSkill, intSkill, extraBits);
+	switch (rebelCommandSaveInfo.availableMissions[index])
+	{
+	case RCAM_DEEP_DEPLOYMENT:					
+	{
+		missionTitle = RCAMT_DEEP_DEPLOYMENT_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iDeepDeploymentSuccessChance;
+		missionDuration = gRebelCommandSettings.iDeepDeploymentDuration;
+	}
+	break;
+
+	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
+	{
+		missionTitle = RCAMT_GET_ENEMY_MOVEMENT_TARGETS_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance;
+		missionDuration = gRebelCommandSettings.iGetEnemyMovementTargetsDuration;
+	}
+	break;
+
+	case RCAM_IMPROVE_LOCAL_SHOPS:
+	{
+		missionTitle = RCAMT_IMPROVE_LOCAL_SHOPS_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iImproveLocalShopsSuccessChance;
+		missionDuration = gRebelCommandSettings.iImproveLocalShopsDuration;
+	}
+	break;
+
+	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:
+	{
+		missionTitle = RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance;
+		missionDuration = gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration;
+	}
+	break;
+
+	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:
+	{
+		missionTitle = RCAMT_REDUCE_UNALERTED_ENEMY_VISION_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance;
+		missionDuration = gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration;
+	}
+	break;
+
+	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
+	{
+		missionTitle = RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance;
+		missionDuration = gRebelCommandSettings.iSabotageInfantryEquipmentDuration;
+	}
+	break;
+
+	case RCAM_SABOTAGE_MECHANICAL_UNITS:
+	{
+		missionTitle = RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance;
+		missionDuration = gRebelCommandSettings.iSabotageMechanicalUnitsDuration;
+	}
+	break;
+
+	case RCAM_TRAIN_MILITIA_ANYWHERE:
+	{
+		missionTitle = RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance;
+		missionDuration = gRebelCommandSettings.iTrainMilitiaAnywhereDuration;
+	}
+	break;
+		
+	default: break;
+	}
+
+	missionSuccessChance += GetMissionSuccessChanceBonus(&merc);
+
+	if (Random(100) > missionSuccessChance)
+	{
+		// mission failed!
+		missionDuration = 0;
+	}
+	else
+	{
+		missionDuration += durationBonus;
+	}
+
+	swprintf(text, L"[%s (%d supplies)]", szRebelCommandAgentMissionsText[missionTitle], cost);
+
+	if (agentIndex[index] == mercs.size())
+	{
+		// sent a generic rebel
+		MissionHelpers::missionParam = SerialiseMissionFirstEvent(TRUE, 0 /* no profile needed */, static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, 0 /* no extra data */);
+		swprintf(text, L"%s Send a rebel agent to prepare this mission?", text);
+	}
+	else
+	{
+		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, agentIndex[index], static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
+		if (merc.bSex == MALE)
+			swprintf(text, L"%s Send %s to prepare this mission? He will return in 24 hours.", text, merc.zNickname);
+		else
+			swprintf(text, L"%s Send %s to prepare this mission? She will return in 24 hours.", text, merc.zNickname);
+	}
+
+	DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, text, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, [](UINT8 exitValue) {
+		if (exitValue == MSG_BOX_RETURN_YES)
+		{
+			MissionFirstEvent evt;
+			DeserialiseMissionFirstEvent(MissionHelpers::missionParam, evt);
+
+			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			{
+				SOLDIERTYPE* pSoldier = MercPtrs[i];
+
+				if (pSoldier->ubProfile != evt.mercProfileId)
+					continue;
+
+				// rftr todo: send selected merc on assignment, like mini event adventure
+				for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+				{
+					if (evt.missionId == rebelCommandSaveInfo.availableMissions[i])
+					{
+						rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
+						break;
+					}
+				}
+
+				// actually start the mission
+				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
+				missionMap[static_cast<RebelCommandAgentMissions>(evt.missionId)] = MissionHelpers::missionParam;
+
+				return;
+			}
+		}
+	});
 }
 // end website
 
@@ -1560,7 +2712,7 @@ void ApplyEnemyPenalties(SOLDIERTYPE* pSoldier)
 			continue;
 
 		// and that it's not level 0
-		const UINT8 level = rebelCommandSaveInfo.regions[a].actionLevels[index];
+		const UINT8 level = rebelCommandSaveInfo.regions[a].GetLevel(index);
 		if (level == 0)
 			continue;
 
@@ -1572,7 +2724,7 @@ void ApplyEnemyPenalties(SOLDIERTYPE* pSoldier)
 					sectors.push_back(std::tuple<INT16, INT16, UINT8>(x, y, GetRegionLoyalty(a)));
 
 		// check if soldier is within range of the city
-		for (const auto tuple : sectors)
+		for (const auto& tuple : sectors)
 		{
 			const INT16 x = std::get<0>(tuple);
 			const INT16 y = std::get<1>(tuple);
@@ -1639,7 +2791,7 @@ FLOAT GetAssignmentBonus(INT16 x, INT16 y)
 
 	if (index >= 0)
 	{
-		const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+		const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 		value += info.adminActions[RCAA_MERC_SUPPORT].fValue1 * level;
 	}
 
@@ -1659,7 +2811,7 @@ INT32 GetMiningPolicyBonus(INT16 townId)
 
 	if (index >= 0)
 	{
-		const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+		const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 		return static_cast<INT32>(info.adminActions[RCAA_MINING_POLICY].fValue1 * level);
 	}
 
@@ -1738,7 +2890,7 @@ void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& el
 			continue;
 
 		// and that it's not level 0
-		const UINT8 level = rebelCommandSaveInfo.regions[a].actionLevels[index];
+		const UINT8 level = rebelCommandSaveInfo.regions[a].GetLevel(index);
 		if (level == 0)
 			continue;
 
@@ -1750,7 +2902,7 @@ void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& el
 					sectors.push_back(std::tuple<INT16, INT16, UINT8>(x, y, GetRegionLoyalty(a)));
 
 		// check if sector is within range of the city
-		for (const auto tuple : sectors)
+		for (const auto& tuple : sectors)
 		{
 			const INT16 x = std::get<0>(tuple);
 			const INT16 y = std::get<1>(tuple);
@@ -1801,7 +2953,7 @@ INT16 GetFortificationsBonus(UINT8 sector)
 		return 0;
 
 	// no levels in region
-	const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+	const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 	if (level == 0)
 		return 0;
 
@@ -1838,7 +2990,7 @@ FLOAT GetHarriersSpeedPenalty(UINT8 sector)
 				continue;
 
 			// no levels in region
-			const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+			const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 			if (level == 0)
 				continue;
 
@@ -1848,7 +3000,7 @@ FLOAT GetHarriersSpeedPenalty(UINT8 sector)
 
 	// run through townSectors to find the biggest harriers penalty
 	BOOLEAN found = FALSE;
-	for (const auto trio : townSectors)
+	for (const auto& trio : townSectors)
 	{
 		const INT16 sx = std::get<0>(trio);
 		const INT16 sy = std::get<1>(trio);
@@ -1940,7 +3092,7 @@ void HandleScouting()
 				continue;
 
 			// no levels in region
-			const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+			const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 			if (level == 0)
 				continue;
 
@@ -1954,7 +3106,7 @@ void HandleScouting()
 	{
 		for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
 		{
-			for (const auto trio : townSectors)
+			for (const auto& trio : townSectors)
 			{
 				const INT16 sx = std::get<0>(trio);
 				const INT16 sy = std::get<1>(trio);
@@ -2004,7 +3156,7 @@ FLOAT GetPathfindersSpeedBonus(UINT8 sector)
 				continue;
 
 			// no levels in region
-			const UINT8 level = rebelCommandSaveInfo.regions[townId].actionLevels[index];
+			const UINT8 level = rebelCommandSaveInfo.regions[townId].GetLevel(index);
 			if (level == 0)
 				continue;
 
@@ -2014,7 +3166,7 @@ FLOAT GetPathfindersSpeedBonus(UINT8 sector)
 
 	// run through townSectors to find the biggest pathfinders bonus
 	BOOLEAN found = FALSE;
-	for (const auto trio : townSectors)
+	for (const auto& trio : townSectors)
 	{
 		const INT16 sx = std::get<0>(trio);
 		const INT16 sy = std::get<1>(trio);
@@ -2068,7 +3220,9 @@ void RaidMines(INT32 &playerIncome, INT32 &enemyIncome)
 
 	INT32 stolenIncome = static_cast<INT32>(enemyIncome * rebelCommandSaveInfo.directives[RCD_RAID_MINES].GetValue1() * Random(100) / 100.f);
 	playerIncome += stolenIncome;
-	enemyIncome -= stolenIncome;
+	enemyIncome -= stolenIncome*2;
+
+	if (enemyIncome < 0) enemyIncome = 0;
 
 	if (stolenIncome > 0)
 	{
@@ -2265,15 +3419,20 @@ void DailyUpdate()
 	rebelCommandSaveInfo.iActiveDirective = directive;
 
 	// increment supplies
-	const UINT8 progress = CurrentPlayerProgressPercentage();
-	iIncomingSuppliesPerDay = static_cast<INT32>(progress * gRebelCommandSettings.fIncomeModifier + (directive == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	iIncomingSuppliesPerDay = CalcIncomingSuppliesPerDay(static_cast<RebelCommandDirectives>(directive));
 	rebelCommandSaveInfo.iSupplies += iIncomingSuppliesPerDay;
 
+	// rftr todo: check bitmask
+	//if (purchasing supplies through agent mission)
+		// what gets subtracted? current balance? daily income? how do we pick?
+
 	// get regional bonuses
+	const INT32 supplyUpkeep = static_cast<INT32>(gRebelCommandSettings.fIncomeModifier + 0.5f);
 	INT16 intelGain = 0;
 	INT16 supplyGain = 0;
 	INT16 moneyGain = 0;
-	for (int a = FIRST_TOWN; a < NUM_TOWNS; ++a)
+	CHAR16 text[200];
+	for (int a = FIRST_TOWN+1; a < NUM_TOWNS; ++a)
 	{
 		// check to see if the town is lost
 		if (IsTownUnderCompleteControlByEnemy(a) && rebelCommandSaveInfo.regions[a].adminStatus == RAS_ACTIVE)
@@ -2302,19 +3461,35 @@ void DailyUpdate()
 		const UINT8 loyalty = GetRegionLoyalty(a);
 		for (int b = 0; b < REBEL_COMMAND_MAX_ACTIONS_PER_REGION; ++b)
 		{
-			const INT8 level = rebelCommandSaveInfo.regions[a].actionLevels[b];
+			const INT8 level = rebelCommandSaveInfo.regions[a].GetLevel(b);
+			if (level == 0) continue;
+
+			if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[a].actions[b]) && !rebelCommandSaveInfo.regions[a].IsActive(b)) continue;
+
 			switch (static_cast<RebelCommandAdminActions>(rebelCommandSaveInfo.regions[a].actions[b]))
 			{
 			case RCAA_SUPPLY_LINE:
-			case RCAA_SAFEHOUSES:
 			case RCAA_SUPPLY_DISRUPTION:
 			case RCAA_SCOUTS:
 			case RCAA_MERC_SUPPORT:
-			case RCAA_MINING_POLICY:
 			case RCAA_PATHFINDERS:
-			case RCAA_HARRIERS:
 			case RCAA_FORTIFICATIONS:
 				// no daily bonuses
+				break;
+
+			case RCAA_HARRIERS:
+			case RCAA_MINING_POLICY:
+			case RCAA_SAFEHOUSES:
+				// no daily bonuses, but gotta pay upkeep
+				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
+				{
+					// what to do on success?
+				}
+				else
+				{
+					swprintf(text, L"Not enough supplies for harriers/miningpolicy/safehouses!");
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
+				}
 				break;
 
 			case RCAA_REBEL_RADIO:
@@ -2322,7 +3497,15 @@ void DailyUpdate()
 				break;
 
 			case RCAA_DEAD_DROPS:
-				intelGain += Random(static_cast<UINT32>(info.adminActions[RCAA_DEAD_DROPS].fValue1 * level * loyalty / 100.f));
+				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
+				{
+					intelGain += Random(static_cast<UINT32>(info.adminActions[RCAA_DEAD_DROPS].fValue1 * level * loyalty / 100.f));
+				}
+				else
+				{
+					swprintf(text, L"Not enough supplies for dead drops");
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
+				}
 				break;
 				
 			case RCAA_SMUGGLERS:
@@ -2330,10 +3513,18 @@ void DailyUpdate()
 				break;
 
 			case RCAA_WAREHOUSES:
-				AddResources(
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) * loyalty / 10000.f),
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) * loyalty / 10000.f),
-					static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) * loyalty / 10000.f));
+				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
+				{
+					AddResources(
+						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) * loyalty / 10000.f),
+						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) * loyalty / 10000.f),
+						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) * loyalty / 10000.f));
+				}
+				else
+				{
+					swprintf(text, L"Not enough supplies for warehouses");
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
+				}
 				break;
 
 			case RCAA_TAXES:
@@ -2353,7 +3544,6 @@ void DailyUpdate()
 		}
 	}
 
-	CHAR16 text[200];
 	if (intelGain > 0)
 	{
 		swprintf(text, szRebelCommandText[RCT_DEAD_DROP_INCOME], intelGain);
@@ -2373,6 +3563,46 @@ void DailyUpdate()
 	if (moneyGain > 0)
 	{
 		AddTransactionToPlayersBook(REBEL_COMMAND, 0, GetWorldTotalMin(), moneyGain);
+	}
+
+	// update missions
+	// rftr todo: test me
+	// rftr todo: don't do this every day!
+	std::unordered_set<RebelCommandAgentMissions> validMissions;
+	for (int i = 0; i < RCAM_NUM_MISSIONS; ++i)
+	{
+		validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
+	}
+
+	for (const auto& pair : missionMap)
+	{
+		const RebelCommandAgentMissions mission = pair.first;
+		validMissions.erase(mission);
+	}
+
+	if (validMissions.size() >= NUM_ARC_AGENT_SLOTS)
+	{
+		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+		{
+			const INT8 mission = static_cast<INT8>(Random(validMissions.size()));
+			rebelCommandSaveInfo.availableMissions[i] = mission;
+			validMissions.erase(static_cast<RebelCommandAgentMissions>(mission));
+		}
+	}
+	else
+	{
+		int idx = 0;
+		for (auto iter = validMissions.cbegin(); iter != validMissions.cend(); ++iter)
+		{
+			rebelCommandSaveInfo.availableMissions[idx] = *iter;
+			idx++;
+		}
+
+		while (idx < NUM_ARC_AGENT_SLOTS)
+		{
+			rebelCommandSaveInfo.availableMissions[idx] = RCAM_NONE;
+			idx++;
+		}
 	}
 }
 
@@ -2510,6 +3740,42 @@ BOOLEAN Load(HWFILE file)
 		Init();
 	}
 
+	// rftr TEST it works hooray, assuming I don't change the layout of the bitflag
+	//const UINT32 param1 = SerialiseMissionFirstEvent(FALSE, 8, RCAM_DEEP_DEPLOYMENT, 200, 0x0F);
+	//const UINT32 param2 = SerialiseMissionSecondEvent(FALSE, 10, RCAM_GET_ENEMY_MOVEMENT_TARGETS, 0xFF);
+	//MissionFirstEvent evt1;
+	//MissionSecondEvent evt2;
+	//DeserialiseMissionFirstEvent(param1, evt1);
+	//DeserialiseMissionSecondEvent(param2, evt2);
+
+	// go through every strategic event to find active agent missions
+	std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
+	missionMap.clear();
+	// example is EVENT_BLOODCAT_ATTACK
+	for (std::vector<std::pair<UINT32,UINT32>>::iterator it = missions.begin(); it != missions.end(); ++it)
+	{
+		// FIRST EVENT EXAMPLE
+		//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, my32bitparam);
+		// SECOND EVENT EXAMPLE
+		//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * durationInHours, my32bitparam);
+		//const UINT32 first = it->first; // timestamp - when this event will be fired
+		//const UINT32 second = it->second; // uiParam
+
+		MissionFirstEvent evt1;
+		DeserialiseMissionFirstEvent(it->second, evt1);
+		if (evt1.isFirstEvent)
+		{
+			missionMap[static_cast<RebelCommandAgentMissions>(evt1.missionId)] = it->second;
+		}
+
+		MissionSecondEvent evt2;
+		DeserialiseMissionSecondEvent(it->second, evt2);
+
+		if (evt2.isSecondEvent)
+		{
+			missionMap[static_cast<RebelCommandAgentMissions>(evt2.missionId)] = it->second;
+		}
+	}
 	return TRUE;
 }
 
@@ -2667,6 +3933,87 @@ void SetupInfo()
 	aa.fValue3 = 0.f;
 	info.adminActions.insert(info.adminActions.begin() + RCAA_FORTIFICATIONS, aa);
 
+	MissionHelpers::missionInfo.clear();
+	// example format
+	// {
+	//		{ new skill traits to check },
+	//		{ old skill traits to check. use -1 to not match against anything },
+	//		{ duration bonus for checked trait },
+	//		{ float modifier for checked trait. either this line or the next is zeroed out. },
+	//		{ int modifier for checked trait. either this line or the previous is zeroed out. },
+	//		{ value to place in extra bits, used to determine what bonus is applied. }
+	// }
+	//RCAM_DEEP_DEPLOYMENT
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,														SCOUTING_NT,													STEALTHY_NT,													SURVIVAL_NT},
+		{-1,															-1,																STEALTHY_OT,													CAMOUFLAGED_OT},
+		{gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Covert,	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Scouting,	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Stealthy,	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Survival},
+		{0.f, 0.f, 0.f, 0.f},
+		{gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Covert,		gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Scouting,	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Stealthy,	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Survival},
+		{MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_COVERT,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL}
+	});
+	//RCAM_GET_ENEMY_MOVEMENT_TARGETS
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT, RADIO_OPERATOR_NT},
+		{-1, -1},
+		{gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Covert, gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Radio},
+		{0.f, 0.f},
+		{0, 0},
+		{0, 0}
+	});
+	//RCAM_IMPROVE_LOCAL_SHOPS
+	MissionHelpers::missionInfo.push_back({ }); // no entries necessary - no modifiers
+	//RCAM_REDUCE_STRATEGIC_DECISION_SPEED
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,																	SQUADLEADER_NT,																SNITCH_NT},
+		{-1,																		-1,																			-1},
+		{gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Covert,	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Deputy,	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Snitch},
+		{gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Covert,		gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Deputy,			gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Snitch},
+		{0, 0, 0},
+		{MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_COVERT,			MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_DEPUTY,			MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_SNITCH}
+	});
+	//RCAM_REDUCE_UNALERTED_ENEMY_VISION
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,																	RADIO_OPERATOR_NT,														STEALTHY_NT},
+		{-1,																		-1,																		STEALTHY_OT},
+		{gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Covert,	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Radio,	0},
+		{gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Covert,			gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Radio,		gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Stealthy},
+		{0, 0, 0},
+		{MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_COVERT,				MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_RADIO,			MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_STEALTHY}
+	});
+	//RCAM_SABOTAGE_INFANTRY_EQUIPMENT
+	MissionHelpers::missionInfo.push_back({
+		{AUTO_WEAPONS_NT,																COVERT_NT,																DEMOLITIONS_NT,																	GUNSLINGER_NT,																RANGER_NT,																SNIPER_NT },
+		{AUTO_WEAPS_OT,																	-1,																		-1,																				-1,																			-1,																		PROF_SNIPER_OT },
+		{gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Auto_Weapons,	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Covert,	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Demolitions,		gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Gunslinger,	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Ranger,	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Sniper},
+		{0.f, 0.f, 0.f, 0.f, 0.f, 0.f},
+		{gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Auto_Weapons,			gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Covert,		gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Demolitions,			gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Gunslinger,		gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Ranger,		gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Sniper},
+		{MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_AUTO_WEAPONS,		MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_COVERT,		MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_DEMOLITIONS,			MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_GUNSLINGER,		MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_RANGER,		MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_SNIPER}
+	});
+	//RCAM_SABOTAGE_MECHANICAL_UNITS
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,																DEMOLITIONS_NT,																HEAVY_WEAPONS_NT},
+		{-1,																	-1,																			HEAVY_WEAPS_OT},
+		{gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Covert,	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Demolitions,	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons},
+		{0.f, 0.f, 0.f},
+		{gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons},
+		{MissionHelpers::SABOTAGE_MECHANICAL_UNITS_COVERT,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS}
+	});
+	//RCAM_TRAIN_MILITIA_ANYWHERE
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,															SURVIVAL_NT,															TEACHING_NT},
+		{-1,																CAMOUFLAGED_OT,															TEACHING_OT},
+		{gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert,	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival,		gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching},
+		{0.f, 0.f, 0.f},
+		{gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,			gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,					gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching},
+		{0,																	0,																		MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING}
+	});
 }
 
 void UpgradeMilitiaStats()
@@ -2690,6 +4037,313 @@ void UpgradeMilitiaStats()
 			RenderWebsite();
 		}
 		});
+}
+
+void ApplyEnemyMechanicalUnitPenalties(SOLDIERTYPE* pSoldier)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	// rftr todo: check agent mission bitmask
+
+	pSoldier->stats.bLife -= 40;
+	pSoldier->stats.bLifeMax = pSoldier->stats.bLife;
+	pSoldier->stats.bAgility -= 40;
+	pSoldier->stats.bDexterity -= 40;
+	pSoldier->stats.bStrength -= 40;
+	pSoldier->stats.bMarksmanship -= 40;
+
+	pSoldier->stats.bLife = max(33, pSoldier->stats.bLife);
+	pSoldier->stats.bLifeMax = max(33, pSoldier->stats.bLifeMax);
+	pSoldier->stats.bAgility = max(33, pSoldier->stats.bAgility);
+	pSoldier->stats.bDexterity = max(33, pSoldier->stats.bDexterity);
+	pSoldier->stats.bStrength = max(33, pSoldier->stats.bStrength);
+	pSoldier->stats.bMarksmanship = max(33, pSoldier->stats.bMarksmanship);
+}
+
+void ApplyMilitiaTraits(SOLDIERTYPE* pSoldier)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	// rftr todo: check bitmask for specific possible traits
+}
+
+void ApplyVisionModifier(const SOLDIERTYPE* pSoldier, INT32& sight)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	// rftr todo: check bitmask
+
+	if (pSoldier->bTeam == ENEMY_TEAM && pSoldier->aiData.bAlertStatus == STATUS_GREEN)
+	{
+		sight = static_cast<INT32>(sight * (1.f - 0.15f));
+	}
+}
+
+BOOLEAN CanAssignTraitsToMilitia()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return FALSE;
+
+	// rftr todo: check bitmask
+	
+	return TRUE;
+}
+
+BOOLEAN CanTrainMilitiaAnywhere()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return FALSE;
+
+	// rftr todo: check bitmask
+	return TRUE;
+}
+
+UINT8 GetMaxTrainersForTrainMilitiaAnywhere()
+{
+	return 1;
+}
+
+INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return 0;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_DEEP_DEPLOYMENT);
+
+	if (iter == missionMap.end())
+		return 0;
+
+	// rftr todo: check bitmask
+
+	switch (insertionCode)
+	{
+	case INSERTION_CODE_NORTH:
+	case INSERTION_CODE_SOUTH:
+	{
+		INT16 range = 0;
+
+		MissionSecondEvent evt;
+		DeserialiseMissionSecondEvent(iter->second, evt);
+
+		// we only get a range bonus if the mission is active!
+		if (evt.isSecondEvent)
+		{
+			range = gRebelCommandSettings.iDeepDeploymentRangeNS;
+
+			// rftr todo: bitmagic to get bonus range
+			switch (evt.extraBits)
+			{
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_COVERT:	range += gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Covert; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING:	range += gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Scouting; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY:	range += gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Stealthy; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL:	range += gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Survival; break;
+
+			default: break;
+			}
+		}
+
+		return range;
+	}
+
+	case INSERTION_CODE_WEST:
+	case INSERTION_CODE_EAST:
+	{
+		INT16 range = 0;
+
+		MissionSecondEvent evt;
+		DeserialiseMissionSecondEvent(iter->second, evt);
+
+		// we only get a range bonus if the mission is active!
+		if (evt.isSecondEvent)
+		{
+			range = gRebelCommandSettings.iDeepDeploymentRangeEW;
+
+			switch (evt.extraBits)
+			{
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_COVERT:	range += gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Covert; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING:	range += gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Scouting; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY:	range += gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Stealthy; break;
+			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL:	range += gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Survival; break;
+
+			default: break;
+			}
+		}
+
+		return range;
+	}
+	}
+
+	return 0;
+}
+
+INT8 GetEnemyEquipmentCoolnessModifier()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return 0;
+
+	// rftr todo: check bitmask
+
+	return -1;
+}
+
+INT8 GetEnemyEquipmentStatusModifier(const INT8 initialStatus)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return initialStatus;
+
+	// rftr todo: check bitmask
+
+	INT8 newStatus = initialStatus;
+	newStatus -= 10;
+
+	newStatus = max(1, min(newStatus, 100));
+	return newStatus;
+}
+
+UINT8 GetMerchantCoolnessBonus()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return 0;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_IMPROVE_LOCAL_SHOPS);
+
+	if (iter == missionMap.end())
+		return 0;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	// rftr todo: check bitmask
+
+	return evt.isSecondEvent ? 1 : 0;
+}
+
+FLOAT GetStrategicDecisionSpeedModifier()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return 1.f;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_REDUCE_STRATEGIC_DECISION_SPEED);
+
+	if (iter == missionMap.end())
+		return 0;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	// rftr todo: check bitmask
+
+	FLOAT modifier = 1.f;
+
+	if (evt.isSecondEvent)
+	{
+		switch (evt.extraBits)
+		{
+		case MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_COVERT:	modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Covert; break;
+		default:																modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier; break;
+		}
+	}
+
+	return modifier;
+}
+
+void HandleStrategicEvent(const UINT32 eventParam)
+{
+	// this handles the transition from "mission prep" (first event) to "mission active" (second event), which happens 24 hours after the player clicks on "start mission"
+	// rftr todo: update agent mission bitmask
+	MissionFirstEvent evt1;
+	MissionSecondEvent evt2;
+	DeserialiseMissionFirstEvent(eventParam, evt1);
+	DeserialiseMissionSecondEvent(eventParam, evt2);
+
+	if (evt1.isFirstEvent)
+	{
+		// mission prep is over. see if we can activate the mission
+		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt1.missionId));
+
+		// rftr todo: end the merc's assignment (like mini event adventures)
+
+		if (evt1.isMissionSuccess)
+		{
+			const RebelCommandAgentMissions mission = static_cast<RebelCommandAgentMissions>(evt1.missionId);
+			const MERCPROFILESTRUCT merc = gMercProfiles[evt1.mercProfileId];
+			
+			// rftr todo: mission successful! give some experience pts
+
+			// what mission did we do? apply bonuses here, and don't forget to check them later when checking to see if a mission bonus should be applied
+			UINT32 durationBonus = 0;
+			int durationBonusSkill = 0;
+			INT16 intModifier = 0;
+			int intModifierSkill = 0;
+			FLOAT floatModifier = 0.f;
+			int floatModifierSkill = 0;
+			UINT16 extraBits = 0;
+			MissionHelpers::GetMissionInfo(mission, &merc, durationBonus, floatModifier, intModifier, durationBonusSkill, floatModifierSkill, intModifierSkill, extraBits);
+
+			BOOLEAN validMission = FALSE;
+			switch (mission)
+			{
+			case RCAM_DEEP_DEPLOYMENT:
+			case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
+			case RCAM_IMPROVE_LOCAL_SHOPS:
+			case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:
+			case RCAM_REDUCE_UNALERTED_ENEMY_VISION:
+			case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
+			case RCAM_SABOTAGE_MECHANICAL_UNITS:
+			case RCAM_TRAIN_MILITIA_ANYWHERE:
+			{
+				validMission = TRUE;
+			}
+			break;
+
+			default:
+			{
+				ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, L"Unrecognised mission ID: %d", mission);
+			}
+			break;
+			}
+
+			if (validMission)
+			{
+				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours,
+					SerialiseMissionSecondEvent(evt1.sentGenericRebelAgent, evt1.mercProfileId, mission, extraBits));
+
+				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
+			}
+
+			missionMap[mission] = eventParam;
+		}
+		else
+		{
+			// rftr todo: tell the player that the mission prep failed. some popup box blurb or somesuch.
+		}
+	}
+	else if (evt2.isSecondEvent)
+	{
+		// mission duration is over. deactivate the mission
+		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt2.missionId));
+	}
+}
+
+BOOLEAN ShowEnemyMovementTargets()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return FALSE;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_GET_ENEMY_MOVEMENT_TARGETS);
+
+	if (iter == missionMap.end())
+		return FALSE;
+
+	// rftr todo: check bitmask
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	return evt.isSecondEvent;
 }
 
 void DEBUG_DAY()
@@ -2716,7 +4370,7 @@ template<> void DropDownTemplate<DROPDOWN_REBEL_COMMAND_DIRECTIVE>::SetRefresh()
 	using namespace RebelCommand;
 	const INT16 newDirective = REBEL_COMMAND_DROPDOWN.GetSelectedEntryKey();
 	rebelCommandSaveInfo.iSelectedDirective = newDirective;
-	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier + (newDirective == RCD_GATHER_SUPPLIES ? rebelCommandSaveInfo.directives[RCD_GATHER_SUPPLIES].GetValue1() : 0));
+	iIncomingSuppliesPerDay = CalcIncomingSuppliesPerDay(static_cast<RebelCommandDirectives>(newDirective));
 
 	redraw = TRUE;
 }

@@ -140,6 +140,7 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"bandit attack",
 	L"ArmyFinishTraining",
 	L"MiniEvent",
+	L"ARC_Event",
 };
 
 #endif

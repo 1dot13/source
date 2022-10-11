@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -49,6 +50,7 @@
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
+	#include "Rebel Command.h"
 #endif
 
 #include "Quests.h"
@@ -842,6 +844,42 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 			{
 				colorMap[sY][sX] = MAP_SHADE_MAX; // Used to mark sectors that will not be shaded
 			}
+		}
+	}
+
+	if (RebelCommand::ShowEnemyMovementTargets())
+	{
+		const auto targetColor = MAP_SHADE_LT_RED;
+		GROUP* pGroup = gpGroupList;
+
+		while (pGroup)
+		{
+			if (pGroup->usGroupTeam == ENEMY_TEAM)
+			{
+				const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
+				if (intention == STAGING
+				 || intention == REINFORCEMENTS
+				 || intention == PURSUIT
+				 || intention == ASSAULT)
+				{
+					WAYPOINT* wp = pGroup->pWaypoints;
+
+					while (wp)
+					{
+						if (wp->next == nullptr)
+							break;
+
+						wp = wp->next;
+					}
+
+					if (GetSectorFlagStatus(wp->x-1, wp->y-1, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED))
+					{
+						colorMap[wp->y-1][wp->x-1] = targetColor;
+					}
+				}
+			}
+
+			pGroup = pGroup->next;
 		}
 	}
 }

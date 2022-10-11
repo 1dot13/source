@@ -11967,7 +11967,7 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 	L"Militia Warehouses",
 	L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
 	L"Regional Taxes",
-	L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
+	L"Collect money from the locals to assist your efforts. Increases daily income, but regional loyalty falls daily.",
 	L"Civilian Aid",
 	L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
 	L"Merc Support",
