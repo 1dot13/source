@@ -5,6 +5,7 @@
 #include "Soldier Control.h"
 #include "Types.h"
 
+#define		REBEL_COMMAND_Z_OFFSET						9
 #define		REBEL_COMMAND_MAX_ACTIONS_PER_REGION		6
 #define		NUM_ARC_AGENT_SLOTS							2
 

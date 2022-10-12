@@ -15,7 +15,7 @@ Directives can be improved with money.
 At the start of the campaign, this feature is unavailable, but the player gains access to the ARC website as soon as they complete
 the food delivery quest for the rebels.
 
-Missions were added later and provide powerful temporary bonuses. To enable these bonuses, Supplies must be spent as well as sending
+Missions provide powerful temporary bonuses. To enable these bonuses, Supplies must be spent as well as sending
 either a generic rebel agent or one of their own mercenaries, the latter providing better mission bonuses.
 
 
@@ -2111,13 +2111,13 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	LineDraw(FALSE, x, y, x+230, y, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
 	
 	// bottom horizontal line
-	LineDraw(FALSE, x, y+300, x+230, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+	LineDraw(FALSE, x, y+310, x+230, y+310, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
 
 	// left vertical line
-	LineDraw(FALSE, x, y, x, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+	LineDraw(FALSE, x, y, x, y+310, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
 
 	// right vertical line
-	LineDraw(FALSE, x+230, y, x+230, y+300, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
+	LineDraw(FALSE, x+230, y, x+230, y+310, Get16BPPColor(FROMRGB(0, 0, 0)), pDestBuf);
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
@@ -2198,8 +2198,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	}
 	DisplayWrappedString(x+5, y+45, 220, 2, FONT10ARIAL, FONT_MCOLOR_BLACK, sText, FONT_MCOLOR_BLACK, FALSE, 0);
 
-	// draw agent portrait
-	if (agentIndex[index] == mercs.size())
+	if (agentIndex[index] == mercs.size()) // generic rebel agent
 	{
 		// draw black box for face
 		ColorFillVideoSurfaceArea(FRAME_BUFFER, x+5, y+150+10, x+5+48, y+150+10+43, Get16BPPColor(FROMRGB(64, 64, 64)));
@@ -2221,7 +2220,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		// draw contract
 		DrawTextToScreen(L"Contract: ---", x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 	}
-	else
+	else // one of the player's mercs
 	{
 		// draw face
 		vObjDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -2407,17 +2406,32 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		}
 	}
 
-	// draw "start mission" btn
-	swprintf(sText, L"Start Mission (%d supplies)", GetMissionCost());
-	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y+290, 231, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
-		{
-			const INT8 index = MSYS_GetBtnUserData(btn, 0);
-			ButtonHelper(btn, reason, [btn, index]() {
-				StartMission(index);
+	// draw "start mission" button
+	const UINT8 townId = GetTownIdForSector(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY);
+	const UINT8 townLoyalty = GetRegionLoyalty(townId);
+	if ((agentIndex[index] < static_cast<INT8>(mercs.size())) && (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission))
+	{
+		swprintf(sText, L"Agent not in loyal town");
+		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	}
+	else if ((gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector)
+	{
+		swprintf(sText, L"Battle in progress");
+		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	}
+	else // ok to start mission
+	{
+		swprintf(sText, L"Start Mission (%d supplies)", GetMissionCost());
+		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y+290, 231, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+			{
+				const INT8 index = MSYS_GetBtnUserData(btn, 0);
+				ButtonHelper(btn, reason, [btn, index]() {
+					StartMission(index);
+				});
 			});
-		});
-	MSYS_SetBtnUserData(btnId, 0, index);
-	btnIds.push_back(btnId);
+		MSYS_SetBtnUserData(btnId, 0, index);
+		btnIds.push_back(btnId);
+	}
 
 	return TRUE;
 }
@@ -2487,7 +2501,7 @@ void RenderMissionOverview()
 	}
 	
 	// "new missions every X hours" text
-	DrawTextToScreen(szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 17, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+	DrawTextToScreen(szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 14, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 }
 
 void StartMission(INT8 index)
@@ -2599,7 +2613,7 @@ void StartMission(INT8 index)
 
 	missionSuccessChance += GetMissionSuccessChanceBonus(&merc);
 
-	if (Random(100) > missionSuccessChance)
+	if (Random(100) > static_cast<UINT8>(missionSuccessChance))
 	{
 		// mission failed!
 		missionDuration = 0;
@@ -2639,7 +2653,14 @@ void StartMission(INT8 index)
 				if (pSoldier->ubProfile != evt.mercProfileId)
 					continue;
 
-				// rftr todo: send selected merc on assignment, like mini event adventure
+				//TakeSoldierOutOfVehicle(pSoldier);
+				//RemoveCharacterFromSquads(pSoldier);
+				//pSoldier->ubHoursRemainingOnMiniEvent = hoursOnMiniEvent;
+				//pSoldier->bSectorZ += MINI_EVENT_Z_OFFSET;
+				//pSoldier->bBleeding = 0;
+				//SetTimeOfAssignmentChangeForMerc(pSoldier);
+				//ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
+
 				for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
 				{
 					if (evt.missionId == rebelCommandSaveInfo.availableMissions[i])

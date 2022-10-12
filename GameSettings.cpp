@@ -4158,6 +4158,8 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iFortificationsBonus = iniReader.ReadInteger("Rebel Command Settings", "FORTIFICATIONS_BONUS", 10, 0, 100);
 
 	// agent missions
+	gRebelCommandSettings.iMinLoyaltyForMission = iniReader.ReadInteger("Rebel Command Settings", "MIN_LOYALTY_FOR_MISSION", 51, 0, 100);
+
 	gRebelCommandSettings.iDeepDeploymentSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iDeepDeploymentRangeNS = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS", 200, 0, 1000);
 	gRebelCommandSettings.iDeepDeploymentRangeEW = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW", 350, 0, 1000);

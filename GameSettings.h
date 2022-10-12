@@ -1843,6 +1843,8 @@ typedef struct
 	INT16 iFortificationsBonus;
 
 	// agent missions
+	INT8 iMinLoyaltyForMission;
+
 	INT8 iDeepDeploymentSuccessChance;
 	INT16 iDeepDeploymentRangeNS;
 	INT16 iDeepDeploymentRangeEW;
