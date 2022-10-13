@@ -1515,6 +1515,9 @@ BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteN
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 		return( FALSE );
 
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+		return( FALSE );
+
 	return( CharacterDialogue( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, TRUE ) );
 }
 
@@ -1574,6 +1577,9 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEventEx( SOLDIERTYPE *pSoldier, UINT
 
 		if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 			return( FALSE );
+
+		if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+			return( FALSE );
 	}
 
 	return( CharacterDialogueWithSpecialEventEx( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, FALSE, uiFlag, uiData1, uiData2, uiData3 ) );
@@ -1623,6 +1629,9 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 	}
 
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+		return( FALSE );
+
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
 		return( FALSE );
 
 	// OK, let's check if this is the exact one we just played, if so, skip.
@@ -1717,6 +1726,9 @@ BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNu
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 		return( FALSE );
 
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+		return( FALSE );
+
 	// OK, let's check if this is the exact one we just played, if so, skip.
 	//if ( pSoldier->ubProfile == gTacticalStatus.ubLastQuoteProfileNUm &&
 	//	usQuoteNum == gTacticalStatus.ubLastQuoteSaid )
@@ -1774,6 +1786,9 @@ BOOLEAN AdditionalTacticalCharacterDialogue_CallsLua( SOLDIERTYPE *pSoldier, UIN
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 		return( FALSE );
 
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+		return( FALSE );
+
 	if ( AM_AN_EPC( pSoldier ) && !( gMercProfiles[pSoldier->ubProfile].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE ) )
 		return( FALSE );
 
@@ -1802,7 +1817,7 @@ void AdditionalTacticalCharacterDialogue_AllInSector(INT16 aSectorX, INT16 aSect
 		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive &&
 			pSoldier->ubProfile != ausIgnoreProfile &&
 			pSoldier->sSectorX == aSectorX && pSoldier->sSectorY == aSectorY && pSoldier->bSectorZ == aSectorZ &&
-			pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT &&
+			pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND &&
 			(aAroundGridno == NOWHERE || PythSpacesAway( pSoldier->sGridNo, aAroundGridno ) <= aRadius ) &&
 			!pSoldier->flags.fBetweenSectors )
 		{
@@ -2103,6 +2118,9 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		}
 
 		if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+			return( FALSE );
+
+		if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
 			return( FALSE );
 
 		// sleeping guys don't talk.. go to standby to talk

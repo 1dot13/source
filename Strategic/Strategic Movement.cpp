@@ -5475,7 +5475,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 			{
 				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[ i ]->stats.bLife >= OKLIFE )
+					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[i]->bAssignment != ASSIGNMENT_REBELCOMMAND && MercPtrs[ i ]->stats.bLife >= OKLIFE )
 					{
 						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
 						{
@@ -5880,6 +5880,7 @@ BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup )
 			if( ( pPlayer->pSoldier->bAssignment == IN_TRANSIT ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_POW ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) ||
 				SPY_LOCATION( pPlayer->pSoldier->bAssignment ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 			{

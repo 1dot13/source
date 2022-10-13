@@ -87,6 +87,7 @@ Points of interest:
 #include "Queen Command.h"
 #include "random.h"
 #include "SaveLoadGame.h"
+#include "Squads.h"
 #include "strategic.h"
 #include "strategicmap.h"
 #include "Strategic Mines.h"
@@ -95,6 +96,7 @@ Points of interest:
 #include "Text.h"
 #include "Town Militia.h"
 #include "Utilities.h"
+#include "Vehicles.h"
 #include "WCheck.h"
 #include "WordWrap.h"
 #endif
@@ -170,6 +172,9 @@ void GetMissionInfo(RebelCommandAgentMissions mission, const MERCPROFILESTRUCT* 
 	intModifier = 0;
 	intModifierSkill = 0;
 	extraBits = 0;
+
+	if (mission == RCAM_NONE)
+		return;
 
 	const std::vector<INT8>* skills = gGameOptions.fNewTraitSystem ? &missionInfo[mission].newSkills : &missionInfo[mission].oldSkills;
 
@@ -2128,6 +2133,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	if (agentIndex[index] < 0) agentIndex[index] = static_cast<INT8>(mercs.size());
 	else if (agentIndex[index] > static_cast<INT8>(mercs.size())) agentIndex[index] = 0;
 
+	// rftr todo: handle RCAM_NONE (ie, mission prep in progress!)
+
 	// draw mission title
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
@@ -2407,19 +2414,27 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	}
 
 	// draw "start mission" button
-	const UINT8 townId = GetTownIdForSector(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY);
-	const UINT8 townLoyalty = GetRegionLoyalty(townId);
-	if ((agentIndex[index] < static_cast<INT8>(mercs.size())) && (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission))
+	BOOLEAN canStartMission = TRUE;
+	if (agentIndex[index] < static_cast<INT8>(mercs.size()))
 	{
-		swprintf(sText, L"Agent not in loyal town");
-		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		const UINT8 townId = GetTownIdForSector(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY);
+		const UINT8 townLoyalty = GetRegionLoyalty(townId);
+
+		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission)
+		{
+			canStartMission = FALSE;
+			swprintf(sText, L"Agent not in loyal town");
+			DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		}
 	}
 	else if ((gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector)
 	{
+		canStartMission = FALSE;
 		swprintf(sText, L"Battle in progress");
 		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	}
-	else // ok to start mission
+
+	if (canStartMission)
 	{
 		swprintf(sText, L"Start Mission (%d supplies)", GetMissionCost());
 		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y+290, 231, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
@@ -2646,37 +2661,42 @@ void StartMission(INT8 index)
 			MissionFirstEvent evt;
 			DeserialiseMissionFirstEvent(MissionHelpers::missionParam, evt);
 
-			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			if (!evt.sentGenericRebelAgent)
 			{
-				SOLDIERTYPE* pSoldier = MercPtrs[i];
-
-				if (pSoldier->ubProfile != evt.mercProfileId)
-					continue;
-
-				//TakeSoldierOutOfVehicle(pSoldier);
-				//RemoveCharacterFromSquads(pSoldier);
-				//pSoldier->ubHoursRemainingOnMiniEvent = hoursOnMiniEvent;
-				//pSoldier->bSectorZ += MINI_EVENT_Z_OFFSET;
-				//pSoldier->bBleeding = 0;
-				//SetTimeOfAssignmentChangeForMerc(pSoldier);
-				//ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
-
-				for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+				//for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
-					if (evt.missionId == rebelCommandSaveInfo.availableMissions[i])
-					{
-						rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
-						break;
-					}
+					SOLDIERTYPE* pSoldier = MercPtrs[evt.mercProfileId];
+
+					//if (pSoldier->ubProfile != evt.mercProfileId)
+					//	continue;
+
+					TakeSoldierOutOfVehicle(pSoldier);
+					RemoveCharacterFromSquads(pSoldier);
+					pSoldier->bSectorZ += REBEL_COMMAND_Z_OFFSET;
+					pSoldier->bBleeding = 0;
+					SetTimeOfAssignmentChangeForMerc(pSoldier);
+					ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
+
+					//break;
 				}
-
-				// actually start the mission
-				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
-				missionMap[static_cast<RebelCommandAgentMissions>(evt.missionId)] = MissionHelpers::missionParam;
-
-				return;
 			}
+
+			for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+			{
+				if (evt.missionId == rebelCommandSaveInfo.availableMissions[i])
+				{
+					rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
+					break;
+				}
+			}
+
+			// actually start the mission
+			//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
+			AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
+			missionMap[static_cast<RebelCommandAgentMissions>(evt.missionId)] = MissionHelpers::missionParam;
 		}
+
+		RenderWebsite();
 	});
 }
 // end website
@@ -4291,8 +4311,6 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		{
 			const RebelCommandAgentMissions mission = static_cast<RebelCommandAgentMissions>(evt1.missionId);
 			const MERCPROFILESTRUCT merc = gMercProfiles[evt1.mercProfileId];
-			
-			// rftr todo: mission successful! give some experience pts
 
 			// what mission did we do? apply bonuses here, and don't forget to check them later when checking to see if a mission bonus should be applied
 			UINT32 durationBonus = 0;
@@ -4332,7 +4350,24 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours,
 					SerialiseMissionSecondEvent(evt1.sentGenericRebelAgent, evt1.mercProfileId, mission, extraBits));
 
-				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
+				if (!evt1.sentGenericRebelAgent)
+				{
+					//for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+					{
+						SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
+
+						//if (pSoldier->ubProfile != evt1.mercProfileId)
+						//	continue;
+
+						// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
+						// rftr todo: mission successful! give some experience pts
+						pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
+						pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
+						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+						AssignmentDone(pSoldier, TRUE, FALSE);
+						AddCharacterToAnySquad(pSoldier);
+					}
+				}
 			}
 
 			missionMap[mission] = eventParam;

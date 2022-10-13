@@ -340,6 +340,7 @@ void InitTacticalPlacementGUI()
 				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT &&
+				MercPtrs[ i ]->bAssignment != ASSIGNMENT_REBELCOMMAND &&
 				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
 				MercPtrs[ i ]->bAssignment != IN_TRANSIT )
 		{
@@ -357,6 +358,7 @@ void InitTacticalPlacementGUI()
 			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT &&
+				MercPtrs[ i ]->bAssignment != ASSIGNMENT_REBELCOMMAND &&
 				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
 				MercPtrs[ i ]->bAssignment != IN_TRANSIT &&
 				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) ) // ATE Ignore vehicles

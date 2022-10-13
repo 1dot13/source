@@ -814,6 +814,11 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 		return( FALSE );
 	}
 
+	if (pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+	{
+		return( FALSE );
+	}
+
 	return( TRUE );
 }
 
@@ -2501,7 +2506,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 	{
 		return( FALSE );
 	}
@@ -2719,7 +2724,7 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 		return ( CHARACTER_CANT_JOIN_SQUAD );
 	}
 
-	if ( pSoldier->bAssignment == ASSIGNMENT_POW || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0))
+	if ( pSoldier->bAssignment == ASSIGNMENT_POW || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0) || (pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND) )
 	{
 		// not allowed to be put on a squad
 		return( CHARACTER_CANT_JOIN_SQUAD );
@@ -5840,7 +5845,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 	{
 		return;
 	}
@@ -16323,7 +16328,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) || ( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 			{
 				continue;
 			}
@@ -16472,7 +16477,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) || ( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 			{
 				continue;
 			}
@@ -19453,7 +19458,8 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 		( AM_A_ROBOT( pSoldier ) ) ||
 		( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
 		( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
-		( pOtherSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+		( pOtherSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+		( pOtherSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 	{
 		return( FALSE );
 	}

@@ -2480,7 +2480,8 @@ STR16 pAssignmentStrings[] =
 	L"Burial",
 	L"Admin",
 	L"Explore",
-	L"Event"// rftr: merc is on a mini event
+	L"Event", // rftr: merc is on a mini event
+	L"Mission", // rftr: rebel command
 };
 
 

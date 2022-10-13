@@ -1366,6 +1366,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 				( pSoldier->bAssignment != IN_TRANSIT ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
+				( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
 				( pSoldier->stats.bLife > 0 ) &&
 				( !PlayerIDGroupInMotion( pSoldier->ubGroupID ) ) )
 		{
@@ -6976,6 +6977,7 @@ BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 				( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
 				( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
 				( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+				( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) ||
 				( pSoldier->flags.fMercAsleep == TRUE ) ||
 				( pSoldier->stats.bLife < OKLIFE ) )
 		{
