@@ -2527,6 +2527,8 @@ void StartMission(INT8 index)
 		DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, szRebelCommandText[RCT_INSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return;
 	}
+
+	rebelCommandSaveInfo.iSupplies -= cost;
 	
 	// todo do something with agentIndex[index] and missionIndex[index] (rebelCommandSaveInfo.availableMissions[index])
 	// confirmation popup
@@ -2693,7 +2695,7 @@ void StartMission(INT8 index)
 			// actually start the mission
 			//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
 			AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
-			missionMap[static_cast<RebelCommandAgentMissions>(evt.missionId)] = MissionHelpers::missionParam;
+			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt.missionId), MissionHelpers::missionParam));
 		}
 
 		RenderWebsite();
@@ -4139,12 +4141,26 @@ BOOLEAN CanTrainMilitiaAnywhere()
 		return FALSE;
 
 	// rftr todo: check bitmask
-	return TRUE;
+	const UINT32 param = missionMap[RCAM_TRAIN_MILITIA_ANYWHERE];
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(param, evt);
+
+	return evt.isSecondEvent;
 }
 
 UINT8 GetMaxTrainersForTrainMilitiaAnywhere()
 {
-	return 1;
+	const UINT32 param = missionMap[RCAM_TRAIN_MILITIA_ANYWHERE];
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(param, evt);
+
+	if (!evt.isSecondEvent)
+		return 0;
+
+	if (evt.extraBits == MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING)
+		return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching;
+
+	return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers;
 }
 
 INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
@@ -4347,8 +4363,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 			if (validMission)
 			{
-				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours,
-					SerialiseMissionSecondEvent(evt1.sentGenericRebelAgent, evt1.mercProfileId, mission, extraBits));
+				const UINT32 activatedMissionParam = SerialiseMissionSecondEvent(evt1.sentGenericRebelAgent, evt1.mercProfileId, mission, extraBits);
+				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours, activatedMissionParam);
 
 				if (!evt1.sentGenericRebelAgent)
 				{
@@ -4368,9 +4384,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 						AddCharacterToAnySquad(pSoldier);
 					}
 				}
-			}
 
-			missionMap[mission] = eventParam;
+				missionMap.insert(std::make_pair(mission, activatedMissionParam));
+			}
 		}
 		else
 		{

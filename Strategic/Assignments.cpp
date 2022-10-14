@@ -1980,7 +1980,7 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	if (RebelCommand::CanTrainMilitiaAnywhere())
+	if (RebelCommand::CanTrainMilitiaAnywhere() && GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY) == BLANK_SECTOR)
 		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
 
 	// Count number of trainers already operating here
@@ -20182,7 +20182,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	if (RebelCommand::CanTrainMilitiaAnywhere())
+	if (RebelCommand::CanTrainMilitiaAnywhere() && GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY) == BLANK_SECTOR)
 		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
 
 	// If we are here, then TrainersAllowed > 0. 
