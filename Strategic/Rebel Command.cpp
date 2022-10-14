@@ -2408,6 +2408,15 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			canStartMission = FALSE;
 			swprintf(sText, L"Agent not in loyal town");
+		}
+		else if (mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_POW || mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_MINIEVENT || mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_REBELCOMMAND)
+		{
+			canStartMission = FALSE;
+			swprintf(sText, L"Agent unavailable");
+		}
+
+		if (!canStartMission)
+		{
 			DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		}
 	}
