@@ -1384,6 +1384,9 @@ void SGPExit(void)
 void GetRuntimeSettings( )
 {
 	int		iMaximize;
+
+	/* Detect cnc-ddraw and disable windowed mode */
+	BOOL bCncDdraw = GetProcAddress(GetModuleHandleW(L"ddraw.dll"), "GameHandlesClose") != NULL;
 	
 #ifndef USE_VFS
 	CHAR8	zMaximize[ 50 ];
@@ -1415,7 +1418,7 @@ void GetRuntimeSettings( )
 	}	
 	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_MODE_WINDOWED", "", zWindowedMode, 50, INIFile ))
 	{
-		iWindowedMode = atoi(zWindowedMode);
+		iWindowedMode = bCncDdraw ? 0 : atoi(zWindowedMode);
 	}	
 #else
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
@@ -1430,7 +1433,7 @@ void GetRuntimeSettings( )
 	//iMaximize = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_MODE_WINDOWED_MAXIMIZE", -1);
 	iMaximize = 1;
 	
-	iWindowedMode = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_MODE_WINDOWED", -1);
+	iWindowedMode = bCncDdraw ? 0 : (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_MODE_WINDOWED", -1);
 
 	vfs::Settings::setUseUnicode( !oProps.getBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false) );
 
@@ -1658,7 +1661,7 @@ void GetRuntimeSettings( )
 	/* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
 	/* 1 for Windowed, 0 for Fullscreen */
 	if( !bScreenModeCmdLine )
-	iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
+	iScreenMode = bCncDdraw ? 0 : (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
@@ -1698,7 +1701,7 @@ void GetRuntimeSettings( )
 	/* 1 for Windowed, 0 for Fullscreen */
 	if( !bScreenModeCmdLine )
 	{
-		iScreenMode = (int)oProps.getIntProperty("Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode);
+		iScreenMode = bCncDdraw ? 0 : (int)oProps.getIntProperty("Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode);
 	}
 
 	// WANNE: Should we play the intro?
