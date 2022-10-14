@@ -1309,7 +1309,6 @@ void RenderHeader(RebelCommandText titleText)
 	// line at the bottom of the header
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY = WEBSITE_TOP + 35;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1422,7 +1421,6 @@ void RenderNationalOverview()
 	// line between incoming supplies and directive
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 43;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1488,7 +1486,6 @@ void RenderNationalOverview()
 	// line between directive and militia
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 10;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1547,7 +1544,6 @@ void RenderNationalOverview()
 		// draw vertical line
 		usPosX += 75;
 		usPosY = militiaY - 3;
-		//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
 		{
 			UINT32 uiDestPitchBYTES;
 			UINT8 *pDestBuf;
@@ -1580,7 +1576,6 @@ void RenderNationalOverview()
 		// draw vertical line
 		usPosX += 75;
 		usPosY = militiaY - 3;
-		//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
 		{
 			UINT32 uiDestPitchBYTES;
 			UINT8 *pDestBuf;
@@ -1619,7 +1614,6 @@ void RenderNationalOverview()
 	// line
 	usPosX = WEBSITE_LEFT + 25;
 	usPosY = militiaY + 50;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1640,7 +1634,6 @@ void RenderNationalOverview()
 
 	// draw vertical line
 	usPosX += 120;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY - 2, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1695,7 +1688,6 @@ void RenderNationalOverview()
 	// line
 	usPosX = WEBSITE_LEFT + 25;
 	usPosY += 30;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + 450, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1730,7 +1722,6 @@ void RenderNationalOverview()
 	// draw vertical line
 	usPosX = WEBSITE_LEFT + 130;
 	usPosY -= 12;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 38, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1824,7 +1815,6 @@ void RenderRegionalOverview()
 	// line between region info and admin info
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 15;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1874,7 +1864,6 @@ void RenderRegionalOverview()
 	// vertical line between admin team and loyalty
 	usPosX = WEBSITE_LEFT + 105;
 	usPosY += 5;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1917,7 +1906,6 @@ void RenderRegionalOverview()
 	// vertical line between loyalty and max loyalty
 	usPosX = WEBSITE_LEFT + 195;
 	usPosY += 5;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -1960,7 +1948,6 @@ void RenderRegionalOverview()
 	// vertical line between max loyalty
 	usPosX = WEBSITE_LEFT + 325;
 	usPosY += 5;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX, usPosY + 15, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -2046,7 +2033,6 @@ void RenderRegionalOverview()
 	// line between admin info and admin actions
 	usPosX = WEBSITE_LEFT - 1;
 	usPosY += 25;
-	//DisplaySmallColouredLineWithShadow(usPosX, usPosY, usPosX + WEBSITE_WIDTH, usPosY, FROMRGB(240, 240, 240));
 	{
 		UINT32 uiDestPitchBYTES;
 		UINT8 *pDestBuf;
@@ -2127,8 +2113,6 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	UnLockVideoSurface( FRAME_BUFFER );
 
 	// clamp indices
-	//if (missionIndex[index] < 0) missionIndex[index] = RCAM_NUM_MISSIONS - 1;
-	//else if (missionIndex[index] >= RCAM_NUM_MISSIONS) missionIndex[index] = 0;
 	// we're reserving an index for the generic rebel agent, so no need to subtract 1 from size here
 	if (agentIndex[index] < 0) agentIndex[index] = static_cast<INT8>(mercs.size());
 	else if (agentIndex[index] > static_cast<INT8>(mercs.size())) agentIndex[index] = 0;
@@ -2453,14 +2437,6 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 
 void RenderMissionOverview()
 {
-	// randomised missions  - preserved in bitarray (24h refresh if none selected)
-	// only 1 active mission? allow multiple?
-	// increase cost based on num active missions?
-	// need a ui toggle between active missions and mission select
-	// need to convey that different folks can go on different missions, skills provide different bonuses
-	// we can probably store a lot of info in the strategic event int64 since we don't need to query it that often - on load, on mission start (send event)/end (receive event)
-	// 24 hours to find out if success/fail, then hold agent for a few days?
-	// don't need to save active missions - on load game, check strategic events (I have confirmed that strategic events are loaded before rebelcommandsaveinfo)
 	CHAR16 sText[800];
 	INT32 btnId;
 
@@ -2665,22 +2641,14 @@ void StartMission(INT8 index)
 
 			if (!evt.sentGenericRebelAgent)
 			{
-				//for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
-				{
-					SOLDIERTYPE* pSoldier = MercPtrs[evt.mercProfileId];
+				SOLDIERTYPE* pSoldier = MercPtrs[evt.mercProfileId];
 
-					//if (pSoldier->ubProfile != evt.mercProfileId)
-					//	continue;
-
-					TakeSoldierOutOfVehicle(pSoldier);
-					RemoveCharacterFromSquads(pSoldier);
-					pSoldier->bSectorZ += REBEL_COMMAND_Z_OFFSET;
-					pSoldier->bBleeding = 0;
-					SetTimeOfAssignmentChangeForMerc(pSoldier);
-					ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
-
-					//break;
-				}
+				TakeSoldierOutOfVehicle(pSoldier);
+				RemoveCharacterFromSquads(pSoldier);
+				pSoldier->bSectorZ += REBEL_COMMAND_Z_OFFSET;
+				pSoldier->bBleeding = 0;
+				SetTimeOfAssignmentChangeForMerc(pSoldier);
+				ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
 			}
 
 			for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
@@ -3783,32 +3751,17 @@ BOOLEAN Load(HWFILE file)
 		Init();
 	}
 
-	// rftr TEST it works hooray, assuming I don't change the layout of the bitflag
-	//const UINT32 param1 = SerialiseMissionFirstEvent(FALSE, 8, RCAM_DEEP_DEPLOYMENT, 200, 0x0F);
-	//const UINT32 param2 = SerialiseMissionSecondEvent(FALSE, 10, RCAM_GET_ENEMY_MOVEMENT_TARGETS, 0xFF);
-	//MissionFirstEvent evt1;
-	//MissionSecondEvent evt2;
-	//DeserialiseMissionFirstEvent(param1, evt1);
-	//DeserialiseMissionSecondEvent(param2, evt2);
-
 	// go through every strategic event to find active agent missions
 	std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
 	missionMap.clear();
 	// example is EVENT_BLOODCAT_ATTACK
 	for (std::vector<std::pair<UINT32,UINT32>>::iterator it = missions.begin(); it != missions.end(); ++it)
 	{
-		// FIRST EVENT EXAMPLE
-		//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, my32bitparam);
-		// SECOND EVENT EXAMPLE
-		//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * durationInHours, my32bitparam);
-		//const UINT32 first = it->first; // timestamp - when this event will be fired
-		//const UINT32 second = it->second; // uiParam
-
 		MissionFirstEvent evt1;
 		DeserialiseMissionFirstEvent(it->second, evt1);
 		if (evt1.isFirstEvent)
 		{
-			missionMap[static_cast<RebelCommandAgentMissions>(evt1.missionId)] = it->second;
+			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt1.missionId), it->second));
 		}
 
 		MissionSecondEvent evt2;
@@ -3816,7 +3769,7 @@ BOOLEAN Load(HWFILE file)
 
 		if (evt2.isSecondEvent)
 		{
-			missionMap[static_cast<RebelCommandAgentMissions>(evt2.missionId)] = it->second;
+			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt2.missionId), it->second));
 		}
 	}
 	return TRUE;
@@ -4140,27 +4093,35 @@ BOOLEAN CanTrainMilitiaAnywhere()
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return FALSE;
 
-	// rftr todo: check bitmask
-	const UINT32 param = missionMap[RCAM_TRAIN_MILITIA_ANYWHERE];
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_TRAIN_MILITIA_ANYWHERE);
+
+	if (iter == missionMap.end())
+		return FALSE;
+
 	MissionSecondEvent evt;
-	DeserialiseMissionSecondEvent(param, evt);
+	DeserialiseMissionSecondEvent(iter->second, evt);
 
 	return evt.isSecondEvent;
 }
 
 UINT8 GetMaxTrainersForTrainMilitiaAnywhere()
 {
-	const UINT32 param = missionMap[RCAM_TRAIN_MILITIA_ANYWHERE];
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_TRAIN_MILITIA_ANYWHERE);
+
+	if (iter == missionMap.end())
+		return FALSE;
+
 	MissionSecondEvent evt;
-	DeserialiseMissionSecondEvent(param, evt);
+	DeserialiseMissionSecondEvent(iter->second, evt);
 
 	if (!evt.isSecondEvent)
 		return 0;
 
-	if (evt.extraBits == MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING)
-		return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching;
-
-	return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers;
+	switch (evt.extraBits)
+	{
+	case MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING:	return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching;
+	default:												return gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers;
+	}
 }
 
 INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
@@ -4175,18 +4136,18 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 
 	// rftr todo: check bitmask
 
-	switch (insertionCode)
-	{
-	case INSERTION_CODE_NORTH:
-	case INSERTION_CODE_SOUTH:
-	{
-		INT16 range = 0;
+	INT16 range = 0;
 
-		MissionSecondEvent evt;
-		DeserialiseMissionSecondEvent(iter->second, evt);
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
 
-		// we only get a range bonus if the mission is active!
-		if (evt.isSecondEvent)
+	// we only get a range bonus if the mission is active!
+	if (evt.isSecondEvent)
+	{
+		switch (insertionCode)
+		{
+		case INSERTION_CODE_NORTH:
+		case INSERTION_CODE_SOUTH:
 		{
 			range = gRebelCommandSettings.iDeepDeploymentRangeNS;
 
@@ -4200,21 +4161,12 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 
 			default: break;
 			}
+
+			return range;
 		}
 
-		return range;
-	}
-
-	case INSERTION_CODE_WEST:
-	case INSERTION_CODE_EAST:
-	{
-		INT16 range = 0;
-
-		MissionSecondEvent evt;
-		DeserialiseMissionSecondEvent(iter->second, evt);
-
-		// we only get a range bonus if the mission is active!
-		if (evt.isSecondEvent)
+		case INSERTION_CODE_WEST:
+		case INSERTION_CODE_EAST:
 		{
 			range = gRebelCommandSettings.iDeepDeploymentRangeEW;
 
@@ -4227,10 +4179,10 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 
 			default: break;
 			}
-		}
 
-		return range;
-	}
+			return range;
+		}
+		}
 	}
 
 	return 0;
@@ -4368,21 +4320,15 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				if (!evt1.sentGenericRebelAgent)
 				{
-					//for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
-					{
-						SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
+					SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
 
-						//if (pSoldier->ubProfile != evt1.mercProfileId)
-						//	continue;
-
-						// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
-						// rftr todo: mission successful! give some experience pts
-						pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
-						pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
-						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
-						AssignmentDone(pSoldier, TRUE, FALSE);
-						AddCharacterToAnySquad(pSoldier);
-					}
+					// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
+					// rftr todo: mission successful! give some experience pts
+					pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
+					pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
+					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+					AssignmentDone(pSoldier, TRUE, FALSE);
+					AddCharacterToAnySquad(pSoldier);
 				}
 
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
