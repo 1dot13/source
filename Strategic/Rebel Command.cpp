@@ -2673,9 +2673,10 @@ void StartMission(INT8 index)
 				}
 			}
 
-			// actually start the mission
-			//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
-			AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
+			// queue up the mission start event. make sure we use the top of the hour because I'm lazy and we're handling the assignment here instead of Assignments.cpp
+			const UINT32 time = GetWorldTotalMin();
+			//AddStrategicEvent(EVENT_REBELCOMMAND, time + (60 - time % 60) + 60 * 24, MissionHelpers::missionParam);
+			AddStrategicEvent(EVENT_REBELCOMMAND, time + (60 - time % 60) + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
 			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt.missionId), MissionHelpers::missionParam));
 
 			rebelCommandSaveInfo.iSupplies -= GetMissionCost();
