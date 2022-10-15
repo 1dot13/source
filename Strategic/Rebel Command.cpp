@@ -2118,6 +2118,12 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	else if (agentIndex[index] > static_cast<INT8>(mercs.size())) agentIndex[index] = 0;
 
 	// rftr todo: handle RCAM_NONE (ie, mission prep in progress!)
+	if (rebelCommandSaveInfo.availableMissions[index] == RCAM_NONE)
+	{
+		swprintf(sText, L"No mission available");
+		DrawTextToScreen(sText, x, y+155, 230, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		return FALSE;
+	}
 
 	// draw mission title
 	switch (rebelCommandSaveInfo.availableMissions[index])
@@ -2513,8 +2519,6 @@ void StartMission(INT8 index)
 		return;
 	}
 
-	rebelCommandSaveInfo.iSupplies -= cost;
-	
 	// todo do something with agentIndex[index] and missionIndex[index] (rebelCommandSaveInfo.availableMissions[index])
 	// confirmation popup
 	std::vector<SOLDIERTYPE*> mercs;
@@ -2673,9 +2677,12 @@ void StartMission(INT8 index)
 			//AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * 24, MissionHelpers::missionParam);
 			AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
 			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt.missionId), MissionHelpers::missionParam));
+
+			rebelCommandSaveInfo.iSupplies -= GetMissionCost();
 		}
 
-		RenderWebsite();
+		// update the mission list to show that we've started
+		redraw = TRUE;
 	});
 }
 // end website
