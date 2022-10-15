@@ -10724,7 +10724,7 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			}
 
 			// radio scan
-			if( pSoldier->CanUseRadio() )
+			if( BasicCanCharacterAssignment( pSoldier, TRUE ) && pSoldier->CanUseRadio() )
 			{
 				// unshade line
 				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_RADIO_SCAN );
