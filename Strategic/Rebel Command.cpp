@@ -2413,6 +2413,9 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	{
 		const UINT8 townId = GetTownIdForSector(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY);
 		const UINT8 townLoyalty = GetRegionLoyalty(townId);
+		const INT32 endTime = mercs[agentIndex[index]]->iEndofContractTime;
+		const INT32 worldMin = GetWorldTotalMin();
+		const INT32 remaining = endTime - worldMin;
 
 		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission)
 		{
@@ -2423,6 +2426,11 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			canStartMission = FALSE;
 			swprintf(sText, L"Agent unavailable");
+		}
+		else if (mercs[agentIndex[index]]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC && remaining < 24 * 60)
+		{
+			canStartMission = FALSE;
+			swprintf(sText, L"Agent contract expiring");
 		}
 
 		if (!canStartMission)
@@ -4310,12 +4318,26 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		// mission prep is over. see if we can activate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt1.missionId));
 
-		// rftr todo: end the merc's assignment (like mini event adventures)
-
 		if (evt1.isMissionSuccess)
 		{
 			const RebelCommandAgentMissions mission = static_cast<RebelCommandAgentMissions>(evt1.missionId);
 			const MERCPROFILESTRUCT merc = gMercProfiles[evt1.mercProfileId];
+
+			// make sure the merc's still on our team
+			BOOLEAN foundMerc = FALSE;
+			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			{
+				const SOLDIERTYPE* pSoldier = MercPtrs[i];
+
+				if (pSoldier->ubProfile == evt1.mercProfileId)
+				{
+					foundMerc = TRUE;
+					break;
+				}
+			}
+			
+			if (!foundMerc)
+				goto MissionFailed_MercNoLongerOnTeam;
 
 			// what mission did we do? apply bonuses here, and don't forget to check them later when checking to see if a mission bonus should be applied
 			UINT32 durationBonus = 0;
@@ -4387,6 +4409,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				StatChange(pSoldier, WISDOMAMT, 15, FROM_FAILURE);
 			}
 
+			MissionFailed_MercNoLongerOnTeam:
 			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
 			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
 			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
