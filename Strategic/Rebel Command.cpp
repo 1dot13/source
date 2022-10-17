@@ -4339,8 +4339,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
 
-					// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
-					// rftr todo: mission successful! give some experience pts
+					// mission successful! give some experience pts
+					StatChange(pSoldier, LDRAMT, 20, FROM_SUCCESS);
+					StatChange(pSoldier, WISDOMAMT, 15, FROM_SUCCESS);
 					pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
 					pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
 					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
@@ -4348,12 +4349,20 @@ void HandleStrategicEvent(const UINT32 eventParam)
 					AddCharacterToAnySquad(pSoldier);
 				}
 
+				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
 			}
 		}
 		else
 		{
 			// rftr todo: tell the player that the mission prep failed. some popup box blurb or somesuch.
+			if (!evt1.sentGenericRebelAgent)
+			{
+				// mission failed! we tried, have some pity exp
+				SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
+				StatChange(pSoldier, LDRAMT, 20, FROM_FAILURE);
+				StatChange(pSoldier, WISDOMAMT, 15, FROM_FAILURE);
+			}
 		}
 	}
 	else if (evt2.isSecondEvent)
