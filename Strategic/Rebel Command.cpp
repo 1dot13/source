@@ -2664,7 +2664,7 @@ void StartMission(INT8 index)
 	}
 	else
 	{
-		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, agentIndex[index], static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
+		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, mercs[agentIndex[index]]->ubProfile, static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
 		if (merc->bSex == MALE)
 			swprintf(text, L"%s Send %s to prepare this mission? He will return in 24 hours.", text, merc->zNickname);
 		else
@@ -2679,14 +2679,20 @@ void StartMission(INT8 index)
 
 			if (!evt.sentGenericRebelAgent)
 			{
-				SOLDIERTYPE* pSoldier = MercPtrs[evt.mercProfileId];
-
-				TakeSoldierOutOfVehicle(pSoldier);
-				RemoveCharacterFromSquads(pSoldier);
-				pSoldier->bSectorZ += REBEL_COMMAND_Z_OFFSET;
-				pSoldier->bBleeding = 0;
-				SetTimeOfAssignmentChangeForMerc(pSoldier);
-				ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
+				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				{
+					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					if (pSoldier->ubProfile == evt.mercProfileId)
+					{
+						TakeSoldierOutOfVehicle(pSoldier);
+						RemoveCharacterFromSquads(pSoldier);
+						pSoldier->bSectorZ += REBEL_COMMAND_Z_OFFSET;
+						pSoldier->bBleeding = 0;
+						SetTimeOfAssignmentChangeForMerc(pSoldier);
+						ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
+						break;
+					}
+				}
 			}
 
 			// disable missions until next refresh
@@ -4316,24 +4322,24 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		// mission prep is over. see if we can activate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt1.missionId));
 
+		// make sure the merc's still on our team
+		BOOLEAN foundMerc = FALSE;
+		for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		{
+			const SOLDIERTYPE* pSoldier = MercPtrs[i];
+
+			if (pSoldier->ubProfile == evt1.mercProfileId && pSoldier->bActive)
+			{
+				foundMerc = TRUE;
+				break;
+			}
+		}
+
 		if (evt1.isMissionSuccess)
 		{
 			const RebelCommandAgentMissions mission = static_cast<RebelCommandAgentMissions>(evt1.missionId);
 			const MERCPROFILESTRUCT merc = gMercProfiles[evt1.mercProfileId];
 
-			// make sure the merc's still on our team
-			BOOLEAN foundMerc = FALSE;
-			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
-			{
-				const SOLDIERTYPE* pSoldier = MercPtrs[i];
-
-				if (pSoldier->ubProfile == evt1.mercProfileId)
-				{
-					foundMerc = TRUE;
-					break;
-				}
-			}
-			
 			if (!foundMerc)
 				goto MissionFailed_MercNoLongerOnTeam;
 
@@ -4377,16 +4383,17 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				if (!evt1.sentGenericRebelAgent)
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
-
-					// mission successful! give some experience pts
-					StatChange(pSoldier, LDRAMT, 20, FROM_SUCCESS);
-					StatChange(pSoldier, WISDOMAMT, 15, FROM_SUCCESS);
-					pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
-					pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
-					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
-					AssignmentDone(pSoldier, TRUE, FALSE);
-					AddCharacterToAnySquad(pSoldier);
+					for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+					{
+						SOLDIERTYPE* pSoldier = MercPtrs[i];
+						if (pSoldier->ubProfile == evt1.mercProfileId)
+						{
+							// mission successful! give some experience pts
+							StatChange(pSoldier, LDRAMT, 20, FROM_SUCCESS);
+							StatChange(pSoldier, WISDOMAMT, 15, FROM_SUCCESS);
+							break;
+						}
+					}
 				}
 
 				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
@@ -4399,18 +4406,44 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		else
 		{
 			// rftr todo: tell the player that the mission prep failed. some popup box blurb or somesuch.
-			if (!evt1.sentGenericRebelAgent)
+			if (!evt1.sentGenericRebelAgent && foundMerc)
 			{
-				// mission failed! we tried, have some pity exp
-				SOLDIERTYPE* pSoldier = MercPtrs[evt1.mercProfileId];
-				StatChange(pSoldier, LDRAMT, 20, FROM_FAILURE);
-				StatChange(pSoldier, WISDOMAMT, 15, FROM_FAILURE);
+				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				{
+					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					if (pSoldier->ubProfile == evt1.mercProfileId)
+					{
+						// mission failed! we tried, give some pity exp
+						StatChange(pSoldier, LDRAMT, 20, FROM_FAILURE);
+						StatChange(pSoldier, WISDOMAMT, 15, FROM_FAILURE);
+						break;
+					}
+				}
 			}
 
 			MissionFailed_MercNoLongerOnTeam:
 			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
+		}
+
+		if (!evt1.sentGenericRebelAgent && foundMerc)
+		{
+			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			{
+				SOLDIERTYPE* pSoldier = MercPtrs[i];
+				if (pSoldier->ubProfile == evt1.mercProfileId)
+				{
+					// merc ready for reassignment
+					pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
+					pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
+					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+					AssignmentDone(pSoldier, TRUE, FALSE);
+					AddCharacterToAnySquad(pSoldier);
+					break;
+				}
+			}
+
 		}
 	}
 	else if (evt2.isSecondEvent)
