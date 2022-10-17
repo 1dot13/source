@@ -11932,6 +11932,7 @@ STR16 szRebelCommandText[] =
 	L"<",
 	L">",
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"New missions will be available every %d hours.",
 };
 
 STR16 szRebelCommandHelpText[] =
@@ -12036,8 +12037,6 @@ STR16 szRebelCommandDirectivesText[] =
 
 STR16 szRebelCommandAgentMissionsText[] =
 {
-	L"New missions will be available every %d hours.",
-	L"A mission is currently active.",
 	L"Deep Deployment",
 	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
 	L"Strategic Intel",

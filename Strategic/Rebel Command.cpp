@@ -292,6 +292,7 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_PREV_ARROW,
 	RCT_NEXT_ARROW,
 	RCT_CONFIRM_CHANGE_ADMIN_ACTION_PROMPT,
+	RCT_NEW_MISSIONS_AVAILABLE_TIME,
 };
 
 enum RebelCommandHelpText // keep this synced with szRebelCommandHelpText in the text files
@@ -326,9 +327,6 @@ enum RebelCommandDirectivesText // keep this synced with szRebelCommandDirective
 
 enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentMissionsText in the text files
 {
-	//RCAMT_NOTIFY_MISSIONS_AVAILABLE,
-	RCAMT_NEW_MISSIONS_AVAILABLE_TIME,
-	RCAMT_MISSION_ACTIVE,
 	MISSION_TEXT(DEEP_DEPLOYMENT)
 	MISSION_TEXT(GET_ENEMY_MOVEMENT_TARGETS)
 	MISSION_TEXT(IMPROVE_LOCAL_SHOPS)
@@ -2533,7 +2531,7 @@ void RenderMissionOverview()
 	}
 	
 	// "new missions every X hours" text
-	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], gRebelCommandSettings.iMissionRefreshTimeDays * 24);
+	swprintf(sText, szRebelCommandText[RCT_NEW_MISSIONS_AVAILABLE_TIME], gRebelCommandSettings.iMissionRefreshTimeDays * 24);
 	DrawTextToScreen(sText, WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 14, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 }
 
@@ -4393,8 +4391,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
-				swprintf(msgBoxText, L"Mission prep success! %s", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
-				swprintf(screenMsgText, L"Mission \"%s\" is now in effect.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+				swprintf(msgBoxText, L"Mission prep success! %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+				swprintf(screenMsgText, L"Mission \"%s\" is now in effect.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 				ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, screenMsgText);
 			}
 		}
@@ -4410,8 +4408,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			}
 
 			MissionFailed_MercNoLongerOnTeam:
-			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
-			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 		}
 	}
@@ -4419,8 +4417,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 	{
 		// mission duration is over. deactivate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt2.missionId));
-		swprintf(msgBoxText, L"Mission duration complete! %s", szRebelCommandAgentMissionsText[2 + evt2.missionId * 2]);
-		swprintf(screenMsgText, L"Mission \"%s\" has expired and is no longer in effect.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+		swprintf(msgBoxText, L"Mission duration complete! %s", szRebelCommandAgentMissionsText[evt2.missionId * 2]);
+		swprintf(screenMsgText, L"Mission \"%s\" has expired and is no longer in effect.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 	}
 
