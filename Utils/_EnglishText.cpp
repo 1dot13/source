@@ -12036,7 +12036,7 @@ STR16 szRebelCommandDirectivesText[] =
 
 STR16 szRebelCommandAgentMissionsText[] =
 {
-	L"New missions will be available every 48 hours.",
+	L"New missions will be available every %d hours.",
 	L"A mission is currently active.",
 	L"Deep Deployment",
 	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",

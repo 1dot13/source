@@ -173,6 +173,9 @@ void GetMissionInfo(RebelCommandAgentMissions mission, const MERCPROFILESTRUCT* 
 	intModifierSkill = 0;
 	extraBits = 0;
 
+	if (merc == nullptr)
+		return;
+
 	if (mission == RCAM_NONE)
 		return;
 
@@ -2120,7 +2123,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	// rftr todo: handle RCAM_NONE (ie, mission prep in progress!)
 	if (rebelCommandSaveInfo.availableMissions[index] == RCAM_NONE)
 	{
-		swprintf(sText, L"No mission available");
+		// we shouldn't even reach this point, but leaving this here for safety
+		swprintf(sText, L"Mission preparations in progress.");
 		DrawTextToScreen(sText, x, y+155, 230, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		return FALSE;
 	}
@@ -2492,9 +2496,23 @@ void RenderMissionOverview()
 	switch (missionOverviewSubview)
 	{
 	case MOS_MISSION_LIST:
-		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+		if (rebelCommandSaveInfo.availableMissions[0] == RCAM_NONE)
 		{
-			SetupMissionAgentBox(WEBSITE_LEFT + 15 + 240 * i, WEBSITE_TOP + 65, i);
+			UINT32 nextMissionAvailableDay = GetWorldDay();
+			const INT8 interval = gRebelCommandSettings.iMissionRefreshTimeDays;
+			nextMissionAvailableDay += (interval - (nextMissionAvailableDay % interval));
+			
+			swprintf(sText, L"Mission preparations in progress.");
+			DrawTextToScreen(sText, WEBSITE_LEFT + 15, WEBSITE_TOP + 155, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+			swprintf(sText, L"New missions will be available on Day %d at 00:00.", nextMissionAvailableDay);
+			DrawTextToScreen(sText, WEBSITE_LEFT + 15, WEBSITE_TOP + 175, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		}
+		else
+		{
+			for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+			{
+				SetupMissionAgentBox(WEBSITE_LEFT + 15 + 240 * i, WEBSITE_TOP + 65, i);
+			}
 		}
 		break;
 
@@ -2507,7 +2525,8 @@ void RenderMissionOverview()
 	}
 	
 	// "new missions every X hours" text
-	DrawTextToScreen(szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 14, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_NEW_MISSIONS_AVAILABLE_TIME], gRebelCommandSettings.iMissionRefreshTimeDays * 24);
+	DrawTextToScreen(sText, WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 14, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 }
 
 void StartMission(INT8 index)
@@ -2534,7 +2553,7 @@ void StartMission(INT8 index)
 		}
 	}
 
-	const MERCPROFILESTRUCT merc = gMercProfiles[mercs[agentIndex[index]]->ubProfile];
+	const MERCPROFILESTRUCT* merc = agentIndex[index] == mercs.size() ? nullptr : &gMercProfiles[mercs[agentIndex[index]]->ubProfile];
 	CHAR16 text[400];
 	RebelCommandAgentMissionsText missionTitle;
 	INT8 missionSuccessChance;
@@ -2547,7 +2566,7 @@ void StartMission(INT8 index)
 	int intSkill;
 	UINT16 extraBits;
 
-	MissionHelpers::GetMissionInfo(static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), &merc, durationBonus, floatModifier, intModifier, durSkill, floatSkill, intSkill, extraBits);
+	MissionHelpers::GetMissionInfo(static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), merc, durationBonus, floatModifier, intModifier, durSkill, floatSkill, intSkill, extraBits);
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
 	case RCAM_DEEP_DEPLOYMENT:					
@@ -2617,7 +2636,7 @@ void StartMission(INT8 index)
 	default: break;
 	}
 
-	missionSuccessChance += GetMissionSuccessChanceBonus(&merc);
+	missionSuccessChance += GetMissionSuccessChanceBonus(merc);
 
 	if (Random(100) > static_cast<UINT8>(missionSuccessChance))
 	{
@@ -2640,10 +2659,10 @@ void StartMission(INT8 index)
 	else
 	{
 		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, agentIndex[index], static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
-		if (merc.bSex == MALE)
-			swprintf(text, L"%s Send %s to prepare this mission? He will return in 24 hours.", text, merc.zNickname);
+		if (merc->bSex == MALE)
+			swprintf(text, L"%s Send %s to prepare this mission? He will return in 24 hours.", text, merc->zNickname);
 		else
-			swprintf(text, L"%s Send %s to prepare this mission? She will return in 24 hours.", text, merc.zNickname);
+			swprintf(text, L"%s Send %s to prepare this mission? She will return in 24 hours.", text, merc->zNickname);
 	}
 
 	DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, text, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, [](UINT8 exitValue) {
@@ -2664,13 +2683,10 @@ void StartMission(INT8 index)
 				ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_REBELCOMMAND);
 			}
 
+			// disable missions until next refresh
 			for (INT8 i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
 			{
-				if (evt.missionId == rebelCommandSaveInfo.availableMissions[i])
-				{
-					rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
-					break;
-				}
+				rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
 			}
 
 			// queue up the mission start event. make sure we use the top of the hour because I'm lazy and we're handling the assignment here instead of Assignments.cpp
@@ -3595,41 +3611,43 @@ void DailyUpdate()
 
 	// update missions
 	// rftr todo: test me
-	// rftr todo: don't do this every day!
-	std::unordered_set<RebelCommandAgentMissions> validMissions;
-	for (int i = 0; i < RCAM_NUM_MISSIONS; ++i)
+	if (GetWorldDay() % gRebelCommandSettings.iMissionRefreshTimeDays == 0)
 	{
-		validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
-	}
-
-	for (const auto& pair : missionMap)
-	{
-		const RebelCommandAgentMissions mission = pair.first;
-		validMissions.erase(mission);
-	}
-
-	if (validMissions.size() >= NUM_ARC_AGENT_SLOTS)
-	{
-		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+		std::unordered_set<RebelCommandAgentMissions> validMissions;
+		for (int i = 0; i < RCAM_NUM_MISSIONS; ++i)
 		{
-			const INT8 mission = static_cast<INT8>(Random(validMissions.size()));
-			rebelCommandSaveInfo.availableMissions[i] = mission;
-			validMissions.erase(static_cast<RebelCommandAgentMissions>(mission));
-		}
-	}
-	else
-	{
-		int idx = 0;
-		for (auto iter = validMissions.cbegin(); iter != validMissions.cend(); ++iter)
-		{
-			rebelCommandSaveInfo.availableMissions[idx] = *iter;
-			idx++;
+			validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
 		}
 
-		while (idx < NUM_ARC_AGENT_SLOTS)
+		for (const auto& pair : missionMap)
 		{
-			rebelCommandSaveInfo.availableMissions[idx] = RCAM_NONE;
-			idx++;
+			const RebelCommandAgentMissions mission = pair.first;
+			validMissions.erase(mission);
+		}
+
+		if (validMissions.size() >= NUM_ARC_AGENT_SLOTS)
+		{
+			for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+			{
+				const INT8 mission = static_cast<INT8>(Random(validMissions.size()));
+				rebelCommandSaveInfo.availableMissions[i] = mission;
+				validMissions.erase(static_cast<RebelCommandAgentMissions>(mission));
+			}
+		}
+		else // 1 mission available
+		{
+			int idx = 0;
+			for (auto iter = validMissions.cbegin(); iter != validMissions.cend(); ++iter)
+			{
+				rebelCommandSaveInfo.availableMissions[idx] = *iter;
+				idx++;
+			}
+
+			while (idx < NUM_ARC_AGENT_SLOTS)
+			{
+				rebelCommandSaveInfo.availableMissions[idx] = RCAM_NONE;
+				idx++;
+			}
 		}
 	}
 }
@@ -4284,6 +4302,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 	MissionSecondEvent evt2;
 	DeserialiseMissionFirstEvent(eventParam, evt1);
 	DeserialiseMissionSecondEvent(eventParam, evt2);
+	CHAR16 msgBoxText[200];
+	CHAR16 screenMsgText[200];
 
 	if (evt1.isFirstEvent)
 	{
@@ -4351,6 +4371,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
+				swprintf(msgBoxText, L"Mission prep success! %s", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+				swprintf(screenMsgText, L"Mission \"%s\" is now in effect.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+				ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, screenMsgText);
 			}
 		}
 		else
@@ -4363,13 +4386,22 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				StatChange(pSoldier, LDRAMT, 20, FROM_FAILURE);
 				StatChange(pSoldier, WISDOMAMT, 15, FROM_FAILURE);
 			}
+
+			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 		}
 	}
 	else if (evt2.isSecondEvent)
 	{
 		// mission duration is over. deactivate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt2.missionId));
+		swprintf(msgBoxText, L"Mission duration complete! %s", szRebelCommandAgentMissionsText[2 + evt2.missionId * 2]);
+		swprintf(screenMsgText, L"Mission \"%s\" has expired and is no longer in effect.", szRebelCommandAgentMissionsText[2 + evt1.missionId * 2]);
+		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 	}
+
+	DoMessageBox(MSG_BOX_BASIC_STYLE, msgBoxText, guiCurrentScreen, MSG_BOX_FLAG_OK, NULL, NULL);
 }
 
 BOOLEAN ShowEnemyMovementTargets()
