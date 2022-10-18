@@ -1843,6 +1843,8 @@ typedef struct
 	INT16 iFortificationsBonus;
 
 	// agent missions
+	INT32 iMissionBaseCost;
+	INT32 iMissionAdditionalCost;
 	INT8 iMissionRefreshTimeDays;
 	INT8 iMinLoyaltyForMission;
 

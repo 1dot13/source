@@ -719,8 +719,8 @@ INT32 GetDirectiveImprovementCost(const RebelCommandDirectives directive)
 
 INT32 GetMissionCost()
 {
-	const INT32 additionalCost = missionMap.size() * 250;
-	return 500 + additionalCost;
+	const INT32 additionalCost = missionMap.size() * gRebelCommandSettings.iMissionAdditionalCost;
+	return gRebelCommandSettings.iMissionBaseCost + additionalCost;
 }
 
 INT8 GetMissionSuccessChanceBonus(const MERCPROFILESTRUCT* merc)

@@ -4158,6 +4158,8 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iFortificationsBonus = iniReader.ReadInteger("Rebel Command Settings", "FORTIFICATIONS_BONUS", 10, 0, 100);
 
 	// agent missions
+	gRebelCommandSettings.iMissionBaseCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_BASE_COST", 500, 100, 10000);
+	gRebelCommandSettings.iMissionAdditionalCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_ADDITIONAL_COST", 250, 0, 10000);
 	gRebelCommandSettings.iMissionRefreshTimeDays = iniReader.ReadInteger("Rebel Command Settings", "MISSION_REFRESH_TIME_DAYS", 2, 1, 7);
 	gRebelCommandSettings.iMinLoyaltyForMission = iniReader.ReadInteger("Rebel Command Settings", "MIN_LOYALTY_FOR_MISSION", 51, 0, 100);
 
