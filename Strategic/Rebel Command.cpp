@@ -2292,7 +2292,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	// draw agent bonus text
 	UINT32 durationBonus = 0;
 	int durationBonusSkill = 0;
-	std::vector<STR16> agentBonusText;
+	std::vector<std::wstring> agentBonusText;
 	if (agentIndex[index] < static_cast<INT8>(mercs.size()))
 	{
 		const MERCPROFILESTRUCT merc = gMercProfiles[mercs[agentIndex[index]]->ubProfile];
@@ -2400,7 +2400,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		for (UINT8 i = 0; i < agentBonusText.size(); ++i)
 		{
 			// the percent sign here is a hack to get it to display properly for string that need a percent sign
-			swprintf(sText, agentBonusText[i], L"%%");
+			swprintf(sText, agentBonusText[i].c_str(), L"%%");
 			DrawTextToScreen(sText, x+10, y+150+54+20+2+11*(i+1), 0, FONT10ARIAL, FONT_GREEN, FONT_MCOLOR_BLACK, FALSE, 0);
 		}
 	}
@@ -2523,10 +2523,57 @@ void RenderMissionOverview()
 		break;
 
 	case MOS_ACTIVE_MISSION_EFFECTS:
-		// rftr todo: run through active mission list (missionMap) and show a one-line description for each.
-		// need a scroll or pagination if several missions active
-		// otherwise, no active effects
-		DrawTextToScreen(L"No active missions.", WEBSITE_LEFT + 25, WEBSITE_TOP + 75, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		{
+			DrawTextToScreen(L"Active missions:", WEBSITE_LEFT + 25, WEBSITE_TOP + 75, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+			if (missionMap.size() == 0)
+			{
+				DrawTextToScreen(L"None", WEBSITE_LEFT + 35, WEBSITE_TOP + 90, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+			}
+			else
+			{
+				// rftr todo: run through active mission list (missionMap) and show a one-line description for each.
+				std::vector<std::wstring> evt1Strings;
+				std::vector<std::wstring> evt2Strings;
+				std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
+				for (std::vector<std::pair<UINT32, UINT32>>::iterator it = missions.begin(); it != missions.end(); ++it)
+				{
+					const UINT32 eventTime = it->first;
+					const UINT32 day = eventTime / 60 / 60 / 24;
+					const UINT32 hour = (eventTime % (24 * 60 * 60)) / 60 / 60;
+					const UINT32 minute = (eventTime % (24 * 60 * 60)) % (60 * 60);
+					MissionFirstEvent evt1;
+					MissionSecondEvent evt2;
+					DeserialiseMissionFirstEvent(it->second, evt1);
+					DeserialiseMissionSecondEvent(it->second, evt2);
+
+					if (evt1.isFirstEvent)
+					{
+						CHAR16 prepText[200];
+						swprintf(prepText, L"%s - Preparing - Ready on Day %d, %02d:%02d", szRebelCommandAgentMissionsText[evt1.missionId * 2], day, hour, minute);
+						evt1Strings.push_back(prepText);
+					}
+					else if (evt2.isSecondEvent)
+					{
+						CHAR16 missionText[200];
+						swprintf(missionText, L"%s - Active - Expires on Day %d, %02d:%02d", szRebelCommandAgentMissionsText[evt2.missionId * 2], day, hour, minute);
+						evt2Strings.push_back(missionText);
+					}
+				}
+
+				UINT16 y = WEBSITE_TOP + 90;
+				for (int i = 0; i < evt1Strings.size(); ++i)
+				{
+					DrawTextToScreen(const_cast<STR16>(evt1Strings[i].c_str()), WEBSITE_LEFT + 35, y, 0, FONT12ARIAL, FONT_DKYELLOW, FONT_MCOLOR_BLACK, FALSE, 0);
+					y += 15;
+				}
+
+				for (int i = 0; i < evt2Strings.size(); ++i)
+				{
+					DrawTextToScreen(const_cast<STR16>(evt2Strings[i].c_str()), WEBSITE_LEFT + 35, y, 0, FONT12ARIAL, FONT_DKGREEN, FONT_MCOLOR_BLACK, FALSE, 0);
+					y += 15;
+				}
+			}
+		}
 		break;
 	}
 	
