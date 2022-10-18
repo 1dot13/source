@@ -3848,7 +3848,6 @@ BOOLEAN Load(HWFILE file)
 	// go through every strategic event to find active agent missions
 	std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
 	missionMap.clear();
-	// example is EVENT_BLOODCAT_ATTACK
 	for (std::vector<std::pair<UINT32,UINT32>>::iterator it = missions.begin(); it != missions.end(); ++it)
 	{
 		MissionFirstEvent evt1;
@@ -4134,21 +4133,39 @@ void ApplyEnemyMechanicalUnitPenalties(SOLDIERTYPE* pSoldier)
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;
 
-	// rftr todo: check agent mission bitmask
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_SABOTAGE_MECHANICAL_UNITS);
 
-	pSoldier->stats.bLife -= 40;
-	pSoldier->stats.bLifeMax = pSoldier->stats.bLife;
-	pSoldier->stats.bAgility -= 40;
-	pSoldier->stats.bDexterity -= 40;
-	pSoldier->stats.bStrength -= 40;
-	pSoldier->stats.bMarksmanship -= 40;
+	if (iter == missionMap.end())
+		return;
 
-	pSoldier->stats.bLife = max(33, pSoldier->stats.bLife);
-	pSoldier->stats.bLifeMax = max(33, pSoldier->stats.bLifeMax);
-	pSoldier->stats.bAgility = max(33, pSoldier->stats.bAgility);
-	pSoldier->stats.bDexterity = max(33, pSoldier->stats.bDexterity);
-	pSoldier->stats.bStrength = max(33, pSoldier->stats.bStrength);
-	pSoldier->stats.bMarksmanship = max(33, pSoldier->stats.bMarksmanship);
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
+	{
+		INT8 statLoss = 0;
+		switch (evt.extraBits)
+		{
+		case MissionHelpers::SABOTAGE_MECHANICAL_UNITS_COVERT:			statLoss = gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert; break;
+		case MissionHelpers::SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS:		statLoss = gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions; break;
+		case MissionHelpers::SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS:	statLoss = gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons; break;
+		default: statLoss = gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss; break;
+		}
+
+		pSoldier->stats.bLife -= statLoss;
+		pSoldier->stats.bLifeMax = pSoldier->stats.bLife;
+		pSoldier->stats.bAgility -= statLoss;
+		pSoldier->stats.bDexterity -= statLoss;
+		pSoldier->stats.bStrength -= statLoss;
+		pSoldier->stats.bMarksmanship -= statLoss;
+
+		pSoldier->stats.bLife = max(33, pSoldier->stats.bLife);
+		pSoldier->stats.bLifeMax = max(33, pSoldier->stats.bLifeMax);
+		pSoldier->stats.bAgility = max(33, pSoldier->stats.bAgility);
+		pSoldier->stats.bDexterity = max(33, pSoldier->stats.bDexterity);
+		pSoldier->stats.bStrength = max(33, pSoldier->stats.bStrength);
+		pSoldier->stats.bMarksmanship = max(33, pSoldier->stats.bMarksmanship);
+	}
 }
 
 void ApplyMilitiaTraits(SOLDIERTYPE* pSoldier)
@@ -4164,11 +4181,29 @@ void ApplyVisionModifier(const SOLDIERTYPE* pSoldier, INT32& sight)
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;
 
-	// rftr todo: check bitmask
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_REDUCE_UNALERTED_ENEMY_VISION);
 
-	if (pSoldier->bTeam == ENEMY_TEAM && pSoldier->aiData.bAlertStatus == STATUS_GREEN)
+	if (iter == missionMap.end())
+		return;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
 	{
-		sight = static_cast<INT32>(sight * (1.f - 0.15f));
+		FLOAT modifier = 0.f;
+		switch (evt.extraBits)
+		{
+		case MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_COVERT:		modifier = gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Covert; break;
+		case MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_RADIO:		modifier = gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Radio; break;
+		case MissionHelpers::REDUCE_UNALERTED_ENEMY_VISION_MODIFIER_STEALTHY:	modifier = gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Stealthy; break;
+		default: modifier = gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier; break;
+		}
+
+		if (pSoldier->bTeam == ENEMY_TEAM && pSoldier->aiData.bAlertStatus == STATUS_GREEN)
+		{
+			sight = static_cast<INT32>(sight * (1.f - modifier));
+		}
 	}
 }
 
@@ -4228,8 +4263,6 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 	if (iter == missionMap.end())
 		return 0;
 
-	// rftr todo: check bitmask
-
 	INT16 range = 0;
 
 	MissionSecondEvent evt;
@@ -4287,9 +4320,15 @@ INT8 GetEnemyEquipmentCoolnessModifier()
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return 0;
 
-	// rftr todo: check bitmask
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_SABOTAGE_INFANTRY_EQUIPMENT);
 
-	return -1;
+	if (iter == missionMap.end())
+		return 0;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	return evt.isSecondEvent ? -1 : 0;
 }
 
 INT8 GetEnemyEquipmentStatusModifier(const INT8 initialStatus)
@@ -4297,13 +4336,31 @@ INT8 GetEnemyEquipmentStatusModifier(const INT8 initialStatus)
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return initialStatus;
 
-	// rftr todo: check bitmask
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_SABOTAGE_INFANTRY_EQUIPMENT);
 
-	INT8 newStatus = initialStatus;
-	newStatus -= 10;
+	if (iter == missionMap.end())
+		return initialStatus;
 
-	newStatus = max(1, min(newStatus, 100));
-	return newStatus;
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
+	{
+		INT8 modifier = 0;
+		switch (evt.extraBits)
+		{
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_AUTO_WEAPONS:	modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Auto_Weapons; break;
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_COVERT:			modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Covert; break;
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_DEMOLITIONS:	modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Demolitions; break;
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_GUNSLINGER:		modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Gunslinger; break;
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_RANGER:			modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Ranger; break;
+		case MissionHelpers::SABOTAGE_ENEMY_INFANTRY_EQUIPMENT_MODIFIER_SNIPER:			modifier = gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Sniper; break;
+		}
+
+		return max(1, min(initialStatus - modifier, 100));
+	}
+
+	return initialStatus;
 }
 
 UINT8 GetMerchantCoolnessBonus()
@@ -4319,8 +4376,6 @@ UINT8 GetMerchantCoolnessBonus()
 	MissionSecondEvent evt;
 	DeserialiseMissionSecondEvent(iter->second, evt);
 
-	// rftr todo: check bitmask
-
 	return evt.isSecondEvent ? 1 : 0;
 }
 
@@ -4332,12 +4387,10 @@ FLOAT GetStrategicDecisionSpeedModifier()
 	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_REDUCE_STRATEGIC_DECISION_SPEED);
 
 	if (iter == missionMap.end())
-		return 0;
+		return 1.f;
 
 	MissionSecondEvent evt;
 	DeserialiseMissionSecondEvent(iter->second, evt);
-
-	// rftr todo: check bitmask
 
 	FLOAT modifier = 1.f;
 
@@ -4346,6 +4399,8 @@ FLOAT GetStrategicDecisionSpeedModifier()
 		switch (evt.extraBits)
 		{
 		case MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_COVERT:	modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Covert; break;
+		case MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_DEPUTY:	modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Deputy; break;
+		case MissionHelpers::REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_SNITCH:	modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Snitch; break;
 		default:																modifier = gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier; break;
 		}
 	}
@@ -4514,8 +4569,6 @@ BOOLEAN ShowEnemyMovementTargets()
 
 	if (iter == missionMap.end())
 		return FALSE;
-
-	// rftr todo: check bitmask
 
 	MissionSecondEvent evt;
 	DeserialiseMissionSecondEvent(iter->second, evt);
