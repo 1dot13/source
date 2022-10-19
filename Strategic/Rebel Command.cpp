@@ -918,6 +918,9 @@ void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, 
 				RenderWebsite();
 			});
 
+			if (rebelCommandSaveInfo.iSupplies <= 0)
+				DisableButton(btnId);
+
 			MSYS_SetBtnUserData( btnId, 0, iCurrentRegionId );
 			MSYS_SetBtnUserData( btnId, 1, actionIndex );
 
@@ -3565,7 +3568,6 @@ void DailyUpdate()
 		// what gets subtracted? current balance? daily income? how do we pick?
 
 	// get regional bonuses
-	const INT32 supplyUpkeep = static_cast<INT32>(gRebelCommandSettings.fIncomeModifier + 0.5f);
 	INT16 intelGain = 0;
 	INT16 supplyGain = 0;
 	INT16 moneyGain = 0;
@@ -3602,7 +3604,7 @@ void DailyUpdate()
 			const INT8 level = rebelCommandSaveInfo.regions[a].GetLevel(b);
 			if (level == 0) continue;
 
-			if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[a].actions[b]) && !rebelCommandSaveInfo.regions[a].IsActive(b)) continue;
+			if (!CanAdminActionBeToggled(rebelCommandSaveInfo.regions[a].actions[b]) || !rebelCommandSaveInfo.regions[a].IsActive(b)) continue;
 
 			// toggle admin action off on a negative supply balance
 			if (rebelCommandSaveInfo.iSupplies <= 0)
