@@ -11933,6 +11933,47 @@ STR16 szRebelCommandText[] =
 	L">",
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
 	L"New missions will be available every %d hours.",
+	L"Mission preparations in progress.",
+	L"Mission duration: %d days",
+	L"Chance of success: %d%s",
+	L"[REDACTED]",
+	L"Name: %s",
+	L"Location: %s",
+	L"Assignment: %s",
+	L"Contract: %d days",
+	L"Contract: %d hours",
+	L"Contract: ---",
+	L"Agent bonus:",
+	L"Chance of success +%d%s (%s)",
+	L"Deployment range +%d (%s)",
+	L"Time +%2.0f%s (%s)",
+	L"Vision -%2.0f%s (%s)",
+	L"Gear quality -%d (%s)",
+	L"Overall stats -%d (%s)",
+	L"Max trainers: %d (%s)",
+	L"Duration +%d hours (%s)",
+	L"Agent not in loyal town",
+	L"Agent unavailable",
+	L"Agent contract expiring",
+	L"Battle in progress",
+	L"Start Mission (%d supplies)",
+	L"View active mission effects",
+	L"View available mission list",
+	L"New missions will be available on Day %d at 00:00.",
+	L"Active missions:",
+	L"%s - Preparing - Ready on Day %d, %02d:%02d",
+	L"%s - Active - Expires on Day %d, %02d:%02d",
+	L"[%s (%d supplies)]",
+	L"%s Send a rebel agent to prepare this mission?",
+	L"%s Send %s to prepare this mission? He will return in 24 hours.",
+	L"%s Send %s to prepare this mission? She will return in 24 hours.",
+	L"Mission \"%s\" is now in effect.",
+	L"Preparations for mission \"%s\" failed.",
+	L"Mission \"%s\" has expired and is no longer in effect."
+	
+	
+	
+	
 };
 
 STR16 szRebelCommandHelpText[] =

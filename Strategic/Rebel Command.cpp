@@ -293,6 +293,44 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_NEXT_ARROW,
 	RCT_CONFIRM_CHANGE_ADMIN_ACTION_PROMPT,
 	RCT_NEW_MISSIONS_AVAILABLE_TIME,
+	RCT_MISSION_PREP_IN_PROGRESS,
+	RCT_MISSION_DURATION_DAYS,
+	RCT_MISSION_SUCCESS_CHANCE,
+	RCT_MISSION_AGENT_REDACTED,
+	RCT_MISSION_AGENT_NAME,
+	RCT_MISSION_AGENT_LOCATION,
+	RCT_MISSION_AGENT_ASSIGNMENT,
+	RCT_MISSION_AGENT_CONTRACT_DAYS,
+	RCT_MISSION_AGENT_CONTRACT_HOURS,
+	RCT_MISSION_AGENT_CONTRACT_NONE,
+	RCT_MISSION_AGENT_BONUS,
+	RCT_MISSION_BONUS_SUCCESS_CHANCE,
+	RCT_MISSION_BONUS_DEPLOY_RANGE,
+	RCT_MISSION_BONUS_DECISION_TIME,
+	RCT_MISSION_BONUS_UNALERTED_VISION_PENALTY,
+	RCT_MISSION_BONUS_INFANTRY_GEAR_QUALITY,
+	RCT_MISSION_BONUS_MECHANICAL_STAT_LOSS,
+	RCT_MISSION_BONUS_MAX_TRAINERS,
+	RCT_MISSION_BONUS_DURATION,
+	RCT_MISSION_CANT_START_LOW_LOYALTY,
+	RCT_MISSION_CANT_START_AGENT_UNAVAILABLE,
+	RCT_MISSION_CANT_START_CONTRACT_EXPIRING,
+	RCT_MISSION_CANT_START_BATTLE_IN_PROGRESS,
+	RCT_MISSION_START_BUTTON,
+	RCT_MISSION_VIEW_ACTIVE,
+	RCT_MISSION_VIEW_LIST,
+	RCT_MISSION_NEXT_AVAILABILITY,
+	RCT_MISSION_ACTIVE_MISSIONS,
+	RCT_MISSION_LIST_PREPARING,
+	RCT_MISSION_LIST_ACTIVE,
+	RCT_MISSION_POPUP_PART1,
+	RCT_MISSION_POPUP_PART2_GENERIC,
+	RCT_MISSION_POPUP_PART2_MALE,
+	RCT_MISSION_POPUP_PART2_FEMALE,
+	RCT_MISSION_SUCCESS,
+	RCT_MISSION_FAILURE,
+	RCT_MISSION_EXPIRED,
+
 };
 
 enum RebelCommandHelpText // keep this synced with szRebelCommandHelpText in the text files
@@ -2121,8 +2159,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	if (rebelCommandSaveInfo.availableMissions[index] == RCAM_NONE)
 	{
 		// we shouldn't even reach this point, but leaving this here for safety
-		swprintf(sText, L"Mission preparations in progress.");
-		DrawTextToScreen(sText, x, y+155, 230, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		DrawTextToScreen(szRebelCommandText[RCT_MISSION_PREP_IN_PROGRESS], x, y+155, 230, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		return FALSE;
 	}
 
@@ -2159,7 +2196,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	}
 	// convert from hours
 	missionDurationBase /= 24;
-	swprintf(sText, L"Mission duration: %d days", missionDurationBase);
+	swprintf(sText, szRebelCommandText[RCT_MISSION_DURATION_DAYS], missionDurationBase);
 	DrawTextToScreen(sText, x+5, y+21, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// draw mission base success chance
@@ -2177,7 +2214,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		
 	default: break;
 	}
-	swprintf(sText, L"Chance of success: %d%s", missionSuccessChanceBase, L"%%");
+	swprintf(sText, szRebelCommandText[RCT_MISSION_SUCCESS_CHANCE], missionSuccessChanceBase, L"%%");
 	DrawTextToScreen(sText, x+5, y+33, 0, FONT10ARIALBOLD, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	// draw mission description
@@ -2207,16 +2244,19 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		SetFontShadow(FONT_GRAY1);
 
 		// draw name
-		DrawTextToScreen(L"Name: [REDACTED]", x+55, y+150+10, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_NAME], szRebelCommandText[RCT_MISSION_AGENT_REDACTED]);
+		DrawTextToScreen(sText, x+55, y+150+10, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw location
-		DrawTextToScreen(L"Location: [REDACTED]", x+55, y+150+22, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_LOCATION], szRebelCommandText[RCT_MISSION_AGENT_REDACTED]);
+		DrawTextToScreen(sText, x+55, y+150+22, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw assignment
-		DrawTextToScreen(L"Assignment: None", x+55, y+150+34, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_ASSIGNMENT], szRebelCommandText[RCT_NONE]);
+		DrawTextToScreen(sText, x+55, y+150+34, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw contract
-		DrawTextToScreen(L"Contract: ---", x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+		DrawTextToScreen(szRebelCommandText[RCT_MISSION_AGENT_CONTRACT_NONE], x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 	}
 	else // one of the player's mercs
 	{
@@ -2229,17 +2269,17 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		BltVideoObject(FRAME_BUFFER, hvObj, 0, x+5, y+150+10, VO_BLT_SRCTRANSPARENCY, NULL);
 
 		// draw name
-		swprintf(sText, L"Name: %s", gMercProfiles[mercs[agentIndex[index]]->ubProfile].zName);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_NAME], gMercProfiles[mercs[agentIndex[index]]->ubProfile].zName);
 		DrawTextToScreen(sText, x+55, y+150+10, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw location
 		CHAR16 locationStr[128];
 		GetSectorIDString(mercs[agentIndex[index]]->sSectorX, mercs[agentIndex[index]]->sSectorY, 0, locationStr, TRUE);
-		swprintf(sText, L"Location: %s", locationStr);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_LOCATION], locationStr);
 		DrawTextToScreen(sText, x+55, y+150+22, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw assignment
-		swprintf( sText, L"Assignment: %s", pAssignmentStrings[mercs[agentIndex[index]]->bAssignment]);
+		swprintf( sText, szRebelCommandText[RCT_MISSION_AGENT_ASSIGNMENT], pAssignmentStrings[mercs[agentIndex[index]]->bAssignment]);
 		DrawTextToScreen(sText, x+55, y+150+34, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 
 		// draw contract
@@ -2253,16 +2293,16 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 
 			if (remaining >= 24 * 60)
 			{
-				swprintf(sText, L"Contract: %d days", remaining / (24 * 60));
+				swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_CONTRACT_DAYS], remaining / (24 * 60));
 			}
 			else
 			{
-				swprintf(sText, L"Contract: %d hours", remaining / 60);
+				swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_CONTRACT_HOURS], remaining / 60);
 			}
 		}
 		else
 		{
-			swprintf(sText, L"Contract: ---");
+			swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_CONTRACT_NONE]);
 		}
 		DrawTextToScreen(sText, x+55, y+150+46, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 	}
@@ -2285,7 +2325,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	btnIds.push_back(btnId);
 
 	// draw agent bonus header text
-	swprintf(sText, L"Agent bonus:");
+	swprintf(sText, szRebelCommandText[RCT_MISSION_AGENT_BONUS]);
 	DrawTextToScreen(sText, x+5, y+150+54+20+2, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 	
 	// draw agent bonus text
@@ -2298,7 +2338,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		const INT8 successBonus_expLevel = GetMissionSuccessChanceBonus(&merc);
 		CHAR16 successText[100];
 		// stupid string hack to get the percent sign to display correctly
-		swprintf(successText, L"Chance of success +%d%s (%s)", successBonus_expLevel, L"%s", pShortAttributeStrings[5]); // "Lvl"
+		swprintf(successText, szRebelCommandText[RCT_MISSION_BONUS_SUCCESS_CHANCE], successBonus_expLevel, L"%s", pShortAttributeStrings[5]); // "Lvl"
 		agentBonusText.push_back(successText);
 
 		const STR16* locSkillText = gGameOptions.fNewTraitSystem ? gzMercSkillTextNew : gzMercSkillText;
@@ -2314,7 +2354,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			intModifier = max(intModifier, gRebelCommandSettings.iDeepDeploymentRangeEW);
 			CHAR16 rangeText[100];
-			swprintf(rangeText, L"Deployment range +%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			swprintf(rangeText, szRebelCommandText[RCT_MISSION_BONUS_DEPLOY_RANGE], intModifier, locSkillText[intModifierSkill]);
 			agentBonusText.push_back(rangeText);
 		}
 		break;
@@ -2337,7 +2377,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			floatModifier -= 1.f;
 			floatModifier *= 100.f;
 			CHAR16 rangeText[100];
-			swprintf(rangeText, L"Time +%2.0f%s (%s)", floatModifier, L"%s", locSkillText[floatModifierSkill]);
+			swprintf(rangeText, szRebelCommandText[RCT_MISSION_BONUS_DECISION_TIME], floatModifier, L"%s", locSkillText[floatModifierSkill]);
 			agentBonusText.push_back(rangeText);
 		}
 		break;
@@ -2347,7 +2387,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			floatModifier = max(floatModifier, gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier);
 			floatModifier *= 100.f;
 			CHAR16 text[100];
-			swprintf(text, L"Vision -%2.0f%s (%s)", floatModifier, L"%s", locSkillText[floatModifierSkill]);
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_UNALERTED_VISION_PENALTY], floatModifier, L"%s", locSkillText[floatModifierSkill]);
 			agentBonusText.push_back(text);
 		}
 		break;
@@ -2356,7 +2396,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			intModifier = max(intModifier, gRebelCommandSettings.iSabotageInfantryEquipmentModifier);
 			CHAR16 text[100];
-			swprintf(text, L"Gear quality -%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_INFANTRY_GEAR_QUALITY], intModifier, locSkillText[intModifierSkill]);
 			agentBonusText.push_back(text);
 		}
 		break;
@@ -2365,7 +2405,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			intModifier = max(intModifier, gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss);
 			CHAR16 text[100];
-			swprintf(text, L"Overall stats -%d (%s)", intModifier, locSkillText[intModifierSkill]);
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_MECHANICAL_STAT_LOSS], intModifier, locSkillText[intModifierSkill]);
 			agentBonusText.push_back(text);
 		}
 		break;
@@ -2374,7 +2414,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			intModifier = max(intModifier, 1);
 			CHAR16 text[100];
-			swprintf(text, L"Max trainers: %d (%s)", intModifier, locSkillText[intModifierSkill]);
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_MAX_TRAINERS], intModifier, locSkillText[intModifierSkill]);
 			agentBonusText.push_back(text);
 		}
 		break;
@@ -2385,14 +2425,14 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		if (durationBonus > 0)
 		{
 			CHAR16 durationText[100];
-			swprintf(durationText, L"Duration +%d hours (%s)", durationBonus, locSkillText[durationBonusSkill]);
+			swprintf(durationText, szRebelCommandText[RCT_MISSION_BONUS_DURATION], durationBonus, locSkillText[durationBonusSkill]);
 			agentBonusText.push_back(durationText);
 		}
 	}
 
 	if (agentBonusText.size() == 0)
 	{
-		DrawTextToScreen(L"None", x+10, y+150+54+20+2+11, 0, FONT10ARIAL, FONT_MCOLOR_RED, FONT_MCOLOR_BLACK, FALSE, 0);
+		DrawTextToScreen(szRebelCommandText[RCT_NONE], x+10, y+150+54+20+2+11, 0, FONT10ARIAL, FONT_MCOLOR_RED, FONT_MCOLOR_BLACK, FALSE, 0);
 	}
 	else
 	{
@@ -2417,17 +2457,17 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission)
 		{
 			canStartMission = FALSE;
-			swprintf(sText, L"Agent not in loyal town");
+			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_LOW_LOYALTY]);
 		}
 		else if (mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_POW || mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_MINIEVENT || mercs[agentIndex[index]]->bAssignment == ASSIGNMENT_REBELCOMMAND)
 		{
 			canStartMission = FALSE;
-			swprintf(sText, L"Agent unavailable");
+			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_AGENT_UNAVAILABLE]);
 		}
 		else if (mercs[agentIndex[index]]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC && remaining < 24 * 60)
 		{
 			canStartMission = FALSE;
-			swprintf(sText, L"Agent contract expiring");
+			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_CONTRACT_EXPIRING]);
 		}
 
 		if (!canStartMission)
@@ -2438,13 +2478,13 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	else if ((gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector)
 	{
 		canStartMission = FALSE;
-		swprintf(sText, L"Battle in progress");
+		swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_BATTLE_IN_PROGRESS]);
 		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	}
 
 	if (canStartMission)
 	{
-		swprintf(sText, L"Start Mission (%d supplies)", GetMissionCost());
+		swprintf(sText, szRebelCommandText[RCT_MISSION_START_BUTTON], GetMissionCost());
 		btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, x, y+290, 231, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 			{
 				const INT8 index = MSYS_GetBtnUserData(btn, 0);
@@ -2471,11 +2511,11 @@ void RenderMissionOverview()
 	switch (missionOverviewSubview)
 	{
 	case MOS_MISSION_LIST:
-		swprintf(sText, L"View active mission effects");
+		swprintf(sText, szRebelCommandText[RCT_MISSION_VIEW_ACTIVE]);
 		break;
 
 	case MOS_ACTIVE_MISSION_EFFECTS:
-		swprintf(sText, L"View available mission list");
+		swprintf(sText, szRebelCommandText[RCT_MISSION_VIEW_LIST]);
 		break;
 	}
 	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, WEBSITE_LEFT + 15, WEBSITE_TOP + 40, 470, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
@@ -2507,9 +2547,8 @@ void RenderMissionOverview()
 			const INT8 interval = gRebelCommandSettings.iMissionRefreshTimeDays;
 			nextMissionAvailableDay += (interval - (nextMissionAvailableDay % interval));
 			
-			swprintf(sText, L"Mission preparations in progress.");
-			DrawTextToScreen(sText, WEBSITE_LEFT + 15, WEBSITE_TOP + 155, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-			swprintf(sText, L"New missions will be available on Day %d at 00:00.", nextMissionAvailableDay);
+			DrawTextToScreen(szRebelCommandText[RCT_MISSION_PREP_IN_PROGRESS], WEBSITE_LEFT + 15, WEBSITE_TOP + 155, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+			swprintf(sText, szRebelCommandText[RCT_MISSION_NEXT_AVAILABILITY], nextMissionAvailableDay);
 			DrawTextToScreen(sText, WEBSITE_LEFT + 15, WEBSITE_TOP + 175, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		}
 		else
@@ -2523,10 +2562,10 @@ void RenderMissionOverview()
 
 	case MOS_ACTIVE_MISSION_EFFECTS:
 		{
-			DrawTextToScreen(L"Active missions:", WEBSITE_LEFT + 25, WEBSITE_TOP + 75, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+			DrawTextToScreen(szRebelCommandText[RCT_MISSION_ACTIVE_MISSIONS], WEBSITE_LEFT + 25, WEBSITE_TOP + 75, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 			if (missionMap.size() == 0)
 			{
-				DrawTextToScreen(L"None", WEBSITE_LEFT + 35, WEBSITE_TOP + 90, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
+				DrawTextToScreen(szRebelCommandText[RCT_NONE], WEBSITE_LEFT + 35, WEBSITE_TOP + 90, 0, FONT12ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 			}
 			else
 			{
@@ -2547,13 +2586,13 @@ void RenderMissionOverview()
 					if (evt1.isFirstEvent)
 					{
 						CHAR16 prepText[200];
-						swprintf(prepText, L"%s - Preparing - Ready on Day %d, %02d:%02d", szRebelCommandAgentMissionsText[evt1.missionId * 2], day, hour, minute);
+						swprintf(prepText, szRebelCommandText[RCT_MISSION_LIST_PREPARING], szRebelCommandAgentMissionsText[evt1.missionId * 2], day, hour, minute);
 						evt1Strings.push_back(prepText);
 					}
 					else if (evt2.isSecondEvent)
 					{
 						CHAR16 missionText[200];
-						swprintf(missionText, L"%s - Active - Expires on Day %d, %02d:%02d", szRebelCommandAgentMissionsText[evt2.missionId * 2], day, hour, minute);
+						swprintf(missionText, szRebelCommandText[RCT_MISSION_LIST_ACTIVE], szRebelCommandAgentMissionsText[evt2.missionId * 2], day, hour, minute);
 						evt2Strings.push_back(missionText);
 					}
 				}
@@ -2698,21 +2737,21 @@ void StartMission(INT8 index)
 		missionDuration += durationBonus;
 	}
 
-	swprintf(text, L"[%s (%d supplies)]", szRebelCommandAgentMissionsText[missionTitle], cost);
+	swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART1], szRebelCommandAgentMissionsText[missionTitle], cost);
 
 	if (agentIndex[index] == mercs.size())
 	{
 		// sent a generic rebel
 		MissionHelpers::missionParam = SerialiseMissionFirstEvent(TRUE, 0 /* no profile needed */, static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, 0 /* no extra data */);
-		swprintf(text, L"%s Send a rebel agent to prepare this mission?", text);
+		swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_GENERIC], text);
 	}
 	else
 	{
 		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, mercs[agentIndex[index]]->ubProfile, static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
 		if (merc->bSex == MALE)
-			swprintf(text, L"%s Send %s to prepare this mission? He will return in 24 hours.", text, merc->zNickname);
+			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_MALE], text, merc->zNickname);
 		else
-			swprintf(text, L"%s Send %s to prepare this mission? She will return in 24 hours.", text, merc->zNickname);
+			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_FEMALE], text, merc->zNickname);
 	}
 
 	DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, text, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, [](UINT8 exitValue) {
@@ -4493,8 +4532,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				}
 
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
-				swprintf(msgBoxText, L"Mission prep success! %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
-				swprintf(screenMsgText, L"Mission \"%s\" is now in effect.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+				swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_SUCCESS], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+				swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_SUCCESS], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 				ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, screenMsgText);
 			}
 		}
@@ -4516,8 +4555,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			}
 
 			MissionFailed_MercNoLongerOnTeam:
-			swprintf(msgBoxText, L"Mission prep failed... %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
-			swprintf(screenMsgText, L"Preparations for mission \"%s\" failed.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+			swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_FAILURE], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+			swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_FAILURE], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 		}
 
@@ -4544,8 +4583,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 	{
 		// mission duration is over. deactivate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt2.missionId));
-		swprintf(msgBoxText, L"Mission duration complete! %s", szRebelCommandAgentMissionsText[evt2.missionId * 2]);
-		swprintf(screenMsgText, L"Mission \"%s\" has expired and is no longer in effect.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+		swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_EXPIRED], szRebelCommandAgentMissionsText[evt2.missionId * 2]);
+		swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_EXPIRED], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
 	}
 
