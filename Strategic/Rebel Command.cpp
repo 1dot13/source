@@ -2118,7 +2118,6 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	if (agentIndex[index] < 0) agentIndex[index] = static_cast<INT8>(mercs.size());
 	else if (agentIndex[index] > static_cast<INT8>(mercs.size())) agentIndex[index] = 0;
 
-	// rftr todo: handle RCAM_NONE (ie, mission prep in progress!)
 	if (rebelCommandSaveInfo.availableMissions[index] == RCAM_NONE)
 	{
 		// we shouldn't even reach this point, but leaving this here for safety
@@ -2531,7 +2530,6 @@ void RenderMissionOverview()
 			}
 			else
 			{
-				// rftr todo: run through active mission list (missionMap) and show a one-line description for each.
 				std::vector<std::wstring> evt1Strings;
 				std::vector<std::wstring> evt2Strings;
 				std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
@@ -2591,7 +2589,6 @@ void StartMission(INT8 index)
 		return;
 	}
 
-	// todo do something with agentIndex[index] and missionIndex[index] (rebelCommandSaveInfo.availableMissions[index])
 	// confirmation popup
 	std::vector<SOLDIERTYPE*> mercs;
 	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
@@ -3669,7 +3666,6 @@ void DailyUpdate()
 	}
 
 	// update missions
-	// rftr todo: test me
 	if (GetWorldDay() % gRebelCommandSettings.iMissionRefreshTimeDays == 0)
 	{
 		std::unordered_set<RebelCommandAgentMissions> validMissions;
@@ -4278,7 +4274,6 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 		{
 			range = gRebelCommandSettings.iDeepDeploymentRangeNS;
 
-			// rftr todo: bitmagic to get bonus range
 			switch (evt.extraBits)
 			{
 			case MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_COVERT:	range += gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Covert; break;
@@ -4411,7 +4406,6 @@ FLOAT GetStrategicDecisionSpeedModifier()
 void HandleStrategicEvent(const UINT32 eventParam)
 {
 	// this handles the transition from "mission prep" (first event) to "mission active" (second event), which happens 24 hours after the player clicks on "start mission"
-	// rftr todo: update agent mission bitmask
 	MissionFirstEvent evt1;
 	MissionSecondEvent evt2;
 	DeserialiseMissionFirstEvent(eventParam, evt1);
@@ -4498,7 +4492,6 @@ void HandleStrategicEvent(const UINT32 eventParam)
 					}
 				}
 
-				// rftr todo: tell the player that the mission has started. popupbox or screenmsg?
 				missionMap.insert(std::make_pair(mission, activatedMissionParam));
 				swprintf(msgBoxText, L"Mission prep success! %s", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 				swprintf(screenMsgText, L"Mission \"%s\" is now in effect.", szRebelCommandAgentMissionsText[evt1.missionId * 2]);
@@ -4507,7 +4500,6 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		}
 		else
 		{
-			// rftr todo: tell the player that the mission prep failed. some popup box blurb or somesuch.
 			if (!evt1.sentGenericRebelAgent && foundMerc)
 			{
 				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
