@@ -292,6 +292,7 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_PREV_ARROW,
 	RCT_NEXT_ARROW,
 	RCT_CONFIRM_CHANGE_ADMIN_ACTION_PROMPT,
+	RCT_INSUFFICIENT_SUPPLIES_ADMIN_ACTIONS_DISABLED,
 	RCT_NEW_MISSIONS_AVAILABLE_TIME,
 	RCT_MISSION_PREP_IN_PROGRESS,
 	RCT_MISSION_DURATION_DAYS,
@@ -511,7 +512,6 @@ ChangeAdminActionState adminActionChangeState;
 MOUSE_REGION adminActionActiveTextRegion[5];
 MOUSE_REGION adminActionHelpTextRegion[6];
 MOUSE_REGION adminTeamHelpTextRegion;
-//MOUSE_REGION agentNotifyToggleTextRegion;
 MOUSE_REGION directiveDescriptionHelpTextRegion;
 MOUSE_REGION loyaltyHelpTextRegion;
 MOUSE_REGION maxLoyaltyHelpTextRegion;
@@ -587,7 +587,6 @@ void ClearAllHelpTextRegions()
 	for (int a = 0; a < 6; a++)
 		MSYS_RemoveRegion(&adminActionHelpTextRegion[a]);
 	MSYS_RemoveRegion(&adminTeamHelpTextRegion);
-	//MSYS_RemoveRegion(&agentNotifyToggleTextRegion);
 	MSYS_RemoveRegion(&directiveDescriptionHelpTextRegion);
 	MSYS_RemoveRegion(&loyaltyHelpTextRegion);
 	MSYS_RemoveRegion(&maxLoyaltyHelpTextRegion);
@@ -3605,82 +3604,66 @@ void DailyUpdate()
 
 			if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[a].actions[b]) && !rebelCommandSaveInfo.regions[a].IsActive(b)) continue;
 
-			switch (static_cast<RebelCommandAdminActions>(rebelCommandSaveInfo.regions[a].actions[b]))
+			// toggle admin action off on a negative supply balance
+			if (rebelCommandSaveInfo.iSupplies <= 0)
+				rebelCommandSaveInfo.regions[a].SetInactive(b);
+
+			if (rebelCommandSaveInfo.regions[a].IsActive(b))
 			{
-			case RCAA_SUPPLY_LINE:
-			case RCAA_SUPPLY_DISRUPTION:
-			case RCAA_SCOUTS:
-			case RCAA_MERC_SUPPORT:
-			case RCAA_PATHFINDERS:
-			case RCAA_FORTIFICATIONS:
-				// no daily bonuses
-				break;
-
-			case RCAA_HARRIERS:
-			case RCAA_MINING_POLICY:
-			case RCAA_SAFEHOUSES:
-				// no daily bonuses, but gotta pay upkeep
-				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
+				switch (static_cast<RebelCommandAdminActions>(rebelCommandSaveInfo.regions[a].actions[b]))
 				{
-					// what to do on success?
-				}
-				else
-				{
-					swprintf(text, L"Not enough supplies for harriers/miningpolicy/safehouses!");
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
-				}
-				break;
+				case RCAA_SUPPLY_LINE:
+				case RCAA_SUPPLY_DISRUPTION:
+				case RCAA_SCOUTS:
+				case RCAA_MERC_SUPPORT:
+				case RCAA_PATHFINDERS:
+				case RCAA_FORTIFICATIONS:
+				case RCAA_HARRIERS:
+				case RCAA_MINING_POLICY:
+				case RCAA_SAFEHOUSES:
+					// no daily bonuses
+					break;
 
-			case RCAA_REBEL_RADIO:
-				IncrementTownLoyalty(a, static_cast<UINT32>(info.adminActions[RCAA_REBEL_RADIO].fValue1 * level));
-				break;
+				case RCAA_REBEL_RADIO:
+					IncrementTownLoyalty(a, static_cast<UINT32>(info.adminActions[RCAA_REBEL_RADIO].fValue1 * level));
+					break;
 
-			case RCAA_DEAD_DROPS:
-				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
-				{
+				case RCAA_DEAD_DROPS:
 					intelGain += Random(static_cast<UINT32>(info.adminActions[RCAA_DEAD_DROPS].fValue1 * level * loyalty / 100.f));
+					break;
+					
+				case RCAA_SMUGGLERS:
+					supplyGain += Random(static_cast<UINT32>(info.adminActions[RCAA_SMUGGLERS].fValue1 * level * loyalty / 100.f));
+					break;
+
+				case RCAA_WAREHOUSES:
+						AddResources(
+							static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) * loyalty / 10000.f),
+							static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) * loyalty / 10000.f),
+							static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) * loyalty / 10000.f));
+					break;
+
+				case RCAA_TAXES:
+					moneyGain += static_cast<INT16>(info.adminActions[RCAA_TAXES].fValue1 * coolness * level * loyalty * (75.f + Random(26))/ 10000.f);
+					DecrementTownLoyalty(a, static_cast<UINT32>(info.adminActions[RCAA_TAXES].fValue2 * level));
+					break;
+
+				case RCAA_ASSIST_CIVILIANS:
+					AddVolunteers(static_cast<FLOAT>(info.adminActions[RCAA_ASSIST_CIVILIANS].fValue1 * level * loyalty / 100.f));
+					break;
+
+
+				default:
+					AssertMsg(false, "Unknown Admin Action");
+					break;
 				}
-				else
-				{
-					swprintf(text, L"Not enough supplies for dead drops");
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
-				}
-				break;
-				
-			case RCAA_SMUGGLERS:
-				supplyGain += Random(static_cast<UINT32>(info.adminActions[RCAA_SMUGGLERS].fValue1 * level * loyalty / 100.f));
-				break;
-
-			case RCAA_WAREHOUSES:
-				if (rebelCommandSaveInfo.iSupplies > supplyUpkeep)
-				{
-					AddResources(
-						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue1 * level * Random(100) * loyalty / 10000.f),
-						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue2 * level * Random(100) * loyalty / 10000.f),
-						static_cast<FLOAT>(info.adminActions[RCAA_WAREHOUSES].fValue3 * level * Random(100) * loyalty / 10000.f));
-				}
-				else
-				{
-					swprintf(text, L"Not enough supplies for warehouses");
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s", text);
-				}
-				break;
-
-			case RCAA_TAXES:
-				moneyGain += static_cast<INT16>(info.adminActions[RCAA_TAXES].fValue1 * coolness * level * loyalty * (75.f + Random(26))/ 10000.f);
-				DecrementTownLoyalty(a, static_cast<UINT32>(info.adminActions[RCAA_TAXES].fValue2 * level));
-				break;
-
-			case RCAA_ASSIST_CIVILIANS:
-				AddVolunteers(static_cast<FLOAT>(info.adminActions[RCAA_ASSIST_CIVILIANS].fValue1 * level * loyalty / 100.f));
-				break;
-
-
-			default:
-				AssertMsg(false, "Unknown Admin Action");
-				break;
 			}
 		}
+	}
+
+	if (rebelCommandSaveInfo.iSupplies <= 0)
+	{
+		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, szRebelCommandText[RCT_INSUFFICIENT_SUPPLIES_ADMIN_ACTIONS_DISABLED]);
 	}
 
 	if (intelGain > 0)

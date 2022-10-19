@@ -11932,6 +11932,7 @@ STR16 szRebelCommandText[] =
 	L"<",
 	L">",
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"Insufficient supplies! Admin Actions have been DISABLED.",
 	L"New missions will be available every %d hours.",
 	L"Mission preparations in progress.",
 	L"Mission duration: %d days",
