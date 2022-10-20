@@ -11970,11 +11970,7 @@ STR16 szRebelCommandText[] =
 	L"%s Send %s to prepare this mission? She will return in 24 hours.",
 	L"Mission \"%s\" is now in effect.",
 	L"Preparations for mission \"%s\" failed.",
-	L"Mission \"%s\" has expired and is no longer in effect."
-	
-	
-	
-	
+	L"Mission \"%s\" has expired and is no longer in effect.",
 };
 
 STR16 szRebelCommandHelpText[] =

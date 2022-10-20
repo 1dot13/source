@@ -2474,7 +2474,8 @@ STR16 pAssignmentStrings[] =
 	L"Burial",
 	L"Admin", // TODO.Translate
 	L"Explore",	// TODO.Translate
-	L"Event"// rftr: merc is on a mini event // TODO: translate
+	L"Event",// rftr: merc is on a mini event // TODO: translate
+	L"Mission", // rftr: rebel command
 };
 
 
@@ -11865,12 +11866,16 @@ STR16 gLbeStatsDesc[14] =
 
 STR16 szRebelCommandText[] = // TODO.Translate
 {
-	L"Arulco Rebel Command - National Overview",
-	L"Arulco Rebel Command - Regional Overview",
-	L"Switch to Regional Overview",
-	L"Switch to National Overview",
+	L"National Overview",
+	L"Regional Overview",
+	L"Mission Overview",
+	L"Select View:",
+	L"Regional (2)",
+	L"National (1)",
+	L"Mission (3)",
 	L"Supplies:",
 	L"Incoming Supplies",
+	L"Intel:",
 	L"/day",
 	L"Current Directive",
 	L"Improve Directive ($%d)",
@@ -11928,17 +11933,55 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"<",
 	L">",
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"Insufficient supplies! Admin Actions have been DISABLED.",
+	L"New missions will be available every %d hours.",
+	L"Mission preparations in progress.",
+	L"Mission duration: %d days",
+	L"Chance of success: %d%s",
+	L"[REDACTED]",
+	L"Name: %s",
+	L"Location: %s",
+	L"Assignment: %s",
+	L"Contract: %d days",
+	L"Contract: %d hours",
+	L"Contract: ---",
+	L"Agent bonus:",
+	L"Chance of success +%d%s (%s)",
+	L"Deployment range +%d (%s)",
+	L"Time +%2.0f%s (%s)",
+	L"Vision -%2.0f%s (%s)",
+	L"Gear quality -%d (%s)",
+	L"Overall stats -%d (%s)",
+	L"Max trainers: %d (%s)",
+	L"Duration +%d hours (%s)",
+	L"Agent not in loyal town",
+	L"Agent unavailable",
+	L"Agent contract expiring",
+	L"Battle in progress",
+	L"Start Mission (%d supplies)",
+	L"View active mission effects",
+	L"View available mission list",
+	L"New missions will be available on Day %d at 00:00.",
+	L"Active missions:",
+	L"%s - Preparing - Ready on Day %d, %02d:%02d",
+	L"%s - Active - Expires on Day %d, %02d:%02d",
+	L"[%s (%d supplies)]",
+	L"%s Send a rebel agent to prepare this mission?",
+	L"%s Send %s to prepare this mission? He will return in 24 hours.",
+	L"%s Send %s to prepare this mission? She will return in 24 hours.",
+	L"Mission \"%s\" is now in effect.",
+	L"Preparations for mission \"%s\" failed.",
+	L"Mission \"%s\" has expired and is no longer in effect.",
 };
 
 STR16 szRebelCommandHelpText[] = // TODO.Translate
 {
 	L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
-	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
+	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.\n \n+%d (Base income)",
 	L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
 	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
 	L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
 	L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
-	L"|G|r|a|n|t |S|u|p|p|l|i|e|s\n \nSend supplies to the admin team here and allow them to use them\nas needed. This will increase the region's loyalty by a small amount\neach time you do this. However, doing this will slightly increase\nthe cost of enacting regional policies.",
 	L"This Admin Action applies its bonus to town sectors only.", //TODO.Translate
 	L"This Admin Action applies its bonus to town sectors, and\nsectors immediately adjacent to them.",
 	L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
@@ -12029,6 +12072,26 @@ STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 	L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
 	L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
 	L"Improving this directive will increase the number of volunteers gained per day.",
+};
+
+STR16 szRebelCommandAgentMissionsText[] =
+{
+	L"Deep Deployment",
+	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
+	L"Strategic Intel",
+	L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
+	L"Improve Local Shops",
+	L"Set up ways for merchants across the country to acquire better goods more easily. Shopkeepers will have better than usual inventories.",
+	L"Slow Strategic Decisions",
+	L"Sow confusion and misdirection at the highest levels of enemy command. The enemy takes longer to make decisions at a strategic level.",
+	L"Lower Readiness",
+	L"Trick enemy soldiers into letting their guard down. Enemy soldiers have reduced vision range until they are alerted to your mercs' presence.",
+	L"Sabotage Equipment",
+	L"Disrupt enemy supply chains and prevent the enemy from maintaining their gear properly. Enemy soldiers use equipment that is worse than normal.",
+	L"Sabotage Vehicles",
+	L"Sabotage vehicle maintenance hubs to reduce their combat effectiveness and readiness. Enemy vehicles encountered have reduced stats.",
+	L"Train Militia Anywhere",
+	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
 
 STR16 szRobotText[] = // TODO: Translate
