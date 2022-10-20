@@ -346,7 +346,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bLife = min(gMercProfiles[merc->ubProfile].bLife, gMercProfiles[merc->ubProfile].bLifeMax);
 					merc->usValueGoneUp &= ~( HEALTH_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bLifeDelta += amount;
 					merc->usValueGoneUp |= HEALTH_INCREASE;
@@ -364,7 +364,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bStrength = merc->stats.bStrength;
 					merc->usValueGoneUp &= ~( STRENGTH_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bStrengthDelta += amount;
 					merc->usValueGoneUp |= STRENGTH_INCREASE;
@@ -382,7 +382,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bAgility = merc->stats.bAgility;
 					merc->usValueGoneUp &= ~( AGIL_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bAgilityDelta += amount;
 					merc->usValueGoneUp |= AGIL_INCREASE;
@@ -400,7 +400,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bDexterity = merc->stats.bDexterity;
 					merc->usValueGoneUp &= ~( DEX_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bDexterityDelta += amount;
 					merc->usValueGoneUp |= DEX_INCREASE;
@@ -418,7 +418,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bWisdom = merc->stats.bWisdom;
 					merc->usValueGoneUp &= ~( WIS_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bWisdomDelta += amount;
 					merc->usValueGoneUp |= WIS_INCREASE;
@@ -435,7 +435,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bLeadership = merc->stats.bLeadership;
 					merc->usValueGoneUp &= ~( LDR_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bLeadershipDelta += amount;
 					merc->usValueGoneUp |= LDR_INCREASE;
@@ -452,7 +452,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bMarksmanship = merc->stats.bMarksmanship;
 					merc->usValueGoneUp &= ~( MRK_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bMarksmanshipDelta += amount;
 					merc->usValueGoneUp |= MRK_INCREASE;
@@ -469,7 +469,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bMechanical = merc->stats.bMechanical;
 					merc->usValueGoneUp &= ~( MECH_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bMechanicDelta += amount;
 					merc->usValueGoneUp |= MECH_INCREASE;
@@ -486,7 +486,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bExplosive = merc->stats.bExplosive;
 					merc->usValueGoneUp &= ~( EXP_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bExplosivesDelta += amount;
 					merc->usValueGoneUp |= EXP_INCREASE;
@@ -503,7 +503,7 @@ namespace MiniEventHelpers
 					gMercProfiles[merc->ubProfile].bMedical = merc->stats.bMedical;
 					merc->usValueGoneUp &= ~( MED_INCREASE );
 				}
-				else
+				else if (amount > 0)
 				{
 					gMercProfiles[merc->ubProfile].bMedicalDelta += amount;
 					merc->usValueGoneUp |= MED_INCREASE;
@@ -511,8 +511,11 @@ namespace MiniEventHelpers
 				break;
 			}
 
-			BuildStatChangeString(wTempString, merc->GetName(), amount > 0, amount > 0 ? amount : -amount, statId);
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, wTempString );
+			if (amount != 0)
+			{
+				BuildStatChangeString(wTempString, merc->GetName(), amount > 0, amount > 0 ? amount : -amount, statId);
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, wTempString );
+			}
 		});
 
 		return 0;
