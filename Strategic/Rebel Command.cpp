@@ -46,7 +46,7 @@ How to add a new mission:
 - add values to MissionHelpers::missionInfo table in SetupInfo()
 - add to valid check in HandleStrategicEvent() (allows advance from first event/prepare to second event/active effect)
 - add to SetupMissionAgentBox() (mission description and merc bonus text)
-- add to StartMission()
+- add to PrepareMission()
 - add mission-specific functions
 - rftr todo: ???
 
@@ -503,7 +503,7 @@ void SetRegionHelpText(INT32 reason, MOUSE_REGION& helpTextRegion, RebelCommandH
 void SetupAdminActionBox(const UINT8 actionIndex, const UINT16 descriptionText, const UINT16 buttonText);
 BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index);
 void SetWebsiteView(WebsiteState newState);
-void StartMission(INT8 index);
+void PrepareMission(INT8 index);
 void ToggleWebsiteView();
 void UpdateAdminActionChangeList(INT16 regionId);
 
@@ -2522,7 +2522,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			{
 				const INT8 index = MSYS_GetBtnUserData(btn, 0);
 				ButtonHelper(btn, reason, [btn, index]() {
-					StartMission(index);
+					PrepareMission(index);
 				});
 			});
 		MSYS_SetBtnUserData(btnId, 0, index);
@@ -2680,7 +2680,7 @@ void RenderMissionOverview()
 	DrawTextToScreen(sText, WEBSITE_LEFT + 22, WEBSITE_TOP + WEBSITE_HEIGHT - 14, 0, FONT10ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, 0);
 }
 
-void StartMission(INT8 index)
+void PrepareMission(INT8 index)
 {
 	const INT32 cost = GetMissionCost();
 	if (rebelCommandSaveInfo.iSupplies < cost)
