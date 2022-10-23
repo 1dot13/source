@@ -2576,7 +2576,11 @@ void RenderMissionOverview()
 			const INT8 interval = gRebelCommandSettings.iMissionRefreshTimeDays;
 			nextMissionAvailableDay += (interval - (nextMissionAvailableDay % interval));
 			
-			DrawTextToScreen(szRebelCommandText[RCT_MISSION_PREP_IN_PROGRESS], WEBSITE_LEFT + 15, WEBSITE_TOP + 155, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+			if (missionMap.size() > 0)
+			{
+				DrawTextToScreen(szRebelCommandText[RCT_MISSION_PREP_IN_PROGRESS], WEBSITE_LEFT + 15, WEBSITE_TOP + 155, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+			}
+
 			swprintf(sText, szRebelCommandText[RCT_MISSION_NEXT_AVAILABILITY], nextMissionAvailableDay);
 			DrawTextToScreen(sText, WEBSITE_LEFT + 15, WEBSITE_TOP + 175, WEBSITE_WIDTH - 30, FONT14ARIAL, FONT_MCOLOR_BLACK, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		}
