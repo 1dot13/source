@@ -12111,10 +12111,10 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"Disrupt enemy supply chains and prevent the enemy from maintaining their gear properly. Enemy soldiers use equipment that is worse than normal.",
 	L"Sabotage Vehicles",
 	L"Sabotage vehicle maintenance hubs to reduce their combat effectiveness and readiness. Enemy vehicles encountered have reduced stats.",
-	L"Train Militia Anywhere",
-	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 	L"Soldier Bounties (Kingpin)",
 	L"Get a payout for enemy kills. Negotiate with Kingpin, who feels he can use your presence here to indirectly weaken the Queen's power. Bounties are deposited into your account at midnight and are limited to $%d per day.",
+	L"Train Militia Anywhere",
+	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
 
 STR16 szRobotText[] = // TODO: Translate
