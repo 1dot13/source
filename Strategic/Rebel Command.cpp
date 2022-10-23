@@ -383,8 +383,8 @@ enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentM
 	MISSION_TEXT(REDUCE_UNALERTED_ENEMY_VISION)
 	MISSION_TEXT(SABOTAGE_INFANTRY_EQUIPMENT)
 	MISSION_TEXT(SABOTAGE_MECHANICAL_UNITS)
-	MISSION_TEXT(TRAIN_MILITIA_ANYWHERE)
 	MISSION_TEXT(SOLDIER_BOUNTIES_KINGPIN)
+	MISSION_TEXT(TRAIN_MILITIA_ANYWHERE)
 };
 
 enum ChangeAdminActionState
@@ -2171,8 +2171,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_TITLE]); break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_TITLE]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE]); break;
-	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE]); break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_TITLE]); break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE]); break;
 
 	default:									swprintf(sText, L"Mission Index: %d", rebelCommandSaveInfo.availableMissions[index]); break;
 	}
@@ -2189,8 +2189,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionDurationBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration; break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionDurationBase = gRebelCommandSettings.iSabotageInfantryEquipmentDuration; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionDurationBase = gRebelCommandSettings.iSabotageMechanicalUnitsDuration; break;
-	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionDurationBase = gRebelCommandSettings.iTrainMilitiaAnywhereDuration; break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionDurationBase = gRebelCommandSettings.iSoldierBountiesKingpinDuration; break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionDurationBase = gRebelCommandSettings.iTrainMilitiaAnywhereDuration; break;
 
 	default: break;
 	}
@@ -2210,8 +2210,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionSuccessChanceBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance; break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance; break;
-	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionSuccessChanceBase = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance; break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionSuccessChanceBase = gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance; break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionSuccessChanceBase = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance; break;
 		
 	default: break;
 	}
@@ -2228,8 +2228,8 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_DESC]); break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_DESC]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_DESC]); break;
-	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_DESC]); break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_DESC], gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit); break;
+	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_DESC]); break;
 
 	default: swprintf(sText, L"Mission description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus libero dui. Etiam facilisis posuere dictum. Etiam a velit viverra, interdum eros non, placerat lectus. Vivamus ut lorem id velit tempus auctor. Donec molestie, erat at molestie malesuada, diam purus tincidunt eros, vel hendrerit mi elit vitae leo. Suspendisse dui lectus, malesuada eu elementum at, viverra eu odio."); break;
 	}
@@ -2412,15 +2412,6 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		}
 		break;
 
-		case RCAM_TRAIN_MILITIA_ANYWHERE:
-		{
-			intModifier = max(intModifier, 1);
-			CHAR16 text[100];
-			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_MAX_TRAINERS], intModifier, locSkillText[intModifierSkill]);
-			agentBonusText.push_back(text);
-		}
-		break;
-
 		case RCAM_SOLDIER_BOUNTIES_KINGPIN:
 		{
 			floatModifier = max(floatModifier, 1.f);
@@ -2449,6 +2440,15 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 				swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_VEHICLE_PAYOUT], locSkillText[floatModifierSkill]);
 				agentBonusText.push_back(text);
 			}
+		}
+		break;
+
+		case RCAM_TRAIN_MILITIA_ANYWHERE:
+		{
+			intModifier = max(intModifier, 1);
+			CHAR16 text[100];
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_MAX_TRAINERS], intModifier, locSkillText[intModifierSkill]);
+			agentBonusText.push_back(text);
 		}
 		break;
 
@@ -2775,14 +2775,6 @@ void PrepareMission(INT8 index)
 	}
 	break;
 
-	case RCAM_TRAIN_MILITIA_ANYWHERE:
-	{
-		missionTitle = RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE;
-		missionSuccessChance = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance;
-		missionDuration = gRebelCommandSettings.iTrainMilitiaAnywhereDuration;
-	}
-	break;
-
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:
 	{
 		missionTitle = RCAMT_SOLDIER_BOUNTIES_KINGPIN_TITLE;
@@ -2791,6 +2783,14 @@ void PrepareMission(INT8 index)
 	}
 	break;
 		
+	case RCAM_TRAIN_MILITIA_ANYWHERE:
+	{
+		missionTitle = RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance;
+		missionDuration = gRebelCommandSettings.iTrainMilitiaAnywhereDuration;
+	}
+	break;
+
 	default: break;
 	}
 
@@ -4200,16 +4200,6 @@ void SetupInfo()
 		{gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons},
 		{MissionHelpers::SABOTAGE_MECHANICAL_UNITS_COVERT,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS}
 	});
-	//RCAM_TRAIN_MILITIA_ANYWHERE
-	MissionHelpers::missionInfo.push_back(
-	{
-		{COVERT_NT,															SURVIVAL_NT,															TEACHING_NT},
-		{-1,																CAMOUFLAGED_OT,															TEACHING_OT},
-		{gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert,	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival,		gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching},
-		{0.f, 0.f, 0.f},
-		{gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,			gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,					gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching},
-		{0,																	0,																		MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING}
-	});
 	//RCAM_SOLDIER_BOUNTIES_KINGPIN
 	MissionHelpers::missionInfo.push_back(
 	{
@@ -4219,6 +4209,16 @@ void SetupInfo()
 		{gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert,		gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy,				gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch,		1.f},
 		{0,																		0,																				gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch, gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions},
 		{0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS,						0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS}
+	});
+	//RCAM_TRAIN_MILITIA_ANYWHERE
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,															SURVIVAL_NT,															TEACHING_NT},
+		{-1,																CAMOUFLAGED_OT,															TEACHING_OT},
+		{gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert,	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival,		gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching},
+		{0.f, 0.f, 0.f},
+		{gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,			gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,					gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching},
+		{0,																	0,																		MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING}
 	});
 }
 
@@ -4639,8 +4639,8 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			case RCAM_REDUCE_UNALERTED_ENEMY_VISION:
 			case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
 			case RCAM_SABOTAGE_MECHANICAL_UNITS:
-			case RCAM_TRAIN_MILITIA_ANYWHERE:
 			case RCAM_SOLDIER_BOUNTIES_KINGPIN:
+			case RCAM_TRAIN_MILITIA_ANYWHERE:
 			{
 				validMission = TRUE;
 			}
