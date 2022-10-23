@@ -85,8 +85,10 @@ Points of interest:
 #include "mousesystem.h"
 #include "Overhead Types.h"
 #include "Queen Command.h"
+#include "Quests.h"
 #include "random.h"
 #include "SaveLoadGame.h"
+#include "Soldier macros.h"
 #include "Squads.h"
 #include "strategic.h"
 #include "strategicmap.h"
@@ -145,6 +147,8 @@ constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_COVERT			= 1;
 constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS		= 2;
 constexpr UINT16 SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS	= 3;
 constexpr UINT16 TRAIN_MILITIA_ANYWHERE_TEACHING	= 1;
+constexpr UINT16 SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS			= 1;
+constexpr UINT16 SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS			= 2;
 
 
 typedef struct {
@@ -214,7 +218,6 @@ void GetMissionInfo(RebelCommandAgentMissions mission, const MERCPROFILESTRUCT* 
 }
 
 void DEBUG_DAY();
-void DEBUG_PRINT();
 
 enum WebsiteState
 {
@@ -312,6 +315,10 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_MISSION_BONUS_INFANTRY_GEAR_QUALITY,
 	RCT_MISSION_BONUS_MECHANICAL_STAT_LOSS,
 	RCT_MISSION_BONUS_MAX_TRAINERS,
+	RCT_MISSION_BONUS_PAYOUT,
+	RCT_MISSION_BONUS_PAYOUT_LIMIT_INCREASE,
+	RCT_MISSION_BONUS_OFFICER_PAYOUT,
+	RCT_MISSION_BONUS_VEHICLE_PAYOUT,
 	RCT_MISSION_BONUS_DURATION,
 	RCT_MISSION_CANT_START_LOW_LOYALTY,
 	RCT_MISSION_CANT_START_AGENT_UNAVAILABLE,
@@ -374,6 +381,7 @@ enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentM
 	MISSION_TEXT(SABOTAGE_INFANTRY_EQUIPMENT)
 	MISSION_TEXT(SABOTAGE_MECHANICAL_UNITS)
 	MISSION_TEXT(TRAIN_MILITIA_ANYWHERE)
+	MISSION_TEXT(SOLDIER_BOUNTIES_KINGPIN)
 };
 
 enum ChangeAdminActionState
@@ -1373,12 +1381,6 @@ void RenderHeader(RebelCommandText titleText)
 			ButtonHelper(btn, reason, []() { DEBUG_DAY(); });
 			});
 		btnIds.push_back(btnId);
-
-		usPosY = WEBSITE_TOP + 365;
-		btnId = CreateTextButton(L"DEBUG PRINT!", FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, usPosX, usPosY, 99, 14, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason) {
-			ButtonHelper(btn, reason, []() { DEBUG_PRINT(); });
-			});
-		btnIds.push_back(btnId);
 	}
 
 }
@@ -2176,6 +2178,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_TITLE]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE]); break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE]); break;
+	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_TITLE]); break;
 
 	default:									swprintf(sText, L"Mission Index: %d", rebelCommandSaveInfo.availableMissions[index]); break;
 	}
@@ -2193,6 +2196,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionDurationBase = gRebelCommandSettings.iSabotageInfantryEquipmentDuration; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionDurationBase = gRebelCommandSettings.iSabotageMechanicalUnitsDuration; break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionDurationBase = gRebelCommandSettings.iTrainMilitiaAnywhereDuration; break;
+	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionDurationBase = gRebelCommandSettings.iSoldierBountiesKingpinDuration; break;
 
 	default: break;
 	}
@@ -2213,6 +2217,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance; break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionSuccessChanceBase = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance; break;
+	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionSuccessChanceBase = gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance; break;
 		
 	default: break;
 	}
@@ -2230,6 +2235,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_DESC]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_DESC]); break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_DESC]); break;
+	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_DESC], gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit); break;
 
 	default: swprintf(sText, L"Mission description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus libero dui. Etiam facilisis posuere dictum. Etiam a velit viverra, interdum eros non, placerat lectus. Vivamus ut lorem id velit tempus auctor. Donec molestie, erat at molestie malesuada, diam purus tincidunt eros, vel hendrerit mi elit vitae leo. Suspendisse dui lectus, malesuada eu elementum at, viverra eu odio."); break;
 	}
@@ -2421,6 +2427,37 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		}
 		break;
 
+		case RCAM_SOLDIER_BOUNTIES_KINGPIN:
+		{
+			floatModifier = max(floatModifier, 1.f);
+			CHAR16 text[100];
+			if (floatModifier > 1.f)
+			{
+				floatModifier *= 100;
+				floatModifier -= 100;
+				swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_PAYOUT], floatModifier, L"%s", locSkillText[floatModifierSkill]);
+				agentBonusText.push_back(text);
+			}
+
+			if (intModifier > 0)
+			{
+				swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_PAYOUT_LIMIT_INCREASE], intModifier, locSkillText[intModifierSkill]);
+				agentBonusText.push_back(text);
+			}
+
+			if (extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS)
+			{
+				swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_OFFICER_PAYOUT], locSkillText[floatModifierSkill]);
+				agentBonusText.push_back(text);
+			}
+			else if (extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS)
+			{
+				swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_VEHICLE_PAYOUT], locSkillText[floatModifierSkill]);
+				agentBonusText.push_back(text);
+			}
+		}
+		break;
+
 		default: break;
 		}
 
@@ -2600,13 +2637,13 @@ void RenderMissionOverview()
 				}
 
 				UINT16 y = WEBSITE_TOP + 90;
-				for (int i = 0; i < evt1Strings.size(); ++i)
+				for (std::vector<std::wstring>::size_type i = 0; i < evt1Strings.size(); ++i)
 				{
 					DrawTextToScreen(const_cast<STR16>(evt1Strings[i].c_str()), WEBSITE_LEFT + 35, y, 0, FONT12ARIAL, FONT_DKYELLOW, FONT_MCOLOR_BLACK, FALSE, 0);
 					y += 15;
 				}
 
-				for (int i = 0; i < evt2Strings.size(); ++i)
+				for (std::vector<std::wstring>::size_type i = 0; i < evt2Strings.size(); ++i)
 				{
 					DrawTextToScreen(const_cast<STR16>(evt2Strings[i].c_str()), WEBSITE_LEFT + 35, y, 0, FONT12ARIAL, FONT_DKGREEN, FONT_MCOLOR_BLACK, FALSE, 0);
 					y += 15;
@@ -2721,6 +2758,14 @@ void StartMission(INT8 index)
 		missionTitle = RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE;
 		missionSuccessChance = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance;
 		missionDuration = gRebelCommandSettings.iTrainMilitiaAnywhereDuration;
+	}
+	break;
+
+	case RCAM_SOLDIER_BOUNTIES_KINGPIN:
+	{
+		missionTitle = RCAMT_SOLDIER_BOUNTIES_KINGPIN_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance;
+		missionDuration = gRebelCommandSettings.iSoldierBountiesKingpinDuration;
 	}
 	break;
 		
@@ -3690,11 +3735,19 @@ void DailyUpdate()
 	}
 
 	// update missions
+	if (rebelCommandSaveInfo.cachedBountyPayout > 0)
+	{
+		AddTransactionToPlayersBook(REBEL_COMMAND_BOUNTY_PAYOUT, 0, GetWorldTotalMin(), rebelCommandSaveInfo.cachedBountyPayout);
+		rebelCommandSaveInfo.cachedBountyPayout = 0;
+	}
+
 	if (GetWorldDay() % gRebelCommandSettings.iMissionRefreshTimeDays == 0)
 	{
 		std::unordered_set<RebelCommandAgentMissions> validMissions;
 		for (int i = 0; i < RCAM_NUM_MISSIONS; ++i)
 		{
+			if (i == RCAM_SOLDIER_BOUNTIES_KINGPIN && !(CheckFact(FACT_KINGPIN_INTRODUCED_SELF, 0) == TRUE && CheckFact(FACT_KINGPIN_DEAD, 0) == FALSE && CheckFact(FACT_KINGPIN_IS_ENEMY, 0) == FALSE && CurrentPlayerProgressPercentage() >= 30)) continue;
+
 			validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
 		}
 
@@ -4123,6 +4176,16 @@ void SetupInfo()
 		{gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,			gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,					gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching},
 		{0,																	0,																		MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING}
 	});
+	//RCAM_SOLDIER_BOUNTIES_KINGPIN
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,																SQUADLEADER_NT,																	SNITCH_NT,																DEMOLITIONS_NT},
+		{-1,																	-1,																				-1,																		-1},
+		{gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Covert,	0,																				0,																		gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Demolitions},
+		{gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert,		gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy,				gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch,		1.f},
+		{0,																		0,																				gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch, gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions},
+		{0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS,						0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS}
+	});
 }
 
 void UpgradeMilitiaStats()
@@ -4146,6 +4209,65 @@ void UpgradeMilitiaStats()
 			RenderWebsite();
 		}
 		});
+}
+
+void ApplySoldierBounty(const SOLDIERTYPE* pSoldier)
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	if (pSoldier->bTeam != ENEMY_TEAM)
+		return;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_SOLDIER_BOUNTIES_KINGPIN);
+
+	if (iter == missionMap.end())
+		return;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (!evt.isSecondEvent)
+		return;
+
+	UINT16 payout = 0;
+
+	if (TANK(pSoldier) && evt.extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Tank;
+	else if (COMBAT_JEEP(pSoldier) && evt.extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Jeep;
+	else if (ENEMYROBOT(pSoldier) && evt.extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Robot;
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Admin;
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Troop;
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE)
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Elite;
+	else // unknown kill, bail out!
+		return;
+
+	// payout per role
+	if (pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER && (evt.extraBits == MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS))
+		payout += gRebelCommandSettings.iSoldierBountiesKingpinPayout_Officer;
+
+
+	// apply payout limit
+	UINT32 durationBonus = 0;
+	int durationBonusSkill = 0;
+	INT16 intModifier = 0;
+	int intModifierSkill = 0;
+	FLOAT floatModifier = 0.f;
+	int floatModifierSkill = 0;
+	UINT16 extraBits = 0;
+	MissionHelpers::GetMissionInfo(RCAM_SOLDIER_BOUNTIES_KINGPIN, &gMercProfiles[evt.mercProfileId], durationBonus, floatModifier, intModifier, durationBonusSkill, floatModifierSkill, intModifierSkill, extraBits);
+
+	const INT32 payoutLimit = max(gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit, intModifier);
+	// clamp payout like this in case the player maxes out payouts in config and we have to deal with a uint overflow
+	if (payoutLimit - payout < rebelCommandSaveInfo.cachedBountyPayout)
+		payout = payoutLimit - rebelCommandSaveInfo.cachedBountyPayout;
+
+	rebelCommandSaveInfo.cachedBountyPayout += payout;
 }
 
 void ApplyEnemyMechanicalUnitPenalties(SOLDIERTYPE* pSoldier)
@@ -4484,6 +4606,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
 			case RCAM_SABOTAGE_MECHANICAL_UNITS:
 			case RCAM_TRAIN_MILITIA_ANYWHERE:
+			case RCAM_SOLDIER_BOUNTIES_KINGPIN:
 			{
 				validMission = TRUE;
 			}
@@ -4595,18 +4718,6 @@ BOOLEAN ShowEnemyMovementTargets()
 void DEBUG_DAY()
 {
 	DailyUpdate();
-}
-
-void DEBUG_PRINT()
-{
-	CHAR16 text[500];
-	swprintf(text, L"radio_loyalty[%.0f] safehouse_chance/min/bon[%d, %.0f, %.0f] ", info.adminActions[RCAA_REBEL_RADIO].fValue1, gRebelCommandSettings.iSafehouseReinforceChance, info.adminActions[RCAA_SAFEHOUSES].fValue1, info.adminActions[RCAA_SAFEHOUSES].fValue2);
-	swprintf(text, L"%s supply_dis[%.0f] deaddrops[%.0f] smugglers[%.0f]", text, info.adminActions[RCAA_SUPPLY_DISRUPTION].fValue1, info.adminActions[RCAA_DEAD_DROPS].fValue1, info.adminActions[RCAA_SMUGGLERS].fValue1);
-	swprintf(text, L"%s warehouse[%.2f/%.2f/%.2f]", text, info.adminActions[RCAA_WAREHOUSES].fValue1, info.adminActions[RCAA_WAREHOUSES].fValue2, info.adminActions[RCAA_WAREHOUSES].fValue3);
-	swprintf(text, L"%s tax_inc/loy[%.0f/%.0f]", text, info.adminActions[RCAA_TAXES].fValue1, info.adminActions[RCAA_TAXES].fValue2);
-	swprintf(text, L"%s volunteers[%.0f] support[%.0f]", text, info.adminActions[RCAA_ASSIST_CIVILIANS].fValue1, info.adminActions[RCAA_MERC_SUPPORT].fValue1);
-	swprintf(text, L"%s minebonus[%0.1f]", text, info.adminActions[RCAA_MINING_POLICY].fValue1);
-	DoMessageBox(MSG_BOX_MINIEVENT_STYLE, text, guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_BIGGER, NULL, NULL);
 }
 
 }

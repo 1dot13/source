@@ -1,6 +1,7 @@
 #ifndef REBEL_COMMAND_H
 #define REBEL_COMMAND_H
 
+#include "CampaignStats.h"
 #include "mapscreen.h"
 #include "Soldier Control.h"
 #include "Types.h"
@@ -95,6 +96,7 @@ enum RebelCommandAgentMissions
 	RCAM_SABOTAGE_INFANTRY_EQUIPMENT, // aka Sabotage Equipment
 	RCAM_SABOTAGE_MECHANICAL_UNITS, // aka Sabotage Vehicles
 	RCAM_TRAIN_MILITIA_ANYWHERE,
+	RCAM_SOLDIER_BOUNTIES_KINGPIN,
 
 	RCAM_NUM_MISSIONS,
 
@@ -182,8 +184,9 @@ typedef struct SaveInfo
 	INT8 iMilitiaStatsLevel;
 	UINT8 uSupplyDropCount; // keeping this around for compatibility with old saves
 	INT8 availableMissions[NUM_ARC_AGENT_SLOTS];
+	UINT16 cachedBountyPayout;
 
-	INT8 filler[17];
+	INT8 filler[15];
 } SaveInfo;
 
 extern SaveInfo rebelCommandSaveInfo;
@@ -213,6 +216,7 @@ void RaidMines(INT32 &playerIncome, INT32 &enemyIncome);
 BOOLEAN ShowApproximateEnemyLocations();
 
 // agent missions
+void ApplySoldierBounty(const SOLDIERTYPE* pSoldier);
 void ApplyEnemyMechanicalUnitPenalties(SOLDIERTYPE* pSoldier);
 void ApplyMilitiaTraits(SOLDIERTYPE* pSoldier);
 void ApplyVisionModifier(const SOLDIERTYPE* pSoldier, INT32& sight);

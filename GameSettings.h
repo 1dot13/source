@@ -1926,6 +1926,24 @@ typedef struct
 	UINT8 iTrainMilitiaAnywhereDuration_Bonus_Survival;
 	UINT8 iTrainMilitiaAnywhereDuration_Bonus_Teaching;
 
+	INT8 iSoldierBountiesKingpinSuccessChance;
+	UINT8 iSoldierBountiesKingpinDuration;
+	UINT8 iSoldierBountiesKingpinDuration_Bonus_Covert;
+	UINT8 iSoldierBountiesKingpinDuration_Bonus_Demolitions;
+	UINT16 iSoldierBountiesKingpinPayout_Admin;
+	UINT16 iSoldierBountiesKingpinPayout_Troop;
+	UINT16 iSoldierBountiesKingpinPayout_Elite;
+	UINT16 iSoldierBountiesKingpinPayout_Robot;
+	UINT16 iSoldierBountiesKingpinPayout_Jeep;
+	UINT16 iSoldierBountiesKingpinPayout_Tank;
+	UINT16 iSoldierBountiesKingpinPayout_Officer;
+	INT16 iSoldierBountiesKingpinPayout_Limit;
+	INT16 iSoldierBountiesKingpinPayout_Limit_Demolitions;
+	INT16 iSoldierBountiesKingpinPayout_Limit_Snitch;
+	FLOAT fSoldierBountiesKingpinPayout_Bonus_Covert;
+	FLOAT fSoldierBountiesKingpinPayout_Bonus_Deputy;
+	FLOAT fSoldierBountiesKingpinPayout_Bonus_Snitch;
+
 } REBELCOMMAND_SETTINGS;
 
 typedef struct

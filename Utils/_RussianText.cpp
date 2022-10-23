@@ -4663,6 +4663,7 @@ STR16 pTransactionText[] =
 	L"Mini event", // rftr: mini events // TODO: translate
 	L"Funds transferred from rebel command", // rftr: rebel command
 	L"Funds transferred to rebel command", // rftr: rebel command
+	L"Bounty payout", // rftr: rebel command soldier bounties
 };
 
 STR16 pTransactionAlternateText[] =
@@ -11947,6 +11948,10 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"Gear quality -%d (%s)",
 	L"Overall stats -%d (%s)",
 	L"Max trainers: %d (%s)",
+	L"Payout +%2.0f%s (%s)",
+	L"Payout limit increased to $%d (%s)",
+	L"Bonus for officers (%s)",
+	L"Bonus for vehicles (%s)",
 	L"Duration +%d hours (%s)",
 	L"Agent not in loyal town",
 	L"Agent unavailable",
@@ -12086,6 +12091,8 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"Sabotage vehicle maintenance hubs to reduce their combat effectiveness and readiness. Enemy vehicles encountered have reduced stats.",
 	L"Train Militia Anywhere",
 	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
+	L"Soldier Bounties (Kingpin)",
+	L"Get a payout for enemy kills. Negotiate with Kingpin, who feels he can use your presence here to indirectly weaken the Queen's power. Bounties are deposited into your account at midnight and are limited to $%d per day.",
 };
 
 STR16 szRobotText[] = // TODO: Translate

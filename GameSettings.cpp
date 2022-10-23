@@ -4236,10 +4236,28 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS", 1, 1, 4);
 	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS_TEACHING", 1, 1, 4);
-	gRebelCommandSettings.iTrainMilitiaAnywhereDuration = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION", 72, 0, 255);;
-	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_COVERT", 72, 0, 255);;
-	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_SURVIVAL", 72, 0, 255);;
-	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_TEACHING", 72, 0, 255);;
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_SURVIVAL", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_TEACHING", 72, 0, 255);
+
+	gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_COVERT", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_DEMOLITIONS", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Admin = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ADMIN", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Troop = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TROOP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Elite = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ELITE", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Robot = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ROBOT", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Jeep = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_JEEP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Tank = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TANK", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Officer = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_OFFICER", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_DEMOLITIONS", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_SNITCH", 10000, 0, 30000);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_COVERT", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_DEPUTY", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_SNITCH", 1.1f, 0.f, 2.f);
 }
 
 void FreeGameExternalOptions()
