@@ -327,6 +327,9 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_MISSION_START_BUTTON,
 	RCT_MISSION_VIEW_ACTIVE,
 	RCT_MISSION_VIEW_LIST,
+	RCT_MISSION_HELP_1,
+	RCT_MISSION_HELP_2,
+	RCT_MISSION_HELP_3,
 	RCT_MISSION_NEXT_AVAILABILITY,
 	RCT_MISSION_ACTIVE_MISSIONS,
 	RCT_MISSION_LIST_PREPARING,
@@ -394,6 +397,7 @@ enum MissionOverviewSubview
 {
 	MOS_MISSION_LIST,
 	MOS_ACTIVE_MISSION_EFFECTS,
+	MOS_HELP,
 };
 
 struct MissionFirstEvent
@@ -2536,6 +2540,17 @@ void RenderMissionOverview()
 	// title
 	RenderHeader(RCT_AGENT_OVERVIEW);
 
+	// display help button
+	btnId = CreateTextButton(L"?", FONT12ARIAL, FONT_MCOLOR_WHITE, FONT_BLACK, BUTTON_USE_DEFAULT, WEBSITE_LEFT + 15, WEBSITE_TOP + 40, 30, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+		{
+			ButtonHelper(btn, reason, []()
+			{
+				missionOverviewSubview = missionOverviewSubview == MOS_HELP ? MOS_MISSION_LIST : MOS_HELP;
+			});
+		});
+
+	btnIds.push_back(btnId);
+
 	// toggle between mission picker and active mission effects
 	switch (missionOverviewSubview)
 	{
@@ -2544,10 +2559,11 @@ void RenderMissionOverview()
 		break;
 
 	case MOS_ACTIVE_MISSION_EFFECTS:
+	case MOS_HELP:
 		swprintf(sText, szRebelCommandText[RCT_MISSION_VIEW_LIST]);
 		break;
 	}
-	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, WEBSITE_LEFT + 15, WEBSITE_TOP + 40, 470, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
+	btnId = CreateTextButton(sText, FONT10ARIAL, FONT_MCOLOR_LTYELLOW, FONT_BLACK, BUTTON_USE_DEFAULT, WEBSITE_LEFT + 50, WEBSITE_TOP + 40, 435, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, [](GUI_BUTTON* btn, INT32 reason)
 		{
 			ButtonHelper(btn, reason, []()
 			{
@@ -2558,6 +2574,7 @@ void RenderMissionOverview()
 					break;
 
 				case MOS_ACTIVE_MISSION_EFFECTS:
+				case MOS_HELP:
 					missionOverviewSubview = MOS_MISSION_LIST;
 					break;
 				}
@@ -2645,6 +2662,17 @@ void RenderMissionOverview()
 			}
 		}
 		break;
+
+	case MOS_HELP:
+	{
+		UINT16 y = WEBSITE_TOP + 100;
+		y += DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, szRebelCommandText[RCT_MISSION_HELP_1], FONT_MCOLOR_BLACK, FALSE, 0);
+		y += 20;
+		y += DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, szRebelCommandText[RCT_MISSION_HELP_2], FONT_MCOLOR_BLACK, FALSE, 0);
+		y += 20;
+		DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, szRebelCommandText[RCT_MISSION_HELP_3], FONT_MCOLOR_BLACK, FALSE, 0);
+	}
+	break;
 	}
 	
 	// "new missions every X hours" text
@@ -3891,6 +3919,12 @@ void Init()
 			rebelCommandSaveInfo.regions[a].actionLevels[b] = 0;
 		}
 	}
+
+	// init missions
+	for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+	{
+		rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
+	}
 }
 
 BOOLEAN Load(HWFILE file)
@@ -3906,6 +3940,16 @@ BOOLEAN Load(HWFILE file)
 	else
 	{
 		Init();
+	}
+
+	// missions update check
+	if (rebelCommandSaveInfo.availableMissions[0] == rebelCommandSaveInfo.availableMissions[1] && rebelCommandSaveInfo.availableMissions[0] != RCAM_NONE)
+	{
+		// init missions
+		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
+		{
+			rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
+		}
 	}
 
 	// go through every strategic event to find active agent missions
@@ -4091,8 +4135,8 @@ void SetupInfo()
 	//		{ new skill traits to check },
 	//		{ old skill traits to check. use -1 to not match against anything },
 	//		{ duration bonus for checked trait },
-	//		{ float modifier for checked trait. either this line or the next is zeroed out. },
-	//		{ int modifier for checked trait. either this line or the previous is zeroed out. },
+	//		{ float modifier for checked trait },
+	//		{ int modifier for checked trait },
 	//		{ value to place in extra bits, used to determine what bonus is applied. }
 	// }
 	//RCAM_DEEP_DEPLOYMENT
