@@ -1161,16 +1161,6 @@ void UpdateAdminActionChangeList(INT16 regionId)
 
 BOOLEAN EnterWebsite()
 {
-	// debugging. todo: randomise missions in DailyUpdate and save them in rebelcommandsaveinfo
-	for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
-	{
-		//missionIndex[i] = Random(RCAM_NUM_MISSIONS-1) + 1;
-		rebelCommandSaveInfo.availableMissions[i] = Random(RCAM_NUM_MISSIONS);
-		agentIndex[i] = -1;
-	}
-	//missionIndex[0] = RCAM_TRAIN_MILITIA_ANYWHERE;
-	//missionIndex[1] = RCAM_IMPROVE_LOCAL_SHOPS;
-
 	UpdateAdminActionChangeList(iCurrentRegionId);
 
 	// make sure we have a valid directive
@@ -3607,10 +3597,6 @@ void DailyUpdate()
 	// increment supplies
 	iIncomingSuppliesPerDay = CalcIncomingSuppliesPerDay(static_cast<RebelCommandDirectives>(directive));
 	rebelCommandSaveInfo.iSupplies += iIncomingSuppliesPerDay;
-
-	// rftr todo: check bitmask
-	//if (purchasing supplies through agent mission)
-		// what gets subtracted? current balance? daily income? how do we pick?
 
 	// get regional bonuses
 	INT16 intelGain = 0;

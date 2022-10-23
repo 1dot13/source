@@ -100,8 +100,7 @@ enum RebelCommandAgentMissions
 
 	RCAM_NUM_MISSIONS,
 
-	// ideas/unimplemented - rename some?
-	// need to have permanent and temporary boons
+	// ideas/unimplemented
 	RCAM_SEND_SUPPLIES_TO_TOWN,
 	RCAM_BOOST_TOWN_ADMIN_ACTIONS,
 	RCAM_PROCURE_ITEMS,
