@@ -89,6 +89,7 @@ enum RebelCommandAgentMissions
 {
 	RCAM_NONE = -1,
 	RCAM_DEEP_DEPLOYMENT = 0,
+	RCAM_DISRUPT_ASD, // only available if ASD enabled
 	RCAM_GET_ENEMY_MOVEMENT_TARGETS, // aka Strategic Intel
 	RCAM_IMPROVE_LOCAL_SHOPS,
 	RCAM_REDUCE_STRATEGIC_DECISION_SPEED, // aka Slower Strategic Decisions
@@ -101,13 +102,12 @@ enum RebelCommandAgentMissions
 	RCAM_NUM_MISSIONS,
 
 	// ideas/unimplemented
-	RCAM_SEND_SUPPLIES_TO_TOWN,
-	RCAM_BOOST_TOWN_ADMIN_ACTIONS,
+	RCAM_SEND_SUPPLIES_TO_TOWN, // store agent location townid in extrabits
+	RCAM_BOOST_TOWN_ADMIN_ACTIONS, // store agent location townid in extrabits
 	RCAM_PROCURE_ITEMS,
 	RCAM_MILITIA_SKILL_TRAITS, // should override militia skill traits ini option - split into multiple (weapon spec, bodybuilding, athletic, night ops)
 	RCAM_OBSERVE_SECTORS, // ??? competes with scouts?
 	RCAM_PURCHASE_SUPPLIES, // increase daily supply income, decrease daily $ income
-	RCAM_SABOTAGE_ASD, // see ASD.cpp for things that can be played with
 	RCAM_SABOTAGE_MINE,
 	RCAM_REDUCE_ENEMY_POOL, // need to make sure enemy pool is not infinite // giReinforcementPool, also gfUnlimitedTroops		= zDiffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops; 
 	// militia/mercs get bonus vision (???)
@@ -223,6 +223,7 @@ BOOLEAN CanAssignTraitsToMilitia();
 BOOLEAN CanTrainMilitiaAnywhere();
 UINT8 GetMaxTrainersForTrainMilitiaAnywhere();
 INT16 GetAdditionalDeployRange(const UINT8 insertionCode);
+FLOAT GetASDIncomeModifier();
 INT8 GetEnemyEquipmentCoolnessModifier();
 INT8 GetEnemyEquipmentStatusModifier(const INT8 initialStatus);
 UINT8 GetMerchantCoolnessBonus();

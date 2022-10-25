@@ -1865,6 +1865,18 @@ typedef struct
 	UINT8 iDeepDeploymentDuration_Bonus_Stealthy;
 	UINT8 iDeepDeploymentDuration_Bonus_Survival;
 
+	INT8 iDisruptAsdSuccessChance;
+	FLOAT fDisruptAsdIncomeReductionModifier;
+	FLOAT fDisruptAsdIncomeReductionModifier_Covert;
+	FLOAT fDisruptAsdIncomeReductionModifier_Demolitions;
+	FLOAT fDisruptAsdIncomeReductionModifier_Nightops;
+	FLOAT fDisruptAsdIncomeReductionModifier_Technician;
+	UINT8 iDisruptAsdDuration;
+	UINT8 iDisruptAsdDuration_Bonus_Covert;
+	UINT8 iDisruptAsdDuration_Bonus_Demolitions;
+	UINT8 iDisruptAsdDuration_Bonus_Nightops;
+	UINT8 iDisruptAsdDuration_Bonus_Technician;
+
 	INT8 iGetEnemyMovementTargetsSuccessChance;
 	UINT8 iGetEnemyMovementTargetsDuration;
 	UINT8 iGetEnemyMovementTargetsDuration_Bonus_Covert;

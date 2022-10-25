@@ -56,6 +56,8 @@ void SetASDFlag( UINT32 aFlag );
 UINT32 ASDResourceDeliveryTime( UINT8 aType );
 UINT32 ASDResourceCostMoney( UINT8 aType );
 
+INT32 GetStrategicAIResourceCount( UINT8 aType );
+
 // add resources to the AIs resource pool
 void AddStrategicAIResources( UINT8 aType, INT32 aAmount );
 

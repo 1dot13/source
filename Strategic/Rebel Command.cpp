@@ -63,6 +63,7 @@ Points of interest:
 #else
 #include "Rebel Command.h"
 
+#include "ASD.h"
 #include "Button System.h"
 #include "Campaign.h"
 #include "Campaign Types.h"
@@ -95,6 +96,8 @@ Points of interest:
 #include "Strategic Mines.h"
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
+#include "Structure Wrap.h"
+#include "Tactical Save.h"
 #include "Text.h"
 #include "Town Militia.h"
 #include "Utilities.h"
@@ -125,12 +128,36 @@ extern GROUP *gpGroupList;
 namespace RebelCommand
 {
 
+namespace ItemIdCache
+{
+	// cache these values on load so that we don't need to search for them every time something happens
+	std::vector<UINT16> gasCans;
+	std::vector<UINT16> firstAidKits;
+	std::vector<UINT16> medKits;
+	std::vector<UINT16> toolKits;
+	std::vector<UINT16> ammo[10]; // coolness
+
+	void Clear()
+	{
+		gasCans.clear();
+		firstAidKits.clear();
+		medKits.clear();
+		toolKits.clear();
+		for (int i = 0; i < 10; ++i)
+		{
+			ammo[i].clear();
+		}
+	}
+}
+
 namespace MissionHelpers
 {
 constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_COVERT		= 1;
 constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING	= 2;
 constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY	= 3;
 constexpr UINT16 DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL	= 4;
+constexpr UINT16 DISRUPT_ASD_STEAL_FUEL = 1;
+constexpr UINT16 DISRUPT_ASD_DESTROY_RESERVES = 2;
 constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_COVERT	= 1;
 constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_DEPUTY	= 2;
 constexpr UINT16 REDUCE_STRATEGIC_DECISION_SPEED_MODIFIER_SNITCH	= 3;
@@ -310,6 +337,9 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_MISSION_AGENT_BONUS,
 	RCT_MISSION_BONUS_SUCCESS_CHANCE,
 	RCT_MISSION_BONUS_DEPLOY_RANGE,
+	RCT_MISSION_BONUS_ASD_INCOME_REDUCTION,
+	RCT_MISSION_BONUS_STEAL_FUEL,
+	RCT_MISSION_BONUS_DESTROY_RESERVES,
 	RCT_MISSION_BONUS_DECISION_TIME,
 	RCT_MISSION_BONUS_UNALERTED_VISION_PENALTY,
 	RCT_MISSION_BONUS_INFANTRY_GEAR_QUALITY,
@@ -377,6 +407,7 @@ enum RebelCommandDirectivesText // keep this synced with szRebelCommandDirective
 enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentMissionsText in the text files
 {
 	MISSION_TEXT(DEEP_DEPLOYMENT)
+	MISSION_TEXT(DISRUPT_ASD)
 	MISSION_TEXT(GET_ENEMY_MOVEMENT_TARGETS)
 	MISSION_TEXT(IMPROVE_LOCAL_SHOPS)
 	MISSION_TEXT(REDUCE_STRATEGIC_DECISION_SPEED)
@@ -507,8 +538,10 @@ void PrepareMission(INT8 index);
 void ToggleWebsiteView();
 void UpdateAdminActionChangeList(INT16 regionId);
 
+void ApplyAdditionalASDEffects();
 constexpr BOOLEAN CanAdminActionBeToggled(RebelCommandAdminActions action) { return action != RebelCommandAdminActions::RCAA_SUPPLY_LINE; }
 BOOLEAN CanAdminActionBeUsed(INT32 regionIndex, INT32 actionIndex);
+void CreateItemAtAirport(UINT16 itemId, INT16 status);
 INT32 GetAdminActionCostForRegion(INT16 regionId);
 INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminAction);
 UINT8 GetRegionLoyalty(INT16 regionId);
@@ -538,7 +571,6 @@ INT16 iCurrentRegionId = 1;
 INT32 iIncomingSuppliesPerDay = 0;
 SaveInfo rebelCommandSaveInfo;
 WebsiteState websiteState;
-//INT8 missionIndex[NUM_ARC_AGENT_SLOTS];
 INT8 agentIndex[NUM_ARC_AGENT_SLOTS];
 std::unordered_map<RebelCommandAgentMissions, UINT32> missionMap;
 MissionOverviewSubview missionOverviewSubview = MOS_MISSION_LIST;
@@ -686,6 +718,29 @@ BOOLEAN CanAdminActionBeUsed(INT32 regionIndex, INT32 actionIndex)
 	if (CanAdminActionBeToggled(rebelCommandSaveInfo.regions[regionIndex].actions[actionIndex]) && !rebelCommandSaveInfo.regions[regionIndex].IsActive(actionIndex)) return FALSE;
 
 	return TRUE;
+}
+
+void CreateItemAtAirport(UINT16 itemId, INT16 status)
+{
+	// create an item - use bobby ray's delivery coordinates/gridno
+	OBJECTTYPE obj;
+	const BOOLEAN success = CreateItem(itemId, status, &obj);
+	if (!success)
+	{
+		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, L"Warning - CreateItemAtAirport() failed for itemid %d", itemId);
+		return;
+	}
+	const BOOLEAN airportSectorLoaded = gWorldSectorX == BOBBYR_SHIPPING_DEST_SECTOR_X && gWorldSectorY == BOBBYR_SHIPPING_DEST_SECTOR_Y && gbWorldSectorZ == BOBBYR_SHIPPING_DEST_SECTOR_Z;
+
+	if (airportSectorLoaded)
+	{
+		SetOpenableStructureToClosed( BOBBYR_SHIPPING_DEST_GRIDNO, 0 );
+		AddItemToPool( BOBBYR_SHIPPING_DEST_GRIDNO, &obj, -1, 0, 0, 0 );
+	}
+	else
+	{
+		AddItemsToUnLoadedSector(BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, BOBBYR_SHIPPING_DEST_GRIDNO, 1, &obj, 0, 0, 0, -1, FALSE);
+	}
 }
 
 INT32 GetAdminActionCostForRegion(INT16 regionId)
@@ -1165,6 +1220,8 @@ void UpdateAdminActionChangeList(INT16 regionId)
 
 BOOLEAN EnterWebsite()
 {
+	// rftr todo: temp debugging
+	rebelCommandSaveInfo.availableMissions[0] = RCAM_DISRUPT_ASD;
 	UpdateAdminActionChangeList(iCurrentRegionId);
 
 	// make sure we have a valid directive
@@ -2165,6 +2222,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
 	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_TITLE]); break;
+	case RCAM_DISRUPT_ASD:						swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DISRUPT_ASD_TITLE]); break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_TITLE]); break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_TITLE]); break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_TITLE]); break;
@@ -2183,6 +2241,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
 	case RCAM_DEEP_DEPLOYMENT:					missionDurationBase = gRebelCommandSettings.iDeepDeploymentDuration; break;
+	case RCAM_DISRUPT_ASD:						missionDurationBase = gRebelCommandSettings.iDisruptAsdDuration; break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionDurationBase = gRebelCommandSettings.iGetEnemyMovementTargetsDuration; break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				missionDurationBase = gRebelCommandSettings.iImproveLocalShopsDuration; break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionDurationBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration; break;
@@ -2204,6 +2263,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
 	case RCAM_DEEP_DEPLOYMENT:					missionSuccessChanceBase = gRebelCommandSettings.iDeepDeploymentSuccessChance; break;
+	case RCAM_DISRUPT_ASD:						missionSuccessChanceBase = gRebelCommandSettings.iDisruptAsdSuccessChance; break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionSuccessChanceBase = gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance; break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				missionSuccessChanceBase = gRebelCommandSettings.iImproveLocalShopsSuccessChance; break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionSuccessChanceBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance; break;
@@ -2222,6 +2282,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	switch (rebelCommandSaveInfo.availableMissions[index])
 	{
 	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_DESC]); break;
+	case RCAM_DISRUPT_ASD:						swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DISRUPT_ASD_DESC]); break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_DESC]); break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_DESC]); break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_DESC]); break;
@@ -2360,6 +2421,36 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			agentBonusText.push_back(rangeText);
 		}
 		break;
+
+		case RCAM_DISRUPT_ASD:
+		{
+			CHAR16 text[100];
+			floatModifier = max(floatModifier, gRebelCommandSettings.fDisruptAsdIncomeReductionModifier);
+			floatModifier *= 100.f;
+			swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_ASD_INCOME_REDUCTION], floatModifier, L"%s", locSkillText[floatModifierSkill]);
+			agentBonusText.push_back(text);
+
+			if (gGameOptions.fNewTraitSystem)
+			{
+				switch (extraBits)
+				{
+				case MissionHelpers::DISRUPT_ASD_STEAL_FUEL:
+				{
+					const UINT8 townId = GetTownIdForSector(BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y);
+					swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_STEAL_FUEL], pTownNames[townId], locSkillText[TECHNICIAN_NT]);
+					agentBonusText.push_back(text);
+				}
+				break;
+
+				case MissionHelpers::DISRUPT_ASD_DESTROY_RESERVES:
+				{
+					swprintf(text, szRebelCommandText[RCT_MISSION_BONUS_DESTROY_RESERVES], locSkillText[DEMOLITIONS_NT]);
+					agentBonusText.push_back(text);
+				}
+				break;
+				}
+			}
+		}
 
 		case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
 		{
@@ -2724,6 +2815,14 @@ void PrepareMission(INT8 index)
 		missionTitle = RCAMT_DEEP_DEPLOYMENT_TITLE;
 		missionSuccessChance = gRebelCommandSettings.iDeepDeploymentSuccessChance;
 		missionDuration = gRebelCommandSettings.iDeepDeploymentDuration;
+	}
+	break;
+
+	case RCAM_DISRUPT_ASD:
+	{
+		missionTitle = RCAMT_DISRUPT_ASD_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iDisruptAsdSuccessChance;
+		missionDuration = gRebelCommandSettings.iDisruptAsdDuration;
 	}
 	break;
 
@@ -3759,12 +3858,16 @@ void DailyUpdate()
 		rebelCommandSaveInfo.cachedBountyPayout = 0;
 	}
 
+	// RCAM_DISRUPT_ASD
+	ApplyAdditionalASDEffects();
+
 	if (GetWorldDay() % gRebelCommandSettings.iMissionRefreshTimeDays == 0)
 	{
 		std::unordered_set<RebelCommandAgentMissions> validMissions;
 		for (int i = 0; i < RCAM_NUM_MISSIONS; ++i)
 		{
 			if (i == RCAM_SOLDIER_BOUNTIES_KINGPIN && !(CheckFact(FACT_KINGPIN_INTRODUCED_SELF, 0) == TRUE && CheckFact(FACT_KINGPIN_DEAD, 0) == FALSE && CheckFact(FACT_KINGPIN_IS_ENEMY, 0) == FALSE && CurrentPlayerProgressPercentage() >= 30)) continue;
+			else if (i == RCAM_DISRUPT_ASD && gGameExternalOptions.fASDActive == FALSE) continue;
 
 			validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
 		}
@@ -4129,6 +4232,7 @@ void SetupInfo()
 	aa.fValue3 = 0.f;
 	info.adminActions.insert(info.adminActions.begin() + RCAA_FORTIFICATIONS, aa);
 
+	// rftr todo: this should really be a map... but as long as we insert mission info in the same order as the enum then we're good
 	MissionHelpers::missionInfo.clear();
 	// example format
 	// {
@@ -4148,6 +4252,16 @@ void SetupInfo()
 		{0.f, 0.f, 0.f, 0.f},
 		{gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Covert,		gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Scouting,	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Stealthy,	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Survival},
 		{MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_COVERT,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SCOUTING,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_STEALTHY,			MissionHelpers::DEEP_DEPLOYMENT_RANGE_BONUS_SURVIVAL}
+	});
+	//RCAM_DISRUPT_ASD
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT,															TECHNICIAN_NT,															DEMOLITIONS_NT,															NIGHT_OPS_NT},
+		{-1,																-1,																		-1,																		NIGHTOPS_OT},
+		{gRebelCommandSettings.iDisruptAsdDuration_Bonus_Covert,			gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician,				gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions,			gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops},
+		{gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Covert,	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Technician,	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Technician,	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Nightops},
+		{0, 0, 0, 0},
+		{0,																	MissionHelpers::DISRUPT_ASD_STEAL_FUEL,									MissionHelpers::DISRUPT_ASD_DESTROY_RESERVES,							0}
 	});
 	//RCAM_GET_ENEMY_MOVEMENT_TARGETS
 	MissionHelpers::missionInfo.push_back(
@@ -4207,7 +4321,7 @@ void SetupInfo()
 		{-1,																	-1,																				-1,																		-1},
 		{gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Covert,	0,																				0,																		gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Demolitions},
 		{gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert,		gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy,				gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch,		1.f},
-		{0,																		0,																				gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch, gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions},
+		{0,																		0,																				gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch,		gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions},
 		{0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_OFFICER_PAYOUTS,						0,																		MissionHelpers::SOLDIER_BOUNTIES_KINGPIN_VEHICLE_PAYOUTS}
 	});
 	//RCAM_TRAIN_MILITIA_ANYWHERE
@@ -4220,6 +4334,30 @@ void SetupInfo()
 		{gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,			gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers,					gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching},
 		{0,																	0,																		MissionHelpers::TRAIN_MILITIA_ANYWHERE_TEACHING}
 	});
+
+	// cache item IDs
+	ItemIdCache::Clear();
+	// (Item[i].usItemClass & IC_AMMO) && (Magazine[ Item[i].ubClassIndex ].ubMagType == AMMO_BOX or AMMO_CRATE?)
+	for (UINT16 i = 0; i < MAXITEMS; ++i)
+	{
+		if (Item[i].gascan) ItemIdCache::gasCans.push_back(i);
+		else if (Item[i].firstaidkit) ItemIdCache::firstAidKits.push_back(i);
+		else if (Item[i].medicalkit) ItemIdCache::medKits.push_back(i);
+		else if (Item[i].toolkit) ItemIdCache::toolKits.push_back(i);
+		else if (Item[i].usItemClass & IC_AMMO)
+		{
+			if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
+			{
+				if ((gGameOptions.fGunNut || !Item[i].biggunlist)
+				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
+				{
+					// coolness runs from 1-10, so apply offset
+					ItemIdCache::ammo[Item[i].ubCoolness-1].push_back(i);
+				}
+			}
+		}
+		
+	}
 }
 
 void UpgradeMilitiaStats()
@@ -4490,6 +4628,82 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 	return 0;
 }
 
+FLOAT GetASDIncomeModifier()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return 1.f;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_DISRUPT_ASD);
+
+	if (iter == missionMap.end())
+		return 1.f;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
+	{
+		const MERCPROFILESTRUCT* merc = &gMercProfiles[evt.mercProfileId];
+		UINT32 durationBonus;
+		FLOAT floatModifier;
+		INT16 intModifier;
+		int durSkill;
+		int floatSkill;
+		int intSkill;
+		UINT16 extraBits;
+		MissionHelpers::GetMissionInfo(RCAM_DISRUPT_ASD, merc, durationBonus, floatModifier, intModifier, durSkill, floatSkill, intSkill, extraBits);
+
+		return 1.f - floatModifier;
+	}
+
+	return 1.f;
+}
+
+void ApplyAdditionalASDEffects()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_DISRUPT_ASD);
+
+	if (iter == missionMap.end())
+		return;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
+	{
+		switch (evt.extraBits)
+		{
+		case MissionHelpers::DISRUPT_ASD_STEAL_FUEL:
+		{
+			// spawn a gas can
+			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size()), 75 + Random(26));
+
+			// say it came from the ASD's reserves
+			AddStrategicAIResources(ASD_FUEL, gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep));
+		}
+		break;
+
+		case MissionHelpers::DISRUPT_ASD_DESTROY_RESERVES:
+		{
+			// priority: tank > jeep > robots
+			if (GetStrategicAIResourceCount(ASD_TANK) > 0)
+				AddStrategicAIResources(ASD_TANK, 1 + Random(2));
+			else if (GetStrategicAIResourceCount(ASD_JEEP) > 0)
+				AddStrategicAIResources(ASD_JEEP, 1 + Random(2));
+			else if (GetStrategicAIResourceCount(ASD_ROBOT) > 0)
+				AddStrategicAIResources(ASD_ROBOT, 2 + Random(3));
+
+			// let's also try to destroy a good amount of fuel
+			AddStrategicAIResources(ASD_FUEL, gGameExternalOptions.gASDResource_Fuel_Tank + Random(gGameExternalOptions.gASDResource_Fuel_Tank));
+		}
+		break;
+		}
+	}
+}
+
 INT8 GetEnemyEquipmentCoolnessModifier()
 {
 	if (!gGameExternalOptions.fRebelCommandEnabled)
@@ -4633,6 +4847,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			switch (mission)
 			{
 			case RCAM_DEEP_DEPLOYMENT:
+			case RCAM_DISRUPT_ASD:
 			case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
 			case RCAM_IMPROVE_LOCAL_SHOPS:
 			case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:

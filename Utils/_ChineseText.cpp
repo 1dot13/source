@@ -11948,6 +11948,9 @@ STR16 szRebelCommandText[] =
 	L"Agent bonus:",
 	L"Chance of success +%d%s (%s)",
 	L"Deployment range +%d (%s)",
+	L"ASD Income -%2.0f%s (%s)",
+	L"Steal fuel; send to %s (%s)",
+	L"Destroy reserve units (%s)",
 	L"Time +%2.0f%s (%s)",
 	L"Vision -%2.0f%s (%s)",
 	L"Gear quality -%d (%s)",
@@ -12085,6 +12088,8 @@ STR16 szRebelCommandAgentMissionsText[] =
 {
 	L"Deep Deployment",
 	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
+	L"Disrupt ASD",
+	L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
 	L"Strategic Intel",
 	L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
 	L"Improve Local Shops",

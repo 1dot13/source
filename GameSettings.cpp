@@ -4180,6 +4180,18 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_STEALTHY" , 36, 0, 255);
 	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_SURVIVAL" , 36, 0, 255);
 
+	gRebelCommandSettings.iDisruptAsdSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_COVERT", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Demolitions = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_DEMOLITIONS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Nightops = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_NIGHTOPS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Technician = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_TECHNICIAN", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.iDisruptAsdDuration = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_COVERT", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_DEMOLITIONS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
+
 	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_COVERT", 48, 0, 255);
