@@ -11961,7 +11961,7 @@ STR16 szRebelCommandText[] =
 	L"Bonus for officers (%s)",
 	L"Bonus for vehicles (%s)",
 	L"Duration +%d hours (%s)",
-	L"Agent not in loyal town",
+	L"Town loyalty too low",
 	L"Agent unavailable",
 	L"Agent contract expiring",
 	L"Battle in progress",

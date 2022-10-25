@@ -4245,6 +4245,11 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_DEMOLITIONS", 72, 0, 255);
 	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_HEAVY_WEAPONS", 72, 0, 255);
 
+	gRebelCommandSettings.iSendSuppliesToTownSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSendSuppliesToTownDuration = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSendSuppliesToTownLoyaltyGain = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_LOYALTY_GAIN", 500, 1, 10000);
+	gRebelCommandSettings.iSendSuppliesToTownInterval = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_INTERVAL", 6, 1, 24);
+
 	gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS", 1, 1, 4);
 	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS_TEACHING", 1, 1, 4);

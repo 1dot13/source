@@ -1930,6 +1930,11 @@ typedef struct
 	UINT8 iSabotageMechanicalUnitsDuration_Bonus_Demolitions;
 	UINT8 iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons;
 
+	INT8 iSendSuppliesToTownSuccessChance;
+	UINT8 iSendSuppliesToTownDuration;
+	INT32 iSendSuppliesToTownLoyaltyGain;
+	INT8 iSendSuppliesToTownInterval;
+
 	INT8 iTrainMilitiaAnywhereSuccessChance;
 	INT8 iTrainMilitiaAnywhereMaxTrainers;
 	INT8 iTrainMilitiaAnywhereMaxTrainers_Teaching;

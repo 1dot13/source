@@ -353,6 +353,7 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_MISSION_CANT_START_LOW_LOYALTY,
 	RCT_MISSION_CANT_START_AGENT_UNAVAILABLE,
 	RCT_MISSION_CANT_START_CONTRACT_EXPIRING,
+	RCT_MISSION_CANT_USE_REBEL_AGENT,
 	RCT_MISSION_CANT_START_BATTLE_IN_PROGRESS,
 	RCT_MISSION_START_BUTTON,
 	RCT_MISSION_VIEW_ACTIVE,
@@ -414,6 +415,7 @@ enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentM
 	MISSION_TEXT(REDUCE_UNALERTED_ENEMY_VISION)
 	MISSION_TEXT(SABOTAGE_INFANTRY_EQUIPMENT)
 	MISSION_TEXT(SABOTAGE_MECHANICAL_UNITS)
+	MISSION_TEXT(SEND_SUPPLIES_TO_TOWN)
 	MISSION_TEXT(SOLDIER_BOUNTIES_KINGPIN)
 	MISSION_TEXT(TRAIN_MILITIA_ANYWHERE)
 };
@@ -546,6 +548,8 @@ INT32 GetAdminActionCostForRegion(INT16 regionId);
 INT16 GetAdminActionInRegion(INT16 regionId, RebelCommandAdminActions adminAction);
 UINT8 GetRegionLoyalty(INT16 regionId);
 void HandleScouting();
+void SendSuppliesToTownMission();
+INT16 SendSuppliesToTownDurationBonus(const MERCPROFILESTRUCT* merc);
 void SetupInfo();
 void UpgradeMilitiaStats();
 
@@ -1221,7 +1225,7 @@ void UpdateAdminActionChangeList(INT16 regionId)
 BOOLEAN EnterWebsite()
 {
 	// rftr todo: temp debugging
-	rebelCommandSaveInfo.availableMissions[0] = RCAM_DISRUPT_ASD;
+	rebelCommandSaveInfo.availableMissions[0] = RCAM_SEND_SUPPLIES_TO_TOWN;
 	UpdateAdminActionChangeList(iCurrentRegionId);
 
 	// make sure we have a valid directive
@@ -2229,6 +2233,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_TITLE]); break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_TITLE]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE]); break;
+	case RCAM_SEND_SUPPLIES_TO_TOWN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SEND_SUPPLIES_TO_TOWN_TITLE]); break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_TITLE]); break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_TITLE]); break;
 
@@ -2248,6 +2253,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionDurationBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration; break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionDurationBase = gRebelCommandSettings.iSabotageInfantryEquipmentDuration; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionDurationBase = gRebelCommandSettings.iSabotageMechanicalUnitsDuration; break;
+	case RCAM_SEND_SUPPLIES_TO_TOWN:			missionDurationBase = gRebelCommandSettings.iSendSuppliesToTownDuration; break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionDurationBase = gRebelCommandSettings.iSoldierBountiesKingpinDuration; break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionDurationBase = gRebelCommandSettings.iTrainMilitiaAnywhereDuration; break;
 
@@ -2270,6 +2276,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	missionSuccessChanceBase = gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance; break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance; break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		missionSuccessChanceBase = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance; break;
+	case RCAM_SEND_SUPPLIES_TO_TOWN:			missionSuccessChanceBase = gRebelCommandSettings.iSendSuppliesToTownSuccessChance; break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			missionSuccessChanceBase = gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance; break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			missionSuccessChanceBase = gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance; break;
 		
@@ -2289,6 +2296,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	case RCAM_REDUCE_UNALERTED_ENEMY_VISION:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_UNALERTED_ENEMY_VISION_DESC]); break;
 	case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_INFANTRY_EQUIPMENT_DESC]); break;
 	case RCAM_SABOTAGE_MECHANICAL_UNITS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SABOTAGE_MECHANICAL_UNITS_DESC]); break;
+	case RCAM_SEND_SUPPLIES_TO_TOWN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SEND_SUPPLIES_TO_TOWN_DESC]); break;
 	case RCAM_SOLDIER_BOUNTIES_KINGPIN:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_SOLDIER_BOUNTIES_KINGPIN_DESC], gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit); break;
 	case RCAM_TRAIN_MILITIA_ANYWHERE:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_TRAIN_MILITIA_ANYWHERE_DESC]); break;
 
@@ -2503,6 +2511,15 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		}
 		break;
 
+		case RCAM_SEND_SUPPLIES_TO_TOWN:
+		{
+			// duration here is affected by lvl instead of a specific skill
+			CHAR16 durationText[100];
+			swprintf(durationText, szRebelCommandText[RCT_MISSION_BONUS_DURATION], SendSuppliesToTownDurationBonus(&merc), pShortAttributeStrings[5]); // "Lvl"
+			agentBonusText.push_back(durationText);
+		}
+		break;
+
 		case RCAM_SOLDIER_BOUNTIES_KINGPIN:
 		{
 			floatModifier = max(floatModifier, 1.f);
@@ -2578,7 +2595,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		const INT32 worldMin = GetWorldTotalMin();
 		const INT32 remaining = endTime - worldMin;
 
-		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission)
+		if ((townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission) && rebelCommandSaveInfo.availableMissions[index] != RCAM_SEND_SUPPLIES_TO_TOWN)
 		{
 			canStartMission = FALSE;
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_LOW_LOYALTY]);
@@ -2592,6 +2609,11 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		{
 			canStartMission = FALSE;
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_CONTRACT_EXPIRING]);
+		}
+		else if (agentIndex[index] == mercs.size() && rebelCommandSaveInfo.availableMissions[index] == RCAM_SEND_SUPPLIES_TO_TOWN)
+		{
+			canStartMission = FALSE;
+			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_USE_REBEL_AGENT]);
 		}
 
 		if (!canStartMission)
@@ -2871,6 +2893,15 @@ void PrepareMission(INT8 index)
 		missionTitle = RCAMT_SABOTAGE_MECHANICAL_UNITS_TITLE;
 		missionSuccessChance = gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance;
 		missionDuration = gRebelCommandSettings.iSabotageMechanicalUnitsDuration;
+	}
+	break;
+
+	case RCAM_SEND_SUPPLIES_TO_TOWN:
+	{
+		missionTitle = RCAMT_SEND_SUPPLIES_TO_TOWN_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iSendSuppliesToTownSuccessChance;
+		missionDuration = gRebelCommandSettings.iSendSuppliesToTownDuration + SendSuppliesToTownDurationBonus(merc);
+		extraBits = SECTOR(merc->sSectorX, merc->sSectorY);
 	}
 	break;
 
@@ -3909,6 +3940,9 @@ void HourlyUpdate()
 {
 	HandleScouting();
 
+	// RCAM_SEND_SUPPLIES_TO_TOWN
+	SendSuppliesToTownMission();
+
 	// it's midnight! do the daily update
 	if (GetWorldHour() == 0)
 	{
@@ -4314,6 +4348,8 @@ void SetupInfo()
 		{gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions,			gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons},
 		{MissionHelpers::SABOTAGE_MECHANICAL_UNITS_COVERT,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_DEMOLITIONS,						MissionHelpers::SABOTAGE_MECHANICAL_UNITS_HEAVY_WEAPONS}
 	});
+	//RCAM_SEND_SUPPLIES_TO_TOWN
+	MissionHelpers::missionInfo.push_back({ }); // no entries necessary - no modifiers
 	//RCAM_SOLDIER_BOUNTIES_KINGPIN
 	MissionHelpers::missionInfo.push_back(
 	{
@@ -4854,6 +4890,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			case RCAM_REDUCE_UNALERTED_ENEMY_VISION:
 			case RCAM_SABOTAGE_INFANTRY_EQUIPMENT:
 			case RCAM_SABOTAGE_MECHANICAL_UNITS:
+			case RCAM_SEND_SUPPLIES_TO_TOWN:
 			case RCAM_SOLDIER_BOUNTIES_KINGPIN:
 			case RCAM_TRAIN_MILITIA_ANYWHERE:
 			{
@@ -4946,6 +4983,33 @@ void HandleStrategicEvent(const UINT32 eventParam)
 	}
 
 	DoMessageBox(MSG_BOX_BASIC_STYLE, msgBoxText, guiCurrentScreen, MSG_BOX_FLAG_OK, NULL, NULL);
+}
+
+void SendSuppliesToTownMission()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_SEND_SUPPLIES_TO_TOWN);
+
+	if (iter == missionMap.end())
+		return;
+
+	if (GetWorldHour() % gRebelCommandSettings.iSendSuppliesToTownInterval != 0)
+		return;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	if (evt.isSecondEvent)
+	{
+		IncrementTownLoyalty(evt.extraBits, gRebelCommandSettings.iSendSuppliesToTownLoyaltyGain);
+	}
+}
+
+INT16 SendSuppliesToTownDurationBonus(const MERCPROFILESTRUCT* merc)
+{
+	return merc ? merc->bExpLevel * 8 : 0;
 }
 
 BOOLEAN ShowEnemyMovementTargets()

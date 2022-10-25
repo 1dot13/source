@@ -15,17 +15,6 @@ namespace RebelCommand
 	// applies to RegionSaveInfo.actionLevels: use the MSB as the active flag since I don't expect it to be used otherwise
 	constexpr UINT8 ADMIN_ACTION_ACTIVE_BIT = 1 << 7;
 
-	// for rebelCommandSaveInfo.uBitMask
-	// requirement breakdown
-	// 1 bit for notification toggle
-	// 5 * 4 bits for random mission selection (2off, 2def) = 32 choices each
-	// need some bits to track mission area (friendly/hostile? num towns?)
-	// remaining bits to track up/downgrades?
-	// some should be ASD specific?
-	// can we not do this and just check strategic events? GetAllStrategicEventsOfType(). could be costly. iterates over event LL on each call
-	// can we cache in-flight events on load? no real need to save this, right?
-	//constexpr UINT64 AGENT_NOTIFICATION_BIT = 1 << 0;
-
 	// the FIRST and SECOND strategic events share the same type (EVENT_REBELCOMMAND - no need to have multiple types yet, I think...)
 	// so the 32-bit int will have to block out information for both events
 	// FIRST EVENT BREAKDOWN
@@ -35,8 +24,7 @@ namespace RebelCommand
 	// C (8 bit) - the profile number of the merc that was sent. invalid if B == 0
 	// D (8 bit) - the mission ID. should match up with RebelCommandAgentMissions enum
 	// E (8 bit) - the mission duration, in hours. if 0, mission failed.
-	// the rest of the bits depend on the mission?
-	//
+	// extra bits are mission-specific
 
 	// SECOND EVENT BREAKDOWN
 	// A####### #######B CCCCCCCC DDDDDDDD
@@ -44,7 +32,7 @@ namespace RebelCommand
 	// B (1 bit) - 0 if the player sent a generic rebel agent, 1 if the player sent one of their own mercs
 	// C (8 bit) - the profile number of the merc that was sent. invalid if B == 0
 	// D (8 bit) - the mission ID. should match up with RebelCommandAgentMissions enum
-	// extra bits are for ???????????
+	// extra bits are mission-specific
 
 enum RebelCommandDirectives
 {
@@ -96,19 +84,17 @@ enum RebelCommandAgentMissions
 	RCAM_REDUCE_UNALERTED_ENEMY_VISION, // aka Lower Readiness
 	RCAM_SABOTAGE_INFANTRY_EQUIPMENT, // aka Sabotage Equipment
 	RCAM_SABOTAGE_MECHANICAL_UNITS, // aka Sabotage Vehicles
+	RCAM_SEND_SUPPLIES_TO_TOWN, // ignores minimum loyalty requirement
 	RCAM_SOLDIER_BOUNTIES_KINGPIN,
 	RCAM_TRAIN_MILITIA_ANYWHERE,
 
 	RCAM_NUM_MISSIONS,
 
 	// ideas/unimplemented
-	RCAM_SEND_SUPPLIES_TO_TOWN, // store agent location townid in extrabits
 	RCAM_BOOST_TOWN_ADMIN_ACTIONS, // store agent location townid in extrabits
 	RCAM_PROCURE_ITEMS,
 	RCAM_MILITIA_SKILL_TRAITS, // should override militia skill traits ini option - split into multiple (weapon spec, bodybuilding, athletic, night ops)
-	RCAM_OBSERVE_SECTORS, // ??? competes with scouts?
 	RCAM_PURCHASE_SUPPLIES, // increase daily supply income, decrease daily $ income
-	RCAM_SABOTAGE_MINE,
 	RCAM_REDUCE_ENEMY_POOL, // need to make sure enemy pool is not infinite // giReinforcementPool, also gfUnlimitedTroops		= zDiffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops; 
 	// militia/mercs get bonus vision (???)
 	// share vision with civilians?
