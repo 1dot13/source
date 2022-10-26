@@ -2595,7 +2595,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		const INT32 worldMin = GetWorldTotalMin();
 		const INT32 remaining = endTime - worldMin;
 
-		if ((townId < FIRST_TOWN || townId >= NUM_TOWNS || townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission) && rebelCommandSaveInfo.availableMissions[index] != RCAM_SEND_SUPPLIES_TO_TOWN)
+		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || !gfTownUsesLoyalty[townId] || (townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission && rebelCommandSaveInfo.availableMissions[index] != RCAM_SEND_SUPPLIES_TO_TOWN))
 		{
 			canStartMission = FALSE;
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_LOW_LOYALTY]);
@@ -2610,16 +2610,11 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			canStartMission = FALSE;
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_CONTRACT_EXPIRING]);
 		}
-		else if (agentIndex[index] == mercs.size() && rebelCommandSaveInfo.availableMissions[index] == RCAM_SEND_SUPPLIES_TO_TOWN)
-		{
-			canStartMission = FALSE;
-			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_USE_REBEL_AGENT]);
-		}
-
-		if (!canStartMission)
-		{
-			DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-		}
+	}
+	else if (agentIndex[index] == mercs.size() && rebelCommandSaveInfo.availableMissions[index] == RCAM_SEND_SUPPLIES_TO_TOWN)
+	{
+		canStartMission = FALSE;
+		swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_USE_REBEL_AGENT]);
 	}
 	else if ((gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector)
 	{
@@ -2640,6 +2635,10 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			});
 		MSYS_SetBtnUserData(btnId, 0, index);
 		btnIds.push_back(btnId);
+	}
+	else
+	{
+		DrawTextToScreen(sText, x, y+295, 231, FONT10ARIAL, FONT_RED, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	}
 
 	return TRUE;
