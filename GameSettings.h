@@ -1845,6 +1845,7 @@ typedef struct
 	// agent missions
 	INT32 iMissionBaseCost;
 	INT32 iMissionAdditionalCost;
+	INT16 iMissionPrepTime;
 	INT8 iMissionRefreshTimeDays;
 	INT8 iMinLoyaltyForMission;
 
