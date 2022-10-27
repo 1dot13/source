@@ -2778,7 +2778,8 @@ void RenderMissionOverview()
 	case MOS_HELP:
 	{
 		UINT16 y = WEBSITE_TOP + 100;
-		y += DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, szRebelCommandText[RCT_MISSION_HELP_1], FONT_MCOLOR_BLACK, FALSE, 0);
+		swprintf(sText, szRebelCommandText[RCT_MISSION_HELP_1], gRebelCommandSettings.iMissionPrepTime);
+		y += DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, sText, FONT_MCOLOR_BLACK, FALSE, 0);
 		y += 20;
 		y += DisplayWrappedString(WEBSITE_LEFT + 35, y, 400, 2, FONT12ARIAL, FONT_MCOLOR_BLACK, szRebelCommandText[RCT_MISSION_HELP_2], FONT_MCOLOR_BLACK, FALSE, 0);
 		y += 20;
@@ -2947,9 +2948,9 @@ void PrepareMission(INT8 index)
 	{
 		MissionHelpers::missionParam = SerialiseMissionFirstEvent(FALSE, mercs[agentIndex[index]]->ubProfile, static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[index]), missionDuration, static_cast<UINT8>(extraBits));
 		if (merc->bSex == MALE)
-			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_MALE], text, merc->zNickname);
+			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_MALE], text, merc->zNickname, gRebelCommandSettings.iMissionPrepTime);
 		else
-			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_FEMALE], text, merc->zNickname);
+			swprintf(text, szRebelCommandText[RCT_MISSION_POPUP_PART2_FEMALE], text, merc->zNickname, gRebelCommandSettings.iMissionPrepTime);
 	}
 
 	DoLapTopMessageBox(MSG_BOX_LAPTOP_DEFAULT, text, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, [](UINT8 exitValue) {
@@ -2984,8 +2985,7 @@ void PrepareMission(INT8 index)
 
 			// queue up the mission start event. make sure we use the top of the hour because I'm lazy and we're handling the assignment here instead of Assignments.cpp
 			const UINT32 time = GetWorldTotalMin();
-			//AddStrategicEvent(EVENT_REBELCOMMAND, time + (60 - time % 60) + 60 * gRebelCommandSettings.iMissionPrepTime, MissionHelpers::missionParam);
-			AddStrategicEvent(EVENT_REBELCOMMAND, time + (60 - time % 60) + 60, MissionHelpers::missionParam); // rftr todo: DELETE ME
+			AddStrategicEvent(EVENT_REBELCOMMAND, time + (60 - time % 60) + 60 * gRebelCommandSettings.iMissionPrepTime, MissionHelpers::missionParam);
 			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt.missionId), MissionHelpers::missionParam));
 
 			rebelCommandSaveInfo.iSupplies -= GetMissionCost();
