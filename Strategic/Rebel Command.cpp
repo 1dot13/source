@@ -1225,8 +1225,6 @@ void UpdateAdminActionChangeList(INT16 regionId)
 
 BOOLEAN EnterWebsite()
 {
-	// rftr todo: temp debugging
-	rebelCommandSaveInfo.availableMissions[0] = RCAM_SEND_SUPPLIES_TO_TOWN;
 	UpdateAdminActionChangeList(iCurrentRegionId);
 
 	// make sure we have a valid directive
