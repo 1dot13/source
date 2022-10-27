@@ -350,6 +350,7 @@ enum RebelCommandText // keep this synced with szRebelCommandText in the text fi
 	RCT_MISSION_BONUS_OFFICER_PAYOUT,
 	RCT_MISSION_BONUS_VEHICLE_PAYOUT,
 	RCT_MISSION_BONUS_DURATION,
+	RCT_MISSION_CANT_START_NOT_IN_TOWN,
 	RCT_MISSION_CANT_START_LOW_LOYALTY,
 	RCT_MISSION_CANT_START_AGENT_UNAVAILABLE,
 	RCT_MISSION_CANT_START_CONTRACT_EXPIRING,
@@ -2595,7 +2596,12 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 		const INT32 worldMin = GetWorldTotalMin();
 		const INT32 remaining = endTime - worldMin;
 
-		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || !gfTownUsesLoyalty[townId] || (townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission && rebelCommandSaveInfo.availableMissions[index] != RCAM_SEND_SUPPLIES_TO_TOWN))
+		if (townId < FIRST_TOWN || townId >= NUM_TOWNS || !gfTownUsesLoyalty[townId])
+		{
+			canStartMission = FALSE;
+			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_NOT_IN_TOWN]);
+		}
+		else if (townLoyalty < gRebelCommandSettings.iMinLoyaltyForMission && rebelCommandSaveInfo.availableMissions[index] != RCAM_SEND_SUPPLIES_TO_TOWN)
 		{
 			canStartMission = FALSE;
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_LOW_LOYALTY]);
