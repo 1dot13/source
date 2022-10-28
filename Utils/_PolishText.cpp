@@ -11949,6 +11949,7 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
 	L"Insufficient supplies! Admin Actions have been DISABLED.",
 	L"New missions will be available every %d hours.",
+	L"New missions are available at the A.R.C. website.",
 	L"Mission preparations in progress.",
 	L"Mission duration: %d days",
 	L"Chance of success: %d%s",
