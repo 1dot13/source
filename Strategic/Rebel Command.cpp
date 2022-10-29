@@ -3917,9 +3917,11 @@ void DailyUpdate()
 		{
 			for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
 			{
-				const INT8 mission = static_cast<INT8>(Random(validMissions.size()));
-				rebelCommandSaveInfo.availableMissions[i] = mission;
-				validMissions.erase(static_cast<RebelCommandAgentMissions>(mission));
+				const INT8 missionIndex = static_cast<INT8>(Random(validMissions.size()));
+				auto iter = validMissions.cbegin();
+				for (INT8 j = 0; j < missionIndex; ++j) iter++;
+				rebelCommandSaveInfo.availableMissions[i] = *iter;
+				validMissions.erase(static_cast<RebelCommandAgentMissions>(rebelCommandSaveInfo.availableMissions[i]));
 			}
 		}
 		else // 1 mission available
