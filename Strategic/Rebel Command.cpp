@@ -4970,8 +4970,6 @@ void HandleStrategicEvent(const UINT32 eventParam)
 				{
 					// merc ready for reassignment
 					pSoldier->bSectorZ -= REBEL_COMMAND_Z_OFFSET;
-					pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
-					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
 					AssignmentDone(pSoldier, TRUE, FALSE);
 					AddCharacterToAnySquad(pSoldier);
 					break;
