@@ -48,7 +48,6 @@ How to add a new mission:
 - add to SetupMissionAgentBox() (mission description and merc bonus text)
 - add to PrepareMission()
 - add mission-specific functions
-- rftr todo: ???
 
 Points of interest:
 - Init() - set up rebel command for the first time
