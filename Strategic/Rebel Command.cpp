@@ -4959,6 +4959,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_FAILURE], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_FAILURE], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 			ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
+			StopTimeCompression();
 		}
 
 		if (!evt1.sentGenericRebelAgent && foundMerc)
@@ -4983,8 +4984,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		// mission duration is over. deactivate the mission
 		missionMap.erase(static_cast<RebelCommandAgentMissions>(evt2.missionId));
 		swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_EXPIRED], szRebelCommandAgentMissionsText[evt2.missionId * 2]);
-		swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_EXPIRED], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
+		swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_EXPIRED], szRebelCommandAgentMissionsText[evt2.missionId * 2]);
 		ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, screenMsgText);
+		StopTimeCompression();
 	}
 
 	DoMessageBox(MSG_BOX_BASIC_STYLE, msgBoxText, guiCurrentScreen, MSG_BOX_FLAG_OK, NULL, NULL);
