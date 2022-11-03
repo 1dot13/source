@@ -1514,7 +1514,7 @@ UINT32 ASDResourceCostFuel( UINT8 aType )
 // if ASD has tanks, it can allow the queen to upgrade soldiers to tanks
 BOOLEAN ASDSoldierUpgradeToTank( )
 {
-	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsTanks )
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsTanks && RebelCommand::GetASDCanDeployUnits() )
 	{
 		if ( gASD_Flags & ASDFACT_TANK_UNLOCKED )
 		{
@@ -1531,7 +1531,7 @@ BOOLEAN ASDSoldierUpgradeToTank( )
 
 BOOLEAN ASDSoldierUpgradeToJeep( )
 {
-	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsJeeps )
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsJeeps && RebelCommand::GetASDCanDeployUnits() )
 	{
 		if ( gASD_Flags & ASDFACT_JEEP_UNLOCKED )
 		{
@@ -1548,7 +1548,7 @@ BOOLEAN ASDSoldierUpgradeToJeep( )
 
 BOOLEAN ASDSoldierUpgradeToRobot( )
 {
-	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots )
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots && RebelCommand::GetASDCanDeployUnits() )
 	{
 		if ( gASD_Flags & ASDFACT_ROBOT_UNLOCKED )
 		{

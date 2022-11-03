@@ -209,6 +209,7 @@ BOOLEAN CanAssignTraitsToMilitia();
 BOOLEAN CanTrainMilitiaAnywhere();
 UINT8 GetMaxTrainersForTrainMilitiaAnywhere();
 INT16 GetAdditionalDeployRange(const UINT8 insertionCode);
+BOOLEAN GetASDCanDeployUnits();
 FLOAT GetASDIncomeModifier();
 INT8 GetEnemyEquipmentCoolnessModifier();
 INT8 GetEnemyEquipmentStatusModifier(const INT8 initialStatus);

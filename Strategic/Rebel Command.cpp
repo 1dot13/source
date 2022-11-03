@@ -4671,6 +4671,22 @@ INT16 GetAdditionalDeployRange(const UINT8 insertionCode)
 	return 0;
 }
 
+BOOLEAN GetASDCanDeployUnits()
+{
+	if (!gGameExternalOptions.fRebelCommandEnabled)
+		return TRUE;
+
+	const std::unordered_map<RebelCommandAgentMissions, UINT32>::iterator iter = missionMap.find(RCAM_DISRUPT_ASD);
+
+	if (iter == missionMap.end())
+		return TRUE;
+
+	MissionSecondEvent evt;
+	DeserialiseMissionSecondEvent(iter->second, evt);
+
+	return evt.isSecondEvent ? FALSE : TRUE;
+}
+
 FLOAT GetASDIncomeModifier()
 {
 	if (!gGameExternalOptions.fRebelCommandEnabled)
