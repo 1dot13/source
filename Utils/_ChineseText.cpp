@@ -4219,7 +4219,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Skyrider",
 	L"着陆点",
 	L"直升机严重受损，必须降落在敌军领地！",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-	L"直升机将直接返回基地，你希望在此之前放下乘客吗？",
+	L"直升机将直接返回基地，你希望在此之前丢下乘客吗？",
   	L"剩余燃料：",
 	L"到加油站距离：",
 };
@@ -7032,7 +7032,7 @@ STR16 pMessageStrings[] =
 	L"磁盘空间不足。只有%sMB可用空间，《铁血联盟2》需要%sMB。",
 	L"从AIM雇佣了%s。", 		//"Hired %s from AIM",
 	L"%s抓住了%s。",	//"%s has caught %s.",	//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s使用了（拾取）%s。",	//L"%s has taken %s。",
+	L"%s使用了%s。",	//L"%s has taken %s。",
 	L"%s没有医疗技能",	//"%s has no medical skill",//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
@@ -11373,17 +11373,17 @@ STR16 szIMPGearPocketText[] =
 	L"选择头部装备",  //L"Select face gear",
 	L"选择头部装备",  //	L"Select face gear",
 
-	L"选择主武器",  //	L"Select main gun", 
-	L"选择副武器",  //L"Select sidearm", 
+	L"选择主枪",  //	L"Select main gun", 
+	L"选择手枪",  //L"Select sidearm", 
 
 	L"选择LBE背心",  //L"Select LBE vest",  
-	L"选择左LBE枪套", //L"Select left LBE holster",
-	L"选择右LBE枪套", //L"Select right LBE holster",
+	L"选择LBE皮套", //L"Select left LBE holster",
+	L"选择LBE皮套", //L"Select right LBE holster",
 	L"选择LBE战斗包",  //L"Select LBE combat pack", 
 	L"选择LBE背包",  //L"Select LBE backpack",
 
-	L"选择发射器/步枪",  //L"Select launcher / rifle",
-	L"选择近战武器",  //L"Select melee weapon", 
+	L"Select launcher / rifle",
+	L"选择武器",  //L"Select melee weapon", 
 
 	L"选择附加物品", //L"Select additional items", //BIGPOCK1POS
 	L"选择附加物品", //L"Select additional items",
@@ -11392,28 +11392,28 @@ STR16 szIMPGearPocketText[] =
 	L"选择附加物品", //L"Select additional items",
 	L"选择附加物品", //L"Select additional items",
 	L"选择附加物品", //L"Select additional items",
-	L"选择医疗套件", //L"Select medkit",MEDPOCK1POS
-	L"选择医疗套件", //L"Select medkit",
-	L"选择医疗套件", //L"Select medkit",
-	L"选择医疗套件", //L"Select medkit",
-	L"选择主武器弹药", //L"Select main gun ammo",SMALLPOCK1POS
-	L"选择主武器弹药", //L"Select main gun ammo",
-	L"选择主武器弹药", //L"Select main gun ammo",
-	L"选择主武器弹药", //L"Select main gun ammo",
-	L"选择主武器弹药", //L"Select main gun ammo",
-	L"选择发射器/枪弹药", //L"Select launcher / rifle ammo",SMALLPOCK6POS
-	L"选择发射器/枪弹药", //L"Select launcher / rifle ammo",
-	L"选择发射器/枪弹药", //L"Select launcher / rifle ammo",
-	L"选择发射器/枪弹药", //L"Select launcher / rifle ammo",
-	L"选择发射器/枪弹药", //L"Select launcher / rifle ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",SMALLPOCK11POS
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
-	L"选择配枪弹药", //L"Select sidearm ammo",
+	L"Select medkit", //MEDPOCK1POS
+	L"Select medkit",
+	L"Select medkit",
+	L"Select medkit",
+	L"Select main gun ammo", //SMALLPOCK1POS
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select main gun ammo",
+	L"Select launcher / rifle ammo", //SMALLPOCK6POS
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select launcher / rifle ammo",
+	L"Select sidearm ammo", //SMALLPOCK11POS
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
+	L"Select sidearm ammo",
 	L"选择附加物品", //L"Select additional items", //SMALLPOCK19POS
 	L"选择附加物品", //L"Select additional items",
 	L"选择附加物品", //L"Select additional items",
@@ -11426,7 +11426,7 @@ STR16 szIMPGearPocketText[] =
 	L"选择附加物品", //L"Select additional items",
 	L"选择附加物品", //L"Select additional items",
 	L"选择附加物品", //L"Select additional items", //SMALLPOCK30POS
-	L"左键单击选择项目/右键单击关闭窗口", //L"Left click to select item / Right click to close window",
+	L"Left click to select item / Right click to close window",
 };
 
 STR16 szMilitiaStrategicMovementText[] =

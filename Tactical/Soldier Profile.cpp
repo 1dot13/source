@@ -102,7 +102,6 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 //Random Stats 
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
 void RandomStats();
-void RandomSkills();
 void RandomStartSalary();
 
 //Jenilee
@@ -463,147 +462,6 @@ void RandomStats()
 
 		ExitRandomMercs();	}
 }
-
-#pragma optimize("",off)
-void RandomSkills()
-{
-	for (UINT32 cnt = 0; cnt < NUM_PROFILES; cnt++)
-	{
-		MERCPROFILESTRUCT* pProfile = &(gMercProfiles[cnt]);
-
-		std::vector<INT8> skillPool;
-
-		// get current skills
-		int traitCount = 0;
-		for (int index = 0; index < (sizeof(pProfile->bSkillTraits) / sizeof(pProfile->bSkillTraits[0])); ++index)
-		{
-			if (pProfile->bSkillTraits[index] != 0)
-			{
-				skillPool.push_back(pProfile->bSkillTraits[index]);
-				traitCount++;
-			}
-		}
-
-		// add random skills
-		int traitsToAdd = max(4 - traitCount, 2);
-		while (traitsToAdd > 0)
-		{
-			const INT8 random = Random(NUM_SKILLTRAITS_NT - 1) + 1; // skill traits 1-23. see SkillTraitNew enum
-
-			// do we already have this skill?
-			int count = 0;
-			for (const INT8 skillId : skillPool)
-			{
-				if (random == skillId)
-					count++;
-			}
-
-			// if a major trait and we have 2, restart
-			if ((random >= AUTO_WEAPONS_NT && random <= DOCTOR_NT) || random == COVERT_NT)
-			{
-				if (count >= 2)
-					continue;
-			}
-			// else if a minor trait and we have 1, restart
-			else if (count >= 1)
-				continue;
-
-			// only add certain skills if appropriate-ish
-			switch (random)
-			{
-			case AUTO_WEAPONS_NT:
-			case HEAVY_WEAPONS_NT:
-			case SNIPER_NT:
-			case RANGER_NT:
-			case GUNSLINGER_NT:
-				if (pProfile->bMarksmanship < 75) continue;
-				break;
-
-			case AMBIDEXTROUS_NT:
-				if (pProfile->bDexterity < 70) continue;
-				break;
-
-			case BODYBUILDING_NT:
-				if (pProfile->bStrength < 70 && pProfile->bLifeMax < 70) continue;
-				break;
-
-			case STEALTHY_NT:
-				if (pProfile->bAgility < 70) continue;
-				break;
-
-			case SQUADLEADER_NT:
-			case TEACHING_NT:
-				if (pProfile->bLeadership < 40) continue;
-				break;
-
-			case TECHNICIAN_NT:
-				if (pProfile->bMechanical < 40) continue;
-				break;
-
-			case DOCTOR_NT:
-				if (pProfile->bMedical < 40) continue;
-				break;
-
-			case DEMOLITIONS_NT:
-				if (pProfile->bExplosive < 40) continue;
-				break;
-	//AUTO_WEAPONS_NT, // 1
-	//HEAVY_WEAPONS_NT, // 2
-	//SNIPER_NT, // 3
-	//RANGER_NT, // 4
-	//GUNSLINGER_NT, // 5
-	//MARTIAL_ARTS_NT, // 6
-	//SQUADLEADER_NT, // 7
-	//TECHNICIAN_NT, // 8
-	//DOCTOR_NT, // 9
-	//AMBIDEXTROUS_NT, // 10
-	//MELEE_NT, // 11
-	//THROWING_NT, // 12
-	//NIGHT_OPS_NT, // 13
-	//STEALTHY_NT, // 14
-	//ATHLETICS_NT, // 15
-	//BODYBUILDING_NT, // 16
-	//DEMOLITIONS_NT, // 17
-	//TEACHING_NT, // 18
-	//SCOUTING_NT, // 19
-	//COVERT_NT, // 20	// a major trait
-	//RADIO_OPERATOR_NT, //21		// a minor trait
-	//SNITCH_NT, //22		// a minor trait 
-	//SURVIVAL_NT, //23	// a minor trait
-			}
-
-			// add the skill
-			skillPool.push_back(random);
-			traitsToAdd--;
-		}
-
-		// shuffle traits
-		for (int a = 0; a < skillPool.size(); ++a)
-		{
-			const int randomIndex = Random(skillPool.size());
-			std::swap(skillPool[a], skillPool[randomIndex]);
-		}
-
-		int traitsToKeep = max(4, traitCount + 1);
-		traitsToKeep = min(traitsToKeep, skillPool.size());
-
-		// copy over final skills
-		std::vector<INT8>::const_iterator iter = skillPool.cbegin();
-		for (int index = 0; index < (sizeof(pProfile->bSkillTraits) / sizeof(pProfile->bSkillTraits[0])); ++index)
-		{
-			if (index < traitsToKeep && iter != skillPool.cend())
-			{
-				pProfile->bSkillTraits[index] = *iter;
-				iter++;
-			}
-			else
-			{
-				pProfile->bSkillTraits[index] = 0;
-			}
-		}
-	}
-}
-#pragma optimize("",on)
 
 void RandomStartSalary()
 {
@@ -1142,8 +1000,6 @@ for( int i = 0; i < NUM_PROFILES; i++ )
 	// ---------------
 		
 	RandomStats (); //random stats by Jazz
-
-	RandomSkills();
 	
 	// Buggler: random starting salary
 	RandomStartSalary ();

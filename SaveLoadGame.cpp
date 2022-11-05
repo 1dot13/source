@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 	#include "PreBattle Interface.h"

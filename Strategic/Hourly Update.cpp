@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else

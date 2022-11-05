@@ -496,13 +496,6 @@ void HandleMainMenuKeyboardInput()
 					gbHandledMainMenu = QUIT;
 					HandleMainMenuInput();
 					break;
-
-//#ifdef _WIN32
-//				// open bp discord!
-//				case 'z':
-//					ShellExecute(NULL, "open", "https://discord.gg/xtnydCjP", NULL, NULL, SW_SHOWNORMAL);
-//					break;
-//#endif
 			}
 		}
 	}
