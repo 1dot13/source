@@ -4741,7 +4741,7 @@ void ApplyAdditionalASDEffects()
 			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size()), 75 + Random(26));
 
 			// say it came from the ASD's reserves
-			AddStrategicAIResources(ASD_FUEL, gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep));
+			AddStrategicAIResources(ASD_FUEL, -(gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep)));
 		}
 		break;
 
@@ -4749,14 +4749,14 @@ void ApplyAdditionalASDEffects()
 		{
 			// priority: tank > jeep > robots
 			if (GetStrategicAIResourceCount(ASD_TANK) > 0)
-				AddStrategicAIResources(ASD_TANK, 1 + Random(2));
+				AddStrategicAIResources(ASD_TANK, -(1 + Random(2)));
 			else if (GetStrategicAIResourceCount(ASD_JEEP) > 0)
-				AddStrategicAIResources(ASD_JEEP, 1 + Random(2));
+				AddStrategicAIResources(ASD_JEEP, -(1 + Random(2)));
 			else if (GetStrategicAIResourceCount(ASD_ROBOT) > 0)
-				AddStrategicAIResources(ASD_ROBOT, 2 + Random(3));
+				AddStrategicAIResources(ASD_ROBOT, -(2 + Random(3)));
 
 			// let's also try to destroy a good amount of fuel
-			AddStrategicAIResources(ASD_FUEL, gGameExternalOptions.gASDResource_Fuel_Tank + Random(gGameExternalOptions.gASDResource_Fuel_Tank));
+			AddStrategicAIResources(ASD_FUEL, -(gGameExternalOptions.gASDResource_Fuel_Tank + Random(gGameExternalOptions.gASDResource_Fuel_Tank)));
 		}
 		break;
 		}
