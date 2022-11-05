@@ -193,8 +193,8 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
-    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\OUTPUT\1dot13</OutDir>
+    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -217,7 +217,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master_VS2019</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
+    <OutDir>..\OUTPUT\1dot13</OutDir>
     <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

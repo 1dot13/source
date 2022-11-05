@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VFS", "ext\VFS\build\VFS_VS2019.vcxproj", "{463CB476-2798-493F-9CE8-CEAC5ECE5664}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -360,9 +360,10 @@ Global
 		{802552D2-B514-42E5-A169-F1E108527678}.Release_WithDebugInfo|Win32.ActiveCfg = Debug|Win32
 		{802552D2-B514-42E5-A169-F1E108527678}.Release_WithDebugInfo|x64.ActiveCfg = Release_WithDebugInfo|x64
 		{802552D2-B514-42E5-A169-F1E108527678}.Release|Win32.ActiveCfg = Release|Win32
+		{802552D2-B514-42E5-A169-F1E108527678}.Release|Win32.Build.0 = Release|Win32
 		{802552D2-B514-42E5-A169-F1E108527678}.Release|x64.ActiveCfg = Release|x64
-		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|Win32.Build.0 = Debug|Win32
+		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|Win32.ActiveCfg = Release_WithDebugInfo|Win32
+		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|Win32.Build.0 = Release_WithDebugInfo|Win32
 		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|x64.ActiveCfg = Debug|x64
 		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.Debug|x64.Build.0 = Debug|x64
 		{3B7B950D-0DC8-4ADD-9FE2-7DE4297C62F6}.MapEditor|Win32.ActiveCfg = MapEditor|Win32

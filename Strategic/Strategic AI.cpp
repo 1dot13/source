@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -3251,6 +3252,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 
 			pGroup = CreateNewEnemyGroupDepartingFromSector( gGarrisonGroup[ iSrcGarrisonID ].ubSectorID, 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 			ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
+			//InitializeGroup(GROUP_TYPE_PATROL, (UINT8)iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
 			if (gGameExternalOptions.fASDActive && Random(10) < gGameOptions.ubDifficultyLevel)
 			{
 				ASDInitializePatrolGroup(pGroup);
@@ -6886,7 +6888,12 @@ void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT8 ubSi
 		}
 		else
 		{
-			Assert( 0 );
+
+			const UINT8 ubSectorX = (UINT8)SECTORX( gGarrisonGroup[ iGarrisonID ].ubSectorID );
+			const UINT8 ubSectorY = (UINT8)SECTORY( gGarrisonGroup[ iGarrisonID ].ubSectorID );
+			CHAR8 str[512];
+			sprintf(str, "Couldn't elim elites at X/Y=%d/%d -- Sector A/T/E=%d/%d/%d -- Comp T/E=%d/%d -- Size=%d", ubSectorX, ubSectorY, ubOrigSectorAdmins, ubOrigSectorTroops, ubOrigSectorElites, ubOrigNumTroops, ubOrigNumElites, ubOrigSize);
+			AssertMsg(0, str);
 		}
 		ubNumElites--;
 	}
@@ -7146,7 +7153,7 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 		}
 	}
 
-	// replace some soldiers with elites for attack groups
+	// replace some soldiers with elites
 	if ( groupType == GROUP_TYPE_ATTACK && difficultyMod > 0 )
 	{
 		eliteCount += troopCount - troopCount / difficultyMod;
