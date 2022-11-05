@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "AI All.h"
 	#include "DisplayCover.h"

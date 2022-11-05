@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 #include "builddefines.h"
 
 // WANNE 2 <changed some lines>
