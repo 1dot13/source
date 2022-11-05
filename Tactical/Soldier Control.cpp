@@ -6603,12 +6603,18 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( Item[usWeaponIndex].usItemClass & IC_GUN )
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GUNFIRE, ubAttackerID );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID );
+			if (ubAttackerID != NOBODY)
+			{
+				PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID );
+			}
 		}
 		else
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_THROWING_KNIFE, ubAttackerID );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID );
+			if (ubAttackerID != NOBODY)
+			{
+				PossiblyStartEnemyTaunt(MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID);
+			}
 		}
 	}
 	if ( Item[usWeaponIndex].usItemClass & IC_BLADE )
