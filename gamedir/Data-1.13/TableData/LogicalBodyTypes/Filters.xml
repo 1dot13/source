@@ -8,7 +8,10 @@
 	</Filter>
 	<Filter name="HasPistolInHand">
 		<!-- <AND> -->
+		<OR>
 			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<HANDPOS op="in">711</HANDPOS><!-- Sawn-off shotgun -->
+		</OR>
 			<!--<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>-->
 		<!-- </AND> -->
 	</Filter>
@@ -23,19 +26,14 @@
 	</Filter>
 	<Filter name="HasPistolOrMPistolInRightHand">
 		<OR>
-			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
-			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+			<FILTER>HasPistolInHand</FILTER>
+			<FILTER>HasMPistolInHand</FILTER>	
 		</OR>
 		<AND>
 			<LEFT_WEAPON_TYPE not="">GUN_PISTOL</LEFT_WEAPON_TYPE>
 			<LEFT_WEAPON_TYPE not="">GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+			<SECONDHANDPOS not="" op="in">711</SECONDHANDPOS>
 		</AND>
-	</Filter>
-	<Filter name="HasPistolOrMPistolInRightHand2">
-		<OR>
-			<FILTER>HasPistolInHand</FILTER>
-			<FILTER>HasMPistolInHand</FILTER>	
-		</OR>
 	</Filter>
 	<Filter name="HasPistolInLeftHand">
 			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
@@ -194,7 +192,7 @@
 	</Filter>
 	<Filter name="HasFAMASInHand">
 		<AND>
-			<HANDPOS op="in">24, 30, 646, 659, 660, 663, 704, 781, 789</HANDPOS>
+			<HANDPOS op="in">24, 646, 659, 660, 663, 704, 781, 789</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSCARInHand">
@@ -218,9 +216,10 @@
 		</AND>
 	</Filter>
 	<Filter name="HasSMGInHand">
-		<AND>
+		<OR>
 			<WEAPON_TYPE>GUN_SMG</WEAPON_TYPE>
-		</AND>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
 	</Filter>
 	<Filter name="HasP90InHand">
 		<AND>
@@ -321,6 +320,11 @@
 			<HANDPOS op="in">55, 65</HANDPOS>
 		</AND>
 	</Filter>
+	<Filter name="HasG11InHand">
+		<AND>
+			<HANDPOS op="in">30</HANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasDesertEagleInHand">
 		<AND>
 			<HANDPOS op="in">7, 56, 637, 638, 758, 766, 767, 768, 1192</HANDPOS>
@@ -366,6 +370,22 @@
 	<Filter name="HasDualRightUzi">
 		<AND>
 			<FILTER>HasUziInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+		<Filter name="HasSawnOffInHand">
+		<AND>
+			<HANDPOS op="in">711</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSawnOffInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">711</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightSawnOff">
+		<AND>
+			<FILTER>HasSawnOffInHand</FILTER>
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>

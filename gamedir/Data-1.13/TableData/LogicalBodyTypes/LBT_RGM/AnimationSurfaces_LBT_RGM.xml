@@ -200,6 +200,7 @@
 <AnimSurface name="LBT_RGMRIFLE_IDLE_PADS" file="Anims\LOBOT\RGM\S_R_STD_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_IDLE_CAMOHELMET" file="Anims\LOBOT\RGM\S_R_STD_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_IDLE_LSLEEVE" file="Anims\LOBOT\RGM\S_R_STD_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_G11" file="Anims\LOBOT\RGM\S_R_STD_G11.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <!-- Walk, rifle idle -->
 <AnimSurface name="LBT_RGMBASICWALK_HEAD" file="Anims\LOBOT\RGM\RGM_BASICWALK_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="LBT_RGMBASICWALK_HANDS" file="Anims\LOBOT\RGM\RGM_BASICWALK_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
@@ -502,6 +503,7 @@
 <AnimSurface name="LBT_RGMRIFLE_AIM_RPK" file="Anims\LOBOT\RGM\S_SR_AIM_RPK.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_AIM_M14" file="Anims\LOBOT\RGM\S_SR_AIM_M14.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_AIM_MKL" file="Anims\LOBOT\RGM\S_SR_AIM_MKL.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_G11" file="Anims\LOBOT\RGM\S_SR_AIM_G11.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_AIM_BP" file="Anims\LOBOT\RGM\S_SR_AIM_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_AIM_BERET" file="Anims\LOBOT\RGM\S_SR_AIM_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_AIM_VEST" file="Anims\LOBOT\RGM\S_SR_AIM_vest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />

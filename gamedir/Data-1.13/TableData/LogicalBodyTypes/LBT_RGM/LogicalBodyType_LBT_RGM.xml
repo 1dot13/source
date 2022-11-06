@@ -1486,6 +1486,49 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="gun">
+		<LayerProp filter="HasDualRightSawnOff" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_sawnoff" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_sawnoff" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_sawnoff" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_sawnoff" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_sawnoff" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_sawnoff" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_sawnoff" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_sawnoff" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_sawnoff" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_sawnoff" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMEMPTY_DRUNK_sawnoff" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="LBT_RGMEMPTY_WALK_HURT_sawnoff" animsurface="RGMHURTWALKINGN" />
+			<Surface name="WATER_EMPTY_IDLE_sawnoff" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_sawnoff" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_DUAL_AIM_sawnoff" animsurface="RGMWATER_DBLSHT" />
+		</LayerProp>
+		<LayerProp filter="HasSawnOffInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_CROUCHWALK_sawnoff" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_PRONE_sawnoff" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_sawnoff" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_WALK_sawnoff" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMPISTOL_AIM_sawnoff" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_AIM_1H_sawnoff" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_sawnoff" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_SWAT_sawnoff" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_sawnoff" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_sawnoff" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_sawnoff" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_sawnoff" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_sawnoff" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_PAIN_sawnoff" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMPISTOL_SDSTP_sawnoff" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMEMPTY_DRUNK_sawnoff" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="LBT_RGMEMPTY_WALK_HURT_sawnoff" animsurface="RGMHURTWALKINGN" />
+			<Surface name="WATER_PISTOL_IDLE_sawnoff" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_sawnoff" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_sawnoff" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasDualRightUzi" palette="guns_v2">
 			<Surface name="LBT_RGMEMPTY_IDLE_UZI_1H" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGMEMPTY_WALK_UZI_1H" animsurface="RGMNOTHING_WALK" />
@@ -2565,6 +2608,10 @@
 			<Surface name="WATER_RIFLE_AIM_MKL" animsurface="RGMWATER_R_AIM" />
 			<Surface name="WATER_RIFLE_HIP_MKL" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasG11InHand" palette="guns_v2">
+			<Surface name="LBT_RGMRIFLE_IDLE_G11" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMRIFLE_AIM_G11" animsurface="RGMSTANDAIM" />
+		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="LBT_RGM_RIFLE_OPEN_AR" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_AR" animsurface="RGMCROUCH_R_RDY" />
@@ -2645,6 +2692,28 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="gunleft">
+		<LayerProp filter="HasSawnOffInLeftHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_sawnoff_LEFT" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGMEMPTY_IDLE_sawnoff_LEFT" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_sawnoff_LEFT" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_sawnoff_LEFT" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_sawnoff_LEFT" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_sawnoff_LEFT" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_sawnoff_LEFT" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_sawnoff_LEFT" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff_LEFT" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_sawnoff_LEFT" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_sawnoff_LEFT" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_sawnoff_LEFT" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_sawnoff_LEFT" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_sawnoff_LEFT" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_sawnoff_LEFT" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMEMPTY_DRUNK_sawnoff_LEFT" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="LBT_RGMEMPTY_WALK_HURT_sawnoff_LEFT" animsurface="RGMHURTWALKINGN" />
+			<Surface name="WATER_EMPTY_IDLE_sawnoff_LEFT" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_sawnoff_LEFT" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_DUAL_AIM_sawnoff_LEFT" animsurface="RGMWATER_DBLSHT" />
+		</LayerProp>
 		<LayerProp filter="HasUziInLeftHand" palette="guns_v2">
 			<Surface name="LBT_RGMEMPTY_IDLE_UZI_1H_LEFT" animsurface="RGMNOTHING_STD" />
 			<Surface name="LBT_RGMEMPTY_IDLE_UZI_1H_LEFT" animsurface="RGMDBLBREATH" />
