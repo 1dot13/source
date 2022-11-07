@@ -1,0 +1,50 @@
+name: manual build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Shorten SHA
+      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Get date
+      run: echo "DATE=$(Get-Date -Format yyyy.MM.dd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Check vars
+      run: |
+        echo "${{ env.SHA_SHORT }}"
+        echo "${{ env.DATE }}"
+        
+    - name: Replace GameVersion.cpp
+      run: |
+        rm GameVersion.cpp
+        echo @"
+        #include "Types.h"
+        #include "GameVersion.h"
+        
+        CHAR16 zVersionLabel[256] = { L"Release v1.13 (Development Build) (Github)" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
+        CHAR16 zTrackingNumber[16] = { L"Z" };
+        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
+        "@ | Out-File -FilePath GameVersion.cpp
+    
+    - name: Build
+      run: msbuild ja2_VS2019.sln -property:Configuration=Release
+    
+    - name: Rename output
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_113_${{ env.SHA_SHORT }}.exe
+    
+    - name: Upload executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: ja2_113
+        path: ja2_113_${{ env.SHA_SHORT }}.exe
+        
+
