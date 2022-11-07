@@ -502,13 +502,16 @@ void RenderEditorItemsInfo()
 			}
 		}
 	}
-	//draw item index no & the numbers of each visible item that currently resides in the world.
+
+
+	//draw item graphics, name, index number & the numbers of each visible item that currently resides in the world.
 	maxIndex = min( maxIndex, eInfo.sNumItems-1 );
 	for( i = minIndex; i <= maxIndex; i++ )
 	{
 		x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
 		y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
 		
+
 		// Blit item graphics on demand based on what is visible
 		UINT16 itemIndex = eInfo.pusItemIndex[i];
 		item = &Item[itemIndex];
@@ -526,6 +529,8 @@ void RenderEditorItemsInfo()
 		sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
 		sStart = x + (60 - sWidth - sOffset * 2) / 2;
 		BltVideoObjectOutlineFromIndex(FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, sStart, y + 2, Get16BPPColor(FROMRGB(250, 0, 0)), FALSE);
+
+
 		// Display item name
 		CHAR16 pStr[100];
 		CHAR16 pItemName[SIZE_ITEM_NAME];
@@ -583,16 +588,15 @@ void RenderEditorItemsInfo()
 		SetFont(BLOCKFONTNARROW);
 		SetFontForeground(FONT_LTGREEN);
 		SetFontShadow(FONT_NEARBLACK);
-		// item index no
+		// item index number
 		mprintf( x + 12, y + 18, L"%d", eInfo.pusItemIndex[ i ] );
 
-		// index no within usItemClass
+		// index number within usItemClass
 		SetFontForeground( FONT_LTBLUE );
 		mprintf( x + 40, y + 18, L"%d", i );
 
 		// numbers of each visible item
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
-
 		if( usNumItems )
 		{
 			SetFont( FONT10ARIAL );
