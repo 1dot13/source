@@ -11,4 +11,4 @@ jobs:
     - uses: actions/checkout@v3
     - uses: ilammy/msvc-dev-cmd@v1.4.1
     - name: compile
-      run: cl ext/export/src/main.cpp
+      run: cl ja2_VS2019.sln
