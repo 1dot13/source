@@ -415,18 +415,16 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	}
 	else for( i = 0; i < eInfo.sNumItems; i++ )
 	{
-
+		// Go through the items, and divide them into different classes. Store the item index for blitting later in RenderEditorItemsInfo()
 		fTypeMatch = FALSE;
 		while( usCounter<MAXITEMS && !fTypeMatch )
 		{
 			if ( Item[usCounter].usItemClass	== 0 )
 			{
-				//break;
 				usCounter++;
 				continue;
 			}
 			item = &Item[usCounter];
-			//if( Item[usCounter].fFlags & ITEM_NOT_EDITOR )
 			if(item->notineditor)
 			{
 				usCounter++;
@@ -495,92 +493,8 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			}
 			if( fTypeMatch )
 			{
-
-				uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
-				GetVideoObject( &hVObject, uiVideoObjectIndex );
-
 				//Store these item pointers for later when rendering selected items.
 				eInfo.pusItemIndex[i] = usCounter;
-
-				SetFont(SMALLCOMPFONT);
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				SetFontDestBuffer( eInfo.uiBuffer, 0, 0, eInfo.sWidth, eInfo.sHeight, FALSE );
-
-
-				if( eInfo.uiItemType != TBAR_MODE_ITEM_TRIGGERS )
-				{
-					LoadItemInfo( usCounter, pItemName, NULL );
-					swprintf( pStr, L"%s", pItemName );
-				}
-				else
-				{
-					if( i == PRESSURE_ACTION_ID )
-					{
-						swprintf( pStr, pInitEditorItemsInfoText[0] );
-					}
-					else if( i < 2 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[5] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[1] );
-					}
-					else if( i < 4 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[6] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[2] );
-					}
-					else if( i < 6 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[7] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[3] );
-					}
-					else
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[8], (i-4)/2 );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[4], (i-4)/2 );
-					}
-				}
-
-				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
-
-				UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
-				if(usGraphicNum < hVObject->usNumberOfObjects)
-				{
-					//Calculate the center position of the graphic in a 60 pixel wide area.
-					sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
-					sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
-					sStart = x + (60 - sWidth - sOffset*2) / 2;
-
-					if( sWidth && sWidth > 0 )
-					{
-						BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, usGraphicNum, sStart, y+2, 0, FALSE );
-					}
-
-					//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
-					if( y == 0 )
-					{
-						y = 40;
-					}
-					else
-					{
-						y = 0;
-						x += 60;
-					}
-				}
-				else
-				{
-					static vfs::Log& editorLog = *vfs::Log::create(L"EditorItems.log");
-					editorLog	<< L"Tried to access item [" 
-								<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
-								<< L"]" << vfs::Log::endl;
-				}
 			}
 			usCounter++;
 		}
@@ -627,14 +541,6 @@ void RenderEditorItemsInfo()
 	{ //Mouse has moved out of the items display region -- so nothing can be highlighted.
 		eInfo.sHilitedItemIndex = -1;
 	}
-	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
-	pSrcBuf = LockVideoSurface(eInfo.uiBuffer, &uiSrcPitchBYTES);
-
-	Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
-				(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
-
-	UnLockVideoSurface(eInfo.uiBuffer);
-	UnLockVideoSurface(FRAME_BUFFER);
 
 	//calculate the min and max index that is currently shown.	This determines
 	//if the highlighted and/or selected items are drawn with the outlines.
@@ -691,10 +597,77 @@ void RenderEditorItemsInfo()
 	{
 		x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
 		y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
-		SetFont( BLOCKFONTNARROW );
-		SetFontForeground( FONT_LTGREEN );
-		SetFontShadow( FONT_NEARBLACK );
 		
+		// Blit item graphics on demand based on what is visible
+		UINT16 itemIndex = eInfo.pusItemIndex[i];
+		item = &Item[itemIndex];
+		uiVideoObjectIndex = GetInterfaceGraphicForItem(item);
+		GetVideoObject(&hVObject, uiVideoObjectIndex);
+		UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+		if (usGraphicNum >= hVObject->usNumberOfObjects) // Tried to access graphics outside of hvObject's indices
+		{
+			static vfs::Log& editorLog = *vfs::Log::create(L"EditorItems.log");
+			editorLog	<< L"Tried to access item [" 
+						<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
+						<< L"]" << vfs::Log::endl;
+		}
+		sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+		sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
+		sStart = x + (60 - sWidth - sOffset * 2) / 2;
+		BltVideoObjectOutlineFromIndex(FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, sStart, y + 2, Get16BPPColor(FROMRGB(250, 0, 0)), FALSE);
+		// Display item name
+		CHAR16 pStr[100];
+		CHAR16 pItemName[SIZE_ITEM_NAME];
+
+		if (eInfo.uiItemType != TBAR_MODE_ITEM_TRIGGERS)
+		{
+			LoadItemInfo(eInfo.pusItemIndex[i], pItemName, NULL);
+			swprintf(pStr, L"%s", pItemName);
+		}
+		else
+		{
+			if (i == PRESSURE_ACTION_ID)
+			{
+				swprintf(pStr, pInitEditorItemsInfoText[0]);
+			}
+			else if (i < 2)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[5]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[1]);
+			}
+			else if (i < 4)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[6]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[2]);
+			}
+			else if (i < 6)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[7]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[3]);
+			}
+			else
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[8], (i - 4) / 2);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[4], (i - 4) / 2);
+			}
+		}
+		SetFont(SMALLCOMPFONT);
+		SetFontForeground(FONT_MCOLOR_WHITE);
+		DisplayWrappedString(x, (UINT16)(y + 25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED);
+
+
+
+		SetFont(BLOCKFONTNARROW);
+		SetFontForeground(FONT_LTGREEN);
+		SetFontShadow(FONT_NEARBLACK);
 		// item index no
 		mprintf( x + 12, y + 18, L"%d", eInfo.pusItemIndex[ i ] );
 
