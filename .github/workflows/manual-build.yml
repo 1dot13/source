@@ -9,6 +9,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: ilammy/msvc-dev-cmd@v1.4.1
-    - name: compile
-      run: cl ja2_VS2019.sln
+    - uses: microsoft/setup-msbuild@v1.1
+    - run: msbuild ja2_VS2019.sln -property:Configuration=Release
