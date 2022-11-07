@@ -20,6 +20,7 @@
 	#include "message.h"
 	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
+	#include "Rebel Command.h"
 #endif
 extern WorldItems gAllWorldItems;
 
@@ -276,6 +277,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 	// SANDRO - new behaviour of progress setting
 	bEquipmentModifier = bEquipmentRating + ( ( CalcDifficultyModifier( bSoldierClass ) / 10 ) - 5 );
+
+	if (bSoldierClass >= SOLDIER_CLASS_ADMINISTRATOR && bSoldierClass <= SOLDIER_CLASS_ARMY)
+		bEquipmentModifier += RebelCommand::GetEnemyEquipmentCoolnessModifier();
+
 	switch( gGameOptions.ubProgressSpeedOfItemsChoices )
 	{
 		case ITEM_PROGRESS_VERY_SLOW:
@@ -943,6 +948,8 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	// don't allow it to be lower than marksmanship, we don't want it to affect their chances of hitting
 	bStatus = (INT8)max( pp->bMarksmanship, bStatus );
 
+	// ... unless we've done something to ruin their gear
+	bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(bStatus);
 
 	CreateItem( usGunIndex, bStatus, &(pp->Inv[ HANDPOS ]) );
 	pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
@@ -1457,6 +1464,7 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 	//INVTYPE *pItem;
 	//UINT16 usRandom;
 	UINT16 usItem = 0, usHelmetItem = 0, usVestItem = 0, usLeggingsItem = 0;
+	INT8 bStatus = 0;
 	//UINT16 usNumMatches;
 	//INT8 bOrigVestClass = bVestClass;
 
@@ -1494,7 +1502,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 		if(!gGameExternalOptions.fSoldiersWearAnyArmour) usHelmetItem = PickARandomItem(HELMET, pp->ubSoldierClass, bHelmetClass );
 		if ( usHelmetItem > 0 && Item[usHelmetItem].usItemClass == IC_ARMOUR && !(pp->Inv[ HELMETPOS ].fFlags & OBJECT_NO_OVERWRITE) && Armour[ Item[usHelmetItem].ubClassIndex ].ubArmourClass == ARMOURCLASS_HELMET )
 		{
-			CreateItem( usHelmetItem, (INT8)(70+Random(31)), &(pp->Inv[ HELMETPOS ]) );
+			bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+			CreateItem( usHelmetItem, bStatus, &(pp->Inv[ HELMETPOS ]) );
 			pp->Inv[ HELMETPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
 			// roll to see if he gets an attachment, too.  Higher chance the higher his entitled helmet class is
@@ -1503,7 +1512,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 				UINT16 usAttachment = PickARandomAttachment(ARMOURATTACHMENT, pp->ubSoldierClass, usHelmetItem, bHelmetClass, FALSE);
 				if ( usAttachment > 0 )
 				{
-					CreateItem( usAttachment, (INT8)(70+Random(31)), &gTempObject );
+					bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+					CreateItem( usAttachment, bStatus, &gTempObject );
 					gTempObject.fFlags |= OBJECT_UNDROPPABLE;
 					pp->Inv[ HELMETPOS ].AttachObject( NULL, &gTempObject, FALSE );
 				}
@@ -1567,7 +1577,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 		if(!gGameExternalOptions.fSoldiersWearAnyArmour) usVestItem = PickARandomItem(VEST, pp->ubSoldierClass, bVestClass );
 		if ( usVestItem > 0 && Item[usVestItem].usItemClass == IC_ARMOUR && !(pp->Inv[ VESTPOS ].fFlags & OBJECT_NO_OVERWRITE) && Armour[ Item[usVestItem].ubClassIndex ].ubArmourClass == ARMOURCLASS_VEST )
 		{
-			CreateItem( usVestItem, (INT8)(70+Random(31)), &(pp->Inv[ VESTPOS ]) );
+			bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+			CreateItem( usVestItem, bStatus, &(pp->Inv[ VESTPOS ]) );
 			pp->Inv[ VESTPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
 			// roll to see if he gets a CERAMIC PLATES, too.  Higher chance the higher his entitled vest class is
@@ -1576,7 +1587,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 				UINT16 usAttachment = PickARandomAttachment(ARMOURATTACHMENT, pp->ubSoldierClass, usVestItem, bVestClass, FALSE);
 				if ( usAttachment > 0 )
 				{
-					CreateItem( usAttachment, (INT8)(70+Random(31)), &gTempObject );
+					bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+					CreateItem( usAttachment, bStatus, &gTempObject );
 					gTempObject.fFlags |= OBJECT_UNDROPPABLE;
 					pp->Inv[ VESTPOS ].AttachObject( NULL, &gTempObject, FALSE );
 				}
@@ -1661,7 +1673,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 		if(!gGameExternalOptions.fSoldiersWearAnyArmour) usLeggingsItem = PickARandomItem(LEGS, pp->ubSoldierClass, bLeggingsClass );
 		if ( usLeggingsItem > 0 && Item[usLeggingsItem].usItemClass == IC_ARMOUR && !(pp->Inv[ LEGPOS ].fFlags & OBJECT_NO_OVERWRITE) && Armour[ Item[usLeggingsItem].ubClassIndex ].ubArmourClass == ARMOURCLASS_LEGGINGS )
 		{
-			CreateItem( usLeggingsItem, (INT8)(70+Random(31)), &(pp->Inv[ LEGPOS ]) );
+			bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+			CreateItem( usLeggingsItem, bStatus, &(pp->Inv[ LEGPOS ]) );
 			pp->Inv[ LEGPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
 			// roll to see if he gets an attachment, too.  Higher chance the higher his entitled Leggings class is
@@ -1670,7 +1683,8 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 				UINT16 usAttachment = PickARandomAttachment(ARMOURATTACHMENT, pp->ubSoldierClass, usLeggingsItem, bLeggingsClass, FALSE);
 				if ( usAttachment > 0 )
 				{
-					CreateItem( usAttachment, (INT8)(70+Random(31)), &gTempObject );
+					bStatus = RebelCommand::GetEnemyEquipmentStatusModifier(70 + Random(31));
+					CreateItem( usAttachment, bStatus, &gTempObject );
 					gTempObject.fFlags |= OBJECT_UNDROPPABLE;
 					pp->Inv[ LEGPOS ].AttachObject( NULL, &gTempObject, FALSE);
 				}

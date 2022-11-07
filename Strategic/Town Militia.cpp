@@ -279,7 +279,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 	if( ubTownId == BLANK_SECTOR )
 	{
-		Assert( IsThisSectorASAMSector( sMapX, sMapY, 0 ) );
+		Assert( IsThisSectorASAMSector( sMapX, sMapY, 0 ) || RebelCommand::CanTrainMilitiaAnywhere() );
 	}
 
 	// force tactical to update militia status
@@ -1293,7 +1293,7 @@ BOOLEAN IsSAMSiteFullOfMilitia( INT16 sSectorX, INT16 sSectorY, INT8 iMilitiaTyp
 	INT32 iMaxMilitiaPerSector = gGameExternalOptions.iMaxMilitiaPerSector;
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia5");
 	// check if SAM site is ours?
-	fSamSitePresent = IsThisSectorASAMSector(	sSectorX, sSectorY, 0 );
+	fSamSitePresent = IsThisSectorASAMSector(sSectorX, sSectorY, 0) || RebelCommand::CanTrainMilitiaAnywhere();
 
 	if( fSamSitePresent == FALSE )
 	{

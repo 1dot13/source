@@ -3138,6 +3138,7 @@ extern STR16	szRebelCommandText[];
 extern STR16	szRebelCommandHelpText[];
 extern STR16	szRebelCommandAdminActionsText[];
 extern STR16	szRebelCommandDirectivesText[];
+extern STR16	szRebelCommandAgentMissionsText[];
 
 extern STR16	szRobotText[];
 enum {

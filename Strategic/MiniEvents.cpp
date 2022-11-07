@@ -1532,6 +1532,7 @@ void MiniEventsLua(UINT32 eventId)
 			&& pSoldier->stats.bLife > 0
 			&& pSoldier->bAssignment != IN_TRANSIT
 			&& pSoldier->bAssignment != ASSIGNMENT_POW
+			&& pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND
 			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 		{
 			gAllMercs.push_back(pSoldier);

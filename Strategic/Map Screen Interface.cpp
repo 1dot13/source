@@ -1938,7 +1938,7 @@ void UpdateCharRegionHelpText( void )
 		pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
 
 		// health/energy/morale
-		if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT )
+		if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND )
 		{
 			if ( pSoldier->stats.bLife != 0 )
 			{
@@ -3713,7 +3713,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 
 			if( ( pSoldier->bActive ) &&
-					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
+					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) && ( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
 					( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == sSectorZ ) )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -6063,8 +6063,8 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		return( FALSE );
 	}
 
-	// mini event?
-	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	// mini event/rebel command?
+	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 	{
 		*pbErrorNumber = 29;
 		return( FALSE );

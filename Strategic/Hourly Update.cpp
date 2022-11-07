@@ -712,6 +712,7 @@ void HourlyStealUpdate()
 			&& pSoldier->bAssignment != IN_TRANSIT
 			&& pSoldier->bAssignment != ASSIGNMENT_POW
 			&& pSoldier->bAssignment != ASSIGNMENT_MINIEVENT
+			&& pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND
 			&& !( ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && ( gbWorldSectorZ == pSoldier->bSectorZ ) ) && ( gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) ) )
 		{
 			UINT8 ubSectorId = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
@@ -741,6 +742,7 @@ void HourlyStealUpdate()
 					&& pOtherSoldier->bAssignment != IN_TRANSIT
 					&& pOtherSoldier->bAssignment != ASSIGNMENT_POW
 					&& pOtherSoldier->bAssignment != ASSIGNMENT_MINIEVENT
+					&& pOtherSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND
 					&& !SPY_LOCATION( pOtherSoldier->bAssignment )
 					&& pOtherSoldier->bActive
 					&& !pOtherSoldier->flags.fMercAsleep

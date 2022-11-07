@@ -1612,6 +1612,10 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 		case REBEL_COMMAND_SPENDING:
 			swprintf(pString, L"%s", pTransactionText[REBEL_COMMAND_SPENDING]);
 			break;
+
+		case REBEL_COMMAND_BOUNTY_PAYOUT:
+			swprintf(pString, L"%s", pTransactionText[REBEL_COMMAND_BOUNTY_PAYOUT]);
+			break;
 	}
 }
 

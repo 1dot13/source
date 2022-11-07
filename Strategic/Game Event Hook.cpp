@@ -51,6 +51,7 @@
 	#include "Player Command.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "MiniEvents.h"
+	#include "Rebel Command.h"
 #endif
 
 #include "connect.h"
@@ -679,6 +680,10 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			{
 				CheckMiniEvents(pEvent->uiParam);
 			}
+			break;
+
+		case EVENT_REBELCOMMAND:
+			RebelCommand::HandleStrategicEvent(pEvent->uiParam);
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

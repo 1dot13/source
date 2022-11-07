@@ -4157,6 +4157,125 @@ void LoadRebelCommandSettings()
 
 	gRebelCommandSettings.iFortificationsBonus = iniReader.ReadInteger("Rebel Command Settings", "FORTIFICATIONS_BONUS", 10, 0, 100);
 
+	// agent missions
+	gRebelCommandSettings.iMissionBaseCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_BASE_COST", 500, 100, 10000);
+	gRebelCommandSettings.iMissionAdditionalCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_ADDITIONAL_COST", 250, 0, 10000);
+	gRebelCommandSettings.iMissionPrepTime = iniReader.ReadInteger("Rebel Command Settings", "MISSION_PREPARATION_TIME", 24, 1, 168);
+	gRebelCommandSettings.iMissionRefreshTimeDays = iniReader.ReadInteger("Rebel Command Settings", "MISSION_REFRESH_TIME_DAYS", 2, 1, 7);
+	gRebelCommandSettings.iMinLoyaltyForMission = iniReader.ReadInteger("Rebel Command Settings", "MIN_LOYALTY_FOR_MISSION", 51, 0, 100);
+
+	gRebelCommandSettings.iDeepDeploymentSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iDeepDeploymentRangeNS = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS", 200, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW", 350, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_COVERT", 50, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_COVERT" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_SCOUTING" , 25, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_SCOUTING" , 40, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_STEALTHY" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_STEALTHY" , 30, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_SURVIVAL" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_SURVIVAL" , 30, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentDuration = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION" , 72, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_COVERT" , 24, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_SCOUTING" , 48, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_STEALTHY" , 36, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_SURVIVAL" , 36, 0, 255);
+
+	gRebelCommandSettings.iDisruptAsdSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_COVERT", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Demolitions = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_DEMOLITIONS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Nightops = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_NIGHTOPS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Technician = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_TECHNICIAN", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.iDisruptAsdDuration = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_COVERT", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_DEMOLITIONS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
+
+	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_COVERT", 48, 0, 255);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Radio = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_RADIO", 48, 0, 255);
+
+	gRebelCommandSettings.iImproveLocalShopsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "IMPROVE_LOCAL_SHOPS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iImproveLocalShopsDuration = iniReader.ReadInteger("Rebel Command Settings", "IMPROVE_LOCAL_SHOPS_DURATION", 72, 0, 255);
+
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER", 1.1f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_COVERT", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Deputy = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_DEPUTY", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Snitch = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_SNITCH", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_COVERT", 24, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Deputy = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_DEPUTY", 24, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Snitch = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_SNITCH", 24, 0, 255);
+
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_COVERT", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Radio = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_RADIO", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Stealthy = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_STEALTHY", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Radio = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION_BONUS_RADIO", 72, 0, 255);
+
+	gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Auto_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_AUTO_WEAPONS", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_COVERT", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_DEMOLITIONS", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Gunslinger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_GUNSLINGER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Ranger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_RANGER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Sniper = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_SNIPER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Auto_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_AUTO_WEAPONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_DEMOLITIONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Gunslinger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_GUNSLINGER", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Ranger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_RANGER", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Sniper = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_SNIPER", 72, 0, 255);
+
+	gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_COVERT", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_DEMOLITIONS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_HEAVY_WEAPONS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_DEMOLITIONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_HEAVY_WEAPONS", 72, 0, 255);
+
+	gRebelCommandSettings.iSendSuppliesToTownSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSendSuppliesToTownDuration = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSendSuppliesToTownLoyaltyGain = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_LOYALTY_GAIN", 500, 1, 10000);
+	gRebelCommandSettings.iSendSuppliesToTownInterval = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_INTERVAL", 6, 1, 24);
+
+	gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS", 1, 1, 4);
+	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS_TEACHING", 1, 1, 4);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_SURVIVAL", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_TEACHING", 72, 0, 255);
+
+	gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_COVERT", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_DEMOLITIONS", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Admin = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ADMIN", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Troop = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TROOP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Elite = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ELITE", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Robot = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ROBOT", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Jeep = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_JEEP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Tank = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TANK", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Officer = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_OFFICER", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_DEMOLITIONS", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_SNITCH", 10000, 0, 30000);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_COVERT", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_DEPUTY", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_SNITCH", 1.1f, 0.f, 2.f);
 }
 
 void FreeGameExternalOptions()

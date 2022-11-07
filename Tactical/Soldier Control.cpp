@@ -6311,7 +6311,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// If anything other than on a squad or guard, make them guard....
 	if ( this->bTeam == gbPlayerNum )
 	{
-		if ( this->bAssignment >= ON_DUTY && this->bAssignment != ASSIGNMENT_POW && this->bAssignment != ASSIGNMENT_MINIEVENT )
+		if ( this->bAssignment >= ON_DUTY && this->bAssignment != ASSIGNMENT_POW && this->bAssignment != ASSIGNMENT_MINIEVENT && this->bAssignment != ASSIGNMENT_REBELCOMMAND)
 		{
 			if ( this->flags.fMercAsleep )
 			{

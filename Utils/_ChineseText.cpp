@@ -2480,7 +2480,8 @@ STR16 pAssignmentStrings[] =
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
 	L"探索",	//L"Explore"
-	L"事件"  //L"Event"  rftr: merc is on a mini event
+	L"事件",  //L"Event"  rftr: merc is on a mini event
+	L"Mission", // rftr: rebel command
 };
 
 
@@ -4662,6 +4663,7 @@ STR16 pTransactionText[] =
 	L"微型事件", //L"Mini event", rftr: mini events
 	L"从反抗军司令部转移资金", //L"Funds transferred from rebel command", rftr: rebel command
 	L"资金转移到反抗军司令部", //L"Funds transferred to rebel command", rftr: rebel command 
+	L"Bounty payout", // rftr: rebel command soldier bounties
 };
 
 STR16 pTransactionAlternateText[] =
@@ -11864,12 +11866,16 @@ STR16 gLbeStatsDesc[14] =
 
 STR16 szRebelCommandText[] =
 {
-	L"Arulco反抗军司令部 - 国家总览",   //L"Arulco Rebel Command - National Overview",
-	L"Arulco反抗军司令部 - 地区总览",   //L"Arulco Rebel Command - Regional Overview",
-	L"点击地区总览",   //L"Switch to Regional Overview",
-	L"点击国家总览",   //L"Switch to National Overview",
+	L"国家总览",   //L"National Overview",
+	L"地区总览",   //L"Regional Overview",
+	L"Mission Overview",
+	L"Select View:",
+	L"地区总览 (2)",   //L"Regional (2)",
+	L"国家总览 (1)",   //L"National (1)",
+	L"Mission (3)",
 	L"物资：",   //L"Supplies:",
 	L"后勤物资",   //L"Incoming Supplies",
+	L"Intel:",
 	L"  /天",   //L"/day",
 	L"当前项目",   //L"Current Directive",
 	L"升级项目（$%d）",   //L"Improve Directive ($%d)",
@@ -11927,17 +11933,68 @@ STR16 szRebelCommandText[] =
 	L"<",   //L"<",
 	L">",   //L">",
 	L"更改此指令操作将花费$%d并重置。确认支出？",   //L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"Insufficient supplies! Admin Actions have been DISABLED.",
+	L"New missions will be available every %d hours.",
+	L"New missions are available at the A.R.C. website.",
+	L"Mission preparations in progress.",
+	L"Mission duration: %d days",
+	L"Chance of success: %d%s",
+	L"[REDACTED]",
+	L"Name: %s",
+	L"Location: %s",
+	L"Assignment: %s",
+	L"Contract: %d days",
+	L"Contract: %d hours",
+	L"Contract: ---",
+	L"Agent bonus:",
+	L"Chance of success +%d%s (%s)",
+	L"Deployment range +%d (%s)",
+	L"ASD Income -%2.0f%s (%s)",
+	L"Steal fuel; send to %s (%s)",
+	L"Destroy reserve units (%s)",
+	L"Time +%2.0f%s (%s)",
+	L"Vision -%2.0f%s (%s)",
+	L"Gear quality -%d (%s)",
+	L"Overall stats -%d (%s)",
+	L"Max trainers: %d (%s)",
+	L"Payout +%2.0f%s (%s)",
+	L"Payout limit increased to $%d (%s)",
+	L"Bonus for officers (%s)",
+	L"Bonus for vehicles (%s)",
+	L"Duration +%d hours (%s)",
+	L"Agent not in town",
+	L"Town loyalty too low",
+	L"Agent unavailable",
+	L"Agent contract expiring",
+	L"Can't use rebel agent",
+	L"Battle in progress",
+	L"Prepare Mission (%d supplies)",
+	L"View active mission effects",
+	L"View available mission list",
+	L"You are able to prepare one of the two missions presented. Once an agent is dispatched, they will be unavailable for approximately %d hours before becoming available again. A popup will notify you when preparations are complete. If preparations succeed, the mission's effects become active.",
+	L"A rebel agent can be sent to prepare a mission, but your mercenaries will be far more effective. Their experience level and skills can provide additional bonuses to missions.",
+	L"The cost of preparing a mission increases based on the number other missions either active or being prepared.",
+	L"New missions will be available on Day %d at 00:00.",
+	L"Active missions:",
+	L"%s - Preparing - Ready on Day %d, %02d:%02d",
+	L"%s - Active - Expires on Day %d, %02d:%02d",
+	L"[%s (%d supplies)]",
+	L"%s Send a rebel agent to prepare this mission?",
+	L"%s Send %s to prepare this mission? He will return in approximately %d hours.",
+	L"%s Send %s to prepare this mission? She will return in approximately %d hours.",
+	L"Mission \"%s\" is now in effect.",
+	L"Preparations for mission \"%s\" failed.",
+	L"Mission \"%s\" has expired and is no longer in effect.",
 };
 
 STR16 szRebelCommandHelpText[] =
 {
 	L"|物|资\n \n食物、水、医疗用品、武器以及任何\n反抗军认为有用的物资。反抗军会自动收集。",   //L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
-	L"|后|勤|物|资\n \n反抗军每天都会自动收集物资。当你\n占领更多的城镇时，他们每天能够\n找到的物资补给量将会增加。",   //L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
+	L"|后|勤|物|资\n \n反抗军每天都会自动收集物资。当你\n占领更多的城镇时，他们每天能够\n找到的物资补给量将会增加。\n \n+%d (Base income)",   //L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
 	L"|当|前|项|目\n \n你可以选择反抗军优先进行的战略目标。\n当你选定好战略目标时，新的项目指令将生效。",   //L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
 	L"|指|挥|部\n \n指挥部一旦部署，就会负责处理\n该区域内的日常事务。包括支持当地人，制造\n反抗宣传，制定地区政策等等。",   //L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
 	L"|忠|诚|度\n \n许多行政命令的有效性取决于\n该地区的忠诚度，提高忠诚度\n能得到最大利益化。",   //L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
 	L"|最|高|忠|诚|度\n \n你需要说服当地人完全信任你。这可以\n通过为他们建立物资供应来实现，表明\n你打算改善他们的生活质量。",   //L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
-	L"|援|助|物|资\n \n将物资送到此处的反抗军手里，并允许\n他们根据需要使用。这将少量增加\n该地区的忠诚度，但是会略微增加制定\n该地区政策的成本。",   //L"|G|r|a|n|t |S|u|p|p|l|i|e|s\n \nSend supplies to the admin team here and allow them to use them\nas needed. This will increase the region's loyalty by a small amount\neach time you do this. However, doing this will slightly increase\nthe cost of enacting regional policies.",
 	L"该管理行动只会作用到城镇区域。", //L"This Admin Action applies its bonus to town sectors only.", TODO.Translate
 	L"该管理行动会作用到城镇区域。\n和直接相邻的区域。",   //L"This Admin Action applies its bonus to town sectors, and\nsectors immediately adjacent to them.",
 	L"该管理行动会作用到城镇区域。\n1级覆盖周边1个区域。\n2级覆盖周边2个区域。",   //L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
@@ -11966,7 +12023,7 @@ STR16 szRebelCommandAdminActionsText[] =
 	L"民兵武器库",   //L"Militia Warehouses",
 	L"在偏远地区建造仓库，让反抗军为民兵储备武器。提供每日民兵资源。",   //L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
 	L"税务局",   //L"Regional Taxes",
-	L"从当地人那里筹集资金来帮助你。这是一种永久的行为。增加每日收入，但地区忠诚度会逐日下降。",   //L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
+	L"从当地人那里筹集资金来帮助你。增加每日收入，但地区忠诚度会逐日下降。",   //L"Collect money from the locals to assist your efforts. Increases daily income, but regional loyalty falls daily.",
 	L"民间援助",   //L"Civilian Aid",
 	L"指派一些反抗军直接协助和支持该地区的平民。增加每天志愿者的总数。",   //L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
 	L"私人佣兵团",   //L"Merc Support",
@@ -12028,6 +12085,32 @@ STR16 szRebelCommandDirectivesText[] =
 	L"每天获得%.0f名志愿者。所有城镇每天都会失去一些忠诚度。",   //L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
 	L"征召平民作为民兵新兵。不过民众\n可能不会对此感到高兴。随着您\n占领更多城镇，效率会提高。",   //L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
 	L"升级此项将会增加每天志愿者人数。",   //L"Improving this directive will increase the number of volunteers gained per day.",
+};
+
+STR16 szRebelCommandAgentMissionsText[] =
+{
+	L"Deep Deployment",
+	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
+	L"Disrupt ASD",
+	L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
+	L"Strategic Intel",
+	L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
+	L"Improve Local Shops",
+	L"Set up ways for merchants across the country to acquire better goods more easily. Shopkeepers will have better than usual inventories.",
+	L"Slow Strategic Decisions",
+	L"Sow confusion and misdirection at the highest levels of enemy command. The enemy takes longer to make decisions at a strategic level.",
+	L"Lower Readiness",
+	L"Trick enemy soldiers into letting their guard down. Enemy soldiers have reduced vision range until they are alerted to your mercs' presence.",
+	L"Sabotage Equipment",
+	L"Disrupt enemy supply chains and prevent the enemy from maintaining their gear properly. Enemy soldiers use equipment that is worse than normal.",
+	L"Sabotage Vehicles",
+	L"Sabotage vehicle maintenance hubs to reduce their combat effectiveness and readiness. Enemy vehicles encountered have reduced stats.",
+	L"Send Supplies",
+	L"Temporarily increase direct support to this town. Town loyalty passively increases for the duration of the mission.",
+	L"Soldier Bounties (Kingpin)",
+	L"Get a payout for enemy kills. Negotiate with Kingpin, who feels he can use your presence here to indirectly weaken the Queen's power. Bounties are deposited into your account at midnight and are limited to $%d per day.",
+	L"Train Militia Anywhere",
+	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
 
 STR16 szRobotText[] =

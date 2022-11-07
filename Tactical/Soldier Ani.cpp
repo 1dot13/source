@@ -66,6 +66,7 @@
 #include "MilitiaIndividual.h"			// added by Flugente
 #include "Town Militia.h"				// added by Flugente
 #include "PreBattle Interface.h"		// added by Flugente
+#include "Rebel Command.h"
 #endif
 
 // anv: for enemy taunts
@@ -4197,6 +4198,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 				*/
 			}
 		}
+
+		// rftr: soldier bounty payout
+		RebelCommand::ApplySoldierBounty(pSoldier);
 
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
