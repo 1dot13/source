@@ -9,5 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make
-      run: make
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
+    - name: compile
+      run: build
