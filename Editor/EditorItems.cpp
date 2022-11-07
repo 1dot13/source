@@ -220,7 +220,6 @@ void EntryInitEditorItemsInfo()
 void InitEditorItemsInfo(UINT32 uiItemType)
 {
 	INVTYPE *item;
-	SGPRect	SaveRect;
 	INT32 i;
 	UINT16 usCounter;
 	BOOLEAN fTypeMatch;
@@ -318,7 +317,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	DetermineItemsScrolling();
 
 	usCounter = 0;
-	GetClippingRect(&SaveRect);
 	// Go through the items, and depending on the current eInfo.uiItemType, store the item indexes for blitting graphics and names later in RenderEditorItemsInfo()
 	if( eInfo.uiItemType == TBAR_MODE_ITEM_KEYS )
 	{ //Keys use a totally different method for determining
@@ -413,8 +411,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			usCounter++;
 		}
 	}
-	SetClippingRect(&SaveRect);
-	gfRenderTaskbar = TRUE;
 }
 
 void DetermineItemsScrolling()
