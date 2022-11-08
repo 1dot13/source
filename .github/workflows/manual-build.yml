@@ -14,4 +14,5 @@ jobs:
     - uses: actions/cache@v3.0.11
       with:
         path: bin/VS2013/JA2_EN_Release_master_VS2019.exe
+        key: ja2-113
   
