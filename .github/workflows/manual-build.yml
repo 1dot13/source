@@ -16,7 +16,7 @@ jobs:
       run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       
     - name: Check outputs
-      run: echo ${{ steps.vars.outputs.sha_short }}
+      run: echo "${{ steps.vars.outputs.sha_short }}"
     
     - name: Build
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
