@@ -12,11 +12,15 @@ jobs:
     - uses: microsoft/setup-msbuild@v1.1
     
     - name: Shorten SHA
-      id: vars
       run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
       
-    - name: Check outputs
-      run: echo "${{ env.SHA_SHORT }}"
+    - name: Get date
+      run: echo "DATE=$(Get-Date -Format yyyy.MM.dd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Check vars
+      run: |
+        echo "${{ env.SHA_SHORT }}"
+        echo "${{ env.DATE }}"
     
     - name: Build
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
