@@ -10,9 +10,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: microsoft/setup-msbuild@v1.1
-    - run: msbuild ja2_VS2019.sln -property:Configuration=Release -p:OutputType=Exe
-    - uses: actions/cache@v3.0.11
+    
+    - name: Build
+      run: msbuild ja2_VS2019.sln -property:Configuration=Release
+    
+    - name: Rename output
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_113.exe
+    
+    - name: Upload executable
+      uses: actions/upload-artifact@v3
       with:
-        path: bin/VS2013/JA2_EN_Release_master_VS2019.exe
-        key: ja2-113
-  
+        name: ja2_113
+        path: ja2_113.exe
+        
+    - name: Download executable
+      uses: actions/download-artifact@v3
+      with:
+        name: ja2_113
