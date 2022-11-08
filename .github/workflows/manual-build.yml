@@ -13,7 +13,7 @@ jobs:
     
     - name: Shorten SHA
       id: vars
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      run: echo "::set-output name=sha_short::$(git rev-parse --short ${{ github.sha }})"
       
     - name: Check outputs
       run: echo "${{ steps.vars.outputs.sha_short }}"
