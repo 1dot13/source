@@ -13,7 +13,7 @@ jobs:
     
     - name: Shorten SHA
       id: vars
-      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
+      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
       
     - name: Check outputs
       run: echo "${{ env.SHA_SHORT }}"
