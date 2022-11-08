@@ -13,21 +13,21 @@ jobs:
     
     - name: Shorten SHA
       id: vars
-      run: echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
       
     - name: Check outputs
-      run: echo "${{ steps.vars.outputs.sha_short }}"
+      run: echo "${{ env.SHA_SHORT }}"
     
     - name: Build
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
     
     - name: Rename output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_113_${{ github.sha }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_113_${{ env.SHA_SHORT }}.exe
     
     - name: Upload executable
       uses: actions/upload-artifact@v3
       with:
         name: ja2_113
-        path: ja2_113_${{ github.sha }}.exe
+        path: ja2_113_${{ env.SHA_SHORT }}.exe
         
 
