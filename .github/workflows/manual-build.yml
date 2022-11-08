@@ -30,7 +30,7 @@ jobs:
         #include "GameVersion.h"
         
         CHAR16 zVersionLabel[256] = { L"Release v1.13 (Development Build) (Github)" };
-        CHAR8 czVersionNumber[16] = { "Build ${{ env.DATE }}" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
         CHAR16 zTrackingNumber[16] = { L"Z" };
         CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
         "@ | Out-File -FilePath GameVersion.cpp
