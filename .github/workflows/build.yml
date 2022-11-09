@@ -1,21 +1,21 @@
-name: manual build
+name: build
 
-on:
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   build:
+    if: github.repository == '1dot13/source'
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
     - uses: microsoft/setup-msbuild@v1.1
     
-    - name: Shorten SHA
+    - name: Get short SHA
       run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
       
     - name: Get date
-      run: echo "DATE=$(Get-Date -Format yyyy.MM.dd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      run: echo "DATE=$(git log -1 --date=format:'%Y%b%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
       
     - name: Check vars
       run: |
@@ -100,7 +100,7 @@ jobs:
     - name: Rename JA2 UB output
       run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.SHA_SHORT }}.exe
       
-    - name: Upload executable
+    - name: Upload output
       uses: actions/upload-artifact@v3
       with:
         name: ja2_113
