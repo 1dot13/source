@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    if: github.repository == 'rftrdev/1dot13-source' && github.branch == 'master'
+    if: github.repository == 'rftrdev/1dot13-source' && github.ref_name == 'master'
     runs-on: windows-latest
 
     steps:
