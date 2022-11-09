@@ -1,0 +1,27 @@
+name: test-action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+      
+    - name: compress
+      uses: TheDoctor0/zip-release@0.6.2
+      with:
+        filename: test.zip
+        #path: # optional, default is .
+        # Working directory before zipping
+        #directory: # optional, default is .
+        # List of excluded files / directories
+        #exclusions: # optional, default is 
+        # List of excluded files / directories with recursive wildcards (only applies on Windows with `zip` type)
+        #recursive_exclusions: # optional, default is 
+        # Tool to use for archiving
+        #type: # optional, default is zip
+        
