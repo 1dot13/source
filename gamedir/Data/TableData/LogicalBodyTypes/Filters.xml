@@ -61,7 +61,7 @@
 	</Filter>
 	<Filter name="DualHandguns">
 		<AND>
-			<FILTER>HasPistolOrMPistolInRightHand2</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>	
 		</AND>
 	</Filter>
