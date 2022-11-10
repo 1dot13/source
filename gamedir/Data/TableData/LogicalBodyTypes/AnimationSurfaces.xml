@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE AnimSurfaces [
+	<!ENTITY AnimSurfaces_LobotRGM SYSTEM "LogicalBodyTypes\LBT_RGM\AnimationSurfaces_LBT_RGM.xml">
+	<!ENTITY AnimSurfaces_LobotRGM_UZI SYSTEM "LogicalBodyTypes\LBT_RGM\AnimationSurfaces_LBT_RGM_UZI.xml">
+	<!ENTITY AnimSurfaces_LobotRGM_SAWNOFF SYSTEM "LogicalBodyTypes\LBT_RGM\AnimationSurfaces_LBT_RGM_sawnoff.xml">
+	<!ENTITY AnimSurfaces_LobotBGM SYSTEM "LogicalBodyTypes\LBT_BGM\AnimationSurfaces_LBT_BGM.xml">
+	<!ENTITY AnimSurfaces_LobotBGM_UZI SYSTEM "LogicalBodyTypes\LBT_BGM\AnimationSurfaces_LBT_BGM_UZI.xml">
+	<!ENTITY AnimSurfaces_LobotBGM_SAWNOFF SYSTEM "LogicalBodyTypes\LBT_BGM\AnimationSurfaces_LBT_BGM_sawnoff.xml">
+	<!ENTITY AnimSurfaces_LobotRGF SYSTEM "LogicalBodyTypes\LBT_RGF\AnimationSurfaces_LBT_RGF.xml">
+	<!ENTITY AnimSurfaces_LobotRGF_UZI SYSTEM "LogicalBodyTypes\LBT_RGF\AnimationSurfaces_LBT_RGF_UZI.xml">
+	<!ENTITY AnimSurfaces_LobotRGF_SAWNOFF SYSTEM "LogicalBodyTypes\LBT_RGF\AnimationSurfaces_LBT_RGF_SAWNOFF.xml">
+]>
+<AnimSurfaces>
+	&AnimSurfaces_LobotRGM;
+	&AnimSurfaces_LobotRGM_UZI;
+	&AnimSurfaces_LobotRGM_SAWNOFF;
+	&AnimSurfaces_LobotBGM;
+	&AnimSurfaces_LobotBGM_UZI;
+	&AnimSurfaces_LobotBGM_SAWNOFF;
+	&AnimSurfaces_LobotRGF;
+	&AnimSurfaces_LobotRGF_UZI;
+	&AnimSurfaces_LobotRGF_SAWNOFF;
+</AnimSurfaces>
