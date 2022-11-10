@@ -45,7 +45,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
       
     - name: Rename Map Editor output
-      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/mapeditor_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2_mapeditor_113_${{ env.SHA_SHORT }}.exe
   
     - name: Replace GameVersion.cpp (JA2)
       run: |
