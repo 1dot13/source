@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Layers>
+	<Layer name="shadow" render="1" shadow="1">0</Layer>
+	<Layer name="legs" render="1" shadow="0">1</Layer>
+	<Layer name="body" render="1" shadow="0">2</Layer>
+	<Layer name="head" render="1" shadow="0">4</Layer>
+	<Layer name="hands" render="1" shadow="0">3</Layer>
+	<Layer name="vest" render="1" shadow="0">8</Layer>
+	<Layer name="legrig" render="1" shadow="0">10</Layer>
+	<Layer name="knees" render="1" shadow="0">11</Layer>
+	<Layer name="backpack" render="1" shadow="1">9</Layer>
+	<Layer name="gun" render="1" shadow="1">5</Layer>
+	<Layer name="gunleft" render="1" shadow="1">5</Layer>
+	<Layer name="facegear" render="1" shadow="0">6</Layer>
+	<Layer name="helmet" render="1" shadow="0">7</Layer>
+</Layers>

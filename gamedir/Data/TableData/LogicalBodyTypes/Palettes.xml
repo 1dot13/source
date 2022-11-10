@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Palettes>
+	<!--<Palette name = "default" filename = "Palettes\default.act" />	-->
+	<Palette name = "hats" filename = "Palettes\Hats.stp" />
+	<Palette name = "guns_universal" filename = "Palettes\guns_universal.stp" />
+	<Palette name = "guns_AK" filename = "Palettes\guns_AK.stp" />
+	<Palette name = "guns_v2" filename = "Palettes\guns_universal_v2.stp" />
+	<!--<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.stp" />-->
+	<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.act" />
+	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
+	<Palette name = "universal_camo" filename = "Palettes\stiPalette_camo.act" />
+</Palettes>
