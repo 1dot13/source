@@ -1,0 +1,21 @@
+name: test-action
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+
+    - name: Get github context vars
+      run: |
+        echo "sha=${{ github.sha }}" | Out-File -FilePath $env:GITHUB_ENV -Append
+        echo "evt=${{ github.event }}" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Check vars
+      run: |
+        echo "sha=${{ env.sha }}"
+        echo "evt=${{ env.evt }}"
+  
+        
