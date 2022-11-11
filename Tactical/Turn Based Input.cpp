@@ -351,6 +351,7 @@ void HandleTBLocateNextMerc( void );
 void HandleTBLocatePrevMerc( void );
 void HandleTBLevelDown(void);
 void HandleTBLevelUp(void);
+void HandleTBBackpacks(void);
 void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
@@ -3386,8 +3387,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'B':
-				//Drop pack for all mercs on current map
-				HandleTBDropBackpacks();
+				//Drop/Pick up backpack for all mercs on current map
+				HandleTBBackpacks();
 				break;
 			case 'c':
 
@@ -8408,6 +8409,35 @@ void HandleTBLevelUp(void)
 		{
 			// Remember soldier's new value
 			gpSMCurrentMerc->bUIInterfaceLevel = (INT8)gsInterfaceLevel;
+		}
+	}
+}
+
+void HandleTBBackpacks(void)
+{
+	if (UsingNewInventorySystem)
+	{
+		bool backpackDropped = false;
+		SOLDIERTYPE* pTeamSoldier;
+
+		for (UINT8 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		{
+			pTeamSoldier = MercPtrs[ubLoop];
+
+			if (pTeamSoldier->flags.DropPackFlag)
+			{
+				backpackDropped = true;
+				break;
+			}
+		}
+
+		if (backpackDropped)
+		{
+			HandleTBPickUpBackpacks();
+		}
+		else
+		{
+			HandleTBDropBackpacks();
 		}
 	}
 }
