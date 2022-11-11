@@ -1,0 +1,110 @@
+name: build
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    if: github.repository == '1dot13/source' && github.ref_name == 'master'
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Get short SHA
+      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Get date
+      run: echo "DATE=$(git log -1 --date=format:'%Y%b%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      
+    - name: Check vars
+      run: |
+        echo "${{ env.SHA_SHORT }}"
+        echo "${{ env.DATE }}"
+    
+    - name: Checkout gamedir
+      uses: actions/checkout@v3
+      with:
+        repository: 1dot13/gamedir
+        path: ja2
+    
+    - name: Replace GameVersion.cpp (Map Editor)
+      run: |
+        rm GameVersion.cpp
+        echo @"
+        #include "Types.h"
+        #include "GameVersion.h"
+        
+        CHAR16 zVersionLabel[256] = { L"Map Editor v1.13 (Development Build) (Github)" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
+        CHAR16 zTrackingNumber[16] = { L"Z" };
+        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
+        "@ | Out-File -FilePath GameVersion.cpp
+    
+    - name: Build Map Editor
+      run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
+      
+    - name: Rename Map Editor output
+      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2_mapeditor_113_${{ env.SHA_SHORT }}.exe
+  
+    - name: Replace GameVersion.cpp (JA2)
+      run: |
+        rm GameVersion.cpp
+        echo @"
+        #include "Types.h"
+        #include "GameVersion.h"
+        
+        CHAR16 zVersionLabel[256] = { L"Release v1.13 (Development Build) (Github)" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
+        CHAR16 zTrackingNumber[16] = { L"Z" };
+        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
+        "@ | Out-File -FilePath GameVersion.cpp
+    
+    - name: Build JA2
+      run: msbuild ja2_VS2019.sln -property:Configuration=Release
+      
+    - name: Rename JA2 output
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_113_${{ env.SHA_SHORT }}.exe
+      
+    - name: Replace GameVersion.cpp and builddefines.h (JA2 UB)
+      run: |
+        rm GameVersion.cpp
+        echo @"
+        #include "Types.h"
+        #include "GameVersion.h"
+        
+        CHAR16 zVersionLabel[256] = { L"Release Unfinished Business v1.13 (Development Build) (Github)" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
+        CHAR16 zTrackingNumber[16] = { L"Z" };
+        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
+        "@ | Out-File -FilePath GameVersion.cpp
+        
+        rm builddefines.h
+        echo @"
+        #ifndef _BUILDDEFINES_H_
+        #define _BUILDDEFINES_H_
+        #include "Language Defines.h"
+        #define JA2UB
+        #define JA2UBMAPS
+        #define FORCE_ASSERTS_ON
+        #define _CRT_SECURE_NO_WARNINGS
+        #define _CRT_NON_CONFORMING_SWPRINTFS
+        #define _SCL_SECURE_NO_WARNINGS
+        #include "Profiler.h"
+        #endif
+        "@ | Out-File -FilePath builddefines.h
+    
+    - name: Build JA2 UB
+      run: msbuild ja2_VS2019.sln -property:Configuration=Release
+      
+    - name: Rename JA2 UB output
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.SHA_SHORT }}.exe
+      
+    - name: Upload output
+      uses: actions/upload-artifact@v3
+      with:
+        name: ja2_113
+        path: |
+          ja2/
+          !ja2/.git/
+        
