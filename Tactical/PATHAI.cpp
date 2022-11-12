@@ -55,9 +55,11 @@ class SOLDIERTYPE;
 
 #ifdef USE_ASTAR_PATHS
 #include "BinaryHeap.hpp"
-#include "AIInternals.h"
 #include "opplist.h"
 #include "weapons.h"
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
 #endif
 //#include "dnlprocesstalk.h"//dnl???
 
@@ -651,7 +653,7 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
 	fConsiderPersonAtDestAsObstacle = (BOOLEAN)( fPathingForPlayer && fPathAroundPeople && !(fFlags & PATH_IGNORE_PERSON_AT_DEST) );
 
-	if ( fNonSwimmer && Water( dest ) ) 
+	if ( fNonSwimmer && Water( dest, 0 ) ) 
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR: path failed, water" ) );
 		return( 0 );
@@ -1416,7 +1418,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 
 	// Flugente: dragging someone
-	if ( pSoldier->IsDraggingSomeone( ) )
+	if ( pSoldier->IsDragging( false ) )
 	{
 		movementAPCost *= gItemSettings.fDragAPCostModifier;
 	}

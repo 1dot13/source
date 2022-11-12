@@ -94,6 +94,13 @@
 #include "Map Screen Interface.h"	// added by Flugente for SquadNames
 #include "Keys.h"	// added by silversurfer for door handling from the side
 
+#ifdef USE_ASTAR_PATHS
+#include "AIInternals.h"
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
 //			On the bottom here, there are these functions made

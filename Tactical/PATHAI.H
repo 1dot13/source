@@ -12,7 +12,7 @@
 
 // WANNE: Please do not use ASTAR pathing,
 // because it is a HUGH PERFORMANCE KILLER on big maps!!
-//#define USE_ASTAR_PATHS
+#define USE_ASTAR_PATHS
 
 #ifdef USE_ASTAR_PATHS
 
