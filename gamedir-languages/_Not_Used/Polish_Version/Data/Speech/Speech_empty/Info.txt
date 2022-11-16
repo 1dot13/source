@@ -1,2 +1,0 @@
-Copy these Empty WAV Files in your Data\Speech folder if you do not like the English speech.
-If you copy them, Merc will have no speech instead of English speech
