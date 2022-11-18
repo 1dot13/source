@@ -469,6 +469,23 @@
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
+	<Filter name="KevlarVest">
+		<OR>
+			<VESTPOS op="in">164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingKevlarAndHasPistol">
+		<AND>
+			<FILTER>KevlarVest</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingKevlarAndHasRifle">
+		<AND>
+			<FILTER>KevlarVest</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="IsWearingGasmask">
 		<OR>
 			<HEAD1POS op="in">213</HEAD1POS>
@@ -572,5 +589,11 @@
 			<FILTER>IsFox</FILTER>
 			<FILTER>IsWearingNVG</FILTER>
 		</AND>
+	</Filter>
+	<Filter name="IsElite">
+		<OR>
+			<SOLDIER_CLASS>SOLDIER_CLASS_ELITE</SOLDIER_CLASS>
+			<FACEINDEX>10</FACEINDEX> <!-- Shadow -->
+		</OR>
 	</Filter>
 </Filters>
