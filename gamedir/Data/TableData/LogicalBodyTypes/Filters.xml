@@ -160,6 +160,40 @@
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
+	<Filter name="Holster">
+		<AND>
+			<RTHIGHPOCKPOS op="in">1091, 1092, 1093</RTHIGHPOCKPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHolsterAndPistol">
+		<AND>
+			<FILTER>Holster</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasHolsterAndRifle">
+		<AND>
+			<FILTER>Holster</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HolsterLeft">
+		<AND>
+			<LTHIGHPOCKPOS op="in">1091, 1092, 1093</LTHIGHPOCKPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasLeftHolsterAndPistol">
+		<AND>
+			<FILTER>HolsterLeft</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasLeftHolsterAndRifle">
+		<AND>
+			<FILTER>HolsterLeft</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="IsWearingBackpack">
 		<OR>
 			<WEARING_BACKPACK>1</WEARING_BACKPACK> <!-- Checks simply whether there is anything in the merc's backpack slot -->
@@ -452,9 +486,26 @@
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
+		<Filter name="Balaclava">
+		<AND>
+			<HELMETPOS op="in">281</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBalaclavaAndHasPistol">
+		<AND>
+			<FILTER>Balaclava</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBalaclavaAndHasRifle">
+		<AND>
+			<FILTER>Balaclava</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="FlakJacket">
 		<OR>
-			<VESTPOS op="in">161, 162, 163, 164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<VESTPOS op="in">161, 162, 163, 283</VESTPOS>
 		</OR>
 	</Filter>
 	<Filter name="IsWearingFlakJacketAndHasPistol">
@@ -471,7 +522,7 @@
 	</Filter>
 	<Filter name="KevlarVest">
 		<OR>
-			<VESTPOS op="in">164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<VESTPOS op="in">164, 165, 166, 196, 197, 198, 812, 824, 836, 840, 842, 843, 844, 847, 848, 849, 856, 857, 858, 865, 866, 867, 1103, 1104, 1105, 1108, 1109, 1110, 1117, 1118, 1119, 1126, 1127, 1128, 1138, 1139, 1140, 1143, 1144, 1145, 1152, 1153, 1154, 1161, 1162, 1163</VESTPOS>
 		</OR>
 	</Filter>
 	<Filter name="IsWearingKevlarAndHasPistol">
@@ -483,6 +534,23 @@
 	<Filter name="IsWearingKevlarAndHasRifle">
 		<AND>
 			<FILTER>KevlarVest</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="SpectraVest">
+		<OR>
+			<VESTPOS op="in">167, 168, 169, 295, 803, 806, 815, 818, 821, 827, 830, 833, 850, 851, 859, 860, 868, 869, 1111, 1112, 1120, 1121, 1129, 1130, 1146, 1147, 1155, 1156, 1164, 1165</VESTPOS>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingSpectraAndHasPistol">
+		<AND>
+			<FILTER>SpectraVest</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingSpectraAndHasRifle">
+		<AND>
+			<FILTER>SpectraVest</FILTER>
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
