@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -1474,6 +1475,46 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 	// So we are going to try to pick something other than nothing but not guarantee it.
 	if (gGameExternalOptions.fSoldiersWearAnyArmour)
 	{
+		INT8 i = 0;
+		if (bHelmetClass < 1) bHelmetClass = 1;
+		//search for a non-empty class with items we need
+		for (i = bHelmetClass;i <= 10;i++)
+		{
+			usHelmetItem = PickARandomItem(HELMET, pp->ubSoldierClass, i);
+			//if we find a non-empty class change to that and break
+			if (usHelmetItem > 0)
+			{
+				bHelmetClass = i;
+				break;
+			}
+		}
+		if (bVestClass < 1) bVestClass = 1;
+		//search for a non-empty class with items we need
+		for (i = bVestClass;i <= 10;i++)
+		{
+			usVestItem = PickARandomItem(VEST, pp->ubSoldierClass, i);
+			//if we find a non-empty class change to that and break
+			if (usVestItem > 0)
+			{
+				bVestClass = i;
+				break;
+			}
+		}
+		if (bLeggingsClass < 1) bLeggingsClass = 1;
+		//search for a non-empty class with items we need
+		for (i = bLeggingsClass;i <= 10;i++)
+		{
+			usLeggingsItem = PickARandomItem(LEGS, pp->ubSoldierClass, i);
+			//if we find a non-empty class change to that and break
+			if (usLeggingsItem > 0)
+			{
+				bLeggingsClass = i;
+				break;
+			}
+		}
+	}
+#if 0
+	{
 		if (bHelmetClass < MIN_EQUIPMENT_CLASS) bHelmetClass = MIN_EQUIPMENT_CLASS;
 		if (bVestClass < MIN_EQUIPMENT_CLASS) bVestClass = MIN_EQUIPMENT_CLASS;
 		if (bLeggingsClass < MIN_EQUIPMENT_CLASS) bLeggingsClass = MIN_EQUIPMENT_CLASS;
@@ -1493,6 +1534,7 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 		if (usLeggingsItem == 0)
 			usLeggingsItem = PickARandomItem(LEGS, pp->ubSoldierClass, bLeggingsClass, TRUE);
 	}
+#endif
 
 	//Madd: added minimum protection of 10 for armours to be used by enemies
 
@@ -3339,10 +3381,13 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 		if ( i > gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices )
 			break;
 
+		uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices + (int)(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices / 3));
+#if 0
 		if (getMatchingCoolness == TRUE)
 			uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices);
 		else  // otherwise there is a chance to pick nothing!
 			uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices + (int)(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices / 3));
+#endif
 
 		if ( uiChoice >= gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices )
 		{
@@ -3364,7 +3409,10 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 
 		pickItem = FALSE;
 
+		if (usItem >= 0 && Item[usItem].ubCoolness <= wantedCoolness && ItemIsLegal(usItem))
+#if 0
 		if (usItem > 0 && Item[usItem].randomitem == 0 && ItemIsLegal(usItem))
+#endif
 		{
 			// On day
 			if (DayTime() == TRUE)
@@ -3386,6 +3434,9 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 					pickItem = TRUE;
 				}
 			}
+
+			if (Item[usItem].randomitem > 0)
+				pickItem = FALSE;
 		}
 
 
@@ -3395,8 +3446,11 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 		if (pickItem == TRUE)
 		{
 			// pick a default item in case we don't find anything with a matching coolness, but pick the most matching (by coolness) item
+			if (defaultItem == 0 || Item[usItem].ubCoolness > Item[defaultItem].ubCoolness)
+#if 0
 			if ( defaultItem == 0 ||
 				abs((int)wantedCoolness - (int)Item[usItem].ubCoolness) < abs((int)wantedCoolness - (int)Item[defaultItem].ubCoolness))
+#endif
 			{
 				defaultItem = usItem;
 			}
