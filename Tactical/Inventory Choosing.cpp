@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -1513,28 +1512,6 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 			}
 		}
 	}
-#if 0
-	{
-		if (bHelmetClass < MIN_EQUIPMENT_CLASS) bHelmetClass = MIN_EQUIPMENT_CLASS;
-		if (bVestClass < MIN_EQUIPMENT_CLASS) bVestClass = MIN_EQUIPMENT_CLASS;
-		if (bLeggingsClass < MIN_EQUIPMENT_CLASS) bLeggingsClass = MIN_EQUIPMENT_CLASS;
-
-		// Make the first attempt for each item type
-		usHelmetItem = PickARandomItem(HELMET, pp->ubSoldierClass, bHelmetClass, TRUE);
-		usVestItem = PickARandomItem(VEST, pp->ubSoldierClass, bVestClass, TRUE);
-		usLeggingsItem = PickARandomItem(LEGS, pp->ubSoldierClass, bLeggingsClass, TRUE);
-
-		// PickARandomItem(getMatchingCoolness = TRUE) must have a strong reason to return 0 disregarding wantedCoolness
-		// we pass, e.g. itemChoices is empty or filled with improper items. So let's make another attempt to ensure we did
-		// all what we can. Unlikely it will help, though.
-		if (usHelmetItem == 0)
-			usHelmetItem = PickARandomItem(HELMET, pp->ubSoldierClass, bHelmetClass, TRUE);
-		if (usVestItem == 0)
-			usVestItem = PickARandomItem(VEST, pp->ubSoldierClass, bVestClass, TRUE);
-		if (usLeggingsItem == 0)
-			usLeggingsItem = PickARandomItem(LEGS, pp->ubSoldierClass, bLeggingsClass, TRUE);
-	}
-#endif
 
 	//Madd: added minimum protection of 10 for armours to be used by enemies
 
@@ -3382,12 +3359,6 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 			break;
 
 		uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices + (int)(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices / 3));
-#if 0
-		if (getMatchingCoolness == TRUE)
-			uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices);
-		else  // otherwise there is a chance to pick nothing!
-			uiChoice = Random(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices + (int)(gArmyItemChoices[bSoldierClass][typeIndex].ubChoices / 3));
-#endif
 
 		if ( uiChoice >= gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices )
 		{
@@ -3410,9 +3381,6 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 		pickItem = FALSE;
 
 		if (usItem >= 0 && Item[usItem].ubCoolness <= wantedCoolness && ItemIsLegal(usItem))
-#if 0
-		if (usItem > 0 && Item[usItem].randomitem == 0 && ItemIsLegal(usItem))
-#endif
 		{
 			// On day
 			if (DayTime() == TRUE)
@@ -3447,10 +3415,6 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 wantedCoolness
 		{
 			// pick a default item in case we don't find anything with a matching coolness, but pick the most matching (by coolness) item
 			if (defaultItem == 0 || Item[usItem].ubCoolness > Item[defaultItem].ubCoolness)
-#if 0
-			if ( defaultItem == 0 ||
-				abs((int)wantedCoolness - (int)Item[usItem].ubCoolness) < abs((int)wantedCoolness - (int)Item[defaultItem].ubCoolness))
-#endif
 			{
 				defaultItem = usItem;
 			}
