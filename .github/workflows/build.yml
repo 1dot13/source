@@ -15,7 +15,7 @@ jobs:
       run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
       
     - name: Get date
-      run: echo "DATE=$(git log -1 --date=format:'%Y%b%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      run: echo "DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
       
     - name: Check vars
       run: |
@@ -45,7 +45,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
       
     - name: Rename Map Editor output
-      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2_mapeditor_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2_mapeditor_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
   
     - name: Replace GameVersion.cpp (JA2)
       run: |
@@ -64,7 +64,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
       
     - name: Replace GameVersion.cpp and builddefines.h (JA2 UB)
       run: |
@@ -98,7 +98,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 UB output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
       
     - name: Upload output
       uses: actions/upload-artifact@v3
