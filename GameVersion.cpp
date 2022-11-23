@@ -4,6 +4,12 @@
 	#include "Types.h"
 	#include "GameVersion.h"
 #endif
+
+// Get Git Hash for local version
+#include "rev.h"
+#define STRINGIFY_(x) #x
+#define STRINGIFY(x) STRINGIFY_(x)
+#define GIT_HASH_STR STRINGIFY(GIT_HASH)
  
 //
 //	Keeps track of the game version
@@ -55,7 +61,7 @@
 
 #endif
 										
-CHAR8		czVersionNumber[16]	= { "Local build" };
+CHAR8		czVersionNumber[16]	= { GIT_HASH_STR };
 CHAR16		zTrackingNumber[16]	= { L"Z" };
 CHAR16		zRevisionNumber[16] = { L"" };
 	

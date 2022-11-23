@@ -144,6 +144,13 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PreBuildEvent>
+      <Command>echo | set /p _=#define GIT_HASH &gt; rev.h
+git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Create Git Short Hash Macro</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
     <ClCompile>
@@ -163,6 +170,13 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PreBuildEvent>
+      <Command>echo | set /p _=#define GIT_HASH &gt; rev.h
+git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Create Git Short Hash Macro</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -186,6 +200,13 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PreBuildEvent>
+      <Command>echo | set /p _=#define GIT_HASH &gt; rev.h
+git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Create Git Short Hash Macro</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
     <ClCompile>
@@ -209,6 +230,13 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PreBuildEvent>
+      <Command>echo | set /p _=#define GIT_HASH &gt; rev.h
+git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Create Git Short Hash Macro</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
     <ClCompile>
@@ -232,6 +260,13 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PreBuildEvent>
+      <Command>echo | set /p _=#define GIT_HASH &gt; rev.h
+git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Create Git Short Hash Macro</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aniviewscreen.cpp" />
