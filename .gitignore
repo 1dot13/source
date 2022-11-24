@@ -1,4 +1,5 @@
 build/
 lib/
 .vs/
+bin/
 rev.h
