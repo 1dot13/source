@@ -11,22 +11,40 @@ jobs:
     - uses: actions/checkout@v3
     - uses: microsoft/setup-msbuild@v1.1
     
-    - name: Get short SHA
-      run: echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
-      
-    - name: Get date
-      run: echo "DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
-      
-    - name: Check vars
+    - name: Get short SHA and date (source)
       run: |
-        echo "${{ env.SHA_SHORT }}"
-        echo "${{ env.DATE }}"
+        echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
+        echo "DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
     
     - name: Checkout gamedir
       uses: actions/checkout@v3
       with:
         repository: 1dot13/gamedir
         path: ja2
+        
+    - name: Get short SHA and date (gamedir)
+      run: |
+        cd ja2
+        echo "GAMEDIR_SHA_SHORT=$(git rev-parse --short HEAD)" | Out-File -FilePath $env:GITHUB_ENV -Append
+        echo "GAMEDIR_DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
+        cd ..
+    
+    - name: Check vars
+      run: |
+        echo "Source SHA: ${{ env.SHA_SHORT }}"
+        echo "Source Date: ${{ env.DATE }}"
+        echo "Gamedir SHA: ${{ env.GAMEDIR_SHA_SHORT }}"
+        echo "Gamedir Date: ${{ env.GAMEDIR_DATE }}"
+
+    - name: Create version info text file
+      run: |
+        echo @"
+        If you encounter problems during gameplay, please provide the following version information:
+        Source SHA: ${{ env.SHA_SHORT }}
+        Source Date: ${{ env.DATE }}
+        Gamedir SHA: ${{ env.GAMEDIR_SHA_SHORT }}
+        Gamedir Date: ${{ env.GAMEDIR_DATE }}
+        "@ | Out-File -FilePath ja2/ja2_1.13_release.txt
     
     - name: Replace GameVersion.cpp (Map Editor)
       run: |
@@ -45,7 +63,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
       
     - name: Rename Map Editor output
-      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2_mapeditor_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2mapeditor.exe
   
     - name: Replace GameVersion.cpp (JA2)
       run: |
@@ -64,7 +82,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2.exe
       
     - name: Replace GameVersion.cpp and builddefines.h (JA2 UB)
       run: |
@@ -98,7 +116,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 UB output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.DATE }}_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2ub.exe
       
     - name: Upload output
       uses: actions/upload-artifact@v3
