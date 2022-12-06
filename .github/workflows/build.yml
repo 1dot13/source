@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    #if: github.repository == '1dot13/source' && github.ref_name == 'master'
+    if: github.repository == '1dot13/source' && github.ref_name == 'master'
     runs-on: windows-latest
 
     steps:
@@ -39,12 +39,12 @@ jobs:
     - name: Create version info text file
       run: |
         echo @"
-        If you encounter problems during gameplay, please give the following version information:
+        If you encounter problems during gameplay, please provide the following version information:
         Source SHA: ${{ env.SHA_SHORT }}
         Source Date: ${{ env.DATE }}
         Gamedir SHA: ${{ env.GAMEDIR_SHA_SHORT }}
         Gamedir Date: ${{ env.GAMEDIR_DATE }}
-        "@ | Out-File -FilePath ja2/versioninfo_1.13.txt
+        "@ | Out-File -FilePath ja2/ja2_1.13_release.txt
     
     - name: Replace GameVersion.cpp (Map Editor)
       run: |
