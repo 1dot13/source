@@ -15,6 +15,7 @@ enum //enemy intentions,
 	PATROL,							//enemy is moving around determining safe areas.
 	REINFORCEMENTS,			//enemy group has intentions to fortify position at final destination.
 	ASSAULT,						//enemy is ready to fight anything they encounter.
+	TRANSPORT,				//rftr: enemy is carrying out non-combat tasks, but still has an escort
 	NUM_ENEMY_INTENTIONS
 };
 

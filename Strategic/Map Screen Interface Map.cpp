@@ -881,6 +881,26 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 			pGroup = pGroup->next;
 		}
 	}
+
+	// rftr todo: transport groups
+	{
+		const auto targetColor = MAP_SHADE_LT_BLUE;
+		GROUP* pGroup = gpGroupList;
+
+		while (pGroup)
+		{
+			if (pGroup->usGroupTeam == ENEMY_TEAM)
+			{
+				const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
+				if (intention == TRANSPORT )
+				{
+					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
+				}
+			}
+
+			pGroup = pGroup->next;
+		}
+	}
 }
 
 

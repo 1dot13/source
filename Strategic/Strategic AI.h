@@ -78,7 +78,8 @@ BOOLEAN PermittedToFillPatrolGroup( INT32 iPatrolID );
 enum GROUP_TYPE
 {
 	GROUP_TYPE_ATTACK,
-	GROUP_TYPE_PATROL
+	GROUP_TYPE_PATROL,
+	GROUP_TYPE_TRANSPORT
 };
 
 void ASDInitializePatrolGroup(GROUP *pGroup);

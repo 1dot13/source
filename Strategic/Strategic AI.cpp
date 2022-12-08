@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -2422,6 +2423,13 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 				return TRUE;
 			}
 		}
+	}
+	else if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+	{
+		// rftr todo: something depending if we're in spawn or at target destination
+
+
+		// do we just call ReassignAIGroup or SendGroupToPool to dissolve and remove the group?
 	}
 	else
 	{	//This is a floating group at his final destination...
@@ -5130,7 +5138,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( ubNumSoldiers )
 			{
 				InitializeGroup(GROUP_TYPE_ATTACK, ubNumSoldiers, grouptroops[0], groupelites[0], grouprobots[0], groupjeeps[0], grouptanks[0], Random(10) < difficultyMod);
-				totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0], grouptanks[0] + groupjeeps[0];
+				totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0] + grouptanks[0] + groupjeeps[0];
 			}
 
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
@@ -5389,6 +5397,38 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 		case NPC_ACTION_GIVE_KNOWLEDGE_OF_ALL_MERCS:
 			//temporarily make the queen's forces more aware (high alert)
 			gubNumAwareBattles = zDiffSetting[gGameOptions.ubDifficultyLevel].iNumAwareBattles;
+			break;
+
+		case NPC_ACTION_DEPLOY_TRANSPORT_GROUP:
+			// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
+			// limitations: max number of transport groups at any given time
+			// track recent transport group interceptions
+			// varying transport group quality/compositions
+//void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY, 
+//							   INT32 option1, INT32 option2 )
+			// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
+			// rftr todo: replace this with townid
+			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
+			pSector = &SectorInfo[ ubSectorID ];
+
+			// rftr: adjust group size and composition based on recent interceptions, game progress, etc
+			ubNumSoldiers = 17;
+
+			//InitializeGroup(GROUP_TYPE_TRANSPORT, ubNumSoldiers, grouptroops[0], groupelites[0], grouprobots[0], groupjeeps[0], grouptanks[0], Random(10) < difficultyMod);
+			//totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0] + grouptanks[0] + groupjeeps[0];
+
+			//pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, 10, 5, 1, 0, 0, 1 );
+
+			//Madd: unlimited reinforcements?
+			if ( !gfUnlimitedTroops )
+			{
+				giReinforcementPool -= ubNumSoldiers;
+
+				giReinforcementPool = max( giReinforcementPool, 0 );
+			}
+
+			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, TRANSPORT );
 			break;
 
 		default:
