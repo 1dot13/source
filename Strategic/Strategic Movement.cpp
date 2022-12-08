@@ -3639,7 +3639,10 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			dEnemyGeneralsSpeedupFactor = max( 0.75f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus );
 		}
 
-		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * iBestTraverseTime;
+		// rftr todo: transport groups move slower than normal
+		const FLOAT transportSpeedFactor = 0.75f;
+
+		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * transportSpeedFactor * iBestTraverseTime;
 
 		iBestTraverseTime = iBestTraverseTime * (100 + RebelCommand::GetHarriersSpeedPenalty(ubSector)) / 100;
 	}

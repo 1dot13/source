@@ -2428,6 +2428,16 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	{
 		// rftr todo: something depending if we're in spawn or at target destination
 
+		// just arrived, let's go home
+		if (pGroup->ubSectorX != gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY != gModSettings.ubSAISpawnSectorY)
+		{
+			pGroup->ubSectorIDOfLastReassignment = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
+			MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
+		}
+		else
+		{
+			SendGroupToPool(&pGroup);
+		}
 
 		// do we just call ReassignAIGroup or SendGroupToPool to dissolve and remove the group?
 	}
