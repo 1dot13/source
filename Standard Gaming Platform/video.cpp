@@ -621,24 +621,6 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	}
 
 	//
-	// Initialize the mutex sections
-	//
-
-	// ATE: Keep these mutexes for now!
-	if (InitializeMutex(REFRESH_THREAD_MUTEX, (UINT8 *)"RefreshThreadMutex") == FALSE)
-	{
-		return FALSE;
-	}
-	if (InitializeMutex(FRAME_BUFFER_MUTEX, (UINT8 *)"FrameBufferMutex") == FALSE)
-	{
-		return FALSE;
-	}
-	if (InitializeMutex(MOUSE_BUFFER_MUTEX, (UINT8 *)"MouseBufferMutex") == FALSE)
-	{
-		return FALSE;
-	}
-
-	//
 	// Initialize state variables
 	//
 

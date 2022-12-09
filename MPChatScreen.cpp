@@ -1407,7 +1407,6 @@ void ChatLogMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	MoveToEndOfChatScreenMessageList( );
 
-	//LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
 }
 
 

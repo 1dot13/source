@@ -23,7 +23,6 @@
 #include "gameloop.h"
 #include "font.h"
 #include "english.h"
-#include "Mutex Manager.h"
 #include "vobject.h"
 #include "Random.h"
 #include "shading.h"
