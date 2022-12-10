@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 //Queen Command.c
 
 #ifdef PRECOMPILEDHEADERS
@@ -980,6 +981,16 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	unsigned slotsAvailable = lastSlot-firstSlot+1;
+
+	// rftr todo: cache this on game start?
+	// do some prep
+	std::vector<UINT16> gasCans;
+	std::vector<UINT16> firstAidKits;
+	std::vector<UINT16> medKits;
+	std::vector<UINT16> toolKits;
+	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
+	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
+	BOOLEAN needToBuildItemCache = TRUE;
 	while( pGroup && sNumSlots > 0 )
 	{
 		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle &&
@@ -994,6 +1005,41 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumRobots + ubNumTanks + ubNumJeeps;
 
 			AssertGE((int)slotsAvailable, sNumSlots);
+
+			// rftr todo: cache this on game start?
+			// do some prep
+			if (pGroup->pEnemyGroup->ubIntention == TRANSPORT && needToBuildItemCache == TRUE)
+			{
+				// rftr todo: see if we can replace this with random items.
+				// requirement: probably a new flag in Items.xml, <Loot_TransportGroup> or something
+				// add new groups in RandomItem.xml
+				// the new items will reference the new group in randomitem, eg <randomitem>23</randomitem> in Items.xml matches uiIndex 23 in RandomItem.xml
+				// fallback if no random items found? for mods and stuff (thinking sdo)
+				needToBuildItemCache = FALSE;
+				for (UINT16 i = 0; i < MAXITEMS; ++i)
+				{
+					if (Item[i].gascan) gasCans.push_back(i);
+					else if (Item[i].firstaidkit) firstAidKits.push_back(i);
+					else if (Item[i].medicalkit) medKits.push_back(i);
+					else if (Item[i].toolkit) toolKits.push_back(i);
+					else if (Item[i].usItemClass & IC_AMMO)
+					{
+						if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
+						|| Magazine[Item[i].ubClassIndex].ubMagType == AMMO_CRATE)
+						{
+							if ((gGameOptions.fGunNut || !Item[i].biggunlist)
+							&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
+							{
+								if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
+									ammoBoxes[Item[i].ubCoolness].push_back(i);
+								else
+									ammoCrates[Item[i].ubCoolness].push_back(i);
+							}
+						}
+					}
+					
+				}
+			}
 
 			for (unsigned slot = firstSlot;	(slot <= lastSlot) && num && sNumSlots;	++slot)
 			{
@@ -1091,6 +1137,53 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							firstSlot = slot + 1;
 						}
 						break;
+				}
+
+				if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+				{
+					// rftr todo: move this into its own function
+					// adjust soldier inventory for transport groups
+
+					// ideas:
+					// soldiers have backpacks + kits + ammo box (BONUS: make sure the backpack goes in the backpack slot for lobot compatibility. that might be a fix outside of this feature tho)
+					// jeeps have ammo crates and/or lots of boxes. reduce bullet count in crate?
+
+					// add ammo to the soldier's inventory!
+					OBJECTTYPE kit;
+					CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &kit);
+					if (FitsInSmallPocket(&kit))
+					{
+						for(INT8 i = SMALLPOCKSTART; i < SMALLPOCKFINAL; i++ )
+						{
+							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
+							{
+								pSoldier->inv[ i ] = kit;
+								break;
+							}
+						}
+					}
+					else
+					{
+						for(INT8 i = BIGPOCKSTART; i < BIGPOCKFINAL; i++ )
+						{ //no space free in small pockets, so put it into a large pocket.
+							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
+							{
+								pSoldier->inv[ i ] = kit;
+								break;
+							}
+						}
+					}
+
+
+					// force inventory to be dropped!
+					for (int i = 0; i < pSoldier->inv.size(); ++i)
+					{
+						OBJECTTYPE* item = &pSoldier->inv[i];
+						if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
+						{
+							item->fFlags &= ~OBJECT_UNDROPPABLE;
+						}
+					}
 				}
 			}
 
