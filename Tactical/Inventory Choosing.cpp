@@ -2264,7 +2264,15 @@ void ChooseLBEsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bLBEClass 
 	{
 		CreateItem( usItem, (INT8)(80 + Random( 21 )), &gTempObject );
 		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		// put backpacks into the backpack slot for LOBOT
+		if ((UsingNewInventorySystem()) && (Item[usItem].usItemClass & IC_LBEGEAR) && (LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass == BACKPACK))
+		{
+			pp->Inv[BPACKPOCKPOS] = gTempObject;
+		}
+		else
+		{
+			PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		}
 	}
 }
 
