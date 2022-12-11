@@ -3646,6 +3646,7 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 	std::vector<UINT16> firstAidKits;
 	std::vector<UINT16> medKits;
 	std::vector<UINT16> toolKits;
+	std::vector<UINT16> backpacks;
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
 	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
 	BOOLEAN needToBuildItemCache = TRUE;
@@ -3679,6 +3680,14 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 							else if (Item[i].firstaidkit) firstAidKits.push_back(i);
 							else if (Item[i].medicalkit) medKits.push_back(i);
 							else if (Item[i].toolkit) toolKits.push_back(i);
+							else if (Item[i].usItemClass & IC_LBEGEAR)
+							{
+								if (LoadBearingEquipment[Item[i].ubClassIndex].lbeClass == BACKPACK)
+								{
+									// todo get actual backpacks, not covert ones, tactical slings, golf clubs, etc...
+									backpacks.push_back(i);
+								}
+							}
 							else if (Item[i].usItemClass & IC_AMMO)
 							{
 								if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
@@ -3708,16 +3717,23 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 					// soldiers have backpacks + kits + ammo box (BONUS: make sure the backpack goes in the backpack slot for lobot compatibility. that might be a fix outside of this feature tho)
 					// jeeps have ammo crates and/or lots of boxes. reduce bullet count in crate?
 
+					// add backpack to soldier's inventory!
+					OBJECTTYPE itemToAdd;
+					if (backpacks.size() > 0)
+					{
+						CreateItem(backpacks[0], 75 + Random(25), &itemToAdd);
+						pSoldier->inv[BPACKPOCKPOS] = itemToAdd;
+					}
+
 					// add ammo to the soldier's inventory!
-					OBJECTTYPE kit;
-					CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &kit);
-					if (FitsInSmallPocket(&kit))
+					CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &itemToAdd);
+					if (FitsInSmallPocket(&itemToAdd))
 					{
 						for(INT8 i = SMALLPOCKSTART; i < SMALLPOCKFINAL; i++ )
 						{
 							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
 							{
-								pSoldier->inv[ i ] = kit;
+								pSoldier->inv[ i ] = itemToAdd;
 								break;
 							}
 						}
@@ -3728,7 +3744,7 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 						{ //no space free in small pockets, so put it into a large pocket.
 							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
 							{
-								pSoldier->inv[ i ] = kit;
+								pSoldier->inv[ i ] = itemToAdd;
 								break;
 							}
 						}
