@@ -103,6 +103,7 @@ void HandleBloodCatDeaths( SECTORINFO *pSector );
 
 extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
 
+void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupIdToSoldierMap);
 
 void ValidateEnemiesHaveWeapons()
 {
@@ -852,11 +853,14 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	//For enemy groups, we fill up the slots until we have none left or all of the groups have been
 	//processed.
 
+	// rftr todo: need to do this for reinforcements??
+	std::map<UINT8, std::map<int, UINT8>> groupIdToSoldierMap; // groupId -> soldierclass, count
 	for( pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
 	{
 		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle &&
 				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{ //Process enemy group in sector.
+			const BOOLEAN isTransportGroup = pGroup->pEnemyGroup->ubIntention == TRANSPORT;
 			if( sNumSlots > 0 )
 			{
 				AssertGE(pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubAdminsInBattle);
@@ -870,6 +874,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubAdminsInBattle += ubNumAdmins;
 				ubTotalAdmins += ubNumAdmins;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ADMINISTRATOR] += ubNumAdmins;
 			}
 			if( sNumSlots > 0 )
 			{ //Add regular army forces.
@@ -884,6 +891,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTroopsInBattle += ubNumTroops;
 				ubTotalTroops += ubNumTroops;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ARMY] += ubNumTroops;
 			}
 			if( sNumSlots > 0 )
 			{ //Add elite troops
@@ -898,6 +908,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubElitesInBattle += ubNumElites;
 				ubTotalElites += ubNumElites;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ELITE] += ubNumElites;
 			}
 			if( sNumSlots > 0 )
 			{ //Add robots
@@ -912,6 +925,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubRobotsInBattle += ubNumRobots;
 				ubTotalRobots += ubNumRobots;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ROBOT] += ubNumRobots;
 			}
 			if( sNumSlots > 0 )
 			{ //Add tanks
@@ -926,6 +942,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTanksInBattle += ubNumTanks;
 				ubTotalTanks += ubNumTanks;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_TANK] += ubNumTanks;
 			}
 			if ( sNumSlots > 0 )
 			{
@@ -941,6 +960,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubJeepsInBattle += ubNumJeeps;
 				ubTotalJeeps += ubNumJeeps;
+
+				if (isTransportGroup)
+					groupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_JEEP] += ubNumJeeps;
 			}
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
@@ -982,15 +1004,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	unsigned slotsAvailable = lastSlot-firstSlot+1;
 
-	// rftr todo: cache this on game start?
-	// do some prep
-	std::vector<UINT16> gasCans;
-	std::vector<UINT16> firstAidKits;
-	std::vector<UINT16> medKits;
-	std::vector<UINT16> toolKits;
-	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
-	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
-	BOOLEAN needToBuildItemCache = TRUE;
 	while( pGroup && sNumSlots > 0 )
 	{
 		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle &&
@@ -1005,41 +1018,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumRobots + ubNumTanks + ubNumJeeps;
 
 			AssertGE((int)slotsAvailable, sNumSlots);
-
-			// rftr todo: cache this on game start?
-			// do some prep
-			if (pGroup->pEnemyGroup->ubIntention == TRANSPORT && needToBuildItemCache == TRUE)
-			{
-				// rftr todo: see if we can replace this with random items.
-				// requirement: probably a new flag in Items.xml, <Loot_TransportGroup> or something
-				// add new groups in RandomItem.xml
-				// the new items will reference the new group in randomitem, eg <randomitem>23</randomitem> in Items.xml matches uiIndex 23 in RandomItem.xml
-				// fallback if no random items found? for mods and stuff (thinking sdo)
-				needToBuildItemCache = FALSE;
-				for (UINT16 i = 0; i < MAXITEMS; ++i)
-				{
-					if (Item[i].gascan) gasCans.push_back(i);
-					else if (Item[i].firstaidkit) firstAidKits.push_back(i);
-					else if (Item[i].medicalkit) medKits.push_back(i);
-					else if (Item[i].toolkit) toolKits.push_back(i);
-					else if (Item[i].usItemClass & IC_AMMO)
-					{
-						if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
-						|| Magazine[Item[i].ubClassIndex].ubMagType == AMMO_CRATE)
-						{
-							if ((gGameOptions.fGunNut || !Item[i].biggunlist)
-							&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
-							{
-								if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
-									ammoBoxes[Item[i].ubCoolness].push_back(i);
-								else
-									ammoCrates[Item[i].ubCoolness].push_back(i);
-							}
-						}
-					}
-					
-				}
-			}
 
 			for (unsigned slot = firstSlot;	(slot <= lastSlot) && num && sNumSlots;	++slot)
 			{
@@ -1139,52 +1117,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						break;
 				}
 
-				if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
-				{
-					// rftr todo: move this into its own function
-					// adjust soldier inventory for transport groups
-
-					// ideas:
-					// soldiers have backpacks + kits + ammo box (BONUS: make sure the backpack goes in the backpack slot for lobot compatibility. that might be a fix outside of this feature tho)
-					// jeeps have ammo crates and/or lots of boxes. reduce bullet count in crate?
-
-					// add ammo to the soldier's inventory!
-					OBJECTTYPE kit;
-					CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &kit);
-					if (FitsInSmallPocket(&kit))
-					{
-						for(INT8 i = SMALLPOCKSTART; i < SMALLPOCKFINAL; i++ )
-						{
-							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
-							{
-								pSoldier->inv[ i ] = kit;
-								break;
-							}
-						}
-					}
-					else
-					{
-						for(INT8 i = BIGPOCKSTART; i < BIGPOCKFINAL; i++ )
-						{ //no space free in small pockets, so put it into a large pocket.
-							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
-							{
-								pSoldier->inv[ i ] = kit;
-								break;
-							}
-						}
-					}
-
-
-					// force inventory to be dropped!
-					for (int i = 0; i < pSoldier->inv.size(); ++i)
-					{
-						OBJECTTYPE* item = &pSoldier->inv[i];
-						if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
-						{
-							item->fFlags &= ~OBJECT_UNDROPPABLE;
-						}
-					}
-				}
 			}
 
 			// Flugente: instead of just crashing the game without any explanation to the user, ignore this issue if it still exists.
@@ -1198,6 +1130,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			AssertEQ( num , 0);*/
 		}
 		pGroup = pGroup->next;
+	}
+
+	// rftr todo: check if feature is enabled
+	if (groupIdToSoldierMap.size() > 0)
+	{
+		UpdateTransportGroupInventory(groupIdToSoldierMap);
 	}
 
 	ValidateEnemiesHaveWeapons();
@@ -2487,6 +2425,11 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
 
+		// rftr todo: check reinforcements for transport group presence?
+		if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+		{
+		}
+
 		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
 		{			
@@ -3691,3 +3634,119 @@ void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY )
 		pGroup = pGroup->next;
 	}
 }
+
+void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupIdToSoldierMap)
+{
+	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+
+	// rftr todo: do this on init/load somewhere
+	// do some prep
+	std::vector<UINT16> gasCans;
+	std::vector<UINT16> firstAidKits;
+	std::vector<UINT16> medKits;
+	std::vector<UINT16> toolKits;
+	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
+	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
+	BOOLEAN needToBuildItemCache = TRUE;
+
+	for (int slot = firstSlot; (slot <= lastSlot); ++slot)
+	{
+		SOLDIERTYPE* pSoldier = &Menptr[slot];
+
+		std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = groupIdToSoldierMap.find(pSoldier->ubGroupID);
+		if (groupIter != groupIdToSoldierMap.end())
+		{
+			// found a matching transport groupid
+			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(pSoldier->ubSoldierClass);
+			if (soldierClassIter != groupIter->second.end())
+			{
+				// found a matching soldierclass
+				if (soldierClassIter->second > 0)
+				{
+					// one-time item cache build
+					if (needToBuildItemCache == TRUE)
+					{
+						// rftr todo: see if we can replace this with random items.
+						// requirement: probably a new flag in Items.xml, <Loot_TransportGroup> or something
+						// add new groups in RandomItem.xml
+						// the new items will reference the new group in randomitem, eg <randomitem>23</randomitem> in Items.xml matches uiIndex 23 in RandomItem.xml
+						// fallback if no random items found? for mods and stuff (thinking sdo)
+						needToBuildItemCache = FALSE;
+						for (UINT16 i = 0; i < MAXITEMS; ++i)
+						{
+							if (Item[i].gascan) gasCans.push_back(i);
+							else if (Item[i].firstaidkit) firstAidKits.push_back(i);
+							else if (Item[i].medicalkit) medKits.push_back(i);
+							else if (Item[i].toolkit) toolKits.push_back(i);
+							else if (Item[i].usItemClass & IC_AMMO)
+							{
+								if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
+								|| Magazine[Item[i].ubClassIndex].ubMagType == AMMO_CRATE)
+								{
+									if ((gGameOptions.fGunNut || !Item[i].biggunlist)
+									&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
+									{
+										if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
+											ammoBoxes[Item[i].ubCoolness].push_back(i);
+										else
+											ammoCrates[Item[i].ubCoolness].push_back(i);
+									}
+								}
+							}
+						}
+					}
+
+					// there are still un-updated soldiers! begin the update!
+					soldierClassIter->second--;
+
+					// rftr todo: move this into its own function
+					// rftr todo: don't forget to call this for reinforcing troops!
+					// adjust soldier inventory for transport groups
+
+					// ideas:
+					// soldiers have backpacks + kits + ammo box (BONUS: make sure the backpack goes in the backpack slot for lobot compatibility. that might be a fix outside of this feature tho)
+					// jeeps have ammo crates and/or lots of boxes. reduce bullet count in crate?
+
+					// add ammo to the soldier's inventory!
+					OBJECTTYPE kit;
+					CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &kit);
+					if (FitsInSmallPocket(&kit))
+					{
+						for(INT8 i = SMALLPOCKSTART; i < SMALLPOCKFINAL; i++ )
+						{
+							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
+							{
+								pSoldier->inv[ i ] = kit;
+								break;
+							}
+						}
+					}
+					else
+					{
+						for(INT8 i = BIGPOCKSTART; i < BIGPOCKFINAL; i++ )
+						{ //no space free in small pockets, so put it into a large pocket.
+							if( pSoldier->inv[ i ].exists() == false && !(pSoldier->inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
+							{
+								pSoldier->inv[ i ] = kit;
+								break;
+							}
+						}
+					}
+
+
+					// force inventory to be dropped!
+					for (int i = 0; i < pSoldier->inv.size(); ++i)
+					{
+						OBJECTTYPE* item = &pSoldier->inv[i];
+						if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
+						{
+							item->fFlags &= ~OBJECT_UNDROPPABLE;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
