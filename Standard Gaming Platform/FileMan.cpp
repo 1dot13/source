@@ -39,7 +39,6 @@
 	#include "windows.h"
 	#include "FileMan.h"
 	#include "MemMan.h"
-	#include "DbMan.h"
 	#include "Debug.h"
 	#include "RegInst.h"
 	#include "Container.h"
@@ -101,7 +100,6 @@ typedef struct FMFileInfoTag
 	UINT8		uiFileAccess;
 	UINT32	uiFilePosition;
 	HANDLE	hFileHandle;
-	HDBFILE	hDBFile;
 
 } FMFileInfo;	// for 'File Manager File Information'
 

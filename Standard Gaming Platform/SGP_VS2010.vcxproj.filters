@@ -54,9 +54,6 @@
     <ClInclude Include="english.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExceptionHandling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="expat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -249,9 +246,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="English.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ExceptionHandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileCat.cpp">

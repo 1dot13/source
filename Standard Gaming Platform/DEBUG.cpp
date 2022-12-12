@@ -29,7 +29,6 @@
 	#include <string>
 	#include <sstream>
 	#include "debug.h"
-	#include "WizShare.h"
 
 	//Kris addition
 	#ifdef JA2

@@ -49,7 +49,6 @@
     <ClInclude Include="Compression.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="Cursor Control.h" />
-    <ClInclude Include="DbMan.h" />
     <ClInclude Include="ddraw.h" />
     <ClInclude Include="DEBUG.H" />
     <ClInclude Include="debug_util.h" />
@@ -57,7 +56,6 @@
     <ClInclude Include="DirectX Common.h" />
     <ClInclude Include="dsound.h" />
     <ClInclude Include="english.h" />
-    <ClInclude Include="ExceptionHandling.h" />
     <ClInclude Include="expat.h" />
     <ClInclude Include="FileCat.h" />
     <ClInclude Include="FileMan.h" />
@@ -118,14 +116,12 @@
     <ClCompile Include="Compression.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Cursor Control.cpp" />
-    <ClCompile Include="DbMan.cpp" />
     <ClCompile Include="DEBUG.cpp" />
     <ClCompile Include="debug_util.cpp" />
     <ClCompile Include="debug_win_util.cpp" />
     <ClCompile Include="DirectDraw Calls.cpp" />
     <ClCompile Include="DirectX Common.cpp" />
     <ClCompile Include="English.cpp" />
-    <ClCompile Include="ExceptionHandling.cpp" />
     <ClCompile Include="FileCat.cpp" />
     <ClCompile Include="FileMan.cpp" />
     <ClCompile Include="Flic.cpp" />
