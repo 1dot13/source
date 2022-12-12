@@ -3738,57 +3738,9 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 		}
 	};
 
-	// groups with jeeps are special - the jeeps carry the loot instead of the soldiers
-	//std::set<int> groupsWithJeeps;
-	//for (const auto pair : groupIdToSoldierMap)
-	//{
-	//	std::map<int, UINT8> soldierMap = pair.second;
-	//	if (soldierMap[SOLDIER_CLASS_JEEP] > 0)
-	//	{
-	//		groupsWithJeeps.insert(pair.first);
-	//	}
-	//}
-
 	for (int slot = firstSlot; (slot <= lastSlot); ++slot)
 	{
 		SOLDIERTYPE* pSoldier = &Menptr[slot];
-
-		// this group has a jeep in it!
-		//if (groupsWithJeeps.find(pSoldier->ubGroupID) != groupsWithJeeps.end())
-		//{
-		//	// only jeeps carry things
-		//	// but give a little extra, since the jeep exploding can outright destroy things
-		//	if (pSoldier->ubSoldierClass == SOLDIER_CLASS_JEEP)
-		//	{
-		//		OBJECTTYPE itemToAdd;
-		//		for (int i = 0; i < 3; ++i)
-		//		{
-		//			CreateItem(ammoBoxes[5][0], 100, &itemToAdd);
-		//			addItemToInventory(pSoldier, itemToAdd);
-		//		}
-
-		//		for (int i = 0; i < 3; ++i)
-		//		{
-		//			CreateItem(medKits[Random(medKits.size())], 100, &itemToAdd);
-		//			addItemToInventory(pSoldier, itemToAdd);
-		//		}
-		//		groupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
-		//	}
-		//	else // not a jeep
-		//	{
-		//		// force inventory to be dropped!
-		//		for (int i = 0; i < pSoldier->inv.size(); ++i)
-		//		{
-		//			OBJECTTYPE* item = &pSoldier->inv[i];
-		//			if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
-		//			{
-		//				item->fFlags &= ~OBJECT_UNDROPPABLE;
-		//			}
-		//		}
-		//	}
-
-		//	continue;
-		//}
 
 		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = groupIdToSoldierMap.find(pSoldier->ubGroupID);
 		if (groupIter != groupIdToSoldierMap.end())
