@@ -651,9 +651,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 			{
-				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
+				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
 				{
-					pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
+					pGroup = GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
 
 					pGroup->ubPrevX = pGroup->ubSectorX;
 					pGroup->ubPrevY = pGroup->ubSectorY;
