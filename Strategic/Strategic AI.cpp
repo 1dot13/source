@@ -38,6 +38,7 @@
 	#include "interface dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
+	#include "Game Event Hook.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -2432,10 +2433,13 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 		if (pGroup->ubSectorX != gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY != gModSettings.ubSAISpawnSectorY)
 		{
 			pGroup->ubSectorIDOfLastReassignment = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
-			MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
+
+			// queue up return home order
+			AddStrategicEvent(EVENT_RETURN_TRANSPORT_GROUP, GetWorldTotalMin() + 60 * 6, pGroup->ubGroupID);
 		}
 		else
 		{
+			// successfully returned home. give the strategic ai some rewards!
 			SendGroupToPool(&pGroup);
 		}
 
@@ -5439,6 +5443,22 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			}
 
 			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, TRANSPORT );
+			break;
+
+		case NPC_ACTION_RETURN_TRANSPORT_GROUP:
+			pGroup = gpGroupList;
+			while (pGroup)
+			{
+				if (pGroup->ubGroupID == option1)
+				{
+					MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
+					break;
+				}
+				pGroup = pGroup->next;
+			}
+
+			if (pGroup == nullptr)
+				ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"RETURN_TRANSPORT_GROUP failed to find groupid %d", option1);
 			break;
 
 		default:

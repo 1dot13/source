@@ -52,6 +52,7 @@
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
+	#include "interface Dialogue.h"
 #endif
 
 #include "connect.h"
@@ -684,6 +685,11 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 		case EVENT_REBELCOMMAND:
 			RebelCommand::HandleStrategicEvent(pEvent->uiParam);
+			break;
+
+		case EVENT_RETURN_TRANSPORT_GROUP:
+			// for this action, we only care about the groupid, which is in the event param
+			ExecuteStrategicAIAction(NPC_ACTION_RETURN_TRANSPORT_GROUP, 0, 0, pEvent->uiParam);
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
