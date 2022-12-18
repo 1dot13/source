@@ -39,6 +39,7 @@
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
 	#include "Game Event Hook.h"
+	#include "Strategic Town Loyalty.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -2428,21 +2429,93 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	else if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
 	{
 		// rftr todo: something depending if we're in spawn or at target destination
+		const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
 
 		// just arrived, let's go home
 		if (pGroup->ubSectorX != gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY != gModSettings.ubSAISpawnSectorY)
 		{
 			pGroup->ubSectorIDOfLastReassignment = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
 
+			// global loyalty loss
+			INT32 loyaltyLoss = 0;
+			switch (difficulty)
+			{
+			case DIF_LEVEL_EASY:	loyaltyLoss = 0; break;
+			case DIF_LEVEL_MEDIUM:	loyaltyLoss = -100; break;
+			case DIF_LEVEL_HARD:	loyaltyLoss = -250; break;
+			case DIF_LEVEL_INSANE:	loyaltyLoss = -500; break;
+			}
+			// rftr todo: this is the "proper" way to do it - letting lua handle it. requires adding an enum value in Strategic Town Loyalty.h (GlobalLoyaltyEventTypes)
+			//HandleGlobalLoyaltyEvent(-1, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
+			//... which calls this:
+			AffectAllTownsLoyaltyByDistanceFrom(loyaltyLoss, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
+
+			// on reach target ideas:
+			// disease: reduction in target town?
+			// volunteer pool reduction? can we do that?
+
 			// queue up return home order
 			AddStrategicEvent(EVENT_RETURN_TRANSPORT_GROUP, GetWorldTotalMin() + 60 * 6, pGroup->ubGroupID);
 		}
 		else
 		{
+			// asd income injection and bonus update
+			if (gGameExternalOptions.fASDActive)
+			{
+				INT32 moneyAmt = 0;
+				INT32 fuelAmt = 0;
+
+				switch (difficulty)
+				{
+				case DIF_LEVEL_EASY:
+					moneyAmt = 0;
+					fuelAmt = 0;
+					break;
+
+				case DIF_LEVEL_MEDIUM:
+					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] * 0.5f;
+					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep * 0.5f;
+					break;
+
+				case DIF_LEVEL_HARD:
+					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP];
+					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep;
+					break;
+
+				case DIF_LEVEL_INSANE:
+					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] + gGameExternalOptions.gASDResource_Cost[ASD_TANK];
+					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep + gGameExternalOptions.gASDResource_Fuel_Tank;
+					break;
+				}
+
+				AddStrategicAIResources(ASD_MONEY, moneyAmt);
+				AddStrategicAIResources(ASD_FUEL, fuelAmt);
+				UpdateASD();
+			}
+
+			// reinforcement pool increase
+			if (!gfUnlimitedTroops)
+			{
+				INT32 poolAmt = 0;
+				switch (difficulty)
+				{
+				case DIF_LEVEL_EASY:	poolAmt = 0; break;
+				case DIF_LEVEL_MEDIUM:	poolAmt = 10; break;
+				case DIF_LEVEL_HARD:	poolAmt = 15; break;
+				case DIF_LEVEL_INSANE:	poolAmt = 40; break;
+				}
+
+				giReinforcementPool += poolAmt;
+			}
+
 			// successfully returned home. give the strategic ai some rewards!
 			SendGroupToPool(&pGroup);
-		}
 
+			// immediately do a queen evaluation
+			DeleteAllStrategicEventsOfType(EVENT_EVALUATE_QUEEN_SITUATION);
+			EvaluateQueenSituation();
+		}
+		return TRUE;
 		// do we just call ReassignAIGroup or SendGroupToPool to dissolve and remove the group?
 	}
 	else
@@ -3485,6 +3558,8 @@ void EvaluateQueenSituation()
 	dEnemyGeneralsSpeedupFactor *= RebelCommand::GetStrategicDecisionSpeedModifier();
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
+
+	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Evaluating queen situation...");
 	
 	// Check/update reinforcements pool if old behavior is enabled
 	if ( !gfUnlimitedTroops && zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementDaysPerDifficultyLevel == 0 )
@@ -5418,10 +5493,9 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			// limitations: max number of transport groups at any given time
 			// track recent transport group interceptions
 			// varying transport group quality/compositions
-//void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY, 
-//							   INT32 option1, INT32 option2 )
 			// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
 			// rftr todo: replace this with townid
+			// rftr todo: only pick towns that 1) have mines, and 2) are uncontested
 			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
 			pSector = &SectorInfo[ ubSectorID ];
 
