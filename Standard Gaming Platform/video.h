@@ -10,7 +10,6 @@
 #include "Types.h"
 #include "DirectDraw Calls.h"
 #include "VSurface.h"
-#include "Mutex Manager.h"
 
 #define BUFFER_READY			0x00
 #define BUFFER_BUSY			0x01

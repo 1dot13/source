@@ -23,7 +23,6 @@ const unsigned TOPIC_FONT_HANDLER = 9;
 const unsigned TOPIC_VIDEOSURFACE = 8;
 const unsigned TOPIC_MOUSE_SYSTEM = 7;
 const unsigned TOPIC_BUTTON_HANDLER = 6;
-const unsigned TOPIC_MUTEX = 5;
 const unsigned TOPIC_JA2INTERRUPT = 4;
 const unsigned TOPIC_JA2 = 3;
 const unsigned TOPIC_BLIT_QUEUE = INVALID_TOPIC;

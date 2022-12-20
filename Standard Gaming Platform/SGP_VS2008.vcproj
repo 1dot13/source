@@ -483,10 +483,6 @@
 				>
 			</File>
 			<File
-				RelativePath="Mutex Manager.h"
-				>
-			</File>
-			<File
 				RelativePath="pcx.h"
 				>
 			</File>
@@ -720,10 +716,6 @@
 			</File>
 			<File
 				RelativePath="mousesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.cpp"
 				>
 			</File>
 			<File

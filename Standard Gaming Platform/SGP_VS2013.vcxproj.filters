@@ -120,9 +120,6 @@
     <ClInclude Include="Mss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mutex Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pcx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -294,9 +291,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mousesystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mutex Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PCX.cpp">

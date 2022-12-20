@@ -79,7 +79,6 @@
     <ClInclude Include="mousesystem_macros.h" />
     <ClInclude Include="Mss-old.h" />
     <ClInclude Include="Mss.h" />
-    <ClInclude Include="Mutex Manager.h" />
     <ClInclude Include="pcx.h" />
     <ClInclude Include="PngLoader.h" />
     <ClInclude Include="RAD.H" />
@@ -140,7 +139,6 @@
     <ClCompile Include="line.cpp" />
     <ClCompile Include="MemMan.cpp" />
     <ClCompile Include="mousesystem.cpp" />
-    <ClCompile Include="Mutex Manager.cpp" />
     <ClCompile Include="PCX.cpp" />
     <ClCompile Include="PngLoader.cpp" />
     <ClCompile Include="Random.cpp" />
