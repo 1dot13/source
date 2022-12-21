@@ -191,7 +191,6 @@ RECT				rcWindow;
 POINT				ptWindowSize;
 
 // moved from header file: 24mar98:HJH
-UINT32				giStartMem;
 //UINT8				gbPixelDepth;		// redefintion... look down a few lines (jonathanl)
 // GLOBAL RUN-TIME SETTINGS
 
@@ -200,7 +199,6 @@ UINT32				guiMouseWheelMsg;			// For mouse wheel messages
 BOOLEAN				gfApplicationActive;
 BOOLEAN				gfProgramIsRunning;
 BOOLEAN				gfGameInitialized = FALSE;
-//UINT32			giStartMem; // redefintion... look up a few lines (jonathanl)
 BOOLEAN				gfDontUseDDBlits	= FALSE;
 
 // There were TWO of them??!?! -- DB
@@ -691,17 +689,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
-#ifdef JA2
-	FastDebugMsg("Initializing Mutex Manager");
-	// Initialize the Dirty Rectangle Manager
-	if (InitializeMutexManager() == FALSE)
-	{
-		// We were unable to initialize the game
-		FastDebugMsg("FAILED : Initializing Mutex Manager");
-		return FALSE;
-	}
-#endif
-
 	FastDebugMsg("Initializing File Manager");
 	// Initialize the File Manager
 	if (InitializeFileManager(NULL) == FALSE)
@@ -974,9 +961,6 @@ void ShutdownStandardGamingPlatform(void)
 	ShutdownInputManager();
 	ShutdownContainers();
 	ShutdownFileManager();
-#ifdef JA2
-	ShutdownMutexManager();
-#endif
 
 #ifdef EXTREME_MEMORY_DEBUGGING
 	DumpMemoryInfoIntoFile( "ExtremeMemoryDump.txt", FALSE );
@@ -1188,10 +1172,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 #else
 	ProcessCommandLine(pCommandLine);
 #endif
-
-	// Mem Usage
-	giStartMem = MemGetFree(	) / 1024;
-	
 
 #ifdef JA2
 	// Handle Check for CD
