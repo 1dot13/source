@@ -309,7 +309,9 @@ void UpdateTransportGroupInventory()
 					}
 					transportGroupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
 				}
-				else // not a jeep
+				else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR
+					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY
+					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE)
 				{
 					// force inventory to be dropped!
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
