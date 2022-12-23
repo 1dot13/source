@@ -619,7 +619,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	gfPendingNonPlayerTeam[ENEMY_TEAM] = FALSE;
 
 	// rftr: clear cached transport groups
-	gTransportGroupIdToSoldierMap.clear();
+	ClearTransportGroupMap();
 
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
@@ -680,12 +680,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				// for transport groups, track how many enemies of each type we're adding so we can update drops for them
 				if (pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention == TRANSPORT && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ)
 				{
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ADMINISTRATOR] += pGroup->pEnemyGroup->ubNumAdmins;
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ARMY] += pGroup->pEnemyGroup->ubNumTroops;
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ELITE] += pGroup->pEnemyGroup->ubNumElites;
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ROBOT] += pGroup->pEnemyGroup->ubNumRobots;
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_JEEP] += pGroup->pEnemyGroup->ubNumJeeps;
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_TANK] += pGroup->pEnemyGroup->ubNumTanks;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, pGroup->pEnemyGroup->ubNumAdmins);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, pGroup->pEnemyGroup->ubNumTroops);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, pGroup->pEnemyGroup->ubNumElites);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, pGroup->pEnemyGroup->ubNumRobots);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, pGroup->pEnemyGroup->ubNumJeeps);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, pGroup->pEnemyGroup->ubNumTanks);
 				}
 
 				pGroup = pGroup->next;
@@ -693,10 +693,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 
 		// rftr todo: check if feature is enabled
-		if (gTransportGroupIdToSoldierMap.size() > 0)
-		{
-			UpdateTransportGroupInventory(gTransportGroupIdToSoldierMap);
-		}
+		UpdateTransportGroupInventory();
 
 		ValidateEnemiesHaveWeapons();
 		UnPauseGame();
@@ -893,7 +890,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalAdmins += ubNumAdmins;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ADMINISTRATOR] += ubNumAdmins;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
 			}
 			if( sNumSlots > 0 )
 			{ //Add regular army forces.
@@ -910,7 +907,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalTroops += ubNumTroops;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ARMY] += ubNumTroops;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
 			}
 			if( sNumSlots > 0 )
 			{ //Add elite troops
@@ -927,7 +924,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalElites += ubNumElites;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ELITE] += ubNumElites;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
 			}
 			if( sNumSlots > 0 )
 			{ //Add robots
@@ -944,7 +941,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalRobots += ubNumRobots;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_ROBOT] += ubNumRobots;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, ubNumRobots);
 			}
 			if( sNumSlots > 0 )
 			{ //Add tanks
@@ -961,7 +958,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalTanks += ubNumTanks;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_TANK] += ubNumTanks;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, ubNumTanks);
 			}
 			if ( sNumSlots > 0 )
 			{
@@ -979,7 +976,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalJeeps += ubNumJeeps;
 
 				if (isTransportGroup)
-					gTransportGroupIdToSoldierMap[pGroup->ubGroupID][SOLDIER_CLASS_JEEP] += ubNumJeeps;
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
 			}
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
@@ -1150,10 +1147,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 
 	// rftr todo: check if feature is enabled
-	if (gTransportGroupIdToSoldierMap.size() > 0)
-	{
-		UpdateTransportGroupInventory(gTransportGroupIdToSoldierMap);
-	}
+	UpdateTransportGroupInventory();
 
 	ValidateEnemiesHaveWeapons();
 	UnPauseGame();

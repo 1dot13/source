@@ -31,7 +31,7 @@ and the difficulty of the game.
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
 
-std::map<UINT8, std::map<int, UINT8>> gTransportGroupIdToSoldierMap;
+std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 
 BOOLEAN DeployTransportGroup(INT16 sWorldSectorLocationOfFirstBattle)
 {
@@ -194,7 +194,7 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 	}
 }
 
-void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupIdToSoldierMap)
+void UpdateTransportGroupInventory()
 {
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
@@ -283,8 +283,8 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 	{
 		SOLDIERTYPE* pSoldier = &Menptr[slot];
 
-		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = groupIdToSoldierMap.find(pSoldier->ubGroupID);
-		if (groupIter != groupIdToSoldierMap.end())
+		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
+		if (groupIter != transportGroupIdToSoldierMap.end())
 		{
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
@@ -307,7 +307,7 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 						CreateItem(medKits[Random(medKits.size())], 100, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 					}
-					groupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
+					transportGroupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
 				}
 				else // not a jeep
 				{
@@ -369,3 +369,14 @@ void UpdateTransportGroupInventory(std::map<UINT8, std::map<int, UINT8>> &groupI
 		}
 	}
 }
+
+void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
+{
+	transportGroupIdToSoldierMap[groupId][soldierClass] += amount;
+}
+
+void ClearTransportGroupMap()
+{
+	transportGroupIdToSoldierMap.clear();
+}
+
