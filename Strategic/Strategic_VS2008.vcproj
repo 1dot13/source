@@ -527,6 +527,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Strategic Transport Groups.h"
+				>
+			</File>
+			<File
 				RelativePath="strategic town reputation.h"
 				>
 			</File>
@@ -744,6 +748,10 @@
 			</File>
 			<File
 				RelativePath="strategic town reputation.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Transport Groups.cpp"
 				>
 			</File>
 			<File

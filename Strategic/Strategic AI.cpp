@@ -40,6 +40,7 @@
 	#include "Rebel Command.h"
 	#include "Game Event Hook.h"
 	#include "Strategic Town Loyalty.h"
+	#include "Strategic Transport Groups.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -496,7 +497,6 @@ extern INT16 sWorldSectorLocationOfFirstBattle;
 
 void ReassignAIGroup( GROUP **pGroup );
 void TransferGroupToPool( GROUP **pGroup );
-void SendGroupToPool( GROUP **pGroup );
 
 //Simply orders all garrisons to take troops from the patrol groups and send the closest troops from them.	Any garrison,
 //whom there request isn't fulfilled (due to lack of troops), will recieve their reinforcements from the queen (P3).
@@ -2428,93 +2428,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	}
 	else if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
 	{
-		// rftr todo: something depending if we're in spawn or at target destination
-		const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
-
-		// just arrived, let's go home
-		if (pGroup->ubSectorX != gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY != gModSettings.ubSAISpawnSectorY)
-		{
-			pGroup->ubSectorIDOfLastReassignment = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
-
-			// global loyalty loss
-			INT32 loyaltyLoss = 0;
-			switch (difficulty)
-			{
-			case DIF_LEVEL_EASY:	loyaltyLoss = 0; break;
-			case DIF_LEVEL_MEDIUM:	loyaltyLoss = -100; break;
-			case DIF_LEVEL_HARD:	loyaltyLoss = -250; break;
-			case DIF_LEVEL_INSANE:	loyaltyLoss = -500; break;
-			}
-			// rftr todo: this is the "proper" way to do it - letting lua handle it. requires adding an enum value in Strategic Town Loyalty.h (GlobalLoyaltyEventTypes)
-			//HandleGlobalLoyaltyEvent(-1, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
-			//... which calls this:
-			AffectAllTownsLoyaltyByDistanceFrom(loyaltyLoss, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
-
-			// on reach target ideas:
-			// disease: reduction in target town?
-			// volunteer pool reduction? can we do that?
-
-			// queue up return home order
-			AddStrategicEvent(EVENT_RETURN_TRANSPORT_GROUP, GetWorldTotalMin() + 60 * 6, pGroup->ubGroupID);
-		}
-		else
-		{
-			// asd income injection and bonus update
-			if (gGameExternalOptions.fASDActive)
-			{
-				INT32 moneyAmt = 0;
-				INT32 fuelAmt = 0;
-
-				switch (difficulty)
-				{
-				case DIF_LEVEL_EASY:
-					moneyAmt = 0;
-					fuelAmt = 0;
-					break;
-
-				case DIF_LEVEL_MEDIUM:
-					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] * 0.5f;
-					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep * 0.5f;
-					break;
-
-				case DIF_LEVEL_HARD:
-					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP];
-					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep;
-					break;
-
-				case DIF_LEVEL_INSANE:
-					moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] + gGameExternalOptions.gASDResource_Cost[ASD_TANK];
-					fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep + gGameExternalOptions.gASDResource_Fuel_Tank;
-					break;
-				}
-
-				AddStrategicAIResources(ASD_MONEY, moneyAmt);
-				AddStrategicAIResources(ASD_FUEL, fuelAmt);
-				UpdateASD();
-			}
-
-			// reinforcement pool increase
-			if (!gfUnlimitedTroops)
-			{
-				INT32 poolAmt = 0;
-				switch (difficulty)
-				{
-				case DIF_LEVEL_EASY:	poolAmt = 0; break;
-				case DIF_LEVEL_MEDIUM:	poolAmt = 10; break;
-				case DIF_LEVEL_HARD:	poolAmt = 15; break;
-				case DIF_LEVEL_INSANE:	poolAmt = 40; break;
-				}
-
-				giReinforcementPool += poolAmt;
-			}
-
-			// successfully returned home. give the strategic ai some rewards!
-			SendGroupToPool(&pGroup);
-
-			// immediately do a queen evaluation
-			DeleteAllStrategicEventsOfType(EVENT_EVALUATE_QUEEN_SITUATION);
-			EvaluateQueenSituation();
-		}
+		ProcessTransportGroupReachedDestination(pGroup);
 		return TRUE;
 		// do we just call ReassignAIGroup or SendGroupToPool to dissolve and remove the group?
 	}
@@ -3559,6 +3473,7 @@ void EvaluateQueenSituation()
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
 
+	// rftr todo: send transport group here?
 	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Evaluating queen situation...");
 	
 	// Check/update reinforcements pool if old behavior is enabled
@@ -5489,50 +5404,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			break;
 
 		case NPC_ACTION_DEPLOY_TRANSPORT_GROUP:
-			// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
-			// limitations: max number of transport groups at any given time
-			// track recent transport group interceptions
-			// varying transport group quality/compositions
-			// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
-			// rftr todo: replace this with townid
-			// rftr todo: only pick towns that 1) have mines, and 2) are uncontested
-			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
-			pSector = &SectorInfo[ ubSectorID ];
-
-			// rftr: adjust group size and composition based on recent interceptions, game progress, etc
-			ubNumSoldiers = 17;
-
-			//InitializeGroup(GROUP_TYPE_TRANSPORT, ubNumSoldiers, grouptroops[0], groupelites[0], grouprobots[0], groupjeeps[0], grouptanks[0], Random(10) < difficultyMod);
-			//totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0] + grouptanks[0] + groupjeeps[0];
-
-			//pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
-			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, 10, 5, 1, 0, 0, 1 );
-
-			//Madd: unlimited reinforcements?
-			if ( !gfUnlimitedTroops )
-			{
-				giReinforcementPool -= ubNumSoldiers;
-
-				giReinforcementPool = max( giReinforcementPool, 0 );
-			}
-
-			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, TRANSPORT );
+			DeployTransportGroup(sWorldSectorLocationOfFirstBattle);
 			break;
 
 		case NPC_ACTION_RETURN_TRANSPORT_GROUP:
-			pGroup = gpGroupList;
-			while (pGroup)
-			{
-				if (pGroup->ubGroupID == option1)
-				{
-					MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
-					break;
-				}
-				pGroup = pGroup->next;
-			}
-
-			if (pGroup == nullptr)
-				ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"RETURN_TRANSPORT_GROUP failed to find groupid %d", option1);
+			ReturnTransportGroup(option1);
 			break;
 
 		default:

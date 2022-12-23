@@ -71,6 +71,7 @@
     <ClInclude Include="Strategic Status.h" />
     <ClInclude Include="Strategic Town Loyalty.h" />
     <ClInclude Include="strategic town reputation.h" />
+    <ClInclude Include="Strategic Transport Groups.h" />
     <ClInclude Include="Strategic Turns.h" />
     <ClInclude Include="strategic.h" />
     <ClInclude Include="strategicmap.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Strategic Status.cpp" />
     <ClCompile Include="Strategic Town Loyalty.cpp" />
     <ClCompile Include="strategic town reputation.cpp" />
+    <ClCompile Include="Strategic Transport Groups.cpp" />
     <ClCompile Include="Strategic Turns.cpp" />
     <ClCompile Include="strategic.cpp" />
     <ClCompile Include="strategicmap.cpp" />
