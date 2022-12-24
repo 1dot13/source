@@ -6,7 +6,7 @@
 
 struct GROUP;
 
-BOOLEAN DeployTransportGroup(INT16);
+BOOLEAN DeployTransportGroup();
 BOOLEAN ReturnTransportGroup(INT32);
 void ProcessTransportGroupReachedDestination(GROUP* pGroup);
 void UpdateTransportGroupInventory();

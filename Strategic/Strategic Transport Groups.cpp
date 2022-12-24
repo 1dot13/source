@@ -26,15 +26,46 @@ and the difficulty of the game.
 #include "Overhead.h"
 #include "Overhead Types.h"
 #include "random.h"
+#include "strategic.h"
 #include "Strategic AI.h"
 #include "strategicmap.h"
+#include "Strategic Mines.h"
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
 
+
+extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
+
 std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 
-BOOLEAN DeployTransportGroup(INT16 sWorldSectorLocationOfFirstBattle)
+BOOLEAN DeployTransportGroup()
 {
+	// rftr todo: do nothing if feature disabled
+
+	// is there a mine here?
+	// rftr todo: valid destination towns depend on difficulty
+	std::vector<INT16> mineSectorIds;
+	for (INT8 i = 0; i < NUM_TOWNS; ++i)
+	{
+		// skip towns that have no loyalty
+		if (!gfTownUsesLoyalty[i]) continue;
+		// filter by TOWN ownership
+		if (IsTownUnderCompleteControlByEnemy(i) == FALSE) continue;
+		// skip towns with a shut down mine
+		const INT8 mineIndex = GetMineIndexForTown(i);
+		if (mineIndex == -1) continue;
+		if (IsMineShutDown(mineIndex) == TRUE) continue;
+		// filter by MINE ownership
+		const INT16 mineSector = GetMineSectorForTown(i);
+		if (StrategicMap[mineSector].fEnemyControlled == FALSE) continue;
+
+		mineSectorIds.push_back(mineSector);
+	}
+	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
+
+	// rftr todo: special case when only one town left?
+	if (mineSectorIds.size() < 1) return FALSE;
+
 	INT8 transportGroupCount = 0;
 	GROUP* pGroup = gpGroupList;
 	while (pGroup)
@@ -45,10 +76,12 @@ BOOLEAN DeployTransportGroup(INT16 sWorldSectorLocationOfFirstBattle)
 		}
 		pGroup = pGroup->next;
 	}
+	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
 
 	// if there are too many active transport groups, don't deploy any more
 	// rftr todo: based on difficulty?
 	if (transportGroupCount >= 5) return FALSE;
+	
 	// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
 	// limitations: max number of transport groups at any given time
 	// track recent transport group interceptions
@@ -56,7 +89,7 @@ BOOLEAN DeployTransportGroup(INT16 sWorldSectorLocationOfFirstBattle)
 	// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
 	// rftr todo: replace this with townid
 	// rftr todo: only pick towns that 1) have mines, and 2) are uncontested
-	const UINT8 ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
+	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 	const SECTORINFO* pSector = &SectorInfo[ ubSectorID ];
 
 	// rftr: adjust group size and composition based on recent interceptions, game progress, etc
@@ -196,6 +229,8 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 
 void UpdateTransportGroupInventory()
 {
+	// rftr todo: do nothing if feature disabled
+
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 
@@ -374,7 +409,20 @@ void UpdateTransportGroupInventory()
 
 void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
 {
-	transportGroupIdToSoldierMap[groupId][soldierClass] += amount;
+	// only update admins/troops/elites/jeeps
+
+	switch (soldierClass)
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:
+	case SOLDIER_CLASS_ARMY:
+	case SOLDIER_CLASS_ELITE:
+	case SOLDIER_CLASS_JEEP:
+		transportGroupIdToSoldierMap[groupId][soldierClass] += amount;
+		break;
+	default:
+		// do nothing!
+		break;
+	}
 }
 
 void ClearTransportGroupMap()

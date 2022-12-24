@@ -3505,6 +3505,8 @@ void EvaluateQueenSituation()
 	// Gradually promote any remaining admins into troops
 	UpgradeAdminsToTroops();
 
+	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
+
 	if( ( giRequestPoints <= 0 ) || ( ( giReinforcementPoints <= 0 ) && ( giReinforcementPool <= 0 ) ) )
 	{ //we either have no reinforcements or request for reinforcements.
 		return;
@@ -5404,7 +5406,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			break;
 
 		case NPC_ACTION_DEPLOY_TRANSPORT_GROUP:
-			DeployTransportGroup(sWorldSectorLocationOfFirstBattle);
+			DeployTransportGroup();
 			break;
 
 		case NPC_ACTION_RETURN_TRANSPORT_GROUP:
