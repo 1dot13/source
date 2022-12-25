@@ -146,7 +146,7 @@ void		HandleLastSelectedTraits( INT8 bNewTrait );
 INT8		GetLastSelectedSkill( void );
 BOOLEAN		CameBackToSpecialtiesPageButNotFinished();
 
-MOUSE_REGION	gMR_SkillTraitHelpTextRegions[IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS];
+MOUSE_REGION	gMR_SkillTraitHelpTextRegions[IMP_SKILL_TRAITS__NUMBER_SKILLS];
 //ppp
 
 //*******************************************************************
