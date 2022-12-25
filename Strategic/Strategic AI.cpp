@@ -6430,8 +6430,14 @@ void UpgradeAdminsToTroops()
 				// if there are any admins currently in this group
 				if ( pGroup->pEnemyGroup->ubNumAdmins > 0 )
 				{
+					// skip transport groups
+					if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+					{
+						pGroup = pGroup->next;
+						continue;
+					}
 					// if it's a patrol group
-					if ( pGroup->pEnemyGroup->ubIntention == PATROL )
+					else if ( pGroup->pEnemyGroup->ubIntention == PATROL )
 					{
 						sPatrolIndex = FindPatrolGroupIndexForGroupID( pGroup->ubGroupID );
 						Assert( sPatrolIndex != -1 );
