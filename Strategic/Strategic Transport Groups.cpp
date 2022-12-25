@@ -140,7 +140,6 @@ BOOLEAN ReturnTransportGroup(INT32 option1)
 
 void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 {
-	// rftr todo: something depending if we're in spawn or at target destination
 	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
 
 	// just arrived, let's go home
@@ -153,18 +152,12 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 		switch (difficulty)
 		{
 		case DIF_LEVEL_EASY:	loyaltyLoss = 0; break;
-		case DIF_LEVEL_MEDIUM:	loyaltyLoss = -100; break;
-		case DIF_LEVEL_HARD:	loyaltyLoss = -200; break;
-		case DIF_LEVEL_INSANE:	loyaltyLoss = -500; break;
+		case DIF_LEVEL_MEDIUM:	loyaltyLoss = 0; break;
+		case DIF_LEVEL_HARD:	loyaltyLoss = -100; break;
+		case DIF_LEVEL_INSANE:	loyaltyLoss = -250; break;
 		}
-		// rftr todo: this is the "proper" way to do it - letting lua handle it. requires adding an enum value in Strategic Town Loyalty.h (GlobalLoyaltyEventTypes)
-		//HandleGlobalLoyaltyEvent(-1, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
-		//... which calls this:
-		AffectAllTownsLoyaltyByDistanceFrom(loyaltyLoss, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
 
-		// on reach target ideas:
-		// disease: reduction in target town?
-		// volunteer pool reduction? can we do that?
+		AffectAllTownsLoyaltyByDistanceFrom(loyaltyLoss, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ);
 
 		// queue up return home order
 		AddStrategicEvent(EVENT_RETURN_TRANSPORT_GROUP, GetWorldTotalMin() + 60 * 6, pGroup->ubGroupID);
@@ -185,18 +178,18 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 				break;
 
 			case DIF_LEVEL_MEDIUM:
+				moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] * 0.25f;
+				fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep * 0.25f;
+				break;
+
+			case DIF_LEVEL_HARD:
 				moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] * 0.5f;
 				fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep * 0.5f;
 				break;
 
-			case DIF_LEVEL_HARD:
-				moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP];
-				fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep;
-				break;
-
 			case DIF_LEVEL_INSANE:
-				moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_JEEP] + gGameExternalOptions.gASDResource_Cost[ASD_TANK];
-				fuelAmt = gGameExternalOptions.gASDResource_Fuel_Jeep + gGameExternalOptions.gASDResource_Fuel_Tank;
+				moneyAmt = gGameExternalOptions.gASDResource_Cost[ASD_TANK];
+				fuelAmt = gGameExternalOptions.gASDResource_Fuel_Tank;
 				break;
 			}
 
@@ -223,9 +216,12 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 		// successfully returned home. give the strategic ai some rewards!
 		SendGroupToPool(&pGroup);
 
-		// immediately do a queen evaluation
-		DeleteAllStrategicEventsOfType(EVENT_EVALUATE_QUEEN_SITUATION);
-		EvaluateQueenSituation();
+		if (difficulty != DIF_LEVEL_EASY)
+		{
+			// immediately do a queen evaluation
+			DeleteAllStrategicEventsOfType(EVENT_EVALUATE_QUEEN_SITUATION);
+			EvaluateQueenSituation();
+		}
 	}
 }
 
