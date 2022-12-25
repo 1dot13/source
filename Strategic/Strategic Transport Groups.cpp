@@ -41,6 +41,8 @@ std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 BOOLEAN DeployTransportGroup()
 {
 	// rftr todo: do nothing if feature disabled
+	if (giReinforcementPool <= 0)
+		return FALSE;
 
 	// is there a mine here?
 	// rftr todo: valid destination towns depend on difficulty
