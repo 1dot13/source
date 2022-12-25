@@ -3505,91 +3505,88 @@ void EvaluateQueenSituation()
 	// Gradually promote any remaining admins into troops
 	UpgradeAdminsToTroops();
 
-	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
-
-	if( ( giRequestPoints <= 0 ) || ( ( giReinforcementPoints <= 0 ) && ( giReinforcementPool <= 0 ) ) )
-	{ //we either have no reinforcements or request for reinforcements.
-		return;
-	}
-
-	// anv: only consider garrisons and patrols that can be reinforced
-	// otherwise unreinforcable groups will stall the rest, effectively breaking entire system
-
-	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
-
-	for( i = 0; i < giGarrisonArraySize; i++ )
+	// we either have reinforcements or a request for reinforcements
+	if (giRequestPoints > 0 && (giReinforcementPoints > 0 || giReinforcementPool > 0))
 	{
-		RecalculateGarrisonWeight( i );
-		iWeight = gGarrisonGroup[ i ].bWeight;
-		if( iWeight > 0 )
+		// anv: only consider garrisons and patrols that can be reinforced
+		// otherwise unreinforcable groups will stall the rest, effectively breaking entire system
+
+		Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+
+		for( i = 0; i < giGarrisonArraySize; i++ )
 		{
-			if( !gGarrisonGroup[ i ].ubPendingGroupID &&
-					EnemyPermittedToAttackSector( NULL, gGarrisonGroup[ i ].ubSectorID ) &&
-					GarrisonRequestingMinimumReinforcements( i ) )
+			RecalculateGarrisonWeight( i );
+			iWeight = gGarrisonGroup[ i ].bWeight;
+			if( iWeight > 0 )
 			{
-				if( ReinforcementsApproved( i, &usDefencePoints ) )
+				if( !gGarrisonGroup[ i ].ubPendingGroupID &&
+						EnemyPermittedToAttackSector( NULL, gGarrisonGroup[ i ].ubSectorID ) &&
+						GarrisonRequestingMinimumReinforcements( i ) )
 				{
-					iApplicableGarrisonIds[iApplicableGarrisons] = i;
-					iApplicableGarrisons++;
-					iApplicableRequestPoints += gGarrisonGroup[ i ].bWeight;
+					if( ReinforcementsApproved( i, &usDefencePoints ) )
+					{
+						iApplicableGarrisonIds[iApplicableGarrisons] = i;
+						iApplicableGarrisons++;
+						iApplicableRequestPoints += gGarrisonGroup[ i ].bWeight;
+					}
 				}
 			}
 		}
-	}
-	for( i = 0; i < giPatrolArraySize; i++ )
-	{
-		RecalculatePatrolWeight( i );
-		iWeight = gPatrolGroup[ i ].bWeight;
-		if( iWeight > 0 )
+		for( i = 0; i < giPatrolArraySize; i++ )
 		{
-			if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
+			RecalculatePatrolWeight( i );
+			iWeight = gPatrolGroup[ i ].bWeight;
+			if( iWeight > 0 )
 			{
-				iApplicablePatrolIds[iApplicablePatrols] = i;
-				iApplicablePatrols++;
-				iApplicableRequestPoints += gPatrolGroup[ i ].bWeight;
+				if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
+				{
+					iApplicablePatrolIds[iApplicablePatrols] = i;
+					iApplicablePatrols++;
+					iApplicableRequestPoints += gPatrolGroup[ i ].bWeight;
+				}
+			}
+		}
+
+		if( iApplicableRequestPoints )
+		{
+			//now randomly choose who gets the reinforcements.
+			// giRequestPoints is the combined sum of all the individual weights of all garrisons and patrols requesting reinforcements
+			//iRandom = Random( giRequestPoints );
+			iRandom = Random( iApplicableRequestPoints );
+
+			iOrigRequestPoints = giRequestPoints;	// debug only!
+
+			//go through garrisons first
+			for( i = 0; i < iApplicableGarrisons; i++ )
+			{
+				iSumOfAllWeights += iWeight;	// debug only!
+				iWeight = gGarrisonGroup[ iApplicableGarrisonIds[i] ].bWeight;
+				if( iRandom < iWeight )
+				{
+					//This is the group that gets the reinforcements!
+					if ( SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL ) )
+						return;
+				}
+				iRandom -= iWeight;
+			}
+
+			//go through the patrol groups
+			for( i = 0; i < iApplicablePatrols; i++ )
+			{
+				iSumOfAllWeights += iWeight;	// debug only!
+				iWeight = gPatrolGroup[ iApplicablePatrolIds[i] ].bWeight;
+				if( iRandom < iWeight )
+				{
+					//This is the group that gets the reinforcements!
+					if ( SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL ) )
+						return;
+				}
+				iRandom -= iWeight;
 			}
 		}
 	}
 
-	if( !iApplicableRequestPoints )
-	{
-		return;
-	}
-
-	//now randomly choose who gets the reinforcements.
-	// giRequestPoints is the combined sum of all the individual weights of all garrisons and patrols requesting reinforcements
-	//iRandom = Random( giRequestPoints );
-	iRandom = Random( iApplicableRequestPoints );
-
-	iOrigRequestPoints = giRequestPoints;	// debug only!
-
-	//go through garrisons first
-	for( i = 0; i < iApplicableGarrisons; i++ )
-	{
-		iSumOfAllWeights += iWeight;	// debug only!
-		iWeight = gGarrisonGroup[ iApplicableGarrisonIds[i] ].bWeight;
-		if( iRandom < iWeight )
-		{
-			//This is the group that gets the reinforcements!
-			if ( SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL ) )
-				return;
-		}
-		iRandom -= iWeight;
-	}
-
-	//go through the patrol groups
-	for( i = 0; i < iApplicablePatrols; i++ )
-	{
-		iSumOfAllWeights += iWeight;	// debug only!
-		iWeight = gPatrolGroup[ iApplicablePatrolIds[i] ].bWeight;
-		if( iRandom < iWeight )
-		{
-			//This is the group that gets the reinforcements!
-			if ( SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL ) )
-				return;
-		}
-		iRandom -= iWeight;
-	}
+	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
 
 	ValidateWeights( 27 );
 }
