@@ -592,7 +592,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	INT16 sCenX, sCenY, usWidth, usHeight, sX, sY;
 	HVOBJECT hHandle;
 	ETRLEObject		*pTrav;
-	CHAR16 sString[ 64 ];
+	CHAR16 sString[ 80 ];
 	INT16 sWidth = 0, sHeight = 0;
 	INT16 sOutLine = 0;
 	BOOLEAN fOutLine = FALSE;
