@@ -23,7 +23,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AI All.h" />
     <ClInclude Include="ai.h" />
     <ClInclude Include="AIInternals.h" />
     <ClInclude Include="AIList.h" />

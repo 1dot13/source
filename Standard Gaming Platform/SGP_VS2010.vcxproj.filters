@@ -93,7 +93,6 @@
     <ClInclude Include="Ja2 Libs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JA2 SGP ALL.H">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LibraryDataBase.h">

@@ -50,7 +50,6 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="Install.h" />
     <ClInclude Include="Ja2 Libs.h" />
-    <ClInclude Include="JA2 SGP ALL.H" />
     <ClInclude Include="LibraryDataBase.h" />
     <ClInclude Include="line.h" />
     <ClInclude Include="MemMan.h" />

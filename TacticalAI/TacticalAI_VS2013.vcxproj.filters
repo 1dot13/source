@@ -9,7 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AI All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ai.h">
