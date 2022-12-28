@@ -6562,6 +6562,7 @@ void TestCapture( )
 
 				// Remove them from tectical....
 				pSoldier->RemoveSoldierFromGridNo( );
+				RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
 
 				uiNumChosen++;
 			}
