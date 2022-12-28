@@ -9727,7 +9727,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
     pSoldier = NULL;
 
-    if (gTacticalStatus.ubCurrentTeam == gbPlayerNum)
+    if (gTacticalStatus.ubCurrentTeam == gbPlayerNum && gusSelectedSoldier < TOTAL_SOLDIERS )
     {
         pSoldier = MercPtrs[ gusSelectedSoldier ];
     }
@@ -9748,7 +9748,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     // If we still haven't figured out who last acted, it could be that the team number changed during the attack.  Unfortunately this
     // can happen during a switch from real-time.   For now we will assume the last actor was a PC, but a real "Who started this?" pointer
     // would work quite well.   If only I could close all the holes that the UI opens so that one routine could handle everything.
-    if (!pSoldier)
+    if (!pSoldier && gusSelectedSoldier < TOTAL_SOLDIERS)
     {
         if (is_networked)
         {
@@ -11370,8 +11370,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
                         if ( pSoldier->stats.bLife != 0 )
                         {
                             EnemyCapturesPlayerSoldier( pSoldier );
-
                             RemoveSoldierFromTacticalSector( pSoldier, TRUE );
+                            RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
                         }
                     }
                 }
@@ -11380,6 +11380,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
                 gfSurrendered = TRUE;
                 SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
+                CheckForEndOfCombatMode(FALSE);
 
                 success = TRUE;
             }
