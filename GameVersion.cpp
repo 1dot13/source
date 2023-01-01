@@ -11,9 +11,9 @@
 #ifdef JA2EDITOR
 	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Unfinished Business - Map Editor v1.13" };
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Map Editor v1.13" };
 	#endif
 
 // ------------------------------
@@ -23,17 +23,17 @@
 
 	//DEBUG BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Debug: Unfinished Business - v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: Unfinished Business - v1.13" };
 	#elif defined (JA113DEMO)
-		CHAR16 zVersionLabel[256]		= { L"Debug: JA2 Demo - v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 Demo - v1.13" };
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Debug: v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: v1.13" };
 	#endif
 
 #elif defined CRIPPLED_VERSION
 
 	//RELEASE BUILD VERSION s
-	CHAR16 zVersionLabel[256]		= { L"Beta v. 0.98" }; 
+	CHAR16 zProductLabel[64]		= { L"Beta v. 0.98" };
 
 // ------------------------------
 // RELEASE BUILD VERSIONS
@@ -42,17 +42,16 @@
 
 	//RELEASE BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16		zVersionLabel[256]		= { L"Release Unfinished Business - v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"Unfinished Business - v1.13" };
 	#elif defined (JA113DEMO)
-		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"JA2 Demo - v1.13" };
 	#else
-		CHAR16		zVersionLabel[256]		= { L"Release v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"v1.13" };
 	#endif
 
 #endif
-										
-CHAR8		czVersionNumber[16]	= { "Local build" };
-CHAR16		zTrackingNumber[16]	= { L"Z" };
-CHAR16		zRevisionNumber[16] = { L"" };
-	
+
+CHAR8		czVersionString[16]	= { "@Version@" };
+CHAR16		zBuildInformation[256]	= { L"@Build@" };
+
 // SAVE_GAME_VERSION is defined in header, change it there

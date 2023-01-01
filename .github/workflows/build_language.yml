@@ -1,0 +1,216 @@
+name: build language
+
+on:
+  workflow_call:
+    inputs:
+      language:
+        description: 'any of CN_Chinese DE_German EN_English FR_French PL_Polish IT_Italian NL_Dutch RU_Russian'
+        required: true
+        default: 'EN_English'
+        type: string
+      assemble:
+        description: 'assemble full package'
+        required: true
+        default: true
+        type: boolean
+      continue-on-error:
+        description: 'allows a language to fail, used when building all languages'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  compile:
+    runs-on: windows-latest # required for msbuild
+    continue-on-error: ${{ inputs.continue-on-error }}
+    strategy:
+      fail-fast: false
+      matrix:
+        application: [ja2, ja2mapeditor, ja2ub]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Download versions.env
+        uses: actions/download-artifact@v3
+        with:
+          name: versions.env
+          path: artifacts
+      - name: Restore versions.env
+        shell: bash
+        run: cat artifacts/versions.env >> $GITHUB_ENV
+
+      - name: Update GameVersion.cpp
+        shell: bash
+        run: |
+          set -eux
+          INPUTS_LANGUAGE=${{ inputs.language }}
+          GAME_VERSION=$(echo "$GAME_VERSION" | tr -cd '[:print:]' | tr -d '"\\')
+          GAME_BUILD="${INPUTS_LANGUAGE:0:2} $GAME_BUILD_INFORMATION"
+          GAME_BUILD=$(echo "$GAME_BUILD" | tr -cd '[:print:]' | tr -d '"\\')
+          sed -i "s|@Version@|${GAME_VERSION:0:15}|" GameVersion.cpp
+          sed -i "s|@Build@|${GAME_BUILD:0:255}|" GameVersion.cpp
+          cat GameVersion.cpp
+
+      # not sure if needed as per Language Defines.h, but only here can we set both defines I think
+      - name: Update builddefines.h
+        if: ${{ matrix.application == 'ja2ub' }}
+        shell: bash
+        run: |
+          set -eux
+          sed -i 's/\/\/#define JA2UB/#define JA2UB/' builddefines.h
+          sed -i 's/\/\/#define JA2UBMAPS/#define JA2UBMAPS/' builddefines.h
+          cat builddefines.h
+
+      - name: Prepare build properties
+        shell: bash
+        run: |
+          set -eux
+          
+          if [[ '${{ matrix.application }}' == 'ja2mapeditor' ]]
+          then
+            Configuration='MapEditor'
+          else
+            Configuration='Release'
+          fi
+          
+          INPUTS_LANGUAGE='${{ inputs.language }}'
+          JA2LangPrefix="${INPUTS_LANGUAGE:0:2}"
+          JA2Language=$(echo "${INPUTS_LANGUAGE:3}" | tr '[:lower:]' '[:upper:]')
+          
+          if [[ '${{ matrix.application }}' == 'ja2ub' ]]
+          then
+            JA2Config='JA2UB'
+          else
+            JA2Config='JA2'
+          fi
+          
+          echo "
+          Configuration=$Configuration
+          JA2LangPrefix=$JA2LangPrefix
+          JA2Language=$JA2Language
+          JA2Config=$JA2Config
+          " >> $GITHUB_ENV
+
+      - uses: microsoft/setup-msbuild@v1.1
+      - name: Build
+        run: |
+          msbuild ja2_VS2019.sln `
+            /p:Configuration=$Env:Configuration `
+            /p:JA2LangPrefix=$Env:JA2LangPrefix `
+            /p:JA2Language=$Env:JA2Language `
+            /p:JA2Config=$Env:JA2Config
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.language }}_${{ matrix.application }}
+          path: bin/VS2013/
+
+  assemble:
+    needs: [ compile ]
+    if: inputs.assemble
+    runs-on: windows-latest # required for case-insensitive filesystem handling
+    continue-on-error: ${{ inputs.continue-on-error }}
+
+    steps:
+      - name: Download versions.env
+        uses: actions/download-artifact@v3
+        with:
+          name: versions.env
+          path: artifacts
+      - name: Restore versions.env
+        shell: bash
+        run: cat artifacts/versions.env >> $GITHUB_ENV
+
+      - name: Checkout gamedir
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GAMEDIR_REPOSITORY }}
+          ref: ${{ env.GAMEDIR_COMMIT_SHA }}
+          path: gamedir
+
+      - name: Checkout gamedir-languages
+        if: inputs.language != 'EN_English'
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
+          ref: ${{ env.GAMEDIR_LANGUAGES_COMMIT_SHA }}
+          path: gamedir-languages
+
+      - name: Copy gamedir-languages files to gamedir
+        if: inputs.language != 'EN_English'
+        shell: bash
+        run: |
+          set -eux
+          DIST_LANG='${{ inputs.language }}'
+          GAMEDIR_LANGUAGE="${DIST_LANG:3}"
+          cp -a gamedir-languages/${GAMEDIR_LANGUAGE}_Version/* gamedir/
+
+      - name: Download ja2
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.language }}_ja2
+          path: artifacts/ja2
+
+      - name: Download ja2mapeditor
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.language }}_ja2mapeditor
+          path: artifacts/ja2mapeditor
+
+      - name: Download ja2ub
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.language }}_ja2ub
+          path: artifacts/ja2ub
+
+      - name: Copy application files to gamedir
+        shell: bash
+        run: |
+          set -eux
+          for APP in ja2 ja2mapeditor ja2ub
+          do
+            mv artifacts/${APP}/*.exe gamedir/${APP}.exe
+          done
+
+      - name: Create version information file
+        shell: bash
+        run: |
+          set -eux
+          
+          # "-" separates words, "_" combines words, see double-click behavior
+          DIST_NAME="JA2-${GAME_VERSION}-G${GAMEDIR_COMMIT_SHA:0:4}L${GAMEDIR_LANGUAGES_COMMIT_SHA:0:4}-${{ inputs.language }}"
+          echo "DIST_NAME=$DIST_NAME" >> $GITHUB_ENV
+          
+          echo "If you encounter problems during gameplay, please provide the following version information:
+          Distribution Name: $DIST_NAME
+          Game Version: $GAME_VERSION
+          Language: ${{ inputs.language }}
+          Build Information: $GAME_BUILD_INFORMATION
+          Source Repository: $GITHUB_REPOSITORY
+          Source Commit SHA: $GITHUB_SHA
+          Source Commit Date: $SOURCE_COMMIT_DATETIME
+          Gamedir Repository: $GAMEDIR_REPOSITORY
+          Gamedir Commit SHA: $GAMEDIR_COMMIT_SHA
+          Gamedir Commit Date: $GAMEDIR_COMMIT_DATETIME
+          Gamedir Languages Repository: $GAMEDIR_LANGUAGES_REPOSITORY
+          Gamedir Languages Commit SHA: $GAMEDIR_LANGUAGES_COMMIT_SHA
+          Gamedir Languages Commit Date: $GAMEDIR_LANGUAGES_COMMIT_DATETIME
+          " > gamedir/ja2_1.13_version.txt
+          cat gamedir/ja2_1.13_version.txt
+
+      - name: Create release archive
+        shell: bash
+        run: |
+          set -eux
+          mkdir dist/
+          cd gamedir/
+          7z a -bb -xr'!.*' "../dist/${DIST_NAME}.7z" .
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.language }}_release
+          path: dist/
