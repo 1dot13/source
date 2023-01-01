@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "fade screen.h"
@@ -24,7 +21,6 @@
 	#include "DropDown.h"		// added by Flugente
 	#include "Utilities.h"		// added by Flugente for FilenameForBPP(...)
 	#include "FeaturesScreen.h"
-#endif
 
 #define		MSGBOX_DEFAULT_WIDTH							300
 

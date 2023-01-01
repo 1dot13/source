@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sgp.h"
 	#include "environment.h"
 	#include "renderworld.h"
@@ -17,7 +14,6 @@
 	#include "Isometric Utils.h"		// added by Flugente
 	#include "worldman.h"				// added by Flugente
 	#include "Dialogue Control.h"		// added by Flugente
-#endif
 
 #include "Text.h"
 #include "connect.h"

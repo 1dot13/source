@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "language defines.h"
-#else
 	#include "builddefines.h"
 	#include "mapscreen.h"
 	#include <stdio.h>
@@ -85,7 +81,6 @@
 	// sevenfm:
 	#include "Soldier Control.h"
 	#include "Sound Control.h"
-#endif
 
 #include "Multi Language Graphic Utils.h"
 

@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "builddefines.h"
 	#include <math.h>
 	#include <stdlib.h>
@@ -19,7 +14,6 @@
 	#include "Compression.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 

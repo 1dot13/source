@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "personnel.h"
 	#include "Utilities.h"
@@ -30,7 +27,6 @@
 	#include "GameSettings.h"
 	#include "Merc Contract.h"
 	#include "_Ja25Englishtext.h" // added by SANDRO
-#endif
 
 #include "Soldier Macros.h"
 #include "InterfaceItemImages.h"

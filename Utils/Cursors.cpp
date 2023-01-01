@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "interface items.h"
-#else
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include "sgp.h"
@@ -18,7 +14,6 @@
 	#include "Sound Control.h"
 	// HEADROCK HAM B2.6: included this here to allow toggling the CTH bars.
 	#include "GameSettings.h"
-#endif
 
 //aim
 extern UINT8	gubShowActionPointsInRed;

@@ -1,10 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Multilingual Text Code Generator.h"
-	#include "INIReader.h"
-
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
@@ -58,7 +51,6 @@
 	#include "Multilingual Text Code Generator.h"
 	#include "editscreen.h"
 	#include "Arms Dealer Init.h"
-#endif
 #include "MPXmlTeams.hpp"
 #include "Strategic Mines LUA.h"
 #include "UndergroundInit.h"

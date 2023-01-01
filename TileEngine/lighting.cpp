@@ -16,9 +16,6 @@
 * Written by Derek Beland, April 14, 1997
 *
 ***************************************************************************************/
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "sysutil.h"
@@ -31,7 +28,6 @@
 	#include "Shade Table Util.h"
 	#include "rotting corpses.h"
 	#include "PATHAI.H"
-#endif
 
 #define LVL1_L1_PER			(50)
 #define LVL1_L2_PER			(50)

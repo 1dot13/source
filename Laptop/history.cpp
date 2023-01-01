@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "History.h"
 	#include "Game clock.h"
@@ -16,7 +13,6 @@
 	#include "text.h"
 	#include "message.h"
 	#include "LaptopSave.h"
-#endif
 
 #include "connect.h"
 

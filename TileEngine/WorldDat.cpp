@@ -1,13 +1,9 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "worlddat.h"
 	#include "sys globals.h"
 	#include "tile surface.h"
 	#include "Debug.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>

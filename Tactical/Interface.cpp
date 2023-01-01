@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
@@ -65,7 +62,6 @@
 	#include "SkillCheck.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"		// sevenfm
 	#include "english.h"				// sevenfm
-#endif
 
 #include "InterfaceItemImages.h"
 #ifdef JA2UB

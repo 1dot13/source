@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "Types.h"
 	#include "windows.h"
 	#include "FileMan.h"
@@ -17,7 +12,6 @@
 	#else
 		#include "video2.h"
 	#endif
-#endif
 
 //NUMBER_OF_LIBRARIES
 #ifdef JA2

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "BobbyR.h"
 	#include "BobbyRGuns.h"
@@ -22,7 +19,6 @@
 	#include "GameSettings.h"
 	#include "message.h"
 	#include "postalservice.h"
-#endif
 
 
 #ifdef JA2TESTVERSION

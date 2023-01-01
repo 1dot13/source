@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "sgp.h"
 	#include "air raid.h"
 	#include "game event hook.h"
@@ -31,7 +27,6 @@
 	#include "Map screen helicopter.h"
 	#include "structure wrap.h"
 	#include "meanwhile.h"
-#endif
 
 #include "GameInitOptionsScreen.h"
 

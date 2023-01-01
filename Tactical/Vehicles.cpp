@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Vehicles.h"
 	#include "String.h"
 	#include "Strategic Pathing.h"
@@ -39,7 +36,6 @@
 	#include "Soldier ani.h"
 	#include "GameSettings.h"
 	#include "Queen Command.h"
-#endif
 
 #include "Points.h"
 #include "Init.h"

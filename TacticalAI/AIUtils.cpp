@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "ai.h"
 	#include "Weapons.h"
 	#include "opplist.h"
@@ -28,7 +25,6 @@
 	#include "Rotting Corpses.h"	// sevenfm
 	#include "wcheck.h"				// sevenfm
 	#include "SmokeEffects.h"		// sevenfm
-#endif
 
 #include "GameInitOptionsScreen.h"
 

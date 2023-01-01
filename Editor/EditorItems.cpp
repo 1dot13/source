@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <windows.h>
 	#include "tiledef.h"
 	#include "edit_sys.h"
@@ -44,7 +39,6 @@
 	#include "keys.h"
 	#include "InterfaceItemImages.h"
 	#include "Editor Undo.h"//dnl ch86 220214
-#endif
 
 #include <vfs/Tools/vfs_log.h>
 

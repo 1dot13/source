@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Render Fun.h"
 	#include "sysutil.h"
 	#include "debug.h"
@@ -11,7 +8,6 @@
 	#include "Fog Of War.h"
 	#include "dialogue control.h"
 	#include "Random.h"
-#endif
 
 // Room Information
 //UINT8						gubWorldRoomInfo[ WORLD_MAX ];

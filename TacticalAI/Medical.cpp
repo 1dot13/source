@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "types.h"
 
 	#include "Soldier Functions.h"
@@ -17,7 +14,6 @@
 	// added by SANDRO
 	#include "Soldier Profile.h"
 	#include "GameSettings.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

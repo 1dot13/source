@@ -1,13 +1,8 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "smooth.h"
@@ -32,7 +27,6 @@
 	#include "Keys.h"
 	#include "EditorMapInfo.h"
 	#include "EditorItems.h"
-#endif
 
 #include "input.h"
 

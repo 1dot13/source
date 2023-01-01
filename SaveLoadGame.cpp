@@ -1,14 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "PreBattle Interface.h"
-	#include "civ quotes.h"
-	#include "Militia Control.h"
-	#include "Strategic Event Handler.h"
-	#include "HelpScreen.h"
-	#include "Cheats.h"
-	#include "Animated ProgressBar.h"
-	#include "Shopkeeper Interface.h"
-#else
 	#include "Types.h"
 	#include "Soldier Profile.h"
 	#include "FileMan.h"
@@ -119,7 +108,6 @@
 	#include "ASD.h"				// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include		"BobbyR.h"
 #include		"Imp Portraits.h"

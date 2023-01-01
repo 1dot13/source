@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "debug.h"
 	#include "worlddef.h"
 	#include "worldman.h"
@@ -14,7 +11,6 @@
 	#include "Sys Globals.h"
 	#include "SaveLoadMap.h"
 	#include "Text.h"
-#endif
 
 #if 0//dnl ch86 180214
 BOOLEAN gfLoadingExitGrids = FALSE;

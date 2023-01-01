@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "WordWrap.h"
 	#include "sgp.h"
 	#include "Encrypted File.h"
@@ -41,7 +38,6 @@
 	#include "GameSettings.h"
 #endif
 
-#endif
 
 #define IMP_SEEK_AMOUNT 5 * 80 * 2
 

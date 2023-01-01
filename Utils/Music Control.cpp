@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "types.h"
 	#include "Music Control.h"
 	#include "soundman.h"
@@ -9,7 +6,6 @@
 	#include "overhead.h"
 	#include "timer control.h"
 	#include "strategicmap.h"
-#endif
 
 #include "Overhead Types.h"
 //extern int iScreenMode;

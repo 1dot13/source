@@ -56,10 +56,6 @@ Points of interest:
 - RebelCommandSaveInfo	- pretty much everything important is in here
 
 */
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#include "Strategic All.h"
-#else
 #include "Rebel Command.h"
 
 #include "ASD.h"
@@ -103,7 +99,6 @@ Points of interest:
 #include "Vehicles.h"
 #include "WCheck.h"
 #include "WordWrap.h"
-#endif
 
 #include <unordered_map>
 #include <unordered_set>

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "debug.h"
 	#include "renderworld.h"
 	#include "interface.h"
@@ -10,7 +7,6 @@
 	#include "overhead.h"
 	#include "Random.h"
 	#include "Pathai.h"
-#endif
 #include "Map Information.h"
 #include "meanwhile.h"
 #include "strategicmap.h"

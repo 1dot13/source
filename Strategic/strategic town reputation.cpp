@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "types.h"
 	#include "strategic town reputation.h"
 	#include "soldier profile type.h"
@@ -11,7 +8,6 @@
 	#include "strategic town loyalty.h"
 	#include "Debug.h"
 	#include "message.h"
-#endif
 
 
 // init for town reputation at game start

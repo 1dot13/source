@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <memory.h>
 	#include "Inventory Choosing.h"
 	#include "animation data.h"
@@ -21,7 +18,6 @@
 	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 	#include "Rebel Command.h"
-#endif
 extern WorldItems gAllWorldItems;
 
 /*

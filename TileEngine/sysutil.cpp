@@ -1,10 +1,6 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sgp.h"
 	#include "wcheck.h"
 	#include "sysutil.h"
-#endif
 
 UINT32					guiBOTTOMPANEL = 0;
 UINT32					guiRIGHTPANEL = 0;

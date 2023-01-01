@@ -1,12 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#include "Language Defines.h"
-#include "HelpScreen.h"
-#include "Prebattle Interface.h"
-#include "ambient control.h"
-#include "DisplayCover.h"
-#include "_Ja25Englishtext.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
@@ -108,7 +99,6 @@
 #include "Ambient Control.h"
 #include "Strategic AI.h"
 #include "VehicleMenu.h"
-#endif
 
 #include "Quest Debug System.h"
 #include "connect.h"

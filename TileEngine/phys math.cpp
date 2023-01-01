@@ -1,9 +1,5 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "phys math.h"
 	#include <memory.h>
-#endif
 
 vector_3	VSetEqual( vector_3 *a )
 {

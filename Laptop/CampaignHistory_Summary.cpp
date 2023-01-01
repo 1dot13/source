@@ -3,9 +3,6 @@
  * @author Flugente (bears-pit.com)
  */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "Insurance Text.h"
 	#include "insurance.h"
@@ -22,7 +19,6 @@
 	#include "Game Clock.h"
 	#include "random.h"
 	#include "strategicmap.h"
-#endif
 
 #define		CAMPHIS_SUM_TITLE_Y								52 + LAPTOP_SCREEN_WEB_UL_Y
 

@@ -1,14 +1,9 @@
 // WANNE: EDITOR: todo
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "tiledef.h"
 	#include "vsurface.h"
 	#include "worlddat.h"
@@ -18,7 +13,6 @@
 	#include "selectwin.h"
 	#include "EditorDefines.h"
 	#include "Editor Taskbar Utils.h"
-#endif
 
 #include "vobject_blitters.h"
 #include "Text.h"

@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "Enemy Soldier Save.h"
-#else
 	#include "Types.h"
 	#include "MemMan.h"
 	#include "message.h"
@@ -46,7 +42,6 @@
 	#include "screenids.h"
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
-#endif
 #include "Animation Control.h"
 #include <vfs/Core/vfs.h>
 BOOLEAN gfWasInMeanwhile = FALSE;

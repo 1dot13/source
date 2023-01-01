@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "timer control.h"
@@ -11,7 +8,6 @@
 	#include "Game Clock.h"
 	#include "Text.h"
 	#include "soldier profile type.h"
-#endif
 
 #include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"

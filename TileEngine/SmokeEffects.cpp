@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -28,7 +25,6 @@
 	// sevenfm
 	#include "environment.h"
 	#include "Render Fun.h"
-#endif
 
 #include "SaveLoadGame.h"
 #include "debug control.h"

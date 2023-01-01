@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "BobbyRMailOrder.h"
 	#include "BobbyR.h"
@@ -27,7 +24,6 @@
 	#include "postalservice.h"
 	#include "english.h"
 	#include <list>
-#endif
 
 #include "Strategic Event Handler.h"
 #include "connect.h"

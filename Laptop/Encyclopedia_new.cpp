@@ -29,9 +29,6 @@
 /// uncomment to use just graphic + mouseregion instead of real buttons. No sounds, no button states, just plain 'hyperlinks'.
 #define ENC_USE_BUTTONSYSTEM
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Types.h"
 	#include "WCheck.h"
 	#include "DEBUG.H"
@@ -54,7 +51,6 @@
 	//#include "Quests.h"
 	//#include "Tactical Save.h"
 	#include "Encyclopedia_Data_new.h"
-#endif	
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @defgroup ENCYCLOPEDIA Encyclopedia

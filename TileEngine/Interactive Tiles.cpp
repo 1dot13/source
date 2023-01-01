@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sysutil.h"
 	#include "renderworld.h"
 	#include "Sound Control.h"
@@ -19,7 +16,6 @@
 	#include "NPC.h"
 	#include "Explosion Control.h"
 	#include "Text.h"
-#endif
 
 #ifdef JA2TESTVERSION
 	#include "message.h"

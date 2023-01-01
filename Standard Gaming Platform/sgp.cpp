@@ -1,12 +1,5 @@
 /* $Id: sgp.c,v 1.4 2004/03/19 06:16:04 digicrab Exp $ */
 //its test what doeas it do?
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-	#include "JA2 Splash.h"
-	#include "utilities.h"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <stdio.h>
@@ -31,7 +24,6 @@
 	#endif
 	#include "LibraryDataBase.h"
 	#include "utilities.h"
-#endif
 
 #include "GameSettings.h"
 #include "input.h"

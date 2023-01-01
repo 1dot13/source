@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "wcheck.h"
@@ -15,7 +12,6 @@
 	#include "random.h"
 	// sevenfm
 	#include "PATHAI.H"
-#endif
 
 extern BOOLEAN	gfBasement;
 

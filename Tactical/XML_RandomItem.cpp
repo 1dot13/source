@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
 	#include "Item Types.h"
-#endif
 
 RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[RANDOM_ITEM_MAX_CATEGORIES];
 

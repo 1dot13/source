@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "Game Clock.h"
-#else
 	#include "sgp.h"
 	#include "font.h"
 	#include "types.h"
@@ -24,7 +20,6 @@
 	#include "Game Clock.h"
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
-#endif
 
 typedef struct
 {

@@ -11,11 +11,6 @@
 //
 //=================================================================================================
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <stdio.h>
@@ -42,13 +37,7 @@
 	#include "Button System.h"
 	///***ddd
 	#include "GameSettings.h"
-#endif
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#define BASE_REGION_FLAGS		(MSYS_REGION_ENABLED | MSYS_SET_CURSOR)
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#define BASE_REGION_FLAGS		MSYS_REGION_ENABLED				// Wiz doesn't ever want MSYS_SET_CURSOR to be on...
-#endif
 
 
 

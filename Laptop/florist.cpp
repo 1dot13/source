@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "florist.h"
 	#include "florist Order Form.h"
@@ -12,7 +9,6 @@
 	#include "florist Cards.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
-#endif
 
 
 #define		FLORIST_SENTENCE_FONT							FONT12ARIAL

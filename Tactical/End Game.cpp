@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-	#include "Intro.h"
-#else
 
 	#include "Overhead.h"
 	#include "Render Fun.h"
@@ -38,7 +33,6 @@
 	#include "Campaign Types.h"
 	#include "Tactical Save.h"
 	#include "screenids.h"
-#endif
 
 #ifdef JA2UB
 #include "email.h"

@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Assignments.h"
 	#include "Strategic.h"
 	#include "Items.h"
@@ -77,7 +73,6 @@
 	#include "Strategic AI.h"
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
-#endif
 #include <vector>
 #include <queue>
 

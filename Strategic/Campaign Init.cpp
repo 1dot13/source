@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "XML.h"
-#else
 	#include "ASD.h"		// added by Flugente
 	#include "types.h"
 	#include "Campaign Init.h"
@@ -17,7 +13,6 @@
 	#include "expat.h"
 	#include "Debug Control.h"
 	#include "Tactical Save.h"
-#endif
 
 #include "connect.h"
 #include <vfs/Core/vfs.h>

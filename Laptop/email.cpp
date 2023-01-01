@@ -1,7 +1,4 @@
-﻿#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
-	#include "laptop.h"
+﻿	#include "laptop.h"
 	#include "email.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
@@ -23,7 +20,6 @@
 	#include "faces.h"
 	#include "GameSettings.h"
 	#include <string>
-#endif
 #include "soldier profile type.h"
 #include "strategicmap.h"
 

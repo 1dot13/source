@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "text.h"
 	#include "Fileman.h"
 	#include "GameSettings.h"
 	// sevenfm
 	#include <codecvt>
 	#include <string>
-#endif
 
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 {

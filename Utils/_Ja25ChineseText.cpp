@@ -1,16 +1,11 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("CHINESE")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "Language Defines.h"
 	#ifdef CHINESE
 		#include "text.h"
 		#include "Fileman.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_Ja25ChineseText_public_symbol(void){;}

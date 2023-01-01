@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "weapons.h"
 	#include "overhead.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-#endif
 
 // Flugente: remember how many ammotypes we read
 UINT32 gMAXAMMOTYPES_READ = 0;

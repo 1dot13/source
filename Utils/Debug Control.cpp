@@ -1,10 +1,6 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "types.h"
 	#include "Debug Control.h"
 	#include "stdio.h"
-#endif
 
 #include "sgp_logger.h"
 

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "AimLinks.h"
 	#include "aim.h"
@@ -8,7 +5,6 @@
 	#include "WordWrap.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

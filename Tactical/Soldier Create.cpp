@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#include "saveloadgame.h"
-#else
 	#include "sgp.h"
 	#include "Soldier Create.h"
 	#include "overhead.h"
@@ -48,7 +43,6 @@
 	#include "Soldier macros.h"		// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 #include "message.h"

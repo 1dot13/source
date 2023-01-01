@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "types.h"
 	#include "Button System.h"
 	#include "EditorDefines.h"
@@ -31,7 +26,6 @@
 	#include "input.h"
 	#include "Map Information.h"
 	#include "EditorMapInfo.h"
-#endif
 
 #include "LoadScreen.h"
 #include "Text Input.h"

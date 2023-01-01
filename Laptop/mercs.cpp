@@ -1,12 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "GameSettings.h"
-
-#ifdef JA2UB
-	#include "Ja25 Strategic Ai.h"
-#endif
-
-#else
 	#include "laptop.h"
 	#include "mercs.h"
 	#include "Utilities.h"
@@ -31,7 +22,6 @@
 	#include "Game Event Hook.h"
 	#include "Quests.h"
 	#include "AimMembers.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

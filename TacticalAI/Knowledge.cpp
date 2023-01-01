@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "opplist.h"
@@ -10,7 +7,6 @@
 	#include "Quests.h"
 	#include "Render Fun.h"
 	#include "Soldier macros.h"
-#endif
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 

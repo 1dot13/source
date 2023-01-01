@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-  #include "winfont.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
@@ -9,7 +5,6 @@
 	#include "vsurface.h"
 	#include "wcheck.h"
 	#include "Font Control.h"
-#endif
 
 INT32		  giCurWinFont = 0;
 //BOOLEAN		gfUseWinFonts = FALSE;
