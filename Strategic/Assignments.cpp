@@ -4882,7 +4882,7 @@ struct RepairItem {
 		item(object), owner(soldier), inventorySlot(slot) {}
 };
 
-struct RepairPriority : std::binary_function<RepairItem, RepairItem, bool> {
+struct RepairPriority {
 	/// Comperator function
 	bool operator() (const RepairItem& firstItem, const RepairItem& secondItem) const {
 		UINT8 priFirst = CalculateItemPriority(firstItem),
