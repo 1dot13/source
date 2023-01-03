@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
@@ -75,7 +71,6 @@
 	#include "Cheats.h"
 	#include "Overhead.h"
 	#include "Soldier Control.h"
-#endif
 
 #include "LuaInitNPCs.h"
 #include "Text.h"

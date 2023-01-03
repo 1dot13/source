@@ -4,11 +4,6 @@
 	Rewritten mostly by Kris Morness
 ***********************************************************************************************/
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <stdio.h>
@@ -35,7 +30,6 @@
 	#else
 		#include "video2.h"
 	#endif
-#endif
 #include <vector>
 
 

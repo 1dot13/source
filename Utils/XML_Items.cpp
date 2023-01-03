@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Soldier Control.h"
@@ -36,7 +33,6 @@
 	#include "XML.h"
 	#include "utilities.h"
 	#include "store inventory.h"
-#endif
 
 // Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
 UINT32 gMAXITEMS_READ = 0;

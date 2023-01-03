@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Types.h"
 	#include "SaveLoadMap.h"
 	#include "OverHead.h"
@@ -18,7 +15,6 @@
 	#include "Message.h"
 	#include "GameSettings.h"
 	#include "Smell.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 //SB: make size of gpRevealedMap dependable from variable tactical map dimensions

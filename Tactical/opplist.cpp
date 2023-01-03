@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	//#include "ai.h"
 	#include "Isometric Utils.h"
@@ -49,7 +46,6 @@
 	#include "Interface.h"
 	#include "Explosion Control.h"//dnl ch40 200909
 	#include "Vehicles.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

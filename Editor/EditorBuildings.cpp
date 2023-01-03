@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "tiledef.h"
 	#include "edit_sys.h"
 	#include "sysutil.h"
@@ -34,7 +29,6 @@
 	#include "editscreen.h"
 	#include "EditorItems.h"
 	#include "EditorMapInfo.h"
-#endif
 
 BOOLEAN fBuildingShowRoofs, fBuildingShowWalls, fBuildingShowRoomInfo;
 UINT16 usCurrentMode;

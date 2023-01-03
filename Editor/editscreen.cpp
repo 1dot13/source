@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "sgp.h"
 	#include "vobject.h"
 	#include "worlddef.h"
@@ -79,7 +74,6 @@
 	#include "Cursor Control.h"//dnl ch2 210909
 	#include "maputility.h"//dnl ch49 061009
 	#include "Text.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

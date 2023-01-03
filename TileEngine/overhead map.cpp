@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sysutil.h"
 	#include "utilities.h"
 	#include "renderworld.h"
@@ -24,7 +21,6 @@
 	#include "gameloop.h"
 	#include "Action Items.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 

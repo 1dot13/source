@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "insurance.h"
 	#include "insurance Contract.h"
@@ -13,7 +10,6 @@
 	#include "Encrypted File.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
-#endif
 
 
 #define		INSURANCE_BACKGROUND_WIDTH					125

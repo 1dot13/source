@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include "Types.h"
@@ -32,7 +29,6 @@
 #include "NPC.h"
 #include "Strategic Mines.h"
 #include "Random.h"
-#endif
 #include "connect.h"
 
 // for enemy taunts

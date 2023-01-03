@@ -1,17 +1,10 @@
 // THIS MODULE IS TEMPORARY - USED FOR OUR SOUND SYSTEM INTIL IT IS IMPLEMENTED FOR THE SGP
 // TAKEN FROM MS SAMPLES FOR DirectSound
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include <windows.h>
-	#include <mmsystem.h>
-	#include <dsound.h>
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <mmsystem.h>
 	#include <dsound.h>
-#endif
 
 #define WIN32_LEAN_AND_MEAN
 

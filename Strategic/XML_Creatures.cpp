@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-
-#else
 	#include "expat.h"
 	#include "string.h"
 	#include "Campaign Types.h"
@@ -9,7 +5,6 @@
 	#include "MemMan.h"
 	#include "Debug Control.h"
 	#include "Creature Spreading.h"
-#endif
 
 // Buggler: creature XML externalization stuff
 #define MAX_CHAR_DATA_LENGTH			500

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "weapons.h"
 	#include "Interface Cursors.h"
@@ -32,7 +29,6 @@
 	#include "SkillCheck.h" // added by SANDRO
 	#include "message.H" //ddd
 	#include "english.h"		// added by Flugente
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

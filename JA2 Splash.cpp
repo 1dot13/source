@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 #include "Types.h"
 #include "vsurface.h"
 #include "mainmenuscreen.h"
@@ -8,7 +5,6 @@
 #include "Timer Control.h"
 #include "Multi Language Graphic Utils.h"
 #include <stdio.h>
-#endif
 
 UINT32 guiSplashFrameFade = 10;
 UINT32 guiSplashStartTime = 0;

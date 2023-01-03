@@ -395,10 +395,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ExceptionHandling.h"
-				>
-			</File>
-			<File
 				RelativePath=".\expat.h"
 				>
 			</File>
@@ -448,10 +444,6 @@
 			</File>
 			<File
 				RelativePath=".\Ja2 Libs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\JA2 SGP ALL.H"
 				>
 			</File>
 			<File
@@ -662,10 +654,6 @@
 			</File>
 			<File
 				RelativePath=".\English.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ExceptionHandling.cpp"
 				>
 			</File>
 			<File

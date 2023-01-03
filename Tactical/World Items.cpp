@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "handle Items.h"
 	#include "overhead.h"
@@ -27,7 +24,6 @@
 	#include "message.h"
 	#include "map screen interface map inventory.h"	// added by Flugente
 #include "connect.h"
-#endif
 #ifdef JA2EDITOR//dnl ch84 290114
 #include "Item Statistics.h"
 #endif

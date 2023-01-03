@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "physics.h"
 	#include "wcheck.h"
 	#include "isometric utils.h"
@@ -22,7 +19,6 @@
 	#include "Buildings.h"
 	#include "Dialogue Control.h"	// added by Flugente
 	#include "Map Information.h"	// added by Shadooow
-#endif
 #include "connect.h"
 #include "PATHAI.H"
 

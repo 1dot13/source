@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#include "PreBattle Interface.h"
-#include "creature spreading.h"
-#include "Lua Interpreter.h"
-#else
 #include <stdio.h>
 #include <string.h>
 #include "wcheck.h"
@@ -118,7 +112,6 @@
 #include "MilitiaIndividual.h"			// added by Flugente
 #include "Rebel Command.h"
 #include "MilitiaSquads.h"
-#endif
 #include "connect.h"
 
 #include "Luaglobal.h"

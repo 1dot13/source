@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Character Trait.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "IMP Character Trait.h"
 	#include "Button System.h"
 	#include "utilities.h"
@@ -18,7 +13,6 @@
 	#include "wordwrap.h"
 	#include "CharProfile.h"
 	#include "GameSettings.h"
-#endif
 
 
 //*******************************************************************

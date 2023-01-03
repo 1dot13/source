@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "AI All.h"
-#else
 #include "ai.h"
 #include "Weapons.h"
 #include "opplist.h"
@@ -34,7 +31,6 @@
 #include "Render Fun.h"
 #include "worldman.h"
 #include "WCheck.h"
-#endif
 
 // anv: for enemy taunts
 #include "Civ Quotes.h"

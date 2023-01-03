@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include "debug.h"
 	#include "worlddef.h"
@@ -13,7 +10,6 @@
 	#include "strategicmap.h"
 	#include "rotting corpses.h"
 	#include "WorldDat.h"	// added by Flugente
-#endif
 
 extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
 

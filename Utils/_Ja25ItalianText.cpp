@@ -1,16 +1,11 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("ITALIAN")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "_Ja25Italiantext.h"
-#else
 	#include "Language Defines.h"
 	#ifdef ITALIAN
 		#include "text.h"
 		#include "Fileman.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_Ja25ItalianText_public_symbol(void){;}

@@ -4,9 +4,6 @@
 #include "Render Z.h"
 ///////////////////////////
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "renderworld.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
@@ -24,7 +21,6 @@
 	#include "Sound Control.h"
 	#include "LogicalBodyTypes/Layers.h"
 	#include "LogicalBodyTypes/BodyTypeDB.h"
-#endif
 
 #include "Utilities.h"
 

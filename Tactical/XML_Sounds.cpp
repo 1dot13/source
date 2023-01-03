@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include <string.h>
 #include "sgp.h"
 #include "Sound Control.h"
 #include "Debug Control.h"
 #include "expat.h"
 #include "XML.h"
-#endif
 
 extern char szSoundEffects[MAX_SAMPLES][255];
 

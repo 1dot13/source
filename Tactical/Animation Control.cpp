@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +15,6 @@
 #include "Debug Control.h"
 #include "Random.h"
 #include "Soldier Control.h"
-#endif
 
 #include "connect.h"
 

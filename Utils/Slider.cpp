@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include	"Types.h"
 	#include	"WordWrap.h"
 	#include	"Render Dirty.h"
@@ -9,7 +6,6 @@
 	#include	"Slider.h"
 	#include	"SysUtil.h"
 	#include	"Line.h"
-#endif
 
 
 

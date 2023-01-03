@@ -1,14 +1,8 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include "Button System.h"
 	#include "Button Sound Control.h"
 	#include "Sound Control.h"
 	#include "jascreens.h"
-#endif
 
 void SpecifyButtonSoundScheme( INT32 iButtonID, INT8 bSoundScheme )
 {

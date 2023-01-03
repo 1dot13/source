@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <stdio.h>
 	#include "Font Control.h" 
 	#include "renderworld.h"
@@ -45,7 +40,6 @@
 	#include "MessageBoxScreen.h"
 	#include <vfs/Core/vfs.h>//dnl ch37 110909
 	#include "Exit Grids.h"//dnl ch86 190214
-#endif
 
 //===========================================================================
 

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "funeral.h"
 	#include "WCheck.h"
@@ -9,7 +6,6 @@
 	#include "Cursors.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
-#endif
 
 
 #define		FUNERAL_SENTENCE_FONT							FONT12ARIAL

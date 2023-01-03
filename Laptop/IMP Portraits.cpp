@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Portraits.h"
 	#include "IMP MainPage.h"
@@ -15,7 +12,6 @@
 	#include "cursors.h"
 	#include "laptop.h"
 	#include "IMP Text System.h"
-#endif
 
 #include "IMP Confirm.h"
 

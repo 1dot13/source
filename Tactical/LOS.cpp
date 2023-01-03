@@ -1,7 +1,4 @@
 #include "connect.h"
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 
@@ -44,7 +41,6 @@
 #include "items.h"
 #include "Item Types.h"
 #include "Vehicles.h"
-#endif
 #include "fresh_header.h"
 #include "WorldDat.h"
 // HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.

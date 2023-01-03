@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "types.h"
 	#include <stdio.h>
 	#include <Windows.h>
@@ -14,7 +11,6 @@
 	#include "overhead types.h"
 	#include "wcheck.h"
 	#include "sys globals.h"
-#endif
 
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Assignments.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Merc Handler.h"
@@ -27,7 +24,6 @@
 	#include "strategic.h"			// added by Flugente
 	#include "message.h"			// added by Flugente for ScreenMsg(...)
 	#include "Rebel Command.h"
-#endif
 
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"

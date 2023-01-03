@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Render Dirty.h"
 	#include "vobject.h"
@@ -34,7 +30,6 @@
 	#include "rt time defines.h"
 	#include "Encyclopedia_new.h" //Moa: item visibility
 	#include "Town Militia.h"	// added by Flugente
-#endif
 
 #include "ShopKeeper Interface.h"
 #include "ArmsDealerInvInit.h"

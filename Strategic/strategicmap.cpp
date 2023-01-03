@@ -1,11 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-#include "Strategic All.h"
-#include "Loading Screen.h"
-#include "Enemy Soldier Save.h"
-#include "points.h"
-#else
 #include "strategicmap.h"
 #include "strategic.h"
 #include "Strategic Mines.h"
@@ -104,7 +98,6 @@
 #include "Auto Resolve.h"
 #include "cursors.h"
 #include "GameVersion.h"
-#endif
 
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"

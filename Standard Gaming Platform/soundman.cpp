@@ -6,11 +6,6 @@
 * Derek Beland, May 28, 1997
 *
 *********************************************************************************/
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
@@ -29,7 +24,6 @@
 	//#include "input.h"
 	#include <ctime>
 	#include <chrono>
-#endif
 
 // Uncomment this to disable the startup of sound hardware
 //#define SOUND_DISABLE

@@ -1,9 +1,5 @@
 //Strategic AI Viewer
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "INIReader.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -38,7 +34,6 @@
 	#include "Strategic Status.h"
 	#include "wordwrap.h"
 	#include "Town Militia.h"	// added by Flugente
-#endif
 
 #ifdef JA2BETAVERSION
 

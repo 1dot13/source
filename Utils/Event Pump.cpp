@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
@@ -14,7 +11,6 @@
 	#include "Animation Control.h"
 	#include "opplist.h"
 	#include "Tactical Save.h"
-#endif
 
 #ifdef NETWORKED
 #include "Networking.h"

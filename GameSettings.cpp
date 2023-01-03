@@ -1,10 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Campaign.h"
-	#include "Cheats.h"
-	#include "INIReader.h"
-#else
 	#include	"Types.h"
 	#include	"GameSettings.h"
 	#include	"FileMan.h"
@@ -36,7 +29,6 @@
 	#include "Init.h"
 	#include "InterfaceItemImages.h"
 	#include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 #include "KeyMap.h"
 #include "Timer Control.h"

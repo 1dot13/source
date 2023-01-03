@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "types.h"
 	//#include "soldier control.h"
 	#include "overhead.h"
@@ -41,7 +38,6 @@
 	#include "line.h"
 	#include "overhead map.h"
 	#include "interface dialogue.h"
-#endif
 
 #include "Rain.h"
 

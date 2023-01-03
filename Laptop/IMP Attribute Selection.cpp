@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "GameSettings.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Attribute Selection.h"
 	#include "IMP MainPage.h"
@@ -25,7 +20,6 @@
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
 
-#endif
 
 #define STARTING_LEVEL_BOX_POS_X	( 51 )
 #define STARTING_LEVEL_BOX_POS_Y	( 296 )

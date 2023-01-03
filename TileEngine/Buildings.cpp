@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Types.h"
 	#include "Buildings.h"
 	#include "Pathai.h"
 	#include "Structure Wrap.h"
 	#include "Render Fun.h"
 	#include "worldman.h"
-#endif
 
 #include "AIInternals.h"
 

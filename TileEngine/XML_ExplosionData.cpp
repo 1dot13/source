@@ -1,16 +1,12 @@
 // Lesh:
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "explosion control.h"
 	#include "Debug.h"
 	#include "FileMan.h"
 	#include "Debug Control.h"
-#endif
 
 #include "expat.h"
 #include "XML.h"

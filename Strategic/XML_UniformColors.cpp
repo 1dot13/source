@@ -8,10 +8,6 @@
 //////////////////////////////////////////////////////////////
 
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "XML.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "XML.h"
@@ -22,7 +18,6 @@
 	#include "MemMan.h"
 	#include "Debug Control.h"
 	#include "mapscreen.h"
-#endif
 
 #define MAX_CHAR_DATA_LENGTH			500
 

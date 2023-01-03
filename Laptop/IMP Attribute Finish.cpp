@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Attribute Finish.h"
 	#include "IMP MainPage.h"
@@ -15,7 +12,6 @@
 	#include "laptop.h"
 	#include "IMP Text System.h"
 	#include "IMP Attribute Selection.h"
-#endif
 
 // buttons
 INT32 giIMPAttributeFinishButtonImage[ 2 ];

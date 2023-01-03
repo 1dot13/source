@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "stdlib.h"
 	#include "FileMan.h"
 	#include "time.h"
@@ -21,7 +16,6 @@
 	#include "structure wrap.h"
 	#include "Exit Grids.h"
 	#include "Editor Undo.h"
-#endif
 
 INT16 gbSmoothStruct[] =
 

@@ -1,10 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-#include "TileEngine All.h"
-#include "end game.h"
-#include "Morale.h"
-#else
 #include "debug.h"
 #include "weapons.h"
 #include "worldman.h"
@@ -39,7 +34,6 @@
 #include "Points.h"				// added by Flugente
 #include "Interface Control.h"		// added by Flugente for DrawExplosionWarning(...)
 #include "SkillMenu.h"
-#endif
 
 #include "Soldier Macros.h"
 #include "connect.h"

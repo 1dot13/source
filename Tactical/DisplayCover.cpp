@@ -1,11 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-	#include "DisplayCover.h"
-	#include "Interface.h"
-	#include "opplist.h"
-	#include "_Ja25Englishtext.h"
-	//#include "Ja25 Strategic Ai.h"
-#else
 #include "builddefines.h"
 #include "Types.h"
 #include "Isometric Utils.h"
@@ -35,7 +27,6 @@
 #include "soldier profile type.h"
 #include "Interface Cursors.h"	// added by Flugente for UICursorDefines
 #include "Rebel Command.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

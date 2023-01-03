@@ -351,10 +351,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Editor All.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Editor Callback Prototypes.h"
 				>
 			</File>

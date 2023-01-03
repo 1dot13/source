@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include	"Types.h"
 	#include	"SaveLoadScreen.h"
 	#include	"Video.h"
@@ -36,7 +33,6 @@
 	#include	"Multi Language Graphic Utils.h"
 	#include	"Campaign Types.h"
 	#include	"PostalService.h"
-#endif
 
 #include "connect.h"
 

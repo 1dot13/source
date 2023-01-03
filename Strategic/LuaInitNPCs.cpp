@@ -11,7 +11,6 @@
 #include "Game Init.h"
 #include "interface Dialogue.h"
 #include "opplist.h"
-#include "Strategic All.h"
 #include "pits.h"
 #include  "Game Event Hook.h"
 #include "Creature Spreading.h"
@@ -40,6 +39,12 @@
 #include "soldier profile type.h"
 #include "history.h"
 #include "Merc Hiring.h"
+#include "Game Events.h"
+#include "email.h"
+#include "worldman.h"
+#include "text.h"
+#include "Dialogue Control.h"
+#include "Boxing.h"
 
 #include "LOS.h"
 #include "Music Control.h"
@@ -75,6 +80,22 @@ extern "C" {
 
 #include "BriefingRoom_Data.h"
 #include "MiniGame.h"	// added by Flugente
+#include "Campaign.h"
+#include "strategic.h"
+#include "PreBattle Interface.h"
+#include "Strategic Event Handler.h"
+#include "files.h"
+#include "finances.h"
+#include "Sound Control.h"
+#include "SaveLoadMap.h"
+#include "renderworld.h"
+#include "Keys.h"
+#include "Render Fun.h"
+#include "Soldier Add.h"
+#include "gameloop.h"
+#include "Merc Contract.h"
+#include "message.h"
+#include "Town Militia.h"
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 

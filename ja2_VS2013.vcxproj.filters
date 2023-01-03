@@ -173,7 +173,6 @@
     <ClInclude Include="Intro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JA2 All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JA2 Demo Ads.h">

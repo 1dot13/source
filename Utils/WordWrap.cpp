@@ -1,14 +1,9 @@
-﻿#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "winfont.h"
-#else
-	#include "WordWrap.h"
+﻿	#include "WordWrap.h"
 	#include "sgp.h"
 	#include "Render Dirty.h"
 	#include "Font Control.h"
 	#include "Stdio.h"
 	#include "WinFont.h"
-#endif
 
 
 #define		SINGLE_CHARACTER_WORD_FOR_WORDWRAP

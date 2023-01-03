@@ -3,11 +3,6 @@
 	#define _WIN32_WINNT WINVER
 #endif
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 //** dd for defines that needed for additional mouse buttons
 #define _WIN32_WINNT 0x500
 
@@ -26,7 +21,6 @@
 		#include "video2.h"
 	#endif
 	#include "local.h"
-#endif
 
 
 // Make sure to refer to the translation table which is within one of the following files (depending

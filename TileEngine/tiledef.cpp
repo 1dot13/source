@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "tiledef.h"
 	#include "worlddef.h"
 	#include "wcheck.h"
@@ -10,7 +7,6 @@
 	#include "pathai.h"
 	#include "tile surface.h"
 	#include "Tactical Save.h"
-#endif
 
 //#include "editscreen.h"
 

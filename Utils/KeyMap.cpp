@@ -1,9 +1,5 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Utils All.h"
-#else
 #include "KeyMap.h"
 #include <windows.h>
-#endif
 #include "text.h"
 
 static Str8EnumLookupType gKeyTable[] = 

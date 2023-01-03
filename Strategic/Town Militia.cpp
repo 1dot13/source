@@ -1,9 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Town Militia.h"
 	#include "Militia Control.h"
 	#include "Campaign Types.h"
@@ -35,7 +31,6 @@
 	#include "Campaign.h"						// added by Flugente
 	#include "message.h"						// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
 // to determine the number of militia trained by this merc per session. In the future may also determine QUALITY

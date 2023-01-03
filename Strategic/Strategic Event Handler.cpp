@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Strategic Event Handler.h"
 	#include "MemMan.h"
 	#include "message.h"
@@ -31,7 +28,6 @@
 	#include "Campaign.h"		// added by Flugente
 	#include "Strategic AI.h"
 	#include "Rebel Command.h"
-#endif
 
 #include "Luaglobal.h"
 #include "connect.h"

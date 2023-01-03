@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Compile Character.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP HomePage.h"
 	#include "IMPVideoObjects.h"
@@ -27,7 +23,6 @@
 	// WDS - make number of mercenaries, etc. be configurable
 	#include "Squads.h"
 	#include "Overhead.h"		// added by Flugente for OUR_TEAM_SIZE_NO_VEHICLE
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

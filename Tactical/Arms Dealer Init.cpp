@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "stdlib.h"
 	#include "Arms Dealer Init.h"
@@ -19,7 +16,6 @@
 	#include "GameSettings.h"
 	#include "Overhead.h"	// added by Flugente for MercPtrs[]
 	#include "LuaInitNPCs.h"	// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"

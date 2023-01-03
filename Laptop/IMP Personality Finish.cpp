@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Personality Finish.h"
 	#include "IMP MainPage.h"
@@ -13,7 +10,6 @@
 	#include "laptop.h"
 	#include "IMP Text System.h"
 	#include "IMP Compile Character.h"
-#endif
 
 // this is the amount of time, the player waits until booted back to main profileing screen
 

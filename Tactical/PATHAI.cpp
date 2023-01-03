@@ -8,9 +8,6 @@
 	Date			:		1997-NOV
 */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -44,7 +41,6 @@
 	#include "AIinternals.h"
 	#include "Rotting Corpses.h"
 	#include "Meanwhile.h"
-#endif
 #include "connect.h"
 
 #include "LOS.h"  //ddd

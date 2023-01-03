@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Encrypted File.h"
-#else
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "Timer Control.h"
@@ -29,7 +25,6 @@
 	#include "Encrypted File.h"
 	#include "ja2 splash.h"
 	#include "GameVersion.h"
-#endif
 
 #include "gamesettings.h"
 #include "connect.h"
