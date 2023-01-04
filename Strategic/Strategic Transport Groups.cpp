@@ -113,6 +113,8 @@ BOOLEAN DeployTransportGroup()
 
 	MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, TRANSPORT );
 
+	pGroup->uiFlags |= GROUPFLAG_TRANSPORT_ENROUTE;
+
 	return TRUE;
 }
 
@@ -124,6 +126,7 @@ BOOLEAN ReturnTransportGroup(INT32 option1)
 		if (pGroup->ubGroupID == option1)
 		{
 			MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
+			pGroup->uiFlags &= ~GROUPFLAG_TRANSPORT_ENROUTE;
 			break;
 		}
 		pGroup = pGroup->next;
@@ -355,6 +358,7 @@ void UpdateTransportGroupInventory()
 							item->fFlags &= ~OBJECT_UNDROPPABLE;
 						}
 					}
+					transportGroupIdToSoldierMap[pSoldier->ubGroupID][pSoldier->ubSoldierClass]--;
 				}
 			}
 			else
@@ -398,6 +402,7 @@ void UpdateTransportGroupInventory()
 								item->fFlags &= ~OBJECT_UNDROPPABLE;
 							}
 						}
+						transportGroupIdToSoldierMap[pSoldier->ubGroupID][pSoldier->ubSoldierClass]--;
 					}
 				}
 			}

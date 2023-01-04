@@ -110,6 +110,9 @@ typedef struct ENEMYGROUP
 #define GROUPFLAG_KNOWN_DIRECTION					0x00000080
 #define GROUPFLAG_KNOWN_NUMBER						0x00000100
 
+// rftr: strategic transport group direction flag
+#define GROUPFLAG_TRANSPORT_ENROUTE					0x00000200
+
 typedef struct GROUP
 {
 	BOOLEAN fDebugGroup;					//for testing purposes -- handled differently in certain cases.
