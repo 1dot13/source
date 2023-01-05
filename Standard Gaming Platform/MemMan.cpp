@@ -42,7 +42,6 @@
 //
 //**************************************************************************
 
-#ifdef JA2
 #include "MessageBoxScreen.h"
 STR16 gzJA2ScreenNames[] =
 {
@@ -76,7 +75,6 @@ STR16 gzJA2ScreenNames[] =
 	L"QUEST_DEBUG_SCREEN",
 #endif
 };
-#endif
 
 #ifdef EXTREME_MEMORY_DEBUGGING
 	typedef struct MEMORY_NODE

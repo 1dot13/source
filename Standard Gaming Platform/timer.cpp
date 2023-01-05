@@ -1,10 +1,6 @@
 	#include "types.h"
 	#include <windows.h>
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "timer.h"
 
 #ifndef WIN32_LEAN_AND_MEAN

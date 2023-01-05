@@ -147,12 +147,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 			}
 		}
 	}
-#ifdef JA2
 	return( TRUE );
-#else
-// Anything else is an ERROR! --DB
-	return(FALSE);
-#endif
 }
 
 

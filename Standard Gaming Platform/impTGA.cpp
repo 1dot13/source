@@ -23,11 +23,7 @@
 	#include "himage.h"
 	#include "string.h"
 	#include "debug.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "impTGA.h"
 
 //**************************************************************************

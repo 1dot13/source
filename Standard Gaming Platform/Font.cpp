@@ -13,11 +13,7 @@
 	#include "Font.h"
 	#include "Debug.h"
 
-	#if defined( JA2 ) || defined( UTIL )
 	#include "video.h"
-	#else
-	#include "video2.h"
-	#endif
 
 	#include "himage.h"
 	#include "vobject.h"
@@ -397,9 +393,7 @@ UINT32					LoadIndex;
 	if((LoadIndex=FindFreeFont())==(-1))
 	{
 		DbgMessage(TOPIC_FONT_HANDLER, DBG_LEVEL_0, String("Out of font slots (%s)", filename));
-#ifdef JA2
 			FatalError( "Cannot init FONT file %s", filename );
-#endif
 			return(-1);
 	}
 
@@ -409,9 +403,7 @@ UINT32					LoadIndex;
 	if((FontObjs[LoadIndex]=CreateVideoObject(&vo_desc))==NULL)
 	{
 		DbgMessage(TOPIC_FONT_HANDLER, DBG_LEVEL_0, String("Error creating VOBJECT (%s)", filename));
-#ifdef JA2
 			FatalError( "Cannot init FONT file %s", filename );
-#endif
 			return(-1);
 	}
 
@@ -1237,16 +1229,9 @@ UINT8				*pDestBuf;
 	// Unlock buffer
 	UnLockVideoSurface( FontDestBuffer );
 
-#if defined ( JA2 ) || defined( UTIL )
 	InvalidateRegion(x, y,
 										x + StringPixLength(string, FontDefault),
 										y + GetFontHeight(FontDefault));
-#else
-	InvalidateRegion(x, y,
-										x + StringPixLength(string, FontDefault),
-										y + GetFontHeight(FontDefault),
-										INVAL_SRC_TRANS);
-#endif
 
 	return(0);
 }
@@ -1621,12 +1606,6 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	pTable = (FontTranslationTable *)MemAlloc(sizeof(FontTranslationTable));
 	memset(pTable, 0, sizeof(FontTranslationTable) );
 
-	//#ifdef JA2
-	//	// ha ha, we have more than Wizardry now (again)
-	//	pTable->usNumberOfSymbols = 255;
-	//#else
-	//	pTable->usNumberOfSymbols = 255;
-	//#endif
 
 	pTable->usNumberOfSymbols = 255;
 

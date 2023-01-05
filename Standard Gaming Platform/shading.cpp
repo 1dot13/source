@@ -1,11 +1,7 @@
 	#include "DirectDraw Calls.h"
 	#include <stdio.h>
 	#include "debug.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "himage.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
@@ -281,7 +277,6 @@ void SetShadeTablePercent( FLOAT uiShadePercent )
 }
 
 
-#ifdef JA2	// Jul. 23 '97 - ALEX - because Wizardry isn't using it & no longer has a version of Set8BPPPalette() available
 void Init8BitTables(void)
 {
 SGPPaletteEntry Pal[256];
@@ -308,4 +303,4 @@ BOOLEAN Set8BitModePalette(SGPPaletteEntry *pPal)
 	Set8BPPPalette(pPal);
 	return(TRUE);
 }
-#endif
+

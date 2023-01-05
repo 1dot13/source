@@ -201,10 +201,8 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::Test
 	if ( !FileExists( ImageFile ) )
 	{
 		//If in debig, make fatal!
-#ifdef JA2
 #ifdef _DEBUG
 		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
 
@@ -216,10 +214,8 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::Test
 	if ( iFileLoader == UNKNOWN_FILE_READER )
 	{
 		//If in debug, make fatal!
-#ifdef JA2
 #ifdef _DEBUG
 		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
 
