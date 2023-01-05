@@ -19,13 +19,8 @@
 	#include "input.h"
 	#include "memman.h"
 	#include "line.h"
-	#if (defined( JA2 ) || defined( UTIL ))
 		#include "video.h"
 		#define BASE_REGION_FLAGS		(MSYS_REGION_ENABLED | MSYS_SET_CURSOR)
-	#else
-		#include "video2.h"
-		#define BASE_REGION_FLAGS		MSYS_REGION_ENABLED				// Wiz doesn't ever want MSYS_SET_CURSOR to be on...
-	#endif
 	#ifdef _JA2_RENDER_DIRTY
 		#include "render dirty.h"
 		#include "Font Control.h"
@@ -117,13 +112,11 @@ BOOLEAN					gfRefreshUpdate = FALSE;
 //an already deleted region.	It will also ensure that you don't create an identical region
 //that already exists.
 //TO REMOVE ALL DEBUG FUNCTIONALITY:	simply comment out MOUSESYSTEM_DEBUGGING definition
-#ifdef JA2
 	#ifdef _DEBUG
 	#ifndef BOUNDS_CHECKER
 	#define MOUSESYSTEM_DEBUGGING
 	#endif
 	#endif
-#endif
 
 #ifdef MOUSESYSTEM_DEBUGGING
 extern BOOLEAN gfIgnoreShutdownAssertions;
@@ -283,9 +276,7 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 				//you release inside of the button, the action is selected -- but later in the code.
 				//NOTE:	It has to be here, because the mouse can be released anywhere regardless of
 				//regions, buttons, etc.
-				#ifdef JA2
 					ReleaseAnchorMode();
-				#endif
 			}
 			else if(Type == RIGHT_BUTTON_DOWN)
 			{
@@ -708,17 +699,12 @@ void MSYS_UpdateMouseRegion(void)
 				MSYS_PrevRegion->uiFlags &= (~MSYS_GOT_BACKGROUND);
 				MSYS_PrevRegion->uiFlags &= (~MSYS_FASTHELP_RESET);
 
-				#ifndef UTIL 
 					// dirty buttons, need a re-render
 //DEF: Nov 30 98
 //				PausedMarkButtonsDirty( );
-				#endif
 
 				//if( region->uiFlags & MSYS_REGION_ENABLED )
 				//	region->uiFlags |= BUTTON_DIRTY;
-#ifndef JA2			
-							VideoRemoveToolTip();
-#endif
 			}
 
 			if (MSYS_CurrRegion)
@@ -751,9 +737,6 @@ void MSYS_UpdateMouseRegion(void)
 					MSYS_CurrRegion->uiFlags &= (~MSYS_GOT_BACKGROUND);
 					MSYS_CurrRegion->uiFlags |= MSYS_FASTHELP_RESET;
 
-#ifndef JA2			
-							VideoRemoveToolTip();
-#endif
 
 					//if( b->uiFlags & BUTTON_ENABLED )
 					//	b->uiFlags |= BUTTON_DIRTY;
@@ -882,9 +865,6 @@ void MSYS_UpdateMouseRegion(void)
 
 							//if( b->uiFlags & BUTTON_ENABLED )
 							//	b->uiFlags |= BUTTON_DIRTY;
-#ifndef JA2
-							VideoRemoveToolTip();
-#endif
 						}
 
 						//Kris: Nov 31, 1999 -- Added support for double click events.
@@ -1109,10 +1089,6 @@ void MSYS_RemoveRegion(MOUSE_REGION *region)
 	// Get rid of the FastHelp text (if applicable)
 	if( region->FastHelpText )
 	{
-#ifndef JA2
-		if(region->uiFlags & MSYS_FASTHELP)
-			VideoRemoveToolTip();
-#endif
 		MemFree( region->FastHelpText );
 	}
 	region->FastHelpText = NULL;
@@ -1369,10 +1345,8 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	// ATE: We could be replacing already existing, active text
 	// so let's remove the region so it be rebuilt...
 
-	#ifdef JA2
 	if ( guiCurrentScreen != MAP_SCREEN )
 	{
-	#endif
 
 	#ifdef _JA2_RENDER_DIRTY
 	if( region->uiFlags & MSYS_GOT_BACKGROUND )
@@ -1382,9 +1356,7 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	region->uiFlags &= (~MSYS_GOT_BACKGROUND);
 	region->uiFlags &= (~MSYS_FASTHELP_RESET);
 
-	#ifdef JA2
 	}
-	#endif
 
 	//region->FastHelpTimer = gsFastHelpDelay;
 }

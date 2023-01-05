@@ -18,7 +18,6 @@
 	#include "Button System.h"
 	#include "line.h"
 	#include <stdarg.h>
-	#if defined( JA2 ) || defined( UTIL )
 		#include "WordWrap.h"
 		#include "video.h"
 		#include "Button Sound Control.h"
@@ -27,32 +26,11 @@
 			#include "Render Dirty.h"
 			#include "utilities.h"
 		#endif
-	#else
-		#include "video2.h"
-	#endif
 #include <vector>
 
 
 //ATE: Added to let Wiz default creating mouse regions with no cursor, JA2 default to a cursor ( first one )
-#ifdef JA2
 	#define		MSYS_STARTING_CURSORVAL		0
-#else
-	#define		MSYS_STARTING_CURSORVAL		MSYS_NO_CURSOR
-	// The following should be moved from here
-	#define GETPIXELDEPTH( )	( gbPixelDepth )		// From "utilities.h" in JA2
-	#define		COLOR_RED						162							// From "lighting.h" in JA2
-	#define		COLOR_BLUE					203
-	#define		COLOR_YELLOW				144
-	#define		COLOR_GREEN					184
-	#define		COLOR_LTGREY				134
-	#define		COLOR_BROWN					80
-	#define		COLOR_PURPLE				160
-	#define		COLOR_ORANGE				76
-	#define		COLOR_WHITE					208
-	#define		COLOR_BLACK					72
-	// this doesn't exactly belong here either... (From "Font Control.h" in JA2)
-	#define		FONT_MCOLOR_BLACK				0
-#endif
 #define		COLOR_DKGREY				136
 
 
@@ -72,11 +50,9 @@ CHAR8		str[128];
 //an already deleted button, or it's images, etc.	It will also ensure that you don't create
 //the same button that already exists.
 //TO REMOVE ALL DEBUG FUNCTIONALITY:	simply comment out BUTTONSYSTEM_DEBUGGING definition
-#ifdef JA2
 	#ifdef _DEBUG
 	#define BUTTONSYSTEM_DEBUGGING
 	#endif
-#endif
 
 #ifdef BUTTONSYSTEM_DEBUGGING
 BOOLEAN gfIgnoreShutdownAssertions; // symbol already declared globally in mousesystem.cpp (jonathanl)
@@ -2866,9 +2842,7 @@ void QuickButtonCallbackMButn( MOUSE_REGION *reg, INT32 reason )
 
 	if( StateBefore != StateAfter )
 	{
-#ifdef JA2
 		InvalidateRegion(b->Area.RegionTopLeftX, b->Area.RegionTopLeftY, b->Area.RegionBottomRightX, b->Area.RegionBottomRightY);
-#endif
 	}
 
 	if( gfPendingButtonDeletion )
@@ -2931,11 +2905,9 @@ void RenderButtons(void)
 				b->uiFlags &= (~BUTTON_DIRTY);
 				DrawButtonFromPtr(b);
 
-#ifdef JA2
 				InvalidateRegion(b->Area.RegionTopLeftX, b->Area.RegionTopLeftY, b->Area.RegionBottomRightX, b->Area.RegionBottomRightY);
 //#else
 //				InvalidateRegion(b->Area.RegionTopLeftX, b->Area.RegionTopLeftY, b->Area.RegionBottomRightX, b->Area.RegionBottomRightY, FALSE);
-#endif
 
 			}
 		}
@@ -3208,9 +3180,7 @@ void DrawDefaultOnButton( GUI_BUTTON *b )
 		//bottom (two thick)
 		LineDraw( TRUE, b->Area.RegionTopLeftX-1, b->Area.RegionBottomRightY, b->Area.RegionBottomRightX+1, b->Area.RegionBottomRightY, 0, pDestBuf );
 		LineDraw( TRUE, b->Area.RegionTopLeftX-1, b->Area.RegionBottomRightY+1, b->Area.RegionBottomRightX+1, b->Area.RegionBottomRightY+1, 0, pDestBuf );
-		#ifdef JA2
 		InvalidateRegion( b->Area.RegionTopLeftX-1, b->Area.RegionTopLeftY-1, b->Area.RegionBottomRightX+1, b->Area.RegionBottomRightY+1 );
-		#endif
 	}
 	if( b->bDefaultStatus == DEFAULT_STATUS_DOTTEDINTERIOR || b->bDefaultStatus == DEFAULT_STATUS_WINDOWS95 )
 	{ //Draw an internal dotted rectangle.
@@ -3553,7 +3523,6 @@ void DrawTextOnButton(GUI_BUTTON *b)
 			xp++;
 			yp++;
 		}
-#ifdef JA2
 		if( b->sWrappedWidth != -1 )
 		{
 			UINT8 bJustified=0;
@@ -3600,12 +3569,6 @@ void DrawTextOnButton(GUI_BUTTON *b)
 			xp+= b->bTextXSubOffSet;
 			mprintf(xp, yp, b->string);
 		}
-#else
-		if(b->fMultiColor)
-			gprintf(xp, yp, b->string);
-		else
-			mprintf(xp, yp, b->string);
-#endif
 		// Restore the old text printing settings
 	}
 }
@@ -3674,11 +3637,6 @@ void DrawGenericButton(GUI_BUTTON *b)
 // The 3x2 size was a bit limiting. JA2 should default to the original
 // size, unchanged
 
-#ifndef JA2
-	pTrav = &(BPic->pETRLEObject[0] );
-	iBorderHeight = (INT32)pTrav->usHeight;
-	iBorderWidth = (INT32)pTrav->usWidth;
-#endif
 
 	// Compute the number of button "chunks" needed to be blitted
 	width = b->Area.RegionBottomRightX - b->Area.RegionTopLeftX;
@@ -4198,9 +4156,7 @@ void BtnGenericMouseMoveButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 		}
 
-		#ifdef JA2
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		#endif
 	}
 	else if( reason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -4210,9 +4166,7 @@ void BtnGenericMouseMoveButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			PlayButtonSound( btn->IDNum, BUTTON_SOUND_CLICKED_ON );
 		}
 
-		#ifdef JA2
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		#endif
 	}
 }
 
@@ -4231,9 +4185,7 @@ void ReleaseAnchorMode()
 			gpAnchoredButton->uiFlags |= BUTTON_CLICKED_ON;
 		else
 			gpAnchoredButton->uiFlags &= ( ~BUTTON_CLICKED_ON );
-			#ifdef JA2
 			InvalidateRegion(gpAnchoredButton->Area.RegionTopLeftX, gpAnchoredButton->Area.RegionTopLeftY, gpAnchoredButton->Area.RegionBottomRightX, gpAnchoredButton->Area.RegionBottomRightY);
-			#endif
 	}
 	gpPrevAnchoredButton = gpAnchoredButton;
 	gpAnchoredButton = NULL;
@@ -4302,9 +4254,7 @@ void HideButton( INT32 iButtonNum )
 
 	b->Area.uiFlags &= (~MSYS_REGION_ENABLED);
 	b->uiFlags |= BUTTON_DIRTY;
-	#ifdef JA2
 		InvalidateRegion(b->Area.RegionTopLeftX, b->Area.RegionTopLeftY, b->Area.RegionBottomRightX, b->Area.RegionBottomRightY);
-	#endif
 }
 
 void ShowButton( INT32 iButtonNum )
@@ -4320,9 +4270,7 @@ void ShowButton( INT32 iButtonNum )
 
 	b->Area.uiFlags |= MSYS_REGION_ENABLED;
 	b->uiFlags |= BUTTON_DIRTY;
-	#ifdef JA2
 		InvalidateRegion(b->Area.RegionTopLeftX, b->Area.RegionTopLeftY, b->Area.RegionBottomRightX, b->Area.RegionBottomRightY);
-	#endif
 }
 
 void DisableButtonHelpTextRestore( void )

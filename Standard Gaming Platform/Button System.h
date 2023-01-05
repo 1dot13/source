@@ -15,17 +15,10 @@
 
 // Moved here from Button System.c by DB 99/01/07
 // Names of the default generic button image files.
-#ifdef JA2
 #define DEFAULT_GENERIC_BUTTON_OFF			"GENBUTN.STI"
 #define DEFAULT_GENERIC_BUTTON_ON				"GENBUTN2.STI"
 #define DEFAULT_GENERIC_BUTTON_OFF_HI		"GENBUTN3.STI"
 #define DEFAULT_GENERIC_BUTTON_ON_HI		"GENBUTN4.STI"
-#else
-#define DEFAULT_GENERIC_BUTTON_OFF			"Data\\Message Box\\GENBUTN.STI"
-#define DEFAULT_GENERIC_BUTTON_ON				"Data\\Message Box\\GENBUTN2.STI"
-#define DEFAULT_GENERIC_BUTTON_OFF_HI		"Data\\Message Box\\GENBUTN3.STI"
-#define DEFAULT_GENERIC_BUTTON_ON_HI		"Data\\Message Box\\GENBUTN4.STI"
-#endif
 
 #define BUTTON_TEXT_LEFT		-1
 #define BUTTON_TEXT_CENTER	0

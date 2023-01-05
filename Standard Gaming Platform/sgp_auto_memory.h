@@ -84,7 +84,6 @@ namespace sgp
 
 } // namespace sgp
 
-#ifdef JA2
 
 #include "MemMan.h"
 
@@ -108,6 +107,5 @@ namespace sgp
 	};
 }
 
-#endif
 
 #endif // _SGP_AUTO_MEMORY_H_

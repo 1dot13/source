@@ -71,12 +71,7 @@
 #define INSERT				245
 #define DEL				 246
 
-#ifndef JA2
-// Stupid definition causes problems with headers that use the keyword END -- DB
-	#define KEY_END			247
-#else
 	#define END								247
-#endif
 
 #define DNARROW			 248
 #define PGDN				249
