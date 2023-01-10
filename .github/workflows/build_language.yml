@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        application: [ja2, ja2mapeditor, ja2ub]
+        application: [ja2, ja2mapeditor, ja2ub, ja2ubmapeditor]
 
     steps:
       - name: Checkout source
@@ -55,7 +55,7 @@ jobs:
 
       # not sure if needed as per Language Defines.h, but only here can we set both defines I think
       - name: Update builddefines.h
-        if: ${{ matrix.application == 'ja2ub' }}
+        if: ${{ startsWith(matrix.application, 'ja2ub') }}
         shell: bash
         run: |
           set -eux
@@ -68,7 +68,7 @@ jobs:
         run: |
           set -eux
           
-          if [[ '${{ matrix.application }}' == 'ja2mapeditor' ]]
+          if [[ '${{ matrix.application }}' == *'mapeditor' ]]
           then
             Configuration='MapEditor'
           else
@@ -79,7 +79,7 @@ jobs:
           JA2LangPrefix="${INPUTS_LANGUAGE:0:2}"
           JA2Language=$(echo "${INPUTS_LANGUAGE:3}" | tr '[:lower:]' '[:upper:]')
           
-          if [[ '${{ matrix.application }}' == 'ja2ub' ]]
+          if [[ '${{ matrix.application }}' == 'ja2ub'* ]]
           then
             JA2Config='JA2UB'
           else
@@ -166,11 +166,17 @@ jobs:
           name: ${{ inputs.language }}_ja2ub
           path: artifacts/ja2ub
 
+      - name: Download ja2ubmapeditor
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.language }}_ja2ubmapeditor
+          path: artifacts/ja2ubmapeditor
+
       - name: Copy application files to gamedir
         shell: bash
         run: |
           set -eux
-          for APP in ja2 ja2mapeditor ja2ub
+          for APP in ja2 ja2mapeditor ja2ub ja2ubmapeditor
           do
             mv artifacts/${APP}/*.exe gamedir/${APP}.exe
           done
