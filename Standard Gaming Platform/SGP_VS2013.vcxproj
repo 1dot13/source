@@ -23,13 +23,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bitmap.h" />
     <ClInclude Include="Button Sound Control.h" />
     <ClInclude Include="Button System.h" />
     <ClInclude Include="Compression.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="Cursor Control.h" />
-    <ClInclude Include="DbMan.h" />
     <ClInclude Include="ddraw.h" />
     <ClInclude Include="DEBUG.H" />
     <ClInclude Include="debug_util.h" />
@@ -75,10 +73,8 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="TopicIDs.h" />
     <ClInclude Include="TopicOps.h" />
-    <ClInclude Include="trle.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="video.h" />
-    <ClInclude Include="video_private.h" />
     <ClInclude Include="vobject.h" />
     <ClInclude Include="vobject_blitters.h" />
     <ClInclude Include="vobject_private.h" />
@@ -86,7 +82,6 @@
     <ClInclude Include="vsurface_private.h" />
     <ClInclude Include="WCheck.h" />
     <ClInclude Include="WinFont.h" />
-    <ClInclude Include="WizShare.h" />
     <ClInclude Include="ZCONF.H" />
     <ClInclude Include="ZLIB.H" />
   </ItemGroup>
@@ -96,7 +91,6 @@
     <ClCompile Include="Compression.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Cursor Control.cpp" />
-    <ClCompile Include="DbMan.cpp" />
     <ClCompile Include="DEBUG.cpp" />
     <ClCompile Include="debug_util.cpp" />
     <ClCompile Include="debug_win_util.cpp" />
