@@ -245,8 +245,15 @@ void UpdateTransportGroupInventory()
 	std::vector<UINT16> medKits;
 	std::vector<UINT16> toolKits;
 	std::vector<UINT16> backpacks;
+	std::vector<UINT16> grenades;
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
 	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
+	
+	// rftr todo: instead of building ammo caches, perhaps we could examine ChooseWeaponForSoldierCreateStruct(). excerpt:
+	// usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3 ), pp->ubSoldierClass);
+	// however, we'd still need to convert the magazine into an ammo box
+	// for conversion, see the following (ammo conversion in strategic inventory)
+	// void SortSectorInventoryAmmo(bool useBoxes)
 
 	// one-time item cache build
 	{
@@ -261,6 +268,7 @@ void UpdateTransportGroupInventory()
 			else if (Item[i].firstaidkit) firstAidKits.push_back(i);
 			else if (Item[i].medicalkit) medKits.push_back(i);
 			else if (Item[i].toolkit) toolKits.push_back(i);
+			else if (Item[i].usItemClass & IC_GRENADE) grenades.push_back(i);
 			else if (Item[i].usItemClass & IC_LBEGEAR)
 			{
 				if (LoadBearingEquipment[Item[i].ubClassIndex].lbeClass == BACKPACK)
@@ -322,6 +330,19 @@ void UpdateTransportGroupInventory()
 		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
 		if (groupIter != transportGroupIdToSoldierMap.end())
 		{
+			// let's find out if this group is coming home or still outgoing to its target destination
+			GROUP* pGroup = gpGroupList;
+			BOOLEAN outgoing = FALSE;
+			while (pGroup)
+			{
+				if (pGroup->ubGroupID == groupIter->first)
+				{
+					outgoing = pGroup->uiFlags & GROUPFLAG_TRANSPORT_ENROUTE;
+					break;
+				}
+				pGroup = pGroup->next;
+			}
+
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
 			if (soldierClassIter != groupIter->second.end())
@@ -332,24 +353,45 @@ void UpdateTransportGroupInventory()
 				if (pSoldier->ubSoldierClass == SOLDIER_CLASS_JEEP)
 				{
 					OBJECTTYPE itemToAdd;
+					//if (outgoing)
+					{
+						// en route to target destination - carrying ammo, supplies, etc
+						// medkits
+						CreateItems(medKits[Random(medKits.size())], 100, 5, &itemToAdd);
+						addItemToInventory(pSoldier, itemToAdd);
+
+						// first aid kits
+						CreateItems(firstAidKits[Random(firstAidKits.size())], 100, 10, &itemToAdd);
+						addItemToInventory(pSoldier, itemToAdd);
+
+						// toolkits
+						CreateItems(toolKits[Random(toolKits.size())], 100, 5, &itemToAdd);
+						addItemToInventory(pSoldier, itemToAdd);
+
+						// 2 groups of grenades (possible to get the same)
+						CreateItems(grenades[Random(grenades.size())], 100, 20, &itemToAdd);
+						addItemToInventory(pSoldier, itemToAdd);
+						CreateItems(grenades[Random(grenades.size())], 100, 20, &itemToAdd);
+						addItemToInventory(pSoldier, itemToAdd);
+					}
+					//else
+					{
+						// coming back home - carrying money/loot/???
+					}
+
 					for (int i = 0; i < 3; ++i)
 					{
 						CreateItem(ammoBoxes[5][0], 100, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 					}
 
-					for (int i = 0; i < 3; ++i)
-					{
-						CreateItem(medKits[Random(medKits.size())], 100, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
-					}
 					transportGroupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
 				}
 				else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR
 					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY
 					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE)
 				{
-					// force inventory to be dropped!
+					// jeep is carrying everything, so just force inventory to be dropped!
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
 					{
 						OBJECTTYPE* item = &pSoldier->inv[i];
@@ -385,12 +427,12 @@ void UpdateTransportGroupInventory()
 						OBJECTTYPE itemToAdd;
 						if (backpacks.size() > 0)
 						{
-							CreateItem(backpacks[0], 75 + Random(25), &itemToAdd);
+							CreateItem(backpacks[0], 100, &itemToAdd);
 							pSoldier->inv[BPACKPOCKPOS] = itemToAdd;
 						}
 
 						// add ammo to the soldier's inventory!
-						CreateItem(ammoBoxes[10][0], (INT8)(90+Random(10)), &itemToAdd);
+						CreateItem(ammoBoxes[10][0], 100, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 
 						// force inventory to be dropped!
