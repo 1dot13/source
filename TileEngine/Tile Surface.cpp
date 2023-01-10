@@ -1,11 +1,7 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "debug.h"
 	#include "sys globals.h"
-#endif
 
 #include "XML.h"
 

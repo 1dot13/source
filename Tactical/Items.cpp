@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "Action Items.h"
 	#include "weapons.h"
@@ -61,7 +58,6 @@
 	#include "DisplayCover.h"		// added by Flugente
 	#include "Map Information.h"
 	#include "ai.h"					// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

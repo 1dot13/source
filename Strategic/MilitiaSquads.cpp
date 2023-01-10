@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Town Militia.h"
 	#include "Militia Control.h"
 	#include "Campaign Types.h"
@@ -30,7 +27,6 @@
 	#include "mapscreen.h"
 	#include "Strategic Pathing.h"
 	#include "GameVersion.h"
-#endif
 
 #include "connect.h"
 #include "MilitiaSquads.h"

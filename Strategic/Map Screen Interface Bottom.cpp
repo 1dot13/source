@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
 	#include "Types.h"
@@ -48,7 +45,6 @@
 	#include "Interface Control.h"
 	#include "Sys Globals.h"
 #include "game init.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"

@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "interface items.h"
-#else
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include "sgp.h"
@@ -18,7 +14,6 @@
 	#include "Sound Control.h"
 	// HEADROCK HAM B2.6: included this here to allow toggling the CTH bars.
 	#include "GameSettings.h"
-#endif
 
 //aim
 extern UINT8	gubShowActionPointsInRed;
@@ -1659,8 +1654,6 @@ void DrawMouseText( )
 	static BOOLEAN fShow = FALSE;
 	static BOOLEAN fHoldInvalid = TRUE;
 
-	//EnterMutex(MOUSE_BUFFER_MUTEX, __LINE__, __FILE__);
-
 	if ( gfUIBodyHitLocation )
 	{
 		// Set dest for gprintf to be different
@@ -1855,8 +1848,6 @@ void DrawMouseText( )
 
 			mprintf( sX, sY, L"%d", gsCurrentActionPoints );
 			//mprintf( sX, sY, L"%d %d", sX, sY );
-
-			//LeaveMutex(MOUSE_BUFFER_MUTEX, __LINE__, __FILE__);
 
 			SetFontShadow( DEFAULT_SHADOW );
 

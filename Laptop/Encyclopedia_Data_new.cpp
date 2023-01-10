@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Types.h"
 	#include "WCheck.h"
 	#include <string.h>
@@ -30,7 +27,6 @@
 	#include "Text.h"
 	#include "WordWrap.h"
     #include "Quests.h"
-#endif
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @ingroup ENCYCLOPEDIA

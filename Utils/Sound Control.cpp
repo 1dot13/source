@@ -1,8 +1,5 @@
 // MODULE FOR SOUND SYSTEM
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "sgp.h"
 	#include "Sound Control.h"
 	#include "soundman.h"
@@ -11,7 +8,6 @@
 	#include "renderworld.h"
 	#include "GameSettings.h"
 	#include "math.h"
-#endif
 
 #define	SOUND_FAR_VOLUME_MOD	25
 

@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include	"Types.h"
 	#include	"Quest Debug System.h"
 	#include	"WCheck.h"
@@ -39,7 +36,6 @@
 	#include	"SysUtil.h"
 	#include	"Message.h"
 	#include "Random.h"
-#endif
 
 //#ifdef JA2BETAVERSION
 

@@ -54,9 +54,6 @@
     <ClInclude Include="english.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExceptionHandling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="expat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,7 +93,6 @@
     <ClInclude Include="Ja2 Libs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JA2 SGP ALL.H">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LibraryDataBase.h">
@@ -118,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mutex Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pcx.h">
@@ -254,9 +247,6 @@
     <ClCompile Include="English.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExceptionHandling.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FileCat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -294,9 +284,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mousesystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mutex Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PCX.cpp">

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 
@@ -12,7 +9,6 @@
 	#include "Animation Data.h"
 	#include "Animation Control.h"
 	#include "Debug Control.h"
-#endif
 
 #define EMPTY_CACHE_ENTRY		65000
 

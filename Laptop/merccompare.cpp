@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "laptop.h"
 #include "insurance.h"
 #include "insurance Contract.h"
@@ -27,7 +24,6 @@
 #include "Overhead.h"
 #include "Map Screen Interface.h"
 #include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 
 #define		MERCOMP_FONT_COLOR								2

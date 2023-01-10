@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "sgp.h"
 	#include "message.h"
 	#include "quests.h"
@@ -32,7 +28,6 @@
 	#include "strategic.h"
 	#include "Strategic Event Handler.h"
 	#include "Soldier Control.h"
-#endif
 
 #include "BobbyRMailOrder.h"
 #include "connect.h"

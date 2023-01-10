@@ -1,9 +1,5 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "PopUpBox.h"
 	#include "sysutil.h"
-#endif
 
 
 #define BORDER_WIDTH	16

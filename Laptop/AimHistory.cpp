@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "AimHistory.h"
 	#include "aim.h"
@@ -9,7 +6,6 @@
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "Text.h"
-#endif
 
 #include "LocalizedStrings.h"
 

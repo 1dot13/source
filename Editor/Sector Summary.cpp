@@ -1,13 +1,8 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
 
-#ifndef PRECOMPILEDHEADERS
 	#include <stdio.h>
 	#include "types.h"
 	#include "Sector Summary.h"
@@ -42,7 +37,6 @@
 	#include "GameSettings.h"
 	#include "EditorTerrain.h"//dnl ch78 261113
 	#include "Render Dirty.h"//dnl ch78 271113
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Game Clock.h"
 	#include "Font Control.h"
@@ -28,7 +25,6 @@
 	#include "Random.h"
 	#include "Explosion Control.h"
 	#include "Dialogue Control.h"	// added by Flugente
-#endif
 
 #include "Reinforcement.h"
 

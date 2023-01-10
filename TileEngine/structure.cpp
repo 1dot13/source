@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include <string.h>
 	#include "types.h"
 	#include "wcheck.h"
@@ -50,7 +47,6 @@
 	#include "Soldier Ani.h"
 	#include "ASD.h"		// added by Flugente
 	#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
-#endif
 
 #ifdef COUNT_PATHS
 	extern UINT32 guiSuccessfulPathChecks;

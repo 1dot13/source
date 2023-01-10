@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "Enemy Soldier Save.h"
-#else
 	#include "builddefines.h"
     #include "GameSettings.h"
 	#include <stdio.h>
@@ -33,7 +29,6 @@
 	#include "Queen Command.h"
 	#include "Scheduling.h"
 	#include "Soldier macros.h"		// added by Flugente
-#endif
 
 #include "GameVersion.h"
 //ADB When a savegame is loaded, the enemy and civ stuff needs to be loaded and updated, but this can only happen

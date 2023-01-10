@@ -655,10 +655,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Tactical All.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Tactical Save.h"
 				>
 			</File>

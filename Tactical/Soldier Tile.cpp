@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <wchar.h>
 	#include <stdio.h>
 	#include <string.h>
@@ -49,7 +46,6 @@
 	#include "Text.h"
 	#include "NPC.h"
 	#include "Soldier macros.h"
-#endif
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 

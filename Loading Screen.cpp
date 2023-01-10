@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Loading Screen.h"
-	#include "INIReader.h"
-#else
 	#include "vsurface.h"
 	#include "mapscreen.h"
 	#include "Loading Screen.h"
@@ -15,7 +10,6 @@
 	#include "Font Control.h"
 	#include "font.h"
 	#include "render dirty.h"
-#endif
 #include "Strategic Movement.h"
 #include "UndergroundInit.h"
 #include <string>

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "BobbyRArmour.h"
 	#include "BobbyRGuns.h"
@@ -9,7 +6,6 @@
 	#include "WCheck.h"
 	#include "WordWrap.h"
 	#include "Text.h"
-#endif
 
 
 UINT32		guiArmourBackground;

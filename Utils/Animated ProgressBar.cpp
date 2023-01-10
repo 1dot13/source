@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "types.h"
 	#include "Animated ProgressBar.h"
 	#include "MemMan.h"
@@ -17,7 +14,6 @@
 	#include "WordWrap.h"
 	#include "Message.h"
 	#include "Text.h"
-#endif
 
 double rStart, rEnd;
 double rActual;

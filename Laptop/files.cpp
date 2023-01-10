@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <list>
@@ -21,7 +18,6 @@
 	#include "XML.h"
 	#include "expat.h"
 	#include "Debug Control.h"
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

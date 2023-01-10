@@ -61,7 +61,6 @@
     <ClInclude Include="Reinforcement.h" />
     <ClInclude Include="Scheduling.h" />
     <ClInclude Include="Strategic AI.h" />
-    <ClInclude Include="Strategic All.h" />
     <ClInclude Include="Strategic Event Handler.h" />
     <ClInclude Include="Strategic Merc Handler.h" />
     <ClInclude Include="Strategic Mines LUA.h" />

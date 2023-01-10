@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "worlddef.h"
 	#include "points.h"
@@ -39,7 +36,6 @@
 	#include "Food.h"				// added by Flugente
 	#include "AIInternals.h"		//dnl ch69 150913
 	#include "CampaignStats.h"		// added by Flugente
-#endif
 #include "connect.h"
 
 #include "GameInitOptionsScreen.h"

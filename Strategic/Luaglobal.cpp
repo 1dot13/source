@@ -6,7 +6,6 @@
 #include "FileMan.h"
 #include "GameSettings.h"
 #include "interface Dialogue.h"
-#include "Strategic All.h"
 #include "Luaglobal.h"
 #include "Boxing.h"
 #include "LuaInitNPCs.h"
@@ -36,6 +35,8 @@ extern "C" {
 #include "lualib.h"
 }
 
+#include "strategicmap.h"
+#include "Map Screen Interface.h"
 
 using namespace std;
 

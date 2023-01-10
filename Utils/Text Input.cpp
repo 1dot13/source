@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "builddefines.h"
 	#include <math.h>
 	#include <stdio.h>
@@ -18,7 +15,6 @@
 	#include "vobject_blitters.h"
 	#include "Font Control.h"
 	#include "Sound Control.h"
-#endif
 
 
 STR16 szClipboard;

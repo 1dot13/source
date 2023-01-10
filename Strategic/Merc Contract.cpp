@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Types.h"
 	#include "Merc Contract.h"
 	#include "Soldier Profile.h"
@@ -38,7 +35,6 @@
 	#include "Vehicles.h"
 	#include "email.h"
 	#include "Map Screen Helicopter.h"
-#endif
 
 #include "GameSettings.h"
 #include "connect.h"

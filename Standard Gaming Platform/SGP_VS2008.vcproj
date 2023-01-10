@@ -395,10 +395,6 @@
 				>
 			</File>
 			<File
-				RelativePath="ExceptionHandling.h"
-				>
-			</File>
-			<File
 				RelativePath="expat.h"
 				>
 			</File>
@@ -451,10 +447,6 @@
 				>
 			</File>
 			<File
-				RelativePath="JA2 SGP ALL.H"
-				>
-			</File>
-			<File
 				RelativePath="LibraryDataBase.h"
 				>
 			</File>
@@ -480,10 +472,6 @@
 			</File>
 			<File
 				RelativePath="Mss.h"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.h"
 				>
 			</File>
 			<File
@@ -667,10 +655,6 @@
 				>
 			</File>
 			<File
-				RelativePath="ExceptionHandling.cpp"
-				>
-			</File>
-			<File
 				RelativePath="FileCat.cpp"
 				>
 			</File>
@@ -720,10 +704,6 @@
 			</File>
 			<File
 				RelativePath="mousesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.cpp"
 				>
 			</File>
 			<File

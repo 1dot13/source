@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "types.h"
 	#include "overhead.h"
 	#include "animation control.h"
@@ -45,7 +42,6 @@
 	#include "Soldier Profile.h"
 	#include "NPC.h"
 	#include "drugs and alcohol.h"	// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

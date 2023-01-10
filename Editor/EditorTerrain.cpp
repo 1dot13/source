@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <windows.h>
 	#include "tiledef.h"
 	#include "edit_sys.h"
@@ -32,7 +27,6 @@
 	#include "Editor Taskbar Utils.h"
 	#include "Cursor Modes.h"
 	#include "english.h"
-#endif
 
 BOOLEAN gfShowTerrainTileButtons;
 UINT8 ubTerrainTileButtonWeight[NUM_TERRAIN_TILE_REGIONS];

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Strategic Status.h"
 	#include "Inventory Choosing.h"
 	#include "FileMan.h"
@@ -16,7 +13,6 @@
 	#include "Game Init.h"			// added by Flugente
 	#include "GameVersion.h"		// added by Flugente
 	#include "SaveLoadGame.h"		// added by Flugente
-#endif
 
 #include "GameInitOptionsScreen.h"
 

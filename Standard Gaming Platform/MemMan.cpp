@@ -18,11 +18,6 @@
 //
 //**************************************************************************
 
-//#ifdef JA2_PRECOMPILED_HEADERS
-//	#include "JA2 SGP ALL.H"
-//#elif defined( WIZ8_PRECOMPILED_HEADERS )
-//	#include "WIZ8 SGP ALL.H"
-//#else
 	#include "types.h"
 	#include <windows.h>
 	#include <malloc.h>
@@ -35,7 +30,6 @@
 	#ifdef _DEBUG
 		#include <crtdbg.h>
 	#endif
-//#endif
 
 
 #ifdef _DEBUG
@@ -48,7 +42,6 @@
 //
 //**************************************************************************
 
-#ifdef JA2
 #include "MessageBoxScreen.h"
 STR16 gzJA2ScreenNames[] =
 {
@@ -82,7 +75,6 @@ STR16 gzJA2ScreenNames[] =
 	L"QUEST_DEBUG_SCREEN",
 #endif
 };
-#endif
 
 #ifdef EXTREME_MEMORY_DEBUGGING
 	typedef struct MEMORY_NODE

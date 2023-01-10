@@ -3,9 +3,6 @@
  * @author Flugente (bears-pit.com)
  */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "insurance.h"
 	#include "insurance Contract.h"
@@ -19,7 +16,6 @@
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "CampaignHistoryMain.h"
-#endif
 
 
 #define		BACKGROUND_WIDTH				125

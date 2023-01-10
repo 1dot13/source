@@ -111,7 +111,6 @@
     <ClInclude Include="Strategic AI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Strategic All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Strategic Event Handler.h">

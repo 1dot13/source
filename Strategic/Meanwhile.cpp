@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "sgp.h"
 	#include "meanwhile.h"
 	#include "PreBattle Interface.h"
@@ -36,7 +33,6 @@
 	#include "Campaign Types.h"
 	#include "Squads.h"
 	#include "Random.h"
-#endif
 
 #include "GameInitOptionsScreen.h"
 

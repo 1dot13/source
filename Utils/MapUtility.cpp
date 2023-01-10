@@ -1,8 +1,4 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Utils All.h"
-#else
 #include "sgp.h"
-#endif
 
 #ifdef JA2EDITOR
 #include "Screens.h"

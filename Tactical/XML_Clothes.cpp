@@ -1,12 +1,8 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-#endif
 
 struct
 {

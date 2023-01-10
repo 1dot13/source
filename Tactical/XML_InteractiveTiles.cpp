@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "sgp.h"
 #include "Debug Control.h"
 #include "expat.h"
@@ -13,7 +10,6 @@
 #include "XML.h"
 #include "FileMan.h"
 #include "Handle Items.h"
-#endif
 
 INTERACTIVE_STRUCTURE gInteractiveStructure[INTERACTIVE_STRUCTURE_MAX];
 UINT32 gMaxInteractiveStructureRead = 0;

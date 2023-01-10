@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
@@ -9,7 +6,6 @@
 	#include "Soldier Profile.h"
 	#include "Text.h"
 	#include "history.h"
-#endif
 
 struct
 {

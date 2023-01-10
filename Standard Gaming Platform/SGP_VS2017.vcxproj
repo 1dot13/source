@@ -37,7 +37,6 @@
     <ClInclude Include="DirectX Common.h" />
     <ClInclude Include="dsound.h" />
     <ClInclude Include="english.h" />
-    <ClInclude Include="ExceptionHandling.h" />
     <ClInclude Include="expat.h" />
     <ClInclude Include="FileCat.h" />
     <ClInclude Include="FileMan.h" />
@@ -51,7 +50,6 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="Install.h" />
     <ClInclude Include="Ja2 Libs.h" />
-    <ClInclude Include="JA2 SGP ALL.H" />
     <ClInclude Include="LibraryDataBase.h" />
     <ClInclude Include="line.h" />
     <ClInclude Include="MemMan.h" />
@@ -59,7 +57,6 @@
     <ClInclude Include="mousesystem_macros.h" />
     <ClInclude Include="Mss-old.h" />
     <ClInclude Include="Mss.h" />
-    <ClInclude Include="Mutex Manager.h" />
     <ClInclude Include="pcx.h" />
     <ClInclude Include="PngLoader.h" />
     <ClInclude Include="RAD.H" />
@@ -106,7 +103,6 @@
     <ClCompile Include="DirectDraw Calls.cpp" />
     <ClCompile Include="DirectX Common.cpp" />
     <ClCompile Include="English.cpp" />
-    <ClCompile Include="ExceptionHandling.cpp" />
     <ClCompile Include="FileCat.cpp" />
     <ClCompile Include="FileMan.cpp" />
     <ClCompile Include="Flic.cpp" />
@@ -120,7 +116,6 @@
     <ClCompile Include="line.cpp" />
     <ClCompile Include="MemMan.cpp" />
     <ClCompile Include="mousesystem.cpp" />
-    <ClCompile Include="Mutex Manager.cpp" />
     <ClCompile Include="PCX.cpp" />
     <ClCompile Include="PngLoader.cpp" />
     <ClCompile Include="Random.cpp" />

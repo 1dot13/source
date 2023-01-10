@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include <stdlib.h>
 	#include "Isometric Utils.h"
 	#include "ai.h"
@@ -30,7 +27,6 @@
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
 	#include "rotting corpses.h"	// sevenfm
-#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

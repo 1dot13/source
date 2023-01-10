@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "debug.h"
 	#include "animation control.h"
 	#include "lighteffects.h"
@@ -11,7 +8,6 @@
 	#include "Game Clock.h"
 	#include "opplist.h"
 	#include "Tactical Save.h"
-#endif
 
 #include "SaveLoadGame.h"
 #include "GameVersion.h"	// added by Flugente

@@ -323,7 +323,6 @@ git rev-parse --short=10 HEAD &gt;&gt; rev.h</Command>
     <ClInclude Include="HelpScreenText.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Intro.h" />
-    <ClInclude Include="JA2 All.h" />
     <ClInclude Include="JA2 Demo Ads.h" />
     <ClInclude Include="JA2 Splash.h" />
     <ClInclude Include="ja2.h" />

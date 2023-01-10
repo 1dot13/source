@@ -1,21 +1,11 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "DirectDraw Calls.h"
 	#include <stdio.h>
 	#include "debug.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "himage.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
 	#include "shading.h"
-#endif
 
 BOOLEAN ShadesCalculateTables(SGPPaletteEntry *p8BPPPalette);
 BOOLEAN ShadesCalculatePalette(SGPPaletteEntry *pSrcPalette, SGPPaletteEntry *pDestPalette, UINT16 usRed, UINT16 usGreen, UINT16 usBlue, BOOLEAN fMono);
@@ -287,7 +277,6 @@ void SetShadeTablePercent( FLOAT uiShadePercent )
 }
 
 
-#ifdef JA2	// Jul. 23 '97 - ALEX - because Wizardry isn't using it & no longer has a version of Set8BPPPalette() available
 void Init8BitTables(void)
 {
 SGPPaletteEntry Pal[256];
@@ -314,4 +303,4 @@ BOOLEAN Set8BitModePalette(SGPPaletteEntry *pPal)
 	Set8BPPPalette(pPal);
 	return(TRUE);
 }
-#endif
+

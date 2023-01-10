@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <memory.h>
@@ -40,7 +37,6 @@
 	#include "Map Screen Interface.h"
 	#include "GameSettings.h" // added by SANDRO
 	#include "Dialogue Control.h" // added by Flugente
-#endif
 
 #include "GameVersion.h"
 

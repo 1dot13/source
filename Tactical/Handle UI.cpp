@@ -1,9 +1,4 @@
 #include "connect.h"
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#include "BuildDefines.h"
-
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
@@ -86,7 +81,6 @@
 #include "Soldier Control.h"
 #include "DisplayCover.h"
 #include "english.h"		// sevenfm: this is needed for _keydown(SHIFT) to work
-#endif
 
 #include "teamturns.h"
 #include "Options Screen.h"

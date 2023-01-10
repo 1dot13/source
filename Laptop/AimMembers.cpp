@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "Language Defines.h"
-#else
 	#include "email.h"
 	#include "laptop.h"
 	#include "AimMembers.h"
@@ -47,7 +43,6 @@
 	#include "strategicmap.h"
 	#include "Personnel.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
-#endif
 
 #include "Strategic Town Loyalty.h"
 #include "connect.h"

@@ -3,11 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#include "IMP Skill Trait.h"
-#include "_Ja25Englishtext.h"
-#else
 #include "IMP Gear.h"
 #include "IMP Skill Trait.h"
 #include "Button System.h"
@@ -34,7 +29,6 @@
 #include "IMP Skill Trait.h"
 #include "IMP Minor Trait.h"
 #include "IMP Gear Entrance.h"
-#endif
 
 extern BOOLEAN gfGlowTimerExpired;
 BOOLEAN fShowIMPItemHighLight = FALSE;

@@ -63,7 +63,6 @@
 #include "Message.h"
 #include <memory.h>
 #include "mbstring.h"
-#include "Mutex Manager.h"
 #include "local.h"
 #include "Map Screen Interface Bottom.h"
 #include "Soundman.h"

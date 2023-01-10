@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <memory.h>
 	#include "Inventory Choosing.h"
 	#include "animation data.h"
@@ -21,7 +18,6 @@
 	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 	#include "Rebel Command.h"
-#endif
 extern WorldItems gAllWorldItems;
 
 /*
@@ -2264,7 +2260,15 @@ void ChooseLBEsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bLBEClass 
 	{
 		CreateItem( usItem, (INT8)(80 + Random( 21 )), &gTempObject );
 		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		// put backpacks into the backpack slot for LOBOT
+		if ((UsingNewInventorySystem()) && (Item[usItem].usItemClass & IC_LBEGEAR) && (LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass == BACKPACK))
+		{
+			pp->Inv[BPACKPOCKPOS] = gTempObject;
+		}
+		else
+		{
+			PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		}
 	}
 }
 

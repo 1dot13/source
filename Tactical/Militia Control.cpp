@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#else
 
 	#include "Militia Control.h"
 	#include "Town Militia.h"
@@ -33,7 +29,6 @@
 	#include "MilitiaSquads.h"
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "CampaignStats.h"		// added by Flugente
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

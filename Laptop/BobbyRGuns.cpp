@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "BobbyRGuns.h"
 	#include "BobbyR.h"
@@ -23,7 +20,6 @@
 	// HEADROCK HAM 4
 	#include "input.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
-#endif
 
 
 #define		BOBBYR_DEFAULT_MENU_COLOR					255

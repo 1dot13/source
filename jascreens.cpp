@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <time.h>
@@ -50,7 +47,6 @@
 	#include "text.h"
 	#include "Language Defines.h"
 	#include "IniReader.h"
-#endif
 
 #include "sgp_logger.h"
 

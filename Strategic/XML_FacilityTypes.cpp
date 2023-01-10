@@ -9,9 +9,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
@@ -20,7 +17,6 @@
 	#include "FileMan.h"
 	#include "Campaign Types.h"
 	#include "Facilities.h"
-#endif
 
 FACILITYTYPE gFacilityTypes[ MAX_NUM_FACILITY_TYPES ];
 UINT16 NUM_FACILITY_TYPES = 0;

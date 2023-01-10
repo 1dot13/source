@@ -1,7 +1,4 @@
 //zilpin: pellet spread patterns externalized in XML
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Soldier Control.h"
@@ -36,7 +33,6 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-#endif
 
 #define LIST_BUFFER_LEN         (32)
 #define LIST_BUFFER_SIZE        (LIST_BUFFER_LEN * sizeof(t_SpreadPattern))

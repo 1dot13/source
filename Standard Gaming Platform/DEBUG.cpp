@@ -29,16 +29,13 @@
 	#include <string>
 	#include <sstream>
 	#include "debug.h"
-	#include "WizShare.h"
 
 	//Kris addition
-	#ifdef JA2
 		#include "screenids.h"
 		#include "Sys Globals.h"
 		#include "jascreens.h"
 		#include "gameloop.h"
 		#include "input.h"
-	#endif
 
 	// CJC added
 	#ifndef _NO_DEBUG_TXT

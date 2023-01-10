@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Map Screen Interface.h"
 	#include "string.h"
 	#include "Map Screen Interface Map.h"
@@ -56,7 +53,6 @@
 	#include "Food.h"
 	#include "Personnel.h"
 	#include "mapscreen.h"
-#endif
 
 #include "connect.h"
 
