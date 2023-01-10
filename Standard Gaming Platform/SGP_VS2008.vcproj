@@ -339,10 +339,6 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="Bitmap.h"
-				>
-			</File>
-			<File
 				RelativePath="Button Sound Control.h"
 				>
 			</File>
@@ -360,10 +356,6 @@
 			</File>
 			<File
 				RelativePath="Cursor Control.h"
-				>
-			</File>
-			<File
-				RelativePath="DbMan.h"
 				>
 			</File>
 			<File
@@ -547,19 +539,11 @@
 				>
 			</File>
 			<File
-				RelativePath="trle.h"
-				>
-			</File>
-			<File
 				RelativePath="Types.h"
 				>
 			</File>
 			<File
 				RelativePath="video.h"
-				>
-			</File>
-			<File
-				RelativePath="video_private.h"
 				>
 			</File>
 			<File
@@ -588,10 +572,6 @@
 			</File>
 			<File
 				RelativePath="WinFont.h"
-				>
-			</File>
-			<File
-				RelativePath="WizShare.h"
 				>
 			</File>
 			<File
@@ -624,10 +604,6 @@
 			</File>
 			<File
 				RelativePath="Cursor Control.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DbMan.cpp"
 				>
 			</File>
 			<File
