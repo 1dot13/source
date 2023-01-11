@@ -96,20 +96,14 @@ jobs:
           then
             # if we build for a specific tag, use that as the game version
             # examples:
-            # - v1.3.3
-            # - v1.3.2-rc2
+            # - v1.13.1
+            # - v1.13.2-rc2
             GAME_VERSION="$GITHUB_REF_NAME"
           else
-            # tag the very first commit as v1.13, fixes git describe if no tags are around
-            if ! git rev-list v1.13 2>/dev/null
-            then
-              git tag v1.13 $(git rev-list --max-parents=0 HEAD) && git push origin v1.13
-            fi
-          
-            # uses `git describe`, which tries to find a tag in the commit hierarchy
+            # uses `git describe`, which tries to find a tag in the commit hierarchy. or fall back to a v1.13 version
             # example five (5) commits after v1.13:
             # - v1.13-5-7g7ffa
-            GAME_VERSION="$(git describe --tags --match='v[0-9]*' $GITHUB_SHA)"
+            GAME_VERSION="$(git describe --tags --match='v[0-9]*' $GITHUB_SHA || echo v0-$(git rev-list --skip 1 --count $GITHUB_SHA)-g${GITHUB_SHA:0:8})"
           fi
           # max 15 CHAR8
           GAME_VERSION="${GAME_VERSION:0:15}"
