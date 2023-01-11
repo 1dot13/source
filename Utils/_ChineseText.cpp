@@ -3226,11 +3226,11 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"无线电操作员",	// 21
 	L"告发",	// 22
-	L"生还者", //L"Survival"
+	L"向导", //L"Survival"
 
 	// second names for major skills
 	L"机枪手",		// 24
-	L"掷弹兵",
+	L"枪炮专家",	//L"Bombardier",
 	L"狙击手",
 	L"游骑兵",
 	L"枪斗术",
@@ -3252,7 +3252,7 @@ STR16 gzMercSkillTextNew[] =
 	L"间谍",				// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"生还者",			// for survival (minor trait)
+	L"向导",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
 	L"伪装",		//L"Disguise", for DISGUISE
@@ -7826,7 +7826,7 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Radio Operator
 	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ", //L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
 	// Survival
-	L"生还者: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
+	L"向导: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
 };
 
 STR16 NewInvMessage[] =
