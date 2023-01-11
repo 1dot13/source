@@ -97,7 +97,6 @@
     <ClInclude Include="Insurance Text.h" />
     <ClInclude Include="insurance.h" />
     <ClInclude Include="Intelmarket.h" />
-    <ClInclude Include="Laptop All.h" />
     <ClInclude Include="laptop.h" />
     <ClInclude Include="LaptopSave.h" />
     <ClInclude Include="merccompare.h" />

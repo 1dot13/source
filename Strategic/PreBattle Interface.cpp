@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "PreBattle Interface.h"
@@ -50,7 +47,6 @@
 	#include "CampaignStats.h"				// added by Flugente
 	#include "militiasquads.h"				// added by Flugente
 	#include "SkillCheck.h"					// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

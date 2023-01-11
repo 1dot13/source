@@ -1,14 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "qarray.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
 	#include "Interface.h"
 	#include "qarray.h"
-#endif
 
 
 struct

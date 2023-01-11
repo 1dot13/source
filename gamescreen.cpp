@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <time.h>
@@ -84,7 +79,6 @@
 	#include "editscreen.h"
 	#include "Scheduling.h"
 	#include "Animated ProgressBar.h"
-#endif
 
 #include "connect.h"
 

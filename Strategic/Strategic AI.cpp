@@ -1,8 +1,3 @@
-#pragma optimize("",off)
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -41,7 +36,6 @@
 	#include "Game Event Hook.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Transport Groups.h"
-#endif
 
 #include "GameInitOptionsScreen.h"
 

@@ -3,15 +3,11 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "sgp.h"
 #include "Debug Control.h"
 #include "expat.h"
 #include "XML.h"
 #include "MilitiaIndividual.h"
-#endif
 
 struct
 {

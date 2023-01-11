@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "sgp.h"
 	//#include "soldier control.h"
 	#include "Encrypted File.h"
@@ -55,7 +51,6 @@
 	#include "los.h"
 	#include "qarray.h"
 	#include "Soldier Profile.h"
-#endif
 #include <vector>
 #include "Auto Resolve.h"
 

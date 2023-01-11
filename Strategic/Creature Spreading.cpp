@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "types.h"
 	#include "fileman.h"
 	#include "himage.h"
@@ -36,7 +32,6 @@
 	#include "Isometric Utils.h"	// added by Flugente
 	#include "Soldier Create.h"		// added by Flugente
 	#include "Player Command.h"		// added by Flugente
-#endif
 
 #include "Strategic Mines.h"
 #include "connect.h"

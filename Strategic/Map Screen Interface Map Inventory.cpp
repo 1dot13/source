@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Render Dirty.h"
 	#include "vobject.h"
@@ -34,7 +30,6 @@
 	#include "rt time defines.h"
 	#include "Encyclopedia_new.h" //Moa: item visibility
 	#include "Town Militia.h"	// added by Flugente
-#endif
 
 #include "ShopKeeper Interface.h"
 #include "ArmsDealerInvInit.h"
@@ -592,7 +587,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	INT16 sCenX, sCenY, usWidth, usHeight, sX, sY;
 	HVOBJECT hHandle;
 	ETRLEObject		*pTrav;
-	CHAR16 sString[ 64 ];
+	CHAR16 sString[ 80 ];
 	INT16 sWidth = 0, sHeight = 0;
 	INT16 sOutLine = 0;
 	BOOLEAN fOutLine = FALSE;

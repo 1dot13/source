@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "Types.h"
 	#include "MPConnectScreen.h"
 	#include "GameSettings.h"
@@ -22,7 +19,6 @@
 	#include "Soldier Profile.h"
 	#include "Animated ProgressBar.h"
 	#include "mainmenuscreen.h"
-#endif
 
 #include "gameloop.h"
 #include "Game Init.h"

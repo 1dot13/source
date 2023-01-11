@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "IMP Skill Trait.h"
 	#include "Button System.h"
 	#include "utilities.h"
@@ -24,7 +19,6 @@
 	#include "IMP Minor Trait.h"
 	#include "Soldier Profile.h"
 	#include "personnel.h"		// added by Flugente
-#endif
 
 
 
@@ -146,7 +140,7 @@ void		HandleLastSelectedTraits( INT8 bNewTrait );
 INT8		GetLastSelectedSkill( void );
 BOOLEAN		CameBackToSpecialtiesPageButNotFinished();
 
-MOUSE_REGION	gMR_SkillTraitHelpTextRegions[IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS];
+MOUSE_REGION	gMR_SkillTraitHelpTextRegions[IMP_SKILL_TRAITS__NUMBER_SKILLS];
 //ppp
 
 //*******************************************************************

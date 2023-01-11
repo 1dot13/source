@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <stdio.h>
 	#include "types.h"
 	#include "mousesystem.h"
@@ -47,7 +42,6 @@
 	#include "Keys.h"
 	#include "InterfaceItemImages.h"
 	#include "renderworld.h"//dnl ch78 271113
-#endif
 
 void RenderEditorInfo();
 

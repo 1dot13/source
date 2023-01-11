@@ -3634,7 +3634,7 @@ inline void Console::GetCursorRect(RECT& rectCursor) {
 		// variable pitch, we do a little joggling here :-)
 		RECT			rectLine;
 		int				nLastCharWidth;
-		auto_ptr<wchar_t>	pszLine(new wchar_t[m_csbiCursor.dwCursorPosition.X + 2]);
+		std::unique_ptr<wchar_t>	pszLine(new wchar_t[m_csbiCursor.dwCursorPosition.X + 2]);
 		::ZeroMemory(pszLine.get(), (m_csbiCursor.dwCursorPosition.X + 2)*sizeof(wchar_t));
 
 		for (short i = 0; i <= m_csbiCursor.dwCursorPosition.X; ++i) pszLine.get()[i] = m_pScreenBuffer[m_csbiCursor.dwCursorPosition.Y * m_dwColumns + i].Char.UnicodeChar;

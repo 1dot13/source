@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "Editor All.h"
-	#include "LuaInitNPCs.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
@@ -10,7 +5,6 @@
 	#include "Interface.h"
 	#include "LuaInitNPCs.h"
 	#include "email.h"
-#endif
 
 struct
 {

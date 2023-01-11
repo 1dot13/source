@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -12,7 +9,6 @@
 	#include "message.h"
 	#include "MiniEvents.h"
 	#include "Text.h"
-#endif
 
 #ifdef JA2TESTVERSION
 

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include <stdio.h>
@@ -37,7 +34,6 @@
 	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "DynamicDialogue.h"
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"

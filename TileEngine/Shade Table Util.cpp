@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include <stdio.h>
 	#include "types.h"
 	#include "lighting.h"
@@ -10,7 +7,6 @@
 	#include "video.h"
 	#include "WorldDat.h"
 	#include "Fileman.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 

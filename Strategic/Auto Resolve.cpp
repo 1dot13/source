@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -73,7 +69,6 @@
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "MilitiaIndividual.h"			// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "Reinforcement.h"
 

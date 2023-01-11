@@ -8,9 +8,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
@@ -18,7 +15,6 @@
 	#include "XML.h"
 	#include "FileMan.h"
 	#include "Campaign Types.h"
-#endif
 
 FACILITYLOCATIONS gFacilityLocations[256][MAX_NUM_FACILITY_TYPES];
 UINT16 NUM_FACILITIES;

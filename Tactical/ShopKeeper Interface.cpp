@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "ShopKeeper Interface.h"
 	#include "Utilities.h"
@@ -55,7 +52,6 @@
 	#include "Encyclopedia_new.h"
 	#include "Animation Control.h"	// added by Flugente
 	#include "Town Militia.h"		// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"

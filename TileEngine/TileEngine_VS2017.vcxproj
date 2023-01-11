@@ -58,7 +58,6 @@
     <ClInclude Include="Tile Surface.h" />
     <ClInclude Include="TileDat.h" />
     <ClInclude Include="tiledef.h" />
-    <ClInclude Include="TileEngine All.h" />
     <ClInclude Include="World Tileset Enums.h" />
     <ClInclude Include="WorldDat.h" />
     <ClInclude Include="worlddef.h" />

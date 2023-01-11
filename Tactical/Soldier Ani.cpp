@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include <stdio.h>
 #include <string.h>
 #include "stdlib.h"
@@ -67,7 +64,6 @@
 #include "Town Militia.h"				// added by Flugente
 #include "PreBattle Interface.h"		// added by Flugente
 #include "Rebel Command.h"
-#endif
 
 // anv: for enemy taunts
 #include "Civ Quotes.h"

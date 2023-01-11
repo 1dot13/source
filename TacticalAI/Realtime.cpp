@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "Isometric utils.h"
@@ -15,7 +12,6 @@
 	#include "Render Fun.h"
 	#include "Quests.h"
 	#include "GameSettings.h"
-#endif
 // needed to use the modularized tactical AI:
 #include "ModularizedTacticalAI/include/Plan.h"
 #include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"

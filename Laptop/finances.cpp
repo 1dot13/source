@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "finances.h"
 	#include "Game clock.h"
@@ -23,7 +20,6 @@
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"	// added by Flugente
 
-#endif
 
 // the global defines
 

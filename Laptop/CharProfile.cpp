@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-#else
 	#include "laptop.h"
 	#include "cursors.h"
 	#include "CharProfile.h"
@@ -35,7 +31,6 @@
 	#include "IMP Prejudice.h"		// added by Flugente
 	#include "IMP Gear Entrance.h"	// added by Flugente
 	#include "IMP Gear.h"			// added by Flugente
-#endif
 
 
 //BOOLEAN fIMPCompletedFlag = FALSE;

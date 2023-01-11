@@ -231,7 +231,6 @@
     <ClInclude Include="Structure Wrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tactical All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tactical Save.h">

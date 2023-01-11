@@ -9,9 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bitmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mss-old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -28,9 +25,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cursor Control.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DbMan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ddraw.h">
@@ -52,9 +46,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="english.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExceptionHandling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="expat.h">
@@ -96,7 +87,6 @@
     <ClInclude Include="Ja2 Libs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JA2 SGP ALL.H">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LibraryDataBase.h">
@@ -168,16 +158,10 @@
     <ClInclude Include="TopicOps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="trle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="video.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="video_private.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vobject.h">
@@ -199,9 +183,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WinFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WizShare.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ZCONF.H">
@@ -230,9 +211,6 @@
     <ClCompile Include="Cursor Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DbMan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DEBUG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -249,9 +227,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="English.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ExceptionHandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileCat.cpp">

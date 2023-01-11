@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include	"Types.h"
 	#include	"SaveLoadScreen.h"
 	#include	"Video.h"
@@ -36,7 +33,6 @@
 	#include	"Multi Language Graphic Utils.h"
 	#include	"Campaign Types.h"
 	#include	"PostalService.h"
-#endif
 
 #include "connect.h"
 
@@ -2370,7 +2366,7 @@ UINT8 CompareSaveGameVersion( INT32 bSaveGameID )
 		ubRetVal = SLS_SAVED_GAME_VERSION_OUT_OF_DATE;
 	}
 
-	if( strcmp( SaveGameHeader.zGameVersionNumber, czVersionNumber ) != 0 )
+	if( strcmp( SaveGameHeader.zGameVersionNumber, czVersionString ) != 0 )
 	{
 		if( ubRetVal == SLS_SAVED_GAME_VERSION_OUT_OF_DATE )
 			ubRetVal = SLS_BOTH_SAVE_GAME_AND_GAME_VERSION_OUT_OF_DATE;

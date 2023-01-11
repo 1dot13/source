@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "AI All.h"
-#include "sound control.h"
-#include "Debug Control.h"
-#else
 #include "sgp.h"
 #include "ai.h"
 #include "Isometric Utils.h"
@@ -54,7 +49,6 @@
 #include "Soldier Functions.h" // added by SANDRO
 #include "Text.h"	// sevenfm
 #include "english.h" // sevenfm: for ESC key
-#endif
 
 #include "connect.h"
 // needed to use the modularized tactical AI:

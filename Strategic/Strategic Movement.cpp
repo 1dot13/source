@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "builddefines.h"
 	#include <stdlib.h>
 	#include <memory.h>
@@ -53,7 +50,6 @@
 	#include "Creature Spreading.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "MilitiaSquads.h"
 #include "Vehicles.h"

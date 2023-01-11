@@ -1,22 +1,12 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "DirectDraw Calls.h"
 	#include <stdio.h>
 	#include "debug.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "himage.h"
 	#include "vobject.h"
 	#include "wcheck.h"
 	#include "vobject_blitters.h"
 	#include "sgp.h"
-#endif
 
 #include <unordered_map>
 
@@ -974,17 +964,6 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 				{
 					if(gbPixelDepth==16)
 					{
-#ifndef JA2
-						if ( fBltFlags & VO_BLT_MIRROR_Y)
-						{
-							if(!BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
-								Blt8BPPDataTo16BPPBufferTransMirror( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
-// CLipping version not done -- DB
-//								Blt8BPPDataTo16BPPBufferTransMirrorClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
-							break;
-						}
-						else
-#endif
 						if ( fBltFlags & VO_BLT_SRCTRANSPARENCY	)
 						{
 							if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))

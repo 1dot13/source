@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include <stdio.h>
 #include <string.h>
 #include "stdlib.h"
@@ -65,7 +62,6 @@
 #include "Vehicles.h"	// anv: for switching from soldier to vehicle
 #include "VehicleMenu.h"
 
-#endif
 
 
 //forward declarations of common classes to eliminate includes

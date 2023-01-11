@@ -1,7 +1,6 @@
 #ifndef _INIT_H
 #define _INIT_H
 
-#ifndef PRECOMPILEDHEADERS
 #include "LogicalBodyTypes/BodyTypeDB.h"
 #include "LogicalBodyTypes/Layers.h"
 #include "LogicalBodyTypes/AbstractXMLLoader.h"
@@ -10,7 +9,6 @@
 #include "LogicalBodyTypes/EnumeratorDB.h"
 #include "LogicalBodyTypes/BodyTypeDB.h"
 #include "LogicalBodyTypes/PaletteDB.h"
-#endif
 
 #include <iostream>
 #include <fstream>

@@ -1,9 +1,5 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "tiledef.h"
 	#include "worlddef.h"
-#endif
 
 #include "GameSettings.h"
 

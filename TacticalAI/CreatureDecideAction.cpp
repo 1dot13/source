@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "types.h"
 	//#include "soldier control.h"
 	#include "ai.h"
@@ -9,7 +6,6 @@
 	#include "Items.h"
 	#include "Rotting Corpses.h"
 	#include "soldier add.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

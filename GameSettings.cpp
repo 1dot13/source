@@ -1,10 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Campaign.h"
-	#include "Cheats.h"
-	#include "INIReader.h"
-#else
 	#include	"Types.h"
 	#include	"GameSettings.h"
 	#include	"FileMan.h"
@@ -36,7 +29,6 @@
 	#include "Init.h"
 	#include "InterfaceItemImages.h"
 	#include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 #include "KeyMap.h"
 #include "Timer Control.h"
@@ -4581,7 +4573,7 @@ BOOLEAN IsDriveLetterACDromDrive( STR pDriveLetter )
 void DisplayGameSettings( )
 {
 	//Display the version number
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S) %s", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber, zRevisionNumber );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
 
 	//Display the difficulty level
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );

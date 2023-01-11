@@ -114,7 +114,6 @@
     <ClInclude Include="tiledef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TileEngine All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="World Tileset Enums.h">

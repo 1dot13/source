@@ -1,9 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "worlddef.h"
 	#include "worlddat.h"
 	#include "wcheck.h"
@@ -47,7 +43,6 @@
 	#include "gamesettings.h"
 	#include "editscreen.h"
 	#include "Editor Taskbar Utils.h"
-#endif
 
 #ifdef JA2EDITOR
 	#include "Summary Info.h"

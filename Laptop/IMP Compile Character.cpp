@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "GameSettings.h"
-#else
 	#include "laptop.h"
 	#include "CharProfile.h"
 	#include "Utilities.h"
@@ -28,7 +23,6 @@
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
 	#include "IMP Voices.h"
-#endif
 
 #include "IMP Confirm.h"
 

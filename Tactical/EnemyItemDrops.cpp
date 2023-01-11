@@ -1,10 +1,6 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "DEbug.h"
 	#include "EnemyItemDrops.h"
-#endif
 
 WEAPON_DROPS gEnemyWeaponDrops[MAX_DROP_ITEMS];
 AMMO_DROPS gEnemyAmmoDrops[MAX_DROP_ITEMS];

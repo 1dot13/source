@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "soldier control.h"
 	#include "soldier profile.h"
@@ -17,7 +14,6 @@
 	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
 	#include "CampaignStats.h"	// added by Flugente
 	#include "DynamicDialogue.h"// added by Flugente
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

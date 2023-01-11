@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Font.h"
 	#include "Font Control.h"
 	#include "mapscreen.h"
@@ -50,7 +46,6 @@
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "Quests.h"
 #include "connect.h"

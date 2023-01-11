@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "HelpScreen.h"
-#else
 	#include "mapscreen.h"
 	#include <stdio.h>
 	#include <stdarg.h>
@@ -115,7 +111,6 @@
 	#include "Food.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"	// added by Flugente
 	#include "WordWrap.h"
-#endif
 
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"

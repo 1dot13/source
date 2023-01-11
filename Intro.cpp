@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Intro.h"
-	#include "Cinematics.h"
-#else
 	#include "sgp.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
@@ -27,7 +22,6 @@
 	#include "Soldier Profile.h"
 	#include "Game Init.h"
 	#include "INIReader.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 

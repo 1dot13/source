@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-	#include "interface items.h"
-
-#else
 	#include "types.h"
 	#include "wcheck.h"
 	#include "overhead.h"
@@ -48,7 +43,6 @@
 	#include "GameSettings.h" // added by SANDRO
 	#include "Soldier Profile.h"
 	#include "GameVersion.h"
-#endif
 	#include "Soldier Profile.h"
 	
 	#include "BriefingRoom_Data.h"

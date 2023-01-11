@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "Isometric Utils.h"
@@ -17,7 +14,6 @@
 	#include "Soldier macros.h"
 	#include "Render Fun.h"
 	#include "Soldier Functions.h"		// added by Flugente
-#endif
 #include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

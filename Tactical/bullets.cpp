@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include "math.h"
 	#include <stdio.h>
@@ -26,7 +23,6 @@
 	#include "FileMan.h"
 	#include "lighting.h"
 	#include "Buildings.h"
-#endif
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.

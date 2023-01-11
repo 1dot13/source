@@ -491,10 +491,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic All.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Strategic Event Handler.h"
 				>
 			</File>

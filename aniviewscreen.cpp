@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <time.h>
@@ -29,7 +26,6 @@
 	#include "english.h"
 	#include "Fileman.h"
 	#include "messageboxscreen.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

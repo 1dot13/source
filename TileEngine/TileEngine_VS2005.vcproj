@@ -479,10 +479,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\TileEngine All.h"
-				>
-			</File>
-			<File
 				RelativePath=".\World Tileset Enums.h"
 				>
 			</File>

@@ -189,7 +189,6 @@
 	<ClInclude Include="Intelmarket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Laptop All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="laptop.h">

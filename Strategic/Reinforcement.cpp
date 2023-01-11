@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Town Militia.h"
 	#include "Militia Control.h"
 	#include "Campaign Types.h"
@@ -22,7 +19,6 @@
 	#include "GameSettings.h"
 	#include "Soldier Init List.h"
 	#include "Inventory Choosing.h"
-#endif
 
 #include "GameInitOptionsScreen.h"
 

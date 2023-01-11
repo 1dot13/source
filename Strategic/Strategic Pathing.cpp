@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "types.h"
@@ -25,7 +22,6 @@
 	#include "Game Event Hook.h"
 	#include "Strategic AI.h"
 	#include "Queen Command.h"		// added by Flugente
-#endif
 
 
 void AddSectorToFrontOfMercPath( PathStPtr *ppMercPath, UINT8 ubSectorX, UINT8 ubSectorY );

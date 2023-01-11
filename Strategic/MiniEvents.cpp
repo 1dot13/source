@@ -9,10 +9,6 @@ Mini events are set up in MiniEvents.lua. This file handles mini event triggers 
 to call into.
 */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 #include "MiniEvents.h"
 
 #include "Assignments.h"
@@ -44,7 +40,6 @@ to call into.
 #include "Text.h"
 #include "Town Militia.h"
 #include "Vehicles.h"
-#endif
 
 extern "C" {
 #include "lua.h"

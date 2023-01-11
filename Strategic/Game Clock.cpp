@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "sgp.h"
 	#include "Game Clock.h"
 	#include "Font.h"
@@ -25,7 +22,6 @@
 	#include "gamescreen.h"
 	#include "Map Information.h"
 	#include "GameSettings.h"
-#endif
 
 #include "LuaInitNPCs.h"
 

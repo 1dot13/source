@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 
 	#include "overhead.h"
@@ -26,7 +23,6 @@
 	#include "Vehicles.h"			// added by Flugente
 	#include "CampaignStats.h"		// added by Flugente
 	#include "worldman.h"			// added by Flugente for Water(...)
-#endif
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"

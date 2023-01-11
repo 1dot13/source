@@ -339,10 +339,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Bitmap.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Button Sound Control.h"
 				>
 			</File>
@@ -360,10 +356,6 @@
 			</File>
 			<File
 				RelativePath=".\Cursor Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DbMan.h"
 				>
 			</File>
 			<File
@@ -392,10 +384,6 @@
 			</File>
 			<File
 				RelativePath=".\english.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ExceptionHandling.h"
 				>
 			</File>
 			<File
@@ -448,10 +436,6 @@
 			</File>
 			<File
 				RelativePath=".\Ja2 Libs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\JA2 SGP ALL.H"
 				>
 			</File>
 			<File
@@ -555,19 +539,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\trle.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Types.h"
 				>
 			</File>
 			<File
 				RelativePath=".\video.h"
-				>
-			</File>
-			<File
-				RelativePath=".\video_private.h"
 				>
 			</File>
 			<File
@@ -596,10 +572,6 @@
 			</File>
 			<File
 				RelativePath=".\WinFont.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WizShare.h"
 				>
 			</File>
 			<File
@@ -637,10 +609,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DbMan.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DEBUG.cpp"
 				>
 			</File>
@@ -662,10 +630,6 @@
 			</File>
 			<File
 				RelativePath=".\English.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ExceptionHandling.cpp"
 				>
 			</File>
 			<File

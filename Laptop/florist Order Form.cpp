@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "florist.h"
 	#include "florist Order Form.h"
@@ -20,7 +17,6 @@
 	#include "LaptopSave.h"
 	#include "Random.h"
 	#include "postalservice.h"
-#endif
 
 #include "meanwhile.h"
 

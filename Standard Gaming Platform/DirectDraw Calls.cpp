@@ -1,15 +1,9 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "DirectX Common.h"
 	#include "DirectDraw Calls.h"
 
 	#include <ddraw.h>
 	#include "debug.h"
 	#include "vobject_blitters.h"
-#endif
 
 // DirectDrawSurface2 Calls
 void

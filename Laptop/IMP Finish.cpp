@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Finish.h"
 	#include "IMP Portraits.h"
@@ -19,7 +16,6 @@
 	#include "IMP Text System.h"
 	#include "soundman.h"
 	#include "text.h"
-#endif
 
 
 #include "IMP Confirm.h"

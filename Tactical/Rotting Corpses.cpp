@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
@@ -50,7 +47,6 @@
 	#include "ai.h"			// added by Flugente
 	#include "PreBattle Interface.h"	// added by Flugente
 	#include "Strategic Town Loyalty.h"	// added by Flugente
-#endif
 
 #include "Animation Control.h"
 

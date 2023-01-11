@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "HelpScreen.h"
-	#include "BrokenLink.h"
-	#include "BobbyRShipments.h"
-#else
 	#include "sgp.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
@@ -94,7 +88,6 @@
 	#include "Intelmarket.h"				// added by Flugente
 	#include "FacilityProduction.h"			// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 #include "BriefingRoom_Data.h"

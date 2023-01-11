@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <wchar.h>
 #include <stdio.h>
@@ -103,7 +100,6 @@
 #include "LuaInitNPCs.h"		// added by Flugente
 #include "SaveLoadMap.h"		// added by Flugente
 #include "qarray.h"				// added by Flugente
-#endif
 
 #include "ub_config.h"
 #include "../ModularizedTacticalAI/include/Plan.h" // for plan destructor call

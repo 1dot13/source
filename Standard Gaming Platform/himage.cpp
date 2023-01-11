@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "builddefines.h"
 	#include <math.h>
 	#include <stdlib.h>
@@ -19,7 +14,6 @@
 	#include "Compression.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 
@@ -207,10 +201,8 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::Test
 	if ( !FileExists( ImageFile ) )
 	{
 		//If in debig, make fatal!
-#ifdef JA2
 #ifdef _DEBUG
 		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
 
@@ -222,10 +214,8 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::Test
 	if ( iFileLoader == UNKNOWN_FILE_READER )
 	{
 		//If in debug, make fatal!
-#ifdef JA2
 #ifdef _DEBUG
 		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
 
