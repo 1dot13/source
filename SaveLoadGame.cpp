@@ -2654,7 +2654,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			return(FALSE);
 		}
 
-		// WANNE - BMP: TODO! Struktur prüfen
+		// WANNE - BMP: TODO! Struktur prÃ¼fen
 		//load some structs, atm just POD but could change
 		//Load STRUCT_AIData
 		numBytesRead = 0;
@@ -3592,7 +3592,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	SaveGameHeader.uiSavedGameVersion = SAVE_GAME_VERSION;
 	wcscpy( SaveGameHeader.sSavedGameDesc, pGameDesc );
-	strcpy( SaveGameHeader.zGameVersionNumber, czVersionNumber );
+	strcpy( SaveGameHeader.zGameVersionNumber, czVersionString );
 
 	SaveGameHeader.uiFlags;
 

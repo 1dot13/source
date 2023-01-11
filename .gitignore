@@ -1,5 +1,6 @@
 build/
 lib/
 .vs/
+.idea/
 bin/
 rev.h
