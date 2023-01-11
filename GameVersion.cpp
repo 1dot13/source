@@ -56,7 +56,7 @@
 
 #endif
 
-CHAR8		czVersionNumber[16]	= { GIT_HASH_STR };
+CHAR8		czVersionString[16]	= { GIT_HASH_STR };
 CHAR16		zBuildInformation[256]	= { L"@Build@" };
 
 // SAVE_GAME_VERSION is defined in header, change it there
