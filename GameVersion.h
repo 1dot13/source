@@ -11,11 +11,12 @@ extern "C" {
 //	Keeps track of the game version
 //
 
-extern	CHAR16		zVersionLabel[256];
-extern	CHAR8		czVersionNumber[16];
-extern	CHAR16		zTrackingNumber[16];
-extern	CHAR16		zRevisionNumber[16];
-
+// name of the product, Unfinished Business, Map Editor etc..
+extern	CHAR16		zProductLabel[64];
+// used for save game comparison
+extern	CHAR8		czVersionString[16];
+// can contain information regarding the build: what git ref was the base (tag, branch), by whom, commit date, build date, etc..
+extern	CHAR16		zBuildInformation[256];
 
 //ADB:	I needed these here so I moved them, and why put them in *.cpp anyways?
 //
