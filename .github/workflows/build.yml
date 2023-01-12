@@ -42,10 +42,10 @@ jobs:
             # the two letter short form could be removed if JA2LangPrefix is removed
             # the casing of the long form adheres to the one found in the gamedir-languages repo
             # for compilation only, the long form is transformed to upper case
-            languages_json_array='["CN_Chinese", "DE_German", "EN_English", "FR_French", "PL_Polish", "IT_Italian", "NL_Dutch", "RU_Russian"]';
+            languages_json_array='["Chinese", "German", "English", "French", "Polish", "Italian", "Dutch", "Russian"]';
           else
             # English + some other language for compilation testing
-            languages_json_array='["DE_German", "EN_English"]'
+            languages_json_array='["German", "English"]'
           fi
           echo "languages_json_array=$languages_json_array" >> $GITHUB_OUTPUT
           
@@ -173,7 +173,7 @@ jobs:
       language: ${{ matrix.language }}
       assemble: ${{ needs.workflow_setup.outputs.assemble_release == 'true' }}
       # at least English and some other lang have to work
-      continue-on-error: ${{ matrix.language != 'EN_English' && matrix.language != 'DE_German' }}
+      continue-on-error: ${{ matrix.language != 'English' && matrix.language != 'German' }}
 
   release:
     needs: [ workflow_setup, build ]
