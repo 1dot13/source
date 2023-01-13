@@ -145,7 +145,8 @@
 	</Filter>
 	<Filter name="HasKneepads">
 		<AND>
-			<LEGPOS op="in">838, 294</LEGPOS>
+			<LEGPOS not="" op="in">0, 805</LEGPOS>
+			<!--<LEGPOS op="in">838, 294</LEGPOS>-->
 		</AND>
 	</Filter>
 	<Filter name="HasKneepadsAndHasPistol">
@@ -554,6 +555,69 @@
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
+		<Filter name="EODvest">
+		<OR>
+			<VESTPOS op="in">806</VESTPOS>
+		</OR>
+	</Filter>
+	<Filter name="EODpants">
+		<AND>
+			<LEGPOS op="in">805</LEGPOS>
+		</AND>
+	</Filter>
+	<Filter name="EODhelmet">
+		<OR>
+			<HELMETPOS op="in">804</HELMETPOS>
+		</OR>
+	</Filter>
+	<Filter name="EODvestAndPistol">
+		<AND>
+			<FILTER>EODvest</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODvestAndRifle">
+		<AND>
+			<FILTER>EODvest</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODpantsAndPistol">
+		<AND>
+			<FILTER>EODpants</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODpantsAndPistolLeft">
+		<AND>
+			<FILTER>EODpants</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODpantsAndRifle">
+		<AND>
+			<FILTER>EODpants</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODhelmetAndPistol">
+		<AND>
+			<FILTER>EODhelmet</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODhelmetAndRifle">
+		<AND>
+			<FILTER>EODhelmet</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="EODhelmetAndVest">
+		<AND>
+			<FILTER>EODhelmet</FILTER>
+			<FILTER>EODvest</FILTER>
+		</AND>
+	</Filter>	
 	<Filter name="IsWearingGasmask">
 		<OR>
 			<HEAD1POS op="in">213</HEAD1POS>

@@ -142,6 +142,143 @@
 			<Surface name="RGF_SLAP_LSLEEVE" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
+	<Layer name="head">
+		<LayerProp filter="IsWearingBalaclavaAndHasPistol">
+			<Surface name="RGF_EMPTY_RUN_balaclava" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_balaclava" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_PISTOL_SDSTP_balaclava" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_WATER_PISTOL_IDLE_balaclava" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_balaclava" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_PISTOL_AIM_balaclava" animsurface="RGFWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="IsWearingBalaclavaAndHasRifle">
+			<Surface name="RGF_RIFLE_OPEN_balaclava" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_COWER_balaclava" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_balaclava" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_balaclava" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_balaclava" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_balaclava" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_balaclava" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_balaclava" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_LOW_balaclava" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_balaclava" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_balaclava" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="Balaclava">
+			<Surface name="RGF_RIFLE_WALK_CROUCH_balaclava" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_balaclava" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_balaclava" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_balaclava" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_balaclava" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_balaclava" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_balaclava" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SWAT_balaclava" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_balaclava" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_balaclava" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_balaclava" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_balaclava" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_balaclava" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_balaclava" animsurface="RGFRHIT"/>
+			<Surface name="RGF_CROUCHWALK_balaclava" animsurface="RGFCROUCH_P_RDY"/>
+			<Surface name="RGF_CROUCHWALK_DUAL_balaclava" animsurface="RGFCROUCH_D_RDY"/>
+			<Surface name="RGF_HOP_balaclava" animsurface="RGFHOPFENCE"/>
+			<Surface name="RGF_HOP_balaclava" animsurface="RGFJUMPWINDOWS"/>
+			<Surface name="RGF_PUNCH_balaclava" animsurface="RGFPUNCH"/>
+			<Surface name="RGF_IDLE_balaclava" animsurface="RGFNOTHING_STD"/>
+			<Surface name="RGF_PISTOL_IDLE_balaclava" animsurface="RGFDBLBREATH"/>
+			<Surface name="RGF_OPEN_balaclava" animsurface="RGFOPEN"/>
+			<Surface name="RGF_PICKUP_balaclava" animsurface="RGFPICKUP"/>
+			<Surface name="RGF_MEDIC_CROUCH_balaclava" animsurface="RGFMEDIC"/>
+			<Surface name="RGF_MEDIC_PRONE_balaclava" animsurface="RGFMEDICPRN"/>
+			<Surface name="RGF_COWER_PRONE_balaclava" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_DIE_PRONE_balaclava" animsurface="RGFHITPRONE"/>
+			<Surface name="RGF_EMPTY_CROUCH_balaclava" animsurface="RGFNOTHING_CROUCH"/>
+			<Surface name="RGF_EMPTY_SWAT_balaclava" animsurface="RGFNOTHING_SWAT"/>
+			<Surface name="RGF_EMPTY_SWAT_balaclava" animsurface="RGFSWKNIFE"/>
+			<Surface name="RGF_EMPTY_RUN_balaclava" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_balaclava" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_EMPTY_WALK_balaclava" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_PRONE_balaclava" animsurface="RGFHANDGUN_PRONE"/>
+			<Surface name="RGF_DUAL_PRONE_balaclava" animsurface="RGFDWPRONE"/>
+			<Surface name="RGF_PISTOL_IDLE_balaclava" animsurface="RGFPISTOLBREATH"/>
+			<Surface name="RGF_PISTOL_RDY_WALK_balaclava" animsurface="RGFWALK_P_RDY"/>
+			<Surface name="RGF_DUAL_RDY_WALK_balaclava" animsurface="RGFWALK_D_RDY"/>
+			<Surface name="RGF_PISTOL_AIM_balaclava" animsurface="RGFHANDGUN_S_SHOT"/>
+			<Surface name="RGF_PISTOL_AIM_1H_balaclava" animsurface="RGF_PFSHOT_AIM"/>
+			<Surface name="RGF_PISTOL_LOW_balaclava" animsurface="RGFPISTOLSHOOTLOW"/>
+			<Surface name="RGF_PISTOL_LOW_balaclava" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_PISTOL_CR_AIM_balaclava" animsurface="RGFHANDGUN_C_SHOT"/>
+			<Surface name="RGF_DUAL_CR_AIM_balaclava" animsurface="RGFCDBLSHOT"/>
+			<Surface name="RGF_PISTOL_SDSTP_AIM_balaclava" animsurface="RGFSIDESTEP_P_RDY"/>
+			<Surface name="RGF_DUAL_SDSTP_AIM_balaclava" animsurface="RGFSIDESTEP_D_RDY"/>
+			<Surface name="RGF_DUAL_AIM_balaclava" animsurface="RGFSTANDDWALAIM"/>
+			<Surface name="RGF_EMPTY_PAIN_balaclava" animsurface="RGFHURTSTANDINGN"/>
+			<Surface name="RGF_RIFLE_PAIN_balaclava" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_EMPTY_DIE_balaclava" animsurface="RGFHITSTAND"/>
+			<Surface name="RGF_EMPTY_CDIE_balaclava" animsurface="RGFHITCROUCH"/>
+			<Surface name="RGF_EMPTY_COWER_balaclava" animsurface="RGFCOWER"/>
+			<Surface name="RGF_CLIMB_balaclava" animsurface="RGFCLIMBROOF"/>
+			<Surface name="RGF_CLIMB_balaclava" animsurface="RGFWALLJUMP"/>
+			<Surface name="RGF_EMPTY_ROLL_balaclava" animsurface="RGFROLLOVER"/>
+			<Surface name="RGF_EMPTY_ROLL_SIDE_balaclava" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_EMPTY_DIEFB_balaclava" animsurface="RGFHITFALLBACK"/>
+			<Surface name="RGF_EMPTY_DIEFBH_balaclava" animsurface="RGFHITHARD"/>
+			<Surface name="RGF_EMPTY_DIEFBHB_balaclava" animsurface="RGFHITHARDBLOOD"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_balaclava" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_BAYONET_balaclava" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_balaclava" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_EMPTY_DODGE_balaclava" animsurface="RGFDODGE"/>
+			<Surface name="RGF_EMPTY_THROW_balaclava" animsurface="RGFTHROW"/>
+			<Surface name="RGF_EMPTY_THROW_G_balaclava" animsurface="RGFSTHRG"/>
+			<Surface name="RGF_EMPTY_LOB_balaclava" animsurface="RGFLOB"/>
+			<Surface name="RGF_EMPTY_LOB_G_balaclava" animsurface="RGFSLOBG"/>
+			<Surface name="RGF_EMPTY_KICKDOOR_balaclava" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_EMPTY_SQUISH_balaclava" animsurface="RGF_SQUISH" />-->
+			<Surface name="RGF_EMPTY_RADIO_balaclava" animsurface="RGFRADIO"/>
+			<!--<Surface name="RGF_EMPTY_PULL_balaclava" animsurface="RGF_PULL" />-->
+			<Surface name="RGF_EMPTY_REMOTE_balaclava" animsurface="RGFUSEREMOTE"/>
+			<Surface name="RGF_KNIFE_STAB_balaclava" animsurface="RGFSTAB"/>
+			<Surface name="RGF_KNIFE_SLICE_balaclava" animsurface="RGFSLICE"/>
+			<Surface name="RGF_KNIFE_THROW_balaclava" animsurface="RGFTHROWKNIFE"/>
+			<Surface name="RGF_KNIFE_BREATH_balaclava" animsurface="RGFBREATHKNIFE"/>
+			<Surface name="RGF_CROWBAR_HIT_balaclava" animsurface="RGFCROWBAR"/>
+			<Surface name="RGF_CROWBAR_CR_HIT_balaclava" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CPUNCH_balaclava" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CTHROW_balaclava" animsurface="RGFCRTHROW"/>
+			<Surface name="RGF_KNIFE_CSTAB_balaclava" animsurface="RGFCSTAB"/>
+			<Surface name="RGF_EMPTY_CRADIO_balaclava" animsurface="RGFCRRADIO"/>
+			<Surface name="RGF_EMPTY_SLEEP_balaclava" animsurface="RGFSLEEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_balaclava" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_balaclava" animsurface="RGFHURTWALKINGN"/>
+			<Surface name="RGF_EMPTY_FALL_balaclava" animsurface="RGFFALL"/>
+			<Surface name="RGF_EMPTY_FALLFWD_balaclava" animsurface="RGFFALLF"/>
+			<!--<Surface name="RGF_EMPTY_KARATELK_balaclava" animsurface="RGFLOWKICK" />
+			<Surface name="RGF_EMPTY_KARATESPINK_balaclava" animsurface="RGFSPINKICK" />-->
+			<Surface name="RGF_LAW_balaclava" animsurface="RGFROCKET"/>
+			<Surface name="RGF_LAW_CR_balaclava" animsurface="RGFCRROCKET"/>
+			<Surface name="RGF_EMPTY_KICKSAND_balaclava" animsurface="RGFKICKSN"/>
+			<Surface name="RGF_EMPTY_WIPEFACE_balaclava" animsurface="RGFWIPE"/>
+			<Surface name="RGF_RIFLE_LOOK_balaclava" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_balaclava" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_balaclava" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_balaclava" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_balaclava" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_balaclava" animsurface="RGF_WATER_HIP_AIM" />
+			<Surface name="RGF_WATER_EMPTY_IDLE_balaclava" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_balaclava" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_EMPTY_THROW_balaclava" animsurface="RGFWATERTHROW" />
+			<Surface name="RGF_WATER_EMPTY_FALL_balaclava" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_FALL_balaclava" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_TREAD_balaclava" animsurface="RGFDEEPWATER_TRED" />
+			<Surface name="RGF_WATER_EMPTY_SWIM_balaclava" animsurface="RGFDEEPWATER_SWIM" />
+			<Surface name="RGF_WATER_EMPTY_DIE_balaclava" animsurface="RGFWATER_DIE" />
+			<Surface name="RGF_WATER_EMPTY_DROWN_balaclava" animsurface="RGFDEEPWATER_DIE" />
+			<Surface name="RGF_WATER_DUAL_AIM_balaclava" animsurface="RGFWATER_DBLSHT" />
+			<Surface name="RGF_HELIDROP_balaclava" animsurface="RGFHELIDROP" />
+			<Surface name="RGF_CROUCH_MORTAR_balaclava" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_balaclava" animsurface="RGFSLAP" />			
+		</LayerProp>
+	</Layer>
 	<Layer name="helmet">
 		<LayerProp filter="IsWearingCamoHelmetAndHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_RUN_CAMOHELMET" animsurface="RGFPISTOL_RUN"/>
@@ -1094,6 +1231,143 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="vest">
+		<LayerProp filter="IsWearingSpectraAndHasPistol" palette="hats">
+			<Surface name="RGF_PISTOL_IDLE_spectra" animsurface="RGFPISTOLBREATH"/>
+			<Surface name="RGF_EMPTY_WALK_spectra" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_PISTOL_RDY_WALK_spectra" animsurface="RGFWALK_P_RDY"/>
+			<Surface name="RGF_EMPTY_RUN_spectra" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_spectra" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_PISTOL_SDSTP_spectra" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_WATER_PISTOL_IDLE_spectra" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_spectra" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_PISTOL_AIM_spectra" animsurface="RGFWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="IsWearingSpectraAndHasRifle" palette="hats">
+			<Surface name="RGF_RIFLE_OPEN_spectra" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_COWER_spectra" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_spectra" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_spectra" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_spectra" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_spectra" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_spectra" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_spectra" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_LOW_spectra" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_spectra" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_spectra" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="SpectraVest" palette="hats">
+			<Surface name="RGF_RIFLE_WALK_CROUCH_spectra" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_spectra" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_spectra" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_spectra" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_spectra" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_spectra" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_spectra" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SWAT_spectra" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_spectra" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_spectra" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_spectra" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_spectra" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_spectra" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_spectra" animsurface="RGFRHIT"/>
+			<Surface name="RGF_CROUCHWALK_spectra" animsurface="RGFCROUCH_P_RDY"/>
+			<Surface name="RGF_CROUCHWALK_DUAL_spectra" animsurface="RGFCROUCH_D_RDY"/>
+			<Surface name="RGF_HOP_spectra" animsurface="RGFHOPFENCE"/>
+			<Surface name="RGF_HOP_spectra" animsurface="RGFJUMPWINDOWS"/>
+			<Surface name="RGF_PUNCH_spectra" animsurface="RGFPUNCH"/>
+			<Surface name="RGF_IDLE_spectra" animsurface="RGFNOTHING_STD"/>
+			<Surface name="RGF_PISTOL_IDLE_spectra" animsurface="RGFDBLBREATH"/>
+			<Surface name="RGF_OPEN_spectra" animsurface="RGFOPEN"/>
+			<Surface name="RGF_PICKUP_spectra" animsurface="RGFPICKUP"/>
+			<Surface name="RGF_MEDIC_CROUCH_spectra" animsurface="RGFMEDIC"/>
+			<Surface name="RGF_MEDIC_PRONE_spectra" animsurface="RGFMEDICPRN"/>
+			<Surface name="RGF_COWER_PRONE_spectra" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_DIE_PRONE_spectra" animsurface="RGFHITPRONE"/>
+			<Surface name="RGF_EMPTY_CROUCH_spectra" animsurface="RGFNOTHING_CROUCH"/>
+			<Surface name="RGF_EMPTY_SWAT_spectra" animsurface="RGFNOTHING_SWAT"/>
+			<Surface name="RGF_EMPTY_SWAT_spectra" animsurface="RGFSWKNIFE"/>
+			<Surface name="RGF_EMPTY_RUN_spectra" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_spectra" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_EMPTY_WALK_spectra" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_PRONE_spectra" animsurface="RGFHANDGUN_PRONE"/>
+			<Surface name="RGF_DUAL_PRONE_spectra" animsurface="RGFDWPRONE"/>
+			<Surface name="RGF_DUAL_RDY_WALK_spectra" animsurface="RGFWALK_D_RDY"/>
+			<Surface name="RGF_PISTOL_AIM_spectra" animsurface="RGFHANDGUN_S_SHOT"/>
+			<Surface name="RGF_PISTOL_AIM_1H_spectra" animsurface="RGF_PFSHOT_AIM"/>
+			<Surface name="RGF_PISTOL_LOW_spectra" animsurface="RGFPISTOLSHOOTLOW"/>
+			<Surface name="RGF_PISTOL_LOW_spectra" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_PISTOL_CR_AIM_spectra" animsurface="RGFHANDGUN_C_SHOT"/>
+			<Surface name="RGF_DUAL_CR_AIM_spectra" animsurface="RGFCDBLSHOT"/>
+			<Surface name="RGF_PISTOL_SDSTP_AIM_spectra" animsurface="RGFSIDESTEP_P_RDY"/>
+			<Surface name="RGF_DUAL_SDSTP_AIM_spectra" animsurface="RGFSIDESTEP_D_RDY"/>
+			<Surface name="RGF_DUAL_AIM_spectra" animsurface="RGFSTANDDWALAIM"/>
+			<Surface name="RGF_EMPTY_PAIN_spectra" animsurface="RGFHURTSTANDINGN"/>
+			<Surface name="RGF_RIFLE_PAIN_spectra" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_EMPTY_DIE_spectra" animsurface="RGFHITSTAND"/>
+			<Surface name="RGF_EMPTY_JFK_spectra" animsurface="RGFDIE_JFK"/>
+			<Surface name="RGF_EMPTY_CDIE_spectra" animsurface="RGFHITCROUCH"/>
+			<Surface name="RGF_EMPTY_COWER_spectra" animsurface="RGFCOWER"/>
+			<Surface name="RGF_CLIMB_spectra" animsurface="RGFCLIMBROOF"/>
+			<Surface name="RGF_CLIMB_spectra" animsurface="RGFWALLJUMP"/>
+			<Surface name="RGF_EMPTY_ROLL_spectra" animsurface="RGFROLLOVER"/>
+			<Surface name="RGF_EMPTY_ROLL_SIDE_spectra" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_EMPTY_DIEFB_spectra" animsurface="RGFHITFALLBACK"/>
+			<Surface name="RGF_EMPTY_DIEFBH_spectra" animsurface="RGFHITHARD"/>
+			<Surface name="RGF_EMPTY_DIEFBHB_spectra" animsurface="RGFHITHARDBLOOD"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_spectra" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_BAYONET_spectra" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_spectra" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_EMPTY_DODGE_spectra" animsurface="RGFDODGE"/>
+			<Surface name="RGF_EMPTY_THROW_spectra" animsurface="RGFTHROW"/>
+			<Surface name="RGF_EMPTY_THROW_G_spectra" animsurface="RGFSTHRG"/>
+			<Surface name="RGF_EMPTY_LOB_spectra" animsurface="RGFLOB"/>
+			<Surface name="RGF_EMPTY_LOB_G_spectra" animsurface="RGFSLOBG"/>
+			<Surface name="RGF_EMPTY_KICKDOOR_spectra" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_EMPTY_SQUISH_spectra" animsurface="RGF_SQUISH" />-->
+			<Surface name="RGF_EMPTY_RADIO_spectra" animsurface="RGFRADIO"/>
+			<!--<Surface name="RGF_EMPTY_PULL_spectra" animsurface="RGF_PULL" />-->
+			<Surface name="RGF_EMPTY_REMOTE_spectra" animsurface="RGFUSEREMOTE"/>
+			<Surface name="RGF_KNIFE_STAB_spectra" animsurface="RGFSTAB"/>
+			<Surface name="RGF_KNIFE_SLICE_spectra" animsurface="RGFSLICE"/>
+			<Surface name="RGF_KNIFE_THROW_spectra" animsurface="RGFTHROWKNIFE"/>
+			<Surface name="RGF_KNIFE_BREATH_spectra" animsurface="RGFBREATHKNIFE"/>
+			<Surface name="RGF_CROWBAR_HIT_spectra" animsurface="RGFCROWBAR"/>
+			<Surface name="RGF_CROWBAR_CR_HIT_spectra" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CPUNCH_spectra" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CTHROW_spectra" animsurface="RGFCRTHROW"/>
+			<Surface name="RGF_KNIFE_CSTAB_spectra" animsurface="RGFCSTAB"/>
+			<Surface name="RGF_EMPTY_CRADIO_spectra" animsurface="RGFCRRADIO"/>
+			<Surface name="RGF_EMPTY_SLEEP_spectra" animsurface="RGFSLEEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_spectra" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_spectra" animsurface="RGFHURTWALKINGN"/>
+			<Surface name="RGF_EMPTY_FALL_spectra" animsurface="RGFFALL"/>
+			<Surface name="RGF_EMPTY_FALLFWD_spectra" animsurface="RGFFALLF"/>
+			<!--<Surface name="RGF_EMPTY_KARATELK_spectra" animsurface="RGFLOWKICK" />
+			<Surface name="RGF_EMPTY_KARATESPINK_spectra" animsurface="RGFSPINKICK" />-->
+			<Surface name="RGF_LAW_spectra" animsurface="RGFROCKET"/>
+			<Surface name="RGF_LAW_CR_spectra" animsurface="RGFCRROCKET"/>
+			<Surface name="RGF_EMPTY_KICKSAND_spectra" animsurface="RGFKICKSN"/>
+			<Surface name="RGF_EMPTY_WIPEFACE_spectra" animsurface="RGFWIPE"/>
+			<Surface name="RGF_RIFLE_LOOK_spectra" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_spectra" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_spectra" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_spectra" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_spectra" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_spectra" animsurface="RGF_WATER_HIP_AIM" />
+			<Surface name="RGF_WATER_EMPTY_IDLE_spectra" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_spectra" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_EMPTY_THROW_spectra" animsurface="RGFWATERTHROW" />
+			<Surface name="RGF_WATER_EMPTY_FALL_spectra" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_FALL_spectra" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_TREAD_spectra" animsurface="RGFDEEPWATER_TRED" />
+			<Surface name="RGF_WATER_EMPTY_SWIM_spectra" animsurface="RGFDEEPWATER_SWIM" />
+			<Surface name="RGF_WATER_EMPTY_DIE_spectra" animsurface="RGFWATER_DIE" />
+			<Surface name="RGF_WATER_EMPTY_DROWN_spectra" animsurface="RGFDEEPWATER_DIE" />
+			<Surface name="RGF_WATER_DUAL_AIM_spectra" animsurface="RGFWATER_DBLSHT" />
+			<Surface name="RGF_HELIDROP_spectra" animsurface="RGFHELIDROP" />
+			<Surface name="RGF_CROUCH_MORTAR_spectra" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_spectra" animsurface="RGFSLAP" />			
+		</LayerProp>
 		<LayerProp filter="IsWearingKevlarAndHasPistol" palette="hats">
 			<Surface name="RGF_PISTOL_IDLE_kevlar" animsurface="RGFPISTOLBREATH"/>
 			<Surface name="RGF_EMPTY_WALK_kevlar" animsurface="RGFNOTHING_WALK"/>
@@ -1505,6 +1779,276 @@
 			<Surface name="RGF_SLAP_BP" animsurface="RGFSLAP" />			
 		</LayerProp>
 	</Layer>
+	<Layer name="legrig">
+		<LayerProp filter="HasHolsterAndPistol" palette="hats">
+			<Surface name="RGF_EMPTY_WALK_holster" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_RUN_holster" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_holster" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_PISTOL_SDSTP_holster" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_WATER_PISTOL_IDLE_holster" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_holster" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_PISTOL_AIM_holster" animsurface="RGFWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="HasHolsterAndRifle" palette="hats">
+			<Surface name="RGF_RIFLE_OPEN_holster" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_COWER_holster" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_holster" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_holster" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_holster" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_holster" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_holster" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_holster" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_LOW_holster" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_holster" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_holster" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="Holster" palette="hats">
+			<Surface name="RGF_RIFLE_WALK_CROUCH_holster" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_CROUCHWALK_holster" animsurface="RGFCROUCH_P_RDY"/>
+			<Surface name="RGF_CROUCHWALK_DUAL_holster" animsurface="RGFCROUCH_D_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_holster" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_holster" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_holster" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_holster" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_holster" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SWAT_holster" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_WALK_holster" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_RAISE_holster" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_holster" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_holster" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_holster" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_holster" animsurface="RGFPRONE"/>
+			<Surface name="RGF_HOP_holster" animsurface="RGFHOPFENCE"/>
+			<Surface name="RGF_HOP_holster" animsurface="RGFJUMPWINDOWS"/>
+			<Surface name="RGF_PUNCH_holster" animsurface="RGFPUNCH"/>
+			<Surface name="RGF_IDLE_holster" animsurface="RGFNOTHING_STD"/>
+			<Surface name="RGF_PISTOL_IDLE_holster" animsurface="RGFDBLBREATH"/>
+			<Surface name="RGF_OPEN_holster" animsurface="RGFOPEN"/>
+			<Surface name="RGF_PICKUP_holster" animsurface="RGFPICKUP"/>
+			<Surface name="RGF_MEDIC_CROUCH_holster" animsurface="RGFMEDIC"/>
+			<Surface name="RGF_RIFLE_HIT_holster" animsurface="RGFRHIT"/>
+			<Surface name="RGF_EMPTY_CROUCH_holster" animsurface="RGFNOTHING_CROUCH"/>
+			<Surface name="RGF_EMPTY_SWAT_holster" animsurface="RGFNOTHING_SWAT"/>
+			<Surface name="RGF_EMPTY_SWAT_holster" animsurface="RGFSWKNIFE"/>
+			<Surface name="RGF_EMPTY_RUN_holster" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_holster" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_EMPTY_WALK_holster" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_PRONE_holster" animsurface="RGFHANDGUN_PRONE"/>
+			<Surface name="RGF_PISTOL_IDLE_holster" animsurface="RGFPISTOLBREATH"/>
+			<Surface name="RGF_PISTOL_AIM_holster" animsurface="RGFHANDGUN_S_SHOT"/>
+			<Surface name="RGF_PISTOL_AIM_1H_holster" animsurface="RGF_PFSHOT_AIM"/>
+			<Surface name="RGF_PISTOL_RDY_WALK_holster" animsurface="RGFWALK_P_RDY"/>
+			<Surface name="RGF_DUAL_RDY_WALK_holster" animsurface="RGFWALK_D_RDY"/>
+			<Surface name="RGF_PISTOL_CR_AIM_holster" animsurface="RGFHANDGUN_C_SHOT"/>
+			<Surface name="RGF_PISTOL_SDSTP_AIM_holster" animsurface="RGFSIDESTEP_P_RDY"/>
+			<Surface name="RGF_DUAL_SDSTP_AIM_holster" animsurface="RGFSIDESTEP_D_RDY"/>
+			<Surface name="RGF_PISTOL_LOW_holster" animsurface="RGFPISTOLSHOOTLOW"/>
+			<Surface name="RGF_PISTOL_LOW_holster" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_DUAL_AIM_holster" animsurface="RGFSTANDDWALAIM"/>
+			<Surface name="RGF_DUAL_CR_AIM_holster" animsurface="RGFCDBLSHOT"/>
+			<Surface name="RGF_MEDIC_PRONE_holster" animsurface="RGFMEDICPRN"/>
+			<Surface name="RGF_COWER_PRONE_holster" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_DIE_PRONE_holster" animsurface="RGFHITPRONE"/>
+			<Surface name="RGF_DUAL_PRONE_holster" animsurface="RGFDWPRONE"/>
+			<Surface name="RGF_EMPTY_PAIN_holster" animsurface="RGFHURTSTANDINGN"/>
+			<Surface name="RGF_RIFLE_PAIN_holster" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_EMPTY_DIE_holster" animsurface="RGFHITSTAND"/>
+			<Surface name="RGF_EMPTY_JFK_holster" animsurface="RGFDIE_JFK"/>
+			<Surface name="RGF_EMPTY_CDIE_holster" animsurface="RGFHITCROUCH"/>
+			<Surface name="RGF_EMPTY_COWER_holster" animsurface="RGFCOWER"/>
+			<Surface name="RGF_EMPTY_ROLL_holster" animsurface="RGFROLLOVER"/>
+			<Surface name="RGF_EMPTY_ROLL_SIDE_holster" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_EMPTY_DIEFB_holster" animsurface="RGFHITFALLBACK"/>
+			<Surface name="RGF_EMPTY_DIEFBH_holster" animsurface="RGFHITHARD"/>
+			<Surface name="RGF_EMPTY_DIEFBHB_holster" animsurface="RGFHITHARDBLOOD"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_holster" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_BAYONET_holster" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_holster" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_EMPTY_DODGE_holster" animsurface="RGFDODGE"/>
+			<Surface name="RGF_EMPTY_THROW_holster" animsurface="RGFTHROW"/>
+			<Surface name="RGF_EMPTY_THROW_G_holster" animsurface="RGFSTHRG"/>
+			<Surface name="RGF_EMPTY_LOB_holster" animsurface="RGFLOB"/>
+			<Surface name="RGF_EMPTY_LOB_G_holster" animsurface="RGFSLOBG"/>
+			<Surface name="RGF_EMPTY_KICKDOOR_holster" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_EMPTY_SQUISH_holster" animsurface="RGF_SQUISH" />-->
+			<Surface name="RGF_EMPTY_RADIO_holster" animsurface="RGFRADIO"/>
+			<!--<Surface name="RGF_EMPTY_PULL_holster" animsurface="RGF_PULL" />-->
+			<Surface name="RGF_EMPTY_REMOTE_holster" animsurface="RGFUSEREMOTE"/>
+			<Surface name="RGF_KNIFE_STAB_holster" animsurface="RGFSTAB"/>
+			<Surface name="RGF_KNIFE_SLICE_holster" animsurface="RGFSLICE"/>
+			<Surface name="RGF_KNIFE_THROW_holster" animsurface="RGFTHROWKNIFE"/>
+			<Surface name="RGF_KNIFE_BREATH_holster" animsurface="RGFBREATHKNIFE"/>
+			<Surface name="RGF_CROWBAR_HIT_holster" animsurface="RGFCROWBAR"/>
+			<Surface name="RGF_CROWBAR_CR_HIT_holster" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CPUNCH_holster" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CTHROW_holster" animsurface="RGFCRTHROW"/>
+			<Surface name="RGF_KNIFE_CSTAB_holster" animsurface="RGFCSTAB"/>
+			<Surface name="RGF_EMPTY_CRADIO_holster" animsurface="RGFCRRADIO"/>
+			<Surface name="RGF_EMPTY_SLEEP_holster" animsurface="RGFSLEEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_holster" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_holster" animsurface="RGFHURTWALKINGN"/>
+			<Surface name="RGF_EMPTY_FALL_holster" animsurface="RGFFALL"/>
+			<Surface name="RGF_EMPTY_FALLFWD_holster" animsurface="RGFFALLF"/>
+			<Surface name="RGF_CLIMB_holster" animsurface="RGFCLIMBROOF"/>
+			<Surface name="RGF_CLIMB_holster" animsurface="RGFWALLJUMP"/>
+			<!--<Surface name="RGF_EMPTY_KARATELK_holster" animsurface="RGFLOWKICK" />
+			<Surface name="RGF_EMPTY_KARATESPINK_holster" animsurface="RGFSPINKICK" />-->
+			<Surface name="RGF_LAW_holster" animsurface="RGFROCKET"/>
+			<Surface name="RGF_LAW_CR_holster" animsurface="RGFCRROCKET"/>
+			<Surface name="RGF_EMPTY_KICKSAND_holster" animsurface="RGFKICKSN"/>
+			<Surface name="RGF_EMPTY_WIPEFACE_holster" animsurface="RGFWIPE"/>
+			<Surface name="RGF_RIFLE_LOOK_holster" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_holster" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_holster" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_holster" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_holster" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_holster" animsurface="RGF_WATER_HIP_AIM" />
+			<Surface name="RGF_WATER_EMPTY_IDLE_holster" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_holster" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_EMPTY_THROW_holster" animsurface="RGFWATERTHROW" />
+			<Surface name="RGF_WATER_EMPTY_FALL_holster" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_DIE_holster" animsurface="RGFWATER_DIE" />
+			<Surface name="RGF_WATER_DUAL_AIM_holster" animsurface="RGFWATER_DBLSHT" />
+			<Surface name="RGF_HELIDROP_holster" animsurface="RGFHELIDROP" />
+			<Surface name="RGF_CROUCH_MORTAR_holster" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_holster" animsurface="RGFSLAP" />			
+		</LayerProp>
+	</Layer>
+	<Layer name="legrig_left">
+		<LayerProp filter="HasLeftHolsterAndPistol" palette="hats">
+			<Surface name="RGF_EMPTY_WALK_holster_l" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_RUN_holster_l" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_holster_l" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_PISTOL_SDSTP_holster_l" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_WATER_PISTOL_IDLE_holster_l" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_holster_l" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_PISTOL_AIM_holster_l" animsurface="RGFWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="HasLeftHolsterAndRifle" palette="hats">
+			<Surface name="RGF_RIFLE_OPEN_holster_l" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_COWER_holster_l" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_holster_l" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_holster_l" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_holster_l" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_holster_l" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_holster_l" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_holster_l" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_LOW_holster_l" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_holster_l" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_holster_l" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="HolsterLeft" palette="hats">
+			<Surface name="RGF_RIFLE_WALK_CROUCH_holster_l" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_CROUCHWALK_holster_l" animsurface="RGFCROUCH_P_RDY"/>
+			<Surface name="RGF_CROUCHWALK_DUAL_holster_l" animsurface="RGFCROUCH_D_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_holster_l" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_holster_l" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_holster_l" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_holster_l" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_holster_l" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SWAT_holster_l" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_WALK_holster_l" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_RAISE_holster_l" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_holster_l" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_holster_l" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_holster_l" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_holster_l" animsurface="RGFPRONE"/>
+			<Surface name="RGF_HOP_holster_l" animsurface="RGFHOPFENCE"/>
+			<Surface name="RGF_HOP_holster_l" animsurface="RGFJUMPWINDOWS"/>
+			<Surface name="RGF_PUNCH_holster_l" animsurface="RGFPUNCH"/>
+			<Surface name="RGF_IDLE_holster_l" animsurface="RGFNOTHING_STD"/>
+			<Surface name="RGF_PISTOL_IDLE_holster_l" animsurface="RGFDBLBREATH"/>
+			<Surface name="RGF_OPEN_holster_l" animsurface="RGFOPEN"/>
+			<Surface name="RGF_PICKUP_holster_l" animsurface="RGFPICKUP"/>
+			<Surface name="RGF_MEDIC_CROUCH_holster_l" animsurface="RGFMEDIC"/>
+			<Surface name="RGF_RIFLE_HIT_holster_l" animsurface="RGFRHIT"/>
+			<Surface name="RGF_EMPTY_CROUCH_holster_l" animsurface="RGFNOTHING_CROUCH"/>
+			<Surface name="RGF_EMPTY_SWAT_holster_l" animsurface="RGFNOTHING_SWAT"/>
+			<Surface name="RGF_EMPTY_SWAT_holster_l" animsurface="RGFSWKNIFE"/>
+			<Surface name="RGF_EMPTY_RUN_holster_l" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_holster_l" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_EMPTY_WALK_holster_l" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_PRONE_holster_l" animsurface="RGFHANDGUN_PRONE"/>
+			<Surface name="RGF_PISTOL_IDLE_holster_l" animsurface="RGFPISTOLBREATH"/>
+			<Surface name="RGF_PISTOL_AIM_holster_l" animsurface="RGFHANDGUN_S_SHOT"/>
+			<Surface name="RGF_PISTOL_AIM_1H_holster_l" animsurface="RGF_PFSHOT_AIM"/>
+			<Surface name="RGF_PISTOL_RDY_WALK_holster_l" animsurface="RGFWALK_P_RDY"/>
+			<Surface name="RGF_DUAL_RDY_WALK_holster_l" animsurface="RGFWALK_D_RDY"/>
+			<Surface name="RGF_PISTOL_CR_AIM_holster_l" animsurface="RGFHANDGUN_C_SHOT"/>
+			<Surface name="RGF_PISTOL_SDSTP_AIM_holster_l" animsurface="RGFSIDESTEP_P_RDY"/>
+			<Surface name="RGF_DUAL_SDSTP_AIM_holster_l" animsurface="RGFSIDESTEP_D_RDY"/>
+			<Surface name="RGF_PISTOL_LOW_holster_l" animsurface="RGFPISTOLSHOOTLOW"/>
+			<Surface name="RGF_PISTOL_LOW_holster_l" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_DUAL_AIM_holster_l" animsurface="RGFSTANDDWALAIM"/>
+			<Surface name="RGF_DUAL_CR_AIM_holster_l" animsurface="RGFCDBLSHOT"/>
+			<Surface name="RGF_MEDIC_PRONE_holster_l" animsurface="RGFMEDICPRN"/>
+			<Surface name="RGF_COWER_PRONE_holster_l" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_DIE_PRONE_holster_l" animsurface="RGFHITPRONE"/>
+			<Surface name="RGF_DUAL_PRONE_holster_l" animsurface="RGFDWPRONE"/>
+			<Surface name="RGF_EMPTY_PAIN_holster_l" animsurface="RGFHURTSTANDINGN"/>
+			<Surface name="RGF_RIFLE_PAIN_holster_l" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_EMPTY_DIE_holster_l" animsurface="RGFHITSTAND"/>
+			<Surface name="RGF_EMPTY_JFK_holster_l" animsurface="RGFDIE_JFK"/>
+			<Surface name="RGF_EMPTY_CDIE_holster_l" animsurface="RGFHITCROUCH"/>
+			<Surface name="RGF_EMPTY_COWER_holster_l" animsurface="RGFCOWER"/>
+			<Surface name="RGF_EMPTY_ROLL_holster_l" animsurface="RGFROLLOVER"/>
+			<Surface name="RGF_EMPTY_ROLL_SIDE_holster_l" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_EMPTY_DIEFB_holster_l" animsurface="RGFHITFALLBACK"/>
+			<Surface name="RGF_EMPTY_DIEFBH_holster_l" animsurface="RGFHITHARD"/>
+			<Surface name="RGF_EMPTY_DIEFBHB_holster_l" animsurface="RGFHITHARDBLOOD"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_holster_l" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_BAYONET_holster_l" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_holster_l" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_EMPTY_DODGE_holster_l" animsurface="RGFDODGE"/>
+			<Surface name="RGF_EMPTY_THROW_holster_l" animsurface="RGFTHROW"/>
+			<Surface name="RGF_EMPTY_THROW_G_holster_l" animsurface="RGFSTHRG"/>
+			<Surface name="RGF_EMPTY_LOB_holster_l" animsurface="RGFLOB"/>
+			<Surface name="RGF_EMPTY_LOB_G_holster_l" animsurface="RGFSLOBG"/>
+			<Surface name="RGF_EMPTY_KICKDOOR_holster_l" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_EMPTY_SQUISH_holster_l" animsurface="RGF_SQUISH" />-->
+			<Surface name="RGF_EMPTY_RADIO_holster_l" animsurface="RGFRADIO"/>
+			<!--<Surface name="RGF_EMPTY_PULL_holster_l" animsurface="RGF_PULL" />-->
+			<Surface name="RGF_EMPTY_REMOTE_holster_l" animsurface="RGFUSEREMOTE"/>
+			<Surface name="RGF_KNIFE_STAB_holster_l" animsurface="RGFSTAB"/>
+			<Surface name="RGF_KNIFE_SLICE_holster_l" animsurface="RGFSLICE"/>
+			<Surface name="RGF_KNIFE_THROW_holster_l" animsurface="RGFTHROWKNIFE"/>
+			<Surface name="RGF_KNIFE_BREATH_holster_l" animsurface="RGFBREATHKNIFE"/>
+			<Surface name="RGF_CROWBAR_HIT_holster_l" animsurface="RGFCROWBAR"/>
+			<Surface name="RGF_CROWBAR_CR_HIT_holster_l" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CPUNCH_holster_l" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CTHROW_holster_l" animsurface="RGFCRTHROW"/>
+			<Surface name="RGF_KNIFE_CSTAB_holster_l" animsurface="RGFCSTAB"/>
+			<Surface name="RGF_EMPTY_CRADIO_holster_l" animsurface="RGFCRRADIO"/>
+			<Surface name="RGF_EMPTY_SLEEP_holster_l" animsurface="RGFSLEEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_holster_l" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_holster_l" animsurface="RGFHURTWALKINGN"/>
+			<Surface name="RGF_EMPTY_FALL_holster_l" animsurface="RGFFALL"/>
+			<Surface name="RGF_EMPTY_FALLFWD_holster_l" animsurface="RGFFALLF"/>
+			<Surface name="RGF_CLIMB_holster_l" animsurface="RGFCLIMBROOF"/>
+			<Surface name="RGF_CLIMB_holster_l" animsurface="RGFWALLJUMP"/>
+			<!--<Surface name="RGF_EMPTY_KARATELK_holster_l" animsurface="RGFLOWKICK" />
+			<Surface name="RGF_EMPTY_KARATESPINK_holster_l" animsurface="RGFSPINKICK" />-->
+			<Surface name="RGF_LAW_holster_l" animsurface="RGFROCKET"/>
+			<Surface name="RGF_LAW_CR_holster_l" animsurface="RGFCRROCKET"/>
+			<Surface name="RGF_EMPTY_KICKSAND_holster_l" animsurface="RGFKICKSN"/>
+			<Surface name="RGF_EMPTY_WIPEFACE_holster_l" animsurface="RGFWIPE"/>
+			<Surface name="RGF_RIFLE_LOOK_holster_l" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_holster_l" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_holster_l" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_holster_l" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_holster_l" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_holster_l" animsurface="RGF_WATER_HIP_AIM" />
+			<Surface name="RGF_WATER_EMPTY_IDLE_holster_l" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_holster_l" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_EMPTY_THROW_holster_l" animsurface="RGFWATERTHROW" />
+			<Surface name="RGF_WATER_EMPTY_FALL_holster_l" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_DIE_holster_l" animsurface="RGFWATER_DIE" />
+			<Surface name="RGF_WATER_DUAL_AIM_holster_l" animsurface="RGFWATER_DBLSHT" />
+			<Surface name="RGF_HELIDROP_holster_l" animsurface="RGFHELIDROP" />
+			<Surface name="RGF_CROUCH_MORTAR_holster_l" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_holster_l" animsurface="RGFSLAP" />			
+		</LayerProp>
+	</Layer>
 	<Layer name="knees">
 		<LayerProp filter="HasKneepadsAndHasPistol" palette="hats">
 			<Surface name="RGF_EMPTY_WALK_PADS" animsurface="RGFNOTHING_WALK"/>
@@ -1639,4 +2183,5 @@
 			<Surface name="RGF_CROUCH_MORTAR_PADS" animsurface="RGFMORTAR" />
 			<Surface name="RGF_SLAP_PADS" animsurface="RGFSLAP" />			
 		</LayerProp>
-	</Layer></LogicalAnimationSurfaces>
+	</Layer>
+</LogicalAnimationSurfaces>
