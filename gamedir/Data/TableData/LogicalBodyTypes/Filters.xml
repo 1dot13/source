@@ -88,7 +88,7 @@
 	</Filter>
 	<Filter name="Longsleeves">
 		<AND>
-			<VESTPOS op="in">283, 295, 806, 818, 821, 830, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<VESTPOS op="in">283, 295, 818, 821, 830, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
 		</AND>
 	</Filter>
 	<Filter name="LongsleevesANDHasPistolOrMPistolInLeftHand">
@@ -111,7 +111,7 @@
 	</Filter>
 	<Filter name="IsWearingHelmet">
 		<OR>
-			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 804, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
+			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
 		</OR>
 	</Filter>
 	<Filter name="IsWearingHelmetAndHasPistol">
@@ -128,7 +128,7 @@
 	</Filter>
 	<Filter name="IsWearingCamoHelmet">
 		<AND>
-			<HELMETPOS op="in">302, 801, 804, 810, 813, 816, 822, 825, 828, 834, 839, 1100, 1135</HELMETPOS>
+			<HELMETPOS op="in">302, 801, 810, 813, 816, 822, 825, 828, 834, 839, 1100, 1135</HELMETPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingCamoHelmetAndHasPistol">
@@ -540,7 +540,7 @@
 	</Filter>
 	<Filter name="SpectraVest">
 		<OR>
-			<VESTPOS op="in">167, 168, 169, 295, 803, 806, 815, 818, 821, 827, 830, 833, 850, 851, 859, 860, 868, 869, 1111, 1112, 1120, 1121, 1129, 1130, 1146, 1147, 1155, 1156, 1164, 1165</VESTPOS>
+			<VESTPOS op="in">167, 168, 169, 295, 803, 815, 818, 821, 827, 830, 833, 850, 851, 859, 860, 868, 869, 1111, 1112, 1120, 1121, 1129, 1130, 1146, 1147, 1155, 1156, 1164, 1165</VESTPOS>
 		</OR>
 	</Filter>
 	<Filter name="IsWearingSpectraAndHasPistol">
