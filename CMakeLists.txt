@@ -23,7 +23,7 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
-include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic sgp Res Lua Laptop Multiplayer "Multiplayer/raknet" Editor Console)
+include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic sgp Res Lua Laptop Multiplayer Editor Console)
 
 # external libraries
 add_subdirectory("ext/libpng")
@@ -38,6 +38,7 @@ add_subdirectory("ext/export/src")
 # by header files do not rely on Applications or Languages preprocessor definitions,
 # and therefore only need to be compiled once. Good.
 add_subdirectory(Lua)
+add_subdirectory(Multiplayer)
 
 # static libraries whose source files, header files or header files included
 # by header files rely on Application and Language preprocessor definitions, and
@@ -85,9 +86,6 @@ set(Ja2Src
 "MPJoinScreen.cpp"
 "MPScoreScreen.cpp"
 "MPXmlTeams.cpp"
-"Multiplayer/client.cpp"
-"Multiplayer/server.cpp"
-"Multiplayer/transfer_rules.cpp"
 "Options Screen.cpp"
 "profiler.cpp"
 "SaveLoadGame.cpp"
@@ -111,8 +109,8 @@ Lua
 "${PROJECT_SOURCE_DIR}/SMACKW32.LIB"
 "${PROJECT_SOURCE_DIR}/binkw32.lib"
 bfVFS
-"${PROJECT_SOURCE_DIR}/Multiplayer/raknet/RakNetLibStatic.lib"
 "ws2_32.lib"
+Multiplayer
 )
 
 # simple function to validate Languages and Application choices
