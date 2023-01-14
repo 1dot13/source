@@ -617,7 +617,14 @@
 			<FILTER>EODhelmet</FILTER>
 			<FILTER>EODvest</FILTER>
 		</AND>
-	</Filter>	
+	</Filter>
+	<Filter name="EODhelmetVestAndRifle">
+		<AND>
+			<FILTER>EODhelmet</FILTER>
+			<FILTER>EODvest</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="IsWearingGasmask">
 		<OR>
 			<HEAD1POS op="in">213</HEAD1POS>

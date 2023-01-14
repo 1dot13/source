@@ -406,6 +406,9 @@
 		</LayerProp> 
 	</Layer>
 	<Layer name="helmet">
+		<LayerProp filter="EODhelmetVestAndRifle" palette="hats">
+			<Surface name="RGMRIFLE_ROLL_SIDE_eod_h2" animsurface="RGMROLL_PR" />
+		</LayerProp>
 		<LayerProp filter="EODhelmetAndVest" palette="hats">
 			<Surface name="RGMRIFLE_PRONE_eod_h2" animsurface="RGMPRONE" />
 			<Surface name="RGMMEDIC_PRONE_eod_h2" animsurface="RGMMEDICPRN" />
@@ -416,7 +419,6 @@
 			<Surface name="RGMEMPTY_SLEEP_eod_h2" animsurface="RGMSLEEP" />
 			<Surface name="RGMEMPTY_ROLL_eod_h2" animsurface="RGMROLLOVER" />
 			<Surface name="RGMEMPTY_ROLL_SIDE_eod_h2" animsurface="RGMROLL_PR" />
-			<Surface name="RGMRIFLE_ROLL_SIDE_eod_h2" animsurface="RGMROLL_PR" />
 			<Surface name="RGMRIFLE_PRN_COWER_eod_h2" animsurface="RGM_COWER_PRONE" />
 		</LayerProp>
 		<LayerProp filter="EODhelmetAndPistol" palette="hats">
