@@ -3627,6 +3627,7 @@
 <AnimSurface name="RGF_RIFLE_HIP_LOW_eod_h" file="Anims\LOBOT\RGF\F_R_HIP_LOW_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_RIFLE_CR_AIM_eod_h" file="Anims\LOBOT\RGF\F_CR_AIM_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_RIFLE_PRONE_eod_h" file="Anims\LOBOT\RGF\F_R_PRN_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_RIFLE_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_R_PRN_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
 <AnimSurface name="RGF_HOP_eod_h" file="Anims\LOBOT\RGF\F_HOP_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_eod_h" file="Anims\LOBOT\RGF\F_CLIMB_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_eod_h" file="Anims\LOBOT\RGF\F_PUNCH_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
@@ -3642,6 +3643,9 @@
 <AnimSurface name="RGF_MEDIC_PRONE_eod_h" file="Anims\LOBOT\RGF\F_PRN_MED_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="7" profile="-1" />
 <AnimSurface name="RGF_COWER_PRONE_eod_h" file="Anims\LOBOT\RGF\F_PRNCOW_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="11" profile="-1" />
 <AnimSurface name="RGF_DIE_PRONE_eod_h" file="Anims\LOBOT\RGF\F_P_DIE_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_MEDIC_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_PRN_MED_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="7" profile="-1" />
+<AnimSurface name="RGF_COWER_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_PRNCOW_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="11" profile="-1" />
+<AnimSurface name="RGF_DIE_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_P_DIE_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
 <AnimSurface name="RGF_RIFLE_HIT_eod_h" file="Anims\LOBOT\RGF\F_HIT_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
 <AnimSurface name="RGF_EMPTY_CROUCH_eod_h" file="Anims\LOBOT\RGF\F_N_CRCH_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
 <AnimSurface name="RGF_EMPTY_SWAT_eod_h" file="Anims\LOBOT\RGF\F_N_SWAT_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
@@ -3649,6 +3653,8 @@
 <AnimSurface name="RGF_EMPTY_WALK_eod_h" file="Anims\LOBOT\RGF\F_N_WALK_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="RGF_EMPTY_PRONE_eod_h" file="Anims\LOBOT\RGF\F_N_PRNE_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
 <AnimSurface name="RGF_DUAL_PRONE_eod_h" file="Anims\LOBOT\RGF\F_DB_PRN_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_N_PRNE_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_DUAL_PRONE_eod_h2" file="Anims\LOBOT\RGF\F_DB_PRN_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="RGF_PISTOL_IDLE_eod_h" file="Anims\LOBOT\RGF\F_P_BRTH_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_PISTOL_RDY_WALK_eod_h" file="Anims\LOBOT\RGF\F_P_RDY_WALK_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="RGF_DUAL_RDY_WALK_eod_h" file="Anims\LOBOT\RGF\F_DBL_RDY_WALK_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
@@ -3701,6 +3707,11 @@
 <AnimSurface name="RGF_EMPTY_ROLL_eod_h" file="Anims\LOBOT\RGF\F_ROLL_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_EMPTY_ROLL_SIDE_eod_h" file="Anims\LOBOT\RGF\F_N_ROLL_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="RGF_EMPTY_SLEEP_eod_h" file="Anims\LOBOT\RGF\F_SLEEP_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="13" profile="-1" />
+<AnimSurface name="RGF_RIFLE_PRN_COWER_eod_h2" file="Anims\LOBOT\RGF\F_R_PRNCOW_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="RGF_RIFLE_ROLL_SIDE_eod_h2" file="Anims\LOBOT\RGF\F_R_ROLL_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_ROLL_eod_h2" file="Anims\LOBOT\RGF\F_ROLL_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_ROLL_SIDE_eod_h2" file="Anims\LOBOT\RGF\F_N_ROLL_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SLEEP_eod_h2" file="Anims\LOBOT\RGF\F_SLEEP_eod_h2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="13" profile="-1" />
 <AnimSurface name="RGF_LAW_eod_h" file="Anims\LOBOT\RGF\F_LAW_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
 <AnimSurface name="RGF_LAW_CR_eod_h" file="Anims\LOBOT\RGF\F_LAW_CR_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="20" profile="-1" />
 <AnimSurface name="RGF_EMPTY_KICKSAND_eod_h" file="Anims\LOBOT\RGF\F_SAND_eod_h.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
