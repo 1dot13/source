@@ -135,8 +135,6 @@
 			</LayerProp>
 	</Layer>
 	<Layer name="hands">
-		<LayerProp filter="EODvest" > <!-- Hide hands when wearing EOD vest -->
-		</LayerProp>
 		<LayerProp filter="LongsleevesANDHasPistolOrMPistolInLeftHand" >
 			<Surface name="RGMEMPTY_RUN_LSLEEVE" animsurface="RGMPISTOL_RUN" />			
 			<Surface name="RGMDUAL_SDSTP_LSLEEVE" animsurface="RGMSIDESTEP" />
