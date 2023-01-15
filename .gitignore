@@ -2,3 +2,7 @@ build/
 lib/
 .vs/
 .idea/
+CMakeSettings.json
+CMakeUserPresets.json
+cmake-build-*
+out/
