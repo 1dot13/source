@@ -39,9 +39,6 @@ jobs:
           
           if [[ '${{ inputs.build_all_languages }}' == 'true' || ( '${{ inputs.build_all_languages }}' == '' && "$full_release" == 'true' ) ]]
           then
-            # the two letter short form could be removed if JA2LangPrefix is removed
-            # the casing of the long form adheres to the one found in the gamedir-languages repo
-            # for compilation only, the long form is transformed to upper case
             languages_json_array='["Chinese", "German", "English", "French", "Polish", "Italian", "Dutch", "Russian"]';
           else
             # English + some other language for compilation testing
