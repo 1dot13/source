@@ -91,6 +91,11 @@ UINT8 gOneCCDirection[ NUM_WORLD_DIRECTIONS ] =
 	WEST
 };
 
+UINT8 DirectionIfTurnedClockwise(UINT8 facing, UINT8 times)
+{
+	return (facing + times) % NUM_WORLD_DIRECTIONS;
+}
+
 //														DIRECTION FACING			DIRECTION WE WANT TO GOTO
 UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIONS ] =
 {
@@ -910,6 +915,14 @@ INT16 sDeltaScreenX, sDeltaScreenY;
 
 	return(TRUE);
 
+}
+
+INT16 DirectionToVectorX[] = {0, 1, 1, 1, 0, -1, -1, -1, 0};
+INT16 DirectionToVectorY[] = {-1, -1, 0, 1, 1, 1, 0, -1, 0};
+void ConvertDirectionToVectorInXY( UINT8 ubDirection, INT16* sXDir, INT16* sYDir )
+{
+	*sXDir = DirectionToVectorX[ubDirection];
+	*sYDir = DirectionToVectorY[ubDirection];
 }
 
 void ConvertGridNoToXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )

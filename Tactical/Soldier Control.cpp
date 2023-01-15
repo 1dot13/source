@@ -13,6 +13,7 @@
 #include "Animation Data.h"
 #include "Animation Control.h"
 #include "container.h"
+#define _USE_MATH_DEFINES // for C
 #include <math.h>
 #include "pathai.h"
 #include "Random.h"
@@ -17688,78 +17689,13 @@ void SOLDIERTYPE::HandleFlashLights( )
 		fLightChanged = TRUE;
 	}
 
-	// not possible to get this bonus on a roof, due to our lighting system
-	if ( !this->pathing.bLevel )
-	{
-		UINT8 flashlightrange = this->GetBestEquippedFlashLightRange( );
+    if ( AddBestFlashLight() )
+    {
+        // take note: we own a light source
+        this->usSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
 
-		// if no flashlight is found, this will be 0
-		if ( flashlightrange )
-		{
-			// the range at which we create additional light sources to the side
-			UINT8 firstexpand = 8;
-			UINT8 secondexpand = 12;
-
-			// depending on our direction, alter range
-			if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
-			{
-				flashlightrange = sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
-				firstexpand = sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
-				secondexpand = sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
-			}
-
-			// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
-			INT32 nextGridNoinSight = this->sGridNo;
-
-			for ( UINT8 i = 0; i < flashlightrange; ++i )
-			{
-				nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( this->ubDirection ) );
-
-				if ( SoldierToVirtualSoldierLineOfSightTest( this, nextGridNoinSight, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE ) )
-					CreatePersonalLight( nextGridNoinSight, this->ubID );
-
-				// after a certain range, add new lights to the side to simulate a light cone
-				if ( i > firstexpand )
-				{
-					INT8 sidedir1 = (this->ubDirection + 2) % NUM_WORLD_DIRECTIONS;
-					INT8 sidedir2 = (this->ubDirection - 2) % NUM_WORLD_DIRECTIONS;
-
-					INT32 sideGridNo1 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir1 ) );
-					sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
-
-					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-						CreatePersonalLight( sideGridNo1, this->ubID );
-
-					if ( i > secondexpand )
-					{
-						sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
-
-						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-							CreatePersonalLight( sideGridNo1, this->ubID );
-					}
-
-					INT32 sideGridNo2 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir2 ) );
-					sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
-
-					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-						CreatePersonalLight( sideGridNo2, this->ubID );
-
-					if ( i > secondexpand )
-					{
-						sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
-
-						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-							CreatePersonalLight( sideGridNo2, this->ubID );
-					}
-				}
-			}
-
-			// take note: we own a light source
-			this->usSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
-
-			fLightChanged = TRUE;
-		}
-	}
+        fLightChanged = TRUE;
+    }
 
 	if ( fLightChanged )
 	{
@@ -17803,6 +17739,159 @@ UINT8 SOLDIERTYPE::GetBestEquippedFlashLightRange( )
 	}
 
 	return(bestrange);
+}
+
+bool SOLDIERTYPE::AddBestFlashLight()
+{
+    // not possible to get this bonus on a roof, due to our lighting system
+    if ( this->pathing.bLevel != 0 )
+    {
+        return false;
+    }
+
+    UINT8 maxRange = this->GetBestEquippedFlashLightRange();
+    if ( maxRange < 1 )
+    {
+        return false;
+    }
+
+    // we don't use the flashlight to run better at night (light up our shoes), we use it to find enemies!
+    UINT8 minRange = 4;
+    if ( minRange > maxRange )
+    {
+        minRange = maxRange;
+    }
+
+    float maxAngle = 45;
+    maxAngle *= PI / 180 / 2; // convert to rad and halven
+
+    auto forward = DirectionInc(this->ubDirection);
+    auto left = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 6));
+    auto leftLeft = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 5));
+    auto right = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 2));
+    auto rightRight = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 3));
+
+    bool isDiagonal = this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST;
+
+	struct position_2d
+	{
+		position_2d(INT32 gridNo)
+		{
+			ConvertGridNoToXY(gridNo, &x, &y);
+		}
+		position_2d(INT16 _x, INT16 _y)
+		{
+			x = _x;
+			y = _y;
+		}
+		INT16 x, y;
+	};
+	struct vector_2d
+	{
+		vector_2d(INT8 direction)
+		{
+			ConvertDirectionToVectorInXY(direction, &dx, &dy);
+			length = sqrt(pow(dx, 2) + pow(dy, 2));
+		}
+		vector_2d(position_2d from, position_2d to)
+		{
+			dx = to.x - from.x;
+			dy = to.y - from.y;
+			length = sqrt(pow(dx, 2) + pow(dy, 2));
+		}
+		vector_2d(INT16 _dx, INT16 _dy)
+		{
+			dx = _dx;
+			dy = _dy;
+			length = sqrt(pow(dx, 2) + pow(dy, 2));
+		}
+		INT16 dx, dy;
+		float length;
+
+		float GetAngle( vector_2d other )
+		{
+			auto dot = dx * other.dx + dy * other.dy;
+			return acos(dot / (length * other.length));
+		}
+	};
+
+	position_2d soldierPos(this->sGridNo);
+    vector_2d soldierDir(this->ubDirection);
+
+    auto is_in_area = [&](INT32 sGridNoToTest) -> bool
+    {
+        vector_2d v(soldierPos, position_2d(sGridNoToTest));
+
+		if (v.length > maxRange)
+		{
+			return false;
+		}
+
+        if (v.length < minRange)
+        {
+            return false;
+        }
+
+        auto coneAngle = soldierDir.GetAngle( v );
+        if (coneAngle > maxAngle)
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+    auto add_light_if_in_line_of_sight = [&, this]( INT32 sGridNoToTest, bool allowSkip ) -> void
+    {
+        if (allowSkip) // improve performance by skipping 3/4 of the lights
+        {
+            INT16 sXPos, sYPos;
+            ConvertGridNoToXY( sGridNoToTest, &sXPos, &sYPos );
+            if (!(sXPos % 2 == 0 && sYPos % 2 == 0))
+            {
+                return;
+            }
+        }
+
+        if ( SoldierToVirtualSoldierLineOfSightTest( this, sGridNoToTest, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, false, NO_DISTANCE_LIMIT ) )
+        {
+            CreatePersonalLight( sGridNoToTest, this->ubID );
+        }
+    };
+
+    auto travel_direction_to_add_light = [&]( INT32 startingGridNo, INT16 directionIncrementer )
+    {
+        for ( auto currentGridNo = startingGridNo; !OutOfBounds( currentGridNo, -1 ) && is_in_area( currentGridNo ); currentGridNo += directionIncrementer )
+        {
+            add_light_if_in_line_of_sight( currentGridNo, true);
+        }
+    };
+
+    for ( auto currentGridNo = this->sGridNo; !OutOfBounds( currentGridNo, -1 ); currentGridNo += forward )
+    {
+		vector_2d v(soldierPos, position_2d(currentGridNo));
+        if ( v.length < minRange )
+        {
+            continue;
+        }
+		else if (v.length > maxRange)
+		{
+			break;
+		}
+
+        add_light_if_in_line_of_sight( currentGridNo, false );
+
+        travel_direction_to_add_light( currentGridNo, left );
+        travel_direction_to_add_light( currentGridNo, right );
+
+        if ( isDiagonal )
+        {
+            travel_direction_to_add_light( NewGridNo( currentGridNo, leftLeft ), left );
+            travel_direction_to_add_light( NewGridNo( currentGridNo, rightRight ), right );
+        }
+    }
+
+    return true;
 }
 
 // Flugente: soldier profiles

@@ -1935,7 +1935,8 @@ public:
 	//void		AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect );
 
 	void		HandleFlashLights();
-	UINT8		GetBestEquippedFlashLightRange();
+    bool		AddBestFlashLight();
+    UINT8		GetBestEquippedFlashLightRange();
 
 	// Flugente: soldier profiles
 	INT8		GetSoldierProfileType(UINT8 usTeam);		// retrieves the correct sub-array
