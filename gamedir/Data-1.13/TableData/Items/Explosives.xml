@@ -1983,7 +1983,7 @@
 	</EXPLOSIVE>
 	<EXPLOSIVE><!-- roof collapse-->
 		<uiIndex>99</uiIndex>
-		<ubType>12</ubType>
+		<ubType>11</ubType>
 		<ubDamage>0</ubDamage>
 		<ubStunDamage>0</ubStunDamage>
 		<ubRadius>0</ubRadius>
