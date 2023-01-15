@@ -58,8 +58,8 @@ jobs:
         run: |
           set -eux
           
-          cp -a CMakeUserPresets_VS2022.json CMakeUserPresets.json
-          
+          touch CMakeUserPresets.json
+
           JA2Language=$(echo '${{ inputs.language }}' | tr '[:lower:]' '[:upper:]')
           JA2Application=$(echo '${{ matrix.application }}' | tr '[:lower:]' '[:upper:]')
           
@@ -76,12 +76,10 @@ jobs:
           arch: x86
       - name: Prepare build
         run: |
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe"  `
-          -DLanguages="$Env:JA2Language" `
-          -DApplications="$Env:JA2Application"
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
       - name: Build
         run: |
-          cmake --build build/
+          cmake --build build/ -- -v
       - name: List build artifacts
         shell: bash
         run: |
