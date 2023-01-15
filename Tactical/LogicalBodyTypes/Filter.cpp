@@ -2,6 +2,21 @@
 
 namespace LogicalBodyTypes {
 
+INT32 CompareAttachment(SOLDIERTYPE* pSoldier, INVENTORY_SLOT slot,  UINT8 index)
+{
+	INT32 cmp_val = 0;
+
+	if (pSoldier->inv[slot].objectStack.size() > 0)
+	{
+		OBJECTTYPE* const attachment = pSoldier->inv[slot].objectStack.front().GetAttachmentAtIndex(index);
+		if (attachment) { cmp_val = attachment->usItem; }
+		else { cmp_val = 0; }
+	}
+	else { cmp_val = 0; }
+
+	return cmp_val;
+}
+
 Filter::Filter(void) {
 }
 
@@ -209,6 +224,18 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 					break;
 				case REQ_WEARING_BACKPACK:
 					cmp_val = pSoldier->inv[BPACKPOCKPOS].exists();
+					break;
+				case REQ_HELMETPOSATTACHMENT0:
+					cmp_val = CompareAttachment(pSoldier, HELMETPOS, 0);
+					break;
+				case REQ_HELMETPOSATTACHMENT1:
+					cmp_val = CompareAttachment(pSoldier, HELMETPOS, 1);
+					break;
+				case REQ_HELMETPOSATTACHMENT2:
+					cmp_val = CompareAttachment(pSoldier, HELMETPOS, 2);
+					break;
+				case REQ_HELMETPOSATTACHMENT3:
+					cmp_val = CompareAttachment(pSoldier, HELMETPOS, 3);
 					break;
 				default:
 					if (q < NUM_REQTYPESINV) {
