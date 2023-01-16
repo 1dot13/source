@@ -207,6 +207,7 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 BOOLEAN MapExists( UINT8 * szFilename );
 
 BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection );
+bool IsEscapeDirectionValid(WorldDirections pbDirection);
 //Used for determining the type of error message that comes up when you can't traverse to
 //an adjacent sector.	THESE VALUES DO NOT NEED TO BE SAVED!
 extern BOOLEAN	gfInvalidTraversal;

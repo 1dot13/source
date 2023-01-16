@@ -9189,6 +9189,8 @@ STR16	szPrisonerTextStr[]=
 	L"В %s был раскрыт высокопоставленный офицер!",
 	L"Вражеский командир отказывается даже подумать о сдаче!",
 	L"%d заключенных добровольно присоединились к нашим силам.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=
