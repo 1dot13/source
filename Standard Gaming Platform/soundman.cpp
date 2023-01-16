@@ -1852,16 +1852,6 @@ UINT32 uiCount;
 	return(FALSE);
 }
 
-// Lesh modifications
-// Sound debug
-static struct SoundLog {
-	sgp::Logger_ID id;
-	SoundLog() {
-		id = sgp::Logger::instance().createLogger();
-		sgp::Logger::instance().connectFile(id, SndDebugFileName, true, sgp::Logger::FLUSH_ON_DELETE);
-	}
-} s_SoundLog;
-
 //*****************************************************************************************
 // SoundLog
 //	Writes string into log file
@@ -1872,6 +1862,13 @@ static struct SoundLog {
 //*****************************************************************************************
 void SoundLog(CHAR8 *strMessage)
 {
+	static struct SoundLog {
+		sgp::Logger_ID id;
+		SoundLog() {
+			id = sgp::Logger::instance().createLogger();
+			sgp::Logger::instance().connectFile(id, SndDebugFileName, true, sgp::Logger::FLUSH_ON_DELETE);
+		}
+	} s_SoundLog;
 #ifndef USE_VFS
 	if ((SndDebug = fopen(SndDebugFileName, "a+t")) != NULL)
 	{
