@@ -3297,7 +3297,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 							}
 
 							// ATE: Call actions based on what POW we are on...
-							if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS )
+							if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS && (sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY) )
 							{
 								// Complete quest
 								EndQuest( QUEST_HELD_IN_ALMA, sSectorX, sSectorY );
@@ -3306,7 +3306,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
 							}
 							#ifndef JA2UB
-							else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
+							else if ( gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS && (sSectorX == gModSettings.ubTixaPrisonSectorX && sSectorY == gModSettings.ubTixaPrisonSectorY) )
 							{
 								// Complete quest
 								EndQuest(QUEST_HELD_IN_TIXA, sSectorX, sSectorY);
@@ -6928,6 +6928,47 @@ BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection )
 	}
 	return(*pbDirection != -1);
 }
+
+bool IsEscapeDirectionValid(WorldDirections pbDirection)
+{
+	bool isValid = false;
+	UINT8 const ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
+
+	switch (pbDirection)
+	{
+	case NORTH:
+		if ( !(gWorldSectorY - 1 < MINIMUM_VALID_Y_COORDINATE || gMapInformation.sNorthGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[NORTH_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[NORTH_STRATEGIC_MOVE] == EDGEOFWORLD) )
+		{
+			isValid = true;
+		}
+		break;
+	case EAST:
+		if ( !(gWorldSectorX + 1 > MAXIMUM_VALID_X_COORDINATE || gMapInformation.sEastGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[EAST_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[EAST_STRATEGIC_MOVE] == EDGEOFWORLD) )
+		{
+			isValid = true;
+		}
+		break;
+	case SOUTH:
+		if ( !(gWorldSectorY + 1 > MAXIMUM_VALID_Y_COORDINATE || gMapInformation.sSouthGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[SOUTH_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[SOUTH_STRATEGIC_MOVE] == EDGEOFWORLD) )
+		{
+			isValid = true;
+		}
+		break;
+	case WEST:
+		if ( !(gWorldSectorX - 1 < MINIMUM_VALID_X_COORDINATE || gMapInformation.sWestGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[WEST_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[WEST_STRATEGIC_MOVE] == EDGEOFWORLD) )
+		{
+			isValid = true;
+		}
+		break;
+	}
+
+	return isValid;
+}
+
 #ifdef JA2UB
 
 
