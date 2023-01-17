@@ -16,16 +16,25 @@ addition, transport groups will also be carrying supplies that the player may fi
 Transport group compositions will vary based on the player's progress, how many interceptions have been completed recently,
 and the difficulty of the game.
 
+TODO LIST:
+- determine how/when/what groups are deployed
+- implement ways for the player to find groups (based on difficulty?)
+- use proper loyalty degradation (Strategic Loyalty lua) (maybe...)
+- use enemygunchoices and enemyitemchoices to populate bonus loot, depending on jeep or no jeep
+- track previous failed transports? transport group alertness level? partially degrades over time?
+
 */
 #include "Strategic Transport Groups.h"
 
 #include "ASD.h"
 #include "Game Clock.h"
 #include "Game Event Hook.h"
+#include "Inventory Choosing.h"
 #include "message.h"
 #include "Overhead.h"
 #include "Overhead Types.h"
 #include "random.h"
+#include "Soldier Control.h"
 #include "strategic.h"
 #include "Strategic AI.h"
 #include "strategicmap.h"
@@ -33,7 +42,8 @@ and the difficulty of the game.
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
 
-
+extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY_GUN_LEVELS];
+extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
 
 std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
@@ -262,6 +272,9 @@ void UpdateTransportGroupInventory()
 		// add new groups in RandomItem.xml
 		// the new items will reference the new group in randomitem, eg <randomitem>23</randomitem> in Items.xml matches uiIndex 23 in RandomItem.xml
 		// fallback if no random items found? for mods and stuff (thinking sdo)
+		//gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE][gunLevel];
+		//gArmyItemChoices[SOLDIER_CLASS_ELITE][typeIndex];
+		
 		for (UINT16 i = 0; i < MAXITEMS; ++i)
 		{
 			if (Item[i].gascan) gasCans.push_back(i);
