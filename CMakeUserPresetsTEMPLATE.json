@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "__userBase",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        // Valid choices: ENGLISH;GERMAN;FRENCH;ITALIAN;POLISH;DUTCH;RUSSIAN;CHINESE. If empty (""), will configure all.
+        "Languages": "ENGLISH",
+        // Valid choices: JA2;JA2MAPEDITOR;JA2UB;JA2UBMAPEDITOR. If empty (""), will configure all.
+        "Applications": "JA2",
+        // For debugging: enter your desired gamedir.
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "C:/Ja2"
+      },
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "1dot13 RelWithDebInfo",
+      "inherits": "__userBase",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "1dot13 Release",
+      "inherits": "__userBase",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "1dot13 Debug",
+      "inherits": "__userBase",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ]
+}
