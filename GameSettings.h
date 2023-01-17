@@ -33,7 +33,6 @@ enum
 //	TOPTION_DISPLAY_ENEMY_INDICATOR,	//Displays the number of enemies seen by the merc, ontop of their portrait
 	TOPTION_SLEEPWAKE_NOTIFICATION,
 	TOPTION_USE_METRIC_SYSTEM,			//If set, uses the metric system
-	TOPTION_MERC_ALWAYS_LIGHT_UP,
 	TOPTION_SMART_CURSOR,
 	TOPTION_SNAP_CURSOR_TO_DOOR,
 	TOPTION_GLOW_ITEMS,

@@ -1178,12 +1178,6 @@ BOOLEAN ExecuteOverhead( )
                     pSoldier->flags.fSoldierWasMoving = FALSE;
 
                     HandlePlacingRoofMarker( pSoldier, pSoldier->sGridNo, TRUE, FALSE );
-
-                    if ( !gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ] )
-                    {
-                        pSoldier->DeleteSoldierLight( );
-                        pSoldier->SetCheckSoldierLightFlag( );
-                    }
                 }
             }
             else

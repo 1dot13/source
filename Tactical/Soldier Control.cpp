@@ -4578,10 +4578,7 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierPosition( FLOAT dNewXPos, FLOAT dNewYP
 
 	if ( !(this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 	{
-		if ( gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP] )
-		{
-			this->SetCheckSoldierLightFlag( );
-		}
+		this->SetCheckSoldierLightFlag( );
 	}
 
 	// ATE: Mirror calls if we are a vehicle ( for all our passengers )
