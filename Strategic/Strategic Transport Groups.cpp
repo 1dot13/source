@@ -29,6 +29,7 @@ TODO LIST:
 #include "ASD.h"
 #include "Game Clock.h"
 #include "Game Event Hook.h"
+#include "GameSettings.h"
 #include "Inventory Choosing.h"
 #include "message.h"
 #include "Overhead.h"
@@ -50,7 +51,9 @@ std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 
 BOOLEAN DeployTransportGroup()
 {
-	// rftr todo: do nothing if feature disabled
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+		return FALSE;
+
 	if (giReinforcementPool <= 0)
 		return FALSE;
 
@@ -92,7 +95,7 @@ BOOLEAN DeployTransportGroup()
 
 	// if there are too many active transport groups, don't deploy any more
 	// rftr todo: based on difficulty?
-	if (transportGroupCount >= 5) return FALSE;
+	if (transportGroupCount >= gGameExternalOptions.iMaxSimultaneousTransportGroups) return FALSE;
 	
 	// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
 	// limitations: max number of transport groups at any given time
@@ -240,7 +243,8 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 
 void UpdateTransportGroupInventory()
 {
-	// rftr todo: do nothing if feature disabled
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+		return;
 
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
@@ -467,6 +471,12 @@ void UpdateTransportGroupInventory()
 
 void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
 {
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+	{
+		ClearTransportGroupMap();
+		return;
+	}
+
 	// only update admins/troops/elites/jeeps
 
 	switch (soldierClass)

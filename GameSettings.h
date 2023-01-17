@@ -1602,6 +1602,9 @@ typedef struct
 	BOOLEAN fAlternativeHelicopterFuelSystem;
 	BOOLEAN fHelicopterPassengersCanGetHit;
 
+	BOOLEAN fStrategicTransportGroupsEnabled;
+	INT8 iMaxSimultaneousTransportGroups;
+
 	UINT16 usHelicopterHoverCostOnGreenTile;
 	UINT16 usHelicopterHoverCostOnRedTile;
 
