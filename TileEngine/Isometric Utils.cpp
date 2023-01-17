@@ -917,10 +917,11 @@ INT16 sDeltaScreenX, sDeltaScreenY;
 
 }
 
-INT16 DirectionToVectorX[] = {0, 1, 1, 1, 0, -1, -1, -1, 0};
-INT16 DirectionToVectorY[] = {-1, -1, 0, 1, 1, 1, 0, -1, 0};
+INT16 DirectionToVectorX[NUM_WORLD_DIRECTIONS] = {0, 1, 1, 1, 0, -1, -1, -1};
+INT16 DirectionToVectorY[NUM_WORLD_DIRECTIONS] = {-1, -1, 0, 1, 1, 1, 0, -1};
 void ConvertDirectionToVectorInXY( UINT8 ubDirection, INT16* sXDir, INT16* sYDir )
 {
+    Assert(ubDirection >= 0 && ubDirection < NUM_WORLD_DIRECTIONS);
 	*sXDir = DirectionToVectorX[ubDirection];
 	*sYDir = DirectionToVectorY[ubDirection];
 }

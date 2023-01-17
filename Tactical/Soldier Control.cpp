@@ -17775,44 +17775,47 @@ bool SOLDIERTYPE::AddBestFlashLight()
 
 	struct position_2d
 	{
+        INT16 x, y;
+
 		position_2d(INT32 gridNo)
 		{
 			ConvertGridNoToXY(gridNo, &x, &y);
 		}
-		position_2d(INT16 _x, INT16 _y)
-		{
-			x = _x;
-			y = _y;
-		}
-		INT16 x, y;
+		position_2d(INT16 _x, INT16 _y) : x{_x}, y{_y}
+        {
+        }
 	};
 	struct vector_2d
 	{
+        INT16 dx, dy;
+        float length;
+
 		vector_2d(INT8 direction)
 		{
 			ConvertDirectionToVectorInXY(direction, &dx, &dy);
-			length = sqrt(pow(dx, 2) + pow(dy, 2));
+            length = CalcLength(dx, dy);
 		}
 		vector_2d(position_2d from, position_2d to)
 		{
 			dx = to.x - from.x;
 			dy = to.y - from.y;
-			length = sqrt(pow(dx, 2) + pow(dy, 2));
+            length = CalcLength(dx, dy);
 		}
-		vector_2d(INT16 _dx, INT16 _dy)
+		vector_2d(INT16 _dx, INT16 _dy) : dx{_dx}, dy{_dy}
 		{
-			dx = _dx;
-			dy = _dy;
-			length = sqrt(pow(dx, 2) + pow(dy, 2));
+			length = CalcLength(dx, dy);
 		}
-		INT16 dx, dy;
-		float length;
 
 		float GetAngle( vector_2d other )
 		{
 			auto dot = dx * other.dx + dy * other.dy;
 			return acos(dot / (length * other.length));
 		}
+
+        static float CalcLength(float dx, float dy)
+        {
+            return sqrt(powf(dx, 2) + powf(dy, 2));
+        }
 	};
 
 	position_2d soldierPos(this->sGridNo);
