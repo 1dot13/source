@@ -11099,6 +11099,33 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 	}
 }
 
+void EscapeTimerCallback()
+{
+    const bool chanceToEscape = Chance(75);
+    bool escaped = false;
+    // Look for an escape direction for remaining mercs
+    std::vector<WorldDirections> possibleEscapeDirections{NORTH, EAST, SOUTH, WEST};
+    std::random_shuffle(possibleEscapeDirections.begin(), possibleEscapeDirections.end());
+
+    for (auto direction : possibleEscapeDirections)
+    {
+        if (IsEscapeDirectionValid(direction) && chanceToEscape && gbWorldSectorZ == 0) // There is no escaping underground! For now..
+        {
+            escaped = true;
+            ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
+
+            extern void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData);
+            JumpIntoEscapedSector(direction, JUMP_ALL_NO_LOAD, 0);
+            break;
+        }
+    }
+
+    if (!escaped)
+    {
+        ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_NO_ESCAPE]);
+    }
+}
+
 void AttemptToCapturePlayerSoldiers()
 {
     // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
@@ -11130,8 +11157,11 @@ void AttemptToCapturePlayerSoldiers()
             if (currentPOWs < gStrategicStatus.ubNumCapturedForRescue)
             {
                 gfSurrendered = TRUE;
-                SetCustomizableTimerCallbackAndDelay(3000, CaptureTimerCallback, FALSE);
             }
+        }
+        else
+        {
+            ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
         }
     }
     else
@@ -11141,11 +11171,14 @@ void AttemptToCapturePlayerSoldiers()
 
     if (gfSurrendered == TRUE)
     {
-        // Check if remaining mercs have a chance to flee
+        SetCustomizableTimerCallbackAndDelay(500, CaptureTimerCallback, FALSE);
+
+        // If we have any remaining active mercs in sector after capture, give them a chance to escape from the clutches of Deidranna's soldiers!
         bool activeMercs = false;
 
         UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-        for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++i, ++pSoldier)
+        UINT32 lastId = gTacticalStatus.Team[gbPlayerNum].bLastID;
+        for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastId; ++i, ++pSoldier)
         {
             // Are we active and in sector
             if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife != 0 && pSoldier->bAssignment != ASSIGNMENT_POW)
@@ -11157,40 +11190,7 @@ void AttemptToCapturePlayerSoldiers()
 
         if (activeMercs)
         {
-            bool escaped = false;
-            // Look for an escape direction for remaining mercs
-            for (UINT8 i = NORTH; i < NORTHWEST; i++)
-            {
-                WorldDirections direction;
-                switch (i)
-                {
-                case NORTH:
-                    direction = NORTH;
-                    break;
-                case EAST:
-                    direction = EAST;
-                    break;
-                case SOUTH:
-                    direction = SOUTH;
-                    break;
-                case WEST:
-                    direction = WEST;
-                    break;
-                default:
-                    direction = DIRECTION_IRRELEVANT;
-                    break;
-                }
-
-                if (IsEscapeDirectionValid(direction))
-                {
-                    escaped = true;
-                    ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
-                    JumpIntoAdjacentSector(i, JUMP_ALL_NO_LOAD, 0);
-                    break;
-                }
-            }
-
-            if (!escaped) { ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_NO_ESCAPE]); }
+            SetCustomizableTimerCallbackAndDelay(500, EscapeTimerCallback, FALSE);
         }
     }
 }
@@ -11359,7 +11359,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             return;
         }
 
-        AttemptToCapturePlayerSoldiers();
+        SetCustomizableTimerCallbackAndDelay(500, AttemptToCapturePlayerSoldiers, FALSE);
     }
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )
