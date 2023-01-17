@@ -6534,7 +6534,7 @@ STR16		zOptionsToggleText[] =
 	L"Bevestiging Real-Time",
 	L"Slaap/wakker-berichten",
 	L"Metrieke Stelsel",
-	L"Huurling Oplichten",
+	L"Licht Huurlingen Op",
 	L"Auto-Cursor naar Huurling",
 	L"Auto-Cursor naar Deuren",
 	L"Items Oplichten",
@@ -6636,8 +6636,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Wanneer INGESCHAKELD wordt het metrieke stelsel gebruikt, anders het Imperiale stelsel.",
 
-	//Merc Lighted movement
-	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wanneer INGESCHAKELD, wordt de huurling gemarkeerd (niet zichtbaar voor vijanden).\nSchakel in het spel met (|G)",
 
 	//Smart cursor
 	L"Wanneer INGESCHAKELD zullen huurlingen dichtbij de cursor automatisch oplichten.",

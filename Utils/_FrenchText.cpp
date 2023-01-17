@@ -6539,7 +6539,7 @@ STR16		zOptionsToggleText[] =
 	L"Confirmation temps réel",
 	L"Notifications sommeil/réveil",
 	L"Système métrique",
-	L"Mouvemts mercenaires éclairés",
+	L"Mettez en surbrillance les mercenaires",
 	L"Figer curseur sur mercenaires",
 	L"Figer curseur sur les portes",
 	L"Objets en surbrillance",
@@ -6641,8 +6641,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
-	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires.Désactivez-la, si votre machine n'est pas suffisamment puissante.\nBasculera éclairage du mercenaire. (|G)",
+	//Highlight Mercs
+	L"Lorsqu'il est activé, le mercenaire est mis en surbrillance (invisible pour les ennemis).\nBasculer dans le jeu avec (|G)",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",

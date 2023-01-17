@@ -6405,7 +6405,7 @@ STR16 zOptionsToggleText[] =
 	L"Bestätigung bei Echtzeit",
 	L"Schlaf-/Wachmeldung anzeigen", 
 	L"Metrisches System benutzen",
-	L"Boden beleuchten",
+	L"Markieren Sie Söldner",
 	L"Cursor autom. auf Söldner",
 	L"Cursor autom. auf Türen",
 	L"Gegenstände leuchten",
@@ -6507,8 +6507,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen Maßsystems verwendet (z.B. Meter und Kilogramm).",
 
-	//Merc Lighted movement
-	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen. AUSgeschaltet erhöht sich die Bildwiederholrate.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wenn AN, wird der Söldner hervorgehoben (für Feinde nicht sichtbar).\nIm Spiel umschalten mit (|G)",
 
 	//Smart cursor
 	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf Söldner in seiner direkten Nähe.",
