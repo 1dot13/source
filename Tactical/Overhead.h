@@ -434,5 +434,6 @@ BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
 
 BOOLEAN IsFreeSlotAvailable( int aTeam );
 
+void AttemptToCapturePlayerSoldiers();
 #endif
 

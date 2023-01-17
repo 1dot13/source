@@ -201,44 +201,12 @@ BOOLEAN GetCivQuoteText(UINT16 ubCivQuoteID, UINT16 ubEntryID, STR16 zQuote )
 
 void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
-	SOLDIERTYPE *pTeamSoldier;
-	INT32				cnt = 0;
-
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
-#if 0
-		// CJC Dec 1 2002: fix multiple captures
-		BeginCaptureSquence();
-
-		// Do capture....
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++)
-		{
-			// Are we active and in sector.....
-			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
-			{
-				if ( pTeamSoldier->stats.bLife != 0 )
-				{
-					EnemyCapturesPlayerSoldier( pTeamSoldier );
-				}
-			}
-		}
-
-		EndCaptureSequence( );
-
-		gfSurrendered = TRUE;
-		SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
-#else
-		extern void TestCapture();
-		TestCapture();
-#endif
-		ActionDone( gCivQuoteData.pCiv );
+		AttemptToCapturePlayerSoldiers();
 	}
-	else
-	{
-		ActionDone( gCivQuoteData.pCiv );
-	}
+	gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
+	ActionDone( gCivQuoteData.pCiv );
 }
 
 void ShutDownQuoteBox( BOOLEAN fForce )
