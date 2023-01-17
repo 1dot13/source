@@ -3290,23 +3290,9 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 							}
 
 							// ATE: Call actions based on what POW we are on...
-							if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS && (sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY) )
-							{
-								// Complete quest
-								EndQuest( QUEST_HELD_IN_ALMA, sSectorX, sSectorY );
-
-								// Do action
-								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
-							}
 							#ifndef JA2UB
-							else if ( gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS && (sSectorX == gModSettings.ubTixaPrisonSectorX && sSectorY == gModSettings.ubTixaPrisonSectorY) )
-							{
-								// Complete quest
-								EndQuest(QUEST_HELD_IN_TIXA, sSectorX, sSectorY);
-
-								// Do action
-								HandleNPCDoAction(0, NPC_ACTION_GRANT_EXPERIENCE_3, 0);
-							}
+							HandlePOWQuestState(Q_END, QUEST_HELD_IN_ALMA, sSectorX, sSectorY, bSectorZ);
+							HandlePOWQuestState(Q_END, QUEST_HELD_IN_TIXA, sSectorX, sSectorY, bSectorZ);
 							#endif
 						}
 					}
@@ -4567,17 +4553,7 @@ void AllMercsWalkedToExitGrid( )
 			 (gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW) )
 		{
 			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-			// End inetrrogation quest if we left the sector, but haven't killed all enemies
-			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS )
-			{
-				// Finish quest, although not give points here...
-				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
-				// ... give them manually, but halved
-				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
-				// Also get us know, we finished the quest
-				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			}
+			HandlePOWQuestState(Q_END, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4745,17 +4721,7 @@ void AllMercsHaveWalkedOffSector( )
 			 (gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW) )
 		{
 			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-			// End inetrrogation quest if we left the sector, but haven't killed all enemies
-			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS )
-			{
-				// Finish quest, although not give points here...
-				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
-				// ... give them manually, but halved
-				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
-				// Also get us know, we finished the quest
-				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			}
+			HandlePOWQuestState(Q_END, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////
 	}
