@@ -1,0 +1,46 @@
+root = true
+
+[*.{cpp,h}]
+indent_style = tabs
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Charset encoding is an open topic, we would need to convert all files to the ideal encoding the world uses
+# Visual Studio requires BOM to properly detect files as being utf if not using .editorconfig, but with .editorconfig we don't need the bom
+#charset = utf-8
+#charset = utf-8-bom
+# Currently windows-1252 seems to be used for most files, but thats not an officially supported .editorconfig encoding
+#charset = windows-1252
+
+# cmake
+[*.json]
+charset = utf-8
+indent_style = spaces
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# github workflow
+[*.{yml,yaml}]
+charset = utf-8
+indent_style = spaces
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# gamedir xml
+[*.xml]
+charset = utf-8
+indent_style = tabs
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# gamedir ini
+[*.ini]
+charset = utf-8
+indent_style = tabs
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
