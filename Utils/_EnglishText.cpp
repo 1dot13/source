@@ -6532,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"Real Time Confirmation",
 	L"Sleep/Wake Notifications",
 	L"Use Metric System",
-	L"Merc Lights during Movement",
+	L"Highlight Mercs",
 	L"Snap Cursor to Mercs",
 	L"Snap Cursor to Doors",
 	L"Make Items Glow",
@@ -6634,8 +6634,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
 
-	//Merc Lighted movement
-	L"When ON, the merc will light the ground while walking. Turn OFF for faster frame rate.\nToggle artificial merc light. (|G)",
+	//Highlight Mercs
+	L"When ON, highlights the mercenary (Not visible to enemies).\nToggle in-game with (|G)",
 
 	//Smart cursor
 	L"When ON, moving the cursor near your mercs will automatically highlight them.",

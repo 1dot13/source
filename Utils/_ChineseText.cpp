@@ -6532,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"实时确认",		//"Real Time Confirmation",
 	L"显示睡觉/醒来时的提示",	//"Display sleep/wake notifications",
 	L"使用公制系统",		//"Use Metric System",
-	L"佣兵移动时高亮显示",	//"Merc Lights during Movement",
+	L"佣兵假光",	//"Highlight Mercs",
 	L"锁定佣兵",	//"Snap Cursor to Mercs",
 	L"锁定门",		//"Snap Cursor to Doors",
 	L"物品闪亮",	//"Make Items Glow",
@@ -6634,8 +6634,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"打开时，使用公制系统，否则使用英制系统。",
 
-	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表，切换虚拟佣兵光照。（|G）\n（关闭这个选项会使游戏的显示速度变快）",
+	//Highlight Mercs
+	L"打开时，切换虚拟佣兵照明。（|G）",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
