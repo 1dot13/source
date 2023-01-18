@@ -1595,14 +1595,6 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									fRenderTile = TRUE;
 								}
 
-								// If we are on the struct layer, check for if it's hidden!
-								if (uiRowFlags & (TILES_STATIC_STRUCTURES | TILES_DYNAMIC_STRUCTURES | TILES_STATIC_SHADOWS | TILES_DYNAMIC_SHADOWS))
-								{
-									if (fUseTileElem)
-									{
-									}
-								}
-
 								if (fRenderTile)
 								{
 									// Set flag to set layer as used

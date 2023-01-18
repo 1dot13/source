@@ -800,7 +800,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-// The RenderCoverDebugInfo call is now made by RenderWorld.  So don't try to call it here
 	}
 #endif
 

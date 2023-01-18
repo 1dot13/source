@@ -355,9 +355,6 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 				pSoldier->flags.fBlockedByAnotherMerc = FALSE;
 				return( MOVE_TILE_STATIONARY_BLOCKED );
 			}
-			else
-			{
-			}
 	}
 
 	// Unset flag for blocked by soldier...

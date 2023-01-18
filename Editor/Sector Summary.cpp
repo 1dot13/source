@@ -1808,11 +1808,6 @@ void SummaryToggleProgressCallback( GUI_BUTTON *btn, INT32 reason )
 
 #include "Tile Surface.h"
 
-void PerformTest()
-{
-}
-
-
 BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 {
 	if( !gfSummaryWindowActive )
@@ -1837,17 +1832,6 @@ BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 					SelectNextField();
 				else if( gfWorldLoaded )
 					DestroySummaryWindow();
-				break;
-			case F6:
-				PerformTest();
-				break;
-			case F7:
-				for( x = 0; x < 10; x++ )
-					PerformTest();
-				break;
-			case F8:
-				for( x = 0; x < 100; x++ )
-					PerformTest();
 				break;
 			case 'y':case 'Y':
 				if( gusNumEntriesWithOutdatedOrNoSummaryInfo && !gfOutdatedDenied )

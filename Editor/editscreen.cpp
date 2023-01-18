@@ -505,8 +505,6 @@ BOOLEAN EditModeShutdown( void )
 
 	RemoveLightPositionHandles( );
 
-	MapOptimize();
-
 	RemoveCursors();
 
 	fHelpScreen = FALSE;
@@ -3337,24 +3335,6 @@ BOOLEAN CheckForSlantRoofs( void )
 
 	usCheck = GetRandomIndexByRange( FIRSTSLANTROOF, LASTSLANTROOF );
 	return ( usCheck != 0xffff );
-}
-
-
-
-//----------------------------------------------------------------------------------------------
-//	MapOptimize
-//
-//	Runs through all map locations, and if it's outside the visible world, then we remove
-//	EVERYTHING from it since it will never be seen!
-//
-//	If it can be seen, then we remove all extraneous land tiles. We find the tile that has the first
-//	FULL TILE indicator, and delete anything that may come after it (it'll never be seen anyway)
-//
-//	Doing the above has shown to free up about 1.1 Megs on the default map. Deletion of non-viewable
-//	land pieces alone gained us about 600 K of memory.
-//
-void MapOptimize(void)
-{
 }
 
 

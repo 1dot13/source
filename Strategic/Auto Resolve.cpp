@@ -2204,8 +2204,6 @@ void CreateAutoResolveInterface()
 	ubRegMilitia += bonusRegularMilitia;
 	ubGreenMilitia += bonusGreenMilitia;
 
-	// This block should be unnecessary.	If the counts do not line up, there is a bug.
-
 	cnt = 0;
 	// Add the militia in this sector
 	ARCreateMilitiaSquad( &cnt, ubEliteMilitia, ubRegMilitia, ubGreenMilitia, gpAR->ubSectorX, gpAR->ubSectorY);
