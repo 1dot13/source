@@ -1609,9 +1609,6 @@ BOOLEAN IsCursorRestricted( void )
 
 void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 {
-	// 0verhaul:
-	// The above is a bad hack.	Especially in windowed mode.	We don't want coords relative to the entire screen in that case.
-	// So instead, get screen coords and then use the setcursorpos call.
 	POINT newmouse;
 	newmouse.x = uiNewXPos;
 	newmouse.y = uiNewYPos;

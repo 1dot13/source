@@ -12590,7 +12590,6 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	UINT16 usRandom = 0;
 	UINT16 lowestCoolness = LowestLaunchableCoolness(itemIndex);
 
-	// Flugente: the above code is highly dubious.. why do we loop over all items 2 times, and why that obscure usRandom--; business? This can cause an underflow!
 	BOOLEAN isnight = NightTime();
 	UINT16 maxcoolness = max( HighestPlayerProgressPercentage() / 10, lowestCoolness );
 

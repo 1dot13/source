@@ -57,8 +57,6 @@ void HideEditorToolbar( INT32 iOldTaskMode );
 
 void ProcessSelectionArea();
 
-void MapOptimize(void);
-
 extern UINT16 GenericButtonFillColors[40];
 
 //These go together.	The taskbar has a specific color scheme.

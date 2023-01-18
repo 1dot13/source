@@ -101,7 +101,6 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 {
 
 	BOOLEAN bMercDayOne = FALSE;
-// BF : file access is bad, especially if a function is called so often.
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");
 
 	if( gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents && _KeyDown( NUM_LOCK ) )

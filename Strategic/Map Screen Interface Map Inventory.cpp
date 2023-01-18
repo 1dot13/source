@@ -6021,6 +6021,9 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 			FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...
 
+#if JA2TESTVERSION
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature);
+#endif
 
 			(*itemStack)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
 
@@ -6038,6 +6041,9 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 					(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
 
+#if JA2TESTVERSION
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature);
+#endif
 
 					// we assume that there can exist only 1 underbarrel weapon per gun
 					break;

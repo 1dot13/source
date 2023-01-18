@@ -1978,8 +1978,3 @@ HVOBJECT GetCursorFileVideoObject( UINT32 uiCursorFile )
 {
 	return( CursorFileDatabase[ uiCursorFile ].hVObject );
 }
-
-
-void SyncPairedCursorFrames( UINT32 uiSrcIndex, UINT32 uiDestIndex )
-{
-}

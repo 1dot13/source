@@ -1383,9 +1383,6 @@ INT16 DistanceVisible(SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, 
 	// let tanks see and be seen further (at night)
 	if ( (ARMED_VEHICLE( pSoldier ) && sDistVisible > 0) || (pSubject && ARMED_VEHICLE( pSubject )) )
 	{
-		// 0verhaul:  This bit of code 1) seems to have no real reason to exist (MaxDistVisible just calls this function anyway), 
-		// and 2) causes infinite recursion because MaxDistVisible just calls this function, which comes right back here.  Just
-		// add 5 to sDistVisible and go on.
 		sDistVisible = sDistVisible + 5;
 	}
 

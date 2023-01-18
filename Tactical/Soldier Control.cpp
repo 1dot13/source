@@ -3918,8 +3918,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 			if ( !this->flags.fDontChargeAPsForStanceChange )
 			{
-				// CHRISL
-				// SANDRO - APBPConstants[AP_CROUCH] changed to GetAPsCrouch()
 				if ( UsingNewInventorySystem( ) )
 				{
 					if ( usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF )
@@ -3949,32 +3947,25 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// ATE: If we are NOT waiting for prone down...
 			if ( this->flags.bTurningFromPronePosition < TURNING_FROM_PRONE_START_UP_FROM_MOVE && !this->flags.fDontChargeAPsForStanceChange )
 			{
-				// silversurfer: of course we deduct points for stance changes!
-				// ATE: Don't do this if we are still 'moving'....
-				// SANDRO - APBPConstants[AP_PRONE] changed to GetAPsProne()
-				//if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
-				//{
-					// CHRISL
-					if ( UsingNewInventorySystem( ) )
+				if ( UsingNewInventorySystem( ) )
+				{
+					if ( usNewState == PRONE_UP )
 					{
-						if ( usNewState == PRONE_UP )
-						{
-							sAPCost = GetAPsProne( this, TRUE * 2 );
-							sBPCost = APBPConstants[BP_PRONE] + 2;
-						}
-						else
-						{
-							sAPCost = GetAPsProne( this, TRUE );
-							sBPCost = APBPConstants[BP_PRONE] + 1;
-						}
+						sAPCost = GetAPsProne( this, TRUE * 2 );
+						sBPCost = APBPConstants[BP_PRONE] + 2;
 					}
 					else
 					{
-						sAPCost = GetAPsProne( this, FALSE );
-						sBPCost = APBPConstants[BP_PRONE];
+						sAPCost = GetAPsProne( this, TRUE );
+						sBPCost = APBPConstants[BP_PRONE] + 1;
 					}
-					DeductPoints( this, sAPCost, sBPCost );
-				//}
+				}
+				else
+				{
+					sAPCost = GetAPsProne( this, FALSE );
+					sBPCost = APBPConstants[BP_PRONE];
+				}
+				DeductPoints( this, sAPCost, sBPCost );
 			}
 			this->flags.fDontChargeAPsForStanceChange = FALSE;
 			break;
@@ -4309,8 +4300,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 	// Reset some animation values
 	this->flags.fForceShade = FALSE;
-
-	// CHECK IF WE ARE AT AN IDLE ACTION
 
 	// ATE; For some animations that could use some variations, do so....
 	if ( usNewState == CHARIOTS_OF_FIRE || usNewState == BODYEXPLODING )
@@ -7116,7 +7105,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		return(FALSE);
 	}
 
-	// we can use the soldier's level here because we don't have pathing across levels right now...
 	{
 		iDest = FindBestPath( this, sDestGridNo, this->pathing.bLevel, usMovementAnim, COPYROUTE, fFlags );
 		fContinue = (iDest != 0);
