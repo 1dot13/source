@@ -540,12 +540,6 @@ UINT8		ubTravelCost;
 	//bDirection = atan8( iX, iY, iSrcX, iSrcY );
 	bDirection = atan8( iSrcX, iSrcY, iX, iY );
 
-#if 0
-   if ( usTileNo == 20415 && bDirection == 3 )
-   {
-     int i = 0;
-   }
-#endif
 
 	ubTravelCost = gubWorldMovementCosts[ usTileNo ][ bDirection ][ 0 ];
 
@@ -564,50 +558,6 @@ UINT8		ubTravelCost;
 		}
 	}
 
-#if 0
-	pStruct = gpWorldLevelData[ usTileNo ].pStructHead;
-	while ( pStruct != NULL )
-	{
-		if ( pStruct->usIndex < giNumberOfTiles )
-		{
-			GetTileType( pStruct->usIndex, &uiType );
-
-			// ATE: Changed to use last decordations rather than last decal
-			// Could maybe check orientation value? Depends on our
-			// use of the orientation value flags..
-			if((uiType >= FIRSTWALL) && (uiType <=LASTDECORATIONS ))
-			{
-				GetWallOrientation(pStruct->usIndex, &usWallOrientation);
-
-				bWallCount++;
-			}
-		}
-
-		pStruct=pStruct->pNext;
-	}
-
-	if ( bWallCount )
-	{
-		// ATE: If TWO or more - assume it's BLOCKED and return TRUE
-		if ( bWallCount != 1 )
-		{
-			return( TRUE );
-		}
-
-		switch(usWallOrientation)
-		{
-			case INSIDE_TOP_RIGHT:
-			case OUTSIDE_TOP_RIGHT:
-				return( iSrcX < iX );
-
-			case INSIDE_TOP_LEFT:
-			case OUTSIDE_TOP_LEFT:
-				return( iSrcY < iY );
-
-		}
-	}
-
-#endif
 
 	return(FALSE);
 }
@@ -2152,28 +2102,6 @@ BOOLEAN LightIlluminateWall(INT16 iSourceX, INT16 iSourceY, INT16 iTileX, INT16 
 
 //	return( LightTileHasWall( iSourceX, iSourceY, iTileX, iTileY ) );
 
-#if 0
-UINT16 usWallOrientation;
-
-	GetWallOrientation(pStruct->usIndex, &usWallOrientation);
-
-	switch(usWallOrientation)
-	{
-		case NO_ORIENTATION:
-			return(TRUE);
-
-		case INSIDE_TOP_RIGHT:
-		case OUTSIDE_TOP_RIGHT:
-			return(iSourceX >= iTileX);
-
-		case INSIDE_TOP_LEFT:
-		case OUTSIDE_TOP_LEFT:
-			return(iSourceY >= iTileY);
-
-	}
-	return(FALSE);
-
-#endif
 
 	return( TRUE );
 }

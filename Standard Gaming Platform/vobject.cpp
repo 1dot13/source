@@ -922,18 +922,10 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 			case 32:
 				SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, L"index larger that number images");
 				image = &hSrcVObject->p16BPPObject[usIndex];
-#if 0
-				Blt16BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
-					image->p16BPPData, image->usWidth * sizeof(UINT16),
-					iDestX, iDestY, 
-					0, 0, image->usWidth, image->usHeight,
-					0 ); 
-#else
 				Blt32BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
 					(UINT32*)image->p16BPPData, image->usWidth * sizeof(UINT32),
 					iDestX, iDestY, 
 					0, 0, image->usWidth, image->usHeight); 
-#endif
 				break;
 
 			case 16:

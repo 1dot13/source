@@ -2975,14 +2975,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-#if 0//dnl ch75 021113
-			case '\"':
-				Testing(1);
-				break;
-			case '\'':
-				Testing(2);
-				break;
-#endif
 
 			case '`':
 
@@ -4232,21 +4224,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else if ( fCtrl )
 					{
-#if 0
-						if ( INFORMATION_CHEAT_LEVEL() )
-						{
-							if ( gfUIShowCurIntTile ^= TRUE )
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection ON." );
-								gubIntTileCheckFlags = INTILE_CHECK_FULL;
-							}
-							else
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection OFF." );
-								gubIntTileCheckFlags = INTILE_CHECK_SELECTIVE;
-							}
-						}
-#endif
 					}
 					else
 					{

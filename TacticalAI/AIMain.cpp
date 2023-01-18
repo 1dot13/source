@@ -1921,25 +1921,6 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
 	INT8 bSlot;
-#if 0//dnl ch64 260813 decision to use machinegun or cannon is done in DecideAction, this here will just lead into burst with cannon if decision was use machinegun
-	if (TANK(pSoldier))
-	{
-		// No cannon selected to fire
-		if (!Item[pSoldier->inv[HANDPOS].usItem].cannon)
-		{
-			// 50 % chance, that the tank fires with the explosive cannon
-			UINT32 fireWithCannon = GetRndNum(2);
-			if (fireWithCannon)
-			{
-				UINT32 tankCannonIndex = GetTankCannonIndex();
-				if (tankCannonIndex > 0)
-				{
-					usHandItem = tankCannonIndex;
-				}
-			}
-		}
-	}
-#endif
 	UINT16 usSoldierIndex; // added by SANDRO
 
 #ifdef TESTAICONTROL

@@ -875,19 +875,6 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 			{ //all armed bombs are buried
 				dummyItem.bVisible = BURIED;
 			}
-#if 0//dnl ch74 201013 this is already done in OBJECTTYPE::Load()
-			//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
-			//this should fix that...
-			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++)
-			{
-				if(Item [ dummyItem.object.usItem ].defaultattachments[cnt] == 0)
-					break;
-
-				OBJECTTYPE defaultAttachment;
-				CreateItem(Item [ dummyItem.object.usItem ].defaultattachments[cnt],100,&defaultAttachment);
-				dummyItem.object.AttachObject(NULL,&defaultAttachment, FALSE);
-			}
-#endif
 			// sevenfm: don't allow max repair threshold less than current object status
 			dummyItem.object[0]->data.sRepairThreshold = __max(dummyItem.object[0]->data.sRepairThreshold, dummyItem.object[0]->data.objectStatus);
 			AddItemToPoolAndGetIndex( dummyItem.sGridNo, &dummyItem.object, dummyItem.bVisible, dummyItem.ubLevel, dummyItem.usFlags, dummyItem.bRenderZHeightAboveLevel, dummyItem.soldierID, &iItemIndex );

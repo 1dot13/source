@@ -9302,11 +9302,6 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 {
 					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: suppression: change stance/cower"));
                     CancelAIAction( pSoldier, TRUE );
-#if 0
-                    pSoldier->aiData.bAction = AI_ACTION_CHANGE_STANCE;
-                    pSoldier->aiData.usActionData = ubNewStance;
-                    pSoldier->aiData.bActionInProgress = TRUE;
-#endif
                 }
 
                 // go for it!
@@ -9648,38 +9643,6 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     UINT32                      cnt;
     UINT8                       ubID;
 
-#if 0
-    // 0verhaul:    None of this is necessary anymore with the new attack busy system
-    if (ubID == NOBODY)
-    {
-        pSoldier = NULL;
-        pTarget = NULL;
-    }
-    else
-    {
-        pSoldier = MercPtrs[ ubID ];
-        if ( ubTargetID != NOBODY)
-        {
-            pTarget = MercPtrs[ ubTargetID ];
-        }
-        else
-        {
-            pTarget = NULL;
-            DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String(">>Target ptr is null!" ) );
-        }
-    }
-
-    if (fCalledByAttacker)
-    {
-        if (pSoldier && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN)
-        {
-            if (pSoldier->bBulletsLeft > 0)
-            {
-                return( pTarget );
-            }
-        }
-    }
-#endif
 
     //  if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
     //  {
@@ -9802,15 +9765,6 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     if ( AreInMeanwhile( ) && pSoldier != NULL && pSoldier->ubProfile != QUEEN )
     {
         return( NULL );
-    }
-#endif
-#if 0
-    // 0verhaul:    This is moved to the end loop where everybody's state is reset for the next action
-    if (pTarget)
-    {
-        // reset # of shotgun pellets hit by
-        pTarget->bNumPelletsHitBy = 0;
-        // reset flag for making "ow" sound on being shot
     }
 #endif
 
@@ -10105,17 +10059,6 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
 SOLDIERTYPE * ReduceAttackBusyCount( )
 {
-#if 0
-    DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ReduceAttackBusyCount") );
-    if ( ubID == NOBODY )
-    {
-        return( InternalReduceAttackBusyCount( ubID, fCalledByAttacker, NOBODY ) );
-    }
-    else
-    {
-        return( InternalReduceAttackBusyCount( ubID, fCalledByAttacker, MercPtrs[ ubID ]->ubTargetID ) );
-    }
-#endif
     // 0verhaul:    This is now a simple subroutine.
     return InternalReduceAttackBusyCount( );
 }
@@ -10132,26 +10075,6 @@ SOLDIERTYPE * FreeUpAttacker( )
     return( ReduceAttackBusyCount( ) );
 }
 
-#if 0
-// 0verhaul:    These routines are declared obsolete.   Call ReduceAttackBusyCount instead.
-SOLDIERTYPE * FreeUpAttackerGivenTarget( UINT8 ubID, UINT8 ubTargetID )
-{
-    // Strange as this may seem, this function returns a pointer to
-    // the *target* in case the target has changed sides as a result
-    // of being attacked
-    DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("FreeUpAttackerGivenTarget") );
-    return( InternalReduceAttackBusyCount( ubID, TRUE, ubTargetID ) );
-}
-
-SOLDIERTYPE * ReduceAttackBusyGivenTarget( UINT8 ubID, UINT8 ubTargetID )
-{
-    // Strange as this may seem, this function returns a pointer to
-    // the *target* in case the target has changed sides as a result
-    // of being attacked
-    DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ReduceAttackBusyGivenTarget") );
-    return( InternalReduceAttackBusyCount( ubID, FALSE, ubTargetID ) );
-}
-#endif
 
 
 void StopMercAnimation( BOOLEAN fStop )

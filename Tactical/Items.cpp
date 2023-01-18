@@ -3031,49 +3031,6 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 					currentSize = __max(iSize + testSize, currentSize);
 					currentSize = __min(currentSize, maxSize);
 				}
-#if 0
-//old method
-				UINT16	newSize, testSize, maxSize;
-				UINT8	cnt=0;
-				newSize = 0;
-				maxSize = max(iSize, LoadBearingEquipment[Item[pObject->usItem].ubClassIndex].lbeFilledSize);
-				// Look for the ItemSize of the largest item in this LBENODE
-				for(UINT16 x = 0; x < invsize; ++x)
-				{
-					if(pLBE->inv[x].exists() == true)
-					{
-						testSize = CalculateItemSize(&(pLBE->inv[x]));
-						//Now that we have the size of one item, we want to factor in the number of items since two
-						//	items take up more space then one.
-						testSize = testSize + pLBE->inv[x].ubNumberOfObjects - 1;
-						testSize = min(testSize,34);
-						//We also need to increase the size of guns so they'll fit with the rest of our calculations.
-						if(testSize < 5)
-							testSize += 10;
-						if(testSize < 10)
-							testSize += 18;
-						//Finally, we want to factor in multiple pockets.  We'll do this by counting the number of filled
-						//	pockets, then add this count total to our newSize when everything is finished.
-						cnt++;
-						newSize = max(testSize, newSize);
-					}
-				}
-				//Add the total number of filled pockets to our NewSize to account for multiple pockets being used
-				newSize += cnt;
-				newSize = min(newSize,34);
-				// If largest item is smaller then LBE, don't change ItemSize
-				if(newSize > 0 && newSize < iSize) {
-					iSize = iSize;
-				}
-				// if largest item is larget then LBE but smaller then max size, partially increase ItemSize
-				else if(newSize >= iSize && newSize < maxSize) {
-					iSize = newSize;
-				}
-				// if largest item is larger then max size, reset ItemSize to max size
-				else if(newSize >= maxSize) {
-					iSize = maxSize;
-				}
-#endif
 			}
 		}
 	}
@@ -8458,19 +8415,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		{
 			(*pObj).fFlags |= OBJECT_UNDROPPABLE;
 		}
-#if 0//dnl ch74 201013 create default attachments rather at gun status instead of 100%
-		for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
-			if(Item [ usItem ].defaultattachments[cnt] == 0)
-				break;
-
-			//cannot use gTempObject
-			OBJECTTYPE defaultAttachment;
-			CreateItem(Item [ usItem ].defaultattachments[cnt],100,&defaultAttachment);
-			pObj->AttachObject(NULL,&defaultAttachment, FALSE);
-		}
-#else
 		AttachDefaultAttachments(pObj);//dnl ch75 261013
-#endif
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateItem: return %d",fRet));
@@ -12644,42 +12589,6 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	UINT16 usNumMatches = 0;
 	UINT16 usRandom = 0;
 	UINT16 lowestCoolness = LowestLaunchableCoolness(itemIndex);
-#if 0
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomLaunchable: itemIndex = %d", itemIndex));
-
-	// WANNE: This should fix the hang on the merc positioning screen (fix by Razer)
-	//while( !usNumMatches )
-	{ //Count the number of valid launchables
-		for( i = 0; i < MAXITEMS; ++i )
-		{
-			if ( Item[i].usItemClass  == 0 )
-				break;
-			//Madd: quickfix: make it not choose best grenades right away.
-			if( ValidLaunchable( i, itemIndex ) && ItemIsLegal(i) && Item[i].ubCoolness <= max(HighestPlayerProgressPercentage()/10,lowestCoolness) )
-				usNumMatches++;
-		}
-	}
-
-	if( usNumMatches )
-	{
-		usRandom = (UINT16)Random( usNumMatches );
-		for( i = 0; i < MAXITEMS; ++i )
-		{
-			if ( Item[i].usItemClass  == 0 )
-				break;
-
-			if( ValidLaunchable( i, itemIndex ) && ItemIsLegal(i) && Item[i].ubCoolness <= max(HighestPlayerProgressPercentage()/10,lowestCoolness) )
-			{
-				if( usRandom )
-					usRandom--;
-				else
-				{
-					return i;
-				}
-			}
-		}
-	}
-#endif
 
 	// Flugente: the above code is highly dubious.. why do we loop over all items 2 times, and why that obscure usRandom--; business? This can cause an underflow!
 	BOOLEAN isnight = NightTime();
