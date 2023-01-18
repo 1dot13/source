@@ -102,17 +102,6 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 	BOOLEAN bMercDayOne = FALSE;
 // BF : file access is bad, especially if a function is called so often.
-#if 0
-	// Kaiden: Opening the INI File
-	CIniReader iniReader("..\\Ja2_Options.ini");
-
-	if(is_networked) memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
-
-	//Kaiden: Getting Value for MERC Available on Day one?
-	// for some reason, this can't be in gamesettings.cpp
-	// or it won't work.
-	bMercDayOne = iniReader.ReadBoolean("Options","MERC_DAY_ONE",FALSE);
-#endif
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");
 
 	if( gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents && _KeyDown( NUM_LOCK ) )

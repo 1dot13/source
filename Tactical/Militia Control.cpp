@@ -299,21 +299,6 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 		// If the sector is already loaded, don't add the existing militia
 		for( x = 1; x < guiDirNumber ; ++x )
 		{
-#if 0
-			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
-			if( gfMSResetMilitia )
-			{
-				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
-				{
-					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-					ubGreen -= gpAttackDirs[ x ][0];
-					ubRegs -= gpAttackDirs[ x ][1];
-					ubElites -= gpAttackDirs[ x ][2];
-				}
-			}
-			//else
-			//{
-#endif
 			AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
 		}
 

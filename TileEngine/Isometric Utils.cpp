@@ -669,16 +669,6 @@ BOOLEAN GetMouseWorldCoordsInCenter( INT16 *psMouseX, INT16 *psMouseY )
 	return( TRUE );
 }
 
-#if 0
-// 0verhaul
-// I did that (or actually uncasted a bunch of stuff and re-typed others to correct them), so
-// no worries
-// (jonathanl) to save me having to cast all the previous code
-BOOLEAN GetMouseMapPos( UINT32	*psMapPos )
-{
-	return	GetMouseMapPos( (INT32 *)psMapPos );
-}
-#endif
 
 BOOLEAN GetMouseMapPos( INT32	*psMapPos )
 {
@@ -1309,11 +1299,7 @@ BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo )
 
 	// Get screen coordinates for current position of soldier
 	GetWorldXYAbsoluteScreenXY( sXMapPos, sYMapPos, &sWorldX, &sWorldY);
-#if 0//dnl ch53 151009
-	if ( sWorldX > 0 && sWorldX < ( gsTRX - gsTLX - 20 ) && sWorldY > 20 && sWorldY < ( gsBLY - gsTLY - 20 ) )
-#else
 	if ( sWorldX >= 30 && sWorldX <= (gsTRX - gsTLX - 30) && sWorldY >= 20 && sWorldY <= (gsBLY - gsTLY - 10) )
-#endif
 	{
 		return GridNoOnWalkableWorldTile(sGridNo);
 	}
@@ -1321,31 +1307,6 @@ BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo )
 	return( FALSE );
 }
 
-#if 0//dnl ch53 101009
-// This function is used when we care about astetics with the top Y portion of the
-// gma eplay area
-// mostly due to UI bar that comes down....
-BOOLEAN GridNoOnVisibleWorldTileGivenYLimits( INT32 sGridNo )
-{
-	INT16 sWorldX;
-	INT16 sWorldY;
-	INT16	sXMapPos, sYMapPos;
-
-	// Check for valid gridno...
-	ConvertGridNoToXY( sGridNo, &sXMapPos, &sYMapPos );
-
-	// Get screen coordinates for current position of soldier
-	GetWorldXYAbsoluteScreenXY( sXMapPos, sYMapPos, &sWorldX, &sWorldY);
-
-	if ( sWorldX > 0 && sWorldX < ( gsTRX - gsTLX - 20 ) &&
-			sWorldY > 40	&& sWorldY < ( gsBLY - gsTLY - 20 ) )
-	{
-		return( TRUE );
-	}
-
-	return( FALSE );
-}
-#endif
 
 BOOLEAN GridNoOnEdgeOfMap( INT32 sGridNo, INT8 * pbDirection )
 {

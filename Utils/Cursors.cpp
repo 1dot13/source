@@ -1857,32 +1857,6 @@ void DrawMouseText( )
 	}
 
 	//if ( gpItemPointer != NULL )
-#if 0
-	{
-		if ( gpItemPointer->ubNumberOfObjects > 1 )
-		{
-			SetFontDestBuffer( MOUSE_BUFFER , 0, 0, 64, 64, FALSE );
-
-			swprintf( pStr, L"x%d", gpItemPointer->ubNumberOfObjects );
-
-			FindFontCenterCoordinates( 0, 0, gsCurMouseWidth, gsCurMouseHeight, pStr, TINYFONT1, &sX, &sY );
-
-			SetFont( TINYFONT1 );
-
-			SetFontBackground( FONT_MCOLOR_BLACK );
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			SetFontShadow( DEFAULT_SHADOW );
-
-			if ( !( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA	) )
-			{
-				mprintf( sX + 10, sY - 10, L"x%d", gpItemPointer->ubNumberOfObjects );
-			}
-
-			// reset
-			SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-		}
-	}
-#endif
 }
 
 void UpdateAnimatedCursorFrames( UINT32 uiCursorIndex )
@@ -2008,47 +1982,4 @@ HVOBJECT GetCursorFileVideoObject( UINT32 uiCursorFile )
 
 void SyncPairedCursorFrames( UINT32 uiSrcIndex, UINT32 uiDestIndex )
 {
-#if 0
-	CursorData		*pSrcCurData, *pDestCurData;
-	CursorImage		*pSrcCurImage, *pDestCurImage;
-	UINT32				cnt;
-	INT32				iCurFrame = -1;
-
-	if ( uiSrcIndex == VIDEO_NO_CURSOR || uiDestIndex == VIDEO_NO_CURSOR )
-	{
-		return;
-	}
-
-	pSrcCurData = &( CursorDatabase[ uiSrcIndex ] );
-	pDestCurData = &( CursorDatabase[ uiDestIndex ] );
-
-	// Get Current frame from src
-	for ( cnt = 0; cnt < pSrcCurData->usNumComposites; cnt++ )
-	{
-		pSrcCurImage = &( pSrcCurData->Composites[ cnt ] );
-
-		if ( CursorFileDatabase[ pSrcCurImage->uiFileIndex ].fFlags & ANIMATED_CURSOR )
-		{
-			iCurFrame = pSrcCurImage->uiCurrentFrame;
-			break;
-		}
-	}
-
-	// If we are not an animated cursor, return now
-	if ( iCurFrame == -1 )
-	{
-		return;
-	}
-
-	// Update dest
-	for ( cnt = 0; cnt < pDestCurData->usNumComposites; cnt++ )
-	{
-		pDestCurImage = &( pDestCurData->Composites[ cnt ] );
-
-		if ( CursorFileDatabase[ pDestCurImage->uiFileIndex ].fFlags & ANIMATED_CURSOR )
-		{
-			pDestCurImage->uiCurrentFrame = iCurFrame;
-		}
-	}
-#endif
 }

@@ -1609,25 +1609,6 @@ BOOLEAN IsCursorRestricted( void )
 
 void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 {
-#if 0
-	FLOAT flNewXPos, flNewYPos;
-
-	// Wizardry NOTE: This function currently doesn't quite work right for in any Windows resolution other than 640x480.
-	// mouse_event() uses your current Windows resolution to calculate the resulting x,y coordinates.	So in order to get
-	// the right coordinates, you'd have to find out the current Windows resolution through a system call, and then do:
-	//		uiNewXPos = uiNewXPos * SCREEN_WIDTH	/ WinScreenResX;
-	//		uiNewYPos = uiNewYPos * SCREEN_HEIGHT / WinScreenResY;
-	//
-	// JA2 doesn't have this problem, 'cause they use DirectDraw calls that change the Windows resolution properly.
-	//
-	// Alex Meduna, Dec. 3, 1997
-
-	// Adjust coords based on our resolution
-	flNewXPos = ( (FLOAT)uiNewXPos / SCREEN_WIDTH ) * 65536;
-	flNewYPos = ( (FLOAT)uiNewYPos / SCREEN_HEIGHT ) * 65536;
-
-	mouse_event( MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE, (UINT32)flNewXPos, (UINT32)flNewYPos, 0, 0 );
-#endif
 	// 0verhaul:
 	// The above is a bad hack.	Especially in windowed mode.	We don't want coords relative to the entire screen in that case.
 	// So instead, get screen coords and then use the setcursorpos call.

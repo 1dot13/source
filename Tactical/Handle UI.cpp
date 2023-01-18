@@ -3920,14 +3920,6 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 			pSoldier->usUIMovementMode =	pSoldier->GetMoveStateBasedOnStance( bNewStance );
 			pSoldier->ubDesiredHeight = NO_DESIRED_HEIGHT;
 
-#if 0
-			if ( pSoldier->usUIMovementMode == CRAWLING && gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE )
-			{
-				pSoldier->usDontUpdateNewGridNoOnMoveAnimChange = LOCKED_NO_NEWGRIDNO;
-				pSoldier->pathing.bPathStored = FALSE;
-			}
-			else
-#endif
 			{
 				pSoldier->usDontUpdateNewGridNoOnMoveAnimChange = 1;
 			}

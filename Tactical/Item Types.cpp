@@ -594,13 +594,7 @@ LBENODE* OBJECTTYPE::GetLBEPointer(unsigned int index)
 
 bool OBJECTTYPE::exists()
 {
-#if 0//dnl ch75 011113
-	if(this == NULL)
-		return(FALSE);
-	return (ubNumberOfObjects > 0 && usItem != NOTHING);
-#else
 	return(this && ubNumberOfObjects && usItem);
-#endif
 }
 
 void OBJECTTYPE::SpliceData(OBJECTTYPE& sourceObject, unsigned int numToSplice, StackedObjects::iterator beginIter)

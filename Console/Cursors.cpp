@@ -327,13 +327,7 @@ void ConsoleCursor::Draw(LPRECT pRect) {
 
 	if (m_bActive && m_bVisible) {
 
-#if 0
-		CONSOLE_CURSOR_INFO	csi;
-		::GetConsoleCursorInfo(m_hStdOut, &csi);
-		rect.top += (rect.bottom - rect.top) * (100-csi.dwSize)/100;
-#else
 		rect.top += (rect.bottom - rect.top) * 80 / 100;
-#endif
 
 		::FillRect(m_hdcWindow, &rect, m_hActiveBrush);
 	}
@@ -706,38 +700,6 @@ FadeBlockCursor::FadeBlockCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCurs
 {
 	m_uiTimer = ::SetTimer(hwndParent, CURSOR_TIMER, 35, NULL);
 
-#if 0
-	if (g_bWin2000) {
-		// on Win2000 we use real alpha blending
-
-		// create a reasonable-sized bitmap, since AlphaBlt resizes
-		// destination rect if needed, and we don't need to redraw the mem DC
-		// each time
-		m_nBmpWidth	= BLEND_BMP_WIDTH;
-		m_nBmpHeight= BLEND_BMP_HEIGHT;
-		m_hMemDC	= ::CreateCompatibleDC(hdcWindow);
-		m_hBmp		= ::CreateCompatibleBitmap(hdcWindow, m_nBmpWidth, m_nBmpHeight);
-		m_hBmpOld	= (HBITMAP)::SelectObject(m_hMemDC, m_hBmp);
-
-		HBRUSH	hBrush= ::CreateSolidBrush(m_crCursorColor);
-		RECT	rect;
-		rect.left	= 0;
-		rect.top	= 0;
-		rect.right	= m_nBmpWidth;
-		rect.bottom	= m_nBmpHeight;
-
-		::FillRect(m_hMemDC, &rect, hBrush);
-		::DeleteObject(hBrush);
-
-		m_nStep	= -ALPHA_STEP;
-
-		m_bfn.BlendOp				= AC_SRC_OVER;
-		m_bfn.BlendFlags			= 0;
-		m_bfn.SourceConstantAlpha	= 255;
-		m_bfn.AlphaFormat			= 0;
-
-	} else {
-#endif
 		FakeBlend();
 //	}
 }
@@ -746,13 +708,6 @@ FadeBlockCursor::~FadeBlockCursor() {
 
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 
-#if 0
-	if (g_bWin2000) {
-		::SelectObject(m_hMemDC, m_hBmpOld);
-		::DeleteObject(m_hBmp);
-		::DeleteDC(m_hMemDC);
-	}
-#endif
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -762,24 +717,6 @@ FadeBlockCursor::~FadeBlockCursor() {
 
 void FadeBlockCursor::Draw(LPRECT pRect) {
 
-#if 0
-	if (g_bWin2000) {
-
-		g_pfnAlphaBlend(
-			m_hdcWindow,
-			pRect->left,
-			pRect->top,
-			pRect->right - pRect->left,
-			pRect->bottom - pRect->top,
-			m_hMemDC,
-			0,
-			0,
-			BLEND_BMP_WIDTH,
-			BLEND_BMP_HEIGHT,
-			m_bfn);
-
-	} else {
-#endif
 
 		HBRUSH hBrush = ::CreateSolidBrush(m_arrColors[m_nIndex]);
 		::FillRect(m_hdcWindow, pRect, hBrush);
@@ -793,17 +730,6 @@ void FadeBlockCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void FadeBlockCursor::PrepareNext() {
-#if 0
-	if (g_bWin2000){
-		if (m_bfn.SourceConstantAlpha < ALPHA_STEP) {
-			m_nStep = ALPHA_STEP;
-		} else if ((DWORD)m_bfn.SourceConstantAlpha + ALPHA_STEP > 255) {
-			m_nStep = -ALPHA_STEP;
-		}
-
-		m_bfn.SourceConstantAlpha += m_nStep;
-	} else {
-#endif
 		if (m_nIndex == 0) {
 			m_nStep = 1;
 		} else if (m_nIndex == (FADE_STEPS)) {

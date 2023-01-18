@@ -142,9 +142,6 @@ static CRITICAL_SECTION gcsGameLoop;
 
 int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
 
-#if USE_CONSOLE
-Console g_Console("", "", "Lua Console", "no");
-#endif
 
 
 #ifdef USE_VFS
@@ -394,15 +391,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 					if (wParam == '\\' &&
 						lParam && KF_ALTDOWN)
 					{
-#if USE_CONSOLE
-						g_Console.Create(ghWindow);
-						cout << "LUA console ready" << endl;
-						cout << "> ";
-
-						// Reset the pressed keys
-						gfKeyState[ ALT ] = FALSE;						
-						gfKeyState[ 219 ] = FALSE;	// "\"
-#endif
 					}
 				}				
 			}
@@ -1018,30 +1006,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 		SHOWEXCEPTION(ex);
 	}
 
-#if 0
-	else
-	{
-		// Windows hasn't processed any messages, therefore we handle the rest
-#ifdef LUACONSOLE
-		PollConsole( );
-#endif
-
-		if (gfApplicationActive == FALSE)
-		{
-			// Well we got nothing to do but to wait for a message to activate
-			WaitMessage();
-		}
-		else
-		{
-			// Well, the game is active, so we handle the game stuff
-			GameLoop();
-
-			// After this frame, reset input given flag
-			gfSGPInputReceived	=	FALSE;
-		}
-	}
-	}
-#endif
 
 
 	// This is the normal exit point

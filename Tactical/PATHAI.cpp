@@ -708,7 +708,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if ( fMultiTile == false)
@@ -758,7 +757,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 			fContinuousTurnNeeded = FALSE;
 		}
 	}
-#endif
 
 	if (fContinuousTurnNeeded == false)
 	{
@@ -803,16 +801,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
 // The RenderCoverDebugInfo call is now made by RenderWorld.  So don't try to call it here
-#if 0
-		if ( guiCurrentScreen == GAME_SCREEN ) 
-		{
-			RenderWorld();
-			RenderCoverDebug( );
-			InvalidateScreen( );
-			EndFrameBufferRender();
-			RefreshScreen( NULL );
-		}
-#endif
 	}
 #endif
 
@@ -901,13 +889,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-#if 0
-		RenderWorld();
-		RenderCoverDebug( );
-		InvalidateScreen( );
-		EndFrameBufferRender();
-		RefreshScreen( NULL );
-#endif
 	}
 #endif
 
@@ -1088,7 +1069,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 			continue;
 		}
 
-#ifdef VEHICLE
 		//has side effects, including setting loop counters
 		int retVal = VehicleObstacleCheck();
 		if (retVal == 1)
@@ -1099,7 +1079,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 		{
 			return;
 		}
-#endif
 
 		//calc the cost to move from the current node to here
 		INT16 terrainCost = EstimateActionPointCost( pSoldier, CurrentNode, direction, movementMode, 0, 3 );
@@ -1769,7 +1748,6 @@ int AStarPathfinder::CalcH()
 
 	int x = abs(n1->x - n2->x);
 	int y = abs(n1->y - n2->y);
-#if 1
 	if (x >= y) 
 	{
 		return this->travelcostDiag * y + this->travelcostOrth * (x-y);
@@ -1778,35 +1756,6 @@ int AStarPathfinder::CalcH()
 	{
 		return this->travelcostDiag * x + this->travelcostOrth * (y-x);
 	}
-#else
-	// Try a real distance method.  This should underestimate in some cases
-	// However, the distances need to be increased for the moment because running orthogonal is 1AP while running diagonal is 2AP
-	// so the total to reach a diagonal tile is identical for 2 moves.  So we have to trick the pathing calc into thinking it's
-	// a longer distance and also calculate the other costs accordingly.
-
-	x *= 100;
-	y *= 100;
-
-	int d = x*x + y*y;
-	int r = 1200; // Just a guess
-
-	if (d == 0)
-	{
-		return d;
-	}
-
-	while (1)
-	{
-		int gr = (r + (d/r)) / 2;
-		if (gr == r || gr == r+1)
-		{
-			break;
-		}
-		r = gr;
-	}
-
-	return r * travelcostOrth;
-#endif
 }
 
 #ifdef ASTAR_USING_EXTRACOVER
@@ -2116,7 +2065,6 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 }
 #endif //#ifdef ASTAR_USING_EXTRACOVER
 
-#ifdef VEHICLE
 void AStarPathfinder::InitVehicle()
 {
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
@@ -2263,7 +2211,6 @@ int AStarPathfinder::VehicleObstacleCheck()
 	}
 	return 0;
 }
-#endif
 
 bool AStarPathfinder::WantToTraverse()
 {
@@ -2523,7 +2470,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 	INT32 iWaterToWater;
 	INT16 ubCurAPCost,ubAPCost;
 	INT16 ubNewAPCost=0;
-	#ifdef VEHICLE
 		//BOOLEAN fTurnSlow = FALSE;
 		//BOOLEAN fReverse = FALSE; // stuff for vehicles turning
 		BOOLEAN fMultiTile, fVehicle;
@@ -2534,7 +2480,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 		UINT16							usAnimSurface;
 		//INT32 iCnt2, iCnt3;
 		BOOLEAN fVehicleIgnoreObstacles = FALSE;
-	#endif
 
 	INT32			iLastDir = 0;
 
@@ -2759,7 +2704,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((s->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if (fMultiTile)
@@ -2819,7 +2763,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		fContinuousTurnNeeded = FALSE;
 	}
 
-#endif
 
 	if (!fContinuousTurnNeeded)
 	{
@@ -2962,7 +2905,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		}
 #endif
 
-#ifdef VEHICLE
 		/*
 		if (fTurnSlow)
 		{
@@ -2987,7 +2929,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 		}
 		*/
-#endif
 
 		if (gubNPCAPBudget)
 		{
@@ -3048,7 +2989,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		//for ( iCnt = iLoopStart; iCnt != iLoopEnd; iCnt = (iCnt + iLoopIncrement) % MAXDIR )
 		for ( iCnt = iLoopStart; ; )
 		{
-#ifdef VEHICLE
 			/*
 			if (fTurnSlow)
 			{
@@ -3130,7 +3070,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#endif
 
 			newLoc = curLoc + dirDelta[iCnt];
 
@@ -3479,7 +3418,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#ifdef VEHICLE
 			if (fMultiTile)
 			{
 				// vehicle test for obstacles: prevent movement to next tile if
@@ -3518,7 +3456,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 				*/
 			}
-#endif
 
 			// NEW Apr 21 by Ian: abort if cost exceeds budget
 			if (gubNPCAPBudget)
