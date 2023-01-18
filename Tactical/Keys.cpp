@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <memory.h>
@@ -40,7 +37,6 @@
 	#include "Map Screen Interface.h"
 	#include "GameSettings.h" // added by SANDRO
 	#include "Dialogue Control.h" // added by Flugente
-#endif
 
 #include "GameVersion.h"
 
@@ -1194,9 +1190,6 @@ BOOLEAN ModifyDoorStatus( INT32 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", sGridNo );
-#endif
 		return( FALSE );
 	}
 
@@ -1318,9 +1311,6 @@ BOOLEAN	IsDoorOpen( INT32 sGridNo )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", sGridNo );
-#endif
 		return( FALSE );
 	}
 
@@ -1531,9 +1521,6 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", pDoorStatus->sGridNo );
-#endif
 		return;
 	}
 
@@ -1615,9 +1602,6 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", pDoorStatus->sGridNo );
-#endif
 		return;
 	}
 

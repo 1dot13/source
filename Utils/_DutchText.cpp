@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("DUTCH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( DUTCH )
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_DutchText_public_symbol(void){;}
@@ -6538,7 +6534,7 @@ STR16		zOptionsToggleText[] =
 	L"Bevestiging Real-Time",
 	L"Slaap/wakker-berichten",
 	L"Metrieke Stelsel",
-	L"Huurling Oplichten",
+	L"Licht Huurlingen Op",
 	L"Auto-Cursor naar Huurling",
 	L"Auto-Cursor naar Deuren",
 	L"Items Oplichten",
@@ -6640,8 +6636,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Wanneer INGESCHAKELD wordt het metrieke stelsel gebruikt, anders het Imperiale stelsel.",
 
-	//Merc Lighted movement
-	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wanneer INGESCHAKELD, wordt de huurling gemarkeerd (niet zichtbaar voor vijanden).\nSchakel in het spel met (|G)",
 
 	//Smart cursor
 	L"Wanneer INGESCHAKELD zullen huurlingen dichtbij de cursor automatisch oplichten.",

@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "XML.h"
-#else
 	#include "Campaign Types.h"
 	#include "Queen Command.h"
 	#include "Strategic Movement.h"
@@ -10,7 +6,6 @@
 	#include "Debug.h"
 	#include "Debug Control.h"
 	#include "Tactical Save.h"
-#endif
 #include "Map Screen Interface Map.h"
 
 #ifdef JA2UB

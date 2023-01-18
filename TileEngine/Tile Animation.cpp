@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "TileEngine All.h"
-#else
 #include "worlddef.h"
 #include "tile animation.h"
 #include "debug.h"
@@ -16,7 +13,6 @@
 #include "bullets.h"
 #include "LightEffects.h"
 #include "SmokeEffects.h"
-#endif
 
 
 ANITILE					*pAniTileHead = NULL;

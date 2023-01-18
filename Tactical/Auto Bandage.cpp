@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead.h"
 	#include "messageboxscreen.h"
@@ -28,7 +25,6 @@
 	#include "cursors.h"
 	#include "English.h"
 	#include "SkillCheck.h"		// added by Flugente
-#endif
 
 #include "Music Control.h"
 

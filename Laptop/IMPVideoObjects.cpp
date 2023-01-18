@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
@@ -10,7 +7,6 @@
 	#include "laptop.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "IMP Attribute Selection.h"
-#endif
 
 // globals
 

@@ -1,14 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "PreBattle Interface.h"
-	#include "civ quotes.h"
-	#include "Militia Control.h"
-	#include "Strategic Event Handler.h"
-	#include "HelpScreen.h"
-	#include "Cheats.h"
-	#include "Animated ProgressBar.h"
-	#include "Shopkeeper Interface.h"
-#else
 	#include "Types.h"
 	#include "Soldier Profile.h"
 	#include "FileMan.h"
@@ -119,7 +108,6 @@
 	#include "ASD.h"				// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include		"BobbyR.h"
 #include		"Imp Portraits.h"
@@ -2666,7 +2654,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			return(FALSE);
 		}
 
-		// WANNE - BMP: TODO! Struktur prüfen
+		// WANNE - BMP: TODO! Struktur prÃ¼fen
 		//load some structs, atm just POD but could change
 		//Load STRUCT_AIData
 		numBytesRead = 0;
@@ -3604,7 +3592,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	SaveGameHeader.uiSavedGameVersion = SAVE_GAME_VERSION;
 	wcscpy( SaveGameHeader.sSavedGameDesc, pGameDesc );
-	strcpy( SaveGameHeader.zGameVersionNumber, czVersionNumber );
+	strcpy( SaveGameHeader.zGameVersionNumber, czVersionString );
 
 	SaveGameHeader.uiFlags;
 

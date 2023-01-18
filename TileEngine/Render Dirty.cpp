@@ -1,15 +1,9 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-	#include "winfont.h"
-
-#else
 	#include "worlddef.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
-#endif
 
 #ifdef JA2BETAVERSION
 #include "Message.h"

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP MainPage.h"
 	#include "IMP HomePage.h"
@@ -34,7 +31,6 @@
 	#include "GameSettings.h"
 	#include "IMP Gear.h"				// added by Flugente
 	#include "IMP Gear Entrance.h"		// added by Flugente
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Aspects/vfs_settings.h>

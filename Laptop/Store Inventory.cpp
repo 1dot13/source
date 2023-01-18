@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Types.h"
 	#include "Store Inventory.h"
 	#include "Random.h"
@@ -10,7 +7,6 @@
 	#include "ShopKeeper Interface.h"
 	#include "armsdealerinvinit.h"
 	#include "GameSettings.h"
-#endif
 
 
 UINT8 StoreInventory[MAXITEMS][BOBBY_RAY_LISTS]; //=

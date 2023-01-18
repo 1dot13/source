@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include <stdlib.h>
 	#include "Isometric Utils.h"
 	#include "ai.h"
@@ -30,7 +27,6 @@
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
 	#include "rotting corpses.h"	// sevenfm
-#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2950,85 +2946,7 @@ INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 
 BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 {
-#if 1
 	return FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel) != DIRECTION_IRRELEVANT;
-#else
-	BUILDING * pBuilding;
-	INT32 i;
-	INT32 iSearchRange = 1;
-	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-
-	//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , "CanClimbFromHere");
-
-
-	// determine maximum horizontal limits
-	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
-	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
-
-	// determine maximum vertical limits
-	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
-	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
-
-	INT32 sGridNo=NOWHERE;
-
-	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
-	{
-		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
-		{
-			// calculate the next potential gridno
-			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-			//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , String("Checking grid %d" , sGridNo ));
-
-			//NumMessage("Testing gridno #",gridno);
-			if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
-			{
-				continue;
-			}
-
-
-			if ( sGridNo == pSoldier->pathing.sBlackList )
-			{
-				continue;
-			}
-
-
-			// OK, this place shows potential.	How useful is it as cover?
-			//NumMessage("Promising seems gridno #",gridno);
-
-			// Kaiden: From this point down I've removed an unneccessary call to
-			// FindBuilding, The original code that was from this point till the
-			// end of the function is now commented out AFTER the function.
-
-			pBuilding = FindBuilding ( sGridNo );
-
-			if ( pBuilding != NULL)
-			{
-				if ( fUp )
-				{
-
-					for (i = 0 ; i < pBuilding->ubNumClimbSpots; i++)
-					{
-						if (pBuilding->sUpClimbSpots[ i ] == pSoldier->sGridNo &&
-							(WhoIsThere2( pBuilding->sUpClimbSpots[ i ], 0 ) == NOBODY)
-							&& (WhoIsThere2( pBuilding->sDownClimbSpots[ i ], 1 ) == NOBODY) )
-							return TRUE;
-					}
-				}
-				else
-				{
-					for (i = 0 ; i < pBuilding->ubNumClimbSpots; i++)
-					{
-						if (pBuilding->sDownClimbSpots[ i ] == pSoldier->sGridNo &&
-							(WhoIsThere2( pBuilding->sUpClimbSpots[ i ], 0 ) == NOBODY)
-							&& (WhoIsThere2( pBuilding->sDownClimbSpots[ i ], 1 ) == NOBODY) )
-							return TRUE;
-					}
-				}
-			}
-		}
-	}
-	return FALSE;
-#endif
 }
 			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);

@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "sgp.h"
 	#include "message.h"
 	#include "quests.h"
@@ -32,7 +28,6 @@
 	#include "strategic.h"
 	#include "Strategic Event Handler.h"
 	#include "Soldier Control.h"
-#endif
 
 #include "BobbyRMailOrder.h"
 #include "connect.h"
@@ -1601,9 +1596,7 @@ void CheckForQuests( UINT32 uiDay )
 {
 	// This function gets called at 8:00 AM time of the day
 
-#ifdef TESTQUESTS
 	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Checking For Quests, Day %d", uiDay );
-#endif
 
 #ifdef JA2UB
  // -------------------------------------------------------------------------------
@@ -1614,9 +1607,7 @@ void CheckForQuests( UINT32 uiDay )
 	if( gubQuest[ QUEST_DESTROY_MISSLES ] == QUESTNOTSTARTED )
 	{
 		StartQuest( QUEST_DESTROY_MISSLES, -1, -1 );
-#ifdef TESTQUESTS
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DESTORY MISSLES quest");
-#endif
 	}
 //Ja25: No deliver letter quest, dont start it
 #else
@@ -1628,11 +1619,9 @@ void CheckForQuests( UINT32 uiDay )
 	if (gubQuest[QUEST_DELIVER_LETTER] == QUESTNOTSTARTED)
 	{
 		StartQuest( QUEST_DELIVER_LETTER, -1, -1 );
-#ifdef TESTQUESTS
 
 		if (!is_networked)
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DELIVER LETTER quest");
-#endif
 	}
 #endif
 	// This quest gets turned OFF through conversation with Miguel - when user hands

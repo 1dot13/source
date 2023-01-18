@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Map Screen Interface Border.h"
 	#include "Types.h"
 	#include "vsurface.h"
@@ -31,7 +28,6 @@
 	#include "popup_callback.h"
 	#include "popup_class.h"
 	#include "Queen Command.h"	// added by Flugente
-#endif
 
 #include "connect.h"
 

@@ -45,7 +45,6 @@
   <ItemGroup>
     <ClInclude Include="Button Defines.h" />
     <ClInclude Include="Cursor Modes.h" />
-    <ClInclude Include="Editor All.h" />
     <ClInclude Include="Editor Callback Prototypes.h" />
     <ClInclude Include="Editor Modes.h" />
     <ClInclude Include="Editor Taskbar Creation.h" />

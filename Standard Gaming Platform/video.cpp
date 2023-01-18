@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-#include "WIZ8 SGP ALL.H"
-#else
 #include "types.h"
 #include "Video.h"
 #include "vobject_blitters.h"
@@ -18,7 +13,6 @@
 #include "Input.h"
 #include "GameSettings.h"
 #include "sgp_logger.h"
-#endif
 
 #include "resource.h"
 #include <vfs/Core/vfs.h>
@@ -1499,13 +1493,6 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 #endif
 
 
-#if 0
-		StripRegions[ 0 ].left	= gsVIEWPORT_START_X ;
-		StripRegions[ 0 ].right	= gsVIEWPORT_END_X	;
-		StripRegions[ 0 ].top	= gsVIEWPORT_WINDOW_START_Y ;
-		StripRegions[ 0 ].bottom = gsVIEWPORT_WINDOW_END_Y ;
-		usNumStrips = 1;
-#endif
 
 		for ( cnt = 0; cnt < usNumStrips; cnt++ )
 		{
@@ -1602,28 +1589,6 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		ExecuteVideoOverlaysToAlternateBuffer( BACKBUFFER );
 
 
-#if 0
-
-		// Erase mouse from old position
-		if (gMouseCursorBackground[ uiCurrentMouseBackbuffer ].fRestore == TRUE )
-		{
-
-			do
-			{
-				ReturnCode = IDirectDrawSurface2_SGPBltFast(gpBackBuffer, usMouseXPos, usMouseYPos, gMouseCursorBackground[uiCurrentMouseBackbuffer].pSurface, (LPRECT)&MouseRegion, DDBLTFAST_NOCOLORKEY);
-				if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
-				{
-					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-
-					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
-					{
-
-					}
-				}
-			} while (ReturnCode != DD_OK);
-		}
-
-#endif
 
 	}
 
@@ -1792,14 +1757,6 @@ void RefreshScreen(void *DummyVariable)
 			// Either Method (1) or (2)
 			//
 		{
-#if 0
-			if ( gfRenderScroll )
-			{
-				ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpPrimarySurface, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
-				//				ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpBackBuffer, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
-				gfForceFullScreenRefresh = TRUE;
-			}
-#endif
 			if (gfForceFullScreenRefresh == TRUE)
 			{
 				//

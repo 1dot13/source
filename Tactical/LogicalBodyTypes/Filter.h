@@ -64,6 +64,10 @@ public:
 		REQ_HELMET_AMOR_PROTECTION,
 		REQ_HELMET_AMOR_COVERAGE,
 		REQ_WEARING_BACKPACK,
+		REQ_HELMETPOSATTACHMENT0,
+		REQ_HELMETPOSATTACHMENT1,
+		REQ_HELMETPOSATTACHMENT2,
+		REQ_HELMETPOSATTACHMENT3,
 		NUM_REQTYPES,
 		// 3rd byte is for operator flags
 		_REQ_BTWN = 0x20000,
@@ -86,7 +90,7 @@ public:
 	};
 	typedef std::pair <INT32, INT32> NumberPair;
 	typedef std::list <std::wstring> StringList;
-	typedef std::list <INT32> NumberList;
+	typedef std::vector <INT32> NumberList;
 	union criterionVariant {
 		INT32 number;
 		std::wstring* string;

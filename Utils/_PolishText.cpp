@@ -2,9 +2,6 @@
 // WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
 //#pragma setlocale("POLISH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( POLISH )
 		#include "text.h"
@@ -13,7 +10,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_PolishText_public_symbol(void){;}
@@ -6539,7 +6535,7 @@ STR16		zOptionsToggleText[] =
 	L"Potwierdzenia Real-Time",
 	L"Najemnik śpi/budzi się",
 	L"Używaj systemu metrycznego",
-	L"Oświetlenie podczas ruchu",
+	L"Wyróżnij najemników",
 	L"Przyciągaj kursor do najemników",
 	L"Przyciągaj kursor do drzwi",
 	L"Pulsujące przedmioty",
@@ -6642,8 +6638,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Jeśli WŁĄCZONE, gra będzie używała systemu metrycznego.",
 
-	//Merc Lighted movement
-	L"Jeśli WŁĄCZONE, teren wokół najemnika będzie oświetlony podczas ruchu. Może spowolnić działanie gry.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Gdy jest włączony, podświetla najemnika (niewidoczny dla wrogów).\nPrzełącz w grze za pomocą (|G)",
 
 	//Smart cursor
 	L"Jeśli WŁĄCZONE, kursor będzie automatycznie ustawiał się na najemnikach gdy znajdzie się w ich pobliżu.",

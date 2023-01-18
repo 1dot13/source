@@ -1,10 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Campaign.h"
-	#include "Cheats.h"
-	#include "INIReader.h"
-#else
 	#include	"Types.h"
 	#include	"GameSettings.h"
 	#include	"FileMan.h"
@@ -36,7 +29,6 @@
 	#include "Init.h"
 	#include "InterfaceItemImages.h"
 	#include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 #include "KeyMap.h"
 #include "Timer Control.h"
@@ -292,7 +284,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_RTCONFIRM]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RTCONFIRM"                        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  TRUE );
-		gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_ALWAYS_LIGHT_UP"             ,  FALSE );
+		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] = iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_MERC_CASTS_LIGHT", FALSE);
 		gGameSettings.fOptions[TOPTION_SMART_CURSOR]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SMART_CURSOR"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GLOW_ITEMS"                       ,  TRUE  );
@@ -361,7 +353,6 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DEBUG_MODE_OPTIONS_END"           ,  FALSE );
 		gGameSettings.fOptions[TOPTION_LAST_OPTION]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LAST_OPTION"                      ,  FALSE );
 		gGameSettings.fOptions[NUM_GAME_OPTIONS]                        = iniReader.ReadBoolean("JA2 Game Settings","NUM_GAME_OPTIONS"                         ,  FALSE );
-		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_CASTS_LIGHT"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
@@ -580,7 +571,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_RTCONFIRM                        = " << (gGameSettings.fOptions[TOPTION_RTCONFIRM]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SLEEPWAKE_NOTIFICATION           = " << (gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_USE_METRIC_SYSTEM                = " << (gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]					?    "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_MERC_ALWAYS_LIGHT_UP             = " << (gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] ? "TRUE" : "FALSE") << endl;
 		settings << "TOPTION_SMART_CURSOR                     = " << (gGameSettings.fOptions[TOPTION_SMART_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SNAP_CURSOR_TO_DOOR              = " << (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_GLOW_ITEMS                       = " << (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]						?    "TRUE" : "FALSE" ) << endl;
@@ -641,7 +632,6 @@ BOOLEAN	SaveGameSettings()
 		settings << ";******************************************************************************************************************************" << endl;
 		settings << "TOPTION_LAST_OPTION                      = " << (gGameSettings.fOptions[TOPTION_LAST_OPTION]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "NUM_GAME_OPTIONS                         = " << (gGameSettings.fOptions[NUM_GAME_OPTIONS]							?    "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]					?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_HIDE_BULLETS                     = " << (gGameSettings.fOptions[TOPTION_HIDE_BULLETS]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_TRACKING_MODE                    = " << (gGameSettings.fOptions[TOPTION_TRACKING_MODE]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "NUM_ALL_GAME_OPTIONS                     = " << (gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]						?    "TRUE" : "FALSE" ) << endl;
@@ -785,7 +775,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= TRUE;
-	gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ]				= FALSE;
+	gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] = FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
 	gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ]						= TRUE;
@@ -878,8 +868,6 @@ void InitGameSettings()
 	gGameSettings.fOptions[	NUM_GAME_OPTIONS ]						    = FALSE; // Toggles prior to this will be able to be toggled by the player
 
 	// JA2Gold
-	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
-
 	gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_TRACKING_MODE ]						= TRUE;
 
@@ -4581,7 +4569,7 @@ BOOLEAN IsDriveLetterACDromDrive( STR pDriveLetter )
 void DisplayGameSettings( )
 {
 	//Display the version number
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S) %s", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber, zRevisionNumber );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
 
 	//Display the difficulty level
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "IMP AboutUs.h"
 	#include "CharProfile.h"
 	#include "IMPVideoObjects.h"
@@ -11,7 +8,6 @@
 	#include "cursors.h"
 	#include "laptop.h"
 	#include "IMP Text System.h"
-#endif
 
 // IMP AboutUs buttons
 INT32 giIMPAboutUsButton[1];

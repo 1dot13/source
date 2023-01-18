@@ -2,16 +2,11 @@
 // WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
 //#pragma setlocale("POLISH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "_Ja25Polishtext.h"
-#else
 	#include "Language Defines.h"
 	#ifdef POLISH
 		#include "text.h"
 		#include "Fileman.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_Ja25PolishText_public_symbol(void){;}

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -11,7 +8,6 @@
 
 	#include "Random.h"
 	#include "Campaign.h"
-#endif
 
 #include "XML.h"
 

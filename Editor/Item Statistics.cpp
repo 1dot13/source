@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <memory.h>
 	#include <stdio.h>
 	#include "types.h"
@@ -31,7 +26,6 @@
 	#include "PopupMenu.h"
 	#include "pits.h"
 	#include "Text.h"
-#endif
 
 #include "soldier profile type.h"
 #include "LuaInitNPCs.h"

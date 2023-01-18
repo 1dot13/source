@@ -339,10 +339,6 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="AI All.h"
-				>
-			</File>
-			<File
 				RelativePath="ai.h"
 				>
 			</File>

@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("CHINESE")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( CHINESE )
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_ChineseText_public_symbol(void){;}
@@ -3230,11 +3226,11 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"无线电操作员",	// 21
 	L"告发",	// 22
-	L"生还者", //L"Survival"
+	L"向导", //L"Survival"
 
 	// second names for major skills
 	L"机枪手",		// 24
-	L"掷弹兵",
+	L"枪炮专家",	//L"Bombardier",
 	L"狙击手",
 	L"游骑兵",
 	L"枪斗术",
@@ -3256,7 +3252,7 @@ STR16 gzMercSkillTextNew[] =
 	L"间谍",				// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"生还者",			// for survival (minor trait)
+	L"向导",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"情报",			//L"Intel", for INTEL
 	L"伪装",		//L"Disguise", for DISGUISE
@@ -6536,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"实时确认",		//"Real Time Confirmation",
 	L"显示睡觉/醒来时的提示",	//"Display sleep/wake notifications",
 	L"使用公制系统",		//"Use Metric System",
-	L"佣兵移动时高亮显示",	//"Merc Lights during Movement",
+	L"佣兵假光",	//"Highlight Mercs",
 	L"锁定佣兵",	//"Snap Cursor to Mercs",
 	L"锁定门",		//"Snap Cursor to Doors",
 	L"物品闪亮",	//"Make Items Glow",
@@ -6638,8 +6634,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"打开时，使用公制系统，否则使用英制系统。",
 
-	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表，切换虚拟佣兵光照。（|G）\n（关闭这个选项会使游戏的显示速度变快）",
+	//Highlight Mercs
+	L"打开时，切换虚拟佣兵照明。（|G）",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -7830,7 +7826,7 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Radio Operator
 	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ", //L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
 	// Survival
-	L"生还者: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
+	L"向导: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
 };
 
 STR16 NewInvMessage[] =

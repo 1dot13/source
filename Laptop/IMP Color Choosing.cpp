@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Color Choosing Skin Hair.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "IMP Color Choosing.h"
 	#include "Button System.h"
 	#include "utilities.h"
@@ -22,7 +17,6 @@
 	#include "Animation Data.h"
 	#include "GameSettings.h"
 	#include "Soldier Create.h" // added by Flugente for enums
-#endif
 
 #include "IMP Confirm.h"
 

@@ -179,62 +179,6 @@ bool IndexedSTIImage::addImage(UINT8 *data, UINT32 data_size, UINT32 image_width
 
 	return true;
 
-#if 0
-	unsigned int uiBufferPos = 0;
-	
-	bool bZeroRun = false;
-	UINT8 uiRunLength = 0;
-	UINT8 *uiRunStartPosition = data;
-	if(*data == 0)
-	{
-		bZeroRun = true;
-	}
-	bool done = false;
-	UINT32 scanline = 0;
-	while(!done)
-	{
-		if(bZeroRun)
-		{
-			while((*data == 0) && (uiRunLength < 128) && (uiBufferPos < data_size) && (scanline < image_width))
-			{
-				data++;
-				uiRunLength++;
-				uiBufferPos++;
-				scanline++;
-			}
-			uiRunStartPosition = compressed;
-			*compressed++ = uiRunLength | iCOMPRESS_TRANSPARENT;
-			compressed_size += 1;
-		}
-		else
-		{
-			uiRunStartPosition = compressed++;
-			while((*data != 0) && (uiRunLength < 128) && (uiBufferPos < data_size) && (scanline < image_width))
-			{
-				*compressed++ = *data++;
-				uiRunLength++;
-				uiBufferPos++;
-				scanline++;
-			}
-			*uiRunStartPosition = uiRunLength;
-			compressed_size += uiRunLength+1;
-		}
-		// prepare next run
-		uiRunLength = 0;
-		bZeroRun = (*data != 0) ? false : true;
-		if(scanline == image_width)
-		{
-			scanline = 0;
-			// "close" scanline with a zero
-			*compressed++ = 0;
-			compressed_size += 1;
-		}
-		if(uiBufferPos >= data_size)
-		{
-			done = true;
-		}
-	}
-#endif
 }
 
 
@@ -870,7 +814,6 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 
 void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 {
-#if 1
 	hImage->pETRLEObject = (ETRLEObject*)MemAlloc(1 * sizeof(ETRLEObject));
 	if(!hImage->pETRLEObject)
 	{
@@ -908,37 +851,6 @@ void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 	}
 
 	hImage->fFlags |= IMAGE_BITMAPDATA;
-#else
-	UINT32 SIZE = info->height * info->width;
-	hImage->p16BPPData = new UINT16[SIZE];
-	memset(hImage->p16BPPData, 0, SIZE*sizeof(UINT16));
-	UINT16* dest_row = NULL;
-	UINT32 rgbcolor = 0;
-	for(unsigned int i=0; i<info->height; ++i)
-	{
-		dest_row = &(hImage->p16BPPData[i*info->width]);
-		png_bytep row_i = rows[i];
-		for(unsigned int sx = 0, dx = 0; sx < 4*info->width; sx+=4, dx+=1)
-		{
-			if(row_i[sx+3] == 255)
-			{
-				rgbcolor = FROMRGB(row_i[sx], row_i[sx+1], row_i[sx+2]);
-				if(rgbcolor == 0)
-				{
-					// since we already use rgb(0,0,0) as a fully transparent color,
-					// the color black will be mapped to rgb(0,1,0), because green has the most bits
-					//rgbcolor = 1 << 8;
-					rgbcolor = FROMRGB(0,1,0);
-				}
-				dest_row[dx] = Get16BPPColor(rgbcolor);
-			}
-			else
-			{
-				dest_row[dx] = Get16BPPColor(0);
-			}
-		}
-	}
-#endif
 }
 
 
@@ -1039,65 +951,6 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	SGP_THROW_IFFALSE( etrle_size > 0, L"ETRLE compression of PNG image failed" );
 	subim.sOffsetX = subimage.sOffsetX;
 	subim.sOffsetY = subimage.sOffsetY;
-#if 0
-	unsigned int uiBufferPos = 0;
-	
-	bool bZeroRun = false;
-	UINT8 uiRunLength = 0;
-	UINT8 *uiRunStartPosition = data;
-	if(*data == 0)
-	{
-		bZeroRun = true;
-	}
-	bool done = false;
-	UINT32 scanline = 0;
-	while(!done)
-	{
-		if(bZeroRun)
-		{
-			while((*data == 0) && (uiRunLength < 128) && (uiBufferPos < SIZE) && (scanline < info->width))
-			{
-				data++;
-				uiRunLength++;
-				uiBufferPos++;
-				scanline++;
-			}
-			uiRunStartPosition = compressed;
-			*compressed++ = uiRunLength | COMPRESS_TRANSPARENT;
-			compressed_size += 1;
-			*compressed++ = 0;
-			compressed_size += 1;
-		}
-		else
-		{
-			uiRunStartPosition = compressed++;
-			while((*data != 0) && (uiRunLength < 128) && (uiBufferPos < SIZE) && (scanline < info->width))
-			{
-				*compressed++ = *data++;
-				uiRunLength++;
-				uiBufferPos++;
-				scanline++;
-			}
-			*uiRunStartPosition = uiRunLength | COMPRESS_NON_TRANSPARENT;
-			compressed_size += uiRunLength+1;
-		}
-		// prepare next run
-		uiRunLength = 0;
-		bZeroRun = (*data != 0) ? false : true;
-		if(scanline == info->width)
-		{
-			scanline = 0;
-			// "close" scanline with a zero
-			*compressed++ = 0;
-			compressed_size += 1;
-		}
-		if(uiBufferPos >= SIZE)
-		{
-			done = true;
-		}
-	}
-	UINT32 etrle_size = compressed_size;
-#endif
 	//subimage.uiDataLength = compressed_size;
 	subimage.uiDataLength = etrle_size;
 	subimage.uiDataOffset = 0;

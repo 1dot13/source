@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
@@ -19,7 +16,6 @@
 	#include "overhead.h"
 	#include "interface items.h"
 	#include "GameSettings.h"
-#endif
 
 #define DISPLAY_AP_INDEX					MOCKFLOOR1
 

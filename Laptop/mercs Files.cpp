@@ -1,7 +1,4 @@
 // WANNE 3 <changed some lines>
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "mercs Files.h"
 	#include "mercs.h"
@@ -33,7 +30,6 @@
 	#include "Personnel.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
 	#include "mousesystem.h"
-#endif
 
 #include "Cheats.h"
 #include "connect.h"

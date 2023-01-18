@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
-	#include "Laptop All.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "timer control.h"
@@ -12,10 +8,15 @@
 	#include "Game Clock.h"
 	#include "Text.h"
 	#include "soldier profile type.h"
-#endif
 
 #include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"
+#include "english.h"
+#include "laptop.h"
+#include "IMP HomePage.h"
+#include "line.h"
+#include "input.h"
+#include "Text Input.h"
 
 // Link Images
 #define	BRIEFINGROOM_BUTTON_SIZE_X						205

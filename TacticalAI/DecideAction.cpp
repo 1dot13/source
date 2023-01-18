@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "AI All.h"
-#else
 #include "ai.h"
 #include "AIInternals.h"
 #include "Isometric utils.h"
@@ -32,7 +29,6 @@
 #include "rotting corpses.h"
 #include "GameSettings.h"
 #include "Dialogue Control.h"
-#endif
 #include "connect.h"
 #include "Text.h"
 #include "Exit Grids.h"		// added by Flugente

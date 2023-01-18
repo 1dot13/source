@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "worlddef.h"
 	#include "Random.h"
 	#include "Smell.h"
@@ -14,7 +11,6 @@
 	#include "Game Clock.h"
 	#include "Overhead.h"
 	#include "debug control.h"
-#endif
 
 /*
  * Smell & Blood system

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead.h"
 	#include "weapons.h"
@@ -8,7 +5,6 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "GameSettings.h"
-#endif
 
 struct
 {
@@ -193,18 +189,8 @@ lbepocketParseData * pData = (lbepocketParseData *)userData;
 		else if(strcmp(name, "pName") == 0)
 		{
 			pData->curElement = ELEMENT;
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curLBEPocket.pName,pData->szCharData);
-			else
-			{
-				strncpy(pData->curLBEPocket.pName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curLBEPocket.pName[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curLBEPocket.pName, sizeof(pData->curLBEPocket.pName)/sizeof(pData->curLBEPocket.pName[0]) );
 			pData->curLBEPocket.pName[sizeof(pData->curLBEPocket.pName)/sizeof(pData->curLBEPocket.pName[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "pSilhouette") == 0)
 		{

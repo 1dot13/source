@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Begin Screen.h"
 	#include "IMP MainPage.h"
@@ -26,7 +23,6 @@
 	#include "strategic.h"
 	#include "text.h"
 	#include "LaptopSave.h"
-#endif
 
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138

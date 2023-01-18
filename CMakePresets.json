@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "Languages": "CHINESE;DUTCH;ENGLISH;FRENCH;GERMAN;ITALIAN;POLISH;RUSSIAN",
+        "Applications": "JA2;JA2MAPEDITOR;JA2UB;JA2UBMAPEDITOR",
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "."
+      },
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "Debug",
+      "displayName": "Debug",
+      "inherits": "default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "RelWithDebInfo",
+      "displayName": "RelWithDebInfo",
+      "inherits": "default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "Release",
+      "displayName": "Release",
+      "inherits": "default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ]
+}

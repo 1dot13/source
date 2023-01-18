@@ -1,10 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-#include "TileEngine All.h"
-#include "end game.h"
-#include "Morale.h"
-#else
 #include "debug.h"
 #include "weapons.h"
 #include "worldman.h"
@@ -39,7 +34,6 @@
 #include "Points.h"				// added by Flugente
 #include "Interface Control.h"		// added by Flugente for DrawExplosionWarning(...)
 #include "SkillMenu.h"
-#endif
 
 #include "Soldier Macros.h"
 #include "connect.h"
@@ -827,11 +821,7 @@ INT8 ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextC
 					{
 						if ( !(ppTile[ ubLoop ]->fFlags & TILE_ON_ROOF ) )
 						{
-#if 0//dnl ch83 080114
-							sStructGridNo = pBase->sGridNo + ppTile[ubLoop]->sPosRelToBase;
-#else
 							sStructGridNo = AddPosRelToBase(pBase->sGridNo, ppTile[ubLoop]);
-#endif
 							// there might be two structures in this tile, one on each level, but we just want to
 							// delete one on each pass
 
@@ -1462,11 +1452,7 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 
 					for ( ubLoop = BASE_TILE; ubLoop < ubNumberOfTiles; ubLoop++)
 					{
-#if 0//dnl ch83 080114
-						sNewGridNo = sBaseGridNo + ppTile[ubLoop]->sPosRelToBase;
-#else
 						sNewGridNo = AddPosRelToBase(sBaseGridNo, ppTile[ubLoop]);
-#endif
 						// look in adjacent tiles
 						for ( ubLoop2 = 0; ubLoop2 < NUM_WORLD_DIRECTIONS; ubLoop2++ )
 						{

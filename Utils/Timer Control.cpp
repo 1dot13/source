@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "interface control.h"
-#else
 	#include <windows.h>
 	#include <mmsystem.h>
 	#include <string.h>
@@ -14,7 +10,6 @@
 	#include "renderworld.h"
 	#include "interface control.h"
 	#include "keymap.h"
-#endif
 
 #ifndef WIN32_LEAN_AND_MEAN
 	#define WIN32_LEAN_AND_MEAN

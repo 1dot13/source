@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "BobbyRAmmo.h"
 	#include "BobbyRGuns.h"
@@ -10,7 +7,6 @@
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "text.h"
-#endif
 
 UINT32		guiAmmoBackground;
 UINT32		guiAmmoGrid;

@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("GERMAN")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#ifdef GERMAN
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_GermanText_public_symbol(void){;}
@@ -6409,7 +6405,7 @@ STR16 zOptionsToggleText[] =
 	L"Bestätigung bei Echtzeit",
 	L"Schlaf-/Wachmeldung anzeigen", 
 	L"Metrisches System benutzen",
-	L"Boden beleuchten",
+	L"Markieren Sie Söldner",
 	L"Cursor autom. auf Söldner",
 	L"Cursor autom. auf Türen",
 	L"Gegenstände leuchten",
@@ -6511,8 +6507,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen Maßsystems verwendet (z.B. Meter und Kilogramm).",
 
-	//Merc Lighted movement
-	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen. AUSgeschaltet erhöht sich die Bildwiederholrate.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wenn AN, wird der Söldner hervorgehoben (für Feinde nicht sichtbar).\nIm Spiel umschalten mit (|G)",
 
 	//Smart cursor
 	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf Söldner in seiner direkten Nähe.",

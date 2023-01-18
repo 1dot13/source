@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "IMP MainPage.h"
 	#include "CharProfile.h"
 	#include "IMPVideoObjects.h"
@@ -23,7 +20,6 @@
 	#include "Soldier Profile.h"
 	#include "Squads.h"
 	#include "Overhead.h"		// added by Flugente for OUR_TEAM_SIZE_NO_VEHICLE
-#endif
 
 #include "IMP Confirm.h"
 

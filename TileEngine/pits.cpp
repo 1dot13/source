@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "types.h"
 	#include "pits.h"
 	#include "worlddef.h"
@@ -14,7 +11,6 @@
 	#include "animation control.h"
 	#include "strategic.h"
 	#include "Action Items.h"
-#endif
 
 //used by editor
 BOOLEAN gfShowPits = FALSE;

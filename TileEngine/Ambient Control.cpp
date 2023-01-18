@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Ambient Control.h"
 	#include "Sound Control.h"
 	#include "Game Events.h"
@@ -14,7 +11,6 @@
 	#include "Strategic Movement.h"
 	#include "Game Clock.h"
 	#include "strategic mines.h"
-#endif
 
 AMBIENTDATA_STRUCT		gAmbData[ MAX_AMBIENT_SOUNDS ];
 INT16					gsNumAmbData = 0;

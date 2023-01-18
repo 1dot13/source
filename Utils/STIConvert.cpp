@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -14,7 +11,6 @@
 	#include "pcx.h"
 	#include "impTGA.h"
 	#include "wcheck.h"
-#endif
 
 //CONVERT_TO_16_BIT
 BOOLEAN ConvertToETRLE( UINT8 ** ppDest, UINT32 * puiDestLen, UINT8 ** ppSubImageBuffer, UINT16 * pusNumberOfSubImages, UINT8 * p8BPPBuffer, UINT16 usWidth, UINT16 usHeight, UINT32 fFlags );

@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "IMP Minor Trait.h"
 	#include "IMP Skill Trait.h"
 	#include "Button System.h"
@@ -22,7 +17,6 @@
 	#include "IMP Compile Character.h"
 	#include "GameSettings.h"
 	#include "personnel.h"		// added by Flugente
-#endif
 
 
 

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include <memory.h>
@@ -46,7 +43,6 @@
 #include "screenids.h"
 #include "SaveLoadScreen.h"
 #include "Rotting Corpses.h"
-#endif
 
 #include "connect.h"
 #include "Map Edgepoints.h"

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "weapons.h"
 	#include "Soldier Control.h"
@@ -36,7 +33,6 @@
 	#include "utilities.h"
 	#include "english.h"
 	#include "debug control.h"
-#endif
 
 #ifdef JA2UB
 #include "worldman.h"

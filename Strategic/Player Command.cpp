@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Player Command.h"
 	#include "Queen Command.h"
 	#include "Campaign Types.h"
@@ -30,7 +27,6 @@
 	#include "CampaignStats.h"	// added by Flugente
 	#include "Town Militia.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
-#endif
 
 #include "postalservice.h"
 

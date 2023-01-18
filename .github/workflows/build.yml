@@ -1,128 +1,245 @@
 name: build
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  # allows to manually trigger a build
+  workflow_dispatch:
+    inputs:
+      build_all_languages:
+        description: build all languages
+        required: false
+        default: false
+        type: boolean
+      assemble_release:
+        description: create release
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
 
 jobs:
+  workflow_setup:
+    runs-on: ubuntu-latest
+    outputs:
+      languages_json_array: ${{ steps.global_vars.outputs.languages_json_array }}
+      assemble_release: ${{ steps.global_vars.outputs.assemble_release }}
+    steps:
+      - id: global_vars
+        name: Set global variables
+        run: |
+          set -eux
+          
+          full_release='${{ ( github.repository == '1dot13/source' && github.ref_name == 'master' ) || startsWith(github.ref, 'refs/tags/v') }}'
+          
+          if [[ '${{ inputs.build_all_languages }}' == 'true' || ( '${{ inputs.build_all_languages }}' == '' && "$full_release" == 'true' ) ]]
+          then
+            # the two letter short form could be removed if JA2LangPrefix is removed
+            # the casing of the long form adheres to the one found in the gamedir-languages repo
+            # for compilation only, the long form is transformed to upper case
+            languages_json_array='["CN_Chinese", "DE_German", "EN_English", "FR_French", "PL_Polish", "IT_Italian", "NL_Dutch", "RU_Russian"]';
+          else
+            # English + some other language for compilation testing
+            languages_json_array='["DE_German", "EN_English"]'
+          fi
+          echo "languages_json_array=$languages_json_array" >> $GITHUB_OUTPUT
+          
+          if [[ '${{ inputs.assemble_release }}' == 'true' || ( '${{ inputs.assemble_release }}' == '' && "$full_release" == 'true' ) ]]
+          then
+            assemble_release='true'
+          else
+            assemble_release='false'
+          fi
+          echo "assemble_release=$assemble_release" >> $GITHUB_OUTPUT
+
+      - name: Clone repos metadata
+        run: |
+          set -eux
+          
+          GAMEDIR_REPOSITORY=1dot13/gamedir
+          GAMEDIR_LANGUAGES_REPOSITORY=1dot13/gamedir-languages
+          
+          # filter tree is what makes this fast
+          git clone --config transfer.fsckobjects=false --tags --no-checkout --filter=tree:0 \
+            "https://github.com/$GITHUB_REPOSITORY" \
+            source
+          
+          git clone --config transfer.fsckobjects=false --no-checkout --filter=tree:0 \
+            https://github.com/$GAMEDIR_REPOSITORY \
+            gamedir
+          
+          git clone --config transfer.fsckobjects=false --no-checkout --filter=tree:0 \
+            https://github.com/$GAMEDIR_LANGUAGES_REPOSITORY \
+            gamedir-languages
+          
+          mkdir dist/
+          echo -n "
+          GAMEDIR_REPOSITORY=$GAMEDIR_REPOSITORY
+          GAMEDIR_LANGUAGES_REPOSITORY=$GAMEDIR_LANGUAGES_REPOSITORY
+          " > dist/versions.env
+
+      - name: Generate source version information
+        working-directory: source
+        run: |
+          set -eux
+          
+          SOURCE_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GITHUB_SHA)
+          SOURCE_COMMIT_DATE=$(TZ=UTC0 git log -1 --date=short-local --format=%cd $GITHUB_SHA)
+          
+          # GAME_VERSION is used to detect outdated save games and is the main version used for tracking
+          if [[ "$GITHUB_REF_TYPE" == 'tag' ]]
+          then
+            # if we build for a specific tag, use that as the game version
+            # examples:
+            # - v1.13.1
+            # - v1.13.2-rc2
+            GAME_VERSION="$GITHUB_REF_NAME"
+          else
+            # uses `git describe`, which tries to find a tag in the commit hierarchy. or fall back to a v1.13 version
+            # example five (5) commits after v1.13:
+            # - v1.13-5-7g7ffa
+            GAME_VERSION="$(git describe --tags --match='v[0-9]*' $GITHUB_SHA || echo v0-$(git rev-list --skip 1 --count $GITHUB_SHA)-g${GITHUB_SHA:0:8})"
+          fi
+          # max 15 CHAR8
+          GAME_VERSION="${GAME_VERSION:0:15}"
+          
+          GAME_BUILD_INFORMATION="$SOURCE_COMMIT_DATE GitHub $GITHUB_REPOSITORY"
+          # in case of a branch or if the tag is truncated
+          if [[ "$GAME_VERSION" != *"$GITHUB_REF_NAME"* ]]
+          then
+            GAME_BUILD_INFORMATION="$GAME_BUILD_INFORMATION $GITHUB_REF_TYPE $GITHUB_REF_NAME"
+          fi
+          # max 255 CHAR16
+          GAME_BUILD_INFORMATION="${GAME_BUILD_INFORMATION:0:255}"
+          
+          echo -n "
+          SOURCE_COMMIT_DATETIME=$SOURCE_COMMIT_DATETIME
+          GAME_VERSION=$GAME_VERSION
+          GAME_BUILD_INFORMATION=$GAME_BUILD_INFORMATION
+          " >> ../dist/versions.env
+
+      # due to building everything in parallel, versions should be pinned at the start so everything builds based on the same versions
+      - name: Generate gamedir version information
+        working-directory: gamedir
+        run: |
+          set -eux
+          
+          GAMEDIR_COMMIT_SHA=$(git rev-parse HEAD)
+          GAMEDIR_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GAMEDIR_COMMIT_SHA)
+          
+          echo -n "
+          GAMEDIR_COMMIT_SHA=$GAMEDIR_COMMIT_SHA
+          GAMEDIR_COMMIT_DATETIME=$GAMEDIR_COMMIT_DATETIME
+          " >> ../dist/versions.env
+
+      # due to building everything in parallel, versions should be pinned at the start so everything builds based on the same versions
+      - name: Generate gamedir-languages version information
+        working-directory: gamedir-languages
+        run: |
+          set -eux
+          
+          GAMEDIR_LANGUAGES_COMMIT_SHA=$(git rev-parse HEAD)
+          GAMEDIR_LANGUAGES_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GAMEDIR_LANGUAGES_COMMIT_SHA)
+          
+          echo -n "
+          GAMEDIR_LANGUAGES_COMMIT_SHA=$GAMEDIR_LANGUAGES_COMMIT_SHA
+          GAMEDIR_LANGUAGES_COMMIT_DATETIME=$GAMEDIR_LANGUAGES_COMMIT_DATETIME
+          " >> ../dist/versions.env
+
+      - name: Show version information summary
+        run: |
+          set -eux
+          cat dist/versions.env
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: versions.env
+          path: dist/
+
   build:
-    if: github.repository == '1dot13/source' && github.ref_name == 'master'
-    runs-on: windows-latest
+    needs: [ workflow_setup ]
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{ fromJson(needs.workflow_setup.outputs.languages_json_array) }}
+    uses: ./.github/workflows/build_language.yml
+    with:
+      language: ${{ matrix.language }}
+      assemble: ${{ needs.workflow_setup.outputs.assemble_release == 'true' }}
+      # at least English and some other lang have to work
+      continue-on-error: ${{ matrix.language != 'EN_English' && matrix.language != 'DE_German' }}
+
+  release:
+    needs: [ workflow_setup, build ]
+    if: needs.workflow_setup.outputs.assemble_release == 'true'
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: microsoft/setup-msbuild@v1.1
-    
-    - name: Get short SHA and date (source)
-      run: |
-        echo "SHA_SHORT=$(git rev-parse --short ${{ github.sha }})" | Out-File -FilePath $env:GITHUB_ENV -Append
-        echo "DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
-    
-    - name: Checkout gamedir
-      uses: actions/checkout@v3
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
       with:
-        repository: 1dot13/gamedir
-        path: ja2
-        
-    - name: Get short SHA and date (gamedir)
-      run: |
-        cd ja2
-        echo "GAMEDIR_SHA_SHORT=$(git rev-parse --short HEAD)" | Out-File -FilePath $env:GITHUB_ENV -Append
-        echo "GAMEDIR_DATE=$(git log -1 --date=format:'%Y%m%d' --format=%cd)" | Out-File -FilePath $env:GITHUB_ENV -Append
-        cd ..
-    
-    - name: Check vars
-      run: |
-        echo "Source SHA: ${{ env.SHA_SHORT }}"
-        echo "Source Date: ${{ env.DATE }}"
-        echo "Gamedir SHA: ${{ env.GAMEDIR_SHA_SHORT }}"
-        echo "Gamedir Date: ${{ env.GAMEDIR_DATE }}"
+        path: artifacts
 
-    - name: Create version info text file
+    - name: Move release archives to dist/
+      shell: bash
       run: |
-        echo @"
-        If you encounter problems during gameplay, please provide the following version information:
-        Source SHA: ${{ env.SHA_SHORT }}
-        Source Date: ${{ env.DATE }}
-        Gamedir SHA: ${{ env.GAMEDIR_SHA_SHORT }}
-        Gamedir Date: ${{ env.GAMEDIR_DATE }}
-        "@ | Out-File -FilePath ja2/ja2_1.13_release.txt
-    
-    - name: Replace GameVersion.cpp (Map Editor)
-      run: |
-        rm GameVersion.cpp
-        echo @"
-        #include "Types.h"
-        #include "GameVersion.h"
-        
-        CHAR16 zVersionLabel[256] = { L"Map Editor v1.13 (Development Build) (Github)" };
-        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
-        CHAR16 zTrackingNumber[16] = { L"Z" };
-        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
-        "@ | Out-File -FilePath GameVersion.cpp
-    
-    - name: Build Map Editor
-      run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
-      
-    - name: Rename Map Editor output
-      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/ja2mapeditor.exe
-  
-    - name: Replace GameVersion.cpp (JA2)
-      run: |
-        rm GameVersion.cpp
-        echo @"
-        #include "Types.h"
-        #include "GameVersion.h"
-        
-        CHAR16 zVersionLabel[256] = { L"Release v1.13 (Development Build) (Github)" };
-        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
-        CHAR16 zTrackingNumber[16] = { L"Z" };
-        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
-        "@ | Out-File -FilePath GameVersion.cpp
-    
-    - name: Build JA2
-      run: msbuild ja2_VS2019.sln -property:Configuration=Release
-      
-    - name: Rename JA2 output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2.exe
-      
-    - name: Replace GameVersion.cpp and builddefines.h (JA2 UB)
-      run: |
-        rm GameVersion.cpp
-        echo @"
-        #include "Types.h"
-        #include "GameVersion.h"
-        
-        CHAR16 zVersionLabel[256] = { L"Release Unfinished Business v1.13 (Development Build) (Github)" };
-        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
-        CHAR16 zTrackingNumber[16] = { L"Z" };
-        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
-        "@ | Out-File -FilePath GameVersion.cpp
-        
-        rm builddefines.h
-        echo @"
-        #ifndef _BUILDDEFINES_H_
-        #define _BUILDDEFINES_H_
-        #include "Language Defines.h"
-        #define JA2UB
-        #define JA2UBMAPS
-        #define FORCE_ASSERTS_ON
-        #define _CRT_SECURE_NO_WARNINGS
-        #define _CRT_NON_CONFORMING_SWPRINTFS
-        #define _SCL_SECURE_NO_WARNINGS
-        #include "Profiler.h"
-        #endif
-        "@ | Out-File -FilePath builddefines.h
-    
-    - name: Build JA2 UB
-      run: msbuild ja2_VS2019.sln -property:Configuration=Release
-      
-    - name: Rename JA2 UB output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2ub.exe
-      
-    - name: Upload output
-      uses: actions/upload-artifact@v3
+        set -eux
+        mkdir dist/
+        mv artifacts/*_release/* dist/
+
+    - name: Delete Latest
+      if: startsWith(github.ref, 'refs/tags/v') == false
+      uses: dev-drprasad/delete-tag-and-release@master
       with:
-        name: ja2_113
-        path: |
-          ja2/
-          !ja2/.git/
-        
+        tag_name: "latest"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - id: release_latest
+      name: Release Latest
+      if: startsWith(github.ref, 'refs/tags/v') == false
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: false
+        artifactErrorsFailBuild: true
+        artifacts: dist/*
+        draft: false
+        generateReleaseNotes: true
+        makeLatest: true
+        name: "Latest (unstable)"
+        prerelease: true
+        tag: "latest"
+
+    - id: release_tag
+      name: Release Tag
+      uses: ncipollo/release-action@v1
+      if: startsWith(github.ref, 'refs/tags/v')
+      with:
+        allowUpdates: true
+        artifactErrorsFailBuild: true
+        artifacts: dist/*
+        draft: false
+        generateReleaseNotes: true
+        makeLatest: true
+        omitBodyDuringUpdate: true
+        omitDraftDuringUpdate: true
+        omitNameDuringUpdate: true
+        omitPrereleaseDuringUpdate: true
+
+    - name: Show release outputs
+      shell: bash
+      run: |
+        echo 'id: '
+        echo -n '${{ steps.release_tag.outputs.id }}'
+        echo -n '${{ steps.release_latest.outputs.id }}'
+        echo ''
+        echo ''
+        echo 'url:'
+        echo -n '${{ steps.release_tag.outputs.html_url }}'
+        echo -n '${{ steps.release_latest.outputs.html_url }}'
+        echo ''

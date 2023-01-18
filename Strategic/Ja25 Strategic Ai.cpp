@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "strategicmap.h"
 	#include "strategic.h"
 	#include "Strategic Mines.h"
@@ -70,7 +67,6 @@
 	#include "physics.h"
 	#include "Auto Resolve.h"
 	#include "cursors.h"
-#endif
 
 #ifdef JA2UB
 #include "Soldier Init List.h"

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Voices.h"
 	#include "IMP MainPage.h"
@@ -20,7 +17,6 @@
 	#include "GameSettings.h"
 	#include "LaptopSave.h"
 	#include "IMP Confirm.h"
-#endif
 
 INT32 iCurrentVoice = 0;
 UINT32 iSelectedIMPVoiceSet = 0;

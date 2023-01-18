@@ -1,10 +1,6 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Encrypted File.h"
 	#include "FileMan.h"
 	#include "Debug.h"
-#endif
 
 #include "Language Defines.h"
 // anv: for selecting random line

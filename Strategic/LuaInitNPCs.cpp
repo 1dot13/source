@@ -11,7 +11,6 @@
 #include "Game Init.h"
 #include "interface Dialogue.h"
 #include "opplist.h"
-#include "Strategic All.h"
 #include "pits.h"
 #include  "Game Event Hook.h"
 #include "Creature Spreading.h"
@@ -40,6 +39,12 @@
 #include "soldier profile type.h"
 #include "history.h"
 #include "Merc Hiring.h"
+#include "Game Events.h"
+#include "email.h"
+#include "worldman.h"
+#include "text.h"
+#include "Dialogue Control.h"
+#include "Boxing.h"
 
 #include "LOS.h"
 #include "Music Control.h"
@@ -75,6 +80,22 @@ extern "C" {
 
 #include "BriefingRoom_Data.h"
 #include "MiniGame.h"	// added by Flugente
+#include "Campaign.h"
+#include "strategic.h"
+#include "PreBattle Interface.h"
+#include "Strategic Event Handler.h"
+#include "files.h"
+#include "finances.h"
+#include "Sound Control.h"
+#include "SaveLoadMap.h"
+#include "renderworld.h"
+#include "Keys.h"
+#include "Render Fun.h"
+#include "Soldier Add.h"
+#include "gameloop.h"
+#include "Merc Contract.h"
+#include "message.h"
+#include "Town Militia.h"
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
@@ -12765,22 +12786,7 @@ static bool locationStringToCoordinates_AltSector(std::string loc, UINT8* x, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc.substr(1));
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)
@@ -12819,22 +12825,7 @@ static bool locationStringToCoordinates(std::string loc, UINT8* x, UINT8* y, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc);
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)

@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("RUSSIAN")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( RUSSIAN )
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_RussianText_public_symbol(void){;}
@@ -6532,7 +6528,7 @@ STR16		zOptionsToggleText[] =
 	L"Игра в реальном времени",
 	L"Подтверждение сна/подъема",
 	L"Метрическая система",
-	L"Движущаяся подсветка бойца",
+	L"Выделите наемников",
 	L"Курсор на бойцов",
 	L"Курсор на дверь", 
 	L"Мерцание вещей",
@@ -6634,8 +6630,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Если включено, то используется метрическая система мер,\nиначе будет британская.",
 
-	//Merc Lighted movement
-	L"При ходьбе карта подсвечивается вокруг бойца.\nОтключите эту настройку для повышения\nпроизводительности системы (|G).",
+	//Highlight Mercs
+	L"При включении выделяет наемника (не виден врагам).\nПереключиться в игре с помощью (|G)",
 
 	//Smart cursor
 	L"Если включено, то перемещение курсора возле наёмника\nавтоматически выбирает его.",

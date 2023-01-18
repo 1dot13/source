@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "insurance.h"
 	#include "insurance Contract.h"
@@ -26,7 +23,6 @@
 	#include "Assignments.h"
 	#include "Map Screen Interface.h"
 	#include "Interface.h"				// added by Flugente
-#endif
 #include <vector>
 
 #ifdef JA2UB

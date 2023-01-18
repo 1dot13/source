@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("ITALIAN")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( ITALIAN )
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_ItalianText_public_symbol(void){;}
@@ -6521,7 +6517,7 @@ STR16		zOptionsToggleText[] =
 	L"Conferma in tempo reale",
 	L"Visualizza gli avvertimenti sveglio/addormentato",
 	L"Utilizza il sistema metrico",
-	L"Tragitto illuminato durante gli spostamenti",
+	L"Evidenzia Merc",
 	L"Sposta il cursore sui mercenari",
 	L"Sposta il cursore sulle porte",
 	L"Evidenzia gli oggetti",
@@ -6623,8 +6619,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
 
-	//Merc Lighted movement
-	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Quando attivato, evidenzia il mercenario (non visibile ai nemici).\nAttiva/disattiva nel gioco con (|G)",
 
 	//Smart cursor
 	L"Se attivata, muovendo il cursore vicino ai vostri mercenari li evidenzierà automaticamente.",

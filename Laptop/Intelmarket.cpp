@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "laptop.h"
 #include "insurance.h"
 #include "insurance Contract.h"
@@ -32,7 +29,6 @@
 #include "Game Clock.h"
 #include "LuaInitNPCs.h"
 #include "Game Event Hook.h"
-#endif
 
 #define		MERCOMP_FONT_COLOR								2
 #define		CAMPHIS_FONT_COLOR_RED							FONT_MCOLOR_RED

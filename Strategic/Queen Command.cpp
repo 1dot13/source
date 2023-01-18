@@ -1,9 +1,5 @@
 //Queen Command.c
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Queen Command.h"
 	#include "Strategic Event Handler.h"
 	#include "Overhead Types.h"
@@ -45,7 +41,6 @@
 	#include "Morale.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "ASD.h"				// added by Flugente
-#endif
 
 #ifdef JA2BETAVERSION
 	extern BOOLEAN gfClearCreatureQuest;

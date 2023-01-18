@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "laptop.h"
 #include "insurance.h"
 #include "insurance Contract.h"
@@ -39,7 +36,6 @@
 #include "Town Militia.h"
 #include "Strategic Town Loyalty.h"
 #include "MilitiaIndividual.h"
-#endif
 
 std::vector<PMCReinforcesHireEvent> gPMCHiringEvents;
 PMCGlobalData gPMCData;
