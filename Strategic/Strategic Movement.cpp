@@ -4453,7 +4453,7 @@ void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// make sure there are members in the group..if so, then run through and make each bleeder compain
+	// make sure there are members in the group..if so, then run through and make each bleeder complain
 	pPlayer = pGroup->pPlayerList;
 
 	// is there a player list?

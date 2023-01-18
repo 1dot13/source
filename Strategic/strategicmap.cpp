@@ -4289,207 +4289,67 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 
 void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData)
 {
-	INT32 cnt;
-	SOLDIERTYPE* pSoldier;
-	SOLDIERTYPE* pValidSoldier = NULL;
-	GROUP* pGroup;
-	UINT32 uiTraverseTime = 0;
-	UINT8 ubDirection = 0xff;
-	EXITGRID ExitGrid;
-	INT8 bPrevAssignment;
-	UINT8 ubPrevGroupID;
+	// Remove any incapacitated mercs from current squads and assign them to new squad
+	UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	INT8 currentSquad = -1;
 
-	// Set initial selected
-	// ATE: moved this towards top...
-	gubPreferredInitialSelectedGuy = (UINT8)gusSelectedSoldier;
-
-	// We'll always do JUMP_ALL_NO_LOAD for escapes
-	//if (ubJumpCode == JUMP_ALL_NO_LOAD)
+	for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
 	{
-		// Move controllable mercs!
-		cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-
-		// look for all mercs on the same team,
-		for (pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++)
+		// Are we active and in sector
+		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife < OKLIFE)
 		{
-			// If we are controllable
-			if (OK_CONTROLLABLE_MERC(pSoldier) && pSoldier->bAssignment == CurrentSquad())
+			//GROUP* pGroup = GetGroup(pSoldier->ubGroupID);
+			//RemovePlayerFromPGroup(pGroup, pSoldier);
+			if (currentSquad == -1)
 			{
-				pValidSoldier = pSoldier;
-				ubDirection = GetInsertionDataFromAdjacentMoveDirection(ubTacticalDirection, sAdditionalData);
-				break;
-			}
-		}
-	}
-
-	Assert(pValidSoldier);
-
-
-	//Now, determine the traversal time.
-	pGroup = GetGroup(pValidSoldier->ubGroupID);
-	AssertMsg(pGroup, String("%S is not in a valid group (pSoldier->ubGroupID is %d)", pValidSoldier->name, pValidSoldier->ubGroupID));
-
-	// If we are going through an exit grid, don't get traversal direction!
-	if (ubTacticalDirection != 255)
-	{
-		if (!gbWorldSectorZ)
-		{
-			uiTraverseTime = GetSectorMvtTimeForGroup((UINT8)SECTOR(pGroup->ubSectorX, pGroup->ubSectorY), ubDirection, pGroup);
-		}
-		else if (gbWorldSectorZ > 0)
-		{ //We are attempting to traverse in an underground environment.  We need to use a complete different
-			//method.  When underground, all sectors are instantly adjacent.
-			uiTraverseTime = UndergroundTacticalTraversalTime(ubDirection);
-		}
-		if (uiTraverseTime == 0xffffffff)
-			AssertMsg(0, "Attempting to tactically traverse to adjacent sector, despite being unable to do so.");
-	}
-
-	// Alrighty, we want to do whatever our omnipotent player asked us to do
-	// this is what the ubJumpCode is for.
-	// Regardless of that we were asked to do, we MUST walk OFF ( Ian loves this... )
-	// So..... let's setup our people to walk off...
-	// We deal with a pGroup here... if an all move or a group...
-
-	// Setup some globals so our callback that deals when guys go off screen is handled....
-	// Look in the handler function AllMercsHaveWalkedOffSector() below...
-	gpAdjacentGroup = pGroup;
-	gubAdjacentJumpCode = ubJumpCode;
-	guiAdjacentTraverseTime = uiTraverseTime;
-	gubTacticalDirection = ubTacticalDirection;
-	gsAdditionalData = sAdditionalData;
-
-	// If normal direction, use it!
-	if (ubTacticalDirection != 255)
-	{
-		gsAdjacentSectorX = (INT16)(gWorldSectorX + DirXIncrementer[ubTacticalDirection]);
-		gsAdjacentSectorY = (INT16)(gWorldSectorY + DirYIncrementer[ubTacticalDirection]);
-		gbAdjacentSectorZ = pValidSoldier->bSectorZ;
-	}
-	else
-	{
-		// Take directions from exit grid info!
-		if (!GetExitGrid(sAdditionalData, &ExitGrid))
-		{
-			AssertMsg(0, String("Told to use exit grid at %d but one does not exist", sAdditionalData));
-		}
-
-		gsAdjacentSectorX = ExitGrid.ubGotoSectorX;
-		gsAdjacentSectorY = ExitGrid.ubGotoSectorY;
-		gbAdjacentSectorZ = ExitGrid.ubGotoSectorZ;
-		gusDestExitGridNo = ExitGrid.usGridNo;
-	}
-
-	// Give guy(s) orders to walk off sector...
-	if (pGroup->usGroupTeam == OUR_TEAM)
-	{
-		//For player groups, update the soldier information
-		PLAYERGROUP* curr;
-		INT32 sGridNo;
-		UINT8				ubNum = 0;
-
-#if 0
-		curr = pGroup->pPlayerList;
-		while (curr)
-		{
-			// anv: passengers can't move anyway
-			if (curr->pSoldier->bAssignment == VEHICLE)
-			{
-				curr->pSoldier->ubWaitActionToDo = 0;
-			}
-			else if (OK_CONTROLLABLE_MERC(curr->pSoldier))
-			{
-				if (ubTacticalDirection != 255)
-				{
-					sGridNo = PickGridNoNearestEdge(curr->pSoldier, ubTacticalDirection);
-
-					curr->pSoldier->sPreTraversalGridNo = curr->pSoldier->sGridNo;
-
-					if (!TileIsOutOfBounds(sGridNo))
-					{
-						// Save wait code - this will make buddy walk off screen into oblivion
-						curr->pSoldier->ubWaitActionToDo = 2;
-						// This will set the direction so we know now to move into oblivion
-						curr->pSoldier->aiData.uiPendingActionData1 = ubTacticalDirection;
-					}
-					else
-					{
-						AssertMsg(0, String("Failed to get good exit location for adjacentmove"));
-					}
-
-					//curr->pSoldier->EVENT_GetNewSoldierPath(sGridNo, WALKING);
-				}
-				else
-				{
-					// Here, get closest location for exit grid....
-					sGridNo = FindGridNoFromSweetSpotCloseToExitGrid(curr->pSoldier, sAdditionalData, 10, &ubDirection);
-
-					if (!TileIsOutOfBounds(sGridNo))
-					{
-						// Save wait code - this will make buddy walk off screen into oblivion
-						//	curr->pSoldier->ubWaitActionToDo = 2;
-					}
-					else
-					{
-						AssertMsg(0, String("Failed to get good exit location for adjacentmove"));
-					}
-
-					// Don't worry about walk off screen, just stay at gridno...
-					curr->pSoldier->ubWaitActionToDo = 1;
-
-					// Set buddy go!
-					gfPlotPathToExitGrid = TRUE;
-					curr->pSoldier->EVENT_GetNewSoldierPath(sGridNo, WALKING);
-					gfPlotPathToExitGrid = FALSE;
-
-				}
-
-				++ubNum;
+				currentSquad = AddCharacterToUniqueSquad(pSoldier);
 			}
 			else
 			{
-				// We will remove them later....
+				if (!AddCharacterToSquad(pSoldier, currentSquad))
+				{
+					currentSquad = AddCharacterToUniqueSquad(pSoldier);
+				}
 			}
-			curr = curr->next;
 		}
-		// ATE: Do another round, removing guys from group that can't go on...
-	BEGINNING_LOOP:
+	}
 
-		curr = pGroup->pPlayerList;
-		while (curr)
+	// Retreat squads that are capable of it
+	for (size_t i = 0; i < NUMBER_OF_SQUADS; i++)
+	{
+		for (size_t j = 0; j < NUMBER_OF_SOLDIERS_PER_SQUAD; j++)
 		{
-			if (!OK_CONTROLLABLE_MERC(curr->pSoldier))
+			SOLDIERTYPE* pSoldier = Squad[i][j];
+			if (pSoldier && OK_CONTROLLABLE_MERC(pSoldier))
 			{
-				if (OK_CONTROL_MERC(curr->pSoldier) && curr->pSoldier->bAssignment == VEHICLE && pGroup->fVehicle)
+				GROUP* pGroup = GetGroup(pSoldier->ubGroupID);
+				switch (ubTacticalDirection)
 				{
-					//CHRISL: passengers in a vehicle movement group will not pass the OK_CONTROLLABLE_MERC check because their assignment is not "ON_DUTY".
-					//	The above conditions should allow passengers in a vehicle movement group to remain in the group.
+				case NORTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY - 1;
+					break;
+				case EAST:
+					pGroup->ubPrevX = pGroup->ubSectorX + 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				case SOUTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY + 1;
+					break;
+				case WEST:
+					pGroup->ubPrevX = pGroup->ubSectorX - 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				default:
+					break;
 				}
-				else
-				{
-					RemoveCharacterFromSquads(curr->pSoldier);
-					goto BEGINNING_LOOP;
-				}
+
+				RetreatGroupToPreviousSector(pGroup);
+				break;
 			}
-			curr = curr->next;
 		}
-#endif
-
-		// OK, setup TacticalOverhead polling system that will notify us once everybody
-		// has made it to our destination.
-		if (ubTacticalDirection != 255)
-		{
-			SetActionToDoOnceMercsGetToLocation(WAIT_FOR_MERCS_TO_WALKOFF_SCREEN, ubNum, ubJumpCode, 0, 0);
-		}
-		else
-		{
-			// Add new wait action here...
-			SetActionToDoOnceMercsGetToLocation(WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO, ubNum, ubJumpCode, 0, 0);
-		}
-
-		// Lock UI!
-		guiPendingOverrideEvent = LU_BEGINUILOCK;
-		HandleTacticalUI();
 	}
 }
 
