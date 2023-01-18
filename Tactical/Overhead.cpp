@@ -11197,8 +11197,6 @@ void AttemptToCapturePlayerSoldiers()
 
     if (gfSurrendered == TRUE)
     {
-        SetCustomizableTimerCallbackAndDelay(500, CaptureTimerCallback, FALSE);
-
         // If we have any remaining active mercs in sector after capture, give them a chance to escape from the clutches of Deidranna's soldiers!
         bool activeMercs = false;
 
@@ -11207,7 +11205,8 @@ void AttemptToCapturePlayerSoldiers()
         for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastId; ++i, ++pSoldier)
         {
             // Are we active and in sector
-            if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife != 0 && pSoldier->bAssignment != ASSIGNMENT_POW)
+            const bool inSector = (pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ);
+            if (pSoldier->bActive && inSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->bAssignment != ASSIGNMENT_POW)
             {
                 activeMercs = true;
                 break;
@@ -11218,6 +11217,8 @@ void AttemptToCapturePlayerSoldiers()
         {
             SetCustomizableTimerCallbackAndDelay(500, EscapeTimerCallback, FALSE);
         }
+        SetCustomizableTimerCallbackAndDelay(500, CaptureTimerCallback, FALSE);
+        CheckForEndOfBattle(FALSE);
     }
 }
 
