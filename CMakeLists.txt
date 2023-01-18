@@ -107,10 +107,10 @@ bfVFS
 include(cmake/ValidateOptions.cmake)
 
 set(ValidLanguages CHINESE DUTCH ENGLISH FRENCH GERMAN ITALIAN POLISH RUSSIAN)
-ValidateOptions("${ValidLanguages}" "Languages" "ENGLISH" "${Languages}" "LangTargets")
+ValidateOptions("${ValidLanguages}" "Languages" "${Languages}" "LangTargets")
 
 set(ValidApplications JA2 JA2MAPEDITOR JA2UB JA2UBMAPEDITOR)
-ValidateOptions("${ValidApplications}" "Applications" "JA2" "${Applications}" "ApplicationTargets")
+ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "ApplicationTargets")
 
 
 # Due to widespread preprocessor definition abuse in the codebase, practically
