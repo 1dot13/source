@@ -4299,8 +4299,6 @@ void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sA
 		// Are we active and in sector
 		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife < OKLIFE)
 		{
-			//GROUP* pGroup = GetGroup(pSoldier->ubGroupID);
-			//RemovePlayerFromPGroup(pGroup, pSoldier);
 			if (currentSquad == -1)
 			{
 				currentSquad = AddCharacterToUniqueSquad(pSoldier);
