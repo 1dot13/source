@@ -1042,6 +1042,11 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 	// Shade guy always lighter than scene default!
 	{
 		const auto GridNo = pSoldier->sGridNo;
+		if (GridNo == NOWHERE)
+		{
+			pShadeTable = pPaletteTable->pCurrentShade = pPaletteTable->pShades[DEFAULT_SHADE_LEVEL];
+			return pShadeTable;
+		}
 		UINT8 ubShadeLevel = gpWorldLevelData[GridNo].pLandHead->ubShadeLevel;
 		// If merc is on a roof, shade according to roof brightness
 		if (pSoldier->pathing.bLevel > 0 && gpWorldLevelData[GridNo].pRoofHead != NULL)
