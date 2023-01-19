@@ -88,7 +88,7 @@
 	</Filter>
 	<Filter name="Longsleeves">
 		<AND>
-			<VESTPOS op="in">283, 295, 818, 821, 830, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<VESTPOS op="in">283, 295, 821, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
 		</AND>
 	</Filter>
 	<Filter name="LongsleevesANDHasPistolOrMPistolInLeftHand">
@@ -144,10 +144,13 @@
 		</AND>
 	</Filter>
 	<Filter name="HasKneepads">
-		<AND>
-			<LEGPOS not="" op="in">0, 805</LEGPOS>
-			<!--<LEGPOS op="in">838, 294</LEGPOS>-->
-		</AND>
+		<OR>
+			<LEGPOS op="in">838</LEGPOS>
+			<LEGPOSATTACHMENT0 op="in">838</LEGPOSATTACHMENT0>
+			<LEGPOSATTACHMENT1 op="in">838</LEGPOSATTACHMENT1>
+			<LEGPOSATTACHMENT2 op="in">838</LEGPOSATTACHMENT2>
+			<LEGPOSATTACHMENT3 op="in">838</LEGPOSATTACHMENT3>
+		</OR>
 	</Filter>
 	<Filter name="HasKneepadsAndHasPistol">
 		<AND>
@@ -488,9 +491,13 @@
 		</AND>
 	</Filter>
 		<Filter name="Balaclava">
-		<AND>
+		<OR>
 			<HELMETPOS op="in">281</HELMETPOS>
-		</AND>
+			<HELMETPOSATTACHMENT0 op="in">281</HELMETPOSATTACHMENT0>
+			<HELMETPOSATTACHMENT1 op="in">281</HELMETPOSATTACHMENT1>
+			<HELMETPOSATTACHMENT2 op="in">281</HELMETPOSATTACHMENT2>
+			<HELMETPOSATTACHMENT3 op="in">281</HELMETPOSATTACHMENT3>
+		</OR>
 	</Filter>
 	<Filter name="IsWearingBalaclavaAndHasPistol">
 		<AND>
@@ -557,17 +564,17 @@
 	</Filter>
 		<Filter name="EODvest">
 		<OR>
-			<VESTPOS op="in">806</VESTPOS>
+			<VESTPOS op="in">806, 818, 830</VESTPOS>
 		</OR>
 	</Filter>
 	<Filter name="EODpants">
 		<AND>
-			<LEGPOS op="in">805</LEGPOS>
+			<LEGPOS op="in">805, 817, 829</LEGPOS>
 		</AND>
 	</Filter>
 	<Filter name="EODhelmet">
 		<OR>
-			<HELMETPOS op="in">804</HELMETPOS>
+			<HELMETPOS op="in">804, 816, 828</HELMETPOS>
 		</OR>
 	</Filter>
 	<Filter name="EODvestAndPistol">
