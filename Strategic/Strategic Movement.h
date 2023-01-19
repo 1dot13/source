@@ -85,7 +85,8 @@ typedef struct ENEMYGROUP
 	UINT8 ubNumRobots;						//number of enemy robots in the group
 	UINT8 ubRobotsInBattle;				//number of enemy robots currently in battle.
 
-	INT8	bPadding[11];
+	UINT8 ubReadiness; // Group readiness when spawned. Determines group member inventory. Currently used by only by strategic transport groups.
+	INT8	bPadding[10];
 }ENEMYGROUP;
 
 //NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE

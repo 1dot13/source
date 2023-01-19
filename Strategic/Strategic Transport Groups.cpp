@@ -22,11 +22,18 @@ TODO LIST:
 - use proper loyalty degradation (Strategic Loyalty lua) (maybe...)
 - use enemygunchoices and enemyitemchoices to populate bonus loot, depending on jeep or no jeep
 - track previous failed transports? transport group alertness level? partially degrades over time?
+	- we can use strategic status (gStrategicStatus. there's tons of unused padding). that way we don't need to muck with savegames,
+	  as the bytes are already there.
+	- what do we actually want to track?
+		- alertness level (affects group compositions)
+		- recent losses (strategic events?) (affects group compositions)
+		- groups should track their own "readiness level" (ie, strategic stats when they were spawned) (could use the padding in GROUP->ENEMYGROUP)
 
 */
 #include "Strategic Transport Groups.h"
 
 #include "ASD.h"
+#include "Campaign.h"
 #include "Game Clock.h"
 #include "Game Event Hook.h"
 #include "GameSettings.h"
@@ -46,6 +53,7 @@ TODO LIST:
 extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY_GUN_LEVELS];
 extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
+//extern STRATEGIC_STATUS gStrategicStatus;
 
 std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 
@@ -115,6 +123,7 @@ BOOLEAN DeployTransportGroup()
 
 	//pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
 	pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, 10, 5, 1, 0, 0, 1 );
+	pGroup->pEnemyGroup->ubReadiness = HighestPlayerProgressPercentage();
 
 	//Madd: unlimited reinforcements?
 	if ( !gfUnlimitedTroops )
@@ -254,12 +263,23 @@ void UpdateTransportGroupInventory()
 
 	// rftr todo: do this on init/load somewhere
 	// do some prep
-	std::vector<UINT16> gasCans;
-	std::vector<UINT16> firstAidKits;
-	std::vector<UINT16> medKits;
-	std::vector<UINT16> toolKits;
-	std::vector<UINT16> backpacks;
-	std::vector<UINT16> grenades;
+
+	enum ItemTypes
+	{
+		GAS_CANS,
+		FIRST_AID_KITS,
+		MED_KITS,
+		TOOL_KITS,
+		BACKPACKS,
+		RADIOS,
+		GRENADES,
+		AMMO_BOXES,
+		AMMO_CRATES,
+		GUNS,
+	};
+
+	std::map<ItemTypes, std::vector<UINT16>> itemMap;
+
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
 	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
 	
@@ -281,17 +301,18 @@ void UpdateTransportGroupInventory()
 		
 		for (UINT16 i = 0; i < MAXITEMS; ++i)
 		{
-			if (Item[i].gascan) gasCans.push_back(i);
-			else if (Item[i].firstaidkit) firstAidKits.push_back(i);
-			else if (Item[i].medicalkit) medKits.push_back(i);
-			else if (Item[i].toolkit) toolKits.push_back(i);
-			else if (Item[i].usItemClass & IC_GRENADE) grenades.push_back(i);
+			if (Item[i].gascan) itemMap[GAS_CANS].push_back(i);
+			else if (Item[i].firstaidkit) itemMap[FIRST_AID_KITS].push_back(i);
+			else if (Item[i].medicalkit) itemMap[MED_KITS].push_back(i);
+			else if (Item[i].toolkit) itemMap[TOOL_KITS].push_back(i);
+			else if (HasItemFlag(i, RADIO_SET)) itemMap[RADIOS].push_back(i);
+			else if (Item[i].usItemClass & IC_GRENADE) itemMap[GRENADES].push_back(i);
 			else if (Item[i].usItemClass & IC_LBEGEAR)
 			{
-				if (LoadBearingEquipment[Item[i].ubClassIndex].lbeClass == BACKPACK)
+				if (LoadBearingEquipment[Item[i].ubClassIndex].lbeClass == BACKPACK && !HasItemFlag(i, RADIO_SET)) // make sure radios don't get added here
 				{
 					// todo get actual backpacks, not covert ones, tactical slings, golf clubs, etc...
-					backpacks.push_back(i);
+					itemMap[BACKPACKS].push_back(i);
 				}
 			}
 			else if (Item[i].usItemClass & IC_AMMO)
@@ -360,6 +381,8 @@ void UpdateTransportGroupInventory()
 				pGroup = pGroup->next;
 			}
 
+			const UINT8 groupReadiness = pGroup->pEnemyGroup->ubReadiness;
+
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
 			if (soldierClassIter != groupIter->second.end())
@@ -374,21 +397,21 @@ void UpdateTransportGroupInventory()
 					{
 						// en route to target destination - carrying ammo, supplies, etc
 						// medkits
-						CreateItems(medKits[Random(medKits.size())], 100, 5, &itemToAdd);
+						CreateItems(itemMap[MED_KITS][Random(itemMap[MED_KITS].size())], 100, 5, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 
 						// first aid kits
-						CreateItems(firstAidKits[Random(firstAidKits.size())], 100, 10, &itemToAdd);
+						CreateItems(itemMap[FIRST_AID_KITS][Random(itemMap[FIRST_AID_KITS].size())], 100, 10, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 
 						// toolkits
-						CreateItems(toolKits[Random(toolKits.size())], 100, 5, &itemToAdd);
+						CreateItems(itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 100, 5, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 
 						// 2 groups of grenades (possible to get the same)
-						CreateItems(grenades[Random(grenades.size())], 100, 20, &itemToAdd);
+						CreateItems(itemMap[GRENADES][Random(itemMap[GRENADES].size())], 100, 20, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
-						CreateItems(grenades[Random(grenades.size())], 100, 20, &itemToAdd);
+						CreateItems(itemMap[GRENADES][Random(itemMap[GRENADES].size())], 100, 20, &itemToAdd);
 						addItemToInventory(pSoldier, itemToAdd);
 					}
 					//else
@@ -442,9 +465,9 @@ void UpdateTransportGroupInventory()
 
 						// add backpack to soldier's inventory!
 						OBJECTTYPE itemToAdd;
-						if (backpacks.size() > 0)
+						if (itemMap[BACKPACKS].size() > 0)
 						{
-							CreateItem(backpacks[0], 100, &itemToAdd);
+							CreateItem(itemMap[BACKPACKS][0], 100, &itemToAdd);
 							pSoldier->inv[BPACKPOCKPOS] = itemToAdd;
 						}
 
