@@ -2716,9 +2716,7 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-#ifdef JA2UB
-// no UB
-#else
+#ifndef JA2UB
 	// Set flag...
 	if( !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) || !(gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
