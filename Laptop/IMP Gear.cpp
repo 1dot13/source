@@ -1229,7 +1229,7 @@ void RenderImpGearSelectionChoices(UINT32 pocket)
 
 			wcscat(tooltipText, L"\n");
 			wcscat(tooltipText, szIMPGearPocketText[55]);
-			SetRegionFastHelpText(&gIMPGearInvPoolRegion[i], tooltipText);
+			SetRegionFastHelpText(&gIMPGearInvPoolRegion[i - pageShift], tooltipText);
 		}
 
 		// Check if currently selected item is shown in pool and adjust glow coordinates
