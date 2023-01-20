@@ -2141,6 +2141,15 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 						// because if this is a simultaneous group attack, the mercs could be coming from different sides, and the
 						// placement screen can't handle mercs on the same squad arriving from difference edges!
 						fSuccess = AddCharacterToSquad( pSoldier, bUniqueVehicleSquad );
+						// if we failed, create another squad
+						if (!fSuccess)
+						{
+							bUniqueVehicleSquad = GetFirstEmptySquad();
+							if (bUniqueVehicleSquad != -1)
+							{
+								fSuccess = AddCharacterToSquad(pSoldier, bUniqueVehicleSquad);
+							}
+						}
 					}
 					//CHRISL: So what's supposed to happen in the merc is assigned to a vehicle but fExitVehicles is FALSE?
 					else
