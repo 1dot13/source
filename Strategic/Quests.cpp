@@ -1734,6 +1734,7 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 
 void HandlePOWQuestState(PowQuestState state, Quests quest, INT16 mapX, INT16 mapY, INT8 mapZ)
 {
+#ifndef JA2UB
 	bool correctSector = false;
 	switch (quest)
 	{
@@ -1810,4 +1811,5 @@ void HandlePOWQuestState(PowQuestState state, Quests quest, INT16 mapX, INT16 ma
 			break;
 		}
 	}
+#endif // !JA2UB
 }
