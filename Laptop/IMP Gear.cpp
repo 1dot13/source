@@ -69,6 +69,7 @@ extern BOOLEAN bBigBody;
 
 #define IMP_GEAR_SPACE_BETWEEN_BOXES		1
 
+#define IMP_GEAR_INV_SLOTS 25
 //*******************************************************************
 //
 // Local Variables
@@ -76,7 +77,7 @@ extern BOOLEAN bBigBody;
 //*******************************************************************
 INV_REGIONS gIMPGearInvData[NUM_INV_SLOTS];
 MOUSE_REGION gIMPGearInvRegion[NUM_INV_SLOTS];
-MOUSE_REGION gIMPGearInvPoolRegion[25];
+MOUSE_REGION gIMPGearInvPoolRegion[IMP_GEAR_INV_SLOTS];
 UINT32 gIMPInvDoneButtonImage;
 UINT32 gIMPInvDoneButton;
 UINT32 gIMPInvArrowButtonImage[2];
@@ -237,10 +238,11 @@ void ExitIMPGear( void )
 	{
 		MSYS_RemoveRegion(&gIMPGearInvRegion[cnt]);
 	}
-	for (size_t i = 0; i < 25; i++)
+	for (size_t i = 0; i < IMP_GEAR_INV_SLOTS; i++)
 	{
 		MSYS_RemoveRegion(&gIMPGearInvPoolRegion[i]);
 	}
+	fShowIMPItemHighLight = FALSE;
 }
 
 
@@ -859,7 +861,7 @@ void IMPCloseInventoryPool(void)
 	{
 		MSYS_EnableRegion(&gIMPGearInvRegion[cnt]);
 	}
-	for (size_t i = 0; i < 25; i++)
+	for (size_t i = 0; i < IMP_GEAR_INV_SLOTS; i++)
 	{
 		MSYS_DisableRegion(&gIMPGearInvPoolRegion[i]);
 	}
@@ -946,7 +948,7 @@ void IMPInvClickCallback(MOUSE_REGION* pRegion, INT32 iReason)
 			MSYS_DisableRegion(&gIMPGearInvRegion[cnt]);
 		}
 
-		for (size_t i = 0; i < 25; i++)
+		for (size_t i = 0; i < IMP_GEAR_INV_SLOTS; i++)
 		{
 			MSYS_EnableRegion(&gIMPGearInvPoolRegion[i]);
 		}
@@ -1104,7 +1106,7 @@ void InitImpGearCoords(void)
 	}
 
 	// Inventory pool slots
-	for (size_t i = 0; i < 25; i++)
+	for (size_t i = 0; i < IMP_GEAR_INV_SLOTS; i++)
 	{
 		const UINT32 xOffset = gIMPInvPoolLayout.x + 24; // top left coords of the first item slot in selection grid sti
 		const UINT32 yOffset = gIMPInvPoolLayout.y + 8;
@@ -1187,12 +1189,19 @@ void DrawItemTextToInvPool(STR16 itemName, UINT32 x, UINT32 y)
 
 void RenderImpGearSelectionChoices(UINT32 pocket)
 {
+	CHAR16 tooltipText[5000];
 	const UINT32 xOffset = gIMPInvPoolLayout.x + 24; // top left coords of the first item slot in selection grid sti
 	const UINT32 yOffset = gIMPInvPoolLayout.y + 8;
 	const UINT32 xStep = 72; // steps to the next slot column and row
 	const UINT32 yStep = 32;
-	
-	const UINT32 pageShift = gIMPCurrentInventoryPoolPage * 25;
+
+	// Reset item slot tooltips
+	for (size_t i = 0; i < IMP_GEAR_INV_SLOTS; i++)
+	{
+		SetRegionFastHelpText(&gIMPGearInvPoolRegion[i], szIMPGearPocketText[55]);
+	}
+
+	const UINT32 pageShift = gIMPCurrentInventoryPoolPage * IMP_GEAR_INV_SLOTS;
 	UINT32 end = gIMPPossibleItems[pocket].size();
 	if (gIMPCurrentInventoryPoolPage < gIMPLastInventoryPoolPage)
 	{
@@ -1211,7 +1220,17 @@ void RenderImpGearSelectionChoices(UINT32 pocket)
 		const auto xText = x;
 		const auto yText = y + 24;
 		DrawItemTextToInvPool(gIMPPossibleItems[pocket][i].second, xText, yText);
+		// Update tool tip to contain item name
+		const auto itemIndex = gIMPPossibleItems[pocket][i].first;
+		if (itemIndex != 0)
+		{
+			extern void GetHelpTextForItemInLaptop(STR16 pzStr, UINT16 usItemNumber);
+			GetHelpTextForItemInLaptop(tooltipText, itemIndex);
 
+			wcscat(tooltipText, L"\n");
+			wcscat(tooltipText, szIMPGearPocketText[55]);
+			SetRegionFastHelpText(&gIMPGearInvPoolRegion[i], tooltipText);
+		}
 
 		// Check if currently selected item is shown in pool and adjust glow coordinates
 		if (item == gIMPPocketSelectedItems[pocket].first)
