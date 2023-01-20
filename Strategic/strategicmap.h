@@ -119,7 +119,7 @@ void GetMapFileName(INT16 sMapX,INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOLEA
 
 // Called from within tactical.....
 void JumpIntoAdjacentSector( UINT8 ubDirection, UINT8 ubJumpCode, INT32 sAdditionalData );//dnl ch56 151009
-void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData);
+void JumpIntoEscapedSector(UINT8 ubTacticalDirection);
 
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ );

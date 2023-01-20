@@ -11051,7 +11051,7 @@ void EscapeTimerCallback()
             escaped = true;
             ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
 
-            JumpIntoEscapedSector(direction, JUMP_ALL_NO_LOAD, 0);
+            JumpIntoEscapedSector(direction);
             break;
         }
     }
