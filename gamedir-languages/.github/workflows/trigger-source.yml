@@ -1,0 +1,27 @@
+name: trigger-source
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'master'
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == '1dot13'
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          # add a valid token as secret to 1dot13 organisation
+          github-token: ${{ secrets.DISPATCH_1DOT13_SOURCE }}
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: '1dot13',
+              repo: 'source',
+              workflow_id: 'build.yml',
+              ref: 'master'
+            });
