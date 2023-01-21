@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.20)
 
 project(ja2)
 
+set(ProfilePath "${CMAKE_SOURCE_DIR}/CMakePresets.json")
+set(UserProfilePath "${CMAKE_SOURCE_DIR}/CMakeUserPresets.json")
+if(NOT DEFINED Languages AND NOT DEFINED Applications AND NOT EXISTS "${ProfilePath}" AND NOT EXISTS "${UserProfilePath}")
+  set(UserProfileTemplatePath "${CMAKE_SOURCE_DIR}/CMakeUserPresets-TEMPLATE.json")
+  file(READ "${UserProfileTemplatePath}" UserProfileTemplatContent)
+  file(WRITE "${UserProfilePath}" "${UserProfileTemplatContent}")
+  message( FATAL_ERROR "No existing profile was found, copied a profile template as CMakeUserProfile.json . Writing an error to trick Visual Studio into reloading the new profile automatically." )
+endif()
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
