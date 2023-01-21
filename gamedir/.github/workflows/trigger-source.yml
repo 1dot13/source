@@ -19,7 +19,7 @@ jobs:
           # add a valid token as secret to 1dot13 organisation
           github-token: ${{ secrets.DISPATCH_1DOT13_SOURCE }}
           script: |
-            github.rest.issues.createWorkflowDispatch({
+            github.rest.actions.createWorkflowDispatch({
               owner: '1dot13',
               repo: 'source',
               workflow_id: 'build.yml',
