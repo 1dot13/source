@@ -1778,7 +1778,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
+/*CHAR16 gszActionItemDesc[34][30] =	// NUM_ACTIONITEMS = 34
 {
 	L"Mine klaxon",
 	L"Mine Flash",
@@ -1815,9 +1815,9 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Alarme chtsvg",
 	L"Grd lacrymo",
 };
+*/
 
-//Item Statistics.cpp
-/*
+
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Drapeaux M./A.", //0
@@ -1849,7 +1849,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"R",
 	L"S",
 };
-*/
+
 
 STR16 pSetupGameTypeFlagsText[] =
 {
