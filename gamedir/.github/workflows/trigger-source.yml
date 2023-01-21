@@ -20,8 +20,8 @@ jobs:
           github-token: ${{ secrets.DISPATCH_1DOT13_SOURCE }}
           script: |
             github.rest.issues.createWorkflowDispatch({
-              '1dot13',
-              'source',
-              'build.yml',
-              'master',
+              owner: '1dot13',
+              repo: 'source',
+              workflow_id: 'build.yml',
+              ref: 'master'
             });
