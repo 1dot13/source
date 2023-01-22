@@ -6574,6 +6574,7 @@ STR16		zOptionsToggleText[] =
 	L"反转鼠标滚轮",                 //L"Invert mouse wheel",
 	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"显示已知敌人位置",			//L"Show enemy location", show locator on last known enemy location
+	L"Start at maximum aim",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6693,6 +6694,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，反转鼠标滚轮方向。",
 	L"打开时，当选择多个佣兵，在前进时会保持彼此的间距。|C|t|r|l+|A|l|t+|G \n（按|S|h|i|f|t+点击人物头像可以加入或移出队伍）", //L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", TODO.Translate
 	L"打开时，会显示已知敌人最后移动的位置。",	//L"When ON, shows last known enemy location.",    
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

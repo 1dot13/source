@@ -103,6 +103,7 @@ enum
 
 	// sevenfm: new settings
 	TOPTION_SHOW_ENEMY_LOCATION,
+	TOPTION_ALT_START_AIM,
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
