@@ -1731,9 +1731,82 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 	}	
 }
 
+void HandlePOWQuestState(PowQuestState state, Quests quest, INT16 mapX, INT16 mapY, INT8 mapZ)
+{
+	bool correctSector = false;
+	switch (quest)
+	{
+	case QUEST_HELD_IN_ALMA:
+		correctSector = (mapX == gModSettings.ubInitialPOWSectorX && mapY == gModSettings.ubInitialPOWSectorY && mapZ == 0);
+		break;
+	case QUEST_INTERROGATION:
+		correctSector = (mapX == gModSettings.ubMeanwhileInterrogatePOWSectorX && mapY == gModSettings.ubMeanwhileInterrogatePOWSectorY && mapZ == 0);
+		break;
+	case QUEST_HELD_IN_TIXA:
+		correctSector = (mapX == gModSettings.ubTixaPrisonSectorX && mapY == gModSettings.ubTixaPrisonSectorY && mapZ == 0);
+		break;
+	default:
+		break;
+	}
 
-
-
-
-
-
+	if (correctSector)
+	{
+		switch (state)
+		{
+		case Q_FAIL:
+			// End quest if player loses prison
+			if (gubQuest[quest] == QUESTINPROGRESS)
+			{
+				// Quest failed
+				InternalEndQuest(quest, mapX, mapY, FALSE);
+			}
+			else if (gubQuest[quest] == QUESTCANNOTSTART)
+			{
+				// Re-enable quest if player loses control of the prison and quest was disabled previously
+				gubQuest[quest] = QUESTNOTSTARTED;
+			}
+			break;
+		case Q_SUCCESS:
+			// End quest if player takes control of the prison
+			if (gubQuest[quest] == QUESTINPROGRESS)
+			{
+				// Complete quest
+				EndQuest(quest, mapX, mapY);
+			}
+			else if (gubQuest[quest] == QUESTNOTSTARTED)
+			{
+				// Disable quest if player takes control of the prison
+				gubQuest[quest] = QUESTCANNOTSTART;
+			}
+			break;
+		case Q_RESET:
+			// Re-enable quest if player loses control of the prison and quest was disabled previously
+			if (gubQuest[quest] == QUESTCANNOTSTART)
+			{
+				gubQuest[quest] = QUESTNOTSTARTED;
+			}
+			break;
+		case Q_END:
+			if (gubQuest[quest] == QUESTINPROGRESS)
+			{
+				EndQuest(quest, mapX, mapY);
+				HandleNPCDoAction(0, NPC_ACTION_GRANT_EXPERIENCE_3, 0);
+			}
+			break;
+		case Q_LEFT_SECTOR:
+			// End interrogation quest if we left the sector, but haven't killed all enemies
+			if (gubQuest[quest] == QUESTINPROGRESS)
+			{
+				// Finish quest, although not give points here...
+				InternalEndQuest(quest, mapX, mapY, FALSE);
+				// ... give them manually, but halved
+				GiveQuestRewardPoint(mapX, mapY, 4, NO_PROFILE);
+				// Also let us know we finished the quest
+				ResetHistoryFact(quest, mapX, mapY);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}

@@ -7594,35 +7594,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			HandleGlobalLoyaltyEvent(GLOBAL_LOYALTY_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 
-        // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-        if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-			gbWorldSectorZ == 0)
-        {
-			if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
-			{
-				// Quest failed
-				InternalEndQuest(QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE);
-			}
-			else if (gubQuest[QUEST_INTERROGATION] == QUESTCANNOTSTART)
-			{
-				//shadooow: re-enable quest if player loses control of the N7 prison and quest was disabled previously
-				gubQuest[QUEST_INTERROGATION] = QUESTNOTSTARTED;
-			}
-        }
-		//shadooow: re-enable quest if player loses control of the Alma prison and quest was disabled previously
-		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
-			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_ALMA] == QUESTCANNOTSTART)
-		{
-			gubQuest[QUEST_HELD_IN_ALMA] = QUESTNOTSTARTED;
-		}
 		#ifndef JA2UB
-		//shadooow: re-enable quest if player loses control of the Tixa prison and quest was disabled previously
-		if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
-			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTCANNOTSTART)
-		{
-			gubQuest[QUEST_HELD_IN_TIXA] = QUESTNOTSTARTED;
-		}
-		#endif
+        HandlePOWQuestState(Q_FAIL, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        HandlePOWQuestState(Q_FAIL, QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        HandlePOWQuestState(Q_FAIL, QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        #endif
 
         // Play death music
 		#ifdef NEWMUSIC
@@ -7818,51 +7794,12 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                     if (!is_networked)
                         ShouldBeginAutoBandage( );
                 }
-                // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-                if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-					gbWorldSectorZ == 0)
-                {
-					if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-					}
-					else if(gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
-					{
-						//shadooow: disable quest if player takes control of the N7 prison
-						gubQuest[QUEST_INTERROGATION] = QUESTCANNOTSTART;
-					}                    
-                }
-				//shadooow: disable quest if player takes control of the Alma prison
-				if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
-					gbWorldSectorZ == 0)
-				{
-					if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest(QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY);
-					}
-					else if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED)
-					{
-						gubQuest[QUEST_HELD_IN_ALMA] = QUESTCANNOTSTART;
-					}
-				}
-				#ifndef JA2UB
-				//shadooow: disable quest if player takes control of the Tixa prison
-				if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
-					gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
-				{
-					if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
-					}
-					else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
-					{
-						gubQuest[QUEST_HELD_IN_TIXA] = QUESTCANNOTSTART;
-					}
-				}				
-				#endif
+
+                #ifndef JA2UB
+                HandlePOWQuestState(Q_SUCCESS, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                HandlePOWQuestState(Q_SUCCESS, QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                HandlePOWQuestState(Q_SUCCESS, QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                #endif
                 // Say battle end quote....
 
                 if (fAnEnemyRetreated)
@@ -8588,7 +8525,7 @@ BOOLEAN CheckForLosingEndOfBattle( )
                     //if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ))
                     {
 						#ifndef JA2UB
-						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED )
                         {
                             fDoCapture = TRUE;
                             // CJC Dec 1 2002: fix capture sequences
@@ -11131,8 +11068,7 @@ void AttemptToCapturePlayerSoldiers()
     {
         gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 
-        if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED ||
-            (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+        if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
         {
             BeginCaptureSquence();
             const UINT8 currentPOWs = gStrategicStatus.ubNumCapturedForRescue;

@@ -2716,9 +2716,7 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-#ifdef JA2UB
-// no UB
-#else
+#ifndef JA2UB
 	// Set flag...
 	if( !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) || !(gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
@@ -2732,7 +2730,7 @@ void EndCaptureSequence( )
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			StartQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
 		}
-		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+		else if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 		{
 			StartQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
