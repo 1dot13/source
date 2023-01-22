@@ -4287,7 +4287,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 	}
 }
 
-void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData)
+void JumpIntoEscapedSector(UINT8 ubTacticalDirection)
 {
 	// Remove any incapacitated mercs from current squads and assign them to new squad
 	UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
