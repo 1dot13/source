@@ -5169,7 +5169,7 @@ INT16 ubMinAPCost;
 		{
 			//if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) )
 			{
-				if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+				if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 				{
 					return( AI_ACTION_OFFER_SURRENDER );
 				}
@@ -9591,7 +9591,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 	{
 		if ( gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0 && gTacticalStatus.Team[CREATURE_TEAM].bMenInSector == 0 && NumPCsInSector( ) < 4 && gTacticalStatus.Team[ENEMY_TEAM].bMenInSector >= NumPCsInSector( ) * 3 )
 		{
-			if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) )
+			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 			{
 				return(AI_ACTION_OFFER_SURRENDER);
 			}
