@@ -458,8 +458,13 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 				gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->aiData.bShownAimTime ) );
 			}
 
-			// Start at maximum aiming levels if the option is toggled
-			if (gGameSettings.fOptions[TOPTION_ALT_START_AIM] && (guiNewUICursor == ACTION_FLASH_SHOOT_UICURSOR || guiNewUICursor == ACTION_FLASH_BURST_UICURSOR))
+			const bool isCursorOnTarget = (
+				guiNewUICursor == ACTION_SHOOT_UICURSOR || guiNewUICursor == ACTION_TARGETBURST_UICURSOR ||
+				guiNewUICursor == ACTION_FLASH_SHOOT_UICURSOR || guiNewUICursor == ACTION_FLASH_BURST_UICURSOR ||
+				guiNewUICursor == ACTION_NOCHANCE_SHOOT_UICURSOR || guiNewUICursor == ACTION_NOCHANCE_BURST_UICURSOR
+			);
+				// Start at maximum aiming levels if the option is toggled
+			if (gGameSettings.fOptions[TOPTION_ALT_START_AIM] && isCursorOnTarget)
 			{
 				pSoldier->aiData.bShownAimTime = maxAimLevels;
 				sAPCosts = CalcTotalAPsToAttack(pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
@@ -474,6 +479,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 					}
 					sAPCosts = CalcTotalAPsToAttack(pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
 				}
+				gsCurrentActionPoints = sAPCosts;
 			}
 
 			// If we don't have any points and we are at the first refine, do nothing but warn!
