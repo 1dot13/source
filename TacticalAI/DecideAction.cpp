@@ -5171,7 +5171,6 @@ INT16 ubMinAPCost;
 			{
 				if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
 				{
-					gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 					return( AI_ACTION_OFFER_SURRENDER );
 				}
 			}
@@ -9594,7 +9593,6 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 		{
 			if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) )
 			{
-				gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 				return(AI_ACTION_OFFER_SURRENDER);
 			}
 		}

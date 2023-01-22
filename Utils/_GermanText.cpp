@@ -9047,6 +9047,8 @@ STR16	szPrisonerTextStr[]=
 	L"Ein ranghoher Offizier in %s wurde enttarnt!",
 	L"Der feindliche Anführer denkt nicht mal an Kapitulation!",
 	L"%d Gefangene sind uns als Freiwillige beigetreten.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

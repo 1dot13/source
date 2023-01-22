@@ -202,10 +202,11 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
+#if 0
 		// CJC Dec 1 2002: fix multiple captures
 		BeginCaptureSquence();
 
-	// Do capture....
+		// Do capture....
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++)
@@ -216,8 +217,6 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 				if ( pTeamSoldier->stats.bLife != 0 )
 				{
 					EnemyCapturesPlayerSoldier( pTeamSoldier );
-
-					RemoveSoldierFromTacticalSector( pTeamSoldier, TRUE );
 				}
 			}
 		}
@@ -226,7 +225,10 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
 		gfSurrendered = TRUE;
 		SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
-
+#else
+		extern void TestCapture();
+		TestCapture();
+#endif
 		ActionDone( gCivQuoteData.pCiv );
 	}
 	else

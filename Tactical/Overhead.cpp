@@ -8587,16 +8587,14 @@ BOOLEAN CheckForLosingEndOfBattle( )
                 {
                     //if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ))
                     {
-						#ifdef JA2UB
-						if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-						#else
+						#ifndef JA2UB
 						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
-						#endif
                         {
                             fDoCapture = TRUE;
                             // CJC Dec 1 2002: fix capture sequences
                             BeginCaptureSquence();
                         }
+                        #endif
                     }
                 }
             }
@@ -8632,8 +8630,6 @@ BOOLEAN CheckForLosingEndOfBattle( )
                     if ( pTeamSoldier->stats.bLife != 0 && fDoCapture )
                     {
                         EnemyCapturesPlayerSoldier( pTeamSoldier );
-
-                        RemoveSoldierFromTacticalSector( pTeamSoldier, TRUE );
                     }
 
                 }
@@ -10298,7 +10294,10 @@ void    DoneFadeOutDueToDeath( )
 void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
 {
     // Enter mapscreen.....
-    if(!is_client)CheckAndHandleUnloadingOfCurrentWorld();
+    if (!is_client)
+    {
+        CheckAndHandleUnloadingOfCurrentWorld();
+    }
     else    
     {
         ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
@@ -10442,6 +10441,12 @@ void DoPOWPathChecks( )
             pSoldier->aiData.bNeutral = FALSE;
             AddCharacterToAnySquad( pSoldier );
             pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+
+            // Decrement amount of prisoners
+            if (gStrategicStatus.ubNumCapturedForRescue > 0)
+            {
+                gStrategicStatus.ubNumCapturedForRescue--;
+            }
         }
     }
 }
@@ -11255,7 +11260,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
             return;
         }
-
+#if 0
         // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
         if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
         {
@@ -11280,9 +11285,6 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
                         if ( pSoldier->stats.bLife != 0 )
                         {
                             EnemyCapturesPlayerSoldier( pSoldier );
-
-                            RemoveSoldierFromTacticalSector( pSoldier, TRUE );
-                            RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
                         }
                     }
                 }
@@ -11291,7 +11293,6 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
                 gfSurrendered = TRUE;
                 SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
-                CheckForEndOfCombatMode(FALSE);
                 success = TRUE;
             }
         }
@@ -11300,6 +11301,10 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         {
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ STR_PRISONER_REFUSE_TAKE_PRISONERS ]  );
         }
+#else
+        extern void TestCapture();
+        TestCapture();
+#endif
     }
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )

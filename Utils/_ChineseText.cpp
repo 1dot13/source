@@ -9194,6 +9194,8 @@ STR16	szPrisonerTextStr[]=
 	L"一个高阶军官%s被发现！",	//L"A high-ranking army officer in %s has been revealed!",
 	L"敌方领袖拒绝考虑投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d名囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=
