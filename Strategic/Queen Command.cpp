@@ -41,6 +41,7 @@
 	#include "Morale.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "ASD.h"				// added by Flugente
+	#include "Interface Panels.h"
 
 #ifdef JA2BETAVERSION
 	extern BOOLEAN gfClearCreatureQuest;
@@ -2750,17 +2751,17 @@ void EndCaptureSequence( )
 
 int CalculateMaximumPrisonerAmount()
 {
-	int maxPOWs = 0;
 #ifndef JA2UB
-	if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iInitialPOWGridNo);  return maxPOWs; }
-	if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iTixaPrisonPOWGridNo); return maxPOWs; }
-	if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iMeanwhileInterrogatePOWGridNo); return maxPOWs; }
+	if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED) { return std::size(gModSettings.iInitialPOWGridNo); }
+	if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED) { return std::size(gModSettings.iTixaPrisonPOWGridNo); }
+	if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) { return std::size(gModSettings.iMeanwhileInterrogatePOWGridNo); }
 #endif
-	return maxPOWs;
+	return 0;
 }
 
 void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 {
+#ifndef JA2UB
 	AssertNotNIL(pSoldier);
 
 	// ATE: Check first if ! in player captured sequence already
@@ -2801,7 +2802,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-#ifndef JA2UB
 	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
 	{
 		// ATE: Patch fix If in a vehicle, remove from vehicle...
@@ -2908,7 +2908,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
 
 		RemoveSoldierFromTacticalSector(pSoldier, TRUE);
-		extern BOOLEAN RemovePlayerFromTeamSlotGivenMercID(UINT8 ubMercID);
 		RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
 		SelectNextAvailSoldier(pSoldier);
 	}

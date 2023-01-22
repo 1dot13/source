@@ -4296,20 +4296,19 @@ void JumpIntoEscapedSector(UINT8 ubTacticalDirection)
 
 	for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
 	{
-		// Are we active and in sector
-		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife < OKLIFE)
+		// Are we not active in sector
+		if (!pSoldier->bActive || !pSoldier->bInSector || pSoldier->stats.bLife >= OKLIFE)
 		{
-			if (currentSquad == -1)
-			{
-				currentSquad = AddCharacterToUniqueSquad(pSoldier);
-			}
-			else
-			{
-				if (!AddCharacterToSquad(pSoldier, currentSquad))
-				{
-					currentSquad = AddCharacterToUniqueSquad(pSoldier);
-				}
-			}
+			continue;
+		}
+		if (currentSquad == -1)
+		{
+			currentSquad = AddCharacterToUniqueSquad(pSoldier);
+			continue;
+		}
+		if (!AddCharacterToSquad(pSoldier, currentSquad))
+		{
+			currentSquad = AddCharacterToUniqueSquad(pSoldier);
 		}
 	}
 

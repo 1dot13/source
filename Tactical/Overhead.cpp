@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <random>
+#include <array>
 #include "wcheck.h"
 #include "stdlib.h"
 #include "debug.h"
@@ -11039,10 +11041,12 @@ void EscapeTimerCallback()
     const bool chanceToEscape = Chance(75);
     bool escaped = false;
     // Look for an escape direction for remaining mercs
-    std::vector<WorldDirections> possibleEscapeDirections{ NORTH, EAST, SOUTH, WEST };
-    std::random_shuffle(possibleEscapeDirections.begin(), possibleEscapeDirections.end());
+    std::array<WorldDirections, 4> possibleEscapeDirections{ NORTH, EAST, SOUTH, WEST };
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(possibleEscapeDirections.begin(), possibleEscapeDirections.end(), g);
 
-    for (auto direction : possibleEscapeDirections)
+    for (const auto direction : possibleEscapeDirections)
     {
         if (IsEscapeDirectionValid(direction) && chanceToEscape && gbWorldSectorZ == 0) // There is no escaping underground! For now..
         {
