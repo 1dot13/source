@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <random>
+#include <array>
 #include "wcheck.h"
 #include "stdlib.h"
 #include "debug.h"
@@ -7594,35 +7596,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			HandleGlobalLoyaltyEvent(GLOBAL_LOYALTY_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 
-        // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-        if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-			gbWorldSectorZ == 0)
-        {
-			if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
-			{
-				// Quest failed
-				InternalEndQuest(QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE);
-			}
-			else if (gubQuest[QUEST_INTERROGATION] == QUESTCANNOTSTART)
-			{
-				//shadooow: re-enable quest if player loses control of the N7 prison and quest was disabled previously
-				gubQuest[QUEST_INTERROGATION] = QUESTNOTSTARTED;
-			}
-        }
-		//shadooow: re-enable quest if player loses control of the Alma prison and quest was disabled previously
-		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
-			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_ALMA] == QUESTCANNOTSTART)
-		{
-			gubQuest[QUEST_HELD_IN_ALMA] = QUESTNOTSTARTED;
-		}
 		#ifndef JA2UB
-		//shadooow: re-enable quest if player loses control of the Tixa prison and quest was disabled previously
-		if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
-			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTCANNOTSTART)
-		{
-			gubQuest[QUEST_HELD_IN_TIXA] = QUESTNOTSTARTED;
-		}
-		#endif
+        HandlePOWQuestState(Q_FAIL, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        HandlePOWQuestState(Q_FAIL, QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        HandlePOWQuestState(Q_FAIL, QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+        #endif
 
         // Play death music
 		#ifdef NEWMUSIC
@@ -7818,51 +7796,12 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                     if (!is_networked)
                         ShouldBeginAutoBandage( );
                 }
-                // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-                if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-					gbWorldSectorZ == 0)
-                {
-					if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-					}
-					else if(gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
-					{
-						//shadooow: disable quest if player takes control of the N7 prison
-						gubQuest[QUEST_INTERROGATION] = QUESTCANNOTSTART;
-					}                    
-                }
-				//shadooow: disable quest if player takes control of the Alma prison
-				if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
-					gbWorldSectorZ == 0)
-				{
-					if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest(QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY);
-					}
-					else if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED)
-					{
-						gubQuest[QUEST_HELD_IN_ALMA] = QUESTCANNOTSTART;
-					}
-				}
-				#ifndef JA2UB
-				//shadooow: disable quest if player takes control of the Tixa prison
-				if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
-					gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
-				{
-					if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
-					{
-						// Complete quest
-						EndQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
-					}
-					else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
-					{
-						gubQuest[QUEST_HELD_IN_TIXA] = QUESTCANNOTSTART;
-					}
-				}				
-				#endif
+
+                #ifndef JA2UB
+                HandlePOWQuestState(Q_SUCCESS, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                HandlePOWQuestState(Q_SUCCESS, QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                HandlePOWQuestState(Q_SUCCESS, QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+                #endif
                 // Say battle end quote....
 
                 if (fAnEnemyRetreated)
@@ -8587,16 +8526,14 @@ BOOLEAN CheckForLosingEndOfBattle( )
                 {
                     //if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ))
                     {
-						#ifdef JA2UB
-						if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-						#else
-						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
-						#endif
+						#ifndef JA2UB
+						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED )
                         {
                             fDoCapture = TRUE;
                             // CJC Dec 1 2002: fix capture sequences
                             BeginCaptureSquence();
                         }
+                        #endif
                     }
                 }
             }
@@ -8632,8 +8569,6 @@ BOOLEAN CheckForLosingEndOfBattle( )
                     if ( pTeamSoldier->stats.bLife != 0 && fDoCapture )
                     {
                         EnemyCapturesPlayerSoldier( pTeamSoldier );
-
-                        RemoveSoldierFromTacticalSector( pTeamSoldier, TRUE );
                     }
 
                 }
@@ -9677,7 +9612,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
     pSoldier = NULL;
 
-    if (gTacticalStatus.ubCurrentTeam == gbPlayerNum)
+    if (gTacticalStatus.ubCurrentTeam == gbPlayerNum && gusSelectedSoldier < TOTAL_SOLDIERS)
     {
         pSoldier = MercPtrs[ gusSelectedSoldier ];
     }
@@ -9698,7 +9633,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     // If we still haven't figured out who last acted, it could be that the team number changed during the attack.  Unfortunately this
     // can happen during a switch from real-time.   For now we will assume the last actor was a PC, but a real "Who started this?" pointer
     // would work quite well.   If only I could close all the holes that the UI opens so that one routine could handle everything.
-    if (!pSoldier)
+    if (!pSoldier && gusSelectedSoldier < TOTAL_SOLDIERS)
     {
         if (is_networked)
         {
@@ -10298,7 +10233,10 @@ void    DoneFadeOutDueToDeath( )
 void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
 {
     // Enter mapscreen.....
-    if(!is_client)CheckAndHandleUnloadingOfCurrentWorld();
+    if (!is_client)
+    {
+        CheckAndHandleUnloadingOfCurrentWorld();
+    }
     else    
     {
         ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
@@ -10442,6 +10380,12 @@ void DoPOWPathChecks( )
             pSoldier->aiData.bNeutral = FALSE;
             AddCharacterToAnySquad( pSoldier );
             pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+
+            // Decrement amount of prisoners
+            if (gStrategicStatus.ubNumCapturedForRescue > 0)
+            {
+                gStrategicStatus.ubNumCapturedForRescue--;
+            }
         }
     }
 }
@@ -11092,6 +11036,107 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 	}
 }
 
+void EscapeTimerCallback()
+{
+    const bool chanceToEscape = Chance(75);
+    bool escaped = false;
+    // Look for an escape direction for remaining mercs
+    std::array<WorldDirections, 4> possibleEscapeDirections{ NORTH, EAST, SOUTH, WEST };
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(possibleEscapeDirections.begin(), possibleEscapeDirections.end(), g);
+
+    for (const auto direction : possibleEscapeDirections)
+    {
+        if (IsEscapeDirectionValid(direction) && chanceToEscape && gbWorldSectorZ == 0) // There is no escaping underground! For now..
+        {
+            escaped = true;
+            ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
+
+            JumpIntoEscapedSector(direction);
+            break;
+        }
+    }
+
+    if (!escaped)
+    {
+        ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_NO_ESCAPE]);
+    }
+}
+
+void AttemptToCapturePlayerSoldiers()
+{
+#ifdef JA2UB
+    ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
+#else
+    // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
+    if (!(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0)
+    {
+        gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
+
+        if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+        {
+            BeginCaptureSquence();
+            const UINT8 currentPOWs = gStrategicStatus.ubNumCapturedForRescue;
+            // Do capture
+            UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+            UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+            for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
+            {
+                // Are we active and in sector
+                if (pSoldier->bActive && pSoldier->bInSector && pSoldier->bAssignment != ASSIGNMENT_POW)
+                {
+                    if (pSoldier->stats.bLife != 0)
+                    {
+                        EnemyCapturesPlayerSoldier(pSoldier);
+                    }
+                }
+            }
+            EndCaptureSequence();
+
+            if (currentPOWs < gStrategicStatus.ubNumCapturedForRescue)
+            {
+                gfSurrendered = TRUE;
+            }
+            else
+            {
+                ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
+            }
+        }
+    }
+    else
+    {
+        ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
+    }
+
+    if (gfSurrendered == TRUE)
+    {
+        // If we have any remaining active mercs in sector after capture, give them a chance to escape from the clutches of Deidranna's soldiers!
+        bool activeMercs = false;
+
+        UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+        UINT32 lastId = gTacticalStatus.Team[gbPlayerNum].bLastID;
+        for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastId; ++i, ++pSoldier)
+        {
+            // Are we active and in sector
+            const bool inSector = (pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ);
+            if (pSoldier->bActive && inSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->bAssignment != ASSIGNMENT_POW)
+            {
+                activeMercs = true;
+                break;
+            }
+        }
+
+        if (activeMercs)
+        {
+            SetCustomizableTimerCallbackAndDelay(500, EscapeTimerCallback, FALSE);
+        }
+        SetCustomizableTimerCallbackAndDelay(500, CaptureTimerCallback, FALSE);
+        CheckForEndOfBattle(FALSE);
+    }
+#endif
+}
+
 void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
     SOLDIERTYPE *pSoldier = NULL;       
@@ -11256,49 +11301,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             return;
         }
 
-        // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
-        if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
-        {
-			#ifdef JA2UB
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-			#else
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-			#endif 
-            {
-                gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
-
-                // CJC Dec 1 2002: fix multiple captures
-                BeginCaptureSquence();
-
-                // Do capture....
-                uiCnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-                for ( pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCnt, ++pSoldier)
-                {
-                    // Are we active and in sector.....
-                    if ( pSoldier->bActive && pSoldier->bInSector )
-                    {
-                        if ( pSoldier->stats.bLife != 0 )
-                        {
-                            EnemyCapturesPlayerSoldier( pSoldier );
-
-                            RemoveSoldierFromTacticalSector( pSoldier, TRUE );
-                        }
-                    }
-                }
-
-                EndCaptureSequence( );
-
-                gfSurrendered = TRUE;
-                SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
-
-                success = TRUE;
-            }
-        }
-
-        if ( !success )
-        {
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ STR_PRISONER_REFUSE_TAKE_PRISONERS ]  );
-        }
+        SetCustomizableTimerCallbackAndDelay(500, AttemptToCapturePlayerSoldiers, FALSE);
     }
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )

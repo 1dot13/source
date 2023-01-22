@@ -756,10 +756,13 @@ extern BOOLEAN CheckForNewShipment( void );
 extern BOOLEAN CheckTalkerFemale( void );
 extern BOOLEAN CheckTalkerUnpropositionedFemale( void );
 
+enum PowQuestState
+{
+	Q_FAIL,
+	Q_SUCCESS,
+	Q_RESET,
+	Q_END,
+	Q_LEFT_SECTOR
+};
+void HandlePOWQuestState(PowQuestState state, Quests quest, INT16 mapX, INT16 mapY, INT8 mapZ);
 #endif
-
-
-
- 
-
-
