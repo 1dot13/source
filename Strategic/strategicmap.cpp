@@ -4301,6 +4301,69 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 	}
 }
 
+void JumpIntoEscapedSector(UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData)
+{
+	// Remove any incapacitated mercs from current squads and assign them to new squad
+	UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	INT8 currentSquad = -1;
+
+	for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
+	{
+		// Are we active and in sector
+		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife < OKLIFE)
+		{
+			if (currentSquad == -1)
+			{
+				currentSquad = AddCharacterToUniqueSquad(pSoldier);
+			}
+			else
+			{
+				if (!AddCharacterToSquad(pSoldier, currentSquad))
+				{
+					currentSquad = AddCharacterToUniqueSquad(pSoldier);
+				}
+			}
+		}
+	}
+
+	// Retreat squads that are capable of it
+	for (size_t i = 0; i < NUMBER_OF_SQUADS; i++)
+	{
+		for (size_t j = 0; j < NUMBER_OF_SOLDIERS_PER_SQUAD; j++)
+		{
+			SOLDIERTYPE* pSoldier = Squad[i][j];
+			if (pSoldier && OK_CONTROLLABLE_MERC(pSoldier))
+			{
+				GROUP* pGroup = GetGroup(pSoldier->ubGroupID);
+				switch (ubTacticalDirection)
+				{
+				case NORTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY - 1;
+					break;
+				case EAST:
+					pGroup->ubPrevX = pGroup->ubSectorX + 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				case SOUTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY + 1;
+					break;
+				case WEST:
+					pGroup->ubPrevX = pGroup->ubSectorX - 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				default:
+					break;
+				}
+
+				RetreatGroupToPreviousSector(pGroup);
+				break;
+			}
+		}
+	}
+}
 
 void HandleSoldierLeavingSectorByThemSelf( SOLDIERTYPE *pSoldier )
 {
