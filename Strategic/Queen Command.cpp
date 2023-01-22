@@ -2751,9 +2751,11 @@ void EndCaptureSequence( )
 int CalculateMaximumPrisonerAmount()
 {
 	int maxPOWs = 0;
+#ifndef JA2UB
 	if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iInitialPOWGridNo);  return maxPOWs; }
 	if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iTixaPrisonPOWGridNo); return maxPOWs; }
 	if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) { maxPOWs += std::size(gModSettings.iMeanwhileInterrogatePOWGridNo); return maxPOWs; }
+#endif
 	return maxPOWs;
 }
 

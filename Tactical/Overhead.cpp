@@ -11062,6 +11062,9 @@ void EscapeTimerCallback()
 
 void AttemptToCapturePlayerSoldiers()
 {
+#ifdef JA2UB
+    ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
+#else
     // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
     if (!(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0)
     {
@@ -11127,6 +11130,7 @@ void AttemptToCapturePlayerSoldiers()
         SetCustomizableTimerCallbackAndDelay(500, CaptureTimerCallback, FALSE);
         CheckForEndOfBattle(FALSE);
     }
+#endif
 }
 
 void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
