@@ -2832,7 +2832,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#ifndef JA2UB
 		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
 			//-teleport him to Tixa as originally planned
@@ -2843,7 +2842,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iTixaPrisonPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iTixaPrisonPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#endif
 		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 		{
 			//-teleport him to N7
