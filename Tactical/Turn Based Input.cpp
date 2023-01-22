@@ -255,7 +255,6 @@ void CreatePlayerControlledMonster();
 void ChangeCurrentSquad( INT32 iSquad );
 void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode );
 void EscapeUILock( );
-void TestCapture( );
 
 #ifdef JA2BETAVERSION
 void ToggleMapEdgepoints();
@@ -4476,9 +4475,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
-						TestCapture( );
-
-						//EnterCombatMode( gbPlayerNum );
+						// Test Capturing Mercs as POW
+						AttemptToCapturePlayerSoldiers();
 					}
 				}
 				else if ( fCtrl && fShift )
@@ -6532,107 +6530,6 @@ void HandleStealthChangeFromUIKeys(	)
 			{
 				ToggleStealthMode( MercPtrs[ gusSelectedSoldier ] );
 			}
-		}
-	}
-}
-
-
-
-void TestCapture()
-{
-	extern void CaptureTimerCallback();
-	extern BOOLEAN gfSurrendered;
-	SOLDIERTYPE* pSoldier;
-
-	// in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
-	if (!(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0)
-	{
-		gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
-
-		if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED ||
-			(gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-		{
-			BeginCaptureSquence();
-			const UINT8 currentPOWs = gStrategicStatus.ubNumCapturedForRescue;
-			// Do capture
-			UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-			for (pSoldier = MercPtrs[i]; i <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++i, ++pSoldier)
-			{
-				// Are we active and in sector
-				if (pSoldier->bActive && pSoldier->bInSector && pSoldier->bAssignment != ASSIGNMENT_POW)
-				{
-					if (pSoldier->stats.bLife != 0)
-					{
-						EnemyCapturesPlayerSoldier(pSoldier);
-					}
-				}
-			}
-			EndCaptureSequence();
-
-			if (currentPOWs < gStrategicStatus.ubNumCapturedForRescue)
-			{
-				gfSurrendered = TRUE;
-				SetCustomizableTimerCallbackAndDelay(3000, CaptureTimerCallback, FALSE);
-			}
-		}
-	}
-	else
-	{
-		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
-	}
-
-	if (gfSurrendered == TRUE)
-	{
-		// Check if remaining mercs have a chance to flee
-		bool activeMercs = false;
-
-		UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-		for (pSoldier = MercPtrs[i]; i <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++i, ++pSoldier)
-		{
-			// Are we active and in sector
-			if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife != 0 && pSoldier->bAssignment != ASSIGNMENT_POW)
-			{
-				activeMercs = true;
-				break;
-			}
-		}
-
-		if (activeMercs)
-		{
-			bool escaped = false;
-			// Look for an escape direction for remaining mercs
-			for (UINT8 i = NORTH; i < NORTHWEST; i++)
-			{
-				WorldDirections direction;
-				switch (i)
-				{
-				case NORTH:
-					direction = NORTH;
-					break;
-				case EAST:
-					direction = EAST;
-					break;
-				case SOUTH:
-					direction = SOUTH;
-					break;
-				case WEST:
-					direction = WEST;
-					break;
-				default:
-					direction = DIRECTION_IRRELEVANT;
-					break;
-				}
-
-				if (IsEscapeDirectionValid(direction))
-				{
-					escaped = true;
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
-					JumpIntoAdjacentSector(i, JUMP_ALL_NO_LOAD, 0);
-					break;
-				}
-			}
-
-			if (!escaped) { ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_NO_ESCAPE]); }
 		}
 	}
 }

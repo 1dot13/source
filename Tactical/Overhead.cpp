@@ -11097,6 +11097,102 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 	}
 }
 
+void AttemptToCapturePlayerSoldiers()
+{
+    // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
+    if (!(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0)
+    {
+        gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
+
+        if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED ||
+            (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+        {
+            BeginCaptureSquence();
+            const UINT8 currentPOWs = gStrategicStatus.ubNumCapturedForRescue;
+            // Do capture
+            UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+            UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+            for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
+            {
+                // Are we active and in sector
+                if (pSoldier->bActive && pSoldier->bInSector && pSoldier->bAssignment != ASSIGNMENT_POW)
+                {
+                    if (pSoldier->stats.bLife != 0)
+                    {
+                        EnemyCapturesPlayerSoldier(pSoldier);
+                    }
+                }
+            }
+            EndCaptureSequence();
+
+            if (currentPOWs < gStrategicStatus.ubNumCapturedForRescue)
+            {
+                gfSurrendered = TRUE;
+                SetCustomizableTimerCallbackAndDelay(3000, CaptureTimerCallback, FALSE);
+            }
+        }
+    }
+    else
+    {
+        ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_TAKE_PRISONERS]);
+    }
+
+    if (gfSurrendered == TRUE)
+    {
+        // Check if remaining mercs have a chance to flee
+        bool activeMercs = false;
+
+        UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+        for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++i, ++pSoldier)
+        {
+            // Are we active and in sector
+            if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife != 0 && pSoldier->bAssignment != ASSIGNMENT_POW)
+            {
+                activeMercs = true;
+                break;
+            }
+        }
+
+        if (activeMercs)
+        {
+            bool escaped = false;
+            // Look for an escape direction for remaining mercs
+            for (UINT8 i = NORTH; i < NORTHWEST; i++)
+            {
+                WorldDirections direction;
+                switch (i)
+                {
+                case NORTH:
+                    direction = NORTH;
+                    break;
+                case EAST:
+                    direction = EAST;
+                    break;
+                case SOUTH:
+                    direction = SOUTH;
+                    break;
+                case WEST:
+                    direction = WEST;
+                    break;
+                default:
+                    direction = DIRECTION_IRRELEVANT;
+                    break;
+                }
+
+                if (IsEscapeDirectionValid(direction))
+                {
+                    escaped = true;
+                    ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ESCAPE]);
+                    JumpIntoAdjacentSector(i, JUMP_ALL_NO_LOAD, 0);
+                    break;
+                }
+            }
+
+            if (!escaped) { ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_NO_ESCAPE]); }
+        }
+    }
+}
+
 void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
     SOLDIERTYPE *pSoldier = NULL;       
@@ -11260,51 +11356,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
             return;
         }
-#if 0
-        // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
-        if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
-        {
-			#ifdef JA2UB
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-			#else
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-			#endif 
-            {
-                gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 
-                // CJC Dec 1 2002: fix multiple captures
-                BeginCaptureSquence();
-
-                // Do capture....
-                uiCnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-                for ( pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCnt, ++pSoldier)
-                {
-                    // Are we active and in sector.....
-                    if ( pSoldier->bActive && pSoldier->bInSector )
-                    {
-                        if ( pSoldier->stats.bLife != 0 )
-                        {
-                            EnemyCapturesPlayerSoldier( pSoldier );
-                        }
-                    }
-                }
-
-                EndCaptureSequence( );
-
-                gfSurrendered = TRUE;
-                SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
-                success = TRUE;
-            }
-        }
-
-        if ( !success )
-        {
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ STR_PRISONER_REFUSE_TAKE_PRISONERS ]  );
-        }
-#else
-        extern void TestCapture();
-        TestCapture();
-#endif
+        AttemptToCapturePlayerSoldiers();
     }
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )
