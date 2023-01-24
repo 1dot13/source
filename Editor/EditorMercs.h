@@ -1,3 +1,5 @@
+#pragma once
+
 #include "BuildDefines.h"
 
 #ifdef JA2EDITOR
