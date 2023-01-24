@@ -187,7 +187,8 @@ jobs:
           set -eux
           
           # "-" separates words, "_" combines words, see double-click behavior
-          DIST_NAME="JA2-${GAME_VERSION}-G${GAMEDIR_COMMIT_SHA:0:4}L${GAMEDIR_LANGUAGES_COMMIT_SHA:0:4}-${{ inputs.language }}"
+          DIST_PREFIX='JA2_113'
+          DIST_NAME="${DIST_PREFIX}-${GAME_VERSION}-G${GAMEDIR_COMMIT_SHA:0:4}L${GAMEDIR_LANGUAGES_COMMIT_SHA:0:4}-${{ inputs.language }}"
           echo "DIST_NAME=$DIST_NAME" >> $GITHUB_ENV
           
           echo "If you encounter problems during gameplay, please provide the following version information:
@@ -204,8 +205,8 @@ jobs:
           Gamedir Languages Repository: $GAMEDIR_LANGUAGES_REPOSITORY
           Gamedir Languages Commit SHA: $GAMEDIR_LANGUAGES_COMMIT_SHA
           Gamedir Languages Commit Date: $GAMEDIR_LANGUAGES_COMMIT_DATETIME
-          " > gamedir/ja2_1.13_version.txt
-          cat gamedir/ja2_1.13_version.txt
+          " > "gamedir/${DIST_PREFIX}-Version.txt"
+          cat "gamedir/${DIST_PREFIX}-Version.txt"
 
       - name: Create release archive
         shell: bash

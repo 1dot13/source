@@ -1032,16 +1032,10 @@ void DeleteSelectedItem()
 		if( gpEditingItemPool == gpItemPool )
 			gpEditingItemPool = NULL;
 		RemoveItemFromPool( sGridNo, gpItemPool->iItemIndex, 0 );
-#if 0//dnl ch86 220214
-		gpItemPool = NULL;
-		//determine if there are still any items at this location
-		if( GetItemPoolFromGround( sGridNo, &gpItemPool ) )
-#else
 		ITEM_POOL *pItemPoolOld = gpItemPool;
 		GetItemPoolFromGround(sGridNo, &gpItemPool);
 		UpdateItemPoolInUndoList(sGridNo, pItemPoolOld, gpItemPool);
 		if(gpItemPool)
-#endif
 		{ //reset display for remaining items
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
 		}

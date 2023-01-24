@@ -1457,43 +1457,6 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 
 
 
-#if 0
-{
-	LEVELNODE *pNode;
-	INT32 sNewGridNo;
-
-	//Determine new gridno
-	sNewGridNo = MAPROWCOLTOPOS( ( pObject->Position.y / CELL_Y_SIZE ), ( pObject->Position.x / CELL_X_SIZE ) );
-
-	// Look at old gridno
-	if ( sNewGridNo != pObject->sGridNo )
-	{
-		// We're at a new gridno!
-
-		// First find levelnode of our object and delete
-		pNode = gpWorldLevelData[ pObject->sGridNo ].pStructHead;
-
-		// LOOP THORUGH OBJECT LAYER
-		while( pNode != NULL )
-		{
-			if ( pNode->uiFlags & LEVELNODE_PHYSICSOBJECT )
-			{
-				if ( pNode->iPhysicsObjectID == pObject->iID )
-				{
-					RemoveStruct( pObject->sGridNo, pNode->usIndex );
-					break;
-				}
-			}
-
-			pNode = ppNode->pNext;
-		}
-
-		// Set new gridno, add
-	}
-	// Add new object / update position
-
-}
-#endif
 
 void ObjectHitWindow( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce )
 {

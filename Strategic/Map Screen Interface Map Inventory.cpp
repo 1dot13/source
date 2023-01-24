@@ -1091,24 +1091,8 @@ void SaveSeenAndUnseenItems( void )
 	//make list of seen items
 	for ( UINT32 i = 0; i < pInventoryPoolList.size(); i++ )
 	{
-#if 0
-		if ( pInventoryPoolList[ i ].object.exists() )
-		{
-			pInventoryPoolList[ i ].fExists = TRUE;
-			pInventoryPoolList[ i ].bVisible = TRUE;
-			//Check		
-			if(TileIsOutOfBounds( pInventoryPoolList[ i ].sGridNo) && !( pInventoryPoolList[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
-			{
-				pInventoryPoolList[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
-
-			// Display warning.....
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Error: Trying to add item ( %d: %s ) to invalid gridno in unloaded sector. Please Report.", pInventoryPoolList[ i ].object.usItem, ItemNames[ pInventoryPoolList[ i ].object.usItem] );
-			}
-		
-#else
 		if ( pInventoryPoolList[i].fExists )
 		{
-#endif
 			worldItemsSaveList.push_back(pInventoryPoolList[i]);
 			iExistingItems++;
 		}
@@ -3625,45 +3609,6 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 	static BOOLEAN fItemWasHighLighted = FALSE;
-#if 0
-	if( iCurrentSlot == -1 )
-	{
-		giCompatibleItemBaseTime = 0;
-	}
-
-	if( fChangedInventorySlots == TRUE )
-	{
-		giCompatibleItemBaseTime = 0;
-		fChangedInventorySlots = FALSE;
-	}
-
-	// reset the base time to the current game clock
-	if( giCompatibleItemBaseTime == 0 )
-	{
-		giCompatibleItemBaseTime = GetJA2Clock( );
-
-		if( fItemWasHighLighted == TRUE )
-		{
-			fTeamPanelDirty = TRUE;
-			fMapPanelDirty = TRUE;
-			fItemWasHighLighted = FALSE;
-		}
-	}
-
-	ResetCompatibleItemArray( );
-	ResetMapSectorInventoryPoolHighLights( );
-
-	if( iCurrentSlot == -1 )
-	{
-		return;
-	}
-
-	// Check also that we're not beyond the resize.
-	if (pInventoryPoolList.size() < (UINT32)(iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) ))
-	{
-		return;
-	}
-#else
 
 	//if same slot then before dont recalculate
 	if ( !fChangedInventorySlots ) return;
@@ -3689,36 +3634,10 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 		}
 		return;
 	}
-#endif
 
 	// given this slot value, check if anything in the displayed sector inventory or on the mercs inventory is compatable
 	if( fShowInventoryFlag )
 	{
-#if 0
-		// check if any compatable items in the soldier inventory matches with this item
-		if( gfCheckForCursorOverMapSectorInventoryItem )
-		{
-			pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
-			if( pSoldier )
-			{
-				if( HandleCompatibleAmmoUIForMapScreen( pSoldier, iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ), TRUE, FALSE ) )
-				{
-					if( GetJA2Clock( ) - giCompatibleItemBaseTime > 100 )
-					{
-						if( fItemWasHighLighted == FALSE )
-						{
-							fTeamPanelDirty = TRUE;
-							fItemWasHighLighted = TRUE;
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			giCompatibleItemBaseTime = 0;
-		}
-#else
 		//Soldier inventory is shown, highlight those items
 		pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
 		if( pSoldier )
@@ -3729,40 +3648,17 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 			}
 			fTeamPanelDirty = TRUE;
 		}
-#endif
 	}
 
 
 	// now handle for the sector inventory
 	if( fShowMapInventoryPool )
 	{
-#if 0
-		// check if any compatable items in the soldier inventory matches with this item
-		if( gfCheckForCursorOverMapSectorInventoryItem )
-		{
-			if( HandleCompatibleAmmoUIForMapInventory( pSoldier, iCurrentSlot, ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) , TRUE, FALSE ) )
-			{
-				if( GetJA2Clock( ) - giCompatibleItemBaseTime > 100 )
-				{
-					if( fItemWasHighLighted == FALSE )
-					{
-						fItemWasHighLighted = TRUE;
-						fMapPanelDirty = TRUE;
-					}
-				}
-			}
-		}
-		else
-		{
-			giCompatibleItemBaseTime = 0;
-		}
-#else
 		if( HandleCompatibleAmmoUIForMapInventory( pSoldier, iCurrentSlot, ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) , TRUE, FALSE ) )
 		{
 			fItemWasHighLighted = TRUE;//remember that something is highlighted
 		}
 		fMapPanelDirty = TRUE;
-#endif
 	}
 
 	fChangedInventorySlots = FALSE;
@@ -3870,78 +3766,10 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 
 void SortSectorInventory( std::vector<WORLDITEM>& pInventory, UINT32 uiSizeOfArray )
 {
-#if 0//dnl ch75 011113 return code from v1.12 as current one is terrible slow
-	//first, compress the inventory by stacking like items that are reachable, while moving empty items towards the back
-	for (std::vector<WORLDITEM>::iterator iter = pInventory.begin(); iter != pInventory.end(); ++iter) {
-		//if object exists, we want to try to stack it
-		if (iter->fExists && iter->object.exists() == true) {
-
-			//ADB TODO if it is active and reachable etc, alternatively if it's on the same gridNo
-#if 0
-			if (iter->object.ubNumberOfObjects < ItemSlotLimit( iter->object.usItem, STACK_SIZE_LIMIT )) {
-				std::vector<WORLDITEM>::iterator second = iter;
-				for (++second; second != pInventory.end(); ++second) {
-					if (second->object.usItem == iter->object.usItem
-						&& second->object.exists() == true) {
-						iter->object.AddObjectsToStack(second->object, second->object.ubNumberOfObjects);
-						if (iter->object.ubNumberOfObjects >= ItemSlotLimit( iter->object.usItem, STACK_SIZE_LIMIT )) {
-							break;
-						}
-					}
-				}
-			}
-#endif
-		}
-		else {
-			//object does not exist, so compress the list
-			std::vector<WORLDITEM>::iterator second = iter;
-			for (++second; second != pInventory.end(); ++second) {
-				if (second->fExists && second->object.exists() == true) {
-					*iter = *second;
-					second->initialize();
-					break;
-				}
-			}
-			if (second == pInventory.end()) {
-				//we reached the end of the list without finding any active item, so we can break out of this loop too!
-				break;
-			}
-		}
-	}
-
-	//once compressed, we need only sort the existing items
-	//all empty items should be at the back!!!
-	std::vector<WORLDITEM>::iterator endSort = pInventory.begin();
-	for (unsigned int x = 1; x < pInventory.size(); ++x) {
-		if (pInventory[x].fExists && pInventory[x].object.exists() == true) {
-			++endSort;
-		}
-		else {
-			break;
-		}
-	}
-	++endSort;
-
-	//ADB I'm not sure qsort will work with OO data, so replace it with stl sort, which is faster anyways
-	std::sort(pInventory.begin(), endSort);
-
-	//then compress it by removing the empty objects, we know they are at the back
-	//we want the size to equal x * MAP_INVENTORY_POOL_SLOT_COUNT
-	for (unsigned int x = 1; x <= pInventory.size() / MAP_INVENTORY_POOL_SLOT_COUNT && pInventory.size() > x * MAP_INVENTORY_POOL_SLOT_COUNT; ++x) {
-		if (pInventory[x * MAP_INVENTORY_POOL_SLOT_COUNT].fExists == false
-			&& pInventory[x * MAP_INVENTORY_POOL_SLOT_COUNT].object.exists() == false) {
-			//we have found a page where the first item on the page does not exist, resize to this
-			//we may have just cut off a blank page leaving the previous page full with no place to put
-			//any new objects, but ResizeInventoryList after this will take care of that.
-			pInventory.resize(x * MAP_INVENTORY_POOL_SLOT_COUNT);
-		}
-	}
-#else
 #if _ITERATOR_DEBUG_LEVEL > 1//dnl ch75 061113 under debug VS2010 throws exceptions after qsort but not under VS2005 and VS2008, all release version seems to work fine
 	std::sort(pInventory.begin(), pInventory.begin() + uiSizeOfArray);
 #else
 	qsort((LPVOID)&pInventory.front(), (size_t)uiSizeOfArray, sizeof(WORLDITEM), MapScreenSectorInventoryCompare);
-#endif
 #endif
 }
 
@@ -3955,31 +3783,10 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 	UINT16		ubItem2Quality;
 
 	//dnl ch75 071113 without below fix sort will create mess when use empty slots because fExists remain TRUE after item is removed from inventory so decide to rather check ubNumberOfObjects
-#if 0
-	if(!(pFirst->fExists && pFirst->object.ubNumberOfObjects && pFirst->object.usItem) && (pFirst->fExists | pFirst->object.ubNumberOfObjects | pFirst->object.usItem))
-	{
-		pFirst->fExists = FALSE;
-		pFirst->object.ubNumberOfObjects = 0;
-		pFirst->object.usItem = NONE;
-		return(1);
-	}
-	if(!(pSecond->fExists && pSecond->object.ubNumberOfObjects && pSecond->object.usItem) && (pSecond->fExists | pSecond->object.ubNumberOfObjects | pSecond->object.usItem))
-	{
-		pSecond->fExists = FALSE;
-		pSecond->object.ubNumberOfObjects = 0;
-		pSecond->object.usItem = NONE;
-		return(-1);
-	}
-	if(!pFirst->fExists)
-		return(1);
-	if(!pSecond->fExists)
-		return(-1);
-#else
 	if(!pFirst->object.ubNumberOfObjects)
 		return(1);
 	if(!pSecond->object.ubNumberOfObjects)
 		return(-1);
-#endif
 
 	usItem1Index = pFirst->object.usItem;
 	usItem2Index = pSecond->object.usItem;
@@ -4157,20 +3964,7 @@ BOOLEAN SortInventoryPoolQ(void)
 {
 	if(pInventoryPoolList.size() > 0)
 	{
-#if 0//dnl ch75 311013
-		for(INT32 iSlotCounter=0; iSlotCounter<(INT32)pInventoryPoolList.size(); iSlotCounter++)
-			if(pInventoryPoolList[iSlotCounter].object.usItem == NOTHING && pInventoryPoolList[iSlotCounter].object.exists() == false)
-			{
-				pInventoryPoolList[iSlotCounter].fExists = FALSE;
-				pInventoryPoolList[iSlotCounter].bVisible = FALSE;
-			}
 		SortSectorInventory(pInventoryPoolList, pInventoryPoolList.size());
-		iLastInventoryPoolPage = (pInventoryPoolList.size() - 1) / MAP_INVENTORY_POOL_SLOT_COUNT;
-		if(iCurrentInventoryPoolPage > iLastInventoryPoolPage)
-			iCurrentInventoryPoolPage = iLastInventoryPoolPage;
-#else
-		SortSectorInventory(pInventoryPoolList, pInventoryPoolList.size());
-#endif
 	}
 	fMapPanelDirty = TRUE;
 	return(TRUE);
@@ -6227,8 +6021,8 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 			FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...
 
-#if 0//def JA2TESTVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature );
+#if JA2TESTVERSION
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature);
 #endif
 
 			(*itemStack)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
@@ -6247,8 +6041,8 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 					(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
 
-#if 0//def JA2TESTVERSION
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#if JA2TESTVERSION
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature);
 #endif
 
 					// we assume that there can exist only 1 underbarrel weapon per gun

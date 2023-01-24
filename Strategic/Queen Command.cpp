@@ -42,6 +42,7 @@
 	#include "Morale.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "ASD.h"				// added by Flugente
+	#include "Interface Panels.h"
 	#include "Strategic Transport Groups.h"
 
 #ifdef JA2BETAVERSION
@@ -2765,43 +2766,31 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-#ifdef JA2UB
-// no UB
-#else
-     
+#ifndef JA2UB
 	// Set flag...
 	if( !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) || !(gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
-		// CJC Dec 1 2002: fixing multiple captures:
-		//gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
-
 		if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
 		{
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			StartQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
 		}
-		// CJC Dec 1 2002: fixing multiple captures:
-		//else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE )
-		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			StartQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
 		}
-		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+		else if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 		{
 			StartQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 
 			// OK! - Schedule Meanwhile now!
 			HandleInterrogationMeanwhileScene();
 		}
-		// CJC Dec 1 2002: fixing multiple captures
 		else
 		{
-			// !?!? set both flags
+			// Set both flags if we can't start any of the three POW quests
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 		}
@@ -2809,16 +2798,22 @@ void EndCaptureSequence( )
 #endif
 }
 
+int CalculateMaximumPrisonerAmount()
+{
+#ifndef JA2UB
+	if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED) { return std::size(gModSettings.iInitialPOWGridNo); }
+	if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED) { return std::size(gModSettings.iTixaPrisonPOWGridNo); }
+	if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) { return std::size(gModSettings.iMeanwhileInterrogatePOWGridNo); }
+#endif
+	return 0;
+}
+
 void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 {
-	UINT32					i;
-	BOOLEAN       fMadeCorpse;
-	INT32         iNumEnemiesInSector;
-
+#ifndef JA2UB
 	AssertNotNIL(pSoldier);
 
 	// ATE: Check first if ! in player captured sequence already
-	// CJC Dec 1 2002: fixing multiple captures
 	if ( ( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) && (gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
 		return;
@@ -2829,6 +2824,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	{
 		pSoldier->stats.bLife = 0;
 		pSoldier->iHealableInjury = 0; // added by SANDRO
+		BOOLEAN fMadeCorpse;
 		HandleSoldierDeath( pSoldier, &fMadeCorpse );
 		return;
 	}
@@ -2849,32 +2845,31 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// ATE: Patch fix If in a vehicle, remove from vehicle...
-	TakeSoldierOutOfVehicle( pSoldier );
-
-	HandleMoraleEvent( pSoldier, MORALE_MERC_CAPTURED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-
-	// Change to POW....
-	//-add him to a POW assignment/group
-	if( ( pSoldier->bAssignment != ASSIGNMENT_POW )  )
+	if (gStrategicStatus.ubNumCapturedForRescue >= CalculateMaximumPrisonerAmount())
 	{
-		SetTimeOfAssignmentChangeForMerc( pSoldier );
+		SetTimeOfAssignmentChangeForMerc(pSoldier);
+		return;
 	}
 
-	ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_POW );
-	RemoveCharacterFromSquads( pSoldier );
-
-	WORLDITEM			WorldItem;
-	std::vector<WORLDITEM> pWorldItem;
-
-#ifdef JA2UB
-	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-#else
 	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-#endif 	
 	{
-		INT32 itemdropoffgridno = -1;
+		// ATE: Patch fix If in a vehicle, remove from vehicle...
+		TakeSoldierOutOfVehicle(pSoldier);
 
+		HandleMoraleEvent(pSoldier, MORALE_MERC_CAPTURED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+
+		// Change to POW....
+		//-add him to a POW assignment/group
+		if ((pSoldier->bAssignment != ASSIGNMENT_POW))
+		{
+			SetTimeOfAssignmentChangeForMerc(pSoldier);
+		}
+
+		ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_POW);
+		RemoveCharacterFromSquads(pSoldier);
+
+
+		INT32 itemdropoffgridno = -1;
 		// Is this the first one..?
 		if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED )
 		{
@@ -2886,7 +2881,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#ifndef JA2UB
 		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
 			//-teleport him to Tixa as originally planned
@@ -2897,7 +2891,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iTixaPrisonPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iTixaPrisonPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#endif
 		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 		{
 			//-teleport him to N7
@@ -2909,8 +2902,10 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		}
 		
 		// OK, drop all items!
+		WORLDITEM WorldItem;
+		std::vector<WORLDITEM> pWorldItem;
 		UINT32 invsize = pSoldier->inv.size();
-		for ( i = 0; i < invsize; ++i )
+		for (UINT32 i = 0; i < invsize; ++i )
 		{
 			if ( pSoldier->inv[i].exists() )
 			{
@@ -2932,34 +2927,40 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 
 		gStrategicStatus.ubNumCapturedForRescue++;
-	}
 
-	//Bandaging him would prevent him from dying (due to low HP)
-	pSoldier->bBleeding = 0;
+		//Bandaging him would prevent him from dying (due to low HP)
+		pSoldier->bBleeding = 0;
 
-	// wake him up
-	if ( pSoldier->flags.fMercAsleep )
-	{
-		PutMercInAwakeState( pSoldier );
-		pSoldier->flags.fForcedToStayAwake = FALSE;
-	}
+		// wake him up
+		if ( pSoldier->flags.fMercAsleep )
+		{
+			PutMercInAwakeState( pSoldier );
+			pSoldier->flags.fForcedToStayAwake = FALSE;
+		}
 
-	//Set his life to 50% + or - 10 HP.
-	INT8 oldlife = pSoldier->stats.bLife;
-	pSoldier->stats.bLife = max(35, pSoldier->stats.bLifeMax / 2);
+		//Set his life to 50% + or - 10 HP.
+		INT8 oldlife = pSoldier->stats.bLife;
+		pSoldier->stats.bLife = max(35, pSoldier->stats.bLifeMax / 2);
 	
-	if ( pSoldier->stats.bLife >= 45 )
-	{
-		pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
-	}
+		if ( pSoldier->stats.bLife >= 45 )
+		{
+			pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
+		}
 		
-	// SANDRO - make the lost life insta-healable
-	pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
+		// SANDRO - make the lost life insta-healable
+		pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
 
-	// make him quite exhausted when found
-	pSoldier->bBreath = pSoldier->bBreathMax = 50;
-	pSoldier->sBreathRed = 0;
-	pSoldier->flags.fMercCollapsedFlag = FALSE;
+		// make him quite exhausted when found
+		pSoldier->bBreath = pSoldier->bBreathMax = 50;
+		pSoldier->sBreathRed = 0;
+		pSoldier->flags.fMercCollapsedFlag = FALSE;
+
+
+		RemoveSoldierFromTacticalSector(pSoldier, TRUE);
+		RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
+		SelectNextAvailSoldier(pSoldier);
+	}
+#endif 	
 }
 
 

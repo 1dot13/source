@@ -30,6 +30,8 @@ extern UINT8 gTwoCDirection[ NUM_WORLD_DIRECTIONS ];
 extern UINT8 gOneCDirection[ NUM_WORLD_DIRECTIONS ];
 extern UINT8 gOneCCDirection[ NUM_WORLD_DIRECTIONS ];
 
+UINT8 DirectionIfTurnedClockwise(UINT8 facing, UINT8 times);
+
 extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIONS ];
 
 // Macros
@@ -40,6 +42,7 @@ extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIO
 
 #define GETWORLDINDEXFROMWORLDCOORDS( y, x )		( (INT32) ( x / CELL_X_SIZE ) ) + WORLD_COLS * ( (INT32) ( y / CELL_Y_SIZE ) ) 
 
+void ConvertDirectionToVectorInXY(UINT8 ubDirection, INT16* sXDir, INT16* sYDir);
 void ConvertGridNoToXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 void ConvertGridNoToCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );

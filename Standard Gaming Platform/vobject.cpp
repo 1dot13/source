@@ -1,12 +1,12 @@
-	#include "DirectDraw Calls.h"
-	#include <stdio.h>
-	#include "debug.h"
-		#include "video.h"
-	#include "himage.h"
-	#include "vobject.h"
-	#include "wcheck.h"
-	#include "vobject_blitters.h"
-	#include "sgp.h"
+#include "DirectDraw Calls.h"
+#include <stdio.h>
+#include "debug.h"
+#include "video.h"
+#include "himage.h"
+#include "vobject.h"
+#include "wcheck.h"
+#include "vobject_blitters.h"
+#include "sgp.h"
 
 #include <unordered_map>
 
@@ -589,6 +589,7 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 
 				hVObject->usNumberOf16BPPObjects = 1;
 				hVObject->ubBitDepth = hImage->ubBitDepth;
+				strncpy(hVObject->ImageFile, hImage->ImageFile, SGPFILENAME_LEN);
 
 				if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMFILE )
 				{
@@ -627,6 +628,7 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 
 				hVObject->usNumberOf16BPPObjects = 1;
 				hVObject->ubBitDepth = hImage->ubBitDepth;
+				strncpy(hVObject->ImageFile, hImage->ImageFile, SGPFILENAME_LEN);
 
 				if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMFILE )
 				{
@@ -656,6 +658,7 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 			hVObject->pETRLEObject		= TempETRLEData.pETRLEObject;
 			hVObject->pPixData			= TempETRLEData.pPixData;
 			hVObject->uiSizePixData		= TempETRLEData.uiSizePixData;
+			strncpy(hVObject->ImageFile, hImage->ImageFile, SGPFILENAME_LEN);
 
 			// Set palette from himage
 			if ( hImage->ubBitDepth == 8 )
@@ -897,9 +900,10 @@ UINT32 count;
 //
 // *******************************************************************
 
-// High level blit function encapsolates ALL effects and BPP
+// High level blit function encapsulates ALL effects and BPP
 BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY, INT32 fBltFlags, blt_fx *pBltFx )
 {
+	CHAR8 errorText[512];
 	// Sometimes an exception is thrown in that method.
 //BF	__try
 	{
@@ -920,24 +924,18 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 	switch( hSrcVObject->ubBitDepth )
 	{
 			case 32:
-				SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, L"index larger that number images");
+				sprintf(errorText, "Video object index is larger than the number of images. Filename: %s", hSrcVObject->ImageFile);
+				SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
 				image = &hSrcVObject->p16BPPObject[usIndex];
-#if 0
-				Blt16BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
-					image->p16BPPData, image->usWidth * sizeof(UINT16),
-					iDestX, iDestY, 
-					0, 0, image->usWidth, image->usHeight,
-					0 ); 
-#else
 				Blt32BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
 					(UINT32*)image->p16BPPData, image->usWidth * sizeof(UINT32),
 					iDestX, iDestY, 
 					0, 0, image->usWidth, image->usHeight); 
-#endif
 				break;
 
 			case 16:
-				SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, L"index larger that number images");
+				sprintf(errorText, "Video object index is larger than the number of images. Filename: %s", hSrcVObject->ImageFile);
+				SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
 				image = &hSrcVObject->p16BPPObject[usIndex];
 				if ( fBltFlags & VO_BLT_SRCTRANSPARENCY	)
 				{
@@ -957,8 +955,8 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 				break;
 
 			case 8:
-
-				SGP_THROW_IFFALSE( hSrcVObject->usNumberOfObjects > usIndex, L"Video object index is larger than the number of subimages");
+				sprintf(errorText, "Video object index is larger than the number of sub images. Filename: %s", hSrcVObject->ImageFile);
+				SGP_THROW_IFFALSE( hSrcVObject->usNumberOfObjects > usIndex, errorText);
 				// Switch based on flags given
 				do
 				{
@@ -1569,9 +1567,10 @@ BOOLEAN BltVideoObjectOutline(UINT32 uiDestVSurface, HVOBJECT hSrcVObject, UINT1
 
 BOOLEAN BltVideoObjectOutlineShadowFromIndex(UINT32 uiDestVSurface, UINT32 uiSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY )
 {
-	UINT16				*pBuffer;
-	UINT32								uiPitch;
-	HVOBJECT							hSrcVObject;
+	CHAR8 errorText[512];
+	UINT16 *pBuffer;
+	UINT32 uiPitch;
+	HVOBJECT hSrcVObject;
 
 	// Lock video surface
 	pBuffer = (UINT16*)LockVideoSurface( uiDestVSurface, &uiPitch );
@@ -1600,14 +1599,16 @@ BOOLEAN BltVideoObjectOutlineShadowFromIndex(UINT32 uiDestVSurface, UINT32 uiSrc
 	}
 	else if(hSrcVObject->ubBitDepth == 16)
 	{
-		SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, L"index larger that number images");
+		sprintf(errorText, "Video object index is larger than the number of images. Filename: %s", hSrcVObject->ImageFile);
+		SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
 		SixteenBPPObjectInfo &image = hSrcVObject->p16BPPObject[0];
 		Blt16BPPTo16BPPTransShadow(pBuffer, uiPitch, image.p16BPPData, image.usWidth * sizeof(UINT16),
 			iDestX, iDestY, 0, 0, image.usWidth, image.usHeight, 0x1F);
 	}
 	else if(hSrcVObject->ubBitDepth == 32)
 	{
-		SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, L"index larger that number images");
+		sprintf(errorText, "Video object index is larger than the number of images. Filename: %s", hSrcVObject->ImageFile);
+		SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
 		SixteenBPPObjectInfo &image = hSrcVObject->p16BPPObject[0];
 		Blt32BPPTo16BPPTransShadow(pBuffer, uiPitch, (UINT32*)image.p16BPPData, image.usWidth * sizeof(UINT32),
 			iDestX, iDestY, 0, 0, image.usWidth, image.usHeight);

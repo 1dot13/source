@@ -751,7 +751,6 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 	}
 	//For any number of reasons, these ALT and CTRL combination key presses
 	//will be processed externally
-#if 1
 	if( Event->usKeyState & CTRL_DOWN	)
 	{
 		if( Event->usParam == 'c' || Event->usParam == 'C' )
@@ -786,7 +785,6 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				return FALSE;
 		}
 	}
-#endif
 	if( Event->usKeyState & ALT_DOWN || Event->usKeyState & CTRL_DOWN && Event->usParam != DEL )
 		return FALSE;
 	//F1-F12 regardless of state are processed externally as well.

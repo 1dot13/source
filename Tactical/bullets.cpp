@@ -554,15 +554,6 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 		ConvertGridNoToCenterCellXY( pBullet->sGridNo, &sXPos, &sYPos );
 		LightSpritePosition( pBullet->pAniTile->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
 
-#if 0
-		if ( pBullet->pFirer->pathing.bLevel > 0 ) // if firer on roof then
-		{
-			if ( FindBuilding(AniParams.sGridNo) != NULL ) // if this spot is still within the building's grid area
-			{
-				LightSpritePower( pBullet->pAniTile->lightSprite, FALSE);
-			}
-		}
-#endif
 
 		return;
 	}

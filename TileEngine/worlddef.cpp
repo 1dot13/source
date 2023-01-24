@@ -2276,15 +2276,6 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 	{
 		SaveMapLights( hfile );
 	}
-#if 0//dnl ch74 191013 from 050611 Scheinworld reported problem with basement levels and similar maps which doesn't need entry points so decide to remove this check completely
-	if(gMapInformation.sCenterGridNo == -1 || gMapInformation.ubEditorSmoothingType == SMOOTHING_NORMAL && (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl ch17 290909
-	{
-		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center and at least one of (N,S,E,W) entry point should be set.");
-		gfErrorCatch = TRUE;
-		FileClose(hfile);
-		return(FALSE);
-	}
-#endif
 	gMapInformation.ubMapVersion = ubMinorMapVersion;//dnl ch74 241013 all this years MapInfo saves incorrect version :-(
 	SaveMapInformation(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 

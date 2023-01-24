@@ -239,11 +239,6 @@ enum{
 	SUMMARY_LOAD,
 	SUMMARY_SAVE,
 	SUMMARY_OVERRIDE,
-#if 0
-	SUMMARY_NEW_GROUNDLEVEL,
-	SUMMARY_NEW_BASEMENTLEVEL,
-	SUMMARY_NEW_CAVELEVEL,
-#endif
 	SUMMARY_UPDATE,
 	SUMMARY_SCIFI,
 	SUMMARY_REAL,
@@ -351,17 +346,6 @@ void CreateSummaryWindow()
 		CreateCheckBoxButton( ( INT16 ) ( MAP_LEFT + 110 ), ( INT16 ) ( MAP_BOTTOM + 59 ), "EDITOR\\smcheckbox.sti", MSYS_PRIORITY_HIGH, SummaryOverrideCallback );
 
 	
-#if 0
-	iSummaryButton[ SUMMARY_NEW_GROUNDLEVEL ] = 
-		CreateSimpleButton( MAP_LEFT, MAP_BOTTOM+58, "EDITOR\\new.sti", BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, SummaryNewGroundLevelCallback );
-	SetButtonFastHelpText( iSummaryButton[ SUMMARY_NEW_GROUNDLEVEL ], L"New map" );
-	iSummaryButton[ SUMMARY_NEW_BASEMENTLEVEL ] = 
-		CreateSimpleButton( MAP_LEFT+32, MAP_BOTTOM+58, "EDITOR\\new.sti", BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, SummaryNewBasementLevelCallback );
-	SetButtonFastHelpText( iSummaryButton[ SUMMARY_NEW_BASEMENTLEVEL ], L"New basement" );
-	iSummaryButton[ SUMMARY_NEW_CAVELEVEL ] = 
-		CreateSimpleButton( MAP_LEFT+64, MAP_BOTTOM+58, "EDITOR\\new.sti", BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, SummaryNewCaveLevelCallback );
-	SetButtonFastHelpText( iSummaryButton[ SUMMARY_NEW_CAVELEVEL ], L"New cave level" );
-#endif
 	
 
 	iSummaryButton[ SUMMARY_UPDATE ] = 
@@ -1824,28 +1808,6 @@ void SummaryToggleProgressCallback( GUI_BUTTON *btn, INT32 reason )
 
 #include "Tile Surface.h"
 
-void PerformTest()
-{
-#if 0
-	OutputDebugString( "PERFORMING A NEW TEST -------------------------------------------------\n" );
-	memset( gbDefaultSurfaceUsed, 0, sizeof( gbDefaultSurfaceUsed ) );
-	giCurrentTilesetID = -1;
-	switch( Random( 3 ) )
-	{
-		case 0:
-			LoadWorld( "J9.dat" );
-			break;
-		case 1:
-			LoadWorld( "J9_b1.dat" );
-			break;
-		case 2:
-			LoadWorld( "J9_b2.dat" );
-			break;
-	}
-#endif
-}
-
-
 BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 {
 	if( !gfSummaryWindowActive )
@@ -1870,17 +1832,6 @@ BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 					SelectNextField();
 				else if( gfWorldLoaded )
 					DestroySummaryWindow();
-				break;
-			case F6:
-				PerformTest();
-				break;
-			case F7:
-				for( x = 0; x < 10; x++ )
-					PerformTest();
-				break;
-			case F8:
-				for( x = 0; x < 100; x++ )
-					PerformTest();
 				break;
 			case 'y':case 'Y':
 				if( gusNumEntriesWithOutdatedOrNoSummaryInfo && !gfOutdatedDenied )
@@ -3029,16 +2980,6 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 		SetProgressBarTitle( 0, pSummaryUpdateCallbackText[0], BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 		SetProgressBarMsgAttributes( 0, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );
 
-#if 0
-		// 0verhaul:  This should NOT be freed.  An array index can be freed when it is recalculated,
-		// as this function is about to do.  And then it SHOULD be freed first, which it wasn't doing.
-		// Either way, using this pointer is not a safe way to free the current sector's summary data.
-		if( gpCurrentSectorSummary )
-		{
-			MemFree( gpCurrentSectorSummary );
-			gpCurrentSectorSummary = NULL;
-		}
-#endif
 
 		sprintf( str, "%c%d", gsSelSectorY + 'A' - 1, gsSelSectorX );
 		EvaluateWorld( str, (UINT8)giCurrLevel );
@@ -3252,220 +3193,6 @@ void ApologizeOverrideAndForceUpdateEverything()
 	gusNumberOfMapsToBeForceUpdated = 0;
 }
 
-#if 0//dnl ch81 041213 this function is screwed up so decide to rewrite it
-//CHRISL: ADB changed the way this load file is handled
-extern int gEnemyPreservedTempFileVersion[256];
-extern int gCivPreservedTempFileVersion[256];
-void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
-{
-	HWFILE hfile;
-	UINT32 uiNumBytesRead;
-	UINT32 uiNumItems;
-	CHAR8 szFilename[40];
-	BASIC_SOLDIERCREATE_STRUCT basic;
-	SOLDIERCREATE_STRUCT priority;
-	INT32 i, j;
-	UINT16 usNumItems;
-	OBJECTTYPE *pItem;
-	UINT16 usPEnemyIndex, usNEnemyIndex;
-
-	SUMMARYFILE *s = gpCurrentSectorSummary;
-	MAPCREATE_STRUCT *m = &gpCurrentSectorSummary->MapInfo;
-
-	//Clear memory for all the item summaries loaded
-	if( gpWorldItemsSummaryArray )
-	{
-		delete[]( gpWorldItemsSummaryArray );
-		gpWorldItemsSummaryArray = NULL;
-		gusWorldItemsSummaryArraySize = 0;
-	}
-	if( gpPEnemyItemsSummaryArray )
-	{
-		delete[]( gpPEnemyItemsSummaryArray );
-		gpPEnemyItemsSummaryArray = NULL;
-		gusPEnemyItemsSummaryArraySize = 0;
-	}
-	if( gpNEnemyItemsSummaryArray )
-	{
-		delete[]( gpNEnemyItemsSummaryArray );
-		gpNEnemyItemsSummaryArray = NULL;
-		gusNEnemyItemsSummaryArraySize = 0;
-	}
-
-	if( !gpCurrentSectorSummary->uiNumItemsPosition )
-	{	//Don't have one, so generate them
-		if( gpCurrentSectorSummary->ubSummaryVersion == GLOBAL_SUMMARY_VERSION )
-			gusNumEntriesWithOutdatedOrNoSummaryInfo++;
-		SummaryUpdateCallback( ButtonList[ iSummaryButton[ SUMMARY_UPDATE ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
-	}
-	//Open the original map for the sector
-	sprintf( szFilename, "MAPS\\%S", gszFilename );
-	hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-	if( !hfile )
-	{ //The file couldn't be found!
-		return;
-	}
-	// ADB:  The uiNumItemsPosition may be 0 here due to the recursion further down.
-	// If so, skip the read
-	uiNumItems = 0;
-	if (gpCurrentSectorSummary->uiNumItemsPosition)
-	{
-		//Now fileseek directly to the file position where the number of world items are stored
-		if( !FileSeek( hfile, gpCurrentSectorSummary->uiNumItemsPosition, FILE_SEEK_FROM_START ) )
-		{ //Position couldn't be found!
-			FileClose( hfile );
-			return;
-		}
-		//Now load the number of world items from the map.
-		FileRead( hfile, &uiNumItems, 4, &uiNumBytesRead );
-		if( uiNumBytesRead != 4 )
-		{ //Invalid situation.
-			FileClose( hfile );
-			return;
-		}
-	}
-
-	//Now compare this number with the number the summary thinks we should have.  If they are different,
-	//then the summary doesn't match the map.  What we will do is force regenerate the map so that they do
-	//match
-	if( uiNumItems != gpCurrentSectorSummary->usNumItems && fAllowRecursion )
-	{
-		FileClose( hfile );
-		gpCurrentSectorSummary->uiNumItemsPosition = 0;
-		SetupItemDetailsMode( FALSE );
-		return;
-	}
-	//Passed the gauntlet, so now allocate memory for it, and load all the world items into this array.
-	ShowButton( iSummaryButton[ SUMMARY_SCIFI ] );
-	ShowButton( iSummaryButton[ SUMMARY_REAL ] );
-	ShowButton( iSummaryButton[ SUMMARY_ENEMY ] );
-	gpWorldItemsSummaryArray = new WORLDITEM[	uiNumItems ];
-	gusWorldItemsSummaryArraySize = gpCurrentSectorSummary->usNumItems;
-	for (unsigned int x = 0; x < uiNumItems; ++x)
-	{
-		gpWorldItemsSummaryArray[x].Load(hfile, s->dMajorMapVersion, m->ubMapVersion);
-	}
-
-	//NOW, do the enemy's items!
-	//We need to do two passes.  The first pass simply processes all the enemies and counts all the droppable items
-	//keeping track of two different values.  The first value is the number of droppable items that come off of
-	//enemy detailed placements, the other counter keeps track of the number of droppable items that come off of 
-	//normal enemy placements.  After doing this, the memory is allocated for the tables that will store all the item
-	//summary information, then the second pass will repeat the process, except it will record the actual items.
-
-	//PASS #1
-	if( !FileSeek( hfile, gpCurrentSectorSummary->uiEnemyPlacementPosition, FILE_SEEK_FROM_START ) )
-	{ //Position couldn't be found!
-		FileClose( hfile );
-		return;
-	}
-	for( i = 0; i < gpCurrentSectorSummary->MapInfo.ubNumIndividuals ; i++ )
-	{
-		FileRead( hfile, &basic, sizeof( BASIC_SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( BASIC_SOLDIERCREATE_STRUCT ) )
-		{ //Invalid situation.
-			FileClose( hfile );
-			return;
-		}
-		if( basic.fDetailedPlacement )
-		{ //skip static priority placement 
-			if ( !priority.Load(hfile, SAVE_GAME_VERSION, false) )
-			{ //Invalid situation.
-				FileClose( hfile );
-				return;
-			}
-		}
-		else
-		{ //non detailed placements don't have items, so skip
-			continue;
-		}
-		if( basic.bTeam == ENEMY_TEAM )
-		{
-			//Count the items that this enemy placement drops
-			usNumItems = 0;
-			for( j = 0; j < 9; j++ )
-			{
-				pItem = &priority.Inv[ gbMercSlotTypes[ j ] ];
-				if( pItem->exists() == true && !( (*pItem).fFlags & OBJECT_UNDROPPABLE ) )
-				{
-					usNumItems++;
-				}
-			}
-			if( basic.fPriorityExistance )
-			{
-				gusPEnemyItemsSummaryArraySize += usNumItems;
-			}
-			else
-			{
-				gusNEnemyItemsSummaryArraySize += usNumItems;
-			}
-		}
-	}
-
-	//Pass 1 completed, so now allocate enough space to hold all the items
-	if( gusPEnemyItemsSummaryArraySize )
-	{
-		gpPEnemyItemsSummaryArray = new OBJECTTYPE[ gusPEnemyItemsSummaryArraySize ];
-	}
-	if( gusNEnemyItemsSummaryArraySize )
-	{
-		gpNEnemyItemsSummaryArray = new OBJECTTYPE[ gusNEnemyItemsSummaryArraySize ];
-	}
-
-	//PASS #2
-	//During this pass, simply copy all the data instead of counting it, now that we have already done so.
-	usPEnemyIndex = usNEnemyIndex = 0;
-	if( !FileSeek( hfile, gpCurrentSectorSummary->uiEnemyPlacementPosition, FILE_SEEK_FROM_START ) )
-	{ //Position couldn't be found!
-		FileClose( hfile );
-		return;
-	}
-	for( i = 0; i < gpCurrentSectorSummary->MapInfo.ubNumIndividuals ; i++ )
-	{
-		FileRead( hfile, &basic, sizeof( BASIC_SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( BASIC_SOLDIERCREATE_STRUCT ) )
-		{ //Invalid situation.
-			FileClose( hfile );
-			return;
-		}
-		if( basic.fDetailedPlacement )
-		{ //skip static priority placement 
-			if ( !priority.Load(hfile, SAVE_GAME_VERSION, false) )
-			{ //Invalid situation.
-				FileClose( hfile );
-				return;
-			}
-		}
-		else
-		{ //non detailed placements don't have items, so skip
-			continue;
-		}
-		if( basic.bTeam == ENEMY_TEAM )
-		{
-			//Copy the items that this enemy placement drops
-			usNumItems = 0;
-			for( j = 0; j < 9; j++ )
-			{
-				pItem = &priority.Inv[ gbMercSlotTypes[ j ] ];
-				if( pItem->exists() == true && !( (*pItem).fFlags & OBJECT_UNDROPPABLE ) )
-				{
-					if( basic.fPriorityExistance )
-					{
-						gpPEnemyItemsSummaryArray[ usPEnemyIndex ] = *pItem;
-						usPEnemyIndex++;
-					}
-					else
-					{
-						gpNEnemyItemsSummaryArray[ usNEnemyIndex ] = *pItem;
-						usNEnemyIndex++;
-					}
-				}
-			}
-		}
-	}
-	FileClose( hfile );
-}
-#else
 void SetupItemDetailsMode(BOOLEAN fAllowRecursion)
 {
 	UINT32 uiNumItems, uiFileSize, uiBytesRead;
@@ -3630,7 +3357,6 @@ L01:
 		}
 	}
 }
-#endif
 
 UINT8 GetCurrentSummaryVersion()
 {

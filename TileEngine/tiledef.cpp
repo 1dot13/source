@@ -594,23 +594,6 @@ UINT8 gubEncryptionArray2[ BASE_NUMBER_OF_ROTATION_ARRAYS * 3 ][ NEW_ROTATION_AR
 	},
 };
 
-#if 0
-// These values coorespond to TerrainTypeDefines order
-UINT8		gTileTypeMovementCost[ NUM_TERRAIN_TYPES ] =
-{
-	TRAVELCOST_FLAT,						// NO_TERRAIN
-	TRAVELCOST_FLAT,						// FLAT GROUND
-	TRAVELCOST_FLATFLOOR,				// FLAT FLOOR
-	TRAVELCOST_PAVEDROAD,				// PAVED ROAD
-	TRAVELCOST_DIRTROAD,				// DIRT ROAD
-	TRAVELCOST_GRASS,						// LOW_GRASS
-	TRAVELCOST_THICK,						// HIGH GRASS
-	TRAVELCOST_TRAINTRACKS,			// TRAIN TRACKS
-	TRAVELCOST_SHORE,						// LOW WATER
-	TRAVELCOST_KNEEDEEP,						// MED WATER
-	TRAVELCOST_DEEPWATER,						// DEEP WATER
-};
-#else
 // These values coorespond to TerrainTypeDefines order
 UINT8		gTileTypeMovementCost[ NUM_TERRAIN_TYPES ] =
 {
@@ -626,7 +609,6 @@ UINT8		gTileTypeMovementCost[ NUM_TERRAIN_TYPES ] =
 	TRAVELCOST_SHORE,						// MED WATER
 	TRAVELCOST_SHORE,						// DEEP WATER
 };
-#endif
 
 ADDITIONAL_TILE_PROPERTIES_VALUES zAdditionalTileProperties;
 

@@ -1167,6 +1167,11 @@ BOOLEAN LoadDoorTableFromDoorTableTempFile( )
 
 
 
+static auto ComplainAboutMissingDoorStructure(const INT32 GridNo) {
+#if JA2TESTVERSION
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", GridNo);
+#endif
+}
 
 // fOpen is True if the door is open, false if it is closed
 BOOLEAN ModifyDoorStatus( INT32 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
@@ -1190,9 +1195,7 @@ BOOLEAN ModifyDoorStatus( INT32 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", sGridNo );
-#endif
+		ComplainAboutMissingDoorStructure(sGridNo);
 		return( FALSE );
 	}
 
@@ -1314,9 +1317,7 @@ BOOLEAN	IsDoorOpen( INT32 sGridNo )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", sGridNo );
-#endif
+		ComplainAboutMissingDoorStructure(sGridNo);
 		return( FALSE );
 	}
 
@@ -1367,6 +1368,7 @@ DOOR_STATUS	*GetDoorStatus( INT32 sGridNo )
 
 		if ( pBaseStructure == NULL )
 		{
+			ComplainAboutMissingDoorStructure(sGridNo);
 			return( NULL );
 		}
 
@@ -1527,9 +1529,7 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", pDoorStatus->sGridNo );
-#endif
+		ComplainAboutMissingDoorStructure(pDoorStatus->sGridNo);
 		return;
 	}
 
@@ -1611,9 +1611,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 
 	if ( pBaseStructure == NULL )
 	{
-#if 0
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Door structure data at %d was not found", pDoorStatus->sGridNo );
-#endif
+		ComplainAboutMissingDoorStructure(pDoorStatus->sGridNo);
 		return;
 	}
 

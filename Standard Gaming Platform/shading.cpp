@@ -232,29 +232,6 @@ void BuildIntensityTable(void)
 
 
 
-#if 0
-
-	UINT32 lumin;
-	UINT32 rmod, gmod, bmod;
-
-	for(red=0; red < 256; red+=4)
-		for(green=0; green < 256; green+=4)
-			for(blue=0; blue < 256; blue+=4)
-			{
-				index=Get16BPPColor(FROMRGB(red, green, blue));
-
-				lumin=( red*299/1000)+ ( green*587/1000 ) + ( blue*114/1000 );
-
-				//lumin = __min(lumin, 255);
-				rmod=(255*lumin)/256;
-				gmod=(100*lumin)/256;
-				bmod=(100*lumin)/256;
-
-				//rmod = __m( 255, rmod );
-
-				IntensityTable[index]=Get16BPPColor( FROMRGB( rmod, gmod , bmod ) );
-			}
-#endif
 
 
 

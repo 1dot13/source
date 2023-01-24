@@ -255,7 +255,6 @@ void CreatePlayerControlledMonster();
 void ChangeCurrentSquad( INT32 iSquad );
 void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode );
 void EscapeUILock( );
-void TestCapture( );
 
 #ifdef JA2BETAVERSION
 void ToggleMapEdgepoints();
@@ -2975,14 +2974,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-#if 0//dnl ch75 021113
-			case '\"':
-				Testing(1);
-				break;
-			case '\'':
-				Testing(2);
-				break;
-#endif
 
 			case '`':
 
@@ -4232,21 +4223,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else if ( fCtrl )
 					{
-#if 0
-						if ( INFORMATION_CHEAT_LEVEL() )
-						{
-							if ( gfUIShowCurIntTile ^= TRUE )
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection ON." );
-								gubIntTileCheckFlags = INTILE_CHECK_FULL;
-							}
-							else
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection OFF." );
-								gubIntTileCheckFlags = INTILE_CHECK_SELECTIVE;
-							}
-						}
-#endif
 					}
 					else
 					{
@@ -4499,9 +4475,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
-						TestCapture( );
-
-						//EnterCombatMode( gbPlayerNum );
+						// Test Capturing Mercs as POW
+						AttemptToCapturePlayerSoldiers();
 					}
 				}
 				else if ( fCtrl && fShift )
@@ -6558,42 +6533,6 @@ void HandleStealthChangeFromUIKeys(	)
 		}
 	}
 }
-
-
-
-void TestCapture( )
-{
-	INT32 cnt;
-	SOLDIERTYPE				*pSoldier;
-	UINT32					uiNumChosen = 0;
-
-	//StartQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
-	//EndQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
-
-	BeginCaptureSquence( );
-
-	gStrategicStatus.uiFlags &= (~STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE );
-
-	// loop through soldiers and pick 3 lucky ones....
-	for ( cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID, pSoldier=MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
-	{
-		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive && pSoldier->bInSector )
-		{
-			if ( uiNumChosen < 3 )
-			{
-				EnemyCapturesPlayerSoldier( pSoldier );
-
-				// Remove them from tectical....
-				pSoldier->RemoveSoldierFromGridNo( );
-
-				uiNumChosen++;
-			}
-		}
-	}
-
-	EndCaptureSequence( );
-}
-
 
 void PopupAssignmentMenuInTactical( SOLDIERTYPE *pSoldier )
 {

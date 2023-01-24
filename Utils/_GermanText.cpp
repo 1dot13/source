@@ -6405,7 +6405,7 @@ STR16 zOptionsToggleText[] =
 	L"Bestätigung bei Echtzeit",
 	L"Schlaf-/Wachmeldung anzeigen", 
 	L"Metrisches System benutzen",
-	L"Boden beleuchten",
+	L"Markieren Sie Söldner",
 	L"Cursor autom. auf Söldner",
 	L"Cursor autom. auf Türen",
 	L"Gegenstände leuchten",
@@ -6447,6 +6447,7 @@ STR16 zOptionsToggleText[] =
 	L"Mausradrichtung umkehren",
 	L"Bewegung in Formation",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6507,8 +6508,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen Maßsystems verwendet (z.B. Meter und Kilogramm).",
 
-	//Merc Lighted movement
-	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen. AUSgeschaltet erhöht sich die Bildwiederholrate.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wenn AN, wird der Söldner hervorgehoben (für Feinde nicht sichtbar).\nIm Spiel umschalten mit (|G)",
 
 	//Smart cursor
 	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf Söldner in seiner direkten Nähe.",
@@ -6566,6 +6567,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9047,6 +9049,8 @@ STR16	szPrisonerTextStr[]=
 	L"Ein ranghoher Offizier in %s wurde enttarnt!",
 	L"Der feindliche Anführer denkt nicht mal an Kapitulation!",
 	L"%d Gefangene sind uns als Freiwillige beigetreten.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

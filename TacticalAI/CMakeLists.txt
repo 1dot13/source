@@ -1,0 +1,17 @@
+set(TacticalAISrc
+"${CMAKE_CURRENT_SOURCE_DIR}/AIList.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/AIMain.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/AIUtils.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Attacks.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/CreatureDecideAction.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/DecideAction.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/FindLocations.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Knowledge.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Medical.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Movement.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/NPC.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/PanicButtons.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/QuestDebug.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Realtime.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/ZombieDecideAction.cpp"
+PARENT_SCOPE)

@@ -12786,22 +12786,7 @@ static bool locationStringToCoordinates_AltSector(std::string loc, UINT8* x, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc.substr(1));
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)
@@ -12840,22 +12825,7 @@ static bool locationStringToCoordinates(std::string loc, UINT8* x, UINT8* y, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc);
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)
