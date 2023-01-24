@@ -1,62 +1,45 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "Types.h"
 	#include "GameVersion.h"
-#endif
- 
+
 //
 //	Keeps track of the game version
 //
- 
-// ------------------------------
-// MAP EDITOR (Release and Debug) BUILD VERSION
-// ------------------------------
-#ifdef JA2EDITOR
+
+#ifdef JA2EDITOR // map editor
 	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"JA2 1.13 Unfinished Business - Map Editor" };
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"JA2 1.13 - Map Editor" };
 	#endif
 
-// ------------------------------
-// DEBUG BUILD VERSIONS
-// ------------------------------
-#elif defined JA2BETAVERSION
+#elif defined JA2BETAVERSION // debug
 
-	//DEBUG BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Debug: Unfinished Business - v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13 Unfinished Business" };
 	#elif defined (JA113DEMO)
-		CHAR16 zVersionLabel[256]		= { L"Debug: JA2 Demo - v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13 Demo" };
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Debug: v1.13 (Development Build)" }; 
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13" };
 	#endif
 
 #elif defined CRIPPLED_VERSION
 
-	//RELEASE BUILD VERSION s
-	CHAR16 zVersionLabel[256]		= { L"Beta v. 0.98" }; 
+	CHAR16 zProductLabel[64]		= { L"JA2 113 Beta-0.98" };
 
-// ------------------------------
-// RELEASE BUILD VERSIONS
-// ------------------------------
-#else
+#else // release
 
-	//RELEASE BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16		zVersionLabel[256]		= { L"Release Unfinished Business - v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13 Unfinished Business" };
 	#elif defined (JA113DEMO)
-		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13 Demo" };
 	#else
-		CHAR16		zVersionLabel[256]		= { L"Release v1.13 (Development Build)" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13" };
 	#endif
 
 #endif
-										
-CHAR8		czVersionNumber[16]	= { "Build 22.11.04" };		//YY.MM.DD
-CHAR16		zTrackingNumber[16]	= { L"Z" };
-CHAR16		zRevisionNumber[16] = { L"Revision 9405" };
-	
+
+CHAR8		czVersionString[16]	= { "@Version@" };
+CHAR16		zBuildInformation[256]	= { L"@Build@" };
+
 // SAVE_GAME_VERSION is defined in header, change it there

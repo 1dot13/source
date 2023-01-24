@@ -3,11 +3,6 @@
  * @author Flugente (bears-pit.com)
  */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "IMP Prejudice.h"
 	#include "IMP Skill Trait.h"
 	#include "Button System.h"
@@ -28,7 +23,6 @@
 	#include "GameSettings.h"
 	#include "Interface.h"
 	#include "DropDown.h"
-#endif
 
 
 //*******************************************************************

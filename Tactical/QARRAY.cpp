@@ -1,9 +1,5 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "qarray.h"
-#endif
 
 QARRAY_VALUES QuoteExp[NUM_PROFILES];
 

@@ -23,13 +23,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bitmap.h" />
     <ClInclude Include="Button Sound Control.h" />
     <ClInclude Include="Button System.h" />
     <ClInclude Include="Compression.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="Cursor Control.h" />
-    <ClInclude Include="DbMan.h" />
     <ClInclude Include="ddraw.h" />
     <ClInclude Include="DEBUG.H" />
     <ClInclude Include="debug_util.h" />
@@ -37,7 +35,6 @@
     <ClInclude Include="DirectX Common.h" />
     <ClInclude Include="dsound.h" />
     <ClInclude Include="english.h" />
-    <ClInclude Include="ExceptionHandling.h" />
     <ClInclude Include="expat.h" />
     <ClInclude Include="FileCat.h" />
     <ClInclude Include="FileMan.h" />
@@ -51,7 +48,6 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="Install.h" />
     <ClInclude Include="Ja2 Libs.h" />
-    <ClInclude Include="JA2 SGP ALL.H" />
     <ClInclude Include="LibraryDataBase.h" />
     <ClInclude Include="line.h" />
     <ClInclude Include="MemMan.h" />
@@ -59,7 +55,6 @@
     <ClInclude Include="mousesystem_macros.h" />
     <ClInclude Include="Mss-old.h" />
     <ClInclude Include="Mss.h" />
-    <ClInclude Include="Mutex Manager.h" />
     <ClInclude Include="pcx.h" />
     <ClInclude Include="PngLoader.h" />
     <ClInclude Include="RAD.H" />
@@ -78,10 +73,8 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="TopicIDs.h" />
     <ClInclude Include="TopicOps.h" />
-    <ClInclude Include="trle.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="video.h" />
-    <ClInclude Include="video_private.h" />
     <ClInclude Include="vobject.h" />
     <ClInclude Include="vobject_blitters.h" />
     <ClInclude Include="vobject_private.h" />
@@ -89,7 +82,6 @@
     <ClInclude Include="vsurface_private.h" />
     <ClInclude Include="WCheck.h" />
     <ClInclude Include="WinFont.h" />
-    <ClInclude Include="WizShare.h" />
     <ClInclude Include="ZCONF.H" />
     <ClInclude Include="ZLIB.H" />
   </ItemGroup>
@@ -99,14 +91,12 @@
     <ClCompile Include="Compression.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Cursor Control.cpp" />
-    <ClCompile Include="DbMan.cpp" />
     <ClCompile Include="DEBUG.cpp" />
     <ClCompile Include="debug_util.cpp" />
     <ClCompile Include="debug_win_util.cpp" />
     <ClCompile Include="DirectDraw Calls.cpp" />
     <ClCompile Include="DirectX Common.cpp" />
     <ClCompile Include="English.cpp" />
-    <ClCompile Include="ExceptionHandling.cpp" />
     <ClCompile Include="FileCat.cpp" />
     <ClCompile Include="FileMan.cpp" />
     <ClCompile Include="Flic.cpp" />
@@ -120,7 +110,6 @@
     <ClCompile Include="line.cpp" />
     <ClCompile Include="MemMan.cpp" />
     <ClCompile Include="mousesystem.cpp" />
-    <ClCompile Include="Mutex Manager.cpp" />
     <ClCompile Include="PCX.cpp" />
     <ClCompile Include="PngLoader.cpp" />
     <ClCompile Include="Random.cpp" />

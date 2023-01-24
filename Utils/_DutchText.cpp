@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("DUTCH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( DUTCH )
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_DutchText_public_symbol(void){;}
@@ -6538,7 +6534,7 @@ STR16		zOptionsToggleText[] =
 	L"Bevestiging Real-Time",
 	L"Slaap/wakker-berichten",
 	L"Metrieke Stelsel",
-	L"Huurling Oplichten",
+	L"Licht Huurlingen Op",
 	L"Auto-Cursor naar Huurling",
 	L"Auto-Cursor naar Deuren",
 	L"Items Oplichten",
@@ -6580,6 +6576,7 @@ STR16		zOptionsToggleText[] =
 	L"Invert mouse wheel",			// TODO.Translate
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6640,8 +6637,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Wanneer INGESCHAKELD wordt het metrieke stelsel gebruikt, anders het Imperiale stelsel.",
 
-	//Merc Lighted movement
-	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Wanneer INGESCHAKELD, wordt de huurling gemarkeerd (niet zichtbaar voor vijanden).\nSchakel in het spel met (|G)",
 
 	//Smart cursor
 	L"Wanneer INGESCHAKELD zullen huurlingen dichtbij de cursor automatisch oplichten.",
@@ -6699,6 +6696,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9209,6 +9207,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

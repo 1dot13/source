@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	//sgp
 	#include "Button System.h"
 	#include "Font Control.h"
@@ -22,7 +17,6 @@
 	#include "overhead types.h"
 	#include "local.h"
 	#include "Text.h"
-#endif
 
 //Category tabs of the editor buttons
 void InitEditorTerrainToolbar();

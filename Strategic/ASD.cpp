@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include <math.h>
 #include "ASD.h"
 #include "strategic.h"
@@ -53,7 +50,6 @@
 #include "renderworld.h"
 #include "Isometric Utils.h"
 #include "Rebel Command.h"
-#endif
 
 
 extern BOOLEAN gfTacticalDoHeliRun;

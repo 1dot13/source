@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "mercs No Account.h"
 	#include "mercs.h"
@@ -12,7 +9,6 @@
 	#include "Random.h"
 	#include "Text.h"
 	#include "Speck Quotes.h"
-#endif
 
 
 

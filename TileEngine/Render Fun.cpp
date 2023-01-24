@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Render Fun.h"
 	#include "sysutil.h"
 	#include "debug.h"
@@ -11,7 +8,6 @@
 	#include "Fog Of War.h"
 	#include "dialogue control.h"
 	#include "Random.h"
-#endif
 
 // Room Information
 //UINT8						gubWorldRoomInfo[ WORLD_MAX ];
@@ -212,11 +208,7 @@ void ExamineGridNoForSlantRoofExtraGraphic( INT32 sCheckGridNo )
 		for ( ubLoop = 0; ubLoop < pBase->pDBStructureRef->pDBStructure->ubNumberOfTiles; ubLoop++ )
 		{
 			ppTile = pBase->pDBStructureRef->ppTile;
-#if 0//dnl ch83 080114
-			sGridNo = pBase->sGridNo + ppTile[ ubLoop ]->sPosRelToBase;
-#else
 			sGridNo = AddPosRelToBase(pBase->sGridNo, ppTile[ubLoop]);
-#endif
 			if (sGridNo < 0 || sGridNo > WORLD_MAX)
 			{
 				continue;

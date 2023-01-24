@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "builddefines.h"
 	#include <stdarg.h>
 	#include <stdio.h>
@@ -9,7 +6,6 @@
 	#include "screenids.h"
 	#include "Sys Globals.h"
 	#include "gameloop.h"
-#endif
 
 
 // External globals

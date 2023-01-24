@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	//#include "ai.h"
 	#include "Isometric Utils.h"
@@ -49,7 +46,6 @@
 	#include "Interface.h"
 	#include "Explosion Control.h"//dnl ch40 200909
 	#include "Vehicles.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -1387,19 +1383,6 @@ INT16 DistanceVisible(SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, 
 	// let tanks see and be seen further (at night)
 	if ( (ARMED_VEHICLE( pSoldier ) && sDistVisible > 0) || (pSubject && ARMED_VEHICLE( pSubject )) )
 	{
-#if 0
-		if ( ARMED_VEHICLE(pSoldier) && sDistVisible > 0 && pSubject)
-		{
-			sDistVisible = __max( sDistVisible + 5, pSubject->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->pathing.bLevel) );
-		}
-		else
-		{
-			sDistVisible = __max( sDistVisible + 5, pSoldier->GetMaxDistanceVisible() );
-		}
-#endif
-		// 0verhaul:  This bit of code 1) seems to have no real reason to exist (MaxDistVisible just calls this function anyway), 
-		// and 2) causes infinite recursion because MaxDistVisible just calls this function, which comes right back here.  Just
-		// add 5 to sDistVisible and go on.
 		sDistVisible = sDistVisible + 5;
 	}
 

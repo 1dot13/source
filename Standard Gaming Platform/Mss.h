@@ -277,12 +277,8 @@ extern "C" {
 	#define DXDEF __declspec(dllexport)
 	#else
 
-	#if 1 /*def __BORLANDC__*/
 		#define DXDEC extern
 	#define DXDEF
-	#else
-		#define DXDEC __declspec(dllimport)
-	#endif
 
 	#endif
 

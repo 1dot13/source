@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <windows.h>
 	#include "tiledef.h"
 	#include "edit_sys.h"
@@ -44,7 +39,6 @@
 	#include "keys.h"
 	#include "InterfaceItemImages.h"
 	#include "Editor Undo.h"//dnl ch86 220214
-#endif
 
 #include <vfs/Tools/vfs_log.h>
 
@@ -1038,16 +1032,10 @@ void DeleteSelectedItem()
 		if( gpEditingItemPool == gpItemPool )
 			gpEditingItemPool = NULL;
 		RemoveItemFromPool( sGridNo, gpItemPool->iItemIndex, 0 );
-#if 0//dnl ch86 220214
-		gpItemPool = NULL;
-		//determine if there are still any items at this location
-		if( GetItemPoolFromGround( sGridNo, &gpItemPool ) )
-#else
 		ITEM_POOL *pItemPoolOld = gpItemPool;
 		GetItemPoolFromGround(sGridNo, &gpItemPool);
 		UpdateItemPoolInUndoList(sGridNo, pItemPoolOld, gpItemPool);
 		if(gpItemPool)
-#endif
 		{ //reset display for remaining items
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
 		}

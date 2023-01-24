@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Prebattle Interface.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
@@ -32,7 +27,6 @@
 	#include "World Items.h"//dnl ch77 191113
 	#include "Overhead.h"	// added by Flugente		
 	#include "Ambient Control.h"	// sevenfm
-#endif
 
 #include "SaveLoadScreen.h"
 

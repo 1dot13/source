@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Credits.h"
-	#include "Encrypted File.h"
-	#include "Language Defines.h"
-#else
 	#include "Types.h"
 	#include "Credits.h"
 	#include "Language Defines.h"
@@ -26,7 +20,6 @@
 	#include "english.h"
 	#include "encrypted file.h"
 	#include "Random.h"
-#endif
 
 //externals
 extern HVSURFACE ghFrameBuffer;

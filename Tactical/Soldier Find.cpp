@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -43,7 +40,6 @@
 	#include "Vehicles.h"
 	#include "GameSettings.h"
 	#include "ui cursors.h"
-#endif
 
 
 BOOLEAN IsGridNoInScreenRect( INT32 sGridNo, SGPRect *pRect );

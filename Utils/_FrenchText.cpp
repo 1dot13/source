@@ -1,9 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("FRENCH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#ifdef FRENCH
 		#include "text.h"
@@ -12,7 +9,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_FrenchText_public_symbol(void){;}
@@ -1782,7 +1778,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
+/*CHAR16 gszActionItemDesc[34][30] =	// NUM_ACTIONITEMS = 34
 {
 	L"Mine klaxon",
 	L"Mine Flash",
@@ -1819,9 +1815,9 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Alarme chtsvg",
 	L"Grd lacrymo",
 };
+*/
 
-//Item Statistics.cpp
-/*
+
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Drapeaux M./A.", //0
@@ -1853,7 +1849,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"R",
 	L"S",
 };
-*/
+
 
 STR16 pSetupGameTypeFlagsText[] =
 {
@@ -6543,7 +6539,7 @@ STR16		zOptionsToggleText[] =
 	L"Confirmation temps réel",
 	L"Notifications sommeil/réveil",
 	L"Système métrique",
-	L"Mouvemts mercenaires éclairés",
+	L"Mettez en surbrillance les mercenaires",
 	L"Figer curseur sur mercenaires",
 	L"Figer curseur sur les portes",
 	L"Objets en surbrillance",
@@ -6585,6 +6581,7 @@ STR16		zOptionsToggleText[] =
 	L"Inverser molette/souris",
 	L"Déplacement tactique",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
 	L"--Options mode triche--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6645,8 +6642,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
-	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires.Désactivez-la, si votre machine n'est pas suffisamment puissante.\nBasculera éclairage du mercenaire. (|G)",
+	//Highlight Mercs
+	L"Lorsqu'il est activé, le mercenaire est mis en surbrillance (invisible pour les ennemis).\nBasculer dans le jeu avec (|G)",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",
@@ -6703,6 +6700,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, inverse le sens de la molette de la souris.",
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9191,6 +9189,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

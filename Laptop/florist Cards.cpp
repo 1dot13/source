@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "florist.h"
 	#include "florist Cards.h"
@@ -10,7 +7,6 @@
 	#include "Cursors.h"
 	#include "Encrypted File.h"
 	#include "Text.h"
-#endif
 
 
 

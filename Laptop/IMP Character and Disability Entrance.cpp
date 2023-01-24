@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Character and Disability Entrance.h"
 	#include "IMP MainPage.h"
@@ -14,7 +11,6 @@
 	#include "IMP Text System.h"
 	#include "text.h"
 
-#endif
 
 // IMP personality entrance buttons
 INT32 giIMPCharacterAndDisabilityEntranceButton[1];

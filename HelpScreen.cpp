@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "HelpScreenText.h"
-	#include	"Line.h"
-#else
 	#include "sgp.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
@@ -28,7 +22,6 @@
 	#include "renderworld.h"
 	#include "Game Init.h"
 	#include "Overhead.h"
-#endif
 
 extern INT16 gsVIEWPORT_END_Y;
 extern void PrintDate( void );

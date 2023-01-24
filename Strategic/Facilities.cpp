@@ -8,10 +8,6 @@
 
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Campaign Types.h"
 	#include "Facilities.h"
 	#include "Soldier Control.h"
@@ -38,7 +34,6 @@
 	#include "Isometric Utils.h"
 	#include "MilitiaSquads.h"
 	#include "Tactical Save.h"
-#endif
 
 INT16 gsSkyriderCostModifier;
 // HEADROCK HAM 3.6: Strategic info variable, total of income/costs accumulated for the use of facilities today.

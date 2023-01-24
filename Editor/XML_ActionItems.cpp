@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "Editor All.h"
-	#include "LuaInitNPCs.h"
-#else
-	#include "Editor All.h"
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
@@ -11,7 +5,6 @@
 	#include "Interface.h"
 	#include "Item Statistics.h"
 	#include "LuaInitNPCs.h"
-#endif
 
 #include "Action Items.h"
 

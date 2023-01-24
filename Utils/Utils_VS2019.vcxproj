@@ -78,7 +78,6 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer Control.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Utils All.h" />
     <ClInclude Include="Win Util.h" />
     <ClInclude Include="WordWrap.h" />
     <ClInclude Include="XMLWriter.h" />

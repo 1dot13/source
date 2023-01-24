@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sgp.h"
 	#include "Radar Screen.h"
 	#include "sysutil.h"
@@ -19,7 +16,6 @@
 	#include "Game Clock.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Animation Data.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

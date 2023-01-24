@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
@@ -20,7 +17,6 @@
 	#include "Vehicles.h"
 	#include "GameSettings.h"
 	#include "Utilities.h"	// added by Flugente
-#endif
 
 #define			LIFE_BAR_SHADOW						FROMRGB( 108, 12, 12 )
 #define			LIFE_BAR							FROMRGB( 200, 0, 0 )

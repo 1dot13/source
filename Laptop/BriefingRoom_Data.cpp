@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	//#include "Laptop All.h"
 	#include "laptop.h"
 	#include "aim.h"
@@ -15,7 +12,6 @@
 	#include "Quests.h"
 	#include "Tactical Save.h"
 	#include "BriefingRoom_Data.h"
-#endif	
 
 
 #define MAX_FILTR_LOCATION_BUTTONS 11

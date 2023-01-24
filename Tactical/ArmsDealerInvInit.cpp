@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "ArmsDealerInvInit.h"
 	//#include "Item Types.h"
@@ -16,7 +13,6 @@
 	#include "Shopkeeper Interface.h"
 	#include "connect.h"
 	#include "Rebel Command.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

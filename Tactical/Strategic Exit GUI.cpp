@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-	#include "creature spreading.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "Button System.h"
@@ -35,7 +30,6 @@
 	#include "Quests.h"
 	#include "Creature Spreading.h"
 	#include "Queen Command.h"		// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"

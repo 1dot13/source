@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "MercTextBox.h"
 	#include "WCheck.h"
 	#include "renderworld.h"
@@ -9,7 +6,6 @@
 	#include "WordWrap.h"
 	#include "vobject_blitters.h"
 	#include "Message.h"
-#endif
 
 
 #define		TEXT_POPUP_WINDOW_TEXT_OFFSET_X		8

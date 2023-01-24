@@ -1,8 +1,5 @@
 // MODULE FOR SOUND SYSTEM
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "sgp.h"
 	#include "Sound Control.h"
 	#include "soundman.h"
@@ -11,7 +8,6 @@
 	#include "renderworld.h"
 	#include "GameSettings.h"
 	#include "math.h"
-#endif
 
 #define	SOUND_FAR_VOLUME_MOD	25
 
@@ -635,40 +631,6 @@ UINT32 CalculateSoundEffectsVolume( UINT32 uiVolume )
 }
 
 
-#if 0
-int x,dif,absDif;
-
- // This function calculates the general LEFT / RIGHT direction of a gridno
- // based on the middle of your screen.
-
- x = Gridx(gridno);
-
- dif = ScreenMiddleX - x;
-
- if ( (absDif=abs(dif)) > 32)
-	{
-	// OK, NOT the middle.
-
-	// Is it outside the screen?
-	if (absDif > HalfWindowWidth)
-	{
-	 // yes, outside...
-	 if (dif > 0)
-		return(25);
-	 else
-		return(102);
-	}
-	else // inside screen
-	if (dif > 0)
-		return(LEFTSIDE);
-	else
-		return(RIGHTSIDE);
-	}
- else // hardly any difference, so sound should be played from middle
-	return(MIDDLE);
-
-}
-#endif
 
 // == Lesh slightly changed this function ============
 INT32 SoundDir( INT32 sGridNo )

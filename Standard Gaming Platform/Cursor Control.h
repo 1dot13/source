@@ -6,11 +6,7 @@
 #include "VObject.h"
 #include "VSurface.h"
 
-#if defined( JA2 ) || defined( UTIL )
 #include "Video.h"
-#else
-#include "video2.h"
-#endif	
 
 #ifdef __cplusplus
 extern "C" {

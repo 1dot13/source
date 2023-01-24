@@ -1,7 +1,4 @@
 #include "connect.h"
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 
@@ -44,7 +41,6 @@
 #include "items.h"
 #include "Item Types.h"
 #include "Vehicles.h"
-#endif
 #include "fresh_header.h"
 #include "WorldDat.h"
 // HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.
@@ -4809,15 +4805,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-#if 0//dnl ch60 020913 isn't true see reason in FireBulletGivenTarget
-	//lal bugfix
-	if( dDeltaZ > 0 )
-		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
-	else
-		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#else
 	d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -5308,15 +5296,9 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-#if 0//dnl ch60 311009 this isn't correct, e.g. if you try head shot from prone to standing target at 1 tile, Distance3D will calculate 7,8 tile distance, this means that you will always hit target regard of CTH calculation, correct usage will be Distance3D(dDeltaX, dDeltaY, CONVERT_HEIGHTUNITS_TO_DISTANCE(dDeltaZ)) but we need here 2D distance as was in original v1.12
-	//lal bugfix
-	if( dDeltaZ > 0 )
-		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
-	else
-		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#else
+	/* see previous commit for historically interesting comment on the reason Distance2D instead 
+	of Distance3D is used here */
 	d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -5817,15 +5799,7 @@ INT8 FireFragmentGivenTarget( UINT8 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-#if 0//dnl ch60 030913
-	//lal bugfix
-	if( dDeltaZ > 0 )
-		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
-	else
-		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#else
 	d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -5994,15 +5968,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-#if 0//dnl ch60 030913
-	//lal bugfix
-	if( dDeltaZ > 0 )
-		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
-	else
-		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#else
 	d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -8588,11 +8554,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	///////////////////////////////////////////////////////////////////////
 	// Find distance between shooter and target, in points.
 	FLOAT		d2DDistance=0;
-#if 0//dnl ch60 030913
-	d2DDistance = Distance3D( dDeltaX, dDeltaY, CONVERT_HEIGHTUNITS_TO_DISTANCE( dDeltaZ ) );
-#else
 	d2DDistance = Distance2D( dDeltaX, dDeltaY );
-#endif
 	// Round it upwards.
 	INT32 iDistance = (INT32) d2DDistance;
 	if ( d2DDistance != iDistance )

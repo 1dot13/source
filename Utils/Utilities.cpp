@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "types.h"
 	#include <stdio.h>
 	#include <Windows.h>
@@ -14,7 +11,6 @@
 	#include "overhead types.h"
 	#include "wcheck.h"
 	#include "sys globals.h"
-#endif
 
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
@@ -397,115 +393,18 @@ BOOLEAN HandleJA2CDCheck( )
 #endif
 
 
-#ifdef NOCDCHECK
 
 	return( TRUE );
 
-#else
-	BOOLEAN fFailed = FALSE;
-	CHAR8		zCdLocation[ SGPFILENAME_LEN ];
-	CHAR8		zCdFile[ SGPFILENAME_LEN ];
-	INT32	cnt;
-	HWFILE	hFile;
-
-	// Check for a file on CD....
-	if( GetCDromDriveLetter( zCdLocation ) )
-	{
-	for ( cnt = 0; cnt < 5; cnt++ )
-	{
-		// OK, build filename
-		sprintf( zCdFile, "%s%s", zCdLocation, gCheckFilenames[ cnt ] );
-
-			hFile = FileOpen( zCdFile, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-
-		// Check if it exists...
-		if ( !hFile )
-		{
-			fFailed = TRUE;
-				FileClose( hFile );
-		break;
-		}
-
-		// Check min size
-//#ifndef GERMAN
-//		if ( FileGetSize( hFile ) < gCheckFileMinSizes[ cnt ] )
-//		{
-//			fFailed = TRUE;
-//				FileClose( hFile );
-//		break;
-//		}
-//#endif
-
-			FileClose( hFile );
-
-	}
-	}
-	else
-	{
-		fFailed = TRUE;
-	}
-
-	if ( fFailed )
-	{
-		CHAR8	zErrorMessage[256];
-
-		sprintf( zErrorMessage, "%S", gzLateLocalizedString[ 56 ] );
-		// Pop up message boc and get answer....
-		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2 v1.13", MB_OK ) == IDOK )
-		{
-			return( FALSE );
-		}
-	}
-
-	return( TRUE );
-
-#endif
 
 }
 
 
 BOOLEAN HandleJA2CDCheckTwo( )
 {
-#ifdef NOCDCHECK
 
 	return( TRUE );
 
-#else
-	BOOLEAN fFailed = TRUE;
-	CHAR8		zCdLocation[ SGPFILENAME_LEN ];
-	CHAR8		zCdFile[ SGPFILENAME_LEN ];
-
-	// Check for a file on CD....
-	if( GetCDromDriveLetter( zCdLocation ) )
-	{
-		// OK, build filename
-		sprintf( zCdFile, "%s%s", zCdLocation, gCheckFilenames[ Random( 2 ) ] );
-
-		// Check if it exists...
-		if ( FileExists( zCdFile ) )
-		{
-			fFailed = FALSE;
-		}
-	}
-
-	if ( fFailed )
-	{
-		CHAR8	zErrorMessage[256];
-
-		sprintf( zErrorMessage, "%S", gzLateLocalizedString[ 56 ] );
-		// Pop up message boc and get answer....
-		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2 v1.13", MB_OK ) == IDOK )
-		{
-			return( FALSE );
-		}
-	}
-	else
-	{
-		return( TRUE );
-	}
-
-	return( FALSE );
-#endif
 }
 
 

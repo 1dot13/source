@@ -115,7 +115,6 @@
     <ClInclude Include="Squads.h" />
     <ClInclude Include="Strategic Exit GUI.h" />
     <ClInclude Include="Structure Wrap.h" />
-    <ClInclude Include="Tactical All.h" />
     <ClInclude Include="Tactical Save.h" />
     <ClInclude Include="Tactical Turns.h" />
     <ClInclude Include="TeamTurns.h" />

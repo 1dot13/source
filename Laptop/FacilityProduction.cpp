@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "laptop.h"
 #include "insurance.h"
 #include "WCheck.h"
@@ -20,7 +17,6 @@
 #include "Strategic Town Loyalty.h"
 #include "strategic.h"
 #include "BaseTable.h"
-#endif
 
 /*#define		MERCOMP_FONT_COLOR								2
 #define		CAMPHIS_FONT_BIG								FONT14ARIAL

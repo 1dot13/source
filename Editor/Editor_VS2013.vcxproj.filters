@@ -18,7 +18,6 @@
     <ClInclude Include="edit_sys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Editor All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Editor Callback Prototypes.h">

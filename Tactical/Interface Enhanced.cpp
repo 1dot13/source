@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "language defines.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <time.h>
@@ -57,7 +53,6 @@
 	#include "los.h"
 	#include "Map Screen Interface Map.h"
 	#include "Food.h"	// added by Flugente
-#endif
 
 #include "Multi Language Graphic Utils.h"
 

@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "tiledef.h"
 	#include "edit_sys.h"
 	#include "sysutil.h"
@@ -34,7 +29,6 @@
 	#include "editscreen.h"
 	#include "EditorItems.h"
 	#include "EditorMapInfo.h"
-#endif
 
 BOOLEAN fBuildingShowRoofs, fBuildingShowWalls, fBuildingShowRoomInfo;
 UINT16 usCurrentMode;
@@ -372,44 +366,8 @@ void PasteMapElementToNewMapElement( INT32 iSrcGridNo, INT32 iDstGridNo )
 			AddTopmostToTail( iDstGridNo, pNode->usIndex );
 		pNode = pNode->pNext;
 	}
-#if 0//dnl ch86 110214
-	for ( usType = FIRSTROOF; usType <= LASTSLANTROOF; usType++ )
-	{
-		HideStructOfGivenType( iDstGridNo, usType, (BOOLEAN)(!fBuildingShowRoofs) );
-	}
-#endif
 }
 
-#if 0//dnl ch86 220214
-void MoveBuilding( INT32 iMapIndex )
-{
-	BUILDINGLAYOUTNODE *curr;
-	INT32 iOffset;
-	if( !gpBuildingLayoutList )
-		return;
-	SortBuildingLayout( iMapIndex );
-	iOffset = iMapIndex - gsBuildingLayoutAnchorGridNo;
-	if(iOffset == 0)//dnl ch32 080909
-		return;
-	//First time, set the undo gridnos to everything effected.
-	curr = gpBuildingLayoutList;
-	while( curr )
-	{
-		AddToUndoList( curr->sGridNo );
-		AddToUndoList( curr->sGridNo + iOffset );
-		curr = curr->next;
-	}
-	//Now, move the building
-	curr = gpBuildingLayoutList;
-	while( curr )
-	{
-		PasteMapElementToNewMapElement( curr->sGridNo, curr->sGridNo + iOffset );
-		DeleteStuffFromMapTile( curr->sGridNo );
-		curr = curr->next;
-	}
-	MarkWorldDirty();
-}
-#else
 void MoveBuilding( INT32 iMapIndex )
 {
 	INT8 bLightType;
@@ -471,7 +429,6 @@ void MoveBuilding( INT32 iMapIndex )
 	MarkWorldDirty();
 	LightSpriteRenderAll();
 }
-#endif
 
 void PasteBuilding( INT32 iMapIndex )
 {

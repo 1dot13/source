@@ -311,8 +311,6 @@ void HandleAnimatedCursors( );
 void DrawMouseActionPoints( );
 void UpdateAnimatedCursorFrames( UINT32 uiCursorIndex );
 
-void SyncPairedCursorFrames( UINT32 uiSrcCursor, UINT32 uiDestCursor );
-
 void SetCursorSpecialFrame( UINT32 uiCursor, UINT8 ubFrame );
 
 void SetCursorFlags( UINT32 uiCursor, UINT8 ubFlags );

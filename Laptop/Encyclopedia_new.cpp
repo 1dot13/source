@@ -29,9 +29,6 @@
 /// uncomment to use just graphic + mouseregion instead of real buttons. No sounds, no button states, just plain 'hyperlinks'.
 #define ENC_USE_BUTTONSYSTEM
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Types.h"
 	#include "WCheck.h"
 	#include "DEBUG.H"
@@ -41,11 +38,7 @@
 	#include "vobject.h"//video objects
 	#include "Utils/Cursors.h"
 	#include "Text.h"//button text
-#ifdef ENC_USE_BUTTONSYSTEM
 	#include "Button System.h"
-#else
-	#include "WordWrap.h"//centered text
-#endif
 	#include "Encyclopedia_new.h"
 	//#include "Encrypted File.h"
 	//#include "Soldier Profile.h"
@@ -54,7 +47,6 @@
 	//#include "Quests.h"
 	//#include "Tactical Save.h"
 	#include "Encyclopedia_Data_new.h"
-#endif	
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @defgroup ENCYCLOPEDIA Encyclopedia
@@ -72,13 +64,8 @@ UINT32 guiEncyclopediaAimLogo;
 ///@}
 
 ///@{ buttons, graphics and regions for main page
-#ifdef ENC_USE_BUTTONSYSTEM
 INT32 giEncyclopediaBtn[ ENC_NUM_SUBPAGES ];
 INT32 giEncyclopediaBtnImage;
-#else
-MOUSE_REGION gEncyclopediaBtnRegions[ ENC_NUM_SUBPAGES ];
-UINT32 guiEncyclopediaBtnImage;
-#endif
 #define ENC_BTN_GAP 6
 #define ENC_AIMLOGO_GAP_TOP 20
 #define ENC_AIMLOGO_GAP_BOTTOM 40
@@ -89,11 +76,7 @@ ENC_SUBPAGE_T geENC_SubPage;	///< Current sub page
 ///////
 //prototypes
 
-#ifdef ENC_USE_BUTTONSYSTEM
 void BtnEncyclopedia_newSelectDataPageBtnCallBack ( GUI_BUTTON *btn, INT32 reason );
-#else
-void BtnEncyclopedia_newSelectDataPageRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason );
-#endif
 ///////
 //functions
 
@@ -112,11 +95,8 @@ void BtnEncyclopedia_newSelectDataPageRegionCallBack( MOUSE_REGION * pRegion, IN
 void GameInitEncyclopedia_NEW()
 {
 	// initialize gui handles
-#ifdef ENC_USE_BUTTONSYSTEM
 	memset( giEncyclopediaBtn, BUTTON_NO_SLOT, sizeof(giEncyclopediaBtn) );
 	giEncyclopediaBtnImage = BUTTON_NO_IMAGE;
-#else
-#endif
 	// check for files only on start of JA2
 	CHECKV( guiCurrentScreen == 0 && gGameExternalOptions.gEncyclopedia );
 
@@ -182,7 +162,6 @@ BOOLEAN EnterEncyclopedia_NEW(  )
 	CHECKF(hVObject);CHECKF(hVObject->pETRLEObject);
 	logoBottomY = hVObject->pETRLEObject->usHeight + LAPTOP_SCREEN_WEB_UL_Y + ENC_AIMLOGO_GAP_TOP;
 
-#ifdef ENC_USE_BUTTONSYSTEM//use button system
 	//////
 	// load button graphic for the data pages
 	giEncyclopediaBtnImage = LoadButtonImage( "ENCYCLOPEDIA\\CONTENTBUTTON.STI", BUTTON_NO_IMAGE, 0, BUTTON_NO_IMAGE , 0, BUTTON_NO_IMAGE );
@@ -206,34 +185,6 @@ BOOLEAN EnterEncyclopedia_NEW(  )
 		GetButtonPtr( giEncyclopediaBtn[ i ] )->fShiftImage = TRUE;
 		//SpecifyButtonSoundScheme( giEncyclopediaDataBtn[ i ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
 	}
-#else
-	//////
-	// load button graphic for the data pages
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( "ENCYCLOPEDIA\\CONTENTBUTTON.STI", VObjectDesc.ImageFile );
-	CHECKF( AddVideoObject( &VObjectDesc, &guiEncyclopediaBtnImage ) );
-	//////
-	// create mouse regions for data buttons and set user data
-	GetVideoObject( &hVObject, guiEncyclopediaBtnImage );
-	CHECKF(hVObject);CHECKF(hVObject->pETRLEObject);
-	buttonSizeX = hVObject->pETRLEObject->usWidth;//get width of buttons from image
-	buttonSizeY = hVObject->pETRLEObject->usHeight;//get heigth of buttons from image
-
-	for ( UINT8 i = 0; i < ENC_NUM_SUBPAGES; i++ )
-	{
-		MSYS_DefineRegion( &gEncyclopediaBtnRegions[i],
-			LAPTOP_SCREEN_UL_X + (LAPTOP_SCREEN_WIDTH)/2 - buttonSizeX/2,//upper left x: center of laptop screen - 1/2 buttonsize
-			logoBottomY + ENC_AIMLOGO_GAP_BOTTOM + i * (ENC_BTN_GAP + buttonSizeY),//upper left y: below logo + logo gap + previous buttons and button gaps
-			LAPTOP_SCREEN_UL_X + (LAPTOP_SCREEN_WIDTH)/2 + buttonSizeX/2,//lower right x: center of laptop screen + 1/2 buttonsize
-			logoBottomY + ENC_AIMLOGO_GAP_BOTTOM + buttonSizeY + i * (ENC_BTN_GAP + buttonSizeY),//lower right y: below logo + logo gap + button height + previous buttons and button gaps
-			MSYS_PRIORITY_HIGH,//priority
-			CURSOR_WWW,//cursor
-			MSYS_NO_CALLBACK,//moveCB
-			BtnEncyclopedia_newSelectDataPageRegionCallBack);
-		MSYS_SetRegionUserData( &gEncyclopediaBtnRegions[i], 0, i + 1 );
-		CHECKF( MSYS_AddRegion( &gEncyclopediaBtnRegions[i] ) );
-	}
-#endif
 	return TRUE;
 }
 
@@ -256,7 +207,6 @@ BOOLEAN ExitEncyclopedia_NEW(  )
 	// destroy AIM logo
 	success &= DeleteVideoObjectFromIndex( guiEncyclopediaAimLogo );
 
-#ifdef ENC_USE_BUTTONSYSTEM//use button system
 	// destroy buttons
 	for ( UINT8 i = 0; i < ENC_NUM_SUBPAGES; i++ )
 		if ( giEncyclopediaBtn[ i ] != BUTTON_NO_SLOT )
@@ -274,13 +224,6 @@ BOOLEAN ExitEncyclopedia_NEW(  )
 	}
 	else
 		success = FALSE;
-#else
-	// destroy button graphic
-	success &= DeleteVideoObjectFromIndex( guiEncyclopediaBtnImage );
-	// destroy mouseregions for buttons
-	for (UINT8 i = 0; i < ENC_NUM_SUBPAGES; i++)
-		MSYS_RemoveRegion( &gEncyclopediaBtnRegions[i] );
-#endif
 	return success;
 }
 
@@ -307,20 +250,7 @@ void RenderEncyclopedia_NEW(  )
 	CHECKV( BltVideoObjectFromIndex( FRAME_BUFFER, guiEncyclopediaAimLogo, 0, x, y, VO_BLT_SRCTRANSPARENCY, NULL ) );
 
 	// render Buttons for Data pages
-#ifdef ENC_USE_BUTTONSYSTEM
 	RenderButtons();
-#else
-	for ( UINT8 i = 0; i < ENC_NUM_SUBPAGES; i++ )
-	{ 
-		x = gEncyclopediaBtnRegions[ i ].RegionTopLeftX;
-		y = gEncyclopediaBtnRegions[ i ].RegionTopLeftY;
-		//Btn graphic
-		CHECKV( BltVideoObjectFromIndex( FRAME_BUFFER, guiEncyclopediaBtnImage, 0, x, y, VO_BLT_SRCTRANSPARENCY, NULL ) );
-		//Btn text
-		y += (gEncyclopediaBtnRegions[ i ].RegionBottomRightY - y)/2 - GetFontHeight( FONT12ARIAL )/2;
-		DrawTextToScreen( pMenuStrings[ i ], x, y, (UINT16)gEncyclopediaBtnRegions[ i ].RegionBottomRightX - x, FONT12ARIAL, FONT_FCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	}
-#endif
 	// finish render
 	CHECKV ( RenderWWWProgramTitleBar() );
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);	
@@ -405,7 +335,6 @@ void ChangingEncyclopediaSubPage( UINT8 ubSubPageNumber )
 
 //////////////
 //Callback functions
-#ifdef ENC_USE_BUTTONSYSTEM//use button system
 void BtnEncyclopedia_newSelectDataPageBtnCallBack( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -434,35 +363,5 @@ void BtnEncyclopedia_newSelectDataPageBtnCallBack( GUI_BUTTON *btn, INT32 reason
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 }
-#else
-/**
-* @brief Callback for data page buttons.
-* Userdata at index 0 is used to determine which button is pressed.
-*/
-void BtnEncyclopedia_newSelectDataPageRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason )
-{
-	CHECKV( gGameExternalOptions.gEncyclopedia );
-	if (iReason & MSYS_CALLBACK_REASON_INIT)
-	{
-	}
-	else if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
-	{
-		UINT8 selectedButton = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
-
-		if( selectedButton == 0 )
-		{
-			guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
-		}
-		else if( selectedButton > 0 && selectedButton <= ENC_NUM_SUBPAGES )
-		{
-			ChangingEncyclopediaSubPage ( selectedButton );
-			guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_DATA;
-		}
-	}
-	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
-	{
-	}
-}
-#endif
 
 #endif

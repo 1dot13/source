@@ -339,10 +339,6 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="Bitmap.h"
-				>
-			</File>
-			<File
 				RelativePath="Button Sound Control.h"
 				>
 			</File>
@@ -360,10 +356,6 @@
 			</File>
 			<File
 				RelativePath="Cursor Control.h"
-				>
-			</File>
-			<File
-				RelativePath="DbMan.h"
 				>
 			</File>
 			<File
@@ -392,10 +384,6 @@
 			</File>
 			<File
 				RelativePath="english.h"
-				>
-			</File>
-			<File
-				RelativePath="ExceptionHandling.h"
 				>
 			</File>
 			<File
@@ -451,10 +439,6 @@
 				>
 			</File>
 			<File
-				RelativePath="JA2 SGP ALL.H"
-				>
-			</File>
-			<File
 				RelativePath="LibraryDataBase.h"
 				>
 			</File>
@@ -480,10 +464,6 @@
 			</File>
 			<File
 				RelativePath="Mss.h"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.h"
 				>
 			</File>
 			<File
@@ -559,19 +539,11 @@
 				>
 			</File>
 			<File
-				RelativePath="trle.h"
-				>
-			</File>
-			<File
 				RelativePath="Types.h"
 				>
 			</File>
 			<File
 				RelativePath="video.h"
-				>
-			</File>
-			<File
-				RelativePath="video_private.h"
 				>
 			</File>
 			<File
@@ -600,10 +572,6 @@
 			</File>
 			<File
 				RelativePath="WinFont.h"
-				>
-			</File>
-			<File
-				RelativePath="WizShare.h"
 				>
 			</File>
 			<File
@@ -639,10 +607,6 @@
 				>
 			</File>
 			<File
-				RelativePath="DbMan.cpp"
-				>
-			</File>
-			<File
 				RelativePath="DEBUG.cpp"
 				>
 			</File>
@@ -664,10 +628,6 @@
 			</File>
 			<File
 				RelativePath="English.cpp"
-				>
-			</File>
-			<File
-				RelativePath="ExceptionHandling.cpp"
 				>
 			</File>
 			<File
@@ -720,10 +680,6 @@
 			</File>
 			<File
 				RelativePath="mousesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.cpp"
 				>
 			</File>
 			<File

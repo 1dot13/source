@@ -1,7 +1,4 @@
 	//#include <cmath>		// added by Flugente
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Map Edgepoints.h"
 
 	#include "pathai.h"
@@ -15,7 +12,6 @@
 	#include "worldman.h"
 	#include "PreBattle Interface.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 

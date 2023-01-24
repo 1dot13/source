@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "weapons.h"
 	#include "Interface Cursors.h"
@@ -32,7 +29,6 @@
 	#include "SkillCheck.h" // added by SANDRO
 	#include "message.H" //ddd
 	#include "english.h"		// added by Flugente
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -140,13 +136,13 @@ BOOLEAN GetMouseRecalcAndShowAPFlags( UINT32 *puiCursorFlags, BOOLEAN *pfShowAPs
 // FUNCTIONS FOR CURSOR DETERMINATION!
 UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated )
 {
-	SOLDIERTYPE				*pSoldier;
-	UINT32						uiCursorFlags;
-	BOOLEAN						fShowAPs = FALSE;
-	BOOLEAN						fRecalc = FALSE;
+	SOLDIERTYPE *pSoldier;
+	UINT32 uiCursorFlags;
+	BOOLEAN fShowAPs = FALSE;
+	BOOLEAN fRecalc = FALSE;
 	INT32 sTargetGridNo = usMapPos;
-	UINT8							ubCursorID=0;
-	UINT8							ubItemCursor;
+	UINT8 ubCursorID=0;
+	UINT8 ubItemCursor = 0;
 
 	pSoldier = MercPtrs[ ubSoldierID ];
 
@@ -354,6 +350,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 	UINT16							usCursor=0;
 	BOOLEAN							fMaxPointLimitHit = FALSE;
 	UINT16							usInHand;
+	extern UINT32					guiNewUICursor;
 
 	UINT16	reverse = 0;
 
@@ -459,6 +456,30 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 			{
 				pSoldier->bDoAutofire--;
 				gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->aiData.bShownAimTime ) );
+			}
+
+			const bool isCursorOnTarget = (
+				guiNewUICursor == ACTION_SHOOT_UICURSOR || guiNewUICursor == ACTION_TARGETBURST_UICURSOR ||
+				guiNewUICursor == ACTION_FLASH_SHOOT_UICURSOR || guiNewUICursor == ACTION_FLASH_BURST_UICURSOR ||
+				guiNewUICursor == ACTION_NOCHANCE_SHOOT_UICURSOR || guiNewUICursor == ACTION_NOCHANCE_BURST_UICURSOR
+			);
+				// Start at maximum aiming levels if the option is toggled
+			if (gGameSettings.fOptions[TOPTION_ALT_START_AIM] && isCursorOnTarget)
+			{
+				pSoldier->aiData.bShownAimTime = maxAimLevels;
+				sAPCosts = CalcTotalAPsToAttack(pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+				// Determine if we can afford!
+				while (!EnoughPoints(pSoldier, sAPCosts, 0, FALSE))
+				{
+					pSoldier->aiData.bShownAimTime -= 1;
+					if (pSoldier->aiData.bShownAimTime < 0)
+					{
+						pSoldier->aiData.bShownAimTime = REFINE_AIM_1;
+						break;
+					}
+					sAPCosts = CalcTotalAPsToAttack(pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+				}
+				gsCurrentActionPoints = sAPCosts;
 			}
 
 			// If we don't have any points and we are at the first refine, do nothing but warn!

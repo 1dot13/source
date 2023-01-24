@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Intro.h"
-#else
 	#include "Types.h"
 	#include "MPScoreScreen.h"
 	#include "GameSettings.h"
@@ -22,7 +18,6 @@
 	#include "Text.h"
 	#include "Text Input.h"
 	#include "Soldier Profile.h"
-#endif
 
 #include "gameloop.h"
 #include "Game Init.h"

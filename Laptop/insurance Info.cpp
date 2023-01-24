@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "insurance Info.h"
 	#include "insurance.h"
@@ -10,7 +7,6 @@
 	#include "Cursors.h"
 	#include "Insurance Text.h"
 	#include "Text.h"
-#endif
 
 
 #define		INS_INFO_FRAUD_TEXT_COLOR					FONT_MCOLOR_RED

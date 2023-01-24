@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -15,7 +12,6 @@
 	#include "interface.h"
 	#include "spread burst.h"
 	#include "points.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

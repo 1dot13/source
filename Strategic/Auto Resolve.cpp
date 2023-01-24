@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -73,7 +69,6 @@
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "MilitiaIndividual.h"			// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "Reinforcement.h"
 
@@ -2208,19 +2203,6 @@ void CreateAutoResolveInterface()
 	ubEliteMilitia += bonusEliteMilitia;
 	ubRegMilitia += bonusRegularMilitia;
 	ubGreenMilitia += bonusGreenMilitia;
-
-	// This block should be unnecessary.	If the counts do not line up, there is a bug.
-#if 0
-	while( ubEliteMilitia + ubRegMilitia + ubGreenMilitia < gpAR->ubCivs )
-	{
-		switch( PreRandom( 3 ) )
-		{
-			case 0: ubEliteMilitia++;	break;
-			case 1:	ubRegMilitia++;		break;
-			case 2:	ubGreenMilitia++;	break;
-		}
-	}
-#endif
 
 	cnt = 0;
 	// Add the militia in this sector

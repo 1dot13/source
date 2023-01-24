@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "SkillCheck.h"
 	#include "Soldier Profile.h"
 	#include "Random.h"
@@ -18,7 +15,6 @@
 	#include "Soldier Control.h"
 	#include "Interface.h"				// added by Flugente for zBackground
 	#include "DynamicDialogue.h"		// added by Flugente
-#endif
 
 extern void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
 

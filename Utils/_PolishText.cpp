@@ -2,9 +2,6 @@
 // WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
 //#pragma setlocale("POLISH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( POLISH )
 		#include "text.h"
@@ -13,7 +10,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_PolishText_public_symbol(void){;}
@@ -6539,7 +6535,7 @@ STR16		zOptionsToggleText[] =
 	L"Potwierdzenia Real-Time",
 	L"Najemnik śpi/budzi się",
 	L"Używaj systemu metrycznego",
-	L"Oświetlenie podczas ruchu",
+	L"Wyróżnij najemników",
 	L"Przyciągaj kursor do najemników",
 	L"Przyciągaj kursor do drzwi",
 	L"Pulsujące przedmioty",
@@ -6582,6 +6578,7 @@ STR16		zOptionsToggleText[] =
 	L"Invert mouse wheel",			// TODO.Translate
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6642,8 +6639,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Jeśli WŁĄCZONE, gra będzie używała systemu metrycznego.",
 
-	//Merc Lighted movement
-	L"Jeśli WŁĄCZONE, teren wokół najemnika będzie oświetlony podczas ruchu. Może spowolnić działanie gry.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Gdy jest włączony, podświetla najemnika (niewidoczny dla wrogów).\nPrzełącz w grze za pomocą (|G)",
 
 	//Smart cursor
 	L"Jeśli WŁĄCZONE, kursor będzie automatycznie ustawiał się na najemnikach gdy znajdzie się w ich pobliżu.",
@@ -6701,6 +6698,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9213,6 +9211,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

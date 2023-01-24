@@ -1,7 +1,4 @@
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "AimArchives.h"
 	#include "aim.h"
@@ -10,7 +7,6 @@
 	#include "WCheck.h"
 	#include "Encrypted File.h"
 	#include "Text.h"
-#endif
 
 #include "Soldier Profile.h"
 

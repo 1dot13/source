@@ -2,11 +2,6 @@
 
 // WANNE 2 <changed some lines>
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-	#include "PreBattle Interface.h"
-	#include "vehicles.h"
-#else
 	//sgp
 	#include "english.h"
 	#include "debug.h"
@@ -36,7 +31,6 @@
 	#include "WordWrap.h"
 	#include "Game Clock.h"
 	#include "Isometric Utils.h"
-#endif
 #include "connect.h"
 #include "renderworld.h"//dnl ch45 051009
 #include "merc entering.h"

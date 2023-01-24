@@ -16,11 +16,6 @@
 //
 //**************************************************************************
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include "Fileman.h"
 	#include "memman.h"
@@ -28,13 +23,8 @@
 	#include "himage.h"
 	#include "string.h"
 	#include "debug.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "impTGA.h"
-#endif
 
 //**************************************************************************
 //
@@ -279,29 +269,6 @@ BOOLEAN ReadUncompRGBImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8 ui
 			hImage->fFlags |= IMAGE_BITMAPDATA;
 		}
 
-		#if 0
-		// 32 bit not yet allowed in SGP
-		else if ( uiImagePixelSize == 32 )
-		{
-			iNumValues = uiWidth * uiHeight;
-
-			for ( i=0 ; i<iNumValues; i++ )
-			{
-				if ( !FileRead( hFile, &b, sizeof(UINT8), &uiBytesRead ) )
-					goto freeEnd;
-				if ( !FileRead( hFile, &g, sizeof(UINT8), &uiBytesRead ) )
-					goto freeEnd;
-				if ( !FileRead( hFile, &r, sizeof(UINT8), &uiBytesRead ) )
-					goto freeEnd;
-				if ( !FileRead( hFile, &a, sizeof(UINT8), &uiBytesRead ) )
-					goto freeEnd;
-
-				pBMData[ i*3	] = r;
-				pBMData[ i*3+1 ] = g;
-				pBMData[ i*3+2 ] = b;
-			}
-		}
-		#endif
 
 	}
 	return( TRUE );
