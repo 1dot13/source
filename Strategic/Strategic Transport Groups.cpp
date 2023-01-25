@@ -170,7 +170,6 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return;
 
-				// radio operators identify at range X+
 				// spies identify incoming transport groups
 				// RIS identifies ALL transport groups in monitored areas? in all areas?
 
@@ -218,8 +217,8 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 					const std::pair<UINT8, UINT8> sector = key.first;
 					const INT8 range = key.second;
 
-					const INT8 dist = (gx - sector.first) + (gy - sector.second);
-					if (dist < range)
+					const INT8 dist = abs((gx - sector.first) + (gy - sector.second));
+					if (dist <= range)
 					{
 						colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
 					}
