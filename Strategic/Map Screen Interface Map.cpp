@@ -46,6 +46,7 @@
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
 	#include "Rebel Command.h"
+	#include "Strategic Transport Groups.h"
 
 #include "Quests.h"
 #include "connect.h"
@@ -841,6 +842,8 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 		}
 	}
 
+	FillMapColoursForTransportGroups(colorMap);
+
 	if (RebelCommand::ShowEnemyMovementTargets())
 	{
 		const auto targetColor = MAP_SHADE_LT_RED;
@@ -870,26 +873,6 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 					{
 						colorMap[wp->y-1][wp->x-1] = targetColor;
 					}
-				}
-			}
-
-			pGroup = pGroup->next;
-		}
-	}
-
-	// rftr todo: transport groups
-	{
-		const auto targetColor = MAP_SHADE_LT_BLUE;
-		GROUP* pGroup = gpGroupList;
-
-		while (pGroup)
-		{
-			if (pGroup->usGroupTeam == ENEMY_TEAM)
-			{
-				const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
-				if (intention == TRANSPORT )
-				{
-					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
 				}
 			}
 

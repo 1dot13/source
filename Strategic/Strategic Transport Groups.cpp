@@ -33,11 +33,13 @@ TODO LIST:
 #include "Strategic Transport Groups.h"
 
 #include "ASD.h"
+#include "Assignments.h"
 #include "Campaign.h"
 #include "Game Clock.h"
 #include "Game Event Hook.h"
 #include "GameSettings.h"
 #include "Inventory Choosing.h"
+#include "Map Screen Interface Map.h"
 #include "message.h"
 #include "Overhead.h"
 #include "Overhead Types.h"
@@ -59,7 +61,7 @@ std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 
 BOOLEAN DeployTransportGroup()
 {
-	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return FALSE;
 
 	if (giReinforcementPool <= 0)
@@ -163,6 +165,84 @@ BOOLEAN ReturnTransportGroup(INT32 option1)
 	return TRUE;
 }
 
+void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINATE][MAXIMUM_VALID_X_COORDINATE])
+{
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
+		return;
+
+				// radio operators identify at range X+
+				// spies identify incoming transport groups
+				// RIS identifies ALL transport groups in monitored areas? in all areas?
+
+	const auto debugColor = MAP_SHADE_LT_BLUE;
+	const auto targetColor = MAP_SHADE_LT_YELLOW;
+	const INT8 DETECTION_RANGE_SCOUT = 1;
+	const INT8 DETECTION_RANGE_RADIO = 3;
+	GROUP* pGroup = gpGroupList;
+
+	// build map of detection sectors + ranges
+	std::map<std::pair<UINT8,UINT8>, INT8> detectionMap;
+	for( INT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	{
+		if( MercPtrs[ i ]->bActive &&
+			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
+			MercPtrs[ i ]->bAssignment < ON_DUTY &&
+			!MercPtrs[ i ]->flags.fMercAsleep)
+		{
+			if (HAS_SKILL_TRAIT(MercPtrs[i], SCOUTING_NT))
+			{
+				detectionMap[std::pair<UINT8,UINT8>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_SCOUT;
+			}
+			else if (HAS_SKILL_TRAIT(MercPtrs[i], RADIO_OPERATOR_NT))
+			{
+				detectionMap[std::pair<UINT8,UINT8>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_RADIO;
+			}
+		}
+	}
+
+	while (pGroup)
+	{
+		if (pGroup->usGroupTeam == ENEMY_TEAM)
+		{
+			const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
+			if (intention == TRANSPORT )
+			{
+				// rftr todo: delete me!
+				colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = debugColor;
+
+				// check if current location is known
+				const UINT8 gx = pGroup->ubSectorX;
+				const UINT8 gy = pGroup->ubSectorY;
+				for (const auto key : detectionMap)
+				{
+					const std::pair<UINT8, UINT8> sector = key.first;
+					const INT8 range = key.second;
+
+					const INT8 dist = (gx - sector.first) + (gy - sector.second);
+					if (dist < range)
+					{
+						colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
+					}
+				}
+
+				// check if target location is known
+				WAYPOINT* wp = pGroup->pWaypoints;
+
+				while (wp)
+				{
+					if (wp->next == nullptr)
+						break;
+
+					wp = wp->next;
+				}
+				//HAS_SKILL_TRAIT(MercPtrs[i], COVERT_NT);
+			}
+		}
+
+		pGroup = pGroup->next;
+	}
+}
+
 void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 {
 	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
@@ -252,7 +332,7 @@ void ProcessTransportGroupReachedDestination(GROUP* pGroup)
 
 void UpdateTransportGroupInventory()
 {
-	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return;
 
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
@@ -494,7 +574,7 @@ void UpdateTransportGroupInventory()
 
 void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
 {
-	if (gGameExternalOptions.fStrategicTransportGroupsEnabled)
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 	{
 		ClearTransportGroupMap();
 		return;
