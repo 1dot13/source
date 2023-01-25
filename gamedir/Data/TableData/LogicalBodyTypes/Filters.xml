@@ -36,7 +36,10 @@
 		</AND>
 	</Filter>
 	<Filter name="HasPistolInLeftHand">
+		<OR>
 			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<SECONDHANDPOS op="in">711</SECONDHANDPOS>
+		</OR>
 	</Filter>
 	<Filter name="HasMPistolInLeftHand">
 			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
