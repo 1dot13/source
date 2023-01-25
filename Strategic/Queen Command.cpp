@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 //Queen Command.c
 
 	#include "Queen Command.h"
