@@ -132,20 +132,20 @@ set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBU
 # TODO: refactor preprocessor usage onto, ideally, a single translation unit
 foreach(lang IN LISTS LangTargets)
 	foreach(exe IN LISTS ApplicationTargets)
-		set(targPrefix ${exe}_${lang})
+		set(Executable ${exe}_${lang})
 
 		# executable for an application/language combination, e.g. JA2_ENGLISH.exe
-		add_executable(${targPrefix} WIN32)
-		target_sources(${targPrefix} PRIVATE ${Ja2Src})
+		add_executable(${Executable} WIN32)
+		target_sources(${Executable} PRIVATE ${Ja2Src})
 
 		# Good libraries have already been built, can be simply linked here
-		target_link_libraries(${targPrefix} PRIVATE ${Ja2_Libraries})
+		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries})
 
 		# for each app/lang combination, the Very Bad libraries need to be built,
 		# with the appropriate preprocessor definitions
 		foreach(lib IN LISTS Ja2_Libs)
 			# syntactic sugar to hopefully make this more readable
-			set(tgt ${targPrefix}_${lib})
+			set(tgt ${Executable}_${lib})
 			set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
 			set(isUb $<STREQUAL:${exe},JA2UB>)
 			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
@@ -161,11 +161,11 @@ foreach(lang IN LISTS LangTargets)
 				${debugFlags}
 				${lang}
 			)
-			target_link_libraries(${targPrefix} PUBLIC ${tgt})
+			target_link_libraries(${Executable} PUBLIC ${tgt})
 		endforeach()
 
 		# only SGP depends on these
-		target_link_libraries(${targPrefix}_SGP PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${targPrefix}_SGP PUBLIC libpng)
+		target_link_libraries(${Executable}_SGP PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+		target_link_libraries(${Executable}_SGP PUBLIC libpng)
 	endforeach()
 endforeach()
