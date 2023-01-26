@@ -118,6 +118,7 @@ ValidateOptions("${ValidLanguages}" "Languages" "${Languages}" "LangTargets")
 set(ValidApplications JA2 JA2MAPEDITOR JA2UB JA2UBMAPEDITOR)
 ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "ApplicationTargets")
 
+set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>)
 
 # Due to widespread preprocessor definition abuse in the codebase, practically
 # every library-language-executable combination is its own compilation target
@@ -144,7 +145,7 @@ foreach(lang IN LISTS LangTargets)
 				$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
 				$<IF:${isUb},JA2UB;JA2UBMAPS,>
 				$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
-				$<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>
+				${debugFlags}
 				${lang}
 			)
 			target_link_libraries(${targPrefix} PUBLIC ${tgt})
