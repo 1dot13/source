@@ -145,23 +145,23 @@ foreach(lang IN LISTS LangTargets)
 		# with the appropriate preprocessor definitions
 		foreach(lib IN LISTS Ja2_Libs)
 			# syntactic sugar to hopefully make this more readable
-			set(tgt ${Executable}_${lib})
+			set(VeryBadLib ${Executable}_${lib})
 			set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
 			set(isUb $<STREQUAL:${exe},JA2UB>)
 			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
 
 			# static library for an app/lang combination, e.g. JA2_ENGLISH_SGP.lib
-			add_library(${tgt})
-			target_sources(${tgt} PRIVATE ${${lib}Src})
+			add_library(${VeryBadLib})
+			target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
 
-			target_compile_definitions(${tgt} PUBLIC
+			target_compile_definitions(${VeryBadLib} PUBLIC
 				$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
 				$<IF:${isUb},JA2UB;JA2UBMAPS,>
 				$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
 				${debugFlags}
 				${lang}
 			)
-			target_link_libraries(${Executable} PUBLIC ${tgt})
+			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
 		endforeach()
 
 		# only SGP depends on these
