@@ -126,14 +126,11 @@ foreach(lang IN LISTS LangTargets)
 	foreach(exe IN LISTS ApplicationTargets)
 		set(targPrefix ${exe}_${lang})
 
-		# make a copy of the library list for each language/library combination
-		list(SUBLIST Ja2_Libs 0 -1 ${targPrefix}_Targets)
-
 		add_executable(${targPrefix} WIN32)
 		target_sources(${targPrefix} PRIVATE ${Ja2Src})
 		target_link_libraries(${targPrefix} PRIVATE ${Ja2_Libraries})
 
-		foreach(lib IN LISTS ${targPrefix}_Targets)
+		foreach(lib IN LISTS Ja2_Libs)
 			set(tgt ${targPrefix}_${lib})
 
 			add_library(${tgt})
