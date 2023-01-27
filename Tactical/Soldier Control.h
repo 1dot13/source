@@ -1772,6 +1772,7 @@ public:
 	void	DoNinjaAttack( void );
 	void PickDropItemAnimation( void );
 
+	BOOLEAN CanClimbWithCurrentBackpack();
 
 	void BeginSoldierGetup( void );
 	void BeginSoldierClimbUpRoof( void );
