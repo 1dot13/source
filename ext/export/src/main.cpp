@@ -81,16 +81,16 @@ int wmain(int argc, wchar_t **argv)
 		param_list.push_back(*argv++);
 	};
 
-	std::auto_ptr<HelpCommand> cmd_help(new HelpCommand());
+	auto cmd_help{ std::make_unique<HelpCommand>() };
 	g_command_map[HelpCommand::commandString] = cmd_help.get();
 	
-	std::auto_ptr<ja2xp::CExportSTI> cmd_sti(new ja2xp::CExportSTI());
+	auto cmd_sti{ std::make_unique<ja2xp::CExportSTI>() };
 	g_command_map[ja2xp::CExportSTI::commandString] = cmd_sti.get();
 	
-	std::auto_ptr<ja2xp::CExportSLF> cmd_slf(new ja2xp::CExportSLF());
+	auto cmd_slf{ std::make_unique<ja2xp::CExportSLF>() };
 	g_command_map[ja2xp::CExportSLF::commandString] = cmd_slf.get();
 	
-	std::auto_ptr<ja2xp::CExportJSD> cmd_jsd(new ja2xp::CExportJSD());
+	auto cmd_jsd{ std::make_unique<ja2xp::CExportJSD>() };
 	g_command_map[ja2xp::CExportJSD::commandString] = cmd_jsd.get();
 
 	if(!param_list.empty())
