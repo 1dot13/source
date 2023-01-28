@@ -93,6 +93,14 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj );
 
 extern UINT16 gzFontName[32];
 
+auto GetHugeFont() -> INT32 {
+#if defined(JA2EDITOR) && defined(ENGLISH)
+	return gpHugeFont;
+#else
+	return gp16PointArial;
+#endif
+}
+
 BOOLEAN	InitializeFonts( )
 {
 	//INT16	zWinFontName[128]; // unused (jonathanl)
