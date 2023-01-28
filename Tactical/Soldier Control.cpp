@@ -9430,10 +9430,7 @@ void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMo
 void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 {
 	//CHRISL: Disable climbing up to a roof while wearing a backpack
-	if ((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true
-		//JMich.BackpackClimb
-		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+	if (!this->CanClimbWithCurrentBackpack())
 	{
 		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
 		return;
@@ -9725,6 +9722,17 @@ UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 	uiChance += (10 - pSoldier->bSleepDrugCounter);
 
 	return(uiChance);
+}
+
+BOOLEAN SOLDIERTYPE::CanClimbWithCurrentBackpack()
+{
+	// only apply backpack climbing limitations to player mercs
+	if (UsingNewInventorySystem() == true && this->inv[BPACKPOCKPOS].exists() == true && this->bTeam == OUR_TEAM
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+		return FALSE;
+
+	return TRUE;
 }
 
 void SOLDIERTYPE::BeginSoldierGetup( void )

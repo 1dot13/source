@@ -2110,12 +2110,9 @@ void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 					BOOLEAN	fNearHeigherLevel;
 					BOOLEAN	fNearLowerLevel;
 					INT8	bDirection;
-						// CHRISL: Turn off manual jumping while wearing a backpack
-					if (UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-						//JMich.BackpackClimb
-						&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-						&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 
+					// CHRISL: Turn off manual jumping while wearing a backpack
+					if (!pjSoldier->CanClimbWithCurrentBackpack())
 							return;
 
 					// Make sure the merc is not collapsed!
@@ -2207,12 +2204,9 @@ void HandleRTJump( void )
 		BOOLEAN	fNearHeigherLevel;
 		BOOLEAN	fNearLowerLevel;
 		INT8	bDirection;
-		// CHRISL: Turn off manual jumping while wearing a backpack
-		if (UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-			//JMich.BackpackClimb
-			&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-			&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 
+		// CHRISL: Turn off manual jumping while wearing a backpack
+		if (!pjSoldier->CanClimbWithCurrentBackpack())
 				return;
 
 		// Make sure the merc is not collapsed!
