@@ -3206,14 +3206,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 762:
 				{
 					// CODE: Set off Trigger
-					INT8	bPanicTrigger;
-
-					bPanicTrigger = ClosestPanicTrigger( pSoldier );
-					SetOffPanicBombs( pSoldier->ubID, bPanicTrigger );
+					INT8 bPanicTrigger = ClosestPanicTrigger( pSoldier );
+					if (bPanicTrigger != -1)
+					{
+						SetOffPanicBombs( pSoldier->ubID, bPanicTrigger );
+					}
 					// any AI guy has been specially given keys for this, now take them
 					// away
 					pSoldier->flags.bHasKeys = pSoldier->flags.bHasKeys >> 1;
-
 				}
 				break;
 

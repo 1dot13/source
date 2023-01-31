@@ -21916,13 +21916,15 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ENEMY )
 	{
-		// sevenfm: bPanicTriggerIsAlarm is always not NULL pointer
-		//if ( !(gTacticalStatus.bPanicTriggerIsAlarm) && (gTacticalStatus.ubTheChosenOne == pSoldier->ubID) )
 		if ( gTacticalStatus.ubTheChosenOne == pSoldier->ubID )
 		{
-			// replace this guy as the chosen one!
-			gTacticalStatus.ubTheChosenOne = NOBODY;
-			MakeClosestEnemyChosenOne( );
+			auto bPanicTrigger = ClosestPanicTrigger(pSoldier);
+			if (bPanicTrigger != -1 && !(gTacticalStatus.bPanicTriggerIsAlarm[bPanicTrigger]))
+			{
+				// replace this guy as the chosen one!
+				gTacticalStatus.ubTheChosenOne = NOBODY;
+				MakeClosestEnemyChosenOne( );
+			}
 		}
 
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
