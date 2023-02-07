@@ -2424,7 +2424,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	{
 		ProcessTransportGroupReachedDestination(pGroup);
 		return TRUE;
-		// do we just call ReassignAIGroup or SendGroupToPool to dissolve and remove the group?
 	}
 	else
 	{	//This is a floating group at his final destination...
