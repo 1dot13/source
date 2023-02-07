@@ -3075,11 +3075,11 @@ void ApologizeOverrideAndForceUpdateEverything()
 	//Draw it
 	DrawButton( iSummaryButton[ SUMMARY_BACKGROUND ] );
 	InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-	SetFont( HUGEFONT );
+	SetFont( GetHugeFont() );
 	SetFontForeground( FONT_RED );
 	SetFontShadow( FONT_NEARBLACK );
 	swprintf( str, pApologizeOverrideAndForceUpdateEverythingText[0] );
-	mprintf( (iScreenWidthOffset + 320) - StringPixLength( str, HUGEFONT )/2, iScreenHeightOffset + 105, str );
+	mprintf( (iScreenWidthOffset + 320) - StringPixLength( str, GetHugeFont() )/2, iScreenHeightOffset + 105, str );
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_YELLOW );
 	swprintf( str, pApologizeOverrideAndForceUpdateEverythingText[1], gusNumberOfMapsToBeForceUpdated );
