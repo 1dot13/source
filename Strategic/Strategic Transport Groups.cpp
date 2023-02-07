@@ -445,8 +445,11 @@ void UpdateTransportGroupInventory()
 		}
 	}
 
-	auto addItemToInventory = [](SOLDIERTYPE* pSoldier, OBJECTTYPE& itemToAdd)
+	auto addItemToInventory = [](SOLDIERTYPE* pSoldier, UINT16 itemId, UINT8 amount)
 	{
+		OBJECTTYPE itemToAdd;
+		CreateItems(itemId, 100, amount, &itemToAdd);
+
 		itemToAdd.fFlags &= ~OBJECT_UNDROPPABLE;
 
 		if (FitsInSmallPocket(&itemToAdd))
@@ -509,31 +512,25 @@ void UpdateTransportGroupInventory()
 					{
 						// en route to target destination - carrying ammo, supplies, etc
 						// medkits
-						CreateItems(itemMap[MED_KITS][Random(itemMap[MED_KITS].size())], 100, 2, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
+						addItemToInventory(pSoldier, itemMap[MED_KITS][Random(itemMap[MED_KITS].size())], 2);
 
 						// first aid kits
-						CreateItems(itemMap[FIRST_AID_KITS][Random(itemMap[FIRST_AID_KITS].size())], 100, 10, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
+						addItemToInventory(pSoldier, itemMap[FIRST_AID_KITS][Random(itemMap[FIRST_AID_KITS].size())], 10);
 
 						// toolkits
-						CreateItems(itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 100, 2, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
+						addItemToInventory(pSoldier, itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 2);
 
 						// 2 groups of grenades (possible to get the same)
-						CreateItems(itemMap[GRENADES][Random(itemMap[GRENADES].size())], 100, 10, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
-						CreateItems(itemMap[GRENADES][Random(itemMap[GRENADES].size())], 100, 10, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
+						addItemToInventory(pSoldier, itemMap[GRENADES][Random(itemMap[GRENADES].size())], 10);
+						addItemToInventory(pSoldier, itemMap[GRENADES][Random(itemMap[GRENADES].size())], 10);
 
 						// a couple sets of possibly better-than-expected weapons, as well as ammo for them
 						for (int loop = 0; loop < 2; ++loop)
 						{
 							UINT16 gunId = Random(guns.size());
-							CreateItems(guns[gunId], 100, 2, &itemToAdd);
-							addItemToInventory(pSoldier, itemToAdd);
-							UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
+							addItemToInventory(pSoldier, guns[gunId], 2);
 
+							UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
 							for (INT32 itemId = 0; itemId < (INT32)gMAXITEMS_READ; ++itemId)
 							{
 								if( ItemIsLegal(itemId)
@@ -546,19 +543,12 @@ void UpdateTransportGroupInventory()
 									break;
 								}
 							}
-							CreateItems(ammoId, 100, 2, &itemToAdd);
-							addItemToInventory(pSoldier, itemToAdd);
+							addItemToInventory(pSoldier, ammoId, 2);
 						}
 					}
 					//else // returning home
 					{
 						// coming back home - carrying money/loot/???
-					}
-
-					for (int i = 0; i < 3; ++i)
-					{
-						CreateItem(ammoBoxes[5][0], 100, &itemToAdd);
-						addItemToInventory(pSoldier, itemToAdd);
 					}
 
 					transportGroupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
@@ -610,8 +600,7 @@ void UpdateTransportGroupInventory()
 						//if (outgoing)
 						{
 							// add ammo to the soldier's inventory!
-							CreateItem(ammoBoxes[10][0], 100, &itemToAdd);
-							addItemToInventory(pSoldier, itemToAdd);
+							addItemToInventory(pSoldier, ammoBoxes[10][0], 1);
 						}
 						//else // returning home
 						{
