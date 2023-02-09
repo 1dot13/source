@@ -1220,6 +1220,8 @@ typedef struct
 	BOOLEAN fProvidesRobotLaserBonus;
 	//shadooow: bitflag controlling what system needs to be in play for item to appear
 	UINT8	usLimitedToSystem;
+
+	BOOLEAN fTransportGroupValidLoot;
 } INVTYPE;
 
 

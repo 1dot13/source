@@ -18,7 +18,6 @@ and the difficulty of the game.
 
 TODO LIST:
 - determine how/when/what groups are deployed
-- implement ways for the player to find groups (based on difficulty?)
 - use proper loyalty degradation (Strategic Loyalty lua) (maybe...)
 - use enemygunchoices and enemyitemchoices to populate bonus loot, depending on jeep or no jeep
 - track previous failed transports? transport group alertness level? partially degrades over time?
@@ -367,18 +366,21 @@ void UpdateTransportGroupInventory()
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	const UINT8 progress = CurrentPlayerProgressPercentage();
-	const UINT8 minGunCoolness = max(8, (progress + 5) / 10);
+	const UINT8 minGunCoolness = min(8, (progress + 5) / 10);
 	const UINT8 maxGunCoolness = min(10, 2 + (progress + 5) / 10);
 
 	enum ItemTypes
 	{
 		GAS_CANS,
-		FIRST_AID_KITS,
-		MED_KITS,
+		MEDICAL_FIRSTAIDKITS,
+		MEDICAL_MEDKITS,
+		MEDICAL_OTHER,
 		TOOL_KITS,
 		BACKPACKS,
 		RADIOS,
-		GRENADES,
+		GRENADE_THROWN,
+		GRENADE_LAUNCHED,
+		GRENADE_ROCKET,
 		AMMO_BOXES,
 		AMMO_CRATES,
 		GUNS,
@@ -398,27 +400,33 @@ void UpdateTransportGroupInventory()
 
 	// one-time item cache build
 	{
-		// rftr todo: see if we can replace this with random items.
 		// requirement: probably a new flag in Items.xml, <Loot_TransportGroup> or something
-		// add new groups in RandomItem.xml
-		// the new items will reference the new group in randomitem, eg <randomitem>23</randomitem> in Items.xml matches uiIndex 23 in RandomItem.xml
-		// fallback if no random items found? for mods and stuff (thinking sdo)
 		//gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE][gunLevel];
 		//gArmyItemChoices[SOLDIER_CLASS_ELITE][typeIndex];
 
 		for (UINT16 i = 0; i < gMAXITEMS_READ; ++i)
 		{
-			if (Item[i].gascan) itemMap[GAS_CANS].push_back(i);
-			else if (Item[i].firstaidkit) itemMap[FIRST_AID_KITS].push_back(i);
-			else if (Item[i].medicalkit) itemMap[MED_KITS].push_back(i);
+			if (Item[i].fTransportGroupValidLoot == FALSE) continue;
+
+			if (Item[i].medical)
+			{
+				if (Item[i].firstaidkit) itemMap[MEDICAL_FIRSTAIDKITS].push_back(i);
+				else if (Item[i].medicalkit) itemMap[MEDICAL_MEDKITS].push_back(i);
+				else itemMap[MEDICAL_OTHER].push_back(i);
+			}
+			else if (Item[i].gascan) itemMap[GAS_CANS].push_back(i);
 			else if (Item[i].toolkit) itemMap[TOOL_KITS].push_back(i);
 			else if (HasItemFlag(i, RADIO_SET)) itemMap[RADIOS].push_back(i);
-			else if (Item[i].usItemClass & IC_GRENADE) itemMap[GRENADES].push_back(i);
+			else if (Item[i].usItemClass & IC_GRENADE)
+			{
+				if (Item[i].glgrenade == 0) itemMap[GRENADE_THROWN].push_back(i);
+				else if (Item[i].attachmentclass == AC_GRENADE) itemMap[GRENADE_LAUNCHED].push_back(i); // grenade launcher grenade
+				else if (Item[i].attachmentclass == AC_ROCKET) itemMap[GRENADE_ROCKET].push_back(i); // RPG rockets
+			}
 			else if (Item[i].usItemClass & IC_LBEGEAR)
 			{
 				if (LoadBearingEquipment[Item[i].ubClassIndex].lbeClass == BACKPACK && !HasItemFlag(i, RADIO_SET)) // make sure radios don't get added here
 				{
-					// todo get actual backpacks, not covert ones, tactical slings, golf clubs, etc...
 					itemMap[BACKPACKS].push_back(i);
 				}
 			}
@@ -512,22 +520,22 @@ void UpdateTransportGroupInventory()
 					{
 						// en route to target destination - carrying ammo, supplies, etc
 						// medkits
-						addItemToInventory(pSoldier, itemMap[MED_KITS][Random(itemMap[MED_KITS].size())], 2);
+						addItemToInventory(pSoldier, itemMap[MEDICAL_MEDKITS][Random(itemMap[MEDICAL_MEDKITS].size())], 2);
 
 						// first aid kits
-						addItemToInventory(pSoldier, itemMap[FIRST_AID_KITS][Random(itemMap[FIRST_AID_KITS].size())], 10);
+						addItemToInventory(pSoldier, itemMap[MEDICAL_FIRSTAIDKITS][Random(itemMap[MEDICAL_FIRSTAIDKITS].size())], 10);
 
 						// toolkits
 						addItemToInventory(pSoldier, itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 2);
 
 						// 2 groups of grenades (possible to get the same)
-						addItemToInventory(pSoldier, itemMap[GRENADES][Random(itemMap[GRENADES].size())], 10);
-						addItemToInventory(pSoldier, itemMap[GRENADES][Random(itemMap[GRENADES].size())], 10);
+						addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
+						addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
 
 						// a couple sets of possibly better-than-expected weapons, as well as ammo for them
 						for (int loop = 0; loop < 2; ++loop)
 						{
-							UINT16 gunId = Random(guns.size());
+							const UINT16 gunId = guns[Random(guns.size())];
 							addItemToInventory(pSoldier, guns[gunId], 2);
 
 							UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
@@ -536,7 +544,8 @@ void UpdateTransportGroupInventory()
 								if( ItemIsLegal(itemId)
 								&& Item[itemId].usItemClass == IC_AMMO
 								&& Magazine[Item[itemId].ubClassIndex].ubMagType == AMMO_BOX
-								&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre)
+								&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre
+								&& Magazine[Item[itemId].ubClassIndex].ubAmmoType == Magazine[Item[ammoId].ubClassIndex].ubAmmoType)
 								{
 									// replace mag with box
 									ammoId = itemId;

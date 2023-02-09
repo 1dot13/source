@@ -307,7 +307,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ProvidesRobotNightVision") == 0 ||
 				strcmp(name, "ProvidesRobotLaserBonus") == 0 ||
 				strcmp(name, "FoodSystemExclusive") == 0 ||
-				strcmp(name, "DiseaseSystemExclusive") == 0
+				strcmp(name, "DiseaseSystemExclusive") == 0 ||
+				strcmp(name, "TransportGroupValidLoot") == 0
 				)
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -1524,6 +1525,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement == ELEMENT;
 			if (atol(pData->szCharData))
 			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
+		}
+		else if (strcmp(name, "TransportGroupValidLoot") == 0)
+		{
+			pData->curElement == ELEMENT;
+			pData->curItem.fTransportGroupValidLoot = (BOOLEAN)atol(pData->szCharData);
 		}
 
 		--pData->maxReadDepth;
