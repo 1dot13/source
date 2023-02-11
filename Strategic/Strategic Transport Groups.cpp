@@ -367,7 +367,7 @@ void UpdateTransportGroupInventory()
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	const UINT8 progress = CurrentPlayerProgressPercentage();
 	const UINT8 minGunCoolness = min(8, (progress + 5) / 10);
-	const UINT8 maxGunCoolness = min(10, 2 + (progress + 5) / 10);
+	const UINT8 maxGunCoolness = min(10, 3 + (progress + 5) / 10);
 
 	enum ItemTypes
 	{
@@ -384,11 +384,12 @@ void UpdateTransportGroupInventory()
 		AMMO_BOXES,
 		AMMO_CRATES,
 		GUNS,
+		GRENADELAUNCHERS,
+		ROCKETLAUNCHERS,
 	};
 
 	std::map<ItemTypes, std::vector<UINT16>> itemMap;
 
-	std::vector<UINT16> guns;
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
 	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
 	
@@ -448,7 +449,17 @@ void UpdateTransportGroupInventory()
 			else if (Item[i].usItemClass & IC_GUN)
 			{
 				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
-					guns.push_back(i);
+					itemMap[GUNS].push_back(i);
+			}
+			else if (Item[i].grenadelauncher)
+			{
+				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
+					itemMap[GRENADELAUNCHERS].push_back(i);
+			}
+			else if (Item[i].rocketlauncher)
+			{
+				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
+					itemMap[ROCKETLAUNCHERS].push_back(i);
 			}
 		}
 	}
@@ -520,39 +531,50 @@ void UpdateTransportGroupInventory()
 					{
 						// en route to target destination - carrying ammo, supplies, etc
 						// medkits
-						addItemToInventory(pSoldier, itemMap[MEDICAL_MEDKITS][Random(itemMap[MEDICAL_MEDKITS].size())], 2);
+						if (itemMap[MEDICAL_MEDKITS].size() > 0)
+							addItemToInventory(pSoldier, itemMap[MEDICAL_MEDKITS][Random(itemMap[MEDICAL_MEDKITS].size())], 2);
 
 						// first aid kits
-						addItemToInventory(pSoldier, itemMap[MEDICAL_FIRSTAIDKITS][Random(itemMap[MEDICAL_FIRSTAIDKITS].size())], 10);
+						if (itemMap[MEDICAL_FIRSTAIDKITS].size() > 0)
+							addItemToInventory(pSoldier, itemMap[MEDICAL_FIRSTAIDKITS][Random(itemMap[MEDICAL_FIRSTAIDKITS].size())], 10);
 
 						// toolkits
-						addItemToInventory(pSoldier, itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 2);
+						if (itemMap[TOOL_KITS].size() > 0)
+							addItemToInventory(pSoldier, itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 2);
 
 						// 2 groups of grenades (possible to get the same)
-						addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
-						addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
-
-						// a couple sets of possibly better-than-expected weapons, as well as ammo for them
-						for (int loop = 0; loop < 2; ++loop)
+						if (itemMap[GRENADE_THROWN].size() > 0)
 						{
-							const UINT16 gunId = guns[Random(guns.size())];
-							addItemToInventory(pSoldier, guns[gunId], 2);
+							addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
+							addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
+						}
 
-							UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
-							for (INT32 itemId = 0; itemId < (INT32)gMAXITEMS_READ; ++itemId)
+						// a few sets of weapons, as well as ammo for them
+						if (itemMap[GUNS].size() > 0)
+						{
+							for (int loop = 0; loop < 3; ++loop)
 							{
-								if( ItemIsLegal(itemId)
-								&& Item[itemId].usItemClass == IC_AMMO
-								&& Magazine[Item[itemId].ubClassIndex].ubMagType == AMMO_BOX
-								&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre
-								&& Magazine[Item[itemId].ubClassIndex].ubAmmoType == Magazine[Item[ammoId].ubClassIndex].ubAmmoType)
+								const UINT16 gunId = itemMap[GUNS][Random(itemMap[GUNS].size())];
+								addItemToInventory(pSoldier, gunId, 1);
+
+								UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
+								BOOLEAN convertedToBox = FALSE;
+								for (INT32 itemId = 0; itemId < (INT32)gMAXITEMS_READ; ++itemId)
 								{
-									// replace mag with box
-									ammoId = itemId;
-									break;
+									if( ItemIsLegal(itemId)
+									&& Item[itemId].usItemClass == IC_AMMO
+									&& Magazine[Item[itemId].ubClassIndex].ubMagType == AMMO_BOX
+									&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre
+									&& Magazine[Item[itemId].ubClassIndex].ubAmmoType == Magazine[Item[ammoId].ubClassIndex].ubAmmoType)
+									{
+										// replace mag with box
+										convertedToBox = TRUE;
+										ammoId = itemId;
+										break;
+									}
 								}
+								addItemToInventory(pSoldier, ammoId, convertedToBox ? 2 : 10);
 							}
-							addItemToInventory(pSoldier, ammoId, 2);
 						}
 					}
 					//else // returning home
