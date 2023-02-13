@@ -379,13 +379,14 @@ void UpdateTransportGroupInventory()
 		BACKPACKS,
 		RADIOS,
 		GRENADE_THROWN,
-		GRENADE_LAUNCHED,
-		GRENADE_ROCKET,
-		AMMO_BOXES,
-		AMMO_CRATES,
 		GUNS,
 		GRENADELAUNCHERS,
 		ROCKETLAUNCHERS,
+		AMMO_BOXES,
+		AMMO_CRATES,
+
+		TRANSPORT_LOOT_START = GAS_CANS,
+		TRANSPORT_LOOT_END = ROCKETLAUNCHERS,
 	};
 
 	std::map<ItemTypes, std::vector<UINT16>> itemMap;
@@ -401,13 +402,13 @@ void UpdateTransportGroupInventory()
 
 	// one-time item cache build
 	{
-		// requirement: probably a new flag in Items.xml, <Loot_TransportGroup> or something
 		//gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE][gunLevel];
 		//gArmyItemChoices[SOLDIER_CLASS_ELITE][typeIndex];
 
 		for (UINT16 i = 0; i < gMAXITEMS_READ; ++i)
 		{
 			if (Item[i].fTransportGroupValidLoot == FALSE) continue;
+			if (!ItemIsLegal(i)) continue;
 
 			if (Item[i].medical)
 			{
@@ -420,9 +421,10 @@ void UpdateTransportGroupInventory()
 			else if (HasItemFlag(i, RADIO_SET)) itemMap[RADIOS].push_back(i);
 			else if (Item[i].usItemClass & IC_GRENADE)
 			{
-				if (Item[i].glgrenade == 0) itemMap[GRENADE_THROWN].push_back(i);
-				else if (Item[i].attachmentclass == AC_GRENADE) itemMap[GRENADE_LAUNCHED].push_back(i); // grenade launcher grenade
-				else if (Item[i].attachmentclass == AC_ROCKET) itemMap[GRENADE_ROCKET].push_back(i); // RPG rockets
+				if (Item[i].glgrenade == 0
+				&& Item[i].attachmentclass != AC_GRENADE // not for a grenade launcher
+				&& Item[i].attachmentclass != AC_ROCKET) // not for a rocket launcher
+					itemMap[GRENADE_THROWN].push_back(i);
 			}
 			else if (Item[i].usItemClass & IC_LBEGEAR)
 			{
@@ -448,17 +450,17 @@ void UpdateTransportGroupInventory()
 			}
 			else if (Item[i].usItemClass & IC_GUN)
 			{
-				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
+				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
 					itemMap[GUNS].push_back(i);
 			}
 			else if (Item[i].grenadelauncher)
 			{
-				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
+				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
 					itemMap[GRENADELAUNCHERS].push_back(i);
 			}
 			else if (Item[i].rocketlauncher)
 			{
-				if (ItemIsLegal(i) && Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
+				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
 					itemMap[ROCKETLAUNCHERS].push_back(i);
 			}
 		}
@@ -530,50 +532,85 @@ void UpdateTransportGroupInventory()
 					//if (outgoing)
 					{
 						// en route to target destination - carrying ammo, supplies, etc
-						// medkits
-						if (itemMap[MEDICAL_MEDKITS].size() > 0)
-							addItemToInventory(pSoldier, itemMap[MEDICAL_MEDKITS][Random(itemMap[MEDICAL_MEDKITS].size())], 2);
-
-						// first aid kits
-						if (itemMap[MEDICAL_FIRSTAIDKITS].size() > 0)
-							addItemToInventory(pSoldier, itemMap[MEDICAL_FIRSTAIDKITS][Random(itemMap[MEDICAL_FIRSTAIDKITS].size())], 10);
-
-						// toolkits
-						if (itemMap[TOOL_KITS].size() > 0)
-							addItemToInventory(pSoldier, itemMap[TOOL_KITS][Random(itemMap[TOOL_KITS].size())], 2);
-
-						// 2 groups of grenades (possible to get the same)
-						if (itemMap[GRENADE_THROWN].size() > 0)
+						for (int i = TRANSPORT_LOOT_START; i <= TRANSPORT_LOOT_END; ++i)
 						{
-							addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
-							addItemToInventory(pSoldier, itemMap[GRENADE_THROWN][Random(itemMap[GRENADE_THROWN].size())], 10);
-						}
-
-						// a few sets of weapons, as well as ammo for them
-						if (itemMap[GUNS].size() > 0)
-						{
-							for (int loop = 0; loop < 3; ++loop)
+							const ItemTypes itemType = static_cast<ItemTypes>(i);
+							if (itemMap[itemType].size() > 0)
 							{
-								const UINT16 gunId = itemMap[GUNS][Random(itemMap[GUNS].size())];
-								addItemToInventory(pSoldier, gunId, 1);
-
-								UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
-								BOOLEAN convertedToBox = FALSE;
-								for (INT32 itemId = 0; itemId < (INT32)gMAXITEMS_READ; ++itemId)
+								const UINT16 id = itemMap[itemType][Random(itemMap[itemType].size())];
+								switch (itemType)
 								{
-									if( ItemIsLegal(itemId)
-									&& Item[itemId].usItemClass == IC_AMMO
-									&& Magazine[Item[itemId].ubClassIndex].ubMagType == AMMO_BOX
-									&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre
-									&& Magazine[Item[itemId].ubClassIndex].ubAmmoType == Magazine[Item[ammoId].ubClassIndex].ubAmmoType)
+								case MEDICAL_MEDKITS:
+								case MEDICAL_OTHER:
+								case TOOL_KITS:
+									addItemToInventory(pSoldier, id, 2);
+									break;
+
+								case MEDICAL_FIRSTAIDKITS:
+									addItemToInventory(pSoldier, id, 10);
+									break;
+
+								case GRENADE_THROWN:
+									addItemToInventory(pSoldier, id, 12);
+									break;
+
+								case GUNS:
 									{
-										// replace mag with box
-										convertedToBox = TRUE;
-										ammoId = itemId;
-										break;
+										for (int loop = 0; loop < 3; ++loop)
+										{
+											const UINT16 gunId = itemMap[itemType][Random(itemMap[itemType].size())];
+											addItemToInventory(pSoldier, gunId, 1);
+
+											UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
+											if (ammoId == 0) continue; // no ammo matches, skip
+
+											BOOLEAN convertedToBox = FALSE;
+											for (INT32 itemId = 0; itemId < (INT32)gMAXITEMS_READ; ++itemId)
+											{
+												if( ItemIsLegal(itemId)
+												&& Item[itemId].usItemClass == IC_AMMO
+												&& Magazine[Item[itemId].ubClassIndex].ubMagType == AMMO_BOX
+												&& Magazine[Item[itemId].ubClassIndex].ubCalibre == Magazine[Item[ammoId].ubClassIndex].ubCalibre
+												&& Magazine[Item[itemId].ubClassIndex].ubAmmoType == Magazine[Item[ammoId].ubClassIndex].ubAmmoType)
+												{
+													// replace mag with box
+													convertedToBox = TRUE;
+													ammoId = itemId;
+													break;
+												}
+											}
+											addItemToInventory(pSoldier, ammoId, convertedToBox ? 2 : 10);
+										}
 									}
+									break;
+
+								case GRENADELAUNCHERS:
+									{
+										addItemToInventory(pSoldier, id, 1);
+
+										const UINT16 launchableId = PickARandomLaunchable(id);
+										if (launchableId == 0) continue; // no launchable matches, skip
+
+										addItemToInventory(pSoldier, launchableId, 8);
+									}
+									break;
+
+								case ROCKETLAUNCHERS:
+									{
+										addItemToInventory(pSoldier, id, Item[id].singleshotrocketlauncher ? 3 : 1);
+
+										const UINT16 launchableId = PickARandomLaunchable(id);
+										if (launchableId == 0) continue; // no launchable matches, skip
+
+										addItemToInventory(pSoldier, launchableId, 3);
+									}
+									break;
+
+								default:
+									ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+									// nothing!
+									break;
 								}
-								addItemToInventory(pSoldier, ammoId, convertedToBox ? 2 : 10);
 							}
 						}
 					}
