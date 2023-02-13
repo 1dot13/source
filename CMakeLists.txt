@@ -22,10 +22,17 @@ add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
 
-# internal libraries that are Good
+# ja2export utility
+add_subdirectory("ext/export/src")
+
+# static libraries whose source files, header files or header files included
+# by header files do not rely on Applications or Languages preprocessor definitions,
+# and therefore only need to be compiled once. Good.
 add_subdirectory(Lua)
 
-# internal libraries that live in Preprocessor Hell, because they are Bad
+# static libraries whose source files, header files or header files included
+# by header files rely on Application and Language preprocessor definitions, and
+# therefore need to be compiled multiple times. Very Bad.
 add_subdirectory(TileEngine)
 add_subdirectory(TacticalAI)
 add_subdirectory(Utils)
@@ -107,6 +114,7 @@ bfVFS
 "ws2_32.lib"
 )
 
+# simple function to validate Languages and Application choices
 include(cmake/ValidateOptions.cmake)
 
 set(ValidLanguages CHINESE DUTCH ENGLISH FRENCH GERMAN ITALIAN POLISH RUSSIAN)
@@ -116,42 +124,49 @@ set(ValidApplications JA2 JA2MAPEDITOR JA2UB JA2UBMAPEDITOR)
 ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "ApplicationTargets")
 
 
+# preprocessor definitions for Debug build, per the legacy MSBuild
+set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>)
+
 # Due to widespread preprocessor definition abuse in the codebase, practically
 # every library-language-executable combination is its own compilation target
 # TODO: refactor preprocessor usage onto, ideally, a single translation unit
 foreach(lang IN LISTS LangTargets)
 	foreach(exe IN LISTS ApplicationTargets)
-		set(targPrefix ${exe}_${lang})
+		set(Executable ${exe}_${lang})
 
-		# make a copy of the library list for each language/library combination
-		list(SUBLIST Ja2_Libs 0 -1 ${targPrefix}_Targets)
+		# executable for an application/language combination, e.g. JA2_ENGLISH.exe
+		add_executable(${Executable} WIN32)
+		target_sources(${Executable} PRIVATE ${Ja2Src})
 
-		add_executable(${targPrefix} WIN32)
-		target_sources(${targPrefix} PRIVATE ${Ja2Src})
-		target_link_libraries(${targPrefix} PRIVATE ${Ja2_Libraries})
+		# Good libraries have already been built, can be simply linked here
+		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries})
 
-		foreach(lib IN LISTS ${targPrefix}_Targets)
-			set(tgt ${targPrefix}_${lib})
-
-			add_library(${tgt})
-			target_sources(${tgt} PRIVATE ${${lib}Src})
-
+		# for each app/lang combination, the Very Bad libraries need to be built,
+		# with the appropriate preprocessor definitions
+		foreach(lib IN LISTS Ja2_Libs)
+			# syntactic sugar to hopefully make this more readable
+			set(VeryBadLib ${Executable}_${lib})
 			set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
 			set(isUb $<STREQUAL:${exe},JA2UB>)
 			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
 
-			target_compile_definitions(${tgt} PUBLIC
+			# static library for an app/lang combination, e.g. JA2_ENGLISH_SGP.lib
+			add_library(${VeryBadLib})
+			target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
+
+			target_compile_definitions(${VeryBadLib} PUBLIC
 				$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
 				$<IF:${isUb},JA2UB;JA2UBMAPS,>
 				$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
-				$<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>
+				${debugFlags}
 				${lang}
 			)
-			target_link_libraries(${targPrefix} PUBLIC ${tgt})
+			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
 		endforeach()
 
-		# SGP is the only one calling these, so they can go here
-		target_link_libraries(${targPrefix}_SGP PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${targPrefix}_SGP PUBLIC libpng)
+		# for SGP only
+		target_link_libraries(${Executable}_SGP PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+		target_link_libraries(${Executable}_SGP PUBLIC libpng)
+		target_compile_definitions(${Executable}_SGP PRIVATE NO_ZLIB_COMPRESSION)
 	endforeach()
 endforeach()

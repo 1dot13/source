@@ -7432,9 +7432,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						}
 
 						// This ain't gonna happen with backpack
-						if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+						if (!pSoldier->CanClimbWithCurrentBackpack())
 						{
 							return( FALSE );
 						}
