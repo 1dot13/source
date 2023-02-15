@@ -49,12 +49,12 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-#ifdef USE_ASTAR_PATHS
 #include "BinaryHeap.hpp"
-#include "AIInternals.h"
 #include "opplist.h"
 #include "weapons.h"
-#endif
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
 //#include "dnlprocesstalk.h"//dnl???
 
 extern UINT16 gubAnimSurfaceIndex[ TOTALBODYTYPES ][ NUMANIMATIONSTATES ];
@@ -454,9 +454,6 @@ UINT32 guiFailedPathChecks = 0;
 UINT32 guiUnsuccessfulPathChecks = 0;
 #endif
 
-#ifdef USE_ASTAR_PATHS
-
-
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
@@ -647,7 +644,7 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
 	fConsiderPersonAtDestAsObstacle = (BOOLEAN)( fPathingForPlayer && fPathAroundPeople && !(fFlags & PATH_IGNORE_PERSON_AT_DEST) );
 
-	if ( fNonSwimmer && Water( dest ) ) 
+	if ( fNonSwimmer && Water( dest, 0 ) ) 
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR: path failed, water" ) );
 		return( 0 );
@@ -1390,7 +1387,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 
 	// Flugente: dragging someone
-	if ( pSoldier->IsDraggingSomeone( ) )
+	if ( pSoldier->IsDragging( false ) )
 	{
 		movementAPCost *= gItemSettings.fDragAPCostModifier;
 	}
@@ -2357,7 +2354,6 @@ bool AStarPathfinder::IsSomeoneInTheWay()
 	return false;
 }
 
-#endif//end ifdef USE_ASTAR_PATHS
 
 INT8 RandomSkipListLevel( void )
 {
@@ -2430,27 +2426,29 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 {
 	s->sPlotSrcGrid = s->sGridNo;
 
-#ifdef USE_ASTAR_PATHS
-//ddd
-CHAR8 errorBuf[511]; UINT32 b,e;
-b=GetJA2Clock();//return s->sGridNo+6;
-	
-	int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
-
-	e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
-
-	if (retVal || TileIsOutOfBounds(sDestination)) {
-		return retVal;
-	}
-	else {
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
-	}
-
-	//	if (TileIsOutOfBounds(sDestination))
+	if (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING])
 	{
-		return 0;
+		CHAR8 errorBuf[511]; UINT32 b,e;
+		b=GetJA2Clock();//return s->sGridNo+6;
+	
+		int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
+
+		e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
+
+		if (retVal || TileIsOutOfBounds(sDestination)) {
+			return retVal;
+		}
+		else {
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
+		}
+
+		//	if (TileIsOutOfBounds(sDestination))
+		{
+			return 0;
+		}
 	}
-#else
+	else
+	{
 	//__try
 	//{
 	INT32 iDestination = sDestination, iOrigination;
@@ -4210,7 +4208,7 @@ ENDOFLOOP:
 	//{
 	//	return (0);
 	//}
-#endif
+	}
 }
 
 void GlobalReachableTest( INT32 sStartGridNo )

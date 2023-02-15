@@ -10,12 +10,6 @@
 #define _PATHAI_H
 #include "isometric utils.h"
 
-// WANNE: Please do not use ASTAR pathing,
-// because it is a HUGH PERFORMANCE KILLER on big maps!!
-//#define USE_ASTAR_PATHS
-
-#ifdef USE_ASTAR_PATHS
-
 namespace ASTAR {
 #include "BinaryHeap.hpp"
 #include <vector>
@@ -187,8 +181,6 @@ private:
 };
 
 };//end namespace ASTAR
-
-#endif// USE_ASTAR_PATHS
 
 
 BOOLEAN InitPathAI( void );
