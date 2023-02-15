@@ -308,7 +308,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ProvidesRobotLaserBonus") == 0 ||
 				strcmp(name, "FoodSystemExclusive") == 0 ||
 				strcmp(name, "DiseaseSystemExclusive") == 0 ||
-				strcmp(name, "TransportGroupValidLoot") == 0
+				strcmp(name, "TransportGroupMinProgress") == 0 ||
+				strcmp(name, "TransportGroupMaxProgress") == 0
 				)
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -1526,10 +1527,15 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if (atol(pData->szCharData))
 			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
 		}
-		else if (strcmp(name, "TransportGroupValidLoot") == 0)
+		else if (strcmp(name, "TransportGroupMinProgress") == 0)
 		{
 			pData->curElement == ELEMENT;
-			pData->curItem.fTransportGroupValidLoot = (BOOLEAN)atol(pData->szCharData);
+			pData->curItem.iTransportGroupMinProgress = (INT8)atoi(pData->szCharData);
+		}
+		else if (strcmp(name, "TransportGroupMaxProgress") == 0)
+		{
+			pData->curElement == ELEMENT;
+			pData->curItem.iTransportGroupMaxProgress = (INT8)atoi(pData->szCharData);
 		}
 
 		--pData->maxReadDepth;

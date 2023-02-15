@@ -1221,7 +1221,9 @@ typedef struct
 	//shadooow: bitflag controlling what system needs to be in play for item to appear
 	UINT8	usLimitedToSystem;
 
-	BOOLEAN fTransportGroupValidLoot;
+	// rftr: the progress bounds that allow a transport group to drop an item
+	INT8 iTransportGroupMinProgress;
+	INT8 iTransportGroupMaxProgress;
 } INVTYPE;
 
 

@@ -366,8 +366,6 @@ void UpdateTransportGroupInventory()
 	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	const UINT8 progress = CurrentPlayerProgressPercentage();
-	const UINT8 minGunCoolness = min(8, (progress + 5) / 10);
-	const UINT8 maxGunCoolness = min(10, 3 + (progress + 5) / 10);
 
 	enum ItemTypes
 	{
@@ -378,6 +376,7 @@ void UpdateTransportGroupInventory()
 		TOOL_KITS,
 		BACKPACKS,
 		RADIOS,
+		MISC,
 		GRENADE_THROWN,
 		GUNS,
 		GRENADELAUNCHERS,
@@ -407,8 +406,8 @@ void UpdateTransportGroupInventory()
 
 		for (UINT16 i = 0; i < gMAXITEMS_READ; ++i)
 		{
-			if (Item[i].fTransportGroupValidLoot == FALSE) continue;
-			if (!ItemIsLegal(i)) continue;
+			if (!ItemIsLegal(i, TRUE)) continue;
+			if (Item[i].iTransportGroupMaxProgress == 0 || Item[i].iTransportGroupMinProgress > progress || progress > Item[i].iTransportGroupMaxProgress) continue;
 
 			if (Item[i].medical)
 			{
@@ -433,6 +432,10 @@ void UpdateTransportGroupInventory()
 					itemMap[BACKPACKS].push_back(i);
 				}
 			}
+			else if (Item[i].usItemClass & IC_MISC)
+			{
+				itemMap[MISC].push_back(i);
+			}
 			else if (Item[i].usItemClass & IC_AMMO)
 			{
 				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
@@ -450,18 +453,15 @@ void UpdateTransportGroupInventory()
 			}
 			else if (Item[i].usItemClass & IC_GUN)
 			{
-				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
-					itemMap[GUNS].push_back(i);
+				itemMap[GUNS].push_back(i);
 			}
 			else if (Item[i].grenadelauncher)
 			{
-				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
-					itemMap[GRENADELAUNCHERS].push_back(i);
+				itemMap[GRENADELAUNCHERS].push_back(i);
 			}
 			else if (Item[i].rocketlauncher)
 			{
-				if (Item[i].ubCoolness >= minGunCoolness && Item[i].ubCoolness <= maxGunCoolness)
-					itemMap[ROCKETLAUNCHERS].push_back(i);
+				itemMap[ROCKETLAUNCHERS].push_back(i);
 			}
 		}
 	}
@@ -561,7 +561,7 @@ void UpdateTransportGroupInventory()
 											const UINT16 gunId = itemMap[itemType][Random(itemMap[itemType].size())];
 											addItemToInventory(pSoldier, gunId, 1);
 
-											UINT16 ammoId = RandomMagazine(gunId, 0, maxGunCoolness, SOLDIER_CLASS_ELITE);
+											UINT16 ammoId = RandomMagazine(gunId, 0, 100, SOLDIER_CLASS_ELITE);
 											if (ammoId == 0) continue; // no ammo matches, skip
 
 											BOOLEAN convertedToBox = FALSE;
