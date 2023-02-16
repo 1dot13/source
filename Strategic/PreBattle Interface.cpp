@@ -438,7 +438,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 		else if ( pBattleGroup && pBattleGroup->usGroupTeam != OUR_TEAM && NumNonPlayerTeamMembersInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY, MILITIA_TEAM ) > 0 )
 		{
-			SetEnemyEncounterCode( ENEMY_ENCOUNTER_CODE );
+			SetEnemyEncounterCode( pBattleGroup->usGroupTeam == ENEMY_TEAM && pBattleGroup->pEnemyGroup->ubIntention == TRANSPORT ? TRANSPORT_INTERCEPT_CODE : ENEMY_ENCOUNTER_CODE );
 		}
 		else if( GetEnemyEncounterCode() == ENTERING_ENEMY_SECTOR_CODE ||
 			GetEnemyEncounterCode() == ENEMY_ENCOUNTER_CODE ||
@@ -452,7 +452,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			GetEnemyEncounterCode() == CONCEALINSERTION_CODE ||
 			GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
 			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
-			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == TRANSPORT_INTERCEPT_CODE )
 		{
 			//use same code
 			SetExplicitEnemyEncounterCode( GetEnemyEncounterCode() );
@@ -679,8 +680,24 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				{
 					SetEnemyEncounterCode( ENEMY_ENCOUNTER_CODE );
 
+					GROUP* pGroup = gpGroupList;
+					BOOLEAN encounteredTransportGroup = FALSE;
+					while (pGroup)
+					{
+						if (pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention == TRANSPORT && pGroup->ubSectorX == gpBattleGroup->ubSectorX && pGroup->ubSectorY == gpBattleGroup->ubSectorY && pGroup->ubSectorZ == gpBattleGroup->ubSectorZ)
+						{
+							encounteredTransportGroup = TRUE;
+							break;
+						}
+
+						pGroup = pGroup->next;
+					}
+					if (encounteredTransportGroup)
+					{
+						SetEnemyEncounterCode( TRANSPORT_INTERCEPT_CODE );
+					}
 					// Flugente: no ambushes on an airdrop
-					if ( !fAirDrop )
+					else if ( !fAirDrop )
 					{
 						//Don't consider ambushes until the player has reached 25% (normal) progress
 						if( gfHighPotentialForAmbush )
@@ -798,7 +815,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 		else
 		{ //Are enemies invading a town, or just encountered the player.
-			if( GetTownIdForSector( gubPBSectorX, gubPBSectorY ) )
+			if (pBattleGroup && pBattleGroup->usGroupTeam == ENEMY_TEAM && pBattleGroup->pEnemyGroup->ubIntention == TRANSPORT)
+				SetEnemyEncounterCode( TRANSPORT_INTERCEPT_CODE );
+			else if( GetTownIdForSector( gubPBSectorX, gubPBSectorY ) )
 				SetEnemyEncounterCode( ENEMY_INVASION_CODE );
 			//SAM sites not in towns will also be considered to be important
 			else if( pSector->uiFlags & SF_SAM_SITE )
@@ -866,7 +885,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	HideButton( giMapContractButton );
 
-	if( GetEnemyEncounterCode() == ENEMY_ENCOUNTER_CODE )
+	if( GetEnemyEncounterCode() == ENEMY_ENCOUNTER_CODE || GetEnemyEncounterCode() == TRANSPORT_INTERCEPT_CODE )
 	{ //we know how many enemies are here, so until we leave the sector, we will continue to display the value.
 		//the flag will get cleared when time advances after the fEnemyInSector flag is clear.
 
@@ -955,6 +974,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{
 			case CREATURE_ATTACK_CODE:
 			case ENEMY_ENCOUNTER_CODE:
+			case TRANSPORT_INTERCEPT_CODE:
 			case ENEMY_INVASION_CODE:
 			case ENEMY_INVASION_AIRDROP_CODE:
 			case BLOODCAT_ATTACK_CODE:
@@ -1213,6 +1233,7 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 			swprintf( str, gpStrategicString[ STR_PB_ENEMYINVASION_HEADER ] );
 			break;
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			swprintf( str, gpStrategicString[ STR_PB_ENEMYENCOUNTER_HEADER ] );
 			break;
 		case ENEMY_AMBUSH_CODE:
@@ -2520,6 +2541,9 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				break;
 			case CONCEALINSERTION_CODE:
 				break;
+			case TRANSPORT_INTERCEPT_CODE:
+				AddHistoryToPlayersLog( HISTORY_INTERCEPTED_TRANSPORT_GROUP, 0, GetWorldTotalMin(), sSectorX, sSectorY );
+				break;
 		}
 
 		// Flugente: campaign stats
@@ -2534,6 +2558,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_LOSTTOWNSECTOR, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_ENCOUNTER_CODE:
+			case TRANSPORT_INTERCEPT_CODE:
 				AddHistoryToPlayersLog( HISTORY_LOSTBATTLE, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_AMBUSH_CODE:
@@ -2567,6 +2592,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 			gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACK_ENEMY;
 			break;
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 		case ENTERING_ENEMY_SECTOR_CODE:
 		case CREATURE_ATTACK_CODE:
 		case ENTERING_BLOODCAT_LAIR_CODE:
