@@ -6060,5 +6060,5 @@ BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId )
 			}
 		}
 	}
-
 	return FALSE;
+}
