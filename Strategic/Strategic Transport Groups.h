@@ -15,4 +15,6 @@ void UpdateTransportGroupInventory();
 void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount);
 void ClearTransportGroupMap();
 
+void NotifyTransportGroupDefeated();
+
 #endif

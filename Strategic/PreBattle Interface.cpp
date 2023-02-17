@@ -47,6 +47,7 @@
 	#include "CampaignStats.h"				// added by Flugente
 	#include "militiasquads.h"				// added by Flugente
 	#include "SkillCheck.h"					// added by Flugente
+	#include "Strategic Transport Groups.h"
 
 #ifdef JA2UB
 #include "ub_config.h"
@@ -2543,6 +2544,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				break;
 			case TRANSPORT_INTERCEPT_CODE:
 				AddHistoryToPlayersLog( HISTORY_INTERCEPTED_TRANSPORT_GROUP, 0, GetWorldTotalMin(), sSectorX, sSectorY );
+				NotifyTransportGroupDefeated();
 				break;
 		}
 

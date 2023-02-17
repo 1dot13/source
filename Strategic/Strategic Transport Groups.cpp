@@ -109,6 +109,7 @@ BOOLEAN DeployTransportGroup()
 	// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
 	// limitations: max number of transport groups at any given time
 	// track recent transport group interceptions
+	const INT8 recentLossCount = GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size();
 	// varying transport group quality/compositions
 	// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
 	// rftr todo: replace this with townid
@@ -719,5 +720,15 @@ void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
 void ClearTransportGroupMap()
 {
 	transportGroupIdToSoldierMap.clear();
+}
+
+void NotifyTransportGroupDefeated()
+{
+	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
+		return;
+
+	const UINT32 hoursToRememberDefeat = 24 * 7; // 7 days
+
+	AddStrategicEvent(EVENT_TRANSPORT_GROUP_DEFEATED, GetWorldTotalMin() + 60 * hoursToRememberDefeat, 0);
 }
 
