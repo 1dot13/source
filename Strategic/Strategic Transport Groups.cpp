@@ -125,7 +125,6 @@ BOOLEAN DeployTransportGroup()
 
 	//pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
 	pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, 10, 5, 1, 0, 0, 1 );
-	pGroup->pEnemyGroup->ubReadiness = HighestPlayerProgressPercentage();
 
 	//Madd: unlimited reinforcements?
 	if ( !gfUnlimitedTroops )
@@ -517,8 +516,6 @@ void UpdateTransportGroupInventory()
 				}
 				pGroup = pGroup->next;
 			}
-
-			const UINT8 groupReadiness = pGroup->pEnemyGroup->ubReadiness;
 
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
