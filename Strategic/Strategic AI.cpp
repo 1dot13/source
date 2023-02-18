@@ -6531,9 +6531,17 @@ INT16 FindGarrisonIndexForGroupIDPending( UINT8 ubGroupID )
 
 void TransferGroupToPool( GROUP **pGroup )
 {
-	//Madd: unlimited reinforcements?
-	if ( !gfUnlimitedTroops )
-		giReinforcementPool += (*pGroup)->ubGroupSize;
+	if ((*pGroup)->usGroupTeam == ENEMY_TEAM)
+	{
+		//Madd: unlimited reinforcements?
+		if ( !gfUnlimitedTroops )
+			giReinforcementPool += (*pGroup)->ubGroupSize;
+
+		AddStrategicAIResources(ASD_ROBOT, (*pGroup)->pEnemyGroup->ubNumRobots);
+		AddStrategicAIResources(ASD_JEEP, (*pGroup)->pEnemyGroup->ubNumJeeps);
+		AddStrategicAIResources(ASD_TANK, (*pGroup)->pEnemyGroup->ubNumTanks);
+	}
+
 
 	RemovePGroup( *pGroup );
 	*pGroup = NULL;
