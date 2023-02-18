@@ -66,20 +66,24 @@ BOOLEAN DeployTransportGroup()
 	if (giReinforcementPool <= 0)
 		return FALSE;
 
+	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
+
 	// is there a mine here?
-	// rftr todo: valid destination towns depend on difficulty
 	std::vector<INT16> mineSectorIds;
 	for (INT8 i = 0; i < NUM_TOWNS; ++i)
 	{
 		// skip towns that have no loyalty
 		if (!gfTownUsesLoyalty[i]) continue;
-		// filter by TOWN ownership
-		if (IsTownUnderCompleteControlByEnemy(i) == FALSE) continue;
+
+		// filter by TOWN ownership - expert/insane only
+		if ((difficulty == DIF_LEVEL_HARD || difficulty == DIF_LEVEL_INSANE) && IsTownUnderCompleteControlByEnemy(i) == FALSE) continue;
+
 		// skip towns with a shut down mine
 		const INT8 mineIndex = GetMineIndexForTown(i);
 		if (mineIndex == -1) continue;
 		if (IsMineShutDown(mineIndex) == TRUE) continue;
-		// filter by MINE ownership
+
+		// filter by MINE ownership - for novice/experienced, as hard/insane would have ignored this town above
 		const INT16 mineSector = GetMineSectorForTown(i);
 		if (StrategicMap[mineSector].fEnemyControlled == FALSE) continue;
 
@@ -87,8 +91,8 @@ BOOLEAN DeployTransportGroup()
 	}
 	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
 
-	// rftr todo: special case when only one town left?
-	if (mineSectorIds.size() < 1) return FALSE;
+	// no valid destinations
+	if (mineSectorIds.size() == 0) return FALSE;
 
 	INT8 transportGroupCount = 0;
 	GROUP* pGroup = gpGroupList;
@@ -103,33 +107,79 @@ BOOLEAN DeployTransportGroup()
 	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
 
 	// if there are too many active transport groups, don't deploy any more
-	// rftr todo: based on difficulty?
-	if (transportGroupCount >= gGameExternalOptions.iMaxSimultaneousTransportGroups) return FALSE;
-	
+	// maximum number of active groups is the number of valid destinations at queen decision time
+	if (transportGroupCount >= min(gGameExternalOptions.iMaxSimultaneousTransportGroups, mineSectorIds.size())) return FALSE;
+
 	// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
 	// limitations: max number of transport groups at any given time
 	// track recent transport group interceptions
 	const INT8 recentLossCount = GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size();
-	// varying transport group quality/compositions
+
 	// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
-	// rftr todo: replace this with townid
-	// rftr todo: only pick towns that 1) have mines, and 2) are uncontested
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 	const SECTORINFO* pSector = &SectorInfo[ ubSectorID ];
 
 	// rftr: adjust group size and composition based on recent interceptions, game progress, etc
-	const INT32 ubNumSoldiers = 17;
+	UINT8 admins, troops, elites, robots, jeeps, tanks;
+	admins = troops = elites = robots = jeeps = tanks = 0;
 
-	//InitializeGroup(GROUP_TYPE_TRANSPORT, ubNumSoldiers, grouptroops[0], groupelites[0], grouprobots[0], groupjeeps[0], grouptanks[0], Random(10) < difficultyMod);
-	//totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0] + grouptanks[0] + groupjeeps[0];
+	// special case for only one valid destination - expert/insane only
+	if ((difficulty == DIF_LEVEL_HARD || difficulty == DIF_LEVEL_INSANE) && mineSectorIds.size() == 1)
+	{
+		admins = 1;
+		elites = difficulty == DIF_LEVEL_INSANE ? 19 : 14;
 
-	//pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
-	pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, 10, 5, 1, 0, 0, 1 );
+		if (gGameExternalOptions.fASDActive)
+		{
+			if (gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep())
+			{
+				jeeps++;
+				elites--;
+			}
+
+			if (gGameExternalOptions.fASDAssignsTanks)
+			{
+				const int numTanks = difficulty == DIF_LEVEL_INSANE ? 2 : 1;
+				for (int i = 0; i < numTanks; ++i)
+				{
+					if (ASDSoldierUpgradeToTank())
+					{
+						tanks++;
+						elites--;
+					}
+				}
+			}
+
+			if (gGameExternalOptions.fASDAssignsRobots)
+			{
+				const int numRobots = Random(5);
+				for (int i = 0; i < numRobots; ++i)
+				{
+					if (ASDSoldierUpgradeToRobot())
+					{
+						robots++;
+						elites--;
+					}
+				}
+			}
+		}
+	}
+	else // normal case
+	{
+		// rftr todo
+		admins = 10;
+		troops = 5;
+		elites = 1;
+		jeeps = 1;
+	}
+
+	// varying transport group quality/compositions
+	pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_D5, admins, troops, elites, robots, tanks, jeeps );
 
 	//Madd: unlimited reinforcements?
 	if ( !gfUnlimitedTroops )
 	{
-		giReinforcementPool -= ubNumSoldiers;
+		giReinforcementPool -= (admins + troops + elites + robots + jeeps + tanks);
 
 		giReinforcementPool = max( giReinforcementPool, 0 );
 	}
