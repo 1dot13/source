@@ -333,6 +333,7 @@ BOOLEAN LoadGameSettings()
 			gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]			= FALSE;
 
 		gGameSettings.fOptions[TOPTION_ALT_START_AIM]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_START_AIM"				   , FALSE); // Start at max aiming level instead of default no aiming
+		gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_PATHFINDING"				   , FALSE); // A* pathfinding
 		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  TRUE ); // Flugente: mercenary formations
 		gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ENEMY_LOCATION"			   ,  FALSE); // sevenfm: show locations of known enemies
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
@@ -614,7 +615,8 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_ENABLE_INVENTORY_POPUPS          = " << (gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS]			?    "TRUE" : "FALSE" ) << endl; // the_bob : enable popups for picking items from sector inv
 		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_ENEMY_LOCATION			  = " << (gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				?	 "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_ALT_START_AIM					  = " << (gGameSettings.fOptions[TOPTION_ALT_START_AIM]						? "TRUE" : "FALSE") << endl;
+		settings << "TOPTION_ALT_START_AIM					  = " << (gGameSettings.fOptions[TOPTION_ALT_START_AIM]						?	 "TRUE" : "FALSE") << endl;
+		settings << "TOPTION_ALT_PATHFINDING				  = " << (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					?	 "TRUE" : "FALSE") << endl;
 
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
@@ -843,6 +845,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercenary formations
 	gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]					= FALSE;	// sevenfm: show locations of known enemies
 	gGameSettings.fOptions[TOPTION_ALT_START_AIM]						= FALSE;
+	gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]						= FALSE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	

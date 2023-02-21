@@ -6571,6 +6571,7 @@ STR16		zOptionsToggleText[] =
 	L"Боевой порядок",						// when multiple mercs are selected, they will try to keep their relative distances
 	L"Показывать расположение",				// show locator on last known enemy location
 	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6691,6 +6692,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если выбрано несколько наёмников,\nони будут пытаться сохранять взаимное расположение\nи дистанцию при движении\n(нажмите |C|t|r|l+|A|l|t+|G для переключения или |S|h|i|f|t + клик для движения).",
 	L"Если включено, показывает известное расположение противника\n(нажмите |S|h|i|f|t, чтобы показать источник шума).",
 	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт,\nчтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

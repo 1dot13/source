@@ -1292,7 +1292,7 @@ void EnableDisableBottomButtonsAndRegions( void )
 		{
 			DisableButton( giMapInvDoneButton );
 		}
-		else
+		else if (!isWidescreenUI())
 		{
 			EnableButton( giMapInvDoneButton );
 		}

@@ -5708,7 +5708,7 @@ UINT32 MapScreenHandle(void)
 		HandleCharBarRender( );
 	}
 
-	if( fShowInventoryFlag || fDisableDueToBattleRoster )
+	if( (fShowInventoryFlag && !isWidescreenUI()) || fDisableDueToBattleRoster )
 	{
 		for( iCounter = 0; iCounter < MAX_SORT_METHODS; iCounter++ )
 		{

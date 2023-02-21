@@ -88,6 +88,11 @@
 #include "Map Screen Interface.h"	// added by Flugente for SquadNames
 #include "Keys.h"	// added by silversurfer for door handling from the side
 
+#include "AIInternals.h"
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
+
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
 //			On the bottom here, there are these functions made
@@ -1365,74 +1370,74 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 			SaveGame(SAVE__END_TURN_NUM, zString ); 
 		}
 
-		// Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
-#ifdef USE_ASTAR_PATHS
 		////ddd enemy turn optimization
-		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT ) )	
+		if (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING])
 		{
-			memset( gubWorldTileInLight, FALSE, sizeof( gubWorldTileInLight ) );
- 			memset( gubIsCorpseThere, FALSE, sizeof( gubIsCorpseThere ) );
- 			memset( gubMerkCanSeeThisTile, FALSE, sizeof( gubMerkCanSeeThisTile ) );
+			if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT ) )	
+			{
+				memset( gubWorldTileInLight, FALSE, sizeof( gubWorldTileInLight ) );
+ 				memset( gubIsCorpseThere, FALSE, sizeof( gubIsCorpseThere ) );
+ 				memset( gubMerkCanSeeThisTile, FALSE, sizeof( gubMerkCanSeeThisTile ) );
 	 	 
-			//sevenfm translated: unwinding of loop. When changing WORLD_MAX to another value will need some cleaning! dangerous code! ;)
+				//sevenfm translated: unwinding of loop. When changing WORLD_MAX to another value will need some cleaning! dangerous code! ;)
 
-			// WANNE: We had a custom user map (Tixa, J9), where the following loop caused an unhandled exception.
-			// The crash occurd at ~index 16000 when calling the method IsCorpseAtGridNo() ...
-			// I don't know what causes it ...
-			// Just try/catch (ugly, but works).	 
-			__try
-			{		 
-				for(UINT32 i=0; i<(UINT32)WORLD_MAX; i+=4) 
-				{			
-					gubWorldTileInLight[i]		= InLightAtNight(i, gpWorldLevelData[ i ].sHeight);
-					gubIsCorpseThere[i]			= IsCorpseAtGridNo( i, gpWorldLevelData[ i ].sHeight );
-					gubWorldTileInLight[i+1]	= InLightAtNight(i+1, gpWorldLevelData[ i+1 ].sHeight);
-					gubIsCorpseThere[i+1]		= IsCorpseAtGridNo( i+1, gpWorldLevelData[ i+1 ].sHeight );
-					gubWorldTileInLight[i+2]	= InLightAtNight(i+2, gpWorldLevelData[ i+2 ].sHeight);
-					gubIsCorpseThere[i+2]		= IsCorpseAtGridNo( i+2, gpWorldLevelData[ i+2 ].sHeight );
-					gubWorldTileInLight[i+3]	= InLightAtNight(i+3, gpWorldLevelData[ i+3 ].sHeight);
-					gubIsCorpseThere[i+3]		= IsCorpseAtGridNo( i+3, gpWorldLevelData[ i+3 ].sHeight );
-				}	
-			}
-			__except( EXCEPTION_EXECUTE_HANDLER  )
-			{
-				// WANNE: Ignore, so the game can continue ...
-			}
-
-			INT32 tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			SOLDIERTYPE *tS;
-
-			INT16	sXOffset, sYOffset;
-			INT32	sGridNo;
-			UINT16	usSightLimit=0;
-
-			for ( tS = MercPtrs[ tcnt ]; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++tcnt, tS++ )
-			{
-				if ( tS->stats.bLife >= OKLIFE && tS->sGridNo != NOWHERE && tS->bInSector )
+				// WANNE: We had a custom user map (Tixa, J9), where the following loop caused an unhandled exception.
+				// The crash occurd at ~index 16000 when calling the method IsCorpseAtGridNo() ...
+				// I don't know what causes it ...
+				// Just try/catch (ugly, but works).	 
+				__try
+				{		 
+					for(UINT32 i=0; i<(UINT32)WORLD_MAX; i+=4) 
+					{			
+						gubWorldTileInLight[i]		= InLightAtNight(i, gpWorldLevelData[ i ].sHeight);
+						gubIsCorpseThere[i]			= IsCorpseAtGridNo( i, gpWorldLevelData[ i ].sHeight );
+						gubWorldTileInLight[i+1]	= InLightAtNight(i+1, gpWorldLevelData[ i+1 ].sHeight);
+						gubIsCorpseThere[i+1]		= IsCorpseAtGridNo( i+1, gpWorldLevelData[ i+1 ].sHeight );
+						gubWorldTileInLight[i+2]	= InLightAtNight(i+2, gpWorldLevelData[ i+2 ].sHeight);
+						gubIsCorpseThere[i+2]		= IsCorpseAtGridNo( i+2, gpWorldLevelData[ i+2 ].sHeight );
+						gubWorldTileInLight[i+3]	= InLightAtNight(i+3, gpWorldLevelData[ i+3 ].sHeight);
+						gubIsCorpseThere[i+3]		= IsCorpseAtGridNo( i+3, gpWorldLevelData[ i+3 ].sHeight );
+					}	
+				}
+				__except( EXCEPTION_EXECUTE_HANDLER  )
 				{
-					//loop through all the gridnos that we are interested in
-					for (sYOffset = -30; sYOffset <= 30; ++sYOffset)
+					// WANNE: Ignore, so the game can continue ...
+				}
+
+				INT32 tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+				SOLDIERTYPE *tS;
+
+				INT16	sXOffset, sYOffset;
+				INT32	sGridNo;
+				UINT16	usSightLimit=0;
+
+				for ( tS = MercPtrs[ tcnt ]; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++tcnt, tS++ )
+				{
+					if ( tS->stats.bLife >= OKLIFE && tS->sGridNo != NOWHERE && tS->bInSector )
 					{
-						for (sXOffset = -30; sXOffset <= 30; ++sXOffset)
+						//loop through all the gridnos that we are interested in
+						for (sYOffset = -30; sYOffset <= 30; ++sYOffset)
 						{
-							sGridNo = tS->sGridNo + sXOffset + (MAXCOL * sYOffset);
-
-							if ( sGridNo <= 0 || sGridNo >= WORLD_MAX ) 
-								continue;
-
-							//usSightLimit = tS->GetMaxDistanceVisible(sGridNo, FALSE, CALC_FROM_WANTED_DIR);
-							if(gubMerkCanSeeThisTile[sGridNo]==0)
+							for (sXOffset = -30; sXOffset <= 30; ++sXOffset)
 							{
-								gubMerkCanSeeThisTile[sGridNo]=//SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, FALSE, ANIM_STAND, TRUE, usSightLimit );
-										SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, tS->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_WANTED_DIR);
-							}
-						}//fo
-					}
-				}//if
+								sGridNo = tS->sGridNo + sXOffset + (MAXCOL * sYOffset);
+
+								if ( sGridNo <= 0 || sGridNo >= WORLD_MAX ) 
+									continue;
+
+								//usSightLimit = tS->GetMaxDistanceVisible(sGridNo, FALSE, CALC_FROM_WANTED_DIR);
+								if(gubMerkCanSeeThisTile[sGridNo]==0)
+								{
+									gubMerkCanSeeThisTile[sGridNo]=//SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, FALSE, ANIM_STAND, TRUE, usSightLimit );
+											SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, tS->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_WANTED_DIR);
+								}
+							}//fo
+						}
+					}//if
+				}
 			}
 		}
 		//ddd enemy turn optimization**
-#endif
 
 		// End our turn!
 		if (is_server || !is_client)
