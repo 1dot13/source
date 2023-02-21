@@ -110,16 +110,13 @@ BOOLEAN DeployTransportGroup()
 	// maximum number of active groups is the number of valid destinations at queen decision time
 	if (transportGroupCount >= min(gGameExternalOptions.iMaxSimultaneousTransportGroups, mineSectorIds.size())) return FALSE;
 
-	// rftr todo: create a new group in the capital (same as attack/patrol groups) and send it to a friendly town with a mine!
-	// limitations: max number of transport groups at any given time
 	// track recent transport group interceptions
-	const INT8 recentLossCount = GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size();
+	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 
 	// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 	const SECTORINFO* pSector = &SectorInfo[ ubSectorID ];
 
-	// rftr: adjust group size and composition based on recent interceptions, game progress, etc
 	UINT8 admins, troops, elites, robots, jeeps, tanks;
 	admins = troops = elites = robots = jeeps = tanks = 0;
 
@@ -127,50 +124,116 @@ BOOLEAN DeployTransportGroup()
 	if ((difficulty == DIF_LEVEL_HARD || difficulty == DIF_LEVEL_INSANE) && mineSectorIds.size() == 1)
 	{
 		admins = 1;
-		elites = zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize + 8;
+		elites = difficulty == DIF_LEVEL_HARD ? 14 : 19;
 
-		if (gGameExternalOptions.fASDActive)
+		if (elites > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep())
 		{
-			if (gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep())
-			{
-				jeeps++;
-				elites--;
-			}
+			jeeps++;
+			elites--;
+		}
 
-			if (gGameExternalOptions.fASDAssignsTanks)
+		if (gGameExternalOptions.fASDAssignsTanks)
+		{
+			const int numTanks = difficulty == DIF_LEVEL_INSANE ? 2 : 1;
+			for (int i = 0; i < numTanks; ++i)
 			{
-				const int numTanks = difficulty == DIF_LEVEL_INSANE ? 2 : 1;
-				for (int i = 0; i < numTanks; ++i)
+				if (elites > 0 && ASDSoldierUpgradeToTank())
 				{
-					if (ASDSoldierUpgradeToTank())
-					{
-						tanks++;
-						elites--;
-					}
+					tanks++;
+					elites--;
 				}
 			}
+		}
 
-			if (gGameExternalOptions.fASDAssignsRobots)
+		if (gGameExternalOptions.fASDAssignsRobots)
+		{
+			const int numRobots = Random(5);
+			for (int i = 0; i < numRobots; ++i)
 			{
-				const int numRobots = Random(5);
-				for (int i = 0; i < numRobots; ++i)
+				if (elites > 0 && ASDSoldierUpgradeToRobot())
 				{
-					if (ASDSoldierUpgradeToRobot())
-					{
-						robots++;
-						elites--;
-					}
+					robots++;
+					elites--;
 				}
 			}
 		}
 	}
 	else // normal case
 	{
-		// rftr todo
-		admins = 10;
-		troops = 5;
-		elites = 1;
-		jeeps = 1;
+		const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
+
+		UINT8 difficultyMod = 1;
+		switch (difficulty)
+		{
+		case DIF_LEVEL_EASY:	difficultyMod = 1; break;
+		case DIF_LEVEL_MEDIUM:	difficultyMod = 2; break;
+		case DIF_LEVEL_HARD:	difficultyMod = 3; break;
+		case DIF_LEVEL_INSANE:	difficultyMod = 4; break;
+		default: break;
+		}
+
+		// default composition
+		if (progress < 25)
+		{
+			admins = 8 - difficultyMod;
+			troops = difficultyMod;
+		}
+		else if (progress < 50)
+		{
+			admins = 10 - difficultyMod * 2;
+			troops = difficultyMod;
+			elites = difficultyMod;
+		}
+		else if (progress < 75)
+		{
+			admins = 2;
+			troops = 10 - difficultyMod * 2;
+			elites = difficultyMod * 2;
+		}
+		else if (progress <= 100) // intentional equality
+		{
+			admins = 2;
+			troops = 13 - difficultyMod * 3;
+			elites = difficultyMod * 3;
+		}
+		else // at least one recent interception at max progress
+		{
+			admins = 2;
+			troops = 18 - difficultyMod * 4;
+			elites = difficultyMod * 4;
+		}
+
+		// add some vehicles, if possible
+		if (progress >= gGameExternalOptions.usJeepMinimumProgress)
+		{
+			if (elites > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep())
+			{
+				jeeps++;
+				elites--;
+			}
+		}
+
+		if (progress >= gGameExternalOptions.usTankMinimumProgress && Random(100) < (20 + difficultyMod * 10))
+		{
+			if (elites > 0 && gGameExternalOptions.fASDAssignsTanks && ASDSoldierUpgradeToTank())
+			{
+				tanks++;
+				elites--;
+			}
+		}
+
+		if (progress >= gGameExternalOptions.usRobotMinimumProgress && Random(100) < (20 + difficultyMod * 10))
+		{
+			const int numRobots = Random(difficultyMod + 1);
+			for (int i = 0; i < numRobots; ++i)
+			{
+				if (elites > 0 && gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot())
+				{
+					robots++;
+					elites--;
+				}
+			}
+		}
 	}
 
 	// varying transport group quality/compositions
