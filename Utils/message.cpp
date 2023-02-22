@@ -10,6 +10,7 @@
 	#include "renderworld.h"
 	#include "local.h"
 	#include "interface.h"
+	#include "mapscreen.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "WordWrap.h"
 	#include "Sound Control.h"
@@ -1036,7 +1037,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	// HEADROCK HAM 3.6: Allow for longer lines.
 	// Lejardo ARSProject
 	MAP_LINE_WIDTH = (INTERFACE_WIDTH - 330);
-	if (isWidescreenUI)
+	if (isWidescreenUI())
 	{
 		MAP_LINE_WIDTH = 685;
 	}
@@ -1129,7 +1130,7 @@ void DisplayStringsInMapScreenMessageList( void )
 	UINT16 usSpacing;
 	UINT16 MessageStartX = (SCREEN_WIDTH - INTERFACE_WIDTH) / 2;
 	UINT16 MessageEndX = MessageStartX + (INTERFACE_WIDTH - 330);
-	if (isWidescreenUI)
+	if (isWidescreenUI())
 	{
 		MessageStartX = 0;
 		MessageEndX = 705;
