@@ -15668,6 +15668,7 @@ void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList )
 		}
 
 		fCharacterInfoPanelDirty = TRUE;
+		fResetMapCoords = TRUE;
 
 		// if showing sector inventory
 		if ( fShowMapInventoryPool )
