@@ -124,7 +124,7 @@ BOOLEAN LoadMapBorderGraphics( void )
 	{
 		FilenameForBPP( "INTERFACE\\MBS.sti", VObjectDesc.ImageFile );
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		FilenameForBPP("INTERFACE\\MBS_1280x720.sti", VObjectDesc.ImageFile);
 	}
