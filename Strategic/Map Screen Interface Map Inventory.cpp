@@ -448,7 +448,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	{
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		sprintf(VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_1280x720.sti");
 	}

@@ -266,7 +266,7 @@ void HandleLoadOfMapBottomGraphics( void )
 	{
 		FilenameForBPP( "INTERFACE\\map_screen_bottom.sti", VObjectDesc.ImageFile );
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		FilenameForBPP("INTERFACE\\map_screen_bottom_1280x720.sti", VObjectDesc.ImageFile);
 	}

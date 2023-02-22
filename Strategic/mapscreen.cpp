@@ -4952,7 +4952,7 @@ UINT32 MapScreenHandle(void)
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 			if (!is_networked)
 			{
-				if (iResolution == _1280x720)
+				if (isWidescreenUI())
 				{
 					FilenameForBPP("INTERFACE\\newgoldpiece3_1280x720.sti", VObjectDesc.ImageFile);
 				}
@@ -4972,7 +4972,7 @@ UINT32 MapScreenHandle(void)
 			else
 			{
 				// OJW - 20081204 - change mapscreen interface for MP games
-				if (iResolution == _1280x720)
+				if (isWidescreenUI())
 				{
 					FilenameForBPP("INTERFACE\\mpgoldpiece3_1280x720.sti", VObjectDesc.ImageFile);
 				}
