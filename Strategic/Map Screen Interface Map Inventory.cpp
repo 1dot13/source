@@ -40,6 +40,7 @@
 #include "Interface Items.h"
 #include "Food.h"	// added by Flugente
 #include "Campaign Types.h"	// added by Flugente
+#include "mapscreen.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -448,7 +449,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	{
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		sprintf(VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_1280x720.sti");
 	}
