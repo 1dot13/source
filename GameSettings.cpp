@@ -4190,6 +4190,8 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
 
+	gRebelCommandSettings.iForgeTransportOrdersSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "FORGE_TRANSPORT_ORDERS_SUCCESS_CHANCE", 50, 0, 100);
+
 	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_COVERT", 48, 0, 255);

@@ -78,6 +78,7 @@ enum RebelCommandAgentMissions
 	RCAM_NONE = -1,
 	RCAM_DEEP_DEPLOYMENT = 0,
 	RCAM_DISRUPT_ASD, // only available if ASD enabled
+	RCAM_FORGE_TRANSPORT_ORDERS,
 	RCAM_GET_ENEMY_MOVEMENT_TARGETS, // aka Strategic Intel
 	RCAM_IMPROVE_LOCAL_SHOPS,
 	RCAM_REDUCE_STRATEGIC_DECISION_SPEED, // aka Slower Strategic Decisions

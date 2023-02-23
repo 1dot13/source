@@ -12095,6 +12095,8 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"协同行动，悄悄地抵进敌军，但是要小心：这可能会让你部署在劣势区域。当进攻敌军部队时，部署区会更大。",   //L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.", 
 	L"扰乱ASD",   //L"Disrupt ASD", 
 	L"破坏Arulco特种部门(ASD)的日常行动。临时阻止ASD部署更多的机械化单位，并且大幅度降低他们的每日收入。",   //L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
+	L"Forge Transport Orders",
+	L"Create a bogus supply request. An enemy transport group will be ordered to rendezvous at this agent's location.",
 	L"战略情报",   //L"Strategic Intel",
 	L"侦听敌人，发现敌军的攻击目标。当在战略地图上观察队伍时，敌军优先进攻的目标区域会被标红。",   //L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
 	L"强化本地商店",   //L"Improve Local Shops", 

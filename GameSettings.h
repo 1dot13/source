@@ -1881,6 +1881,8 @@ typedef struct
 	UINT8 iDisruptAsdDuration_Bonus_Nightops;
 	UINT8 iDisruptAsdDuration_Bonus_Technician;
 
+	INT8 iForgeTransportOrdersSuccessChance;
+
 	INT8 iGetEnemyMovementTargetsSuccessChance;
 	UINT8 iGetEnemyMovementTargetsDuration;
 	UINT8 iGetEnemyMovementTargetsDuration_Bonus_Covert;

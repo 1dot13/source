@@ -41,8 +41,10 @@ How to add a new admin action:
 - if effect applies outside of towns, add help text range band as appropriate to SetupAdminActionBox
 
 How to add a new mission:
-- add to the RebelCommandAgentMissions enum in the header
-- add strings to text files (szRebelCommandAgentMissionsText)
+- add strings to text files (szRebelCommandText (trait bonuses), szRebelCommandAgentMissionsText (title/description))
+- add to the RebelCommandText and RebelCommandAgentMissions enums in the header
+- add to the RebelCommandAgentMissionsText enums in the cpp
+- add mission variables to GameSettings
 - add values to MissionHelpers::missionInfo table in SetupInfo()
 - add to valid check in HandleStrategicEvent() (allows advance from first event/prepare to second event/active effect)
 - add to SetupMissionAgentBox() (mission description and merc bonus text)
@@ -405,6 +407,7 @@ enum RebelCommandAgentMissionsText // keep this synced with szRebelCommandAgentM
 {
 	MISSION_TEXT(DEEP_DEPLOYMENT)
 	MISSION_TEXT(DISRUPT_ASD)
+	MISSION_TEXT(FORGE_TRANSPORT_ORDERS)
 	MISSION_TEXT(GET_ENEMY_MOVEMENT_TARGETS)
 	MISSION_TEXT(IMPROVE_LOCAL_SHOPS)
 	MISSION_TEXT(REDUCE_STRATEGIC_DECISION_SPEED)
@@ -2454,6 +2457,12 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			}
 		}
 
+		case RCAM_FORGE_TRANSPORT_ORDERS:
+		{
+			// no special modifiers. included for completeness.
+		}
+		break;
+
 		case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
 		{
 			// no special modifiers. included for completeness.
@@ -2844,6 +2853,14 @@ void PrepareMission(INT8 index)
 		missionTitle = RCAMT_DISRUPT_ASD_TITLE;
 		missionSuccessChance = gRebelCommandSettings.iDisruptAsdSuccessChance;
 		missionDuration = gRebelCommandSettings.iDisruptAsdDuration;
+	}
+	break;
+
+	case RCAM_FORGE_TRANSPORT_ORDERS:
+	{
+		missionTitle = RCAMT_FORGE_TRANSPORT_ORDERS_TITLE;
+		missionSuccessChance = gRebelCommandSettings.iForgeTransportOrdersSuccessChance;
+		missionDuration = 12;
 	}
 	break;
 
@@ -4299,6 +4316,16 @@ void SetupInfo()
 		{0, 0, 0, 0},
 		{0,																	MissionHelpers::DISRUPT_ASD_STEAL_FUEL,									MissionHelpers::DISRUPT_ASD_DESTROY_RESERVES,							0}
 	});
+	//RCAM_FORGE_TRANSPORT_ORDERS
+	MissionHelpers::missionInfo.push_back(
+	{
+		{COVERT_NT },
+		{-1},
+		{0},
+		{0.f},
+		{0},
+		{0}
+	});
 	//RCAM_GET_ENEMY_MOVEMENT_TARGETS
 	MissionHelpers::missionInfo.push_back(
 	{
@@ -4902,6 +4929,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			{
 			case RCAM_DEEP_DEPLOYMENT:
 			case RCAM_DISRUPT_ASD:
+			case RCAM_FORGE_TRANSPORT_ORDERS:
 			case RCAM_GET_ENEMY_MOVEMENT_TARGETS:
 			case RCAM_IMPROVE_LOCAL_SHOPS:
 			case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:
