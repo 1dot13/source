@@ -93,6 +93,7 @@ Points of interest:
 #include "Strategic Mines.h"
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
+#include "Strategic Transport Groups.h"
 #include "Structure Wrap.h"
 #include "Tactical Save.h"
 #include "Text.h"
@@ -2224,6 +2225,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	{
 	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_TITLE]); break;
 	case RCAM_DISRUPT_ASD:						swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DISRUPT_ASD_TITLE]); break;
+	case RCAM_FORGE_TRANSPORT_ORDERS:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_FORGE_TRANSPORT_ORDERS_TITLE]); break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_TITLE]); break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_TITLE]); break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_TITLE]); break;
@@ -2244,6 +2246,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	{
 	case RCAM_DEEP_DEPLOYMENT:					missionDurationBase = gRebelCommandSettings.iDeepDeploymentDuration; break;
 	case RCAM_DISRUPT_ASD:						missionDurationBase = gRebelCommandSettings.iDisruptAsdDuration; break;
+	case RCAM_FORGE_TRANSPORT_ORDERS:			missionDurationBase = 1; break; // instant effect
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionDurationBase = gRebelCommandSettings.iGetEnemyMovementTargetsDuration; break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				missionDurationBase = gRebelCommandSettings.iImproveLocalShopsDuration; break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionDurationBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration; break;
@@ -2267,6 +2270,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	{
 	case RCAM_DEEP_DEPLOYMENT:					missionSuccessChanceBase = gRebelCommandSettings.iDeepDeploymentSuccessChance; break;
 	case RCAM_DISRUPT_ASD:						missionSuccessChanceBase = gRebelCommandSettings.iDisruptAsdSuccessChance; break;
+	case RCAM_FORGE_TRANSPORT_ORDERS:			missionSuccessChanceBase = gRebelCommandSettings.iForgeTransportOrdersSuccessChance; break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		missionSuccessChanceBase = gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance; break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				missionSuccessChanceBase = gRebelCommandSettings.iImproveLocalShopsSuccessChance; break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	missionSuccessChanceBase = gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance; break;
@@ -2287,6 +2291,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 	{
 	case RCAM_DEEP_DEPLOYMENT:					swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DEEP_DEPLOYMENT_DESC]); break;
 	case RCAM_DISRUPT_ASD:						swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_DISRUPT_ASD_DESC]); break;
+	case RCAM_FORGE_TRANSPORT_ORDERS:			swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_FORGE_TRANSPORT_ORDERS_DESC]); break;
 	case RCAM_GET_ENEMY_MOVEMENT_TARGETS:		swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_GET_ENEMY_MOVEMENT_TARGETS_DESC]); break;
 	case RCAM_IMPROVE_LOCAL_SHOPS:				swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_IMPROVE_LOCAL_SHOPS_DESC]); break;
 	case RCAM_REDUCE_STRATEGIC_DECISION_SPEED:	swprintf(sText, szRebelCommandAgentMissionsText[RCAMT_REDUCE_STRATEGIC_DECISION_SPEED_DESC]); break;
@@ -2619,7 +2624,13 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 			swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_START_CONTRACT_EXPIRING]);
 		}
 	}
-	else if (agentIndex[index] == mercs.size() && rebelCommandSaveInfo.availableMissions[index] == RCAM_SEND_SUPPLIES_TO_TOWN)
+	else if (agentIndex[index] == mercs.size() &&
+			(
+			rebelCommandSaveInfo.availableMissions[index] == RCAM_SEND_SUPPLIES_TO_TOWN ||
+			rebelCommandSaveInfo.availableMissions[index] == RCAM_FORGE_TRANSPORT_ORDERS
+			)
+
+		)
 	{
 		canStartMission = FALSE;
 		swprintf(sText, szRebelCommandText[RCT_MISSION_CANT_USE_REBEL_AGENT]);
@@ -3914,6 +3925,7 @@ void DailyUpdate()
 		{
 			if (i == RCAM_SOLDIER_BOUNTIES_KINGPIN && !(CheckFact(FACT_KINGPIN_INTRODUCED_SELF, 0) == TRUE && CheckFact(FACT_KINGPIN_DEAD, 0) == FALSE && CheckFact(FACT_KINGPIN_IS_ENEMY, 0) == FALSE && CurrentPlayerProgressPercentage() >= 30)) continue;
 			else if (i == RCAM_DISRUPT_ASD && gGameExternalOptions.fASDActive == FALSE) continue;
+			else if (i == RCAM_FORGE_TRANSPORT_ORDERS && gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE) continue;
 
 			validMissions.insert(static_cast<RebelCommandAgentMissions>(i));
 		}
@@ -4954,7 +4966,15 @@ void HandleStrategicEvent(const UINT32 eventParam)
 			if (validMission)
 			{
 				const UINT32 activatedMissionParam = SerialiseMissionSecondEvent(evt1.sentGenericRebelAgent, evt1.mercProfileId, mission, extraBits);
-				AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours, activatedMissionParam);
+				if (mission == RCAM_FORGE_TRANSPORT_ORDERS)
+				{
+					// don't send a follow-up event for instant-result missions
+				}
+				else
+				{
+					AddStrategicEvent(EVENT_REBELCOMMAND, GetWorldTotalMin() + 60 * evt1.missionDurationInHours, activatedMissionParam);
+					missionMap.insert(std::make_pair(mission, activatedMissionParam));
+				}
 
 				if (!evt1.sentGenericRebelAgent)
 				{
@@ -4963,6 +4983,11 @@ void HandleStrategicEvent(const UINT32 eventParam)
 						SOLDIERTYPE* pSoldier = MercPtrs[i];
 						if (pSoldier->ubProfile == evt1.mercProfileId)
 						{
+							if (mission == RCAM_FORGE_TRANSPORT_ORDERS)
+							{
+								ForceDeployTransportGroup(SECTOR(pSoldier->sSectorX, pSoldier->sSectorY));
+							}
+
 							// mission successful! give some experience pts
 							StatChange(pSoldier, LDRAMT, 20, FROM_SUCCESS);
 							StatChange(pSoldier, WISDOMAMT, 15, FROM_SUCCESS);
@@ -4971,7 +4996,6 @@ void HandleStrategicEvent(const UINT32 eventParam)
 					}
 				}
 
-				missionMap.insert(std::make_pair(mission, activatedMissionParam));
 				swprintf(msgBoxText, szRebelCommandText[RCT_MISSION_SUCCESS], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 				swprintf(screenMsgText, szRebelCommandText[RCT_MISSION_SUCCESS], szRebelCommandAgentMissionsText[evt1.missionId * 2]);
 				ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, screenMsgText);
