@@ -77,7 +77,8 @@ BOOLEAN DeployTransportGroup()
 		// skip towns that have no loyalty
 		if (!gfTownUsesLoyalty[i]) continue;
 
-		// filter by TOWN ownership - expert/insane only
+		// filter by TOWN ownership - skip contested towns on expert/insane
+		if (IsTownUnderCompleteControlByPlayer(i)) continue;
 		if ((difficulty == DIF_LEVEL_HARD || difficulty == DIF_LEVEL_INSANE) && IsTownUnderCompleteControlByEnemy(i) == FALSE) continue;
 
 		// skip towns with a shut down mine
@@ -86,7 +87,7 @@ BOOLEAN DeployTransportGroup()
 		if (IsMineShutDown(mineIndex) == TRUE) continue;
 
 		// filter by MINE ownership - for novice/experienced, as hard/insane would have ignored this town above
-		const INT16 mineSector = GetMineSectorForTown(i);
+		const INT16 mineSector = STRATEGIC_INDEX_TO_SECTOR_INFO(GetMineSectorForTown(i));
 		if (StrategicMap[mineSector].fEnemyControlled == FALSE) continue;
 
 		mineSectorIds.push_back(mineSector);
@@ -115,7 +116,6 @@ BOOLEAN DeployTransportGroup()
 	// track recent transport group interceptions
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 
-	// copied from NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, which happens after the first non-welcome wagon battle
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 
 	UINT8 admins, troops, elites, robots, jeeps, tanks;
@@ -238,7 +238,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 					const std::pair<INT16, INT16> sector = key.first;
 					const INT8 range = key.second;
 
-					const INT8 dist = abs((gx - sector.first) + (gy - sector.second));
+					const INT8 dist = abs((gx - sector.first)) + abs((gy - sector.second));
 					if (dist <= range)
 					{
 						colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
@@ -255,6 +255,13 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 
 					wp = wp->next;
 				}
+
+				if (wp == nullptr)
+				{
+					// ignore this group - it doesn't have a waypoint (?)
+					continue;
+				}
+
 				const UINT8 townId = GetTownIdForSector(wp->x, wp->y);
 				if (monitoredTowns.find(townId) != monitoredTowns.end())
 				{
