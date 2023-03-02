@@ -195,7 +195,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	{
 		if( MercPtrs[ i ]->bActive &&
 			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
-			MercPtrs[ i ]->bAssignment < ON_DUTY &&
+			(MercPtrs[ i ]->bAssignment < ON_DUTY || MercPtrs[ i ]->bAssignment == GATHERINTEL) &&
 			!MercPtrs[ i ]->flags.fMercAsleep)
 		{
 			if (gGameOptions.fNewTraitSystem)
@@ -281,7 +281,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 			const UINT8 townId = GetTownIdForSector(x, y);
 			if (monitoredTowns.find(townId) != monitoredTowns.end() && monitoredTowns[townId])
 			{
-				colorMap[x-1][y-1] = targetColor;
+				colorMap[y-1][x-1] = targetColor;
 			}
 		}
 	}
