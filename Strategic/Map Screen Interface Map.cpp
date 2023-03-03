@@ -8587,6 +8587,25 @@ void DetermineMapIntelData( INT32 asSectorZ )
 			}
 		}
 
+		// transport groups
+		std::map<UINT8, TransportGroupSectorInfo> map = GetTransportGroupSectorInfo();
+		for (const auto iter : map)
+		{
+			CHAR16 str[128];
+
+			switch (iter.second)
+			{
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup:
+				swprintf( str, L"Transport group");
+				break;
+
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination:
+				swprintf( str, L"Transport group en route");
+				break;
+			}
+			AddIntelAndQuestMapDataForSector( SECTORX(iter.first), SECTORY(iter.first), MAP_SHADE_LT_YELLOW, -1, str, L"" );
+		}
+
 		// uncovered terrorists we know of
 		for ( int cnt = 0; cnt < 6; ++cnt )
 		{

@@ -57,6 +57,7 @@ extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
 //extern STRATEGIC_STATUS gStrategicStatus;
 
 std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
+std::map<UINT8, TransportGroupSectorInfo> transportGroupSectorInfo;
 
 void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& jeeps, UINT8& tanks, UINT8& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase);
 
@@ -117,6 +118,7 @@ BOOLEAN DeployTransportGroup()
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
+	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
 
 	UINT8 admins, troops, elites, robots, jeeps, tanks;
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
@@ -187,6 +189,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	const INT8 DETECTION_RANGE_RADIO = 3;
 	const INT8 DETECTION_RANGE_COVERT = 0;
 	GROUP* pGroup = gpGroupList;
+	transportGroupSectorInfo.clear();
 
 	// build map of detection sectors + ranges
 	std::map<std::pair<INT16,INT16>, INT8> detectionMap;
@@ -242,6 +245,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 					if (dist <= range)
 					{
 						colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
+						transportGroupSectorInfo[SECTOR(pGroup->ubSectorX, pGroup->ubSectorY)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup;
 					}
 				}
 
@@ -282,6 +286,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 			if (monitoredTowns.find(townId) != monitoredTowns.end() && monitoredTowns[townId])
 			{
 				colorMap[y-1][x-1] = targetColor;
+				transportGroupSectorInfo[SECTOR(x, y)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination;
 			}
 		}
 	}
@@ -864,3 +869,7 @@ void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& 
 	}
 }
 
+const std::map<UINT8, TransportGroupSectorInfo> GetTransportGroupSectorInfo()
+{
+	return transportGroupSectorInfo;
+}
