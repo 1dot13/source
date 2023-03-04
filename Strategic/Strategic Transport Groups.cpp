@@ -42,6 +42,7 @@ TODO LIST:
 #include "message.h"
 #include "Overhead.h"
 #include "Overhead Types.h"
+#include "Queen Command.h"
 #include "random.h"
 #include "Soldier Control.h"
 #include "strategic.h"
@@ -180,9 +181,6 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return;
 
-				// spies identify incoming transport groups
-				// RIS identifies ALL transport groups in monitored areas? in all areas?
-
 	const auto debugColor = MAP_SHADE_LT_BLUE;
 	const auto targetColor = MAP_SHADE_LT_YELLOW;
 	const INT8 DETECTION_RANGE_SCOUT = 1;
@@ -220,6 +218,21 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 					}
 				}
 			}
+		}
+	}
+
+	// turncoats in towns can detect incoming transport groups
+	for (int x = MINIMUM_VALID_X_COORDINATE; x <= MAXIMUM_VALID_X_COORDINATE; ++x)
+	{
+		for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
+		{
+			const UINT8 townId = GetTownIdForSector(x, y);
+			if (townId < 0) continue;
+
+			CorrectTurncoatCount(x, y);
+			const UINT16 numTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ADMINISTRATOR) + NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ARMY) + NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ELITE);
+
+			monitoredTowns[townId] = FALSE;
 		}
 	}
 
