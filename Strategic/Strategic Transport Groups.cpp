@@ -17,16 +17,8 @@ Transport group compositions will vary based on the player's progress, how many 
 and the difficulty of the game.
 
 TODO LIST:
-- determine how/when/what groups are deployed
 - use proper loyalty degradation (Strategic Loyalty lua) (maybe...)
 - use enemygunchoices and enemyitemchoices to populate bonus loot, depending on jeep or no jeep
-- track previous failed transports? transport group alertness level? partially degrades over time?
-	- we can use strategic status (gStrategicStatus. there's tons of unused padding). that way we don't need to muck with savegames,
-	  as the bytes are already there.
-	- what do we actually want to track?
-		- alertness level (affects group compositions)
-		- recent losses (strategic events?) (affects group compositions)
-		- groups should track their own "readiness level" (ie, strategic stats when they were spawned) (could use the padding in GROUP->ENEMYGROUP)
 
 */
 #include "Strategic Transport Groups.h"
