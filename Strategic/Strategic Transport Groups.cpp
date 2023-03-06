@@ -405,10 +405,10 @@ void UpdateTransportGroupInventory()
 		MISC,
 		GRENADE_THROWN,
 		GUNS,
+		AMMO_BOXES,
 		GRENADELAUNCHERS,
 		ROCKETLAUNCHERS,
-		AMMO_BOXES,
-		AMMO_CRATES,
+
 
 		TRANSPORT_LOOT_START = GAS_CANS,
 		TRANSPORT_LOOT_END = ROCKETLAUNCHERS,
@@ -417,7 +417,6 @@ void UpdateTransportGroupInventory()
 	std::map<ItemTypes, std::vector<UINT16>> itemMap;
 
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
-	std::map<INT8, std::vector<UINT16>> ammoCrates; // map coolness to ammo vector
 	
 	// rftr todo: instead of building ammo caches, perhaps we could examine ChooseWeaponForSoldierCreateStruct(). excerpt:
 	// usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3 ), pp->ubSoldierClass);
@@ -425,10 +424,25 @@ void UpdateTransportGroupInventory()
 	// for conversion, see the following (ammo conversion in strategic inventory)
 	// void SortSectorInventoryAmmo(bool useBoxes)
 
-	// one-time item cache build
+	// item cache build
 	{
-		//gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE][gunLevel];
-		//gArmyItemChoices[SOLDIER_CLASS_ELITE][typeIndex];
+		// let's be nice to the player and only drop ammo for guns their mercs have in inventory
+		std::set<UINT8> playerCalibres;
+		for (INT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++)
+		{
+			if (MercPtrs[i]->bActive && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			{
+				for (int j = 0 ; MercPtrs[i]->inv.size(); ++j)
+				{
+					OBJECTTYPE& obj = MercPtrs[i]->inv[j];
+					if (obj.exists()
+					&& Item[obj.usItem].usItemClass == IC_GUN)
+					{
+						playerCalibres.insert(Weapon[Item[obj.usItem].ubClassIndex].ubCalibre);
+					}
+				}
+			}
+		}
 
 		for (UINT16 i = 0; i < gMAXITEMS_READ; ++i)
 		{
@@ -464,16 +478,13 @@ void UpdateTransportGroupInventory()
 			}
 			else if (Item[i].usItemClass & IC_AMMO)
 			{
-				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX
-				|| Magazine[Item[i].ubClassIndex].ubMagType == AMMO_CRATE)
+				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX && playerCalibres.find(Magazine[Item[i].ubClassIndex].ubCalibre) != playerCalibres.end())
 				{
-					if ((gGameOptions.fGunNut || !Item[i].biggunlist)
-					&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
+					ammoBoxes[Item[i].ubCoolness].push_back(i);
+
+					if (Item[i].ubCoolness <= ((progress+5) / 10)+1)
 					{
-						if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
-							ammoBoxes[Item[i].ubCoolness].push_back(i);
-						else
-							ammoCrates[Item[i].ubCoolness].push_back(i);
+						itemMap[AMMO_BOXES].push_back(i);
 					}
 				}
 			}
@@ -552,7 +563,6 @@ void UpdateTransportGroupInventory()
 				// but give a little extra, since the jeep exploding can outright destroy things
 				if (pSoldier->ubSoldierClass == SOLDIER_CLASS_JEEP)
 				{
-					OBJECTTYPE itemToAdd;
 					//if (outgoing)
 					{
 						// en route to target destination - carrying ammo, supplies, etc
@@ -630,6 +640,10 @@ void UpdateTransportGroupInventory()
 									}
 									break;
 
+								case AMMO_BOXES:
+									// intentionally do nothin'
+									break;
+
 								default:
 									ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
 									// nothing!
@@ -649,7 +663,11 @@ void UpdateTransportGroupInventory()
 					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY
 					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE)
 				{
-					// jeep is carrying everything, so just force inventory to be dropped!
+					// jeep is carrying most things, so soldiers just have ammo
+					const UINT16 ammoId = itemMap[AMMO_BOXES][Random(itemMap[AMMO_BOXES].size())];
+					addItemToInventory(pSoldier, ammoId, 1);
+
+					// force inventory to be dropped!
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
 					{
 						OBJECTTYPE* item = &pSoldier->inv[i];
@@ -673,26 +691,47 @@ void UpdateTransportGroupInventory()
 						// there are still un-updated soldiers! begin the update!
 						soldierClassIter->second--;
 
-						// rftr todo: move this into its own function
-						// rftr todo: don't forget to call this for reinforcing troops!
-						// adjust soldier inventory for transport groups
-
-						// ideas:
-						// soldiers have backpacks + kits + ammo box (BONUS: make sure the backpack goes in the backpack slot for lobot compatibility. that might be a fix outside of this feature tho)
-						// jeeps have ammo crates and/or lots of boxes. reduce bullet count in crate?
-
-						// add backpack to soldier's inventory!
-						OBJECTTYPE itemToAdd;
-						if (itemMap[BACKPACKS].size() > 0)
-						{
-							CreateItem(itemMap[BACKPACKS][0], 100, &itemToAdd);
-							pSoldier->inv[BPACKPOCKPOS] = itemToAdd;
-						}
-
 						//if (outgoing)
 						{
-							// add ammo to the soldier's inventory!
-							addItemToInventory(pSoldier, ammoBoxes[10][0], 1);
+							for (int i = TRANSPORT_LOOT_START; i <= TRANSPORT_LOOT_END; ++i)
+							{
+								const ItemTypes itemType = static_cast<ItemTypes>(i);
+								if (itemMap[itemType].size() > 0)
+								{
+									const UINT16 id = itemMap[itemType][Random(itemMap[itemType].size())];
+									switch (itemType)
+									{
+									case GAS_CANS:
+									case MEDICAL_MEDKITS:
+									case MEDICAL_OTHER:
+									case TOOL_KITS:
+									case GUNS:
+									case GRENADELAUNCHERS:
+									case ROCKETLAUNCHERS:
+									case GRENADE_THROWN:
+									case MISC:
+										// skip for foot soldiers!
+										break;
+
+									case BACKPACKS:
+										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									case MEDICAL_FIRSTAIDKITS:
+										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									case AMMO_BOXES:
+										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									default:
+										ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+										// nothing!
+										break;
+									}
+								}
+							}
 						}
 						//else // returning home
 						{
