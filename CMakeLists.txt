@@ -9,6 +9,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# whether we are using MSBuild as a generator
+set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
+
 # lua51.lib and lua51.vc9.lib have been built with /MTx, so we must as well
 # TODO: build our own Lua 5.1.2 from source so we can use whichever
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
@@ -139,7 +142,8 @@ foreach(lang IN LISTS LangTargets)
 		target_sources(${Executable} PRIVATE ${Ja2Src})
 
 		# Good libraries have already been built, can be simply linked here
-		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries})
+		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
+		target_link_options(${Executable} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
 
 		# for each app/lang combination, the Very Bad libraries need to be built,
 		# with the appropriate preprocessor definitions
