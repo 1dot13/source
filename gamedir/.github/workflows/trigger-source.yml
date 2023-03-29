@@ -23,5 +23,9 @@ jobs:
               owner: '1dot13',
               repo: 'source',
               workflow_id: 'build.yml',
-              ref: 'master'
+              ref: 'master',
+              input: {
+                build_all_languages: true,
+                assemble_release: true
+              }
             });
