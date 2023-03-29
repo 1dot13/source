@@ -24,7 +24,7 @@ jobs:
               repo: 'source',
               workflow_id: 'build.yml',
               ref: 'master',
-              input: {
+              inputs: {
                 build_all_languages: true,
                 assemble_release: true
               }
