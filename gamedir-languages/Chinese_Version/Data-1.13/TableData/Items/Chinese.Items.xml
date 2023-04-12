@@ -571,7 +571,7 @@
 	<ITEM>
 		<uiIndex>71</uiIndex>
 		<szItemName>9x19mm，15发弹匣</szItemName>
-		<szLongItemName>9x19mm，15发普通手枪弹匣</szLongItemName>
+		<szLongItemName>9x19mm，15发手枪弹匣</szLongItemName>
 		<szItemDesc>9x19mm帕拉贝雷姆手枪弹虽有威力不足的困扰，但是由于温和的后座和良好的弹道一直是军警手枪弹的首选。</szItemDesc>
 		<szBRName>9x19mm，15发弹匣</szBRName>
 		<szBRDesc>这里面的15发高质量9x19mm手枪弹是你个人防卫的经济选择。</szBRDesc>
@@ -579,8 +579,8 @@
 	<ITEM>
 		<uiIndex>72</uiIndex>
 		<szItemName>9x19mm，30发弹匣</szItemName>
-		<szLongItemName>9x19mm，30发普通冲锋枪弹匣</szLongItemName>
-		<szItemDesc>冲锋枪弹匣，30发全金属被甲普通弹，使你的枪管不会像使用空尖弹那样很快铺上一层铅。</szItemDesc>
+		<szLongItemName>9x19mm，30发冲锋枪弹匣</szLongItemName>
+		<szItemDesc>冲锋枪弹匣，30发全金属被甲弹，使你的枪管不会像使用空尖弹那样很快铺上一层铅。</szItemDesc>
 		<szBRName>9x19mm，30发弹匣</szBRName>
 		<szBRDesc>这里面的30发高质量9x19mm手枪弹是每个佣兵的购买时尚。</szBRDesc>
 	</ITEM>
@@ -588,7 +588,7 @@
 		<uiIndex>73</uiIndex>
 		<szItemName>9x19mm，15发穿甲弹匣</szItemName>
 		<szLongItemName>9x19mm，15发穿甲手枪弹匣</szLongItemName>
-		<szItemDesc>9x19mm穿甲弹的特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szItemDesc>
+		<szItemDesc>9x19mm穿甲弹的特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和标准弹。</szItemDesc>
 		<szBRName>9x19mm，15发穿甲弹匣</szBRName>
 		<szBRDesc>他们有凯夫拉？你有穿甲弹！</szBRDesc>
 	</ITEM>
@@ -612,32 +612,32 @@
 		<uiIndex>76</uiIndex>
 		<szItemName>9x19mm，30发空尖弹匣</szItemName>
 		<szLongItemName>9x19mm，30发空尖冲锋枪弹匣</szLongItemName>
-		<szItemDesc>30发联邦牌115格令空尖弹，综合了普通弹的穿透力和空尖弹的伤害。</szItemDesc>
+		<szItemDesc>30发联邦牌115格令空尖弹，综合了穿甲弹的穿透力和空尖弹的伤害。</szItemDesc>
 		<szBRName>9x19mm，30发空尖弹匣</szBRName>
-		<szBRDesc>30发联邦牌115格令空尖弹，综合了普通弹的穿透力和空尖弹的伤害，拿来喂你的MP5再好不过了。</szBRDesc>
+		<szBRDesc>30发联邦牌115格令空尖弹，综合了穿甲弹的穿透力和空尖弹的伤害，拿来喂你的MP5再好不过了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>77</uiIndex>
-		<szItemName>.38，6发快装机</szItemName>
-		<szLongItemName>.38 Spc，6发普通弹快装机</szLongItemName>
-		<szItemDesc>.38左轮手枪快速上弹器，6发，综合了普通弹的穿透力和空尖弹的伤害。</szItemDesc>
-		<szBRName>.38 Spc，6发快装机</szBRName>
+		<szItemName>.38，6发装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发快速装弹器</szLongItemName>
+		<szItemDesc>.38左轮手枪快速上弹器，6发，综合了穿甲弹的穿透力和空尖弹的伤害。</szItemDesc>
+		<szBRName>.38 Spc，6发装弹器</szBRName>
 		<szBRDesc>158格令温彻斯特标准.38左轮手枪弹，传统的警用枪弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>78</uiIndex>
-		<szItemName>.38，6发穿甲弹快装机</szItemName>
-		<szLongItemName>.38 Spc，6发穿甲弹快装机</szLongItemName>
-		<szItemDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szItemDesc>
-		<szBRName>.38 Spc，6发穿甲弹快装机</szBRName>
-		<szBRDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szBRDesc>
+		<szItemName>.38，6发穿甲弹装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发穿甲弹快速装弹器</szLongItemName>
+		<szItemDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和标准弹。</szItemDesc>
+		<szBRName>.38 Spc，6发穿甲弹装弹器</szBRName>
+		<szBRDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和标准弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>79</uiIndex>
-		<szItemName>.38，6发空尖弹快装机</szItemName>
-		<szLongItemName>.38 Spc，6发空尖弹快装机</szLongItemName>
+		<szItemName>.38，6发空尖弹装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发空尖弹快速装弹器</szLongItemName>
 		<szItemDesc>虽然对付不了防弹衣，但足可以在对方身上开好几个血洞。</szItemDesc>
-		<szBRName>.38 Spc，6发空尖弹快装机</szBRName>
+		<szBRName>.38 Spc，6发空尖弹装弹器</szBRName>
 		<szBRDesc>虽然对付不了防弹衣，但足可以在对方身上开好几个血洞。注意：请不要在使用铝合金的枪上长期使用。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -651,7 +651,7 @@
 	<ITEM>
 		<uiIndex>81</uiIndex>
 		<szItemName>.45，30发弹匣</szItemName>
-		<szLongItemName>.45 ACP，30发普通冲锋枪弹匣</szLongItemName>
+		<szLongItemName>.45 ACP，30发冲锋枪弹匣</szLongItemName>
 		<szItemDesc>30发球型弹头.45冲锋枪弹匣，你知道你手中紧握的是令人生畏的力量。</szItemDesc>
 		<szBRName>.45 ACP，30发弹匣</szBRName>
 		<szBRDesc>枪械管制禁令前生产的大容量30发弹匣。</szBRDesc>
@@ -690,26 +690,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>86</uiIndex>
-		<szItemName>.357，6发快装机</szItemName>
-		<szLongItemName>.357 Mag，6发普通弹快装机</szLongItemName>
+		<szItemName>.357，6发装弹器</szItemName>
+		<szLongItemName>.357 Mag，6发快速装弹器</szLongItemName>
 		<szItemDesc>.357马格努姆附送快速装弹器，被称作是强大的手枪弹之一，相对9mm、.45和.38而言。</szItemDesc>
-		<szBRName>.357 Mag，6发快装机</szBRName>
+		<szBRName>.357 Mag，6发装弹器</szBRName>
 		<szBRDesc>联邦牌.357马格努姆弹，你单手可以控制的强大子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>87</uiIndex>
 		<szItemName>.357，9发弹匣</szItemName>
-		<szLongItemName>.357 Mag，9发普通手枪弹匣</szLongItemName>
+		<szLongItemName>.357 Mag，9发手枪弹匣</szLongItemName>
 		<szItemDesc>.357马格努姆，9发弹匣，专门为沙漠之鹰而设计。</szItemDesc>
 		<szBRName>.357 Mag，9发弹匣</szBRName>
 		<szBRDesc>联邦牌.357马格努姆弹，专门为沙漠之鹰而设计，比左轮手枪还多出3发，解决私人问题的好帮手。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>88</uiIndex>
-		<szItemName>.357，6发穿甲弹快装机</szItemName>
-		<szLongItemName>.357 Mag，6发快装穿甲弹匣</szLongItemName>
+		<szItemName>.357，6发穿甲弹装弹器</szItemName>
+		<szLongItemName>.357 Mag，6发穿甲弹快速装弹器</szLongItemName>
 		<szItemDesc>.357马格努姆加硬弹头可以穿透许多防护，但是不太会留下惨烈的伤口。</szItemDesc>
-		<szBRName>.357 Mag，6发穿甲弹快装机</szBRName>
+		<szBRName>.357 Mag，6发穿甲弹装弹器</szBRName>
 		<szBRDesc>他们说这不可能，BR告诉你什么都可以！最新的白犀牛牌.357马格努姆穿甲弹消除你一切麻烦。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -930,11 +930,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>116</uiIndex>
-		<szItemName>.50，11发穿甲弹匣</szItemName>
-		<szLongItemName>.50 BMG，11发穿甲弹匣</szLongItemName>
-		<szItemDesc>.50弹匣，11发（勃朗宁机枪弹），巴雷特M82A2使用。</szItemDesc>
-		<szBRName>.50 BMG，11发穿甲弹匣</szBRName>
-		<szBRDesc>.50弹匣，11发（勃朗宁机枪弹），巴雷特M82A2使用。</szBRDesc>
+		<szItemName>.50，10发穿甲弹匣</szItemName>
+		<szLongItemName>.50 BMG，10发穿甲弹匣</szLongItemName>
+		<szItemDesc>.50弹匣，10发（勃朗宁机枪弹），巴雷特M82A2使用。</szItemDesc>
+		<szBRName>.50 BMG，10发穿甲弹匣</szBRName>
+		<szBRDesc>.50弹匣，10发（勃朗宁机枪弹），巴雷特M82A2使用。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
@@ -947,10 +947,10 @@
 	<ITEM>
 		<uiIndex>118</uiIndex>
 		<szItemName>9x19mm，50发弹筒</szItemName>
-		<szLongItemName>9x19mm，50发普通弹筒</szLongItemName>
-		<szItemDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm普通弹，一晚上能用完不？</szItemDesc>
+		<szLongItemName>9x19mm，50发弹筒</szLongItemName>
+		<szItemDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm弹，一晚上能用完不？</szItemDesc>
 		<szBRName>9x19mm，50发弹筒</szBRName>
-		<szBRDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm普通弹，一晚上能用完不？</szBRDesc>
+		<szBRDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm弹，一晚上能用完不？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>119</uiIndex>
@@ -2164,9 +2164,9 @@
 		<uiIndex>270</uiIndex>
 		<szItemName>特小异型毒气</szItemName>
 		<szLongItemName>特小异型毒气</szLongItemName>
-		<szItemDesc>TBS汉化组是最棒的</szItemDesc>
+		<szItemDesc>内部物品！</szItemDesc>
 		<szBRName>特小异型毒气</szBRName>
-		<szBRDesc>内部物品</szBRDesc>
+		<szBRDesc>内部物品！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>271</uiIndex>
@@ -2244,9 +2244,9 @@
 		<uiIndex>280</uiIndex>
 		<szItemName>5.7mm，20发空尖弹匣</szItemName>
 		<szLongItemName>5.7x28mm，20发空尖弹匣</szLongItemName>
-		<szItemDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm普通弹的杀伤力更高，同时保留了大部分穿甲能力。</szItemDesc>
+		<szItemDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm标准弹的杀伤力更高，同时保留了大部分穿甲能力。</szItemDesc>
 		<szBRName>5.7x28mm，20发空尖弹匣</szBRName>
-		<szBRDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm普通弹的杀伤力更高，同时保留了大部分穿甲能力。</szBRDesc>
+		<szBRDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm标准弹的杀伤力更高，同时保留了大部分穿甲能力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>281</uiIndex>
@@ -2522,10 +2522,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>315</uiIndex>
-		<szItemName>Lameboy掌机</szItemName>
-		<szLongItemName>Lameboy掌机</szLongItemName>
-		<szItemDesc>贴纸上写着"经典游戏掌机，绝非山寨出品!"...天知道什么意思。</szItemDesc>
-		<szBRName>Lameboy掌机</szBRName>
+		<szItemName>游戏机显示屏</szItemName>
+		<szLongItemName>游戏机显示屏</szLongItemName>
+		<szItemDesc>一台小型便携式Lameboy游戏机的液晶显示屏。</szItemDesc>
+		<szBRName>游戏机显示屏</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2538,10 +2538,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>317</uiIndex>
-		<szItemName>显示屏</szItemName>
-		<szLongItemName>显示屏</szLongItemName>
-		<szItemDesc>从Lameboy上拆下来的显示屏，并装上了铜线。</szItemDesc>
-		<szBRName>显示屏</szBRName>
+		<szItemName>显示屏装置</szItemName>
+		<szLongItemName>显示屏装置</szLongItemName>
+		<szItemDesc>从Lameboy游戏机上拆下来的显示屏，并重新装上铜线的显示屏装置。</szItemDesc>
+		<szBRName>显示屏装置</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2810,10 +2810,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>351</uiIndex>
-		<szItemName>.38，6发葛雷瑟弹快装机</szItemName>
-		<szLongItemName>.38 Spc，6发葛雷瑟弹快装机</szLongItemName>
-		<szItemDesc>葛雷瑟弹头比普通的空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
-		<szBRName>.38 Spc，6发葛雷瑟弹快装机</szBRName>
+		<szItemName>.38，6发葛雷瑟弹装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发葛雷瑟弹快速装弹器</szLongItemName>
+		<szItemDesc>葛雷瑟弹头比空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
+		<szBRName>.38 Spc，6发葛雷瑟弹装弹器</szBRName>
 		<szBRDesc>六发易碎的葛雷瑟弹头，对目标有着惊人的停止能力。当然，护甲穿透能力可以忽略。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2828,9 +2828,9 @@
 		<uiIndex>353</uiIndex>
 		<szItemName>9x19mm，8发空尖弹匣</szItemName>
 		<szLongItemName>9x19mm，8发空尖手枪弹匣</szLongItemName>
-		<szItemDesc>9mm的空尖弹头比普通弹头具有更强的冲击力和停止力。</szItemDesc>
+		<szItemDesc>9mm的空尖弹头比标准弹头具有更强的冲击力和停止力。</szItemDesc>
 		<szBRName>9x19mm，8发空尖弹匣</szBRName>
-		<szBRDesc>9mm的空尖弹头比普通弹头具有更强的冲击力和停止力。</szBRDesc>
+		<szBRDesc>9mm的空尖弹头比标准弹头具有更强的冲击力和停止力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>354</uiIndex>
@@ -2844,7 +2844,7 @@
 		<uiIndex>355</uiIndex>
 		<szItemName>9x19mm，8发美国鹰弹匣</szItemName>
 		<szLongItemName>9x19mm，8发美国鹰手枪弹匣</szLongItemName>
-		<szItemDesc>美国鹰牌全金属被甲弹头能比普通的穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
+		<szItemDesc>美国鹰牌全金属被甲弹头能比穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
 		<szBRName>9x19mm，8发美国鹰弹匣</szBRName>
 		<szBRDesc>你的对手躲在凯夫拉尔和陶瓷装甲后面让你素手无策？你的穿甲弹打在他们身上犹如挠痒痒？救星来了，这就是美国鹰牌全金属被甲弹头！</szBRDesc>
 	</ITEM>
@@ -2852,7 +2852,7 @@
 		<uiIndex>356</uiIndex>
 		<szItemName>9x19mm，8发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x19mm，8发葛雷瑟手枪弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹头比普通的空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
+		<szItemDesc>葛雷瑟弹头比空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
 		<szBRName>9x19mm，8发葛雷瑟弹匣</szBRName>
 		<szBRDesc>八发易碎的葛雷瑟弹头，对目标有着惊人的停止能力。当然，护甲穿透能力可以忽略。</szBRDesc>
 	</ITEM>
@@ -2900,7 +2900,7 @@
 		<uiIndex>362</uiIndex>
 		<szItemName>7.62x25mm，8发美国鹰弹匣</szItemName>
 		<szLongItemName>7.62x25mm，8发美国鹰手枪弹匣</szLongItemName>
-		<szItemDesc>8发美国鹰牌全金属被甲弹夹，适用于部分苏制手枪。</szItemDesc>
+		<szItemDesc>8发美国鹰牌全金属被甲弹匣，适用于部分苏制手枪。</szItemDesc>
 		<szBRName>7.62x25mm，8发美国鹰弹匣</szBRName>
 		<szBRDesc>美国鹰牌全金属被甲弹能让你老掉牙的托卡列夫手枪更具有竞争力。</szBRDesc>
 	</ITEM>
@@ -2908,7 +2908,7 @@
 		<uiIndex>363</uiIndex>
 		<szItemName>9x19mm，15发美国鹰弹匣</szItemName>
 		<szLongItemName>9x19mm，15发美国鹰手枪弹匣</szLongItemName>
-		<szItemDesc>美国鹰牌全金属被甲弹能比普通的穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
+		<szItemDesc>美国鹰牌全金属被甲弹能比穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
 		<szBRName>9x19mm，15发美国鹰弹匣</szBRName>
 		<szBRDesc>当你的空尖弹打在敌人身上自己掉了下来而穿甲弹又没有效果的时候，你就该考虑买点美国鹰牌全金属被甲弹了。</szBRDesc>
 	</ITEM>
@@ -2916,7 +2916,7 @@
 		<uiIndex>364</uiIndex>
 		<szItemName>9x19mm，15发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x19mm，15发葛雷瑟手枪弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹头比普通的空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
+		<szItemDesc>葛雷瑟弹头比空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
 		<szBRName>9x19mm，15发葛雷瑟弹匣</szBRName>
 		<szBRDesc>十五发易碎的葛雷瑟弹头，对目标有着惊人的停止能力。当然，护甲穿透能力可以忽略。</szBRDesc>
 	</ITEM>
@@ -2964,9 +2964,9 @@
 		<uiIndex>370</uiIndex>
 		<szItemName>7.62x25mm，30发美国鹰弹匣</szItemName>
 		<szLongItemName>7.62x25mm，30发美国鹰冲锋枪弹匣</szLongItemName>
-		<szItemDesc>30发冲锋枪用弹夹，适合大部分俄制冲锋枪(同样也适用于中国山寨版俄式冲锋枪)。</szItemDesc>
+		<szItemDesc>30发冲锋枪用弹匣，适合大部分俄制冲锋枪(同样也适用于中国山寨版俄式冲锋枪)。</szItemDesc>
 		<szBRName>7.62x25mm，30发美国鹰弹匣</szBRName>
-		<szBRDesc>使用美国鹰弹药的30发7.62X25弹夹，如果你使用俄制冲锋枪，请不要错过。</szBRDesc>
+		<szBRDesc>使用美国鹰弹药的30发7.62X25弹匣，如果你使用俄制冲锋枪，请不要错过。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -2980,7 +2980,7 @@
 		<uiIndex>372</uiIndex>
 		<szItemName>9x19mm，30发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x19mm，30发葛雷瑟冲锋枪弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹头比普通的空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
+		<szItemDesc>葛雷瑟弹头比空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
 		<szBRName>9x19mm，30发葛雷瑟弹匣</szBRName>
 		<szBRDesc>三十发易碎的葛雷瑟弹头，对目标有着惊人的停止能力。当然，护甲穿透能力可以忽略。</szBRDesc>
 	</ITEM>
@@ -3036,7 +3036,7 @@
 		<uiIndex>379</uiIndex>
 		<szItemName>9x19mm，50发美国鹰弹匣</szItemName>
 		<szLongItemName>9x19mm，50发美国鹰大弹匣</szLongItemName>
-		<szItemDesc>美国鹰弹头能比普通的穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
+		<szItemDesc>美国鹰弹头能比穿甲弹更有效的穿透目标的护甲，但相应的，使用它对枪械有一定的副作用。</szItemDesc>
 		<szBRName>9x19mm，50发美国鹰弹匣</szBRName>
 		<szBRDesc>对于美国鹰弹药来说，停止力和穿透力从来都不是问题。</szBRDesc>
 	</ITEM>
@@ -3099,7 +3099,7 @@
 	<ITEM>
 		<uiIndex>387</uiIndex>
 		<szItemName>9x19mm，100发弹鼓</szItemName>
-		<szLongItemName>9x19mm，100发普通弹鼓</szLongItemName>
+		<szLongItemName>9x19mm，100发弹鼓</szLongItemName>
 		<szItemDesc>内含100发全金属被甲9mm弹，你可以不用太担心枪管积铅了。</szItemDesc>
 		<szBRName>9x19mm，100发弹鼓</szBRName>
 		<szBRDesc>内含100发Fiocchi牌9mm弹，这种弹鼓深受广大雇佣兵的喜爱。</szBRDesc>
@@ -3196,7 +3196,7 @@
 		<uiIndex>399</uiIndex>
 		<szItemName>.45，7发葛雷瑟弹匣</szItemName>
 		<szLongItemName>.45 ACP，7发葛雷瑟手枪弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹头比普通的空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
+		<szItemDesc>葛雷瑟弹头比空尖弹头有着更强的冲击力，相对的，护甲的穿透能力更差。</szItemDesc>
 		<szBRName>.45 ACP，7发葛雷瑟弹匣</szBRName>
 		<szBRDesc>七发易碎的葛雷瑟弹头，对目标有着惊人的停止能力。当然，护甲穿透能力可以忽略。</szBRDesc>
 	</ITEM>
@@ -3211,7 +3211,7 @@
 	<ITEM>
 		<uiIndex>401</uiIndex>
 		<szItemName>.45，14发弹匣</szItemName>
-		<szLongItemName>.45 ACP，14发普通大容量手枪弹匣</szLongItemName>
+		<szLongItemName>.45 ACP，14发大容量手枪弹匣</szLongItemName>
 		<szItemDesc>一条给你的.45手枪使用的双排弹匣，弹容量多多益善。</szItemDesc>
 		<szBRName>.45 ACP，14发弹匣</szBRName>
 		<szBRDesc>不会有人拒绝额外的几发子弹的，除了你的目标。</szBRDesc>
@@ -3268,7 +3268,7 @@
 		<uiIndex>408</uiIndex>
 		<szItemName>.45，30发葛雷瑟弹匣</szItemName>
 		<szLongItemName>.45 ACP，30发葛雷瑟冲锋枪弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹有普通空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szItemDesc>
+		<szItemDesc>葛雷瑟弹有空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szItemDesc>
 		<szBRName>.45 ACP，30发葛雷瑟弹匣</szBRName>
 		<szBRDesc>30发“易碎”的乐趣，完全的停止效果，没有任何过度穿透的危险。</szBRDesc>
 	</ITEM>
@@ -3276,7 +3276,7 @@
 		<uiIndex>409</uiIndex>
 		<szItemName>.45，30发比赛弹匣</szItemName>
 		<szLongItemName>.45 ACP，30发比赛冲锋枪弹匣</szLongItemName>
-		<szItemDesc>高质量的普通弹同时提升了武器的表现和射程。</szItemDesc>
+		<szItemDesc>高质量的比赛弹同时提升了武器的表现和射程。</szItemDesc>
 		<szBRName>.45 ACP，30发比赛弹匣</szBRName>
 		<szBRDesc>这些冲锋枪弹药给了“远程教学”一个全新的面貌。</szBRDesc>
 	</ITEM>
@@ -3284,9 +3284,9 @@
 		<uiIndex>410</uiIndex>
 		<szItemName>.357，6发葛雷瑟弹匣</szItemName>
 		<szLongItemName>.357 Mag，6发葛雷瑟弹匣</szLongItemName>
-		<szItemDesc>葛雷瑟弹有普通空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szItemDesc>
+		<szItemDesc>葛雷瑟弹有空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szItemDesc>
 		<szBRName>.357 Mag，6发葛雷瑟弹匣</szBRName>
-		<szBRDesc>葛雷瑟弹有普通空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szBRDesc>
+		<szBRDesc>葛雷瑟弹有空尖弹双倍的创伤效果。很遗憾的是，它遇到装甲的时候也会有双倍的困难。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>411</uiIndex>
@@ -3430,7 +3430,7 @@
 		<szLongItemName>新携行默认腿袋</szLongItemName>
 		<szItemDesc>此乃1.13 XML-EDITOR的所需的内部物品，移除该物品后使用XML-EDITOR可能导致错误。</szItemDesc>
 		<szBRName>新携行默认腿袋</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>429</uiIndex>
@@ -3468,7 +3468,7 @@
 		<uiIndex>433</uiIndex>
 		<szItemName>5.56x45mm，30发亚音速弹匣</szItemName>
 		<szLongItemName>5.56x45mm，30发亚音速弹匣</szLongItemName>
-		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹要比普通弹药安静40％。</szItemDesc>
+		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹要比标准弹药安静40％。</szItemDesc>
 		<szBRName>5.56x45mm，30发亚音速弹匣</szBRName>
 		<szBRDesc>这个30发弹匣可以让你如极地寒风一般安静地把敌人变成冰凉的尸体。</szBRDesc>
 	</ITEM>
@@ -3478,7 +3478,7 @@
 		<szLongItemName>新携行默认背心</szLongItemName>
 		<szItemDesc>此乃1.13 XML-EDITOR的所需的内部物品，移除该物品后使用XML-EDITOR可能导致错误。</szItemDesc>
 		<szBRName>新携行默认背心</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>435</uiIndex>
@@ -3542,7 +3542,7 @@
 		<szLongItemName>新携行默认战斗背包</szLongItemName>
 		<szItemDesc>此乃1.13 XML-EDITOR的所需的内部物品，移除该物品后使用XML-EDITOR可能导致错。</szItemDesc>
 		<szBRName>新携行默认战斗背包</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>443</uiIndex>
@@ -3590,7 +3590,7 @@
 		<szLongItemName>新携行默认战斗背包</szLongItemName>
 		<szItemDesc>此乃1.13 XML-EDITOR的所需的内部物品，移除该物品后使用XML-EDITOR可能导致错。</szItemDesc>
 		<szBRName>新携行默认战斗背包</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>449</uiIndex>
@@ -3747,7 +3747,7 @@
 	<ITEM>
 		<uiIndex>468</uiIndex>
 		<szItemName>.30，30发空尖弹匣</szItemName>
-		<szLongItemName>.30卡宾，30发空尖弹匣</szLongItemName>
+		<szLongItemName>.30 Car，30发空尖弹匣</szLongItemName>
 		<szItemDesc>一个装有空尖弹的30发M1卡宾枪弹匣。</szItemDesc>
 		<szBRName>.30，30发空尖弹匣</szBRName>
 		<szBRDesc>用于老式M1卡宾枪的空尖弹匣。</szBRDesc>
@@ -3795,7 +3795,7 @@
 	<ITEM>
 		<uiIndex>474</uiIndex>
 		<szItemName>.30，30发穿甲弹匣</szItemName>
-		<szLongItemName>.30卡宾，30发穿甲弹匣</szLongItemName>
+		<szLongItemName>.30 Car，30发穿甲弹匣</szLongItemName>
 		<szItemDesc>一个装有穿甲弹的30发M1卡宾枪弹匣。</szItemDesc>
 		<szBRName>.30，30发穿甲弹匣</szBRName>
 		<szBRDesc>用于老式M1卡宾枪的全金属被甲弹。</szBRDesc>
@@ -4012,7 +4012,7 @@
 		<uiIndex>501</uiIndex>
 		<szItemName>7.62x25mm，71发亚音速弹鼓</szItemName>
 		<szLongItemName>7.62x25mm，71发亚音速弹鼓</szLongItemName>
-		<szItemDesc>这个托卡列夫亚音速弹在射击的时候大概只有普通弹的一半响。</szItemDesc>
+		<szItemDesc>这个托卡列夫亚音速弹在射击的时候大概只有标准弹的一半响。</szItemDesc>
 		<szBRName>7.62x25mm，71发亚音速弹鼓</szBRName>
 		<szBRDesc>7.62x25mm亚音速弹弹鼓。</szBRDesc>
 	</ITEM>
@@ -4026,16 +4026,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
-		<szItemName>12.7x108mm，10发穿甲弹匣</szItemName>
-		<szLongItemName>12.7x108mm，10发穿甲弹匣</szLongItemName>
+		<szItemName>12.7x108mm，5发穿甲弹匣</szItemName>
+		<szLongItemName>12.7x108mm，5发穿甲弹匣</szLongItemName>
 		<szItemDesc>大口径反器材步枪用“迷你.50”弹匣。</szItemDesc>
-		<szBRName>12.7x108mm，10发穿甲弹匣</szBRName>
-		<szBRDesc>满满一弹匣可以在远处击穿轻型装甲车的12.7mm子弹。</szBRDesc>
+		<szBRName>12.7x108mm，5发穿甲弹匣</szBRName>
+		<szBRDesc>满满一弹匣的12.7mm子弹，可以在远处击穿轻型装甲车。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>504</uiIndex>
 		<szItemName>9x18mm，8发弹匣</szItemName>
-		<szLongItemName>9x18mm，8发普通手枪弹匣</szLongItemName>
+		<szLongItemName>9x18mm，8发手枪弹匣</szLongItemName>
 		<szItemDesc>内装8发9x18mm马卡洛夫手枪弹。</szItemDesc>
 		<szBRName>9x18mm，8发弹匣</szBRName>
 		<szBRDesc>9x18马卡洛夫手枪弹适用于大部分东欧制造的马卡洛夫系列手枪。</szBRDesc>
@@ -4051,7 +4051,7 @@
 	<ITEM>
 		<uiIndex>506</uiIndex>
 		<szItemName>9x18mm，12发弹匣</szItemName>
-		<szLongItemName>9x18mm，12发普通手枪弹匣</szLongItemName>
+		<szLongItemName>9x18mm，12发手枪弹匣</szLongItemName>
 		<szItemDesc>内装12发9x18mm马卡洛夫手枪弹。</szItemDesc>
 		<szBRName>9x18mm，12发弹匣</szBRName>
 		<szBRDesc>9x18mm马卡洛夫弹有不错的性价比。</szBRDesc>
@@ -4067,7 +4067,7 @@
 	<ITEM>
 		<uiIndex>508</uiIndex>
 		<szItemName>9x18mm，20发弹匣</szItemName>
-		<szLongItemName>9x18mm，20发普通冲锋枪弹匣</szLongItemName>
+		<szLongItemName>9x18mm，20发冲锋枪弹匣</szLongItemName>
 		<szItemDesc>用于9x18mm冲锋枪的20发弹匣。</szItemDesc>
 		<szBRName>9x18mm，20发弹匣</szBRName>
 		<szBRDesc>适用于大部分俄罗斯生产的9x18mm冲锋枪或者全自动手枪用的20发弹匣。</szBRDesc>
@@ -4083,7 +4083,7 @@
 	<ITEM>
 		<uiIndex>510</uiIndex>
 		<szItemName>9x18mm，30发弹匣</szItemName>
-		<szLongItemName>9x18mm，30发普通冲锋枪弹匣</szLongItemName>
+		<szLongItemName>9x18mm，30发冲锋枪弹匣</szLongItemName>
 		<szItemDesc>这种30发装的弹匣适用于大部分东欧生产的冲锋枪。</szItemDesc>
 		<szBRName>9x18mm，30发弹匣</szBRName>
 		<szBRDesc>适用于Kashtan公司或者Kiparis公司产品的30发弹匣。</szBRDesc>
@@ -4099,7 +4099,7 @@
 	<ITEM>
 		<uiIndex>512</uiIndex>
 		<szItemName>.40，14发弹匣</szItemName>
-		<szLongItemName>.40史密斯-韦森，14发普通弹匣</szLongItemName>
+		<szLongItemName>.40史密斯-韦森，14发弹匣</szLongItemName>
 		<szItemDesc>.40史密斯-韦森弹，中间型这个概念是在1990年提出的，它拥有比9mm弹更好的停止作用和比.45ACP弹更好的侵彻力。</szItemDesc>
 		<szBRName>.40，14发弹匣</szBRName>
 		<szBRDesc>.40史密斯-韦森弹，被执法单位大量采用的大众型弹药。</szBRDesc>
@@ -4162,10 +4162,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>520</uiIndex>
-		<szItemName>7.62x54R，200发穿甲弹</szItemName>
-		<szLongItemName>7.62x54R，200发盒装穿甲弹</szLongItemName>
+		<szItemName>7.62x54R，200发穿甲弹链</szItemName>
+		<szLongItemName>7.62x54R，200发盒装穿甲弹链</szLongItemName>
 		<szItemDesc>内装200发7.62x54R全金属被甲弹。</szItemDesc>
-		<szBRName>7.62x54R，200发穿甲弹</szBRName>
+		<szBRName>7.62x54R，200发穿甲弹链</szBRName>
 		<szBRDesc>打开一箱子7.62x54R弹，喂饱你的卡拉什尼科夫机枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4186,40 +4186,40 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>523</uiIndex>
-		<szItemName>.44，6发快装机</szItemName>
-		<szLongItemName>.44，6发普通弹快装机</szLongItemName>
+		<szItemName>.44，6发装弹器</szItemName>
+		<szLongItemName>.44，6发快速装弹器</szLongItemName>
 		<szItemDesc>6发.44快速装弹器可以让你装弹的速度媲美“脏哈里”。</szItemDesc>
-		<szBRName>.44，6发快装机</szBRName>
+		<szBRName>.44，6发装弹器</szBRName>
 		<szBRDesc>如何用你的枪压制住敌人？选用这种适合作战的快速装弹器吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>524</uiIndex>
-		<szItemName>.44，6发空尖弹快装机</szItemName>
-		<szLongItemName>.44，6发空尖弹快装机</szLongItemName>
+		<szItemName>.44，6发空尖弹装弹器</szItemName>
+		<szLongItemName>.44，6发空尖弹快速装弹器</szLongItemName>
 		<szItemDesc>.44空尖弹可以在无防护目标上开一个大大的洞。</szItemDesc>
-		<szBRName>.44，6发空尖弹快装机</szBRName>
+		<szBRName>.44，6发空尖弹装弹器</szBRName>
 		<szBRDesc>梦想成为“脏哈利”，或者就是喜欢血肉横飞的效果，这些.44 空尖弹足可以让你心满意足。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>525</uiIndex>
-		<szItemName>.44，6发穿甲弹快装机</szItemName>
-		<szLongItemName>.44，6发穿甲弹快装机</szLongItemName>
+		<szItemName>.44，6发穿甲弹装弹器</szItemName>
+		<szLongItemName>.44，6发穿甲弹快速装弹器</szLongItemName>
 		<szItemDesc>全铜制造，可以有效穿透单兵护甲或者是特氟龙防弹衣。</szItemDesc>
-		<szBRName>.44，6发穿甲弹快装机</szBRName>
+		<szBRName>.44，6发穿甲弹装弹器</szBRName>
 		<szBRDesc>臭名昭著的“黄铜杀手”如今可以销售还要感谢法律上的漏洞。尽管不像NBC上说的那样有效，但仍然可以对付有防护的目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>526</uiIndex>
-		<szItemName>.44，6发葛雷瑟弹快装机</szItemName>
-		<szLongItemName>.44，6发葛雷瑟弹快装机</szLongItemName>
+		<szItemName>.44，6发葛雷瑟弹装弹器</szItemName>
+		<szLongItemName>.44，6发葛雷瑟弹快速装弹器</szLongItemName>
 		<szItemDesc>如果这个.44葛雷瑟快速装弹器还不能令您满意的话，那么我们就不用谈什么了。</szItemDesc>
-		<szBRName>.44，6发葛雷瑟弹快装机</szBRName>
+		<szBRName>.44，6发葛雷瑟弹装弹器</szBRName>
 		<szBRDesc>6发易碎弹头，绝不会穿透目标，极佳的停止作用。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>527</uiIndex>
 		<szItemName>.44，8发弹匣</szItemName>
-		<szLongItemName>.44，8发普通弹匣</szLongItemName>
+		<szLongItemName>.44，8发弹匣</szLongItemName>
 		<szItemDesc>8发装，适用于.44马格努姆手枪。</szItemDesc>
 		<szBRName>.44，8发弹匣</szBRName>
 		<szBRDesc>.44马格努姆弹拥有空前的初速和威力。</szBRDesc>
@@ -4244,14 +4244,14 @@
 		<uiIndex>530</uiIndex>
 		<szItemName>.44，8发葛雷瑟弹匣</szItemName>
 		<szLongItemName>.44，8发葛雷瑟弹匣</szLongItemName>
-		<szItemDesc>如果这个.44葛雷瑟弹夹还不能令您满意的话，那么我们就不用谈什么了。</szItemDesc>
+		<szItemDesc>如果这个.44葛雷瑟弹匣还不能令您满意的话，那么我们就不用谈什么了。</szItemDesc>
 		<szBRName>.44，8发葛雷瑟弹匣</szBRName>
 		<szBRDesc>8发易碎弹头，绝不会穿透目标，极佳的停止作用。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>531</uiIndex>
 		<szItemName>10mm，30发弹匣</szItemName>
-		<szLongItemName>10mm，30发普通冲锋枪弹匣</szLongItemName>
+		<szLongItemName>10mm，30发冲锋枪弹匣</szLongItemName>
 		<szItemDesc>1979年，Jeff Cooper设计了这种弹药，尽管这个10mm子弹的外径和.40S＆W弹一样，但他们并不通用。</szItemDesc>
 		<szBRName>10mm，30发弹匣</szBRName>
 		<szBRDesc>优秀的停止作用使得10mm枪械在警方和反恐部队中十分常见。</szBRDesc>
@@ -4284,7 +4284,7 @@
 		<uiIndex>535</uiIndex>
 		<szItemName>10mm，30发葛雷瑟弹匣</szItemName>
 		<szLongItemName>10mm，30发葛雷瑟冲锋枪弹匣</szLongItemName>
-		<szItemDesc>如果这个10mm葛雷瑟弹夹还不能令您满意的话，那么我们就不用谈什么了。</szItemDesc>
+		<szItemDesc>如果这个10mm葛雷瑟弹匣还不能令您满意的话，那么我们就不用谈什么了。</szItemDesc>
 		<szBRName>10mm，30发葛雷瑟弹匣</szBRName>
 		<szBRDesc>30发易碎弹头，绝不会穿透目标，极佳的停止作用。</szBRDesc>
 	</ITEM>
@@ -4306,10 +4306,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
-		<szItemName>12.3mm，5发快装机</szItemName>
-		<szLongItemName>12.3x50mm，5发普通弹快装机</szLongItemName>
+		<szItemName>12.3mm，5发装弹器</szItemName>
+		<szLongItemName>12.3x50mm，5发快速装弹器</szLongItemName>
 		<szItemDesc>这个12.3x50mm快速装弹器适用于U-94S UDAR大型左轮手枪。</szItemDesc>
-		<szBRName>12.3x50mm，5发快装机</szBRName>
+		<szBRName>12.3x50mm，5发装弹器</szBRName>
 		<szBRDesc>12.3x50mm这种大型手枪用的大型弹药，比32号霰弹都大上一圈。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4334,7 +4334,7 @@
 		<szLongItemName>7.62x37mm，10发贫铀弹匣</szLongItemName>
 		<szItemDesc>让你的枪具有极佳的穿透力，同时附带辐射伤害。</szItemDesc>
 		<szBRName>7.62x37mm，10发贫铀弹匣</szBRName>
-		<szBRDesc>用你的微声狙击步枪给敌人送去一颗超级微型“原子弹”。</szBRDesc>
+		<szBRDesc>空编号 541</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>542</uiIndex>
@@ -4362,10 +4362,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>545</uiIndex>
-		<szItemName>12号，2发普通弹</szItemName>
-		<szLongItemName>12号口径霰弹，2发普通弹</szLongItemName>
+		<szItemName>12号，2发独头弹</szItemName>
+		<szLongItemName>12号口径霰弹，2发独头弹</szLongItemName>
 		<szItemDesc>12号口径霰弹枪用弹。</szItemDesc>
-		<szBRName>12号，2发普通弹</szBRName>
+		<szBRName>12号，2发独头弹</szBRName>
 		<szBRDesc>无论战斗还是狩猎，双管猎枪都能大展神威。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4514,18 +4514,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>564</uiIndex>
-		<szItemName>12.3mm，5发箭型弹快装机</szItemName>
-		<szLongItemName>12.3x50mm，5发箭型弹快装机</szLongItemName>
+		<szItemName>12.3mm，5发箭型弹装弹器</szItemName>
+		<szLongItemName>12.3x50mm，5发箭型弹快速装弹器</szLongItemName>
 		<szItemDesc>用于U-94S UDAR左轮手枪的5发装12.3x50mm箭型弹快速装弹器</szItemDesc>
-		<szBRName>12.3x50mm，5发箭型弹快装机</szBRName>
+		<szBRName>12.3x50mm，5发箭型弹装弹器</szBRName>
 		<szBRDesc>不容置疑，如雨点般密集的穿甲箭弹定会令你的对手肝胆碎裂。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>565</uiIndex>
-		<szItemName>.357，5发美国鹰弹快装机</szItemName>
-		<szLongItemName>.357 Mag，5发美国鹰弹快装机</szLongItemName>
+		<szItemName>.357，5发美国鹰弹装弹器</szItemName>
+		<szLongItemName>.357 Mag，5发美国鹰弹快速装弹器</szLongItemName>
 		<szItemDesc>这个快速装弹器内装5发.357马格努姆美国鹰弹。</szItemDesc>
-		<szBRName>.357 Mag，5发美国鹰弹快装机</szBRName>
+		<szBRName>.357 Mag，5发美国鹰弹装弹器</szBRName>
 		<szBRDesc>这种法国制造的美国鹰弹可以击破护甲而又不穿过人体。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4562,26 +4562,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>570</uiIndex>
-		<szItemName>.454，5发快装机</szItemName>
-		<szLongItemName>.454，5发卡苏尔弹快装机</szLongItemName>
+		<szItemName>.454，5发装弹器</szItemName>
+		<szLongItemName>.454，5发卡苏尔弹快速装弹器</szLongItemName>
 		<szItemDesc>内装5发左轮手枪用.454卡苏尔弹。</szItemDesc>
-		<szBRName>.454，5发快装机</szBRName>
+		<szBRName>.454，5发装弹器</szBRName>
 		<szBRDesc>.454卡苏尔是一款真正的大口径左轮枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>571</uiIndex>
-		<szItemName>.454，5发空尖弹快装机</szItemName>
-		<szLongItemName>.454，5发空尖卡苏尔弹快装机</szLongItemName>
+		<szItemName>.454，5发空尖弹装弹器</szItemName>
+		<szLongItemName>.454，5发空尖卡苏尔弹快速装弹器</szLongItemName>
 		<szItemDesc>.454，5发快速装弹卡苏尔空尖弹。</szItemDesc>
-		<szBRName>.454，5发空尖弹快装机</szBRName>
+		<szBRName>.454，5发空尖弹装弹器</szBRName>
 		<szBRDesc>如果你想用左轮枪狩猎的话，带上.454卡苏尔空尖弹吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>572</uiIndex>
-		<szItemName>.454，5发穿甲弹快装机</szItemName>
-		<szLongItemName>.454，5发穿甲卡苏尔弹快装机</szLongItemName>
+		<szItemName>.454，5发穿甲弹装弹器</szItemName>
+		<szLongItemName>.454，5发穿甲卡苏尔弹快速装弹器</szLongItemName>
 		<szItemDesc>内装5发.454卡苏尔穿甲弹。</szItemDesc>
-		<szBRName>.454，5发穿甲弹快装机</szBRName>
+		<szBRName>.454，5发穿甲弹装弹器</szBRName>
 		<szBRDesc>进行自卫的时候可以选用这个。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4611,10 +4611,10 @@
 	<ITEM>
 		<uiIndex>576</uiIndex>
 		<szItemName>.45，50发弹鼓</szItemName>
-		<szLongItemName>.45 ACP，50发普通弹鼓</szLongItemName>
-		<szItemDesc>老式的汤姆森 M-1928用弹鼓，内装50发.45柯尔特手枪弹。</szItemDesc>
+		<szLongItemName>.45 ACP，50发弹鼓</szLongItemName>
+		<szItemDesc>老式的汤姆森M-1928用弹鼓，内装50发.45柯尔特手枪弹。</szItemDesc>
 		<szBRName>.45 ACP，50发弹鼓</szBRName>
-		<szBRDesc>汤姆森 M-1928普通弹弹鼓。</szBRDesc>
+		<szBRDesc>汤姆森M-1928弹鼓。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>577</uiIndex>
@@ -4691,7 +4691,7 @@
 	<ITEM>
 		<uiIndex>586</uiIndex>
 		<szItemName>10mm，8发弹匣</szItemName>
-		<szLongItemName>10mm，8发普通弹匣</szLongItemName>
+		<szLongItemName>10mm，8发弹匣</szLongItemName>
 		<szItemDesc>手枪用8发装10mm弹匣。</szItemDesc>
 		<szBRName>10mm，8发弹匣</szBRName>
 		<szBRDesc>FBI的最爱，8发装的10mm弹匣。</szBRDesc>
@@ -5654,7 +5654,7 @@
 		<szLongItemName>RPK</szLongItemName>
 		<szItemDesc>RPK基本上是一挺加长加重枪管的AK，可以使用45发弹匣或者75发弹鼓，十分好用的支援武器。</szItemDesc>
 		<szBRName>RPK</szBRName>
-		<szBRDesc>卡拉什尼柯夫的又一杰作，来自俄罗斯的爱，600RPM的射速让可使用的30发弹夹和75发弹鼓都有点力不从心。</szBRDesc>
+		<szBRDesc>卡拉什尼柯夫的又一杰作，来自俄罗斯的爱，600RPM的射速让可使用的30发弹匣和75发弹鼓都有点力不从心。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>707</uiIndex>
@@ -7386,26 +7386,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
+		<szItemName>空编号 923</szItemName>
+		<szLongItemName>空编号 923</szLongItemName>
+		<szItemDesc>空编号 923</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>924</uiIndex>
-		<szItemName>.38，6发比赛弹快装机</szItemName>
-		<szLongItemName>.38 Spc，6发比赛弹快装机</szLongItemName>
+		<szItemName>.38，6发比赛弹装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发比赛弹快速装弹器</szLongItemName>
 		<szItemDesc>6发平头弹，专为射击纸质标靶设计，但是比一般子弹打得更准。</szItemDesc>
-		<szBRName>.38 Spc，6发比赛弹快装机</szBRName>
+		<szBRName>.38 Spc，6发比赛弹装弹器</szBRName>
 		<szBRDesc>比赛专用平头弹，那叫一个准！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
-		<szItemName>.38，6发特种空尖弹快装机</szItemName>
-		<szLongItemName>.38 Spc，6发特种空尖弹快装机</szLongItemName>
-		<szItemDesc>这类弹药承诺比普通空尖弹有更好的穿透效果。</szItemDesc>
-		<szBRName>.38 Spc，6发特种空尖弹快装机</szBRName>
+		<szItemName>.38，6发特种空尖弹装弹器</szItemName>
+		<szLongItemName>.38 Spc，6发特种空尖弹快速装弹器</szLongItemName>
+		<szItemDesc>这类弹药承诺比空尖弹有更好的穿透效果。</szItemDesc>
+		<szBRName>.38 Spc，6发特种空尖弹装弹器</szBRName>
 		<szBRDesc>最新固态铜弹丸制成的空尖弹！它们要比传统的铅核/黄铜外壳的空尖弹有更好的穿透性。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7422,7 +7422,7 @@
 		<szLongItemName>9x18mm，12发穿甲手枪弹匣</szLongItemName>
 		<szItemDesc>12发性价比很高的9x18mm全金属被甲。</szItemDesc>
 		<szBRName>9x18mm，12发穿甲弹匣</szBRName>
-		<szBRDesc>这种9x18mm穿甲弹比普通弹的穿透力好很多。</szBRDesc>
+		<szBRDesc>这种9x18mm穿甲弹比标准弹的穿透力好很多。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
@@ -7474,10 +7474,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
-		<szItemName>.44，6发美国鹰弹快装机</szItemName>
-		<szLongItemName>.44，6发美国鹰弹快装机</szLongItemName>
+		<szItemName>.44，6发美国鹰弹装弹器</szItemName>
+		<szLongItemName>.44，6发美国鹰弹快速装弹器</szLongItemName>
 		<szItemDesc>.44左轮手枪快速上弹器，内有6发美国鹰弹。</szItemDesc>
-		<szBRName>.44，6发美国鹰弹快装机</szBRName>
+		<szBRName>.44，6发美国鹰弹装弹器</szBRName>
 		<szBRDesc>如果它们能够回到肮脏的哈里所在的年代，他肯定会爱死它们的。幸运的是现在你可以拥有它们。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7506,17 +7506,17 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
-		<szItemName>7.62x54R，200发比赛弹盒</szItemName>
-		<szLongItemName>7.62x54R，200发比赛弹盒</szLongItemName>
-		<szItemDesc>一盒200发7.62x54R狙击弹。</szItemDesc>
-		<szBRName>7.62x54R，200发比赛弹盒</szBRName>
+		<szItemName>7.62x54R，200发比赛弹链</szItemName>
+		<szLongItemName>7.62x54R，200发比赛弹链</szLongItemName>
+		<szItemDesc>200发7.62x54R狙击弹链。</szItemDesc>
+		<szBRName>7.62x54R，200发比赛弹链</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 939</szItemDesc>
+		<szItemName>空编号 939</szItemName>
+		<szLongItemName>空编号 939</szLongItemName>
+		<szItemDesc>空编号 939</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
@@ -7538,33 +7538,33 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 942</szItemDesc>
+		<szItemName>空编号 942</szItemName>
+		<szLongItemName>空编号 942</szLongItemName>
+		<szItemDesc>空编号 942</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>943</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 943</szItemDesc>
+		<szItemName>空编号 943</szItemName>
+		<szLongItemName>空编号 943</szLongItemName>
+		<szItemDesc>空编号 943</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>944</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 944</szItemDesc>
+		<szItemName>空编号 944</szItemName>
+		<szLongItemName>空编号 944</szLongItemName>
+		<szItemDesc>空编号 944</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>945</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 945</szItemDesc>
+		<szItemName>空编号 945</szItemName>
+		<szLongItemName>空编号 945</szLongItemName>
+		<szItemDesc>空编号 945</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
@@ -7970,9 +7970,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 996</szItemDesc>
+		<szItemName>空编号 996</szItemName>
+		<szLongItemName>空编号 996</szLongItemName>
+		<szItemDesc>空编号 996</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
@@ -8138,10 +8138,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1017</uiIndex>
-		<szItemName>摄录机</szItemName>
-		<szLongItemName>摄录机</szLongItemName>
+		<szItemName>录像机</szItemName>
+		<szLongItemName>录像机</szLongItemName>
 		<szItemDesc>某人拍摄了一些家庭琐事。如果你很无聊的话，看看倒也很有趣。</szItemDesc>
-		<szBRName>摄录机</szBRName>
+		<szBRName>录像机</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8154,11 +8154,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1019</uiIndex>
-		<szItemName>埃索汽油</szItemName>
-		<szLongItemName>埃索汽油</szLongItemName>
-		<szItemDesc>一桶埃索汽油。可笑的是，你从未在这里见过埃索的加油站。</szItemDesc>
-		<szBRName>埃索汽油</szBRName>
-		<szBRDesc>我们可以保证，这绝对是你在市场上可以找到的最好的汽油了。（一年包退，包装破损无效）</szBRDesc>
+		<szItemName>埃索机油</szItemName>
+		<szLongItemName>埃索机油</szLongItemName>
+		<szItemDesc>一桶埃索机油。这是目前市场上可以找到的最好机油。</szItemDesc>
+		<szBRName>埃索机油</szBRName>
+		<szBRDesc>我们可以保证，这绝对是你在市场上可以找到的最好的机油了。（一年包退，包装破损无效）</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1020</uiIndex>
@@ -8379,7 +8379,7 @@
 	<ITEM>
 		<uiIndex>1047</uiIndex>
 		<szItemName>.40，30发弹匣</szItemName>
-		<szLongItemName>.40史密斯-韦森,30发普通弹匣</szLongItemName>
+		<szLongItemName>.40史密斯-韦森,30发弹匣</szLongItemName>
 		<szItemDesc>.40口径史密斯-韦森弹药是1990年后问世的所谓“中间型弹药”，具有比9mm口径更好的停止作用和比.45ACP弹更小的穿透力。</szItemDesc>
 		<szBRName>.40，30发弹匣</szBRName>
 		<szBRDesc>.40史密斯-韦森弹，执法机关的最爱。</szBRDesc>
@@ -8388,9 +8388,9 @@
 		<uiIndex>1048</uiIndex>
 		<szItemName>.40，30发空尖弹匣</szItemName>
 		<szLongItemName>.40史密斯-韦森，30发空尖弹匣</szLongItemName>
-		<szItemDesc>空尖弹具有比普通弹更好的停止作用。</szItemDesc>
+		<szItemDesc>空尖弹具有比标准弹更好的停止作用。</szItemDesc>
 		<szBRName>.40，30发空尖弹匣</szBRName>
-		<szBRDesc>空尖弹比普通弹的停止作用更胜一筹。</szBRDesc>
+		<szBRDesc>空尖弹比标准弹的停止作用更胜一筹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1049</uiIndex>
@@ -8500,7 +8500,7 @@
 		<uiIndex>1062</uiIndex>
 		<szItemName>5.56x45mm，42发亚音速弹匣</szItemName>
 		<szLongItemName>5.56x45mm，42发亚音速弹匣</szLongItemName>
-		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹发射时要比普通弹药减少40％的噪音。</szItemDesc>
+		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹发射时要比标准弹药减少40％的噪音。</szItemDesc>
 		<szBRName>5.56x45mm，42发亚音速弹匣</szBRName>
 		<szBRDesc>这42发亚音速弹可以让你如极地寒风一般安静地把敌人变成冰凉的尸体。</szBRDesc>
 	</ITEM>
@@ -8658,10 +8658,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1082</uiIndex>
-		<szItemName>SAW弹箱腿袋</szItemName>
-		<szLongItemName>SAW弹箱腿袋</szLongItemName>
+		<szItemName>SAW弹药腿袋</szItemName>
+		<szLongItemName>SAW弹药腿袋</szLongItemName>
 		<szItemDesc>可以携带一个弹药箱的大腿袋。</szItemDesc>
-		<szBRName>SAW弹箱腿袋</szBRName>
+		<szBRName>SAW弹药腿袋</szBRName>
 		<szBRDesc>这款腿袋被设计用来装机枪弹药箱。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8746,10 +8746,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1093</uiIndex>
-		<szItemName>冲锋手枪套</szItemName>
-		<szLongItemName>冲锋手枪套</szLongItemName>
+		<szItemName>冲锋枪套</szItemName>
+		<szLongItemName>冲锋枪枪套</szLongItemName>
 		<szItemDesc>一个腿部装备可以用来携带一只小型冲锋手枪套或是一只大型手枪及其备用弹匣。</szItemDesc>
-		<szBRName>冲锋手枪套</szBRName>
+		<szBRName>冲锋枪套</szBRName>
 		<szBRDesc>这种枪套固定在大腿上部，用带子扣住一只小型冲锋手枪套或是一只大型手枪。它还有一个放备用弹匣的口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -9787,10 +9787,10 @@
 	<ITEM>
 		<uiIndex>1223</uiIndex>
 		<szItemName>9x19，弹箱</szItemName>
-		<szLongItemName>9x19mm，5000发普通弹箱</szLongItemName>
-		<szItemDesc>超大的5000发普通弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szLongItemName>9x19mm，5000发弹箱</szLongItemName>
+		<szItemDesc>超大的5000发弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>9x19mm，弹箱</szBRName>
-		<szBRDesc>5000发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>5000发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1224</uiIndex>
@@ -9867,10 +9867,10 @@
 	<ITEM>
 		<uiIndex>1233</uiIndex>
 		<szItemName>.38 Spc，弹箱</szItemName>
-		<szLongItemName>.38 Spc，5000发普通弹箱</szLongItemName>
-		<szItemDesc>超大的5000发普通弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szLongItemName>.38 Spc，5000发弹箱</szLongItemName>
+		<szItemDesc>超大的5000发弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.38 Spc，弹箱</szBRName>
-		<szBRDesc>5000发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>5000发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1234</uiIndex>
@@ -9899,10 +9899,10 @@
 	<ITEM>
 		<uiIndex>1237</uiIndex>
 		<szItemName>.357 Mag，弹箱</szItemName>
-		<szLongItemName>.357 Mag，3500发普通弹箱</szLongItemName>
+		<szLongItemName>.357 Mag，3500发弹箱</szLongItemName>
 		<szItemDesc>超大的3500发.357马格努姆弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.357 Mag，弹箱</szBRName>
-		<szBRDesc>3500发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>3500发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1238</uiIndex>
@@ -9939,10 +9939,10 @@
 	<ITEM>
 		<uiIndex>1242</uiIndex>
 		<szItemName>.45 ACP，弹箱</szItemName>
-		<szLongItemName>.45 ACP，2500发普通弹箱</szLongItemName>
-		<szItemDesc>超大的2500发普通弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szLongItemName>.45 ACP，2500发弹箱</szLongItemName>
+		<szItemDesc>超大的2500发弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.45 ACP，弹箱</szBRName>
-		<szBRDesc>2500发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>2500发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1243</uiIndex>
@@ -10076,9 +10076,9 @@
 		<uiIndex>1259</uiIndex>
 		<szItemName>5.7x28mm，曳光弹箱</szItemName>
 		<szLongItemName>5.7x28mm，5000发曳光弹箱</szLongItemName>
-		<szItemDesc>超大的5000发曳光弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szItemDesc>原版有弹箱，没弹盒和没弹匣。如果你看到了说明游戏快要挂了。</szItemDesc>
 		<szBRName>5.7x28mm，曳光弹箱</szBRName>
-		<szBRDesc>5000发曳光弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>原版有弹箱，没弹盒和没弹匣。IOV现设置为空，如果你看到了说明游戏快要挂了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1260</uiIndex>
@@ -10131,10 +10131,10 @@
 	<ITEM>
 		<uiIndex>1266</uiIndex>
 		<szItemName>9x18mm，弹箱</szItemName>
-		<szLongItemName>9x18mm，5000发普通弹箱</szLongItemName>
-		<szItemDesc>超大的5000发普通弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szLongItemName>9x18mm，5000发弹箱</szLongItemName>
+		<szItemDesc>超大的5000发弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>9x18mm，弹箱</szBRName>
-		<szBRDesc>5000发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>5000发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1267</uiIndex>
@@ -10155,7 +10155,7 @@
 	<ITEM>
 		<uiIndex>1269</uiIndex>
 		<szItemName>.30，穿甲弹箱</szItemName>
-		<szLongItemName>.30卡宾，5000发穿甲弹箱</szLongItemName>
+		<szLongItemName>.30 Car，5000发穿甲弹箱</szLongItemName>
 		<szItemDesc>超大的5000发穿甲弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.30，穿甲弹箱</szBRName>
 		<szBRDesc>5000发穿甲弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10163,7 +10163,7 @@
 	<ITEM>
 		<uiIndex>1270</uiIndex>
 		<szItemName>.30，空尖弹箱</szItemName>
-		<szLongItemName>.30卡宾，5000发空尖弹箱</szLongItemName>
+		<szLongItemName>.30 Car，5000发空尖弹箱</szLongItemName>
 		<szItemDesc>超大的5000发空尖弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.30，空尖弹箱</szBRName>
 		<szBRDesc>5000发空尖弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10203,10 +10203,10 @@
 	<ITEM>
 		<uiIndex>1275</uiIndex>
 		<szItemName>.40，弹箱</szItemName>
-		<szLongItemName>.40史密斯-韦森，5000发普通弹箱</szLongItemName>
-		<szItemDesc>超大的5000发普通弹弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szLongItemName>.40史密斯-韦森，5000发弹箱</szLongItemName>
+		<szItemDesc>超大的5000发弹箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.40，弹箱</szBRName>
-		<szBRDesc>5000发普通弹弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>5000发弹箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1276</uiIndex>
@@ -10251,7 +10251,7 @@
 	<ITEM>
 		<uiIndex>1281</uiIndex>
 		<szItemName>10mm，弹箱</szItemName>
-		<szLongItemName>10mm，4000发普通弹箱</szLongItemName>
+		<szLongItemName>10mm，4000发弹箱</szLongItemName>
 		<szItemDesc>4000发10mm弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>10mm，弹箱</szBRName>
 		<szBRDesc>4000发10mm弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10428,9 +10428,9 @@
 		<uiIndex>1303</uiIndex>
 		<szItemName>7.62x54R，比赛弹箱</szItemName>
 		<szLongItemName>7.62x54R，2500发比赛弹箱</szLongItemName>
-		<szItemDesc>2500发7.92x57mm比赛弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
+		<szItemDesc>2500发7.62x54mm比赛弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>7.62x54R，比赛弹箱</szBRName>
-		<szBRDesc>2500发7.92x57mm比赛弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRDesc>2500发7.62x54mm比赛弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1304</uiIndex>
@@ -10475,7 +10475,7 @@
 	<ITEM>
 		<uiIndex>1309</uiIndex>
 		<szItemName>.44，弹箱</szItemName>
-		<szLongItemName>.44，3000发普通弹箱</szLongItemName>
+		<szLongItemName>.44，3000发弹箱</szLongItemName>
 		<szItemDesc>3000发.44弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.44，弹箱</szBRName>
 		<szBRDesc>3000发.44弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10515,7 +10515,7 @@
 	<ITEM>
 		<uiIndex>1314</uiIndex>
 		<szItemName>.45 WinMag，弹箱</szItemName>
-		<szLongItemName>.45 WinMag，3000发普通弹箱</szLongItemName>
+		<szLongItemName>.45 WinMag，3000发弹箱</szLongItemName>
 		<szItemDesc>3000发.45 WinMag弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.45 WinMag，弹箱</szBRName>
 		<szBRDesc>3000发.45 WinMag弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10539,7 +10539,7 @@
 	<ITEM>
 		<uiIndex>1317</uiIndex>
 		<szItemName>.454，弹箱</szItemName>
-		<szLongItemName>.454卡苏尔，2000发普通弹箱</szLongItemName>
+		<szLongItemName>.454卡苏尔，2000发弹箱</szLongItemName>
 		<szItemDesc>2000发.454卡苏尔弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>.454，弹箱</szBRName>
 		<szBRDesc>2000发.454卡苏尔弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
@@ -10610,25 +10610,25 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1326</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
+		<szItemName>空编号 1326</szItemName>
+		<szLongItemName>空编号 1326</szLongItemName>
+		<szItemDesc>空编号 1326</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1327</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
+		<szItemName>空编号 1327</szItemName>
+		<szLongItemName>空编号 1327</szLongItemName>
+		<szItemDesc>空编号 1327</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1328</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
+		<szItemName>空编号 1328</szItemName>
+		<szLongItemName>空编号 1328</szLongItemName>
+		<szItemDesc>空编号 1328</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
@@ -10716,7 +10716,7 @@
 		<uiIndex>1339</uiIndex>
 		<szItemName>5.45x39mm，30发亚音速弹匣</szItemName>
 		<szLongItemName>5.45x39mm，30发亚音速弹匣</szLongItemName>
-		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹要比普通弹药安静40％。</szItemDesc>
+		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。亚音速弹要比标准弹药安静40％。</szItemDesc>
 		<szBRName>5.45x39mm，30发亚音速弹匣</szBRName>
 		<szBRDesc>这个30发弹匣可以让你如极地寒风一般安静地把敌人变成冰凉的尸体。</szBRDesc>
 	</ITEM>
@@ -10924,7 +10924,7 @@
 		<uiIndex>1365</uiIndex>
 		<szItemName>9x18mm，12发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x18mm，12发葛雷瑟弹匣</szLongItemName>
-		<szItemDesc>装填了12发9x18mm葛雷瑟弹的手枪弹夹。</szItemDesc>
+		<szItemDesc>装填了12发9x18mm葛雷瑟弹的手枪弹匣。</szItemDesc>
 		<szBRName>9x18mm，12发葛雷瑟弹匣</szBRName>
 		<szBRDesc>9x18mm口径的葛雷瑟弹，口径小但是制止力大。</szBRDesc>
 	</ITEM>
@@ -10932,7 +10932,7 @@
 		<uiIndex>1366</uiIndex>
 		<szItemName>9x18mm，8发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x18mm，8发葛雷瑟手枪弹匣</szLongItemName>
-		<szItemDesc>装填了8发9x18mm葛雷瑟弹的手枪弹夹。</szItemDesc>
+		<szItemDesc>装填了8发9x18mm葛雷瑟弹的手枪弹匣。</szItemDesc>
 		<szBRName>9x18mm，8发葛雷瑟弹匣</szBRName>
 		<szBRDesc>9x18mm口径的葛雷瑟弹。只有8发而已，你需要更大的制止力。</szBRDesc>
 	</ITEM>
@@ -10940,7 +10940,7 @@
 		<uiIndex>1367</uiIndex>
 		<szItemName>9x18mm，20发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x18mm，20发葛雷瑟冲锋枪弹匣</szLongItemName>
-		<szItemDesc>装填了20发9x18mm葛雷瑟弹的冲锋枪弹夹。</szItemDesc>
+		<szItemDesc>装填了20发9x18mm葛雷瑟弹的冲锋枪弹匣。</szItemDesc>
 		<szBRName>9x18mm，20发葛雷瑟弹匣</szBRName>
 		<szBRDesc>使用了葛雷瑟弹，9x18mm口径的小冲锋枪就可以把敌人撕成碎片了。</szBRDesc>
 	</ITEM>
@@ -10948,7 +10948,7 @@
 		<uiIndex>1368</uiIndex>
 		<szItemName>9x18mm，30发葛雷瑟弹匣</szItemName>
 		<szLongItemName>9x18mm，30发葛雷瑟冲锋枪弹匣</szLongItemName>
-		<szItemDesc>装填了30发9x18mm葛雷瑟弹的冲锋枪弹夹。</szItemDesc>
+		<szItemDesc>装填了30发9x18mm葛雷瑟弹的冲锋枪弹匣。</szItemDesc>
 		<szBRName>9x18mm，30发葛雷瑟弹匣</szBRName>
 		<szBRDesc>虽然口径只有9x18mm，但冰雹般的葛雷瑟弹仍会使没穿装甲的敌人吓破胆。</szBRDesc>
 	</ITEM>
@@ -11058,11 +11058,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1382</uiIndex>
-		<szItemName>12号，弹箱</szItemName>
-		<szLongItemName>12号口径霰弹，1000发普通弹箱</szLongItemName>
+		<szItemName>12号，独头弹箱</szItemName>
+		<szLongItemName>12号口径霰弹，1000发独头弹箱</szLongItemName>
 		<szItemDesc>1000发12号弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
-		<szBRName>12号，弹箱</szBRName>
-		<szBRDesc>1000发12号弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
+		<szBRName>12号，独头弹箱</szBRName>
+		<szBRDesc>1000发12号独头弹药箱。我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1383</uiIndex>
@@ -11155,7 +11155,7 @@
 	<ITEM>
 		<uiIndex>1394</uiIndex>
 		<szItemName>.38 Spc，弹盒</szItemName>
-		<szLongItemName>.38 Spc，100发普通弹盒</szLongItemName>
+		<szLongItemName>.38 Spc，100发弹盒</szLongItemName>
 		<szItemDesc>这种158格令的Winchester标准.38 Special子弹是在执法部门久经考验的弹药。</szItemDesc>
 		<szBRName>.38 Spc，弹盒</szBRName>
 		<szBRDesc>这种158格令的Winchester标准.38 Special子弹是在执法部门久经考验的弹药。</szBRDesc>
@@ -11196,14 +11196,14 @@
 		<uiIndex>1399</uiIndex>
 		<szItemName>.38 Spc，特种弹盒</szItemName>
 		<szLongItemName>.38 Spc，100发特种空尖弹盒</szLongItemName>
-		<szItemDesc>这类弹药承诺比普通空尖弹有更好的穿透效果。</szItemDesc>
+		<szItemDesc>这类弹药承诺比空尖弹有更好的穿透效果。</szItemDesc>
 		<szBRName>.38 Spc，特种弹盒</szBRName>
 		<szBRDesc>最新固态铜弹丸制成的空尖弹！它们要比传统的铅核/黄铜外壳的空尖弹有更好的穿透性。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1400</uiIndex>
 		<szItemName>9x19mm，弹盒</szItemName>
-		<szLongItemName>9x19mm，100发普通弹盒</szLongItemName>
+		<szLongItemName>9x19mm，100发弹盒</szLongItemName>
 		<szItemDesc>这些做工精良Fiocchi牌115格令子弹是经济适用男/女防身的理想选择。</szItemDesc>
 		<szBRName>9x19mm，弹盒</szBRName>
 		<szBRDesc>这些做工精良Fiocchi牌115格令子弹是经济适用男/女防身的理想选择。</szBRDesc>
@@ -11283,7 +11283,7 @@
 	<ITEM>
 		<uiIndex>1410</uiIndex>
 		<szItemName>.45 ACP，弹盒</szItemName>
-		<szLongItemName>.45 ACP，50发普通弹盒</szLongItemName>
+		<szLongItemName>.45 ACP，50发弹盒</szLongItemName>
 		<szItemDesc>.45标准弹丸提供了空尖弹伤害和穿甲弹穿透力的一个平衡版本。</szItemDesc>
 		<szBRName>.45 ACP，弹盒</szBRName>
 		<szBRDesc>.45标准弹丸提供了空尖弹伤害和穿甲弹穿透力的一个平衡版本。</szBRDesc>
@@ -11331,7 +11331,7 @@
 	<ITEM>
 		<uiIndex>1416</uiIndex>
 		<szItemName>.357 Mag，弹盒</szItemName>
-		<szLongItemName>.357 Mag，50发普通弹盒</szLongItemName>
+		<szLongItemName>.357 Mag，50发弹盒</szLongItemName>
 		<szItemDesc>这个盒子装有.357马格努姆标准弹丸。它的威力决定了其在手枪子弹中的优越性不容置疑。</szItemDesc>
 		<szBRName>.357 Mag，弹盒</szBRName>
 		<szBRDesc>这个盒子装有.357马格努姆标准弹丸。它的威力决定了其在手枪子弹中的优越性不容置疑。</szBRDesc>
@@ -11370,10 +11370,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1421</uiIndex>
-		<szItemName>12号，弹盒</szItemName>
-		<szLongItemName>12号口径霰弹，25发普通弹盒</szLongItemName>
+		<szItemName>12号，独头弹盒</szItemName>
+		<szLongItemName>12号口径霰弹，25发独头弹盒</szLongItemName>
 		<szItemDesc>这些12号口径霰弹可以轻松打穿障碍物和轻型护甲。</szItemDesc>
-		<szBRName>12号，弹盒</szBRName>
+		<szBRName>12号，独头弹盒</szBRName>
 		<szBRDesc>这些12号口径霰弹可以轻松打穿障碍物和轻型护甲。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -11636,7 +11636,7 @@
 		<uiIndex>1454</uiIndex>
 		<szItemName>5.7x28mm，空尖弹盒</szItemName>
 		<szLongItemName>5.7x28mm，100发空尖弹盒</szLongItemName>
-		<szItemDesc>这种5.7mm空尖弹在普通5.7mm弹药基础上增强了伤害能力同时保留了大部分穿甲能力。</szItemDesc>
+		<szItemDesc>这种5.7mm空尖弹在标准5.7mm弹药基础上增强了伤害能力同时保留了大部分穿甲能力。</szItemDesc>
 		<szBRName>5.7x28mm，空尖弹盒</szBRName>
 		<szBRDesc>快速完美地完成任务。使用这些5.7mm子弹让你的杀敌率保持最佳。你的目标存活率基本为0，不算小数点的话。</szBRDesc>
 	</ITEM>
@@ -11668,9 +11668,9 @@
 		<uiIndex>1458</uiIndex>
 		<szItemName>9x39mm，穿甲弹盒</szItemName>
 		<szLongItemName>9x39mm，80发穿甲弹盒</szLongItemName>
-		<szItemDesc>比普通的9mm子弹更重，这个盒子装的是俄国武器专用的弹药。</szItemDesc>
+		<szItemDesc>比标准的9mm子弹更重，这个盒子装的是俄国武器专用的弹药。</szItemDesc>
 		<szBRName>9x39mm，穿甲弹盒</szBRName>
-		<szBRDesc>比普通的9mm子弹更重，这个盒子装的是80发俄国武器专用的弹药。</szBRDesc>
+		<szBRDesc>比标准的9mm子弹更重，这个盒子装的是80发俄国武器专用的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1459</uiIndex>
@@ -11739,7 +11739,7 @@
 	<ITEM>
 		<uiIndex>1467</uiIndex>
 		<szItemName>9x18mm，弹盒</szItemName>
-		<szLongItemName>9x18mm，100发普通弹盒</szLongItemName>
+		<szLongItemName>9x18mm，100发弹盒</szLongItemName>
 		<szItemDesc>9x18mm马卡洛夫子弹是一种便宜但十分有效的弹药。</szItemDesc>
 		<szBRName>9x18mm，弹盒</szBRName>
 		<szBRDesc>9x18mm马卡洛夫子弹是一种便宜但十分有效的弹药。</szBRDesc>
@@ -11764,14 +11764,14 @@
 		<uiIndex>1470</uiIndex>
 		<szItemName>9x18mm，葛雷瑟弹盒</szItemName>
 		<szLongItemName>9x18mm，100发葛雷瑟弹盒</szLongItemName>
-		<szItemDesc>一盒子共12发手枪弹夹用9x18mm葛雷瑟弹。</szItemDesc>
+		<szItemDesc>一盒子共100发手枪弹匣用9x18mm葛雷瑟弹。</szItemDesc>
 		<szBRName>9x18mm，葛雷瑟弹盒</szBRName>
 		<szBRDesc>9x18mm口径的葛雷瑟弹，用这些小不点多打几个洞吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1471</uiIndex>
 		<szItemName>.40，弹盒</szItemName>
-		<szLongItemName>.40史密斯-韦森，100发普通弹盒</szLongItemName>
+		<szLongItemName>.40史密斯-韦森，100发弹盒</szLongItemName>
 		<szItemDesc>.40史密斯-韦森在1990年末十分低调地出现，比9mm压制力更大，比.45ACP穿透性更强。</szItemDesc>
 		<szBRName>.40，弹盒</szBRName>
 		<szBRDesc>.40史密斯-韦森是在警界响当当的子弹。</szBRDesc>
@@ -11851,7 +11851,7 @@
 	<ITEM>
 		<uiIndex>1481</uiIndex>
 		<szItemName>.44，弹盒</szItemName>
-		<szLongItemName>.44马格努姆，50发普通弹盒</szLongItemName>
+		<szLongItemName>.44马格努姆，50发弹盒</szLongItemName>
 		<szItemDesc>这个盒子装有.44标准弹丸。它的威力决定了其在战斗手枪中的绝对优势。</szItemDesc>
 		<szBRName>.44，弹盒</szBRName>
 		<szBRDesc>这个盒子装有.44标准弹丸。它的威力决定了其在战斗手枪中的绝对优势。</szBRDesc>
@@ -11891,7 +11891,7 @@
 	<ITEM>
 		<uiIndex>1486</uiIndex>
 		<szItemName>10mm，弹盒</szItemName>
-		<szLongItemName>10mm，100发普通弹盒</szLongItemName>
+		<szLongItemName>10mm，100发弹盒</szLongItemName>
 		<szItemDesc>1797年Jeff Cooper的设计，10mm子弹有.40史密斯-韦森弹相当的威力，但是却没有它出名。</szItemDesc>
 		<szBRName>10mm，弹盒</szBRName>
 		<szBRDesc>专注于压制力的一种设计，10mm子弹在警力部队和反恐部队任务中并不是十分罕见。</szBRDesc>
@@ -12027,7 +12027,7 @@
 	<ITEM>
 		<uiIndex>1503</uiIndex>
 		<szItemName>.45 WinMag，弹盒</szItemName>
-		<szLongItemName>.45 WinMag，50发普通弹盒</szLongItemName>
+		<szLongItemName>.45 WinMag，50发弹盒</szLongItemName>
 		<szItemDesc>.45温彻斯特马格努姆是为一些大型手炮研发制造的弹药。</szItemDesc>
 		<szBRName>.45 WinMag，弹盒</szBRName>
 		<szBRDesc>一些大口径手枪使用的标准弹药。</szBRDesc>
@@ -12123,7 +12123,7 @@
 	<ITEM>
 		<uiIndex>1515</uiIndex>
 		<szItemName>.30，弹盒</szItemName>
-		<szLongItemName>.30卡宾，100发普通弹盒</szLongItemName>
+		<szLongItemName>.30 Car，100发弹盒</szLongItemName>
 		<szItemDesc>用于老式M1卡宾枪的钢核子弹。</szItemDesc>
 		<szBRName>.30，弹盒</szBRName>
 		<szBRDesc>用于老式M1卡宾枪的钢核子弹。</szBRDesc>
@@ -12131,7 +12131,7 @@
 	<ITEM>
 		<uiIndex>1516</uiIndex>
 		<szItemName>.30，穿甲弹盒</szItemName>
-		<szLongItemName>.30卡宾，100发穿甲弹盒</szLongItemName>
+		<szLongItemName>.30 Car，100发穿甲弹盒</szLongItemName>
 		<szItemDesc>用于老式M1卡宾枪的全金属外壳子弹。</szItemDesc>
 		<szBRName>.30，穿甲弹盒</szBRName>
 		<szBRDesc>用于老式M1卡宾枪的全金属外壳子弹。</szBRDesc>
@@ -12139,7 +12139,7 @@
 	<ITEM>
 		<uiIndex>1517</uiIndex>
 		<szItemName>.30，空尖弹盒</szItemName>
-		<szLongItemName>.30卡宾，100发空尖弹盒</szLongItemName>
+		<szLongItemName>.30 Car，100发空尖弹盒</szLongItemName>
 		<szItemDesc>用于老式M1卡宾枪的空尖弹。</szItemDesc>
 		<szBRName>.30，空尖弹盒</szBRName>
 		<szBRDesc>用于老式M1卡宾枪的空尖弹。</szBRDesc>
@@ -12314,11 +12314,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1539</uiIndex>
-		<szItemName>万能解药</szItemName>
-		<szLongItemName>万能解药</szLongItemName>
-		<szItemDesc>这个万能解药可以在一段时间后缓慢消除中毒影响。警告：可能导致暂时失明和重度偏头痛。</szItemDesc>
-		<szBRName>万能解药</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szItemName>空编号 1539</szItemName>
+		<szLongItemName>空编号 1539</szLongItemName>
+		<szItemDesc>空编号 1539</szItemDesc>
+		<szBRName>空编号 1539</szBRName>
+		<szBRDesc>空编号 1539</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1540</uiIndex>
@@ -12330,11 +12330,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1541</uiIndex>
-		<szItemName>满沙袋</szItemName>
-		<szLongItemName>满沙袋</szLongItemName>
-		<szItemDesc>不管你是想加固驻防，挡住洪水还是练习举重，这袋便宜的家伙总是很好用。</szItemDesc>
-		<szBRName>满沙袋</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szItemName>空编号 1541</szItemName>
+		<szLongItemName>空编号 1541</szLongItemName>
+		<szItemDesc>空编号 1541</szItemDesc>
+		<szBRName>空编号 1541</szBRName>
+		<szBRDesc>空编号 1541</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1542</uiIndex>
@@ -12434,50 +12434,50 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1554</uiIndex>
-		<szItemName>罐装SPAM午餐肉</szItemName>
-		<szLongItemName>罐装SPAM午餐肉</szLongItemName>
+		<szItemName>第2代SPAM午餐肉</szItemName>
+		<szLongItemName>第2代SPAM午餐肉</szLongItemName>
 		<szItemDesc>午餐肉，午餐肉，午餐肉，午餐肉，午餐肉，午餐肉，午餐肉，午餐肉，可爱的午餐肉，美妙的午餐肉！</szItemDesc>
-		<szBRName>罐装SPAM午餐肉</szBRName>
+		<szBRName>第2代SPAM午餐肉</szBRName>
 		<szBRDesc>嘿，至少你不能把它塞到你的电子邮箱里...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1555</uiIndex>
-		<szItemName>罐装蔬菜</szItemName>
-		<szLongItemName>罐装蔬菜</szLongItemName>
+		<szItemName>蔬菜罐头</szItemName>
+		<szLongItemName>蔬菜罐头</szLongItemName>
 		<szItemDesc>这些蔬菜可以永久保存，是小孩子们的噩梦。</szItemDesc>
-		<szBRName>罐装蔬菜</szBRName>
+		<szBRName>蔬菜罐头</szBRName>
 		<szBRDesc>有营养，可长期保存，并且对人畜无害。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1556</uiIndex>
-		<szItemName>罐装蝎子</szItemName>
-		<szLongItemName>罐装蝎子</szLongItemName>
+		<szItemName>蝎子罐头</szItemName>
+		<szLongItemName>蝎子罐头</szLongItemName>
 		<szItemDesc>要不要来一些刺激的？比如毒虫子？</szItemDesc>
-		<szBRName>罐装蝎子</szBRName>
+		<szBRName>蝎子罐头</szBRName>
 		<szBRDesc>我们可以确定有很多人在吃这些东西，比如贝爷和广东人。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1557</uiIndex>
-		<szItemName>罐装猫食</szItemName>
-		<szLongItemName>罐装猫食</szLongItemName>
+		<szItemName>猫粮罐头</szItemName>
+		<szLongItemName>猫粮罐头</szLongItemName>
 		<szItemDesc>真的？你确实想吃这些？你最好重新考虑一下...</szItemDesc>
-		<szBRName>罐装猫食</szBRName>
+		<szBRName>猫粮罐头</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1558</uiIndex>
-		<szItemName>罐装炖黑豆</szItemName>
-		<szLongItemName>罐装炖黑豆</szLongItemName>
+		<szItemName>黑豆罐头</szItemName>
+		<szLongItemName>黑豆罐头</szLongItemName>
 		<szItemDesc>建议：配合SPAM午餐肉食用。</szItemDesc>
-		<szBRName>罐装炖黑豆</szBRName>
+		<szBRName>黑豆罐头</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1559</uiIndex>
-		<szItemName>牛排</szItemName>
-		<szLongItemName>牛排</szLongItemName>
-		<szItemDesc>Arulco式牛排，你能在Arulco这里买到的最好的牛排...</szItemDesc>
-		<szBRName>牛排</szBRName>
+		<szItemName>煎牛排</szItemName>
+		<szLongItemName>煎牛排</szLongItemName>
+		<szItemDesc>Arulco式煎牛排，你能在Arulco这里买到的最好吃的牛排...</szItemDesc>
+		<szBRName>煎牛排</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12570,10 +12570,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1571</uiIndex>
-		<szItemName>蔬菜汁</szItemName>
-		<szLongItemName>蔬菜汁</szLongItemName>
+		<szItemName>蔬菜汁饮料</szItemName>
+		<szLongItemName>蔬菜汁饮料</szLongItemName>
 		<szItemDesc>非常有营养的饮品，还可以缓解一点点饥饿。</szItemDesc>
-		<szBRName>蔬菜汁</szBRName>
+		<szBRName>蔬菜汁饮料</szBRName>
 		<szBRDesc>为那些想吃蔬菜却没有牙齿的可怜人。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13134,9 +13134,9 @@
 		<uiIndex>1641</uiIndex>
 		<szItemName>大型手枪套</szItemName>
 		<szLongItemName>大型手枪套</szLongItemName>
-		<szItemDesc>这个手枪套可以装下一个大型手枪和2个弹夹。它还有一个附加的物品带。</szItemDesc>
+		<szItemDesc>这个手枪套可以装下一个大型手枪和2个弹匣。它还有一个附加的物品带。</szItemDesc>
 		<szBRName>大型手枪套</szBRName>
-		<szBRDesc>这个手枪套可以装下一个大型手枪和2个弹夹。</szBRDesc>
+		<szBRDesc>这个手枪套可以装下一个大型手枪和2个弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1642</uiIndex>
@@ -13148,10 +13148,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1643</uiIndex>
-		<szItemName>冲锋枪腿袋</szItemName>
-		<szLongItemName>冲锋枪腿袋</szLongItemName>
+		<szItemName>冲锋弹匣腿袋</szItemName>
+		<szLongItemName>冲锋枪弹匣腿袋</szLongItemName>
 		<szItemDesc>可以装冲锋枪弹药的腿袋，SAS部队在人质救援行动中使用过。</szItemDesc>
-		<szBRName>冲锋枪腿袋</szBRName>
+		<szBRName>冲锋弹匣腿袋</szBRName>
 		<szBRDesc>可以装冲锋枪弹药的腿袋，SAS部队在人质救援行动中使用过。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13164,26 +13164,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1645</uiIndex>
-		<szItemName>手枪弹夹腿袋</szItemName>
-		<szLongItemName>手枪弹夹腿袋</szLongItemName>
-		<szItemDesc>这个腿袋有三个可以装手枪弹夹的口袋。</szItemDesc>
-		<szBRName>手枪弹夹腿袋</szBRName>
-		<szBRDesc>这个腿袋有三个可以装手枪弹夹的口袋。</szBRDesc>
+		<szItemName>手枪弹匣腿袋</szItemName>
+		<szLongItemName>手枪弹匣腿袋</szLongItemName>
+		<szItemDesc>这个腿袋有三个可以装手枪弹匣的口袋。</szItemDesc>
+		<szBRName>手枪弹匣腿袋</szBRName>
+		<szBRDesc>这个腿袋有三个可以装手枪弹匣的口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1646</uiIndex>
-		<szItemName>设备腿袋</szItemName>
-		<szLongItemName>设备腿袋</szLongItemName>
+		<szItemName>杂物腿袋</szItemName>
+		<szLongItemName>杂物腿袋</szLongItemName>
 		<szItemDesc>多功能腿袋，它的多个口袋可以装下不同的物品。</szItemDesc>
-		<szBRName>设备腿袋</szBRName>
+		<szBRName>杂物腿袋</szBRName>
 		<szBRDesc>多功能腿袋，它的多个口袋可以装下不同的物品。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1647</uiIndex>
-		<szItemName>炸弹腿袋</szItemName>
-		<szLongItemName>炸弹腿袋</szLongItemName>
+		<szItemName>炸弹包腿袋</szItemName>
+		<szLongItemName>炸弹包腿袋</szLongItemName>
 		<szItemDesc>这个腿袋适用于安全地携带炸药。</szItemDesc>
-		<szBRName>炸弹腿袋</szBRName>
+		<szBRName>炸弹包腿袋</szBRName>
 		<szBRDesc>这个腿袋适用于安全地携带炸药。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13196,18 +13196,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1649</uiIndex>
-		<szItemName>3.11腿袋</szItemName>
-		<szLongItemName>3.11腿袋</szLongItemName>
+		<szItemName>3.11 MOLLE腿袋</szItemName>
+		<szLongItemName>3.11 MOLLE腿袋</szLongItemName>
 		<szItemDesc>腿袋的正面有一条MOLLE挂袋，可以附加NAS口袋和附件，达到快速取放重要工具的目的。</szItemDesc>
-		<szBRName>3.11腿袋</szBRName>
+		<szBRName>3.11 MOLLE腿袋</szBRName>
 		<szBRDesc>运动员、巡警和战术人员最常用的携行具，3.11腿袋轻便、可靠并且可以完全自定制。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1650</uiIndex>
-		<szItemName>3.11水平袋</szItemName>
-		<szLongItemName>3.11水平袋</szLongItemName>
+		<szItemName>3.11杂物袋</szItemName>
+		<szLongItemName>3.11杂物袋</szLongItemName>
 		<szItemDesc>这个MOLLE口袋就是一个在底部开有两个透气孔的大拉链口袋。</szItemDesc>
-		<szBRName>3.11水平袋</szBRName>
+		<szBRName>3.11杂物袋</szBRName>
 		<szBRDesc>这个MOLLE口袋就是一个在底部开有两个透气孔的大拉链口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13244,10 +13244,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1655</uiIndex>
-		<szItemName>双MP5弹夹袋</szItemName>
-		<szLongItemName>双MP5弹夹袋</szLongItemName>
-		<szItemDesc>专门为战术人员和执法人员设计，这个双MP5弹夹松紧带口袋为标准9mm弹夹提供安全和便利的取放。</szItemDesc>
-		<szBRName>双MP5弹夹袋</szBRName>
+		<szItemName>双MP5弹匣袋</szItemName>
+		<szLongItemName>双MP5弹匣袋</szLongItemName>
+		<szItemDesc>专门为战术人员和执法人员设计，这个双MP5弹匣松紧带口袋为标准9mm弹匣提供安全和便利的取放。</szItemDesc>
+		<szBRName>双MP5弹匣袋</szBRName>
 		<szBRDesc>可以完美兼容3.11战术系统的NAS系列和MOLLE平台。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13260,11 +13260,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1657</uiIndex>
-		<szItemName>3.11单弹夹袋</szItemName>
-		<szLongItemName>3.11单弹夹袋</szLongItemName>
-		<szItemDesc>3.11单弹夹袋可以快速添加到所有MOLLE兼容平台上，用于容纳一个突击步枪弹夹。</szItemDesc>
-		<szBRName>3.11单弹夹袋</szBRName>
-		<szBRDesc>维可牢搭扣让你的弹夹倍加安全，并且这个单弹夹袋可以快速整合到NAS网格系统中以增加你的负载能力。</szBRDesc>
+		<szItemName>3.11单弹匣袋</szItemName>
+		<szLongItemName>3.11单弹匣袋</szLongItemName>
+		<szItemDesc>3.11单弹匣袋可以快速添加到所有MOLLE兼容平台上，用于容纳一个突击步枪弹匣。</szItemDesc>
+		<szBRName>3.11单弹匣袋</szBRName>
+		<szBRDesc>维可牢搭扣让你的弹匣倍加安全，并且这个单弹匣袋可以快速整合到NAS网格系统中以增加你的负载能力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1658</uiIndex>
@@ -13276,11 +13276,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1659</uiIndex>
-		<szItemName>3.11双手枪弹夹袋</szItemName>
-		<szLongItemName>3.11双手枪弹夹袋</szLongItemName>
-		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹夹袋。这个弹夹袋可以安全地携带你的手枪弹夹并在需要时可以快速取用。</szItemDesc>
-		<szBRName>3.11双手枪弹夹袋</szBRName>
-		<szBRDesc>NAS系列MOLLE弹夹袋针对各种类型的弹夹专门设计，这个口带就最适合装你的手枪弹夹。</szBRDesc>
+		<szItemName>3.11双手枪弹匣袋</szItemName>
+		<szLongItemName>3.11双手枪弹匣袋</szLongItemName>
+		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹匣袋。这个弹匣袋可以安全地携带你的手枪弹匣并在需要时可以快速取用。</szItemDesc>
+		<szBRName>3.11双手枪弹匣袋</szBRName>
+		<szBRDesc>NAS系列MOLLE弹匣袋针对各种类型的弹匣专门设计，这个口带就最适合装你的手枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1660</uiIndex>
@@ -13332,11 +13332,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1666</uiIndex>
-		<szItemName>事故应急箱</szItemName>
-		<szLongItemName>事故应急箱</szLongItemName>
+		<szItemName>伤员应急包</szItemName>
+		<szLongItemName>伤员应急包</szLongItemName>
 		<szItemDesc>快捷取放应急剪刀，并且兼容MOLLE附件系统。</szItemDesc>
-		<szBRName>事故应急箱</szBRName>
-		<szBRDesc>这个事故应急箱可以快捷取放应急剪刀，并且兼容MOLLE附件系统。</szBRDesc>
+		<szBRName>伤员应急包</szBRName>
+		<szBRDesc>这个伤员应急包可以快捷取放应急剪刀，并且兼容MOLLE附件系统。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1667</uiIndex>
@@ -13372,10 +13372,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1671</uiIndex>
-		<szItemName>小型挂袋</szItemName>
-		<szLongItemName>小型挂袋</szLongItemName>
+		<szItemName>口袋挂袋</szItemName>
+		<szLongItemName>口袋挂袋</szLongItemName>
 		<szItemDesc>这种挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要物件。</szItemDesc>
-		<szBRName>小型挂袋</szBRName>
+		<szBRName>口袋挂袋</szBRName>
 		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋不用时可以折叠收起。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13388,10 +13388,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1673</uiIndex>
-		<szItemName>步枪子弹袋</szItemName>
-		<szLongItemName>步枪子弹袋</szLongItemName>
+		<szItemName>双步枪弹匣袋</szItemName>
+		<szLongItemName>双步枪弹匣袋</szLongItemName>
 		<szItemDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szItemDesc>
-		<szBRName>步枪子弹袋</szBRName>
+		<szBRName>双步枪弹匣袋</szBRName>
 		<szBRDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13404,10 +13404,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1675</uiIndex>
-		<szItemName>左轮枪套</szItemName>
-		<szLongItemName>左轮枪套</szLongItemName>
+		<szItemName>中国左轮枪套</szItemName>
+		<szLongItemName>中国左轮枪套</szLongItemName>
 		<szItemDesc>中国制造的M81美国丛林迷彩尼龙左轮枪套。适用于大部分MOLLE系统。</szItemDesc>
-		<szBRName>左轮枪套</szBRName>
+		<szBRName>中国左轮枪套</szBRName>
 		<szBRDesc>中国制造的M81美国丛林迷彩尼龙左轮枪套。适用于大部分MOLLE系统。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13430,32 +13430,32 @@
 		<uiIndex>1678</uiIndex>
 		<szItemName>3.11枪榴弹袋</szItemName>
 		<szLongItemName>3.11枪榴弹袋</szLongItemName>
-		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹夹袋。这个弹夹袋可以安全地携带你的枪榴弹。</szItemDesc>
+		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹匣袋。这个弹匣袋可以安全地携带你的枪榴弹。</szItemDesc>
 		<szBRName>3.11枪榴弹袋</szBRName>
-		<szBRDesc>3.11战术系统出品的NAS系列MOLLE弹夹袋。这个弹夹袋可以安全地携带你的枪榴弹。</szBRDesc>
+		<szBRDesc>3.11战术系统出品的NAS系列MOLLE弹匣袋。这个弹匣袋可以安全地携带你的枪榴弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1679</uiIndex>
-		<szItemName>3.11单手枪弹夹袋</szItemName>
-		<szLongItemName>3.11单手枪弹夹袋</szLongItemName>
-		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹夹袋，这个弹夹袋可以安全地携带你的手枪弹夹并在需要时可以快速取用。</szItemDesc>
-		<szBRName>3.11单手枪弹夹袋</szBRName>
-		<szBRDesc>NAS系列MOLLE弹夹袋针对各种类型的弹夹专门设计，这个口带就最适合装你的手枪弹夹。</szBRDesc>
+		<szItemName>3.11单手枪弹匣袋</szItemName>
+		<szLongItemName>3.11单手枪弹匣袋</szLongItemName>
+		<szItemDesc>3.11战术系统出品的NAS系列MOLLE弹匣袋，这个弹匣袋可以安全地携带你的手枪弹匣并在需要时可以快速取用。</szItemDesc>
+		<szBRName>3.11单手枪弹匣袋</szBRName>
+		<szBRDesc>NAS系列MOLLE弹匣袋针对各种类型的弹匣专门设计，这个口带就最适合装你的手枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1680</uiIndex>
-		<szItemName>突击步枪弹夹袋</szItemName>
-		<szLongItemName>突击步枪弹夹袋</szLongItemName>
-		<szItemDesc>这个NAS系列MOLLE弹夹袋可以装下2个30发5.56mm口径M16/M4系列步枪弹夹。</szItemDesc>
-		<szBRName>突击步枪弹夹袋</szBRName>
-		<szBRDesc>这个NAS系列MOLLE弹夹袋可以装下2个30发5.56mm口径M16/M4系列步枪弹夹。</szBRDesc>
+		<szItemName>突击步枪弹匣袋</szItemName>
+		<szLongItemName>突击步枪弹匣袋</szLongItemName>
+		<szItemDesc>这个NAS系列MOLLE弹匣袋可以装下2个30发5.56mm口径M16/M4系列步枪弹匣。</szItemDesc>
+		<szBRName>突击步枪弹匣袋</szBRName>
+		<szBRDesc>这个NAS系列MOLLE弹匣袋可以装下2个30发5.56mm口径M16/M4系列步枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1681</uiIndex>
-		<szItemName>小型挂袋</szItemName>
-		<szLongItemName>小型挂袋</szLongItemName>
+		<szItemName>小工具挂袋</szItemName>
+		<szLongItemName>小工具挂袋</szLongItemName>
 		<szItemDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szItemDesc>
-		<szBRName>小型挂袋</szBRName>
+		<szBRName>小工具挂袋</szBRName>
 		<szBRDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13476,19 +13476,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1684</uiIndex>
-		<szItemName>中型挂袋</szItemName>
-		<szLongItemName>中型挂袋</szLongItemName>
+		<szItemName>杂物挂袋</szItemName>
+		<szLongItemName>杂物挂袋</szLongItemName>
 		<szItemDesc>我们的挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要物件。</szItemDesc>
-		<szBRName>中型挂袋</szBRName>
-		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋不用时可以折叠收起。</szBRDesc>
+		<szBRName>杂物挂袋</szBRName>
+		<szBRDesc>根据个人需求提供拓展储存空间，这个杂物挂袋不用时可以折叠收起。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1685</uiIndex>
-		<szItemName>3.11大弹夹袋</szItemName>
-		<szLongItemName>3.11大弹夹袋</szLongItemName>
-		<szItemDesc>可用来装超大体积的弹夹。</szItemDesc>
-		<szBRName>3.11大弹夹袋</szBRName>
-		<szBRDesc>可用来装超大体积的弹夹。</szBRDesc>
+		<szItemName>3.11大弹匣袋</szItemName>
+		<szLongItemName>3.11大弹匣袋</szLongItemName>
+		<szItemDesc>可用来装超大体积的弹匣。</szItemDesc>
+		<szBRName>3.11大弹匣袋</szBRName>
+		<szBRDesc>可用来装超大体积的弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1686</uiIndex>
@@ -13508,19 +13508,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1688</uiIndex>
-		<szItemName>三联装手枪弹夹袋</szItemName>
-		<szLongItemName>三联装手枪弹夹袋</szLongItemName>
-		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹夹。</szItemDesc>
-		<szBRName>三联装手枪弹夹袋</szBRName>
-		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹夹。</szBRDesc>
+		<szItemName>三联装手枪弹匣袋</szItemName>
+		<szLongItemName>三联装手枪弹匣袋</szLongItemName>
+		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹匣。</szItemDesc>
+		<szBRName>三联装手枪弹匣袋</szBRName>
+		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1689</uiIndex>
-		<szItemName>三联装冲锋枪弹夹袋</szItemName>
-		<szLongItemName>三联装冲锋枪弹夹袋</szLongItemName>
-		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹夹。</szItemDesc>
-		<szBRName>三联装冲锋枪弹夹袋</szBRName>
-		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹夹。</szBRDesc>
+		<szItemName>三联装冲锋枪弹匣袋</szItemName>
+		<szLongItemName>三联装冲锋枪弹匣袋</szLongItemName>
+		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹匣。</szItemDesc>
+		<szBRName>三联装冲锋枪弹匣袋</szBRName>
+		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1690</uiIndex>
@@ -13588,11 +13588,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1698</uiIndex>
-		<szItemName>无线电设备用电池</szItemName>
-		<szLongItemName>无线电设备专用电池</szLongItemName>
-		<szItemDesc>标准战地无线电设备使用的电池。非常重，不过如果节约点用，可以坚持好几周。</szItemDesc>
-		<szBRName>无线电设备用电池</szBRName>
-		<szBRDesc>无线电设备使用的标准配置战地电池。</szBRDesc>
+		<szItemName>空编号 1698</szItemName>
+		<szLongItemName>空编号 1698</szLongItemName>
+		<szItemDesc>空编号 1698</szItemDesc>
+		<szBRName>空编号 1698</szBRName>
+		<szBRDesc>空编号 1698</szBRDesc>
 	</ITEM>	
 	<ITEM>
 		<uiIndex>1699</uiIndex>
@@ -13600,7 +13600,7 @@
 		<szLongItemName>内置照明</szLongItemName>
 		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
 		<szBRName>内置照明</szBRName>
-		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1700</uiIndex>
@@ -13724,34 +13724,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1715</uiIndex>
-		<szItemName>防水袋</szItemName>
-		<szLongItemName>防水袋</szLongItemName>
-		<szItemDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋。</szItemDesc>
-		<szBRName>防水袋</szBRName>
-		<szBRDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋用于解决长途征程。</szBRDesc>
+		<szItemName>储水袋</szItemName>
+		<szLongItemName>储水袋</szLongItemName>
+		<szItemDesc>一种单独储水袋可直接使用，也可与ILBE US帆布背包或其它水袋背包配合使用。用于长途旅行。</szItemDesc>
+		<szBRName>储水袋</szBRName>
+		<szBRDesc>一种单独储水袋可直接使用，也可与ILBE US帆布背包或其它水袋背包配合使用。用于长途旅行。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1716</uiIndex>
-		<szItemName>武器包携行具</szItemName>
-		<szLongItemName>武器包携行具</szLongItemName>
-		<szItemDesc>轻量化和简约化并有防水系统。</szItemDesc>
-		<szBRName>武器包携行具</szBRName>
-		<szBRDesc>轻量化和简约化并有防水系统。</szBRDesc>
+		<szItemName>水袋背包</szItemName>
+		<szLongItemName>水袋背包</szLongItemName>
+		<szItemDesc>可配合储水袋或其它水囊使用的补水背包。</szItemDesc>
+		<szBRName>水袋背包</szBRName>
+		<szBRDesc>可配合储水袋或其它水囊使用的补水背包。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1717</uiIndex>
-		<szItemName>快速装载设备</szItemName>
-		<szLongItemName>快速装载设备</szLongItemName>
-		<szItemDesc>用于安全存放快速装载设备的重型口袋。</szItemDesc>
-		<szBRName>快速装载设备</szBRName>
-		<szBRDesc>用于安全存放快速装载设备的重型口袋。</szBRDesc>
+		<szItemName>装弹器口袋</szItemName>
+		<szLongItemName>快速装弹器口袋</szLongItemName>
+		<szItemDesc>用于存放快速装弹器的口袋。</szItemDesc>
+		<szBRName>装弹器口袋</szBRName>
+		<szBRDesc>用于存放快速装弹器的口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1718</uiIndex>
-		<szItemName>单枪袋</szItemName>
-		<szLongItemName>单枪袋</szLongItemName>
+		<szItemName>单步枪弹匣袋</szItemName>
+		<szLongItemName>单步枪弹匣袋</szLongItemName>
 		<szItemDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szItemDesc>
-		<szBRName>单枪袋</szBRName>
+		<szBRName>单步枪弹匣袋</szBRName>
 		<szBRDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13772,27 +13772,27 @@
 	</ITEM>
   <ITEM>
 		<uiIndex>1721</uiIndex>
-		<szItemName>小号木板</szItemName>
-		<szLongItemName>小号木板</szLongItemName>
-		<szItemDesc>小号木板，1x1</szItemDesc>
-		<szBRName>小号木板</szBRName>
-		<szBRDesc>不在网店出售。小号木板，1x1</szBRDesc>
+		<szItemName>空编号 1721</szItemName>
+		<szLongItemName>空编号 1721</szLongItemName>
+		<szItemDesc>空编号 1721</szItemDesc>
+		<szBRName>空编号 1721</szBRName>
+		<szBRDesc>空编号 1721</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1722</uiIndex>
-		<szItemName>中号木板</szItemName>
-		<szLongItemName>中号木板</szLongItemName>
-		<szItemDesc>中号木板，2x1。</szItemDesc>
-		<szBRName>中号木板</szBRName>
-		<szBRDesc>不在网店出售。中号木板，2x1。</szBRDesc>
+		<szItemName>空编号 1722</szItemName>
+		<szLongItemName>空编号 1722</szLongItemName>
+		<szItemDesc>空编号 1722</szItemDesc>
+		<szBRName>空编号 1722</szBRName>
+		<szBRDesc>空编号 1722</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1723</uiIndex>
-		<szItemName>大号木板</szItemName>
-		<szLongItemName>大号木板</szLongItemName>
-		<szItemDesc>大号木板，2x2。</szItemDesc>
-		<szBRName>大号木板</szBRName>
-		<szBRDesc>不在网店出售。大号木板，2x2。</szBRDesc>
+		<szItemName>空编号 1723</szItemName>
+		<szLongItemName>空编号 1723</szLongItemName>
+		<szItemDesc>空编号 1723</szItemDesc>
+		<szBRName>空编号 1723</szBRName>
+		<szBRDesc>空编号 1723</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1724</uiIndex>
@@ -13824,62 +13824,62 @@
 		<szLongItemName>房屋崩塌</szLongItemName>
 		<szItemDesc>内部物品，请勿使用!!!</szItemDesc>
 		<szBRName>房屋崩塌</szBRName>
-		<szBRDesc>不在网店出售。内部物品，请勿使用!!!</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1728</uiIndex>
-		<szItemName>12号散弹 ，2发橡皮弹</szItemName>
-		<szLongItemName>12号散弹 ，2发橡皮弹</szLongItemName>
+		<szItemName>12号，2发橡皮弹</szItemName>
+		<szLongItemName>12号，2发橡皮弹</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹 ，2发橡皮弹</szBRName>
+		<szBRName>12号，2发橡皮弹</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1729</uiIndex>
-		<szItemName>12号散弹 ，4发橡皮弹</szItemName>
-		<szLongItemName>12号散弹 ，4发橡皮弹</szLongItemName>
+		<szItemName>12号，4发橡皮弹</szItemName>
+		<szLongItemName>12号，4发橡皮弹</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹 ，4发橡皮弹</szBRName>
+		<szBRName>12号，4发橡皮弹</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1730</uiIndex>
-		<szItemName>12号散弹 ，7发橡皮弹</szItemName>
-		<szLongItemName>12号散弹 ，7发橡皮弹</szLongItemName>
+		<szItemName>12号，7发橡皮弹</szItemName>
+		<szLongItemName>12号，7发橡皮弹</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹 ，7发橡皮弹</szBRName>
+		<szBRName>12号，7发橡皮弹</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1731</uiIndex>
-		<szItemName>12号散弹 ，12发橡皮弹</szItemName>
-		<szLongItemName>12号散弹 ，12发橡皮弹</szLongItemName>
+		<szItemName>12号，12发橡皮弹</szItemName>
+		<szLongItemName>12号，12发橡皮弹</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹 ，12发橡皮弹</szBRName>
+		<szBRName>12号，12发橡皮弹</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1732</uiIndex>
-		<szItemName>12号散弹 ，20发橡皮弹</szItemName>
-		<szLongItemName>12号散弹 ，20发橡皮弹</szLongItemName>
+		<szItemName>12号，20发橡皮弹鼓</szItemName>
+		<szLongItemName>12号，20发橡皮弹鼓</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹 ，20发橡皮弹</szBRName>
+		<szBRName>12号，20发橡皮弹鼓</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1733</uiIndex>
-		<szItemName>12号散弹箱，橡皮弹</szItemName>
-		<szLongItemName>12号散弹箱，橡皮弹</szLongItemName>
+		<szItemName>12号，橡皮弹箱</szItemName>
+		<szLongItemName>12号，橡皮弹箱</szLongItemName>
 		<szItemDesc>一个很大的装子弹用的箱子，我觉得你的背包是装不下它的...</szItemDesc>
-		<szBRName>12号散弹箱，橡皮弹</szBRName>
+		<szBRName>12号，橡皮弹箱</szBRName>
 		<szBRDesc>我们现在提供大量的不同种类的弹药，在购买前请标明价格和重量</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1734</uiIndex>
-		<szItemName>12号散弹盒，橡皮弹</szItemName>
-		<szLongItemName>12号散弹盒，橡皮弹</szLongItemName>
+		<szItemName>12号，橡皮弹盒</szItemName>
+		<szLongItemName>12号，橡皮弹盒</szLongItemName>
 		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
-		<szBRName>12号散弹盒，橡皮弹</szBRName>
+		<szBRName>12号，橡皮弹盒</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
   <ITEM>
@@ -13892,10 +13892,10 @@
 	</ITEM>
   <ITEM>
 		<uiIndex>1736</uiIndex>
-		<szItemName>箭-2</szItemName>
-		<szLongItemName>箭-2</szLongItemName>
+		<szItemName>箭-2火箭筒</szItemName>
+		<szLongItemName>9k32 箭-2火箭筒</szLongItemName>
 		<szItemDesc>自1968年以来，这种单兵地对空导弹差不多每场局部战争都有登场。</szItemDesc>
-		<szBRName>9k32 箭-2</szBRName>
+		<szBRName>箭-2火箭筒</szBRName>
 		<szBRDesc>老毛子的另一种出口名品，这种单兵地对空导弹足以匹敌它的西方对手，而且更便宜。亲，不来一发吗！</szBRDesc>		
 	</ITEM>
 	<ITEM>
@@ -13908,10 +13908,10 @@
 	</ITEM>
   	<ITEM>
 		<uiIndex>1738</uiIndex>
-		<szItemName>迷你火箭</szItemName>
-		<szLongItemName>迷你火箭</szLongItemName>
-		<szItemDesc>由尖端科技打造，这些火箭可以轻松消灭任何有机物，将它们炸成碎块。</szItemDesc>
-		<szBRName>迷你火箭</szBRName>
+		<szItemName>迷你火箭，5发冰冻弹匣</szItemName>
+		<szLongItemName>迷你火箭，5发冰冻弹匣</szLongItemName>
+		<szItemDesc>由尖端科技打造，这些弹药可以轻松冻结任何有机物，将它们做成冰雕吧！</szItemDesc>
+		<szBRName>迷你火箭，5发冰冻弹匣</szBRName>
 		<szBRDesc>Bobby Ray网店无货!</szBRDesc>		
 	</ITEM>
 	<ITEM>
@@ -13963,50 +13963,50 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1745</uiIndex>
-		<szItemName>折叠枪托（折叠后）</szItemName>
-		<szLongItemName>折叠枪托（折叠后）</szLongItemName>
+		<szItemName>折叠式枪托（折叠后）</szItemName>
+		<szLongItemName>折叠式枪托（折叠后）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>折叠枪托</szBRName>
+		<szBRName>折叠式枪托（折叠后）</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
-	    <uiIndex>1746</uiIndex>
-		<szItemName>折叠枪托</szItemName>
-		<szLongItemName>折叠枪托</szLongItemName>
+	    <uiIndex>1746</uiIndex>   <!-- 1746和1747是互相转换，内置不可拆卸 -->
+		<szItemName>固定折叠式枪托</szItemName>
+		<szLongItemName>固定折叠式枪托</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>折叠枪托</szBRName>
+		<szBRName>固定折叠式枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1747</uiIndex>
-		<szItemName>折叠枪托（折叠后）</szItemName>
-		<szLongItemName>折叠枪托（折叠后）</szLongItemName>
+		<szItemName>固定折叠式枪托（折叠后）</szItemName>
+		<szLongItemName>固定折叠式枪托（折叠后）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>折叠枪托</szBRName>
+		<szBRName>固定折叠式枪托（折叠后）</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1748</uiIndex>
-		<szItemName>伸缩枪托（缩短后）</szItemName>
-		<szLongItemName>伸缩枪托（缩短后）</szLongItemName>
+		<szItemName>伸缩式枪托（缩短后）</szItemName>
+		<szLongItemName>伸缩式枪托（缩短后）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>伸缩枪托</szBRName>
+		<szBRName>伸缩式枪托（缩短后）</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1749</uiIndex>
-		<szItemName>伸缩枪托</szItemName>
-		<szLongItemName>伸缩枪托</szLongItemName>
+		<uiIndex>1749</uiIndex>   <!-- 1749和1750是互相转换，内置不可拆卸 -->
+		<szItemName>固定伸缩式枪托</szItemName>
+		<szLongItemName>固定伸缩式枪托</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>伸缩枪托</szBRName>
+		<szBRName>固定伸缩式枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1750</uiIndex>
-		<szItemName>伸缩枪托（缩短后）</szItemName>
-		<szLongItemName>伸缩枪托（缩短后）</szLongItemName>
+		<szItemName>固定伸缩式枪托（缩短后）</szItemName>
+		<szLongItemName>固定伸缩式枪托（缩短后）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>伸缩枪托</szBRName>
+		<szBRName>固定伸缩式枪托（缩短后）</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -14045,9 +14045,9 @@
 		<uiIndex>1755</uiIndex>
 		<szItemName>燃烧弹内部</szItemName>
 		<szLongItemName>燃烧弹内部</szLongItemName>
-		<szItemDesc>内部物品，请勿使用！！！</szItemDesc>
-		<szBRName>燃烧内部</szBRName>
-		<szBRDesc>不卖这个,如果你看到了说明游戏快要挂了。</szBRDesc>
+		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
+		<szBRName>燃烧弹内部</szBRName>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1756</uiIndex>
@@ -14077,9 +14077,9 @@
 		<uiIndex>1759</uiIndex>
 		<szItemName>白烟爆炸</szItemName>
 		<szLongItemName>白烟爆炸</szLongItemName>
-		<szItemDesc>内部物品，请勿使用！！！</szItemDesc>
+		<szItemDesc>内部物品，不要使用！！！</szItemDesc>
 		<szBRName>白烟爆炸</szBRName>
-		<szBRDesc>不卖这个,如果你看到了说明游戏快要挂了。</szBRDesc>
+		<szBRDesc>内部物品，不要使用！！！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1760</uiIndex>

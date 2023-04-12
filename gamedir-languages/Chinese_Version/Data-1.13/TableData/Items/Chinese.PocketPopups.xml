@@ -114,7 +114,7 @@
 		
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>快装器弹袋</pName>
+		<pName>装弹器弹袋</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
