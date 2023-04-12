@@ -6532,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"Real Time Confirmation",
 	L"Sleep/Wake Notifications",
 	L"Use Metric System",
-	L"Merc Lights during Movement",
+	L"Highlight Mercs",
 	L"Snap Cursor to Mercs",
 	L"Snap Cursor to Doors",
 	L"Make Items Glow",
@@ -6574,6 +6574,8 @@ STR16		zOptionsToggleText[] =
 	L"Invert Mouse Wheel",
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray Shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6634,8 +6636,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
 
-	//Merc Lighted movement
-	L"When ON, the merc will light the ground while walking. Turn OFF for faster frame rate.\nToggle artificial merc light. (|G)",
+	//Highlight Mercs
+	L"When ON, highlights the mercenary (Not visible to enemies).\nToggle in-game with (|G)",
 
 	//Smart cursor
 	L"When ON, moving the cursor near your mercs will automatically highlight them.",
@@ -6693,6 +6695,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, inverts mouse wheel directions.",
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)",
 	L"When ON, shows last known enemy location.",
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9194,6 +9198,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

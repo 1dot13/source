@@ -5,6 +5,7 @@
 #include "mousesystem.h"
 #include "structure.h"
 #include "Assignments.h"		// added by Flugente for the stat-enums
+#include <EditorMercs.h>
 
 #define		MAX_UICOMPOSITES				4
 

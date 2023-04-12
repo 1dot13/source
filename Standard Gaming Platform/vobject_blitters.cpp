@@ -224,7 +224,6 @@ BOOLEAN Blt32BPPTo16BPPTransShadow(UINT16 *pDst, UINT32 uiDstPitch, UINT32 *pSrc
 			//alpha = 255;
 			if(alpha > 0)
 			{
-#if 1
 				// the darker shade
 				tmpVal = ShadeTable[*pDstPtr];
 
@@ -249,9 +248,6 @@ BOOLEAN Blt32BPPTo16BPPTransShadow(UINT16 *pDst, UINT32 uiDstPitch, UINT32 *pSrc
 
 				newcolor = FROMRGB(red,green,blue);
 				*pDstPtr = Get16BPPColor(newcolor);
-#else
-				*pDstPtr = ShadeTable[*pDstPtr];
-#endif
 			}
 			pSrcPtr++;
 			pDstPtr++;
@@ -7258,7 +7254,6 @@ BOOLEAN Blt16BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pSrc, UI
 	pDestPtr		= (UINT16*)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
 	uiLineSkipDest	= uiDestPitch - (uiWidth*2);
 	uiLineSkipSrc	= uiSrcPitch - (uiWidth*2);
-#if 1
 	do
 	{
 		UINT32 w = uiWidth;
@@ -7273,36 +7268,6 @@ BOOLEAN Blt16BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pSrc, UI
 		pDestPtr = (UINT16*)((UINT8*)pDestPtr + uiLineSkipDest);
 	}
 	while (--uiHeight != 0);
-#else
-__asm {
-	mov		esi, pSrcPtr
-	mov		edi, pDestPtr
-	mov		ebx, uiHeight
-	mov		dx, usTrans
-
-BlitNewLine:
-	mov		ecx, uiWidth
-
-Blit2:
-	mov		ax, [esi]
-	cmp		ax, dx
-	je		Blit3
-
-	mov		[edi], ax
-
-Blit3:
-	add		esi, 2
-	add		edi, 2
-	dec		ecx
-	jnz		Blit2
-
-	add		edi, uiLineSkipDest
-	add		esi, uiLineSkipSrc
-	dec		ebx
-	jnz		BlitNewLine
-
-	}
-#endif
 	return(TRUE);
 }
 
@@ -7318,7 +7283,6 @@ BOOLEAN Blt16BPPTo16BPPTransShadow(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pS
 	pDestPtr		= (UINT16*)((UINT8 *)pDest + (iDestYPos * uiDestPitch) + (iDestXPos * 2));
 	uiLineSkipDest	= uiDestPitch - (uiWidth * 2);
 	uiLineSkipSrc	= uiSrcPitch  - (uiWidth * 2);
-#if 1
 	do
 	{
 		UINT32 w = uiWidth;
@@ -7336,7 +7300,6 @@ BOOLEAN Blt16BPPTo16BPPTransShadow(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pS
 		pDestPtr = (UINT16*)((UINT8*)pDestPtr + uiLineSkipDest);
 	}
 	while (--uiHeight != 0);
-#endif
 	return TRUE;
 }
 
@@ -9649,51 +9612,6 @@ BOOLEAN Blt8BPPDataTo16BPPBufferTransShadowZNBAlpha(UINT16 *pBuffer, UINT32 uiDe
 }
 
 
-#if 0
-
-BlitNTL4:
-
-		// TEST FOR Z FIRST!
-		mov		ax, [ebx]
-		cmp		ax, usZValue
-		ja		BlitNTL8
-
-		// Write it NOW!
-		jmp		BlitNTL7
-
-BlitNTL8:
-
-		test	uiLineFlag, 1
-		jz		BlitNTL6
-
-		test	edi, 2
-		jz		BlitNTL5
-		jmp		BlitNTL9
-
-BlitNTL6:
-		test	edi, 2
-		jnz		BlitNTL5
-
-BlitNTL7:
-
-		// Write normal z value
-		mov		ax, usZValue
-		mov		[ebx], ax
-		jmp	BlitNTL10
-
-BlitNTL9:
-
-		// Write high z
-		mov		ax, 32767
-		mov		[ebx], ax
-
-BlitNTL10:
-
-		xor		eax, eax
-		mov		al, [esi]
-		mov		ax, [edx+eax*2]
-		mov		[edi], ax
-#endif
 
 
 /**********************************************************************************************

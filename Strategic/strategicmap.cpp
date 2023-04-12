@@ -2215,7 +2215,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//	GridNo = NOWHERE, which causes this assertion to fail
 			//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
 			//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
-			if ( !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && !SPY_LOCATION( MercPtrs[i]->bAssignment ) )
+			if (!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && !SPY_LOCATION(MercPtrs[i]->bAssignment) && MercPtrs[i]->bAssignment != ASSIGNMENT_POW)
 			{
 				//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
 				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds( MercPtrs[i]->sGridNo ) || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
@@ -2265,7 +2265,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//	GridNo = NOWHERE, which causes this assertion to fail
 			//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
 			//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
-			if ( !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE )
+			if (!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && MercPtrs[i]->bAssignment != ASSIGNMENT_POW)
 			{
 				//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
 				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds( MercPtrs[i]->sGridNo ) || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
@@ -3290,23 +3290,9 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 							}
 
 							// ATE: Call actions based on what POW we are on...
-							if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS )
-							{
-								// Complete quest
-								EndQuest( QUEST_HELD_IN_ALMA, sSectorX, sSectorY );
-
-								// Do action
-								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
-							}
 							#ifndef JA2UB
-							else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
-							{
-								// Complete quest
-								EndQuest(QUEST_HELD_IN_TIXA, sSectorX, sSectorY);
-
-								// Do action
-								HandleNPCDoAction(0, NPC_ACTION_GRANT_EXPERIENCE_3, 0);
-							}
+							HandlePOWQuestState(Q_END, QUEST_HELD_IN_ALMA, sSectorX, sSectorY, bSectorZ);
+							HandlePOWQuestState(Q_END, QUEST_HELD_IN_TIXA, sSectorX, sSectorY, bSectorZ);
 							#endif
 						}
 					}
@@ -4301,6 +4287,68 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 	}
 }
 
+void JumpIntoEscapedSector(UINT8 ubTacticalDirection)
+{
+	// Remove any incapacitated mercs from current squads and assign them to new squad
+	UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	INT8 currentSquad = -1;
+
+	for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
+	{
+		// Are we not active in sector
+		if (!pSoldier->bActive || !pSoldier->bInSector || pSoldier->stats.bLife >= OKLIFE)
+		{
+			continue;
+		}
+		if (currentSquad == -1)
+		{
+			currentSquad = AddCharacterToUniqueSquad(pSoldier);
+			continue;
+		}
+		if (!AddCharacterToSquad(pSoldier, currentSquad))
+		{
+			currentSquad = AddCharacterToUniqueSquad(pSoldier);
+		}
+	}
+
+	// Retreat squads that are capable of it
+	for (size_t i = 0; i < NUMBER_OF_SQUADS; i++)
+	{
+		for (size_t j = 0; j < NUMBER_OF_SOLDIERS_PER_SQUAD; j++)
+		{
+			SOLDIERTYPE* pSoldier = Squad[i][j];
+			if (pSoldier && OK_CONTROLLABLE_MERC(pSoldier))
+			{
+				GROUP* pGroup = GetGroup(pSoldier->ubGroupID);
+				switch (ubTacticalDirection)
+				{
+				case NORTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY - 1;
+					break;
+				case EAST:
+					pGroup->ubPrevX = pGroup->ubSectorX + 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				case SOUTH:
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY + 1;
+					break;
+				case WEST:
+					pGroup->ubPrevX = pGroup->ubSectorX - 1;
+					pGroup->ubPrevY = pGroup->ubSectorY;
+					break;
+				default:
+					break;
+				}
+
+				RetreatGroupToPreviousSector(pGroup);
+				break;
+			}
+		}
+	}
+}
 
 void HandleSoldierLeavingSectorByThemSelf( SOLDIERTYPE *pSoldier )
 {
@@ -4361,17 +4409,7 @@ void AllMercsWalkedToExitGrid( )
 			 (gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW) )
 		{
 			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-			// End inetrrogation quest if we left the sector, but haven't killed all enemies
-			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS )
-			{
-				// Finish quest, although not give points here...
-				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
-				// ... give them manually, but halved
-				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
-				// Also get us know, we finished the quest
-				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			}
+			HandlePOWQuestState(Q_END, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4539,17 +4577,7 @@ void AllMercsHaveWalkedOffSector( )
 			 (gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW) )
 		{
 			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-			// End inetrrogation quest if we left the sector, but haven't killed all enemies
-			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS )
-			{
-				// Finish quest, although not give points here...
-				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
-				// ... give them manually, but halved
-				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
-				// Also get us know, we finished the quest
-				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			}
+			HandlePOWQuestState(Q_END, QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////
 	}
@@ -6921,6 +6949,47 @@ BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection )
 	}
 	return(*pbDirection != -1);
 }
+
+bool IsEscapeDirectionValid(WorldDirections pbDirection)
+{
+	bool isValid = false;
+	UINT8 const ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
+
+	switch (pbDirection)
+	{
+	case NORTH:
+		if (!(gWorldSectorY - 1 < MINIMUM_VALID_Y_COORDINATE || gMapInformation.sNorthGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[NORTH_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[NORTH_STRATEGIC_MOVE] == EDGEOFWORLD))
+		{
+			isValid = true;
+		}
+		break;
+	case EAST:
+		if (!(gWorldSectorX + 1 > MAXIMUM_VALID_X_COORDINATE || gMapInformation.sEastGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[EAST_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[EAST_STRATEGIC_MOVE] == EDGEOFWORLD))
+		{
+			isValid = true;
+		}
+		break;
+	case SOUTH:
+		if (!(gWorldSectorY + 1 > MAXIMUM_VALID_Y_COORDINATE || gMapInformation.sSouthGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[SOUTH_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[SOUTH_STRATEGIC_MOVE] == EDGEOFWORLD))
+		{
+			isValid = true;
+		}
+		break;
+	case WEST:
+		if (!(gWorldSectorX - 1 < MINIMUM_VALID_X_COORDINATE || gMapInformation.sWestGridNo == NOWHERE ||
+			SectorInfo[ubSectorID].ubTraversability[WEST_STRATEGIC_MOVE] == GROUNDBARRIER || SectorInfo[ubSectorID].ubTraversability[WEST_STRATEGIC_MOVE] == EDGEOFWORLD))
+		{
+			isValid = true;
+		}
+		break;
+	}
+
+	return isValid;
+}
+
 #ifdef JA2UB
 
 

@@ -118,9 +118,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 
 	//CHRISL: We can't jump a fence while wearing a backpack, to consider fences as impassible
 	// SANDRO - Headrocks change to backpack check implemented
-	if(sSwitchValue == TRAVELCOST_FENCE && UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true
-		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+	if(sSwitchValue == TRAVELCOST_FENCE && !pSoldier->CanClimbWithCurrentBackpack())
 	{
 		return(-1);
 	}
@@ -679,7 +677,6 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 	// Get switch value...
 	sSwitchValue = gubWorldMovementCosts[ sGridNo ][ bDir ][ pSoldier->pathing.bLevel ];
 
-#if 1 //Moa: set to 0 to use original copy and paste code from ActionPointCost()
 	if ( sSwitchValue == TRAVELCOST_FENCE )
 	{
 		// If we are changeing stance ( either before or after getting there....
@@ -737,191 +734,6 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode );
 
 	return (sPoints);
-#else
-	// Tile cost should not be reduced based on movement mode...
-	if ( sSwitchValue == TRAVELCOST_FENCE )
-	{
-		return( sTileCost );
-	}
-
-
-	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
-	// This should fix "problems" for special modified maps
-	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
-
-	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
-		ubTerrainID = FLAT_GROUND;
-
-	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-	if ( TERRAIN_IS_WATER( ubTerrainID) )
-	{
-		usMovementMode = WALKING;
-	}
-
-	// so, then we must modify it for other movement styles and accumulate
-	// CHRISL: Adjusted system to use different move costs while wearing a backpack
-	if (sTileCost > 0)
-	{
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - This part have been modified "a bit" 
-		// Check movement modifiers
-		switch( usMovementMode )
-		{
-			case RUNNING:
-			case ADULTMONSTER_WALKING:
-			case BLOODCAT_RUN:
-				sPoints = sTileCost + APBPConstants[AP_MODIFIER_RUN];
-				break;
-			case CROW_FLY:
-			case SIDE_STEP:
-			case WALK_BACKWARDS:
-			case ROBOT_WALK:
-			case BLOODCAT_WALK_BACKWARDS:
-			case MONSTER_WALK_BACKWARDS:
-			case LARVAE_WALK:
-			case WALKING :
-			case WALKING_ALTERNATIVE_RDY :
-			case SIDE_STEP_ALTERNATIVE_RDY :
-				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
-				if (!(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ) && !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) )
-				{
-					sPoints += APBPConstants[AP_MODIFIER_READY];	
-				}
-				break;
-			case SIDE_STEP_WEAPON_RDY:
-			case SIDE_STEP_DUAL_RDY:
-			case WALKING_WEAPON_RDY:
-			case WALKING_DUAL_RDY:
-				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
-				break;
-			case START_SWAT:
-			case SWAT_BACKWARDS:
-			case SWATTING:
-				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
-				break;
-			case CRAWLING:
-				sPoints = sTileCost + APBPConstants[AP_MODIFIER_CRAWL];
-				break;
-
-			default:
-
-				// Invalid movement mode
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Invalid movement mode %d used in ActionPointCost", usMovementMode	) );
-				sPoints = sTileCost;
-				break;
-		}
-				
-		// Check for reverse mode
-		if ( pSoldier->bReverse || gUIUseReverse )
-			sPoints += APBPConstants[AP_REVERSE_MODIFIER];
-
-		// STOMP traits - Athletics trait decreases movement cost
-		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
-		{
-			sPoints = max(1, (INT16)((sPoints * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
-		}
-
-		// Flugente: riot shields lower movement speed
-		if ( pSoldier->IsRiotShieldEquipped( ) )
-			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
-
-		// Flugente: dragging someone
-		if ( pSoldier->IsDraggingSomeone( ) )
-			sPoints *= gItemSettings.fDragAPCostModifier;
-
-		// Check if doors if not player's merc (they have to open them manually)
-		if ( sSwitchValue == TRAVELCOST_DOOR && pSoldier->bTeam != gbPlayerNum )
-		{
-			sPoints += GetAPsToOpenDoor( pSoldier ) + GetAPsToOpenDoor( pSoldier ); // Include open and close costs!
-		}
-		// Check for stealth mode
-		if ( pSoldier->bStealthMode )
-		{
-			 // STOMP traits - Stealthy trait decreases stealth AP modifier
-			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
-			{
-				 sPoints += (max(0, (INT16)((APBPConstants[AP_STEALTH_MODIFIER] * (100 - gSkillTraitValues.ubSTStealthModeSpeedBonus) / 100) + 0.5)));
-			}
-			else
-			{
-				sPoints += APBPConstants[AP_STEALTH_MODIFIER];
-			}
-		}
-		// Check for backpack
-		if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
-			sPoints += APBPConstants[AP_MODIFIER_PACK];
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	}
-
-	// Get switch value...
-	sSwitchValue = gubWorldMovementCosts[ sGridNo ][ bDir ][ pSoldier->pathing.bLevel ];
-
-	// ATE: If we have a 'special cost, like jump fence...
-	if ( sSwitchValue == TRAVELCOST_FENCE )
-	{
-		// If we are changeing stance ( either before or after getting there....
-		// We need to reflect that...
-		switch(usMovementMode)
-		{
-			case SIDE_STEP:
-			case SIDE_STEP_WEAPON_RDY:
-			case SIDE_STEP_DUAL_RDY:
-			case WALK_BACKWARDS:
-			case RUNNING:
-			case WALKING :
-			case WALKING_WEAPON_RDY:
-			case WALKING_DUAL_RDY:
-			case WALKING_ALTERNATIVE_RDY :
-			case SIDE_STEP_ALTERNATIVE_RDY:
-
-				// Add here cost to go from crouch to stand AFTER fence hop....
-				// Since it's AFTER.. make sure we will be moving after jump...
-				if ( ( bPathIndex + 2 ) < bPathLength )
-				{
-					sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
-				}
-				break;
-
-			case SWATTING:
-			case START_SWAT:
-			case SWAT_BACKWARDS:
-
-				// Add cost to stand once there BEFORE....
-				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
-				break;
-
-			case CRAWLING:
-
-				// Can't do it here.....
-				break;
-		}
-	}
-	else if (sSwitchValue == TRAVELCOST_NOT_STANDING)
-	{
-		switch(usMovementMode)
-		{
-			case RUNNING:
-			case WALKING :
-			case WALKING_WEAPON_RDY:
-			case WALKING_DUAL_RDY:
-			case SIDE_STEP:
-			case SIDE_STEP_WEAPON_RDY:
-			case SIDE_STEP_DUAL_RDY:
-			case WALK_BACKWARDS:
-			case WALKING_ALTERNATIVE_RDY :
-			case SIDE_STEP_ALTERNATIVE_RDY:
-				// charge crouch APs for ducking head!
-				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	return( sPoints );
-#endif
 }
 
 
@@ -2563,20 +2375,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			// Do we need to stand up?
 			bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 		}
-#if 0//dnl ch73 021013 relocate this to MinAPsToPunch
-		// blunt weapons & blades
-		else if ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE )
-		{
-			if ( usTargID != NOBODY  )
-			{
-				// Check if target is prone, if so, calc cost...
-				if ( gAnimControl[ MercPtrs[ usTargID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
-					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
-				else
-					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
-			}
-		}
-#endif
 		else if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913 move this here from bottom, need to change as rocketlaucher could be fired from crouch too
 		{
 			if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
@@ -2594,10 +2392,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	//Calculate usTurningCost
 	if (!TileIsOutOfBounds(sGridNo))
 	{
-#if 0//dnl ch73 021013 relocate this to MinAPsToPunch
-		// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
-		if ( !( ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE ) && usRange > 1 ) )
-#endif
 		{
 			if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913
 			{
@@ -2652,11 +2446,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		bAPCost += APBPConstants[AP_UNJAM];
 	}
 
-#if 0//dnl ch63 240813 this seems very wrong, in most case (pSoldier->bActionPoints > bFullAps) and this will return less points then is actually required and could cancel some AI actions, like throwing grenades
-	// the minimum AP cost of ANY shot can NEVER be more than merc's maximum APs!
-	if ( bAPCost > bFullAPs )
-		bAPCost = bFullAPs;
-#endif
 	// this SHOULD be impossible, but nevertheless...
 	if ( bAPCost < 1 )
 		bAPCost = 1;
@@ -3812,73 +3601,8 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	INT32	iFullAPs;
 	INT32 iAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 	UINT16 usInHand;
-#if 0//dnl ch72 180913
-	UINT16 usTargID;
-	UINT32 uiMercFlags;
-	UINT8 ubDirection;
-
-	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch63 240813
-		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
-	else
-#endif
 		// make sure the guy's actually got a throwable item in his hand!
 		usInHand = pSoldier->inv[HANDPOS].usItem;
-#if 0//dnl ch72 180913 this goes down because of new trait system	
-	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) &&
-		   !(Item[ usInHand ].usItemClass & IC_LAUNCHER)) )
-	{
-		//AXP 25.03.2007: See if we are about to throw grenade (grenade was not in hand, but in temp object)
-		if ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL &&
-			pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM && (Item[ pSoldier->pTempObject->usItem ].usItemClass & IC_GRENADE) )
-		{
-			//nothing here
-		}
-		else
-		{
-#ifdef JA2TESTVERSION
-			ScreenMsg( MSG_FONT_YELLOW, MSG_DEBUG, L"MinAPsToThrow - Called when in-hand item is %d", usInHand );
-#endif
-			return(0);
-		}
-	}
-
-	if (!TileIsOutOfBounds(sGridNo))
-	{
-		// Given a gridno here, check if we are on a guy - if so - get his gridno
-		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
-		{
-			sGridNo = MercPtrs[ usTargID ]->sGridNo;
-		}
-
-		/*// OK, get a direction and see if we need to turn...
-		if (ubAddTurningCost)
-		{
-			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-
-			// Is it the same as he's facing?
-			if ( ubDirection != pSoldier->ubDirection )
-			{
-				//Lalien: disabled it again
-				//AXP 25.03.2007: Reenabled look cost
-				//iAPCost += GetAPsToLook( pSoldier );
-			}
-		}*/
-	}
-	/*else
-	{
-		// Assume we need to add cost!
-		//iAPCost += GetAPsToLook( pSoldier );
-	}*/
-
-	// if attacking a new target (or if the specific target is uncertain)
-	//AXP 25.03.2007: Aim-at-same-tile AP cost/bonus doesn't make any sense for thrown objects
-	//if ( ( sGridNo != pSoldier->sLastTarget ) )
-	//{
-	//	iAPCost += APBPConstants[AP_CHANGE_TARGET];
-	//}
-
-	//iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND ); // moved lower - SANDRO
-#endif
 
 	// Calculate default top & bottom of the magic "aiming" formula)
 

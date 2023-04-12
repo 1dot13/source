@@ -6528,7 +6528,7 @@ STR16		zOptionsToggleText[] =
 	L"Игра в реальном времени",
 	L"Подтверждение сна/подъема",
 	L"Метрическая система",
-	L"Движущаяся подсветка бойца",
+	L"Выделите наемников",
 	L"Курсор на бойцов",
 	L"Курсор на дверь", 
 	L"Мерцание вещей",
@@ -6570,6 +6570,8 @@ STR16		zOptionsToggleText[] =
 	L"Инвертировать колесо мыши",
 	L"Боевой порядок",						// when multiple mercs are selected, they will try to keep their relative distances
 	L"Показывать расположение",				// show locator on last known enemy location
+	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6630,8 +6632,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Если включено, то используется метрическая система мер,\nиначе будет британская.",
 
-	//Merc Lighted movement
-	L"При ходьбе карта подсвечивается вокруг бойца.\nОтключите эту настройку для повышения\nпроизводительности системы (|G).",
+	//Highlight Mercs
+	L"При включении выделяет наемника (не виден врагам).\nПереключиться в игре с помощью (|G)",
 
 	//Smart cursor
 	L"Если включено, то перемещение курсора возле наёмника\nавтоматически выбирает его.",
@@ -6689,6 +6691,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, инвертирует направление\nпрокрутки колеса мыши.",
 	L"Если выбрано несколько наёмников,\nони будут пытаться сохранять взаимное расположение\nи дистанцию при движении\n(нажмите |C|t|r|l+|A|l|t+|G для переключения или |S|h|i|f|t + клик для движения).",
 	L"Если включено, показывает известное расположение противника\n(нажмите |S|h|i|f|t, чтобы показать источник шума).",
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт,\nчтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9189,6 +9193,8 @@ STR16	szPrisonerTextStr[]=
 	L"В %s был раскрыт высокопоставленный офицер!",
 	L"Вражеский командир отказывается даже подумать о сдаче!",
 	L"%d заключенных добровольно присоединились к нашим силам.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

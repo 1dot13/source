@@ -6532,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"实时确认",		//"Real Time Confirmation",
 	L"显示睡觉/醒来时的提示",	//"Display sleep/wake notifications",
 	L"使用公制系统",		//"Use Metric System",
-	L"佣兵移动时高亮显示",	//"Merc Lights during Movement",
+	L"佣兵假光",	//"Highlight Mercs",
 	L"锁定佣兵",	//"Snap Cursor to Mercs",
 	L"锁定门",		//"Snap Cursor to Doors",
 	L"物品闪亮",	//"Make Items Glow",
@@ -6574,6 +6574,8 @@ STR16		zOptionsToggleText[] =
 	L"反转鼠标滚轮",                 //L"Invert mouse wheel",
 	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"显示已知敌人位置",			//L"Show enemy location", show locator on last known enemy location
+	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6634,8 +6636,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"打开时，使用公制系统，否则使用英制系统。",
 
-	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表，切换虚拟佣兵光照。（|G）\n（关闭这个选项会使游戏的显示速度变快）",
+	//Highlight Mercs
+	L"打开时，切换虚拟佣兵照明。（|G）",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -6693,6 +6695,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，反转鼠标滚轮方向。",
 	L"打开时，当选择多个佣兵，在前进时会保持彼此的间距。|C|t|r|l+|A|l|t+|G \n（按|S|h|i|f|t+点击人物头像可以加入或移出队伍）", //L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", TODO.Translate
 	L"打开时，会显示已知敌人最后移动的位置。",	//L"When ON, shows last known enemy location.",    
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9194,6 +9198,8 @@ STR16	szPrisonerTextStr[]=
 	L"一个高阶军官%s被发现！",	//L"A high-ranking army officer in %s has been revealed!",
 	L"敌方领袖拒绝考虑投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d名囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=

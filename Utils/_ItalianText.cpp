@@ -6517,7 +6517,7 @@ STR16		zOptionsToggleText[] =
 	L"Conferma in tempo reale",
 	L"Visualizza gli avvertimenti sveglio/addormentato",
 	L"Utilizza il sistema metrico",
-	L"Tragitto illuminato durante gli spostamenti",
+	L"Evidenzia Merc",
 	L"Sposta il cursore sui mercenari",
 	L"Sposta il cursore sulle porte",
 	L"Evidenzia gli oggetti",
@@ -6559,6 +6559,8 @@ STR16		zOptionsToggleText[] =
 	L"Invert mouse wheel",			// TODO.Translate
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6619,8 +6621,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
 
-	//Merc Lighted movement
-	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Quando attivato, evidenzia il mercenario (non visibile ai nemici).\nAttiva/disattiva nel gioco con (|G)",
 
 	//Smart cursor
 	L"Se attivata, muovendo il cursore vicino ai vostri mercenari li evidenzierà automaticamente.",
@@ -6678,6 +6680,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -9195,6 +9199,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

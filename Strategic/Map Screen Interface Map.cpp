@@ -1819,7 +1819,7 @@ BOOLEAN InitializePalettesForMap( void )
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
  		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1280x720.pcx");
 	else if (iResolution < _1024x768)
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
@@ -6717,7 +6717,7 @@ void HandleLowerLevelMapBlit( void )
 		offsetY = yVal;
 		imageIndex = 0;
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		offsetX = xVal + 21;
 		offsetY = yVal + 17;

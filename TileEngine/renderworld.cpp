@@ -354,14 +354,6 @@ UINT32	uiAdditiveLayerUsedFlags	= 0xffffffff;
 // Array of shade values to use.....
 #define NUM_GLOW_FRAMES				30
 
-#if 0
-INT16	gsGlowFrames[] =
-{
-	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
-	0,	1,	2,	3,	4,	5,	6,	7,	8,	9,
-	9,	8,	7,	6,	5,	4,	3,	2,	1,	0,
-};
-#endif
 
 INT16	gsGlowFrames[] =
 {
@@ -1042,6 +1034,11 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 	// Shade guy always lighter than scene default!
 	{
 		const auto GridNo = pSoldier->sGridNo;
+		if (GridNo == NOWHERE)
+		{
+			pShadeTable = pPaletteTable->pCurrentShade = pPaletteTable->pShades[DEFAULT_SHADE_LEVEL];
+			return pShadeTable;
+		}
 		UINT8 ubShadeLevel = gpWorldLevelData[GridNo].pLandHead->ubShadeLevel;
 		// If merc is on a roof, shade according to roof brightness
 		if (pSoldier->pathing.bLevel > 0 && gpWorldLevelData[GridNo].pRoofHead != NULL)
@@ -1601,36 +1598,6 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 								if ((uiFlags & TILES_DOALL))
 								{
 									fRenderTile = TRUE;
-								}
-
-								// If we are on the struct layer, check for if it's hidden!
-								if (uiRowFlags & (TILES_STATIC_STRUCTURES | TILES_DYNAMIC_STRUCTURES | TILES_STATIC_SHADOWS | TILES_DYNAMIC_SHADOWS))
-								{
-									if (fUseTileElem)
-									{
-#if 0
-										// DONOT RENDER IF IT'S A HIDDEN STRUCT AND TILE IS NOT REVEALED
-										if (uiTileElemFlags & HIDDEN_TILE)
-										{
-											// IF WORLD IS NOT REVEALED, QUIT
-#ifdef JA2EDITOR
-											if (!gfEditMode)
-#endif
-											{
-												if (!(gpWorldLevelData[uiTileIndex].uiFlags & MAPELEMENT_REVEALED) && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS))
-												{
-													//CONTINUE, DONOT RENDER
-													if (!fLinkedListDirection)
-														pNode = pNode->pPrevNode;
-													else
-														pNode = pNode->pNext;
-
-													continue;
-												}
-											}
-										}
-#endif
-									}
 								}
 
 								if (fRenderTile)
@@ -9084,33 +9051,6 @@ void SetMercGlowNormal( )
 
 
 
-#if 0
-		if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_MOVING )
-		{
-			if ( sZOffsetY > 0 )
-			{
-				sZOffsetY++;
-			}
-			if ( sZOffsetX > 0 )
-			{
-				sZOffsetX++;
-			}
-		}
-
-		sZOffsetX = pNode->pStructureData->pDBStructureRef->pDBStructure->bZTileOffsetX;\
-			sZOffsetY = pNode->pStructureData->pDBStructureRef->pDBStructure->bZTileOffsetY;\
-
-
-	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE ) )\
-	{\
-		sZOffsetX = pNode->pStructureData->pDBStructureRef->pDBStructure->bZTileOffsetX;\
-		sZOffsetY = pNode->pStructureData->pDBStructureRef->pDBStructure->bZTileOffsetY;\
-\
-		sWorldY = GetMapXYWorldY( sMapX + sZOffsetX, sMapY + sZOffsetY );\
-	}\
-	else
-
-#endif
 
 
 void SetRenderCenter( INT16 sNewX, INT16 sNewY )

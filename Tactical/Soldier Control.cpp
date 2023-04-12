@@ -13,6 +13,7 @@
 #include "Animation Data.h"
 #include "Animation Control.h"
 #include "container.h"
+#define _USE_MATH_DEFINES // for C
 #include <math.h>
 #include "pathai.h"
 #include "Random.h"
@@ -3632,29 +3633,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		// Unset paused for no APs.....
 		this->AdjustNoAPToFinishMove( FALSE );
 
-#if 0
-		// 0verhaul:  This is a test.  The only time I have been able to make this code hit is when
-		// the player goes prone while moving.  And that is not what this part is intended for.  I 
-		// have seen the soldier in the middle of crawling, get up, turn, and then go prone again to
-		// continue along his path.  But this code was not hit for that part.  And this code seems
-		// to be made for that part.  So apparently they found another way to deal with it.  So
-		// I disabled the "locked" code for usDontUpdateNewGridNoOnMoveAnimChange since it can cause
-		// problems of its own.  Now we see if we can do without this part too.
-		if ( usNewState == CRAWLING && this->usDontUpdateNewGridNoOnMoveAnimChange == 1 )
-		{
-			if ( this->flags.bTurningFromPronePosition != TURNING_FROM_PRONE_ENDING_UP_FROM_MOVE )
-			{
-				this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_START_UP_FROM_MOVE;
-			}
-
-			// ATE: IF we are starting to crawl, but have to getup to turn first......
-			if ( this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_START_UP_FROM_MOVE )
-			{
-				usNewState = PRONE_UP;
-				this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_ENDING_UP_FROM_MOVE;
-			}
-		}
-#endif
 
 		// We are about to start moving
 		// Handle buddy beginning to move...
@@ -3794,20 +3772,8 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	// 0verhaul:  Okay, here is a question:  Is the "non-interrupt" supposed to be transferrable to other anims?
 	// That is, if one anim is not interruptable but it chains to another anim, should the "not interruptable" flag
 	// remain?  I'm going to try out the theory that new animations should reset the "don't interrupt" flag.
-#if 0
-	if ( uiNewAnimFlags & ANIM_NONINTERRUPT )
-	{
-		this->flags.fInNonintAnim = TRUE;
-	}
-
-	if ( uiNewAnimFlags & ANIM_RT_NONINTERRUPT )
-	{
-		this->flags.fRTInNonintAnim = TRUE;
-	}
-#else
 	this->flags.fInNonintAnim = (uiNewAnimFlags & ANIM_NONINTERRUPT) != 0;
 	this->flags.fRTInNonintAnim = (uiNewAnimFlags & ANIM_RT_NONINTERRUPT) != 0;
-#endif
 
 	// CHECK IF WE ARE NOT AIMING, IF NOT, RESET LAST TAGRET!
 	if ( !(gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) && !(gAnimControl[usNewState].uiFlags & ANIM_FIREREADY) )
@@ -3953,33 +3919,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 			if ( !this->flags.fDontChargeAPsForStanceChange )
 			{
-				// CHRISL
-				// SANDRO - APBPConstants[AP_CROUCH] changed to GetAPsCrouch()
-#if 0//dnl ch70 160913 this is wrong we cannot just add constants to sAPCost this must be done in GetAPsCrouch and GetAPsProne because all preactions calculation will show incorrect values under cursor
-				if ( (UsingNewInventorySystem( ) == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag )
-				{
-					if ( usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF )
-					{
-						sAPCost = GetAPsCrouch( this, FALSE ) + 2;
-						sBPCost = APBPConstants[BP_CROUCH] + 2;
-					}
-					else if ( usNewState == KNEEL_DOWN || usNewState == BIGMERC_CROUCH_TRANS_INTO )
-					{
-						sAPCost = GetAPsCrouch( this, FALSE ) + 1;
-						sBPCost = APBPConstants[BP_CROUCH] + 1;
-					}
-					else
-					{
-						sAPCost = GetAPsCrouch( this, FALSE );
-						sBPCost = APBPConstants[BP_CROUCH];
-					}
-				}
-				else
-				{
-					sAPCost = GetAPsCrouch( this, FALSE );
-					sBPCost = APBPConstants[BP_CROUCH];
-				}
-#else
 				if ( UsingNewInventorySystem( ) )
 				{
 					if ( usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF )
@@ -3998,7 +3937,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					sAPCost = GetAPsCrouch( this, FALSE );
 					sBPCost = APBPConstants[BP_CROUCH];
 				}
-#endif
 				DeductPoints( this, sAPCost, sBPCost );
 			}
 			this->flags.fDontChargeAPsForStanceChange = FALSE;
@@ -4010,53 +3948,25 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// ATE: If we are NOT waiting for prone down...
 			if ( this->flags.bTurningFromPronePosition < TURNING_FROM_PRONE_START_UP_FROM_MOVE && !this->flags.fDontChargeAPsForStanceChange )
 			{
-				// silversurfer: of course we deduct points for stance changes!
-				// ATE: Don't do this if we are still 'moving'....
-				// SANDRO - APBPConstants[AP_PRONE] changed to GetAPsProne()
-				//if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
-				//{
-					// CHRISL
-#if 0//dnl ch70 160913 this is wrong we cannot just add constants to sAPCost this must be done in GetAPsCrouch and GetAPsProne because all preactions calculation will show incorrect values under cursor
-					if ( (UsingNewInventorySystem( ) == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag )
+				if ( UsingNewInventorySystem( ) )
+				{
+					if ( usNewState == PRONE_UP )
 					{
-						if ( usNewState == PRONE_UP )
-						{
-							sAPCost = GetAPsProne( this, FALSE ) + 2;
-							sBPCost = APBPConstants[BP_PRONE] + 2;
-						}
-						else
-						{
-							sAPCost = GetAPsProne( this, FALSE ) + 1;
-							sBPCost = APBPConstants[BP_PRONE] + 1;
-						}
+						sAPCost = GetAPsProne( this, TRUE * 2 );
+						sBPCost = APBPConstants[BP_PRONE] + 2;
 					}
 					else
 					{
-						sAPCost = GetAPsProne( this, FALSE );
-						sBPCost = APBPConstants[BP_PRONE];
+						sAPCost = GetAPsProne( this, TRUE );
+						sBPCost = APBPConstants[BP_PRONE] + 1;
 					}
-#else
-					if ( UsingNewInventorySystem( ) )
-					{
-						if ( usNewState == PRONE_UP )
-						{
-							sAPCost = GetAPsProne( this, TRUE * 2 );
-							sBPCost = APBPConstants[BP_PRONE] + 2;
-						}
-						else
-						{
-							sAPCost = GetAPsProne( this, TRUE );
-							sBPCost = APBPConstants[BP_PRONE] + 1;
-						}
-					}
-					else
-					{
-						sAPCost = GetAPsProne( this, FALSE );
-						sBPCost = APBPConstants[BP_PRONE];
-					}
-#endif
-					DeductPoints( this, sAPCost, sBPCost );
-				//}
+				}
+				else
+				{
+					sAPCost = GetAPsProne( this, FALSE );
+					sBPCost = APBPConstants[BP_PRONE];
+				}
+				DeductPoints( this, sAPCost, sBPCost );
 			}
 			this->flags.fDontChargeAPsForStanceChange = FALSE;
 			break;
@@ -4392,18 +4302,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	// Reset some animation values
 	this->flags.fForceShade = FALSE;
 
-	// CHECK IF WE ARE AT AN IDLE ACTION
-#if 0
-	if ( gAnimControl[usNewState].uiFlags & ANIM_IDLE )
-	{
-		this->aiData.bAction = ACTION_DONE;
-	}
-	else
-	{
-		this->aiData.bAction = ACTION_BUSY;
-	}
-#endif
-
 	// ATE; For some animations that could use some variations, do so....
 	if ( usNewState == CHARIOTS_OF_FIRE || usNewState == BODYEXPLODING )
 	{
@@ -4578,10 +4476,7 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierPosition( FLOAT dNewXPos, FLOAT dNewYP
 
 	if ( !(this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 	{
-		if ( gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP] )
-		{
-			this->SetCheckSoldierLightFlag( );
-		}
+		this->SetCheckSoldierLightFlag( );
 	}
 
 	// ATE: Mirror calls if we are a vehicle ( for all our passengers )
@@ -5032,18 +4927,6 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 	//		break;
 	//}
 
-#if 0
-	// 0verhaul:  This does not go here!  In spite of this function's name, it is not the actual "fire" function.
-	// In fact this sets the muzzle flash even while the soldier may be turning to shoot, which can cause
-	// problems for real-time shooting.
-
-	// The correct place for this is UseGun, which already has code to set or reset the flash.
-
-	if ( IsFlashSuppressor( &this->inv[this->ubAttackingHand], this ) )
-		this->flags.fMuzzleFlash = FALSE;
-	else
-		this->flags.fMuzzleFlash = TRUE;
-#endif
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "EVENT_FireSoldierWeapon: Muzzle flash = %d", this->flags.fMuzzleFlash ) );
 
@@ -5063,42 +4946,6 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 	//this->sLastTarget = sTargetGridNo;
 	this->ubTargetID = WhoIsThere2( sTargetGridNo, this->bTargetLevel );
 
-#if 0
-	//	if (Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN)
-	{
-		if ( this->bDoBurst )
-		{
-			// This is NOT the bullets to fire.  That is done as a check of bDoBurst against the weapon burst count or
-			// bDoAutofire, or single-fire.  So let the bullet count be managed by the firing code.
-			// Set the TOTAL number of bullets to be fired
-			// Can't shoot more bullets than we have in our magazine!
-			if ( this->bDoAutofire )
-				this->bBulletsLeft = __min( this->bDoAutofire, this->inv[this->ubAttackingHand][0]->data.gun.ubGunShotsLeft );
-			else
-			{
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "EVENT_FireSoldierWeapon: do burst" );
-				if ( this->bWeaponMode == WM_ATTACHED_GL_BURST )
-					this->bBulletsLeft = __min( Weapon[GetAttachedGrenadeLauncher( &this->inv[this->ubAttackingHand] )].ubShotsPerBurst, this->inv[this->ubAttackingHand][0]->data.gun.ubGunShotsLeft );
-				else
-					this->bBulletsLeft = __min( GetShotsPerBurst( &this->inv[this->ubAttackingHand] ), this->inv[this->ubAttackingHand][0]->data.gun.ubGunShotsLeft );
-			}
-		}
-		else if ( IsValidSecondHandShot( this ) )
-		{
-			// two-pistol attack - two bullets!
-			this->bBulletsLeft = 2;
-		}
-		else
-		{
-			this->bBulletsLeft = 1;
-		}
-
-		if ( AmmoTypes[this->inv[this->ubAttackingHand][0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
-		{
-			this->bBulletsLeft *= AmmoTypes[this->inv[this->ubAttackingHand][0]->data.gun.ubGunAmmoType].numberOfBullets;
-		}
-	}
-#endif
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "!!!!!!! Starting attack, bullets left %d", this->bBulletsLeft ) );
 
 	// Convert our grid-not into an XY
@@ -5168,26 +5015,6 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 			}
 			else
 			{
-#if 0//dnl ch72 250913 move this above as need to be done before calling SoldierReadyWeapon
-				// IF WE ARE IN REAl-TIME, FIRE IMMEDIATELY!
-				if ( ((gTacticalStatus.uiFlags & REALTIME) || !(gTacticalStatus.uiFlags & INCOMBAT)) )
-				{
-					//fDoFireRightAway = TRUE;
-				}
-
-				// Check if our weapon has no intermediate anim...
-				if ( Item[this->inv[HANDPOS].usItem].rocketlauncher || Item[this->inv[HANDPOS].usItem].grenadelauncher || Item[this->inv[HANDPOS].usItem].mortar )
-					///*			switch( this->inv[ HANDPOS ].usItem )
-					//			{
-					//case RPG7:
-					//case ROCKET_LAUNCHER:
-					//case MORTAR:
-					//case GLAUNCHER:*/
-
-					fDoFireRightAway = TRUE;
-				//		break;
-				//}
-#endif
 				if ( fDoFireRightAway )
 				{
 					// Set to true so we don't get toasted twice for APs..
@@ -5883,24 +5710,6 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "EVENT_SoldierGotHit" );
 
-#if 0
-	// 0verhaul: Under the new ABC system this is no longer necessary.
-	// ATE: If we have gotten hit, but are still in our attack animation, reduce count!
-	switch ( this->usAnimState )
-	{
-	case SHOOT_ROCKET:
-	case SHOOT_MORTAR:
-	case THROW_ITEM:
-		// <SB> crouch throwing
-	case THROW_ITEM_CROUCHED:
-		// <SB> crouch throwing
-	case LOB_ITEM:
-
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY HIT ANIMATION, Now %d", gAnimControl[this->usAnimState].zAnimStr, gTacticalStatus.ubAttackBusyCount ) );
-		ReduceAttackBusyCount( this->ubID, FALSE );
-		break;
-	}
-#endif
 
 	// DO STUFF COMMON FOR ALL TYPES
 	if ( ubAttackerID != NOBODY )
@@ -5911,22 +5720,6 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// Set attacker's ID
 	this->ubAttackerID = ubAttackerID;
 
-#if 0
-	// 0verhaul:  Slashing out more unnecessary and reworked code
-	if ( !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) )
-	{
-		// Increment  being attacked count
-		this->bBeingAttackedCount++;
-	}
-
-	// if defender is a vehicle, there will be no hit animation played!
-	if ( !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) )
-	{
-		// Increment the number of people busy doing stuff because of an attack (busy doing hit anim!)
-		gTacticalStatus.ubAttackBusyCount++;
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "!!!!!!! Person got hit, attack count now %d", gTacticalStatus.ubAttackBusyCount ) );
-	}
-#endif
 
 	// ATE; Save hit location info...( for later anim determination stuff )
 	this->ubHitLocation = ubHitLocation;
@@ -6250,34 +6043,6 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 
 
-#if 0
-	// 0verhaul:  None of this hairyness is necessary anymore!  Hazaa!
-	// CJC: moved to after SoldierTakeDamage so that any quotes from the defender
-	// will not be said if they are knocked out or killed
-	if ( ubReason != TAKE_DAMAGE_TENTACLES && ubReason != TAKE_DAMAGE_OBJECT )
-	{
-		// OK, OK: THis is hairy, however, it's ness. because the normal freeup call uses the
-		// attckers intended target, and here we want to use thier actual target....
-
-		// ATE: If it's from GUNFIRE damage, keep in mind bullets...
-		if ( Item[usWeaponIndex].usItemClass & IC_GUN )
-		{
-			pNewSoldier = FreeUpAttackerGivenTarget( this->ubAttackerID, this->ubID );
-		}
-		else
-		{
-			pNewSoldier = ReduceAttackBusyGivenTarget( this->ubAttackerID, this->ubID );
-		}
-
-		if ( pNewSoldier != NULL )
-		{
-			//warning, if this code is ever uncommented, rename all this
-			//to this in this function, then init this to this
-			this = pNewSoldier;
-		}
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "!!!!!!! Tried to free up attacker, attack count now %d", gTacticalStatus.ubAttackBusyCount ) );
-	}
-#endif
 
 	// Flugente: moved the damage calculation into a separate function
 	sBreathLoss = max( 1, (INT16)(sBreathLoss * (100 - this->GetDamageResistance( FALSE, TRUE )) / 100) );
@@ -7338,15 +7103,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		return(FALSE);
 	}
 
-	// we can use the soldier's level here because we don't have pathing across levels right now...
-#if 0
-	// Uhhmmmm, the name of this function has "NEWPath" in it.
-	if ( this->pathing.bPathStored )
-	{
-		fContinue = TRUE;
-	}
-	else
-#endif
 	{
 		iDest = FindBestPath( this, sDestGridNo, this->pathing.bLevel, usMovementAnim, COPYROUTE, fFlags );
 		fContinue = (iDest != 0);
@@ -8790,32 +8546,6 @@ UINT8	gRedGlowR[] =
 };
 
 
-#if 0
-UINT8	gOrangeGlowR[] =
-{
-	0,			// Normal shades
-	20,
-	40,
-	60,
-	80,
-	100,
-	120,
-	140,
-	160,
-	180,
-
-	0,		// For gray palettes
-	20,
-	40,
-	60,
-	80,
-	100,
-	120,
-	140,
-	160,
-	180,
-};
-#endif
 
 UINT8	gOrangeGlowR[] =
 {
@@ -8844,32 +8574,6 @@ UINT8	gOrangeGlowR[] =
 };
 
 
-#if 0
-UINT8	gOrangeGlowG[] =
-{
-	0,			// Normal shades
-	5,
-	10,
-	25,
-	30,
-	35,
-	40,
-	45,
-	50,
-	55,
-
-	0,		// For gray palettes
-	5,
-	10,
-	25,
-	30,
-	35,
-	40,
-	45,
-	50,
-	55,
-};
-#endif
 
 UINT8	gOrangeGlowG[] =
 {
@@ -9726,10 +9430,7 @@ void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMo
 void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 {
 	//CHRISL: Disable climbing up to a roof while wearing a backpack
-	if ((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true
-		//JMich.BackpackClimb
-		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+	if (!this->CanClimbWithCurrentBackpack())
 	{
 		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
 		return;
@@ -10021,6 +9722,17 @@ UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 	uiChance += (10 - pSoldier->bSleepDrugCounter);
 
 	return(uiChance);
+}
+
+BOOLEAN SOLDIERTYPE::CanClimbWithCurrentBackpack()
+{
+	// only apply backpack climbing limitations to player mercs
+	if (UsingNewInventorySystem() == true && this->inv[BPACKPOCKPOS].exists() == true && this->bTeam == OUR_TEAM
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+		return FALSE;
+
+	return TRUE;
 }
 
 void SOLDIERTYPE::BeginSoldierGetup( void )
@@ -12038,28 +11750,6 @@ UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
 	return(atan8( sXPos2, sYPos2, sXPos, sYPos ));
 }
 
-#if 0
-UINT8  atan8( INT16 x1, INT16 y1, INT16 x2, INT16 y2 )
-{
-	static int trig[8] = {2, 3, 4, 5, 6, 7, 8, 1};
-	// returned values are N=1, NE=2, E=3, SE=4, S=5, SW=6, W=7, NW=8
-	double dx = (x2 - x1);
-	double dy = (y2 - y1);
-	double a;
-	int i, k;
-	if ( dx == 0 )
-		dx = 0.00390625; // 1/256th
-#define PISLICES (8)
-	a = (atan2( dy, dx ) + PI / PISLICES) / (PI / (PISLICES / 2));
-	i = (int)a;
-	if ( a>0 )
-		k = i; else
-	if ( a<0 )
-		k = i + (PISLICES - 1); else
-		k = 0;
-	return(trig[k]);
-}
-#endif
 
 //#if 0
 UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 )
@@ -12422,22 +12112,6 @@ void SendGetNewSoldierPathEvent( SOLDIERTYPE *pSoldier, INT32 sDestGridNo, UINT1
 
 void SendChangeSoldierStanceEvent( SOLDIERTYPE *pSoldier, UINT8 ubNewStance )
 {
-#if 0
-	EV_S_CHANGESTANCE			SChangeStance;
-
-#ifdef NETWORKED
-	if ( !IsTheSolderUnderMyControl( pSoldier->ubID ) )
-		return;
-#endif
-
-	SChangeStance.ubNewStance = ubNewStance;
-	SChangeStance.usSoldierID = pSoldier->ubID;
-	SChangeStance.sXPos = pSoldier->sX;
-	SChangeStance.sYPos = pSoldier->sY;
-	SChangeStance.uiUniqueId = pSoldier->uiUniqueSoldierIdValue;
-
-	AddGameEvent( S_CHANGESTANCE, 0, &SChangeStance );
-#endif
 
 	if ( ((pSoldier->ubID > 19 && !is_server) || (pSoldier->ubID > 119 && is_server)) && is_networked )return;
 
@@ -12460,51 +12134,6 @@ void SendBeginFireWeaponEvent( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	AddGameEvent( S_BEGINFIREWEAPON, 0, &SBeginFireWeapon );
 }
 
-#if 0
-// This function is now obsolete.  Just call ReduceAttackBusyCount.
-
-// This function just encapolates the check for turnbased and having an attacker in the first place
-void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier )
-{
-	INT32 cnt;
-	UINT8	ubNumToFree;
-
-	//if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
-	{
-		// ATE: Removed...
-		//if ( pSoldier->ubAttackerID != NOBODY )
-		{
-			// JA2 Gold
-			// set next-to-previous attacker, so long as this isn't a repeat attack
-			if ( pSoldier->ubPreviousAttackerID != pSoldier->ubAttackerID )
-			{
-				pSoldier->ubNextToPreviousAttackerID = pSoldier->ubPreviousAttackerID;
-			}
-
-			// get previous attacker id
-			pSoldier->ubPreviousAttackerID = pSoldier->ubAttackerID;
-
-			// Copy BeingAttackedCount here....
-			ubNumToFree = pSoldier->bBeingAttackedCount;
-			// Zero it out BEFORE, as supression may increase it again...
-			pSoldier->bBeingAttackedCount = 0;
-
-			for ( cnt = 0; cnt < ubNumToFree; cnt++ )
-			{
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "@@@@@@@ Freeing up attacker of %d (attacker is %d) - releasesoldierattacker num to free is %d", pSoldier->ubID, pSoldier->ubAttackerID, ubNumToFree ) );
-				ReduceAttackBusyCount( pSoldier->ubAttackerID, FALSE );
-			}
-
-			// ATE: Set to NOBODY if this person is NOT dead
-			// otherise, we keep it so the kill can be awarded!
-			if ( pSoldier->stats.bLife != 0 && pSoldier->ubBodyType != QUEENMONSTER )
-			{
-				pSoldier->ubAttackerID = NOBODY;
-			}
-		}
-	}
-}
-#endif
 
 BOOLEAN SOLDIERTYPE::MercInWater( void )
 {
@@ -17688,78 +17317,13 @@ void SOLDIERTYPE::HandleFlashLights( )
 		fLightChanged = TRUE;
 	}
 
-	// not possible to get this bonus on a roof, due to our lighting system
-	if ( !this->pathing.bLevel )
-	{
-		UINT8 flashlightrange = this->GetBestEquippedFlashLightRange( );
+    if ( AddBestFlashLight() )
+    {
+        // take note: we own a light source
+        this->usSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
 
-		// if no flashlight is found, this will be 0
-		if ( flashlightrange )
-		{
-			// the range at which we create additional light sources to the side
-			UINT8 firstexpand = 8;
-			UINT8 secondexpand = 12;
-
-			// depending on our direction, alter range
-			if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
-			{
-				flashlightrange = sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
-				firstexpand = sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
-				secondexpand = sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
-			}
-
-			// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
-			INT32 nextGridNoinSight = this->sGridNo;
-
-			for ( UINT8 i = 0; i < flashlightrange; ++i )
-			{
-				nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( this->ubDirection ) );
-
-				if ( SoldierToVirtualSoldierLineOfSightTest( this, nextGridNoinSight, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE ) )
-					CreatePersonalLight( nextGridNoinSight, this->ubID );
-
-				// after a certain range, add new lights to the side to simulate a light cone
-				if ( i > firstexpand )
-				{
-					INT8 sidedir1 = (this->ubDirection + 2) % NUM_WORLD_DIRECTIONS;
-					INT8 sidedir2 = (this->ubDirection - 2) % NUM_WORLD_DIRECTIONS;
-
-					INT32 sideGridNo1 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir1 ) );
-					sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
-
-					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-						CreatePersonalLight( sideGridNo1, this->ubID );
-
-					if ( i > secondexpand )
-					{
-						sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
-
-						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-							CreatePersonalLight( sideGridNo1, this->ubID );
-					}
-
-					INT32 sideGridNo2 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir2 ) );
-					sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
-
-					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-						CreatePersonalLight( sideGridNo2, this->ubID );
-
-					if ( i > secondexpand )
-					{
-						sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
-
-						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
-							CreatePersonalLight( sideGridNo2, this->ubID );
-					}
-				}
-			}
-
-			// take note: we own a light source
-			this->usSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
-
-			fLightChanged = TRUE;
-		}
-	}
+        fLightChanged = TRUE;
+    }
 
 	if ( fLightChanged )
 	{
@@ -17803,6 +17367,162 @@ UINT8 SOLDIERTYPE::GetBestEquippedFlashLightRange( )
 	}
 
 	return(bestrange);
+}
+
+bool SOLDIERTYPE::AddBestFlashLight()
+{
+    // not possible to get this bonus on a roof, due to our lighting system
+    if ( this->pathing.bLevel != 0 )
+    {
+        return false;
+    }
+
+    UINT8 maxRange = this->GetBestEquippedFlashLightRange();
+    if ( maxRange < 1 )
+    {
+        return false;
+    }
+
+    // we don't use the flashlight to run better at night (light up our shoes), we use it to find enemies!
+    UINT8 minRange = 4;
+    if ( minRange > maxRange )
+    {
+        minRange = maxRange;
+    }
+
+    float maxAngle = 45;
+    maxAngle *= PI / 180 / 2; // convert to rad and halven
+
+    auto forward = DirectionInc(this->ubDirection);
+    auto left = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 6));
+    auto leftLeft = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 5));
+    auto right = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 2));
+    auto rightRight = DirectionInc(DirectionIfTurnedClockwise(this->ubDirection, 3));
+
+    bool isDiagonal = this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST;
+
+	struct position_2d
+	{
+        INT16 x, y;
+
+		position_2d(INT32 gridNo)
+		{
+			ConvertGridNoToXY(gridNo, &x, &y);
+		}
+		position_2d(INT16 _x, INT16 _y) : x{_x}, y{_y}
+        {
+        }
+	};
+	struct vector_2d
+	{
+        INT16 dx, dy;
+        float length;
+
+		vector_2d(INT8 direction)
+		{
+			ConvertDirectionToVectorInXY(direction, &dx, &dy);
+            length = CalcLength(dx, dy);
+		}
+		vector_2d(position_2d from, position_2d to)
+		{
+			dx = to.x - from.x;
+			dy = to.y - from.y;
+            length = CalcLength(dx, dy);
+		}
+		vector_2d(INT16 _dx, INT16 _dy) : dx{_dx}, dy{_dy}
+		{
+			length = CalcLength(dx, dy);
+		}
+
+		float GetAngle( vector_2d other )
+		{
+			auto dot = dx * other.dx + dy * other.dy;
+			return acos(dot / (length * other.length));
+		}
+
+        static float CalcLength(float dx, float dy)
+        {
+            return sqrt(powf(dx, 2) + powf(dy, 2));
+        }
+	};
+
+	position_2d soldierPos(this->sGridNo);
+    vector_2d soldierDir(this->ubDirection);
+
+    auto is_in_area = [&](INT32 sGridNoToTest) -> bool
+    {
+        vector_2d v(soldierPos, position_2d(sGridNoToTest));
+
+		if (v.length > maxRange)
+		{
+			return false;
+		}
+
+        if (v.length < minRange)
+        {
+            return false;
+        }
+
+        auto coneAngle = soldierDir.GetAngle( v );
+        if (coneAngle > maxAngle)
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+    auto add_light_if_in_line_of_sight = [&, this]( INT32 sGridNoToTest, bool allowSkip ) -> void
+    {
+        if (allowSkip) // improve performance by skipping 3/4 of the lights
+        {
+            INT16 sXPos, sYPos;
+            ConvertGridNoToXY( sGridNoToTest, &sXPos, &sYPos );
+            if (!(sXPos % 2 == 0 && sYPos % 2 == 0))
+            {
+                return;
+            }
+        }
+
+        if ( SoldierToVirtualSoldierLineOfSightTest( this, sGridNoToTest, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, false, NO_DISTANCE_LIMIT ) )
+        {
+            CreatePersonalLight( sGridNoToTest, this->ubID );
+        }
+    };
+
+    auto travel_direction_to_add_light = [&]( INT32 startingGridNo, INT16 directionIncrementer )
+    {
+        for ( auto currentGridNo = startingGridNo; !OutOfBounds( currentGridNo, -1 ) && is_in_area( currentGridNo ); currentGridNo += directionIncrementer )
+        {
+            add_light_if_in_line_of_sight( currentGridNo, true);
+        }
+    };
+
+    for ( auto currentGridNo = this->sGridNo; !OutOfBounds( currentGridNo, -1 ); currentGridNo += forward )
+    {
+		vector_2d v(soldierPos, position_2d(currentGridNo));
+        if ( v.length < minRange )
+        {
+            continue;
+        }
+		else if (v.length > maxRange)
+		{
+			break;
+		}
+
+        add_light_if_in_line_of_sight( currentGridNo, false );
+
+        travel_direction_to_add_light( currentGridNo, left );
+        travel_direction_to_add_light( currentGridNo, right );
+
+        if ( isDiagonal )
+        {
+            travel_direction_to_add_light( NewGridNo( currentGridNo, leftLeft ), left );
+            travel_direction_to_add_light( NewGridNo( currentGridNo, rightRight ), right );
+        }
+    }
+
+    return true;
 }
 
 // Flugente: soldier profiles
@@ -22196,13 +21916,15 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ENEMY )
 	{
-		// sevenfm: bPanicTriggerIsAlarm is always not NULL pointer
-		//if ( !(gTacticalStatus.bPanicTriggerIsAlarm) && (gTacticalStatus.ubTheChosenOne == pSoldier->ubID) )
 		if ( gTacticalStatus.ubTheChosenOne == pSoldier->ubID )
 		{
-			// replace this guy as the chosen one!
-			gTacticalStatus.ubTheChosenOne = NOBODY;
-			MakeClosestEnemyChosenOne( );
+			auto bPanicTrigger = ClosestPanicTrigger(pSoldier);
+			if (bPanicTrigger != -1 && !(gTacticalStatus.bPanicTriggerIsAlarm[bPanicTrigger]))
+			{
+				// replace this guy as the chosen one!
+				gTacticalStatus.ubTheChosenOne = NOBODY;
+				MakeClosestEnemyChosenOne( );
+			}
 		}
 
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )

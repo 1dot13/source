@@ -33,7 +33,7 @@ enum
 //	TOPTION_DISPLAY_ENEMY_INDICATOR,	//Displays the number of enemies seen by the merc, ontop of their portrait
 	TOPTION_SLEEPWAKE_NOTIFICATION,
 	TOPTION_USE_METRIC_SYSTEM,			//If set, uses the metric system
-	TOPTION_MERC_ALWAYS_LIGHT_UP,
+	TOPTION_MERC_CASTS_LIGHT,
 	TOPTION_SMART_CURSOR,
 	TOPTION_SNAP_CURSOR_TO_DOOR,
 	TOPTION_GLOW_ITEMS,
@@ -103,6 +103,8 @@ enum
 
 	// sevenfm: new settings
 	TOPTION_SHOW_ENEMY_LOCATION,
+	TOPTION_ALT_START_AIM,
+	TOPTION_ALT_PATHFINDING,
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -127,8 +129,6 @@ enum
 	//These options will NOT be toggable by the Player
 
 	// JA2Gold
-	TOPTION_MERC_CASTS_LIGHT,
-
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
 

@@ -505,8 +505,6 @@ BOOLEAN EditModeShutdown( void )
 
 	RemoveLightPositionHandles( );
 
-	MapOptimize();
-
 	RemoveCursors();
 
 	fHelpScreen = FALSE;
@@ -2090,22 +2088,7 @@ void HandleKeyboardShortcuts( )
 					// item left scroll
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
-#if 0//dnl ch80 011213
-						if( eInfo.sScrollIndex )
-						{
-							if( EditorInputEvent.usKeyState & CTRL_DOWN )
-								eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 60, 0);
-							else
-								eInfo.sScrollIndex--;
-							
-							if( !eInfo.sScrollIndex )
-								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
-							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
-								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
-						}
-#else
 						ScrollEditorItemsInfo(FALSE);
-#endif
 					}
 					else
 					{
@@ -2120,21 +2103,7 @@ void HandleKeyboardShortcuts( )
 					// item right scroll
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
-#if 0//dnl ch80 011213
-						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
-						{
-							if( EditorInputEvent.usKeyState & CTRL_DOWN )
-								eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 60, (eInfo.sNumItems+1)/2-6);
-							else
-								eInfo.sScrollIndex++;
-							
-							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
-							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
-								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
-						}
-#else
 						ScrollEditorItemsInfo(TRUE);
-#endif
 					}
 					else
 					{
@@ -2149,22 +2118,7 @@ void HandleKeyboardShortcuts( )
 					// item left scroll by page
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
-#if 0//dnl ch80 011213
-						if( eInfo.sScrollIndex )
-						{
-							if( EditorInputEvent.usKeyState & CTRL_DOWN )
-								eInfo.sScrollIndex = 0;
-							else
-								eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 6, 0);
-							
-							if( !eInfo.sScrollIndex )
-								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
-							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
-								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
-						}
-#else
 						ScrollEditorItemsInfo(FALSE);
-#endif
 					}
 					//gfRenderTaskbar = TRUE;
 					break;
@@ -2172,21 +2126,7 @@ void HandleKeyboardShortcuts( )
 					// item right scroll by page
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
-#if 0//dnl ch80 011213
-						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
-						{
-							if( EditorInputEvent.usKeyState & CTRL_DOWN )
-								eInfo.sScrollIndex = max( ((eInfo.sNumItems+1)/2)-6, 0);
-							else
-								eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 6, (eInfo.sNumItems+1)/2-6);
-							
-							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
-							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
-								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
-						}
-#else
 						ScrollEditorItemsInfo(TRUE);
-#endif
 					}
 					//gfRenderTaskbar = TRUE;
 					break;
@@ -3264,65 +3204,6 @@ BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType, INT8 b
 //	Returns TRUE if deleted the light, otherwise, returns FALSE.
 //	i.e. FALSE is not an error condition!
 //
-#if 0//dnl ch86 210214
-BOOLEAN RemoveLight( INT16 iMapX, INT16 iMapY )
-{
-	INT32 iCount;
-	UINT16 cnt;
-	SOLDIERTYPE *pSoldier;
-	BOOLEAN fSoldierLight;
-	BOOLEAN fRemovedLight;
-	INT32 iMapIndex = 0;
-	UINT32 uiLastLightType = 0;
-	UINT8	*pLastLightName = NULL;
-
-	fRemovedLight = FALSE;
-
-	// Check all lights if any at this given position
-	for(iCount=0; iCount < MAX_LIGHT_SPRITES; iCount++)
-	{
-		if(LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE)
-		{
-			if ( LightSprites[iCount].iX == iMapX && LightSprites[iCount].iY == iMapY )
-			{
-				// Found a light, so let's see if it belong to a merc!
-				fSoldierLight = FALSE;
-				for ( cnt = 0; cnt < MAX_NUM_SOLDIERS && !fSoldierLight; cnt++ )
-				{
-					if ( GetSoldier( &pSoldier, cnt ) )
-					{
-						if ( pSoldier->iLight == iCount )
-							fSoldierLight = TRUE;
-					}
-				}
-
-				if ( !fSoldierLight )
-				{
-					// Ok, it's not a merc's light so kill it!
-					pLastLightName = (UINT8 *) LightSpriteGetTypeName( iCount );
-					uiLastLightType = LightSprites[iCount].uiLightType;
-					LightSpritePower( iCount, FALSE );
-					LightSpriteDestroy( iCount );
-					fRemovedLight = TRUE;
-					iMapIndex = ((INT32)iMapY * WORLD_COLS) + (INT32)iMapX;
-					RemoveAllObjectsOfTypeRange( iMapIndex, GOODRING, GOODRING );
-				}
-			}
-		}
-	}
-	if( fRemovedLight )
-	{
-		UINT16 usRadius;
-		//Assuming that the light naming convention doesn't change, then this following conversion
-		//should work.	Basically, the radius values aren't stored in the lights, so I have pull
-		//the radius out of the filename.	Ex:	L-RO5.LHT
-		usRadius = pLastLightName[4] - 0x30;
-		AddLightToUndoList( iMapIndex, usRadius, (UINT8)uiLastLightType );
-	}
-
-	return( fRemovedLight );
-}
-#else
 BOOLEAN RemoveLight(INT16 iMapX, INT16 iMapY, INT8 bLightType)
 {
 	INT32 iCount, iMapIndex;
@@ -3340,7 +3221,6 @@ BOOLEAN RemoveLight(INT16 iMapX, INT16 iMapY, INT8 bLightType)
 		RemoveAllObjectsOfTypeRange(iMapIndex, GOODRING, GOODRING);
 	return(fRemovedLight);
 }
-#endif
 
 //----------------------------------------------------------------------------------------------
 //	ShowLightPositionHandles
@@ -3455,97 +3335,6 @@ BOOLEAN CheckForSlantRoofs( void )
 
 	usCheck = GetRandomIndexByRange( FIRSTSLANTROOF, LASTSLANTROOF );
 	return ( usCheck != 0xffff );
-}
-
-
-
-//----------------------------------------------------------------------------------------------
-//	MapOptimize
-//
-//	Runs through all map locations, and if it's outside the visible world, then we remove
-//	EVERYTHING from it since it will never be seen!
-//
-//	If it can be seen, then we remove all extraneous land tiles. We find the tile that has the first
-//	FULL TILE indicator, and delete anything that may come after it (it'll never be seen anyway)
-//
-//	Doing the above has shown to free up about 1.1 Megs on the default map. Deletion of non-viewable
-//	land pieces alone gained us about 600 K of memory.
-//
-void MapOptimize(void)
-{
-#if 0
-	INT32 GridNo;
-	LEVELNODE *start, *head, *end, *node, *temp;
-	MAP_ELEMENT		*pMapTile;
-	BOOLEAN fFound, fChangedHead, fChangedTail;
-
-	for( GridNo = 0; GridNo < WORLD_MAX; GridNo++ )
-	{
-		if ( !GridNoOnVisibleWorldTile( GridNo ) )
-		{
-			// Tile isn't in viewable area so trash everything in it
-			TrashMapTile( GridNo );
-		}
-		else
-		{
-			// Tile is in viewable area so try to optimize any extra land pieces
-			pMapTile = &gpWorldLevelData[ GridNo ];
-
-			node = start = pMapTile->pLandStart;
-			head = pMapTile->pLandHead;
-
-			if ( start == NULL )
-				node = start = head;
-
-			end = pMapTile->pLandTail;
-
-			fChangedHead = fChangedTail = fFound = FALSE;
-			while ( !fFound && node != NULL )
-			{
-				if ( gTileDatabase[node->usIndex].ubFullTile == 1 )
-					fFound = TRUE;
-				else
-					node = node->pNext;
-			}
-
-			if(fFound)
-			{
-				// Delete everything up to the start node
-/*
-// Not having this means we still keep the smoothing
-
-				while( head != start && head != NULL )
-				{
-					fChangedHead = TRUE;
-					temp = head->pNext;
-					MemFree( head );
-					head = temp;
-					if ( head )
-						head->pPrev = NULL;
-				}
-*/
-
-				// Now delete from the end to "node"
-				while( end != node && end != NULL )
-				{
-					fChangedTail = TRUE;
-					temp = end->pPrev;
-					MemFree( end );
-					end = temp;
-					if ( end )
-						end->pNext = NULL;
-				}
-
-				if ( fChangedHead )
-					pMapTile->pLandHead = head;
-
-				if ( fChangedTail )
-					pMapTile->pLandTail = end;
-			}
-		}
-	}
-
-#endif
 }
 
 
@@ -3929,29 +3718,11 @@ void HandleMouseClicksInGameScreen()//dnl ch80 011213
 	{
 		if(iLastMapIndexRB != iMapIndex && iLastMapIndexRB == -1)
 			iLastMapIndexRB = iMapIndex;
-#if 0
-		gfRenderWorld = TRUE;
-		switch(iDrawMode)
-		{
-		default:
-			gfRenderWorld = fPrevState;
-			break;
-		}
-#endif
 	}
 	else if(_MiddleButtonDown)
 	{
 		if(iLastMapIndexMB != iMapIndex && iLastMapIndexMB == -1)
 			iLastMapIndexMB = iMapIndex;
-#if 0
-		gfRenderWorld = TRUE;
-		switch(iDrawMode)
-		{
-		default:
-			gfRenderWorld = fPrevState;
-			break;
-		}
-#endif
 	}
 	else if(!_LeftButtonDown)
 	{
@@ -4192,15 +3963,6 @@ void HandleMouseClicksInGameScreen()//dnl ch80 011213
 	{
 		if(iMapIndex == iLastMapIndexMB)// MiddleClick performed on same tile
 		{
-#if 0
-			gfRenderWorld = TRUE;
-			switch(iDrawMode)
-			{
-			default:
-				gfRenderWorld = fPrevState;
-				break;
-			}
-#endif
 		}
 		iLastMapIndexMB = -1;
 	}

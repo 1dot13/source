@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "Soldier Control.h"
-#include "overhead types.h"
+#include <EditorMercs.h>
 #include "soldier find.h"
 #include "Campaign Types.h"		// added by Flugente for SECTORINFO and UNDERGROUND_SECTORINFO
 #define             ADD_SOLDIER_NO_PROFILE_ID       200
@@ -433,6 +433,6 @@ void VIPFleesToMeduna();
 BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
 
 BOOLEAN IsFreeSlotAvailable( int aTeam );
-
+void AttemptToCapturePlayerSoldiers();
 #endif
 

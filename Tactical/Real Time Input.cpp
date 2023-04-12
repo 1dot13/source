@@ -798,28 +798,6 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																					{
 																						// ATE: Select everybody in squad and make move!
 																						{
-#if 0
-																							SOLDIERTYPE *		pTeamSoldier;
-																							INT32						cnt;
-																							SOLDIERTYPE			*pFirstSoldier = NULL;
-
-																							// OK, loop through all guys who are 'multi-selected' and
-																							// check if our currently selected guy is amoung the
-																							// lucky few.. if not, change to a guy who is...
-																							cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-																							for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pTeamSoldier++ )
-																							{
-																								// Default turn off
-																								pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
-
-																								// If controllable
-																								if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == MercPtrs[ gusSelectedSoldier ]->bAssignment )
-																								{
-																									pTeamSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
-																								}
-																							}
-																							EndMultiSoldierSelection( FALSE );
-#endif
 
 																							// Make move!
 																							*puiNewEvent = C_MOVE_MERC;
@@ -888,36 +866,6 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 													}
 
 
-#if 0
-													fDone = FALSE;
-													if(	GetSoldier( &pSoldier, gusUIFullTargetID ) && gpItemPointer == NULL )
-													{
-														if( ( guiUIFullTargetFlags & OWNED_MERC ) && ( guiUIFullTargetFlags & VISIBLE_MERC ) && !( guiUIFullTargetFlags & DEAD_MERC ) &&( pSoldier->bAssignment >= ON_DUTY )&&!( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
-														{
-															fShowAssignmentMenu = TRUE;
-															gfRTClickLeftHoldIntercepted = TRUE;
-															CreateDestroyAssignmentPopUpBoxes( );
-															SetTacticalPopUpAssignmentBoxXY( );
-															DetermineBoxPositions( );
-															DetermineWhichAssignmentMenusCanBeShown( );
-															fFirstClickInAssignmentScreenMask = TRUE;
-															gfIgnoreScrolling = TRUE;
-
-															fDone = TRUE;
-														}
-														else
-														{
-															fShowAssignmentMenu = FALSE;
-															CreateDestroyAssignmentPopUpBoxes( );
-															DetermineWhichAssignmentMenusCanBeShown( );
-														}
-													}
-
-													if( fDone == TRUE )
-													{
-														break;
-													}
-#endif
 													break;
 
 
@@ -2162,12 +2110,9 @@ void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 					BOOLEAN	fNearHeigherLevel;
 					BOOLEAN	fNearLowerLevel;
 					INT8	bDirection;
-						// CHRISL: Turn off manual jumping while wearing a backpack
-					if (UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-						//JMich.BackpackClimb
-						&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-						&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 
+					// CHRISL: Turn off manual jumping while wearing a backpack
+					if (!pjSoldier->CanClimbWithCurrentBackpack())
 							return;
 
 					// Make sure the merc is not collapsed!
@@ -2259,12 +2204,9 @@ void HandleRTJump( void )
 		BOOLEAN	fNearHeigherLevel;
 		BOOLEAN	fNearLowerLevel;
 		INT8	bDirection;
-		// CHRISL: Turn off manual jumping while wearing a backpack
-		if (UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-			//JMich.BackpackClimb
-			&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-			&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 
+		// CHRISL: Turn off manual jumping while wearing a backpack
+		if (!pjSoldier->CanClimbWithCurrentBackpack())
 				return;
 
 		// Make sure the merc is not collapsed!

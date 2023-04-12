@@ -49,12 +49,12 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-#ifdef USE_ASTAR_PATHS
 #include "BinaryHeap.hpp"
-#include "AIInternals.h"
 #include "opplist.h"
 #include "weapons.h"
-#endif
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
 //#include "dnlprocesstalk.h"//dnl???
 
 extern UINT16 gubAnimSurfaceIndex[ TOTALBODYTYPES ][ NUMANIMATIONSTATES ];
@@ -454,9 +454,6 @@ UINT32 guiFailedPathChecks = 0;
 UINT32 guiUnsuccessfulPathChecks = 0;
 #endif
 
-#ifdef USE_ASTAR_PATHS
-
-
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
@@ -647,7 +644,7 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
 	fConsiderPersonAtDestAsObstacle = (BOOLEAN)( fPathingForPlayer && fPathAroundPeople && !(fFlags & PATH_IGNORE_PERSON_AT_DEST) );
 
-	if ( fNonSwimmer && Water( dest ) ) 
+	if ( fNonSwimmer && Water( dest, 0 ) ) 
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR: path failed, water" ) );
 		return( 0 );
@@ -708,7 +705,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if ( fMultiTile == false)
@@ -758,7 +754,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 			fContinuousTurnNeeded = FALSE;
 		}
 	}
-#endif
 
 	if (fContinuousTurnNeeded == false)
 	{
@@ -802,17 +797,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-// The RenderCoverDebugInfo call is now made by RenderWorld.  So don't try to call it here
-#if 0
-		if ( guiCurrentScreen == GAME_SCREEN ) 
-		{
-			RenderWorld();
-			RenderCoverDebug( );
-			InvalidateScreen( );
-			EndFrameBufferRender();
-			RefreshScreen( NULL );
-		}
-#endif
 	}
 #endif
 
@@ -901,13 +885,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-#if 0
-		RenderWorld();
-		RenderCoverDebug( );
-		InvalidateScreen( );
-		EndFrameBufferRender();
-		RefreshScreen( NULL );
-#endif
 	}
 #endif
 
@@ -1088,7 +1065,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 			continue;
 		}
 
-#ifdef VEHICLE
 		//has side effects, including setting loop counters
 		int retVal = VehicleObstacleCheck();
 		if (retVal == 1)
@@ -1099,7 +1075,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 		{
 			return;
 		}
-#endif
 
 		//calc the cost to move from the current node to here
 		INT16 terrainCost = EstimateActionPointCost( pSoldier, CurrentNode, direction, movementMode, 0, 3 );
@@ -1412,7 +1387,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 
 	// Flugente: dragging someone
-	if ( pSoldier->IsDraggingSomeone( ) )
+	if ( pSoldier->IsDragging( false ) )
 	{
 		movementAPCost *= gItemSettings.fDragAPCostModifier;
 	}
@@ -1769,7 +1744,6 @@ int AStarPathfinder::CalcH()
 
 	int x = abs(n1->x - n2->x);
 	int y = abs(n1->y - n2->y);
-#if 1
 	if (x >= y) 
 	{
 		return this->travelcostDiag * y + this->travelcostOrth * (x-y);
@@ -1778,35 +1752,6 @@ int AStarPathfinder::CalcH()
 	{
 		return this->travelcostDiag * x + this->travelcostOrth * (y-x);
 	}
-#else
-	// Try a real distance method.  This should underestimate in some cases
-	// However, the distances need to be increased for the moment because running orthogonal is 1AP while running diagonal is 2AP
-	// so the total to reach a diagonal tile is identical for 2 moves.  So we have to trick the pathing calc into thinking it's
-	// a longer distance and also calculate the other costs accordingly.
-
-	x *= 100;
-	y *= 100;
-
-	int d = x*x + y*y;
-	int r = 1200; // Just a guess
-
-	if (d == 0)
-	{
-		return d;
-	}
-
-	while (1)
-	{
-		int gr = (r + (d/r)) / 2;
-		if (gr == r || gr == r+1)
-		{
-			break;
-		}
-		r = gr;
-	}
-
-	return r * travelcostOrth;
-#endif
 }
 
 #ifdef ASTAR_USING_EXTRACOVER
@@ -2116,7 +2061,6 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 }
 #endif //#ifdef ASTAR_USING_EXTRACOVER
 
-#ifdef VEHICLE
 void AStarPathfinder::InitVehicle()
 {
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
@@ -2263,7 +2207,6 @@ int AStarPathfinder::VehicleObstacleCheck()
 	}
 	return 0;
 }
-#endif
 
 bool AStarPathfinder::WantToTraverse()
 {
@@ -2411,7 +2354,6 @@ bool AStarPathfinder::IsSomeoneInTheWay()
 	return false;
 }
 
-#endif//end ifdef USE_ASTAR_PATHS
 
 INT8 RandomSkipListLevel( void )
 {
@@ -2484,27 +2426,29 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 {
 	s->sPlotSrcGrid = s->sGridNo;
 
-#ifdef USE_ASTAR_PATHS
-//ddd
-CHAR8 errorBuf[511]; UINT32 b,e;
-b=GetJA2Clock();//return s->sGridNo+6;
-	
-	int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
-
-	e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
-
-	if (retVal || TileIsOutOfBounds(sDestination)) {
-		return retVal;
-	}
-	else {
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
-	}
-
-	//	if (TileIsOutOfBounds(sDestination))
+	if (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING])
 	{
-		return 0;
+		CHAR8 errorBuf[511]; UINT32 b,e;
+		b=GetJA2Clock();//return s->sGridNo+6;
+	
+		int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
+
+		e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
+
+		if (retVal || TileIsOutOfBounds(sDestination)) {
+			return retVal;
+		}
+		else {
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
+		}
+
+		//	if (TileIsOutOfBounds(sDestination))
+		{
+			return 0;
+		}
 	}
-#else
+	else
+	{
 	//__try
 	//{
 	INT32 iDestination = sDestination, iOrigination;
@@ -2523,7 +2467,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 	INT32 iWaterToWater;
 	INT16 ubCurAPCost,ubAPCost;
 	INT16 ubNewAPCost=0;
-	#ifdef VEHICLE
 		//BOOLEAN fTurnSlow = FALSE;
 		//BOOLEAN fReverse = FALSE; // stuff for vehicles turning
 		BOOLEAN fMultiTile, fVehicle;
@@ -2534,7 +2477,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 		UINT16							usAnimSurface;
 		//INT32 iCnt2, iCnt3;
 		BOOLEAN fVehicleIgnoreObstacles = FALSE;
-	#endif
 
 	INT32			iLastDir = 0;
 
@@ -2636,9 +2578,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && s->inv[BPACKPOCKPOS].exists() == true
-		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)s->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[s->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[s->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)));//Moa: added backpack check
+	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (!s->CanClimbWithCurrentBackpack());//Moa: added backpack check
 
 	// Flugente: nonswimmers are those who are not mercs and not boats
 	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );
@@ -2759,7 +2699,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((s->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if (fMultiTile)
@@ -2819,7 +2758,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		fContinuousTurnNeeded = FALSE;
 	}
 
-#endif
 
 	if (!fContinuousTurnNeeded)
 	{
@@ -2962,7 +2900,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		}
 #endif
 
-#ifdef VEHICLE
 		/*
 		if (fTurnSlow)
 		{
@@ -2987,7 +2924,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 		}
 		*/
-#endif
 
 		if (gubNPCAPBudget)
 		{
@@ -3048,7 +2984,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		//for ( iCnt = iLoopStart; iCnt != iLoopEnd; iCnt = (iCnt + iLoopIncrement) % MAXDIR )
 		for ( iCnt = iLoopStart; ; )
 		{
-#ifdef VEHICLE
 			/*
 			if (fTurnSlow)
 			{
@@ -3130,7 +3065,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#endif
 
 			newLoc = curLoc + dirDelta[iCnt];
 
@@ -3479,7 +3413,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#ifdef VEHICLE
 			if (fMultiTile)
 			{
 				// vehicle test for obstacles: prevent movement to next tile if
@@ -3518,7 +3451,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 				*/
 			}
-#endif
 
 			// NEW Apr 21 by Ian: abort if cost exceeds budget
 			if (gubNPCAPBudget)
@@ -4276,7 +4208,7 @@ ENDOFLOOP:
 	//{
 	//	return (0);
 	//}
-#endif
+	}
 }
 
 void GlobalReachableTest( INT32 sStartGridNo )

@@ -3206,14 +3206,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 762:
 				{
 					// CODE: Set off Trigger
-					INT8	bPanicTrigger;
-
-					bPanicTrigger = ClosestPanicTrigger( pSoldier );
-					SetOffPanicBombs( pSoldier->ubID, bPanicTrigger );
+					INT8 bPanicTrigger = ClosestPanicTrigger( pSoldier );
+					if (bPanicTrigger != -1)
+					{
+						SetOffPanicBombs( pSoldier->ubID, bPanicTrigger );
+					}
 					// any AI guy has been specially given keys for this, now take them
 					// away
 					pSoldier->flags.bHasKeys = pSoldier->flags.bHasKeys >> 1;
-
 				}
 				break;
 
@@ -4857,48 +4857,6 @@ BOOLEAN HandleUnjamAnimation( SOLDIERTYPE *pSoldier )
 
 
 
-#if 0
-//OK, if here, if our health is still good, but we took a lot of damage, try to fall down!
-if ( pSoldier->stats.bLife >= OKLIFE )
-{
-	// Randomly fall back or forward, if we are in the standing hit animation
-	if ( pSoldier->usAnimState == GENERIC_HIT_STAND || pSoldier->usAnimState == RIFLE_STAND_HIT )
-	{
-		INT8			bTestDirection = pSoldier->ubDirection;
-		BOOLEAN		fForceDirection = FALSE;
-		BOOLEAN		fDoFallback			= FALSE;
-
-		// As the damage pretty brutal?
-
-		// TRY FALLING BACKWARDS, ( ONLY IF WE ARE A MERC! )
-		if ( Random( 1000 ) > 40 && IS_MERC_BODY_TYPE( pSoldier ) )
-		{
-			// CHECK IF WE HAVE AN ATTACKER, TAKE OPPOSITE DIRECTION!
-			if ( pSoldier->ubAttackerID != NOBODY )
-			{
-				// Find direction!
-				bTestDirection = (INT8)GetDirectionFromGridNo( MercPtrs[ pSoldier->ubAttackerID ]->sGridNo, pSoldier );
-				fForceDirection = TRUE;
-			}
-
-			sNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)(-1 * DirectionInc( bTestDirection ) ) );
-
-			if ( NewOKDestination( pSoldier, sNewGridNo, TRUE, pSoldier->pathing.bLevel ) && OKHeightDest( pSoldier, sNewGridNo ) )
-			{
-				// ALL'S OK HERE..... IF WE FORCED DIRECTION, SET!
-				if ( fForceDirection )
-				{
-					pSoldier->EVENT_SetSoldierDirection( bTestDirection );
-					pSoldier->EVENT_SetSoldierDesiredDirection( bTestDirection );
-				}
-				pSoldier->ChangeSoldierState( FALLBACK_HIT_STAND, 0, FALSE );
-				return;
-			}
-		}
-	}
-}
-
-#endif
 
 BOOLEAN OKFallDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubTestDirection, UINT16 usAnimState )
 {

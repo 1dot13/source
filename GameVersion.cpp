@@ -1,52 +1,40 @@
 	#include "Types.h"
 	#include "GameVersion.h"
- 
+
 //
 //	Keeps track of the game version
 //
- 
-// ------------------------------
-// MAP EDITOR (Release and Debug) BUILD VERSION
-// ------------------------------
-#ifdef JA2EDITOR
+
+#ifdef JA2EDITOR // map editor
 	
 	#ifdef JA2UB
-		CHAR16 zProductLabel[64]		= { L"Unfinished Business - Map Editor v1.13" };
+		CHAR16 zProductLabel[64]		= { L"JA2 1.13 Unfinished Business - Map Editor" };
 	#else
-		CHAR16 zProductLabel[64]		= { L"Map Editor v1.13" };
+		CHAR16 zProductLabel[64]		= { L"JA2 1.13 - Map Editor" };
 	#endif
 
-// ------------------------------
-// DEBUG BUILD VERSIONS
-// ------------------------------
-#elif defined JA2BETAVERSION
+#elif defined JA2BETAVERSION // debug
 
-	//DEBUG BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16 zProductLabel[64]		= { L"Debug: Unfinished Business - v1.13" };
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13 Unfinished Business" };
 	#elif defined (JA113DEMO)
-		CHAR16 zProductLabel[64]		= { L"Debug: JA2 Demo - v1.13" };
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13 Demo" };
 	#else
-		CHAR16 zProductLabel[64]		= { L"Debug: v1.13" };
+		CHAR16 zProductLabel[64]		= { L"Debug: JA2 1.13" };
 	#endif
 
 #elif defined CRIPPLED_VERSION
 
-	//RELEASE BUILD VERSION s
-	CHAR16 zProductLabel[64]		= { L"Beta v. 0.98" };
+	CHAR16 zProductLabel[64]		= { L"JA2 113 Beta-0.98" };
 
-// ------------------------------
-// RELEASE BUILD VERSIONS
-// ------------------------------
-#else
+#else // release
 
-	//RELEASE BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16		zProductLabel[64]		= { L"Unfinished Business - v1.13" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13 Unfinished Business" };
 	#elif defined (JA113DEMO)
-		CHAR16		zProductLabel[64]		= { L"JA2 Demo - v1.13" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13 Demo" };
 	#else
-		CHAR16		zProductLabel[64]		= { L"v1.13" };
+		CHAR16		zProductLabel[64]		= { L"JA2 1.13" };
 	#endif
 
 #endif
