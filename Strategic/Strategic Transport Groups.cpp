@@ -402,6 +402,7 @@ void UpdateTransportGroupInventory()
 		TOOL_KITS,
 		BACKPACKS,
 		RADIOS,
+		CAMO_KITS,
 		MISC,
 		GRENADE_THROWN,
 		GUNS,
@@ -472,10 +473,8 @@ void UpdateTransportGroupInventory()
 					itemMap[BACKPACKS].push_back(i);
 				}
 			}
-			else if (Item[i].usItemClass & IC_MISC)
-			{
-				itemMap[MISC].push_back(i);
-			}
+			else if (Item[i].camouflagekit) itemMap[CAMO_KITS].push_back(i);
+			else if (Item[i].usItemClass & IC_MISC) itemMap[MISC].push_back(i);
 			else if (Item[i].usItemClass & IC_AMMO)
 			{
 				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX && playerCalibres.find(Magazine[Item[i].ubClassIndex].ubCalibre) != playerCalibres.end())
