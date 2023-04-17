@@ -590,6 +590,17 @@ void UpdateTransportGroupInventory()
 								const UINT16 id = itemMap[itemType][Random(itemMap[itemType].size())];
 								switch (itemType)
 								{
+								case BACKPACKS:
+								case RADIOS:
+								case MISC:
+								case AMMO_BOXES:
+									// intentionally do nothing
+									break;
+
+								case GAS_CANS:
+									addItemToInventory(pSoldier, id, 1);
+									break;
+
 								case MEDICAL_MEDKITS:
 								case MEDICAL_OTHER:
 								case TOOL_KITS:
@@ -656,8 +667,16 @@ void UpdateTransportGroupInventory()
 									}
 									break;
 
-								case AMMO_BOXES:
-									// intentionally do nothin'
+								case ATTACHMENTS:
+									for (int loop = 0; loop < 5; ++loop)
+									{
+										const UINT16 attachmentId = itemMap[itemType][Random(itemMap[itemType].size())];
+										addItemToInventory(pSoldier, attachmentId, 2);
+									}
+									break;
+
+								case CAMO_KITS:
+									addItemToInventory(pSoldier, id, 6);
 									break;
 
 								default:
@@ -739,6 +758,16 @@ void UpdateTransportGroupInventory()
 
 									case AMMO_BOXES:
 										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									case CAMO_KITS:
+										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									case ATTACHMENTS:
+										// low chance of attachments
+										if (Random(100) < 25)
+											addItemToInventory(pSoldier, id, 1);
 										break;
 
 									default:
