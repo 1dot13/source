@@ -4,9 +4,9 @@ on:
   workflow_call:
     inputs:
       language:
-        description: 'any of CN_Chinese DE_German EN_English FR_French PL_Polish IT_Italian NL_Dutch RU_Russian'
+        description: 'any of Chinese German English French Polish Italian Dutch Russian'
         required: true
-        default: 'EN_English'
+        default: 'English'
         type: string
       assemble:
         description: 'assemble full package'
@@ -53,60 +53,43 @@ jobs:
           sed -i "s|@Build@|${GAME_BUILD:0:255}|" GameVersion.cpp
           cat GameVersion.cpp
 
-      # not sure if needed as per Language Defines.h, but only here can we set both defines I think
-      - name: Update builddefines.h
-        if: ${{ startsWith(matrix.application, 'ja2ub') }}
-        shell: bash
-        run: |
-          set -eux
-          sed -i 's/\/\/#define JA2UB/#define JA2UB/' builddefines.h
-          sed -i 's/\/\/#define JA2UBMAPS/#define JA2UBMAPS/' builddefines.h
-          cat builddefines.h
-
       - name: Prepare build properties
         shell: bash
         run: |
           set -eux
           
-          if [[ '${{ matrix.application }}' == *'mapeditor' ]]
-          then
-            Configuration='MapEditor'
-          else
-            Configuration='Release'
-          fi
-          
-          INPUTS_LANGUAGE='${{ inputs.language }}'
-          JA2LangPrefix="${INPUTS_LANGUAGE:0:2}"
-          JA2Language=$(echo "${INPUTS_LANGUAGE:3}" | tr '[:lower:]' '[:upper:]')
-          
-          if [[ '${{ matrix.application }}' == 'ja2ub'* ]]
-          then
-            JA2Config='JA2UB'
-          else
-            JA2Config='JA2'
-          fi
+          touch CMakeUserPresets.json
+
+          JA2Language=$(echo '${{ inputs.language }}' | tr '[:lower:]' '[:upper:]')
+          JA2Application=$(echo '${{ matrix.application }}' | tr '[:lower:]' '[:upper:]')
           
           echo "
-          Configuration=$Configuration
-          JA2LangPrefix=$JA2LangPrefix
           JA2Language=$JA2Language
-          JA2Config=$JA2Config
+          JA2Application=$JA2Application
           " >> $GITHUB_ENV
 
       - uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x86
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Prepare build
+        run: |
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
       - name: Build
         run: |
-          msbuild ja2_VS2019.sln `
-            /p:Configuration=$Env:Configuration `
-            /p:JA2LangPrefix=$Env:JA2LangPrefix `
-            /p:JA2Language=$Env:JA2Language `
-            /p:JA2Config=$Env:JA2Config
+          cmake --build build/ -- -v
+      - name: List build artifacts
+        shell: bash
+        run: |
+          find build/
 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.language }}_${{ matrix.application }}
-          path: bin/VS2013/
+          path: build/*.exe
 
   assemble:
     needs: [ compile ]
@@ -132,7 +115,7 @@ jobs:
           path: gamedir
 
       - name: Checkout gamedir-languages
-        if: inputs.language != 'EN_English'
+        if: inputs.language != 'English'
         uses: actions/checkout@v3
         with:
           repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
@@ -140,13 +123,11 @@ jobs:
           path: gamedir-languages
 
       - name: Copy gamedir-languages files to gamedir
-        if: inputs.language != 'EN_English'
+        if: inputs.language != 'English'
         shell: bash
         run: |
           set -eux
-          DIST_LANG='${{ inputs.language }}'
-          GAMEDIR_LANGUAGE="${DIST_LANG:3}"
-          cp -a gamedir-languages/${GAMEDIR_LANGUAGE}_Version/* gamedir/
+          cp -a gamedir-languages/${{ inputs.language }}_Version/* gamedir/
 
       - name: Download ja2
         uses: actions/download-artifact@v3

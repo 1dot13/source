@@ -467,18 +467,18 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
-	L"没有其他附加效果。",// L"No effects.",
-	L"可能会在热带和沙漠地区呼吸困难，降低综合表现。",// L"Has problems with breathing and reduced overall performance if in tropical or desert sectors.",
-	L"可能会孤单一人在某些情况下感到恐慌。",// L"Can suffer panic attack if left alone in certain situations.",
-	L"可能会进入地下后降低综合表现。",// L"His overall performance is reduced if underground.",
-	L"可能会在游泳时轻易的溺水。",// L"If trying to swim he can easily drown.",
-	L"可能会在看到大虫子后六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
-	L"可能会偶尔忘记手头的任务，也会在战斗中损失行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
-	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
+	L"没有其它附加效果。",// L"No effects.",
+	L"在热带或沙漠区域，会出现呼吸问题降低综合表现。",// L"Has problems with breathing and reduced overall performance if in tropical or desert sectors.",
+	L"独自一人时可能会感到恐慌。",// L"Can suffer panic attack if left alone in certain situations.",
+	L"在封闭空间或地下时会降低综合表现。",// L"His overall performance is reduced if underground.",
+	L"在游泳时会轻易的溺水。",// L"If trying to swim he can easily drown.",
+	L"看到大虫子后会六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
+	L"偶尔会忘记手头的任务，也会在战斗中损失些行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
+	L"偶尔会发疯并把手里的武器设为自动乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
 	L"大大减少听力范围。",		// L"Drastically reduced hearing.",
 	L"减少视力范围。",				// L"Reduced sight range.",
-	L"大大增加的流血速度。",	//L"Drastically increased bleeding.",
-	L"在房顶上会降低战斗力。",	//L"Performance suffers while on a rooftop.",
+	L"大大增加流血速度。",	//L"Drastically increased bleeding.",
+	L"在房顶作战时会降低战斗力。",	//L"Performance suffers while on a rooftop.",
 	L"时不时自残。",	//L"Occasionally harms self.",
 };
 

@@ -6213,7 +6213,7 @@ STR16	zOptionsText[] =
 STR16	z113FeaturesScreenText[] =
 {
 	L"1.13 特征功能",	//L"1.13 FEATURE TOGGLES",
-	L"在游戏中更改这些选项将影响您的游戏体验。",	//L"Changing these settings during a campaign will affect your experience.",
+	L"在游戏中更改这些选项将影响您的游戏体验。（更改后必须重新开始新游戏）",	//L"Changing these settings during a campaign will affect your experience.",
 	L"将鼠标悬停在功能按钮上以获得更多信息。某些功能需要在JA2_Options.ini（或其他文件）中设置。",	//L"Hover over a feature to display more information. Some features may be configurable in JA2_Options.ini (or other specified file).",
 };
 
@@ -6532,7 +6532,7 @@ STR16		zOptionsToggleText[] =
 	L"实时确认",		//"Real Time Confirmation",
 	L"显示睡觉/醒来时的提示",	//"Display sleep/wake notifications",
 	L"使用公制系统",		//"Use Metric System",
-	L"佣兵假光",	//"Highlight Mercs",
+	L"高亮显示佣兵",	//"Highlight Mercs",
 	L"锁定佣兵",	//"Snap Cursor to Mercs",
 	L"锁定门",		//"Snap Cursor to Doors",
 	L"物品闪亮",	//"Make Items Glow",
@@ -6574,8 +6574,8 @@ STR16		zOptionsToggleText[] =
 	L"反转鼠标滚轮",                 //L"Invert mouse wheel",
 	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"显示已知敌人位置",			//L"Show enemy location", show locator on last known enemy location
-	L"Start at maximum aim",
-	L"Alternative pathfinding",
+	L"准心开始时为最大",	// L"Start at maximum aim",
+	L"替换新的寻路方式",	// L"Alternative pathfinding",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6637,7 +6637,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用公制系统，否则使用英制系统。",
 
 	//Highlight Mercs
-	L"打开时，切换虚拟佣兵照明。（|G）",
+	L"打开时，虚拟灯光会照亮佣兵周围。（|G）",   //L"When ON, highlights the mercenary (Not visible to enemies).\nToggle in-game with (|G)",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -6693,10 +6693,10 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
-	L"打开时，当选择多个佣兵，在前进时会保持彼此的间距。|C|t|r|l+|A|l|t+|G \n（按|S|h|i|f|t+点击人物头像可以加入或移出队伍）", //L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", TODO.Translate
+	L"打开时，当选择多个佣兵，在前进时会保持彼此的间距。|C|t|r|l+|A|l|t+|G \n（按|S|h|i|f|t+点击人物头像可以加入或移出队伍）", //L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", 
 	L"打开时，会显示已知敌人最后移动的位置。",	//L"When ON, shows last known enemy location.",    
-	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
-	L"When ON, Use A* pathfinding algorithm, instead of original",
+	L"打开时，默认瞄准值为最大，而不是无。",	//L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"打开时，使用A*寻路算法，而不是原始算法。",	//L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7032,7 +7032,7 @@ STR16 pMessageStrings[] =
 	L"磁盘空间不足。只有%sMB可用空间，《铁血联盟2》需要%sMB。",
 	L"从AIM雇佣了%s。", 		//"Hired %s from AIM",
 	L"%s抓住了%s。",	//"%s has caught %s.",	//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s使用了（拾取）%s。",	//L"%s has taken %s。",
+	L"%s（使用了、拾取了、中了）%s。",	//L"%s has taken %s。",
 	L"%s没有医疗技能",	//"%s has no medical skill",//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
@@ -7131,7 +7131,7 @@ STR16 pMessageStrings[] =
 	L"虚拟佣兵光照开启",
 	L"虚拟佣兵光照关闭",
 	L"军队%s活动。", //L"Squad %s active.",
-	L"%s作弊者%s。", //L"%s smoked %s.",
+	L"%s抽了只%s。", //L"%s smoked %s.",
 	L"激活作弊？", //L"Activate cheats?",
 	L"关闭作弊？", //L"Deactivate cheats?",
 };
@@ -8133,7 +8133,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"身心健全",
 	L"怕热",
 	L"神经质",
-	L"幽闭恐慌症",
+	L"幽闭恐惧症",
 	L"旱鸭子",
 	L"怕虫",
 	L"健忘",
@@ -9198,8 +9198,8 @@ STR16	szPrisonerTextStr[]=
 	L"一个高阶军官%s被发现！",	//L"A high-ranking army officer in %s has been revealed!",
 	L"敌方领袖拒绝考虑投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d名囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
-	L"Some of your mercs managed to escape the enemy capture!",
-	L"No possible escape is seen, it's a fight to the death!"
+	L"你的佣兵成功逃脱了敌人的追捕。", //L"Some of your mercs managed to escape the enemy capture!",
+	L"没有逃跑与投降，只有死战到底！", //L"No possible escape is seen, it's a fight to the death!",
 };
 
 STR16	szMTATextStr[]=
@@ -11997,7 +11997,7 @@ STR16 szRebelCommandHelpText[] =
 	L"|指|挥|部\n \n指挥部一旦部署，就会负责处理\n该区域内的日常事务。包括支持当地人，制造\n反抗宣传，制定地区政策等等。",   //L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
 	L"|忠|诚|度\n \n许多行政命令的有效性取决于\n该地区的忠诚度，提高忠诚度\n能得到最大利益化。",   //L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
 	L"|最|高|忠|诚|度\n \n你需要说服当地人完全信任你。这可以\n通过为他们建立物资供应来实现，表明\n你打算改善他们的生活质量。",   //L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
-	L"该管理行动只会作用到城镇区域。", //L"This Admin Action applies its bonus to town sectors only.", TODO.Translate
+	L"该管理行动只会作用到城镇区域。", //L"This Admin Action applies its bonus to town sectors only.", 
 	L"该管理行动会作用到城镇区域。\n和直接相邻的区域。",   //L"This Admin Action applies its bonus to town sectors, and\nsectors immediately adjacent to them.",
 	L"该管理行动会作用到城镇区域。\n1级覆盖周边1个区域。\n2级覆盖周边2个区域。",   //L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
 	L"该管理行动会作用到城镇区域。\n1级覆盖周边2个区域。\n2级覆盖周边3个区域。",   //L"This Admin Action applies its bonus to town sectors, up to\ntwo sectors away at Tier 1, and up to three sectors away at Tier 2.",
@@ -12113,7 +12113,7 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"临时增加对这个城镇的直接援助。城镇忠诚度会在任务期间被动提升。",   //L"Temporarily increase direct support to this town. Town loyalty passively increases for the duration of the mission.",
 	L"士兵悬赏(Kingpin)",   //L"Soldier Bounties (Kingpin)", 
 	L"杀敌以获得资金奖励。和Kingpin谈谈，他感觉可以利用你的存在来削弱女王的权威。奖金会在午夜存入你的账户，每天最多$%d。",   //L"Get a payout for enemy kills. Negotiate with Kingpin, who feels he can use your presence here to indirectly weaken the Queen's power. Bounties are deposited into your account at midnight and are limited to $%d per day.",
-	L"在任意地方训练民兵",   //L"Train Militia Anywhere",
+	L"在城镇外任意地区训练民兵",   //L"Train Militia Anywhere",
 	L"野外训练区是可以快速设立和拆毁的。民兵可以在城镇外的非交战区接受训练。",   //L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
 
