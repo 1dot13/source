@@ -1,4 +1,4 @@
-option(BUILD_JA2EXPORT "Build the Ja2Export tool." ON)
+option(BUILD_JA2EXPORT "Build the Ja2Export tool." OFF)
 
 if(BUILD_JA2EXPORT)
 	message(STATUS "Configuring Ja2Export")
