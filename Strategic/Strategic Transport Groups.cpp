@@ -689,7 +689,8 @@ void UpdateTransportGroupInventory()
 					}
 					//else // returning home
 					{
-						// coming back home - carrying money/loot/???
+						// I can't really think of a good different loot set for returning transport groups, so we'll have the same loot
+						// regardless of whether the group is outgoing or incoming. I'll keep the in/out flag in case that changes
 					}
 
 					transportGroupIdToSoldierMap[pSoldier->ubGroupID][SOLDIER_CLASS_JEEP]--;
@@ -780,7 +781,8 @@ void UpdateTransportGroupInventory()
 						}
 						//else // returning home
 						{
-							// coming back home - carrying money/loot/???
+							// I can't really think of a good different loot set for returning transport groups, so we'll have the same loot
+							// regardless of whether the group is outgoing or incoming. I'll keep the in/out flag in case that changes
 						}
 
 						// force inventory to be dropped!
