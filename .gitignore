@@ -4,8 +4,10 @@ cmake-build-*/
 
 # Visual Studio 2022
 .vs/
-build/
-lib/
+/build/
+/bin/
+/lib/
 out/
 CMakeSettings.json
 /CMakeUserPresets.json
+*.vcxproj.user
