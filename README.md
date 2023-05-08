@@ -56,6 +56,20 @@ Visit the [releases page](https://github.com/1dot13/source/releases) to download
    (those issues can occur due to the combination of old game and modern OS/hardware, cnc-ddraw helps to avoid those) 
 
 
+### First Time Building on Windows
+
+1. Run `Visual Studio 2019` or newer.
+2. Click `Clone a repository`, enter `https://github.com/1dot13/source.git` on `Location` and click `Clone`.
+3. Double-click on `Folder View` on the `Solution Explorer`
+4. You will get a CMake error saying `No existing preset was found, copied a preset template to [some_path]`. This is normal and only happens once.
+5. Click on the dropdown that says `x64-Debug` and select `Manage configurations...`. This should trigger Visual Studio to load the `CMakeUserPresets.json` file it just copied.
+6. Click `Build -> Build All` to build an English Ja2 v.1.13 Debug executable.
+
+To configure other languages and executables such as Unfinished Business and Map Editor, click the configuration dropdown (where it says `1dot13 Debug`, `1dot13 RelWithDebInfo` or `1dot13 Release`), choose `Manage Configurations...` and edit the `"Languages"` and `"Applications"` field to suit your needs.
+
+For debugging within the IDE, put the path to the Ja2 1.13 installation (with appropriate `gamedir` installation!) on the `CMAKE_RUNTIME_OUTPUT_DIRECTORY` field.
+
+
 ### Reports
 
 For more information and reports, visit [Bug reports at Bear's Pit Forum](http://thepit.ja-galaxy-forum.com/index.php?t=thread&frm_id=216&) or join the [Bear's Pit Discord](https://discord.gg/GqrVZUM "Bear's Pit Discord")
