@@ -8740,7 +8740,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis item will block your iron sights\nso you cannot use them.",
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
-	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \nIf kept in your inventory, this will lower\nthe chance to be infected by other people.",
 	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
 	L"\n \nYou can take photos with this.",		// TODO.Translate
 	L"\n \nThis item makes you more effective at burying corpses.",
