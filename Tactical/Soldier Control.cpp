@@ -19923,7 +19923,7 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 				{
 					bestfacegear = max( bestfacegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
 				}
-				else if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_2 ) )
+				if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_2 ) )
 				{
 					bestprotectivegear = max( bestprotectivegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
 				}
