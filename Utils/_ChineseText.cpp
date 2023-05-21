@@ -7667,6 +7667,7 @@ STR16 New113Message[] =
 	L"无线电操作失败！",
 	L"迫击炮弹不足，无法在分区发动密集轰炸！",
 	L"Items.xml里没有定义信号弹物品！",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"未发现迫击炮，无法执行密集轰炸！",
 	L"干扰信号成功，不需要重复操作！",
 	L"正在监听周围声音，无需重复操作！",

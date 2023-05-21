@@ -7667,6 +7667,7 @@ STR16 New113Message[] =
 	L"Radio action failed!",
 	L"Not enough mortar shells in sector to start a barrage!",
 	L"No signal shell item found in Items.xml!",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"No mortars found, cannot commence barrage!",
 	L"Already jamming signal, no need to do so again!",
 	L"Already listening for nearby sounds, no need to do so again!",
