@@ -26,11 +26,6 @@
 #include <vfs/Tools/vfs_property_container.h>
 
 INT32 FindFreeWinFont( void );
-BOOLEAN gfEnumSucceed = FALSE;
-
-#ifdef CHINESE
-#define DEC_INTERNAL_LEADING
-#endif
 
 // Private struct not to be exported
 // to other modules
@@ -41,13 +36,12 @@ typedef struct
 	COLORVAL	ForeColor;
 	COLORVAL	BackColor;
 	UINT8 Height;
-	UINT8 Width[0x80];
-#ifdef DEC_INTERNAL_LEADING
 	UINT8 InternalLeading;
+#ifdef CHINESE
+	UINT8 Width[0x80];
 #endif
 } HWINFONT;
 
-LOGFONT gLogFont;
 LONG gWinFontAdjust;
 HWINFONT	WinFonts[WIN_LASTFONT];
 
@@ -79,6 +73,10 @@ struct {
 	{"14PointHumanist", {-15, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE, "ja2font3"}, FROMRGB(255, 0, 0)},
 	{"HugeFont", {-19, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE, "ja2font3"}, FROMRGB(0, 255, 0)}
 };
+
+LOGFONT TooltipLogFont = { -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE, "Arial" };
+INT32 TOOLTIP_IFONT = -1;
+INT32 TOOLTIP_IFONT_BOLD = -1;
 
 void Convert16BitStringTo8Bit( CHAR8 *dst, CHAR16 *src )
 {
@@ -288,6 +286,29 @@ void ShutdownWinFonts( )
 		{DeleteWinFont(i);}
 }
 
+void InitTooltipFonts()
+{
+	LOGFONT adjustedLogFont = TooltipLogFont;
+	adjustedLogFont.lfHeight = adjustedLogFont.lfHeight * fTooltipScaleFactor;
+
+	LOGFONT adjustedBoldTooltipLogFont = adjustedLogFont;
+	adjustedBoldTooltipLogFont.lfWeight = FW_BOLD;
+
+
+	TOOLTIP_IFONT = CreateWinFont(adjustedLogFont);
+	TOOLTIP_IFONT_BOLD = CreateWinFont(adjustedBoldTooltipLogFont);
+
+	COLORVAL regularColor = FROMRGB(201, 197, 143);
+	COLORVAL boldColor = FROMRGB(223, 176, 1);
+	SetWinFontForeColor(TOOLTIP_IFONT, &regularColor);
+	SetWinFontForeColor(TOOLTIP_IFONT_BOLD, &boldColor);
+}
+
+void ShutdownTooltipFonts()
+{
+	ShutdownWinFonts();
+}
+
 INT32 FindFreeWinFont( void )
 {
 	INT32 iCount;
@@ -347,8 +368,10 @@ INT32 CreateWinFont( LOGFONT &logfont )
 	WinFonts[ iFont ].hFont = hFont;
 
 	HDC hdc = GetDC(NULL);
+	SelectObject(hdc, hFont);
+
+#ifdef CHINESE
 	SIZE RectSize;
-	SelectObject(hdc, hFont );
 	wchar_t str[2]=L"\1";
 	for (int i = 1; i<0x80; i++)
 	{
@@ -359,12 +382,12 @@ INT32 CreateWinFont( LOGFONT &logfont )
 	str[0] = L'啊';
     GetTextExtentPoint32W( hdc, str, 1, &RectSize );
     WinFonts[iFont].Width[0] = (UINT8)RectSize.cx;
+#endif
+
 	TEXTMETRIC tm;
 	GetTextMetrics(hdc, &tm);
 	WinFonts[ iFont ].Height = (UINT8)tm.tmAscent;
-#ifdef DEC_INTERNAL_LEADING
 	WinFonts[ iFont ].InternalLeading = (UINT8)tm.tmInternalLeading;
-#endif
 	ReleaseDC(NULL, hdc);
 
 	return( iFont );
@@ -444,12 +467,10 @@ void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontS
 	SetBkMode(hdc, TRANSPARENT);
 	SetTextAlign(hdc, TA_TOP|TA_LEFT);
 
-#ifdef DEC_INTERNAL_LEADING
 	if (y - pWinFont->InternalLeading >=0)
 	{
 		y -= pWinFont->InternalLeading;
 	}
-#endif
 	TextOutW( hdc, x, y, string, len );
 
 	IDirectDrawSurface2_ReleaseDC( pDDSurface, hdc );
@@ -458,17 +479,10 @@ void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontS
 
 INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 {
-	HWINFONT				*pWinFont;
-#ifndef CHINESE
-	HDC					 hdc;
-	SIZE					RectSize;
-#endif
+	HWINFONT *pWinFont;
 	pWinFont = GetWinFont( iFont );
 
-	if ( pWinFont == NULL )
-	{
-	return( 0 );
-	}
+	if (pWinFont == NULL) return(0);
 
 #ifdef CHINESE
 	wchar_t *p=string2;
@@ -486,7 +500,9 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 	}
 	return size;
 #else
-	hdc = GetDC(NULL);
+	SIZE RectSize;
+	HDC hdc = GetDC(NULL);
+
 	SelectObject(hdc, pWinFont->hFont );
 	GetTextExtentPoint32W( hdc, string2, lstrlenW(string2), &RectSize );
 	ReleaseDC(NULL, hdc);
@@ -496,44 +512,18 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 }
 
 
-INT16 GetWinFontHeight( STR16 string2, INT32 iFont )
+INT16 GetWinFontHeight(INT32 iFont)
 {
-	HWINFONT				*pWinFont;
-//	HDC					 hdc;
-//	SIZE					RectSize;
+	HWINFONT* pWinFont;
 
-	pWinFont = GetWinFont( iFont );
+	pWinFont = GetWinFont(iFont);
 
-	if ( pWinFont == NULL )
-	{
-	return( 0 );
-	}
-	else
-	{
+	if (pWinFont == NULL) return(0);
 #ifdef CHINESE //zwwooooo: Correct tactical interface font height to fixed Chinese characters smearing bug
-		if (iFont==WIN_TINYFONT1 || iFont==WIN_SMALLFONT1 || iFont==WIN_14POINTARIAL) return pWinFont->Height+2;
+	if (iFont == WinFontMap[TINYFONT1] || iFont == WinFontMap[SMALLFONT1] || iFont == WinFontMap[WIN_14POINTARIAL])
+	{
+		return pWinFont->Height + 2;
+	}
 #endif
-		return pWinFont->Height;
-    }
-	/*
-	hdc = GetDC(NULL);
-	SelectObject(hdc, pWinFont->hFont );
-	GetTextExtentPoint32W( hdc, string2, lstrlenW(string2), &RectSize );
-	ReleaseDC(NULL, hdc);
-	
-	return( (INT16)RectSize.cy );*/
-}
-
-UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...)
-{
-	va_list				 argptr;
-	CHAR16				 string[512];
-
-	va_start(argptr, pFontString);			// Set up variable argument pointer
-	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
-	va_end(argptr);
-
-	PrintWinFont( FontDestBuffer, iFont, x,	y, string );
-
-	return( 1 );
+	return pWinFont->Height;
 }
