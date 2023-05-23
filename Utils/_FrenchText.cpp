@@ -7670,6 +7670,7 @@ STR16 New113Message[] =
 	L"L'action radio a échoué !",
 	L"Pas assez d'obus de mortier dans le secteur pour un tir de barrage !",
 	L"Aucun obus éclairant trouvé dans Items.xml !",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"Aucun mortier trouvé, tir de barrage impossible !",
 	L"Brouillage radio déjà en cours, inutile d'en lancer un autre !",
 	L"Écoute des sons alentour déjà en cours, inutile d'en lancer une autre !",

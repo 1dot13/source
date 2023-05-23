@@ -576,5 +576,6 @@ FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8
 
 // sevenfm: check if this type of grenade can use delayed mode
 BOOLEAN CanDelayGrenadeExplosion( UINT16 usItem );
+UINT16 GetLaunchableOfExplosionType(UINT16 launcher, UINT8 explosionType);
 
 #endif

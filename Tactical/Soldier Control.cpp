@@ -18643,14 +18643,42 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		return FALSE;
 	}
 
+	// Locate item indices for Signal and HE shells defined by the active MOD. Evade usage of hard-code values.
+	static UINT16 usSignalShellIndex = NOTHING;
+	static UINT16 usHeShellIndex = NOTHING;
+	if (usSignalShellIndex == NOTHING || usHeShellIndex == NOTHING)
+	{
+		UINT16 findSignalShellIndex = 1700;  // try default Signal Shell item in 1.13
+		UINT16 findHeShellIndex = 140;       // try default HE Shell item in 1.13
+		if (HasItemFlag(findSignalShellIndex, SIGNAL_SHELL) == FALSE && GetFirstItemWithFlag(&findSignalShellIndex, SIGNAL_SHELL) == FALSE)
+		{
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_SIGNAL_SHELL]);
+			return FALSE;
+		}
+		UINT16 mortarIndex = GetLauncherFromLaunchable(findSignalShellIndex);
+		if (mortarIndex != GetLauncherFromLaunchable(findHeShellIndex))
+		{
+			findHeShellIndex = GetLaunchableOfExplosionType(mortarIndex, EXPLOSV_NORMAL);
+		}
+		if (findHeShellIndex == NOTHING)
+		{
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_DEFAULT_SHELL]);
+			return FALSE;
+		}
+		// at this point both shells were found and are OK, so set it to static variables and never touch anymore:
+		usSignalShellIndex = findSignalShellIndex;
+		usHeShellIndex = findHeShellIndex;
+	}
+
 	// if a strike is ordered from the ENEMY_TEAM or MILITIA_TEAM, the number of mortars depends on the number of enemies/militia in that sector
 	// number of waves depends on the number and quality of enemies/soldiers
 	// only HE shells will be fired this way
 	if ( bTeam == ENEMY_TEAM || bTeam == MILITIA_TEAM )
 	{
-		INT16 nummortars = 0;	// number of mortars determines size of wave (1 - 4)
-		INT16 numwaves = 0;	// number of waves
-		INT16 numshells = 0;	// number of shells
+		INT16 nummortars = 0;  // number of mortars determines size of wave (1 - 4)
+		INT16 numwaves = 0;    // number of waves
+		INT16 numshells = 0;   // number of shells
+		INT16 numwavesMax = (INT16) Explosive[Item[usSignalShellIndex].ubClassIndex].ubDuration;
 
 		SECTORINFO *pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
 
@@ -18682,35 +18710,36 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			numshells = gSkillTraitValues.usVOMortarPointsAdmin * militia_green + gSkillTraitValues.usVOMortarPointsTroop * militia_troop + gSkillTraitValues.usVOMortarPointsElite * militia_elite;
 		}
 
-		if ( gSkillTraitValues.usVOMortarShellDivisor * nummortars < 1 )
+		// turn number of mortar points into number of shells; in case of "militia use sector ammo" option, numshells
+		// represents max potential shells militia can shot for this artillery strike.
+		numshells = numshells / gSkillTraitValues.usVOMortarShellDivisor;
+
+		if (numshells <= 0)
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NOT_ENOUGH_MORTAR_SHELLS] );
+			if (bTeam == MILITIA_TEAM)  // player does not care if enemy team has not enough points to strike
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NOT_ENOUGH_MORTAR_SHELLS] );
 			return FALSE;
 		}
 
-		numwaves = numshells / (gSkillTraitValues.usVOMortarShellDivisor * nummortars);
-
-		if ( !numwaves )
+		if (nummortars <= 0)
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NOT_ENOUGH_MORTAR_SHELLS] );
+			if (bTeam == MILITIA_TEAM)  // player does not care if enemy team has not enough men to strike
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_MORTARS]);
 			return FALSE;
 		}
+
+		numwaves = max(1, numshells / nummortars);
+		if (gSkillTraitValues.fROArtilleryDistributedOverTurns)  // if delay between waves is enabled, we shouldn't overextend, so trim to
+			numwaves = min(numwaves, numwavesMax);               // signal duration; it doesn't matter if delay is disabled.
 
 		// send a signal shell at first. This marks the area that the shells will come in
-		static UINT16 usSignalShellIndex = 1700;
-		if ( HasItemFlag( usSignalShellIndex, SIGNAL_SHELL ) || GetFirstItemWithFlag( &usSignalShellIndex, SIGNAL_SHELL ) )
-			ArtilleryStrike( usSignalShellIndex, this->ubID + 2, sStartingGridNo, sTargetGridNo );
-		else
-		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_SIGNAL_SHELL] );
-			return FALSE;
-		}
+		ArtilleryStrike(usSignalShellIndex, this->ubID + 2, sStartingGridNo, sTargetGridNo);
 
 		// we just 'plant' the mortar shells as bombs. We time them so that they will be fired at the beginning of the next turn
 		// for every 'wave' of shells, we just plant one and then clone them when firing
 		// create mortar shell item
 		OBJECTTYPE shellobj;
-		CreateItem( 140, 100, &shellobj );	// 140 is mortar HE shell
+		CreateItem(usHeShellIndex, 100, &shellobj );
 
 		shellobj.fFlags |= OBJECT_ARMED_BOMB;
 		shellobj[0]->data.misc.bDetonatorType = BOMB_TIMED;
@@ -18772,17 +18801,15 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 		// as of 2013-09-25, I say it is no longer necessary to fire a signal shell first. The player can fire a signal shell (by mortar or hand) manually to mark one or more targets if he wants
 		// if he does not do so, active vox operators will be targetted. Who knows, the vox operator might be doing a heroic last stand for all we know...
-		UINT8	radiooperatorID = 0;
-		//BOOLEAN signalshellfired = FALSE;
+		const UINT8 maxFiringMortarsAmount = 5;
+		UINT8 radiooperatorID = 0;
 		UINT8 mortaritemcnt = 0;
-		UINT16 mortararray[5];
-		for ( UINT8 i = 0; i < 5; ++i )
-			mortararray[i] = 0;
+		UINT16 mortararray[maxFiringMortarsAmount] = { 0 };
 
 		SOLDIERTYPE* pSoldier = NULL;
 		INT32 cnt = gTacticalStatus.Team[bTeam].bFirstID;
 		INT32 lastid = gTacticalStatus.Team[bTeam].bLastID;
-		for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+		for ( pSoldier = MercPtrs[cnt]; (cnt < lastid) && (mortaritemcnt < maxFiringMortarsAmount); ++cnt, ++pSoldier )
 		{
 			// check if soldier exists in this sector
 			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ || pSoldier->bAssignment > ON_DUTY )
@@ -18791,70 +18818,25 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			if ( pSoldier->CanUseRadio( ) )
 				radiooperatorID = cnt;
 
-			/*if ( !signalshellfired )
-			{
-			UINT8 bSlot = 0;
-			if ( pSoldier->GetSlotOfSignalShellIfMortar(&bSlot) )
-			{
-			OBJECTTYPE* pSlotObj = &(pSoldier->inv[bSlot]);
+			INT8 invsize = (INT8)pSoldier->inv.size( );	 // remember inventorysize, so we don't call size() repeatedly
 
-			if ( Item[pSlotObj->usItem].mortar )
-			{
-			pSlotObj =  FindAttachmentByClass( &(pSoldier->inv[bSlot]), IC_BOMB );
-
-			if ( pSlotObj )
-			{
-			ArtilleryStrike(pSlotObj->usItem, sStartingGridNo, sTargetGridNo);
-
-			DeductAmmo( pSoldier, bSlot );
-
-			signalshellfired = TRUE;
-			}
-			}
-			else if ( HasItemFlag(pSoldier->inv[bSlot].usItem, SIGNAL_SHELL) )
-			{
-			ArtilleryStrike(pSlotObj->usItem, sStartingGridNo, sTargetGridNo);
-
-			pSlotObj->ubNumberOfObjects--;
-
-			if ( !pSlotObj->exists() )
-			{
-			// Delete object
-			DeleteObj( pSlotObj );
-			}
-
-			signalshellfired = TRUE;
-			}
-			else
-			{
-			// somethings wrong... we were promised either a signal shell or a mortar with one loaded, but there is none... betrayal!
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No signal shell found even though there should be one, cannot commence barrage!");
-			return FALSE;
-			}
-			}
-			}*/
-
-			INT8 invsize = (INT8)pSoldier->inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-
-			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+			for ( INT8 bLoop = 0; (bLoop < invsize) && (mortaritemcnt < maxFiringMortarsAmount); ++bLoop )
 			{
 				if ( pSoldier->inv[bLoop].exists( ) == true && Item[pSoldier->inv[bLoop].usItem].mortar )
 				{
 					// if not already in list, remember this mortar
-					if ( mortararray[0] != pSoldier->inv[bLoop].usItem &&
-						 mortararray[1] != pSoldier->inv[bLoop].usItem &&
-						 mortararray[2] != pSoldier->inv[bLoop].usItem &&
-						 mortararray[3] != pSoldier->inv[bLoop].usItem &&
-						 mortararray[4] != pSoldier->inv[bLoop].usItem )
-						 mortararray[mortaritemcnt++] = pSoldier->inv[bLoop].usItem;
+					bool alreadyInList = false;
+					for (INT8 i = 0; i < mortaritemcnt; i++)
+						if (mortararray[i] == pSoldier->inv[bLoop].usItem)
+						{
+							alreadyInList = true;
+							break;
+						}
+
+					if (alreadyInList == false)
+						mortararray[mortaritemcnt++] = pSoldier->inv[bLoop].usItem;
 				}
-
-				if ( mortaritemcnt >= 5 )
-					break;
 			}
-
-			if ( mortaritemcnt >= 5 )
-				break;
 		}
 
 		// safety check, this shouldn't be happening
@@ -18863,16 +18845,6 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_MORTARS] );
 			return FALSE;
 		}
-
-		// no signal shell -> no barrage
-		/*if ( !signalshellfired )
-		{
-		if ( radiooperatorID )
-		DelayedTacticalCharacterDialogue( MercPtrs[ radiooperatorID ], QUOTE_OUT_OF_AMMO );
-
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No signal shell object found, cannot commence barrage!");
-		return FALSE;
-		}*/
 
 		// depending on wether the mortars have ammunition, a radio operator will give a different dialogue
 		BOOLEAN shellsfired = FALSE;
@@ -18901,7 +18873,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 						// as of 2013-09-25, also fire these, as they are no longer necessary for a barrage
 						// only fire if not signal shell, we already fired one, no need to do so again
-						if ( pAttObj )//&& !HasItemFlag(pAttObj->usItem, SIGNAL_SHELL) )
+						if ( pAttObj && HasItemFlag(pAttObj->usItem, SIGNAL_SHELL) == FALSE )
 						{
 							// if option is set, delay each wave by one turn
 							if ( gSkillTraitValues.fROArtilleryDistributedOverTurns )
