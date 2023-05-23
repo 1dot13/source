@@ -721,7 +721,7 @@ UINT16 GetFontHeight(INT32 FontNum)
 	    MapFont = WinFontMap[FontNum];
 	    if (FontNum != -1)
   	    {
-  		    return (GetWinFontHeight(L"A", MapFont));
+			return (GetWinFontHeight(MapFont));
   	    } 
     }
 	return((UINT16)GetHeight(FontObjs[FontNum], 0));

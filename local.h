@@ -32,6 +32,7 @@ extern UINT16	SCREEN_HEIGHT;
 extern int iResolution;			// Resolution id from the ini file
 extern int iPlayIntro;
 extern int iUseWinFonts;
+extern float fTooltipScaleFactor;
 extern int iDisableMouseScrolling;
 extern INT16 iScreenWidthOffset;
 extern INT16 iScreenHeightOffset;
