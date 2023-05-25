@@ -722,10 +722,7 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 		return;
 
-	//ADB, ya, a whole 1 line of extra code!
-	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
-	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
-	int numTotalItems[MAXITEMS] = { 0 };
+	std::map< UINT16, UINT16> numTotalItems;
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
 		if (iter->ItemIsInInventory() == true && iter->IsUnderRepair() == false) {
 			numTotalItems[iter->object.usItem] += iter->object.ubNumberOfObjects;
@@ -742,7 +739,7 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 	for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
 		//if there is some items in stock
-		if( numTotalItems[usItemIndex] > 0)
+		if (numTotalItems.count(usItemIndex) > 0)
 		{
 			//if the item is of the same dealer item type
 			if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
@@ -858,10 +855,8 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 		return;
 
-	//ADB, ya, a whole 1 line of extra code!
-	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
-	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
-	int numTotalItems[MAXITEMS] = { 0 };
+
+	std::map< UINT16, UINT16> numTotalItems;
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();	iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter)
 	{
 		if (iter->ItemIsInInventory() == true && iter->IsUnderRepair() == false)
@@ -869,6 +864,7 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 			numTotalItems[iter->object.usItem] += iter->object.ubNumberOfObjects;
 		}
 	}
+
 
 	std::vector<UINT16> usAvailableItems;
 	std::vector<UINT8> ubChanceForAvailableItem;
@@ -879,7 +875,7 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 		if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
 		{
 			//if there are any of these in stock
-			if( numTotalItems[usItemIndex] > 0 )
+			if( numTotalItems.count(usItemIndex) > 0 )
 			{
 				//there is already at least 1 item of that type, return
 				return;
