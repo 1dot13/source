@@ -451,8 +451,8 @@ void DailyCheckOnItemQuantities()
 		if( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
 			continue;
 
-		int numTotalItems[MAXITEMS] = { 0 };
-		bool itemsAreOnOrder[MAXITEMS] = { false };
+		std::map< UINT16, UINT16> numTotalItems;
+		std::set<UINT16> itemsAreOnOrder;
 		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();	iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter)
 		{
 			if (iter->object.exists() == true)
@@ -463,7 +463,7 @@ void DailyCheckOnItemQuantities()
 				}
 				else
 				{
-					itemsAreOnOrder[iter->object.usItem] = true;
+					itemsAreOnOrder.insert(iter->object.usItem);
 
 					//and today is the day the items come in
 					if( iter->uiOrderArrivalTime >= GetWorldDay() )
@@ -490,12 +490,12 @@ void DailyCheckOnItemQuantities()
 			if( CanDealerTransactItem( ubArmsDealer, usItemIndex, FALSE ) )
 			{
 				//if there are no items on order
-				if ( itemsAreOnOrder[ usItemIndex ] == false )
+				if ( itemsAreOnOrder.count( usItemIndex ) == 0 )
 				{
 					ubMaxSupply = GetDealersMaxItemAmount( ubArmsDealer, usItemIndex );
 
 					//if the qty on hand is half the desired amount or fewer
-					if( numTotalItems[ usItemIndex ] <= (INT32)( ubMaxSupply / 2 ) )
+					if(numTotalItems.count(usItemIndex) == 1 && numTotalItems[ usItemIndex ] <= (INT32)( ubMaxSupply / 2 ) )
 					{
 						//determine if the item can be restocked (assume new, use items aren't checked for until the stuff arrives)
 						if (ItemTransactionOccurs( ubArmsDealer, usItemIndex, DEALER_BUYING, FALSE ))
