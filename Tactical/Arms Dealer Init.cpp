@@ -803,45 +803,6 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 			}
 		}
 
-		/*
-		//loop through all items of the same type
-		for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
-		{
-			//if there are some non-repairing items in stock
-			if( gOldArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems )
-			{
-				//if the item is of the same dealer item type
-				if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
-				{
-					// a random chance that the item will be removed
-					if( Random( 100 ) < 30 )
-					{
-						//remove the item
-
-						//if the dealer item type is ammo
-						if( uiDealerItemType == ARMS_DEALER_AMMO )
-						{
-							// remove all of them, since each ammo item counts as only one "item" here
-
-							// create item info describing a perfect item
-							SetSpecialItemInfoToDefaults( &SpclItemInfo );
-							// ammo will always be only condition 100, there's never any in special slots
-							RemoveItemFromArmsDealerInventory( ubArmsDealer, usItemIndex, gOldArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems );
-						}
-						else
-						{
-							// pick 1 random one, don't care about its condition
-							RemoveRandomItemFromArmsDealerInventory( ubArmsDealer, usItemIndex, 1 );
-						}
-
-						uiItemsToRemove--;
-						if( uiItemsToRemove == 0)
-							break;
-					}
-				}
-			}
-		}
-		*/
 	}
 }
 
