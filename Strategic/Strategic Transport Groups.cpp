@@ -86,7 +86,9 @@ BOOLEAN DeployTransportGroup()
 
 		mineSectorIds.push_back(mineSector);
 	}
-	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
+
+	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
 
 	// no valid destinations
 	if (mineSectorIds.size() == 0) return FALSE;
@@ -101,7 +103,9 @@ BOOLEAN DeployTransportGroup()
 		}
 		pGroup = pGroup->next;
 	}
-	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
+
+	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
 
 	// if there are too many active transport groups, don't deploy any more
 	// maximum number of active groups is the number of valid destinations at queen decision time
@@ -111,7 +115,9 @@ BOOLEAN DeployTransportGroup()
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
-	ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
+
+	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
 
 	UINT8 admins, troops, elites, robots, jeeps, tanks;
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
@@ -161,7 +167,8 @@ BOOLEAN ReturnTransportGroup(INT32 groupId)
 
 	if (pGroup == nullptr)
 	{
-		ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"RETURN_TRANSPORT_GROUP failed to find groupid %d", groupId);
+		if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+			ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"RETURN_TRANSPORT_GROUP failed to find groupid %d", groupId);
 		return FALSE;
 	}
 
@@ -235,8 +242,8 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 			const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
 			if (intention == TRANSPORT )
 			{
-				// rftr todo: delete me!
-				colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = debugColor;
+				if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = debugColor;
 
 				// check if current location is known
 				const INT16 gx = pGroup->ubSectorX;
@@ -680,7 +687,8 @@ void UpdateTransportGroupInventory()
 									break;
 
 								default:
-									ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+									if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+										ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
 									// nothing!
 									break;
 								}
@@ -772,7 +780,8 @@ void UpdateTransportGroupInventory()
 										break;
 
 									default:
-										ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+										if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+											ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
 										// nothing!
 										break;
 									}

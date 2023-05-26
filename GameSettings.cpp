@@ -2161,6 +2161,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAlternativeHelicopterFuelSystem			= iniReader.ReadBoolean("Strategic Gameplay Settings","ALTERNATIVE_HELICOPTER_FUEL_SYSTEM", TRUE);
 	gGameExternalOptions.fHelicopterPassengersCanGetHit				= iniReader.ReadBoolean("Strategic Gameplay Settings","HELICOPTER_PASSENGERS_CAN_GET_HIT", TRUE);
 
+	gGameExternalOptions.fStrategicTransportGroupsDebug				= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_DEBUG", FALSE, FALSE);
 	gGameExternalOptions.fStrategicTransportGroupsEnabled			= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_ENABLED", FALSE);
 	gGameExternalOptions.iMaxSimultaneousTransportGroups			= iniReader.ReadInteger("Strategic Gameplay Settings", "MAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS", 5, 1, 10);
 
