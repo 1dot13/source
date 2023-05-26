@@ -1823,8 +1823,8 @@ void CalculateWeapondata()
 			pObjUsed = pObjPlatform;
 		}
 
-		gunrange = GunRange( pObjUsed, pSoldier ) / 10;
-		laserrange = GetBestLaserRange( pObjPlatform ) / 10;
+		gunrange = GunRange( pObjUsed, pSoldier ) / CELL_X_SIZE;
+		laserrange = GetBestLaserRange( pObjPlatform ) / CELL_X_SIZE;
 
 		if ( Item[pObjUsed->usItem].usItemClass & IC_LAUNCHER )
 		{

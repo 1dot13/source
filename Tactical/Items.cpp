@@ -14078,29 +14078,29 @@ INT16 GetFlatToHitBonus( OBJECTTYPE * pObj )
 // HEADROCK: Function to get average of all "best laser range" attributes from weapon and attachments
 INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj )
 {
-	INT16 bonus=0;
+	FLOAT bonus = 0.0;
 	INT16 numModifiers=0;
 
 	if (Item[pObj->usItem].bestlaserrange > 0)
 	{
 		numModifiers++;
-		bonus += Item[pObj->usItem].bestlaserrange;
+		bonus += (FLOAT) Item[pObj->usItem].bestlaserrange;
 	}
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 	{
 		if (Item[iter->usItem].bestlaserrange > 0 && iter->exists())
 		{
 			numModifiers++;
-			bonus += Item[iter->usItem].bestlaserrange;
+			bonus += (FLOAT) Item[iter->usItem].bestlaserrange;
 		}
 	}
 
-	if (numModifiers>0)
+	if (numModifiers > 1)
 	{
 		bonus = bonus / numModifiers;
 	}
 
-	return( bonus * gItemSettings.fBestLaserRangeModifier );
+	return (INT16)(bonus * gItemSettings.fBestLaserRangeModifier);
 }
 
 // get the best laser range from the weapon and attachments
@@ -14120,7 +14120,7 @@ INT16 GetBestLaserRange( OBJECTTYPE * pObj )
 		}
 	}
 
-	return( range * gItemSettings.fBestLaserRangeModifier );
+	return (INT16) ((FLOAT)range * gItemSettings.fBestLaserRangeModifier);
 }
 
 // HEADROCK: This function determines the bipod bonii of the gun or its attachments
@@ -15642,14 +15642,9 @@ BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem )
 		// as it is also possible to reference to other random items, we also have to check for them
 
 		// clear the random item arrays and reset the counters
-		for ( int i = 0; i < RANDOM_ITEM_MAX_NUMBER; ++i)
-			randomitemarray[i] = 0;
-
-		for ( int i = 0; i < RANDOM_TABOO_MAX; ++i)
-		{
-			randomitemtabooarray[i] = 0;
-			randomitemclasstabooarray[i] = 0;
-		}
+		memset(randomitemarray, 0, sizeof(randomitemarray));
+		memset(randomitemtabooarray, 0, sizeof(randomitemtabooarray));
+		memset(randomitemclasstabooarray, 0, sizeof(randomitemclasstabooarray));
 
 		itemcnt = 0;
 		rdtaboocnt = 0;
