@@ -2640,7 +2640,14 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		//////////////////// EXTERNAL FEEDING
 		if ( gGameExternalOptions.ubExternalFeeding )
 		{
-			if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
+			if (HasItemFlag(gpItemDescObject->usItem, BELT_FED))
+			{
+				swprintf(pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[51], szUDBGenSecondaryStatsExplanationsTooltipText[51]);
+				SetRegionFastHelpText(&(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr);
+				MSYS_EnableRegion(&gUDBFasthelpRegions[iFirstDataRegion + cnt]);
+				cnt++;
+			}
+			else if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 28 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 28 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -6340,7 +6347,13 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	//////////////////// EXTERNAL FEEDING
 	if ( gGameExternalOptions.ubExternalFeeding )
 	{
-		if ( ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) && !fComparisonMode ) ||
+		if ((HasItemFlag(gpItemDescObject->usItem, BELT_FED) && !fComparisonMode) ||
+			(fComparisonMode && HasItemFlag(gpComparedItemDescObject->usItem, BELT_FED)))
+		{
+			BltVideoObjectFromIndex(guiSAVEBUFFER, guiItemInfoSecondaryIcon, 28, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL);
+			cnt++;
+		}
+		else if ( ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) && !fComparisonMode ) ||
 			( fComparisonMode && HasItemFlag(gpComparedItemDescObject->usItem, AMMO_BELT) ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 28, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
