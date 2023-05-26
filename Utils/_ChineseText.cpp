@@ -7667,6 +7667,7 @@ STR16 New113Message[] =
 	L"无线电操作失败！",
 	L"迫击炮弹不足，无法在分区发动密集轰炸！",
 	L"Items.xml里没有定义信号弹物品！",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"未发现迫击炮，无法执行密集轰炸！",
 	L"干扰信号成功，不需要重复操作！",
 	L"正在监听周围声音，无需重复操作！",
@@ -8687,6 +8688,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t",
 	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",
 	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
+	L"|B|e|l|t| |F|e|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8730,7 +8732,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这个物品会挡住准心，你无法再使\n用准心瞄准。", //L"\n \nThis item will block your iron sights\nso you cannot use them.",
 	L"\n \n这种弹药可以破坏发光的墙。\n或者其它不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
 	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
-	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \n如果保存在物品栏降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
 	L"\n \n你可以使用它拍照。",		//L"\n \nYou can take photos with this.",
 	L"\n \n这个物品能让你更有效地掩埋尸体。", //L"\n \nThis item makes you more effective at burying corpses.",
@@ -8742,6 +8744,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.",
 	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.",
 	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
+	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

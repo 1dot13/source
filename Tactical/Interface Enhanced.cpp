@@ -1363,8 +1363,8 @@ BOOLEAN InternalInitEnhancedDescBox()
 
 		// HEADROCK HAM 4: Advanced Icons
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
-		//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+		//GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
+		strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
 		CHECKF( AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon ) );
 
 		// Flugente: added icons for WH40K
@@ -2640,7 +2640,14 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		//////////////////// EXTERNAL FEEDING
 		if ( gGameExternalOptions.ubExternalFeeding )
 		{
-			if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
+			if (HasItemFlag(gpItemDescObject->usItem, BELT_FED))
+			{
+				swprintf(pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[51], szUDBGenSecondaryStatsExplanationsTooltipText[51]);
+				SetRegionFastHelpText(&(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr);
+				MSYS_EnableRegion(&gUDBFasthelpRegions[iFirstDataRegion + cnt]);
+				cnt++;
+			}
+			else if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 28 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 28 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2728,7 +2735,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 				cnt++;
 			}
-			else if ( HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_2 ) )
+			if ( HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_2 ) )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[39], szUDBGenSecondaryStatsExplanationsTooltipText[39] );
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr );
@@ -6340,7 +6347,13 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	//////////////////// EXTERNAL FEEDING
 	if ( gGameExternalOptions.ubExternalFeeding )
 	{
-		if ( ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) && !fComparisonMode ) ||
+		if ((HasItemFlag(gpItemDescObject->usItem, BELT_FED) && !fComparisonMode) ||
+			(fComparisonMode && HasItemFlag(gpComparedItemDescObject->usItem, BELT_FED)))
+		{
+			BltVideoObjectFromIndex(guiSAVEBUFFER, guiItemInfoSecondaryIcon, 28, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL);
+			cnt++;
+		}
+		else if ( ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) && !fComparisonMode ) ||
 			( fComparisonMode && HasItemFlag(gpComparedItemDescObject->usItem, AMMO_BELT) ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 28, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -6420,7 +6433,7 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 37, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			++cnt;
 		}
-		else if ( (HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_2 ) && !fComparisonMode) ||
+		if ( (HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_2 ) && !fComparisonMode) ||
 				  (fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, DISEASEPROTECTION_2 )) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 37, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
