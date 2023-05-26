@@ -16015,3 +16015,21 @@ bool HasScopeMagFactorForGun( UINT16 ausItemGun, FLOAT aFactor )
 
 	return false;
 }
+
+UINT16 GetLaunchableOfExplosionType(UINT16 launcher, UINT8 explosionType)
+{
+	for (int i = 0; i < MAXITEMS; i++)
+	{
+		UINT16 launchable = Launchable[i][0];
+
+		if (launchable == 0)  // if reached end of Launchable list, then stop
+			break;
+
+		if (Launchable[i][1] == launcher)
+		{
+			if (Explosive[Item[launchable].ubClassIndex].ubType == explosionType)
+				return launchable;
+		}
+	}
+	return NOTHING;
+}

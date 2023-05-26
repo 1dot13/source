@@ -2848,7 +2848,7 @@ void LoadSkillTraitsExternalSettings()
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);
 	gSkillTraitValues.fROArtilleryDistributedOverTurns	= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY_DISTRIBUTED_OVER_TURNS", FALSE);
-	gSkillTraitValues.bVOArtillerySectorFrequency		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ARTILLERY_SECTOR_FREQUENCY",  120, 20, 1440);
+	gSkillTraitValues.bVOArtillerySectorFrequency		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ARTILLERY_SECTOR_FREQUENCY",  120, 5, 1440);
 	gSkillTraitValues.usVOMortarCountDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_COUNT_DIVISOR",			 6, 5,  20);
 	gSkillTraitValues.usVOMortarShellDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SHELL_DIVISOR",			30, 2, 100);
 	gSkillTraitValues.usVOMortarPointsAdmin				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_ADMIN",			10, 0, 100);
