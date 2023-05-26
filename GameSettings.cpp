@@ -248,6 +248,7 @@ void UpdateFeatureFlags()
 		gGameExternalOptions.gfAllowSnow = gGameSettings.fFeatures[FF_ALLOW_SNOW];
 		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
 		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
+		gGameExternalOptions.fStrategicTransportGroupsEnabled = gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS];
 	}
 	else
 	{
@@ -497,6 +498,7 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_ALLOW_SNOW]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SNOW", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINI_EVENTS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINI_EVENTS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_REBEL_COMMAND]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_REBEL_COMMAND", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_STRATEGIC_TRANSPORT_GROUPS", FALSE, FALSE);
 		}
 	}
 	catch(vfs::Exception)
@@ -725,6 +727,7 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_ALLOW_SNOW							= " << (gGameSettings.fFeatures[FF_ALLOW_SNOW] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINI_EVENTS							= " << (gGameSettings.fFeatures[FF_MINI_EVENTS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_REBEL_COMMAND						= " << (gGameSettings.fFeatures[FF_REBEL_COMMAND] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_STRATEGIC_TRANSPORT_GROUPS			= " << (gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS] ? "TRUE" : "FALSE") << endl;
 
 		try
 		{

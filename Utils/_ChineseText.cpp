@@ -6262,6 +6262,7 @@ STR16	z113FeaturesToggleText[] =
 	L"天气功能：暴风雪",	//L"Weather: Snow",
 	L"随机事件功能",	//L"Mini Events",
 	L"反抗军司令部功能",	//L"Arulco Rebel Command",
+	L"Strategic Transport Groups",
 };
 
 STR16	z113FeaturesHelpText[] =
@@ -6309,6 +6310,7 @@ STR16	z113FeaturesHelpText[] =
 	L"|天|气|功|能|：|暴|风|雪\n \n覆盖 [Tactical Weather Settings] ALLOW_SNOW\n \n暴风雪降低了能见度。\n \n配置选项：\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW\n \n",	//L"|W|e|a|t|h|e|r|: |S|n|o|w\nOverrides [Tactical Weather Settings] ALLOW_SNOW\n \nSnowstorms decrease visibility.\n \nConfigurable Options:\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW",
 	L"|随|机|事|件|功|能\n \n覆盖 [Mini Events Settings] MINI_EVENTS_ENABLED\n \n可能发生一些随机互动事件。\n \n配置选项：\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \n详细信息请查看MiniEvents.lua。\n \n",	//L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
 	L"|反|抗|军|司|令|部|功|能\n \n覆盖 [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \n允许你升级占领的城镇，控制反抗军在战略层面上运作。\n \n详细的内容设定请查看RebelCommand_Settings.ini。\n \n",	//L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",	
+	L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
 
 STR16	z113FeaturesPanelText[] =
@@ -6356,6 +6358,7 @@ STR16	z113FeaturesPanelText[] =
 	L"启用暴风雪功能。在暴风雪中，更难被看到，武器退化更快，呼吸也更困难。",	//L"Toggle snow. In a snowstorm, it is harder to see, weapons degrade faster, and it is a little harder to regain breath.",
 	L"在游戏过程中，可能会弹出简短的事件。您可以从两个选项中选择一个，这可能会产生积极或消极的影响。事件可以影响各种各样的事情，但主要是你的佣兵。",	//L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
 	L"在完成反抗军食物运送任务后，你可以访问他们的（A.R.C）指挥部网站。在这里你可以设定反抗军的政策，也可以为占领区单独设置地方政策。这将带来丰厚的奖励。作为代价，城镇的民忠会上升得更慢，所以你需要更加努力地让当地人信任你。",	//L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
+	L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
 
 
