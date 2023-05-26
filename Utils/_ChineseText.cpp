@@ -7670,6 +7670,7 @@ STR16 New113Message[] =
 	L"无线电操作失败！",
 	L"迫击炮弹不足，无法在分区发动密集轰炸！",
 	L"Items.xml里没有定义信号弹物品！",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"未发现迫击炮，无法执行密集轰炸！",
 	L"干扰信号成功，不需要重复操作！",
 	L"正在监听周围声音，无需重复操作！",
@@ -8690,6 +8691,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t",
 	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",
 	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
+	L"|B|e|l|t| |F|e|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8745,6 +8747,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.",
 	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.",
 	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
+	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

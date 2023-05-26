@@ -7676,6 +7676,7 @@ STR16 New113Message[] =
 	L"Radio action failed!",
 	L"Not enough mortar shells in sector to start a barrage!",
 	L"No signal shell item found in Items.xml!",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"No mortars found, cannot commence barrage!",
 	L"Already jamming signal, no need to do so again!",
 	L"Already listening for nearby sounds, no need to do so again!",
@@ -8702,6 +8703,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|M|e|d|i|c|a|l |S|p|l|i|n|t", // TODO.Translate
 	L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",				// 49	TODO.Translate
 	L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
+	L"|B|e|l|t| |F|e|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8757,6 +8759,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", // TODO.Translate
 	L"\n \nThis ammo can extinguish fire.",	// 49	 TODO.Translate
 	L"\n \nThis ammo can cause fire.",
+	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

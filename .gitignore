@@ -1,11 +1,10 @@
 # CLion
-.idea/
-cmake-build-*/
+/.idea/
+/cmake-build-*/
 
 # Visual Studio 2022
-.vs/
-build/
-lib/
-out/
-CMakeSettings.json
+/.vs/
+/build/
+/out/
+/CMakeSettings.json
 /CMakeUserPresets.json
