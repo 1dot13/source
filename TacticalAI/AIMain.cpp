@@ -1430,7 +1430,6 @@ void ActionDone(SOLDIERTYPE *pSoldier)
 
 UINT8 SkipCoverCheck = FALSE;
 THREATTYPE Threat[MAXMERCS];
-UINT32		guiThreatCnt = 0;
 
 // threat percentage is based on the certainty of opponent knowledge:
 // opplist value:        -4  -3  -2  -1 SEEN  1    2   3   4   5

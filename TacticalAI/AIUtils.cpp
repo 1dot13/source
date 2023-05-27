@@ -5938,7 +5938,7 @@ INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxD
 }
 
 // first call PrepareThreatlist to make threat list
-UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
+UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt)
 {
 	CHECKF(pSoldier);
 
@@ -5948,7 +5948,7 @@ UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
 	UINT8	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
-	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
+	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
 	{
 		// if for some reason we have incorrect location
 		if (TileIsOutOfBounds(Threat[uiLoop].sGridNo))
@@ -5968,7 +5968,7 @@ UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
 }
 
 // first call PrepareThreatlist to make threat list
-UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
+UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt, UINT8 ubMax)
 {
 	CHECKF(pSoldier);
 
@@ -5978,7 +5978,7 @@ UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
 	UINT8	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
-	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
+	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
 	{
 		// if for some reason we have incorrect location
 		if (TileIsOutOfBounds(Threat[uiLoop].sGridNo))
@@ -6001,7 +6001,7 @@ UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
 	return(ubClosestOpponentID);
 }
 
-void PrepareThreatlist(SOLDIERTYPE *pSoldier)
+UINT32 PrepareThreatlist(SOLDIERTYPE *pSoldier)
 {
 	SOLDIERTYPE *pOpponent;
 	INT32	iThreatRange, iClosestThreatRange = 1500;
@@ -6014,10 +6014,10 @@ void PrepareThreatlist(SOLDIERTYPE *pSoldier)
 	INT32	iThreatCertainty;
 	INT32	iMaxThreatRange = MAX_THREAT_RANGE + AI_PATHCOST_RADIUS;
 
-	guiThreatCnt = 0;
+	UINT32 uiThreatCnt = 0;
 
 	if (!pSoldier)
-		return;
+		return 0;
 
 	// look through all opponents for those we know of
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
@@ -6065,35 +6065,37 @@ void PrepareThreatlist(SOLDIERTYPE *pSoldier)
 		}
 
 		// remember this opponent as a current threat, but DON'T REDUCE FOR COVER!
-		Threat[guiThreatCnt].iValue = CalcManThreatValue(pOpponent, pSoldier->sGridNo, FALSE, pSoldier);
+		Threat[uiThreatCnt].iValue = CalcManThreatValue(pOpponent, pSoldier->sGridNo, FALSE, pSoldier);
 
 		// if the opponent is no threat at all for some reason
-		if (Threat[guiThreatCnt].iValue == -999)
+		if (Threat[uiThreatCnt].iValue == -999)
 		{
 			continue;			// check next opponent
 		}
 
-		Threat[guiThreatCnt].pOpponent = pOpponent;
-		Threat[guiThreatCnt].sGridNo = sThreatLoc;
-		Threat[guiThreatCnt].iCertainty = iThreatCertainty;
-		Threat[guiThreatCnt].iOrigRange = iThreatRange;
+		Threat[uiThreatCnt].pOpponent = pOpponent;
+		Threat[uiThreatCnt].sGridNo = sThreatLoc;
+		Threat[uiThreatCnt].iCertainty = iThreatCertainty;
+		Threat[uiThreatCnt].iOrigRange = iThreatRange;
 
 		// calculate how many APs he will have at the start of the next turn
-		Threat[guiThreatCnt].iAPs = pOpponent->CalcActionPoints();
+		Threat[uiThreatCnt].iAPs = pOpponent->CalcActionPoints();
 
 		// sevenfm: more information
-		Threat[guiThreatCnt].bLevel = bThreatLevel;
-		Threat[guiThreatCnt].bKnowledge = bKnowledge;
-		Threat[guiThreatCnt].bPersonalKnowledge = bPersonalKnowledge;
-		Threat[guiThreatCnt].bPublicKnowledge = bPublicKnowledge;
+		Threat[uiThreatCnt].bLevel = bThreatLevel;
+		Threat[uiThreatCnt].bKnowledge = bKnowledge;
+		Threat[uiThreatCnt].bPersonalKnowledge = bPersonalKnowledge;
+		Threat[uiThreatCnt].bPublicKnowledge = bPublicKnowledge;
 
 		if (iThreatRange < iClosestThreatRange)
 		{
 			iClosestThreatRange = iThreatRange;
 		}
 
-		guiThreatCnt++;
+		uiThreatCnt++;
 	}
+
+	return uiThreatCnt;
 }
 
 UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance)
