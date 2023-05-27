@@ -74,7 +74,6 @@ struct {
 	{"HugeFont", {-19, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE, "ja2font3"}, FROMRGB(0, 255, 0)}
 };
 
-LOGFONT TooltipLogFont = { -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE, "Arial" };
 INT32 TOOLTIP_IFONT = -1;
 INT32 TOOLTIP_IFONT_BOLD = -1;
 
@@ -288,15 +287,17 @@ void ShutdownWinFonts( )
 
 void InitTooltipFonts()
 {
-	LOGFONT adjustedLogFont = TooltipLogFont;
-	adjustedLogFont.lfHeight = adjustedLogFont.lfHeight * fTooltipScaleFactor;
+	LOGFONT logFont = { -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH | FF_DONTCARE,
+		"Arial"
+	};
+	logFont.lfHeight = logFont.lfHeight * fTooltipScaleFactor;
 
-	LOGFONT adjustedBoldTooltipLogFont = adjustedLogFont;
-	adjustedBoldTooltipLogFont.lfWeight = FW_BOLD;
+	LOGFONT boldTooltipLogFont = logFont;
+	boldTooltipLogFont.lfWeight = FW_BOLD;
 
-
-	TOOLTIP_IFONT = CreateWinFont(adjustedLogFont);
-	TOOLTIP_IFONT_BOLD = CreateWinFont(adjustedBoldTooltipLogFont);
+	TOOLTIP_IFONT = CreateWinFont(logFont);
+	TOOLTIP_IFONT_BOLD = CreateWinFont(boldTooltipLogFont);
 
 	COLORVAL regularColor = FROMRGB(201, 197, 143);
 	COLORVAL boldColor = FROMRGB(223, 176, 1);
