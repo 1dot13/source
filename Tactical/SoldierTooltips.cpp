@@ -743,6 +743,7 @@ void DrawMouseTooltip()
 	UINT32 uiDestPitchBYTES;
 	static INT32 iX, iY, iW, iH;
 
+	extern bool isTooltipScalingEnabled();
 	extern INT16 GetWidthOfString(const STR16);
 	extern INT16 GetNumberOfLinesInHeight(const STR16);
 	extern void DisplayHelpTokenizedString(const STR16,INT16,INT16);
@@ -752,7 +753,7 @@ void DrawMouseTooltip()
 	extern void DisplayTooltipString( const STR16 pStringA, INT16 sX, INT16 sY );
 	extern void j_log(PTR,...);
 
-	UINT16 fontHeight = fTooltipScaleFactor > 1
+	UINT16 fontHeight = isTooltipScalingEnabled()
 		? GetWinFontHeight(TOOLTIP_IFONT)
 		: GetFontHeight(FONT10ARIAL);
 
@@ -780,8 +781,8 @@ void DrawMouseTooltip()
 
 	DisplayHelpTokenizedString(
 		mouseTT.FastHelpText,
-		(INT16)(iX + (fTooltipScaleFactor > 1 ? 5 * fTooltipScaleFactor : 5)),
-		(INT16)(iY + (fTooltipScaleFactor > 1 ? 4 * fTooltipScaleFactor : 5))
+		(INT16)(iX + (isTooltipScalingEnabled() ? 5 * fTooltipScaleFactor : 5)),
+		(INT16)(iY + (isTooltipScalingEnabled() ? 4 * fTooltipScaleFactor : 5))
 	);
 	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 
