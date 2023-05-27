@@ -1377,10 +1377,9 @@ UINT16 GetScaledFontHeight()
 INT16 GetNumberOfLinesInHeight(const STR16 inputString) {
 	INT32 fontHeight = GetScaledFontHeight();
 
-	INT32 i;
 	INT32 count = 1;
 	INT32 stringLength = (INT32)wcslen(inputString);
-	for (i = 0; i < stringLength && count * (fontHeight + 1) < (SCREEN_HEIGHT - 10); i++) {
+	for (int i = 0; i < stringLength && count * (fontHeight + 1) < (SCREEN_HEIGHT - 10); i++) {
 		if (inputString[i] == '\n' && i + 1 < stringLength) {
 			count++;
 		}
@@ -1465,9 +1464,8 @@ INT16 GetWidthOfString(const STR16 inputString)
 	INT16 lineWidth = 0;
 
 	INT32 lineCounter = 0;
-	INT32 i;
 	INT32 stringLength = (INT32)wcslen(inputString);
-	for (i = 0; i < stringLength; i++) {
+	for (int i = 0; i < stringLength; i++) {
 		if (inputString[i] == '\n') {
 			// if the lines don't fit the screen the last line is ...
 			if ((lineCounter + 2) * (iFontHeight + 1) > (SCREEN_HEIGHT - 10)) {
@@ -1534,9 +1532,8 @@ void DisplayHelpTokenizedString(const STR16 inputString, INT16 sX, INT16 sY)
 	INT16 xDelta = 0;
 
 	INT32 lineCounter = 0;
-	INT32 i;
 	INT32 stringLength = (INT32)wcslen(inputString);
-	for (i = 0; i < stringLength; i++) {
+	for (int i = 0; i < stringLength; i++) {
 		if (inputString[i] == '\n') {
 			// if the lines don't fit the screen the last line is ...
 			if ((lineCounter + 2) * (fontHeight + 1) > (SCREEN_HEIGHT - 10)) {
