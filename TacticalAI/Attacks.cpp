@@ -3755,6 +3755,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 {
 	INT16 ubMinAPcost;
 	INT8 bGrenadeIn = NO_SLOT;
+	UINT32 uiThreatCnt = 0;
 
 	// initialize
 	pBestThrow->ubPossible = FALSE;
@@ -3771,7 +3772,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	bGrenadeIn = FindThrowableGrenade(pSoldier, EXPLOSV_SMOKE);
 
 	// prepare threat list for ClosestSeenThreatID(), ClosestKnownThreatID()
-	PrepareThreatlist(pSoldier);
+	uiThreatCnt = PrepareThreatlist(pSoldier);
 
 	if (bGrenadeIn != NO_SLOT)
 	{
@@ -3812,7 +3813,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 			if (TileIsOutOfBounds(sTargetSpot))
 			{
-				ubClosestThreatID = ClosestSeenThreatID(pSoldier, SEEN_LAST_TURN);
+				ubClosestThreatID = ClosestSeenThreatID(pSoldier, uiThreatCnt, SEEN_LAST_TURN);
 
 				if (ubClosestThreatID != NOBODY &&
 					MercPtrs[ubClosestThreatID] &&
@@ -3826,7 +3827,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 			if (TileIsOutOfBounds(sTargetSpot))
 			{
-				ubClosestThreatID = ClosestKnownThreatID(pSoldier);
+				ubClosestThreatID = ClosestKnownThreatID(pSoldier, uiThreatCnt);
 
 				if (ubClosestThreatID != NOBODY &&
 					MercPtrs[ubClosestThreatID] &&
