@@ -56,6 +56,7 @@ extern void ReleaseAnchorMode();	//private function used here (implemented in Bu
 INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
 INT16 GetWidthOfString( const STR16 pStringA );
 void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY );
+bool isTooltipScalingEnabled();
 
 
 
@@ -1361,13 +1362,13 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	//region->FastHelpTimer = gsFastHelpDelay;
 }
 
-bool isScalingEnabled() {
+bool isTooltipScalingEnabled() {
 	return fTooltipScaleFactor > 1;
 }
 
 UINT16 GetScaledFontHeight()
 {
-	return isScalingEnabled()
+	return isTooltipScalingEnabled()
 		? GetWinFontHeight(TOOLTIP_IFONT)
 		: GetFontHeight(FONT10ARIAL);
 }
@@ -1443,8 +1444,8 @@ void DisplayFastHelp( MOUSE_REGION *region )
 
 			DisplayHelpTokenizedString(
 				region->FastHelpText,
-				(INT16)(iX + (isScalingEnabled() ? 5 * fTooltipScaleFactor : 5)),
-				(INT16)(iY + (isScalingEnabled() ? 4 * fTooltipScaleFactor : 5))
+				(INT16)(iX + (isTooltipScalingEnabled() ? 5 * fTooltipScaleFactor : 5)),
+				(INT16)(iY + (isTooltipScalingEnabled() ? 4 * fTooltipScaleFactor : 5))
 			);
 			InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 		}
@@ -1469,7 +1470,7 @@ INT16 GetWidthOfString(const STR16 inputString)
 		if (inputString[i] == '\n') {
 			// if the lines don't fit the screen the last line is ...
 			if ((lineCounter + 2) * (iFontHeight + 1) > (SCREEN_HEIGHT - 10)) {
-				lineWidth = isScalingEnabled()
+				lineWidth = isTooltipScalingEnabled()
 					? WinFontStringPixLength(L"...", TOOLTIP_IFONT)
 					: StringPixLength(L"...", FONT10ARIAL);
 				if (width < lineWidth) {
@@ -1495,7 +1496,7 @@ INT16 GetWidthOfString(const STR16 inputString)
 				// set string ending character
 				stringBuffer[bufferIndex] = '\0';
 
-				if (isScalingEnabled()) {
+				if (isTooltipScalingEnabled()) {
 					INT32 iFont = isBold ? TOOLTIP_IFONT_BOLD : TOOLTIP_IFONT;
 					lineWidth += WinFontStringPixLength(stringBuffer, iFont);
 				}
@@ -1537,7 +1538,7 @@ void DisplayHelpTokenizedString(const STR16 inputString, INT16 sX, INT16 sY)
 		if (inputString[i] == '\n') {
 			// if the lines don't fit the screen the last line is ...
 			if ((lineCounter + 2) * (fontHeight + 1) > (SCREEN_HEIGHT - 10)) {
-				if (isScalingEnabled()) {
+				if (isTooltipScalingEnabled()) {
 					PrintWinFont(FontDestBuffer, TOOLTIP_IFONT, sX, sY + lineCounter * (fontHeight + 1), L"...");
 				}
 				else {
@@ -1564,7 +1565,7 @@ void DisplayHelpTokenizedString(const STR16 inputString, INT16 sX, INT16 sY)
 				// set string ending character
 				stringBuffer[bufferIndex] = '\0';
 
-				if (isScalingEnabled()) {
+				if (isTooltipScalingEnabled()) {
 					// the font color is set on font initialization
 					INT32 iFont = isBold ? TOOLTIP_IFONT_BOLD : TOOLTIP_IFONT;
 					PrintWinFont(FontDestBuffer, iFont, sX + xDelta, sY + lineCounter * (fontHeight + 1), L"%s", stringBuffer);
