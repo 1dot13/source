@@ -43,7 +43,7 @@ typedef struct
 } HWINFONT;
 
 LONG gWinFontAdjust;
-HWINFONT	WinFonts[WIN_LASTFONT];
+HWINFONT WinFonts[WIN_LASTFONT + 2]; // extra space for the tooltip fonts
 
 INT32 WinFontMap[MAX_WINFONTMAP];
 
@@ -327,7 +327,7 @@ INT32 FindFreeWinFont( void )
 
 HWINFONT *GetWinFont( INT32 iFont )
 {
-	if ( iFont == -1 || iFont >=WIN_LASTFONT)
+	if (iFont == -1 || iFont >= sizeof(WinFonts) )
 	{
 	return( NULL );
 	}
