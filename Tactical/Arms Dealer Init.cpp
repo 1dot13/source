@@ -1120,7 +1120,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 			return( 0 );
 			break;
 		default:
-			AssertMsg( FALSE, String( "GetArmsDealerItemTypeFromItemNumber(), invalid class %d for item %d.	DF 0.", Item[ usItem ].usItemClass, usItem ) );
+			AssertMsg( FALSE, String( "GetArmsDealerItemTypeFromItemNumber(), invalid class %d for item %d. gMAXITEMS_READ = %d.", Item[ usItem ].usItemClass, usItem, gMAXITEMS_READ ) );
 			break;
 	}
 	return( 0 );
