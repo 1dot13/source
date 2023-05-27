@@ -753,7 +753,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	iMyThreatValue = CalcManThreatValue(pSoldier, NOWHERE, FALSE, pSoldier);
 
 	// prepare threat list from known enemies
-	PrepareThreatlist(pSoldier);
+	uiThreatCnt = PrepareThreatlist(pSoldier);
 
 	// if no known opponents were found to threaten us, can't worry about cover
 	if (!uiThreatCnt)

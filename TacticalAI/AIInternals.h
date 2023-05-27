@@ -174,7 +174,6 @@ extern THREATTYPE Threat[MAXMERCS];
 extern int ThreatPercent[10];
 extern UINT8 SkipCoverCheck;
 extern INT8 GameOption[MAXGAMEOPTIONS];
-extern UINT32	guiThreatCnt;
 
 typedef enum
 {
