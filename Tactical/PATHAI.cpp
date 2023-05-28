@@ -638,7 +638,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 	fPathingForPlayer = ( (pSoldier->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(pSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( pSoldier ) );
 	fNonSwimmer = !( IS_MERC_BODY_TYPE( pSoldier ) );
 	fPathAroundPeople = ( (fFlags & PATH_THROUGH_PEOPLE) == 0 );
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
