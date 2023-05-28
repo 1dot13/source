@@ -1517,7 +1517,7 @@ void HandleHighLightedText(BOOLEAN fHighLight)
 		bLastRegion = -1;
 	}
 
-	if (bHighLight != -1)
+	if (bHighLight != -1 && toggle_box_array[bHighLight] != -1)
 	{
 		if (bHighLight < OPT_FIRST_COLUMN_TOGGLE_CUT_OFF)
 		{
