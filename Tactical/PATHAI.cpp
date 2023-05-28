@@ -454,6 +454,11 @@ UINT32 guiFailedPathChecks = 0;
 UINT32 guiUnsuccessfulPathChecks = 0;
 #endif
 
+
+static auto canJumpFences(SOLDIERTYPE* pSoldier) -> bool {
+	return IS_MERC_BODY_TYPE(pSoldier) && pSoldier->CanClimbWithCurrentBackpack();
+}
+
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
@@ -2243,7 +2248,6 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 	DOOR *				pDoor;
 	STRUCTURE *		pDoorStructure;
 	BOOLEAN		fDoorIsOpen = FALSE;
-	BOOLEAN		fNonFenceJumper;
 	BOOLEAN		fNonSwimmer;
 	BOOLEAN		fPathAroundPeople;
 	BOOLEAN		fConsiderPersonAtDestAsObstacle;
@@ -2315,7 +2319,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (!s->CanClimbWithCurrentBackpack());//Moa: added backpack check
 
 	// Flugente: nonswimmers are those who are not mercs and not boats
 	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );
@@ -2929,7 +2932,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ newLoc ].ubTerrainID ];
 					}
 				}
-				else if ( nextCost == TRAVELCOST_FENCE && fNonFenceJumper )
+				else if ( nextCost == TRAVELCOST_FENCE && !canJumpFences(s))
 				{
 					goto NEXTDIR;
 				}
