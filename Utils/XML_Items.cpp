@@ -1507,34 +1507,34 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		}
 		else if (strcmp(name, "ProvidesRobotNightVision") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.fProvidesRobotNightVision = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "ProvidesRobotLaserBonus") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.fProvidesRobotLaserBonus = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "FoodSystemExclusive") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			if (atol(pData->szCharData))
 				pData->curItem.usLimitedToSystem|= FOOD_SYSTEM_FLAG;
 		}
 		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			if (atol(pData->szCharData))
 			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
 		}
 		else if (strcmp(name, "TransportGroupMinProgress") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.iTransportGroupMinProgress = (INT8)atoi(pData->szCharData);
 		}
 		else if (strcmp(name, "TransportGroupMaxProgress") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.iTransportGroupMaxProgress = (INT8)atoi(pData->szCharData);
 		}
 
