@@ -1621,8 +1621,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 			/////////////////// PROJECTION FACTOR / NCTH BEST LASER RANGE
 			// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we still need the mouse region
-			if (UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 || GetBestLaserRange( gpItemDescObject ) > 0
-				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) )
+			if (UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 || (GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE > 0
+				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0)) ) )
 			{
 				ubRegionOffset = 6;
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
@@ -1637,7 +1637,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// OCTH BEST LASER RANGE
-			if (!UsingNewCTHSystem() && (Item[gpItemDescObject->usItem].bestlaserrange > 0 || GetAverageBestLaserRange( gpItemDescObject ) > 0 ) )
+			if ( UsingNewCTHSystem() == false && (GetAverageBestLaserRange(gpItemDescObject) / CELL_X_SIZE) > 0 )
 			{
 				ubRegionOffset = 7;
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
@@ -2881,10 +2881,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		///////////////////// ACCURACY MODIFIER
 		if (GetAccuracyModifier( gpItemDescObject ) != 0 )
 		{
-			if (cnt >= sFirstLine && cnt < sLastLine)
+			if (UsingNewCTHSystem() == true)
 			{
-			if( UsingNewCTHSystem() == true )
-			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
 					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
 					{
 						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 0 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 0 ]);
@@ -3262,9 +3262,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 		///////////////////// PROJECTION FACTOR / BEST LASER RANGE
 		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
-		if ( ( UsingNewCTHSystem() && GetBestLaserRange( gpItemDescObject ) > 0
+		if ( ( UsingNewCTHSystem() && (GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE) > 0
 			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
-			|| ( !UsingNewCTHSystem() && GetBestLaserRange( gpItemDescObject ) > 0 ) )
+			|| ( !UsingNewCTHSystem() && (GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE) > 0 ) )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -4441,10 +4441,12 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 
 		//////////////////// PROJECTION FACTOR / NCTH BEST LASER RANGE
 		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we use the same icon
-		if ( (UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 ||	( GetBestLaserRange( gpItemDescObject ) > 0
+		INT16 itemLaserRangeTiles = GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE;
+		INT16 comparedLaserRangeTiles = fComparisonMode ? GetBestLaserRange(gpComparedItemDescObject) / CELL_X_SIZE : 0;
+		if ( (UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 ||	( itemLaserRangeTiles > 0
 			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) ) ||
 			( fComparisonMode && UsingNewCTHSystem() && ( (GetProjectionFactor( gpItemDescObject ) > 1.0 || GetProjectionFactor( gpComparedItemDescObject ) > 1.0) ||
-			( GetBestLaserRange( gpComparedItemDescObject ) > 0
+			( comparedLaserRangeTiles > 0
 			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) ) )
 		{
 			ubNumLine = 6;
@@ -4462,8 +4464,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////////// OCTH BEST LASER RANGE
-		if ( !UsingNewCTHSystem() && ( GetBestLaserRange( gpItemDescObject ) ||
-			( fComparisonMode && GetBestLaserRange( gpComparedItemDescObject ) ) ) )
+		if ( UsingNewCTHSystem() == false &&
+			(itemLaserRangeTiles != 0 || (fComparisonMode && comparedLaserRangeTiles != 0)) )
 		{
 			ubNumLine = 7;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 14, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -5354,11 +5356,13 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 
 	///////////////////// PROJECTION FACTOR / BEST LASER RANGE
 	// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we use the same icon
-	if ( ( UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 || ( GetBestLaserRange( gpItemDescObject ) > 0
+	INT16 itemLaserRangeTiles = GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE;
+	INT16 comparedLaserRangeTiles = fComparisonMode ? GetBestLaserRange(gpComparedItemDescObject) / CELL_X_SIZE : 0;
+	if ( ( UsingNewCTHSystem() && ( GetProjectionFactor( gpItemDescObject ) > 1.0 || ( itemLaserRangeTiles > 0
 		&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) ||
-		( fComparisonMode && ( GetProjectionFactor( gpComparedItemDescObject ) > 1.0 || ( GetBestLaserRange( gpComparedItemDescObject ) > 0
+		( fComparisonMode && ( GetProjectionFactor( gpComparedItemDescObject ) > 1.0 || ( comparedLaserRangeTiles > 0
 		&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) ) ) ||
-		( !UsingNewCTHSystem() && ( GetBestLaserRange( gpItemDescObject ) > 0 || ( fComparisonMode && GetBestLaserRange( gpComparedItemDescObject ) > 0 ) ) ) )
+		( !UsingNewCTHSystem() && ( itemLaserRangeTiles > 0 || ( fComparisonMode && comparedLaserRangeTiles > 0 ) ) ) )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -7545,9 +7549,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 		///////////////// (LASER) PROJECTION FACTOR
 		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
+		INT16 itemLaserRangeTiles = GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE;
+		INT16 comparedLaserRangeTiles = fComparisonMode ? GetBestLaserRange(gpComparedItemDescObject) / CELL_X_SIZE : 0;
 		if (UsingNewCTHSystem() == true && 
 			( (Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) ||
-			( GetBestLaserRange( gpItemDescObject ) > 0
+			( itemLaserRangeTiles > 0
 			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 		{
 			// Set line to draw into
@@ -7558,13 +7564,13 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			FLOAT iFinalProjectionValue = 0;
 			BOOLEAN bNewCode = FALSE;
 
-			if ( GetBestLaserRange( gpItemDescObject ) > 0
-				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+			if ( itemLaserRangeTiles > 0 &&
+				(gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 			{
 				// Get base laser range
 				iProjectionValue = __max(0, Item[ gpItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
 				// Get best laser range
-				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
+				iProjectionModifier = (FLOAT)itemLaserRangeTiles;
 				// Get final laser range
 				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
 				bNewCode = TRUE;
@@ -7622,7 +7628,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 					// Get base laser range
 					iComparedProjectionValue = __max(0, Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
 					// Get best laser range
-					iComparedProjectionModifier = ((FLOAT)GetBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE);
+					iComparedProjectionModifier = (FLOAT)comparedLaserRangeTiles;
 					// Get final laser range
 					iComparedFinalProjectionValue = __max( iComparedProjectionValue, iComparedProjectionModifier );
 				}
@@ -7645,7 +7651,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 		else if( fComparisonMode && UsingNewCTHSystem() == true && 
 				( (Item[gpComparedItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpComparedItemDescObject ) > 1.0) ||
-				( GetBestLaserRange( gpItemDescObject ) > 0
+				( itemLaserRangeTiles > 0
 				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 		{
 			ubNumLine = 6;
@@ -7655,13 +7661,13 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			FLOAT iFinalProjectionValue = 0;
 			BOOLEAN bNewCode = FALSE;
 
-			if ( GetBestLaserRange( gpComparedItemDescObject ) > 0
+			if ( comparedLaserRangeTiles > 0
 				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 			{
 				// Get base laser range
 				iProjectionValue = __max(0, Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
 				// Get best laser range
-				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE);
+				iProjectionModifier = (FLOAT)comparedLaserRangeTiles;
 				// Get final laser range
 				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
 				bNewCode = TRUE;
@@ -7765,7 +7771,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////// OCTH BEST LASER RANGE
-		if ( !UsingNewCTHSystem() && GetBestLaserRange( gpItemDescObject ) > 0 )
+		if ( !UsingNewCTHSystem() && itemLaserRangeTiles > 0 )
 		{
 			// Set line to draw into
 			ubNumLine = 7;
@@ -7802,7 +7808,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyValueInColour( iComparedFinalBestLaserRangeValue - iFinalBestLaserRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
 		}
-		else if( !UsingNewCTHSystem() && ( fComparisonMode && GetBestLaserRange( gpComparedItemDescObject ) > 0 ) )
+		else if( !UsingNewCTHSystem() && ( fComparisonMode && comparedLaserRangeTiles > 0 ) )
 		{
 			// Set line to draw into
 			ubNumLine = 7;
@@ -11379,14 +11385,16 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
-	BOOLEAN bNewCode = FALSE;
 	///////////////////// PROJECTION FACTOR / BEST LASER RANGE
 	// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
-	if ( ( UsingNewCTHSystem() && ( GetBestLaserRange( gpItemDescObject ) > 0 || ( fComparisonMode && GetBestLaserRange( gpComparedItemDescObject ) > 0
+	BOOLEAN bNewCode = FALSE;
+	INT16 itemLaserRangeTiles = GetBestLaserRange(gpItemDescObject) / CELL_X_SIZE;
+	INT16 comparedLaserRangeTiles = fComparisonMode ? GetBestLaserRange(gpComparedItemDescObject) / CELL_X_SIZE : 0;
+	if ( ( UsingNewCTHSystem() && (itemLaserRangeTiles > 0 || ( fComparisonMode && comparedLaserRangeTiles > 0
 		&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
-		|| ( !UsingNewCTHSystem() && ( GetBestLaserRange( gpItemDescObject ) > 0 || ( fComparisonMode && GetBestLaserRange( gpComparedItemDescObject ) > 0 ) ) ) )
+		|| ( !UsingNewCTHSystem() && (itemLaserRangeTiles > 0 || ( fComparisonMode && comparedLaserRangeTiles > 0 ) ) ) )
 	{
-		iFloatModifier[0] = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
+		iFloatModifier[0] = (FLOAT)itemLaserRangeTiles;
 		bNewCode = TRUE;
 	}
 	else
@@ -11397,7 +11405,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	if( fComparisonMode )
 	{
 		if ( bNewCode )
-			iComparedFloatModifier[0] = ((FLOAT)GetBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE);
+			iComparedFloatModifier[0] = (FLOAT)comparedLaserRangeTiles;
 		else
 			iComparedFloatModifier[0] = GetProjectionFactor( gpComparedItemDescObject );
 		iComparedFloatModifier[1] = iComparedFloatModifier[0];
