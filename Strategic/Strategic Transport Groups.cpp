@@ -418,8 +418,6 @@ void UpdateTransportGroupInventory()
 
 	std::map<ItemTypes, std::vector<UINT16>> itemMap;
 
-	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
-	
 	// item cache build
 	{
 		// let's be nice to the player and only drop ammo for guns their mercs have in inventory
@@ -428,7 +426,7 @@ void UpdateTransportGroupInventory()
 		{
 			if (MercPtrs[i]->bActive && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE))
 			{
-				for (int j = 0 ; MercPtrs[i]->inv.size(); ++j)
+				for (int j = 0 ; j < MercPtrs[i]->inv.size(); ++j)
 				{
 					OBJECTTYPE& obj = MercPtrs[i]->inv[j];
 					if (obj.exists()
@@ -490,8 +488,6 @@ void UpdateTransportGroupInventory()
 			{
 				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX && playerCalibres.find(Magazine[Item[i].ubClassIndex].ubCalibre) != playerCalibres.end())
 				{
-					ammoBoxes[Item[i].ubCoolness].push_back(i);
-
 					if (Item[i].ubCoolness <= ((progress+5) / 10)+1)
 					{
 						itemMap[AMMO_BOXES].push_back(i);
@@ -568,6 +564,7 @@ void UpdateTransportGroupInventory()
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
 			if (soldierClassIter != groupIter->second.end())
 			{
+				TRANSPORT_GROUP_DEBUG(L"Found group with jeep");
 				// this group has a jeep in it!
 				// only jeeps carry things
 				// but give a little extra, since the jeep exploding can outright destroy things
@@ -694,8 +691,11 @@ void UpdateTransportGroupInventory()
 					|| pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE)
 				{
 					// jeep is carrying most things, so soldiers just have ammo
-					const UINT16 ammoId = itemMap[AMMO_BOXES][Random(itemMap[AMMO_BOXES].size())];
-					addItemToInventory(pSoldier, ammoId, 1);
+					if (itemMap[AMMO_BOXES].size() > 0)
+					{
+						const UINT16 ammoId = itemMap[AMMO_BOXES][Random(itemMap[AMMO_BOXES].size())];
+						addItemToInventory(pSoldier, ammoId, 1);
+					}
 
 					// force inventory to be dropped!
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
@@ -711,6 +711,7 @@ void UpdateTransportGroupInventory()
 			}
 			else
 			{
+				TRANSPORT_GROUP_DEBUG(L"Found group with NO jeep");
 				// no jeep in group, add things normally
 				soldierClassIter = groupIter->second.find(pSoldier->ubSoldierClass);
 				if (soldierClassIter != groupIter->second.end())
