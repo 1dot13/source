@@ -687,7 +687,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			}
 		}
 
-		// rftr todo: check if feature is enabled
 		UpdateTransportGroupInventory();
 
 		ValidateEnemiesHaveWeapons();
@@ -1141,7 +1140,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		pGroup = pGroup->next;
 	}
 
-	// rftr todo: check if feature is enabled
 	UpdateTransportGroupInventory();
 
 	ValidateEnemiesHaveWeapons();

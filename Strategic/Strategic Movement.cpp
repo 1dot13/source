@@ -3635,7 +3635,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			dEnemyGeneralsSpeedupFactor = max( 0.75f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus );
 		}
 
-		// rftr todo: transport groups move slower than normal
+		// rftr: transport groups move slower than normal
 		const FLOAT transportSpeedFactor = 0.75f;
 
 		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * transportSpeedFactor * iBestTraverseTime;

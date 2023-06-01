@@ -16,10 +16,6 @@ addition, transport groups will also be carrying supplies that the player may fi
 Transport group compositions will vary based on the player's progress, how many interceptions have been completed recently,
 and the difficulty of the game.
 
-TODO LIST:
-- use proper loyalty degradation (Strategic Loyalty lua) (maybe...)
-- use enemygunchoices and enemyitemchoices to populate bonus loot, depending on jeep or no jeep
-
 */
 #include "Strategic Transport Groups.h"
 
@@ -44,10 +40,11 @@ TODO LIST:
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
 
+#define TRANSPORT_GROUP_DEBUG(x, ...) if (gGameExternalOptions.fStrategicTransportGroupsDebug) {ScreenMsg(FONT_RED, MSG_INTERFACE, x, __VA_ARGS__);}
+
 extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY_GUN_LEVELS];
 extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
-//extern STRATEGIC_STATUS gStrategicStatus;
 
 std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
 std::map<UINT8, TransportGroupSectorInfo> transportGroupSectorInfo;
@@ -87,8 +84,7 @@ BOOLEAN DeployTransportGroup()
 		mineSectorIds.push_back(mineSector);
 	}
 
-	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
+	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
 
 	// no valid destinations
 	if (mineSectorIds.size() == 0) return FALSE;
@@ -104,8 +100,7 @@ BOOLEAN DeployTransportGroup()
 		pGroup = pGroup->next;
 	}
 
-	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
+	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
 
 	// if there are too many active transport groups, don't deploy any more
 	// maximum number of active groups is the number of valid destinations at queen decision time
@@ -116,8 +111,7 @@ BOOLEAN DeployTransportGroup()
 
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 
-	if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-		ScreenMsg(FONT_RED, MSG_INTERFACE, L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
+	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
 
 	UINT8 admins, troops, elites, robots, jeeps, tanks;
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
@@ -167,8 +161,7 @@ BOOLEAN ReturnTransportGroup(INT32 groupId)
 
 	if (pGroup == nullptr)
 	{
-		if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-			ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"RETURN_TRANSPORT_GROUP failed to find groupid %d", groupId);
+		TRANSPORT_GROUP_DEBUG(L"RETURN_TRANSPORT_GROUP failed to find groupid %d", groupId);
 		return FALSE;
 	}
 
@@ -427,12 +420,6 @@ void UpdateTransportGroupInventory()
 
 	std::map<INT8, std::vector<UINT16>> ammoBoxes; // map coolness to ammo vector
 	
-	// rftr todo: instead of building ammo caches, perhaps we could examine ChooseWeaponForSoldierCreateStruct(). excerpt:
-	// usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3 ), pp->ubSoldierClass);
-	// however, we'd still need to convert the magazine into an ammo box
-	// for conversion, see the following (ammo conversion in strategic inventory)
-	// void SortSectorInventoryAmmo(bool useBoxes)
-
 	// item cache build
 	{
 		// let's be nice to the player and only drop ammo for guns their mercs have in inventory
@@ -687,8 +674,7 @@ void UpdateTransportGroupInventory()
 									break;
 
 								default:
-									if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-										ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+									TRANSPORT_GROUP_DEBUG(L"Warning: ignoring unhandled transport group loot type: %d", itemType);
 									// nothing!
 									break;
 								}
@@ -780,8 +766,7 @@ void UpdateTransportGroupInventory()
 										break;
 
 									default:
-										if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-											ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Warning: ignoring unhandled transport group loot type: %d", itemType);
+										TRANSPORT_GROUP_DEBUG(L"Warning: ignoring unhandled transport group loot type: %d", itemType);
 										// nothing!
 										break;
 									}
@@ -973,3 +958,6 @@ const std::map<UINT8, TransportGroupSectorInfo> GetTransportGroupSectorInfo()
 {
 	return transportGroupSectorInfo;
 }
+
+#undef TRANSPORT_GROUP_DEBUG
+

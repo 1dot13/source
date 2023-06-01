@@ -3466,9 +3466,6 @@ void EvaluateQueenSituation()
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
 
-	// rftr todo: send transport group here?
-	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Evaluating queen situation...");
-	
 	// Check/update reinforcements pool if old behavior is enabled
 	if ( !gfUnlimitedTroops && zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementDaysPerDifficultyLevel == 0 )
 	{
