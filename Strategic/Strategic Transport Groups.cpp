@@ -540,6 +540,8 @@ void UpdateTransportGroupInventory()
 		}
 	};
 
+	// cache the initial jeep count of every group we find
+	std::map<UINT8, int> cachedGroupJeepCount;
 	for (int slot = firstSlot; (slot <= lastSlot); ++slot)
 	{
 		SOLDIERTYPE* pSoldier = &Menptr[slot];
@@ -562,7 +564,12 @@ void UpdateTransportGroupInventory()
 
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
-			if (soldierClassIter != groupIter->second.end() && groupIter->second[SOLDIER_CLASS_JEEP] > 0)
+			if (cachedGroupJeepCount.find(groupIter->first) == cachedGroupJeepCount.end())
+			{
+				cachedGroupJeepCount[groupIter->first] = soldierClassIter == groupIter->second.end() ? 0 : groupIter->second[SOLDIER_CLASS_JEEP];
+			}
+
+			if (soldierClassIter != groupIter->second.end() && cachedGroupJeepCount.find(groupIter->first) != cachedGroupJeepCount.end() && cachedGroupJeepCount[groupIter->first] > 0)
 			{
 				TRANSPORT_GROUP_DEBUG(L"Found groupid[%d] with admin[%d] troop[%d] elite[%d] jeep[%d]", groupIter->first, groupIter->second[SOLDIER_CLASS_ADMINISTRATOR], groupIter->second[SOLDIER_CLASS_ARMY], groupIter->second[SOLDIER_CLASS_ELITE], groupIter->second[SOLDIER_CLASS_JEEP]);
 				// this group has a jeep in it!
