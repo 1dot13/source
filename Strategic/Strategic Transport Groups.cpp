@@ -562,9 +562,9 @@ void UpdateTransportGroupInventory()
 
 			// found a matching transport groupid
 			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
-			if (soldierClassIter != groupIter->second.end())
+			if (soldierClassIter != groupIter->second.end() && groupIter->second[SOLDIER_CLASS_JEEP] > 0)
 			{
-				TRANSPORT_GROUP_DEBUG(L"Found group with jeep");
+				TRANSPORT_GROUP_DEBUG(L"Found groupid[%d] with admin[%d] troop[%d] elite[%d] jeep[%d]", groupIter->first, groupIter->second[SOLDIER_CLASS_ADMINISTRATOR], groupIter->second[SOLDIER_CLASS_ARMY], groupIter->second[SOLDIER_CLASS_ELITE], groupIter->second[SOLDIER_CLASS_JEEP]);
 				// this group has a jeep in it!
 				// only jeeps carry things
 				// but give a little extra, since the jeep exploding can outright destroy things
@@ -711,7 +711,7 @@ void UpdateTransportGroupInventory()
 			}
 			else
 			{
-				TRANSPORT_GROUP_DEBUG(L"Found group with NO jeep");
+				TRANSPORT_GROUP_DEBUG(L"Found jeepless groupid[%d] with admin[%d] troop[%d] elite[%d] jeep[%d]", groupIter->first, groupIter->second[SOLDIER_CLASS_ADMINISTRATOR], groupIter->second[SOLDIER_CLASS_ARMY], groupIter->second[SOLDIER_CLASS_ELITE], groupIter->second[SOLDIER_CLASS_JEEP]);
 				// no jeep in group, add things normally
 				soldierClassIter = groupIter->second.find(pSoldier->ubSoldierClass);
 				if (soldierClassIter != groupIter->second.end())
@@ -719,9 +719,6 @@ void UpdateTransportGroupInventory()
 					// found a matching soldierclass
 					if (soldierClassIter->second > 0)
 					{
-						// there are still un-updated soldiers! begin the update!
-						soldierClassIter->second--;
-
 						//if (outgoing)
 						{
 							for (int i = TRANSPORT_LOOT_START; i <= TRANSPORT_LOOT_END; ++i)
