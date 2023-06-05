@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 /*
 Strategic Transport Groups
 by rftr
@@ -441,7 +442,7 @@ void UpdateTransportGroupInventory()
 		for (UINT16 i = 0; i < gMAXITEMS_READ; ++i)
 		{
 			if (!ItemIsLegal(i, TRUE)) continue;
-			if (Item[i].iTransportGroupMaxProgress == 0 || Item[i].iTransportGroupMinProgress > progress || progress > Item[i].iTransportGroupMaxProgress) continue;
+			if ((Item[i].usItemClass & IC_AMMO) == 0 && (Item[i].iTransportGroupMaxProgress == 0 || Item[i].iTransportGroupMinProgress > progress || progress > Item[i].iTransportGroupMaxProgress)) continue;
 
 			if (Item[i].medical)
 			{
@@ -488,7 +489,7 @@ void UpdateTransportGroupInventory()
 			{
 				if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX && playerCalibres.find(Magazine[Item[i].ubClassIndex].ubCalibre) != playerCalibres.end())
 				{
-					if (Item[i].ubCoolness <= ((progress+5) / 10)+1)
+					if (Item[i].ubCoolness <= ((progress+5) / 10)+2)
 					{
 						itemMap[AMMO_BOXES].push_back(i);
 					}
