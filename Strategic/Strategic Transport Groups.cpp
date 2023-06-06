@@ -705,6 +705,14 @@ void UpdateTransportGroupInventory()
 						addItemToInventory(pSoldier, ammoId, 1);
 					}
 
+					if (itemMap[BACKPACKS].size() > 0 && UsingNewInventorySystem())
+					{
+						OBJECTTYPE obj;
+						CreateItem(Random(itemMap[BACKPACKS].size()), 100, &obj);
+						obj.fFlags |= OBJECT_UNDROPPABLE;
+						pSoldier->inv[BPACKPOCKPOS] = obj;
+					}
+
 					// force inventory to be dropped!
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
 					{
@@ -750,7 +758,15 @@ void UpdateTransportGroupInventory()
 										break;
 
 									case BACKPACKS:
-										addItemToInventory(pSoldier, id, 1);
+										{
+											if (UsingNewInventorySystem())
+											{
+												OBJECTTYPE obj;
+												CreateItem(id, 100, &obj);
+												obj.fFlags |= OBJECT_UNDROPPABLE;
+												pSoldier->inv[BPACKPOCKPOS] = obj;
+											}
+										}
 										break;
 
 									case MEDICAL_FIRSTAIDKITS:
