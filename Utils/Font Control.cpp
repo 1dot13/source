@@ -231,6 +231,7 @@ BOOLEAN	InitializeFonts( )
     if ( iUseWinFonts ) {
 	    InitWinFonts( );
     }
+	InitTooltipFonts();
 
 	return( TRUE );
 }
@@ -261,6 +262,7 @@ void ShutdownFonts( )
   if ( iUseWinFonts ) {
 	ShutdownWinFonts();
   }
+  ShutdownTooltipFonts();
 }
 
 // Set shades for fonts

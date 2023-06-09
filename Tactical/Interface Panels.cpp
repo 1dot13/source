@@ -5199,7 +5199,7 @@ BOOLEAN InitializeTEAMPanel(	)
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
-	else if (iResolution < _1024x768)
+	else if (iResolution < _1280x720)
 	{
 		if (gGameOptions.ubSquadSize > 6)
 		{
@@ -5240,6 +5240,16 @@ BOOLEAN InitializeTEAMPanel(	)
 	memset( gfTEAM_HandInvDispText, 0, sizeof( gfTEAM_HandInvDispText ) );
 
 
+	// Offset button coordinates to correct positions if squadsize is 10
+	if (iResolution == _1280x720)
+	{
+		UINT16 offset = 223;
+		TM_ENDTURN_X = xResOffset + (xResSize - 131) + offset;
+		TM_ROSTERMODE_X = xResOffset + (xResSize - 131) + offset;
+		TM_DISK_X = xResOffset + (xResSize - 131) + offset;
+		INTERFACE_CLOCK_TM_X = xResOffset + (xResSize - 86) + offset;
+		LOCATION_NAME_TM_X = xResOffset + (xResSize - 92) + offset;
+	}
 	// Create buttons
 	CHECKF( CreateTEAMPanelButtons( ) );
 
@@ -5358,7 +5368,7 @@ BOOLEAN ShutdownTEAMPanel( )
 	if( fRenderRadarScreen == FALSE )
 	{
 		// start rendering radar region again,
-	fRenderRadarScreen = TRUE;
+		fRenderRadarScreen = TRUE;
 
 		// remove squad panel
 		CreateDestroyMouseRegionsForSquadList( );

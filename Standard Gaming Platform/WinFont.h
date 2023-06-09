@@ -5,6 +5,9 @@
 void InitWinFonts( );
 void ShutdownWinFonts( );
 
+void InitTooltipFonts();
+void ShutdownTooltipFonts();
+
 INT32 CreateWinFont( LOGFONT &logfont );
 void	DeleteWinFont( INT32 iFont );
 
@@ -14,8 +17,7 @@ void SetWinFontForeColor( INT32 iFont, COLORVAL *pColor );
 void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...);
 
 INT16 WinFontStringPixLength( STR16	string, INT32 iFont );
-INT16 GetWinFontHeight( STR16 string, INT32 iFont );
-UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...);
+INT16 GetWinFontHeight( INT32 iFont );
 
 //if you cahnge this enum, you must change FontInfo struct in WinFont.cpp too.
 enum {
@@ -43,5 +45,7 @@ WIN_LASTFONT
 };
 #define MAX_WINFONTMAP 25
 extern INT32 WinFontMap[MAX_WINFONTMAP];
+extern INT32 TOOLTIP_IFONT;
+extern INT32 TOOLTIP_IFONT_BOLD;
 
 #endif

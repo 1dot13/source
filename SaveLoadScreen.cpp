@@ -2512,7 +2512,7 @@ void DoneFadeOutForSaveLoadScreen( void )
 				NextLoopCheckForEnoughFreeHardDriveSpace();
 			}
 			else if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
-				(gGameOptions.ubSquadSize == 10 && iResolution < _1024x768))
+				(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_SQUAD_SIZE_RES_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();
