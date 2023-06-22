@@ -493,15 +493,20 @@ void DailyCheckOnItemQuantities()
 				if ( itemsAreOnOrder.count( usItemIndex ) == 0 )
 				{
 					ubMaxSupply = GetDealersMaxItemAmount( ubArmsDealer, usItemIndex );
-
+					UINT16 halfSupply = (UINT16)(ubMaxSupply / 2);
+					UINT16 itemsInStock = 0;
+					if ( numTotalItems.count(usItemIndex) > 0 )
+					{
+						itemsInStock = numTotalItems[usItemIndex];
+					}
 					//if the qty on hand is half the desired amount or fewer
-					if(numTotalItems.count(usItemIndex) == 1 && numTotalItems[ usItemIndex ] <= (INT32)( ubMaxSupply / 2 ) )
+					if( itemsInStock <= halfSupply )
 					{
 						//determine if the item can be restocked (assume new, use items aren't checked for until the stuff arrives)
 						if (ItemTransactionOccurs( ubArmsDealer, usItemIndex, DEALER_BUYING, FALSE ))
 						{
 							// figure out how many items to reorder (items are reordered an entire batch at a time)
-							ubNumItems = HowManyItemsToReorder( ubMaxSupply, numTotalItems[ usItemIndex ] );
+							ubNumItems = HowManyItemsToReorder( ubMaxSupply, itemsInStock);
 #ifdef JA2UB							
 							//if the dealer is betty, and we are to ADD the stuff instantly
 							if( ubArmsDealer == ARMS_DEALER_BETTY && fInstallyHaveItemsAppear &&
