@@ -3495,6 +3495,9 @@ void EvaluateQueenSituation()
 	// Gradually promote any remaining admins into troops
 	UpgradeAdminsToTroops();
 
+	// consider deploying a transport group
+	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
+
 	// we either have reinforcements or a request for reinforcements
 	if (giRequestPoints > 0 && (giReinforcementPoints > 0 || giReinforcementPool > 0))
 	{
@@ -3575,8 +3578,6 @@ void EvaluateQueenSituation()
 			}
 		}
 	}
-
-	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
 
 	ValidateWeights( 27 );
 }
