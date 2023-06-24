@@ -79,13 +79,16 @@ BOOLEAN DeployTransportGroup()
 		if (IsMineShutDown(mineIndex) == TRUE) continue;
 
 		// filter by MINE ownership - for novice/experienced, as hard/insane would have ignored this town above
-		const INT16 mineSector = STRATEGIC_INDEX_TO_SECTOR_INFO(GetMineSectorForTown(i));
+		const INT16 mineSector = (GetMineSectorForTown(i));
 		if (StrategicMap[mineSector].fEnemyControlled == FALSE) continue;
 
-		mineSectorIds.push_back(mineSector);
+		mineSectorIds.push_back(STRATEGIC_INDEX_TO_SECTOR_INFO(mineSector));
 	}
 
-	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup valid town destinations: %d", mineSectorIds.size());
+	for (int a = 0; a < mineSectorIds.size(); ++a)
+	{
+		TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup valid town destination: %d (%d/%d)", mineSectorIds[a], SECTORX(mineSectorIds[a]), SECTORY(mineSectorIds[a]));
+	}
 
 	// no valid destinations
 	if (mineSectorIds.size() == 0) return FALSE;
