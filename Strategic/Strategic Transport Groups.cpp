@@ -106,12 +106,13 @@ BOOLEAN DeployTransportGroup()
 
 	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
 
-	// if there are too many active transport groups, don't deploy any more
-	// maximum number of active groups is the number of valid destinations at queen decision time
-	if (transportGroupCount >= min(gGameExternalOptions.iMaxSimultaneousTransportGroups, mineSectorIds.size())) return FALSE;
-
 	// track recent transport group interceptions
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
+
+	// if there are too many active transport groups, don't deploy any more
+	// maximum number of active groups is the number of valid destinations at queen decision time
+	const INT8 maxGroups = gGameExternalOptions.iMaxSimultaneousTransportGroups - recentLossCount;
+	if (transportGroupCount >= min(max(maxGroups, 0), mineSectorIds.size())) return FALSE;
 
 	const UINT8 ubSectorID = (UINT8)mineSectorIds[Random(mineSectorIds.size())];
 
