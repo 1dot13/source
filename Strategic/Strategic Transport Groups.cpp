@@ -219,7 +219,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 				{
 					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_SCOUT;
 				}
-				else if (HAS_SKILL_TRAIT(MercPtrs[i], RADIO_OPERATOR_NT))
+				else if (HAS_SKILL_TRAIT(MercPtrs[i], RADIO_OPERATOR_NT) && MercPtrs[i]->CanUseRadio(FALSE))
 				{
 					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_RADIO;
 				}
