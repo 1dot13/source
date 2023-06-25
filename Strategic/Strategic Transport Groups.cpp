@@ -43,6 +43,11 @@ and the difficulty of the game.
 
 #define TRANSPORT_GROUP_DEBUG(x, ...) if (gGameExternalOptions.fStrategicTransportGroupsDebug) {ScreenMsg(FONT_RED, MSG_INTERFACE, x, __VA_ARGS__);}
 
+// how many turncoats are required to monitor a town for transport groups?
+#define ELITE_TURNCOAT_MONITOR_REQUIREMENT 1
+#define TROOP_TURNCOAT_MONITOR_REQUIREMENT 3
+#define ADMIN_TURNCOAT_MONITOR_REQUIREMENT 5
+
 extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY_GUN_LEVELS];
 extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
@@ -95,16 +100,21 @@ BOOLEAN DeployTransportGroup()
 
 	INT8 transportGroupCount = 0;
 	GROUP* pGroup = gpGroupList;
+	std::vector<std::tuple<UINT8, UINT8, UINT8>> groupIds;
 	while (pGroup)
 	{
 		if (pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
 		{
+			groupIds.emplace_back(pGroup->ubGroupID, pGroup->ubSectorX, pGroup->ubSectorY);
 			transportGroupCount++;
 		}
 		pGroup = pGroup->next;
 	}
 
-	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup found existing transport groups: %d", transportGroupCount);
+	for (int a = 0; a < groupIds.size(); ++a)
+	{
+		TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup found existing transport groupid: %d at %d/%d", std::get<0>(groupIds[a]), std::get<1>(groupIds[a]), std::get<2>(groupIds[a]));
+	}
 
 	// track recent transport group interceptions
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
@@ -158,7 +168,8 @@ BOOLEAN ReturnTransportGroup(INT32 groupId)
 		if (pGroup->ubGroupID == groupId)
 		{
 			MoveSAIGroupToSector( &pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, TRANSPORT );
-			pGroup->uiFlags &= ~GROUPFLAG_TRANSPORT_ENROUTE;
+			if (pGroup)
+				pGroup->uiFlags &= ~GROUPFLAG_TRANSPORT_ENROUTE;
 			break;
 		}
 		pGroup = pGroup->next;
@@ -186,9 +197,15 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	GROUP* pGroup = gpGroupList;
 	transportGroupSectorInfo.clear();
 
+	enum class MonitoredSectorState {
+		Unmonitored,
+		Monitored,
+		GroupIncoming,
+	} monitoredSectorState;
+
 	// build map of detection sectors + ranges
 	std::map<std::pair<INT16,INT16>, INT8> detectionMap;
-	std::map<UINT8, BOOLEAN> monitoredTowns;
+	std::map<UINT8, MonitoredSectorState> monitoredTowns;
 	for( INT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
 		if( MercPtrs[ i ]->bActive &&
@@ -211,7 +228,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 					if (MercPtrs[i]->bAssignment == GATHERINTEL)
 					{
 						detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_COVERT;
-						monitoredTowns[GetTownIdForSector(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = FALSE;
+						monitoredTowns[GetTownIdForSector(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = MonitoredSectorState::Monitored;
 					}
 				}
 			}
@@ -224,15 +241,21 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 		for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
 		{
 			const UINT8 townId = GetTownIdForSector(x, y);
-			if (townId < 0) continue;
+			if (townId == BLANK_SECTOR) continue;
 
 			CorrectTurncoatCount(x, y);
-			const UINT16 numTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ADMINISTRATOR) + NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ARMY) + NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ELITE);
+			const UINT16 adminTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ADMINISTRATOR);
+			const UINT16 troopTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ARMY);
+			const UINT16 eliteTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ELITE);
 
-			monitoredTowns[townId] = FALSE;
+			monitoredTowns[townId] = (gGameExternalOptions.fStrategicTransportGroupsDebug
+								|| (adminTurncoats >= ADMIN_TURNCOAT_MONITOR_REQUIREMENT)
+								|| (troopTurncoats >= TROOP_TURNCOAT_MONITOR_REQUIREMENT)
+								|| (eliteTurncoats >= ELITE_TURNCOAT_MONITOR_REQUIREMENT)) ? MonitoredSectorState::Monitored : MonitoredSectorState::Unmonitored;
 		}
 	}
 
+	// colour all groups
 	while (pGroup)
 	{
 		if (pGroup->usGroupTeam == ENEMY_TEAM)
@@ -240,9 +263,6 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 			const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
 			if (intention == TRANSPORT )
 			{
-				if (gGameExternalOptions.fStrategicTransportGroupsDebug)
-					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = debugColor;
-
 				// check if current location is known
 				const INT16 gx = pGroup->ubSectorX;
 				const INT16 gy = pGroup->ubSectorY;
@@ -258,7 +278,7 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 						transportGroupSectorInfo[SECTOR(pGroup->ubSectorX, pGroup->ubSectorY)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup;
 					}
 				}
-
+					
 				// check if target location is monitored 
 				WAYPOINT* wp = pGroup->pWaypoints;
 
@@ -277,9 +297,15 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 				}
 
 				const UINT8 townId = GetTownIdForSector(wp->x, wp->y);
-				if (monitoredTowns.find(townId) != monitoredTowns.end())
+				if (monitoredTowns.find(townId) != monitoredTowns.end() && monitoredTowns[townId] == MonitoredSectorState::Monitored)
 				{
-					monitoredTowns[townId] = TRUE;
+					monitoredTowns[townId] = MonitoredSectorState::GroupIncoming;
+				}
+
+				// debug: colour all group locations
+				if (gGameExternalOptions.fStrategicTransportGroupsDebug)
+				{
+					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = debugColor;
 				}
 			}
 		}
@@ -293,13 +319,14 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 		for (int y = MINIMUM_VALID_Y_COORDINATE; y <= MAXIMUM_VALID_Y_COORDINATE; ++y)
 		{
 			const UINT8 townId = GetTownIdForSector(x, y);
-			if (monitoredTowns.find(townId) != monitoredTowns.end() && monitoredTowns[townId])
+			if (monitoredTowns.find(townId) != monitoredTowns.end() && monitoredTowns[townId] == MonitoredSectorState::GroupIncoming)
 			{
 				colorMap[y-1][x-1] = targetColor;
 				transportGroupSectorInfo[SECTOR(x, y)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination;
 			}
 		}
 	}
+
 }
 
 void ProcessTransportGroupReachedDestination(GROUP* pGroup)
