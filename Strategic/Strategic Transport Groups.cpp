@@ -248,10 +248,10 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 			const UINT16 troopTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ARMY);
 			const UINT16 eliteTurncoats = NumTurncoatsOfClassInSector(x, y, SOLDIER_CLASS_ELITE);
 
-			monitoredTowns[townId] = (gGameExternalOptions.fStrategicTransportGroupsDebug
-								|| (adminTurncoats >= ADMIN_TURNCOAT_MONITOR_REQUIREMENT)
-								|| (troopTurncoats >= TROOP_TURNCOAT_MONITOR_REQUIREMENT)
-								|| (eliteTurncoats >= ELITE_TURNCOAT_MONITOR_REQUIREMENT)) ? MonitoredSectorState::Monitored : MonitoredSectorState::Unmonitored;
+			if (gGameExternalOptions.fStrategicTransportGroupsDebug
+				|| (adminTurncoats >= ADMIN_TURNCOAT_MONITOR_REQUIREMENT)
+				|| (troopTurncoats >= TROOP_TURNCOAT_MONITOR_REQUIREMENT)
+				|| (eliteTurncoats >= ELITE_TURNCOAT_MONITOR_REQUIREMENT)) monitoredTowns[townId] = MonitoredSectorState::Monitored;
 		}
 	}
 

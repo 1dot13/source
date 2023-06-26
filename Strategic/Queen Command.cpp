@@ -2429,9 +2429,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
 
-		// rftr todo: check reinforcements for transport group presence?
-		// rftr todo: better: transport groups cannot/do not reinforce
-		if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+		if (pGroup && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
 		{
 			ScreenMsg(FONT_RED, MSG_INTERFACE, L"Transport group attempting to reinforce? This shouldn't happen!");
 		}
