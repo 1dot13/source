@@ -739,7 +739,7 @@ void UpdateTransportGroupInventory()
 					if (itemMap[BACKPACKS].size() > 0 && UsingNewInventorySystem())
 					{
 						OBJECTTYPE obj;
-						CreateItem(Random(itemMap[BACKPACKS].size()), 100, &obj);
+						CreateItem(itemMap[BACKPACKS][Random(itemMap[BACKPACKS].size())], 100, &obj);
 						obj.fFlags |= OBJECT_UNDROPPABLE;
 						pSoldier->inv[BPACKPOCKPOS] = obj;
 					}
