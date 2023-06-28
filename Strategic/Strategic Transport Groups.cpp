@@ -278,7 +278,16 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 						transportGroupSectorInfo[SECTOR(pGroup->ubSectorX, pGroup->ubSectorY)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup;
 					}
 				}
-					
+
+				// turncoats reveal their group's location
+				if (pGroup->pEnemyGroup->ubNumAdmins_Turncoat >= ADMIN_TURNCOAT_MONITOR_REQUIREMENT
+					|| pGroup->pEnemyGroup->ubNumTroops_Turncoat >= TROOP_TURNCOAT_MONITOR_REQUIREMENT
+					|| pGroup->pEnemyGroup->ubNumElites_Turncoat >= ELITE_TURNCOAT_MONITOR_REQUIREMENT)
+				{
+					colorMap[pGroup->ubSectorY-1][pGroup->ubSectorX-1] = targetColor;
+					transportGroupSectorInfo[SECTOR(pGroup->ubSectorX, pGroup->ubSectorY)] = TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup;
+				}
+
 				// check if target location is monitored 
 				WAYPOINT* wp = pGroup->pWaypoints;
 
