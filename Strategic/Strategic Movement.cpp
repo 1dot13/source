@@ -3636,7 +3636,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		}
 
 		// rftr: transport groups move slower than normal
-		const FLOAT transportSpeedFactor = 0.5f;
+		const FLOAT transportSpeedFactor = pGroup->pEnemyGroup->ubIntention == TRANSPORT ? 2.0f : 1.0f;
 
 		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * transportSpeedFactor * iBestTraverseTime;
 
