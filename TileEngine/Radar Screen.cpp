@@ -83,14 +83,15 @@ void InitRadarScreenCoords( )
 		RADAR_WINDOW_STRAT_X = UI_BOTTOM_X + 1182;
 		RADAR_WINDOW_STRAT_Y = UI_BOTTOM_Y + 9;
 		RADAR_WINDOW_TM_X = xResOffset + (xResSize - 97) + 223;
+		RADAR_WINDOW_SM_X = xResOffset + (xResSize - 97);
 	}
 	else
 	{
 		RADAR_WINDOW_STRAT_X 	= xResOffset + (xResSize - 97);
 		RADAR_WINDOW_STRAT_Y 	= (SCREEN_HEIGHT - 107);
 		RADAR_WINDOW_TM_X 		= xResOffset + (xResSize - 97);
+		RADAR_WINDOW_SM_X 		= xResOffset + (xResSize - 97);
 	}
-	RADAR_WINDOW_SM_X 		= xResOffset + (xResSize - 97);
 
 	RADAR_WINDOW_TM_Y = (INTERFACE_START_Y + 13);
 	RADAR_WINDOW_SM_Y = ((UsingNewInventorySystem() == false)) ? (INV_INTERFACE_START_Y + 33) : (INV_INTERFACE_START_Y + 116);
@@ -436,8 +437,8 @@ void RenderRadarScreen( )
 
 	sWidth		= ( RADAR_WINDOW_WIDTH );
 	sHeight		= ( RADAR_WINDOW_HEIGHT );
-	sX				= RADAR_WINDOW_TM_X;
-	sY				= gsRadarY;
+	sX			= gsRadarX;
+	sY			= gsRadarY;
 
 
 	sRadarTLX = (INT16)( ( sTopLeftWorldX * gdScaleX ) - sRadarCX	+ sX + ( sWidth /2 ) );
@@ -602,7 +603,7 @@ void RenderRadarScreen( )
 				}
 
 				// Add starting relative to interface
-				sXSoldRadar += RADAR_WINDOW_TM_X;
+				sXSoldRadar += gsRadarX;
 				sYSoldRadar += gsRadarY;
 				
 				if(gbPixelDepth==16)
