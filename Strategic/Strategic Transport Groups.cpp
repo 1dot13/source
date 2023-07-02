@@ -444,6 +444,7 @@ void UpdateTransportGroupInventory()
 		BACKPACKS,
 		RADIOS,
 		ATTACHMENTS,
+		FACE_ITEMS,
 		CAMO_KITS,
 		MISC,
 		GRENADE_THROWN,
@@ -507,6 +508,7 @@ void UpdateTransportGroupInventory()
 					itemMap[BACKPACKS].push_back(i);
 				}
 			}
+			else if (Item[i].usItemClass & IC_FACE) itemMap[FACE_ITEMS].push_back(i);
 			else if (Item[i].camouflagekit) itemMap[CAMO_KITS].push_back(i);
 			else if (Item[i].usItemClass & IC_MISC)
 			{
@@ -714,6 +716,10 @@ void UpdateTransportGroupInventory()
 									}
 									break;
 
+								case FACE_ITEMS:
+									addItemToInventory(pSoldier, id, 5);
+									break;
+
 								case CAMO_KITS:
 									addItemToInventory(pSoldier, id, 6);
 									break;
@@ -815,6 +821,12 @@ void UpdateTransportGroupInventory()
 
 									case AMMO_BOXES:
 										addItemToInventory(pSoldier, id, 1);
+										break;
+
+									case FACE_ITEMS:
+										// low chance of face item
+										if (Random(100) < 50)
+											addItemToInventory(pSoldier, id, 1);
 										break;
 
 									case CAMO_KITS:
