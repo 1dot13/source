@@ -2184,6 +2184,16 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 	
+	// while transport groups can't normally reinforce, this covers the case where a transport group enters a sector (via normal movement)
+	// where a battle is in progress.
+	if (pGroup && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+	{
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
+	}
+
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -2427,11 +2437,6 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
-		}
-
-		if (pGroup && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
-		{
-			ScreenMsg(FONT_RED, MSG_INTERFACE, L"Transport group attempting to reinforce? This shouldn't happen!");
 		}
 
 		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.

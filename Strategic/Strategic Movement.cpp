@@ -50,6 +50,7 @@
 	#include "Creature Spreading.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
+	#include "Strategic Transport Groups.h"
 
 #include "MilitiaSquads.h"
 #include "Vehicles.h"
@@ -3819,6 +3820,13 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ResetMortarsOnTeamCount();
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
+
+		if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+		{
+			// normally, transport groups can't reinforce, but this can be hit normally if a battle is occuring in a sector
+			// where a transport group is moving into.
+			UpdateTransportGroupInventory();
+		}
 	}
 	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 	{
