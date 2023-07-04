@@ -8596,11 +8596,11 @@ void DetermineMapIntelData( INT32 asSectorZ )
 			switch (iter.second)
 			{
 			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup:
-				swprintf( str, L"Transport group");
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP]);
 				break;
 
 			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination:
-				swprintf( str, L"Transport group en route");
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP_EN_ROUTE]);
 				break;
 			}
 			AddIntelAndQuestMapDataForSector( SECTORX(iter.first), SECTORY(iter.first), MAP_SHADE_LT_YELLOW, -1, str, L"" );

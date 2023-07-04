@@ -3563,6 +3563,8 @@ STR16 gpStrategicString[] =
 	L"Zombie",
 	L"Bandit",
 	L"Bandits attack and kill %d civilians in sector %s.",
+	L"Transport group",
+	L"Transport group en route",
 };
 
 STR16 gpGameClockString[] = 

@@ -3568,6 +3568,8 @@ STR16 gpStrategicString[] =
 	L"僵尸",	//L"Zombie",
 	L"土匪",	//L"Bandit",
 	L"土匪杀死了%d名平民，在%s分区。",	//注：这里的%d和%s不可以随意放前面或后面，一定要按英文顺序，不然会出错。（%d和%s 在中文中不能反过来。） L"Bandits attack and kill %d civilians in sector %s.",
+	L"Transport group",
+	L"Transport group en route",
 };
 
 STR16 gpGameClockString[] =
