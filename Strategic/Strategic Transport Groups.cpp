@@ -157,6 +157,22 @@ BOOLEAN ForceDeployTransportGroup(UINT8 sectorId)
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
 	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
 	PopulateTransportGroup(admins, troops, elites, jeeps, tanks, robots, progress, difficulty, FALSE);
+
+	// varying transport group quality/compositions
+	GROUP* pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), admins, troops, elites, robots, tanks, jeeps );
+
+	//Madd: unlimited reinforcements?
+	if ( !gfUnlimitedTroops )
+	{
+		giReinforcementPool -= (admins + troops + elites + robots + jeeps + tanks);
+
+		giReinforcementPool = max( giReinforcementPool, 0 );
+	}
+
+	MoveSAIGroupToSector( &pGroup, sectorId, EVASIVE, TRANSPORT );
+
+	pGroup->uiFlags |= GROUPFLAG_TRANSPORT_ENROUTE;
+
 	return TRUE;
 }
 
