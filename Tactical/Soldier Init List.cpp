@@ -1849,7 +1849,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				else
 					Assert(0);
 				curr->pBasicPlacement->bTeam = MILITIA_TEAM;
-				curr->pBasicPlacement->bOrders = STATIONARY;
+				curr->pBasicPlacement->bOrders = ONGUARD;
 				curr->pBasicPlacement->bAttitude = (INT8) Random( MAXATTITUDES );
 
 				// silversurfer: Replace body type. Militia tanks are not allowed.
