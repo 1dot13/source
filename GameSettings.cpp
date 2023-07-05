@@ -248,6 +248,7 @@ void UpdateFeatureFlags()
 		gGameExternalOptions.gfAllowSnow = gGameSettings.fFeatures[FF_ALLOW_SNOW];
 		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
 		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
+		gGameExternalOptions.fStrategicTransportGroupsEnabled = gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS];
 	}
 	else
 	{
@@ -497,6 +498,7 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_ALLOW_SNOW]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SNOW", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINI_EVENTS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINI_EVENTS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_REBEL_COMMAND]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_REBEL_COMMAND", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_STRATEGIC_TRANSPORT_GROUPS", FALSE, FALSE);
 		}
 	}
 	catch(vfs::Exception)
@@ -725,6 +727,7 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_ALLOW_SNOW							= " << (gGameSettings.fFeatures[FF_ALLOW_SNOW] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINI_EVENTS							= " << (gGameSettings.fFeatures[FF_MINI_EVENTS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_REBEL_COMMAND						= " << (gGameSettings.fFeatures[FF_REBEL_COMMAND] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_STRATEGIC_TRANSPORT_GROUPS			= " << (gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS] ? "TRUE" : "FALSE") << endl;
 
 		try
 		{
@@ -2160,6 +2163,10 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fAlternativeHelicopterFuelSystem			= iniReader.ReadBoolean("Strategic Gameplay Settings","ALTERNATIVE_HELICOPTER_FUEL_SYSTEM", TRUE);
 	gGameExternalOptions.fHelicopterPassengersCanGetHit				= iniReader.ReadBoolean("Strategic Gameplay Settings","HELICOPTER_PASSENGERS_CAN_GET_HIT", TRUE);
+
+	gGameExternalOptions.fStrategicTransportGroupsDebug				= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_DEBUG", FALSE, FALSE);
+	gGameExternalOptions.fStrategicTransportGroupsEnabled			= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_ENABLED", FALSE);
+	gGameExternalOptions.iMaxSimultaneousTransportGroups			= iniReader.ReadInteger("Strategic Gameplay Settings", "MAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS", 5, 1, 10);
 
 	//################# Morale Settings ##################
 	gGameExternalOptions.sMoraleModAppearance				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_APPEARANCE",				1, 0, 5);
@@ -4186,6 +4193,8 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_DEMOLITIONS", 48, 0, 255);
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
+
+	gRebelCommandSettings.iForgeTransportOrdersSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "FORGE_TRANSPORT_ORDERS_SUCCESS_CHANCE", 50, 0, 100);
 
 	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);

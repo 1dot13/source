@@ -3568,6 +3568,8 @@ STR16 gpStrategicString[] =
 	L"Zombie",
 	L"Bandit",
 	L"Bandits attack and kill %d civilians in sector %s.",
+	L"Transport group",
+	L"Transport group en route",
 };
 
 STR16 gpGameClockString[] = 
@@ -6258,6 +6260,7 @@ STR16	z113FeaturesToggleText[] =
 	L"Weather: Snow",
 	L"Mini Events",
 	L"Arulco Rebel Command",
+	L"Strategic Transport Groups",
 };
 
 STR16	z113FeaturesHelpText[] =
@@ -6305,6 +6308,7 @@ STR16	z113FeaturesHelpText[] =
 	L"|W|e|a|t|h|e|r|: |S|n|o|w\nOverrides [Tactical Weather Settings] ALLOW_SNOW\n \nSnowstorms decrease visibility.\n \nConfigurable Options:\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW",
 	L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
 	L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",
+	L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
 
 STR16	z113FeaturesPanelText[] =
@@ -6352,6 +6356,7 @@ STR16	z113FeaturesPanelText[] =
 	L"Toggle snow. In a snowstorm, it is harder to see, weapons degrade faster, and it is a little harder to regain breath.",
 	L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
 	L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
+	L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
 
 
@@ -12093,6 +12098,8 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
 	L"Disrupt ASD",
 	L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
+	L"Forge Transport Orders",
+	L"Create a bogus supply request. An enemy transport group will be ordered to rendezvous at this agent's location.",
 	L"Strategic Intel",
 	L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
 	L"Improve Local Shops",

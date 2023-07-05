@@ -46,6 +46,7 @@
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
 	#include "Rebel Command.h"
+	#include "Strategic Transport Groups.h"
 
 #include "Quests.h"
 #include "connect.h"
@@ -840,6 +841,8 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 			}
 		}
 	}
+
+	FillMapColoursForTransportGroups(colorMap);
 
 	if (RebelCommand::ShowEnemyMovementTargets())
 	{
@@ -8582,6 +8585,25 @@ void DetermineMapIntelData( INT32 asSectorZ )
 			{
 				AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), MAP_SHADE_LT_RED, 5, szIntelText[3], L"" );
 			}
+		}
+
+		// transport groups
+		std::map<UINT8, TransportGroupSectorInfo> map = GetTransportGroupSectorInfo();
+		for (const auto iter : map)
+		{
+			CHAR16 str[128];
+
+			switch (iter.second)
+			{
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup:
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP]);
+				break;
+
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination:
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP_EN_ROUTE]);
+				break;
+			}
+			AddIntelAndQuestMapDataForSector( SECTORX(iter.first), SECTORY(iter.first), MAP_SHADE_LT_YELLOW, -1, str, L"" );
 		}
 
 		// uncovered terrorists we know of

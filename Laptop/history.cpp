@@ -1259,6 +1259,7 @@ void ProcessHistoryTransactionString(STR16 pString, HistoryUnitPtr pHistory)
 		case HISTORY_SLAY_MYSTERIOUSLY_LEFT:
 		case HISTORY_WALDO:
 		case HISTORY_HELICOPTER_REPAIR_STARTED:
+		case HISTORY_INTERCEPTED_TRANSPORT_GROUP:
 			//swprintf( pString, pHistoryStrings[ pHistory->ubCode ], pHistory->ubSecondCode );
 			swprintf( pString, HistoryName[ pHistory->ubCode ].sHistory, pHistory->ubSecondCode );
 			break;

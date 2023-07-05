@@ -181,6 +181,7 @@ enum
 	FF_ALLOW_SNOW,
 	FF_MINI_EVENTS,
 	FF_REBEL_COMMAND,
+	FF_STRATEGIC_TRANSPORT_GROUPS,
 
 	NUM_FEATURE_FLAGS,
 };
@@ -1602,6 +1603,10 @@ typedef struct
 	BOOLEAN fAlternativeHelicopterFuelSystem;
 	BOOLEAN fHelicopterPassengersCanGetHit;
 
+	BOOLEAN fStrategicTransportGroupsDebug;
+	BOOLEAN fStrategicTransportGroupsEnabled;
+	INT8 iMaxSimultaneousTransportGroups;
+
 	UINT16 usHelicopterHoverCostOnGreenTile;
 	UINT16 usHelicopterHoverCostOnRedTile;
 
@@ -1877,6 +1882,8 @@ typedef struct
 	UINT8 iDisruptAsdDuration_Bonus_Demolitions;
 	UINT8 iDisruptAsdDuration_Bonus_Nightops;
 	UINT8 iDisruptAsdDuration_Bonus_Technician;
+
+	INT8 iForgeTransportOrdersSuccessChance;
 
 	INT8 iGetEnemyMovementTargetsSuccessChance;
 	UINT8 iGetEnemyMovementTargetsDuration;

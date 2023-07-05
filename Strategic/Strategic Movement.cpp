@@ -50,6 +50,7 @@
 	#include "Creature Spreading.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
+	#include "Strategic Transport Groups.h"
 
 #include "MilitiaSquads.h"
 #include "Vehicles.h"
@@ -3635,7 +3636,10 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			dEnemyGeneralsSpeedupFactor = max( 0.75f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus );
 		}
 
-		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * iBestTraverseTime;
+		// rftr: transport groups move slower than normal
+		const FLOAT transportSpeedFactor = pGroup->pEnemyGroup->ubIntention == TRANSPORT ? 2.0f : 1.0f;
+
+		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * transportSpeedFactor * iBestTraverseTime;
 
 		iBestTraverseTime = iBestTraverseTime * (100 + RebelCommand::GetHarriersSpeedPenalty(ubSector)) / 100;
 	}
@@ -3816,6 +3820,13 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ResetMortarsOnTeamCount();
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
+
+		if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+		{
+			// normally, transport groups can't reinforce, but this can be hit normally if a battle is occuring in a sector
+			// where a transport group is moving into.
+			UpdateTransportGroupInventory();
+		}
 	}
 	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 	{

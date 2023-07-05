@@ -47,6 +47,7 @@ set(StrategicSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Strategic Status.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Strategic Town Loyalty.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/strategic town reputation.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Strategic Transport Groups.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Strategic Turns.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/strategic.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/strategicmap.cpp"

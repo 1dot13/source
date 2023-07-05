@@ -246,13 +246,13 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 	return TRUE;
 }
 
-GROUP* GetNonPlayerGroupInSector( INT16 sMapX, INT16 sMapY, UINT8 usTeam )
+GROUP* GetNonPlayerGroupInSectorForReinforcement( INT16 sMapX, INT16 sMapY, UINT8 usTeam )
 {
 	GROUP *curr;
 	curr = gpGroupList;
 	while( curr )
 	{
-		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam == usTeam && curr->ubGroupID )
+		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam == usTeam && curr->ubGroupID && (curr->usGroupTeam != ENEMY_TEAM || curr->pEnemyGroup->ubIntention != TRANSPORT) )
 			return curr;
 		curr = curr->next;
 	}
@@ -280,7 +280,7 @@ UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam 
 
 	for( ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 	{
-		while ( (pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam )) != NULL )
+		while ( (pGroup = GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam )) != NULL )
 		{
 			pGroup->ubPrevX = pGroup->ubSectorX;
 			pGroup->ubPrevY = pGroup->ubSectorY;

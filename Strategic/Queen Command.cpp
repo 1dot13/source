@@ -42,6 +42,7 @@
 	#include "CampaignStats.h"		// added by Flugente
 	#include "ASD.h"				// added by Flugente
 	#include "Interface Panels.h"
+	#include "Strategic Transport Groups.h"
 
 #ifdef JA2BETAVERSION
 	extern BOOLEAN gfClearCreatureQuest;
@@ -97,7 +98,6 @@ void HandleBloodCatDeaths( SECTORINFO *pSector );
 #endif
 
 extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
-
 
 void ValidateEnemiesHaveWeapons()
 {
@@ -613,6 +613,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	gfPendingNonPlayerTeam[ENEMY_TEAM] = FALSE;
 
+	// rftr: clear cached transport groups
+	ClearTransportGroupMap();
+
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
 
@@ -640,9 +643,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 			{
-				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
+				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
 				{
-					pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
+					pGroup = GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
 
 					pGroup->ubPrevX = pGroup->ubSectorX;
 					pGroup->ubPrevY = pGroup->ubSectorY;
@@ -669,9 +672,22 @@ BOOLEAN PrepareEnemyForSectorBattle()
 					HandleArrivalOfReinforcements( pGroup );
 				}
 
+				// for transport groups, track how many enemies of each type we're adding so we can update drops for them
+				if (pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention == TRANSPORT && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ)
+				{
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, pGroup->pEnemyGroup->ubNumAdmins);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, pGroup->pEnemyGroup->ubNumTroops);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, pGroup->pEnemyGroup->ubNumElites);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, pGroup->pEnemyGroup->ubNumRobots);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, pGroup->pEnemyGroup->ubNumJeeps);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, pGroup->pEnemyGroup->ubNumTanks);
+				}
+
 				pGroup = pGroup->next;
 			}
 		}
+
+		UpdateTransportGroupInventory();
 
 		ValidateEnemiesHaveWeapons();
 		UnPauseGame();
@@ -852,6 +868,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle &&
 				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{ //Process enemy group in sector.
+			const BOOLEAN isTransportGroup = pGroup->pEnemyGroup->ubIntention == TRANSPORT;
 			if( sNumSlots > 0 )
 			{
 				AssertGE(pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubAdminsInBattle);
@@ -865,6 +882,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubAdminsInBattle += ubNumAdmins;
 				ubTotalAdmins += ubNumAdmins;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
 			}
 			if( sNumSlots > 0 )
 			{ //Add regular army forces.
@@ -879,6 +899,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTroopsInBattle += ubNumTroops;
 				ubTotalTroops += ubNumTroops;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
 			}
 			if( sNumSlots > 0 )
 			{ //Add elite troops
@@ -893,6 +916,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubElitesInBattle += ubNumElites;
 				ubTotalElites += ubNumElites;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
 			}
 			if( sNumSlots > 0 )
 			{ //Add robots
@@ -907,6 +933,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubRobotsInBattle += ubNumRobots;
 				ubTotalRobots += ubNumRobots;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, ubNumRobots);
 			}
 			if( sNumSlots > 0 )
 			{ //Add tanks
@@ -921,6 +950,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTanksInBattle += ubNumTanks;
 				ubTotalTanks += ubNumTanks;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, ubNumTanks);
 			}
 			if ( sNumSlots > 0 )
 			{
@@ -936,6 +968,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubJeepsInBattle += ubNumJeeps;
 				ubTotalJeeps += ubNumJeeps;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
 			}
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
@@ -976,6 +1011,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	unsigned slotsAvailable = lastSlot-firstSlot+1;
+
 	while( pGroup && sNumSlots > 0 )
 	{
 		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle &&
@@ -1088,6 +1124,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						}
 						break;
 				}
+
 			}
 
 			// Flugente: instead of just crashing the game without any explanation to the user, ignore this issue if it still exists.
@@ -1102,6 +1139,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 		pGroup = pGroup->next;
 	}
+
+	UpdateTransportGroupInventory();
 
 	ValidateEnemiesHaveWeapons();
 	UnPauseGame();
@@ -2145,6 +2184,16 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 	
+	// while transport groups can't normally reinforce, this covers the case where a transport group enters a sector (via normal movement)
+	// where a battle is in progress.
+	if (pGroup && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+	{
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
+	}
+
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -3594,3 +3643,5 @@ void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY )
 		pGroup = pGroup->next;
 	}
 }
+
+

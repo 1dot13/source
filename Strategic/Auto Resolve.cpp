@@ -633,6 +633,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			gpAR->ubPlayerDefenceAdvantage = 21; //Skewed to the player's advantage for convenience purposes.
 			break;
 		case ENEMY_INVASION_CODE:
@@ -1745,6 +1746,7 @@ void RenderAutoResolve()
 			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
 			break;
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			swprintf( str, gpStrategicString[STR_AR_ENCOUNTER_HEADER] );
 			break;
 		case ENEMY_INVASION_CODE:
@@ -6058,6 +6060,5 @@ BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId )
 			}
 		}
 	}
-
 	return FALSE;
 }
