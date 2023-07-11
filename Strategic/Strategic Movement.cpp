@@ -1895,8 +1895,9 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 	// if this group arrival would cause a simultaneous combat, then delay it!
 	// we can't have more that one battle at a time.
-	if( fExceptionQueue || (fCheckForBattle && (gTacticalStatus.fEnemyInSector || HostileCiviliansPresent() || HostileBloodcatsPresent())) // if there is an active battle
-		&& (pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) // and the group is arriving at a sector
+	if( fExceptionQueue
+		|| ((fCheckForBattle && (gTacticalStatus.fEnemyInSector || HostileCiviliansPresent() || HostileBloodcatsPresent())) // if there is an active battle
+		&& (pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0)) // and the group is arriving at a different sector
 #ifndef JA2UB
 		|| AreInMeanwhile()
 #endif
