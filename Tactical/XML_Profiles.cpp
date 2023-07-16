@@ -102,6 +102,18 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "bMechanical") == 0 ||
 				strcmp(name, "bExpLevel") == 0 ||
 				strcmp(name, "bEvolution") == 0 ||
+				// rftr: growth rates are intended to replace the evolution tag, letting each stat have its own growth modifier
+				strcmp(name, "bGrowthRateLife") == 0 ||
+				strcmp(name, "bGrowthRateStrength") == 0 ||
+				strcmp(name, "bGrowthRateAgility") == 0 ||
+				strcmp(name, "bGrowthRateDexterity") == 0 ||
+				strcmp(name, "bGrowthRateWisdom") == 0 ||
+				strcmp(name, "bGrowthRateMarksmanship") == 0 ||
+				strcmp(name, "bGrowthRateExplosive") == 0 ||
+				strcmp(name, "bGrowthRateLeadership") == 0 ||
+				strcmp(name, "bGrowthRateMedical") == 0 ||
+				strcmp(name, "bGrowthRateMechanical") == 0 ||
+				strcmp(name, "bGrowthRateExpLevel") == 0 ||
 				// added by SANDRO
 				strcmp(name, "bOldSkillTrait") == 0 ||
 				strcmp(name, "bOldSkillTrait2") == 0 ||
@@ -281,6 +293,17 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
 
 					tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
+					tempProfiles[pData->curIndex].bGrowthRateLife = pData->curProfile.bGrowthRateLife;
+					tempProfiles[pData->curIndex].bGrowthRateStrength = pData->curProfile.bGrowthRateStrength;
+					tempProfiles[pData->curIndex].bGrowthRateAgility = pData->curProfile.bGrowthRateAgility;
+					tempProfiles[pData->curIndex].bGrowthRateDexterity = pData->curProfile.bGrowthRateDexterity;
+					tempProfiles[pData->curIndex].bGrowthRateWisdom = pData->curProfile.bGrowthRateWisdom;
+					tempProfiles[pData->curIndex].bGrowthRateMarksmanship = pData->curProfile.bGrowthRateMarksmanship;
+					tempProfiles[pData->curIndex].bGrowthRateExplosive = pData->curProfile.bGrowthRateExplosive;
+					tempProfiles[pData->curIndex].bGrowthRateLeadership = pData->curProfile.bGrowthRateLeadership;
+					tempProfiles[pData->curIndex].bGrowthRateMedical = pData->curProfile.bGrowthRateMedical;
+					tempProfiles[pData->curIndex].bGrowthRateMechanical = pData->curProfile.bGrowthRateMechanical;
+					tempProfiles[pData->curIndex].bGrowthRateExpLevel = pData->curProfile.bGrowthRateExpLevel;
 					// added by SANDRO
 					tempProfiles[pData->curIndex].bOldSkillTrait = pData->curProfile.bOldSkillTrait;
 					tempProfiles[pData->curIndex].bOldSkillTrait2 = pData->curProfile.bOldSkillTrait2;
@@ -591,6 +614,65 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.bEvolution = (UINT32) strtoul(pData->szCharData, NULL, 0);
+		}
+
+		else if (strncmp(name, "bGrowthRate", 11) == 0) // doing this to avoid C1061
+		{
+			if (strcmp(name, "bGrowthRateLife") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateLife = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateStrength") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateStrength = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateAgility") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateAgility = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateDexterity") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateDexterity = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateWisdom") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateWisdom = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateMarksmanship") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateMarksmanship = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateExplosive") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateExplosive = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateLeadership") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateLeadership = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateMedical") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateMedical = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateMechanical") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateMechanical = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
+			else if(strcmp(name, "bGrowthRateExpLevel") == 0)
+			{
+				pData->curElement = ELEMENT;
+				pData->curProfile.bGrowthRateExpLevel = (UINT32)strtoul(pData->szCharData, NULL, 0);
+			}
 		}
 		////////////////////////////////////////////////////////////////////////////
 		// SANDRO was here - messed this a bit
