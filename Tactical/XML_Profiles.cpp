@@ -103,17 +103,17 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "bExpLevel") == 0 ||
 				strcmp(name, "bEvolution") == 0 ||
 				// rftr: growth rates are intended to replace the evolution tag, letting each stat have its own growth modifier
-				strcmp(name, "bGrowthRateLife") == 0 ||
-				strcmp(name, "bGrowthRateStrength") == 0 ||
-				strcmp(name, "bGrowthRateAgility") == 0 ||
-				strcmp(name, "bGrowthRateDexterity") == 0 ||
-				strcmp(name, "bGrowthRateWisdom") == 0 ||
-				strcmp(name, "bGrowthRateMarksmanship") == 0 ||
-				strcmp(name, "bGrowthRateExplosive") == 0 ||
-				strcmp(name, "bGrowthRateLeadership") == 0 ||
-				strcmp(name, "bGrowthRateMedical") == 0 ||
-				strcmp(name, "bGrowthRateMechanical") == 0 ||
-				strcmp(name, "bGrowthRateExpLevel") == 0 ||
+				strcmp(name, "bGrowthModifierLife") == 0 ||
+				strcmp(name, "bGrowthModifierStrength") == 0 ||
+				strcmp(name, "bGrowthModifierAgility") == 0 ||
+				strcmp(name, "bGrowthModifierDexterity") == 0 ||
+				strcmp(name, "bGrowthModifierWisdom") == 0 ||
+				strcmp(name, "bGrowthModifierMarksmanship") == 0 ||
+				strcmp(name, "bGrowthModifierExplosive") == 0 ||
+				strcmp(name, "bGrowthModifierLeadership") == 0 ||
+				strcmp(name, "bGrowthModifierMedical") == 0 ||
+				strcmp(name, "bGrowthModifierMechanical") == 0 ||
+				strcmp(name, "bGrowthModifierExpLevel") == 0 ||
 				// added by SANDRO
 				strcmp(name, "bOldSkillTrait") == 0 ||
 				strcmp(name, "bOldSkillTrait2") == 0 ||
@@ -293,17 +293,17 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
 
 					tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
-					tempProfiles[pData->curIndex].bGrowthRateLife = pData->curProfile.bGrowthRateLife;
-					tempProfiles[pData->curIndex].bGrowthRateStrength = pData->curProfile.bGrowthRateStrength;
-					tempProfiles[pData->curIndex].bGrowthRateAgility = pData->curProfile.bGrowthRateAgility;
-					tempProfiles[pData->curIndex].bGrowthRateDexterity = pData->curProfile.bGrowthRateDexterity;
-					tempProfiles[pData->curIndex].bGrowthRateWisdom = pData->curProfile.bGrowthRateWisdom;
-					tempProfiles[pData->curIndex].bGrowthRateMarksmanship = pData->curProfile.bGrowthRateMarksmanship;
-					tempProfiles[pData->curIndex].bGrowthRateExplosive = pData->curProfile.bGrowthRateExplosive;
-					tempProfiles[pData->curIndex].bGrowthRateLeadership = pData->curProfile.bGrowthRateLeadership;
-					tempProfiles[pData->curIndex].bGrowthRateMedical = pData->curProfile.bGrowthRateMedical;
-					tempProfiles[pData->curIndex].bGrowthRateMechanical = pData->curProfile.bGrowthRateMechanical;
-					tempProfiles[pData->curIndex].bGrowthRateExpLevel = pData->curProfile.bGrowthRateExpLevel;
+					tempProfiles[pData->curIndex].bGrowthModifierLife = pData->curProfile.bGrowthModifierLife;
+					tempProfiles[pData->curIndex].bGrowthModifierStrength = pData->curProfile.bGrowthModifierStrength;
+					tempProfiles[pData->curIndex].bGrowthModifierAgility = pData->curProfile.bGrowthModifierAgility;
+					tempProfiles[pData->curIndex].bGrowthModifierDexterity = pData->curProfile.bGrowthModifierDexterity;
+					tempProfiles[pData->curIndex].bGrowthModifierWisdom = pData->curProfile.bGrowthModifierWisdom;
+					tempProfiles[pData->curIndex].bGrowthModifierMarksmanship = pData->curProfile.bGrowthModifierMarksmanship;
+					tempProfiles[pData->curIndex].bGrowthModifierExplosive = pData->curProfile.bGrowthModifierExplosive;
+					tempProfiles[pData->curIndex].bGrowthModifierLeadership = pData->curProfile.bGrowthModifierLeadership;
+					tempProfiles[pData->curIndex].bGrowthModifierMedical = pData->curProfile.bGrowthModifierMedical;
+					tempProfiles[pData->curIndex].bGrowthModifierMechanical = pData->curProfile.bGrowthModifierMechanical;
+					tempProfiles[pData->curIndex].bGrowthModifierExpLevel = pData->curProfile.bGrowthModifierExpLevel;
 					// added by SANDRO
 					tempProfiles[pData->curIndex].bOldSkillTrait = pData->curProfile.bOldSkillTrait;
 					tempProfiles[pData->curIndex].bOldSkillTrait2 = pData->curProfile.bOldSkillTrait2;
@@ -616,62 +616,62 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curProfile.bEvolution = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 
-		else if (strncmp(name, "bGrowthRate", 11) == 0) // doing this to avoid C1061
+		else if (strncmp(name, "bGrowthModifier", 11) == 0) // doing this to avoid C1061
 		{
-			if (strcmp(name, "bGrowthRateLife") == 0)
+			if (strcmp(name, "bGrowthModifierLife") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateLife = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierLife = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateStrength") == 0)
+			else if(strcmp(name, "bGrowthModifierStrength") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateStrength = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierStrength = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateAgility") == 0)
+			else if(strcmp(name, "bGrowthModifierAgility") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateAgility = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierAgility = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateDexterity") == 0)
+			else if(strcmp(name, "bGrowthModifierDexterity") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateDexterity = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierDexterity = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateWisdom") == 0)
+			else if(strcmp(name, "bGrowthModifierWisdom") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateWisdom = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierWisdom = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateMarksmanship") == 0)
+			else if(strcmp(name, "bGrowthModifierMarksmanship") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateMarksmanship = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierMarksmanship = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateExplosive") == 0)
+			else if(strcmp(name, "bGrowthModifierExplosive") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateExplosive = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierExplosive = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateLeadership") == 0)
+			else if(strcmp(name, "bGrowthModifierLeadership") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateLeadership = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierLeadership = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateMedical") == 0)
+			else if(strcmp(name, "bGrowthModifierMedical") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateMedical = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierMedical = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateMechanical") == 0)
+			else if(strcmp(name, "bGrowthModifierMechanical") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateMechanical = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierMechanical = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
-			else if(strcmp(name, "bGrowthRateExpLevel") == 0)
+			else if(strcmp(name, "bGrowthModifierExpLevel") == 0)
 			{
 				pData->curElement = ELEMENT;
-				pData->curProfile.bGrowthRateExpLevel = (UINT32)strtoul(pData->szCharData, NULL, 0);
+				pData->curProfile.bGrowthModifierExpLevel = (UINT32)strtoul(pData->szCharData, NULL, 0);
 			}
 		}
 		////////////////////////////////////////////////////////////////////////////

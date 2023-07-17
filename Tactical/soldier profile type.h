@@ -1009,6 +1009,8 @@ public:
 
 	// Flugente: type of profile
 	UINT32 Type;
+
+	// rftr: growth modifiers
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

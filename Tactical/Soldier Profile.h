@@ -315,17 +315,17 @@ typedef struct
 	INT8		bExpLevel;
 
 	INT8		bEvolution;
-	INT8		bGrowthRateLife;
-	INT8		bGrowthRateStrength;
-	INT8		bGrowthRateAgility;
-	INT8		bGrowthRateDexterity;
-	INT8		bGrowthRateWisdom;
-	INT8		bGrowthRateMarksmanship;
-	INT8		bGrowthRateExplosive;
-	INT8		bGrowthRateLeadership;
-	INT8		bGrowthRateMedical;
-	INT8		bGrowthRateMechanical;
-	INT8		bGrowthRateExpLevel;
+	INT8		bGrowthModifierLife;
+	INT8		bGrowthModifierStrength;
+	INT8		bGrowthModifierAgility;
+	INT8		bGrowthModifierDexterity;
+	INT8		bGrowthModifierWisdom;
+	INT8		bGrowthModifierMarksmanship;
+	INT8		bGrowthModifierExplosive;
+	INT8		bGrowthModifierLeadership;
+	INT8		bGrowthModifierMedical;
+	INT8		bGrowthModifierMechanical;
+	INT8		bGrowthModifierExpLevel;
 	// changed by SANDRO
 	INT8		bOldSkillTrait;
 	INT8		bOldSkillTrait2;
