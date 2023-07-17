@@ -1,3 +1,4 @@
+#pragma optimize("",off)
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include <stdio.h>
@@ -305,14 +306,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
 			}
 
-/*
-			// if the stat is Marksmanship, and the guy is a hopeless shot
-			if ((ubStat == MARKAMT) && (pProfile->bSpecialTrait == HOPELESS_SHOT))
-			{
-				usChance /= 5;		// MUCH slower to improve, divide usChance by 5
-			}
-*/
-
 			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
 			if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
 			{
@@ -335,6 +328,8 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance =  max(1, usChance * 0.5);
 			else if ( evolution == ONEQUARTER_EVOLUTION)
 				usChance =  max(1, usChance * 0.25);
+
+			// rftr todo: we can further modify usChance here based on growth rate modifier
 			
 			// maximum possible usChance is 99%
 			if (usChance > 99)
