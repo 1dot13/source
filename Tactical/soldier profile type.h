@@ -1011,6 +1011,17 @@ public:
 	UINT32 Type;
 
 	// rftr: growth modifiers
+	INT8 bGrowthModifierLife;
+	INT8 bGrowthModifierStrength;
+	INT8 bGrowthModifierAgility;
+	INT8 bGrowthModifierDexterity;
+	INT8 bGrowthModifierWisdom;
+	INT8 bGrowthModifierMarksmanship;
+	INT8 bGrowthModifierExplosive;
+	INT8 bGrowthModifierLeadership;
+	INT8 bGrowthModifierMedical;
+	INT8 bGrowthModifierMechanical;
+	INT8 bGrowthModifierExpLevel;
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

@@ -1637,6 +1637,55 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 					return( FALSE );
 				}
 			}
+
+			// rftr: growth modifiers
+			if (guiCurrentSaveGameVersion >= GROWTH_MODIFIERS)
+			{
+				if (!FileRead(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesRead))
+				{
+					return(FALSE);
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierStrength, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierAgility, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierDexterity, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierWisdom, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMarksmanship, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierExplosive, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierLeadership, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMedical, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMechanical, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierExpLevel, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+			}
 		}
 
 		if ( this->uiProfileChecksum != this->GetChecksum() )
@@ -1750,6 +1799,52 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	if ( !FileWrite( hFile, &this->Type, sizeof( UINT32 ), &uiNumBytesWritten ) )
+	{
+		return( FALSE );
+	}
+
+	// rftr: growth modifiers
+	if (!FileWrite(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesWritten))
+	{
+		return(FALSE);
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierStrength, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierAgility, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierDexterity, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierWisdom, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMarksmanship, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierExplosive, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierLeadership, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMedical, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMechanical, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierExpLevel, sizeof(INT8), &uiNumBytesWritten) )
 	{
 		return( FALSE );
 	}
