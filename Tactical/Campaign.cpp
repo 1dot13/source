@@ -168,19 +168,9 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	INT8 bCurrentRating;
 	UINT16 *psStatGainPtr;
 	BOOLEAN fAffectedByWisdom = TRUE;
-	INT8 evolution = NORMAL_EVOLUTION;
+	INT16 growthModifier = 1;
 
 	Assert(pProfile != NULL);
-
-	if ( !gGameExternalOptions.bDisableEvolution )
-		evolution = pProfile->bEvolution;
-
-	if ( evolution == NO_EVOLUTION )
-		return;     // No change possible, quit right away
-
-	// if this is a Reverse-Evolving merc who attempting to train
-	if ( ( ubReason == FROM_TRAINING ) && ( evolution == DEVOLVE ) )
-		return;	// he doesn't get any benefit, but isn't penalized either
 
 	if (usNumChances == 0)
 		return;
@@ -191,6 +181,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	switch (ubStat)
 	{
 		case HEALTHAMT:
+			growthModifier = pProfile->bGrowthModifierLife;
 			bCurrentRating = pProfile->bLifeMax;
 			psStatGainPtr = (UINT16 *)&(pProfile->sLifeGain);
 			// NB physical stat checks not affected by wisdom, unless training is going on
@@ -198,54 +189,64 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 		break;
 
 		case AGILAMT:
+			growthModifier = pProfile->bGrowthModifierAgility;
 			bCurrentRating = pProfile->bAgility;
 			psStatGainPtr = (UINT16 *)&(pProfile->sAgilityGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case DEXTAMT:
+			growthModifier = pProfile->bGrowthModifierDexterity;
 			bCurrentRating = pProfile->bDexterity;
 			psStatGainPtr = (UINT16 *)&(pProfile->sDexterityGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case WISDOMAMT:
+			growthModifier = pProfile->bGrowthModifierWisdom;
 			bCurrentRating = pProfile->bWisdom;
 			psStatGainPtr = (UINT16 *)&(pProfile->sWisdomGain);
 		break;
 
 		case MEDICALAMT:
+			growthModifier = pProfile->bGrowthModifierMedical;
 			bCurrentRating = pProfile->bMedical;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMedicalGain);
 		break;
 
 		case EXPLODEAMT:
+			growthModifier = pProfile->bGrowthModifierExplosive;
 			bCurrentRating = pProfile->bExplosive;
 			psStatGainPtr = (UINT16 *)&(pProfile->sExplosivesGain);
 		break;
 
 		case MECHANAMT:
+			growthModifier = pProfile->bGrowthModifierMechanical;
 			bCurrentRating = pProfile->bMechanical;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMechanicGain);
 		break;
 
 		case MARKAMT:
+			growthModifier = pProfile->bGrowthModifierMarksmanship;
 			bCurrentRating = pProfile->bMarksmanship;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMarksmanshipGain);
 		break;
 
 		case EXPERAMT:
+			growthModifier = pProfile->bGrowthModifierExpLevel;
 			bCurrentRating = pProfile->bExpLevel;
 			psStatGainPtr = (UINT16 *)&(pProfile->sExpLevelGain);
 		break;
 
 		case STRAMT:
+			growthModifier = pProfile->bGrowthModifierStrength;
 			bCurrentRating = pProfile->bStrength;
 			psStatGainPtr = (UINT16 *)&(pProfile->sStrengthGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case LDRAMT:
+			growthModifier = pProfile->bGrowthModifierLeadership;
 			bCurrentRating = pProfile->bLeadership;
 			psStatGainPtr = (UINT16 *)&(pProfile->sLeadershipGain);
 		break;
@@ -256,6 +257,9 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 		return;
 	}
 
+	// no stat growth
+	if (growthModifier == 0)
+		return;
 
 	if (ubReason == FROM_TRAINING)
 	{
@@ -272,7 +276,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	// loop once for each chance to improve
 	for (uiCnt = 0; uiCnt < usNumChances; ++uiCnt)
 	{
-		if ( evolution != DEVOLVE)               // Evolves!
+		if (growthModifier > 0)               // Evolves!
 		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
@@ -306,6 +310,8 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
 			}
 
+			// rftr todo: we can further modify usChance here based on growth rate modifier
+
 			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
 			if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
 			{
@@ -321,16 +327,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				}
 			}
 
-			// Buggler: more evolution rate choices
-			if ( evolution == THREEQUARTER_EVOLUTION)
-				usChance = max(1, usChance * 0.75);
-			else if ( evolution == HALF_EVOLUTION)
-				usChance =  max(1, usChance * 0.5);
-			else if ( evolution == ONEQUARTER_EVOLUTION)
-				usChance =  max(1, usChance * 0.25);
-
-			// rftr todo: we can further modify usChance here based on growth rate modifier
-			
 			// maximum possible usChance is 99%
 			if (usChance > 99)
 			{
