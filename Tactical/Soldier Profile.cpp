@@ -472,17 +472,38 @@ void RandomGrowthModifiers()
 		{
 			pProfile = &(gMercProfiles[cnt]);
 
-			pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 500, 50, useBellCurve );
-			pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 500, 50, useBellCurve );
+			if (pProfile->bGrowthModifierExpLevel != 0)
+				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierLife != 0)
+				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierAgility != 0)
+				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierDexterity != 0)
+				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierStrength != 0)
+				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierLeadership != 0)
+				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierWisdom != 0)
+				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierMarksmanship != 0)
+				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierMechanical != 0)
+				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierExplosive != 0)
+				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 500, 50, useBellCurve );
+
+			if (pProfile->bGrowthModifierMedical != 0)
+				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 500, 50, useBellCurve );
 		}
 	}
 }
