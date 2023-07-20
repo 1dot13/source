@@ -1079,6 +1079,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);
 	gGameExternalOptions.fMercRandomStartSalary				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_START_SALARY", FALSE);
 	gGameExternalOptions.ubMercRandomStartSalaryPercentMod	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_START_SALARY_PERCENTAGE_MAX_MODIFIER", 30, 0, 100);
+	gGameExternalOptions.fMercRandomGrowthModifiers			= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS", FALSE);
+	gGameExternalOptions.iMercRandomGrowthModifiersRange	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS_RANGE", 100, 0, 500);
 
 	//################# Financial Settings #################
 

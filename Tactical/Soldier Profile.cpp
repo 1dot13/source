@@ -466,66 +466,66 @@ void RandomGrowthModifiers()
 	MERCPROFILESTRUCT * pProfile;
 	BOOLEAN useBellCurve = TRUE;
 
-	// if (gGameExternalptions.fMercRandomGrowthModifiers == TRUE) // rftr todo - add settings
+	 if (gGameExternalOptions.fMercRandomGrowthModifiers == TRUE) // rftr todo - add settings
 	{
 		for (cnt = 0; cnt < NUM_PROFILES; cnt++)
 		{
 			pProfile = &(gMercProfiles[cnt]);
 
 			if (pProfile->bGrowthModifierExpLevel > 0)
-				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierExpLevel < 0)
-				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierLife > 0)
-				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierLife < 0)
-				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierAgility > 0)
-				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierAgility < 0)
-				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierDexterity > 0)
-				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierDexterity < 0)
-				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierStrength > 0)
-				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierStrength < 0)
-				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierLeadership > 0)
-				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierLeadership < 0)
-				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierWisdom > 0)
-				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierWisdom < 0)
-				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierMarksmanship > 0)
-				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierMarksmanship < 0)
-				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierMechanical > 0)
-				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierMechanical < 0)
-				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierExplosive > 0)
-				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierExplosive < 0)
-				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 
 			if (pProfile->bGrowthModifierMedical > 0)
-				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, 0, 500, 50, useBellCurve );
+				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 			else if (pProfile->bGrowthModifierMedical < 0)
-				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 0, 50, useBellCurve );
+				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 		}
 	}
 }

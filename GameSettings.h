@@ -1436,6 +1436,9 @@ typedef struct
 
 	UINT8 ubMercRandomStartSalaryPercentMod;
 
+	BOOLEAN fMercRandomGrowthModifiers;
+	INT16 iMercRandomGrowthModifiersRange;
+
 	BOOLEAN fBobbyRayFastShipments;
 
 	BOOLEAN fGridExitInTurnBased;
