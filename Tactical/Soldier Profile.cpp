@@ -98,6 +98,7 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 //Random Stats 
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
 void RandomStats();
+void RandomGrowthModifiers();
 void RandomStartSalary();
 
 //Jenilee
@@ -457,6 +458,33 @@ void RandomStats()
 		}
 
 		ExitRandomMercs();	}
+}
+
+void RandomGrowthModifiers()
+{
+	UINT32 cnt;
+	MERCPROFILESTRUCT * pProfile;
+	BOOLEAN useBellCurve = TRUE;
+
+	// if (gGameExternalptions.fMercRandomGrowthModifiers == TRUE) // rftr todo - add settings
+	{
+		for (cnt = 0; cnt < NUM_PROFILES; cnt++)
+		{
+			pProfile = &(gMercProfiles[cnt]);
+
+			pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 500, 50, useBellCurve );
+			pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 500, 50, useBellCurve );
+		}
+	}
 }
 
 void RandomStartSalary()
@@ -996,6 +1024,8 @@ for( int i = 0; i < NUM_PROFILES; i++ )
 	// ---------------
 		
 	RandomStats (); //random stats by Jazz
+
+	RandomGrowthModifiers();
 	
 	// Buggler: random starting salary
 	RandomStartSalary ();
