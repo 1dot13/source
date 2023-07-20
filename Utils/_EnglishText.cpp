@@ -11638,6 +11638,7 @@ STR16	szInteractiveActionText[] =
 	L"This machine doesn't seem to be working.",
 };
 
+// rftr todo: add growth modifier text
 STR16	szLaptopStatText[] =
 {
 	L"threaten effectiveness %d\n",

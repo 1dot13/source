@@ -2233,6 +2233,7 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 		++region;
 	}
 
+	// rftr todo: replace this with growth modifier text
 	if ( !gGameExternalOptions.bDisableEvolution )
 	{
 		CHAR16 sStr2[200];
