@@ -310,7 +310,11 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
 			}
 
-			// rftr todo: we can further modify usChance here based on growth rate modifier
+			// we can further modify usChance here based on growth rate modifier
+			if (usChance > 0)
+			{
+				usChance *= (growthModifier / 100.f);
+			}
 
 			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
 			if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
