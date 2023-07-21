@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include <stdio.h>
