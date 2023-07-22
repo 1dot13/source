@@ -305,6 +305,16 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
 			}
 
+			// rftr: reduced growth rates at 80+ and 90+ (to make mercs with higher base stats more valuable)
+			if (bCurrentRating >= 90)
+			{
+				usChance = min(min(gGameExternalOptions.ubMaxGrowthChanceAt80, gGameExternalOptions.ubMaxGrowthChanceAt90), usChance);
+			}
+			else if (bCurrentRating >= 80)
+			{
+				usChance = min(gGameExternalOptions.ubMaxGrowthChanceAt80, usChance);
+			}
+
 /*
 			// if the stat is Marksmanship, and the guy is a hopeless shot
 			if ((ubStat == MARKAMT) && (pProfile->bSpecialTrait == HOPELESS_SHOT))

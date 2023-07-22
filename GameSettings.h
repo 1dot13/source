@@ -1149,6 +1149,10 @@ typedef struct
 	UINT16 usLeadershipSubpointsToImprove;
 	UINT16 usLevelSubpointsToImprove;
 
+	// rftr: optionally slow stat growth at 80+ and 90+. this gives more value to mercs with high base stats
+	UINT8 ubMaxGrowthChanceAt80;
+	UINT8 ubMaxGrowthChanceAt90;
+
 	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
 	BOOLEAN fApproximateCTH;
 
