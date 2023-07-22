@@ -1430,6 +1430,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usLeadershipSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","LEADERSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
 	gGameExternalOptions.usLevelSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","LEVEL_SUBPOINTS_TO_IMPROVE", 350, 1, 6500);
 
+	// rftr: optionally slow stat growth at 80+ and 90+. this gives more value to mercs with high base stats
+	gGameExternalOptions.ubMaxGrowthChanceAt80 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_80", 100, 1, 100);
+	gGameExternalOptions.ubMaxGrowthChanceAt90 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_90", 100, 1, 100);
+
+
 	// Alternate algorithm for choosing equipment level. Mostly disregards soldier's class and puts less emphasis on distance from Sector P3.
 	// SANDRO - moved into the game
 	//gGameExternalOptions.fSlowProgressForEnemyItemsChoice	= iniReader.ReadBoolean("Tactical Difficulty Settings", "SLOW_PROGRESS_FOR_ENEMY_ITEMS_CHOICE", TRUE);
