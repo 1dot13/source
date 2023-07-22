@@ -962,43 +962,6 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_M14" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_M14" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasRifleInHand" palette="guns_v2">
-			<Surface name="RGF_RIFLE_OPEN_MOSIN" animsurface="RGFOPEN"/>
-			<Surface name="RGF_RIFLE_WALK_CROUCH_MOSIN" animsurface="RGFCROUCH_R_RDY"/>
-			<Surface name="RGF_RIFLE_WALK_MOSIN" animsurface="RGFWALK_R_RDY"/>
-			<Surface name="RGF_RIFLE_IDLE_MOSIN" animsurface="RGFSTANDING"/>
-			<Surface name="RGF_BASICWALK_MOSIN" animsurface="RGFWALKING"/>
-			<Surface name="RGF_RUNNING_MOSIN" animsurface="RGFRUNNING"/>
-			<Surface name="RGF_RIFLE_CROUCH_MOSIN" animsurface="RGFCROUCHING"/>
-			<Surface name="RGF_RIFLE_SIDESTEP_MOSIN" animsurface="RGFSIDESTEP"/>
-			<Surface name="RGF_RIFLE_SIDESTEP_AIM_MOSIN" animsurface="RGFSIDESTEP_R_RDY"/>
-			<Surface name="RGF_RIFLE_SWAT_MOSIN" animsurface="RGFSNEAKING"/>
-			<Surface name="RGF_RIFLE_RAISE_MOSIN" animsurface="RGFRAISE"/>
-			<Surface name="RGF_RIFLE_AIM_MOSIN" animsurface="RGFSTANDAIM"/>
-			<Surface name="RGF_RIFLE_HIP_MOSIN" animsurface="RGF_HIP_AIM"/>
-			<Surface name="RGF_RIFLE_CR_AIM_MOSIN" animsurface="RGFCROUCHAIM"/>
-			<Surface name="RGF_RIFLE_PRONE_MOSIN" animsurface="RGFPRONE"/>
-			<Surface name="RGF_RIFLE_HIT_MOSIN" animsurface="RGFRHIT"/>
-			<Surface name="RGF_RIFLE_PAIN_MOSIN" animsurface="RGFHURTSTANDINGR"/>
-			<Surface name="RGF_RIFLE_COWER_MOSIN" animsurface="RGFCOWER"/>
-			<Surface name="RGF_RIFLE_PRN_COWER_MOSIN" animsurface="RGF_COWER_PRONE"/>
-			<Surface name="RGF_RIFLE_WALK_HURT_MOSIN" animsurface="RGFHURTWALKINGR"/>
-			<Surface name="RGF_RIFLE_KICKDOOR_MOSIN" animsurface="RGFKICKDOOR"/>
-			<!--<Surface name="RGF_RIFLE_SQUISH_MOSIN" animsurface="RGF_SQUISH" />
-			<Surface name="RGF_RIFLE_LOOK_MOSIN" animsurface="RGF_LOOK" />
-			<Surface name="RGF_RIFLE_SPIT_MOSIN" animsurface="RGF_SPIT" />-->
-			<Surface name="RGF_RIFLE_DRUNK_MOSIN" animsurface="RGFDRUNK"/>
-			<Surface name="RGF_RIFLE_BAYONET_MOSIN" animsurface="RGFBAYONET_S_S"/>
-			<Surface name="RGF_RIFLE_BAYONET_L_MOSIN" animsurface="RGFBAYONET_S_P"/>
-			<Surface name="RGF_RIFLE_LOW_MOSIN" animsurface="RGFSHOOT_LOW"/>
-			<Surface name="RGF_RIFLE_ROLL_SIDE_MOSIN" animsurface="RGFROLL_PR"/>
-			<Surface name="RGF_RIFLE_LOOK_MOSIN" animsurface="RGFALOOK"/>
-			<Surface name="RGF_RIFLE_CLEAN_MOSIN" animsurface="RGFCLEAN"/>
-			<Surface name="RGF_WATER_RIFLE_IDLE_MOSIN" animsurface="RGFWATER_R_STD" />
-			<Surface name="RGF_WATER_RIFLE_WALK_MOSIN" animsurface="RGFWATER_R_WALK" />
-			<Surface name="RGF_WATER_RIFLE_AIM_MOSIN" animsurface="RGFWATER_R_AIM" />
-			<Surface name="RGF_WATER_RIFLE_HIP_MOSIN" animsurface="RGF_WATER_HIP_AIM" />
-		</LayerProp>
 		<LayerProp filter="HasFALInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_FAL" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_FAL" animsurface="RGFCROUCH_R_RDY"/>
@@ -1146,6 +1109,43 @@
 			<Surface name="RGF_WATER_RIFLE_WALK_MKL" animsurface="RGFWATER_R_WALK" />
 			<Surface name="RGF_WATER_RIFLE_AIM_MKL" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_MKL" animsurface="RGF_WATER_HIP_AIM" />
+		</LayerProp>
+		<LayerProp filter="HasRifleInHand" palette="guns_v2">
+			<Surface name="RGF_RIFLE_OPEN_MOSIN" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_WALK_CROUCH_MOSIN" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_MOSIN" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_MOSIN" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_MOSIN" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_MOSIN" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_MOSIN" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_MOSIN" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_MOSIN" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_SWAT_MOSIN" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_MOSIN" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_MOSIN" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_MOSIN" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_MOSIN" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_MOSIN" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_MOSIN" animsurface="RGFRHIT"/>
+			<Surface name="RGF_RIFLE_PAIN_MOSIN" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_RIFLE_COWER_MOSIN" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_MOSIN" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_MOSIN" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_MOSIN" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_MOSIN" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_MOSIN" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_MOSIN" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_MOSIN" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_BAYONET_MOSIN" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_MOSIN" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_RIFLE_LOW_MOSIN" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_MOSIN" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_RIFLE_LOOK_MOSIN" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_MOSIN" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_MOSIN" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_MOSIN" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_MOSIN" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_MOSIN" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_AR" animsurface="RGFOPEN"/>

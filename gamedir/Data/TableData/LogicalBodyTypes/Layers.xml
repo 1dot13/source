@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Layers>
+	<Layer name="blood" render="1" shadow="0">1</Layer>
 	<Layer name="shadow" render="1" shadow="1">0</Layer>
 	<Layer name="legs" render="1" shadow="0">1</Layer>
 	<Layer name="body" render="1" shadow="0">2</Layer>

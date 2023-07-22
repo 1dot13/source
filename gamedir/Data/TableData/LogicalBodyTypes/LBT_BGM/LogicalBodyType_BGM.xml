@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LogicalAnimationSurfaces>
+	<Layer name="blood">
+		<LayerProp filter="" >
+			<Surface name="BGMEMPTY_DIE_BLOOD" animsurface="BGMHITSTAND" />
+			<Surface name="BGMDIE_PRONE_BLOOD" animsurface="BGMHITPRONE" />
+			<Surface name="BGMEMPTY_DIEFB_BLOOD" animsurface="BGMHITFALLBACK" />
+		</LayerProp>
+	</Layer>
 	<Layer name="shadow">
 		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
 			<Surface name="BGMEMPTY_RUN_SHADOW" animsurface="BGMPISTOL_RUN" />			

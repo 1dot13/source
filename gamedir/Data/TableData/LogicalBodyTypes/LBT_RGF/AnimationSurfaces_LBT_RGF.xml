@@ -1089,6 +1089,7 @@
 <AnimSurface name="RGF_COWER_PRONE_CAMOHELMET" file="Anims\LOBOT\RGF\F_PRNCOW_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="11" profile="-1" />
 <AnimSurface name="RGF_COWER_PRONE_LSLEEVE" file="Anims\LOBOT\RGF\F_PRNCOW_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="11" profile="-1" />
 <!-- Prone, get hit and die, empty hands -->
+<AnimSurface name="RGF_DIE_PRONE_BLOOD" file="Anims\LOBOT\RGM\S_P_DIE_blood.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
 <AnimSurface name="RGF_DIE_PRONE_HEAD" file="Anims\LOBOT\RGF\F_P_DIE_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
 <AnimSurface name="RGF_DIE_PRONE_HANDS" file="Anims\LOBOT\RGF\F_P_DIE_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
 <AnimSurface name="RGF_DIE_PRONE_TORSO" file="Anims\LOBOT\RGF\F_P_DIE_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="22" profile="-1" />
@@ -1904,6 +1905,7 @@
 <AnimSurface name="RGF_CROWBAR_CR_HIT_CAMOHELMET" file="Anims\LOBOT\RGF\F_C_CROWBAR_CAMOHELMET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="RGF_CROWBAR_CR_HIT_LSLEEVE" file="Anims\LOBOT\RGF\F_C_CROWBAR_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <!-- Standing, empty hands, get hit and die -->
+<AnimSurface name="RGF_EMPTY_DIE_BLOOD" file="Anims\LOBOT\RGM\S_D_FWD_blood.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIE_HEAD" file="Anims\LOBOT\RGF\F_D_FWD_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIE_HANDS" file="Anims\LOBOT\RGF\F_D_FWD_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIE_TORSO" file="Anims\LOBOT\RGF\F_D_FWD_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
@@ -1932,6 +1934,7 @@
 <AnimSurface name="RGF_EMPTY_JFK_PADS" file="Anims\LOBOT\RGF\F_D_FWD_PADS.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="RGF_EMPTY_JFK_LSLEEVE" file="Anims\LOBOT\RGF\F_D_FWD_LSLEEVE.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <!-- Standing, empty hands, fly back and die -->
+<AnimSurface name="RGF_EMPTY_DIEFB_BLOOD" file="Anims\LOBOT\RGM\S_DIEBAC_blood.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIEFB_HEAD" file="Anims\LOBOT\RGF\F_DIEBAC_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIEFB_HANDS" file="Anims\LOBOT\RGF\F_DIEBAC_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
 <AnimSurface name="RGF_EMPTY_DIEFB_TORSO" file="Anims\LOBOT\RGF\F_DIEBAC_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
