@@ -168,20 +168,18 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	INT8 bCurrentRating;
 	UINT16 *psStatGainPtr;
 	BOOLEAN fAffectedByWisdom = TRUE;
-	INT16 growthModifier = 1;
 
 	Assert(pProfile != NULL);
 
 	if (usNumChances == 0)
 		return;
 	
-	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
-	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile->bExpLevel);
+	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile);
+	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile);
 
 	switch (ubStat)
 	{
 		case HEALTHAMT:
-			growthModifier = pProfile->bGrowthModifierLife;
 			bCurrentRating = pProfile->bLifeMax;
 			psStatGainPtr = (UINT16 *)&(pProfile->sLifeGain);
 			// NB physical stat checks not affected by wisdom, unless training is going on
@@ -189,64 +187,54 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 		break;
 
 		case AGILAMT:
-			growthModifier = pProfile->bGrowthModifierAgility;
 			bCurrentRating = pProfile->bAgility;
 			psStatGainPtr = (UINT16 *)&(pProfile->sAgilityGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case DEXTAMT:
-			growthModifier = pProfile->bGrowthModifierDexterity;
 			bCurrentRating = pProfile->bDexterity;
 			psStatGainPtr = (UINT16 *)&(pProfile->sDexterityGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case WISDOMAMT:
-			growthModifier = pProfile->bGrowthModifierWisdom;
 			bCurrentRating = pProfile->bWisdom;
 			psStatGainPtr = (UINT16 *)&(pProfile->sWisdomGain);
 		break;
 
 		case MEDICALAMT:
-			growthModifier = pProfile->bGrowthModifierMedical;
 			bCurrentRating = pProfile->bMedical;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMedicalGain);
 		break;
 
 		case EXPLODEAMT:
-			growthModifier = pProfile->bGrowthModifierExplosive;
 			bCurrentRating = pProfile->bExplosive;
 			psStatGainPtr = (UINT16 *)&(pProfile->sExplosivesGain);
 		break;
 
 		case MECHANAMT:
-			growthModifier = pProfile->bGrowthModifierMechanical;
 			bCurrentRating = pProfile->bMechanical;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMechanicGain);
 		break;
 
 		case MARKAMT:
-			growthModifier = pProfile->bGrowthModifierMarksmanship;
 			bCurrentRating = pProfile->bMarksmanship;
 			psStatGainPtr = (UINT16 *)&(pProfile->sMarksmanshipGain);
 		break;
 
 		case EXPERAMT:
-			growthModifier = pProfile->bGrowthModifierExpLevel;
 			bCurrentRating = pProfile->bExpLevel;
 			psStatGainPtr = (UINT16 *)&(pProfile->sExpLevelGain);
 		break;
 
 		case STRAMT:
-			growthModifier = pProfile->bGrowthModifierStrength;
 			bCurrentRating = pProfile->bStrength;
 			psStatGainPtr = (UINT16 *)&(pProfile->sStrengthGain);
 			fAffectedByWisdom = FALSE;
 		break;
 
 		case LDRAMT:
-			growthModifier = pProfile->bGrowthModifierLeadership;
 			bCurrentRating = pProfile->bLeadership;
 			psStatGainPtr = (UINT16 *)&(pProfile->sLeadershipGain);
 		break;
@@ -256,10 +244,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"ERROR: ProcessStatChange: Rcvd unknown ubStat %d", ubStat);
 		return;
 	}
-
-	// no stat growth
-	if (growthModifier == 0)
-		return;
 
 	if (ubReason == FROM_TRAINING)
 	{
@@ -276,7 +260,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	// loop once for each chance to improve
 	for (uiCnt = 0; uiCnt < usNumChances; ++uiCnt)
 	{
-		if (growthModifier > 0)               // Evolves!
+		if (pProfile->bEvolution != 2)               // Evolves!
 		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
@@ -307,7 +291,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			// if there IS a usChance, adjust it for high or low wisdom (50 is avg)
 			if (usChance > 0 && fAffectedByWisdom)
 			{
-				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
+				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile)) - 50)) / 100;
 			}
 
 			// rftr: reduced growth rates at 80+ and 90+ (to make mercs with higher base stats more valuable)
@@ -318,12 +302,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			else if (bCurrentRating >= 80)
 			{
 				usChance = min(gGameExternalOptions.ubMaxGrowthChanceAt80, usChance);
-			}
-
-			// we can further modify usChance here based on growth rate modifier
-			if (usChance > 0)
-			{
-				usChance *= (growthModifier / 100.f);
 			}
 
 			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
@@ -408,7 +386,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				// if there IS a usChance, adjust it for high or low wisdom (50 is avg)
 				if (usChance > 0 && fAffectedByWisdom)
 				{
-					usChance -= (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
+					usChance -= (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile)) - 50)) / 100;
 				}
 
 				// if there's ANY usChance, minimum usChance is 1% regardless of wisdom
@@ -492,7 +470,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 	UINT16 usSubpointsPerPoint;
 	INT8 bDamagedStatToRaise = -1; // added by SANDRO 
 
-	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel );
+	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile );
 
 	// build ptrs to appropriate profiletype stat fields
 	switch( ubStat )
@@ -918,7 +896,7 @@ void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UIN
 		// set default min & max, subpoints/pt.
 		bMinStatValue = 1;
 		bMaxStatValue = MAX_STAT_VALUE;
-		usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
+		usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile);
 
 		// build ptrs to appropriate profiletype stat fields
 		switch( ubStat )
@@ -1161,7 +1139,7 @@ UINT32 RoundOffSalary(UINT32 uiSalary)
 }
 
 
-UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
+UINT16 SubpointsPerPoint(UINT8 ubStat, MERCPROFILESTRUCT* pProfile)
 {
 	UINT16 usSubpointsPerPoint;
 
@@ -1182,40 +1160,51 @@ UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
 	  // Attributes
     case HEALTHAMT:
 		usSubpointsPerPoint = HEALTH_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierLife;
 		break;
     case AGILAMT:
 		usSubpointsPerPoint = AGILITY_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierAgility;
 		break;
     case DEXTAMT:
 		usSubpointsPerPoint = DEXTERITY_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierDexterity;
 		break;
     case WISDOMAMT:
 		usSubpointsPerPoint = WISDOM_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierWisdom;
 		break;
 	case STRAMT:
 		usSubpointsPerPoint = STRENGTH_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierStrength;
 		break;
 		
 	  // Skills
     case MEDICALAMT:
 		usSubpointsPerPoint = MEDICAL_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierMedical;
 		break;
     case EXPLODEAMT:
 		usSubpointsPerPoint = EXPLOSIVES_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierExplosive;
 		break;
     case MECHANAMT:
 		usSubpointsPerPoint = MECHANICAL_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierMechanical;
 		break;
     case MARKAMT:
 		usSubpointsPerPoint = MARKSMANSHIP_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierMarksmanship;
 		break;
 	case LDRAMT:
 		usSubpointsPerPoint = LEADERSHIP_SUBPOINTS_TO_IMPROVE;
+		usSubpointsPerPoint += pProfile->bGrowthModifierLeadership;
 		break;
 
 	  // Experience
     case EXPERAMT:
-		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * bExpLevel;
+		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * pProfile->bExpLevel;
+		usSubpointsPerPoint += pProfile->bGrowthModifierExpLevel;
 		break;
 
     default:
