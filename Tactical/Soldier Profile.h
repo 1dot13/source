@@ -314,7 +314,7 @@ typedef struct
 
 	INT8		bExpLevel;
 
-	INT8		bEvolution;
+	BOOLEAN		fRegresses;
 	INT16		bGrowthModifierLife;
 	INT16		bGrowthModifierStrength;
 	INT16		bGrowthModifierAgility;

@@ -101,8 +101,8 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "bMedical") == 0 ||
 				strcmp(name, "bMechanical") == 0 ||
 				strcmp(name, "bExpLevel") == 0 ||
-				strcmp(name, "bEvolution") == 0 ||
-				// rftr: growth rates are intended to replace the evolution tag, letting each stat have its own growth modifier
+				strcmp(name, "fRegresses") == 0 ||
+				// rftr: growth rates are intended to replace the <bEvolution> tag, letting each stat have its own growth modifier
 				strcmp(name, "bGrowthModifierLife") == 0 ||
 				strcmp(name, "bGrowthModifierStrength") == 0 ||
 				strcmp(name, "bGrowthModifierAgility") == 0 ||
@@ -292,7 +292,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bMechanical = pData->curProfile.bMechanical;
 					tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
 
-					tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
+					tempProfiles[pData->curIndex].fRegresses = pData->curProfile.fRegresses;
 					tempProfiles[pData->curIndex].bGrowthModifierLife = pData->curProfile.bGrowthModifierLife;
 					tempProfiles[pData->curIndex].bGrowthModifierStrength = pData->curProfile.bGrowthModifierStrength;
 					tempProfiles[pData->curIndex].bGrowthModifierAgility = pData->curProfile.bGrowthModifierAgility;
@@ -609,11 +609,11 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curProfile.bExpLevel = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
-		
-		else if(strcmp(name, "bEvolution") == 0)
+
+		else if(strcmp(name, "fRegresses") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curProfile.bEvolution = (UINT32) strtoul(pData->szCharData, NULL, 0);
+			pData->curProfile.fRegresses = (BOOLEAN) strtoul(pData->szCharData, NULL, 0);
 		}
 
 		else if (strncmp(name, "bGrowthModifier", 11) == 0) // doing this to avoid C1061
@@ -1682,7 +1682,7 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<bMedical>%d</bMedical>\r\n", gMercProfiles[ cnt ].bMedical);
 			FilePrintf(hFile,"\t\t<bMechanical>%d</bMechanical>\r\n", gMercProfiles[ cnt ].bMechanical);
 			FilePrintf(hFile,"\t\t<bExpLevel>%d</bExpLevel>\r\n", gMercProfiles[ cnt ].bExpLevel);
-			FilePrintf(hFile,"\t\t<bEvolution>%d</bEvolution>\r\n", gMercProfiles[ cnt ].bEvolution);
+			FilePrintf(hFile,"\t\t<_old_bEvolution>%d</_old_bEvolution>\r\n", gMercProfiles[ cnt ]._old_bEvolution);
 			////////////////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - old/new traits
 			if (gGameOptions.fNewTraitSystem)

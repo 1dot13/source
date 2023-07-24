@@ -778,7 +778,7 @@ public:
 	INT8		bSex;
 	INT8		bArmourAttractiveness;
 	UINT8		ubMiscFlags2;
-	INT8		bEvolution;
+	INT8		_old_bEvolution;
 	UINT8		ubMiscFlags;
 	UINT8		bSexist;
 	UINT8		bLearnToHate;
@@ -1000,6 +1000,7 @@ public:
 	UINT32 Type;
 
 	// rftr: growth modifiers
+	BOOLEAN fRegresses; // if TRUE, the following growth modifiers are not used and instead the merc loses stats over time
 	INT8 bGrowthModifierLife;
 	INT8 bGrowthModifierStrength;
 	INT8 bGrowthModifierAgility;

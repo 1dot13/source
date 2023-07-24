@@ -260,7 +260,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	// loop once for each chance to improve
 	for (uiCnt = 0; uiCnt < usNumChances; ++uiCnt)
 	{
-		if (pProfile->bEvolution != 2)               // Evolves!
+		if (pProfile->fRegresses == FALSE)               // Evolves!
 		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
@@ -1781,7 +1781,7 @@ void TestDumpStatChanges(void)
 			// print days served
 			fprintf(FDump, "%3d ", pProfile->usTotalDaysServed);
 			// print evolution type
-			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->bEvolution ]);
+			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->_old_bEvolution ]);
 
 			// now print all non-zero stats
 			for( ubStat = FIRST_CHANGEABLE_STAT; ubStat <= LAST_CHANGEABLE_STAT; ubStat++ )

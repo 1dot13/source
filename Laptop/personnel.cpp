@@ -2237,7 +2237,7 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 	if ( !gGameExternalOptions.bDisableEvolution )
 	{
 		CHAR16 sStr2[200];
-		swprintf( sStr2, szLaptopStatText[12 + gMercProfiles[pSoldier->ubProfile].bEvolution], pSoldier->GetName() );
+		swprintf( sStr2, szLaptopStatText[12 + gMercProfiles[pSoldier->ubProfile]._old_bEvolution], pSoldier->GetName() );
 
 		mprintf( (INT16)( pPersonnelScreenPoints[loc].x + ( iSlot*TEXT_BOX_WIDTH ) ), ( pPersonnelScreenPoints[loc].y + 15 ), sStr2 );
 
