@@ -2710,6 +2710,19 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].usVoiceIndex = tempProfiles[uiLoop].usVoiceIndex;
 		gMercProfiles[ uiLoop ].Type = tempProfiles[uiLoop].Type;
 
+		gMercProfiles[uiLoop].fRegresses = tempProfiles[uiLoop].fRegresses;
+		gMercProfiles[uiLoop].bGrowthModifierLife = tempProfiles[uiLoop].bGrowthModifierLife;
+		gMercProfiles[uiLoop].bGrowthModifierStrength = tempProfiles[uiLoop].bGrowthModifierStrength;
+		gMercProfiles[uiLoop].bGrowthModifierAgility = tempProfiles[uiLoop].bGrowthModifierAgility;
+		gMercProfiles[uiLoop].bGrowthModifierDexterity = tempProfiles[uiLoop].bGrowthModifierDexterity;
+		gMercProfiles[uiLoop].bGrowthModifierWisdom = tempProfiles[uiLoop].bGrowthModifierWisdom;
+		gMercProfiles[uiLoop].bGrowthModifierMarksmanship = tempProfiles[uiLoop].bGrowthModifierMarksmanship;
+		gMercProfiles[uiLoop].bGrowthModifierExplosive = tempProfiles[uiLoop].bGrowthModifierExplosive;
+		gMercProfiles[uiLoop].bGrowthModifierLeadership = tempProfiles[uiLoop].bGrowthModifierLeadership;
+		gMercProfiles[uiLoop].bGrowthModifierMedical = tempProfiles[uiLoop].bGrowthModifierMedical;
+		gMercProfiles[uiLoop].bGrowthModifierMechanical = tempProfiles[uiLoop].bGrowthModifierMechanical;
+		gMercProfiles[uiLoop].bGrowthModifierExpLevel = tempProfiles[uiLoop].bGrowthModifierExpLevel;
+
 		gProfileType[uiLoop] = gMercProfiles[uiLoop].Type;
 				
 		switch ( tempProfiles[uiLoop].Type )
