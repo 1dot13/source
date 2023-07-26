@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "AI All.h"
-#else
 #include "ai.h"
 #include "Weapons.h"
 #include "opplist.h"
@@ -34,7 +31,6 @@
 #include "Render Fun.h"
 #include "worldman.h"
 #include "WCheck.h"
-#endif
 
 // anv: for enemy taunts
 #include "Civ Quotes.h"
@@ -3312,6 +3308,10 @@ BOOLEAN AIDetermineStealingWeaponAttempt( SOLDIERTYPE * pSoldier, SOLDIERTYPE * 
 		UINT16 dfgvdfv = Item[pOpponent->inv[HANDPOS].usItem].usItemClass;
 		return( FALSE );
 	}
+	if (HasAttachmentOfClass(&(pOpponent->inv[HANDPOS]), AC_SLING))
+	{
+		return FALSE;
+	}
 
 	uiSuccessChance = CalcChanceToSteal(pSoldier, pOpponent, 0);
 	if ( uiSuccessChance >= 100 )
@@ -3759,6 +3759,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 {
 	INT16 ubMinAPcost;
 	INT8 bGrenadeIn = NO_SLOT;
+	UINT32 uiThreatCnt = 0;
 
 	// initialize
 	pBestThrow->ubPossible = FALSE;
@@ -3775,7 +3776,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	bGrenadeIn = FindThrowableGrenade(pSoldier, EXPLOSV_SMOKE);
 
 	// prepare threat list for ClosestSeenThreatID(), ClosestKnownThreatID()
-	PrepareThreatlist(pSoldier);
+	uiThreatCnt = PrepareThreatlist(pSoldier);
 
 	if (bGrenadeIn != NO_SLOT)
 	{
@@ -3814,7 +3815,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 			if (TileIsOutOfBounds(sTargetSpot))
 			{
-				ubClosestThreatID = ClosestSeenThreatID(pSoldier, SEEN_LAST_TURN);
+				ubClosestThreatID = ClosestSeenThreatID(pSoldier, uiThreatCnt, SEEN_LAST_TURN);
 
 				if (ubClosestThreatID != NOBODY &&
 					MercPtrs[ubClosestThreatID] &&
@@ -3828,7 +3829,7 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 			if (TileIsOutOfBounds(sTargetSpot))
 			{
-				ubClosestThreatID = ClosestKnownThreatID(pSoldier);
+				ubClosestThreatID = ClosestKnownThreatID(pSoldier, uiThreatCnt);
 
 				if (ubClosestThreatID != NOBODY &&
 					MercPtrs[ubClosestThreatID] &&

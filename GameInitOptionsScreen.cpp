@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Intro.h"
-#else
 	#include "Types.h"
 	#include "GameInitOptionsScreen.h"
 	#include "GameSettings.h"
@@ -22,7 +18,6 @@
 	#include "Text.h"
 	#include "_Ja25EnglishText.h"
 	#include "Soldier Profile.h"
-#endif
 
 #include "gameloop.h"
 #include "connect.h"
@@ -4158,7 +4153,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution >= _800x600 && iResolution < _1024x768)
+		if (iResolution >= _800x600 && iResolution < _1280x720)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -4178,7 +4173,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution >= _800x600 && iResolution < _1024x768)
+		if (iResolution >= _800x600 && iResolution < _1280x720)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )

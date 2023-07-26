@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Sound Control.h"
@@ -54,7 +51,6 @@
 	#include "environment.h"	// added by silversurfer
 	// sevenfm
 	#include "buildings.h"		// SameBuilding
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

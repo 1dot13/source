@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <stdio.h>
 	#include "Font Control.h" 
 	#include "renderworld.h"
@@ -45,7 +40,6 @@
 	#include "MessageBoxScreen.h"
 	#include <vfs/Core/vfs.h>//dnl ch37 110909
 	#include "Exit Grids.h"//dnl ch86 190214
-#endif
 
 //===========================================================================
 
@@ -568,7 +562,7 @@ void CreateFileDialog( STR16 zTitle )
 	//File list window
 	iFileDlgButtons[4] = CreateHotSpot( (iScreenWidthOffset + 179+4), (iScreenHeightOffset + 69+3), (179+4+240), (69+120+3), MSYS_PRIORITY_HIGH-1, BUTTON_NO_CALLBACK, FDlgNamesCallback);	
 	//Title button
-	iFileDlgButtons[5] = CreateTextButton(zTitle, HUGEFONT, FONT_LTKHAKI, FONT_DKKHAKI,
+	iFileDlgButtons[5] = CreateTextButton(zTitle, GetHugeFont(), FONT_LTKHAKI, FONT_DKKHAKI,
 		BUTTON_USE_DEFAULT,iScreenWidthOffset + 179, iScreenHeightOffset + 39,281,30,BUTTON_NO_TOGGLE,
 		MSYS_PRIORITY_HIGH-2,BUTTON_NO_CALLBACK,BUTTON_NO_CALLBACK);
 	DisableButton(iFileDlgButtons[5]);
@@ -1019,7 +1013,7 @@ UINT32 ProcessFileIO()
 		case INITIATE_MAP_SAVE:	//draw save message 
 			StartFrameBufferRender( );
 			SaveFontSettings();
-			SetFont( HUGEFONT );
+			SetFont( GetHugeFont() );
 			SetFontForeground( FONT_LTKHAKI );
 			SetFontShadow( FONT_DKKHAKI );
 			SetFontBackground( 0 );

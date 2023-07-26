@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Soldier Control.h"
@@ -36,7 +33,6 @@
 	#include "XML.h"
 	#include "utilities.h"
 	#include "store inventory.h"
-#endif
 
 // Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
 UINT32 gMAXITEMS_READ = 0;
@@ -311,7 +307,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ProvidesRobotNightVision") == 0 ||
 				strcmp(name, "ProvidesRobotLaserBonus") == 0 ||
 				strcmp(name, "FoodSystemExclusive") == 0 ||
-				strcmp(name, "DiseaseSystemExclusive") == 0
+				strcmp(name, "DiseaseSystemExclusive") == 0 ||
+				strcmp(name, "TransportGroupMinProgress") == 0 ||
+				strcmp(name, "TransportGroupMaxProgress") == 0
 				)
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -388,9 +386,6 @@ static void XMLCALL
 itemEndElementHandle(void *userData, const XML_Char *name)
 {
 	itemParseData * pData = (itemParseData *)userData;
-#if 0
-	char temp;
-#endif
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
 	{
@@ -442,136 +437,40 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//	pData->curItem.szItemName[MAX_CHAR_DATA_LENGTH] = '\0';
 			//}
 
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curItem.szItemName,pData->szCharData);
-			else
-			{
-				strncpy(pData->curItem.szItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curItem.szItemName[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curItem.szItemName[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: itemname[%d] = %s, temp = %s",i,&pData->curItem.szItemName[i],&temp));
-			}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curItem.szItemName, sizeof(pData->curItem.szItemName)/sizeof(pData->curItem.szItemName[0]) );
 			pData->curItem.szItemName[sizeof(pData->curItem.szItemName)/sizeof(pData->curItem.szItemName[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "szLongItemName") == 0)
 		{
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: longitemname");
 			pData->curElement = ELEMENT;
 
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-			{
-				strcpy(pData->curItem.szLongItemName,pData->szCharData);
-			}
-			else
-			{
-				strncpy(pData->curItem.szLongItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curItem.szLongItemName[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curItem.szLongItemName[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: longitemname[%d] = %s, temp = %s",i,&pData->curItem.szLongItemName[i],&temp));
-			}
-			//if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-			//{
-			//	strcpy(pData->curItem.szLongItemName,pData->szCharData);
-			//}
-			//else
-			//{
-			//	strncpy(pData->curItem.szLongItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-			//	pData->curItem.szLongItemName[MAX_CHAR_DATA_LENGTH] = '\0';
-			//}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curItem.szLongItemName, sizeof(pData->curItem.szLongItemName)/sizeof(pData->curItem.szLongItemName[0]) );
 			pData->curItem.szLongItemName[sizeof(pData->curItem.szLongItemName)/sizeof(pData->curItem.szLongItemName[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "szItemDesc") == 0)
 		{
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: itemdesc");
 			pData->curElement = ELEMENT;
 
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curItem.szItemDesc,pData->szCharData);
-			else
-			{
-				strncpy(pData->curItem.szItemDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curItem.szItemDesc[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curItem.szItemDesc[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: itemdesc[%d] = %s, temp = %s",i,&pData->curItem.szItemDesc[i],&temp));
-			}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curItem.szItemDesc, sizeof(pData->curItem.szItemDesc)/sizeof(pData->curItem.szItemDesc[0]) );
 			pData->curItem.szItemDesc[sizeof(pData->curItem.szItemDesc)/sizeof(pData->curItem.szItemDesc[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "szBRName") == 0)
 		{
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brname");
 			pData->curElement = ELEMENT;
 
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curItem.szBRName,pData->szCharData);
-			else
-			{
-				strncpy(pData->curItem.szBRName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curItem.szBRName[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curItem.szBRName[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: BRname[%d] = %s, temp = %s",i,&pData->curItem.szBRName[i],&temp));
-			}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curItem.szBRName, sizeof(pData->curItem.szBRName)/sizeof(pData->curItem.szBRName[0]) );
 			pData->curItem.szBRName[sizeof(pData->curItem.szBRName)/sizeof(pData->curItem.szBRName[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "szBRDesc") == 0)
 		{
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brdesc");
 			pData->curElement = ELEMENT;
 
-#if 0
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curItem.szBRDesc,pData->szCharData);
-			else
-			{
-				strncpy(pData->curItem.szBRDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curItem.szBRDesc[MAX_CHAR_DATA_LENGTH] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curItem.szBRDesc[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: BRdesc[%d] = %s, temp = %s",i,&pData->curItem.szBRDesc[i],&temp));
-			}
-#else
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curItem.szBRDesc, sizeof(pData->curItem.szBRDesc)/sizeof(pData->curItem.szBRDesc[0]) );
 			pData->curItem.szBRDesc[sizeof(pData->curItem.szBRDesc)/sizeof(pData->curItem.szBRDesc[0]) - 1] = '\0';
-#endif
 		}
 		else if(strcmp(name, "usItemClass") == 0)
 		{
@@ -1608,25 +1507,35 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		}
 		else if (strcmp(name, "ProvidesRobotNightVision") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.fProvidesRobotNightVision = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "ProvidesRobotLaserBonus") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			pData->curItem.fProvidesRobotLaserBonus = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "FoodSystemExclusive") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			if (atol(pData->szCharData))
 				pData->curItem.usLimitedToSystem|= FOOD_SYSTEM_FLAG;
 		}
 		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
 		{
-			pData->curElement == ELEMENT;
+			pData->curElement = ELEMENT;
 			if (atol(pData->szCharData))
 			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
+		}
+		else if (strcmp(name, "TransportGroupMinProgress") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.iTransportGroupMinProgress = (INT8)atoi(pData->szCharData);
+		}
+		else if (strcmp(name, "TransportGroupMaxProgress") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.iTransportGroupMaxProgress = (INT8)atoi(pData->szCharData);
 		}
 
 		--pData->maxReadDepth;

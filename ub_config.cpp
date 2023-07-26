@@ -1,21 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Types.h"
-	#include "types.h"
-	#include "Strategic All.h"
-	#include "XML.h"
-	#include "INIReader.h"
-	#include "GameSettings.h"
-	#include "Soldier Profile.h"
-	#include "XML.h"
-	#include "Item Types.h"
-	#include "Items.h"
-	#include "Game Event Hook.h"
-	#include "faces.h"
-	#include "Language Defines.h"
-	#include "Types.h"
-	#include "Map Screen Interface Map.h"
-	#include "ub_config.h" //legion2	
-#else
 	#include "Types.h"
 	#include "types.h"
 	#include "Random.h"
@@ -65,7 +47,6 @@
 	#include "Items.h"
 	#include "text.h"
 	#include "GameSettings.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"

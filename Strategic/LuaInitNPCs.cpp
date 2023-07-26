@@ -11,7 +11,6 @@
 #include "Game Init.h"
 #include "interface Dialogue.h"
 #include "opplist.h"
-#include "Strategic All.h"
 #include "pits.h"
 #include  "Game Event Hook.h"
 #include "Creature Spreading.h"
@@ -40,6 +39,12 @@
 #include "soldier profile type.h"
 #include "history.h"
 #include "Merc Hiring.h"
+#include "Game Events.h"
+#include "email.h"
+#include "worldman.h"
+#include "text.h"
+#include "Dialogue Control.h"
+#include "Boxing.h"
 
 #include "LOS.h"
 #include "Music Control.h"
@@ -75,6 +80,22 @@ extern "C" {
 
 #include "BriefingRoom_Data.h"
 #include "MiniGame.h"	// added by Flugente
+#include "Campaign.h"
+#include "strategic.h"
+#include "PreBattle Interface.h"
+#include "Strategic Event Handler.h"
+#include "files.h"
+#include "finances.h"
+#include "Sound Control.h"
+#include "SaveLoadMap.h"
+#include "renderworld.h"
+#include "Keys.h"
+#include "Render Fun.h"
+#include "Soldier Add.h"
+#include "gameloop.h"
+#include "Merc Contract.h"
+#include "message.h"
+#include "Town Militia.h"
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
@@ -12755,22 +12776,7 @@ static bool locationStringToCoordinates_AltSector(std::string loc, UINT8* x, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc.substr(1));
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)
@@ -12809,22 +12815,7 @@ static bool locationStringToCoordinates(std::string loc, UINT8* x, UINT8* y, UIN
 	}
 	
 	// gather column
-#if 0
-	loc = loc.substr(1);
-	stringstream ss = stringstream();
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-	if (loc[0] >= '0' && loc[0] <= '9')
-	{
-		ss << loc[0];
-		loc = loc.substr(1);
-	}
-#else
 	stringstream ss(loc);
-#endif
 	int col = 0;
 	ss >> col;
 	if (col >= 1 && col <= 16)
@@ -13623,43 +13614,58 @@ static int l_GetNumHostilesInSector( lua_State *L )
 
 void LuaGetIntelAndQuestMapData( INT32 aLevel )
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	static LuaScopeState _LS(true);
+	static bool isInitialized = false;
 
-	LuaScopeState _LS( true );
+	// Initialize only once during lifetime of program
+	if (!isInitialized)
+	{
+		isInitialized = true;
+		IniFunction(_LS.L(), TRUE);
+		IniGlobalGameSetting(_LS.L());
+		const char* filename = "scripts\\strategicmap.lua";
+		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	}
 
-	IniFunction( _LS.L(), TRUE );
-	IniGlobalGameSetting( _LS.L() );
-
-	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
-
+	IniGlobalGameSetting(_LS.L());
 	LuaFunction( _LS.L, "GetIntelAndQuestMapData" ).Param<int>( aLevel ).Call( 1 );
 }
 
 void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft )
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	static LuaScopeState _LS(true);
+	static bool isInitialized = false;
 
-	LuaScopeState _LS( true );
+	// Initialize only once during lifetime of program
+	if (!isInitialized)
+	{
+		isInitialized = true;
+		IniFunction(_LS.L(), TRUE);
+		IniGlobalGameSetting(_LS.L());
+		const char* filename = "scripts\\strategicmap.lua";
+		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	}
 
-	IniFunction( _LS.L(), TRUE );
-	IniGlobalGameSetting( _LS.L() );
-
-	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
-
+	IniGlobalGameSetting(_LS.L());
 	LuaFunction( _LS.L, "SetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Param<int>( sProgressLeft ).Call( 6 );
 }
 
 INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber )
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	static LuaScopeState _LS( true );
+	static bool isInitialized = false;
 
-	LuaScopeState _LS( true );
+	// Initialize only once during lifetime of program
+	if (!isInitialized)
+	{
+		isInitialized = true;
+		IniFunction( _LS.L(), TRUE );
+		IniGlobalGameSetting(_LS.L());
+		const char* filename = "scripts\\strategicmap.lua";
+		SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+	}
 
-	IniFunction( _LS.L(), TRUE );
-	IniGlobalGameSetting( _LS.L() );
-
-	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
-
+	IniGlobalGameSetting(_LS.L());
 	LuaFunction( _LS.L, "GetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Call( 5 );
 	
 	if ( lua_gettop( _LS.L() ) >= 0 )

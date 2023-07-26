@@ -2,9 +2,6 @@
 // WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
 //#pragma setlocale("POLISH")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-#else
 	#include "Language Defines.h"
 	#if defined( POLISH )
 		#include "text.h"
@@ -13,7 +10,6 @@
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_PolishText_public_symbol(void){;}
@@ -2486,7 +2482,8 @@ STR16 pAssignmentStrings[] =
 	L"Burial",
 	L"Admin", // TODO.Translate
 	L"Explore",	// TODO.Translate
-	L"Event"// rftr: merc is on a mini event // TODO: translate
+	L"Event",// rftr: merc is on a mini event // TODO: translate
+	L"Mission", // rftr: rebel command
 };
 
 
@@ -3577,6 +3574,8 @@ STR16 gpStrategicString[] =
 	L"Zombie",
 	L"Bandit",
 	L"Bandits attack and kill %d civilians in sector %s.",
+	L"Transport group",
+	L"Transport group en route",
 };
 
 STR16 gpGameClockString[] = 
@@ -4670,6 +4669,7 @@ STR16 pTransactionText[] =
 	L"Mini event", // rftr: mini events // TODO: translate
 	L"Funds transferred from rebel command", // rftr: rebel command
 	L"Funds transferred to rebel command", // rftr: rebel command
+	L"Bounty payout", // rftr: rebel command soldier bounties
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6268,6 +6268,7 @@ STR16	z113FeaturesToggleText[] =
 	L"Weather: Snow",
 	L"Mini Events",
 	L"Arulco Rebel Command",
+	L"Strategic Transport Groups",
 };
 
 STR16	z113FeaturesHelpText[] =
@@ -6315,6 +6316,7 @@ STR16	z113FeaturesHelpText[] =
 	L"|W|e|a|t|h|e|r|: |S|n|o|w\nOverrides [Tactical Weather Settings] ALLOW_SNOW\n \nSnowstorms decrease visibility.\n \nConfigurable Options:\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW",
 	L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
 	L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",
+	L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
 
 STR16	z113FeaturesPanelText[] =
@@ -6362,6 +6364,7 @@ STR16	z113FeaturesPanelText[] =
 	L"Toggle snow. In a snowstorm, it is harder to see, weapons degrade faster, and it is a little harder to regain breath.",
 	L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
 	L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
+	L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
 
 
@@ -6537,7 +6540,7 @@ STR16		zOptionsToggleText[] =
 	L"Potwierdzenia Real-Time",
 	L"Najemnik śpi/budzi się",
 	L"Używaj systemu metrycznego",
-	L"Oświetlenie podczas ruchu",
+	L"Wyróżnij najemników",
 	L"Przyciągaj kursor do najemników",
 	L"Przyciągaj kursor do drzwi",
 	L"Pulsujące przedmioty",
@@ -6580,6 +6583,8 @@ STR16		zOptionsToggleText[] =
 	L"Invert mouse wheel",			// TODO.Translate
 	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"Show enemy location",					// show locator on last known enemy location
+	L"Start at maximum aim",
+	L"Alternative pathfinding",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6640,8 +6645,8 @@ STR16	zOptionsScreenHelpText[] =
 	//Use the metric system
 	L"Jeśli WŁĄCZONE, gra będzie używała systemu metrycznego.",
 
-	//Merc Lighted movement
-	L"Jeśli WŁĄCZONE, teren wokół najemnika będzie oświetlony podczas ruchu. Może spowolnić działanie gry.\nToggle artificial merc light. (|G)",	// TODO.Translate
+	//Highlight Mercs
+	L"Gdy jest włączony, podświetla najemnika (niewidoczny dla wrogów).\nPrzełącz w grze za pomocą (|G)",
 
 	//Smart cursor
 	L"Jeśli WŁĄCZONE, kursor będzie automatycznie ustawiał się na najemnikach gdy znajdzie się w ich pobliżu.",
@@ -6699,6 +6704,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
 	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving.\n(press |C|t|r|l+|A|l|t+|G to toggle mode or |S|h|i|f|t + click to move in formation)", //TODO.Translate
 	L"When ON, shows last known enemy location.",	//TODO.Translate
+	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
+	L"When ON, Use A* pathfinding algorithm, instead of original",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7671,6 +7678,7 @@ STR16 New113Message[] =
 	L"Radio action failed!",
 	L"Not enough mortar shells in sector to start a barrage!",
 	L"No signal shell item found in Items.xml!",
+	L"No High-Explosive shell item found in Items.xml!",
 	L"No mortars found, cannot commence barrage!",
 	L"Already jamming signal, no need to do so again!",
 	L"Already listening for nearby sounds, no need to do so again!",
@@ -8697,6 +8705,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|M|e|d|i|c|a|l |S|p|l|i|n|t", // TODO.Translate
 	L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",				// 49	TODO.Translate
 	L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
+	L"|B|e|l|t| |F|e|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8740,7 +8749,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis item will block your iron sights\nso you cannot use them.",
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
-	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \nIf kept in your inventory, this will lower\nthe chance to be infected by other people.",
 	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
 	L"\n \nYou can take photos with this.",		// TODO.Translate
 	L"\n \nThis item makes you more effective at burying corpses.",
@@ -8752,6 +8761,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", // TODO.Translate
 	L"\n \nThis ammo can extinguish fire.",	// 49	 TODO.Translate
 	L"\n \nThis ammo can cause fire.",
+	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9211,6 +9221,8 @@ STR16	szPrisonerTextStr[]=
 	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
+	L"Some of your mercs managed to escape the enemy capture!",
+	L"No possible escape is seen, it's a fight to the death!"
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate
@@ -11878,12 +11890,16 @@ STR16 gLbeStatsDesc[14] =
 
 STR16 szRebelCommandText[] = // TODO.Translate
 {
-	L"Arulco Rebel Command - National Overview",
-	L"Arulco Rebel Command - Regional Overview",
-	L"Switch to Regional Overview",
-	L"Switch to National Overview",
+	L"National Overview",
+	L"Regional Overview",
+	L"Mission Overview",
+	L"Select View:",
+	L"Regional (2)",
+	L"National (1)",
+	L"Mission (3)",
 	L"Supplies:",
 	L"Incoming Supplies",
+	L"Intel:",
 	L"/day",
 	L"Current Directive",
 	L"Improve Directive ($%d)",
@@ -11941,17 +11957,68 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"<",
 	L">",
 	L"Changing this Admin Action will cost $%d and reset its tier. Confirm expenditure?",
+	L"Insufficient supplies! Admin Actions have been DISABLED.",
+	L"New missions will be available every %d hours.",
+	L"New missions are available at the A.R.C. website.",
+	L"Mission preparations in progress.",
+	L"Mission duration: %d days",
+	L"Chance of success: %d%s",
+	L"[REDACTED]",
+	L"Name: %s",
+	L"Location: %s",
+	L"Assignment: %s",
+	L"Contract: %d days",
+	L"Contract: %d hours",
+	L"Contract: ---",
+	L"Agent bonus:",
+	L"Chance of success +%d%s (%s)",
+	L"Deployment range +%d (%s)",
+	L"ASD Income -%2.0f%s (%s)",
+	L"Steal fuel; send to %s (%s)",
+	L"Destroy reserve units (%s)",
+	L"Time +%2.0f%s (%s)",
+	L"Vision -%2.0f%s (%s)",
+	L"Gear quality -%d (%s)",
+	L"Overall stats -%d (%s)",
+	L"Max trainers: %d (%s)",
+	L"Payout +%2.0f%s (%s)",
+	L"Payout limit increased to $%d (%s)",
+	L"Bonus for officers (%s)",
+	L"Bonus for vehicles (%s)",
+	L"Duration +%d hours (%s)",
+	L"Agent not in town",
+	L"Town loyalty too low",
+	L"Agent unavailable",
+	L"Agent contract expiring",
+	L"Can't use rebel agent",
+	L"Battle in progress",
+	L"Prepare Mission (%d supplies)",
+	L"View active mission effects",
+	L"View available mission list",
+	L"You are able to prepare one of the two missions presented. Once an agent is dispatched, they will be unavailable for approximately %d hours before becoming available again. A popup will notify you when preparations are complete. If preparations succeed, the mission's effects become active.",
+	L"A rebel agent can be sent to prepare a mission, but your mercenaries will be far more effective. Their experience level and skills can provide additional bonuses to missions.",
+	L"The cost of preparing a mission increases based on the number other missions either active or being prepared.",
+	L"New missions will be available on Day %d at 00:00.",
+	L"Active missions:",
+	L"%s - Preparing - Ready on Day %d, %02d:%02d",
+	L"%s - Active - Expires on Day %d, %02d:%02d",
+	L"[%s (%d supplies)]",
+	L"%s Send a rebel agent to prepare this mission?",
+	L"%s Send %s to prepare this mission? He will return in approximately %d hours.",
+	L"%s Send %s to prepare this mission? She will return in approximately %d hours.",
+	L"Mission \"%s\" is now in effect.",
+	L"Preparations for mission \"%s\" failed.",
+	L"Mission \"%s\" has expired and is no longer in effect.",
 };
 
 STR16 szRebelCommandHelpText[] = // TODO.Translate
 {
 	L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
-	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.",
+	L"|I|n|c|o|m|i|n|g |S|u|p|p|l|i|e|s\n \nEach day, the rebels will gather supplies on their own. As you\ntake over more towns, the amount of supplies they will be\nable to find per day will increase.\n \n+%d (Base income)",
 	L"|C|u|r|r|e|n|t |D|i|r|e|c|t|i|v|e\n \nYou can choose how the rebels will prioritise their strategic\nobjectives. New directives will become available as you make\nprogress.",
 	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |T|e|a|m\n \nOnce deployed, an admin team is responsible for handling the\nday-to-day affairs of the region. This includes supporting\nlocals, creating rebel propaganda, establishing regional\npolicies, and more.",
 	L"|L|o|y|a|l|t|y\n \nThe effectiveness of many Administrative Actions depends on\nthe region's loyalty to your cause. It is in your best interest\nto raise loyalty as high as possible.",
 	L"|M|a|x|i|m|u|m |L|o|y|a|l|t|y\n \nYou will need to convince the locals to fully trust you. This\ncan be done by creating a supply line to them, showing that\nyou intend to improve their quality of life.",
-	L"|G|r|a|n|t |S|u|p|p|l|i|e|s\n \nSend supplies to the admin team here and allow them to use them\nas needed. This will increase the region's loyalty by a small amount\neach time you do this. However, doing this will slightly increase\nthe cost of enacting regional policies.",
 	L"This Admin Action applies its bonus to town sectors only.", //TODO.Translate
 	L"This Admin Action applies its bonus to town sectors, and\nsectors immediately adjacent to them.",
 	L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
@@ -11980,7 +12047,7 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 	L"Militia Warehouses",
 	L"Construct warehouses in remote areas, allowing the rebels to stockpile weapons for the militia. Provides daily militia resources.",
 	L"Regional Taxes",
-	L"Collect money from the locals to assist your efforts. This is a permanent action. Increases daily income, but regional loyalty falls daily.",
+	L"Collect money from the locals to assist your efforts. Increases daily income, but regional loyalty falls daily.",
 	L"Civilian Aid",
 	L"Assign some rebels to directly assist and support civilians in the area. Increases daily volunteer pool growth.",
 	L"Merc Support",
@@ -12042,6 +12109,34 @@ STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 	L"Gain %.0f volunteers each day. All towns lose some loyalty each day.",
 	L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
 	L"Improving this directive will increase the number of volunteers gained per day.",
+};
+
+STR16 szRebelCommandAgentMissionsText[] =
+{
+	L"Deep Deployment",
+	L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.",
+	L"Disrupt ASD",
+	L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
+	L"Forge Transport Orders",
+	L"Create a bogus supply request. An enemy transport group will be ordered to rendezvous at this agent's location.",
+	L"Strategic Intel",
+	L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
+	L"Improve Local Shops",
+	L"Set up ways for merchants across the country to acquire better goods more easily. Shopkeepers will have better than usual inventories.",
+	L"Slow Strategic Decisions",
+	L"Sow confusion and misdirection at the highest levels of enemy command. The enemy takes longer to make decisions at a strategic level.",
+	L"Lower Readiness",
+	L"Trick enemy soldiers into letting their guard down. Enemy soldiers have reduced vision range until they are alerted to your mercs' presence.",
+	L"Sabotage Equipment",
+	L"Disrupt enemy supply chains and prevent the enemy from maintaining their gear properly. Enemy soldiers use equipment that is worse than normal.",
+	L"Sabotage Vehicles",
+	L"Sabotage vehicle maintenance hubs to reduce their combat effectiveness and readiness. Enemy vehicles encountered have reduced stats.",
+	L"Send Supplies",
+	L"Temporarily increase direct support to this town. Town loyalty passively increases for the duration of the mission.",
+	L"Soldier Bounties (Kingpin)",
+	L"Get a payout for enemy kills. Negotiate with Kingpin, who feels he can use your presence here to indirectly weaken the Queen's power. Bounties are deposited into your account at midnight and are limited to $%d per day.",
+	L"Train Militia Anywhere",
+	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
 
 STR16 szRobotText[] = // TODO: Translate

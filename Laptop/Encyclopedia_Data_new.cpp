@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "Types.h"
 	#include "WCheck.h"
 	#include <string.h>
@@ -30,7 +27,6 @@
 	#include "Text.h"
 	#include "WordWrap.h"
     #include "Quests.h"
-#endif
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @ingroup ENCYCLOPEDIA
@@ -1328,13 +1324,8 @@ void GameInitEncyclopediaData_NEW(  )
 	giEncyclopedia_DataBtnImage = BUTTON_NO_IMAGE;
 	memset( giEncyclopedia_DataFilterBtn, BUTTON_NO_SLOT, sizeof(giEncyclopedia_DataFilterBtn) );
 	giEncyclopedia_DataFilterBtnImage = BUTTON_NO_IMAGE;
-#if 0//debug
-	memset( gbEncyclopediaData_ItemVisible, ENC_ITEM_DISCOVERED_NOT_REACHABLE, sizeof(gbEncyclopediaData_ItemVisible) );
-	gbEncyclopediaData_ItemVisible[1] = ENC_ITEM_NOT_DISCOVERED;
-#else
 	if( guiCurrentScreen == MAINMENU_SCREEN )
 		EncyclopediaInitItemsVisibility();
-#endif
 	// do following only once at start of JA2
 	CHECKV( guiCurrentScreen == 0 );
 	//prepare indexes for subfilter texts defined in _LanguageText.cpp, assuming there are blank separators between filter button texts ("1", "2", "3", "", "1", "", "1", "2", "3", "4")

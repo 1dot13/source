@@ -62,6 +62,7 @@ enum
 	MINI_EVENT,				// rftr: mini events
 	REBEL_COMMAND,			// rftr: rebel command
 	REBEL_COMMAND_SPENDING,	// rftr: rebel command
+	REBEL_COMMAND_BOUNTY_PAYOUT, // rftr: rebel command soldier bounties
 	TEXT_NUM_FINCANCES
 };
 

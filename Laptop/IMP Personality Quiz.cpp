@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "CharProfile.h"
 	#include "IMP Personality Quiz.h"
 	#include "IMP MainPage.h"
@@ -16,7 +13,6 @@
 	#include "IMP Text System.h"
 	#include "input.h"
 	#include "english.h"
-#endif
 
 
 // Kaiden this line was commented before I screwed with it

@@ -314,9 +314,9 @@ BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier );
 BOOLEAN AICheckIsFlanking( SOLDIERTYPE *pSoldier );
 
 INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
-void PrepareThreatlist(SOLDIERTYPE *pSoldier);
-UINT16 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_CURRENTLY);	// first call PrepareThreatlist to make threat list
-UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier);								// first call PrepareThreatlist to make threat list
+UINT32 PrepareThreatlist(SOLDIERTYPE *pSoldier);
+UINT16 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt, UINT8 ubMax = SEEN_CURRENTLY);	// first call PrepareThreatlist to make threat list
+UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt);								// first call PrepareThreatlist to make threat list
 
 BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
 BOOLEAN SightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);

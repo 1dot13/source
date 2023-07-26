@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
@@ -75,7 +71,6 @@
 	#include "Cheats.h"
 	#include "Overhead.h"
 	#include "Soldier Control.h"
-#endif
 
 #include "LuaInitNPCs.h"
 #include "Text.h"
@@ -3595,6 +3590,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_SEND_SOLDIERS_TO_BALIME:
 			case NPC_ACTION_GLOBAL_OFFENSIVE_1:
 			case NPC_ACTION_GLOBAL_OFFENSIVE_2:
+			case NPC_ACTION_DEPLOY_TRANSPORT_GROUP:
 				break;
 
 			case NPC_ACTION_TRIGGER_QUEEN_BY_SAM_SITES_CONTROLLED:

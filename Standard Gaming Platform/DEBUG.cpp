@@ -29,16 +29,13 @@
 	#include <string>
 	#include <sstream>
 	#include "debug.h"
-	#include "WizShare.h"
 
 	//Kris addition
-	#ifdef JA2
 		#include "screenids.h"
 		#include "Sys Globals.h"
 		#include "jascreens.h"
 		#include "gameloop.h"
 		#include "input.h"
-	#endif
 
 	// CJC added
 	#ifndef _NO_DEBUG_TXT
@@ -46,6 +43,9 @@
 	#endif
 #include "GameSettings.h"
 #include "SaveLoadGame.h"
+#include "Font.h"
+#include "GameVersion.h"
+#include "Text.h"
 
 #include "debug_util.h"
 
@@ -410,6 +410,8 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 	alreadyInThisFunction = true;
 
 	sgp::dumpStackTrace(message);
+
+	mprintf( 10, 10, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
 
 	std::stringstream basicInformation;
 	basicInformation << "Assertion Failure [Line " << lineNum;

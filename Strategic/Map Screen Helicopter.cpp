@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Map Screen Helicopter.h"
 	#include "LaptopSave.h"
 	#include "Vehicles.h"
@@ -44,7 +41,6 @@
 	#include "expat.h"
 	#include "merc entering.h"	// added by Flugente
 	#include "ASD.h"			// added by Flugente
-#endif
 
 #include "Vehicles.h"
 #include "NPC.h"

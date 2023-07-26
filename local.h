@@ -32,6 +32,7 @@ extern UINT16	SCREEN_HEIGHT;
 extern int iResolution;			// Resolution id from the ini file
 extern int iPlayIntro;
 extern int iUseWinFonts;
+extern float fTooltipScaleFactor;
 extern int iDisableMouseScrolling;
 extern INT16 iScreenWidthOffset;
 extern INT16 iScreenHeightOffset;
@@ -81,18 +82,5 @@ typedef enum
 extern BOOLEAN fDisplayOverheadMap;
 
 #define PIXEL_DEPTH			16
-
-//
-// These defines are used as MUTEX handles.
-//
-
-#define MAX_MUTEX_HANDLES	 32
-
-#define REFRESH_THREAD_MUTEX	0
-#define FRAME_BUFFER_MUTEX	1
-#define MOUSE_BUFFER_MUTEX	2
-#define DIRTY_BUFFER_MUTEX	3
-#define SCROLL_MESSAGE_MUTEX	4
-
 
 #endif

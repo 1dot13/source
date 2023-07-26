@@ -8,9 +8,6 @@
 	Date			:		1997-NOV
 */
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -44,7 +41,6 @@
 	#include "AIinternals.h"
 	#include "Rotting Corpses.h"
 	#include "Meanwhile.h"
-#endif
 #include "connect.h"
 
 #include "LOS.h"  //ddd
@@ -53,12 +49,12 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-#ifdef USE_ASTAR_PATHS
 #include "BinaryHeap.hpp"
-#include "AIInternals.h"
 #include "opplist.h"
 #include "weapons.h"
-#endif
+extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
+extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
+extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
 //#include "dnlprocesstalk.h"//dnl???
 
 extern UINT16 gubAnimSurfaceIndex[ TOTALBODYTYPES ][ NUMANIMATIONSTATES ];
@@ -458,9 +454,6 @@ UINT32 guiFailedPathChecks = 0;
 UINT32 guiUnsuccessfulPathChecks = 0;
 #endif
 
-#ifdef USE_ASTAR_PATHS
-
-
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
@@ -651,7 +644,7 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
 	fConsiderPersonAtDestAsObstacle = (BOOLEAN)( fPathingForPlayer && fPathAroundPeople && !(fFlags & PATH_IGNORE_PERSON_AT_DEST) );
 
-	if ( fNonSwimmer && Water( dest ) ) 
+	if ( fNonSwimmer && Water( dest, 0 ) ) 
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR: path failed, water" ) );
 		return( 0 );
@@ -712,7 +705,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if ( fMultiTile == false)
@@ -762,7 +754,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 			fContinuousTurnNeeded = FALSE;
 		}
 	}
-#endif
 
 	if (fContinuousTurnNeeded == false)
 	{
@@ -806,17 +797,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-// The RenderCoverDebugInfo call is now made by RenderWorld.  So don't try to call it here
-#if 0
-		if ( guiCurrentScreen == GAME_SCREEN ) 
-		{
-			RenderWorld();
-			RenderCoverDebug( );
-			InvalidateScreen( );
-			EndFrameBufferRender();
-			RefreshScreen( NULL );
-		}
-#endif
 	}
 #endif
 
@@ -905,13 +885,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	if (gfDisplayCoverValues && gfDrawPathPoints)
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
-#if 0
-		RenderWorld();
-		RenderCoverDebug( );
-		InvalidateScreen( );
-		EndFrameBufferRender();
-		RefreshScreen( NULL );
-#endif
 	}
 #endif
 
@@ -1092,7 +1065,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 			continue;
 		}
 
-#ifdef VEHICLE
 		//has side effects, including setting loop counters
 		int retVal = VehicleObstacleCheck();
 		if (retVal == 1)
@@ -1103,7 +1075,6 @@ void AStarPathfinder::ExecuteAStarLogic()
 		{
 			return;
 		}
-#endif
 
 		//calc the cost to move from the current node to here
 		INT16 terrainCost = EstimateActionPointCost( pSoldier, CurrentNode, direction, movementMode, 0, 3 );
@@ -1416,7 +1387,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 
 	// Flugente: dragging someone
-	if ( pSoldier->IsDraggingSomeone( ) )
+	if ( pSoldier->IsDragging( false ) )
 	{
 		movementAPCost *= gItemSettings.fDragAPCostModifier;
 	}
@@ -1483,268 +1454,6 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	return movementAPCost;
 }
 
-int AStarPathfinder::CalcG(int* pPrevCost)
-{
-	//how much is admission to the next tile
-	if ( gfPathAroundObstacles == false)
-	{
-		return TRAVELCOST_FLAT;
-	}
-
-
-	int nextCost = gubWorldMovementCosts[ CurrentNode ][ direction ][ onRooftop ];
-	*pPrevCost = nextCost;
-
-	//if we are holding down shift and finding a direct path, count non obstacles as flat terrain
-	if (gfPlotDirectPath && nextCost < NOPASS && nextCost != 0)
-	{
-		return TRAVELCOST_FLAT;
-	}
-
-	//performance: if nextCost is low then do not do many many if == checks
-	if ( nextCost >= TRAVELCOST_FENCE )
-	{
-		//ATE:	Check for differences from reality
-		// Is next cost an obstcale
-		if ( nextCost == TRAVELCOST_HIDDENOBSTACLE ) 
-		{
-			if ( fPathingForPlayer ) 
-			{
-				// Is this obstacle a hidden tile that has not been revealed yet?
-				BOOLEAN fHiddenStructVisible;
-				if( DoesGridNoContainHiddenStruct( CurrentNode, &fHiddenStructVisible ) ) 
-				{
-					// Are we not visible, if so use terrain costs!
-					if ( !fHiddenStructVisible )
-					{
-						// Set cost of terrain!
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-				}
-			}
-		}
-		else if ( nextCost == TRAVELCOST_NOT_STANDING )
-		{
-			// for path plotting purposes, use the terrain value
-			nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-		}
-		else if ( nextCost == TRAVELCOST_EXITGRID )
-		{
-			if (gfPlotPathToExitGrid)
-			{
-				// replace with terrain cost so that we can plot path, otherwise is obstacle
-				nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-			}
-		}
-
-		//ddd: window. { check 2 conditions: 1. if next tile is a window and we will have to hump through it
-		//2. if current tile is a window and we should jump through the window to reach another tile
-		else if ( nextCost == TRAVELCOST_JUMPABLEWINDOW
-			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_N
-			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_W)
-		{
-
-			// don't let anyone path diagonally through doors!
-			if (IsDiagonal(direction) == true)
-			{
-				return -1;
-			}
-			nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];//?
-
-		}
-		//ddd: window }
-
-		else if ( nextCost == TRAVELCOST_FENCE && fNonFenceJumper )
-		{
-			return -1;
-		}
-		else if ( IS_TRAVELCOST_DOOR( nextCost ) )
-		{
-			// don't let anyone path diagonally through doors!
-			if (IsDiagonal(direction) == true)
-			{
-				return -1;
-			}
-
-			INT32 iDoorGridNo = CurrentNode;
-			bool fDoorIsObstacleIfClosed = FALSE;
-			bool fDoorIsOpen = false;
-			switch( nextCost )
-			{
-				case TRAVELCOST_DOOR_CLOSED_HERE:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode;
-					break;
-				case TRAVELCOST_DOOR_CLOSED_N:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_CLOSED_W:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_HERE:
-					iDoorGridNo = CurrentNode;
-					break;
-				case TRAVELCOST_DOOR_OPEN_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NE:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHEAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_E:
-					iDoorGridNo = CurrentNode + dirDelta[ EAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SE:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHEAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_S:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SW:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHWEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_W:
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_N_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NE_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHEAST ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_W_W:
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ] + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SW_W:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHWEST ] + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW_W:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ] + dirDelta[ WEST ];
-					break;
-				default:
-					break;
-			}
-
-			if ( fPathingForPlayer && gpWorldLevelData[ iDoorGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_DOOR_STATUS_PRESENT )
-			{
-				// check door status
-				DOOR_STATUS* pDoorStatus = GetDoorStatus( iDoorGridNo );
-				if (pDoorStatus)
-				{
-					fDoorIsOpen = (pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN) != 0;
-				}
-				else
-				{
-					// door destroyed?
-					nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-				}
-			}
-			else
-			{
-				// check door structure
-				STRUCTURE* pDoorStructure = FindStructure( iDoorGridNo, STRUCTURE_ANYDOOR );
-				if (pDoorStructure)
-				{
-					fDoorIsOpen = (pDoorStructure->fFlags & STRUCTURE_OPEN) != 0;
-				}
-				else
-				{
-					// door destroyed?
-					nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-				}
-			}
-
-			// now determine movement cost... if it hasn't been changed already
-			if ( IS_TRAVELCOST_DOOR( nextCost ) )
-			{
-				if (fDoorIsOpen)
-				{
-					if (fDoorIsObstacleIfClosed)
-					{
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-					else
-					{
-						nextCost = TRAVELCOST_OBSTACLE;
-					}
-				}
-				else
-				{
-					if (fDoorIsObstacleIfClosed)
-					{
-						// door is closed and this should be an obstacle, EXCEPT if we are calculating
-						// a path for an enemy or NPC with keys
-						if ( fPathingForPlayer || ( pSoldier && (pSoldier->flags.uiStatusFlags & (SOLDIER_MONSTER | SOLDIER_ANIMAL) ) ) ) 
-						{
-							nextCost = TRAVELCOST_OBSTACLE;
-						}
-						else
-						{
-							// have to check if door is locked and NPC does not have keys!
-							// This function has an inaccurate name.  It is actually checking if the door has LOCK info.
-							DOOR* pDoor = FindDoorInfoAtGridNo( iDoorGridNo );
-							if (pDoor)
-							{
-								if (!pDoor->fLocked || pSoldier->flags.bHasKeys)
-								{
-									// add to AP cost
-									//if (maxAPBudget)
-									{
-										fGoingThroughDoor = TRUE;
-									}
-									nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-								}
-								else
-								{
-									nextCost = TRAVELCOST_OBSTACLE;
-								}
-							}
-							else
-							{
-								// The door is closed, so we still have to open it
-								fGoingThroughDoor = TRUE;
-								nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-							}
-						}
-					}
-					else
-					{
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-				}
-			}
-		}
-		else if ( fNonSwimmer && ISWATER( gpWorldLevelData[ CurrentNode ].ubTerrainID))
-		{
-			// creatures and animals can't go in water
-			nextCost = TRAVELCOST_OBSTACLE;
-		}
-	}
-
-	// Apr. '96 - moved up be ahead of AP_Budget stuff
-	if ( nextCost >= NOPASS ) // || ( nextCost == TRAVELCOST_DOOR ) )
-	{
-		return -1;
-	}
-
-	// make water cost attractive for water to water paths
-	// Why?  If a path through water gets you there sooner, you shouldn't need
-	// artificial inflation to figure that out.  And if not, then get out of the water!
-	//if (bWaterToWater && ISWATER(nextCost) ) 
-	//{
-	//	nextCost = EASYWATERCOST;
-	//}
-
-	return nextCost;
-}//end CalcG
-
 int AStarPathfinder::CalcH()
 {
 	if ( fCopyReachable )
@@ -1773,7 +1482,6 @@ int AStarPathfinder::CalcH()
 
 	int x = abs(n1->x - n2->x);
 	int y = abs(n1->y - n2->y);
-#if 1
 	if (x >= y) 
 	{
 		return this->travelcostDiag * y + this->travelcostOrth * (x-y);
@@ -1782,35 +1490,6 @@ int AStarPathfinder::CalcH()
 	{
 		return this->travelcostDiag * x + this->travelcostOrth * (y-x);
 	}
-#else
-	// Try a real distance method.  This should underestimate in some cases
-	// However, the distances need to be increased for the moment because running orthogonal is 1AP while running diagonal is 2AP
-	// so the total to reach a diagonal tile is identical for 2 moves.  So we have to trick the pathing calc into thinking it's
-	// a longer distance and also calculate the other costs accordingly.
-
-	x *= 100;
-	y *= 100;
-
-	int d = x*x + y*y;
-	int r = 1200; // Just a guess
-
-	if (d == 0)
-	{
-		return d;
-	}
-
-	while (1)
-	{
-		int gr = (r + (d/r)) / 2;
-		if (gr == r || gr == r+1)
-		{
-			break;
-		}
-		r = gr;
-	}
-
-	return r * travelcostOrth;
-#endif
 }
 
 #ifdef ASTAR_USING_EXTRACOVER
@@ -2120,7 +1799,6 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 }
 #endif //#ifdef ASTAR_USING_EXTRACOVER
 
-#ifdef VEHICLE
 void AStarPathfinder::InitVehicle()
 {
 	fMultiTile = ((pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
@@ -2267,7 +1945,6 @@ int AStarPathfinder::VehicleObstacleCheck()
 	}
 	return 0;
 }
-#endif
 
 bool AStarPathfinder::WantToTraverse()
 {
@@ -2415,7 +2092,6 @@ bool AStarPathfinder::IsSomeoneInTheWay()
 	return false;
 }
 
-#endif//end ifdef USE_ASTAR_PATHS
 
 INT8 RandomSkipListLevel( void )
 {
@@ -2488,27 +2164,29 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 {
 	s->sPlotSrcGrid = s->sGridNo;
 
-#ifdef USE_ASTAR_PATHS
-//ddd
-CHAR8 errorBuf[511]; UINT32 b,e;
-b=GetJA2Clock();//return s->sGridNo+6;
-	
-	int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
-
-	e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
-
-	if (retVal || TileIsOutOfBounds(sDestination)) {
-		return retVal;
-	}
-	else {
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
-	}
-
-	//	if (TileIsOutOfBounds(sDestination))
+	if (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING])
 	{
-		return 0;
+		CHAR8 errorBuf[511]; UINT32 b,e;
+		b=GetJA2Clock();//return s->sGridNo+6;
+	
+		int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
+
+		e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
+
+		if (retVal || TileIsOutOfBounds(sDestination)) {
+			return retVal;
+		}
+		else {
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "ASTAR path failed!" ) );
+		}
+
+		//	if (TileIsOutOfBounds(sDestination))
+		{
+			return 0;
+		}
 	}
-#else
+	else
+	{
 	//__try
 	//{
 	INT32 iDestination = sDestination, iOrigination;
@@ -2527,7 +2205,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 	INT32 iWaterToWater;
 	INT16 ubCurAPCost,ubAPCost;
 	INT16 ubNewAPCost=0;
-	#ifdef VEHICLE
 		//BOOLEAN fTurnSlow = FALSE;
 		//BOOLEAN fReverse = FALSE; // stuff for vehicles turning
 		BOOLEAN fMultiTile, fVehicle;
@@ -2538,7 +2215,6 @@ b=GetJA2Clock();//return s->sGridNo+6;
 		UINT16							usAnimSurface;
 		//INT32 iCnt2, iCnt3;
 		BOOLEAN fVehicleIgnoreObstacles = FALSE;
-	#endif
 
 	INT32			iLastDir = 0;
 
@@ -2640,9 +2316,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && s->inv[BPACKPOCKPOS].exists() == true
-		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)s->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[s->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[s->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)));//Moa: added backpack check
+	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (!s->CanClimbWithCurrentBackpack());//Moa: added backpack check
 
 	// Flugente: nonswimmers are those who are not mercs and not boats
 	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );
@@ -2763,7 +2437,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	guiTotalPathChecks++;
 #endif
 
-#ifdef VEHICLE
 
 	fMultiTile = ((s->flags.uiStatusFlags & SOLDIER_MULTITILE) != 0);
 	if (fMultiTile)
@@ -2823,7 +2496,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		fContinuousTurnNeeded = FALSE;
 	}
 
-#endif
 
 	if (!fContinuousTurnNeeded)
 	{
@@ -2966,7 +2638,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		}
 #endif
 
-#ifdef VEHICLE
 		/*
 		if (fTurnSlow)
 		{
@@ -2991,7 +2662,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 		}
 		*/
-#endif
 
 		if (gubNPCAPBudget)
 		{
@@ -3052,7 +2722,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		//for ( iCnt = iLoopStart; iCnt != iLoopEnd; iCnt = (iCnt + iLoopIncrement) % MAXDIR )
 		for ( iCnt = iLoopStart; ; )
 		{
-#ifdef VEHICLE
 			/*
 			if (fTurnSlow)
 			{
@@ -3134,7 +2803,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#endif
 
 			newLoc = curLoc + dirDelta[iCnt];
 
@@ -3483,7 +3151,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-#ifdef VEHICLE
 			if (fMultiTile)
 			{
 				// vehicle test for obstacles: prevent movement to next tile if
@@ -3522,7 +3189,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 				*/
 			}
-#endif
 
 			// NEW Apr 21 by Ian: abort if cost exceeds budget
 			if (gubNPCAPBudget)
@@ -4280,7 +3946,7 @@ ENDOFLOOP:
 	//{
 	//	return (0);
 	//}
-#endif
+	}
 }
 
 void GlobalReachableTest( INT32 sStartGridNo )

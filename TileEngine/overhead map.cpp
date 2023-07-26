@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "sysutil.h"
 	#include "utilities.h"
 	#include "renderworld.h"
@@ -24,7 +21,6 @@
 	#include "gameloop.h"
 	#include "Action Items.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 
@@ -999,15 +995,8 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 
 		// Black color for the background!
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, sStartPointX_S, sStartPointY_S, sEndXS,	sEndYS, 0 );
-#if 0//dnl ch79 291113
-		if(gfTacticalPlacementGUIActive)//dnl ch45 021009 Skip overwrite buttons area which is not refresh during scroll //dnl ch77 211113
-			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-160, 0);
-		else
-			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-120, 0);
-#else
 		if(uiVSurface == FRAME_BUFFER)//dnl ch82 090114
 			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-(gfTacticalPlacementGUIActive?160:120), 0);
-#endif
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		InvalidateScreen();

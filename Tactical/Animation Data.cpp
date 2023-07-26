@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
@@ -17,7 +14,6 @@
 	#include "utilities.h"
 	#include "worlddef.h"
 	#include "Fileman.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

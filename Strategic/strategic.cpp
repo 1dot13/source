@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Strategic.h"
 	#include "Types.h"
 	#include "Squads.h"
@@ -21,7 +18,6 @@
 	#include "message.h"			// added by Flugente
 	#include "Text.h"				// added by Flugente
 	#include "Queen Command.h"		// added by Flugente
-#endif
 
 #ifdef JA2UB
 #else

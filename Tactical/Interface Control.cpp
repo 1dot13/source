@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include <math.h>
@@ -48,7 +45,6 @@
 	#include "civ quotes.h"
 	#include "GameSettings.h"
 	#include "Explosion Control.h"		// added by Flugente
-#endif
 
 #include "connect.h"
 #include "Text.h"

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "builddefines.h"
 #include <wchar.h>
 #include <stdio.h>
@@ -66,7 +63,6 @@
 #include "Strategic Status.h"
 #include "civ quotes.h"
 #include "Debug Control.h"
-#endif
 
 #ifdef JA2UB
 

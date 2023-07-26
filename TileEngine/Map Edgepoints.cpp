@@ -1,7 +1,4 @@
 	//#include <cmath>		// added by Flugente
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "Map Edgepoints.h"
 
 	#include "pathai.h"
@@ -14,7 +11,7 @@
 	#include "strategicmap.h"
 	#include "worldman.h"
 	#include "PreBattle Interface.h"	// added by Flugente
-#endif
+	#include "Rebel Command.h"
 
 #include "connect.h"
 
@@ -1401,7 +1398,7 @@ INT32 SearchForClosestPrimaryMapEdgepoint(INT32 sGridNo, UINT8 ubInsertionCode, 
 		break;
 	}
 	// WANNE - MP: Center
-	if ( ( (is_networked || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ) && ubInsertionCode == INSERTION_CODE_CENTER) || ubInsertionCode == INSERTION_CODE_CHOPPER )
+	if ( ( (is_networked || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ) && ubInsertionCode == INSERTION_CODE_CENTER) || ubInsertionCode == INSERTION_CODE_CHOPPER || (RebelCommand::GetAdditionalDeployRange(ubInsertionCode) > 0) )
 	{
 		InitCenterEdgepoint( ubInsertionCode == INSERTION_CODE_CENTER );
 		psArray = gps1stCenterEdgepointArray;

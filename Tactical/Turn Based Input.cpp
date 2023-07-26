@@ -1,12 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#include "Language Defines.h"
-#include "HelpScreen.h"
-#include "Prebattle Interface.h"
-#include "ambient control.h"
-#include "DisplayCover.h"
-#include "_Ja25Englishtext.h"
-#else
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
@@ -108,7 +99,6 @@
 #include "Ambient Control.h"
 #include "Strategic AI.h"
 #include "VehicleMenu.h"
-#endif
 
 #include "Quest Debug System.h"
 #include "connect.h"
@@ -265,7 +255,6 @@ void CreatePlayerControlledMonster();
 void ChangeCurrentSquad( INT32 iSquad );
 void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode );
 void EscapeUILock( );
-void TestCapture( );
 
 #ifdef JA2BETAVERSION
 void ToggleMapEdgepoints();
@@ -351,6 +340,7 @@ void HandleTBLocateNextMerc( void );
 void HandleTBLocatePrevMerc( void );
 void HandleTBLevelDown(void);
 void HandleTBLevelUp(void);
+void HandleTBBackpacks(void);
 void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
@@ -2984,14 +2974,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-#if 0//dnl ch75 021113
-			case '\"':
-				Testing(1);
-				break;
-			case '\'':
-				Testing(2);
-				break;
-#endif
 
 			case '`':
 
@@ -3386,8 +3368,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'B':
-				//Drop pack for all mercs on current map
-				HandleTBDropBackpacks();
+				//Drop/Pick up backpack for all mercs on current map
+				HandleTBBackpacks();
 				break;
 			case 'c':
 
@@ -3881,10 +3863,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if ( fNearLowerLevel )
 						{
 							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							if (!pjSoldier->CanClimbWithCurrentBackpack())
 							{
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
@@ -3900,10 +3879,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if ( fNearHeigherLevel )
 						{
 							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							if (!pjSoldier->CanClimbWithCurrentBackpack())
 							{
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
@@ -3919,10 +3895,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						// Jump over fence
 						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						{
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							if (!pjSoldier->CanClimbWithCurrentBackpack())
 							{
 								//Moa: no jumping whith backpack
 								//sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
@@ -3947,10 +3920,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
 						{ 
 							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							if (!pjSoldier->CanClimbWithCurrentBackpack())
 							{
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
@@ -3986,10 +3956,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
 						{
-							if ((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)lSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[lSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[lSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							if (!lSoldier->CanClimbWithCurrentBackpack())
 							{
 								//Moa: no jumping with backpack
 								//sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
@@ -4241,21 +4208,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else if ( fCtrl )
 					{
-#if 0
-						if ( INFORMATION_CHEAT_LEVEL() )
-						{
-							if ( gfUIShowCurIntTile ^= TRUE )
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection ON." );
-								gubIntTileCheckFlags = INTILE_CHECK_FULL;
-							}
-							else
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection OFF." );
-								gubIntTileCheckFlags = INTILE_CHECK_SELECTIVE;
-							}
-						}
-#endif
 					}
 					else
 					{
@@ -4508,9 +4460,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
-						TestCapture( );
-
-						//EnterCombatMode( gbPlayerNum );
+						// Test Capturing Mercs as POW
+						AttemptToCapturePlayerSoldiers();
 					}
 				}
 				else if ( fCtrl && fShift )
@@ -6565,42 +6516,6 @@ void HandleStealthChangeFromUIKeys(	)
 	}
 }
 
-
-
-void TestCapture( )
-{
-	INT32 cnt;
-	SOLDIERTYPE				*pSoldier;
-	UINT32					uiNumChosen = 0;
-
-	//StartQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
-	//EndQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
-
-	BeginCaptureSquence( );
-
-	gStrategicStatus.uiFlags &= (~STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE );
-
-	// loop through soldiers and pick 3 lucky ones....
-	for ( cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID, pSoldier=MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
-	{
-		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive && pSoldier->bInSector )
-		{
-			if ( uiNumChosen < 3 )
-			{
-				EnemyCapturesPlayerSoldier( pSoldier );
-
-				// Remove them from tectical....
-				pSoldier->RemoveSoldierFromGridNo( );
-
-				uiNumChosen++;
-			}
-		}
-	}
-
-	EndCaptureSequence( );
-}
-
-
 void PopupAssignmentMenuInTactical( SOLDIERTYPE *pSoldier )
 {
 	// do something
@@ -7673,11 +7588,7 @@ void HandleTBJump( void )
 					if ( fNearLowerLevel )
 					{
 						// CHRISL: Turn off manual jumping while wearing a backpack
-						if (UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-							//JMich.BackpackClimb
-							&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-							&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
+						if (!pjSoldier->CanClimbWithCurrentBackpack())
 							return;
 
 						if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
@@ -7689,11 +7600,7 @@ void HandleTBJump( void )
 					if ( fNearHeigherLevel )
 					{
 						// No climbing when wearing a backpack!
-						if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-							//JMich.BackpackClimb
-							&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-							&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
+						if (!pjSoldier->CanClimbWithCurrentBackpack())
 							return;
 
 						if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
@@ -7705,11 +7612,7 @@ void HandleTBJump( void )
 					// Jump over fence
 					if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 					{
-						if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-							//JMich.BackpackClimb
-							&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-							&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
+						if (!pjSoldier->CanClimbWithCurrentBackpack())
 						{
 							sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
 							sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
@@ -7732,11 +7635,7 @@ void HandleTBJump( void )
 						if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						{
 							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
+							if (!pjSoldier->CanClimbWithCurrentBackpack())
 								return;
 
 							if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
@@ -7760,11 +7659,7 @@ void HandleTBJumpThroughWindow( void ){
 	{
 			if ( FindWindowJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 		{
-				if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-					//JMich.BackpackClimb
-					&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-					&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
+				if (!pjSoldier->CanClimbWithCurrentBackpack())
 			{
 					sAPCost = GetAPsToJumpThroughWindows( pjSoldier, TRUE );
 					sBPCost = GetBPsToJumpThroughWindows( pjSoldier, TRUE );
@@ -8405,6 +8300,35 @@ void HandleTBLevelUp(void)
 		{
 			// Remember soldier's new value
 			gpSMCurrentMerc->bUIInterfaceLevel = (INT8)gsInterfaceLevel;
+		}
+	}
+}
+
+void HandleTBBackpacks(void)
+{
+	if (UsingNewInventorySystem)
+	{
+		bool backpackDropped = false;
+		SOLDIERTYPE* pTeamSoldier;
+
+		for (UINT8 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		{
+			pTeamSoldier = MercPtrs[ubLoop];
+
+			if (pTeamSoldier->flags.DropPackFlag)
+			{
+				backpackDropped = true;
+				break;
+			}
+		}
+
+		if (backpackDropped)
+		{
+			HandleTBPickUpBackpacks();
+		}
+		else
+		{
+			HandleTBDropBackpacks();
 		}
 	}
 }

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <math.h>
 	#include "sgp.h"
 	#include "soldier profile.h"
@@ -26,7 +23,6 @@
 	#include "Soldier macros.h"
 	#include "strategicmap.h"
 	#include "DynamicDialogue.h"			// added by Flugente
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -606,7 +602,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			AddFoodpoints(pSoldier->bFoodLevel, powfoodadd);
 	}
 	// while on a minievent, assume that we can feed ourselves.. somehow
-	else if (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT)
+	else if (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
 	{
 		const INT16 water   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * gGameExternalOptions.sFoodDigestionAssignment;
 		const INT16 foodadd = water * gGameExternalOptions.usFoodDigestionHourlyBaseFood / max(1, gGameExternalOptions.usFoodDigestionHourlyBaseDrink);

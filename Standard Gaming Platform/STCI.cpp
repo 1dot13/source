@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include <string.h>
 	#include "MemMan.h"
 	#include "FileMan.h"
@@ -11,7 +6,6 @@
 	#include "Types.h"
 	#include "Debug.h"
 	#include "WCheck.h"
-#endif
 
 BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader * pHeader );
 BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader * pHeader );
@@ -153,12 +147,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 			}
 		}
 	}
-#ifdef JA2
 	return( TRUE );
-#else
-// Anything else is an ERROR! --DB
-	return(FALSE);
-#endif
 }
 
 

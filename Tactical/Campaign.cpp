@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <wchar.h>
 	#include <stdio.h>
@@ -37,7 +34,6 @@
 	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "DynamicDialogue.h"
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -307,6 +303,16 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			if (usChance > 0 && fAffectedByWisdom)
 			{
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
+			}
+
+			// rftr: reduced growth rates at 80+ and 90+ (to make mercs with higher base stats more valuable)
+			if (bCurrentRating >= 90)
+			{
+				usChance = min(min(gGameExternalOptions.ubMaxGrowthChanceAt80, gGameExternalOptions.ubMaxGrowthChanceAt90), usChance);
+			}
+			else if (bCurrentRating >= 80)
+			{
+				usChance = min(gGameExternalOptions.ubMaxGrowthChanceAt80, usChance);
 			}
 
 /*

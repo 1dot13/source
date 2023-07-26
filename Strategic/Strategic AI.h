@@ -38,6 +38,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup );
 void RemoveGroupFromStrategicAILists( UINT8 ubGroupID );
 void RecalculateSectorWeight( UINT8 ubSectorID );
 void RecalculateGroupWeight( GROUP *pGroup );
+void SendGroupToPool( GROUP **pGroup );
 
 BOOLEAN OkayForEnemyToMoveThroughSector( UINT8 ubSectorID );
 BOOLEAN EnemyPermittedToAttackSector( GROUP **pGroup, UINT8 ubSectorID );
@@ -78,7 +79,8 @@ BOOLEAN PermittedToFillPatrolGroup( INT32 iPatrolID );
 enum GROUP_TYPE
 {
 	GROUP_TYPE_ATTACK,
-	GROUP_TYPE_PATROL
+	GROUP_TYPE_PATROL,
+	GROUP_TYPE_TRANSPORT
 };
 
 void ASDInitializePatrolGroup(GROUP *pGroup);

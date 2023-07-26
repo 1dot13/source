@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "overhead.h"
 	#include "weapons.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-#endif
 
 // Flugente: in order not to loop over MAXATTACHMENTS entries in IncompatibleAttachments[] if we only have a few thousand, remember the actual number read in
 UINT32 gINCOMPATIBLEATTACHMENTS_READ = 0;

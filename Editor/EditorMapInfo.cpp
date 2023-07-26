@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <windows.h>
 	#include "tiledef.h"
 	#include "edit_sys.h"
@@ -57,7 +52,6 @@
 	#include "environment.h"
 	#include "Simple Render Utils.h"
 	#include "Text.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <stdlib.h>
 	#include "tiledef.h"
 	#include "worlddef.h"
@@ -21,7 +16,6 @@
 	#include "environment.h"
 	#include "Random.h"
 	#include "Render Fun.h"
-#endif
 
 
 BOOLEAN CaveAtGridNo( INT32 iMapIndex );

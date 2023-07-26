@@ -1,13 +1,9 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "debug.h"
 	#include "Debug Control.h"
 	#include "tile surface.h"
 	#include "tile cache.h"
-#endif
 #ifdef JA2TESTVERSION
 	#include "sys globals.h"
 #endif

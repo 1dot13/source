@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "language defines.h"
-#else
 	#include "builddefines.h"
 	#include "mapscreen.h"
 	#include <stdio.h>
@@ -85,7 +81,6 @@
 	// sevenfm:
 	#include "Soldier Control.h"
 	#include "Sound Control.h"
-#endif
 
 #include "Multi Language Graphic Utils.h"
 
@@ -1498,8 +1493,8 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	if ( gGameExternalOptions.fScopeModes )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
-		//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+		//GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
+		strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
 		CHECKF( AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon) );
 	}
 	
@@ -2766,19 +2761,6 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 		}
 	}
 		
-#if 0
-	if ( gbInvalidPlacementSlot[ sPocket ] )
-	{
-		if ( sPocket != SECONDHANDPOS )
-		{
-			// If we are in inv panel and our guy is not = cursor guy...
-			if ( !gfSMDisableForItems )
-			{
-				fHatchItOut = TRUE;
-			}
-		}
-	}
-#endif
 
 	if (AM_A_ROBOT(pSoldier) && sPocket == HANDPOS)
 		fHatchItOut = FALSE;
@@ -3813,7 +3795,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		{
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_DKGRAY );
-#if 1
 			//CHRISL: Moved this condition to the start so that stacked guns will show number in stack
 			if ( ubStatusIndex != RENDER_ITEM_NOSTATUS )
 			{
@@ -3838,7 +3819,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					gprintfinvalidate( sNewX, sNewY, pStr );
 				}
 			}
-#endif
 			
 			if ( pItem->usItemClass == IC_GUN && !Item[pObject->usItem].rocketlauncher )
 			{
@@ -3946,35 +3926,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					}
 				}
 			}
-#if 0
-			else
-			{
-				if ( ubStatusIndex != RENDER_ITEM_NOSTATUS )
-				{
-					// Now display # of items
-					if ( pObject->ubNumberOfObjects > 1 )
-					{
-						SetFontForeground( FONT_GRAY4 );
-
-						sNewY = sY + sHeight - 10;
-						swprintf( pStr, L"%d", pObject->ubNumberOfObjects );
-
-						// Get length of string
-						uiStringLength=StringPixLength(pStr, ITEM_FONT );
-
-						sNewX = sX + sWidth - uiStringLength - 4;
-
-						if ( uiBuffer == guiSAVEBUFFER )
-						{
-							RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
-						}
-						mprintf( sNewX, sNewY, pStr );
-						gprintfinvalidate( sNewX, sNewY, pStr );
-					}
-
-				}
-			}
-#endif
 			if ( ItemHasAttachments( pObject, pSoldier, iter ) )
 			{
 				if ( !IsGrenadeLauncherAttached( pObject, iter ) )
@@ -4093,8 +4044,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					// HEADROCK HAM 4: Advanced Icons
 					VOBJECT_DESC    VObjectDesc;
 					VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-					//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
-					GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
+					strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+					//GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
 					AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon);
 				}
 
@@ -12697,28 +12648,39 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 		// Add attachment string....
 		CHAR16	attachString[ 300 ];
+		CHAR16 tempString[ 120 ];
 		memset(attachString,0,sizeof(attachString));
-		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) {
-			if(iter->exists()){
-
-				//Break off if it's too long.
-				if(wcslen(attachString)>270){
-					wcscat( attachString, L"\n...." );
-					break;
-				}
+		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter)
+		{
+			if(iter->exists())
+			{
+				memset(tempString, 0, sizeof(tempString));
 
 				iNumAttachments++;
-				
-				if ( iNumAttachments == 1 )
+				if (iNumAttachments == 1)
 				{
-					swprintf( attachString, L"\n \n%s:\n", Message[ STR_ATTACHMENTS ] );
+					swprintf(tempString, L"\n \n%s:\n", Message[STR_ATTACHMENTS]);
 				}
 				else
 				{
-					wcscat( attachString, L"\n" );
+					swprintf(tempString, L"\n");
 				}
+				wcscat(tempString, ItemNames[iter->usItem]);
 
-				wcscat( attachString, ItemNames[ iter->usItem ] );
+				auto attachStringLength = wcslen(attachString);
+				auto tempStringLength = wcslen(tempString);
+				auto totalLength = attachStringLength + tempStringLength;
+				// Break off if the string to be added does not fit.
+				// attachStringLength[300] - L"\n...." -> 294
+				if (totalLength > 294)
+				{
+					wcscat(attachString, L"\n....");
+					break;
+				}
+				else
+				{
+					wcscat(attachString, tempString);
+				}
 			}
 		}
 

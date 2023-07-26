@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-	#include "IMP Skill Trait.h"
-	#include "GameSettings.h"
-#else
 	#include "laptop.h"
 	#include "CharProfile.h"
 	#include "Utilities.h"
@@ -28,13 +23,13 @@
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
 	#include "IMP Voices.h"
-#endif
 
 #include "IMP Confirm.h"
 
 // how many times should a 'die' be rolled for skills of the same type?
 
 #define HOW_MANY_ROLLS_FOR_SAME_SKILL_CHECK 20
+#define IMP_NEED_FOR_SLEEP	7
 
 INT32 AttitudeList[ ATTITUDE_LIST_SIZE ];
 INT32 iLastElementInAttitudeList = 0;
@@ -191,6 +186,7 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usVoiceIndex = iSelectedIMPVoiceSet;
 
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].Type = PROFILETYPE_IMP;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].ubNeedForSleep = IMP_NEED_FOR_SLEEP;
 		
 	// WDS: Advanced start 
 	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;

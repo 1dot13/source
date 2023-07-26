@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "AimSort.h"
 	#include "Aim.h"
@@ -13,7 +10,6 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "english.h"
 	#include "sysutil.h"
-#endif
 
 //#define
 

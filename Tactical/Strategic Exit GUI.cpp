@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-	#include "creature spreading.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "Button System.h"
@@ -35,7 +30,6 @@
 	#include "Quests.h"
 	#include "Creature Spreading.h"
 	#include "Queen Command.h"		// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -238,7 +232,7 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 				pSoldier->stats.bLife >= OKLIFE &&
 				( pSoldier->bAssignment != MercPtrs[ gusSelectedSoldier ]->bAssignment || 
 				( pSoldier->bAssignment == VEHICLE && pSoldier->iVehicleId != MercPtrs[ gusSelectedSoldier ]->iVehicleId ) ) &&
-				pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT
+				pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND
 				&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{ //KM:	We need to determine if there are more than one squad (meaning other concious mercs in a different squad or assignment)
 			//		These conditions were done to the best of my knowledge, so if there are other situations that require modification,

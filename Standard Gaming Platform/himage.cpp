@@ -1,8 +1,3 @@
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "builddefines.h"
 	#include <math.h>
 	#include <stdlib.h>
@@ -19,7 +14,6 @@
 	#include "Compression.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 
@@ -135,104 +129,19 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::Test
 	CHAR8			ExtensionSep[] = ".";	
 	UINT32			iFileLoader;
 
-#if 0
-	SGPFILENAME	Extension;
-	STR					StrPtr;
-
-	// Depending on extension of filename, use different image readers
-	// Get extension
-	StrPtr = strstr( ImageFile, ExtensionSep );
-
-	if ( StrPtr == NULL )
-	{
-		// No extension given, use default internal loader extension
-		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, "No extension given, using default" );
-		strcat( ImageFile, ".PCX" );
-		strcpy( Extension, ".PCX" );
-	}
-	else
-	{
-		strcpy( Extension, StrPtr+1 );
-	}
-
-	// Determine type from Extension
-	do
-	{
-		iFileLoader = UNKNOWN_FILE_READER;
-
-		if ( _stricmp( Extension, "PCX" ) == 0 )
-		{
-			iFileLoader = PCX_FILE_READER;
-			break;
-		}
-		else if ( _stricmp( Extension, "TGA" ) == 0 )
-		{
-			iFileLoader = TGA_FILE_READER;
-			break;
-		}
-		else if ( _stricmp( Extension, "STI" ) == 0 )
-		{
-#ifdef USE_VFS
-			// see if there is a .jpc file first and when that fails, try .sti
-			vfs::Path str(ImageFile);
-			vfs::String::str_t const& findext = str.c_wcs();
-			vfs::String::size_t dot = findext.find_last_of(vfs::Const::DOT());
-			vfs::String fname = findext.substr(0,dot).append(CONST_DOTJPC);
-			if(getVFS()->fileExists(fname))
-			{
-				iFileLoader = JPC_FILE_READER;
-				strncpy(ImageFile, fname.utf8().c_str(), fname.length());
-				ImageFile[fname.length()] = 0;
-				break;
-			}
-#endif
-			iFileLoader = STCI_FILE_READER;
-			break;
-		}
-		else if ( _stricmp( Extension, "PNG" ) == 0 )
-		{
-			iFileLoader = PNG_FILE_READER;
-			break;
-		}
-#ifdef USE_VFS
-		else if ( vfs::StrCmp::Equal(Extension, L"jpc.7z") )
-		{
-			iFileLoader = JPC_FILE_READER;
-			break;
-		}
-#endif
-	} while ( FALSE );
-
-	// Determine if resource exists before creating image structure
-	if ( !FileExists( ImageFile ) )
-	{
-		//If in debig, make fatal!
-#ifdef JA2
-#ifdef _DEBUG
-		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
-#endif
-		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
-
-		return( NULL );
-	}
-#else
 	std::string filename(ImageFile);
 	iFileLoader = ImageFileType::getFileReaderType(filename, order);
 	if ( iFileLoader == UNKNOWN_FILE_READER )
 	{
 		//If in debug, make fatal!
-#ifdef JA2
 #ifdef _DEBUG
 		//FatalError( "Resource file %s does not exist.", ImageFile );
-#endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
 
 		return( NULL );
 	}
 
-#endif
 
 	// Create memory for image structure
 	hImage = (HIMAGE)MemAlloc( sizeof( image_type ) );

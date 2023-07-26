@@ -3,11 +3,6 @@
 	#define _WIN32_WINNT WINVER
 #endif
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 //** dd for defines that needed for additional mouse buttons
 #define _WIN32_WINNT 0x500
 
@@ -20,13 +15,8 @@
 	#include "input.h"
 	#include "memman.h"
 	#include "english.h"
-	#if defined( JA2 ) || defined( UTIL )
 		#include "video.h"
-	#else
-		#include "video2.h"
-	#endif
 	#include "local.h"
-#endif
 
 
 // Make sure to refer to the translation table which is within one of the following files (depending
@@ -36,12 +26,6 @@ extern UINT16 gsKeyTranslationTable[1024];
 
 extern BOOLEAN gfApplicationActive;
 
-#ifndef JA2
-
-#undef GetCursorPos
-#define GetCursorPos SGPMouseGetPos
-
-#endif
 
 // The gfKeyState table is used to track which of the keys is up or down at any one time. This is used while polling
 // the interface.
@@ -1101,11 +1085,9 @@ void KeyUp(UINT32 usParam, UINT32 uiParam)
 				{
 					// DB this used to be keyed to SCRL_LOCK
 					// which I believe Luis gave the wrong value
-//#ifndef JA2
 					if (_KeyDown(CTRL))
 						VideoCaptureToggle();
 					else
-//#endif
 						PrintScreen();
 				}
 				else
@@ -1394,12 +1376,7 @@ void	RedirectToString(UINT16 usInputCharacter)
 			gpCurrentStringDescriptor->usStringOffset = 0 ;
 			gpCurrentStringDescriptor->usLastCharacter = usInputCharacter;
 			break;
-#ifndef JA2
-		// Stupid definition causes problems with headers that use the keyword END -- DB
-		case KEY_END
-#else
 		case END
-#endif
 		: // Go to the end of the input string
 			gpCurrentStringDescriptor->usStringOffset = gpCurrentStringDescriptor->usCurrentStringLength;
 			gpCurrentStringDescriptor->usLastCharacter = usInputCharacter;
@@ -1632,28 +1609,6 @@ BOOLEAN IsCursorRestricted( void )
 
 void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 {
-#if 0
-	FLOAT flNewXPos, flNewYPos;
-
-	// Wizardry NOTE: This function currently doesn't quite work right for in any Windows resolution other than 640x480.
-	// mouse_event() uses your current Windows resolution to calculate the resulting x,y coordinates.	So in order to get
-	// the right coordinates, you'd have to find out the current Windows resolution through a system call, and then do:
-	//		uiNewXPos = uiNewXPos * SCREEN_WIDTH	/ WinScreenResX;
-	//		uiNewYPos = uiNewYPos * SCREEN_HEIGHT / WinScreenResY;
-	//
-	// JA2 doesn't have this problem, 'cause they use DirectDraw calls that change the Windows resolution properly.
-	//
-	// Alex Meduna, Dec. 3, 1997
-
-	// Adjust coords based on our resolution
-	flNewXPos = ( (FLOAT)uiNewXPos / SCREEN_WIDTH ) * 65536;
-	flNewYPos = ( (FLOAT)uiNewYPos / SCREEN_HEIGHT ) * 65536;
-
-	mouse_event( MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE, (UINT32)flNewXPos, (UINT32)flNewYPos, 0, 0 );
-#endif
-	// 0verhaul:
-	// The above is a bad hack.	Especially in windowed mode.	We don't want coords relative to the entire screen in that case.
-	// So instead, get screen coords and then use the setcursorpos call.
 	POINT newmouse;
 	newmouse.x = uiNewXPos;
 	newmouse.y = uiNewYPos;

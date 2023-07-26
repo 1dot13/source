@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include "math.h"
 	#include <stdio.h>
@@ -43,7 +40,6 @@
 	#include "Food.h"	// added by Flugente
 	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
 	#include "strategic.h"			// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

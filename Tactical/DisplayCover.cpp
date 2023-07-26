@@ -1,11 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-	#include "DisplayCover.h"
-	#include "Interface.h"
-	#include "opplist.h"
-	#include "_Ja25Englishtext.h"
-	//#include "Ja25 Strategic Ai.h"
-#else
 #include "builddefines.h"
 #include "Types.h"
 #include "Isometric Utils.h"
@@ -34,7 +26,7 @@
 #include "UI Cursors.h"
 #include "soldier profile type.h"
 #include "Interface Cursors.h"	// added by Flugente for UICursorDefines
-#endif
+#include "Rebel Command.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -759,13 +751,15 @@ void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetG
 	{
 		const UINT8& ubStance = animArr[i];
 
-		INT32 usAdjustedSight;
+		INT32 usAdjustedSight = 0;
 
 		if (pToSoldier == NULL) {
 			usAdjustedSight = usSightLimit;
 		} else {
 			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment( pToSoldier, GetStealth(pToSoldier), GetSightAdjustmentBasedOnLBE(pToSoldier), sTargetGridNo, (INT8) fRoof, ubStance ) /100;
 		}
+
+		RebelCommand::ApplyVisionModifier(pFromSoldier, usAdjustedSight);
 
 		if ( SoldierToVirtualSoldierLineOfSightTest( pFromSoldier, sTargetGridNo, (INT8) fRoof, ubStance, FALSE, usAdjustedSight ) != 0 )
 		{
@@ -784,7 +778,7 @@ static void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT3
 	{
 		const UINT8& ubStance = animArr[i];
 
-		INT32 usAdjustedSight;
+		INT32 usAdjustedSight = 0;
 
 		if (pToSoldier == nullptr) {
 			usAdjustedSight = usSightLimit;
@@ -792,6 +786,8 @@ static void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT3
 		else {
 			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment(pToSoldier, ToSoldierStealth, ToSoldierLBeSightAdjustment, sTargetGridNo, (INT8)fRoof, ubStance) / 100;
 		}
+
+		RebelCommand::ApplyVisionModifier(pFromSoldier, usAdjustedSight);
 
 		if (SoldierToVirtualSoldierLineOfSightTest(pFromSoldier, sTargetGridNo, (INT8)fRoof, ubStance, FALSE, usAdjustedSight) != 0)
 		{
@@ -1827,8 +1823,8 @@ void CalculateWeapondata()
 			pObjUsed = pObjPlatform;
 		}
 
-		gunrange = GunRange( pObjUsed, pSoldier ) / 10;
-		laserrange = GetBestLaserRange( pObjPlatform ) / 10;
+		gunrange = GunRange( pObjUsed, pSoldier ) / CELL_X_SIZE;
+		laserrange = GetBestLaserRange( pObjPlatform ) / CELL_X_SIZE;
 
 		if ( Item[pObjUsed->usItem].usItemClass & IC_LAUNCHER )
 		{

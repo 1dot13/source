@@ -10,16 +10,12 @@
 // in this file, following my example.
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "gamesettings.h"
 	#include "XML.h"
 	#include "Soldier Profile.h"
-#endif
 		#include "Soldier Profile.h"
 //#define MAX_PROFILE_NAME_LENGTH 30
 

@@ -1,13 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "sgp.h"
 #include "overhead.h"
 #include "Handle Items.h"
 #include "Debug Control.h"
 #include "expat.h"
 #include "XML.h"
-#endif
 
 STRUCTURE_MOVEPOSSIBLE gStructureMovePossible[STRUCTURE_MOVEPOSSIBLE_MAX];
 

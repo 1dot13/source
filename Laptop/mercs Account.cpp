@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "mercs Account.h"
 	#include "mercs.h"
@@ -19,7 +16,6 @@
 	#include "Text.h"
 	#include "Speck Quotes.h"
 	#include "Multi Language Graphic Utils.h"
-#endif
 
 #define		MERC_ACCOUNT_TEXT_FONT				FONT14ARIAL
 #define		MERC_ACCOUNT_TEXT_COLOR				FONT_MCOLOR_WHITE

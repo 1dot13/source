@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "language defines.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <time.h>
@@ -35,7 +31,6 @@
 	#include "Soldier macros.h"
 	#include "Event Pump.h"
 	#include "GameSettings.h"
-#endif
 #include "fresh_header.h"
 #include "connect.h"
 

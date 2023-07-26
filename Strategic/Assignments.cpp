@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Assignments.h"
 	#include "Strategic.h"
 	#include "Items.h"
@@ -77,7 +73,6 @@
 	#include "Strategic AI.h"
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
-#endif
 #include <vector>
 #include <queue>
 
@@ -809,6 +804,11 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 		return(FALSE);
 
 	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0 )
+	{
+		return( FALSE );
+	}
+
+	if (pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
 	{
 		return( FALSE );
 	}
@@ -1657,6 +1657,9 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		// check if sam site
 		if( fSamSitePresent == FALSE )
 		{
+			if (RebelCommand::CanTrainMilitiaAnywhere())
+				return( TRUE );
+
 			// nope
 			return ( FALSE );
 		}
@@ -1970,6 +1973,9 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		}
 	}
 
+	if (RebelCommand::CanTrainMilitiaAnywhere() && GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY) == BLANK_SECTOR)
+		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
+
 	// Count number of trainers already operating here
 	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, TOWN_MILITIA ) >= ubFacilityTrainersAllowed )
 	{
@@ -2032,6 +2038,9 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 		{
 			return( TRUE );
 		}
+		
+		if (RebelCommand::CanTrainMilitiaAnywhere())
+			return(TRUE);
 
 		return( FALSE );
 	}
@@ -2084,7 +2093,7 @@ BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 i
 	// is there a town really here
 	if( bTownId == BLANK_SECTOR )
 	{
-		fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+		fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) || RebelCommand::CanTrainMilitiaAnywhere();
 
 		// if there is a sam site here
 		if( fSamSitePresent )
@@ -2490,7 +2499,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 	{
 		return( FALSE );
 	}
@@ -2708,7 +2717,7 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 		return ( CHARACTER_CANT_JOIN_SQUAD );
 	}
 
-	if ( pSoldier->bAssignment == ASSIGNMENT_POW || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0))
+	if ( pSoldier->bAssignment == ASSIGNMENT_POW || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0) || (pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND) )
 	{
 		// not allowed to be put on a squad
 		return( CHARACTER_CANT_JOIN_SQUAD );
@@ -4872,7 +4881,7 @@ struct RepairItem {
 		item(object), owner(soldier), inventorySlot(slot) {}
 };
 
-struct RepairPriority : std::binary_function<RepairItem, RepairItem, bool> {
+struct RepairPriority {
 	/// Comperator function
 	bool operator() (const RepairItem& firstItem, const RepairItem& secondItem) const {
 		UINT8 priFirst = CalculateItemPriority(firstItem),
@@ -5829,7 +5838,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 	{
 		return;
 	}
@@ -6135,7 +6144,8 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// check if we're doing a sector where militia can be trained
-	if( ( (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
+	const BOOL canTrainMilitiaAnywhere = RebelCommand::CanTrainMilitiaAnywhere();
+	if( (canTrainMilitiaAnywhere || (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
 	{
 		// init town trainer list
 	    memset( TownTrainer, 0, sizeof( TownTrainer ) );
@@ -7897,7 +7907,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 	// get town index
 	ubTownId = StrategicMap[CALCULATE_STRATEGIC_INDEX(pTrainer->sSectorX, pTrainer->sSectorY ) ].bNameId;
-	if( fSamSiteInSector == FALSE )
+	if( fSamSiteInSector == FALSE && !RebelCommand::CanTrainMilitiaAnywhere())
 	{
 		AssertNE(ubTownId, BLANK_SECTOR);
 	}
@@ -10707,7 +10717,7 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			}
 
 			// radio scan
-			if( pSoldier->CanUseRadio() )
+			if( BasicCanCharacterAssignment( pSoldier, TRUE ) && pSoldier->CanUseRadio() )
 			{
 				// unshade line
 				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_RADIO_SCAN );
@@ -16311,7 +16321,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) || ( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 			{
 				continue;
 			}
@@ -16460,7 +16470,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) || ( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 			{
 				continue;
 			}
@@ -19441,7 +19451,8 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 		( AM_A_ROBOT( pSoldier ) ) ||
 		( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
 		( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
-		( pOtherSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
+		( pOtherSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+		( pOtherSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) )
 	{
 		return( FALSE );
 	}
@@ -20163,6 +20174,9 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMilitiaTrainersAllowed;
 		}
 	}
+
+	if (RebelCommand::CanTrainMilitiaAnywhere() && GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY) == BLANK_SECTOR)
+		ubFacilityTrainersAllowed = RebelCommand::GetMaxTrainersForTrainMilitiaAnywhere();
 
 	// If we are here, then TrainersAllowed > 0. 
 	// Otherwise we'd have failed the BasicCanTrain check

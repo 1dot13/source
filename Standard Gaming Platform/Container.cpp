@@ -19,11 +19,6 @@
 //				this crap.	DON'T USE THIS -- NO MATTER WHAT!!!
 //*****************************************************************************
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <stdlib.h>
 	#include <malloc.h>
@@ -35,7 +30,6 @@
 	#if _MSC_VER < 1300 //(iostream.h was removed from VC.NET2003)
 	#include <iostream.h>
 	#endif
-#endif
 
 
 //*****************************************************************************

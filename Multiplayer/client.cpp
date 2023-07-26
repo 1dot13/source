@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "strategic.h"
-#else
 	#include "builddefines.h"
 	#include "bullets.h"
 	#include <stdio.h>
@@ -73,7 +69,6 @@
 #include "SmokeEffects.h"
 #include "MPChatScreen.h"
 #include "sgp_logger.h"
-#endif
 
 #include "MessageIdentifiers.h"
 #include "RakNetworkFactory.h"

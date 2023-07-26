@@ -89,11 +89,6 @@ extern HVOBJECT				gvoBlockFontNarrow;
 extern INT32						gp14PointHumanist;
 extern HVOBJECT				gvo14PointHumanist;
 
-#ifdef JA2EDITOR
-extern INT32						gpHugeFont;
-extern HVOBJECT				gvoHugeFont;
-#endif
-
 //extern INT32			giSubTitleWinFont;
 
 
@@ -124,12 +119,7 @@ extern BOOLEAN					gfFontsInit;
 #define					BLOCKFONTNARROW		gpBlockFontNarrow
 #define					FONT14HUMANIST		gp14PointHumanist
 
-#if defined( JA2EDITOR ) && defined( ENGLISH )
-	#define				HUGEFONT					gpHugeFont
-#else
-	#define				HUGEFONT					gp16PointArial
-#endif
-
+auto GetHugeFont() -> INT32;
 
 #define					FONT_SHADE_RED					6
 #define					FONT_SHADE_BLUE					1

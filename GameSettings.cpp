@@ -1,10 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "HelpScreen.h"
-	#include "Campaign.h"
-	#include "Cheats.h"
-	#include "INIReader.h"
-#else
 	#include	"Types.h"
 	#include	"GameSettings.h"
 	#include	"FileMan.h"
@@ -36,7 +29,6 @@
 	#include "Init.h"
 	#include "InterfaceItemImages.h"
 	#include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 #include "KeyMap.h"
 #include "Timer Control.h"
@@ -256,6 +248,7 @@ void UpdateFeatureFlags()
 		gGameExternalOptions.gfAllowSnow = gGameSettings.fFeatures[FF_ALLOW_SNOW];
 		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
 		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
+		gGameExternalOptions.fStrategicTransportGroupsEnabled = gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS];
 	}
 	else
 	{
@@ -292,7 +285,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_RTCONFIRM]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RTCONFIRM"                        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  TRUE );
-		gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_ALWAYS_LIGHT_UP"             ,  FALSE );
+		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]				= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_MERC_CASTS_LIGHT"				   , FALSE);
 		gGameSettings.fOptions[TOPTION_SMART_CURSOR]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SMART_CURSOR"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GLOW_ITEMS"                       ,  TRUE  );
@@ -340,6 +333,8 @@ BOOLEAN LoadGameSettings()
 		else
 			gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]			= FALSE;
 
+		gGameSettings.fOptions[TOPTION_ALT_START_AIM]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_START_AIM"				   , FALSE); // Start at max aiming level instead of default no aiming
+		gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_PATHFINDING"				   , FALSE); // A* pathfinding
 		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  TRUE ); // Flugente: mercenary formations
 		gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ENEMY_LOCATION"			   ,  FALSE); // sevenfm: show locations of known enemies
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
@@ -361,7 +356,6 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DEBUG_MODE_OPTIONS_END"           ,  FALSE );
 		gGameSettings.fOptions[TOPTION_LAST_OPTION]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LAST_OPTION"                      ,  FALSE );
 		gGameSettings.fOptions[NUM_GAME_OPTIONS]                        = iniReader.ReadBoolean("JA2 Game Settings","NUM_GAME_OPTIONS"                         ,  FALSE );
-		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_CASTS_LIGHT"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
@@ -504,6 +498,7 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_ALLOW_SNOW]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SNOW", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINI_EVENTS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINI_EVENTS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_REBEL_COMMAND]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_REBEL_COMMAND", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_STRATEGIC_TRANSPORT_GROUPS", FALSE, FALSE);
 		}
 	}
 	catch(vfs::Exception)
@@ -580,7 +575,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_RTCONFIRM                        = " << (gGameSettings.fOptions[TOPTION_RTCONFIRM]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SLEEPWAKE_NOTIFICATION           = " << (gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_USE_METRIC_SYSTEM                = " << (gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]					?    "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_MERC_ALWAYS_LIGHT_UP             = " << (gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] ? "TRUE" : "FALSE") << endl;
 		settings << "TOPTION_SMART_CURSOR                     = " << (gGameSettings.fOptions[TOPTION_SMART_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SNAP_CURSOR_TO_DOOR              = " << (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_GLOW_ITEMS                       = " << (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]						?    "TRUE" : "FALSE" ) << endl;
@@ -616,12 +611,14 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_LAST_ENEMY				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]					?	 "TRUE"	: "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_LBE_CONTENT				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					?	 "TRUE"	: "FALSE" ) << endl;
-		settings << "TOPTION_INVERT_WHEEL				  = " << (gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						?	 "TRUE"	: "FALSE" ) << endl;
+		settings << "TOPTION_INVERT_WHEEL					  = " << (gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						?	 "TRUE"	: "FALSE" ) << endl;
 
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_ENABLE_INVENTORY_POPUPS          = " << (gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS]			?    "TRUE" : "FALSE" ) << endl; // the_bob : enable popups for picking items from sector inv
 		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_ENEMY_LOCATION			  = " << (gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				?	 "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALT_START_AIM					  = " << (gGameSettings.fOptions[TOPTION_ALT_START_AIM]						?	 "TRUE" : "FALSE") << endl;
+		settings << "TOPTION_ALT_PATHFINDING				  = " << (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					?	 "TRUE" : "FALSE") << endl;
 
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
@@ -641,7 +638,6 @@ BOOLEAN	SaveGameSettings()
 		settings << ";******************************************************************************************************************************" << endl;
 		settings << "TOPTION_LAST_OPTION                      = " << (gGameSettings.fOptions[TOPTION_LAST_OPTION]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "NUM_GAME_OPTIONS                         = " << (gGameSettings.fOptions[NUM_GAME_OPTIONS]							?    "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]					?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_HIDE_BULLETS                     = " << (gGameSettings.fOptions[TOPTION_HIDE_BULLETS]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_TRACKING_MODE                    = " << (gGameSettings.fOptions[TOPTION_TRACKING_MODE]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "NUM_ALL_GAME_OPTIONS                     = " << (gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]						?    "TRUE" : "FALSE" ) << endl;
@@ -731,6 +727,7 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_ALLOW_SNOW							= " << (gGameSettings.fFeatures[FF_ALLOW_SNOW] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINI_EVENTS							= " << (gGameSettings.fFeatures[FF_MINI_EVENTS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_REBEL_COMMAND						= " << (gGameSettings.fFeatures[FF_REBEL_COMMAND] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_STRATEGIC_TRANSPORT_GROUPS			= " << (gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS] ? "TRUE" : "FALSE") << endl;
 
 		try
 		{
@@ -785,7 +782,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= TRUE;
-	gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ]				= FALSE;
+	gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] = FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
 	gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ]						= TRUE;
@@ -849,7 +846,9 @@ void InitGameSettings()
 	gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						= FALSE;
 	
 	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercenary formations
-	gGameSettings.fOptions[ TOPTION_SHOW_ENEMY_LOCATION ]				= FALSE;	// sevenfm: show locations of known enemies
+	gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]					= FALSE;	// sevenfm: show locations of known enemies
+	gGameSettings.fOptions[TOPTION_ALT_START_AIM]						= FALSE;
+	gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]						= FALSE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	
@@ -878,8 +877,6 @@ void InitGameSettings()
 	gGameSettings.fOptions[	NUM_GAME_OPTIONS ]						    = FALSE; // Toggles prior to this will be able to be toggled by the player
 
 	// JA2Gold
-	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
-
 	gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_TRACKING_MODE ]						= TRUE;
 
@@ -1430,6 +1427,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usExplosivesSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","EXPLOSIVES_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
 	gGameExternalOptions.usLeadershipSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","LEADERSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
 	gGameExternalOptions.usLevelSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","LEVEL_SUBPOINTS_TO_IMPROVE", 350, 1, 6500);
+
+	// rftr: optionally slow stat growth at 80+ and 90+. this gives more value to mercs with high base stats
+	gGameExternalOptions.ubMaxGrowthChanceAt80 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_80", 100, 1, 100);
+	gGameExternalOptions.ubMaxGrowthChanceAt90 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_90", 100, 1, 100);
+
 
 	// Alternate algorithm for choosing equipment level. Mostly disregards soldier's class and puts less emphasis on distance from Sector P3.
 	// SANDRO - moved into the game
@@ -2167,6 +2169,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAlternativeHelicopterFuelSystem			= iniReader.ReadBoolean("Strategic Gameplay Settings","ALTERNATIVE_HELICOPTER_FUEL_SYSTEM", TRUE);
 	gGameExternalOptions.fHelicopterPassengersCanGetHit				= iniReader.ReadBoolean("Strategic Gameplay Settings","HELICOPTER_PASSENGERS_CAN_GET_HIT", TRUE);
 
+	gGameExternalOptions.fStrategicTransportGroupsDebug				= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_DEBUG", FALSE, FALSE);
+	gGameExternalOptions.fStrategicTransportGroupsEnabled			= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_ENABLED", FALSE);
+	gGameExternalOptions.iMaxSimultaneousTransportGroups			= iniReader.ReadInteger("Strategic Gameplay Settings", "MAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS", 5, 1, 10);
+
 	//################# Morale Settings ##################
 	gGameExternalOptions.sMoraleModAppearance				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_APPEARANCE",				1, 0, 5);
 	gGameExternalOptions.sMoraleModRefinement				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_REFINEMENT",				2, 0, 5);
@@ -2851,7 +2857,7 @@ void LoadSkillTraitsExternalSettings()
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);
 	gSkillTraitValues.fROArtilleryDistributedOverTurns	= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY_DISTRIBUTED_OVER_TURNS", FALSE);
-	gSkillTraitValues.bVOArtillerySectorFrequency		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ARTILLERY_SECTOR_FREQUENCY",  120, 20, 1440);
+	gSkillTraitValues.bVOArtillerySectorFrequency		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ARTILLERY_SECTOR_FREQUENCY",  120, 5, 1440);
 	gSkillTraitValues.usVOMortarCountDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_COUNT_DIVISOR",			 6, 5,  20);
 	gSkillTraitValues.usVOMortarShellDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SHELL_DIVISOR",			30, 2, 100);
 	gSkillTraitValues.usVOMortarPointsAdmin				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_ADMIN",			10, 0, 100);
@@ -4157,6 +4163,127 @@ void LoadRebelCommandSettings()
 
 	gRebelCommandSettings.iFortificationsBonus = iniReader.ReadInteger("Rebel Command Settings", "FORTIFICATIONS_BONUS", 10, 0, 100);
 
+	// agent missions
+	gRebelCommandSettings.iMissionBaseCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_BASE_COST", 500, 100, 10000);
+	gRebelCommandSettings.iMissionAdditionalCost = iniReader.ReadInteger("Rebel Command Settings", "MISSION_ADDITIONAL_COST", 250, 0, 10000);
+	gRebelCommandSettings.iMissionPrepTime = iniReader.ReadInteger("Rebel Command Settings", "MISSION_PREPARATION_TIME", 24, 1, 168);
+	gRebelCommandSettings.iMissionRefreshTimeDays = iniReader.ReadInteger("Rebel Command Settings", "MISSION_REFRESH_TIME_DAYS", 2, 1, 7);
+	gRebelCommandSettings.iMinLoyaltyForMission = iniReader.ReadInteger("Rebel Command Settings", "MIN_LOYALTY_FOR_MISSION", 51, 0, 100);
+
+	gRebelCommandSettings.iDeepDeploymentSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iDeepDeploymentRangeNS = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS", 200, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW", 350, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_COVERT", 50, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_COVERT" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_SCOUTING" , 25, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_SCOUTING" , 40, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_STEALTHY" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_STEALTHY" , 30, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeNS_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_NS_BONUS_SURVIVAL" , 15, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentRangeEW_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_RANGE_EW_BONUS_SURVIVAL" , 30, 0, 1000);
+	gRebelCommandSettings.iDeepDeploymentDuration = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION" , 72, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_COVERT" , 24, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Scouting = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_SCOUTING" , 48, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Stealthy = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_STEALTHY" , 36, 0, 255);
+	gRebelCommandSettings.iDeepDeploymentDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "DEEP_DEPLOYMENT_DURATION_BONUS_SURVIVAL" , 36, 0, 255);
+
+	gRebelCommandSettings.iDisruptAsdSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_COVERT", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Demolitions = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_DEMOLITIONS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Nightops = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_NIGHTOPS", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.fDisruptAsdIncomeReductionModifier_Technician = iniReader.ReadFloat("Rebel Command Settings", "DISRUPT_ASD_INCOME_MODIFIER_TECHNICIAN", 0.5f, 0.f, 1.f);
+	gRebelCommandSettings.iDisruptAsdDuration = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_COVERT", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_DEMOLITIONS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
+	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
+
+	gRebelCommandSettings.iForgeTransportOrdersSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "FORGE_TRANSPORT_ORDERS_SUCCESS_CHANCE", 50, 0, 100);
+
+	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_COVERT", 48, 0, 255);
+	gRebelCommandSettings.iGetEnemyMovementTargetsDuration_Bonus_Radio = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION_BONUS_RADIO", 48, 0, 255);
+
+	gRebelCommandSettings.iImproveLocalShopsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "IMPROVE_LOCAL_SHOPS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iImproveLocalShopsDuration = iniReader.ReadInteger("Rebel Command Settings", "IMPROVE_LOCAL_SHOPS_DURATION", 72, 0, 255);
+
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER", 1.1f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_COVERT", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Deputy = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_DEPUTY", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.fReduceStrategicDecisionSpeedModifier_Snitch = iniReader.ReadFloat("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_MODIFIER_BONUS_SNITCH", 1.25f, 1.f, 10.f);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_COVERT", 24, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Deputy = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_DEPUTY", 24, 0, 255);
+	gRebelCommandSettings.iReduceStrategicDecisionSpeedDuration_Bonus_Snitch = iniReader.ReadInteger("Rebel Command Settings", "SLOWER_STRATEGIC_DECISIONS_DURATION_BONUS_SNITCH", 24, 0, 255);
+
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Covert = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_COVERT", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Radio = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_RADIO", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.fReduceUnlaertedEnemyVisionModifier_Stealthy = iniReader.ReadFloat("Rebel Command Settings", "LOWER_READINESS_MODIFIER_STEALTHY", 0.15f, 0.f, 1.f);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iReduceUnalertedEnemyVisionDuration_Bonus_Radio = iniReader.ReadInteger("Rebel Command Settings", "LOWER_READINESS_DURATION_BONUS_RADIO", 72, 0, 255);
+
+	gRebelCommandSettings.iSabotageInfantryEquipmentSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Auto_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_AUTO_WEAPONS", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_COVERT", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_DEMOLITIONS", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Gunslinger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_GUNSLINGER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Ranger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_RANGER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentModifier_Sniper = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_MODIFIER_SNIPER", 10, 0, 100);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Auto_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_AUTO_WEAPONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_DEMOLITIONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Gunslinger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_GUNSLINGER", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Ranger = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_RANGER", 72, 0, 255);
+	gRebelCommandSettings.iSabotageInfantryEquipmentDuration_Bonus_Sniper = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_EQUIPMENT_DURATION_BONUS_SNIPER", 72, 0, 255);
+
+	gRebelCommandSettings.iSabotageMechanicalUnitsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_COVERT", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_DEMOLITIONS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsStatLoss_Heavy_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_STAT_LOSS_HEAVY_WEAPONS", 20, 0, 100);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_DEMOLITIONS", 72, 0, 255);
+	gRebelCommandSettings.iSabotageMechanicalUnitsDuration_Bonus_Heavy_Weapons = iniReader.ReadInteger("Rebel Command Settings", "SABOTAGE_VEHICLES_DURATION_BONUS_HEAVY_WEAPONS", 72, 0, 255);
+
+	gRebelCommandSettings.iSendSuppliesToTownSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSendSuppliesToTownDuration = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iSendSuppliesToTownLoyaltyGain = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_LOYALTY_GAIN", 500, 1, 10000);
+	gRebelCommandSettings.iSendSuppliesToTownInterval = iniReader.ReadInteger("Rebel Command Settings", "SEND_SUPPLIES_TO_TOWN_INTERVAL", 6, 1, 24);
+
+	gRebelCommandSettings.iTrainMilitiaAnywhereSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS", 1, 1, 4);
+	gRebelCommandSettings.iTrainMilitiaAnywhereMaxTrainers_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_MAX_TRAINERS_TEACHING", 1, 1, 4);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_COVERT", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Survival = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_SURVIVAL", 72, 0, 255);
+	gRebelCommandSettings.iTrainMilitiaAnywhereDuration_Bonus_Teaching = iniReader.ReadInteger("Rebel Command Settings", "TRAIN_MILITIA_ANYWHERE_DURATION_BONUS_TEACHING", 72, 0, 255);
+
+	gRebelCommandSettings.iSoldierBountiesKingpinSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_SUCCESS_CHANCE", 50, 0, 100);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Covert = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_COVERT", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_DURATION_BONUS_DEMOLITIONS", 24, 0, 255);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Admin = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ADMIN", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Troop = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TROOP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Elite = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ELITE", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Robot = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_ROBOT", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Jeep = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_JEEP", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Tank = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_TANK", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Officer = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_OFFICER", 100, 0, 5000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_DEMOLITIONS", 10000, 0, 30000);
+	gRebelCommandSettings.iSoldierBountiesKingpinPayout_Limit_Snitch = iniReader.ReadInteger("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_LIMIT_SNITCH", 10000, 0, 30000);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Covert = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_COVERT", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Deputy = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_DEPUTY", 1.1f, 0.f, 2.f);
+	gRebelCommandSettings.fSoldierBountiesKingpinPayout_Bonus_Snitch = iniReader.ReadFloat("Rebel Command Settings", "SOLDIER_BOUNTIES_KINGPIN_PAYOUT_BONUS_SNITCH", 1.1f, 0.f, 2.f);
 }
 
 void FreeGameExternalOptions()
@@ -4462,7 +4589,7 @@ BOOLEAN IsDriveLetterACDromDrive( STR pDriveLetter )
 void DisplayGameSettings( )
 {
 	//Display the version number
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S) %s", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber, zRevisionNumber );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
 
 	//Display the difficulty level
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );

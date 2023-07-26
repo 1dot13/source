@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Font.h"
 	#include "Font Control.h"
 	#include "mapscreen.h"
@@ -49,7 +45,8 @@
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
-#endif
+	#include "Rebel Command.h"
+	#include "Strategic Transport Groups.h"
 
 #include "Quests.h"
 #include "connect.h"
@@ -844,6 +841,44 @@ void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINAT
 			}
 		}
 	}
+
+	FillMapColoursForTransportGroups(colorMap);
+
+	if (RebelCommand::ShowEnemyMovementTargets())
+	{
+		const auto targetColor = MAP_SHADE_LT_RED;
+		GROUP* pGroup = gpGroupList;
+
+		while (pGroup)
+		{
+			if (pGroup->usGroupTeam == ENEMY_TEAM)
+			{
+				const UINT8 intention = pGroup->pEnemyGroup->ubIntention;
+				if (intention == STAGING
+				 || intention == REINFORCEMENTS
+				 || intention == PURSUIT
+				 || intention == ASSAULT)
+				{
+					WAYPOINT* wp = pGroup->pWaypoints;
+
+					while (wp)
+					{
+						if (wp->next == nullptr)
+							break;
+
+						wp = wp->next;
+					}
+
+					if (GetSectorFlagStatus(wp->x-1, wp->y-1, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED))
+					{
+						colorMap[wp->y-1][wp->x-1] = targetColor;
+					}
+				}
+			}
+
+			pGroup = pGroup->next;
+		}
+	}
 }
 
 
@@ -1328,6 +1363,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 				( pSoldier->bAssignment != IN_TRANSIT ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
+				( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
 				( pSoldier->stats.bLife > 0 ) &&
 				( !PlayerIDGroupInMotion( pSoldier->ubGroupID ) ) )
 		{
@@ -1786,7 +1822,7 @@ BOOLEAN InitializePalettesForMap( void )
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
  		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1280x720.pcx");
 	else if (iResolution < _1024x768)
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
@@ -6684,7 +6720,7 @@ void HandleLowerLevelMapBlit( void )
 		offsetY = yVal;
 		imageIndex = 0;
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		offsetX = xVal + 21;
 		offsetY = yVal + 17;
@@ -6938,6 +6974,7 @@ BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 				( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
 				( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
 				( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+				( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) ||
 				( pSoldier->flags.fMercAsleep == TRUE ) ||
 				( pSoldier->stats.bLife < OKLIFE ) )
 		{
@@ -8548,6 +8585,25 @@ void DetermineMapIntelData( INT32 asSectorZ )
 			{
 				AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), MAP_SHADE_LT_RED, 5, szIntelText[3], L"" );
 			}
+		}
+
+		// transport groups
+		std::map<UINT8, TransportGroupSectorInfo> map = GetTransportGroupSectorInfo();
+		for (const auto iter : map)
+		{
+			CHAR16 str[128];
+
+			switch (iter.second)
+			{
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedGroup:
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP]);
+				break;
+
+			case TransportGroupSectorInfo::TransportGroupSectorInfo_LocatedDestination:
+				swprintf( str, gpStrategicString[STR_PB_TRANSPORT_GROUP_EN_ROUTE]);
+				break;
+			}
+			AddIntelAndQuestMapDataForSector( SECTORX(iter.first), SECTORY(iter.first), MAP_SHADE_LT_YELLOW, -1, str, L"" );
 		}
 
 		// uncovered terrorists we know of

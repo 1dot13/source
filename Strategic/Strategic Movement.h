@@ -15,6 +15,7 @@ enum //enemy intentions,
 	PATROL,							//enemy is moving around determining safe areas.
 	REINFORCEMENTS,			//enemy group has intentions to fortify position at final destination.
 	ASSAULT,						//enemy is ready to fight anything they encounter.
+	TRANSPORT,				//rftr: enemy is carrying out non-combat tasks, but still has an escort
 	NUM_ENEMY_INTENTIONS
 };
 
@@ -108,6 +109,9 @@ typedef struct ENEMYGROUP
 #define GROUPFLAG_KNOWN_POSITION					0x00000040
 #define GROUPFLAG_KNOWN_DIRECTION					0x00000080
 #define GROUPFLAG_KNOWN_NUMBER						0x00000100
+
+// rftr: strategic transport group direction flag
+#define GROUPFLAG_TRANSPORT_ENROUTE					0x00000200
 
 typedef struct GROUP
 {

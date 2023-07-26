@@ -1,7 +1,4 @@
 #include "connect.h"
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "items.h"
 	#include "Action Items.h"
 	#include "handle Items.h"
@@ -81,7 +78,6 @@
 	#include "MessageBoxScreen.h"	// added by Flugente
 	#include "Map Screen Interface.h"		// added by Flugente
 	#include "Map Screen Interface Map.h"	// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

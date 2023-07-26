@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include <windows.h>
 	#include "tiledef.h"
 	#include "edit_sys.h"
@@ -44,7 +39,6 @@
 	#include "keys.h"
 	#include "InterfaceItemImages.h"
 	#include "Editor Undo.h"//dnl ch86 220214
-#endif
 
 #include <vfs/Tools/vfs_log.h>
 
@@ -137,11 +131,7 @@ void EntryInitEditorItemsInfo()
 {
 	INT32 i;
 	INVTYPE *item;
-	eInfo.uiBuffer = 0;
-	eInfo.fKill = 0;
 	eInfo.fActive = 0;
-	eInfo.sWidth = 0;
-	eInfo.sHeight = 0;
 	eInfo.sScrollIndex = 0;
 	eInfo.sSelItemIndex = 0;
 	eInfo.sHilitedItemIndex = -1;
@@ -223,20 +213,9 @@ void EntryInitEditorItemsInfo()
 
 void InitEditorItemsInfo(UINT32 uiItemType)
 {
-	VSURFACE_DESC		vs_desc;
-	UINT8	*pDestBuf, *pSrcBuf;
-	UINT32 uiSrcPitchBYTES, uiDestPitchBYTES;
 	INVTYPE *item;
-	SGPRect	SaveRect, NewRect;
-	HVOBJECT hVObject;
-	UINT32 uiVideoObjectIndex;
-	UINT16 usUselessWidth, usUselessHeight;
-	INT32 sWidth, sOffset, sStart;
-	INT32 i, x, y;
+	INT32 i;
 	UINT16 usCounter;
-	CHAR16 pStr[ 100 ];//, pStr2[ 100 ];
-	CHAR16 pItemName[SIZE_ITEM_NAME];
-	UINT8 ubBitDepth;
 	BOOLEAN fTypeMatch;
 	INT32 iEquipCount = 0;
 
@@ -327,106 +306,31 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//Allocate memory to store all the item pointers.
 	if(eInfo.sNumItems)//dnl ch78 271113
 		eInfo.pusItemIndex = (UINT16*)MemAlloc( sizeof(UINT16) * eInfo.sNumItems );
+
 	//Disable the appropriate scroll buttons based on the saved scroll index if applicable
-	//Left most scroll position
 	DetermineItemsScrolling();
-	//calculate the width of the buffer based on the number of items.
-	//every pair of items (odd rounded up) requires 60 pixels for width.
-	//the minimum buffer size is 420.	Height is always 80 pixels.
 
-	eInfo.sWidth = (eInfo.sNumItems > 12) ? (((INT32) eInfo.sNumItems+1)/2)*60 : 360;//dnl ch77 251113 was (SCREEN_HEIGHT - 120) but editor crash if resolution is 1024x768
-	eInfo.sHeight = 80;
-	// Create item buffer
-	GetCurrentVideoSettings( &usUselessWidth, &usUselessHeight, &ubBitDepth );
-	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
-	vs_desc.usWidth = eInfo.sWidth;
-	vs_desc.usHeight = eInfo.sHeight;
-	vs_desc.ubBitDepth = ubBitDepth;
-
-	//!!!Memory check.	Create the item buffer
-	if(!AddVideoSurface( &vs_desc, &eInfo.uiBuffer ))
-	{
-		eInfo.fKill = TRUE;
-		eInfo.fActive = FALSE;
-		return;
-	}
-
-	pDestBuf = LockVideoSurface(eInfo.uiBuffer, &uiDestPitchBYTES);
-	pSrcBuf = LockVideoSurface(FRAME_BUFFER, &uiSrcPitchBYTES);
-
-	//copy a blank chunk of the editor interface to the new buffer.
-	for( i=0; i<eInfo.sWidth; i+=60 )
-	{
-		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
-			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0+i, 0, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, 60, 80 );
-	}
-
-	UnLockVideoSurface(eInfo.uiBuffer);
-	UnLockVideoSurface(FRAME_BUFFER);
-
-	x = 0;
-	y = 0;
 	usCounter = 0;
-	NewRect.iTop = 0;
-	NewRect.iBottom = eInfo.sHeight;
-	NewRect.iLeft = 0;
-	NewRect.iRight = eInfo.sWidth;
-	GetClippingRect(&SaveRect);
-	SetClippingRect(&NewRect);
+	// Go through the items, and depending on the current eInfo.uiItemType, store the item indexes for blitting graphics and names later in RenderEditorItemsInfo()
 	if( eInfo.uiItemType == TBAR_MODE_ITEM_KEYS )
 	{ //Keys use a totally different method for determining
 		for( i = 0; i < eInfo.sNumItems; i++ )
 		{
-			//item = &Item[ KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem ];
-			item = &Item[ KeyTable[ LockTable[ i ].usKeyItem ].usItem ];
-			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
-			GetVideoObject( &hVObject, uiVideoObjectIndex );
-
 			//Store these item pointers for later when rendering selected items.
-			//eInfo.pusItemIndex[i] = KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem;
-			eInfo.pusItemIndex[i] = KeyTable[ LockTable[ i ].usKeyItem ].usItem;
-
-			SetFont(SMALLCOMPFONT);
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			SetFontDestBuffer( eInfo.uiBuffer, 0, 0, eInfo.sWidth, eInfo.sHeight, FALSE );
-
-			swprintf( pStr, L"%S", LockTable[ i ].ubEditorName );
-			DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE,	pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
-
-			UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
-			//Calculate the center position of the graphic in a 60 pixel wide area.
-			sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
-			sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
-			sStart = x + (60 - sWidth - sOffset*2) / 2;
-
-			BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, usGraphicNum, sStart, y+2, 0, FALSE );
-
-			//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
-			if( y == 0 )
-			{
-				y = 40;
-			}
-			else
-			{
-				y = 0;
-				x += 60;
-			}
+			eInfo.pusItemIndex[i] = KeyTable[LockTable[i].usKeyItem].usItem;
 		}
 	}
 	else for( i = 0; i < eInfo.sNumItems; i++ )
 	{
-
 		fTypeMatch = FALSE;
 		while( usCounter<MAXITEMS && !fTypeMatch )
 		{
 			if ( Item[usCounter].usItemClass	== 0 )
 			{
-				//break;
 				usCounter++;
 				continue;
 			}
 			item = &Item[usCounter];
-			//if( Item[usCounter].fFlags & ITEM_NOT_EDITOR )
 			if(item->notineditor)
 			{
 				usCounter++;
@@ -495,99 +399,12 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			}
 			if( fTypeMatch )
 			{
-
-				uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
-				GetVideoObject( &hVObject, uiVideoObjectIndex );
-
 				//Store these item pointers for later when rendering selected items.
 				eInfo.pusItemIndex[i] = usCounter;
-
-				SetFont(SMALLCOMPFONT);
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				SetFontDestBuffer( eInfo.uiBuffer, 0, 0, eInfo.sWidth, eInfo.sHeight, FALSE );
-
-
-				if( eInfo.uiItemType != TBAR_MODE_ITEM_TRIGGERS )
-				{
-					LoadItemInfo( usCounter, pItemName, NULL );
-					swprintf( pStr, L"%s", pItemName );
-				}
-				else
-				{
-					if( i == PRESSURE_ACTION_ID )
-					{
-						swprintf( pStr, pInitEditorItemsInfoText[0] );
-					}
-					else if( i < 2 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[5] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[1] );
-					}
-					else if( i < 4 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[6] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[2] );
-					}
-					else if( i < 6 )
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[7] );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[3] );
-					}
-					else
-					{
-						if( usCounter == SWITCH )
-							swprintf( pStr, pInitEditorItemsInfoText[8], (i-4)/2 );
-						else
-							swprintf( pStr, pInitEditorItemsInfoText[4], (i-4)/2 );
-					}
-				}
-
-				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
-
-				UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
-				if(usGraphicNum < hVObject->usNumberOfObjects)
-				{
-					//Calculate the center position of the graphic in a 60 pixel wide area.
-					sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
-					sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
-					sStart = x + (60 - sWidth - sOffset*2) / 2;
-
-					if( sWidth && sWidth > 0 )
-					{
-						BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, usGraphicNum, sStart, y+2, 0, FALSE );
-					}
-
-					//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
-					if( y == 0 )
-					{
-						y = 40;
-					}
-					else
-					{
-						y = 0;
-						x += 60;
-					}
-				}
-				else
-				{
-					static vfs::Log& editorLog = *vfs::Log::create(L"EditorItems.log");
-					editorLog	<< L"Tried to access item [" 
-								<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
-								<< L"]" << vfs::Log::endl;
-				}
 			}
 			usCounter++;
 		}
 	}
-	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-	SetClippingRect(&SaveRect);
-	gfRenderTaskbar = TRUE;
 }
 
 void DetermineItemsScrolling()
@@ -607,8 +424,6 @@ void DetermineItemsScrolling()
 
 void RenderEditorItemsInfo()
 {
-	UINT8	*pDestBuf, *pSrcBuf;
-	UINT32 uiSrcPitchBYTES, uiDestPitchBYTES;
 	INVTYPE *item;
 	HVOBJECT hVObject;
 	UINT32 uiVideoObjectIndex;
@@ -627,14 +442,6 @@ void RenderEditorItemsInfo()
 	{ //Mouse has moved out of the items display region -- so nothing can be highlighted.
 		eInfo.sHilitedItemIndex = -1;
 	}
-	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
-	pSrcBuf = LockVideoSurface(eInfo.uiBuffer, &uiSrcPitchBYTES);
-
-	Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
-				(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
-
-	UnLockVideoSurface(eInfo.uiBuffer);
-	UnLockVideoSurface(FRAME_BUFFER);
 
 	//calculate the min and max index that is currently shown.	This determines
 	//if the highlighted and/or selected items are drawn with the outlines.
@@ -685,26 +492,101 @@ void RenderEditorItemsInfo()
 			}
 		}
 	}
-	//draw item index no & the numbers of each visible item that currently resides in the world.
+
+
+	//draw item graphics, name, index number & the numbers of each visible item that currently resides in the world.
 	maxIndex = min( maxIndex, eInfo.sNumItems-1 );
 	for( i = minIndex; i <= maxIndex; i++ )
 	{
 		x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
 		y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
-		SetFont( BLOCKFONTNARROW );
-		SetFontForeground( FONT_LTGREEN );
-		SetFontShadow( FONT_NEARBLACK );
 		
-		// item index no
+
+		// Blit item graphics on demand based on what is visible
+		UINT16 itemIndex = eInfo.pusItemIndex[i];
+		item = &Item[itemIndex];
+		uiVideoObjectIndex = GetInterfaceGraphicForItem(item);
+		GetVideoObject(&hVObject, uiVideoObjectIndex);
+		UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+		if (usGraphicNum >= hVObject->usNumberOfObjects) // Tried to access graphics outside of hvObject's indices
+		{
+			static vfs::Log& editorLog = *vfs::Log::create(L"EditorItems.log");
+			editorLog	<< L"Tried to access item [" 
+						<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
+						<< L"]" << vfs::Log::endl;
+		}
+		sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+		sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
+		sStart = x + (60 - sWidth - sOffset * 2) / 2;
+		BltVideoObjectOutlineFromIndex(FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, sStart, y + 2, Get16BPPColor(FROMRGB(250, 0, 0)), FALSE);
+
+
+		// Display item name
+		CHAR16 pStr[100];
+		CHAR16 pItemName[SIZE_ITEM_NAME];
+
+		if (eInfo.uiItemType == TBAR_MODE_ITEM_KEYS)
+		{
+			swprintf(pStr, L"%S", LockTable[i].ubEditorName);
+		}
+		else if (eInfo.uiItemType != TBAR_MODE_ITEM_TRIGGERS)
+		{
+			LoadItemInfo(eInfo.pusItemIndex[i], pItemName, NULL);
+			swprintf(pStr, L"%s", pItemName);
+		}
+		else
+		{
+			if (i == PRESSURE_ACTION_ID)
+			{
+				swprintf(pStr, pInitEditorItemsInfoText[0]);
+			}
+			else if (i < 2)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[5]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[1]);
+			}
+			else if (i < 4)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[6]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[2]);
+			}
+			else if (i < 6)
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[7]);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[3]);
+			}
+			else
+			{
+				if (itemIndex == SWITCH)
+					swprintf(pStr, pInitEditorItemsInfoText[8], (i - 4) / 2);
+				else
+					swprintf(pStr, pInitEditorItemsInfoText[4], (i - 4) / 2);
+			}
+		}
+		SetFont(SMALLCOMPFONT);
+		SetFontForeground(FONT_MCOLOR_WHITE);
+		DisplayWrappedString(x, (UINT16)(y + 25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED);
+
+
+
+		SetFont(BLOCKFONTNARROW);
+		SetFontForeground(FONT_LTGREEN);
+		SetFontShadow(FONT_NEARBLACK);
+		// item index number
 		mprintf( x + 12, y + 18, L"%d", eInfo.pusItemIndex[ i ] );
 
-		// index no within usItemClass
+		// index number within usItemClass
 		SetFontForeground( FONT_LTBLUE );
 		mprintf( x + 40, y + 18, L"%d", i );
 
 		// numbers of each visible item
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
-
 		if( usNumItems )
 		{
 			SetFont( FONT10ARIAL );
@@ -719,21 +601,13 @@ void RenderEditorItemsInfo()
 
 void ClearEditorItemsInfo()
 {
-	if( eInfo.uiBuffer )
-	{
-		DeleteVideoSurfaceFromIndex( eInfo.uiBuffer );
-		eInfo.uiBuffer = 0;
-	}
 	if( eInfo.pusItemIndex )
 	{
 		MemFree( eInfo.pusItemIndex );
 		eInfo.pusItemIndex = NULL;
 	}
 	DisableEditorRegion( ITEM_REGION_ID );
-	eInfo.fKill = 0;
 	eInfo.fActive = 0;
-	eInfo.sWidth = 0;
-	eInfo.sHeight = 0;
 	eInfo.sNumItems = 0;
 	//save the highlighted selections
 	switch( eInfo.uiItemType )
@@ -1158,16 +1032,10 @@ void DeleteSelectedItem()
 		if( gpEditingItemPool == gpItemPool )
 			gpEditingItemPool = NULL;
 		RemoveItemFromPool( sGridNo, gpItemPool->iItemIndex, 0 );
-#if 0//dnl ch86 220214
-		gpItemPool = NULL;
-		//determine if there are still any items at this location
-		if( GetItemPoolFromGround( sGridNo, &gpItemPool ) )
-#else
 		ITEM_POOL *pItemPoolOld = gpItemPool;
 		GetItemPoolFromGround(sGridNo, &gpItemPool);
 		UpdateItemPoolInUndoList(sGridNo, pItemPoolOld, gpItemPool);
 		if(gpItemPool)
-#endif
 		{ //reset display for remaining items
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
 		}

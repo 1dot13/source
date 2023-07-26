@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include	"Types.h"
 	#include	"SaveLoadScreen.h"
 	#include	"Video.h"
@@ -36,7 +33,6 @@
 	#include	"Multi Language Graphic Utils.h"
 	#include	"Campaign Types.h"
 	#include	"PostalService.h"
-#endif
 
 #include "connect.h"
 
@@ -2370,7 +2366,7 @@ UINT8 CompareSaveGameVersion( INT32 bSaveGameID )
 		ubRetVal = SLS_SAVED_GAME_VERSION_OUT_OF_DATE;
 	}
 
-	if( strcmp( SaveGameHeader.zGameVersionNumber, czVersionNumber ) != 0 )
+	if( strcmp( SaveGameHeader.zGameVersionNumber, czVersionString ) != 0 )
 	{
 		if( ubRetVal == SLS_SAVED_GAME_VERSION_OUT_OF_DATE )
 			ubRetVal = SLS_BOTH_SAVE_GAME_AND_GAME_VERSION_OUT_OF_DATE;
@@ -2516,7 +2512,7 @@ void DoneFadeOutForSaveLoadScreen( void )
 				NextLoopCheckForEnoughFreeHardDriveSpace();
 			}
 			else if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
-				(gGameOptions.ubSquadSize == 10 && iResolution < _1024x768))
+				(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_SQUAD_SIZE_RES_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();

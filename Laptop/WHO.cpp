@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "laptop.h"
 #include "insurance.h"
 #include "insurance Contract.h"
@@ -29,7 +26,6 @@
 #include "Quests.h"
 #include "finances.h"
 #include "Game Clock.h"
-#endif
 
 
 #define		MERCOMP_FONT_COLOR								2

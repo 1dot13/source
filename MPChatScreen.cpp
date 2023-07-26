@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "Timer Control.h"
@@ -25,7 +22,6 @@
 #include "message.h"
 #include "utilities.h"
 #include "connect.h"
-#endif
 
 #define		CHATBOX_WIDTH							310 // 350 is the max size, the PrepareMercPopupBox will add the X_MARGIN to both sides
 #define		CHATBOX_Y_MARGIN_NOLOG					25
@@ -1407,7 +1403,6 @@ void ChatLogMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	MoveToEndOfChatScreenMessageList( );
 
-	//LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
 }
 
 

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Laptop All.h"
-#else
 	#include "laptop.h"
 	#include "AimFacialIndex.h"
 	#include "WordWrap.h"
@@ -16,7 +13,6 @@
 	#include "GameSettings.h"
 	#include "english.h"
 	#include "sysutil.h"
-#endif
 
 
 extern UINT8	gubCurrentSortMode; // symbol already defined in AimSort.cpp (jonathanl)

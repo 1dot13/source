@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "Squads.h"
 	#include "Strategic Pathing.h"
@@ -18,7 +15,6 @@
 	#include "screenids.h"
 	#include "Soldier macros.h"
 	#include "GameSettings.h"
-#endif
 #include <vector>
 
 
@@ -1385,6 +1381,11 @@ BOOLEAN IsSquadInSector( SOLDIERTYPE *pSoldier, UINT8 ubSquad )
 	}
 
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	{
+		return( FALSE );
+	}
+
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
 	{
 		return( FALSE );
 	}

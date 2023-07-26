@@ -1,8 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "PreBattle Interface.h"
-#include "saveloadgame.h"
-#else
 	#include "sgp.h"
 	#include "Soldier Create.h"
 	#include "overhead.h"
@@ -48,7 +43,6 @@
 	#include "Soldier macros.h"		// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "connect.h"
 #include "message.h"
@@ -1838,6 +1832,8 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 		RebelCommand::ApplyMilitiaBonuses(pSoldier);
 	if ((SOLDIER_CLASS_ENEMY(pSoldier->ubSoldierClass) || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT))
 		RebelCommand::ApplyEnemyPenalties(pSoldier);
+	if (pCreateStruct->bTeam == ENEMY_TEAM && (ENEMYROBOT(pCreateStruct) || ARMED_VEHICLE(pCreateStruct)))
+		RebelCommand::ApplyEnemyMechanicalUnitPenalties(pSoldier);
 
 	// Flugente: enemy roles
 	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyOfficers && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
@@ -3224,6 +3220,8 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 		// Flugente: why would a vehicle's armour depend on game progress? Always give them 100 HP
 		pSoldier->stats.bLifeMax = 100;
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
+
+		RebelCommand::ApplyEnemyMechanicalUnitPenalties(pSoldier);
 	}
 
 	return( pSoldier );
@@ -3264,6 +3262,8 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 		// Flugente: why would a vehicle's armour depend on game progress? Always give them 100 HP
 		pSoldier->stats.bLifeMax = 100;
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
+
+		RebelCommand::ApplyEnemyMechanicalUnitPenalties(pSoldier);
 	}
 
 	return(pSoldier);
@@ -3304,6 +3304,8 @@ SOLDIERTYPE* TacticalCreateEnemyRobot()
 
 		pSoldier->stats.bLifeMax = 80;
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
+
+		RebelCommand::ApplyEnemyMechanicalUnitPenalties(pSoldier);
 	}
 
 	return(pSoldier);

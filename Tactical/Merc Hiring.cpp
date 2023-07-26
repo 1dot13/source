@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-	#include "strategic.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
@@ -53,7 +49,6 @@
 	#include "GameSettings.h"
 	#include "DynamicDialogue.h"// added by Flugente
 	#include "Dialogue Control.h"	// added by Flugente
-#endif
 #include "connect.h"
 
 #ifdef JA2UB

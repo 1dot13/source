@@ -1,12 +1,7 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Editor All.h"
-#else
 	#include "builddefines.h"
-#endif
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "smooth.h"
@@ -23,7 +18,6 @@
 	#include "keys.h"
 	#include "EditorItems.h"
 	#include "EditorMapInfo.h"
-#endif
 
 /*
 Kris -- Notes on how the undo code works:
@@ -373,56 +367,6 @@ void CropStackToMaxLength( INT32 iMaxCmds )
 	}
 }
 
-#if 0//dnl ch86 200214
-//We are adding a light to the undo list.	We won't save the mapelement, nor will
-//we validate the gridno in the binary tree.	This works differently than a mapelement,
-//because lights work on a different system.	By setting the fLightSaved flag to TRUE,
-//this will handle the way the undo command is handled.	If there is no lightradius in
-//our saved light, then we intend on erasing the light upon undo execution, otherwise, we
-//save the light radius and light ID, so that we place it during undo execution.
-void AddLightToUndoList( INT32 iMapIndex, INT32 iLightRadius, UINT8 ubLightID )
-{
-	undo_stack		*pNode;
-	undo_struct		*pUndoInfo;
-
-	if(	!gfUndoEnabled )
-		return;
-	//When executing an undo command (by adding a light or removing one), that command
-	//actually tries to add it to the undo list.	So we wrap the execution of the undo
-	//command by temporarily setting this flag, so it'll ignore, and not place a new undo
-	//command.	When finished, the flag is cleared, and lights are again allowed to be saved
-	//in the undo list.
-	if( gfIgnoreUndoCmdsForLights )
-		return;
-
-	pNode = (undo_stack*)MemAlloc( sizeof( undo_stack ) );
-	if( !pNode )
-		return;
-
-	pUndoInfo = (undo_struct *)MemAlloc( sizeof( undo_struct ) );
-	if( !pUndoInfo )
-	{
-		MemFree( pNode );
-		return;
-	}
-
-	pUndoInfo->fLightSaved = TRUE;
-	//if ubLightRadius is 0, then we don't need to save the light information because we
-	//will erase it when it comes time to execute the undo command.
-	pUndoInfo->ubLightRadius = (UINT8)iLightRadius;
-	pUndoInfo->ubLightID = ubLightID;
-	pUndoInfo->iMapIndex = iMapIndex;
-	pUndoInfo->pMapTile = NULL;
-
-	//Add to undo stack
-	pNode->iCmdCount = 1;
-	pNode->pData = pUndoInfo;
-	pNode->pNext = gpTileUndoStack;
-	gpTileUndoStack = pNode;
-
-	CropStackToMaxLength( MAX_UNDO_COMMAND_LENGTH );
-}
-#endif
 
 BOOLEAN AddToUndoList( INT32 iMapIndex )
 {
@@ -549,11 +493,7 @@ BOOLEAN AddToUndoListCmd( INT32 iMapIndex, INT32 iCmdCount )
 		{
 			// this loop won't execute for single-tile structures; for multi-tile structures, we have to
 			// add to the undo list all the other tiles covered by the structure
-#if 0//dnl ch83 080114
-			iCoveredMapIndex = pStructure->sBaseGridNo + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
-#else
 			iCoveredMapIndex = AddPosRelToBase(pStructure->sBaseGridNo, pStructure->pDBStructureRef->ppTile[ubLoop]);
-#endif
 			AddToUndoList( iCoveredMapIndex );
 		}
 		pStructure = pStructure->pNext;
@@ -581,19 +521,11 @@ void CheckMapIndexForMultiTileStructures( UINT32 usMapIndex )
 				// for multi-tile structures we have to add, to the undo list, all the other tiles covered by the structure
 				if (pStructure->fFlags & STRUCTURE_BASE_TILE)
 				{
-#if 0//dnl ch83 080114
-					iCoveredMapIndex = usMapIndex + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
-#else
 					iCoveredMapIndex = AddPosRelToBase(usMapIndex, pStructure->pDBStructureRef->ppTile[ubLoop]);
-#endif
 				}
 				else
 				{
-#if 0//dnl ch83 080114
-					iCoveredMapIndex = pStructure->sBaseGridNo + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
-#else
 					iCoveredMapIndex = AddPosRelToBase(pStructure->sBaseGridNo, pStructure->pDBStructureRef->ppTile[ubLoop]);
-#endif
 				}
 				AddToUndoList( iCoveredMapIndex );
 			}
@@ -642,26 +574,6 @@ BOOLEAN ExecuteUndoList( void )
 	while ( (iCurCount < iCmdCount) && (gpTileUndoStack != NULL) )
 	{
 		iUndoMapIndex = gpTileUndoStack->pData->iMapIndex;
-#if 0//dnl ch86 201214
-		fExitGrid = ExitGridAtGridNo( iUndoMapIndex );
-
-		// Find which map tile we are to "undo"
-		if( gpTileUndoStack->pData->fLightSaved )
-		{ //We saved a light, so delete that light
-			INT16 sX, sY;
-			//Turn on this flag so that the following code, when executed, doesn't attempt to
-			//add lights to the undo list.	That would cause problems...
-			gfIgnoreUndoCmdsForLights = TRUE;
-			ConvertGridNoToXY( iUndoMapIndex, &sX, &sY );
-			if( !gpTileUndoStack->pData->ubLightRadius )
-				RemoveLight( sX, sY );
-			else
-				PlaceLight( gpTileUndoStack->pData->ubLightRadius, sX, sY, gpTileUndoStack->pData->ubLightID );
-			//Turn off the flag so lights can again be added to the undo list.
-			gfIgnoreUndoCmdsForLights = FALSE;
-		}
-		else
-#endif
 		{	// We execute the undo command node by simply swapping the contents
 			// of the undo's MAP_ELEMENT with the world's element.
 			SwapMapElementWithWorld( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );
@@ -736,19 +648,8 @@ BOOLEAN ExecuteUndoList( void )
 		//an undo is called, the item is erased, but a cursor is added!	I'm quickly
 		//hacking around this by erasing all cursors here.
 		RemoveAllTopmostsOfTypeRange( iUndoMapIndex, FIRSTPOINTERS, FIRSTPOINTERS );
-#if 0//dnl ch86 110214
-		if( fExitGrid && !ExitGridAtGridNo( iUndoMapIndex ) )
-		{ //An exitgrid has been removed, so get rid of the associated indicator.
-			RemoveTopmost( iUndoMapIndex, FIRSTPOINTERS8 );
-		}
-		else if( !fExitGrid && ExitGridAtGridNo( iUndoMapIndex ) )
-		{ //An exitgrid has been added, so add the associated indicator
-			AddTopmostToTail( iUndoMapIndex, FIRSTPOINTERS8 );
-		}
-#else
 		if(gfShowExitGrids && fExitGrid)
 			AddTopmostToTail(iUndoMapIndex, FIRSTPOINTERS8);
-#endif
 	}
 
 	return( TRUE );

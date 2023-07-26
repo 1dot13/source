@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "InIReader.h"
-#else
 	#include "types.h"
 	#include "Game Events.h"
 	#include "soundman.h"
@@ -51,7 +47,8 @@
 	#include "Player Command.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
 	#include "MiniEvents.h"
-#endif
+	#include "Rebel Command.h"
+	#include "interface Dialogue.h"
 
 #include "connect.h"
 
@@ -105,18 +102,6 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 {
 
 	BOOLEAN bMercDayOne = FALSE;
-// BF : file access is bad, especially if a function is called so often.
-#if 0
-	// Kaiden: Opening the INI File
-	CIniReader iniReader("..\\Ja2_Options.ini");
-
-	if(is_networked) memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
-
-	//Kaiden: Getting Value for MERC Available on Day one?
-	// for some reason, this can't be in gamesettings.cpp
-	// or it won't work.
-	bMercDayOne = iniReader.ReadBoolean("Options","MERC_DAY_ONE",FALSE);
-#endif
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");
 
 	if( gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents && _KeyDown( NUM_LOCK ) )
@@ -679,6 +664,15 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			{
 				CheckMiniEvents(pEvent->uiParam);
 			}
+			break;
+
+		case EVENT_REBELCOMMAND:
+			RebelCommand::HandleStrategicEvent(pEvent->uiParam);
+			break;
+
+		case EVENT_RETURN_TRANSPORT_GROUP:
+			// for this action, we only care about the groupid, which is in the event param
+			ExecuteStrategicAIAction(NPC_ACTION_RETURN_TRANSPORT_GROUP, 0, 0, pEvent->uiParam);
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

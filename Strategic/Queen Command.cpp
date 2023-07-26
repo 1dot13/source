@@ -1,9 +1,5 @@
 //Queen Command.c
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "Queen Command.h"
 	#include "Strategic Event Handler.h"
 	#include "Overhead Types.h"
@@ -45,7 +41,8 @@
 	#include "Morale.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "ASD.h"				// added by Flugente
-#endif
+	#include "Interface Panels.h"
+	#include "Strategic Transport Groups.h"
 
 #ifdef JA2BETAVERSION
 	extern BOOLEAN gfClearCreatureQuest;
@@ -101,7 +98,6 @@ void HandleBloodCatDeaths( SECTORINFO *pSector );
 #endif
 
 extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
-
 
 void ValidateEnemiesHaveWeapons()
 {
@@ -299,7 +295,7 @@ UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSecto
 		// we test several conditions before we allow adding an opinion
 		// other merc must be active, have a profile, be someone else and not be in transit or dead
 		if ( pTeamSoldier->bActive && !pTeamSoldier->flags.fBetweenSectors  && pTeamSoldier->stats.bLife > 0 && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
-			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT) &&
+			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pTeamSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND) &&
 			 (pTeamSoldier->sSectorX == sSectorX && pTeamSoldier->sSectorY == sSectorY && pTeamSoldier->bSectorZ == sSectorZ) )
 		{
 			++teammemberspresent;
@@ -617,6 +613,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	gfPendingNonPlayerTeam[ENEMY_TEAM] = FALSE;
 
+	// rftr: clear cached transport groups
+	ClearTransportGroupMap();
+
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
 
@@ -644,9 +643,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 			{
-				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
+				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
 				{
-					pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
+					pGroup = GetNonPlayerGroupInSectorForReinforcement( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
 
 					pGroup->ubPrevX = pGroup->ubSectorX;
 					pGroup->ubPrevY = pGroup->ubSectorY;
@@ -673,9 +672,22 @@ BOOLEAN PrepareEnemyForSectorBattle()
 					HandleArrivalOfReinforcements( pGroup );
 				}
 
+				// for transport groups, track how many enemies of each type we're adding so we can update drops for them
+				if (pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention == TRANSPORT && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ)
+				{
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, pGroup->pEnemyGroup->ubNumAdmins);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, pGroup->pEnemyGroup->ubNumTroops);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, pGroup->pEnemyGroup->ubNumElites);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, pGroup->pEnemyGroup->ubNumRobots);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, pGroup->pEnemyGroup->ubNumJeeps);
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, pGroup->pEnemyGroup->ubNumTanks);
+				}
+
 				pGroup = pGroup->next;
 			}
 		}
+
+		UpdateTransportGroupInventory();
 
 		ValidateEnemiesHaveWeapons();
 		UnPauseGame();
@@ -856,6 +868,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle &&
 				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{ //Process enemy group in sector.
+			const BOOLEAN isTransportGroup = pGroup->pEnemyGroup->ubIntention == TRANSPORT;
 			if( sNumSlots > 0 )
 			{
 				AssertGE(pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubAdminsInBattle);
@@ -869,6 +882,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubAdminsInBattle += ubNumAdmins;
 				ubTotalAdmins += ubNumAdmins;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
 			}
 			if( sNumSlots > 0 )
 			{ //Add regular army forces.
@@ -883,6 +899,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTroopsInBattle += ubNumTroops;
 				ubTotalTroops += ubNumTroops;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
 			}
 			if( sNumSlots > 0 )
 			{ //Add elite troops
@@ -897,6 +916,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubElitesInBattle += ubNumElites;
 				ubTotalElites += ubNumElites;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
 			}
 			if( sNumSlots > 0 )
 			{ //Add robots
@@ -911,6 +933,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubRobotsInBattle += ubNumRobots;
 				ubTotalRobots += ubNumRobots;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ROBOT, ubNumRobots);
 			}
 			if( sNumSlots > 0 )
 			{ //Add tanks
@@ -925,6 +950,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubTanksInBattle += ubNumTanks;
 				ubTotalTanks += ubNumTanks;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_TANK, ubNumTanks);
 			}
 			if ( sNumSlots > 0 )
 			{
@@ -940,6 +968,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 				pGroup->pEnemyGroup->ubJeepsInBattle += ubNumJeeps;
 				ubTotalJeeps += ubNumJeeps;
+
+				if (isTransportGroup)
+					AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
 			}
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
@@ -980,6 +1011,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	unsigned slotsAvailable = lastSlot-firstSlot+1;
+
 	while( pGroup && sNumSlots > 0 )
 	{
 		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle &&
@@ -1092,6 +1124,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						}
 						break;
 				}
+
 			}
 
 			// Flugente: instead of just crashing the game without any explanation to the user, ignore this issue if it still exists.
@@ -1106,6 +1139,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 		pGroup = pGroup->next;
 	}
+
+	UpdateTransportGroupInventory();
 
 	ValidateEnemiesHaveWeapons();
 	UnPauseGame();
@@ -2149,6 +2184,16 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 	
+	// while transport groups can't normally reinforce, this covers the case where a transport group enters a sector (via normal movement)
+	// where a battle is in progress.
+	if (pGroup && pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+	{
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ADMINISTRATOR, ubNumAdmins);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ARMY, ubNumTroops);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_ELITE, ubNumElites);
+		AddToTransportGroupMap(pGroup->ubGroupID, SOLDIER_CLASS_JEEP, ubNumJeeps);
+	}
+
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -2721,43 +2766,31 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-#ifdef JA2UB
-// no UB
-#else
-     
+#ifndef JA2UB
 	// Set flag...
 	if( !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) || !(gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
-		// CJC Dec 1 2002: fixing multiple captures:
-		//gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
-
 		if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
 		{
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			StartQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY );
 		}
-		// CJC Dec 1 2002: fixing multiple captures:
-		//else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE )
-		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			StartQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
 		}
-		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+		else if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 		{
 			StartQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
-			// CJC Dec 1 2002: fixing multiple captures:
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 
 			// OK! - Schedule Meanwhile now!
 			HandleInterrogationMeanwhileScene();
 		}
-		// CJC Dec 1 2002: fixing multiple captures
 		else
 		{
-			// !?!? set both flags
+			// Set both flags if we can't start any of the three POW quests
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 		}
@@ -2765,16 +2798,22 @@ void EndCaptureSequence( )
 #endif
 }
 
+int CalculateMaximumPrisonerAmount()
+{
+#ifndef JA2UB
+	if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED) { return std::size(gModSettings.iInitialPOWGridNo); }
+	if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED) { return std::size(gModSettings.iTixaPrisonPOWGridNo); }
+	if (gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) { return std::size(gModSettings.iMeanwhileInterrogatePOWGridNo); }
+#endif
+	return 0;
+}
+
 void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 {
-	UINT32					i;
-	BOOLEAN       fMadeCorpse;
-	INT32         iNumEnemiesInSector;
-
+#ifndef JA2UB
 	AssertNotNIL(pSoldier);
 
 	// ATE: Check first if ! in player captured sequence already
-	// CJC Dec 1 2002: fixing multiple captures
 	if ( ( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) && (gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
 		return;
@@ -2785,6 +2824,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	{
 		pSoldier->stats.bLife = 0;
 		pSoldier->iHealableInjury = 0; // added by SANDRO
+		BOOLEAN fMadeCorpse;
 		HandleSoldierDeath( pSoldier, &fMadeCorpse );
 		return;
 	}
@@ -2795,37 +2835,41 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		return;
 	}
 	
+	if (pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+	{
+		return;
+	}
+	
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
 
-	// ATE: Patch fix If in a vehicle, remove from vehicle...
-	TakeSoldierOutOfVehicle( pSoldier );
-
-	HandleMoraleEvent( pSoldier, MORALE_MERC_CAPTURED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-
-	// Change to POW....
-	//-add him to a POW assignment/group
-	if( ( pSoldier->bAssignment != ASSIGNMENT_POW )  )
+	if (gStrategicStatus.ubNumCapturedForRescue >= CalculateMaximumPrisonerAmount())
 	{
-		SetTimeOfAssignmentChangeForMerc( pSoldier );
+		SetTimeOfAssignmentChangeForMerc(pSoldier);
+		return;
 	}
 
-	ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_POW );
-	RemoveCharacterFromSquads( pSoldier );
-
-	WORLDITEM			WorldItem;
-	std::vector<WORLDITEM> pWorldItem;
-
-#ifdef JA2UB
-	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-#else
 	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-#endif 	
 	{
-		INT32 itemdropoffgridno = -1;
+		// ATE: Patch fix If in a vehicle, remove from vehicle...
+		TakeSoldierOutOfVehicle(pSoldier);
 
+		HandleMoraleEvent(pSoldier, MORALE_MERC_CAPTURED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+
+		// Change to POW....
+		//-add him to a POW assignment/group
+		if ((pSoldier->bAssignment != ASSIGNMENT_POW))
+		{
+			SetTimeOfAssignmentChangeForMerc(pSoldier);
+		}
+
+		ChangeSoldiersAssignment(pSoldier, ASSIGNMENT_POW);
+		RemoveCharacterFromSquads(pSoldier);
+
+
+		INT32 itemdropoffgridno = -1;
 		// Is this the first one..?
 		if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED )
 		{
@@ -2837,7 +2881,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#ifndef JA2UB
 		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
 			//-teleport him to Tixa as originally planned
@@ -2848,7 +2891,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iTixaPrisonPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iTixaPrisonPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
-		#endif
 		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 		{
 			//-teleport him to N7
@@ -2860,8 +2902,10 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		}
 		
 		// OK, drop all items!
+		WORLDITEM WorldItem;
+		std::vector<WORLDITEM> pWorldItem;
 		UINT32 invsize = pSoldier->inv.size();
-		for ( i = 0; i < invsize; ++i )
+		for (UINT32 i = 0; i < invsize; ++i )
 		{
 			if ( pSoldier->inv[i].exists() )
 			{
@@ -2883,34 +2927,40 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 
 		gStrategicStatus.ubNumCapturedForRescue++;
-	}
 
-	//Bandaging him would prevent him from dying (due to low HP)
-	pSoldier->bBleeding = 0;
+		//Bandaging him would prevent him from dying (due to low HP)
+		pSoldier->bBleeding = 0;
 
-	// wake him up
-	if ( pSoldier->flags.fMercAsleep )
-	{
-		PutMercInAwakeState( pSoldier );
-		pSoldier->flags.fForcedToStayAwake = FALSE;
-	}
+		// wake him up
+		if ( pSoldier->flags.fMercAsleep )
+		{
+			PutMercInAwakeState( pSoldier );
+			pSoldier->flags.fForcedToStayAwake = FALSE;
+		}
 
-	//Set his life to 50% + or - 10 HP.
-	INT8 oldlife = pSoldier->stats.bLife;
-	pSoldier->stats.bLife = max(35, pSoldier->stats.bLifeMax / 2);
+		//Set his life to 50% + or - 10 HP.
+		INT8 oldlife = pSoldier->stats.bLife;
+		pSoldier->stats.bLife = max(35, pSoldier->stats.bLifeMax / 2);
 	
-	if ( pSoldier->stats.bLife >= 45 )
-	{
-		pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
-	}
+		if ( pSoldier->stats.bLife >= 45 )
+		{
+			pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
+		}
 		
-	// SANDRO - make the lost life insta-healable
-	pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
+		// SANDRO - make the lost life insta-healable
+		pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
 
-	// make him quite exhausted when found
-	pSoldier->bBreath = pSoldier->bBreathMax = 50;
-	pSoldier->sBreathRed = 0;
-	pSoldier->flags.fMercCollapsedFlag = FALSE;
+		// make him quite exhausted when found
+		pSoldier->bBreath = pSoldier->bBreathMax = 50;
+		pSoldier->sBreathRed = 0;
+		pSoldier->flags.fMercCollapsedFlag = FALSE;
+
+
+		RemoveSoldierFromTacticalSector(pSoldier, TRUE);
+		RemovePlayerFromTeamSlotGivenMercID(pSoldier->ubID);
+		SelectNextAvailSoldier(pSoldier);
+	}
+#endif 	
 }
 
 
@@ -3593,3 +3643,5 @@ void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY )
 		pGroup = pGroup->next;
 	}
 }
+
+

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
 	#include "Types.h"
@@ -48,7 +45,6 @@
 	#include "Interface Control.h"
 	#include "Sys Globals.h"
 #include "game init.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
@@ -270,7 +266,7 @@ void HandleLoadOfMapBottomGraphics( void )
 	{
 		FilenameForBPP( "INTERFACE\\map_screen_bottom.sti", VObjectDesc.ImageFile );
 	}
-	else if (iResolution == _1280x720)
+	else if (isWidescreenUI())
 	{
 		FilenameForBPP("INTERFACE\\map_screen_bottom_1280x720.sti", VObjectDesc.ImageFile);
 	}
@@ -344,7 +340,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// HEADROCK HAM 3.6: OK, let's always render this panel, as long as the team inventory screen isn't open.
 	// sevenfm: improved r8524 fix to work with 1280x720 resolution
 	//if (fMapScreenBottomDirty || ((!fShowInventoryFlag || iResolution > _1024x600) && fForceMapscreenFullRender))
-	if ((!fShowInventoryFlag || iResolution > _1280x720) && (fMapScreenBottomDirty || fForceMapscreenFullRender))
+	if ( (!fShowInventoryFlag || iResolution > _1024x600) && (fMapScreenBottomDirty || fForceMapscreenFullRender))
 	{
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
@@ -1296,7 +1292,7 @@ void EnableDisableBottomButtonsAndRegions( void )
 		{
 			DisableButton( giMapInvDoneButton );
 		}
-		else
+		else if (!isWidescreenUI())
 		{
 			EnableButton( giMapInvDoneButton );
 		}
@@ -1795,6 +1791,7 @@ BOOLEAN AnyUsableRealMercenariesOnTeam( void )
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_DEAD ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
+				( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
 				( pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__EPC ) )
 		{
 			return( TRUE );

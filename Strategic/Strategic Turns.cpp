@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "sgp.h"
 	#include "Game Clock.h"
 	#include "Font Control.h"
@@ -19,7 +16,6 @@
 	#include "strategic turns.h"
 	#include "rt time defines.h"
 	#include "assignments.h"
-#endif
 
 
 

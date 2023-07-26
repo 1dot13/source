@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include	"Types.h"
 	#include	"Options Screen.h"
 	#include	"Video.h"
@@ -37,7 +34,6 @@
 	#include "Map Information.h"
 	#include "SmokeEffects.h"
 	#include "Sys Globals.h"
-#endif
 
 #include		"Cheats.h"
 #include		"connect.h"

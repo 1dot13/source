@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
@@ -41,7 +38,6 @@
 	// HEADROCK HAM 3.5: Need this to see if enemies present at starting sector
 	#include "Overhead.h"
 	#include "Map Information.h"	// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

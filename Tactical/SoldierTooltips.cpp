@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "Tactical All.h"
-#else
 #include "Types.h"
 #include "Windows.h"
 //#include "Soldier Control.h"
@@ -33,7 +30,6 @@
 #include "Map Screen Interface.h"
 #include "cheats.h"
 #include "Drugs and Alcohol.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -747,6 +743,7 @@ void DrawMouseTooltip()
 	UINT32 uiDestPitchBYTES;
 	static INT32 iX, iY, iW, iH;
 
+	extern bool isTooltipScalingEnabled();
 	extern INT16 GetWidthOfString(const STR16);
 	extern INT16 GetNumberOfLinesInHeight(const STR16);
 	extern void DisplayHelpTokenizedString(const STR16,INT16,INT16);
@@ -756,29 +753,23 @@ void DrawMouseTooltip()
 	extern void DisplayTooltipString( const STR16 pStringA, INT16 sX, INT16 sY );
 	extern void j_log(PTR,...);
 
+	UINT16 fontHeight = isTooltipScalingEnabled()
+		? GetWinFontHeight(TOOLTIP_IFONT)
+		: GetFontHeight(FONT10ARIAL);
+
 	iX = mouseTT.iX;iY = mouseTT.iY;
-	iW = (INT32)GetWidthOfString( mouseTT.FastHelpText ) + 10;
-	iH = (INT32)( GetNumberOfLinesInHeight( mouseTT.FastHelpText ) * (GetFontHeight(FONT10ARIAL)+1) + 8 );
+	iW = (INT32)(GetWidthOfString(mouseTT.FastHelpText) + 10 * fTooltipScaleFactor);
+	iH = (INT32)(GetNumberOfLinesInHeight(mouseTT.FastHelpText) * (fontHeight + 1) + 8 * fTooltipScaleFactor);
 
-	if(1)//draw at cursor
-	{
-		iY -= (iH / 2);
-		if (gusMouseXPos > (SCREEN_WIDTH / 2))
-			iX = gusMouseXPos - iW - 24;
-		else
-			iX = gusMouseXPos + 24;
-		//if (gusMouseYPos > (SCREEN_HEIGHT / 2))
-		//	iY -= 32;
-
-		if (iY <= 0) iY += 32;
-	}
+	iY -= (iH / 2);
+	if (gusMouseXPos > (SCREEN_WIDTH / 2))
+		iX = gusMouseXPos - iW - 24;
 	else
-	{	//draw in panel
-		//502,485 658,596	160*110 580,540
-		iX = 580 - (iW / 2);
-		iY = 540 - (iH/2);
-		if (iY + iH > SCREEN_HEIGHT)	iY = SCREEN_HEIGHT - iH - 3 ;
-	}
+		iX = gusMouseXPos + 24;
+	//if (gusMouseYPos > (SCREEN_HEIGHT / 2))
+	//	iY -= 32;
+
+	if (iY <= 0) iY += 32;
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
@@ -788,9 +779,11 @@ void DrawMouseTooltip()
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
 
-	SetFont( FONT10ARIAL );
-	SetFontShadow( FONT_NEARBLACK );
-	DisplayHelpTokenizedString( mouseTT.FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
+	DisplayHelpTokenizedString(
+		mouseTT.FastHelpText,
+		(INT16)(iX + (isTooltipScalingEnabled() ? 5 * fTooltipScaleFactor : 5)),
+		(INT16)(iY + (isTooltipScalingEnabled() ? 4 * fTooltipScaleFactor : 5))
+	);
 	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 
 	//InvalidateScreen();

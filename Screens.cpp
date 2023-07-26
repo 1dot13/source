@@ -1,13 +1,10 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-#else
 	#include "Screens.h"
-#endif
 
 int iResolution;		// INI file
 int iPlayIntro;
 int iDisableMouseScrolling;
 int iUseWinFonts;
+float fTooltipScaleFactor;
 /* WANNE, Sgt.Kolja
  * INI file (Windowed or Fullscreen) 
  * REPLACE all defines WINDOWED_MODE with this variable

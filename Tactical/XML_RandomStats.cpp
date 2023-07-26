@@ -1,12 +1,8 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
 	#include "Interface.h"
-#endif
 
 #include "soldier profile type.h"
 #include "Soldier Profile.h"

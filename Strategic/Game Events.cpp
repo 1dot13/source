@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -12,7 +9,6 @@
 	#include "message.h"
 	#include "MiniEvents.h"
 	#include "Text.h"
-#endif
 
 #ifdef JA2TESTVERSION
 
@@ -140,6 +136,8 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"bandit attack",
 	L"ArmyFinishTraining",
 	L"MiniEvent",
+	L"ARC_Event",
+	L"ReturnTransportGroup",
 };
 
 #endif

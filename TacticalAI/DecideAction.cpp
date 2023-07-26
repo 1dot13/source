@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "AI All.h"
-#else
 #include "ai.h"
 #include "AIInternals.h"
 #include "Isometric utils.h"
@@ -32,7 +29,6 @@
 #include "rotting corpses.h"
 #include "GameSettings.h"
 #include "Dialogue Control.h"
-#endif
 #include "connect.h"
 #include "Text.h"
 #include "Exit Grids.h"		// added by Flugente
@@ -4978,7 +4974,7 @@ INT16 ubMinAPCost;
 
 		bPanicTrigger = ClosestPanicTrigger( pSoldier );
 		// if it's an alarm trigger and team is alerted, ignore it
-		if ( !(gTacticalStatus.bPanicTriggerIsAlarm[ bPanicTrigger ] && gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) && PythSpacesAway( pSoldier->sGridNo, gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ] ) < 10)
+		if ( bPanicTrigger != -1 && !(gTacticalStatus.bPanicTriggerIsAlarm[ bPanicTrigger ] && gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) && PythSpacesAway( pSoldier->sGridNo, gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ] ) < 10)
 		{
 			PossiblyMakeThisEnemyChosenOne( pSoldier );
 		}
@@ -5165,19 +5161,14 @@ INT16 ubMinAPCost;
 	}
 
 	// offer surrender?
-#ifdef JA2UB
-#else
+#ifndef JA2UB
 	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 	{
 		if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
 		{
-			//if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) )
+			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 			{
-				if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
-				{
-					gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
-					return( AI_ACTION_OFFER_SURRENDER );
-				}
+				return( AI_ACTION_OFFER_SURRENDER );
 			}
 		}
 	}
@@ -9590,15 +9581,13 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 	}
 
 	// offer surrender?
-#ifdef JA2UB
-#else
+#ifndef JA2UB
 	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 	{
 		if ( gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0 && gTacticalStatus.Team[CREATURE_TEAM].bMenInSector == 0 && NumPCsInSector( ) < 4 && gTacticalStatus.Team[ENEMY_TEAM].bMenInSector >= NumPCsInSector( ) * 3 )
 		{
-			if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED) )
+			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 			{
-				gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 				return(AI_ACTION_OFFER_SURRENDER);
 			}
 		}

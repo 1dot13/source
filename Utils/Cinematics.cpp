@@ -32,11 +32,7 @@
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
 
-#ifdef JA2
 	#include "video.h"
-#else
-	#include "video2.h"
-#endif
 
 #include "vsurface_private.h"
 

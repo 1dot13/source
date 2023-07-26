@@ -960,6 +960,9 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 		return( FALSE );
 
+	if( pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND)
+		return( FALSE );
+
 	CHAR16					gzQuoteStr[500];
 
 	// remove old box, in case that still exists
@@ -2019,7 +2022,7 @@ UINT8 GetFittingInterjectorProfile( UINT8 usEvent, UINT8 usProfileVictim, UINT8 
 	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
 	{
 		// only people that are here
-		if ( !pTeamSoldier->bActive || pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+		if ( !pTeamSoldier->bActive || pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pTeamSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 			continue;
 
 		// if fSameSector is TRUE then the teammate must be in the same sector

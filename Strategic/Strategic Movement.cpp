@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "builddefines.h"
 	#include <stdlib.h>
 	#include <memory.h>
@@ -53,7 +50,7 @@
 	#include "Creature Spreading.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-#endif
+	#include "Strategic Transport Groups.h"
 
 #include "MilitiaSquads.h"
 #include "Vehicles.h"
@@ -1895,47 +1892,48 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			fExceptionQueue = TRUE;
 		}
 	}
-	//First check if the group arriving is going to queue another battle. //KM : Aug 11, 1999 -- Patch fix:	Added additional checks to prevent a 2nd battle in the case			
-	//NOTE:	We can't have more than one battle ongoing at a time.         //where the player is involved in a potential battle with bloodcats/civilians
-	if( fExceptionQueue || (fCheckForBattle && (gTacticalStatus.fEnemyInSector || HostileCiviliansPresent() || HostileBloodcatsPresent()) &&
-			FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, OUR_TEAM ) &&
-		(pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) && NumHostilesInSector(pGroup->ubNextX, pGroup->ubNextY, pGroup->ubSectorZ) > 0)
-		#ifdef JA2UB
-			//Ja25: NO meanwhiles		
-		#else
+
+	// if this group arrival would cause a simultaneous combat, then delay it!
+	// we can't have more that one battle at a time.
+	if( fExceptionQueue
+		|| ((fCheckForBattle && (gTacticalStatus.fEnemyInSector || HostileCiviliansPresent() || HostileBloodcatsPresent())) // if there is an active battle
+		&& (pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0)) // and the group is arriving at a different sector
+#ifndef JA2UB
 		|| AreInMeanwhile()
-		#endif
+#endif
 		)
 	{
-		//QUEUE BATTLE!
-		//Delay arrival by a random value ranging from 3-5 minutes, so it doesn't get the player
-		//too suspicious after it happens to him a few times, which, by the way, is a rare occurrence.
-#ifdef JA2UB
-/*Ja25: No meanwhiles*/
-#else
-		if( AreInMeanwhile() )
+		if (((pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM) && NumHostilesInSector(pGroup->ubNextX, pGroup->ubNextY, pGroup->ubSectorZ) > 0) // if a friendly movement group will arrive at an enemy sector
+		|| (pGroup->usGroupTeam == ENEMY_TEAM && (NumPlayerTeamMembersInSector(pGroup->ubNextX, pGroup->ubNextY, pGroup->ubSectorZ) + NumNonPlayerTeamMembersInSector(pGroup->ubNextX, pGroup->ubNextY, MILITIA_TEAM) > 0))) // or an enemy movement group will arrive at a friendly sector
 		{
-			pGroup->uiArrivalTime ++; //tack on only 1 minute if we are in a meanwhile scene. This effectively
-									//prevents any battle from occurring while inside a meanwhile scene.
-		}
-		else
-#endif
-		{
-			pGroup->uiArrivalTime += Random(3) + 3;
-		}
-
-		if( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
-			AssertMsg( 0, "Failed to add movement event." );
-
-		if ( pGroup->usGroupTeam == OUR_TEAM )
-		{
-			if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
+			//QUEUE BATTLE!
+			//Delay arrival by a random value ranging from 3-5 minutes, so it doesn't get the player
+			//too suspicious after it happens to him a few times, which, by the way, is a rare occurrence.
+#ifndef JA2UB
+			if( AreInMeanwhile() )
 			{
-				AddStrategicEvent( EVENT_GROUP_ABOUT_TO_ARRIVE, pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY, pGroup->ubGroupID );
+				pGroup->uiArrivalTime ++; //tack on only 1 minute if we are in a meanwhile scene. This effectively
+										//prevents any battle from occurring while inside a meanwhile scene.
 			}
-		}
+			else
+#endif
+			{
+				pGroup->uiArrivalTime += Random(3) + 3;
+			}
 
-		return;
+			if( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
+				AssertMsg( 0, "Failed to add movement event." );
+
+			if ( pGroup->usGroupTeam == OUR_TEAM )
+			{
+				if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
+				{
+					AddStrategicEvent( EVENT_GROUP_ABOUT_TO_ARRIVE, pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY, pGroup->ubGroupID );
+				}
+			}
+
+			return;
+		}
 	}
 	
 	//Update the position of the group
@@ -3639,7 +3637,10 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			dEnemyGeneralsSpeedupFactor = max( 0.75f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus );
 		}
 
-		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * iBestTraverseTime;
+		// rftr: transport groups move slower than normal
+		const FLOAT transportSpeedFactor = pGroup->pEnemyGroup->ubIntention == TRANSPORT ? 2.0f : 1.0f;
+
+		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * transportSpeedFactor * iBestTraverseTime;
 
 		iBestTraverseTime = iBestTraverseTime * (100 + RebelCommand::GetHarriersSpeedPenalty(ubSector)) / 100;
 	}
@@ -3820,6 +3821,13 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ResetMortarsOnTeamCount();
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
+
+		if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+		{
+			// normally, transport groups can't reinforce, but this can be hit normally if a battle is occuring in a sector
+			// where a transport group is moving into.
+			UpdateTransportGroupInventory();
+		}
 	}
 	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 	{
@@ -4457,7 +4465,7 @@ void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// make sure there are members in the group..if so, then run through and make each bleeder compain
+	// make sure there are members in the group..if so, then run through and make each bleeder complain
 	pPlayer = pGroup->pPlayerList;
 
 	// is there a player list?
@@ -5475,7 +5483,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 			{
 				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[ i ]->stats.bLife >= OKLIFE )
+					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[i]->bAssignment != ASSIGNMENT_REBELCOMMAND && MercPtrs[ i ]->stats.bLife >= OKLIFE )
 					{
 						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
 						{
@@ -5880,6 +5888,7 @@ BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup )
 			if( ( pPlayer->pSoldier->bAssignment == IN_TRANSIT ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_POW ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
+				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND ) ||
 				SPY_LOCATION( pPlayer->pSoldier->bAssignment ) ||
 				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 			{

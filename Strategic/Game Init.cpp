@@ -1,9 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "Language Defines.h"
-	#include "HelpScreen.h"
-	#include "GameSettings.h"
-#else
 	#include "sgp.h"
 	#include "jascreens.h"
 	#include "laptop.h"
@@ -65,7 +59,6 @@
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
 	#include "World Items.h"
-#endif
 
 #include "Vehicles.h"
 #include "text.h"

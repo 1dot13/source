@@ -11,11 +11,6 @@
 //
 //=================================================================================================
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <stdio.h>
@@ -24,13 +19,8 @@
 	#include "input.h"
 	#include "memman.h"
 	#include "line.h"
-	#if (defined( JA2 ) || defined( UTIL ))
 		#include "video.h"
 		#define BASE_REGION_FLAGS		(MSYS_REGION_ENABLED | MSYS_SET_CURSOR)
-	#else
-		#include "video2.h"
-		#define BASE_REGION_FLAGS		MSYS_REGION_ENABLED				// Wiz doesn't ever want MSYS_SET_CURSOR to be on...
-	#endif
 	#ifdef _JA2_RENDER_DIRTY
 		#include "render dirty.h"
 		#include "Font Control.h"
@@ -42,13 +32,7 @@
 	#include "Button System.h"
 	///***ddd
 	#include "GameSettings.h"
-#endif
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#define BASE_REGION_FLAGS		(MSYS_REGION_ENABLED | MSYS_SET_CURSOR)
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#define BASE_REGION_FLAGS		MSYS_REGION_ENABLED				// Wiz doesn't ever want MSYS_SET_CURSOR to be on...
-#endif
 
 
 
@@ -72,6 +56,7 @@ extern void ReleaseAnchorMode();	//private function used here (implemented in Bu
 INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
 INT16 GetWidthOfString( const STR16 pStringA );
 void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY );
+bool isTooltipScalingEnabled();
 
 
 
@@ -128,13 +113,11 @@ BOOLEAN					gfRefreshUpdate = FALSE;
 //an already deleted region.	It will also ensure that you don't create an identical region
 //that already exists.
 //TO REMOVE ALL DEBUG FUNCTIONALITY:	simply comment out MOUSESYSTEM_DEBUGGING definition
-#ifdef JA2
 	#ifdef _DEBUG
 	#ifndef BOUNDS_CHECKER
 	#define MOUSESYSTEM_DEBUGGING
 	#endif
 	#endif
-#endif
 
 #ifdef MOUSESYSTEM_DEBUGGING
 extern BOOLEAN gfIgnoreShutdownAssertions;
@@ -294,9 +277,7 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 				//you release inside of the button, the action is selected -- but later in the code.
 				//NOTE:	It has to be here, because the mouse can be released anywhere regardless of
 				//regions, buttons, etc.
-				#ifdef JA2
 					ReleaseAnchorMode();
-				#endif
 			}
 			else if(Type == RIGHT_BUTTON_DOWN)
 			{
@@ -719,17 +700,12 @@ void MSYS_UpdateMouseRegion(void)
 				MSYS_PrevRegion->uiFlags &= (~MSYS_GOT_BACKGROUND);
 				MSYS_PrevRegion->uiFlags &= (~MSYS_FASTHELP_RESET);
 
-				#ifndef UTIL 
 					// dirty buttons, need a re-render
 //DEF: Nov 30 98
 //				PausedMarkButtonsDirty( );
-				#endif
 
 				//if( region->uiFlags & MSYS_REGION_ENABLED )
 				//	region->uiFlags |= BUTTON_DIRTY;
-#ifndef JA2			
-							VideoRemoveToolTip();
-#endif
 			}
 
 			if (MSYS_CurrRegion)
@@ -762,9 +738,6 @@ void MSYS_UpdateMouseRegion(void)
 					MSYS_CurrRegion->uiFlags &= (~MSYS_GOT_BACKGROUND);
 					MSYS_CurrRegion->uiFlags |= MSYS_FASTHELP_RESET;
 
-#ifndef JA2			
-							VideoRemoveToolTip();
-#endif
 
 					//if( b->uiFlags & BUTTON_ENABLED )
 					//	b->uiFlags |= BUTTON_DIRTY;
@@ -893,9 +866,6 @@ void MSYS_UpdateMouseRegion(void)
 
 							//if( b->uiFlags & BUTTON_ENABLED )
 							//	b->uiFlags |= BUTTON_DIRTY;
-#ifndef JA2
-							VideoRemoveToolTip();
-#endif
 						}
 
 						//Kris: Nov 31, 1999 -- Added support for double click events.
@@ -1120,10 +1090,6 @@ void MSYS_RemoveRegion(MOUSE_REGION *region)
 	// Get rid of the FastHelp text (if applicable)
 	if( region->FastHelpText )
 	{
-#ifndef JA2
-		if(region->uiFlags & MSYS_FASTHELP)
-			VideoRemoveToolTip();
-#endif
 		MemFree( region->FastHelpText );
 	}
 	region->FastHelpText = NULL;
@@ -1380,10 +1346,8 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	// ATE: We could be replacing already existing, active text
 	// so let's remove the region so it be rebuilt...
 
-	#ifdef JA2
 	if ( guiCurrentScreen != MAP_SCREEN )
 	{
-	#endif
 
 	#ifdef _JA2_RENDER_DIRTY
 	if( region->uiFlags & MSYS_GOT_BACKGROUND )
@@ -1393,39 +1357,36 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	region->uiFlags &= (~MSYS_GOT_BACKGROUND);
 	region->uiFlags &= (~MSYS_FASTHELP_RESET);
 
-	#ifdef JA2
 	}
-	#endif
 
 	//region->FastHelpTimer = gsFastHelpDelay;
 }
 
-INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
+bool isTooltipScalingEnabled() {
+	return fTooltipScaleFactor > 1;
+}
+
+UINT16 GetScaledFontHeight()
 {
-	STR16 pToken;
-	INT16 sCounter = 0;
-	CHAR16 pString[ 4096 ];
+	return isTooltipScalingEnabled()
+		? GetWinFontHeight(TOOLTIP_IFONT)
+		: GetFontHeight(FONT10ARIAL);
+}
 
-	wcscpy( pString, pStringA );
+// this function returns the number of lines the input string has
+// that can be renderered within the screen height
+INT16 GetNumberOfLinesInHeight(const STR16 inputString) {
+	INT32 fontHeight = GetScaledFontHeight();
 
-	// tokenize
-	pToken = wcstok( pString, L"\n" );
-
-	while( pToken != NULL )
-	{
-		// WANNE: Fix by Headrock
-		if ( (sCounter+1) * (GetFontHeight(FONT10ARIAL)+1) > (SCREEN_HEIGHT - 10) )
-        {
-            break;
-        }
-        pToken = wcstok( NULL, L"\n" );
-        sCounter++;
-
-		/*pToken = wcstok( NULL, L"\n" );
-		sCounter++;*/
+	INT32 count = 1;
+	INT32 stringLength = (INT32)wcslen(inputString);
+	for (int i = 0; i < stringLength && count * (fontHeight + 1) < (SCREEN_HEIGHT - 10); i++) {
+		if (inputString[i] == '\n' && i + 1 < stringLength) {
+			count++;
+		}
 	}
 
-	return( sCounter );
+	return(count);
 }
 
 
@@ -1437,17 +1398,14 @@ INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
 //
 void DisplayFastHelp( MOUSE_REGION *region )
 {
-	UINT16 usFillColor;
 	INT32 iX,iY,iW,iH;
 
 	if ( region->uiFlags & MSYS_FASTHELP )
 	{
-		usFillColor = Get16BPPColor(FROMRGB(250, 240, 188));
+		iW = (INT32)GetWidthOfString(region->FastHelpText) + 10 * fTooltipScaleFactor;
+		iH = (INT32)(GetNumberOfLinesInHeight(region->FastHelpText) * (GetScaledFontHeight() + 1) + 8 * fTooltipScaleFactor);
 
-		iW = (INT32)GetWidthOfString( region->FastHelpText ) + 10;
-		iH = (INT32)( GetNumberOfLinesInHeight( region->FastHelpText ) * (GetFontHeight(FONT10ARIAL)+1) + 8 );
-
-		iX = (INT32)region->RegionTopLeftX + 10;
+		iX = (INT32)region->RegionTopLeftX + 10 * fTooltipScaleFactor;
 
 		if (iX < 0)
 			iX = 0;
@@ -1463,7 +1421,7 @@ void DisplayFastHelp( MOUSE_REGION *region )
 			iY = 0;
 
 		if ( (iY + iH) >= SCREEN_HEIGHT )
-			iY = (SCREEN_HEIGHT - iH - 15);
+			iY = (SCREEN_HEIGHT - iH - 10);
 
 		if ( !(region->uiFlags & MSYS_GOT_BACKGROUND) )
 		{
@@ -1484,83 +1442,149 @@ void DisplayFastHelp( MOUSE_REGION *region )
 			ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
 			ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
 
-			SetFont( FONT10ARIAL );
-			SetFontShadow( FONT_NEARBLACK );
-			DisplayHelpTokenizedString( region->FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
+			DisplayHelpTokenizedString(
+				region->FastHelpText,
+				(INT16)(iX + (isTooltipScalingEnabled() ? 5 * fTooltipScaleFactor : 5)),
+				(INT16)(iY + (isTooltipScalingEnabled() ? 4 * fTooltipScaleFactor : 5))
+			);
 			InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 		}
 	}
 }
 
 
-INT16 GetWidthOfString( const STR16 pStringA )
+INT16 GetWidthOfString(const STR16 inputString)
 {
-	CHAR16 pString[ 4096 ];
-	STR16 pToken;
-	INT16 sWidth = 0;
-	wcscpy( pString, pStringA );
+	INT16 width = 0;
+	CHAR16 stringBuffer[256] = L"";
+	INT32 bufferIndex = 0;
+	bool isBold = false;
 
-	// tokenize
-	pToken = wcstok( pString, L"\n" );
+	INT32 iFontHeight = GetScaledFontHeight();
 
-	while( pToken != NULL )
-	{
-		if( sWidth < StringPixLength( pToken, FONT10ARIAL ) )
-		{
-			sWidth = StringPixLength( pToken, FONT10ARIAL );
+	INT16 lineWidth = 0;
+
+	INT32 lineCounter = 0;
+	INT32 stringLength = (INT32)wcslen(inputString);
+	for (int i = 0; i < stringLength; i++) {
+		if (inputString[i] == '\n') {
+			// if the lines don't fit the screen the last line is ...
+			if ((lineCounter + 2) * (iFontHeight + 1) > (SCREEN_HEIGHT - 10)) {
+				lineWidth = isTooltipScalingEnabled()
+					? WinFontStringPixLength(L"...", TOOLTIP_IFONT)
+					: StringPixLength(L"...", FONT10ARIAL);
+				if (width < lineWidth) {
+					width = lineWidth;
+				}
+				break;
+			}
+			lineWidth = 0;
+			lineCounter++;
 		}
+		else if (inputString[i] == '|') {
+			isBold = true;
+		}
+		else {
+			stringBuffer[bufferIndex++] = inputString[i];
 
-		pToken = wcstok( NULL, L"\n" );
+			// look ahead to see if we need to flush the string buffer
+			if (i + 1 >= stringLength
+				|| inputString[i + 1] == '\n'
+				|| (isBold && inputString[i + 1] != '|')
+				|| (!isBold && inputString[i + 1] == '|')) {
+
+				// set string ending character
+				stringBuffer[bufferIndex] = '\0';
+
+				if (isTooltipScalingEnabled()) {
+					INT32 iFont = isBold ? TOOLTIP_IFONT_BOLD : TOOLTIP_IFONT;
+					lineWidth += WinFontStringPixLength(stringBuffer, iFont);
+				}
+				else {
+					INT32 iFont = isBold ? FONT10ARIALBOLD : FONT10ARIAL;
+					SetFont(iFont);
+					lineWidth += StringPixLength(stringBuffer, iFont);
+				}
+				bufferIndex = 0;
+				isBold = false;
+
+				if (i + 1 >= stringLength || inputString[i + 1] == '\n') {
+					if (width < lineWidth) {
+						width = lineWidth;
+					}
+				}
+			}
+		}
 	}
 
-	return( sWidth );
-
+	return width;
 }
 
-void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
+void DisplayHelpTokenizedString(const STR16 inputString, INT16 sX, INT16 sY)
 {
-	STR16 pToken;
-	INT32 iCounter = 0, i;
-	UINT32 uiCursorXPos;
-	CHAR16 pString[ 4096 ];
-	INT32 iLength;
+	SetFontShadow(FONT_NEARBLACK);
 
-	wcscpy( pString, pStringA );
+	INT32 fontHeight = GetScaledFontHeight();
 
-	// tokenize
-	pToken = wcstok( pString, L"\n" );
+	CHAR16 stringBuffer[256] = L"";
+	INT32 bufferIndex = 0;
+	bool isBold = false;
 
-	while( pToken != NULL )
-	{
-		// WANNE: Fix by Headrock
-		if ( (iCounter+2) * (GetFontHeight(FONT10ARIAL)+1) > (SCREEN_HEIGHT - 10) )
-        {
-            mprintf( sX, sY + iCounter * (GetFontHeight(FONT10ARIAL)+1), L"..." );
-            break;
-        }
-        iLength = (INT32)wcslen( pToken );
+	INT16 xDelta = 0;
 
-		//iLength = (INT32)wcslen( pToken );
-		for( i = 0; i < iLength; i++ )
-		{
-			uiCursorXPos = StringPixLengthArgFastHelp( FONT10ARIAL, FONT10ARIALBOLD, i, pToken );
-			if( pToken[ i ] == '|' )
-			{
-				i++;
-				SetFont( FONT10ARIALBOLD );
-				SetFontForeground( 146 );
+	INT32 lineCounter = 0;
+	INT32 stringLength = (INT32)wcslen(inputString);
+	for (int i = 0; i < stringLength; i++) {
+		if (inputString[i] == '\n') {
+			// if the lines don't fit the screen the last line is ...
+			if ((lineCounter + 2) * (fontHeight + 1) > (SCREEN_HEIGHT - 10)) {
+				if (isTooltipScalingEnabled()) {
+					PrintWinFont(FontDestBuffer, TOOLTIP_IFONT, sX, sY + lineCounter * (fontHeight + 1), L"...");
+				}
+				else {
+					SetFont(FONT10ARIAL);
+					mprintf(sX, sY + lineCounter * (fontHeight + 1), L"...");
+				}
+				break;
 			}
-			else
-			{
-				SetFont( FONT10ARIAL );
-				SetFontForeground( FONT_BEIGE );
-			}
-			mprintf( sX + uiCursorXPos, sY + iCounter * (GetFontHeight(FONT10ARIAL)+1), L"%c", pToken[ i ] );
+			xDelta = 0;
+			lineCounter++;
 		}
-		pToken = wcstok( NULL, L"\n" );
-		iCounter++;
+		else if (inputString[i] == '|') {
+			isBold = true;
+		}
+		else {
+			stringBuffer[bufferIndex++] = inputString[i];
+
+			// look ahead to see if we need to flush the string buffer
+			if (i + 1 >= stringLength
+				|| inputString[i + 1] == '\n'
+				|| (isBold && inputString[i + 1] != '|')
+				|| (!isBold && inputString[i + 1] == '|')) {
+
+				// set string ending character
+				stringBuffer[bufferIndex] = '\0';
+
+				if (isTooltipScalingEnabled()) {
+					// the font color is set on font initialization
+					INT32 iFont = isBold ? TOOLTIP_IFONT_BOLD : TOOLTIP_IFONT;
+					PrintWinFont(FontDestBuffer, iFont, sX + xDelta, sY + lineCounter * (fontHeight + 1), L"%s", stringBuffer);
+					xDelta += WinFontStringPixLength(stringBuffer, iFont);
+				}
+				else {
+					INT32 iFont = isBold ? FONT10ARIALBOLD : FONT10ARIAL;
+					SetFont(iFont);
+					SetFontForeground(isBold ? 146 : FONT_BEIGE);
+					mprintf(sX + xDelta, sY + lineCounter * (fontHeight + 1), L"%s", stringBuffer);
+					xDelta += StringPixLength(stringBuffer, iFont);
+				}
+				bufferIndex = 0;
+				isBold = false;
+			}
+		}
 	}
-	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+	SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 }
 
 void RenderFastHelp()

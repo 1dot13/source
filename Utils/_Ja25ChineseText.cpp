@@ -1,16 +1,11 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("CHINESE")
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "_Ja25Englishtext.h"
-#else
 	#include "Language Defines.h"
 	#ifdef CHINESE
 		#include "text.h"
 		#include "Fileman.h"
 	#endif
-#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
 void this_is_the_Ja25ChineseText_public_symbol(void){;}
@@ -64,7 +59,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"I.M.P 主要特殊技能",// L"I.M.P. Major Traits",
 	// second names
 	L"机枪手",// L"Machinegunner",
-	L"掷弹兵",// L"Bombardier",
+	L"枪炮专家",// L"Bombardier",
 	L"狙击手",// L"Sniper",
 	L"游骑兵",// L"Ranger",
 	L"枪斗术",// L"Gunfighter",
@@ -79,7 +74,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
 	L"双持",// L"Ambidextrous",
-	L"格斗",// L"Melee",
+	L"近战",// L"Melee",
 	L"投掷",// L"Throwing",
 	L"夜战",// L"Night Ops",
 	L"潜行",// L"Stealthy",
@@ -89,7 +84,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"教学",// L"Teaching",
 	L"侦察",// L"Scouting",
 	L"无线电操作员", //L"Radio Operator",
-	L"生还者", //L"Survival",
+	L"向导", //L"Survival",
 
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
@@ -455,35 +450,35 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"优点：无。\n缺点：无。",// L"A: No advantage.\nD: No disadvantage.",
-	L"优点：身边有多个雇佣兵时表现最佳。\n缺点：孤单一人时士气不会上升。",// L"A: Has better performance when couple of mercs are nearby.\nD: Gains no morale when no other merc is nearby.",
+	L"优点：身边有多个佣兵时表现最佳。\n缺点：孤单一人时士气不会上升。",// L"A: Has better performance when couple of mercs are nearby.\nD: Gains no morale when no other merc is nearby.",
 	L"优点：独自行动时表现最好。\n缺点：在团队中士气不会上升。",// L"A: Has better performance when no other merc is nearby.\nD: Gains no morale when in a group.",
 	L"优点：士气上升得快，下降得慢。\n缺点：发现地雷和陷阱的几率降低了。",// L"A: His morale sinks a little slower and grows faster than normal.\nD: Has lesser chance to detect traps and mines.",
 	L"优点：更善于训练民兵和跟别人交流。\n缺点：士气不会因为其他队员的行为而上升。",// L"A: Has bonus on training militia and is better at communication with people.\nD: Gains no morale for actions of other mercs.",
-	L"优点：自我锻炼或学习效率略高。\n缺点：减少对恐惧和火力压制的承受力。",// L"A: Slightly faster learning when assigned on practicing or as a student.\nD: Has lesser suppression and fear resistance.",
+	L"优点：自我锻炼或学习效率略微提高。\n缺点：减少对恐惧和火力压制的承受力。",// L"A: Slightly faster learning when assigned on practicing or as a student.\nD: Has lesser suppression and fear resistance.",
 	L"优点：减少一切行动的体能消耗（除了医疗、修理、训练民兵和学习某种技能）。\n缺点：智力、领导能力、爆破、修理和医疗技术提高得慢一些。",// L"A: His energy goes down a bit slower except on assignments as doctor, repairman, militia trainer or if learning certain skills.\nD: His wisdom, leadership, explosives, mechanical and medical skills improve slightly slower.",
-	L"优点：点射/自动模式下命中率，近战杀伤力和消灭敌人所得的时期更高。\n缺点：需要耐心的行为会得到效率惩罚，比如修理、开锁、解除陷阱、医治和训练民兵。",// L"A: Has slightly better chance to hit on burst/autofire and inflicts slightly bigger damage in close combat\n    Gains a little more morale for killing.\nD: Has penalty for actions which needs patience like repairing items, picking locks, removing traps, doctoring, training militia.",
+	L"优点：点射/自动模式下命中率，近战杀伤力和消灭敌人所得的期望更高。\n缺点：需要耐心的行为会得到效率惩罚，比如修理、开锁、解除陷阱、医治和训练民兵。",// L"A: Has slightly better chance to hit on burst/autofire and inflicts slightly bigger damage in close combat\n    Gains a little more morale for killing.\nD: Has penalty for actions which needs patience like repairing items, picking locks, removing traps, doctoring, training militia.",
 	L"优点：需要耐心的工作会得到效率奖励，比如修理、撬锁、解除陷阱、医治和训练民兵。\n缺点：略微降低中断率。",// L"A: Has bonus for actions which needs patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: His interrupts chance is slightly lowered.",
-	L"优点：增加对火力压制和恐惧的承受力，\n负伤其他雇佣兵阵亡对他的士气影响的也比较小。\n缺点：容易成为敌人的移动靶。",// L"A: Incresed resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
+	L"优点：增加对火力压制和恐惧的承受力。\n负伤其他佣兵阵亡对他的士气影响的也比较小。\n缺点：容易成为敌人的移动靶。",// L"A: Incresed resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
 	L"优点：进行非战斗任务时士气会提升（除了训练民兵）。\n缺点：杀人不增加士气。",// L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
 	L"优点：攻击有更高的几率能造成受害者属性值降低，和更严重的创伤，同时提高自己的士气。\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
-	L"优点：附近有异性雇佣兵时表现更佳。\n缺点：附近所有同性雇佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
+	L"优点：附近有异性佣兵时表现更佳。\n缺点：附近所有同性佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
 	L"优点：撤退时士气增加。\n缺点：敌众我寡时，会降低士气。", //L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.",
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
-	L"没有其他附加效果。",// L"No effects.",
-	L"可能会在热带和沙漠地区呼吸困难，降低综合表现。",// L"Has problems with breathing and reduced overall performance if in tropical or desert sectors.",
-	L"可能会孤单一人在某些情况下感到恐慌。",// L"Can suffer panic attack if left alone in certain situations.",
-	L"可能会进入地下后降低综合表现。",// L"His overall performance is reduced if underground.",
-	L"可能会在游泳时轻易的溺水。",// L"If trying to swim he can easily drown.",
-	L"可能会在看到大虫子后六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
-	L"可能会偶尔忘记手头的任务，也会在战斗中损失行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
-	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
+	L"没有其它附加效果。",// L"No effects.",
+	L"在热带或沙漠区域，会出现呼吸问题降低综合表现。",// L"Has problems with breathing and reduced overall performance if in tropical or desert sectors.",
+	L"独自一人时可能会感到恐慌。",// L"Can suffer panic attack if left alone in certain situations.",
+	L"在封闭空间或地下时会降低综合表现。",// L"His overall performance is reduced if underground.",
+	L"在游泳时会轻易的溺水。",// L"If trying to swim he can easily drown.",
+	L"看到大虫子后会六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
+	L"偶尔会忘记手头的任务，也会在战斗中损失些行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
+	L"偶尔会发疯并把手里的武器设为自动乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
 	L"大大减少听力范围。",		// L"Drastically reduced hearing.",
 	L"减少视力范围。",				// L"Reduced sight range.",
-	L"大大增加的流血速度。",	//L"Drastically increased bleeding.",
-	L"在房顶上会降低战斗力。",	//L"Performance suffers while on a rooftop.",
+	L"大大增加流血速度。",	//L"Drastically increased bleeding.",
+	L"在房顶作战时会降低战斗力。",	//L"Performance suffers while on a rooftop.",
 	L"时不时自残。",	//L"Occasionally harms self.",
 };
 

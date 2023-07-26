@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "JA2 All.h"
-	#include "Encrypted File.h"
-#else
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "Timer Control.h"
@@ -29,7 +25,6 @@
 	#include "Encrypted File.h"
 	#include "ja2 splash.h"
 	#include "GameVersion.h"
-#endif
 
 #include "gamesettings.h"
 #include "connect.h"
@@ -105,9 +100,9 @@ extern void InitSightRange(); //lal
 
 UINT32	MainMenuScreenInit( )
 {
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version Label: %S, %s", zVersionLabel, zRevisionNumber ));
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version #:	 %s", czVersionNumber ));
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Tracking #:	%S", zTrackingNumber ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Product: %S", zProductLabel ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version: %s", czVersionString ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Build: %S", zBuildInformation ));
 
 	return( TRUE );
 }

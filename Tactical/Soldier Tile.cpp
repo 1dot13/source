@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <wchar.h>
 	#include <stdio.h>
 	#include <string.h>
@@ -49,7 +46,6 @@
 	#include "Text.h"
 	#include "NPC.h"
 	#include "Soldier macros.h"
-#endif
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
@@ -358,21 +354,6 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 				// Unset flag for blocked by soldier...
 				pSoldier->flags.fBlockedByAnotherMerc = FALSE;
 				return( MOVE_TILE_STATIONARY_BLOCKED );
-			}
-			else
-			{
-#if 0
-				// Check if there is a reserved marker here at least....
-				sNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirection ) );
-
-				if ( ( gpWorldLevelData[ sNewGridNo ].uiFlags & MAPELEMENT_MOVEMENT_RESERVED ) )
-				{
-					if ( gpWorldLevelData[ sNewGridNo ].ubReservedSoldierID != pSoldier->ubID )
-					{
-						return( MOVE_TILE_TEMP_BLOCKED );
-					}
-				}
-#endif
 			}
 	}
 

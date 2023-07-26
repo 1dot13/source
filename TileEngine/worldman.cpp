@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "wcheck.h"
@@ -15,7 +12,6 @@
 	#include "random.h"
 	// sevenfm
 	#include "PATHAI.H"
-#endif
 
 extern BOOLEAN	gfBasement;
 
@@ -2297,10 +2293,6 @@ BOOLEAN RemoveShadow( INT32 iMapIndex, UINT16 usIndex )
 			{
 				pOldShadow->pNext = pShadow->pNext;
 			}
-#if 0//#ifdef JA2EDITOR//dnl ch80 011213 //dnl ch86 190214
-			if(pShadow->uiFlags & LEVELNODE_EXITGRID && pShadow->pExitGridInfo)
-				memset(pShadow->pExitGridInfo, 0, sizeof(EXITGRID));
-#endif
 			// Delete memory assosiated with item
 			MemFree( pShadow );
 			guiLevelNodes--;

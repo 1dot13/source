@@ -337,12 +337,6 @@ class FadeBlockCursor : public Cursor {
 		HMODULE			m_hUser32;
 		BLENDFUNCTION	m_bfn;
 		HDC				m_hMemDC;
-#if 0
-		HBITMAP			m_hBmp;
-		HBITMAP			m_hBmpOld;
-		int				m_nBmpWidth;
-		int				m_nBmpHeight;
-#endif
 };
 
 /////////////////////////////////////////////////////////////////////////////

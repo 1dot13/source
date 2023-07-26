@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
@@ -52,7 +49,6 @@
 	#include "drugs and alcohol.h" // added by Flugente
 	#include "Campaign.h"
 	#include "LuaInitNPCs.h"		// added by Flugente
-#endif
 
 #include "aim.h"
 #include "AimFacialIndex.h"

@@ -200,12 +200,8 @@ extern	void	_DebugMessage(const char *pSourceFile, unsigned uiLineNum, const cha
 #define DbgTopicRegistration(a, b, c);			((void *)0)
 #define DbgMessage(a, b, c)						((void *)0)
 
-#if defined( JA2 ) || defined( UTIL )
 #define RegisterJA2DebugTopic(a, b)				((void *)0)
 #define DebugMsg(a, b, c)						((void *)0)
-#else
-#define DebugMsg(a)								((void *)0)
-#endif
 
 //*******************************************************************************************
 #endif

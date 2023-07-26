@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include <memory.h>
 	#include "Fileman.h"
 	#include "types.h"
@@ -28,7 +25,6 @@
 	#include "Soldier Profile.h"
 	#include "soldier profile type.h"
 	#include "Quests.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

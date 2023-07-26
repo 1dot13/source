@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "stdlib.h"
 	#include "Arms Dealer Init.h"
@@ -19,7 +16,6 @@
 	#include "GameSettings.h"
 	#include "Overhead.h"	// added by Flugente for MercPtrs[]
 	#include "LuaInitNPCs.h"	// added by Flugente
-#endif
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -49,58 +45,6 @@ void RemoveNonIntelItems();
 UINT8 gubLastSpecialItemAddedAtElement = 255;
 
 // Flugente 2012-12-19: merchant data has been externalised - see XML_Merchants.cpp
-#if 0
-// THIS STRUCTURE HAS UNCHANGING INFO THAT DOESN'T GET SAVED/RESTORED/RESET
-// TODO: externalize
-const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ] =
-{
-									//Buying		Selling	Merc ID#	Type									Initial						Flags
-									//Price			Price							Of											Cash
-									//Modifier	Modifier					Dealer
-
-/* Tony	*/			{ 0.75f,	1.25f,	TONY,		ARMS_DEALER_BUYS_SELLS, 15000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 15000, 15000, 0, 1, 10, 1, 10, 2, 3, false, false },
-/* Franz Hinkle */	{ 1.0f,		1.5f,	FRANZ,		ARMS_DEALER_BUYS_SELLS,	5000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 5000,  5000,  0, 1, 10, 0, 100, 1, 2, false, true },
-/* Keith Hemps */	{ 0.75f,	1.0f,	KEITH,		ARMS_DEALER_BUYS_SELLS,	1500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 1500,  1500,  0, 1, 10, 0, 100, 1, 2, false, true },
-/* Jake Cameron */	{ 0.8f,		1.1f,	JAKE,		ARMS_DEALER_BUYS_SELLS,	2500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 2500,  2500,  0, 1, 10, 0, 100, 1, 2, false, true },
-/* Gabby Mulnick*/	{ 1.0f,		1.0f,	GABBY,		ARMS_DEALER_BUYS_SELLS,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
-
-#ifdef JA2UB
-/* Devin Connell*/	//ja25 ub Biggins//{ 0.75f,	1.25f,	DEVIN,		ARMS_DEALER_SELLS_ONLY,	5000,	ARMS_DEALER_GIVES_CHANGE							,	5000,  5000,  0, 3, 10, 0, 10, 2, 3, false, false },
-#else
-/* Devin Connell*/	{ 0.75f,	1.25f,	DEVIN,		ARMS_DEALER_SELLS_ONLY,	5000,	ARMS_DEALER_GIVES_CHANGE							,	5000,  5000,  0, 3, 10, 0, 10, 2, 3, false, false },
-#endif
-
-/* Howard Filmore*/	{ 1.0f,		1.0f,	HOWARD,		ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
-/* Sam Rozen */		{ 1.0f,		1.0f,	SAM,		ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
-/* Frank */			{ 1.0f,		1.0f,	FRANK,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 0, 100, 1, 2, false, true },
-
-/* Bar Bro 1 */		{ 1.0f,		1.0f,	HERVE,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
-/* Bar Bro 2 */		{ 1.0f,		1.0f,	PETER,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
-/* Bar Bro 3 */		{ 1.0f,		1.0f,	ALBERTO,	ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
-/* Bar Bro 4 */		{ 1.0f,		1.0f,	CARLO,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
-
-/* Micky O'Brien*/	{ 1.0f,		1.4f,	MICKY,		ARMS_DEALER_BUYS_ONLY, 10000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	10000, 10000, 0, 1, 10, 1, 10, 1, 2, false, true },
-
-										//Repair	Repair
-										//Speed		Cost
-/* Arnie Brunzwell*/{ 0.1f,		0.8f,	ARNIE,		ARMS_DEALER_REPAIRS,	1500,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1500, 1500, 0, 1, 10, 1, 10, 1, 2, false, true },
-/* Fredo */			{ 0.6f,		0.6f,	FREDO,		ARMS_DEALER_REPAIRS,	1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
-#ifdef JA2UB
-/* Raul  */		{ 0.80f,	1.8f,	PERKO,		ARMS_DEALER_BUYS_SELLS, 20000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE , 1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
-#else
-/* Perko */			{ 1.0f,		0.4f,	PERKO,		ARMS_DEALER_REPAIRS,	1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
-#endif
-
-/* Elgin */			{ 1.0f,		1.0f,	DRUGGIST,	ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 1, 10, 1, 2, false, true },
-/* Manny */			{ 1.0f,		1.0f,	MANNY,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 1, 10, 1, 2, false, true },
-
-#ifdef JA2UB
-/* Betty  */		{ 0.75f,	1.25f,	73,		ARMS_DEALER_BUYS_SELLS, 10000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE , 1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
-#endif
-
-
-};
-#endif
 
 std::vector<ARMS_DEALER_INFO>	armsDealerInfo (NUM_ARMS_DEALERS);
 
@@ -507,8 +451,8 @@ void DailyCheckOnItemQuantities()
 		if( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
 			continue;
 
-		int numTotalItems[MAXITEMS] = { 0 };
-		bool itemsAreOnOrder[MAXITEMS] = { false };
+		std::map< UINT16, UINT16> numTotalItems;
+		std::set<UINT16> itemsAreOnOrder;
 		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();	iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter)
 		{
 			if (iter->object.exists() == true)
@@ -519,7 +463,7 @@ void DailyCheckOnItemQuantities()
 				}
 				else
 				{
-					itemsAreOnOrder[iter->object.usItem] = true;
+					itemsAreOnOrder.insert(iter->object.usItem);
 
 					//and today is the day the items come in
 					if( iter->uiOrderArrivalTime >= GetWorldDay() )
@@ -546,18 +490,23 @@ void DailyCheckOnItemQuantities()
 			if( CanDealerTransactItem( ubArmsDealer, usItemIndex, FALSE ) )
 			{
 				//if there are no items on order
-				if ( itemsAreOnOrder[ usItemIndex ] == false )
+				if ( itemsAreOnOrder.count( usItemIndex ) == 0 )
 				{
 					ubMaxSupply = GetDealersMaxItemAmount( ubArmsDealer, usItemIndex );
-
+					UINT16 halfSupply = (UINT16)(ubMaxSupply / 2);
+					UINT16 itemsInStock = 0;
+					if ( numTotalItems.count(usItemIndex) > 0 )
+					{
+						itemsInStock = numTotalItems[usItemIndex];
+					}
 					//if the qty on hand is half the desired amount or fewer
-					if( numTotalItems[ usItemIndex ] <= (INT32)( ubMaxSupply / 2 ) )
+					if( itemsInStock <= halfSupply )
 					{
 						//determine if the item can be restocked (assume new, use items aren't checked for until the stuff arrives)
 						if (ItemTransactionOccurs( ubArmsDealer, usItemIndex, DEALER_BUYING, FALSE ))
 						{
 							// figure out how many items to reorder (items are reordered an entire batch at a time)
-							ubNumItems = HowManyItemsToReorder( ubMaxSupply, numTotalItems[ usItemIndex ] );
+							ubNumItems = HowManyItemsToReorder( ubMaxSupply, itemsInStock);
 #ifdef JA2UB							
 							//if the dealer is betty, and we are to ADD the stuff instantly
 							if( ubArmsDealer == ARMS_DEALER_BETTY && fInstallyHaveItemsAppear &&
@@ -778,10 +727,7 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 		return;
 
-	//ADB, ya, a whole 1 line of extra code!
-	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
-	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
-	int numTotalItems[MAXITEMS] = { 0 };
+	std::map< UINT16, UINT16> numTotalItems;
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
 		if (iter->ItemIsInInventory() == true && iter->IsUnderRepair() == false) {
 			numTotalItems[iter->object.usItem] += iter->object.ubNumberOfObjects;
@@ -798,7 +744,7 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 	for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
 		//if there is some items in stock
-		if( numTotalItems[usItemIndex] > 0)
+		if (numTotalItems.count(usItemIndex) > 0)
 		{
 			//if the item is of the same dealer item type
 			if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
@@ -862,45 +808,6 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 			}
 		}
 
-		/*
-		//loop through all items of the same type
-		for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
-		{
-			//if there are some non-repairing items in stock
-			if( gOldArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems )
-			{
-				//if the item is of the same dealer item type
-				if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
-				{
-					// a random chance that the item will be removed
-					if( Random( 100 ) < 30 )
-					{
-						//remove the item
-
-						//if the dealer item type is ammo
-						if( uiDealerItemType == ARMS_DEALER_AMMO )
-						{
-							// remove all of them, since each ammo item counts as only one "item" here
-
-							// create item info describing a perfect item
-							SetSpecialItemInfoToDefaults( &SpclItemInfo );
-							// ammo will always be only condition 100, there's never any in special slots
-							RemoveItemFromArmsDealerInventory( ubArmsDealer, usItemIndex, gOldArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems );
-						}
-						else
-						{
-							// pick 1 random one, don't care about its condition
-							RemoveRandomItemFromArmsDealerInventory( ubArmsDealer, usItemIndex, 1 );
-						}
-
-						uiItemsToRemove--;
-						if( uiItemsToRemove == 0)
-							break;
-					}
-				}
-			}
-		}
-		*/
 	}
 }
 
@@ -914,10 +821,8 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 		return;
 
-	//ADB, ya, a whole 1 line of extra code!
-	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
-	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
-	int numTotalItems[MAXITEMS] = { 0 };
+
+	std::map< UINT16, UINT16> numTotalItems;
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();	iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter)
 	{
 		if (iter->ItemIsInInventory() == true && iter->IsUnderRepair() == false)
@@ -925,6 +830,7 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 			numTotalItems[iter->object.usItem] += iter->object.ubNumberOfObjects;
 		}
 	}
+
 
 	std::vector<UINT16> usAvailableItems;
 	std::vector<UINT8> ubChanceForAvailableItem;
@@ -935,7 +841,7 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 		if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
 		{
 			//if there are any of these in stock
-			if( numTotalItems[usItemIndex] > 0 )
+			if( numTotalItems.count(usItemIndex) > 0 )
 			{
 				//there is already at least 1 item of that type, return
 				return;
@@ -1219,7 +1125,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 			return( 0 );
 			break;
 		default:
-			AssertMsg( FALSE, String( "GetArmsDealerItemTypeFromItemNumber(), invalid class %d for item %d.	DF 0.", Item[ usItem ].usItemClass, usItem ) );
+			AssertMsg( FALSE, String( "GetArmsDealerItemTypeFromItemNumber(), invalid class %d for item %d. gMAXITEMS_READ = %d.", Item[ usItem ].usItemClass, usItem, gMAXITEMS_READ ) );
 			break;
 	}
 	return( 0 );

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "Isometric Utils.h"
 	#include "worlddef.h"
@@ -27,7 +24,6 @@
 	#include "opplist.h"
 	#include "lighting.h"
 	#include "Soldier macros.h"
-#endif
 
 #include "connect.h"
 #include "GameSettings.h"

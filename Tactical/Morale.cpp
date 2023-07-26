@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include <stdlib.h>
 	#include "Morale.h"
 	#include "Overhead.h"
@@ -32,7 +29,6 @@
 	#include "Soldier Add.h"		// added by Flugente for MERC_TYPE__AIM_MERC
 	#include "CampaignStats.h"		// added by Flugente for gCurrentIncident
 	#include "DynamicDialogue.h"	// added by Flugente
-#endif
 
 #include "connect.h"
 #include "fresh_header.h"

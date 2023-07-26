@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-  #include "winfont.h"
-#else
 	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
@@ -9,7 +5,6 @@
 	#include "vsurface.h"
 	#include "wcheck.h"
 	#include "Font Control.h"
-#endif
 
 INT32		  giCurWinFont = 0;
 //BOOLEAN		gfUseWinFonts = FALSE;
@@ -97,6 +92,14 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj );
 
 
 extern UINT16 gzFontName[32];
+
+auto GetHugeFont() -> INT32 {
+#if defined(JA2EDITOR) && defined(ENGLISH)
+	return gpHugeFont;
+#else
+	return gp16PointArial;
+#endif
+}
 
 BOOLEAN	InitializeFonts( )
 {
@@ -228,6 +231,7 @@ BOOLEAN	InitializeFonts( )
     if ( iUseWinFonts ) {
 	    InitWinFonts( );
     }
+	InitTooltipFonts();
 
 	return( TRUE );
 }
@@ -258,6 +262,7 @@ void ShutdownFonts( )
   if ( iUseWinFonts ) {
 	ShutdownWinFonts();
   }
+  ShutdownTooltipFonts();
 }
 
 // Set shades for fonts

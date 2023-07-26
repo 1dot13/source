@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
-	#include "Game Clock.h"
-#else
 	#include "sgp.h"
 	#include "font.h"
 	#include "types.h"
@@ -12,9 +8,9 @@
 	#include "Timer Control.h"
 	#include "render dirty.h"
 	#include "renderworld.h"
-	#include "Mutex Manager.h"
 	#include "local.h"
 	#include "interface.h"
+	#include "mapscreen.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "WordWrap.h"
 	#include "Sound Control.h"
@@ -25,7 +21,6 @@
 	#include "Game Clock.h"
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
-#endif
 
 typedef struct
 {
@@ -806,8 +801,6 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		// Init display array!
 		memset( gpDisplayList, 0, sizeof( gpDisplayList ) );
 		fFirstTimeInMessageSystem = FALSE;
-		//if(!(InitializeMutex(SCROLL_MESSAGE_MUTEX,"ScrollMessageMutex" )))
-		//	return;
 	}
 
 
@@ -891,7 +884,6 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	// clear up list of wrapped strings
 	ClearWrappedStrings( pStringWrapperHead );
 
-	//LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
 	return;
 }
 
@@ -1010,8 +1002,6 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		// Init display array!
 		memset( gpDisplayList, 0, sizeof( gpDisplayList ) );
 		fFirstTimeInMessageSystem = FALSE;
-		//if(!(InitializeMutex(SCROLL_MESSAGE_MUTEX,"ScrollMessageMutex" )))
-		//	return;
 	}
 
 
@@ -1047,7 +1037,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	// HEADROCK HAM 3.6: Allow for longer lines.
 	// Lejardo ARSProject
 	MAP_LINE_WIDTH = (INTERFACE_WIDTH - 330);
-	if (iResolution == _1280x720)
+	if (isWidescreenUI())
 	{
 		MAP_LINE_WIDTH = 685;
 	}
@@ -1079,7 +1069,6 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	MoveToEndOfMapScreenMessageList( );
 
-	//LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
 }
 
 
@@ -1141,7 +1130,7 @@ void DisplayStringsInMapScreenMessageList( void )
 	UINT16 usSpacing;
 	UINT16 MessageStartX = (SCREEN_WIDTH - INTERFACE_WIDTH) / 2;
 	UINT16 MessageEndX = MessageStartX + (INTERFACE_WIDTH - 330);
-	if (iResolution == _1280x720)
+	if (isWidescreenUI())
 	{
 		MessageStartX = 0;
 		MessageEndX = 705;

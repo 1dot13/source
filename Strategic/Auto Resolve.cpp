@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "GameSettings.h"
-#else
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
@@ -73,7 +69,6 @@
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "MilitiaIndividual.h"			// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "Reinforcement.h"
 
@@ -638,6 +633,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			gpAR->ubPlayerDefenceAdvantage = 21; //Skewed to the player's advantage for convenience purposes.
 			break;
 		case ENEMY_INVASION_CODE:
@@ -1750,6 +1746,7 @@ void RenderAutoResolve()
 			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
 			break;
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			swprintf( str, gpStrategicString[STR_AR_ENCOUNTER_HEADER] );
 			break;
 		case ENEMY_INVASION_CODE:
@@ -2208,19 +2205,6 @@ void CreateAutoResolveInterface()
 	ubEliteMilitia += bonusEliteMilitia;
 	ubRegMilitia += bonusRegularMilitia;
 	ubGreenMilitia += bonusGreenMilitia;
-
-	// This block should be unnecessary.	If the counts do not line up, there is a bug.
-#if 0
-	while( ubEliteMilitia + ubRegMilitia + ubGreenMilitia < gpAR->ubCivs )
-	{
-		switch( PreRandom( 3 ) )
-		{
-			case 0: ubEliteMilitia++;	break;
-			case 1:	ubRegMilitia++;		break;
-			case 2:	ubGreenMilitia++;	break;
-		}
-	}
-#endif
 
 	cnt = 0;
 	// Add the militia in this sector
@@ -6076,6 +6060,5 @@ BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId )
 			}
 		}
 	}
-
 	return FALSE;
 }

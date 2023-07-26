@@ -3,9 +3,6 @@
 * @author Flugente (bears-pit.com)
 */
 
-#ifdef PRECOMPILEDHEADERS
-#include "Laptop All.h"
-#else
 #include "CharProfile.h"
 #include "IMP Gear Entrance.h"
 #include "IMP MainPage.h"
@@ -18,7 +15,6 @@
 #include "laptop.h"
 #include "IMP Text System.h"
 #include "Text.h"
-#endif
 
 // the buttons
 UINT32 giIMPGearEntranceButtonImage[2];

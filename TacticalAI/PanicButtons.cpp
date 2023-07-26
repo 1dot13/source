@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-#else
 	#include "AIInternals.h"
 	#include "ai.h"
 	#include "pathai.h"
@@ -10,7 +7,6 @@
 	#include "Map Screen Interface Map.h"
 	#include "Soldier Profile.h"
 	#include "Quests.h"
-#endif
 
 #include "Queen Command.h"
 

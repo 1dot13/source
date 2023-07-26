@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "sgp.h"
 	#include "popup_class.h"
 	#include "popup_definition.h"
@@ -8,7 +5,6 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "GameSettings.h"
-#endif
 
 // namespace'd because of name collision with POPUP class def
 namespace POPUP_PARSE {

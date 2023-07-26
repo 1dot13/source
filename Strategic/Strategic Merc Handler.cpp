@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Types.h"
 
 	#include "Strategic Merc Handler.h"
@@ -47,7 +44,6 @@
 	// HEADROCK HAM 3.6: And another include, for militia upkeep costs.
 	#include "Town Militia.h"
 	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinionsDailyRefresh()
-#endif
 
 #ifdef JA2UB
 #include "ub_config.h"

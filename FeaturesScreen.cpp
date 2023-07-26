@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-#include "JA2 All.h"
-#else
 #include	"Types.h"
 #include	"FeaturesScreen.h"
 #include	"Video.h"
@@ -34,7 +31,6 @@
 #include	"Map Information.h"
 #include	"Sys Globals.h"
 #include	"insurance.h"
-#endif
 
 #include		"connect.h"
 #include		"WorldMan.h"
@@ -1521,7 +1517,7 @@ void HandleHighLightedText(BOOLEAN fHighLight)
 		bLastRegion = -1;
 	}
 
-	if (bHighLight != -1)
+	if (bHighLight != -1 && toggle_box_array[bHighLight] != -1)
 	{
 		if (bHighLight < OPT_FIRST_COLUMN_TOGGLE_CUT_OFF)
 		{

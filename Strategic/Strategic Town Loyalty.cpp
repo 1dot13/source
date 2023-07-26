@@ -1,8 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include "Strategic Town Loyalty.h"
 	#include "strategicmap.h"
 	#include "Overhead.h"
@@ -39,7 +36,6 @@
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"

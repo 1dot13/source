@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-#else
 	#include <String.h>
 	#include "Strategic Mines.h"
 	#include "Finances.h"
@@ -24,7 +21,6 @@
 	#include "Facilities.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
-#endif
 
 #include "GameInitOptionsScreen.h"
 

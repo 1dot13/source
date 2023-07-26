@@ -119,7 +119,7 @@ void GetMapFileName(INT16 sMapX,INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOLEA
 
 // Called from within tactical.....
 void JumpIntoAdjacentSector( UINT8 ubDirection, UINT8 ubJumpCode, INT32 sAdditionalData );//dnl ch56 151009
-
+void JumpIntoEscapedSector(UINT8 ubTacticalDirection);
 
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ );
@@ -207,6 +207,7 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 BOOLEAN MapExists( UINT8 * szFilename );
 
 BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection );
+bool IsEscapeDirectionValid(WorldDirections pbDirection);
 //Used for determining the type of error message that comes up when you can't traverse to
 //an adjacent sector.	THESE VALUES DO NOT NEED TO BE SAVED!
 extern BOOLEAN	gfInvalidTraversal;

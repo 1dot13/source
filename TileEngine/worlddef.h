@@ -281,18 +281,6 @@ typedef struct
 
 // World Data
 extern MAP_ELEMENT			*gpWorldLevelData;
-
-// Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
-#ifdef USE_ASTAR_PATHS
-// World Movement Costs
-//UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
-//ddd Tables to track tactical value of grid tiles
-extern BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
-extern BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ]; //Tracks position of corpses for AI avoidance
-extern INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ]; //Tracks visibility my mercs
-//ddd
-#endif
-
 extern UINT8 (*gubWorldMovementCosts)[MAXDIR][2];//dnl ch43 260909
 
 //dnl ch44 290909 Translation routine

@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Types.h"
 	#include "ArmsDealerInvInit.h"
 	//#include "Item Types.h"
@@ -15,7 +12,7 @@
 	#include "Random.h"
 	#include "Shopkeeper Interface.h"
 	#include "connect.h"
-#endif
+	#include "Rebel Command.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1008,8 +1005,8 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	// Tony has the better stuff sooner (than Bobby R's)
 	if (bArmsDealer >= 0) {
-		ubMinCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
-		ubMaxCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
+		ubMinCoolness += armsDealerInfo[bArmsDealer].addToCoolness + RebelCommand::GetMerchantCoolnessBonus();
+		ubMaxCoolness += armsDealerInfo[bArmsDealer].addToCoolness + RebelCommand::GetMerchantCoolnessBonus();
 		ubMinCoolness = max( armsDealerInfo[bArmsDealer].minCoolness, min( 9, ubMinCoolness ) );
 		// silversurfer: max coolness should never be lower than min coolness!
 		//ubMaxCoolness = max( 2, min( armsDealerInfo[bArmsDealer].maxCoolness, ubMaxCoolness ) );

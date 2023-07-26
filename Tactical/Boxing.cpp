@@ -1,6 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Tactical All.h"
-#else
 	#include "Soldier Control.h"
 	#include "Overhead.h"
 	#include "Boxing.h"
@@ -25,7 +22,6 @@
 	#include "Font Control.h"
 	#include "message.h"
 	#include "GameSettings.h" // added by SANDRO
-#endif
 
 INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
 UINT16 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };

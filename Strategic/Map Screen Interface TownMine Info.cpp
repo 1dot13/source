@@ -1,7 +1,3 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "Strategic All.h"
-	#include "HelpScreen.h"
-#else
 	#include "Map Screen Interface TownMine Info.h"
 	#include "strategicmap.h"
 	#include "popupbox.h"
@@ -31,7 +27,6 @@
 	#include "Overhead.h"	// added by Flugente
 	#include "Game Clock.h"			// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
-#endif
 
 #include "Strategic Mines.h"
 

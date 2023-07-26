@@ -1,9 +1,5 @@
 #include "builddefines.h"
 
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-	#include "PreBattle Interface.h"
-#else
 	#include "worlddef.h"
 	#include "worlddat.h"
 	#include "wcheck.h"
@@ -47,7 +43,6 @@
 	#include "gamesettings.h"
 	#include "editscreen.h"
 	#include "Editor Taskbar Utils.h"
-#endif
 
 #ifdef JA2EDITOR
 	#include "Summary Info.h"
@@ -150,14 +145,11 @@ UINT32					gSurfaceMemUsage;
 //UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
 UINT8 (*gubWorldMovementCosts)[MAXDIR][2] = NULL;//dnl ch43 260909
 
-// Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
-#ifdef USE_ASTAR_PATHS
 //ddd to speed up search of illuminated tiles in PATH AI
-BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
-BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ];
-INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ];
+BOOLEAN gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
+BOOLEAN gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ];
+INT32 gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ];
 //ddd
-#endif
 
 // set to nonzero (locs of base gridno of structure are good) to have it defined by structure code
 INT16		gsRecompileAreaTop = 0;
@@ -2281,15 +2273,6 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 	{
 		SaveMapLights( hfile );
 	}
-#if 0//dnl ch74 191013 from 050611 Scheinworld reported problem with basement levels and similar maps which doesn't need entry points so decide to remove this check completely
-	if(gMapInformation.sCenterGridNo == -1 || gMapInformation.ubEditorSmoothingType == SMOOTHING_NORMAL && (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl ch17 290909
-	{
-		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center and at least one of (N,S,E,W) entry point should be set.");
-		gfErrorCatch = TRUE;
-		FileClose(hfile);
-		return(FALSE);
-	}
-#endif
 	gMapInformation.ubMapVersion = ubMinorMapVersion;//dnl ch74 241013 all this years MapInfo saves incorrect version :-(
 	SaveMapInformation(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 

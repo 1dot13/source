@@ -270,7 +270,7 @@ namespace LogicalBodyTypes {
 		/*****************************************
 		  Filter enum criterion types
 		******************************************/
-		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 33,
+		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 43,
 			Filter::REQ_HELMETPOS,
 			Filter::REQ_VESTPOS,
 			Filter::REQ_LEGPOS,
@@ -299,23 +299,34 @@ namespace LogicalBodyTypes {
 			Filter::REQ_FACEINDEX,
 			Filter::REQ_WEAPON_IN_HAND,
 			Filter::REQ_CALIBRE,
+			Filter::REQ_WEAPON_TWOHANDED,
+			Filter::REQ_LEFT_WEAPON_TWOHANDED,
 			Filter::REQ_VEST_AMOR_PROTECTION,
 			Filter::REQ_VEST_AMOR_COVERAGE,
 			Filter::REQ_HELMET_AMOR_PROTECTION,
 			Filter::REQ_HELMET_AMOR_COVERAGE,
-			Filter::REQ_WEARING_BACKPACK
+			Filter::REQ_WEARING_BACKPACK,
+			Filter::REQ_HELMETPOSATTACHMENT0,
+			Filter::REQ_HELMETPOSATTACHMENT1,
+			Filter::REQ_HELMETPOSATTACHMENT2,
+			Filter::REQ_HELMETPOSATTACHMENT3,
+			Filter::REQ_LEGPOSATTACHMENT0,
+			Filter::REQ_LEGPOSATTACHMENT1,
+			Filter::REQ_LEGPOSATTACHMENT2,
+			Filter::REQ_LEGPOSATTACHMENT3
 		);
 
 		/*****************************************
 		  Filter enum criterion types
 		******************************************/
-		LOGBT_ENUMDB_ADD("EnumFilterCriterionTypes", 8,
+		LOGBT_ENUMDB_ADD("EnumFilterCriterionTypes", 9,
 			Filter::REQ_SEX,
 			Filter::REQ_MERC_TYPE,
 			Filter::REQ_SOLDIER_CLASS,
 			Filter::REQ_CIVILIANGROUP,
 			Filter::REQ_BODYTYPE,
 			Filter::REQ_WEAPON_CLASS,
+			Filter::REQ_LEFT_WEAPON_CLASS,
 			Filter::REQ_WEAPON_TYPE,
 			Filter::REQ_LEFT_WEAPON_TYPE
 		);
@@ -661,6 +672,17 @@ namespace LogicalBodyTypes {
 		  Weapon Class
 		******************************************/
 		LOGBT_ENUMDB_ADD("WEAPON_CLASS", NUM_WEAPON_CLASSES,
+			NOGUNCLASS,
+			HANDGUNCLASS,
+			SMGCLASS,
+			RIFLECLASS,
+			MGCLASS,
+			SHOTGUNCLASS,
+			KNIFECLASS,
+			MONSTERCLASS
+		);
+
+		LOGBT_ENUMDB_ADD("LEFT_WEAPON_CLASS", NUM_WEAPON_CLASSES,
 			NOGUNCLASS,
 			HANDGUNCLASS,
 			SMGCLASS,
