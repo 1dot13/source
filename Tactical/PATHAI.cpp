@@ -2075,7 +2075,7 @@ bool AStarPathfinder::IsSomeoneInTheWay()
 	if (fPathAroundPeople && ( (CurrentNode != DestNode) || fCopyReachable) )
 	{
 		// ATE: ONLY cancel if they are moving.....
-		UINT8 ubMerc = WhoIsThere2( CurrentNode, pSoldier->pathing.bLevel);
+		UINT16 ubMerc = WhoIsThere2( CurrentNode, pSoldier->pathing.bLevel);
 		if ( ubMerc < NOBODY && ubMerc != pSoldier->ubID )
 		{
 			// Check for movement....

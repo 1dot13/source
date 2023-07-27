@@ -392,10 +392,10 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			HandleEnricoEmail();
 			break;
 		case EVENT_INSURANCE_INVESTIGATION_STARTED:
-			StartInsuranceInvestigation( (UINT8) pEvent->uiParam );
+			StartInsuranceInvestigation( (UINT16) pEvent->uiParam );
 			break;
 		case EVENT_INSURANCE_INVESTIGATION_OVER:
-			EndInsuranceInvestigation( (UINT8) pEvent->uiParam );
+			EndInsuranceInvestigation( (UINT16) pEvent->uiParam );
 			break;
 		case EVENT_TEMPERATURE_UPDATE:
 			UpdateTemperature( (UINT8) pEvent->uiParam );

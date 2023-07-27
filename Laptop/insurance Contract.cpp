@@ -1355,7 +1355,7 @@ BOOLEAN AddLifeInsurancePayout( SOLDIERTYPE *pSoldier )
 }
 
 
-void StartInsuranceInvestigation( UINT8	ubPayoutID )
+void StartInsuranceInvestigation( UINT16	ubPayoutID )
 {
 	UINT8 ubDays;
 
@@ -1408,7 +1408,7 @@ void StartInsuranceInvestigation( UINT8	ubPayoutID )
 }
 
 
-void EndInsuranceInvestigation( UINT8	ubPayoutID )
+void EndInsuranceInvestigation( UINT16	ubPayoutID )
 {
 	// send an email telling player the investigation is over
 	if ( gMercProfiles[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )

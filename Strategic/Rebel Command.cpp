@@ -2178,7 +2178,7 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 
 	// temp/fixme
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
 		SOLDIERTYPE* pSoldier = MercPtrs[i];
 
@@ -2823,7 +2823,7 @@ void PrepareMission(INT8 index)
 
 	// confirmation popup
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
 		SOLDIERTYPE* pSoldier = MercPtrs[i];
 
@@ -2988,7 +2988,7 @@ void PrepareMission(INT8 index)
 
 			if (!evt.sentGenericRebelAgent)
 			{
-				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[i];
 					if (pSoldier->ubProfile == evt.mercProfileId)
@@ -4907,7 +4907,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		// make sure the merc's still on our team
 		BOOLEAN foundMerc = FALSE;
-		for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
 			const SOLDIERTYPE* pSoldier = MercPtrs[i];
 
@@ -4978,7 +4978,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				if (!evt1.sentGenericRebelAgent)
 				{
-					for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+					for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 					{
 						SOLDIERTYPE* pSoldier = MercPtrs[i];
 						if (pSoldier->ubProfile == evt1.mercProfileId)
@@ -5005,7 +5005,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		{
 			if (!evt1.sentGenericRebelAgent && foundMerc)
 			{
-				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[i];
 					if (pSoldier->ubProfile == evt1.mercProfileId)
@@ -5027,7 +5027,7 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		if (!evt1.sentGenericRebelAgent && foundMerc)
 		{
-			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 			{
 				SOLDIERTYPE* pSoldier = MercPtrs[i];
 				if (pSoldier->ubProfile == evt1.mercProfileId)
