@@ -3308,6 +3308,10 @@ BOOLEAN AIDetermineStealingWeaponAttempt( SOLDIERTYPE * pSoldier, SOLDIERTYPE * 
 		UINT16 dfgvdfv = Item[pOpponent->inv[HANDPOS].usItem].usItemClass;
 		return( FALSE );
 	}
+	if (HasAttachmentOfClass(&(pOpponent->inv[HANDPOS]), AC_SLING))
+	{
+		return FALSE;
+	}
 
 	uiSuccessChance = CalcChanceToSteal(pSoldier, pOpponent, 0);
 	if ( uiSuccessChance >= 100 )

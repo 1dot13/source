@@ -12648,28 +12648,39 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 		// Add attachment string....
 		CHAR16	attachString[ 300 ];
+		CHAR16 tempString[ 120 ];
 		memset(attachString,0,sizeof(attachString));
-		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) {
-			if(iter->exists()){
-
-				//Break off if it's too long.
-				if(wcslen(attachString)>270){
-					wcscat( attachString, L"\n...." );
-					break;
-				}
+		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter)
+		{
+			if(iter->exists())
+			{
+				memset(tempString, 0, sizeof(tempString));
 
 				iNumAttachments++;
-				
-				if ( iNumAttachments == 1 )
+				if (iNumAttachments == 1)
 				{
-					swprintf( attachString, L"\n \n%s:\n", Message[ STR_ATTACHMENTS ] );
+					swprintf(tempString, L"\n \n%s:\n", Message[STR_ATTACHMENTS]);
 				}
 				else
 				{
-					wcscat( attachString, L"\n" );
+					swprintf(tempString, L"\n");
 				}
+				wcscat(tempString, ItemNames[iter->usItem]);
 
-				wcscat( attachString, ItemNames[ iter->usItem ] );
+				auto attachStringLength = wcslen(attachString);
+				auto tempStringLength = wcslen(tempString);
+				auto totalLength = attachStringLength + tempStringLength;
+				// Break off if the string to be added does not fit.
+				// attachStringLength[300] - L"\n...." -> 294
+				if (totalLength > 294)
+				{
+					wcscat(attachString, L"\n....");
+					break;
+				}
+				else
+				{
+					wcscat(attachString, tempString);
+				}
 			}
 		}
 
