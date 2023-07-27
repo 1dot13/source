@@ -539,6 +539,23 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 			SetFactFalse( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT );
 		}
 
+		// set fact according to shipment size (item count, not weight)
+		if (usNumberOfItems - uiStolenCount <= 5)
+		{
+			SetFactFalse(FACT_MEDIUM_SIZED_SHIPMENT_WAITING);
+			SetFactFalse(FACT_LARGE_SIZED_SHIPMENT_WAITING);
+		}
+		else if (usNumberOfItems - uiStolenCount <= 15)
+		{
+			SetFactTrue(FACT_MEDIUM_SIZED_SHIPMENT_WAITING);
+			SetFactFalse(FACT_LARGE_SIZED_SHIPMENT_WAITING);
+		}
+		else
+		{
+			SetFactFalse(FACT_MEDIUM_SIZED_SHIPMENT_WAITING);
+			SetFactTrue(FACT_LARGE_SIZED_SHIPMENT_WAITING);
+		}
+
 		SetFactFalse( FACT_PLAYER_FOUND_ITEMS_MISSING );
 		SetFactFalse( FACT_LARGE_SIZED_OLD_SHIPMENT_WAITING );
 
