@@ -2595,7 +2595,7 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].bMechanical = tempProfiles[ uiLoop ].bMechanical ;
 		gMercProfiles[ uiLoop ].bExpLevel = tempProfiles[ uiLoop ].bExpLevel ;
 
-		gMercProfiles[uiLoop]._old_bEvolution = 0;
+		gMercProfiles[uiLoop].fRegresses = tempProfiles[ uiLoop ].fRegresses;
 		//////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - Check old/new traits and repair possible errors
 		if (gGameOptions.fNewTraitSystem)

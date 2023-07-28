@@ -1781,7 +1781,7 @@ void TestDumpStatChanges(void)
 			// print days served
 			fprintf(FDump, "%3d ", pProfile->usTotalDaysServed);
 			// print evolution type
-			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->_old_bEvolution ]);
+			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->fRegresses ]);
 
 			// now print all non-zero stats
 			for( ubStat = FIRST_CHANGEABLE_STAT; ubStat <= LAST_CHANGEABLE_STAT; ubStat++ )

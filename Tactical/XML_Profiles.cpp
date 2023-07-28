@@ -1682,7 +1682,7 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<bMedical>%d</bMedical>\r\n", gMercProfiles[ cnt ].bMedical);
 			FilePrintf(hFile,"\t\t<bMechanical>%d</bMechanical>\r\n", gMercProfiles[ cnt ].bMechanical);
 			FilePrintf(hFile,"\t\t<bExpLevel>%d</bExpLevel>\r\n", gMercProfiles[ cnt ].bExpLevel);
-			FilePrintf(hFile,"\t\t<_old_bEvolution>%d</_old_bEvolution>\r\n", gMercProfiles[ cnt ]._old_bEvolution);
+			FilePrintf(hFile,"\t\t<fRegresses>%d</fRegresses>\r\n", gMercProfiles[ cnt ].fRegresses);
 			////////////////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - old/new traits
 			if (gGameOptions.fNewTraitSystem)

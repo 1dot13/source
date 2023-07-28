@@ -778,7 +778,7 @@ public:
 	INT8		bSex;
 	INT8		bArmourAttractiveness;
 	UINT8		ubMiscFlags2;
-	INT8		_old_bEvolution;
+	BOOLEAN		fRegresses;
 	UINT8		ubMiscFlags;
 	UINT8		bSexist;
 	UINT8		bLearnToHate;
@@ -999,8 +999,7 @@ public:
 	// Flugente: type of profile
 	UINT32 Type;
 
-	// rftr: growth modifiers
-	BOOLEAN fRegresses; // if TRUE, the following growth modifiers are not used and instead the merc loses stats over time
+	// rftr: growth modifiers - ignored if fRegresses is TRUE
 	INT8 bGrowthModifierLife;
 	INT8 bGrowthModifierStrength;
 	INT8 bGrowthModifierAgility;

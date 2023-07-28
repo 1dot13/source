@@ -1294,7 +1294,16 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->bSex, sizeof(this->bSex), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bArmourAttractiveness, sizeof(this->bArmourAttractiveness), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubMiscFlags2, sizeof(this->ubMiscFlags2), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->_old_bEvolution, sizeof(this->_old_bEvolution), sizeof(INT8), numBytesRead);
+		if (guiCurrentSaveGameVersion < GROWTH_MODIFIERS)
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+			// convert old evolution to regresses boolean
+			this->fRegresses = this->fRegresses == 2 ? TRUE : FALSE; // 2 == CharacterEvolution::DEVOLVES
+		}
+		else
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+		}
 		numBytesRead = ReadFieldByField( hFile, &this->ubMiscFlags, sizeof(this->ubMiscFlags), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bSexist, sizeof(this->bSexist), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bLearnToHate, sizeof(this->bLearnToHate), sizeof(UINT8), numBytesRead);
@@ -1641,10 +1650,6 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			// rftr: growth modifiers
 			if (guiCurrentSaveGameVersion >= GROWTH_MODIFIERS)
 			{
-				if (!FileRead(hFile, &this->fRegresses, sizeof(BOOLEAN), &uiNumBytesRead))
-				{
-					return(FALSE);
-				}
 				if (!FileRead(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesRead))
 				{
 					return(FALSE);
@@ -1808,10 +1813,6 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	// rftr: growth modifiers
-	if (!FileWrite(hFile, &this->fRegresses, sizeof(BOOLEAN), &uiNumBytesWritten))
-	{
-		return(FALSE);
-	}
 	if (!FileWrite(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesWritten))
 	{
 		return(FALSE);

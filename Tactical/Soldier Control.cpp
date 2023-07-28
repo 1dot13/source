@@ -1339,7 +1339,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		this->bSex = src.bSex;
 		this->bArmourAttractiveness = src.bArmourAttractiveness;
 		this->ubMiscFlags2 = src.ubMiscFlags2;
-		this->_old_bEvolution = src.bEvolution;
+		this->fRegresses = src.bEvolution == 2; // formerly, 2 == CharacterEvolution::DEVOLVES
 		this->ubMiscFlags = src.ubMiscFlags;
 		this->bSexist = src.bSexist;
 		this->bLearnToHate = src.bLearnToHate;
