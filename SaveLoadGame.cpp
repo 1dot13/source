@@ -1695,6 +1695,21 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 					return( FALSE );
 				}
 			}
+			else
+			{
+				// zero out growth modifiers for upgrading savegames
+				this->bGrowthModifierLife = 0;
+				this->bGrowthModifierStrength = 0;
+				this->bGrowthModifierAgility = 0;
+				this->bGrowthModifierDexterity = 0;
+				this->bGrowthModifierWisdom = 0;
+				this->bGrowthModifierMarksmanship = 0;
+				this->bGrowthModifierExplosive = 0;
+				this->bGrowthModifierLeadership = 0;
+				this->bGrowthModifierMedical = 0;
+				this->bGrowthModifierMechanical = 0;
+				this->bGrowthModifierExpLevel = 0;
+			}
 		}
 
 		if ( this->uiProfileChecksum != this->GetChecksum() )
