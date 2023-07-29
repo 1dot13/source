@@ -466,66 +466,25 @@ void RandomGrowthModifiers()
 	MERCPROFILESTRUCT * pProfile;
 	BOOLEAN useBellCurve = TRUE;
 
-	 if (gGameExternalOptions.fMercRandomGrowthModifiers == TRUE) // rftr todo - add settings
+	 if (gGameExternalOptions.fMercRandomGrowthModifiers == TRUE)
 	{
 		for (cnt = 0; cnt < NUM_PROFILES; cnt++)
 		{
 			pProfile = &(gMercProfiles[cnt]);
 
-			if (pProfile->bGrowthModifierExpLevel > 0)
-				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierExpLevel < 0)
-				pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierLife > 0)
-				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierLife < 0)
-				pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierAgility > 0)
-				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierAgility < 0)
-				pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierDexterity > 0)
-				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierDexterity < 0)
-				pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierStrength > 0)
-				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierStrength < 0)
-				pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierLeadership > 0)
-				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierLeadership < 0)
-				pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierWisdom > 0)
-				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierWisdom < 0)
-				pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierMarksmanship > 0)
-				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierMarksmanship < 0)
-				pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierMechanical > 0)
-				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierMechanical < 0)
-				pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierExplosive > 0)
-				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierExplosive < 0)
-				pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-
-			if (pProfile->bGrowthModifierMedical > 0)
-				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, 0, 500, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
-			else if (pProfile->bGrowthModifierMedical < 0)
-				pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical, -500, 0, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			// cap minimum growth modifier to negative half subpoints. this is effectively double speed using default values (subpoints = 50)
+			// cap maximum growth modifier to 125. this would make a merc take 3.5x as long to level up a stat using default values
+			pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel,		-gGameExternalOptions.usLevelSubpointsToImprove/2,			125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife,			-gGameExternalOptions.usHealthSubpointsToImprove/2,			125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility,		-gGameExternalOptions.usAgilitySubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity,		-gGameExternalOptions.usDexteritySubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength,		-gGameExternalOptions.usStrengthSubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership,		-gGameExternalOptions.usLeadershipSubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom,			-gGameExternalOptions.usWisdomSubpointsToImprove/2,			125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship,	-gGameExternalOptions.usMarksmanshipSubpointsToImprove/2,	125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical,		-gGameExternalOptions.usMechanicalSubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive,		-gGameExternalOptions.usExplosivesSubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical,		-gGameExternalOptions.usMedicalSubpointsToImprove/2,		125, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
 		}
 	}
 }
