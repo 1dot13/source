@@ -247,7 +247,7 @@ public:
 
 	UINT32				lbeClass;
 	UINT16				lbeIndex;
-	UINT8				ubID;
+	UINT16				ubID;
 	BOOLEAN				ZipperFlag;
 	int					uniqueID;
 	UINT32				uiNodeChecksum;
