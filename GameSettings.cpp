@@ -2482,8 +2482,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TRAINING_EFFICIENCY",30, 0, 100);
 	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
 
-	gGameExternalOptions.bDisableEvolution					= iniReader.ReadBoolean("Strategic Assignment Settings", "DISABLE_EVOLUTION", TRUE );
-	
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
 	gGameExternalOptions.ubSmartTrainingSleep				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_SLEEPING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
 

@@ -2234,7 +2234,8 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 	}
 
 	// rftr todo: replace this with growth modifier text
-	if ( !gGameExternalOptions.bDisableEvolution )
+	// keywords: fRegresses, GrowthModifier
+	//if ( !gGameExternalOptions.bDisableEvolution )
 	{
 		CHAR16 sStr2[200];
 		swprintf( sStr2, szLaptopStatText[12 + gMercProfiles[pSoldier->ubProfile].fRegresses], pSoldier->GetName() );
