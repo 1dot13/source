@@ -1161,50 +1161,61 @@ UINT16 SubpointsPerPoint(UINT8 ubStat, MERCPROFILESTRUCT* pProfile)
     case HEALTHAMT:
 		usSubpointsPerPoint = HEALTH_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierLife;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, HEALTH_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case AGILAMT:
 		usSubpointsPerPoint = AGILITY_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierAgility;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, AGILITY_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case DEXTAMT:
 		usSubpointsPerPoint = DEXTERITY_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierDexterity;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, DEXTERITY_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case WISDOMAMT:
 		usSubpointsPerPoint = WISDOM_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierWisdom;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, WISDOM_SUBPOINTS_TO_IMPROVE/2);
 		break;
 	case STRAMT:
 		usSubpointsPerPoint = STRENGTH_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierStrength;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, STRENGTH_SUBPOINTS_TO_IMPROVE/2);
 		break;
 		
 	  // Skills
     case MEDICALAMT:
 		usSubpointsPerPoint = MEDICAL_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierMedical;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MEDICAL_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case EXPLODEAMT:
 		usSubpointsPerPoint = EXPLOSIVES_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierExplosive;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, EXPLOSIVES_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case MECHANAMT:
 		usSubpointsPerPoint = MECHANICAL_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierMechanical;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MECHANICAL_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case MARKAMT:
 		usSubpointsPerPoint = MARKSMANSHIP_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierMarksmanship;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MARKSMANSHIP_SUBPOINTS_TO_IMPROVE/2);
 		break;
 	case LDRAMT:
 		usSubpointsPerPoint = LEADERSHIP_SUBPOINTS_TO_IMPROVE;
 		usSubpointsPerPoint += pProfile->bGrowthModifierLeadership;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, LEADERSHIP_SUBPOINTS_TO_IMPROVE/2);
 		break;
 
 	  // Experience
     case EXPERAMT:
 		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * pProfile->bExpLevel;
 		usSubpointsPerPoint += pProfile->bGrowthModifierExpLevel;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, LEVEL_SUBPOINTS_TO_IMPROVE * pProfile->bExpLevel / 2);
 		break;
 
     default:
