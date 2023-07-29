@@ -1000,17 +1000,17 @@ public:
 	UINT32 Type;
 
 	// rftr: growth modifiers - ignored if fRegresses is TRUE
-	INT8 bGrowthModifierLife;
-	INT8 bGrowthModifierStrength;
-	INT8 bGrowthModifierAgility;
-	INT8 bGrowthModifierDexterity;
-	INT8 bGrowthModifierWisdom;
-	INT8 bGrowthModifierMarksmanship;
-	INT8 bGrowthModifierExplosive;
-	INT8 bGrowthModifierLeadership;
-	INT8 bGrowthModifierMedical;
-	INT8 bGrowthModifierMechanical;
-	INT8 bGrowthModifierExpLevel;
+	INT16 bGrowthModifierLife;
+	INT16 bGrowthModifierStrength;
+	INT16 bGrowthModifierAgility;
+	INT16 bGrowthModifierDexterity;
+	INT16 bGrowthModifierWisdom;
+	INT16 bGrowthModifierMarksmanship;
+	INT16 bGrowthModifierExplosive;
+	INT16 bGrowthModifierLeadership;
+	INT16 bGrowthModifierMedical;
+	INT16 bGrowthModifierMechanical;
+	INT16 bGrowthModifierExpLevel;
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!
