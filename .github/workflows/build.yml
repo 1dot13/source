@@ -200,8 +200,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Latest Tag
       if: github.ref == 'refs/heads/master'
-      working-directory: source
       run: |
+        # filter tree is what makes this fast
+        git clone --config transfer.fsckobjects=false --tags --no-checkout --filter=tree:0 \
+          "https://github.com/$GITHUB_REPOSITORY" \
+          source
+        cd source
         git tag -d latest || true
         git tag latest
         git push origin latest
