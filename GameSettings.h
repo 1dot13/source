@@ -954,6 +954,12 @@ typedef struct
 
 	BOOLEAN fAdditionalDecals;						// Flugente: show additional decals on objects (cracked walls, blood spatters etc.)
 
+	// anv: map color variants
+	UINT8 ubRadarMapModeDay;
+	UINT8 ubRadarMapModeNight;
+	UINT8 ubOverheadMapModeDay;
+	UINT8 ubOverheadMapModeNight;
+
 	//enable ext mouse key
 	BOOLEAN bAltAimEnabled;	
 	BOOLEAN bAimedBurstEnabled;

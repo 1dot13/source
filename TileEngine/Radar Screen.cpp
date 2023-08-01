@@ -167,9 +167,35 @@ BOOLEAN LoadRadarScreenBitmap(CHAR8 * aFilename )
 
 		if( GetVideoObject( &hVObject, gusRadarImage ) )
 		{
-				// ATE: Add a shade table!
-				hVObject->pShades[ 0 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 255, 255, 255, FALSE );
-				hVObject->pShades[ 1 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 100, 100, 100, FALSE );
+			// ATE: Add a shade table!
+			// anv: pShades[ 0 ] is a day radar map, pShades[ 1 ] is a night radar map
+			switch( gGameExternalOptions.ubRadarMapModeDay )
+			{
+				case 0:
+					hVObject->pShades[0] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 255, 255, 255, FALSE);
+					break;
+				case 1:
+					hVObject->pShades[0] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 352, 352, 352, TRUE);
+					break;
+				case 2:
+					hVObject->pShades[0] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 160, 255, 160, TRUE);
+					break;
+			}
+			switch( gGameExternalOptions.ubRadarMapModeNight )
+			{
+				case 0:
+					hVObject->pShades[1] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 255, 255, 255, FALSE);
+					break;
+				case 1:
+					hVObject->pShades[1] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 352, 352, 352, TRUE);
+					break;
+				case 2:
+					hVObject->pShades[1] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 160, 255, 160, TRUE);
+					break;
+				case 3:
+					hVObject->pShades[1] = Create16BPPPaletteShaded(hVObject->pPaletteEntry, 100, 100, 100, FALSE);
+					break;
+			}	
 		}
 	}
 
