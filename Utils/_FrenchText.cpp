@@ -11646,7 +11646,21 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Threaten approach",
 	L"Recruit approach",
 
-	L"%s's stats will regress.",
+	L"Stats will regress.",
+	L"Fast",
+	L"Average",
+	L"Slow",
+	L"Health growth",
+	L"Strength growth",
+	L"Agility growth",
+	L"Dexterity growth",
+	L"Wisdom growth",
+	L"Marksmanship growth",
+	L"Explosives growth",
+	L"Leadership growth",
+	L"Medical growth",
+	L"Mechanical growth",
+	L"Experience growth",
 };
 
 STR16	szGearTemplateText[] =	// TODO.Translate

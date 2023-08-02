@@ -11655,7 +11655,21 @@ STR16	szLaptopStatText[] =
 	L"威胁对话", //L"Threaten approach",
 	L"招募对话", //L"Recruit approach",
 
-	L"%s's stats will regress.",
+	L"Stats will regress.",
+	L"Fast",
+	L"Average",
+	L"Slow",
+	L"Health growth",
+	L"Strength growth",
+	L"Agility growth",
+	L"Dexterity growth",
+	L"Wisdom growth",
+	L"Marksmanship growth",
+	L"Explosives growth",
+	L"Leadership growth",
+	L"Medical growth",
+	L"Mechanical growth",
+	L"Experience growth",
 };
 
 STR16	szGearTemplateText[] =
