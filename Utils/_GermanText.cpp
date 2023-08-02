@@ -11560,13 +11560,7 @@ STR16	szLaptopStatText[] =
 	L"Threaten approach",
 	L"Recruit approach",
 
-	L"%s learns with normal speed.",	// TODO.Translate
-	L"%s does not learn at all.",
-	L"%s unlearns his skills.",
-	L"%s learns with 3/4 speed.",
-
-	L"%s learns with 1/2 speed.",
-	L"%s learns with 1/4 speed.",
+	L"%s's stats will regress.",
 };
 
 // TODO.Translate

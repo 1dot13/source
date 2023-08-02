@@ -2205,10 +2205,10 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 	if ( (gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
 	{
 		CHAR16 sStr1[200];
-		swprintf( sStr1, szLaptopStatText[6] );
+		swprintf( sStr1, szLaptopStatText[LAPTOP_STAT_TEXT_GOOD_GUY] );
 
 		CHAR16 sStr2[200];
-		swprintf( sStr2, szLaptopStatText[7], pSoldier->GetName( ) );
+		swprintf( sStr2, szLaptopStatText[LAPTOP_STAT_TEXT_REFUSES_TO_ATTACK_NON_HOSTILES], pSoldier->GetName( ) );
 
 		sX = pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH);
 
@@ -2235,10 +2235,10 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 
 	// rftr todo: replace this with growth modifier text
 	// keywords: fRegresses, GrowthModifier
-	//if ( !gGameExternalOptions.bDisableEvolution )
+	if (gMercProfiles[pSoldier->ubProfile].fRegresses)
 	{
 		CHAR16 sStr2[200];
-		swprintf( sStr2, szLaptopStatText[12 + gMercProfiles[pSoldier->ubProfile].fRegresses], pSoldier->GetName() );
+		swprintf( sStr2, szLaptopStatText[LAPTOP_STAT_TEXT_MERC_REGRESSES], pSoldier->GetName() );
 
 		mprintf( (INT16)( pPersonnelScreenPoints[loc].x + ( iSlot*TEXT_BOX_WIDTH ) ), ( pPersonnelScreenPoints[loc].y + 15 ), sStr2 );
 
