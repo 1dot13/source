@@ -76,7 +76,6 @@ private:
 
 	SOLDIERTYPE*	pSoldier;
 	INT8	onRooftop;//aka ubLevel, not sure if this bool is logically reversed yet
-	bool	fNonFenceJumper;
 	bool	fNonSwimmer;
 	bool	fPathingForPlayer;
 	bool	fPathAroundPeople;

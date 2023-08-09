@@ -1600,9 +1600,12 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 		MemFree(lpcBuffer);
 		return FALSE;
 	}
-	
-	// item read was x -> x+1 items
-	++gMAXITEMS_READ;
+
+	if (localizedTextOnly == false)
+	{
+		// item read was x -> x+1 items
+		++gMAXITEMS_READ;
+	}
 
 	MemFree(lpcBuffer);
 
