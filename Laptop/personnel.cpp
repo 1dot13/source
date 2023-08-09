@@ -1,4 +1,3 @@
-#pragma optimize("",off)
 	#include "laptop.h"
 	#include "personnel.h"
 	#include "Utilities.h"
