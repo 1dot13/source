@@ -2234,185 +2234,188 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 		++region;
 	}
 
-	if (gMercProfiles[pSoldier->ubProfile].fRegresses)
+	if (gGameExternalOptions.fMercGrowthModifiersEnabled)
 	{
-		CHAR16 sStr2[200];
-		swprintf( sStr2, szLaptopStatText[LAPTOP_STAT_TEXT_MERC_REGRESSES] );
-
-		mprintf( (INT16)( pPersonnelScreenPoints[loc].x + ( iSlot*TEXT_BOX_WIDTH ) ), ( pPersonnelScreenPoints[loc].y + 15 ), sStr2 );
-
-		++loc;
-		++region;
-	}
-	else
-	{
-		const int THRESHOLD_FAST = -3; // this value and below: "fast"
-		const int THRESHOLD_SLOW = 3; // this value and above: "slow"
-		int yOffset = 15;
-		CHAR16 statTxt[200];
-		// health
+		if (gMercProfiles[pSoldier->ubProfile].fRegresses)
 		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_HEALTH_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+			CHAR16 sStr2[200];
+			swprintf(sStr2, szLaptopStatText[LAPTOP_STAT_TEXT_MERC_REGRESSES]);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
+			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + 15), sStr2);
+
+			++loc;
+			++region;
 		}
-		// strength
+		else
 		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_STRENGTH_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+			const int THRESHOLD_FAST = -3; // this value and below: "fast"
+			const int THRESHOLD_SLOW = 3; // this value and above: "slow"
+			int yOffset = 15;
+			CHAR16 statTxt[200];
+			// health
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_HEALTH_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// agility
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_AGILITY_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// strength
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_STRENGTH_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// dexterity
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_DEXTERITY_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// agility
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_AGILITY_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// wisdom
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_WISDOM_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// dexterity
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_DEXTERITY_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// marksmanship
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MARKSMANSHIP_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// wisdom
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_WISDOM_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// explosives
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPLOSIVES_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// marksmanship
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MARKSMANSHIP_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// leadership
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_LEADERSHIP_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// explosives
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPLOSIVES_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// medical
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MEDICAL_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// leadership
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_LEADERSHIP_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// mechanical
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MECHANICAL_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// medical
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MEDICAL_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
-			yOffset += 10;
-		}
-		// exp level
-		{
-			swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPERIENCE_SPEED]);
-			mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// mechanical
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MECHANICAL_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-			if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel <= THRESHOLD_FAST)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-			else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel >= THRESHOLD_SLOW)
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
-			else
-				swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt );
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+				yOffset += 10;
+			}
+			// exp level
+			{
+				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPERIENCE_SPEED]);
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+
+				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel <= THRESHOLD_FAST)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
+				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel >= THRESHOLD_SLOW)
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
+				else
+					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH, 0, statTxt, PERS_FONT, &sX, &sY);
+				mprintf(sX, (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
+			}
 		}
 	}
 }
