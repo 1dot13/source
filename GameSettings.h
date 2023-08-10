@@ -816,9 +816,6 @@ typedef struct
 	INT32 ubRpcBonusToTrainMilitia;
 	INT32 ubMinSkillToTeach;
 
-	// Flugente: disable evolution setting in MercProfiles.xml
-	BOOLEAN bDisableEvolution;
-
 	INT32 ubLowActivityLevel;
 	INT32 ubMediumActivityLevel;
 	INT32 ubHighActivityLevel;
@@ -1439,6 +1436,10 @@ typedef struct
 	BOOLEAN fMercRandomStartSalary;
 
 	UINT8 ubMercRandomStartSalaryPercentMod;
+
+	BOOLEAN fMercGrowthModifiersEnabled;
+	BOOLEAN fMercRandomGrowthModifiers;
+	INT16 iMercRandomGrowthModifiersRange;
 
 	BOOLEAN fBobbyRayFastShipments;
 

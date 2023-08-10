@@ -402,18 +402,7 @@ typedef enum
 	NUM_SEXIST
 } SexistLevels;
 
-
-
-// training defines for evolution, no stat increase, stat decrease( de-evolve )
-typedef enum
-{
-	NORMAL_EVOLUTION =0,
-	NO_EVOLUTION,
-	DEVOLVE,
-	THREEQUARTER_EVOLUTION,
-	HALF_EVOLUTION,
-	ONEQUARTER_EVOLUTION,
-} CharacterEvolution;
+// rftr: removed the CharacterEvolution enum as it was replaced by growth modifiers
 
 #define BUDDY_MERC( prof, bud ) ((prof)->bBuddy[0] == (bud) || (prof)->bBuddy[1] == (bud) || (prof)->bBuddy[2] == (bud) || (prof)->bBuddy[3] == (bud) || (prof)->bBuddy[4] == (bud) || ( (prof)->bLearnToLike == (bud) && (prof)->bLearnToLikeCount == 0 ) )
 #define HATED_MERC( prof, hat ) ((prof)->bHated[0] == (hat) || (prof)->bHated[1] == (hat) || (prof)->bHated[2] == (hat) || (prof)->bHated[3] == (hat) || (prof)->bHated[4] == (hat) || ( (prof)->bLearnToHate == (hat) && (prof)->bLearnToHateCount == 0 ) )
@@ -789,7 +778,7 @@ public:
 	INT8		bSex;
 	INT8		bArmourAttractiveness;
 	UINT8		ubMiscFlags2;
-	INT8		bEvolution;
+	BOOLEAN		fRegresses;
 	UINT8		ubMiscFlags;
 	UINT8		bSexist;
 	UINT8		bLearnToHate;
@@ -1009,6 +998,19 @@ public:
 
 	// Flugente: type of profile
 	UINT32 Type;
+
+	// rftr: growth modifiers - ignored if fRegresses is TRUE
+	INT16 bGrowthModifierLife;
+	INT16 bGrowthModifierStrength;
+	INT16 bGrowthModifierAgility;
+	INT16 bGrowthModifierDexterity;
+	INT16 bGrowthModifierWisdom;
+	INT16 bGrowthModifierMarksmanship;
+	INT16 bGrowthModifierExplosive;
+	INT16 bGrowthModifierLeadership;
+	INT16 bGrowthModifierMedical;
+	INT16 bGrowthModifierMechanical;
+	INT16 bGrowthModifierExpLevel;
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

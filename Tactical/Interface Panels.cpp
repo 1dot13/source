@@ -2598,7 +2598,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// AGI
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_AGI_Y-1);
 					ClipRect.iBottom = (SM_AGI_Y-1) + SM_STATS_HEIGHT;
@@ -2610,7 +2610,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// DEX
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_DEX_Y-1);
 					ClipRect.iBottom = (SM_DEX_Y-1) + SM_STATS_HEIGHT;
@@ -2622,7 +2622,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// STR
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_STR_Y-1);
 					ClipRect.iBottom = (SM_STR_Y-1) + SM_STATS_HEIGHT;
@@ -2634,7 +2634,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// WIS
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_WIS_Y-1);
 					ClipRect.iBottom = (SM_WIS_Y-1) + SM_STATS_HEIGHT;
@@ -2646,7 +2646,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MRK
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MRKM_Y-1);
 					ClipRect.iBottom = (SM_MRKM_Y-1) + SM_STATS_HEIGHT;
@@ -2658,7 +2658,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// LDR
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_CHAR_Y-1);
 					ClipRect.iBottom = (SM_CHAR_Y-1) + SM_STATS_HEIGHT;
@@ -2670,7 +2670,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MECH
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MECH_Y-1);
 					ClipRect.iBottom = (SM_MECH_Y-1) + SM_STATS_HEIGHT;
@@ -2682,7 +2682,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// EXPLO
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPL_Y-1);
 					ClipRect.iBottom = (SM_EXPL_Y-1) + SM_STATS_HEIGHT;
@@ -2694,7 +2694,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MED
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MED_Y-1);
 					ClipRect.iBottom = (SM_MED_Y-1) + SM_STATS_HEIGHT;
@@ -2706,7 +2706,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// EXPLEVEL
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, gpSMCurrentMerc->stats.bExpLevel);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPLVL_Y-1);
 					ClipRect.iBottom = (SM_EXPLVL_Y-1) + SM_STATS_HEIGHT;

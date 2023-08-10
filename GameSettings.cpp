@@ -1079,6 +1079,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);
 	gGameExternalOptions.fMercRandomStartSalary				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_START_SALARY", FALSE);
 	gGameExternalOptions.ubMercRandomStartSalaryPercentMod	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_START_SALARY_PERCENTAGE_MAX_MODIFIER", 30, 0, 100);
+	gGameExternalOptions.fMercGrowthModifiersEnabled		= iniReader.ReadBoolean("Recruitment Settings", "MERCS_GROWTH_MODIFIERS_ENABLED", FALSE);
+	gGameExternalOptions.fMercRandomGrowthModifiers			= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS", FALSE);
+	gGameExternalOptions.iMercRandomGrowthModifiersRange	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS_RANGE", 5, -50, 50);
 
 	//################# Financial Settings #################
 
@@ -2480,8 +2483,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TRAINING_EFFICIENCY",30, 0, 100);
 	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
 
-	gGameExternalOptions.bDisableEvolution					= iniReader.ReadBoolean("Strategic Assignment Settings", "DISABLE_EVOLUTION", TRUE );
-	
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
 	gGameExternalOptions.ubSmartTrainingSleep				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_SLEEPING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
 
