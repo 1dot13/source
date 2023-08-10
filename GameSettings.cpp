@@ -2785,6 +2785,9 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTHBladesSilentCriticalHitChance = iniReader.ReadInteger("Throwing","TH_BLADES_SILENT_CRITICAL_HIT_CHANCE", 20, 0, 100);
 	gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus = iniReader.ReadInteger("Throwing","SILENT_CRITICAL_HIT_MULTIPLIER_BONUS", 1, 0, 50);
 	gSkillTraitValues.ubTHBladesAimClicksAdded = iniReader.ReadInteger("Throwing","POSSIBLE_AIM_CLICK_ADDED_TH_KNIVES", 1, 0, 5);
+	gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Throwing","APS_NEETHD_TO_THROW_GRENATHS_REDUCTION", 25, 0, 90);
+	gSkillTraitValues.ubTHMaxRangeToThrowGrenades = iniReader.ReadInteger("Throwing","MAX_RANGE_TO_THROW_GRENATHS", 20, 0, 250);
+	gSkillTraitValues.ubTHCtHWhenThrowingGrenades = iniReader.ReadInteger("Throwing","CTH_WHEN_THROWING_GRENATHS", 30, 0, 100);
 
 	// NIGHT OPS
 	gSkillTraitValues.ubNOeSightRangeBonusInDark = iniReader.ReadInteger("Night Ops","SIGHT_RANGE_BONUS_IN_DARK", 1, 0, 100);
