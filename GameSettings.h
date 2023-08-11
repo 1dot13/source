@@ -2206,9 +2206,6 @@ typedef struct
 	UINT16 usBBIncreasedNeededDamageToFallDown;
 
 	// DEMOLITIONS
-	UINT8 ubDEAPsNeededToThrowGrenadesReduction;
-	UINT8 ubDEMaxRangeToThrowGrenades;
-	UINT8 ubDECtHWhenThrowingGrenades;
 	UINT8 ubDEDamageOfBombsAndMines;
 	UINT8 ubDEAttachDetonatorCheckBonus;
 	UINT8 ubDEPlantAndRemoveBombCheckBonus;

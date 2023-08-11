@@ -10175,16 +10175,10 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 				iRange += ((iRange * gSkillTraitValues.ubTHBladesMaxRange ) / 100);
 			}
 			// sevenfm: add range only for hand grenades and not launched grenades
-			else if ( (Item[ usItem ].usItemClass == IC_GRENADE) && Item[usItem].ubCursor == TOSSCURS && (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ) || HAS_SKILL_TRAIT( pSoldier, THROWING_NT )) )
+			else if ( (Item[ usItem ].usItemClass == IC_GRENADE) && Item[usItem].ubCursor == TOSSCURS && HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
 			{
 				// better max range due to expertise
-				INT32 skillBonus = 0;
-				if (HAS_SKILL_TRAIT(pSoldier, DEMOLITIONS_NT))
-					skillBonus = gSkillTraitValues.ubDEMaxRangeToThrowGrenades;
-				if (HAS_SKILL_TRAIT(pSoldier, THROWING_NT))
-					skillBonus = max(skillBonus, gSkillTraitValues.ubTHMaxRangeToThrowGrenades);
-
-				iRange += ((iRange * skillBonus) / 100);
+				iRange += ((iRange * gSkillTraitValues.ubTHMaxRangeToThrowGrenades) / 100);
 			}
 		}
 		else
@@ -10266,16 +10260,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			else
 			{
 				iChance += gSkillTraitValues.bCtHModifierThrowingGrenades; // -10% for untrained mercs
-				INT32 skillBonus = 0;
-
-				// use whatever's higher between throwing and demolitions
-				if ( HAS_SKILL_TRAIT(pSoldier, THROWING_NT) )
-					skillBonus = max(skillBonus, gSkillTraitValues.ubTHCtHWhenThrowingGrenades);
-
-				if ( HAS_SKILL_TRAIT(pSoldier, DEMOLITIONS_NT) )
-					skillBonus = max(skillBonus, gSkillTraitValues.ubDECtHWhenThrowingGrenades);
-
-				iChance += skillBonus;
+				iChance += gSkillTraitValues.ubTHCtHWhenThrowingGrenades;
 			}
 		}
 		else

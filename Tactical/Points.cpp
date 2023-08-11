@@ -3640,18 +3640,11 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	iAPCost += ( ( ( 100 * iTop ) / iBottom) + 1) / 2;
 	
 	// SANDRO - STOMP traits - reduce APs needed to throw grenades if having Demolitions skill
-	if( (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ) || HAS_SKILL_TRAIT( pSoldier, THROWING_NT )) && gGameOptions.fNewTraitSystem )
+	if( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) && gGameOptions.fNewTraitSystem )
 	{
 		if ( grenadAPreductionpossible )
 		{
-			INT32 skillBonus = 0;
-
-			if (HAS_SKILL_TRAIT(pSoldier, DEMOLITIONS_NT))
-				skillBonus = gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction;
-			if (HAS_SKILL_TRAIT( pSoldier, THROWING_NT ))
-				skillBonus = max(skillBonus, gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction);
-
-			iAPCost = max( 1, (INT32)(iAPCost * (100 - skillBonus) / 100));
+			iAPCost = max( 1, (INT32)(iAPCost * (100 - gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction) / 100));
 		}
 	}
 
