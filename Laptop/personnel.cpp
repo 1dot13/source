@@ -8165,6 +8165,21 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 
 					wcscat( apStr, atStr );
 				}
+				if( gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[10], gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction, sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHMaxRangeToThrowGrenades != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[11], gSkillTraitValues.ubTHMaxRangeToThrowGrenades, sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHCtHWhenThrowingGrenades != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[12], gSkillTraitValues.ubTHCtHWhenThrowingGrenades, sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
 				break;
 			}
 			case NIGHT_OPS_NT:
@@ -8270,44 +8285,29 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 			case DEMOLITIONS_NT:
 			{
 				swprintf( apStr, L"" );
-				if( gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction != 0 )
-				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[0], gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction, sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				if( gSkillTraitValues.ubDEMaxRangeToThrowGrenades != 0 )
-				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[1], gSkillTraitValues.ubDEMaxRangeToThrowGrenades, sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				if( gSkillTraitValues.ubDECtHWhenThrowingGrenades != 0 )
-				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[2], gSkillTraitValues.ubDECtHWhenThrowingGrenades, sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
 				if( gSkillTraitValues.ubDEDamageOfBombsAndMines != 0 )
 				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[3], gSkillTraitValues.ubDEDamageOfBombsAndMines, sSpecialCharacters[0]);
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[0], gSkillTraitValues.ubDEDamageOfBombsAndMines, sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubDEAttachDetonatorCheckBonus != 0 )
 				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[4], gSkillTraitValues.ubDEAttachDetonatorCheckBonus, sSpecialCharacters[0]);
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[1], gSkillTraitValues.ubDEAttachDetonatorCheckBonus, sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus != 0 )
 				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[5], gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus, sSpecialCharacters[0]);
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[2], gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus, sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubDEPlacedBombLevelBonus != 0 )
 				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[6], gSkillTraitValues.ubDEPlacedBombLevelBonus);
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[3], gSkillTraitValues.ubDEPlacedBombLevelBonus);
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubDEShapedChargeDamageMultiplier != 0 )
 				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[7], gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[4], gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
 					wcscat( apStr, atStr );
 				}
 				break;

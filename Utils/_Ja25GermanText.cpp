@@ -310,6 +310,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d Multiplikator für kritische Treffer durch Wurfwaffen\n",
 	L"Gibt einen weiteren Zielklick beim Einsatz von Wurfwaffen\n",
 	L"Gibt %d weitere Zielklicks beim Einsatz von Wurfwaffen\n",
+	L"-%d%s APs benötigt um Handgranaten (und ähnliche Objekte) zu werfen\n",
+	L"+%d%s höhere Reichweite beim Werfen von Handgranaten (und ähnliche Objekten)\n",
+	L"+%d%s höhere Trefferwahrscheinlichkeit beim Werfen von Handgranaten (und ähnlichen Objekten)\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -346,9 +349,6 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s APs benötigt um Handgranaten (und ähnliche Objekte) zu werfen\n",
-	L"+%d%s höhere Reichweite beim Werfen von Handgranaten (und ähnliche Objekten)\n",
-	L"+%d%s höhere Trefferwahrscheinlichkeit beim Werfen von Handgranaten (und ähnlichen Objekten)\n",
 	L"+%d%s höherer Schaden für gelegte Bomben und Minen\n",
 	L"+%d%s mehr Erfolg beim Anbringen von Zündern\n",
 	L"+%d%s mehr Erfolg beim Legen und Entschärfen von Bomben\n",
