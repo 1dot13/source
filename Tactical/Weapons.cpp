@@ -10260,7 +10260,8 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			else
 			{
 				iChance += gSkillTraitValues.bCtHModifierThrowingGrenades; // -10% for untrained mercs
-				iChance += gSkillTraitValues.ubTHCtHWhenThrowingGrenades;
+				if ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
+					iChance += gSkillTraitValues.ubTHCtHWhenThrowingGrenades;
 			}
 		}
 		else
