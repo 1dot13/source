@@ -310,6 +310,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"飞刀致命一击的额外伤害倍率 +%d\n",// L"+%d critical hit by throwing blade multiplier\n",
 	L"飞刀的最大精瞄次数 +%d\n",// L"Adds %d more aim click for throwing blades\n",
 	L"飞刀的最大精瞄次数 +%d\n",// L"Adds %d more aim clicks for throwing blades\n",
+	L"投掷手榴弹所需行动点 -%d%s\n",// L"-%d%s APs needed to throw grenades\n",
+	L"手榴弹最远投掷距离 +%d%s\n",// L"+%d%s max range when throwing grenades\n",
+	L"手榴弹的命中率 +%d%s\n",// L"+%d%s chance to hit when throwing grenades\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -346,9 +349,6 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"投掷手榴弹所需行动点 -%d%s\n",// L"-%d%s APs needed to throw grenades\n",
-	L"手榴弹最远投掷距离 +%d%s\n",// L"+%d%s max range when throwing grenades\n",
-	L"手榴弹的命中率 +%d%s\n",// L"+%d%s chance to hit when throwing grenades\n",
 	L"安置的炸弹和地雷的伤害 +%d%s\n",// L"+%d%s damage of set bombs and mines\n",
 	L"组合炸弹的成功率 +%d%s\n",// L"+%d%s to attaching detonators check\n",
 	L"安置/拆除炸弹成功率 +%d%s\n",// L"+%d%s to planting/removing bombs check\n",

@@ -2785,6 +2785,9 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTHBladesSilentCriticalHitChance = iniReader.ReadInteger("Throwing","TH_BLADES_SILENT_CRITICAL_HIT_CHANCE", 20, 0, 100);
 	gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus = iniReader.ReadInteger("Throwing","SILENT_CRITICAL_HIT_MULTIPLIER_BONUS", 1, 0, 50);
 	gSkillTraitValues.ubTHBladesAimClicksAdded = iniReader.ReadInteger("Throwing","POSSIBLE_AIM_CLICK_ADDED_TH_KNIVES", 1, 0, 5);
+	gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Throwing","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
+	gSkillTraitValues.ubTHMaxRangeToThrowGrenades = iniReader.ReadInteger("Throwing","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
+	gSkillTraitValues.ubTHCtHWhenThrowingGrenades = iniReader.ReadInteger("Throwing","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 
 	// NIGHT OPS
 	gSkillTraitValues.ubNOeSightRangeBonusInDark = iniReader.ReadInteger("Night Ops","SIGHT_RANGE_BONUS_IN_DARK", 1, 0, 100);
@@ -2811,9 +2814,6 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usBBIncreasedNeededDamageToFallDown = iniReader.ReadInteger("Bodybuilding","INCREASE_DAMAGE_NEEDED_TO_FALL_DOWN_IF_HIT_TO_LEGS", 100, 0, 500);
 
 	// DEMOLITIONS
-	gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Demolitions","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
-	gSkillTraitValues.ubDEMaxRangeToThrowGrenades = iniReader.ReadInteger("Demolitions","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
-	gSkillTraitValues.ubDECtHWhenThrowingGrenades = iniReader.ReadInteger("Demolitions","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 	gSkillTraitValues.ubDEDamageOfBombsAndMines = iniReader.ReadInteger("Demolitions","DAMAGE_OF_PLACED_BOMBS_AND_MINES", 25, 0, 250);
 	gSkillTraitValues.ubDEAttachDetonatorCheckBonus = iniReader.ReadInteger("Demolitions","ATTACH_DETONATOR_CHECK_BONUS", 50, 0, 250);
 	gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus = iniReader.ReadInteger("Demolitions","PLANT_AND_REMOVE_BOMBS_AND_MINES_BONUS", 50, 0, 250);

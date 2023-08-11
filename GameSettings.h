@@ -2177,6 +2177,9 @@ typedef struct
 	UINT8 ubTHBladesSilentCriticalHitChance;
 	UINT8 ubTHBladesCriticalHitMultiplierBonus;
 	UINT8 ubTHBladesAimClicksAdded;
+	UINT8 ubTHAPsNeededToThrowGrenadesReduction;
+	UINT8 ubTHMaxRangeToThrowGrenades;
+	UINT8 ubTHCtHWhenThrowingGrenades;
 
 	// NIGHT OPS
 	UINT8 ubNOeSightRangeBonusInDark;
@@ -2203,9 +2206,6 @@ typedef struct
 	UINT16 usBBIncreasedNeededDamageToFallDown;
 
 	// DEMOLITIONS
-	UINT8 ubDEAPsNeededToThrowGrenadesReduction;
-	UINT8 ubDEMaxRangeToThrowGrenades;
-	UINT8 ubDECtHWhenThrowingGrenades;
 	UINT8 ubDEDamageOfBombsAndMines;
 	UINT8 ubDEAttachDetonatorCheckBonus;
 	UINT8 ubDEPlantAndRemoveBombCheckBonus;
