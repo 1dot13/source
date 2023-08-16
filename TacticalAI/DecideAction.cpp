@@ -5975,7 +5975,7 @@ INT16 ubMinAPCost;
 	// Black cover advance
 	if (SoldierAI(pSoldier) &&
 		gfTurnBasedAI &&
-		!pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
+		//!pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
 		pSoldier->bInitialActionPoints > APBPConstants[AP_MINIMUM] &&
 		!gfHiddenInterrupt &&
 		!gTacticalStatus.fInterruptOccurred &&
