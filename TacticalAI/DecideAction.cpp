@@ -4917,6 +4917,11 @@ INT16 ubMinAPCost;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
 
+	INT32	sOpponentGridNo;
+	INT8	bOpponentLevel;
+	sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
+	DebugAI(AI_MSG_INFO, pSoldier, String("sClosestOpponent %d", sClosestOpponent));
+
 	// sevenfm: disable stealth mode
 	pSoldier->bStealthMode = FALSE;
 	// disable reverse movement mode
