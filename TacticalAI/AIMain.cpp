@@ -2299,6 +2299,17 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
                 usHandItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 
             iRetCode = HandleItem( pSoldier, pSoldier->aiData.usActionData, pSoldier->bTargetLevel, usHandItem, FALSE );
+			// If AI cannot shoot because of lack of APs, attempt to try again with lower aim.
+			// Usually happens when they have to turn before shooting. Without this, the game would cancel soldier's whole turn
+			if (iRetCode == ITEM_HANDLE_NOAPS && pSoldier->aiData.bAimTime > 0)
+			{
+				do
+				{
+					pSoldier->aiData.bAimTime -= 1;
+					iRetCode = HandleItem(pSoldier, pSoldier->aiData.usActionData, pSoldier->bTargetLevel, usHandItem, FALSE);
+				} while (iRetCode == ITEM_HANDLE_NOAPS && pSoldier->aiData.bAimTime > 0);
+			}
+
             if ( iRetCode != ITEM_HANDLE_OK)
             {
                 if ( iRetCode != ITEM_HANDLE_BROKEN ) // if the item broke, this is 'legal' and doesn't need reporting
