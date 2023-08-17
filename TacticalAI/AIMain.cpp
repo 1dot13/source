@@ -651,6 +651,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			{
 				// traversing offmap, ignore new situations
 			}
+// FIXME: Disabled temporarily to prevent AI actions constantly being cancelled during normal turn based combat.
+// Need to find out when this conditional is actually needed.
+#if 0
 			else if ( pSoldier->ubQuoteRecord == 0 && !gTacticalStatus.fAutoBandageMode  )
 			{
 				// don't force, don't want escorted mercs reacting to new opponents, etc.
@@ -664,6 +667,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 				}
 				DecideAlertStatus( pSoldier );
 			}
+#endif
 			else
 			{
 				if ( pSoldier->ubQuoteRecord )
