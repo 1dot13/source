@@ -307,16 +307,19 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	}
 
 	// also log to individual file for selected soldier
-	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
-	if ((DebugFile = fopen(buf, "a+t")) != NULL)
+	if (pSoldier)
 	{
-		if (bMsgType == AI_MSG_START)
+		sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
+		if ((DebugFile = fopen(buf, "a+t")) != NULL)
 		{
+			if (bMsgType == AI_MSG_START)
+			{
+				fputs("\n", DebugFile);
+			}
+			fputs(msg, DebugFile);
 			fputs("\n", DebugFile);
+			fclose(DebugFile);
 		}
-		fputs(msg, DebugFile);
-		fputs("\n", DebugFile);
-		fclose(DebugFile);
 	}
 }
 
