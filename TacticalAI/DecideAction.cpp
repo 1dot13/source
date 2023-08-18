@@ -46,6 +46,7 @@ extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndRead
 extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
 void LogDecideInfo(SOLDIERTYPE *pSoldier);
 void LogKnowledgeInfo(SOLDIERTYPE *pSoldier);
+INT8 DecideActionWearGasmask(SOLDIERTYPE* pSoldier);
 
 // global status time counters to determine what takes the most time
 
@@ -2450,7 +2451,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	INT32	sClosestDisturbance = NOWHERE, sCheckGridNo;
 	INT32	sDistVisible;
 	UINT8	ubCanMove,ubOpponentDir;
-	INT8	bInWater, bInDeepWater, bInGas;
 	INT8	bSeekPts = 0, bHelpPts = 0, bHidePts = 0, bWatchPts = 0;
 	INT8	bHighestWatchLoc;
 	ATTACKTYPE BestThrow, BestShot;
@@ -2577,29 +2577,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
-	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
-	bInDeepWater = DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel );
-
-	// check if standing in tear gas without a gas mask on
-	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
+	INT8 bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+	INT8 bInDeepWater = DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN LEFT IN GAS, WEAR GAS MASK IF AVAILABLE AND NOT WORN
 	////////////////////////////////////////////////////////////////////////////
-
-	if ( !bInGas && (gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y) )
-	{
-		// only chance if we happen to be caught with our gas mask off
-		if ( PreRandom( 10 ) == 0 && WearGasMaskIfAvailable( pSoldier ) )
-		{
-			// reevaluate
-			bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
-		}
-	}
-
-	//Only put mask on in gas
-	if(bInGas && WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
-		bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
+	INT8 bInGas = DecideActionWearGasmask(pSoldier);
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
@@ -4878,7 +4862,6 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
  INT32	sClosestDisturbance;
 INT16 ubMinAPCost;
 	UINT8	ubCanMove;
-	INT8		bInWater,bInDeepWater,bInGas;
 	INT8		bDirection;
 	UINT8	ubBestAttackAction = AI_ACTION_NONE;
 	INT8		bCanAttack,bActionReturned;
@@ -4998,6 +4981,7 @@ INT16 ubMinAPCost;
 		}
 	}
 
+	INT8 bInWater, bInDeepWater, bInGas;
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER )
 	{
 		if ( gTacticalStatus.bBoxingState == PRE_BOXING )
@@ -5027,28 +5011,13 @@ INT16 ubMinAPCost;
 		bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 		bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
-		// check if standing in tear gas without a gas mask on
-		bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
-
 		// calculate our morale
 		pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
 
 		////////////////////////////////////////////////////////////////////////////
 		// WHEN LEFT IN GAS, WEAR GAS MASK IF AVAILABLE AND NOT WORN
 		////////////////////////////////////////////////////////////////////////////
-
-		if ( !bInGas && (gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y) )
-		{
-			// only chance if we happen to be caught with our gas mask off
-			if ( PreRandom( 10 ) == 0 && WearGasMaskIfAvailable( pSoldier ) )
-			{
-				bInGas = FALSE;
-			}
-		}
-
-	//Only put mask on in gas
-	if(bInGas && WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
-		bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
+		bInGas = DecideActionWearGasmask(pSoldier);
 
 		////////////////////////////////////////////////////////////////////////////
 		// IF GASSED, OR REALLY TIRED (ON THE VERGE OF COLLAPSING), TRY TO RUN AWAY
@@ -10391,4 +10360,25 @@ void LogKnowledgeInfo(SOLDIERTYPE *pSoldier)
 			//swprintf( pStrInfo, L"%s[%d] %s %s\n", pStrInfo, oppID, MercPtrs[oppID]->GetName(), SeenStr(pSoldier->aiData.bOppList[oppID]) );
 		}
 	}
+}
+
+
+INT8 DecideActionWearGasmask(SOLDIERTYPE *pSoldier)
+{
+	// check if standing in tear gas without a gas mask on
+	INT8 bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
+
+	if (!bInGas && (gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y))
+	{
+		// only chance if we happen to be caught with our gas mask off
+		if (PreRandom(10) == 0 && WearGasMaskIfAvailable(pSoldier))
+		{
+			bInGas = FALSE;
+		}
+	}
+
+	//Only put mask on in gas
+	if (bInGas && WearGasMaskIfAvailable(pSoldier))	{ bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo); }
+
+	return bInGas;
 }
