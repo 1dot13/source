@@ -2253,6 +2253,12 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
+
 	// smoke
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE ) )
 		return TRUE;
@@ -2299,6 +2305,12 @@ BOOLEAN InGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 
 	if (TileIsOutOfBounds(sGridNo))
 		return FALSE;
+
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
 
 	if (InGasSpot(pSoldier, sGridNo, pSoldier->pathing.bLevel))
 	{

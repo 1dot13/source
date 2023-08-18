@@ -807,12 +807,6 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// check if standing in tear gas without a gas mask on, or in smoke
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
 
-	// Flugente: tanks do not care about gas
-	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
-	{
-		bInGas = FALSE;
-	}
-
 	// if real-time, and not in the way, do nothing 90% of the time (for GUARDS!)
 	// unless in water (could've started there), then we better swim to shore!
 
@@ -2588,12 +2582,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 	// check if standing in tear gas without a gas mask on
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
-
-	// Flugente: tanks do not care about gas
-	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
-	{
-		bInGas = FALSE;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN LEFT IN GAS, WEAR GAS MASK IF AVAILABLE AND NOT WORN
@@ -5041,12 +5029,6 @@ INT16 ubMinAPCost;
 
 		// check if standing in tear gas without a gas mask on
 		bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
-
-		// Flugente: tanks do not care about gas
-		if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
-		{
-			bInGas = FALSE;
-		}
 
 		// calculate our morale
 		pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
