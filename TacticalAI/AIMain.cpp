@@ -408,10 +408,6 @@ BOOLEAN InitAI( void )
 	return( TRUE );
 }
 
-BOOLEAN AimingGun(SOLDIERTYPE *pSoldier)
-{
-	return(FALSE);
-}
 
 void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named inappropriately
 {
