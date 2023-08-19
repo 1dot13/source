@@ -47,6 +47,7 @@ extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
 void LogDecideInfo(SOLDIERTYPE *pSoldier);
 void LogKnowledgeInfo(SOLDIERTYPE *pSoldier);
 INT8 DecideActionWearGasmask(SOLDIERTYPE* pSoldier);
+ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE* pSoldier, BOOLEAN ubCanMove, BOOLEAN bInWater, BOOLEAN bInDeepWater, BOOLEAN bInGas);
 
 // global status time counters to determine what takes the most time
 
@@ -4401,7 +4402,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			{
 				// look for best place to RUN AWAY to (farthest from the closest threat)
 				pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
-				
+
 				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 				{
 #ifdef DEBUGDECISIONS
@@ -4861,7 +4862,6 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	INT32	sClosestOpponent = NOWHERE,sBestCover = NOWHERE;//dnl ch58 160813
  INT32	sClosestDisturbance;
 INT16 ubMinAPCost;
-	UINT8	ubCanMove;
 	INT8		bDirection;
 	UINT8	ubBestAttackAction = AI_ACTION_NONE;
 	INT8		bCanAttack,bActionReturned;
@@ -4877,7 +4877,6 @@ INT16 ubMinAPCost;
 
 	ATTACKTYPE BestShot, BestThrow, BestStab ,BestAttack;//dnl ch69 150913
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
-	BOOLEAN fClimb;
 	INT16	ubBurstAPs;
 	UINT8	ubOpponentDir;
  INT32	sCheckGridNo;
@@ -4912,7 +4911,7 @@ INT16 ubMinAPCost;
 	}
 
 	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
-	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
+	UINT8 ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
 
 	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 	{
@@ -5019,6 +5018,7 @@ INT16 ubMinAPCost;
 		////////////////////////////////////////////////////////////////////////////
 		bInGas = DecideActionWearGasmask(pSoldier);
 
+
 		////////////////////////////////////////////////////////////////////////////
 		// IF GASSED, OR REALLY TIRED (ON THE VERGE OF COLLAPSING), TRY TO RUN AWAY
 		////////////////////////////////////////////////////////////////////////////
@@ -5060,58 +5060,10 @@ INT16 ubMinAPCost;
 	////////////////////////////////////////////////////////////////////////////
 	// STUCK IN WATER OR GAS, NO COVER, GO TO NEAREST SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
-
-	// when in deep water, move to closest opponent
-	if (ubCanMove && bInDeepWater && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
+	auto decision = DecideActionStuckInWaterOrGas(pSoldier, ubCanMove, bInWater, bInDeepWater, bInGas);
+	if (decision != AI_ACTION_LAST)
 	{
-		// find closest reachable opponent, excluding opponents in deep water
-		pSoldier->aiData.usActionData = ClosestReachableDisturbance(pSoldier, &fClimb);
-
-		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-		{
-			return(AI_ACTION_LEAVE_WATER_GAS);
-		}
-	}
-
-	// if soldier in water/gas has enough APs left to move at least 1 square
-	if (ubCanMove && (bInGas || bInDeepWater || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE) || RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel)))
-	{
-		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
-		
-		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-		{
-#ifdef DEBUGDECISIONS
-			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-			AIPopMessage(tempstr);
-#endif
-
-			return(AI_ACTION_LEAVE_WATER_GAS);
-		}
-
-		// couldn't find ANY land within 25 tiles(!), this should never happen...
-
-		// look for best place to RUN AWAY to (farthest from the closest threat)
-		pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
-		
-		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-		{
-#ifdef DEBUGDECISIONS
-			sprintf(tempstr,"%s - NO LAND NEAR, RUNNING AWAY to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-			AIPopMessage(tempstr);
-#endif
-
-			return(AI_ACTION_RUN_AWAY);
-		}
-
-		// GIVE UP ON LIFE!  MERCS MUST HAVE JUST CORNERED A HELPLESS ENEMY IN A
-		// GAS FILLED ROOM (OR IN WATER MORE THAN 25 TILES FROM NEAREST LAND...)
-		if ( bInGas && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-		{
-			pSoldier->bBreath = pSoldier->bBreathMax;
-			pSoldier->aiData.bAIMorale = MORALE_FEARLESS;  // Can't move, can't get away, go nuts instead...
-		}
-		else
-			pSoldier->aiData.bAIMorale = MORALE_HOPELESS;
+		return decision;
 	}
 
 	// offer surrender?
@@ -5432,7 +5384,8 @@ INT16 ubMinAPCost;
 				(pSoldier->aiData.bAttitude != AGGRESSIVE || Chance((100 - BestShot.ubChanceToReallyHit) / 2)))
 			{
 				// get the location of the closest CONSCIOUS reachable opponent
-				sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
+				BOOLEAN fClimbDummy;
+				sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimbDummy);
 
 				// if we found one								
 				if (!TileIsOutOfBounds(sClosestDisturbance))
@@ -5950,7 +5903,8 @@ INT16 ubMinAPCost;
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Black cover advance]"));
 		DebugAI(AI_MSG_INFO, pSoldier, String("find cover advance spot"));
 
-		INT32 sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
+		BOOLEAN fClimbDummy;
+		INT32 sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimbDummy);
 
 		if (!TileIsOutOfBounds(sClosestDisturbance))
 		{
@@ -10381,4 +10335,64 @@ INT8 DecideActionWearGasmask(SOLDIERTYPE *pSoldier)
 	if (bInGas && WearGasMaskIfAvailable(pSoldier))	{ bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo); }
 
 	return bInGas;
+}
+
+ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMove, BOOLEAN bInWater, BOOLEAN bInDeepWater, BOOLEAN bInGas)
+{
+	// when in deep water, move to closest opponent
+	if (ubCanMove && (bInDeepWater || bInWater) && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
+	{
+		// find closest reachable opponent, excluding opponents in deep water
+		BOOLEAN fClimb;
+		pSoldier->aiData.usActionData = ClosestReachableDisturbance(pSoldier, &fClimb);
+
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+			return(AI_ACTION_LEAVE_WATER_GAS);
+		}
+	}
+
+	// if soldier in water/gas has enough APs left to move at least 1 square
+	if (ubCanMove && (bInGas || bInWater || bInDeepWater || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE) || RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel)))
+	{
+		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
+
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+#ifdef DEBUGDECISIONS
+			sprintf(tempstr, "%s - SEEKING NEAREST UNGASSED LAND at grid %d", pSoldier->name, pSoldier->aiData.usActionData);
+			AIPopMessage(tempstr);
+#endif
+
+			return(AI_ACTION_LEAVE_WATER_GAS);
+		}
+
+		// couldn't find ANY land within 25 tiles(!), this should never happen...
+
+		// look for best place to RUN AWAY to (farthest from the closest threat)
+		pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
+
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+#ifdef DEBUGDECISIONS
+			sprintf(tempstr, "%s - NO LAND NEAR, RUNNING AWAY to grid %d", pSoldier->name, pSoldier->aiData.usActionData);
+			AIPopMessage(tempstr);
+#endif
+
+			return(AI_ACTION_RUN_AWAY);
+		}
+
+		// GIVE UP ON LIFE!  MERCS MUST HAVE JUST CORNERED A HELPLESS ENEMY IN A
+		// GAS FILLED ROOM (OR IN WATER MORE THAN 25 TILES FROM NEAREST LAND...)
+		if ((bInGas || bInWater || bInDeepWater) && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE)
+		{
+			pSoldier->bBreath = pSoldier->bBreathMax;
+			pSoldier->aiData.bAIMorale = MORALE_FEARLESS;  // Can't move, can't get away, go nuts instead...
+		}
+		else
+			pSoldier->aiData.bAIMorale = MORALE_HOPELESS;
+	}
+
+
+	return AI_ACTION_LAST;
 }
