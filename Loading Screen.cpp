@@ -23,6 +23,7 @@ extern BOOLEAN gfSchedulesHosed;
 	#include "Ja25 Strategic Ai.h"
 #endif
 UINT8 gubLastLoadingScreenID = LOADINGSCREEN_NOTHING;
+FLOAT fLoadingScreenAspectRatio;
 //BOOLEAN bShowSmallImage = FALSE;
 SECTOR_LOADSCREENS gSectorLoadscreens[MAX_SECTOR_LOADSCREENS];
 
@@ -343,6 +344,62 @@ static void BuildLoadscreenFilename(std::string& dst, const char* path, int reso
 		dst.append(".sti");
 }
 
+std::string GetResolutionSuffix(SCREEN_RESOLUTION resolution)
+{
+	switch (resolution)
+	{
+		case _960x540: return "_960x540";
+		case _800x600: return "_800x600";
+		case _1024x600: return "_1024x600";
+		case _1280x720: return "_1280x720";
+		case _1024x768: return "_1024x768";
+		case _1280x768: return "_1280x768";
+		case _1360x768: return "_1360x768";
+		case _1366x768: return "_1366x768";
+		case _1280x800: return "_1280x800";
+		case _1440x900: return "_1440x900";
+		case _1600x900: return "_1600x900";
+		case _1280x960: return "_1280x960";
+		case _1440x960: return "_1440x960";
+		case _1770x1000: return "_1770x1000";
+		case _1280x1024: return "_1280x1024";
+		case _1360x1024: return "_1360x1024";
+		case _1600x1024: return "_1600x1024";
+		case _1440x1050: return "_1440x1050";
+		case _1680x1050: return "_1680x1050";
+		case _1920x1080: return "_1920x1080";
+		case _1600x1200: return "_1600x1200";
+		case _1920x1200: return "_1920x1200";
+		case _2560x1440: return "_2560x1440";
+		case _2560x1600: return "_2560x1600";
+		default: return "";
+	}
+}
+
+std::string FindBestFittingLoadscreenFilename(const std::string& baseName, SCREEN_RESOLUTION resolution)
+{
+	for (SCREEN_RESOLUTION res = resolution; res <= _2560x1600; res = (SCREEN_RESOLUTION)(res + 1))
+	{
+		std::string fileName = baseName + GetResolutionSuffix(res);
+		if (FileExists((CHAR8*)((fileName + ".png").c_str())))
+		{
+			return fileName + ".png";
+		}
+
+		if (FileExists((CHAR8*)((fileName + ".sti").c_str())))
+		{
+			return fileName + ".sti";
+		}
+	}
+
+	if (FileExists((CHAR8*)((baseName + ".png").c_str())))
+	{
+		return baseName + ".png";
+	}
+
+	return baseName + ".sti";
+}
+
 //sets up the loadscreen with specified ID, and draws it to the FRAME_BUFFER,
 //and refreshing the screen with it.
 void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
@@ -420,27 +477,8 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 			}
 		}
 
-		std::string strImage;
-
-		BuildLoadscreenFilename(strImage, imagePath.c_str(), 0, imageFormat.c_str());
-		strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
-		
-		
-		if ( !FileExists(vs_desc.ImageFile) )
-		{
-			std::string strImage;
-			BuildLoadscreenFilename(strImage, imagePath.c_str(), 0, "png");
-			strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1);
-
-			if (!FileExists(vs_desc.ImageFile))
-			{
-				std::string strImage("LOADSCREENS\\");
-
-				BuildLoadscreenFilename(strImage, LoadScreenNames[1], 0, imageFormat.c_str());
-
-				strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1);
-			}
-		}
+		std::string strImage = FindBestFittingLoadscreenFilename(imagePath, (SCREEN_RESOLUTION)iResolution);
+		strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1);
 	}
 	else
 	{
@@ -475,18 +513,41 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 									
 			//Blit the background image
 			GetVideoSurface(&hVSurface, uiLoadScreen);
-			
-			// Stretch the background image
-			SrcRect.iLeft = 0;
-			SrcRect.iTop = 0;
-			SrcRect.iRight = hVSurface->usWidth;
-			SrcRect.iBottom = hVSurface->usHeight;
-			
-			DstRect.iLeft = 0;
-			DstRect.iTop = 0;
-			DstRect.iRight = SCREEN_WIDTH;
-			DstRect.iBottom = SCREEN_HEIGHT;
-			
+
+			fLoadingScreenAspectRatio = (FLOAT)hVSurface->usWidth / (FLOAT)hVSurface->usHeight;
+			FLOAT fScreenAspectRatio = (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT;
+
+			if (gGameExternalOptions.ubLoadscreenStretchMode == 1 ||
+				(gGameExternalOptions.ubLoadscreenStretchMode == 2 && fLoadingScreenAspectRatio > fScreenAspectRatio))
+			{
+				// match height, preserve aspect ratio
+				INT32 iCalculatedWidth = (INT32)(SCREEN_HEIGHT * fLoadingScreenAspectRatio + 0.5f);
+
+				SrcRect.iLeft = 0;
+				SrcRect.iTop = 0;
+				SrcRect.iRight = hVSurface->usWidth;
+				SrcRect.iBottom = hVSurface->usHeight;
+
+				DstRect.iLeft = (SCREEN_WIDTH - iCalculatedWidth) / 2;
+				DstRect.iTop = 0;
+				DstRect.iRight = SCREEN_WIDTH - ((SCREEN_WIDTH - iCalculatedWidth) / 2);
+				DstRect.iBottom = SCREEN_HEIGHT;
+			}
+			else
+			{
+				// vanilla (stretch to fit)
+				// Stretch the background image
+				SrcRect.iLeft = 0;
+				SrcRect.iTop = 0;
+				SrcRect.iRight = hVSurface->usWidth;
+				SrcRect.iBottom = hVSurface->usHeight;
+
+				DstRect.iLeft = 0;
+				DstRect.iTop = 0;
+				DstRect.iRight = SCREEN_WIDTH;
+				DstRect.iBottom = SCREEN_HEIGHT;
+			}
+
 			BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &DstRect );
 						
 			DeleteVideoSurfaceFromIndex( uiLoadScreen );			

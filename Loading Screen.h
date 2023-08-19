@@ -84,6 +84,8 @@ enum
 //For use by the game loader, before it can possibly know the situation.
 extern UINT8 gubLastLoadingScreenID;
 
+extern FLOAT fLoadingScreenAspectRatio;
+
 //returns the UINT8 ID for the specified sector.
 UINT8 GetLoadScreenID( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
