@@ -2617,6 +2617,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////
+	// REGULAR CIVILIANS COWER / RUN AWAY
+	////////////////////////////////////////////////////////////////////////////
 	//if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && gTacticalStatus.bBoxingState == NOT_BOXING)
 	if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
@@ -2684,6 +2688,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+
 	////////////////////////////////////////////////////////////////////////
 	// IF POSSIBLE, FIRE LONG RANGE WEAPONS AT TARGETS REPORTED BY RADIO
 	////////////////////////////////////////////////////////////////////////
@@ -2703,6 +2708,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		CheckIfTossPossible(pSoldier,&BestThrow);
 
 
+		////////////////////////////////////////////////////////////////////////
+		// CHECK IF THROWING A GRENADE OR USING A LAUNCHER/MORTAR AGAINST ENEMY IS POSSIBLE
+		////////////////////////////////////////////////////////////////////////
 		if (BestThrow.ubPossible)
 		{
 			DebugAI(AI_MSG_INFO, pSoldier, String("throw possible"));
@@ -2830,7 +2838,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		// use smoke to cover friend
+
+		////////////////////////////////////////////////////////////////////////
+		// THROW SMOKE TO PROVIDE COVER FOR FRIEND
+		////////////////////////////////////////////////////////////////////////
 		if (gfTurnBasedAI &&
 			SoldierAI(pSoldier) &&
 			!bInWater &&
@@ -2892,6 +2903,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////
+		// SNIPER / SUPPRESSION
+		////////////////////////////////////////////////////////////////////////
 		// sevenfm: moved can attack check here as only sniper/suppression code needs usable gun
 		if(CanNPCAttack(pSoldier) == TRUE)
 		{
@@ -3146,8 +3161,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 		// suppression not possible, do something else
 
-		// Flugente: trait skills
-		// if we are a radio operator
+
+		////////////////////////////////////////////////////////////////////////
+		// RADIO OPERATOR
+		////////////////////////////////////////////////////////////////////////
 		if (HAS_SKILL_TRAIT(pSoldier, RADIO_OPERATOR_NT) > 0 &&
 			pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE))
 		{
@@ -3289,6 +3306,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////
+		// PROVIDE / SEEK MEDICAL AID
+		////////////////////////////////////////////////////////////////////////////
+
 		// if we are a doctor with medical gear, we might be able to help a wounded ally
 		if ( pSoldier->CanMedicAI() )
 		{
@@ -3362,6 +3384,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////
+		// VIP RETREAT
+		////////////////////////////////////////////////////////////////////////////
 		// VIPs run away (but not the GENERAL)
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && pSoldier->ubProfile != GENERAL )
 		{
@@ -3381,6 +3407,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////
+		// PROTECT VIP
+		////////////////////////////////////////////////////////////////////////////
 		// are we a bodyguard?
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_BODYGUARD )
 		{
@@ -3402,6 +3432,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 	}
+
 
 	////////////////////////////////////////////////////////////////////////
 	// RED RETREAT
@@ -3431,10 +3462,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
+
 	////////////////////////////////////////////////////////////////////////
 	// CROUCH & REST IF RUNNING OUT OF BREATH
 	////////////////////////////////////////////////////////////////////////
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "decideactionred: crouch and rest if running out of breath");
 
 	// if our breath is running a bit low, and we're not in water or under fire
 	if ((pSoldier->bBreath < 25) && !bInWater && !pSoldier->aiData.bUnderFire)
@@ -3501,7 +3533,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	}
 
 
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 	////////////////////////////////////////////////////////////////////////////
 	// RADIO RED ALERT: determine %chance to call others and report contact
 	////////////////////////////////////////////////////////////////////////////
@@ -3510,7 +3541,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
 	if ( !(pSoldier->usSoldierFlagMask & SOLDIER_RAISED_REDALERT) && !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
-
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to radio red alert");
 
 		// if there hasn't been an initial RED ALERT yet in this sector
@@ -3583,6 +3613,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////
+	// THROW A SMOKE GRENADE FOR COVER
+	////////////////////////////////////////////////////////////////////////////
 	if (gfTurnBasedAI &&
 		pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
 		pSoldier->aiData.bUnderFire &&
@@ -3636,6 +3670,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+
 	// sevenfm: no Main Red AI for civilians
 	if ( (gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier )) && 
 		!(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) &&
@@ -3643,7 +3678,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
-		// sevenfm: avoid light if spot is dangerous and no friends see my closest enemy
+
+		////////////////////////////////////////////////////////////////////////////
+		// AVOID LIGHT IF SPOT IS DANGEROUS AND NO FRIENDS SEE MY CLOSEST ENEMY
+		////////////////////////////////////////////////////////////////////////////
 		if (ubCanMove &&
 			InLightAtNight( pSoldier->sGridNo, pSoldier->pathing.bLevel ) && 			
 			pSoldier->aiData.bOrders != STATIONARY &&
