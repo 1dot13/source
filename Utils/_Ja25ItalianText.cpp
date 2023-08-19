@@ -308,6 +308,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d critical hit with throwing blade multiplier\n",
 	L"Adds %d more aim click for throwing blades\n",
 	L"Adds %d more aim clicks for throwing blades\n",
+	L"-%d%s APs to throw grenades\n",
+	L"+%d%s max range when throwing grenades\n",
+	L"+%d%s CtH when throwing grenades\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -344,9 +347,6 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s APs to throw grenades\n",
-	L"+%d%s max range when throwing grenades\n",
-	L"+%d%s CtH when throwing grenades\n",
 	L"+%d%s damage for set bombs and mines\n",
 	L"+%d%s to attaching detonators check\n",
 	L"+%d%s to planting/removing bombs check\n",

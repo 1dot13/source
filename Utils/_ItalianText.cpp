@@ -11655,13 +11655,21 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Threaten approach",
 	L"Recruit approach",
 
-	L"%s learns with normal speed.",	// TODO.Translate
-	L"%s does not learn at all.",
-	L"%s unlearns his skills.",
-	L"%s learns with 3/4 speed.",
-
-	L"%s learns with 1/2 speed.",
-	L"%s learns with 1/4 speed.",
+	L"Stats will regress.",
+	L"Fast",
+	L"Average",
+	L"Slow",
+	L"Health growth",
+	L"Strength growth",
+	L"Agility growth",
+	L"Dexterity growth",
+	L"Wisdom growth",
+	L"Marksmanship growth",
+	L"Explosives growth",
+	L"Leadership growth",
+	L"Medical growth",
+	L"Mechanical growth",
+	L"Experience growth",
 };
 
 STR16	szGearTemplateText[] =	// TODO.Translate
