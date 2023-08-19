@@ -1817,6 +1817,7 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 		if ((pSoldier->aiData.bAlertStatus == STATUS_BLACK) || (pSoldier->aiData.bAlertStatus == STATUS_RED))
 		{
 			// always freshly rethink things at start of his turn
+			CancelAIAction(pSoldier, FALSE);
 			pSoldier->aiData.bNewSituation = IS_NEW_SITUATION;
 		}
 		else
