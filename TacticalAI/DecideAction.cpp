@@ -2529,6 +2529,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		!pSoldier->bBreathCollapsed &&
 		pSoldier->IsCowering())
 	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("Stop cowering"));
 		return AI_ACTION_STOP_COWERING;
 	}
 
@@ -2540,6 +2541,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		!pSoldier->bBreathCollapsed &&
 		pSoldier->IsGivingAid())
 	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("Stop giving aid"));
 		return AI_ACTION_STOP_MEDIC;
 	}
 
@@ -2588,7 +2590,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
-
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Decide action if stuck in water or gas]"));
 	// when in deep water, move to closest opponent
 	if (ubCanMove && bInDeepWater && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
 	{
@@ -2597,6 +2599,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Move out of water towards closest opponent"));
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 	}
@@ -2612,6 +2615,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			AIPopMessage(tempstr);
 #endif
 
+			DebugAI(AI_MSG_INFO, pSoldier, String("Leave for nearest (ungassed) land"));
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 	}
@@ -2623,6 +2627,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	//if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && gTacticalStatus.bBoxingState == NOT_BOXING)
 	if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Civilian decisions]"));
 		if (FindAIUsableObjClass(pSoldier, IC_WEAPON) == NO_SLOT)
 		{
 			// cower in fear!!
@@ -2634,6 +2639,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					if ( pSoldier->aiData.bLastAction == AI_ACTION_COWER )
 					{
 						// do nothing
+						DebugAI(AI_MSG_INFO, pSoldier, String("Already cowering, do nothing"));
 						pSoldier->aiData.usActionData = NOWHERE;
 						return( AI_ACTION_NONE );
 					}
@@ -2643,12 +2649,14 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						pSoldier->aiData.usNextActionData = FindSpotMaxDistFromOpponents( pSoldier );						
 						if (!TileIsOutOfBounds(pSoldier->aiData.usNextActionData))
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Stop cowering. Prepare for running away"));
 							pSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
 							pSoldier->aiData.usActionData = ANIM_STAND;
 							return( AI_ACTION_STOP_COWERING );
 						}
 						else
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Do nothing"));
 							return( AI_ACTION_NONE );
 						}
 					}
@@ -2673,6 +2681,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				if ( gfTurnBasedAI || gTacticalStatus.fEnemyInSector )
 				{
 					// battle - cower!!!
+					DebugAI(AI_MSG_INFO, pSoldier, String("Start cowering"));
 					pSoldier->aiData.usActionData = ANIM_CROUCH;
 					return( AI_ACTION_COWER );
 				}
@@ -2856,12 +2865,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			!GuySawEnemy(pSoldier, SEEN_LAST_TURN))
 		{
 			DebugAI(AI_MSG_TOPIC, pSoldier, String("[use smoke to cover friend]"));
-			DebugAI(AI_MSG_INFO, pSoldier, String("check if we can cover friend with smoke"));
 
 			CheckTossFriendSmoke(pSoldier, &BestThrow);
-
 			if (BestThrow.ubPossible)
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Throw possible"));
 				DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
 
 				// start retreating for several turns
@@ -2882,6 +2890,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
 					pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Change stance before throw"));
 					pSoldier->aiData.usActionData = BestThrow.ubStance;
 					pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
 					pSoldier->aiData.usNextActionData = BestThrow.sTarget;
@@ -2914,9 +2923,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			pSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
 			CheckIfShotPossible(pSoldier, &BestShot);
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("decideactionred: is sniper shot possible? = %d, CTH = %d", BestShot.ubPossible, BestShot.ubChanceToReallyHit));
+			DebugAI(AI_MSG_INFO, pSoldier, String("Is sniper shot possible? = %d, CTH = %d", BestShot.ubPossible, BestShot.ubChanceToReallyHit));
 
 			if (BestShot.ubPossible && BestShot.ubChanceToReallyHit > 50)
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Sniper shot possible!"));
 				// then do it!  The functions have already made sure that we have a
 				// pair of worthy opponents, etc., so we're not just wasting our time
 
@@ -2936,6 +2947,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 			else		// snipe not possible
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Sniper shot NOT possible!"));
 				// if this dude has a long-range weapon on him (longer than normal
 				// sight range), and there's at least one other team-mate around, and
 				// spotters haven't already been called for, then DO SO!
@@ -2960,6 +2972,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							pSoldier->bActionPoints = 0;
 
 						DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "decideactionred: calling for sniper spotters");
+						DebugAI(AI_MSG_INFO, pSoldier, String("Call for spotters"));
 
 						pSoldier->aiData.usActionData = NOWHERE;
 						return(AI_ACTION_NONE);
@@ -2990,6 +3003,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					OBJECTTYPE * pAmmo = &(pSoldier->inv[bAmmoSlot]);
 					if ((*pAmmo)[0]->data.ubShotsLeft > pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft && GetAPsToReloadGunWithAmmo(pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pAmmo) <= (INT16)pSoldier->bActionPoints)
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Reload weapon"));
 						pSoldier->aiData.usActionData = BestShot.bWeaponIn;
 						return AI_ACTION_RELOAD_GUN;
 					}
@@ -3148,6 +3162,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						if (!LOS_Raised(pSoldier, MercPtrs[BestShot.ubOpponent], CALC_FROM_ALL_DIRS))
 							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
 
+						DebugAI(AI_MSG_INFO, pSoldier, String("Suppression fire!"));
 						return(AI_ACTION_FIRE_GUN);
 					}
 				}
@@ -3167,18 +3182,23 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if (HAS_SKILL_TRAIT(pSoldier, RADIO_OPERATOR_NT) > 0 &&
 			pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE))
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Radio operator]"));
+
 			UINT32 tmp;
 			INT32 skilltargetgridno = 0;
 
 			// call reinforcements if we haven't yet done so
 			if (!gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition && MoreFriendsThanEnemiesinNearbysectors(pSoldier->bTeam, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ))
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Attempt to call reinforcements"));
 				// if frequencies are jammed...
 				if (SectorJammed())
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Someone's jamming radio!"));
 					// if we are jamming, turn it off, otherwise, bad luck...
 					if (pSoldier->IsJamming())
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Turn off radio jamming..."));
 						pSoldier->usAISkillUse = SKILLS_RADIO_TURNOFF;
 						pSoldier->aiData.usActionData = skilltargetgridno;
 						return(AI_ACTION_USE_SKILL);
@@ -3188,12 +3208,14 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				else if (!(pSoldier->usSoldierFlagMask & SOLDIER_RAISED_REDALERT))
 				{
 					// raise alarm!
+					DebugAI(AI_MSG_INFO, pSoldier, String("Call for reinforcements!"));
 					return(AI_ACTION_RED_ALERT);
 				}
 			}
 			// if we can't call in artillery, jam frequencies, so that the palyer can't use radio skills
 			else if (!pSoldier->IsJamming() && !pSoldier->CanAnyArtilleryStrikeBeOrdered(&tmp))
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Start jamming radio frequencies"));
 				pSoldier->usAISkillUse = SKILLS_RADIO_JAM;
 				pSoldier->aiData.usActionData = skilltargetgridno;
 				return(AI_ACTION_USE_SKILL);
@@ -3313,16 +3335,20 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// if we are a doctor with medical gear, we might be able to help a wounded ally
 		if ( pSoldier->CanMedicAI() )
 		{
-			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Provide medical aid]"));
 
+			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 			// are we ourselves the patient?
 			if ( ubPerson == pSoldier->ubID )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Patch ourselves up!"));
+
 				// if not already crouched, crouch down first
 				if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
 				{
 					pSoldier->aiData.usActionData = ANIM_CROUCH;
 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Crouch down"));
 					return(AI_ACTION_CHANGE_STANCE);
 				}
 
@@ -3330,8 +3356,12 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 			else if ( ubPerson != NOBODY )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Someone else is injured"));
+
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Wounded soldier is nearby"));
+
 					// see if we are facing this person
 					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
 
@@ -3340,6 +3370,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					{
 						pSoldier->aiData.usActionData = ubDesiredMercDir;
 
+						DebugAI(AI_MSG_INFO, pSoldier, String("Change facing"));
 						return( AI_ACTION_CHANGE_FACING );
 					}
 
@@ -3348,17 +3379,21 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					{
 						pSoldier->aiData.usActionData = ANIM_CROUCH;
 
+						DebugAI(AI_MSG_INFO, pSoldier, String("Crouch down"));
 						return(AI_ACTION_CHANGE_STANCE);
 					}
 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Administer aid"));
 					return(AI_ACTION_DOCTOR);
 				}
 				else
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Wounded soldier is far"));
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Try to move towards the wounded person"));
 						return(AI_ACTION_SEEK_FRIEND);
 					}
 				}
@@ -3367,20 +3402,25 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// if we are not a medic, but are wounded, seek a medic
 		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
 		{
-			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Seek medical aid]"));
 
+			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
 			if ( ubPerson != NOBODY )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Found a medic!"));
+
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) > 1 )
 				{
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Seek aid"));
 						return(AI_ACTION_SEEK_FRIEND);
 					}
 				}
 			}
+			else { DebugAI(AI_MSG_INFO, pSoldier, String("No medics around! :(")); }
 		}
 
 
@@ -3390,20 +3430,25 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// VIPs run away (but not the GENERAL)
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && pSoldier->ubProfile != GENERAL )
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[VIP Retreat]"));
+
 			// this is in red AI state - a firefight is going on, we try to escape
 			pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents( pSoldier );
 
 			// if we don't know where our opponents are, we cannot run away from them...
 			if ( TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Don't know where enemies are, head for nearest map edge"));
 				// search for the closest map edge
 				pSoldier->aiData.usActionData = FindClosestExitGrid( pSoldier, pSoldier->sGridNo, 200 );
 			}
 
 			if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Run away!"));
 				return AI_ACTION_RUN_AWAY;
 			}
+			else { DebugAI(AI_MSG_INFO, pSoldier, String("No valid gridno found! Tried to head for gridno %d", pSoldier->aiData.usActionData)); }
 		}
 
 
@@ -3413,18 +3458,22 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// are we a bodyguard?
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_BODYGUARD )
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Bodyguard]"));
 			// is VIP still alive?
 			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 100, pSoldier->bTeam, SOLDIER_VIP, FALSE );
 
 			if ( ubPerson != NOBODY )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("VIP found"));
 				// we want to stay close to him, but still be able to function properly... stay withing a 7-tile radius
 				if ( SpacesAway( pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo ) > 7 )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Attempt to get close "));
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0 );
 
 					if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Seek VIP"));
 						return(AI_ACTION_SEEK_FRIEND);
 					}
 				}
@@ -3470,6 +3519,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// if our breath is running a bit low, and we're not in water or under fire
 	if ((pSoldier->bBreath < 25) && !bInWater && !pSoldier->aiData.bUnderFire)
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Running out of breath, try to rest]"));
 		// if not already crouched, try to crouch down first
 		if (!fCivilian && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE)
 		{
@@ -3482,6 +3532,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			{
 				pSoldier->aiData.usActionData = ANIM_CROUCH;
 
+				DebugAI(AI_MSG_INFO, pSoldier, String("Crouch"));
 				return(AI_ACTION_CHANGE_STANCE);
 			}
 		}
@@ -3497,8 +3548,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if ( WeaponReady(pSoldier) && GetBPCostPer10APsForGunHolding( pSoldier ) > 0 )
 		{
 			// unready
-			return(AI_ACTION_LOWER_GUN); 
+			DebugAI(AI_MSG_INFO, pSoldier, String("Lower weapon"));
+			return(AI_ACTION_LOWER_GUN);
 		}
+
+		DebugAI(AI_MSG_INFO, pSoldier, String("Rest"));
 		return(AI_ACTION_NONE);
 	}
 
@@ -3512,6 +3566,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// if a guy is feeling REALLY discouraged, he may continue to run like hell
 	if ((pSoldier->aiData.bAIMorale == MORALE_HOPELESS) && ubCanMove)
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Low morale, attempting to run away]"));
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: run away");
 		////////////////////////////////////////////////////////////////////////
 		// RUN AWAY TO SPOT FARTHEST FROM KNOWN THREATS (ONLY IF MORALE HOPELESS)
@@ -3526,7 +3581,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			sprintf(tempstr,"%s RUNNING AWAY to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
 			AIPopMessage(tempstr);
 #endif
-
+			DebugAI(AI_MSG_INFO, pSoldier, String("Running away to grid %d", pSoldier->aiData.usActionData));
 			return(AI_ACTION_RUN_AWAY);
 		}
 	}
@@ -3541,6 +3596,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	if ( !(pSoldier->usSoldierFlagMask & SOLDIER_RAISED_REDALERT) && !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to radio red alert");
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Radio red alert]"));
 
 		// if there hasn't been an initial RED ALERT yet in this sector
 		if ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || NeedToRadioAboutPanicTrigger() )
@@ -3607,6 +3663,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 #endif
 
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: decided to radio red alert");
+				DebugAI(AI_MSG_INFO, pSoldier, String("Decided to radio red alert"));
 				return(AI_ACTION_RED_ALERT);
 			}
 		}
@@ -3651,6 +3708,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
 				pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Change stance before throw"));
 				pSoldier->aiData.usActionData = BestThrow.ubStance;
 				pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
 				pSoldier->aiData.usNextActionData = BestThrow.sTarget;
@@ -3665,6 +3723,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
 			}
 
+			DebugAI(AI_MSG_INFO, pSoldier, String("Throw smoke!"));
 			return(AI_ACTION_TOSS_PROJECTILE);
 		}
 	}
@@ -3692,6 +3751,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 			{
 				// move as if leaving water or gas
+				DebugAI(AI_MSG_INFO, pSoldier, String("Move out of light"));
 				return( AI_ACTION_LEAVE_WATER_GAS );
 			}
 		}
@@ -4510,6 +4570,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Take cover"));
 				return(AI_ACTION_TAKE_COVER);
 			}
 		}
@@ -5964,7 +6025,6 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 		!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo)))
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Black cover advance]"));
-		DebugAI(AI_MSG_INFO, pSoldier, String("find cover advance spot"));
 
 		BOOLEAN fClimbDummy;
 		INT32 sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimbDummy);
@@ -5984,7 +6044,8 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 				// check that we can reach desired location
 				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sAdvanceSpot, 0, AI_ACTION_GET_CLOSER, 0);
-				if (pSoldier->aiData.usActionData == sAdvanceSpot)
+				//if (pSoldier->aiData.usActionData == sAdvanceSpot)
+				if (pSoldier->aiData.usActionData != NOWHERE)
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("cover advance spot ok"));
 					pSoldier->aiData.usActionData = sAdvanceSpot;
@@ -6389,6 +6450,8 @@ L_NEWAIM:
 					(!gGameExternalOptions.fAISafeSuppression || CheckSuppressionDirection(pSoldier, BestShot.sTarget, BestShot.bTargetLevel)))
 				{
 					pSoldier->aiData.bAimTime--;
+					if (pSoldier->aiData.bAimTime < 0) { pSoldier->aiData.bAimTime = 0; }
+
 					sActualAimAP = CalcAPCostForAiming(pSoldier, BestAttack.sTarget, (INT8)pSoldier->aiData.bAimTime);
 					DebugAI(AI_MSG_INFO, pSoldier, String("reduce aim to %d, recalc autofire, aim AP %d", pSoldier->aiData.bAimTime, sActualAimAP));
 					goto L_NEWAIM;
@@ -10418,15 +10481,18 @@ INT8 DecideActionWearGasmask(SOLDIERTYPE *pSoldier)
 
 ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMove, BOOLEAN bInWater, BOOLEAN bInDeepWater, BOOLEAN bInGas)
 {
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Decide action if stuck in water or gas]"));
+
 	// when in deep water, move to closest opponent
 	if (ubCanMove && (bInDeepWater || bInWater) && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
 	{
 		// find closest reachable opponent, excluding opponents in deep water
-		BOOLEAN fClimb;
-		pSoldier->aiData.usActionData = ClosestReachableDisturbance(pSoldier, &fClimb);
+		BOOLEAN fClimbDummy;
+		pSoldier->aiData.usActionData = ClosestReachableDisturbance(pSoldier, &fClimbDummy);
 
 		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Move out of water towards closest opponent"));
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 	}
@@ -10443,6 +10509,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 			AIPopMessage(tempstr);
 #endif
 
+			DebugAI(AI_MSG_INFO, pSoldier, String("Leave for nearest (ungassed) land"));
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 
@@ -10458,6 +10525,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 			AIPopMessage(tempstr);
 #endif
 
+			DebugAI(AI_MSG_INFO, pSoldier, String("NO LAND NEAR, RUNNING AWAY to grid %d", pSoldier->aiData.usActionData));
 			return(AI_ACTION_RUN_AWAY);
 		}
 
@@ -10465,11 +10533,15 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 		// GAS FILLED ROOM (OR IN WATER MORE THAN 25 TILES FROM NEAREST LAND...)
 		if ((bInGas || bInWater || bInDeepWater) && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE)
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Cornered! Go berserk!"));
 			pSoldier->bBreath = pSoldier->bBreathMax;
 			pSoldier->aiData.bAIMorale = MORALE_FEARLESS;  // Can't move, can't get away, go nuts instead...
 		}
 		else
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Cornered! Give up on life.."));
 			pSoldier->aiData.bAIMorale = MORALE_HOPELESS;
+		}
 	}
 
 
