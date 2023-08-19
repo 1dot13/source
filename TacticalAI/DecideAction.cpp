@@ -2448,7 +2448,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	INT8	bActionReturned;
 	INT32	iDummy;
 	INT32	iChance;
-	INT32	sClosestOpponent = NOWHERE, sClosestFriend = NOWHERE;
 	INT32	sClosestDisturbance = NOWHERE, sCheckGridNo;
 	INT32	sDistVisible;
 	UINT8	ubCanMove,ubOpponentDir;
@@ -2499,7 +2498,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	}
 
 	// sevenfm: find closest opponent
-	sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
+	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
 	DebugAI(AI_MSG_INFO, pSoldier, String("sClosestOpponent %d", sClosestOpponent));
 
 	if (!SightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE))
@@ -4282,7 +4281,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 #ifdef AI_TIMING_TESTS
 					uiStartTime = GetJA2Clock();
 #endif
-					sClosestFriend = ClosestReachableFriendInTrouble(pSoldier, &fClimb );
+					INT32 sClosestFriend = ClosestReachableFriendInTrouble(pSoldier, &fClimb );
 #ifdef AI_TIMING_TESTS
 					uiEndTime = GetJA2Clock();
 
@@ -4897,9 +4896,9 @@ BOOLEAN SoldierCondFalse(SOLDIERTYPE *pSoldier)			{ return FALSE; }
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 {
 	INT32	iCoverPercentBetter, iOffense, iDefense, iChance;
-	INT32	sClosestOpponent = NOWHERE,sBestCover = NOWHERE;//dnl ch58 160813
- INT32	sClosestDisturbance;
-INT16 ubMinAPCost;
+	INT32	sBestCover = NOWHERE;//dnl ch58 160813
+	INT32	sClosestDisturbance;
+	INT16 ubMinAPCost;
 	INT8		bDirection;
 	UINT8	ubBestAttackAction = AI_ACTION_NONE;
 	INT8		bCanAttack,bActionReturned;
@@ -4917,15 +4916,15 @@ INT16 ubMinAPCost;
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
 	INT16	ubBurstAPs;
 	UINT8	ubOpponentDir;
- INT32	sCheckGridNo;
+	INT32	sCheckGridNo;
 
 	BOOLEAN fAllowCoverCheck = FALSE;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
 
-	INT32	sOpponentGridNo;
-	INT8	bOpponentLevel;
-	sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
+	INT32 sOpponentGridNo;
+	INT8 bOpponentLevel;
+	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
 	DebugAI(AI_MSG_INFO, pSoldier, String("sClosestOpponent %d", sClosestOpponent));
 
 	// sevenfm: disable stealth mode
