@@ -1079,6 +1079,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);
 	gGameExternalOptions.fMercRandomStartSalary				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_START_SALARY", FALSE);
 	gGameExternalOptions.ubMercRandomStartSalaryPercentMod	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_START_SALARY_PERCENTAGE_MAX_MODIFIER", 30, 0, 100);
+	gGameExternalOptions.fMercGrowthModifiersEnabled		= iniReader.ReadBoolean("Recruitment Settings", "MERCS_GROWTH_MODIFIERS_ENABLED", FALSE);
+	gGameExternalOptions.fMercRandomGrowthModifiers			= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS", FALSE);
+	gGameExternalOptions.iMercRandomGrowthModifiersRange	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS_RANGE", 5, -50, 50);
 
 	//################# Financial Settings #################
 
@@ -2486,8 +2489,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TRAINING_EFFICIENCY",30, 0, 100);
 	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
 
-	gGameExternalOptions.bDisableEvolution					= iniReader.ReadBoolean("Strategic Assignment Settings", "DISABLE_EVOLUTION", TRUE );
-	
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
 	gGameExternalOptions.ubSmartTrainingSleep				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_SLEEPING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
 
@@ -2790,6 +2791,9 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTHBladesSilentCriticalHitChance = iniReader.ReadInteger("Throwing","TH_BLADES_SILENT_CRITICAL_HIT_CHANCE", 20, 0, 100);
 	gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus = iniReader.ReadInteger("Throwing","SILENT_CRITICAL_HIT_MULTIPLIER_BONUS", 1, 0, 50);
 	gSkillTraitValues.ubTHBladesAimClicksAdded = iniReader.ReadInteger("Throwing","POSSIBLE_AIM_CLICK_ADDED_TH_KNIVES", 1, 0, 5);
+	gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Throwing","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
+	gSkillTraitValues.ubTHMaxRangeToThrowGrenades = iniReader.ReadInteger("Throwing","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
+	gSkillTraitValues.ubTHCtHWhenThrowingGrenades = iniReader.ReadInteger("Throwing","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 
 	// NIGHT OPS
 	gSkillTraitValues.ubNOeSightRangeBonusInDark = iniReader.ReadInteger("Night Ops","SIGHT_RANGE_BONUS_IN_DARK", 1, 0, 100);
@@ -2816,9 +2820,6 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usBBIncreasedNeededDamageToFallDown = iniReader.ReadInteger("Bodybuilding","INCREASE_DAMAGE_NEEDED_TO_FALL_DOWN_IF_HIT_TO_LEGS", 100, 0, 500);
 
 	// DEMOLITIONS
-	gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Demolitions","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
-	gSkillTraitValues.ubDEMaxRangeToThrowGrenades = iniReader.ReadInteger("Demolitions","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
-	gSkillTraitValues.ubDECtHWhenThrowingGrenades = iniReader.ReadInteger("Demolitions","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 	gSkillTraitValues.ubDEDamageOfBombsAndMines = iniReader.ReadInteger("Demolitions","DAMAGE_OF_PLACED_BOMBS_AND_MINES", 25, 0, 250);
 	gSkillTraitValues.ubDEAttachDetonatorCheckBonus = iniReader.ReadInteger("Demolitions","ATTACH_DETONATOR_CHECK_BONUS", 50, 0, 250);
 	gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus = iniReader.ReadInteger("Demolitions","PLANT_AND_REMOVE_BOMBS_AND_MINES_BONUS", 50, 0, 250);

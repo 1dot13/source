@@ -73,7 +73,7 @@ void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UIN
 
 UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit, UINT32 uiIncreaseCap);
 UINT32 RoundOffSalary(UINT32 uiSalary);
-UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel);
+UINT16 SubpointsPerPoint(UINT8 ubStat, MERCPROFILESTRUCT* pProfile);
 
 void HandleUnhiredMercImprovement( MERCPROFILESTRUCT *pProfile );
 void HandleUnhiredMercDeaths( INT32 iProfileID );
