@@ -11655,13 +11655,21 @@ STR16	szLaptopStatText[] =
 	L"威胁对话", //L"Threaten approach",
 	L"招募对话", //L"Recruit approach",
 
-	L"%s正以正常速度学习。",	//L"%s learns with normal speed.",
-	L"%s根本没有在学习。",	//L"%s does not learn at all.",
-	L"%s遗忘了技能。",	//L"%s unlearns his skills.",
-	L"%s正以3/4的速度学习。",	//L"%s learns with 3/4 speed.",
-
-	L"%s正以1/2的速度学习。",	//L"%s learns with 1/2 speed.",
-	L"%s正以1/4的速度学习。",	//L"%s learns with 1/4 speed.",
+	L"Stats will regress.",
+	L"Fast",
+	L"Average",
+	L"Slow",
+	L"Health growth",
+	L"Strength growth",
+	L"Agility growth",
+	L"Dexterity growth",
+	L"Wisdom growth",
+	L"Marksmanship growth",
+	L"Explosives growth",
+	L"Leadership growth",
+	L"Medical growth",
+	L"Mechanical growth",
+	L"Experience growth",
 };
 
 STR16	szGearTemplateText[] =

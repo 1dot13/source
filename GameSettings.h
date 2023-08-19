@@ -817,9 +817,6 @@ typedef struct
 	INT32 ubRpcBonusToTrainMilitia;
 	INT32 ubMinSkillToTeach;
 
-	// Flugente: disable evolution setting in MercProfiles.xml
-	BOOLEAN bDisableEvolution;
-
 	INT32 ubLowActivityLevel;
 	INT32 ubMediumActivityLevel;
 	INT32 ubHighActivityLevel;
@@ -1440,6 +1437,10 @@ typedef struct
 	BOOLEAN fMercRandomStartSalary;
 
 	UINT8 ubMercRandomStartSalaryPercentMod;
+
+	BOOLEAN fMercGrowthModifiersEnabled;
+	BOOLEAN fMercRandomGrowthModifiers;
+	INT16 iMercRandomGrowthModifiersRange;
 
 	BOOLEAN fBobbyRayFastShipments;
 
@@ -2177,6 +2178,9 @@ typedef struct
 	UINT8 ubTHBladesSilentCriticalHitChance;
 	UINT8 ubTHBladesCriticalHitMultiplierBonus;
 	UINT8 ubTHBladesAimClicksAdded;
+	UINT8 ubTHAPsNeededToThrowGrenadesReduction;
+	UINT8 ubTHMaxRangeToThrowGrenades;
+	UINT8 ubTHCtHWhenThrowingGrenades;
 
 	// NIGHT OPS
 	UINT8 ubNOeSightRangeBonusInDark;
@@ -2203,9 +2207,6 @@ typedef struct
 	UINT16 usBBIncreasedNeededDamageToFallDown;
 
 	// DEMOLITIONS
-	UINT8 ubDEAPsNeededToThrowGrenadesReduction;
-	UINT8 ubDEMaxRangeToThrowGrenades;
-	UINT8 ubDECtHWhenThrowingGrenades;
 	UINT8 ubDEDamageOfBombsAndMines;
 	UINT8 ubDEAttachDetonatorCheckBonus;
 	UINT8 ubDEPlantAndRemoveBombCheckBonus;
