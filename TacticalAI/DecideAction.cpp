@@ -5196,6 +5196,9 @@ INT16 ubMinAPCost;
 		}
 	}
 
+	////////////////////////////////////////////////////////////////////////////
+	// THROW A SMOKE GRENADE FOR COVER
+	////////////////////////////////////////////////////////////////////////////
 	if (SoldierAI(pSoldier) &&
 		gfTurnBasedAI &&
 		pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
@@ -5250,6 +5253,11 @@ INT16 ubMinAPCost;
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////
+	// LOOK FOR A WEAPON
+	////////////////////////////////////////////////////////////////////////////
+
 	// if we don't have a gun, look around for a weapon!
 	if (FindAIUsableObjClass( pSoldier, IC_GUN ) == ITEM_NOT_FOUND && ubCanMove && !pSoldier->aiData.bNeutral)
 	{
@@ -5261,8 +5269,10 @@ INT16 ubMinAPCost;
 		}
 	}
 
-	// Flugente: trait skills
-	// if we are a radio operator
+
+	////////////////////////////////////////////////////////////////////////////
+	// RADIO OPERATOR TRAIT
+	////////////////////////////////////////////////////////////////////////////
 	if ( HAS_SKILL_TRAIT( pSoldier, RADIO_OPERATOR_NT ) > 0 && pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE) )
 	{
 		// check: would it be possible to call in artillery from neighbouring sectors?
@@ -5320,6 +5330,11 @@ INT16 ubMinAPCost;
 		}
 	}
 
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// VIP RETREAT
+	////////////////////////////////////////////////////////////////////////////
 	// VIPs run away (but not the GENERAL)
 	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && pSoldier->ubProfile != GENERAL )
 	{
@@ -5339,6 +5354,10 @@ INT16 ubMinAPCost;
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////
+	// DETERMINE BEST ATTACK
+	////////////////////////////////////////////////////////////////////////////
 	BestShot.ubPossible  = FALSE;	// by default, assume Shooting isn't possible
 	BestThrow.ubPossible = FALSE;	// by default, assume Throwing isn't possible
 	BestStab.ubPossible  = FALSE;	// by default, assume Stabbing isn't possible
@@ -5846,6 +5865,10 @@ INT16 ubMinAPCost;
 	UINT16 usRange = BestAttack.bWeaponIn==NO_SLOT ? 0 : GetModifiedGunRange(pSoldier->inv[BestAttack.bWeaponIn].usItem);//dnl ch69 150913
 	INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL);
 
+
+	//////////////////////////////////////////////////////////////////////////
+	// STATUS BLACK RETREAT
+	//////////////////////////////////////////////////////////////////////////
 	if (gfTurnBasedAI &&
 		!bInWater &&
 		ubCanMove &&
@@ -5873,7 +5896,10 @@ INT16 ubMinAPCost;
 		}
 	}
 
-	// Black cover advance
+
+	//////////////////////////////////////////////////////////////////////////
+	// STATUS BLACK ADVANCE TO COVER
+	//////////////////////////////////////////////////////////////////////////
 	if (SoldierAI(pSoldier) &&
 		gfTurnBasedAI &&
 		//!pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
@@ -6031,6 +6057,10 @@ INT16 ubMinAPCost;
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////
+	// POSSIBLY FORGET THE ATTACK AND TAKE COVER
+	////////////////////////////////////////////////////////////////////////////
 	if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
 		 (ubBestAttackAction == AI_ACTION_FIRE_GUN) && 
 		 (pSoldier->aiData.bShock == 0) && 
@@ -6065,7 +6095,6 @@ INT16 ubMinAPCost;
 				}
 			}
 		}
-
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"LOOK FOR SOME KIND OF COVER BETTER THAN WHAT WE HAVE NOW");
@@ -6174,6 +6203,10 @@ INT16 ubMinAPCost;
 		}
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////
+	// PREPARE ATTACK
+	//////////////////////////////////////////////////////////////////////////
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: is attack still desirable?  ubBestAttackAction = %d",ubBestAttackAction));
 
 	// if attack is still desirable (meaning it's also preferred to taking cover)
@@ -6647,7 +6680,10 @@ L_NEWAIM:
 		return( AI_ACTION_NONE );
 	}
 
-	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Window jump]"));
+
+	//////////////////////////////////////////////////////////////////////
+	// CLIMB ROOF / JUMP THROUGH WINDOW
+	//////////////////////////////////////////////////////////////////////
 	// get the location of the closest reachable opponent
 	/*	Flugente 22.02.2012 - A few clarifications: I changed ClosestSeenOpponent so that for zombies, this function also returns an opponent if he is on the
 	*	roof of a building, we are not, but our GridNo belongs to that same building. 
@@ -6660,6 +6696,7 @@ L_NEWAIM:
 	sClosestOpponent = ClosestSeenOpponentWithRoof(pSoldier, &targetGridNo, &targetbLevel);
 	if ( !TileIsOutOfBounds(sClosestOpponent) && !TileIsOutOfBounds(targetGridNo) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Window jump]"));
 		if ( targetbLevel == pSoldier->pathing.bLevel && targetbLevel == 0 )
 		{
 			//////////////////////////////////////////////////////////////////////
@@ -6736,7 +6773,10 @@ L_NEWAIM:
 		}
 	}
 
-	// try to make boxer close if possible
+
+	//////////////////////////////////////////////////////////////////////
+	// BOXER CLOSE IN ON OPPONENT
+	//////////////////////////////////////////////////////////////////////
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER )
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Make boxer close if possible]"));
@@ -6882,10 +6922,10 @@ L_NEWAIM:
 		return(AI_ACTION_NONE);
 	}
 
+
 	////////////////////////////////////////////////////////////////////////////
 	// IF A LOCATION WITH BETTER COVER IS AVAILABLE & REACHABLE, GO FOR IT!
 	////////////////////////////////////////////////////////////////////////////
-
 	if (!TileIsOutOfBounds(sBestCover))
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Take cover]"));
@@ -6906,7 +6946,8 @@ L_NEWAIM:
 		}
 		return(AI_ACTION_TAKE_COVER);
 	}
-	
+
+
 	////////////////////////////////////////////////////////////////////////////
 	// IF THINGS ARE REALLY HOPELESS, OR UNARMED, TRY TO RUN AWAY
 	////////////////////////////////////////////////////////////////////////////
@@ -6932,6 +6973,7 @@ L_NEWAIM:
 			}
 		}
 	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// IF SPOTTERS HAVE BEEN CALLED FOR, AND WE HAVE SOME NEW SIGHTINGS, RADIO!
@@ -7035,6 +7077,7 @@ L_NEWAIM:
 			}
 		}
 	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// TURN TO FACE CLOSEST KNOWN OPPONENT (IF NOT FACING THERE ALREADY)
@@ -7176,7 +7219,6 @@ L_NEWAIM:
 	// by default, if everything else fails, just stand in place and wait
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
-
 }
 
 void DecideAlertStatus( SOLDIERTYPE *pSoldier )
