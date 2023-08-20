@@ -494,8 +494,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	fMapScreenBottomDirty = TRUE;
 	ChangeSelectedMapSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
-	// Headrock: Added FALSE argument, We might need TRUE but not sure. Will need to initiate battle :)
-	//RenderMapScreenInterfaceBottom( FALSE );
 
 	if( !fShowTeamFlag )
 	{
@@ -542,7 +540,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		blanketStartX = yOffset;
 		blanketStartY = yOffset;
 	}
-	ubAllowedListHeight = iPrebattleInterfaceHeight - TOP_Y - BOTTOM_HEIGHT;// - TOP_Y_BUFFER;
+	ubAllowedListHeight = iPrebattleInterfaceHeight - TOP_Y - BOTTOM_HEIGHT;
 
 	if( !AddVideoObject( &VObjectDesc, &uiInterfaceImages ) )
 		AssertMsg( 0, "Failed to load interface\\PreBattlePanel.sti" );
