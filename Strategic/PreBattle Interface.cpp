@@ -508,7 +508,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	// anv: prebattle interface per vertical resolution
 	if (isWidescreenUI())
 	{
-		FilenameForBPP("INTERFACE\\PREBATTLEPANEL_1280x720.sti", VObjectDesc.ImageFile);
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_1280x720);
 		iPrebattleInterfaceHeight = 600;
 		xOffset = xResOffset + 15;
 		yOffset = 0;
@@ -517,7 +517,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	else if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		FilenameForBPP("INTERFACE\\PREBATTLEPANEL.sti", VObjectDesc.ImageFile);
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL);
 		iPrebattleInterfaceHeight = 360;
 		xOffset = xResOffset;
 		yOffset = yResOffset;
@@ -526,7 +526,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	else if (iResolution < _1024x768)
 	{
-		FilenameForBPP("INTERFACE\\PREBATTLEPANEL_800x600.sti", VObjectDesc.ImageFile);
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_800x600);
 		iPrebattleInterfaceHeight = 478;
 		xOffset = xResOffset;
 		yOffset = yResOffset;
@@ -535,7 +535,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	else
 	{
-		FilenameForBPP("INTERFACE\\PREBATTLEPANEL_1024x768.sti", VObjectDesc.ImageFile);
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_1024x768);
 		iPrebattleInterfaceHeight = 647;
 		xOffset = xResOffset;
 		yOffset = yResOffset;

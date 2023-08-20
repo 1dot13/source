@@ -76,6 +76,15 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_PREBATTLEPANEL:
 				sprintf( filename, "INTERFACE\\PreBattlePanel.sti" );
 				return TRUE;
+			case MLG_PREBATTLEPANEL_800x600:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_800x600.sti");
+				return TRUE;
+			case MLG_PREBATTLEPANEL_1024x768:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_1024x768.sti");
+				return TRUE;
+			case MLG_PREBATTLEPANEL_1280x720:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_1280x720.sti");
+				return TRUE;
 			case MLG_SMALLTITLE:
 				sprintf( filename, "LAPTOP\\SmallTitle.sti" );
 				return TRUE;
@@ -202,6 +211,15 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 			case MLG_PREBATTLEPANEL:
 				sprintf( filename, "GERMAN\\PreBattlePanel_german.sti" );
+				return TRUE;
+			case MLG_PREBATTLEPANEL_800x600:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_800x600_german.sti");
+				return TRUE;
+			case MLG_PREBATTLEPANEL_1024x768:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_1024x768_german.sti");
+				return TRUE;
+			case MLG_PREBATTLEPANEL_1280x720:
+				sprintf(filename, "INTERFACE\\PreBattlePanel_1280x720_german.sti");
 				return TRUE;
 			case MLG_SMALLTITLE:
 				sprintf( filename, "GERMAN\\SmallTitle_german.sti" );
@@ -368,6 +386,15 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_PREBATTLEPANEL:
 				sprintf( filename, "%s\\PreBattlePanel_%s.sti", zLanguage, zLanguage );
 				break;
+			case MLG_PREBATTLEPANEL_800x600:
+				sprintf(filename, "%s\\PreBattlePanel_800x600_%s.sti", zLanguage, zLanguage);
+				break;
+			case MLG_PREBATTLEPANEL_1024x768:
+				sprintf(filename, "%s\\PreBattlePanel_1024x768_%s.sti", zLanguage, zLanguage);
+				break;
+			case MLG_PREBATTLEPANEL_1280x720:
+				sprintf(filename, "%s\\PreBattlePanel_1280x720_%s.sti", zLanguage, zLanguage);
+				break;
 			case MLG_SMALLTITLE:
 				sprintf( filename, "%s\\SmallTitle_%s.sti", zLanguage, zLanguage );
 				break;
@@ -491,6 +518,15 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			return TRUE;
 		case MLG_PREBATTLEPANEL:
 			sprintf( filename, "INTERFACE\\PreBattlePanel.sti" );
+			return TRUE;
+		case MLG_PREBATTLEPANEL_800x600:
+			sprintf(filename, "INTERFACE\\PreBattlePanel_800x600.sti");
+			return TRUE;
+		case MLG_PREBATTLEPANEL_1024x768:
+			sprintf(filename, "INTERFACE\\PreBattlePanel_1024x768.sti");
+			return TRUE;
+		case MLG_PREBATTLEPANEL_1280x720:
+			sprintf(filename, "INTERFACE\\PreBattlePanel_1280x720.sti");
 			return TRUE;
 		case MLG_SMALLTITLE:
 			sprintf( filename, "LAPTOP\\SmallTitle.sti" );
