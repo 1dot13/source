@@ -1936,7 +1936,7 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 	}
 
 	// battle about to occur?
-	if( ( fDisableDueToBattleRoster ) || ( fDisableMapInterfaceDueToBattle ) )
+	if( ( fDisableDueToBattleRoster ) || ( fDisableMapInterfaceDueToBattle ) || ( gfPreBattleInterfaceActive ))
 	{
 		return( FALSE );
 	}
