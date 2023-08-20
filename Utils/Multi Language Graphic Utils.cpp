@@ -213,13 +213,13 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				sprintf( filename, "GERMAN\\PreBattlePanel_german.sti" );
 				return TRUE;
 			case MLG_PREBATTLEPANEL_800x600:
-				sprintf(filename, "INTERFACE\\PreBattlePanel_800x600_german.sti");
+				sprintf(filename, "GERMAN\\PreBattlePanel_800x600_german.sti");
 				return TRUE;
 			case MLG_PREBATTLEPANEL_1024x768:
-				sprintf(filename, "INTERFACE\\PreBattlePanel_1024x768_german.sti");
+				sprintf(filename, "GERMAN\\PreBattlePanel_1024x768_german.sti");
 				return TRUE;
 			case MLG_PREBATTLEPANEL_1280x720:
-				sprintf(filename, "INTERFACE\\PreBattlePanel_1280x720_german.sti");
+				sprintf(filename, "GERMAN\\PreBattlePanel_1280x720_german.sti");
 				return TRUE;
 			case MLG_SMALLTITLE:
 				sprintf( filename, "GERMAN\\SmallTitle_german.sti" );
