@@ -2590,8 +2590,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
-	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Decide action if stuck in water or gas]"));
 	// when in deep water, move to closest opponent
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Decide action if stuck in water or gas]"));
 	if (ubCanMove && bInDeepWater && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
 	{
 		// find closest reachable opponent, excluding opponents in deep water
@@ -2804,6 +2804,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
 						pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Change stance before throw"));
 						pSoldier->aiData.usActionData = BestThrow.ubStance;
 						pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
 						pSoldier->aiData.usNextActionData = BestThrow.sTarget;
@@ -2818,6 +2819,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
 					}
 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Throw grenade / use launcher!"));
 					return(AI_ACTION_TOSS_PROJECTILE);
 				}
 			}
@@ -2982,6 +2984,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 			//SUPPRESSION FIRE			
 			//CheckIfShotPossible(pSoldier, &BestShot);		//WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Suppression decisions]"));
 
 			//RELOADING
 			// WarmSteel - Because of suppression fire, we need enough ammo to even consider suppressing
@@ -3017,6 +3020,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				INT8 bAmmoSlot = FindAmmoToReload(pSoldier, BestShot.bWeaponIn, NO_SLOT);
 				if (bAmmoSlot != NO_SLOT)
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Found spare ammo"));
 					fExtraClip = TRUE;
 				}
 			}
@@ -3168,6 +3172,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				}
 				else
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Suppression not possible"));
 					pSoldier->bDoBurst = 0;
 					pSoldier->bDoAutofire = 0;
 				}
@@ -3291,16 +3296,21 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
 		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Free friendly POWs]"));
 			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW, TRUE );
 
 			if ( ubPerson != NOBODY )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Found friendly POW"));
+
 				// if we are close, we can release this guy
 				// possible only if not handcuffed (binders can be opened, handcuffs not)
 				if ( !HasItemFlag( (&(MercPtrs[ubPerson]->inv[HANDPOS]))->usItem, HANDCUFFS ) )
 				{
 					if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("I am close enough to free POW"));
+
 						// see if we are facing this person
 						UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
 
@@ -3309,9 +3319,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						{
 							pSoldier->aiData.usActionData = ubDesiredMercDir;
 
+							DebugAI(AI_MSG_INFO, pSoldier, String("Change facing"));
 							return( AI_ACTION_CHANGE_FACING );
 						}
 
+						DebugAI(AI_MSG_INFO, pSoldier, String("Free POW"));
 						return(AI_ACTION_FREE_PRISONER);
 					}
 					else
@@ -3320,6 +3332,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				
 						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Move closer to POW"));
 							return(AI_ACTION_SEEK_FRIEND);
 						}
 					}
@@ -3599,12 +3612,18 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Radio red alert]"));
 
 		// if there hasn't been an initial RED ALERT yet in this sector
-		if ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || NeedToRadioAboutPanicTrigger() )
+		if (!(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || NeedToRadioAboutPanicTrigger())
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("No previous alert radioed"));
 			// since I'm at STATUS RED, I obviously know we're being invaded!
 			iChance = gbDiff[DIFF_RADIO_RED_ALERT][ SoldierDifficultyLevel( pSoldier ) ];
+		}
 		else // subsequent radioing (only to update enemy positions, request help)
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Red alert already radioed"));
 			// base chance depends on how much new info we have to radio to the others
 			iChance = 10 * WhatIKnowThatPublicDont(pSoldier,FALSE);  // use 10 * for RED alert
+		}
 
 		// if I actually know something they don't and I ain't swimming (deep water)
 		if (iChance && !bInDeepWater)
@@ -3655,6 +3674,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 			AINumMessage("Chance to radio RED alert = ",iChance);
 #endif
+			DebugAI(AI_MSG_INFO, pSoldier, String("Chance to radio alert = %d", iChance));
 
 			if ((INT16) PreRandom(100) < iChance)
 			{
@@ -3686,8 +3706,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Self smoke when under fire]"));
-		DebugAI(AI_MSG_INFO, pSoldier, String("check if soldier can cover himself with smoke"));
-
 		CheckTossSelfSmoke(pSoldier, &BestThrow);
 
 		if (BestThrow.ubPossible)
@@ -3726,6 +3744,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			DebugAI(AI_MSG_INFO, pSoldier, String("Throw smoke!"));
 			return(AI_ACTION_TOSS_PROJECTILE);
 		}
+		else { DebugAI(AI_MSG_INFO, pSoldier, String("Throw not possible")); }
 	}
 
 
@@ -3779,6 +3798,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE &&
 			!pSoldier->aiData.bUnderFire )
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Continue flanking]"));
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: continue flanking");
 			INT16 currDir = GetDirectionFromGridNo ( sFlankGridNo, pSoldier );
 			INT16 origDir = pSoldier->origDir;
@@ -3791,16 +3811,23 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// stop flanking condition
 				if ( (currDir - origDir) >= MinFlankDirections(pSoldier) )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Stop flanking, left"));
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 				else
 				{
 					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sFlankGridNo , AI_ACTION_FLANK_LEFT);
 					
-					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) ) //&& (currDir - origDir) < 2 )
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData)) //&& (currDir - origDir) < 2 )
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Flank left"));
 						return AI_ACTION_FLANK_LEFT ;
+					}
 					else
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Stop flanking left, tile out of bounds"));
 						pSoldier->numFlanks = MAX_FLANKS_RED;
+					}
 				}
 			}
 			else
@@ -3811,16 +3838,23 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// stop flanking condition
 				if ( (origDir - currDir) >= MinFlankDirections(pSoldier) )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Stop flanking, right"));
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 				else
 				{
 					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sFlankGridNo , AI_ACTION_FLANK_RIGHT);
 					
-					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) )//&& (origDir - currDir) < 2 )
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))//&& (origDir - currDir) < 2 )
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Flank right"));
 						return AI_ACTION_FLANK_RIGHT ;
+					}
 					else
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Stop flanking right, tile ouf of bounds"));
 						pSoldier->numFlanks = MAX_FLANKS_RED;
+					}
 				}
 			}
 		}
@@ -3832,10 +3866,12 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if ( pSoldier->numFlanks == MAX_FLANKS_RED )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Stop flanking]"));
 
 			// start end flank approach with full APs
 			if( gfTurnBasedAI && pSoldier->bActionPoints < pSoldier->bInitialActionPoints )
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("AP not full, wait a turn"));
 				return(AI_ACTION_END_TURN);
 			}
 
@@ -3847,6 +3883,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				( PythSpacesAway( pSoldier->sGridNo, sFlankGridNo ) > MIN_FLANK_DIST_RED ||
 				!LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, sFlankGridNo, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) ) )
 			{				
+				DebugAI(AI_MSG_INFO, pSoldier, String("Move towards enemy"));
+
 				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sFlankGridNo,GetAPsCrouch( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
 
 				// sevenfm: avoid going into water, gas or light
@@ -3859,31 +3897,39 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sFlankGridNo, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) &&
 						!LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, sFlankGridNo, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) )
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Can be seen in new position, prepare crouch & shot"));
+
 						// reserve APs for a possible crouch plus a shot
 						INT32 sCautiousGridNo = InternalGoAsFarAsPossibleTowards(pSoldier, sFlankGridNo, (INT8) (MinAPsToAttack( pSoldier, sFlankGridNo, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE) + GetAPsToLook(pSoldier)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 
 						if (!TileIsOutOfBounds(sCautiousGridNo))
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy to cautiosgridno %d", sCautiousGridNo));
 							pSoldier->aiData.usActionData = sCautiousGridNo;
 							pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
 							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 							return(AI_ACTION_SEEK_OPPONENT);
 						}
+
+						DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy to gridno %d", pSoldier->aiData.usActionData));
 						return(AI_ACTION_SEEK_OPPONENT);
 					}
 					else
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy"));
 						return(AI_ACTION_SEEK_OPPONENT);
 					}
 				}
 				else
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Can't advance, stop flanking"));
 					// if we cannot advance to spot, stop trying
 					pSoldier->numFlanks++;
 				}
 			}
 			else
 			{	
+				DebugAI(AI_MSG_INFO, pSoldier, String("Stop flanking"));
 				// stop
 				pSoldier->numFlanks++;
 			}
@@ -3946,6 +3992,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if (ubCanMove && pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("decideactionred: checking hide/seek/help/watch points... orders = %d, attitude = %d", pSoldier->aiData.bOrders, pSoldier->aiData.bAttitude));
+			DebugAI(AI_MSG_INFO, pSoldier, String("checking hide/seek/help/watch points... orders = %d, attitude = %d", pSoldier->aiData.bOrders, pSoldier->aiData.bAttitude));
 			// calculate initial points for watch based on highest watch loc
 
 			bWatchPts = GetHighestWatchedLocPoints(pSoldier->ubID);
@@ -4042,6 +4089,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",bHidePts,bSeekPts,bWatchPts,bHelpPts));
+			DebugAI(AI_MSG_INFO, pSoldier, String("hide = %d, seek = %d, watch = %d, help = %d", bHidePts, bSeekPts, bWatchPts, bHelpPts));
 			// while one of the three main RED REACTIONS remains viable
 			while ((bSeekPts > -90) || (bHelpPts > -90) || (bHidePts > -90) )
 			{
@@ -4064,6 +4112,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						 (gAnimControl[pSoldier->usAnimState].ubHeight != ANIM_PRONE || !GuySawEnemy( pSoldier )) )
 					{
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
+						DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy"));
 						//////////////////////////////////////////////////////////////////////
 						// SEEK CLOSEST DISTURBANCE: GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
 						//////////////////////////////////////////////////////////////////////
@@ -4113,6 +4162,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								{
 									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST,0)))
 									{
+										DebugAI(AI_MSG_INFO, pSoldier, String("Climb roof at gridno %d", sClosestDisturbance));
 										return( AI_ACTION_CLIMB_ROOF );
 									}
 								}
@@ -4127,6 +4177,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 									INT32 usClimbPoint = sClosestDisturbance;									
 									if (!TileIsOutOfBounds(usClimbPoint))
 									{
+										DebugAI(AI_MSG_INFO, pSoldier, String("Move towards climb spot %d", usClimbPoint));
 										pSoldier->aiData.usActionData = usClimbPoint;
 										return( AI_ACTION_MOVE_TO_CLIMB  );
 									}
@@ -4140,6 +4191,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							BOOLEAN fOvercrowded = FALSE;
 							if( CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4) > 2 )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("Soldier position %d is overcrowded", pSoldier->sGridNo));
 								fOvercrowded = TRUE;
 							}
 							
@@ -4158,6 +4210,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
 								( CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 1 || NightTime() || fOvercrowded) )
 							{
+								DebugAI(AI_MSG_TOPIC, pSoldier, String("[Possibly start flanking]"));
 								INT8 action = AI_ACTION_SEEK_OPPONENT;
 								INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sClosestDisturbance );
 								if ( dist > MIN_FLANK_DIST_RED  && dist < MAX_FLANK_DIST_RED )
@@ -4169,26 +4222,37 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 									case 1:
 									case 2:
 									case 3:
-										if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
+										if (pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT)
+										{
+											DebugAI(AI_MSG_INFO, pSoldier, String("Try to flank left"));
 											action = AI_ACTION_FLANK_LEFT ;
+										}
 										break;
 									default:
-										if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
+										if (pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT)
+										{
+											DebugAI(AI_MSG_INFO, pSoldier, String("Try to flank right"));
 											action = AI_ACTION_FLANK_RIGHT ;
+										}
 										break;
 									}
 
 									if (action == AI_ACTION_SEEK_OPPONENT) {
+										DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy instead"));
 										return action;
 									}
 								}
 								else
+								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Distance not suitable, seek enemy instead"));
 									return AI_ACTION_SEEK_OPPONENT ;
+								}
 
 								pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sClosestDisturbance, action );
 								
 								if (TileIsOutOfBounds(pSoldier->aiData.usActionData) || pSoldier->numFlanks >= MAX_FLANKS_RED )
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Flanking spot %d out of bounds or numFlanks >= MAX_FLANKS_RED", pSoldier->aiData.usActionData));
 									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,GetAPsCrouch( pSoldier, TRUE), AI_ACTION_SEEK_OPPONENT,0);
 									//pSoldier->numFlanks = 0;
 									if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS ) )
@@ -4198,19 +4262,21 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 										
 										if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 										{
+											DebugAI(AI_MSG_INFO, pSoldier, String("Reserved AP for crouch & shot, seek enemy"));
 											pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
 											pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 											return(AI_ACTION_SEEK_OPPONENT);
 										}
 									}
-
 									else
 									{
+										DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy"));
 										return(AI_ACTION_SEEK_OPPONENT);
 									}
 								}
 								else
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Found flanking spot %d", pSoldier->aiData.usActionData));
 									if ( action == AI_ACTION_FLANK_LEFT )
 										pSoldier->flags.lastFlankLeft = TRUE;
 									else
@@ -4230,11 +4296,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 										pSoldier->aiData.bOrders = FARPATROL;
 									}
 
+									DebugAI(AI_MSG_INFO, pSoldier, String("Start flanking"));
 									return(action);
 								}
 							}
 							else
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("Not flanking, move up towards enemy"));
 								// let's be a bit cautious about going right up to a location without enough APs to shoot
 								if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS ) )
 								{
@@ -4243,6 +4311,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 									
 									if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 									{
+										DebugAI(AI_MSG_INFO, pSoldier, String("Reserved AP for crouch & shot, seek enemy"));
 										pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
 										pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 										return(AI_ACTION_SEEK_OPPONENT);
@@ -4250,6 +4319,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								}
 								else
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy"));
 									return(AI_ACTION_SEEK_OPPONENT);
 								}
 								break;
@@ -4338,6 +4408,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// if HELPING is possible and at least as desirable as seeking or hiding
 				if ((bHelpPts > -90) && (bHelpPts >= bSeekPts) && (bHelpPts >= bHidePts) && (bHelpPts >= bWatchPts ))
 				{
+					DebugAI(AI_MSG_TOPIC, pSoldier, String("[Help a friend]"));
 #ifdef AI_TIMING_TESTS
 					uiStartTime = GetJA2Clock();
 #endif
@@ -4353,6 +4424,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					//if (!TileIsOutOfBounds(sClosestFriend) && PythSpacesAway(pSoldier->sGridNo, sClosestFriend) > pSoldier->GetMaxDistanceVisible(sClosestFriend, 0, CALC_FROM_ALL_DIRS ))
 					if (!TileIsOutOfBounds(sClosestFriend))
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Closest friend at gridno %d", sClosestFriend));
 						//////////////////////////////////////////////////////////////////////
 						// GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
 						//////////////////////////////////////////////////////////////////////
@@ -4365,6 +4437,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								pSoldier->name,sClosestFriend,pSoldier->aiData.usActionData);
 							AIPopMessage(tempstr);
 #endif
+							DebugAI(AI_MSG_INFO, pSoldier, String("Seeking friend, moving to %d", pSoldier->aiData.usActionData));
 
 							if ( !ENEMYROBOT(pSoldier) && fClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
 							{
@@ -4383,6 +4456,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								{
 									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST,0)))
 									{
+										DebugAI(AI_MSG_INFO, pSoldier, String("Climb roof"));
 										return( AI_ACTION_CLIMB_ROOF );
 									}
 								}
@@ -4393,6 +4467,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 									//if (!TileIsOutOfBounds(sClimbPoint))
 									{
 										//pSoldier->aiData.usActionData = sClimbPoint;
+										DebugAI(AI_MSG_INFO, pSoldier, String("Move towards climb point"));
 										return( AI_ACTION_MOVE_TO_CLIMB  );
 									}
 								}
@@ -4401,6 +4476,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							//{
 							// return( AI_ACTION_CLIMB_ROOF );
 							//}
+							DebugAI(AI_MSG_INFO, pSoldier, String("Seek friend"));
 							return(AI_ACTION_SEEK_FRIEND);
 						}
 					}
@@ -4419,6 +4495,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// if HIDING is possible and at least as desirable as seeking or helping
 				if ((bHidePts > -90) && (bHidePts >= bSeekPts) && (bHidePts >= bHelpPts) && (bHidePts >= bWatchPts ))
 				{
+					DebugAI(AI_MSG_TOPIC, pSoldier, String("[Take cover]"));
 					//sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
 					// if an opponent is known (not necessarily reachable or conscious)					
 					if (!SkipCoverCheck && !TileIsOutOfBounds(sClosestOpponent))
@@ -4441,6 +4518,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						// let's be a bit cautious about going right up to a location without enough APs to shoot						
 						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Found a cover spot at %d", pSoldier->aiData.usActionData));
 							sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
 							if (!TileIsOutOfBounds(sClosestDisturbance) && ( SpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || SpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) + 5 < SpacesAway( pSoldier->sGridNo, sClosestDisturbance ) ) )
 							{
@@ -4448,11 +4526,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 								// ensure will we have enough APs for a possible crouch plus a shot
 								if ( InternalGoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, (INT8) (MinAPsToAttack( pSoldier, sClosestOpponent, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_TAKE_COVER, 0 ) == pSoldier->aiData.usActionData )
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Moving to cover, reserve AP for crouch & shot"));
 									return(AI_ACTION_TAKE_COVER);
 								}
 							}
 							else
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("Moving to cover"));
 								return(AI_ACTION_TAKE_COVER);
 							}
 						}
@@ -4477,6 +4557,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		// if we're currently under fire (presumably, attacker is hidden)
 		if (pSoldier->aiData.bUnderFire)
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Under fire]"));
+
 			// only try to run if we've actually been hit recently & noticably so
 			// otherwise, presumably our current cover is pretty good & sufficient
 			// HEADROCK HAM B2.6: New value here helps us change the ratio of running away due to shock. This
@@ -4497,6 +4579,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			
 			if (bShock > 0)
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Soldier is shocked, attempt to run away"));
 				// look for best place to RUN AWAY to (farthest from the closest threat)
 				pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
 
@@ -4508,6 +4591,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 #endif
 
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: run away!");
+					DebugAI(AI_MSG_INFO, pSoldier, String("Running away to gridno %d", pSoldier->aiData.usActionData));
 					return(AI_ACTION_RUN_AWAY);
 				}
 			}
@@ -4516,6 +4600,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			// UNDER FIRE, DON'T WANNA/CAN'T RUN AWAY, SO CROUCH
 			////////////////////////////////////////////////////////////////////////////
 
+			DebugAI(AI_MSG_INFO, pSoldier, String("Under fire, try to change stance"));
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch or go prone");
 			// if not in water and not already crouched
 			if (gAnimControl[pSoldier->usAnimState].ubHeight == ANIM_STAND && IsValidStance(pSoldier, ANIM_CROUCH))
@@ -4527,6 +4612,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					sprintf(tempstr, "%s CROUCHES (STATUS RED)", pSoldier->name);
 					AIPopMessage(tempstr);
 #endif
+					DebugAI(AI_MSG_INFO, pSoldier, String("Crouching"));
 
 					pSoldier->aiData.usActionData = ANIM_CROUCH;
 					return(AI_ACTION_CHANGE_STANCE);
@@ -4537,6 +4623,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// maybe go prone
 				if (PreRandom(2) == 0 && IsValidStance(pSoldier, ANIM_PRONE))
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Go prone"));
 					pSoldier->aiData.usActionData = ANIM_PRONE;
 					return(AI_ACTION_CHANGE_STANCE);
 				}
@@ -4559,11 +4646,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		DebugAI(AI_MSG_INFO, pSoldier, String("found run away spot %d", pSoldier->aiData.usActionData));
 		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Running away!"));
 			return(AI_ACTION_RUN_AWAY);
 		}
 		//else if (!pSoldier->SkipCoverCheck() && gfTurnBasedAI) // only do in turnbased
 		else if (!SkipCoverCheck && gfTurnBasedAI) // only do in turnbased
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Can't run away, try to take cover"));
 			// try to take cover
 			pSoldier->aiData.bAIMorale = MORALE_WORRIED;
 			pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier, MORALE_WORRIED, &iDummy);
@@ -4589,6 +4678,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		
 		if (!TileIsOutOfBounds(sClosestOpponent))
 		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Look around towards enemy]"));
 			// determine direction from this soldier to the closest opponent
 			ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
@@ -4621,13 +4711,15 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
 					AIPopMessage(tempstr);
 #endif
-					if ( pSoldier->aiData.bOrders == SNIPER && 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Turn towards closest enemy, face direction %d", pSoldier->aiData.usActionData));
+					if ( pSoldier->aiData.bOrders == SNIPER &&
 						!WeaponReady(pSoldier) && 
 						PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
 						(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50) )
 					{
 						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, sniper"));
 							pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
 						}
 					}
@@ -4643,13 +4735,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							{
 								if ( Random(100) < 35 ) 
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, scoped weapon"));
 									pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
 								}
 							}
 						}
 					}
 					////////////////////////////////////////////////////////////////////////////
-
 					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
@@ -4659,16 +4751,19 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					!WeaponReady(pSoldier) &&
 					PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Facing enemy already"));
 				if ((!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 				{
 					if ( pSoldier->aiData.bOrders == SNIPER )
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, sniper"));
 						return AI_ACTION_RAISE_GUN;
 					}
 					else if (IsScoped(&pSoldier->inv[HANDPOS]))
 					{
 						if ( Random(100) < 40 ) 
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, scoped weapon"));
 							return AI_ACTION_RAISE_GUN;
 						}
 					}
@@ -4676,6 +4771,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					{
 						if ( Random(100) < 20 ) 
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun"));
 							return AI_ACTION_RAISE_GUN;
 						}
 					}
@@ -4687,6 +4783,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 	if ( ARMED_VEHICLE( pSoldier ) )
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Armed vehicle]"));
 		// try turning in a random direction as we still can't see anyone.
 		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
 		{
@@ -4697,11 +4794,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
 				if ( pSoldier->ubDirection == ubOpponentDir )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Already facing closest disturbance, face a random direction"));
 					ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
 				}
 			}
 			else
 			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("Closest disturbance out of bounds, face a random direction"));
 				ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
 			}
 
@@ -4721,6 +4820,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					{
 						if ( gfTurnBasedAI )
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("Ending turn to limit facing changes"));
 							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 						}
 						else
@@ -4730,12 +4830,14 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						}
 					}
 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Turn towards closest disturbance, direction %d", pSoldier->aiData.usActionData));
 					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
 		}
 
 		// that's it for tanks
+		DebugAI(AI_MSG_INFO, pSoldier, String("Do nothing"));
 		return( AI_ACTION_NONE );
 	}
 
@@ -4763,6 +4865,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			CountFriendsBlack(pSoldier) == 0 )
 		{
 			// abort! abort!
+			DebugAI(AI_MSG_INFO, pSoldier, String("Unsafe location, do nothing"));
 			pSoldier->aiData.bAction = AI_ACTION_NONE;
 		}
 
@@ -4819,6 +4922,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// if not in water and not already crouched, try to crouch down first
 	if (!fCivilian && !bInWater && (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND) && IsValidStance( pSoldier, ANIM_CROUCH ) )
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Crouch]"));
 		//sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
 
 		//if ( ( !TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway( pSoldier->sGridNo, sClosestOpponent ) < (MaxNormalDistanceVisible() * 3) / 2 ) || PreRandom( 4 ) == 0 )		
@@ -4832,29 +4936,31 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				AIPopMessage(tempstr);
 #endif
 				
-					////////////////////////////////////////////////////////////////////////////
-					// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
-					if (!gfTurnBasedAI || (GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints)
-					{
-						// determine direction from this soldier to the closest opponent
-						ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+				////////////////////////////////////////////////////////////////////////////
+				// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
+				if (!gfTurnBasedAI || (GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints)
+				{
+					// determine direction from this soldier to the closest opponent
+					ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
-						if (!WeaponReady(pSoldier) && 
-							pSoldier->ubDirection == ubOpponentDir &&
-							PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
+					if (!WeaponReady(pSoldier) && 
+						pSoldier->ubDirection == ubOpponentDir &&
+						PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
+					{
+						if (IsScoped(&pSoldier->inv[HANDPOS]))
 						{
-							if (IsScoped(&pSoldier->inv[HANDPOS]))
+							if ( Random(100) < 40 ) 
 							{
-								if ( Random(100) < 40 ) 
-								{
-									pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
-								}
+								DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, scoped weapon"));
+								pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
 							}
 						}
 					}
-					////////////////////////////////////////////////////////////////////////////
+				}
+				////////////////////////////////////////////////////////////////////////////
 
 
+				DebugAI(AI_MSG_INFO, pSoldier, String("Change stance to crouch"));
 				pSoldier->aiData.usActionData = ANIM_CROUCH;
 				return(AI_ACTION_CHANGE_STANCE);
 			}
@@ -4867,6 +4973,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 	if ( !fCivilian && pSoldier->aiData.bUnderFire && pSoldier->bActionPoints >= (pSoldier->bInitialActionPoints - GetAPsToLook( pSoldier ) ) && IsValidStance( pSoldier, ANIM_PRONE ) )
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Under fire, go prone]"));
 		sClosestDisturbance = MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
 		
 		if (!TileIsOutOfBounds(sClosestDisturbance))
@@ -4876,6 +4983,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			{
 				if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Face direction %d", ubOpponentDir));
 					pSoldier->aiData.usActionData = ubOpponentDir;
 					return( AI_ACTION_CHANGE_FACING );
 				}
@@ -4883,6 +4991,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			else if ( (!gfTurnBasedAI || GetAPsToChangeStance( pSoldier, ANIM_PRONE ) <= pSoldier->bActionPoints ) && pSoldier->InternalIsValidStance( ubOpponentDir, ANIM_PRONE ) )
 			{
 				// go prone, end turn
+				DebugAI(AI_MSG_INFO, pSoldier, String("Go prone & end turn"));
 				pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 				pSoldier->aiData.usActionData = ANIM_PRONE;
 				return( AI_ACTION_CHANGE_STANCE );
@@ -4896,6 +5005,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 	if ( pSoldier->aiData.bOrders == SNIPER )
 	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Sniper]"));
 		if ( pSoldier->sniper == 0 )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: sniper raising gun..."));
@@ -4904,6 +5014,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				if (!WeaponReady(pSoldier) &&
 					PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun, sniper"));
 					pSoldier->sniper = 1;
 					return AI_ACTION_RAISE_GUN;
 				}
@@ -4911,6 +5022,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 		else
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Switch to yellow state"));
 			pSoldier->sniper = 0;
 			return(DecideActionYellow(pSoldier));
 		}
@@ -4929,6 +5041,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				{
 					if ( Random(100) < 35 ) 
 					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("Raise gun"));
 						return( AI_ACTION_RAISE_GUN );
 					}
 				}
@@ -4945,6 +5058,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	AINameMessage(pSoldier,"- DOES NOTHING (RED)",1000);
 #endif
+	DebugAI(AI_MSG_INFO, pSoldier, String("Do nothing"));
 
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
