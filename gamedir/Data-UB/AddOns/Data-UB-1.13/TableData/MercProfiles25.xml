@@ -244,6 +244,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>11</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -352,6 +353,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>12</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>29</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -456,9 +458,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
-		<bNewSkillTrait1>17</bNewSkillTrait1>
-		<bNewSkillTrait2>19</bNewSkillTrait2>
+		<bNewSkillTrait1>3</bNewSkillTrait1>
+		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>19</bNewSkillTrait4>
 		<bBuddy1>18</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -566,6 +569,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>21</bBuddy1>
 		<bBuddy2>10</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -672,7 +676,8 @@
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait3>8</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -780,6 +785,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait4>21</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -887,6 +893,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>7</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -992,8 +999,9 @@
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>2</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait2>1</bNewSkillTrait2>
+		<bNewSkillTrait3>2</bNewSkillTrait3>
+		<bNewSkillTrait4>16</bNewSkillTrait4>
 		<bBuddy1>9</bBuddy1>
 		<bBuddy2>6</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1101,6 +1109,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1208,6 +1217,7 @@
 		<bNewSkillTrait1>14</bNewSkillTrait1>
 		<bNewSkillTrait2>4</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>7</bBuddy1>
 		<bBuddy2>6</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1312,9 +1322,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait1>3</bNewSkillTrait1>
+		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait4>23</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1422,6 +1433,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1529,6 +1541,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>5</bNewSkillTrait4>
 		<bBuddy1>10</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1743,6 +1756,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>37</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1849,7 +1863,8 @@
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait3>12</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>36</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -1957,6 +1972,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>7</bNewSkillTrait3>
+		<bNewSkillTrait4>7</bNewSkillTrait4>
 		<bBuddy1>27</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2064,6 +2080,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2171,6 +2188,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>29</bBuddy1>
 		<bBuddy2>3</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2278,6 +2296,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>26</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2383,8 +2402,9 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait2>9</bNewSkillTrait2>
+		<bNewSkillTrait3>4</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>185</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2490,8 +2510,9 @@
 		<bOldSkillTrait>2</bOldSkillTrait>
 		<bOldSkillTrait2>2</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
-		<bNewSkillTrait2>16</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
+		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2599,6 +2620,7 @@
 		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>6</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2814,6 +2836,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>25</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -2919,8 +2942,9 @@
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>19</bNewSkillTrait2>
+		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>24</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3026,8 +3050,9 @@
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait2>8</bNewSkillTrait2>
+		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>47</bBuddy1>
 		<bBuddy2>19</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3135,6 +3160,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>21</bNewSkillTrait4>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>233</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3242,6 +3268,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait4>15</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3349,6 +3376,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>15</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>16</bNewSkillTrait4>
 		<bBuddy1>1</bBuddy1>
 		<bBuddy2>18</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3456,6 +3484,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3563,6 +3592,7 @@
 		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>14</bNewSkillTrait4>
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3670,6 +3700,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>19</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3884,7 +3915,8 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>5</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -3992,6 +4024,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>6</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>18</bBuddy1>
 		<bBuddy2>26</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4097,8 +4130,9 @@
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
 		<bNewSkillTrait1>3</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait2>3</bNewSkillTrait2>
+		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>18</bNewSkillTrait4>
 		<bBuddy1>15</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4206,6 +4240,7 @@
 		<bNewSkillTrait1>16</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>2</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4313,6 +4348,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4420,6 +4456,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4527,6 +4564,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>46</bBuddy1>
 		<bBuddy2>188</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4634,6 +4672,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>43</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4741,6 +4780,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4848,6 +4888,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>12</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>41</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -4955,6 +4996,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>40</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5060,8 +5102,9 @@
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>17</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait2>21</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5168,7 +5211,8 @@
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>40</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5383,6 +5427,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>37</bBuddy1>
 		<bBuddy2>27</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5490,6 +5535,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5597,6 +5643,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>16</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>21</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5704,6 +5751,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5811,6 +5859,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -5918,6 +5967,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6025,6 +6075,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6132,6 +6183,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6239,6 +6291,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6346,10 +6399,10 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
-
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
@@ -6454,6 +6507,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>17</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6563,6 +6617,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>21</bBuddy1>
 		<bBuddy2>40</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6667,9 +6722,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>9</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>23</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait3>20</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>59</bBuddy1>
 		<bBuddy2>60</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6777,6 +6833,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6884,6 +6941,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -6991,6 +7049,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7095,9 +7154,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>46</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7205,6 +7265,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>1</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7312,6 +7373,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>67</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7419,6 +7481,7 @@
 		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>66</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7526,6 +7589,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7633,6 +7697,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7740,6 +7805,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>68</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7847,6 +7913,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -7954,6 +8021,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8061,6 +8129,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8168,6 +8237,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8275,6 +8345,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8382,6 +8453,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8489,6 +8561,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8596,6 +8669,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>11</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8703,6 +8777,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>6</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8810,6 +8885,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -8917,6 +8993,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9024,6 +9101,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9131,6 +9209,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9238,6 +9317,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9345,6 +9425,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9452,6 +9533,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9559,6 +9641,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9666,6 +9749,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9773,6 +9857,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9880,6 +9965,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -9987,6 +10073,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10094,6 +10181,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10201,6 +10289,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10308,6 +10397,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10415,6 +10505,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10522,6 +10613,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10629,6 +10721,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10736,6 +10829,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10843,6 +10937,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -10950,6 +11045,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11057,6 +11153,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11164,6 +11261,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11271,6 +11369,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11378,6 +11477,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11485,6 +11585,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11592,6 +11693,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11699,6 +11801,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11806,6 +11909,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -11913,6 +12017,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12020,6 +12125,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12127,6 +12233,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12234,6 +12341,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12341,6 +12449,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12448,6 +12557,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12555,6 +12665,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12662,6 +12773,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12769,6 +12881,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12876,6 +12989,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -12983,6 +13097,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13090,6 +13205,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13197,6 +13313,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13304,6 +13421,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13411,6 +13529,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13518,6 +13637,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13625,6 +13745,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13732,6 +13853,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13839,6 +13961,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -13946,6 +14069,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14053,6 +14177,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14160,6 +14285,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14267,6 +14393,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14374,6 +14501,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14481,6 +14609,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14588,6 +14717,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14695,6 +14825,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14802,6 +14933,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -14909,6 +15041,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15016,6 +15149,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15123,6 +15257,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15230,6 +15365,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15337,6 +15473,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15444,6 +15581,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15551,6 +15689,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15658,6 +15797,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15765,6 +15905,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15872,6 +16013,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -15979,6 +16121,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16086,6 +16229,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16191,8 +16335,9 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>3</bNewSkillTrait2>
+		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>15</bNewSkillTrait4>
 		<bBuddy1>31</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16300,6 +16445,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16407,6 +16553,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16514,6 +16661,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16621,6 +16769,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16728,6 +16877,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16835,6 +16985,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16942,6 +17093,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17049,6 +17201,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17156,6 +17309,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17263,6 +17417,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17370,6 +17525,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17477,6 +17633,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17584,6 +17741,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17691,6 +17849,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17798,6 +17957,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17905,6 +18065,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>17</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18012,6 +18173,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>21</bBuddy1>
 		<bBuddy2>40</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18116,9 +18278,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>46</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18226,6 +18389,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18333,6 +18497,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18437,9 +18602,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>1</bNewSkillTrait3>
+		<bNewSkillTrait3>23</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>175</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18547,6 +18713,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>172</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18654,6 +18821,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>7</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>171</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18761,6 +18929,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>7</bNewSkillTrait4>
 		<bBuddy1>177</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18868,6 +19037,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -18975,6 +19145,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>177</bBuddy1>
 		<bBuddy2>170</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19080,8 +19251,9 @@
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>12</bNewSkillTrait1>
-		<bNewSkillTrait2>17</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait2>15</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19189,6 +19361,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>175</bBuddy1>
 		<bBuddy2>173</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19296,6 +19469,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>23</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19403,6 +19577,7 @@
 		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>47</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19510,6 +19685,7 @@
 		<bNewSkillTrait1>21</bNewSkillTrait1>
 		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19617,6 +19793,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19724,6 +19901,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19831,6 +20009,7 @@
 		<bNewSkillTrait1>4</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -19938,6 +20117,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>187</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20045,6 +20225,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>20</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20152,6 +20333,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20259,6 +20441,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>184</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20366,6 +20549,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>40</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20471,8 +20655,9 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>20</bNewSkillTrait2>
+		<bNewSkillTrait2>15</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>247</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20577,9 +20762,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>17</bNewSkillTrait1>
+		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>15</bNewSkillTrait2>
-		<bNewSkillTrait3>12</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20687,6 +20873,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20794,6 +20981,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20900,6 +21088,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21006,6 +21195,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21112,6 +21302,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -21219,6 +21410,7 @@
 		<bNewSkillTrait1>19</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -21326,6 +21518,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -21433,6 +21626,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -21540,6 +21734,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21646,6 +21841,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -21752,6 +21948,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -21858,6 +22055,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -21964,6 +22162,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22070,6 +22269,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22176,6 +22376,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22282,6 +22483,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22388,6 +22590,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22494,6 +22697,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22600,6 +22804,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22706,6 +22911,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22812,6 +23018,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -22918,6 +23125,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23024,6 +23232,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23130,6 +23339,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23236,6 +23446,7 @@
 		<bNewSkillTrait1>4</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -23343,6 +23554,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23449,6 +23661,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23555,6 +23768,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23661,6 +23875,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
@@ -23767,6 +23982,7 @@
 		<bNewSkillTrait1>14</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -23874,6 +24090,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24197,6 +24414,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>46</bBuddy1>
 		<bBuddy2>47</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24304,6 +24522,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
 		<bNewSkillTrait3>22</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24411,6 +24630,7 @@
 		<bNewSkillTrait1>4</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>222</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24518,6 +24738,7 @@
 		<bNewSkillTrait1>15</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>22</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>182</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24625,6 +24846,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>242</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24729,9 +24951,10 @@
 		<fRegresses>0</fRegresses>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>9</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>23</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait3>20</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>59</bBuddy1>
 		<bBuddy2>60</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24839,6 +25062,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>6</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>243</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -24946,6 +25170,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>18</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25053,6 +25278,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25160,6 +25386,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>27</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25267,6 +25494,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>29</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25373,7 +25601,8 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>4</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25481,6 +25710,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
 		<bNewSkillTrait3>21</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>240</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25588,6 +25818,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>1</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25695,6 +25926,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>225</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25802,6 +26034,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>252</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -25909,6 +26142,7 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>22</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>236</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26016,6 +26250,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26123,6 +26358,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>11</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26229,7 +26465,8 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>21</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>230</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26337,6 +26574,7 @@
 		<bNewSkillTrait1>20</bNewSkillTrait1>
 		<bNewSkillTrait2>20</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26444,6 +26682,7 @@
 		<bNewSkillTrait1>20</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>20</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>248</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26551,6 +26790,7 @@
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>15</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>63</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26658,6 +26898,7 @@
 		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26765,6 +27006,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>245</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26872,6 +27114,7 @@
 		<bNewSkillTrait1>19</bNewSkillTrait1>
 		<bNewSkillTrait2>21</bNewSkillTrait2>
 		<bNewSkillTrait3>22</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -26979,6 +27222,7 @@
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>4</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>183</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -27086,6 +27330,7 @@
 		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -27193,6 +27438,7 @@
 		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -27300,6 +27546,7 @@
 		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -27407,6 +27654,7 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait4>0</bNewSkillTrait4>
 		<bBuddy1>0</bBuddy1>
 		<bBuddy2>0</bBuddy2>
 		<bBuddy3>0</bBuddy3>
