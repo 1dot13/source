@@ -1,11 +1,25 @@
-You can find additional 1.13 Documents (Modding-Examples, Tools, ...) which are useful for 1.13 Modders in the following SVN Location: 
-https://ja2svn.mooo.com/source/ja2/trunk/Documents/
+Official 1.13 development at gitHub
+
+https://github.com/1dot13
+
+
+Where to get latest 1.13:
+-------------------------
+
+Official 1.13-releases (latest 1.13 version, available in multiple languages)
+
+https://github.com/1dot13/source/releases
+
+
+Where to get starting informations:
+-----------------------------------
 
 1.13 Starter Documentation
-https://github.com/aimnas/1.13_starter_documentation
+https://github.com/1dot13/documentation
 
 How to get: latest 1.13, 7609, feature-descriptions and more
-http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=361643&#msg_361643
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=24648&start=0&
+
 
 Where to read about new game features:
 --------------------------------------
@@ -18,13 +32,49 @@ http://thepit.ja-galaxy-forum.com/index.php?t=thread&frm_id=283&
 Trunk AI and improvements
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=24289
 
+
 Where to post found bugs:
 -------------------------
-Bugs: Unofficial releases (SCI's), unstable and DEV builds
+Forum:
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=22776&start=0&
 
-Official 1.13 svn links:
-------------------------
+Discord:
+https://discord.com/channels/348449397308391426/821085354009952307
+
+GitHub:
+https://github.com/1dot13/source/issues
+https://github.com/1dot13/gamedir/issues
+
+
+Bear's Pit Discord:
+-------------------
+https://discord.gg/GqrVZUM
+
+_________________________________________________________________________________
+
+*********************************************************************************
+the official 1.13 development has been moved from svn to gitHub (link see at top)
+*********************************************************************************
+
+the svn, as previous development environment, was already temporarily down in 2022 
+and since gitHub was considered the superior development environment the move was made
+
+so take the following links with a pinch of salt, svn can go down for good anytime
+and it has seen no updates after late 2022
+
+kept them for the time being to keep them available for interested parties
+
+1.13 svn links:
+---------------
 Source: https://ja2svn.mooo.com/source/ja2/trunk/GameSource/ja2_v1.13
 Gamedir: https://ja2svn.mooo.com/source/ja2_v1.13_data/GameDir
 Language specific: https://ja2svn.mooo.com/source/ja2/trunk/GameData/
+
+
+Additional 1.13 documets on svn:
+--------------------------------
+You can find additional 1.13 Documents (Modding-Examples, Tools, ...) which are useful for 1.13 Modders in the following SVN Location: 
+https://ja2svn.mooo.com/source/ja2/trunk/Documents/
+
+
+21.08.2023
