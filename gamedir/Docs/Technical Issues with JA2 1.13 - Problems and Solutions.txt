@@ -1,3 +1,42 @@
+*********************************************************************************
+A note on the following links:
+
+The latest 1.13 releases includes "cnc-ddraw" (by FunkyFr3sh) 
+
+It should be helpfull to solve most, if not all, performance issues 
+
+Inside the main-folder (where ja2.exe is), there is an app called
+
+"cnc-ddraw config.exe" 
+
+running this, you can choose setings for 
+
+fullscreen/borderless window, alt-tab, shaders, renders, fps, and more
+
+Using this should fix performance/graphic issues on modern OS (like Win10, etc)
+
+You can of course try the following links and/or the Win7-10-fix instead,
+
+but it seemed worth mentioning here that there is a probably more convinient way
+
+cnc-ddraw is already included, but here's a link
+
+https://github.com/FunkyFr3sh/cnc-ddraw
+
+(no need to download again, just for transparency)
+
+If there are questions about it, try to ask at Bear's pit discord or forum
+
+forum:
+http://thepit.ja-galaxy-forum.com/
+
+discord:
+https://discord.gg/GqrVZUM
+
+(Date of note: 21.08.2023)
+
+*********************************************************************************
+
 -------------------------------------------------------
 Any technical problems running JA2 1.13?
 Check out the following threads on the Bears Pit Forum!
