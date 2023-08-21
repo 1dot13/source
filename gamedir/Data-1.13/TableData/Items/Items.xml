@@ -199,6 +199,7 @@
 		<emptybloodbag>0</emptybloodbag>
 		<medicalsplint>0</medicalsplint>
 		<sFireResistance>0</sFireResistance>
+		<usAdministrationModifier>0</usAdministrationModifier>
 		<RobotDamageReduction>1.0</RobotDamageReduction>
 		<RobotStrBonus>0</RobotStrBonus>
 		<RobotAgiBonus>0</RobotAgiBonus>
@@ -32065,6 +32066,7 @@
 		<Electronic>1</Electronic>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<usHackingModifier>50</usHackingModifier>
+		<usAdministrationModifier>20</usAdministrationModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
