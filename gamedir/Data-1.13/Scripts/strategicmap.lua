@@ -660,7 +660,7 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 				-- dont spawn in deep water (B14) 
 				if (sSectorX == 14 and sSectorY == 2) then
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
-				-- dont spawn in bush (B2) 
+				-- dont spawn in bush (B8) 
 				elseif 	(sSectorX == 8 and sSectorY == 2) then
 				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13239, hostile)
 				-- dont spawn in cornfield (B12)
@@ -687,7 +687,7 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 				-- dont spawn in deep water (B14) 
 				if (sSectorX == 14 and sSectorY == 2) then
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
-				-- dont spawn in bush (B2) 
+				-- dont spawn in bush (B8) 
 				elseif 	(sSectorX == 8 and sSectorY == 2) then
 				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13239, hostile)
 				-- dont spawn in cornfield (B12)
