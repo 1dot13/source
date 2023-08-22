@@ -4,10 +4,10 @@
 -->
 <ExtraItems>
    <Item>
-      <uiIndex>201</uiIndex>
-      <quantity>2</quantity>
+      <uiIndex>257</uiIndex>
+      <quantity>1</quantity>
       <condition>100</condition>
-      <gridno>14469</gridno>
+      <gridno>18174</gridno>
       <visible>1</visible>
    </Item>
 </ExtraItems>
