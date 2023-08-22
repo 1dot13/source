@@ -10,8 +10,8 @@ XML filename format:
 \tabledata\Map\ExtraItems\[SectorGrid]_[ZLevel]_ExtraItems_[DifficultyName].xml
 
 Examples:
-\TableData\Map\A9_0_ExtraItems_Novice.xml	-> for entering the A9 surface sector (Omerta) when playing novice difficulty.
-\TableData\Map\D13_1_ExtraItems_Expert.xml	-> for entering the first level of the Drassen Mine on Expert difficulty.
+\TableData\Map\ExtraItems\A9_0_ExtraItems_Novice.xml	-> for entering the A9 surface sector (Omerta) when playing novice difficulty.
+\TableData\Map\ExtraItems\D13_1_ExtraItems_Expert.xml	-> for entering the first level of the Drassen Mine on Expert difficulty.
 
 The following "DifficultyNames" are valid:
 
