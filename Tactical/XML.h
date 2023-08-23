@@ -157,8 +157,8 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define HELISITESFILENAME						"Map\\HeliSites.xml"
-#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
-#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME						"Map\\ExtraItems\\A9_0_ExtraItems"	// ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME2						"Map\\ExtraItems\\A11_0_ExtraItems" // ".xml" will be added @runtime
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
