@@ -20,6 +20,7 @@
 #include <iterator>
 #include "GameSettings.h"	// added by Flugente
 #include "Disease.h"		// added by Flugente
+#include <functional>
 
 #define PTR_CIVILIAN	(pSoldier->bTeam == CIV_TEAM)
 #define PTR_CROUCHED	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH)
@@ -1656,6 +1657,10 @@ public:
 	UINT8	ubQuickItemSlot;
 
 	UINT16	usGrenadeItem;
+
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	std::function<void()> delayedDamageFunction;
+
 public:
 	// CREATION FUNCTIONS
 	BOOLEAN DeleteSoldier( void );
@@ -1719,6 +1724,9 @@ public:
 	void ReviveSoldier( void );
 	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	void SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage);
+	void ResolveDelayedDamage();
 
 	// Palette functions for soldiers
 	BOOLEAN CreateSoldierPalettes( void );
