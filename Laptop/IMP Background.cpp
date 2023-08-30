@@ -16,6 +16,7 @@
 	#include "soldier profile type.h"
 	#include "IMP Compile Character.h"
 	#include "IMP Disability Trait.h"
+    #include "IMP Character Trait.h"
 	#include "GameSettings.h"
 	#include "Interface.h"
 
@@ -708,7 +709,7 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 		break;
 	}
 
-	switch ( iAttitude )
+	switch ( iChosenCharacterTrait() )
 	{
 	case CHAR_TRAIT_SOCIABLE:
 		if ( zBackground[ ubNumber ].uiFlags & BACKGROUND_XENOPHOBIC )
