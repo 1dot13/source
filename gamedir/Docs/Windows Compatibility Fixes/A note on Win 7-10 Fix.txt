@@ -1,0 +1,10 @@
+Latest 1.13 releases include cnc-ddraw (by FunkyFr3sh)
+
+Using this should also help to solve preformance/graphic issues when running 1.13 on modern OS
+
+No need to download it again (already included in latest 1.13-releases), 
+but here's the link to it for transparency reasons
+
+https://github.com/FunkyFr3sh/cnc-ddraw
+
+21.08.2023

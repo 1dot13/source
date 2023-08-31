@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   see the ExtraSectorItems-Readme.txt for details 
+-->
+<ExtraItems>
+   <Item>
+      <uiIndex>112</uiIndex>
+      <quantity>5</quantity>
+      <condition>100</condition>
+      <gridno>12413</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>123</uiIndex>
+      <quantity>4</quantity>
+      <condition>100</condition>
+      <gridno>12413</gridno>
+      <visible>1</visible>
+   </Item>
+</ExtraItems>

@@ -657,9 +657,16 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			13032, hostile)
 				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			19291, hostile)
 				
-				-- dont spawn in deep water
+				-- dont spawn in deep water (B14) 
 				if (sSectorX == 14 and sSectorY == 2) then
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
+				-- dont spawn in bush (B8) 
+				elseif 	(sSectorX == 8 and sSectorY == 2) then
+				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13239, hostile)
+				-- dont spawn in cornfield (B12)
+				elseif 	(sSectorX == 12 and sSectorY == 2) then
+				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13860, hostile)
+				-- spawn at common GridNo in all other possible sectors
 				else
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13557, hostile)
 				end
@@ -677,9 +684,16 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			13032, hostile)
 				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			19291, hostile)
 				
-				-- dont spawn in deep water
+				-- dont spawn in deep water (B14) 
 				if (sSectorX == 14 and sSectorY == 2) then
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
+				-- dont spawn in bush (B8) 
+				elseif 	(sSectorX == 8 and sSectorY == 2) then
+				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13239, hostile)
+				-- dont spawn in cornfield (B12)
+				elseif 	(sSectorX == 12 and sSectorY == 2) then
+				    CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13860, hostile)
+				-- spawn at common GridNo in all other possible sectors		
 				else
 					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13557, hostile)
 				end
