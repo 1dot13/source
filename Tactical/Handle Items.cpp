@@ -279,7 +279,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	{
 		pTargetSoldier = MercPtrs[ usSoldierIndex ];
 
-		if ( fFromUI )
+		// anv: don't try to heal interactive spots
+		if (fFromUI && Item[usHandItem].usItemClass != IC_MEDKIT)
 		{
 			INT32 sInteractiveGridNo;
 
@@ -325,6 +326,13 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	{
 		if (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral)
 		{
+			// anv: don't try to attack yourself, it will only cause deadlock
+			if (pSoldier == pTargetSoldier)
+			{
+				TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+				return(ITEM_HANDLE_REFUSAL);
+			}
+
 			// nice mercs won't shoot other nice guys or neutral civilians
 			if ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) &&
 				((pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->aiData.bNeutral && pTargetSoldier->ubBodyType != CROW) ||

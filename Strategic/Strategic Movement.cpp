@@ -1951,33 +1951,33 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			SectorInfo[SECTOR( pGroup->ubSectorX, pGroup->ubSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
 		}
 
-		// award life 'experience' for travelling, based on travel time!
-		if ( !pGroup->fVehicle )
+		// Flugente: do not award experience gain if we never left
+		if (!fNeverLeft)
 		{
-			// Flugente: do not award experience gain if we never left
-			if ( !fNeverLeft )
+			// award life 'experience' for travelling, based on travel time!
+			if (!pGroup->fVehicle)
 			{
 				// gotta be walking to get tougher
-				AwardExperienceForTravelling( pGroup );
+				AwardExperienceForTravelling(pGroup);
 			}
-		}
-		else if( !IsGroupTheHelicopterGroup( pGroup ) )
-		{
-			SOLDIERTYPE *pSoldier;
-			INT32 iVehicleID;
-			iVehicleID = GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID );
-			AssertMsg( iVehicleID != -1, "GroupArrival for vehicle group. Invalid iVehicleID. " );
-
-			pSoldier = GetSoldierStructureForVehicle( iVehicleID );
-			AssertMsg( pSoldier, "GroupArrival for vehicle group. Invalid soldier pointer." );
-
-			SpendVehicleFuel( pSoldier, (INT16)(pGroup->uiTraverseTime*6) );
-
-			if( !VehicleFuelRemaining( pSoldier ) )
+			else if (!IsGroupTheHelicopterGroup(pGroup))
 			{
-				ReportVehicleOutOfGas( iVehicleID, pGroup->ubSectorX, pGroup->ubSectorY );
-				//Nuke the group's path, so they don't continue moving.
-				ClearMercPathsAndWaypointsForAllInGroup( pGroup );
+				SOLDIERTYPE* pSoldier;
+				INT32 iVehicleID;
+				iVehicleID = GivenMvtGroupIdFindVehicleId(pGroup->ubGroupID);
+				AssertMsg(iVehicleID != -1, "GroupArrival for vehicle group. Invalid iVehicleID. ");
+
+				pSoldier = GetSoldierStructureForVehicle(iVehicleID);
+				AssertMsg(pSoldier, "GroupArrival for vehicle group. Invalid soldier pointer.");
+
+				SpendVehicleFuel(pSoldier, (INT16)(pGroup->uiTraverseTime * 6));
+
+				if (!VehicleFuelRemaining(pSoldier))
+				{
+					ReportVehicleOutOfGas(iVehicleID, pGroup->ubSectorX, pGroup->ubSectorY);
+					//Nuke the group's path, so they don't continue moving.
+					ClearMercPathsAndWaypointsForAllInGroup(pGroup);
+				}
 			}
 		}
 	}

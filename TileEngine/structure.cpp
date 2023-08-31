@@ -1914,10 +1914,10 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ tmpgridno ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
-			// handle structure revenge - damage to vehicle
+			// handle structure revenge - damage to vehicle - to be resolved after movement
 			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !ARMED_VEHICLE( MercPtrs[ubOwner] ) )
 			{
-				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
+				MercPtrs[ubOwner]->SoldierTakeDelayedDamage(0, Random(max(0,(ubBaseArmour-10)/5)) + max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE);
 			}
 			
 			// recompile = TRUE means that we destroyed something
