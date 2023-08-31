@@ -5708,7 +5708,7 @@ UINT32 MapScreenHandle(void)
 		HandleCharBarRender( );
 	}
 
-	if( (fShowInventoryFlag && !isWidescreenUI()) || fDisableDueToBattleRoster )
+	if( ( fShowInventoryFlag || fDisableDueToBattleRoster ) && !isWidescreenUI() )
 	{
 		for( iCounter = 0; iCounter < MAX_SORT_METHODS; iCounter++ )
 		{
@@ -5823,9 +5823,6 @@ UINT32 MapScreenHandle(void)
 	}
 
 	HandleContractRenewalSequence( );
-
-	// handle dialog
-	HandleDialogue( );
 
 	// handle display of inventory pop up
 	// HEADROCK HAM 3.5: Externalize!
@@ -6065,6 +6062,8 @@ UINT32 MapScreenHandle(void)
 	//InvalidateRegion( 0,0, 640, 480);
 	EndFrameBufferRender( );
 
+	// handle dialog
+	HandleDialogue();
 
 	// if not going anywhere else
 	if ( guiPendingScreen == NO_PENDING_SCREEN )
@@ -7225,14 +7224,29 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case PGUP:
-					// WANNE: Jump to first merc in list
-					fResetMapCoords = TRUE;
-					GoToFirstCharacterInList( );
+					if (gfPreBattleInterfaceActive)
+					{
+						ScrollPreBattleInterface(TRUE);
+					}
+					else
+					{
+						// WANNE: Jump to first merc in list
+						fResetMapCoords = TRUE;
+						GoToFirstCharacterInList();
+					}
+
 					break;
 				case PGDN:
-					// WANNE: Jump to last merc in list
-					fResetMapCoords = TRUE;
-					GoToLastCharacterInList( );
+					if (gfPreBattleInterfaceActive)
+					{
+						ScrollPreBattleInterface(FALSE);
+					}
+					else
+					{
+						// WANNE: Jump to last merc in list
+						fResetMapCoords = TRUE;
+						GoToLastCharacterInList();
+					}
 					break;
 
 				case SHIFT_PGUP:
@@ -10927,6 +10941,10 @@ void BlitBackgroundToSaveBuffer( void )
 		ForceButtonUnDirty( giMapContractButton );
 		ForceButtonUnDirty( giCharInfoButton[ 0 ] );
 		ForceButtonUnDirty( giCharInfoButton[ 1 ] );
+		if (isWidescreenUI())
+		{
+			ForceButtonUnDirty(giMapInvDoneButton);
+		}
 		RenderPreBattleInterface();
 	}
 
