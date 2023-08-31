@@ -17,6 +17,7 @@
 	#include "IMP Compile Character.h"
 	#include "IMP Disability Trait.h"
     #include "IMP Character Trait.h"
+    #include "IMP Minor Trait.h"
 	#include "GameSettings.h"
 	#include "Interface.h"
 
@@ -602,6 +603,11 @@ void ResetDisplaySkills()
 
 extern INT32 SkillsList[ ATTITUDE_LIST_SIZE ];
 
+extern BOOLEAN	gfSkillTraitQuestions[20];
+extern BOOLEAN	gfSkillTraitQuestions2[20];
+
+extern BOOLEAN	gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS];
+
 BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 {
 	if ( !ubNumber  )
@@ -613,6 +619,122 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 	else if ( !fCharacterIsMale && zBackground[ ubNumber ].uiFlags & BACKGROUND_NO_FEMALE )
 		return FALSE;
 
+	/* kitty: fixed following skillcheck
+	* the previous used "SkillList" and the after-remap naming convention (i.e. DOCTOR_NT) didn't work in this place/point of character creation
+	* left the out-commented previous code for reference and potential rollback
+	* used distinctive single and dual trait for major traits to allow for possible future finetuning by trait level
+	* 2023/08/30
+	*/
+
+	// major traits  (single-trait and dual-trait)
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS])
+		{
+			if (zBackground[ubNumber].value[BG_ARTILLERY] > 0) //dual trait (expert)
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_ARTILLERY] > 0) //single trait
+				return FALSE;
+		}
+	}
+
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER])
+		{
+			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0)  //dual trait (expert)
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0)  //single trait
+				return FALSE;
+		}
+	}
+
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS])
+		{
+			if (zBackground[ubNumber].value[BG_PERC_DAMAGE_MELEE] < 0)  //dual trait (expert)
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_PERC_DAMAGE_MELEE] < 0)  //single trait
+				return FALSE;
+		}
+	}
+
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN])
+		{
+			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  //dual trait (expert)
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  //single trait
+				return FALSE;
+		}
+	}
+
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR])
+		{
+			if (zBackground[ubNumber].value[BG_MEDICAL] < 0)  //dual trait (expert)
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_MEDICAL] < 0)  //single trait
+				return FALSE;
+		}
+	}
+
+	// minor traits (single trait only)
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_MELEE])
+	{
+		if (zBackground[ubNumber].value[BG_PERC_CTH_BLADE] < 0) //single trait
+			return FALSE;
+	}
+
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_STEALTHY])
+	{
+		if (zBackground[ubNumber].value[BG_PERC_STEALTH] < 0)
+			return FALSE;
+	}
+
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_ATHLETICS])
+	{
+		if (zBackground[ubNumber].value[BG_PERC_SPEED_RUNNING] < 0)
+			return FALSE;
+	}
+
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_DEMOLITIONS])
+	{
+		if (zBackground[ubNumber].value[BG_EXPLOSIVE_ASSIGN] < 0)
+			return FALSE;
+	}
+
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_SURVIVAL])
+	{
+		if (zBackground[ubNumber].value[BG_PERC_CAMO] < 0)
+			return FALSE;
+	}
+
+	/* previous code for reference
+	*
 	if ( SkillsList[0] == HEAVY_WEAPONS_NT || SkillsList[1] == HEAVY_WEAPONS_NT || SkillsList[2] == HEAVY_WEAPONS_NT )
 	{
 		if ( zBackground[ ubNumber ].value[BG_ARTILLERY] > 0 )
@@ -672,11 +794,18 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 		if ( zBackground[ ubNumber ].value[BG_EXPLOSIVE_ASSIGN] < 0 )
 			return FALSE;
 	}
+	*/
+
+	/*kitty:
+	* added BG_TROPICAL to case HEAT_INTOLERANT - since tropical sector also is part of "MercIsHot"+HEAT_INTOLERANT (SoldierProfile.cpp), like desert
+	* added case DEAF - if merc is deaf, granting any bonus to hearing seems implausible
+	* 2023/08/30
+	*/
 
 	switch ( iChosenDisabilityTrait() )
 	{
 	case HEAT_INTOLERANT:
-		if ( zBackground[ ubNumber ].value[BG_DESERT] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_DESERT] > 0 || zBackground[ ubNumber ].value[BG_TROPICAL] > 0 )
 			return FALSE;
 		break;
 	case NERVOUS:
@@ -701,8 +830,12 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
 			return FALSE;
 		break;
+	case DEAF:
+		if (zBackground[ ubNumber ].value[BG_PERC_HEARING_NIGHT] > 0 || zBackground[ ubNumber ].value[BG_PERC_HEARING_DAY] > 0)
+			return FALSE;
+		break;
 	case AFRAID_OF_HEIGHTS:
-		if ( zBackground[ubNumber].value[BG_HEIGHT] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_HEIGHT] > 0 )
 			return FALSE;
 		break;
 	default:
