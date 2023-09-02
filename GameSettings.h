@@ -781,6 +781,7 @@ typedef struct
 	INT32 ubEnemiesItemDrop;
 
 	BOOLEAN	gfUseExternalLoadscreens;
+	UINT32 ubLoadscreenStretchMode;    // added by anv
 	BOOLEAN gfUseLoadScreenHints;		// added by Flugente
 	UINT32	ubAdditionalDelayUntilLoadScreenDisposal;		// added by WANNE to have time to read the load screen hints
 

@@ -14,6 +14,7 @@
 	#include "WordWrap.h"
 	#include "Message.h"
 	#include "Text.h"
+	#include "Loading Screen.h"
 
 double rStart, rEnd;
 double rActual;
@@ -63,10 +64,31 @@ void CreateLoadingScreenProgressBar(BOOLEAN resetLoadScreenHint)
 	//		CreateProgressBar(0, 259 + ((SCREEN_WIDTH - 1024) / 2), 683 + ((SCREEN_HEIGHT - 768) / 2), 767 + ((SCREEN_WIDTH - 1024) / 2), 708 + ((SCREEN_HEIGHT - 768) / 2));
 	//	}
 	//}
-	
 
-	CreateProgressBar(0, SCREEN_WIDTH*162/640, SCREEN_HEIGHT*427/480, SCREEN_WIDTH*480/640, SCREEN_HEIGHT*443/480);
+	FLOAT fScreenAspectRatio = (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT;
 
+	if (gGameExternalOptions.ubLoadscreenStretchMode == 1 ||
+		(gGameExternalOptions.ubLoadscreenStretchMode == 2 && fLoadingScreenAspectRatio > fScreenAspectRatio))			
+	{
+		// match height, preserve aspect ratioernalOptions.ubLoadscreenStretchMode == 2 && fLoadingScreenAspectRatio > fScreenAspectRatio))
+		INT32 iCalculatedWidth = (INT32)(SCREEN_HEIGHT * fLoadingScreenAspectRatio + 0.5f);
+
+		UINT16 usLeft = (UINT16)((SCREEN_WIDTH - iCalculatedWidth) / 2 + (iCalculatedWidth * 162.0f / 640.0f) + 0.5f);
+		UINT16 usTop = (UINT16)((SCREEN_HEIGHT * 427.0f / 480.0f) + 0.5f);
+		UINT16 usRight = (UINT16)((SCREEN_WIDTH - iCalculatedWidth) / 2 + (iCalculatedWidth * 478.0f / 640.0f) + 0.5f);
+		UINT16 usBottom = (UINT16)((SCREEN_HEIGHT * 443.0f / 480.0f) + 0.5f);
+
+		CreateProgressBar(0, usLeft, usTop, usRight, usBottom);
+	}
+	else
+	{
+		UINT16 usLeft = (UINT16)((SCREEN_WIDTH * 162.0f / 640.0f) + 0.5f);
+		UINT16 usTop = (UINT16)((SCREEN_HEIGHT * 427.0f / 480.0f) + 0.5f);
+		UINT16 usRight = (UINT16)((SCREEN_WIDTH * 478.0f / 640.0f) + 0.5f);
+		UINT16 usBottom = (UINT16)((SCREEN_HEIGHT * 443.0f / 480.0f) + 0.5f);
+
+		CreateProgressBar(0, usLeft, usTop, usRight, usBottom);
+	}
 
 	SetProgressBarUseBorder(0, FALSE );
 }
@@ -334,6 +356,8 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 	pCurr->rStart = (double)uiRelStartPerc*0.01f;
 	pCurr->rEnd = (double)uiRelEndPerc*0.01f;
 
+	UINT8 yTextOffset = (UINT8)(3.0f * SCREEN_HEIGHT / 480.0f + 0.5f);
+
 	//Render the entire panel now, as it doesn't need update during the normal rendering
 	if( pCurr->fPanel )
 	{
@@ -352,7 +376,7 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 			usStartX = pCurr->usPanelLeft +																					// left position
 								(pCurr->usPanelRight - pCurr->usPanelLeft)/2 -								// + half width
 								StringPixLength( pCurr->swzTitle, pCurr->usTitleFont ) / 2;	// - half string width
-			usStartY = pCurr->usPanelTop + 3;
+			usStartY = pCurr->usPanelTop + yTextOffset;
 			SetFont( pCurr->usTitleFont );
 			SetFontForeground( pCurr->ubTitleFontForeColor );
 			SetFontShadow( pCurr->ubTitleFontShadowColor );
@@ -370,21 +394,21 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 			{
 				UINT16 usFontHeight = GetFontHeight( pCurr->usMsgFont );
 
-				RestoreExternBackgroundRect( pCurr->usBarLeft, pCurr->usBarBottom, (INT16)(pCurr->usBarRight-pCurr->usBarLeft), (INT16)(usFontHeight + 3) );
+				RestoreExternBackgroundRect( pCurr->usBarLeft, pCurr->usBarBottom, (INT16)(pCurr->usBarRight-pCurr->usBarLeft), (INT16)(usFontHeight + yTextOffset) );
 			}
 
 			SetFont( pCurr->usMsgFont );
 			SetFontForeground( pCurr->ubMsgFontForeColor );
 			SetFontShadow( pCurr->ubMsgFontShadowColor );
 			SetFontBackground( 0 );
-			mprintf( pCurr->usBarLeft, pCurr->usBarBottom + 3, str );
+			mprintf( pCurr->usBarLeft, pCurr->usBarBottom + yTextOffset, str );
 		}
 	}
 
 	// Flugente: loadscreen hints
 	if (gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint )
 	{		
-		ShowLoadScreenHintInLoadScreen(pCurr->usBarBottom + 3 - 100);		
+		ShowLoadScreenHintInLoadScreen(pCurr->usBarBottom + yTextOffset - 100);
 	}
 }
 
@@ -408,25 +432,24 @@ void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 
 	if( pCurr )
 	{
-		rActual = pCurr->rStart+(pCurr->rEnd-pCurr->rStart)*uiPercentage*0.01;
+		rActual = pCurr->rStart + (pCurr->rEnd - pCurr->rStart) * uiPercentage * 0.01;
 
-		if( fabs(rActual - pCurr->rLastActual) < 0.01 )
+		pCurr->rLastActual = (DOUBLE)((INT32)(std::round(rActual * 100)) * 0.01);
+
+		end = (INT32)(pCurr->usBarLeft + std::round(rActual * (pCurr->usBarRight - pCurr->usBarLeft)));
+		if (end < pCurr->usBarLeft)
 		{
-			return;
+			end = pCurr->usBarLeft;
 		}
-
-		pCurr->rLastActual = ( DOUBLE )( ( INT32)( rActual * 100 ) * 0.01 );
-
-		end = (INT32)(pCurr->usBarLeft+2.0+rActual*(pCurr->usBarRight-pCurr->usBarLeft-4));
-		if( end < pCurr->usBarLeft+2 || end > pCurr->usBarRight-2 )
+		else if (end > pCurr->usBarRight)
 		{
-			return;
+			end = pCurr->usBarRight;
 		}
 		if( !pCurr->fDrawBorder )
 		{
 			ColorFillVideoSurfaceArea( pCurr->uiFrameBuffer, //FRAME_BUFFER,
 				pCurr->usBarLeft, pCurr->usBarTop, end, pCurr->usBarBottom,
-				Get16BPPColor(FROMRGB( pCurr->ubColorFillRed, pCurr->ubColorFillGreen, pCurr->ubColorFillBlue )) );
+				Get16BPPColor(FROMRGB(pCurr->ubColorFillRed, pCurr->ubColorFillGreen, pCurr->ubColorFillBlue)));
 			//if( pCurr->usBarRight > gusLeftmostShaded )
 			//{
 			//	ShadowVideoSurfaceRect( FRAME_BUFFER, gusLeftmostShaded+1, pCurr->usBarTop, end, pCurr->usBarBottom );
@@ -493,7 +516,7 @@ void SetProgressBarTextDisplayFlag( UINT8 ubID, BOOLEAN fDisplayText, BOOLEAN fU
 	//if we are to use the save buffer, blit the portion of the screen to the save buffer
 	if( fSaveScreenToFrameBuffer )
 	{
-		UINT16 usFontHeight = GetFontHeight( pCurr->usMsgFont )+3;
+		UINT16 usFontHeight = GetFontHeight(pCurr->usMsgFont) + (UINT8)(3.0f * SCREEN_HEIGHT / 480.f + 0.5f);
 
 		//blit everything to the save buffer ( cause the save buffer can bleed through )
 		BlitBufferToBuffer(guiRENDERBUFFER, guiSAVEBUFFER, pCurr->usBarLeft, pCurr->usBarBottom, (UINT16)(pCurr->usBarRight-pCurr->usBarLeft), usFontHeight );
