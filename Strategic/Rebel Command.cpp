@@ -4429,7 +4429,8 @@ void SetupInfo()
 				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
 				{
 					// coolness runs from 1-10, so apply offset
-					ItemIdCache::ammo[Item[i].ubCoolness-1].push_back(i);
+					const UINT8 coolness = min(max(1, Item[i].ubCoolness), 10);
+					ItemIdCache::ammo[coolness-1].push_back(i);
 				}
 			}
 		}
