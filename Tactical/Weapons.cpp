@@ -7479,7 +7479,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	}
 	else
 	{
-		INT16 moda = GetToHitBonus(pInHand, iRange, bLightLevel, stance && iRange > MIN_PRONE_RANGE);
+		INT16 moda = GetToHitBonus(pInHand, iRange, bLightLevel, stance == ANIM_PRONE && iRange > MIN_PRONE_RANGE);
 		INT16 modb = GetToHitBonus(pInHand, iRange, bLightLevel, gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && iRange > MIN_PRONE_RANGE);
 		iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb) / 100);
 	}
