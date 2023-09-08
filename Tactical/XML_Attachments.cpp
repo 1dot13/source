@@ -20,6 +20,8 @@ struct
 }
 typedef attachmentParseData;
 
+UINT32 gMAXATTACHMENTS_READ = 0;
+
 static void XMLCALL
 attachmentStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -93,9 +95,9 @@ attachmentEndElementHandle(void *userData, const XML_Char *name)
 			if(pData->curIndex < pData->maxArraySize)
 			{
 				//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"AttachmentStartElementHandle: writing attachment to array");
-				Attachment[pData->curIndex][0] = pData->curAttachment[0]; //write the attachment into the table
-				Attachment[pData->curIndex][1] = pData->curAttachment[1];
-				Attachment[pData->curIndex][2] = pData->curAttachment[2];
+				Attachment[pData->curIndex].attachmentIndex = pData->curAttachment[0]; //write the attachment into the table
+				Attachment[pData->curIndex].itemIndex = pData->curAttachment[1];
+				Attachment[pData->curIndex].APCost = pData->curAttachment[2];
 			}
 		}
 		else if(strcmp(name, "attachmentIndex") == 0)
@@ -127,7 +129,25 @@ attachmentEndElementHandle(void *userData, const XML_Char *name)
 }
 
 
+static void MapAttachments()
+{
+	std::list<AttachmentStruct> stdList;
+	std::list<AttachmentStruct>::iterator it;
+	UINT32 i = 0;
 
+	for (i = 0; i < gMAXATTACHMENTS_READ; i++)
+	{
+		stdList.push_back(Attachment[i]);
+		AttachmentBackmap.insert(std::make_pair(Attachment[i].itemIndex, Attachment[i]));
+	}
+
+	stdList.sort();
+
+	for (it = stdList.begin(), i = 0; it != stdList.end(); it++, i++)
+	{
+		Attachment[i] = *it;
+	}
+}
 
 BOOLEAN ReadInAttachmentStats(STR fileName)
 {
@@ -171,7 +191,6 @@ BOOLEAN ReadInAttachmentStats(STR fileName)
 
 	XML_SetUserData(parser, &pData);
 
-
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
@@ -183,13 +202,15 @@ BOOLEAN ReadInAttachmentStats(STR fileName)
 		return FALSE;
 	}
 
+	gMAXATTACHMENTS_READ = pData.curIndex + 1;
+	MapAttachments();
+
 	MemFree(lpcBuffer);
-
-
 	XML_ParserFree(parser);
 
 	return( TRUE );
 }
+
 BOOLEAN WriteAttachmentStats()
 {
 	HWFILE		hFile;
@@ -208,10 +229,10 @@ BOOLEAN WriteAttachmentStats()
 		{
 			FilePrintf(hFile,"\t<ATTACHMENT>\r\n");
 
-			FilePrintf(hFile,"\t\t<attachmentIndex>%d</attachmentIndex>\r\n",						Attachment[cnt][0]);
-			FilePrintf(hFile,"\t\t<itemIndex>%d</itemIndex>\r\n",							Attachment[cnt][1]);
-			FilePrintf(hFile,"\t\t<APCost>%d</APCost>\r\n",							Attachment[cnt][2]);
-			FilePrintf(hFile,"\t\t<NASOnly>%d</NASOnly>\r\n",							Attachment[cnt][3]);
+			FilePrintf(hFile,"\t\t<attachmentIndex>%d</attachmentIndex>\r\n",						Attachment[cnt].attachmentIndex);
+			FilePrintf(hFile,"\t\t<itemIndex>%d</itemIndex>\r\n",							Attachment[cnt].itemIndex);
+			FilePrintf(hFile,"\t\t<APCost>%d</APCost>\r\n",							Attachment[cnt].APCost);
+			FilePrintf(hFile,"\t\t<NASOnly>%d</NASOnly>\r\n",							Attachment[cnt].NASOnly);
 
 			FilePrintf(hFile,"\t</ATTACHMENT>\r\n");
 		}

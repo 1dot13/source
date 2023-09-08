@@ -568,6 +568,7 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj );
 UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier );
 
 void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments=TRUE);//dnl ch75 261013
+BOOLEAN FindAttachmentRange(UINT16 usAttachment, UINT32* pStartIndex, UINT32* pEndIndex);
 
 // Flugente: is this object useable by militia?
 BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj );
