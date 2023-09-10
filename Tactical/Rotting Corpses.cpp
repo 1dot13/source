@@ -2469,7 +2469,9 @@ void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot
 		OBJECTTYPE *pObj = &( pSoldier->inv[ iInvSlot ] );
 
 		// if it's ammo
-		if ( Item[ pObj->usItem ].usItemClass == IC_AMMO )
+		if ( Item[ pObj->usItem ].usItemClass == IC_AMMO
+		&& Magazine[Item[pObj->usItem].ubClassIndex].ubMagType != AMMO_BOX
+		&& Magazine[Item[pObj->usItem].ubClassIndex].ubMagType != AMMO_CRATE)
 		{
 			//don't drop all the clips, just a random # of them between 1 and how many there are
 			pObj->ubNumberOfObjects = ( UINT8 ) ( 1 + Random( pObj->ubNumberOfObjects ) );

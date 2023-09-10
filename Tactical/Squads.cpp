@@ -1700,7 +1700,20 @@ void CheckSquadMovementGroups( void )
 		for (INT8 iSoldier = 0; iSoldier < NUMBER_OF_SOLDIERS_PER_SQUAD; iSoldier++) {
 			if (Squad[iSquad][iSoldier] != NULL)
 			{
-				Squad[iSquad][iSoldier]->ubGroupID = pGroup->ubGroupID;
+				if (IsVehicle(Squad[iSquad][iSoldier]))
+				{
+					INT32 iCounter = 0;
+					for (iCounter = 0; iCounter < ubNumberOfVehicles; iCounter++)
+					{
+						if (pVehicleList[iCounter].ubProfileID == Squad[iSquad][iSoldier]->ubProfile)
+							break;
+					}
+					Squad[iSquad][iSoldier]->ubGroupID = pVehicleList[iCounter].ubMovementGroup;
+				}
+				else
+				{
+					Squad[iSquad][iSoldier]->ubGroupID = pGroup->ubGroupID;
+				}
 			}
 		}
 	}

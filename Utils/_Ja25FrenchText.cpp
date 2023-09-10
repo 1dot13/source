@@ -309,6 +309,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d de dégâts critiques, si vous lancez plusieurs couteaux\n",
 	L"Ajoute %d niveau(x) de visée pour lancer un couteau\n",
 	L"Ajoute %d niveau(x) de visée pour lancer un couteau\n",
+	L"-%d%s du nombre de PA nécessaire pour lancer une grenade\n",
+	L"+%d%s de la portée maximale d'une grenade\n",
+	L"+%d%s de chance de toucher votre cible avec une grenade\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -344,9 +347,6 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s du nombre de PA nécessaire pour lancer une grenade\n",
-	L"+%d%s de la portée maximale d'une grenade\n",
-	L"+%d%s de chance de toucher votre cible avec une grenade\n",
 	L"+%d%s de dégâts causés par un explosif ou une mine\n",
 	L"+%d%s pour contrôler un détonateur\n",
 	L"+%d%s pour placer/retirer un contrôleur d'explosif\n",

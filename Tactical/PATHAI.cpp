@@ -454,6 +454,11 @@ UINT32 guiFailedPathChecks = 0;
 UINT32 guiUnsuccessfulPathChecks = 0;
 #endif
 
+
+static auto canJumpFences(SOLDIERTYPE* pSoldier) -> bool {
+	return IS_MERC_BODY_TYPE(pSoldier) && pSoldier->CanClimbWithCurrentBackpack();
+}
+
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
@@ -638,7 +643,6 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 	fPathingForPlayer = ( (pSoldier->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(pSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( pSoldier ) );
 	fNonSwimmer = !( IS_MERC_BODY_TYPE( pSoldier ) );
 	fPathAroundPeople = ( (fFlags & PATH_THROUGH_PEOPLE) == 0 );
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
@@ -1454,268 +1458,6 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	return movementAPCost;
 }
 
-int AStarPathfinder::CalcG(int* pPrevCost)
-{
-	//how much is admission to the next tile
-	if ( gfPathAroundObstacles == false)
-	{
-		return TRAVELCOST_FLAT;
-	}
-
-
-	int nextCost = gubWorldMovementCosts[ CurrentNode ][ direction ][ onRooftop ];
-	*pPrevCost = nextCost;
-
-	//if we are holding down shift and finding a direct path, count non obstacles as flat terrain
-	if (gfPlotDirectPath && nextCost < NOPASS && nextCost != 0)
-	{
-		return TRAVELCOST_FLAT;
-	}
-
-	//performance: if nextCost is low then do not do many many if == checks
-	if ( nextCost >= TRAVELCOST_FENCE )
-	{
-		//ATE:	Check for differences from reality
-		// Is next cost an obstcale
-		if ( nextCost == TRAVELCOST_HIDDENOBSTACLE ) 
-		{
-			if ( fPathingForPlayer ) 
-			{
-				// Is this obstacle a hidden tile that has not been revealed yet?
-				BOOLEAN fHiddenStructVisible;
-				if( DoesGridNoContainHiddenStruct( CurrentNode, &fHiddenStructVisible ) ) 
-				{
-					// Are we not visible, if so use terrain costs!
-					if ( !fHiddenStructVisible )
-					{
-						// Set cost of terrain!
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-				}
-			}
-		}
-		else if ( nextCost == TRAVELCOST_NOT_STANDING )
-		{
-			// for path plotting purposes, use the terrain value
-			nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-		}
-		else if ( nextCost == TRAVELCOST_EXITGRID )
-		{
-			if (gfPlotPathToExitGrid)
-			{
-				// replace with terrain cost so that we can plot path, otherwise is obstacle
-				nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-			}
-		}
-
-		//ddd: window. { check 2 conditions: 1. if next tile is a window and we will have to hump through it
-		//2. if current tile is a window and we should jump through the window to reach another tile
-		else if ( nextCost == TRAVELCOST_JUMPABLEWINDOW
-			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_N
-			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_W)
-		{
-
-			// don't let anyone path diagonally through doors!
-			if (IsDiagonal(direction) == true)
-			{
-				return -1;
-			}
-			nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];//?
-
-		}
-		//ddd: window }
-
-		else if ( nextCost == TRAVELCOST_FENCE && fNonFenceJumper )
-		{
-			return -1;
-		}
-		else if ( IS_TRAVELCOST_DOOR( nextCost ) )
-		{
-			// don't let anyone path diagonally through doors!
-			if (IsDiagonal(direction) == true)
-			{
-				return -1;
-			}
-
-			INT32 iDoorGridNo = CurrentNode;
-			bool fDoorIsObstacleIfClosed = FALSE;
-			bool fDoorIsOpen = false;
-			switch( nextCost )
-			{
-				case TRAVELCOST_DOOR_CLOSED_HERE:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode;
-					break;
-				case TRAVELCOST_DOOR_CLOSED_N:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_CLOSED_W:
-					fDoorIsObstacleIfClosed = TRUE;
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_HERE:
-					iDoorGridNo = CurrentNode;
-					break;
-				case TRAVELCOST_DOOR_OPEN_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NE:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHEAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_E:
-					iDoorGridNo = CurrentNode + dirDelta[ EAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SE:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHEAST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_S:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SW:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHWEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_W:
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_N_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTH ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NE_N:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHEAST ] + dirDelta[ NORTH ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_W_W:
-					iDoorGridNo = CurrentNode + dirDelta[ WEST ] + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_SW_W:
-					iDoorGridNo = CurrentNode + dirDelta[ SOUTHWEST ] + dirDelta[ WEST ];
-					break;
-				case TRAVELCOST_DOOR_OPEN_NW_W:
-					iDoorGridNo = CurrentNode + dirDelta[ NORTHWEST ] + dirDelta[ WEST ];
-					break;
-				default:
-					break;
-			}
-
-			if ( fPathingForPlayer && gpWorldLevelData[ iDoorGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_DOOR_STATUS_PRESENT )
-			{
-				// check door status
-				DOOR_STATUS* pDoorStatus = GetDoorStatus( iDoorGridNo );
-				if (pDoorStatus)
-				{
-					fDoorIsOpen = (pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN) != 0;
-				}
-				else
-				{
-					// door destroyed?
-					nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-				}
-			}
-			else
-			{
-				// check door structure
-				STRUCTURE* pDoorStructure = FindStructure( iDoorGridNo, STRUCTURE_ANYDOOR );
-				if (pDoorStructure)
-				{
-					fDoorIsOpen = (pDoorStructure->fFlags & STRUCTURE_OPEN) != 0;
-				}
-				else
-				{
-					// door destroyed?
-					nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-				}
-			}
-
-			// now determine movement cost... if it hasn't been changed already
-			if ( IS_TRAVELCOST_DOOR( nextCost ) )
-			{
-				if (fDoorIsOpen)
-				{
-					if (fDoorIsObstacleIfClosed)
-					{
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-					else
-					{
-						nextCost = TRAVELCOST_OBSTACLE;
-					}
-				}
-				else
-				{
-					if (fDoorIsObstacleIfClosed)
-					{
-						// door is closed and this should be an obstacle, EXCEPT if we are calculating
-						// a path for an enemy or NPC with keys
-						if ( fPathingForPlayer || ( pSoldier && (pSoldier->flags.uiStatusFlags & (SOLDIER_MONSTER | SOLDIER_ANIMAL) ) ) ) 
-						{
-							nextCost = TRAVELCOST_OBSTACLE;
-						}
-						else
-						{
-							// have to check if door is locked and NPC does not have keys!
-							// This function has an inaccurate name.  It is actually checking if the door has LOCK info.
-							DOOR* pDoor = FindDoorInfoAtGridNo( iDoorGridNo );
-							if (pDoor)
-							{
-								if (!pDoor->fLocked || pSoldier->flags.bHasKeys)
-								{
-									// add to AP cost
-									//if (maxAPBudget)
-									{
-										fGoingThroughDoor = TRUE;
-									}
-									nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-								}
-								else
-								{
-									nextCost = TRAVELCOST_OBSTACLE;
-								}
-							}
-							else
-							{
-								// The door is closed, so we still have to open it
-								fGoingThroughDoor = TRUE;
-								nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-							}
-						}
-					}
-					else
-					{
-						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];
-					}
-				}
-			}
-		}
-		else if ( fNonSwimmer && ISWATER( gpWorldLevelData[ CurrentNode ].ubTerrainID))
-		{
-			// creatures and animals can't go in water
-			nextCost = TRAVELCOST_OBSTACLE;
-		}
-	}
-
-	// Apr. '96 - moved up be ahead of AP_Budget stuff
-	if ( nextCost >= NOPASS ) // || ( nextCost == TRAVELCOST_DOOR ) )
-	{
-		return -1;
-	}
-
-	// make water cost attractive for water to water paths
-	// Why?  If a path through water gets you there sooner, you shouldn't need
-	// artificial inflation to figure that out.  And if not, then get out of the water!
-	//if (bWaterToWater && ISWATER(nextCost) ) 
-	//{
-	//	nextCost = EASYWATERCOST;
-	//}
-
-	return nextCost;
-}//end CalcG
-
 int AStarPathfinder::CalcH()
 {
 	if ( fCopyReachable )
@@ -2506,7 +2248,6 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 	DOOR *				pDoor;
 	STRUCTURE *		pDoorStructure;
 	BOOLEAN		fDoorIsOpen = FALSE;
-	BOOLEAN		fNonFenceJumper;
 	BOOLEAN		fNonSwimmer;
 	BOOLEAN		fPathAroundPeople;
 	BOOLEAN		fConsiderPersonAtDestAsObstacle;
@@ -2578,7 +2319,6 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (!s->CanClimbWithCurrentBackpack());//Moa: added backpack check
 
 	// Flugente: nonswimmers are those who are not mercs and not boats
 	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );
@@ -3192,7 +2932,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						nextCost = gTileTypeMovementCost[ gpWorldLevelData[ newLoc ].ubTerrainID ];
 					}
 				}
-				else if ( nextCost == TRAVELCOST_FENCE && fNonFenceJumper )
+				else if ( nextCost == TRAVELCOST_FENCE && !canJumpFences(s))
 				{
 					goto NEXTDIR;
 				}

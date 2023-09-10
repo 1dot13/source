@@ -7,6 +7,7 @@
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI );
 void KillPreBattleInterface();
 void RenderPreBattleInterface();
+void ScrollPreBattleInterface( BOOLEAN fUp );
 
 extern BOOLEAN gfPreBattleInterfaceActive;
 extern BOOLEAN gfDisplayPotentialRetreatPaths;
@@ -47,6 +48,8 @@ enum
 	BLOODCAT_ATTACK_CODE,			// Flugente: like CREATURE_ATTACK_CODE, but with cats
 	ZOMBIE_ATTACK_CODE,				// Flugente: like CREATURE_ATTACK_CODE, but with zombies
 	BANDIT_ATTACK_CODE,				// Flugente: like CREATURE_ATTACK_CODE, but with bandits
+
+	TRANSPORT_INTERCEPT_CODE,		// rftr: like ENEMY_ENCOUNTER_CODE
 };
 
 extern BOOLEAN gfAutoAmbush;

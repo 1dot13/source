@@ -190,22 +190,35 @@ jobs:
         mkdir dist/
         mv artifacts/*_release/* dist/
 
-    - name: Delete Latest
-      if: startsWith(github.ref, 'refs/tags/v') == false
+    - name: Delete Latest Release and Tag
+      if: github.ref == 'refs/heads/master'
       uses: dev-drprasad/delete-tag-and-release@v1.0
       with:
+        delete_release: true
         tag_name: "latest"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout Repo
+      if: github.ref == 'refs/heads/master'
+      uses: actions/checkout@v3
+      with:
+        path: source
+        fetch-depth: 1
+        sparse-checkout: 'README.md'
+    - name: Create Latest Tag
+      if: github.ref == 'refs/heads/master'
+      working-directory: source
+      run: |
+        git tag -d latest || true
+        git tag latest
+        git push origin latest
     - id: release_latest
       name: Release Latest
-      if: startsWith(github.ref, 'refs/tags/v') == false
+      if: github.ref == 'refs/heads/master'
       uses: ncipollo/release-action@v1
       with:
-        allowUpdates: false
         artifactErrorsFailBuild: true
         artifacts: dist/*
-        draft: false
         generateReleaseNotes: true
         makeLatest: true
         name: "Latest (unstable)"

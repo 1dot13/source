@@ -3018,7 +3018,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	// Determine damage, checking guy's armour, etc
 	sRange = GetRangeInCellCoordsFromGridNoDiff( pBullet->sOrigGridNo, pTarget->sGridNo );
 
-	if ( gTacticalStatus.uiFlags & GODMODE && pBullet->ubFirerID != NOBODY && !(pFirer->flags.uiStatusFlags & SOLDIER_PC))
+	if ( gTacticalStatus.uiFlags & GODMODE && pTarget->bTeam == OUR_TEAM && pBullet->ubFirerID != NOBODY && !(pFirer->flags.uiStatusFlags & SOLDIER_PC))
 	{
 		// in god mode, and firer is computer controlled
 		iImpact = 0;

@@ -633,6 +633,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			gpAR->ubPlayerDefenceAdvantage = 21; //Skewed to the player's advantage for convenience purposes.
 			break;
 		case ENEMY_INVASION_CODE:
@@ -680,7 +681,7 @@ UINT32 AutoResolveScreenHandle()
 		SGPRect ClipRect;
 		gpAR->fEnteringAutoResolve = FALSE;
 		//Take the framebuffer, shade it, and save it to the SAVEBUFFER.
-		ClipRect.iLeft = 0 + xResOffset;
+		ClipRect.iLeft = 0;
 		ClipRect.iTop = 0;
 		/*ClipRect.iRight = 640;
 		ClipRect.iBottom = 480;*/
@@ -691,7 +692,7 @@ UINT32 AutoResolveScreenHandle()
 		Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 		UnLockVideoSurface( FRAME_BUFFER );
 		//BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		KillPreBattleInterface();
 		CalculateAutoResolveInfo();
 		CalculateSoldierCells( FALSE );
@@ -1745,6 +1746,7 @@ void RenderAutoResolve()
 			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
 			break;
 		case ENEMY_ENCOUNTER_CODE:
+		case TRANSPORT_INTERCEPT_CODE:
 			swprintf( str, gpStrategicString[STR_AR_ENCOUNTER_HEADER] );
 			break;
 		case ENEMY_INVASION_CODE:
@@ -6058,6 +6060,5 @@ BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId )
 			}
 		}
 	}
-
 	return FALSE;
 }

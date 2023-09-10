@@ -181,6 +181,7 @@ enum
 	FF_ALLOW_SNOW,
 	FF_MINI_EVENTS,
 	FF_REBEL_COMMAND,
+	FF_STRATEGIC_TRANSPORT_GROUPS,
 
 	NUM_FEATURE_FLAGS,
 };
@@ -780,6 +781,7 @@ typedef struct
 	INT32 ubEnemiesItemDrop;
 
 	BOOLEAN	gfUseExternalLoadscreens;
+	UINT32 ubLoadscreenStretchMode;    // added by anv
 	BOOLEAN gfUseLoadScreenHints;		// added by Flugente
 	UINT32	ubAdditionalDelayUntilLoadScreenDisposal;		// added by WANNE to have time to read the load screen hints
 
@@ -814,9 +816,6 @@ typedef struct
 	INT32 ubTeachBonusToTrain;
 	INT32 ubRpcBonusToTrainMilitia;
 	INT32 ubMinSkillToTeach;
-
-	// Flugente: disable evolution setting in MercProfiles.xml
-	BOOLEAN bDisableEvolution;
 
 	INT32 ubLowActivityLevel;
 	INT32 ubMediumActivityLevel;
@@ -1148,6 +1147,10 @@ typedef struct
 	UINT16 usLeadershipSubpointsToImprove;
 	UINT16 usLevelSubpointsToImprove;
 
+	// rftr: optionally slow stat growth at 80+ and 90+. this gives more value to mercs with high base stats
+	UINT8 ubMaxGrowthChanceAt80;
+	UINT8 ubMaxGrowthChanceAt90;
+
 	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
 	BOOLEAN fApproximateCTH;
 
@@ -1435,6 +1438,10 @@ typedef struct
 
 	UINT8 ubMercRandomStartSalaryPercentMod;
 
+	BOOLEAN fMercGrowthModifiersEnabled;
+	BOOLEAN fMercRandomGrowthModifiers;
+	INT16 iMercRandomGrowthModifiersRange;
+
 	BOOLEAN fBobbyRayFastShipments;
 
 	BOOLEAN fGridExitInTurnBased;
@@ -1601,6 +1608,10 @@ typedef struct
 
 	BOOLEAN fAlternativeHelicopterFuelSystem;
 	BOOLEAN fHelicopterPassengersCanGetHit;
+
+	BOOLEAN fStrategicTransportGroupsDebug;
+	BOOLEAN fStrategicTransportGroupsEnabled;
+	INT8 iMaxSimultaneousTransportGroups;
 
 	UINT16 usHelicopterHoverCostOnGreenTile;
 	UINT16 usHelicopterHoverCostOnRedTile;
@@ -1877,6 +1888,8 @@ typedef struct
 	UINT8 iDisruptAsdDuration_Bonus_Demolitions;
 	UINT8 iDisruptAsdDuration_Bonus_Nightops;
 	UINT8 iDisruptAsdDuration_Bonus_Technician;
+
+	INT8 iForgeTransportOrdersSuccessChance;
 
 	INT8 iGetEnemyMovementTargetsSuccessChance;
 	UINT8 iGetEnemyMovementTargetsDuration;
@@ -2165,6 +2178,9 @@ typedef struct
 	UINT8 ubTHBladesSilentCriticalHitChance;
 	UINT8 ubTHBladesCriticalHitMultiplierBonus;
 	UINT8 ubTHBladesAimClicksAdded;
+	UINT8 ubTHAPsNeededToThrowGrenadesReduction;
+	UINT8 ubTHMaxRangeToThrowGrenades;
+	UINT8 ubTHCtHWhenThrowingGrenades;
 
 	// NIGHT OPS
 	UINT8 ubNOeSightRangeBonusInDark;
@@ -2191,9 +2207,6 @@ typedef struct
 	UINT16 usBBIncreasedNeededDamageToFallDown;
 
 	// DEMOLITIONS
-	UINT8 ubDEAPsNeededToThrowGrenadesReduction;
-	UINT8 ubDEMaxRangeToThrowGrenades;
-	UINT8 ubDECtHWhenThrowingGrenades;
 	UINT8 ubDEDamageOfBombsAndMines;
 	UINT8 ubDEAttachDetonatorCheckBonus;
 	UINT8 ubDEPlantAndRemoveBombCheckBonus;

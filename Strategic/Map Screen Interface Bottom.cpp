@@ -340,7 +340,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// HEADROCK HAM 3.6: OK, let's always render this panel, as long as the team inventory screen isn't open.
 	// sevenfm: improved r8524 fix to work with 1280x720 resolution
 	//if (fMapScreenBottomDirty || ((!fShowInventoryFlag || iResolution > _1024x600) && fForceMapscreenFullRender))
-	if ((!fShowInventoryFlag || iResolution > _1280x720) && (fMapScreenBottomDirty || fForceMapscreenFullRender))
+	if ( (!fShowInventoryFlag || iResolution > _1024x600) && (fMapScreenBottomDirty || fForceMapscreenFullRender))
 	{
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
@@ -1936,7 +1936,7 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 	}
 
 	// battle about to occur?
-	if( ( fDisableDueToBattleRoster ) || ( fDisableMapInterfaceDueToBattle ) )
+	if( ( fDisableDueToBattleRoster ) || ( fDisableMapInterfaceDueToBattle ) || ( gfPreBattleInterfaceActive ))
 	{
 		return( FALSE );
 	}

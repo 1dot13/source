@@ -248,6 +248,7 @@ void UpdateFeatureFlags()
 		gGameExternalOptions.gfAllowSnow = gGameSettings.fFeatures[FF_ALLOW_SNOW];
 		gGameExternalOptions.fMiniEventsEnabled = gGameSettings.fFeatures[FF_MINI_EVENTS];
 		gGameExternalOptions.fRebelCommandEnabled = gGameSettings.fFeatures[FF_REBEL_COMMAND];
+		gGameExternalOptions.fStrategicTransportGroupsEnabled = gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS];
 	}
 	else
 	{
@@ -497,6 +498,7 @@ BOOLEAN LoadFeatureFlags()
 			gGameSettings.fFeatures[FF_ALLOW_SNOW]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_ALLOW_SNOW", TRUE, FALSE);
 			gGameSettings.fFeatures[FF_MINI_EVENTS]						= iniReader.ReadBoolean("JA2 Feature Flags", "FF_MINI_EVENTS", FALSE, FALSE);
 			gGameSettings.fFeatures[FF_REBEL_COMMAND]					= iniReader.ReadBoolean("JA2 Feature Flags", "FF_REBEL_COMMAND", FALSE, FALSE);
+			gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS]		= iniReader.ReadBoolean("JA2 Feature Flags", "FF_STRATEGIC_TRANSPORT_GROUPS", FALSE, FALSE);
 		}
 	}
 	catch(vfs::Exception)
@@ -725,6 +727,7 @@ BOOLEAN SaveFeatureFlags()
 		settings << "FF_ALLOW_SNOW							= " << (gGameSettings.fFeatures[FF_ALLOW_SNOW] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_MINI_EVENTS							= " << (gGameSettings.fFeatures[FF_MINI_EVENTS] ? "TRUE" : "FALSE") << endl;
 		settings << "FF_REBEL_COMMAND						= " << (gGameSettings.fFeatures[FF_REBEL_COMMAND] ? "TRUE" : "FALSE") << endl;
+		settings << "FF_STRATEGIC_TRANSPORT_GROUPS			= " << (gGameSettings.fFeatures[FF_STRATEGIC_TRANSPORT_GROUPS] ? "TRUE" : "FALSE") << endl;
 
 		try
 		{
@@ -1076,6 +1079,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);
 	gGameExternalOptions.fMercRandomStartSalary				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_START_SALARY", FALSE);
 	gGameExternalOptions.ubMercRandomStartSalaryPercentMod	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_START_SALARY_PERCENTAGE_MAX_MODIFIER", 30, 0, 100);
+	gGameExternalOptions.fMercGrowthModifiersEnabled		= iniReader.ReadBoolean("Recruitment Settings", "MERCS_GROWTH_MODIFIERS_ENABLED", FALSE);
+	gGameExternalOptions.fMercRandomGrowthModifiers			= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS", FALSE);
+	gGameExternalOptions.iMercRandomGrowthModifiersRange	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_GROWTH_MODIFIERS_RANGE", 5, -50, 50);
 
 	//################# Financial Settings #################
 
@@ -1144,7 +1150,9 @@ void LoadGameExternalOptions()
 	giTimerIntervals[ NEXTSCROLL ] = (INT16)(giTimerIntervals[ NEXTSCROLL ] / gGameExternalOptions.fScrollSpeedFactor);
 
 	gGameExternalOptions.gfUseExternalLoadscreens		= iniReader.ReadBoolean("Graphics Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
-	
+
+	gGameExternalOptions.ubLoadscreenStretchMode = iniReader.ReadInteger("Graphics Settings", "LOADSCREEN_STRETCH_MODE", 0, 0, 2);
+
 	if (!is_networked)
 		gGameExternalOptions.gfUseLoadScreenHints		= iniReader.ReadBoolean("Graphics Settings","USE_LOADSCREENHINTS", TRUE);
 	else
@@ -1424,6 +1432,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usExplosivesSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","EXPLOSIVES_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
 	gGameExternalOptions.usLeadershipSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","LEADERSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
 	gGameExternalOptions.usLevelSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","LEVEL_SUBPOINTS_TO_IMPROVE", 350, 1, 6500);
+
+	// rftr: optionally slow stat growth at 80+ and 90+. this gives more value to mercs with high base stats
+	gGameExternalOptions.ubMaxGrowthChanceAt80 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_80", 100, 1, 100);
+	gGameExternalOptions.ubMaxGrowthChanceAt90 = iniReader.ReadInteger("Tactical Difficulty Settings", "MAX_GROWTH_CHANCE_AT_90", 100, 1, 100);
+
 
 	// Alternate algorithm for choosing equipment level. Mostly disregards soldier's class and puts less emphasis on distance from Sector P3.
 	// SANDRO - moved into the game
@@ -2161,6 +2174,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAlternativeHelicopterFuelSystem			= iniReader.ReadBoolean("Strategic Gameplay Settings","ALTERNATIVE_HELICOPTER_FUEL_SYSTEM", TRUE);
 	gGameExternalOptions.fHelicopterPassengersCanGetHit				= iniReader.ReadBoolean("Strategic Gameplay Settings","HELICOPTER_PASSENGERS_CAN_GET_HIT", TRUE);
 
+	gGameExternalOptions.fStrategicTransportGroupsDebug				= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_DEBUG", FALSE, FALSE);
+	gGameExternalOptions.fStrategicTransportGroupsEnabled			= iniReader.ReadBoolean("Strategic Gameplay Settings", "STRATEGIC_TRANSPORT_GROUPS_ENABLED", FALSE);
+	gGameExternalOptions.iMaxSimultaneousTransportGroups			= iniReader.ReadInteger("Strategic Gameplay Settings", "MAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS", 5, 1, 10);
+
 	//################# Morale Settings ##################
 	gGameExternalOptions.sMoraleModAppearance				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_APPEARANCE",				1, 0, 5);
 	gGameExternalOptions.sMoraleModRefinement				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_REFINEMENT",				2, 0, 5);
@@ -2468,8 +2485,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TRAINING_EFFICIENCY",30, 0, 100);
 	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
 
-	gGameExternalOptions.bDisableEvolution					= iniReader.ReadBoolean("Strategic Assignment Settings", "DISABLE_EVOLUTION", TRUE );
-	
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
 	gGameExternalOptions.ubSmartTrainingSleep				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_SLEEPING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
 
@@ -2772,6 +2787,9 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTHBladesSilentCriticalHitChance = iniReader.ReadInteger("Throwing","TH_BLADES_SILENT_CRITICAL_HIT_CHANCE", 20, 0, 100);
 	gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus = iniReader.ReadInteger("Throwing","SILENT_CRITICAL_HIT_MULTIPLIER_BONUS", 1, 0, 50);
 	gSkillTraitValues.ubTHBladesAimClicksAdded = iniReader.ReadInteger("Throwing","POSSIBLE_AIM_CLICK_ADDED_TH_KNIVES", 1, 0, 5);
+	gSkillTraitValues.ubTHAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Throwing","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
+	gSkillTraitValues.ubTHMaxRangeToThrowGrenades = iniReader.ReadInteger("Throwing","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
+	gSkillTraitValues.ubTHCtHWhenThrowingGrenades = iniReader.ReadInteger("Throwing","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 
 	// NIGHT OPS
 	gSkillTraitValues.ubNOeSightRangeBonusInDark = iniReader.ReadInteger("Night Ops","SIGHT_RANGE_BONUS_IN_DARK", 1, 0, 100);
@@ -2798,9 +2816,6 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usBBIncreasedNeededDamageToFallDown = iniReader.ReadInteger("Bodybuilding","INCREASE_DAMAGE_NEEDED_TO_FALL_DOWN_IF_HIT_TO_LEGS", 100, 0, 500);
 
 	// DEMOLITIONS
-	gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction = iniReader.ReadInteger("Demolitions","APS_NEEDED_TO_THROW_GRENADES_REDUCTION", 25, 0, 90);
-	gSkillTraitValues.ubDEMaxRangeToThrowGrenades = iniReader.ReadInteger("Demolitions","MAX_RANGE_TO_THROW_GRENADES", 20, 0, 250);
-	gSkillTraitValues.ubDECtHWhenThrowingGrenades = iniReader.ReadInteger("Demolitions","CTH_WHEN_THROWING_GRENADES", 30, 0, 100);
 	gSkillTraitValues.ubDEDamageOfBombsAndMines = iniReader.ReadInteger("Demolitions","DAMAGE_OF_PLACED_BOMBS_AND_MINES", 25, 0, 250);
 	gSkillTraitValues.ubDEAttachDetonatorCheckBonus = iniReader.ReadInteger("Demolitions","ATTACH_DETONATOR_CHECK_BONUS", 50, 0, 250);
 	gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus = iniReader.ReadInteger("Demolitions","PLANT_AND_REMOVE_BOMBS_AND_MINES_BONUS", 50, 0, 250);
@@ -4186,6 +4201,8 @@ void LoadRebelCommandSettings()
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Demolitions = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_DEMOLITIONS", 48, 0, 255);
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Nightops = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_NIGHTOPS", 48, 0, 255);
 	gRebelCommandSettings.iDisruptAsdDuration_Bonus_Technician = iniReader.ReadInteger("Rebel Command Settings", "DISRUPT_ASD_DURATION_BONUS_TECHNICIAN", 48, 0, 255);
+
+	gRebelCommandSettings.iForgeTransportOrdersSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "FORGE_TRANSPORT_ORDERS_SUCCESS_CHANCE", 50, 0, 100);
 
 	gRebelCommandSettings.iGetEnemyMovementTargetsSuccessChance = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_SUCCESS_CHANCE", 50, 0, 100);
 	gRebelCommandSettings.iGetEnemyMovementTargetsDuration = iniReader.ReadInteger("Rebel Command Settings", "STRATEGIC_INTEL_DURATION", 72, 0, 255);

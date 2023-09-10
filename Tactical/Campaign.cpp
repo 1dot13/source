@@ -167,25 +167,14 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	INT8 bCurrentRating;
 	UINT16 *psStatGainPtr;
 	BOOLEAN fAffectedByWisdom = TRUE;
-	INT8 evolution = NORMAL_EVOLUTION;
 
 	Assert(pProfile != NULL);
-
-	if ( !gGameExternalOptions.bDisableEvolution )
-		evolution = pProfile->bEvolution;
-
-	if ( evolution == NO_EVOLUTION )
-		return;     // No change possible, quit right away
-
-	// if this is a Reverse-Evolving merc who attempting to train
-	if ( ( ubReason == FROM_TRAINING ) && ( evolution == DEVOLVE ) )
-		return;	// he doesn't get any benefit, but isn't penalized either
 
 	if (usNumChances == 0)
 		return;
 	
-	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
-	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile->bExpLevel);
+	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile);
+	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile);
 
 	switch (ubStat)
 	{
@@ -255,7 +244,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 		return;
 	}
 
-
 	if (ubReason == FROM_TRAINING)
 	{
 		// training always affected by wisdom
@@ -271,7 +259,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	// loop once for each chance to improve
 	for (uiCnt = 0; uiCnt < usNumChances; ++uiCnt)
 	{
-		if ( evolution != DEVOLVE)               // Evolves!
+		if (pProfile->fRegresses == FALSE)               // Evolves!
 		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
@@ -302,16 +290,18 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			// if there IS a usChance, adjust it for high or low wisdom (50 is avg)
 			if (usChance > 0 && fAffectedByWisdom)
 			{
-				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
+				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile)) - 50)) / 100;
 			}
 
-/*
-			// if the stat is Marksmanship, and the guy is a hopeless shot
-			if ((ubStat == MARKAMT) && (pProfile->bSpecialTrait == HOPELESS_SHOT))
+			// rftr: reduced growth rates at 80+ and 90+ (to make mercs with higher base stats more valuable)
+			if (bCurrentRating >= 90)
 			{
-				usChance /= 5;		// MUCH slower to improve, divide usChance by 5
+				usChance = min(min(gGameExternalOptions.ubMaxGrowthChanceAt80, gGameExternalOptions.ubMaxGrowthChanceAt90), usChance);
 			}
-*/
+			else if (bCurrentRating >= 80)
+			{
+				usChance = min(gGameExternalOptions.ubMaxGrowthChanceAt80, usChance);
+			}
 
 			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
 			if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
@@ -328,14 +318,6 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				}
 			}
 
-			// Buggler: more evolution rate choices
-			if ( evolution == THREEQUARTER_EVOLUTION)
-				usChance = max(1, usChance * 0.75);
-			else if ( evolution == HALF_EVOLUTION)
-				usChance =  max(1, usChance * 0.5);
-			else if ( evolution == ONEQUARTER_EVOLUTION)
-				usChance =  max(1, usChance * 0.25);
-			
 			// maximum possible usChance is 99%
 			if (usChance > 99)
 			{
@@ -403,7 +385,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				// if there IS a usChance, adjust it for high or low wisdom (50 is avg)
 				if (usChance > 0 && fAffectedByWisdom)
 				{
-					usChance -= (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
+					usChance -= (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile)) - 50)) / 100;
 				}
 
 				// if there's ANY usChance, minimum usChance is 1% regardless of wisdom
@@ -487,7 +469,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 	UINT16 usSubpointsPerPoint;
 	INT8 bDamagedStatToRaise = -1; // added by SANDRO 
 
-	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel );
+	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile );
 
 	// build ptrs to appropriate profiletype stat fields
 	switch( ubStat )
@@ -913,7 +895,7 @@ void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UIN
 		// set default min & max, subpoints/pt.
 		bMinStatValue = 1;
 		bMaxStatValue = MAX_STAT_VALUE;
-		usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
+		usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile);
 
 		// build ptrs to appropriate profiletype stat fields
 		switch( ubStat )
@@ -1156,7 +1138,7 @@ UINT32 RoundOffSalary(UINT32 uiSalary)
 }
 
 
-UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
+UINT16 SubpointsPerPoint(UINT8 ubStat, MERCPROFILESTRUCT* pProfile)
 {
 	UINT16 usSubpointsPerPoint;
 
@@ -1177,40 +1159,62 @@ UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
 	  // Attributes
     case HEALTHAMT:
 		usSubpointsPerPoint = HEALTH_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierLife;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, HEALTH_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case AGILAMT:
 		usSubpointsPerPoint = AGILITY_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierAgility;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, AGILITY_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case DEXTAMT:
 		usSubpointsPerPoint = DEXTERITY_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierDexterity;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, DEXTERITY_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case WISDOMAMT:
 		usSubpointsPerPoint = WISDOM_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierWisdom;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, WISDOM_SUBPOINTS_TO_IMPROVE/2);
 		break;
 	case STRAMT:
 		usSubpointsPerPoint = STRENGTH_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierStrength;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, STRENGTH_SUBPOINTS_TO_IMPROVE/2);
 		break;
 		
 	  // Skills
     case MEDICALAMT:
 		usSubpointsPerPoint = MEDICAL_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierMedical;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MEDICAL_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case EXPLODEAMT:
 		usSubpointsPerPoint = EXPLOSIVES_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierExplosive;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, EXPLOSIVES_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case MECHANAMT:
 		usSubpointsPerPoint = MECHANICAL_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierMechanical;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MECHANICAL_SUBPOINTS_TO_IMPROVE/2);
 		break;
     case MARKAMT:
 		usSubpointsPerPoint = MARKSMANSHIP_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierMarksmanship;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, MARKSMANSHIP_SUBPOINTS_TO_IMPROVE/2);
 		break;
 	case LDRAMT:
 		usSubpointsPerPoint = LEADERSHIP_SUBPOINTS_TO_IMPROVE;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierLeadership;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, LEADERSHIP_SUBPOINTS_TO_IMPROVE/2);
 		break;
 
 	  // Experience
     case EXPERAMT:
-		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * bExpLevel;
+		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * pProfile->bExpLevel;
+		if (gGameExternalOptions.fMercGrowthModifiersEnabled) usSubpointsPerPoint += pProfile->bGrowthModifierExpLevel;
+		usSubpointsPerPoint = max(usSubpointsPerPoint, LEVEL_SUBPOINTS_TO_IMPROVE * pProfile->bExpLevel / 2);
 		break;
 
     default:
@@ -1787,7 +1791,7 @@ void TestDumpStatChanges(void)
 			// print days served
 			fprintf(FDump, "%3d ", pProfile->usTotalDaysServed);
 			// print evolution type
-			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->bEvolution ]);
+			fprintf(FDump, "%c ", cEvolutionChars[ pProfile->fRegresses ]);
 
 			// now print all non-zero stats
 			for( ubStat = FIRST_CHANGEABLE_STAT; ubStat <= LAST_CHANGEABLE_STAT; ubStat++ )

@@ -33,6 +33,9 @@
 	#include "interface dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
+	#include "Game Event Hook.h"
+	#include "Strategic Town Loyalty.h"
+	#include "Strategic Transport Groups.h"
 
 #include "GameInitOptionsScreen.h"
 
@@ -488,7 +491,6 @@ extern INT16 sWorldSectorLocationOfFirstBattle;
 
 void ReassignAIGroup( GROUP **pGroup );
 void TransferGroupToPool( GROUP **pGroup );
-void SendGroupToPool( GROUP **pGroup );
 
 //Simply orders all garrisons to take troops from the patrol groups and send the closest troops from them.	Any garrison,
 //whom there request isn't fulfilled (due to lack of troops), will recieve their reinforcements from the queen (P3).
@@ -2418,6 +2420,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 			}
 		}
 	}
+	else if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+	{
+		ProcessTransportGroupReachedDestination(pGroup);
+		return TRUE;
+	}
 	else
 	{	//This is a floating group at his final destination...
 		if( pGroup->pEnemyGroup->ubIntention != STAGING && pGroup->pEnemyGroup->ubIntention != REINFORCEMENTS )
@@ -3458,7 +3465,7 @@ void EvaluateQueenSituation()
 	dEnemyGeneralsSpeedupFactor *= RebelCommand::GetStrategicDecisionSpeedModifier();
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
-	
+
 	// Check/update reinforcements pool if old behavior is enabled
 	if ( !gfUnlimitedTroops && zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementDaysPerDifficultyLevel == 0 )
 	{
@@ -3488,88 +3495,88 @@ void EvaluateQueenSituation()
 	// Gradually promote any remaining admins into troops
 	UpgradeAdminsToTroops();
 
-	if( ( giRequestPoints <= 0 ) || ( ( giReinforcementPoints <= 0 ) && ( giReinforcementPool <= 0 ) ) )
-	{ //we either have no reinforcements or request for reinforcements.
-		return;
-	}
+	// consider deploying a transport group
+	ExecuteStrategicAIAction( NPC_ACTION_DEPLOY_TRANSPORT_GROUP, 0, 0 );
 
-	// anv: only consider garrisons and patrols that can be reinforced
-	// otherwise unreinforcable groups will stall the rest, effectively breaking entire system
-
-	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
-
-	for( i = 0; i < giGarrisonArraySize; i++ )
+	// we either have reinforcements or a request for reinforcements
+	if (giRequestPoints > 0 && (giReinforcementPoints > 0 || giReinforcementPool > 0))
 	{
-		RecalculateGarrisonWeight( i );
-		iWeight = gGarrisonGroup[ i ].bWeight;
-		if( iWeight > 0 )
+		// anv: only consider garrisons and patrols that can be reinforced
+		// otherwise unreinforcable groups will stall the rest, effectively breaking entire system
+
+		Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+
+		for( i = 0; i < giGarrisonArraySize; i++ )
 		{
-			if( !gGarrisonGroup[ i ].ubPendingGroupID &&
-					EnemyPermittedToAttackSector( NULL, gGarrisonGroup[ i ].ubSectorID ) &&
-					GarrisonRequestingMinimumReinforcements( i ) )
+			RecalculateGarrisonWeight( i );
+			iWeight = gGarrisonGroup[ i ].bWeight;
+			if( iWeight > 0 )
 			{
-				if( ReinforcementsApproved( i, &usDefencePoints ) )
+				if( !gGarrisonGroup[ i ].ubPendingGroupID &&
+						EnemyPermittedToAttackSector( NULL, gGarrisonGroup[ i ].ubSectorID ) &&
+						GarrisonRequestingMinimumReinforcements( i ) )
 				{
-					iApplicableGarrisonIds[iApplicableGarrisons] = i;
-					iApplicableGarrisons++;
-					iApplicableRequestPoints += gGarrisonGroup[ i ].bWeight;
+					if( ReinforcementsApproved( i, &usDefencePoints ) )
+					{
+						iApplicableGarrisonIds[iApplicableGarrisons] = i;
+						iApplicableGarrisons++;
+						iApplicableRequestPoints += gGarrisonGroup[ i ].bWeight;
+					}
 				}
 			}
 		}
-	}
-	for( i = 0; i < giPatrolArraySize; i++ )
-	{
-		RecalculatePatrolWeight( i );
-		iWeight = gPatrolGroup[ i ].bWeight;
-		if( iWeight > 0 )
+		for( i = 0; i < giPatrolArraySize; i++ )
 		{
-			if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
+			RecalculatePatrolWeight( i );
+			iWeight = gPatrolGroup[ i ].bWeight;
+			if( iWeight > 0 )
 			{
-				iApplicablePatrolIds[iApplicablePatrols] = i;
-				iApplicablePatrols++;
-				iApplicableRequestPoints += gPatrolGroup[ i ].bWeight;
+				if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
+				{
+					iApplicablePatrolIds[iApplicablePatrols] = i;
+					iApplicablePatrols++;
+					iApplicableRequestPoints += gPatrolGroup[ i ].bWeight;
+				}
 			}
 		}
-	}
 
-	if( !iApplicableRequestPoints )
-	{
-		return;
-	}
-
-	//now randomly choose who gets the reinforcements.
-	// giRequestPoints is the combined sum of all the individual weights of all garrisons and patrols requesting reinforcements
-	//iRandom = Random( giRequestPoints );
-	iRandom = Random( iApplicableRequestPoints );
-
-	iOrigRequestPoints = giRequestPoints;	// debug only!
-
-	//go through garrisons first
-	for( i = 0; i < iApplicableGarrisons; i++ )
-	{
-		iSumOfAllWeights += iWeight;	// debug only!
-		iWeight = gGarrisonGroup[ iApplicableGarrisonIds[i] ].bWeight;
-		if( iRandom < iWeight )
+		if( iApplicableRequestPoints )
 		{
-			//This is the group that gets the reinforcements!
-			if ( SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL ) )
-				return;
-		}
-		iRandom -= iWeight;
-	}
+			//now randomly choose who gets the reinforcements.
+			// giRequestPoints is the combined sum of all the individual weights of all garrisons and patrols requesting reinforcements
+			//iRandom = Random( giRequestPoints );
+			iRandom = Random( iApplicableRequestPoints );
 
-	//go through the patrol groups
-	for( i = 0; i < iApplicablePatrols; i++ )
-	{
-		iSumOfAllWeights += iWeight;	// debug only!
-		iWeight = gPatrolGroup[ iApplicablePatrolIds[i] ].bWeight;
-		if( iRandom < iWeight )
-		{
-			//This is the group that gets the reinforcements!
-			if ( SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL ) )
-				return;
+			iOrigRequestPoints = giRequestPoints;	// debug only!
+
+			//go through garrisons first
+			for( i = 0; i < iApplicableGarrisons; i++ )
+			{
+				iSumOfAllWeights += iWeight;	// debug only!
+				iWeight = gGarrisonGroup[ iApplicableGarrisonIds[i] ].bWeight;
+				if( iRandom < iWeight )
+				{
+					//This is the group that gets the reinforcements!
+					if ( SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL ) )
+						return;
+				}
+				iRandom -= iWeight;
+			}
+
+			//go through the patrol groups
+			for( i = 0; i < iApplicablePatrols; i++ )
+			{
+				iSumOfAllWeights += iWeight;	// debug only!
+				iWeight = gPatrolGroup[ iApplicablePatrolIds[i] ].bWeight;
+				if( iRandom < iWeight )
+				{
+					//This is the group that gets the reinforcements!
+					if ( SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL ) )
+						return;
+				}
+				iRandom -= iWeight;
+			}
 		}
-		iRandom -= iWeight;
 	}
 
 	ValidateWeights( 27 );
@@ -5125,7 +5132,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( ubNumSoldiers )
 			{
 				InitializeGroup(GROUP_TYPE_ATTACK, ubNumSoldiers, grouptroops[0], groupelites[0], grouprobots[0], groupjeeps[0], grouptanks[0], Random(10) < difficultyMod);
-				totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0], grouptanks[0] + groupjeeps[0];
+				totalusedsoldiers += grouptroops[0] + groupelites[0] + grouprobots[0] + grouptanks[0] + groupjeeps[0];
 			}
 
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops[0], groupelites[0], grouprobots[0], grouptanks[0], groupjeeps[0] );
@@ -5384,6 +5391,14 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 		case NPC_ACTION_GIVE_KNOWLEDGE_OF_ALL_MERCS:
 			//temporarily make the queen's forces more aware (high alert)
 			gubNumAwareBattles = zDiffSetting[gGameOptions.ubDifficultyLevel].iNumAwareBattles;
+			break;
+
+		case NPC_ACTION_DEPLOY_TRANSPORT_GROUP:
+			DeployTransportGroup();
+			break;
+
+		case NPC_ACTION_RETURN_TRANSPORT_GROUP:
+			ReturnTransportGroup(option1);
 			break;
 
 		default:
@@ -6403,8 +6418,14 @@ void UpgradeAdminsToTroops()
 				// if there are any admins currently in this group
 				if ( pGroup->pEnemyGroup->ubNumAdmins > 0 )
 				{
+					// skip transport groups
+					if (pGroup->pEnemyGroup->ubIntention == TRANSPORT)
+					{
+						pGroup = pGroup->next;
+						continue;
+					}
 					// if it's a patrol group
-					if ( pGroup->pEnemyGroup->ubIntention == PATROL )
+					else if ( pGroup->pEnemyGroup->ubIntention == PATROL )
 					{
 						sPatrolIndex = FindPatrolGroupIndexForGroupID( pGroup->ubGroupID );
 						Assert( sPatrolIndex != -1 );
@@ -6508,9 +6529,17 @@ INT16 FindGarrisonIndexForGroupIDPending( UINT8 ubGroupID )
 
 void TransferGroupToPool( GROUP **pGroup )
 {
-	//Madd: unlimited reinforcements?
-	if ( !gfUnlimitedTroops )
-		giReinforcementPool += (*pGroup)->ubGroupSize;
+	if ((*pGroup)->usGroupTeam == ENEMY_TEAM)
+	{
+		//Madd: unlimited reinforcements?
+		if ( !gfUnlimitedTroops )
+			giReinforcementPool += (*pGroup)->ubGroupSize;
+
+		AddStrategicAIResources(ASD_ROBOT, (*pGroup)->pEnemyGroup->ubNumRobots);
+		AddStrategicAIResources(ASD_JEEP, (*pGroup)->pEnemyGroup->ubNumJeeps);
+		AddStrategicAIResources(ASD_TANK, (*pGroup)->pEnemyGroup->ubNumTanks);
+	}
+
 
 	RemovePGroup( *pGroup );
 	*pGroup = NULL;

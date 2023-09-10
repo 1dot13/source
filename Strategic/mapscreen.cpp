@@ -3372,7 +3372,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.AGL.iX;
 			const auto y = UI_CHARPANEL.Attr.AGL.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3387,7 +3387,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.DEX.iX;
 			const auto y = UI_CHARPANEL.Attr.DEX.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3402,7 +3402,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.STR.iX;
 			const auto y = UI_CHARPANEL.Attr.STR.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3417,7 +3417,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.WIS.iX;
 			const auto y = UI_CHARPANEL.Attr.WIS.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3432,7 +3432,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.MRK.iX;
 			const auto y = UI_CHARPANEL.Attr.MRK.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3447,7 +3447,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.LDR.iX;
 			const auto y = UI_CHARPANEL.Attr.LDR.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3462,7 +3462,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.MEC.iX;
 			const auto y = UI_CHARPANEL.Attr.MEC.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3477,7 +3477,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.EXP.iX;
 			const auto y = UI_CHARPANEL.Attr.EXP.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3492,7 +3492,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.MED.iX;
 			const auto y = UI_CHARPANEL.Attr.MED.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -3507,7 +3507,7 @@ void DisplayCharacterInfo( void )
 			const auto x = UI_CHARPANEL.Attr.LVL.iX;
 			const auto y = UI_CHARPANEL.Attr.LVL.iY;
 
-			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, pSoldier->stats.bExpLevel);
+			ubBarWidth = (STAT_WIDTH * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, &gMercProfiles[pSoldier->ubProfile]);
 			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WIDTH));
 			ClipRect.iTop = (y-1);
 			ClipRect.iBottom = (y-1) + STAT_HEIGHT;
@@ -5708,7 +5708,7 @@ UINT32 MapScreenHandle(void)
 		HandleCharBarRender( );
 	}
 
-	if( (fShowInventoryFlag && !isWidescreenUI()) || fDisableDueToBattleRoster )
+	if( ( fShowInventoryFlag || fDisableDueToBattleRoster ) && !isWidescreenUI() )
 	{
 		for( iCounter = 0; iCounter < MAX_SORT_METHODS; iCounter++ )
 		{
@@ -5823,9 +5823,6 @@ UINT32 MapScreenHandle(void)
 	}
 
 	HandleContractRenewalSequence( );
-
-	// handle dialog
-	HandleDialogue( );
 
 	// handle display of inventory pop up
 	// HEADROCK HAM 3.5: Externalize!
@@ -6065,6 +6062,8 @@ UINT32 MapScreenHandle(void)
 	//InvalidateRegion( 0,0, 640, 480);
 	EndFrameBufferRender( );
 
+	// handle dialog
+	HandleDialogue();
 
 	// if not going anywhere else
 	if ( guiPendingScreen == NO_PENDING_SCREEN )
@@ -7225,14 +7224,29 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case PGUP:
-					// WANNE: Jump to first merc in list
-					fResetMapCoords = TRUE;
-					GoToFirstCharacterInList( );
+					if (gfPreBattleInterfaceActive)
+					{
+						ScrollPreBattleInterface(TRUE);
+					}
+					else
+					{
+						// WANNE: Jump to first merc in list
+						fResetMapCoords = TRUE;
+						GoToFirstCharacterInList();
+					}
+
 					break;
 				case PGDN:
-					// WANNE: Jump to last merc in list
-					fResetMapCoords = TRUE;
-					GoToLastCharacterInList( );
+					if (gfPreBattleInterfaceActive)
+					{
+						ScrollPreBattleInterface(FALSE);
+					}
+					else
+					{
+						// WANNE: Jump to last merc in list
+						fResetMapCoords = TRUE;
+						GoToLastCharacterInList();
+					}
 					break;
 
 				case SHIFT_PGUP:
@@ -10927,6 +10941,10 @@ void BlitBackgroundToSaveBuffer( void )
 		ForceButtonUnDirty( giMapContractButton );
 		ForceButtonUnDirty( giCharInfoButton[ 0 ] );
 		ForceButtonUnDirty( giCharInfoButton[ 1 ] );
+		if (isWidescreenUI())
+		{
+			ForceButtonUnDirty(giMapInvDoneButton);
+		}
 		RenderPreBattleInterface();
 	}
 

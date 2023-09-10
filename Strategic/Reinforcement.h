@@ -12,6 +12,6 @@ UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY );
 //For Tactical
 UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam );
 void AddPossiblePendingMilitiaToBattle();
-GROUP* GetNonPlayerGroupInSector( INT16 sMapX, INT16 sMapY, UINT8 usTeam );
+GROUP* GetNonPlayerGroupInSectorForReinforcement( INT16 sMapX, INT16 sMapY, UINT8 usTeam );
 
 #endif

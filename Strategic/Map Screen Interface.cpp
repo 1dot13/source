@@ -2959,85 +2959,6 @@ void DisplayUserDefineHelpTextRegions( FASTHELPREGION *pRegion )
 
 
 
-extern void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY );
-extern INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
-extern INT16 GetWidthOfString( const STR16 pStringA );
-
-void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
-{
-	UINT16 usFillColor;
-	INT32 iX,iY,iW,iH;
-	UINT8 *pDestBuf;
-	UINT32 uiDestPitchBYTES;
-
-
-	// grab the color for the background region
-	usFillColor = Get16BPPColor(FROMRGB(250, 240, 188));
-
-
-	iX = pRegion->iX;
-	iY = pRegion->iY;
-	// get the width and height of the string
-	//iW = (INT32)( pRegion->iW ) + 14;
-	iW = (INT32)GetWidthOfString( pRegion->FastHelpText ) + 10;
-
-	//iH = IanWrappedStringHeight( ( UINT16 )iX, ( UINT16 )iY, ( UINT16 )( pRegion->iW ), 0, FONT10ARIAL, FONT_BLACK, pRegion->FastHelpText, FONT_BLACK, TRUE, 0 );
-	iH = (INT32)( GetNumberOfLinesInHeight( pRegion->FastHelpText ) * (GetFontHeight(FONT10ARIAL)+1) + 8 );
-
-	// tack on the outer border
-	iH += 14;
-
-	// gone not far enough?
-	if ( iX < 0 )
-		iX = 0;
-
-	// gone too far
-	if ( ( pRegion->iX + iW ) >= SCREEN_WIDTH )
-		iX = (SCREEN_WIDTH - iW - 4);
-
-	// what about the y value?
-	iY = (INT32)pRegion->iY - (	iH * 3 / 4);
-
-	// not far enough
-	if (iY < 0)
-		iY = 0;
-
-	// too far
-	if ( (iY + iH) >= SCREEN_HEIGHT )
-		iY = (SCREEN_HEIGHT - iH - 15);
-
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-	RectangleDraw( TRUE, iX + 1, iY + 1, iX + iW - 1, iY + iH - 1, Get16BPPColor( FROMRGB( 65, 57, 15 ) ), pDestBuf );
-	RectangleDraw( TRUE, iX, iY, iX + iW - 2, iY + iH - 2, Get16BPPColor( FROMRGB( 227, 198, 88 ) ), pDestBuf );
-	UnLockVideoSurface( FRAME_BUFFER );
-	ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
-	ShadowVideoSurfaceRect( FRAME_BUFFER, iX + 2, iY + 2, iX + iW - 3, iY + iH - 3 );
-
-	// fillt he video surface areas
-	//ColorFillVideoSurfaceArea(FRAME_BUFFER, iX, iY, (iX + iW), (iY + iH), 0);
-	//ColorFillVideoSurfaceArea(FRAME_BUFFER, (iX + 1), (iY + 1), (iX + iW - 1), (iY + iH - 1), usFillColor);
-
-	SetFont( FONT10ARIAL );
-	SetFontForeground( FONT_BEIGE );
-
-	//iH = ( INT32 )DisplayWrappedString( ( INT16 )( iX + 10 ), ( INT16 )( iY + 6 ), ( INT16 )pRegion->iW, 0, FONT10ARIAL, FONT_BEIGE, pRegion->FastHelpText, FONT_NEARBLACK, TRUE, 0 );
-
-	DisplayHelpTokenizedString( pRegion->FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
-
-	iHeightOfInitFastHelpText = iH + 20;
-
-	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH + 20 ) );
-}
-
-
-
-
-
-
-
-
-
 void DisplayFastHelpForInitialTripInToMapScreen(	FASTHELPREGION *pRegion )
 {
 	if( gTacticalStatus.fDidGameJustStart )
@@ -4661,6 +4582,28 @@ void HandleSettingTheSelectedListOfMercs( void )
 		INT8 pbErrorNumber = -1;
 		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
 		INT8 bSquadValue = pSoldier->bAssignment;
+		if (bSquadValue == VEHICLE)
+		{
+			for (INT8 bCounter = 0; bCounter < NUMBER_OF_SQUADS; ++bCounter)
+			{
+				if (Squad[bCounter][0] != NULL && IsVehicle(Squad[bCounter][0]) &&
+					Squad[bCounter][0]->bVehicleID == pSoldier->iVehicleId)
+				{
+					bSquadValue = bCounter;
+					break;
+				}
+			}
+		}
+		if (bSquadValue >= NUMBER_OF_SQUADS)
+		{
+			if (pbErrorNumber != -1)
+			{
+				ReportMapScreenMovementError(pbErrorNumber);
+			}
+			SetSelectedDestChar(-1);
+			giDestHighLine = -1;
+			return;
+		}
 
 		// find number of characters in particular squad.
 		for (INT8 bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter)
@@ -4772,17 +4715,21 @@ INT8 FindSquadThatSoldierCanJoin( SOLDIERTYPE *pSoldier )
 	// run through the list of squads
 	for( bCounter = 0; bCounter < NUMBER_OF_SQUADS; bCounter++ )
 	{
-		// is this squad in this sector
-		if( IsThisSquadInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, bCounter ) )
+		// anv: don't automatically put people in vehicle squads
+		if (Squad[bCounter][0] == NULL || !IsVehicle(Squad[bCounter][0]))
 		{
-			// does it have room?
-			if( IsThisSquadFull( bCounter ) == FALSE )
+			// is this squad in this sector
+			if (IsThisSquadInThisSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, bCounter))
 			{
-				// is it doing the same thing as the soldier is (staying or going) ?
-				if( IsSquadSelectedForMovement( bCounter ) == IsSoldierSelectedForMovement( pSoldier ) )
+				// does it have room?
+				if (IsThisSquadFull(bCounter) == FALSE)
 				{
-					// go ourselves a match, then
-					return( bCounter );
+					// is it doing the same thing as the soldier is (staying or going) ?
+					if (IsSquadSelectedForMovement(bCounter) == IsSoldierSelectedForMovement(pSoldier))
+					{
+						// go ourselves a match, then
+						return(bCounter);
+					}
 				}
 			}
 		}

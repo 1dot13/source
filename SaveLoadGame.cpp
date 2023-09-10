@@ -1294,7 +1294,16 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->bSex, sizeof(this->bSex), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bArmourAttractiveness, sizeof(this->bArmourAttractiveness), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubMiscFlags2, sizeof(this->ubMiscFlags2), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->bEvolution, sizeof(this->bEvolution), sizeof(INT8), numBytesRead);
+		if (guiCurrentSaveGameVersion < GROWTH_MODIFIERS)
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+			// convert old evolution to regresses boolean
+			this->fRegresses = this->fRegresses == 2 ? TRUE : FALSE; // 2 == CharacterEvolution::DEVOLVES
+		}
+		else
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+		}
 		numBytesRead = ReadFieldByField( hFile, &this->ubMiscFlags, sizeof(this->ubMiscFlags), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bSexist, sizeof(this->bSexist), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bLearnToHate, sizeof(this->bLearnToHate), sizeof(UINT8), numBytesRead);
@@ -1637,6 +1646,70 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 					return( FALSE );
 				}
 			}
+
+			// rftr: growth modifiers
+			if (guiCurrentSaveGameVersion >= GROWTH_MODIFIERS)
+			{
+				if (!FileRead(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesRead))
+				{
+					return(FALSE);
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierStrength, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierAgility, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierDexterity, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierWisdom, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMarksmanship, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierExplosive, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierLeadership, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMedical, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierMechanical, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+				if ( !FileRead( hFile, &this->bGrowthModifierExpLevel, sizeof(INT8), &uiNumBytesRead) )
+				{
+					return( FALSE );
+				}
+			}
+			else
+			{
+				// zero out growth modifiers for upgrading savegames
+				this->bGrowthModifierLife = 0;
+				this->bGrowthModifierStrength = 0;
+				this->bGrowthModifierAgility = 0;
+				this->bGrowthModifierDexterity = 0;
+				this->bGrowthModifierWisdom = 0;
+				this->bGrowthModifierMarksmanship = 0;
+				this->bGrowthModifierExplosive = 0;
+				this->bGrowthModifierLeadership = 0;
+				this->bGrowthModifierMedical = 0;
+				this->bGrowthModifierMechanical = 0;
+				this->bGrowthModifierExpLevel = 0;
+			}
 		}
 
 		if ( this->uiProfileChecksum != this->GetChecksum() )
@@ -1750,6 +1823,52 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	if ( !FileWrite( hFile, &this->Type, sizeof( UINT32 ), &uiNumBytesWritten ) )
+	{
+		return( FALSE );
+	}
+
+	// rftr: growth modifiers
+	if (!FileWrite(hFile, &this->bGrowthModifierLife, sizeof(INT8), &uiNumBytesWritten))
+	{
+		return(FALSE);
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierStrength, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierAgility, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierDexterity, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierWisdom, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMarksmanship, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierExplosive, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierLeadership, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMedical, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierMechanical, sizeof(INT8), &uiNumBytesWritten) )
+	{
+		return( FALSE );
+	}
+	if ( !FileWrite( hFile, &this->bGrowthModifierExpLevel, sizeof(INT8), &uiNumBytesWritten) )
 	{
 		return( FALSE );
 	}
@@ -4926,7 +5045,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 	if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
-		(gGameOptions.ubSquadSize == 10 && iResolution < _1024x768))
+		(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 	{
 		FileClose( hFile );
 		return(FALSE);
@@ -6694,15 +6813,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Reset the Ai Timer clock
 	giRTAILastUpdateTime = 0;
 
-	//if we are in tactical
-	if( guiScreenToGotoAfterLoadingSavedGame == GAME_SCREEN )
-	{
-		//Initialize the current panel
-		InitializeCurrentPanel( );
-
-		SelectSoldier( gusSelectedSoldier, FALSE, TRUE );
-	}
-
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
 	RenderProgressBar( 0, 100 );
@@ -6830,6 +6940,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 
 	RemoveLoadingScreenProgressBar();
+
+	//if we are in tactical
+	if (guiScreenToGotoAfterLoadingSavedGame == GAME_SCREEN)
+	{
+		//Initialize the current panel
+		InitializeCurrentPanel();
+
+		SelectSoldier(gusSelectedSoldier, FALSE, TRUE);
+	}
 
 	// sevenfm: reset sound map
 	ResetSoundMap();
