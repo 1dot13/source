@@ -3568,8 +3568,8 @@ STR16 gpStrategicString[] =
 	L"僵尸",	//L"Zombie",
 	L"土匪",	//L"Bandit",
 	L"土匪杀死了%d名平民，在%s分区。",	//注：这里的%d和%s不可以随意放前面或后面，一定要按英文顺序，不然会出错。（%d和%s 在中文中不能反过来。） L"Bandits attack and kill %d civilians in sector %s.",
-	L"Transport group",
-	L"Transport group en route",
+	L"运输队",   //L"Transport group",
+	L"运输队已出发",   //L"Transport group en route",
 };
 
 STR16 gpGameClockString[] =
@@ -6264,7 +6264,7 @@ STR16	z113FeaturesToggleText[] =
 	L"天气功能：暴风雪",	//L"Weather: Snow",
 	L"随机事件功能",	//L"Mini Events",
 	L"反抗军司令部功能",	//L"Arulco Rebel Command",
-	L"Strategic Transport Groups",
+	L"战略运输队",   //L"Strategic Transport Groups",
 };
 
 STR16	z113FeaturesHelpText[] =
@@ -6312,7 +6312,7 @@ STR16	z113FeaturesHelpText[] =
 	L"|天|气|功|能|：|暴|风|雪\n \n覆盖 [Tactical Weather Settings] ALLOW_SNOW\n \n暴风雪降低了能见度。\n \n配置选项：\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW\n \n",	//L"|W|e|a|t|h|e|r|: |S|n|o|w\nOverrides [Tactical Weather Settings] ALLOW_SNOW\n \nSnowstorms decrease visibility.\n \nConfigurable Options:\nSNOW_EVENTS_PER_DAY\nSNOW_CHANCE_PER_DAY\nSNOW_MIN_LENGTH_IN_MINUTES\nSNOW_MAX_LENGTH_IN_MINUTES\nWEAPON_RELIABILITY_REDUCTION_SNOW\nBREATH_GAIN_REDUCTION_SNOW\nVISUAL_DISTANCE_DECREASE_SNOW\nHEARING_REDUCTION_SNOW",
 	L"|随|机|事|件|功|能\n \n覆盖 [Mini Events Settings] MINI_EVENTS_ENABLED\n \n可能发生一些随机互动事件。\n \n配置选项：\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \n详细信息请查看MiniEvents.lua。\n \n",	//L"|M|i|n|i |E|v|e|n|t|s\nOverrides [Mini Events Settings] MINI_EVENTS_ENABLED\n \nRandom events can occur.\n \nConfigurable Options:\nMINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS\nMINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS\n \nSee MiniEvents.lua for more details.",
 	L"|反|抗|军|司|令|部|功|能\n \n覆盖 [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \n允许你升级占领的城镇，控制反抗军在战略层面上运作。\n \n详细的内容设定请查看RebelCommand_Settings.ini。\n \n",	//L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",	
-	L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
+	L"|战|略|运|输|队\n \n覆盖 [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \n运输队在地图上运送有价值的装备。\n \n配置选项: \nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",   //L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
 
 STR16	z113FeaturesPanelText[] =
@@ -6360,7 +6360,7 @@ STR16	z113FeaturesPanelText[] =
 	L"启用暴风雪功能。在暴风雪中，更难被看到，武器退化更快，呼吸也更困难。",	//L"Toggle snow. In a snowstorm, it is harder to see, weapons degrade faster, and it is a little harder to regain breath.",
 	L"在游戏过程中，可能会弹出简短的事件。您可以从两个选项中选择一个，这可能会产生积极或消极的影响。事件可以影响各种各样的事情，但主要是你的佣兵。",	//L"During the course of a campaign, brief events can pop up. You can select one of two responses, which may have positive and/or negative effects. Events can affect a wide variety of things, but mostly your mercs.",
 	L"在完成反抗军食物运送任务后，你可以访问他们的（A.R.C）指挥部网站。在这里你可以设定反抗军的政策，也可以为占领区单独设置地方政策。这将带来丰厚的奖励。作为代价，城镇的民忠会上升得更慢，所以你需要更加努力地让当地人信任你。",	//L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
-	L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
+	L"敌人会在地图上派遣战略运输队，如果你能找到并截获它们就可能获取有价值的装备。但是，如果让敌人的运输队完成运输任务，那么就会给敌人提供战略资源（具体视难度而定）。要想获得最好体验，建议开启\"敌军战略司令部功能\"。",   //L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
 
 
@@ -7672,7 +7672,7 @@ STR16 New113Message[] =
 	L"无线电操作失败！",
 	L"迫击炮弹不足，无法在分区发动密集轰炸！",
 	L"Items.xml里没有定义信号弹物品！",
-	L"No High-Explosive shell item found in Items.xml!",
+	L"Items.xml里没有定义高爆弹物品！",   //L"No High-Explosive shell item found in Items.xml!",
 	L"未发现迫击炮，无法执行密集轰炸！",
 	L"干扰信号成功，不需要重复操作！",
 	L"正在监听周围声音，无需重复操作！",
@@ -8693,7 +8693,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t",
 	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",
 	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
-	L"|B|e|l|t| |F|e|d",
+	L"|弹|链|供|弹",  //L"|B|e|l|t| |F|e|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8749,7 +8749,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.",
 	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.",
 	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
-	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
+	L"\n \n这种枪可以使用弹链供弹\n或者由LBE弹链供弹\n又或者由另一位佣兵供弹。",	//L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9330,7 +9330,7 @@ STR16	szBackgroundText_Value[]=
 	L" 对某些其他背景的厌恶 \n", //L" dislikes some other backgrounds\n",
 	L" 吸烟者", //L"Smoker",
 	L" 非吸烟者", //L"Nonsmoker",
-	L" %s%d%％ 蹲伏在可靠掩体后面对敌人的命中率 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%％ 敌军对蹲伏在掩体后佣兵的命中率 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%％ 建设速度 \n",//L" %s%d%% building speed\n",
 	L" 黑客技能：%s%d ",//L" hacking skill: %s%d ",
 	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
@@ -11655,21 +11655,21 @@ STR16	szLaptopStatText[] =
 	L"威胁对话", //L"Threaten approach",
 	L"招募对话", //L"Recruit approach",
 
-	L"Stats will regress.",
-	L"Fast",
-	L"Average",
-	L"Slow",
-	L"Health growth",
-	L"Strength growth",
-	L"Agility growth",
-	L"Dexterity growth",
-	L"Wisdom growth",
-	L"Marksmanship growth",
-	L"Explosives growth",
-	L"Leadership growth",
-	L"Medical growth",
-	L"Mechanical growth",
-	L"Experience growth",
+	L"统计倒退数据。",   //L"Stats will regress.",
+	L"快速",   //L"Fast",
+	L"平均",   //L"Average",
+	L"慢速",   //L"Slow",
+	L"生命成长",   //L"Health growth",
+	L"力量成长",   //L"Strength growth",
+	L"敏捷成长",   //L"Agility growth",
+	L"灵巧成长",   //L"Dexterity growth",
+	L"智慧成长",   //L"Wisdom growth",
+	L"枪法成长",   //L"Marksmanship growth",
+	L"爆破成长",   //L"Explosives growth",
+	L"领导成长",   //L"Leadership growth",
+	L"医疗成长",   //L"Medical growth",
+	L"机械成长",   //L"Mechanical growth",
+	L"等级成长",   //L"Experience growth",
 };
 
 STR16	szGearTemplateText[] =
@@ -12111,8 +12111,8 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"协同行动，悄悄地抵进敌军，但是要小心：这可能会让你部署在劣势区域。当进攻敌军部队时，部署区会更大。",   //L"Coordinate efforts to find ways to sneak up on the enemy, but be careful: it's equally possible to put yourself in a disadvantaged deployment area. When attacking enemy forces, the deployment area is much larger.", 
 	L"扰乱ASD",   //L"Disrupt ASD", 
 	L"破坏Arulco特种部门(ASD)的日常行动。临时阻止ASD部署更多的机械化单位，并且大幅度降低他们的每日收入。",   //L"Wreak havoc on the day-to-day operations of the Arulco Special Division. Temporarily prevent the ASD from deploying additional mechanised units, and drastically reduce their daily income.",
-	L"Forge Transport Orders",
-	L"Create a bogus supply request. An enemy transport group will be ordered to rendezvous at this agent's location.",
+	L"伪造运输订单",   //L"Forge Transport Orders",
+	L"创建一个虚假的运输请求，敌方的运输队就会在这个地点位置集合。",   //L"Create a bogus supply request. An enemy transport group will be ordered to rendezvous at this agent's location.",
 	L"战略情报",   //L"Strategic Intel",
 	L"侦听敌人，发现敌军的攻击目标。当在战略地图上观察队伍时，敌军优先进攻的目标区域会被标红。",   //L"Intercept plans and discover where enemies intend to strike. When viewing teams on the strategic map, sectors prioritised by the enemy will be marked in red.",
 	L"强化本地商店",   //L"Improve Local Shops", 
