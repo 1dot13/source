@@ -130,10 +130,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>16</uiIndex>
-		<szItemName>Type 85</szItemName>
-		<szLongItemName>85式冲锋枪</szLongItemName>
+		<szItemName>中国85式冲锋枪</szItemName>
+		<szLongItemName>中国85式冲锋枪</szLongItemName>
 		<szItemDesc>廉价，简单，耐操，是这把大批生产的中国军用武器的口号。</szItemDesc>
-		<szBRName>Type 85</szBRName>
+		<szBRName>中国85式冲锋枪</szBRName>
 		<szBRDesc>中国设计的85式冲锋枪是一把以反冲作用为运作方式的武器。由于采用转拴式枪机，它的重量出奇的轻。武器制造商声称该枪可发射64式亚音速弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1667,7 +1667,7 @@
 	<ITEM>
 		<uiIndex>208</uiIndex>
 		<szItemName>10倍瞄准镜</szItemName>
-		<szLongItemName>10倍狙击瞄准镜</szLongItemName>
+		<szLongItemName>10倍瞄准镜</szLongItemName>
 		<szItemDesc>这个10倍放大的瞄准镜可以装在多数突击步枪和卡宾枪上，当然更适宜狙击步枪使用。</szItemDesc>
 		<szBRName>10倍瞄准镜</szBRName>
 		<szBRDesc>这款优秀的10倍光学瞄准镜可以大幅度提到你步枪单发射击的精确度，相信您会被它精密的光学设计，弹道调节系统和测距分划功能打动的。</szBRDesc>
@@ -3866,18 +3866,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
-		<szItemName>7.62x39mm，100发穿甲弹鼓</szItemName>
-		<szLongItemName>7.62x39mm，100发穿甲弹鼓</szLongItemName>
+		<szItemName>7.62x39mm，75发穿甲弹鼓</szItemName>
+		<szLongItemName>7.62x39mm，75发穿甲弹鼓</szLongItemName>
 		<szItemDesc>当你想结束火拼的时候，就装上这个满是大威力7.62x39mm弹药的弹鼓吧。</szItemDesc>
-		<szBRName>7.62x39mm，100发穿甲弹鼓</szBRName>
+		<szBRName>7.62x39mm，75发穿甲弹鼓</szBRName>
 		<szBRDesc>这种长期服役的重弹，装在了使用方便的弹鼓里。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>484</uiIndex>
-		<szItemName>7.62x39mm，100发曳光弹鼓</szItemName>
-		<szLongItemName>7.62x39mm，100发曳光弹鼓</szLongItemName>
+		<szItemName>7.62x39mm，75发曳光弹鼓</szItemName>
+		<szLongItemName>7.62x39mm，75发曳光弹鼓</szLongItemName>
 		<szItemDesc>扫射目标的时候，让PKM装上这种曳光弹弹鼓。</szItemDesc>
-		<szBRName>7.62x39mm，100发曳光弹鼓</szBRName>
+		<szBRName>7.62x39mm，75发曳光弹鼓</szBRName>
 		<szBRDesc>曳光弹可以让你以致命的精度扫射目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4314,10 +4314,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>539</uiIndex>
-		<szItemName>9x21mm，30发穿甲弹匣</szItemName>
-		<szLongItemName>9x21mm，30发穿甲弹匣</szLongItemName>
+		<szItemName>9x21mm，18发穿甲弹匣</szItemName>
+		<szLongItemName>9x21mm，18发穿甲弹匣</szLongItemName>
 		<szItemDesc>9x21mm弹可以有效击穿防弹衣。</szItemDesc>
-		<szBRName>9x21mm，30发穿甲弹匣</szBRName>
+		<szBRName>9x21mm，18发穿甲弹匣</szBRName>
 		<szBRDesc>9x21的钨芯弹头可以有效击穿100米距离以上的有目标防护。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4434,11 +4434,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>554</uiIndex>
-		<szItemName>7.62x39mm，100发空尖弹鼓</szItemName>
-		<szLongItemName>7.62x39mm，100发空尖弹鼓</szLongItemName>
-		<szItemDesc>弹鼓内装100发7.62mm华约标准空尖弹。用来对付轻型防护尚可但对于重型防护来说表现不佳。</szItemDesc>
-		<szBRName>7.62x39mm，100发空尖弹鼓</szBRName>
-		<szBRDesc>海量的100发7.62x39mm空尖弹鼓可以轻松的撕碎敌人而不是仅仅的干掉他们。</szBRDesc>
+		<szItemName>7.62x39mm，75发空尖弹鼓</szItemName>
+		<szLongItemName>7.62x39mm，75发空尖弹鼓</szLongItemName>
+		<szItemDesc>弹鼓内装75发7.62mm华约标准空尖弹。用来对付轻型防护尚可但对于重型防护来说表现不佳。</szItemDesc>
+		<szBRName>7.62x39mm，75发空尖弹鼓</szBRName>
+		<szBRDesc>海量的75发7.62x39mm空尖弹鼓可以轻松的撕碎敌人而不是仅仅的干掉他们。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>555</uiIndex>
@@ -7602,10 +7602,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>950</uiIndex>
-		<szItemName>步枪组合瞄具</szItemName>
-		<szLongItemName>步枪激光战术灯组合瞄具</szLongItemName>
+		<szItemName>战术灯组合瞄具</szItemName>
+		<szLongItemName>步枪战术灯组合瞄具(关灯状态)</szLongItemName>
 		<szItemDesc>将战术灯与激光瞄具整合在一起，可以装配在带有导轨的现代步枪上。</szItemDesc>
-		<szBRName>步枪组合瞄具</szBRName>
+		<szBRName>战术灯组合瞄具</szBRName>
 		<szBRDesc>将战术灯与激光瞄具整合在一起，可以装配在带有导轨的现代步枪上。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7978,50 +7978,50 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
-		<szItemName>7.62x39mm弹鼓适配器</szItemName>
-		<szLongItemName>7.62x39mm弹鼓适配器</szLongItemName>
+		<szItemName>7.62x39mm，弹鼓适配器</szItemName>
+		<szLongItemName>7.62x39mm，75发弹鼓适配器</szLongItemName>
 		<szItemDesc>金属制品，可以把75发7.62x39mm弹鼓安装到AK步枪上。</szItemDesc>
-		<szBRName>7.62x39mm弹鼓适配器</szBRName>
+		<szBRName>7.62x39mm，75发弹鼓适配器</szBRName>
 		<szBRDesc>用一小片金属，让你的AK步枪使用75发弹鼓，永久性结构。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
-		<szItemName>Kobra红点瞄准具</szItemName>
-		<szLongItemName>眼睛蛇红点瞄准具</szLongItemName>
-		<szItemDesc>俄制红点瞄准具，带有适用于AK系列的侧面安装导轨。</szItemDesc>
-		<szBRName>Kobra红点瞄准具</szBRName>
+		<szItemName>Kobra红点瞄具</szItemName>
+		<szLongItemName>眼睛蛇红点瞄具</szLongItemName>
+		<szItemDesc>俄制红点瞄具，带有适用于AK系列的侧面安装导轨。</szItemDesc>
+		<szBRName>Kobra红点瞄具</szBRName>
 		<szBRDesc>俄罗斯特种部队指定专用产品，帮你快速捕捉目标，可以替代AK系列上的瞄准镜。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>999</uiIndex>
-		<szItemName>PSO-1瞄准镜</szItemName>
-		<szLongItemName>PSO-1瞄准镜</szLongItemName>
+		<szItemName>PSO-1 4倍瞄准镜</szItemName>
+		<szLongItemName>PSO-1 4倍瞄准镜</szLongItemName>
 		<szItemDesc>适用于AK系列步枪的4倍标准瞄准镜。</szItemDesc>
-		<szBRName>PSO-1瞄准镜</szBRName>
+		<szBRName>PSO-1 4倍瞄准镜</szBRName>
 		<szBRDesc>俄制PSO-1型4倍标准镜，独特的侧面安装方式，只能用在AK系列步枪上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
-		<szItemName>PSO-3瞄准镜</szItemName>
-		<szLongItemName>PSO-3瞄准镜</szLongItemName>
+		<szItemName>PSO-3 8倍瞄准镜</szItemName>
+		<szLongItemName>PSO-3 8倍瞄准镜</szLongItemName>
 		<szItemDesc>比PSO-1效果更好（8倍率）。常用在俄制DMRs和狙击步枪上。</szItemDesc>
-		<szBRName>PSO-3瞄准镜</szBRName>
+		<szBRName>PSO-3 8倍瞄准镜</szBRName>
 		<szBRDesc>如果你想在你的老式俄制步枪上装一个强力的瞄准具的话，这就是你的最佳选择，放大倍率高达8倍。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
-		<szItemName>5.56mm弹鼓适配器</szItemName>
-		<szLongItemName>5.56mm弹鼓适配器</szLongItemName>
+		<szItemName>5.56mm，100发弹鼓适配器</szItemName>
+		<szLongItemName>5.56mm，100发弹鼓适配器</szLongItemName>
 		<szItemDesc>这个特制的装置可以让你的5.56mm口径武器使用100发容量的弹鼓。</szItemDesc>
-		<szBRName>5.56mm弹鼓适配器</szBRName>
+		<szBRName>5.56mm，100发弹鼓适配器</szBRName>
 		<szBRDesc>这个特制的装置可以让你的5.56mm口径武器使用100发容量的弹鼓。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1002</uiIndex>
-		<szItemName>9mm弹鼓适配器</szItemName>
-		<szLongItemName>9mm弹鼓适配器</szLongItemName>
+		<szItemName>9mm，100发弹鼓适配器</szItemName>
+		<szLongItemName>9mm，100发弹鼓适配器</szLongItemName>
 		<szItemDesc>这个特制的装置可以让你的9mm口径武器使用100发容量的弹鼓。</szItemDesc>
-		<szBRName>9mm弹鼓适配器</szBRName>
+		<szBRName>9mm，100发弹鼓适配器</szBRName>
 		<szBRDesc>这个特制的装置可以让你的9mm口径武器使用100发容量的弹鼓。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8034,10 +8034,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1004</uiIndex>
-		<szItemName>4倍瞄准镜</szItemName>
-		<szLongItemName>ACOG-DOC 4倍光学瞄准镜</szLongItemName>
+		<szItemName>4倍组合式瞄准镜</szItemName>
+		<szLongItemName>ACOG-DOC 4倍组合式瞄准镜</szLongItemName>
 		<szItemDesc>ACOG是望远式瞄准镜和光点瞄准镜的结合体，既有放大的功能，又兼具双目快速瞄准的功能。</szItemDesc>
-		<szBRName>4倍瞄准镜</szBRName>
+		<szBRName>4倍组合式瞄准镜</szBRName>
 		<szBRDesc>先进战斗光学瞄准镜望远式瞄准镜和光点瞄准镜的结合体，包括安装导轨、备用机械瞄具和防尘罩。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8050,32 +8050,32 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1006</uiIndex>
-		<szItemName>反射式瞄准镜</szItemName>
-		<szLongItemName>反射式瞄准镜</szLongItemName>
+		<szItemName>反射式瞄具</szItemName>
+		<szLongItemName>反射式瞄具</szLongItemName>
 		<szItemDesc>这种先进的双眼瞄准反射式瞄具可以有效提高在任何光线下的射击精度。</szItemDesc>
-		<szBRName>反射式瞄准镜</szBRName>
+		<szBRName>反射式瞄具</szBRName>
 		<szBRDesc>这种先进的双眼瞄准反射式瞄具可以有效提高在任何光线下的射击精度。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1007</uiIndex>
 		<szItemName>7倍瞄准镜</szItemName>
-		<szLongItemName>7倍光学瞄准镜</szLongItemName>
+		<szLongItemName>7倍瞄准镜</szLongItemName>
 		<szItemDesc>该瞄准镜可以有效提步枪的精度如AR-10，FAL，G3，SCAR-H或者M-14供指定神枪手行使职责。</szItemDesc>
 		<szBRName>7倍瞄准镜</szBRName>
 		<szBRDesc>使用方便，可显著提高射击精度的瞄准镜，适用于大多数步枪，镀膜镜头，带有风偏修正、测距功能，绝对物超所值。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1008</uiIndex>
-		<szItemName>折叠式枪托</szItemName>
-		<szLongItemName>折叠式枪托</szLongItemName>
+		<szItemName>折叠枪托</szItemName>
+		<szLongItemName>折叠枪托（已展开）</szLongItemName>
 		<szItemDesc>可以使你举枪更快，不过你需要一点点时间适应它。</szItemDesc>
 		<szBRName>折叠式枪托</szBRName>
 		<szBRDesc>可以让你比其他家伙更快的出枪。可用在大部分固定枪托武器上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1009</uiIndex>
-		<szItemName>伸缩式枪托</szItemName>
-		<szLongItemName>伸缩式枪托</szLongItemName>
+		<szItemName>伸缩枪托</szItemName>
+		<szLongItemName>伸缩枪托（已拉伸）</szLongItemName>
 		<szItemDesc>可以使你举枪更快，不过你需要一点点时间适应它。</szItemDesc>
 		<szBRName>伸缩式枪托</szBRName>
 		<szBRDesc>可以让你比其他家伙更快的出枪。可用在大部分固定枪托武器上。</szBRDesc>
@@ -8210,10 +8210,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1026</uiIndex>
-		<szItemName>扳机组件</szItemName>
-		<szLongItemName>扳机组件</szLongItemName>
+		<szItemName>3发扳机组件</szItemName>
+		<szLongItemName>3发扳机组件</szLongItemName>
 		<szItemDesc>解决好战者的烦恼：只要把这个ACME出品的枪机组件装到你心爱的突击步枪上，就可以享受到简单有效的三发点射了。</szItemDesc>
-		<szBRName>扳机组件</szBRName>
+		<szBRName>3发扳机组件</szBRName>
 		<szBRDesc>广大好战者的福音！射击水平太差？或是讨厌全自动发射浪费子弹？换装ACME出品的枪机组件，马上享受简单有效的三发点射。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8235,7 +8235,7 @@
 	<ITEM>
 		<uiIndex>1029</uiIndex>
 		<szItemName>2倍瞄准镜</szItemName>
-		<szLongItemName>2倍小型光学瞄准镜</szLongItemName>
+		<szLongItemName>2倍瞄准镜</szLongItemName>
 		<szItemDesc>许多现代突击步枪直接集成了这种瞄准镜，装在左轮手枪、猎枪、冲锋枪等等武器上也不错。</szItemDesc>
 		<szBRName>2倍瞄准镜</szBRName>
 		<szBRDesc>适用于近程枪械，例如左轮手枪或猎枪。也可以作为一些突击步枪的可选配置，用来代替损坏的光学瞄具。</szBRDesc>
@@ -8243,7 +8243,7 @@
 	<ITEM>
 		<uiIndex>1030</uiIndex>
 		<szItemName>4倍瞄准镜</szItemName>
-		<szLongItemName>ACOG 4倍光学瞄准镜</szLongItemName>
+		<szLongItemName>ACOG 4倍瞄准镜</szLongItemName>
 		<szItemDesc>4倍率先进战斗光学瞄准系统。</szItemDesc>
 		<szBRName>4倍瞄准镜</szBRName>
 		<szBRDesc>买一套4倍率先进战斗光学瞄准系统，附送两件让你在目镜上安装附件的适配器</szBRDesc>
@@ -9442,26 +9442,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1180</uiIndex>
-		<szItemName>ZF-42瞄准镜</szItemName>
-		<szLongItemName>ZF-42瞄准镜</szLongItemName>
+		<szItemName>ZF-42 5倍瞄准镜</szItemName>
+		<szLongItemName>ZF-42 5倍瞄准镜</szLongItemName>
 		<szItemDesc>毛瑟98或者毛瑟98K使用的德造瞄准镜。</szItemDesc>
-		<szBRName>ZF-42瞄准镜</szBRName>
+		<szBRName>ZF-42 5倍瞄准镜</szBRName>
 		<szBRDesc>一款古老的的瞄准镜适用于二战时期的德国毛瑟步枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1181</uiIndex>
-		<szItemName>No.32瞄准镜</szItemName>
-		<szLongItemName>No.32瞄准镜</szLongItemName>
+		<szItemName>No.32 4倍瞄准镜</szItemName>
+		<szLongItemName>No.32 4倍瞄准镜</szLongItemName>
 		<szItemDesc>二战步枪使用的英制瞄准镜。</szItemDesc>
-		<szBRName>No.32瞄准镜</szBRName>
+		<szBRName>No.32 4倍瞄准镜</szBRName>
 		<szBRDesc>二战时的一款英国造瞄准镜，在二战期间曾被同盟国的其他军队采用。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1182</uiIndex>
-		<szItemName>PEM瞄准镜</szItemName>
-		<szLongItemName>PEM瞄准镜</szLongItemName>
+		<szItemName>PEM 4倍瞄准镜</szItemName>
+		<szLongItemName>PEM 4倍瞄准镜</szLongItemName>
 		<szItemDesc>二战时期的俄国瞄准镜。</szItemDesc>
-		<szBRName>PEM瞄准镜</szBRName>
+		<szBRName>PEM 4倍瞄准镜</szBRName>
 		<szBRDesc>莫辛-纳干步枪上使用的一款很简陋的瞄准镜。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12274,10 +12274,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1534</uiIndex>
-		<szItemName>绊线烟雾弹</szItemName>
-		<szLongItemName>绊线烟雾弹</szLongItemName>
+		<szItemName>绊线烟雾手弹</szItemName>
+		<szLongItemName>绊线烟雾手弹</szLongItemName>
 		<szItemDesc>装配了绊线的烟雾弹，构造简单，但是十分有效的特殊地雷。</szItemDesc>
-		<szBRName>绊线烟雾弹</szBRName>
+		<szBRName>绊线烟雾手弹</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13084,16 +13084,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1635</uiIndex>
-		<szItemName>步枪组合瞄具</szItemName>
-		<szLongItemName>步枪激光战术灯组合瞄具</szLongItemName>
+		<szItemName>战术灯组合瞄具</szItemName>
+		<szLongItemName>步枪战术灯组合瞄具(开灯状态)</szLongItemName>
 		<szItemDesc>这个激光瞄具和战术灯组合专用于现代步枪RIS附件系统。战术灯默认为开。</szItemDesc>
-		<szBRName>步枪组合瞄具</szBRName>
+		<szBRName>战术灯组合瞄具</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1636</uiIndex>
 		<szItemName>战术灯</szItemName>
-		<szLongItemName>战术灯</szLongItemName>
+		<szLongItemName>战术灯(关灯状态)</szLongItemName>
 		<szItemDesc>我是光！不，不对，我只是一个手电筒。我还是有点用处的，起码手边没武器时，可以用我来敲别人的脑袋。</szItemDesc>
 		<szBRName>战术灯</szBRName>
 		<szBRDesc>我们说：要有光！内附电池。</szBRDesc>
@@ -13101,7 +13101,7 @@
 	<ITEM>
 		<uiIndex>1637</uiIndex>
 		<szItemName>战术灯</szItemName>
-		<szLongItemName>战术灯</szLongItemName>
+		<szLongItemName>战术灯(开灯状态)</szLongItemName>
 		<szItemDesc>我是光！不，不对，我只是一个手电筒。我还是有点用处的，起码手边没武器时，可以用我来敲别人的脑袋。战术灯默认为开。</szItemDesc>
 		<szBRName>战术灯</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
@@ -13556,10 +13556,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1694</uiIndex>
-		<szItemName>射手突击背心</szItemName>
-		<szLongItemName>射手突击背心</szLongItemName>
+		<szItemName>中国射手突击背心</szItemName>
+		<szLongItemName>中国射手突击背心</szLongItemName>
 		<szItemDesc>中国制造的特种部队携行具背心，有可以支持MOLLE系统的挂带。</szItemDesc>
-		<szBRName>射手突击背心</szBRName>
+		<szBRName>中国射手突击背心</szBRName>
 		<szBRDesc>中国制造的特种部队携行具背心，有可以支持MOLLE系统的挂带。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13963,50 +13963,50 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1745</uiIndex>
-		<szItemName>折叠式枪托（折叠后）</szItemName>
-		<szLongItemName>折叠式枪托（折叠后）</szLongItemName>
+		<szItemName>折叠枪托</szItemName>
+		<szLongItemName>折叠枪托（已折叠）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>折叠式枪托（折叠后）</szBRName>
+		<szBRName>折叠枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 	    <uiIndex>1746</uiIndex>   <!-- 1746和1747是互相转换，内置不可拆卸 -->
-		<szItemName>固定折叠式枪托</szItemName>
-		<szLongItemName>固定折叠式枪托</szLongItemName>
+		<szItemName>固定折叠枪托</szItemName>
+		<szLongItemName>固定折叠枪托（已展开）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
 		<szBRName>固定折叠式枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1747</uiIndex>
-		<szItemName>固定折叠式枪托（折叠后）</szItemName>
-		<szLongItemName>固定折叠式枪托（折叠后）</szLongItemName>
+		<szItemName>固定折叠枪托</szItemName>
+		<szLongItemName>固定折叠枪托（已折叠）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>固定折叠式枪托（折叠后）</szBRName>
+		<szBRName>固定折叠枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1748</uiIndex>
-		<szItemName>伸缩式枪托（缩短后）</szItemName>
-		<szLongItemName>伸缩式枪托（缩短后）</szLongItemName>
+		<szItemName>伸缩枪托</szItemName>
+		<szLongItemName>伸缩枪托（已缩短）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>伸缩式枪托（缩短后）</szBRName>
+		<szBRName>伸缩枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1749</uiIndex>   <!-- 1749和1750是互相转换，内置不可拆卸 -->
-		<szItemName>固定伸缩式枪托</szItemName>
-		<szLongItemName>固定伸缩式枪托</szLongItemName>
+		<szItemName>固定伸缩枪托</szItemName>
+		<szLongItemName>固定伸缩枪托（已拉伸）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>固定伸缩式枪托</szBRName>
+		<szBRName>固定伸缩枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1750</uiIndex>
-		<szItemName>固定伸缩式枪托（缩短后）</szItemName>
-		<szLongItemName>固定伸缩式枪托（缩短后）</szLongItemName>
+		<szItemName>固定伸缩枪托</szItemName>
+		<szLongItemName>固定伸缩枪托（已缩短）</szLongItemName>
 		<szItemDesc>这个枪托可以让你举枪更快，但是瞄准会稍微困难一点。</szItemDesc>
-		<szBRName>固定伸缩式枪托（缩短后）</szBRName>
+		<szBRName>固定伸缩枪托</szBRName>
 		<szBRDesc>让你比敌人更快速地举枪，可用于大多数固定枪托的枪械上。</szBRDesc>
 	</ITEM>
 	<ITEM>
