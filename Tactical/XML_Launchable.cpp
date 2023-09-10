@@ -19,6 +19,8 @@ struct
 }
 typedef launchableParseData;
 
+UINT32 gMAXLAUNCHABLES_READ = 0;
+
 static void XMLCALL
 launchableStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -168,9 +170,9 @@ BOOLEAN ReadInLaunchableStats(STR fileName)
 		return FALSE;
 	}
 
+	gMAXLAUNCHABLES_READ = pData.curIndex + 1;
+
 	MemFree(lpcBuffer);
-
-
 	XML_ParserFree(parser);
 
 	return( TRUE );
