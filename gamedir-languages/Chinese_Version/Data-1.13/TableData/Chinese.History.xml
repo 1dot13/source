@@ -320,4 +320,8 @@
     <uiIndex>79</uiIndex>
     <sHistory>直升机维修开始。预计时间: %d小时(s)。</sHistory>
   </TEXT>
+  <TEXT>
+    <uiIndex>80</uiIndex>
+    <sHistory>成功拦截运输队。</sHistory>
+  </TEXT> 
 </STRINGS>
