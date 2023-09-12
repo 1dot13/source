@@ -41,8 +41,13 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			if ( !localizedTextOnly_BG )
-				memset(pData->curArray,0,sizeof(BACKGROUND_VALUES)*pData->maxArraySize);
+			if (!localizedTextOnly_BG)
+			{
+				for (UINT32 i = 0; i < pData->maxArraySize; i++)
+				{
+					pData->curArray[i] = BACKGROUND_VALUES();
+				}
+			}
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -50,8 +55,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		{
 			pData->curElement = ELEMENT;
 
-			if ( !localizedTextOnly_BG )
-				memset(&pData->curBackground,0,sizeof(BACKGROUND_VALUES));
+			if (!localizedTextOnly_BG)
+				pData->curBackground = BACKGROUND_VALUES();
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -151,6 +156,27 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if (strcmp(name, "drugtypes") == 0 && pData->curElement == ELEMENT)
+		{
+			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS;
+			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_TYPES].clear();
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if (strcmp(name, "drugitems") == 0 && pData->curElement == ELEMENT)
+		{
+			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS;
+			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_TYPES].clear();
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if (pData->curElement == ELEMENT_VECTOR_OF_NUMBERS &&
+				(strcmp(name, "drugtype") == 0 ||
+				 strcmp(name, "drugitem") == 0))
+		{
+			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS_NUMBER;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 
@@ -667,7 +693,19 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curBackground.uiFlags |= (UINT16)atol(pData->szCharData) ? BACKGROUND_CIVGROUPLOYAL : 0;
 		}
-																						
+		else if (strcmp(name, "drugtype") == 0)
+		{
+			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS;
+			INT16 drugValue = (INT16)atol(pData->szCharData);
+			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_TYPES].push_back(drugValue);
+		}
+		else if (strcmp(name, "drugitem") == 0)
+		{
+			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS;
+			INT16 drugValue = (INT16)atol(pData->szCharData);
+			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_ITEMS].push_back(drugValue);
+		}
+
 		pData->maxReadDepth--;
 	}
 	pData->currentDepth--;
@@ -711,7 +749,7 @@ BOOLEAN ReadInBackgrounds(STR fileName, BOOLEAN localizedVersion)
 	XML_SetCharacterDataHandler(parser, backgroundCharacterDataHandle);
 
 
-	memset(&pData,0,sizeof(pData));
+	pData = enemyRankParseData();
 	pData.curArray = zBackground;
 	pData.maxArraySize = NUM_BACKGROUND;
 
