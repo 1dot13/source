@@ -5667,36 +5667,31 @@ UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj)
 	if (pObj->exists() == false)
 		return 0;
 
-	if (UsingNewAttachmentSystem())
+	std::pair<std::multimap<UINT16, AttachmentStruct>::iterator, std::multimap<UINT16, AttachmentStruct>::iterator> range;
+	std::multimap<UINT16, AttachmentStruct>::iterator it;
+	range = AttachmentBackmap.equal_range(pObj->usItem);
+	for (it = range.first; it != range.second; it++)
 	{
-		std::pair<std::multimap<UINT16, AttachmentStruct>::iterator, std::multimap<UINT16, AttachmentStruct>::iterator> range;
-		std::multimap<UINT16, AttachmentStruct>::iterator it;
-		range = AttachmentBackmap.equal_range(pObj->usItem);
-		for (it = range.first; it != range.second; it++)
+		UINT16 attachmentId = it->second.attachmentIndex;
+		if (ItemIsLegal(attachmentId, TRUE))
+			uiSlotFlag |= Item[attachmentId].nasAttachmentClass;
+	}
+
+	for (UINT32 i = 0; i < gMAXLAUNCHABLES_READ; i++)
+	{
+		if (Launchable[i][1] == pObj->usItem)
 		{
-			UINT16 attachmentId = it->second.attachmentIndex;
+			UINT16 attachmentId = Launchable[i][0];
 			if (ItemIsLegal(attachmentId, TRUE))
 				uiSlotFlag |= Item[attachmentId].nasAttachmentClass;
 		}
-
-		for (UINT32 i = 0; i < gMAXLAUNCHABLES_READ; i++)
-		{
-			if (Launchable[i][1] == pObj->usItem)
-			{
-				UINT16 attachmentId = Launchable[i][0];
-				if (ItemIsLegal(attachmentId, TRUE))
-					uiSlotFlag |= Item[attachmentId].nasAttachmentClass;
-			}
-		}
 	}
-	else
+
+	UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
+	for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
 	{
-		UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
-		for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
-		{
-			if (ItemIsLegal(itemId, TRUE) && IsAttachmentPointAvailable(point, itemId, TRUE))
-				uiSlotFlag |= Item[itemId].nasAttachmentClass;
-		}
+		if (IsAttachmentPointAvailable(point, itemId, TRUE))
+			uiSlotFlag |= Item[itemId].nasAttachmentClass;
 	}
 
 	return uiSlotFlag;
