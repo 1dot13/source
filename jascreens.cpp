@@ -398,7 +398,7 @@ UINT32 InitScreenHandle(void)
  		int y = 40;
 #ifdef USE_VFS
 		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
-		sgp::Logger::instance().connectFile(ini_id, L"ERROR_REPORT.iniErrorMessages.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.txt", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 #endif
 		while (! iniErrorMessages.empty()) {
@@ -412,17 +412,17 @@ UINT32 InitScreenHandle(void)
 			if (iniErrorMessage_create_out_file)
 			{
 #ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "w" );
+				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "w" );
 #endif
 				y += 25;
-				swprintf( str, L"%S", "ERROR_REPORT.iniErrorMessages.txt has been created. Please review its content." );
-				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.txt has been created." );
+				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 				iniErrorMessage_create_out_file = FALSE;
 			}
 			else
 			{
 #ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "a+" );
+				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "a+" );
 #endif
 			}
 
@@ -434,10 +434,9 @@ UINT32 InitScreenHandle(void)
 #else
 			logger << iniErrorMessage << sgp::endl;
 #endif
-		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
-			iniErrorMessages.pop();
+		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 
-			if (iniErrorMessages.empty()) {for(int x=0 ; x <= 65535*2 ; x++);}
+			iniErrorMessages.pop();
 		}
 
 		InvalidateScreen( );
