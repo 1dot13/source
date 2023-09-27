@@ -4326,122 +4326,124 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									{
 
 									}
-									else if (uiLevelNodeFlags & LEVELNODE_DISPLAY_AP && !(uiFlags & TILES_DIRTY))
+									else if ( !(uiFlags & TILES_DIRTY) )
 									{
-										pTrav = &(hVObject->pETRLEObject[usImageIndex]);
-										sXPos += pTrav->sOffsetX;
-										sYPos += pTrav->sOffsetY;
-
-										if (gfUIDisplayActionPointsInvalid)
+										if ( uiLevelNodeFlags & LEVELNODE_DISPLAY_AP )
 										{
-											SetFontBackground(FONT_MCOLOR_BLACK);
-											SetFontForeground(FONT_MCOLOR_WHITE);
-										}
-										else
-										{
-											SetFontBackground(FONT_MCOLOR_BLACK);
-											SetFontForeground(FONT_MCOLOR_WHITE);
-										}
+											pTrav = &(hVObject->pETRLEObject[usImageIndex]);
+											sXPos += pTrav->sOffsetX;
+											sYPos += pTrav->sOffsetY;
 
-										if (gfUIDisplayActionPointsBlack)
-										{
-											SetFontBackground(FONT_MCOLOR_BLACK);
-											SetFontForeground(FONT_MCOLOR_BLACK);
-										}
-
-										SetFont(TINYFONT1);
-										SetFontDestBuffer(guiSAVEBUFFER, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE);
-										VarFindFontCenterCoordinates(sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pNode->uiAPCost);
-										mprintf_buffer(pDestBuf, uiDestPitchBYTES, TINYFONT1, sX, sY, L"%d", pNode->uiAPCost);
-										SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
-									}
-									else if ((uiLevelNodeFlags & LEVELNODE_ERASEZ) && !(uiFlags & TILES_DIRTY))
-									{
-										Zero8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
-										//Zero8BPPDataTo16BPPBufferTransparent( (UINT16*)gpZBuffer, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex );
-									}
-									else if ((uiLevelNodeFlags & LEVELNODE_ITEM) && !(uiFlags & TILES_DIRTY))
-									{
-										BOOLEAN bItemOutline = TRUE;
-
-										UINT16 usOutlineColor = gusNormalItemOutlineColor;
-										if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
-										{
-											usOutlineColor = gusYellowItemOutlineColor;
-										}
-
-										if (gGameSettings.fOptions[TOPTION_GLOW_ITEMS])
-										{
-											if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
+											if (gfUIDisplayActionPointsInvalid)
 											{
-												usOutlineColor = us16BPPItemCycleYellowColors[gsCurrentItemGlowFrame];
+												SetFontBackground(FONT_MCOLOR_BLACK);
+												SetFontForeground(FONT_MCOLOR_WHITE);
 											}
 											else
 											{
-												if (gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON)
+												SetFontBackground(FONT_MCOLOR_BLACK);
+												SetFontForeground(FONT_MCOLOR_WHITE);
+											}
+
+											if (gfUIDisplayActionPointsBlack)
+											{
+												SetFontBackground(FONT_MCOLOR_BLACK);
+												SetFontForeground(FONT_MCOLOR_BLACK);
+											}
+
+											SetFont(TINYFONT1);
+											SetFontDestBuffer(guiSAVEBUFFER, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE);
+											VarFindFontCenterCoordinates(sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pNode->uiAPCost);
+											mprintf_buffer(pDestBuf, uiDestPitchBYTES, TINYFONT1, sX, sY, L"%d", pNode->uiAPCost);
+											SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+										}
+										else if ( uiLevelNodeFlags & LEVELNODE_ERASEZ )
+										{
+											Zero8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+											//Zero8BPPDataTo16BPPBufferTransparent( (UINT16*)gpZBuffer, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex );
+										}
+										else if ( uiLevelNodeFlags & LEVELNODE_ITEM )
+										{
+											BOOLEAN bItemOutline = TRUE;
+
+											UINT16 usOutlineColor = gusNormalItemOutlineColor;
+											if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
+											{
+												usOutlineColor = gusYellowItemOutlineColor;
+											}
+
+											if (gGameSettings.fOptions[TOPTION_GLOW_ITEMS])
+											{
+												if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
 												{
-													usOutlineColor = us16BPPItemCycleRedColors[gsCurrentItemGlowFrame];
+													usOutlineColor = us16BPPItemCycleYellowColors[gsCurrentItemGlowFrame];
 												}
 												else
 												{
-													usOutlineColor = us16BPPItemCycleWhiteColors[gsCurrentItemGlowFrame];
+													if (gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON)
+													{
+														usOutlineColor = us16BPPItemCycleRedColors[gsCurrentItemGlowFrame];
+													}
+													else
+													{
+														usOutlineColor = us16BPPItemCycleWhiteColors[gsCurrentItemGlowFrame];
+													}
 												}
 											}
-										}
 
-										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-										if (bBlitClipVal == FALSE)
-										{
-											if (fObscuredBlitter)
-											{
-												Blt8BPPDataTo16BPPBufferOutlineZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
-											}
-											else
-											{
-												Blt8BPPDataTo16BPPBufferOutlineZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
-											}
-										}
-										else if (bBlitClipVal == TRUE)
-										{
-											if (fObscuredBlitter)
-											{
-												Blt8BPPDataTo16BPPBufferOutlineZPixelateObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
-											}
-											else
-											{
-												Blt8BPPDataTo16BPPBufferOutlineZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
-											}
-										}
-									}
-									// ATE: Check here for a lot of conditions!
-									else if ((uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT) && !(uiFlags & TILES_DIRTY))
-									{
-
-										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-										if (fShadowBlitter)
-										{
+											bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 											if (bBlitClipVal == FALSE)
 											{
-												Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-											}
-											else
-											{
-												Blt8BPPDataTo16BPPBufferShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-											}
-										}
-										else
-										{
-											BOOLEAN bItemOutline = FALSE;
-											UINT16 usOutlineColor = 0; // Not used as bItemOutline == false but needs to be fed to the function calls
-
-											if (bBlitClipVal == FALSE)
-											{
-												Blt8BPPDataTo16BPPBufferOutlineZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+													if (fObscuredBlitter)
+													{
+														Blt8BPPDataTo16BPPBufferOutlineZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+													}
+													else
+													{
+														Blt8BPPDataTo16BPPBufferOutlineZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+													}
 											}
 											else if (bBlitClipVal == TRUE)
 											{
-												Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+												if (fObscuredBlitter)
+												{
+													Blt8BPPDataTo16BPPBufferOutlineZPixelateObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferOutlineZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+												}
+											}
+										}
+										else if ( uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT )
+										{
+
+											bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+
+											if (fShadowBlitter)
+											{
+												if (bBlitClipVal == FALSE)
+												{
+													Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
+											}
+											else
+											{
+												BOOLEAN bItemOutline = FALSE;
+												UINT16 usOutlineColor = 0; // Not used as bItemOutline == false but needs to be fed to the function calls
+
+												if (bBlitClipVal == FALSE)
+												{
+													Blt8BPPDataTo16BPPBufferOutlineZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+												}
+												else if (bBlitClipVal == TRUE)
+												{
+													Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+												}
 											}
 										}
 									}
