@@ -2166,7 +2166,10 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 								if ((gGameSettings.fOptions[TOPTION_USE_LOGICAL_BODYTYPES] == TRUE)
 									&& (uiRowFlags == TILES_DYNAMIC_MERCS || uiRowFlags == TILES_DYNAMIC_HIGHMERCS || uiRowFlags == TILES_DYNAMIC_STRUCT_MERCS))
 								{
-									bt = bodyTypeDB->Find(pSoldier);
+									if (bodyTypeDB != NULL)
+									{
+										bt = bodyTypeDB->Find(pSoldier);
+									}
 								}
 								UINT16 * pDefaultShadeTable = pShadeTable;
 								RECT backRect; // Actually only needed if uiFlags & TILES_DIRTY, but must be initialized with values that make sense for the comparisons.
