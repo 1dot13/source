@@ -4401,12 +4401,6 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 											}
 										}
 
-										//else
-											//{
-											//	usOutlineColor = us16BPPItemCycleWhiteColors[ pItemPool->bFlashColor ];
-											//	bItemOutline = TRUE;
-											//}
-
 										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
 										if (bBlitClipVal == FALSE)
