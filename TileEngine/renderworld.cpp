@@ -575,7 +575,7 @@ void RenderHighlight( INT16 sMouseX_M, INT16 sMouseY_M, INT16 sStartPointX_M, IN
 BOOLEAN CheckRenderCenter( INT16 sNewCenterX, INT16 sNewCenterY );
 
 // Flugente: display a riot shield
-void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
+static void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
 {
 	if (pSoldier)
 	{
@@ -1028,7 +1028,7 @@ void RenderSetShadows(BOOLEAN fShadows)
 }
 }
 
-inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
+inline static UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
 {
 	UINT16 * pShadeTable;
 	// Shade guy always lighter than scene default!
@@ -3285,7 +3285,7 @@ inline static void funcSoldierZLevel(SOLDIERTYPE* pSoldier, INT16 sMapX, INT16 s
 }
 
 
-void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32* puiLevels, UINT16* psLevelIDs)
+static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32* puiLevels, UINT16* psLevelIDs)
 {
 
 	//#if 0
