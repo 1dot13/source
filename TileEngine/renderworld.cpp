@@ -3309,7 +3309,6 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 	UINT16			usImageIndex, * pShadeTable, * pDirtyBackPtr;
 	UINT32			uiBrushWidth, uiBrushHeight, uiDirtyFlags;
 	INT16				sXPos, sYPos, sZLevel;
-	INT16				sMouseX_M, sMouseY_M;
 	BOOLEAN			fShadowBlitter = FALSE;
 	BOOLEAN			fZBlitter = FALSE;
 	BOOLEAN			fZWrite = FALSE;
@@ -3396,8 +3395,6 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 		}
 	}
 
-	//if((uiFlags&TILES_TYPE_MASK)==TILES_STATIC_LAND)
-	GetMouseXY(&sMouseX_M, &sMouseY_M);
 
 	pDirtyBackPtr = NULL;
 
