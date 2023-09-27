@@ -1186,7 +1186,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 /* 
 MONSTERS BE HERE!
 */
-void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs)
+void RenderTilesOriginal(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs)
 {
 
 	//#if 0
