@@ -1729,34 +1729,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				// Blit hatch!
 				BltVideoObjectFromIndex( uiRenderBuffer, guiHATCH, 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
-
-			if ( !pFace->fDisabled && !pFace->fInvalidAnim )
-			{
-				// Render text above here if that's what was asked for
-				if ( pFace->fDisplayTextOver != FACE_NO_TEXT_OVER	)
-				{
-					SetFont( TINYFONT1 );
-					SetFontBackground( FONT_MCOLOR_BLACK );
-					SetFontForeground( FONT_MCOLOR_WHITE );
-
-					SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
-					VarFindFontCenterCoordinates( sFaceX, sFaceY, pFace->usFaceWidth, pFace->usFaceHeight, TINYFONT1, &sFontX, &sFontY, pFace->zDisplayText );
-
-					if ( pFace->fDisplayTextOver == FACE_DRAW_TEXT_OVER )
-					{
-						gprintfinvalidate( sFontX, sFontY, pFace->zDisplayText );
-						mprintf( sFontX, sFontY, pFace->zDisplayText );
-					}
-					else if ( pFace->fDisplayTextOver == FACE_ERASE_TEXT_OVER )
-					{
-						gprintfRestore( sFontX, sFontY, pFace->zDisplayText );
-						pFace->fDisplayTextOver = FACE_NO_TEXT_OVER;
-					}
-
-					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-				}
-			}
 		}
 	
 		// sevenfm: only show for alive soldiers, no face icons for big faces
@@ -2561,6 +2533,37 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 					fDoIcon = FALSE;
 					++bNumRightIcons;
+				}
+			}
+		}
+
+		if (!(pFace->uiFlags & FACE_INACTIVE_HANDLED_ELSEWHERE) || fUseExternBuffer)
+		{
+			if (!pFace->fDisabled && !pFace->fInvalidAnim)
+			{
+				// Render text above here if that's what was asked for
+				if (pFace->fDisplayTextOver != FACE_NO_TEXT_OVER)
+				{
+					SetFont(TINYFONT1);
+					SetFontBackground(FONT_MCOLOR_BLACK);
+					SetFontForeground(FONT_MCOLOR_WHITE);
+
+					SetFontDestBuffer(uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+					VarFindFontCenterCoordinates(sFaceX, sFaceY, pFace->usFaceWidth, pFace->usFaceHeight, TINYFONT1, &sFontX, &sFontY, pFace->zDisplayText);
+
+					if (pFace->fDisplayTextOver == FACE_DRAW_TEXT_OVER)
+					{
+						gprintfinvalidate(sFontX, sFontY, pFace->zDisplayText);
+						mprintf(sFontX, sFontY, pFace->zDisplayText);
+					}
+					else if (pFace->fDisplayTextOver == FACE_ERASE_TEXT_OVER)
+					{
+						gprintfRestore(sFontX, sFontY, pFace->zDisplayText);
+						pFace->fDisplayTextOver = FACE_NO_TEXT_OVER;
+					}
+
+					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 				}
 			}
 		}
