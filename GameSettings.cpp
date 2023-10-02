@@ -1185,6 +1185,12 @@ void LoadGameExternalOptions()
 	// Flugente: additional decals on objects (cracked walls, blood spatters etc.)
 	gGameExternalOptions.fAdditionalDecals					= iniReader.ReadBoolean( "Graphics Settings", "ADDITIONAL_DECALS", FALSE );
 
+	// anv: map color variants
+	gGameExternalOptions.ubRadarMapModeDay					= iniReader.ReadInteger("Graphics Settings", "RADAR_MAP_MODE_DAY", 0, 0, 2);
+	gGameExternalOptions.ubRadarMapModeNight				= iniReader.ReadInteger("Graphics Settings", "RADAR_MAP_MODE_NIGHT", 3, 0, 3);
+	gGameExternalOptions.ubOverheadMapModeDay				= iniReader.ReadInteger("Graphics Settings", "OVERHEAD_MAP_MODE_DAY", 0, 0, 2);
+	gGameExternalOptions.ubOverheadMapModeNight				= iniReader.ReadInteger("Graphics Settings", "OVERHEAD_MAP_MODE_NIGHT", 0, 0, 3);
+
 	//################# Sound Settings #################
 	
 	gGameExternalOptions.guiWeaponSoundEffectsVolume		= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME", 0, 0, 1000 /*1000 = 10x?*/);
