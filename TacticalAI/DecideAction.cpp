@@ -6273,7 +6273,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 	// POSSIBLY FORGET THE ATTACK AND TAKE COVER
 	////////////////////////////////////////////////////////////////////////////
-	if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
+	if ( //(pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
 		 (ubBestAttackAction == AI_ACTION_FIRE_GUN) && 
 		 (pSoldier->aiData.bShock == 0) && 
 		 (pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2) && 
