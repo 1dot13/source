@@ -206,6 +206,82 @@ STR szAction[] = {
 	"AI_ACTION_STOP_MEDIC"
 };
 
+STR16 wszAction[] = {
+	L"AI_ACTION_NONE",
+
+	L"AI_ACTION_RANDOM_PATROL",
+	L"AI_ACTION_SEEK_FRIEND",
+	L"AI_ACTION_SEEK_OPPONENT",
+	L"AI_ACTION_TAKE_COVER",
+	L"AI_ACTION_GET_CLOSER",
+
+	L"AI_ACTION_POINT_PATROL",
+	L"AI_ACTION_LEAVE_WATER_GAS",
+	L"AI_ACTION_SEEK_NOISE",
+	L"AI_ACTION_ESCORTED_MOVE",
+	L"AI_ACTION_RUN_AWAY",
+
+	L"AI_ACTION_KNIFE_MOVE",
+	L"AI_ACTION_APPROACH_MERC",
+	L"AI_ACTION_TRACK",
+	L"AI_ACTION_EAT",
+	L"AI_ACTION_PICKUP_ITEM",
+
+	L"AI_ACTION_SCHEDULE_MOVE",
+	L"AI_ACTION_WALK",
+	L"AI_ACTION_RUN",
+	L"AI_ACTION_WITHDRAW",
+	L"AI_ACTION_FLANK_LEFT",
+	L"AI_ACTION_FLANK_RIGHT",
+	L"AI_ACTION_MOVE_TO_CLIMB",
+
+	L"AI_ACTION_CHANGE_FACING",
+
+	L"AI_ACTION_CHANGE_STANCE",
+
+	L"AI_ACTION_YELLOW_ALERT",
+	L"AI_ACTION_RED_ALERT",
+	L"AI_ACTION_CREATURE_CALL",
+	L"AI_ACTION_PULL_TRIGGER",
+
+	L"AI_ACTION_USE_DETONATOR",
+	L"AI_ACTION_FIRE_GUN",
+	L"AI_ACTION_TOSS_PROJECTILE",
+	L"AI_ACTION_KNIFE_STAB",
+	L"AI_ACTION_THROW_KNIFE",
+
+	L"AI_ACTION_GIVE_AID",
+	L"AI_ACTION_WAIT",
+	L"AI_ACTION_PENDING_ACTION",
+	L"AI_ACTION_DROP_ITEM",
+	L"AI_ACTION_COWER",
+
+	L"AI_ACTION_STOP_COWERING",
+	L"AI_ACTION_OPEN_OR_CLOSE_DOOR",
+	L"AI_ACTION_UNLOCK_DOOR",
+	L"AI_ACTION_LOCK_DOOR",
+	L"AI_ACTION_LOWER_GUN",
+
+	L"AI_ACTION_ABSOLUTELY_NONE",
+	L"AI_ACTION_CLIMB_ROOF",
+	L"AI_ACTION_END_TURN",
+	L"AI_ACTION_END_COWER_AND_MOVE",
+	L"AI_ACTION_TRAVERSE_DOWN",
+	L"AI_ACTION_OFFER_SURRENDER",
+	L"AI_ACTION_RAISE_GUN",
+	L"AI_ACTION_STEAL_MOVE",
+
+	L"AI_ACTION_RELOAD_GUN",
+
+	L"AI_ACTION_JUMP_WINDOW",
+	L"AI_ACTION_FREE_PRISONER",
+	L"AI_ACTION_USE_SKILL",
+	L"AI_ACTION_DOCTOR",
+	L"AI_ACTION_DOCTOR_SELF",
+	L"AI_ACTION_SELFDETONATE",
+	L"AI_ACTION_STOP_MEDIC"
+};
+
 // sevenfm
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
@@ -690,7 +766,6 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		// might have been in 'was' state; no longer so...
 		pSoldier->aiData.bNewSituation = NOT_NEW_SITUATION;
 	}
-
 #ifdef TESTAI
 	DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3,String( ".... HANDLING AI FOR %d",pSoldier->ubID));
 #endif
@@ -698,42 +773,79 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 	/*********
 	Start of new overall AI system
 	********/
-
 	if (gfTurnBasedAI)
 	{
-		time_t tCurrentTime = time(0);
-		UINT32 uiShortDelay = 10;
-		UINT32 uiDelay = (UINT32)gGameExternalOptions.gubDeadLockDelay;
-		UINT32 uiTime = (UINT32)(tCurrentTime - gtTimeSinceMercAIStart);
-		BOOLEAN fKeyPressed = _KeyDown(ESC);
-
-		if ((uiTime > uiDelay || uiTime > uiShortDelay && fKeyPressed) && !gfUIInDeadlock)
-		//if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
+		if (true)
 		{
-			// ATE: Display message that deadlock occured...
-			LiveMessage( "Breaking Deadlock" );
+			// added by Flugente: static pointers, used to break out of an endless circles
+			static SOLDIERTYPE* pLastDecisionSoldier = NULL;
+			static INT16	lastdecisioncount = 0;
 
-			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
-			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+			// simple solution to prevent an endless clock: remember the last soldier that decided an action. If its the same one, increase the counter.
+			// if counter is high enough, end this guy's turn
+			if (pSoldier == pLastDecisionSoldier)
+			{
+				// we will only end our turn this way if this function was called over 100 times with same soldier without ending a turn.
+				// so many actions in a single turn smell of an endless clock. 
+				// If we end a turn normally, the counter will be set back to 0, so this wont be a problem if you have a single soldier left for multiple turns
+				if (lastdecisioncount >= 600)
+				{
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, wszAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+					DebugAI(AI_MSG_INFO, pSoldier, String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+					DebugAI(AI_MSG_INFO, pSoldier, String("Last action was %s ", szAction[pSoldier->aiData.bLastAction]));
+
+					EndAIDeadlock();
+					//EndAIGuysTurn(pSoldier);
+					lastdecisioncount = 0;
+					return;
+				}
+				else
+					++lastdecisioncount;
+			}
+			else
+			{
+				pLastDecisionSoldier = pSoldier;
+				lastdecisioncount = 0;
+			}
+		}
+		else
+		{
+			time_t tCurrentTime = time(0);
+			UINT32 uiShortDelay = 10;
+			UINT32 uiDelay = (UINT32)gGameExternalOptions.gubDeadLockDelay;
+			UINT32 uiTime = (UINT32)(tCurrentTime - gtTimeSinceMercAIStart);
+			BOOLEAN fKeyPressed = _KeyDown(ESC);
+
+			if ((uiTime > uiDelay || uiTime > uiShortDelay && fKeyPressed) && !gfUIInDeadlock)
+			//if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
+			{
+				// ATE: Display message that deadlock occured...
+				LiveMessage( "Breaking Deadlock" );
+
+				ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, wszAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+				DebugAI(AI_MSG_INFO, pSoldier, String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+				DebugAI(AI_MSG_INFO, pSoldier, String("Last action was %s ", szAction[pSoldier->aiData.bLastAction]));
+
 
 #ifdef JA2TESTVERSION
-			// display deadlock message
-			gfUIInDeadlock = TRUE;
-			gUIDeadlockedSoldier = pSoldier->ubID;
-			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
+				// display deadlock message
+				gfUIInDeadlock = TRUE;
+				gUIDeadlockedSoldier = pSoldier->ubID;
+				DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
 
-			// If we are in beta version, also report message!
+				// If we are in beta version, also report message!
 #ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
 #endif
-			// just abort
-			EndAIDeadlock();
-			if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
-			{
-				return;
+				// just abort
+				EndAIDeadlock();
+				if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+				{
+					return;
+				}
+#endif
 			}
-#endif
 		}
 	}
 
