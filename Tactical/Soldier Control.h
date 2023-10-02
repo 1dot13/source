@@ -20,6 +20,7 @@
 #include <iterator>
 #include "GameSettings.h"	// added by Flugente
 #include "Disease.h"		// added by Flugente
+#include <functional>
 
 #define PTR_CIVILIAN	(pSoldier->bTeam == CIV_TEAM)
 #define PTR_CROUCHED	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH)
@@ -1069,6 +1070,8 @@ public:
 	INT8												bPathStored;	// good for AI to reduct redundancy
 };
 
+enum class BackgroundVectorTypes;
+
 class SOLDIERTYPE//last edited at version 102
 {
 public:
@@ -1656,6 +1659,10 @@ public:
 	UINT8	ubQuickItemSlot;
 
 	UINT16	usGrenadeItem;
+
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	std::function<void()> delayedDamageFunction;
+
 public:
 	// CREATION FUNCTIONS
 	BOOLEAN DeleteSoldier( void );
@@ -1719,6 +1726,9 @@ public:
 	void ReviveSoldier( void );
 	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	void SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage);
+	void ResolveDelayedDamage();
 
 	// Palette functions for soldiers
 	BOOLEAN CreateSoldierPalettes( void );
@@ -1945,6 +1955,8 @@ public:
 	// Flugente: do we have a specific background flag?
 	BOOLEAN		HasBackgroundFlag( UINT64 aFlag );
 	INT16		GetBackgroundValue( UINT16 aNr );
+
+	const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const;
 
 	INT8		GetSuppressionResistanceBonus();			// bonus to resistance against suppression
 	INT16		GetMeleeDamageBonus();

@@ -34,6 +34,7 @@
 	#include "Isometric Utils.h"
 	#include "MilitiaSquads.h"
 	#include "Tactical Save.h"
+#include <random>
 
 INT16 gsSkyriderCostModifier;
 // HEADROCK HAM 3.6: Strategic info variable, total of income/costs accumulated for the use of facilities today.
@@ -1808,9 +1809,25 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						}
 
 						// Add effects
-						CreateItem( ALCOHOL, Item[ALCOHOL].usPortionSize, &gTempObject );
-						
-						ApplyConsumable( pSoldier, &gTempObject, TRUE, FALSE );
+						{
+							std::vector<INT16>& riskDrugItems =
+								gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[iCounter].valueVectors[FacilityRiskVectorTypes::RISK_DRUG_ITEMS];
+
+							if (riskDrugItems.empty())
+							{
+								CreateItem(ALCOHOL, Item[ALCOHOL].usPortionSize, &gTempObject);
+
+								ApplyConsumable(pSoldier, &gTempObject, TRUE, FALSE);
+							}
+							else
+							{
+								INT16 sItemId = riskDrugItems[std::uniform_int_distribution<>(0, riskDrugItems.size() - 1)(std::mt19937{ std::random_device{}() })];
+
+								CreateItem(sItemId, Item[sItemId].usPortionSize, &gTempObject);
+
+								ApplyConsumable(pSoldier, &gTempObject, TRUE, FALSE);
+							}
+						}
 
 						//pSoldier->AddDrugValues( DRUG_TYPE_ALCOHOL, Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect, Drug[DRUG_TYPE_ALCOHOL].ubDrugTravelRate, Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect );
 

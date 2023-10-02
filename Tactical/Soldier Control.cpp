@@ -10700,6 +10700,22 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	return(ubCombinedLoss);
 }
 
+void SOLDIERTYPE::SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage)
+{
+	delayedDamageFunction = [this, bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage]()
+	{
+		this->SoldierTakeDamage(bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage);
+	};
+}
+
+void SOLDIERTYPE::ResolveDelayedDamage()
+{
+	if (delayedDamageFunction)
+	{
+		delayedDamageFunction();
+		delayedDamageFunction = nullptr;
+	}
+}
 
 extern BOOLEAN IsMercSayingDialogue( UINT8 ubProfileID );
 
@@ -11499,6 +11515,8 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 	// OK, set new position
 	this->EVENT_InternalSetSoldierPosition( dXPos, dYPos, FALSE, FALSE, FALSE );
 	
+	this->ResolveDelayedDamage();
+
 	// Flugente: drag people	
 	if ( currentlydragging )
 	{
@@ -17587,6 +17605,24 @@ INT16 SOLDIERTYPE::GetBackgroundValue( UINT16 aNr )
 	return 0;
 }
 
+const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const
+{
+	static const std::vector<INT16> emptyVector;
+
+	if (UsingBackGroundSystem() && this->ubProfile != NO_PROFILE)
+	{
+		const BACKGROUND_VALUES& background = zBackground[gMercProfiles[this->ubProfile].usBackground];
+		auto iterator = background.valueVectors.find(backgroundVectorType);
+
+		if (iterator != background.valueVectors.end())
+		{
+			return iterator->second;
+		}
+	}
+
+	return emptyVector;
+}
+
 INT8 SOLDIERTYPE::GetSuppressionResistanceBonus( )
 {
 	INT8 bonus = 0;
@@ -21818,6 +21854,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 	}
 
 	pSoldier->bCollapsed = TRUE;
+
+	pSoldier->usUIMovementMode = CRAWLING;
 
 	pSoldier->ReceivingSoldierCancelServices( );
 
@@ -26234,4 +26272,6 @@ void SOLDIERTYPE::InitializeExtraData(void)
 	this->ubQuickItemSlot = 0;
 
 	this->usGrenadeItem = 0;
+
+	this->delayedDamageFunction = nullptr;
 }

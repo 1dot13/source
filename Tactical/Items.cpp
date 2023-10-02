@@ -566,7 +566,8 @@ AttachmentInfoStruct AttachmentInfo[MAXITEMS+1];// =
 AttachmentSlotStruct AttachmentSlots[MAXITEMS+1];
 ItemReplacementStruct ItemReplacement[MAXATTACHMENTS];
 
-UINT16 Attachment[MAXATTACHMENTS][4];// =
+AttachmentStruct Attachment[MAXATTACHMENTS];// =
+std::multimap<UINT16, AttachmentStruct> AttachmentBackmap;  // key is itemId
 //{
 //	{SILENCER, GLOCK_17},
 //	{SILENCER, GLOCK_18},
@@ -2253,7 +2254,6 @@ INT32 GetAttachmentInfoIndex( UINT16 usItem )
 //Determine if it is possible to add this attachment to the item.
 BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 {
-	INT32 iLoop = 0;
 	if (pubAPCost) {
 		*pubAPCost = (UINT8)APBPConstants[AP_RELOAD_GUN]; //default value
 	}
@@ -2269,40 +2269,26 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 			*pubAPCost = Item[usAttachment].ubAttachToPointAPCost;
 		return TRUE;
 	}
+
 	// look for the section of the array pertaining to this attachment...
-	while( 1 )
-	{
-		if (Attachment[iLoop][0] == usAttachment)
-		{
-			break;
-		}
-		++iLoop;
-		if (Attachment[iLoop][0] == 0)
-		{
-			// the proposed item cannot be attached to anything!
-			return( FALSE );
-		}
-	}
+	UINT32 startIndex = 0, endIndex = 0;
+	if (FindAttachmentRange(usAttachment, &startIndex, &endIndex) == FALSE)
+		return FALSE;
+
 	// now look through this section for the item in question
-	while( 1 )
+	for (UINT32 iLoop = startIndex; iLoop <= endIndex; iLoop++)
 	{
-		if (Attachment[iLoop][1] == usItem)
+		if (Attachment[iLoop].itemIndex == usItem)
 		{
-			if ( UsingNewAttachmentSystem( ) || Attachment[iLoop][3] != 1 )
+			if ( UsingNewAttachmentSystem( ) || Attachment[iLoop].NASOnly != 1 )
 			{
 				if (pubAPCost)
-					*pubAPCost = (UINT8)Attachment[iLoop][2]; //Madd: get ap cost of attaching items :)
-				break;
+					*pubAPCost = (UINT8)Attachment[iLoop].APCost; //Madd: get ap cost of attaching items :)
 			}
-		}
-		++iLoop;
-		if (Attachment[iLoop][0] != usAttachment)
-		{
-			// the proposed item cannot be attached to the item in question
-			return( FALSE );
+			return TRUE;
 		}
 	}
-	return( TRUE );
+	return FALSE;
 }
 
 BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCost, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector)
@@ -5677,40 +5663,35 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj)
 {
 	UINT64		uiSlotFlag = 0;
-	UINT32		uiLoop = 0;
-	UINT32		fItem;
 
 	if (pObj->exists() == false)
 		return 0;
 
-	UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
-
-	while (uiLoop < gMAXITEMS_READ && Item[uiLoop].usItemClass != 0 ||
-			uiLoop < MAXATTACHMENTS && Attachment[uiLoop][0] != 0 ||
-			uiLoop < MAXITEMS + 1 && Launchable[uiLoop][0] != 0)
+	std::pair<std::multimap<UINT16, AttachmentStruct>::iterator, std::multimap<UINT16, AttachmentStruct>::iterator> range;
+	std::multimap<UINT16, AttachmentStruct>::iterator it;
+	range = AttachmentBackmap.equal_range(pObj->usItem);
+	for (it = range.first; it != range.second; it++)
 	{
-		if (uiLoop > 0 && uiLoop < gMAXITEMS_READ && IsAttachmentPointAvailable(point, uiLoop, TRUE))
-		{
-			fItem = uiLoop;
-			if (fItem && ItemIsLegal(fItem, TRUE))
-				uiSlotFlag |= Item[fItem].nasAttachmentClass;
-		}
+		UINT16 attachmentId = it->second.attachmentIndex;
+		if (ItemIsLegal(attachmentId, TRUE))
+			uiSlotFlag |= Item[attachmentId].nasAttachmentClass;
+	}
 
-		if (uiLoop < MAXATTACHMENTS && Attachment[uiLoop][1] == pObj->usItem)
+	for (UINT32 i = 0; i < gMAXLAUNCHABLES_READ; i++)
+	{
+		if (Launchable[i][1] == pObj->usItem)
 		{
-			fItem = Attachment[uiLoop][0];
-			if (fItem && ItemIsLegal(fItem, TRUE))
-				uiSlotFlag |= Item[fItem].nasAttachmentClass;
+			UINT16 attachmentId = Launchable[i][0];
+			if (ItemIsLegal(attachmentId, TRUE))
+				uiSlotFlag |= Item[attachmentId].nasAttachmentClass;
 		}
+	}
 
-		if (uiLoop < MAXITEMS + 1 && Launchable[uiLoop][1] == pObj->usItem)
-		{
-			fItem = Launchable[uiLoop][0];
-			if (fItem && ItemIsLegal(fItem, TRUE))
-				uiSlotFlag |= Item[fItem].nasAttachmentClass;
-		}
-
-		uiLoop++;
+	UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
+	for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
+	{
+		if (IsAttachmentPointAvailable(point, itemId, TRUE))
+			uiSlotFlag |= Item[itemId].nasAttachmentClass;
 	}
 
 	return uiSlotFlag;
@@ -16027,4 +16008,53 @@ UINT16 GetLaunchableOfExplosionType(UINT16 launcher, UINT8 explosionType)
 		}
 	}
 	return NOTHING;
+}
+
+BOOLEAN FindAttachmentRange(UINT16 usAttachment, UINT32* pStartIndex, UINT32* pEndIndex)
+{
+	BOOLEAN result = FALSE;
+
+	INT32 leftMargin = 0;
+	INT32 rightMargin = (INT32)gMAXATTACHMENTS_READ - 1;
+	INT32 middle = 0;
+	// use binary search to locate the group of elements for given attachment item Id (usAttachment)
+	while (leftMargin <= rightMargin)
+	{
+		middle = leftMargin + (rightMargin - leftMargin) / 2;
+
+		if (Attachment[middle].attachmentIndex == usAttachment)
+		{
+			result = TRUE;
+			break;
+		}
+		else if (Attachment[middle].attachmentIndex < usAttachment)
+			leftMargin = middle + 1;
+		else
+			rightMargin = middle - 1;
+	}
+
+	if (result)
+	{
+		// now middle is an index somewhere within the group, seek for beginning and ending of the group
+		if (pStartIndex)
+		{
+			*pStartIndex = (UINT32)middle;
+			for (INT32 i = middle - 1; i >= leftMargin; i--)
+				if (Attachment[i].attachmentIndex == usAttachment)
+					*pStartIndex = (UINT32)i;
+				else
+					break;
+		}
+		if (pEndIndex)
+		{
+			*pEndIndex = (UINT32)middle;
+			for (INT32 i = middle + 1; i <= rightMargin; i++)
+				if (Attachment[i].attachmentIndex == usAttachment)
+					*pEndIndex = (UINT32)i;
+				else
+					break;
+		}
+	}
+
+	return result;
 }

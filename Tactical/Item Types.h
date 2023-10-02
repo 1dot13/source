@@ -1724,9 +1724,30 @@ typedef enum
 	MAXITEMS = 16001
 } ITEMDEFINE;
 
+struct AttachmentStruct
+{
+	UINT16 attachmentIndex;
+	UINT16 itemIndex;
+	UINT16 APCost;
+	UINT16 NASOnly;
+
+	bool operator<(const AttachmentStruct& a) const
+	{
+		bool result = false;
+		if (attachmentIndex < a.attachmentIndex)
+			result = true;
+		else if (attachmentIndex == a.attachmentIndex)
+			result = itemIndex < a.itemIndex;
+
+		return result;
+	}
+};
+
 // Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
 extern UINT32 gMAXITEMS_READ;
 extern UINT32 gMAXAMMOTYPES_READ;
+extern UINT32 gMAXATTACHMENTS_READ;
+extern UINT32 gMAXLAUNCHABLES_READ;
 
 /* CHRISL: Arrays to track ic group information.  These allow us to determine which LBE slots control which pockets and
 what LBE class the pockets are.*/
@@ -1781,7 +1802,8 @@ const INT16	icDefault[NUM_INV_SLOTS] =	{
 #define MAXATTACHMENTS 60000
 
 extern INVTYPE Item[MAXITEMS];
-extern UINT16 Attachment[MAXATTACHMENTS][4];
+extern AttachmentStruct Attachment[MAXATTACHMENTS];
+extern std::multimap<UINT16, AttachmentStruct> AttachmentBackmap;
 
 //WarmSteel - Here we have some definitions for NAS
 typedef struct

@@ -2913,20 +2913,16 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 
 BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl ch76 091113
 {
-	UINT32 uiLoop = 0;
-	while ( Attachment[uiLoop][0] )
+	for (UINT32 uiLoop = 0; uiLoop < gMAXATTACHMENTS_READ; uiLoop++)
 	{
-		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem )
+		if (Attachment[uiLoop].attachmentIndex == usAttItem && Attachment[uiLoop].itemIndex == usItem || Attachment[uiLoop].attachmentIndex == usItem && Attachment[uiLoop].itemIndex == usAttItem)
 			return(TRUE);
-		++uiLoop;
 	}
 
-	uiLoop = 0;
-	while ( Launchable[uiLoop][0] )
+	for (UINT32 uiLoop = 0; uiLoop < gMAXLAUNCHABLES_READ; uiLoop++)
 	{
 		if ( Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem )
 			return(TRUE);
-		++uiLoop;
 	}
 
 	return(FALSE);
@@ -5765,12 +5761,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				}
 
 				// sevenfm: check launchables
-				for (UINT16 usLoop = 0; usLoop < MAXITEMS + 1; usLoop++)
+				for (UINT16 usLoop = 0; usLoop < gMAXLAUNCHABLES_READ; usLoop++)
 				{
-					// check that reached end of valid launchables
-					if (Launchable[usLoop][0] == 0)
-						break;
-
 					usAttachment = 0;
 					if (Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
 					{
@@ -5801,17 +5793,14 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				}
 
 				// check all attachments
-				for (UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
+				//TODO: should be optimized using AttachmentBackmap and/or possibly FindAttachmentRange()
+				for (UINT32 uiLoop = 0; uiLoop < gMAXATTACHMENTS_READ; uiLoop++)
 				{
-					// check that reached end of valid attachments
-					if (Attachment[usLoop][0] == 0)
-						break;
-
 					usAttachment = 0;
-					if (Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+					if (Attachment[uiLoop].itemIndex == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[uiLoop].attachmentIndex].nasAttachmentClass)
 					{
 						//search primary item attachments.xml
-						usAttachment = Attachment[usLoop][0];
+						usAttachment = Attachment[uiLoop].attachmentIndex;
 					}
 					else
 					{
@@ -5820,8 +5809,11 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						UINT16* p = cnt ? &attachedList.front() : NULL;
 						while (cnt)
 						{
-							if (Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-								usAttachment = Attachment[usLoop][0];
+							if (Attachment[uiLoop].itemIndex == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[uiLoop].attachmentIndex].nasAttachmentClass)
+							{
+								usAttachment = Attachment[uiLoop].attachmentIndex;
+								break;
+							}
 
 							cnt--, p++;
 						}

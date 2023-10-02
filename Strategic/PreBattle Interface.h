@@ -7,6 +7,7 @@
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI );
 void KillPreBattleInterface();
 void RenderPreBattleInterface();
+void ScrollPreBattleInterface( BOOLEAN fUp );
 
 extern BOOLEAN gfPreBattleInterfaceActive;
 extern BOOLEAN gfDisplayPotentialRetreatPaths;

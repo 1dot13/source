@@ -166,6 +166,7 @@ UINT32 MainGameScreenInit(void)
 	UnLockVideoSurface( FRAME_BUFFER);
 
 	InitializeBackgroundRects();
+	InitializeBaseDirtyRectQueue();
 
 	//EnvSetTimeInHours(ENV_TIME_12);
 
@@ -188,8 +189,8 @@ UINT32 MainGameScreenInit(void)
 	giFPSOverlay =	RegisterVideoOverlay( ( VOVERLAY_STARTDISABLED | VOVERLAY_DIRTYBYTEXT ), &VideoOverlayDesc );
 
 	// SECOND, PERIOD COUNTER
-	VideoOverlayDesc.sLeft			= 30;
-	VideoOverlayDesc.sTop				= 0;
+	VideoOverlayDesc.sLeft			= 0;
+	VideoOverlayDesc.sTop				= 12;
 	VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
 	VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 	swprintf( VideoOverlayDesc.pzText, L"Levelnodes: 100000" );

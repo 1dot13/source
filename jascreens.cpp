@@ -122,46 +122,33 @@ void DisplayFrameRate( )
 		uiFrameCount = 0;
 	}
 
-	// Create string
-	SetFont( SMALLFONT1 );
-
-	//DebugMsg(TOPIC_JA2, DBG_LEVEL_0, String( "FPS: %d ", __min( uiFPS, 1000 ) ) );
-
-	if ( uiFPS < 20 )
-	{
-		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_LTRED );
-	}
-	else
-	{
-		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_DKGRAY );
-	}
-
 	if ( gbFPSDisplay == SHOW_FULL_FPS )
 	{
+		memset(&VideoOverlayDesc, 0, sizeof(VideoOverlayDesc));
+
 		// FRAME RATE
-		memset( &VideoOverlayDesc, 0, sizeof( VideoOverlayDesc ) );
-		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( uiFPS, 1000 ) );
-		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT;
+		VideoOverlayDesc.uiFontID = SMALLFONT1;
+		VideoOverlayDesc.ubFontBack = FONT_MCOLOR_BLACK;
+		VideoOverlayDesc.ubFontFore = uiFPS < 20 ? FONT_MCOLOR_LTRED : FONT_MCOLOR_DKGRAY;
+		swprintf( VideoOverlayDesc.pzText, L"FPS: %ld", __min( uiFPS, 1000 ) );
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT | VOVERLAY_DESC_FONT | VOVERLAY_DESC_DISABLED;
 		UpdateVideoOverlay( &VideoOverlayDesc, giFPSOverlay, FALSE );
 
 		// TIMER COUNTER
-		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( giTimerDiag, 1000 ) );
-		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT;
+		swprintf( VideoOverlayDesc.pzText, L"Frame: %04ld ms", __min( giTimerDiag, 10000 ) );
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT | VOVERLAY_DESC_DISABLED;
 		UpdateVideoOverlay( &VideoOverlayDesc, giCounterPeriodOverlay, FALSE );
 
-
-		if( GetMouseMapPos( &usMapPos) )
-		{
+		//if( GetMouseMapPos( &usMapPos) )
+		//{
 			//gprintfdirty( 0, 315, L"(%d)",sMapPos);
 			//mprintf( 0,315,L"(%d)",sMapPos);
-		}
-		else
-		{
+		//}
+		//else
+		//{
 			//gprintfdirty( 0, 315, L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );
 			//mprintf( 0,315,L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );
-		}
+		//}
 	}
 
 	if ( ( gTacticalStatus.uiFlags & GODMODE ) )
@@ -411,7 +398,7 @@ UINT32 InitScreenHandle(void)
  		int y = 40;
 #ifdef USE_VFS
 		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
-		sgp::Logger::instance().connectFile(ini_id, L"ERROR_REPORT.iniErrorMessages.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.txt", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 #endif
 		while (! iniErrorMessages.empty()) {
@@ -425,17 +412,17 @@ UINT32 InitScreenHandle(void)
 			if (iniErrorMessage_create_out_file)
 			{
 #ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "w" );
+				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "w" );
 #endif
 				y += 25;
-				swprintf( str, L"%S", "ERROR_REPORT.iniErrorMessages.txt has been created. Please review its content." );
-				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.txt has been created." );
+				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 				iniErrorMessage_create_out_file = FALSE;
 			}
 			else
 			{
 #ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "a+" );
+				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "a+" );
 #endif
 			}
 
@@ -447,10 +434,9 @@ UINT32 InitScreenHandle(void)
 #else
 			logger << iniErrorMessage << sgp::endl;
 #endif
-		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
-			iniErrorMessages.pop();
+		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 
-			if (iniErrorMessages.empty()) {for(int x=0 ; x <= 65535*2 ; x++);}
+			iniErrorMessages.pop();
 		}
 
 		InvalidateScreen( );

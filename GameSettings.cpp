@@ -1150,7 +1150,9 @@ void LoadGameExternalOptions()
 	giTimerIntervals[ NEXTSCROLL ] = (INT16)(giTimerIntervals[ NEXTSCROLL ] / gGameExternalOptions.fScrollSpeedFactor);
 
 	gGameExternalOptions.gfUseExternalLoadscreens		= iniReader.ReadBoolean("Graphics Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
-	
+
+	gGameExternalOptions.ubLoadscreenStretchMode = iniReader.ReadInteger("Graphics Settings", "LOADSCREEN_STRETCH_MODE", 0, 0, 2);
+
 	if (!is_networked)
 		gGameExternalOptions.gfUseLoadScreenHints		= iniReader.ReadBoolean("Graphics Settings","USE_LOADSCREENHINTS", TRUE);
 	else
@@ -1182,6 +1184,12 @@ void LoadGameExternalOptions()
 
 	// Flugente: additional decals on objects (cracked walls, blood spatters etc.)
 	gGameExternalOptions.fAdditionalDecals					= iniReader.ReadBoolean( "Graphics Settings", "ADDITIONAL_DECALS", FALSE );
+
+	// anv: map color variants
+	gGameExternalOptions.ubRadarMapModeDay					= iniReader.ReadInteger("Graphics Settings", "RADAR_MAP_MODE_DAY", 0, 0, 2);
+	gGameExternalOptions.ubRadarMapModeNight				= iniReader.ReadInteger("Graphics Settings", "RADAR_MAP_MODE_NIGHT", 3, 0, 3);
+	gGameExternalOptions.ubOverheadMapModeDay				= iniReader.ReadInteger("Graphics Settings", "OVERHEAD_MAP_MODE_DAY", 0, 0, 2);
+	gGameExternalOptions.ubOverheadMapModeNight				= iniReader.ReadInteger("Graphics Settings", "OVERHEAD_MAP_MODE_NIGHT", 0, 0, 3);
 
 	//################# Sound Settings #################
 	

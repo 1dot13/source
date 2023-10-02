@@ -44,7 +44,10 @@ enum
 	ELEMENT_DISABILITY_EFFECT,
 	ELEMENT_DISABILITY_EFFECT_PROPERTY,
 	ELEMENT_PERSONALITY_EFFECT,
-	ELEMENT_PERSONALITY_EFFECT_PROPERTY
+	ELEMENT_PERSONALITY_EFFECT_PROPERTY,
+
+	ELEMENT_VECTOR_OF_NUMBERS,
+	ELEMENT_VECTOR_OF_NUMBERS_NUMBER,
 }
 typedef PARSE_STAGE;
 
@@ -157,8 +160,8 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define HELISITESFILENAME						"Map\\HeliSites.xml"
-#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
-#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME						"Map\\ExtraItems\\A9_0_ExtraItems"	// ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME2						"Map\\ExtraItems\\A11_0_ExtraItems" // ".xml" will be added @runtime
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"

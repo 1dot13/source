@@ -2299,6 +2299,68 @@ void CopyOverheadDBShadetablesFromTileset( )
 		}
 	}
 
+	// anv: map color variants
+	if (NightTime())
+	{
+		switch (gGameExternalOptions.ubOverheadMapModeNight)
+		{
+			case 0:
+				break;
+			case 1:
+				for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
+				{
+					for (uiLoop2 = 0; uiLoop2 < HVOBJECT_SHADE_TABLES; uiLoop2++)
+					{
+						gSmTileSurf[uiLoop].vo->pShades[uiLoop2] = Create16BPPPaletteShaded(gSmTileSurf[uiLoop].vo->pPaletteEntry, 352, 352, 352, TRUE);
+					}
+				}
+				break;
+			case 2:
+				for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
+				{
+					for (uiLoop2 = 0; uiLoop2 < HVOBJECT_SHADE_TABLES; uiLoop2++)
+					{
+						gSmTileSurf[uiLoop].vo->pShades[uiLoop2] = Create16BPPPaletteShaded(gSmTileSurf[uiLoop].vo->pPaletteEntry, 160, 255, 160, TRUE);
+					}
+				}
+				break;
+			case 3:
+				for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
+				{
+					for (uiLoop2 = 0; uiLoop2 < HVOBJECT_SHADE_TABLES; uiLoop2++)
+					{
+						gSmTileSurf[uiLoop].vo->pShades[uiLoop2] = Create16BPPPaletteShaded(gSmTileSurf[uiLoop].vo->pPaletteEntry, 100, 100, 100, FALSE);
+					}
+				}
+				break;
+		}
+	}
+	else
+	{
+		switch (gGameExternalOptions.ubOverheadMapModeDay)
+		{
+			case 0:
+				break;
+			case 1:
+				for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
+				{
+					for (uiLoop2 = 0; uiLoop2 < HVOBJECT_SHADE_TABLES; uiLoop2++)
+					{
+						gSmTileSurf[uiLoop].vo->pShades[uiLoop2] = Create16BPPPaletteShaded(gSmTileSurf[uiLoop].vo->pPaletteEntry, 352, 352, 352, TRUE);
+					}
+				}
+				break;
+			case 2:
+				for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
+				{
+					for (uiLoop2 = 0; uiLoop2 < HVOBJECT_SHADE_TABLES; uiLoop2++)
+					{
+						gSmTileSurf[uiLoop].vo->pShades[uiLoop2] = Create16BPPPaletteShaded(gSmTileSurf[uiLoop].vo->pPaletteEntry, 160, 255, 160, TRUE);
+					}
+				}
+				break;
+		}
+	}
 }
 
 void TrashOverheadMap( )
