@@ -41,6 +41,7 @@ typedef enum
 typedef struct
 {
 	FACILITYTYPE_PARSE_STAGE	curElement;
+	PARSE_STAGE	curGenericElement;
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	INT16			curAssignmentType;
 	INT16			curRisk;
@@ -168,7 +169,7 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 			pData->curElement = FACILITYTYPE_TYPE;
 
 			// Set all values to default before applying XML data
-			memset(&pData->curFacilityTypeData, 0, FACILITYTYPE_SIZEOF_POD);
+			pData->curFacilityTypeData = FACILITYTYPE();
 			InitFacilityTypeEntry( pData );
 
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"MergeStartElementHandle: setting memory for curMerge");
@@ -405,6 +406,23 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 
 			pData->maxReadDepth++;
 		}
+		else if (pData->curElement == FACILITYTYPE_RISK &&
+				pData->curRisk == RISK_DRUNK &&
+				strcmp(name, "drugitems") == 0)
+			{
+				pData->curGenericElement = ELEMENT_VECTOR_OF_NUMBERS;
+				pData->curElement = FACILITYTYPE_RISK_ELEMENT;
+				pData->curAssignmentData.Risk[pData->curRisk].valueVectors[FacilityRiskVectorTypes::RISK_DRUG_ITEMS].clear();
+
+				pData->maxReadDepth++;
+		}
+		else if (pData->curGenericElement == ELEMENT_VECTOR_OF_NUMBERS &&
+			strcmp(name, "drugitem") == 0)
+			{
+				pData->curGenericElement = ELEMENT_VECTOR_OF_NUMBERS_NUMBER;
+				pData->maxReadDepth++;
+		}
+
 		else if ( pData->curElement == FACILITYTYPE_PRODUCTION &&
 			( strcmp( name, "szProductionName" ) == 0 ||
 			strcmp( name, "szAdditionalRequirementTips" ) == 0 ||
@@ -530,6 +548,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].usChance = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].usChance;
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].bBaseEffect = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].bBaseEffect;
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].ubRange = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].ubRange;
+								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].valueVectors = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].valueVectors;
 							}
 						}
 
@@ -673,6 +692,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].usChance = pData->curAssignmentData.Risk[cnt].usChance;
 						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].bBaseEffect = pData->curAssignmentData.Risk[cnt].bBaseEffect;
 						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].ubRange = pData->curAssignmentData.Risk[cnt].ubRange;
+						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].valueVectors = pData->curAssignmentData.Risk[cnt].valueVectors;
 					}
 				}
 				else
@@ -1252,6 +1272,14 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 				pData->curProductionData.usOptional_PreProducts.push_back( data );
 			}
 		}
+		else if (pData->curGenericElement == ELEMENT_VECTOR_OF_NUMBERS_NUMBER && strcmp(name, "drugitem") == 0)
+		{
+			pData->curGenericElement = ELEMENT_VECTOR_OF_NUMBERS;
+			pData->curElement = FACILITYTYPE_RISK;
+
+			INT16 drugValue = (INT16)atol(pData->szCharData);
+			pData->curAssignmentData.Risk[pData->curRisk].valueVectors[FacilityRiskVectorTypes::RISK_DRUG_ITEMS].push_back(drugValue);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -1299,7 +1327,7 @@ BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion)
 	XML_SetCharacterDataHandler(parser, facilitytypeCharacterDataHandle);
 
 
-	memset(&pData, 0, FACILITYTYPEPARSEDATA_SIZE_OF_POD);
+	pData = facilitytypeParseData();
 	pData.maxArraySize = MAXITEMS;
 	pData.curIndex = 0;
 

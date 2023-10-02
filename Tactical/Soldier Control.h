@@ -1070,6 +1070,8 @@ public:
 	INT8												bPathStored;	// good for AI to reduct redundancy
 };
 
+enum class BackgroundVectorTypes;
+
 class SOLDIERTYPE//last edited at version 102
 {
 public:
@@ -1953,6 +1955,8 @@ public:
 	// Flugente: do we have a specific background flag?
 	BOOLEAN		HasBackgroundFlag( UINT64 aFlag );
 	INT16		GetBackgroundValue( UINT16 aNr );
+
+	const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const;
 
 	INT8		GetSuppressionResistanceBonus();			// bonus to resistance against suppression
 	INT16		GetMeleeDamageBonus();

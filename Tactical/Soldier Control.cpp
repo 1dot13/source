@@ -17605,6 +17605,24 @@ INT16 SOLDIERTYPE::GetBackgroundValue( UINT16 aNr )
 	return 0;
 }
 
+const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const
+{
+	static const std::vector<INT16> emptyVector;
+
+	if (UsingBackGroundSystem() && this->ubProfile != NO_PROFILE)
+	{
+		const BACKGROUND_VALUES& background = zBackground[gMercProfiles[this->ubProfile].usBackground];
+		auto iterator = background.valueVectors.find(backgroundVectorType);
+
+		if (iterator != background.valueVectors.end())
+		{
+			return iterator->second;
+		}
+	}
+
+	return emptyVector;
+}
+
 INT8 SOLDIERTYPE::GetSuppressionResistanceBonus( )
 {
 	INT8 bonus = 0;

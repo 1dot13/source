@@ -39,8 +39,8 @@
 // anv: for hourly heli repair
 #include "Vehicles.h"
 #include "Map Screen Helicopter.h" 
-// anv: transition to save screen in extreme iron man mode
-#include "gameloop.h" 
+#include "gameloop.h" // anv: transition to save screen in extreme iron man mode
+#include <random> // anv: shuffle drug items in hourly update
 
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
@@ -342,6 +342,7 @@ void HourlyQuestUpdate()
 }
 
 #define BAR_TEMPTATION 4
+#define INVENTORY_DRUG_TEMPTATION 5
 
 // Flugente: abandoned the LarryItems for the new drug system
 /*#define NUM_LARRY_ITEMS 6
@@ -377,40 +378,105 @@ void HourlyLarryUpdate()
 		{
 			fTookDrugs = FALSE;
 
-			if ( pSoldier->bAssignment < ON_DUTY && !pSoldier->flags.fBetweenSectors && pSoldier->bInSector && !( gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
+			const std::vector<INT16> drugItems = pSoldier->GetBackgroundValueVector(BackgroundVectorTypes::BG_DRUGUSE_ITEMS);
+			const std::vector<INT16> drugTypes = pSoldier->GetBackgroundValueVector(BackgroundVectorTypes::BG_DRUGUSE_TYPES);
+
+			if ( pSoldier->bAssignment < ON_DUTY && !pSoldier->flags.fBetweenSectors && !( gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
 			{
 				// Flugente: reworked this for the new drug system. We now loop over our entire inventory
 				INT8 invsize = (INT8)pSoldier->inv.size();										// remember inventorysize, so we don't call size() repeatedly
 				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
 				{
-					if ( pSoldier->inv[bLoop].exists() && Item[ pSoldier->inv[bLoop].usItem ].drugtype > 0 )
+					if (pSoldier->inv[bLoop].exists())
 					{
-						pObj = &(pSoldier->inv[bLoop]);
-
-						usTemptation = 5;
-
-						// any drug will do... I'm not going to create a new tag for sth minor like this
-						break;
+						INT16 sCurrentItemId = pSoldier->inv[bLoop].usItem;
+						INT16 sCurrentDrugType = Item[sCurrentItemId].drugtype;
+						if (Item[sCurrentItemId].drugtype > 0 && Item[sCurrentItemId].usItemClass & (IC_KIT | IC_MISC))
+						{
+							// anv: if drug user has no items or types specified, assume any is valid, otherwise check drug item id or type
+							if ((drugItems.empty() && drugTypes.empty()) ||
+								(!drugItems.empty() && std::find(drugItems.begin(), drugItems.end(), sCurrentItemId) != drugItems.end()) ||
+								(!drugTypes.empty() && std::find(drugTypes.begin(), drugTypes.end(), sCurrentDrugType) != drugTypes.end()))
+							{
+								pObj = &(pSoldier->inv[bLoop]);
+								usTemptation = INVENTORY_DRUG_TEMPTATION;
+								break;
+							}
+						}
 					}
 				}
 
 				// check to see if we're in a bar sector, if we are, we have access to alcohol
 				// which may be better than anything we've got...
-				if ( usTemptation < BAR_TEMPTATION && GetCurrentBalance() >= Item[ ALCOHOL ].usPrice )
+				INT16 sBarDrugItemId = 0;
+				if ( usTemptation < BAR_TEMPTATION )
 				{
-					if ( pSoldier->bSectorZ == 0 &&
-								( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_D) ||
-									( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_C) ||
-									( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_C) ||
-									( pSoldier->sSectorX == 6 && pSoldier->sSectorY == MAP_ROW_C) ||
-									( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_D) ||
-									( pSoldier->sSectorX == 2 && pSoldier->sSectorY == MAP_ROW_H)
-								)
-						)
+					// sevenfm: check facility
+					if (pSoldier->bSectorZ == 0)
 					{
-						// in a bar!
-						fBar = TRUE;
-						usTemptation = BAR_TEMPTATION;
+						for (UINT16 usFacilityType = 0; usFacilityType < NUM_FACILITY_TYPES; usFacilityType++)
+						{
+							// Is this facility here?
+							if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][usFacilityType].fFacilityHere)
+							{
+								for (UINT16 usFacilityAssignment = 0; usFacilityAssignment < NUM_FACILITY_ASSIGNMENTS; usFacilityAssignment++)
+								{
+									// is it a place with risk of getting drunk?
+									if (gFacilityTypes[usFacilityType].AssignmentData[usFacilityAssignment].Risk[RISK_DRUNK].usChance > 0)
+									{
+										// anv: check all items available for this risk
+										const std::vector<INT16>& riskDrugItems =
+											gFacilityTypes[usFacilityType].AssignmentData[usFacilityAssignment].Risk[RISK_DRUNK].valueVectors[FacilityRiskVectorTypes::RISK_DRUG_ITEMS];
+
+										if (riskDrugItems.empty())
+										{
+											if (GetCurrentBalance() >= Item[ALCOHOL].usPrice)
+											{
+												if ((drugItems.empty() && drugTypes.empty()) ||
+													(!drugItems.empty() && std::find(drugItems.begin(), drugItems.end(), sBarDrugItemId) != drugItems.end()) ||
+													(!drugTypes.empty() && std::find(drugTypes.begin(), drugTypes.end(), Item[ALCOHOL].drugtype) != drugTypes.end()))
+												{
+													sBarDrugItemId = ALCOHOL;
+
+													// Cool.
+													fBar = TRUE;
+												}
+											}
+										}
+										else
+										{
+											std::vector<INT16> shuffledRiskDrugItems = riskDrugItems;
+											std::shuffle(shuffledRiskDrugItems.begin(), shuffledRiskDrugItems.end(), std::mt19937{ std::random_device{}() });
+											for (INT16 sItemId : shuffledRiskDrugItems)
+											{
+												if (sItemId < MAXITEMS && Item[sItemId].usItemClass & (IC_KIT | IC_MISC) && GetCurrentBalance() >= Item[sItemId].usPrice)
+												{
+													if ((drugItems.empty() && drugTypes.empty()) ||
+														(!drugItems.empty() && std::find(drugItems.begin(), drugItems.end(), sItemId) != drugItems.end()) ||
+														(!drugTypes.empty() && std::find(drugTypes.begin(), drugTypes.end(), Item[sItemId].drugtype) != drugTypes.end()))
+													{
+														sBarDrugItemId = sItemId;
+
+														// Cool.
+														fBar = TRUE;
+
+														// sevenfm: stop searching
+														break;
+													}
+												}
+											}
+										}
+									}
+
+
+									if (fBar)
+									{
+										usTemptation = BAR_TEMPTATION;
+										break;
+									}
+								}
+							}
+						}
 					}
 				}
 
@@ -473,10 +539,10 @@ void HourlyLarryUpdate()
 							bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
 							if ( bBoozeSlot != NO_SLOT )
 							{
+								INVTYPE drugItem = Item[sBarDrugItemId];
 								// take $ from player's account
 								// silversurfer: changed the price to reflect the changed amount of 25% below
-								//usCashAmount = Item[ ALCOHOL ].usPrice;
-								usCashAmount = (UINT16)( Item[ALCOHOL].usPrice / 4.0f );
+								usCashAmount = (UINT16)(drugItem.usPrice / 4.0f);
 								AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin(), -( usCashAmount ) );
 
 								// give Larry booze here
@@ -484,10 +550,10 @@ void HourlyLarryUpdate()
 								// Now the bottle will be fully consumed below and vanishes from inventory before the player even gets to see it. This simulates going to a bar to have a drink there.
 
 								UINT8 portionsize = 25;
-								if ( Item[ALCOHOL].usPortionSize > 0 && Item[ALCOHOL].usPortionSize < 25 )
-									portionsize = Item[ALCOHOL].usPortionSize;
+								if (drugItem.usPortionSize > 0 && drugItem.usPortionSize < 25)
+									portionsize = drugItem.usPortionSize;
 
-								CreateItem( ALCOHOL, portionsize, &( pSoldier->inv[bBoozeSlot] ) );
+								CreateItem( sBarDrugItemId, portionsize, &( pSoldier->inv[bBoozeSlot] ) );
 
 								ApplyConsumable( pSoldier, &( pSoldier->inv[bBoozeSlot] ), TRUE, FALSE );
 							}
