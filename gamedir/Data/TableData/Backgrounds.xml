@@ -103,6 +103,14 @@
 
 		<!-- on/off properties: 1 for on, 0 for off -->		  
 		<druguse>0</druguse>			<!-- might use drugs from inventory (the 'Larry'-behaviour) -->
+		<drugtypes>						<!-- optional tags specifying drug types relevant for druguse tag, if none specified all drug types will be viable -->
+			<drugtype>0</drugtype>
+			<drugtype>0</drugtype>
+		</drugtypes>
+		<drugitems>						<!-- optional tags specifying items relevant for druguse tag, if none specified all drug items will be viable -->
+			<drugitem>0</drugitem>
+			<drugitem>0</drugitem>
+		</drugitems>
 		<xenophobic>0</xenophobic>		<!-- lower opinion of everybody without this background -->
 		<level_underground>0</level_underground>  <!-- +1 effective level if underground -->
 		<scrounging>0</scrounging>		<!-- might steal items (and put them in personal inventory) -->

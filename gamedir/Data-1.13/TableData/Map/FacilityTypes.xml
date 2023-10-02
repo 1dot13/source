@@ -44,6 +44,11 @@
 				<ubChance>500</ubChance>
 				<bBaseEffect>1</bBaseEffect>
 				<ubRange>0</ubRange>
+				<drugitems>
+					<drugitem>245</drugitem>
+					<drugitem>255</drugitem>
+					<drugitem>256</drugitem>
+				</drugitems>
 			</DRUNK>
 		</ASSIGNMENT>
 		<ASSIGNMENT>

@@ -21,6 +21,11 @@
 		<ubHidden>2</ubHidden>
 	</FACILITY>	
 	<FACILITY>
+		<SectorGrid>C13</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
 		<SectorGrid>D13</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
@@ -50,6 +55,23 @@
 	<FACILITY>
 		<SectorGrid>I14</SectorGrid>
 		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	
+	<!-- SAN MONA -->
+	<FACILITY>
+		<SectorGrid>C5</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>C6</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>D5</SectorGrid>
+		<FacilityType>2</FacilityType>
 		<ubHidden>2</ubHidden>
 	</FACILITY>
 	
@@ -92,6 +114,11 @@
 		<ubHidden>2</ubHidden>
 	</FACILITY>	
 	<FACILITY>
+		<SectorGrid>G9</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
 		<SectorGrid>H8</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
@@ -122,7 +149,12 @@
 		<SectorGrid>H2</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
-	</FACILITY>			
+	</FACILITY>	
+	<FACILITY>
+		<SectorGrid>H2</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>	
 	<FACILITY>
 		<SectorGrid>H3</SectorGrid>
 		<FacilityType>1</FacilityType>
