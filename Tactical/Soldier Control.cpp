@@ -21837,6 +21837,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 
 	pSoldier->bCollapsed = TRUE;
 
+	pSoldier->usUIMovementMode = CRAWLING;
+
 	pSoldier->ReceivingSoldierCancelServices( );
 
 	// CC has requested - handle sight here...
