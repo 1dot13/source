@@ -1235,15 +1235,15 @@ void MouthAutoFace( INT32 iFaceIndex )
 
 							}
 
-							UINT32 uiShade = FLASH_PORTRAIT_NOSHADE;
+							UINT32 uiFaceShade = FLASH_PORTRAIT_NOSHADE;
 
 							// Set shade
 							if (pFace->ubSoldierID != NOBODY)
 							{
-								uiShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
+								uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
 							}
 
-							HandleRenderFaceAdjustments( pFace, TRUE, FALSE, 0, pFace->usFaceX, pFace->usFaceY, pFace->usEyesX, pFace->usEyesY, uiShade);
+							HandleRenderFaceAdjustments( pFace, TRUE, FALSE, 0, pFace->usFaceX, pFace->usFaceY, pFace->usEyesX, pFace->usEyesY, uiFaceShade);
 
 						}
 					}
@@ -2620,13 +2620,13 @@ BOOLEAN RenderAutoFace( INT32 iFaceIndex )
 	// Check for disabled guy!
 	CHECKF( pFace->fDisabled != TRUE );
 
-	UINT32 uiShade = FLASH_PORTRAIT_NOSHADE;
+	UINT32 uiFaceShade = FLASH_PORTRAIT_NOSHADE;
 
 	// Set shade
 	if ( pFace->ubSoldierID != NOBODY )
 	{
-		uiShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
-		SetFaceShade(pFace, uiShade);
+		uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
+		SetFaceShade(pFace, uiFaceShade);
 	}
 
 	// Blit face to save buffer!
@@ -2642,7 +2642,7 @@ BOOLEAN RenderAutoFace( INT32 iFaceIndex )
 		}
 	}
 
-	HandleRenderFaceAdjustments(pFace, FALSE, FALSE, 0, pFace->usFaceX, pFace->usFaceY, pFace->usEyesX, pFace->usEyesY, uiShade);
+	HandleRenderFaceAdjustments(pFace, FALSE, FALSE, 0, pFace->usFaceX, pFace->usFaceY, pFace->usEyesX, pFace->usEyesY, uiFaceShade);
 
 	// Restore extern rect
 	if ( pFace->uiAutoRestoreBuffer == guiSAVEBUFFER )
