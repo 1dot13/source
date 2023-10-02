@@ -1634,6 +1634,190 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	{
 		pSoldier = MercPtrs[ pFace->ubSoldierID ];
 
+		UINT8 faceProfileId = gMercProfiles[pSoldier->ubProfile].ubFaceIndex;
+		BOOLEAN isIMP = gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP;
+
+		if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR] && MercPtrs[pFace->ubSoldierID]->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
+		{
+			if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+			{
+				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+
+				if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1) //back
+				{
+					DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP, uiFaceShade);
+				}
+			}
+
+			// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
+			// and the merc actually wears something to be shown
+			if (MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem > 0)
+			{
+				// WANNE: Removed the limitation
+				// silversurfer: don't overwrite icons if they shall be shown!
+				//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
+				{
+					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
+					uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+
+					uiFaceOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
+					uiFaceTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+
+					// check first face slot
+					if (uiFaceItemOne != NONE)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 3)
+						{
+							uiFaceItemOne = 1;
+						}
+						else if (zNewFaceGear[uiFaceOne].Type == 4)
+						{
+							uiFaceItemOne = 2;
+						}
+						else uiFaceItemOne = 0;
+					}
+
+					// check second face slot
+					if (uiFaceItemTwo != NONE)
+					{
+						if (zNewFaceGear[uiFaceTwo].Type == 3)
+						{
+							uiFaceItemTwo = 21;
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 4)
+						{
+							uiFaceItemTwo = 42;
+						}
+						else uiFaceItemTwo = 0;
+					}
+
+
+					// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+					// the numbers on the outer border are used if that is the only item worn in that slot
+					//
+					//								21			42			63				84	
+					//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
+					// 1	gas mask				--			43			64				85
+					// 2	NV goggles				23			--			--				86
+					// 3	sun goggles				24			--			--				87
+					// 4	extended ear			25			46			67				--
+					//
+					// this matrix leaves room for expansion
+					// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
+					ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+				}
+
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
+				// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
+				// in face slot 2 (if icons are allowed)
+
+				//Type : 3 - gas mask ; 4 - NV googles
+				// gas mask only
+
+				if (ubFaceItemsCombined == 1 || ubFaceItemsCombined == 21)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+					else if (zNewFaceGear[uiFaceTwo].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+
+				// NV goggles only
+				if (ubFaceItemsCombined == 2 || ubFaceItemsCombined == 42)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 4)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+					else if (zNewFaceGear[uiFaceTwo].Type == 4)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+
+				// NV goggles + gas mask
+				if (ubFaceItemsCombined == 23)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 4 && zNewFaceGear[uiFaceTwo].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+				}
+
+				// gas mask + NV goggles
+				if (ubFaceItemsCombined == 43)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 3 && zNewFaceGear[uiFaceTwo].Type == 4)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+
+				// gas mask + extended ear
+				if (ubFaceItemsCombined == 24 || ubFaceItemsCombined == 64)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+					else if (zNewFaceGear[uiFaceTwo].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+
+				// gas mask + extended ear
+				if (ubFaceItemsCombined == 25 || ubFaceItemsCombined == 85)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+					else if (zNewFaceGear[uiFaceTwo].Type == 3)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+
+				// NV goggles + extended ear
+				if (ubFaceItemsCombined == 46 || ubFaceItemsCombined == 86)
+				{
+					if (zNewFaceGear[uiFaceOne].Type == 4)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
+					}
+					else if (zNewFaceGear[uiFaceTwo].Type == 4)
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
+					}
+				}
+			}
+
+			if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+				// dirty hack for IMPs because they don't have pictures for face gear
+				// && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 )
+			{
+				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+
+				if (uiFaceItemOne != NONE)
+				{
+					if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2) //front
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP, uiFaceShade);
+					}
+				}
+			}
+
+			//------------------------------------end of tactical face gear-----------------------------
+		}
+
 		if ( (MercPtrs[pFace->ubSoldierID]->stats.bLife < CONSCIOUSNESS || MercPtrs[pFace->ubSoldierID]->flags.fDeadPanel ) )
 		{
 			// Blit Closed eyes here!
@@ -1754,15 +1938,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 			//------------------------------------Legion 2 by jazz--------------------------------
 
-			UINT8 faceProfileId = gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].ubFaceIndex;
-			BOOLEAN isIMP = FALSE;
-
-			//IMP
-			if (gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP)
-			{
-				isIMP = TRUE;
-			}
-
 			// rewritten by silversurfer
 			// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
 			// and the merc actually wears something to be shown
@@ -1875,187 +2050,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				default:
 					break;
 				}
-			}
-
-			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR])
-			{
-				if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
-				{
-					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
-
-					if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1) //back
-					{
-						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP, uiFaceShade);
-					}
-				}
-
-				// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
-				// and the merc actually wears something to be shown
-				if (MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem > 0)
-				{
-					// WANNE: Removed the limitation
-					// silversurfer: don't overwrite icons if they shall be shown!
-					//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
-					{
-						uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
-						uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
-
-						uiFaceOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
-						uiFaceTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
-
-						// check first face slot
-						if (uiFaceItemOne != NONE)
-						{
-							if (zNewFaceGear[uiFaceOne].Type == 3)
-							{
-								uiFaceItemOne = 1;
-							}
-							else if (zNewFaceGear[uiFaceOne].Type == 4)
-							{
-								uiFaceItemOne = 2;
-							}
-							else uiFaceItemOne = 0;
-						}
-
-						// check second face slot
-						if (uiFaceItemTwo != NONE)
-						{
-							if (zNewFaceGear[uiFaceTwo].Type == 3)
-							{
-								uiFaceItemTwo = 21;
-							}
-							else if (zNewFaceGear[uiFaceTwo].Type == 4)
-							{
-								uiFaceItemTwo = 42;
-							}
-							else uiFaceItemTwo = 0;
-						}
-
-
-						// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
-						// the numbers on the outer border are used if that is the only item worn in that slot
-						//
-						//								21			42			63				84	
-						//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
-						// 1	gas mask				--			43			64				85
-						// 2	NV goggles				23			--			--				86
-						// 3	sun goggles				24			--			--				87
-						// 4	extended ear			25			46			67				--
-						//
-						// this matrix leaves room for expansion
-						// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
-						ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
-					}
-
-					// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-					// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
-					// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
-					// in face slot 2 (if icons are allowed)
-
-					//Type : 3 - gas mask ; 4 - NV googles
-					// gas mask only
-
-					if (ubFaceItemsCombined == 1 || ubFaceItemsCombined == 21)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-						else if (zNewFaceGear[uiFaceTwo].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-
-					// NV goggles only
-					if (ubFaceItemsCombined == 2 || ubFaceItemsCombined == 42)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 4)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-						else if (zNewFaceGear[uiFaceTwo].Type == 4)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-
-					// NV goggles + gas mask
-					if (ubFaceItemsCombined == 23)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 4 && zNewFaceGear[uiFaceTwo].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-					}
-
-					// gas mask + NV goggles
-					if (ubFaceItemsCombined == 43)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 3 && zNewFaceGear[uiFaceTwo].Type == 4)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-
-					// gas mask + extended ear
-					if (ubFaceItemsCombined == 24 || ubFaceItemsCombined == 64)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-						else if (zNewFaceGear[uiFaceTwo].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-
-					// gas mask + extended ear
-					if (ubFaceItemsCombined == 25 || ubFaceItemsCombined == 85)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-						else if (zNewFaceGear[uiFaceTwo].Type == 3)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-
-					// NV goggles + extended ear
-					if (ubFaceItemsCombined == 46 || ubFaceItemsCombined == 86)
-					{
-						if (zNewFaceGear[uiFaceOne].Type == 4)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP, uiFaceShade);
-						}
-						else if (zNewFaceGear[uiFaceTwo].Type == 4)
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP, uiFaceShade);
-						}
-					}
-				}
-
-				if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
-					// dirty hack for IMPs because they don't have pictures for face gear
-					// && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 )
-				{
-					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
-
-					if (uiFaceItemOne != NONE)
-					{
-						if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2) //front
-						{
-							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP, uiFaceShade);
-						}
-					}
-				}
-
-				//------------------------------------end of tactical face gear-----------------------------
 			}
 
 			// If blind...
