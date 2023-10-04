@@ -738,8 +738,7 @@ BOOLEAN TeleportSoldier( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fForce )
 	if ( NewOKDestination( pSoldier, sGridNo, TRUE, 0 ) || fForce )
 	{
 		// TELEPORT TO THIS LOCATION!
-		sX = CenterX( sGridNo );
-		sY = CenterY( sGridNo );
+		ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 		pSoldier->EVENT_SetSoldierPosition( (FLOAT) sX, (FLOAT) sY );
 
 		pSoldier->pathing.sFinalDestination = sGridNo;

@@ -676,8 +676,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 						gCTHDisplay.iTargetGridNo = usMapPos;
 						
 						// Calculate distance to target
-						FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-						FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+						INT16 sX, sY, sXMap, sYMap;
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+						FLOAT dDeltaX = (FLOAT)( sX - sXMap );
+						FLOAT dDeltaY = (FLOAT)( sY - sYMap );
 						FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 						CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );
@@ -782,8 +786,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 						gbCtHBurstCount = 0;
 
 						// Calculate distance to target
-						FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-						FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+						INT16 sX, sY, sXMap, sYMap;
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+						FLOAT dDeltaX = (FLOAT)(sX - sXMap);
+						FLOAT dDeltaY = (FLOAT)(sY - sYMap);
 						FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 						CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );
@@ -884,8 +892,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 					gCTHDisplay.iTargetGridNo = usMapPos;
 
 					// Calculate distance to target
-					FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-					FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+					INT16 sX, sY, sXMap, sYMap;
+					ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+					ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+					FLOAT dDeltaX = (FLOAT)(sX - sXMap);
+					FLOAT dDeltaY = (FLOAT)(sY - sYMap);
 					FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 					CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );

@@ -1714,7 +1714,7 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	FLOAT								dTargetZ;
 	SOLDIERTYPE*						pTargetSoldier = NULL;
 	INT8								bStructHeight;
-	INT16								sXMapPos, sYMapPos;
+	INT16								sXMapPos, sYMapPos, sX, sY;
 	UINT32							uiRoll;
 	INT8								bTargetCubeLevel = 0;
 	INT8								bTargetLevel = 0;
@@ -1731,8 +1731,9 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	{
 		// SAVE OPP ID
 		pSoldier->ubOppNum = pTargetSoldier->ubID;
-		dTargetX = (FLOAT) CenterX( pTargetSoldier->sGridNo );
-		dTargetY = (FLOAT) CenterY( pTargetSoldier->sGridNo );
+		ConvertGridNoToCenterCellXY(pTargetSoldier->sGridNo, &sX, &sY);
+		dTargetX = (FLOAT) sX;
+		dTargetY = (FLOAT) sY;
 		if (pSoldier->bAimShotLocation == AIM_SHOT_RANDOM)
 		{
 			uiRoll = PreRandom( 100 );
@@ -2893,8 +2894,8 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			sTempGridNo = NewGridNo(sTempGridNo, DirectionInc(pSoldier->ubDirection));
 		}
-		INT16 sX = CenterX(sTempGridNo);
-		INT16 sY = CenterY(sTempGridNo);
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(sTempGridNo, &sX, &sY);
 
 		AniParams.sGridNo = pSoldier->sGridNo;
 		AniParams.ubLevelID = ANI_TOPMOST_LEVEL;
@@ -3708,8 +3709,8 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			sTempGridNo = NewGridNo(sTempGridNo, DirectionInc(pSoldier->ubDirection));
 		}
-		INT16 sX = CenterX(sTempGridNo);
-		INT16 sY = CenterY(sTempGridNo);
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(sTempGridNo, &sX, &sY);
 
 		AniParams.sGridNo = pSoldier->sGridNo;
 		AniParams.ubLevelID = ANI_TOPMOST_LEVEL;
@@ -6250,7 +6251,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	// Basic defines
 	SOLDIERTYPE * pTarget;
 	INT32 iRange, iSightRange; //, minRange;
-
+	INT16 sX, sY, sX2, sY2;
 	UINT16	usInHand;
 	OBJECTTYPE * pInHand;
 	INT16	sDistVis, sDistVisNoScope;
@@ -6270,8 +6271,11 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 	// calculate actual range (in units, 10 units = 1 tile)
 	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
-	FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( sGridNo ));
-	FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( sGridNo ));
+
+	ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(sGridNo, &sX2, &sY2);
+	FLOAT dDeltaX = (FLOAT)( sX - sX2 );
+	FLOAT dDeltaY = (FLOAT)( sY - sY2 );
 	FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 	// Find a target in the tile

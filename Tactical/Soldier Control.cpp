@@ -5041,8 +5041,10 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 						}
 						else if (!TileIsOutOfBounds(sTargetGridNo) && !GridNoOnScreen(sTargetGridNo))
 						{
-							INT16 sNewCenterWorldX = CenterX(sTargetGridNo);
-							INT16 sNewCenterWorldY = CenterY(sTargetGridNo);
+							INT16 sNewCenterWorldX;
+							INT16 sNewCenterWorldY;
+							ConvertGridNoToCenterCellXY(sTargetGridNo, &sNewCenterWorldX, &sNewCenterWorldY);
+
 							SetRenderCenter(sNewCenterWorldX, sNewCenterWorldY);
 
 							// Plot new path!
@@ -12272,8 +12274,7 @@ void SOLDIERTYPE::ReviveSoldier( void )
 		this->BeginSoldierGetup( );
 
 		// Makesure center of tile
-		sX = CenterX( this->sGridNo );
-		sY = CenterY( this->sGridNo );
+		ConvertGridNoToCenterCellXY(this->sGridNo, &sX, &sY);
 
 		this->EVENT_SetSoldierPosition( (FLOAT)sX, (FLOAT)sY );
 
@@ -13973,8 +13974,7 @@ void SOLDIERTYPE::EVENT_StopMerc( INT32 sGridNo, INT8 bDirection )
 
 	// MOVE GUY TO GRIDNO--- SHOULD BE THE SAME UNLESS IN MULTIPLAYER
 	// Makesure center of tile
-	sX = CenterX( sGridNo );
-	sY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 	//Cancel pending events
 	if ( !this->flags.fDelayedMovement )
