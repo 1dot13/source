@@ -11588,9 +11588,12 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				// adjust both gridno and x,y coordinates
 				if (sOldGridNo != this->sGridNo)
 				{
-					CorpseDef.sGridNo	= sOldGridNo;
-					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo);
-					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo);
+					INT16 sX, sY;
+					ConvertGridNoToCenterCellXY(sOldGridNo, &sX, &sY);
+
+					CorpseDef.sGridNo = sOldGridNo;
+					CorpseDef.dXPos = sX;
+					CorpseDef.dYPos	= sY;
 				}
 				else
 				{
@@ -11606,9 +11609,12 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 					INT16 base_y = 0;
 					ConvertMapPosToWorldTileCenter(pCorpse->def.sGridNo, &base_x, &base_y);
 
+					INT16 sX, sY;
+					ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &sX, &sY);
+
 					CorpseDef.sGridNo	= pCorpse->def.sGridNo;
-					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo) + dx;
-					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo) + dy;
+					CorpseDef.dXPos		= sX + dx;
+					CorpseDef.dYPos		= sY + dy;
 				}
 
 				CorpseDef.usFlags		|= ROTTING_CORPSE_USE_XY_PROVIDED;

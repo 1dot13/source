@@ -1774,9 +1774,11 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne && gAnimControl[pTargetSoldier->usAnimState].ubHeight == ANIM_PRONE )
 					{
 						INT32 viewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( pTargetSoldier->ubDirection ) );
+						INT16 sX, sY;
+						ConvertGridNoToCenterCellXY(viewdirectiongridno, &sX, &sY);
 
-						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)CenterX( viewdirectiongridno )) / 1.0f;
-						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)CenterY( viewdirectiongridno )) / 1.0f;
+						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)sX) / 1.0f;
+						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)sY) / 1.0f;
 					}
 				}
 				break;
@@ -1790,9 +1792,11 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne && gAnimControl[pTargetSoldier->usAnimState].ubHeight == ANIM_PRONE )
 					{
 						INT32 viewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( gOppositeDirection[pTargetSoldier->ubDirection] ) );
+						INT16 sX, sY;
+						ConvertGridNoToCenterCellXY(viewdirectiongridno, &sX, &sY);
 
-						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)CenterX( viewdirectiongridno )) / 1.0f;
-						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)CenterY( viewdirectiongridno )) / 1.0f;
+						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)sX) / 1.0f;
+						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)sY) / 1.0f;
 					}
 				}
 				break;
@@ -2719,11 +2723,14 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	{
 		if ( WillExplosiveWeaponFail( pSoldier, pObjHand ) )
 		{
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+
 			if ( Item[usUBItem].singleshotrocketlauncher  )
 			{
 				CreateItem( Item[usItemNum].discardedlauncheritem , (*pObjHand)[0]->data.objectStatus, pObjHand );
 				
-				// Flugente: why would we keep a piece of scrap in our ahnds in the first place? just drop it to the ground
+				// Flugente: why would we keep a piece of scrap in our hands in the first place? just drop it to the ground
 				AddItemToPool( pSoldier->sGridNo, pObjHand, 1, pSoldier->pathing.bLevel, 0, -1 );
 
 				// Delete object
@@ -2731,20 +2738,21 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 
+
 				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
 				{
-					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, Item[usUBItem].usBuddyItem, pSoldier->pathing.bLevel );
+					IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, Item[usUBItem].usBuddyItem, pSoldier->pathing.bLevel );
 				}
 				else
 				{
-					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+					IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
 				}
 			}
 			else
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d", usUBItem , (*pObjHand)[0]->data.gun.usGunAmmoItem ) );
 
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, (*pObjHand)[0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
+				IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, (*pObjHand)[0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
 				pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
 			}
 		  // Reduce again for attack end 'cause it has been incremented for a normal attack
@@ -3644,6 +3652,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	{
 		if ( WillExplosiveWeaponFail( pSoldier, pObjUsed ) )
 		{
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+
 			if ( Item[usUBItem].singleshotrocketlauncher  )
 			{
 				CreateItem( Item[usUBItem].discardedlauncheritem , (*pObjUsed)[0]->data.objectStatus, pObjUsed );
@@ -3656,20 +3667,21 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 
+
 				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
 				{
-					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+					IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
 				}
 				else
 				{
-					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+					IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
 				}
 			}
 			else
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d", usUBItem , (*pObjUsed)[0]->data.gun.usGunAmmoItem ) );
 
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, (*pObjUsed)[0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
+				IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, (*pObjUsed)[0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
 			
 				OBJECTTYPE * pLaunchable = FindLaunchableAttachment( pObjUsed, usUBItem );
 				if(pLaunchable)
@@ -5168,7 +5180,9 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 		// So we still should have ABC > 0
 		// Begin explosion due to failure...
-		IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, Launchable.usItem, pSoldier->pathing.bLevel );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+		IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, Launchable.usItem, pSoldier->pathing.bLevel );
 
 		// Reduce again for attack end 'cause it has been incremented for a normal attack
 		// Nope, not anymore.
@@ -5677,15 +5691,18 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			// HEADROCK HAM 5: Fragments fired by such weapons should not explode. 
 			if ( pBullet->fFragment == false)
 			{
+				INT16 sX, sY;
+				ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+
 				if ( Item[usWeaponIndex].singleshotrocketlauncher )
 				{
 					if ( Item[usWeaponIndex].usBuddyItem != 0 && Item[Item[usWeaponIndex].usBuddyItem].usItemClass & IC_EXPLOSV )
 					{
-						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, Item[usWeaponIndex].usBuddyItem, bLevel, usDirection );
+						IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, Item[usWeaponIndex].usBuddyItem, bLevel, usDirection );
 					}
 					else
 					{
-						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, bLevel, usDirection );
+						IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, C1, bLevel, usDirection );
 					}
 				}
 				// changed too to use 2 flag to determine
@@ -5693,7 +5710,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 					//there shouldn't be a way to enter here with an UnderBarrel weapon, so retaining original code :JMich
 				{
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pAttacker->inv[HANDPOS].usItem , pAttacker->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
-					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand][0]->data.gun.usGunAmmoItem, bLevel, usDirection );
+					IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand][0]->data.gun.usGunAmmoItem, bLevel, usDirection );
 					
 					//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
 					OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pAttacker->inv[pAttacker->ubAttackingHand ]), pAttacker->inv[pAttacker->ubAttackingHand ].usItem );
@@ -5709,7 +5726,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				else if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].explosionSize > 1)
 				{
 					// re-routed the Highexplosive value to define exposion type
-					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].highExplosive, bLevel, usDirection );
+					IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].highExplosive, bLevel, usDirection );
 					// pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
 				}
 			}
@@ -5727,7 +5744,9 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			//FreeUpAttacker( ubAttackerID );
 
 			// HEADROCK HAM 5 TODO: Tank shell!!
-			IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, TANK_SHELL, bLevel, usDirection );
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+			IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, TANK_SHELL, bLevel, usDirection );
 			//FreeUpAttacker( (UINT8) ubAttackerID );
 
 			// Moved here to keep ABC >0 as long as possible

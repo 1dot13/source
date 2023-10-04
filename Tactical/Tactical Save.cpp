@@ -1878,8 +1878,10 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 			def.sGridNo = gMapInformation.sWestGridNo;
 		}
 		//Recalculate the dx,dy info
-		def.dXPos = CenterX( def.sGridNo );
-		def.dYPos = CenterY( def.sGridNo );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(def.sGridNo, &sX, &sY);
+		def.dXPos = sX;
+		def.dYPos = sY;
 		// If not from loading a save....
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
@@ -2737,15 +2739,14 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 	memset( &Corpse, 0, sizeof( ROTTING_CORPSE_DEFINITION ) );
 
 	// Setup some values!
-	Corpse.ubBodyType							= pSoldier->ubBodyType;
-	Corpse.sGridNo								= sGridNo;
+	ConvertGridNoToCenterCellXY(sGridNo, &sXPos, &sYPos);
 
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
-	Corpse.sHeightAdjustment			= pSoldier->sHeightAdjustment;
-	Corpse.bVisible								=	TRUE;
+	Corpse.ubBodyType			= pSoldier->ubBodyType;
+	Corpse.sGridNo				= sGridNo;
+	Corpse.dXPos				= (FLOAT)( sXPos );
+	Corpse.dYPos				= (FLOAT)( sYPos );
+	Corpse.sHeightAdjustment	= pSoldier->sHeightAdjustment;
+	Corpse.bVisible				=	TRUE;
 
 	SET_PALETTEREP_ID ( Corpse.HeadPal,		pSoldier->HeadPal );
 	SET_PALETTEREP_ID ( Corpse.VestPal,		pSoldier->VestPal );
