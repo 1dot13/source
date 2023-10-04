@@ -4773,8 +4773,8 @@ void DoneFadeOutAdjacentSector( )
 						curr->pSoldier->ubWaitActionToDo = 1;
 						// OK, here we have been given a position, a gridno has been given to use as well....
 						sOldGridNo = curr->pSoldier->sGridNo;
-						sWorldX = CenterX( sGridNo );
-						sWorldY = CenterY( sGridNo );
+						ConvertGridNoToCenterCellXY(sGridNo, &sWorldX, &sWorldY);
+
 						curr->pSoldier->EVENT_SetSoldierPosition( sWorldX, sWorldY );
 						if ( sGridNo != sOldGridNo )
 						{

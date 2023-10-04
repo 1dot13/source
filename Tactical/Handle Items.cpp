@@ -5919,8 +5919,7 @@ void SetOffBoobyTrap( ITEM_POOL * pItemPool )
 	if ( pItemPool )
 	{
 		INT16 sX, sY;
-		sX = CenterX( pItemPool->sGridNo );
-		sY = CenterY( pItemPool->sGridNo );
+		ConvertGridNoToCenterCellXY(pItemPool->sGridNo, &sX, &sY);
 		IgniteExplosion( NOBODY, sX, sY, (INT16) (gpWorldLevelData[pItemPool->sGridNo].sHeight + pItemPool->bRenderZHeightAboveLevel), pItemPool->sGridNo, MINI_GRENADE, 0 );
 		RemoveItemFromPool( pItemPool->sGridNo, pItemPool->iItemIndex, pItemPool->ubLevel );
 	}

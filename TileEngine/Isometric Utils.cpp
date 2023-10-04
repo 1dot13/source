@@ -931,7 +931,7 @@ void ConvertGridNoToCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
 	*sXPos = ( *sXPos * CELL_X_SIZE );
 }
 
-void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
+void ConvertGridNoToCenterCellXY( const INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
 {
 	*sYPos = ( sGridNo / WORLD_COLS );
 	*sXPos = ( sGridNo - ( *sYPos * WORLD_COLS ) );

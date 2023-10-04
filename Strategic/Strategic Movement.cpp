@@ -1757,30 +1757,30 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 	Corpse.usFlags = ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO;
 
 	// 1st gridno
-	Corpse.sGridNo								= 14319; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 14319; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)( sXPos );
+	Corpse.dYPos = (FLOAT)( sYPos );
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);
 
 
 	// 2nd gridno
-	Corpse.sGridNo								= 9835; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 9835; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)(sXPos);
+	Corpse.dYPos = (FLOAT)(sYPos);
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);
 
 
 	// 3rd gridno
-	Corpse.sGridNo								= 11262; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 11262; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)(sXPos);
+	Corpse.dYPos = (FLOAT)(sYPos);
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);

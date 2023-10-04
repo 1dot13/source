@@ -352,9 +352,8 @@ INT32 PickRandomLocationAtMinSpacesAway( INT32 sGridNo, INT16 sMinValue, INT16 s
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"PickRandomLocationAtMinSpacesAway");
 
-	sX = CenterX( sGridNo );
-	sY = CenterY( sGridNo );
-	
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
 	while(TileIsOutOfBounds(sNewGridNo))
 	{
 		sNewX = sX + sMinValue + (INT16)Random( sRandomVar );
@@ -596,8 +595,7 @@ void BeginBombing( )
 	sGridNo = PickRandomLocationAtMinSpacesAway( gsDiveTargetLocation , 300, 200 );
 
 	// Save X, y:
-	gsDiveX = CenterX( sGridNo );
-	gsDiveY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &gsDiveX, &gsDiveY);
 
 	RESETTIMECOUNTER( giTimerAirRaidUpdate, RAID_DELAY );
 
@@ -657,8 +655,7 @@ void BeginDive( )
 	sGridNo = PickRandomLocationAtMinSpacesAway( gsDiveTargetLocation, 300, 200 );
 
 	// Save X, y:
-	gsDiveX = CenterX( sGridNo );
-	gsDiveY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &gsDiveX, &gsDiveY);
 
 	RESETTIMECOUNTER( giTimerAirRaidUpdate, RAID_DELAY );
 	giNumTurnsSinceDiveStarted = 0;
@@ -760,8 +757,7 @@ void DoDive(	)
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"DoDive: move towards target");
 			// Move Towards target....
-			sTargetX = CenterX( gsDiveTargetLocation );
-			sTargetY = CenterY( gsDiveTargetLocation );
+			ConvertGridNoToCenterCellXY(gsDiveTargetLocation, &sTargetX, &sTargetY);
 
 			// Determine deltas
 			dDeltaX = (FLOAT)( sTargetX - gsDiveX );
@@ -886,7 +882,7 @@ void DoBombing(	)
 	INT16		sRange;
 	INT32		sGridNo, sOldGridNo, sBombGridNo;
 
-	INT16		sTargetX, sTargetY;
+	INT16		sTargetX, sTargetY, sBombX, sBombY;
 	UINT16	usItem;
 	INT16		sStrafeX, sStrafeY;
 	FLOAT		dDeltaX, dDeltaY, dAngle, dDeltaXPos, dDeltaYPos;
@@ -933,8 +929,7 @@ void DoBombing(	)
 			RESETTIMECOUNTER( giTimerAirRaidUpdate, RAID_DELAY );
 
 			// Move Towards target....
-			sTargetX = CenterX( gsDiveTargetLocation );
-			sTargetY = CenterY( gsDiveTargetLocation );
+			ConvertGridNoToCenterCellXY(gsDiveTargetLocation, &sTargetX, &sTargetY);
 
 			// Determine deltas
 			dDeltaX = (FLOAT)( sTargetX - gsDiveX );
@@ -1002,7 +997,8 @@ void DoBombing(	)
 						}
 
 						// Drop bombs...
-						InternalIgniteExplosion( NOBODY, CenterX( sBombGridNo ), CenterY( sBombGridNo ), 0, sBombGridNo, usItem, fLocate , (UINT8)IsRoofPresentAtGridNo( sBombGridNo ) );
+						ConvertGridNoToCenterCellXY(sBombGridNo, &sBombX, &sBombY);
+						InternalIgniteExplosion( NOBODY, sBombX, sBombY, 0, sBombGridNo, usItem, fLocate , (UINT8)IsRoofPresentAtGridNo( sBombGridNo ) );
 
 					}
 

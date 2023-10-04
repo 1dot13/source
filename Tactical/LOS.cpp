@@ -2380,12 +2380,15 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		UINT8  ubNumberOfTiles = pBase->pDBStructureRef->pDBStructure->ubNumberOfTiles;
 
 		INT32 sStructGridNo;
+		INT16 sX, sY, sX2, sY2;
+		ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
 
 		// loop through all tiles
 		for (UINT8 ubLoop = BASE_TILE; ubLoop < ubNumberOfTiles; ubLoop++)
 		{
 			sStructGridNo = AddPosRelToBase(pBase->sGridNo, ppTile[ubLoop]);
-			if( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( sStructGridNo ), (FLOAT) CenterY( sStructGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) )
+			ConvertGridNoToCenterCellXY(sStructGridNo, &sX2, &sY2);
+			if( LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) )
 			{
 				return( TRUE );
 			}
@@ -2393,14 +2396,18 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		return( FALSE );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) );
+	INT16 sX, sY, sX2, sY2;
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(pEndSoldier->sGridNo, &sX2, &sY2);
+
+	return( LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) );
 	}
 
 INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo )
 {
 	// figure out if there is a SINGLE window between the looker and target
 	FLOAT			dStartZPos, dEndZPos;
-	INT16			sXPos, sYPos;
+	INT16			sX, sY, sX2, sY2;
 	INT32			sWindowGridNo = NOWHERE;
 	INT32			iRet;
 
@@ -2413,14 +2420,13 @@ INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo
 	dStartZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[pStartSoldier->sGridNo].sHeight );
 	dEndZPos = dStartZPos;
 
-	ConvertGridNoToXY( sEndGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(sEndGridNo, &sX2, &sY2);
 
 	//ADB changed from 255 to 511 to handle new LOS test
 	// We don't want to consider distance limits here so pass in tile sight limit of 255( + 256)
 	// and consider trees as little as possible
-	iRet = LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, 511, TRUE, FALSE, &sWindowGridNo );
+	iRet = LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, 511, TRUE, FALSE, &sWindowGridNo );
 
 	return( sWindowGridNo );
 }
@@ -2473,9 +2479,9 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 
 INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit )
 {
-	FLOAT						dStartZPos, dEndZPos;
-	INT16						sXPos, sYPos;
-	BOOLEAN					fOk;
+	FLOAT dStartZPos, dEndZPos;
+	INT16 endXPos, endYPos, startXPos, startYPos;
+	BOOLEAN fOk;
 
 	CHECKF( pStartSoldier );
 
@@ -2504,10 +2510,6 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32
 	}
 
 
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
-
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, iTileSightLimit );
 	}
@@ -2515,7 +2517,9 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, false ) );
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &startXPos, &startYPos);
+	ConvertGridNoToCenterCellXY(sGridNo, &endXPos, &endYPos);
+	return(LineOfSightTest((FLOAT)startXPos, (FLOAT)startYPos, dStartZPos, (FLOAT)endXPos, (FLOAT)endYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics(pStartSoldier), NULL, false));
 }
 
 INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit, FLOAT dStartPos, FLOAT dEndPos )

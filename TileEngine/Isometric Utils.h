@@ -45,7 +45,7 @@ extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIO
 void ConvertDirectionToVectorInXY(UINT8 ubDirection, INT16* sXDir, INT16* sYDir);
 void ConvertGridNoToXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 void ConvertGridNoToCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
-void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
+void ConvertGridNoToCenterCellXY( const INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 
 
 // GRID NO MANIPULATION FUNCTIONS
