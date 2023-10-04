@@ -5636,7 +5636,9 @@ void HandleRaulBlowingHimselfUp()
 
 		//blow himself up with, hmmm, lets say TNT.  :)
 		usItem = HAND_GRENADE;
-		IgniteExplosion( RAUL_UB, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+		IgniteExplosion( RAUL_UB, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
 
 		SetJa25GeneralFlag( JA_GF__RAUL_BLOW_HIMSELF_UP );
 	}
