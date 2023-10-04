@@ -6130,10 +6130,8 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 			{
 				// ALL RIGHT!	Passed all the tests, this listener hears this noise!!!
 				HearNoise(pSoldier,ubSource,sGridNo,bLevel,ubEffVolume,ubNoiseType, (UINT8 *)&bSeen);
-
 				bHeard = TRUE;
-
-				ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sGridNo),CenterY(sGridNo));
+				ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sGridNo);
 
 				// check the 'noise heard & reported' bit for that soldier & direction
 				if ( ubNoiseType != NOISE_MOVEMENT || bTeam != OUR_TEAM || (pSoldier->aiData.bInterruptDuelPts != NO_INTERRUPT) || !(pSoldier->ubMovementNoiseHeard & (1 << ubNoiseDir) ) )
