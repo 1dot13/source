@@ -110,12 +110,6 @@ INT16 QuickestDirection(INT16 origin, INT16 dest);
 INT16 ExtQuickestDirection(INT16 origin, INT16 dest);
 
 
-// Returns the (center ) cell coordinates in X
-INT16 CenterX( INT32 sGridNo );
-
-// Returns the (center ) cell coordinates in Y
-INT16 CenterY( INT32 sGridNo );
-
 INT16 MapX( INT32 sGridNo );
 INT16 MapY( INT32 sGridNo );
 BOOLEAN FindFenceJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );

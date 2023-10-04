@@ -1234,30 +1234,6 @@ INT16 ExtQuickestDirection(INT16 origin, INT16 dest)
 }
 
 
-// Returns the (center ) cell coordinates in X
-INT16 CenterX( INT32 sGridNo ) 
-{
-	INT32 sYPos, sXPos;
-
-	sYPos = sGridNo / WORLD_COLS;
-	sXPos = ( sGridNo - ( sYPos * WORLD_COLS ) );
-
-	return( ( sXPos * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 ) );
-}
-
-
-// Returns the (center ) cell coordinates in Y
-INT16 CenterY( INT32 sGridNo ) 
-{
-	INT32 sYPos, sXPos;
-
-	sYPos = sGridNo / WORLD_COLS;
-	sXPos = ( sGridNo - ( sYPos * WORLD_COLS ) );
-
-	return( ( sYPos * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 ) );
-}
-
-
 INT16 MapX( INT32 sGridNo ) 
 {
 	INT32 sYPos, sXPos;
