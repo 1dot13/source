@@ -473,8 +473,7 @@ INT8 DecideActionSchedule( SOLDIERTYPE * pSoldier )
 		switch( pSoldier->bAIScheduleProgress )
 		{
 		case 0:
-			sX = CenterX( pSoldier->sOffWorldGridNo );
-			sY = CenterY( pSoldier->sOffWorldGridNo );
+			ConvertGridNoToCenterCellXY(pSoldier->sOffWorldGridNo, &sX, &sY);
 			pSoldier->EVENT_SetSoldierPosition( sX, sY );
 			pSoldier->bInSector = TRUE;
 			MoveSoldierFromAwayToMercSlot( pSoldier );
