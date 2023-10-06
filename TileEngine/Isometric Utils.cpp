@@ -919,22 +919,6 @@ void ConvertGridNoToCenterCellXY( const INT32 sGridNo, INT16 *sXPos, INT16 *sYPo
 	*sXPos = ( *sXPos * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
 }
 
-INT32 GetRangeFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 )
-{
-	INT32					uiDist;
-	INT16					sXPos, sYPos, sXPos2, sYPos2;
-
-	// Convert our grid-not into an XY
-	ConvertGridNoToXY( sGridNo1, &sXPos, &sYPos );
-
-	// Convert our grid-not into an XY
-	ConvertGridNoToXY( sGridNo2, &sXPos2, &sYPos2 );
-
-	uiDist = (INT32)(sqrt((double) ( sXPos2 - sXPos )*( sXPos2 - sXPos ) + ( sYPos2 - sYPos ) * ( sYPos2 - sYPos ) ));	
-
-	return( uiDist );
-}
-
 INT32 GetRangeInCellCoordsFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 )
 {
 	INT16					sXPos, sYPos, sXPos2, sYPos2;

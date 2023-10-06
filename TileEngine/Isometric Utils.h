@@ -90,7 +90,6 @@ BOOLEAN GridNoOnEdgeOfMap( INT32 sGridNo, INT8 * pbDirection );
 
 BOOLEAN CellXYToScreenXY(INT16 sCellX, INT16 sCellY, INT16 *sScreenX, INT16 *sScreenY);
 
-INT32 GetRangeFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 );
 INT32 GetRangeInCellCoordsFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 );
 
 BOOLEAN IsPointInScreenRect( INT16 sXPos, INT16 sYPos, SGPRect *pRect );
