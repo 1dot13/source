@@ -7361,7 +7361,7 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BO
 	// Get dest gridno, convert to center coords
 	sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8)usNewDirection ) );
 
-	ConvertMapPosToWorldTileCenter( sNewGridNo, &sXPos, &sYPos );
+	ConvertGridNoToCenterCellXY( sNewGridNo, &sXPos, &sYPos );
 
 	// Save new dest gridno, x, y
 	this->pathing.sDestination = sNewGridNo;
@@ -11546,7 +11546,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				{
 					INT16 this_base_x = 0;
 					INT16 this_base_y = 0;
-					ConvertMapPosToWorldTileCenter( this->sGridNo, &this_base_x, &this_base_y );
+					ConvertGridNoToCenterCellXY( this->sGridNo, &this_base_x, &this_base_y );
 
 					dx = this->dXPos - this_base_x;
 					dy = this->dYPos - this_base_y;
@@ -11554,7 +11554,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 				INT16 base_x = 0;
 				INT16 base_y = 0;
-				ConvertMapPosToWorldTileCenter( gridnotouse, &base_x, &base_y );
+				ConvertGridNoToCenterCellXY( gridnotouse, &base_x, &base_y );
 
 				pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
 			}
@@ -11600,14 +11600,14 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 					// move corpse a bit
 					INT16 this_base_x = 0;
 					INT16 this_base_y = 0;
-					ConvertMapPosToWorldTileCenter(this->sGridNo, &this_base_x, &this_base_y);
+					ConvertGridNoToCenterCellXY(this->sGridNo, &this_base_x, &this_base_y);
 
 					FLOAT dx = this->dXPos - this_base_x;
 					FLOAT dy = this->dYPos - this_base_y;
 						
 					INT16 base_x = 0;
 					INT16 base_y = 0;
-					ConvertMapPosToWorldTileCenter(pCorpse->def.sGridNo, &base_x, &base_y);
+					ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &base_x, &base_y);
 
 					INT16 sX, sY;
 					ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &sX, &sY);
@@ -20882,7 +20882,7 @@ void	SOLDIERTYPE::CancelDrag()
 		{
 			INT16 base_x = 0;
 			INT16 base_y = 0;
-			ConvertMapPosToWorldTileCenter(pSoldier->sGridNo, &base_x, &base_y);
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &base_x, &base_y);
 
 			pSoldier->EVENT_InternalSetSoldierPosition(base_x, base_y, FALSE, FALSE, FALSE);
 		}

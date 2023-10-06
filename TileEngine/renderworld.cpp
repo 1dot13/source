@@ -614,7 +614,7 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchB
 		// try to keep the shield 'moving' alongside the soldier. This won't work perfectly, but it's better than nothing		
 		INT16 base_x = 0;
 		INT16 base_y = 0;
-		ConvertMapPosToWorldTileCenter( pSoldier->sGridNo, &base_x, &base_y );
+		ConvertGridNoToCenterCellXY( pSoldier->sGridNo, &base_x, &base_y );
 
 		INT16 dx = pSoldier->sX - base_x;
 		INT16 dy = pSoldier->sY - base_y;

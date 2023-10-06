@@ -280,7 +280,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					INT16		sXPos, sYPos;
 
 					//sNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc( pSoldier->ubDirection ) );
-					ConvertMapPosToWorldTileCenter( pSoldier->sTempNewGridNo, &sXPos, &sYPos );
+					ConvertGridNoToCenterCellXY( pSoldier->sTempNewGridNo, &sXPos, &sYPos );
 					pSoldier->EVENT_SetSoldierPosition( (FLOAT)sXPos, (FLOAT)sYPos );
 				}
 
