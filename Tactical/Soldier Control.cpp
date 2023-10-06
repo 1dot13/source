@@ -11776,13 +11776,13 @@ UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
 	return(atan8( sXPos2, sYPos2, sXPos, sYPos ));
 }
 
-INT16 GetDirectionFromCenterCellXYGridNo(INT32 sGridNoDest, INT32 sGridNoSrc)
+INT16 GetDirectionFromCenterCellXYGridNo(INT32 EndGridNo, INT32 StartGridNo)
 {
 	INT16 sXPos2, sYPos2;
 	INT16 sXPos, sYPos;
 
-	ConvertGridNoToCenterCellXY(sGridNoSrc, &sXPos, &sYPos);
-	ConvertGridNoToCenterCellXY(sGridNoDest, &sXPos2, &sYPos2);
+	ConvertGridNoToCenterCellXY(StartGridNo, &sXPos, &sYPos);
+	ConvertGridNoToCenterCellXY(EndGridNo, &sXPos2, &sYPos2);
 
 	return(atan8(sXPos2, sYPos2, sXPos, sYPos));
 }

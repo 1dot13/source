@@ -2205,7 +2205,7 @@ UINT8 GetDirectionFromGridNo( INT32 sGridNo, SOLDIERTYPE *pSoldier );
 UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 );
 UINT8 atan8FromAngle( DOUBLE dAngle );
 INT16 GetDirectionToGridNoFromGridNo(INT32 sGridNoDest, INT32 sGridNoSrc);
-INT16 GetDirectionFromCenterCellXYGridNo( INT32 sGridNoDest, INT32 sGridNoSrc );
+INT16 GetDirectionFromCenterCellXYGridNo(INT32 EndGridNo, INT32 StartGridNo);
 // This function is now obsolete.	Call ReduceAttackBusyCount instead.
 // void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier );
 

@@ -561,10 +561,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	}
 	else
 	{
-		INT16 sX, sY;
-		ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &sX, &sY);
-		AniParams.sX = sX;
-		AniParams.sY = sY;
+		ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &AniParams.sX, &AniParams.sY);
 	}
 		
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
@@ -1550,7 +1547,6 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 	ROTTING_CORPSE	*pCorpse = NULL;
 	INT32 sBaseGridNo;
 	ANITILE_PARAMS		AniParams;
-	INT16 sX, sY;
 
 	pStructure = FindStructureByID( sGridNo, usStructureID );
 
@@ -1591,9 +1587,7 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 		AniParams.sDelay = (INT16)( 80 );
 		AniParams.sStartFrame = 0;
 		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD;
-		ConvertGridNoToCenterCellXY(sBaseGridNo, &sX, &sY);
-		AniParams.sX = sX;
-		AniParams.sY = sY;
+		ConvertGridNoToCenterCellXY(sBaseGridNo, &AniParams.sX, &AniParams.sY);
 		AniParams.sZ = (INT16)pCorpse->def.sHeightAdjustment;
 
 		strcpy( AniParams.zCachedFile, "TILECACHE\\GEN_BLOW.STI" );

@@ -1092,9 +1092,6 @@ void AddSnakeAmim( INT32 sGridno, UINT8 usDirection )
 {
 	if ( !TileIsOutOfBounds( sGridno ) )
 	{
-		INT16 sX, sY;
-		ConvertGridNoToCenterCellXY(sGridno, &sX, &sY);
-
 		ANITILE_PARAMS	AniParams;
 		memset( &AniParams, 0, sizeof(ANITILE_PARAMS) );
 		
@@ -1103,8 +1100,7 @@ void AddSnakeAmim( INT32 sGridno, UINT8 usDirection )
 		AniParams.sDelay = 100;
 		AniParams.sStartFrame = 0;
 		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_USE_DIRECTION_FOR_START_FRAME;//| ANITILE_LOOPING;
-		AniParams.sX = sX;
-		AniParams.sY = sY;
+		ConvertGridNoToCenterCellXY(sGridno, &AniParams.sX, &AniParams.sY);
 		AniParams.sZ = 0;
 		strcpy( AniParams.zCachedFile, "TILECACHE\\WATERSNAKE_MOVE.sti" );
 
