@@ -9570,7 +9570,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 BOOLEAN ItemCursorInLobRange( INT32 usMapPos )
 {
 	// Draw item depending on distance from buddy
-	if ( GetRangeFromGridNoDiff( usMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
+	if (PythSpacesAway( usMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
 	{
 		return( FALSE );
 	}

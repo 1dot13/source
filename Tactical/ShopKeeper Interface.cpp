@@ -776,7 +776,7 @@ BOOLEAN EnterShopKeeperInterface()
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
-	if ( GetRangeFromGridNoDiff( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
+	if (PythSpacesAway( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
 	{
 		//so now we know we are too far away to trade, so instead of just quitting,
 		//either post a message or run to the guy like HandleTalkInit does
@@ -6668,7 +6668,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			// Get range to shopkeeper
-			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sDestGridNo );
+			uiRange = PythSpacesAway( pSoldier->sGridNo, sDestGridNo );
 
 			// and is close enough to talk to the shopkeeper (use this define INSTEAD of PASSING_ITEM_DISTANCE_OKLIFE!)
 			if ( uiRange <= NPC_TALK_RADIUS )

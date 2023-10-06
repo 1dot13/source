@@ -144,7 +144,7 @@ BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 	}
 	// We don't want to go prone if there is a nearby enemy
 	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel );
-	iRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sOpponentGridNo );
+	iRange = PythSpacesAway( pSoldier->sGridNo, sOpponentGridNo );
 	if (iRange > 10)
 	{
 		return( TRUE );

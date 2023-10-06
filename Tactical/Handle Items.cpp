@@ -2187,7 +2187,7 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 					pSoldier->usPendingAnimation = LOB_ITEM;
 			}
 			// Draw item depending on distance from buddy
-			else if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
+			else if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
 			{
 				//ddd maybe need to add check for throwing item class - grenade
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 

@@ -15879,7 +15879,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	}
 
 	UINT8 covertlevel = NUM_SKILL_TRAITS( this, COVERT_NT );	// our level in covert operations
-	INT32 distance = GetRangeFromGridNoDiff( this->sGridNo, pSoldier->sGridNo );
+	INT32 distance = PythSpacesAway( this->sGridNo, pSoldier->sGridNo );
 
 	// if we are closer than this, our cover will always break if we do not have the skill
 	// if we have the skill, our cover will blow if we dress up as a soldier, but not if we are dressed like a civilian
@@ -23216,7 +23216,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			return(FALSE);
 		}
 
-		uiRange = GetRangeFromGridNoDiff( this->sGridNo, pTSoldier->sGridNo );
+		uiRange = PythSpacesAway( this->sGridNo, pTSoldier->sGridNo );
 
 		if ( uiRange > (NPC_TALK_RADIUS * 2) )
 		{
