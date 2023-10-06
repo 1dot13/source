@@ -965,8 +965,8 @@ INT16 PythSpacesAway(INT32 sOrigin, INT32 sDest)
 {
 	INT16 sRows,sCols,sResult;
 
-	sRows = abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
-	sCols = abs((sOrigin % MAXROW) - (sDest % MAXROW));
+	sRows = (sOrigin / MAXCOL) - (sDest / MAXCOL);
+	sCols = (sOrigin % MAXROW) - (sDest % MAXROW);
 
 
 	// apply Pythagoras's theorem for right-handed triangle:
