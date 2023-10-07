@@ -783,7 +783,6 @@ BOOLEAN CloseEnoughForGrenadeToss( INT32 sGridNo, INT32 sGridNo2 )
 {
 	INT32	sTempGridNo;
 	UINT8	ubDirection;
-	INT16	sXPos, sYPos, sXPos2, sYPos2;
 	UINT8	ubMovementCost;
 
 	if (sGridNo == sGridNo2 )
@@ -815,13 +814,7 @@ BOOLEAN CloseEnoughForGrenadeToss( INT32 sGridNo, INT32 sGridNo2 )
 		// so we can now do a loop safely
 
 		sTempGridNo = sGridNo;
-
-		sXPos = CenterX( sGridNo );
-		sYPos = CenterY( sGridNo );
-		sXPos2 = CenterX( sGridNo2 );
-		sYPos2 = CenterY( sGridNo2 );
-		ubDirection = atan8( sXPos, sYPos, sXPos2, sYPos2 );
-
+		ubDirection = GetDirectionFromCenterCellXYGridNo(sGridNo, sGridNo2);
 		// For each step of the loop, we are checking for door or obstacle movement costs.	If we
 		// find we're blocked, then this is no good for grenade tossing!
 		do

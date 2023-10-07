@@ -708,27 +708,6 @@ BOOLEAN GetMouseMapPos( INT32	*psMapPos )
 }
 
 
-
-BOOLEAN ConvertMapPosToWorldTileCenter( INT32 usMapPos, INT16 *psXPos, INT16 *psYPos )
-{
-	INT16 sWorldX, sWorldY;
-	INT16 sCellX, sCellY;
-
-	// Get X, Y world GRID Coordinates
-	sWorldY = ( usMapPos / WORLD_COLS );
-	sWorldX = usMapPos - ( sWorldY * WORLD_COLS );
-
-	// Convert into cell coords
-	sCellY = sWorldY * CELL_Y_SIZE;
-	sCellX = sWorldX * CELL_X_SIZE;
-
-	// Add center tile positions
-	*psXPos = sCellX + ( CELL_X_SIZE / 2 );
-	*psYPos = sCellY + ( CELL_Y_SIZE / 2 );
-
-	return( TRUE );
-}
-
 void GetScreenXYWorldCoords( INT16 sScreenX, INT16 sScreenY, INT16 *psWorldX, INT16 *psWorldY )
 {
 	INT16 sOffsetX, sOffsetY;
@@ -931,29 +910,13 @@ void ConvertGridNoToCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
 	*sXPos = ( *sXPos * CELL_X_SIZE );
 }
 
-void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
+void ConvertGridNoToCenterCellXY( const INT32 sGridNo, INT16 *sXPos, INT16 *sYPos )
 {
 	*sYPos = ( sGridNo / WORLD_COLS );
 	*sXPos = ( sGridNo - ( *sYPos * WORLD_COLS ) );
 
 	*sYPos = ( *sYPos * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
 	*sXPos = ( *sXPos * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
-}
-
-INT32 GetRangeFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 )
-{
-	INT32					uiDist;
-	INT16					sXPos, sYPos, sXPos2, sYPos2;
-
-	// Convert our grid-not into an XY
-	ConvertGridNoToXY( sGridNo1, &sXPos, &sYPos );
-
-	// Convert our grid-not into an XY
-	ConvertGridNoToXY( sGridNo2, &sXPos2, &sYPos2 );
-
-	uiDist = (INT32)(sqrt((double) ( sXPos2 - sXPos )*( sXPos2 - sXPos ) + ( sYPos2 - sYPos ) * ( sYPos2 - sYPos ) ));	
-
-	return( uiDist );
 }
 
 INT32 GetRangeInCellCoordsFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 )
@@ -1002,8 +965,8 @@ INT16 PythSpacesAway(INT32 sOrigin, INT32 sDest)
 {
 	INT16 sRows,sCols,sResult;
 
-	sRows = abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
-	sCols = abs((sOrigin % MAXROW) - (sDest % MAXROW));
+	sRows = (sOrigin / MAXCOL) - (sDest / MAXCOL);
+	sCols = (sOrigin % MAXROW) - (sDest % MAXROW);
 
 
 	// apply Pythagoras's theorem for right-handed triangle:
@@ -1231,30 +1194,6 @@ INT16 ExtQuickestDirection(INT16 origin, INT16 dest)
 	else
 		return(1);
 	}
-}
-
-
-// Returns the (center ) cell coordinates in X
-INT16 CenterX( INT32 sGridNo ) 
-{
-	INT32 sYPos, sXPos;
-
-	sYPos = sGridNo / WORLD_COLS;
-	sXPos = ( sGridNo - ( sYPos * WORLD_COLS ) );
-
-	return( ( sXPos * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 ) );
-}
-
-
-// Returns the (center ) cell coordinates in Y
-INT16 CenterY( INT32 sGridNo ) 
-{
-	INT32 sYPos, sXPos;
-
-	sYPos = sGridNo / WORLD_COLS;
-	sXPos = ( sGridNo - ( sYPos * WORLD_COLS ) );
-
-	return( ( sYPos * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 ) );
 }
 
 

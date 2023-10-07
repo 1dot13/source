@@ -5619,7 +5619,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 		sTargetGridNo = MercPtrs[ ubTargID ]->sGridNo;
 	}
 
-	uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo );
+	uiRange = PythSpacesAway( pSoldier->sGridNo, sTargetGridNo );
 
 
 	if ( uiRange <= NPC_TALK_RADIUS )
@@ -6610,7 +6610,7 @@ BOOLEAN HandleTalkInit(	)
 			}
 
 			// Check distance
-			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, usMapPos );
+			uiRange = PythSpacesAway( pSoldier->sGridNo, usMapPos );
 
 			// Double check path
 			if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )

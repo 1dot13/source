@@ -815,10 +815,8 @@ void recievePATH(RPCParameters *rpcParameters)
 	SendGetNewSoldierPathEvent( pSoldier, SNetPath->sDestGridNo, SNetPath->ubNewState );	
 
 	INT16 sCellX, sCellY;	
-	
-	sCellX = CenterX( SNetPath->sAtGridNo );
-	sCellY = CenterY( SNetPath->sAtGridNo );
-	
+	ConvertGridNoToCenterCellXY(SNetPath->sAtGridNo, &sCellX, &sCellY);
+
 	if (( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_MOVING | ANIM_SPECIALMOVE ) ) && !(pSoldier->flags.fNoAPToFinishMove ) )
 	{
 	}
@@ -4251,8 +4249,7 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 	pSoldier->stats.bLife=SUpdateNetworkSoldier->bLife;
 
 	INT16  sCellX, sCellY;
-	sCellX = CenterX( SUpdateNetworkSoldier->sAtGridNo );
-	sCellY = CenterY( SUpdateNetworkSoldier->sAtGridNo );	
+	ConvertGridNoToCenterCellXY(SUpdateNetworkSoldier->sAtGridNo, &sCellX, &sCellY);
 
 	if( pSoldier->sGridNo != SUpdateNetworkSoldier->sAtGridNo)
 	{

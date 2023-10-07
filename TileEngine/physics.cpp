@@ -1995,7 +1995,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		{
 			// bad news - i can't throw item at myself
 			// so use dir incrementer
-			UINT8	ubDir = atan8( CenterX(pSoldier->sGridNo), CenterY(pSoldier->sGridNo), CenterX(sGridNo), CenterY(sGridNo) );
+			UINT8	ubDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sGridNo);
 			sInterGridNo += DirIncrementer[ubDir];
 		}
 	}

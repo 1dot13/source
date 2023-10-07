@@ -481,7 +481,7 @@ INT8 CreatureDecideActionYellow( SOLDIERTYPE * pSoldier )
 	if (pSoldier->aiData.bMobility != CREATURE_IMMOBILE)
 	{
 		// determine direction from this soldier in which the noise lies
-		ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
+		ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sNoiseGridNo);
 
 		// if soldier is not already facing in that direction,
 		// and the noise source is close enough that it could possibly be seen
@@ -849,7 +849,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		if (!TileIsOutOfBounds(sClosestOpponent))
 			{
 			// determine direction from this soldier to the closest opponent
-			ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 			 // if soldier is not already facing in that direction,
 			 // and the opponent is close enough that he could possibly be seen
@@ -1410,7 +1410,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 				}
 				else if (GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints) // turn to face enemy
 				{
-				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+				bDirection = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 				// if we're not facing towards him
 				if (pSoldier->ubDirection != bDirection && ValidCreatureTurn( pSoldier, bDirection ) )

@@ -1787,7 +1787,9 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 		pSoldier->aiData.bOppList[ pVehicle->ubID ] = 1;
 
 		// Add to sector....
-		pSoldier->EVENT_SetSoldierPosition( CenterX( sGridNo ), CenterY( sGridNo ) );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+		pSoldier->EVENT_SetSoldierPosition( sX, sY );
 
 		// anv: since now they can shoot it's important to set passenger to proper stance
 		// namely, back to standing, because we set them to crouching when entering
@@ -2064,7 +2066,9 @@ void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridN
 		pVehicleList[ ubID ].fDestroyed	= TRUE;
 
 		// Explode vehicle...
-		IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, GREAT_BIG_EXPLOSION, 0 );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+		IgniteExplosion( ubAttackerID, sX, sY, 0, sGridNo, GREAT_BIG_EXPLOSION, 0 );
 
 		if ( pSoldier != NULL )
 		{

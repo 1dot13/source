@@ -698,8 +698,7 @@ INT8 ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextC
 #endif
 	
 	// Get xy
-	sX = CenterX( sGridNo );
-	sY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 	// ATE: Continue if we are only looking for walls
 	if ( fOnlyWalls && !( pCurrent->fFlags & STRUCTURE_WALLSTUFF ) )
@@ -1305,7 +1304,9 @@ INT8 ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextC
 					// Make secondary explosion if eplosive....
 					if ( fExplosive )
 					{
-						InternalIgniteExplosion( ubOwner, CenterX( sBaseGridNo ), CenterY( sBaseGridNo ), 0, sBaseGridNo, STRUCTURE_EXPLOSION, FALSE, bLevel );
+						INT16 sX, sY;
+						ConvertGridNoToCenterCellXY(sBaseGridNo, &sX, &sY);
+						InternalIgniteExplosion( ubOwner, sX, sY, 0, sBaseGridNo, STRUCTURE_EXPLOSION, FALSE, bLevel );
 					}
 				}
 
@@ -1477,7 +1478,9 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 										}
 
 										{
-											InternalIgniteExplosion( ubOwner, CenterX( sNewGridNo2 ), CenterY( sNewGridNo2 ), 0, sNewGridNo2, RDX, FALSE, bLevel );
+											INT16 sX, sY;
+											ConvertGridNoToCenterCellXY(sNewGridNo2, &sX, &sY);
+											InternalIgniteExplosion( ubOwner, sX, sY, 0, sNewGridNo2, RDX, FALSE, bLevel );
 										}
 
 										fToBreak = TRUE;
@@ -4163,7 +4166,10 @@ void HandleExplosionQueue( void )
 						// no preplaced (owner=NOBODY) tripwire with explosive attachments allowed
 						if ( gGameExternalOptions.bAllowExplosiveAttachments && (*pObj)[0]->data.misc.ubBombOwner > 1 )
 						{
-							fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, 
+							INT16 sX, sY;
+							ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
+							fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0,
 											sGridNo, (*pObj)[0]->data.misc.usBombItem, FALSE, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
 						}
 					}
@@ -4236,15 +4242,18 @@ void HandleExplosionQueue( void )
 					CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel);
 					// BOOM!
 
+					INT16 sX, sY;
+					ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
 					// bomb objects only store the SIDE who placed the bomb! :-(
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
-						IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+						IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
 					}
 					else
 					{
 						// pre-placed
-						IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
+						IgniteExplosion( NOBODY, sX, sY, 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
 					}
 				}
 /*				if ( FindWorldItemForBuriedBombInGridNo(sGridNo, ubLevel) != -1 )
@@ -5530,8 +5539,8 @@ void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECT
 	INT16 horizontalarc = 5;
 	INT16 verticalarc	= 0;
 
-	INT16 sX = CenterX(gridno);
-	INT16 sY = CenterY(gridno);
+	INT16 sX, sY;
+	ConvertGridNoToCenterCellXY(gridno, &sX, &sY);
 
 	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
 
@@ -6331,7 +6340,9 @@ void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 		static UINT16 usRoofCollapseExplosionIndex = 1727;
 		if ( HasItemFlag( usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) || GetFirstItemWithFlag( &usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) )
 		{
-			InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+			InternalIgniteExplosion( NOBODY, sX, sY, 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
 		}
 
 		if ( Chance( 15 ) )
@@ -6340,7 +6351,9 @@ void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 
 			if ( debrissmokeitem )
 			{
-				InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, debrissmokeitem, FALSE, 0 );
+				INT16 sX, sY;
+				ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+				InternalIgniteExplosion( NOBODY, sX, sY, 0, sGridNo, debrissmokeitem, FALSE, 0 );
 			}
 		}
 	}

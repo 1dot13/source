@@ -2478,14 +2478,16 @@ BOOLEAN DrawCTHIndicator()
 
 	//////////////////////////////////
 	// Calculate Aperture
-
+	INT16 sX, sY;
 	// Calculate the center point of the shooter, in world coordinates.
-	FLOAT dStartX = (FLOAT) CenterX( gCTHDisplay.iShooterGridNo );
-	FLOAT dStartY = (FLOAT) CenterY( gCTHDisplay.iShooterGridNo );
+	ConvertGridNoToCenterCellXY(gCTHDisplay.iShooterGridNo, &sX, &sY);
+	FLOAT dStartX = (FLOAT) sX;
+	FLOAT dStartY = (FLOAT) sY;
 
 	// Calculate the center point of the target, in world coordinates.
-	FLOAT dEndX = (FLOAT) CenterX( gCTHDisplay.iTargetGridNo );
-	FLOAT dEndY = (FLOAT) CenterY( gCTHDisplay.iTargetGridNo );
+	ConvertGridNoToCenterCellXY(gCTHDisplay.iTargetGridNo, &sX, &sY);
+	FLOAT dEndX = (FLOAT) sX;
+	FLOAT dEndY = (FLOAT) sY;
 
 	// Calculate a delta: the difference between the shooter and target.
 	FLOAT dDeltaX = dEndX - dStartX;
