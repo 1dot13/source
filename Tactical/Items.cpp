@@ -15271,7 +15271,7 @@ BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
 BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
 {
-	register UINT16 i;
+	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( HasItemFlag(i, aFlag) )
@@ -15537,7 +15537,7 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	UINT32 bestclothestype = 999999;
 	UINT16 bestitem = 0;
 
-	register UINT16 i;
+	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( Item[i].clothestype > 0 )
