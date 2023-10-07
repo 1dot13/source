@@ -51,7 +51,6 @@
 
 
 
-HLIST		ghVideoObjects = NULL;
 BOOLEAN	gfVideoObjectsInit=FALSE;
 
 #ifndef SGP_VIDEO_DEBUGGING
