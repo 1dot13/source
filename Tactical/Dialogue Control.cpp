@@ -52,6 +52,7 @@
 	#include "qarray.h"
 	#include "Soldier Profile.h"
 #include <vector>
+#include <queue>
 #include "Auto Resolve.h"
 
 #include "connect.h"
@@ -168,8 +169,8 @@ UINT8							gubNumStopTimeQuotes = 2;
 
 
 // QUEUE UP DIALOG!
-#define		INITIAL_Q_SIZE				10
-HQUEUE		ghDialogueQ						= NULL;
+std::queue<DIALOGUE_Q_STRUCT> ghDialogueQ;
+
 FACETYPE	*gpCurrentTalkingFace	= NULL;
 UINT8			gubCurrentTalkingID	= NO_PROFILE;
 INT8			gbUIHandlerID;
@@ -283,40 +284,18 @@ BOOLEAN DialogueActive( )
 
 BOOLEAN InitalizeDialogueControl()
 {
-	ghDialogueQ = CreateQueue( INITIAL_Q_SIZE, sizeof( DIALOGUE_Q_STRUCT_PTR ) );
-
-	// Initalize subtitle popup box
-	//
-
+	EmptyDialogueQueue();
 	giNPCReferenceCount = 0;
 
-
-	if ( ghDialogueQ == NULL )
-	{
-		return( FALSE );
-	}
-	else
-	{
-		return( TRUE );
-	}
+	return( TRUE );
 }
 
 void ShutdownDialogueControl()
 {
-	if( ghDialogueQ != NULL )
-	{
-		// Empty
-		EmptyDialogueQueue( );
-
-		// Delete
-		DeleteQueue( ghDialogueQ );
-		ghDialogueQ=NULL;
-	}
-
 	// shutdown external static NPC faces
 	ShutdownStaticExternalNPCFaces( );
 
-	// gte rid of portraits for cars
+	// get rid of portraits for cars
 	UnLoadCarPortraits( );
 	//
 }
@@ -373,49 +352,31 @@ void ShutdownStaticExternalNPCFaces( void )
 void EmptyDialogueQueue( )
 {
 	// If we have anything left in the queue, remove!
-	if( ghDialogueQ != NULL )
+	while( !ghDialogueQ.empty() )
 	{
-/*
-DEF:	commented out because the Queue system ?? uses a contiguous memory block ??? for the queue
-	so you cant delete a single node.	The DeleteQueue, below, will free the entire memory block
-
-		numDialogueItems = QueueSize( ghDialogueQ );
-
-		for ( cnt = numDialogueItems-1; cnt >= 0; cnt-- )
-		{
-			if ( PeekQueue( ghDialogueQ, &QItem ) )
-			{
-					MemFree( QItem );
-			}
-		}
-*/
-
-		// Delete list
-		DeleteQueue( ghDialogueQ );
-		ghDialogueQ=NULL;
-
-		// Recreate list
-		ghDialogueQ = CreateQueue( INITIAL_Q_SIZE, sizeof( DIALOGUE_Q_STRUCT_PTR ) );
-
+		ghDialogueQ.pop();
 	}
 
 	gfWaitingForTriggerTimer = FALSE;
 }
 
 
-BOOLEAN DialogueQueueIsEmpty( )
+inline BOOLEAN DialogueQueueIsEmpty( )
 {
-	if( ghDialogueQ != NULL )
-	{
-		INT32 numDialogueItems = QueueSize( ghDialogueQ );
+	return( ghDialogueQ.empty() );
+}
 
-		if ( numDialogueItems == 0 )
-		{
-			return( TRUE );
-		}
+
+static bool PopFromDialogueQueue(DIALOGUE_Q_STRUCT_PTR pDialogue)
+{
+	if (!ghDialogueQ.empty())
+	{
+		*pDialogue = ghDialogueQ.front();
+		ghDialogueQ.pop();
+		return (true);
 	}
 
-	return( FALSE );
+	return false;
 }
 
 
@@ -433,6 +394,7 @@ BOOLEAN	DialogueQueueIsEmptyOrSomebodyTalkingNow( )
 
 	return( TRUE );
 }
+
 
 void DialogueAdvanceSpeech( )
 {
@@ -507,7 +469,6 @@ void HandleDialogueUIAdjustments( )
 void HandleDialogue( )
 {
 	INT32 iQSize;
-	DIALOGUE_Q_STRUCT				*QItem;
 	static BOOLEAN					fOldEngagedInConvFlagOn = FALSE;
 	BOOLEAN fDoneTalking = FALSE;
 	SOLDIERTYPE *pSoldier = NULL;
@@ -520,7 +481,7 @@ void HandleDialogue( )
 		return;
 	}
 
-	iQSize = QueueSize( ghDialogueQ );
+	iQSize = ghDialogueQ.size();
 
 	if ( iQSize == 0 && gpCurrentTalkingFace == NULL )
 	{
@@ -787,19 +748,18 @@ void HandleDialogue( )
 	// If here, pick current one from queue and play
 
 	// Get new one
-	RemfromQueue( ghDialogueQ, &QItem );
-
+	DIALOGUE_Q_STRUCT QItem;
+	PopFromDialogueQueue(&QItem);
+	
 	// If we are in auto bandage, ignore any quotes!
 	if ( gTacticalStatus.fAutoBandageMode )
 	{
-		if( QItem->fPauseTime )
+		if( QItem.fPauseTime )
 		{
 			UnLockPauseState();
 			UnPauseGame();
 		}
 
-		// Delete memory
-		MemFree( QItem );
 		return;
 	}
 
@@ -807,30 +767,27 @@ void HandleDialogue( )
 
 	// Alrighty, check if this one is to be delayed until we gain control.
 	// If so, place it back in!
-	if ( QItem->fDelayed )
+	if ( QItem.fDelayed )
 	{
 		// Are we not in our turn and not interrupted
 		if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 		{
 			//Place back in!
-			// Add to queue
-			ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
-
+			ghDialogueQ.push(QItem);
 			return;
 		}
 	}
 
 	// ATE: OK: If a battle sound, and delay value was given, set time stamp
 	// now...
-	if ( QItem->uiSpecialEventFlag == DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND )
+	if ( QItem.uiSpecialEventFlag == DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND )
 	{
-		if ( QItem->uiSpecialEventData2 != 0 )
+		if ( QItem.uiSpecialEventData2 != 0 )
 		{
-			if ( ( GetJA2Clock( ) - QItem->iTimeStamp ) < QItem->uiSpecialEventData2 )
+			if ( ( GetJA2Clock( ) - QItem.iTimeStamp ) < QItem.uiSpecialEventData2 )
 			{
 				//Place back in!
-				// Add to queue
-				ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+				ghDialogueQ.push(QItem);
 
 				return;
 			}
@@ -838,26 +795,25 @@ void HandleDialogue( )
 	}
 
 	// Try to find soldier...
-	pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, TRUE );
+	pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, TRUE );
 
 	if ( pSoldier != NULL )
 	{
 		if ( SoundIsPlaying( pSoldier->uiBattleSoundID ) )
 		{
 			//Place back in!
-			// Add to queue
-			ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+			ghDialogueQ.push(QItem);
 
 			return;
 		}
 	}
 
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && ( QItem->uiSpecialEventFlag == 0 ) )
+	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && ( QItem.uiSpecialEventFlag == 0 ) )
 	{
-		QItem->fPauseTime = TRUE;
+		QItem.fPauseTime = TRUE;
 	}
 
-	if( QItem->fPauseTime )
+	if( QItem.fPauseTime )
 	{
 		if( GamePaused( ) == FALSE )
 		{
@@ -869,7 +825,7 @@ void HandleDialogue( )
 
 	// Now play first item in queue
 	// If it's not a 'special' dialogue event, continue
-	if ( QItem->uiSpecialEventFlag == 0 )
+	if ( QItem.uiSpecialEventFlag == 0 )
 	{
 		if( pSoldier )
 		{
@@ -883,43 +839,43 @@ void HandleDialogue( )
 				fTeamPanelDirty = TRUE;
 
 				// allow them to go back to sleep
-				TacticalCharacterDialogueWithSpecialEvent( pSoldier, QItem->usQuoteNum, DIALOGUE_SPECIAL_EVENT_SLEEP, 1,0 );
+				TacticalCharacterDialogueWithSpecialEvent( pSoldier, QItem.usQuoteNum, DIALOGUE_SPECIAL_EVENT_SLEEP, 1,0 );
 			}
 		}
 
-		gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem->usQuoteNum;
-		gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
+		gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem.usQuoteNum;
+		gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem.ubCharacterNum;
 				
 		// Flugente: only set up face if we can access correctly
-		if ( QItem->iFaceIndex >= 0 )
+		if ( QItem.iFaceIndex >= 0 )
 		{
 			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 		}
 
-		gubCurrentTalkingID	= QItem->ubCharacterNum;
+		gubCurrentTalkingID	= QItem.ubCharacterNum;
 #ifdef JA2UB		
 		//Ja25: test
-		if( QItem->ubCharacterNum == MORRIS_UB ) //MORRIS
+		if( QItem.ubCharacterNum == MORRIS_UB ) //MORRIS
 		{
-			if( QItem->usQuoteNum == 0 )
+			if( QItem.usQuoteNum == 0 )
 			{
 			}
 		}
 #endif
-		ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
+		ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.fFromSoldier );
 
 	}
-	else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SKIP_A_FRAME )
+	else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SKIP_A_FRAME )
 	{
 
 	}
-	else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE )
+	else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE )
 	{
 		// locking or unlocking?
-		if( QItem->uiSpecialEventData )
+		if( QItem.uiSpecialEventData )
 		{
-			switch( QItem->uiSpecialEventData2 )
+			switch( QItem.uiSpecialEventData2 )
 			{
 				case( MAP_SCREEN ):
 					fLockOutMapScreenInterface = TRUE;
@@ -928,7 +884,7 @@ void HandleDialogue( )
 		}
 		else
 		{
-			switch( QItem->uiSpecialEventData2 )
+			switch( QItem.uiSpecialEventData2 )
 			{
 				case( MAP_SCREEN ):
 					fLockOutMapScreenInterface = FALSE;
@@ -936,61 +892,61 @@ void HandleDialogue( )
 			}
 		}
 	}
-	else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_REMOVE_EPC )
+	else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_REMOVE_EPC )
 	{
-		gMercProfiles[ (UINT8) QItem->uiSpecialEventData ].ubMiscFlags &= ~PROFILE_MISC_FLAG_FORCENPCQUOTE;
-		UnRecruitEPC( (UINT8) QItem->uiSpecialEventData );
+		gMercProfiles[ (UINT8) QItem.uiSpecialEventData ].ubMiscFlags &= ~PROFILE_MISC_FLAG_FORCENPCQUOTE;
+		UnRecruitEPC( (UINT8) QItem.uiSpecialEventData );
 		ReBuildCharactersList();
 	}
-	else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_WANTS_TO_RENEW )
+	else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_WANTS_TO_RENEW )
 	{
-		HandleMercIsWillingToRenew( (UINT8)QItem->uiSpecialEventData );
+		HandleMercIsWillingToRenew( (UINT8)QItem.uiSpecialEventData );
 	}
-	else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_NOGO_TO_RENEW )
+	else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_NOGO_TO_RENEW )
 	{
-		HandleMercIsNotWillingToRenew( (UINT8)QItem->uiSpecialEventData );
+		HandleMercIsNotWillingToRenew( (UINT8)QItem.uiSpecialEventData );
 	}
 	else
 	{
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES )
 		{
 			gfUseAlternateDialogueFile = TRUE;
 			
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex >= 0 )
+			if ( QItem.iFaceIndex >= 0 )
 			{
 				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 			}
 
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
-			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
+			ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.fFromSoldier );
 
 			gfUseAlternateDialogueFile = FALSE;
 
 		}
 		// We could have a special flag, but dialogue as well
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex >= 0 )
+			if ( QItem.iFaceIndex >= 0 )
 			{
 				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 			}
 
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
-			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
+			ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.fFromSoldier );
 
 			// Setup face with data!
 			gpCurrentTalkingFace->uiFlags				|= FACE_PCTRIGGER_NPC;
-			gpCurrentTalkingFace->uiUserData1		= QItem->uiSpecialEventData;
-			gpCurrentTalkingFace->uiUserData2		= QItem->uiSpecialEventData2;
+			gpCurrentTalkingFace->uiUserData1		= QItem.uiSpecialEventData;
+			gpCurrentTalkingFace->uiUserData2		= QItem.uiSpecialEventData2;
 
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOW_CONTRACT_MENU )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOW_CONTRACT_MENU )
 		{
 			// Setup face pointer
 			// ATE: THis is working with MARK'S STUFF :(
@@ -1003,116 +959,116 @@ void HandleDialogue( )
 			pProcessingSoldier = pSoldier;
 			fProcessingAMerc = TRUE;
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND )
 		{
 			// grab soldier ptr from profile ID
-			pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, FALSE );
+			pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, FALSE );
 
 			// Do battle snounds......
 			if ( pSoldier )
 			{
-				pSoldier->InternalDoMercBattleSound(	(UINT8)QItem->uiSpecialEventData, 0 );
+				pSoldier->InternalDoMercBattleSound(	(UINT8)QItem.uiSpecialEventData, 0 );
 			}
 		}
 
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SIGNAL_ITEM_LOCATOR_START )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SIGNAL_ITEM_LOCATOR_START )
 		{
 			// Turn off item lock for locators...
 			gTacticalStatus.fLockItemLocators = FALSE;
 
 			// Slide to location!
-			SlideToLocation( 0,  QItem->uiSpecialEventData );
+			SlideToLocation( 0,  QItem.uiSpecialEventData );
 
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex >= 0 )
+			if ( QItem.iFaceIndex >= 0 )
 			{
 				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 			}
 
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
-			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
+			ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.fFromSoldier );
 		}
 
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_ENABLE_AI )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_ENABLE_AI )
 		{
 			//OK, allow AI to work now....
 			UnPauseAI();
 		}
 
-		if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGERPREBATTLEINTERFACE )
+		if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGERPREBATTLEINTERFACE )
 		{
 			UnLockPauseState();
 
 			// Flugente: what hideous idiocy is this? We cast a UINT32 as GROUP*? This is likely to return garbage.
 			// Why the hell not use the id instead?
-			InitPreBattleInterface( (GROUP*)QItem->uiSpecialEventData, TRUE );
+			InitPreBattleInterface( (GROUP*)QItem.uiSpecialEventData, TRUE );
 
-			/*GROUP* pGroup = GetGroup( (UINT8)QItem->uiSpecialEventData );
+			/*GROUP* pGroup = GetGroup( (UINT8)QItem.uiSpecialEventData );
 			if ( pGroup )
 				InitPreBattleInterface( pGroup, TRUE );*/
 		}
-		if( QItem->uiSpecialEventFlag & DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX )
+		if( QItem.uiSpecialEventFlag & DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX )
 		{
 			INT32 iReason = 0;
 			SOLDIERTYPE *pUpdateSoldier = NULL;
 
-			iReason = QItem->uiSpecialEventData;
+			iReason = QItem.uiSpecialEventData;
 
 			switch( iReason )
 			{
 				case( UPDATE_BOX_REASON_ADDSOLDIER ):
-					pUpdateSoldier = &Menptr[ QItem->uiSpecialEventData2 ];
+					pUpdateSoldier = &Menptr[ QItem.uiSpecialEventData2 ];
 					if( pUpdateSoldier->bActive == TRUE )
 					{
 						AddSoldierToUpdateBox( pUpdateSoldier );
 					}
 				break;
 				case( UPDATE_BOX_REASON_SET_REASON ):
-					SetSoldierUpdateBoxReason( QItem->uiSpecialEventData2 );
+					SetSoldierUpdateBoxReason( QItem.uiSpecialEventData2 );
 				break;
 				case( UPDATE_BOX_REASON_SHOW_BOX ):
 					ShowUpdateBox( );
 				break;
 			}
 		}
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_BEGINPREBATTLEINTERFACE )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_BEGINPREBATTLEINTERFACE )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex >= 0 )
+			if ( QItem.iFaceIndex >= 0 )
 			{
 				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 			}
 
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
-			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
+			ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.fFromSoldier );
 
 			// Setup face with data!
 			gpCurrentTalkingFace->uiFlags				|= FACE_TRIGGER_PREBATTLE_INT;
-			gpCurrentTalkingFace->uiUserData1		= QItem->uiSpecialEventData;
-			gpCurrentTalkingFace->uiUserData2		= QItem->uiSpecialEventData2;
+			gpCurrentTalkingFace->uiUserData1		= QItem.uiSpecialEventData;
+			gpCurrentTalkingFace->uiUserData2		= QItem.uiSpecialEventData2;
 		}
 
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOPKEEPER )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOPKEEPER )
 		{
-			if( QItem->uiSpecialEventData < 3 )
+			if( QItem.uiSpecialEventData < 3 )
 			{
 				// post a notice if the player wants to withdraw money from thier account to cover the difference?
-				swprintf( zMoney, L"%d", QItem->uiSpecialEventData2 );
+				swprintf( zMoney, L"%d", QItem.uiSpecialEventData2 );
 				InsertCommasForDollarFigure( zMoney );
 				InsertDollarSignInToString( zMoney );
 			}
-			else if ( QItem->uiSpecialEventData > 7 )
+			else if ( QItem.uiSpecialEventData > 7 )
 			{
 				// post a notice if the player wants to withdraw money from thier account to cover the difference?
-				swprintf( zMoney, L"%d", QItem->uiSpecialEventData2 );
+				swprintf( zMoney, L"%d", QItem.uiSpecialEventData2 );
 				InsertCommasForDollarFigure( zMoney );
 			}
 
-			switch( QItem->uiSpecialEventData )
+			switch( QItem.uiSpecialEventData )
 			{
 				case( 0 ):
 						swprintf( zText, SkiMessageBoxText[ SKI_SHORT_FUNDS_TEXT ], zMoney );
@@ -1136,7 +1092,7 @@ void HandleDialogue( )
 				break;
 				case( 3 ):
 					// this means a dialogue event is in progress
-					giShopKeepDialogueEventinProgress = QItem->uiSpecialEventData2;
+					giShopKeepDialogueEventinProgress = QItem.uiSpecialEventData2;
 				break;
 				case( 4 ):
 					// this means a dialogue event has ended
@@ -1179,107 +1135,107 @@ void HandleDialogue( )
 
 		}
 
-		if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_EXIT_MAP_SCREEN )
+		if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_EXIT_MAP_SCREEN )
 		{
 			// select sector
-			ChangeSelectedMapSector( ( INT16 )QItem->uiSpecialEventData, ( INT16 )QItem->uiSpecialEventData2, ( INT8 )QItem->uiSpecialEventData3 );
+			ChangeSelectedMapSector( ( INT16 )QItem.uiSpecialEventData, ( INT16 )QItem.uiSpecialEventData2, ( INT8 )QItem.uiSpecialEventData3 );
 			RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
 		}
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DISPLAY_STAT_CHANGE )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DISPLAY_STAT_CHANGE )
 		{
 			// grab soldier ptr from profile ID
-			pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, FALSE );
+			pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, FALSE );
 
 			if ( pSoldier )
 			{
 				CHAR16 wTempString[ 128 ];
 
 				// tell player about stat increase
-				BuildStatChangeString( wTempString, pSoldier->name, ( BOOLEAN ) QItem->uiSpecialEventData, ( INT16 ) QItem->uiSpecialEventData2, ( UINT8 ) QItem->uiSpecialEventData3 );
+				BuildStatChangeString( wTempString, pSoldier->name, ( BOOLEAN ) QItem.uiSpecialEventData, ( INT16 ) QItem.uiSpecialEventData2, ( UINT8 ) QItem.uiSpecialEventData3 );
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, wTempString );
 			}
 		}
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_UNSET_ARRIVES_FLAG )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_UNSET_ARRIVES_FLAG )
 		{
 			gTacticalStatus.bMercArrivingQuoteBeingUsed = FALSE;
 		}
 
 		/*
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DISPLAY_INVASION_MESSAGE )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DISPLAY_INVASION_MESSAGE )
 		{
-			HandlePlayerNotifyInvasionByEnemyForces( (INT16)(QItem->uiSpecialEventData % MAP_WORLD_X), (INT16)(QItem->uiSpecialEventData / MAP_WORLD_X), 0, NULL );
+			HandlePlayerNotifyInvasionByEnemyForces( (INT16)(QItem.uiSpecialEventData % MAP_WORLD_X), (INT16)(QItem.uiSpecialEventData / MAP_WORLD_X), 0, NULL );
 		}
 		*/
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SKYRIDERMAPSCREENEVENT )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SKYRIDERMAPSCREENEVENT )
 		{
 			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
 			// handle the monologue event
-			HandleSkyRiderMonologueEvent( QItem->uiSpecialEventData, QItem->uiSpecialEventData2 );
+			HandleSkyRiderMonologueEvent( QItem.uiSpecialEventData, QItem.uiSpecialEventData2 );
 		}
 
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex >= 0 )
+			if ( QItem.iFaceIndex >= 0 )
 			{
 				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 			}
 
-			gubCurrentTalkingID	= QItem->ubCharacterNum;
+			gubCurrentTalkingID	= QItem.ubCharacterNum;
 
 			// set up the mine highlgith events
-			SetUpAnimationOfMineSectors( QItem->uiSpecialEventData );
+			SetUpAnimationOfMineSectors( QItem.uiSpecialEventData );
 		}
 
 		//Switch on our special events
-		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_GIVE_ITEM )
+		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_GIVE_ITEM )
 		{
-			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
+			if ( QItem.bUIHandlerID == DIALOGUE_NPC_UI )
 			{
-				HandleNPCItemGiven( (UINT8)QItem->uiSpecialEventData, (OBJECTTYPE*)QItem->uiSpecialEventData2, (INT8)QItem->uiSpecialEventData3 );
+				HandleNPCItemGiven( (UINT8)QItem.uiSpecialEventData, (OBJECTTYPE*)QItem.uiSpecialEventData2, (INT8)QItem.uiSpecialEventData3 );
 			}
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGER_NPC )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGER_NPC )
 		{
-			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
+			if ( QItem.bUIHandlerID == DIALOGUE_NPC_UI )
 			{
-				HandleNPCTriggerNPC( (UINT8)QItem->uiSpecialEventData, (UINT8)QItem->uiSpecialEventData2, (BOOLEAN)QItem->uiSpecialEventData3, (UINT8)QItem->uiSpecialEventData4 );
+				HandleNPCTriggerNPC( (UINT8)QItem.uiSpecialEventData, (UINT8)QItem.uiSpecialEventData2, (BOOLEAN)QItem.uiSpecialEventData3, (UINT8)QItem.uiSpecialEventData4 );
 			}
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_GOTO_GRIDNO )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_GOTO_GRIDNO )
 		{
-			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
+			if ( QItem.bUIHandlerID == DIALOGUE_NPC_UI )
 			{
-				HandleNPCGotoGridNo( (UINT8)QItem->uiSpecialEventData, (UINT16)QItem->uiSpecialEventData2, (UINT8)QItem->uiSpecialEventData3 );//dnl!!!
+				HandleNPCGotoGridNo( (UINT8)QItem.uiSpecialEventData, (UINT16)QItem.uiSpecialEventData2, (UINT8)QItem.uiSpecialEventData3 );//dnl!!!
 			}
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DO_ACTION )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DO_ACTION )
 		{
-			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
+			if ( QItem.bUIHandlerID == DIALOGUE_NPC_UI )
 			{
-				HandleNPCDoAction( (UINT8)QItem->uiSpecialEventData, (UINT16)QItem->uiSpecialEventData2, (UINT8)QItem->uiSpecialEventData3 );
+				HandleNPCDoAction( (UINT8)QItem.uiSpecialEventData, (UINT16)QItem.uiSpecialEventData2, (UINT8)QItem.uiSpecialEventData3 );
 			}
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CLOSE_PANEL )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CLOSE_PANEL )
 		{
-			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
+			if ( QItem.bUIHandlerID == DIALOGUE_NPC_UI )
 			{
 				HandleNPCClosePanel( );
 			}
 		}
-		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU )
+		else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU )
 		{
 			SetUpdateBoxFlag( TRUE );
 		}
 #ifdef JA2UB
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_JERRY_MILO )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_JERRY_MILO )
 		{
 			//switch on the quote that is being spoken
-			switch( QItem->uiSpecialEventData )
+			switch( QItem.uiSpecialEventData )
 			{				
 				case JM_SE__SHOW_RADIO_LOCATOR:
 					HandleShowingRadioLocatorsInMorrisArea();
@@ -1301,10 +1257,10 @@ void HandleDialogue( )
 			}
 		}
 #else //Ja25: removed the flag, no militia
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTINUE_TRAINING_MILITIA )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTINUE_TRAINING_MILITIA )
 		{
 			// grab soldier ptr from profile ID
-			pSoldier = FindSoldierByProfileID( ( UINT8 )( QItem->uiSpecialEventData ), FALSE );
+			pSoldier = FindSoldierByProfileID( ( UINT8 )( QItem.uiSpecialEventData ), FALSE );
 
 			// if soldier valid...
 			if( pSoldier != NULL )
@@ -1313,7 +1269,7 @@ void HandleDialogue( )
 			}
 		}
 #endif
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_ENTER_MAPSCREEN )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_ENTER_MAPSCREEN )
 		{
 			if( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 			{
@@ -1321,22 +1277,22 @@ void HandleDialogue( )
 				fEnterMapDueToContract = TRUE;
 			}
 		}
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING )
 		{
 			// grab soldier ptr from profile ID
-			pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, FALSE );
+			pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, FALSE );
 
 			// if soldier valid...
 			if( pSoldier != NULL )
 			{
 				// .. remove the fired soldier again
-				BeginStrategicRemoveMerc( pSoldier, (UINT8)QItem->uiSpecialEventData );
+				BeginStrategicRemoveMerc( pSoldier, (UINT8)QItem.uiSpecialEventData );
 			}
 		}
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING_NO_ASK_EQUIP )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING_NO_ASK_EQUIP )
 		{
 			// grab soldier ptr from profile ID
-			pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, FALSE );
+			pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, FALSE );
 
 			// if soldier valid...
 			if( pSoldier != NULL )
@@ -1345,53 +1301,53 @@ void HandleDialogue( )
 				StrategicRemoveMerc( pSoldier );
 			}
 		}
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE )
 		{
 			// anv: handle snitch event
-			if( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE )
+			if( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE )
 			{
-				gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem->usQuoteNum;
-				gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
+				gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem.usQuoteNum;
+				gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem.ubCharacterNum;
 				
 				// Flugente: only set up face if we can access correctly
-				if ( QItem->iFaceIndex >= 0 )
+				if ( QItem.iFaceIndex >= 0 )
 				{
 					// Setup face pointer
-					gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+					gpCurrentTalkingFace = &gFacesData[ QItem.iFaceIndex ];
 				}
 
-				gubCurrentTalkingID	= QItem->iFaceIndex;
+				gubCurrentTalkingID	= QItem.iFaceIndex;
 
-				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
-				ExecuteSnitchCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
+				//ExecuteCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
+				ExecuteSnitchCharacterDialogue( QItem.ubCharacterNum, QItem.usQuoteNum, QItem.iFaceIndex, QItem.bUIHandlerID, QItem.uiSpecialEventData2, QItem.uiSpecialEventData3, QItem.uiSpecialEventData4 );
 			}
 			// Flugente: additional dialogue
-			else if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE )
+			else if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE )
 			{
 				// Flugente: only set up face if we can access correctly
-				if ( QItem->iFaceIndex >= 0 )
+				if ( QItem.iFaceIndex >= 0 )
 				{
 					// Setup face pointer
-					gpCurrentTalkingFace = &gFacesData[QItem->iFaceIndex];
+					gpCurrentTalkingFace = &gFacesData[QItem.iFaceIndex];
 				}
 
-				gubCurrentTalkingID = QItem->iFaceIndex;
+				gubCurrentTalkingID = QItem.iFaceIndex;
 
 				extern BOOLEAN ExecuteAdditionalCharacterDialogue( UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 );
 
-				ExecuteAdditionalCharacterDialogue( QItem->ubCharacterNum, QItem->iFaceIndex, QItem->usQuoteNum, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
+				ExecuteAdditionalCharacterDialogue( QItem.ubCharacterNum, QItem.iFaceIndex, QItem.usQuoteNum, QItem.uiSpecialEventData2, QItem.uiSpecialEventData3, QItem.uiSpecialEventData4 );
 			}
 
 #ifdef JA2UB
 			//JA25 UB
-			if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
+			if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
 			{
 				HandleEveryoneDoneTheirEndGameQuotes();
 			}
 			else
 			{
 				// grab soldier ptr from profile ID
-				pSoldier = FindSoldierByProfileID( (UINT8)QItem->uiSpecialEventData, FALSE );
+				pSoldier = FindSoldierByProfileID( (UINT8)QItem.uiSpecialEventData, FALSE );
 
 				// FindSoldier was returning a lot of nullptrs which would crash the game very quickly after Jerry gets up. This check is here to circumvent that.
 				if (pSoldier != nullptr)
@@ -1429,17 +1385,17 @@ void HandleDialogue( )
 			}
 		}
 #else //Ja25 No queen
-			if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_DONE_KILLING_DEIDRANNA )
+			if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_DONE_KILLING_DEIDRANNA )
 			{
 				HandleDoneLastKilledQueenQuote( );
 			}
-			else if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
+			else if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
 			{
 				HandleDoneLastEndGameQuote( );
 			}
 		}
 #endif
-		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SLEEP )
+		else if( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SLEEP )
 		{
 			// no soldier, leave now
 			if( pSoldier == NULL )
@@ -1448,7 +1404,7 @@ void HandleDialogue( )
 			}
 
 			// wake merc up or put them back down?
-			if( QItem->uiSpecialEventData == 1 )
+			if( QItem.uiSpecialEventData == 1 )
 			{
 				pSoldier->flags.fMercAsleep = TRUE;
 			}
@@ -1464,20 +1420,17 @@ void HandleDialogue( )
 	}
 
 	// grab soldier ptr from profile ID
-	pSoldier = FindSoldierByProfileID( QItem->ubCharacterNum, FALSE );
+	pSoldier = FindSoldierByProfileID( QItem.ubCharacterNum, FALSE );
 
 	if ( pSoldier && pSoldier->bTeam == gbPlayerNum )
 	{
-		CheckForStopTimeQuotes( QItem->usQuoteNum );
+		CheckForStopTimeQuotes( QItem.usQuoteNum );
 	}
 
-	if( QItem->fPauseTime )
+	if( QItem.fPauseTime )
 	{
 		fWasPausedDuringDialogue = TRUE;
 	}
-
-	// Delete memory
-	MemFree( QItem );
 }
 
 BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString );
@@ -1845,27 +1798,23 @@ void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreP
 
 BOOLEAN CharacterDialogueWithSpecialEvent( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed, UINT32 uiFlag, UINT32 uiData1, UINT32 uiData2 )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->ubCharacterNum = ubCharacterNum;
-	QItem->usQuoteNum			= usQuoteNum;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
-	QItem->fFromSoldier		= fFromSoldier;
-	QItem->fDelayed				= fDelayed;
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.ubCharacterNum = ubCharacterNum;
+	QItem.usQuoteNum	 = usQuoteNum;
+	QItem.iFaceIndex	 = iFaceIndex;
+	QItem.bUIHandlerID	 = bUIHandlerID;
+	QItem.iTimeStamp	 = GetJA2Clock( );
+	QItem.fFromSoldier	 = fFromSoldier;
+	QItem.fDelayed		 = fDelayed;
 
 	// Set flag for special event
-	QItem->uiSpecialEventFlag		= uiFlag;
-	QItem->uiSpecialEventData		= uiData1;
-	QItem->uiSpecialEventData2	= uiData2;
+	QItem.uiSpecialEventFlag	= uiFlag;
+	QItem.uiSpecialEventData	= uiData1;
+	QItem.uiSpecialEventData2	= uiData2;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+	ghDialogueQ.push(QItem);
 
 	// sevenfm: disable FF for dialogues
 	if (IsFastForwardMode())
@@ -1884,28 +1833,24 @@ BOOLEAN CharacterDialogueWithSpecialEvent( UINT8 ubCharacterNum, UINT16 usQuoteN
 
 BOOLEAN CharacterDialogueWithSpecialEventEx( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed, UINT32 uiFlag, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->ubCharacterNum = ubCharacterNum;
-	QItem->usQuoteNum			= usQuoteNum;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
-	QItem->fFromSoldier		= fFromSoldier;
-	QItem->fDelayed				= fDelayed;
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.ubCharacterNum = ubCharacterNum;
+	QItem.usQuoteNum	 = usQuoteNum;
+	QItem.iFaceIndex	 = iFaceIndex;
+	QItem.bUIHandlerID	 = bUIHandlerID;
+	QItem.iTimeStamp	 = GetJA2Clock( );
+	QItem.fFromSoldier	 = fFromSoldier;
+	QItem.fDelayed		 = fDelayed;
 
 	// Set flag for special event
-	QItem->uiSpecialEventFlag		= uiFlag;
-	QItem->uiSpecialEventData		= uiData1;
-	QItem->uiSpecialEventData2	= uiData2;
-	QItem->uiSpecialEventData3	= uiData3;
+	QItem.uiSpecialEventFlag	= uiFlag;
+	QItem.uiSpecialEventData	= uiData1;
+	QItem.uiSpecialEventData2	= uiData2;
+	QItem.uiSpecialEventData3	= uiData3;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+	ghDialogueQ.push(QItem);
 
 	if ( uiFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
 	{
@@ -1918,30 +1863,26 @@ BOOLEAN CharacterDialogueWithSpecialEventEx( UINT8 ubCharacterNum, UINT16 usQuot
 
 BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->ubCharacterNum = ubCharacterNum;
-	QItem->usQuoteNum			= usQuoteNum;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
-	QItem->fFromSoldier		= fFromSoldier;
-	QItem->fDelayed				= fDelayed;
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.ubCharacterNum = ubCharacterNum;
+	QItem.usQuoteNum	 = usQuoteNum;
+	QItem.iFaceIndex	 = iFaceIndex;
+	QItem.bUIHandlerID	 = bUIHandlerID;
+	QItem.iTimeStamp	 = GetJA2Clock( );
+	QItem.fFromSoldier	 = fFromSoldier;
+	QItem.fDelayed		 = fDelayed;
 
 	// check if pause already locked, if so, then don't mess with it
 	if( gfLockPauseState == FALSE )
 	{
-		QItem->fPauseTime	 = fPausedTimeDuringQuote;
+		QItem.fPauseTime = fPausedTimeDuringQuote;
 	}
 
 	fPausedTimeDuringQuote = FALSE;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+	ghDialogueQ.push(QItem);
 
 	// Flugente: additional dialogue
 	// in the dialogue screen, only the merc doing the talking may answer
@@ -1973,35 +1914,31 @@ BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 
 	UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, 
 	UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->ubCharacterNum		= ubCharacterNum;
-	QItem->usQuoteNum			= usQuoteNum;
-	QItem->uiSpecialEventFlag	= uiSpecialEventFlag;
-	QItem->uiSpecialEventData	= uiSpecialEventData1;
-	QItem->uiSpecialEventData2	= uiSpecialEventData2;
-	QItem->uiSpecialEventData3	= uiSpecialEventData3;
-	QItem->uiSpecialEventData4	= uiSpecialEventData4;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID			= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
-	QItem->fFromSoldier			= fFromSoldier;
-	QItem->fDelayed				= fDelayed;
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.ubCharacterNum		= ubCharacterNum;
+	QItem.usQuoteNum			= usQuoteNum;
+	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
+	QItem.uiSpecialEventData	= uiSpecialEventData1;
+	QItem.uiSpecialEventData2	= uiSpecialEventData2;
+	QItem.uiSpecialEventData3	= uiSpecialEventData3;
+	QItem.uiSpecialEventData4	= uiSpecialEventData4;
+	QItem.iFaceIndex			= iFaceIndex;
+	QItem.bUIHandlerID			= bUIHandlerID;
+	QItem.iTimeStamp			= GetJA2Clock( );
+	QItem.fFromSoldier			= fFromSoldier;
+	QItem.fDelayed				= fDelayed;
 
 	// check if pause already locked, if so, then don't mess with it
 	if( gfLockPauseState == FALSE )
 	{
-		QItem->fPauseTime	 = fPausedTimeDuringQuote;
+		QItem.fPauseTime	 = fPausedTimeDuringQuote;
 	}
 
 	fPausedTimeDuringQuote = FALSE;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+	ghDialogueQ.push(QItem);
 
 	return( TRUE );
 }
@@ -2009,63 +1946,53 @@ BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 
 
 BOOLEAN SpecialCharacterDialogueEvent( UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, UINT32 uiSpecialEventData3, INT32 iFaceIndex, UINT8 bUIHandlerID )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->uiSpecialEventFlag		= uiSpecialEventFlag;
-	QItem->uiSpecialEventData		= uiSpecialEventData1;
-	QItem->uiSpecialEventData2	= uiSpecialEventData2;
-	QItem->uiSpecialEventData3	= uiSpecialEventData3;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
+	QItem.uiSpecialEventData	= uiSpecialEventData1;
+	QItem.uiSpecialEventData2	= uiSpecialEventData2;
+	QItem.uiSpecialEventData3	= uiSpecialEventData3;
+	QItem.iFaceIndex			= iFaceIndex;
+	QItem.bUIHandlerID			= bUIHandlerID;
+	QItem.iTimeStamp			= GetJA2Clock( );
 
 	// if paused state not already locked
 	if( gfLockPauseState == FALSE )
 	{
-		QItem->fPauseTime	 = fPausedTimeDuringQuote;
+		QItem.fPauseTime	 = fPausedTimeDuringQuote;
 	}
 
 	fPausedTimeDuringQuote = FALSE;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
-
+	ghDialogueQ.push(QItem);
 
 	return( TRUE );
 }
 
 BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, INT32 iFaceIndex, UINT8 bUIHandlerID )
 {
-	DIALOGUE_Q_STRUCT				*QItem;
-
-	// Allocate new item
-	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
-	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
-
-	QItem->uiSpecialEventFlag		= uiSpecialEventFlag;
-	QItem->uiSpecialEventData		= uiSpecialEventData1;
-	QItem->uiSpecialEventData2	= uiSpecialEventData2;
-	QItem->uiSpecialEventData3	= uiSpecialEventData3;
-	QItem->uiSpecialEventData4	= uiSpecialEventData4;
-	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
-	QItem->iTimeStamp			= GetJA2Clock( );
+	DIALOGUE_Q_STRUCT QItem;
+	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
+	QItem.uiSpecialEventData	= uiSpecialEventData1;
+	QItem.uiSpecialEventData2	= uiSpecialEventData2;
+	QItem.uiSpecialEventData3	= uiSpecialEventData3;
+	QItem.uiSpecialEventData4	= uiSpecialEventData4;
+	QItem.iFaceIndex			= iFaceIndex;
+	QItem.bUIHandlerID			= bUIHandlerID;
+	QItem.iTimeStamp			= GetJA2Clock( );
 
 	// if paused state not already locked
 	if( gfLockPauseState == FALSE )
 	{
-		QItem->fPauseTime	 = fPausedTimeDuringQuote;
+		QItem.fPauseTime	 = fPausedTimeDuringQuote;
 	}
 
 	fPausedTimeDuringQuote = FALSE;
 
 	// Add to queue
-	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
-
+	ghDialogueQ.push(QItem);
 
 	return( TRUE );
 }
