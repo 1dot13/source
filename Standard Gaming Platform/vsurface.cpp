@@ -98,12 +98,6 @@ void CheckValidVSurfaceIndex( UINT32 uiIndex );
 
 INT32				giMemUsedInSurfaces;
 
-
-//OBSOLETE!!!!!!!!!
-HLIST				ghVideoSurfaces = NULL;
-//OBSOLETE!!!!!!!!!
-
-
 HVSURFACE		ghPrimary = NULL;
 HVSURFACE		ghBackBuffer = NULL;
 HVSURFACE   ghFrameBuffer = NULL;
