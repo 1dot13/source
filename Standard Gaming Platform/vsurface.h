@@ -5,6 +5,7 @@
 #include "container.h"
 #include "himage.h"
 #include "vobject.h"
+#include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -105,7 +106,7 @@ typedef struct
 	UINT16					*p16BPPPalette;				// A 16BPP palette used for 8->16 blits
 	COLORVAL				TransparentColor;			// Defaults to 0,0,0
 	PTR							pClipper;							// A void pointer encapsolated as a clipper Surface
-	HLIST						RegionList;						// A List of regions within the video Surface
+	std::vector<VSURFACE_REGION> RegionList; // A List of regions within the video Surface
 		
 } SGPVSurface, *HVSURFACE;
 
@@ -240,7 +241,6 @@ BOOLEAN DeleteVideoSurfaceFromIndex( UINT32 uiIndex );
 BOOLEAN AddVSurfaceRegion( HVSURFACE hVSurface, VSURFACE_REGION *pNewRegion );
 BOOLEAN AddVSurfaceRegionAtIndex( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_REGION *pNewRegion );
 BOOLEAN AddVSurfaceRegions( HVSURFACE hVSurface, VSURFACE_REGION **ppNewRegions, UINT16 uiNumRegions );
-BOOLEAN RemoveVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex );
 BOOLEAN ClearAllVSurfaceRegions( HVSURFACE hVSurface );
 BOOLEAN GetVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex,	VSURFACE_REGION *aRegion );
 BOOLEAN GetNumRegions( HVSURFACE hVSurface , UINT32 *puiNumRegions );
