@@ -1888,22 +1888,10 @@ void RefreshScreen(void *DummyVariable)
 		LPDIRECTDRAWSURFACE	_pTmpBuffer;
 		LPDIRECTDRAWSURFACE2	pTmpBuffer;
 		DDSURFACEDESC			SurfaceDescription;
-#ifndef USE_VFS
-		FILE					*OutputFile;
-#endif
 		CHAR8					FileName[64];
 		INT32					iIndex;
 		UINT16				 *p16BPPData;
 
-		// Snap: save current directory
-#ifndef USE_VFS
-		STRING512			DataDir;
-		STRING512			ExecDir;
-
-		GetFileManCurrentDirectory( DataDir );
-		GetExecutableDirectory( ExecDir );
-		SetFileManCurrentDirectory( ExecDir );
-#endif
 		//
 		// Create temporary system memory surface. This is used to correct problems with the backbuffer
 		// surface which can be interlaced or have a funky pitch
@@ -1953,23 +1941,13 @@ void RefreshScreen(void *DummyVariable)
 		{
 			sprintf( FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++);
 		}
-#ifndef USE_VFS
-		while( (_access( FileName, 0 )) != -1 );
-#else
 		while(FileExists(FileName));
-#endif
 
-#ifndef USE_VFS
-		if ((OutputFile = fopen( FileName, "wb")) != NULL)
-		{
-			fprintf(OutputFile, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0);
-#else
 		try
 		{
 			vfs::COpenWriteFile wfile(FileName,true,true);
 			char head[] = {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0};
 			SGP_TRYCATCH_RETHROW(wfile->write(head,18), L"");
-#endif
 
 			//
 			// Lock temp surface
@@ -2006,19 +1984,11 @@ void RefreshScreen(void *DummyVariable)
 					ConvertRGBDistribution565To555( p16BPPData, SCREEN_WIDTH );
 
 					// Write
-#ifndef USE_VFS
-					fwrite( p16BPPData, SCREEN_WIDTH * 2, 1, OutputFile);
-#else
 					SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)p16BPPData, SCREEN_WIDTH * 2), L"");
-#endif
 				}
 				else
 				{
-#ifndef USE_VFS
-					fwrite((void *)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2, 1, OutputFile);
-#else
 					SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2), L"");
-#endif
 				}
 			}
 
@@ -2027,9 +1997,6 @@ void RefreshScreen(void *DummyVariable)
 			{
 				MemFree( p16BPPData );
 			}
-#ifndef USE_VFS
-			fclose(OutputFile);
-#endif
 			//
 			// Unlock temp surface
 			//
@@ -2043,12 +2010,10 @@ void RefreshScreen(void *DummyVariable)
 			}
 		}
 
-#ifdef USE_VFS
 		catch(std::exception& ex)
 		{
 			SGP_RETHROW(L"", ex);
 		}
-#endif
 
 		//
 		// Release temp surface
@@ -2056,12 +2021,6 @@ void RefreshScreen(void *DummyVariable)
 
 		gfPrintFrameBuffer = FALSE;
 		IDirectDrawSurface2_Release(pTmpBuffer);
-#ifndef USE_VFS
-		// Snap: Restore the data directory once we are finished.
-		SetFileManCurrentDirectory( DataDir );
-		//strcat( ExecDir, "\\Data" );
-		//SetFileManCurrentDirectory( ExecDir );
-#endif
 	}
 
 	//
@@ -3322,80 +3281,42 @@ void RefreshMovieCache( )
 {
 	TARGA_HEADER Header;
 	INT32 iCountX, iCountY;
-#ifndef USE_VFS
-	FILE *disk;
-#endif
 	CHAR8 cFilename[_MAX_PATH];
 	static UINT32 uiPicNum=0;
 	UINT16 *pDest;
 	INT32	cnt;
-#ifndef USE_VFS
-	STRING512			DataDir;
-	STRING512			ExecDir;
-#endif
 	PauseTime( TRUE );
-#ifndef USE_VFS
-	// Snap: save current directory
-	GetFileManCurrentDirectory( DataDir );
-
-	GetExecutableDirectory( ExecDir );
-	SetFileManCurrentDirectory( ExecDir );
-#else
 	try
 	{
-#endif
 	for ( cnt = 0; cnt < giNumFrames; cnt++ )
 	{
 		sprintf( cFilename, "JA%5.5d.TGA", uiPicNum++ );
-#ifndef USE_VFS
-		if( ( disk = fopen(cFilename, "wb"))==NULL )
-			return;
-#else
 		vfs::COpenWriteFile wfile(cFilename, true, true);
-#endif
 		memset(&Header, 0, sizeof(TARGA_HEADER));
 
 		Header.ubTargaType=2;			// Uncompressed 16/24/32 bit
 		Header.usImageWidth=SCREEN_WIDTH;
 		Header.usImageHeight=SCREEN_HEIGHT;
 		Header.ubBitsPerPixel=16;
-#ifndef USE_VFS
-		fwrite(&Header, sizeof(TARGA_HEADER), 1, disk);
-#else
 		SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)&Header, sizeof(TARGA_HEADER)), L"");
-#endif
 		pDest = gpFrameData[ cnt ];
 
 		for(iCountY=SCREEN_HEIGHT-1; iCountY >=0 ; iCountY-=1)
 		{
 			for(iCountX=0; iCountX < SCREEN_WIDTH; iCountX ++ )
 			{
-#ifndef USE_VFS
-				fwrite( ( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16), 1, disk);
-#else
 				SGP_TRYCATCH_RETHROW(wfile->write( (vfs::Byte*)( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16)), L"");
-#endif
 			}
 
 		}
-#ifndef USE_VFS
-		fclose(disk);
-#endif
 	}
 
 	PauseTime( FALSE );
 
 	giNumFrames = 0;
-#ifndef USE_VFS
-	// Snap: Restore the data directory once we are finished.
-	SetFileManCurrentDirectory( DataDir );
-	//strcat( ExecDir, "\\Data" );
-	//SetFileManCurrentDirectory( ExecDir );
-#else
 	}
 	catch(std::exception& ex)
 	{
 		SGP_ERROR(ex.what());
 	}
-#endif
 }

@@ -47,7 +47,6 @@ using namespace std;
 #include <vfs/Core/vfs_os_functions.h>
 #include <vfs/Aspects/vfs_settings.h>
 
-#ifdef USE_VFS
 
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Tools/vfs_parser_tools.h>
@@ -66,7 +65,6 @@ struct SOperation
 typedef std::map<vfs::IBaseFile*, SOperation> tFILEMAP;
 static tFILEMAP s_mapFiles;
 
-#endif
 //**************************************************************************
 //
 //				Defines
@@ -250,26 +248,7 @@ void FileDebug( BOOLEAN f )
 //**************************************************************************
 BOOLEAN	FileExists( STR strFilename )
 {
-#ifdef USE_VFS
 	return getVFS()->fileExists(vfs::Path(strFilename));
-#else
-	// First check to see if it's in a library (most files should be there)
-	if ( gFileDataBase.fInitialized &&
-		CheckIfFileExistInLibrary(	strFilename ) ) return TRUE;
-
-	// ... then check if it's in the custom Data directory
-	if ( gCustomDataCat.FindFile(strFilename) ) return TRUE;
-
-	// ... then check if it's in the default Data directory
-	if ( gDefaultDataCat.FindFile(strFilename) ) return TRUE;
-
-	// ... lastly, try to locate it in the file system
-	DWORD attribs = GetFileAttributes(strFilename);
-	if ( attribs != INVALID_FILE_ATTRIBUTES && !(attribs & FILE_ATTRIBUTE_DIRECTORY) )
-		return TRUE;
-	
-	return FALSE;
-#endif
 }
 
 //**************************************************************************
@@ -296,22 +275,7 @@ BOOLEAN	FileExists( STR strFilename )
 //**************************************************************************
 extern BOOLEAN	FileExistsNoDB( STR strFilename )
 {
-#ifdef USE_VFS
 	return getVFS()->fileExists(vfs::Path(strFilename));
-#else
-	// First check if it's in the custom Data directory
-	if ( gCustomDataCat.FindFile(strFilename) ) return TRUE;
-
-	// ... then check if it's in the default Data directory
-	if ( gDefaultDataCat.FindFile(strFilename) ) return TRUE;
-
-	// ... lastly, try to locate it in the file system
-	DWORD attribs = GetFileAttributes(strFilename);
-	if ( attribs != INVALID_FILE_ATTRIBUTES && !(attribs & FILE_ATTRIBUTE_DIRECTORY) )
-		return TRUE;
-	
-	return FALSE;
-#endif
 }
 
 //**************************************************************************
@@ -336,16 +300,7 @@ extern BOOLEAN	FileExistsNoDB( STR strFilename )
 //**************************************************************************	
 BOOLEAN	FileDelete( STR strFilename )
 {
-#ifdef USE_VFS
 	return getVFS()->removeFileFromFS(vfs::Path(strFilename));
-#else
-	// Snap: delete the file from the default Data catalogue (if it is there)
-	// Since the path can be either relative or absolute, try both methods
-	gDefaultDataCat.RemoveFile(strFilename, true);
-	gDefaultDataCat.RemoveFile(strFilename, false);
-
-	return( DeleteFile( (LPCSTR) strFilename ) );
-#endif
 }
 
 //**************************************************************************
@@ -375,7 +330,6 @@ BOOLEAN	FileDelete( STR strFilename )
 //**************************************************************************
 HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose, STR strProfilename )//dnl ch81 021213
 {
-#ifdef USE_VFS
 	vfs::Path path(strFilename);
 	vfs::IBaseFile *pFile = NULL;
 	try
@@ -418,148 +372,6 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose, STR 
 		SGP_ERROR( "Caught undefined exception" );
 	}
 	return 0;
-#else
-	HWFILE	hFile;
-	HANDLE	hRealFile;
-	DWORD		dwAccess;
-	DWORD		dwFlagsAndAttributes;
-	BOOLEAN	fExists;
-	HDBFILE	hDBFile;
-	DWORD		dwCreationFlags;
-	HWFILE hLibFile;
-
-	hFile = 0;
-	hDBFile = 0;
-	dwCreationFlags = 0;
-
-	dwAccess = 0;
-	if ( uiOptions & FILE_ACCESS_READ )
-		dwAccess |= GENERIC_READ;
-	if ( uiOptions & FILE_ACCESS_WRITE )
-		dwAccess |= GENERIC_WRITE;
-
-	dwFlagsAndAttributes = FILE_FLAG_RANDOM_ACCESS;
-	if ( fDeleteOnClose )
-		dwFlagsAndAttributes |= FILE_FLAG_DELETE_ON_CLOSE;
-
-	// Snap: This seems like an unnecessary check, but I don't feel like
-	// rewriting the function to eliminate it...
-
-	// check if the file exists - note that we use the function FileExistsNoDB
-	// because it doesn't check the databases, and we don't want to do that here
-	fExists = FileExistsNoDB( strFilename );
-
-	// Snap: First see if the file is in the custom Data catalogue:
-	std::string filePath;
-	if ( gCustomDataCat.FindFile(strFilename) ) {
-		filePath = gCustomDataCat.GetRootDir() + '\\';
-	}
-	filePath += strFilename;
-	// Bad cast! strFilename should have been const.	Oh well...
-	strFilename = const_cast<STR>( filePath.c_str() );
-	// Now strFilename points either to the original file name,
-	// or to the full file path in the custom Data directory.
-	// Except for this substitution, the rest of the function is unchanged.
-
-	//if the file is on the disk
-	if ( fExists )
-	{
-		hRealFile = CreateFile( (LPCSTR) strFilename, dwAccess, 0, NULL, OPEN_ALWAYS,
-										dwFlagsAndAttributes, NULL );
-
-		if ( hRealFile == INVALID_HANDLE_VALUE )
-		{
-			return(0);
-		}
-
-		//create a file handle for the 'real file'
-		hFile = CreateRealFileHandle( hRealFile );
-	}
-
-	// if the file did not exist, try to open it from the database
-	else if ( gFileDataBase.fInitialized ) 
-	{
-		//if the file is to be opened for writing, return an error cause you cant write a file that is in the database library
-		if( fDeleteOnClose )
-		{
-			return( 0 );
-		}
-
-		//if the file doesnt exist on the harddrive, but it is to be created, dont try to load it from the file database
-		if( uiOptions & FILE_ACCESS_WRITE )
-		{
-			//if the files is to be written to
-			if( ( uiOptions & FILE_CREATE_NEW ) || ( uiOptions & FILE_OPEN_ALWAYS ) || ( uiOptions & FILE_CREATE_ALWAYS ) || ( uiOptions & FILE_TRUNCATE_EXISTING ) )
-			{
-				hFile = 0;
-			}
-		}
-		//else if the file is to be opened using FILE_OPEN_EXISTING, and the file doesnt exists, fail out of the function)
-//		else if( uiOptions & FILE_OPEN_EXISTING )
-//		{
-			//fail out of the function
-//			return( 0 );
-//		}
-		else
-		{
-			//If the file is in the library, get a handle to it.
-			hLibFile = OpenFileFromLibrary(	strFilename );
-
-			//tried to open a file that wasnt in the database
-			if( !hLibFile )
-				return( 0 );
-			else			
-				return( hLibFile );		//return the file handle
-		}
-	}
-
-	if ( !hFile )
-	{
-		if ( uiOptions & FILE_CREATE_NEW )
-		{
-			dwCreationFlags = CREATE_NEW;
-		}
-		else if ( uiOptions & FILE_CREATE_ALWAYS )
-		{
-			dwCreationFlags = CREATE_ALWAYS;
-		}
-		else if ( uiOptions & FILE_OPEN_EXISTING || uiOptions & FILE_ACCESS_READ )
-		{
-			dwCreationFlags = OPEN_EXISTING;
-		}
-		else if ( uiOptions & FILE_OPEN_ALWAYS )
-		{
-			dwCreationFlags = OPEN_ALWAYS;
-		}
-		else if ( uiOptions & FILE_TRUNCATE_EXISTING )
-		{
-			dwCreationFlags = TRUNCATE_EXISTING;
-		}
-		else
-		{
-			dwCreationFlags = OPEN_ALWAYS;
-		}
-
-		
-		hRealFile = CreateFile( (LPCSTR) strFilename, dwAccess, 0, NULL, dwCreationFlags,
-										dwFlagsAndAttributes, NULL );
-		if ( hRealFile == INVALID_HANDLE_VALUE )
-		{
-				UINT32 uiLastError = GetLastError();
-				char zString[1024];
-				FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, 0, uiLastError, 0, zString, 1024, NULL);
-
-			return(0);
-		}
-
-		hFile = CreateRealFileHandle( hRealFile );
-	}
-
-	if ( !hFile )
-		return(0);
-
-	return(hFile);
-#endif
 }
 
 //**************************************************************************
@@ -581,43 +393,12 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose, STR 
 //**************************************************************************
 void FileClose( HWFILE hFile )
 {
-#ifdef USE_VFS
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile)
 	{
 		pFile->close();
 		s_mapFiles.erase(pFile);
 	}
-#else
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its the 'real file' library
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//if its not already closed
-		if( gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].uiFileID != 0 )
-		{
-			CloseHandle( gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle );
-			gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].uiFileID = 0;
-			gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle= 0;
-			gFileDataBase.RealFiles.iNumFilesOpen--;
-			if( gFileDataBase.RealFiles.iNumFilesOpen < 0 )
-			{
-				//if for some reason we are below 0, report an error ( should never be )
-				Assert( 0 );
-			}
-		}
-	}
-	else
-	{
-		//if the database is initialized
-		if( gFileDataBase.fInitialized )
-			CloseLibraryFile( sLibraryID, uiFileNum );
-	}
-#endif
 }
 
 //**************************************************************************
@@ -669,7 +450,6 @@ private:
 
 BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
-#ifdef USE_VFS
 #ifdef JA2TESTVERSION
 	TimeCounter timer;
 #endif
@@ -702,80 +482,10 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 		}
 	}
 	return FALSE;
-#else
-	HANDLE	hRealFile;
-	DWORD		dwNumBytesToRead, dwNumBytesRead;
-	BOOLEAN	fRet = FALSE;
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-#ifdef JA2TESTVERSION
-	UINT32 uiStartTime = GetJA2Clock();
-#endif
-
-	//init the variables
-	dwNumBytesToRead = dwNumBytesRead = 0;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	dwNumBytesToRead	= (DWORD)uiBytesToRead;
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//if the file is opened
-		if( uiFileNum != 0 )
-		{
-			hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-			fRet = ReadFile( hRealFile, pDest, dwNumBytesToRead, &dwNumBytesRead, NULL );
-			if ( dwNumBytesToRead != dwNumBytesRead )
-			{
-				UINT32 uiLastError = GetLastError();
-				char zString[1024];
-				FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, 0, uiLastError, 0, zString, 1024, NULL);
-
-				fRet = FALSE;
-			}
-
-			if ( puiBytesRead )
-				*puiBytesRead = (UINT32)dwNumBytesRead;
-		}
-	}
-	else
-	{
-		//if the database is initialized
-		if( gFileDataBase.fInitialized )
-		{
-			//if the library is open
-			if( IsLibraryOpened( sLibraryID ) )
-			{
-				//if the file is opened
-				if( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFileID != 0 )
-				{
-					//read the data from the library
-					fRet = LoadDataFromLibrary( sLibraryID, uiFileNum, pDest, dwNumBytesToRead, (UINT32 *) &dwNumBytesRead );
-					if ( puiBytesRead )
-					{
-						*puiBytesRead = (UINT32)dwNumBytesRead;
-					}
-				}
-			}
-		}
-	}
-	#ifdef JA2TESTVERSION
-		//Add the time that we spent in this function to the total.
-		uiTotalFileReadTime += GetJA2Clock() - uiStartTime;
-		uiTotalFileReadCalls++;
-	#endif
-
-	return(fRet);
-#endif
 }
 
 BOOLEAN FileReadLine( HWFILE hFile, std::string* pDest )
 {
-#ifdef USE_VFS
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if ( pFile && FileCheckEndOfFile( hFile ) == FALSE && (s_mapFiles[pFile].op == SOperation::READ) )
 	{
@@ -787,7 +497,6 @@ BOOLEAN FileReadLine( HWFILE hFile, std::string* pDest )
 			return TRUE;
 		}
 	}
-#endif  // ifdef USE_VFS
 	return FALSE;
 }
 
@@ -836,7 +545,6 @@ BOOLEAN FileReadLine( HWFILE hFile, STR8 pDest, UINT32 uiDestSize, UINT32 *puiBy
 
 BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten )
 {
-#ifdef USE_VFS
 	if(uiBytesToWrite == 0)//dnl ch38 110909
 	{
 		*puiBytesWritten = 0;
@@ -871,42 +579,6 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 		}
 	}
 	return FALSE;
-#else
-	HANDLE	hRealFile;
-	DWORD		dwNumBytesToWrite, dwNumBytesWritten;
-	BOOLEAN	fRet;
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		dwNumBytesToWrite = (DWORD)uiBytesToWrite;
-
-		//get the real file handle to the file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		fRet = WriteFile( hRealFile, pDest, dwNumBytesToWrite, &dwNumBytesWritten, NULL );
-
-		if (dwNumBytesToWrite != dwNumBytesWritten)
-			fRet = FALSE;
-
-		if ( puiBytesWritten )
-			*puiBytesWritten = (UINT32)dwNumBytesWritten;
-	}
-	else
-	{
-		//we cannot write to a library file
-		if ( puiBytesWritten )
-			*puiBytesWritten = 0;
-		return(FALSE);
-	}
-
-	return(fRet);
-#endif
 }
 
 //**************************************************************************
@@ -932,7 +604,6 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 
 BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
-#ifdef USE_VFS
 	vfs::tReadableFile *pFile = getVFS()->getReadFile(vfs::Path(strFilename));
 	vfs::COpenReadFile rfile(pFile);
 	if(pFile)
@@ -952,30 +623,6 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 		return TRUE;
 	}
 	return FALSE;
-#else
-	HWFILE	hFile;
-	UINT32	uiNumBytesRead;
-	BOOLEAN	fRet;
-
-	hFile = FileOpen( strFilename, FILE_ACCESS_READ, FALSE );
-	if ( hFile )
-	{
-		fRet = FileRead( hFile, pDest, uiBytesToRead, &uiNumBytesRead );
-		FileClose( hFile );
-
-		if (uiBytesToRead != uiNumBytesRead)
-			fRet = FALSE;
-
-		if ( puiBytesRead )
-			*puiBytesRead = uiNumBytesRead;
-
-		CHECKF( uiNumBytesRead == uiBytesToRead );
-	}
-	else
-		fRet = FALSE;
-
-	return(fRet);
-#endif
 }
 
 //**************************************************************************
@@ -1008,7 +655,6 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 
 BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 {
-#ifdef USE_VFS
 	CHAR8		strToSend[160]; /* itemdescription of item 0 will NOT fit if only 80 Chars per Line!, Sergeant_Kolja, 2007-06-10 */
 	va_list	argptr;
 	BOOLEAN fRetVal = FALSE;
@@ -1020,34 +666,6 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 	
 	fRetVal = FileWrite( hFile, strToSend, strlen(strToSend), NULL );
 	return( fRetVal );
-#else
-	CHAR8		strToSend[160]; /* itemdescription of item 0 will NOT fit if only 80 Chars per Line!, Sergeant_Kolja, 2007-06-10 */
-	va_list	argptr;
-	BOOLEAN fRetVal = FALSE;
-
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		va_start(argptr, strFormatted);
-		_vsnprintf( strToSend, DIM(strToSend), strFormatted, argptr ); /* made StringLen Save, Sergeant_Kolja, 2007-06-10 */
-		strToSend[ DIM(strToSend)-1 ] = 0;
-		va_end(argptr);
-		
-		fRetVal = FileWrite( hFile, strToSend, strlen(strToSend), NULL );
-	}
-	else
-	{
-		//its a library file, cant write to it so return an error
-		fRetVal = FALSE;
-	}
-
-	return( fRetVal );
-#endif
 }
 
 //**************************************************************************
@@ -1077,7 +695,6 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 
 BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 {
-#ifdef USE_VFS
 	INT32 iDistance = (INT32)uiDistance;
 
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
@@ -1125,50 +742,6 @@ BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 		}
 	}
 	return FALSE;
-#else
-	HANDLE	hRealFile;
-	LONG		lDistanceToMove;
-	DWORD		dwMoveMethod;
-	INT32		iDistance=0;
-
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//Get the handle to the real file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		iDistance = (INT32) uiDistance;
-
-		if ( uiHow == FILE_SEEK_FROM_START )
-			dwMoveMethod = FILE_BEGIN;
-		else if ( uiHow == FILE_SEEK_FROM_END )
-		{
-			dwMoveMethod = FILE_END;
-			if( iDistance > 0 )
-				iDistance = -(iDistance);
-		}
-		else
-			dwMoveMethod = FILE_CURRENT;
-
-		lDistanceToMove = (LONG)uiDistance;
-
-		if ( SetFilePointer( hRealFile, iDistance, NULL, dwMoveMethod ) == 0xFFFFFFFF )
-			return(FALSE);
-	}
-	else
-	{
-		//if the database is initialized
-		if( gFileDataBase.fInitialized )
-			LibraryFileSeek( sLibraryID, uiFileNum, uiDistance, uiHow );
-	}
-
-	return(TRUE);
-#endif
 }
 
 //**************************************************************************
@@ -1196,7 +769,6 @@ BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 
 INT32 FileGetPos( HWFILE hFile )
 {
-#ifdef USE_VFS
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile && (s_mapFiles[pFile].op == SOperation::WRITE))
 	{
@@ -1216,44 +788,6 @@ INT32 FileGetPos( HWFILE hFile )
 	}
 
 	return BAD_INDEX;
-#else
-	HANDLE	hRealFile;
-	UINT32	uiPositionInFile=0;
-
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//Get the handle to the real file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		uiPositionInFile = SetFilePointer( hRealFile, 0, NULL, FILE_CURRENT);
-		if( uiPositionInFile == 0xFFFFFFFF )
-		{
-			uiPositionInFile = 0;
-		}
-		return( uiPositionInFile );
-	}
-	else
-	{
-		//if the library is open
-		if( IsLibraryOpened( sLibraryID ) )
-		{
-			//check if the file is open
-			if( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFileID != 0 )
-			{
-				uiPositionInFile = gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFilePosInFile;
-				return( uiPositionInFile );
-			}
-		}
-	}
-
-	return(BAD_INDEX);
-#endif
 }
 
 //**************************************************************************
@@ -1281,43 +815,12 @@ INT32 FileGetPos( HWFILE hFile )
 
 UINT32 FileGetSize( HWFILE hFile )
 {
-#ifdef USE_VFS
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile)
 	{
 		return pFile->getSize();
 	}
 	return 0;
-#else
-	HANDLE	hRealHandle;
-	UINT32	uiFileSize = 0xFFFFFFFF;
-
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//Get the handle to a real file
-		hRealHandle = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		uiFileSize = GetFileSize( hRealHandle, NULL );
-	}
-	else
-	{
-		//if the library is open
-		if( IsLibraryOpened( sLibraryID ) )
-			uiFileSize = gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].pFileHeader->uiFileLength;
-	}
-
-
-	if ( uiFileSize == 0xFFFFFFFF )
-		return(0);
-	else
-		return( uiFileSize );
-#endif
 }
 
 //**************************************************************************
@@ -1632,9 +1135,6 @@ INT32 GetFilesInDirectory( HCONTAINER hStack, CHAR *pcDir, HANDLE hFile, WIN32_F
 
 BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
 {
-#ifndef USE_VFS
-	return( SetCurrentDirectory( pcDirectory ) );
-#else
 	try
 	{
 		vfs::OS::setCurrectDirectory(pcDirectory);
@@ -1645,19 +1145,11 @@ BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
 		return FALSE;
 	}
 	return TRUE;
-#endif
 }
 
 
 BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory )
 {
-#ifndef USE_VFS
-	if (GetCurrentDirectory( 512, pcDirectory ) == 0)
-	{
-		return( FALSE );
-	}
-	return( TRUE );
-#else
 	try
 	{
 		vfs::Path sDir;
@@ -1670,7 +1162,6 @@ BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory )
 		return FALSE;
 	}
 	return TRUE;
-#endif
 }
 
 
@@ -1707,11 +1198,7 @@ BOOLEAN DirectoryExists( STRING512 pcDirectory )
 
 BOOLEAN MakeFileManDirectory( STRING512 pcDirectory )
 {
-#ifndef USE_VFS
-	return CreateDirectory( pcDirectory, NULL );
-#else
 	return FALSE;
-#endif
 }
 
 
@@ -1721,87 +1208,8 @@ BOOLEAN MakeFileManDirectory( STRING512 pcDirectory )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 {
-#ifdef USE_VFS
 	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
 	return getVFS()->removeDirectoryFromFS(pcDirectory);
-#else
-	WIN32_FIND_DATA sFindData;
-	HANDLE		SearchHandle;
-	const CHAR8	*pFileSpec = "*.*";
-	BOOLEAN	fDone = FALSE;
-	BOOLEAN fRetval=FALSE;
-	CHAR8		zOldDir[512];
-	CHAR8		zSubdirectory[512];
-
-	GetFileManCurrentDirectory( zOldDir );
-
-	if( !SetFileManCurrentDirectory( pcDirectory ) )
-	{
-		FastDebugMsg(String("RemoveFileManDirectory: ERROR - SetFileManCurrentDirectory on %s failed, error %d", pcDirectory, GetLastError()));
-		return( FALSE );		//Error going into directory
-	}
-
-	//If there are files in the directory, DELETE THEM
-	SearchHandle = FindFirstFile( pFileSpec, &sFindData);
-	if( SearchHandle !=	INVALID_HANDLE_VALUE )
-	{
-
-		fDone = FALSE;
-		do
-		{
-			// if the object is a directory
-			if( GetFileAttributes( sFindData.cFileName ) == FILE_ATTRIBUTE_DIRECTORY )
-			{
-				// only go in if the fRecursive flag is TRUE (like Deltree)
-				if (fRecursive)
-				{
-					sprintf(zSubdirectory, "%s\\%s", pcDirectory, sFindData.cFileName);
-
-					if ((strcmp(sFindData.cFileName, ".") != 0) && (strcmp(sFindData.cFileName, "..") != 0))
-					{
-						if (!RemoveFileManDirectory(zSubdirectory, TRUE))
-						{
-						FastDebugMsg(String("RemoveFileManDirectory: ERROR - Recursive call on %s failed", zSubdirectory));
-							break;
-						}
-					}
-				}
-				// otherwise, all the individual files will be deleted, but the subdirectories remain, causing
-				// RemoveDirectory() at the end to fail, thus this function will return FALSE in that event (failure)
-			}
-			else
-			{
-				FileDelete( sFindData.cFileName );
-			}
-
-			//find the next file in the directory
-			fRetval = FindNextFile( SearchHandle, &sFindData );
-			if( fRetval == 0 )
-			{
-				fDone = TRUE;
-			}
-		}	while(!fDone);
-
-		// very important: close the find handle, or subsequent RemoveDirectory() calls will fail
-		FindClose( SearchHandle );
-	}
-
-	if( !SetFileManCurrentDirectory( zOldDir ) )
-	{
-		FastDebugMsg(String("RemoveFileManDirectory: ERROR - SetFileManCurrentDirectory on %s failed, error %d", zOldDir, GetLastError()));
-		return( FALSE );		//Error returning from subdirectory
-	}
-
-	
-	// The directory MUST be empty
-	fRetval = RemoveDirectory( pcDirectory );
-	if (!fRetval)
-	{
-		FastDebugMsg(String("RemoveFileManDirectory: ERROR - RemoveDirectory on %s failed, error %d", pcDirectory, GetLastError()));
-	}
-
-	return fRetval;
-#endif
 }
 
 
@@ -1811,102 +1219,22 @@ BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOLEAN EraseDirectory( STRING512 pcDirectory)
 {
-#ifdef USE_VFS
 	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
 	return getVFS()->removeDirectoryFromFS(pcDirectory);
-#else
-	WIN32_FIND_DATA sFindData;
-	HANDLE		SearchHandle;
-	const CHAR8	*pFileSpec = "*.*";
-	BOOLEAN	fDone = FALSE;
-	CHAR8		zOldDir[512];
-
-	GetFileManCurrentDirectory( zOldDir );
-
-	if( !SetFileManCurrentDirectory( pcDirectory ) )
-	{
-		FastDebugMsg(String("EraseDirectory: ERROR - SetFileManCurrentDirectory on %s failed, error %d", pcDirectory, GetLastError()));
-		return( FALSE );		//Error going into directory
-	}
-
-	//If there are files in the directory, DELETE THEM
-	SearchHandle = FindFirstFile( pFileSpec, &sFindData);
-	if( SearchHandle !=	INVALID_HANDLE_VALUE )
-	{
-
-		fDone = FALSE;
-		do
-		{
-			// if it's a file, not a directory
-			if( GetFileAttributes( sFindData.cFileName ) != FILE_ATTRIBUTES_DIRECTORY )
-			{
-				FileDelete( sFindData.cFileName );
-			}
-
-			//find the next file in the directory
-			if ( !FindNextFile( SearchHandle, &sFindData ))
-			{
-				fDone = TRUE;
-			}
-		} while(!fDone);
-
-		// very important: close the find handle, or subsequent RemoveDirectory() calls will fail
-		FindClose( SearchHandle );
-	}
-
-	// Snap: Delete the directory from the default Data catalogue (if it is there)
-	// Since the path can be either relative or absolute, try both methods
-	gDefaultDataCat.RemoveDir(pcDirectory, true);
-	gDefaultDataCat.RemoveDir(pcDirectory, false);
-
-	if( !SetFileManCurrentDirectory( zOldDir ) )
-	{
-		FastDebugMsg(String("EraseDirectory: ERROR - SetFileManCurrentDirectory on %s failed, error %d", zOldDir, GetLastError()));
-		return( FALSE );		//Error returning from directory
-	}
-
-	return( TRUE );
-#endif
 }
 
 
 BOOLEAN GetExecutableDirectory( STRING512 pcDirectory )
 {
-#ifdef USE_VFS
 	vfs::Path exe_dir, exe_file;
 	vfs::OS::getExecutablePath(exe_dir, exe_file);
 	strncpy(pcDirectory, exe_dir.to_string().c_str(), 512);
 	return true;
-#else
-	SGPFILENAME	ModuleFilename;
-	UINT32 cnt;
-
-	if ( GetModuleFileName( NULL, ModuleFilename, sizeof( ModuleFilename ) ) == 0 )
-	{
-		return( FALSE );
-	}
-
-	// Now get directory
-	strcpy( pcDirectory, ModuleFilename );
-
-	for ( cnt = strlen( pcDirectory ) - 1; cnt >= 0; cnt -- )
-	{
-		if ( pcDirectory[ cnt ] == '\\' )
-		{
-			pcDirectory[ cnt ] = '\0';
-			break;
-		}
-	}
-#endif
-	return( TRUE );
 }
 
-#ifdef USE_VFS
 static vfs::CVirtualFileSystem::Iterator file_iter; 
-#endif
 BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 {
-#ifdef USE_VFS
 	CHECKF( pSpec != NULL );
 	CHECKF( pGFStruct != NULL );
 
@@ -1927,43 +1255,10 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 		return TRUE;
 	}
 	return FALSE;
-#else
-	INT32 x,iWhich=0;
-	BOOLEAN fFound;
-
-	CHECKF( pSpec != NULL );
-	CHECKF( pGFStruct != NULL );
-
-	fFound = FALSE;
-	for( x = 0; x < 20 && !fFound; x++)
-	{
-		if( !fFindInfoInUse[x] )
-		{
-			iWhich = x;
-			fFound = TRUE;
-		}
-	}
-
-	if ( !fFound )
-		return(FALSE);
-
-	pGFStruct->iFindHandle = iWhich;
-
-	hFindInfoHandle[iWhich] = FindFirstFile( pSpec, &Win32FindInfo[iWhich] );
-	
-	if ( hFindInfoHandle[iWhich] == INVALID_HANDLE_VALUE )
-		return(FALSE);
-	fFindInfoInUse[iWhich] = TRUE;
-
-	W32toSGPFileFind( pGFStruct, &Win32FindInfo[iWhich] );
-
-	return(TRUE);
-#endif
 }
 
 BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 {
-#ifdef USE_VFS
 	if(!file_iter.end())
 	{
 		file_iter.next();
@@ -1984,32 +1279,11 @@ BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 		return TRUE;
 	}
 	return FALSE;
-#else
-	CHECKF( pGFStruct != NULL );
-	
-	if ( FindNextFile(hFindInfoHandle[pGFStruct->iFindHandle], &Win32FindInfo[pGFStruct->iFindHandle]) )
-	{
-		W32toSGPFileFind( pGFStruct, &Win32FindInfo[pGFStruct->iFindHandle] );
-		return(TRUE);
-	}
-	return(FALSE);
-#endif
 }
 
 void GetFileClose( GETFILESTRUCT *pGFStruct )
 {
-#ifdef USE_VFS
 	file_iter = vfs::CVirtualFileSystem::Iterator();
-#else
-	if ( pGFStruct == NULL )
-		return;
-
-	FindClose( hFindInfoHandle[pGFStruct->iFindHandle] );
-	hFindInfoHandle[pGFStruct->iFindHandle] = INVALID_HANDLE_VALUE;
-	fFindInfoInUse[pGFStruct->iFindHandle] = FALSE;
-
-	return;
-#endif
 }
 
 void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct )
@@ -2226,18 +1500,13 @@ UINT32 FileGetAttributes( STR strFilename )
 
 BOOLEAN FileClearAttributes( STR strFilename )
 {
-#ifndef USE_VFS
-	return SetFileAttributes( (LPCSTR) strFilename, FILE_ATTRIBUTE_NORMAL );
-#else
 	return TRUE;
-#endif
 }
 
 
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 {
-#ifdef USE_VFS
 	vfs::size_t current_position, max_position;
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 
@@ -2262,139 +1531,13 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 		}
 	}
 	return FALSE;
-#else
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-	HANDLE	hRealFile;
-//	UINT8		Data;
-	UINT32	uiOldFilePtrLoc=0;
-	UINT32	uiEndOfFilePtrLoc=0;
-	UINT32	temp=0;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//Get the handle to the real file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		//Get the current position of the file pointer
-		uiOldFilePtrLoc = SetFilePointer( hRealFile, 0, NULL, FILE_CURRENT );
-
-		//Get the end of file ptr location
-		uiEndOfFilePtrLoc = SetFilePointer( hRealFile, 0, NULL, FILE_END );
-
-		//reset back to the original location
-		temp = SetFilePointer( hRealFile, -( (INT32)( uiEndOfFilePtrLoc - uiOldFilePtrLoc ) ), NULL, FILE_END );
-
-		//if the 2 pointers are the same, we are at the end of a file
-		if( uiEndOfFilePtrLoc <= uiOldFilePtrLoc )
-		{
-			return( 1 );
-		}
-	}
-
-	//else it is a library file
-	else
-	{
-		//if the database is initialized
-		if( gFileDataBase.fInitialized )
-		{
-			//if the library is open
-			if( IsLibraryOpened( sLibraryID ) )
-			{
-				//if the file is opened
-				if( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFileID != 0 )
-				{
-					UINT32	uiLength;					//uiOffsetInLibrary
-//					HANDLE	hLibraryFile;
-//					UINT32	uiNumBytesRead;
-					UINT32	uiCurPos;
-
-					uiLength = gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].pFileHeader->uiFileLength;
-					uiCurPos = gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFilePosInFile;
-
-					//if we are trying to read more data then the size of the file, return an error
-					if( uiCurPos >= uiLength )
-					{
-						return( TRUE );
-					}
-				}
-			}
-		}
-	}
-
-	//we are not and the end of a file
-	return( 0 );
-#endif
 }
 
 
 
 BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILETIME *pLastAccessedTime, SGP_FILETIME *pLastWriteTime )
 {
-#ifndef USE_VFS
-	HANDLE	hRealFile;
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	FILETIME	sCreationUtcFileTime;
-	FILETIME	sLastAccessedUtcFileTime;
-	FILETIME	sLastWriteUtcFileTime;
-
-	//Initialize the passed in variables
-	if (pCreationTime)     memset( pCreationTime, 0, sizeof( SGP_FILETIME ) );
-	if (pLastAccessedTime) memset( pLastAccessedTime, 0, sizeof( SGP_FILETIME ) );
-	if (pLastWriteTime)    memset( pLastWriteTime, 0, sizeof( SGP_FILETIME ) );
-
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//get the real file handle to the file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-
-		//Gets the UTC file time for the 'real' file				
-		GetFileTime( hRealFile, &sCreationUtcFileTime, &sLastAccessedUtcFileTime, &sLastWriteUtcFileTime );
-
-		//converts the creation UTC file time to the current time used for the file
-		if(pCreationTime) 
-			FileTimeToLocalFileTime( &sCreationUtcFileTime, pCreationTime );
-		
-		//converts the accessed UTC file time to the current time used for the file
-		if (pLastAccessedTime) 
-			FileTimeToLocalFileTime( &sLastAccessedUtcFileTime, pLastAccessedTime );
-
-		//converts the write UTC file time to the current time used for the file
-		if (pLastWriteTime)
-			FileTimeToLocalFileTime( &sLastWriteUtcFileTime, pLastWriteTime );
-	}
-	else
-	{
-		//if the database is initialized
-		if( gFileDataBase.fInitialized )
-		{
-			//if the library is open
-			if( IsLibraryOpened( sLibraryID ) )
-			{
-				//if the file is opened
-				if( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFileID != 0 )
-				{
-					if( !GetLibraryFileTime( sLibraryID, uiFileNum, pLastWriteTime ) )
-					{
-						return( FALSE );
-					}
-				}
-			}
-		}
-	}
-	return( TRUE );
-#else
 	return( FALSE );
-#endif	
 }
 
 
@@ -2405,58 +1548,13 @@ INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFi
 
 UINT32 FileSize(STR strFilename)
 {
-#ifdef USE_VFS
 	vfs::IBaseFile *pFile = getVFS()->getFile(vfs::Path(strFilename));
 	if(pFile)
 	{
 		return pFile->getSize();
 	}
 	return 0;
-#else
-HWFILE hFile;
-UINT32 uiSize;
-
-	if((hFile=FileOpen(strFilename, FILE_OPEN_EXISTING | FILE_ACCESS_READ, FALSE))==0)
-		return(0);
-		
-	uiSize=FileGetSize(hFile);
-	FileClose(hFile);				
-
-	return(uiSize);
-#endif
 }
-
-
-
-HANDLE	GetRealFileHandleFromFileManFileHandle( HWFILE hFile )
-{
-#ifndef USE_VFS
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its the 'real file' library
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//if its not already closed
-		if( gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].uiFileID != 0 )
-		{
-			return( gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle );
-		}
-	}
-	else
-	{
-		//if the file is not opened, dont close it
-		if( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].uiFileID != 0 )
-		{
-			return( gFileDataBase.pLibraries[ sLibraryID ].hLibraryHandle );
-		}
-	}
-#endif
-	return( 0 );
-}
-
 
 
 //**************************************************************************

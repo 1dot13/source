@@ -3553,33 +3553,6 @@ BOOLEAN Inventory::Save( HWFILE hFile, bool fSavingMap )
 // The save directory now resides in the data directory (default or custom)
 BOOLEAN InitSaveDir()
 {
-#ifndef USE_VFS
-	// Look for a custom data dir first
-	std::string dataDir = gCustomDataCat.GetRootDir();
-	if( dataDir.empty() || FileGetAttributes( (STR) dataDir.c_str() ) == 0xFFFFFFFF ) {
-		dataDir = gDefaultDataCat.GetRootDir();
-	}
-
-	// The locale-specific save dir location is of the form L"..\\SavedGames"
-	// This has not changed; instead, we strip the ".." at the beginning
-	if(is_networked)
-	{
-		sprintf(	gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_MPSAVEDIRECTORY	 ] + 2 );
-	}
-	else
-		sprintf(	gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_SAVEDIRECTORY ] + 2 );
-
-	// This was moved here from SaveGame
-	//Check to see if the save directory exists
-	if( FileGetAttributes( (STR) gSaveDir ) ==	0xFFFFFFFF )
-	{
-		//ok the direcotry doesnt exist, create it
-		if( !MakeFileManDirectory( (CHAR8 *)gSaveDir ) )
-		{
-			return FALSE;
-		}
-	}
-#else
 	if(is_networked)
 	{
 		sprintf(	gSaveDir, "%s", vfs::String::as_utf8(pMessageStrings[ MSG_MPSAVEDIRECTORY ] + 3).c_str() );
@@ -3588,7 +3561,6 @@ BOOLEAN InitSaveDir()
 	{
 		sprintf(	gSaveDir, "%s", vfs::String::as_utf8(pMessageStrings[ MSG_SAVEDIRECTORY ] + 3).c_str() );
 	}
-#endif
 	return TRUE;
 }
 

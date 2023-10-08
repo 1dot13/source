@@ -562,7 +562,6 @@ sgp::Exception::Exception(sgp::WString const& msg, Exception& ex SGP_CALLER_LOCA
 	_msg.push_back(excp);
 }
 
-#if defined(USE_VFS)
 sgp::Exception::Exception(sgp::WString const& msg, vfs::Exception& ex SGP_CALLER_LOCATION_IMPL)
 {
 	vfs::Exception::CALLSTACK::iterator it = ex.m_CallStack.begin();
@@ -584,7 +583,6 @@ sgp::Exception::Exception(sgp::WString const& msg, vfs::Exception& ex SGP_CALLER
 
 	_msg.push_back(excp);
 }
-#endif
 
 sgp::Exception::Exception(WString const& msg, std::exception& ex SGP_CALLER_LOCATION_IMPL)
 {

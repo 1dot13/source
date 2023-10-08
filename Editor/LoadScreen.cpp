@@ -83,9 +83,7 @@ INT32 iCurrFileShown;
 INT32	iLastFileClicked;
 INT32 iLastClickTime;
 
-#ifdef USE_VFS
 CHAR8 gzProfileName[FILENAME_BUFLEN];//dnl ch81 021213
-#endif
 CHAR16 gzFilename[FILENAME_BUFLEN];//dnl ch39 190909
 extern INT16 gsSelSectorX;
 extern INT16 gsSelSectorY;
@@ -165,7 +163,6 @@ void LoadSaveScreenEntry()
 	}
 
 	iTopFileShown = iTotalFiles = 0;
-#ifdef USE_VFS//dnl ch37 300909
 	gzProfileName[0] = 0;//dnl ch81 021213
 	FDLG_LIST* TempFileList = NULL;
 	vfs::CProfileStack* st = getVFS()->getProfileStack();
@@ -220,25 +217,6 @@ void LoadSaveScreenEntry()
 	}
 	while(FileList->pPrev)
 		FileList = FileList->pPrev;
-#else
-	if(GetFileFirst("MAPS\\*.dat", &FileInfo))
-	{
-		if(strlen(FileInfo.zFileName) < FILENAME_BUFLEN)
-		{
-			FileList = AddToFDlgList(FileList, &FileInfo);
-			iTotalFiles++;
-		}
-		while(GetFileNext(&FileInfo))
-		{
-			if(strlen(FileInfo.zFileName) < FILENAME_BUFLEN)
-			{
-				FileList = AddToFDlgList(FileList, &FileInfo);
-				iTotalFiles++;
-			}
-		}
-		GetFileClose(&FileInfo);
-	}
-#endif
 	swprintf( zOrigName, L"%s Map (*.dat)", iCurrentAction == ACTION_SAVE_MAP ? L"Save" : L"Load" );
 
 	swprintf( gzFilename, L"%S", gubFilename );
@@ -283,7 +261,8 @@ UINT32 ProcessLoadSaveScreenMessageBoxResult()
 			{
 				if( gfReadOnly )
 				{
-					FileClearAttributes( gszCurrFilename );
+					// Other call sites have replaced this with FileDelete(); for VFS, should we do the same here?
+					//FileClearAttributes( gszCurrFilename );
 					gfReadOnly = FALSE;
 				}
 				FileDelete( gszCurrFilename );
@@ -468,19 +447,6 @@ UINT32 LoadSaveScreenHandle(void)
 			}
 			sprintf(gszCurrFilename, "MAPS\\%S", gzFilename);
 			gfFileExists = FALSE;
-#ifndef USE_VFS
-			gfReadOnly = FALSE;
-			if(FileExists(gszCurrFilename))
-			{
-				gfFileExists = TRUE;
-				if(GetFileFirst(gszCurrFilename, &FileInfo))
-				{
-					if(FileInfo.uiFileAttribs & (FILE_IS_READONLY|FILE_IS_DIRECTORY|FILE_IS_HIDDEN|FILE_IS_SYSTEM|FILE_IS_OFFLINE|FILE_IS_TEMPORARY))
-						gfReadOnly = TRUE;
-					GetFileClose(&FileInfo);
-				}
-			}
-#else
 			gfReadOnly = TRUE;
 			vfs::CProfileStack* st = getVFS()->getProfileStack();
 			vfs::CProfileStack::Iterator it = st->begin();
@@ -502,7 +468,6 @@ UINT32 LoadSaveScreenHandle(void)
 				}
 				it.next();
 			}
-#endif
 			if(gfReadOnly)
 			{
 				CreateMessageBox(L" File is read only!  Choose a different name? ");
@@ -726,7 +691,6 @@ void SelectFileDialogYPos( UINT16 usRelativeYPos )
 			iLastClickTime = iCurrClickTime;
 			iLastFileClicked = x;
 			//dnl ch81 021213
-#ifdef USE_VFS
 			gzProfileName[0] = 0;
 			while(FListNode = FListNode->pPrev)
 			{
@@ -737,7 +701,6 @@ void SelectFileDialogYPos( UINT16 usRelativeYPos )
 					break;
 				}
 			}
-#endif
 			break;
 		}
 		FListNode = FListNode->pNext;
@@ -950,7 +913,6 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 				SetInputFieldStringWith16BitString(0, L"");
 				wcscpy(gzFilename, L"");
 			}
-#ifdef USE_VFS
 			gzProfileName[0] = 0;
 			while(curr = curr->pPrev)
 			{
@@ -961,7 +923,6 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 					break;
 				}
 			}
-#endif
 		}
 	}
 }

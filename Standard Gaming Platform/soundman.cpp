@@ -1869,15 +1869,7 @@ void SoundLog(CHAR8 *strMessage)
 			sgp::Logger::instance().connectFile(id, SndDebugFileName, true, sgp::Logger::FLUSH_ON_DELETE);
 		}
 	} s_SoundLog;
-#ifndef USE_VFS
-	if ((SndDebug = fopen(SndDebugFileName, "a+t")) != NULL)
-	{
-	 fprintf(SndDebug, "%s\n", strMessage);
-		fclose(SndDebug);
-	}
-#else
 	SGP_LOG(s_SoundLog.id, vfs::String::widen(strMessage,strlen(strMessage)));
-#endif
 }
 
 //*****************************************************************************************
@@ -1890,10 +1882,4 @@ void SoundLog(CHAR8 *strMessage)
 //*****************************************************************************************
 void InitLogging()
 {
-#ifndef USE_VFS
-	if ((SndDebug = fopen(SndDebugFileName, "wt")) != NULL)
-	{
-		fclose(SndDebug);
-	}
-#endif
 }
