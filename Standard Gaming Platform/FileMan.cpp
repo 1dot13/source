@@ -78,8 +78,6 @@ static tFILEMAP s_mapFiles;
 #define CHECKN(exp)	if (!(exp)) { return(NULL); }
 #define CHECKBI(exp) if (!(exp)) { return(-1); }
 
-#define PRINT_DEBUG_INFO	FileDebugPrint();
-
 //**************************************************************************
 //
 //				Typedefs
@@ -148,7 +146,6 @@ TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
 
 void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct );
 
-void		FileDebugPrint( void );
 HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
 HWFILE	CreateFileHandle( HANDLE hRealFile, BOOLEAN fDatabaseFile );
 void		DestroyFileHandle( HWFILE hFile );
@@ -823,23 +820,6 @@ UINT32 FileGetSize( HWFILE hFile )
 	return 0;
 }
 
-//**************************************************************************
-//
-// FileDebugPrint
-//
-//		To print the state of memory to output.
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		24sep96:HJH		->creation
-//
-//**************************************************************************
-
-void FileDebugPrint( void )
-{
-}
 
 //**************************************************************************
 //
