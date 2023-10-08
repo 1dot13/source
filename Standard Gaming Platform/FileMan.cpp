@@ -1176,12 +1176,6 @@ BOOLEAN DirectoryExists( STRING512 pcDirectory )
 }
 
 
-BOOLEAN MakeFileManDirectory( STRING512 pcDirectory )
-{
-	return FALSE;
-}
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Removes ALL FILES in the specified directory (and all subdirectories with their files if fRecursive is TRUE)
 // Use EraseDirectory() to simply delete directory contents without deleting the directory itself

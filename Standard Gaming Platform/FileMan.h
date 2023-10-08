@@ -132,7 +132,6 @@ BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory );
 BOOLEAN GetExecutableDirectory( STRING512 pcDirectory );
 
 BOOLEAN DirectoryExists( STRING512 pcDirectory );
-BOOLEAN MakeFileManDirectory( STRING512 pcDirectory );
 
 // WARNING: THESE DELETE ALL FILES IN THE DIRECTORY ( and all subdirectories if fRecursive is TRUE!! )
 BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive);
