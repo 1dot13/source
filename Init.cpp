@@ -1514,12 +1514,6 @@ UINT32 InitializeJA2(void)
 	// INit intensity tables
 	BuildIntensityTable( );
 
-	// Init Event Manager
-	if ( !InitializeEventManager( ) )
-	{
-		return( ERROR_SCREEN );
-	}
-
 	// Initailize World
 	if ( !InitializeWorld( ) )
 	{
@@ -1697,8 +1691,6 @@ void ShutdownJA2(void)
 	ShutdownFonts();
 
 	ShutdownJA2Sound( );
-
-	ShutdownEventManager( );
 
 	ShutdownBaseDirtyRectQueue( );
 

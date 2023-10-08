@@ -1,21 +1,26 @@
-	#include <stdio.h>
-	#include <time.h>
-	#include "sgp.h"
-	#include "container.h"
-	#include "wcheck.h"
-	#include "Event Pump.h"
-	#include "Timer.h"
-	#include "Sound Control.h"
-	#include "Overhead.h"
-	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "opplist.h"
-	#include "Tactical Save.h"
+#include <stdio.h>
+#include <time.h>
+#include "sgp.h"
+#include "container.h"
+#include "wcheck.h"
+#include "Event Pump.h"
+#include "Timer.h"
+#include "Sound Control.h"
+#include "Overhead.h"
+#include "weapons.h"
+#include "Animation Control.h"
+#include "opplist.h"
+#include "Tactical Save.h"
+#include<vector>
+#include<queue>
 
 #ifdef NETWORKED
 #include "Networking.h"
 #include "NetworkEvent.h"
 #endif
+#include "MemMan.h"
+#include "Timer Control.h"
+#include "DEBUG.H"
 
 UINT8 gubEncryptionArray4[ BASE_NUMBER_OF_ROTATION_ARRAYS * 3 ][ NEW_ROTATION_ARRAY_SIZE ] =
 {
@@ -590,6 +595,26 @@ UINT8 gubEncryptionArray4[ BASE_NUMBER_OF_ROTATION_ARRAYS * 3 ][ NEW_ROTATION_AR
 	},
 };
 
+typedef struct
+{
+	TIMER	TimeStamp;
+	UINT32	uiFlags;
+	UINT16	usDelay;
+	UINT32	uiEvent;
+	UINT32	uiDataSize;
+	BYTE*	pData;
+
+} EVENT;
+
+#define			PRIMARY_EVENT_QUEUE			0
+#define			SECONDARY_EVENT_QUEUE		1
+#define			DEMAND_EVENT_QUEUE			2
+#define			EVENT_EXPIRED				0x00000002
+
+std::queue<EVENT> hEventQueue;
+std::vector<EVENT> hDelayEventQueue;
+std::queue<EVENT> hDemandEventQueue;
+
 // GLobals used here, for each event structure used,
 // Used as globals for stack reasons
 EV_E_PLAYSOUND			EPlaySound;
@@ -601,66 +626,171 @@ EV_S_GETNEWPATH				SGetNewPath;
 EV_S_BEGINTURN				SBeginTurn;
 EV_S_CHANGESTANCE			SChangeStance;
 EV_S_SETDIRECTION			SSetDirection;
-EV_S_SETDESIREDDIRECTION			SSetDesiredDirection;
-EV_S_BEGINFIREWEAPON	SBeginFireWeapon;
+EV_S_SETDESIREDDIRECTION	SSetDesiredDirection;
+EV_S_BEGINFIREWEAPON		SBeginFireWeapon;
 EV_S_FIREWEAPON				SFireWeapon;
 EV_S_WEAPONHIT				SWeaponHit;
 EV_S_STRUCTUREHIT			SStructureHit;
 EV_S_WINDOWHIT				SWindowHit;
-EV_S_MISS							SMiss;
-EV_S_NOISE						SNoise;
+EV_S_MISS					SMiss;
+EV_S_NOISE					SNoise;
 EV_S_STOP_MERC				SStopMerc;
-EV_S_SENDPATHTONETWORK SUpdateNetworkSoldier;
+EV_S_SENDPATHTONETWORK		SUpdateNetworkSoldier;
 
 extern	BOOLEAN				gfAmINetworked;
 
-BOOLEAN AddGameEventToQueue( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT8 ubQueueID );
+
 BOOLEAN ExecuteGameEvent( EVENT *pEvent );
 
 
-BOOLEAN AddGameEvent( UINT32 uiEvent, UINT16 usDelay, PTR pEventData )
+BOOLEAN AddEvent(UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT32 uiDataSize, UINT8 ubQueueID)
 {
-	if (usDelay == DEMAND_EVENT_DELAY)
+	BYTE* pData = (BYTE*)MemAlloc(uiDataSize);
+	Assert(pData);
+	memcpy(pData, pEventData, uiDataSize);
+
+	// Add event to queue
+	switch (ubQueueID)
 	{
-		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local and network #%d", uiEvent));
-		#ifdef NETWORKED
-		if(gfAmINetworked)
-			SendEventToNetwork(uiEvent, usDelay, pEventData);
-		#endif
-		return( AddGameEventToQueue( uiEvent, 0, pEventData, DEMAND_EVENT_QUEUE ) );
+	case PRIMARY_EVENT_QUEUE:
+		//hEventQueue.push(*pEvent);
+		hEventQueue.emplace(
+			EVENT{
+				GetJA2Clock(),	
+				0,				
+				usDelay,		
+				uiEvent,		
+				uiDataSize,		
+				pData			
+			}
+		);
+		break;
+
+	case SECONDARY_EVENT_QUEUE:
+		hDelayEventQueue.emplace_back(
+			EVENT{
+				GetJA2Clock(),		
+				0,					
+				usDelay,			
+				uiEvent,			
+				uiDataSize,			
+				pData			
+			}
+		);
+		break;
+
+	case DEMAND_EVENT_QUEUE:
+		hDemandEventQueue.emplace(
+			EVENT{
+				GetJA2Clock(),	
+				0,				
+				usDelay,		
+				uiEvent,		
+				uiDataSize,		
+				pData			
+			}
+		);
+		break;
+
+	default:
+		Assert(FALSE);
+		break;
 	}
-	else if( uiEvent < EVENTS_LOCAL_AND_NETWORK)
-	{
-		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local and network #%d", uiEvent));
-		#ifdef NETWORKED
-		if(gfAmINetworked)
-			SendEventToNetwork(uiEvent, usDelay, pEventData);
-		#endif
-		return( AddGameEventToQueue( uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE ) );
-	}
-	else if( uiEvent < EVENTS_ONLY_USED_LOCALLY)
-	{
-		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local #%d", uiEvent));
-		return( AddGameEventToQueue( uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE ) );
-	}
-	else if( uiEvent < EVENTS_ONLY_SENT_OVER_NETWORK)
-	{
-		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending network #%d", uiEvent));
-		#ifdef NETWORKED
-		if(gfAmINetworked)
-			SendEventToNetwork(uiEvent, usDelay, pEventData);
-		#endif
-		return(TRUE);
-	}
-	// There is an error with the event
-	else
-		return(FALSE);
+
+	return(TRUE);
 }
 
-BOOLEAN AddGameEventFromNetwork( UINT32 uiEvent, UINT16 usDelay, PTR pEventData )
+
+static BOOLEAN RemoveEventFromSecondaryEventQueue(EVENT* ppEvent, UINT32 uiIndex)
 {
-		return( AddGameEventToQueue( uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE ) );
+	if (uiIndex < hDelayEventQueue.size())
+	{
+		*ppEvent = hDelayEventQueue[uiIndex];
+		hDelayEventQueue.erase(hDelayEventQueue.begin() + uiIndex);
+		return(TRUE);
+	}
+
+	return(FALSE);
 }
+
+
+BOOLEAN PopEvent(EVENT* ppEvent, UINT8 ubQueueID)
+{
+	// Get an event from queue, if one exists
+	//
+	switch (ubQueueID)
+	{
+	case PRIMARY_EVENT_QUEUE:
+		if (!hEventQueue.empty())
+		{
+			*ppEvent = hEventQueue.front();
+			hEventQueue.pop();
+			return(TRUE);
+		}
+		break;
+
+	case SECONDARY_EVENT_QUEUE:
+		if (!hDelayEventQueue.empty())
+		{
+			*ppEvent = hDelayEventQueue.front();
+			hDelayEventQueue.erase(hDelayEventQueue.begin());
+			return(TRUE);
+		}
+		break;
+
+	case DEMAND_EVENT_QUEUE:
+		if (!hDemandEventQueue.empty())
+		{
+			*ppEvent = hDemandEventQueue.front();
+			hDemandEventQueue.pop();
+			return(TRUE);
+		}
+		break;
+
+	default:
+		Assert(FALSE);
+		break;
+	}
+
+	return(FALSE);
+}
+
+
+BOOLEAN FreeEvent(EVENT* pEvent)
+{
+	CHECKF(pEvent != NULL);
+
+	// Delete event
+	MemFree(pEvent->pData);
+	//MemFree(pEvent);
+
+	return(TRUE);
+}
+
+
+UINT32 EventQueueSize(UINT8 ubQueueID)
+{
+	switch (ubQueueID)
+	{
+	case PRIMARY_EVENT_QUEUE:
+		return(hEventQueue.size());
+		break;
+
+	case SECONDARY_EVENT_QUEUE:
+		return(hDelayEventQueue.size());
+		break;
+
+	case DEMAND_EVENT_QUEUE:
+		return(hDemandEventQueue.size());
+		break;
+
+	default:
+		Assert(FALSE);
+		return(-1);
+		break;
+	}
+}
+
 
 BOOLEAN AddGameEventToQueue( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT8 ubQueueID )
 {
@@ -783,18 +913,65 @@ BOOLEAN AddGameEventToQueue( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UIN
 	return( TRUE );
 }
 
+
+BOOLEAN AddGameEvent(UINT32 uiEvent, UINT16 usDelay, PTR pEventData)
+{
+	if (usDelay == DEMAND_EVENT_DELAY)
+	{
+		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local and network #%d", uiEvent));
+#ifdef NETWORKED
+		if (gfAmINetworked)
+			SendEventToNetwork(uiEvent, usDelay, pEventData);
+#endif
+		return(AddGameEventToQueue(uiEvent, 0, pEventData, DEMAND_EVENT_QUEUE));
+	}
+	else if (uiEvent < EVENTS_LOCAL_AND_NETWORK)
+	{
+		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local and network #%d", uiEvent));
+#ifdef NETWORKED
+		if (gfAmINetworked)
+			SendEventToNetwork(uiEvent, usDelay, pEventData);
+#endif
+		return(AddGameEventToQueue(uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE));
+	}
+	else if (uiEvent < EVENTS_ONLY_USED_LOCALLY)
+	{
+		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending Local #%d", uiEvent));
+		return(AddGameEventToQueue(uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE));
+	}
+	else if (uiEvent < EVENTS_ONLY_SENT_OVER_NETWORK)
+	{
+		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("AddGameEvent: Sending network #%d", uiEvent));
+#ifdef NETWORKED
+		if (gfAmINetworked)
+			SendEventToNetwork(uiEvent, usDelay, pEventData);
+#endif
+		return(TRUE);
+	}
+	// There is an error with the event
+	else
+		return(FALSE);
+}
+
+
+BOOLEAN AddGameEventFromNetwork(UINT32 uiEvent, UINT16 usDelay, PTR pEventData)
+{
+	return(AddGameEventToQueue(uiEvent, usDelay, pEventData, PRIMARY_EVENT_QUEUE));
+}
+
+
 BOOLEAN	DequeAllGameEvents( BOOLEAN fExecute )
 {
-	EVENT					*pEvent;
-	UINT32				uiQueueSize, cnt;
-	BOOLEAN				fCompleteLoop = FALSE;
+	EVENT pEvent;
+	UINT32 uiQueueSize, i;
+	BOOLEAN fCompleteLoop = FALSE;
+
+
 	// First dequeue all primary events
-
-
 	while( EventQueueSize( PRIMARY_EVENT_QUEUE ) > 0 )
 	{
 		// Get Event
-		if ( RemoveEvent( &pEvent, 0, PRIMARY_EVENT_QUEUE) == FALSE )
+		if (PopEvent( &pEvent, PRIMARY_EVENT_QUEUE) == FALSE )
 		{
 			return( FALSE );
 		}
@@ -802,90 +979,66 @@ BOOLEAN	DequeAllGameEvents( BOOLEAN fExecute )
 		if ( fExecute )
 		{
 			// Check if event has a delay and add to secondary queue if so
-			if ( pEvent->usDelay > 0 )
+			if ( pEvent.usDelay > 0 )
 			{
-				AddGameEventToQueue( pEvent->uiEvent, pEvent->usDelay, pEvent->pData, SECONDARY_EVENT_QUEUE );
+				AddGameEventToQueue( pEvent.uiEvent, pEvent.usDelay, pEvent.pData, SECONDARY_EVENT_QUEUE );
 			}
 			else
 			{
-				ExecuteGameEvent( pEvent );
+				ExecuteGameEvent( &pEvent );
 			}
 		}
 
 		// Delete event
-		FreeEvent( pEvent );
-
+		FreeEvent( &pEvent );
 	};
 
-	// NOW CHECK SECONDARY QUEUE FOR ANY EXPRIED EVENTS
-	// Get size of queue
+
+	// NOW CHECK SECONDARY QUEUE FOR EVENTS
 	uiQueueSize = EventQueueSize( SECONDARY_EVENT_QUEUE );
 
-	for ( cnt = 0; cnt < uiQueueSize; cnt++ )
+	for ( i = 0; i < uiQueueSize; i++ )
 	{
-		if ( PeekEvent( &pEvent, cnt, SECONDARY_EVENT_QUEUE) == FALSE )
-		{
-			return( FALSE );
-		}
-
+		EVENT& pEventRef = hDelayEventQueue[i];
 		// Check time
-		if ( ( GetJA2Clock() - pEvent->TimeStamp ) > pEvent->usDelay )
+		if ( ( GetJA2Clock() - pEventRef.TimeStamp ) > pEventRef.usDelay )
 		{
 			if ( fExecute )
 			{
-				ExecuteGameEvent( pEvent );
+				ExecuteGameEvent( &pEventRef );
 			}
 
 			// FLag as expired
-			pEvent->uiFlags = EVENT_EXPIRED;
-
+			pEventRef.uiFlags = EVENT_EXPIRED;
 		}
-
 	}
 
-	do
+	// Remove expired events from secondary event queue
+	uiQueueSize = EventQueueSize(SECONDARY_EVENT_QUEUE);
+	for (INT32 i = uiQueueSize-1; i >= 0; i--)
 	{
-		uiQueueSize = EventQueueSize( SECONDARY_EVENT_QUEUE );
-
-		for ( cnt = 0; cnt < uiQueueSize; cnt++ )
+		EVENT& pEventRef = hDelayEventQueue[i];
+		if (pEventRef.uiFlags & EVENT_EXPIRED)
 		{
-			if ( PeekEvent( &pEvent, cnt, SECONDARY_EVENT_QUEUE) == FALSE )
-			{
-				return( FALSE );
-			}
-
-			// Check time
-			if ( pEvent->uiFlags & EVENT_EXPIRED )
-			{
-				RemoveEvent( &pEvent, cnt, SECONDARY_EVENT_QUEUE );
-				FreeEvent( pEvent );
-				// Restart loop
-				break;
-
-			}
-
+			RemoveEventFromSecondaryEventQueue(&pEventRef, i);
+			FreeEvent(&pEventRef);
 		}
-
-		if ( cnt == uiQueueSize )
-		{
-			fCompleteLoop = TRUE;
-		}
-
-	} while( fCompleteLoop == FALSE );
+	}
 
 	return( TRUE );
 }
 
+
 BOOLEAN DequeueAllDemandGameEvents( BOOLEAN fExecute )
 {
-	EVENT					*pEvent;
+	EVENT pEvent;
 
 	// Dequeue all events on the demand queue (only)
 
 	while( EventQueueSize( DEMAND_EVENT_QUEUE ) > 0 )
 	{
 		// Get Event
-		if ( RemoveEvent( &pEvent, 0, DEMAND_EVENT_QUEUE) == FALSE )
+		if ( PopEvent( &pEvent, DEMAND_EVENT_QUEUE) == FALSE )
 		{
 			return( FALSE );
 		}
@@ -893,24 +1046,23 @@ BOOLEAN DequeueAllDemandGameEvents( BOOLEAN fExecute )
 		if ( fExecute )
 		{
 			// Check if event has a delay and add to secondary queue if so
-			if ( pEvent->usDelay > 0 )
+			if ( pEvent.usDelay > 0 )
 			{
-				AddGameEventToQueue( pEvent->uiEvent, pEvent->usDelay, pEvent->pData, SECONDARY_EVENT_QUEUE );
+				AddGameEventToQueue( pEvent.uiEvent, pEvent.usDelay, pEvent.pData, SECONDARY_EVENT_QUEUE );
 			}
 			else
 			{
-				ExecuteGameEvent( pEvent );
+				ExecuteGameEvent( &pEvent );
 			}
 		}
 
 		// Delete event
-		FreeEvent( pEvent );
+		FreeEvent( &pEvent );
 
 	};
 
 	return( TRUE );
 }
-
 
 
 BOOLEAN ExecuteGameEvent( EVENT *pEvent )
@@ -1237,17 +1389,16 @@ BOOLEAN ExecuteGameEvent( EVENT *pEvent )
 BOOLEAN ClearEventQueue( void )
 {
 	// clear out the event queue
-	EVENT					*pEvent;
+	EVENT pEvent;
 	while( EventQueueSize( PRIMARY_EVENT_QUEUE ) > 0 )
 	{
 		// Get Event
-		if ( RemoveEvent( &pEvent, 0, PRIMARY_EVENT_QUEUE) == FALSE )
+		if (PopEvent( &pEvent, PRIMARY_EVENT_QUEUE) == FALSE )
 		{
 			return( FALSE );
 		}
+		FreeEvent(&pEvent);
 	}
 
 	return( TRUE );
 }
-
-
