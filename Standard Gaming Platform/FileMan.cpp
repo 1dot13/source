@@ -1472,11 +1472,6 @@ UINT32 FileGetAttributes( STR strFilename )
 	return( uiFileAttrib );
 }
 
-BOOLEAN FileClearAttributes( STR strFilename )
-{
-	return TRUE;
-}
-
 
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile )

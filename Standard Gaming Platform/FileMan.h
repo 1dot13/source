@@ -156,8 +156,6 @@ BOOLEAN FileMove(STR strOldName, STR strNewName);
 BOOLEAN FileSetAttributes( STR filename, UINT32 uiNewAttribs );
 UINT32	FileGetAttributes( STR filename );
 
-BOOLEAN FileClearAttributes( STR strFilename );
-
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
 

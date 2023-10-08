@@ -2177,7 +2177,8 @@ void SummarySaveMapCallback( GUI_BUTTON *btn, INT32 reason )
 			{
 				CHAR8 filename[40];
 				sprintf( filename, "MAPS\\%S", gszDisplayName );
-				FileClearAttributes( filename );
+				// Other call sites have replaced this with FileDelete(); for VFS, should we do the same here?
+				//FileClearAttributes( filename );
 			}	
 			if(	ExternalSaveMap( gszDisplayName ) )
 			{
