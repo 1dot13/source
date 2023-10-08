@@ -61,7 +61,6 @@ FILE *SndDebug;
 
 // Debug logging
 void SoundLog(CHAR8 *strMessage);
-void InitLogging();
 
 // Cache system
 BOOLEAN		SoundInitCache(void);
@@ -213,7 +212,6 @@ BOOLEAN InitializeSoundManager(void)
 {
 	UINT32 uiCount;
 
-	InitLogging();
 
 	if(fSoundSystemInit)
 	{
@@ -1870,16 +1868,4 @@ void SoundLog(CHAR8 *strMessage)
 		}
 	} s_SoundLog;
 	SGP_LOG(s_SoundLog.id, vfs::String::widen(strMessage,strlen(strMessage)));
-}
-
-//*****************************************************************************************
-// InitLogging
-//	Creates empty log file
-//
-// Returns nothing
-//
-// Created:	10.12.2005 Lesh
-//*****************************************************************************************
-void InitLogging()
-{
 }
