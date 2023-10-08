@@ -1350,7 +1350,6 @@ BOOLEAN InitSaveGameArray()
 				gbSaveGameArray[VAL_SLOT_START + cnt] = TRUE;
 
 				// anv: read last modified date property of save file
-#ifdef USE_VFS
 				// get full path to save file
 				vfs::Path vfsPath;
 				vfs::COpenReadFile rfile(zSaveGameName);
@@ -1369,7 +1368,6 @@ BOOLEAN InitSaveGameArray()
 				// close
 				CloseHandle( hFile );
 				rfile->close();
-#endif
 			}
 		}
 		else

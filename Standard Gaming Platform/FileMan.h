@@ -132,7 +132,6 @@ BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory );
 BOOLEAN GetExecutableDirectory( STRING512 pcDirectory );
 
 BOOLEAN DirectoryExists( STRING512 pcDirectory );
-BOOLEAN MakeFileManDirectory( STRING512 pcDirectory );
 
 // WARNING: THESE DELETE ALL FILES IN THE DIRECTORY ( and all subdirectories if fRecursive is TRUE!! )
 BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive);
@@ -157,8 +156,6 @@ BOOLEAN FileMove(STR strOldName, STR strNewName);
 BOOLEAN FileSetAttributes( STR filename, UINT32 uiNewAttribs );
 UINT32	FileGetAttributes( STR filename );
 
-BOOLEAN FileClearAttributes( STR strFilename );
-
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
 
@@ -180,10 +177,6 @@ INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFi
 // files times may be slightly different due to SourceSafe of copying
 BOOLEAN FileIsOlderThanFile(CHAR8 *pcFileName1, CHAR8 *pcFileName2, UINT32 ulNumSeconds);
 
-//	Pass in the Fileman file handle of an OPEN file and it will return..
-//		if its a Real File, the return will be the handle of the REAL file
-//		if its a LIBRARY file, the return will be the handle of the LIBRARY
-HANDLE	GetRealFileHandleFromFileManFileHandle( HWFILE hFile );
 
 BOOLEAN AddSubdirectoryToPath(CHAR8 *pDirectory);
 

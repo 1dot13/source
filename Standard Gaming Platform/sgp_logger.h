@@ -2,13 +2,9 @@
 #define SGP_LOGGER_H
 
 #include <vector>
-#if defined(USE_VFS)
-#	include <vfs/Core/vfs_string.h>
-#	include <vfs/Tools/vfs_log.h>
-#	include <vfs/Tools/vfs_hp_timer.h>
-#else
-#	include <iostream>
-#endif
+#include <vfs/Core/vfs_string.h>
+#include <vfs/Tools/vfs_log.h>
+#include <vfs/Tools/vfs_hp_timer.h>
 
 namespace sgp
 {
@@ -22,13 +18,9 @@ namespace sgp
 	{
 		struct LogData
 		{
-#if defined(USE_VFS)
 			LogData() : file(NULL), stream(NULL), screen(NULL) {};
 			vfs::HPTimer		timer;
 			vfs::Log*			file;
-#else
-			LogData() : stream(NULL), screen(NULL) {};
-#endif
 			std::wostream*		stream;
 			std::wstringstream*	screen; 
 		};
@@ -53,9 +45,7 @@ namespace sgp
 			LogInstance& operator<<(T const& t){
 				if(_log.stream) (*_log.stream) << t;
 				if(_log.screen) (*_log.screen) << t;
-#if defined(USE_VFS)
 				if(_log.file  ) (*_log.file)   << t;
-#endif
 				return *this;
 			}
 		private:
@@ -72,10 +62,8 @@ namespace sgp
 
 		Logger_ID	createLogger();
 
-#if defined(USE_VFS)
 		void		connectFile(Logger_ID id, vfs::Path const& log_file, bool append, FlushMode fp);
 		void		disconnectFile(Logger_ID id);
-#endif
 		void		connectStream(Logger_ID id, std::ostream& stream);
 		void		disconnectStream(Logger_ID id);
 
@@ -102,44 +90,28 @@ namespace sgp
 	Logger::LogInstance& Logger::LogInstance::operator<< <_flush>(_flush const& f);
 }
 
-#if defined(USE_VFS)
 inline sgp::Logger::LogInstance SGP_LOG(sgp::Logger_ID id, vfs::String const& str){
-#else
-inline sgp::Logger::LogInstance SGP_LOG(int id, const char* str){
-#endif
 	return sgp::Logger::instance().logger(id) << (str) << sgp::endl;
 }
 inline sgp::Logger::LogInstance SGP_LOG(sgp::Logger_ID id){
 	return sgp::Logger::instance().logger(id);
 }
 
-#if defined(USE_VFS)
 inline sgp::Logger::LogInstance SGP_INFO(vfs::String const& str){
-#else
-inline sgp::Logger::LogInstance SGP_INFO(const char* str){
-#endif
 	return sgp::Logger::instance().logger(0) << str << sgp::endl;
 }
 inline sgp::Logger::LogInstance SGP_INFO(){
 	return sgp::Logger::instance().logger(0);
 }
 
-#if defined(USE_VFS)
 inline sgp::Logger::LogInstance SGP_WARNING(vfs::String const& str){
-#else
-inline sgp::Logger::LogInstance SGP_WARNING(const char* str){
-#endif
 	return sgp::Logger::instance().logger(0) << "WARNING : " << str << sgp::endl;
 }
 inline sgp::Logger::LogInstance SGP_WARNING(){
 	return sgp::Logger::instance().logger(0) << "WARNING : ";
 }
 
-#if defined(USE_VFS)
 inline sgp::Logger::LogInstance SGP_ERROR(vfs::String const& str){
-#else
-inline sgp::Logger::LogInstance SGP_ERROR(const char* str){
-#endif
 	return sgp::Logger::instance().logger(0) << "ERROR : " << str << sgp::endl;
 }
 inline sgp::Logger::LogInstance SGP_ERROR(){

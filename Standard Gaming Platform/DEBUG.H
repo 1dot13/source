@@ -252,10 +252,8 @@ namespace sgp
 		// compatibility with std::exception
 		Exception(WString const& msg, std::exception& ex SGP_CALLER_LOCATION);
 
-#if defined(USE_VFS)
 		// compatibility with vfs::Exception
 		Exception(WString const& msg, vfs::Exception& ex SGP_CALLER_LOCATION);
-#endif
 
 		virtual const char* what() const throw();
 

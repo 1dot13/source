@@ -227,7 +227,6 @@ void GameInitHistory()
 	if( ( FileExists( HISTORY_DATA_FILE ) ) )
 	{
 	// unlink history file
-		FileClearAttributes( HISTORY_DATA_FILE );
 	FileDelete( HISTORY_DATA_FILE );
 	}
 

@@ -2437,14 +2437,10 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 	if(ValidMapFileName(szFileName))
 		strcpy(szFilename, pSector);
 	sprintf(szDirFilename, "MAPS\\%s", szFilename);
-#ifdef USE_VFS//dnl ch81 021213
 	if(guiCurrentScreen == LOADSAVE_SCREEN)
 		hfile = FileOpen(szDirFilename, FILE_ACCESS_READ, FALSE, gzProfileName);
 	else
 		hfile = FileOpen(szDirFilename, FILE_ACCESS_READ);
-#else
-	hfile = FileOpen(szDirFilename, FILE_ACCESS_READ, FALSE);
-#endif
 	if(!hfile)
 		return(FALSE);
 	uiFileSize = FileGetSize(hfile);
@@ -2851,7 +2847,6 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	else
 		sprintf(aFilename, "MAPS\\%s", puiFilename);
 	// Open file
-#ifdef USE_VFS//dnl ch81 021213
 #ifdef JA2EDITOR
 	if(guiCurrentScreen == LOADSAVE_SCREEN)
 		hfile = FileOpen(aFilename, FILE_ACCESS_READ, FALSE, gzProfileName);
@@ -2859,9 +2854,6 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		hfile = FileOpen(aFilename, FILE_ACCESS_READ);
 #else
 	hfile = FileOpen(aFilename, FILE_ACCESS_READ);
-#endif
-#else
-	hfile = FileOpen(aFilename, FILE_ACCESS_READ, FALSE);
 #endif
 	if(!hfile)
 	{

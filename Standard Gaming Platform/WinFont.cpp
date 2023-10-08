@@ -189,21 +189,6 @@ Name=Tahoma
 Height=-20
 Weight=400
 */
-#ifndef USE_VFS
-	char INIFile[MAX_PATH];
-    GetExecutableDirectory( INIFile );
-	strcat(INIFile, "\\");
-	strcat(INIFile, GAME_INI_FILE);
-
-	
-	gWinFontAdjust = GetPrivateProfileInt("Ja2 Settings", "WIN_FONT_ADJUST", 0, INIFile);
-	for (UINT16 i=0; i<WIN_LASTFONT; i++)
-	{
-		GetPrivateProfileString(FontInfo[i].FontName, "Name", FontInfo[i].LogFont.lfFaceName, FontInfo[i].LogFont.lfFaceName, LF_FACESIZE, INIFile);
-		FontInfo[i].LogFont.lfHeight = gWinFontAdjust + GetPrivateProfileInt(FontInfo[i].FontName, "Height", FontInfo[i].LogFont.lfHeight, INIFile);
-		FontInfo[i].LogFont.lfWeight = GetPrivateProfileInt(FontInfo[i].FontName, "Weight", FontInfo[i].LogFont.lfWeight, INIFile);
-	}
-#else
 	vfs::PropertyContainer props;
 	props.initFromIniFile(GAME_INI_FILE);
     
@@ -216,7 +201,6 @@ Weight=400
 		FontInfo[i].LogFont.lfHeight = gWinFontAdjust + (LONG)props.getIntProperty(FontInfo[i].FontName, "Height", FontInfo[i].LogFont.lfHeight);
 		FontInfo[i].LogFont.lfWeight = (LONG)props.getIntProperty(FontInfo[i].FontName, "Weight", FontInfo[i].LogFont.lfWeight);
 	}
-#endif
 }
 
 void InitWinFonts( )

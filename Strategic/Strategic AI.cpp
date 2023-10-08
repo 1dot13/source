@@ -5430,22 +5430,11 @@ void LogStrategicMsg( STR8	str, ... )
 {
 	va_list argptr;
 	CHAR8	string[512];
-#ifndef USE_VFS
-	FILE *fp;
-
-	fp = fopen( "Strategic Decisions.txt", "a" );
-	if( !fp )
-		return;
-#endif
 	va_start(argptr, str );
 	vsprintf( string, str, argptr);
 	va_end(argptr);
 
-#ifndef USE_VFS
-	fprintf( fp, "%s\n", string );
-#else
 	SGP_LOG(s_stratD.id, string);
-#endif
 
 	if( gfDisplayStrategicAILogs )
 	{
@@ -5455,33 +5444,17 @@ void LogStrategicMsg( STR8	str, ... )
 	{
 		OutputDebugString( (LPCSTR)String( "%s\n", string ) );
 	}
-
-#ifndef USE_VFS
-	fclose( fp );
-#endif
 }
 
 void LogStrategicEvent( STR8	str, ... )
 {
 	va_list argptr;
 	CHAR8	string[512];
-#ifndef USE_VFS
-	FILE *fp;
-
-	fp = fopen( "Strategic Decisions.txt", "a" );
-	if( !fp )
-		return;
-#endif
 	va_start(argptr, str );
 	vsprintf( string, str, argptr);
 	va_end(argptr);
 
-#ifndef USE_VFS
-	fprintf( fp, "\n%S:\n", WORLDTIMESTR );
-	fprintf( fp, "%s\n", string );
-#else
 	SGP_LOG(s_stratD.id) << sgp::endl << WORLDTIMESTR << ":" << sgp::endl << string << sgp::endl;
-#endif
 	if( gfDisplayStrategicAILogs )
 	{
 		ScreenMsg( FONT_LTKHAKI, MSG_DIALOG, L"%S", string );
@@ -5490,25 +5463,11 @@ void LogStrategicEvent( STR8	str, ... )
 	{
 		OutputDebugString( (LPCSTR)String( "%s\n", string ) );
 	}
-#ifndef USE_VFS
-	fclose( fp );
-#endif
 }
 
 void ClearStrategicLog()
 {
-#ifndef USE_VFS
-	FILE *fp;
-	fp = fopen( "Strategic Decisions.txt", "w" );
-	if( !fp )
-		return;
-
-	fprintf( fp, "STRATEGIC LOG\n" );
-
-	fclose( fp );
-#else
 	SGP_LOG(s_stratD.id) << sgp::flush;
-#endif
 }
 #endif
 

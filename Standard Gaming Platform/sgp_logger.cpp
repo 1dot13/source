@@ -16,16 +16,12 @@ static inline void flush_screen(std::wstringstream& stream)
 
 int sgp::Logger::_next_log_id = -1;
 
-#if defined(USE_VFS)
 	//std::vector<sgp::Logger::STimeLog> sgp::Logger::_logs;
 	std::vector<sgp::Logger::LogData> sgp::Logger::_logs;
-#endif
 
 sgp::Logger::Logger()
 {
-#if defined(USE_VFS)
 	connectFile(this->createLogger(), L"game_log.log", false, sgp::Logger::FLUSH_ON_ENDL);
-#endif
 }
 
 sgp::Logger::~Logger()
@@ -47,9 +43,7 @@ bool sgp::Logger::shutdown()
 {
 	for(::size_t i=0; i < _logs.size(); ++i)
 	{
-#if defined(USE_VFS)
 		disconnectFile(i);
-#endif
 		disconnectStream(i);
 		disconnectScreen(i);
 	}
@@ -102,7 +96,6 @@ void sgp::Logger::flushMode(sgp::Logger_ID id, sgp::Logger::FlushMode fmode)
 }
 
 
-#if defined(USE_VFS)
 void sgp::Logger::connectFile(sgp::Logger_ID id, vfs::Path const& log_file, bool append, FlushMode fmode)
 {
 	if(id >= 0 && id < _logs.size())
@@ -128,7 +121,6 @@ void sgp::Logger::disconnectFile(sgp::Logger_ID id)
 		}
 	}
 }
-#endif
 
 void sgp::Logger::connectStream(sgp::Logger_ID id, std::ostream& stream)
 {
@@ -170,29 +162,10 @@ void sgp::Logger::disconnectScreen(sgp::Logger_ID id)
 }
 
 
-//#if defined(USE_VFS)
-//int sgp::Logger::createLogger(vfs::Path const& log_file, bool append, FlushMode fp)
-//{
-//	vfs::Log::EFlushMode fm;
-//	if(fp == sgp::Logger::FLUSH_ON_DELETE) fm = vfs::Log::FLUSH_ON_DELETE;
-//	else if(fp == sgp::Logger::FLUSH_IMMIDIATELY) fm = vfs::Log::FLUSH_IMMEDIATELY;
-//	else if(fp == sgp::Logger::FLUSH_FULL_BUFFER) fm = vfs::Log::FLUSH_BUFFER;
-//	else if(fp == sgp::Logger::FLUSH_ON_ENDL) fm = vfs::Log::FLUSH_ON_ENDL;
-//	else fm = vfs::Log::FLUSH_IMMEDIATELY;
-//
-//	_logs.push_back(STimeLog());
-//	_next_log_id++;
-//	_logs[_next_log_id]._log = vfs::Log::create(log_file,append,fm);
-//	_logs[_next_log_id]._timer.startTimer();
-//	return _next_log_id;
-//}
-//#endif
-
 sgp::Logger::LogInstance sgp::Logger::logger(sgp::Logger_ID id)
 {
 	if(id < _logs.size())
 	{
-#if defined(USE_VFS)
 		std::wstringstream tmp;
 		tmp << L"[" << _logs[id].timer.running() << L"] : ";
 		std::wstring str(tmp.str());
@@ -208,7 +181,6 @@ sgp::Logger::LogInstance sgp::Logger::logger(sgp::Logger_ID id)
 		if(ld.screen) {
 			(*ld.screen) << str;
 		}
-#endif
 		return sgp::Logger::LogInstance(&ld);
 	}
 	SGP_THROW(L"Unknown log id");
@@ -219,10 +191,8 @@ sgp::Logger::LogInstance& sgp::Logger::LogInstance::operator<< <sgp::_flush>(sgp
 {
 	if(_log.file)
 	{
-#if defined(USE_VFS)
 		(*_log.file).flush();
 		(*_log.file).unlock();
-#endif
 	}
 	if(_log.stream)
 	{
@@ -240,14 +210,12 @@ sgp::Logger::LogInstance& sgp::Logger::LogInstance::operator<< <sgp::_endl>(sgp:
 {
 	if(_log.file)
 	{
-#if defined(USE_VFS)
 		(*_log.file) << vfs::Log::endl;
 		if(_log.file->flushMode() == vfs::Log::FLUSH_ON_ENDL)
 		{
 			(*_log.file).flush();
 		}
 		(*_log.file).unlock();
-#endif
 	}
 	if(_log.stream)
 	{
@@ -263,8 +231,6 @@ sgp::Logger::LogInstance& sgp::Logger::LogInstance::operator<< <sgp::_endl>(sgp:
 template <>
 sgp::Logger::LogInstance& sgp::Logger::LogInstance::operator<< <sgp::_lock>(sgp::_lock const& l)
 {
-#if defined(USE_VFS)
 	_log.file->lock();
-#endif
 	return *this;
 }

@@ -144,9 +144,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 
 
-#ifdef USE_VFS
 static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::String const& sSection);
-#endif
 
 HINSTANCE			ghInstance;
 
@@ -194,9 +192,7 @@ extern bool			g_bUseXML_Strings;//	= false;
 bool				g_bUseXML_Structures	= false;
 //bool				g_bUseXML_Tilesets		= false;
 
-#ifdef USE_VFS
 static vfs::Path	sp_force_load_jsd_xml_file;
-#endif
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 {
@@ -497,7 +493,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
-#ifdef USE_VFS
 	//vfs::Path exe_dir, exe_file;
 	//os::getExecutablePath(exe_dir, exe_file);
 
@@ -545,41 +540,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		}
 	}
 #endif // USE_CODE_PAGE
-#else
-	// Snap: moved the following from InitJA2SplashScreen for clarity
-	STRING512			CurrentDir;
-	STRING512			DataDir;
-
-	// Get Executable Directory
-	GetExecutableDirectory( CurrentDir );
-
-	// Adjust Current Dir
-	sprintf( DataDir, "%s\\Data", CurrentDir );
-	if ( !SetFileManCurrentDirectory( DataDir ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not find data directory, shutting down");
-		return FALSE;
-	}
-
-	//Initialize the file database
-	//InitializeFileDatabase( gGameLibaries, NUMBER_OF_LIBRARIES ); // ?!?! doesn't take parameters (jonathanl)
-	InitializeFileDatabase();
-
-	// Snap: Initialize the Data directory catalogue
-	gDefaultDataCat.NewCat(DataDir);
-
-	STRING512	ja2INIfile;
-	strcat(ja2INIfile, "..\\");
-	strcat(ja2INIfile, GAME_INI_FILE);
-
-	// Snap: Get the custom Data directory location from GAME_INI_FILE (if any)
-	// and initialize the custom catalogue
-	char customDataPath[MAX_PATH];
-	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, ja2INIfile ) )
-	{
-		gCustomDataCat.NewCat(std::string(CurrentDir) + '\\' + customDataPath);
-	}
-#endif
 
 	if(g_bUseXML_Strings)
 	{
@@ -721,7 +681,6 @@ void ShutdownStandardGamingPlatform(void)
 	vfs::ObjectAllocator::clear();
 }
 
-#ifdef USE_VFS
 #include "MPJoinScreen.h"
 
 vfs::String getGameID()
@@ -735,7 +694,6 @@ vfs::String getGameID()
 	}
 	return _id;
 }
-#endif
 
 #include "debug_util.h"
 #include <vfs/Aspects/vfs_logging.h>
@@ -841,9 +799,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 
 
-#ifdef USE_VFS
 	vfs::Log::setSharedString( getGameID() );
-#endif
 	//if(!vfs::Aspects::getMutexFactory())
 	//{
 	//	vfs::Aspects::setMutexFactory( new VfsMutexFactory() );
@@ -914,15 +870,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 //	ShowCursor(FALSE);
 
-#ifdef USE_VFS
-	//vfs::Path exe_dir, exe_file;
-	//os::getExecutablePath(exe_dir, exe_file);
-	//os::setCurrectDirectory(exe_dir);
-#else
-	STRING512 sExecutableDir;
-	GetExecutableDirectory( sExecutableDir );
-	SetCurrentDirectory(sExecutableDir);
-#endif
 	try
 	{
 		// Inititialize the SGP
@@ -934,9 +881,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	}
 	HANDLE_FATAL_ERROR;
 
-#ifdef USE_VFS
 	vfs::Log::flushReleaseAll();
-#endif
 
 #ifdef LUACONSOLE
 	if (1==iScreenMode)
@@ -1051,39 +996,10 @@ void GetRuntimeSettings( )
 	/* Detect cnc-ddraw and disable windowed mode */
 	BOOL bCncDdraw = GetProcAddress(GetModuleHandleW(L"ddraw.dll"), "GameHandlesClose") != NULL;
 	
-#ifndef USE_VFS
-	CHAR8	zMaximize[ 50 ];
-	CHAR8	zWindowedMode[ 50 ];
-
-	// Runtime settings - for now use INI file - later use registry
-	STRING512		INIFile;		// Path to the ini file
-	CHAR8			zScreenResolution[ 50 ];
-	
-	// Get Executable Directory
-	GetExecutableDirectory( INIFile );
-
-	strcat(INIFile, "\\");
-	strcat(INIFile, GAME_INI_FILE);
-#else
 	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile(GAME_INI_FILE);
 	PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
-#endif
 	
-#ifndef USE_VFS
-	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
-	{
-		iResolution = atoi(zScreenResolution);
-	}
-	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_MODE_WINDOWED_MAXIMIZE", "", zMaximize, 50, INIFile ))
-	{
-		iMaximize = atoi(zMaximize);
-	}	
-	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_MODE_WINDOWED", "", zWindowedMode, 50, INIFile ))
-	{
-		iWindowedMode = bCncDdraw ? 0 : atoi(zWindowedMode);
-	}	
-#else
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
 	{
@@ -1142,9 +1058,7 @@ void GetRuntimeSettings( )
 			CIniReader::RegisterFileForMerging(*it);
 		}
 	}
-#endif
 
-#ifdef USE_VFS
 	extern bool g_bUsePngItemImages;
 	g_bUsePngItemImages		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_PNG_ITEM_IMAGES", false);
 	g_bUseXML_Structures	= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_STRUCTURES", false);
@@ -1164,17 +1078,9 @@ void GetRuntimeSettings( )
 	s_bExportStrings		= oProps.getBoolProperty(L"Ja2 Settings", L"EXPORT_STRINGS", false);
 
 	sp_force_load_jsd_xml_file = oProps.getStringProperty(L"Ja2 Settings", L"FORCE_LOAD_JSD_XML_FILE", L"");
-#endif
 
 #ifdef JA2EDITOR
-#ifndef USE_VFS
-	if (GetPrivateProfileString( "Ja2 Settings","EDITOR_SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
-	{
-		iResolution = atoi(zScreenResolution);
-	}
-#else
 	iResolution = (int)oProps.getIntProperty("Ja2 Settings","EDITOR_SCREEN_RESOLUTION", -1); 
-#endif
 #endif
 
 	int	iResX;
@@ -1311,30 +1217,6 @@ void GetRuntimeSettings( )
 	}
 
 	// Adjust again
-
-#ifndef USE_VFS
-	gbPixelDepth = GetPrivateProfileInt( "SGP", "PIXEL_DEPTH", PIXEL_DEPTH, INIFile );
-
-	SCREEN_WIDTH = GetPrivateProfileInt( "SGP", "WIDTH", iResX, INIFile );
-	SCREEN_HEIGHT = GetPrivateProfileInt( "SGP", "HEIGHT", iResY, INIFile );
-
-	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
-	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
-
-	/* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
-	/* 1 for Windowed, 0 for Fullscreen */
-	if( !bScreenModeCmdLine )
-	iScreenMode = bCncDdraw ? 0 : (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
-
-	// WANNE: Should we play the intro?
-	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
-    iUseWinFonts  = (int) GetPrivateProfileInt( "Ja2 Settings","USE_WINFONTS", iUseWinFonts, INIFile,);
-	fTooltipScaleFactor = ((int)GetPrivateProfileInt("Ja2 Settings", "TOOLTIP_SCALE_FACTOR", 100, INIFile, )) / 100;
-	if (fTooltipScaleFactor < 1) fTooltipScaleFactor = 1;
-
-	// haydent: mouse scrolling
-	iDisableMouseScrolling = (int) GetPrivateProfileInt( "Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling, INIFile );
-#else
 	gbPixelDepth = PIXEL_DEPTH;
 
 	SCREEN_WIDTH = iResX;
@@ -1388,8 +1270,6 @@ void GetRuntimeSettings( )
 	// get timer/clock initialization state
 	//SetHiSpeedClockMode( oProps.getBoolProperty("Ja2 Settings", "HIGHSPEED_TIMER", false) ? TRUE : FALSE );	
 	SetHiSpeedClockMode( TRUE );
-
-#endif
 }
 
 
@@ -1464,7 +1344,6 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 	MemFree(pCopy);
 }
 
-#ifdef USE_VFS
 static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::String const& sSection)
 {
 	const wchar_t* lpCommandLine = GetCommandLineW();
@@ -1496,7 +1375,6 @@ static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::
 		}
 	}
 }
-#endif
 
 static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS* pExceptInfo)
 {

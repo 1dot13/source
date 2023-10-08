@@ -1678,33 +1678,7 @@ BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX,
 //Deletes the Temp map Directory
 BOOLEAN InitTacticalSave( BOOLEAN fCreateTempDir )
 {
-#ifndef USE_VFS
-	UINT32	uiRetVal;
-
-	//If the Map Temp directory exists, removes the temp files
-	uiRetVal = FileGetAttributes( MAPS_DIR );
-	if( uiRetVal != 0xFFFFFFFF )
-	{
-		if( uiRetVal & FILE_ATTRIBUTES_DIRECTORY )
-		{
-			//Erase the directory
-			if( !EraseDirectory( MAPS_DIR ) )
-			{
-				//error erasing the temporary maps directory
-			}
-		}
-	}
-	else
-	{
-		if( !MakeFileManDirectory( MAPS_DIR ) )
-		{
-			//Erro creating the temp map directory
-			AssertMsg( 0, "Error creating the Temp Directory.");
-		}
-	}
-#else
 	EraseDirectory( MAPS_DIR );
-#endif
 	if( fCreateTempDir )
 	{
 		//Create the initial temp file for the Npc Quote Info

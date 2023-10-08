@@ -204,23 +204,6 @@ void ShutdownMemoryManager( void )
 		#ifndef EXTREME_MEMORY_DEBUGGING
 			#ifdef JA2BETAVERSION
 			{
-#ifndef USE_VFS
-				FILE *fp;
-				fp = fopen( "MemLeakInfo.txt", "a" );
-				if( fp )
-				{
-					fprintf( fp, "\n\n" );
-					fprintf( fp, ">>>>> MEMORY LEAK DETECTED!!! <<<<<\n" );
-					fprintf( fp, "	%d bytes memory total was allocated\n", guiMemAlloced );
-					fprintf( fp, "- %d bytes memory total was freed\n", guiMemFreed );
-					fprintf( fp, "_______________________________________________\n" );
-					fprintf( fp, "%d bytes memory total STILL allocated\n", guiMemTotal );
-					fprintf( fp, "%d memory blocks still allocated\n", MemDebugCounter );
-					fprintf( fp, "guiScreenExitedFrom = %S\n", gzJA2ScreenNames[ gMsgBox.uiExitScreen ] );
-					fprintf( fp, "\n\n" );
-				}
-				fclose( fp );
-#else
 				sgp::Logger_ID log_id = sgp::Logger::instance().createLogger();
 				sgp::Logger::LogInstance memLeak = SGP_LOG(log_id);
 				memLeak << sgp::endl << sgp::endl;
@@ -232,7 +215,6 @@ void ShutdownMemoryManager( void )
 				memLeak << MemDebugCounter << " memory blocks still allocated" << sgp::endl;
 				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << sgp::endl;
 				memLeak << sgp::endl << sgp::endl;
-#endif
 			}
 			#endif
 		#endif
