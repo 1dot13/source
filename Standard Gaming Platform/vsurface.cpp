@@ -1795,13 +1795,13 @@ BOOLEAN GetVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_REGION 
 {
 	Assert( hVSurface != NULL );
 
-	if (usIndex < hVSurface->RegionList.size())
+	if (usIndex >= hVSurface->RegionList.size())
 	{
-		*aRegion = hVSurface->RegionList[usIndex];
-		return( TRUE );
+		return( FALSE );
 	}
 
-	return( FALSE );
+	*aRegion = hVSurface->RegionList[usIndex];
+	return( TRUE );
 }
 
 BOOLEAN GetVSurfaceRect( HVSURFACE hVSurface, RECT *pRect)
@@ -1823,13 +1823,13 @@ BOOLEAN ReplaceVSurfaceRegion( HVSURFACE hVSurface , UINT16 usIndex, VSURFACE_RE
 
 	Assert( hVSurface != NULL );
 
-	if (usIndex < hVSurface->RegionList.size())
+	if (usIndex >= hVSurface->RegionList.size())
 	{
-		hVSurface->RegionList[usIndex] = *aRegion;
-		return( TRUE );
+		return( FALSE );
 	}
 
-	return( FALSE );
+	hVSurface->RegionList[usIndex] = *aRegion;
+	return( TRUE );
 }
 
 BOOLEAN AddVSurfaceRegionAtIndex( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_REGION *pNewRegion )
@@ -1837,15 +1837,14 @@ BOOLEAN AddVSurfaceRegionAtIndex( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_
 	Assert( hVSurface != NULL );
 	Assert( pNewRegion != NULL );
 
-	// Add new region to list
-	if (usIndex < hVSurface->RegionList.size())
+	if (usIndex >= hVSurface->RegionList.size())
 	{
-		auto pos = hVSurface->RegionList.begin() + usIndex;
-		hVSurface->RegionList.insert(pos, *pNewRegion);
-		return(TRUE);
+		return(FALSE);
 	}
 
-	return(FALSE);
+	auto pos = hVSurface->RegionList.begin() + usIndex;
+	hVSurface->RegionList.insert(pos, *pNewRegion);
+	return(TRUE);
 }
 
 // *******************************************************************

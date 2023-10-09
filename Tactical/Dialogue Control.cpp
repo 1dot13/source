@@ -361,7 +361,7 @@ void EmptyDialogueQueue( )
 }
 
 
-inline BOOLEAN DialogueQueueIsEmpty( )
+BOOLEAN DialogueQueueIsEmpty( )
 {
 	return( ghDialogueQ.empty() );
 }
@@ -1798,8 +1798,7 @@ void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreP
 
 BOOLEAN CharacterDialogueWithSpecialEvent( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed, UINT32 uiFlag, UINT32 uiData1, UINT32 uiData2 )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.ubCharacterNum = ubCharacterNum;
 	QItem.usQuoteNum	 = usQuoteNum;
 	QItem.iFaceIndex	 = iFaceIndex;
@@ -1833,8 +1832,7 @@ BOOLEAN CharacterDialogueWithSpecialEvent( UINT8 ubCharacterNum, UINT16 usQuoteN
 
 BOOLEAN CharacterDialogueWithSpecialEventEx( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed, UINT32 uiFlag, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.ubCharacterNum = ubCharacterNum;
 	QItem.usQuoteNum	 = usQuoteNum;
 	QItem.iFaceIndex	 = iFaceIndex;
@@ -1863,8 +1861,7 @@ BOOLEAN CharacterDialogueWithSpecialEventEx( UINT8 ubCharacterNum, UINT16 usQuot
 
 BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.ubCharacterNum = ubCharacterNum;
 	QItem.usQuoteNum	 = usQuoteNum;
 	QItem.iFaceIndex	 = iFaceIndex;
@@ -1914,8 +1911,7 @@ BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 
 	UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, 
 	UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.ubCharacterNum		= ubCharacterNum;
 	QItem.usQuoteNum			= usQuoteNum;
 	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
@@ -1946,8 +1942,7 @@ BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 
 
 BOOLEAN SpecialCharacterDialogueEvent( UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, UINT32 uiSpecialEventData3, INT32 iFaceIndex, UINT8 bUIHandlerID )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
 	QItem.uiSpecialEventData	= uiSpecialEventData1;
 	QItem.uiSpecialEventData2	= uiSpecialEventData2;
@@ -1972,8 +1967,7 @@ BOOLEAN SpecialCharacterDialogueEvent( UINT32 uiSpecialEventFlag, UINT32 uiSpeci
 
 BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, INT32 iFaceIndex, UINT8 bUIHandlerID )
 {
-	DIALOGUE_Q_STRUCT QItem;
-	memset(&QItem, 0, sizeof(DIALOGUE_Q_STRUCT));
+	DIALOGUE_Q_STRUCT QItem{};
 	QItem.uiSpecialEventFlag	= uiSpecialEventFlag;
 	QItem.uiSpecialEventData	= uiSpecialEventData1;
 	QItem.uiSpecialEventData2	= uiSpecialEventData2;

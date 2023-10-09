@@ -11,8 +11,8 @@
 #include "Animation Control.h"
 #include "opplist.h"
 #include "Tactical Save.h"
-#include<vector>
-#include<queue>
+#include <vector>
+#include <queue>
 
 #ifdef NETWORKED
 #include "Networking.h"
@@ -595,7 +595,7 @@ UINT8 gubEncryptionArray4[ BASE_NUMBER_OF_ROTATION_ARRAYS * 3 ][ NEW_ROTATION_AR
 	},
 };
 
-typedef struct
+struct EVENT
 {
 	TIMER	TimeStamp;
 	UINT32	uiFlags;
@@ -604,7 +604,25 @@ typedef struct
 	UINT32	uiDataSize;
 	BYTE*	pData;
 
-} EVENT;
+	EVENT(UINT16 delay, UINT32 event, UINT32 dataSize, BYTE* eventData) :
+		TimeStamp(GetJA2Clock()),
+		uiFlags(0),
+		usDelay(delay),
+		uiEvent(event),
+		uiDataSize(dataSize),
+		pData{ eventData }
+	{
+	}
+
+	EVENT() :
+		TimeStamp(GetJA2Clock()),
+		uiFlags(0),
+		usDelay(0),
+		uiEvent(0),
+		uiDataSize(0),
+		pData{ nullptr }
+	{}
+};
 
 #define			PRIMARY_EVENT_QUEUE			0
 #define			SECONDARY_EVENT_QUEUE		1
@@ -653,43 +671,15 @@ BOOLEAN AddEvent(UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT32 uiDataSi
 	switch (ubQueueID)
 	{
 	case PRIMARY_EVENT_QUEUE:
-		//hEventQueue.push(*pEvent);
-		hEventQueue.emplace(
-			EVENT{
-				GetJA2Clock(),	
-				0,				
-				usDelay,		
-				uiEvent,		
-				uiDataSize,		
-				pData			
-			}
-		);
+		hEventQueue.emplace(usDelay, uiEvent, uiDataSize, pData);
 		break;
 
 	case SECONDARY_EVENT_QUEUE:
-		hDelayEventQueue.emplace_back(
-			EVENT{
-				GetJA2Clock(),		
-				0,					
-				usDelay,			
-				uiEvent,			
-				uiDataSize,			
-				pData			
-			}
-		);
+		hDelayEventQueue.emplace_back(usDelay, uiEvent, uiDataSize, pData);
 		break;
 
 	case DEMAND_EVENT_QUEUE:
-		hDemandEventQueue.emplace(
-			EVENT{
-				GetJA2Clock(),	
-				0,				
-				usDelay,		
-				uiEvent,		
-				uiDataSize,		
-				pData			
-			}
-		);
+		hDemandEventQueue.emplace(usDelay, uiEvent, uiDataSize, pData);
 		break;
 
 	default:
@@ -703,18 +693,18 @@ BOOLEAN AddEvent(UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT32 uiDataSi
 
 static BOOLEAN RemoveEventFromSecondaryEventQueue(EVENT* ppEvent, UINT32 uiIndex)
 {
-	if (uiIndex < hDelayEventQueue.size())
+	if (uiIndex >= hDelayEventQueue.size())
 	{
-		*ppEvent = hDelayEventQueue[uiIndex];
-		hDelayEventQueue.erase(hDelayEventQueue.begin() + uiIndex);
-		return(TRUE);
+		return(FALSE);
 	}
 
-	return(FALSE);
+	*ppEvent = hDelayEventQueue[uiIndex];
+	hDelayEventQueue.erase(hDelayEventQueue.begin() + uiIndex);
+	return(TRUE);
 }
 
 
-BOOLEAN PopEvent(EVENT* ppEvent, UINT8 ubQueueID)
+static BOOLEAN PopEvent(EVENT* ppEvent, UINT8 ubQueueID)
 {
 	// Get an event from queue, if one exists
 	//
@@ -756,11 +746,10 @@ BOOLEAN PopEvent(EVENT* ppEvent, UINT8 ubQueueID)
 }
 
 
-BOOLEAN FreeEvent(EVENT* pEvent)
+static BOOLEAN FreeEventData(EVENT* pEvent)
 {
 	CHECKF(pEvent != NULL);
 
-	// Delete event
 	MemFree(pEvent->pData);
 	//MemFree(pEvent);
 
@@ -792,7 +781,7 @@ UINT32 EventQueueSize(UINT8 ubQueueID)
 }
 
 
-BOOLEAN AddGameEventToQueue( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT8 ubQueueID )
+static BOOLEAN AddGameEventToQueue( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT8 ubQueueID )
 {
 	UINT32		uiDataSize;
 
@@ -990,7 +979,7 @@ BOOLEAN	DequeAllGameEvents( BOOLEAN fExecute )
 		}
 
 		// Delete event
-		FreeEvent( &pEvent );
+		FreeEventData( &pEvent );
 	};
 
 
@@ -1021,7 +1010,7 @@ BOOLEAN	DequeAllGameEvents( BOOLEAN fExecute )
 		if (pEventRef.uiFlags & EVENT_EXPIRED)
 		{
 			RemoveEventFromSecondaryEventQueue(&pEventRef, i);
-			FreeEvent(&pEventRef);
+			FreeEventData(&pEventRef);
 		}
 	}
 
@@ -1057,7 +1046,7 @@ BOOLEAN DequeueAllDemandGameEvents( BOOLEAN fExecute )
 		}
 
 		// Delete event
-		FreeEvent( &pEvent );
+		FreeEventData( &pEvent );
 
 	};
 
@@ -1397,7 +1386,7 @@ BOOLEAN ClearEventQueue( void )
 		{
 			return( FALSE );
 		}
-		FreeEvent(&pEvent);
+		FreeEventData(&pEvent);
 	}
 
 	return( TRUE );
