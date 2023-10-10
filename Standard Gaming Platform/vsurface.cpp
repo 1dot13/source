@@ -1190,7 +1190,7 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 
 		DbgMessage( TOPIC_VIDEOSURFACE, DBG_LEVEL_2, String( "Failed to create Video Surface in video memory" ) );
 		DDReleaseSurface ( &lpDDS, &lpDDS2 );
-		MemFree( hVSurface );
+		delete hVSurface;
 		return( NULL );
 	}
 
