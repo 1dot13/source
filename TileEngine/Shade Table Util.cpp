@@ -24,10 +24,6 @@ BOOLEAN gfForceBuildShadeTables = FALSE;
 
 void DetermineRGBDistributionSettings()
 {
-#ifndef USE_VFS
-	STRING512			DataDir;
-	STRING512			ExecDir;
-#endif
 	STRING512			ShadeTableDir;
 	UINT32				uiRBitMask, uiGBitMask, uiBBitMask;
 	UINT32				uiPrevRBitMask, uiPrevGBitMask, uiPrevBBitMask;
@@ -37,36 +33,9 @@ void DetermineRGBDistributionSettings()
 	BOOLEAN				fCleanShadeTable = FALSE;
 	BOOLEAN				fLoadedPrevRGBDist = FALSE;
 
-#ifndef USE_VFS
-	// Snap: save current directory
-	GetFileManCurrentDirectory( DataDir );
-
-	//First, determine if we have a file saved.	If not, then this is the first time, and
-	//all shade tables will have to be built and saved to disk.	This can be time consuming, adding up to
-	//3-4 seconds to the time of a map load.
-	GetExecutableDirectory( ExecDir );
-	sprintf( ShadeTableDir, "%s\\%s", DataDir, SHADE_TABLE_DIR );
-
-	//Check to make sure we have a ShadeTable directory.	If we don't create one!
-	if( !SetFileManCurrentDirectory( ShadeTableDir ) )
-	{
-		if( !MakeFileManDirectory( ShadeTableDir ) )
-		{
-			AssertMsg( 0, "ShadeTable directory doesn't exist, and couldn't create one!" );
-		}
-		if( !SetFileManCurrentDirectory( ShadeTableDir ) )
-		{
-			AssertMsg( 0, "Couldn't access the newly created ShadeTable directory." );
-		}
-		fSaveRGBDist = TRUE;
-	}
-	// directory existed or was created.
-	SetFileManCurrentDirectory( DataDir );
-#else
 	// changing the current directory can screw up the VFS; don't do it
 	// the creation of the SHADE_TABLE_DIR directory is done by the VFS
 	sprintf( ShadeTableDir, "%s", SHADE_TABLE_DIR );
-#endif
 
 	CHAR8 sRGBDist[50];
 	sprintf( sRGBDist, "%s\\%s", SHADE_TABLE_DIR, "RGBDist.dat");

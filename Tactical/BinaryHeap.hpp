@@ -102,7 +102,7 @@ public:
 		return (returnHeap);
 	}
 
-	int moveUp(register int index, KEY newKey)
+	int moveUp(int index, KEY newKey)
 	{
 		while (index > 1) {
 			int current2 = index>>1;//divided by 2
@@ -120,7 +120,7 @@ public:
 
 	int moveDown(int index, KEY currentKey)
 	{
-		register int current2 = index+index;
+		int current2 = index+index;
 			while (current2 < heapCount) {
 			if (current2+1 < heapCount) {
 				//choose child to possibly move
@@ -314,7 +314,7 @@ insert:
 
 	int findData(const T data) const
 	{
-		register int current;
+		int current;
 		for (current = heapCount-1; current > 0; --current) {
 			if (BinaryHeap[current].data == data) {
 				break;

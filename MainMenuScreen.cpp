@@ -248,7 +248,6 @@ BOOLEAN InitMainMenu( )
 	{	
 		is_networked = FALSE;
 
-#ifdef USE_VFS
 		// remove Multiplayer profile if it exists
 		vfs::CProfileStack *PS = getVFS()->getProfileStack();
 		vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
@@ -256,7 +255,6 @@ BOOLEAN InitMainMenu( )
 		{
 			SGP_THROW_IFFALSE(PS->popProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
 		}
-#endif
 
 		// Snap: UN-Init MP save game directory
 		if ( !InitSaveDir() )

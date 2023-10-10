@@ -141,15 +141,6 @@ typedef	VECTOR4	COLOR;			// rgba color array
 
 inline void convert_string(std::wstring const& str_in, std::string &str_out)
 {
-#if !defined(USE_VFS)
-	const wchar_t* src = str_in.c_str();
-	size_t len = wcstombs(NULL, src, str_in.length());
-	if(len > 0)
-	{
-		str_out.resize(len);
-		wcstombs(&str_out[0], src, len);
-	}
-#else
 	if(vfs::Settings::getUseUnicode())
 	{
 		str_out = vfs::String::as_utf8(str_in);
@@ -158,20 +149,10 @@ inline void convert_string(std::wstring const& str_in, std::string &str_out)
 	{
 		vfs::String::narrow(str_in, str_out);
 	}
-#endif
 }
 
 inline void convert_string(std::string const& str_in, std::wstring &str_out)
 {
-#if !defined(USE_VFS)
-	const char* src = str_in.c_str();
-	size_t len = mbstowcs(NULL, src, str_in.length());
-	if(len > 0)
-	{
-		str_out.resize(len);
-		mbstowcs(&str_out[0], src, len);
-	}
-#else
 	if(vfs::Settings::getUseUnicode())
 	{
 		vfs::String::as_utf16(str_in, str_out);
@@ -180,7 +161,6 @@ inline void convert_string(std::string const& str_in, std::wstring &str_out)
 	{
 		vfs::String::widen(str_in, str_out);
 	}
-#endif
 }
 
 

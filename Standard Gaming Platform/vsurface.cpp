@@ -98,18 +98,13 @@ void CheckValidVSurfaceIndex( UINT32 uiIndex );
 
 INT32				giMemUsedInSurfaces;
 
-
-//OBSOLETE!!!!!!!!!
-HLIST				ghVideoSurfaces = NULL;
-//OBSOLETE!!!!!!!!!
-
-
 HVSURFACE		ghPrimary = NULL;
 HVSURFACE		ghBackBuffer = NULL;
 HVSURFACE   ghFrameBuffer = NULL;
 HVSURFACE   ghMouseBuffer = NULL;
 
 #include <map>
+#include <vector>
 
 extern std::map<UINT32,ClipRectangle> g_SurfaceRectangle;
 
@@ -1161,11 +1156,7 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 	//
 	// Allocate memory for Video Surface data and initialize
 	//
-
-	hVSurface = (HVSURFACE) MemAlloc( sizeof( SGPVSurface ) );
-	memset( hVSurface, 0, sizeof( SGPVSurface ) );
-	CHECKF( hVSurface != NULL );
-
+	hVSurface = new SGPVSurface{};
 	hVSurface->usHeight				= usHeight;
 	hVSurface->usWidth				= usWidth;
 	// BF : since we use a 16bpp framebuffer and images are converted to that format, 
@@ -1178,7 +1169,6 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 	hVSurface->pPalette				= NULL;
 	hVSurface->p16BPPPalette		= NULL;
 	hVSurface->TransparentColor		= FROMRGB( 0, 0, 0 );
-	hVSurface->RegionList			= CreateList( DEFAULT_NUM_REGIONS, sizeof( VSURFACE_REGION ) );
 	hVSurface->fFlags				= 0;
 	hVSurface->pClipper				= NULL;
 
@@ -1647,12 +1637,6 @@ BOOLEAN DeleteVideoSurface( HVSURFACE hVSurface )
 		hVSurface->pPalette = NULL;
 	}
 
-	//if ( hVSurface->pClipper != NULL )
-	//{
-	// Release Clipper
-	//	DDReleaseClipper( (LPDIRECTDRAWCLIPPER)hVSurface->pClipper );
-	//}
-
 	// Get surface pointer
 	lpDDSurface = (LPDIRECTDRAWSURFACE2)hVSurface->pSurfaceData;
 
@@ -1670,7 +1654,7 @@ BOOLEAN DeleteVideoSurface( HVSURFACE hVSurface )
 	}
 
 	// Release region data
-	DeleteList( hVSurface->RegionList );
+	hVSurface->RegionList.clear();
 
 	//If there is a 16bpp palette, free it
 	if( hVSurface->p16BPPPalette != NULL )
@@ -1682,8 +1666,7 @@ BOOLEAN DeleteVideoSurface( HVSURFACE hVSurface )
 	giMemUsedInSurfaces -= ( hVSurface->usHeight * hVSurface->usWidth * ( hVSurface->ubBitDepth / 8 ) );
 
 	// Release object
-	MemFree( hVSurface );
-
+	delete hVSurface;
 	return( TRUE );
 }
 
@@ -1768,7 +1751,7 @@ BOOLEAN GetNumRegions( HVSURFACE hVSurface , UINT32 *puiNumRegions )
 {
 	Assert( hVSurface );
 
-	*puiNumRegions = ListSize( hVSurface->RegionList );
+	*puiNumRegions = hVSurface->RegionList.size();
 
 	return( TRUE );
 
@@ -1780,7 +1763,7 @@ BOOLEAN AddVSurfaceRegion( HVSURFACE hVSurface, VSURFACE_REGION *pNewRegion )
 	Assert( pNewRegion != NULL );
 
 	// Add new region to list
-	hVSurface->RegionList = AddtoList( hVSurface->RegionList, pNewRegion, ListSize( hVSurface->RegionList ) );
+	hVSurface->RegionList.push_back(*pNewRegion);
 
 	return( TRUE );
 }
@@ -1801,29 +1784,10 @@ BOOLEAN AddVSurfaceRegions( HVSURFACE hVSurface, VSURFACE_REGION **ppNewRegions,
 	return( TRUE );
 }
 
-BOOLEAN RemoveVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex )
-{
-	VSURFACE_REGION	aRegion;
-
-	Assert( hVSurface != NULL );
-
-	return( RemfromList( hVSurface->RegionList, &aRegion, usIndex ) );
-
-}
-
 BOOLEAN ClearAllVSurfaceRegions( HVSURFACE hVSurface )
 {
-	UINT32 uiListSize;
-
 	Assert( hVSurface != NULL );
-
-	uiListSize = ListSize( hVSurface->RegionList );
-
-	for ( INT32 cnt = uiListSize - 1; cnt >= 0; cnt-- )
-	{
-		RemoveVSurfaceRegion( hVSurface, (UINT16)cnt );
-	}
-
+	hVSurface->RegionList.clear();
 	return( TRUE );
 }
 
@@ -1831,11 +1795,12 @@ BOOLEAN GetVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_REGION 
 {
 	Assert( hVSurface != NULL );
 
-	if ( !PeekList( hVSurface->RegionList, aRegion, usIndex ) )
+	if (usIndex >= hVSurface->RegionList.size())
 	{
 		return( FALSE );
 	}
 
+	*aRegion = hVSurface->RegionList[usIndex];
 	return( TRUE );
 }
 
@@ -1858,15 +1823,12 @@ BOOLEAN ReplaceVSurfaceRegion( HVSURFACE hVSurface , UINT16 usIndex, VSURFACE_RE
 
 	Assert( hVSurface != NULL );
 
-	// Validate index given
-	if ( !PeekList( hVSurface->RegionList, &OldRegion, usIndex ) )
+	if (usIndex >= hVSurface->RegionList.size())
 	{
 		return( FALSE );
 	}
 
-	// Replace information
-	hVSurface->RegionList = AddtoList( hVSurface->RegionList, aRegion, usIndex );
-
+	hVSurface->RegionList[usIndex] = *aRegion;
 	return( TRUE );
 }
 
@@ -1875,11 +1837,14 @@ BOOLEAN AddVSurfaceRegionAtIndex( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_
 	Assert( hVSurface != NULL );
 	Assert( pNewRegion != NULL );
 
-	// Add new region to list
-	hVSurface->RegionList = AddtoList( hVSurface->RegionList, pNewRegion, usIndex );
+	if (usIndex >= hVSurface->RegionList.size())
+	{
+		return(FALSE);
+	}
 
-	return( TRUE );
-
+	auto pos = hVSurface->RegionList.begin() + usIndex;
+	hVSurface->RegionList.insert(pos, *pNewRegion);
+	return(TRUE);
 }
 
 // *******************************************************************
@@ -2161,7 +2126,7 @@ HVSURFACE CreateVideoSurfaceFromDDSurface( LPDIRECTDRAWSURFACE2 lpDDSurface )
 
 
 	// Allocate Video Surface struct
-	hVSurface = (HVSURFACE) MemAlloc( sizeof( SGPVSurface ) );
+	hVSurface = new SGPVSurface{};
 
 	// Set values based on DD Surface given
 	DDGetSurfaceDescription ( lpDDSurface, &DDSurfaceDesc );
@@ -2173,7 +2138,6 @@ HVSURFACE CreateVideoSurfaceFromDDSurface( LPDIRECTDRAWSURFACE2 lpDDSurface )
 	hVSurface->pSurfaceData			= (PTR)lpDDSurface;
 	hVSurface->pSurfaceData1		= NULL;
 	hVSurface->pSavedSurfaceData = NULL;
-	hVSurface->RegionList				= CreateList( DEFAULT_NUM_REGIONS, sizeof( VSURFACE_REGION ) );
 	hVSurface->fFlags						= 0;
 
 	// Get and Set palette, if attached, allow to fail

@@ -9262,13 +9262,16 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 		if (fBlowsUp)
 		{
 			// blow it up!
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+
 			if ( gTacticalStatus.ubAttackBusyCount )
 			{
-				IgniteExplosion( pSoldier->ubAttackerID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
+				IgniteExplosion( pSoldier->ubAttackerID, sX, sY, 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
 			}
 			else
 			{
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
+				IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
 			}
 
 			//ADB when something in a stack blows up the whole stack goes, so no need to worry about number of items
@@ -9333,7 +9336,9 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, IN
 	if ( fBlowsUp )
 	{
 		// OK, Ignite this explosion!
-		IgniteExplosion( ubOwner, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pObject->usItem, bLevel, DIRECTION_IRRELEVANT, pObject );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+		IgniteExplosion( ubOwner, sX, sY, 0, sGridNo, pObject->usItem, bLevel, DIRECTION_IRRELEVANT, pObject );
 
 		// SANDRO - merc records
 		if ( (pObject->fFlags & OBJECT_ARMED_BOMB) && ((*pObject)[0]->data.misc.ubBombOwner > 1) )
@@ -15271,7 +15276,7 @@ BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
 BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
 {
-	register UINT16 i;
+	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( HasItemFlag(i, aFlag) )
@@ -15537,7 +15542,7 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	UINT32 bestclothestype = 999999;
 	UINT16 bestitem = 0;
 
-	register UINT16 i;
+	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( Item[i].clothestype > 0 )

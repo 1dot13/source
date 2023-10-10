@@ -138,7 +138,6 @@ void InitEngineTilesets( )
 	#endif
 }
 
-#ifdef USE_VFS
 void ExportTilesets(vfs::Path const& filename)
 {
 	UINT32	uiNumBytesRead = 0;
@@ -217,7 +216,6 @@ void ExportTilesets(vfs::Path const& filename)
 	xmlw.closeNode();
 	xmlw.writeToFile(filename);
 }
-#endif
 
 void SetTilesetOneTerrainValues( )
 {

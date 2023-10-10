@@ -225,7 +225,6 @@ BOOLEAN GetETRLEPixelValue( UINT8 * pDest, HVOBJECT hVObject, UINT16 usETLREInde
 // Globals
 //
 // ****************************************************************************
-extern HLIST ghVideoObjects;
 
 // ****************************************************************************
 //

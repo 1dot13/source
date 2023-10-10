@@ -1923,40 +1923,14 @@ BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 
 void CreateGlobalSummary()
 {
-#ifndef USE_VFS
-	FILE *fp;
-	STRING512			Dir;
-	STRING512			ExecDir;
-#endif
 	OutputDebugString( "Generating GlobalSummary Information...\n" );
 
 	gfGlobalSummaryExists = FALSE;
 	//Set current directory to JA2\DevInfo which contains all of the summary data
-#ifndef USE_VFS
-	GetExecutableDirectory( ExecDir );
-	sprintf( Dir, "%s\\DevInfo", ExecDir );
-
-	// Snap: save current directory
-	//GetFileManCurrentDirectory( DataDir );
-
-	//Directory doesn't exist, so create it, and continue.
-	if( !MakeFileManDirectory( Dir ) )
-		AssertMsg( 0, "Can't create new directory, JA2\\DevInfo for summary information." );
-	if( !SetFileManCurrentDirectory( Dir ) )
-		AssertMsg( 0, "Can't set to new directory, JA2\\DevInfo for summary information." );
-
-	//Generate a simple readme file.
-	fp = fopen( "readme.txt", "w" );
-	Assert( fp );
-	fprintf( fp, "%s\n%s\n", "This information is used in conjunction with the editor.",
-		"This directory or it's contents shouldn't be included with final release." );
-	fclose( fp );
-#else
 	vfs::COpenWriteFile wfile(L"DevInfo\\readme.txt",true,true);
 	std::string str = "This information is used in conjunction with the editor.\n";
 	str += "This directory or it's contents shouldn't be included with final release.\n";
 	SGP_TRYCATCH_RETHROW( wfile->write(str.c_str(), str.length()), L"" );
-#endif
 
 	// Snap: Restore the data directory once we are finished.
 	//SetFileManCurrentDirectory( DataDir );
@@ -2203,7 +2177,8 @@ void SummarySaveMapCallback( GUI_BUTTON *btn, INT32 reason )
 			{
 				CHAR8 filename[40];
 				sprintf( filename, "MAPS\\%S", gszDisplayName );
-				FileClearAttributes( filename );
+				// Other call sites have replaced this with FileDelete(); for VFS, should we do the same here?
+				//FileClearAttributes( filename );
 			}	
 			if(	ExternalSaveMap( gszDisplayName ) )
 			{
@@ -2281,12 +2256,6 @@ void CalculateOverrideStatus()
 void LoadGlobalSummary()
 {
 	HWFILE	hfile;
-#ifndef USE_VFS
-	STRING512			DataDir;
-	STRING512			ExecDir;
-	STRING512			DevInfoDir;
-	STRING512			MapsDir;
-#endif
 	UINT32 uiNumBytesRead;
 	FLOAT	dMajorVersion;
 	INT32 x,y;
@@ -2295,34 +2264,16 @@ void LoadGlobalSummary()
 
 	OutputDebugString( "Executing LoadGlobalSummary()...\n" );
 	// Snap: save current directory
-#ifndef USE_VFS
-	GetFileManCurrentDirectory( DataDir );
-#endif
 	gfMustForceUpdateAllMaps = FALSE;
 	gusNumberOfMapsToBeForceUpdated = 0;
 	gfGlobalSummaryExists = FALSE;
 
 	//Set current directory to JA2\DevInfo which contains all of the summary data
-#ifndef USE_VFS
-	GetExecutableDirectory( ExecDir );
-	sprintf( DevInfoDir, "%s\\DevInfo", ExecDir );
-	sprintf( MapsDir, "%s\\Maps", DataDir );
-	//Check to make sure we have a DevInfo directory.  If we don't create one!
-	if( !SetFileManCurrentDirectory( DevInfoDir ) )
-	{
-		OutputDebugString( "LoadGlobalSummary() aborted -- doesn't exist on this local computer.\n");
-		return;
-	}
-#endif
 	//TEMP
-#ifndef USE_VFS
-	FileDelete( "_global.sum" );
-#else
 	if(FileExists("DevInfo\\_global.sum"))
 	{
 		FileDelete( "DevInfo\\_global.sum" );
 	}
-#endif
 	gfGlobalSummaryExists = TRUE;
 	
 	//Analyse all sectors to see if matching maps exist.  For any maps found, the information
@@ -2337,19 +2288,12 @@ void LoadGlobalSummary()
 			sprintf( szSector, "%c%d", 'A' + y, x + 1 );
 
 			//main ground level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= GROUND_LEVEL_MASK;
@@ -2359,27 +2303,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//main B1 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b1.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b1.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= BASEMENT1_LEVEL_MASK;
@@ -2389,27 +2322,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b1.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b1.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//main B2 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b2.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b2.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= BASEMENT2_LEVEL_MASK;
@@ -2419,27 +2341,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b2.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b2.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//main B3 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b3.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b3.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= BASEMENT3_LEVEL_MASK;
@@ -2449,27 +2360,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b3.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b3.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//alternate ground level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_a.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_a.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= ALTERNATE_GROUND_MASK;
@@ -2479,27 +2379,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_a.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_a.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//alternate B1 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b1_a.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b1_a.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= ALTERNATE_B1_MASK;
@@ -2509,27 +2398,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b1_a.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b1_a.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//alternate B2 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b2_a.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b2_a.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= ALTERNATE_B2_MASK;
@@ -2539,27 +2417,16 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b2_a.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b2_a.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 			//alternate B3 level
-#ifndef USE_VFS
-			sprintf( szFilename, "%c%d_b3_a.dat", 'A' + y, x + 1 );
-			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-			SetFileManCurrentDirectory( DevInfoDir );
-#else
 			sprintf( szFilename, "Maps\\%c%d_b3_a.dat", 'A' + y, x + 1 );
 			hfile = NULL;
 			if(FileExists(szFilename))
 			{
 				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			}
-#endif
 			if( hfile )
 			{
 				gbSectorLevels[x][y] |= ALTERNATE_B1_MASK;;
@@ -2569,20 +2436,12 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-#ifndef USE_VFS
-				sprintf( szFilename, "%s_b3_a.sum", szSector );
-#else
 				sprintf( szFilename, "DevInfo\\%s_b3_a.sum", szSector );
-#endif
 				FileDelete( szFilename );
 			}
 		}
 		OutputDebugString( (LPCSTR)String("Sector Row %c complete... \n", y + 'A') );
 	}
-#ifndef USE_VFS
-	// Snap: Restore the data directory once we are finished.
-	SetFileManCurrentDirectory( DataDir );
-#endif
 	//sprintf( MapsDir, "%s\\Data", ExecDir );
 	//SetFileManCurrentDirectory( MapsDir );
 
@@ -2599,39 +2458,6 @@ void LoadGlobalSummary()
 
 void GenerateSummaryList()
 {
-#ifndef USE_VFS
-	FILE *fp;
-	STRING512			DataDir;
-	STRING512			ExecDir;
-	STRING512			Dir;
-
-	// Snap: save current directory
-	GetFileManCurrentDirectory( DataDir );
-
-	//Set current directory to JA2\DevInfo which contains all of the summary data
-	GetExecutableDirectory( ExecDir );
-	sprintf( Dir, "%s\\DevInfo", ExecDir );
-	if( !SetFileManCurrentDirectory( Dir ) )
-	{
-		//Directory doesn't exist, so create it, and continue.
-		if( !MakeFileManDirectory( Dir ) )
-			AssertMsg( 0, "Can't create new directory, JA2\\DevInfo for summary information." );
-		if( !SetFileManCurrentDirectory( Dir ) )
-			AssertMsg( 0, "Can't set to new directory, JA2\\DevInfo for summary information." );
-		//Generate a simple readme file.
-		fp = fopen( "readme.txt", "w" );
-		Assert( fp );
-		fprintf( fp, "%s\n%s\n", "This information is used in conjunction with the editor.",
-			"This directory or it's contents shouldn't be included with final release." );
-		fclose( fp );
-	}
-
-	// Snap: Restore the data directory once we are finished.
-	SetFileManCurrentDirectory( DataDir );
-	//Set current directory back to data directory!
-	//sprintf( Dir, "%s\\Data", ExecDir );
-	//SetFileManCurrentDirectory( Dir );
-#else
 	try
 	{
 		vfs::COpenWriteFile wfile(L"DevInfo/readme.txt",true,true);
@@ -2643,7 +2469,6 @@ void GenerateSummaryList()
 	{
 		SGP_RETHROW(L"Could not create readme.txt", ex);
 	}
-#endif
 }
 
 //dnl ch28 260909

@@ -1659,80 +1659,6 @@ void EndLoadScreen( )
 				  'A' + gWorldSectorY - 1, gWorldSectorX, gbWorldSectorZ, uiSeconds, uiHundreths );
 	}
 	ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, str );
-#ifndef USE_VFS
-	FILE *fp;
-
-	if ( fStartNewFile )
-	{ //start new file
-		fp = fopen( "TimeResults.txt", "w" );
-		ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, L"See JA2\\Data\\TimeResults.txt for more detailed timings." );
-		fStartNewFile = FALSE;
-	}
-	else
-	{ //append to end of file
-		fp = fopen( "TimeResults.txt", "a" );
-
-		if ( fp )
-		{
-			fprintf( fp, "\n\n--------------------------------------------------------------------\n\n" );
-		}
-	}
-	if ( fp )
-	{
-		//Record all of the timings.
-		fprintf( fp, "%S\n", str );
-		fprintf( fp, "EnterSector() supersets LoadWorld().  This includes other external sections.\n" );
-		//FileRead()
-		fprintf( fp, "\n\nVARIOUS FUNCTION TIMINGS (exclusive of actual function timings in second heading)\n" );
-		uiSeconds = uiTotalFileReadTime / 1000;
-		uiHundreths = (uiTotalFileReadTime / 10) % 100;
-		fprintf( fp, "FileRead:  %d.%02d (called %d times)\n", uiSeconds, uiHundreths, uiTotalFileReadCalls );
-
-		fprintf( fp, "\n\nSECTIONS OF LOADWORLD (all parts should add up to 100%)\n" );
-		//TrashWorld()
-		uiSeconds = uiTrashWorldTime / 1000;
-		uiHundreths = (uiTrashWorldTime / 10) % 100;
-		fprintf( fp, "TrashWorld: %d.%02d\n", uiSeconds, uiHundreths );
-		//LoadMapTilesets()
-		uiSeconds = uiLoadMapTilesetTime / 1000;
-		uiHundreths = (uiLoadMapTilesetTime / 10) % 100;
-		fprintf( fp, "LoadMapTileset: %d.%02d\n", uiSeconds, uiHundreths );
-		//LoadMapLights()
-		uiSeconds = uiLoadMapLightsTime / 1000;
-		uiHundreths = (uiLoadMapLightsTime / 10) % 100;
-		fprintf( fp, "LoadMapLights: %d.%02d\n", uiSeconds, uiHundreths );
-		uiSeconds = uiBuildShadeTableTime / 1000;
-		uiHundreths = (uiBuildShadeTableTime / 10) % 100;
-		fprintf( fp, "  1)  BuildShadeTables: %d.%02d\n", uiSeconds, uiHundreths );
-
-		uiPercentage = uiNumImagesReloaded * 100 / giNumberOfTileTypes;
-		fprintf( fp, "  2)  %d%% of the tileset images were actually reloaded.\n", uiPercentage );
-		if ( (uiNumTablesSaved + uiNumTablesLoaded) != 0 )
-		{
-			uiPercentage = uiNumTablesSaved * 100 / (uiNumTablesSaved + uiNumTablesLoaded);
-		}
-		else
-		{
-			uiPercentage = 0;
-		}
-		fprintf( fp, "  3)  Of that, %d%% of the shade tables were generated (not loaded).\n", uiPercentage );
-		if ( gfForceBuildShadeTables )
-			fprintf( fp, "  NOTE:  Force building of shadetables enabled on this local computer.\n" );
-
-
-		//Unaccounted
-		uiUnaccounted = uiLoadWorldTime - uiTrashWorldTime - uiLoadMapTilesetTime - uiLoadMapLightsTime;
-		uiSeconds = uiUnaccounted / 1000;
-		uiHundreths = (uiUnaccounted / 10) % 100;
-		fprintf( fp, "Unaccounted: %d.%02d\n", uiSeconds, uiHundreths );
-		//LoadWorld()
-		uiSeconds = uiLoadWorldTime / 1000;
-		uiHundreths = (uiLoadWorldTime / 10) % 100;
-		fprintf( fp, "\nTotal: %d.%02d\n", uiSeconds, uiHundreths );
-
-		fclose( fp );
-	}
-#else
 	sgp::Logger_ID time_log_id = sgp::Logger::instance( ).createLogger( );
 	sgp::Logger::instance( ).connectFile( time_log_id, L"TimeResults.txt", true, sgp::Logger::FLUSH_ON_ENDL );
 	sgp::Logger::LogInstance timeResults = SGP_LOG( time_log_id );
@@ -1793,7 +1719,6 @@ void EndLoadScreen( )
 	uiSeconds = uiLoadWorldTime / 1000;
 	uiHundreths = (uiLoadWorldTime / 10) % 100;
 	timeResults << vfs::Log::endl << "Total: " << uiSeconds << "." << uiHundreths << sgp::endl;
-#endif // USE_VFS
 #endif
 }
 
@@ -4773,8 +4698,8 @@ void DoneFadeOutAdjacentSector( )
 						curr->pSoldier->ubWaitActionToDo = 1;
 						// OK, here we have been given a position, a gridno has been given to use as well....
 						sOldGridNo = curr->pSoldier->sGridNo;
-						sWorldX = CenterX( sGridNo );
-						sWorldY = CenterY( sGridNo );
+						ConvertGridNoToCenterCellXY(sGridNo, &sWorldX, &sWorldY);
+
 						curr->pSoldier->EVENT_SetSoldierPosition( sWorldX, sWorldY );
 						if ( sGridNo != sOldGridNo )
 						{

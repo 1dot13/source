@@ -669,7 +669,9 @@ void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		case EXPLOSION:
 			// cause damage as a regular hand grenade
-			IgniteExplosion( NOBODY, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 25, pSoldier->sGridNo, HAND_GRENADE, 0 );
+			INT16 sX, sY;
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+			IgniteExplosion( NOBODY, sX, sY, 25, pSoldier->sGridNo, HAND_GRENADE, 0 );
 			break;
 
  		case SIREN:
@@ -760,8 +762,7 @@ BOOLEAN AttemptToBlowUpLock(SOLDIERTYPE * pSoldier, DOOR * pDoor)
 		sGridNo = pDoor->sGridNo;
 
 		// Get sX, sy;
-		sX = CenterX(sGridNo);
-		sY = CenterY(sGridNo);
+		ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 		// Get Z position, based on orientation....
 		sZ = 20;

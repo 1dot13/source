@@ -45,7 +45,7 @@ extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIO
 void ConvertDirectionToVectorInXY(UINT8 ubDirection, INT16* sXDir, INT16* sYDir);
 void ConvertGridNoToXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 void ConvertGridNoToCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
-void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
+void ConvertGridNoToCenterCellXY( const INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 
 
 // GRID NO MANIPULATION FUNCTIONS
@@ -88,11 +88,8 @@ BOOLEAN GridNoOnVisibleWorldTile( INT32 sGridNo );
 BOOLEAN GridNoOnVisibleWorldTileGivenYLimits( INT32 sGridNo );
 BOOLEAN GridNoOnEdgeOfMap( INT32 sGridNo, INT8 * pbDirection );
 
-BOOLEAN ConvertMapPosToWorldTileCenter( INT32 usMapPos, INT16 *psXPos, INT16 *psYPos );
-
 BOOLEAN CellXYToScreenXY(INT16 sCellX, INT16 sCellY, INT16 *sScreenX, INT16 *sScreenY);
 
-INT32 GetRangeFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 );
 INT32 GetRangeInCellCoordsFromGridNoDiff( INT32 sGridNo1, INT32 sGridNo2 );
 
 BOOLEAN IsPointInScreenRect( INT16 sXPos, INT16 sYPos, SGPRect *pRect );
@@ -109,12 +106,6 @@ BOOLEAN FindLowerLevel( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir,
 INT16 QuickestDirection(INT16 origin, INT16 dest);
 INT16 ExtQuickestDirection(INT16 origin, INT16 dest);
 
-
-// Returns the (center ) cell coordinates in X
-INT16 CenterX( INT32 sGridNo );
-
-// Returns the (center ) cell coordinates in Y
-INT16 CenterY( INT32 sGridNo );
 
 INT16 MapX( INT32 sGridNo );
 INT16 MapY( INT32 sGridNo );

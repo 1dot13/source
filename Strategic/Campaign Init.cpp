@@ -206,26 +206,6 @@ BOOLEAN ReadInAltSectors(STR fileName)
 
 BOOLEAN WriteInAltSectors(STR fileName)
 {
-#ifndef USE_VFS
-	// Lets output the current Strategic map format using the XML structure I've devised.
-	FILE *outfile = fopen(fileName, "wt");
-
-	UINT32 x, y;
-
-	fprintf (outfile, "<ALT_SECTORS_LIST>\n");
-	for(y = 1;y <= 16;y++)
-	{
-		fprintf (outfile, "\t<ROW y=\"%c\">",(y+0x40));
-		for(x = 1;x <= 16; x++)
-		{
-			fprintf (outfile, " %d",RandomSector[ ((y - 1) * 16) + (x - 1) ] );
-		}
-		fprintf (outfile, " </ROW>\n");
-	}
-	fprintf (outfile, "</ALT_SECTORS_LIST>\n");
-
-	fclose(outfile);
-#else
 	XMLWriter xmlw;
 	xmlw.openNode(L"ALT_SECTORS_LIST");
 	UINT32 x, y;
@@ -241,7 +221,6 @@ BOOLEAN WriteInAltSectors(STR fileName)
 	}
 	xmlw.closeNode();
 	xmlw.writeToFile(fileName);
-#endif
 	return (TRUE);
 }
 

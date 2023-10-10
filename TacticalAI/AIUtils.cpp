@@ -144,7 +144,7 @@ BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 	}
 	// We don't want to go prone if there is a nearby enemy
 	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel );
-	iRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sOpponentGridNo );
+	iRange = PythSpacesAway( pSoldier->sGridNo, sOpponentGridNo );
 	if (iRange > 10)
 	{
 		return( TRUE );
@@ -2736,7 +2736,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 		else
 		{
 			// ADD 5% if man's already facing me
-			if (pEnemy->ubDirection == atan8(CenterX(pEnemy->sGridNo),CenterY(pEnemy->sGridNo),CenterX(sMyGrid),CenterY(sMyGrid)))
+			if (pEnemy->ubDirection == GetDirectionFromCenterCellXYGridNo(pEnemy->sGridNo, sMyGrid))
 			{
 				iThreatValue += (iThreatValue / 20);
 			}
@@ -3631,13 +3631,13 @@ UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	CHECKF(pSoldier);
 
-	ubMyDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo));
+	ubMyDir = GetDirectionFromCenterCellXYGridNo(sTargetGridNo, pSoldier->sGridNo);
 
 	// Run through each friendly.
 	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
 	{
 		pFriend = MercPtrs[ iCounter ];
-		ubFriendDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pFriend->sGridNo),CenterY(pFriend->sGridNo));
+		ubFriendDir = GetDirectionFromCenterCellXYGridNo(sTargetGridNo, pFriend->sGridNo);
 
 		if (pFriend != pSoldier &&
 			pFriend->bActive &&
@@ -4823,7 +4823,7 @@ BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThre
 		return FALSE;
 	}
 
-	ubDirection = atan8(CenterX(sSpot), CenterY(sSpot), CenterX(sThreatLoc), CenterY(sThreatLoc));
+	ubDirection = GetDirectionFromCenterCellXYGridNo(sSpot, sThreatLoc);
 	sCoverSpot = NewGridNo( sSpot, DirectionInc( ubDirection ) );
 
 	if ( TileIsOutOfBounds( sCoverSpot ) )
@@ -5013,7 +5013,7 @@ UINT8 AIDirection(INT32 sSpot1, INT32 sSpot2)
 		return DIRECTION_IRRELEVANT;
 	}
 
-	return atan8(CenterX(sSpot1), CenterY(sSpot1), CenterX(sSpot2), CenterY(sSpot2));
+	return GetDirectionFromCenterCellXYGridNo(sSpot1, sSpot2);
 }
 
 BOOLEAN AICheckIsSniper(SOLDIERTYPE *pSoldier)

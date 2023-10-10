@@ -396,44 +396,25 @@ UINT32 InitScreenHandle(void)
 
 		// Handle queued .ini file error messages
  		int y = 40;
-#ifdef USE_VFS
 		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
 		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.txt", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
-#endif
 		while (! iniErrorMessages.empty()) {
-#ifndef USE_VFS
-			FILE *file_pointer;
-#endif
 			static BOOL iniErrorMessage_create_out_file = TRUE;
 			std::string iniErrorMessage = iniErrorMessages.top();
 			CHAR16 str[256];
 
 			if (iniErrorMessage_create_out_file)
 			{
-#ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "w" );
-#endif
 				y += 25;
 				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.txt has been created." );
 				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 				iniErrorMessage_create_out_file = FALSE;
 			}
-			else
-			{
-#ifndef USE_VFS
-				fopen_s( &file_pointer, "..\\iniErrorReport.txt", "a+" );
-#endif
-			}
 
 			y += 25;
 			swprintf( str, L"%S", iniErrorMessage.c_str() );
-#ifndef USE_VFS
-			fprintf_s (file_pointer , "%S\n"  , str );
-			fclose( file_pointer );
-#else
 			logger << iniErrorMessage << sgp::endl;
-#endif
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 
 			iniErrorMessages.pop();
