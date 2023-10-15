@@ -505,7 +505,7 @@ INT16 GetWinFontHeight(INT32 iFont)
 
 	if (pWinFont == NULL) return(0);
 #ifdef CHINESE //zwwooooo: Correct tactical interface font height to fixed Chinese characters smearing bug
-	if (iFont == WinFontMap[TINYFONT1] || iFont == WinFontMap[SMALLFONT1] || iFont == WinFontMap[WIN_14POINTARIAL])
+	if (iFont == WinFontMap[TINYFONT1] || iFont == WinFontMap[SMALLFONT1] || iFont == WinFontMap[FONT14ARIAL])
 	{
 		return pWinFont->Height + 2;
 	}
