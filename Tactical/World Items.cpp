@@ -136,7 +136,7 @@ void PruneWorldItems(void)
 	for (size_t i = 0; i < gAllWorldItems.Items.size(); i++)
 	{
 		std::vector<WORLDITEM>& items = gAllWorldItems.Items[i];
-		for (INT32 j = items.size()-1; j > 0; j--)
+		for (INT32 j = items.size()-1; j >= 0; j--)
 		{
 				if (items[j].fExists == false)
 				{
