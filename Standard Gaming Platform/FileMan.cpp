@@ -149,7 +149,6 @@ void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct );
 HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
 HWFILE	CreateFileHandle( HANDLE hRealFile, BOOLEAN fDatabaseFile );
 void		DestroyFileHandle( HWFILE hFile );
-void		BuildFileDirectory( void );
 
 //**************************************************************************
 //
@@ -947,109 +946,6 @@ void DestroyFileHandle( HWFILE hFile )
 	}
 }
 */
-
-
-
-//**************************************************************************
-//
-// BuildFileDirectory
-//
-//		
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		??nov96:HJH		->creation
-//
-//**************************************************************************
-
-void BuildFileDirectory( void )
-{
-
-	return;	// temporary until container stuff is fixed
-/*
-	INT32					i, iNumFiles = 0;
-	HANDLE				hFile, hFileIn;
-	WIN32_FIND_DATA	find, inFind;
-	BOOLEAN				fMore = TRUE;
-	CHAR					cName[FILENAME_LENGTH], cDir[FILENAME_LENGTH], cSubDir[FILENAME_LENGTH];
-	HCONTAINER			hStack;
-
-
-
-	//
-	//	First, push all the file names in the directory (and subdirectories)
-	//	onto the stack.
-	//
-
-	GetProfileChar( "Startup", "InstPath", "", cDir );
-
-	if ( strlen( cDir ) == 0 )
-		return;
-
-	hStack = CreateStack( 100, FILENAME_LENGTH );
-	if (hStack == NULL)
-	{
-		FastDebugMsg(String("BuildFileDirectory: CreateStack Failed for the filename stack"));
-		return;
-	}
-
-	find.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-
-	strcpy( &(cDir[strlen(cDir)]), "\\*.*\0" );
-	hFile = FindFirstFile( cDir, &find );
-	while ( fMore )
-	{
-		if ( find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
-		{
-			if ( strcmp( find.cFileName, "." ) != 0 && strcmp( find.cFileName, ".." ) != 0 )
-			{
-				// a valid directory
-				inFind.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-				strcpy( cSubDir, cDir );
-				strcpy( &(cSubDir[strlen(cDir)-3]), find.cFileName );
-				strcpy( &(cSubDir[strlen(cSubDir)]), "\\*.*\0" );
-				hFileIn = FindFirstFile( cSubDir, &inFind );
-				iNumFiles += GetFilesInDirectory( hStack, cSubDir, hFileIn, &inFind );
-				FindClose( hFileIn );
-			}
-		}
-		else
-		{
-			iNumFiles++;
-			strcpy( cName, cDir );
-			strcpy( &(cName[strlen(cName)-3]), find.cFileName );
-			CharLower( cName );
-			hStack = Push( hStack, cName );
-		}
-		find.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-		fMore = FindNextFile( hFile, &find );
-	}
-	FindClose( hFile );
-
-	//
-	//	Okay, we have all the files in the stack, now put them in place.
-	//
-	gfs.uiNumFilesInDirectory = iNumFiles;
-
-	gfs.pcFileNames = (STR8)MemAlloc( iNumFiles * FILENAME_LENGTH );
-
-	if ( gfs.pcFileNames )
-	{
-		for ( i=0 ; i<iNumFiles ; i++ )
-		{
-			Pop( hStack, (void *)(&gfs.pcFileNames[i*FILENAME_LENGTH]) );
-		}
-	}
-
-	//
-	//	Clean up.
-	//
-
-	DeleteStack( hStack );
-*/
-}
 
 
 BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
