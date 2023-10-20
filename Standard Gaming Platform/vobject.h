@@ -2,7 +2,6 @@
 #define __VOBJECT_H
 
 #include "types.h"
-#include "container.h"
 #include "himage.h"
 
 // ************************************************************************************

@@ -2,7 +2,6 @@ set(SGPSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Button Sound Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Button System.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Compression.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Container.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Cursor Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/DEBUG.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/debug_util.cpp"

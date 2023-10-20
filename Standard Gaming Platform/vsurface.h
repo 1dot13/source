@@ -2,7 +2,6 @@
 #define __VSURFACE_H
 
 #include "types.h"
-#include "container.h"
 #include "himage.h"
 #include "vobject.h"
 #include <vector>
