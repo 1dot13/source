@@ -150,7 +150,6 @@ HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
 HWFILE	CreateFileHandle( HANDLE hRealFile, BOOLEAN fDatabaseFile );
 void		DestroyFileHandle( HWFILE hFile );
 void		BuildFileDirectory( void );
-INT32		GetFilesInDirectory( HCONTAINER hStack, CHAR *, HANDLE hFile, WIN32_FIND_DATA *pFind );
 
 //**************************************************************************
 //
@@ -1052,66 +1051,6 @@ void BuildFileDirectory( void )
 */
 }
 
-
-
-
-
-//**************************************************************************
-//
-// GetFilesInDirectory
-//
-//		Gets the files in a directory and the subdirectories.
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		??nov96:HJH		->creation
-//
-//**************************************************************************
-
-INT32 GetFilesInDirectory( HCONTAINER hStack, CHAR *pcDir, HANDLE hFile, WIN32_FIND_DATA *pFind )
-{
-	INT32					iNumFiles;
-	WIN32_FIND_DATA	inFind;
-	BOOLEAN				fMore;
-	CHAR					cName[FILENAME_LENGTH], cDir[FILENAME_LENGTH];
-	HANDLE				hFileIn;
-
-	fMore = TRUE;
-	iNumFiles = 0;
-
-	while ( fMore )
-	{
-		if ( pFind->dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
-		{
-			if ( strcmp( pFind->cFileName, "." ) != 0 && strcmp( pFind->cFileName, ".." ) != 0 )
-			{
-				// a valid directory - recurse and find the files in that directory
-
-				inFind.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-				strcpy( cDir, pcDir );
-				strcpy( &(cDir[strlen(cDir)-3]), pFind->cFileName );
-				strcpy( &(cDir[strlen(cDir)]), "\\*.*\0" );
-				hFileIn = FindFirstFile( cDir, &inFind );
-				iNumFiles += GetFilesInDirectory( hStack, cDir, hFileIn, &inFind );
-				FindClose( hFileIn );
-			}
-		}
-		else
-		{
-			iNumFiles++;
-			strcpy( cName, pcDir );
-			strcpy( &(cName[strlen(cName)-3]), pFind->cFileName );
-			CharLower( cName );
-			hStack = Push( hStack, cName );
-		}
-		pFind->dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-		fMore = FindNextFile( hFile, pFind );
-	}
-
-	return(iNumFiles);
-}
 
 BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
 {
