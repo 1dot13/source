@@ -453,9 +453,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
-	FastDebugMsg("Initializing Containers Manager");
-	InitializeContainers();
-
 	FastDebugMsg("Initializing Input Manager");
 	// Initialize the Input Manager
 	if (InitializeInputManager() == FALSE)
@@ -656,7 +653,6 @@ void ShutdownStandardGamingPlatform(void)
 	ShutdownVideoManager();
 
 	ShutdownInputManager();
-	ShutdownContainers();
 	ShutdownFileManager();
 
 #ifdef EXTREME_MEMORY_DEBUGGING

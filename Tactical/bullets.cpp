@@ -7,7 +7,6 @@
 	#include "renderworld.h"
 	#include "vsurface.h"
 	#include "sysutil.h"
-	#include "container.h"
 	#include "wcheck.h"
 	#include "video.h"
 	#include "vobject_blitters.h"
