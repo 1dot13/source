@@ -9,7 +9,6 @@ set(SGPSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/DirectDraw Calls.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/DirectX Common.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/English.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/FileCat.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/FileMan.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Flic.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Font.cpp"
