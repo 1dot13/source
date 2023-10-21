@@ -144,10 +144,7 @@ TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
 //**************************************************************************
 
 void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct );
-
 HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
-HWFILE	CreateFileHandle( HANDLE hRealFile, BOOLEAN fDatabaseFile );
-void		DestroyFileHandle( HWFILE hFile );
 
 //**************************************************************************
 //
@@ -858,93 +855,6 @@ HANDLE GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile )
 
 	return(hRealFile);
 }
-
-//**************************************************************************
-//
-// CreateFileHandle
-//
-//		
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		24sep96:HJH		->creation
-//
-//**************************************************************************
-/*
-
-	not needed anymore
-
-HWFILE CreateFileHandle( HANDLE hRealFile, BOOLEAN fDatabaseFile )
-{
-	UINT32		i, uiOldNumHandles;
-	FMFileInfo		*pNewFileInfo;
-
-	Assert( !fDatabaseFile || (fDatabaseFile && gfs.fDBInitialized) );
-
-	// don't use 1st position - it'll confuse the users
-	for ( i=1 ; i<gfs.uiNumHandles ; i++ )
-	{
-		if ( gfs.pFileInfo[i].hFileHandle == 0 && gfs.pFileInfo[i].hDBFile == 0 )
-		{
-			if ( fDatabaseFile )
-				gfs.pFileInfo[i].hDBFile = (HDBFILE)hRealFile;
-			else
-				gfs.pFileInfo[i].hFileHandle = hRealFile;
-			return( i );
-		}
-	}
-
-	uiOldNumHandles = gfs.uiNumHandles;
-
-	pNewFileInfo = (FMFileInfo *)MemRealloc( gfs.pFileInfo, gfs.uiNumHandles + NUM_FILES_TO_ADD_AT_A_TIME );
-	if ( !pNewFileInfo )
-	{
-		// TBD: error error error
-		return(0);
-	}
-	gfs.pFileInfo = (FMFileInfo *)pNewFileInfo;
-	gfs.uiNumHandles = gfs.uiNumHandles + NUM_FILES_TO_ADD_AT_A_TIME;
-
-	for ( i=uiOldNumHandles ; i<gfs.uiNumHandles ; i++ )
-	{
-		gfs.pFileInfo[i].hFileHandle = 0;
-		gfs.pFileInfo[i].hDBFile = 0;
-	}
-
-	if ( fDatabaseFile )
-		gfs.pFileInfo[uiOldNumHandles].hDBFile = (HDBFILE)hRealFile;
-	else
-		gfs.pFileInfo[uiOldNumHandles].hFileHandle = hRealFile;
-
-	return(uiOldNumHandles);
-}
-*/
-
-//**************************************************************************
-//
-// DestroyFileHandle
-//
-//		
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		24sep96:HJH		->creation
-//
-//**************************************************************************
-/*
-void DestroyFileHandle( HWFILE hFile )
-{
-	if ( hFile < gfs.uiNumHandles && hFile )
-	{
-		gfs.pFileInfo[hFile].hFileHandle = 0;
-		gfs.pFileInfo[hFile].hDBFile = 0;
-	}
-}
-*/
 
 
 BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
