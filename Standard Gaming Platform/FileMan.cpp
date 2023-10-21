@@ -191,24 +191,6 @@ void ShutdownFileManager( void )
 	UnRegisterDebugTopic( TOPIC_FILE_MANAGER, "File Manager" );
 }
 
-//**************************************************************************
-//
-// FileDebug
-//
-//		To set whether or not we should print debug info.
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		24sep96:HJH		->creation
-//
-//**************************************************************************
-
-void FileDebug( BOOLEAN f )
-{
-//	gfs.fDebug = f;
-}
 
 //**************************************************************************
 //
@@ -844,37 +826,6 @@ BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory )
 }
 
 
-BOOLEAN DirectoryExists( STRING512 pcDirectory )
-{
-	UINT32	uiAttribs;
-	DWORD		uiLastError;
-
-	uiAttribs = GetFileAttributes( pcDirectory );
-
-	if ( uiAttribs == 0xFFFFFFFF )
-	{
-		// an error, make sure it's the right error
-		uiLastError =	GetLastError();
-
-		if (uiLastError != ERROR_FILE_NOT_FOUND)
-		{
-			FastDebugMsg(String("DirectoryExists: ERROR - GetFileAttributes failed, error #%d on file %s", uiLastError, pcDirectory));
-		}
-	}
-	else
-	{
-		// something's there, make sure it's a directory
-		if ( uiAttribs & FILE_ATTRIBUTE_DIRECTORY )
-		{
-			return TRUE;
-		}
-	}
-
-	// this could also mean that the name given is that of a file, or that an error occurred
-	return FALSE;
-}
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Removes ALL FILES in the specified directory (and all subdirectories with their files if fRecursive is TRUE)
 // Use EraseDirectory() to simply delete directory contents without deleting the directory itself
@@ -959,88 +910,6 @@ void GetFileClose( GETFILESTRUCT *pGFStruct )
 	file_iter = vfs::CVirtualFileSystem::Iterator();
 }
 
-
-BOOLEAN FileCopy(STR strSrcFile, STR strDstFile, BOOLEAN fFailIfExists)
-{
-	return(CopyFile(strSrcFile, strDstFile, fFailIfExists));
-
-// Not needed, use Windows CopyFile
-/*
-	HWFILE hFile;
-	UINT32 uiSize;
-	CHAR *pBuffer;
-	UINT32 uiBytesRead, uiBytesWritten;
-
-
-	// open source file
-	hFile = FileOpen(strSrcFile, FILE_ACCESS_READ, FALSE);
-	if (hFile == 0)
-	{
-		FastDebugMsg(String("FileCopy: FileOpen failed on Src file %s", strSrcFile));
-	return(FALSE);
-	}
-
-	// get its size
-	uiSize = FileGetSize(hFile);
-	if (uiSize == 0)
-	{
-		FastDebugMsg(String("FileCopy: size is 0, Src file %s", strSrcFile));
-	FileClose(hFile);
-	return(FALSE);
-	}
-
-	// allocate a buffer big enough to hold the entire file
-	pBuffer = MemAlloc(uiSize);
-	if (pBuffer == NULL)
-	{
-		FastDebugMsg(String("FileCopy: ERROR - MemAlloc pBuffer failed, size %d", uiSize));
-	FileClose(hFile);
-		return(FALSE);
-	}
-
-	// read the file into memory
-	if (!FileRead(hFile, pBuffer, uiSize, &uiBytesRead))
-	{
-		FastDebugMsg(String("FileCopy: FileRead failed, file %s", strSrcFile));
-	FileClose(hFile);
-	return(FALSE);
-	}
-
-	// close source file
-	FileClose(hFile);
-
-
-	// open destination file
-	hFile = FileOpen(strDstFile, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
-	if (hFile == 0)
-	{
-		FastDebugMsg(String("FileCopy: FileOpen failed on Dst file %s", strDstFile));
-	return(FALSE);
-	}
-
-	// write buffer to the destination file
-	if (!FileWrite(hFile, pBuffer, uiSize, &uiBytesWritten))
-	{
-		FastDebugMsg(String("FileCopy: FileWrite failed, file %s", strDstFile));
-	FileClose(hFile);
-	return(FALSE);
-	}
-
-	// close destination file
-	FileClose(hFile);
-
-
-	MemFree(pBuffer);
-	pBuffer = NULL;
-	return(TRUE);
-*/
-}
-
-BOOLEAN FileMove(STR strOldName, STR strNewName)
-{
-	// rename
-	return(MoveFile(strOldName, strNewName));
-}
 
 //Additions by Kris Morness
 BOOLEAN FileSetAttributes( STR strFilename, UINT32 uiNewAttribs )
