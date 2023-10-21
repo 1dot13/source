@@ -102,7 +102,6 @@ extern "C" {
 extern BOOLEAN	InitializeFileManager(	STR strIndexFilename );
 
 extern void		ShutdownFileManager( void );
-extern void		FileDebug( BOOLEAN f );
 
 
 BOOLEAN	FileExists( STR strFilename );
@@ -130,8 +129,6 @@ BOOLEAN SetFileManCurrentDirectory( STR pcDirectory );
 BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory );
 BOOLEAN GetExecutableDirectory( STRING512 pcDirectory );
 
-BOOLEAN DirectoryExists( STRING512 pcDirectory );
-
 // WARNING: THESE DELETE ALL FILES IN THE DIRECTORY ( and all subdirectories if fRecursive is TRUE!! )
 BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive);
 BOOLEAN EraseDirectory( STRING512 pcDirectory);
@@ -147,9 +144,6 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct );
 
 BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct );
 void GetFileClose( GETFILESTRUCT *pGFStruct );
-
-BOOLEAN FileCopy(STR strSrcFile, STR strDstFile, BOOLEAN fFailIfExists);
-BOOLEAN FileMove(STR strOldName, STR strNewName);
 
 //Added by Kris Morness
 BOOLEAN FileSetAttributes( STR filename, UINT32 uiNewAttribs );
