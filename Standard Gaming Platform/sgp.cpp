@@ -6,7 +6,6 @@
 	#include <stdarg.h>
 	#include <string.h>
 	#include "sgp.h"
-	#include "RegInst.h"
 	#include "vobject.h"
 	#include "font.h"
 	#include "local.h"
@@ -419,11 +418,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 
 	// now required by all (even JA2) in order to call ShutdownSGP
 	atexit(SafeSGPExit);
-
-	// First, initialize the registry keys.
-	InitializeRegistryKeys( "Wizardry8", "Wizardry8key" );
-
-	// For rendering DLLs etc.
 
 	// Second, read in settings
 	GetRuntimeSettings( );
