@@ -911,76 +911,6 @@ void GetFileClose( GETFILESTRUCT *pGFStruct )
 }
 
 
-//Additions by Kris Morness
-BOOLEAN FileSetAttributes( STR strFilename, UINT32 uiNewAttribs )
-{
-	UINT32	uiFileAttrib = 0;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_ARCHIVE )
-		uiFileAttrib |= FILE_ATTRIBUTE_ARCHIVE;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_HIDDEN )
-		uiFileAttrib |= FILE_ATTRIBUTE_HIDDEN;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_NORMAL )
-		uiFileAttrib |= FILE_ATTRIBUTE_NORMAL;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_OFFLINE )
-		uiFileAttrib |= FILE_ATTRIBUTE_OFFLINE;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_READONLY )
-		uiFileAttrib |= FILE_ATTRIBUTE_READONLY;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_SYSTEM	)
-		uiFileAttrib |= FILE_ATTRIBUTE_SYSTEM;
-
-	if( uiNewAttribs & FILE_ATTRIBUTES_TEMPORARY )
-		uiFileAttrib |= FILE_ATTRIBUTE_TEMPORARY;
-
-	return SetFileAttributes( strFilename, uiFileAttrib );
-}
-
-
-UINT32 FileGetAttributes( STR strFilename )
-{
-	UINT32	uiAttribs = 0;
-	UINT32	uiFileAttrib = 0;
-
-	uiAttribs = GetFileAttributes( strFilename );
-
-	if( uiAttribs == 0xFFFFFFFF )
-		return( uiAttribs );
-
-	if( uiAttribs & FILE_ATTRIBUTE_ARCHIVE )
-		uiFileAttrib |= FILE_ATTRIBUTES_ARCHIVE;
-
-	if( uiAttribs & FILE_ATTRIBUTE_HIDDEN )
-		uiFileAttrib |= FILE_ATTRIBUTES_HIDDEN;
-
-	if( uiAttribs & FILE_ATTRIBUTE_NORMAL )
-		uiFileAttrib |= FILE_ATTRIBUTES_NORMAL;
-
-	if( uiAttribs & FILE_ATTRIBUTE_OFFLINE )
-		uiFileAttrib |= FILE_ATTRIBUTES_OFFLINE;
-
-	if( uiAttribs & FILE_ATTRIBUTE_READONLY )
-		uiFileAttrib |= FILE_ATTRIBUTES_READONLY;
-
-	if( uiAttribs & FILE_ATTRIBUTE_SYSTEM	)
-		uiFileAttrib |= FILE_ATTRIBUTES_SYSTEM;
-
-	if( uiAttribs & FILE_ATTRIBUTE_TEMPORARY )
-		uiFileAttrib |= FILE_ATTRIBUTES_TEMPORARY;
-
-	if( uiAttribs & FILE_ATTRIBUTE_DIRECTORY )
-		uiFileAttrib |= FILE_ATTRIBUTES_DIRECTORY;
-
-	
-
-	return( uiFileAttrib );
-}
-
-
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 {
@@ -1010,18 +940,6 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 	return FALSE;
 }
 
-
-
-BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILETIME *pLastAccessedTime, SGP_FILETIME *pLastWriteTime )
-{
-	return( FALSE );
-}
-
-
-INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFileTime )
-{
-	return( CompareFileTime( pFirstFileTime, pSecondFileTime ) );
-}
 
 UINT32 FileSize(STR strFilename)
 {

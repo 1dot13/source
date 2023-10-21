@@ -145,23 +145,8 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct );
 BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct );
 void GetFileClose( GETFILESTRUCT *pGFStruct );
 
-//Added by Kris Morness
-BOOLEAN FileSetAttributes( STR filename, UINT32 uiNewAttribs );
-UINT32	FileGetAttributes( STR filename );
-
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
-
-
-
-BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILETIME *pLastAccessedTime, SGP_FILETIME *pLastWriteTime );
-
-
-// CompareSGPFileTimes() returns...
-// -1 if the First file time is less than second file time. ( first file is older )
-// 0 First file time is equal to second file time.
-// +1 First file time is greater than second file time ( first file is newer ).
-INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFileTime );
 
 // One call comparison of file times, allowing for a certain leeway in cases where
 // files times may be slightly different due to SourceSafe of copying
