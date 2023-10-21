@@ -148,14 +148,6 @@ void GetFileClose( GETFILESTRUCT *pGFStruct );
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
 
-// One call comparison of file times, allowing for a certain leeway in cases where
-// files times may be slightly different due to SourceSafe of copying
-BOOLEAN FileIsOlderThanFile(CHAR8 *pcFileName1, CHAR8 *pcFileName2, UINT32 ulNumSeconds);
-
-
-BOOLEAN AddSubdirectoryToPath(CHAR8 *pDirectory);
-
-
 //Gets the amount of free space on the hard drive that the main executeablt is runnning from
 UINT32		GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
 
