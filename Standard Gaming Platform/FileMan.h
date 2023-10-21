@@ -78,12 +78,6 @@ typedef	FILETIME				SGP_FILETIME;
 //				Function Prototypes
 //
 //**************************************************************************
-/*
-#ifdef __cplusplus
-extern "C" {
-#endif
-*/
-
 extern BOOLEAN	InitializeFileManager(	STR strIndexFilename );
 
 extern void		ShutdownFileManager( void );
@@ -134,11 +128,4 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
 
 // Flugente: simple wrapper to check whether an audio file in mp3/ogg/wav format exists
 BOOLEAN	SoundFileExists( STR strFilename, STR zFoundFilename );
-
-/*
-#ifdef __cplusplus
-}
-#endif
-*/
-
 #endif
