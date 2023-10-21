@@ -470,22 +470,6 @@ BOOLEAN FileReadLine( HWFILE hFile, std::string* pDest )
 	return FALSE;
 }
 
-BOOLEAN FileReadLine( HWFILE hFile, STR8 pDest, UINT32 uiDestSize, UINT32 *puiBytesRead )
-{
-	std::string	sBuffer;
-	BOOLEAN result = (pDest != NULL) && FileReadLine( hFile, &sBuffer );
-	if ( result )
-	{
-		if ( puiBytesRead )
-			*puiBytesRead = sBuffer.length();
-		
-		UINT32 uiCountToCopy = min( sBuffer.length(), uiDestSize - 1 );
-		sBuffer.copy( pDest, uiCountToCopy );
-		pDest[uiCountToCopy] = '\0';  // method copy() does not put a null-terminator
-	}
-	return result;
-}
-
 //**************************************************************************
 //
 // FileWrite
@@ -951,55 +935,6 @@ UINT32 FileSize(STR strFilename)
 	return 0;
 }
 
-
-UINT32 GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( )
-{
-	STRING512		zExecDir;
-	STRING512		zDrive;
-	STRING512		zDir;
-	STRING512		zFileName;
-	STRING512		zExt;
-
-	UINT32 uiFreeSpace = 0;
-
-	GetExecutableDirectory( zExecDir );
-
-	//get the drive letter from the exec dir
-	_splitpath( zExecDir, zDrive, zDir, zFileName, zExt);
-
-	sprintf( zDrive, "%s\\", zDrive );
-	
-	uiFreeSpace = GetFreeSpaceOnHardDrive( zDrive );
-
-	return( uiFreeSpace );
-}
-
-
-
-
-UINT32 GetFreeSpaceOnHardDrive( STR pzDriveLetter )
-{
-	UINT32			uiBytesFree=0;
-
-	UINT32			uiSectorsPerCluster=0;
-	UINT32			uiBytesPerSector=0;
-	UINT32			uiNumberOfFreeClusters=0;
-	UINT32			uiTotalNumberOfClusters=0;
-
-	if( !GetDiskFreeSpace( pzDriveLetter, (LPDWORD) &uiSectorsPerCluster, (LPDWORD) &uiBytesPerSector, 
-			(LPDWORD) &uiNumberOfFreeClusters, (LPDWORD) &uiTotalNumberOfClusters ) )
-	{
-		UINT32 uiLastError = GetLastError();
-		char zString[1024];
-		FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, 0, uiLastError, 0, zString, 1024, NULL);
-
-		return( TRUE );
-	}
-
-	uiBytesFree = uiBytesPerSector * uiNumberOfFreeClusters * uiSectorsPerCluster;
-
-	return( uiBytesFree );
-}
 
 // Flugente: simple wrapper to check whether an audio file in mp3/ogg/wav format exists
 BOOLEAN	SoundFileExists( STR strFilename, STR zFoundFilename )

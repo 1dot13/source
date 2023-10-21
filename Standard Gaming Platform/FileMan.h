@@ -113,7 +113,6 @@ extern void		FileClose( HWFILE );
 
 extern BOOLEAN	FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 extern BOOLEAN	FileReadLine( HWFILE hFile, std::string* pDest );
-extern BOOLEAN	FileReadLine( HWFILE hFile, STR8 pDest, UINT32 uiDestSize, UINT32 *puiBytesRead );
 extern BOOLEAN	FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
 extern BOOLEAN	FileLoad( STR filename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 
@@ -147,12 +146,6 @@ void GetFileClose( GETFILESTRUCT *pGFStruct );
 
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
-
-//Gets the amount of free space on the hard drive that the main executeablt is runnning from
-UINT32		GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
-
-//Gets the free hard drive space from the drive letter passed in.	It has to be the root dir.	( eg. c:\ )
-UINT32		GetFreeSpaceOnHardDrive( STR pzDriveLetter );
 
 // Flugente: simple wrapper to check whether an audio file in mp3/ogg/wav format exists
 BOOLEAN	SoundFileExists( STR strFilename, STR zFoundFilename );

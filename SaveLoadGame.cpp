@@ -9683,21 +9683,6 @@ BOOLEAN SaveMeanwhileDefsFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN DoesUserHaveEnoughHardDriveSpace()
-{
-	UINT32			uiBytesFree=0;
-
-	uiBytesFree = GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
-
-	//check to see if there is enough hard drive space
-	if( uiBytesFree < REQUIRED_FREE_SPACE )
-	{
-		return( FALSE );
-	}
-
-	return( TRUE );
-}
-
 #ifdef JA2BETAVERSION
 
 void InitShutDownMapTempFileTest( BOOLEAN fInit, STR pNameOfFile, UINT8 ubSaveGameID )
