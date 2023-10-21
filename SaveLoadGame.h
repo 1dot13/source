@@ -93,8 +93,6 @@ BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERT
 BOOLEAN		SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile );
 BOOLEAN		LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile );
 
-BOOLEAN DoesUserHaveEnoughHardDriveSpace();
-
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 
 
