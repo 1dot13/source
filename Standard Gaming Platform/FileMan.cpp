@@ -132,11 +132,6 @@ HANDLE hFindInfoHandle[20] = {INVALID_HANDLE_VALUE, INVALID_HANDLE_VALUE,
 															INVALID_HANDLE_VALUE, INVALID_HANDLE_VALUE,
 															INVALID_HANDLE_VALUE, INVALID_HANDLE_VALUE };
 
-// Snap: At program launch we build two directory catalogues:
-// one for the default Data directory, the other for the custom Data directory.
-TFileCat gDefaultDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
-TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
-
 //**************************************************************************
 //
 //				Function Prototypes
