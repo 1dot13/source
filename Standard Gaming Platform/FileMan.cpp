@@ -35,7 +35,6 @@
 	#include "FileMan.h"
 	#include "MemMan.h"
 	#include "Debug.h"
-	#include "RegInst.h"
 	#include "LibraryDataBase.h"
 	#include "io.h"
 	#include "sgp_logger.h"
