@@ -143,7 +143,6 @@ TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
 //
 //**************************************************************************
 
-void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct );
 HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
 
 //**************************************************************************
@@ -1003,66 +1002,6 @@ void GetFileClose( GETFILESTRUCT *pGFStruct )
 {
 	file_iter = vfs::CVirtualFileSystem::Iterator();
 }
-
-void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct )
-{
-	UINT32 uiAttribMask;
-
-	// Copy the filename
-	strcpy(pGFStruct->zFileName, pW32Struct->cFileName);
-
-	// Get file size
-	if ( pW32Struct->nFileSizeHigh != 0 )
-		pGFStruct->uiFileSize = 0xffffffff;
-	else
-		pGFStruct->uiFileSize = pW32Struct->nFileSizeLow;
-
-	// Copy the file attributes
-	pGFStruct->uiFileAttribs = 0;
-
-	for( uiAttribMask = 0x80000000; uiAttribMask > 0; uiAttribMask >>= 1)
-	{
-		switch( pW32Struct->dwFileAttributes & uiAttribMask )
-		{
-			case FILE_ATTRIBUTE_ARCHIVE:
-				pGFStruct->uiFileAttribs |= FILE_IS_ARCHIVE;
-				break;
-
-			case FILE_ATTRIBUTE_DIRECTORY:
-				pGFStruct->uiFileAttribs |= FILE_IS_DIRECTORY;
-				break;
-			
-			case FILE_ATTRIBUTE_HIDDEN:
-				pGFStruct->uiFileAttribs |= FILE_IS_HIDDEN;
-				break;
-			
-			case FILE_ATTRIBUTE_NORMAL:	
-				pGFStruct->uiFileAttribs |= FILE_IS_NORMAL;
-				break;
-			
-			case FILE_ATTRIBUTE_READONLY:
-				pGFStruct->uiFileAttribs |= FILE_IS_READONLY;
-				break;
-			
-			case FILE_ATTRIBUTE_SYSTEM:
-				pGFStruct->uiFileAttribs |= FILE_IS_SYSTEM;
-				break;
-			
-			case FILE_ATTRIBUTE_TEMPORARY:
-				pGFStruct->uiFileAttribs |= FILE_IS_TEMPORARY;
-				break;
-
-			case FILE_ATTRIBUTE_COMPRESSED:
-				pGFStruct->uiFileAttribs |= FILE_IS_COMPRESSED;
-				break;
-
-			case FILE_ATTRIBUTE_OFFLINE:
-				pGFStruct->uiFileAttribs |= FILE_IS_OFFLINE;
-				break;
-		}
-	}
-}
-
 
 
 BOOLEAN FileCopy(STR strSrcFile, STR strDstFile, BOOLEAN fFailIfExists)
