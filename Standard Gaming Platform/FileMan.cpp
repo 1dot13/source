@@ -143,8 +143,6 @@ TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
 //
 //**************************************************************************
 
-HANDLE	GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile );
-
 //**************************************************************************
 //
 //				Functions
@@ -811,48 +809,6 @@ UINT32 FileGetSize( HWFILE hFile )
 		return pFile->getSize();
 	}
 	return 0;
-}
-
-
-//**************************************************************************
-//
-// GetHandleToRealFile
-//
-//		
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		24sep96:HJH		->creation
-//
-//		9 Feb 98	DEF - modified to work with the library system
-//
-//**************************************************************************
-
-HANDLE GetHandleToRealFile( HWFILE hFile, BOOLEAN *pfDatabaseFile )
-{
-	HANDLE	hRealFile;
-
-	INT16 sLibraryID;
-	UINT32 uiFileNum;
-
-	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
-
-	//if its a real file, read the data from the file
-	if( sLibraryID == REAL_FILE_LIBRARY_ID )
-	{
-		//Get the handle to the real file
-		hRealFile = gFileDataBase.RealFiles.pRealFilesOpen[ uiFileNum ].hRealFileHandle;
-		*pfDatabaseFile = FALSE;
-	}
-	else
-	{
-		*pfDatabaseFile = TRUE;
-		hRealFile = (HANDLE) hFile;
-	}
-
-	return(hRealFile);
 }
 
 
