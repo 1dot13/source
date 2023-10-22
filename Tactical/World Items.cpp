@@ -149,6 +149,11 @@ void PruneWorldItems(void)
 		}
 		else
 		{
+			auto x = gAllWorldItems.sectors[i].x;
+			auto y = gAllWorldItems.sectors[i].y;
+			auto z = gAllWorldItems.sectors[i].z;
+			ReSetSectorFlag(x, y, z, SF_ITEM_TEMP_FILE_EXISTS);
+
 			gAllWorldItems.sectors.erase(gAllWorldItems.sectors.begin() + i);
 			gAllWorldItems.NumItems.erase(gAllWorldItems.NumItems.begin() + i);
 			gAllWorldItems.Items.erase(gAllWorldItems.Items.begin() + i);
