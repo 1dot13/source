@@ -23,7 +23,7 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
-include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic "Standard Gaming Platform" Res Lua Laptop Multiplayer "Multiplayer/raknet" Editor Console)
+include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic SGP Res Lua Laptop Multiplayer "Multiplayer/raknet" Editor Console)
 
 # external libraries
 add_subdirectory("ext/libpng")
@@ -42,17 +42,6 @@ add_subdirectory(Lua)
 # static libraries whose source files, header files or header files included
 # by header files rely on Application and Language preprocessor definitions, and
 # therefore need to be compiled multiple times. Very Bad.
-add_subdirectory(TileEngine)
-add_subdirectory(TacticalAI)
-add_subdirectory(Utils)
-add_subdirectory(Strategic)
-add_subdirectory("Standard Gaming Platform")
-add_subdirectory(Laptop)
-add_subdirectory(Editor)
-add_subdirectory(Console)
-add_subdirectory(Tactical)
-add_subdirectory(ModularizedTacticalAI)
-# TODO: Rename 'Standard Gaming Platform' directory to 'SGP' so this can be refactored away
 set(Ja2_Libs
 TileEngine
 TacticalAI
@@ -65,6 +54,9 @@ Console
 Tactical
 ModularizedTacticalAI
 )
+foreach(lib IN LISTS Ja2_Libs)
+	add_subdirectory(${lib})
+endforeach()
 
 # TODO: Move these units into their own directory to declutter the root dir and CMakeLists.txt file
 set(Ja2Src
