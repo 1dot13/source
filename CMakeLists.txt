@@ -23,7 +23,7 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
-include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic SGP Res Lua Laptop Multiplayer "Multiplayer/raknet" Editor Console)
+include_directories(${CMAKE_SOURCE_DIR} "ext/VFS/include" Utils TileEngine TacticalAI ModularizedTacticalAI Tactical Strategic sgp Res Lua Laptop Multiplayer "Multiplayer/raknet" Editor Console)
 
 # external libraries
 add_subdirectory("ext/libpng")
@@ -47,7 +47,7 @@ TileEngine
 TacticalAI
 Utils
 Strategic
-SGP
+sgp
 Laptop
 Editor
 Console
@@ -152,7 +152,7 @@ foreach(lang IN LISTS LangTargets)
 			set(isUb $<STREQUAL:${exe},JA2UB>)
 			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
 
-			# static library for an app/lang combination, e.g. JA2_ENGLISH_SGP.lib
+			# static library for an app/lang combination, e.g. JA2_ENGLISH_sgp.lib
 			add_library(${VeryBadLib})
 			target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
 
@@ -166,9 +166,9 @@ foreach(lang IN LISTS LangTargets)
 			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
 		endforeach()
 
-		# for SGP only
-		target_link_libraries(${Executable}_SGP PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${Executable}_SGP PUBLIC libpng)
-		target_compile_definitions(${Executable}_SGP PRIVATE NO_ZLIB_COMPRESSION)
+		# for sgp only
+		target_link_libraries(${Executable}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+		target_link_libraries(${Executable}_sgp PUBLIC libpng)
+		target_compile_definitions(${Executable}_sgp PRIVATE NO_ZLIB_COMPRESSION)
 	endforeach()
 endforeach()
