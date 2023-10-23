@@ -21,7 +21,7 @@
 	#include "QuestText.h"			//quest: name
 	#include "laptop.h"				//ui positions
 	#include "Utilities.h"
-	#include "Utils/Cursors.h"
+	#include "Cursors.h"
 	#include "sysutil.h"			//extra Buffer for scaling image
 	#include "vsurface.h"			//fill extra buffer with black color
 	#include "Text.h"
