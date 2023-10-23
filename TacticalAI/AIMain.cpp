@@ -52,9 +52,9 @@
 
 #include "connect.h"
 // needed to use the modularized tactical AI:
-#include "ModularizedTacticalAI/include/Plan.h"
-#include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"
-#include "ModularizedTacticalAI/include/AbstractPlanFactory.h"
+#include "Plan.h"
+#include "PlanFactoryLibrary.h"
+#include "AbstractPlanFactory.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
