@@ -1,4 +1,4 @@
-set(SGPSrc
+set(sgpSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Button Sound Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Button System.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Compression.cpp"
