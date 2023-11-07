@@ -2,9 +2,9 @@
 <DISEASESLIST>
 	<DISEASE>
 		<uiIndex>0</uiIndex>
-		<szName>阿卢科鼠疫</szName>
-		<szFatName>|阿|卢|科|鼠|疫</szFatName>
-		<szDescription>这种相当罕见的鼠疫亚种系阿卢科独有。可通过昆虫、直接接触、&#10;或被污染的食物传播。过去十年里多次爆发严重疫情。</szDescription>
+		<szName>阿卢科瘟疫</szName>
+		<szFatName>|阿|卢|科|瘟|疫</szFatName>
+		<szDescription>这种相当罕见的瘟疫亚种系阿卢科独有。可通过昆虫、身体接触、&#10;或被污染的食物传播。过去十年里多次爆发严重疫情。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>1</uiIndex>
@@ -16,13 +16,13 @@
 		<uiIndex>2</uiIndex>
 		<szName>甲型肝炎</szName>
 		<szFatName>|甲|型|肝|炎</szFatName>
-		<szDescription>甲型肝炎一般通过摄取受污染的食物和水，以及近距离接触&#10;传染性患者传播。临床症状包括恶心，呕吐，腹泻，皮肤发黄，发烧和腹痛。</szDescription>
+		<szDescription>甲型肝炎一般通过摄取受污染的食物和水，以及近距离身体接触&#10;和性接触传播。临床症状包括恶心，呕吐，腹泻，皮肤发黄，发烧和腹痛。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>3</uiIndex>
 		<szName>破伤风</szName>
 		<szFatName>|破|伤|风</szFatName>
-		<szDescription>破伤风感染一般由砍伤或深度刺伤伤口污染引起。&#10;随着病征加重，患者会出现牙关紧闭以及身体其他地方的肌肉痉挛。</szDescription>
+		<szDescription>破伤风感染一般由砍伤或深度刺伤伤口污染引起。&#10;随着病症加重，患者会出现牙关紧闭以及全身性的肌肉痉挛。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>4</uiIndex>
@@ -34,7 +34,7 @@
 		<uiIndex>5</uiIndex>
 		<szName>霍乱</szName>
 		<szFatName>|霍|乱</szFatName>
-		<szDescription>霍乱的主要临床症状是水性腹泻和呕吐，引起脱水，重症患者皮肤呈青灰色。&#10;霍乱主要通过受污染的水或食物传播，病情严重时会致死。</szDescription>
+		<szDescription>霍乱的主要临床症状是水样腹泻和呕吐，引起脱水，重症患者皮肤呈青灰色。&#10;霍乱主要通过受污染的水或食物传播，病情严重时会致死。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>6</uiIndex>
@@ -50,21 +50,21 @@
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>8</uiIndex>
-		<szName>葡萄球菌</szName>
-		<szFatName>|葡|萄|球|菌</szFatName>
-		<szDescription>葡萄球菌感染主要由食物中毒引起，临床症状有呕吐不止和腹泻不止。</szDescription>
+		<szName>食物中毒</szName>
+		<szFatName>|食|物|中|毒</szFatName>
+		<szDescription>食物中毒主要由葡萄球菌感染引起，临床症状有呕吐不止和腹泻不止。</szDescription>
 	</DISEASE>	
 	<DISEASE>
 		<uiIndex>9</uiIndex>
 		<szName>衣原体</szName>
 		<szFatName>|衣|原|体</szFatName>
-		<szDescription>衣原体感染以性传播最常见。如果不经治疗，衣原体感染&#10;会引起严重的生殖问题和其他健康问题，急性、慢性均有。</szDescription>
+		<szDescription>衣原体感染以性传播最常见。如果不经治疗，衣原体感染&#10;会引起生殖器严重破坏性损伤和其他健康问题，急性、慢性均有。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>10</uiIndex>
-		<szName>弹道创伤</szName>
-		<szFatName>|弹|道|创|伤</szFatName>
-		<szDescription>弹道创伤，或者说枪伤，是由枪械或火器发射导致的物理创伤。&#10;非致命枪伤经常造成严重而持久的伤害，哪怕受害人得到成功救治。</szDescription>
+		<szName>枪弹创伤</szName>
+		<szFatName>|枪|弹|创|伤</szFatName>
+		<szDescription>枪弹创伤，或者说枪伤，是由枪械或火器发射导致的物理创伤。&#10;非致命枪伤经常造成严重而持久的伤害，哪怕受害人得到成功救治。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>11</uiIndex>
@@ -74,20 +74,20 @@
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>12</uiIndex>
-		<szName>腿伤</szName>
-		<szFatName>|腿|伤</szFatName>
+		<szName>腿部受伤</szName>
+		<szFatName>|腿|部|受|伤</szFatName>
 		<szDescription>人类的肌肉骨骼系统非常复杂，你的腿受重伤后，即使治愈，你的移动能力也会受影响。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>13</uiIndex>
 		<szName>手臂受伤</szName>
 		<szFatName>|手|臂|受|伤</szFatName>
-		<szDescription>你的手臂中枪了，除了剧痛外，运动能力很受也限制。</szDescription>
+		<szDescription>你的手臂中枪了，除了剧痛外，运动能力也很受限制。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>14</uiIndex>
-		<szName>二头肌受伤</szName>
-		<szFatName>|二|头|肌|受|伤</szFatName>
+		<szName>躯干受伤</szName>
+		<szFatName>|躯|干|受|伤</szFatName>
 		<szDescription>打在你身上的一枪让你直抽冷气，你必须被紧急送回后方。</szDescription>
 	</DISEASE>
 	<DISEASE>
@@ -119,8 +119,8 @@
 	<DISEASE>
 		<!-- Our lung is damaged after taking damage from mustard/creature gas -->
 		<uiIndex>19</uiIndex>
-		<szName>尘肺病</szName>
-		<szFatName>|尘|肺|病</szFatName>
+		<szName>肺部损伤</szName>
+		<szFatName>|肺|部|损|伤</szFatName>
 		<szDescription>由于暴露在化学气体中，严重伤害了肺部，显然这会影响体力(精力)恢复。</szDescription>
 	</DISEASE>
 </DISEASESLIST>
