@@ -561,8 +561,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	}
 	else
 	{
-		AniParams.sX = CenterX(pCorpse->def.sGridNo);
-		AniParams.sY = CenterY(pCorpse->def.sGridNo);
+		ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &AniParams.sX, &AniParams.sY);
 	}
 		
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
@@ -1588,8 +1587,7 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 		AniParams.sDelay = (INT16)( 80 );
 		AniParams.sStartFrame = 0;
 		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD;
-		AniParams.sX = CenterX( sBaseGridNo );
-		AniParams.sY = CenterY( sBaseGridNo );
+		ConvertGridNoToCenterCellXY(sBaseGridNo, &AniParams.sX, &AniParams.sY);
 		AniParams.sZ = (INT16)pCorpse->def.sHeightAdjustment;
 
 		strcpy( AniParams.zCachedFile, "TILECACHE\\GEN_BLOW.STI" );
@@ -2284,10 +2282,12 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		Corpse.ubBodyType = REGMALE;
 	}
 
+	INT16 sX, sY;
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
 	Corpse.sGridNo = sGridNo;
-	
-	Corpse.dXPos = CenterX(Corpse.sGridNo);
-	Corpse.dYPos = CenterY(Corpse.sGridNo);
+	Corpse.dXPos = sX;
+	Corpse.dYPos = sY;
 
 	Corpse.sHeightAdjustment = 0;
 

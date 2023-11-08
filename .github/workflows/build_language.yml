@@ -41,6 +41,7 @@ jobs:
         shell: bash
         run: cat artifacts/versions.env >> $GITHUB_ENV
 
+      # TODO: Move this into CMake, just taking the GitHub Actions parameters as -D variables
       - name: Update GameVersion.cpp
         shell: bash
         run: |
@@ -49,9 +50,9 @@ jobs:
           GAME_VERSION=$(echo "$GAME_VERSION" | tr -cd '[:print:]' | tr -d '"\\')
           GAME_BUILD="${INPUTS_LANGUAGE:0:2} $GAME_BUILD_INFORMATION"
           GAME_BUILD=$(echo "$GAME_BUILD" | tr -cd '[:print:]' | tr -d '"\\')
-          sed -i "s|@Version@|${GAME_VERSION:0:15}|" GameVersion.cpp
-          sed -i "s|@Build@|${GAME_BUILD:0:255}|" GameVersion.cpp
-          cat GameVersion.cpp
+          sed -i "s|@Version@|${GAME_VERSION:0:15}|" Ja2/GameVersion.cpp
+          sed -i "s|@Build@|${GAME_BUILD:0:255}|" Ja2/GameVersion.cpp
+          cat Ja2/GameVersion.cpp
 
       - name: Prepare build properties
         shell: bash

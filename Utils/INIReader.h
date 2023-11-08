@@ -56,18 +56,14 @@ public:
 	BOOLEAN Is_CIniReader_File_Found(void) {return (CIniReader_File_Found);}
 	void Clear();
 
-#ifdef USE_VFS
 	static void RegisterFileForMerging(vfs::Path const& filename);
-#endif
 private:
 	vfs::PropertyContainer m_oProps;
 	char m_szFileName[MAX_PATH];
 	BOOLEAN CIniReader_File_Found;
 
 	UINT32 ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
-#ifdef USE_VFS
 	static std::set<vfs::Path, vfs::Path::Less> m_merge_files;
-#endif
 };
 
 #endif//INIREADER_H

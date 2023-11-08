@@ -62,30 +62,10 @@ static struct LiveLog {
 
 void LiveMessage( CHAR8 *strMessage)
 {
-#ifndef USE_VFS
-	FILE		*OutFile;
-
-	if ((OutFile = fopen("Log.txt", "a+t")) != NULL)
-	{ 
-	fprintf(OutFile, "%s\n", strMessage);
-		fclose(OutFile);
-	}
-#else
 	SGP_LOG(s_LiveLog.id, strMessage);
-#endif
 }
 void MPDebugMsg( CHAR8 *strMessage)
 {
-#ifndef USE_VFS
-	FILE		*OutFile;
-
-	if ((OutFile = fopen("MPDebug.txt", "a+t")) != NULL)
-	{ 
-	fprintf(OutFile, "%s\n", strMessage);
-		fclose(OutFile);
-	}
-#else
 	static vfs::Log& mpMsg = *vfs::Log::create(L"MPDebug.txt", true);
 	mpMsg << strMessage << vfs::Log::endl;
-#endif
 }

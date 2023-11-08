@@ -1,5 +1,5 @@
 #include "DEBUG.H"
-#include "lua/lua_function.h"
+#include "lua_function.h"
 
 template<>
 LuaFunction& LuaFunction::Param<std::string>(std::string const& par)

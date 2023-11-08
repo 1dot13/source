@@ -1336,16 +1336,6 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: Nickname.dat"));
 
-#ifndef USE_VFS
-	char zFileName[13];
-	char temp;
-
-	for(int i=0;i < 9;i++) // Madd: I couldn't get strcpy or anything to work here... weird... if s/o wants to fix it, go ahead
-	{
-		temp = (char) gMercProfiles[iProfileId].zNickname[i];
-		zFileName[i] = temp;
-	}
-#else
 	char zFileName[32];
 	if(vfs::Settings::getUseUnicode())
 	{
@@ -1355,7 +1345,6 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 	{
 		vfs::String::narrow(gMercProfiles[iProfileId].zNickname, 10, zFileName, 32);
 	}
-#endif
 
 	// Changed by ADB, rev 1513
 	//strcat(zFileName,IMP_FILENAME_SUFFIX);

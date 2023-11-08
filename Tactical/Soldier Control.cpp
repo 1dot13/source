@@ -12,7 +12,6 @@
 #include "Animation Cache.h"
 #include "Animation Data.h"
 #include "Animation Control.h"
-#include "container.h"
 #define _USE_MATH_DEFINES // for C
 #include <math.h>
 #include "pathai.h"
@@ -5041,8 +5040,10 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 						}
 						else if (!TileIsOutOfBounds(sTargetGridNo) && !GridNoOnScreen(sTargetGridNo))
 						{
-							INT16 sNewCenterWorldX = CenterX(sTargetGridNo);
-							INT16 sNewCenterWorldY = CenterY(sTargetGridNo);
+							INT16 sNewCenterWorldX;
+							INT16 sNewCenterWorldY;
+							ConvertGridNoToCenterCellXY(sTargetGridNo, &sNewCenterWorldX, &sNewCenterWorldY);
+
 							SetRenderCenter(sNewCenterWorldX, sNewCenterWorldY);
 
 							// Plot new path!
@@ -7359,7 +7360,7 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BO
 	// Get dest gridno, convert to center coords
 	sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8)usNewDirection ) );
 
-	ConvertMapPosToWorldTileCenter( sNewGridNo, &sXPos, &sYPos );
+	ConvertGridNoToCenterCellXY( sNewGridNo, &sXPos, &sYPos );
 
 	// Save new dest gridno, x, y
 	this->pathing.sDestination = sNewGridNo;
@@ -11544,7 +11545,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				{
 					INT16 this_base_x = 0;
 					INT16 this_base_y = 0;
-					ConvertMapPosToWorldTileCenter( this->sGridNo, &this_base_x, &this_base_y );
+					ConvertGridNoToCenterCellXY( this->sGridNo, &this_base_x, &this_base_y );
 
 					dx = this->dXPos - this_base_x;
 					dy = this->dYPos - this_base_y;
@@ -11552,7 +11553,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 				INT16 base_x = 0;
 				INT16 base_y = 0;
-				ConvertMapPosToWorldTileCenter( gridnotouse, &base_x, &base_y );
+				ConvertGridNoToCenterCellXY( gridnotouse, &base_x, &base_y );
 
 				pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
 			}
@@ -11586,27 +11587,33 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				// adjust both gridno and x,y coordinates
 				if (sOldGridNo != this->sGridNo)
 				{
-					CorpseDef.sGridNo	= sOldGridNo;
-					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo);
-					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo);
+					INT16 sX, sY;
+					ConvertGridNoToCenterCellXY(sOldGridNo, &sX, &sY);
+
+					CorpseDef.sGridNo = sOldGridNo;
+					CorpseDef.dXPos = sX;
+					CorpseDef.dYPos	= sY;
 				}
 				else
 				{
 					// move corpse a bit
 					INT16 this_base_x = 0;
 					INT16 this_base_y = 0;
-					ConvertMapPosToWorldTileCenter(this->sGridNo, &this_base_x, &this_base_y);
+					ConvertGridNoToCenterCellXY(this->sGridNo, &this_base_x, &this_base_y);
 
 					FLOAT dx = this->dXPos - this_base_x;
 					FLOAT dy = this->dYPos - this_base_y;
 						
 					INT16 base_x = 0;
 					INT16 base_y = 0;
-					ConvertMapPosToWorldTileCenter(pCorpse->def.sGridNo, &base_x, &base_y);
+					ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &base_x, &base_y);
+
+					INT16 sX, sY;
+					ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &sX, &sY);
 
 					CorpseDef.sGridNo	= pCorpse->def.sGridNo;
-					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo) + dx;
-					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo) + dy;
+					CorpseDef.dXPos		= sX + dx;
+					CorpseDef.dYPos		= sY + dy;
 				}
 
 				CorpseDef.usFlags		|= ROTTING_CORPSE_USE_XY_PROVIDED;
@@ -11766,6 +11773,17 @@ UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
 	ConvertGridNoToXY( pSoldier->sGridNo, &sXPos2, &sYPos2 );
 
 	return(atan8( sXPos2, sYPos2, sXPos, sYPos ));
+}
+
+INT16 GetDirectionFromCenterCellXYGridNo(INT32 EndGridNo, INT32 StartGridNo)
+{
+	INT16 sXPos2, sYPos2;
+	INT16 sXPos, sYPos;
+
+	ConvertGridNoToCenterCellXY(StartGridNo, &sXPos, &sYPos);
+	ConvertGridNoToCenterCellXY(EndGridNo, &sXPos2, &sYPos2);
+
+	return(atan8(sXPos2, sYPos2, sXPos, sYPos));
 }
 
 
@@ -12261,8 +12279,7 @@ void SOLDIERTYPE::ReviveSoldier( void )
 		this->BeginSoldierGetup( );
 
 		// Makesure center of tile
-		sX = CenterX( this->sGridNo );
-		sY = CenterY( this->sGridNo );
+		ConvertGridNoToCenterCellXY(this->sGridNo, &sX, &sY);
 
 		this->EVENT_SetSoldierPosition( (FLOAT)sX, (FLOAT)sY );
 
@@ -13962,8 +13979,7 @@ void SOLDIERTYPE::EVENT_StopMerc( INT32 sGridNo, INT8 bDirection )
 
 	// MOVE GUY TO GRIDNO--- SHOULD BE THE SAME UNLESS IN MULTIPLAYER
 	// Makesure center of tile
-	sX = CenterX( sGridNo );
-	sY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 	//Cancel pending events
 	if ( !this->flags.fDelayedMovement )
@@ -15862,7 +15878,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	}
 
 	UINT8 covertlevel = NUM_SKILL_TRAITS( this, COVERT_NT );	// our level in covert operations
-	INT32 distance = GetRangeFromGridNoDiff( this->sGridNo, pSoldier->sGridNo );
+	INT32 distance = PythSpacesAway( this->sGridNo, pSoldier->sGridNo );
 
 	// if we are closer than this, our cover will always break if we do not have the skill
 	// if we have the skill, our cover will blow if we dress up as a soldier, but not if we are dressed like a civilian
@@ -17603,6 +17619,24 @@ INT16 SOLDIERTYPE::GetBackgroundValue( UINT16 aNr )
 	}
 
 	return 0;
+}
+
+const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const
+{
+	static const std::vector<INT16> emptyVector;
+
+	if (UsingBackGroundSystem() && this->ubProfile != NO_PROFILE)
+	{
+		const BACKGROUND_VALUES& background = zBackground[gMercProfiles[this->ubProfile].usBackground];
+		auto iterator = background.valueVectors.find(backgroundVectorType);
+
+		if (iterator != background.valueVectors.end())
+		{
+			return iterator->second;
+		}
+	}
+
+	return emptyVector;
 }
 
 INT8 SOLDIERTYPE::GetSuppressionResistanceBonus( )
@@ -20847,7 +20881,7 @@ void	SOLDIERTYPE::CancelDrag()
 		{
 			INT16 base_x = 0;
 			INT16 base_y = 0;
-			ConvertMapPosToWorldTileCenter(pSoldier->sGridNo, &base_x, &base_y);
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &base_x, &base_y);
 
 			pSoldier->EVENT_InternalSetSoldierPosition(base_x, base_y, FALSE, FALSE, FALSE);
 		}
@@ -21836,6 +21870,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 	}
 
 	pSoldier->bCollapsed = TRUE;
+
+	pSoldier->usUIMovementMode = CRAWLING;
 
 	pSoldier->ReceivingSoldierCancelServices( );
 
@@ -23179,7 +23215,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			return(FALSE);
 		}
 
-		uiRange = GetRangeFromGridNoDiff( this->sGridNo, pTSoldier->sGridNo );
+		uiRange = PythSpacesAway( this->sGridNo, pTSoldier->sGridNo );
 
 		if ( uiRange > (NPC_TALK_RADIUS * 2) )
 		{

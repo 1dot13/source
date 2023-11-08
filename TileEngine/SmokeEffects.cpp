@@ -534,9 +534,11 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 	AniParams.uiFlags	= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_SMOKE_EFFECT | ANITILE_LOOPING | ANITILE_ALWAYS_TRANSLUCENT;
 	}
 
-	AniParams.sX									= CenterX( sGridNo );
-	AniParams.sY									= CenterY( sGridNo );
-	AniParams.sZ									= (INT16)0;
+	INT16 sX, sY;
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+	AniParams.sX = sX;
+	AniParams.sY = sY;
+	AniParams.sZ = (INT16)0;
 
 	// Use the right graphic based on type..
 	switch( bType )
