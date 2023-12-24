@@ -2440,10 +2440,14 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 						// MemAlloc returns a NULL pointer which the code would interpret as
 						// allocation failing because of no memory.
 						// I hope this is OK, I don't entirely understand what is done here...
-						// (ASDOW): Commented out the added conditional, because with an unlucky combination of sti image width and offset, eg 9x16 with x offset of -15
-						// pCurr->pbZChange would be null, which then crashes the game inside the blitting functions when dereferencing a nullptr
-						// With Bio experiencing crashes causing him to add the check, I don't know if this is just kicking the can down the road.
-//						if (pCurr->ubNumberOfZChanges > 0)
+						// (ASDOW): Adjusted the else branch to prevent DEBUG build hitting an assertion error due to this function returning false and
+						// preventing crashes in blitter functions due to nullptr dereference as what happened with bio's original solution.
+						// Allocating one INT8 and setting it to 0 means the Z-value is not adjusted in blitters.
+						// So far it seems to just work, albeit we're getting a screenmessage of structure not added to the world properly, when
+						// the game tries to add one in AddMercStructureInfoFromAnimSurface() for said anim when we're missing the actual structureinfo.
+						// As the game then doesn't do anything besides returning false, it seems to not cause any issues besides the screenmessage in debug build.
+						// So now we should not suffer from the constant assertion errors in debug build when LOBOT is active. Though this could still use a proper solution..
+						if (pCurr->ubNumberOfZChanges > 0)
 						{
 							pCurr->pbZChange = (INT8 *)MemAlloc(pCurr->ubNumberOfZChanges);
 							if (pCurr->pbZChange == NULL)
@@ -2485,10 +2489,28 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 								pCurr->bInitialZChange = -(ubNumDecreasing);
 							}
 						}
-//						else
-//						{
-//							pCurr->pbZChange = NULL;
-//						}
+						else
+						{
+							pCurr->pbZChange = (INT8*)MemAlloc(1);
+
+							// Abort if MemAlloc fails
+							if (pCurr->pbZChange == NULL)
+							{
+								// augh!
+								for (ubLoop2 = 0; ubLoop2 < uiLoop; ubLoop2++)
+								{
+									if (hVObject->ppZStripInfo[ubLoop2] != NULL)
+									{
+										MemFree(hVObject->ppZStripInfo[uiLoop]);
+									}
+								}
+								MemFree(hVObject->ppZStripInfo);
+								hVObject->ppZStripInfo = NULL;
+								return(FALSE);
+							}
+
+							pCurr->pbZChange[0] = 0;
+						}
 					}
 				}
 			}
