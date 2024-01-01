@@ -8165,7 +8165,7 @@ void CorrectDragStructData( INT32 sGridNo, INT8 sLevel, UINT8 ausHitpoints, UINT
 		if ( pStruct->ubHitPoints < pStruct->pDBStructureRef->pDBStructure->ubHitPoints
 			|| pStruct->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
 		{
-			gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			//SetRenderFlags( RENDER_FLAG_FULL );
 		}
