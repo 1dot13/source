@@ -8713,9 +8713,9 @@ void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationS
 	UpdateFortificationPossibleAmount();
 }
 
-std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( )
+GetAllForticationGridNoResult GetAllForticationGridNo()
 {
-	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > gridnovector;
+	GetAllForticationGridNoResult gridnovector;
 
 	if ( !gWorldSectorX || !gWorldSectorY )
 		return gridnovector;
