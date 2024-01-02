@@ -320,7 +320,8 @@ void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationS
 void LoadSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
 void SaveSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
 
-std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( );
+using GetAllForticationGridNoResult = std::vector< std::pair<INT32, std::pair<UINT8, INT8> > >;
+GetAllForticationGridNoResult GetAllForticationGridNo();
 
 INT32 GetFirstObjectInSectorPosition( UINT16 ausItem );
 
