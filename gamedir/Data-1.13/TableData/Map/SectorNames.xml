@@ -668,7 +668,7 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>SAM Site</szExploredName>
     <szDetailedExploredName>Tropical, SAM Site</szDetailedExploredName>
-    <sWaterType>2</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>300</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
     <sRadioScanModifier>2</sRadioScanModifier>
