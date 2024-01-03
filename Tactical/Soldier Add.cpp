@@ -93,6 +93,9 @@ INT32 FindGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, INT8 u
 	soldier.pathing.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
+	soldier.sDragCorpseID = pSoldier->sDragCorpseID;
+	soldier.sDragGridNo = pSoldier->sDragGridNo;
+	soldier.usDragPersonID = pSoldier->usDragPersonID;
 
 	sTop		= ubRadius;
 	sBottom = -ubRadius;
