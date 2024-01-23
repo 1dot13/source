@@ -1038,26 +1038,27 @@ UINT8 SpawnAirDropElite( INT32 sGridNo )
 
 	// Flugente hack		
 	pSoldier = TacticalCreateEliteEnemy( );
+	if ( pSoldier == nullptr)
+	{
+		return NOBODY;
+	}
 
 	//Add soldier strategic info, so it doesn't break the counters!
-	if ( pSoldier )
+	if ( !gbWorldSectorZ )
 	{
-		if ( !gbWorldSectorZ )
+		SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+		switch ( pSoldier->ubSoldierClass )
 		{
-			SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
-			switch ( pSoldier->ubSoldierClass )
-			{
-			case SOLDIER_CLASS_ADMINISTRATOR:	pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
-			case SOLDIER_CLASS_ARMY:			pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
-			case SOLDIER_CLASS_ELITE:			pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
-			}
+		case SOLDIER_CLASS_ADMINISTRATOR:	pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
+		case SOLDIER_CLASS_ARMY:			pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
+		case SOLDIER_CLASS_ELITE:			pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
 		}
-
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CHOPPER;
-		pSoldier->usStrategicInsertionData = sGridNo; // required, otherwise soldiers will spawn in map before jumping out of the heli
-		UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-		//AllTeamsLookForAll( NO_INTERRUPTS );
 	}
+
+	pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CHOPPER;
+	pSoldier->usStrategicInsertionData = sGridNo; // required, otherwise soldiers will spawn in map before jumping out of the heli
+	UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	//AllTeamsLookForAll( NO_INTERRUPTS );
 
 	return pSoldier->ubID;
 }
