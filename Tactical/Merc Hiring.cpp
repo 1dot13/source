@@ -50,6 +50,7 @@
 	#include "DynamicDialogue.h"// added by Flugente
 	#include "Dialogue Control.h"	// added by Flugente
 #include "connect.h"
+#include "Map Information.h"
 
 #ifdef JA2UB
 #include "Soldier Control.h"
@@ -534,16 +535,23 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 		#ifdef JA2UB
 		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && pSoldier->sSectorY == gGameExternalOptions.ubDefaultArrivalSectorY && gGameUBOptions.InGameHeli == TRUE )
 		#else
-		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && pSoldier->sSectorY == gGameExternalOptions.ubDefaultArrivalSectorY )
+		if (pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )
 		#endif
 		{
 			gfTacticalDoHeliRun = TRUE;
-			SetHelicopterDroppoint(gGameExternalOptions.iInitialMercArrivalLocation);
+			if (gfFirstHeliRun)
+			{
+				SetHelicopterDroppoint(gGameExternalOptions.iInitialMercArrivalLocation);
+			}
+			else
+			{
+				SetHelicopterDroppoint(gMapInformation.sCenterGridNo);
+			}
 
 			// OK, If we are in mapscreen, get out...
 			if ( guiCurrentScreen == MAP_SCREEN )
 			{
-		// ATE: Make sure the current one is selected!
+				// ATE: Make sure the current one is selected!
 				ChangeSelectedMapSector( gWorldSectorX, gWorldSectorY, 0 );
 
 				RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
@@ -554,17 +562,14 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 
 		UpdateMercInSector( pSoldier, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 	}
+	// Strategic map arrival to a sector that's not loaded
 	else
 	{
-		// OK, otherwise, set them in north area, so once we load again, they are here.
 #ifdef JA2UB
-		//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 		pSoldier->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
 #else
-		//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
 #endif
 	}
 

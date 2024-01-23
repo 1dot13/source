@@ -3382,27 +3382,22 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 				break;
 
 			case INSERTION_CODE_ARRIVING_GAME:
-				// Are we in Omerta!
-				if ( sSectorX == gWorldSectorX && gWorldSectorX == 9 && sSectorY == gWorldSectorY && gWorldSectorY == 1 && bSectorZ == gbWorldSectorZ && gbWorldSectorZ == 0 )
+#ifdef JA2UB
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->sInsertionGridNo = gGameUBOptions.LOCATEGRIDNO;
+#else
+				extern BOOLEAN gfFirstHeliRun;
+				if (gfFirstHeliRun)
 				{
-					// TODO.WANNE: Hardcoded grid number
-					// Try another location and walk into map
-					pSoldier->sInsertionGridNo = 4379;//dnl!!!
+					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+					pSoldier->sInsertionGridNo = gGameExternalOptions.iInitialMercArrivalLocation;
 				}
 				else
 				{
-#ifdef JA2UB
-					//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-					//pSoldier->sInsertionGridNo		   = gMapInformation.sNorthGridNo;
-					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-					pSoldier->sInsertionGridNo = gGameUBOptions.LOCATEGRIDNO;
-#else
-					//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-					//pSoldier->sInsertionGridNo				 = gMapInformation.sNorthGridNo;
-					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-					pSoldier->sInsertionGridNo = gGameExternalOptions.iInitialMercArrivalLocation;
-#endif
+					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+					pSoldier->sInsertionGridNo = gMapInformation.sCenterGridNo;
 				}
+#endif
 				break;
 			case INSERTION_CODE_CHOPPER:
 				// Try another location and walk into map
