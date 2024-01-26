@@ -570,9 +570,6 @@ static int l_AnimMercPtsrusStrategicInsertionData (lua_State *L);
 
 static int l_SetMusicMode (lua_State *L);
 static int l_MusicPlay (lua_State *L);
-#ifdef NEWMUSIC
-static int l_MusicPlayId (lua_State *L);
-#endif
 static int l_MusicSetVolume (lua_State *L);
 static int l_MusicGetVolume (lua_State *L);
 #ifdef NEWMUSIC
@@ -1398,7 +1395,6 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "SetMusicMode", l_SetMusicMode );
 	lua_register(L, "MusicPlay", l_MusicPlay );
 	#ifdef NEWMUSIC
-	lua_register(L, "MusicIdPlay", l_MusicPlayId );
 	lua_register(L, "AddMusic", l_gAddMusic );
 	
 	lua_register(L, "SetMusicID", l_SetMusicID );
@@ -5716,32 +5712,15 @@ static int l_gAddMusic(lua_State *L)
 #endif
 static int l_MusicPlay (lua_State *L)
 {
-	if ( lua_gettop(L) >= 1 )
-	{
-		UINT32 uiNum = lua_tointeger(L,1);
-		#ifdef NEWMUSIC
-		MusicPlay( uiNum, MUSIC_OLD_TYPE, FALSE);
-		#else
-		MusicPlay( uiNum );
-		#endif
-	}	
-return 0;
-}
-
-#ifdef NEWMUSIC
-static int l_MusicPlayId (lua_State *L)
-{
 	if ( lua_gettop(L) >= 2 )
 	{
-		UINT32 uiNum = lua_tointeger(L,1);
-		UINT32 uiType = lua_tointeger(L,2);
-
-		if (uiType>=1 || uiType<=5 )
-			MusicPlay( uiNum, uiType, TRUE);
+		UINT32 musicMode = lua_tointeger(L, 1);
+		UINT32 song = lua_tointeger(L,2);
+		MusicPlay( static_cast<NewMusicList>(musicMode), song );
 	}	
 return 0;
 }
-#endif
+
 static int l_SetMusicMode (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
