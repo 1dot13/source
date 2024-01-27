@@ -69,7 +69,7 @@ CHAR8* szMusicList[NUM_MUSIC] =
 	"MUSIC\\triumph",
 	"MUSIC\\death",
 	"MUSIC\\battle A",
-	"MUSIC\\tensor B",
+	"MUSIC\\battle B",
 	"MUSIC\\creepy",
 	"MUSIC\\creature battle",
 	"MUSIC",
@@ -96,6 +96,9 @@ static void AddMusicToList(STR fileName, NewMusicList mode)
 
 void InitializeMusicLists()
 {
+	UINT8 constexpr buf = 64;
+	CHAR8 fileName[buf];
+
 	// Special casing original music so they can be easily replaced with new files
 	AddMusicToList(szMusicList[MENUMIX_MUSIC], MUSICLIST_MAIN_MENU);
 	AddMusicToList(szMusicList[MARIMBAD2_MUSIC], MUSICLIST_LAPTOP);
@@ -110,7 +113,14 @@ void InitializeMusicLists()
 	AddMusicToList(szMusicList[TENSOR_C_MUSIC], MUSICLIST_TACTICAL_ENEMYPRESENT);
 
 	AddMusicToList(szMusicList[BATTLE_A_MUSIC], MUSICLIST_TACTICAL_BATTLE);
-	AddMusicToList(szMusicList[BATTLE_B_MUSIC], MUSICLIST_TACTICAL_BATTLE);
+	if (SoundFileExists(szMusicList[BATTLE_B_MUSIC], fileName))
+	{
+		AddMusicToList(szMusicList[BATTLE_B_MUSIC], MUSICLIST_TACTICAL_BATTLE);
+	}
+	else
+	{
+		AddMusicToList(szMusicList[TENSOR_B_MUSIC], MUSICLIST_TACTICAL_BATTLE);
+	}
 
 	AddMusicToList(szMusicList[TRIUMPH_MUSIC], MUSICLIST_TACTICAL_VICTORY);
 	AddMusicToList(szMusicList[DEATH_MUSIC], MUSICLIST_TACTICAL_DEATH);
@@ -118,8 +128,6 @@ void InitializeMusicLists()
 	AddMusicToList(szMusicList[CREATURE_BATTLE_MUSIC], MUSICLIST_TACTICAL_CREEPY_BATTLE);
 
 
-	UINT8 constexpr buf = 64;
-	CHAR8 fileName[buf];
 	// Read music files into list
 	for (size_t j = MUSICLIST_MAIN_MENU; j < MAX_MUSIC; j++)
 	{
