@@ -217,7 +217,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-	if (!gfLogsEnabled)
+	if (!gfLogsEnabled || pSoldier == nullptr)
 		return;
 
 	memset(buf, 0, 1024 * sizeof(char));
@@ -235,17 +235,14 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 
 	sprintf(msg, "");
 
-	if (pSoldier)
-	{
-		sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
-		strcat(msg, buf);
+	sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+	strcat(msg, buf);
 
-		if (pSoldier->ubProfile != NO_PROFILE)
-		{
-			wcstombs(buf, pSoldier->GetName(), 1024 - 1);
-			strcat(msg, " ");
-			strcat(msg, buf);
-		}
+	if (pSoldier->ubProfile != NO_PROFILE)
+	{
+		wcstombs(buf, pSoldier->GetName(), 1024 - 1);
+		strcat(msg, " ");
+		strcat(msg, buf);
 	}
 
 	strcat(msg, " ");
@@ -266,13 +263,10 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 		strcat(msg, " ");
 		strcat(msg, szAction[bAction]);
 
-		if (pSoldier)
-		{
-			sprintf(buf, " %d", pSoldier->aiData.usActionData);
-			strcat(msg, buf);
-		}
+		sprintf(buf, " %d", pSoldier->aiData.usActionData);
+		strcat(msg, buf);
 
-		if (pSoldier && pSoldier->aiData.bNextAction != AI_ACTION_NONE)
+		if (pSoldier->aiData.bNextAction != AI_ACTION_NONE)
 		{
 			strcat(msg, " ");
 			strcat(msg, szAction[pSoldier->aiData.bNextAction]);
