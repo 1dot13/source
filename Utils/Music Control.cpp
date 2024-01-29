@@ -158,15 +158,7 @@ void InitializeMusicLists()
 
 		for (size_t i = 0; i < 100; i++)
 		{
-			if (i < 10)
-			{
-				sprintf(fileName, "%s00%d", baseFilename, i);
-			}
-			else if (i < 100)
-			{
-				sprintf(fileName, "%s0%d", baseFilename, i);
-			}
-
+			sprintf(fileName, "%s%02d", baseFilename, i);
 			AddMusicToList(fileName, static_cast<NewMusicList>(j));
 		}
 	}
