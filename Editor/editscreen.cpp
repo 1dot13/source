@@ -79,8 +79,6 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-extern CHAR8 *szMusicList[NUM_MUSIC];
-
 BOOLEAN gfCorruptMap = FALSE;
 BOOLEAN gfCorruptSchedules = FALSE;
 BOOLEAN gfProfileDataLoaded = FALSE;
@@ -169,6 +167,7 @@ LEVELNODE *gCursorNode = NULL;
 INT32			gsCursorGridNo;
 
 INT32 giMusicID = 0;
+NewMusicList gMusicMode = MUSICLIST_MAIN_MENU;
 
 void EraseWorldData(	);
 
@@ -1616,16 +1615,27 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case F4:
-#ifdef NEWMUSIC
-					MusicPlay( giMusicID, MUSIC_OLD_TYPE, FALSE );
-#else
-					MusicPlay( giMusicID );
-#endif
+					MusicPlay(gMusicMode, giMusicID);
+					ScreenMsg( FONT_YELLOW, MSG_INTERFACE, L"%S", MusicLists[gMusicMode][giMusicID] );
 
-					ScreenMsg( FONT_YELLOW, MSG_DEBUG, L"%S", szMusicList[giMusicID] );
+					// Select next track 
 					giMusicID++;
-					if( giMusicID >= NUM_MUSIC )
+					if (giMusicID >= MusicLists[gMusicMode].size())
+					{
 						giMusicID = 0;
+						for (size_t i = 0; i < MAX_MUSIC; i++)
+						{
+							if (gMusicMode == i)
+							{
+								gMusicMode = static_cast<NewMusicList>(i + 1);
+								if (gMusicMode == MAX_MUSIC)
+								{
+									gMusicMode = MUSICLIST_MAIN_MENU;
+								}
+								break;
+							}
+						}
+					}
 					break;
 
 				case F5:
