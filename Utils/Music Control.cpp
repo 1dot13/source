@@ -8,6 +8,7 @@
 	#include "strategicmap.h"
 
 #include "Overhead Types.h"
+#include <Game Clock.h>
 
 static UINT32 uiMusicHandle = NO_SAMPLE;
 static BOOLEAN fMusicPlaying = FALSE;
@@ -139,6 +140,12 @@ void InitializeMusicLists()
 			break;
 		case MUSICLIST_TACTICAL_BATTLE:
 			baseFilename = "MUSIC\\Battle_";
+			break;
+		case MUSICLIST_TACTICAL_ENEMYPRESENT_NIGHT:
+			baseFilename = "MUSIC\\EnemyNight_";
+			break;
+		case MUSICLIST_TACTICAL_BATTLE_NIGHT:
+			baseFilename = "MUSIC\\BattleNight_";
 			break;
 		case MUSICLIST_TACTICAL_VICTORY:
 			baseFilename = "MUSIC\\Victory_";
@@ -528,6 +535,10 @@ static BOOLEAN StartMusicBasedOnMode(void)
 			{
 				MusicPlay(PickRandomSongFromList(MUSICLIST_TACTICAL_CREEPY));
 			}
+			else if (NightTime() && MusicLists[MUSICLIST_TACTICAL_ENEMYPRESENT_NIGHT].size() > 0)
+			{
+				MusicPlay(PickRandomSongFromList(MUSICLIST_TACTICAL_ENEMYPRESENT_NIGHT));
+			}
 			else
 			{
 				MusicPlay(PickRandomSongFromList(MUSICLIST_TACTICAL_ENEMYPRESENT));
@@ -540,6 +551,10 @@ static BOOLEAN StartMusicBasedOnMode(void)
 			if(gfUseCreatureMusic)
 			{
 				MusicPlay(PickRandomSongFromList(MUSICLIST_TACTICAL_CREEPY_BATTLE));
+			}
+			else if (NightTime() && MusicLists[MUSICLIST_TACTICAL_BATTLE_NIGHT].size() > 0)
+			{
+				MusicPlay(PickRandomSongFromList(MUSICLIST_TACTICAL_BATTLE_NIGHT));
 			}
 			else
 			{
