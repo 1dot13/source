@@ -209,7 +209,7 @@ STR szAction[] = {
 // sevenfm
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
-BOOLEAN gfLogsEnabled = FALSE;
+BOOLEAN gfLogsEnabled = TRUE;
 
 void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 {
