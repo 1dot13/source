@@ -5114,7 +5114,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	}
 	
 	// if we have absolutely no action points, we can't do a thing under BLACK!
-	if (!pSoldier->bActionPoints)
+	if (pSoldier->bActionPoints <= 0)
 	{
 		pSoldier->aiData.usActionData = NOWHERE;
 		return(AI_ACTION_NONE);
