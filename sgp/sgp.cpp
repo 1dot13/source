@@ -56,6 +56,7 @@
 #ifndef WIN32_LEAN_AND_MEAN
 	#define WIN32_LEAN_AND_MEAN
 #endif
+#include <Music Control.h>
 
 
 static void MAGIC(std::string const& aarrrrgggh = "")
@@ -573,6 +574,9 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		FastDebugMsg("FAILED : Initializing Sound Manager");
 		return FALSE;
 	}
+
+	FastDebugMsg("Initializing Music");
+	InitializeMusicLists();
 
 	FastDebugMsg("Initializing Game Manager");
 	// Initialize the Game
