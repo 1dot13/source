@@ -5295,7 +5295,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 
 	// NPCs in water/tear gas without masks are not permitted to shoot/stab/throw
-	if ((pSoldier->bActionPoints < 2) || bInDeepWater || bInGas || pSoldier->aiData.bRTPCombat == RTP_COMBAT_REFRAIN)
+	if ((pSoldier->bActionPoints < 2) || bInDeepWater || bInGas)
 	{
 		bCanAttack = FALSE;
 	}
@@ -6447,7 +6447,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			if (IsGunBurstCapable( &pSoldier->inv[BestAttack.bWeaponIn], FALSE, pSoldier ) &&
 				!(Menptr[BestShot.ubOpponent].stats.bLife < OKLIFE) && // don't burst at downed targets
 				pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 1 &&
-				(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.bRTPCombat == RTP_COMBAT_AGGRESSIVE) )
+				pSoldier->bTeam != gbPlayerNum )
 			{
 				DebugAI(AI_MSG_INFO, pSoldier, String("enough APs to burst, random chance of doing so"));
 
@@ -9761,7 +9761,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 	////////////////////////////////////////////////////////////////////////////
 
 	// NPCs in water/tear gas without masks are not permitted to shoot/stab/throw
-	if ( (pSoldier->bActionPoints < 2) || bInDeepWater || pSoldier->aiData.bRTPCombat == RTP_COMBAT_REFRAIN )
+	if ( (pSoldier->bActionPoints < 2) || bInDeepWater )
 	{
 		bCanAttack = FALSE;
 	}
