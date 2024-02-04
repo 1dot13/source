@@ -6697,7 +6697,18 @@ L_NEWAIM:
 					INT8 oldOrders = pSoldier->aiData.bOrders;
 					pSoldier->aiData.sPatrolGrid[0] = pSoldier->sGridNo;
 					pSoldier->aiData.bOrders = CLOSEPATROL;
-					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, BestAttack.ubAPCost, AI_ACTION_GET_CLOSER, 0 );
+					// Try to find a cover spot near opponent
+					iCoverPercentBetter = 0;
+					INT32 spotNearTarget = FindBestNearbyCover(pSoldier, pSoldier->aiData.bAIMorale, &iCoverPercentBetter, sClosestOpponent);
+					if (spotNearTarget != NOWHERE)
+					{
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, spotNearTarget, BestAttack.ubAPCost, AI_ACTION_GET_CLOSER, 0);
+
+					}
+					else
+					{
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, BestAttack.ubAPCost, AI_ACTION_GET_CLOSER, 0 );
+					}
 					pSoldier->aiData.sPatrolGrid[0] = tgrd;
 					pSoldier->aiData.bOrders = oldOrders;
 
