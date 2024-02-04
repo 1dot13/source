@@ -7,6 +7,8 @@
 #include "Isometric Utils.h"
 #include "Rotting Corpses.h"
 
+#define ANOTHERNEWVAR 1
+
 #define TESTAICONTROL
 
 extern INT16	gubAIPathCosts[19][19];
