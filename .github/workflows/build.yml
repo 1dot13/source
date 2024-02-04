@@ -182,7 +182,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: dist
-        pattern: \*_release
+        pattern: '*_release'
         merge-multiple: true
 
     - name: Checkout Repo
