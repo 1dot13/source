@@ -626,6 +626,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 	if ( pSoldier->aiData.bNewSituation == IS_NEW_SITUATION )
 	{
 		BOOLEAN fProcessNewSituation;
+		BOOLEAN fProcessNewSituation2 = TRUE;
 
 		// if this happens during an attack then do nothing... wait for the A.B.C.
 		// to be reduced to 0 first -- CJC December 13th
