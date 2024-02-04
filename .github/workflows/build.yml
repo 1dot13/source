@@ -169,6 +169,8 @@ jobs:
     with:
       language: ${{ matrix.language }}
       assemble: ${{ needs.workflow_setup.outputs.assemble_release == 'true' }}
+      # TODO check if English and German build faster for code changes on master, if not remove caching
+      build-cache-enabled: ${{ matrix.language == 'English' || matrix.language == 'German' }}
       # at least English and some other lang have to work
       continue-on-error: ${{ matrix.language != 'English' && matrix.language != 'German' }}
 

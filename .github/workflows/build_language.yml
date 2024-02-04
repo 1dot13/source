@@ -13,6 +13,11 @@ on:
         required: true
         default: true
         type: boolean
+      build-cache-enabled:
+        description: 'enable sscache'
+        required: true
+        default: false
+        type: boolean
       continue-on-error:
         description: 'allows a language to fail, used when building all languages'
         required: false
@@ -27,6 +32,8 @@ jobs:
       fail-fast: false
       matrix:
         application: [ja2, ja2mapeditor, ja2ub, ja2ubmapeditor]
+    env:
+      SCCACHE_GHA_ENABLED: ${{ inputs.build-cache-enabled }}
 
     steps:
       - name: Checkout source
@@ -75,9 +82,19 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
+      - name: Prepare build cache
+        if: ${{ inputs.build-cache-enabled }}
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: ${{ inputs.language }}_${{ matrix.application }}
+          save: ${{ github.ref == 'refs/heads/master' }}
+          variant: sccache
       - name: Prepare build
-        run: |
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
+        run: >
+          cmake -S . -B build -GNinja
+          -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+          -DCMAKE_BUILD_TYPE=Release
+          -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
       - name: Build
         run: |
           cmake --build build/ -- -v
