@@ -440,6 +440,27 @@ void DebugQuestInfo(STR szOutput)
 	}
 }
 
+static INT16 ShouldActionStayInProgress(SOLDIERTYPE* pSoldier)
+{
+	// this here should never happen, but it seems to (turns sometimes hang!)
+	if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->pathing.bDesiredDirection != pSoldier->aiData.usActionData))
+	{
+		// don't try to pay any more APs for this, it was paid for once already!
+		pSoldier->pathing.bDesiredDirection = (INT8)pSoldier->aiData.usActionData;   // turn to face direction in actionData
+		return(TRUE);
+	}
+	else if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->pathing.bDesiredDirection == pSoldier->aiData.usActionData))
+	{
+		return(FALSE);
+	}
+	else if (pSoldier->aiData.bAction == AI_ACTION_END_TURN || pSoldier->aiData.bAction == AI_ACTION_NONE)
+	{
+		return(FALSE);
+	}
+	// needs more time to complete action
+	return(TRUE);
+}
+
 
 BOOLEAN InitAI( void )
 {
@@ -992,6 +1013,12 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		{
 			ActionDone(pSoldier);
 		}
+
+		if (!ShouldActionStayInProgress(pSoldier))
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Action % s was stuck as being in progress. Canceling action", wszAction[pSoldier->aiData.bAction]));
+			ActionDone(pSoldier);
+		}
 	}
 	/*********
 	End of new overall AI system
@@ -1460,7 +1487,7 @@ void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier )
 void ActionDone(SOLDIERTYPE *pSoldier)
 {
 	// if an action is currently selected
-	if (pSoldier->aiData.bAction != AI_ACTION_NONE)
+	//if (pSoldier->aiData.bAction != AI_ACTION_NONE)
 	{
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER)
 		{
