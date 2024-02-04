@@ -2493,6 +2493,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	if ( pSoldier->bActionPoints <= 0 ) //Action points can be negative
 	{
 		pSoldier->aiData.usActionData = NOWHERE;
+		pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 		return(AI_ACTION_NONE);
 	}
 
@@ -5118,6 +5119,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	if (pSoldier->bActionPoints <= 0)
 	{
 		pSoldier->aiData.usActionData = NOWHERE;
+		pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 		return(AI_ACTION_NONE);
 	}
 
