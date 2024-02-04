@@ -859,7 +859,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		return;
 	}
 
-	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
+	if (!pSoldier->aiData.bActionInProgress)
 	{
 		// being handled so turn off muzzle flash
 		if ( pSoldier->flags.fMuzzleFlash )
@@ -1837,41 +1837,41 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		{
 			pSoldier->aiData.bAction = AI_ACTION_NONE;
 		}
+	}
 
-		// if he chose to continue doing nothing
-		if (pSoldier->aiData.bAction == AI_ACTION_NONE)
-		{
+	// if he chose to continue doing nothing
+	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
+	{
 #ifdef RECORDNET
-			fprintf(NetDebugFile,"\tMOVED BECOMING TRUE: Chose to do nothing, guynum %d\n",pSoldier->ubID);
+		fprintf(NetDebugFile,"\tMOVED BECOMING TRUE: Chose to do nothing, guynum %d\n",pSoldier->ubID);
 #endif
 
-			DebugMsg (TOPIC_JA2AI,DBG_LEVEL_3,"NPC has no action assigned");
-			NPCDoesNothing(pSoldier);  // sets pSoldier->moved to TRUE
-			return;
-		}
-		// to get here, we MUST have an action selected, but not in progress...
-		// see if we can afford to do this action
-		if (IsActionAffordable(pSoldier))
-		{
-			NPCDoesAct(pSoldier);
+		DebugMsg (TOPIC_JA2AI,DBG_LEVEL_3,"NPC has no action assigned");
+		NPCDoesNothing(pSoldier);  // sets pSoldier->moved to TRUE
+		return;
+	}
+	// to get here, we MUST have an action selected, but not in progress...
+	// see if we can afford to do this action
+	if (IsActionAffordable(pSoldier))
+	{
+		NPCDoesAct(pSoldier);
 
-			// perform the chosen action
-			pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
+		// perform the chosen action
+		pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
 			
-			if ( !pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
-			{
-				// turn based... abort this guy's turn
-				EndAIGuysTurn( pSoldier );
-			}
-		}
-		else
+		if ( !pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 		{
-#ifdef DEBUGDECISIONS
-			AINumMessage("HandleManAI - Not enough APs, skipping guy#",pSoldier->ubID);
-#endif
-			HaltMoveForSoldierOutOfPoints( pSoldier);
-			return;
+			// turn based... abort this guy's turn
+			EndAIGuysTurn( pSoldier );
 		}
+	}
+	else
+	{
+#ifdef DEBUGDECISIONS
+		AINumMessage("HandleManAI - Not enough APs, skipping guy#",pSoldier->ubID);
+#endif
+		HaltMoveForSoldierOutOfPoints( pSoldier);
+		return;
 	}
 }
 
