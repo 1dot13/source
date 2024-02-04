@@ -154,7 +154,7 @@ jobs:
           cat dist/versions.env
 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: versions.env
           path: dist/
@@ -179,41 +179,29 @@ jobs:
 
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
-        path: artifacts
+        path: dist
+        pattern: \*_release
+        merge-multiple: true
 
-    - name: Move release archives to dist/
-      shell: bash
-      run: |
-        set -eux
-        mkdir dist/
-        mv artifacts/*_release/* dist/
-
-    - name: Delete Latest Release and Tag
-      if: github.ref == 'refs/heads/master'
-      uses: dev-drprasad/delete-tag-and-release@v1.0
-      with:
-        delete_release: true
-        tag_name: "latest"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Checkout Repo
       if: github.ref == 'refs/heads/master'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: source
         fetch-depth: 1
         sparse-checkout: 'README.md'
     - name: Create latest pre-release
       if: github.ref == 'refs/heads/master'
+      working-directory: source
       run: |
         gh release delete latest --cleanup-tag || true
         git tag -d latest || true
         git push --delete origin refs/tags/latest || true
         git tag latest
         git push --force origin refs/tags/latest
-        gh release create latest dist/* \
+        gh release create latest ../dist/* \
           --generate-notes \
           --title "Latest (unstable)" \
           --verify-tag \
@@ -223,7 +211,9 @@ jobs:
 
     - name: Upload to tagged release
       if: startsWith(github.ref, 'refs/tags/v')
+      working-directory: source
       run: |
-        gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+        exit 0
+        gh release upload "$GITHUB_REF_NAME" ../dist/* --clobber
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
