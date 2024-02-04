@@ -750,13 +750,15 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 					// make sure we're not using combat AI
 					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
 				}
-				// Poor hack to prevent AI deadlocking in case they change stance before firing and player gets an interrupt.
-				// Without this, if player doesn't move any mercs, the AI soldier won't fire and will wait until the deadlock is broken
-				// By canceling the AI action, the AI can reconsider actions and oddly enough, usually decides to fire but this time successfully.
-				//if (pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN && pSoldier->aiData.bLastAction == AI_ACTION_NONE)
-				//{
-				//	CancelAIAction(pSoldier, FALSE);
-				//}
+
+				// Prevent AI deadlocking in case enemy is performing an action and player gets an interrupt.
+				// Without this, if player doesn't move any mercs, the AI soldier will wait until the deadlock is broken.
+				// By canceling the AI action, the AI can then reconsider actions.
+				if (pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN || pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE || pSoldier->aiData.bAction == AI_ACTION_STEAL_MOVE)
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("New Situation"));
+					CancelAIAction(pSoldier, FALSE);
+				}
 				pSoldier->aiData.bNewSituation = WAS_NEW_SITUATION;
 			}
 		}
