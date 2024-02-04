@@ -199,7 +199,7 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier );
 INT8	ExecuteAction(SOLDIERTYPE *pSoldier);
 
 INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo);
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter);
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter, INT32 targetGridNo = NOWHERE);
 INT32 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT32 FindNearestEdgePoint( INT32 sGridNo );
