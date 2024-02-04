@@ -182,7 +182,7 @@ BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
 
 void DebugAI( STR szOutput );
 enum { AI_MSG_START, AI_MSG_DECIDE, AI_MSG_INFO, AI_MSG_TOPIC };
-void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction = -1);
+void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog = true, INT8 bAction = -1);
 void DebugQuestInfo(STR szOutput);
 INT8 DecideAction(SOLDIERTYPE *pSoldier);
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);

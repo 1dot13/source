@@ -286,14 +286,15 @@ STR16 wszAction[] = {
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
 BOOLEAN gfLogsEnabled = TRUE;
+bool gLogDecideActionRed = false;
 
-void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
+void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, INT8 bAction)
 {
 	FILE*	DebugFile;
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-	if (!gfLogsEnabled)
+	if (!gfLogsEnabled || !doLog || pSoldier == nullptr)
 		return;
 
 	memset(buf, 0, 1024 * sizeof(char));
