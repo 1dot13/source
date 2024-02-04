@@ -205,51 +205,25 @@ jobs:
         path: source
         fetch-depth: 1
         sparse-checkout: 'README.md'
-    - name: Create Latest Tag
+    - name: Create latest pre-release
       if: github.ref == 'refs/heads/master'
-      working-directory: source
       run: |
+        gh release delete latest --cleanup-tag || true
         git tag -d latest || true
+        git push --delete origin refs/tags/latest || true
         git tag latest
-        git push origin latest
-    - id: release_latest
-      name: Release Latest
-      if: github.ref == 'refs/heads/master'
-      uses: ncipollo/release-action@v1
-      with:
-        artifactErrorsFailBuild: true
-        artifacts: dist/*
-        generateReleaseNotes: true
-        makeLatest: true
-        name: "Latest (unstable)"
-        prerelease: true
-        tag: "latest"
+        git push --force origin refs/tags/latest
+        gh release create latest dist/* \
+          --generate-notes \
+          --title "Latest (unstable)" \
+          --verify-tag \
+          --prerelease
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - id: release_tag
-      name: Release Tag
-      uses: ncipollo/release-action@v1
+    - name: Upload to tagged release
       if: startsWith(github.ref, 'refs/tags/v')
-      with:
-        allowUpdates: true
-        artifactErrorsFailBuild: true
-        artifacts: dist/*
-        draft: false
-        generateReleaseNotes: true
-        makeLatest: true
-        omitBodyDuringUpdate: true
-        omitDraftDuringUpdate: true
-        omitNameDuringUpdate: true
-        omitPrereleaseDuringUpdate: true
-
-    - name: Show release outputs
-      shell: bash
       run: |
-        echo 'id: '
-        echo -n '${{ steps.release_tag.outputs.id }}'
-        echo -n '${{ steps.release_latest.outputs.id }}'
-        echo ''
-        echo ''
-        echo 'url:'
-        echo -n '${{ steps.release_tag.outputs.html_url }}'
-        echo -n '${{ steps.release_latest.outputs.html_url }}'
-        echo ''
+        gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
