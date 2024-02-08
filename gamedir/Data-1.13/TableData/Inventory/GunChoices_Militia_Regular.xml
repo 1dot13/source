@@ -10,8 +10,8 @@
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 10.00% ] -->
 		<bItemNo5>773</bItemNo5>	<!--KP M/31 Suomi [ 10.00% ] -->
 		<bItemNo6>780</bItemNo6>	<!--SA-24 [ 10.00% ] -->
-		<bItemNo7>724</bItemNo7>	<!--Thompson M1A1 [ 10.00% ] -->
-		<bItemNo8>724</bItemNo8>	<!--Thompson M1928 [ 10.00% ] -->
+		<bItemNo7>11</bItemNo7>		<!--Thompson M1A1 [ 10.00% ] -->
+		<bItemNo8>737</bItemNo8>	<!--Thompson M1928 [ 10.00% ] -->
 		<bItemNo9>747</bItemNo9>	<!--Winchester 94 Trapper [ 20.00% ] -->
 		<bItemNo10>724</bItemNo10>	<!--Stechkin APS [ 20.00% ] -->
 		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
@@ -65,8 +65,8 @@
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 5.88% ] -->
 		<bItemNo5>773</bItemNo5>	<!--KP M/31 Suomi [ 5.88% ] -->
 		<bItemNo6>780</bItemNo6>	<!--SA-24 [ 5.88% ] -->
-		<bItemNo7>724</bItemNo7>	<!--Thompson M1A1 [ 5.88% ] -->
-		<bItemNo8>724</bItemNo8>	<!--Thompson M1928 [ 5.88% ] -->
+		<bItemNo7>11</bItemNo7>		<!--Thompson M1A1 [ 5.88% ] -->
+		<bItemNo8>737</bItemNo8>	<!--Thompson M1928 [ 5.88% ] -->
 		<bItemNo9>345</bItemNo9>	<!--Uzi [ 5.88% ] -->
 		<bItemNo10>1071</bItemNo10>	<!--Owen .45 [ 5.88% ] -->
 		<bItemNo11>1178</bItemNo11>	<!--MAT-49 [ 5.88% ] -->
@@ -119,7 +119,7 @@
 		<bItemNo3>702</bItemNo3>	<!--PPsh-41 [ 18.18% ] -->
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 18.18% ] -->
 		<bItemNo5>780</bItemNo5>	<!--SA-24 [ 9.09% ] -->
-		<bItemNo6>724</bItemNo6>	<!--Thompson M1A1 [ 9.09% ] -->
+		<bItemNo6>11</bItemNo6>		<!--Thompson M1A1 [ 9.09% ] -->
 		<bItemNo7>747</bItemNo7>	<!--Winchester 94 Trapper [ 18.18% ] -->
 		<bItemNo8>724</bItemNo8>	<!--Stechkin APS [ 9.09% ] -->
 		<bItemNo9>747</bItemNo9>	<!--Winchester 94 Trapper [ 18.18% ] -->
@@ -174,10 +174,10 @@
 		<bItemNo3>702</bItemNo3>	<!--PPsh-41 [ 15.38% ] -->
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 15.38% ] -->
 		<bItemNo5>780</bItemNo5>	<!--SA-24 [ 7.69% ] -->
-		<bItemNo6>724</bItemNo6>	<!--Thompson M1A1 [ 7.69% ] -->
+		<bItemNo6>11</bItemNo6>		<!--Thompson M1A1 [ 7.69% ] -->
 		<bItemNo7>747</bItemNo7>	<!--Winchester 94 Trapper [ 15.38% ] -->
 		<bItemNo8>1193</bItemNo8>	<!--M1 Carbine [ 7.69% ] -->
-		<bItemNo9>17</bItemNo9>	<!--SKS [ 7.69% ] -->
+		<bItemNo9>17</bItemNo9>		<!--SKS [ 7.69% ] -->
 		<bItemNo10>627</bItemNo10>	<!--Browning M1919 A6 [ 7.69% ] -->
 		<bItemNo11>747</bItemNo11>	<!--Winchester 94 Trapper [ 15.38% ] -->
 		<bItemNo12>702</bItemNo12>	<!--PPsh-41 [ 15.38% ] -->
@@ -230,7 +230,7 @@
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 12.50% ] -->
 		<bItemNo5>747</bItemNo5>	<!--Winchester 94 Trapper [ 12.50% ] -->
 		<bItemNo6>1193</bItemNo6>	<!--M1 Carbine [ 6.25% ] -->
-		<bItemNo7>17</bItemNo7>	<!--SKS [ 12.50% ] -->
+		<bItemNo7>17</bItemNo7>		<!--SKS [ 12.50% ] -->
 		<bItemNo8>347</bItemNo8>	<!--AK-47 [ 6.25% ] -->
 		<bItemNo9>613</bItemNo9>	<!--AKS-47 [ 6.25% ] -->
 		<bItemNo10>627</bItemNo10>	<!--Browning M1919 A6 [ 6.25% ] -->
@@ -285,7 +285,7 @@
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 5.00% ] -->
 		<bItemNo5>747</bItemNo5>	<!--Winchester 94 Trapper [ 5.00% ] -->
 		<bItemNo6>1193</bItemNo6>	<!--M1 Carbine [ 5.00% ] -->
-		<bItemNo7>17</bItemNo7>	<!--SKS [ 10.00% ] -->
+		<bItemNo7>17</bItemNo7>		<!--SKS [ 10.00% ] -->
 		<bItemNo8>347</bItemNo8>	<!--AK-47 [ 10.00% ] -->
 		<bItemNo9>613</bItemNo9>	<!--AKS-47 [ 10.00% ] -->
 		<bItemNo10>26</bItemNo10>	<!--AKM [ 5.00% ] -->
@@ -340,7 +340,7 @@
 		<bItemNo4>725</bItemNo4>	<!--Sterling L2A3 [ 4.55% ] -->
 		<bItemNo5>747</bItemNo5>	<!--Winchester 94 Trapper [ 4.55% ] -->
 		<bItemNo6>1193</bItemNo6>	<!--M1 Carbine [ 4.55% ] -->
-		<bItemNo7>17</bItemNo7>	<!--SKS [ 9.09% ] -->
+		<bItemNo7>17</bItemNo7>		<!--SKS [ 9.09% ] -->
 		<bItemNo8>347</bItemNo8>	<!--AK-47 [ 9.09% ] -->
 		<bItemNo9>613</bItemNo9>	<!--AKS-47 [ 9.09% ] -->
 		<bItemNo10>26</bItemNo10>	<!--AKM [ 4.55% ] -->
@@ -389,14 +389,14 @@
 		<uiIndex>7</uiIndex>
 		<name>70%</name>
 		<ubChoices>22</ubChoices>
-		<bItemNo1>18</bItemNo1>	<!--Dragunov SVD [ 4.55% ] -->
+		<bItemNo1>18</bItemNo1>		<!--Dragunov SVD [ 4.55% ] -->
 		<bItemNo2>693</bItemNo2>	<!--Mosin-Nagant 1891/30 [ 4.55% ] -->
 		<bItemNo3>776</bItemNo3>	<!--Mauser Karabiner 98k [ 4.55% ] -->
 		<bItemNo4>1193</bItemNo4>	<!--M1 Carbine [ 4.55% ] -->
-		<bItemNo5>17</bItemNo5>	<!--SKS [ 9.09% ] -->
+		<bItemNo5>17</bItemNo5>		<!--SKS [ 9.09% ] -->
 		<bItemNo6>347</bItemNo6>	<!--AK-47 [ 9.09% ] -->
 		<bItemNo7>613</bItemNo7>	<!--AKS-47 [ 9.09% ] -->
-		<bItemNo8>26</bItemNo8>	<!--AKM [ 9.09% ] -->
+		<bItemNo8>26</bItemNo8>		<!--AKM [ 9.09% ] -->
 		<bItemNo9>615</bItemNo9>	<!--AMD-65M [ 9.09% ] -->
 		<bItemNo10>785</bItemNo10>	<!--AKMSU [ 9.09% ] -->
 		<bItemNo11>705</bItemNo11>	<!--RPD [ 4.55% ] -->
@@ -444,14 +444,14 @@
 		<uiIndex>8</uiIndex>
 		<name>80%</name>
 		<ubChoices>14</ubChoices>
-		<bItemNo1>18</bItemNo1>	<!--Dragunov SVD [ 7.14% ] -->
+		<bItemNo1>18</bItemNo1>		<!--Dragunov SVD [ 7.14% ] -->
 		<bItemNo2>683</bItemNo2>	<!--M1 Garand [ 7.14% ] -->
 		<bItemNo3>705</bItemNo3>	<!--RPD [ 7.14% ] -->
 		<bItemNo4>706</bItemNo4>	<!--RPK [ 7.14% ] -->
-		<bItemNo5>26</bItemNo5>	<!--AKM [ 14.29% ] -->
+		<bItemNo5>26</bItemNo5>		<!--AKM [ 14.29% ] -->
 		<bItemNo6>615</bItemNo6>	<!--AMD-65M [ 14.29% ] -->
 		<bItemNo7>785</bItemNo7>	<!--AKMSU [ 14.29% ] -->
-		<bItemNo8>17</bItemNo8>	<!--SKS [ 7.14% ] -->
+		<bItemNo8>17</bItemNo8>		<!--SKS [ 7.14% ] -->
 		<bItemNo9>784</bItemNo9>	<!--Mauser M-03 [ 7.14% ] -->
 		<bItemNo10>627</bItemNo10>	<!--Browning M1919 A6 [ 7.14% ] -->
 		<bItemNo11>1075</bItemNo11>	<!--Rheinmetall MG3 [ 7.14% ] -->
@@ -499,14 +499,14 @@
 		<uiIndex>9</uiIndex>
 		<name>90%</name>
 		<ubChoices>17</ubChoices>
-		<bItemNo1>18</bItemNo1>	<!--Dragunov SVD [ 11.76% ] -->
+		<bItemNo1>18</bItemNo1>		<!--Dragunov SVD [ 11.76% ] -->
 		<bItemNo2>683</bItemNo2>	<!--M1 Garand [ 11.76% ] -->
 		<bItemNo3>705</bItemNo3>	<!--RPD [ 11.76% ] -->
 		<bItemNo4>706</bItemNo4>	<!--RPK [ 11.76% ] -->
-		<bItemNo5>26</bItemNo5>	<!--AKM [ 11.76% ] -->
+		<bItemNo5>26</bItemNo5>		<!--AKM [ 11.76% ] -->
 		<bItemNo6>615</bItemNo6>	<!--AMD-65M [ 11.76% ] -->
 		<bItemNo7>785</bItemNo7>	<!--AKMSU [ 5.88% ] -->
-		<bItemNo8>17</bItemNo8>	<!--SKS [ 5.88% ] -->
+		<bItemNo8>17</bItemNo8>		<!--SKS [ 5.88% ] -->
 		<bItemNo9>784</bItemNo9>	<!--Mauser M-03 [ 5.88% ] -->
 		<bItemNo10>627</bItemNo10>	<!--Browning M1919 A6 [ 5.88% ] -->
 		<bItemNo11>1075</bItemNo11>	<!--Rheinmetall MG3 [ 5.88% ] -->
@@ -554,7 +554,7 @@
 		<uiIndex>10</uiIndex>
 		<name>100%</name>
 		<ubChoices>12</ubChoices>
-		<bItemNo1>18</bItemNo1>	<!--Dragunov SVD [ 16.67% ] -->
+		<bItemNo1>18</bItemNo1>		<!--Dragunov SVD [ 16.67% ] -->
 		<bItemNo2>683</bItemNo2>	<!--M1 Garand [ 8.33% ] -->
 		<bItemNo3>705</bItemNo3>	<!--RPD [ 8.33% ] -->
 		<bItemNo4>706</bItemNo4>	<!--RPK [ 8.33% ] -->
