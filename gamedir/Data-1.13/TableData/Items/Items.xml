@@ -19448,7 +19448,6 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
-		<DefaultAttachment>1322</DefaultAttachment>
 		<DefaultAttachment>1746</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -22907,7 +22906,7 @@
 		<BR_ROF>750</BR_ROF>
 		<AimBonus>10</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
-		<DefaultAttachment>1749</DefaultAttachment>
+		<DefaultAttachment>1746</DefaultAttachment>
 		<PercentAPReduction>20</PercentAPReduction>
 		<VisionRangeBonus>25</VisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
