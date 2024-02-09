@@ -13,8 +13,8 @@
 		<bItemNo7>1071</bItemNo7>	<!--Owen .45 [ 7.69% ] -->
 		<bItemNo8>1178</bItemNo8>	<!--MAT-49 [ 3.85% ] -->
 		<bItemNo9>1179</bItemNo9>	<!--SIG MP41/44 [ 3.85% ] -->
-		<bItemNo10>724</bItemNo10>	<!--Thompson M1A1 [ 11.54% ] -->
-		<bItemNo11>724</bItemNo11>	<!--Thompson M1928 [ 3.85% ] -->
+		<bItemNo10>11</bItemNo10>	<!--Thompson M1A1 [ 11.54% ] -->
+		<bItemNo11>737</bItemNo11>	<!--Thompson M1928 [ 3.85% ] -->
 		<bItemNo12>724</bItemNo12>	<!--Stechkin APS [ 15.38% ] -->
 		<bItemNo13>724</bItemNo13>	<!--Stechkin APS [ 15.38% ] -->
 		<bItemNo14>724</bItemNo14>	<!--Stechkin APS [ 15.38% ] -->
@@ -22,13 +22,13 @@
 		<bItemNo16>702</bItemNo16>	<!--PPsh-41 [ 23.08% ] -->
 		<bItemNo17>725</bItemNo17>	<!--Sterling L2A3 [ 19.23% ] -->
 		<bItemNo18>725</bItemNo18>	<!--Sterling L2A3 [ 19.23% ] -->
-		<bItemNo19>724</bItemNo19>	<!--Thompson M1A1 [ 11.54% ] -->
+		<bItemNo19>11</bItemNo19>	<!--Thompson M1A1 [ 11.54% ] -->
 		<bItemNo20>702</bItemNo20>	<!--PPsh-41 [ 23.08% ] -->
 		<bItemNo21>702</bItemNo21>	<!--PPsh-41 [ 23.08% ] -->
 		<bItemNo22>725</bItemNo22>	<!--Sterling L2A3 [ 19.23% ] -->
 		<bItemNo23>702</bItemNo23>	<!--PPsh-41 [ 23.08% ] -->
 		<bItemNo24>725</bItemNo24>	<!--Sterling L2A3 [ 19.23% ] -->
-		<bItemNo25>724</bItemNo25>	<!--Thompson M1A1 [ 11.54% ] -->
+		<bItemNo25>11</bItemNo25>	<!--Thompson M1A1 [ 11.54% ] -->
 		<bItemNo26>1071</bItemNo26>	<!--Owen .45 [ 7.69% ] -->
 		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
 		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
@@ -59,26 +59,26 @@
 		<uiIndex>1</uiIndex>
 		<name>10%</name>
 		<ubChoices>17</ubChoices>
-		<bItemNo1>724</bItemNo1>	<!-- Old Machine Pistols [ 5.88% ] -->
-		<bItemNo2>702</bItemNo2>	<!-- WW2 Carbines" [ 11.76% ] -->
-		<bItemNo3>725</bItemNo3>	<!--Name [ 11.76% ] -->
-		<bItemNo4>761</bItemNo4>	<!--Stechkin APS [ 5.88% ] -->
-		<bItemNo5>780</bItemNo5>	<!--PPsh-41 [ 5.88% ] -->
-		<bItemNo6>1178</bItemNo6>	<!--Sterling L2A3 [ 5.88% ] -->
-		<bItemNo7>1067</bItemNo7>	<!--Walther MPL [ 5.88% ] -->
-		<bItemNo8>1177</bItemNo8>	<!--SA-24 [ 5.88% ] -->
-		<bItemNo9>345</bItemNo9>	<!--MAT-49 [ 17.65% ] -->
-		<bItemNo10>1193</bItemNo10>	<!--Beretta M12 [ 11.76% ] -->
-		<bItemNo11>693</bItemNo11>	<!--Spectre M4 [ 5.88% ] -->
-		<bItemNo12>776</bItemNo12>	<!--Uzi [ 5.88% ] -->
-		<bItemNo13>702</bItemNo13>	<!--M1 Carbine [ 11.76% ] -->
-		<bItemNo14>725</bItemNo14>	<!--Mosin-Nagant 1891/30 [ 11.76% ] -->
-		<bItemNo15>1193</bItemNo15>	<!--Mauser Karabiner 98k [ 11.76% ] -->
-		<bItemNo16>345</bItemNo16>	<!--PPsh-41 [ 17.65% ] -->
-		<bItemNo17>345</bItemNo17>	<!--Sterling L2A3 [ 17.65% ] -->
-		<bItemNo18>0</bItemNo18>	<!--M1 Carbine [ 0.00% ] -->
-		<bItemNo19>0</bItemNo19>	<!--Uzi [ 0.00% ] -->
-		<bItemNo20>0</bItemNo20>	<!--Uzi [ 0.00% ] -->
+		<bItemNo1>724</bItemNo1>	<!--Stechkin APS [ 5.88% ] -->
+		<bItemNo2>702</bItemNo2>	<!--PPsh-41 [ 11.76% ] -->
+		<bItemNo3>725</bItemNo3>	<!--Sterling L2A3 [ 11.76% ] -->
+		<bItemNo4>761</bItemNo4>	<!--Walther MPL [ 5.88% ] -->
+		<bItemNo5>780</bItemNo5>	<!--SA-24 [ 5.88% ] -->
+		<bItemNo6>1178</bItemNo6>	<!--MAT-49 [ 5.88% ] -->
+		<bItemNo7>1067</bItemNo7>	<!--Beretta M12 [ 5.88% ] -->
+		<bItemNo8>1177</bItemNo8>	<!--Spectre M4 [ 5.88% ] -->
+		<bItemNo9>345</bItemNo9>	<!--Uzi [ 17.64% ] -->
+		<bItemNo10>1193</bItemNo10>	<!--M1 Carbine [ 11.76% ] -->
+		<bItemNo11>693</bItemNo11>	<!--Mosin-Nagant 1891/30 [ 5.88% ] -->
+		<bItemNo12>776</bItemNo12>	<!--Mauser Karabiner 98k [ 5.88% ] -->
+		<bItemNo13>702</bItemNo13>	<!--PPsh-41 [ 11.76% ] -->
+		<bItemNo14>725</bItemNo14>	<!--Sterling L2A3 [ 11.76% ] -->
+		<bItemNo15>1193</bItemNo15>	<!--M1 Carbine [ 11.76% ] -->
+		<bItemNo16>345</bItemNo16>	<!--Uzi [ 17.64% ] -->
+		<bItemNo17>345</bItemNo17>	<!--Uzi [ 17.64% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
 		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
 		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
 		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
@@ -121,7 +121,7 @@
 		<bItemNo5>1193</bItemNo5>	<!--M1 Carbine [ 18.75% ] -->
 		<bItemNo6>693</bItemNo6>	<!--Mosin-Nagant 1891/30 [ 12.50% ] -->
 		<bItemNo7>776</bItemNo7>	<!--Mauser Karabiner 98k [ 12.50% ] -->
-		<bItemNo8>17</bItemNo8>	<!--SKS [ 6.25% ] -->
+		<bItemNo8>17</bItemNo8>		<!--SKS [ 6.25% ] -->
 		<bItemNo9>1067</bItemNo9>	<!--Beretta M12 [ 18.75% ] -->
 		<bItemNo10>345</bItemNo10>	<!--Uzi [ 18.75% ] -->
 		<bItemNo11>1193</bItemNo11>	<!--M1 Carbine [ 18.75% ] -->
@@ -174,14 +174,14 @@
 		<bItemNo3>1193</bItemNo3>	<!--M1 Carbine [ 21.43% ] -->
 		<bItemNo4>693</bItemNo4>	<!--Mosin-Nagant 1891/30 [ 7.14% ] -->
 		<bItemNo5>776</bItemNo5>	<!--Mauser Karabiner 98k [ 7.14% ] -->
-		<bItemNo6>17</bItemNo6>	<!--SKS [ 28.57% ] -->
+		<bItemNo6>17</bItemNo6>		<!--SKS [ 28.57% ] -->
 		<bItemNo7>347</bItemNo7>	<!--AK-47 [ 14.29% ] -->
 		<bItemNo8>613</bItemNo8>	<!--AKS-47 [ 7.14% ] -->
 		<bItemNo9>1193</bItemNo9>	<!--M1 Carbine [ 21.43% ] -->
 		<bItemNo10>1193</bItemNo10>	<!--M1 Carbine [ 21.43% ] -->
 		<bItemNo11>17</bItemNo11>	<!--SKS [ 28.57% ] -->
 		<bItemNo12>17</bItemNo12>	<!--SKS [ 28.57% ] -->
-		<bItemNo13>347</bItemNo13>	<!--SKS [ 28.57% ] -->
+		<bItemNo13>17</bItemNo13>	<!--SKS [ 28.57% ] -->
 		<bItemNo14>347</bItemNo14>	<!--AK-47 [ 14.29% ] -->
 		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
 		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
@@ -224,29 +224,29 @@
 		<uiIndex>4</uiIndex>
 		<name>40%</name>
 		<ubChoices>22</ubChoices>
-		<bItemNo1>1067</bItemNo1>	<!--Name [ 4.55% ] -->
-		<bItemNo2>345</bItemNo2>	<!--Beretta M12 [ 4.55% ] -->
-		<bItemNo3>1193</bItemNo3>	<!--Uzi [ 4.55% ] -->
-		<bItemNo4>693</bItemNo4>	<!--M1 Carbine [ 4.55% ] -->
-		<bItemNo5>776</bItemNo5>	<!--Mosin-Nagant 1891/30 [ 4.55% ] -->
-		<bItemNo6>17</bItemNo6>	<!--Mauser Karabiner 98k [ 4.55% ] -->
-		<bItemNo7>347</bItemNo7>	<!--SKS [ 13.64% ] -->
-		<bItemNo8>613</bItemNo8>	<!--AK-47 [ 13.64% ] -->
-		<bItemNo9>26</bItemNo9>	<!--AKS-47 [ 9.09% ] -->
-		<bItemNo10>612</bItemNo10>	<!--AKM [ 9.09% ] -->
-		<bItemNo11>742</bItemNo11>	<!--AKMS [ 4.55% ] -->
-		<bItemNo12>615</bItemNo12>	<!--Valmet M76 [ 9.09% ] -->
-		<bItemNo13>708</bItemNo13>	<!--AMD-65M [ 4.55% ] -->
-		<bItemNo14>705</bItemNo14>	<!--Sa vz.58 [ 4.55% ] -->
-		<bItemNo15>706</bItemNo15>	<!--RPD [ 4.55% ] -->
-		<bItemNo16>347</bItemNo16>	<!--RPK [ 13.64% ] -->
-		<bItemNo17>613</bItemNo17>	<!--AK-47 [ 13.64% ] -->
-		<bItemNo18>26</bItemNo18>	<!--AKS-47 [ 9.09% ] -->
-		<bItemNo19>612</bItemNo19>	<!--AKM [ 9.09% ] -->
-		<bItemNo20>615</bItemNo20>	<!--AKMS [ 9.09% ] -->
-		<bItemNo21>347</bItemNo21>	<!--AMD-65M [ 13.64% ] -->
-		<bItemNo22>613</bItemNo22>	<!--AK-47 [ 13.64% ] -->
-		<bItemNo23>0</bItemNo23>	<!--AKS-47 [ 0.00% ] -->
+		<bItemNo1>1067</bItemNo1>	<!--Beretta M12 [ 4.55% ] -->
+		<bItemNo2>345</bItemNo2>	<!--Uzi [ 4.55% ] -->
+		<bItemNo3>1193</bItemNo3>	<!--M1 Carbine [ 4.55% ] -->
+		<bItemNo4>693</bItemNo4>	<!--Mosin-Nagant 1891/30 [ 4.55% ] -->
+		<bItemNo5>776</bItemNo5>	<!--Mauser Karabiner 98k [ 4.55% ] -->
+		<bItemNo6>17</bItemNo6>		<!--SKS [ 4.55% ] -->
+		<bItemNo7>347</bItemNo7>	<!--AK-47 [ 13.64% ] -->
+		<bItemNo8>613</bItemNo8>	<!--AKS-47 [ 13.64% ] -->
+		<bItemNo9>26</bItemNo9>		<!--AKM [ 9.09% ] -->
+		<bItemNo10>612</bItemNo10>	<!--AKMS [ 9.09% ] -->
+		<bItemNo11>742</bItemNo11>	<!--Valmet M76 [ 5.55% ] -->
+		<bItemNo12>615</bItemNo12>	<!--AMD-65M [ 9.09% ] -->
+		<bItemNo13>708</bItemNo13>	<!--Sa vz.58 [ 4.55% ] -->
+		<bItemNo14>705</bItemNo14>	<!--RPD [ 4.55% ] -->
+		<bItemNo15>706</bItemNo15>	<!--RPK [ 4.55% ] -->
+		<bItemNo16>347</bItemNo16>	<!--AK-47 [ 13.64% ] -->
+		<bItemNo17>613</bItemNo17>	<!--AKS-47 [ 9.09% ] -->
+		<bItemNo18>26</bItemNo18>	<!--AKM [ 9.09% ] -->
+		<bItemNo19>612</bItemNo19>	<!--AKMS [ 9.09% ] -->
+		<bItemNo20>615</bItemNo20>	<!--AMD-65M [ 9.09% ] -->
+		<bItemNo21>347</bItemNo21>	<!--AK-47 [ 13.64% ] -->
+		<bItemNo22>613</bItemNo22>	<!--AKS-47 [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
 		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
 		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
 		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
@@ -279,27 +279,27 @@
 		<uiIndex>5</uiIndex>
 		<name>50%</name>
 		<ubChoices>20</ubChoices>
-		<bItemNo1>17</bItemNo1>	<!--Name [ 5.00% ] -->
-		<bItemNo2>347</bItemNo2>	<!--SKS [ 15.00% ] -->
-		<bItemNo3>613</bItemNo3>	<!--AK-47 [ 5.00% ] -->
-		<bItemNo4>26</bItemNo4>	<!--AKS-47 [ 15.00% ] -->
-		<bItemNo5>612</bItemNo5>	<!--AKM [ 5.00% ] -->
-		<bItemNo6>742</bItemNo6>	<!--AKMS [ 5.00% ] -->
-		<bItemNo7>615</bItemNo7>	<!--Valmet M76 [ 10.00% ] -->
-		<bItemNo8>708</bItemNo8>	<!--AMD-65M [ 5.00% ] -->
-		<bItemNo9>705</bItemNo9>	<!--Sa vz.58 [ 10.00% ] -->
-		<bItemNo10>706</bItemNo10>	<!--RPD [ 5.00% ] -->
-		<bItemNo11>785</bItemNo11>	<!--RPK [ 5.00% ] -->
-		<bItemNo12>14</bItemNo12>	<!--AKMSU [ 5.00% ] -->
-		<bItemNo13>614</bItemNo13>	<!--AKS-74U [ 5.00% ] -->
-		<bItemNo14>25</bItemNo14>	<!--AKS-74 [ 5.00% ] -->
-		<bItemNo15>347</bItemNo15>	<!--AK-74 [ 15.00% ] -->
-		<bItemNo16>26</bItemNo16>	<!--AK-47 [ 15.00% ] -->
-		<bItemNo17>615</bItemNo17>	<!--AKM [ 10.00% ] -->
-		<bItemNo18>705</bItemNo18>	<!--AMD-65M [ 10.00% ] -->
-		<bItemNo19>347</bItemNo19>	<!--RPD [ 15.00% ] -->
-		<bItemNo20>26</bItemNo20>	<!--AK-47 [ 15.00% ] -->
-		<bItemNo21>0</bItemNo21>	<!--AKM [ 0.00% ] -->
+		<bItemNo1>17</bItemNo1>		<!--SKS [ 5.00% ] -->
+		<bItemNo2>347</bItemNo2>	<!--AK-47 [ 15.00% ] -->
+		<bItemNo3>613</bItemNo3>	<!--AKS-47 [ 5.00% ] -->
+		<bItemNo4>26</bItemNo4>		<!--AKM [ 15.00% ] -->
+		<bItemNo5>612</bItemNo5>	<!--AKMS [ 5.00% ] -->
+		<bItemNo6>742</bItemNo6>	<!--Valmet M76 [ 10.00% ] -->
+		<bItemNo7>615</bItemNo7>	<!--AMD-65M [ 10.00% ] -->
+		<bItemNo8>708</bItemNo8>	<!--Sa vz.58 [ 5.00% ] -->
+		<bItemNo9>705</bItemNo9>	<!--RPD [ 10.00% ] -->
+		<bItemNo10>706</bItemNo10>	<!--RPK [ 5.00% ] -->
+		<bItemNo11>785</bItemNo11>	<!--AKMSU [ 5.00% ] -->
+		<bItemNo12>14</bItemNo12>	<!--AKS-74U [ 5.00% ] -->
+		<bItemNo13>614</bItemNo13>	<!--AKS-74 [ 5.00% ] -->
+		<bItemNo14>25</bItemNo14>	<!--AK-74 [ 5.00% ] -->
+		<bItemNo15>347</bItemNo15>	<!--AK-47 [ 15.00% ] -->
+		<bItemNo16>26</bItemNo16>	<!--AKM [ 15.00% ] -->
+		<bItemNo17>615</bItemNo17>	<!--AMD-65M [ 10.00% ] -->
+		<bItemNo18>705</bItemNo18>	<!--RPD [ 10.00% ] -->
+		<bItemNo19>347</bItemNo19>	<!--AK-47 [ 15.00% ] -->
+		<bItemNo20>26</bItemNo20>	<!--AKM [ 15.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
 		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
 		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
 		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
@@ -334,13 +334,13 @@
 		<uiIndex>6</uiIndex>
 		<name>60%</name>
 		<ubChoices>24</ubChoices>
-		<bItemNo1>26</bItemNo1>	<!--AKM [ 16.67% ] -->
+		<bItemNo1>26</bItemNo1>		<!--AKM [ 16.67% ] -->
 		<bItemNo2>612</bItemNo2>	<!--AKMS [ 8.33% ] -->
 		<bItemNo3>742</bItemNo3>	<!--Valmet M76 [ 12.50% ] -->
 		<bItemNo4>615</bItemNo4>	<!--AMD-65M [ 16.67% ] -->
 		<bItemNo5>785</bItemNo5>	<!--AKMSU [ 8.33% ] -->
-		<bItemNo6>14</bItemNo6>	<!--AKS-74U [ 4.17% ] -->
-		<bItemNo7>25</bItemNo7>	<!--AK-74 [ 4.17% ] -->
+		<bItemNo6>14</bItemNo6>		<!--AKS-74U [ 4.17% ] -->
+		<bItemNo7>25</bItemNo7>		<!--AK-74 [ 4.17% ] -->
 		<bItemNo8>705</bItemNo8>	<!--RPD [ 8.33% ] -->
 		<bItemNo9>706</bItemNo9>	<!--RPK [ 12.50% ] -->
 		<bItemNo10>35</bItemNo10>	<!--RPK-74 [ 4.17% ] -->
@@ -389,15 +389,15 @@
 		<uiIndex>7</uiIndex>
 		<name>70%</name>
 		<ubChoices>24</ubChoices>
-		<bItemNo1>26</bItemNo1>	<!--AKM [ 4.17% ] -->
+		<bItemNo1>26</bItemNo1>		<!--AKM [ 4.17% ] -->
 		<bItemNo2>742</bItemNo2>	<!--Valmet M76 [ 4.17% ] -->
 		<bItemNo3>615</bItemNo3>	<!--AMD-65M [ 4.17% ] -->
 		<bItemNo4>785</bItemNo4>	<!--AKMSU [ 8.33% ] -->
-		<bItemNo5>14</bItemNo5>	<!--AKS-74U [ 8.33% ] -->
-		<bItemNo6>25</bItemNo6>	<!--AK-74 [ 8.33% ] -->
+		<bItemNo5>14</bItemNo5>		<!--AKS-74U [ 8.33% ] -->
+		<bItemNo6>25</bItemNo6>		<!--AK-74 [ 8.33% ] -->
 		<bItemNo7>705</bItemNo7>	<!--RPD [ 8.33% ] -->
 		<bItemNo8>706</bItemNo8>	<!--RPK [ 8.33% ] -->
-		<bItemNo9>35</bItemNo9>	<!--RPK-74 [ 8.33% ] -->
+		<bItemNo9>35</bItemNo9>		<!--RPK-74 [ 8.33% ] -->
 		<bItemNo10>18</bItemNo10>	<!--Dragunov SVD [ 8.33% ] -->
 		<bItemNo11>700</bItemNo11>	<!--PKM [ 4.17% ] -->
 		<bItemNo12>734</bItemNo12>	<!--Dragunov SVDS [ 4.17% ] -->
@@ -444,12 +444,12 @@
 		<uiIndex>8</uiIndex>
 		<name>80%</name>
 		<ubChoices>19</ubChoices>
-		<bItemNo1>14</bItemNo1>	<!--AKS-74U [ 5.26% ] -->
-		<bItemNo2>25</bItemNo2>	<!--AK-74 [ 5.26% ] -->
+		<bItemNo1>14</bItemNo1>		<!--AKS-74U [ 5.26% ] -->
+		<bItemNo2>25</bItemNo2>		<!--AK-74 [ 5.26% ] -->
 		<bItemNo3>705</bItemNo3>	<!--RPD [ 5.26% ] -->
 		<bItemNo4>706</bItemNo4>	<!--RPK [ 10.53% ] -->
-		<bItemNo5>35</bItemNo5>	<!--RPK-74 [ 10.53% ] -->
-		<bItemNo6>18</bItemNo6>	<!--Dragunov SVD [ 5.26% ] -->
+		<bItemNo5>35</bItemNo5>		<!--RPK-74 [ 10.53% ] -->
+		<bItemNo6>18</bItemNo6>		<!--Dragunov SVD [ 5.26% ] -->
 		<bItemNo7>700</bItemNo7>	<!--PKM [ 5.26% ] -->
 		<bItemNo8>734</bItemNo8>	<!--Dragunov SVDS [ 10.53% ] -->
 		<bItemNo9>603</bItemNo9>	<!--AEK-973 [ 10.53% ] -->
@@ -500,7 +500,7 @@
 		<name>90%</name>
 		<ubChoices>19</ubChoices>
 		<bItemNo1>706</bItemNo1>	<!--RPK [ 5.26% ] -->
-		<bItemNo2>35</bItemNo2>	<!--RPK-74 [ 10.53% ] -->
+		<bItemNo2>35</bItemNo2>		<!--RPK-74 [ 10.53% ] -->
 		<bItemNo3>734</bItemNo3>	<!--Dragunov SVDS [ 10.53% ] -->
 		<bItemNo4>603</bItemNo4>	<!--AEK-973 [ 10.53% ] -->
 		<bItemNo5>607</bItemNo5>	<!--AK-103 [ 10.53% ] -->
@@ -509,7 +509,7 @@
 		<bItemNo8>610</bItemNo8>	<!--AK-107 [ 10.53% ] -->
 		<bItemNo9>725</bItemNo9>	<!--SVU [ 5.26% ] -->
 		<bItemNo10>699</bItemNo10>	<!--Pecheneg [ 5.26% ] -->
-		<bItemNo11>616</bItemNo11>	<!--"AN-94 ""Abakan""" [ 5.26% ] -->
+		<bItemNo11>616</bItemNo11>	<!--AN-94 "Abakan" [ 5.26% ] -->
 		<bItemNo12>700</bItemNo12>	<!--PKM [ 5.26% ] -->
 		<bItemNo13>734</bItemNo13>	<!--Dragunov SVDS [ 10.53% ] -->
 		<bItemNo14>35</bItemNo14>	<!--RPK-74 [ 10.53% ] -->
@@ -554,13 +554,13 @@
 		<uiIndex>10</uiIndex>
 		<name>100%</name>
 		<ubChoices>9</ubChoices>
-		<bItemNo1>35</bItemNo1>	<!--RPK-74 [ 11.11% ] -->
+		<bItemNo1>35</bItemNo1>		<!--RPK-74 [ 11.11% ] -->
 		<bItemNo2>602</bItemNo2>	<!--AEK-971 [ 11.11% ] -->
 		<bItemNo3>609</bItemNo3>	<!--AK-105 [ 11.11% ] -->
 		<bItemNo4>610</bItemNo4>	<!--AK-107 [ 11.11% ] -->
 		<bItemNo5>700</bItemNo5>	<!--PKM [ 11.11% ] -->
 		<bItemNo6>699</bItemNo6>	<!--Pecheneg [ 11.11% ] -->
-		<bItemNo7>616</bItemNo7>	<!--"AN-94 ""Abakan""" [ 11.11% ] -->
+		<bItemNo7>616</bItemNo7>	<!--AN-94 "Abakan" [ 11.11% ] -->
 		<bItemNo8>734</bItemNo8>	<!--Dragunov SVDS [ 11.11% ] -->
 		<bItemNo9>725</bItemNo9>	<!--SVU [ 11.11% ] -->
 		<bItemNo10>0</bItemNo10>	<!-- [ 0.00% ] -->
