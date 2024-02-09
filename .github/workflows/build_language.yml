@@ -30,10 +30,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download versions.env
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: versions.env
           path: artifacts
@@ -69,7 +69,7 @@ jobs:
           JA2Application=$JA2Application
           " >> $GITHUB_ENV
 
-      - uses: microsoft/setup-msbuild@v1.1
+      - uses: microsoft/setup-msbuild@v2
         with:
           msbuild-architecture: x86
       - uses: ilammy/msvc-dev-cmd@v1
@@ -87,7 +87,7 @@ jobs:
           find build/
 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.language }}_${{ matrix.application }}
           path: build/*.exe
@@ -100,7 +100,7 @@ jobs:
 
     steps:
       - name: Download versions.env
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: versions.env
           path: artifacts
@@ -109,7 +109,7 @@ jobs:
         run: cat artifacts/versions.env >> $GITHUB_ENV
 
       - name: Checkout gamedir
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.GAMEDIR_REPOSITORY }}
           ref: ${{ env.GAMEDIR_COMMIT_SHA }}
@@ -117,7 +117,7 @@ jobs:
 
       - name: Checkout gamedir-languages
         if: inputs.language != 'English'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
           ref: ${{ env.GAMEDIR_LANGUAGES_COMMIT_SHA }}
@@ -131,25 +131,25 @@ jobs:
           cp -a gamedir-languages/${{ inputs.language }}_Version/* gamedir/
 
       - name: Download ja2
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.language }}_ja2
           path: artifacts/ja2
 
       - name: Download ja2mapeditor
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.language }}_ja2mapeditor
           path: artifacts/ja2mapeditor
 
       - name: Download ja2ub
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.language }}_ja2ub
           path: artifacts/ja2ub
 
       - name: Download ja2ubmapeditor
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.language }}_ja2ubmapeditor
           path: artifacts/ja2ubmapeditor
@@ -199,7 +199,8 @@ jobs:
           7z a -bb -xr'!.*' "../dist/${DIST_NAME}.7z" .
 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.language }}_release
           path: dist/
+          compression-level: 0
