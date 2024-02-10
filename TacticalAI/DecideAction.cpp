@@ -2696,7 +2696,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-
 	////////////////////////////////////////////////////////////////////////
 	// IF POSSIBLE, FIRE LONG RANGE WEAPONS AT TARGETS REPORTED BY RADIO
 	////////////////////////////////////////////////////////////////////////
@@ -2869,6 +2868,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			DebugAI(AI_MSG_TOPIC, pSoldier, String("[use smoke to cover friend]"), gLogDecideActionRed);
 
 			CheckTossFriendSmoke(pSoldier, &BestThrow);
+
 			if (BestThrow.ubPossible)
 			{
 				DebugAI(AI_MSG_INFO, pSoldier, String("Throw possible"), gLogDecideActionRed);
@@ -3217,7 +3217,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					return(AI_ACTION_RED_ALERT);
 				}
 			}
-			// if we can't call in artillery, jam frequencies, so that the palyer can't use radio skills
+			// if we can't call in artillery, jam frequencies, so that the player can't use radio skills
 			else if (!pSoldier->IsJamming() && !pSoldier->CanAnyArtilleryStrikeBeOrdered(&tmp))
 			{
 				DebugAI(AI_MSG_INFO, pSoldier, String("Start jamming radio frequencies"), gLogDecideActionRed);
@@ -3351,6 +3351,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Provide medical aid]"), gLogDecideActionRed);
 
 			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+
 			// are we ourselves the patient?
 			if ( ubPerson == pSoldier->ubID )
 			{
@@ -3418,6 +3419,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			DebugAI(AI_MSG_TOPIC, pSoldier, String("[Seek medical aid]"), gLogDecideActionRed);
 
 			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+
 			if ( ubPerson != NOBODY )
 			{
 				DebugAI(AI_MSG_INFO, pSoldier, String("Found a medic!"), gLogDecideActionRed);
@@ -3493,7 +3495,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 	}
-
 
 	////////////////////////////////////////////////////////////////////////
 	// RED RETREAT
@@ -3608,6 +3609,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
 	if ( !(pSoldier->usSoldierFlagMask & SOLDIER_RAISED_REDALERT) && !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
+
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to radio red alert");
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Radio red alert]"), gLogDecideActionRed);
 
@@ -3746,7 +3748,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 		else { DebugAI(AI_MSG_INFO, pSoldier, String("Throw not possible"), gLogDecideActionRed); }
 	}
-
 
 	// sevenfm: no Main Red AI for civilians
 	if ( (gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier )) && 
@@ -4247,7 +4248,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 									DebugAI(AI_MSG_INFO, pSoldier, String("Distance not suitable, seek enemy instead"), gLogDecideActionRed);
 									return AI_ACTION_SEEK_OPPONENT;
 								}
-
 								pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sClosestDisturbance, action );
 								
 								if (TileIsOutOfBounds(pSoldier->aiData.usActionData) || pSoldier->numFlanks >= MAX_FLANKS_RED )
@@ -4268,6 +4268,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 											return(AI_ACTION_SEEK_OPPONENT);
 										}
 									}
+
 									else
 									{
 										DebugAI(AI_MSG_INFO, pSoldier, String("Seek enemy"), gLogDecideActionRed);
@@ -4582,7 +4583,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				DebugAI(AI_MSG_INFO, pSoldier, String("Soldier is shocked, attempt to run away"), gLogDecideActionRed);
 				// look for best place to RUN AWAY to (farthest from the closest threat)
 				pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
-
+				
 				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 				{
 #ifdef DEBUGDECISIONS
@@ -5425,7 +5426,6 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 		(!ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE) && !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->TakenLargeHit()) &&
 		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
 	{
-		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Self smoke when under fire]"));
 		DebugAI(AI_MSG_INFO, pSoldier, String("check if soldier can cover himself with smoke"));
 
 		CheckTossSelfSmoke(pSoldier, &BestThrow);
