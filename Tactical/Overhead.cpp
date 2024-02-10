@@ -5081,11 +5081,17 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
     INT16        sDesiredLevel;
     BOOLEAN             fOKCheckStruct;
 
-	// sevenfm: allow civilians and NPCs with profile to go off screen
-	if (!GridNoOnVisibleWorldTile(sGridNo) && (pCurrSoldier->bTeam != CIV_TEAM || pCurrSoldier->ubProfile == NO_PROFILE))
-	{
-		return(FALSE);
-	}
+    // Allow civilians and NPCs with profile to go off screen, and also enemies if tactical retreat is enabled
+    auto destinationOffscreen = !(GridNoOnVisibleWorldTile(sGridNo));
+    auto hasProfile = pCurrSoldier->ubProfile != NO_PROFILE;
+    auto isCivilian = pCurrSoldier->bTeam == CIV_TEAM;
+    auto isEnemy = pCurrSoldier->bTeam == ENEMY_TEAM;
+    auto retreatAllowed = gGameExternalOptions.fAITacticalRetreat == true;
+
+    if (destinationOffscreen && !(isCivilian || hasProfile || (isEnemy && retreatAllowed)))
+    {
+        return(FALSE);
+    }
 
     if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
     {
