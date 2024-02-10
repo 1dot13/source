@@ -1739,6 +1739,8 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGBUSY
 			AINumMessage("Busy with action, skipping guy#",pSoldier->ubID);
 #endif
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Busy with action %s, skipping guy [%d]", wszAction[pSoldier->aiData.bAction], pSoldier->ubID);
+			DebugAI(AI_MSG_INFO, pSoldier, String("Busy with action %s, skipping guy [%d]", wszAction[pSoldier->aiData.bAction], pSoldier->ubID));
 
 			// let it continue
 			return;
