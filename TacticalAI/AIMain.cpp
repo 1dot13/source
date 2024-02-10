@@ -1016,7 +1016,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 		if (!ShouldActionStayInProgress(pSoldier))
 		{
-			DebugAI(AI_MSG_INFO, pSoldier, String("Action % s was stuck as being in progress. Canceling action", wszAction[pSoldier->aiData.bAction]));
+			DebugAI(AI_MSG_INFO, pSoldier, String("Action %s was stuck as being in progress. Canceling action", szAction[pSoldier->aiData.bAction]));
 			ActionDone(pSoldier);
 		}
 	}
