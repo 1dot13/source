@@ -10610,7 +10610,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Decide action if stuck in water or gas]"));
 
 	// when in deep water, move to closest opponent
-	if (ubCanMove && (bInDeepWater || bInWater) && !pSoldier->aiData.bNeutral && pSoldier->aiData.bOrders == SEEKENEMY)
+	if (ubCanMove && (bInDeepWater || bInWater) && !pSoldier->aiData.bNeutral && (pSoldier->aiData.bOrders == SEEKENEMY || pSoldier->aiData.bAction == AI_ACTION_SEEK_OPPONENT || pSoldier->aiData.bLastAction == AI_ACTION_SEEK_OPPONENT))
 	{
 		// find closest reachable opponent, excluding opponents in deep water
 		BOOLEAN fClimbDummy;
