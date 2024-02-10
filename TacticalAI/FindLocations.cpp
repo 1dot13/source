@@ -612,7 +612,85 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	return( ubCount );
 }
 
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
+static void CalculateCoverValue(SOLDIERTYPE* pSoldier, const INT32 sGridNo, const INT32 iPathCost, const INT32 iMyThreatValue, const UINT32 uiThreatCnt, const UINT8 ubDiff, const BOOLEAN fNight, const UINT8	ubBackgroundLightPercent, const INT32 morale, INT32 &iCoverValue, INT32& iCoverScale)
+{
+	iCoverValue = 0;
+	iCoverScale = 0;
+
+	// sevenfm: check sight cover
+	BOOLEAN fProneCover = TRUE;
+
+	// for every opponent that threatens, consider this spot's cover vs. him
+	for (UINT32 uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
+	{
+		// calculate the range we would be at from this opponent
+		INT32 iThreatRange = Threat[uiLoop].iOrigRange;
+		if (sGridNo != pSoldier->sGridNo)
+		{
+			iThreatRange = GetRangeInCellCoordsFromGridNoDiff(sGridNo, Threat[uiLoop].sGridNo);
+		}
+
+		// if this threat would be within 20 tiles, count it
+		if (iThreatRange <= MAX_THREAT_RANGE)
+		{
+			iCoverValue += CalcCoverValue(
+				pSoldier, sGridNo, iMyThreatValue,
+				(pSoldier->bActionPoints - iPathCost),
+				uiLoop, iThreatRange, morale, &iCoverScale
+			);
+		}
+
+		// sevenfm: sight test
+		if (gGameExternalOptions.fAIBetterCover)
+		{
+			if (LocationToLocationLineOfSightTest(Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, sGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS))
+				//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+			{
+				fProneCover = FALSE;
+			}
+		}
+
+		//sprintf(tempstr,"iCoverValue after opponent %d is now %d",iLoop,iCoverValue);
+		//PopMessage(tempstr);
+	}
+
+	// reduce cover for each person adjacent to this gridno who is on our team,
+	// by 10% (so locations next to several people will be very much frowned upon
+	iCoverValue -= (abs(iCoverValue) / 5) * NumberOfTeamMatesAdjacent(pSoldier, sGridNo);
+
+	if (gGameExternalOptions.fAIBetterCover)
+	{
+		// sevenfm: when defending (range change <= 3), prefer locations with sight cover
+		if (RangeChangeDesire(pSoldier) < 4)
+		{
+			if (fProneCover) { iCoverValue += abs(iCoverValue) / __max(2, 2 * RangeChangeDesire(pSoldier)); }
+		}
+
+		// sevenfm: check for nearby friends, add bonus/penalty 10%
+		UINT8 ubNearbyFriends = __max(0, CountNearbyFriends(pSoldier, sGridNo, 7));
+		iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (6 - ubDiff);
+
+		// sevenfm: penalize locations with fresh corpses
+		if (GetNearestRottingCorpseAIWarning(sGridNo) > 0)
+		{
+			iCoverValue -= abs(iCoverValue) / (6 - ubDiff);
+		}
+
+		// sevenfm: penalize locations near red smoke			
+		iCoverValue -= abs(iCoverValue) * RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) / 100;
+	}
+
+	if (fNight && !(InARoom(sGridNo, NULL))) // ignore in buildings in case placed there
+	{
+		// reduce cover at nighttime based on how bright the light is at that location
+		// using the difference in sighting distance between the background and the
+		// light for this tile
+		//ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
+		UINT8 ubLightPercentDifference = (gGameExternalOptions.ubBrightnessVisionMod[LightTrueLevel(sGridNo, pSoldier->pathing.bLevel)] - ubBackgroundLightPercent);
+		iCoverValue -= (abs(iCoverValue) / 100) * ubLightPercentDifference;
+	}
+}
+
 INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter, INT32 targetGridNo)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
@@ -770,70 +848,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	// calculate our current cover value in the place we are now, since the
 	// cover we are searching for must be better than what we have now!
-	iCurrentCoverValue = 0;
-	iCurrentScale = 0;
-
-	// sevenfm: sight cover
-	fProneCover = TRUE;
-
-	// for every opponent that threatens, consider this spot's cover vs. him
-	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
-	{
-		// if this threat is CURRENTLY within 20 tiles
-		if (Threat[uiLoop].iOrigRange <= MAX_THREAT_RANGE)
-		{
-			// add this opponent's cover value to our current total cover value
-			iCurrentCoverValue += CalcCoverValue(pSoldier,targetGridNo,iMyThreatValue,pSoldier->bActionPoints,uiLoop,Threat[uiLoop].iOrigRange,morale,&iCurrentScale);
-		}
-		// sevenfm: sight test
-		if( gGameExternalOptions.fAIBetterCover )
-		{
-			if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, targetGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS ) )
-			//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, targetGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, NO_DISTANCE_LIMIT ) )
-			{
-				fProneCover = FALSE;
-			}
-		}		
-		//sprintf(tempstr,"iCurrentCoverValue after opponent %d is now %d",iLoop,iCurrentCoverValue);
-		//PopMessage(tempstr);
-	}
-
-	// reduce cover for each person adjacent to this gridno who is on our team,
-	// by 10% (so locations next to several people will be very much frowned upon
-	if ( iCurrentCoverValue >= 0 )
-	{
-		iCurrentCoverValue -= (iCurrentCoverValue / 5) * NumberOfTeamMatesAdjacent( pSoldier, targetGridNo );
-	}
-	else
-	{
-		// when negative, must add a negative to decrease the total
-		iCurrentCoverValue += (iCurrentCoverValue / 5) * NumberOfTeamMatesAdjacent( pSoldier, targetGridNo );
-	}
-
-	if( gGameExternalOptions.fAIBetterCover )
-	{
-		// sevenfm: when defending (range change <= 3), prefer locations with sight cover
-		if( RangeChangeDesire(pSoldier) < 4 )
-		{
-			if( fProneCover )
-			{
-				iCurrentCoverValue += abs(iCurrentCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
-			}
-		}
-
-		// sevenfm: check for nearby friends, add bonus/penalty
-		ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, targetGridNo, 5 ));
-		iCurrentCoverValue -= ubNearbyFriends * abs(iCurrentCoverValue) / (10-ubDiff);
-
-		// sevenfm: penalize locations with fresh corpses
-		if(GetNearestRottingCorpseAIWarning( targetGridNo ) > 0)
-		{
-			iCurrentCoverValue -= abs(iCurrentCoverValue) / (8-ubDiff);
-		}
-
-		// sevenfm: penalize locations near red smoke
-		iCurrentCoverValue -= abs(iCurrentCoverValue) * RedSmokeDanger(targetGridNo, pSoldier->pathing.bLevel) / 100;
-	}	
+	CalculateCoverValue(pSoldier, targetGridNo, 0, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCurrentCoverValue, iCurrentScale);
 
 #ifdef DEBUGCOVER
 //	AINumMessage("Search Range = ",iSearchRange);
@@ -1032,92 +1047,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 			// OK, this place shows potential.	How useful is it as cover?
 			// EVALUATE EACH GRID #, remembering the BEST PROTECTED ONE
-			iCoverValue = 0;
-			iCoverScale = 0;
-
-			// sevenfm: check sight cover
-			fProneCover = TRUE;
-
-			// for every opponent that threatens, consider this spot's cover vs. him
-			for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
-			{
-				// calculate the range we would be at from this opponent
-				iThreatRange = GetRangeInCellCoordsFromGridNoDiff( sGridNo, Threat[uiLoop].sGridNo );
-				// if this threat would be within 20 tiles, count it
-				if (iThreatRange <= MAX_THREAT_RANGE)
-				{
-					iCoverValue += CalcCoverValue(pSoldier,sGridNo,iMyThreatValue,
-						(pSoldier->bActionPoints - iPathCost),
-						uiLoop,iThreatRange,morale,&iCoverScale);
-				}
-
-				// sevenfm: sight test
-				if( gGameExternalOptions.fAIBetterCover )
-				{
-					if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, sGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS ) )
-					//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
-					{
-						fProneCover = FALSE;
-					}
-				}
-
-				//sprintf(tempstr,"iCoverValue after opponent %d is now %d",iLoop,iCoverValue);
-				//PopMessage(tempstr);
-			}
-
-			// reduce cover for each person adjacent to this gridno who is on our team,
-			// by 10% (so locations next to several people will be very much frowned upon
-			if ( iCoverValue >= 0 )
-			{
-				iCoverValue -= (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
-			}
-			else
-			{
-				// when negative, must add a negative to decrease the total
-				iCoverValue += (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
-			}
-
-			if( gGameExternalOptions.fAIBetterCover )
-			{
-				// sevenfm: when defending (range change <= 3), prefer locations with sight cover
-				if( RangeChangeDesire(pSoldier) < 4 )
-				{
-					if( fProneCover )
-						iCoverValue += abs(iCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
-				}
-
-				// sevenfm: check for nearby friends in 10 radius, add bonus/penalty 10%
-				ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, sGridNo, 5 ));
-				iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (10-ubDiff);
-
-				// sevenfm: penalize locations with fresh corpses
-				if(GetNearestRottingCorpseAIWarning( sGridNo ) > 0)
-				{
-					iCoverValue -= abs(iCoverValue) / (8-ubDiff);
-				}
-
-				// sevenfm: penalize locations near red smoke			
-				iCoverValue -= abs(iCoverValue) * RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) / 100;
-			}			
-
-			if ( fNight && !( InARoom( sGridNo, NULL ) ) ) // ignore in buildings in case placed there
-			{
-				// reduce cover at nighttime based on how bright the light is at that location
-				// using the difference in sighting distance between the background and the
-				// light for this tile
-				//ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
-				ubLightPercentDifference = (gGameExternalOptions.ubBrightnessVisionMod[ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
-				
-				if ( iCoverValue >= 0 )
-				{
-					iCoverValue -= (iCoverValue / 100) * ubLightPercentDifference;
-				}
-				else
-				{
-					iCoverValue += (iCoverValue / 100) * ubLightPercentDifference;
-				}
-			}
-
+			CalculateCoverValue(pSoldier, sGridNo, iPathCost, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCoverValue, iCoverScale);
 
 #ifdef DEBUGCOVER
 			// if there ARE multiple opponents
