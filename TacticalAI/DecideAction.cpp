@@ -6187,7 +6187,6 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 				// check path to closest disturbance
 				if (gfTurnBasedAI &&
 					pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
-					pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
 					!TileIsOutOfBounds(sClosestDisturbance) &&
 					RangeChangeDesire(pSoldier) > 3 &&
 					!AICheckIsSniper(pSoldier) &&
