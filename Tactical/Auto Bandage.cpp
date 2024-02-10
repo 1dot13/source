@@ -460,7 +460,7 @@ void AutoBandage( BOOLEAN fStart )
 		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier )
 		{
 			// 0verhaul:  Make sure the merc is also in the sector before making him stand up!
-			if ( pSoldier->bActive && pSoldier->bInSector )
+			if (pSoldier && pSoldier->bActive && pSoldier->bInSector)
 			{
 				ActionDone( pSoldier );
 				if ( pSoldier->bSlotItemTakenFrom != NO_SLOT )
@@ -483,12 +483,16 @@ void AutoBandage( BOOLEAN fStart )
 		ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop)
 		{
-			ActionDone( MercPtrs[ ubLoop ] );
-
-			// If anyone is still doing aid animation, stop!
-			if ( MercPtrs[ ubLoop ]->usAnimState == GIVING_AID || MercPtrs[ ubLoop ]->usAnimState == GIVING_AID_PRN )
+			pSoldier = MercPtrs[ubLoop];
+			if (pSoldier && pSoldier->bActive && pSoldier->bInSector)
 			{
-				MercPtrs[ ubLoop ]->SoldierGotoStationaryStance(	);
+				ActionDone(pSoldier);
+
+				// If anyone is still doing aid animation, stop!
+				if (pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN)
+				{
+					pSoldier->SoldierGotoStationaryStance();
+				}
 			}
 		}
 
