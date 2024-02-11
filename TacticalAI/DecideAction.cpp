@@ -5253,6 +5253,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 					AIPopMessage(tempstr);
 #endif
 
+					DebugAI(AI_MSG_INFO, pSoldier, String("Gassed or low on breath, run away to grid %d", pSoldier->aiData.usActionData));
 					return(AI_ACTION_RUN_AWAY);
 				}
 			}
@@ -5563,6 +5564,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 		if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("[VIP Retreat] grid# %d", pSoldier->aiData.usActionData));
 			return AI_ACTION_RUN_AWAY;
 		}
 	}
