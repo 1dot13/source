@@ -799,7 +799,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 	********/
 	if (gfTurnBasedAI)
 	{
-		if (true)
+#if 0
 		{
 			// added by Flugente: static pointers, used to break out of an endless circles
 			static SOLDIERTYPE* pLastDecisionSoldier = NULL;
@@ -832,7 +832,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 				lastdecisioncount = 0;
 			}
 		}
-		else
+#else
 		{
 			time_t tCurrentTime = time(0);
 			UINT32 uiShortDelay = 10;
@@ -871,6 +871,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 #endif
 			}
 		}
+#endif
 	}
 
 	// We STILL do not want to issue new orders while an attack busy situation is going on.  This can happen, for example,
