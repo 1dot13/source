@@ -461,7 +461,7 @@ static auto canJumpFences(SOLDIERTYPE* pSoldier) -> bool {
 //ADB the extra cover feature is supposed to pick a path of the same distance as one calculated with the feature off,
 //but a safer path, usually farther away from an enemy or following behind some cover.
 //however it has not been tested and it may need some work, I haven't touched it in a while
-//#define ASTAR_USING_EXTRACOVER
+#define ASTAR_USING_EXTRACOVER
 
 using namespace std;
 using namespace ASTAR;
@@ -1164,7 +1164,7 @@ void AStarPathfinder::ExecuteAStarLogic()
 #ifdef ASTAR_USING_EXTRACOVER
 		//check if we will run out of AP while entering this node or before
 		//if we run out, the merc will stop at the parent node for a turn and be vulnerable
-		if (mercsMaxAPs && APCost > mercsMaxAPs)
+		if (gfTurnBasedAI && mercsMaxAPs && AStarG > mercsMaxAPs)
 		{
 
 			extraGCoverCost = GetExtraGCover(ParentNode);
@@ -1174,7 +1174,7 @@ void AStarPathfinder::ExecuteAStarLogic()
 				//use the stance and cover to see how much we really want to stop at the parent node
 				//as opposed to an equal path with different cover
 				//because other nodes further on the path will stop here too, add this value to the F cost
-				extraGCoverCost = CalcGCover(ParentNodeIndex, APCost);
+				extraGCoverCost = CalcGCover(ParentNode, AStarG);
 
 				//remember, we have run out of points to *enter* this node, so we are stuck at the *parent* node
 				//cache the cost to stay at the parent node
@@ -1512,9 +1512,9 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 	INT32	iMyThreatValue;
 	INT16	sThreatLoc;
 	UINT32	uiThreatCnt = 0;
-	INT16	*		pusLastLoc;
-	INT8 *		pbPersOL;
-	INT8 *		pbPublOL;
+	INT32*	pusLastLoc;
+	INT8 *	pbPersOL;
+	INT8 *	pbPublOL;
 
 	//although we have run out of APs to get here, it could just mean we have some APs but not enough to enter
 	int APLeft = this->mercsMaxAPs - APCost;
@@ -1523,7 +1523,7 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 	pusLastLoc = &(gsLastKnownOppLoc[pSoldier->ubID][0]);
 
 	// hang a pointer into personal opplist
-	pbPersOL = &(pSoldier->bOppList[0]);
+	pbPersOL = &(pSoldier->aiData.bOppList[0]);
 	// hang a pointer into public opplist
 	pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][0]);
 
@@ -1535,7 +1535,7 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 		SOLDIERTYPE* pOpponent = MercSlots[ uiLoop ];
 
 		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pOpponent || pOpponent->bLife < OKLIFE) {
+		if (!pOpponent || pOpponent->stats.bLife < OKLIFE) {
 			continue;			// next merc
 		}
 
@@ -1544,7 +1544,7 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 			continue;			// next merc
 		}
 
-		pbPersOL = pSoldier->bOppList + pOpponent->ubID; 
+		pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID; 
 		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pOpponent->ubID;
 		pusLastLoc = gsLastKnownOppLoc[pSoldier->ubID] + pOpponent->ubID;
 
@@ -1554,7 +1554,7 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64) {
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64) {
 			continue;	// next opponent
 		}
 
@@ -1599,7 +1599,7 @@ int AStarPathfinder::CalcGCover(int const NodeIndex,
 		Threats[uiThreatCnt].iOrigRange		= iThreatRange;
 
 		// calculate how many APs he will have at the start of the next turn
-		Threats[uiThreatCnt].iAPs = CalcActionPoints(pOpponent);
+		Threats[uiThreatCnt].iAPs = pOpponent->CalcActionPoints();
 
 		if (iThreatRange < iClosestThreatRange) {
 			iClosestThreatRange = iThreatRange;
@@ -1641,7 +1641,7 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 									INT32 myThreatsiValue, INT32 myThreatsiAPs, INT32 myThreatsiCertainty)
 {
 	SOLDIERTYPE* pMe = this->pSoldier;
-	INT32	morale = pSoldier->bAIMorale;
+	INT32	morale = pSoldier->aiData.bAIMorale;
 
 	INT32	iRange = myThreatsiOrigRange;
 	// all 32-bit integers for max. speed
@@ -1690,7 +1690,7 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 	else
 	{
 		// optimistically assume we'll be behind the best cover available at this spot
-		bHisActualCTGT = CalcWorstCTGTForPosition( pHim, pMe->ubID, sMyGridNo, pMe->bLevel, iMyAPsLeft );
+		bHisActualCTGT = CalcWorstCTGTForPosition( pHim, pMe->ubID, sMyGridNo, pMe->pathing.bLevel, iMyAPsLeft );
 	}
 
 	// normally, that will be the cover I'll use, unless worst case over-rides it
@@ -1709,7 +1709,7 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 		}
 
 		// calculate where my cover is worst if opponent moves just 1 tile over
-		bHisBestCTGT = CalcBestCTGT(pHim, pMe->ubID, sMyGridNo, pMe->bLevel, iMyAPsLeft);
+		bHisBestCTGT = CalcBestCTGT(pHim, pMe->ubID, sMyGridNo, pMe->pathing.bLevel, iMyAPsLeft);
 
 		// if he can actually improve his CTGT by moving to a nearby gridno
 		if (bHisBestCTGT > bHisActualCTGT)
@@ -1738,7 +1738,7 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 
 		// let's not assume anything about the stance the enemy might take, so take an average
 		// value... no cover give a higher value than partial cover
-		bMyCTGT = CalcAverageCTGTForPosition( pMe, pHim->ubID, sHisGridNo, pHim->bLevel, iMyAPsLeft );
+		bMyCTGT = CalcAverageCTGTForPosition( pMe, pHim->ubID, sHisGridNo, pHim->pathing.bLevel, iMyAPsLeft );
 
 		// since NPCs are too dumb to shoot "blind", ie. at opponents that they
 		// themselves can't see (mercs can, using another as a spotter!), if the
@@ -1768,14 +1768,14 @@ int AStarPathfinder::CalcCoverValue(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyA
 
 	// try to account for who outnumbers who: the side with the advantage thus
 	// (hopefully) values offense more, while those in trouble will play defense
-	if (pHim->bOppCnt > 1)
+	if (pHim->aiData.bOppCnt > 1)
 	{
-		HisPosValue /= pHim->bOppCnt;
+		HisPosValue /= pHim->aiData.bOppCnt;
 	}
 
-	if (pMe->bOppCnt > 1)
+	if (pMe->aiData.bOppCnt > 1)
 	{
-		MyPosValue /= pMe->bOppCnt;
+		MyPosValue /= pMe->aiData.bOppCnt;
 	}
 
 
