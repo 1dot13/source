@@ -750,7 +750,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		if (pSoldier->aiData.bAction >= FIRST_MOVEMENT_ACTION && pSoldier->aiData.bAction <= LAST_MOVEMENT_ACTION && !pSoldier->flags.fDelayedMovement)
 		{
 			if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
-			{				
+			{
+				INT8 bEscapeDirection = NOWHERE;
+
 				if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 				{
 					if ( !ACTING_ON_SCHEDULE( pSoldier ) &&  SpacesAway( pSoldier->sGridNo, pSoldier->sAbsoluteFinalDestination ) < 4 )
@@ -791,7 +793,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 					}
 				}
 				// for regular guys still have to check for leaving the map
-				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH)
+				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH &&
+						GridNoOnEdgeOfMap(pSoldier->sGridNo, &bEscapeDirection) && EscapeDirectionIsValid(&bEscapeDirection))
 				{
 					HandleAITacticalTraversal( pSoldier );
 					return;
