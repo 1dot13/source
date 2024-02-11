@@ -1,0 +1,52 @@
+set(Ja2Src
+"${CMAKE_CURRENT_SOURCE_DIR}/aniviewscreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Credits.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Fade Screen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/FeaturesScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/GameInitOptionsScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/gameloop.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/gamescreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/GameSettings.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/GameVersion.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/HelpScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Init.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Intro.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/JA2 Splash.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Ja25Update.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/jascreens.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Language Defines.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Loading Screen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MainMenuScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MessageBoxScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPChatScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPConnectScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPHostScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPJoinScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPScoreScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/MPXmlTeams.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Options Screen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/profiler.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadGame.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadScreen.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/SCREENS.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Sys Globals.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/ub_config.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/XML_DifficultySettings.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/XML_IntroFiles.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/XML_Layout_MainMenu.cpp"
+${CMAKE_CURRENT_SOURCE_DIR}/Res/ja2.rc
+PARENT_SCOPE)
+
+set(Ja2_Libraries
+"${CMAKE_SOURCE_DIR}/libexpatMT.lib"
+"Dbghelp.lib"
+Lua
+"${CMAKE_SOURCE_DIR}/lua51.lib"
+"${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
+"Winmm.lib"
+"${CMAKE_SOURCE_DIR}/SMACKW32.LIB"
+"${CMAKE_SOURCE_DIR}/binkw32.lib"
+bfVFS
+"ws2_32.lib"
+Multiplayer
+PARENT_SCOPE)

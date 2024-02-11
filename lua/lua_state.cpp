@@ -1,4 +1,4 @@
-#include "lua/lua_state.h"
+#include "lua_state.h"
 #include <Debug.h>
 #include "sgp_logger.h"
 

@@ -8165,7 +8165,7 @@ void CorrectDragStructData( INT32 sGridNo, INT8 sLevel, UINT8 ausHitpoints, UINT
 		if ( pStruct->ubHitPoints < pStruct->pDBStructureRef->pDBStructure->ubHitPoints
 			|| pStruct->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
 		{
-			gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			//SetRenderFlags( RENDER_FLAG_FULL );
 		}
@@ -8713,9 +8713,9 @@ void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationS
 	UpdateFortificationPossibleAmount();
 }
 
-std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( )
+GetAllForticationGridNoResult GetAllForticationGridNo()
 {
-	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > gridnovector;
+	GetAllForticationGridNoResult gridnovector;
 
 	if ( !gWorldSectorX || !gWorldSectorY )
 		return gridnovector;

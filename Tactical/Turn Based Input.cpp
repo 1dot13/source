@@ -8309,7 +8309,7 @@ void HandleTBLevelUp(void)
 
 void HandleTBBackpacks(void)
 {
-	if (UsingNewInventorySystem)
+	if (UsingNewInventorySystem())
 	{
 		bool backpackDropped = false;
 		SOLDIERTYPE* pTeamSoldier;

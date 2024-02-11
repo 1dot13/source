@@ -6,7 +6,6 @@
 	#include <stdarg.h>
 	#include <string.h>
 	#include "sgp.h"
-	#include "RegInst.h"
 	#include "vobject.h"
 	#include "font.h"
 	#include "local.h"
@@ -57,6 +56,7 @@
 #ifndef WIN32_LEAN_AND_MEAN
 	#define WIN32_LEAN_AND_MEAN
 #endif
+#include <Music Control.h>
 
 
 static void MAGIC(std::string const& aarrrrgggh = "")
@@ -420,11 +420,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// now required by all (even JA2) in order to call ShutdownSGP
 	atexit(SafeSGPExit);
 
-	// First, initialize the registry keys.
-	InitializeRegistryKeys( "Wizardry8", "Wizardry8key" );
-
-	// For rendering DLLs etc.
-
 	// Second, read in settings
 	GetRuntimeSettings( );
 
@@ -452,9 +447,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		FastDebugMsg("FAILED : Initializing File Manager");
 		return FALSE;
 	}
-
-	FastDebugMsg("Initializing Containers Manager");
-	InitializeContainers();
 
 	FastDebugMsg("Initializing Input Manager");
 	// Initialize the Input Manager
@@ -583,6 +575,9 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
+	FastDebugMsg("Initializing Music");
+	InitializeMusicLists();
+
 	FastDebugMsg("Initializing Game Manager");
 	// Initialize the Game
 	if (InitializeGame() == FALSE)
@@ -656,7 +651,6 @@ void ShutdownStandardGamingPlatform(void)
 	ShutdownVideoManager();
 
 	ShutdownInputManager();
-	ShutdownContainers();
 	ShutdownFileManager();
 
 #ifdef EXTREME_MEMORY_DEBUGGING

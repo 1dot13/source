@@ -1,7 +1,7 @@
 #ifndef _LUA_TABLE_H_
 #define _LUA_TABLE_H_
 
-#include "lua/lua_state.h"
+#include "lua_state.h"
 
 class LuaTable
 {

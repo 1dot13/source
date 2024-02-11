@@ -9683,21 +9683,6 @@ BOOLEAN SaveMeanwhileDefsFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN DoesUserHaveEnoughHardDriveSpace()
-{
-	UINT32			uiBytesFree=0;
-
-	uiBytesFree = GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
-
-	//check to see if there is enough hard drive space
-	if( uiBytesFree < REQUIRED_FREE_SPACE )
-	{
-		return( FALSE );
-	}
-
-	return( TRUE );
-}
-
 #ifdef JA2BETAVERSION
 
 void InitShutDownMapTempFileTest( BOOLEAN fInit, STR pNameOfFile, UINT8 ubSaveGameID )
@@ -9961,69 +9946,6 @@ void UpdateMercMercContractInfo()
 	}
 }
 
-INT8 GetNumberForAutoSave( BOOLEAN fLatestAutoSave )
-{
-	CHAR	zFileName1[MAX_PATH];
-	CHAR	zFileName2[MAX_PATH];
-	HWFILE	hFile;
-	BOOLEAN	fFile1Exist, fFile2Exist;
-	SGP_FILETIME	CreationTime1, LastAccessedTime1, LastWriteTime1;
-	SGP_FILETIME	CreationTime2, LastAccessedTime2, LastWriteTime2;
-
-	fFile1Exist = FALSE;
-	fFile2Exist = FALSE;
-
-
-	//The name of the file
-	sprintf( zFileName1, "%s\\Auto%02d.%S", gSaveDir, 0, pMessageStrings[ MSG_SAVEEXTENSION ] );
-	sprintf( zFileName2, "%s\\Auto%02d.%S", gSaveDir, 1, pMessageStrings[ MSG_SAVEEXTENSION ] );
-
-	if( FileExists( zFileName1 ) )
-	{
-		hFile = FileOpen( zFileName1, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-
-		GetFileManFileTime( hFile, &CreationTime1, &LastAccessedTime1, &LastWriteTime1 );
-
-		FileClose( hFile );
-
-		fFile1Exist = TRUE;
-	}
-
-	if( FileExists( zFileName2 ) )
-	{
-		hFile = FileOpen( zFileName2, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-
-		GetFileManFileTime( hFile, &CreationTime2, &LastAccessedTime2, &LastWriteTime2 );
-
-		FileClose( hFile );
-
-		fFile2Exist = TRUE;
-	}
-
-	if( !fFile1Exist && !fFile2Exist )
-		return( -1 );
-	else if( fFile1Exist && !fFile2Exist )
-	{
-		if( fLatestAutoSave )
-			return( 0 );
-		else
-			return( -1 );
-	}
-	else if( !fFile1Exist && fFile2Exist )
-	{
-		if( fLatestAutoSave )
-			return( 1 );
-		else
-			return( -1 );
-	}
-	else
-	{
-		if( CompareSGPFileTimes( &LastWriteTime1, &LastWriteTime2 ) > 0 )
-			return( 0 );
-		else
-			return( 1 );
-	}
-}
 
 void HandleOldBobbyRMailOrders()
 {

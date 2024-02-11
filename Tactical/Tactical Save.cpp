@@ -1027,6 +1027,7 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 	// handle all reachable before save
 	HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 	UpdateWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ, guiNumWorldItems, gWorldItems);
+	PruneWorldItems();
 
 	std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
 
@@ -3169,7 +3170,6 @@ void LoadWorldItemsFromTempFiles(INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 
 void SaveWorldItemsToTempFiles()
 {
-	PruneWorldItems();
 	for (size_t i = 0; i < gAllWorldItems.sectors.size(); i++)
 	{
 		const auto x = gAllWorldItems.sectors[i].x;

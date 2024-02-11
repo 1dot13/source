@@ -52,9 +52,9 @@
 
 #include "connect.h"
 // needed to use the modularized tactical AI:
-#include "ModularizedTacticalAI/include/Plan.h"
-#include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"
-#include "ModularizedTacticalAI/include/AbstractPlanFactory.h"
+#include "Plan.h"
+#include "PlanFactoryLibrary.h"
+#include "AbstractPlanFactory.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -294,6 +294,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
+
 	if (!gfLogsEnabled || !doLog || pSoldier == nullptr)
 		return;
 
@@ -312,17 +313,14 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 
 	sprintf(msg, "");
 
-	if (pSoldier)
-	{
-		sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
-		strcat(msg, buf);
+	sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+	strcat(msg, buf);
 
-		if (pSoldier->ubProfile != NO_PROFILE)
-		{
-			wcstombs(buf, pSoldier->GetName(), 1024 - 1);
-			strcat(msg, " ");
-			strcat(msg, buf);
-		}
+	if (pSoldier->ubProfile != NO_PROFILE)
+	{
+		wcstombs(buf, pSoldier->GetName(), 1024 - 1);
+		strcat(msg, " ");
+		strcat(msg, buf);
 	}
 
 	strcat(msg, " ");
@@ -343,13 +341,10 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 		strcat(msg, " ");
 		strcat(msg, szAction[bAction]);
 
-		if (pSoldier)
-		{
-			sprintf(buf, " %d", pSoldier->aiData.usActionData);
-			strcat(msg, buf);
-		}
+		sprintf(buf, " %d", pSoldier->aiData.usActionData);
+		strcat(msg, buf);
 
-		if (pSoldier && pSoldier->aiData.bNextAction != AI_ACTION_NONE)
+		if (pSoldier->aiData.bNextAction != AI_ACTION_NONE)
 		{
 			strcat(msg, " ");
 			strcat(msg, szAction[pSoldier->aiData.bNextAction]);
@@ -903,7 +898,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		if (pSoldier->aiData.bAction >= FIRST_MOVEMENT_ACTION && pSoldier->aiData.bAction <= LAST_MOVEMENT_ACTION && !pSoldier->flags.fDelayedMovement)
 		{
 			if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
-			{				
+			{
+				INT8 bEscapeDirection = NOWHERE;
+
 				if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 				{
 					if ( !ACTING_ON_SCHEDULE( pSoldier ) &&  SpacesAway( pSoldier->sGridNo, pSoldier->sAbsoluteFinalDestination ) < 4 )
@@ -944,7 +941,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 					}
 				}
 				// for regular guys still have to check for leaving the map
-				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH)
+				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH &&
+						GridNoOnEdgeOfMap(pSoldier->sGridNo, &bEscapeDirection) && EscapeDirectionIsValid(&bEscapeDirection))
 				{
 					HandleAITacticalTraversal( pSoldier );
 					return;

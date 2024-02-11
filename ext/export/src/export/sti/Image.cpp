@@ -406,7 +406,18 @@ vfs::Path CreateFileName(vfs::Path const& sOutPathName, vfs::Path const& sFileNa
 	outPath += vfs::Path(fullpath.str());
 	return outPath;
 }
+
 #if 0
+// Remove a slash or backslash (if any) from the end of a string
+void ChompSlash(std::string& s)
+{
+	if (s.empty()) return;
+
+	if (*s.rbegin() == '\\' || *s.rbegin() == '/') {
+		s.erase(s.length() - 1);
+	}
+}
+
 bool CImage::WriteAsBMPs(vfs_string sOutPathName)
 {
 	if(!this->LoadData())

@@ -93,13 +93,10 @@ BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERT
 BOOLEAN		SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile );
 BOOLEAN		LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile );
 
-BOOLEAN DoesUserHaveEnoughHardDriveSpace();
-
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 
 
 extern UINT32	guiLastSaveGameNum;			// The end turn auto save number (0 = Auto00.sav, 1 = Auto01.sav)
-INT8		GetNumberForAutoSave( BOOLEAN fLatestAutoSave );
 
 /*CHRISL: This function is designed to allow reading the save game file one field at a time.  We currently save structures by saving a block of memory,
 but variables are stored in memory so that they fit neatly into a WORD resulting in the program automatically adding some padding.  This padding is saved

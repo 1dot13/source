@@ -3,27 +3,6 @@
 
 #include "Overhead Types.h"
 
-enum MusicList
-{
-	MARIMBAD2_MUSIC,
-	MENUMIX_MUSIC,
-	NOTHING_A_MUSIC,
-	NOTHING_B_MUSIC,
-	NOTHING_C_MUSIC,
-	NOTHING_D_MUSIC,
-	TENSOR_A_MUSIC,
-	TENSOR_B_MUSIC,
-	TENSOR_C_MUSIC,
-	TRIUMPH_MUSIC,
-	DEATH_MUSIC,
-	BATTLE_A_MUSIC,
-	BATTLE_B_MUSIC, //same as tensor B
-	CREEPY_MUSIC,
-	CREATURE_BATTLE_MUSIC,
-	MUSIC_DIR,
-	NUM_MUSIC
-};
-
 enum MusicMode
 {
 	MUSIC_NONE,
@@ -42,43 +21,33 @@ enum MusicMode
 	MUSIC_TACTICAL_CIV_GROUP_BATTLE,
 };
 
-#ifdef NEWMUSIC
-typedef struct
+enum NewMusicList
 {
-	UINT16 uiIndex;
-	INT32 SoundTacticalVictory[4];
-	INT32 SoundTacticalBattle[4];
-	INT32 SoundTacticalNothing[4];
-	INT32 SoundTacticalTensor[4];
-	INT32 SoundTacticalDeath[4];
-	INT32 SoundTacticalBattleCreature[4];
-	INT32 SoundTacticalBattleCreepy[4];
-	INT32 SoundTacticalBattleGroup[NUM_CIV_GROUPS];
+	MUSICLIST_MAIN_MENU,
+	MUSICLIST_LAPTOP,
+	MUSICLIST_TACTICAL_NOTHING,
+	MUSICLIST_TACTICAL_ENEMYPRESENT,
+	MUSICLIST_TACTICAL_BATTLE,
+	MUSICLIST_TACTICAL_ENEMYPRESENT_NIGHT,
+	MUSICLIST_TACTICAL_BATTLE_NIGHT,
+	MUSICLIST_TACTICAL_VICTORY,
+	MUSICLIST_TACTICAL_DEATH,
+	MUSICLIST_TACTICAL_CREEPY,
+	MUSICLIST_TACTICAL_CREEPY_BATTLE,
 
-} MUSIC_SOUND_VALUES;
+	MAX_MUSIC,
+};
 
-extern MUSIC_SOUND_VALUES MusicSoundValues[256];
-extern INT32 GlobalSoundID;
-#endif
+extern std::vector<STR> MusicLists[MAX_MUSIC];
 
-//extern UINT32 uiMusicHandle;
-//extern BOOLEAN fMusicPlaying;
-//extern UINT8 gubMusicMode;
-//extern BOOLEAN gfForceMusicToTense;
+void InitializeMusicLists();
 
 UINT8 GetMusicMode(void);
 BOOLEAN SetMusicMode(UINT8 ubMusicMode);
 
-// only for editor (editscreen.cpp)
-#ifdef NEWMUSIC
-BOOLEAN MusicPlay(UINT32 uiNum, UINT32 MusicMode, BOOLEAN NewSound);
-#else
-BOOLEAN MusicPlay(UINT32 uiNum);
-#endif
+// Used in lua scripting and editscreen.cpp
+BOOLEAN MusicPlay(NewMusicList mode, UINT8 songIndex);
 
-#ifdef NEWMUSIC
-BOOLEAN SetMusicModeID(UINT8 ubMusicMode, INT32 SoundID);
-#endif
 UINT32 MusicGetVolume(void);
 BOOLEAN MusicSetVolume(UINT32 uiVolume);
 
