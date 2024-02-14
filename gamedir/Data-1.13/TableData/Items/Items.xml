@@ -625,7 +625,7 @@
 		<ubClassIndex>11</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>11</ubGraphicNum>
-		<ubWeight>48</ubWeight>
+		<ubWeight>45</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>1173</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -1889,7 +1889,7 @@
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>102</ubGraphicNum>
-		<ubWeight>1</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>13</ItemSize>
 		<usPrice>20</usPrice>
@@ -9765,7 +9765,7 @@
 		<ubClassIndex>330</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>53</ubGraphicNum>
-		<ubWeight>22</ubWeight>
+		<ubWeight>15</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>4</ItemSize>
 		<usPrice>1227</usPrice>
@@ -10273,7 +10273,7 @@
 		<ubClassIndex>344</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>60</ubGraphicNum>
-		<ubWeight>31</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>1290</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -10312,7 +10312,7 @@
 		<ubClassIndex>345</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>127</ubGraphicNum>
-		<ubWeight>37</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>5</ItemSize>
 		<usPrice>1267</usPrice>
 		<ubCoolness>3</ubCoolness>
@@ -10384,7 +10384,7 @@
 		<ubClassIndex>347</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>136</ubGraphicNum>
-		<ubWeight>38</ubWeight>
+		<ubWeight>42</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>1823</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -17215,7 +17215,7 @@
 		<ubClassIndex>605</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>164</ubGraphicNum>
-		<ubWeight>61</ubWeight>
+		<ubWeight>65</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>2870</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -17264,7 +17264,7 @@
 		<ubClassIndex>606</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>155</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>32</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>1796</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -17300,7 +17300,7 @@
 		<ubClassIndex>607</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>70</ubGraphicNum>
-		<ubWeight>34</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>1923</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -17336,7 +17336,7 @@
 		<ubClassIndex>608</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>256</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>32</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>1721</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -17372,7 +17372,7 @@
 		<ubClassIndex>609</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>84</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>32</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>1677</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -18006,7 +18006,7 @@
 		<ubClassIndex>626</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>129</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>21</ubWeight>
 		<ItemSize>5</ItemSize>
 		<usPrice>1271</usPrice>
 		<ubCoolness>3</ubCoolness>
@@ -18939,7 +18939,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>576</ubGraphicNum>
-		<ubWeight>34</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>4430</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -18977,7 +18977,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>577</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -19051,7 +19051,7 @@
 		<ubClassIndex>654</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>204</ubGraphicNum>
-		<ubWeight>53</ubWeight>
+		<ubWeight>51</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>5640</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -19618,7 +19618,7 @@
 		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>238</ubGraphicNum>
-		<ubWeight>74</ubWeight>
+		<ubWeight>79</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>6800</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -19770,7 +19770,7 @@
 		<ubClassIndex>673</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>74</ubGraphicNum>
-		<ubWeight>15</ubWeight>
+		<ubWeight>20</ubWeight>
 		<ItemSize>4</ItemSize>
 		<usPrice>3730</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -20237,7 +20237,7 @@
 		<ubClassIndex>685</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>85</ubGraphicNum>
-		<ubWeight>41</ubWeight>
+		<ubWeight>66</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>5390</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -20793,7 +20793,7 @@
 		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>95</ubGraphicNum>
-		<ubWeight>80</ubWeight>
+		<ubWeight>75</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>8200</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -21343,7 +21343,7 @@
 		<ubClassIndex>715</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>186</ubGraphicNum>
-		<ubWeight>32</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>5</ItemSize>
 		<usPrice>3370</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -21664,7 +21664,7 @@
 		<ubClassIndex>724</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>103</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>1</ItemSize>
 		<usPrice>920</usPrice>
@@ -21734,7 +21734,7 @@
 		<ubClassIndex>726</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>98</ubGraphicNum>
-		<ubWeight>39</ubWeight>
+		<ubWeight>49</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>5390</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -22012,7 +22012,7 @@
 		<ubClassIndex>733</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>132</ubGraphicNum>
-		<ubWeight>62</ubWeight>
+		<ubWeight>58</ubWeight>
 		<ItemSize>9</ItemSize>
 		<usPrice>5440</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -22085,7 +22085,7 @@
 		<ubClassIndex>735</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>94</ubGraphicNum>
-		<ubWeight>36</ubWeight>
+		<ubWeight>42</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>5540</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22449,7 +22449,7 @@
 		<ubClassIndex>745</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>241</ubGraphicNum>
-		<ubWeight>37</ubWeight>
+		<ubWeight>28</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>4740</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22561,7 +22561,7 @@
 		<ubClassIndex>748</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>73</ubGraphicNum>
-		<ubWeight>55</ubWeight>
+		<ubWeight>68</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>6060</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -22930,7 +22930,7 @@
 		<ubClassIndex>757</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>266</ubGraphicNum>
-		<ubWeight>32</ubWeight>
+		<ubWeight>41</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>2940</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -23357,7 +23357,7 @@
 		<ubClassIndex>769</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>281</ubGraphicNum>
-		<ubWeight>49</ubWeight>
+		<ubWeight>43</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>5880</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -23688,7 +23688,7 @@
 		<ubClassIndex>778</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>288</ubGraphicNum>
-		<ubWeight>50</ubWeight>
+		<ubWeight>48</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>7770</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -24060,7 +24060,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>579</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -24134,7 +24134,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>584</ubGraphicNum>
-		<ubWeight>34</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>4430</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -24206,7 +24206,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>586</ubGraphicNum>
-		<ubWeight>31</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -24244,7 +24244,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>587</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -28408,7 +28408,7 @@
 		<ubClassIndex>907</ubClassIndex>
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>142</ubGraphicNum>
-		<ubWeight>23</ubWeight>
+		<ubWeight>25</ubWeight>
 		<ItemSize>4</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -28445,7 +28445,7 @@
 		<ubClassIndex>908</ubClassIndex>
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>168</ubGraphicNum>
-		<ubWeight>54</ubWeight>
+		<ubWeight>63</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>3500</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -28628,7 +28628,7 @@
 		<ubClassIndex>913</ubClassIndex>
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>249</ubGraphicNum>
-		<ubWeight>22</ubWeight>
+		<ubWeight>15</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>5</ItemSize>
 		<usPrice>850</usPrice>
@@ -33043,7 +33043,7 @@
 		<ubCursor>4</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>607</ubGraphicNum>
-		<ubWeight>20</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>2000</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -33359,7 +33359,7 @@
 		<ubClassIndex>1066</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>315</ubGraphicNum>
-		<ubWeight>33</ubWeight>
+		<ubWeight>32</ubWeight>
 		<ItemSize>6</ItemSize>
 		<usPrice>2900</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -33594,7 +33594,7 @@
 		<ubClassIndex>1072</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>316</ubGraphicNum>
-		<ubWeight>37</ubWeight>
+		<ubWeight>39</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>3400</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -33782,7 +33782,7 @@
 		<ubClassIndex>1077</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>325</ubGraphicNum>
-		<ubWeight>38</ubWeight>
+		<ubWeight>44</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>3630</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -37146,7 +37146,7 @@
 		<ubClassIndex>1179</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>327</ubGraphicNum>
-		<ubWeight>44</ubWeight>
+		<ubWeight>52</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>1110</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -41257,7 +41257,7 @@
 		<ubClassIndex>1332</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>359</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>32</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>3240</usPrice>
 		<ubCoolness>6</ubCoolness>
