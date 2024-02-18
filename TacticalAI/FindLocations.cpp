@@ -15,10 +15,7 @@
 	#include "Render Fun.h"
 	#include "Boxing.h"
 	#include "Text.h"
-	#ifdef _DEBUG
-		#include "renderworld.h"
-		#include "video.h"
-	#endif
+	#include "renderworld.h"
 	#include "worldman.h"
 	#include "strategicmap.h"
 	#include "environment.h"
@@ -27,6 +24,7 @@
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
 	#include "rotting corpses.h"	// sevenfm
+#include <Cheats.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,17 +32,7 @@
 //           were changed to GetAPsCrouch() and GetAPsProne()					 
 //		  - also all "APBPConstants[AP_PICKUP_ITEM]" were replaced by GetBasicAPsToPickupItem()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	INT16 * gsCoverValue = NULL;
-#ifdef _DEBUG
-
-	INT16	gsBestCover;
-	#ifndef PATHAI_VISIBLE_DEBUG
-		// NB Change this to true to get visible cover debug -- CJC
-		BOOLEAN gfDisplayCoverValues = FALSE;
-	#endif
-	extern void RenderCoverDebug( void );
-#endif
+INT16	gsBestCover;
 
 INT16	gubAIPathCosts[19][19];
 
@@ -693,6 +681,11 @@ static void CalculateCoverValue(SOLDIERTYPE* pSoldier, const INT32 sGridNo, cons
 
 INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter, INT32 targetGridNo)
 {
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
+	{
+		ResetDebugInfoValues();
+	}
+
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
 
 	// all 32-bit integers for max. speed
@@ -761,12 +754,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	iBestCoverValue = -1;
 
-#if defined( _DEBUG ) && defined( COVER_DEBUG )
-	if (gfDisplayCoverValues)
-	{
-		memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
-	}
-#endif
 
 	//NameMessage(pSoldier,"looking for some cover...");
 
@@ -849,6 +836,11 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	// calculate our current cover value in the place we are now, since the
 	// cover we are searching for must be better than what we have now!
 	CalculateCoverValue(pSoldier, targetGridNo, 0, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCurrentCoverValue, iCurrentScale);
+
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
+	{
+		gRenderDebugInfoValues[targetGridNo] = (INT32)(iCurrentCoverValue / 100);
+	}
 
 #ifdef DEBUGCOVER
 //	AINumMessage("Search Range = ",iSearchRange);
@@ -1057,12 +1049,10 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			}
 #endif
 
-#if defined( _DEBUG ) && defined( COVER_DEBUG )
-			if (gfDisplayCoverValues)
+			if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 			{
-				gsCoverValue[sGridNo] = (INT16) (iCoverValue / 100);
+				gRenderDebugInfoValues[sGridNo] = (INT32) (iCoverValue / 100);
 			}
-#endif
 
 			// if this is better than the best place found so far
 
@@ -1099,34 +1089,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = 0;
 
-	#if defined( _DEBUG ) && !defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues)
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 	{
-		// do a locate?
-		LocateSoldier( pSoldier->ubID, SETLOCATORFAST );
 		gsBestCover = sBestCover;
-		SetRenderFlags( RENDER_FLAG_FULL );
-		RenderWorld();
-		RenderCoverDebug( );
-		InvalidateScreen( );
-		EndFrameBufferRender();
-		RefreshScreen( NULL );
-		/*
-	iLoop = GetJA2Clock();
-	do
-	{
-
-	} while( ( GetJA2Clock( ) - iLoop ) < 2000 );
-	*/
+		InvalidateRegion(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y);
 	}
-	#endif
 
 	// if a better cover location was found	
 	if (!TileIsOutOfBounds(sBestCover))
 	{
-		#if defined( _DEBUG ) && !defined( PATHAI_VISIBLE_DEBUG )
-		gsBestCover = sBestCover;
-		#endif
 		// cover values already take the AP cost of getting there into account in
 		// a BIG way, so no need to worry about that here, even small improvements
 		// are actually very significant once we get our APs back (if we live!)

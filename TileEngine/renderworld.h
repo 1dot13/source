@@ -216,6 +216,16 @@ void SetRenderCenter( INT16 sNewX, INT16 sNewY );
 #ifdef _DEBUG
 void RenderFOVDebug( );
 #endif
+enum RenderDebugInfoModes
+{
+	DEBUG_PATHFINDING,
+	DEBUG_THREATVALUE,
+	DEBUG_COVERVALUE,
+	DEBUG_OFF
+};
+void ResetDebugInfoValues();
+extern INT32* gRenderDebugInfoValues;
+
 
 BOOLEAN Zero8BPPDataTo16BPPBufferTransparent( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex );
 BOOLEAN Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZStripIndex );

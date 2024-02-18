@@ -1700,6 +1700,24 @@ void ItemCreationCallBack( UINT8 ubResult )
 	memset(gszMsgBoxInputString,0,sizeof(gszMsgBoxInputString));
 }
 
+static void CycleThroughTileDebugInfo()
+{
+	const STR16 modeStrings[] =
+	{
+		L"Pathfinding",
+		L"Threat values",
+		L"Cover values",
+		L"Off",
+	};
+
+	gRenderDebugInfoMode += 1;
+	if (gRenderDebugInfoMode > DEBUG_OFF)
+	{
+		gRenderDebugInfoMode = 0;
+	}
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, modeStrings[gRenderDebugInfoMode]);
+}
+
 extern	BOOLEAN		gfDisableRegionActive;
 extern	BOOLEAN		gfUserTurnRegionActive;
 
@@ -4763,6 +4781,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'Z':
+				if (fCtrl)
+				{
+					if (DEBUG_CHEAT_LEVEL())
+					{
+						CycleThroughTileDebugInfo();
+					}
+				}
 				break;
 
 			}

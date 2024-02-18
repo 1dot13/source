@@ -23,6 +23,7 @@
 	#include "LogicalBodyTypes/BodyTypeDB.h"
 
 #include "Utilities.h"
+#include <Cheats.h>
 
 UINT32 guiShieldGraphic = 0;
 BOOLEAN fShieldGraphicInit = FALSE;
@@ -552,22 +553,25 @@ void ResetRenderParameters(  );
 
 void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
 
-
-#ifdef _DEBUG
-//extern UINT8 gubFOVDebugInfoInfo[ WORLD_MAX ];
-//extern UINT8 gubGridNoMarkers[ WORLD_MAX ];
-extern UINT8 * gubFOVDebugInfoInfo;
-extern UINT8 * gubGridNoMarkers;
-extern UINT8 gubGridNoValue;
-extern BOOLEAN gfDisplayCoverValues;
-extern BOOLEAN gfDisplayGridNoVisibleValues = 0;
-//extern INT16	gsCoverValue[ WORLD_MAX ];
-extern INT16 *	gsCoverValue;
-extern INT16	gsBestCover;
-void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
-void RenderCoverDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
-void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
-#endif
+//extern UINT8 * gubFOVDebugInfoInfo;
+//extern UINT8 * gubGridNoMarkers;
+//extern UINT8 gubGridNoValue;
+//extern BOOLEAN gfDisplayGridNoVisibleValues = 0;
+//void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
+//void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
+extern INT16 gsBestCover;
+INT32* gRenderDebugInfoValues = nullptr;
+void RenderDebugInfo(INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS);
+void ResetDebugInfoValues()
+{
+	if (gRenderDebugInfoValues)
+	{
+		for (size_t i = 0; i < WORLD_MAX; i++)
+		{
+			gRenderDebugInfoValues[i] = 0x7FFFFFFF;
+		}
+	}
+}
 
 void DeleteFromWorld( UINT16 usTileIndex, UINT32 uiRenderTiles, UINT16 usIndex );
 
@@ -3363,23 +3367,10 @@ UINT32 cnt = 0;
 		RenderRoomInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
 	}
 
-#ifdef _DEBUG
-	if( gRenderFlags&RENDER_FLAG_FOVDEBUG )
+	if (DEBUG_CHEAT_LEVEL() && gTacticalStatus.Team[OUR_TEAM].bTeamActive)
 	{
-		RenderFOVDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
+		RenderDebugInfo(gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS);
 	}
-	else if (gfDisplayCoverValues)
-	{
-		RenderCoverDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
-	}
-	else if (gfDisplayGridNoVisibleValues)
-	{
-		RenderGridNoVisibleDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
-	}
-
-#endif
-
-//#endif
 
 	//RenderStaticWorldRect( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_END_Y );
 	//AddBaseDirtyRect(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_END_Y );
@@ -8105,7 +8096,6 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 
 
 #ifdef _DEBUG
-
 void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS )
 {
 	INT8				bXOddFlag = 0;
@@ -8215,114 +8205,7 @@ void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStar
 
 }
 
-void RenderCoverDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS )
-{
-	INT8				bXOddFlag = 0;
-	INT16				sAnchorPosX_M, sAnchorPosY_M;
-	INT16				sAnchorPosX_S, sAnchorPosY_S;
-	INT16				sTempPosX_M, sTempPosY_M;
-	INT16				sTempPosX_S, sTempPosY_S;
-	BOOLEAN			fEndRenderRow = FALSE, fEndRenderCol = FALSE;
-	UINT16			usTileIndex;
-	INT16				sX, sY;
-	UINT32			uiDestPitchBYTES;
-	UINT8				*pDestBuf;
-
-
-	// Begin Render Loop
-	sAnchorPosX_M = sStartPointX_M;
-	sAnchorPosY_M = sStartPointY_M;
-	sAnchorPosX_S = sStartPointX_S;
-	sAnchorPosY_S = sStartPointY_S;
-
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-
-	do
-	{
-
-		fEndRenderRow = FALSE;
-		sTempPosX_M = sAnchorPosX_M;
-		sTempPosY_M = sAnchorPosY_M;
-		sTempPosX_S = sAnchorPosX_S;
-		sTempPosY_S = sAnchorPosY_S;
-
-		if(bXOddFlag > 0)
-			sTempPosX_S += 20;
-
-
-		do
-		{
-
-			usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
-
-			if ( usTileIndex < GRIDSIZE	)
-			{
-				sX = sTempPosX_S + ( WORLD_TILE_X / 2 ) - 5;
-				sY = sTempPosY_S + ( WORLD_TILE_Y / 2 ) - 5;
-
-				// Adjust for interface level
-				sY -= gpWorldLevelData[ usTileIndex ].sHeight;
-				sY += gsRenderHeight;
-
-				if (gsCoverValue[ usTileIndex] != 0x7F7F)
-				{
-					SetFont( SMALLCOMPFONT );
-					SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, gsVIEWPORT_END_Y, FALSE );
-					if (usTileIndex == gsBestCover)
-					{
-						SetFontForeground( FONT_MCOLOR_RED );
-					}
-					else if (gsCoverValue[ usTileIndex ] < 0)
-					{
-						SetFontForeground( FONT_MCOLOR_WHITE );
-					}
-					else
-					{
-						SetFontForeground( FONT_GRAY3 );
-					}
-					mprintf_buffer( pDestBuf, uiDestPitchBYTES, TINYFONT1, sX,  sY , L"%d", gsCoverValue[ usTileIndex ] );
-					SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-				}
-
-			}
-
-			sTempPosX_S += 40;
-			sTempPosX_M ++;
-			sTempPosY_M --;
-
-			if ( sTempPosX_S >= sEndXS )
-			{
-				fEndRenderRow = TRUE;
-			}
-
-		} while( !fEndRenderRow );
-
-		if ( bXOddFlag > 0 )
-		{
-			sAnchorPosY_M ++;
-		}
-		else
-		{
-			sAnchorPosX_M ++;
-		}
-
-
-		bXOddFlag = !bXOddFlag;
-		sAnchorPosY_S += 10;
-
-		if ( sAnchorPosY_S >= sEndYS )
-		{
-			fEndRenderCol = TRUE;
-		}
-
-	}
-	while( !fEndRenderCol );
-
-	UnLockVideoSurface( FRAME_BUFFER );
-
-}
-
-
+// This one just renders tile gridnos. Not much use nowadays
 void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS )
 {
 	INT8				bXOddFlag = 0;
@@ -8423,9 +8306,137 @@ void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, I
 	UnLockVideoSurface( FRAME_BUFFER );
 
 }
-
-
 #endif
+
+
+void RenderDebugInfo(INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS)
+{
+	INT8 bXOddFlag = 0;
+	INT16 sTempPosX_M, sTempPosY_M;
+	INT16 sTempPosX_S, sTempPosY_S;
+	BOOLEAN fEndRenderRow = FALSE, fEndRenderCol = FALSE;
+
+	// Begin Render Loop
+	INT16 sAnchorPosX_M = sStartPointX_M;
+	INT16 sAnchorPosY_M = sStartPointY_M;
+	INT16 sAnchorPosX_S = sStartPointX_S;
+	INT16 sAnchorPosY_S = sStartPointY_S;
+
+	UINT32 uiDestPitchBYTES;
+	UINT8* pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
+
+	const auto mode = gRenderDebugInfoMode;
+
+	do
+	{
+		fEndRenderRow = FALSE;
+		sTempPosX_M = sAnchorPosX_M;
+		sTempPosY_M = sAnchorPosY_M;
+		sTempPosX_S = sAnchorPosX_S;
+		sTempPosY_S = sAnchorPosY_S;
+
+		if (bXOddFlag > 0)
+			sTempPosX_S += 20;
+
+		do
+		{
+			UINT16 usTileIndex = FASTMAPROWCOLTOPOS(sTempPosY_M, sTempPosX_M);
+			if (usTileIndex < GRIDSIZE)
+			{
+				INT16 sX = sTempPosX_S + (WORLD_TILE_X / 2) - 5;
+				INT16 sY = sTempPosY_S + (WORLD_TILE_Y / 2) - 5;
+
+				// Adjust for interface level
+				sY -= gpWorldLevelData[usTileIndex].sHeight;
+				sY += gsRenderHeight;
+
+
+				if (gRenderDebugInfoValues[usTileIndex] != 0x7FFFFFFF)
+				{
+					SetFont(SMALLCOMPFONT);
+					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, gsVIEWPORT_END_Y, FALSE);
+
+
+					////////////////////////////
+					// Debug mode specific setup
+					switch (mode)
+					{
+					case DEBUG_PATHFINDING:
+						if (gRenderDebugInfoValues[usTileIndex] < 0)
+						{
+							SetFontForeground(FONT_LTRED);
+						}
+						else
+						{
+							SetFontForeground(FONT_LTGREEN);
+						}
+						break;
+					case DEBUG_THREATVALUE:
+						//TODO implement
+						goto exit_loop;
+						break;
+					case DEBUG_COVERVALUE:
+						if (usTileIndex == gsBestCover)
+						{
+							SetFontForeground(FONT_YELLOW);
+						}
+						else if (gRenderDebugInfoValues[usTileIndex] < 0)
+						{
+							SetFontForeground(FONT_LTRED);
+						}
+						else
+						{
+							SetFontForeground(FONT_LTGREEN);
+						}
+						break;
+
+					default:
+						goto exit_loop;
+						break;
+					}
+					////////////////////////////
+
+
+					mprintf_buffer(pDestBuf, uiDestPitchBYTES, TINYFONT1, sX, sY, L"%d", gRenderDebugInfoValues[usTileIndex]);
+					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+				}
+
+			}
+
+			sTempPosX_S += 40;
+			sTempPosX_M++;
+			sTempPosY_M--;
+
+			if (sTempPosX_S >= sEndXS)
+			{
+				fEndRenderRow = TRUE;
+			}
+
+		} while (!fEndRenderRow);
+
+		if (bXOddFlag > 0)
+		{
+			sAnchorPosY_M++;
+		}
+		else
+		{
+			sAnchorPosX_M++;
+		}
+
+
+		bXOddFlag = !bXOddFlag;
+		sAnchorPosY_S += 10;
+
+		if (sAnchorPosY_S >= sEndYS)
+		{
+			fEndRenderCol = TRUE;
+		}
+	} while (!fEndRenderCol);
+
+	exit_loop:
+	UnLockVideoSurface(FRAME_BUFFER);
+}
+
 
 
 void ExamineZBufferRect( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom)
@@ -9088,21 +9099,3 @@ void SetRenderCenter( INT16 sNewX, INT16 sNewY )
 	gfScrollInertia = FALSE;
 
 }
-
-#ifdef _DEBUG
-void RenderFOVDebug( )
-{
-	RenderFOVDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
-}
-
-void RenderCoverDebug( )
-{
-	RenderCoverDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
-}
-
-void RenderGridNoVisibleDebug( )
-{
-	RenderGridNoVisibleDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
-}
-
-#endif
