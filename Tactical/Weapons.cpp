@@ -4260,10 +4260,10 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 
 				// sevenfm: bonus for boxers for attack from the back
 				if (iHitChance < 100 &&
-					(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pSoldier) &&
 					!pSoldier->bBlindedCounter &&
 					gAnimControl[pTargetSoldier->usAnimState].ubEndHeight > ANIM_PRONE &&
-					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pTargetSoldier) &&
 					pTargetSoldier->usSoldierFlagMask2 & SOLDIER_BACK_ATTACK)
 				{
 					iHitChance += (100 - iHitChance) / 2;
@@ -4879,7 +4879,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				if (pTargetSoldier->bActionPoints > 0 &&
 					gGameOptions.fNewTraitSystem &&
 					gTacticalStatus.bBoxingState == BOXING &&
-					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pTargetSoldier) &&
 					Chance(ubCounterattackChance) &&
 					IS_MERC_BODY_TYPE(pSoldier) &&
 					IS_MERC_BODY_TYPE(pTargetSoldier) &&
@@ -9719,7 +9719,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	{
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
 		// sevenfm: lowered chance for boxers
-		if (pAttacker->flags.uiStatusFlags & SOLDIER_BOXER)
+		if (BOXER(pAttacker))
 			iChance = 50 + (iAttRating - iDefRating) / 3;
 		else
 			iChance = 67 + (iAttRating - iDefRating) / 3;
@@ -9774,8 +9774,8 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 
 	// sevenfm: bonus for boxers for attacking from the back
 	if (ubMode == HTH_MODE_PUNCH &&
-		(pAttacker->flags.uiStatusFlags & SOLDIER_BOXER) &&
-		(pDefender->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		BOXER(pAttacker) &&
+		BOXER(pDefender) &&
 		iChance < 100 &&
 		!pAttacker->bBlindedCounter &&
 		gAnimControl[pDefender->usAnimState].ubEndHeight > ANIM_PRONE &&

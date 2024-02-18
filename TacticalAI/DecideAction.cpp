@@ -718,7 +718,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	if ( gTacticalStatus.bBoxingState != NOT_BOXING )
 	{
-		if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER)
+		if (BOXER(pSoldier))
 		{
 			if ( gTacticalStatus.bBoxingState == PRE_BOXING )
 			{
@@ -2707,7 +2707,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		!bInGas && 
 		pSoldier->CheckInitialAP() &&
 		!pSoldier->IsFlanking() &&
-		!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && 
+		!BOXER(pSoldier) &&
 		(CanNPCAttack(pSoldier) == TRUE))
 	{
 		BestThrow.ubPossible = FALSE;    // by default, assume Throwing isn't possible
@@ -5195,7 +5195,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	}
 
 	INT8 bInWater, bInDeepWater, bInGas;
-	if ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER )
+	if (BOXER(pSoldier) )
 	{
 		if ( gTacticalStatus.bBoxingState == PRE_BOXING )
 		{
@@ -5304,7 +5304,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	{
 		bCanAttack = FALSE;
 	}
-	else if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER)
+	else if (BOXER(pSoldier))
 	{
 		bCanAttack = TRUE;
 		fTryPunching = TRUE;
@@ -5318,7 +5318,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			{
 				if (fCivilian)
 				{
-					if ( ( bCanAttack == NOSHOOT_NOWEAPON) && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && pSoldier->ubBodyType != COW && pSoldier->ubBodyType != CRIPPLECIV && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+					if ( ( bCanAttack == NOSHOOT_NOWEAPON) && !BOXER(pSoldier) && pSoldier->ubBodyType != COW && pSoldier->ubBodyType != CRIPPLECIV && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 					{
 						// cower in fear!!
 						if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
@@ -5806,7 +5806,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 					if (BestStab.ubPossible)
 					{
-						if (!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER))
+						if (!BOXER(pSoldier))
 						{
 							// if we have not enough APs to deal at least two or three punches, 
 							// reduce the attack value as one punch ain't much
@@ -5903,7 +5903,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 		// cautious boxer approach, reserve AP for two attacks (only if not attacking from the back)
 		if (BestStab.ubPossible &&
-			(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+			BOXER(pSoldier) &&
 			SpacesAway(pSoldier->sGridNo, BestStab.sTarget) > 2 &&
 			BestStab.ubOpponent != NOBODY &&
 			MercPtrs[BestStab.ubOpponent] &&
@@ -5920,7 +5920,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 		// try to avoid frontal attack
 		if (BestStab.ubPossible &&
-			(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+			BOXER(pSoldier) &&
 			SpacesAway(pSoldier->sGridNo, BestStab.sTarget) > 1 &&
 			BestStab.ubOpponent != NOBODY &&
 			MercPtrs[BestStab.ubOpponent] &&
@@ -6285,8 +6285,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Allow taking cover]"));
 		// okay, really got to wonder about this... could taking cover be an option?
-		if (ubCanMove && pSoldier->aiData.bOrders != STATIONARY && !gfHiddenInterrupt &&
-			!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
+		if (ubCanMove && pSoldier->aiData.bOrders != STATIONARY && !gfHiddenInterrupt && !BOXER(pSoldier) )
 		{
 			// make militia a bit more cautious
 			// 3 (UINT16) CONVERSIONS HERE TO AVOID ERRORS.  GOTTHARD 7/15/08
@@ -6323,7 +6322,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	if ( (ubCanMove && !SkipCoverCheck && !gfHiddenInterrupt &&
 		((ubBestAttackAction == AI_ACTION_NONE) || pSoldier->aiData.bLastAttackHit) &&
 		(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.fAIFlags & AI_RTP_OPTION_CAN_SEEK_COVER) &&
-		!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
+		!BOXER(pSoldier) )
 		|| fAllowCoverCheck )
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Find cover]"));
@@ -7004,7 +7003,7 @@ L_NEWAIM:
 	//////////////////////////////////////////////////////////////////////
 	// BOXER CLOSE IN ON OPPONENT
 	//////////////////////////////////////////////////////////////////////
-	if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER )
+	if (BOXER(pSoldier))
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Make boxer close if possible]"));
 
@@ -10071,8 +10070,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 		 (RangeChangeDesire( pSoldier ) >= 4) )
 	{
 		// okay, really got to wonder about this... could taking cover be an option?
-		if ( ubCanMove && pSoldier->aiData.bOrders != STATIONARY && !gfHiddenInterrupt &&
-			 !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
+		if ( ubCanMove && pSoldier->aiData.bOrders != STATIONARY && !gfHiddenInterrupt && !BOXER(pSoldier) )
 		{
 			// make militia a bit more cautious
 			// 3 (UINT16) CONVERSIONS HERE TO AVOID ERRORS.  GOTTHARD 7/15/08
@@ -10103,9 +10101,8 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 
 	if ( (ubCanMove && !SkipCoverCheck && !gfHiddenInterrupt &&
 		((ubBestAttackAction == AI_ACTION_NONE) || pSoldier->aiData.bLastAttackHit) &&
-		(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.fAIFlags & AI_RTP_OPTION_CAN_SEEK_COVER) &&
-		!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER))
-		|| fAllowCoverCheck )
+		(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.fAIFlags & AI_RTP_OPTION_CAN_SEEK_COVER) &&	!BOXER(pSoldier)) ||
+		fAllowCoverCheck )
 	{
 		sBestCover = FindBestNearbyCover( pSoldier, pSoldier->aiData.bAIMorale, &iCoverPercentBetter );
 	}
