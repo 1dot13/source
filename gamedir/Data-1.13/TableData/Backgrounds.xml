@@ -3318,9 +3318,9 @@
 	<!-- Rudolf -->
 	<BACKGROUND>
 		<uiIndex>177</uiIndex>
-		<szName>GSG9</szName>
-		<szShortName>GSG9</szShortName>
-		<szDescription>Formed after the disastrous Munich massacre in 1972, the GSG9 is&#10;a highly trained German counter-terrorism unit. As a former member,&#10;Rudolf's skills are rock-solid.</szDescription>
+		<szName>GSG 9</szName>
+		<szShortName>GSG 9</szShortName>
+		<szDescription>Formed after the disastrous Munich massacre in 1972, the GSG 9 is&#10;a highly trained German counter-terrorism unit. As a former member,&#10;Rudolf's skills are rock-solid.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_assault>2</ap_assault>
 		<resistance_physical>3</resistance_physical>
