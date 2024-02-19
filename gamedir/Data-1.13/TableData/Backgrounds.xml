@@ -510,7 +510,7 @@
 		<uiIndex>21</uiIndex>
 		<szName>Military Police</szName>
 		<szShortName>Military Police</szShortName>
-		<szDescription>Corralling drunken soldiers, processing POWs, breaking&#10;the occasional leg, all parts of an MPs repertoire. Bull&#10;was particularly good at that last thing.</szDescription>
+		<szDescription>Corralling drunken soldiers, processing POWs, breaking&#10;the occasional leg, all parts of an MP's repertoire. Bull&#10;was particularly good at that last thing.</szDescription>
 		<strength>2</strength>
 		<ap_assault>1</ap_assault>
 		<meleedamage>5</meleedamage>
@@ -2877,9 +2877,9 @@
 	<!-- Mike -->
 	<BACKGROUND>
 		<uiIndex>149</uiIndex>
-		<szName>Mercenary Superstar</szName>
-		<szShortName>Mercenary Superstar</szShortName>
-		<szDescription>Some folks are just better at everything, and Mike's better than them.&#10;He's the best of the best, the undisputed sovereign of the mercenary world.&#10;He works for you now, because you offered more...&#10;And because you'd have killed him otherwise.</szDescription>
+		<szName>Superstar Mercenary</szName>
+		<szShortName>Superstar Merc</szShortName>
+		<szDescription>Some folks are just better at everything, and Mike's better than them.&#10;He's the best of the best, the undisputed sovereign of the mercenary&#10;world. He works for you now, because you offered more... And because&#10;you'd have killed him otherwise.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
