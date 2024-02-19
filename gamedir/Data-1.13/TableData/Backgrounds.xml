@@ -128,7 +128,7 @@
 		<uiIndex>1</uiIndex>
 		<szName>ANC Veteran</szName>
 		<szShortName>ANC Veteran</szShortName>
-		<szDescription>Militant veterans of the ANC's struggle were not only versed&#10; in jungle warfare, but also in political theory.</szDescription>
+		<szDescription>Militant veterans of the ANC's struggle were not only versed&#10;in jungle warfare, but also in political theory.</szDescription>
 		<ap_swamp>3</ap_swamp>
 		<ap_tropical>3</ap_tropical>
 		<ap_mountain>-5</ap_mountain>
@@ -147,7 +147,7 @@
 		<uiIndex>2</uiIndex>
 		<szName>Big Game Hunter</szName>
 		<szShortName>Big Game Hunter</szShortName>
-		<szDescription>Travel to virgin soil, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
+		<szDescription>Lynx was an expert hunter long before he became a mercenary&#10;sharpshooter. Whenever he's not hunting the most dangerous game,&#10;he's out there somewhere finishing off endangered species.</szDescription>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
 		<ap_urban>-3</ap_urban>
@@ -165,9 +165,9 @@
 	<!-- Grizzly -->
 	<BACKGROUND>
 		<uiIndex>3</uiIndex>
-		<szName>Veteran</szName>
-		<szShortName>Veteran</szShortName>
-		<szDescription>After several tours of duty in the middle east,#10;Grizzly became a freelancer.</szDescription>
+		<szName>Combat Veteran</szName>
+		<szShortName>Combat Veteran</szShortName>
+		<szDescription>After several tours of duty in the Middle East, Grizzly became&#10;a freelancer. The thrill of combat remains the same, but the pay&#10;is vastly better.</szDescription>
 		<ap_desert>5</ap_desert>
 		<ap_swamp>-2</ap_swamp>
 		<ap_assault>3</ap_assault>
@@ -183,8 +183,8 @@
 	<BACKGROUND>
 		<uiIndex>4</uiIndex>
 		<szName>Mercenary/Car Mechanic</szName>
-		<szShortName>Mercenary/Mechanic</szShortName>
-		<szDescription>Working day and night in her car repair shop when she's&#10;not travelling around the world, Vicky is a very versed mechanic.&#10;But she never overcame her fear of confined spaces.</szDescription>
+		<szShortName>Merc/Mechanic</szShortName>
+		<szDescription>Working day and night in her car repair shop when she's not&#10;travelling around the world, Vicki is a very versed mechanic.</szDescription>
 		<ap_assault>3</ap_assault>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-2</ap_fortify>
@@ -202,7 +202,7 @@
 		<uiIndex>5</uiIndex>
 		<szName>Technical Wizard/Bomber</szName>
 		<szShortName>Tech Whiz/Bomber</szShortName>
-		<szDescription>The difference to MacGyver is that Trevor does use &#10;guns . . . and bombs.</szDescription>
+		<szDescription>The difference to MacGyver is that Trevor does use guns... and bombs,&#10;and a whole lot of other creative methods of death and destruction.</szDescription>
 		<resistance_fear>10</resistance_fear>
 		<breachingcharge>50</breachingcharge>
 		<disarm_trap>25</disarm_trap>
@@ -217,9 +217,9 @@
 	<!-- Grunty -->
 	<BACKGROUND>
 		<uiIndex>6</uiIndex>
-		<szName>Bodyguard</szName>
-		<szShortName>Bodyguard</szShortName>
-		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?.</szDescription>
+		<szName>Nationale Volksarmee/Bundeswehr</szName>
+		<szShortName>NVA/Bundeswehr</szShortName>
+		<szDescription>Grunty began his military service in the National People's Army of East&#10;Germany, and finished it in the Bundeswehr of the reunified Germany.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_desert>-3</ap_desert>
 		<ap_swamp>-3</ap_swamp>
@@ -236,15 +236,15 @@
 	<BACKGROUND>
 		<uiIndex>7</uiIndex>
 		<szName>Red Army Major</szName>
-		<szShortName>Red Army</szShortName>
-		<szDescription>Ivan's training program is the stuff of nightmares, &#10;but it pays off evidently.</szDescription>
+		<szShortName>Red Army Major</szShortName>
+		<szDescription>Whatever nightmarish training program it was that the Soviet military&#10;machine put Ivan through, its results were terrifyingly effective.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_swimming>-10</ap_swimming>
 		<ap_fortify>-3</ap_fortify>
-		<ap_artillery>-2</ap_artillery> 
+		<ap_artillery>-2</ap_artillery>
 		<resistance_physical>5</resistance_physical>
 		<resistance_suppression>5</resistance_suppression>
-		<speed_run>5</speed_run>		
+		<speed_run>5</speed_run>
 		<capitulation>10</capitulation>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
@@ -255,7 +255,7 @@
 		<uiIndex>8</uiIndex>
 		<szName>Firefighter</szName>
 		<szShortName>Firefighter</szShortName>
-		<szDescription>Just because it doesn't involve shooting, it doesn't have to be &#10;less dangerous.</szDescription>
+		<szDescription>Steroid's firefighting career didn't involve any shooting, but&#10;it definitely wasn't less dangerous than this line of work.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_height>2</ap_height>
 		<travel_car>5</travel_car>
@@ -270,9 +270,9 @@
 	<!-- Igor -->
 	<BACKGROUND>
 		<uiIndex>9</uiIndex>
-		<szName>Veteran Mountain Troop</szName>
-		<szShortName>Vet Mountain Troop</szShortName>
-		<szDescription>After serving in Chechnya,&#10;Igor is used to harsh environments.</szDescription>
+		<szName>Russian Mountain Troop</szName>
+		<szShortName>Mountain Troop</szShortName>
+		<szDescription>After serving with the Russian Army in Chechnya, Igor&#10;is used to harsh environments and heavy drinking.</szDescription>
 		<ap_mountain>3</ap_mountain>
 		<ap_tropical>-3</ap_tropical>
 		<ap_assault>2</ap_assault>
@@ -290,9 +290,9 @@
 	<!-- Shadow -->
 	<BACKGROUND>
 		<uiIndex>10</uiIndex>
-		<szName>Ranger</szName>
-		<szShortName>Ranger</szShortName>
-		<szDescription>Survival and ambush tactics were part of Shadow's intense training.</szDescription>
+		<szName>US Army Ranger</szName>
+		<szShortName>US Army Ranger</szShortName>
+		<szDescription>Survival and ambush tactics were part of Shadow's&#10;intense military training, as were reconnaissance&#10;and long range marksmanship.</szDescription>
 		<ap_river>5</ap_river>
 		<ap_coastal>3</ap_coastal>
 		<food>-10</food>
@@ -310,7 +310,7 @@
 		<uiIndex>11</uiIndex>
 		<szName>Veteran Sapper</szName>
 		<szShortName>Veteran Sapper</szShortName>
-		<szDescription>A sapper can only make two mistakes in his life. The first one is his &#10;career choice.</szDescription>
+		<szDescription>In spite of his many years as a sapper, Red retains all of&#10;his limbs and digits. His expertise with explosives is&#10;beyond any doubt.</szDescription>
 		<ap_fortify>-30</ap_fortify>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -326,9 +326,9 @@
 	<!-- Reaper -->
 	<BACKGROUND>
 		<uiIndex>12</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Assassin</szName>
+		<szShortName>Assassin</szShortName>
+		<szDescription>Few are as naturally dangerous as Reaper, and his long&#10;career as a professional assassin has only exacerbated&#10;his innate lethality.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_height>4</ap_height>
@@ -347,7 +347,7 @@
 		<uiIndex>13</uiIndex>
 		<szName>Bomber</szName>
 		<szShortName>Bomber</szShortName>
-		<szDescription>Fidel is very apt at solving problems with various applications of &#10;destruction, not so much at moderation.</szDescription>
+		<szDescription>Fidel is very apt at solving problems with various applications&#10;of destruction, not so much at moderation.</szDescription>
 		<ap_artillery>-6</ap_artillery>
 		<breachingcharge>30</breachingcharge>
 		<disarm_trap>10</disarm_trap>
@@ -366,7 +366,7 @@
 		<uiIndex>14</uiIndex>
 		<szName>Nurse</szName>
 		<szShortName>Nurse</szShortName>
-		<szDescription>While she isn't a full-blown doctor, Cynthia is always a welcome sight to her comrades in the field.</szDescription>
+		<szDescription>While she isn't a full-blown doctor, Cynthia is always&#10;a welcome sight to her comrades in the field.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_assault>-5</ap_assault>
 		<resistance_fear>5</resistance_fear>
@@ -384,7 +384,7 @@
 		<uiIndex>15</uiIndex>
 		<szName>Nobility</szName>
 		<szShortName>Nobility</szShortName>
-		<szDescription>Some people do not join this business out of necessity. While easy &#10;to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
+		<szDescription>Some people do not join this business out of necessity. While easy&#10;to label them as sissy aristocrats, they can be fairly capable, and&#10;some, such as Sidney, are really quite remarkable.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_inventory>-10</ap_inventory>
 		<betterprices>-10</betterprices>
@@ -393,7 +393,6 @@
 		<carrystrength>-5</carrystrength>
 		<spotter>10</spotter>
 		<smoker>2</smoker>
-		<xenophobic>1</xenophobic>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -402,7 +401,7 @@
 		<uiIndex>16</uiIndex>
 		<szName>DFK Annihilator</szName>
 		<szShortName>DFK Annihilator</szShortName>
-		<szDescription>Your exploits earned you the respect and recognition you deserve. Who needs legs?</szDescription>
+		<szDescription>Tarballs' exploits against the DFK earned him the respect and recognition&#10;of most everyone in the mercenary business. Who needs legs, anyway?</szDescription>
 		<leadership>8</leadership>
 		<resistance_physical>15</resistance_physical>
 		<resistance_fear>15</resistance_fear>
@@ -428,9 +427,9 @@
 	<!-- Buns -->
 	<BACKGROUND>
 		<uiIndex>17</uiIndex>
-		<szName>Nurse/Soldier/Shooter</szName>
-		<szShortName>Nurse/Soldier/Shooter</szShortName>
-		<szDescription>That combination definitely spices up your resume.</szDescription>
+		<szName>Teacher/Nurse/Shooter/Dirt Biker</szName>
+		<szShortName>Multitalent</szShortName>
+		<szDescription>This business attracts all kinds, but few of them have&#10;a resume quite as impressive as Buns's.</szDescription>
 		<ap_inventory>-10</ap_inventory>
 		<speed_bandaging>30</speed_bandaging>
 		<disease_diagnose>10</disease_diagnose>
@@ -444,20 +443,21 @@
 	<!-- Ice -->
 	<BACKGROUND>
 		<uiIndex>18</uiIndex>
-		<szName>Paramilitary Instructor</szName>
-		<szShortName>Instructor</szShortName>
-		<szDescription>Just like boyscouts. But with violence. So not really like boyscouts &#10;at all.</szDescription>
+		<szName>Mercenary/Instructor</szName>
+		<szShortName>Merc/Instructor</szShortName>
+		<szDescription>Ice has been in the mercenary game for quite a while, and his&#10;knack for instructing newcomers in the tricks of the&#10;trade has won him many friends.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
-		<resistance_fear>5</resistance_fear>
-		<resistance_suppression>5</resistance_suppression>
 		<resistance_physical>5</resistance_physical>
+		<resistance_fear>7</resistance_fear>
+		<resistance_suppression>7</resistance_suppression>
 		<carrystrength>2</carrystrength>
+		<approach_friendly>10</approach_friendly>
 		<approach_direct>10</approach_direct>
 		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
-		<xenophobic>1</xenophobic>
+		<croucheddefense>-5</croucheddefense>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -467,7 +467,7 @@
 		<uiIndex>19</uiIndex>
 		<szName>Surgeon</szName>
 		<szShortName>Surgeon</szShortName>
-		<szDescription>Like a surgeon... cutting for the very first time... &#10;Just kidding. Spider is THE person to seek if your guts are spilling out.</szDescription>
+		<szDescription>Like a surgeon... cutting for the very first time... Just kidding.&#10;Spider is THE person to seek if someone's guts are spilling out.</szDescription>
 		<medical>10</medical>
 		<dexterity>8</dexterity>
 		<ap_fortify>10</ap_fortify>
@@ -486,7 +486,7 @@
 		<uiIndex>20</uiIndex>
 		<szName>General Practitioner</szName>
 		<szShortName>GP Doctor</szShortName>
-		<szDescription>Cliff is a highly qualified doctor, though there &#10;once was a... darker... time in his life.</szDescription>
+		<szDescription>Cliff is a highly qualified doctor, though there once&#10;was a... darker... time in his life.</szDescription>
 		<wisdom>2</wisdom>
 		<dexterity>5</dexterity>
 		<medical>10</medical>
@@ -508,9 +508,9 @@
 	<!-- Bull -->
 	<BACKGROUND>
 		<uiIndex>21</uiIndex>
-		<szName>Prison Guard</szName>
-		<szShortName>Prison Guard</szShortName>
-		<szDescription>In longer and larger conflicts, former prison guards are natural &#10;choices for running prison camps.</szDescription>
+		<szName>Military Police</szName>
+		<szShortName>Military Police</szShortName>
+		<szDescription>Corralling drunken soldiers, processing POWs, breaking&#10;the occasional leg, all parts of an MPs repertoire. Bull&#10;was particularly good at that last thing.</szDescription>
 		<strength>2</strength>
 		<ap_assault>1</ap_assault>
 		<meleedamage>5</meleedamage>
@@ -529,8 +529,8 @@
 	<BACKGROUND>
 		<uiIndex>22</uiIndex>
 		<szName>Veteran Mercenary/Instructor</szName>
-		<szShortName>Vet Merc/Instructor</szShortName>
-		<szDescription>This might be Frank's last tour - there are several private &#10;organisations that are interested in recruiting him to train their staff.</szDescription>
+		<szShortName>Veteran/Instructor</szShortName>
+		<szDescription>This might be Frank's last tour - there are several private&#10;organizations that are interested in recruiting him to train&#10;their staff.</szDescription>
 		<leadership>6</leadership>
 		<agility>-5</agility>
 		<ap_assault>5</ap_assault>
@@ -554,9 +554,9 @@
 	<!-- Buzz -->
 	<BACKGROUND>
 		<uiIndex>23</uiIndex>
-		<szName>Rejected Love/Snitch/Veteran Merc</szName>
-		<szShortName>Rejected/Snitch/Vet</szShortName>
-		<szDescription>Turned down by her big love, Buzz is currently filled with a lot of hatred. &#10;She chose the right job it seems.</szDescription>
+		<szName>Rejected Love/Mercenary</szName>
+		<szShortName>Rejected Love/Merc</szShortName>
+		<szDescription>Turned down by her big love, Buzz is currently filled with&#10;a lot of hatred. Fortunately, there's a surplus of targets to&#10;take it out on in this line of work.</szDescription>
 		<resistance_fear>15</resistance_fear>
 		<resistance_physical>3</resistance_physical>
 		<resistance_suppression>20</resistance_suppression>
@@ -578,9 +578,9 @@
 	<!-- Raider -->
 	<BACKGROUND>
 		<uiIndex>24</uiIndex>
-		<szName>SWAT Member</szName>
-		<szShortName>SWAT</szShortName>
-		<szDescription>Blurring the line between police and military, SWAT teams are &#10;used in urban operations too dangerous for normal law enforcement.</szDescription>
+		<szName>SWAT Commander</szName>
+		<szShortName>SWAT Commander</szShortName>
+		<szDescription>As a former SWAT team commander, Raider is intimately familiar&#10;with high-stakes urban operations that are too dangerous for&#10;normal law enforcement.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_assault>2</ap_assault>
 		<resistance_suppression>3</resistance_suppression>
@@ -598,7 +598,7 @@
 		<uiIndex>25</uiIndex>
 		<szName>SWAT Sniper</szName>
 		<szShortName>SWAT Sniper</szShortName>
-		<szDescription>Blurring the line between police and military, SWAT teams are &#10;used in urban operations too dangerous for normal law enforcement.</szDescription>
+		<szDescription>SWAT teams often include dedicated sharpshooters. There's no room&#10;for error when covering team mates and picking off hostage takers&#10;at long range, and Raven didn't make mistakes.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_height>2</ap_height>
 		<ap_assault>2</ap_assault>
@@ -616,9 +616,9 @@
 	<!-- Static -->
 	<BACKGROUND>
 		<uiIndex>26</uiIndex>
-		<szName>Backstage Crew/Veteran Mercenary</szName>
-		<szShortName>Tech Crew/Vet Merc</szShortName>
-		<szDescription>Blasting sounds, fireworks, screaming people - isn't it odd how &#10;similar an acting stage is to the battlefield?</szDescription>
+		<szName>Sound Technician/Veteran Mercenary</szName>
+		<szShortName>Sound Tech/Vet</szShortName>
+		<szDescription>All the loud music, screaming people and explosions may have affected&#10;Static's hearing a bit, but he has also learned a lot over his many years&#10;as a sound technician and mercenary.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-8</ap_fortify>
 		<ap_artillery>-3</ap_artillery>
@@ -644,7 +644,7 @@
 		<uiIndex>27</uiIndex>
 		<szName>Green Beret</szName>
 		<szShortName>Green Beret</szShortName>
-		<szDescription>The Green Berets are a special operations force tasked with unconventional warfare.</szDescription>
+		<szDescription>Len was a member of the Green Berets, a special operations force&#10;tasked with unconventional warfare and foreign internal defense.&#10;They're practically tailor-made for overthrowing petty dictators in&#10;small third-world countries.</szDescription>
 		<ap_airdrop>5</ap_airdrop>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -665,9 +665,9 @@
 	<!-- Danny -->
 	<BACKGROUND>
 		<uiIndex>28</uiIndex>
-		<szName>Extreme Athlete</szName>
-		<szShortName>Extreme Athlete</szShortName>
-		<szDescription>If you want to put your life at risk, might as well earn &#10;cash by doing so...</szDescription>
+		<szName>Pararescueman/Extreme Athlete</szName>
+		<szShortName>PJ/Extreme Athlete</szShortName>
+		<szDescription>For a former PJ and current extreme athlete, branching out to&#10;mercenary work was only natural. The risk to life and limb&#10;is about the same, after all.</szDescription>
 		<agility>6</agility>
 		<strength>3</strength>
 		<dexterity>3</dexterity>
@@ -703,8 +703,8 @@
 	<BACKGROUND>
 		<uiIndex>29</uiIndex>
 		<szName>Professional Thief</szName>
-		<szShortName>Thief</szShortName>
-		<szDescription>When offered to take it or leave it, you always choose 'take'.</szDescription>
+		<szShortName>Professional Thief</szShortName>
+		<szDescription>Magic is the kind of master thief they'd base a series of&#10;heist movies on, if only they knew about his exploits.</szDescription>
 		<agility>5</agility>
 		<dexterity>5</dexterity>
 		<ap_urban>1</ap_urban>
@@ -724,9 +724,9 @@
 	<!-- Stephen -->
 	<BACKGROUND>
 		<uiIndex>30</uiIndex>
-		<szName>Military Advisor</szName>
-		<szShortName>Military Advisor</szShortName>
-		<szDescription>Pointing the gun in the right direction is a start, but someone needs &#10;to teach these people how to teach other people where to point.</szDescription>
+		<szName>Mercenary/Security Consultant</szName>
+		<szShortName>Merc/Security</szShortName>
+		<szDescription>Various security services constitute a large segment of the global&#10;mercenary business. VIPs, oil fields, diamond mines and other such things&#10;don't protect themselves, as Stephen can attest from experience.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>3</resistance_fear>
@@ -745,8 +745,8 @@
 	<BACKGROUND>
 		<uiIndex>31</uiIndex>
 		<szName>Veteran Mercenary</szName>
-		<szShortName>Veteran Merc</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szShortName>Veteran Mercenary</szShortName>
+		<szDescription>Scully chose the life of a gun for hire a long time ago, and he's been&#10;winning combat engagements and making a name for himself ever&#10;since. Few in this business are as good as him.</szDescription>
 		<ap_coastal>5</ap_coastal>
 		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
@@ -770,7 +770,7 @@
 		<uiIndex>32</uiIndex>
 		<szName>Bouncer</szName>
 		<szShortName>Bouncer</szShortName>
-		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
+		<szDescription>Malice used to be a bouncer. In practice, he was more of a&#10;street fighter, if the number of people he inflicted knife wounds&#10;on is anything to go by.</szDescription>
 		<meleedamage>4</meleedamage>
 		<dexterity>2</dexterity>
 		<resistance_physical>5</resistance_physical>
@@ -785,7 +785,7 @@
 		<uiIndex>33</uiIndex>
 		<szName>Chinese Doctor</szName>
 		<szShortName>Chinese Doctor</szShortName>
-		<szDescription>Dr. Q is trained in the arts of ancient Chinese medicine. &#10;Not the fastest way to cure a patient, but it works.</szDescription>
+		<szDescription>Dr. Q is trained in the arts of ancient Chinese medicine. Not&#10;the fastest way to cure a patient, but apparently it works.</szDescription>
 		<dexterity>5</dexterity>
 		<medical>8</medical>
 		<wisdom>5</wisdom>
@@ -803,9 +803,9 @@
 	<!-- Nails -->
 	<BACKGROUND>
 		<uiIndex>34</uiIndex>
-		<szName>Gang Member/Bomber</szName>
-		<szShortName>Gang Member/Bomber</szShortName>
-		<szDescription>Becoming a mercenary is a natural step for many gang members&#10; - job's the same, the tools and pay are much better.</szDescription>
+		<szName>Biker/Bomber</szName>
+		<szShortName>Biker/Bomber</szShortName>
+		<szDescription>During his time as the leader of one of the largest biker gangs in the&#10;US, Nails did a lot of things, most of them highly illegal. Vehicle-borne&#10;IEDs and gangland shootouts weren't out of the ordinary for him.</szDescription>
 		<leadership>2</leadership>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-5</ap_desert>
@@ -835,8 +835,8 @@
 	<BACKGROUND>
 		<uiIndex>35</uiIndex>
 		<szName>New Age Spiritualist</szName>
-		<szShortName>New Age Spiritualist</szShortName>
-		<szDescription>Who needs an exam to be a practicing healer?</szDescription>
+		<szShortName>New Age</szShortName>
+		<szDescription>Who needs a degree to be a practicing healer? Certainly not Thor.&#10;Besides, they don't even teach chakra alignment in medical school.</szDescription>
 		<medical>5</medical>
 		<wisdom>5</wisdom>
 		<leadership>5</leadership>
@@ -854,9 +854,9 @@
 	<!-- Scope -->
 	<BACKGROUND>
 		<uiIndex>36</uiIndex>
-		<szName>SAS</szName>
-		<szShortName>SAS</szShortName>
-		<szDescription>The british Special Air Service is one of the world's most &#10;famous special forces units, and is not only trained in survival techniques in all environments, it is also exceptionally well versed in airborne missions.</szDescription>
+		<szName>Special Air Service</szName>
+		<szShortName>Special Air Service</szShortName>
+		<szDescription>The British Special Air Service is one of the world's most famous special&#10;forces units. Exceptionally well trained in both airborne and ground&#10;operations, Scope has the skills to overcome any challenge she's liable to&#10;encounter in the field.</szDescription>
 		<marksmanship>3</marksmanship>
 		<ap_polar>3</ap_polar>
 		<ap_desert>3</ap_desert>
@@ -885,7 +885,7 @@
 		<uiIndex>37</uiIndex>
 		<szName>Paramilitary Instructor</szName>
 		<szShortName>Instructor</szShortName>
-		<szDescription>Just like boyscouts. But with violence. So not really like boyscouts &#10;at all.</szDescription>
+		<szDescription>There are a lot of trainers and instructors out there who have next to&#10;no practical experience. Wolf is the opposite, with plenty of time spent&#10;in the field and comprehensive knowledge on a wide variety of military&#10;and paramilitary skills.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>5</resistance_fear>
@@ -896,16 +896,15 @@
 		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
-		<xenophobic>1</xenophobic> 
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
 	<!-- MD -->
 	<BACKGROUND>
 		<uiIndex>38</uiIndex>
-		<szName>Graduate</szName>
-		<szShortName>Graduate</szShortName>
-		<szDescription>Fresh out of school, with a diploma still warm in hand, it's time &#10;to finally make yourself a living.</szDescription>
+		<szName>Medical School Graduate</szName>
+		<szShortName>Medical Graduate</szShortName>
+		<szDescription>Fresh out of medical school, MD is eager to put his&#10;new degree into good use, and maybe help liberate&#10;a country while he's at it.</szDescription>
 		<leadership>-3</leadership>
 		<ap_polar>5</ap_polar>
 		<ap_desert>-5</ap_desert>
@@ -928,8 +927,8 @@
 	<BACKGROUND>
 		<uiIndex>39</uiIndex>
 		<szName>Mercenary</szName>
-		<szShortName>Merc</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szShortName>Mercenary</szShortName>
+		<szDescription>There are many quiet professionals who spend years in this business&#10;without drawing attention to themselves, and then there are people&#10;like Meltdown. Everyone has heard of her, and many respect her&#10;abilities, though not necessarily her personality.</szDescription>
 		<leadership>2</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_physical>5</resistance_physical>
@@ -948,7 +947,7 @@
 		<uiIndex>40</uiIndex>
 		<szName>Momma's Boy</szName>
 		<szShortName>Momma's Boy</szShortName>
-		<szDescription>Your childhood left you with significant personal issues that have &#10;yet to be solved.</szDescription>
+		<szDescription>Biff's childhood left him with significant personal issues&#10;that are yet to be resolved. How he ended up becoming&#10;a mercenary is a question for the ages.</szDescription>
 		<ap_airdrop>-10</ap_airdrop>
 		<ap_assault>-10</ap_assault>
 		<resistance_fear>-20</resistance_fear>
@@ -964,7 +963,7 @@
 		<uiIndex>41</uiIndex>
 		<szName>Wanna-be Mercenary</szName>
 		<szShortName>Wanna-be Merc</szShortName>
-		<szDescription>You chose the awesome life of a mercenary: visit new places, &#10;meet new people, and kill them. And even get paid for it.</szDescription>
+		<szDescription>Haywire chose the awesome life of a mercenary: he gets to visit new&#10;places, meet new people, and kill them. And is even paid for it.</szDescription>
 		<ap_assault>1</ap_assault>
 		<meleedamage>3</meleedamage>
 		<cth_blades>5</cth_blades>
@@ -985,7 +984,7 @@
 		<uiIndex>42</uiIndex>
 		<szName>Hillbilly</szName>
 		<szShortName>Hillbilly</szShortName>
-		<szDescription>Overalls, straw sticking out of boots, and an inseparable blade of grass &#10;in the mouth - but with a knack for tools and all things mechanical.</szDescription>
+		<szDescription>Overalls, straw sticking out of boots, and an inseparable blade&#10;of grass in the mouth - and a knack for tools and all things&#10;mechanical. That's Gasket, alright.</szDescription>
 		<stealth>3</stealth>
 		<ap_height>-4</ap_height>
 		<ap_urban>-5</ap_urban>
@@ -1010,7 +1009,7 @@
 		<uiIndex>43</uiIndex>
 		<szName>Mad Slasher</szName>
 		<szShortName>Mad Slasher</szShortName>
-		<szDescription>There is something extremely not right here, but he has obviously &#10;useful talents for this business.</szDescription>
+		<szDescription>There is something extremely not right with Razor, but he does&#10;have several obviously useful talents for this business.</szDescription>
 		<strength>3</strength>
 		<dexterity>6</dexterity>
 		<agility>6</agility>
@@ -1037,7 +1036,7 @@
 		<uiIndex>44</uiIndex>
 		<szName>Accountant</szName>
 		<szShortName>Accountant</szShortName>
-		<szDescription>Knowledge learned from years of keeping books for an arms dealer &#10;leads to better deals when buying and selling guns and gear.</szDescription>
+		<szDescription>Being a mercenary may not be the best fit for Flo, but years of&#10;keeping books for a gun dealer did equip her with an intimate&#10;knowledge of the arms trade.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_airdrop>-10</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -1052,9 +1051,9 @@
 	<!-- Gumpy -->
 	<BACKGROUND>
 		<uiIndex>45</uiIndex>
-		<szName>Harvard graduate</szName>
-		<szShortName>Harvard graduate</szShortName>
-		<szDescription>University taught you many things, but combat isn't one of them.</szDescription>
+		<szName>Harvard Graduate</szName>
+		<szShortName>Harvard Graduate</szShortName>
+		<szDescription>University taught Gumpy many things, but combat wasn't one of them.</szDescription>
 		<leadership>-5</leadership>
 		<ap_fortify>10</ap_fortify>
 		<disarm_trap>20</disarm_trap>
@@ -1070,7 +1069,7 @@
 		<uiIndex>46</uiIndex>
 		<szName>Drug Addict/Bomber</szName>
 		<szShortName>Addict/Bomber</szShortName>
-		<szDescription>Given the nature of today's drugs, addicts can make fearsome, &#10;yet unreliable, opponents.</szDescription>
+		<szDescription>Larry's addiction has haunted him for a very long time. He's&#10;quite capable while sober, but how long he can stay off the&#10;drugs is always an open question.</szDescription>
 		<explosives>6</explosives>
 		<breachingcharge>30</breachingcharge>
 		<disarm_trap>10</disarm_trap>
@@ -1115,9 +1114,9 @@
 	<!-- Cougar -->
 	<BACKGROUND>
 		<uiIndex>48</uiIndex>
-		<szName>Rejected Army Cadet</szName>
-		<szShortName>Rejected Army Cadet</szShortName>
-		<szDescription>Flunked out of the military academy, but not yet finished.</szDescription>
+		<szName>Military Cadet</szName>
+		<szShortName>Military Cadet</szShortName>
+		<szDescription>Top of his class at the military academy, Cougar is the type of&#10;soldier that generals the world over would love to have more of...&#10;At least in his opinion.</szDescription>
 		<ap_assault>1</ap_assault>
 		<ap_fortify>-1</ap_fortify>
 		<ap_artillery>-1</ap_artillery> 
@@ -1138,7 +1137,7 @@
 		<uiIndex>49</uiIndex>
 		<szName>Punk</szName>
 		<szShortName>Punk</szShortName>
-		<szDescription>Turning the urban environment into a jungle is a tough job, but &#10;somebody's gotta do it!</szDescription>
+		<szDescription>Numb may or may not be a fan of the music, but he's always done&#10;his best to turn the urban environment into a jungle. It's a tough job,&#10;but somebody's gotta do it!</szDescription>
 		<leadership>-2</leadership>
 		<ap_urban>5</ap_urban>
 		<resistance_physical>10</resistance_physical>
@@ -1160,7 +1159,7 @@
 		<uiIndex>50</uiIndex>
 		<szName>Prison Guard</szName>
 		<szShortName>Prison Guard</szShortName>
-		<szDescription>Look at this guy. Now look at you. Still feel like escaping?</szDescription>
+		<szDescription>Putting an ex-prison guard in charge of POWs may seem like&#10;the obvious thing to do, but in Bubba's case, it's probably going to&#10;result in a war crime investigation.</szDescription>
 		<strength>1</strength>
 		<ap_assault>1</ap_assault>
 		<meleedamage>5</meleedamage>
@@ -1232,7 +1231,7 @@
 	<BACKGROUND>
 		<uiIndex>57</uiIndex>
 		<szName>Arulcan Rebel</szName>
-		<szShortName>Rebel</szShortName>
+		<szShortName>Arulcan Rebel</szShortName>
 		<szDescription>The only hope left for his oppressed people, Miguel IS the revolution.</szDescription>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
@@ -1257,8 +1256,8 @@
 	<BACKGROUND>
 		<uiIndex>58</uiIndex>
 		<szName>Arulcan Rebel</szName>
-		<szShortName>Rebel</szShortName>
-		<szDescription>Miguel's right hand, Carlos keeps the men in line.</szDescription>
+		<szShortName>Arulcan Rebel</szShortName>
+		<szDescription>As Miguel's right hand man, Carlos keeps the other men in line.</szDescription>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
 		<ap_urban>2</ap_urban>
@@ -1283,7 +1282,7 @@
 	<BACKGROUND>
 		<uiIndex>59</uiIndex>
 		<szName>Rebel Scout/Medic</szName>
-		<szShortName>Rebel Scout/Medic</szShortName>
+		<szShortName>Scout/Medic</szShortName>
 		<szDescription>Aid worker turned rebel, Ira does what she can to keep the rebels alive.</szDescription>
 		<ap_desert>1</ap_desert>
 		<ap_swamp>1</ap_swamp>
@@ -1311,8 +1310,8 @@
 	<BACKGROUND>
 		<uiIndex>60</uiIndex>
 		<szName>Arulcan Rebel</szName>
-		<szShortName>Rebel</szShortName>
-		<szDescription>One might mistake him for a simpleton, but being alive after all these years proves Dimitri is made of sterner stuff.</szDescription>
+		<szShortName>Arulcan Rebel</szShortName>
+		<szDescription>One might mistake him for a simpleton, but being alive after all&#10;these years proves Dimitri is made of sterner stuff.</szDescription>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
 		<ap_urban>2</ap_urban>
@@ -1335,9 +1334,9 @@
 	<!-- Devin -->
 	<BACKGROUND>
 		<uiIndex>61</uiIndex>
-		<szName>IRA Bombexpert</szName>
-		<szShortName>IRA Bombexpert</szShortName>
-		<szDescription>Once building his bombs for the IRA, Devin recently considered selling his devices to other customers as well.</szDescription>
+		<szName>IRA Bomb Expert</szName>
+		<szShortName>IRA Bomb Expert</szShortName>
+		<szDescription>Once a bomb-maker for the IRA, Devin moved his business abroad after&#10;the Good Friday Agreement ended the hostilities in his homeland.</szDescription>
 		<explosives>6</explosives>
 		<breachingcharge>30</breachingcharge>
 		<disarm_trap>10</disarm_trap>
@@ -1364,8 +1363,8 @@
 	<BACKGROUND>
 		<uiIndex>63</uiIndex>
 		<szName>Metaviran Native</szName>
-		<szShortName>Metavira</szShortName>
-		<szDescription>The indigenous people of Metavira have adjusted to the hostile &#10;jungle there. After the liberation, some joined the foreigners and sought their luck elsewhere.</szDescription>
+		<szShortName>Metaviran Native</szShortName>
+		<szDescription>The indigenous people of Metavira have adjusted to the island's&#10;hostile jungle. After the liberation, some joined the foreigners&#10;and sought their fortunes elsewhere.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-3</ap_desert>
 		<ap_urban>-3</ap_urban>
@@ -1390,9 +1389,9 @@
 	<!-- Slay -->
 	<BACKGROUND>
 		<uiIndex>64</uiIndex>
-		<szName>Sniper Terrorist</szName>
-		<szShortName>Sniper Terrorist</szShortName>
-		<szDescription>No politician would admit it, but the same governments that hunt him employ him.</szDescription>
+		<szName>Terrorist Sniper</szName>
+		<szShortName>Terrorist Sniper</szShortName>
+		<szDescription>No politician would admit it, but the same governments that hunt Slay also employ him.</szDescription>
 		<marksmanship>3</marksmanship>
 		<ap_urban>2</ap_urban>
 		<ap_height>4</ap_height>
@@ -1421,7 +1420,7 @@
 		<uiIndex>66</uiIndex>
 		<szName>Prisoner</szName>
 		<szShortName>Prisoner</szShortName>
-		<szDescription>Being held and tortured in a regime prison left you scarred for the &#10;rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+		<szDescription>Seeing his son murdered and being tortured in prison left Dynamo&#10;scarred for the rest of his life. He's not afraid of death anymore&#10;- but there are other things to be afraid of...</szDescription>
 		<resistance_fear>20</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<resistance_physical>10</resistance_physical>
@@ -1440,7 +1439,7 @@
 		<uiIndex>67</uiIndex>
 		<szName>Prisoner</szName>
 		<szShortName>Prisoner</szShortName>
-		<szDescription>Being held and tortured in a regime prison left you scarred for the &#10;rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+		<szDescription>Shank went to prison for cultivating weed. The terrible treatment&#10;and horrifying conditions there radicalized him, and made him into&#10;a violent revolutionary aiming to overthrow the regime.&#10;There's probably something to be learned from that.</szDescription>
 		<cth_blades>5</cth_blades>
 		<resistance_fear>20</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -1461,7 +1460,7 @@
 		<uiIndex>68</uiIndex>
 		<szName>Red Army/Veteran Mercenary</szName>
 		<szShortName>Red Army/Vet Merc</szShortName>
-		<szDescription>A veteran of international conflict, Iggy found himself on the wrong &#10;side of the conflict until he joined the rebellion.</szDescription>
+		<szDescription>Like many other seasoned guns for hire, Iggy found himself&#10;on the wrong side of the war in Arulco. Unlike most of them,&#10;he did the right thing and defected to the rebellion.</szDescription>
 		<leadership>7</leadership>
 		<ap_polar>2</ap_polar>
 		<ap_mountain>3</ap_mountain>
@@ -1485,8 +1484,8 @@
 	<BACKGROUND>
 		<uiIndex>69</uiIndex>
 		<szName>General Practitioner</szName>
-		<szShortName>GP</szShortName>
-		<szDescription>Frustrated by the anguish and misery he sees everyday, Vince has decided &#10;it might be time for a more active resistance against the queen.</szDescription>
+		<szShortName>GP Doctor</szShortName>
+		<szDescription>Frustrated by the anguish and misery he saw day after day, Vince decided&#10;that it might be time for a more active resistance against the Queen.</szDescription>
 		<wisdom>1</wisdom>
 		<dexterity>5</dexterity>
 		<marksmanship>2</marksmanship>
@@ -1509,7 +1508,7 @@
 		<uiIndex>70</uiIndex>
 		<szName>Military Advisor</szName>
 		<szShortName>Military Advisor</szShortName>
-		<szDescription>Pointing the gun in the right direction is a start, but someone needs &#10;to teach these people how to teach other people where to point.</szDescription>
+		<szDescription>The Queen paid well enough, but there wasn't much glory or fame to be found&#10;in whipping unwilling conscripts into some semblance of fighting fit.&#10;Thus Conrad did what mercenaries traditionally do, and switched&#10;sides as soon as he received a better offer.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>3</resistance_fear>
@@ -1537,7 +1536,7 @@
 		<uiIndex>72</uiIndex>
 		<szName>Crazy Redneck</szName>
 		<szShortName>Crazy Redneck</szShortName>
-		<szDescription>Not entirely sane, not entirely crazy, not entirely anything, &#10;your life is at a crossroads.</szDescription>
+		<szDescription>Not entirely sane, not entirely crazy, not entirely anything,&#10;Maddog's life is at a crossroads.</szDescription>
 		<stealth>-5</stealth>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
@@ -1567,7 +1566,7 @@
 		<uiIndex>73</uiIndex>
 		<szName>Redneck</szName>
 		<szShortName>Redneck</szShortName>
-		<szDescription>When the Confederacy lost the war, your family moved further south . . . &#10;and is still fighting . . . everybody.</szDescription>
+		<szDescription>When the Confederacy lost the war, these people moved further south...&#10;and are still fighting... everybody.</szDescription>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
 		<ap_river>5</ap_river>
@@ -1590,7 +1589,7 @@
 		<uiIndex>74</uiIndex>
 		<szName>Expert Handyman</szName>
 		<szShortName>Expert Handyman</szShortName>
-		<szDescription>In a warzone without the usual comforts, it is very useful to &#10;have people who can maintain your gear.</szDescription>
+		<szDescription>In a warzone without the usual comforts, it is very useful to&#10;have people who can maintain military gear.</szDescription>
 		<ap_urban>3</ap_urban>
 		<betterprices_guns>3</betterprices_guns>
 		<betterprices>10</betterprices>
@@ -1603,7 +1602,7 @@
 		<uiIndex>75</uiIndex>
 		<szName>Evil Queen</szName>
 		<szShortName>Evil Queen</szShortName>
-		<szDescription>Living the life of an evil ruler of a small country certainly leads to astonishing survival talents.</szDescription>
+		<szDescription>Living the life of an evil ruler of a small country certainly&#10;leads to astonishing survival talents.</szDescription>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>20</resistance_fear>
 		<interrogation>300</interrogation>
@@ -1667,7 +1666,7 @@
 		<uiIndex>79</uiIndex>
 		<szName>Bodyguard</szName>
 		<szShortName>Bodyguard</szShortName>
-		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?.</szDescription>
+		<szDescription>Superbly trained, utterly loyal, and willing to pay the&#10;ultimate price. What more could a potential employer want?.</szDescription>
 		<strength>5</strength>
 		<resistance_physical>20</resistance_physical>
 		<resistance_fear>10</resistance_fear>
@@ -1684,7 +1683,7 @@
 		<uiIndex>80</uiIndex>
 		<szName>Doctor</szName>
 		<szShortName>Doctor</szShortName>
-		<szDescription>A leader of nurses, aides, and candy-stripers -- oh, and healer of mercenaries.</szDescription>
+		<szDescription>A leader of nurses, aides, and candy-stripers - oh, and healer of mercenaries.</szDescription>
 		<wisdom>2</wisdom>
 		<dexterity>5</dexterity>
 		<medical>10</medical>
@@ -1771,7 +1770,7 @@
 		<uiIndex>85</uiIndex>
 		<szName>Punk</szName>
 		<szShortName>Punk</szShortName>
-		<szDescription>Turning the urban environment into a jungle is a tough job, &#10;but somebody's gotta do it!</szDescription>
+		<szDescription>Turning the urban environment into a jungle is a tough job,&#10;but somebody's gotta do it!</szDescription>
 		<leadership>-2</leadership>
 		<ap_urban>5</ap_urban>
 		<resistance_disease>15</resistance_disease>
@@ -1792,7 +1791,7 @@
 		<uiIndex>86</uiIndex>
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
-		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+		<szDescription>Organized crime is found everywhere. No exceptions.</szDescription>
 		<ap_assault>2</ap_assault>
 		<cth_blades>3</cth_blades>
 		<meleedamage>3</meleedamage>
@@ -1808,7 +1807,7 @@
 		<uiIndex>87</uiIndex>
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
-		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+		<szDescription>Organized crime is found everywhere. No exceptions.</szDescription>
 		<ap_assault>2</ap_assault>
 		<cth_blades>3</cth_blades>
 		<meleedamage>3</meleedamage>
@@ -1821,8 +1820,8 @@
 	<!-- Maria -->
 	<BACKGROUND>
 		<uiIndex>88</uiIndex>
-		<szName>Sex slave</szName>
-		<szShortName>Sex slave</szShortName>
+		<szName>Sex Slave</szName>
+		<szShortName>Sex Slave</szShortName>
 		<szDescription>You don't want to know.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
@@ -1881,7 +1880,7 @@
 		<uiIndex>91</uiIndex>
 		<szName>Arms Dealer</szName>
 		<szShortName>Arms Dealer</szShortName>
-		<szDescription>You know the risk selling weapons to both sides, but the profit margin is just that good.</szDescription>
+		<szDescription>Tony knows the risks of selling weapons to all sides, but the&#10;profit margin is just that good.</szDescription>
 		<resistance_fear>10</resistance_fear>
 		<approach_direct>10</approach_direct>
 		<betterprices_guns>10</betterprices_guns>
@@ -1907,7 +1906,7 @@
 		<uiIndex>93</uiIndex>
 		<szName>Bouncer</szName>
 		<szShortName>Bouncer</szShortName>
-		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
+		<szDescription>Doormen make good soldiers in close combat, and sometimes&#10;they're already familiar with the killing part.</szDescription>
 		<meleedamage>4</meleedamage>
 		<resistance_fear>10</resistance_fear>
 		<spotter>3</spotter>
@@ -1919,7 +1918,7 @@
 		<uiIndex>94</uiIndex>
 		<szName>Bodyguard</szName>
 		<szShortName>Bodyguard</szShortName>
-		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?</szDescription>
+		<szDescription>Superbly trained, utterly loyal, and willing to pay the&#10;ultimate price. What more could a potential employer want?</szDescription>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -1957,7 +1956,7 @@
 		<uiIndex>96</uiIndex>
 		<szName>Poacher/Smuggler</szName>
 		<szShortName>Poacher/Smuggler</szShortName>
-		<szDescription>Travel to virgin soil, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
+		<szDescription>Back when he was an arms trafficker, Micky used to conceal his wares&#10;inside animal carcasses. Leaving out the weapons and focusing fully&#10;on the carcasses may be a messier business, but it also&#10;invites less attention from the authorities.</szDescription>
 		<ap_polar>1</ap_polar>
 		<ap_desert>1</ap_desert>
 		<ap_swamp>2</ap_swamp>
@@ -1982,7 +1981,7 @@
 		<uiIndex>97</uiIndex>
 		<szName>Pilot</szName>
 		<szShortName>Pilot</szShortName>
-		<szDescription>Flying helicopters is second nature to him, as is getting the heck &#10;out of trouble!</szDescription>
+		<szDescription>Flying helicopters is second nature to him, as is getting the heck&#10;out of trouble!</szDescription>
 		<ap_airdrop>1</ap_airdrop>
 		<travel_air>10</travel_air>
 		<resistance_suppression>10</resistance_suppression>
@@ -2013,9 +2012,9 @@
 	<!-- Sal -->
 	<BACKGROUND>
 		<uiIndex>99</uiIndex>
-		<szName>Airport Cargo Manager</szName>
-		<szShortName>Cargo Manager</szShortName>
-		<szDescription>Sal tries to handle the cargo manager job.</szDescription>
+		<szName>Airport Cargo Manager/Idiot</szName>
+		<szShortName>Cargo Manager/Idiot</szShortName>
+		<szDescription>Sal tries, and usually fails, to handle the cargo manager job.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<ap_assault>-5</ap_assault>
 		<no_male>1</no_male>
@@ -2026,7 +2025,7 @@
 		<uiIndex>100</uiIndex>
 		<szName>Priest</szName>
 		<szShortName>Priest</szShortName>
-		<szDescription>Many devout followers of any religion or cult are surprisingly &#10;violent and zealous if pushed into the right (or wrong) direction.</szDescription>
+		<szDescription>Many devout believers are surprisingly violent and&#10;zealous if pushed into the right (or wrong) direction.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -2077,7 +2076,7 @@
 		<uiIndex>102</uiIndex>
 		<szName>Warden</szName>
 		<szShortName>Warden</szShortName>
-		<szDescription>Former law enforcement personnel often seek work in the mercenary world, and are the logical choice for handling captives.</szDescription>
+		<szDescription>Former law enforcement personnel often seek work in the mercenary&#10;world, and are the logical choice for handling captives.</szDescription>
 		<resistance_fear>10</resistance_fear>
 		<capitulation>25</capitulation>
 		<interrogation>175</interrogation>
@@ -2090,7 +2089,7 @@
 		<uiIndex>103</uiIndex>
 		<szName>Prisoner</szName>
 		<szShortName>Prisoner</szShortName>
-		<szDescription>Being held and tortured in a regime prison left you scarred for the &#10;rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+		<szDescription>Tortured to the brink of total mental breakdown and beyond,&#10;Gordon has seen and been subjected to unspeakable things.</szDescription>
 		<resistance_fear>-20</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<resistance_physical>10</resistance_physical>
@@ -2123,8 +2122,8 @@
 	<BACKGROUND>
 		<uiIndex>106</uiIndex>
 		<szName>Head Miner</szName>
-		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
+		<szShortName>Head Miner</szShortName>
+		<szDescription>Working in a mine is hard, punishing work. No wonder some start&#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
 		<level_underground>1</level_underground>
 		<carrystrength>3</carrystrength>
@@ -2152,7 +2151,7 @@
 		<uiIndex>108</uiIndex>
 		<szName>Arulcan Elder</szName>
 		<szShortName>Arulcan Elder</szShortName>
-		<szDescription>Respected for his wisdom and knowledge of Arulcan history.</szDescription>
+		<szDescription>Yanni is respected for his wisdom and knowledge of Arulcan history.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_river>3</ap_river>
 		<ap_coastal>3</ap_coastal>
@@ -2168,7 +2167,7 @@
 		<uiIndex>109</uiIndex>
 		<szName>Joey's Mom</szName>
 		<szShortName>Joey's Mom</szShortName>
-		<szDescription>Totally clueless . . . about her son.</szDescription>
+		<szDescription>Totally clueless... about her son.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-10</ap_airdrop>
@@ -2201,7 +2200,7 @@
 		<uiIndex>111</uiIndex>
 		<szName>Insurgent American Terrorist</szName>
 		<szShortName>Insurgent Terrorist</szShortName>
-		<szDescription>Paranoid, ignorant, fascist - yep, that's you.</szDescription>
+		<szDescription>Paranoid, ignorant, fascist - yep, that about sums it up.</szDescription>
 		<ap_assault>3</ap_assault>
 		<betterprices_guns>3</betterprices_guns>
 		<capitulation>4</capitulation>
@@ -2233,7 +2232,7 @@
 		<uiIndex>113</uiIndex>
 		<szName>Junk Dealer/Black Marketeer</szName>
 		<szShortName>Junk Dealer</szShortName>
-		<szDescription>Jake deals in junk . . . and other stuff.</szDescription>
+		<szDescription>Jake deals in junk... and other stuff.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_inventory>-1</ap_inventory>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2271,7 +2270,7 @@
 		<uiIndex>115</uiIndex>
 		<szName>Car Mechanic</szName>
 		<szShortName>Car Mechanic</szShortName>
-		<szDescription>Dave used to run a service station . . . when there was fuel for vehicles.</szDescription>
+		<szDescription>Dave used to run a service station... when there was fuel for vehicles.</szDescription>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-2</ap_fortify>
 		<ap_airdrop>-3</ap_airdrop>
@@ -2286,7 +2285,7 @@
 		<uiIndex>116</uiIndex>
 		<szName>Homeless Man</szName>
 		<szShortName>Homeless Man</szShortName>
-		<szDescription>The Queen had Skipper's family murdered, and his home burned to the ground.</szDescription>
+		<szDescription>The Queen had Skipper's family murdered and his home burned to the ground.</szDescription>
 		<stealth>5</stealth>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2346,7 +2345,7 @@
 		<uiIndex>120</uiIndex>
 		<szName>General</szName>
 		<szShortName>General</szShortName>
-		<szDescription>This mercenary General is definitely not in your squad!</szDescription>
+		<szDescription>This mercenary general is definitely not in your squad!</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2367,7 +2366,7 @@
 		<uiIndex>121</uiIndex>
 		<szName>Sergeant Krott</szName>
 		<szShortName>Sergeant</szShortName>
-		<szDescription>Drafted into the Arulcan Army, this sergeant would rather be at &#10;home with his family.</szDescription>
+		<szDescription>Drafted into the Arulcan Army, this sergeant would rather be at home with his family.</szDescription>
 		<ap_assault>3</ap_assault>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2389,7 +2388,7 @@
 		<uiIndex>122</uiIndex>
 		<szName>Corporatist</szName>
 		<szShortName>Corporatist</szShortName>
-		<szDescription>Rich classist bankrolling the Queen for social status.</szDescription>
+		<szDescription>Rich classist bankrolling the Queen for social status. Some things never change.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-6</ap_airdrop>
@@ -2407,9 +2406,9 @@
 	<!-- Lora -->
 	<BACKGROUND>
 		<uiIndex>123</uiIndex>
-		<szName>B-Movie Star/Trophy Wife</szName>
-		<szShortName>B-Movie Star</szShortName>
-		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
+		<szName>Trophy Wife</szName>
+		<szShortName>Trophy Wife</szShortName>
+		<szDescription>It's okay to be a trophy wife, but it's much less okay to be a rich asshole.</szDescription>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<capitulation>5</capitulation>
@@ -2487,7 +2486,7 @@
 	<BACKGROUND>
 		<uiIndex>127</uiIndex>
 		<szName>WWII Veteran</szName>
-		<szShortName>Veteran</szShortName>
+		<szShortName>WWII Veteran</szShortName>
 		<szDescription>In his prime, he'd have put all you youngsters to shame.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -2507,7 +2506,7 @@
 		<uiIndex>128</uiIndex>
 		<szName>Expert Handyman</szName>
 		<szShortName>Expert Handyman</szShortName>
-		<szDescription>In a warzone without the usual comforts, it is very useful to &#10;have people who can maintain your gear.</szDescription>
+		<szDescription>In a warzone without the usual comforts, it is very useful to&#10;have people who can maintain military gear.</szDescription>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>10</ap_artillery>
@@ -2549,7 +2548,7 @@
 		<uiIndex>130</uiIndex>
 		<szName>Handyman</szName>
 		<szShortName>Handyman</szShortName>
-		<szDescription>Got something that needs fixing? Here's your man.</szDescription>
+		<szDescription>If something needs fixing, he's the right man for the job.</szDescription>
 		<ap_urban>3</ap_urban>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2565,7 +2564,7 @@
 		<uiIndex>131</uiIndex>
 		<szName>Scientist</szName>
 		<szShortName>Scientist</szShortName>
-		<szDescription>Single-minded scientist working for the Queen . . .</szDescription>
+		<szDescription>A single-minded scientist working for the Queen...</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-6</ap_airdrop>
@@ -2583,7 +2582,7 @@
 		<uiIndex>132</uiIndex>
 		<szName>Nurse</szName>
 		<szShortName>Nurse</szShortName>
-		<szDescription>While not full-blown doctors, nurses are still in high demand &#10;in warzones, due to that grim business.</szDescription>
+		<szDescription>While not full-blown doctors, nurses are still in high demand&#10;in warzones, due to all that grim business of killing and dying.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
@@ -2599,7 +2598,7 @@
 		<uiIndex>133</uiIndex>
 		<szName>Bouncer</szName>
 		<szShortName>Bouncer</szShortName>
-		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
+		<szDescription>Doormen make good soldiers in close combat, and sometimes&#10;they're already familiar with the killing part.</szDescription>
 		<meleedamage>4</meleedamage>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>3</resistance_fear>
@@ -2612,7 +2611,7 @@
 		<uiIndex>134</uiIndex>
 		<szName>Twit</szName>
 		<szShortName>Twit</szShortName>
-		<szDescription>Married to The Warden, two-faced, cowardly, unfaithful to the &#10;point of facilitating murder.</szDescription>
+		<szDescription>Married to The Warden, two-faced, cowardly, unfaithful to the&#10;point of facilitating murder.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-9</ap_airdrop>
@@ -2630,7 +2629,7 @@
 		<uiIndex>135</uiIndex>
 		<szName>Butt Monkey</szName>
 		<szShortName>Butt Monkey</szShortName>
-		<szDescription>One would expect the constant abuse and ridicule you withstand to eventually &#10;lead you to reconsider your life choices. Nope.</szDescription>
+		<szDescription>One would expect the constant abuse and ridicule to eventually&#10;lead Elliot to reconsider his life choices. Nope.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2663,7 +2662,7 @@
 		<uiIndex>138</uiIndex>
 		<szName>Helicopter Mechanic</szName>
 		<szShortName>Heli Mechanic</szShortName>
-		<szDescription>The best (and likely only) heli mechanic in Arulco.</szDescription>
+		<szDescription>The best (and likely only) helicopter mechanic in all of Arulco.</szDescription>
 		<ap_fortify>-2</ap_fortify>
 		<ap_airdrop>1</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -2690,9 +2689,9 @@
 	<!-- Jim -->
 	<BACKGROUND>
 		<uiIndex>140</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
@@ -2713,9 +2712,9 @@
 	<!-- Jack -->
 	<BACKGROUND>
 		<uiIndex>141</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2732,12 +2731,12 @@
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
-	<!-- Olaf  -->
+	<!-- Olaf -->
 	<BACKGROUND>
 		<uiIndex>142</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2757,9 +2756,9 @@
 	<!-- Ray -->
 	<BACKGROUND>
 		<uiIndex>143</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2779,9 +2778,9 @@
 	<!-- Olga -->
 	<BACKGROUND>
 		<uiIndex>144</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2801,9 +2800,9 @@
 	<!-- Tyrone -->
 	<BACKGROUND>
 		<uiIndex>145</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Kingpin's Hitman</szName>
+		<szShortName>Kingpin's Hitman</szShortName>
+		<szDescription>One of the many hitmen on Kingpin's payroll. They're very used to&#10;killing people and dangerous even when pitted against trained soldiers.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2825,7 +2824,7 @@
 		<uiIndex>146</uiIndex>
 		<szName>Scientist</szName>
 		<szShortName>Scientist</szShortName>
-		<szDescription>Pursuing your insatiable appetite for knowledge led you into &#10;committing atrocities for The Queen, which you now seek to rectify.</szDescription>
+		<szDescription>Pursuing his insatiable appetite for knowledge led Madlab into committing&#10;atrocities for the Queen, which he now seeks to rectify.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2865,8 +2864,8 @@
 	<BACKGROUND>
 		<uiIndex>148</uiIndex>
 		<szName>Head Miner</szName>
-		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
+		<szShortName>Head Miner</szShortName>
+		<szDescription>Working in a mine is hard, punishing work. No wonder some start&#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -2878,9 +2877,9 @@
 	<!-- Mike -->
 	<BACKGROUND>
 		<uiIndex>149</uiIndex>
-		<szName>Veteran Mercenary</szName>
-		<szShortName>Veteran Merc</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szName>Mercenary Superstar</szName>
+		<szShortName>Mercenary Superstar</szShortName>
+		<szDescription>Some folks are just better at everything, and Mike's better than them.&#10;He's the best of the best, the undisputed sovereign of the mercenary world.&#10;He works for you now, because you offered more...&#10;And because you'd have killed him otherwise.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2902,7 +2901,7 @@
 		<uiIndex>150</uiIndex>
 		<szName>Redneck</szName>
 		<szShortName>Redneck</szShortName>
-		<szDescription>When the Confederacy lost the war, your family moved further south . . . &#10;and is still fighting . . . everybody.</szDescription>
+		<szDescription>When the Confederacy lost the war, these folks moved further south...&#10;and they are still fighting... everybody.</szDescription>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
 		<ap_river>5</ap_river>
@@ -2981,8 +2980,8 @@
 	<BACKGROUND>
 		<uiIndex>156</uiIndex>
 		<szName>Head Miner</szName>
-		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
+		<szShortName>Head Miner</szShortName>
+		<szDescription>Working in a mine is hard, punishing work. No wonder some start&#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -2995,8 +2994,8 @@
 	<BACKGROUND>
 		<uiIndex>157</uiIndex>
 		<szName>Head Miner</szName>
-		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
+		<szShortName>Head Miner</szShortName>
+		<szDescription>Working in a mine is hard, punishing work. No wonder some start&#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3009,8 +3008,8 @@
 	<BACKGROUND>
 		<uiIndex>158</uiIndex>
 		<szName>Head Miner</szName>
-		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
+		<szShortName>Head Miner</szShortName>
+		<szDescription>Working in a mine is hard, punishing work. No wonder some start&#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3024,7 +3023,7 @@
 		<uiIndex>159</uiIndex>
 		<szName>Technical Wizard</szName>
 		<szShortName>Tech Whiz</szShortName>
-		<szDescription>No matter if it's thirty-years-old junk or the latest electronic &#10;gadget, a tech whiz can rewire, reassemble and reconfigure it with their eyes closed.</szDescription>
+		<szDescription>No matter if it's thirty-years-old junk or the latest electronic gadget,&#10;a tech whiz can rewire, reassemble and reconfigure it with their eyes closed.</szDescription>
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -3083,9 +3082,9 @@
 	<!-- Gaston -->
 	<BACKGROUND>
 		<uiIndex>165</uiIndex>
-		<szName>UN Peacekeeper</szName>
-		<szShortName>UN</szShortName>
-		<szDescription>Nations of the entire world provide these troops to solve all &#10;conflicts without any violence. Sadly, this statement is false.</szDescription>
+		<szName>French Marine</szName>
+		<szShortName>French Marine</szShortName>
+		<szDescription>Gaston served with distinction in the French Marines, who are&#10;much like the US Marines, just with far better food and tricolors&#10;in place of stars and stripes.</szDescription>
 		<ap_fortify>-5</ap_fortify>
 		<resistance_fear>14</resistance_fear>
 		<resistance_suppression>14</resistance_suppression>
@@ -3099,9 +3098,9 @@
 	<!-- Stogie -->
 	<BACKGROUND>
 		<uiIndex>166</uiIndex>
-		<szName>Veteran Mercenary</szName>
-		<szShortName>Veteran Merc</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szName>US Army Veteran</szName>
+		<szShortName>US Army Veteran</szShortName>
+		<szDescription>Whatever Stogie's actual occupation was in the Army, it made him a&#10;real tough customer. Or maybe he was born that way, and military&#10;service was just a vacation for him.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -3122,9 +3121,9 @@
 	<!-- Tex -->
 	<BACKGROUND>
 		<uiIndex>167</uiIndex>
-		<szName>B-Movie Star/Veteran Mercenary</szName>
-		<szShortName>Movie Star/Vet Merc</szShortName>
-		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
+		<szName>B-Movie Star/Mercenary</szName>
+		<szShortName>Movie Star/Merc</szShortName>
+		<szDescription>Unlike the vast majority of actors, Tex's handling of firearms is always&#10;impeccable, on the battlefield as well as on the silver screen. It hasn't&#10;been enough to elevate his movies above mediocrity, though.</szDescription>
 		<ap_fortify>5</ap_fortify>
 		<ap_artillery>5</ap_artillery>
 		<ap_airdrop>-3</ap_airdrop>
@@ -3147,8 +3146,8 @@
 	<BACKGROUND>
 		<uiIndex>168</uiIndex>
 		<szName>Veteran Mercenary/Bomber</szName>
-		<szShortName>Veteran Merc/Bomber</szShortName>
-		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
+		<szShortName>Vet Merc/Bomber</szShortName>
+		<szDescription>Biggins may not be quite as famous in the mercenary world as a certain&#10;other British colonel, but he's a seasoned veteran of the British Army&#10;and many a mercenary operation.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-3</ap_artillery> 
@@ -3184,9 +3183,9 @@
 	<!-- Monk  -->
 	<BACKGROUND>
 		<uiIndex>170</uiIndex>
-		<szName>Red Army</szName>
-		<szShortName>Red Army</szShortName>
-		<szDescription>With Russian stoicism, the Red Army prevailed against Hitler, &#10;Father Frost, and chronic shortages.</szDescription>
+		<szName>Russian Spetsnaz</szName>
+		<szShortName>Russian Spetsnaz</szShortName>
+		<szDescription>The modern Russian Army is a pale shadow compared to its&#10;Soviet predecessor, but its various special forces remain formidable.&#10;As a former GRU Spetsnaz operative, Monk's training was superb.</szDescription>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3208,7 +3207,7 @@
 		<uiIndex>171</uiIndex>
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
-		<szDescription>The Red Army prevailed against Hitler, Father Frost, &#10;and chronic shortages.</szDescription>
+		<szDescription>Estonian citizens had to serve in the Soviet Army, and while&#10;it wasn't a very nice institution, it did turn Brain into a&#10;hardened soldier.</szDescription>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3229,7 +3228,7 @@
 		<uiIndex>172</uiIndex>
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
-		<szDescription>The Red Army prevailed against Hitler, Father Frost, &#10;and chronic shortages</szDescription>
+		<szDescription>Estonian citizens had to serve in the Soviet Army, and while&#10;it wasn't a very nice institution, it did turn Scream into a&#10;hardened soldier.</szDescription>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3248,9 +3247,9 @@
 	<!-- Henning -->
 	<BACKGROUND>
 		<uiIndex>173</uiIndex>
-		<szName>Military Advisor</szName>
-		<szShortName>Military Advisor</szShortName>
-		<szDescription>Pointing the gun in the right direction is a start, but someone needs &#10;to teach these people how to teach other people where to point.</szDescription>
+		<szName>NVA Veteran/Military Advisor</szName>
+		<szShortName>NVA/Advisor</szShortName>
+		<szDescription>His time in the National People's Army of East Germany and&#10;his many postings as a military advisor forged Henning into&#10;a consummate professional.</szDescription>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>3</resistance_fear>
 		<resistance_suppression>3</resistance_suppression>
@@ -3265,9 +3264,9 @@
 	<!-- Luc -->
 	<BACKGROUND>
 		<uiIndex>174</uiIndex>
-		<szName>Bouncer</szName>
-		<szShortName>Bouncer</szShortName>
-		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
+		<szName>Mercenary</szName>
+		<szShortName>Mercenary</szShortName>
+		<szDescription>Lucky has been in the mercenary business for most of his adult&#10;life, and despite a distinct lack of any formal military or martial&#10;training, he's been fairly successful.</szDescription>
 		<meleedamage>4</meleedamage>
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>3</resistance_fear>
@@ -3279,9 +3278,9 @@
 	<!-- Laura -->
 	<BACKGROUND>
 		<uiIndex>175</uiIndex>
-		<szName>Surgeon/Refugee</szName>
-		<szShortName>Surgeon/Refugee</szShortName>
-		<szDescription>Leaving your homeland has left you bitter. Learning to cut human &#10;flesh relieved your pain.</szDescription>
+		<szName>Mercenary Medic/Refugee</szName>
+		<szShortName>Merc Medic/Refugee</szShortName>
+		<szDescription>Having to flee her homeland left its mark on Laura, but&#10;it didn't stop her from excelling in her medical studies&#10;and her mercenary career.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3306,7 +3305,7 @@
 		<uiIndex>176</uiIndex>
 		<szName>Circus Artist</szName>
 		<szShortName>Circus Artist</szShortName>
-		<szDescription>Let's hope you are as good at evading bullets as you &#10;are at evading knifes while tied to a board.</szDescription>
+		<szDescription>Grace is somewhat famous for her circus act involving acrobatics and&#10;knife-throwing, both skills with a surprising number of applications on&#10;the battlefield.</szDescription>
 		<ap_height>8</ap_height>
 		<cth_blades>10</cth_blades>
 		<resistance_fear>10</resistance_fear>
@@ -3321,7 +3320,7 @@
 		<uiIndex>177</uiIndex>
 		<szName>GSG9</szName>
 		<szShortName>GSG9</szShortName>
-		<szDescription>Formed after the disastrous Munich massacre in 1972, GSG9 is a &#10;german counter-terrorism unit.</szDescription>
+		<szDescription>Formed after the disastrous Munich massacre in 1972, the GSG9 is&#10;a highly trained German counter-terrorism unit. As a former member,&#10;Rudolf's skills are rock-solid.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_assault>2</ap_assault>
 		<resistance_physical>3</resistance_physical>
@@ -3339,9 +3338,9 @@
 	<!-- Spooky -->
 	<BACKGROUND>
 		<uiIndex>178</uiIndex>
-		<szName>SOG Member</szName>
+		<szName>Studies and Observations Group</szName>
 		<szShortName>SOG</szShortName>
-		<szDescription>The Studies and Observations Group was a classified special forces &#10;unit conducting unconventional warfare in Vietnam.</szDescription>
+		<szDescription>The Studies and Observations Group was a classified special&#10;forces unit conducting unconventional warfare in Vietnam.&#10;That Spooky is still in the game after all these years says&#10;a lot about him.</szDescription>
 		<ap_swamp>2</ap_swamp>
 		<ap_tropical>4</ap_tropical>
 		<resistance_physical>5</resistance_physical>
@@ -3362,7 +3361,7 @@
 		<uiIndex>179</uiIndex>
 		<szName>Mad Bomber</szName>
 		<szShortName>Mad Bomber</szShortName>
-		<szDescription>Explosives experts are hard to find . . . but everyone wishes &#10;they hadn't found this one!</szDescription>
+		<szDescription>Explosives experts are hard to find... but everyone wishes&#10;they hadn't found this one!</szDescription>
 		<disarm_trap>33</disarm_trap>
 		<breachingcharge>66</breachingcharge>
 		<traplevel>1</traplevel>
@@ -3380,9 +3379,9 @@
 	<!-- Weasel -->
 	<BACKGROUND>
 		<uiIndex>180</uiIndex>
-		<szName>Snitch</szName>
-		<szShortName>Snitch</szShortName>
-		<szDescription>You know all about your teammates, wether or not they care.</szDescription>
+		<szName>Professional Snitch</szName>
+		<szShortName>Professional Snitch</szShortName>
+		<szDescription>A snitch, a rat, a stool pidgeon, these are all fitting titles&#10;for Weasel. It is what he does best.</szDescription>
 		<ap_inventory>-5</ap_inventory>
 		<stealth>10</stealth>
 		<hearing_night>2</hearing_night>
@@ -3398,7 +3397,7 @@
 		<uiIndex>181</uiIndex>
 		<szName>Wrestler</szName>
 		<szShortName>Wrestler</szShortName>
-		<szDescription>It might be more of a spectacle than actual fighting, but getting thrown &#10;around a ring without breaking a neck still takes a lot of skill.</szDescription>
+		<szDescription>Most professional wrestlers are in great shape and know a thing&#10;or two about actual fighting. It is not an exception, even if the&#10;number of knockdowns he's endured over the years is a&#10;little concerning.</szDescription>
 		<ap_assault>5</ap_assault>
 		<meleedamage>5</meleedamage>
 		<resistance_fear>10</resistance_fear>
@@ -3417,7 +3416,7 @@
 		<uiIndex>182</uiIndex>
 		<szName>Veteran Physician</szName>
 		<szShortName>Veteran Physician</szShortName>
-		<szDescription>Several years of evaluating human lives ironically left your own &#10;health in disrepair - cheap cigarrettes flushed down with strong coffee took their toll. &#10;The object-like way you started to treat your patients also doesn't make you very popular.</szDescription>
+		<szDescription>Decades of evaluating human lives ironically left Bernie's own&#10;health in disrepair - cheap cigarrettes flushed down with strong&#10;coffee took their toll.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3433,9 +3432,9 @@
 	<!-- Pops -->
 	<BACKGROUND>
 		<uiIndex>183</uiIndex>
-		<szName>Veteran Mercenary/Undertaker</szName>
-		<szShortName>Vet/Undertaker</szShortName>
-		<szDescription>Pops has seen it all. What's left to frighten him?</szDescription>
+		<szName>Ancient Mercenary/Undertaker</szName>
+		<szShortName>Ancient/Undertaker</szShortName>
+		<szDescription>Pops has seen it all: war has been his business ever since the tank&#10;was a new invention, or so he claims. What could possibly frighten&#10;him anymore?</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-25</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -3452,9 +3451,9 @@
 	<!-- Wally -->
 	<BACKGROUND>
 		<uiIndex>184</uiIndex>
-		<szName>Smith/Poor Shot</szName>
-		<szShortName>Smith/Poor Shot</szShortName>
-		<szDescription>Due to extreme short-sightedness Wally is a poor shot with next to no chance of improvement.</szDescription>
+		<szName>Engineer/Poor Shot</szName>
+		<szShortName>Engineer/Poor Shot</szShortName>
+		<szDescription>Due to his extreme short-sightedness, Wally is a poor shot with&#10;next to no chance of improvement. Fortunately for him, his&#10;engineer's degree compensates for it.</szDescription>
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>8</betterprices>
 		<ap_inventory>-10</ap_inventory>
@@ -3466,9 +3465,9 @@
 	<!-- Eli -->
 	<BACKGROUND>
 		<uiIndex>185</uiIndex>
-		<szName>Surgeon</szName>
-		<szShortName>Surgeon</szShortName>
-		<szDescription>Everyone can cut human flesh - but sewing it back is a quest for &#10;the best!</szDescription>
+		<szName>Surgeon/Poor Shot</szName>
+		<szShortName>Surgeon/Poor Shot</szShortName>
+		<szDescription>Eli is a trained surgeon, and while he's not the best at it, he's also&#10;not the worst. He's always been a terrible shot, though, no matter&#10;how much he's practiced.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3481,9 +3480,9 @@
 	<!-- Mitch -->
 	<BACKGROUND>
 		<uiIndex>186</uiIndex>
-		<szName>General Practitioner</szName>
-		<szShortName>GP</szShortName>
-		<szDescription>A versatile and educated doctor can save a human life, no matter what &#10;his patient caught - a virus or a bullet.</szDescription>
+		<szName>Obstetrician/General Practitioner</szName>
+		<szShortName>Obstetrician/GP Doc</szShortName>
+		<szDescription>While his original medical specialty wasn't the best fit for this&#10;line of work, it didn't take long for Mitch to master the science&#10;and application of battlefield medicine.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3498,9 +3497,9 @@
 	<!-- Carp -->
 	<BACKGROUND>
 		<uiIndex>187</uiIndex>
-		<szName>Office Worker/Snitch</szName>
+		<szName>Office Worker</szName>
 		<szShortName>Office Worker</szShortName>
-		<szDescription>Air conditioning, watered-down coffee, and some papers to push &#10;- what else can you expect from life?</szDescription>
+		<szDescription>More of an office worker than a combat soldier, Carp has&#10;always been a bit of an oddball in this business.</szDescription>
 		<hearing_day>1</hearing_day>
 		<resistance_suppression>-10</resistance_suppression>
 		<ap_urban>2</ap_urban>
@@ -3519,9 +3518,9 @@
 	<!-- Lance  -->
 	<BACKGROUND>
 		<uiIndex>188</uiIndex>
-		<szName>Coward/Teacher/Snitch</szName>
-		<szShortName>Coward/Snitch</szShortName>
-		<szDescription>When they said "those who can, do; those who can't, teach" - they &#10;were talking about Lance.</szDescription>
+		<szName>Coward/Teacher</szName>
+		<szShortName>Coward/Teacher</szShortName>
+		<szDescription>When they said "those who can, do; those who can't, teach" - they&#10;were talking about Lance.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-9</ap_airdrop>
 		<ap_assault>-9</ap_assault>
@@ -3541,7 +3540,7 @@
 		<uiIndex>189</uiIndex>
 		<szName>Pretender</szName>
 		<szShortName>Pretender</szShortName>
-		<szDescription>Pretending to be anything and everything he is not, nobody knows &#10;who he actually is.</szDescription>
+		<szDescription>Pretending to be anything and everything he is not, nobody knows&#10;who Raffi actually is.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-6</ap_airdrop>
@@ -3552,7 +3551,6 @@
 		<interrogation>3</interrogation>
 		<betterprices>3</betterprices>
 		<meleedamage>-3</meleedamage>
-		<xenophobic>1</xenophobic>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3560,9 +3558,9 @@
 	<!-- Wink -->
 	<BACKGROUND>
 		<uiIndex>190</uiIndex>
-		<szName>Baseball player</szName>
-		<szShortName>Athlete</szShortName>
-		<szDescription>If your team ever needs someone to throw grenades on an even field, you'll be the man.</szDescription>
+		<szName>Baseball Player</szName>
+		<szShortName>Baseball Player</szShortName>
+		<szDescription>If the team ever needs someone to throw grenades on&#10;an even field, Wink is the man to go to.</szDescription>
 		<ap_fortify>-3</ap_fortify>
 		<ap_airdrop>3</ap_airdrop>
 		<ap_assault>3</ap_assault>
@@ -3585,10 +3583,10 @@
 		<uiIndex>191</uiIndex>
 		<szName>Technical Wizard</szName>
 		<szShortName>Tech Whiz</szShortName>
-		<szDescription>No matter if it's thirty-years-old junk or the latest electronic &#10;gadget, a tech whiz can rewire, reassemble and reconfigure it with their eyes closed.</szDescription>
+		<szDescription>While Speck's aptitude for combat and talent for web design&#10;are more than a little questionable, he does actually have&#10;two university degrees. He's never encountered a mechanical&#10;or electronic device that he couldn't repair, either.</szDescription>
 		<disarm_trap>25</disarm_trap>
 		<traplevel>1</traplevel>
-		<ap_inventory>-10</ap_inventory> 
+		<ap_inventory>-10</ap_inventory>
 		<hackerskill>80</hackerskill>
 		<administration_assignment>50</administration_assignment>
 		<no_male>1</no_male>
@@ -3624,9 +3622,9 @@
 	<!-- John -->
 	<BACKGROUND>
 		<uiIndex>195</uiIndex>
-		<szName>Tourist Merc</szName>
-		<szShortName>Tourist</szShortName>
-		<szDescription>Subscribing to Soldier of Fortune magazine is as close to being a &#10;mercenary as you ever came . . . until now.</szDescription>
+		<szName>Tourist Mercenary</szName>
+		<szShortName>Tourist Merc</szShortName>
+		<szDescription>Subscribing to Soldier of Fortune magazine is as close to being a&#10;mercenary as John ever came... until now.</szDescription>
 		<resistance_physical>-3</resistance_physical>
 		<resistance_fear>-3</resistance_fear>
 		<resistance_suppression>-3</resistance_suppression>
@@ -3637,8 +3635,8 @@
 	<BACKGROUND>
 		<uiIndex>196</uiIndex>
 		<szName>Metaviran Native</szName>
-		<szShortName>Metavira</szShortName>
-		<szDescription>The indigenous people of Metavira have adjusted to the hostile &#10;jungle there. After the liberation, some joined the foreigners and sought their luck elsewhere.</szDescription>
+		<szShortName>Metaviran Native</szShortName>
+		<szDescription>The indigenous people of Metavira have adjusted to the island's&#10;hostile jungle. After the liberation, some joined the foreigners&#10;and sought their fortunes elsewhere.</szDescription>
 		<ap_desert>5</ap_desert>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
@@ -3656,8 +3654,8 @@
 	<BACKGROUND>
 		<uiIndex>197</uiIndex>
 		<szName>Metaviran Native</szName>
-		<szShortName>Metavira</szShortName>
-		<szDescription>The indigenous people of Metavira have adjusted to the hostile &#10;jungle there. After the liberation, some joined the foreigners and sought their luck elsewhere.</szDescription>
+		<szShortName>Metaviran Native</szShortName>
+		<szDescription>The indigenous people of Metavira have adjusted to the island's&#10;hostile jungle. After the liberation, some joined the foreigners&#10;and sought their fortunes elsewhere.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-3</ap_desert>
 		<ap_urban>-3</ap_urban>
@@ -3683,8 +3681,8 @@
 	<BACKGROUND>
 		<uiIndex>198</uiIndex>
 		<szName>Metaviran Shaman</szName>
-		<szShortName>Shaman</szShortName>
-		<szDescription>Leaders of their communities since ages long forgotten, shamans &#10;possess medical knowledge unseen by western eyes.</szDescription>
+		<szShortName>Metaviran Shaman</szShortName>
+		<szDescription>Leaders of their communities since ages long forgotten, shamans&#10;possess medical knowledge unseen by western eyes.</szDescription>
 		<ap_swamp>3</ap_swamp>
 		<ap_river>3</ap_river>
 		<ap_coastal>3</ap_coastal>
@@ -3855,9 +3853,9 @@
 	<!-- chaotic Buns -->
 	<BACKGROUND>
 		<uiIndex>215</uiIndex>
-		<szName>Split personality</szName>
-		<szShortName>Split personality</szShortName>
-		<szDescription>Since contracting PTSD, Buns involuntarily switches to a second&#10;personality under high stress. Her alternate persona is highly aggressive.</szDescription>
+		<szName>Split Personality</szName>
+		<szShortName>Split Personality</szShortName>
+		<szDescription>Since contracting PTSD, Buns involuntarily switches to a second personality&#10;under high stress. Her alternate persona is highly aggressive.</szDescription>
 		<ap_assault>6</ap_assault>
 		<resistance_fear>20</resistance_fear>
 		<resistance_physical>10</resistance_physical>
@@ -3901,7 +3899,7 @@
 		<uiIndex>219</uiIndex>
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
-		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+		<szDescription>Organized crime is found everywhere. No exceptions.</szDescription>
 		<ap_assault>2</ap_assault>
 		<meleedamage>3</meleedamage>
 		<cth_blades>3</cth_blades> 
@@ -3917,7 +3915,7 @@
 		<uiIndex>220</uiIndex>
 		<szName>Postal Worker</szName>
 		<szShortName>Postal Worker</szShortName>
-		<szDescription>Through rain, snow, sleet and hail, the mail must get through - and IT NEVER STOPS!</szDescription>
+		<szDescription>Through rain, snow, sleet and hail, the mail must get through - and&#10;IT NEVER STOPS!</szDescription>
 		<stealth>2</stealth>
 		<ap_urban>4</ap_urban>
 		<carrystrength>10</carrystrength>
@@ -3931,9 +3929,9 @@
 	<!-- Reuban -->
 	<BACKGROUND>
 		<uiIndex>221</uiIndex>
-		<szName>Serial Killer</szName>
-		<szShortName>Serial Killer</szShortName>
-		<szDescription>There are different accounts of how you've managed to leave the &#10;confinement, but everyone agrees - you should go back.</szDescription>
+		<szName>Unusually Ruthless</szName>
+		<szShortName>Unusually Ruthless</szShortName>
+		<szDescription>Reuban's past is a bit murky, but it's clear as day that a man who&#10;murdered his wife and family with a cordless hedge trimmer is&#10;highly unusual, extremely ruthless, and completely deranged.</szDescription>
 		<stealth>9</stealth>
 		<meleedamage>6</meleedamage>
 		<ap_polar>1</ap_polar>
@@ -3960,9 +3958,9 @@
 	<!-- Leon -->
 	<BACKGROUND>
 		<uiIndex>222</uiIndex>
-		<szName>Veteran Mercenary/Snitch</szName>
-		<szShortName>Vet Merc/Snitch</szShortName>
-		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
+		<szName>Veteran Mercenary</szName>
+		<szShortName>Veteran Mercenary</szShortName>
+		<szDescription>Snitches don't tend to make it all that far as soldiers of fortune, but that&#10;never stopped Leon. His exploits have made him a legend in this business,&#10;and after so many years, the snitching is an integral part of his brand.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -3986,9 +3984,9 @@
 	<!-- Gary -->
 	<BACKGROUND>
 		<uiIndex>223</uiIndex>
-		<szName>Military Brat/Snitch/Bomber</szName>
-		<szShortName>Brat/Snitch/Bomber</szShortName>
-		<szDescription>With Gary as a brother, is it any wonder that Larry drinks so hard?</szDescription>
+		<szName>Military Brat/Bomber</szName>
+		<szShortName>Brat/Bomber</szShortName>
+		<szDescription>The military taught Gary how to fight, but they sure didn't manage&#10;to fix his personality. With a brother like that, is it any wonder that&#10;Larry drinks so hard?</szDescription>
 		<explosives>6</explosives>
 		<marksmanship>1</marksmanship>
 		<stealth>10</stealth>
@@ -4003,7 +4001,6 @@
 		<hearing_day>1</hearing_day>
 		<interrogation>50</interrogation>
 		<spotter>2</spotter>
-		<xenophobic>1</xenophobic>
 		<insurance>50</insurance>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
@@ -4013,8 +4010,8 @@
 	<BACKGROUND>
 		<uiIndex>224</uiIndex>
 		<szName>Valley Girl Technician</szName>
-		<szShortName>Valley Girl/Tech</szShortName>
-		<szDescription>Valley girl wrench wench, and perhaps the best of the Roachburn siblings!</szDescription>
+		<szShortName>Valley Girl Tech</szShortName>
+		<szDescription>Valley girl wrench wench, and perhaps the best of the Roachburn siblings,&#10;even if that isn't a particularly high bar to clear.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<resistance_fear>-5</resistance_fear>
 		<resistance_suppression>-5</resistance_suppression>
@@ -4030,9 +4027,9 @@
 	<!-- Beth -->
 	<BACKGROUND>
 		<uiIndex>225</uiIndex>
-		<szName>Nurse/Snitch</szName>
-		<szShortName>Nurse/Snitch</szShortName>
-		<szDescription>While not full-blown doctors, nurses are still in high demand &#10;in warzones, due to that grim business.</szDescription>
+		<szName>Nurse</szName>
+		<szShortName>Nurse</szShortName>
+		<szDescription>Going from a nurse to a gun for hire is not the most usual career path,&#10;but perhaps it is in line with Beth's personality.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
@@ -4053,8 +4050,8 @@
 	<BACKGROUND>
 		<uiIndex>226</uiIndex>
 		<szName>Veteran Mercenary</szName>
-		<szShortName>Veteran Merc</szShortName>
-		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
+		<szShortName>Veteran Mercenary</szShortName>
+		<szDescription>There's precious little that Sam hasn't seen and done over his long&#10;decades in this business. He might be old, but as the saying goes,&#10;beware of an old man in a profession where men die young.</szDescription>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
 		<resistance_physical>3</resistance_physical>
@@ -4075,7 +4072,7 @@
 		<uiIndex>227</uiIndex>
 		<szName>Hypochondriac</szName>
 		<szShortName>Hypochondriac</szShortName>
-		<szDescription>When you enter a ward, all medical personnel tries to look overly &#10;busy or hides around corners in a futile attempt to avoid you. The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
+		<szDescription>For as long as anyone remembers, Hurl has been a hypochondriac, and&#10;quite an extreme one at that. There really is nothing wrong with him,&#10;but so far, no doctor has managed to convince him of that.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_height>-8</ap_height>
@@ -4100,9 +4097,9 @@
 	<!-- Doc -->
 	<BACKGROUND>
 		<uiIndex>228</uiIndex>
-		<szName>Battlefield Medic</szName>
-		<szShortName>Battlefield Medic</szShortName>
-		<szDescription>Everyone can cut human flesh - but sewing it back while under fire is a quest for &#10;the best!</szDescription>
+		<szName>Volunteer Doctor</szName>
+		<szShortName>Volunteer Doctor</szShortName>
+		<szDescription>Working as a volunteer doctor can be stressful and dangerous,&#10;and Doc's experiences have left their mark on him. He's not&#10;one to scare easily.</szDescription>
 		<stealth>1</stealth>
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>7</resistance_fear>
@@ -4115,8 +4112,8 @@
 	<BACKGROUND>
 		<uiIndex>229</uiIndex>
 		<szName>Arulcan Rebel</szName>
-		<szShortName>Rebel</szShortName>
-		<szDescription>Cut off from everyone, Manuel is a natural survivor.</szDescription>
+		<szShortName>Arulcan Rebel</szShortName>
+		<szDescription>Cut off from everyone with nobody but himself to rely on,&#10;Manuel still managed to thrive in the wilderness. He's&#10;a natural survivor.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>4</ap_swamp>
@@ -4139,7 +4136,7 @@
 		<uiIndex>230</uiIndex>
 		<szName>Veteran Mercenary/Car Mechanic</szName>
 		<szShortName>Vet Merc/Mechanic</szShortName>
-		<szDescription>A car mechanic is very useful, as long as you actually have a car.</szDescription>
+		<szDescription>After many years of mercenary work and countless hours spent&#10;fixing cars and repairing guns, Boss has developed an excellent&#10;reputation and an impressive set of skills.</szDescription>
 		<ap_assault>8</ap_assault>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-2</ap_fortify>
@@ -4161,9 +4158,9 @@
 	<!-- Snake -->
 	<BACKGROUND>
 		<uiIndex>231</uiIndex>
-		<szName>Hitman</szName>
-		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szName>Infiltrator</szName>
+		<szShortName>Infiltrator</szShortName>
+		<szDescription>Some are trained for infiltration, and some are just naturally&#10;good at it. It's unclear which one applies to Snake, but either&#10;way he's a top-class sneak.</szDescription>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -4185,8 +4182,8 @@
 	<BACKGROUND>
 		<uiIndex>232</uiIndex>
 		<szName>UN Peacekeeper</szName>
-		<szShortName>UN</szShortName>
-		<szDescription>Spam was frustrated by the lack of a strong mandate that forced &#10;him to do nothing. On the plus side, he is used to being fired at.</szDescription>
+		<szShortName>UN Peacekeeper</szShortName>
+		<szDescription>As a peacekeeper, Spam was always a bit frustrated by the lack&#10;of a strong mandate that forced him to do nothing. On the plus side,&#10;he's used to being fired at, and his training was excellent.</szDescription>
 		<ap_fortify>-5</ap_fortify>
 		<resistance_fear>14</resistance_fear>
 		<resistance_suppression>14</resistance_suppression>
@@ -4199,9 +4196,9 @@
 	<!-- Spike -->
 	<BACKGROUND>
 		<uiIndex>233</uiIndex>
-		<szName>Veteran Ranger/Mercenary</szName>
-		<szShortName>Veteran Ranger/Merc</szShortName>
-		<szDescription>The Rangers form the elite of the US Army infantry.</szDescription>
+		<szName>US Army Ranger/Veteran Mercenary</szName>
+		<szShortName>Ranger/Vet Merc</szShortName>
+		<szDescription>The Rangers are among the elite of the US Army infantry. Spike left&#10;the 75th Ranger Regiment years ago, but he wouldn't be one of the&#10;mercenary elite today without the skills he gained during his service.</szDescription>
 		<ap_assault>6</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -4224,7 +4221,7 @@
 		<uiIndex>234</uiIndex>
 		<szName>Professional Thief/Convict</szName>
 		<szShortName>Thief/Convict</szShortName>
-		<szDescription>Prison is college for criminals . . . if they survive &#10;the course load. Jimmy passed with honors.</szDescription>
+		<szDescription>Prison is college for criminals... if they survive the course load.&#10;Jimmy passed with honors.</szDescription>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>8</resistance_fear>
 		<meleedamage>2</meleedamage>
@@ -4247,9 +4244,9 @@
 	<!-- Leech -->
 	<BACKGROUND>
 		<uiIndex>235</uiIndex>
-		<szName>Competitive Shooter</szName>
-		<szShortName>Competitive Shooter</szShortName>
-		<szDescription>Some people display a knack for shooting, and a disturbing &#10;aggression against innocent paper bull's-eyes.</szDescription>
+		<szName>Champion Trapshooter</szName>
+		<szShortName>Trapshooter</szShortName>
+		<szDescription>Just as you'd expect from a former trapshooting champion, Leech&#10;is a crack shot. He's a lot of other things, too, most of them&#10;much less flattering.</szDescription>
 		<marksmanship>8</marksmanship>
 		<increased_maxcth>3</increased_maxcth>
 		<spotter>9</spotter>
@@ -4260,9 +4257,9 @@
 	<!-- Bob -->
 	<BACKGROUND>
 		<uiIndex>236</uiIndex>
-		<szName>Airforce Pilot</szName>
-		<szShortName>Airforce Pilot</szShortName>
-		<szDescription>Bob is no stranger to tense situations, and lets others feel that as well.</szDescription>
+		<szName>Fighter Pilot</szName>
+		<szShortName>Fighter Pilot</szShortName>
+		<szDescription>As a former USAF fighter pilot, Bob is no stranger to tense situations,&#10;and he makes sure to let others know that as well.</szDescription>
 		<mechanical>3</mechanical>
 		<leadership>5</leadership>
 		<ap_airdrop>5</ap_airdrop>
@@ -4272,16 +4269,15 @@
 		<resistance_suppression>10</resistance_suppression>
 		<spotter>3</spotter>
 		<SAM_cth>75</SAM_cth>
-		<xenophobic>1</xenophobic>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
 	<!-- Kelly -->
 	<BACKGROUND>
 		<uiIndex>237</uiIndex>
-		<szName>Veteran Mercenary</szName>
-		<szShortName>Veteran Mercenary</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szName>Veteran Mercenary/Hollywood Consultant</szName>
+		<szShortName>Vet Merc/Consultant</szShortName>
+		<szDescription>They don't call him Kickass Kelly for nothing. A career soldier,&#10;a veteran mercenary, and a Hollywood consultant? He's versatile,&#10;that's for sure.</szDescription>
 		<leadership>5</leadership>
 		<ap_desert>3</ap_desert>
 		<ap_swamp>3</ap_swamp>
@@ -4289,7 +4285,7 @@
 		<ap_mountain>3</ap_mountain>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
-		<ap_artillery>-2</ap_artillery> 
+		<ap_artillery>-2</ap_artillery>
 		<resistance_physical>3</resistance_physical>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -4308,7 +4304,7 @@
 		<uiIndex>238</uiIndex>
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
-		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+		<szDescription>Vinny's a real honest guy, but he might know another guy who&#10;might know a third guy who might have something to do with&#10;the Mafia.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-5</ap_desert>
 		<ap_swamp>-5</ap_swamp>
@@ -4337,9 +4333,9 @@
 	<!-- Kaboom -->
 	<BACKGROUND>
 		<uiIndex>239</uiIndex>
-		<szName>Veteran Bombmaker</szName>
-		<szShortName>Bombmaker</szShortName>
-		<szDescription>You make things go BOOM!</szDescription>
+		<szName>Veteran Bomb-maker</szName>
+		<szShortName>Bomb-maker</szShortName>
+		<szDescription>Kaboom makes things go boom, and after countless booms&#10;over many years, that's about all he's good for anymore.</szDescription>
 		<explosives>8</explosives>
 		<breachingcharge>30</breachingcharge>
 		<traplevel>1</traplevel>
@@ -4359,9 +4355,9 @@
 	<!-- Bud -->
 	<BACKGROUND>
 		<uiIndex>240</uiIndex>
-		<szName>Lawyer/Snitch</szName>
-		<szShortName>Lawyer</szShortName>
-		<szDescription>A somewhat unorthodox background for a mercenary, former lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
+		<szName>Soldier/Bootlicker</szName>
+		<szShortName>Soldier/Bootlicker</szShortName>
+		<szDescription>Some people enjoy the hierarchical aspect of the armed forces, and&#10;Bud really loved it. He's been a bootlicker ever since, and he's not&#10;very particular about whose boot he licks.</szDescription>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -4382,7 +4378,7 @@
 		<uiIndex>241</uiIndex>
 		<szName>Pyrotechnician</szName>
 		<szShortName>Pyrotechnician</szShortName>
-		<szDescription>When you want to break an enemy's morale by blowing up his privy, it's time to get yourself a qualified pyrotechnician.</szDescription>
+		<szDescription>Unlike many others who dabble in explosives, Rusty is a well-qualified,&#10;professional pyrotechnician. He's not insane, he's not crazy, he's not mad,&#10;and he doesn't make practical jokes.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>3</mechanical>
 		<explosives>5</explosives>
@@ -4400,7 +4396,7 @@
 		<uiIndex>242</uiIndex>
 		<szName>Surgeon</szName>
 		<szShortName>Surgeon</szShortName>
-		<szDescription>Everyone can cut human flesh - but sewing it back is a quest for &#10;the best!</szDescription>
+		<szDescription>Needle is an expert surgeon, and it shows in the way he handles&#10;his blades. He's very well acquainted with both the constructive&#10;and destructive uses of a scalpel.</szDescription>
 		<medical>10</medical>
 		<dexterity>8</dexterity>
 		<ap_fortify>10</ap_fortify>
@@ -4418,7 +4414,7 @@
 		<uiIndex>243</uiIndex>
 		<szName>Gunsmith</szName>
 		<szShortName>Gunsmith</szShortName>
-		<szDescription>An expert in the workings and history of firearms, the army's &#10;curious assortment of arms is this man's dream come true.</szDescription>
+		<szDescription>An expert in the workings and history of firearms, a mercenary unit's&#10;curious assortment of weapons is Screw's dream come true.</szDescription>
 		<dexterity>8</dexterity>
 		<mechanical>10</mechanical>
 		<ap_artillery>-3</ap_artillery>
@@ -4433,8 +4429,8 @@
 	<BACKGROUND>
 		<uiIndex>244</uiIndex>
 		<szName>Convicted Watergate Burglar</szName>
-		<szShortName>Convict/Burglar</szShortName>
-		<szDescription>Well, that didn't go as planned.</szDescription>
+		<szShortName>Watergate Burglar</szShortName>
+		<szDescription>The job didn't quite go as planned. In fact, it ended in perhaps the&#10;worst political scandal of the 20th century, but the fact that&#10;Elroy was right there in the thick of it is quite fascinating.</szDescription>
 		<agility>5</agility>
 		<dexterity>5</dexterity>
 		<ap_urban>1</ap_urban>
@@ -4478,7 +4474,7 @@
 		<uiIndex>246</uiIndex>
 		<szName>Venezuelan Rebel</szName>
 		<szShortName>Venezuelan Rebel</szShortName>
-		<szDescription>The rebellion against the imperialists has succeeded in his country so Hector has since become a mercenary rebel.</szDescription>
+		<szDescription>The rebellion against the imperialists succeeded in his country,&#10;and Hector has since made his living as a mercenary rebel.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-3</ap_desert>
 		<ap_river>3</ap_river>
@@ -4497,9 +4493,9 @@
 	<!-- Rev -->
 	<BACKGROUND>
 		<uiIndex>247</uiIndex>
-		<szName>Priest</szName>
-		<szShortName>Priest</szShortName>
-		<szDescription>Many devout followers of any religion or cult are surprisingly &#10;violent and zealous if pushed into the right (or wrong) direction.</szDescription>
+		<szName>Reverend</szName>
+		<szShortName>Reverend</szShortName>
+		<szDescription>He claims to be a member of the clergy, and he certainly acts&#10;like it, but there's probably a lot more to Rev's past than he's&#10;willing to admit.</szDescription>
 		<medical>3</medical>
 		<leadership>10</leadership>
 		<ap_artillery>10</ap_artillery>
@@ -4524,9 +4520,9 @@
 	<!-- Stella -->
 	<BACKGROUND>
 		<uiIndex>248</uiIndex>
-		<szName>General Practitioner/Soldier</szName>
-		<szShortName>GP/Soldier</szShortName>
-		<szDescription>Versatile doctor and professional soldier, she can &#10;save a human life or take it -- whichever the situation calls for.</szDescription>
+		<szName>General Practitioner/Mercenary</szName>
+		<szShortName>GP Doctor/Merc</szShortName>
+		<szDescription>A versatile doctor and a professional mercenary, Stella can&#10;save a human life or take it - whichever the situation calls for.</szDescription>
 		<travel_foot>4</travel_foot>
 		<dexterity>5</dexterity>
 		<medical>10</medical>
@@ -4547,7 +4543,7 @@
 		<uiIndex>249</uiIndex>
 		<szName>Surveillance Expert</szName>
 		<szShortName>Surveillance Expert</szShortName>
-		<szDescription>A expert in both legal and illegal observation methods.&#10;Curiously, his resume never states where he learned all this.</szDescription>
+		<szDescription>Ears is an expert in both legal and illegal observation methods.&#10;Curiously, his resume never states where he learned all this.</szDescription>
 		<stealth>15</stealth>
 		<hearing_night>2</hearing_night>	
 		<hearing_day>2</hearing_day>
@@ -4561,7 +4557,7 @@
 		<uiIndex>250</uiIndex>
 		<szName>Veteran Mercenary</szName>
 		<szShortName>Veteran Mercenary</szShortName>
-		<szDescription>You were already famous in this business before those youngsters were&#10; even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
+		<szDescription>Even if he's not as sharp as he once was, Moses is an old hand in this&#10;business, and there are few things left in this world that could disturb&#10;him. He's been through the wringer, and he's still asking for more.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -4581,9 +4577,9 @@
 	<!-- Smoke -->
 	<BACKGROUND>
 		<uiIndex>251</uiIndex>
-		<szName>Pyrotechnician</szName>
-		<szShortName>Pyrotechnician</szShortName>
-		<szDescription>When you want to break an enemy's morale by blowing up his privy, it's time &#10;to get yourself a qualified pyrotechnician.</szDescription>
+		<szName>Pyrotechnician/Prankster</szName>
+		<szShortName>Pyrotech/Prankster</szShortName>
+		<szDescription>Pyrotechnics and pranks are a terrible combination, and one&#10;day, it's going to get Smoke killed. If not by his own hand,&#10;then by someone else's.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>3</mechanical>
 		<explosives>5</explosives>
@@ -4602,7 +4598,7 @@
 		<uiIndex>252</uiIndex>
 		<szName>Mascot/Bomber</szName>
 		<szShortName>Mascot/Bomber</szShortName>
-		<szDescription>Nobody takes you seriously, because you used to walk around in a silly &#10;costume? Well, a child's smile is enough compensation!</szDescription>
+		<szDescription>Purple dinosaurs and high explosives don't have a whole lot in&#10;common, and nobody's really sure how Dyno went from the&#10;former to the latter.</szDescription>
 		<explosives>6</explosives>
 		<breachingcharge>30</breachingcharge>
 		<disarm_trap>10</disarm_trap>
@@ -4621,12 +4617,13 @@
 		<uiIndex>253</uiIndex>
 		<szName>Law Enforcement</szName>
 		<szShortName>Law Enforcement</szShortName>
-		<szDescription>Hey detective, did you manage to solve the case of the disappearing &#10;donuts yet?</szDescription>
+		<szDescription>Turtle used to be a detective, and a fairly good one, too.&#10;He never did manage to solve the case of the disappearing&#10;donuts, though.</szDescription>
 		<ap_urban>3</ap_urban>
 		<ap_assault>1</ap_assault>
 		<leadership>1</leadership>
 		<resistance_fear>3</resistance_fear>
 		<resistance_suppression>3</resistance_suppression>
+		<speed_run>-5</speed_run>
 		<interrogation>150</interrogation>
 		<prisonguard>100</prisonguard>
 		<spotter>2</spotter>
@@ -4646,9 +4643,9 @@
 	<!-- Barry -->
 	<BACKGROUND>
 		<uiIndex>255</uiIndex>
-		<szName>Graduate/Bomber</szName>
-		<szShortName>Graduate/Bomber</szShortName>
-		<szDescription>Fresh out of school, with a diploma still warm in hand, it's time &#10;to finally make yourself a living.</szDescription>
+		<szName>Explosives Technician</szName>
+		<szShortName>Explosives Tech</szShortName>
+		<szDescription>These days, explosives specialists mostly come from various institutions&#10;of higher learning. Barry was an excellent student, but the practical&#10;realities of combat aren't as familiar to him.</szDescription>
 		<disarm_trap>10</disarm_trap>
 		<resistance_suppression>-7</resistance_suppression>
 		<breachingcharge>30</breachingcharge>
@@ -4665,7 +4662,7 @@
 		<uiIndex>256</uiIndex>
 		<szName>Arms Dealer</szName>
 		<szShortName>Arms Dealer</szShortName>
-		<szDescription>Experience earned in years of arms trading leads to better &#10;deals when buying and selling guns.</szDescription>
+		<szDescription>With years of experience in the shady world of arms dealers and gunrunners,&#10;you know how to get the best prices when buying and selling armaments.&#10;You have a knack for using them, too.</szDescription>
 		<wisdom>2</wisdom>
 		<marksmanship>5</marksmanship>
 		<resistance_fear>10</resistance_fear>
@@ -4678,7 +4675,7 @@
 		<uiIndex>257</uiIndex>
 		<szName>Law Enforcement</szName>
 		<szShortName>Law Enforcement</szShortName>
-		<szDescription>Former law enforcement personnel often seek work in the &#10;mercenary world, and are the logical choice for handling captives.</szDescription>
+		<szDescription>Former law enforcement personnel often seek work in the mercenary&#10;world, and are the logical choice for handling captives. There are also&#10;way fewer laws and regulations one has to follow in this job, and&#10;that's the part you really like.</szDescription>
 		<ap_urban>3</ap_urban>
 		<ap_assault>1</ap_assault>
 		<leadership>2</leadership>
@@ -4692,7 +4689,7 @@
 		<uiIndex>258</uiIndex>
 		<szName>Prison Guard</szName>
 		<szShortName>Prison Guard</szShortName>
-		<szDescription>In longer and larger conflicts, former prison guards are natural &#10;choices for running prison camps.</szDescription>
+		<szDescription>In longer and larger conflicts, former prison guards are natural choices&#10;for running POW camps. Breaking riots is also in their wheelhouse,&#10;and you always did enjoy the thrill of cracking a few skulls.</szDescription>
 		<strength>2</strength>
 		<ap_assault>1</ap_assault>
 		<meleedamage>5</meleedamage>
@@ -4706,7 +4703,7 @@
 		<uiIndex>259</uiIndex>
 		<szName>Gang Member</szName>
 		<szShortName>Gang Member</szShortName>
-		<szDescription>Becoming a mercenary is a natural step for many gang members&#10; - job's the same, the tools and pay are much better.</szDescription>
+		<szDescription>Becoming a mercenary is a natural step for many gang members&#10;- the job's the same, the tools and pay are much better. You&#10;made the transition as soon as you could.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_assault>2</ap_assault>
 		<approach_threaten>10</approach_threaten>
@@ -4720,7 +4717,7 @@
 		<uiIndex>260</uiIndex>
 		<szName>Convict</szName>
 		<szShortName>Convict</szShortName>
-		<szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
+		<szDescription>Convicts incarcerated in the harsher prisons of this world are bound&#10;to be more dangerous on release - if they survive that long. The&#10;place you got out of happened to be one of the harshest.</szDescription>
 		<approach_threaten>10</approach_threaten>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>5</resistance_fear>
@@ -4734,7 +4731,7 @@
 		<uiIndex>261</uiIndex>
 		<szName>Drug Addict</szName>
 		<szShortName>Drug Addict</szShortName>
-		<szDescription>Given the nature of today's drugs, addicts can make fearsome,&#10; yet unreliable, opponents.</szDescription>
+		<szDescription>Given the nature of today's drugs, addicts can make fearsome, yet&#10;unreliable, opponents. And given your habits, you would know.</szDescription>
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>7</resistance_fear>
 		<resistance_suppression>7</resistance_suppression>
@@ -4748,8 +4745,7 @@
 		<uiIndex>262</uiIndex>
 		<szName>Nobility</szName>
 		<szShortName>Nobility</szShortName>
-		<szDescription>Some people do not join this business out of necessity. While&#10; easy to label them as sissy aristocrats, some are actually quite capable,&#10; as they have received the best training money can buy.</szDescription>
-		<xenophobic>1</xenophobic>
+		<szDescription>You're a blue-blooded aristocrat from a long line of aristocrats. You&#10;didn't join this business out of necessity, you did it because being&#10;a soldier of fortune is just so bloody entertaining, and you're armed&#10;with the best training money can buy.</szDescription>
 		<marksmanship>2</marksmanship>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
@@ -4763,7 +4759,7 @@
 		<uiIndex>263</uiIndex>
 		<szName>Lawyer</szName>
 		<szShortName>Lawyer</szShortName>
-		<szDescription>A somewhat unorthodox background for a mercenary, former lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
+		<szDescription>Though yours is a somewhat unorthodox background for a&#10;mercenary, your skills and experience as a lawyer may be&#10;useful when there's a deal to be made on a knife's edge.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>-3</ap_desert>
 		<ap_urban>3</ap_urban>
@@ -4780,7 +4776,7 @@
 		<uiIndex>264</uiIndex>
 		<szName>Pilot</szName>
 		<szShortName>Pilot</szShortName>
-		<szDescription>Used to physical stress over long periods of time, some pilots find the transition to ground combat surprisingly easy.</szDescription>
+		<szDescription>Used to physical stress over long periods of time, some pilots&#10;find the transition to ground combat surprisingly easy. You&#10;certainly did.</szDescription>
 		<mechanical>3</mechanical>
 		<leadership>5</leadership>
 		<ap_airdrop>5</ap_airdrop>
@@ -4795,7 +4791,7 @@
 		<uiIndex>265</uiIndex>
 		<szName>Priest</szName>
 		<szShortName>Priest</szShortName>
-		<szDescription>Many devout followers of any religion or cult are surprisingly&#10; violent and zealous if pushed into the right (or wrong) direction.</szDescription>
+		<szDescription>Many devout believers can be surprisingly violent and zealous&#10;if they're pushed into the right (or wrong) direction, and you&#10;know that all too well.</szDescription>
 		<medical>3</medical>
 		<leadership>10</leadership>
 		<wisdom>5</wisdom>
@@ -4817,7 +4813,7 @@
 		<uiIndex>266</uiIndex>
 		<szName>Nurse</szName>
 		<szShortName>Nurse</szShortName>
-		<szDescription>While not full-blown doctors, nurses are still in high demand&#10; in warzones, due to that grim business.</szDescription>
+		<szDescription>You're a fully qualified nurse, and while that may not be as&#10;glamorous as being a full-blown doctor, your skills are in high&#10;demand in any warzone due to all that grim business.</szDescription>
 		<dexterity>3</dexterity>
 		<medical>7</medical>
 		<ap_assault>-5</ap_assault>
@@ -4828,13 +4824,12 @@
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
-		<no_male>1</no_male>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>267</uiIndex>
 		<szName>Construction Worker</szName>
-		<szShortName>Construction Worker</szShortName>
-		<szDescription>Construction workers are used to hard labour, and can construct&#10; fortifications better than deskjob heroes.</szDescription>
+		<szShortName>Construction</szShortName>
+		<szDescription>As a construction worker, you're no stranger to hard labour. Trench&#10;warfare may be a bit old-fashioned these days, but fortifications will&#10;always be useful in war, and you're far better at constructing them&#10;than any deskjob hero.</szDescription>
 		<agility>2</agility>
 		<strength>6</strength>
 		<ap_urban>3</ap_urban>
@@ -4846,7 +4841,7 @@
 		<uiIndex>268</uiIndex>
 		<szName>Skydiver</szName>
 		<szShortName>Skydiver</szShortName>
-		<szDescription>If you want to put your life at risk, might as well earn cash&#10; by doing so...</szDescription>
+		<szDescription>If you're going to put your life at risk, you might as well earn&#10;cash while doing so. You're basically a paratrooper already, if&#10;you ignore the lack of any actual military training.</szDescription>
 		<agility>4</agility>
 		<medical>2</medical>
 		<ap_inventory>-3</ap_inventory>
@@ -4863,7 +4858,7 @@
 		<uiIndex>269</uiIndex>
 		<szName>Drill Sergeant</szName>
 		<szShortName>Drill Sergeant</szShortName>
-		<szDescription>A drill sergeant's job is to create armies and traumatise young men and women.</szDescription>
+		<szDescription>A drill sergeant's job is to create armies and traumatise young men&#10;and women. As a mercenary you get to do much the same job, but&#10;for more money and with far less oversight.</szDescription>
 		<leadership>6</leadership>
 		<marksmanship>4</marksmanship>
 		<ap_assault>3</ap_assault>
@@ -4875,7 +4870,7 @@
 		<uiIndex>270</uiIndex>
 		<szName>Bouncer</szName>
 		<szShortName>Bouncer</szShortName>
-		<szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
+		<szDescription>Doormen make good soldiers in close combat, though hopefully&#10;the killing part is a change. Or perhaps it isn't, and that's why&#10;you're no longer a doorman.</szDescription>
 		<ap_urban>4</ap_urban>
 		<meleedamage>4</meleedamage>
 		<dexterity>2</dexterity>
@@ -4887,7 +4882,7 @@
 		<uiIndex>271</uiIndex>
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
-		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
+		<szDescription>Killing people for money is old hat to you. You're a professional&#10;assassin, and while your skills at dealing death are&#10;formidable, there's something about your presence&#10;that really puts people on edge.</szDescription>
 		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
@@ -4911,7 +4906,7 @@
 		<uiIndex>272</uiIndex>
 		<szName>Bomber</szName>
 		<szShortName>Bomber</szShortName>
-		<szDescription>Whether you call them terrorists or freedom fighters often &#10;depends on your relation towards those killed.</szDescription>
+		<szDescription>One man's terrorist is another man's freedom fighter, and it often&#10;depends on one's relation towards those killed. You aren't quite&#10;sure yourself which one you were.</szDescription>
 		<explosives>6</explosives>
 		<disarm_trap>10</disarm_trap>
 		<resistance_fear>10</resistance_fear>
@@ -4923,7 +4918,7 @@
 		<uiIndex>273</uiIndex>
 		<szName>Bodyguard</szName>
 		<szShortName>Bodyguard</szShortName>
-		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?</szDescription>
+		<szDescription>You're superbly trained, utterly loyal, and willing to pay the&#10;ultimate price. What more could a potential employer want?</szDescription>
 		<strength>5</strength>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>10</resistance_fear>
@@ -4934,9 +4929,9 @@
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>274</uiIndex>
-		<szName>SWAT Member</szName>
-		<szShortName>SWAT</szShortName>
-		<szDescription>Blurring the line between police and military, SWAT teams are used in urban operations too dangerous for normal law enforcement.</szDescription>
+		<szName>SWAT Team</szName>
+		<szShortName>SWAT Team</szShortName>
+		<szDescription>Blurring the line between police and military, SWAT teams are used&#10;in urban operations too dangerous for normal law enforcement. Since&#10;you're in the mercenary business now, it clearly wasn't dangerous&#10;enough for you.</szDescription>
 		<leadership>2</leadership>
 		<ap_urban>2</ap_urban>
 		<ap_assault>2</ap_assault>
@@ -4952,7 +4947,7 @@
 		<uiIndex>275</uiIndex>
 		<szName>Barkeeper</szName>
 		<szShortName>Barkeeper</szShortName>
-		<szDescription>A friendly face can make violence unnecessary...</szDescription>
+		<szDescription>A friendly face can make violence unnecessary, and you're&#10;friendlier than most.</szDescription>
 		<ap_urban>2</ap_urban>
 		<betterprices>4</betterprices>
 		<approach_friendly>15</approach_friendly>
@@ -4962,7 +4957,7 @@
 		<uiIndex>276</uiIndex>
 		<szName>Miner</szName>
 		<szShortName>Miner</szShortName>
-		<szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+		<szDescription>Working in a mine is hard, punishing work. No wonder you&#10;started to look for easier cash, though if this business is&#10;where you ended up, you might want to keep looking.</szDescription>
 		<ap_mountain>2</ap_mountain>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
@@ -4976,7 +4971,7 @@
 		<uiIndex>277</uiIndex>
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
-		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+		<szDescription>You used to be a member of an organized crime society, and&#10;maybe you still are. Mobsters rarely make good soldiers, but&#10;there are exceptions, such as you.</szDescription>
 		<ap_assault>2</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
@@ -4993,8 +4988,8 @@
   <BACKGROUND>
 		<uiIndex>278</uiIndex>
 		<szName>UN Peacekeeper</szName>
-		<szShortName>UN</szShortName>
-		<szDescription>Nations of the entire world provide these troops to solve all &#10;conflicts without any violence. Sadly, this statement is false.</szDescription>
+		<szShortName>UN Peacekeeper</szShortName>
+		<szDescription>Nations of the entire world provide these troops to solve all&#10;conflicts without any violence. Sadly, this statement is false,&#10;and you know that from firsthand experience.</szDescription>
 		<medical>2</medical>
 		<mechanical>2</mechanical>
 		<wisdom>2</wisdom>
@@ -5010,7 +5005,7 @@
 		<uiIndex>279</uiIndex>
 		<szName>Paratrooper</szName>
 		<szShortName>Paratrooper</szShortName>
-		<szDescription>It takes guts to jump out of a plane to face numerically superior foes.</szDescription>
+		<szDescription>Voluntarily jumping out of perfectly functional airplanes to face&#10;numerically superior foes while outgunned, that takes a lot of guts.&#10;Or maybe you're just insane.</szDescription>
 		<agility>4</agility>
 		<medical>2</medical>
 		<leadership>2</leadership>
@@ -5032,9 +5027,9 @@
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>280</uiIndex>
-		<szName>Guerilla</szName>
-		<szShortName>Guerilla</szShortName>
-		<szDescription>You are well-trained in evading enemy forces and striking where they least expect it.</szDescription>
+		<szName>Guerrilla</szName>
+		<szShortName>Guerrilla</szShortName>
+		<szDescription>You're well-trained and experienced in evading enemy forces&#10;and striking where they least expect it. Being a mercenary is&#10;a natural fit for you.</szDescription>
 		<leadership>2</leadership>
 		<ap_desert>1</ap_desert>
 		<ap_swamp>3</ap_swamp>
@@ -5059,7 +5054,7 @@
 		<uiIndex>281</uiIndex>
 		<szName>Conscript</szName>
 		<szShortName>Conscript</szShortName>
-		<szDescription>Far from being a pro, you at least know the basic stuff.</szDescription>
+		<szDescription>Your military service may not have been voluntary, but you&#10;did pick up the basics of soldiering while you were at it.</szDescription>
 		<ap_assault>1</ap_assault>
 		<travel_foot>4</travel_foot>
 		<resistance_fear>3</resistance_fear>
@@ -5074,7 +5069,7 @@
 		<uiIndex>282</uiIndex>
 		<szName>Military Advisor</szName>
 		<szShortName>Military Advisor</szShortName>
-		<szDescription>Pointing the gun in the right direction is a start, but someone needs &#10;to teach these people how to teach other people where to point.</szDescription>
+		<szDescription>Pointing the gun in the right direction is a start, but someone needs&#10;to teach these people how to teach other people where to point.&#10;That someone is you.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>4</resistance_fear>
@@ -5091,7 +5086,7 @@
 		<uiIndex>283</uiIndex>
 		<szName>Paramilitary Instructor</szName>
 		<szShortName>Instructor</szShortName>
-		<szDescription>Just like boyscouts. But with violence. So not really like boyscouts &#10;at all.</szDescription>
+		<szDescription>You're like a boyscout leader, but instead of teaching scouting skills&#10;to kids, you instruct serious adults on how to do violence in an&#10;organized manner.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>5</resistance_fear>
@@ -5102,13 +5097,12 @@
 		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
-		<xenophobic>1</xenophobic> 
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>284</uiIndex>
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
-		<szDescription>With Russian stoicism, the Red Army prevailed against Hitler,&#10; Father Frost, and chronic shortages.</szDescription>
+		<szDescription>With Soviet stoicism, the Red Army prevailed against Hitler, Father Frost,&#10;and chronic shortages. By the time you served it was actually called the&#10;Soviet Army, but you're still a pretty hard case.</szDescription>
 		<mechanical>4</mechanical>
 		<leadership>2</leadership>
 		<ap_polar>8</ap_polar>
@@ -5140,9 +5134,9 @@
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>286</uiIndex>
-		<szName>Veteran</szName>
-		<szShortName>Veteran</szShortName>
-		<szDescription>You've been on one or two tours of duty and know trouble when you see it.</szDescription>
+		<szName>Combat Veteran</szName>
+		<szShortName>Combat Veteran</szShortName>
+		<szDescription>You've been on one or two tours of duty, and you've taken fire&#10;and shot at the enemy in combat. You're a veteran, and you&#10;have the skills to match.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -5162,7 +5156,7 @@
 		<uiIndex>287</uiIndex>
 		<szName>Tuareg</szName>
 		<szShortName>Tuareg</szShortName>
-		<szDescription>The tuareg are a berber people that lead a nomadic life in &#10;the Sahara.</szDescription>
+		<szDescription>The Tuareg are a Berber people that lead a nomadic life in the Sahara.&#10;That lifestyle has prepared you well for the hardships of this business.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_swamp>-5</ap_swamp>
 		<ap_urban>-3</ap_urban>
@@ -5180,7 +5174,7 @@
 		<uiIndex>288</uiIndex>
 		<szName>Firefighter</szName>
 		<szShortName>Firefighter</szShortName>
-		<szDescription>Just because it involves no shooting, it doesn't have to be &#10;less dangerous.</szDescription>
+		<szDescription>You always thought fighting fires wasn't that different from fighting&#10;wars, and you weren't wrong. Both involve significant physical&#10;exertion, hostile environments, and a high risk of injury and death.</szDescription>
 		<agility>2</agility>
 		<ap_urban>2</ap_urban>
 		<ap_height>2</ap_height>
@@ -5194,8 +5188,8 @@
   <BACKGROUND>
 		<uiIndex>289</uiIndex>
 		<szName>Competitive Shooter</szName>
-		<szShortName>Competitive Shooter</szShortName>
-		<szDescription>Some people display a knack for shooting, and a disturbing &#10;aggression against innocent paper bull's-eyes.</szDescription>
+		<szShortName>Shooter</szShortName>
+		<szDescription>As a professional shooter, you're pretty good at the shooting part&#10;of combat. However, it takes more than just great aim to become&#10;a great mercenary.</szDescription>
 		<dexterity>2</dexterity>
 		<marksmanship>8</marksmanship>
 		<increased_maxcth>3</increased_maxcth>
@@ -5205,7 +5199,7 @@
 		<uiIndex>290</uiIndex>
 		<szName>Shopkeeper</szName>
 		<szShortName>Shopkeeper</szShortName>
-		<szDescription>For many people, their trade IS trade.</szDescription>
+		<szDescription>Trade is your trade, and while that didn't prepare you for war,&#10;you do know how to haggle.</szDescription>
 		<ap_polar>-2</ap_polar>
 		<ap_desert>-2</ap_desert>
 		<ap_swamp>-2</ap_swamp>
@@ -5225,7 +5219,7 @@
 		<uiIndex>291</uiIndex>
 		<szName>Car Mechanic</szName>
 		<szShortName>Car Mechanic</szShortName>
-		<szDescription>Car mechanics are very useful, as long as you actually have a car.</szDescription>
+		<szDescription>Fixing cars and keeping them running is your passion,&#10;and in most warzones, that's an invaluable skillset.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>6</mechanical>
 		<ap_fortify>-2</ap_fortify>
@@ -5239,7 +5233,7 @@
 		<uiIndex>292</uiIndex>
 		<szName>Smith</szName>
 		<szShortName>Smith</szShortName>
-		<szDescription>In a warzone without the usual comforts, it is very useful to &#10;have people who can maintain your gear.</szDescription>
+		<szDescription>In a warzone without the usual comforts, your smithing skills&#10;make you particularly well suited for fixing and maintaining&#10;all manner of equipment.</szDescription>
 		<dexterity>8</dexterity>
 		<mechanical>10</mechanical>
 		<betterprices_guns>10</betterprices_guns>
@@ -5248,9 +5242,9 @@
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>293</uiIndex>
-		<szName>Counter-Terrorist Unit</szName>
-		<szShortName>Counter-Terrorist</szShortName>
-		<szDescription>Most countries don't deploy their army to deal with interior threats, but use special police forces.</szDescription>
+		<szName>Counter-Terrorism Unit</szName>
+		<szShortName>Counter-Terrorism</szShortName>
+		<szDescription>Most countries don't deploy their army to deal with interior threats,&#10;but use special paramilitary police forces. You were part of those,&#10;blasting through doors and taking down bad guys in high-speed raids.</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_urban>2</ap_urban>
 		<interrogation>40</interrogation>
@@ -5265,7 +5259,7 @@
 		<uiIndex>294</uiIndex>
 		<szName>Office Worker</szName>
 		<szShortName>Office Worker</szShortName>
-		<szDescription>Air conditioning, watered down coffee and some papers to push - &#10;what else can you expect from life?</szDescription>
+		<szDescription>Air conditioning, watered down coffee and some papers&#10;to push - what else can you expect from life?</szDescription>
 		<leadership>-3</leadership>
 		<approach_direct>5</approach_direct>
 		<resistance_fear>-5</resistance_fear>
@@ -5289,7 +5283,7 @@
 		<uiIndex>295</uiIndex>
 		<szName>Backstage Crew</szName>
 		<szShortName>Backstage Crew</szShortName>
-		<szDescription>Blasting sounds, fireworks, screaming people - isn't it odd how &#10;similar an acting stage is to the battlefield?</szDescription>
+		<szDescription>Blasting sounds, fireworks, screaming people - you've always found&#10;it odd how similar an acting stage is to the battlefield.</szDescription>
 		<mechanical>3</mechanical>
 		<resistance_suppression>15</resistance_suppression>
 		<resistance_alcohol>10</resistance_alcohol>
@@ -5302,7 +5296,7 @@
 		<uiIndex>296</uiIndex>
 		<szName>Technical Wizard</szName>
 		<szShortName>Tech Whiz</szShortName>
-		<szDescription>No matter if it's thirty-years-old junk or the latest electronic &#10;gadget, a tech whiz can rewire, reassemble, and reconfigure it with their eyes closed.</szDescription>
+		<szDescription>No matter if it's thirty-years-old junk or the latest electronic&#10;gadget, you can rewire, reassemble, and reconfigure it with&#10;your eyes closed.</szDescription>
 		<dexterity>8</dexterity>
 		<mechanical>8</mechanical>
 		<ap_airdrop>-3</ap_airdrop>
@@ -5315,7 +5309,7 @@
 		<uiIndex>297</uiIndex>
 		<szName>Graduate</szName>
 		<szShortName>Graduate</szShortName>
-		<szDescription>Fresh out of school, with a diploma still warm in hand, it's time &#10;to finally make yourself a living.</szDescription>
+		<szDescription>Fresh out of school, with a diploma still warm in hand,&#10;it's time to finally make yourself a living.</szDescription>
 		<wisdom>3</wisdom>
 		<leadership>-3</leadership>
 		<ap_fortify>10</ap_fortify>
@@ -5330,8 +5324,8 @@
   <BACKGROUND>
 		<uiIndex>298</uiIndex>
 		<szName>Professional Thief</szName>
-		<szShortName>Thief</szShortName>
-		<szDescription>When offered to take it or leave it, you always choose 'take'.</szDescription>
+		<szShortName>Professional Thief</szShortName>
+		<szDescription>When offered to take it or leave it, you always choose 'take'.&#10;It usually pays off.</szDescription>
 		<agility>5</agility>
 		<dexterity>5</dexterity>
 		<ap_urban>1</ap_urban>
@@ -5366,7 +5360,7 @@
 		<uiIndex>300</uiIndex>
 		<szName>B-Movie Star</szName>
 		<szShortName>B-Movie Star</szShortName>
-		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
+		<szDescription>You're a target of thrown popcorn in cinemas around the&#10;world, scoffed by critics yet adored by loyal fans.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-3</ap_airdrop>
@@ -5381,7 +5375,7 @@
 		<uiIndex>301</uiIndex>
 		<szName>Pyrotechnician</szName>
 		<szShortName>Pyrotechnician</szShortName>
-		<szDescription>When you want to break an enemy's morale by blowing up his privy, it's time &#10;to get yourself a qualified pyrotechnician.</szDescription>
+		<szDescription>When you want to break an enemy's morale by blowing up his privy,&#10;you know exactly how to do it in the most spectacular manner.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>3</mechanical>
 		<explosives>5</explosives>
@@ -5396,7 +5390,7 @@
 		<uiIndex>302</uiIndex>
 		<szName>Sapper</szName>
 		<szShortName>Sapper</szShortName>
-		<szDescription>A sapper can only make two mistakes in his life. The first one is his &#10;career choice.</szDescription>
+		<szDescription>A sapper can only make two mistakes in his life. The first&#10;one is his career choice, and you really screwed up there.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>3</mechanical>
 		<ap_fortify>10</ap_fortify>
@@ -5415,7 +5409,7 @@
 		<uiIndex>303</uiIndex>
 		<szName>Daredevil</szName>
 		<szShortName>Daredevil</szShortName>
-		<szDescription>An imposing sight on the battlefield, you are never one to &#10;shy away from taking the enemy head-on.</szDescription>
+		<szDescription>An imposing sight on the battlefield, you're never one to shy&#10;away from taking the enemy head-on. Since you're still alive,&#10;you must be pretty good at it, too.</szDescription>
 		<agility>6</agility>
 		<strength>3</strength>
 		<dexterity>3</dexterity>
@@ -5441,7 +5435,7 @@
 		<uiIndex>304</uiIndex>
 		<szName>Redneck</szName>
 		<szShortName>Redneck</szShortName>
-		<szDescription>When the Confederacy lost the war, your family moved further &#10;south . . . and is still fighting . . . everybody.</szDescription>
+		<szDescription>When the Confederacy lost the war, your family moved&#10;further south... and is still fighting... everybody.</szDescription>
 		<strength>3</strength>
 		<mechanical>3</mechanical>
 		<medical>3</medical>
@@ -5466,7 +5460,7 @@
 		<uiIndex>305</uiIndex>
 		<szName>Stalker</szName>
 		<szShortName>Stalker</szShortName>
-		<szDescription>Creepy, relentless, and socially handicapped - it &#10;is only a matter of time before they put you away.</szDescription>
+		<szDescription>Creepy, relentless, and socially handicapped - it's&#10;only a matter of time before they put you away.</szDescription>
 		<leadership>-9</leadership>
 		<ap_urban>6</ap_urban>
 		<ap_fortify>10</ap_fortify>
@@ -5482,13 +5476,12 @@
 		<spotter>20</spotter>
 		<hearing_night>2</hearing_night>
 		<hearing_day>2</hearing_day>
-		<no_female>1</no_female>
 </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>306</uiIndex>
 		<szName>Academic</szName>
 		<szShortName>Academic</szShortName>
-		<szDescription>Most of your knowledge comes from books and secondhand reports - &#10;and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+		<szDescription>Most of your knowledge comes from books and secondhand&#10;reports - and it didn't prepare you for the grim reality of a&#10;warzone as well as you thought.</szDescription>
 		<wisdom>5</wisdom>
 		<leadership>-3</leadership>
 		<ap_fortify>10</ap_fortify>
@@ -5505,7 +5498,7 @@
 		<uiIndex>307</uiIndex>
 		<szName>Mental Patient</szName>
 		<szShortName>Mental Patient</szShortName>
-		<szDescription>There are different accounts of how you've managed to leave the &#10;confinement, but everyone agrees - you should go back.</szDescription>
+		<szDescription>The accounts differ on how you managed to leave the asylum, but&#10;everyone agrees on one thing - you really should go back there.</szDescription>
 		<wisdom>-5</wisdom>
 		<leadership>-6</leadership>
 		<stealth>10</stealth>
@@ -5520,7 +5513,7 @@
 		<uiIndex>308</uiIndex>
 		<szName>Wrestler</szName>
 		<szShortName>Wrestler</szShortName>
-		<szDescription>It might be more of a spectacle than actual fighting, but getting thrown &#10;around a ring without breaking a neck still takes a lot of skill.</szDescription>
+		<szDescription>It might be more of a spectacle than actual fighting, but getting&#10;thrown around a ring without breaking a neck still takes a lot of&#10;skill, strength and endurance. You have those in spades.</szDescription>
 		<agility>3</agility>
 		<strength>5</strength>
 		<dexterity>2</dexterity>
@@ -5541,7 +5534,7 @@
 		<uiIndex>309</uiIndex>
 		<szName>General Practitioner</szName>
 		<szShortName>GP Doctor</szShortName>
-		<szDescription>A versatile and educated doctor can save a human life, no matter what his &#10;patient caught - a virus or a bullet.</szDescription>
+		<szDescription>As a versatile and educated doctor, you have the skills to save a&#10;human life, no matter what your patient caught - a virus or a bullet.</szDescription>
 		<dexterity>5</dexterity>
 		<medical>10</medical>
 		<ap_fortify>10</ap_fortify>
@@ -5557,7 +5550,7 @@
 		<uiIndex>310</uiIndex>
 		<szName>Surgeon</szName>
 		<szShortName>Surgeon</szShortName>
-		<szDescription>Everyone can cut human flesh - but sewing it back is a quest for&#10; the best!</szDescription>
+		<szDescription>Everyone can cut human flesh - but sewing it back&#10;is a quest for the best, and you're one of them.</szDescription>
 		<medical>10</medical>
 		<dexterity>8</dexterity>
 		<ap_fortify>10</ap_fortify>
@@ -5571,7 +5564,7 @@
 		<uiIndex>311</uiIndex>
 		<szName>Mercenary</szName>
 		<szShortName>Mercenary</szShortName>
-		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+		<szDescription>Many people in this business only work part-time, but not you.&#10;You've chosen the life of a gun for hire and fully embraced it.&#10;This is who you really are.</szDescription>
 		<leadership>2</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_physical>3</resistance_physical>
@@ -5586,7 +5579,7 @@
 		<uiIndex>312</uiIndex>
 		<szName>Veteran Mercenary</szName>
 		<szShortName>Veteran Mercenary</szShortName>
-		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+		<szDescription>You were already famous in this business before those youngsters&#10;were even born. These days you're something of a legend, and after&#10;decades of combat, there's hardly anything that can shake you up.</szDescription>
 		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
@@ -5606,7 +5599,7 @@
 		<uiIndex>313</uiIndex>
 		<szName>Big Game Hunter</szName>
 		<szShortName>Big Game Hunter</szShortName>
-		<szDescription>Travel to pristine nature, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
+		<szDescription>You travel to pristine nature, seek fascinating species,&#10;and blow big chunks out of them with high-powered&#10;rifles. Their remains make for great trophies.</szDescription>
 		<ap_polar>1</ap_polar>
 		<ap_desert>1</ap_desert>
 		<ap_swamp>2</ap_swamp>
@@ -5628,7 +5621,7 @@
 		<uiIndex>314</uiIndex>
 		<szName>Spotter</szName>
 		<szShortName>Spotter</szShortName>
-		<szDescription>Paired with a sniper, it is your job to make out &#10;targets and help in shot calculations</szDescription>
+		<szDescription>Paired with a sniper, you observe an area, discern targets and&#10;assist in shot calculations. Whether police, military or mercenary,&#10;the job is the same, and you always do it well.</szDescription>
 		<stealth>10</stealth>
 		<camo>10</camo>
 		<hearing_night>2</hearing_night>
@@ -5640,8 +5633,8 @@
   <BACKGROUND>
 		<uiIndex>315</uiIndex>
 		<szName>Bomb Disposal Unit</szName>
-		<szShortName>BDU</szShortName>
-		<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
+		<szShortName>Bomb Disposal</szShortName>
+		<szDescription>Displaying nerves of steel, you thrive at a job where every&#10;mistake can be the last one. Your fear of death was expunged&#10;a long time ago, its place taken by cold professionalism.</szDescription>
 		<dexterity>5</dexterity>
 		<wisdom>3</wisdom>
 		<resistance_fear>20</resistance_fear>
@@ -5655,7 +5648,7 @@
 		<uiIndex>316</uiIndex>
 		<szName>Renegade</szName>
 		<szShortName>Renegade</szShortName>
-		<szDescription>Others might disagree with your methods and accuse you of &#10;brutality, but you always get the job done - no matter the cost.</szDescription>
+		<szDescription>Others might disagree with your methods and accuse you of&#10;brutality, but you always get the job done - no matter the cost.</szDescription>
 		<ap_assault>4</ap_assault>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>15</resistance_suppression>
@@ -5672,7 +5665,7 @@
 		<uiIndex>317</uiIndex>
 		<szName>Black Bloc</szName>
 		<szShortName>Black Bloc</szShortName>
-		<szDescription>Peaceful protests did not have the results you &#10;wanted so you have turned to violent direct action as a mercenary.</szDescription>
+		<szDescription>Peaceful protests did not bring the results you wanted, so you have&#10;turned to violent direct action as a mercenary. It makes sense to&#10;you, but others tend to have difficulty following your logic.</szDescription>
 		<ap_urban>4</ap_urban>
 		<ap_height>4</ap_height> 
 		<resistance_fear>10</resistance_fear>
@@ -5691,7 +5684,7 @@
 		<uiIndex>318</uiIndex>
 		<szName>Con Artist</szName>
 		<szShortName>Con Artist</szShortName>
-		<szDescription>You have no moral compass and will cheat everyone out of &#10;everything they have while blaming them for their misfortune.</szDescription>
+		<szDescription>You have no moral compass and will cheat everyone out of&#10;everything they have while blaming them for their misfortune.</szDescription>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -5713,8 +5706,8 @@
 	<BACKGROUND>
 		<uiIndex>319</uiIndex>
 		<szName>Arulcan Rebel</szName>
-		<szShortName>Rebel</szShortName>
-		<szDescription>This is your country, your land, your people, and you have &#10;pledged your life to free them. More radical than Miguel, you have no leader.</szDescription>
+		<szShortName>Arulcan Rebel</szShortName>
+		<szDescription>This is your country, your land, your people, and you have pledged&#10;your life to free them. More radical than Miguel, you have no leader.</szDescription>
 		<ap_polar>-5</ap_polar>
 		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
@@ -5738,7 +5731,7 @@
 		<uiIndex>320</uiIndex>
 		<szName>Athlete</szName>
 		<szShortName>Athlete</szShortName>
-		<szDescription>Years of intense physical practice and gameday performance will certainly &#10;help you make those last-ditch efforts to survive.</szDescription>
+		<szDescription>Years of intense physical practice and gameday performance will&#10;certainly help you make those last-ditch efforts to survive.</szDescription>
 		<agility>8</agility>
 		<strength>8</strength>
 		<dexterity>8</dexterity>
@@ -5755,9 +5748,9 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>321</uiIndex>
-		<szName>Aid worker</szName>
-		<szShortName>Aid worker</szShortName>
-		<szDescription>You've been in much, MUCH worse situations, working for several &#10;well-known aid organisations.</szDescription>
+		<szName>Aid Worker</szName>
+		<szShortName>Aid Worker</szShortName>
+		<szDescription>You've been in much, MUCH worse situations, working for several&#10;well-known aid organizations. You made it out alive just fine, and&#10;back then you weren't even carrying a weapon.</szDescription>
 		<medical>6</medical>
 		<leadership>2</leadership>
 		<resistance_disease>10</resistance_disease>
