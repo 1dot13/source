@@ -284,7 +284,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
-    <szName>Doctors can instantly restore some lost life via surgery - but this will drain your medical supplies.</szName>
+    <szName>Doctors can instantly restore some lost health via surgery - but this will drain your medical supplies.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -309,7 +309,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Press [L] to look into a direction. Press [L] again to ready your weapon and look through a scope, if your gun has any scope or iron sights.</szName>
+    <szName>Press [L] to look into a direction. Press [L] again to ready your weapon and look through a scope, if one is present on your gun.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -391,7 +391,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
-    <szName>Mercs with the teaching skill train militia faster.</szName>
+    <szName>Mercs with the Teaching skill train militia faster.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -526,7 +526,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
-    <szName>Night operations are probably your best bet early on, when you are relying on pistols and SMGs.</szName>
+    <szName>Night operations may be your best bet early on, when you are relying on pistols and SMGs.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -596,7 +596,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
-    <szName>Certain mercenaries cannot gain stats at all. You can't teach an old dog new tricks.</szName>
+    <szName>Certain mercenaries are practically incapable of increasing their stats. You can't teach an old dog new tricks, at least not in a useful timeframe.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -696,22 +696,22 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>134</uiIndex>
-    <szName>Press [SHIFT]+[T] to quickly transform object in hand.</szName>
+    <szName>Press [SHIFT]+[T] to quickly transform the object in your hand.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>135</uiIndex>
-    <szName>Press [SHIFT]+[O] to quickly transform scope on weapon.</szName>
+    <szName>Press [SHIFT]+[O] to quickly transform the scope on your weapon, if you're playing a mod that uses this feature.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>136</uiIndex>
-    <szName>Press [SHIFT]+[Y] to quickly transform laser on weapon.</szName>
+    <szName>Press [SHIFT]+[Y] to quickly transform the laser sight on your weapon.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>137</uiIndex>
-    <szName>Press [SHIFT]+[L] to quickly transform flashlight in the hand.</szName>
+    <szName>Press [SHIFT]+[L] to quickly transform the flashlight in your hand.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -731,7 +731,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>141</uiIndex>
-    <szName>If a spy talks to unalerted enemies, they can try to secretly recruit them to their cause.</szName>
+    <szName>If a spy talks to unalerted enemies, they can try to secretly recruit them to your cause.</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -741,12 +741,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
  <LOADSCREENHINT>
     <uiIndex>143</uiIndex>
-    <szName>Press [\] to break window glass with crowbar or any two handed weapon.</szName>
+    <szName>Press [\] to break window glass with crowbar or any two-handed weapon.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>144</uiIndex>
-    <szName>Press [A] to open Skills Menu, which has many useful actions.</szName>
+    <szName>Press [A] to open the Skills Menu, which has many useful actions.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -756,7 +756,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>146</uiIndex>
-    <szName>Press [ALT]+[Q] to change throwing angle when using grenade launcher.</szName>
+    <szName>Press [ALT]+[Q] to change the launching angle when using a grenade launcher.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -766,17 +766,52 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>148</uiIndex>
-    <szName>Press [Q] to change scope mode for weapon.</szName>
+    <szName>Press [Q] to change the scope mode of a weapon.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>149</uiIndex>
-    <szName>Press [ESC] to: close skill menu, stop moving, stop dragging, unready weapon.</szName>
+    <szName>Press [ESC] to: close the Skill Menu, stop moving, stop dragging, unready weapon.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>150</uiIndex>
-    <szName>Use arrow keys when deploying mercs to move map, useful for big maps.</szName>
+    <szName>When deploying mercs, you can use the arrow keys to scroll the map. This is useful in mods that use bigger than normal maps.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
+  <LOADSCREENHINT>
+    <uiIndex>151</uiIndex>
+    <szName>Suppress the enemy whenever you can. Unloading on full auto in their general direction uses up a lot of ammunition, but it can drain the enemy's action points and make them less capable of shooting back.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>152</uiIndex>
+    <szName>Fire and maneuver! Split your mercs into two or more groups: while one group moves forward or falls back, the others support them with aimed and suppressive fire.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>153</uiIndex>
+    <szName>Single shots from long range are often less effective in the New Chance to Hit (NCTH) system. More liberal use of automatic and burst fire can compensate for lower hit probabilities.</szName>
+    <ncth>1</ncth>
+  </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>154</uiIndex>
+    <szName>Closing in with the enemy can be dangerous, but it's also often the fastest way to eliminate them.</szName>
+    <ncth>1</ncth>
+  </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>155</uiIndex>
+    <szName>In the New Chance to Hit system, the fewer aim levels a weapon has, the fewer APs it needs to reach its maximum aimed accuracy.</szName>
+    <ncth>1</ncth>
+  </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>156</uiIndex>
+    <szName>Stick to cover! It saves lives.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>157</uiIndex>
+    <szName>Artillery is the king of battle. Just a few well-placed mortar shells or rocket-propelled grenades can turn the tide of an engagement.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
