@@ -319,7 +319,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>You can spray an area with auto fire. Just select auto fire, choose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on the first target, and drag it around the desired area.</szName>
+    <szName>You can spray an area with auto fire. Select auto fire, choose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on the first target, and drag it around the desired area.</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
@@ -576,7 +576,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
-    <szName>Each mercenary has a different approach and effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <szName>Each mercenary has a different approach and effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be good at threatening people.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -666,7 +666,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens the Skills Menu, where reinforcements or artillery strikes can be called by a radio operator.</szName>
+    <szName>Press [A] or [ALT]+[RIGHTCLICK] to open the Skills Menu, where reinforcements or artillery strikes can be called in by a radio operator.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -706,7 +706,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>136</uiIndex>
-    <szName>Press [SHIFT]+[Y] to quickly transform the laser sight on your weapon.</szName>
+    <szName>Press [SHIFT]+[Y] to quickly transform the laser sight on your weapon, if you're playing a mod that uses this feature.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -746,7 +746,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>144</uiIndex>
-    <szName>Press [A] to open the Skills Menu, which has many useful actions.</szName>
+    <szName>Press [A] or [ALT]+[RIGHTCLICK] to open the Skills Menu, which has many useful actions.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -771,7 +771,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>149</uiIndex>
-    <szName>Press [ESC] to: close the Skill Menu, stop moving, stop dragging, unready weapon.</szName>
+    <szName>Press [ESC] to: close the Skills Menu, stop moving, stop dragging, unready weapon.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -782,7 +782,7 @@ The other tags determine in what category this hint falls, and will be displayed
 </LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>151</uiIndex>
-    <szName>Suppress the enemy whenever you can. Unloading on full auto in their general direction uses up a lot of ammunition, but it can drain the enemy's action points and make them less capable of shooting back.</szName>
+    <szName>Suppress the enemy. Unloading on full auto in their general direction uses up a lot of ammunition, but it can drain the enemy's APs and make them less capable of shooting back.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -813,5 +813,11 @@ The other tags determine in what category this hint falls, and will be displayed
     <LOADSCREENHINT>
     <uiIndex>157</uiIndex>
     <szName>Artillery is the king of battle. Just a few well-placed mortar shells or rocket-propelled grenades can turn the tide of an engagement.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+    </LOADSCREENHINT>
+    <LOADSCREENHINT>
+    <uiIndex>158</uiIndex>
+    <szName>A spotter will increase the accuracy of all nearby mercs who are using sniper rifles. Use the Skills Menu [A] to assign a merc with binoculars in their hands to spotting duty.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
