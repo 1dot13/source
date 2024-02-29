@@ -739,7 +739,7 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>Check out the Features Screen to toggle 1.13 features on and off! You can access it through the Options Screen.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
- <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>143</uiIndex>
     <szName>Press [\] to break window glass with crowbar or any two-handed weapon.</szName>
     <keybind>1</keybind>
@@ -779,7 +779,6 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>When deploying mercs, you can use the arrow keys to scroll the map. This is useful in mods that use bigger than normal maps.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
-</LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>151</uiIndex>
     <szName>Suppress the enemy. Unloading on full auto in their general direction uses up a lot of ammunition, but it can drain the enemy's APs and make them less capable of shooting back.</szName>
@@ -790,34 +789,34 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>Fire and maneuver! Split your mercs into two or more groups: while one group moves forward or falls back, the others support them with aimed and suppressive fire.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>153</uiIndex>
     <szName>Single shots from long range are often less effective in the New Chance to Hit (NCTH) system. More liberal use of automatic and burst fire can compensate for lower hit probabilities.</szName>
     <ncth>1</ncth>
   </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>154</uiIndex>
     <szName>Closing in with the enemy can be dangerous, but it's also often the fastest way to eliminate them.</szName>
     <ncth>1</ncth>
   </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>155</uiIndex>
     <szName>In the New Chance to Hit system, the fewer aim levels a weapon has, the fewer APs it needs to reach its maximum aimed accuracy.</szName>
     <ncth>1</ncth>
   </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>156</uiIndex>
     <szName>Stick to cover! It saves lives.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>157</uiIndex>
     <szName>Artillery is the king of battle. Just a few well-placed mortar shells or rocket-propelled grenades can turn the tide of an engagement.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
-    </LOADSCREENHINT>
-    <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>158</uiIndex>
     <szName>A spotter will increase the accuracy of all nearby mercs who are using sniper rifles. Use the Skills Menu [A] to assign a merc with binoculars in their hands to spotting duty.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
+</LOADSCREENHINTS>
