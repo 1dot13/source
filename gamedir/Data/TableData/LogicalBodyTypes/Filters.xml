@@ -80,18 +80,118 @@
 		</OR>
 	</Filter>
 	<Filter name="CamoPants">
-		<AND>
+		<OR>
 			<LEGPOS op="in">282, 845, 846, 852, 853, 854, 855</LEGPOS>
-		</AND>
+			<VESTPOS op="in">284</VESTPOS>
+		</OR>
 	</Filter>
 	<Filter name="CamoLongsleeves">
 		<AND>
 			<VESTPOS op="in">283, 284, 842, 843, 844, 847, 848, 849, 850, 851</VESTPOS>
 		</AND>
 	</Filter>
+	<Filter name="GhilliePants">
+		<OR>
+			<LEGPOS op="in">808</LEGPOS>
+		</OR>
+	</Filter>
+	<Filter name="GhillieVest">
+		<AND>
+			<VESTPOS op="in">809</VESTPOS>
+		</AND>
+	</Filter>
+	<Filter name="GhillieHood">
+		<AND>
+			<HELMETPOS op="in">807</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="GhillieHoodAndPistol">
+		<AND>
+			<FILTER>GhillieHood</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhillieHoodAndRifle">
+		<AND>
+			<FILTER>GhillieHood</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhillieVestAndPistolLeft">
+		<AND>
+			<FILTER>GhillieVest</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhillieVestAndPistol">
+		<AND>
+			<FILTER>GhillieVest</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhillieVestAndRifle">
+		<AND>
+			<FILTER>GhillieVest</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhilliePantsAndPistolLeft">
+		<AND>
+			<FILTER>GhilliePants</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhilliePantsAndPistol">
+		<AND>
+			<FILTER>GhilliePants</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="GhilliePantsAndRifle">
+		<AND>
+			<FILTER>GhilliePants</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CamoLongsleevesAndPistolLeft">
+		<AND>
+			<FILTER>CamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CamoLongsleevesAndPistol">
+		<AND>
+			<FILTER>CamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CamoLongsleevesAndRifle">
+		<AND>
+			<FILTER>CamoLongsleeves</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>	
+	<Filter name="CamoPantsAndPistolLeft">
+		<AND>
+			<FILTER>CamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CamoPantsAndPistol">
+		<AND>
+			<FILTER>CamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CamoPantsAndRifle">
+		<AND>
+			<FILTER>CamoPants</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>	
 	<Filter name="Longsleeves">
 		<AND>
-			<VESTPOS op="in">283, 295, 821, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<VESTPOS op="in">295, 821, 833, 840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
 		</AND>
 	</Filter>
 	<Filter name="LongsleevesANDHasPistolOrMPistolInLeftHand">

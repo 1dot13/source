@@ -8,5 +8,5 @@
 	<!--<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.stp" />-->
 	<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.act" />
 	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
-	<Palette name = "universal_camo" filename = "Palettes\stiPalette_camo.act" />
+	<Palette name = "WoodlandCamo" filename = "Palettes\WoodlandCamo.act" />
 </Palettes>
