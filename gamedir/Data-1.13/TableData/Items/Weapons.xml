@@ -13036,8 +13036,8 @@
 	<WEAPON>
 		<uiIndex>1333</uiIndex>
 		<szWeaponName>AR57 11"</szWeaponName>
-		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>4</ubWeaponType>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>12</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
 		<ubShotsPer4Turns>15.94</ubShotsPer4Turns>
@@ -13076,8 +13076,8 @@
 	<WEAPON>
 		<uiIndex>1334</uiIndex>
 		<szWeaponName>AR57 6"-Silenced</szWeaponName>
-		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>4</ubWeaponType>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>12</ubCalibre>
 		<ubReadyTime>11</ubReadyTime>
 		<ubShotsPer4Turns>15.21</ubShotsPer4Turns>
