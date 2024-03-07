@@ -1048,7 +1048,7 @@
 		<uiIndex>23</uiIndex>
 		<szItemName>C7A2</szItemName>
 		<szLongItemName>Diemaco C7A2</szLongItemName>
-		<szItemDesc>This rifle shouts the Canuck motto, 'Anything the Yanks can do, we can do better.' This version of the M-16 is every merc's dream come true.</szItemDesc>
+		<szItemDesc>This rifle shouts the Canuck motto, 'Anything the Yanks can do, we can do better.' This version of the M16 is every merc's dream come true.</szItemDesc>
 		<szBRName>Diemaco C7A2</szBRName>
 		<szBRDesc>It's the Canadian version of the American M16A2. Trust those crazy Canucks to incorporate such safety devices as a case deflector to prevent empty cases from being flung into the faces of left-handed firers.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -1083,7 +1083,7 @@
 		<uiIndex>24</uiIndex>
 		<szItemName>FAMAS</szItemName>
 		<szLongItemName>FAMAS G2</szLongItemName>
-		<szItemDesc>Nicknamed 'The Bugle' by French Army Troops, this bullpup rifle packs the utility of the M-16 in under two-and-a-half feet.</szItemDesc>
+		<szItemDesc>Nicknamed 'The Bugle' by French Army Troops, this bullpup rifle packs the utility of the M16 in under two-and-a-half feet.</szItemDesc>
 		<szBRName>FAMAS G2</szBRName>
 		<szBRDesc>The French Army's FA-MAS rifle was the first 'bullpup' design to enter military service. It handles well and shoots quite accurately. A bipod is attached for steadier shooting.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -19006,9 +19006,9 @@
 		<uiIndex>653</uiIndex>
 		<szItemName>FNC</szItemName>
 		<szLongItemName>FN FNC</szLongItemName>
-		<szItemDesc>A red-headed bastard stepchild of the Eastern AK-47 and the Western M-16, this Belgian beauty has an integral flash suppressor.</szItemDesc>
+		<szItemDesc>A red-headed bastard stepchild of the Eastern AK-47 and the Western M16, this Belgian beauty has an integral flash suppressor.</szItemDesc>
 		<szBRName>FN FNC</szBRName>
-		<szBRDesc>A red-headed bastard stepchild of the Eastern AK-47 and the Western M-16, this Belgian beauty has an integral flash suppressor and a Swedish twin. In the words of Gershwin, who could ask for anything more... except a lighter trigger pull.</szBRDesc>
+		<szBRDesc>A red-headed bastard stepchild of the Eastern AK-47 and the Western M16, this Belgian beauty has an integral flash suppressor and a Swedish twin. In the words of Gershwin, who could ask for anything more... except a lighter trigger pull.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>653</ubClassIndex>
@@ -22553,9 +22553,9 @@
 		<uiIndex>748</uiIndex>
 		<szItemName>OICW</szItemName>
 		<szLongItemName>XM-29 OICW</szLongItemName>
-		<szItemDesc>The XM-29 is part 20mm magazine fed grenade launcher, part G36 5.56mm assault rifle, and all whoop-ass.</szItemDesc>
+		<szItemDesc>The XM-29 is part 20mm magazine-fed grenade launcher, part G36 5.56mm assault rifle, and all whoop-ass.</szItemDesc>
 		<szBRName>XM-29 OICW</szBRName>
-		<szBRDesc>The XM-29 is a combination weapon, part 20mm magazine fed grenade launcher and part 5.56mm assault rifle. Both parts are assembled into a single, one-man portable unit, with a built-in target acquisition and fire control system (TA/FCS).</szBRDesc>
+		<szBRDesc>The XM-29 is a combination weapon, part 20mm magazine-fed grenade launcher and part 5.56mm assault rifle. Both parts are assembled into a single, one-man portable unit, with a built-in target acquisition and fire control system (TA/FCS).</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>748</ubClassIndex>
@@ -22608,10 +22608,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>749</uiIndex>
-		<szItemName>XM-8 Auto</szItemName>
-		<szLongItemName>XM-8 Automatic</szLongItemName>
+		<szItemName>XM8 Auto</szItemName>
+		<szLongItemName>XM8 Automatic</szLongItemName>
 		<szItemDesc>This 5.56 assault platform fills a variety of roles. Ever wanted to serve someone a lead salad? Point at the enemy and pull the trigger to start feeding.</szItemDesc>
-		<szBRName>XM-8 Automatic</szBRName>
+		<szBRName>XM8 Automatic</szBRName>
 		<szBRDesc>Originally commissioned by the U.S. military, HK is now producing this 5.56mm multi-role weapon for the highest bidder. Lucky you.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -22646,11 +22646,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>750</uiIndex>
-		<szItemName>XM-8</szItemName>
-		<szLongItemName>XM-8 Baseline Carbine</szLongItemName>
-		<szItemDesc>The XM-8 is HK's response to the USA's call for a new standard army rifle. The BLC version is the standard and offers a versatile array of options.</szItemDesc>
-		<szBRName>XM-8 Baseline Carbine</szBRName>
-		<szBRDesc>The new XM-8 family of weapons is spearheading the "next gen" infantry weapons movement, after the OICW contract went belly up.</szBRDesc>
+		<szItemName>XM8</szItemName>
+		<szLongItemName>XM8 Baseline Carbine</szLongItemName>
+		<szItemDesc>The XM8 is HK's response to the USA's call for a new standard army rifle. The BLC version is the standard and offers a versatile array of options.</szItemDesc>
+		<szBRName>XM8 Baseline Carbine</szBRName>
+		<szBRDesc>The new XM8 family of weapons is spearheading the "next gen" infantry weapons movement, after the OICW contract went belly up.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>750</ubClassIndex>
@@ -22684,11 +22684,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>751</uiIndex>
-		<szItemName>XM-8 Compact</szItemName>
-		<szLongItemName>XM-8 Compact Carbine</szLongItemName>
-		<szItemDesc>The Compact is a short version of the XM-8, outfitted specifically for short-range engagements, notably urban operations.</szItemDesc>
-		<szBRName>XM-8 Compact Carbine</szBRName>
-		<szBRDesc>The Compact is a short version of the XM-8, outfitted specifically for short-range engagements, notably urban operations.</szBRDesc>
+		<szItemName>XM8 Compact</szItemName>
+		<szLongItemName>XM8 Compact Carbine</szLongItemName>
+		<szItemDesc>The Compact is a short version of the XM8, outfitted specifically for short-range engagements, notably urban operations.</szItemDesc>
+		<szBRName>XM8 Compact Carbine</szBRName>
+		<szBRDesc>The Compact is a short version of the XM8, outfitted specifically for short-range engagements, notably urban operations.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>751</ubClassIndex>
@@ -22724,11 +22724,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>752</uiIndex>
-		<szItemName>XM-8 Sharpshooter</szItemName>
-		<szLongItemName>XM-8 Sharpshooter</szLongItemName>
-		<szItemDesc>The Sharpshooter version of the XM-8 is the next generation designated marksman rifle, featuring a much longer, match grade, long-twist barrel, for accuracy over longer ranges.</szItemDesc>
-		<szBRName>XM-8 Sharpshooter</szBRName>
-		<szBRDesc>The Sharpshooter version of the XM-8 is the next generation designated marksman rifle, featuring a much longer, match grade, long-twist barrel, for accuracy over longer ranges.</szBRDesc>
+		<szItemName>XM8 Sharpshooter</szItemName>
+		<szLongItemName>XM8 Sharpshooter</szLongItemName>
+		<szItemDesc>The Sharpshooter version of the XM8 is the next generation designated marksman rifle, featuring a much longer, match grade, long-twist barrel, for accuracy over longer ranges.</szItemDesc>
+		<szBRName>XM8 Sharpshooter</szBRName>
+		<szBRDesc>The Sharpshooter version of the XM8 is the next generation designated marksman rifle, featuring a much longer, match grade, long-twist barrel, for accuracy over longer ranges.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>752</ubClassIndex>
@@ -28435,11 +28435,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>908</uiIndex>
-		<szItemName>XM-25</szItemName>
-		<szLongItemName>XM-25 Grenade Launcher</szLongItemName>
-		<szItemDesc>Compared to the XM-29, the XM-25 dispenses with the complexity and weight of having an integrated kinetic energy weapon, and is purely a magazine fed, multi-shot grenade launcher.</szItemDesc>
-		<szBRName>XM-25 Grenade Launcher</szBRName>
-		<szBRDesc>Who needs bullets when you have grenades? The XM-25 is the stand-alone magazine-fed grenade system, spawned by the revamped US OICW program. To the enemies of freedom, there is still nowhere to hide.</szBRDesc>
+		<szItemName>XM25</szItemName>
+		<szLongItemName>XM25 Grenade Launcher</szLongItemName>
+		<szItemDesc>Compared to the XM-29, the XM25 dispenses with the complexity and weight of having an integrated kinetic energy weapon, and is purely a magazine-fed, multi-shot 25mm grenade launcher.</szItemDesc>
+		<szBRName>XM25 Grenade Launcher</szBRName>
+		<szBRDesc>Who needs bullets when you have grenades? The XM25 is the stand-alone 25mm magazine-fed grenade system, spawned by the revamped US OICW program. To the enemies of freedom, there is still nowhere to hide.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>908</ubClassIndex>

@@ -1073,6 +1073,43 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARH" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARH" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasXM25InHand" palette="guns_v2">
+			<Surface name="RGF_RIFLE_OPEN_XM25" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_WALK_CROUCH_XM25" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_XM25" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_XM25" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_XM25" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_XM25" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_XM25" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_XM25" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_XM25" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_SWAT_XM25" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_XM25" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_XM25" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_XM25" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_XM25" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_XM25" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_XM25" animsurface="RGFRHIT"/>
+			<Surface name="RGF_RIFLE_PAIN_XM25" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_RIFLE_COWER_XM25" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_XM25" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_XM25" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_XM25" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_XM25" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_XM25" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_XM25" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_XM25" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_BAYONET_XM25" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_XM25" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_RIFLE_LOW_XM25" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_XM25" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_RIFLE_LOOK_XM25" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_XM25" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_XM25" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_XM25" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_XM25" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_XM25" animsurface="RGF_WATER_HIP_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasMilkorInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_MKL" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_MKL" animsurface="RGFCROUCH_R_RDY"/>
@@ -1146,6 +1183,43 @@
 			<Surface name="RGF_WATER_RIFLE_WALK_MOSIN" animsurface="RGFWATER_R_WALK" />
 			<Surface name="RGF_WATER_RIFLE_AIM_MOSIN" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_MOSIN" animsurface="RGF_WATER_HIP_AIM" />
+		</LayerProp>
+		<LayerProp filter="HasG11InHand" palette="guns_v2">
+			<Surface name="RGF_RIFLE_OPEN_G11" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_WALK_CROUCH_G11" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_G11" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_G11" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_G11" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_G11" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_G11" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_G11" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_G11" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_SWAT_G11" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_G11" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_G11" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_G11" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_G11" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_G11" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_G11" animsurface="RGFRHIT"/>
+			<Surface name="RGF_RIFLE_PAIN_G11" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_RIFLE_COWER_G11" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_G11" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_G11" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_G11" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_G11" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_G11" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_G11" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_G11" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_BAYONET_G11" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_G11" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_RIFLE_LOW_G11" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_G11" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_RIFLE_LOOK_G11" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_G11" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_G11" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_G11" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_G11" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_G11" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_AR" animsurface="RGFOPEN"/>
