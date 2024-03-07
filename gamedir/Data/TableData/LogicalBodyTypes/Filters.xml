@@ -314,11 +314,12 @@
 	<Filter name="HasShotgunInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_SHOTGUN</WEAPON_TYPE>
+			<HANDPOS not="" op="in">33</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSaiga12kInHand">
 		<AND>
-			<HANDPOS op="in">32, 33, 340, 680, 731, 741</HANDPOS>
+			<HANDPOS op="in">32, 340, 680, 731, 741</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSPAS12InHand">
@@ -456,6 +457,11 @@
 			<HANDPOS op="in">40, 50, 903, 906, 907, 908, 920, 922</HANDPOS>
 		</AND>
 	</Filter>
+	<Filter name="HasXM25InHand">
+		<AND>
+			<HANDPOS op="in">605, 748, 908</HANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasRocketRifleInHand">
 		<AND>
 			<HANDPOS op="in">55, 65</HANDPOS>
@@ -463,7 +469,7 @@
 	</Filter>
 	<Filter name="HasG11InHand">
 		<AND>
-			<HANDPOS op="in">30</HANDPOS>
+			<HANDPOS op="in">30, 33</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasDesertEagleInHand">

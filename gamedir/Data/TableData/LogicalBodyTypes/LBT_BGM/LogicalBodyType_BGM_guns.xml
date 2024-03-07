@@ -1340,6 +1340,53 @@
 			<Surface name="BGM_WATER_RIFLE_AIM_SCARH" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_SCARH" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasXM25InHand" palette="guns_v2">
+			<Surface name="BGM_RIFLE_OPEN_XM25" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_WALK_CROUCH_XM25" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_XM25" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_XM25" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_XM25" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_IDLE_XM25" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_XM25" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_XM25" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_XM25" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_XM25" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_XM25" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_XM25" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_XM25" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_XM25" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_XM25" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_SWAT_XM25" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_RAISE_HERO_XM25" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_XM25" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_XM25" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_XM25" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_XM25" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_XM25" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_XM25" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_XM25" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_XM25" animsurface="BGMPRONE" />
+			<Surface name="BGMRIFLE_HIT_HERO_XM25" animsurface="BGMRHIT" />
+			<Surface name="BGMRIFLE_PAIN_XM25" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMRIFLE_COWER_XM25" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_XM25" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_WALK_HURT_XM25" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_KICKDOOR_XM25" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_XM25" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_XM25" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_XM25" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_XM25" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_XM25" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_BAYONET_XM25" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_XM25" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMRIFLE_LOW_XM25" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_XM25" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_XM25" animsurface="BGMROLL_PR" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_XM25" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_XM25" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_XM25" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_XM25" animsurface="BGM_WATER_HIP_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasMilkorInHand" palette="guns_v2">
 			<Surface name="BGM_RIFLE_OPEN_MKL" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_MKL" animsurface="BGMCROUCH_R_RDY" />
@@ -1388,7 +1435,51 @@
 			<Surface name="BGM_WATER_RIFLE_HIP_MKL" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasG11InHand" palette="guns_v2">
+			<Surface name="BGM_RIFLE_OPEN_G11" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_WALK_CROUCH_G11" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_G11" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_G11" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_G11" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_G11" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_G11" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_G11" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_G11" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_G11" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_G11" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_G11" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_G11" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_G11" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_G11" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_SWAT_G11" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_RAISE_HERO_G11" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_G11" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_G11" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_G11" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_G11" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_G11" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_G11" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_G11" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_G11" animsurface="BGMPRONE" />
+			<Surface name="BGMRIFLE_HIT_HERO_G11" animsurface="BGMRHIT" />
+			<Surface name="BGMRIFLE_PAIN_G11" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMRIFLE_COWER_G11" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_G11" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_WALK_HURT_G11" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_KICKDOOR_G11" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_G11" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_G11" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_G11" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_G11" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_G11" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_BAYONET_G11" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_G11" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMRIFLE_LOW_G11" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_G11" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_G11" animsurface="BGMROLL_PR" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_G11" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_G11" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_G11" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_G11" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="BGM_RIFLE_OPEN_AR" animsurface="BGMOPEN" />
