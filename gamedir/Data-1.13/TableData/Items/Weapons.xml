@@ -13372,4 +13372,40 @@
 		<usOverheatingDamageThreshold>20000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1762</uiIndex>
+		<szWeaponName>FN PS90</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>12</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>19.16</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>29</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>290</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>33</BurstAniDelay>
+		<ubAttackVolume>45</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>328</sSound>
+		<sBurstSound>20</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>24</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+		<nAccuracy>59</nAccuracy>
+		<ubAimLevels>4</ubAimLevels>
+		<Handling>7</Handling>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
+	</WEAPON>
 </WEAPONLIST>

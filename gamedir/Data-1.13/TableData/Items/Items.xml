@@ -52730,4 +52730,42 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1762</uiIndex>
+		<szItemName>PS90</szItemName>
+		<szLongItemName>FN PS90</szLongItemName>
+		<szItemDesc>This lightweight carbine is a semi-automatic version of the famous P90. With its long 16-inch barrel, the PS90 is an excellent choice for poking holes clean through body armor at extended ranges.</szItemDesc>
+		<szBRName>FN PS90</szBRName>
+		<szBRDesc>This civilian-legal younger sibling of the FN P90 comes with a lengthened 16-inch barrel and a Picatinny rail for easy mounting of a variety of diffent sights.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1762</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>374</ubGraphicNum>
+		<ubWeight>28</ubWeight>
+		<ItemSize>7</ItemSize>
+		<usPrice>3030</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>60</BR_ROF>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
+		<TransportGroupMinProgress>30</TransportGroupMinProgress>
+		<TransportGroupMaxProgress>60</TransportGroupMaxProgress>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

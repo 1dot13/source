@@ -365,7 +365,7 @@
 	</Filter>
 	<Filter name="HasP90InHand">
 		<AND>
-			<HANDPOS op="in">15</HANDPOS>
+			<HANDPOS op="in">15, 1762</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasUziSMGInHand">
@@ -386,6 +386,7 @@
 	<Filter name="HasRifleInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_RIFLE</WEAPON_TYPE>
+			<HANDPOS not="" op="in">1762</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSemiAutoRifleInHand">
