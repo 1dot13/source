@@ -4518,4 +4518,9 @@
 		<uiIndex>1033</uiIndex>
 		<sItemIndex>579</sItemIndex>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1034</uiIndex>
+		<sItemIndex>1762</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>
