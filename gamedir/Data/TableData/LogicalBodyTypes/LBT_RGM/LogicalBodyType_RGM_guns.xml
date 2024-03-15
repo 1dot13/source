@@ -1195,6 +1195,42 @@
 			<Surface name="WATER_RIFLE_AIM_G11" animsurface="RGMWATER_R_AIM" />
 			<Surface name="WATER_RIFLE_HIP_G11" animsurface="RGM_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasAKSUInHand" palette="guns_v2">
+			<Surface name="RGM_RIFLE_OPEN_AKSU" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_AKSU" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGMRIFLE_WALK_AKSU" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRIFLE_IDLE_AKSU" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_AKSU" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRUNNING_AKSU" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_CROUCH_AKSU" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_AKSU" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_AKSU" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_SWAT_AKSU" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_RAISE_AKSU" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_AKSU" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_AKSU" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_AKSU" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_AKSU" animsurface="RGMPRONE" />
+			<Surface name="RGMRIFLE_HIT_AKSU" animsurface="RGMRHIT" />
+			<Surface name="RGMRIFLE_PAIN_AKSU" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMRIFLE_COWER_AKSU" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_AKSU" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_WALK_HURT_AKSU" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_KICKDOOR_AKSU" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_AKSU" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_AKSU" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_AKSU" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_AKSU" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_BAYONET_AKSU" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_AKSU" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMRIFLE_LOW_AKSU" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_AKSU" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_AKSU" animsurface="RGMROLL_PR" />
+			<Surface name="WATER_RIFLE_IDLE_AKSU" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_AKSU" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_AKSU" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_AKSU" animsurface="RGM_WATER_HIP_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="RGM_RIFLE_OPEN_AR" animsurface="RGMOPEN" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_AR" animsurface="RGMCROUCH_R_RDY" />
