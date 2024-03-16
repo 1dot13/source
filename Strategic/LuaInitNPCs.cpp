@@ -13603,58 +13603,43 @@ static int l_GetNumHostilesInSector( lua_State *L )
 
 void LuaGetIntelAndQuestMapData( INT32 aLevel )
 {
-	static LuaScopeState _LS(true);
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction(_LS.L(), TRUE);
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "GetIntelAndQuestMapData" ).Param<int>( aLevel ).Call( 1 );
 }
 
 void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft )
 {
-	static LuaScopeState _LS(true);
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction(_LS.L(), TRUE);
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "SetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Param<int>( sProgressLeft ).Call( 6 );
 }
 
 INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber )
 {
-	static LuaScopeState _LS( true );
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction( _LS.L(), TRUE );
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "GetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Call( 5 );
 	
 	if ( lua_gettop( _LS.L() ) >= 0 )
