@@ -329,7 +329,7 @@
 	</Filter>
 	<Filter name="HasFALInHand">
 		<AND>
-			<HANDPOS op="in">28, 29, 629, 647, 648, 712, 713, 714, 715, 1195</HANDPOS>
+			<HANDPOS op="in">28, 29, 629, 647, 648, 712, 713, 714, 715</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasFAMASInHand">
@@ -344,12 +344,22 @@
 	</Filter>
 	<Filter name="HasAKInHand">
 		<OR>
-			<HANDPOS op="in">14, 25, 26, 347, 612, 613, 614, 615, 708, 757, 785</HANDPOS>
+			<HANDPOS op="in">25, 26, 347, 612, 613, 614, 615, 708, 757</HANDPOS>
 		</OR>
 	</Filter>
 	<Filter name="HasBlackAKInHand">
 		<AND>
-			<HANDPOS op="in">602, 603, 606, 607, 608, 609, 610, 611, 616, 617, 655, 656, 742, 782</HANDPOS>
+			<HANDPOS op="in">602, 603, 606, 607, 608, 609, 610, 611, 616, 617, 655, 742, 782</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKSUInHand">
+		<OR>
+			<HANDPOS op="in">14, 785</HANDPOS>
+		</OR>
+	</Filter>
+	<Filter name="HasBlackAKSUInHand">
+		<AND>
+			<HANDPOS op="in">13, 349, 656, 691, 1195</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasARInHand">

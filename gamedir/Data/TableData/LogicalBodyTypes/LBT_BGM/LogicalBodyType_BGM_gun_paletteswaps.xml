@@ -48,6 +48,53 @@
 			<Surface name="BGM_WATER_RIFLE_AIM_AK47" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_AK47" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasBlackAKSUInHand" palette="guns_v2_pal_swap">
+			<Surface name="BGM_RIFLE_OPEN_AKSU" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_WALK_CROUCH_AKSU" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_AKSU" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_AKSU" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_AKSU" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_IDLE_AKSU" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_AKSU" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_AKSU" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_AKSU" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_AKSU" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_AKSU" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_AKSU" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_AKSU" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_AKSU" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_AKSU" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_SWAT_AKSU" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_RAISE_HERO_AKSU" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_AKSU" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_AKSU" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_AKSU" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_AKSU" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_AKSU" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_AKSU" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_AKSU" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_AKSU" animsurface="BGMPRONE" />
+			<Surface name="BGMRIFLE_HIT_HERO_AKSU" animsurface="BGMRHIT" />
+			<Surface name="BGMRIFLE_PAIN_AKSU" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMRIFLE_COWER_AKSU" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_AKSU" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_WALK_HURT_AKSU" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_KICKDOOR_AKSU" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_AKSU" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_AKSU" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_AKSU" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_AKSU" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_AKSU" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_BAYONET_AKSU" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_AKSU" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMRIFLE_LOW_AKSU" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_AKSU" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_AKSU" animsurface="BGMROLL_PR" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_AKSU" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_AKSU" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_AKSU" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_AKSU" animsurface="BGM_WATER_HIP_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasBlackPatriotInHand" palette="guns_v2_pal_swap">
 			<Surface name="BGM_RIFLE_OPEN_PATRIOT" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_PATRIOT" animsurface="BGMCROUCH_R_RDY" />
