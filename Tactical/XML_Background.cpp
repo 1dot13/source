@@ -168,7 +168,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		else if (strcmp(name, "drugitems") == 0 && pData->curElement == ELEMENT)
 		{
 			pData->curElement = ELEMENT_VECTOR_OF_NUMBERS;
-			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_TYPES].clear();
+			pData->curBackground.valueVectors[BackgroundVectorTypes::BG_DRUGUSE_ITEMS].clear();
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -692,6 +692,14 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.uiFlags |= (UINT16)atol(pData->szCharData) ? BACKGROUND_CIVGROUPLOYAL : 0;
+		}
+		else if (strcmp(name, "drugtypes") == 0)
+		{
+			pData->curElement = ELEMENT;
+		}
+		else if (strcmp(name, "drugitems") == 0)
+		{
+			pData->curElement = ELEMENT;
 		}
 		else if (strcmp(name, "drugtype") == 0)
 		{
