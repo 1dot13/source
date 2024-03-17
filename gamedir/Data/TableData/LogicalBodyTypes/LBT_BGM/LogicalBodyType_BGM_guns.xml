@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LogicalAnimationSurfaces>
 	<Layer name="gun">
-			<LayerProp filter="HasDualRightSawnOff" palette="guns_v2">
+		<LayerProp filter="HasDualRightSawnOff" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_sawnoff" animsurface="BGMDBLBREATH" />
 			<Surface name="BGMEMPTY_WALK_sawnoff" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMDUAL_AIM_sawnoff" animsurface="BGMSTANDDWALAIM" />
