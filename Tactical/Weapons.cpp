@@ -5692,7 +5692,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			if ( pBullet->fFragment == false)
 			{
 				INT16 sX, sY;
-				ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+				ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 				if ( Item[usWeaponIndex].singleshotrocketlauncher )
 				{
