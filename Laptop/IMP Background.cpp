@@ -608,36 +608,53 @@ extern BOOLEAN	gfSkillTraitQuestions2[20];
 
 extern BOOLEAN	gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS];
 
-BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
+BOOLEAN IsBackGroundAllowed(UINT16 ubNumber)
 {
-	if ( !ubNumber  )
+	if (!ubNumber)
 		return FALSE;
 
 	// some backgrounds are only allowed to specific genders. Set both to forbid a background from ever showing up in IMP creation (for merc-specific backgrounds)
-	if ( fCharacterIsMale && zBackground[ ubNumber ].uiFlags & BACKGROUND_NO_MALE )
+	if (fCharacterIsMale && zBackground[ubNumber].uiFlags & BACKGROUND_NO_MALE)
 		return FALSE;
-	else if ( !fCharacterIsMale && zBackground[ ubNumber ].uiFlags & BACKGROUND_NO_FEMALE )
+	else if (!fCharacterIsMale && zBackground[ubNumber].uiFlags & BACKGROUND_NO_FEMALE)
 		return FALSE;
 
-	/* kitty: fixed following skillcheck
-	* the previous used "SkillList" and the after-remap naming convention (i.e. DOCTOR_NT) didn't work in this place/point of character creation
-	* left the out-commented previous code for reference and potential rollback
-	* used distinctive single and dual trait for major traits to allow for possible future finetuning by trait level
-	* 2023/08/30
-	*/
+	// added new ini-options and accompanying background-tag
+	// choices in skills/character-traits/disabilities determine available backgrounds if true in ja2options.ini
+	// new tag <alt_impcreation> has been added to backgrounds.xml
+
+	if (!gGameExternalOptions.fAltIMPCreation)
+
+	{
+		if (zBackground[ubNumber].uiFlags & BACKGROUND_ALT_IMP_CREATION) // don't show BG with tag <alt_impcreation> if Alt_Imp_Creation isn't true in ja2options.ini
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+
+	// show BG with tag <alt_impcreation>, 
+	// but don't show BG whose tags would contradict with a main bonus/penalty gained by skill/char-trait/disability
+
+	if (gGameExternalOptions.fAltIMPCreation)
+
+    // define which tags are considered contradicting for major traits, minor traits, disablities and character traits
 
 	// major traits  (single-trait and dual-trait)
 	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS])
 	{
 
 		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS])
-		{
-			if (zBackground[ubNumber].value[BG_ARTILLERY] > 0) //dual trait (expert)
+        {    
+			if (zBackground[ubNumber].value[BG_ARTILLERY] > 0) //dual trait (expert) 
 				return FALSE;
 		}
 		else
 		{
-			if (zBackground[ubNumber].value[BG_ARTILLERY] > 0) //single trait
+			if (zBackground[ubNumber].value[BG_ARTILLERY] > 10) //single trait
 				return FALSE;
 		}
 	}
@@ -647,12 +664,12 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 
 		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER])
 		{
-			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0)  //dual trait (expert)
+			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0 || zBackground[ubNumber].value[BG_MARKSMANSHIP] < 0 )
 				return FALSE;
 		}
 		else
 		{
-			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0)  //single trait
+			if (zBackground[ubNumber].value[BG_PERC_CTH_MAX] < 0 )  
 				return FALSE;
 		}
 	}
@@ -662,12 +679,13 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 
 		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS])
 		{
-			if (zBackground[ubNumber].value[BG_PERC_DAMAGE_MELEE] < 0)  //dual trait (expert)
+			
+				if (zBackground[ubNumber].value[BG_RESI_PHYSICAL] < 0 )  
 				return FALSE;
 		}
 		else
 		{
-			if (zBackground[ubNumber].value[BG_PERC_DAMAGE_MELEE] < 0)  //single trait
+			if (zBackground[ubNumber].value[BG_RESI_PHYSICAL] < 0 )  
 				return FALSE;
 		}
 	}
@@ -677,12 +695,12 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 
 		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN])
 		{
-			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  //dual trait (expert)
+			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  
 				return FALSE;
 		}
 		else
 		{
-			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  //single trait
+			if (zBackground[ubNumber].value[BG_MECHANICAL] < 0)  
 				return FALSE;
 		}
 	}
@@ -692,20 +710,35 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 
 		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR])
 		{
-			if (zBackground[ubNumber].value[BG_MEDICAL] < 0)  //dual trait (expert)
+			if (zBackground[ubNumber].value[BG_PERC_BANDAGING] < 0 || zBackground[ubNumber].value[BG_MEDICAL] < 0 )
 				return FALSE;
 		}
 		else
 		{
-			if (zBackground[ubNumber].value[BG_MEDICAL] < 0)  //single trait
+			if (zBackground[ubNumber].value[BG_PERC_BANDAGING] < 0)  
 				return FALSE;
 		}
 	}
 
-	// minor traits (single trait only)
+	if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER])
+	{
+
+		if (gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER])
+		{
+			if (zBackground[ubNumber].value[BG_RESI_SUPPRESSION] < 0 || zBackground[ubNumber].value[BG_RESI_FEAR] < 0 )
+				return FALSE;
+		}
+		else
+		{
+			if (zBackground[ubNumber].value[BG_RESI_SUPPRESSION] < 0)
+				return FALSE;
+		}
+	}
+
+	// Minor Traits (single trait only) 
 	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_MELEE])
 	{
-		if (zBackground[ubNumber].value[BG_PERC_CTH_BLADE] < 0) //single trait
+		if (zBackground[ubNumber].value[BG_PERC_CTH_BLADE] < 0 || zBackground[ubNumber].value[BG_PERC_DAMAGE_MELEE] < 0 )
 			return FALSE;
 	}
 
@@ -715,97 +748,42 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 	}
 
-	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_ATHLETICS])
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_DEMOLITIONS])  
 	{
-		if (zBackground[ubNumber].value[BG_PERC_SPEED_RUNNING] < 0)
+		if (zBackground[ubNumber].value[BG_BONUS_BREACHINGCHARGE] < 0 || zBackground[ubNumber].value[BG_EXPLOSIVE_ASSIGN] < 0 )
 			return FALSE;
 	}
 
-	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_DEMOLITIONS])
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_SURVIVAL]) 
 	{
-		if (zBackground[ubNumber].value[BG_EXPLOSIVE_ASSIGN] < 0)
+		if (zBackground[ubNumber].value[BG_TRAVEL_FOOT] < 0 || zBackground[ubNumber].value[BG_TRAVEL_CAR] <0 || zBackground[ubNumber].value[BG_TRAVEL_AIR] <0 ||
+			zBackground[ubNumber].value[BG_RESI_DISEASE] < 0  || zBackground[ubNumber].value[BG_SNAKEDEFENSE] < 0 )
 			return FALSE;
 	}
 
-	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_SURVIVAL])
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_BODYBUILDING])
 	{
-		if (zBackground[ubNumber].value[BG_PERC_CAMO] < 0)
+		if (zBackground[ubNumber].value[BG_PERC_CARRYSTRENGTH] < 0)
 			return FALSE;
 	}
 
-	/* previous code for reference
-	*
-	if ( SkillsList[0] == HEAVY_WEAPONS_NT || SkillsList[1] == HEAVY_WEAPONS_NT || SkillsList[2] == HEAVY_WEAPONS_NT )
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_AMBIDEXTROUS])
 	{
-		if ( zBackground[ ubNumber ].value[BG_ARTILLERY] > 0 )
+		if (zBackground[ubNumber].value[BG_INVENTORY] > 0)
 			return FALSE;
 	}
 
-	if ( SkillsList[0] == SNIPER_NT || SkillsList[1] == SNIPER_NT || SkillsList[2] == SNIPER_NT )
+	if (gfMinorTraitQuestions[IMP_SKILL_TRAITS_NEW_NIGHT_OPS])
 	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_CTH_MAX] < 0 )
+		if (zBackground[ubNumber].value[BG_PERC_SLEEP] > 0 || zBackground[ubNumber].value[BG_PERC_HEARING_NIGHT] < 0 )
 			return FALSE;
 	}
 
-	if ( SkillsList[0] == SURVIVAL_NT || SkillsList[1] == SURVIVAL_NT || SkillsList[2] == SURVIVAL_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_CAMO] < 0 )
-			return FALSE;
-	}
-	
-	if ( SkillsList[0] == MARTIAL_ARTS_NT || SkillsList[1] == MARTIAL_ARTS_NT || SkillsList[2] == MARTIAL_ARTS_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_DAMAGE_MELEE] < 0 )
-			return FALSE;
-	}
-
-	if ( SkillsList[0] == TECHNICIAN_NT || SkillsList[1] == TECHNICIAN_NT || SkillsList[2] == TECHNICIAN_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_MECHANICAL] < 0 )
-			return FALSE;
-	}
-
-	if ( SkillsList[0] == DOCTOR_NT || SkillsList[1] == DOCTOR_NT || SkillsList[2] == DOCTOR_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_MEDICAL] < 0 )
-			return FALSE;
-	}
-
-	if ( SkillsList[0] == MELEE_NT || SkillsList[1] == MELEE_NT || SkillsList[2] == MELEE_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_CTH_BLADE] < 0 )
-			return FALSE;
-	}
-
-	if ( SkillsList[0] == STEALTHY_NT || SkillsList[1] == STEALTHY_NT || SkillsList[2] == STEALTHY_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_STEALTH] < 0 )
-			return FALSE;
-	}
-
-	if ( SkillsList[0] == ATHLETICS_NT || SkillsList[1] == ATHLETICS_NT || SkillsList[2] == ATHLETICS_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_PERC_SPEED_RUNNING] < 0 )
-			return FALSE;
-	}
-		
-	if ( SkillsList[0] == DEMOLITIONS_NT || SkillsList[1] == DEMOLITIONS_NT || SkillsList[2] == DEMOLITIONS_NT )
-	{
-		if ( zBackground[ ubNumber ].value[BG_EXPLOSIVE_ASSIGN] < 0 )
-			return FALSE;
-	}
-	*/
-
-	/*kitty:
-	* added BG_TROPICAL to case HEAT_INTOLERANT - since tropical sector also is part of "MercIsHot"+HEAT_INTOLERANT (SoldierProfile.cpp), like desert
-	* added case DEAF - if merc is deaf, granting any bonus to hearing seems implausible
-	* 2023/08/30
-	*/
-
-	switch ( iChosenDisabilityTrait() )
+	// Disabiliies
+	switch (iChosenDisabilityTrait())
 	{
 	case HEAT_INTOLERANT:
-		if ( zBackground[ ubNumber ].value[BG_DESERT] > 0 || zBackground[ ubNumber ].value[BG_TROPICAL] > 0 )
+		if (zBackground[ubNumber].value[BG_DESERT] > 0 || zBackground[ubNumber].value[BG_TROPICAL] > 0)  
 			return FALSE;
 		break;
 	case NERVOUS:
@@ -815,7 +793,7 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 		break;
 	case NONSWIMMER:
-		if ( zBackground[ ubNumber ].value[BG_RIVER] > 0 || zBackground[ ubNumber ].value[BG_COASTAL] > 0 || zBackground[ ubNumber ].value[BG_SWIMMING] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_RIVER] > 0 || zBackground[ ubNumber ].value[BG_COASTAL] > 0 )
 			return FALSE;
 		break;
 	case FEAR_OF_INSECTS:
@@ -823,37 +801,107 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 		break;
 	case FORGETFUL:
-		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
+		if (zBackground[ubNumber].value[BG_INVENTORY] < 0 || zBackground[ubNumber].value[BG_ASSAULT] < 0 )
 			return FALSE;
 		break;
 	case PSYCHO:
-		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
+		if (zBackground[ubNumber].value[BG_LEADERSHIP] > 5)
 			return FALSE;
 		break;
 	case DEAF:
 		if (zBackground[ ubNumber ].value[BG_PERC_HEARING_NIGHT] > 0 || zBackground[ ubNumber ].value[BG_PERC_HEARING_DAY] > 0)
 			return FALSE;
 		break;
+	case SHORTSIGHTED:
+		if (zBackground[ ubNumber ].value[BG_PERC_CTH_MAX] > 0 || zBackground[ubNumber].value[BG_PERC_SPOTTER] > 0 )
+			return FALSE;
+		break;
+	case HEMOPHILIAC:
+		if (zBackground[ubNumber].value[BG_RESI_DISEASE] > 0)
+			return FALSE;
+		break;
 	case AFRAID_OF_HEIGHTS:
-		if ( zBackground[ ubNumber ].value[BG_HEIGHT] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_HEIGHT] > 0 || zBackground[ubNumber].value[BG_AIRDROP] > 0 )
+			return FALSE;
+		break;
+	case SELF_HARM:
+		if (zBackground[ubNumber].value[BG_RESI_DISEASE] > 0)
 			return FALSE;
 		break;
 	default:
 		break;
 	}
 
-	switch ( iChosenCharacterTrait() )
+	// Character Traits
+	switch (iChosenCharacterTrait())
 	{
 	case CHAR_TRAIT_SOCIABLE:
-		if ( zBackground[ ubNumber ].uiFlags & BACKGROUND_XENOPHOBIC )
+		if (zBackground[ubNumber].uiFlags & BACKGROUND_XENOPHOBIC || zBackground[ubNumber].value[BG_PERC_SPOTTER] < 0)
 			return FALSE;
 		break;
 	case CHAR_TRAIT_LONER:
-		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
+		if (zBackground[ubNumber].value[BG_LEADERSHIP] > 0 || zBackground[ubNumber].value[BG_PERC_SPOTTER] > 0)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_OPTIMIST:
+		if (zBackground[ubNumber].uiFlags & BACKGROUND_TRAPLEVEL)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_ASSERTIVE:
+		if (zBackground[ubNumber].value[BG_PERC_INTERROGATION] < 0 || zBackground[ubNumber].value[BG_PERC_APPROACH_THREATEN] < 0)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_INTELLECTUAL:
+		if (zBackground[ubNumber].value[BG_ADMINISTRATION_ASSIGNMENT] < 0)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_PRIMITIVE:
+		if (zBackground[ubNumber].value[BG_ADMINISTRATION_ASSIGNMENT] > 0)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_AGGRESSIVE:
+		if (zBackground[ubNumber].uiFlags & BACKGROUND_TRAPLEVEL || zBackground[ubNumber].value[BG_PERC_DISARM] > 0 )
+			return FALSE;
+		break;
+	case CHAR_TRAIT_PHLEGMATIC:
+		if (zBackground[ubNumber].value[BG_ASSAULT] > 0 )
+			return FALSE;
+		break;
+	case CHAR_TRAIT_DAUNTLESS:
+		if (zBackground[ubNumber].value[BG_CROUCHEDDEFENSE] < 0 )
+			return FALSE;
+		break;
+	case CHAR_TRAIT_PACIFIST:
+		break;
+	case CHAR_TRAIT_MALICIOUS:
+		if (zBackground[ubNumber].value[BG_PERC_APPROACH_FRIENDLY] > 0)
+			return FALSE;
+		break;
+	case CHAR_TRAIT_SHOWOFF:
+		break;
+	case CHAR_TRAIT_COWARD:
+		if (zBackground[ubNumber].value[BG_PERC_CAPITULATION] > 0)
 			return FALSE;
 		break;
 	default:
 		break;
+	}
+
+	// show exclusivly the BG's with tag <alt_impcreation> if Reduced_Imp_Creation is true in ja2options.ini
+	// requires Alt_Imp_Creation to be true in ja2options.ini (otherwise BG's with tag <alt_impcreation> won't be shown)
+
+	if (gGameExternalOptions.fReducedIMPCreation)
+
+	{
+
+		if (zBackground[ubNumber].uiFlags & BACKGROUND_ALT_IMP_CREATION)   
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	return TRUE;

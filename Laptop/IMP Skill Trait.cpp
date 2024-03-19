@@ -98,8 +98,8 @@ UINT8 gusOldMajorTraitRemap[IMP_SKILL_TRAITS__NUMBER_SKILLS] =
 // Global Variables
 //
 //*******************************************************************
-BOOLEAN	gfSkillTraitQuestions[ 20 ];
-BOOLEAN	gfSkillTraitQuestions2[ 20 ];
+BOOLEAN	gfSkillTraitQuestions[ 20 ]; 
+BOOLEAN	gfSkillTraitQuestions2[ 20 ]; 
 
 
 BOOLEAN gfIST_Redraw=FALSE;

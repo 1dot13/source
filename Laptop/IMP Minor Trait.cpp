@@ -80,7 +80,7 @@ UINT8 gusNewMinorTraitRemap[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS] =
 
 BOOLEAN gfIMT_Redraw=FALSE;
 
-BOOLEAN	gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ];
+BOOLEAN	gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ]; 
 
 // these are the buttons for the questions
 INT32 giIMPMinorTraitAnswerButton[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ];

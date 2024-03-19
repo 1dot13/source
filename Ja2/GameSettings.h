@@ -337,6 +337,7 @@ BOOLEAN UsingBackGroundSystem();
 BOOLEAN UsingImprovedInterruptSystem();
 BOOLEAN UsingInventoryCostsAPSystem();
 
+
 BOOLEAN IsNIVModeValid(bool checkRes = true);
 
 // Snap: Options read from an INI file in the default of custom Data directory
@@ -1558,6 +1559,12 @@ typedef struct
 	
 	// Flugente: backgrounds
 	BOOLEAN fBackGround;
+
+	// Kitty: Alternative IMP Creation (choices in skills/char-traits/disabilities determine available backgrounds, plus additional available backgrounds)
+    BOOLEAN fAltIMPCreation;
+
+	// Kitty: Reduced IMP Backgrounds (same as fAltIMPCreation, but for this only the additional backgrounds)
+	BOOLEAN fReducedIMPCreation;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;
