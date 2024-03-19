@@ -466,12 +466,13 @@ enum
 
 #define BACKGROUND_ANIMALFRIEND					0x0000000000000200	//512			// refuses to attack animals
 #define BACKGROUND_CIVGROUPLOYAL				0x0000000000000400	//1024			// refuses to attack members of the same civgroup
+#define BACKGROUND_ALT_IMP_CREATION				0x0000000000000800	//2048			// BG can only be used when ALT_IMP_CREATION is TRUE in ja2options.ini (IMP creation)
 
-#define BACKGROUND_FLAG_MAX	11					// number of flagged backgrounds - keep this updated, or properties will get lost!
+#define BACKGROUND_FLAG_MAX	12					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // some properties are hidden (forbid background in MP creation)
 // corruption property is not relevant in 1.13
-#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE|BACKGROUND_CORRUPTIONSPREAD)
+#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE|BACKGROUND_CORRUPTIONSPREAD|BACKGROUND_ALT_IMP_CREATION)
 
 // anv: externalised taunts
 // taunt properties

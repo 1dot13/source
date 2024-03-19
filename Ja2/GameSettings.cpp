@@ -992,9 +992,17 @@ void LoadGameExternalOptions()
 	//Madd: set number of pItem files to be used
 	gGameExternalOptions.ubNumPItems					= iniReader.ReadInteger("Data File Settings","NUM_P_ITEMS", 3, 3, MAX_PITEMS);
 
+	//################# Backgrounds #################
+
 	// Flugente: backgrounds
-	gGameExternalOptions.fBackGround					= iniReader.ReadBoolean("Data File Settings", "BACKGROUNDS", TRUE );
-	
+	gGameExternalOptions.fBackGround					= iniReader.ReadBoolean("Backgrounds", "ENABLE_BACKGROUNDS", TRUE );
+
+	// Kitty: show additional IMP backgrounds and determine which IMP backgrounds are available at selection based on choices for skills, chararcter traits and disabilities
+    gGameExternalOptions.fAltIMPCreation                = iniReader.ReadBoolean("Backgrounds", "ALTERNATIVE_IMP_CREATION", FALSE);
+
+	// Kitty: only show additional IMP backgrounds enabled by AlternativeImpCreation (same rules which are shown as with AlternativeImpCreation)
+	gGameExternalOptions.fReducedIMPCreation            = iniReader.ReadBoolean("Backgrounds", "REDUCED_IMP_CREATION", FALSE);
+
 	//################# Merc Recruitment Settings #################
 	
 	// silversurfer: read early recruitment options 1=immediately (control Omerta), 2=early (control 1, 2, 3 towns including Omerta)

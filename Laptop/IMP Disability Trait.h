@@ -8,7 +8,7 @@ void RenderIMPDisabilityTrait( void );
 void ExitIMPDisabilityTrait( void );
 void HandleIMPDisabilityTrait( void );
 
-INT8 iChosenDisabilityTrait();
+INT8 iChosenDisabilityTrait(); 
 INT8 iPlayersAttributePointsBonusForDisabilitySelected();
 
 #endif

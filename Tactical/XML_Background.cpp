@@ -152,7 +152,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "no_female") == 0 ||
 				strcmp(name, "loyalitylossondeath" ) == 0  ||
 				strcmp(name, "animal_friend") == 0 || 
-				strcmp(name, "civgroup_loyal") == 0 ))
+				strcmp(name, "civgroup_loyal") == 0 ||
+				strcmp(name, "alt_impcreation") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -692,6 +693,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.uiFlags |= (UINT16)atol(pData->szCharData) ? BACKGROUND_CIVGROUPLOYAL : 0;
+		}
+		else if (strcmp(name, "alt_impcreation") == 0)
+		{
+		    pData->curElement = ELEMENT;
+		    pData->curBackground.uiFlags |= (UINT16)atol(pData->szCharData) ? BACKGROUND_ALT_IMP_CREATION : 0;
 		}
 		else if (strcmp(name, "drugtypes") == 0)
 		{
