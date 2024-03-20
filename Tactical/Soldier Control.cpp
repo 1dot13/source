@@ -9847,7 +9847,7 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 		else
 		{
 			this->bTurnsCollapsed++;
-			if ( (gTacticalStatus.bBoxingState == BOXING) && (this->flags.uiStatusFlags & SOLDIER_BOXER) )
+			if ( (gTacticalStatus.bBoxingState == BOXING) && (BOXER(this)) )
 			{
 				if ( this->bTurnsCollapsed > 1 )
 				{

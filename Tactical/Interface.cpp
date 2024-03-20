@@ -6299,7 +6299,7 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] >= gGameExternalOptions.usTurnsToUncover )
 	{
 		// are we a VIP? show that only when the player knows a VIP is in this sector. otherwise, don't even show our officer property
-		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && !pSoldier->bSectorZ )
+		if (ISVIP(pSoldier) && !pSoldier->bSectorZ )
 		{
 			if ( PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
 			{
