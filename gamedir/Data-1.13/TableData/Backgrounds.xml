@@ -5996,7 +5996,7 @@
 		<uiIndex>332</uiIndex>
 		<szName>Badge Bunny</szName>
 		<szShortName>Badge Bunny</szShortName>
-		<szDescription>Growing up in a rural town, you found yourself strangly attracted to uniforms.&#10;Much to the dismay of local officers, you started to loiter arround them.&#10;Developing a keen eye for their equipment, snatching away some soon became second nature.</szDescription>
+		<szDescription>Growing up in a rural town, you found yourself strangely attracted&#10;to people in uniforms, much to the dismay of the local officers.&#10;After developing a keen eye for their equipment, snatching away&#10;some soon became second nature to you.</szDescription>
 		<agility>8</agility>
 		<wisdom>-3</wisdom>
 		<resistance_fear>5</resistance_fear>
@@ -6004,19 +6004,19 @@
 		<speed_run>25</speed_run>
 		<sleep>1</sleep>
 		<betterprices_guns>9</betterprices_guns>
-		<betterprices>9</betterprices>                    
+		<betterprices>9</betterprices>
 		<smoker>1</smoker>
 		<administration_assignment>-100</administration_assignment>
 		<scrounging>1</scrounging>
 		<animal_friend>1</animal_friend>
 		<no_male>1</no_male>
 		<alt_impcreation>1</alt_impcreation>
-	</BACKGROUND>	
+	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>333</uiIndex>
 		<szName>Failed Attorney</szName>
 		<szShortName>Failed Attorney</szShortName>
-		<szDescription>After being framed for bribery in a murder case, the accused got away.&#10;Lost all faith, taking matters into your own hand turned out oddly satisfying.&#10;Making use of your former career insights, you enjoy bringing justice no matter the way.</szDescription>
+		<szDescription>The accused got away after you were framed for bribery, and you lost&#10;your job and all faith in the system. In the end, you delivered justice&#10;with your own hands, and found it oddly satisfying. You've been a&#10;mercenary vigilante ever since.</szDescription>
 		<ap_desert>-4</ap_desert>
 		<ap_swamp>-3</ap_swamp>
 		<ap_urban>7</ap_urban>
@@ -6024,19 +6024,19 @@
 		<ap_assault>-5</ap_assault>
 		<sleep>-1</sleep>
 		<resistance_physical>-10</resistance_physical>
-		<interrogation>250</interrogation>		
+		<interrogation>250</interrogation>
 		<administration_assignment>500</administration_assignment>
 		<exploration_assignment>300</exploration_assignment>
 		<hackerskill>20</hackerskill>
 		<dislikebackground>1</dislikebackground>
-        <smoker>1</smoker>			
+        <smoker>1</smoker>
 		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>334</uiIndex>
 		<szName>Private Eye</szName>
 		<szShortName>Private Eye</szShortName>
-		<szDescription>You're not afraid to get your hands dirty or get physical to dig up something.&#10;You couldn't care less how to frame someone, anything goes if it rakes in some cash.&#10;That mindset makes you accept even the most shady jobs.</szDescription>
+		<szDescription>You're not afraid to get physical and your hands dirty to dig up evidence&#10;and you don't care one bit if you have to frame someone, anything goes&#10;if it rakes in some cash. That mindset has made you accept even the&#10;shadiest of jobs.</szDescription>
 		<leadership>-3</leadership>
 		<meleedamage>5</meleedamage>
 		<cth_blades>5</cth_blades>
@@ -6053,7 +6053,7 @@
 		<uiIndex>335</uiIndex>
 		<szName>Cult Dropout</szName>
 		<szShortName>Cult Dropout</szShortName>
-		<szDescription>Life is fun, they say. Be gratefull for our guidance, they say.&#10;Hand over your money, they say. Come to the room tonight, they say&#10;Snap! Rage! Gore! Run, don't look back, you say.</szDescription>
+		<szDescription>Our way is the true path, they said. Be grateful for our guidance, they said.&#10;Hand over your money, they said. Come to the room tonight, they said.&#10;Snap! Rage! Gore! Run, don't look back, you said.</szDescription>
 		<agility>5</agility>
 		<leadership>-1</leadership>
 		<marksmanship>-2</marksmanship>
@@ -6071,7 +6071,7 @@
 		<uiIndex>336</uiIndex>
 		<szName>Tomboy Mercenary</szName>
 		<szShortName>Tomboy Mercenary</szShortName>
-		<szDescription>A youth on the farm with five unruly brothers shaped your attitude.&#10;The joy of beating men at their own games carried on into adult life.&#10;After some successfull military campaigns, you decided to become a freelance mercenary.</szDescription>
+		<szDescription>A childhood on the farm with five unruly brothers shaped your attitude,&#10;and the joy of beating men at their own games carried on into adult life.&#10;After several years in the military, you decided to become a freelancer.</szDescription>
 		<ap_desert>4</ap_desert>
 		<ap_forest>5</ap_forest>
 		<ap_plains>6</ap_plains>
@@ -6092,7 +6092,7 @@
 		<uiIndex>337</uiIndex>
 		<szName>Gamekeeper</szName>
 		<szShortName>Gamekeeper</szShortName>
-		<szDescription>Dedicated to a life in and with nature, you took great joy in wildlife.&#10;Then you got shot by scum, left for dead, hearing them going on a killing spree.&#10;Those pesky poachers got out of hand, time to hunt them down.</szDescription>
+		<szDescription>Dedicated to a life in nature, you took great joy in managing the local&#10;wildlife. Then you were shot by poachers and left for dead, forced to&#10;listen as they went on a killing spree. Hunting scum of their ilk&#10;is now your life's mission.</szDescription>
 		<ap_forest>5</ap_forest>
 		<ap_river>4</ap_river>
 		<ap_mountain>6</ap_mountain>
@@ -6111,33 +6111,33 @@
 		<uiIndex>338</uiIndex>
 		<szName>Poacher</szName>
 		<szShortName>Poacher</szShortName>
-		<szDescription>Nothing beats the thrill of taking prey. Especially if it's endangered,&#10;that's bound to bring good money. Who cares about those filthy creatures anyway?&#10;If it pays better, maybe next time you even could go on a manhunt.</szDescription>
+		<szDescription>Nothing beats the thrill of taking prey, especially if it's endangered:&#10;that's bound to bring in good money. Who cares about those filthy&#10;creatures, anyway? And if it pays better, next time you could&#10;even go on a manhunt.</szDescription>
 		<ap_forest>3</ap_forest>
 		<ap_mountain>2</ap_mountain>
 		<carrystrength>8</carrystrength>
-		<cth_blades>5</cth_blades>	
+		<cth_blades>5</cth_blades>
 		<cth_vs_creatures>10</cth_vs_creatures>
 		<increased_maxcth>1</increased_maxcth>
 		<sleep>1</sleep>
 		<tracker_ability>15</tracker_ability>
 		<smoker>1</smoker>
-		<dislikebackground>-3</dislikebackground> 
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<dislikebackground>-3</dislikebackground>
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>3</drugtype>  <!-- beer -->
 			<drugtype>2</drugtype>  <!-- alcohol 40% -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>256</drugitem>  <!-- beer -->
 			<drugitem>245</drugitem>  <!-- alcohol 40% -->
 		</drugitems>
-        <alt_impcreation>1</alt_impcreation>		
+        <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>339</uiIndex>
 		<szName>Nerd</szName>
 		<szShortName>Nerd</szShortName>
-		<szDescription>From early youth you've been fascinated by computers and anything related.&#10;That landed you a job at a secret government agency, including mandatory arms training.&#10;After a scandal, that agency closed down and you hesitantly stepped into fieldwork.</szDescription>
+		<szDescription>From early youth you've been fascinated by computers, and that landed you&#10;a job at a secret government agency. Following a scandal, the agency closed&#10;down and you hesitantly stepped into the world of freelance fieldwork.</szDescription>
 		<ap_urban>6</ap_urban>
 		<wisdom>10</wisdom>
 		<mechanical>4</mechanical>
@@ -6157,30 +6157,30 @@
 		<uiIndex>340</uiIndex>
 		<szName>Field Physician</szName>
 		<szShortName>Field Physician</szShortName>
-		<szDescription>At active duty you faced numerous attacks by hostiles and allways got fed up&#10;with rules and Geneva Covention only allowing you a certain degree of self defense.&#10;Eventually you switched to a job where you don't have to bother about that anymore.</szDescription>
+		<szDescription>In active duty you were always bothered by the rules and Geneva Covention&#10;only allowing you a certain degree of self-defense. Eventually, you switched&#10;to a job where those things really don't concern you anymore.</szDescription>
 		<medical>7</medical>
 		<wisdom>6</wisdom>
 		<marksmanship>2</marksmanship>
 		<ap_inventory>-10</ap_inventory>
         <resistance_disease>15</resistance_disease>
         <speed_bandaging>20</speed_bandaging>
-        <disease_diagnose>45</disease_diagnose>           
-		<disease_treatment>40</disease_treatment>  
+        <disease_diagnose>45</disease_diagnose>
+		<disease_treatment>40</disease_treatment>
         <smoker>2</smoker>
-        <druguse>1</druguse>			
-		<drugtypes>						
+        <druguse>1</druguse>
+		<drugtypes>
 			<drugtype>13</drugtype>  <!-- coffee -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>1575</drugitem>  <!-- coffee -->
-		</drugitems>		
-        <alt_impcreation>1</alt_impcreation>		
+		</drugitems>
+        <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>341</uiIndex>
 		<szName>Housewife</szName>
-		<szShortName>Houswife</szShortName>
-		<szDescription>After a messy divorce you found yourself at a diverging point in life.&#10;In desperate search for a way to make an income, you mistook PMC as Private Music Conservatorium,&#10;but soon found solace in the company of those straightforward folks and joined ranks.</szDescription>
+		<szShortName>Housewife</szShortName>
+		<szDescription>After a messy divorce you found yourself at a diverging point in life.&#10;In desperate search for an income, you mistook PMC as Private Music&#10;Conservatorium, but soon found solace in the company of the&#10;straightforward folks in this business.</szDescription>
 		<dexterity>10</dexterity>
 		<leadership>-1</leadership>
 		<mechanical>-1</mechanical>
@@ -6200,42 +6200,42 @@
 		<uiIndex>342</uiIndex>
 		<szName>Blaster</szName>
 		<szShortName>Blaster</szShortName>
-		<szDescription>You take pride in the fact, that whatever you've been assigned to blast away,&#10;tumbled and crumbled exactly as planned. A skyscraper in the speck of the city, a bridge&#10;over a ravine, your ex's new car - everything reduced to rubble and ashes.</szDescription>
+		<szDescription>You take pride in the fact that whatever you were assigned to demolish,&#10;tumbled and crumbled exactly as planned. A skyscraper in the city center,&#10;a bridge over a ravine, your ex's new car - everything reduced to rubble&#10;and ashes.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>2</mechanical>
 		<explosives>8</explosives>
 		<resistance_fear>15</resistance_fear>
 		<resistance_alcohol>-15</resistance_alcohol>
-		<hearing_night>-3</hearing_night>	
-		<hearing_day>-3</hearing_day>	
-		<disarm_trap>30</disarm_trap> 
+		<hearing_night>-3</hearing_night>
+		<hearing_day>-3</hearing_day>
+		<disarm_trap>30</disarm_trap>
 		<breachingcharge>80</breachingcharge>
 		<smoker>1</smoker>
 		<administration_assignment>-25</administration_assignment>
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>3</drugtype>  <!-- beer -->
 			<drugtype>19</drugtype>  <!-- painkiller -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>256</drugitem>  <!-- beer -->
 			<drugitem>1752</drugitem>  <!-- painkiller -->
-		</drugitems>		
-		<alt_impcreation>1</alt_impcreation>		
+		</drugitems>
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>343</uiIndex>
 		<szName>Artilleryman</szName>
 		<szShortName>Artilleryman</szShortName>
-		<szDescription>"I simply love that roar", that's your answer when asked about how being a crew member&#10;of self-propelled howitzers felt like. But it hasn't been just those, during&#10;basic training you already fell in love with anything remotely launcher.</szDescription>
+		<szDescription>"I simply love that roar", that's your answer when asked about what being&#10;a crew member of a self-propelled howitzer was like. Even before you&#10;finished boot camp you knew that heavy ordnance in all its forms would&#10;be the true love of your life.</szDescription>
 		<dexterity>2</dexterity>
 		<explosives>3</explosives>
 		<ap_artillery>-35</ap_artillery>
 		<carrystrength>20</carrystrength>
-		<hearing_night>-2</hearing_night>	
-		<hearing_day>-2</hearing_day>	
+		<hearing_night>-2</hearing_night>
+		<hearing_day>-2</hearing_day>
 		<SAM_cth>80</SAM_cth>
-		<smoker>2</smoker>	
+		<smoker>2</smoker>
 		<animal_friend>1</animal_friend>
 		<alt_impcreation>1</alt_impcreation>		
 	</BACKGROUND>
@@ -6243,119 +6243,119 @@
 		<uiIndex>344</uiIndex>
 		<szName>Mad Prepper</szName>
 		<szShortName>Mad Prepper</szShortName>
-		<szDescription>People say you're mad, but that's just "them" failing to crasp reality.&#10;"They" won't tell you what to do, you're going to do whatever it needs to build up that stockpile&#10;in that old Tornado shelter. Srew "them", "they" are in cahoots with the "others".</szDescription>
+		<szDescription>People say you're mad, but that's just them failing to grasp reality.&#10;The apocalypse is coming, and you're going to do whatever it takes to&#10;survive it. So screw them, they're in cahoots with "them", anyway.</szDescription>
 		<mechanical>1</mechanical>
 		<medical>1</medical>
 		<wisdom>-2</wisdom>
 		<leadership>-3</leadership>
 		<explosives>2</explosives>
-		<ap_fortify>-30</ap_fortify>		
-		<resistance_fear>-10</resistance_fear>       
+		<ap_fortify>-30</ap_fortify>
+		<resistance_fear>-10</resistance_fear>
 		<resistance_suppression>-5</resistance_suppression>
-		<food>-10</food>				
-		<water>-10</water>			
-		<sleep>-1</sleep>			
-		<approach_friendly>-25</approach_friendly>           
+		<food>-10</food>
+		<water>-10</water>
+		<sleep>-1</sleep>
+		<approach_friendly>-25</approach_friendly>
 		<approach_threaten>20</approach_threaten>
 		<smoker>2</smoker>
-		<croucheddefense>-5</croucheddefense>			  
-		<fortify_assignment>150</fortify_assignment>		  
-		<snake_defense>10</snake_defense>				  
-		<administration_assignment>-50</administration_assignment>	
-		<dislikebackground>2</dislikebackground> 
-		<xenophobic>1</xenophobic>		
-		<scrounging>1</scrounging>		
-		<traplevel>1</traplevel>				
-		<alt_impcreation>1</alt_impcreation>		
+		<croucheddefense>-5</croucheddefense>
+		<fortify_assignment>150</fortify_assignment>
+		<snake_defense>10</snake_defense>
+		<administration_assignment>-50</administration_assignment>
+		<dislikebackground>2</dislikebackground>
+		<xenophobic>1</xenophobic>
+		<scrounging>1</scrounging>
+		<traplevel>1</traplevel>
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>345</uiIndex>
-		<szName>Rescue Assistant</szName>
-		<szShortName>Rescue Assistant</szShortName>
-		<szDescription>Patch them together, keep them alive until reaching the emergency room.&#10;Clean and restock the ambulance and before you finish that cup of coffeee, rush out&#10;to the next emergency. Only to face a crazy bat spitting on you for giving her daugher CPR.</szDescription>
+		<szName>Emergency Medical Technician</szName>
+		<szShortName>EMT</szShortName>
+		<szDescription>Patch them up, keep them alive until the emergency room. Clean and restock&#10;the ambulance and before you finish that cup of coffee, rush out to the&#10;next emergency... Only to face some crazy bat spitting on you for&#10;giving her daugher CPR.</szDescription>
 		<ap_urban>6</ap_urban>
 		<medical>4</medical>
 		<ap_inventory>-5</ap_inventory>
 		<travel_car>15</travel_car>
-		<resistance_disease>10</resistance_disease>                          
+		<resistance_disease>10</resistance_disease>
 		<speed_bandaging>30</speed_bandaging>
 		<cth_blades>8</cth_blades>
-		<food>10</food>				
+		<food>10</food>
 		<water>10</water>
 		<approach_friendly>5</approach_friendly>
 		<approach_direct>10</approach_direct>
-		<disease_diagnose>35</disease_diagnose>            
-		<disease_treatment>30</disease_treatment>        
-		<smoker>2</smoker>	
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<disease_diagnose>35</disease_diagnose>
+		<disease_treatment>30</disease_treatment>
+		<smoker>2</smoker>
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>13</drugtype>      <!-- coffee -->
 			<drugtype>12</drugtype>      <!-- energy drink  -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>1575</drugitem>      <!-- coffee -->
 			<drugitem>1573</drugitem>      <!-- energy drink 1 -->
-		</drugitems>		
-		<alt_impcreation>1</alt_impcreation>		
+		</drugitems>
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>346</uiIndex>
 		<szName>Plumber</szName>
 		<szShortName>Plumber</szShortName>
-		<szDescription>Your father told you, that whatever you'll get your hands on, will go down the drain.&#10;Well, you even get paid for that, but constantly fighting rats, feces&#10;and crazy housewives get's kinda old. Maybe it's time for a change.</szDescription>
+		<szDescription>Your father once told you that it would all go down the drain for you.&#10;He wasn't wrong, you even get paid to keep the drains in working order,&#10;but constantly fighting rats, cockroaches and crazy housewives has&#10;made you consider a career change.</szDescription>
 		<ap_desert>-3</ap_desert>
 		<ap_swamp>-2</ap_swamp>
 		<ap_tropical>-2</ap_tropical>
 		<dexterity>3</dexterity>
 		<mechanical>7</mechanical>
 		<marksmanship>-2</marksmanship>
-        <ap_inventory>-5</ap_inventory>		
-		<resistance_disease>10</resistance_disease>		
+        <ap_inventory>-5</ap_inventory>
+		<resistance_disease>10</resistance_disease>
 		<meleedamage>6</meleedamage>
 		<disarm_trap>5</disarm_trap>
 		<level_underground>1</level_underground>
-		<alt_impcreation>1</alt_impcreation>		
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>347</uiIndex>
 		<szName>Frat Boy</szName>
 		<szShortName>Frat Boy</szShortName>
-		<szDescription>You got thoroughly indoctrinated and brainwashed, ending up with an unjustified sense &#10;of superiority, a drug problem and an itching in your groin. But hey, in exchange&#10;you can  enjoy all that hazing. The next one will happen at the range.</szDescription>
+		<szDescription>After years of non-stop partying, you ended up with an unjustified sense &#10;of superiority, a drug problem and a nasty itch in your groin. The latest&#10;in your long series of great ideas was to become a gun for hire.&#10;What could possibly go wrong?</szDescription>
 		<ap_urban>6</ap_urban>
 		<ap_coastal>4</ap_coastal>
 		<agility>3</agility>
 		<medical>-2</medical>
 		<wisdom>-1</wisdom>
 		<marksmanship>2</marksmanship>
-		<ambush_radius>20</ambush_radius>	
+		<ambush_radius>20</ambush_radius>
 		<travel_car>5</travel_car>
 		<resistance_alcohol>-10</resistance_alcohol>
 		<resistance_disease>-10</resistance_disease>
-		<sleep>1</sleep>			
-		<meleedamage>5</meleedamage>		
-		<hearing_night>1</hearing_night>	
+		<sleep>1</sleep>
+		<meleedamage>5</meleedamage>
+		<hearing_night>1</hearing_night>
 		<approach_friendly>-15</approach_friendly>
-		<cth_vs_creatures>7</cth_vs_creatures>           
+		<cth_vs_creatures>7</cth_vs_creatures>
 		<smoker>1</smoker>
 		<dislikebackground>1</dislikebackground>
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>11</drugtype>  <!-- Stim copy -->
 			<drugtype>9</drugtype>   <!-- Reflex -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>1537</drugitem>  <!-- Stim copy -->
 			<drugitem>1536</drugitem>  <!-- Reflex -->
 		</drugitems>
 		<xenophobic>1</xenophobic>
-		<no_female>1</no_female>		
-		<alt_impcreation>1</alt_impcreation>		
+		<no_female>1</no_female>
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>348</uiIndex>
 		<szName>MMA Fighter</szName>
 		<szShortName>MMA Fighter</szShortName>
-		<szDescription>Approached to parttake in betting fraud, you refused the wrong kind of people&#10;ending up loosing your promoter and contracts. With bloodshot eyes you beat the crap&#10;out of their boss, but that became a "family" matter and you had to hit the road.</szDescription>
+		<szDescription>You were a good fighter, but you lost your promoter and contracts when&#10;some two-bit gangsters wanted to set up a fixed match and you refused.&#10;You beat the crap out of their boss, but that turned into a "family matter"&#10;and you had to hit the road.</szDescription>
 		<agility>3</agility>
 		<strength>2</strength>
 		<dexterity>2</dexterity>
@@ -6366,39 +6366,39 @@
 		<capitulation>20</capitulation>
 		<drink_energyregen>150</drink_energyregen>
 		<water>-20</water>
-		<meleedamage>8</meleedamage>			
+		<meleedamage>8</meleedamage>
 		<increased_maxcth>1</increased_maxcth>
 		<approach_threaten>16</approach_threaten>
 		<smoker>2</smoker>
-		<animal_friend>1</animal_friend>	
-	    <alt_impcreation>1</alt_impcreation>		
+		<animal_friend>1</animal_friend>
+	    <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>349</uiIndex>
 		<szName>Cemetery Guard</szName>
 		<szShortName>Cemetery Guard</szShortName>
-		<szDescription>It was fun helping with preparations, watching teenagers making out, scaring away&#10;the wannabe satanists and beating up some copper thieves. But constant night shifts&#10;took a toll on your eyesight and you eventually got laid off.</szDescription>
+		<szDescription>It was fun helping with burials, spooking teenage couples, scaring away&#10;the wannabe satanists and beating up copper thieves. But constant night shifts&#10;took a toll on your eyesight, and you were eventually laid off.</szDescription>
 		<strength>2</strength>
 		<mechanical>2</mechanical>
 		<marksmanship>-1</marksmanship>
-		<ap_fortify>-5</ap_fortify>		
+		<ap_fortify>-5</ap_fortify>
 		<resistance_fear>20</resistance_fear>
 		<sleep>-1</sleep>
 		<meleedamage>5</meleedamage>
 		<increased_maxcth>-2</increased_maxcth>
 		<hearing_night>2</hearing_night>
 		<approach_threaten>10</approach_threaten>
-		<spotter>-3</spotter> 
+		<spotter>-3</spotter>
 		<smoker>1</smoker>
 		<fortify_assignment>110</fortify_assignment>
 		<burial_assignment>600</burial_assignment>
-		<alt_impcreation>1</alt_impcreation>		
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>350</uiIndex>
 		<szName>Merchant Seaman</szName>
 		<szShortName>Merchant Seaman</szShortName>
-		<szDescription>You joined to support your family, but long absences from home led to divorce.&#10;To make more money for child support and the kids college funds you opted&#10;to partake in drug smuggling and human trafficking, leading to a dangerous path.</szDescription>
+		<szDescription>You joined the merchant marine to support your family, but long absences&#10;from home led to a divorce. To make more money for child support&#10;and the kids' college funds you turned to smuggling and human&#10;trafficking, leading you down a dangerous path.</szDescription>
 		<ap_desert>-3</ap_desert>
 		<ap_river>5</ap_river>
 		<ap_coastal>7</ap_coastal>
@@ -6410,24 +6410,24 @@
 		<meleedamage>2</meleedamage>
 		<cth_blades>1</cth_blades>
 		<approach_direct>10</approach_direct>
-		<dislikebackground>2</dislikebackground> 
+		<dislikebackground>2</dislikebackground>
 		<smoker>2</smoker>
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>2</drugtype>  <!-- alcohol (40%) -->
 			<drugtype>4</drugtype>  <!-- wine -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>245</drugitem>  <!-- alcohol (40%) -->
 			<drugitem>255</drugitem>  <!-- wine -->
-		</drugitems>		
-		<alt_impcreation>1</alt_impcreation>		
-	</BACKGROUND>	
+		</drugitems>
+		<alt_impcreation>1</alt_impcreation>
+	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>351</uiIndex>
 		<szName>Trafficker</szName>
 		<szShortName>Trafficker</szShortName>
-		<szDescription>You only accept cash in advance, taking full advantage of every hint of desperation.&#10;Push them into badly ventilated containers, put them into leaking boats, abonden&#10;them in a desert - as long as it's low-risk and high-profit, all is fine.</szDescription>
+		<szDescription>You only accept cash in advance, taking full advantage of every hint of&#10;desperation. Push them into badly ventilated containers, put them into leaking&#10;boats, abandon them in a desert - as long as it's low-risk and high-profit,&#10;everything goes.</szDescription>
 		<ap_desert>3</ap_desert>
 		<ap_swamp>3</ap_swamp>
 		<ap_forest>3</ap_forest>
@@ -6435,44 +6435,44 @@
 		<ap_coastal>3</ap_coastal>
 		<ap_mountain>3</ap_mountain>
 		<strength>-2</strength>
-		<carrystrength>-5</carrystrength> 
-        <speed_run>5</speed_run> 
+		<carrystrength>-5</carrystrength>
+        <speed_run>5</speed_run>
 		<camo>5</camo>
         <stealth>5</stealth>
         <approach_friendly>5</approach_friendly>
 		<approach_direct>5</approach_direct>
 		<approach_threaten>5</approach_threaten>
 		<approach_recruit>5</approach_recruit>
-		<smoker>1</smoker>	
+		<smoker>1</smoker>
 		<burial_assignment>150</burial_assignment>
 		<dislikebackground>2</dislikebackground>
-        <alt_impcreation>1</alt_impcreation>		
+        <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>352</uiIndex>
-		<szName>Pusher</szName>
-		<szShortName>Pusher</szShortName>
-		<szDescription>You don't care about morals, it's all about supply and demand - and there sure is demand.&#10;Someone got to comply customers needs and deliver all that Fentanyl.&#10;Blame the ones creating the demand, not the customer service.</szDescription>
+		<szName>Drug Pusher</szName>
+		<szShortName>Drug Pusher</szShortName>
+		<szDescription>It's all about supply and demand - and there sure is a lot of demand.&#10;Someone's got to provide what the people want, and all that fentanyl&#10;isn't going to deliver itself. Blame the ones creating the demand,&#10;not the customer service.</szDescription>
 		<ap_urban>3</ap_urban>
 		<agility>1</agility>
 		<medical>4</medical>
 		<ap_inventory>-5</ap_inventory>
 		<betterprices>5</betterprices>
 		<sleep>1</sleep>
-		<meleedamage>2</meleedamage>		
+		<meleedamage>2</meleedamage>
 		<cth_blades>3</cth_blades>
 		<approach_direct>5</approach_direct>
 		<approach_threaten>7</approach_threaten>
-		<disease_diagnose>7</disease_diagnose> 
+		<disease_diagnose>7</disease_diagnose>
 		<dislikebackground>2</dislikebackground>
 		<animal_friend>1</animal_friend>
-        <alt_impcreation>1</alt_impcreation>		
+        <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>353</uiIndex>
 		<szName>Navy Pharmacist</szName>
 		<szShortName>Navy Pharmacist</szShortName>
-		<szDescription>A chance for getting an accredited degree in pharmacy sure was a tempting bait,&#10;but your deployments turned out less exciting as you wished for and after some hesitation&#10;you eventually left service to approach a freelance career in the field.</szDescription>
+		<szDescription>A chance to get a degree in pharmacology sure was a tempting bait,&#10;but your deployments turned out to be much less exciting than you&#10;hoped for. After some hesitation, you eventually left the Navy to&#10;start a freelance career in the field.</szDescription>
 		<ap_river>4</ap_river>
 		<ap_coastal>6</ap_coastal>
 		<medical>7</medical>
@@ -6485,26 +6485,26 @@
 		<cth_blades>2</cth_blades>
 		<approach_friendly>10</approach_friendly>
 		<approach_direct>10</approach_direct>
-		<disease_diagnose>42</disease_diagnose>            
+		<disease_diagnose>42</disease_diagnose>
 		<disease_treatment>47</disease_treatment>
-		<smoker>2</smoker>								  
-		<administration_assignment>300</administration_assignment>	
-		<druguse>1</druguse>			
-		<drugtypes>						
+		<smoker>2</smoker>
+		<administration_assignment>300</administration_assignment>
+		<druguse>1</druguse>
+		<drugtypes>
 			<drugtype>13</drugtype>      <!-- coffee -->
 			<drugtype>12</drugtype>      <!-- energy drink 1 -->
 		</drugtypes>
-		<drugitems>						
+		<drugitems>
 			<drugitem>1575</drugitem>      <!-- coffee -->
 			<drugitem>1573</drugitem>      <!-- energy drink 1 -->
-		</drugitems>	
-       <alt_impcreation>1</alt_impcreation>		
+		</drugitems>
+       <alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>354</uiIndex>
 		<szName>Farmer</szName>
 		<szShortName>Farmer</szShortName>
-		<szDescription>You grew up on your ancestors land, preparing to someday take over the farm.&#10;But one day lawyers showed up, demanding money for use of crops their company just acquired&#10;patents for. Ruined, you had to find a way to channel your anger.</szDescription>
+		<szDescription>You grew up on your family's land, preparing to one day take over the farm.&#10;But then the lawyers showed up, demanding money for the use of crops their&#10;company just acquired the patents for. Ruined, you turned to mercenary&#10;work to channel your anger.</szDescription>
 		<ap_urban>-6</ap_urban>
 		<ap_plains>3</ap_plains>
 		<strength>2</strength>
@@ -6513,18 +6513,18 @@
 		<marksmanship>1</marksmanship>
 		<travel_air>-20</travel_air>
         <resistance_disease>15</resistance_disease>
-		<carrystrength>7</carrystrength> 
+		<carrystrength>7</carrystrength>
 		<approach_direct>17</approach_direct>
 		<tracker_ability>20</tracker_ability>
 		<smoker>2</smoker>
 		<administration_assignment>-10</administration_assignment>
-		<alt_impcreation>1</alt_impcreation>		
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>355</uiIndex>
 		<szName>Scaredy Cat</szName>
 		<szShortName>Scaredy Cat</szShortName>
-		<szDescription>Homeschooled, secluded at home, never been allowed to make your own decissions,&#10;constantly been warned about the evil of the world, it came as a shock when your parents&#10;suddenly died and the bank took the house. Naivly you took the first job.</szDescription>
+		<szDescription>Homeschooled, secluded at home, constantly warned about the evils of&#10;the world, it came as a shock when your parents suddenly died and the&#10;bank took the house. You're definitely not cut out for this line of work,&#10;but you're stuck with it now.</szDescription>
     	<agility>8</agility>
 		<strength>-1</strength>
 		<mechanical>-1</mechanical>
@@ -6541,22 +6541,22 @@
 		<resistance_fear>-18</resistance_fear>
 		<resistance_suppression>-10</resistance_suppression>
         <prisonguard>-50</prisonguard>
-		<capitulation>-50</capitulation>                    
-		<speed_run>50</speed_run>                          
+		<capitulation>-50</capitulation>
+		<speed_run>50</speed_run>
 		<approach_friendly>-5</approach_friendly>
 		<approach_direct>-15</approach_direct>
 		<approach_threaten>-50</approach_threaten>
 		<approach_recruit>-25</approach_recruit>
-		<croucheddefense>-30</croucheddefense>			  
-		<snake_defense>-70</snake_defense>	
-		<dislikebackground>-2</dislikebackground> 
-		<alt_impcreation>1</alt_impcreation>		
+		<croucheddefense>-30</croucheddefense>
+		<snake_defense>-70</snake_defense>
+		<dislikebackground>-2</dislikebackground>
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>356</uiIndex>
 		<szName>Rocket Scientist</szName>
 		<szShortName>Rocket Scientist</szShortName>
-		<szDescription>You always admired how Wernher v. Braun could weasel his way from WWII war criminal&#10; to decorated NASA celebrity. Dedicated to achieve a simular untouchable status,&#10;you became a capable scientist. But times are changing, you got fired for harrasment.</szDescription>
+		<szDescription>You always admired how Wernher von Braun could weasel his way from&#10;war criminal to decorated NASA celebrity. Dedicated to achieving a similar&#10;untouchable status, you became a capable scientist. But times have changed,&#10;and you were fired for harrassment.</szDescription>
     	<ap_desert>5</ap_desert>
 		<agility>-1</agility>
 		<dexterity>1</dexterity>
@@ -6567,20 +6567,20 @@
 		<resistance_physical>-5</resistance_physical>
 		<resistance_alcohol>-15</resistance_alcohol>
 		<interrogation>210</interrogation>
-		<carrystrength>-10</carrystrength>                  
+		<carrystrength>-10</carrystrength>
 		<food>70</food>
 		<sleep>1</sleep>
-		<disarm_trap>10</disarm_trap>                      
-		<SAM_cth>20</SAM_cth>				
+		<disarm_trap>10</disarm_trap>
+		<SAM_cth>20</SAM_cth>
 		<approach_friendly>-5</approach_friendly>
 		<approach_direct>2</approach_direct>
 		<approach_threaten>3</approach_threaten>
 		<approach_recruit>-2</approach_recruit>
-		<hackerskill>83</hackerskill>					  
-		<administration_assignment>150</administration_assignment>	
+		<hackerskill>83</hackerskill>
+		<administration_assignment>150</administration_assignment>
 		<smoker>2</smoker>
 		<xenophobic>1</xenophobic>
 		<no_female>1</no_female>
-		<alt_impcreation>1</alt_impcreation>		
+		<alt_impcreation>1</alt_impcreation>
 	</BACKGROUND>
 </BACKGROUNDS>
