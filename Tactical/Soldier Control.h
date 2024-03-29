@@ -772,6 +772,9 @@ public:
 	// How any slots are there in this inventory?
 	unsigned int size() const;
 
+	// const-only accessor
+	auto get() const -> const std::vector<OBJECTTYPE>&;
+
 	//temporarily? public
 	std::vector<int>			bNewItemCount;
 	std::vector<int>			bNewItemCycleCount;
