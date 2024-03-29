@@ -592,7 +592,7 @@ LBENODE* OBJECTTYPE::GetLBEPointer(unsigned int index)
 	
 }
 
-bool OBJECTTYPE::exists()
+bool OBJECTTYPE::exists() const
 {
 	return(this && ubNumberOfObjects && usItem);
 }
