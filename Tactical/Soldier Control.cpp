@@ -19938,22 +19938,19 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 	// if we wear special equipment, lower our chances of being infected
 	FLOAT bestfacegear = 0.0f;
 	FLOAT bestprotectivegear = 0.0f;
-	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	for ( const auto &item : inv.get() )
 	{
-		if ( inv[bLoop].exists( ) )
+		if ( item.exists( ) )
 		{
-			OBJECTTYPE* pObj = &(inv[bLoop]);
-
-			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE )
+			if ( item[0]->data.objectStatus >= USABLE )
 			{	
-				if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_1 ) )
+				if ( HasItemFlag( item.usItem, DISEASEPROTECTION_1 ) )
 				{
-					bestfacegear = max( bestfacegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
+					bestfacegear = max( bestfacegear, (FLOAT)(item[0]->data.objectStatus / 100) );
 				}
-				if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_2 ) )
+				if ( HasItemFlag( item.usItem, DISEASEPROTECTION_2 ) )
 				{
-					bestprotectivegear = max( bestprotectivegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
+					bestprotectivegear = max( bestprotectivegear, (FLOAT)(item[0]->data.objectStatus / 100) );
 				}
 			}
 		}
