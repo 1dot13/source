@@ -378,6 +378,10 @@ unsigned int Inventory::size( ) const {
 	return inv.size( );
 }
 
+auto Inventory::get() const -> const std::vector<OBJECTTYPE>& {
+	return inv;
+}
+
 // Assignment operator
 Inventory& Inventory::operator=(const Inventory& src)
 {
