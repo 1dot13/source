@@ -2,122 +2,146 @@
 <JA2Data>
 	<ItemFlag>
 		<id>0</id>
-		<name>None</name>
+		<name>None</name>  <!--  comments, mostly copied from code -->
 	</ItemFlag>
 	<ItemFlag>
-		<id>1</id>
-		<name>Empty Sandbag</name>
+		<id>1</id>  <!--  the <bloodbag>-tag in items.xml gets translated into this flag -->
+		<name>Bloodbag (filled)</name>  <!-- BLOOD_BAG // this item is a blood bag, it can be used to boost surgery -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>2</id>
-		<name>Full Sandbag</name>
+		<name>MANPAD</name>  <!-- MANPAD // this item is a Man-Portable Air-Defense System, a surface-to-air missile launcher -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>4</id>
-		<name>Shovel</name>
+		<name>Beartrap</name>  <!-- BEARTRAP // a mechanical trap that does no explosion, but causes leg damage to whoever activates it -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>8</id>
-		<name>Concertina</name>
+		<name>Camera</name> <!-- CAMERA	// this item can take photos -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>16</id>
-		<name>Water Drum</name>
+		<name>Water Drum</name> <!-- WATER_DRUM	// water drums allow to refill canteens in the sector they are in  -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>32</id>
-		<name>Bloodcat Meat</name>
+		<name>Bloodcat Meat</name>  <!-- MEAT_BLOODCAT // retrieve this by gutting a bloodcat -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>64</id>
-		<name>Cow Meat</name>
+		<name>Cow Meat</name>  <!-- MEAT_COW // retrieve this by gutting a cow -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>128</id>
-		<name>Belt Fed</name>
+		<name>Belt Fed</name> <!-- BELT_FED	// item can be fed externally -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>256</id>
-		<name>Ammo Belt</name>
+		<name>Ammo Belt</name> <!-- AMMO_BELT // this item can be used to feed externally -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>512</id>
-		<name>Ammo Belt Vest</name>
+		<name>Ammo Belt Vest</name>  <!-- AMMO_BELT_VEST // this is a vest that can contain AMMO_BELT items in its medium slots -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>1024</id>
-		<name>Camo Remover</name>
+		<name>Camo Remover</name>  <!-- CAMO_REMOVAL // item can be used to remove camo -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>2048</id>
-		<name>Gun Cleaner</name>
+		<name>Cleaning Kit</name>  <!-- CLEANING_KIT // weapon cleaning kit  -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>4096</id>
-		<name>Interesting Item (AI)</name>
+		<name>Interesting Item (AI)</name>  <!-- ATTENTION_ITEM // this item is 'interesting' to the AI. Dumb soldiers may try to pick it up  -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>8192</id>
-		<name>Garotte</name>
+		<name>Garotte</name>  <!-- GAROTTE // this item is a garotte -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>16384</id>
-		<name>Covert Item</name>
+		<name>Covert Item</name>  <!-- COVERT // if LBE, any gun inside will be covert. On a gun, it will be covert in any LBE, even if the LBE does not have that tag itself -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>24576</id>
-		<name>Garotte + Covert Item</name>
+		<name>Garotte + Covert Item</name>  <!-- combined bitmasks  -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>32768</id>
-		<name>Corpse</name>
+		<name>Corpse</name>  <!-- CORPSE // a dead body, might better carry it out of sight -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>65536</id>
-		<name>Bloodcat Skin</name>
+		<name>Bloodcat Skin</name>  <!-- SKIN_BLOODCAT  // retrieve this by skinning (=decapitating) a bloodcat -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>131072</id>
-		<name>No Metal Detection</name>
+		<name>No Metal Detection</name>  <!-- NO_METAL_DETECTION // a planted bomb with this flag can NOT be detected via metal detector. Use sparingly! -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>262144</id>
-		<name>Jumping Grenade</name>
-	</ItemFlag>
-	<ItemFlag>
-		<id>419430</id>
-		<name>Scuba Mask</name>
+		<name>Jumping Grenade</name>  <!-- JUMP_GRENADE // add +25 heigth to explosion, used for bouncing grenades and jumping mines -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>524288</id>
-		<name>Handcuffs</name>
+		<name>Handcuffs</name>  <!-- HANDCUFFS // item can be used to capture soldiers -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>1048576</id>
-		<name>Taser</name>
+		<name>Taser</name>  <!-- TASER // item is a taser, melee hits with this will drain breath (if batteries are supplied) -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>2097152</id>
-		<name>Scuba Bottle</name>
+		<name>Scuba Bottle</name>  <!-- SCUBA_BOTTLE // item is a scuba gear air bottle -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>4194304</id>
+		<name>Scuba Mask</name>  <!-- SCUBA_MASK // item is a scuba gear breathing mask -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>8388608</id>
-		<name>Scuba Fins</name>
+		<name>Scuba Fins</name>  <!-- SCUBA_FINS // this item speed up swimming, but slows walking and running -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>16777216</id>
-		<name>Tripwire Roll</name>
+		<name>Tripwire Roll</name>  <!-- TRIPWIREROLL // this item is a tripwire roll -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>33554432</id>
-		<name>Radio Set</name>
+		<name>Radio Set</name>  <!-- RADIO_SET // item can be used to radio militia/squads in other sectors and more -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>67108864</id>
-		<name>Signal Shell</name>
+		<name>Signal Shell</name>  <!-- SIGNAL_SHELL // this is a signal shell that precedes artillery barrages -->
 	</ItemFlag>
 	<ItemFlag>
 		<id>134217728</id>
-		<name>Power Pack</name>
+		<name>Soda</name>  <!-- SODA // item is a can of soda, sold in vending machines -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>268435456</id>
+		<name>Roof Collapse Item</name>  <!-- ROOF_COLLAPSE_ITEM // this item is required in the collapsing of roof tiles. INTERNAL use only, should never be seen by the player -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>536870912</id>  <!-- the <diseaseprotectionface>-tag in items.xml gets translated into this flag -->
+		<name>Disease Protection Face</name>  <!-- DISEASEPROTECTION_1 // this item grants up to 50% protection from getting diseases by human contact if kept in inventory -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>1073741824</id>  <!-- the <diseaseprotectionhand>-tag in items.xml gets translated into this flag -->
+		<name>Disease Protection Hand</name> <!-- DISEASEPROTECTION_2 // this item grants up to 50% protection from getting diseases by human contact if kept in inventory -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>2147483648</id>
+		<name>LBE Explosionproof</name>  <!-- LBE_EXPLOSIONPROOF // any gear in a LBE with this flag is protected from explosions -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>4294967296</id>  <!--  the <emptybloodbag>-tag in items.xml gets translated into this flag -->
+		<name>Empty Blood Bag</name>  <!-- EMPTY_BLOOD_BAG // this item is a empty blood bag  -->
+	</ItemFlag>
+	<ItemFlag>
+		<id>8589934592</id>  <!--  the <medicalsplint>-tag in items.xml gets translated into this flag -->
+		<name>None</name>  <!-- MEDICAL_SPLINT // this item is a medical splint that can be applied by medical staff to severely injured limbs to speed up healing process -->
 	</ItemFlag>
 </JA2Data>

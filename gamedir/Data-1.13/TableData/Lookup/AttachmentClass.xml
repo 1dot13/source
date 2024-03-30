@@ -46,7 +46,7 @@
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>64</id>
-		<name>Magwell</name>
+		<name>Magwell</name>  <!-- magazine adadpter --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>128</id>
@@ -110,15 +110,15 @@
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>524288</id>
-		<name>Sling</name>
+		<name>Sling</name>  <!-- rifle sling --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>1048576</id>
-		<name>Remote Detonator</name>
+		<name>Remote Detonator</name>  <!-- remote detonator for bombs --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>2097152</id>
-		<name>Defuser</name>
+		<name>Defuser</name>  <!-- defuse item for bombs --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>2162688</id>
@@ -130,18 +130,18 @@
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>4194304</id>
-		<name>Iron Sight</name>
+		<name>Iron Sight</name>  <!-- for attachable Iron Sights --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>8388608</id>
-		<name>Feeder</name>
+		<name>Feeder</name>  <!-- allows external feeding --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>16777216</id>
-		<name>Modular Pouch</name>
+		<name>Modular Pouch</name>  <!-- for modular pouches --> 
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>33554432</id>
-		<name>Rifle Grenade</name>
+		<name>Rifle Grenade</name>   <!-- GL, needs a bullet and blocks other firing modes --> 
 	</AttachmentClass>
 </JA2Data>
