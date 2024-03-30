@@ -142,6 +142,6 @@
 	</ItemFlag>
 	<ItemFlag>
 		<id>8589934592</id>  <!--  the <medicalsplint>-tag in items.xml gets translated into this flag -->
-		<name>None</name>  <!-- MEDICAL_SPLINT // this item is a medical splint that can be applied by medical staff to severely injured limbs to speed up healing process -->
+		<name>Medical Splint</name>  <!-- MEDICAL_SPLINT // this item is a medical splint that can be applied by medical staff to severely injured limbs to speed up healing process -->
 	</ItemFlag>
 </JA2Data>
