@@ -51648,7 +51648,6 @@
 		<szBRDesc>Not for sale.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>237</ubGraphicNum>
 		<ubWeight>120</ubWeight>
@@ -51670,7 +51669,6 @@
 		<szBRName>Wooden Wall, large</szBRName>
 		<szBRDesc>Not for sale.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>239</ubGraphicNum>
 		<ubWeight>150</ubWeight>

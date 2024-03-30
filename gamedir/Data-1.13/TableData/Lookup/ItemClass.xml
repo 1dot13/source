@@ -73,10 +73,6 @@
 		<name>Load Bearing Equipment</name>
 	</ItemClass>
 	<ItemClass>
-		<id>16777216</id>
-		<name>MOLLE</name>
-	</ItemClass>
-	<ItemClass>
 		<id>268435456</id>
 		<name>Misc</name>
 	</ItemClass>
