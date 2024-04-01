@@ -21,7 +21,7 @@
 		<szTileSetDisplayName>Concertina wire</szTileSetDisplayName>
 		<szTileSetName>spot_1.sti</szTileSetName>
 		<dCreationCost>1.0</dCreationCost>
-		<fFortifyAdjacentAdjustment>1</fFortifyAdjacentAdjustment>
+		<fFortifyAdjacentAdjustment>0</fFortifyAdjacentAdjustment>  <!--recommended to be 0 for concertina wire-->
 		<northfacingtile>3</northfacingtile>
 		<northfacingtile>5</northfacingtile>
 		<southfacingtile>3</southfacingtile>
