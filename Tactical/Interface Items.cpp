@@ -5769,14 +5769,6 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						//search primary item launchables.xml
 						usAttachment = Launchable[usLoop][0];
 					}
-
-					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
-					{
-						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
-						{
-							attachList.push_back(usAttachment);
-						}
-					}
 					else
 					{
 						//search for launchables made valid by other attachments
@@ -5785,9 +5777,20 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						while (cnt)
 						{
 							if (Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+							{
 								usAttachment = Launchable[usLoop][0];
+								break;
+							}
 
 							cnt--, p++;
+						}
+					}
+
+					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					{
+						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
+						{
+							attachList.push_back(usAttachment);
 						}
 					}
 				}
