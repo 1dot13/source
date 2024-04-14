@@ -1515,17 +1515,10 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.fProvidesRobotLaserBonus = (BOOLEAN)atol(pData->szCharData);
 		}
-		else if (strcmp(name, "FoodSystemExclusive") == 0)
-		{
-			pData->curElement = ELEMENT;
-			if (atol(pData->szCharData))
-				pData->curItem.usLimitedToSystem|= FOOD_SYSTEM_FLAG;
-		}
 		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
 		{
-			pData->curElement = ELEMENT;
-			if (atol(pData->szCharData))
-			pData->curItem.usLimitedToSystem|= DISEASE_SYSTEM_FLAG;
+		pData->curElement = ELEMENT;
+		pData->curItem.DiseaseSystemExclusive = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "TransportGroupMinProgress") == 0)
 		{
@@ -2193,6 +2186,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<ProvidesRobotCamo>%d</ProvidesRobotCamo>\r\n",						Item[cnt].fProvidesRobotCamo );
 			FilePrintf(hFile,"\t\t<ProvidesRobotNightVision>%d</ProvidesRobotNightVision>\r\n",			Item[cnt].fProvidesRobotNightVision );
 			FilePrintf(hFile,"\t\t<ProvidesRobotLaserBonus>%d</ProvidesRobotLaserBonus>\r\n",			Item[cnt].fProvidesRobotLaserBonus );
+
+			FilePrintf(hFile, "\t\t<DiseaseSystemExclusive>%d</DiseaseSystemExclusive>\r\n",            Item[cnt].DiseaseSystemExclusive);
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
