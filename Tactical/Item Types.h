@@ -947,9 +947,6 @@ extern OBJECTTYPE gTempObject;
 // autofiretohitbonus,
 // bursttohitbonus
 
-// bitflags for usLimitedToSystem
-#define FOOD_SYSTEM_FLAG		1
-#define DISEASE_SYSTEM_FLAG		2
 
 typedef struct
 {
@@ -1218,8 +1215,9 @@ typedef struct
 	BOOLEAN	fProvidesRobotCamo;
 	BOOLEAN	fProvidesRobotNightVision;
 	BOOLEAN fProvidesRobotLaserBonus;
-	//shadooow: bitflag controlling what system needs to be in play for item to appear
-	UINT8	usLimitedToSystem;
+
+    // kitty: item exclusively available with disease feature 
+	BOOLEAN DiseaseSystemExclusive; 
 
 	// rftr: the progress bounds that allow a transport group to drop an item
 	INT8 iTransportGroupMinProgress;
