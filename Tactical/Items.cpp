@@ -1279,8 +1279,9 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 			return FALSE;
 	}
 
-	//shadooow: exclude also any item that is limited to specific system and this system isn't enabled
-	if (((Item[usItemIndex].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[usItemIndex].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
+	// kitty: no disease items if the disease system is off
+	// whether the item is exclusive is defined by tag
+	if (!gGameExternalOptions.fDisease && Item[usItemIndex].DiseaseSystemExclusive)
 	{
 		return FALSE;
 	}
