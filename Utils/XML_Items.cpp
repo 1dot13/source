@@ -306,7 +306,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ProvidesRobotCamo") == 0 ||
 				strcmp(name, "ProvidesRobotNightVision") == 0 ||
 				strcmp(name, "ProvidesRobotLaserBonus") == 0 ||
-				strcmp(name, "FoodSystemExclusive") == 0 ||
 				strcmp(name, "DiseaseSystemExclusive") == 0 ||
 				strcmp(name, "TransportGroupMinProgress") == 0 ||
 				strcmp(name, "TransportGroupMaxProgress") == 0
@@ -1517,8 +1516,8 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		}
 		else if (strcmp(name, "DiseaseSystemExclusive") == 0)
 		{
-		pData->curElement = ELEMENT;
-		pData->curItem.DiseaseSystemExclusive = (BOOLEAN)atol(pData->szCharData);
+		    pData->curElement = ELEMENT;
+		    pData->curItem.DiseaseSystemExclusive = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if (strcmp(name, "TransportGroupMinProgress") == 0)
 		{
