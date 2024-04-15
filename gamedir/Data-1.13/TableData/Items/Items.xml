@@ -200,6 +200,7 @@
 		<medicalsplint>0</medicalsplint>
 		<sFireResistance>0</sFireResistance>
 		<usAdministrationModifier>0</usAdministrationModifier>
+		<DiseaseSystemExclusive>0</DiseaseSystemExclusive>
 		<RobotDamageReduction>1.0</RobotDamageReduction>
 		<RobotStrBonus>0</RobotStrBonus>
 		<RobotAgiBonus>0</RobotAgiBonus>
@@ -51307,10 +51308,13 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<Medical>1</Medical>
 		<BR_NewInventory>20</BR_NewInventory>
 		<diseaseprotectionface>1</diseaseprotectionface>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51330,10 +51334,13 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<Medical>1</Medical>
 		<BR_NewInventory>20</BR_NewInventory>
 		<diseaseprotectionhand>1</diseaseprotectionhand>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51354,8 +51361,11 @@
 		<ItemSize>10</ItemSize>
 		<usPrice>400</usPrice>
 		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
 		<Medical>1</Medical>
 		<DrugType>15</DrugType>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51377,8 +51387,10 @@
 		<usPrice>300</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
 		<Medical>1</Medical>
 		<DrugType>16</DrugType>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51400,8 +51412,10 @@
 		<usPrice>500</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
 		<Medical>1</Medical>
 		<DrugType>17</DrugType>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -52641,11 +52655,12 @@
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>80</usPrice>
-		<ubCoolness>1</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<Medical>1</Medical>
 		<BR_NewInventory>6</BR_NewInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<medicalsplint>1</medicalsplint>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
