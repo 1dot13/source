@@ -523,7 +523,7 @@ szName            要显示的文本，最多190个字符
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>用 [ALT]+[鼠标右键] 打开技能菜单后可以通过无线电呼叫支援或空中打击。</szName>
+    <szName>按 [A] 或者 [ALT]+[鼠标右键] 打开技能菜单后可以通过无线电呼叫支援或空中打击。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
@@ -555,7 +555,7 @@ szName            要显示的文本，最多190个字符
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>136</uiIndex>
-    <szName>按 [SHIFT]+[Y] 可以快速替换武器的红点。</szName>
+    <szName>按 [SHIFT]+[Y] 可以快速替换武器的激光瞄准器。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>137</uiIndex>
@@ -581,13 +581,13 @@ szName            要显示的文本，最多190个字符
     <uiIndex>142</uiIndex>
     <szName>1.13特征功能可以打开和关闭！您可以通过特征选项访问它。</szName>
   </LOADSCREENHINT>
- <LOADSCREENHINT>
+  <LOADSCREENHINT>
     <uiIndex>143</uiIndex>
     <szName>按 [\] 键可以用撬棍或任何双手武器打碎窗户玻璃。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>144</uiIndex>
-    <szName>按 [A] 打开技能菜单，里面有很多有用的技能操作。</szName>
+    <szName>按 [A] 或者 [ALT]+[鼠标右键] 打开技能菜单，里面有很多有用的技能操作。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>145</uiIndex>
@@ -595,7 +595,7 @@ szName            要显示的文本，最多190个字符
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>146</uiIndex>
-    <szName>当使用榴弹发射器时，按 [ALT]+[Q] 可以改变投掷角度。（有误）</szName>
+    <szName>当使用榴弹发射器时，按 [ALT]+[Q] 可以改变投掷角度。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>147</uiIndex>
@@ -612,5 +612,37 @@ szName            要显示的文本，最多190个字符
   <LOADSCREENHINT>
     <uiIndex>150</uiIndex>
     <szName>在大地图部署佣兵进入战术地图时，使用方向键移动地图非常有用。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>151</uiIndex>
+    <szName>压制敌人。向敌人全力开火会消耗大量弹药，但同时也会消耗敌人的行动力，使他们无法反击。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>152</uiIndex>
+    <szName>将你的雇佣兵分成火力队和机动队或更多队伍。当一队向前移动时，另一队用火力压制来支援他们。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>153</uiIndex>
+    <szName>在（NCTH）新瞄准系统中，远距离单发射击效果通常较差。更多地使用连发模式可以弥补较低的命中率。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>154</uiIndex>
+    <szName>接近敌人可能很危险，但也是消灭敌人的最快方法。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>155</uiIndex>
+    <szName>在新的瞄准系统中，武器的瞄准等级越低，达到最大瞄准精度所需的行动力就越少。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>156</uiIndex>
+    <szName>贴近掩体！它能救你的命。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>157</uiIndex>
+    <szName>火炮是战斗之王。只要发射几发位置正确的迫击炮弹或火箭弹，就能扭转交战的局面。</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>158</uiIndex>
+    <szName>观察员可以提高附近所有佣兵的射击精度。使用技能菜单 [A] 指派一名手持高倍望远镜的佣兵执行观察任务。</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
