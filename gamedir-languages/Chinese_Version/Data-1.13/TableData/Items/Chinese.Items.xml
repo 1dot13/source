@@ -14097,4 +14097,12 @@
 		<szBRName>灭火器</szBRName>
 		<szBRDesc>标准灭火器。</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1762</uiIndex>
+		<szItemName>PS90</szItemName>
+		<szLongItemName>FN PS90</szLongItemName>
+		<szItemDesc>这种轻型卡宾枪是著名的FN P90的半自动版本。FN PS90有着16英寸长的枪管，是在远距离穿透防弹衣的绝佳选择。</szItemDesc>
+		<szBRName>FN PS90</szBRName>
+		<szBRDesc>FN PS90配有加长的16英寸枪管和皮卡汀尼导轨，便于安装各种不同的瞄准镜。</szBRDesc>
+	</ITEM>
 </ITEMLIST>

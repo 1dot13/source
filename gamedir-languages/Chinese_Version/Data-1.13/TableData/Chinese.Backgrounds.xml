@@ -4,7 +4,7 @@
 		<uiIndex>0</uiIndex>
 		<szName>Background name (128 letters)</szName>
 		<szShortName>short name (20)</szShortName>
-		<szDescription>在这里输入一个背景描述。最长可达256个字母。下面的“&#10;”作用是换行。</szDescription>
+		<szDescription>背景描述。最长256个字母。“&#10;”作用是换行，每25个汉字换行。</szDescription>
 	</BACKGROUND>
 	<!-- 请注意，由于已经使用了索引号0,Barry的背景必须被移动到255。 -->
 	<!-- Blood -->
@@ -19,41 +19,41 @@
 		<uiIndex>2</uiIndex>
 		<szName>王牌猎手</szName>
 		<szShortName>王牌猎手</szShortName>
-		<szDescription>Lynx擅长于猎杀各种珍奇异兽，包括女王的手下。</szDescription>
+		<szDescription>早在成为佣兵王牌射手之前，Lynx就是一名专业的猎人。他擅长猎杀各种珍奇异兽，包括女王的手下。</szDescription>
 	</BACKGROUND>
 	<!-- Grizzly -->
 	<BACKGROUND>
 		<uiIndex>3</uiIndex>
-		<szName>夜魔侠</szName>
-		<szShortName>夜魔侠</szShortName>
-		<szDescription>目光冷漠地看着战场，Grizzly总是以爆头为乐。</szDescription>
+		<szName>格斗专家</szName>
+		<szShortName>格斗专家</szShortName>
+		<szDescription>在中东执行了几次任务后，Grizzly成为了一名自由佣兵。战斗的刺激是一样的，但报酬更高。</szDescription>
 	</BACKGROUND>
-	<!-- Vicky -->
+	<!-- Vicki -->
 	<BACKGROUND>
 		<uiIndex>4</uiIndex>
-		<szName>修车工</szName>
-		<szShortName>修车工</szShortName>
-		<szDescription>不旅游的时候，资深修车工Vicky总是呆在车间日夜忙碌，她一直未克服幽闭恐惧症。</szDescription>
+		<szName>汽车维修师</szName>
+		<szShortName>汽车维修师</szShortName>
+		<szDescription>不旅游的时候，Vicki就在她的汽车修理店日夜工作，是一位非常熟练的机械师。</szDescription>
 	</BACKGROUND>
 	<!-- Trevor -->
 	<BACKGROUND>
 		<uiIndex>5</uiIndex>
 		<szName>技术宅</szName>
 		<szShortName>技术宅</szShortName>
-		<szDescription>和马盖先的区别就是，Trevor是玩枪高手。</szDescription>
+		<szDescription>与MacGyver的区别就是，Trevor是玩枪和炸弹的高手，以及擅长许多其它创造性死亡和毁灭的方法。</szDescription>
 	</BACKGROUND>
 	<!-- Grunty -->
 	<BACKGROUND>
 		<uiIndex>6</uiIndex>
-		<szName>保镖</szName>
-		<szShortName>保镖</szShortName>
-		<szDescription>精良训练，无比忠诚，不惧牺牲，Grunty不愧为雇主的最佳选择。</szDescription>
+		<szName>德国联邦国防军</szName>
+		<szShortName>德国联邦国防军</szShortName>
+		<szDescription>Grunty在统一之前的几个月就在东德的人民军队服兵役，后来在德国联邦国防军完成了兵役。</szDescription>
 	</BACKGROUND>
 	<!-- Ivan -->
 	<BACKGROUND>
 		<uiIndex>7</uiIndex>
-		<szName>红军</szName>
-		<szShortName>红军</szShortName>
+		<szName>苏联红军</szName>
+		<szShortName>苏联红军</szShortName>
 		<szDescription>经过地狱般训练的Ivan老兄，他的收获也是惊人的。</szDescription>
 	</BACKGROUND>
 	<!-- Steroid -->
@@ -66,72 +66,72 @@
 	<!-- Igor -->
 	<BACKGROUND>
 		<uiIndex>9</uiIndex>
-		<szName>车臣老兵</szName>
-		<szShortName>车臣老兵</szShortName>
+		<szName>俄罗斯山地兵</szName>
+		<szShortName>俄罗斯山地兵</szShortName>
 		<szDescription>经历过车臣战事的洗礼后，Igor发现自己不惧任何挑战了！</szDescription>
 	</BACKGROUND>
 	<!-- Shadow -->
 	<BACKGROUND>
 		<uiIndex>10</uiIndex>
-		<szName>游骑兵</szName>
-		<szShortName>游骑兵</szShortName>
-		<szDescription>来自美国陆军精英部队，Shadow沉默寡言、冷酷暴力。</szDescription>
+		<szName>美国游骑兵</szName>
+		<szShortName>美国游骑兵</szShortName>
+		<szDescription>生存和伏击战术是Shadow在第75游骑兵团军事训练的一部分，其中也包括了侦察和远距离射击。</szDescription>
 	</BACKGROUND>
 	<!-- Red -->
 	<BACKGROUND>
 		<uiIndex>11</uiIndex>
-		<szName>工兵</szName>
-		<szShortName>工兵</szShortName>
-		<szDescription>Red一生只允许犯两个错误：第一个错误是选了这职业。</szDescription>
+		<szName>资深工兵</szName>
+		<szShortName>资深工兵</szShortName>
+		<szDescription>尽管Red做了很多年工兵，但他仍然四肢健全。他在炸药方面的专业知识是毋庸置疑的。</szDescription>
 	</BACKGROUND>
 	<!-- Reaper -->
 	<BACKGROUND>
 		<uiIndex>12</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手是危险而又高度专业的职业，这个Reaper不太冷。</szDescription>
+		<szName>刺客</szName>
+		<szShortName>刺客</szShortName>
+		<szDescription>很少有人像Reaper那样危险，而作为专业刺客的漫长职业生涯只会加剧他的致命性。</szDescription>
 	</BACKGROUND>
 	<!-- Fidel -->
 	<BACKGROUND>
 		<uiIndex>13</uiIndex>
 		<szName>极端分子</szName>
 		<szShortName>极端分子</szShortName>
-		<szDescription>恐怖分子还是自由斗士？有时取决于你和他们杀死的人是什么关系。</szDescription>
+		<szDescription>Fidel善于利用各种破坏手段解决问题，但不善于节制。</szDescription>
 	</BACKGROUND>
 	<!-- Fox -->
 	<BACKGROUND>
 		<uiIndex>14</uiIndex>
-		<szName>护士</szName>
-		<szShortName>护士</szShortName>
-		<szDescription>护士在战区是很吃香的，因为太危险了，专业医生往往不愿意前往。</szDescription>
+		<szName>急诊护士</szName>
+		<szShortName>急诊护士</szShortName>
+		<szDescription>Fox在战场上总是受到战友们的欢迎。奇怪的是，当她在附近治疗时，轻微的割伤和瘀伤的伤员特别多。</szDescription>
 	</BACKGROUND>
 	<!-- Sidney -->
 	<BACKGROUND>
 		<uiIndex>15</uiIndex>
 		<szName>富二代</szName>
 		<szShortName>富二代</szShortName>
-		<szDescription>比起那些玩豪车美女的娘娘腔败家子，有些富二代确实接受过顶级的特工训练。</szDescription>
+		<szDescription>比起那些玩豪车美女的娘娘腔败家子，有些富二代确实接受过顶级的特工训练，比如Sidney，真的非常了不起。</szDescription>
 	</BACKGROUND>
 	<!-- Gus -->
 	<BACKGROUND>
 		<uiIndex>16</uiIndex>
 		<szName>DFK清道夫</szName>
 		<szShortName>DFK清道夫</szShortName>
-		<szDescription>在铁血联盟一代对抗DFK恐怖组织的过程中，Gus表现出惊人的潜能，广受赞誉。</szDescription>
+		<szDescription>在对抗DFK恐怖组织的过程中，Gus的英勇事迹为他赢得了雇佣兵行业中大多数人的尊重和认可，没有人会去在意他略微残疾的一条腿。</szDescription>
 	</BACKGROUND>
 	<!-- Buns -->
 	<BACKGROUND>
 		<uiIndex>17</uiIndex>
-		<szName>护士/狙击手</szName>
-		<szShortName>护士/狙击手</szShortName>
-		<szDescription>至少这个组合能让你的简历瞬间吸人眼球。</szDescription>
+		<szName>全能人才</szName>
+		<szShortName>全能人才</szShortName>
+		<szDescription>这项业务吸引了各种各样的人，但很少有人拥有一份和Buns一样令人印象深刻的简历。</szDescription>
 	</BACKGROUND>
 	<!-- Ice -->
 	<BACKGROUND>
 		<uiIndex>18</uiIndex>
-		<szName>军事辅助员</szName>
-   		<szShortName>军事辅助员</szShortName>
-   		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是童子军呀。</szDescription>
+		<szName>雇佣兵</szName>
+		<szShortName>雇佣兵</szShortName>
+		<szDescription>Ice作为雇佣兵已经有很长一段时间了，他对新人的技巧指导为他赢得了很多朋友。</szDescription>
 	</BACKGROUND>
 	<!-- Spider -->
 	<BACKGROUND>
@@ -145,21 +145,21 @@
 		<uiIndex>20</uiIndex>
 		<szName>全科医生</szName>
 		<szShortName>全科医生</szShortName>
-		<szDescription>拥有诸多证书的Cliff外表光鲜，其实也有一段阴暗的过去。</szDescription>
+		<szDescription>Cliff是一位高素质的医生，其实也有一段阴暗的过去。</szDescription>
 	</BACKGROUND>
 	<!-- Bull -->
 	<BACKGROUND>
 		<uiIndex>21</uiIndex>
-		<szName>监狱看守</szName>
-		<szShortName>监狱看守</szShortName>
-		<szDescription>要说管理战俘集中营，监狱看守干这个活最拿手了。</szDescription>
+		<szName>宪兵</szName>
+		<szShortName>宪兵</szShortName>
+		<szDescription>控制醉酒士兵，处理战俘，偶尔打断个腿什么的都是保留节目，Bull特别擅长最后一项。</szDescription>
 	</BACKGROUND>
 	<!-- Hitman -->
 	<BACKGROUND>
 		<uiIndex>22</uiIndex>
-		<szName>战斗教官</szName>
-		<szShortName>战斗教官</szShortName>
-		<szDescription>这可能是Hitman最后一次露面了，很多财团都要雇佣他去训练私人武装。</szDescription>
+		<szName>资深雇佣兵</szName>
+		<szShortName>资深雇佣兵</szShortName>
+		<szDescription>这可能是Hitman的最后一次露脸了，很多私人组织打算雇佣他去训练私人武装。</szDescription>
 	</BACKGROUND>
 	<!-- Buzz -->
 	<BACKGROUND>
@@ -173,189 +173,189 @@
 		<uiIndex>24</uiIndex>
 		<szName>SWAT特工</szName>
 		<szShortName>SWAT特工</szShortName>
-		<szDescription>设身于最危险的都市角落，SWAT特工擅长处理高度专业的军事和政治行动。</szDescription>
+		<szDescription>作为一名前SWAT指挥官，Raider对高风险的城市行动十分熟悉。</szDescription>
 	</BACKGROUND>
 	<!-- Raven -->
 	<BACKGROUND>
 		<uiIndex>25</uiIndex>
 		<szName>SWAT狙击手</szName>
 		<szShortName>SWAT狙击手</szShortName>
-		<szDescription>设身于最危险的都市角落，SWAT特工擅长处理高度专业的军事和政治行动。</szDescription>
+		<szDescription>SWAT通常包括专门的神枪手，在掩护队友和远距离拯救人质时，Raven从没失手过。</szDescription>
 	</BACKGROUND>
 	<!-- Static -->
 	<BACKGROUND>
 		<uiIndex>26</uiIndex>
-		<szName>后台员工</szName>
-		<szShortName>后台员工</szShortName>
-		<szDescription>灯光、音效和尖叫的观众，其实和战场也没什么区别不是吗？</szDescription>
+		<szName>音响师</szName>
+		<szShortName>音响师</szShortName>
+		<szDescription>嘈杂的音乐、尖叫的人群和爆炸声可能影响了Static的听力，但是多年战场的磨炼也让他积累了经验。</szDescription>
 	</BACKGROUND>
 	<!-- Len -->
 	<BACKGROUND>
 		<uiIndex>27</uiIndex>
 		<szName>绿色贝雷帽</szName>
 		<szShortName>绿色贝雷帽</szShortName>
-		<szDescription>作为绿色贝雷帽特种部队的一员，Len很善于处理非常规战事。</szDescription>
+		<szDescription>Len是特种作战部队绿色贝雷帽的成员，擅长处理非常规战事。</szDescription>
 	</BACKGROUND>
 	<!-- Danny -->
 	<BACKGROUND>
 		<uiIndex>28</uiIndex>
-		<szName>极限爱好者</szName>
-		<szShortName>极限爱好者</szShortName>
-		<szDescription>同样是玩命但还有钱赚，极限爱好者Danny太喜欢佣兵这行了！</szDescription>
+		<szName>极限运动员</szName>
+		<szShortName>极限运动员</szShortName>
+		<szDescription>对于一个曾经的跳伞救援队员和现极限运动员来说，同样是玩命但还有钱赚，Danny太喜欢佣兵这行了！</szDescription>
 	</BACKGROUND>
 	<!-- Magic -->
 	<BACKGROUND>
 		<uiIndex>29</uiIndex>
-		<szName>资深盗贼</szName>
-		<szShortName>资深盗贼</szShortName>
-		<szDescription>习惯性会顺手拿走一切看得顺眼的东西，其实是下意识的本能。</szDescription>
+		<szName>盗贼大师</szName>
+		<szShortName>盗贼大师</szShortName>
+		<szDescription>只要好莱坞知道Magic的一系列壮举，他就是那种系列神偷电影所依据的盗贼大师原型。</szDescription>
 	</BACKGROUND>
 	<!-- Stephen -->
 	<BACKGROUND>
 		<uiIndex>30</uiIndex>
-		<szName>军事顾问</szName>
-		<szShortName>军事顾问</szShortName>
-		<szDescription>瞄准射击很容易，难得是教会别人瞄准谁射击。</szDescription>
+		<szName>安保承包商</szName>
+		<szShortName>安保承包商</szShortName>
+		<szDescription>Stephen的经验可以证明，保护贵宾、油田、钻石矿和各种不会保护自己的其它东西的服务，构成了全球雇佣军占比最大的业务。</szDescription>
 	</BACKGROUND>
 	<!-- Scully -->
 	<BACKGROUND>
 		<uiIndex>31</uiIndex>
-		<szName>雇佣兵</szName>
-		<szShortName>雇佣兵</szShortName>
-		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szName>终结者</szName>
+		<szShortName>终结者</szShortName>
+		<szDescription>Scully很久以前就选择了持枪谋生，从那以后他一直在割喉、赢得枪战并扬名立万，在这个行业里很少有人像他那么优秀。</szDescription>
 	</BACKGROUND>
 	<!-- Malice -->
 	<BACKGROUND>
 		<uiIndex>32</uiIndex>
 		<szName>保安</szName>
 		<szShortName>保安</szShortName>
-		<szDescription>保安有打架的经验，不过杀人这一块可能略有生疏。</szDescription>
+		<szDescription>Malice曾经是一名保安。事实上，如果看他造成刀伤的人数看，他更像是一个街头霸王。</szDescription>
 	</BACKGROUND>
 	<!-- Dr. Q -->
 	<BACKGROUND>
 		<uiIndex>33</uiIndex>
 		<szName>中医大夫</szName>
 		<szShortName>中医大夫</szShortName>
-		<szDescription>中医大夫Dr.Q使用古老的中国传统医术进行治疗，虽然慢了点，但的确有效。</szDescription>
+		<szDescription>Dr.Q使用古老的中国传统医术进行治疗，虽然慢了点，但的确有效。</szDescription>
 	</BACKGROUND>
 	<!-- Nails -->
 	<BACKGROUND>
 		<uiIndex>34</uiIndex>
-		<szName>黑帮成员</szName>
-		<szShortName>黑帮成员</szShortName>
-		<szDescription>成为佣兵是很多黑帮成员的自然选择：工作差不多，武器和薪水好多了！</szDescription>
+		<szName>机车暴徒</szName>
+		<szShortName>机车暴徒</szShortName>
+		<szDescription>在当美国最大的摩托车团伙之一的头目期间，Nails做了很多严重违法的事情，车载爆炸装置和黑社会枪战对他来说并不罕见。</szDescription>
 	</BACKGROUND>
 	<!-- Thor -->
 	<BACKGROUND>
 		<uiIndex>35</uiIndex>
 		<szName>新时代巫师</szName>
 		<szShortName>新时代巫师</szShortName>
-		<szDescription>这玩意现在不需要考什么从业执照！</szDescription>
+		<szDescription>新时代的巫师不需要考什么从业执照！Thor更不需要。</szDescription>
 	</BACKGROUND>
 	<!-- Scope -->
 	<BACKGROUND>
 		<uiIndex>36</uiIndex>
-		<szName>SAS特工</szName>
-		<szShortName>SAS特工</szShortName>
-		<szDescription>英国特种空勤团SAS是世界著名的反恐部队之一，Scope没给SAS丢脸。</szDescription>
+		<szName>SAS狙击手</szName>
+		<szShortName>SAS狙击手</szShortName>
+		<szDescription>SAS是世界上最著名的特种部队之一，Scope在那里接受过空降行动、地面行动的专业训练，拥有克服可能遇到的任何挑战的技能。</szDescription>
 	</BACKGROUND>
 	<!-- Wolf -->
 	<BACKGROUND>
 		<uiIndex>37</uiIndex>
 		<szName>军事辅导员</szName>
 		<szShortName>军事辅导员</szShortName>
-		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是童子军呀。</szDescription>
+		<szDescription>有很多教官几乎没有实际经验，Wolf则相反，他在该领域花费了大量时间，对各种军事和准军事技能有着全面的了解。</szDescription>
 	</BACKGROUND>
 	<!-- MD -->
 	<BACKGROUND>
 		<uiIndex>38</uiIndex>
-		<szName>毕业生</szName>
-		<szShortName>毕业生</szShortName>
-		<szDescription>毕业工作不好找？不想读大学？来当杀手吧！</szDescription>
+		<szName>医学院毕业生</szName>
+		<szShortName>医学院毕业生</szShortName>
+		<szDescription>刚从医学院毕业的MD渴望充分利用他的新学位，也许在他工作的时候能够帮助解放一个国家。</szDescription>
 	</BACKGROUND>
 	<!-- Meltdown -->
 	<BACKGROUND>
 		<uiIndex>39</uiIndex>
 		<szName>雇佣兵</szName>
 		<szShortName>雇佣兵</szShortName>
-		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szDescription>有很多低调的专业人士在这个行业工作了多年，也没有引起人们的注意。还有像Meltdown这样的人，每个人都听说过她并尊重她的能力，但不一定喜欢她的个性。</szDescription>
 	</BACKGROUND>
 	<!-- Biff -->
 	<BACKGROUND>
 		<uiIndex>40</uiIndex>
 		<szName>乖宝宝</szName>
 		<szShortName>乖宝宝</szShortName>
-		<szDescription>童年时代留下的人格印记，至今还影响着你。</szDescription>
+		<szDescription>Biff的童年给他留下了许多未能解决的个人问题。至于他是如何成为一名雇佣兵的，是个说起来话长的事。</szDescription>
 	</BACKGROUND>
 	<!-- Haywire -->
 	<BACKGROUND>
 		<uiIndex>41</uiIndex>
 		<szName>业余雇佣兵</szName>
 		<szShortName>业余雇佣兵</szShortName>
-		<szDescription>雇佣兵总是能够见到新的人，然后干掉他们！这简直太帅了！</szDescription>
+		<szDescription>Haywire选择了雇佣军的绝妙生活：他总是可以到新的地方，见到新的人，然后干掉他们！</szDescription>
 	</BACKGROUND>
 	<!-- Gasket -->
 	<BACKGROUND>
 		<uiIndex>42</uiIndex>
 		<szName>乡巴佬</szName>
 		<szShortName>乡巴佬</szShortName>
-		<szDescription>头发插着枯稻草，张嘴一笑缺颗牙，好吧，农场的生活也不是那么容易。</szDescription>
+		<szDescription>连体工装裤，靴子里露出稻草，嘴里总是叼着一根草茎——以及对工具和所有机械事物的天赋。没错，这就是Gasket。</szDescription>
 	</BACKGROUND>  
 	<!-- Razor -->
 	<BACKGROUND>
 		<uiIndex>43</uiIndex>
-		<szName>精神病人</szName>
-		<szShortName>精神病人</szShortName>
-		<szDescription>没有人知道你是怎么逃出来的，不过大家一致认为，你应该回去。</szDescription>
+		<szName>疯狂杀手</szName>
+		<szShortName>疯狂杀手</szShortName>
+		<szDescription>Razor有些地方极其不正常，但他确实拥有一些对这行业显然有用的天赋。</szDescription>
 	</BACKGROUND>
 	<!-- Flo -->
 	<BACKGROUND>
 		<uiIndex>44</uiIndex>
-		<szName>军火商</szName>
-		<szShortName>军火商</szShortName>
-		<szDescription>多年的武器倒卖经验使得此人在买卖枪支弹药时，更善于抬价砍价。</szDescription>
+		<szName>会计师</szName>
+		<szShortName>会计师</szShortName>
+		<szDescription>成为一名雇佣兵可能不是Flo的最佳选择，但多年来为军火经销商记账的经历确实让她对军火贸易有着深入了解。</szDescription>
 	</BACKGROUND>
 	<!-- Gumpy -->
 	<BACKGROUND>
 		<uiIndex>45</uiIndex>
-		<szName>学院派</szName>
-		<szShortName>学院派</szShortName>
-		<szDescription>绝大部分知识都是纸上谈兵，或许几场战斗就要了老命了。</szDescription>
+		<szName>大学毕业生</szName>
+		<szShortName>大学毕业生</szShortName>
+		<szDescription>在大学里Gumpy学会了很多东西，但战斗技能不在其中。</szDescription>
 	</BACKGROUND>
 	<!-- Larry -->
 	<BACKGROUND>
 		<uiIndex>46</uiIndex>
-		<szName>瘾君子</szName>
-		<szShortName>瘾君子</szShortName>
-		<szDescription>深受毒品影响，瘾君子可以变成恐怖的、不稳定的对手。</szDescription>
+		<szName>戒毒者</szName>
+		<szShortName>戒毒者</szShortName>
+		<szDescription>Larry的毒瘾困扰了他很长一段时间。他清醒时值得信任，但他能远离毒品多久谁也无法保证。</szDescription>
 	</BACKGROUND>
 	<!-- stoned Larry -->
 	<BACKGROUND>
 		<uiIndex>47</uiIndex>
-		<szName>瘾君子</szName>
+		<szName>复发性吸毒者</szName>
 		<szShortName>瘾君子</szShortName>
 		<szDescription>就是这个！没错，就是它！我搞到了！哇哈哈哈哈！</szDescription>
 	</BACKGROUND>
 	<!-- Cougar -->
 	<BACKGROUND>
 		<uiIndex>48</uiIndex>
-		<szName>军校辍学生</szName>
-		<szShortName>军校辍学生</szShortName>
-		<szDescription>被军校劝退之后，至今尚未完成学业。</szDescription>
+		<szName>军校学员</szName>
+		<szShortName>军校学员</szShortName>
+		<szDescription>Cougar是军事学院班上的佼佼者，是全世界将军们都希望拥有的那种士兵……至少在他看来是这样。</szDescription>
 	</BACKGROUND>
 	<!-- Numb -->
 	<BACKGROUND>
 		<uiIndex>49</uiIndex>
 		<szName>朋克</szName>
 		<szShortName>朋克</szShortName>
-		<szDescription>在热带丛林摸爬滚打多年之后，他意外的迷上了朋克。</szDescription>
+		<szDescription>Numb可能是个音乐迷，也可能不是，但他总是尽最大努力把城市变成丛林。这活不好干，但是他想做。</szDescription>
 	</BACKGROUND>
 	<!-- Bubba -->
 	<BACKGROUND>
 		<uiIndex>50</uiIndex>
-		<szName>狱警</szName>
-		<szShortName>狱警</szShortName>
-		<szDescription>看看那个人，再看看你自己，你确定你还想越狱？</szDescription>
+		<szName>监狱看守</szName>
+		<szShortName>监狱看守</szShortName>
+		<szDescription>让一名前监狱看守负责战俘似乎是很合理的事情，但以Bubba这种情况，很可能引发战争罪调查。</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 1 -->
 	<BACKGROUND>
@@ -402,37 +402,37 @@
 	<!-- Miguel -->
 	<BACKGROUND>
 		<uiIndex>57</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>对于那些被压迫的人民来说，Miguel这个名字就代表革命。</szDescription>
+		<szName>Arulcan反抗军首领</szName>
+		<szShortName>Arulcan反抗军</szShortName>
+		<szDescription>他是被压迫人民的唯一希望，Miguel就是革命的化身。</szDescription>
 	</BACKGROUND>
 	<!-- Carlos -->
 	<BACKGROUND>
 		<uiIndex>58</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>Miguel的左膀右臂，Carlos总是把事情处理的井井有条。</szDescription>
+		<szName>反抗军中尉</szName>
+		<szShortName>Arulcan反抗军</szShortName>
+		<szDescription>作为Miguel的得力助手，其他人对Carlos言听计从。</szDescription>
 	</BACKGROUND>
 	<!-- Ira -->
 	<BACKGROUND>
 		<uiIndex>59</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>小护士变身反抗军，Ira的出现给反抗军总部增加了许多乐趣。</szDescription>
+		<szName>反抗军医生</szName>
+		<szShortName>Arulcan反抗军</szShortName>
+		<szDescription>原本的救援人员加入了反抗军，Ira为拯救反抗军战友倾尽所能。</szDescription>
 	</BACKGROUND>
 	<!-- Dimitri -->		
 	<BACKGROUND>
 		<uiIndex>60</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>有人觉得他头脑简单，但能在枪林弹雨中生存这么多年说明他还是有一套的。</szDescription>
+		<szName>反抗军战士</szName>
+		<szShortName>Arulcan反抗军</szShortName>
+		<szDescription>人们可能会误以为他是个傻瓜，但这么多年过去了Dimitri依旧活着，不得不承认他是个厉害的角色。</szDescription>
 	</BACKGROUND>
 	<!-- Devin -->
 	<BACKGROUND>
 		<uiIndex>61</uiIndex>
-		<szName>爆破专家</szName>
-		<szShortName>爆破专家</szShortName>
-		<szDescription>给爱尔兰共和军制造炸弹之后，Devin觉得应该扩大他的生意了。</szDescription>
+		<szName>IRA爆破专家</szName>
+		<szShortName>IRA爆破专家</szShortName>
+		<szDescription>Devin曾是爱尔兰共和军的炸弹专家，在北爱和平协议签署后，他将业务转移到了国外。</szDescription>
 	</BACKGROUND>
 	<!-- Robot -->
 	<BACKGROUND>
@@ -444,16 +444,16 @@
 	<!-- Hamous -->
 	<BACKGROUND>
 		<uiIndex>63</uiIndex>
-		<szName>密达威亚岛土著</szName>
-		<szShortName>密达威亚岛土著</szShortName>
-		<szDescription>铁血联盟一代密达威亚岛的土著居民，革命后参加了雇佣兵组织。</szDescription>
+		<szName>Metaviran土著</szName>
+		<szShortName>Metaviran土著</szShortName>
+		<szDescription>Metaviran原住民已经适应了岛上充满火药味的战争。解放后，一些人加入佣兵组织寻找致富之路。</szDescription>
 	</BACKGROUND>
 	<!-- Slay -->
 	<BACKGROUND>
 		<uiIndex>64</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>原本通缉他的政府后来还是选择雇佣了他，当然没有官方会承认。</szDescription>
+		<szName>恐怖分子狙击手</szName>
+		<szShortName>恐怖分子狙击手</szShortName>
+		<szDescription>原本通缉Slay的政府后来还是选择雇佣了他，当然没有官方会承认。</szDescription>
 	</BACKGROUND>
 	<!-- Eskimo -->
 	<BACKGROUND>
@@ -467,35 +467,35 @@
 		<uiIndex>66</uiIndex>
 		<szName>囚犯</szName>
 		<szShortName>囚犯</szShortName>
-		<szDescription>在监狱里深受刑讯折磨多年之后，虽然不再怕死，但生活中总有东西让人难以割舍。</szDescription>
+		<szDescription>看到儿子在狱中被折磨和杀害，Dynamo的余生伤痕累累。他不再害怕死亡，但也有其他事情会去担心……</szDescription>
 	</BACKGROUND>
 	<!-- Shank -->
 	<BACKGROUND>
 		<uiIndex>67</uiIndex>
 		<szName>囚犯</szName>
 		<szShortName>囚犯</szShortName>
-		<szDescription>在监狱里深受刑讯折磨多年之后，虽然不再怕死，但生活中总有东西让人难以割舍。</szDescription>
+		<szDescription>Shank因种大麻被捕入狱。监狱里糟糕的经历，让他变成了一个反政府的暴力革命者，从中他或许学到了一些东西。</szDescription>
 	</BACKGROUND>
 	<!-- Iggy -->
 	<BACKGROUND>
 		<uiIndex>68</uiIndex>
-		<szName>红军</szName>
-		<szShortName>红军</szShortName>
-		<szDescription>作为久经战场的老兵，Iggy直到加入反抗军才发现以前走错了路。</szDescription>
+		<szName>苏军老兵</szName>
+		<szShortName>苏军老兵</szShortName>
+		<szDescription>像许多其他经验丰富老兵一样，Iggy发现自己站在了Arulcan战争错误的一边。但与他们中的大多数人不同，他做了正确的事情，最终投奔了反抗军。</szDescription>
 	</BACKGROUND>
 	<!-- Vince -->
 	<BACKGROUND>
 		<uiIndex>69</uiIndex>
-		<szName>全科医生</szName>
-		<szShortName>全科医生</szShortName>
-		<szDescription>被触目可见的苦难所震惊，Vince决定走上了对抗女王的道路。</szDescription>
+		<szName>Arulcan医生</szName>
+		<szShortName>Arulcan医生</szShortName>
+		<szDescription>面对日复一日的痛苦和折磨，Vince最终决定走上对抗女王的道路。</szDescription>
 	</BACKGROUND>
 	<!-- Conrad -->
 	<BACKGROUND>
 		<uiIndex>70</uiIndex>
 		<szName>军事顾问</szName>
-   		<szShortName>军事顾问</szShortName>
-   		<szDescription>瞄准射击很容易，难得是教会别人瞄准谁射击。</szDescription>
+		<szShortName>军事顾问</szShortName>
+		<szDescription>女王付的钱是足够多，但把被迫入伍的人训练成能上战场的士兵，也毫无荣誉可言。Conrad按照雇佣兵的传统做法，有更好的报价，接着改变立场。</szDescription>
 	</BACKGROUND>
 	<!-- Combat jeep -->
 	<BACKGROUND>
@@ -507,37 +507,37 @@
 	<!-- Maddog -->
 	<BACKGROUND>
 		<uiIndex>72</uiIndex>
-		<szName>精神病人</szName>
-		<szShortName>精神病人</szShortName>
-		<szDescription>半清醒，半疯狂，Maddog的性格和思维方式总是混乱无序的。</szDescription>
+		<szName>疯狂破坏者</szName>
+		<szShortName>疯狂破坏者</szShortName>
+		<szDescription>一半清醒一半疯狂，Maddog的人生正处在一个十字路口。</szDescription>
 	</BACKGROUND>
-	<!-- Darrel jr. -->
+	<!-- Darrel Jr. -->
 	<BACKGROUND>
 		<uiIndex>73</uiIndex>
 		<szName>乡巴佬</szName>
 		<szShortName>乡巴佬</szShortName>
-		<szDescription>头发插着枯稻草，张嘴一笑缺颗牙，好吧，农场的生活也不是那么容易。</szDescription>
+		<szDescription>当南方联盟输掉战争之后，这些人继续向南方转移，并一直持续战斗。</szDescription>
 	</BACKGROUND>  
 	<!-- Perko -->
 	<BACKGROUND>
 		<uiIndex>74</uiIndex>
-		<szName>机械师</szName>
-		<szShortName>机械师</szShortName>
-		<szDescription>在物资缺乏的战场上，能维修装备太重要了！</szDescription>
+		<szName>维修专家</szName>
+		<szShortName>维修专家</szShortName>
+		<szDescription>在物资缺乏的战场上，有个能维修装备的人太重要了！</szDescription>
 	</BACKGROUND>
 	<!-- Deidranna -->
 	<BACKGROUND>
 		<uiIndex>75</uiIndex>
 		<szName>邪恶女王</szName>
 		<szShortName>邪恶女王</szShortName>
-		<szDescription>冷酷无情统治这个国家多年之后，女王精擅控制与生存之道。</szDescription>
+		<szDescription>Deidranna作为一个小国的邪恶统治者，具备惊人的生存天赋。</szDescription>
 	</BACKGROUND>
 	<!-- Auntie -->
 	<BACKGROUND>
 		<uiIndex>76</uiIndex>
-		<szName>老祖母</szName>
-		<szShortName>老祖母</szShortName>
-		<szDescription>人老了，好像总也不需要睡觉似的。</szDescription>
+		<szName>祖母</szName>
+		<szShortName>老奶奶</szShortName>
+		<szDescription>老人，他们似乎从不需要睡觉。</szDescription>
 	</BACKGROUND>
 	<!-- Enrico -->
 	<BACKGROUND>
@@ -551,27 +551,27 @@
 		<uiIndex>78</uiIndex>
 		<szName>赏金猎人</szName>
 		<szShortName>赏金猎人</szShortName>
-		<szDescription>既能合法杀人，又能以此赚钱，好有前途的工作啊！</szDescription>
+		<szDescription>无背景</szDescription>
 	</BACKGROUND> 
 	<!-- Joe -->
 	<BACKGROUND>
 		<uiIndex>79</uiIndex>
 		<szName>保镖</szName>
 		<szShortName>保镖</szShortName>
-		<szDescription>精良训练，无比忠诚，不惧牺牲，不愧为雇主的最佳选择。</szDescription>
+		<szDescription>训练有素、忠心耿耿、愿意付出最大的代价。作为雇主还想要什么呢?</szDescription>
 	</BACKGROUND>
 	<!-- Steve -->
 	<BACKGROUND>
 		<uiIndex>80</uiIndex>
 		<szName>医生</szName>
 		<szShortName>医生</szShortName>
-		<szDescription>护士、助手、护工们的领导，也是佣兵们的救星。</szDescription>
+		<szDescription>护士、助理、甜心舞娘的领导者，噢，还是雇佣兵的救星。</szDescription>
 	</BACKGROUND>
 	<!-- Rat -->
 	<BACKGROUND>
 		<uiIndex>81</uiIndex>
-		<szName>虫子管理员</szName>
-		<szShortName>虫子管理员</szShortName>
+		<szName>虫子守护者</szName>
+		<szShortName>虫子守护者</szShortName>
 		<szDescription>你猜Rat为什么神经兮兮的？</szDescription>
 	</BACKGROUND>
 	<!-- MoM -->
@@ -579,14 +579,14 @@
 		<uiIndex>82</uiIndex>
 		<szName>恐怖分子</szName>
 		<szShortName>恐怖分子</szShortName>
-		<szDescription>声名狼藉的杀人犯？冷血无情的虐杀狂？他们只是羡慕我而已。</szDescription>
+		<szDescription>臭名昭著的刽子手？精神错乱的犯罪？他们只是嫉妒罢了。</szDescription>
 	</BACKGROUND>
 	<!-- Imposter -->
 	<BACKGROUND>
 		<uiIndex>83</uiIndex>
-		<szName>恐怖分子</szName>
-		<szShortName>恐怖分子</szShortName>
-		<szDescription>哪怕被国际刑警通缉，他也知道怎么低调杀人、低调走人。</szDescription>
+		<szName>血腥恐怖分子</szName>
+		<szShortName>血腥恐怖分子</szShortName>
+		<szDescription>一个被国际刑警组织通缉的血腥杀手和伪装大师。</szDescription>
 	</BACKGROUND> 
 	<!-- Bob -->
 	<BACKGROUND>
@@ -606,15 +606,15 @@
 	<BACKGROUND>
 		<uiIndex>86</uiIndex>
 		<szName>匪帮</szName>
-		<szShortName>匪帮</szShortName>
-		<szDescription>有组织的犯罪网络随处可见，没有例外。</szDescription>
+		<szShortName>匪徒</szShortName>
+		<szDescription>有组织的犯罪无处不在，没有例外。</szDescription>
 	</BACKGROUND>
 	<!-- Darren -->
 	<BACKGROUND>
 		<uiIndex>87</uiIndex>
 		<szName>匪帮</szName>
-		<szShortName>匪帮</szShortName>
-		<szDescription>有组织的犯罪网络随处可见，没有例外。</szDescription>
+		<szShortName>匪徒</szShortName>
+		<szDescription>有组织的犯罪无处不在，没有例外。</szDescription>
 	</BACKGROUND>
 	<!-- Maria -->
 	<BACKGROUND>
@@ -628,28 +628,28 @@
 		<uiIndex>89</uiIndex>
 		<szName>店主</szName>
 		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Joey -->
 	<BACKGROUND>
 		<uiIndex>90</uiIndex>
-		<szName>青少年</szName>
-		<szShortName>青少年</szShortName>
-		<szDescription>少年维特之烦恼，居然会这么多！</szDescription>
+		<szName>小青年</szName>
+		<szShortName>小青年</szShortName>
+		<szDescription>烦恼如此之多。</szDescription>
 	</BACKGROUND> 
 	<!-- Tony -->
 	<BACKGROUND>
 		<uiIndex>91</uiIndex>
 		<szName>军火商</szName>
 		<szShortName>军火商</szShortName>
-		<szDescription>向交战双方同时出售军火风险巨大，收益同样巨大。</szDescription>
+		<szDescription>Tony知道向交战双方同时出售军火风险巨大，但收益同样巨大。</szDescription>
 	</BACKGROUND>
 	<!-- Frank -->
 	<BACKGROUND>
 		<uiIndex>92</uiIndex>
 		<szName>酒吧老板</szName>
 		<szShortName>酒吧老板</szShortName>
-		<szDescription>和气生财，乱世求生之不二法门。</szDescription>
+		<szDescription>和气生财，乱世求生之不二法门……</szDescription>
 	</BACKGROUND>
 	<!-- Spike -->
 	<BACKGROUND>
@@ -663,28 +663,28 @@
 		<uiIndex>94</uiIndex>
 		<szName>保镖</szName>
 		<szShortName>保镖</szShortName>
-		<szDescription>精良训练，无比忠诚，不惧牺牲，不愧为雇主的最佳选择。</szDescription>
+		<szDescription>训练有素、忠心耿耿、愿意付出最大的代价。作为雇主还想要什么呢?</szDescription>
 	</BACKGROUND>
 	<!-- Kyle -->
 	<BACKGROUND>
 		<uiIndex>95</uiIndex>
 		<szName>店主</szName>
 		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Micky -->
 	<BACKGROUND>
 		<uiIndex>96</uiIndex>
-		<szName>王牌猎手</szName>
-		<szShortName>王牌猎手</szShortName>
-		<szDescription>擅长于猎杀各种珍奇异兽，包括女王的手下。</szDescription>
+		<szName>店主</szName>
+		<szShortName>店主</szShortName>
+		<szDescription>Micky以前还是个军火贩子的时候，他经常把藏货在动物尸体里。集中精力去处理动物尸体不是一件愉快的事，但这样做更不容易引起关注。</szDescription>
 	</BACKGROUND>
 	<!-- Skyrider -->
 	<BACKGROUND>
 		<uiIndex>97</uiIndex>
-		<szName>飞行员</szName>
+		<szName>直升机飞行员</szName>
 		<szShortName>飞行员</szShortName>
-		<szDescription>接受过严格的军事训练，地面作战对他们而言可能不是很难。</szDescription>
+		<szDescription>驾驶直升机是Skyrider第二天性，就像摆脱麻烦一样。</szDescription>
 	</BACKGROUND>
 	<!-- Pablo -->
 	<BACKGROUND>
@@ -717,16 +717,16 @@
 	<!-- Warden -->
 	<BACKGROUND>
 		<uiIndex>102</uiIndex>
-		<szName>执法队</szName>
-		<szShortName>执法队</szShortName>
-		<szDescription>城管出身的佼佼者们更乐意在杀手的世界谋求一职，他们当然最擅长审讯犯人。</szDescription>
+		<szName>监狱看守</szName>
+		<szShortName>监狱看守</szShortName>
+		<szDescription>执法人员出身的佼佼者们更乐意在雇佣兵的世界谋求一职，他们当然最擅长审讯俘虏。</szDescription>
 	</BACKGROUND>
 	<!-- Gordon -->
 	<BACKGROUND>
 		<uiIndex>103</uiIndex>
 		<szName>囚犯</szName>
 		<szShortName>囚犯</szShortName>
-		<szDescription>在监狱里深受刑讯折磨多年之后，虽然不再怕死，但生活中总有东西让人难以割舍。</szDescription>
+		<szDescription>Gordon被折磨到了精神崩溃的边缘，甚至更糟，他目睹并遭受过无法形容的事情。</szDescription>
 	</BACKGROUND>
 	<!-- Gabby -->
 	<BACKGROUND>
@@ -761,7 +761,7 @@
 		<uiIndex>108</uiIndex>
 		<szName>Arulcan老人</szName>
 		<szShortName>Arulcan老人</szShortName>
-		<szDescription>他因智慧和对Arulcan历史的了解而受到尊敬。</szDescription>
+		<szDescription>Yanni因智慧和对Arulcan历史的了解而受到尊敬。</szDescription>
 	</BACKGROUND>
 	<!-- Martha -->
 	<BACKGROUND>
@@ -774,71 +774,71 @@
 	<BACKGROUND>
 		<uiIndex>110</uiIndex>
 		<szName>匪帮</szName>
-		<szShortName>匪帮</szShortName>
-		<szDescription>得罪了他，你就得罪了他背后的整个家族。</szDescription>
+		<szShortName>匪徒</szShortName>
+		<szDescription>惹了他，就等于惹了整个家族。</szDescription>
 	</BACKGROUND>
 	<!-- T_Rex -->
 	<BACKGROUND>
 		<uiIndex>111</uiIndex>
-		<szName>准军事人员</szName>
-		<szShortName>准军事人员</szShortName>
-		<szDescription>偏执狂、无知愚昧、法西斯主义，呵呵，这就是你。</szDescription>
+		<szName>叛乱的美国恐怖分子</szName>
+		<szShortName>反叛者</szShortName>
+		<szDescription>偏执、无知、法西斯主义——没错，这大概就是全部了。</szDescription>
 	</BACKGROUND>
 	<!-- Druggist -->
 	<BACKGROUND>
 		<uiIndex>112</uiIndex>
-		<szName>恐怖分子</szName>
-		<szShortName>恐怖分子</szShortName>
-		<szDescription>哪怕被国际刑警通缉，他也知道怎么低调杀人、低调走人。</szDescription>
+		<szName>恐怖分子投毒者</szName>
+		<szShortName>恐怖分子投毒者</szShortName>
+		<szDescription>哪怕被国际刑警组织通缉，他也知道怎么低调杀人、低调走人。</szDescription>
 	</BACKGROUND>
 	<!-- Jake -->
 	<BACKGROUND>
 		<uiIndex>113</uiIndex>
-		<szName>垃圾佬/黑市商人</szName>
-		<szShortName>垃圾佬/黑市商人</szShortName>
-		<szDescription>专捡垃圾……还有一些别的。</szDescription>
+		<szName>废品贩子/黑市商人</szName>
+		<szShortName>废品贩子</szShortName>
+		<szDescription>Jake经营废品生意……以及其它东西。</szDescription>
 	</BACKGROUND>
 	<!-- Pacos -->
 	<BACKGROUND>
 		<uiIndex>114</uiIndex>
-		<szName>孩童</szName>
-		<szShortName>孩童</szShortName>
-		<szDescription>别向他射击，你忘了日内瓦公约？</szDescription>
+		<szName>儿童</szName>
+		<szShortName>儿童</szShortName>
+		<szDescription>别向他射击，你忘了日内瓦公约……</szDescription>
 	</BACKGROUND>
 	<!-- Dave -->
 	<BACKGROUND>
 		<uiIndex>115</uiIndex>
-		<szName>修车工</szName>
-		<szShortName>修车工</szShortName>
-		<szDescription>Dave以前经营着一个加油站……那时还有油可以加。</szDescription>
+		<szName>汽车维修工</szName>
+		<szShortName>汽车维修工</szShortName>
+		<szDescription>Dave曾经经营一个加油站……在还有燃料的时候。</szDescription>
 	</BACKGROUND>
 	<!-- Skipper -->
 	<BACKGROUND>
 		<uiIndex>116</uiIndex>
 		<szName>流浪汉</szName>
 		<szShortName>流浪汉</szShortName>
-		<szDescription>女王杀害了Skipper的家人，又把他的家夷为平地。</szDescription>
+		<szDescription>女王杀害了Skipper家人，又把他的家夷为平地。</szDescription>
 	</BACKGROUND>
 	<!-- Hans -->
 	<BACKGROUND>
 		<uiIndex>117</uiIndex>
-		<szName>前台</szName>
-		<szShortName>前台</szShortName>
-		<szDescription>不可描述！</szDescription>
+		<szName>代表</szName>
+		<szShortName>代表</szShortName>
+		<szDescription>无需描述</szDescription>
 	</BACKGROUND>
 	<!-- John -->
 	<BACKGROUND>
 		<uiIndex>118</uiIndex>
 		<szName>游客</szName>
 		<szShortName>游客</szShortName>
-		<szDescription>帮我拍个照吧，可以么？</szDescription>
+		<szDescription>你能帮我照张相吗?</szDescription>
 	</BACKGROUND>
 	<!-- Mary -->
 	<BACKGROUND>
 		<uiIndex>119</uiIndex>
 		<szName>游客</szName>
 		<szShortName>游客</szShortName>
-		<szDescription>帮我拍个照吧，可以么？</szDescription>
+		<szDescription>你能帮我照张相吗?</szDescription>
 	</BACKGROUND>
 	<!-- General -->
 	<BACKGROUND>
@@ -851,29 +851,29 @@
 	<BACKGROUND>
 		<uiIndex>121</uiIndex>
 		<szName>Krott中士</szName>
-		<szShortName>Krott中士</szShortName>
-		<szDescription>这名中士宁愿和他的亲人呆在家里，却被征召到Arulco军队。</szDescription>
+		<szShortName>中士</szShortName>
+		<szDescription>这位被征召入Arulcan军队的中士更愿意和家人待在家里。</szDescription>
 	</BACKGROUND>
 	<!-- Armand -->
 	<BACKGROUND>
 		<uiIndex>122</uiIndex>
-		<szName>既得利益者</szName>
-		<szShortName>既得利益者</szShortName>
+		<szName>企业家</szName>
+		<szShortName>企业家</szShortName>
 		<szDescription>资助女王的就是这些为了社会地位的富人。</szDescription>
 	</BACKGROUND>
 	<!-- Lora -->
 	<BACKGROUND>
 		<uiIndex>123</uiIndex>
 		<szName>二流演员</szName>
-    	<szShortName>二流演员</szShortName>
-    	<szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，你的名声已享誉世界。</szDescription>
+		<szShortName>二流演员</szShortName>
+		<szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，你的名声已享誉世界。</szDescription>
 	</BACKGROUND>
 	<!-- Franz -->
 	<BACKGROUND>
 		<uiIndex>124</uiIndex>
 		<szName>店主</szName>
-   		<szShortName>店主</szShortName>
-   		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szShortName>店主</szShortName>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Howard -->
 	<BACKGROUND>
@@ -885,37 +885,37 @@
 	<!-- Sam -->
 	<BACKGROUND>
 		<uiIndex>126</uiIndex>
-		<szName>店主</szName>
-		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szName>店主/工匠</szName>
+		<szShortName>店主/工匠</szShortName>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Eldin -->
 	<BACKGROUND>
 		<uiIndex>127</uiIndex>
 		<szName>二战老兵</szName>
 		<szShortName>二战老兵</szShortName>
-		<szDescription>胸前好几排荣誉勋章却只能沿街乞讨，所以他选择去做雇佣兵。</szDescription>
+		<szDescription>在他的鼎盛时期，他会使你们这些年轻人自愧不如。</szDescription>
 	</BACKGROUND>
 	<!-- Arnie -->
 	<BACKGROUND>
 		<uiIndex>128</uiIndex>
-		<szName>机械师</szName>
-		<szShortName>机械师</szShortName>
-		<szDescription>在物资缺乏的战场上，能维修装备太重要了！</szDescription>
+		<szName>维修专家</szName>
+		<szShortName>维修专家</szShortName>
+		<szDescription>在物资缺乏的战场上，有个能维修装备的人太重要了！</szDescription>
 	</BACKGROUND>
 	<!-- Tina -->
 	<BACKGROUND>
 		<uiIndex>129</uiIndex>
 		<szName>店主</szName>
 		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Fredo -->
 	<BACKGROUND>
->		<uiIndex>130</uiIndex>
->		<szName>店主</szName>
->		<szShortName>店主</szShortName>
->		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<uiIndex>130</uiIndex>
+		<szName>维修工</szName>
+		<szShortName>维修工</szShortName>
+		<szDescription>如果有什么需要维修，找他最合适了。</szDescription>
 	</BACKGROUND>
 	<!-- Walter -->
 	<BACKGROUND>
@@ -934,23 +934,23 @@
 	<!-- Billy -->
 	<BACKGROUND>
 		<uiIndex>133</uiIndex>
-   		<szName>保安</szName>
-   		<szShortName>保安</szShortName>
-   		<szDescription>保安有打架的经验，不过杀人这一块可能略有生疏。</szDescription>
+		<szName>保安</szName>
+		<szShortName>保安</szShortName>
+		<szDescription>保安有打架的经验，不过杀人这一块可能略有生疏。</szDescription>
 	</BACKGROUND>
 	<!-- Brewster -->
 	<BACKGROUND>
 		<uiIndex>134</uiIndex>
-		<szName>傻子</szName>
-		<szShortName>傻子</szShortName>
+		<szName>蠢货</szName>
+		<szShortName>蠢货</szShortName>
 		<szDescription>娶了Warden，两面派，懦弱，不忠并且间接造成了谋杀。</szDescription>
 	</BACKGROUND>
 	<!-- Elliot -->
 	<BACKGROUND>
 		<uiIndex>135</uiIndex>
-		<szName>受虐狂</szName>
-		<szShortName>受虐狂</szShortName>
-		<szDescription>经过了长期不间断的折辱和嘲笑谩骂之后，你慢慢开始怀疑当初的选择。</szDescription>
+		<szName>白痴</szName>
+		<szShortName>白痴</szShortName>
+		<szDescription>人们期待不断的虐待和嘲笑最终会让Elliot重新考虑他的人生选择，但并没有。</szDescription>
 	</BACKGROUND>
 	<!-- Endgame Crowd -->
 	<BACKGROUND>
@@ -969,93 +969,93 @@
 	<!-- Waldo -->
 	<BACKGROUND>
 		<uiIndex>138</uiIndex>
-		<szName>直升飞机机械师</szName>
-   		<szShortName>直升飞机机械师</szShortName>
-   		<szDescription>应该是这里最好的直升飞机机械师了，也是仅存的，囧。</szDescription>
+		<szName>直升机机械师</szName>
+		<szShortName>直升机机械师</szShortName>
+		<szDescription>可能是Arulco最好的也是唯一的直升机机械师。</szDescription>
 	</BACKGROUND>
 	<!-- Doreen -->
 	<BACKGROUND>
 		<uiIndex>139</uiIndex>
 		<szName>厂主</szName>
 		<szShortName>厂主</szShortName>
-		<szDescription>邪恶女王的闺中密友，残酷无情的剥削者，你居然想雇佣她？</szDescription>
+		<szDescription>Deidranna的私人朋友和无情的剥削者。你打算招募她？</szDescription>
 	</BACKGROUND>
 	<!-- Jim -->
 	<BACKGROUND>
 		<uiIndex>140</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
 	<!-- Jack -->
 	<BACKGROUND>
 		<uiIndex>141</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
-	<!-- Olaf  -->
+	<!-- Olaf -->
 	<BACKGROUND>
 		<uiIndex>142</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
 	<!-- Ray -->
 	<BACKGROUND>
 		<uiIndex>143</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
 	<!-- Olga -->
 	<BACKGROUND>
 		<uiIndex>144</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
 	<!-- Tyrone -->
 	<BACKGROUND>
 		<uiIndex>145</uiIndex>
-		<szName>杀手</szName>
-		<szShortName>杀手</szShortName>
-		<szDescription>杀手总是经常杀人的，不然还叫什么杀手？</szDescription>
+		<szName>Kingpin杀手</szName>
+		<szShortName>Kingpin杀手</szShortName>
+		<szDescription>Kingpin雇佣的杀手之一，擅长杀人，训练有素的士兵面对他们也很危险。</szDescription>
 	</BACKGROUND>
 	<!-- Madlab -->
 	<BACKGROUND>
 		<uiIndex>146</uiIndex>
-		<szName>学院派</szName>
-		<szShortName>学院派</szShortName>
-		<szDescription>绝大部分知识都是纸上谈兵，或许几场战斗就要了老命了。</szDescription>
+		<szName>科学家</szName>
+		<szShortName>科学家</szShortName>
+		<szDescription>对知识永不满足的渴望导致Madlab效忠女王犯下罪行，而他现在正在赎罪。</szDescription>
 	</BACKGROUND>
 	<!-- Keith -->
 	<BACKGROUND>
 		<uiIndex>147</uiIndex>
 		<szName>店主</szName>
 		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szDescription>对很多人来说，店主？就是一直流着口水数钱的那个。</szDescription>
 	</BACKGROUND>
 	<!-- Matt -->
 	<BACKGROUND>
 		<uiIndex>148</uiIndex>
 		<szName>矿工</szName>
 		<szShortName>矿工</szShortName>
-		<szDescription>黑煤窑的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+		<szDescription>矿场的活是一项艰苦而繁重的工作，难怪有些人开始寻找更轻松的赚钱方式。</szDescription>
 	</BACKGROUND>
 	<!-- Mike -->
 	<BACKGROUND>
 		<uiIndex>149</uiIndex>
-		<szName>雇佣兵</szName>
-		<szShortName>雇佣兵</szShortName>
-		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szName>传奇佣兵</szName>
+		<szShortName>传奇佣兵</szShortName>
+		<szDescription>有些人多才多艺，但Mike比他们更好。他是精英中的精英，是佣兵界无可争议的传奇。他现在为你工作，因为你出价更高……因为不然你会杀了他。</szDescription>
 	</BACKGROUND>
 	<!-- Daryl -->
 	<BACKGROUND>
 		<uiIndex>150</uiIndex>
 		<szName>乡巴佬</szName>
 		<szShortName>乡巴佬</szShortName>
-		<szDescription>头发插着枯稻草，张嘴一笑缺颗牙，好吧，农场的生活也不是那么容易。</szDescription>
+		<szDescription>当南方联盟输掉战争之后，这些人继续向南方转移，并一直持续战斗。</szDescription>
 	</BACKGROUND>  
 	<!-- Herve -->
 	<BACKGROUND>
@@ -1088,37 +1088,37 @@
 	<!-- Manny -->
 	<BACKGROUND>
 		<uiIndex>155</uiIndex>
-		<szName>酒吧老板</szName>
-		<szShortName>酒吧老板</szShortName>
-		<szDescription>和气生财，乱世求生之不二法门。</szDescription>
+		<szName>弱智</szName>
+		<szShortName>弱智</szShortName>
+		<szDescription>可怜的Manny...</szDescription>
 	</BACKGROUND>
 	<!-- Oswald -->
 	<BACKGROUND>
 		<uiIndex>156</uiIndex>
 		<szName>矿工</szName>
 		<szShortName>矿工</szShortName>
-		<szDescription>黑煤窑的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+		<szDescription>矿场的活是一项艰苦而繁重的工作，难怪有些人开始寻找更轻松的赚钱方式。</szDescription>
 	</BACKGROUND>
 	<!-- Calvin -->
 	<BACKGROUND>
 		<uiIndex>157</uiIndex>
 		<szName>矿工</szName>
 		<szShortName>矿工</szShortName>
-		<szDescription>黑煤窑的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+		<szDescription>矿场的活是一项艰苦而繁重的工作，难怪有些人开始寻找更轻松的赚钱方式。</szDescription>
 	</BACKGROUND>
 	<!-- Carl -->
 	<BACKGROUND>
 		<uiIndex>158</uiIndex>
 		<szName>矿工</szName>
 		<szShortName>矿工</szShortName>
-		<szDescription>黑煤窑的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+		<szDescription>矿场的活是一项艰苦而繁重的工作，难怪有些人开始寻找更轻松的赚钱方式。</szDescription>
 	</BACKGROUND>
 	<!-- Speck.. -->
 	<BACKGROUND>
-   		<uiIndex>159</uiIndex>
-   		<szName>技术宅</szName>
-   		<szShortName>技术宅</szShortName>
-   		<szDescription>技术宅拯救世界。就算闭着一只眼睛，技术宅也能在一分钟内摆好魔方。</szDescription>
+		<uiIndex>159</uiIndex>
+		<szName>技术宅</szName>
+		<szShortName>技术宅</szShortName>
+		<szDescription>无论是三十年前的垃圾还是最新的电子产品，技术宅都可以闭着眼睛修好它。</szDescription>
 	</BACKGROUND>
 	<!-- Hummer -->
 	<BACKGROUND>
@@ -1157,31 +1157,31 @@
 	</BACKGROUND>
 	<!-- Gaston -->
 	<BACKGROUND>
-    	<uiIndex>165</uiIndex>
-    	<szName>UN维和部队</szName>
-    	<szShortName>UN维和部队</szShortName>
-    	<szDescription>各国合作提供部队，采用非暴力方式解决区域冲突。可悲的是，这个定义是错的。</szDescription>
+		<uiIndex>165</uiIndex>
+		<szName>法国海军狙击手</szName>
+		<szShortName>法国海军狙击手</szShortName>
+		<szDescription>Gaston在法国海军陆战队服役时表现出色，他们很像美国海军陆战队，但是食物要好得多。</szDescription>
 	</BACKGROUND>
 	<!-- Stogie -->
 	<BACKGROUND>
 		<uiIndex>166</uiIndex>
-		<szName>雇佣兵</szName>
-		<szShortName>雇佣兵</szShortName>
-		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szName>美国老兵</szName>
+		<szShortName>美国老兵</szShortName>
+		<szDescription>Stogie在美国陆军中的经历让他变得非常强大。或许他天生就是这样的，当兵对他来说就像休假。</szDescription>
 	</BACKGROUND>
 	<!-- Tex -->
 	<BACKGROUND>
 		<uiIndex>167</uiIndex>
-   		<szName>二流演员</szName>
-   		<szShortName>二流演员</szShortName>
-   		<szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，你的名声已享誉世界。</szDescription>
+		<szName>B级片明星</szName>
+		<szShortName>B级片明星</szShortName>
+		<szDescription>与绝大多数演员不同，Tex操作武器的能力无可挑剔，不论是在战场上还是在银幕上，但这无法改变他出演的电影依旧平庸。</szDescription>
 	</BACKGROUND>
 	<!-- Biggins -->
 	<BACKGROUND>
 		<uiIndex>168</uiIndex>
-   		<szName>资深雇佣兵</szName>
-   		<szShortName>资深雇佣兵</szShortName>
-   		<szDescription>新人还在包尿布时你已经威名远扬，没有什么任务能难住你。</szDescription>
+		<szName>佣兵上校</szName>
+		<szShortName>上校</szShortName>
+		<szDescription>Biggins在佣军界可能不如他当英军上校那么出名，但他作为一名经验丰富的老兵，曾参与过许多雇佣军行动。</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 4 -->
 	<BACKGROUND>
@@ -1193,86 +1193,86 @@
 	<!-- Monk  -->
 	<BACKGROUND>
 		<uiIndex>170</uiIndex>
-    	<szName>红军</szName>
-    	<szShortName>红军</szShortName>
-    	<szDescription>苏联红军克服了严寒天气和物资缺乏， 最终弄死了希特勒。</szDescription>
+		<szName>俄罗斯特工</szName>
+		<szShortName>俄罗斯特工</szShortName>
+		<szDescription>现代俄军与前苏联时代相比简直是黯然失色，但特种部队依然是不容小觑的力量。Monk作为前军情总局特工，能力非常出色。</szDescription>
 	</BACKGROUND>
 	<!-- Brain -->
 	<BACKGROUND>
 		<uiIndex>171</uiIndex>
-    	<szName>红军</szName>
-    	<szShortName>红军</szShortName>
-    	<szDescription>苏联红军克服了严寒天气和物资缺乏， 最终弄死了希特勒。</szDescription>
+		<szName>苏联红军</szName>
+		<szShortName>苏联红军</szShortName>
+		<szDescription>爱沙尼亚公民必须在苏联军队服役，尽管这不是一个舒服的地方，但它确实把Brain锻炼成了一个坚韧的士兵。</szDescription>
 	</BACKGROUND>
 	<!-- Lennart -->
 	<BACKGROUND>
 		<uiIndex>172</uiIndex>
-    	<szName>红军</szName>
-    	<szShortName>红军</szShortName>
-    	<szDescription>苏联红军克服了严寒天气和物资缺乏， 最终弄死了希特勒。</szDescription>
+		<szName>苏联红军</szName>
+		<szShortName>苏联红军</szShortName>
+		<szDescription>爱沙尼亚公民必须在苏联军队服役，尽管这不是一个舒服的地方，但它确实把Lennart锻炼成了一个坚韧的士兵。</szDescription>
 	</BACKGROUND>
 	<!-- Henning -->
 	<BACKGROUND>
 		<uiIndex>173</uiIndex>
-    	<szName>军事顾问</szName>
-    	<szShortName>军事顾问</szShortName>
-    	<szDescription>瞄准射击很容易，难得是教会别人瞄准谁射击。</szDescription>
+		<szName>民主德国人民军老兵</szName>
+		<szShortName>民主德国人民军老兵</szShortName>
+		<szDescription>Henning在东德国家人民军服役和多次担任军事顾问的经历，使他成为一名完美的专业人士。</szDescription>
 	</BACKGROUND>
 	<!-- Luc -->
 	<BACKGROUND>
 		<uiIndex>174</uiIndex>
-    	<szName>保安</szName>
-    	<szShortName>保安</szShortName>
-    	<szDescription>保安有打架的经验，不过杀人这一块可能略有生疏。</szDescription>
+		<szName>自由职业者</szName>
+		<szShortName>自由职业者</szShortName>
+		<szDescription>Lucky大部分时间都在从事雇佣军业务，尽管缺乏正式军事训练，但他表现还是相当不错。</szDescription>
 	</BACKGROUND>
 	<!-- Laura -->
 	<BACKGROUND>
 		<uiIndex>175</uiIndex>
-   		<szName>外科军医</szName>
-   		<szShortName>外科军医</szShortName>
-   		<szDescription>谁都能把人切成两半，但能不能缝上去就是另一回事。</szDescription>
+		<szName>佣兵军医</szName>
+		<szShortName>佣兵军医</szShortName>
+		<szDescription>被迫逃离祖国给Laura留下了难以磨灭的创伤，但这并没有阻止她的医学学习和佣兵生涯中的表现出色。</szDescription>
 	</BACKGROUND>
 	<!-- Grace -->
 	<BACKGROUND>
 		<uiIndex>176</uiIndex>
-		<szName>马戏团演员</szName>
-		<szShortName>马戏团演员</szShortName>
-		<szDescription>听说哪怕把你绑起来你也能躲飞刀？那现在试试看躲子弹吧！</szDescription>
+		<szName>马戏团艺人</szName>
+		<szShortName>马戏团艺人</szShortName>
+		<szDescription>Grace在马戏团表演中的杂技和飞刀表演小有名气，这些技能在战场上有着出人意料的用途。</szDescription>
 	</BACKGROUND>
 	<!-- Rudolf -->
 	<BACKGROUND>
 		<uiIndex>177</uiIndex>
-		<szName>GSG9特工</szName>
-		<szShortName>GSG9特工</szShortName>
-		<szDescription>成立于1972年慕尼黑惨案后的GSG9是德国著名反恐部队。</szDescription>
+		<szName>GSG 9</szName>
+		<szShortName>GSG 9</szShortName>
+		<szDescription>在1972年慕尼黑惨案之后成立的GSG 9是德国的专业反恐特种部队。作为前成员，Rudolf能力突出。</szDescription>
 	</BACKGROUND>
 	<!-- Spooky -->
 	<BACKGROUND>
 		<uiIndex>178</uiIndex>
 		<szName>SOG成员</szName>
 		<szShortName>SOG成员</szShortName>
-		<szDescription>这个SOG组织策划和组织了多起越南战场上的非常规军事行动。</szDescription>
+		<szDescription>SOG是一支在越南进行非常规战争的特种部队，活跃了多年的Spooky个人能力非凡。</szDescription>
 	</BACKGROUND>
 	<!-- Skitz -->
 	<BACKGROUND>
 		<uiIndex>179</uiIndex>
-   		<szName>精神病人</szName>
-   		<szShortName>精神病人</szShortName>
-   		<szDescription>没有人知道你是怎么逃出来的，不过大家一致认为，你应该回去。</szDescription>
+		<szName>炸弹疯子</szName>
+		<szShortName>炸弹疯子</szShortName>
+		<szDescription>虽然爆破专家不好找……但是也没人愿意招惹他。</szDescription>
 	</BACKGROUND>
 	<!-- Weasel -->
 	<BACKGROUND>
 		<uiIndex>180</uiIndex>
 		<szName>告密者</szName>
 		<szShortName>告密者</szShortName>
-		<szDescription>你知道队友的一切事情，哪怕鸡毛蒜皮的小事。</szDescription>
+		<szDescription>告密者、老鼠、线人，这些都是Weasel的外号，这都是他最擅长的。</szDescription>
 	</BACKGROUND>
 	<!-- It  -->
 	<BACKGROUND>
 		<uiIndex>181</uiIndex>
-   		<szName>摔跤手</szName>
-   		<szShortName>摔跤手</szShortName>
-   		<szDescription>与其说是搏斗不如说是表演，不过被丢来丢去而没摔断脖子也需要一定的技术。</szDescription>
+		<szName>摔跤手</szName>
+		<szShortName>摔跤手</szShortName>
+		<szDescription>与其说是搏斗不如说是表演，不过被丢来丢去而没摔断脖子也需要一定的技术。</szDescription>
 	</BACKGROUND>
 	<!-- Bernie -->
 	<BACKGROUND>
@@ -1284,44 +1284,44 @@
 	<!-- Pops -->
 	<BACKGROUND>
 		<uiIndex>183</uiIndex>
-    	<szName>殡仪员</szName>
-    	<szShortName>殡仪员</szShortName>
-    	<szDescription>每天都和死亡与尸体打交道，最终发现自己什么都不怕了！</szDescription>
+		<szName>古董战士</szName>
+		<szShortName>古董战士</szShortName>
+		<szDescription>Pops见证了一切：从坦克被发明以来，战斗就是他的主业，至少他是这么说的。还有什么能吓到他呢？</szDescription>
 	</BACKGROUND>
 	<!-- Wally -->
 	<BACKGROUND>
 		<uiIndex>184</uiIndex>
-		<szName>平庸射手</szName>
-		<szShortName>平庸射手</szShortName>
-		<szDescription>由于高度近视，Wally看来是无法提升其射击水平了。</szDescription>
+		<szName>半盲工程师</szName>
+		<szShortName>工程师</szShortName>
+		<szDescription>由于视力问题，Wally的射击非常差，几乎没有改进的可能。幸运的是他有不错的工程技能作为补偿。</szDescription>
 	</BACKGROUND>
 	<!-- Eli -->
 	<BACKGROUND>
 		<uiIndex>185</uiIndex>
-   		<szName>外科军医</szName>
-   		<szShortName>外科军医</szShortName>
-   		<szDescription>谁都能把人切成两半，但能不能缝上去就是另一回事。</szDescription>
+		<szName>平庸外科医生</szName>
+		<szShortName>平庸外科医生</szShortName>
+		<szDescription>Eli是一名训练有素的外科医生，虽然他技术普普通通。另外，他的射击技能一直很糟糕。</szDescription>
 	</BACKGROUND>
 	<!-- Mitch -->
 	<BACKGROUND>
 		<uiIndex>186</uiIndex>
-		<szName>全科医生</szName>
-		<szShortName>全科医生</szShortName>
-		<szDescription>感染了病菌？脑子挨了一枪？全科医生能救你一命。</szDescription>
+		<szName>产科医生</szName>
+		<szShortName>产科医生</szShortName>
+		<szDescription>虽然Mitch专业不对口，但是他很快就掌握了战地医疗这行的精髓。</szDescription>
 	</BACKGROUND>
 	<!-- Carp -->
 	<BACKGROUND>
 		<uiIndex>187</uiIndex>
-   		<szName>白领</szName>
-   		<szShortName>白领</szShortName>
-   		<szDescription>嗡嗡的空调、打翻的杯子和乱七八糟的资料，这就是办公室的生活。</szDescription>
+		<szName>白领</szName>
+		<szShortName>白领</szShortName>
+		<szDescription>Carp更像是个上班族而不是士兵，他在这行里一直有点格格不入。</szDescription>
 	</BACKGROUND>
 	<!-- Lance  -->
 	<BACKGROUND>
 		<uiIndex>188</uiIndex>
-   		<szName>毕业生</szName>
-   		<szShortName>毕业生</szShortName>
-   		<szDescription>毕业工作不好找？不想读大学？来当杀手吧！</szDescription>
+		<szName>胆小鬼</szName>
+		<szShortName>胆小鬼</szShortName>
+		<szDescription>当他们说“能干就干，不行就教”时，八成就是指的Lance。</szDescription>
 	</BACKGROUND>
 	<!-- Raffi -->
 	<BACKGROUND>
@@ -1340,9 +1340,9 @@
 	<!-- Speck -->
 	<BACKGROUND>
 		<uiIndex>191</uiIndex>
-   		<szName>技术宅</szName>
-   		<szShortName>技术宅</szShortName>
-   		<szDescription>技术宅拯救世界。就算闭着一只眼睛，技术宅也能在一分钟内摆好魔方。</szDescription>
+		<szName>技术天才</szName>
+		<szShortName>技术天才</szShortName>
+		<szDescription>虽然Speck的战斗和网页设计能力令人质疑，但他的确拥有两个大学学位，并且从来没有他修不了的机械或电子设备。</szDescription>
 	</BACKGROUND>
 	<!-- PGmale 5 -->
 	<BACKGROUND>
@@ -1368,30 +1368,30 @@
 	<!-- John -->
 	<BACKGROUND>
 		<uiIndex>195</uiIndex>
-		<szName>观光客</szName>
-		<szShortName>观光客</szShortName>
+		<szName>周末战士</szName>
+		<szShortName>周末战士</szShortName>
 		<szDescription>订阅《美国雇佣兵》杂志的佣兵，就和当年稚嫩的你一样。</szDescription>
 	</BACKGROUND>
 	<!-- Elio -->
 	<BACKGROUND>
 		<uiIndex>196</uiIndex>
-		<szName>密达威亚岛土著</szName>
-		<szShortName>密达威亚岛土著</szShortName>
-		<szDescription>铁血联盟一代密达威亚岛的土著居民，革命后参加了雇佣兵组织。</szDescription>
+		<szName>Metaviran土著</szName>
+		<szShortName>Metaviran土著</szShortName>
+		<szDescription>Metaviran原住民已经适应了岛上充满火药味的战争。解放后，一些人加入佣兵组织寻找致富之路。</szDescription>
 	</BACKGROUND>
 	<!-- Juan -->
 	<BACKGROUND>
 		<uiIndex>197</uiIndex>
-		<szName>密达威亚岛土著</szName>
-		<szShortName>密达威亚岛土著</szShortName>
-		<szDescription>铁血联盟一代密达威亚岛的土著居民，革命后参加了雇佣兵组织。</szDescription>
+		<szName>Metaviran土著</szName>
+		<szShortName>Metaviran土著</szShortName>
+		<szDescription>Metaviran原住民已经适应了岛上充满火药味的战争。解放后，一些人加入佣兵组织寻找致富之路。</szDescription>
 	</BACKGROUND>
 	<!-- Wahan -->
 	<BACKGROUND>
 		<uiIndex>198</uiIndex>
-		<szName>密达威亚萨满</szName>
-		<szShortName>密达威亚萨满</szShortName>
-		<szDescription>从遥远的古代就领导着部落，萨满对西方来说一直是个谜。</szDescription>
+		<szName>Metaviran萨满</szName>
+		<szShortName>Metaviran萨满</szShortName>
+		<szDescription>自古以来他们就是Metaviran的领袖，萨满拥有异于西方的医疗知识。</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
@@ -1544,240 +1544,240 @@
 	<!-- Postie -->
 	<BACKGROUND>
 		<uiIndex>220</uiIndex>
-   		<szName>白领</szName>
-   		<szShortName>白领</szShortName>
-   		<szDescription>嗡嗡的空调、打翻的杯子和乱七八糟的资料，这就是办公室的生活。</szDescription>
+		<szName>不满的邮递员</szName>
+		<szShortName>邮递员</szShortName>
+		<szDescription>无论是雨、雪、雨夹雪还是冰雹，邮件必须送达，而且永不停息！</szDescription>
 	</BACKGROUND>
 	<!-- Reuban -->
 	<BACKGROUND>
 		<uiIndex>221</uiIndex>
-   		<szName>精神病人</szName>
-   		<szShortName>精神病人</szShortName>
-   		<szDescription>没有人知道你是怎么逃出来的，不过大家一致认为，你应该回去。</szDescription>
+		<szName>冷酷无情</szName>
+		<szShortName>冷酷无情</szShortName>
+		<szDescription>Reuban的过往经历不明，但很明显的是，一个用无绳树篱修剪机谋杀了妻子和家人的人是极端残忍和疯狂的。</szDescription>
 	</BACKGROUND>
 	<!-- Leon -->
 	<BACKGROUND>
 		<uiIndex>222</uiIndex>
-   		<szName>资深雇佣兵</szName>
-   		<szShortName>资深雇佣兵</szShortName>
-   		<szDescription>新人还在包尿布时你已经威名远扬，没有什么任务能难住你。</szDescription>
+		<szName>传奇告密者</szName>
+		<szShortName>告密者</szShortName>
+		<szDescription>告密者一般不会像幸运的战士那样成功，但这对Leon不成问题，他的成绩使他成为这个行业的传奇人物。</szDescription>
 	</BACKGROUND>
 	<!-- Gary -->
 	<BACKGROUND>
 		<uiIndex>223</uiIndex>
-		<szName>小鬼/小偷/爆破手</szName>
-		<szShortName>小鬼/小偷/爆破手</szShortName>
-		<szDescription>有Gary这个小兄弟，怪不得Larry天天老喝酒。</szDescription>
+		<szName>Roachburn的败家子</szName>
+		<szShortName>败家子</szShortName>
+		<szDescription>虽然Gary还没败坏完Roachburn的名声，但他的大嘴巴一直是那个老样子。有这样的兄弟，难怪Larry酗酒这么厉害?</szDescription>
 	</BACKGROUND>
 	<!-- Sparky -->
 	<BACKGROUND>
 		<uiIndex>224</uiIndex>
 		<szName>厂妹技师</szName>
 		<szShortName>厂妹技师</szShortName>
-		<szDescription>修修修，和Gary和Larry相比，她应该是家里的好孩子。</szDescription>
+		<szDescription>修修修，和Gary和Larry相比，她应该算是Roachburn家的好孩子了。</szDescription>
 	</BACKGROUND>
 	<!-- Beth -->
 	<BACKGROUND>
 		<uiIndex>225</uiIndex>
-    	<szName>护士</szName>
-    	<szShortName>护士</szShortName>
-    	<szDescription>护士在战区是很吃香的，因为太危险了，专业医生往往不愿意前往。</szDescription>
+		<szName>医疗助理</szName>
+		<szShortName>医疗助理</szShortName>
+		<szDescription>从医疗助理转变为雇佣兵并不是最常见的职业道路，但Beth的性格还挺合适做行业。</szDescription>
 	</BACKGROUND>
 	<!-- Sam -->
 	<BACKGROUND>
 		<uiIndex>226</uiIndex>
-   		<szName>资深雇佣兵</szName>
-   		<szShortName>资深雇佣兵</szShortName>
-   		<szDescription>新人还在包尿布时你已经威名远扬，没有什么任务能难住你。</szDescription>
+		<szName>资深老兵</szName>
+		<szShortName>资深老兵</szShortName>
+		<szDescription>Sam在这行干了几十年，没有什么惊天动地的事迹。他现在老了，但俗话说得好，在一个容易英年早逝的行业里，不要小看老人。</szDescription>
 	</BACKGROUND>
 	<!-- Hurl -->
 	<BACKGROUND>
 		<uiIndex>227</uiIndex>
-   		<szName>疑病症患者</szName>
-   		<szShortName>疑病症患者</szShortName>
-   		<szDescription>哪怕走进医院或学校，也会觉得他们会偷偷暗害你！</szDescription>
+		<szName>疑病症患者</szName>
+		<szShortName>疑病症患者</szShortName>
+		<szDescription>据说Hurl一直是个相当严重的疑病症患者。虽然他确实没有什么健康问题，但没有一个医生能让他信服。</szDescription>
 	</BACKGROUND>
 	<!-- Doc -->
 	<BACKGROUND>
 		<uiIndex>228</uiIndex>
-		<szName>战地医师</szName>
-		<szShortName>战地医师</szShortName>
-		<szDescription>谁都能把人切成两半，但能不能缝上去就是另一回事。</szDescription>
+		<szName>志愿医生</szName>
+		<szShortName>志愿医生</szShortName>
+		<szDescription>作为一名志愿医生的工作压力很大也很危险，但Doc不是那种容易被吓到的人，他有着令人印象深刻的经历。</szDescription>
 	</BACKGROUND>
 	<!-- Manuel -->
 	<BACKGROUND>
 		<uiIndex>229</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>失联了很久，Manuel能够幸存下来实属不易。</szDescription>
+		<szName>反抗军间谍</szName>
+		<szShortName>Arulcan反抗军</szShortName>
+		<szDescription>与所有人断绝联系，Manuel依靠自己在荒野中生存了下来，他是一个天生的幸存者。</szDescription>
 	</BACKGROUND>
 	<!-- Boss -->
 	<BACKGROUND>
 		<uiIndex>230</uiIndex>
-    	<szName>修车工</szName>
-    	<szShortName>修车工</szShortName>
-    	<szDescription>非常有用，当然如果你有车的话。</szDescription>
+		<szName>老板</szName>
+		<szShortName>老板</szShortName>
+		<szDescription>经过多年长期的修理汽车和修理枪支，Boss具备了良好的声誉和一套令人印象深刻的维修技能。</szDescription>
 	</BACKGROUND>
 	<!-- Snake -->
 	<BACKGROUND>
 		<uiIndex>231</uiIndex>
-    	<szName>杀手</szName>
-    	<szShortName>杀手</szShortName>
-    	<szDescription>杀手是危险而又高度专业的职业，其实他们有些并不太冷。</szDescription>
+		<szName>潜行者</szName>
+		<szShortName>潜行者</szShortName>
+		<szDescription>有些人接受过专业渗透训练，有些人天生就擅长。目前还不清楚Snake属于哪类，但不管怎样说他都是顶级潜行者。</szDescription>
 	</BACKGROUND>
 	<!-- Spam -->
 	<BACKGROUND>
 		<uiIndex>232</uiIndex>
-    	<szName>UN维和部队</szName>
-    	<szShortName>UN维和部队</szShortName>
-    	<szDescription>各国合作提供部队，采用非暴力方式解决区域冲突。可悲的是，这个定义是错的。</szDescription>
+		<szName>联合国维和士兵</szName>
+		<szShortName>联合国维和士兵</szShortName>
+		<szDescription>作为一名维和人员Spam很是沮丧，因为没有授权他只能采取非暴力方式面对问题。换个角度来看，他在被射击方面倒是做得很出色。</szDescription>
 	</BACKGROUND>
 	<!-- Spike -->
 	<BACKGROUND>
 		<uiIndex>233</uiIndex>
-		<szName>游骑兵</szName>
-		<szShortName>游骑兵</szShortName>
-		<szDescription>来自美国陆军精英部队，沉默寡言、冷酷暴力。</szDescription>
+		<szName>冷酷的少校</szName>
+		<szShortName>少校</szShortName>
+		<szDescription>Spike是当代雇佣兵精英中的佼佼者，以其非凡勇气和冷酷无情的指挥而闻名。谁得罪他都不会有好下场。</szDescription>
 	</BACKGROUND>
 	<!-- Jimmy -->
 	<BACKGROUND>
 		<uiIndex>234</uiIndex>
-    	<szName>囚犯</szName>
-    	<szShortName>囚犯</szShortName>
-    	<szDescription>任何熬到刑满释放的囚犯都容易变得非常暴力：如果能熬到那一天的话。</szDescription>
+		<szName>小偷</szName>
+		<szShortName>小偷</szShortName>
+		<szDescription>监狱是罪犯的大学……Jimmy以优异的成绩通过了考试。</szDescription>
 	</BACKGROUND>
 	<!-- Leech -->
 	<BACKGROUND>
 		<uiIndex>235</uiIndex>
-    	<szName>射击比赛枪手</szName>
-    	<szShortName>射击比赛枪手</szShortName>
-    	<szDescription>有些人一拿起枪就热血沸腾，恨不得把地球打穿。</szDescription>
+		<szName>射击冠军</szName>
+		<szShortName>射击冠军</szShortName>
+		<szDescription>Leech是一名神枪手，正如你对前飞碟射击冠军的期望一样。但他也有很多不太光彩的记录。</szDescription>
 	</BACKGROUND>
 	<!-- Bob -->
 	<BACKGROUND>
 		<uiIndex>236</uiIndex>
-		<szName>空军飞行员</szName>
-		<szShortName>空军飞行员</szShortName>
-		<szDescription>处理各种复杂紧张局势得心应手，Bob的高手风范也影响到了其他人。</szDescription>
+		<szName>战斗机飞行员</szName>
+		<szShortName>战斗机飞行员</szShortName>
+		<szDescription>作为一名前美国空军战斗机飞行员，Bob处理各种复杂紧张局势得心应手。</szDescription>
 	</BACKGROUND>
 	<!-- Kelly -->
 	<BACKGROUND>
 		<uiIndex>237</uiIndex>
-   		<szName>雇佣兵</szName>
-   		<szShortName>雇佣兵</szShortName>
-   		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szName>霸王上校</szName>
+		<szShortName>霸王上校</szShortName>
+		<szDescription>他们叫他霸王Kelly可不是平白无故的。多才多艺的他不但是职业军人，资深雇佣兵，还是好莱坞顾问。</szDescription>
 	</BACKGROUND>
 	<!-- Vinny -->
 	<BACKGROUND>
 		<uiIndex>238</uiIndex>
-    	<szName>匪徒</szName>
-    	<szShortName>匪徒</szShortName>
-    	<szDescription>有组织的犯罪网络随处可见，没有例外。</szDescription>
+		<szName>匪帮</szName>
+		<szShortName>匪帮</szShortName>
+		<szDescription>Vinny是个诚实的人，但他朋友的朋友可能是跟黑帮有关的人。</szDescription>
 	</BACKGROUND>
 	<!-- Kaboom -->
 	<BACKGROUND>
 		<uiIndex>239</uiIndex>
 		<szName>资深造弹者</szName>
 		<szShortName>资深造弹者</szShortName>
-		<szDescription>有些东西造出来就是为了爆炸的，Kaboom以此为乐！</szDescription>
+		<szDescription>Kaboom擅长制造爆炸，经过无数次的爆炸后，这已经成为他唯一擅长的事情。</szDescription>
 	</BACKGROUND>
 	<!-- Bud -->
 	<BACKGROUND>
 		<uiIndex>240</uiIndex>
-    	<szName>律师</szName>
-    	<szShortName>律师</szShortName>
-    	<szDescription>虽然让他们做佣兵可能强人所难，不过在紧急关头他们也能派上用场。</szDescription>
+		<szName>专业马屁精</szName>
+		<szShortName>马屁精</szShortName>
+		<szDescription>作为拍马屁专家，Bud对高层的忠诚毫不动摇。凭借与生俱来的见风使舵能力，他能轻松驾驭获得接近高层的方法。</szDescription>
 	</BACKGROUND>
 	<!-- Rusty -->
 	<BACKGROUND>
 		<uiIndex>241</uiIndex>
-   		<szName>烟火商</szName>
-   		<szShortName>烟火商</szShortName>
-   		<szDescription>如果你想用节日礼炮把敌人的茅房炸开花，你最好找一个专业的烟火商。</szDescription>
+		<szName>烟火商</szName>
+		<szShortName>Pyrotechnician</szShortName>
+		<szDescription>与其他许多涉足炸药的人不同，Rusty是一个资格齐全而且专业烟火技术员。他不发疯，不怪异，不易怒，也不搞恶作剧。</szDescription>
 	</BACKGROUND>
 	<!-- Needle -->
 	<BACKGROUND>
 		<uiIndex>242</uiIndex>
-   		<szName>外科军医</szName>
-   		<szShortName>外科军医</szShortName>
-   		<szDescription>谁都能把人切成两半，但能不能缝上去就是另一回事。</szDescription>
+		<szName>外科医生</szName>
+		<szShortName>外科医生</szShortName>
+		<szDescription>Needle是一位专家级外科医生，这一点从他操作手术刀的方式中就能看出来。</szDescription>
 	</BACKGROUND>
 	<!-- Screw -->
 	<BACKGROUND>
 		<uiIndex>243</uiIndex>
 		<szName>军械师</szName>
 		<szShortName>军械师</szShortName>
-		<szDescription>对武器有近乎偏执的热爱，参军之后他发现梦想实现了！</szDescription>
+		<szDescription>作为枪械工作原理和历史方面的专家，来到雇佣兵部队后让Screw梦想成真。</szDescription>
 	</BACKGROUND>
 	<!-- Elroy -->
 	<BACKGROUND>
 		<uiIndex>244</uiIndex>
-		<szName>水门特工</szName>
-		<szShortName>水门特工</szShortName>
-		<szDescription>嗯？好像这不是我们事先的计划？</szDescription>
+		<szName>水门事件特工</szName>
+		<szShortName>水门事件特工</szShortName>
+		<szDescription>虽然任务并没有按计划进行，它以20世纪最糟糕的政治丑闻之一告终，但Elroy在其中的表现依旧令人瞩目。</szDescription>
 	</BACKGROUND>
 	<!-- Mouse -->
 	<BACKGROUND>
 		<uiIndex>245</uiIndex>
 		<szName>哑剧演员</szName>
 		<szShortName>哑剧演员</szShortName>
-		<szDescription>...</szDescription>
+		<szDescription>……</szDescription>
 	</BACKGROUND>
 	<!-- Hector -->
 	<BACKGROUND>
 		<uiIndex>246</uiIndex>
 		<szName>委内瑞拉反抗军</szName>
 		<szShortName>委内瑞拉反抗军</szShortName>
-		<szDescription>他在他的国家成功地反抗了帝国主义，所以Hector后来成了一个专业的革命家。</szDescription>
+		<szDescription>他们国家反抗帝国主义战争成功后，Hector就以雇佣兵的身份开始谋生，为出价最高的人效力。</szDescription>
 	</BACKGROUND>
 	<!-- Rev -->
 	<BACKGROUND>
 		<uiIndex>247</uiIndex>
-    	<szName>神父</szName>
-    	<szShortName>神父</szShortName>
-    	<szDescription>宗教的力量是恐怖而巨大的，用好它可以改写历史。</szDescription>
+		<szName>随军牧师</szName>
+		<szShortName>随军牧师</szShortName>
+		<szDescription>Rev声称自己是一名神职人员，他的行为也确实相符。但从他操作武器时的愉悦程度来看，他的过去可能比他讲的要复杂。</szDescription>
 	</BACKGROUND>
 	<!-- Stella -->
 	<BACKGROUND>
 		<uiIndex>248</uiIndex>
-		<szName>全科医生</szName>
-		<szShortName>全科医生</szShortName>
-		<szDescription>感染了病菌？脑子挨了一枪？全科医生能救你一命。</szDescription>
+		<szName>雇佣兵医生</szName>
+		<szShortName>雇佣兵医生</szShortName>
+		<szDescription>作为一名多才多艺的医生和专业佣兵，Stella可以拯救一个人的生命，也可以夺走他的生命。</szDescription>
 	</BACKGROUND>
 	<!-- Ears -->
 	<BACKGROUND>
 		<uiIndex>249</uiIndex>
-		<szName>资深监控特工</szName>
-		<szShortName>资深监控特工</szShortName>
-		<szDescription>不管是合法的还是非法的监控活动都很在行，奇怪的是没人知道他从哪里学来的。</szDescription>
+		<szName>监控专家</szName>
+		<szShortName>监控专家</szShortName>
+		<szDescription>Ears是合法和非法手段都擅长的监控专家，但奇怪的是从他简历上看不出来他是在哪里学会的。</szDescription>
 	</BACKGROUND>
 	<!-- Moses -->
 	<BACKGROUND>
 		<uiIndex>250</uiIndex>
-   		<szName>资深雇佣兵</szName>
-   		<szShortName>资深雇佣兵</szShortName>
-   		<szDescription>新人还在包尿布时你已经威名远扬，没有什么任务能难住你。</szDescription>
+		<szName>行家</szName>
+		<szShortName>行家</szShortName>
+		<szDescription>即使Moses不像以前那么敏锐，他在这一行还是个行家，毕竟他经历过重重考验，并且还在继续。</szDescription>
 	</BACKGROUND>
 	<!-- Smoke -->
 	<BACKGROUND>
 		<uiIndex>251</uiIndex>
-   		<szName>烟火商</szName>
-   		<szShortName>烟火商</szShortName>
-   		<szDescription>如果你想用节日礼炮把敌人的茅房炸开花，你最好找一个专业的烟火商。</szDescription>
+		<szName>烟火商</szName>
+		<szShortName>烟火商</szShortName>
+		<szDescription>烟火和恶作剧是一个可怕的组合，总有一天它会让Smoke丧命，就算不是他亲手杀的，也会是别人的。</szDescription>
 	</BACKGROUND>
 	<!-- Dyno -->
 	<BACKGROUND>
 		<uiIndex>252</uiIndex>
 		<szName>吉祥物</szName>
 		<szShortName>吉祥物</szShortName>
-		<szDescription>虽然不被重视，但孩子的笑容就让他觉得值得。</szDescription>
+		<szDescription>紫色恐龙和高爆炸药并没有太多共同之处，没人知道Dyno是怎么把前者变成后者的。</szDescription>
 	</BACKGROUND>
 	<!-- Turtle -->
 	<BACKGROUND>
 		<uiIndex>253</uiIndex>
-		<szName>执法队</szName>
-		<szShortName>执法队</szShortName>
-		<szDescription>嗨侦探，你解决掉那个失踪的油炸圈案件了么？</szDescription>
+		<szName>侦探</szName>
+		<szShortName>侦探</szShortName>
+		<szDescription>Turtle曾是一名相当优秀的侦探，不过他从未能解开消失的甜甜圈之谜。</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
@@ -1789,406 +1789,617 @@
 	<!-- Barry -->
 	<BACKGROUND>
 		<uiIndex>255</uiIndex>
-   		<szName>毕业生</szName>
-   		<szShortName>毕业生</szShortName>
-   		<szDescription>毕业工作不好找？不想读大学？来当杀手吧！</szDescription>
+		<szName>爆破专家</szName>
+		<szShortName>爆破专家</szShortName>
+		<szDescription>爆破专家如今大多来自各种高等学府，Barry是一名优秀的学生，但他对战斗并不擅长。</szDescription>
 	</BACKGROUND>
 	<!-- Imp Backgrounds -->
 	<BACKGROUND>
 		<uiIndex>256</uiIndex>
-   		<szName>军火商</szName>
-   		<szShortName>军火商</szShortName>
-   		<szDescription>多年的武器倒卖经验使得此人在买卖枪支弹药时，更善于抬价砍价。</szDescription>
+		<szName>雇佣兵</szName>
+		<szShortName>雇佣兵</szShortName>
+		<szDescription>在这个行业很多人只做兼职，但你不是。你选择了当一名雇佣枪手，并完全接受了这种生活，这才是真正的你。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>257</uiIndex>
-   		<szName>执法队</szName>
-   		<szShortName>执法队</szShortName>
-   		<szDescription>城管出身的佼佼者们更乐意在杀手的世界谋求一职，他们当然最擅长审讯犯人。</szDescription>
+		<szName>资深雇佣兵</szName>
+		<szShortName>资深雇佣兵</szShortName>
+		<szDescription>这些孩子还没出生的时候你就已经在这一行出名了，现在你已经是传奇人物，经过几十年的战斗，几乎没有什么能撼动你。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>258</uiIndex>
-   		<szName>监狱看守</szName>
-   		<szShortName>监狱看守</szShortName>
-   		<szDescription>担心监狱的暴徒们举兵反攻么？监狱看守是你最好的选择。</szDescription>
+		<szName>老兵</szName>
+		<szShortName>老兵</szShortName>
+		<szDescription>你是一名退伍军人，有与之相匹配的技能。你已经执行了一两次任务，在战斗中向敌人开火射击过。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>259</uiIndex>
-   		<szName>黑帮成员</szName>
-   		<szShortName>黑帮成员</szShortName>
-   		<szDescription>成为佣兵是很多黑帮成员的自然选择：工作差不多，武器和薪水好多了！</szDescription>
+		<szName>伞兵</szName>
+		<szShortName>伞兵</szShortName>
+		<szDescription>在火力不足的情况下，你敢从飞机上跳出来面对数倍的敌人，这需要很大的勇气。或者你只是疯了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>260</uiIndex>
-   		<szName>囚犯</szName>
-   		<szShortName>囚犯</szShortName>
-   		<szDescription>任何熬到刑满释放的囚犯都容易变得非常暴力：如果能熬到那一天的话。</szDescription>
+		<szName>海军陆战队员</szName>
+		<szShortName>海军陆战队员</szShortName>
+		<szDescription>两栖作战和登陆作战是你的专长。你喜欢海洋环境，根据你服役的地方，你可能还特别喜欢吃蜡笔。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>261</uiIndex>
-   		<szName>瘾君子</szName>
-   		<szShortName>瘾君子</szShortName>
-   		<szDescription>深受毒品影响，瘾君子可以变成恐怖的、不稳定的对手。</szDescription>
+		<szName>应征士兵</szName>
+		<szShortName>应征士兵</szShortName>
+		<szDescription>你虽然不是自愿服兵役，但你确实在服役期间学会了当兵的基本知识。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>262</uiIndex>
-   		<szName>富二代</szName>
-   		<szShortName>富二代</szShortName>
-   		<szDescription>比起那些玩豪车美女的娘娘腔败家子，有些富二代确实接受过顶级的特工训练。</szDescription>
+		<szName>苏联红军</szName>
+		<szShortName>苏联红军</szShortName>
+		<szDescription>凭借苏维埃的坚韧不拔，红军战胜了希特勒、严寒和物资短缺。你入伍在苏维埃军队，你是个硬核角色。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>263</uiIndex>
-   		<szName>律师</szName>
-   		<szShortName>律师</szShortName>
-   		<szDescription>虽然让他们做佣兵可能强人所难，不过在紧急关头他们也能派上用场。</szDescription>
+		<szName>游击队</szName>
+		<szShortName>游击队</szShortName>
+		<szDescription>你受过良好的训练，擅长避开敌人正面力量并在他们最意想不到的地方发动攻击。成为一名雇佣兵对你来说是再自然不过的事情。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>264</uiIndex>
-   		<szName>飞行员</szName>
-   		<szShortName>飞行员</szShortName>
-   		<szDescription>接受过严格的军事训练，地面作战对他们而言可能不是很难。</szDescription>
+		<szName>敢死队</szName>
+		<szShortName>敢死队</szShortName>
+		<szDescription>在激烈的战场上，你永远不回避与敌人正面交锋。你现在还活着，你就赢家。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>265</uiIndex>
-   		<szName>神父</szName>
-   		<szShortName>神父</szShortName>
-   		<szDescription>宗教的力量是恐怖而巨大的，用好它可以改写历史。</szDescription>
+		<szName>联合国维和人员</szName>
+		<szShortName>联合国维和人员</szShortName>
+		<szDescription>联合国提供维和部队来解决所有冲突，但不使用任何暴力。遗憾的是，你凭经验就知道这种做法是错误的。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>266</uiIndex>
-   		<szName>护士</szName>
-   		<szShortName>护士</szShortName>
-   		<szDescription>护士在战区是很吃香的，因为太危险了，专业医生往往不愿意前往。</szDescription>
+		<szName>教官</szName>
+		<szShortName>教官</szShortName>
+		<szDescription>教官的工作就是组建军队和给年轻士兵造成精神创伤。作为一名雇佣兵，你的工作大致相同，但收入更多且监督更少。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>267</uiIndex>
-   		<szName>建筑工</szName>
-   		<szShortName>建筑工</szShortName>
-   		<szDescription>建筑工人都是卖苦力的，他们体格壮实，擅长建造碉堡和搬砖。</szDescription>
+		<szName>军事顾问</szName>
+		<szShortName>军事顾问</szShortName>
+		<szDescription>指挥枪口指向正确的方向只是开始，但需要有人教这些人如何指导士兵。那个人就是你。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>268</uiIndex>
-   		<szName>跳伞员</szName>
-   		<szShortName>跳伞员</szShortName>
-   		<szDescription>喜欢冒险吗，喜欢生死不卜的感觉？试试跳伞吧。</szDescription>
+		<szName>准军事教官</szName>
+		<szShortName>准军事教官</szShortName>
+		<szDescription>你就像一个童子军领袖，但你不是教孩子们基础技能，而是指导成年人如何有组织地战斗。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>269</uiIndex>
-   		<szName>教官</szName>
-   		<szShortName>教官</szShortName>
-   		<szDescription>教官的工作就是训练新兵蛋子：让那些年轻男女留下心灵创伤。</szDescription>t&gt;
+		<szName>观察员</szName>
+		<szShortName>观察员</szShortName>
+		<szDescription>辅助狙击手，你进行侦查和识别目标，并协助计算射击。无论是警察、军队还是雇佣兵工作都是相同的，但你做得最好。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>270</uiIndex>
-   		<szName>保安</szName>
-   		<szShortName>保安</szShortName>
-   		<szDescription>保安有打架的经验，不过杀人这一块可能略有生疏。</szDescription>
+		<szName>工兵</szName>
+		<szShortName>工兵</szShortName>
+		<szDescription>工兵一生只能犯两个错误。第一个错误是他的职业选择，而你真的选错了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>271</uiIndex>
-   		<szName>杀手</szName>
-   		<szShortName>杀手</szShortName>
-   		<szDescription>杀手是危险而又高度专业的职业，其实他们有些并不太冷。</szDescription>
+		<szName>情报员</szName>
+		<szShortName>情报员</szShortName>
+		<szDescription>你被一家未明确指出的情报机构招募、培训并雇佣，在你的祖国服务。不过，那都是过去的事了，如今你是一名自由职业者，与任何政府都没有一点联系……至少，你是这样认为的。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>272</uiIndex>
-   		<szName>极端分子</szName>
-   		<szShortName>极端分子</szShortName>
-   		<szDescription>恐怖分子还是自由斗士？有时取决于你和他们杀死的人是什么关系。</szDescription>
+		<szName>反恐精英</szName>
+		<szShortName>反恐精英</szShortName>
+		<szDescription>大多数国家不部署军队来应对内部威胁，而是使用特殊的准军事警察部队。你就是其中一员，破门而入、在高速突袭中抓捕坏人……</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>273</uiIndex>
-   		<szName>保镖</szName>
-   		<szShortName>保镖</szShortName>
-   		<szDescription>精良训练，无比忠诚，不惧牺牲，不愧为雇主的最佳选择。</szDescription>
+		<szName>SWAT队员</szName>
+		<szShortName>SWAT队员</szShortName>
+		<szDescription>SWAT在警察和军队之间模糊了界限，用于处理普通执法机构无法应对的城市行动中的高危任务。不过你现在从事雇佣兵业务了，那些对你来说也不是多危险的了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>274</uiIndex>
-   		<szName>SWAT特工</szName>
-   		<szShortName>SWAT特工</szShortName>
-   		<szDescription>设身于最危险的都市角落，SWAT特工擅长处理高度专业的军事和政治行动。</szDescription>
+		<szName>执法人员</szName>
+		<szShortName>执法人员</szShortName>
+		<szDescription>执法人员出身的你更乐意在雇佣兵行业里谋求一职，因为你擅长审讯俘虏，在这行需要遵守的法律也少得多，你喜欢这一点。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>275</uiIndex>
-   		<szName>酒吧老板</szName>
-   		<szShortName>酒吧老板</szShortName>
-   		<szDescription>友好点，很多暴力就泯灭于无形：和气生财嘛！</szDescription>
+		<szName>监狱看守</szName>
+		<szShortName>监狱看守</szShortName>
+		<szDescription>在较大规模的冲突中，前监狱看守自然是管理战俘营的理想选择。平息暴乱也在他们的能力范围之内，你享受这种刺激感。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>276</uiIndex>
-   		<szName>矿工</szName>
-   		<szShortName>矿工</szShortName>
-   		<szDescription>黑煤窑的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+		<szName>拆弹部队</szName>
+		<szShortName>拆弹部队</szShortName>
+		<szDescription>你具有钢铁般的意志，在每一次任何错误都可能是最后一个错误的环境中成长。你具有冷酷的专业精神，早就不惧怕死亡。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>277</uiIndex>
-   		<szName>匪帮</szName>
-   		<szShortName>匪帮</szShortName>
-   		<szDescription>有组织的犯罪网络随处可见，没有例外。</szDescription>
+		<szName>军火商</szName>
+		<szShortName>军火商</szShortName>
+		<szDescription>拥有多年在军火商和走私者阴暗世界中的经历，你不但知道如何把军火卖个好价，你还擅长使用它们。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>278</uiIndex>
-   		<szName>UN维和部队</szName>
-   		<szShortName>UN维和部队</szShortName>
-   		<szDescription>各国合作提供部队，采用非暴力方式解决区域冲突。可悲的是，这个定义是错的。</szDescription>
+		<szName>杀手</szName>
+		<szShortName>杀手</szShortName>
+		<szDescription>作为一个职业杀手，为钱杀人对你来说是老生常谈。你处理死亡的技能令人敬畏，你的存在让人们感到不安。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>279</uiIndex>
-   		<szName>空降兵</szName>
-   		<szShortName>空降兵</szShortName>
-   		<szDescription>与其面对上级那张抽脸，索性跳下去算了！</szDescription>
+		<szName>投弹手</szName>
+		<szShortName>投弹手</szShortName>
+		<szDescription>一个人是恐怖分子还是自由战士，可能取决于死者的立场。你自己也不太确定你是哪一个。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>280</uiIndex>
-   		<szName>游击队</szName>
-   		<szShortName>游击队</szShortName>
-   		<szDescription>我们都是神枪手，每一颗子弹消灭一个敌人。</szDescription>
+		<szName>帮派成员</szName>
+		<szShortName>帮派成员</szShortName>
+		<szDescription>成为雇佣兵对于许多帮派成员来说是很自然的事，毕竟工作内容一样，待遇却好得多。你很快就完成了这个转变。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>281</uiIndex>
-   		<szName>新兵蛋子</szName>
-   		<szShortName>新兵蛋子</szShortName>
-   		<szDescription>尚未经过战火洗礼，但至少通过了基本训练。</szDescription>
+		<szName>黑手党</szName>
+		<szShortName>黑手党</szShortName>
+		<szDescription>你曾经是一个犯罪组织的成员，也许现在仍然是。暴徒很少能成为好士兵，但也有例外，比如你。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>282</uiIndex>
-   		<szName>军事顾问</szName>
-   		<szShortName>军事顾问</szShortName>
-   		<szDescription>瞄准射击很容易，难得是教会别人瞄准谁射击。</szDescription>
+		<szName>职业盗贼</szName>
+		<szShortName>职业盗贼</szShortName>
+		<szDescription>当面临拿或不拿的选择时，你总是选择拿。通常都会得手，如果没得手，你也知道怎么不留痕迹地消失。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>283</uiIndex>
-   		<szName>军事辅导员</szName>
-   		<szShortName>军事辅导员</szShortName>
-   		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是是童子军呀。</szDescription>
+		<szName>骗子</szName>
+		<szShortName>骗子</szShortName>
+		<szDescription>你没有什么道德底线，你会欺骗任何人，同时还会嘲笑他们的不幸。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>284</uiIndex>
-   		<szName>红军</szName>
-   		<szShortName>红军</szShortName>
-   		<szDescription>苏联红军克服了严寒天气和物资缺乏， 最终弄死了希特勒。</szDescription>
+		<szName>罪犯</szName>
+		<szShortName>罪犯</szShortName>
+		<szDescription>被关押在世界上更严酷的监狱的罪犯，释放后肯定会更加危险，如果他们先能坚持活下来。你恰好是从这种地方出来的。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>285</uiIndex>
-   		<szName>殡仪员</szName>
-   		<szShortName>殡仪员</szShortName>
-   		<szDescription>每天都和死亡与尸体打交道，最终发现自己什么都不怕了！</szDescription>
+		<szName>黑衣团</szName>
+		<szShortName>黑衣团</szShortName>
+		<szDescription>和平抗议并没能实现你的理想，所以你转向比较直接的暴力，当雇佣兵。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>286</uiIndex>
-   		<szName>退役军人</szName>
-   		<szShortName>退役军人</szShortName>
-   		<szDescription>经过了几场战役血与火的洗礼，第一时间发现危险已成为本能。</szDescription>
+		<szName>变节者</szName>
+		<szShortName>变节者</szShortName>
+		<szDescription>其他人可能不同意你的方法，指责你残忍，但是你总能完成任务——不管付出什么代价。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>287</uiIndex>
-   		<szName>图阿雷格人</szName>
-   		<szShortName>图阿雷格人</szShortName>
-   		<szDescription>图阿雷格人生活在撒哈拉沙漠，过着游牧生活。</szDescription>
+		<szName>跟踪狂</szName>
+		<szShortName>跟踪狂</szShortName>
+		<szDescription>令人毛骨悚然、冷酷无情、社交障碍——他们把你关起来只是时间问题。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>288</uiIndex>
-   		<szName>消防员</szName>
-   		<szShortName>消防员</szShortName>
-   		<szDescription>有些工作即使不需要持枪射击，也会十分危险。</szDescription>
+		<szName>瘾君子</szName>
+		<szShortName>瘾君子</szShortName>
+		<szDescription>考虑到现在毒品的性质，瘾君子可能会成为可怕但不可靠的对手，你肯定明白什么意思。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>289</uiIndex>
-   		<szName>射击比赛枪手</szName>
-   		<szShortName>射击比赛枪手</szShortName>
-   		<szDescription>有些人一拿起枪就热血沸腾，恨不得把地球打穿。</szDescription>
+		<szName>精神病患者</szName>
+		<szShortName>精神病患者</szShortName>
+		<szDescription>关于你如何离开精神病院的说法不一，但所有人都一致认为你真的应该回去那里。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>290</uiIndex>
-   		<szName>店员</szName>
-   		<szShortName>店员</szShortName>
-   		<szDescription>对于某些人而言，他们的工作就是点钞票。</szDescription>
+		<szName>Arulcan极端民族主义</szName>
+		<szShortName>极端民族主义</szShortName>
+		<szDescription>这是你的国家，你的土地，你的人民，你发誓要用生命来解放他们。虽然你对Arulco未来的设想比Chivaldori或Cordona的要激进得多，但你可以与他们合作……至少在女王被埋葬之前。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>291</uiIndex>
-   		<szName>修车工</szName>
-   		<szShortName>修车工</szShortName>
-   		<szDescription>非常有用，当然如果你有车的话。</szDescription>
+		<szName>竞技射手</szName>
+		<szShortName>射手</szShortName>
+		<szDescription>作为一名专业体育射击运动员，你相当擅长射击。但是光有良好的瞄准技巧还不足以让你成为一名伟大的雇佣兵。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>292</uiIndex>
-   		<szName>机械师</szName>
-   		<szShortName>机械师</szShortName>
-   		<szDescription>在物资缺乏的战场上，能维修装备太重要了！</szDescription>
+		<szName>大型猎手</szName>
+		<szShortName>大型猎手</szShortName>
+		<szDescription>你前往原始自然寻找迷人的珍稀物种，并用大口径步枪将它们打成大块。它们的残骸是你最好的战利品。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>293</uiIndex>
-   		<szName>反恐精英</szName>
-   		<szShortName>反恐精英</szShortName>
-   		<szDescription>反恐精英一般处理国际事务，国内？有城管和武警呢。</szDescription>
+		<szName>保镖</szName>
+		<szShortName>保镖</szShortName>
+		<szDescription>训练有素、忠心耿耿、愿意付出最大的代价。作为雇主还想要什么呢?</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>294</uiIndex>
-   		<szName>白领</szName>
-   		<szShortName>白领</szShortName>
-   		<szDescription>嗡嗡的空调、打翻的杯子和乱七八糟的资料，这就是办公室的生活。</szDescription>
+		<szName>保安</szName>
+		<szShortName>保安</szShortName>
+		<szDescription>你在近战中是一名优秀的士兵，对杀戮不变的渴望，是你不再当看门人的原因。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>295</uiIndex>
-   		<szName>后台员工</szName>
-   		<szShortName>后台员工</szShortName>
-   		<szDescription>灯光、音效和尖叫的观众，其实和战场也没什么区别不是吗？</szDescription>
+		<szName>摔跤手</szName>
+		<szShortName>摔跤手</szShortName>
+		<szDescription>摔跤更像是一种表演而不是真正的战斗，但在不折断脖子的情况下在擂台上被抛来抛去也需要技巧、力量和耐力。而你拥有这些优势。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>296</uiIndex>
-   		<szName>技术宅</szName>
-   		<szShortName>技术宅</szShortName>
-   		<szDescription>技术宅拯救世界。就算闭着一只眼睛，技术宅也能在一分钟内摆好魔方。</szDescription>
+		<szName>击剑专家</szName>
+		<szShortName>击剑专家</szShortName>
+		<szDescription>无论是一把剑还是一个微不足道的小刀，在你手里都会发挥它最大的威力。如果你的敌人没有配备现代火器，他们在你面前只有颤抖的份。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>297</uiIndex>
-   		<szName>毕业生</szName>
-   		<szShortName>毕业生</szShortName>
-   		<szDescription>毕业工作不好找？不想读大学？来当杀手吧！</szDescription>
+		<szName>消防员</szName>
+		<szShortName>消防员</szShortName>
+		<szDescription>你认为救火和打仗没有什么不同，没错，两者都需要大量的体力消耗和面对恶劣环境、死亡风险。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>298</uiIndex>
-   		<szName>资深盗贼</szName>
-   		<szShortName>资深盗贼</szShortName>
-   		<szDescription>习惯性会顺手拿走一切看得顺眼的东西，其实是下意识的本能。</szDescription>
+		<szName>运动员</szName>
+		<szShortName>运动员</szShortName>
+		<szDescription>常年高强度的体育锻炼和比赛经历，让你的生存能力大大提升。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>299</uiIndex>
-   		<szName>喜剧演员</szName>
-   		<szShortName>喜剧演员</szShortName>
-   		<szDescription>看到你的贱笑，敌人就忍不住放下手里的枪捂肚子了。</szDescription>
+		<szName>跳伞运动员</szName>
+		<szShortName>跳伞运动员</szShortName>
+		<szDescription>反正都是找刺激，何不趁机赚点钱？如果忽略你没经过正规军事训练的话，你基本上就是一名伞兵了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>300</uiIndex>
-   		<szName>二流演员</szName>
-   		<szShortName>二流演员</szShortName>
-   		<szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，你的名声已享誉世界。</szDescription>
+		<szName>飞行员</szName>
+		<szShortName>飞行员</szShortName>
+		<szDescription>空中作战都不在话下，何况地面作战呢，你肯定没问题。</szDescription>
    <!-- easier to recognise in disguise? -->
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>301</uiIndex>
-   		<szName>烟火商</szName>
-   		<szShortName>烟火商</szShortName>
-   		<szDescription>如果你想用节日礼炮把敌人的茅房炸开花，你最好找一个专业的烟火商。</szDescription>
+		<szName>图阿雷格人</szName>
+		<szShortName>图阿雷格人</szShortName>
+		<szDescription>图阿雷格人在撒哈拉过着游牧生活，这种生活方式使你对这一行的艰辛做好了充分的准备。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>302</uiIndex>
-   		<szName>拆弹专家</szName>
-   		<szShortName>拆弹专家</szShortName>
-   		<szDescription>拆弹专家一生只允许犯两个错误：第一个错误是选了这职业。</szDescription>
+		<szName>乡巴佬</szName>
+		<szShortName>乡巴佬</szShortName>
+		<szDescription>当南方联盟输掉战争之后，这些人继续向南方转移，并一直持续战斗。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>303</uiIndex>
-   		<szName>疑病症患者</szName>
-   		<szShortName>疑病症患者</szShortName>
-   		<szDescription>哪怕走进医院或学校，也会觉得他们会偷偷暗害你！</szDescription>
+		<szName>贵族</szName>
+		<szShortName>贵族</szShortName>
+		<szDescription>你出身于贵族世家，并非出于生计才加入这一行，而是因为成为一名冒险家实在是太有趣了，而且你接受了昂贵的高品质训练。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>304</uiIndex>
-   		<szName>乡巴佬</szName>
-   		<szShortName>乡巴佬</szShortName>
-   		<szDescription>头发插着枯稻草，张嘴一笑缺颗牙，好吧，农场的生活也不是那么容易。</szDescription>
+		<szName>护士</szName>
+		<szShortName>护士</szShortName>
+		<szDescription>你是一名合格的护士，虽然这可能不如一名专业医生那样光鲜，但在任何严峻的战区你的技能都是最抢手的。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>305</uiIndex>
-   		<szName>偷窥狂</szName>
-   		<szShortName>偷窥狂</szShortName>
-   		<szDescription>其实不必那么费力气，兄弟，上网吧！</szDescription>
+		<szName>全科医生</szName>
+		<szShortName>全科医生</szShortName>
+		<szDescription>作为一名多才多艺且受过良好教育的医生，不管你的病人是得了病还是中了弹，你都能挽救他们的生命。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>306</uiIndex>
-   		<szName>专家</szName>
-   		<szShortName>专家</szShortName>
-   		<szDescription>绝大部分知识都是纸上谈兵却偏偏喜欢大放厥词，你们还是赶快去战场死掉吧！</szDescription>
+		<szName>外科医生</szName>
+		<szShortName>外科医生</szShortName>
+		<szDescription>把人剖开很简单，缝回去就没那么容易了，而你很擅长这个。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>307</uiIndex>
-   		<szName>精神病人</szName>
-   		<szShortName>精神病人</szShortName>
-   		<szDescription>没有人知道你是怎么逃出来的，不过大家一致认为，你应该回去。</szDescription>
+		<szName>救援人员</szName>
+		<szShortName>救援人员</szShortName>
+		<szDescription>你曾在多家知名的援助组织工作，你甚至都不用携带武器就在很多糟糕的情况下安然无恙。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>308</uiIndex>
-   		<szName>摔跤手</szName>
-   		<szShortName>摔跤手</szShortName>
-   		<szDescription>与其说是搏斗不如说是表演，不过被丢来丢去而没摔断脖子也需要一定的技术。</szDescription>
+		<szName>幕后人员</szName>
+		<szShortName>幕后人员</szShortName>
+		<szDescription>爆炸声、烟火、尖叫的人群……你会奇怪地发现，舞台和战场是多么相似。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>309</uiIndex>
-   		<szName>全科医生</szName>
-   		<szShortName>全科医生</szShortName>
-   		<szDescription>从感冒到绝症无所不能，取出你大脑里的子弹更是不在话下。</szDescription>
+		<szName>军械师</szName>
+		<szShortName>军械师</szShortName>
+		<szDescription>在一个条件残酷的战区，你的技能通常会让你不仅负责修理和维护枪支，还负责其他各种军事装备。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>310</uiIndex>
-   		<szName>外科军医</szName>
-   		<szShortName>外科军医</szShortName>
-   		<szDescription>谁都能把人切成两半，但能不能缝上去就是另一回事。</szDescription>
+		<szName>汽车发烧友</szName>
+		<szShortName>汽车发烧友</szShortName>
+		<szDescription>修理汽车和驾驶它们是你的真爱，在战场上这是一项宝贵的技能组合。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>311</uiIndex>
-   		<szName>雇佣兵</szName>
-   		<szShortName>雇佣兵</szShortName>
-   		<szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，这才是真正的你。</szDescription>
+		<szName>技术高手</szName>
+		<szShortName>技术高手</szShortName>
+		<szDescription>无论是三十年前的垃圾还是最新的电子产品，你都可以闭着眼睛修好它。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>312</uiIndex>
-   		<szName>资深雇佣兵</szName>
-   		<szShortName>资深雇佣兵</szShortName>
-   		<szDescription>新人还在包尿布时你已经威名远扬，没有什么任务能难住你。</szDescription>
+		<szName>烟火技术员</szName>
+		<szShortName>烟火技术员</szShortName>
+		<szDescription>当你想通过炸毁敌人的厕所来打击敌人士气时，你非常清楚如何以最壮观的方式做到这一点。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>313</uiIndex>
-   		<szName>王牌猎手</szName>
-   		<szShortName>王牌猎手</szShortName>
-   		<szDescription>擅长于猎杀各种珍奇异兽，包括女王的手下。</szDescription>
+		<szName>矿工</szName>
+		<szShortName>矿工</szShortName>
+		<szDescription>在矿井工作是一种艰苦且惩罚性的工作，难怪有些人开始寻找更容易的赚钱方式。</szDescription>
 	</BACKGROUND> 
 	<BACKGROUND>
 		<uiIndex>314</uiIndex>
-   		<szName>狙击观察手</szName>
-   		<szShortName>狙击观察手</szShortName>
-   		<szDescription>经过周密计算后你标记了目标：几秒后一颗子弹就会飞向他。</szDescription>
+		<szName>建筑工人</szName>
+		<szShortName>建筑工人</szShortName>
+		<szDescription>作为一名建筑工人，你对艰苦的劳动并不陌生。虽然现在战壕战已经过时，但战争中防御工事始终有用，你的建造技能远超任何键盘侠。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>315</uiIndex>
-		<szName>工程兵</szName>
-		<szShortName>工程兵</szShortName>
-		<szDescription>你精通于这门不容失败的技术，展现出钢铁般稳固的心态。</szDescription>
+		<szName>殡仪员</szName>
+		<szShortName>殡仪员</szShortName>
+		<szDescription>你什么都见识过，你什么都不害怕。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>316</uiIndex>
-		<szName>叛逆者</szName>
-		<szShortName>叛逆者</szShortName>
-		<szDescription>其他人可能不同意你的做法，并指责你的残忍，但你总是能把工作搞定——无论付出什么代价。</szDescription>
+		<szName>牧师</szName>
+		<szShortName>牧师</szShortName>
+		<szDescription>当虔诚的信徒被推向正确（或错误）的方向，他们会表现出令人惊讶的暴力和热情，你熟知这一切。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>317</uiIndex>
-		<szName>黑衣军团</szName>
-		<szShortName>黑衣军团</szShortName>
-		<szDescription>和平抗议并没能实现你的理想，所以你转向比较直接的暴力，当雇佣兵。</szDescription>
+		<szName>律师</szName>
+		<szShortName>律师</szShortName>
+		<szDescription>虽然你的职业背景对雇佣兵来说有点另类，但当你面临危急关头的交易时，作为律师的技能和经验可能会很有用。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>318</uiIndex>
-		<szName>行骗高手</szName>
-		<szShortName>行骗高手</szShortName>
-		<szDescription>你没什么道德准绳可言，会欺骗任何人，骗走他们的一切再指责他们的不幸。</szDescription>
+		<szName>大学毕业生</szName>
+		<szShortName>大学毕业生</szShortName>
+		<szDescription>刚从大学毕业，手里还握着温热的文凭，是时候考虑如何谋生了。虽然学校教育中没有包括任何关于雇佣兵技能的课程，但你学得快，你肯定很快就会成为这行的专家。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>319</uiIndex>
-		<szName>反抗军</szName>
-		<szShortName>反抗军</szShortName>
-		<szDescription>这是你的国家，你的土地，你的人民，而你承诺用自己的生命来解放他们。你比Miguel更激进，不遵从任何领袖。</szDescription>
+		<szName>学者</szName>
+		<szShortName>学者</szShortName>
+		<szDescription>你的大部分知识来自书籍和二手报告，但这些经验并没有像你想象的那样让你游刃有余的应对战场残酷现实。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>320</uiIndex>
-		<szName>运动员</szName>
-		<szShortName>运动员</szShortName>
-		<szDescription>多年以来的高强度运动和比赛经历显然提高了你的生存能力。</szDescription>
+		<szName>B级片明星</szName>
+		<szShortName>B级片明星</szShortName>
+		<szDescription>你是全世界电影院里被扔爆米花的目标，虽然被评论家嘲笑，但又被忠实粉丝所喜爱。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>321</uiIndex>
-		<szName>救援人员</szName>
-		<szShortName>救援人员</szShortName>
-		<szDescription>曾为多个著名援助组织工作过的你，经历过不少比现在更困难的情况。</szDescription>
+		<szName>酒吧老板</szName>
+		<szShortName>酒吧老板</szShortName>
+		<szDescription>一张友好的脸可以降低引发暴力冲突的几率，你比大多数人都友好。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>322</uiIndex>
+		<szName>店主</szName>
+		<szShortName>店主</szShortName>
+		<szDescription>你擅长做贸易，虽然这无法让你完全应付战争，但你知道如何讨价还价。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>323</uiIndex>
+		<szName>办公室职员</szName>
+		<szShortName>办公室职员</szShortName>
+		<szDescription>空调、淡咖啡和一些要处理的文件……你还能期待生活中有什么其它惊喜吗？</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>324</uiIndex>
+		<szName>哑剧演员</szName>
+		<szShortName>哑剧演员</szShortName>
+		<szDescription>……</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>325</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>326</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>327</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>328</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>329</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>330</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>331</uiIndex>
+		<szName>占位</szName>
+		<szShortName>占位</szShortName>
+		<szDescription>无需描述</szDescription>
+	</BACKGROUND>
+	<!-- Imp Backgrounds - exclusive to ALTERNATIVE_IMP_CREATION and REDUCED_IMP_CREATION -->
+	<BACKGROUND>
+		<uiIndex>332</uiIndex>
+		<szName>收集狂</szName>
+		<szShortName>收集狂</szShortName>
+		<szDescription>你在一个乡村小镇长大，你先是疯狂迷上了制服，这让当地官员非常头疼。后来你又为他们的装备着迷，偷窃这些东西成了你的副业。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>333</uiIndex>
+		<szName>失败的律师</szName>
+		<szShortName>失败的律师</szShortName>
+		<szDescription>在被诬陷并丢了工作后，你对司法系统失去了信心。后来，你用自己的双手伸张了正义，从那以后你就一直是雇佣兵里的治安员。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>334</uiIndex>
+		<szName>私家侦探</szName>
+		<szShortName>私家侦探</szShortName>
+		<szDescription>为找到证据你不怕弄脏双手，如果需要陷害某人你一点也不在乎，只要能赚钱。这种心态让你接受了最阴暗的工作。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>335</uiIndex>
+		<szName>邪教叛逃者</szName>
+		<szShortName>邪教叛逃者</szShortName>
+		<szDescription>他们说：我们的路才是真正的路。他们说：要感谢我们的指导。他们说：把钱交上来。他们还说“今晚到我房间来。”你发觉上当了，感到愤怒、震惊：快跑，别回头！</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>336</uiIndex>
+		<szName>假小子佣兵</szName>
+		<szShortName>假小子佣兵</szShortName>
+		<szDescription>童年在农场和五个不守规矩的兄弟们一起长大造就了你的性格，在游戏中殴打男人的快乐一直延续到成年生活中。在军队服役几年后，你决定成为一名自由职业者。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>337</uiIndex>
+		<szName>猎场看守</szName>
+		<szShortName>猎场看守</szShortName>
+		<szDescription>你热爱大自然，在管理当地野生动物的过程中获得了极大的乐趣。你曾被偷猎者射伤并等死，被迫看着他们疯狂的杀戮。现在，追捕这种人渣成了你的人生使命。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>338</uiIndex>
+		<szName>偷猎者</szName>
+		<szShortName>偷猎者</szShortName>
+		<szDescription>没有什么比捕获猎物更令人兴奋的了，尤其是濒危动物的话更棒，因为会带来很多钱。谁会在乎那些肮脏的动物呢？如果报酬够高，下次你甚至可以去猎杀人。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>339</uiIndex>
+		<szName>电脑迷</szName>
+		<szShortName>电脑迷</szShortName>
+		<szDescription>你从小就对电脑着迷，这让你在一个政府秘密机构找到了一份工作。但在一桩丑闻之后，该机构倒闭了，你最终踏入了这个自由职业工作的世界。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>340</uiIndex>
+		<szName>战地医生</szName>
+		<szShortName>战地医生</szShortName>
+		<szDescription>在服役时，你总是被各种规矩和日内瓦公约所困扰。最终你换到这份工作，那些条条框框再也和你无关了。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>341</uiIndex>
+		<szName>家庭主妇</szName>
+		<szShortName>家庭主妇</szShortName>
+		<szDescription>经历了一场混乱的婚姻并离婚后，你发现处在人生的十字路口。你在拼命找工作的过程中，误以为PMC是私人音乐学院，但你很快就在这个行业中直率的人的陪伴下找到了安慰。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>342</uiIndex>
+		<szName>爆破手</szName>
+		<szShortName>爆破手</szShortName>
+		<szDescription>你为被指派去拆除的任务而感到自豪，因为它们完全按照计划倒塌了。市中心的摩天大楼、峡谷上的桥梁、你前任的新车……这一切都变成了瓦砾和灰烬。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>343</uiIndex>
+		<szName>炮兵</szName>
+		<szShortName>炮兵</szShortName>
+		<szDescription>“我喜欢大炮的轰鸣！”当被问及当炮兵什么感受时，这是你的回答。在你新兵训练之前，你就知道各种重型火炮就是你的真爱。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>344</uiIndex>
+		<szName>疯狂预言家</szName>
+		<szShortName>疯狂预言家</szShortName>
+		<szDescription>别人都说你疯了，但那只是因为他们不敢认清现实。末日即将到来，你将不惜一切代价生存下去。不用在乎那些人了，反正和你不是一路人。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>345</uiIndex>
+		<szName>急诊医生</szName>
+		<szShortName>急诊医生</szShortName>
+		<szDescription>你需要帮人包扎伤口，维持生命直到抵达急诊室，还有清理和补充救护车物资。在你的咖啡还没喝完之前，还要冲向下一个紧急情况…… 面对一个疯狂的女人向你吐口水，就因为你给她女儿做过人工呼吸。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>346</uiIndex>
+		<szName>水管工</szName>
+		<szShortName>水管工</szShortName>
+		<szDescription>你父亲曾经告诉过你，你啥事都坚持不下去。他说得没错，你虽然可以靠维护下水道来赚钱，但不断与老鼠、蟑螂和疯狂家庭主妇作斗争的过程，让你开始考虑换一份工作。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>347</uiIndex>
+		<szName>兄弟会成员</szName>
+		<szShortName>兄弟会成员</szShortName>
+		<szDescription>你常年参加各种派对，滋生了一种迷之优越感，还染上了毒瘾，同时下体巨痒难忍。在你一连串的奇思妙想中，最新的一条就是当一个雇佣兵，这想法不错。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>348</uiIndex>
+		<szName>MMA选手</szName>
+		<szShortName>MMA选手</szShortName>
+		<szDescription>你曾是一名优秀的综合格斗选手，但当一些人想要操纵比赛被你拒绝时，你失去了赞助商和合同。你狠狠地揍了他们的老大，最终不得不跑路。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>349</uiIndex>
+		<szName>守墓人</szName>
+		<szShortName>守墓人</szShortName>
+		<szDescription>协办葬礼、吓唬青年情侣、赶走扮演撒旦的人、殴打盗墓贼这些活挺很有趣。但是经常上夜班损害了你的视力，最终导致你被解雇了。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>350</uiIndex>
+		<szName>商船海员</szName>
+		<szShortName>商船海员</szShortName>
+		<szDescription>你在商船工作是为了养家糊口，但长期离家导致了离婚。为了赚更多的钱来支付孩子的抚养费和大学学费，你开始走私和贩卖人口，从此走上了一条危险的道路。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>351</uiIndex>
+		<szName>非法商贩</szName>
+		<szShortName>非法商贩</szShortName>
+		<szDescription>你充分利用客户绝望的现状，只接受预付现金。然后把他们塞进密封的集装箱里，扔到漏水的船上，扔进沙漠里……只要是风险低利润高，干什么都可以。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>352</uiIndex>
+		<szName>毒品贩子</szName>
+		<szShortName>毒品贩子</szShortName>
+		<szDescription>这完全是供求关系的问题，总得有人提供大家想要的东西，芬太尼又不会自己变出来。要怪就怪那些提需求的人吧，而不是提供服务的人。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>353</uiIndex>
+		<szName>海军医务兵</szName>
+		<szShortName>海军医务兵</szShortName>
+		<szDescription>获得药理学学位无疑是诱人的，但这并没有你的规划那样令人向往。一番犹豫后你离开了海军，开始了在佣兵界的自由职业生涯。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>354</uiIndex>
+		<szName>农民</szName>
+		<szShortName>农民</szShortName>
+		<szDescription>你在祖传的土地上长大，本来早晚一天会继承这个农场，但是律师利用专利权抢走了它。你破产后加入了雇佣军，以此来发泄你的怒火。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>355</uiIndex>
+		<szName>胆小鬼</szName>
+		<szShortName>胆小鬼</szShortName>
+		<szDescription>你觉得外面的世界是邪恶的，长期宅在家里与世隔绝，但当你的父母突然去世后银行收回了房子。你虽然不适合干这一行，但你的确被困在这里了。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>356</uiIndex>
+		<szName>火箭专家</szName>
+		<szShortName>火箭专家</szShortName>
+		<szDescription>你一直很钦佩沃纳·冯·布劳恩从一名战犯变成了NASA的荣誉名人，为了获得同样的地位，你也成为了一名有能力的科学家。但时代变了，你因为骚扰被解雇了。</szDescription>
 	</BACKGROUND>
 </BACKGROUNDS>
