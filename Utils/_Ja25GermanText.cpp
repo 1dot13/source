@@ -263,7 +263,7 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"Kann Artillerieunterstützung von Verbündeten in Nachbarsektoren anfordern\n",
 	L"Kann Funkfrequenzen abhören und feindliche Truppen aufspüren\n",
 	L"Kann den Funkverkehr im ganzen Sektor stören\n",
-	L"Kann nach feindlichen Störsendern suchen, wenn solche aktiv sind\n"
+	L"Kann nach feindlichen Störsendern suchen, wenn solche aktiv sind\n",
 	L"Kann Unterstützung durch Milizen aus Nachbarsektoren anfordern\n",
 };
 
