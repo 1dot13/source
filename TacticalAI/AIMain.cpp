@@ -206,18 +206,96 @@ STR szAction[] = {
 	"AI_ACTION_STOP_MEDIC"
 };
 
+STR16 wszAction[] = {
+	L"AI_ACTION_NONE",
+
+	L"AI_ACTION_RANDOM_PATROL",
+	L"AI_ACTION_SEEK_FRIEND",
+	L"AI_ACTION_SEEK_OPPONENT",
+	L"AI_ACTION_TAKE_COVER",
+	L"AI_ACTION_GET_CLOSER",
+
+	L"AI_ACTION_POINT_PATROL",
+	L"AI_ACTION_LEAVE_WATER_GAS",
+	L"AI_ACTION_SEEK_NOISE",
+	L"AI_ACTION_ESCORTED_MOVE",
+	L"AI_ACTION_RUN_AWAY",
+
+	L"AI_ACTION_KNIFE_MOVE",
+	L"AI_ACTION_APPROACH_MERC",
+	L"AI_ACTION_TRACK",
+	L"AI_ACTION_EAT",
+	L"AI_ACTION_PICKUP_ITEM",
+
+	L"AI_ACTION_SCHEDULE_MOVE",
+	L"AI_ACTION_WALK",
+	L"AI_ACTION_RUN",
+	L"AI_ACTION_WITHDRAW",
+	L"AI_ACTION_FLANK_LEFT",
+	L"AI_ACTION_FLANK_RIGHT",
+	L"AI_ACTION_MOVE_TO_CLIMB",
+
+	L"AI_ACTION_CHANGE_FACING",
+
+	L"AI_ACTION_CHANGE_STANCE",
+
+	L"AI_ACTION_YELLOW_ALERT",
+	L"AI_ACTION_RED_ALERT",
+	L"AI_ACTION_CREATURE_CALL",
+	L"AI_ACTION_PULL_TRIGGER",
+
+	L"AI_ACTION_USE_DETONATOR",
+	L"AI_ACTION_FIRE_GUN",
+	L"AI_ACTION_TOSS_PROJECTILE",
+	L"AI_ACTION_KNIFE_STAB",
+	L"AI_ACTION_THROW_KNIFE",
+
+	L"AI_ACTION_GIVE_AID",
+	L"AI_ACTION_WAIT",
+	L"AI_ACTION_PENDING_ACTION",
+	L"AI_ACTION_DROP_ITEM",
+	L"AI_ACTION_COWER",
+
+	L"AI_ACTION_STOP_COWERING",
+	L"AI_ACTION_OPEN_OR_CLOSE_DOOR",
+	L"AI_ACTION_UNLOCK_DOOR",
+	L"AI_ACTION_LOCK_DOOR",
+	L"AI_ACTION_LOWER_GUN",
+
+	L"AI_ACTION_ABSOLUTELY_NONE",
+	L"AI_ACTION_CLIMB_ROOF",
+	L"AI_ACTION_END_TURN",
+	L"AI_ACTION_END_COWER_AND_MOVE",
+	L"AI_ACTION_TRAVERSE_DOWN",
+	L"AI_ACTION_OFFER_SURRENDER",
+	L"AI_ACTION_RAISE_GUN",
+	L"AI_ACTION_STEAL_MOVE",
+
+	L"AI_ACTION_RELOAD_GUN",
+
+	L"AI_ACTION_JUMP_WINDOW",
+	L"AI_ACTION_FREE_PRISONER",
+	L"AI_ACTION_USE_SKILL",
+	L"AI_ACTION_DOCTOR",
+	L"AI_ACTION_DOCTOR_SELF",
+	L"AI_ACTION_SELFDETONATE",
+	L"AI_ACTION_STOP_MEDIC"
+};
+
 // sevenfm
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
 BOOLEAN gfLogsEnabled = TRUE;
+bool gLogDecideActionRed = false;
 
-void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
+void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, INT8 bAction)
 {
 	FILE*	DebugFile;
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-	if (!gfLogsEnabled || pSoldier == nullptr)
+
+	if (!gfLogsEnabled || !doLog || pSoldier == nullptr)
 		return;
 
 	memset(buf, 0, 1024 * sizeof(char));
@@ -301,16 +379,19 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	}
 
 	// also log to individual file for selected soldier
-	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
-	if ((DebugFile = fopen(buf, "a+t")) != NULL)
+	if (pSoldier)
 	{
-		if (bMsgType == AI_MSG_START)
+		sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
+		if ((DebugFile = fopen(buf, "a+t")) != NULL)
 		{
+			if (bMsgType == AI_MSG_START)
+			{
+				fputs("\n", DebugFile);
+			}
+			fputs(msg, DebugFile);
 			fputs("\n", DebugFile);
+			fclose(DebugFile);
 		}
-		fputs(msg, DebugFile);
-		fputs("\n", DebugFile);
-		fclose(DebugFile);
 	}
 }
 
@@ -352,6 +433,27 @@ void DebugQuestInfo(STR szOutput)
 		gfLogsEnabled = FALSE;
 		return;
 	}
+}
+
+static INT16 ShouldActionStayInProgress(SOLDIERTYPE* pSoldier)
+{
+	// this here should never happen, but it seems to (turns sometimes hang!)
+	if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->pathing.bDesiredDirection != pSoldier->aiData.usActionData))
+	{
+		// don't try to pay any more APs for this, it was paid for once already!
+		pSoldier->pathing.bDesiredDirection = (INT8)pSoldier->aiData.usActionData;   // turn to face direction in actionData
+		return(TRUE);
+	}
+	else if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->pathing.bDesiredDirection == pSoldier->aiData.usActionData))
+	{
+		return(FALSE);
+	}
+	else if (pSoldier->aiData.bAction == AI_ACTION_END_TURN || pSoldier->aiData.bAction == AI_ACTION_NONE)
+	{
+		return(FALSE);
+	}
+	// needs more time to complete action
+	return(TRUE);
 }
 
 
@@ -399,10 +501,6 @@ BOOLEAN InitAI( void )
 	return( TRUE );
 }
 
-BOOLEAN AimingGun(SOLDIERTYPE *pSoldier)
-{
-	return(FALSE);
-}
 
 void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named inappropriately
 {
@@ -645,6 +743,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			{
 				// traversing offmap, ignore new situations
 			}
+// FIXME: Disabled temporarily to prevent AI actions constantly being cancelled during normal turn based combat.
+// Need to find out when this conditional is actually needed.
+#if 0
 			else if ( pSoldier->ubQuoteRecord == 0 && !gTacticalStatus.fAutoBandageMode  )
 			{
 				// don't force, don't want escorted mercs reacting to new opponents, etc.
@@ -658,12 +759,22 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 				}
 				DecideAlertStatus( pSoldier );
 			}
+#endif
 			else
 			{
 				if ( pSoldier->ubQuoteRecord )
 				{
 					// make sure we're not using combat AI
 					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
+				}
+
+				// Prevent AI deadlocking in case enemy is performing an action and player gets an interrupt.
+				// Without this, if player doesn't move any mercs, the AI soldier will wait until the deadlock is broken.
+				// By canceling the AI action, the AI can then reconsider actions.
+				//if (pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN || pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE || pSoldier->aiData.bAction == AI_ACTION_STEAL_MOVE || pSoldier->aiData.bAction == AI_ACTION_KNIFE_STAB)
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("New Situation"));
+					CancelAIAction(pSoldier, FALSE);
 				}
 				pSoldier->aiData.bNewSituation = WAS_NEW_SITUATION;
 			}
@@ -674,7 +785,6 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		// might have been in 'was' state; no longer so...
 		pSoldier->aiData.bNewSituation = NOT_NEW_SITUATION;
 	}
-
 #ifdef TESTAI
 	DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3,String( ".... HANDLING AI FOR %d",pSoldier->ubID));
 #endif
@@ -682,43 +792,81 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 	/*********
 	Start of new overall AI system
 	********/
-
 	if (gfTurnBasedAI)
 	{
-		time_t tCurrentTime = time(0);
-		UINT32 uiShortDelay = 10;
-		UINT32 uiDelay = (UINT32)gGameExternalOptions.gubDeadLockDelay;
-		UINT32 uiTime = (UINT32)(tCurrentTime - gtTimeSinceMercAIStart);
-		BOOLEAN fKeyPressed = _KeyDown(ESC);
-
-		if ((uiTime > uiDelay || uiTime > uiShortDelay && fKeyPressed) && !gfUIInDeadlock)
-		//if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
+#if 0
 		{
-			// ATE: Display message that deadlock occured...
-			LiveMessage( "Breaking Deadlock" );
+			// added by Flugente: static pointers, used to break out of an endless circles
+			static SOLDIERTYPE* pLastDecisionSoldier = NULL;
+			static INT16	lastdecisioncount = 0;
 
-			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
-			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+			// simple solution to prevent an endless clock: remember the last soldier that decided an action. If its the same one, increase the counter.
+			// if counter is high enough, end this guy's turn
+			if (pSoldier == pLastDecisionSoldier)
+			{
+				// we will only end our turn this way if this function was called over 100 times with same soldier without ending a turn.
+				// so many actions in a single turn smell of an endless clock. 
+				// If we end a turn normally, the counter will be set back to 0, so this wont be a problem if you have a single soldier left for multiple turns
+				if (lastdecisioncount >= 600)
+				{
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, wszAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+					DebugAI(AI_MSG_INFO, pSoldier, String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+					DebugAI(AI_MSG_INFO, pSoldier, String("Last action was %s ", szAction[pSoldier->aiData.bLastAction]));
+
+					EndAIDeadlock();
+					//EndAIGuysTurn(pSoldier);
+					lastdecisioncount = 0;
+					return;
+				}
+				else
+					++lastdecisioncount;
+			}
+			else
+			{
+				pLastDecisionSoldier = pSoldier;
+				lastdecisioncount = 0;
+			}
+		}
+#else
+		{
+			time_t tCurrentTime = time(0);
+			UINT32 uiShortDelay = 10;
+			UINT32 uiDelay = (UINT32)gGameExternalOptions.gubDeadLockDelay;
+			UINT32 uiTime = (UINT32)(tCurrentTime - gtTimeSinceMercAIStart);
+			BOOLEAN fKeyPressed = _KeyDown(ESC);
+
+			if ((uiTime > uiDelay || uiTime > uiShortDelay && fKeyPressed) && !gfUIInDeadlock)
+			//if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
+			{
+				// ATE: Display message that deadlock occured...
+				LiveMessage( "Breaking Deadlock" );
+
+				ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, wszAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+				DebugAI(AI_MSG_INFO, pSoldier, String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
+				DebugAI(AI_MSG_INFO, pSoldier, String("Last action was %s ", szAction[pSoldier->aiData.bLastAction]));
+
 
 #ifdef JA2TESTVERSION
-			// display deadlock message
-			gfUIInDeadlock = TRUE;
-			gUIDeadlockedSoldier = pSoldier->ubID;
-			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
+				// display deadlock message
+				gfUIInDeadlock = TRUE;
+				gUIDeadlockedSoldier = pSoldier->ubID;
+				DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
 
-			// If we are in beta version, also report message!
+				// If we are in beta version, also report message!
 #ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
 #endif
-			// just abort
-			EndAIDeadlock();
-			if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
-			{
-				return;
+				// just abort
+				EndAIDeadlock();
+				if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+				{
+					return;
+				}
+#endif
 			}
-#endif
 		}
+#endif
 	}
 
 	// We STILL do not want to issue new orders while an attack busy situation is going on.  This can happen, for example,
@@ -728,7 +876,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		return;
 	}
 
-	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
+	if (!pSoldier->aiData.bActionInProgress)
 	{
 		// being handled so turn off muzzle flash
 		if ( pSoldier->flags.fMuzzleFlash )
@@ -862,6 +1010,12 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		}
 		else if (pSoldier->aiData.bAction == AI_ACTION_CLIMB_ROOF && !pSoldier->aiData.bActionInProgress)
 		{
+			ActionDone(pSoldier);
+		}
+
+		if (!ShouldActionStayInProgress(pSoldier))
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Action %s was stuck as being in progress. Canceling action", szAction[pSoldier->aiData.bAction]));
 			ActionDone(pSoldier);
 		}
 	}
@@ -1332,7 +1486,7 @@ void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier )
 void ActionDone(SOLDIERTYPE *pSoldier)
 {
 	// if an action is currently selected
-	if (pSoldier->aiData.bAction != AI_ACTION_NONE)
+	//if (pSoldier->aiData.bAction != AI_ACTION_NONE)
 	{
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER)
 		{
@@ -1552,33 +1706,6 @@ INT16 ActionInProgress(SOLDIERTYPE *pSoldier)
 
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 {
-	// added by Flugente: static pointers, used to break out of an endless circles (currently only used for zombie AI)
-	static SOLDIERTYPE* pLastDecisionSoldier = NULL;
-	static INT16	lastdecisioncount = 0;
-
-	// simple solution to prevent an endless clock: remember the last soldier that decided an action. If its the same one, increase the counter.
-	// if counter is high enough, end this guy's turn
-	if ( pSoldier == pLastDecisionSoldier )
-	{
-		// we will only end our turn this way if this function was called over 100 times with same soldier without ending a turn.
-		// so many actions in a single turn smell of an endless clock. 
-		// If we end a turn normally, the counter will be set back to 0, so this wont be a problem if you have a single soldier left for multiple turns
-		if ( lastdecisioncount >= 100 )
-		{
-			// zombie is done doing harm...
-			EndAIGuysTurn( pSoldier);
-			lastdecisioncount = 0;
-			return ;
-		}
-		else
-		++lastdecisioncount;
-	}
-	else
-	{
-		pLastDecisionSoldier = pSoldier;
-		lastdecisioncount = 0;
-	}
-
 	// yikes, this shouldn't occur! we should be trying to finish our move!
 	// pSoldier->flags.fNoAPToFinishMove = FALSE;
 
@@ -1611,6 +1738,8 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGBUSY
 			AINumMessage("Busy with action, skipping guy#",pSoldier->ubID);
 #endif
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Busy with action %s, skipping guy [%d]", wszAction[pSoldier->aiData.bAction], pSoldier->ubID);
+			DebugAI(AI_MSG_INFO, pSoldier, String("Busy with action %s, skipping guy [%d]", wszAction[pSoldier->aiData.bAction], pSoldier->ubID));
 
 			// let it continue
 			return;
@@ -1736,42 +1865,41 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		{
 			pSoldier->aiData.bAction = AI_ACTION_NONE;
 		}
+	}
 
-		// if he chose to continue doing nothing
-		if (pSoldier->aiData.bAction == AI_ACTION_NONE)
-		{
+	// if he chose to continue doing nothing
+	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
+	{
 #ifdef RECORDNET
-			fprintf(NetDebugFile,"\tMOVED BECOMING TRUE: Chose to do nothing, guynum %d\n",pSoldier->ubID);
+		fprintf(NetDebugFile,"\tMOVED BECOMING TRUE: Chose to do nothing, guynum %d\n",pSoldier->ubID);
 #endif
 
-			DebugMsg (TOPIC_JA2AI,DBG_LEVEL_3,"NPC has no action assigned");
-			NPCDoesNothing(pSoldier);  // sets pSoldier->moved to TRUE
-			return;
-		}
-		// to get here, we MUST have an action selected, but not in progress...
-		// see if we can afford to do this action
-		if (IsActionAffordable(pSoldier))
-		{
-			NPCDoesAct(pSoldier);
+		DebugMsg (TOPIC_JA2AI,DBG_LEVEL_3,"NPC has no action assigned");
+		NPCDoesNothing(pSoldier);  // sets pSoldier->moved to TRUE
+		return;
+	}
+	// to get here, we MUST have an action selected, but not in progress...
+	// see if we can afford to do this action
+	if (IsActionAffordable(pSoldier))
+	{
+		NPCDoesAct(pSoldier);
 
-			// perform the chosen action
-			pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
+		// perform the chosen action
+		pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
 			
-			if ( !pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
-			{
-				// turn based... abort this guy's turn
-				EndAIGuysTurn( pSoldier );
-				lastdecisioncount = 0;
-			}
-		}
-		else
+		if ( !pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 		{
-#ifdef DEBUGDECISIONS
-			AINumMessage("HandleManAI - Not enough APs, skipping guy#",pSoldier->ubID);
-#endif
-			HaltMoveForSoldierOutOfPoints( pSoldier);
-			return;
+			// turn based... abort this guy's turn
+			EndAIGuysTurn( pSoldier );
 		}
+	}
+	else
+	{
+#ifdef DEBUGDECISIONS
+		AINumMessage("HandleManAI - Not enough APs, skipping guy#",pSoldier->ubID);
+#endif
+		HaltMoveForSoldierOutOfPoints( pSoldier);
+		return;
 	}
 }
 
@@ -1804,6 +1932,7 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 		if ((pSoldier->aiData.bAlertStatus == STATUS_BLACK) || (pSoldier->aiData.bAlertStatus == STATUS_RED))
 		{
 			// always freshly rethink things at start of his turn
+			//CancelAIAction(pSoldier, FALSE);
 			pSoldier->aiData.bNewSituation = IS_NEW_SITUATION;
 		}
 		else
@@ -2285,14 +2414,24 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
                 usHandItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 
             iRetCode = HandleItem( pSoldier, pSoldier->aiData.usActionData, pSoldier->bTargetLevel, usHandItem, FALSE );
+			// If AI cannot shoot because of lack of APs, attempt to try again with lower aim.
+			// Usually happens when they have to turn before shooting. Without this, the game would cancel soldier's whole turn
+			if (iRetCode == ITEM_HANDLE_NOAPS && pSoldier->aiData.bAimTime > 0)
+			{
+				do
+				{
+					pSoldier->aiData.bAimTime -= 1;
+					iRetCode = HandleItem(pSoldier, pSoldier->aiData.usActionData, pSoldier->bTargetLevel, usHandItem, FALSE);
+				} while (iRetCode == ITEM_HANDLE_NOAPS && pSoldier->aiData.bAimTime > 0);
+			}
+
             if ( iRetCode != ITEM_HANDLE_OK)
             {
                 if ( iRetCode != ITEM_HANDLE_BROKEN ) // if the item broke, this is 'legal' and doesn't need reporting
                 {
-                    DebugAI( String( "AI %d got error code %ld from HandleItem, doing action %d, has %d APs... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction, pSoldier->bActionPoints ) );
+                    DebugAI(AI_MSG_INFO, pSoldier, String( "AI %d got error code %ld from HandleItem, doing action %d, has %d APs... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction, pSoldier->bActionPoints ) );
                     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction );
                 }
-				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: !ITEM_HANDLE_OK"));
                 CancelAIAction( pSoldier, FORCE);
 #ifdef TESTAICONTROL
                 if (gfTurnBasedAI)

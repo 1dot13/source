@@ -296,6 +296,8 @@ extern BOOLEAN	gfUIForceReExamineCursorData;
 extern INT16	guiCreateGuyIndex;
 extern INT16	guiCreateBadGuyIndex;
 
+extern UINT8 gRenderDebugInfoMode;
+
 // WANNE: Calculate the APs to turn around
 INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT32 sAdjustedGridNo);
 

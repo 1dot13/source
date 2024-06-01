@@ -25,7 +25,7 @@
 	#include "english.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-//	#include "renderworld.h"
+	#include "renderworld.h"
 	#include "pathai.h"
 	#include "Points.h"
 	#include "ai.h"
@@ -41,7 +41,7 @@
 	#include "Rotting Corpses.h"
 	#include "Meanwhile.h"
 #include "connect.h"
-
+#include <Cheats.h>
 #include "LOS.h"  //ddd
 
 //forward declarations of common classes to eliminate includes
@@ -66,19 +66,8 @@ extern BOOLEAN InGasSpot(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel);
 // skiplist has extra level of pointers every 4 elements, so a level 5is optimized for
 // 4 to the power of 5 elements, or 2 to the power of 10, 1024
 
-//#define PATHAI_VISIBLE_DEBUG
 
 //#define PATHAI_SKIPLIST_DEBUG
-
-#ifdef PATHAI_VISIBLE_DEBUG
-	#include "video.h"
-
-//extern INT16 gsCoverValue[WORLD_MAX];
-extern INT16 * gsCoverValue;
-	BOOLEAN gfDisplayCoverValues = TRUE;
-	BOOLEAN gfDrawPathPoints = TRUE;
-#endif
-
 BOOLEAN gfPlotPathToExitGrid = FALSE;
 BOOLEAN gfRecalculatingExistingPathCost = FALSE;
 UINT8 gubGlobalPathFlags = 0;
@@ -623,15 +612,12 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	}
 
 
-
-#if defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 	{
-		memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
+		ResetDebugInfoValues();
+		gRenderDebugInfoValues[ StartNode ] = 0;
+		PATHAI_VISIBLE_DEBUG_Counter = 1;
 	}
-	gsCoverValue[ StartNode ] = 0;
-	PATHAI_VISIBLE_DEBUG_Counter = 1;
-#endif
 
 	//init other private data, mostly flags
 	endDir = lastDir = direction = startDir = 0;
@@ -796,12 +782,10 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 		return 0;
 	}
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
 	}
-#endif
 
 	// Count the number of steps, but keep it less than the max path length.
 	// Adjust the parent until it begins at the tail end of the max path length (or the dest if reachable)
@@ -884,12 +868,10 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 		sizePath = giPathDataSize;
 	}
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
 	}
-#endif
 
 	#ifdef COUNT_PATHS
 		guiSuccessfulPathChecks++;
@@ -1001,15 +983,13 @@ void AStarPathfinder::ExecuteAStarLogic()
 	SetAStarStatus(ParentNode, AStar_Closed);
 	//ClosedList.push_back(ParentNode);
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 	{
-		if (gsCoverValue[ ParentNode ] > 0)
+		if (gRenderDebugInfoValues[ParentNode] > 0)
 		{
-			gsCoverValue[ ParentNode ] *= -1;
+			gRenderDebugInfoValues[ParentNode] *= -1;
 		}
 	}
-#endif
 
 	// Shouldn't G and AP be the same thing?
 	INT16 baseGCost = GetAStarG(ParentNode);
@@ -1092,7 +1072,7 @@ void AStarPathfinder::ExecuteAStarLogic()
 					gpWorldLevelData[ CurrentNode ].ubExtFlags[0] |= MAPELEMENT_EXT_CLIMBPOINT;
 					gpWorldLevelData[ ParentNode ].ubExtFlags[1] |= MAPELEMENT_EXT_CLIMBPOINT;
 #ifdef ROOF_DEBUG
-					gsCoverValue[CurrentNode] = 1;
+					gRenderDebugInfoValues[CurrentNode] = 1;
 #endif
 
 				}
@@ -1190,26 +1170,13 @@ void AStarPathfinder::ExecuteAStarLogic()
 		int AStarH = CalcH();
 		int AStarF = (AStarG + extraGCoverCost) + AStarH;
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-		if (gfDisplayCoverValues && gfDrawPathPoints) 
+		if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 		{
-			if (gsCoverValue[CurrentNode] == 0x7F7F) 
+			if (gRenderDebugInfoValues[CurrentNode] == 0x7FFFFFFF)
 			{
-				//gsCoverValue[CurrentNode] = PATHAI_VISIBLE_DEBUG_Counter++;
-				gsCoverValue[CurrentNode] = (INT16) AStarF;
+				gRenderDebugInfoValues[CurrentNode] = (INT16) AStarF;
 			}
-			/*
-			else if (gsCoverValue[CurrentNodeIndex] >= 0) 
-			{
-				gsCoverValue[CurrentNodeIndex]++;
-			}
-			else 
-			{
-				gsCoverValue[CurrentNodeIndex]--;
-			}
-			*/
 		}
-#endif
 
 		//insert this node onto the heap
 		if (GetAStarStatus(CurrentNode) == AStar_Init)
@@ -2260,9 +2227,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 	CHAR8				zTempString[1000], zTS[50];
 #endif
 
-#ifdef PATHAI_VISIBLE_DEBUG
 	UINT16		usCounter = 0;
-#endif
 
 	fVehicle = FALSE;
 	iOriginationX = iOriginationY = 0;
@@ -2512,12 +2477,10 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	memset( pathQ, 0, iMaxPathQ * sizeof( path_t ) );
 	memset( trailTree, 0, iMaxTrailTree * sizeof( trail_t ) );
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 	{
-		memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
+		ResetDebugInfoValues();
 	}
-#endif
 
 	bSkipListLevel = 1;
 	iSkipListSize = 0;
@@ -2629,15 +2592,13 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		// remember the cost used to get here...
 		prevCost = gubWorldMovementCosts[ trailTree[ sCurPathNdx ].sGridNo ][ trailTree[ sCurPathNdx ].stepDir ][ bLevel ];
 
-#if defined( PATHAI_VISIBLE_DEBUG )
-		if (gfDisplayCoverValues && gfDrawPathPoints)
+		if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
 		{
-			if (gsCoverValue[ curLoc ] > 0)
+			if (gRenderDebugInfoValues[ curLoc ] > 0)
 			{
-				gsCoverValue[ curLoc ] *= -1;
+				gRenderDebugInfoValues[ curLoc ] *= -1;
 			}
 		}
-#endif
 
 		/*
 		if (fTurnSlow)
@@ -3563,27 +3524,13 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			// costs less than the best so far to the same location?
 			if (trailCostUsed[newLoc] != gubGlobalPathCount || newTotCost < trailCost[newLoc])
 			{
-
-				#if defined( PATHAI_VISIBLE_DEBUG )
-
-					if (gfDisplayCoverValues && gfDrawPathPoints)
-					{
-						if (gsCoverValue[newLoc] == 0x7F7F)
+				if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
+				{
+						if (gRenderDebugInfoValues[newLoc] == 0x7FFFFFFF)
 						{
-							gsCoverValue[newLoc] = usCounter++;
+							gRenderDebugInfoValues[newLoc] = usCounter++;
 						}
-						/*
-						else if (gsCoverValue[newLoc] >= 0)
-						{
-							gsCoverValue[newLoc]++;
-						}
-						else
-						{
-							gsCoverValue[newLoc]--;
-						}
-						*/
-					}
-				#endif
+				}
 
 				//NEWQUENODE;
 				{
@@ -3826,20 +3773,13 @@ ENDOFLOOP:
 	while (pathQNotEmpty && pathNotYetFound);
 
 
-	#if defined( PATHAI_VISIBLE_DEBUG )
-		if (gfDisplayCoverValues && gfDrawPathPoints)
+	if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
+	{
+		if ( guiCurrentScreen == GAME_SCREEN )
 		{
-			SetRenderFlags( RENDER_FLAG_FULL );
-			if ( guiCurrentScreen == GAME_SCREEN )
-			{
-				RenderWorld();
-				RenderCoverDebug( );
-				InvalidateScreen( );
-				EndFrameBufferRender();
-				RefreshScreen( NULL );
-			}
+			InvalidateRegion(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y);
 		}
-	#endif
+	}
 
 
 	// work finished. Did we find a path?
@@ -3894,17 +3834,10 @@ ENDOFLOOP:
 
 		}
 
-		#if defined( PATHAI_VISIBLE_DEBUG )
-			if (gfDisplayCoverValues && gfDrawPathPoints)
-			{
-				SetRenderFlags( RENDER_FLAG_FULL );
-				RenderWorld();
-				RenderCoverDebug( );
-				InvalidateScreen( );
-				EndFrameBufferRender();
-				RefreshScreen( NULL );
-			}
-		#endif
+		if (gRenderDebugInfoMode == DEBUG_PATHFINDING && DEBUG_CHEAT_LEVEL())
+		{
+			InvalidateRegion(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y);
+		}
 
 
 		// return path length : serves as a "successful" flag and a path length counter
