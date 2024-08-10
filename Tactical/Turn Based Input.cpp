@@ -8318,7 +8318,7 @@ void HandleTBBackpacks(void)
 		{
 			pTeamSoldier = MercPtrs[ubLoop];
 
-			if (pTeamSoldier->flags.DropPackFlag)
+			if (OK_CONTROLLABLE_MERC(pTeamSoldier) && pTeamSoldier->flags.DropPackFlag)
 			{
 				backpackDropped = true;
 				break;
