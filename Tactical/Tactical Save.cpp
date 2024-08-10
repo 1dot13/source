@@ -3176,7 +3176,7 @@ void SaveWorldItemsToTempFiles()
 		const auto y = gAllWorldItems.sectors[i].y;
 		const auto z = gAllWorldItems.sectors[i].z;
 		const auto nItems = gAllWorldItems.NumItems[i];
-		auto Items = gAllWorldItems.Items[i];
+		auto &Items = gAllWorldItems.Items[i];
 
 		SaveWorldItemsToTempItemFile(x, y, (INT8)z, nItems, Items);
 	}
