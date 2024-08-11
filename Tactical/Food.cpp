@@ -364,7 +364,9 @@ void ReduceBPRegenForHunger( SOLDIERTYPE *pSoldier, INT32 *psPoints )
 
 void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 {
-	if ( !pSoldier )
+	// A merc away on a minievent assignment is ignored since we cannot control their food or water intake.
+	// Without this they would end up losing stats and/or dying during long event assignments, which would lead to the game crashing when death occurs.
+	if ( !pSoldier || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT)
 		return;
 
 	// determine our current activity level
