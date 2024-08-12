@@ -70,21 +70,21 @@ opinionStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
-		else if(pData->curElement == ELEMENT)
+		else if (pData->curElement == ELEMENT && strcmp(name, "AnOpinion") == 0)
 		{
-			for(UINT8 i = 0; i < NUMBER_OF_OPINIONS; ++i)
+			pData->curElement = ELEMENT;
+			pData->maxReadDepth++; //we are not skipping this element
+
+			XML_Char const* anID = GetAttribute("id", atts);
+			XML_Char const* modifier = GetAttribute("modifier", atts);
+
+			INT32 id, value;
+			id = atoi(anID);
+			value = atoi(modifier);
+
+			if (id >= 0 && id < NUMBER_OF_OPINIONS)
 			{
-				XML_Char bla[12];
-				sprintf(bla, "Opinion%d", i);
-				
-				if(strcmp(name, bla) == 0)
-				{
-					pData->curElement = ELEMENT_PROPERTY;
-
-					pData->maxReadDepth++; //we are not skipping this element
-
-					break;
-				}
+				pData->curProfile.bMercOpinion[id] = value;
 			}
 		}
 
@@ -92,8 +92,8 @@ opinionStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 	}
 
 	pData->currentDepth++;
-
 }
+
 
 static void XMLCALL
 opinionCharacterDataHandle(void *userData, const XML_Char *str, int len)
@@ -149,24 +149,6 @@ opinionEndElementHandle(void *userData, const XML_Char *name)
 			pData->curIndex = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 
-		else
-		{
-			for(UINT8 i = 0; i < NUMBER_OF_OPINIONS; ++i)
-			{
-				XML_Char bla[12];
-				sprintf(bla, "Opinion%d", i);
-				
-				if(strcmp(name, bla) == 0)
-				{
-					pData->curElement = ELEMENT;
-
-					pData->curProfile.bMercOpinion[i] = (INT8) atol(pData->szCharData);
-
-					break;
-				}
-			}
-		}
-		
 		pData->maxReadDepth--;
 	}
 
@@ -315,7 +297,10 @@ BOOLEAN WriteMercOpinions()
 			UINT8 cnt_b = 0;
 			for (cnt_b = 0; cnt_b < NUMBER_OF_OPINIONS; ++cnt_b)
 			{
-				FilePrintf(hFile,"\t\t<Opinion%d>%d</Opinion%d>\r\n", cnt_b, gMercProfiles[ cnt ].bMercOpinion[cnt_b], cnt_b);
+				if (gMercProfiles[cnt].bMercOpinion[cnt_b] != 0)
+				{
+					FilePrintf(hFile, "\t\t<AnOpinion id = \"%d\" modifier = \"%d\" />\r\n", cnt_b, gMercProfiles[cnt].bMercOpinion[cnt_b]);
+				}
 			}
 			
 
