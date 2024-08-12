@@ -93,6 +93,7 @@ set(TacticalSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/VehicleMenu.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Weapons.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/World Items.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/XML.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_AmmoStrings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_AmmoTypes.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_Armour.cpp"

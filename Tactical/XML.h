@@ -1,6 +1,7 @@
 #ifndef __XML_H
 #define __XML_H
 
+#include "expat.h"
 #include "armsdealerinvinit.h"
 #include "EnemyItemDrops.h"
 #include "Loading Screen.h"
@@ -580,5 +581,7 @@ extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInHistorys(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN ReadInDifficultySettings(STR fileName, BOOLEAN localizedVersion);
+
+extern const XML_Char* GetAttribute(const XML_Char* name, const XML_Char** atts);
 
 #endif
