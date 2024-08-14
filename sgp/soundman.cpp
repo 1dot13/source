@@ -261,7 +261,6 @@ void ShutdownSoundManager(void)
 
 	SoundStopAll();
 	SoundShutdownCache();
-	Sleep(1000);
 	SoundShutdownHardware();
 	fSoundSystemInit=FALSE;
 	SoundLog("JA2 sound manager shutdown");
