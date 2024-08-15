@@ -17,7 +17,6 @@ extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
 #define		DATA_8_BIT_DIR	"8-Bit\\"
 
-BOOLEAN PerformTimeLimitedCheck();
 
 // WANNE: Given a string, replaces all instances of "oldpiece" with "newpiece"
 /*
@@ -371,65 +370,7 @@ UINT32 gCheckFileMinSizes[] =
 	187000000,
 	236000000
 };
-#define NOCDCHECK
 
-#if defined( JA2TESTVERSION	) || defined( _DEBUG )
-	#define NOCDCHECK
-#endif
-
-#if defined( RUSSIANGOLD )
-	// CD check enabled
-#else
-	#define NOCDCHECK
-#endif
-
-BOOLEAN HandleJA2CDCheck( )
-{
-#ifdef	TIME_LIMITED_VERSION
-	if( !PerformTimeLimitedCheck() )
-	{
-		return( FALSE );
-	}
-#endif
-
-
-
-	return( TRUE );
-
-
-}
-
-
-BOOLEAN HandleJA2CDCheckTwo( )
-{
-
-	return( TRUE );
-
-}
-
-
-BOOLEAN PerformTimeLimitedCheck()
-{
-#ifndef TIME_LIMITED_VERSION
-		return( TRUE );
-
-#else
-	SYSTEMTIME sSystemTime;
-
-	GetSystemTime( &sSystemTime );
-
-
-	//if according to the system clock, we are past july 1999, quit the game
-	if( sSystemTime.wYear > 1999 || sSystemTime.wMonth > 7 )
-	{
-		//spit out an error message
-		MessageBox( NULL, "This time limited version of Jagged Alliance 2 v1.13 has expired.", "Ja2 Error!", MB_OK	);
-		return( FALSE );
-	}
-
-	return( TRUE );
-#endif
-}
 
 BOOLEAN DoJA2FilesExistsOnDrive( CHAR8 *zCdLocation )
 {
