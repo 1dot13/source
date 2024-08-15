@@ -12,10 +12,6 @@
 extern INT16	gubAIPathCosts[19][19];
 #define AI_PATHCOST_RADIUS 9
 
-extern BOOLEAN gfDisplayCoverValues;
-//extern INT16 gsCoverValue[WORLD_MAX];
-extern INT16 * gsCoverValue;
-
 // AI actions
 
 enum CreatureCalls
@@ -182,7 +178,7 @@ BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
 
 void DebugAI( STR szOutput );
 enum { AI_MSG_START, AI_MSG_DECIDE, AI_MSG_INFO, AI_MSG_TOPIC };
-void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction = -1);
+void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog = true, INT8 bAction = -1);
 void DebugQuestInfo(STR szOutput);
 INT8 DecideAction(SOLDIERTYPE *pSoldier);
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
@@ -199,7 +195,7 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier );
 INT8	ExecuteAction(SOLDIERTYPE *pSoldier);
 
 INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo);
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter);
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter, INT32 targetGridNo = NOWHERE);
 INT32 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT32 FindNearestEdgePoint( INT32 sGridNo );

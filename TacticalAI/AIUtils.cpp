@@ -418,7 +418,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 				if (IS_MERC_BODY_TYPE(pSoldier) &&
 					pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
 					!InWaterGasOrSmoke(pSoldier, pSoldier->sGridNo) &&
-					!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					!BOXER(pSoldier) &&
 					!TileIsOutOfBounds(sClosestThreat) &&
 					(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM))
 				{
@@ -1474,7 +1474,7 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 
 		if (sClosestOpponent == NOWHERE ||
 			iRange < iClosestRange ||
-			pClosestOpponent && !pClosestOpponent->IsZombie() && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && pClosestOpponent->stats.bLife < OKLIFE && pOpponent->stats.bLife >= OKLIFE)
+			pClosestOpponent && !pClosestOpponent->IsZombie() && !BOXER(pSoldier) && pClosestOpponent->stats.bLife < OKLIFE && pOpponent->stats.bLife >= OKLIFE)
 		{
 			iClosestRange = iRange;
 			sClosestOpponent = sGridNo;
@@ -2253,6 +2253,12 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
+
 	// smoke
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE ) )
 		return TRUE;
@@ -2299,6 +2305,12 @@ BOOLEAN InGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 
 	if (TileIsOutOfBounds(sGridNo))
 		return FALSE;
+
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
 
 	if (InGasSpot(pSoldier, sGridNo, pSoldier->pathing.bLevel))
 	{
@@ -2658,7 +2670,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 	}
 
 	// in boxing mode, let only a boxer be considered a threat.
-	if ( (gTacticalStatus.bBoxingState == BOXING) && !(pEnemy->flags.uiStatusFlags & SOLDIER_BOXER) )
+	if ( (gTacticalStatus.bBoxingState == BOXING) && !BOXER(pEnemy) )
 	{
 		iThreatValue = -999;
 		return( iThreatValue );
@@ -4791,7 +4803,7 @@ BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent)
 		pSoldier->bSide == pOpponent->bSide ||
 		pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY ||
 		(pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle(pOpponent->bVehicleID) == 0) ||
-		gTacticalStatus.bBoxingState == BOXING && (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && !(pOpponent->flags.uiStatusFlags & SOLDIER_BOXER) ||
+		gTacticalStatus.bBoxingState == BOXING && BOXER(pSoldier) && !BOXER(pOpponent) ||
 		pOpponent->ubBodyType == CROW)
 	{
 		return FALSE;
@@ -4901,7 +4913,7 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
 	if (!IS_MERC_BODY_TYPE(pSoldier) || 
 		pSoldier->aiData.bNeutral || 
 		fCivilian ||
-		pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ||
+		BOXER(pSoldier) ||
 		ARMED_VEHICLE(pSoldier) ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
 		AM_A_ROBOT(pSoldier) ||

@@ -49,6 +49,7 @@
 	#include "Button Defines.h"
 	#include "Animation Data.h"
 #endif
+#include <Cheats.h>
 
 
 #define	SET_MOVEMENTCOST( a, b, c, d )				( ( gubWorldMovementCosts[ a ][ b ][ c ] < d ) ? ( gubWorldMovementCosts[ a ][ b ][ c ] = d ) : 0 );
@@ -84,7 +85,6 @@ extern UINT8 *gubFOVDebugInfoInfo;
 extern INT16 gsFullTileDirections[MAX_FULLTILE_DIRECTIONS];
 extern INT32 dirDelta[8];
 extern INT16 DirIncrementer[8];
-extern INT16 *gsCoverValue;
 extern INT32 gsTempActionGridNo;
 extern INT32 gsOverItemsGridNo;
 extern INT32 gsOutOfRangeGridNo;
@@ -320,8 +320,6 @@ void DeinitializeWorld()
 	TrashWorld();
 	if(gubGridNoMarkers)
 		MemFree(gubGridNoMarkers);
-	if(gsCoverValue)
-		MemFree(gsCoverValue);
 	if(gubBuildingInfo)
 		MemFree(gubBuildingInfo);
 	if(gusWorldRoomInfo)
@@ -4313,10 +4311,12 @@ void SetWorldSize(INT32 nWorldRows, INT32 nWorldCols)
 	gubGridNoMarkers = (UINT8*)MemAlloc(WORLD_MAX);
 	memset(gubGridNoMarkers, 0, sizeof(UINT8)*WORLD_MAX);
 
-	if(gsCoverValue)
-		MemFree(gsCoverValue);
-	gsCoverValue = (INT16*)MemAlloc(sizeof(INT16)*WORLD_MAX);
-	memset(gsCoverValue, 0x7F, sizeof(INT16)*WORLD_MAX);
+	if (DEBUG_CHEAT_LEVEL())
+	{
+		MemFree(gRenderDebugInfoValues);
+		gRenderDebugInfoValues = (INT32*)MemAlloc(sizeof(INT32) * WORLD_MAX);
+		ResetDebugInfoValues();
+	}
 
 	// Init building structures and variables
 	if(gubBuildingInfo)

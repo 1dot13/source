@@ -33,7 +33,7 @@
 #include "Text.h"
 
 extern BOOLEAN gfHiddenInterrupt;
-extern void LogDecideInfo(SOLDIERTYPE *pSoldier);
+extern void LogDecideInfo(SOLDIERTYPE *pSoldier, bool doLog = true);
 
 extern STR8 gStr8AlertStatus[];
 extern STR8 gStr8Attitude[];
