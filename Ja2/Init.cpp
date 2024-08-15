@@ -1472,9 +1472,6 @@ UINT32 InitializeJA2(void)
 	//gsRenderCenterX = 805;
 	//gsRenderCenterY = 805;
 
-	// Init data
-	InitializeSystemVideoObjects( );
-
 	// Init animation system
 	if ( !InitAnimationSystem( ) )
 	{

@@ -10,12 +10,6 @@ UINT32					guiEXTRABUFFER = 0;
 
 BOOLEAN gfExtraBuffer = FALSE;
 
-BOOLEAN	InitializeSystemVideoObjects( )
-{
-
-	return( TRUE );
-}
-
 BOOLEAN	InitializeGameVideoObjects( )
 {
 	VSURFACE_DESC		vs_desc;
