@@ -4,7 +4,6 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Cinematics.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Cursors.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Debug Control.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/dsutil.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Encrypted File.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Event Pump.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/ExportStrings.cpp"
