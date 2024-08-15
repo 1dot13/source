@@ -294,64 +294,6 @@ BOOLEAN IfWin95(void)
 }
 
 
-void HandleLimitedNumExecutions( )
-{
-	// Get system directory
-	HWFILE	 hFileHandle;
-	CHAR8	ubSysDir[ 512 ];
-	INT8	bNumRuns;
-
-	GetSystemDirectory( (LPSTR) ubSysDir, sizeof( ubSysDir ) );
-
-	// Append filename
-	strcat( ubSysDir, "\\winaese.dll" );
-
-	// Open file and check # runs...
-	if ( FileExists( (STR)ubSysDir ) )
-	{
-		// Open and read
-		if ( ( hFileHandle = FileOpen( (STR)ubSysDir, FILE_ACCESS_READ, FALSE)) == 0)
-		{
-			return;
-		}
-
-		// Read value
-		FileRead( hFileHandle, &bNumRuns, sizeof( bNumRuns ) , NULL);
-
-		// Close file
-		FileClose( hFileHandle );
-
-		if ( bNumRuns <= 0 )
-		{
-			// Fail!
-			SET_ERROR( "Error 1054: Cannot execute - contact Sir-Tech Software." );
-			return;
-		}
-
-	}
-	else
-	{
-		bNumRuns = 10;
-	}
-
-	// OK, decrement # runs...
-	bNumRuns--;
-
-	// Open and write
-	if ( ( hFileHandle = FileOpen( (STR)ubSysDir, FILE_ACCESS_WRITE, FALSE)) == 0)
-	{
-		return;
-	}
-
-	// Write value
-	FileWrite( hFileHandle, &bNumRuns, sizeof( bNumRuns ) , NULL);
-
-	// Close file
-	FileClose( hFileHandle );
-
-}
-
-
 SGPFILENAME	gCheckFilenames[] =
 {
 	"DATA\\INTRO.SLF",
