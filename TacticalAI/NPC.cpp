@@ -1149,7 +1149,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 	ubLastQuoteRecord = NUM_NPC_QUOTE_RECORDS - 1;
 
 	usItemToConsider = pObj->usItem;
-	if ( Item[ usItemToConsider ].usItemClass == IC_GUN && !Item[usItemToConsider].rocketlauncher  )
+	if ( Item[ usItemToConsider ].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItemToConsider) )
 	{
 		UINT8 ubWeaponClass;
 

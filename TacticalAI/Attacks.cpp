@@ -63,7 +63,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 
 	// if he's got a MORTAR in his hand, make sure he has a MORTARSHELL avail.
-	if (Item[usInHand].mortar )
+	if (ItemIsMortar(usInHand))
 	{
 		//		bPayloadPocket = FindObj( pSoldier, MORTAR_SHELL );
 		bPayloadPocket = FindLaunchable( pSoldier, usInHand );
@@ -76,7 +76,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 		}
 	}
 	// if he's got a GL in his hand, make sure he has some type of GRENADE avail.
-	else if (Item[usInHand].grenadelauncher )
+	else if (ItemIsGrenadeLauncher(usInHand))
 	{
 		bPayloadPocket = FindGLGrenade( pSoldier );
 		if (bPayloadPocket == NO_SLOT || FindNonSmokeLaunchableAttachment( &pSoldier->inv[HANDPOS],usInHand ) != 0 )
@@ -88,7 +88,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 		}
 	}
 	// if he's got a RPG7 in his hand, make sure he has some type of RPG avail.
-	else if (Item[usInHand].rocketlauncher && !Item[usInHand].singleshotrocketlauncher )
+	else if (ItemIsRocketLauncher(usInHand) && !ItemIsSingleShotRocketLauncher(usInHand))
 	{
 		bPayloadPocket = FindLaunchable (pSoldier, usInHand );
 		if (bPayloadPocket == NO_SLOT)
@@ -96,7 +96,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 			return;	// no grenades, can't fire
 		}
 	}
-	else if (Item[usInHand].cannon )
+	else if (ItemIsCannon(usInHand))
 	{
 		bPayloadPocket = FindLaunchable( pSoldier, usInHand );
 		if (bPayloadPocket == NO_SLOT)
@@ -444,7 +444,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 				// sevenfm: take into account direction when checking stance
 				// sevenfm: shoot heavy guns in standing stance only when using hip fire
 				if (pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, sTarget), ubStance) &&
-					(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || !Weapon[pSoldier->usAttackingWeapon].HeavyGun || !Item[pSoldier->usAttackingWeapon].twohanded || !gGameExternalOptions.ubAllowAlternativeWeaponHolding))
+					(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || !Weapon[pSoldier->usAttackingWeapon].HeavyGun || !ItemIsTwoHanded(pSoldier->usAttackingWeapon) || !gGameExternalOptions.ubAllowAlternativeWeaponHolding))
 				{
 					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
 					if(sStanceAPcost)						
@@ -887,7 +887,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	}
 
 	// if he's got a MORTAR in his hand, make sure he has a MORTARSHELL avail.
-	if (Item[usInHand].mortar )
+	if (ItemIsMortar(usInHand))
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a mortar");
 		bPayloadPocket = FindNonSmokeLaunchable(pSoldier, usInHand);
@@ -911,7 +911,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		fMortar = TRUE;
 	}
 	// if he's got a GL in his hand, make sure he has some type of GRENADE avail.
-	else if (Item[usInHand].grenadelauncher )
+	else if (ItemIsGrenadeLauncher(usInHand))
 	{
 		// use up pocket 2 first, they get left as drop items
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a GL");
@@ -943,7 +943,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		}
 		fGrenadeLauncher = TRUE;
 	}
-	else if ( Item[usInHand].rocketlauncher )
+	else if (ItemIsRocketLauncher(usInHand))
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a rocket launcher");
 
@@ -952,7 +952,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// put in hand
 		bPayloadPocket = HANDPOS;//dnl ch63 240813
-		if (Item[usInHand].singleshotrocketlauncher)
+		if (ItemIsSingleShotRocketLauncher(usInHand))
 		{
 			// sevenfm: for single shot rocket launchers, use buddy item instead
 			if (Item[usInHand].usBuddyItem && Item[Item[usInHand].usBuddyItem].usItemClass & IC_EXPLOSV)
@@ -983,7 +983,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		}
 		fRocketLauncher = TRUE;
 	}
-	else if (Item[usInHand].cannon )
+	else if (ItemIsCannon(usInHand))
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a tank");
 		bPayloadPocket = FindNonSmokeLaunchable(pSoldier, usInHand);
@@ -1008,7 +1008,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		usGrenade = pSoldier->inv[bPayloadPocket].usItem;
 		ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min((UINT8)TACTICAL_RANGE / 4, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 
-		if ( Item[usGrenade].flare )
+		if (ItemIsFlare(usGrenade))
 		{
 			// JA2Gold: light isn't as nasty as explosives
 			ubSafetyMargin /= 2;
@@ -1032,7 +1032,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 	// use flares only at night
 	if (usGrenade != NOTHING &&
-		Item[usGrenade].flare &&
+		ItemIsFlare(usGrenade) &&
 		!NightLight())
 	{
 		return;
@@ -1121,7 +1121,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// limit explosives type when attacking zombies
 		if (usGrenade != NOTHING &&
-			!Item[usGrenade].flare &&
+			!ItemIsFlare(usGrenade) &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_NORMAL &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_CREATUREGAS &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_BURNABLEGAS &&
@@ -1143,7 +1143,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// limit explosives type when attacking robots, vehicles and tanks
 		if (usGrenade != NOTHING &&
-			!Item[usGrenade].flare &&
+			!ItemIsFlare(usGrenade) &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_NORMAL &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_CREATUREGAS &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_BURNABLEGAS &&
@@ -1161,7 +1161,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// limit explosives type when attacking collapsed enemies
 		if (usGrenade != NOTHING &&
-			!Item[usGrenade].flare &&
+			!ItemIsFlare(usGrenade) &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_NORMAL &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_CREATUREGAS &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_BURNABLEGAS &&
@@ -1173,7 +1173,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// don't use flare if soldier is in light
 		if (usGrenade != NOTHING &&
-			Item[usGrenade].flare &&
+			ItemIsFlare(usGrenade) &&
 			InLightAtNight(pOpponent->sGridNo, pOpponent->pathing.bLevel))
 		{
 			continue;
@@ -1181,13 +1181,13 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		// don't use flares against opponents on roof
 		if (usGrenade != NOTHING &&
-			Item[usGrenade].flare &&
+			ItemIsFlare(usGrenade) &&
 			pOpponent->pathing.bLevel > 0)
 		{
 			continue;
 		}
 
-		if (Item[usInHand].mortar)
+		if (ItemIsMortar(usInHand))
 		{
 			// active KNOWN opponent, remember where he is so that we DO blow him up!
 			if (bPersonalKnowledge == SEEN_CURRENTLY ||
@@ -1209,7 +1209,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				continue;			// next soldier
 			}
 		}
-		else if (Item[usInHand].rocketlauncher)
+		else if (ItemIsRocketLauncher(usInHand))
 		{
 			if (bPersonalKnowledge == SEEN_CURRENTLY || bPublicKnowledge == SEEN_CURRENTLY)
 			{
@@ -1231,7 +1231,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				continue;
 			}
 		}
-		else if( Item[usInHand].grenadelauncher )
+		else if(ItemIsGrenadeLauncher(usInHand))
 		{
 			if (bPersonalKnowledge == SEEN_CURRENTLY || bPublicKnowledge == SEEN_CURRENTLY)
 			{
@@ -1262,7 +1262,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			else if ((bKnowledge == SEEN_THIS_TURN || bKnowledge == SEEN_LAST_TURN || bKnowledge == HEARD_THIS_TURN || bKnowledge == HEARD_LAST_TURN) &&
 				!TileIsOutOfBounds(KnownLocation(pSoldier, pOpponent->ubID)) &&
 				CloseEnoughForGrenadeToss(pOpponent->sGridNo, KnownLocation(pSoldier, pOpponent->ubID)) &&
-				(usGrenade != NOTHING && Item[usGrenade].flare || pSoldier->aiData.bUnderFire || pSoldier->aiData.bShock))
+				(usGrenade != NOTHING && ItemIsFlare(usGrenade) || pSoldier->aiData.bUnderFire || pSoldier->aiData.bShock))
 			{
 				sOpponentTile[ubOpponentCnt] = KnownLocation(pSoldier, pOpponent->ubID);
 				bOpponentLevel[ubOpponentCnt] = KnownLevel(pSoldier, pOpponent->ubID);
@@ -1299,7 +1299,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 	// don't spare non lethal grenades
 	if (usGrenade != NOTHING &&
-		(Item[usGrenade].flare ||
+		(ItemIsFlare(usGrenade) ||
 		Explosive[Item[usGrenade].ubClassIndex].ubType == EXPLOSV_STUN ||
 		Explosive[Item[usGrenade].ubClassIndex].ubType == EXPLOSV_SMOKE ||
 		Explosive[Item[usGrenade].ubClassIndex].ubType == EXPLOSV_TEARGAS ||
@@ -1328,7 +1328,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	// militia always try to spare grenades unless under attack or using flares
 	if (pSoldier->bTeam == MILITIA_TEAM && 
 		!pSoldier->aiData.bUnderFire && 
-		!Item[usGrenade].flare &&
+		!ItemIsFlare(usGrenade) &&
 		!fRocketLauncher)
 	{
 		fSpare = TRUE;
@@ -1563,7 +1563,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 								ubChanceToGetThrough = 100 - (UINT8) uiPenalty;
 							}
 						}
-						else if (Item[usInHand].mortar &&
+						else if (ItemIsMortar(usInHand) &&
 							usGrenade != NOTHING &&
 							Explosive[Item[usGrenade].ubClassIndex].ubType == EXPLOSV_NORMAL &&
 							bOpponentLevel[ubLoop] == 0 &&
@@ -1589,7 +1589,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 				// this is try to minimize enemies wasting their (few) mortar shells or LAWs
 				// they won't use them on less than 2 targets as long as half life left
-				if ((Item[usInHand].mortar || Item[usInHand].rocketlauncher) && (ubOppsInRange < 2) &&
+				if ((ItemIsMortar(usInHand) || ItemIsRocketLauncher(usInHand)) && (ubOppsInRange < 2) &&
 					(!gGameExternalOptions.fEnemyTanksDontSpareShells || !ARMED_VEHICLE(pSoldier)) &&
 					!gGameExternalOptions.fEnemiesDontSpareLaunchables)
 				{
@@ -1597,7 +1597,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				}
 
 				// limit RPG use, unless can hit several enemies, shooting at tank or opponent is in a room
-				if (Item[usInHand].rocketlauncher &&
+				if (ItemIsRocketLauncher(usInHand) &&
 					ubOppsInRange < 2 &&
 					!ARMED_VEHICLE(MercPtrs[ubOpponentID[ubLoop]]) &&
 					(!InARoom(sOpponentTile[ubLoop], NULL) || pSoldier->bTeam != ENEMY_TEAM))
@@ -1687,7 +1687,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	// this is try to minimize enemies wasting their (limited) toss attacks:	
 	UINT8 ubMinChanceToReallyHit;
 
-	if( usGrenade != NOTHING && Item[usGrenade].flare )
+	if( usGrenade != NOTHING && ItemIsFlare(usGrenade) )
 	{
 		ubMinChanceToReallyHit = 30;
 	}
@@ -2305,11 +2305,12 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	//	ubExplosiveIndex = Item[ C1 ].ubClassIndex;
 	//	break;
 	//default:
-	if ( Item[pSoldier->inv[ ubItemPos ].usItem].singleshotrocketlauncher )
+	UINT16 usItem = pSoldier->inv[ubItemPos].usItem;
+	if (ItemIsSingleShotRocketLauncher(usItem))
 		ubExplosiveIndex = Item[ C1 ].ubClassIndex;
-	else if ( Item[pSoldier->inv[ ubItemPos ].usItem].rocketlauncher || Item[pSoldier->inv[ ubItemPos ].usItem].grenadelauncher || Item[pSoldier->inv[ ubItemPos ].usItem].mortar )
+	else if (ItemIsRocketLauncher(usItem) || ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem) )
 	{
-		OBJECTTYPE* pAttachment = FindLaunchableAttachment(&pSoldier->inv[ ubItemPos ],pSoldier->inv[ ubItemPos ].usItem ) ;
+		OBJECTTYPE* pAttachment = FindLaunchableAttachment(&pSoldier->inv[ ubItemPos ],usItem ) ;
 		if ( pAttachment->exists() )
 			ubExplosiveIndex = Item[pAttachment->usItem].ubClassIndex;
 		else
@@ -2331,7 +2332,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	//		break;
 	//}
 	// JA2Gold: added
-	if ( Item[pSoldier->inv[ubItemPos].usItem].flare )
+	if (ItemIsFlare(pSoldier->inv[ubItemPos].usItem))
 	{
 		return( 5 * ( LightTrueLevel( pOpponent->sGridNo, pOpponent->pathing.bLevel ) - NORMAL_LIGHTLEVEL_DAY ) );
 	}
@@ -2496,7 +2497,7 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 u
 	{
 		if (gGameOptions.fNewTraitSystem)
 		{
-			if (!pSoldier->usAttackingWeapon || Item[usItem].brassknuckles)
+			if (!pSoldier->usAttackingWeapon || ItemIsBrassKnuckles(usItem))
 			{
 				// add bonus for martial arts
 				if (HAS_SKILL_TRAIT(pSoldier, MARTIAL_ARTS_NT))
@@ -2765,13 +2766,13 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 			RearrangePocket( pSoldier, HANDPOS, bWeaponIn, FOREVER );
 			// look for another weapon if this one is 1-handed
 			//			if ( (Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN) && !(Item[ pSoldier->inv[ HANDPOS ].usItem ].fFlags & ITEM_TWO_HANDED ) )
-			if ( (Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN) && !(Item[ pSoldier->inv[ HANDPOS ].usItem ].twohanded ) )
+			if ( (Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN) && !ItemIsTwoHanded(pSoldier->inv[ HANDPOS ].usItem) )
 			{
 				// look for another pistol/SMG if available
 				// CHRISL: Change final parameter to use dynamic pocket definition
 				bWeaponIn = FindAIUsableObjClassWithin( pSoldier, IC_WEAPON, BIGPOCKSTART, NUM_INV_SLOTS );
 				//				if (bWeaponIn != NO_SLOT && (Item[ pSoldier->inv[ bWeaponIn ].usItem ].usItemClass == IC_GUN) && !(Item[ pSoldier->inv[ bWeaponIn ].usItem ].fFlags & ITEM_TWO_HANDED ) )
-				if (bWeaponIn != NO_SLOT && (Item[ pSoldier->inv[ bWeaponIn ].usItem ].usItemClass == IC_GUN) && !(Item[ pSoldier->inv[ bWeaponIn ].usItem ].twohanded ) )
+				if (bWeaponIn != NO_SLOT && (Item[ pSoldier->inv[ bWeaponIn ].usItem ].usItemClass == IC_GUN) && !ItemIsTwoHanded(pSoldier->inv[ bWeaponIn ].usItem) )
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"cannpcattack: swapping weapon into holster");
 					RearrangePocket( pSoldier, SECONDHANDPOS, bWeaponIn, FOREVER );

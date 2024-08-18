@@ -1765,11 +1765,11 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 					{
 						if ( iSubFilter > -1 ) // Madd: new BR filters
 						{
-							if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter )
+							if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter )
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
 						}
 						else
@@ -2653,11 +2653,11 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilte
 							{
 								if (iSubFilter > -1 )
 								{
-									if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter)
+									if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter)
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment )
+									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
 								}
 								else
@@ -3641,11 +3641,11 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 						{
 							if (guiCurrentMiscSubFilterMode > -1) // Madd: new BR filter options
 							{
-								if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
+								if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
 							}
 							else 
@@ -4181,7 +4181,7 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 					for (it = range.first; it != range.second; it++)
 					{
 						UINT16 attachmentId = it->second.attachmentIndex;
-						if (!Item[attachmentId].hiddenaddon && !Item[attachmentId].hiddenattachment && ItemIsLegal(attachmentId, TRUE))
+						if (!ItemIsHiddenAddon(attachmentId) && !ItemIsHiddenAttachment(attachmentId) && ItemIsLegal(attachmentId, TRUE))
 						{
 							fAttachmentsFound = TRUE;
 							if (DecorateAppendString(attachStr3, ATTACHMENTS_STRBUF_SIZE, Item[attachmentId].szItemName) == FALSE)
@@ -4194,7 +4194,7 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 					for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
 					{
 						// If the attachment is not hidden and attachable to the gun (usItemNumber)
-						if (!Item[itemId].hiddenaddon && !Item[itemId].hiddenattachment &&
+						if (!ItemIsHiddenAddon(itemId) && !ItemIsHiddenAttachment(itemId) &&
 							ItemIsLegal(itemId, TRUE) && IsAttachmentPointAvailable(Item[usItemNumber].uiIndex, itemId))
 						{
 							fAttachmentsFound = TRUE;

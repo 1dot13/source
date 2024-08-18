@@ -7287,7 +7287,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 							// Check if it's supposed to be dropped
 							if ( !((*pObj).fFlags & OBJECT_UNDROPPABLE) || pTeamSoldier->bTeam == gbPlayerNum )
 							{
-								if ( !(Item[pObj->usItem].defaultundroppable) )
+								if ( !ItemIsUndroppableByDefault(pObj->usItem) )
 								{
 									//ReduceAmmoDroppedByNonPlayerSoldiers( pTeamSoldier, cnt );
 
@@ -7301,7 +7301,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 										//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 										usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 
-										if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
+										if (ItemIsDamageable(pObj->usItem) && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
 										{
 											// silversurfer: externalized this
 											//(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random( 20 );
@@ -9320,7 +9320,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
     if ( gTacticalStatus.bBoxingState == BOXING )
     {
         // should have a check for "in boxing ring", no?
-        if ( ( pSoldier->usAttackingWeapon != NOTHING && !Item[pSoldier->usAttackingWeapon].brassknuckles ) || !( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) || pSoldier->IsRiotShieldEquipped() )
+        if ( ( pSoldier->usAttackingWeapon != NOTHING && !ItemIsBrassKnuckles(pSoldier->usAttackingWeapon)) || !( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) || pSoldier->IsRiotShieldEquipped() )
         {
             // someone's cheating!
             if ( (Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_BLADE || Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_PUNCH) && (pTarget->flags.uiStatusFlags & SOLDIER_BOXER) )
@@ -9921,7 +9921,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
             pSoldier->bDoAutofire = 1;
             pSoldier->bDoBurst = TRUE;
         }
-        if ( Item[pSoldier->inv[ HANDPOS ].usItem].twohanded && Weapon[pSoldier->inv[ HANDPOS ].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+        if (ItemIsTwoHanded(pSoldier->inv[ HANDPOS ].usItem) && Weapon[pSoldier->inv[ HANDPOS ].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
             pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD;
         else
             pSoldier->bScopeMode = USE_BEST_SCOPE;

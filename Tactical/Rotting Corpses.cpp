@@ -1014,7 +1014,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 				{
 					// and make sure that it really is a droppable item type
 					// if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
-					if ( !(Item[ pObj->usItem ].defaultundroppable ) )
+					if ( !ItemIsUndroppableByDefault(pObj->usItem) )
 					{
 						ReduceAmmoDroppedByNonPlayerSoldiers( pSoldier, cnt );
 						//if this soldier was an enemy
@@ -1027,7 +1027,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 
-							if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
+							if (ItemIsDamageable(pObj->usItem) && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
 							{
 								// silversurfer: externalized this
 								//(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);

@@ -4257,7 +4257,7 @@ BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
 	{
 		pItem = &pSoldier->inv[i];
 
-		if ( Item[pItem->usItem].cannon )
+		if (ItemIsCannon(pItem->usItem))
 		{
 			PlayAutoResolveSample( Weapon[pItem->usItem].sSound, RATE_11025, 50, 1, MIDDLEPAN );
 
@@ -4291,7 +4291,7 @@ BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
 	{
 		pItem = &pSoldier->inv[i];
 
-		if ( Item[pItem->usItem].usItemClass == IC_LAUNCHER || Item[pItem->usItem].cannon )
+		if ( Item[pItem->usItem].usItemClass == IC_LAUNCHER || ItemIsCannon(pItem->usItem))
 		{
 			pAttacker->bWeaponSlot = (INT8)i;
 			if ( gpAR->fUnlimitedAmmo )

@@ -1614,7 +1614,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 			// Demolitions damage bonus with bombs and mines
 			if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], DEMOLITIONS_NT ) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && Item[usItem].usItemClass == IC_BOMB &&
-				(!Item[usItem].attachment || Item[usItem].mine ))
+				(!ItemIsAttachment(usItem) || ItemIsMine(usItem)))
 			{
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines) / 100.0f + 0.5f);
 			}
@@ -1627,9 +1627,9 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 			// Heavy Weapons trait bonus damage with rocket, grenade launchers and mortar
 			else if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
-				((Item[usItem].usItemClass == IC_BOMB && Item[usItem].attachment &&	!Item[usItem].mine ) || // mortar shells
-				(Item[usItem].usItemClass == IC_GRENADE && (Item[usItem].glgrenade || Item[usItem].electronic) ) || // rockets for rocketlaunchers (I haven't found any other way)
-				(Item[usItem].usItemClass == IC_LAUNCHER ) || Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher ) )
+				((Item[usItem].usItemClass == IC_BOMB && ItemIsAttachment(usItem) &&	!ItemIsMine(usItem) ) || // mortar shells
+				(Item[usItem].usItemClass == IC_GRENADE && (ItemIsGLgrenade(usItem) || ItemIsElectronic(usItem)) ) || // rockets for rocketlaunchers (I haven't found any other way)
+				(Item[usItem].usItemClass == IC_LAUNCHER ) || ItemIsRocketLauncher(usItem) || ItemIsSingleShotRocketLauncher(usItem) ) )
 			{
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +15%
 			}
@@ -1640,7 +1640,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 		{
 			sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.bTanksDamageResistanceModifier) / 100);
 			// another half of this for ordinary grenades
-			if ( (( Item[usItem].usItemClass == IC_GRENADE ) || Item[usItem].glgrenade ) && !Item[usItem].electronic )
+			if ( (( Item[usItem].usItemClass == IC_GRENADE ) || ItemIsGLgrenade(usItem) ) && !ItemIsElectronic(usItem))
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - (gSkillTraitValues.bTanksDamageResistanceModifier / 2)) / 100);
 		}
 		
@@ -3858,10 +3858,10 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 						usBombItem = (*pObj)[0]->data.misc.usBombItem;
 
 					// if item can be activated by tripwire, detonate it
-					if ( Item[usBombItem].tripwireactivation == 1 )
+					if (ItemHasTripwireActivation(usBombItem))
 					{
 						// tripwire just gets activated
-						if ( Item[usBombItem].tripwire == 1 )
+						if (ItemIsTripwire(usBombItem))
 						{
 							// this is important - we have to check wether the wire has already been activated 
 							if ( ( (*pObj)[0]->data.sObjectFlag & TRIPWIRE_ACTIVATED ) == 0 )
@@ -4029,7 +4029,7 @@ void HandleExplosionQueue( void )
 					CallAvailableEnemiesTo( sGridNo );
 					//RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, 0 );
 				}
-				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE || Item[pObj->usItem].flare)
+				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE || ItemIsFlare(pObj->usItem))
 				{				
 					// sevenfm: changed pObj->usItem to Item[pObj->usItem].ubClassIndex as it should be correct explosives index
 					// NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
@@ -4128,7 +4128,7 @@ void HandleExplosionQueue( void )
 				}
 				// Flugente: handle tripwire gun traps here...
 				// tripwire gets called and activated in ActivateSurroundingTripwire
-				else if ( Item[pObj->usItem].tripwire == 1 )
+				else if (ItemIsTripwire(pObj->usItem))
 				{
 					OBJECTTYPE newtripwireObject;
 					CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
@@ -4189,7 +4189,7 @@ void HandleExplosionQueue( void )
 				// Flugente: handle tripwire gun traps here...
 				// tripwire gets called and activated in ActivateSurroundingTripwire
 				// now for action item tripwire
-				else if ( pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 )
+				else if ( pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && ItemIsTripwire((*pObj)[0]->data.misc.usBombItem) )
 				{
 					OBJECTTYPE newtripwireObject;
 					CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
@@ -4910,7 +4910,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 				if (fAllBombs || (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE)
 				{
 					// Flugente: if this is a anti-tank mine, only detonate it if the person triggering it is (in) a vehicle, or if we detonate everything unconditional
-					if ( !fAllBombs && ubID != NOBODY && Item[pObj->usItem].antitankmine )
+					if ( !fAllBombs && ubID != NOBODY && ItemIsATMine(pObj->usItem))
 					{
 						// if this is not a vehicle, not a robot and not a tank, don't activate
 						if ( !(MercPtrs[ubID]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ubID] ) && !ARMED_VEHICLE( MercPtrs[ubID] ) && !ENEMYROBOT( MercPtrs[ubID] ) )
@@ -4942,7 +4942,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 						SetOffBombsByFrequency( ubID, (*pObj)[0]->data.misc.bFrequency );
 					}
 					// Flugente: a tripwire activates all other tripwires in connection, and detonates all bombs in connection that are tripwire-activated
-					else if ( Item[pObj->usItem].tripwire == 1 || (pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 ) )
+					else if (ItemIsTripwire(pObj->usItem) || (pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && ItemIsTripwire((*pObj)[0]->data.misc.usBombItem) ) )
 					{
 						gubPersonToSetOffExplosions = ubID;
 
@@ -5449,7 +5449,7 @@ void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, 
 		FLOAT dRandomZ = 0;
 
 		// if explosive is directional, calculation of frags is different
-		if ( Item[usItem].directional == TRUE )
+		if (ItemIsDirectional(usItem))
 		{
 			// Flugente: if item is a directional explosive, determine in what direction the frags should fly
 			INT16 degree = (45 + ubDirection * 45) % 360;											// modulo 360 to prevent nonsense from nonsensical input
@@ -5891,7 +5891,7 @@ void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sG
 	// Flugente: Items can have secondary explosions
 	if ( Item[usItem].usBuddyItem )
 	{
-		if ( Item[Item[usItem].usBuddyItem].flare )
+		if (ItemIsFlare(Item[usItem].usBuddyItem))
 		{
 			if( !sZ || !FindBuilding(sGridNo) )
 			{
@@ -5929,10 +5929,10 @@ BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, IN
 		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
 		{ 			
 			// no need for binder if both item and attachment are tripwire-activated
-			if( ( Item[pObj->usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
+			if( (ItemHasTripwireActivation(pObj->usItem) && ItemHasTripwireActivation(iter->usItem)) ||
 				( binderFound && detonator && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
 			{
-				if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
+				if(ItemIsDirectional(iter->usItem) && ubDirection == DIRECTION_IRRELEVANT)
 					direction=Random(8);
 				else
 					direction=ubDirection;				
@@ -5953,7 +5953,7 @@ BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, IN
 		}
 		if ( binderFound && detonator && gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
 		{
-			if(Item[iter->usItem].gascan)
+			if(ItemIsGascan(iter->usItem))
 			{
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
 				fAttFound = TRUE;
@@ -5963,7 +5963,7 @@ BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, IN
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, MOLOTOV_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
 				fAttFound = TRUE;
 			}
-			if(Item[iter->usItem].marbles)
+			if(ItemIsMarbles(iter->usItem))
 			{
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, FRAG_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
 				fAttFound = TRUE;
@@ -6017,7 +6017,7 @@ UINT16 CalcTotalVolatility(OBJECTTYPE * pObj)
 		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
 		{ 			
 			// no need for binder if both item and attachment are tripwire-activated
-			if( ( Item[usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
+			if( (ItemHasTripwireActivation(usItem) && ItemHasTripwireActivation(iter->usItem)) ||
 				( binderFound && detonator && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
 			{
 				totalVolatility += Explosive[Item[iter->usItem].ubClassIndex].ubVolatility;

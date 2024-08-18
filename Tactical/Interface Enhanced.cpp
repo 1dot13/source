@@ -1555,7 +1555,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// DAMAGE
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_BLADE|IC_PUNCH|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
+			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_BLADE|IC_PUNCH|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) )
 			{
 				ubRegionOffset = 1;
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
@@ -1698,7 +1698,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// AP TO DRAW
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_PUNCH) && !Item[ gpItemDescObject->usItem].rocketlauncher )
+			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_PUNCH) && !ItemIsRocketLauncher(gpItemDescObject->usItem) )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 13 ] );
 			}
@@ -1709,25 +1709,25 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// AP TO BURST
-			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[gpItemDescObject->usItem].rocketlauncher )
+			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsRocketLauncher(gpItemDescObject->usItem) )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 15 ] );
 			}
 
 			/////////////////// AP TO AUTOFIRE
-			if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher )
+			if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 16 ] );
 			}
 
 			/////////////////// AP TO RELOAD
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
+			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 17 ] );
 			}
 
 			/////////////////// AP TO RELOAD MANUALLY
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher && Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 )
+			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) && Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
 			}
@@ -1735,7 +1735,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			/////////////////// RECOIL X/Y
 			if( UsingNewCTHSystem() == true )
 			{
-				if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher && (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 ) )
+				if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) && (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 ) )
 				{
 					// HEADROCK HAM 5: One value to rule them all.
 					// MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
@@ -1751,7 +1751,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// BULLETS PER 5 AP
-			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher && GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) && GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 21 ] );
 			}
@@ -2333,7 +2333,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		if (Item[ gpItemDescObject->usItem ].usItemClass & IC_ARMOUR)
 		{
 			//////////////////// EXPLOSIVE RESISTANCE
-			if (Item[ gpItemDescObject->usItem ].flakjacket)
+			if (ItemIsFlakJacket(gpItemDescObject->usItem))
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 5 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 5 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2432,7 +2432,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		if (Item[ gpItemDescObject->usItem ].usItemClass & IC_EXPLOSV)
 		{
 			////////////////// LOCK BOMB
-			if (Item[ gpItemDescObject->usItem ].lockbomb)
+			if (ItemIsLockBomb(gpItemDescObject->usItem))
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 25 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 25 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2445,7 +2445,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		// Draw stats that can be had by any item.
 
 		//////////////////// WATERPROOF
-		if (!Item[ gpItemDescObject->usItem ].waterdamages)
+		if (!ItemIsDamagedByWater(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 6 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 6 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2454,7 +2454,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
  
 		//////////////////// ELECTRONIC
-		if (Item[ gpItemDescObject->usItem ].electronic)
+		if (ItemIsElectronic(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 7 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 7 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2463,7 +2463,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 		
 		//////////////////// GAS MASK
-		if (Item[ gpItemDescObject->usItem ].gasmask)
+		if (ItemIsGasmask(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 8 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 8 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2472,7 +2472,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// NEEDS BATTERIES
-		if (Item[ gpItemDescObject->usItem ].needsbatteries)
+		if (ItemNeedsBatteries(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 9 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 9 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2481,7 +2481,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// LOCKSMITH'S KIT
-		if (Item[ gpItemDescObject->usItem ].locksmithkit)
+		if (ItemIsLocksmithKit(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s%d", szUDBGenSecondaryStatsTooltipText[ 10 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 10 ], (Item[ gpItemDescObject->usItem ].LockPickModifier > 0 ?
 				( Item[ gpItemDescObject->usItem ].LockPickModifier * (*gpItemDescObject)[0]->data.objectStatus / 100 ) : Item[ gpItemDescObject->usItem ].LockPickModifier ) );
@@ -2491,7 +2491,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// WIRE CUTTERS
-		if (Item[ gpItemDescObject->usItem ].wirecutters)
+		if (ItemIsWirecutters(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 11 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 11 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2500,7 +2500,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// CROWBAR
-		if (Item[ gpItemDescObject->usItem ].crowbar)
+		if (ItemIsCrowbar(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s%d", szUDBGenSecondaryStatsTooltipText[ 12 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 12 ], Item[ gpItemDescObject->usItem ].CrowbarModifier );
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2509,7 +2509,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// METAL DETECTOR
-		if (Item[ gpItemDescObject->usItem ].metaldetector)
+		if (ItemIsMetalDetector(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 13 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 13 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2518,7 +2518,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// REMOTE TRIGGER
-		if (Item[ gpItemDescObject->usItem ].remotetrigger)
+		if (ItemIsRemoteTrigger(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 14 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 14 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2527,7 +2527,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// REMOTE DETONATOR
-		if (Item[ gpItemDescObject->usItem ].remotedetonator)
+		if (ItemIsRemoteDetonator(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 15 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 15 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2536,7 +2536,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// TIMER DETONATOR
-		if (Item[ gpItemDescObject->usItem ].detonator)
+		if (ItemIsDetonator(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 16 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 16 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2545,7 +2545,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// GAS CAN
-		if (Item[ gpItemDescObject->usItem ].gascan)
+		if (ItemIsGascan(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 17 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 17 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2554,7 +2554,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// TOOLKIT
-		if (Item[ gpItemDescObject->usItem ].toolkit)
+		if (ItemIsToolkit(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s%d", szUDBGenSecondaryStatsTooltipText[ 18 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 18 ], Item[ gpItemDescObject->usItem ].RepairModifier );
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2563,7 +2563,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// THERMAL OPTICS
-		if (Item[ gpItemDescObject->usItem ].thermaloptics)
+		if (ItemIsThermalOptics(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 19 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 19 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2572,7 +2572,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// X-RAY DEVICE
-		if (Item[ gpItemDescObject->usItem ].xray)
+		if (ItemHasXRay(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 20 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 20 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2581,7 +2581,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// CANTEEN
-		if (Item[ gpItemDescObject->usItem ].canteen)
+		if (ItemIsCanteen(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 21 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 21 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2599,7 +2599,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// FIRST-AID KIT
-		if (Item[ gpItemDescObject->usItem ].firstaidkit)
+		if (ItemIsFirstAidKit(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 23 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 23 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2608,7 +2608,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// MEDICAL KIT
-		if (Item[ gpItemDescObject->usItem ].medicalkit)
+		if (ItemIsMedicalKit(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 24 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 24 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2681,7 +2681,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// NOT DAMAGEABLE
-		if ( Item[gpItemDescObject->usItem].damageable == 0 )
+		if (!ItemIsDamageable(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 32 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 32 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2690,7 +2690,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// METAL
-		if ( Item[gpItemDescObject->usItem].metal > 0 )
+		if (ItemIsMetal(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 33 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 33 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2699,7 +2699,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// SINKS
-		if ( Item[gpItemDescObject->usItem].sinks > 0 )
+		if (ItemSinks(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 34 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 34 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2708,7 +2708,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// TWO HANDED
-		if ( Item[gpItemDescObject->usItem].twohanded > 0 )
+		if (ItemIsTwoHanded(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 35 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 35 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2717,7 +2717,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// BLOCKS IRON SIGHTS
-		if ( Item[gpItemDescObject->usItem].blockironsight > 0 )
+		if (ItemBlocksIronsight(gpItemDescObject->usItem))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 36 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 36 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -4070,7 +4070,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  				}
 				cnt++;
 			}
-			else if ( Item[gpItemDescObject->usItem].barrel == TRUE )		// for barrel items
+			else if (ItemIsBarrel(gpItemDescObject->usItem))		// for barrel items
 			{
 				if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// new index line here?
 				///////////////////// COOLDOWN FACTOR
@@ -4366,8 +4366,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////////// DAMAGE
-		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher ) ||
-			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher ) )
+		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) ) ||
+			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 1;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 5, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -4525,8 +4525,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 				ubNumLine = 11;
 			}
 
-			if ( !Item[gpItemDescObject->usItem].repairable || 
-				( fComparisonMode && !Item[gpComparedItemDescObject->usItem].repairable ) )
+			if ( !ItemIsRepairable(gpItemDescObject->usItem) ||
+				( fComparisonMode && !ItemIsRepairable(gpComparedItemDescObject->usItem) ) )
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[ubNumLine][0].sLeft + sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
@@ -4542,16 +4542,16 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////////// DRAW COST
-		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem].rocketlauncher ) || 
-			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem].rocketlauncher ) )
+		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsRocketLauncher(gpItemDescObject->usItem) ) ||
+			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 13;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 1, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// SINGLE SHOT COST - GUN
-		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher && !fComparisonMode ) || 
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpComparedItemDescObject->usItem].rocketlauncher ) )
+		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) && !fComparisonMode ) || 
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 14;
 			// "NO SINGLE-SHOT" ICON
@@ -4565,8 +4565,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		/////////////////// SINGLE SHOT COST - ROCKET
-		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && Item[gpItemDescObject->usItem].rocketlauncher && !fComparisonMode ) || 
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && Item[gpComparedItemDescObject->usItem].rocketlauncher ) )
+		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && ItemIsRocketLauncher(gpItemDescObject->usItem) && !fComparisonMode ) || 
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && ItemIsRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 14;
 			// SINGLE ROCKET-LAUNCH AP ICON
@@ -4574,9 +4574,9 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		/////////////////// SINGLE SHOT COST - GRENADE LAUNCHER
-		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpItemDescObject->usItem].rocketlauncher
+		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !ItemIsRocketLauncher(gpItemDescObject->usItem)
 			&& !Weapon[gpItemDescObject->usItem].NoSemiAuto && !fComparisonMode ) || 
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpComparedItemDescObject->usItem].rocketlauncher
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_LAUNCHER && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 			&& !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto ) )
 		{
 			ubNumLine = 14;
@@ -4608,8 +4608,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		/////////////////// BURST COST - GUN
-		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher ) || 
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpComparedItemDescObject->usItem].rocketlauncher ) )
+		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) ) || 
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 15;
 			// "NO BURST" ICON
@@ -4625,9 +4625,9 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 			}
 		}
 		////////////////// BURST COST - GRENADE LAUNCHER
-		else if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpItemDescObject->usItem].rocketlauncher 
+		else if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !ItemIsRocketLauncher(gpItemDescObject->usItem) 
 			&& GetShotsPerBurst(gpItemDescObject)> 0 ) || 
-			( fComparisonMode && Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpItemDescObject->usItem].rocketlauncher 
+			( fComparisonMode && Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !ItemIsRocketLauncher(gpItemDescObject->usItem) 
 			&& GetShotsPerBurst(gpItemDescObject)> 0 ) )
 		{
 			ubNumLine = 15;
@@ -4635,8 +4635,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		////////////////// AUTOFIRE COST
-		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher ) || 
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpComparedItemDescObject->usItem].rocketlauncher ) )
+		if ( ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem) ) || 
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 16;
 			// "NO-AUTO" ICON
@@ -4654,17 +4654,17 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 
 
 		////////////////// RELOAD COST
-		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher ) ||
-			(  fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher ) )
+		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) ) ||
+			(  fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 17;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 2, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 			
 		////////////////// MANUAL RELOAD COST
-		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher 
+		if ( ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) 
 			&& Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 ) || 
-			(  fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
+			(  fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) 
 			&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0 ) )
 		{
 			ubNumLine = 18;
@@ -4675,9 +4675,9 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		if( UsingNewCTHSystem() == true )
 		{
 			ubNumLine = 20;
-			if ( ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
+			if ( ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem)
 				&& ( GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 ) ) || 
-				( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+				( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 				&& ( GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 ) ) )
 			{
 				// HEADROCK HAM 5: One value to rule them all! Line 19 left empty intentionally.
@@ -4702,9 +4702,9 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////// AUTOFIRE SHOTS PER 5 AP ICON
-		if ( ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
+		if ( ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem)
 			&& GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 ) ||
-			 ( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+			 ( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 			&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 ) )
 		{
 			ubNumLine = 21;
@@ -4946,8 +4946,8 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		////////////////// REPAIR EASE
-		if ( ( !Item[gpItemDescObject->usItem].repairable && !fComparisonMode ) ||
-			( fComparisonMode && !Item[ gpComparedItemDescObject->usItem ].repairable ) )
+		if ( ( !ItemIsRepairable(gpItemDescObject->usItem) && !fComparisonMode ) ||
+			( fComparisonMode && !ItemIsRepairable(gpComparedItemDescObject->usItem) ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[11][0].sLeft + sOffsetX, gItemDescGenRegions[11][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
@@ -5036,8 +5036,8 @@ void DrawArmorStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		////////////////// REPAIR EASE
-		if ( ( !Item[gpItemDescObject->usItem].repairable && !fComparisonMode ) ||
-			( fComparisonMode && !Item[gpComparedItemDescObject->usItem].repairable ) )
+		if ( ( !ItemIsRepairable(gpItemDescObject->usItem) && !fComparisonMode ) ||
+			( fComparisonMode && !ItemIsRepairable(gpComparedItemDescObject->usItem) ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[3][0].sLeft + sOffsetX, gItemDescGenRegions[3][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
@@ -5782,8 +5782,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			cnt++;
 		}
 
-		if( ( Item[gpItemDescObject->usItem].barrel == TRUE ) ||	// for barrel items
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].barrel == TRUE ) )
+		if( (ItemIsBarrel(gpItemDescObject->usItem)) ||	// for barrel items
+			( fComparisonMode && ItemIsBarrel(gpComparedItemDescObject->usItem) ) )
 		{
 			if ( !fDrawGenIndexes ) fDrawGenIndexes = ++cnt; // new index line here?
 
@@ -5988,8 +5988,8 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 		// not for weapons. They have this one their primary page
 		if ( !(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) )
 		{
-			if ( !Item[gpItemDescObject->usItem].repairable && !fComparisonMode || 
-				( fComparisonMode && !Item[gpComparedItemDescObject->usItem].repairable ) )
+			if ( !ItemIsRepairable(gpItemDescObject->usItem) && !fComparisonMode ||
+				( fComparisonMode && !ItemIsRepairable(gpComparedItemDescObject->usItem) ) )
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
@@ -6076,8 +6076,8 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_ARMOUR))
 	{
 		////////////////// FLAK JACKET
-		if ( ( Item[ gpItemDescObject->usItem ].flakjacket && !fComparisonMode ) || 
-			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].flakjacket ))
+		if ( (ItemIsFlakJacket(gpItemDescObject->usItem) && !fComparisonMode ) ||
+			( fComparisonMode && ItemIsFlakJacket(gpComparedItemDescObject->usItem) ))
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 5, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
@@ -6162,8 +6162,8 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_EXPLOSV))
 	{
 		////////////////// LOCK BOMB
-		if ( ( Item[ gpItemDescObject->usItem ].lockbomb && !fComparisonMode ) ||
-			( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].lockbomb ) )
+		if (( ItemIsLockBomb(gpItemDescObject->usItem) && !fComparisonMode ) ||
+			( fComparisonMode && ItemIsLockBomb(gpComparedItemDescObject->usItem) ))
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 25, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
@@ -6174,128 +6174,128 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	// Draw stats that can be had by any item.
 
 	//////////////////// WATERPROOF
-	if ( ( !Item[ gpItemDescObject->usItem ].waterdamages && !fComparisonMode ) ||
-		( fComparisonMode && !Item[ gpComparedItemDescObject->usItem ].waterdamages ) )
+	if ( ( !ItemIsDamagedByWater(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && !ItemIsDamagedByWater(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 6, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// ELECTRONIC
-	if ( ( Item[ gpItemDescObject->usItem ].electronic && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].electronic ) )
+	if ( (ItemIsElectronic(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsElectronic(gpComparedItemDescObject->usItem)) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 7, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// GAS MASK
-	if ( ( Item[ gpItemDescObject->usItem ].gasmask && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].gasmask ) )
+	if ( (ItemIsGasmask(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsGasmask(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 8, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// NEEDS BATTERIES
-	if ( ( Item[ gpItemDescObject->usItem ].needsbatteries && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].needsbatteries ) )
+	if ( (ItemNeedsBatteries(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemNeedsBatteries(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 9, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// LOCKSMITH'S KIT
-	if ( ( Item[ gpItemDescObject->usItem ].locksmithkit && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].locksmithkit ) )
+	if ( (ItemIsLocksmithKit(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsLocksmithKit(gpComparedItemDescObject->usItem)) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 10, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// WIRE CUTTERS
-	if ( ( Item[ gpItemDescObject->usItem ].wirecutters && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].wirecutters ) )
+	if ( (ItemIsWirecutters(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsWirecutters(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 11, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// CROWBAR
-	if ( ( Item[ gpItemDescObject->usItem ].crowbar && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].crowbar ) )
+	if ( (ItemIsCrowbar(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsCrowbar(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 12, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// CROWBAR
-	if ( ( Item[ gpItemDescObject->usItem ].metaldetector && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].metaldetector ) )
+	if ( (ItemIsMetalDetector(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsMetalDetector(gpComparedItemDescObject->usItem)) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 13, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// REMOTE TRIGGER
-	if ( ( Item[ gpItemDescObject->usItem ].remotetrigger && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].remotetrigger ) )
+	if ( (ItemIsRemoteTrigger(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsRemoteTrigger(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 14, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// REMOTE DETONATOR
-	if ( ( Item[ gpItemDescObject->usItem ].remotedetonator && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].remotedetonator ) )
+	if ( (ItemIsRemoteDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsRemoteDetonator(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 15, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// TIMER DETONATOR
-	if ( ( Item[ gpItemDescObject->usItem ].detonator && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].detonator ) )
+	if ( (ItemIsDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsDetonator(gpComparedItemDescObject->usItem)) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 16, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// GAS CAN
-	if ( ( Item[ gpItemDescObject->usItem ].gascan && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].gascan ) )
+	if ( (ItemIsGascan(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsGascan(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 17, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// TOOLKIT
-	if ( ( Item[ gpItemDescObject->usItem ].toolkit && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].toolkit ) )
+	if ( (ItemIsToolkit(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsToolkit(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 18, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// THERMAL OPTICS
-	if ( ( Item[ gpItemDescObject->usItem ].thermaloptics && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].thermaloptics ) )
+	if ( (ItemIsThermalOptics(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsThermalOptics(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 19, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// X-RAY DEVICE
-	if ( ( Item[ gpItemDescObject->usItem ].xray && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].xray ) )
+	if ( (ItemHasXRay(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemHasXRay(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 20, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// CANTEEN
-	if ( ( Item[ gpItemDescObject->usItem ].canteen && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].canteen ) )
+	if ( (ItemIsCanteen(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsCanteen(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 21, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
@@ -6310,16 +6310,16 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	//////////////////// FIRST-AID KIT
-	if ( ( Item[ gpItemDescObject->usItem ].firstaidkit && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].firstaidkit ) )
+	if ( (ItemIsFirstAidKit(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsFirstAidKit(gpComparedItemDescObject->usItem)) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 23, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// MEDICAL KIT
-	if ( ( Item[ gpItemDescObject->usItem ].medicalkit && !fComparisonMode ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].medicalkit ) )
+	if ( (ItemIsMedicalKit(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsMedicalKit(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 24, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
@@ -6389,40 +6389,40 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	//////////////////// NOT DAMAGEABLE
-	if ( ( Item[gpItemDescObject->usItem].damageable == 0 && !fComparisonMode ) ||
-		( fComparisonMode && Item[gpComparedItemDescObject->usItem].damageable == 0 ) )
+	if ( (!ItemIsDamageable(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && !ItemIsDamageable(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 31, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// METAL
-	if ( ( Item[gpItemDescObject->usItem].metal > 0 && !fComparisonMode ) ||
-		( fComparisonMode && Item[gpComparedItemDescObject->usItem].metal > 0 ) )
+	if ( (ItemIsMetal(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsMetal(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 32, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// SINKS
-	if ( ( Item[gpItemDescObject->usItem].sinks > 0 && !fComparisonMode ) ||
-		( fComparisonMode && Item[gpComparedItemDescObject->usItem].sinks > 0 ) )
+	if ( (ItemSinks(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemSinks(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 33, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// TWO HANDED
-	if ( ( Item[gpItemDescObject->usItem].twohanded > 0 && !fComparisonMode ) ||
-		( fComparisonMode && Item[gpComparedItemDescObject->usItem].twohanded > 0 ) )
+	if ( (ItemIsTwoHanded(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemIsTwoHanded(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 34, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// BLOCKS IRON SIGHTS
-	if ( ( Item[gpItemDescObject->usItem].blockironsight > 0 && !fComparisonMode ) ||
-		( fComparisonMode && Item[gpComparedItemDescObject->usItem].blockironsight > 0 ) )
+	if ( (ItemBlocksIronsight(gpItemDescObject->usItem) && !fComparisonMode ) ||
+		( fComparisonMode && ItemBlocksIronsight(gpComparedItemDescObject->usItem) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 35, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
@@ -6822,7 +6822,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 	// ShotsPer4Turns -> ubAttackAPs, used later for all shot AP values
 	// silversurfer: Knuckle Dusters count as bare hand attacks and use the AP_PUNCH constant.
-	if ( Item[gpItemDescObject->usItem].brassknuckles )
+	if (ItemIsBrassKnuckles(gpItemDescObject->usItem))
 	{
 		ubAttackAPs = APBPConstants[AP_PUNCH];
 		ubBasicAttackAPs = APBPConstants[AP_PUNCH];
@@ -7002,7 +7002,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			DrawPropertyValueInColour( iFinalAccuracyValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 		/////////////// DAMAGE
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) )
 		{
 			// Set line to draw into
 			ubNumLine = 1;
@@ -7060,7 +7060,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyValueInColour( iComparedFinalDamageValue - iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
 		}
-		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) )
 		{
 			// Set line to draw into
 			ubNumLine = 1;
@@ -7840,7 +7840,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 
 			// Does gun have flash suppression?
-			BOOLEAN iFlashValue = Item[ gpItemDescObject->usItem ].hidemuzzleflash;
+			BOOLEAN iFlashValue = ItemHasHiddenMuzzleFlash(gpItemDescObject->usItem);
 
 			if( !fComparisonMode )
 			{		
@@ -7864,7 +7864,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 			else if( IsFlashSuppressorAlt( gpComparedItemDescObject ) == TRUE )
 			{
-				BOOLEAN iComparedFlashValue = Item[ gpComparedItemDescObject->usItem ].hidemuzzleflash;
+				BOOLEAN iComparedFlashValue = ItemHasHiddenMuzzleFlash(gpComparedItemDescObject->usItem);
 				if ( iFlashValue )
 				{
 					if (iComparedFlashValue)
@@ -7921,7 +7921,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			else
 				ubNumLine = 8;
 			// Does gun have flash suppression?
-			BOOLEAN iFlashValue = Item[ gpComparedItemDescObject->usItem ].hidemuzzleflash;
+			BOOLEAN iFlashValue = ItemHasHiddenMuzzleFlash(gpComparedItemDescObject->usItem);
 			if ( iFlashValue )
 			{
 				// Print base value
@@ -8077,7 +8077,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////////// DRAW AP
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem].rocketlauncher )
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsRocketLauncher(gpItemDescObject->usItem) )
 		{
 			// Set line to draw into
 			ubNumLine = 13;
@@ -8137,7 +8137,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyValueInColour( iComparedFinalDrawAPCost - iFinalDrawAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 		}
-		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem].rocketlauncher )
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem) )
 		{
 			ubNumLine = 13;
 			// Get final Draw Cost
@@ -8376,7 +8376,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////////// RELOAD AP
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) )
 		{
 			// Set line to draw into
 			ubNumLine = 17;
@@ -8423,7 +8423,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Print final value
 				DrawPropertyValueInColour( iFinalReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
-			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
+			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) )
 			{
 				// Get final Reload Cost
 				INT16 iComparedFinalReloadAPCost = GetAPsToReload( gpComparedItemDescObject );
@@ -8471,7 +8471,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTPOSITIVE );
 			}
 		}
-		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher ) )
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) ) )
 		{
 			ubNumLine = 17;
 			// Get final Reload Cost
@@ -8515,7 +8515,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////////// MANUAL RELOAD AP
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher 
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) 
 			&& Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 )
 		{
 			// Set line to draw into
@@ -8555,7 +8555,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Print final value
 				DrawPropertyValueInColour( iFinalManualReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
-			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
+			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) 
 					&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0  )
 			{
 				// Get final Manual Reload Cost
@@ -8597,7 +8597,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTPOSITIVE );
 			}
 		}
-		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) 
 					&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0 ) )
 		{
 			ubNumLine = 18;
@@ -8637,7 +8637,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		///////////////////// RECOIL X/Y
 		if ( UsingNewCTHSystem() == true )
 		{
-			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
+			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem)
 				&& GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject) )
 			{
 				// HEADROCK HAM 5: One value to rule them all.
@@ -8677,7 +8677,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 					// Print final value
 					DrawPropertyValueInColourFloat( dFinalRecoil, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE, 1.0f );
 				}
-				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 						&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) )
 				{
 					FLOAT iComparedFinalRecoilX = 0;
@@ -8775,7 +8775,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				SetFontForeground( 6 );
 				*/
 			}
-			else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+			else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 				&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) ) )
 			{
 
@@ -8848,7 +8848,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 					// Print final value
 					DrawPropertyValueInColour( iFinalBurstValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 				}
-				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
+				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !ItemIsSingleShotRocketLauncher(gpComparedItemDescObject->usItem) )
 				{
 					// Get base Burst Penalty value
 					INT16 iComparedBurstValue = Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
@@ -8961,7 +8961,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		/////////////////// AUTOFIRE BULLETS PER 5 AP
-		if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
+		if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpItemDescObject->usItem)
 			&& GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 		{
 			// Set line to draw into
@@ -8982,7 +8982,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Print final value
 				DrawPropertyValueInColour( iFinalB5AP, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
-			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 					&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
 				// Get final B/5AP
@@ -9003,7 +9003,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
 		}
-		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 			&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 ) )
 		{
 			ubNumLine = 21;	
@@ -9054,7 +9054,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Print final value
 				DrawPropertyValueInColour( iFinalAutoValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
-			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !ItemIsRocketLauncher(gpComparedItemDescObject->usItem)
 					&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
 				// Get base Auto Penalty value
@@ -13805,8 +13805,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			cnt++;
 
 		} 
-		else if ( ( Item[gpItemDescObject->usItem].barrel == TRUE )	||	// display for barrel items
-			( fComparisonMode && Item[gpComparedItemDescObject->usItem].barrel == TRUE ) )
+		else if ( (ItemIsBarrel(gpItemDescObject->usItem))	||	// display for barrel items
+			( fComparisonMode && ItemIsBarrel(gpComparedItemDescObject->usItem) ) )
 		{
 			if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// insert Indexes here?
 			///////////////////// COOLDOWN FACTOR		

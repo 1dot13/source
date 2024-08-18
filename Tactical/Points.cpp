@@ -2375,9 +2375,9 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			// Do we need to stand up?
 			bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 		}
-		else if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913 move this here from bottom, need to change as rocketlaucher could be fired from crouch too
+		else if(ItemIsRocketLauncher(usItem) || ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem))//dnl ch72 260913 move this here from bottom, need to change as rocketlaucher could be fired from crouch too
 		{
-			if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+			if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || ItemIsMortar(usItem) && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
 				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);
 			else
 				bAPCost += GetAPsToChangeStance(pSoldier, gAnimControl[pSoldier->usAnimState].ubEndHeight);
@@ -2393,9 +2393,9 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	if (!TileIsOutOfBounds(sGridNo))
 	{
 		{
-			if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913
+			if(ItemIsRocketLauncher(usItem) || ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem))//dnl ch72 260913
 			{
-				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || ItemIsMortar(usItem) && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
 					usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost, ANIM_CROUCH);
 				else
 					usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
@@ -2429,7 +2429,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 
 	// if attacking a new target (or if the specific target is uncertain)
 	// Added check if the weapon is throwing knife/melee weapons - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
-	if ( ubForceRaiseGunCost == TRUE || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )/* && ( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE )*/ ) )//dnl ch69 140913 //dnl ch73 290913
+	if ( ubForceRaiseGunCost == TRUE || (( sGridNo != pSoldier->sLastTarget ) && !ItemIsRocketLauncher(usUBItem) && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )/* && ( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE )*/ ) )//dnl ch69 140913 //dnl ch73 290913
 	{
 		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
 			bAPCost += (APBPConstants[AP_CHANGE_TARGET] / 2);
@@ -2635,13 +2635,13 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[bInvPos]) );
 			UINT16 usItemUsed    = pSoldier->GetUsedWeaponNumber( &(pSoldier->inv[bInvPos]) );
 
-			if ( Item[usItemUsed].singleshotrocketlauncher	)
+			if (ItemIsSingleShotRocketLauncher(usItemUsed))
 			{
 				// hack... they turn empty afterwards anyways
 				return( TRUE );
 			}
 
-			if (Item[ usItemUsed ].usItemClass == IC_LAUNCHER || Item[usItemUsed].cannon )
+			if (Item[ usItemUsed ].usItemClass == IC_LAUNCHER || ItemIsCannon(usItemUsed))
 			{
 				if ( FindAttachmentByClass( pObjUsed, IC_GRENADE ) != 0 )
 				{
@@ -2661,7 +2661,7 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 				}
 
 				// WANNE: If there is a tank, it always have ammo to shoot, no check!
-				if (Item[usItemUsed].cannon)
+				if (ItemIsCannon(usItemUsed))
 				{
 					return ( TRUE );
 				}
@@ -2715,13 +2715,13 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE* pObj )
 	{
 		// tanks never run out of MG ammo!
 		// unlimited cannon ammo is handled in AI
-		if ( (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) && !Item[pObj->usItem].cannon )
+		if ( (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) && !ItemIsCannon(pObj->usItem) )
 			return;
 
-		if ( Item[pObj->usItem].cannon )
+		if (ItemIsCannon(pObj->usItem))
 		{
 		}
-		else if ( Item[ pObj->usItem ].usItemClass == IC_GUN && !Item[pObj->usItem].cannon && pSoldier->bWeaponMode != WM_ATTACHED_GL && pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bWeaponMode != WM_ATTACHED_GL_AUTO )
+		else if ( Item[ pObj->usItem ].usItemClass == IC_GUN && !ItemIsCannon(pObj->usItem) && pSoldier->bWeaponMode != WM_ATTACHED_GL && pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bWeaponMode != WM_ATTACHED_GL_AUTO )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
 			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( pObj );
@@ -2754,7 +2754,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE* pObj )
 				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_AMMO, (FLOAT)(Item[(*pObjUsed)[0]->data.gun.usGunAmmoItem].ubWeight) / (FLOAT)(Magazine[ Item[ (*pObjUsed)[0]->data.gun.usGunAmmoItem ].ubClassIndex ].ubMagSize ) );
 			}
 		}
-		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[pObj->usItem].cannon || pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
+		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || ItemIsCannon(pObj->usItem) || pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 		{
 			OBJECTTYPE* pAttachment = FindAttachmentByClass( pObj, IC_GRENADE );
 			if ( !pAttachment->exists() )
@@ -3325,7 +3325,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 					// If we are told to go to the alt weapon holding mode
 					if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) || (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && usAnimState == INVALID_ANIMATION) )//dnl ch71 180913
 					{
-						if ( Item[ usItem ].twohanded )
+						if (ItemIsTwoHanded(usItem))
 						{
 							// Raising only to hip, either charge no APs or a portion of them
 							ubReadyAPs = ((ubReadyAPs * gGameExternalOptions.ubToAltWeaponHoldReadyAPsPerc) + 99) / 100 ; // round up for rifles
@@ -3339,7 +3339,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 					// If we are told to go from alternative to standard weapon holding
 					else if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
 					{
-						if ( Item[ usItem ].twohanded )
+						if (ItemIsTwoHanded(usItem))
 						{
 							ubReadyAPs = ubReadyAPs * gGameExternalOptions.ubFromAltWeaponHoldReadyAPsPerc / 100; // round down for rifles
 						}
@@ -3703,7 +3703,7 @@ UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 	if ( sAPs > 0 )
 	{
-		if(Item[pSoldier->inv[HANDPOS].usItem].mine == 1)
+		if(ItemIsMine(pSoldier->inv[HANDPOS].usItem))
 			sAPs += GetAPsToPlantMine( pSoldier ); // changed by SANDRO
 		else
 			sAPs += GetAPsToDropBomb( pSoldier ); // changed by SANDRO
@@ -4154,7 +4154,7 @@ INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate 
 	// Alternative weapon holding?
 	if (( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) || (fEstimate && pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD) )
 	{
-		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip is not nearly ?n effort
+		if (ItemIsTwoHanded(pSoldier->inv[pSoldier->ubAttackingHand].usItem)) // firing from hip is not nearly ?n effort
 			dModifier += 80; // only 20% cost if on hip
 		else // holding pistol in one hand is worse in this case							
 			dModifier -= 25; // increased cost by 25%
@@ -4265,7 +4265,7 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 	iKickPower = iKickPower * (100 - sWeaponWeight) / 100;
 
 	// If one-handed gun, reduce it a bit, since the whole thing is somewhat different.
-	if ( !Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded )
+	if ( !ItemIsTwoHanded(pSoldier->inv[pSoldier->ubAttackingHand].usItem) )
 		iKickPower = iKickPower * 3 / 4; // -25%
 
 	// ::: overview :::
@@ -4310,7 +4310,7 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 	// Alternative weapon holding?
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING )
 	{
-		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip makes the kicking rather diminishing
+		if (ItemIsTwoHanded(pSoldier->inv[pSoldier->ubAttackingHand].usItem)) // firing from hip makes the kicking rather diminishing
 			dModifier += 80; // only 20% of the regular kick power 
 		else // holding pistol in one hand is worse in this case							
 			dModifier -= 33; // plus 33% power

@@ -102,7 +102,7 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 
 	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN)
 	{
-		if ( Item[pSoldier->inv[HANDPOS].usItem].cannon )
+		if (ItemIsCannon(pSoldier->inv[HANDPOS].usItem))
 		{
 			// look for another tank shell ELSEWHERE IN INVENTORY
 			if ( FindLaunchable( pSoldier, pSoldier->inv[HANDPOS].usItem ) == NO_SLOT )

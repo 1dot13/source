@@ -2735,15 +2735,16 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if (BestThrow.ubPossible)
 		{
 			// sevenfm: allow using mortars, grenade launchers, flares and grenades in RED state
-			if (Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar ||
-				//Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].cannon ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].rocketlauncher ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].grenadelauncher ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].flare ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].usItemClass & IC_GRENADE)
+			UINT16 usItem = pSoldier->inv[BestThrow.bWeaponIn].usItem;
+			if (ItemIsMortar(usItem) ||
+				//Item[usItem].cannon ||
+				ItemIsRocketLauncher(usItem) ||
+				ItemIsGrenadeLauncher(usItem) ||
+				ItemIsFlare(usItem) ||
+				Item[usItem].usItemClass & IC_GRENADE)
 			{
 				// if firing mortar make sure we have room
-				if (Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar)
+				if (ItemIsMortar(usItem))
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("using mortar, check room to deploy"));
 					ubOpponentDir = AIDirection(pSoldier->sGridNo, BestThrow.sTarget);
@@ -5503,7 +5504,7 @@ INT16 ubMinAPCost;
 		if (BestThrow.ubPossible)
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"good throw possible");
-			if ( Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].mortar )
+			if (ItemIsMortar(pSoldier->inv[ BestThrow.bWeaponIn ].usItem))
 			{
 				ubOpponentDir = AIDirection(pSoldier->sGridNo, BestThrow.sTarget);
 
@@ -6323,7 +6324,7 @@ INT16 ubMinAPCost;
 						}
 
 						// SANDRO: more likely to burst when firing from hip
-						if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+						if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && ItemIsTwoHanded(pSoldier->inv[BestAttack.bWeaponIn].usItem) )
 							iChance += 40;
 
 						// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
@@ -6440,7 +6441,7 @@ L_NEWAIM:
 							}
 
 							// SANDRO: more likely to burst when firing from hip
-							if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+							if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && ItemIsTwoHanded(pSoldier->inv[BestAttack.bWeaponIn].usItem) )
 								iChance += 40;
 
 							// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
@@ -8403,10 +8404,10 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		if ( BestThrow.ubPossible )
 		{
 			// if firing mortar make sure we have room
-			//if ( Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].mortar ) //comm by ddd
-			if ( Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar
-				 || Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].grenadelauncher
-				 || Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].flare )
+			UINT16 usItem = pSoldier->inv[BestThrow.bWeaponIn].usItem;
+			if (ItemIsMortar(usItem)
+				 || ItemIsGrenadeLauncher(usItem)
+				 || ItemIsFlare(usItem) )
 			{
 				ubOpponentDir = GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
 
@@ -9799,7 +9800,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 		if ( BestThrow.ubPossible )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "good throw possible" );
-			if ( Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar )
+			if (ItemIsMortar(pSoldier->inv[BestThrow.bWeaponIn].usItem))
 			{
 				ubOpponentDir = (UINT8)GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
 

@@ -531,8 +531,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			else
 			{
 				// If we are in water, and we are a sinkable item...
-				//				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].fFlags & ITEM_SINKS ) )
-				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].sinks	) )
+				if ( !pObject->fInWater || !ItemSinks(pObject->Obj.usItem) )
 				{
 					if ( pObject->fDropItem )
 					{
@@ -562,7 +561,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			}
 
 			// Make impact noise....
-			if ( Item[pObject->Obj.usItem].rock )
+			if (ItemIsRock(pObject->Obj.usItem))
 			{
 				MakeNoise( pObject->ubOwner, pObject->sGridNo, 0, gpWorldLevelData[ pObject->sGridNo ].ubTerrainID, (UINT8) (9 + PreRandom( 9 ) ), NOISE_ROCK_IMPACT );
 			}
@@ -1013,10 +1012,11 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 		if ( iCollisionCode == COLLISION_WINDOW_NORTHWEST || iCollisionCode == COLLISION_WINDOW_NORTHEAST || iCollisionCode == COLLISION_WINDOW_SOUTHWEST || iCollisionCode == COLLISION_WINDOW_SOUTHEAST )
 		{
 			// sevenfm: added requirements for object to break window
-			if (Item[pObject->Obj.usItem].ubWeight >= 4 &&
-				Item[pObject->Obj.usItem].sinks &&
-				!Item[pObject->Obj.usItem].unaerodynamic &&
-				(Item[pObject->Obj.usItem].metal || Item[pObject->Obj.usItem].rock))
+			UINT16 usItem = pObject->Obj.usItem;
+			if (Item[usItem].ubWeight >= 4 &&
+				ItemSinks(usItem) &&
+				!ItemIsUnaerodynamic(usItem) &&
+				(ItemIsMetal(usItem) || ItemIsRock(usItem)))
 			{
 				if (!pObject->fTestObject)
 				{
@@ -1927,7 +1927,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1741"));
-	if ( fArmed && ( Item[usLauncher].mortar || Item[pItem->usItem].mortar ) )
+	if ( fArmed && (ItemIsMortar(usLauncher) || ItemIsMortar(pItem->usItem)) )
 	{
 		// Start at 0....
 		sStartZ = ( pSoldier->pathing.bLevel * 256 );
@@ -1937,7 +1937,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	}
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 
-	if ( fArmed && ( Item[usLauncher].grenadelauncher || Item[pItem->usItem].grenadelauncher ) )
+	if ( fArmed && (ItemIsGrenadeLauncher(usLauncher) || ItemIsGrenadeLauncher(pItem->usItem)) )
 	{
 		// OK, look at target level and decide angle to use...
 		if ( ubLevel == 1 )
@@ -2327,7 +2327,7 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	}
 
 	// set the max miss radius
-	if ( Item[usItemNum].mortar )
+	if (ItemIsMortar(usItemNum))
 	{
 		bMaxRadius = gItemSettings.usMissMaxRadiusMortar;
 	}
@@ -2413,7 +2413,7 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));
 
-	if ( fArmed && Item[usLauncher].mortar )
+	if ( fArmed && ItemIsMortar(usLauncher))
 	{
 		// Start at 0....
 		sStartZ = ( pSoldier->pathing.bLevel * 256 ) + 50;
@@ -2665,7 +2665,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	{
 		fCheckForDuds = TRUE;
 
-		if (CanDelayGrenadeExplosion(pObj->usItem) && (Item[pObj->usItem].ubCursor == TOSSCURS || Item[pObj->usItem].glgrenade))
+		if (CanDelayGrenadeExplosion(pObj->usItem) && (Item[pObj->usItem].ubCursor == TOSSCURS || ItemIsGLgrenade(pObj->usItem)))
 		{
 			fCanDelayExplosion = TRUE;
 		}
@@ -2780,7 +2780,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 	if ( fDoImpact )
 	{
-		if ( Item[pObject->Obj.usItem].flare )
+		if (ItemIsFlare(pObject->Obj.usItem))
 		{
 			//if the light object will be created OFF the ground
 			if( pObject->Position.z > 0 && FindBuilding(pObject->sGridNo) )

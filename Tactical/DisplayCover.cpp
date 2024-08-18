@@ -1274,7 +1274,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 						{
 							case MINES_DRAW_PLAYERTEAM_NETWORKS:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
 										if ( bOverlayType == MINE_BOMB )
@@ -1314,7 +1314,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 
 							case MINES_DRAW_NETWORKCOLOURING:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										// determine if wire is of the network we're searching for
 										// determine this tripwire's flag
@@ -1342,7 +1342,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 							case MINES_DRAW_NET_C:
 							case MINES_DRAW_NET_D:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										UINT32 specificnet = 0;
 										switch ( gubDrawMode )

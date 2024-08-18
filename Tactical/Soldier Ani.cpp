@@ -375,8 +375,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					// sevenfm: breaking window with crowbar code
 					if (pSoldier->inv[HANDPOS].exists() &&
-						(Item[pSoldier->inv[HANDPOS].usItem].crowbar &&	Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
-						Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[pSoldier->inv[HANDPOS].usItem].twohanded && Item[pSoldier->inv[HANDPOS].usItem].metal))
+						(ItemIsCrowbar(pSoldier->inv[HANDPOS].usItem) &&	Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+						Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) && ItemIsMetal(pSoldier->inv[HANDPOS].usItem)))
 					{
 						INT32 sWindowGridNo = pSoldier->sTargetGridNo;
 						if (pSoldier->ubDirection == NORTH || pSoldier->ubDirection == WEST)
@@ -1135,10 +1135,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					UINT16 usItem = pSoldier->pTempObject->usItem;
 					UINT16 usBuddyItem = Item[usItem].usBuddyItem;
 					if (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM &&
-						(Item[usItem].flare ||
+						(ItemIsFlare(usItem) ||
 						Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLARE ||
 						Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS ||
-						usBuddyItem && (Item[usBuddyItem].usItemClass & IC_EXPLOSV) && (Item[usBuddyItem].flare || Explosive[Item[usBuddyItem].ubClassIndex].ubType == EXPLOSV_FLARE)))
+						usBuddyItem && (Item[usBuddyItem].usItemClass & IC_EXPLOSV) && (ItemIsFlare(usBuddyItem) || Explosive[Item[usBuddyItem].ubClassIndex].ubType == EXPLOSV_FLARE)))
 					{
 						if ((pSoldier->iMuzFlash = LightSpriteCreate("L-R03.LHT", 0)) != -1)
 						{
@@ -1805,7 +1805,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 									if ( Item[ usItem ].usItemClass == IC_GUN )
 									{
 										//										if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-										if ( (Item[ usItem ].twohanded ) )
+										if (ItemIsTwoHanded(usItem))
 										{
 											// Set to rifle
 											ubRandomHandIndex = RANDOM_ANIM_RIFLEINHAND;
@@ -2714,7 +2714,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case BIGBUY_STRECH:
 			case FEM_KICKSN:
 			case FEM_WIPE: 
-				if ( pSoldier->inv[ HANDPOS ].exists() == true && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && Item[ pSoldier->inv[ HANDPOS ].usItem ].twohanded )
+				if ( pSoldier->inv[ HANDPOS ].exists() == true && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && ItemIsTwoHanded(pSoldier->inv[ HANDPOS ].usItem) )
 				{
 					pSoldier->EVENT_InitNewSoldierAnim( RAISE_RIFLE, 0 , FALSE );
 					return( TRUE );
@@ -4457,7 +4457,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 			// SANDRO - if Martial Artist took someone down, always fall back if possible (for the fun)
 			if ( pSoldier->ubAttackerID != NOBODY && gGameOptions.fNewTraitSystem )
 			{ 
-				if ( HAS_SKILL_TRAIT( MercPtrs[ pSoldier->ubAttackerID ], MARTIAL_ARTS_NT ) && (!MercPtrs[ pSoldier->ubAttackerID ]->usAttackingWeapon || Item[MercPtrs[ pSoldier->ubAttackerID ]->inv[HANDPOS].usItem].brassknuckles ) )
+				if ( HAS_SKILL_TRAIT( MercPtrs[ pSoldier->ubAttackerID ], MARTIAL_ARTS_NT ) && (!MercPtrs[ pSoldier->ubAttackerID ]->usAttackingWeapon || ItemIsBrassKnuckles(MercPtrs[ pSoldier->ubAttackerID ]->inv[HANDPOS].usItem)) )
 				{
 					fAlwaysFallBack = TRUE;
 				}

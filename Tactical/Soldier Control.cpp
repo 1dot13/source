@@ -3017,7 +3017,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			}
 			else
 			{
-				if (Item[usItem].flare ||
+				if (ItemIsFlare(usItem) ||
 					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE ||
 					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLARE)
 				{
@@ -3159,7 +3159,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// Going from shoulder stance to hip stance
 			else if ( usNewState == READY_ALTERNATIVE_STAND && (gAnimControl[this->usAnimState].uiFlags & (ANIM_FIREREADY | ANIM_FIRE)) )
 			{
-				if ( Item[this->inv[HANDPOS].usItem].twohanded )
+				if (ItemIsTwoHanded(this->inv[HANDPOS].usItem))
 					usStartingAniCode = 1;
 				else
 					usStartingAniCode = 2;
@@ -3278,7 +3278,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					// 1) We have a rifle in hand...
 					//usItem = this->inv[ HANDPOS ].usItem;
 
-					if ( this->inv[HANDPOS].exists( ) == true && (Item[usItem].twohanded) && !Item[usItem].rocketlauncher )
+					if ( this->inv[HANDPOS].exists( ) == true && ItemIsTwoHanded(usItem) && !ItemIsRocketLauncher(usItem) )
 					{
 						// Switch on height!
 						switch ( gAnimControl[this->usAnimState].ubEndHeight )
@@ -3301,7 +3301,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					// 1) We have a rifle in hand...
 					//usItem = this->inv[ HANDPOS ].usItem;
 
-					if ( this->inv[HANDPOS].exists( ) == true && (Item[usItem].twohanded) && !Item[usItem].rocketlauncher )
+					if ( this->inv[HANDPOS].exists( ) == true && ItemIsTwoHanded(usItem) && !ItemIsRocketLauncher(usItem) )
 					{
 						// Switch on height!
 						switch ( gAnimControl[this->usAnimState].ubEndHeight )
@@ -3429,10 +3429,10 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 					if ( this->inv[HANDPOS].exists( ) == true )
 					{
-						if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+						if ( Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 						{
 							//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-							if ( (Item[usItem].twohanded) )
+							if (ItemIsTwoHanded(usItem))
 							{
 								usNewState = BIGMERC_CROUCH_TRANS_INTO;
 							}
@@ -3449,10 +3449,10 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 					if ( this->inv[HANDPOS].exists( ) == true )
 					{
-						if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+						if ( Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 						{
 							//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-							if ( (Item[usItem].twohanded) )
+							if (ItemIsTwoHanded(usItem))
 							{
 								usNewState = BIGMERC_CROUCH_TRANS_OUTOF;
 							}
@@ -3477,7 +3477,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					if ( ((gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) ||
 						(gAnimControl[this->usAnimState].uiFlags & ANIM_FIRE)) && gGameExternalOptions.fAllowWalkingWithWeaponRaised )
 					{
-						if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+						if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 						{
 							if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
 							{
@@ -3524,7 +3524,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				{
 					if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
 					{
-						if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && Item[usItem].twohanded && !Item[usItem].rocketlauncher )
+						if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && ItemIsTwoHanded(usItem) && !ItemIsRocketLauncher(usItem) )
 							usNewState = SWAT_BACKWARDS;
 						else
 							usNewState = SWAT_BACKWARDS_NOTHING;
@@ -3595,7 +3595,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		// SANDRO - check if we are gonna move with weapon raised
 		else if ( gGameExternalOptions.fAllowWalkingWithWeaponRaised && ( (gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) || (gAnimControl[this->usAnimState].uiFlags & ANIM_FIRE) ) )
 		{
-			if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+			if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 			{
 				if ( usNewState == WALKING )
 				{
@@ -3618,7 +3618,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					{
 						usNewState = CROUCHEDMOVE_DUAL_READY;
 					}
-					else if ( !Item[this->inv[HANDPOS].usItem].twohanded )
+					else if (!ItemIsTwoHanded(this->inv[HANDPOS].usItem))
 					{
 						usNewState = CROUCHEDMOVE_PISTOL_READY;
 					}
@@ -3991,7 +3991,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 		case PLANT_BOMB:
 
-			if ( Item[this->inv[HANDPOS].usItem].mine == 1 )	// bury a mine
+			if (ItemIsMine(this->inv[HANDPOS].usItem))	// bury a mine
 				DeductPoints( this, GetAPsToPlantMine( this ), APBPConstants[BP_BURY_MINE] ); // changed by SANDRO
 			else
 				DeductPoints( this, GetAPsToDropBomb( this ), APBPConstants[BP_DROP_BOMB] ); // changed by SANDRO
@@ -4960,9 +4960,9 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 		usItem = GetAttachedGrenadeLauncher( &this->inv[HANDPOS] );
 	else
 		usItem = this->inv[HANDPOS].usItem;
-	if ( Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar )
+	if (ItemIsRocketLauncher(usItem) || ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem) )
 	{
-		if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
+		if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE || ItemIsMortar(usItem) && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
 			SendChangeSoldierStanceEvent( this, ANIM_CROUCH );
 		fDoFireRightAway = TRUE;
 	}
@@ -5118,7 +5118,7 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 	}
 
 	// Check for rocket laucncher....
-	if ( Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
+	if (ItemIsRocketLauncher(pSoldier->inv[HANDPOS].usItem))
 	{
 		//***ddd if shoot crouched
 		if ( ubHeight == ANIM_STAND )
@@ -5128,14 +5128,14 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 	}
 
 	// Check for mortar....
-	if ( Item[pSoldier->inv[HANDPOS].usItem].mortar )
+	if (ItemIsMortar(pSoldier->inv[HANDPOS].usItem))
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "SelectFireAnimation: shoot_mortar" );
 		return(SHOOT_MORTAR);
 	}
 
 	// Check for tank cannon
-	if ( Item[pSoldier->inv[HANDPOS].usItem].cannon )
+	if (ItemIsCannon(pSoldier->inv[HANDPOS].usItem))
 	{
 		return(TANK_SHOOT);
 	}
@@ -5447,7 +5447,7 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 		}
 		//dnl ch72 270913 ugly but fast fix for not charging turning APs as there is no fire ready animation for mortars and rocket launchers
 		UINT16 usItem = this->inv[HANDPOS].usItem;
-		if ( Item[usItem].rocketlauncher || Item[usItem].mortar )
+		if (ItemIsRocketLauncher(usItem) || ItemIsMortar(usItem) )
 			usForceAnimState = this->usAnimState;
 		EVENT_InternalSetSoldierDesiredDirection( this, sFacingDir, FALSE, usAnimState );
 		usForceAnimState = INVALID_ANIMATION;
@@ -5535,12 +5535,12 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 	}
 
 	// Check if we have a gun.....
-	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_GUN && !Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher )
+	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_GUN && !ItemIsGrenadeLauncher(pSoldier->inv[HANDPOS].usItem) )
 	{
 		return(INVALID_ANIMATION);
 	}
 
-	if ( Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
+	if (ItemIsRocketLauncher(pSoldier->inv[HANDPOS].usItem))
 	{
 		return(INVALID_ANIMATION);
 	}
@@ -5621,7 +5621,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 		// this is a specific situation when we have a gun in standard holding (shouldered rifle/two-hand pistol) and was told to go to alternative holding
 		else if ( (gAnimControl[pSoldier->usAnimState].uiFlags & (ANIM_FIREREADY | ANIM_FIRE)) && !(gAnimControl[pSoldier->usAnimState].uiFlags & (ANIM_ALT_WEAPON_HOLDING))
 				  && fAltWeaponHolding && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 && pSoldier->bScopeMode == -1 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND
-				  && ((!Item[pSoldier->inv[HANDPOS].usItem].twohanded && !pSoldier->IsValidSecondHandShot( ) && !pSoldier->MercInWater( )) || Item[pSoldier->inv[HANDPOS].usItem].twohanded) )
+				  && ((!ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) && !pSoldier->IsValidSecondHandShot( ) && !pSoldier->MercInWater( )) || ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem)) )
 		{
 			return(READY_ALTERNATIVE_STAND);
 		}
@@ -5641,7 +5641,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 				{
 					if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
 					{
-						if ( fAltWeaponHolding || (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].HeavyGun && Item[pSoldier->inv[HANDPOS].usItem].twohanded) )
+						if ( fAltWeaponHolding || (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].HeavyGun && ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem)) )
 						{
 							return(READY_ALTERNATIVE_STAND);
 						}
@@ -5877,7 +5877,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		{
 			if ( ubAttackerID != NOBODY )
 			{
-				if ( !(MercPtrs[ubAttackerID]->inv[HANDPOS].exists( )) || Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].brassknuckles )
+				if ( !(MercPtrs[ubAttackerID]->inv[HANDPOS].exists( )) || ItemIsBrassKnuckles(MercPtrs[ubAttackerID]->inv[HANDPOS].usItem) )
 				{
 					// with enhanced CCS, make the lost breath harder to regenerate, which makes CQC more usable
 					if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
@@ -5944,7 +5944,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( HasItemFlag( usWeaponIndex, TASER ) )
 		{
 			// tasers need batteries, because I say so
-			if ( Item[usWeaponIndex].needsbatteries )
+			if (ItemNeedsBatteries(usWeaponIndex))
 			{
 				// check for batteries
 				OBJECTTYPE* pBatteries = FindAttachedBatteries( &(MercPtrs[ubAttackerID]->inv[HANDPOS]) );
@@ -9734,7 +9734,7 @@ BOOLEAN SOLDIERTYPE::CanClimbWithCurrentBackpack()
 	// only apply backpack climbing limitations to player mercs
 	if (UsingNewInventorySystem() == true && this->inv[BPACKPOCKPOS].exists() == true && this->bTeam == OUR_TEAM
 		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || !ItemAllowsClimbing(this->inv[BPACKPOCKPOS].usItem)))
 		return FALSE;
 
 	return TRUE;
@@ -10439,7 +10439,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		&& this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
 	{
 		// drop item in main hand if twohanded
-		if ( this->inv[HANDPOS].exists() == true && TwoHandedItem( this->inv[HANDPOS].usItem ) )
+		if ( this->inv[HANDPOS].exists() == true && ItemIsTwoHanded( this->inv[HANDPOS].usItem ) )
 			dropiteminmainhand = true;
 
 		// we can only use one hand, so drop items in second hand
@@ -12763,9 +12763,9 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 
 	//Ja25 No meanwhiles
 #ifdef JA2UB
-	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE )
+	if ( fMartialArtist && !ItemIsCrowbar(usItem) && this->ubBodyType == REGMALE )
 #else
-	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE && !IsZombie( )
+	if ( fMartialArtist && !AreInMeanwhile( ) && !ItemIsCrowbar(usItem) && this->ubBodyType == REGMALE && !IsZombie( )
 		&& !( gGameExternalOptions.fDiseaseSevereLimitations && this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ))  ) // SANDRO - added check for body type
 #endif
 	{
@@ -12871,7 +12871,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 			case ANIM_STAND:
 			case ANIM_CROUCH:
 
-				if ( !Item[usItem].crowbar )
+				if ( !ItemIsCrowbar(usItem) )
 				{
 					BOOLEAN fCannotKick = (ubDirection & 1);
 					// SANDRO - we will determine here what type of punch we are gonna use
@@ -13095,7 +13095,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginDropBomb( )
 void SOLDIERTYPE::EVENT_SoldierDefuseTripwire( INT32 sGridNo, INT32 sItem )
 {
 	// Flugente: if item is tripwireactivated and is a planted bomb, call the defuse dialogue. We obviously know about the item's existence already...
-	if ( gWorldItems[sItem].object.exists( ) && gWorldItems[sItem].object.fFlags & OBJECT_ARMED_BOMB && Item[gWorldItems[sItem].object.usItem].tripwire == 1 )
+	if ( gWorldItems[sItem].object.exists( ) && gWorldItems[sItem].object.fFlags & OBJECT_ARMED_BOMB && ItemIsTripwire(gWorldItems[sItem].object.usItem) )
 	{
 		// Increment the number of people busy doing stuff because of an attack
 		switch ( gAnimControl[this->usAnimState].ubHeight )
@@ -13148,7 +13148,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 
 		//SANDRO - hack! Find out if we are a doctor with medical bag trying to make a surgery
 		this->fDoingSurgery = FALSE;
-		if ( (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && Item[this->inv[HANDPOS].usItem].medicalkit && gGameOptions.fNewTraitSystem )
+		if ( (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && ItemIsMedicalKit(this->inv[HANDPOS].usItem) && gGameOptions.fNewTraitSystem )
 		{
 			if ( ((pTSoldier->bTeam == OUR_TEAM) || (pTSoldier->bTeam == MILITIA_TEAM))
 				 && (IS_MERC_BODY_TYPE( pTSoldier ) || IS_CIV_BODY_TYPE( pTSoldier ))
@@ -13320,7 +13320,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	// Flugente: AI medics are allowed to perform surgery without first aid kits, and can do this on themselves
 	if ( pVictim->iHealableInjury > 0 && this->fDoingSurgery && (this->ubID != pVictim->ubID || (gGameExternalOptions.fEnemyMedicsHealSelf && this->bTeam == ENEMY_TEAM))
 		 && gGameOptions.fNewTraitSystem && (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery)
-		 && (Item[this->inv[HANDPOS].usItem].medicalkit || this->bTeam == ENEMY_TEAM) )
+		 && (ItemIsMedicalKit(this->inv[HANDPOS].usItem) || this->bTeam == ENEMY_TEAM) )
 	{
 		fOnSurgery = TRUE;
 	}
@@ -13359,7 +13359,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		return(0);
 
 	// using the GOOD medic stuff
-	if ( Item[this->inv[HANDPOS].usItem].medicalkit && !(fOnSurgery) ) // added check
+	if (ItemIsMedicalKit(this->inv[HANDPOS].usItem) && !(fOnSurgery) ) // added check
 	{
 		uiPossible += (uiPossible / 2);			// add extra 50 %
 	}
@@ -13417,7 +13417,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	}
 
 	// now make sure we HAVE that much
-	if ( Item[this->inv[HANDPOS].usItem].medicalkit )
+	if (ItemIsMedicalKit(this->inv[HANDPOS].usItem))
 	{
 		if ( fOnSurgery )
 			uiMedcost = (uiActual * gSkillTraitValues.usDOSurgeryMedBagConsumption) / 100;		// surgery drains the kit a lot
@@ -13665,7 +13665,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	// usedAPs equals (actionPts) * (%of possible points actually used)
 	uiUsedAPs = (uiActual * uiAvailAPs) / uiPossible;
 
-	if ( Item[this->inv[HANDPOS].usItem].medicalkit && !(fOnSurgery) )	// using the GOOD medic stuff
+	if (ItemIsMedicalKit(this->inv[HANDPOS].usItem) && !(fOnSurgery) )	// using the GOOD medic stuff
 	{
 		uiUsedAPs = (uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
 	}
@@ -14071,7 +14071,7 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 			this->bWeaponMode = WM_ATTACHED_GL;
 	}
 
-	if ( Item[usNewItem].twohanded && Weapon[usNewItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+	if (ItemIsTwoHanded(usNewItem) && Weapon[usNewItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
 		this->bScopeMode = USE_ALT_WEAPON_HOLD;
 	else
 		this->bScopeMode = USE_BEST_SCOPE;
@@ -14094,8 +14094,7 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 	{
 		if ( Item[usOldItem].usItemClass == IC_GUN )
 		{
-			//			if ( (Item[ usOldItem ].fFlags & ITEM_TWO_HANDED) && usOldItem != ROCKET_LAUNCHER )
-			if ( (Item[usOldItem].twohanded) && !Item[usOldItem].rocketlauncher )
+			if (ItemIsTwoHanded(usOldItem) && !ItemIsRocketLauncher(usOldItem))
 			{
 				fOldRifle = TRUE;
 			}
@@ -14106,8 +14105,7 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 	{
 		if ( Item[usNewItem].usItemClass == IC_GUN )
 		{
-			//			if ( (Item[ usNewItem ].fFlags & ITEM_TWO_HANDED) && usNewItem != ROCKET_LAUNCHER )
-			if ( (Item[usNewItem].twohanded) && !Item[usNewItem].rocketlauncher )
+			if (ItemIsTwoHanded(usNewItem) && !ItemIsRocketLauncher(usNewItem))
 			{
 				fNewRifle = TRUE;
 			}
@@ -14632,7 +14630,7 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 
 	usItem = this->inv[HANDPOS].usItem;
 
-	if ( this->inv[HANDPOS].exists( ) == true && (Item[usItem].twohanded) )
+	if ( this->inv[HANDPOS].exists( ) == true && ItemIsTwoHanded(usItem) )
 	{
 		return(TRUE);
 	}
@@ -15529,7 +15527,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				{
 					// if that item is a gun, explosives, military armour or facewear, we're screwed
 					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_WEAPON | IC_GRENADE | IC_BOMB)) ||
-						 ((Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR)) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[Item[this->inv[bLoop].usItem].ubClassIndex].ubProtection > 10) ||
+						 ((Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR)) && !ItemIsLeatherJacket(this->inv[bLoop].usItem) && Armour[Item[this->inv[bLoop].usItem].ubClassIndex].ubProtection > 10) ||
 						 (Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0)
 						 )
 					{
@@ -15551,7 +15549,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				{
 					// if that item is a gun, explosives, military armour or facewear, we're screwed
 					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_WEAPON | IC_GRENADE | IC_BOMB)) ||
-						 ((Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR)) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[Item[this->inv[bLoop].usItem].ubClassIndex].ubProtection > 10) ||
+						 ((Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR)) && !ItemIsLeatherJacket(this->inv[bLoop].usItem) && Armour[Item[this->inv[bLoop].usItem].ubClassIndex].ubProtection > 10) ||
 						 (Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0)
 						 )
 					{
@@ -16848,7 +16846,7 @@ void	SOLDIERTYPE::DropSectorEquipment( )
 			if ( pObj->exists( ) )
 			{
 				// Check if it's supposed to be dropped
-				if ( !((*pObj).fFlags & OBJECT_UNDROPPABLE) && !(Item[pObj->usItem].defaultundroppable) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+				if ( !((*pObj).fFlags & OBJECT_UNDROPPABLE) && !ItemIsUndroppableByDefault(pObj->usItem) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
 				{
 					(*pObj)[0]->data.sObjectFlag &= ~TAKEN_BY_MILITIA;
 
@@ -16874,7 +16872,7 @@ void	SOLDIERTYPE::DropSectorEquipment( )
 			if ( pObj->exists( ) )
 			{
 				// Check if it's supposed to be dropped
-				if ( !((*pObj).fFlags & OBJECT_UNDROPPABLE) && !(Item[pObj->usItem].defaultundroppable) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+				if ( !((*pObj).fFlags & OBJECT_UNDROPPABLE) && !ItemIsUndroppableByDefault(pObj->usItem) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
 				{
 					(*pObj)[0]->data.sObjectFlag &= ~TAKEN_BY_MILITIA;
 
@@ -16944,12 +16942,13 @@ void SOLDIERTYPE::TakeNewBombFromInventory( UINT16 usItem )
 	// take tripwire-activated item only if used item is tripwire activated
 	for ( i = 0; i < invsize; i++ )
 	{
+		UINT16 usItem = this->inv[i].usItem;
 		if ( this->inv[i].exists( ) == true &&
-			 Item[this->inv[i].usItem].usItemClass == IC_BOMB &&
-			 Item[this->inv[i].usItem].ubCursor == BOMBCURS &&
-			 !Item[this->inv[i].usItem].tripwire &&
-			 ((Item[this->inv[i].usItem].tripwireactivation && Item[usItem].tripwireactivation) ||
-			 (!Item[this->inv[i].usItem].tripwireactivation && !Item[usItem].tripwireactivation)) )
+			 Item[usItem].usItemClass == IC_BOMB &&
+			 Item[usItem].ubCursor == BOMBCURS &&
+			 !ItemIsTripwire(usItem) &&
+			 ((ItemHasTripwireActivation(usItem) && ItemHasTripwireActivation(usItem)) ||
+			 (!ItemHasTripwireActivation(usItem) && !ItemHasTripwireActivation(usItem))) )
 		{
 			this->inv[i].MoveThisObjectTo( this->inv[HANDPOS], 1, this );
 			return;
@@ -17072,7 +17071,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	else
 		handCanMove = (CanItemFitInPosition( this, &this->inv[HANDPOS], handobjstorageslot, FALSE ) || (this->inv[HANDPOS].exists( ) == false && this->inv[SECONDHANDPOS].exists( ) == false));
 
-	if ( Item[this->inv[retrieveslot].usItem].twohanded && this->inv[SECONDHANDPOS].exists( ) == true )
+	if ( ItemIsTwoHanded(this->inv[retrieveslot].usItem) && this->inv[SECONDHANDPOS].exists( ) == true )
 		searchitemCanMove = FALSE;
 	else
 		searchitemCanMove = (CanItemFitInPosition( this, &this->inv[retrieveslot], HANDPOS, FALSE ) || this->inv[retrieveslot].exists( ) == false);
@@ -17171,7 +17170,7 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 	{
 		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
 		// which is supressed by weapon condition
-		if ( Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher )
+		if (ItemIsRocketLauncher(usItem) || ItemIsSingleShotRocketLauncher(usItem))
 		{
 			modifier += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
 
@@ -17867,7 +17866,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] )
 		this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT]--;
 
-	if (AM_A_ROBOT(this) && Item[this->inv[ROBOT_UTILITY_SLOT].usItem].xray == 1)
+	if (AM_A_ROBOT(this) && ItemHasXRay(this->inv[ROBOT_UTILITY_SLOT].usItem))
 	{
 		if (this->usSkillCooldown[SOLDIER_COOLDOWN_ROBOT_XRAY])
 			this->usSkillCooldown[SOLDIER_COOLDOWN_ROBOT_XRAY]--;
@@ -18555,7 +18554,7 @@ BOOLEAN SOLDIERTYPE::HasMortar( )
 	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
 	{
-		if ( inv[bLoop].exists( ) == true && Item[inv[bLoop].usItem].mortar )
+		if ( inv[bLoop].exists( ) == true && ItemIsMortar(inv[bLoop].usItem) )
 		{
 			return TRUE;
 		}
@@ -18571,7 +18570,7 @@ BOOLEAN SOLDIERTYPE::GetSlotOfSignalShellIfMortar( UINT8* pbLoop )
 	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
 	{
-		if ( inv[bLoop].exists( ) == true && Item[inv[bLoop].usItem].mortar )
+		if ( inv[bLoop].exists( ) == true && ItemIsMortar(inv[bLoop].usItem) )
 		{
 			mortaritem = inv[bLoop].usItem;
 			break;
@@ -18590,7 +18589,7 @@ BOOLEAN SOLDIERTYPE::GetSlotOfSignalShellIfMortar( UINT8* pbLoop )
 					return TRUE;
 				}
 
-				if ( Item[inv[bLoop].usItem].mortar )
+				if (ItemIsMortar(inv[bLoop].usItem))
 				{
 					OBJECTTYPE* pAttObj = FindAttachmentByClass( &(inv[bLoop]), IC_BOMB );
 
@@ -18878,7 +18877,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 			for ( INT8 bLoop = 0; (bLoop < invsize) && (mortaritemcnt < maxFiringMortarsAmount); ++bLoop )
 			{
-				if ( pSoldier->inv[bLoop].exists( ) == true && Item[pSoldier->inv[bLoop].usItem].mortar )
+				if ( pSoldier->inv[bLoop].exists( ) == true && ItemIsMortar(pSoldier->inv[bLoop].usItem))
 				{
 					// if not already in list, remember this mortar
 					bool alreadyInList = false;
@@ -18923,7 +18922,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			{
 				if ( pSoldier->inv[bLoop].exists( ) == true )
 				{
-					if ( Item[pSoldier->inv[bLoop].usItem].mortar )
+					if (ItemIsMortar(pSoldier->inv[bLoop].usItem))
 					{
 						OBJECTTYPE* pAttObj = FindAttachmentByClass( &(pSoldier->inv[bLoop]), IC_BOMB );
 
@@ -22429,7 +22428,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection 
 	// OK, find door, attach to door, do animation...., remove item....
 
 	// First make sure we still have item in hand....
-	if ( !Item[this->inv[HANDPOS].usItem].canandstring )
+	if ( !ItemIsCanAndString(this->inv[HANDPOS].usItem))
 	{
 		return;
 	}
@@ -22741,7 +22740,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 				if ( success )
 				{
-					if ( Item[usItem].gasmask )
+					if (ItemIsGasmask(usItem))
 					{
 						// put this item into a (at best empty) faceslot if no gasmask is been worn
 						INT8 bSlot = FindGasMask( pSoldier );
@@ -23362,11 +23361,11 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 BOOLEAN SOLDIERTYPE::IsValidSecondHandShot( void )
 {
 	if ( Item[this->inv[SECONDHANDPOS].usItem].usItemClass == IC_GUN &&
-		 !(Item[this->inv[SECONDHANDPOS].usItem].twohanded) &&
+		 !ItemIsTwoHanded(this->inv[SECONDHANDPOS].usItem) &&
 		 (!this->bDoBurst || this->IsValidSecondHandBurst( )) &&
-		 !Item[this->inv[HANDPOS].usItem].grenadelauncher &&
+		 !ItemIsGrenadeLauncher(this->inv[HANDPOS].usItem) &&
 		 Item[this->inv[HANDPOS].usItem].usItemClass == IC_GUN &&
-		 !(Item[this->inv[HANDPOS].usItem].twohanded) &&
+		 !ItemIsTwoHanded(this->inv[HANDPOS].usItem) &&
 		 this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE &&
 		 this->inv[SECONDHANDPOS][0]->data.gun.ubGunShotsLeft > 0 )
 	{
@@ -23380,11 +23379,11 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandBurst( void )
 {
 	// SANDRO - a function to determine if we can autofire with both weapons
 	if ( Item[this->inv[SECONDHANDPOS].usItem].usItemClass == IC_GUN &&
-		 !(Item[this->inv[SECONDHANDPOS].usItem].twohanded) &&
-		 !Item[this->inv[HANDPOS].usItem].grenadelauncher &&
+		 !ItemIsTwoHanded(this->inv[SECONDHANDPOS].usItem) &&
+		 !ItemIsGrenadeLauncher(this->inv[HANDPOS].usItem) &&
 		 this->bDoBurst &&
 		 Item[this->inv[HANDPOS].usItem].usItemClass == IC_GUN &&
-		 !(Item[this->inv[HANDPOS].usItem].twohanded) &&
+		 !ItemIsTwoHanded(this->inv[HANDPOS].usItem) &&
 		 this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE &&
 		 this->inv[SECONDHANDPOS][0]->data.gun.ubGunShotsLeft > 0 )
 	{
@@ -23416,7 +23415,7 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandShotForReloadingPurposes( void )
 	// about ammo taken out!
 	if ( Item[this->inv[SECONDHANDPOS].usItem].usItemClass == IC_GUN &&
 		 //!this->bDoBurst &&
-		 !Item[this->inv[HANDPOS].usItem].grenadelauncher &&
+		 !ItemIsGrenadeLauncher(this->inv[HANDPOS].usItem) &&
 		 Item[this->inv[HANDPOS].usItem].usItemClass == IC_GUN &&
 		 this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE //&&
 		 //			 this->inv[SECONDHANDPOS][0]->data.gun.ubGunShotsLeft > 0 &&
@@ -23452,7 +23451,7 @@ BOOLEAN SOLDIERTYPE::IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// must be two handed for this
-	if ( !Item[this->inv[HANDPOS].usItem].twohanded )
+	if ( !ItemIsTwoHanded(this->inv[HANDPOS].usItem) )
 	{
 		return(FALSE);
 	}
@@ -23509,7 +23508,7 @@ BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// must be one handed for this
-	if ( Item[this->inv[HANDPOS].usItem].twohanded )
+	if (ItemIsTwoHanded(this->inv[HANDPOS].usItem))
 	{
 		return(FALSE);
 	}
@@ -24178,8 +24177,8 @@ void SOLDIERTYPE::BreakWindow(void)
 {
 	if (this->inv[HANDPOS].exists() &&
 		this->inv[HANDPOS][0]->data.objectStatus >= USABLE &&
-		(Item[this->inv[HANDPOS].usItem].crowbar &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
-		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[this->inv[HANDPOS].usItem].twohanded && Item[this->inv[HANDPOS].usItem].metal))
+		(ItemIsCrowbar(this->inv[HANDPOS].usItem) &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && ItemIsTwoHanded(this->inv[HANDPOS].usItem) && ItemIsMetal(this->inv[HANDPOS].usItem) ))
 	{
 		this->usAttackingWeapon = this->inv[HANDPOS].usItem;
 		this->aiData.bAction = AI_ACTION_KNIFE_STAB;
@@ -24203,8 +24202,8 @@ BOOLEAN SOLDIERTYPE::CanBreakWindow(void)
 		IS_MERC_BODY_TYPE(this) &&
 		this->inv[HANDPOS].exists() &&
 		this->inv[HANDPOS][0]->data.objectStatus >= USABLE &&
-		(Item[this->inv[HANDPOS].usItem].crowbar &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
-		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Item[this->inv[HANDPOS].usItem].twohanded && Item[this->inv[HANDPOS].usItem].metal))
+		(ItemIsCrowbar(this->inv[HANDPOS].usItem) &&	Item[this->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH) ||
+		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && ItemIsTwoHanded(this->inv[HANDPOS].usItem) && ItemIsMetal(this->inv[HANDPOS].usItem) ))
 	{
 		//INT32 sWindowGridNo = this->sTargetGridNo;
 		INT32 sWindowGridNo = this->sGridNo;
@@ -25063,7 +25062,7 @@ BOOLEAN AIDecideHipOrShoulderStance( SOLDIERTYPE * pSoldier, INT32 iGridNo )
 	UINT16 usInHand = pSoldier->usAttackingWeapon;
 
 	// not 2-handed or not standing 
-	if ( gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_STAND || !Item[pSoldier->inv[HANDPOS].usItem].twohanded )
+	if ( gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_STAND || !ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) )
 	{
 		return FALSE;
 	}
@@ -25596,7 +25595,7 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	if ( !uiPossible )
 		return 0;
 
-	if ( Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery) )		// using the GOOD medic stuff
+	if (ItemIsMedicalKit(pSoldier->inv[0].usItem) && !(fOnSurgery) )		// using the GOOD medic stuff
 		uiPossible += (uiPossible / 2);			// add extra 50 %
 
 	// Doctor trait improves basic bandaging ability
@@ -25632,7 +25631,7 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		uiActual = uiDeficiency;	// reduce actual not to waste anything
 
 	// now make sure we HAVE that much
-	if ( Item[pKit->usItem].medicalkit )
+	if (ItemIsMedicalKit(pKit->usItem))
 	{
 		if ( fOnSurgery )
 			uiMedcost = (uiActual * gSkillTraitValues.usDOSurgeryMedBagConsumption) / 100;		// surgery drains the kit a lot
@@ -25851,7 +25850,7 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	// usedAPs equals (actionPts) * (%of possible points actually used)
 	uiUsedAPs = (uiActual * uiAvailAPs) / uiPossible;
 
-	if ( Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery) )	// using the GOOD medic stuff
+	if (ItemIsMedicalKit(pSoldier->inv[0].usItem) && !(fOnSurgery) )	// using the GOOD medic stuff
 		uiUsedAPs = (uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
 
 	// surgery is harder so cost more BPs
@@ -25983,7 +25982,7 @@ BOOLEAN ApplyConsumable(SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce,
 
 	// how much of this item do we use up
 	UINT16 statusused = min(portionsize, (*pObj)[0]->data.objectStatus);
-	if (!statusused || (statusused == 1 && Item[pObj->usItem].canteen))
+	if (!statusused || (statusused == 1 && ItemIsCanteen(pObj->usItem)))
 		return FALSE;
 
 	INT16 apcost = 0;
@@ -26000,12 +25999,12 @@ BOOLEAN ApplyConsumable(SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce,
 			apcost = max( apcost, (APBPConstants[AP_CAMOFLAGE] / 2) );
 		}
 
-		if ( Item[pObj->usItem].camouflagekit )
+		if (ItemIsCamoKit(pObj->usItem))
 		{
 			apcost = max( apcost, APBPConstants[AP_CAMOFLAGE] );
 		}
 
-		if ( Item[pObj->usItem].canteen )
+		if (ItemIsCanteen(pObj->usItem))
 		{
 			apcost = max( apcost, APBPConstants[AP_DRINK] );
 		}
@@ -26052,7 +26051,7 @@ BOOLEAN ApplyConsumable(SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce,
 		}
 
 		// some mercs will refuse to smoke
-		if ( Item[pObj->usItem].cigarette && pSoldier->GetBackgroundValue( BG_SMOKERTYPE ) == 2 )
+		if (ItemIsCigarette(pObj->usItem) && pSoldier->GetBackgroundValue( BG_SMOKERTYPE ) == 2 )
 		{
 			// merc gets slightly pissed by the player even suggesting this
 			TacticalCharacterDialogue( pSoldier, QUOTE_REFUSE_TO_SMOKE );
@@ -26108,7 +26107,7 @@ BOOLEAN ApplyConsumable(SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce,
 		fSuccess = TRUE;
 
 		// no sound on consuming cigarettes, as that is very annoying
-		if ( !Item[pObj->usItem].cigarette )
+		if ( !ItemIsCigarette(pObj->usItem) )
 		{
 			fDoSound = TRUE;
 		}

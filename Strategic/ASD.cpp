@@ -1198,7 +1198,7 @@ void EnemyHeliMANPADSCheck( INT16 id )
 				if ( pObj )
 				{
 					// abort if this is a launcher without ammo
-					if ( Item[pObj->usItem].rocketlauncher && !Item[pObj->usItem].singleshotrocketlauncher )
+					if (ItemIsRocketLauncher(pObj->usItem) && !ItemIsSingleShotRocketLauncher(pObj->usItem))
 					{
 						OBJECTTYPE* pAttachment = FindAttachmentByClass( pObj, IC_GRENADE );
 						if ( !pAttachment->exists( ) )
@@ -1227,7 +1227,7 @@ void EnemyHeliMANPADSCheck( INT16 id )
 					MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[7], pSoldier->GetName( ), Item[pObj->usItem].szItemName, pStrSectorName );
 
 					// 'fire' (remove shot)
-					if ( Item[pObj->usItem].singleshotrocketlauncher )
+					if (ItemIsSingleShotRocketLauncher(pObj->usItem))
 					{
 						CreateItem( Item[pObj->usItem].discardedlauncheritem, (*pObj)[0]->data.objectStatus, pObj );
 

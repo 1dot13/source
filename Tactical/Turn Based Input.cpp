@@ -8969,7 +8969,7 @@ void HandleTacticalTakeInvItem( INT32 iType )
 	for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
 	{
 		if ( pSoldier->inv[i].exists() &&
-			!Item[ pSoldier->inv[i].usItem ].twohanded &&
+			!ItemIsTwoHanded(pSoldier->inv[i].usItem) &&
 			( iType > 0 ? ( pSoldier->inv[i].usItem == iType ) : ( InvItemType( pSoldier->inv[i].usItem ) == iType ) ) )
 		{
 			ubItemSlot = i;
@@ -9019,7 +9019,7 @@ INT32 InvItemType( UINT16 usItem )
 {
 	if( usItem == XRAY_DEVICE )
 		return INV_ITEM_TYPE_XRAY;
-	if( Item[ usItem ].firstaidkit )
+	if(ItemIsFirstAidKit(usItem))
 		return INV_ITEM_TYPE_FIRSTAID;
 	if( Item[ usItem ].usItemClass == IC_BLADE )
 		return INV_ITEM_TYPE_MELEE;
@@ -9033,9 +9033,9 @@ INT32 InvItemType( UINT16 usItem )
 		return INV_ITEM_TYPE_BINOCULARS;
 	if( HasItemFlag( usItem, TASER ) )
 		return INV_ITEM_TYPE_TASER;
-	if( Item[ usItem ].usItemClass == IC_GUN && !Item[ usItem ].twohanded && Weapon[Item[ usItem ].ubClassIndex].ubWeaponType <= GUN_SMG )
+	if( Item[ usItem ].usItemClass == IC_GUN && !ItemIsTwoHanded(usItem) && Weapon[Item[ usItem ].ubClassIndex].ubWeaponType <= GUN_SMG )
 		return INV_ITEM_TYPE_SIDEARM;
-	if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].metaldetector )
+	if( Item[ usItem ].usItemClass == IC_MISC && ItemIsMetalDetector(usItem) )
 		return INV_ITEM_TYPE_METALDETECTOR;
 		
 	return INV_ITEM_TYPE_UNKNOWN;

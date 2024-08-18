@@ -4417,16 +4417,16 @@ void SetupInfo()
 	// (Item[i].usItemClass & IC_AMMO) && (Magazine[ Item[i].ubClassIndex ].ubMagType == AMMO_BOX or AMMO_CRATE?)
 	for (UINT16 i = 0; i < MAXITEMS; ++i)
 	{
-		if (Item[i].gascan) ItemIdCache::gasCans.push_back(i);
-		else if (Item[i].firstaidkit) ItemIdCache::firstAidKits.push_back(i);
-		else if (Item[i].medicalkit) ItemIdCache::medKits.push_back(i);
-		else if (Item[i].toolkit) ItemIdCache::toolKits.push_back(i);
+		if (ItemIsGascan(i)) ItemIdCache::gasCans.push_back(i);
+		else if (ItemIsFirstAidKit(i)) ItemIdCache::firstAidKits.push_back(i);
+		else if (ItemIsMedicalKit(i)) ItemIdCache::medKits.push_back(i);
+		else if (ItemIsToolkit(i)) ItemIdCache::toolKits.push_back(i);
 		else if (Item[i].usItemClass & IC_AMMO)
 		{
 			if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
 			{
-				if ((gGameOptions.fGunNut || !Item[i].biggunlist)
-				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
+				if ((gGameOptions.fGunNut || !ItemIsOnlyInTonsOfGuns(i))
+				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !ItemIsOnlyInScifi(i)))
 				{
 					// coolness runs from 1-10, so apply offset
 					const UINT8 coolness = min(max(1, Item[i].ubCoolness), 10);

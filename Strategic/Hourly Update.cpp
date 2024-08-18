@@ -627,7 +627,7 @@ void HourlySmokerUpdate( )
 				INT8 invsize = (INT8)pSoldier->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
 				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )									// ... for all items in our inventory ...
 				{
-					if ( pSoldier->inv[bLoop].exists( ) && Item[pSoldier->inv[bLoop].usItem].cigarette )
+					if ( pSoldier->inv[bLoop].exists( ) && ItemIsCigarette(pSoldier->inv[bLoop].usItem) )
 					{
 						pObj = &(pSoldier->inv[bLoop]);
 

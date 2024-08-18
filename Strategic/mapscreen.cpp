@@ -9797,12 +9797,12 @@ void BltCharInvPanel()
 		UINT32 fontColour = FONT_MCOLOR_RED;
 
 		// robot targeting bonus
-		if (Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+		if (ItemProvidesRobotLaserBonus(pSoldier->inv[ROBOT_TARGETING_SLOT].usItem))
 		{
 			swprintf(text, szRobotText[ROBOT_TEXT_LASER]);
 			fontColour = FONT_MCOLOR_LTGREEN;
 		}
-		else if (Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+		else if (ItemProvidesRobotNightvision(pSoldier->inv[ROBOT_TARGETING_SLOT].usItem))
 		{
 			swprintf(text, szRobotText[ROBOT_TEXT_NIGHT_VISION]);
 			fontColour = FONT_MCOLOR_LTGREEN;
@@ -9825,7 +9825,7 @@ void BltCharInvPanel()
 			swprintf(text, szRobotText[ROBOT_TEXT_STAT_BONUSES]);
 			fontColour = FONT_MCOLOR_LTGREEN;
 		}
-		else if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		else if (ItemProvidesRobotCamo(pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem))
 		{
 			swprintf(text, szRobotText[ROBOT_TEXT_CAMO]);
 			fontColour = FONT_MCOLOR_LTGREEN;
@@ -9858,12 +9858,12 @@ void BltCharInvPanel()
 			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_RADIO]);
 			fontColour = FONT_MCOLOR_LTGREEN;
 		}
-		else if (Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].metaldetector == 1)
+		else if (ItemIsMetalDetector(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem))
 		{
 			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_METAL_DETECTOR]);
 			fontColour = FONT_MCOLOR_LTGREEN;
 		}
-		else if (Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].xray == 1)
+		else if (ItemHasXRay(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem))
 		{
 			swprintf(text, L"%s", szRobotText[ROBOT_TEXT_XRAY]);
 			fontColour = FONT_MCOLOR_LTGREEN;
@@ -10442,7 +10442,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[pSoldier->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (pSoldier->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[pSoldier->inv[ uiHandPos ].usItem].singleshotrocketlauncher) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[pSoldier->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (pSoldier->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !ItemIsSingleShotRocketLauncher(pSoldier->inv[ uiHandPos ].usItem) )
 				{
 					EmptyWeaponMagazine( &(pSoldier->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
 					InternalMAPBeginItemPointer( pSoldier );
