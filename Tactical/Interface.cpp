@@ -978,12 +978,12 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	}
 	else
 	{
-		if ( Item[pSoldier->inv[ HANDPOS ].usItem].toolkit )
+		if (ItemIsToolkit(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = TOOLKITACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
 		}
-		else if ( Item[pSoldier->inv[ HANDPOS ].usItem].wirecutters )
+		else if (ItemIsWirecutters(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = WIRECUTACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
@@ -6043,7 +6043,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );
@@ -6059,7 +6059,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );

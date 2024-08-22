@@ -598,7 +598,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				    break;
 			}
 
-			if ( Item[ pSoldier->inv[ BigSlot ].usItem ].rocketlauncher )
+			if (ItemIsRocketLauncher(pSoldier->inv[ BigSlot ].usItem))
 				iCarriedRL = pSoldier->inv[ BigSlot ].usItem; // remember that enemy is carrying a rocket launcher when check for rocket ammo is made later on
 
 			if ( (	Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_LAUNCHER ) ||
@@ -712,7 +712,7 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 				if ( ubTooltipDetailLevel == DL_Basic || ubTooltipDetailLevel == DL_Full ) // Madd: also hidden attachments should be hidden at the full level as well... unless the mercs have x-ray vision to see that rod&spring inside the gun!! :p
 				{
 					// display only externally-visible weapon attachments
-					if ( Item[iter->usItem].hiddenattachment )
+					if (ItemIsHiddenAttachment(iter->usItem))
 						fDisplayAttachment = FALSE;
 					else
 						fDisplayAttachment = TRUE;

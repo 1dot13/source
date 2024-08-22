@@ -174,7 +174,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, UINT16 usPointsTo
 		return( FALSE);
 		
 	// workaround: canteens with 1% status are treated as 'empty'. They cannot be consumed, but refilled
-	if ( Item[pObject->usItem].canteen == TRUE && (*pObject)[0]->data.objectStatus == 1 )
+	if (ItemIsCanteen(pObject->usItem) && (*pObject)[0]->data.objectStatus == 1 )
 		return( FALSE);
 
 	// do we eat or drink this stuff?
@@ -693,7 +693,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 				// if fcanteensonly is TRUE, omit everything that is not a canteen
 				if ( fcanteensonly )
 				{
-					if ( Item[pObj->usItem].canteen == FALSE )
+					if ( !ItemIsCanteen(pObj->usItem))
 						continue;
 				}
 				else
@@ -707,7 +707,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 					if ( foodcondition < FOOD_BAD_THRESHOLD )
 						continue;
 
-					if ( Item[pObj->usItem].canteen == TRUE )
+					if (ItemIsCanteen(pObj->usItem))
 						continue;
 				}
 
@@ -741,7 +741,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 				// if fcanteensonly is TRUE, omit everything that is not a canteen
 				if ( fcanteensonly )
 				{
-					if ( Item[pObj->usItem].canteen == FALSE )
+					if (!ItemIsCanteen(pObj->usItem))
 						continue;
 				}
 
@@ -846,7 +846,7 @@ void SectorFillCanteens( void )
 				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
 				{
 					// ... if Item exists and is canteen (that can have drink points) ...
-					if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
+					if (pSoldier->inv[bLoop].exists() == true && ItemIsCanteen(pSoldier->inv[bLoop].usItem) && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
 					{
 						OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
 
@@ -878,7 +878,7 @@ void SectorFillCanteens( void )
 			if( gWorldItems[ uiCount ].fExists )										// ... if item exists ...
 			{
 				// ... if Item exists and is a canteen (only those are refillable) ...
-				if ( Item[gWorldItems[ uiCount ].object.usItem].canteen && Food[Item[gWorldItems[ uiCount ].object.usItem].foodtype].bDrinkPoints > 0)
+				if (ItemIsCanteen(gWorldItems[ uiCount ].object.usItem) && Food[Item[gWorldItems[ uiCount ].object.usItem].foodtype].bDrinkPoints > 0)
 				{
 					OBJECTTYPE* pObj = &(gWorldItems[ uiCount ].object);				// ... get pointer for this item ...
 
@@ -920,7 +920,7 @@ void SectorFillCanteens( void )
 				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
 				{
 					// ... if Item exists and is canteen and is NOT a water drum...
-					if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && (Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0) && !HasItemFlag(pSoldier->inv[bLoop].usItem, (WATER_DRUM)))
+					if (pSoldier->inv[bLoop].exists() == true && ItemIsCanteen(pSoldier->inv[bLoop].usItem) && (Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0) && !HasItemFlag(pSoldier->inv[bLoop].usItem, (WATER_DRUM)))
 					{
 						OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
 
@@ -973,7 +973,7 @@ void SectorFillCanteens( void )
 			if( gWorldItems[ uiCount ].fExists )										// ... if item exists ...
 			{
 				// ... if Item exists and is a canteen (only those are refillable) ...
-				if ( Item[gWorldItems[ uiCount ].object.usItem].canteen )
+				if (ItemIsCanteen(gWorldItems[ uiCount ].object.usItem))
 				{
 					OBJECTTYPE* pObj = &(gWorldItems[ uiCount ].object);				// ... get pointer for this item ...
 
@@ -1031,7 +1031,7 @@ OBJECTTYPE* GetUsableWaterDrumInSector( void )
 		if( gWorldItems[ uiCount ].fExists )										// ... if item exists ...
 		{
 			// ... if Item exists and is a canteen (only those are refillable) ...
-			if ( Item[gWorldItems[ uiCount ].object.usItem].canteen )
+			if (ItemIsCanteen(gWorldItems[ uiCount ].object.usItem))
 			{
 				OBJECTTYPE* pObj = &(gWorldItems[ uiCount ].object);				// ... get pointer for this item ...
 
@@ -1077,7 +1077,7 @@ void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier)
 		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
 		{
 			// ... if Item exists and is canteen (that can have drink points) ...
-			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
+			if (pSoldier->inv[bLoop].exists() == true && ItemIsCanteen(pSoldier->inv[bLoop].usItem) && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
 			{
 				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
 
@@ -1118,7 +1118,7 @@ BOOLEAN HasFoodInInventory( SOLDIERTYPE *pSoldier, BOOLEAN fCheckFood, BOOLEAN f
 
 			if ( fCheckDrink && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints )
 			{
-				if ( Item[pSoldier->inv[bLoop].usItem].canteen )
+				if (ItemIsCanteen(pSoldier->inv[bLoop].usItem))
 				{
 					// empty canteens retain 1% status, so check ether something is in them
 					if ( pSoldier->inv[bLoop][0]->data.objectStatus > 1 )
@@ -1170,7 +1170,7 @@ void DrinkFromWaterTap( SOLDIERTYPE* pSoldier )
 		for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
 		{
 			// ... if Item exists and is canteen (that can have drink points) ...
-			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
+			if (pSoldier->inv[bLoop].exists() == true && ItemIsCanteen(pSoldier->inv[bLoop].usItem) && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
 			{
 				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
 

@@ -2678,7 +2678,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 					pWorldItems[ bCount ].bVisible = TRUE;
 					pWorldItems[ bCount ].bRenderZHeightAboveLevel = 0;
 
-					if ( Item[pSoldier->inv[i].usItem].damageable ) // Madd: drop crappier items on higher difficulty levels
+					if (ItemIsDamageable(pSoldier->inv[i].usItem)) // Madd: drop crappier items on higher difficulty levels
 					{
 						// silversurfer: externalized this
 						//pSoldier->inv[i][0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);

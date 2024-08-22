@@ -607,8 +607,6 @@ void EnableAllDealersOfferSlots( void );
 
 void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY );
 
-extern BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
-
 #ifdef JA2TESTVERSION
 BOOLEAN gfTestDisplayDealerCash = FALSE;
 void DisplayAllDealersCash();
@@ -3392,8 +3390,7 @@ FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 
 		// an item at 100% is worth full price...
 
-//		if ( Item[ usItemIndex ].fFlags & ITEM_REPAIRABLE )
-		if ( Item[ usItemIndex ].repairable  )
+		if (ItemIsRepairable(usItemIndex))
 		{
 			// a REPAIRABLE item at 0% is still worth 50% of its full price, not 0%
 			dConditionModifier = 0.5f + ( bStatus / (FLOAT)200 );
@@ -5007,8 +5004,7 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 	}
 	
 	//if the highlighted object is an attachment
-//	if( Item[ pItemObject->usItem ].fFlags & ITEM_ATTACHMENT )
-	if( Item[ pItemObject->usItem ].attachment  )
+	if(ItemIsAttachment(pItemObject->usItem))
 	{
 		if( ValidAttachment( pItemObject->usItem, gpHighLightedItemObject ) )
 			return( TRUE );
@@ -5646,7 +5642,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			}
 
 			//if the item is a rocket rifle
-			if( ItemIsARocketRifle( PlayersOfferArea[ bSlotID ].sItemIndex ) )
+			if(ItemHasFingerPrintID( PlayersOfferArea[ bSlotID ].sItemIndex ) )
 			{
 				fRocketRifleWasEvaluated = TRUE;
 			}
@@ -5716,8 +5712,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			// only otherwise repairable items count as actual rejections
-//			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].fFlags & ITEM_REPAIRABLE )
-			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].repairable  )
+			if (ItemIsRepairable(PlayersOfferArea[bSlotID].sItemIndex))
 			{
 				uiEvalResult = EVAL_RESULT_DONT_HANDLE;
 			}
@@ -6356,7 +6351,7 @@ void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 
 				// strip off any loaded ammo/payload
 				// Exception: don't do this with rocket launchers, their "shots left" are fake and this screws 'em up!
-				if ( !Item[usItem].singleshotrocketlauncher ) // Madd rpg - still do this
+				if ( !ItemIsSingleShotRocketLauncher(usItem)) // Madd rpg - still do this
 				{
 					pData->data.gun.usGunAmmoItem = NONE;
 					pData->data.gun.ubGunShotsLeft = 0;

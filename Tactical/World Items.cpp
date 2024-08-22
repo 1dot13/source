@@ -457,7 +457,7 @@ INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKno
 		{
 			pObj = &( gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].object );
 
-			if ( pObj && Item[pObj->usItem].tripwire )
+			if ( pObj && ItemIsTripwire(pObj->usItem) )
 			{
 				if ( !fKnown )
 					return( gWorldBombs[ uiBombIndex ].iItemIndex );
@@ -867,7 +867,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				}
 			}
 
-			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && ( Item[dummyItem.object.usItem].mine || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
+			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && (ItemIsMine(dummyItem.object.usItem) || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
 			{
 				ArmBomb( &dummyItem.object, BOMB_PRESSURE );
 				dummyItem.usFlags |= WORLD_ITEM_ARMED_BOMB;

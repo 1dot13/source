@@ -1845,7 +1845,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 		if ( bSlot != NO_SLOT )
 		{
 //			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].fFlags & ITEM_TWO_HANDED )
-			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].twohanded )
+			if (ItemIsTwoHanded(pNewSoldier->inv[ bSlot ].usItem))
 			{
 				if ( bSlot != SECONDHANDPOS && pNewSoldier->inv[ SECONDHANDPOS ].exists() == true )
 				{

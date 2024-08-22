@@ -3373,7 +3373,7 @@ BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 u
 			else
 			{
 				// Do we have nothing or the leather vest or kevlar leather vest?
-				if ( Item[usReplaceItem].leatherjacket ||
+				if (ItemIsLeatherJacket(usReplaceItem) ||
 						usReplaceItem == COMPOUND18 ||
 						usReplaceItem == JAR_QUEEN_CREATURE_BLOOD )
 				{
@@ -4044,7 +4044,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !ItemIsSingleShotRocketLauncher(gpSMCurrentMerc->inv[ uiHandPos ].usItem) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{
 					EmptyWeaponMagazine( &(gpSMCurrentMerc->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
 					gpItemPointer = &gItemPointer;
@@ -7096,22 +7096,23 @@ void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 {
 	INT16	bMaxPoints;
+	UINT16 usItem = pObj->usItem;
 
-	if ( !(Item[pObj->usItem].usItemClass & IC_AMMO || Item[pObj->usItem].usItemClass & IC_KIT || Item[pObj->usItem].usItemClass & IC_MEDKIT || Item[pObj->usItem].canteen || Item[pObj->usItem].gascan || Item[pObj->usItem].alcohol > 0.0f) )
+	if ( !(Item[usItem].usItemClass & IC_AMMO || Item[usItem].usItemClass & IC_KIT || Item[usItem].usItemClass & IC_MEDKIT || ItemIsCanteen(usItem) || ItemIsGascan(usItem) || Item[usItem].alcohol > 0.0f) )
 	{
 		return;
 	}
 
-	if ( Item[ pObj->usItem ].usItemClass & IC_AMMO )
+	if ( Item[ usItem ].usItemClass & IC_AMMO )
 	{
-		bMaxPoints = Magazine[ Item[ pObj->usItem ].ubClassIndex ].ubMagSize;
+		bMaxPoints = Magazine[ Item[ usItem ].ubClassIndex ].ubMagSize;
 	}
 	else
 	{
 		bMaxPoints = 100;
 	}
 
-	if ( pCursorObj && pCursorObj->usItem == pObj->usItem )
+	if ( pCursorObj && pCursorObj->usItem == usItem )
 	{
 		DistributeStatus(pCursorObj, pObj, bMaxPoints);
 	}
@@ -7120,13 +7121,13 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 	// Flugente: one of the items on the stack might not be full. Make sure it is the first one, so the player can see what is missing at a glance
 	if ( pObj->ubNumberOfObjects > 1 )
 	{
-		if ( Item[pObj->usItem].usItemClass & IC_AMMO )
+		if ( Item[usItem].usItemClass & IC_AMMO )
 		{
 			UINT16 shots_first	= (*pObj)[0]->data.ubShotsLeft;
 			(*pObj)[0]->data.ubShotsLeft = (*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft;
 			(*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft = shots_first;
 		}
-		else if ( Item[pObj->usItem].usItemClass & IC_MAPFILTER_KIT )
+		else if ( Item[usItem].usItemClass & IC_MAPFILTER_KIT )
 		{
 			INT16 status_first = (*pObj)[0]->data.objectStatus;
 			(*pObj)[0]->data.objectStatus = (*pObj)[pObj->ubNumberOfObjects - 1]->data.objectStatus;

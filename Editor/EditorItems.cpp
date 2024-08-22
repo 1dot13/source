@@ -152,7 +152,7 @@ void EntryInitEditorItemsInfo()
 			item = &Item[i];
 			//if( Item[i].fFlags & ITEM_NOT_EDITOR )
 			//	continue;
-			if(item->notineditor)
+			if(ItemIsNotInEditor(i))
 				continue;
 			if( i == SWITCH || i == ACTION_ITEM )
 			{
@@ -331,7 +331,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				continue;
 			}
 			item = &Item[usCounter];
-			if(item->notineditor)
+			if(ItemIsNotInEditor(usCounter))
 			{
 				usCounter++;
 				continue;

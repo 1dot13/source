@@ -1481,7 +1481,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						}
 						else
 						{
-							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && (twItem->object)[0]->data.gun.ubGunShotsLeft && !(Item[twItem->object.usItem].singleshotrocketlauncher))
+							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && (twItem->object)[0]->data.gun.ubGunShotsLeft && !ItemIsSingleShotRocketLauncher(twItem->object.usItem))
 							{
 								EmptyWeaponMagazine( &twItem->object, &gItemPointer );
 								InternalMAPBeginItemPointer( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
@@ -6009,7 +6009,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 //original code by flugente, renamed variables to fit here, removed "min (OVERHEATING_MAX_TEMPERATURE, newValue)" for dirt to allow to go beyond maximum and deduct later the same amount if neccessary.
 	// ... if we use overheating and item is a gun, a launcher or a barrel ...
-	if ( gGameExternalOptions.fWeaponOverheating && ( Item[itemStack->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[itemStack->usItem].barrel == TRUE ) )
+	if ( gGameExternalOptions.fWeaponOverheating && ( Item[itemStack->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ItemIsBarrel(itemStack->usItem) ) )
 	{
 		for(INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
 		{
@@ -6017,7 +6017,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 			FLOAT cooldownfactor = GetItemCooldownFactor(itemStack);		// ... get item cooldown factor provided of attachments ...
 
-			if ( Item[itemStack->usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
+			if (ItemIsBarrel(itemStack->usItem))	// ... a barrel lying around cools down a bit faster ...
 				cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
 
 			FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...

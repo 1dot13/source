@@ -3349,7 +3349,7 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	}
 
 	// can't repair at all without a toolkit
-	if (!Item[pSoldier->inv[HANDPOS].usItem].toolkit	)
+	if (!ItemIsToolkit(pSoldier->inv[HANDPOS].usItem))
 	{
 		*pusMaxPts = 0;
 		return(0);
@@ -4063,7 +4063,7 @@ UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (int ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
-		if( Item[pSoldier->inv[ ubPocket ].usItem].toolkit )
+		if(ItemIsToolkit(pSoldier->inv[ ubPocket ].usItem))
 		{
 			usKitpts += TotalPoints( &( pSoldier->inv[ ubPocket ] ) );
 		}
@@ -5138,7 +5138,7 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, IN
 
 	// repairs on electronic items take twice as long if the guy doesn't have the skill
 	// Technician/Electronic traits - repairing electronic items - SANDRO
-	if ( Item[ usItem ].electronic )
+	if (ItemIsElectronic(usItem))
 	{
 		if (gGameOptions.fNewTraitSystem)
 		{
@@ -5745,7 +5745,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 BOOLEAN IsItemRepairable(SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 {
 	// check to see if item can/needs to be repaired
-	if ( ( bStatus < 100) && ( Item[ usItem ].repairable ) )
+	if ( ( bStatus < 100) && ItemIsRepairable(usItem) )
 	{
 		if ( gGameExternalOptions.fAdvRepairSystem )
 		{
@@ -10459,7 +10459,7 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 	INT8 bPocket = 0, bonus = -101, bToolkitPocket = NO_SLOT;
 
 	// if there isn't a toolkit in his hand
-	if( Item[pSoldier->inv[ HANDPOS].usItem].toolkit )
+	if(ItemIsToolkit(pSoldier->inv[ HANDPOS].usItem))
 	{
 		bonus = Item[pSoldier->inv[ HANDPOS].usItem].RepairModifier;
 		bToolkitPocket = HANDPOS;
@@ -10469,7 +10469,7 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if( Item[pSoldier->inv[ bPocket ].usItem].toolkit && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
+		if(ItemIsToolkit(pSoldier->inv[ bPocket ].usItem) && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
 		{
 			bonus = Item[pSoldier->inv[ bPocket ].usItem].RepairModifier;
 			bToolkitPocket = bPocket;
@@ -10503,7 +10503,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	fTeamPanelDirty = TRUE;
 
 	// if there is a MEDICAL BAG in his hand, we're set
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].medicalkit )
+	if (ItemIsMedicalKit(pSoldier->inv[ HANDPOS ].usItem))
 	{
 		return(TRUE);
 	}
@@ -10511,7 +10511,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	// run through rest of inventory looking 1st for MEDICAL BAGS, swap the first one into hand if found
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if ( Item[pSoldier->inv[ bPocket ].usItem].medicalkit )
+		if (ItemIsMedicalKit(pSoldier->inv[ bPocket ].usItem))
 		{
 			medkit_found = true;
 			can_swap = true;
@@ -10579,7 +10579,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 		return FALSE;
 
 	// we didn't find a medical bag, so settle for a FIRST AID KIT
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].firstaidkit )
+	if (ItemIsFirstAidKit(pSoldier->inv[ HANDPOS ].usItem))
 	{
 		return(TRUE);
 	}
@@ -10588,10 +10588,10 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if ( Item[pSoldier->inv[ bPocket ].usItem].firstaidkit )
+		if (ItemIsFirstAidKit(pSoldier->inv[ bPocket ].usItem))
 		{
 			// CHRISL: This needs to start with the first "non-big" pocket.
-			if( ( Item[ pSoldier -> inv[ HANDPOS ].usItem ].twohanded  ) && ( bPocket >= SMALLPOCKSTART ) )
+			if( (ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) && (bPocket >= SMALLPOCKSTART)))
 			{
 				// first move from hand to second hand
 				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );

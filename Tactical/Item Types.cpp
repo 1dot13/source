@@ -1595,7 +1595,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 					}
 					else if ( EXPLOSIVE_GUN( this->usItem ) )
 					{
-						if ( Item[this->usItem].singleshotrocketlauncher )
+						if (ItemIsSingleShotRocketLauncher(this->usItem))
 						{
 							(*this)[0]->data.gun.ubGunShotsLeft = 1;
 						}

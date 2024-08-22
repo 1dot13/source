@@ -4840,15 +4840,15 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -5237,7 +5237,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -5335,15 +5335,15 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -5753,7 +5753,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -6007,15 +6007,15 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6594,15 +6594,15 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6923,7 +6923,7 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 	// sevenfm: check that weapon exists!
 	if (pObjHand->exists() &&
 		pObjHand->usItem == pFirer->usAttackingWeapon &&
-		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher))
+		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || ItemIsRocketLauncher(pFirer->usAttackingWeapon)))
 	{
 		BOOLEAN fBuckShot = FALSE;
 
@@ -8643,7 +8643,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 
 	//INT32 iLaserRange = GetBestLaserRange(&(pShooter->inv[pSoldier->ubAttackingHand]));
 	INT16 sLaserRange = GetBestLaserRange(pWeapon);
-	if (AM_A_ROBOT(pShooter) && Item[pShooter->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	if (AM_A_ROBOT(pShooter) && ItemProvidesRobotLaserBonus(pShooter->inv[ROBOT_TARGETING_SLOT].usItem))
 	{
 		sLaserRange = max(sLaserRange, GetBestLaserRange(&pShooter->inv[ROBOT_TARGETING_SLOT]));
 	}

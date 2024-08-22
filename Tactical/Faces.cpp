@@ -1950,7 +1950,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				// check first face slot
 				if (uiFaceItemOne != NONE)
 				{
-					if (Item[uiFaceItemOne].gasmask)
+					if (ItemIsGasmask(uiFaceItemOne))
 						uiFaceItemOne = 1;
 					else if (Item[uiFaceItemOne].nightvisionrangebonus > 0)
 						uiFaceItemOne = 2;
@@ -1965,7 +1965,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				// check second face slot
 				if (uiFaceItemTwo != NONE)
 				{
-					if (Item[uiFaceItemTwo].gasmask)
+					if (ItemIsGasmask(uiFaceItemTwo))
 						uiFaceItemTwo = 21;
 					else if (Item[uiFaceItemTwo].nightvisionrangebonus > 0)
 						uiFaceItemTwo = 42;
@@ -2250,7 +2250,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 0;
 				fDoIcon_Assignment = TRUE;
 				// Show repair points if merc has a toolkit in his hand. Otherwise show cleaning points.
-				if (Item[pSoldier->inv[HANDPOS].usItem].toolkit)
+				if (ItemIsToolkit(pSoldier->inv[HANDPOS].usItem))
 					sPtsAvailable = CalculateRepairPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
 				else
 					sPtsAvailable = CalculateCleaningPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts);

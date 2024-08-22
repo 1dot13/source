@@ -1285,7 +1285,7 @@ void DistributePossibleItemsToVectors(void)
 		{
 			gIMPPossibleItems[HANDPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
 
-			if (Item[usItem].twohanded) {
+			if (ItemIsTwoHanded(usItem)) {
 				gIMPPossibleItems[GUNSLINGPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName)); 
 			}
 			else { 
