@@ -1562,7 +1562,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 			return ( TRUE );
 
 		// Flugente: stats can also be damaged
-		if ( !UsingFoodSystem() || ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+		if ( !UsingFoodSystem() || ( pSoldier->bFoodLevel >= FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel >= FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
 		{
 			if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
 				return ( TRUE );
