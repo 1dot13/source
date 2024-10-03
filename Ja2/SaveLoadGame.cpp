@@ -138,7 +138,6 @@
 #include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #include "Sys Globals.h"//dnl ch74 201013
 #include "Ambient Control.h"		// added by Flugente for HandleNewSectorAmbience(...)
-
 /////////////////////////////////////////////////////
 //
 // Local Defines
@@ -177,7 +176,11 @@ extern void initMapViewAndBorderCoordinates(void);
 UINT32		guiNumberOfMapTempFiles;		//Test purposes
 UINT32		guiSizeOfTempFiles;
 CHAR			gzNameOfMapTempFile[128];
+#endif
+
 //#define LOADSAVEGAME_LOGTIME 1
+#ifdef LOADSAVEGAME_LOGTIME
+#include "TimeLogging.h"
 #endif
 
 extern		SOLDIERTYPE		*gpSMCurrentMerc;
@@ -3588,14 +3591,8 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	alreadySaving = true;
 
 #ifdef LOADSAVEGAME_LOGTIME
-	// Flugente: log how long this takes
-	clock_t starttime = clock();
-	clock_t t0;
-	clock_t t1 = starttime;
-
-	FILE* fp_timelog = fopen("LoadSavedGame_TimeLog.txt", "a");
+	TimingLogInitialize("TimeLog_LoadSavedGame.txt");
 #endif
-
 	//clear out the save game header
 	memset( &SaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
 
@@ -3775,14 +3772,9 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	//Create the name of the file
 	CreateSavedGameFileNameFromNumber( ubSaveGameID, zSaveGameName );
 #if LOADSAVEGAME_LOGTIME
-	if (fp_timelog)
-	{
-		fprintf(fp_timelog, "Save savegame: %s\n", zSaveGameName);
-
-		t0 = t1;
-		t1 = clock();
-		fprintf(fp_timelog, "Shutdown stuff\t\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-	}
+	TimingLogWrite("Save ");
+	TimingLogWrite(zSaveGameName);
+	TimingLog("\nShutdown stuff", 10);
 #endif
 
 	//if the file already exists, delete it
@@ -3919,12 +3911,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Tactical Status" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveTacticalStatusFromSavedGame done\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveTacticalStatusToSavedGame", 6);
 #endif
 
 
@@ -3966,12 +3953,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Laptop Info" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveLaptopInfoFromSavedGame done\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveLaptopInfoToSavedGame", 7);
 #endif
 
 	//
@@ -4003,12 +3985,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Soldier Structure" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveSoldierStructure done\t\t\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveSoldierStructure", 8);
 #endif
 
 
@@ -4071,12 +4048,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveStrategicInfoFromSavedFile done\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveStrategicInfoToSavedFile", 6);
 #endif
 
 	/*// Flugente: Save the strategic supply
@@ -4126,12 +4098,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Strategic Movement Groups" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveStrategicMovementGroupsFromSavedGameFile done\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveStrategicMovementGroupsToSaveGameFile", 3);
 #endif
 
 
@@ -4148,12 +4115,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "All the Map Temp files" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveMapTempFilesFromSavedGameFile done\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveMapTempFilesToSavedGameFile", 6);
 #endif
 
 	if( !SaveQuestInfoToSavedGameFile( hFile ) )
@@ -4319,12 +4281,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameFilePosition( FileGetPos( hFile ), "Militia Movement" );
 #endif
 #if LOADSAVEGAME_LOGTIME
-	if (fp_timelog)
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf(fp_timelog, "SaveMilitiaMovementInformationFromSavedGameFile done\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-	}
+	TimingLog("SaveMilitiaMovementInformationToSaveGameFile", 2);
 #endif
 
 	if( !SaveBulletStructureToSaveGameFile( hFile ) )
@@ -4564,12 +4521,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Lua global" );
 	#endif
 #if LOADSAVEGAME_LOGTIME
-		if (fp_timelog)
-		{
-			t0 = t1;
-			t1 = clock();
-			fprintf(fp_timelog, "SaveLuaGlobalFromLoadGameFile done\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-		}
+	TimingLog("SaveLuaGlobalToSaveGameFile", 7);
 #endif
 
 	if( !SaveDataSaveToSaveGameFile( hFile ) )
@@ -4669,12 +4621,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 #if LOADSAVEGAME_LOGTIME
-	if (fp_timelog)
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf(fp_timelog, "File read done\t\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-	}
+	TimingLog("File read done", 10);
 #endif
 
 	//Close the saved game file
@@ -4755,22 +4702,9 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	alreadySaving = false;
 
 #if LOADSAVEGAME_LOGTIME
-	if (fp_timelog)
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf(fp_timelog, "Update functions\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-	}
-
-	if (fp_timelog)
-	{
-		t0 = starttime;
-		t1 = clock();
-		fprintf(fp_timelog, "SaveSavedGame total\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n\n", ((float)(t1 - t0) / CLOCKS_PER_SEC));
-	}
-
-	if (fp_timelog)
-		fclose(fp_timelog);
+	TimingLog("Update functions", 9);
+	TimingLogTotalTime("SaveSavedGame total", 9);
+	TimingLogStop();
 #endif
 	return( TRUE );
 
@@ -4779,6 +4713,9 @@ FAILED_TO_SAVE:
 
 #ifdef JA2BETAVERSION
 	SaveGameFilePosition( FileGetPos( hFile ), "Failed to Save!!!" );
+#endif
+#if LOADSAVEGAME_LOGTIME
+	TimingLogStop();
 #endif
 
 	FileClose( hFile );
@@ -4825,8 +4762,6 @@ extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
 
 
-#include "time.h"
-
 BOOLEAN LoadSavedGame( int ubSavedGameID )
 {
 	HWFILE	hFile;
@@ -4845,12 +4780,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 #ifdef LOADSAVEGAME_LOGTIME
-	// Flugente: log how long this takes
-	clock_t starttime = clock();
-	clock_t t0;
-	clock_t t1 = starttime;
-	
-	FILE *fp_timelog = fopen( "LoadSavedGame_TimeLog.txt", "a" );
+	TimingLogInitialize("TimeLog_LoadSavedGame.txt");
 #endif
 	
 	uiRelStartPerc = uiRelEndPerc =0;
@@ -4933,14 +4863,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	CreateSavedGameFileNameFromNumber( ubSavedGameID, zSaveGameName );
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		fprintf( fp_timelog, "Load savegame: %s\n", zSaveGameName );
-
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "Shutdown stuff\t\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLogWrite("Load ");
+	TimingLogWrite(zSaveGameName);
+	TimingLog("\nShutdown stuff", 10);
 #endif
 
 	// open the save game file
@@ -5061,19 +4986,14 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Tactical Status" );
 	#endif
+#if LOADSAVEGAME_LOGTIME
+		TimingLog("LoadTacticalStatusFromSavedGame", 6);
+#endif
 
 
 	//This gets reset by the above function
 	gTacticalStatus.uiFlags |= LOADING_SAVED_GAME;
 
-#if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadTacticalStatusFromSavedGame done\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
-#endif
 
 	//Load the game clock ingo
 	if( !LoadGameClock( hFile ) )
@@ -5194,12 +5114,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadLaptopInfoFromSavedGame done\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadLaptopInfoFromSavedGame", 7);
 #endif
 
 	uiRelEndPerc += 0;
@@ -5242,12 +5157,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadSoldierStructure done\t\t\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadSoldierStructure", 8);
 #endif
 
 	uiRelEndPerc += 1;
@@ -5376,12 +5286,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadStrategicInfoFromSavedFile done\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadStrategicInfoFromSavedFile", 6);
 #endif
 
 	uiRelEndPerc += 1;
@@ -5442,12 +5347,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ValidateStrategicGroups();
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadStrategicMovementGroupsFromSavedGameFile done\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadStrategicMovementGroupsFromSavedGameFile", 2);
 #endif
 
 	uiRelEndPerc += 30;
@@ -5467,12 +5367,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadMapTempFilesFromSavedGameFile done\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadMapTempFilesFromSavedGameFile", 5);
 #endif
 
 	uiRelEndPerc += 1;
@@ -5771,12 +5666,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadMilitiaMovementInformationFromSavedGameFile done\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadMilitiaMovementInformationFromSavedGameFile", 2);
 #endif
 
 	uiRelEndPerc += 1;
@@ -6336,12 +6226,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadLuaGlobalFromLoadGameFile done\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("LoadLuaGlobalFromLoadGameFile", 6);
 #endif
 	
 	if( guiCurrentSaveGameVersion >= VEHICLES_DATATYPE_CHANGE && guiCurrentSaveGameVersion < NO_VEHICLE_SAVE)
@@ -6573,12 +6458,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "File read done\t\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
+	TimingLog("File read done", 10);
 #endif
 
 	//
@@ -7023,22 +6903,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	gGameExternalOptions.gfAllowReinforcements = zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcements;
 
 #if LOADSAVEGAME_LOGTIME
-	if ( fp_timelog )
-	{
-		t0 = t1;
-		t1 = clock();
-		fprintf( fp_timelog, "Update functions\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
-
-	if ( fp_timelog )
-	{
-		t0 = starttime;
-		t1 = clock();
-		fprintf( fp_timelog, "LoadSavedGame total\t\t\t\t\t\t\t\t\t\t\t\t: %fs\n\n", ( (float)( t1 - t0 ) / CLOCKS_PER_SEC ) );
-	}
-
-	if ( fp_timelog )
-		fclose( fp_timelog );
+	TimingLog("Update functions", 9);
+	TimingLogTotalTime("LoadSavedGame total", 9);
+	TimingLogStop();
 #endif
 
 	DebugQuestInfo("\n--------- Game loaded ---------");
