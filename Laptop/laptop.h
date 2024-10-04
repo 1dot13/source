@@ -15,7 +15,6 @@ void			ExitLaptop();
 void			RenderLaptop();
 UINT32		ExitLaptopMode(UINT32 uiMode);
 void			EnterNewLaptopMode();
-UINT32		DrawLapTopIcons();
 UINT32		DrawLapTopText();
 void			ReDrawHighLight();
 void			DrawButtonText();
@@ -26,7 +25,6 @@ BOOLEAN			IsBookMarkSet( INT32 iBookId );
 BOOLEAN		LeaveLapTopScreen( );
 void			SetLaptopExitScreen( UINT32 uiExitScreen );
 void			SetLaptopNewGameFlag( );
-UINT32		DrawLapTopIcons( );
 void			LapTopScreenCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void			HandleRightButtonUpEvent( void );
 

@@ -838,13 +838,6 @@ BOOLEAN InitLaptopAndLaptopScreens()
 
 
 UINT32
-DrawLapTopIcons()
-{
-
-	return (TRUE);
-}
-
-UINT32
 DrawLapTopText()
 {
 

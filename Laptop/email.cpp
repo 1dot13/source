@@ -670,13 +670,6 @@ void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, 
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE );
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 }
 
 //--
@@ -721,14 +714,6 @@ void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, iFirstData, uiSecondData, -1 , -1, EmailType, EmailAIM );
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-	// redraw icons, might be new mail
-	DrawLapTopIcons();
-	}
-
 	return;
 }
 
@@ -761,14 +746,6 @@ void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iMessageLength, UINT
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, iFirstData, uiSecondData, -1 , -1, EmailType, EmailAIM);
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-	// redraw icons, might be new mail
-	DrawLapTopIcons();
-	}
-
 	return;
 }
 
@@ -792,13 +769,6 @@ void AddPreReadEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 	// add message to list
 	AddEmailMessage( iMessageOffset,iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, -1, -1 , EmailType, TYPE_E_NONE );
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 }
 
 void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, UINT8 EmailType )
@@ -830,13 +800,6 @@ void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender
 	}
 
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, -1, EmailType, TYPE_E_NONE);
-
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-	if( fCurrentlyInLaptop )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 }
 
 #ifdef JA2UB
@@ -852,14 +815,6 @@ void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSende
 	
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_EMAIL_BOBBY_R_L1);
-
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 
 	return;
 }
@@ -883,14 +838,6 @@ void AddEmailWFMercAvailable(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 		wcscpy( pSubject, New113AIMMercMailTexts[subjectLine] );
 	
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, -1 , EmailType, TYPE_E_NONE);
-
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 
 	return;
 }
@@ -931,14 +878,6 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE);
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
-
 	return;
 }
 
@@ -968,13 +907,6 @@ void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender,
 	// add message to list
 	AddEmailMessage( iMessageOffset,iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, -1, -1 , EmailType, TYPE_E_NONE );
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-	// redraw icons, might be new mail
-	DrawLapTopIcons();
-	}
 
 	return;
 }
@@ -1956,9 +1888,6 @@ void BtnMessageXCallback(GUI_BUTTON *btn,INT32 reason)
 			// reset page being displayed
 			giMessagePage = 0;
 
-			// redraw icons
-			DrawLapTopIcons();
-
 			// force update of entire screen
 			fPausedReDrawScreenFlag=TRUE;
 
@@ -2421,7 +2350,6 @@ BOOLEAN DisplayNewMailBox( void )
 
 	// printf warning string
 	mprintf(EMAIL_WARNING_X + 60, EMAIL_WARNING_Y + 63, pNewMailStrings[0] );
-	DrawLapTopIcons( );
 
 	// invalidate region
 	InvalidateRegion( EMAIL_WARNING_X, EMAIL_WARNING_Y, EMAIL_WARNING_X + 270, EMAIL_WARNING_Y + 200 );
@@ -2883,9 +2811,6 @@ void DeleteEmail()
 	// upadte list
 	PlaceMessagesinPages();
 
-	// redraw icons (if deleted message was last unread, remove checkmark)
-	DrawLapTopIcons();
-
 	// if all of a sudden we are beyond last page, move back one
 	if(iCurrentPage > iLastPage)
 		iCurrentPage=iLastPage;
@@ -3036,9 +2961,6 @@ void ViewMessageRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 		// reset page being displayed
 		giMessagePage = 0;
-
-		// redraw icons
-		DrawLapTopIcons();
 
 		// force update of entire screen
 		fPausedReDrawScreenFlag=TRUE;
