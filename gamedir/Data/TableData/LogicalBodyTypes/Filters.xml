@@ -311,60 +311,520 @@
 			<BPACKPOCKPOS op="in">1697</BPACKPOCKPOS>
 		</OR>
 	</Filter>
+	<Filter name="HasOverunderInHand">
+		<AND>
+			<HANDPOS op="in">754</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasIthacaInHand">
+		<AND>
+			<HANDPOS op="in">679</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP133InHand">
+		<AND>
+			<HANDPOS op="in">694</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFP6InHand">
+		<AND>
+			<HANDPOS op="in">898</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSDASSInHand">
+		<AND>
+			<HANDPOS op="in">899</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasNeosteadInHand">
+		<AND>
+			<HANDPOS op="in">696</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasConvertibleInHand">
+		<AND>
+			<HANDPOS op="in">341</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSuper90InHand">
+		<AND>
+			<HANDPOS op="in">621</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasStreetSweeperInHand">
+		<AND>
+			<HANDPOS op="in">731</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSPAS15InHand">
+		<AND>
+			<HANDPOS op="in">32</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasUSAS12DrumInHand">
+		<AND>
+			<HANDPOS op="in">741</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCAWSInHand">
+		<AND>
+			<HANDPOS op="in">33</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPancorInHand">
+		<AND>
+			<HANDPOS op="in">680</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMasterkeyInHand">
+		<AND>
+			<HANDPOS op="in">1522</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHandMortarInHand">
+		<AND>
+			<HANDPOS op="in">1352</HANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasShotgunInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_SHOTGUN</WEAPON_TYPE>
-			<HANDPOS not="" op="in">33</HANDPOS>
-		</AND>
-	</Filter>
-	<Filter name="HasBlackShotgunInHand">
-		<AND>
-			<HANDPOS op="in">341, 898, 899</HANDPOS>
+			<HANDPOS not="" op="in">32, 33, 341, 621, 679, 680, 694, 696, 731, 741, 754, 898, 899, 1352, 1522</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSaiga12kInHand">
 		<AND>
-			<HANDPOS op="in">32, 340, 680, 731, 741</HANDPOS>
+			<HANDPOS op="in">340</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSPAS12InHand">
 		<AND>
-			<HANDPOS op="in">621, 696, 775</HANDPOS>
+			<HANDPOS op="in">775</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKMInHand">
+		<AND>
+			<HANDPOS op="in">26</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKMSInHand">
+		<AND>
+			<HANDPOS op="in">612, 613</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKMSUInHand">
+		<AND>
+			<HANDPOS op="in">785</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAK74InHand">
+		<AND>
+			<HANDPOS op="in">25</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKS74InHand">
+		<AND>
+			<HANDPOS op="in">614</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKS74UInHand">
+		<AND>
+			<HANDPOS op="in">14</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAK107InHand">
+		<AND>
+			<HANDPOS op="in">610, 611</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAK104InHand">
+		<AND>
+			<HANDPOS op="in">608</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAK103InHand">
+		<AND>
+			<HANDPOS op="in">607</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAK102InHand">
+		<AND>
+			<HANDPOS op="in">606, 609</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAN94InHand">
+		<AND>
+			<HANDPOS op="in">616</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAEK971InHand">
+		<AND>
+			<HANDPOS op="in">602</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAEK973InHand">
+		<AND>
+			<HANDPOS op="in">603</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAMD65InHand">
+		<AND>
+			<HANDPOS op="in">615</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGrozaInHand">
+		<AND>
+			<HANDPOS op="in">659, 660</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVZ58InHand">
+		<AND>
+			<HANDPOS op="in">708</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRK62InHand">
+		<AND>
+			<HANDPOS op="in">742</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasValmetM82InHand">
+		<AND>
+			<HANDPOS op="in">743</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasASVALInHand">
+		<AND>
+			<HANDPOS op="in">617</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVikhrInHand">
+		<AND>
+			<HANDPOS op="in">349</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasINSASInHand">
+		<AND>
+			<HANDPOS op="in">757</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGalilARInHand">
+		<AND>
+			<HANDPOS op="in">655</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGalilSARInHand">
+		<AND>
+			<HANDPOS op="in">656</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGalilMARInHand">
+		<AND>
+			<HANDPOS op="in">691</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFNFALInHand">
+		<AND>
+			<HANDPOS op="in">28</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFALCarbineInHand">
+		<AND>
+			<HANDPOS op="in">647</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFALOSWInHand">
+		<AND>
+			<HANDPOS op="in">648</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFNCInHand">
+		<AND>
+			<HANDPOS op="in">653</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasF2000InHand">
+		<AND>
+			<HANDPOS op="in">646</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG3InHand">
+		<AND>
+			<HANDPOS op="in">29</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG3KA4InHand">
+		<AND>
+			<HANDPOS op="in">667</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMC51InHand">
+		<AND>
+			<HANDPOS op="in">1195</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCETMEInHand">
+		<AND>
+			<HANDPOS op="in">629</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG41InHand">
+		<AND>
+			<HANDPOS op="in">21</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK53InHand">
+		<AND>
+			<HANDPOS op="in">13</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG36InHand">
+		<AND>
+			<HANDPOS op="in">755</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG36RASInHand">
+		<AND>
+			<HANDPOS op="in">665</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG36KInHand">
+		<AND>
+			<HANDPOS op="in">756</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG36KRASInHand">
+		<AND>
+			<HANDPOS op="in">666</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG36CInHand">
+		<AND>
+			<HANDPOS op="in">664</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM16A4InHand">
+		<AND>
+			<HANDPOS op="in">632, 762</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasC7InHand">
+		<AND>
+			<HANDPOS op="in">23</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM4A1InHand">
+		<AND>
+			<HANDPOS op="in">633, 796</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasColtCommandoInHand">
+		<AND>
+			<HANDPOS op="in">12, 763</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAR5716InHand">
+		<AND>
+			<HANDPOS op="in">1332</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK41610InHand">
+		<AND>
+			<HANDPOS op="in">1066</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK41616InHand">
+		<AND>
+			<HANDPOS op="in">1070</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK41620InHand">
+		<AND>
+			<HANDPOS op="in">1072</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK417InHand">
+		<AND>
+			<HANDPOS op="in">1077</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM468InHand">
+		<AND>
+			<HANDPOS op="in">795</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXCRInHand">
+		<AND>
+			<HANDPOS op="in">797</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSR47InHand">
+		<AND>
+			<HANDPOS op="in">782</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAR7090InHand">
+		<AND>
+			<HANDPOS op="in">624</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARLCQCInHand">
+		<AND>
+			<HANDPOS op="in">652</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARHCQCInHand">
+		<AND>
+			<HANDPOS op="in">651</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCAR68CQCInHand">
+		<AND>
+			<HANDPOS op="in">792</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARWPCQCInHand">
+		<AND>
+			<HANDPOS op="in">790</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARLSVInHand">
+		<AND>
+			<HANDPOS op="in">788</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARHSVInHand">
+		<AND>
+			<HANDPOS op="in">787</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCAR68SVInHand">
+		<AND>
+			<HANDPOS op="in">793</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARWPSVInHand">
+		<AND>
+			<HANDPOS op="in">791</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXM8InHand">
+		<AND>
+			<HANDPOS op="in">750</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXM8CompactInHand">
+		<AND>
+			<HANDPOS op="in">751</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXM8SharpshooterInHand">
+		<AND>
+			<HANDPOS op="in">752</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXM8AutomaticInHand">
+		<AND>
+			<HANDPOS op="in">749</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSG550InHand">
+		<AND>
+			<HANDPOS op="in">713</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSG551InHand">
+		<AND>
+			<HANDPOS op="in">714</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSG552InHand">
+		<AND>
+			<HANDPOS op="in">715</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSG540InHand">
+		<AND>
+			<HANDPOS op="in">350</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSG542InHand">
+		<AND>
+			<HANDPOS op="in">712</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAUGInHand">
+		<AND>
+			<HANDPOS op="in">20</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAUGA3InHand">
+		<AND>
+			<HANDPOS op="in">1065</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasL85InHand">
+		<AND>
+			<HANDPOS op="in">331</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasTavorInHand">
+		<AND>
+			<HANDPOS op="in">332</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSAR21InHand">
+		<AND>
+			<HANDPOS op="in">781</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasQBZ97InHand">
+		<AND>
+			<HANDPOS op="in">704</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM14EBRInHand">
+		<AND>
+			<HANDPOS op="in">896</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSteyrACRInHand">
+		<AND>
+			<HANDPOS op="in">789</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG11InHand">
+		<AND>
+			<HANDPOS op="in">30</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAICWInHand">
+		<AND>
+			<HANDPOS op="in">605</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasXM29InHand">
+		<AND>
+			<HANDPOS op="in">748</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasFALInHand">
 		<AND>
-			<HANDPOS op="in">28, 29, 629, 647, 648, 712, 713, 714, 715</HANDPOS>
+			<HANDPOS op="in">28</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasFAMASInHand">
 		<AND>
-			<HANDPOS op="in">24, 646, 659, 660, 663, 704, 781, 789</HANDPOS>
+			<HANDPOS op="in">24</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSCARInHand">
 		<AND>
-			<HANDPOS op="in">651, 652, 787, 788, 790, 791, 792, 793</HANDPOS>
+			<HANDPOS op="in">651, 787, 788, 790, 791, 792, 793</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasAKInHand">
-		<OR>
-			<HANDPOS op="in">25, 26, 347, 612, 613, 614, 615, 708, 757</HANDPOS>
-		</OR>
-	</Filter>
-	<Filter name="HasBlackAKInHand">
 		<AND>
-			<HANDPOS op="in">602, 603, 606, 607, 608, 609, 610, 611, 616, 617, 655, 742, 782</HANDPOS>
-		</AND>
-	</Filter>
-	<Filter name="HasAKSUInHand">
-		<AND>
-			<HANDPOS op="in">14, 785</HANDPOS>
-		</AND>
-	</Filter>
-	<Filter name="HasBlackAKSUInHand">
-		<AND>
-			<HANDPOS op="in">13, 349, 656, 691, 1195</HANDPOS>
+			<HANDPOS op="in">347</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasARInHand">
@@ -372,36 +832,246 @@
 			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
 		</AND>
 	</Filter>
+	<Filter name="HasMP5A4InHand">
+		<AND>
+			<HANDPOS op="in">342</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP5SD5InHand">
+		<AND>
+			<HANDPOS op="in">344</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP540InHand">
+		<AND>
+			<HANDPOS op="in">794</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP510InHand">
+		<AND>
+			<HANDPOS op="in">671</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasUMPInHand">
+		<AND>
+			<HANDPOS op="in">677</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSAFInHand">
+		<AND>
+			<HANDPOS op="in">642</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSAFSDInHand">
+		<AND>
+			<HANDPOS op="in">643</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasColtSMGInHand">
+		<AND>
+			<HANDPOS op="in">346</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAUGParaInHand">
+		<AND>
+			<HANDPOS op="in">727</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasBizonInHand">
+		<AND>
+			<HANDPOS op="in">626</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasOTS39InHand">
+		<AND>
+			<HANDPOS op="in">672</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCalicoSMGInHand">
+		<AND>
+			<HANDPOS op="in">69</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSpectreInHand">
+		<AND>
+			<HANDPOS op="in">1177</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasType85InHand">
+		<AND>
+			<HANDPOS op="in">16</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM12InHand">
+		<AND>
+			<HANDPOS op="in">1067</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasIMIUziInHand">
+		<AND>
+			<HANDPOS op="in">345</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasJatimaticInHand">
+		<AND>
+			<HANDPOS op="in">681</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMPLInHand">
+		<AND>
+			<HANDPOS op="in">761</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSA24InHand">
+		<AND>
+			<HANDPOS op="in">780</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCarlGustafInHand">
+		<AND>
+			<HANDPOS op="in">628</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMAT49InHand">
+		<AND>
+			<HANDPOS op="in">1178</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSterlingInHand">
+		<AND>
+			<HANDPOS op="in">725</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasOwenInHand">
+		<AND>
+			<HANDPOS op="in">1071</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP4144InHand">
+		<AND>
+			<HANDPOS op="in">1179</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM1928InHand">
+		<AND>
+			<HANDPOS op="in">737</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAR5711InHand">
+		<AND>
+			<HANDPOS op="in">1333, 1334</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasKACPDWInHand">
+		<AND>
+			<HANDPOS op="in">1190</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPDRInHand">
+		<AND>
+			<HANDPOS op="in">1191</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMetalStormInHand">
+		<AND>
+			<HANDPOS op="in">686</HANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasSMGInHand">
 		<OR>
 			<WEAPON_TYPE>GUN_SMG</WEAPON_TYPE>
 			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
 		</OR>
+		<AND>
+			<HANDPOS not="" op="in">16, 69, 342, 344, 345, 346, 626, 628, 642, 643, 671, 672, 677, 672, 681, 686, 725, 727, 737, 761, 780, 794, 1067, 1071, 1177, 1178, 1179, 1190, 1191, 1333, 1334</HANDPOS>
+		</AND>
 	</Filter>
 	<Filter name="HasP90InHand">
 		<AND>
-			<HANDPOS op="in">15, 1762</HANDPOS>
+			<HANDPOS op="in">15</HANDPOS>
 		</AND>
 	</Filter>
+<!--
 	<Filter name="HasUziSMGInHand">
 		<AND>
 			<HANDPOS op="in">345</HANDPOS>
 		</AND>
 	</Filter>
+-->
 	<Filter name="HasTommyGunInHand">
 		<AND>
-			<HANDPOS op="in">11, 737, 1179</HANDPOS>
+			<HANDPOS op="in">11</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasPPSH41InHand">
 		<AND>
 			<HANDPOS op="in">702, 773</HANDPOS>
 		</AND>
-	</Filter>	
+	</Filter>
+	<Filter name="HasSL8InHand">
+		<AND>
+			<HANDPOS op="in">348</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSL8RASInHand">
+		<AND>
+			<HANDPOS op="in">1201</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMini14InHand">
+		<AND>
+			<HANDPOS op="in">22</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSKSInHand">
+		<AND>
+			<HANDPOS op="in">17</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM1CarbineInHand">
+		<AND>
+			<HANDPOS op="in">1193</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHEZIInHand">
+		<AND>
+			<HANDPOS op="in">1074</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCalicoRifleInHand">
+		<AND>
+			<HANDPOS op="in">68</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCX4StormInHand">
+		<AND>
+			<HANDPOS op="in">1078</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPS90InHand">
+		<AND>
+			<HANDPOS op="in">1762</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasWinchester94InHand">
+		<AND>
+			<HANDPOS op="in">747</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGarandInHand">
+		<AND>
+			<HANDPOS op="in">683</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasBeowulfInHand">
+		<AND>
+			<HANDPOS op="in">760</HANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasRifleInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_RIFLE</WEAPON_TYPE>
-			<HANDPOS not="" op="in">1762</HANDPOS>
+			<HANDPOS not="" op="in">747, 1762</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasSemiAutoRifleInHand">
@@ -410,72 +1080,333 @@
 			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
 		</OR>
 		<AND>
-			<HANDPOS op="in">17, 22, 27, 683, 753, 1193</HANDPOS>
+			<HANDPOS op="in">27</HANDPOS>
 		</AND>
 	</Filter>
+<!--
 	<Filter name="HasBlackSemiAutoRifleInHand">
 		<AND>
-			<HANDPOS op="in">348, 896, 897, 1074</HANDPOS>
+			<HANDPOS op="in"></HANDPOS>
+		</AND>
+	</Filter>
+-->
+	<Filter name="HasMG36InHand">
+		<AND>
+			<HANDPOS op="in">1187</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMG36RASInHand">
+		<AND>
+			<HANDPOS op="in">668</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAUGHBARInHand">
+		<AND>
+			<HANDPOS op="in">726</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasShrikeInHand">
+		<AND>
+			<HANDPOS op="in">1076</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMinimiSPWInHand">
+		<AND>
+			<HANDPOS op="in">650</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMG43InHand">
+		<AND>
+			<HANDPOS op="in">669</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAmeliInHand">
+		<AND>
+			<HANDPOS op="in">1188</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasUltimaxInHand">
+		<AND>
+			<HANDPOS op="in">740</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRPDInHand">
+		<AND>
+			<HANDPOS op="in">705</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRPK74InHand">
+		<AND>
+			<HANDPOS op="in">35</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPechenegInHand">
+		<AND>
+			<HANDPOS op="in">699</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHK21InHand">
+		<AND>
+			<HANDPOS op="in">36, 661</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFNMAGInHand">
+		<AND>
+			<HANDPOS op="in">649</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM60InHand">
+		<AND>
+			<HANDPOS op="in">687</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMG3InHand">
+		<AND>
+			<HANDPOS op="in">1075</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM1919InHand">
+		<AND>
+			<HANDPOS op="in">627</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasMGInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_LMG</WEAPON_TYPE>
+			<HANDPOS not="" op="in">35, 36, 627, 649, 650, 661, 668, 669, 687, 699, 705, 706, 726, 740, 1075, 1076, 1187, 1188</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasRPKInHand">
 		<AND>
-			<HANDPOS op="in">35, 74, 705, 706</HANDPOS>
+			<HANDPOS op="in">706</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasPKMInHand">
 		<AND>
-			<HANDPOS op="in">649, 661, 687, 699, 700</HANDPOS>
+			<HANDPOS op="in">700</HANDPOS>
 		</AND>
 	</Filter>
+	<Filter name="HasGalilSniperInHand">
+		<AND>
+			<HANDPOS op="in">1069</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM21InHand">
+		<AND>
+			<HANDPOS op="in">684</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM21EBRInHand">
+		<AND>
+			<HANDPOS op="in">897</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasC7CTInHand">
+		<AND>
+			<HANDPOS op="in">769</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMSG90InHand">
+		<AND>
+			<HANDPOS op="in">674</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSR25InHand">
+		<AND>
+			<HANDPOS op="in">630</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM76InHand">
+		<AND>
+			<HANDPOS op="in">753</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSVUInHand">
+		<AND>
+			<HANDPOS op="in">735</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasWA2000InHand">
+		<AND>
+			<HANDPOS op="in">746</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFRF2InHand">
+		<AND>
+			<HANDPOS op="in">654</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSteyrScoutInHand">
+		<AND>
+			<HANDPOS op="in">728</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSSGP1InHand">
+		<AND>
+			<HANDPOS op="in">729</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM501InHand">
+		<AND>
+			<HANDPOS op="in">625</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasR93InHand">
+		<AND>
+			<HANDPOS op="in">778</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM24InHand">
+		<AND>
+			<HANDPOS op="in">19</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM40A1InHand">
+		<AND>
+			<HANDPOS op="in">685</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasTRG22InHand">
+		<AND>
+			<HANDPOS op="in">709</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCZ700InHand">
+		<AND>
+			<HANDPOS op="in">634</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasParkerHaleInHand">
+		<AND>
+			<HANDPOS op="in">698</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasR1InHand">
+		<AND>
+			<HANDPOS op="in">777</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSOShortyInHand">
+		<AND>
+			<HANDPOS op="in">779</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSV98InHand">
+		<AND>
+			<HANDPOS op="in">733</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAWMInHand">
+		<AND>
+			<HANDPOS op="in">618</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSR100InHand">
+		<AND>
+			<HANDPOS op="in">640</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM98InHand">
+		<AND>
+			<HANDPOS op="in">620</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDSR1InHand">
+		<AND>
+			<HANDPOS op="in">639</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM82A2InHand">
+		<AND>
+			<HANDPOS op="in">335</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasKSVKInHand">
+		<AND>
+			<HANDPOS op="in">657, 682</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasOSVInHand">
+		<AND>
+			<HANDPOS op="in">697</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSL9SDInHand">
+		<AND>
+			<HANDPOS op="in">676</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVSSVintorezInHand">
+		<AND>
+			<HANDPOS op="in">333</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVSK94InHand">
+		<AND>
+			<HANDPOS op="in">745</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVSSKInHand">
+		<AND>
+			<HANDPOS op="in">774</HANDPOS>
+		</AND>
+	</Filter>
+<!--
 	<Filter name="HasBigSniperInHand">
 		<AND>
-			<HANDPOS op="in">116, 335, 620, 639, 657, 682, 697, 774</HANDPOS>
+			<HANDPOS op="in"></HANDPOS>
 		</AND>
 	</Filter>
+-->
 	<Filter name="HasSniperInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_SN_RIFLE</WEAPON_TYPE>
-		</AND>
-	</Filter>
-	<Filter name="HasBlackSniperInHand">
-		<AND>
-			<HANDPOS op="in">709, 777, 778</HANDPOS>
+			<HANDPOS not="" op="in">333, 630, 745, 769, 897, 1069</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasDragunovInHand">
 		<AND>
-			<HANDPOS op="in">18, 734, 735</HANDPOS>
+			<HANDPOS op="in">18, 734</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasPSG1InHand">
 		<AND>
-			<HANDPOS op="in">334, 654, 674, 676, 779, 1069, 1201</HANDPOS>
+			<HANDPOS op="in">334</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasPatriotInHand">
 		<AND>
-			<HANDPOS op="in">19, 625, 684, 698</HANDPOS>
+			<HANDPOS op="in">784</HANDPOS>
 		</AND>
 	</Filter>
-	<Filter name="HasBlackPatriotInHand">
+	<Filter name="HasM203InHand">
 		<AND>
-			<HANDPOS op="in">19, 634, 685, 728, 729</HANDPOS>
+			<HANDPOS op="in">920, 922</HANDPOS>
 		</AND>
 	</Filter>
-	<Filter name="HasMilkorInHand">
+	<Filter name="HasM79InHand">
 		<AND>
-			<HANDPOS op="in">40, 50, 903, 906, 907, 908, 920, 922</HANDPOS>
+			<HANDPOS op="in">40</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRGMInHand">
+		<AND>
+			<HANDPOS op="in">907</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGM94InHand">
+		<AND>
+			<HANDPOS op="in">903</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasXM25InHand">
 		<AND>
-			<HANDPOS op="in">605, 748, 908</HANDPOS>
+			<HANDPOS op="in">908</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMilkorInHand">
+		<AND>
+			<HANDPOS op="in">906</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasRocketRifleInHand">
@@ -483,35 +1414,654 @@
 			<HANDPOS op="in">55, 65</HANDPOS>
 		</AND>
 	</Filter>
-	<Filter name="HasG11InHand">
+	<Filter name="Has38SpecialInHand">
 		<AND>
-			<HANDPOS op="in">30, 33</HANDPOS>
+			<HANDPOS op="in">5, 6, 739</HANDPOS>
 		</AND>
 	</Filter>
-	<Filter name="HasDesertEagleInHand">
+	<Filter name="Has38SpecialInLeftHand">
 		<AND>
-			<HANDPOS op="in">7, 56, 637, 638, 758, 766, 767, 768, 1192</HANDPOS>
+			<SECONDHANDPOS op="in">5, 6, 739</SECONDHANDPOS>
 		</AND>
 	</Filter>
-	<Filter name="HasDesertEagleInLeftHand">
+	<Filter name="HasDualRight38Special">
 		<AND>
-			<SECONDHANDPOS op="in">7, 56, 637, 638, 758, 766, 767, 768, 1192</SECONDHANDPOS>
+			<FILTER>Has38SpecialInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>
-	<Filter name="HasDualRightDesertEagle">
+	<Filter name="HasMR96InHand">
 		<AND>
-			<FILTER>HasDesertEagleInHand</FILTER>
+			<HANDPOS op="in">888</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMR96InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">888</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMR96">
+		<AND>
+			<FILTER>HasMR96InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasPythonInHand">
+		<AND>
+			<HANDPOS op="in">894, 1194</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPythonInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">894, 1194</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightPython">
+		<AND>
+			<FILTER>HasPythonInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAnacondaInHand">
+		<AND>
+			<HANDPOS op="in">887</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAnacondaInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">887</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAnaconda">
+		<AND>
+			<FILTER>HasAnacondaInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasRedhawkInHand">
+		<AND>
+			<HANDPOS op="in">707</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRedhawkInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">707</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightRedhawk">
+		<AND>
+			<FILTER>HasRedhawkInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAlaskanInHand">
+		<AND>
+			<HANDPOS op="in">771</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAlaskanInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">771</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAlaskan">
+		<AND>
+			<FILTER>HasAlaskanInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM29InHand">
+		<AND>
+			<HANDPOS op="in">892</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM29InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">892</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM29">
+		<AND>
+			<FILTER>HasM29InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM29SATANInHand">
+		<AND>
+			<HANDPOS op="in">893</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM29SATANInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">893</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM29SATAN">
+		<AND>
+			<FILTER>HasM29SATANInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasHartfordInHand">
+		<AND>
+			<HANDPOS op="in">66</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHartfordInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">66</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightHartford">
+		<AND>
+			<FILTER>HasHartfordInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM83PremierInHand">
+		<AND>
+			<HANDPOS op="in">772</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM83PremierInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">772</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM83Premier">
+		<AND>
+			<FILTER>HasM83PremierInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMakarovInHand">
+		<AND>
+			<HANDPOS op="in">689, 690</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMakarovInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">689, 690</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMakarov">
+		<AND>
+			<FILTER>HasMakarovInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasTokarevInHand">
+		<AND>
+			<HANDPOS op="in">635, 738</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasTokarevInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">635, 738</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightTokarev">
+		<AND>
+			<FILTER>HasTokarevInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasHiPowerInHand">
+		<AND>
+			<HANDPOS op="in">397, 644, 716</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasHiPowerInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">397, 644, 716</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightHiPower">
+		<AND>
+			<FILTER>HasHiPowerInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasLugerInHand">
+		<AND>
+			<HANDPOS op="in">798</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasLugerInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">798</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightLuger">
+		<AND>
+			<FILTER>HasLugerInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasP7M8InHand">
+		<AND>
+			<HANDPOS op="in">675, 703</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasP7M8InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">675, 703</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightP7M8">
+		<AND>
+			<FILTER>HasP7M8InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasBeretta92InHand">
+		<AND>
+			<HANDPOS op="in">3, 622, 623</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasBeretta92InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">3, 622, 623</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightBeretta92">
+		<AND>
+			<FILTER>HasBeretta92InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasFNPRO9InHand">
+		<AND>
+			<HANDPOS op="in">889, 890, 891</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFNPRO9InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">889, 890, 891</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightFNPRO9">
+		<AND>
+			<FILTER>HasFNPRO9InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasP226InHand">
+		<AND>
+			<HANDPOS op="in">336, 339, 717, 718, 722</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasP226InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">336, 339, 717, 718, 722</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightP226">
+		<AND>
+			<FILTER>HasP226InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasP226LInHand">
+		<AND>
+			<HANDPOS op="in">338, 719, 721, 744, 783</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasP226LInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">338, 719, 721, 744, 783</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightP226L">
+		<AND>
+			<FILTER>HasP226LInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasP226SASInHand">
+		<AND>
+			<HANDPOS op="in">799, 800, 1064</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasP226SASInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">799, 800, 1064</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightP226SAS">
+		<AND>
+			<FILTER>HasP226SASInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM1911InHand">
+		<AND>
+			<HANDPOS op="in">8</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM1911InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">8</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM1911">
+		<AND>
+			<FILTER>HasM1911InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM1911HCInHand">
+		<AND>
+			<HANDPOS op="in">631</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM1911HCInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">631</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM1911HC">
+		<AND>
+			<FILTER>HasM1911HCInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasDeltaEliteInHand">
+		<AND>
+			<HANDPOS op="in">645, 759, 786</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDeltaEliteInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">645, 759, 786</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDeltaElite">
+		<AND>
+			<FILTER>HasDeltaEliteInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasEclipseProInHand">
+		<AND>
+			<HANDPOS op="in">900</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasEclipseProInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">900</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightEclipsePro">
+		<AND>
+			<FILTER>HasEclipseProInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMk23InHand">
+		<AND>
+			<HANDPOS op="in">670, 695, 1073</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMk23InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">670, 695, 1073</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMk23">
+		<AND>
+			<FILTER>HasMk23InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasFN57InHand">
+		<AND>
+			<HANDPOS op="in">337</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFN57InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">337</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightFN57">
+		<AND>
+			<FILTER>HasFN57InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasGyurzaInHand">
+		<AND>
+			<HANDPOS op="in">723</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasGyurzaInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">723</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightGyurza">
+		<AND>
+			<FILTER>HasGyurzaInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasG11PDWInHand">
+		<AND>
+			<HANDPOS op="in">663</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasG11PDWInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">663</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightG11PDW">
+		<AND>
+			<FILTER>HasG11PDWInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasWildeyInHand">
+		<AND>
+			<HANDPOS op="in">768</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasWildeyInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">768</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightWildey">
+		<AND>
+			<FILTER>HasWildeyInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAutomag5InHand">
+		<AND>
+			<HANDPOS op="in">1192</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAutomag5InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">1192</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAutomag5">
+		<AND>
+			<FILTER>HasAutomag5InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAutomag3InHand">
+		<AND>
+			<HANDPOS op="in">56, 766</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAutomag3InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">56, 766</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAutomag3">
+		<AND>
+			<FILTER>HasAutomag3InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasCMMGInHand">
+		<AND>
+			<HANDPOS op="in">764</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCMMGInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">764</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightCMMG">
+		<AND>
+			<FILTER>HasCMMGInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasOA93InHand">
+		<AND>
+			<HANDPOS op="in">765</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasOA93InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">765</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightOA93">
+		<AND>
+			<FILTER>HasOA93InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasContenderInHand">
+		<AND>
+			<HANDPOS op="in">770</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasContenderInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">770</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightContender">
+		<AND>
+			<FILTER>HasContenderInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasDartGunInHand">
+		<AND>
+			<HANDPOS op="in">61</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDartGunInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">61</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDartGun">
+		<AND>
+			<FILTER>HasDartGunInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasShortyInHand">
+		<AND>
+			<HANDPOS op="in">732</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasShortyInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">732</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightShorty">
+		<AND>
+			<FILTER>HasShortyInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle357InHand">
+		<AND>
+			<HANDPOS op="in">7</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle357InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">7</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDesertEagle357">
+		<AND>
+			<FILTER>HasDesertEagle357InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle44InHand">
+		<AND>
+			<HANDPOS op="in">637</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle44InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">637</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDesertEagle44">
+		<AND>
+			<FILTER>HasDesertEagle44InHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasLARGrizzlyInHand">
+		<AND>
+			<HANDPOS op="in">758, 767</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasLARGrizzlyInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">758, 767</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightLARGrizzly">
+		<AND>
+			<FILTER>HasLARGrizzlyInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle50InHand">
+		<AND>
+			<HANDPOS op="in">638</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagle50InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">638</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDesertEagle50">
+		<AND>
+			<FILTER>HasDesertEagle50InHand</FILTER>
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>
 	<Filter name="HasSW500InHand">
 		<OR>
-			<HANDPOS op="in">6, 66, 707, 736, 770, 771, 772, 892, 893, 894, 887, 888, 892, 893, 894, 1194</HANDPOS>
+			<HANDPOS op="in">736</HANDPOS>
 		</OR>
 	</Filter>
 	<Filter name="HasSW500InLeftHand">
 		<OR>
-			<SECONDHANDPOS op="in">6, 66, 707, 736, 770, 771, 772, 892, 893, 894, 887, 888, 892, 893, 894, 1194</SECONDHANDPOS>
+			<SECONDHANDPOS op="in">736</SECONDHANDPOS>
 		</OR>
 	</Filter>
 	<Filter name="HasDualRightSW500">
@@ -520,19 +2070,245 @@
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>
+<!--
 	<Filter name="HasUziInHand">
 		<AND>
-			<HANDPOS op="in">10, 330, 601, 619, 673, 688, 692, 701, 730</HANDPOS>
+			<HANDPOS op="in"></HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasUziInLeftHand">
 		<AND>
-			<SECONDHANDPOS op="in">10, 330, 601, 619, 673, 688, 692, 701, 730</SECONDHANDPOS>
+			<SECONDHANDPOS op="in"></SECONDHANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasDualRightUzi">
 		<AND>
 			<FILTER>HasUziInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+-->
+	<Filter name="Has93RInHand">
+		<AND>
+			<HANDPOS op="in">4</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="Has93RInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">4</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRight93R">
+		<AND>
+			<FILTER>Has93RInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasCalicoInHand">
+		<AND>
+			<HANDPOS op="in">67</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasCalicoInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">67</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightCalico">
+		<AND>
+			<FILTER>HasCalicoInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasStechkinMPInHand">
+		<AND>
+			<HANDPOS op="in">724</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasStechkinMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">724</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightStechkinMP">
+		<AND>
+			<FILTER>HasStechkinMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasPP93MPInHand">
+		<AND>
+			<HANDPOS op="in">701</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPP93MPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">701</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightPP93MP">
+		<AND>
+			<FILTER>HasPP93MPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAEK919KMPInHand">
+		<AND>
+			<HANDPOS op="in">601</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAEK919KMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">601</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAEK919KMP">
+		<AND>
+			<FILTER>HasAEK919KMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasVereskMPInHand">
+		<AND>
+			<HANDPOS op="in">619</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVereskMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">619</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightVereskMP">
+		<AND>
+			<FILTER>HasVereskMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasVZ82MPInHand">
+		<AND>
+			<HANDPOS op="in">720</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasVZ82MPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">720</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightVZ82MP">
+		<AND>
+			<FILTER>HasVZ82MPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasAgramMPInHand">
+		<AND>
+			<HANDPOS op="in">604</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAgramMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">604</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightAgramMP">
+		<AND>
+			<FILTER>HasAgramMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasM10MPInHand">
+		<AND>
+			<HANDPOS op="in">10, 688</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasM10MPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">10, 688</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightM10MP">
+		<AND>
+			<FILTER>HasM10MPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMicroUziMPInHand">
+		<AND>
+			<HANDPOS op="in">330</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMicroUziMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">330</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMicroUziMP">
+		<AND>
+			<FILTER>HasMicroUziMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMiniUziMPInHand">
+		<AND>
+			<HANDPOS op="in">692</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMiniUziMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">692</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMiniUziMP">
+		<AND>
+			<FILTER>HasMiniUziMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasTMPMPInHand">
+		<AND>
+			<HANDPOS op="in">730</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasTMPMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">730</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightTMPMP">
+		<AND>
+			<FILTER>HasTMPMPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMP7MPInHand">
+		<AND>
+			<HANDPOS op="in">673</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMP7MPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">673</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMP7MP">
+		<AND>
+			<FILTER>HasMP7MPInHand</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="HasMiniSAFMPInHand">
+		<AND>
+			<HANDPOS op="in">641</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMiniSAFMPInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">641</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightMiniSAFMP">
+		<AND>
+			<FILTER>HasMiniSAFMPInHand</FILTER>
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>
@@ -549,22 +2325,6 @@
 	<Filter name="HasDualRightSawnOff">
 		<AND>
 			<FILTER>HasSawnOffInHand</FILTER>
-			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
-		</AND>
-	</Filter>
-	<Filter name="HasBlackSawnOffInHand">
-		<AND>
-			<HANDPOS op="in">732</HANDPOS>
-		</AND>
-	</Filter>
-	<Filter name="HasBlackSawnOffInLeftHand">
-		<AND>
-			<SECONDHANDPOS op="in">732</SECONDHANDPOS>
-		</AND>
-	</Filter>
-	<Filter name="HasDualRightBlackSawnOff">
-		<AND>
-			<FILTER>HasBlackSawnOffInHand</FILTER>
 			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
 		</AND>
 	</Filter>
