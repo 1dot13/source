@@ -23192,7 +23192,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -23229,7 +23228,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
