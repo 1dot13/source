@@ -51302,6 +51302,9 @@
 		<szBRDesc>If you are a doctor or live in an Asian mega-city, you will need these.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentPoint>8</AttachmentPoint>
+		<AttachToPointAPCost>15</AttachToPointAPCost>		
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>224</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -51311,7 +51314,10 @@
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>		
 		<Medical>1</Medical>
+		<Attachment>1</Attachment>
 		<BR_NewInventory>20</BR_NewInventory>
 		<diseaseprotectionface>1</diseaseprotectionface>
 		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
@@ -51328,6 +51334,10 @@
 		<szBRDesc>Useful for doctors. Not for keeping your hands warm.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentPoint>8</AttachmentPoint>
+		<AttachToPointAPCost>15</AttachToPointAPCost>
+		<Attachment>1</Attachment>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>225</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -51337,7 +51347,10 @@
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<Medical>1</Medical>
+		<Attachment>1</Attachment>
 		<BR_NewInventory>20</BR_NewInventory>
 		<diseaseprotectionhand>1</diseaseprotectionhand>
 		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
@@ -52777,6 +52790,59 @@
 		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
 		<TransportGroupMinProgress>30</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>60</TransportGroupMaxProgress>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1763</uiIndex>
+		<szItemName>Empty PPE Bag</szItemName>
+		<szLongItemName>Empty PPE Bag</szLongItemName>
+		<szItemDesc>Protect your PPE from wear and tear. Safely store masks and gloves and keep your inventory tidy. Perfect for a long tour in unhealthy conditions.</szItemDesc>
+		<szBRName>Empty PPE Bag</szBRName>
+		<szBRDesc>Perfect storage for masks and gloves, keep your inventory tidy and your PPE in prime condition. Mask and gloves not included.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<AvailableAttachmentPoint>8</AvailableAttachmentPoint>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>244</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>11</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Medical>1</Medical>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>20</BR_NewInventory>
+		<BR_UsedInventory>3</BR_UsedInventory>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1764</uiIndex>
+		<szItemName>PPE Bag</szItemName>
+		<szLongItemName>PPE Bag</szLongItemName>
+		<szItemDesc>This small bag holds minimum PPE (mask and gloves), protecting against infection risk born by airborne diseases and contact with infected persons. Perfect for frolicing through a disease riddled country.</szItemDesc>
+		<szBRName>PPE Bag</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>245</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>11</ItemSize>
+		<usPrice>25</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Medical>1</Medical>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<diseaseprotectionface>1</diseaseprotectionface>
+		<diseaseprotectionhand>1</diseaseprotectionhand>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

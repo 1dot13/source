@@ -2,8 +2,8 @@
 <ATTACHMENTCOMBOMERGELIST>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>0</uiIndex>
-		<usItem>305</usItem>
-		<usAttachment1>306</usAttachment1>
+		<usItem>305</usItem>                   <!-- Aluminum Rod -->
+		<usAttachment1>306</usAttachment1>     <!-- Spring -->
 		<usAttachment2>0</usAttachment2>
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
@@ -23,13 +23,13 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>307</usResult>
+		<usResult>307</usResult>                <!-- Rod & Spring -->
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>1</uiIndex>
-		<usItem>308</usItem>
-		<usAttachment1>309</usAttachment1>
-		<usAttachment2>304</usAttachment2>
+		<usItem>308</usItem>                    <!-- Steel Tube -->
+		<usAttachment1>309</usAttachment1>      <!--  Glue -->
+		<usAttachment2>304</usAttachment2>      <!-- Duct Tape -->
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
 		<usAttachment5>0</usAttachment5>
@@ -48,13 +48,13 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>310</usResult>
+		<usResult>310</usResult>                 <!-- Gun Barrel Extender -->
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>2</uiIndex>
-		<usItem>318</usItem>
-		<usAttachment1>319</usAttachment1>
-		<usAttachment2>320</usAttachment2>
+		<usItem>318</usItem>                     <!-- FumblePak -->
+		<usAttachment1>319</usAttachment1>       <!-- X-ray Tube -->
+		<usAttachment2>320</usAttachment2>       <!-- Pack of Gum -->
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
 		<usAttachment5>0</usAttachment5>
@@ -73,12 +73,12 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>321</usResult>
+		<usResult>321</usResult>               <!-- X-ray Device -->
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>3</uiIndex>
-		<usItem>315</usItem>
-		<usAttachment1>316</usAttachment1>
+		<usItem>315</usItem>                   <!-- LameBoy Display  -->
+		<usAttachment1>316</usAttachment1>      <!-- Copper Wire -->
 		<usAttachment2>0</usAttachment2>
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
@@ -98,12 +98,12 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>317</usResult>
+		<usResult>317</usResult>              <!-- Display Unit -->
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>4</uiIndex>
-		<usItem>264</usItem>
-		<usAttachment1>316</usAttachment1>
+		<usItem>264</usItem>                  <!-- Platinum Watch -->
+		<usAttachment1>316</usAttachment1>     <!-- Copper Wire -->
 		<usAttachment2>0</usAttachment2>
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
@@ -123,13 +123,13 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>223</usResult>
+		<usResult>223</usResult>               <!-- Detonator -->
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>5</uiIndex>
-		<usItem>1360</usItem>
-		<usAttachment1>1360</usAttachment1>
-		<usAttachment2>1360</usAttachment2>
+		<usItem>1360</usItem>                   <!-- MERC Wrist Watch -->
+		<usAttachment1>1360</usAttachment1>       <!-- MERC Wrist Watch -->
+		<usAttachment2>1360</usAttachment2>           <!-- MERC Wrist Watch -->
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
 		<usAttachment5>0</usAttachment5>
@@ -148,6 +148,31 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>1360</usResult>
+		<usResult>1360</usResult>                  <!-- MERC Wrist Watch --> 
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>6</uiIndex>
+		<usItem>1763</usItem>                     <!-- Empy PPE Bag -->
+		<usAttachment1>1710</usAttachment1>       <!-- Surgical mask -->
+		<usAttachment2>1711</usAttachment2>       <!-- Surgical gloves -->
+		<usAttachment3>0</usAttachment3>
+		<usAttachment4>0</usAttachment4>
+		<usAttachment5>0</usAttachment5>
+		<usAttachment6>0</usAttachment6>
+		<usAttachment7>0</usAttachment7>
+		<usAttachment8>0</usAttachment8>
+		<usAttachment9>0</usAttachment9>
+		<usAttachment10>0</usAttachment10>
+		<usAttachment11>0</usAttachment11>
+		<usAttachment12>0</usAttachment12>
+		<usAttachment13>0</usAttachment13>
+		<usAttachment14>0</usAttachment14>
+		<usAttachment15>0</usAttachment15>
+		<usAttachment16>0</usAttachment16>
+		<usAttachment17>0</usAttachment17>
+		<usAttachment18>0</usAttachment18>
+		<usAttachment19>0</usAttachment19>
+		<usAttachment20>0</usAttachment20>
+		<usResult>1764</usResult>               <!-- PPE Bag -->
 	</ATTACHMENTCOMBOMERGE>
 </ATTACHMENTCOMBOMERGELIST>

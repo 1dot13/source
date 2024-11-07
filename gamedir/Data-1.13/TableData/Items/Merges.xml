@@ -2073,17 +2073,17 @@
 		<APCost>20</APCost>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>299</firstItemIndex>
-		<secondItemIndex>1016</secondItemIndex>
-		<firstResultingItemIndex>315</firstResultingItemIndex>
+		<firstItemIndex>299</firstItemIndex>                     <!-- Utility Knife -->
+		<secondItemIndex>1016</secondItemIndex>                  <!-- Gameboy -->
+		<firstResultingItemIndex>315</firstResultingItemIndex>   <!-- LameBoy Display -->
 		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>6</mergeType>
 		<APCost>60</APCost>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>299</firstItemIndex>
-		<secondItemIndex>267</secondItemIndex>
-		<firstResultingItemIndex>318</firstResultingItemIndex>
+		<firstItemIndex>299</firstItemIndex>                        <!-- Utility Knife -->
+		<secondItemIndex>267</secondItemIndex>                      <!--   Portable TV -->
+		<firstResultingItemIndex>318</firstResultingItemIndex>      <!-- FumblePack -->
 		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>6</mergeType>
 		<APCost>60</APCost>
@@ -2585,17 +2585,17 @@
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>317</firstItemIndex>
-		<secondItemIndex>321</secondItemIndex>
-		<firstResultingItemIndex>324</firstResultingItemIndex>
+		<firstItemIndex>317</firstItemIndex>                     <!-- Display Unit -->
+		<secondItemIndex>321</secondItemIndex>                   <!-- X-ray Device -->
+		<firstResultingItemIndex>324</firstResultingItemIndex>   <!-- X-ray Detector -->
 		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>5</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>321</firstItemIndex>
-		<secondItemIndex>317</secondItemIndex>
-		<firstResultingItemIndex>324</firstResultingItemIndex>
+		<firstItemIndex>321</firstItemIndex>                     <!-- X-ray Device -->
+		<secondItemIndex>317</secondItemIndex>                   <!-- Display Unit -->
+		<firstResultingItemIndex>324</firstResultingItemIndex>   <!-- X-ray Detector -->
 		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>5</mergeType>
 		<APCost>32</APCost>
