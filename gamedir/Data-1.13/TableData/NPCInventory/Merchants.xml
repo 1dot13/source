@@ -640,7 +640,7 @@ uiFlags must be of
     <szName>additional dealer 3</szName>
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
-    <ubShopKeeperID>255</ubShopKeeperID>
+        <ubShopKeeperID>255</ubShopKeeperID>
 		<ubTypeOfArmsDealer>0</ubTypeOfArmsDealer>
 		<iInitialCash>800</iInitialCash>
 		<uiFlags>268435456</uiFlags>
@@ -1017,7 +1017,7 @@ uiFlags must be of
 	<!-- The inventory files are numbered, for example, slot 40 uses AdditionalDealer_21_Inventory.xml, and so on -->
 	<MERCHANT>
 		<uiIndex>40</uiIndex>
-		<szName>A10 bunker rebel quartermaster</szName>
+		<szName>A10 bunker rebel quartermaster</szName>     <!-- 21 (AdditionalDealer_21_Inventory.xml) -->
 		<dBuyModifier>0.2</dBuyModifier>
 		<dSellModifier>0.5</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>		<!-- Important: no profile -->
@@ -1040,7 +1040,7 @@ uiFlags must be of
 	<!-- as there are several stores, we need to set up several merchantes, otherwise they'll share inventory and money -->
 	<MERCHANT>
 		<uiIndex>41</uiIndex>
-		<szName>general store Drassen (D13)</szName>
+		<szName>general store Drassen (D13)</szName>     <!-- 22 -->
 		<dBuyModifier>0.7</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1062,7 +1062,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>42</uiIndex>
-		<szName>general store Alma (I14)</szName>
+		<szName>general store Alma (I14)</szName>     <!-- 23 -->
 		<dBuyModifier>0.7</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1084,7 +1084,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>43</uiIndex>
-		<szName>general store Cambria (G9)</szName>
+		<szName>general store Cambria (G9)</szName>     <!-- 24 -->
 		<dBuyModifier>0.7</dBuyModifier>	<!-- slightly worse than Keith -->
 		<dSellModifier>1.05</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1106,7 +1106,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>44</uiIndex>
-		<szName>general store Grumm (H1)</szName>
+		<szName>general store Grumm (H1)</szName>     <!-- 25 -->
 		<dBuyModifier>0.7</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1128,7 +1128,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>45</uiIndex>
-		<szName>general store San Mona (C5)</szName>
+		<szName>general store San Mona (C5)</szName>     <!-- 26 -->
 		<dBuyModifier>0.7</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1150,7 +1150,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>46</uiIndex>
-		<szName>posh general store Meduna (O4)</szName>
+		<szName>posh general store Meduna (O4)</szName>     <!-- 27 -->
 		<dBuyModifier>0.7</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1172,7 +1172,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>47</uiIndex>
-		<szName>pharmacy Cambria (G9)</szName>
+		<szName>pharmacy Cambria (G9)</szName>     <!-- 28 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1194,7 +1194,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>48</uiIndex>
-		<szName>pharmacy Meduna (O4)</szName>
+		<szName>pharmacy Meduna (O4)</szName>     <!-- 29 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1216,7 +1216,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>49</uiIndex>
-		<szName>restaurant Cambria (G9)</szName>
+		<szName>restaurant Cambria (G9)</szName>     <!-- 30 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1238,7 +1238,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>50</uiIndex>
-		<szName>restaurant Grumm (H1)</szName>
+		<szName>restaurant Grumm (H1)</szName>     <!-- 31 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1260,7 +1260,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>51</uiIndex>
-		<szName>restaurant Balime gas station (L10)</szName>
+		<szName>restaurant Balime gas station (L10)</szName>     <!-- 32 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1282,7 +1282,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>52</uiIndex>
-		<szName>restaurant San Mona (C5)</szName>
+		<szName>restaurant San Mona (C5)</szName>     <!-- 33 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1304,7 +1304,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>53</uiIndex>
-		<szName>restaurant Meduna 1 (O4)</szName>
+		<szName>restaurant Meduna 1 (O4)</szName>     <!-- 34 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1326,7 +1326,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>54</uiIndex>
-		<szName>restaurant Meduna 2 (O4)</szName>
+		<szName>restaurant Meduna 2 (O4)</szName>     <!-- 35 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1348,7 +1348,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>55</uiIndex>
-		<szName>wine store Drassen (D13)</szName>
+		<szName>wine store Drassen (D13)</szName>     <!-- 36 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1370,7 +1370,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>56</uiIndex>
-		<szName>wine store Alma (I14)</szName>
+		<szName>wine store Alma (I14)</szName>     <!-- 37 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1392,7 +1392,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>57</uiIndex>
-		<szName>wine store Cambria (G9)</szName>
+		<szName>wine store Cambria (G9)</szName>     <!-- 38 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1414,7 +1414,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>58</uiIndex>
-		<szName>wine store Grumm (H1)</szName>
+		<szName>wine store Grumm (H1)</szName>     <!-- 39 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1436,7 +1436,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>59</uiIndex>
-		<szName>wine store San Mona (C5)</szName>
+		<szName>wine store San Mona (C5)</szName>     <!-- 40 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1458,7 +1458,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>60</uiIndex>
-		<szName>drug dealer Cambria ruins (F9)</szName>
+		<szName>drug dealer Cambria ruins (F9)</szName>     <!-- 41 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.3</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1480,7 +1480,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>61</uiIndex>
-		<szName>tool shop Grumm (H1)</szName>
+		<szName>tool shop Grumm (H1)</szName>     <!-- 42 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.3</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1502,7 +1502,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>62</uiIndex>
-		<szName>hunting store San Mona (C6)</szName>
+		<szName>hunting store San Mona (C6)</szName>     <!-- 43 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1524,7 +1524,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>63</uiIndex>
-		<szName>construction materials store San Mona (C6)</szName>
+		<szName>construction materials store San Mona (C6)</szName>     <!-- 44 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1546,7 +1546,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>64</uiIndex>
-		<szName>luxury store Balime (L12)</szName>
+		<szName>luxury store Balime (L12)</szName>     <!-- 45 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>2.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1568,7 +1568,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>65</uiIndex>
-		<szName>luxury store Meduna (O4)</szName>
+		<szName>luxury store Meduna (O4)</szName>     <!-- 46 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>2.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1590,7 +1590,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>66</uiIndex>
-		<szName>restaurant San Mona (C6)</szName>
+		<szName>restaurant San Mona (C6)</szName>     <!-- 47 -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1612,7 +1612,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>67</uiIndex>
-		<szName>armour store San Mona (C6)</szName>
+		<szName>armour store San Mona (C6)</szName>     <!-- 48 -->
 		<dBuyModifier>0.66</dBuyModifier>
 		<dSellModifier>1.1</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
@@ -1634,7 +1634,7 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
 		<uiIndex>68</uiIndex>
-		<szName>Black Market dealer San Mona (C6)</szName>
+		<szName>Black Market dealer San Mona (C6)</szName>     <!-- 49, but Blackmarket Inventory is set in Overhead.lua instead -->
 		<dBuyModifier>1.0</dBuyModifier>
 		<dSellModifier>1.0</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>		<!-- Important: no profile -->

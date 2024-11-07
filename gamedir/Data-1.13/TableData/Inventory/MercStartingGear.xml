@@ -2306,12 +2306,12 @@
 			<mBig2Quantity>3</mBig2Quantity>
 			<mSmall0>201</mSmall0>
 			<mSmall1>214</mSmall1>
-			<mSmall5>1710</mSmall5>
-			<mSmall6>1711</mSmall6>
+			<mSmall5>1764</mSmall5>
+			<mSmall6>1712</mSmall6>
 			<mSmall7>1712</mSmall7>
 			<lVest>1090</lVest>
 			<lLeftThigh>1091</lLeftThigh>
-			<lRightThigh>1091</lRightThigh>
+			<lRightThigh>1205</lRightThigh>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
@@ -2333,8 +2333,8 @@
 			<mSmall3Quantity>2</mSmall3Quantity>
 			<mSmall4>75</mSmall4>
 			<mSmall4Quantity>2</mSmall4Quantity>
-			<mSmall5>1710</mSmall5>
-			<mSmall6>1711</mSmall6>
+			<mSmall5>1764</mSmall5>
+			<mSmall6>1712</mSmall6>
 			<mSmall7>1712</mSmall7>
 			<lVest>1090</lVest>
 			<lLeftThigh>1092</lLeftThigh>
@@ -25206,7 +25206,13 @@
 			<mSmall1>71</mSmall1>
 			<mSmall1Status>100</mSmall1Status>
 			<mSmall1Quantity>1</mSmall1Quantity>
+			<mSmall2>1764</mSmall2>
+			<mSmall2Status>100</mSmall2Status>
+			<mSmall2Quantity>1</mSmall2Quantity>
+			<lVest>1090</lVest>
+			<lVestStatus>100</lVestStatus>
 			<lLeftThigh>1091</lLeftThigh>
+			<lLeftThighStatus>100</lLeftThighStatus>
 			<lRightThigh>1204</lRightThigh>
 			<lRightThighStatus>92</lRightThighStatus>
 		</GEARKIT>
@@ -28632,6 +28638,12 @@
 			<mSmall0Quantity>2</mSmall0Quantity>
 			<mSmall3>1756</mSmall3>
 			<mSmall3Quantity>2</mSmall3Quantity>
+			<mSmall4>1764</mSmall4>
+			<mSmall4Status>100</mSmall4Status>
+			<mSmall4Quantity>1</mSmall4Quantity>
+			<mSmall5>1758</mSmall5>
+			<mSmall5Status>100</mSmall5Status>
+			<mSmall5Quantity>1</mSmall5Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>99</lVestStatus>
 			<lRightThigh>1200</lRightThigh>
