@@ -437,24 +437,24 @@ extern BOOLEAN fResetContractGlow;
 void InitalizeVehicleAndCharacterList( void );
 
 // set this entry to as selected
-void SetEntryInSelectedCharacterList( INT8 bEntry );
+void SetEntryInSelectedCharacterList( INT16 bEntry );
 // set this entry to as unselected
-void ResetEntryForSelectedList( INT8 bEntry );
+void ResetEntryForSelectedList( INT16 bEntry );
 
 // reset selected list
 void ResetSelectedListForMapScreen( );
 
 // build a selected list from a to b, inclusive
-void BuildSelectedListFromAToB( INT8 bA, INT8 bB );
+void BuildSelectedListFromAToB( INT16 bA, INT16 bB );
 
 // isa this entry int he selected character list set?
-BOOLEAN IsEntryInSelectedListSet( INT8 bEntry );
+BOOLEAN IsEntryInSelectedListSet( INT16 bEntry );
 
 // is there more than one person selected?
 BOOLEAN MultipleCharacterListEntriesSelected( void );
 
 // toggle this entry on or off
-void ToggleEntryInSelectedList( INT8 bEntry );
+void ToggleEntryInSelectedList( INT16 bEntry );
 
 // reset assignments for mercs on selected list who have this assignment
 // HEADROCK HAM 3.6: Argument was unused... adding my own.

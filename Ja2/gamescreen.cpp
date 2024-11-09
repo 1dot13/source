@@ -735,11 +735,11 @@ UINT32	MainGameScreenHandle(void)
 
 	if ( !ARE_IN_FADE_IN( ) )
   	{
-	HandleAutoBandagePending( );
+		HandleAutoBandagePending( );
      
-	  #ifdef JA2UB
-      HandleThePlayerBeNotifiedOfSomeoneElseInSector();
-	  #endif
+#ifdef JA2UB
+		HandleThePlayerBeNotifiedOfSomeoneElseInSector();
+#endif
      }
 
 

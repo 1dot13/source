@@ -18418,7 +18418,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 				continue;
 			}
 
-			if( IsEntryInSelectedListSet( ( INT8 )iCounter ) == FALSE )
+			if( IsEntryInSelectedListSet( iCounter ) == FALSE )
 			{
 				continue;
 			}

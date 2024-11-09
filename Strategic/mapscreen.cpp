@@ -930,7 +930,7 @@ void ChangeMapScreenMaskCursor( UINT16 usCursor );
 void CancelOrShortenPlottedPath( void );
 
 // HEADROCK HAM B2.8: Added argument to enable multi-selecting entire squads
-BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickAssignments );
+BOOLEAN HandleCtrlOrShiftInTeamPanel( INT16 bCharNumber, BOOLEAN fFromRightClickAssignments );
 
 INT32 GetContractExpiryTime( SOLDIERTYPE *pSoldier );
 
@@ -7648,7 +7648,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								{
 									bSelectedAssignChar = ( INT16 )giHighLine;
 									RebuildAssignmentsBox( );
-									ChangeSelectedInfoChar( ( INT16 ) giHighLine, FALSE );
+									ChangeSelectedInfoChar( giHighLine, FALSE );
 									fShowAssignmentMenu = TRUE;
 								}
 							}
@@ -11329,12 +11329,12 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay, FALSE ))
+			if ( HandleCtrlOrShiftInTeamPanel( iValue + FIRSTmercTOdisplay, FALSE ))
 			{
 				return;
 			}
 
-			ChangeSelectedInfoChar( ( INT8 ) iValue+ FIRSTmercTOdisplay, TRUE );
+			ChangeSelectedInfoChar( iValue+ FIRSTmercTOdisplay, TRUE );
 
 			pSoldier = &Menptr[ gCharactersList[ iValue + FIRSTmercTOdisplay].usSolID ];
 
@@ -11387,7 +11387,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			pSoldier = &Menptr[ gCharactersList[ iValue + FIRSTmercTOdisplay].usSolID ];
 
 			// select this character
-			ChangeSelectedInfoChar( ( INT8 ) iValue+ FIRSTmercTOdisplay, TRUE );
+			ChangeSelectedInfoChar( iValue+ FIRSTmercTOdisplay, TRUE );
 			
 			if (!isWidescreenUI())
 			{
@@ -11484,13 +11484,13 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 		if( gCharactersList[ iValue  + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue  + FIRSTmercTOdisplay, FALSE ))
+			if ( HandleCtrlOrShiftInTeamPanel( iValue  + FIRSTmercTOdisplay, FALSE ))
 			{
 				return;
 			}
 
 			// reset list if the clicked character isn't also selected
-			ChangeSelectedInfoChar( ( INT8 ) iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( ( INT8 ) iValue  + FIRSTmercTOdisplay) == FALSE ) );
+			ChangeSelectedInfoChar( iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( iValue  + FIRSTmercTOdisplay) == FALSE ) );
 
 			pSoldier = &Menptr[ gCharactersList[ iValue + FIRSTmercTOdisplay ].usSolID ];
 
@@ -11554,7 +11554,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-		if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay, TRUE ))
+		if ( HandleCtrlOrShiftInTeamPanel( iValue + FIRSTmercTOdisplay, TRUE ))
 		{
 			return;
 		}
@@ -11571,7 +11571,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		if( gCharactersList[ iValue  + FIRSTmercTOdisplay].fValid == TRUE )
 		{
-			ChangeSelectedInfoChar( ( INT8 ) iValue + FIRSTmercTOdisplay, TRUE );
+			ChangeSelectedInfoChar( iValue + FIRSTmercTOdisplay, TRUE );
 
 			pSoldier = &Menptr[ gCharactersList[ iValue  + FIRSTmercTOdisplay].usSolID ];
 
@@ -11612,7 +11612,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 							if ( AnyMercInSameSquadOrVehicleIsSelected( pSoldier ) )
 							{
 								// then also select this guy
-								SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+								SetEntryInSelectedCharacterList( iCounter );
 							}
 						}
 					}
@@ -11723,13 +11723,13 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 		if( gCharactersList[ iValue + FIRSTmercTOdisplay].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay , FALSE ))
+			if ( HandleCtrlOrShiftInTeamPanel( iValue + FIRSTmercTOdisplay , FALSE ))
 			{
 				return;
 			}
 
 			// reset list if the clicked character isn't also selected
-			ChangeSelectedInfoChar( ( INT8 ) iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( ( INT8 ) iValue + FIRSTmercTOdisplay ) == FALSE ) );
+			ChangeSelectedInfoChar( iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( iValue + FIRSTmercTOdisplay ) == FALSE ) );
 
 			// deselect any characters/vehicles that can't accompany the clicked merc
 			DeselectSelectedListMercsWhoCantMoveWithThisGuy( &( Menptr[ gCharactersList[ iValue + FIRSTmercTOdisplay ].usSolID ] ) );
@@ -11809,7 +11809,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 		MakeMapModesSuitableForDestPlotting( ( INT8 ) iValue + FIRSTmercTOdisplay );
 
 		// reset list if the clicked character isn't also selected
-		ChangeSelectedInfoChar( ( INT8 ) iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( ( INT8 ) iValue + FIRSTmercTOdisplay ) == FALSE ) );
+		ChangeSelectedInfoChar( iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( iValue + FIRSTmercTOdisplay ) == FALSE ) );
 
 		CancelPathsOfAllSelectedCharacters();
 
@@ -11900,13 +11900,13 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 		if( ( gCharactersList[ iValue  + FIRSTmercTOdisplay].fValid == TRUE ) )
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue + FIRSTmercTOdisplay , FALSE ))
+			if ( HandleCtrlOrShiftInTeamPanel( iValue + FIRSTmercTOdisplay , FALSE ))
 			{
 				return;
 			}
 
 			// reset list if the clicked character isn't also selected
-			ChangeSelectedInfoChar( ( INT8 ) iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( ( INT8 ) iValue + FIRSTmercTOdisplay ) == FALSE ) );
+			ChangeSelectedInfoChar( iValue + FIRSTmercTOdisplay, ( BOOLEAN )( IsEntryInSelectedListSet( iValue + FIRSTmercTOdisplay ) == FALSE ) );
 
 			// if this slot's sleep status can be changed
 			if ( CanChangeSleepStatusForCharSlot( (INT8) iValue + FIRSTmercTOdisplay ) )
@@ -12042,7 +12042,7 @@ static void HandleSelectedMercsContract()
 				continue;
 			}
 
-			if (IsEntryInSelectedListSet((INT8)iCounter) == FALSE)
+			if (IsEntryInSelectedListSet(iCounter) == FALSE)
 			{
 				continue;
 			}
@@ -12118,13 +12118,13 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 		if ((gCharactersList[iValue + FIRSTmercTOdisplay].fValid == TRUE))
 		{
 			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
-			if (HandleCtrlOrShiftInTeamPanel((INT8)iValue + FIRSTmercTOdisplay, FALSE))
+			if (HandleCtrlOrShiftInTeamPanel(iValue + FIRSTmercTOdisplay, FALSE))
 			{
 				return;
 			}
 
 			// reset list if the clicked character isn't also selected
-			ChangeSelectedInfoChar((INT8)iValue + FIRSTmercTOdisplay, (BOOLEAN)(IsEntryInSelectedListSet((INT8)iValue + FIRSTmercTOdisplay) == FALSE));
+			ChangeSelectedInfoChar(iValue + FIRSTmercTOdisplay, (BOOLEAN)(IsEntryInSelectedListSet(iValue + FIRSTmercTOdisplay) == FALSE));
 
 			HandleSelectedMercsContract();
 		}
@@ -14925,13 +14925,13 @@ void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse 
 					// this guy is selected
 					if( pSelectedSoldier[ iCounter ] == pCurrentSoldier )
 					{
-						SetEntryInSelectedCharacterList( ( INT8 ) iCounterA );
+						SetEntryInSelectedCharacterList( iCounterA );
 					}
 
 					// update who the currently selected info guy is
 					if( pPreviousSelectedInfoChar == pCurrentSoldier )
 					{
-						ChangeSelectedInfoChar( ( INT8 ) iCounterA, FALSE );
+						ChangeSelectedInfoChar( iCounterA, FALSE );
 					}
 				}
 			}
@@ -15537,7 +15537,7 @@ void CancelOrShortenPlottedPath( void )
 }
 
 
-BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickAssignments )
+BOOLEAN HandleCtrlOrShiftInTeamPanel( INT16 bCharNumber, BOOLEAN fFromRightClickAssignments )
 {
 	// HEADROCK HAM B2.8: New condition based on new argument.
 	if (fFromRightClickAssignments)
@@ -15569,7 +15569,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 									(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSelected->iVehicleId == pSoldier->bVehicleID ) )
 								{
 									// then also select this guy
-									SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+									SetEntryInSelectedCharacterList( iCounter );
 								}
 							}
 
@@ -15582,7 +15582,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 								// make sure only trainers/trainees of the same stat are selected together.
 								if (pSoldier->bTrainStat == pSelected->bTrainStat)
 								{
-									SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+									SetEntryInSelectedCharacterList( iCounter );
 								}
 							}
 								
@@ -15591,7 +15591,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 								pSoldier->sSectorY == pSelected->sSectorY &&
 								pSoldier->sZLevel == pSelected->sZLevel )
 							{
-								SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+								SetEntryInSelectedCharacterList( iCounter );
 							}
 						}
 					}
@@ -15624,7 +15624,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 									(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSelected->iVehicleId == pSoldier->bVehicleID ) )
 								{
 									// then also select this guy
-									ResetEntryForSelectedList( ( INT8 ) iCounter );
+									ResetEntryForSelectedList( iCounter );
 								}
 							}
 
@@ -15637,7 +15637,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 								// make sure only trainers/trainees of the same stat are selected together.
 								if (pSoldier->bTrainStat == pSelected->bTrainStat)
 								{
-									ResetEntryForSelectedList( ( INT8 ) iCounter );
+									ResetEntryForSelectedList( iCounter );
 								}
 							}
 								
@@ -15646,7 +15646,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 								pSoldier->sSectorY == pSelected->sSectorY &&
 								pSoldier->sZLevel == pSelected->sZLevel )
 							{
-								ResetEntryForSelectedList( ( INT8 ) iCounter );
+								ResetEntryForSelectedList( iCounter );
 							}
 						}
 					}
@@ -15852,7 +15852,7 @@ void CopyPathToAllSelectedCharacters( PathStPtr pPath )
 
 void CancelPathsOfAllSelectedCharacters()
 {
-	INT8 bCounter = 0;
+	INT16 bCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	BOOLEAN fSkyriderMsgShown = FALSE;
 
@@ -17049,7 +17049,7 @@ void ClearPreviousPaths( void )
 
 void SelectAllCharactersInSquad( INT8 bSquadNumber )
 {
-	INT8 bCounter;
+	INT16 bCounter;
 	BOOLEAN fFirstOne = TRUE;
 	SOLDIERTYPE *pSoldier;
 

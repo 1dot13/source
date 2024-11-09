@@ -304,7 +304,7 @@ typedef struct
 	INT16		sContractRehireSoldierID;
 
 
-	GAME_OPTIONS	GameOptions;
+	GAME_OPTIONS		GameOptions;
 
 	UINT32	uiSeedNumber;
 
@@ -322,7 +322,7 @@ typedef struct
 	BOOLEAN fDisableMapInterfaceDueToBattle;
 
 	INT32 sBoxerGridNo[ NUM_BOXERS ];
-	UINT8		ubBoxerID[ NUM_BOXERS ];
+	UINT16		ubBoxerID[ NUM_BOXERS ];
 	BOOLEAN	fBoxerFought[ NUM_BOXERS ];
 
 	BOOLEAN	fHelicopterDestroyed;								//if the chopper is destroyed
@@ -412,7 +412,7 @@ typedef struct
 
 	UINT32	uiMeanWhileFlags;
 
-	INT8 bSelectedInfoChar;
+	INT16 bSelectedInfoChar;
 	INT8 bHospitalPriceModifier;
 	INT8 bUnused2[ 2 ];
 
@@ -1936,7 +1936,7 @@ use of this function should allow changes to be made to various structures withi
 INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount)
 {
 	UINT32	uiNumBytesRead;
-	char	padding[10];
+	char		padding[10];
 	UINT32	uiBytesRead = uiCurByteCount;	// used to track our new byte count
 	UINT32	sampleBytesRead = uiBytesRead;	// used to determine how much padding is needed
 
@@ -8794,7 +8794,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fDisableDueToBattleRoster, sizeof(sGeneralInfo.fDisableDueToBattleRoster), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fDisableMapInterfaceDueToBattle, sizeof(sGeneralInfo.fDisableMapInterfaceDueToBattle), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sBoxerGridNo, sizeof(sGeneralInfo.sBoxerGridNo), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubBoxerID, sizeof(sGeneralInfo.ubBoxerID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubBoxerID, sizeof(sGeneralInfo.ubBoxerID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fBoxerFought, sizeof(sGeneralInfo.fBoxerFought), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fHelicopterDestroyed, sizeof(sGeneralInfo.fHelicopterDestroyed), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowMapScreenHelpText, sizeof(sGeneralInfo.fShowMapScreenHelpText), sizeof(BOOLEAN), numBytesRead);
@@ -8872,7 +8872,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fExplosionQueueActive, sizeof(sGeneralInfo.fExplosionQueueActive), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubUnused, sizeof(sGeneralInfo.ubUnused), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiMeanWhileFlags, sizeof(sGeneralInfo.uiMeanWhileFlags), sizeof(UINT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bSelectedInfoChar, sizeof(sGeneralInfo.bSelectedInfoChar), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bSelectedInfoChar, sizeof(sGeneralInfo.bSelectedInfoChar), sizeof(INT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bHospitalPriceModifier, sizeof(sGeneralInfo.bHospitalPriceModifier), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bUnused2, sizeof(sGeneralInfo.bUnused2), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iHospitalTempBalance, sizeof(sGeneralInfo.iHospitalTempBalance), sizeof(INT32), numBytesRead);
@@ -9096,7 +9096,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fDisableMapInterfaceDueToBattle = sGeneralInfo.fDisableMapInterfaceDueToBattle;
 
 	memcpy( &gsBoxerGridNo, &sGeneralInfo.sBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
-	memcpy( &gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof( UINT8 ) );
+	memcpy( &gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof( UINT16 ) );
 	memcpy( &gfBoxerFought, &sGeneralInfo.fBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
 	//Load the helicopter status

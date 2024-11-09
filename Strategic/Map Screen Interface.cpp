@@ -450,7 +450,7 @@ void InitalizeVehicleAndCharacterList( void )
 	memset(&gCharactersList, 0, sizeof( gCharactersList ));
 }
 
-void SetEntryInSelectedCharacterList( INT8 bEntry )
+void SetEntryInSelectedCharacterList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -458,7 +458,7 @@ void SetEntryInSelectedCharacterList( INT8 bEntry )
 	fSelectedListOfMercsForMapScreen[ bEntry ] = TRUE;
 }
 
-void ResetEntryForSelectedList( INT8 bEntry )
+void ResetEntryForSelectedList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -480,7 +480,7 @@ void ResetSelectedListForMapScreen( void )
 	}
 }
 
-BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
+BOOLEAN IsEntryInSelectedListSet( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -489,7 +489,7 @@ BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 	return( fSelectedListOfMercsForMapScreen[ bEntry ] );
 }
 
-void ToggleEntryInSelectedList( INT8 bEntry )
+void ToggleEntryInSelectedList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -497,9 +497,9 @@ void ToggleEntryInSelectedList( INT8 bEntry )
 	fSelectedListOfMercsForMapScreen[ bEntry ] = !( fSelectedListOfMercsForMapScreen[ bEntry ] );
 }
 
-void BuildSelectedListFromAToB( INT8 bA, INT8 bB )
+void BuildSelectedListFromAToB( INT16 bA, INT16 bB )
 {
-	INT8 bStart =0, bEnd = 0;
+	INT16 bStart =0, bEnd = 0;
 
 	// run from a to b..set slots as selected
 
@@ -636,7 +636,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier2, pSoldier->iVehicleId ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if anchor guy IS a vehicle
@@ -645,7 +645,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier2, pSoldier->bVehicleID ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if this guy is IN a vehicle
@@ -654,7 +654,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier, pSoldier2->iVehicleId ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if this guy IS a vehicle
@@ -663,13 +663,13 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier, pSoldier2->bVehicleID ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// reject those not a squad (vehicle handled above)
 				else if( pSoldier2->bAssignment >= ON_DUTY )
 				{
-					ResetEntryForSelectedList( ( INT8 )iCounter );
+					ResetEntryForSelectedList( iCounter );
 				}
 				else
 				{
@@ -678,14 +678,14 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 							( pSoldier->sSectorY != pSoldier2->sSectorY ) ||
 							( pSoldier->bSectorZ != pSoldier2->bSectorZ ) )
 					{
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 
 					// if either is between sectors, they must be in the same movement group
 					if ( ( pSoldier->flags.fBetweenSectors || pSoldier2->flags.fBetweenSectors ) &&
 							( pSoldier->ubGroupID != pSoldier2->ubGroupID ) )
 					{
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 
@@ -715,7 +715,7 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 					if ( AnyMercInSameSquadOrVehicleIsSelected( pSoldier ) )
 					{
 						// then also select this guy
-						SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+						SetEntryInSelectedCharacterList( iCounter );
 					}
 				}
 			}
@@ -2600,7 +2600,7 @@ void GoToNextCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
+			ChangeSelectedInfoChar( iCount, TRUE );
 			break;
 		}
 		else
@@ -2635,7 +2635,7 @@ void GoToFirstCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			ChangeSelectedInfoChar( iCounter, TRUE );
 			break;
 		}
 	}
@@ -2661,7 +2661,7 @@ void GoToLastCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			ChangeSelectedInfoChar( iCounter, TRUE );
 			break;
 		}
 	}
@@ -2691,7 +2691,7 @@ void GoToPrevCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
+			ChangeSelectedInfoChar( iCount, TRUE );
 			break;
 		}
 		else
@@ -4602,11 +4602,11 @@ void HandleSettingTheSelectedListOfMercs( void )
 					// make DEST column glow
 					giDestHighLine = iCounter;
 
-					ChangeSelectedInfoChar( ( INT16 ) iCounter, TRUE );
+					ChangeSelectedInfoChar( iCounter, TRUE );
 				}
 
 				// add this guy to the selected list of grunts
-				SetEntryInSelectedCharacterList( ( INT8 )iCounter );
+				SetEntryInSelectedCharacterList( iCounter );
 			}
 		}
 	}
