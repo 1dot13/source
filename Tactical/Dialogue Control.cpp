@@ -900,11 +900,11 @@ void HandleDialogue( )
 	}
 	else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_WANTS_TO_RENEW )
 	{
-		HandleMercIsWillingToRenew( (UINT16)QItem->uiSpecialEventData );
+		HandleMercIsWillingToRenew( (UINT16)QItem.uiSpecialEventData );
 	}
 	else if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_CONTRACT_NOGO_TO_RENEW )
 	{
-		HandleMercIsNotWillingToRenew( (UINT16)QItem->uiSpecialEventData );
+		HandleMercIsNotWillingToRenew( (UINT16)QItem.uiSpecialEventData );
 	}
 	else
 	{
