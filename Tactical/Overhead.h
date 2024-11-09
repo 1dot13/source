@@ -333,10 +333,10 @@ void SetMsgBoxForPlayerBeNotifiedOfSomeoneElseInSector();
 void HandleDisplayingOfPlayerLostDialogue( );
 
 // UTILITY FUNCTIONS
-INT8    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
-UINT8 NumEnemyInSector( );
-UINT8 NumCapableEnemyInSector( );
-INT8    NumMercsOnPlayerTeam( );
+UINT16    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
+UINT16 NumEnemyInSector( );
+UINT16 NumCapableEnemyInSector( );
+UINT16    NumMercsOnPlayerTeam( );
 #endif
 
 extern BOOLEAN sniperwarning;

@@ -10876,11 +10876,11 @@ BOOLEAN CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector()
 }
 
 
-INT8 NumMercsOnPlayerTeam( )
+UINT16 NumMercsOnPlayerTeam( )
 {
-    INT32                   cnt;
+    INT32 cnt;
     SOLDIERTYPE   *pSoldier;
-    UINT8         ubCount = 0;
+    UINT16 ubCount = 0;
 
     cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
 
