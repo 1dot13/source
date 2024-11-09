@@ -921,7 +921,7 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 
 
 // WDS - make number of mercenaries, etc. be configurable
-BOOLEAN NextPersonnelFace( void )
+static BOOLEAN NextPersonnelFace( void )
 {
 	if (fCurrentTeamMode)
 	{
@@ -965,7 +965,7 @@ BOOLEAN NextPersonnelFace( void )
 	return TRUE;
 }
 
-BOOLEAN PrevPersonnelFace( void )
+static BOOLEAN PrevPersonnelFace( void )
 {
 	if (fCurrentTeamMode) {
 		// Anyone to display?
@@ -1015,6 +1015,107 @@ BOOLEAN PrevPersonnelFace( void )
 		// get of this merc in this slot
 
 		iCurrentPersonSelectedId =	iCurPortraitId;
+		fReDrawScreenFlag = TRUE;
+	}
+
+	return TRUE;
+}
+
+static BOOLEAN NextPersonnelFacePage(void)
+{
+	if (fCurrentTeamMode)
+	{
+		// Anyone to display?
+		if (currentTeamIndex == -1) {
+			return TRUE;
+		}
+
+		fReDrawScreenFlag = TRUE;
+		// wrap around?
+		currentTeamIndex += MAX_MERCS_ON_SCREEN;
+		if (currentTeamIndex >= maxCurrentTeamIndex)
+		{
+			currentTeamIndex = 0;
+			currentTeamFirstIndex = 0;
+			return FALSE;
+		}
+		else
+		{
+			currentTeamFirstIndex += MAX_MERCS_ON_SCREEN;
+		}
+	}
+	else {
+		// Anyone to display?
+		if (iCurPortraitId == -1) {
+			return TRUE;
+		}
+
+		iCurPortraitId += MAX_MERCS_ON_SCREEN;
+		if (iCurPortraitId >= (GetNumberOfDeadOnPastTeam() + GetNumberOfLeftOnPastTeam() + GetNumberOfOtherOnPastTeam()) - giCurrentUpperLeftPortraitNumber)
+		{
+			// about to go off the end
+			giCurrentUpperLeftPortraitNumber = 0;
+			iCurPortraitId = 0;
+		}
+		else
+		{
+			giCurrentUpperLeftPortraitNumber += MAX_MERCS_ON_SCREEN;
+			iCurPortraitId = 0;
+		}
+
+		// get of this merc in this slot
+		iCurrentPersonSelectedId = iCurPortraitId;
+		fReDrawScreenFlag = TRUE;
+	}
+
+	return TRUE;
+}
+
+static BOOLEAN PrevPersonnelFacePage(void)
+{
+	if (fCurrentTeamMode) {
+		// Anyone to display?
+		if (currentTeamIndex == -1) {
+			return TRUE;
+		}
+
+		fReDrawScreenFlag = TRUE;
+		currentTeamIndex -= MAX_MERCS_ON_SCREEN;
+		// wrap around?
+		if (currentTeamIndex <= 0) {
+			currentTeamIndex = maxCurrentTeamIndex;
+			currentTeamFirstIndex = (currentTeamIndex / MAX_MERCS_ON_SCREEN) * MAX_MERCS_ON_SCREEN;
+			if (currentTeamIndex == 0) {
+				return FALSE;
+			}
+		}
+		else {
+			currentTeamFirstIndex -= MAX_MERCS_ON_SCREEN;
+		}
+	}
+	else
+	{
+		// Anyone to display?
+		if (iCurPortraitId == -1) {
+			return TRUE;
+		}
+
+		iCurPortraitId -= MAX_MERCS_ON_SCREEN;
+
+		if ((iCurPortraitId <= 0) && (giCurrentUpperLeftPortraitNumber == 0))
+		{
+			// about to go off the end
+			giCurrentUpperLeftPortraitNumber = (GetNumberOfDeadOnPastTeam() + GetNumberOfLeftOnPastTeam() + GetNumberOfOtherOnPastTeam()) - (GetNumberOfDeadOnPastTeam() + GetNumberOfLeftOnPastTeam() + GetNumberOfOtherOnPastTeam()) % MAX_MERCS_ON_SCREEN;
+			iCurPortraitId = (GetNumberOfDeadOnPastTeam() + GetNumberOfLeftOnPastTeam() + GetNumberOfOtherOnPastTeam()) % MAX_MERCS_ON_SCREEN;
+		}
+		else
+		{
+			giCurrentUpperLeftPortraitNumber -= MAX_MERCS_ON_SCREEN;
+			iCurPortraitId = MAX_MERCS_ON_SCREEN - 1;
+		}
+		// get of this merc in this slot
+
+		iCurrentPersonSelectedId = iCurPortraitId;
 		fReDrawScreenFlag = TRUE;
 	}
 
@@ -1109,7 +1210,14 @@ void LeftButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		fReDrawScreenFlag=TRUE;
-		PrevPersonnelFace( );
+		if (_KeyDown(SHIFT))
+		{
+			PrevPersonnelFacePage();
+		}
+		else
+		{
+			PrevPersonnelFace( );
+		}
 		uiCurrentInventoryIndex = 0;
 		guiSliderPosition = 0;
 
@@ -1156,21 +1264,26 @@ void RightButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 	{
 		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
 		{
-	 fReDrawScreenFlag=TRUE;
+			fReDrawScreenFlag=TRUE;
 		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		if(btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		fReDrawScreenFlag=TRUE;
-	 NextPersonnelFace( );
-		uiCurrentInventoryIndex = 0;
-		guiSliderPosition = 0;
-
-
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			fReDrawScreenFlag=TRUE;
+			if (_KeyDown(SHIFT))
+			{
+				NextPersonnelFacePage();
+			}
+			else
+			{
+				NextPersonnelFace( );
+			}
+			uiCurrentInventoryIndex = 0;
+			guiSliderPosition = 0;
 		}
 	}
 }
@@ -6755,6 +6868,22 @@ void HandlePersonnelKeyboard( void )
 				case 'd':
 					fReDrawScreenFlag = TRUE;
 					NextPersonnelFace( );
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_LEFTARROW:
+				case 'A':
+					fReDrawScreenFlag = TRUE;
+					PrevPersonnelFacePage();
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_RIGHTARROW:
+				case 'D':
+					fReDrawScreenFlag = TRUE;
+					NextPersonnelFacePage();
 					uiCurrentInventoryIndex = 0;
 					guiSliderPosition = 0;
 					fPausedReDrawScreenFlag = TRUE;
