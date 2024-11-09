@@ -2434,7 +2434,7 @@ INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo
 INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int iTileSightLimit, bool adjustForSight )
 {
 	FLOAT dStartZPos, dEndZPos;
-	INT16 sXPos, sYPos;
+	INT16 sX, sY, sX2, sY2;
 	UINT16 ubTargetID;
 	BOOLEAN fOk;
 
