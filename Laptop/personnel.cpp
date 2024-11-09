@@ -322,8 +322,6 @@ void RenderPersonnelStats(INT32 iId, INT32 iSlot);
 void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther );
 void LeftButtonCallBack(GUI_BUTTON *btn,INT32 reason);
 void RightButtonCallBack(GUI_BUTTON *btn,INT32 reason);
-void LeftFFButtonCallBack(GUI_BUTTON *btn,INT32 reason);
-void RightFFButtonCallBack(GUI_BUTTON *btn,INT32 reason);
 void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreatePersonnelButtons( void );
 void DeletePersonnelButtons( void );
@@ -1225,36 +1223,6 @@ void LeftButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void LeftFFButtonCallBack(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-			fReDrawScreenFlag=TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		fReDrawScreenFlag=TRUE;
-		PrevPersonnelFace( );
-	 PrevPersonnelFace( );
-	 PrevPersonnelFace( );
-		PrevPersonnelFace( );
-
-		// set states
-		SetPersonnelButtonStates( );
-		}
-	}
-}
-
 void RightButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -1284,36 +1252,6 @@ void RightButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 			}
 			uiCurrentInventoryIndex = 0;
 			guiSliderPosition = 0;
-		}
-	}
-}
-
-void RightFFButtonCallBack(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-	 fReDrawScreenFlag=TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		fReDrawScreenFlag=TRUE;
-	 NextPersonnelFace( );
-	 NextPersonnelFace( );
-	 NextPersonnelFace( );
-	 NextPersonnelFace( );
-
-		// set states
-		SetPersonnelButtonStates( );
 		}
 	}
 }
