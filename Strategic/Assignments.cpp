@@ -560,8 +560,6 @@ void HandleShadingOfLinesForSnitchSectorMenu( void );
 // Flugente: prisoner menu
 void HandleShadingOfLinesForPrisonerMenu( void );
 
-// post message about contract
-void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract );
 
 BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier );
@@ -12879,40 +12877,69 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 		switch( iValue )
 		{
-		case( CONTRACT_MENU_DAY ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_1_DAY );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_1_DAY );
+			case( CONTRACT_MENU_DAY ):
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i=0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_1_DAY);
+					}
+				}
+				else
+				{
+					MercContractHandling( pSoldier, CONTRACT_EXTEND_1_DAY );
+				}
 				fOkToClose = TRUE;
 			break;
 			case( CONTRACT_MENU_WEEK ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_1_WEEK );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_1_WEEK );
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i = 0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_1_WEEK);
+					}
+				}
+				else
+				{
+					MercContractHandling(pSoldier, CONTRACT_EXTEND_1_WEEK);
+				}
 				fOkToClose = TRUE;
 			break;
 			case( CONTRACT_MENU_TWO_WEEKS ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_2_WEEK );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_2_WEEK );
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i = 0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_2_WEEK);
+					}
+				}
+				else
+				{
+					MercContractHandling(pSoldier, CONTRACT_EXTEND_2_WEEK);
+				}
 				fOkToClose = TRUE;
 			break;
 
 			case( CONTRACT_MENU_TERMINATE ):
-		gpDismissSoldier = pSoldier;
+				gpDismissSoldier = pSoldier;
 
-		// If in the renewal sequence.. do right away...
-		// else put up requester.
-			if ( gfInContractMenuFromRenewSequence )
-		{
-			MercDismissConfirmCallBack( MSG_BOX_RETURN_YES );
-		}
-		else
-		{
-			// The game should be unpaused when this message box disappears
-			UnPauseGame();
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
-		}
+				// If in the renewal sequence.. do right away...
+				// else put up requester.
+				if ( gfInContractMenuFromRenewSequence )
+				{
+					MercDismissConfirmCallBack( MSG_BOX_RETURN_YES );
+				}
+				else
+				{
+					// The game should be unpaused when this message box disappears
+					UnPauseGame();
+					DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
+				}
 
-		fOkToClose = TRUE;
-
+				fOkToClose = TRUE;
 			break;
 		}
 
@@ -12929,13 +12956,12 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		fGlowContractRegion = FALSE;
 		fShowContractMenu = FALSE;
 
-	// dirty region
+		// dirty region
 		fTeamPanelDirty = TRUE;
 		fMapScreenBottomDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
-	gfRenderPBInterface = TRUE;
+		gfRenderPBInterface = TRUE;
 	}
-
 
 	return;
 }
@@ -14723,14 +14749,6 @@ void HandleShadingOfLinesForSquadMenu( void )
 }
 
 
-void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract )
-{	
-	// send a message stating that offer of contract extension made
-	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Offered to extend %s's contract by another %s.", pCharacter->GetName(), pContractExtendStrings[ iContract ] );
-
-	return;
-}
-
 BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier )
 {
 	BOOLEAN fVehiclePresent=FALSE;
@@ -15293,6 +15311,134 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  ResizeBoxToText( ghContractBox );
 
 }
+
+
+void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT32 BiweeklySalaries)
+{
+	UINT32 hStringHandle;
+	UINT32 uiCounter;
+	CHAR16 sString[50];
+	CHAR16 sDollarString[50];
+
+	// rebuild contractbox for this merc
+	RemoveBox(ghContractBox);
+	ghContractBox = -1;
+	fShowContractMenu = TRUE;
+
+	ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH) / 2 + OrigContractPosition.iX;
+	ContractPosition.iY = yResOffset + OrigContractPosition.iY;
+
+	if (giBoxY != 0)
+	{
+		ContractPosition.iX = giBoxY;
+	}
+
+	CreatePopUpBox(&ghContractBox, ContractDimensions, ContractPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_RESIZE));
+	SetBoxBuffer(ghContractBox, FRAME_BUFFER);
+	SetBorderType(ghContractBox, guiPOPUPBORDERS);
+	SetBackGroundSurface(ghContractBox, guiPOPUPTEX);
+	SetMargins(ghContractBox, 6, 6, 4, 4);
+	SetLineSpace(ghContractBox, 2);
+
+	// set current box to this one
+	SetCurrentBox(ghContractBox);
+
+	// not null character?
+	//if (pCharacter != NULL)
+	{
+		for (uiCounter = 0; uiCounter < MAX_CONTRACT_MENU_STRING_COUNT; uiCounter++)
+		{
+			switch (uiCounter)
+			{
+			case(CONTRACT_MENU_CURRENT_FUNDS):
+				/*
+								// add current balance after title string
+								swprintf( sDollarString, L"%d", LaptopSaveInfo.iCurrentBalance);
+								InsertCommasForDollarFigure( sDollarString );
+								InsertDollarSignInToString( sDollarString );
+								swprintf( sString, L"%s %s",	pContractStrings[uiCounter], sDollarString );
+								AddMonoString(&hStringHandle, sString);
+				*/
+				AddMonoString(&hStringHandle, pContractStrings[uiCounter]);
+				break;
+			case(CONTRACT_MENU_DAY):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%d", DailySalaries);
+				}
+				InsertCommasForDollarFigure(sDollarString);
+				InsertDollarSignInToString(sDollarString);
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			case(CONTRACT_MENU_WEEK):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%d", WeeklySalaries);
+				}
+
+				InsertCommasForDollarFigure(sDollarString);
+				InsertDollarSignInToString(sDollarString);
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			case(CONTRACT_MENU_TWO_WEEKS):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%d", BiweeklySalaries);
+				}
+
+
+				InsertCommasForDollarFigure(sDollarString);
+				InsertDollarSignInToString(sDollarString);
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			default:
+				AddMonoString(&hStringHandle, pContractStrings[uiCounter]);
+				break;
+			}
+			UnHighLightLine(hStringHandle);
+		}
+	}
+
+
+	SetBoxFont(ghContractBox, MAP_SCREEN_FONT);
+	SetBoxHighLight(ghContractBox, FONT_WHITE);
+	SetBoxForeground(ghContractBox, FONT_LTGREEN);
+	SetBoxBackground(ghContractBox, FONT_BLACK);
+
+	// shaded color..for darkened text
+	SetBoxShade(ghContractBox, FONT_GRAY7);
+
+	//if (pCharacter != NULL)
+	{
+		// now set the color for the current balance value
+		SetBoxLineForeground(ghContractBox, 0, FONT_YELLOW);
+	}
+
+	// resize box to text
+	ResizeBoxToText(ghContractBox);
+
+	fTeamPanelDirty = TRUE;
+	fCharacterInfoPanelDirty = TRUE;
+}
+
 
 void CreateAttributeBox( void )
 {

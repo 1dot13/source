@@ -134,6 +134,8 @@ extern BOOLEAN gfInChangeArrivalSectorMode;
 
 extern BOOLEAN gfSkyriderEmptyHelpGiven;
 
+extern std::vector<SOLDIERTYPE*> gSelectedSoldiers;
+
 
 BOOLEAN SetInfoChar(UINT16 ubID);
 void EndMapScreen( BOOLEAN fDuringFade );

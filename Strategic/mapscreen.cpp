@@ -131,6 +131,8 @@
 #include "LuaInitNPCs.h"
 #endif
 
+std::vector<SOLDIERTYPE*> gSelectedSoldiers{};
+
 // Flugente: militia movement
 
 // plot
@@ -790,6 +792,7 @@ void InterruptTimeForMenus( void );
 void CreateAttributeBox( void );
 void CreateVehicleBox( void );
 void CreateContractBox( SOLDIERTYPE *pCharacter );
+void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT32 BiweeklySalaries);
 void CreateAssignmentsBox( void );
 void CreateTrainingBox( void );
 void CreateMercRemoveAssignBox( void );
@@ -12014,6 +12017,67 @@ void TeamListSleepRegionMvtCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 }
 
 
+static void HandleSelectedMercsContract()
+{
+	INT32 iCounter = 0;
+	UINT8 ubNumberOfSelectedSoldiers = 0;
+	INT32 DailySalaries = 0;
+	INT32 WeeklySalaries = 0;
+	INT32 BiweeklySalaries = 0;
+	SOLDIERTYPE* pSoldier = nullptr;
+	gSelectedSoldiers.clear();
+
+	for (iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter)
+	{
+		pSoldier = nullptr;
+
+		// if the current character in the list is valid...then grab soldier pointer for the character
+		if (gCharactersList[iCounter].fValid)
+		{
+			// get the soldier pointer
+			pSoldier = &Menptr[gCharactersList[iCounter].usSolID];
+
+			if (pSoldier->bActive == FALSE)
+			{
+				continue;
+			}
+
+			if (IsEntryInSelectedListSet((INT8)iCounter) == FALSE)
+			{
+				continue;
+			}
+
+			if (CanExtendContractForCharSlot((INT8)iCounter))
+			{
+				// up the total number of soldiers
+				gSelectedSoldiers.push_back(pSoldier);
+				ubNumberOfSelectedSoldiers++;
+
+				DailySalaries += gMercProfiles[pSoldier->ubProfile].sSalary;
+				WeeklySalaries += gMercProfiles[pSoldier->ubProfile].uiWeeklySalary;
+				BiweeklySalaries += gMercProfiles[pSoldier->ubProfile].uiBiWeeklySalary;
+
+				bSelectedContractChar = bSelectedInfoChar;
+				giContractHighLine = bSelectedContractChar;
+			}
+		}
+	}
+
+	if (ubNumberOfSelectedSoldiers > 1)
+	{
+		for (size_t i = 0; i < ubNumberOfSelectedSoldiers; i++)
+		{
+			CheckIfSalaryIncreasedAndSayQuote(gSelectedSoldiers[i], false);
+		}
+
+		CreateContractBoxMultiSelect(DailySalaries, WeeklySalaries, BiweeklySalaries);
+	}
+	else if (ubNumberOfSelectedSoldiers == 1)
+	{
+		RequestContractMenu();
+	}
+}
+
 
 void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 {
@@ -12027,6 +12091,7 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 // marke strogg more mercs must add skipped mercs FIRSTmercTOdisplay
 	iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
+#if 0
 	if( gCharactersList[ iValue ].fValid == TRUE && ValidSelectableCharForNextOrPrev(iValue + FIRSTmercTOdisplay))
 	{
 		if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
@@ -12047,7 +12112,29 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		ContractRegionBtnCallback( pRegion, iReason );
 	}
+#else
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if ((gCharactersList[iValue + FIRSTmercTOdisplay].fValid == TRUE))
+		{
+			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+			if (HandleCtrlOrShiftInTeamPanel((INT8)iValue + FIRSTmercTOdisplay, FALSE))
+			{
+				return;
+			}
 
+			// reset list if the clicked character isn't also selected
+			ChangeSelectedInfoChar((INT8)iValue + FIRSTmercTOdisplay, (BOOLEAN)(IsEntryInSelectedListSet((INT8)iValue + FIRSTmercTOdisplay) == FALSE));
+
+			HandleSelectedMercsContract();
+		}
+		else
+		{
+			// reset selected characters
+			ResetAllSelectedCharacterModes();
+		}
+	}
+#endif
 	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		// reset selected characters
@@ -12741,7 +12828,8 @@ void HandleShadingOfLinesForContractMenu( void )
 	}
 
 	// if THIS soldier is involved in a fight (dismissing in a hostile sector IS ok...)
-	if( ( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bInSector )
+	// Also if we have multiple mercs selected, disable terminating contracts
+	if( gSelectedSoldiers.size() > 0 || (( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bInSector ))
 	{
 		ShadeStringInBox( ghContractBox, CONTRACT_MENU_TERMINATE );
 	}
