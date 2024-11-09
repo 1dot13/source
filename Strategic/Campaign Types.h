@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "DEBUG.H"
+#include <map>
 
 const int MAXIMUM_VALID_X_COORDINATE = 16;
 const int MINIMUM_VALID_X_COORDINATE = 1;
@@ -223,6 +224,11 @@ enum
 	NUM_RISKS,
 };
 
+enum class FacilityRiskVectorTypes
+{
+	RISK_DRUG_ITEMS,
+};
+
 typedef struct FACILITYRISKTYPE
 {
 	// The risks involved with perfoming an assignment at a specific facility.
@@ -231,6 +237,7 @@ typedef struct FACILITYRISKTYPE
 	INT8 bBaseEffect;			// Base result. If negative, result will always be negative. If positive, result will always be positive.
 								// If 0, result can be either negative or positive.
 	UINT8 ubRange;				// Range of deviation for the base effect.
+	std::map<FacilityRiskVectorTypes, std::vector<INT16>> valueVectors;		// Optional additional data
 
 } FACILITYRISKTYPE;
 
@@ -333,7 +340,6 @@ typedef struct FACILITYTYPE
 	std::vector<PRODUCTION_LINE> ProductionData;
 
 } FACILITYTYPE;
-#define FACILITYTYPE_SIZEOF_POD offsetof(FACILITYTYPE, ProductionData)
 
 // HEADROCK HAM 3.5: Maximum number of different facility types
 #define MAX_NUM_FACILITY_TYPES 255

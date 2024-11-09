@@ -1,4 +1,4 @@
-#include "lua/lua_table.h"
+#include "lua_table.h"
 
 /*
  *  Table constructors

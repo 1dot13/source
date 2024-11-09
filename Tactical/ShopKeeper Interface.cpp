@@ -607,8 +607,6 @@ void EnableAllDealersOfferSlots( void );
 
 void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY );
 
-extern BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
-
 #ifdef JA2TESTVERSION
 BOOLEAN gfTestDisplayDealerCash = FALSE;
 void DisplayAllDealersCash();
@@ -776,7 +774,7 @@ BOOLEAN EnterShopKeeperInterface()
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
-	if ( GetRangeFromGridNoDiff( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
+	if (PythSpacesAway( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
 	{
 		//so now we know we are too far away to trade, so instead of just quitting,
 		//either post a message or run to the guy like HandleTalkInit does
@@ -2896,13 +2894,6 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 			continue;
 		}
 
-		//shadooow: do not sell any item that is limited to specific system and this system isn't enabled
-		if (((Item[iter->object.usItem].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[iter->object.usItem].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
-		{
-			++iter;
-			continue;
-		}
-
 		bool increment = true;
 		if (ItemIsSpecial(*iter) == false) {
 			StoreObjectsInNextFreeDealerInvSlot( &(*iter), gpTempDealersInventory, gbSelectedArmsDealerID );
@@ -3399,8 +3390,7 @@ FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 
 		// an item at 100% is worth full price...
 
-//		if ( Item[ usItemIndex ].fFlags & ITEM_REPAIRABLE )
-		if ( Item[ usItemIndex ].repairable  )
+		if (ItemIsRepairable(usItemIndex))
 		{
 			// a REPAIRABLE item at 0% is still worth 50% of its full price, not 0%
 			dConditionModifier = 0.5f + ( bStatus / (FLOAT)200 );
@@ -5014,8 +5004,7 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 	}
 	
 	//if the highlighted object is an attachment
-//	if( Item[ pItemObject->usItem ].fFlags & ITEM_ATTACHMENT )
-	if( Item[ pItemObject->usItem ].attachment  )
+	if(ItemIsAttachment(pItemObject->usItem))
 	{
 		if( ValidAttachment( pItemObject->usItem, gpHighLightedItemObject ) )
 			return( TRUE );
@@ -5653,7 +5642,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			}
 
 			//if the item is a rocket rifle
-			if( ItemIsARocketRifle( PlayersOfferArea[ bSlotID ].sItemIndex ) )
+			if(ItemHasFingerPrintID( PlayersOfferArea[ bSlotID ].sItemIndex ) )
 			{
 				fRocketRifleWasEvaluated = TRUE;
 			}
@@ -5723,8 +5712,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			// only otherwise repairable items count as actual rejections
-//			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].fFlags & ITEM_REPAIRABLE )
-			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].repairable  )
+			if (ItemIsRepairable(PlayersOfferArea[bSlotID].sItemIndex))
 			{
 				uiEvalResult = EVAL_RESULT_DONT_HANDLE;
 			}
@@ -6363,7 +6351,7 @@ void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 
 				// strip off any loaded ammo/payload
 				// Exception: don't do this with rocket launchers, their "shots left" are fake and this screws 'em up!
-				if ( !Item[usItem].singleshotrocketlauncher ) // Madd rpg - still do this
+				if ( !ItemIsSingleShotRocketLauncher(usItem)) // Madd rpg - still do this
 				{
 					pData->data.gun.usGunAmmoItem = NONE;
 					pData->data.gun.ubGunShotsLeft = 0;
@@ -6668,7 +6656,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			// Get range to shopkeeper
-			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sDestGridNo );
+			uiRange = PythSpacesAway( pSoldier->sGridNo, sDestGridNo );
 
 			// and is close enough to talk to the shopkeeper (use this define INSTEAD of PASSING_ITEM_DISTANCE_OKLIFE!)
 			if ( uiRange <= NPC_TALK_RADIUS )

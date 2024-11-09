@@ -2598,7 +2598,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// AGI
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_AGI_Y-1);
 					ClipRect.iBottom = (SM_AGI_Y-1) + SM_STATS_HEIGHT;
@@ -2610,7 +2610,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// DEX
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_DEX_Y-1);
 					ClipRect.iBottom = (SM_DEX_Y-1) + SM_STATS_HEIGHT;
@@ -2622,7 +2622,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// STR
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_STR_Y-1);
 					ClipRect.iBottom = (SM_STR_Y-1) + SM_STATS_HEIGHT;
@@ -2634,7 +2634,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// WIS
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_WIS_Y-1);
 					ClipRect.iBottom = (SM_WIS_Y-1) + SM_STATS_HEIGHT;
@@ -2646,7 +2646,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MRK
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MRKM_Y-1);
 					ClipRect.iBottom = (SM_MRKM_Y-1) + SM_STATS_HEIGHT;
@@ -2658,7 +2658,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// LDR
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_CHAR_Y-1);
 					ClipRect.iBottom = (SM_CHAR_Y-1) + SM_STATS_HEIGHT;
@@ -2670,7 +2670,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MECH
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MECH_Y-1);
 					ClipRect.iBottom = (SM_MECH_Y-1) + SM_STATS_HEIGHT;
@@ -2682,7 +2682,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// EXPLO
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPL_Y-1);
 					ClipRect.iBottom = (SM_EXPL_Y-1) + SM_STATS_HEIGHT;
@@ -2694,7 +2694,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// MED
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MED_Y-1);
 					ClipRect.iBottom = (SM_MED_Y-1) + SM_STATS_HEIGHT;
@@ -2706,7 +2706,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				// EXPLEVEL
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain)
 				{
-					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, gpSMCurrentMerc->stats.bExpLevel);
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, &gMercProfiles[gpSMCurrentMerc->ubProfile]);
 					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPLVL_Y-1);
 					ClipRect.iBottom = (SM_EXPLVL_Y-1) + SM_STATS_HEIGHT;
@@ -3373,7 +3373,7 @@ BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 u
 			else
 			{
 				// Do we have nothing or the leather vest or kevlar leather vest?
-				if ( Item[usReplaceItem].leatherjacket ||
+				if (ItemIsLeatherJacket(usReplaceItem) ||
 						usReplaceItem == COMPOUND18 ||
 						usReplaceItem == JAR_QUEEN_CREATURE_BLOOD )
 				{
@@ -4044,7 +4044,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !ItemIsSingleShotRocketLauncher(gpSMCurrentMerc->inv[ uiHandPos ].usItem) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{
 					EmptyWeaponMagazine( &(gpSMCurrentMerc->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
 					gpItemPointer = &gItemPointer;
@@ -7096,22 +7096,23 @@ void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 {
 	INT16	bMaxPoints;
+	UINT16 usItem = pObj->usItem;
 
-	if ( !(Item[pObj->usItem].usItemClass & IC_AMMO || Item[pObj->usItem].usItemClass & IC_KIT || Item[pObj->usItem].usItemClass & IC_MEDKIT || Item[pObj->usItem].canteen || Item[pObj->usItem].gascan || Item[pObj->usItem].alcohol > 0.0f) )
+	if ( !(Item[usItem].usItemClass & IC_AMMO || Item[usItem].usItemClass & IC_KIT || Item[usItem].usItemClass & IC_MEDKIT || ItemIsCanteen(usItem) || ItemIsGascan(usItem) || Item[usItem].alcohol > 0.0f) )
 	{
 		return;
 	}
 
-	if ( Item[ pObj->usItem ].usItemClass & IC_AMMO )
+	if ( Item[ usItem ].usItemClass & IC_AMMO )
 	{
-		bMaxPoints = Magazine[ Item[ pObj->usItem ].ubClassIndex ].ubMagSize;
+		bMaxPoints = Magazine[ Item[ usItem ].ubClassIndex ].ubMagSize;
 	}
 	else
 	{
 		bMaxPoints = 100;
 	}
 
-	if ( pCursorObj && pCursorObj->usItem == pObj->usItem )
+	if ( pCursorObj && pCursorObj->usItem == usItem )
 	{
 		DistributeStatus(pCursorObj, pObj, bMaxPoints);
 	}
@@ -7120,13 +7121,13 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 	// Flugente: one of the items on the stack might not be full. Make sure it is the first one, so the player can see what is missing at a glance
 	if ( pObj->ubNumberOfObjects > 1 )
 	{
-		if ( Item[pObj->usItem].usItemClass & IC_AMMO )
+		if ( Item[usItem].usItemClass & IC_AMMO )
 		{
 			UINT16 shots_first	= (*pObj)[0]->data.ubShotsLeft;
 			(*pObj)[0]->data.ubShotsLeft = (*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft;
 			(*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft = shots_first;
 		}
-		else if ( Item[pObj->usItem].usItemClass & IC_MAPFILTER_KIT )
+		else if ( Item[usItem].usItemClass & IC_MAPFILTER_KIT )
 		{
 			INT16 status_first = (*pObj)[0]->data.objectStatus;
 			(*pObj)[0]->data.objectStatus = (*pObj)[pObj->ubNumberOfObjects - 1]->data.objectStatus;

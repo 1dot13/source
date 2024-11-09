@@ -808,7 +808,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 
 		if ( apStr )
 		{
-			swprintf( atStr, szLaptopStatText[0], threateneffectiveness );
+			swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_THREATEN_EFFECTIVENESS], threateneffectiveness );
 			wcscat( apStr, atStr );
 		}
 
@@ -818,7 +818,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 	{
 		if ( apStr )
 		{
-			swprintf( atStr, szLaptopStatText[1], gMercProfiles[usProfile].bLeadership );
+			swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_LEADERSHIP], gMercProfiles[usProfile].bLeadership );
 			wcscat( apStr, atStr );
 		}
 
@@ -829,7 +829,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 
 	if ( apStr )
 	{
-		swprintf( atStr, szLaptopStatText[2], approachfactor );
+		swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_APPROACH_MODIFIER], approachfactor );
 		wcscat( apStr, atStr );
 	}
 
@@ -855,7 +855,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 
 		if ( apStr )
 		{
-			swprintf( atStr, szLaptopStatText[3], bgmodifier );
+			swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_BACKGROUND_MODIFIER], bgmodifier );
 			wcscat( apStr, atStr );
 		}
 
@@ -868,7 +868,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 				swprintf( atStr, L"  \n" );
 				wcscat( apStr, atStr );
 
-				swprintf( atStr, szLaptopStatText[4] );
+				swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_ASSERTIVE] );
 				wcscat( apStr, atStr );
 			}
 			else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_MALICIOUS ) )
@@ -876,7 +876,7 @@ INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apSt
 				swprintf( atStr, L"  \n" );
 				wcscat( apStr, atStr );
 
-				swprintf( atStr, szLaptopStatText[5] );
+				swprintf( atStr, szLaptopStatText[LAPTOP_STAT_TEXT_MALICIOUS] );
 				wcscat( apStr, atStr );
 			}
 		}
@@ -1149,7 +1149,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 	ubLastQuoteRecord = NUM_NPC_QUOTE_RECORDS - 1;
 
 	usItemToConsider = pObj->usItem;
-	if ( Item[ usItemToConsider ].usItemClass == IC_GUN && !Item[usItemToConsider].rocketlauncher  )
+	if ( Item[ usItemToConsider ].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItemToConsider) )
 	{
 		UINT8 ubWeaponClass;
 

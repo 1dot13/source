@@ -211,6 +211,11 @@ enum {
 	BG_MAX,
 };
 
+enum class BackgroundVectorTypes {
+	BG_DRUGUSE_TYPES,
+	BG_DRUGUSE_ITEMS,
+};
+
 typedef struct
 {
 	UINT16		uiIndex;
@@ -220,6 +225,7 @@ typedef struct
 
 	UINT64		uiFlags;						// this flagmask defines what special properties this background has (on/off behaviour)	
 	INT16		value[BG_MAX];					// property values
+	std::map<BackgroundVectorTypes, std::vector<INT16>> valueVectors;	// optional additional data
 } BACKGROUND_VALUES;
 
 #define NUM_BACKGROUND 500

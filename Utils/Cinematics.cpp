@@ -194,19 +194,6 @@ SMKFLIC *SmkOpenFlic(const CHAR8 *cFilename)
 		return(NULL);
 	}
 
-#ifndef USE_VFS
-	// Attempt opening the filename
-	if(!(pSmack->hFileHandle=FileOpen(cFilename, FILE_OPEN_EXISTING | FILE_ACCESS_READ, FALSE)))
-	{
-		ErrorMsg("SMK ERROR: Can't open the SMK file");
-		return(NULL);
-	}
-
-	HANDLE	hFile;
-
-	//Get the real file handle for the file man handle for the smacker file
-	hFile = GetRealFileHandleFromFileManFileHandle( pSmack->hFileHandle );
-#else
 	vfs::Path introname(cFilename);
 	vfs::Path dir,filename;
 	introname.splitLast(dir,filename);
@@ -232,7 +219,6 @@ SMKFLIC *SmkOpenFlic(const CHAR8 *cFilename)
 			SGP_RETHROW(_BS(L"Intro file \"") << filename << L"\" could not be extracted" << _BS::wget, ex);
 		}
 	}
-#endif
 
 	// Allocate a Smacker buffer for video decompression
 	if(!(pSmack->SmackBuffer=SmackBufferOpen(hDisplayWindow,SMACKAUTOBLIT,SCREEN_WIDTH,SCREEN_HEIGHT,0,0)))
@@ -240,9 +226,6 @@ SMKFLIC *SmkOpenFlic(const CHAR8 *cFilename)
 		ErrorMsg("SMK ERROR: Can't allocate a Smacker decompression buffer");
 		return(NULL);
 	}
-#ifndef USE_VFS
-	if(!(pSmack->SmackHandle=SmackOpen((CHAR8 *)hFile, SMACKFILEHANDLE | SMACKTRACKS, SMACKAUTOEXTRA)))
-#else
 //	if(!(pSmack->SmackHandle=SmackOpen(cFilename, SMACKTRACKS, SMACKAUTOEXTRA)))
 	vfs::Path tempfilename;
 	try
@@ -258,7 +241,6 @@ SMKFLIC *SmkOpenFlic(const CHAR8 *cFilename)
 		SGP_RETHROW(L"Temporary intro file could not be read", ex);
 	}
 	if(!(pSmack->SmackHandle=SmackOpen(tempfilename.to_string().c_str(), SMACKTRACKS, SMACKAUTOEXTRA)))
-#endif
 	{
 		ErrorMsg("SMK ERROR: Smacker won't open the SMK file");
 		return(NULL);

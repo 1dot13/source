@@ -168,7 +168,7 @@ INT16		ITEMDESC_DONE_Y;
 #define		DOTDOTDOT L"..."
 #define		COMMA_AND_SPACE L", "
 
-#define		ITEM_PROS_AND_CONS( usItem ) ( ( Item[ usItem ].usItemClass & IC_GUN && !Item[ usItem ].rocketlauncher ) )
+#define		ITEM_PROS_AND_CONS( usItem ) ( ( Item[ usItem ].usItemClass & IC_GUN && !ItemIsRocketLauncher(usItem) ) )
 
 #define		ITEMDESC_ITEM_STATUS_WIDTH			2
 #define		ITEMDESC_ITEM_WIDTH			117
@@ -2666,7 +2666,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 		}
 
 		// IF it's the second hand and this hand cannot contain anything, remove the second hand position graphic
-		if (sPocket == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].twohanded )
+		if (sPocket == SECONDHANDPOS && ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem))
 		{
 			// CHRISL: Change coords for STI that covers 2nd hand location when carrying a 2handed weapon
 			if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
@@ -2710,7 +2710,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 		fHatchItOut = TRUE;
 	}
 	// CHRISL: Don't hatch second hand position if we're holding a two handed item
-	else if ( sPocket == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].twohanded )
+	else if ( sPocket == SECONDHANDPOS && ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) )
 	{
 		fHatchItOut = FALSE;
 	}
@@ -2832,8 +2832,8 @@ BOOLEAN	CompatibleItemForApplyingOnMerc(OBJECTTYPE *pTestObject)
 
 
 	//Shadooow: rewritten to use new item flags and check canteen not empty
-	if (((HasItemFlag(usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving) || Item[usItem].camouflagekit || usItem == JAR_ELIXIR ||
-	Item[usItem].clothestype || Item[usItem].drugtype || Item[usItem].foodtype)	&& (!Item[usItem].canteen || (*pTestObject)[0]->data.objectStatus > 1))
+	if (((HasItemFlag(usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving) || ItemIsCamoKit(usItem) || usItem == JAR_ELIXIR ||
+	Item[usItem].clothestype || Item[usItem].drugtype || Item[usItem].foodtype)	&& (!ItemIsCanteen(usItem) || (*pTestObject)[0]->data.objectStatus > 1))
 	{
 		return( TRUE );
 	}
@@ -2913,20 +2913,16 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 
 BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl ch76 091113
 {
-	UINT32 uiLoop = 0;
-	while ( Attachment[uiLoop][0] )
+	for (UINT32 uiLoop = 0; uiLoop < gMAXATTACHMENTS_READ; uiLoop++)
 	{
-		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem )
+		if (Attachment[uiLoop].attachmentIndex == usAttItem && Attachment[uiLoop].itemIndex == usItem || Attachment[uiLoop].attachmentIndex == usItem && Attachment[uiLoop].itemIndex == usAttItem)
 			return(TRUE);
-		++uiLoop;
 	}
 
-	uiLoop = 0;
-	while ( Launchable[uiLoop][0] )
+	for (UINT32 uiLoop = 0; uiLoop < gMAXLAUNCHABLES_READ; uiLoop++)
 	{
 		if ( Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem )
 			return(TRUE);
-		++uiLoop;
 	}
 
 	return(FALSE);
@@ -3014,14 +3010,14 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 
 	UINT32 invsize = pSoldier->inv.size();
 	// First test attachments, which almost any type of item can have....
-	if ( !(Item[ pTestObject->usItem ].hiddenaddon ) )
+	if ( !(ItemIsHiddenAddon(pTestObject->usItem)) )
 	{
 		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && 
-				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+			if (pObject == pTestObject || ItemIsHiddenAddon(pObject->usItem) || (!ItemIsAttachment(pObject->usItem) &&
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !ItemIsAttachment(pTestObject->usItem) &&
 				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
@@ -3120,14 +3116,14 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory(SOLDIERTYPE *pSoldier, INT32 bInvP
 	}
 
 	// First test attachments, which almost any type of item can have....
-	if (!(Item[pTestObject->usItem].hiddenaddon))
+	if (!(ItemIsHiddenAddon(pTestObject->usItem)))
 	{
 		for (cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt)
 		{
 			pObject = &(pInventoryPoolList[iStartSlotNumber + cnt].object);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment &&
-				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+			if (pObject == pTestObject || ItemIsHiddenAddon(pObject->usItem) || (!ItemIsAttachment(pObject->usItem) &&
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !ItemIsAttachment(pTestObject->usItem) &&
 				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
@@ -3274,14 +3270,14 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 
 	UINT32 invsize = pSoldier->inv.size();
 	// First test attachments, which almost any type of item can have....
-	if (!(Item[pTestObject->usItem].hiddenaddon))
+	if (!(ItemIsHiddenAddon(pTestObject->usItem)))
 	{
 		for (cnt = 0; cnt < invsize; ++cnt)
 		{
 			pObject = &(pSoldier->inv[cnt]);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment &&
-				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+			if (pObject == pTestObject || ItemIsHiddenAddon(pObject->usItem) || (!ItemIsAttachment(pObject->usItem) &&
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !ItemIsAttachment(pTestObject->usItem) &&
 				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
@@ -3306,7 +3302,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		}
 	}
 	//if the test object is hidden addon or attachment, it won't be ammunition or gun so skip this
-	if (!Item[pTestObject->usItem].hiddenaddon && !Item[pTestObject->usItem].attachment)
+	if (!ItemIsHiddenAddon(pTestObject->usItem) && !ItemIsAttachment(pTestObject->usItem))
 	{
 		if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 		{
@@ -3820,7 +3816,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 			}
 			
-			if ( pItem->usItemClass == IC_GUN && !Item[pObject->usItem].rocketlauncher )
+			if ( pItem->usItemClass == IC_GUN && !ItemIsRocketLauncher(pObject->usItem) )
 			{
 				sNewY = sY + sHeight - 10;
 				sNewX = sX + 1;
@@ -3876,7 +3872,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					}
 				}
 
-				if ( pItemShown->usItemClass == IC_GUN && !Item[pObjShown->usItem].rocketlauncher )
+				if ( pItemShown->usItemClass == IC_GUN && !ItemIsRocketLauncher(pObjShown->usItem) )
 				{
 					SetRGBFontForeground( AmmoTypes[( *pObjShown )[iter]->data.gun.ubGunAmmoType].red,
 						AmmoTypes[( *pObjShown )[iter]->data.gun.ubGunAmmoType].green,
@@ -3954,7 +3950,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			}
 
 			// Flugente: overheating
-			if ( gGameExternalOptions.fWeaponOverheating && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel ) )
+			if ( gGameExternalOptions.fWeaponOverheating && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || ItemIsBarrel(pObject->usItem)) )
 			{	
 				OBJECTTYPE*	pObjShown = pObject;
 
@@ -4205,7 +4201,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 
 				if ( ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO ) ||
-					( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher ) ) &&
+					( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !ItemIsRocketLauncher(pSoldier->inv[HANDPOS].usItem)) ) &&
 					pSoldier->usGLDelayMode )
 				{
 					wcscat( pStr, New113Message[MSG113_FIREMODE_GL_DELAYED] );
@@ -4235,7 +4231,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			if ( pSoldier && pObject == &(pSoldier->inv[SECONDHANDPOS] ) && 
 				(pSoldier->bWeaponMode == WM_BURST || pSoldier->bWeaponMode == WM_AUTOFIRE) && 
 				Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN &&
-				!(Item[ pSoldier->inv[HANDPOS ].usItem ].twohanded ) &&
+				!ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) &&
 				pSoldier->IsValidSecondHandBurst() )
 			{
 				sNewY = sY + 13; // rather arbitrary
@@ -4569,7 +4565,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 	}
 
 	//////////////////// GUN DATA //////////////////
-	if ( pItem->usItemClass & IC_GUN && !Item[pObject->usItem].rocketlauncher )
+	if ( pItem->usItemClass & IC_GUN && !ItemIsRocketLauncher(pObject->usItem) )
 	{
 		//////////////// AMMO REMAINING
 
@@ -4808,7 +4804,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 				}
 
 				iCurAsterisk = ATTACHMENT_GENERAL;
-				if (Item[iter->usItem].grenadelauncher )
+				if (ItemIsGrenadeLauncher(iter->usItem))
 				{
 					//iCurAsterisk = ATTACHMENT_GL;
 					uiNumAttachmentsGL++;
@@ -5237,7 +5233,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	}
 
 	// Add ammo eject button for GUN type objects.
-	if ( (Item[ pObject->usItem ].usItemClass & IC_GUN) && !Item[pObject->usItem].rocketlauncher )
+	if ( (Item[ pObject->usItem ].usItemClass & IC_GUN) && !ItemIsRocketLauncher(pObject->usItem) )
 	{
 		if ( GetMagSize(gpItemDescObject) <= 99 )
 		{
@@ -5614,7 +5610,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		}
 
 //		if ( !(Item[ pObject->usItem ].fFlags & ITEM_HIDDEN_ADDON) && ( ValidAttachment( gpItemPointer->usItem, pObject->usItem ) || ValidLaunchable( gpItemPointer->usItem, pObject->usItem ) || ValidMerge( gpItemPointer->usItem, pObject->usItem ) ) )
-		if ( !(Item[ pObject->usItem ].hiddenaddon ) && ( ValidAttachment( gpItemPointer->usItem, pObject ) || ValidLaunchable( gpItemPointer->usItem, pObject->usItem ) || ValidMerge( gpItemPointer->usItem, pObject->usItem ) ) )
+		if ( !(ItemIsHiddenAddon(pObject->usItem)) && ( ValidAttachment( gpItemPointer->usItem, pObject ) || ValidLaunchable( gpItemPointer->usItem, pObject->usItem ) || ValidMerge( gpItemPointer->usItem, pObject->usItem ) ) )
 		{
 			SetUpFastHelpListRegions(
 				gItemDescHelpText.iXPosition,
@@ -5754,7 +5750,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE))
 					{
 						usAttachment = usLoop;
-						if (!Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+						if (!ItemIsHiddenAddon(usAttachment) && !ItemIsHiddenAttachment(usAttachment) && ItemIsLegal(usAttachment))
 						{
 							if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
 							{
@@ -5765,25 +5761,13 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				}
 
 				// sevenfm: check launchables
-				for (UINT16 usLoop = 0; usLoop < MAXITEMS + 1; usLoop++)
+				for (UINT16 usLoop = 0; usLoop < gMAXLAUNCHABLES_READ; usLoop++)
 				{
-					// check that reached end of valid launchables
-					if (Launchable[usLoop][0] == 0)
-						break;
-
 					usAttachment = 0;
 					if (Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
 					{
 						//search primary item launchables.xml
 						usAttachment = Launchable[usLoop][0];
-					}
-
-					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
-					{
-						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
-						{
-							attachList.push_back(usAttachment);
-						}
 					}
 					else
 					{
@@ -5793,25 +5777,33 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						while (cnt)
 						{
 							if (Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+							{
 								usAttachment = Launchable[usLoop][0];
+								break;
+							}
 
 							cnt--, p++;
+						}
+					}
+
+					if (usAttachment > 0 && !ItemIsHiddenAddon(usAttachment) && !ItemIsHiddenAttachment(usAttachment) && ItemIsLegal(usAttachment))
+					{
+						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
+						{
+							attachList.push_back(usAttachment);
 						}
 					}
 				}
 
 				// check all attachments
-				for (UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
+				//TODO: should be optimized using AttachmentBackmap and/or possibly FindAttachmentRange()
+				for (UINT32 uiLoop = 0; uiLoop < gMAXATTACHMENTS_READ; uiLoop++)
 				{
-					// check that reached end of valid attachments
-					if (Attachment[usLoop][0] == 0)
-						break;
-
 					usAttachment = 0;
-					if (Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+					if (Attachment[uiLoop].itemIndex == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[uiLoop].attachmentIndex].nasAttachmentClass)
 					{
 						//search primary item attachments.xml
-						usAttachment = Attachment[usLoop][0];
+						usAttachment = Attachment[uiLoop].attachmentIndex;
 					}
 					else
 					{
@@ -5820,14 +5812,17 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						UINT16* p = cnt ? &attachedList.front() : NULL;
 						while (cnt)
 						{
-							if (Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-								usAttachment = Attachment[usLoop][0];
+							if (Attachment[uiLoop].itemIndex == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[uiLoop].attachmentIndex].nasAttachmentClass)
+							{
+								usAttachment = Attachment[uiLoop].attachmentIndex;
+								break;
+							}
 
 							cnt--, p++;
 						}
 					}
 
-					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					if (usAttachment > 0 && !ItemIsHiddenAddon(usAttachment) && !ItemIsHiddenAttachment(usAttachment) && ItemIsLegal(usAttachment))
 					{
 						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
 						{
@@ -5900,7 +5895,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				for(UINT16 loop = 0; loop < attachList.size(); loop++){
 					usAttachment = attachList[loop];
 					// If the attachment is not hidden
-					if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+					if (usAttachment > 0 && !ItemIsHiddenAddon(usAttachment) && !ItemIsHiddenAttachment(usAttachment))
 					{
 						if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3600)
 						{
@@ -7026,8 +7021,7 @@ void RenderItemDescriptionBox( )
 				//WarmSteel - This hatches out attachment slots one by one, instead of all of em.
 				for(cnt = 0; cnt < (INT32)(*gpItemDescObject)[gubItemDescStatusIndex]->attachments.size(); cnt++)
 				{
-					//if ( ( Item[ gpItemPointer->usItem ].fFlags & ITEM_HIDDEN_ADDON ) ||
-					if ( ( Item[ gpItemPointer->usItem ].hiddenaddon ) ||
+					if (ItemIsHiddenAddon(gpItemPointer->usItem) ||
 
 					 ( !ValidItemAttachmentSlot( gpItemDescObject, gpItemPointer->usItem, FALSE, FALSE, gubItemDescStatusIndex, cnt, FALSE, NULL, usAttachmentSlotIndexVector) &&
 						 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
@@ -7043,8 +7037,7 @@ void RenderItemDescriptionBox( )
 			} else {
 				for(cnt = 0; cnt < OLD_MAX_ATTACHMENTS_101; cnt++)
 				{
-					//if ( ( Item[ gpItemPointer->usItem ].fFlags & ITEM_HIDDEN_ADDON ) ||
-					if ( ( Item[ gpItemPointer->usItem ].hiddenaddon ) ||
+					if (ItemIsHiddenAddon(gpItemPointer->usItem) ||
 
 					 ( !ValidItemAttachment( gpItemDescObject, gpItemPointer->usItem, FALSE, FALSE, gubItemDescStatusIndex, usAttachmentSlotIndexVector) &&
 						 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) && !ValidLaunchable( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
@@ -7076,7 +7069,7 @@ void RenderItemDescriptionBox( )
 				DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
 
 				// Flugente: overheating
-				if ( gGameExternalOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente
+				if ( gGameExternalOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || ItemIsBarrel((iter)->usItem)) )	// Flugente
 				{
 					FLOAT overheatjampercentage = GetGunOverheatDisplayPercentage( &(*iter));
 								
@@ -7224,7 +7217,7 @@ void RenderItemDescriptionBox( )
 			SetFontForeground( FONT_BLACK );
 			SetFontShadow( ITEMDESC_FONTSHADOW2 );
 			// Caliber
-			if ( (Item[gpItemDescObject->usItem].fingerprintid ) && (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubImprintID < NO_PROFILE )
+			if ( ItemHasFingerPrintID(gpItemDescObject->usItem) && (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubImprintID < NO_PROFILE )
 			{
 				// Fingerprint ID
 				swprintf( pStr, L"%s %s (%s)", AmmoCaliber[ Weapon[ gpItemDescObject->usItem ].ubCalibre ], WeaponType[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ], gMercProfiles[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubImprintID ].zNickname );
@@ -7289,7 +7282,7 @@ void RenderItemDescriptionBox( )
 					}
 
 					// Flugente: display temperature string
-					if ( gGameExternalOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].barrel == TRUE ) )
+					if ( gGameExternalOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || ItemIsBarrel(gpItemDescObject->usItem) ) )
 					{						
 						// UDB system displays a string with colored condition text.
 						int regionindex = 8;
@@ -7617,7 +7610,7 @@ void RenderItemDescriptionBox( )
 					FindFontRightCoordinates( gODBItemDescRegions[2][7].sLeft, gODBItemDescRegions[2][7].sTop, gODBItemDescRegions[2][7].sRight - gODBItemDescRegions[2][7].sLeft, gODBItemDescRegions[2][7].sBottom - gODBItemDescRegions[2][7].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 					mprintf( usX, usY, pStr );
 				}
-				if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
+				if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !ItemIsSingleShotRocketLauncher(gpItemDescObject->usItem) )
 				{
 					// DAMAGE
 					SetFontForeground( 6 );
@@ -8370,7 +8363,7 @@ void DeleteItemDescriptionBox( )
 					}
 
 					if (Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && ValidLaunchable(newIter->usItem, gpItemDescObject->usItem) ||
-						Item[gpItemDescObject->usItem].cannon)
+						ItemIsCannon(gpItemDescObject->usItem))
 					{
 						//lalien: changed to charge AP's for reloading a GL/RL
 						ubAPCost = GetAPsToReload(gpItemDescObject);
@@ -9578,7 +9571,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 BOOLEAN ItemCursorInLobRange( INT32 usMapPos )
 {
 	// Draw item depending on distance from buddy
-	if ( GetRangeFromGridNoDiff( usMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
+	if (PythSpacesAway( usMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
 	{
 		return( FALSE );
 	}
@@ -10717,7 +10710,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				else
 				{
-					if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) )
+					if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !ItemIsSingleShotRocketLauncher(gpItemPopupObject->usItem) )
 					{
 						EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
 						InternalMAPBeginItemPointer( gpItemPopupSoldier );
@@ -10728,7 +10721,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			}
 			else
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !ItemIsSingleShotRocketLauncher(gpItemPopupObject->usItem) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{
 					EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
 					gpItemPointer = &gItemPointer;
@@ -12634,7 +12627,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 
 		// Fingerprint ID (Soldier Name)
-		if ( ( Item[pObject->usItem].fingerprintid ) && (*pObject)[subObject]->data.ubImprintID < NO_PROFILE )
+		if ( ItemHasFingerPrintID(pObject->usItem) && (*pObject)[subObject]->data.ubImprintID < NO_PROFILE )
 		{
 			CHAR16		pStr2[20];
 			swprintf( pStr2, L" [%s]", gMercProfiles[ (*pObject)[subObject]->data.ubImprintID ].zNickname );
@@ -13821,7 +13814,7 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 	if (gpItemDescSoldier)
 	{
 		// no planting tripwire in our inventory...
-		if ( Item[ gpItemDescObject->usItem ].tripwire == 1 )
+		if (ItemIsTripwire(gpItemDescObject->usItem))
 			return;
 
 		INT32 iResult;
@@ -13970,14 +13963,14 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 		if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner > 1 && ( (INT32)(*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
 		{
 			// Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
-			if ( ( (&gpItemDescSoldier->inv[HANDPOS])->exists() && Item[ gpItemDescSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpItemDescSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpItemDescSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
+			if ( ( (&gpItemDescSoldier->inv[HANDPOS])->exists() && ItemIsWirecutters(gpItemDescSoldier->inv[HANDPOS].usItem) ) || ( (&gpItemDescSoldier->inv[SECONDHANDPOS])->exists() && ItemIsWirecutters(gpItemDescSoldier->inv[SECONDHANDPOS].usItem) ) )
 			{
 				// + 10 if item gets activated by tripwire
-				if ( Item[gpItemDescObject->usItem].tripwireactivation == 1 )
+				if (ItemHasTripwireActivation(gpItemDescObject->usItem))
 					diff += 10;
 				
 				// + 10 if item is tripwire
-				if ( Item[gpItemDescObject->usItem].tripwire == 1 )
+				if (ItemIsTripwire(gpItemDescObject->usItem))
 					diff += 10;
 			}
 

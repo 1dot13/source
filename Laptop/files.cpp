@@ -476,7 +476,6 @@ void GameInitFiles( )
 {
 	if ( FileExists( FILES_DAT_FILE ) == TRUE )
 	{
-		FileClearAttributes( FILES_DAT_FILE );
 		FileDelete( FILES_DAT_FILE );
 	}
 

@@ -52,9 +52,9 @@
 
 #include "connect.h"
 // needed to use the modularized tactical AI:
-#include "ModularizedTacticalAI/include/Plan.h"
-#include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"
-#include "ModularizedTacticalAI/include/AbstractPlanFactory.h"
+#include "Plan.h"
+#include "PlanFactoryLibrary.h"
+#include "AbstractPlanFactory.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -217,7 +217,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-	if (!gfLogsEnabled)
+	if (!gfLogsEnabled || pSoldier == nullptr)
 		return;
 
 	memset(buf, 0, 1024 * sizeof(char));
@@ -235,17 +235,14 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 
 	sprintf(msg, "");
 
-	if (pSoldier)
-	{
-		sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
-		strcat(msg, buf);
+	sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+	strcat(msg, buf);
 
-		if (pSoldier->ubProfile != NO_PROFILE)
-		{
-			wcstombs(buf, pSoldier->GetName(), 1024 - 1);
-			strcat(msg, " ");
-			strcat(msg, buf);
-		}
+	if (pSoldier->ubProfile != NO_PROFILE)
+	{
+		wcstombs(buf, pSoldier->GetName(), 1024 - 1);
+		strcat(msg, " ");
+		strcat(msg, buf);
 	}
 
 	strcat(msg, " ");
@@ -266,13 +263,10 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 		strcat(msg, " ");
 		strcat(msg, szAction[bAction]);
 
-		if (pSoldier)
-		{
-			sprintf(buf, " %d", pSoldier->aiData.usActionData);
-			strcat(msg, buf);
-		}
+		sprintf(buf, " %d", pSoldier->aiData.usActionData);
+		strcat(msg, buf);
 
-		if (pSoldier && pSoldier->aiData.bNextAction != AI_ACTION_NONE)
+		if (pSoldier->aiData.bNextAction != AI_ACTION_NONE)
 		{
 			strcat(msg, " ");
 			strcat(msg, szAction[pSoldier->aiData.bNextAction]);
@@ -756,7 +750,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		if (pSoldier->aiData.bAction >= FIRST_MOVEMENT_ACTION && pSoldier->aiData.bAction <= LAST_MOVEMENT_ACTION && !pSoldier->flags.fDelayedMovement)
 		{
 			if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
-			{				
+			{
+				INT8 bEscapeDirection = NOWHERE;
+
 				if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 				{
 					if ( !ACTING_ON_SCHEDULE( pSoldier ) &&  SpacesAway( pSoldier->sGridNo, pSoldier->sAbsoluteFinalDestination ) < 4 )
@@ -797,7 +793,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 					}
 				}
 				// for regular guys still have to check for leaving the map
-				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH)
+				else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH &&
+						GridNoOnEdgeOfMap(pSoldier->sGridNo, &bEscapeDirection) && EscapeDirectionIsValid(&bEscapeDirection))
 				{
 					HandleAITacticalTraversal( pSoldier );
 					return;
@@ -1891,7 +1888,7 @@ UINT32 GetTankCannonIndex()
 {
 	for ( UINT32 i = 0; i < gMAXITEMS_READ; ++i )
 	{
-		if (Item[i].cannon)
+		if (ItemIsCannon(i))
 		{
 			return Item[i].uiIndex;
 		}
@@ -2242,23 +2239,24 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
             // fall through
         case AI_ACTION_FIRE_GUN:              // shoot at nearby opponent
-        case AI_ACTION_THROW_KNIFE:						// throw knife at nearby opponent
-            // randomly decide whether to say civ quote
-
-            if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, pSoldier->ubOppNum );
-            else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
-                PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, pSoldier->ubOppNum );
-            else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_KNIFE, pSoldier->ubOppNum );
-            else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
-            {
-                if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
-                    PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_BLADE );
-                else if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH )
-					PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_HTH );
-            }
-
+		case AI_ACTION_THROW_KNIFE:						// throw knife at nearby opponent
+			// randomly decide whether to say civ quote
+		{
+			UINT16 usItem = pSoldier->inv[HANDPOS].usItem;
+			if (Item[usItem].usItemClass == IC_GUN)
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_FIRE_GUN, pSoldier->ubOppNum);
+			else if (ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem) || ItemIsRocketLauncher(usItem))
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_FIRE_LAUNCHER, pSoldier->ubOppNum);
+			else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[usItem].usItemClass == IC_THROWN && !ItemIsFlare(usItem))
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_THROW_KNIFE, pSoldier->ubOppNum);
+			else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE)
+			{
+				if (Item[usItem].usItemClass == IC_BLADE)
+					PossiblyStartEnemyTaunt(pSoldier, TAUNT_CHARGE_BLADE);
+				else if (Item[usItem].usItemClass == IC_PUNCH)
+					PossiblyStartEnemyTaunt(pSoldier, TAUNT_CHARGE_HTH);
+			}
+		}
             // CC, ATE here - I put in some TEMP randomness...
 			if (!is_networked)
 			{

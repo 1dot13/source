@@ -944,8 +944,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// items normally not sold at shops are unsuitable
-//	if ( Item[ usItemIndex ].fFlags & ITEM_NOT_BUYABLE )
-	if ( Item[ usItemIndex ].notbuyable  )
+	if (ItemIsNotBuyable(usItemIndex))
 	{
 		return(ITEM_SUITABILITY_NONE);
 	}
@@ -971,7 +970,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	//	case JAR:
 	//	case JAR_ELIXIR:
 	//	case JAR_CREATURE_BLOOD:
-		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar )
+		if (ItemIsMedical(usItemIndex) || ItemIsCanteen(usItemIndex) || ItemIsMedicalKit(usItemIndex) || ItemIsLocksmithKit(usItemIndex) || ItemIsToolkit(usItemIndex) || ItemIsCrowbar(usItemIndex) || ItemIsJar(usItemIndex) )
 			return(ITEM_SUITABILITY_ALWAYS);
 	//}
 	
@@ -1455,8 +1454,7 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 
 BOOLEAN CanDealerItemBeSoldUsed( UINT16 usItemIndex )
 {
-//	if ( !( Item[ usItemIndex ].fFlags & ITEM_DAMAGEABLE ) )
-	if ( !( Item[ usItemIndex ].damageable  ) )
+	if ( !ItemIsDamageable(usItemIndex) )
 		return(FALSE);
 
 	// certain items, although they're damagable, shouldn't be sold in a used condition

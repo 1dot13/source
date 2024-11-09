@@ -500,18 +500,18 @@ void UpdateTransportGroupInventory()
 			if (!ItemIsLegal(i, TRUE)) continue;
 			if ((Item[i].usItemClass & IC_AMMO) == 0 && (Item[i].iTransportGroupMaxProgress == 0 || Item[i].iTransportGroupMinProgress > progress || progress > Item[i].iTransportGroupMaxProgress)) continue;
 
-			if (Item[i].medical)
+			if (ItemIsMedical(i))
 			{
-				if (Item[i].firstaidkit) itemMap[MEDICAL_FIRSTAIDKITS].push_back(i);
-				else if (Item[i].medicalkit) itemMap[MEDICAL_MEDKITS].push_back(i);
+				if (ItemIsFirstAidKit(i)) itemMap[MEDICAL_FIRSTAIDKITS].push_back(i);
+				else if (ItemIsMedicalKit(i)) itemMap[MEDICAL_MEDKITS].push_back(i);
 				else itemMap[MEDICAL_OTHER].push_back(i);
 			}
-			else if (Item[i].gascan) itemMap[GAS_CANS].push_back(i);
-			else if (Item[i].toolkit) itemMap[TOOL_KITS].push_back(i);
+			else if (ItemIsGascan(i)) itemMap[GAS_CANS].push_back(i);
+			else if (ItemIsToolkit(i)) itemMap[TOOL_KITS].push_back(i);
 			else if (HasItemFlag(i, RADIO_SET)) itemMap[RADIOS].push_back(i);
 			else if (Item[i].usItemClass & IC_GRENADE)
 			{
-				if (Item[i].glgrenade == 0
+				if (!ItemIsGLgrenade(i)
 				&& Item[i].attachmentclass != AC_GRENADE // not for a grenade launcher
 				&& Item[i].attachmentclass != AC_ROCKET) // not for a rocket launcher
 					itemMap[GRENADE_THROWN].push_back(i);
@@ -523,7 +523,7 @@ void UpdateTransportGroupInventory()
 					itemMap[BACKPACKS].push_back(i);
 				}
 			}
-			else if (Item[i].camouflagekit) itemMap[CAMO_KITS].push_back(i);
+			else if (ItemIsCamoKit(i)) itemMap[CAMO_KITS].push_back(i);
 			else if (Item[i].usItemClass & IC_MISC)
 			{
 				switch (Item[i].attachmentclass)
@@ -555,11 +555,11 @@ void UpdateTransportGroupInventory()
 			{
 				itemMap[GUNS].push_back(i);
 			}
-			else if (Item[i].grenadelauncher)
+			else if (ItemIsGrenadeLauncher(i))
 			{
 				itemMap[GRENADELAUNCHERS].push_back(i);
 			}
-			else if (Item[i].rocketlauncher)
+			else if (ItemIsRocketLauncher(i))
 			{
 				itemMap[ROCKETLAUNCHERS].push_back(i);
 			}
@@ -713,7 +713,7 @@ void UpdateTransportGroupInventory()
 
 								case ROCKETLAUNCHERS:
 									{
-										addItemToInventory(pSoldier, id, Item[id].singleshotrocketlauncher ? 3 : 1);
+										addItemToInventory(pSoldier, id, ItemIsSingleShotRocketLauncher(id) ? 3 : 1);
 
 										const UINT16 launchableId = PickARandomLaunchable(id);
 										if (launchableId == 0) continue; // no launchable matches, skip
@@ -773,7 +773,7 @@ void UpdateTransportGroupInventory()
 					for (int i = 0; i < pSoldier->inv.size(); ++i)
 					{
 						OBJECTTYPE* item = &pSoldier->inv[i];
-						if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
+						if (item->exists() && ItemIsUndroppableByDefault(item->usItem) == FALSE)
 						{
 							item->fFlags &= ~OBJECT_UNDROPPABLE;
 						}
@@ -861,7 +861,7 @@ void UpdateTransportGroupInventory()
 						for (int i = 0; i < pSoldier->inv.size(); ++i)
 						{
 							OBJECTTYPE* item = &pSoldier->inv[i];
-							if (item->exists() && Item[item->usItem].defaultundroppable == FALSE)
+							if (item->exists() && ItemIsUndroppableByDefault(item->usItem) == FALSE)
 							{
 								item->fFlags &= ~OBJECT_UNDROPPABLE;
 							}

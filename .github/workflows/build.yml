@@ -154,7 +154,7 @@ jobs:
           cat dist/versions.env
 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: versions.env
           path: dist/
@@ -179,64 +179,41 @@ jobs:
 
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
-        path: artifacts
+        path: dist
+        pattern: '*_release'
+        merge-multiple: true
 
-    - name: Move release archives to dist/
-      shell: bash
+    - name: Checkout Repo
+      if: github.ref == 'refs/heads/master'
+      uses: actions/checkout@v4
+      with:
+        path: source
+        fetch-depth: 1
+        sparse-checkout: 'README.md'
+    - name: Create latest pre-release
+      if: github.ref == 'refs/heads/master'
+      working-directory: source
       run: |
-        set -eux
-        mkdir dist/
-        mv artifacts/*_release/* dist/
-
-    - name: Delete Latest
-      if: startsWith(github.ref, 'refs/tags/v') == false
-      uses: dev-drprasad/delete-tag-and-release@v1.0
-      with:
-        tag_name: "latest"
+        gh release delete latest --cleanup-tag || true
+        git tag -d latest || true
+        git push --delete origin refs/tags/latest || true
+        git tag latest
+        git push --force origin refs/tags/latest
+        gh release create latest ../dist/* \
+          --generate-notes \
+          --title "Latest (unstable)" \
+          --verify-tag \
+          --prerelease
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - id: release_latest
-      name: Release Latest
-      if: startsWith(github.ref, 'refs/tags/v') == false
-      uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: false
-        artifactErrorsFailBuild: true
-        artifacts: dist/*
-        draft: false
-        generateReleaseNotes: true
-        makeLatest: true
-        name: "Latest (unstable)"
-        prerelease: true
-        tag: "latest"
 
-    - id: release_tag
-      name: Release Tag
-      uses: ncipollo/release-action@v1
+    - name: Upload to tagged release
       if: startsWith(github.ref, 'refs/tags/v')
-      with:
-        allowUpdates: true
-        artifactErrorsFailBuild: true
-        artifacts: dist/*
-        draft: false
-        generateReleaseNotes: true
-        makeLatest: true
-        omitBodyDuringUpdate: true
-        omitDraftDuringUpdate: true
-        omitNameDuringUpdate: true
-        omitPrereleaseDuringUpdate: true
-
-    - name: Show release outputs
-      shell: bash
+      working-directory: source
       run: |
-        echo 'id: '
-        echo -n '${{ steps.release_tag.outputs.id }}'
-        echo -n '${{ steps.release_latest.outputs.id }}'
-        echo ''
-        echo ''
-        echo 'url:'
-        echo -n '${{ steps.release_tag.outputs.html_url }}'
-        echo -n '${{ steps.release_latest.outputs.html_url }}'
-        echo ''
+        exit 0
+        gh release upload "$GITHUB_REF_NAME" ../dist/* --clobber
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

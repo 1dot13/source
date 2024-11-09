@@ -180,7 +180,7 @@ UINT8	GetProperItemCursor( UINT16 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPo
 			//Madd: quick hack to make wirecutter cursor appear when using a knife that can cut through wire
 			// sevenfm: check that not using bayonet attached to the gun
 			//if ( Item[ubItemIndex].wirecutters && IsCuttableWireFenceAtGridNo( sTargetGridNo ) && pSoldier->pathing.bLevel == 0 )
-			if ( Item[ubItemIndex].wirecutters &&
+			if (ItemIsWirecutters(ubItemIndex) &&
 				IsCuttableWireFenceAtGridNo( sTargetGridNo ) &&
 				pSoldier->pathing.bLevel == 0 &&
 				pSoldier->bWeaponMode != WM_ATTACHED_BAYONET)
@@ -676,8 +676,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 						gCTHDisplay.iTargetGridNo = usMapPos;
 						
 						// Calculate distance to target
-						FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-						FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+						INT16 sX, sY, sXMap, sYMap;
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+						FLOAT dDeltaX = (FLOAT)( sX - sXMap );
+						FLOAT dDeltaY = (FLOAT)( sY - sYMap );
 						FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 						CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );
@@ -782,8 +786,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 						gbCtHBurstCount = 0;
 
 						// Calculate distance to target
-						FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-						FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+						INT16 sX, sY, sXMap, sYMap;
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+						FLOAT dDeltaX = (FLOAT)(sX - sXMap);
+						FLOAT dDeltaY = (FLOAT)(sY - sYMap);
 						FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 						CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );
@@ -884,8 +892,12 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 					gCTHDisplay.iTargetGridNo = usMapPos;
 
 					// Calculate distance to target
-					FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( usMapPos ));
-					FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( usMapPos ));
+					INT16 sX, sY, sXMap, sYMap;
+					ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+					ConvertGridNoToCenterCellXY(usMapPos, &sXMap, &sYMap);
+
+					FLOAT dDeltaX = (FLOAT)(sX - sXMap);
+					FLOAT dDeltaY = (FLOAT)(sY - sYMap);
 					FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 					CalcMagFactorSimple( pSoldier, d2DDistance, pSoldier->aiData.bShownAimTime, usMapPos );
@@ -1269,7 +1281,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 
 		//CHRISL: We need to only check the second hand if the weapon in the second hand is onehanded
 		// Check for enough ammo...
-		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) || (pSoldier->IsValidSecondHandShotForReloadingPurposes( ) && !Item[pSoldier->inv[SECONDHANDPOS].usItem].twohanded && !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) ) )
+		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) || (pSoldier->IsValidSecondHandShotForReloadingPurposes( ) && !ItemIsTwoHanded(pSoldier->inv[SECONDHANDPOS].usItem) && !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) ) )
 		{
 			// Check if ANY ammo exists.....
 			if ( FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT ) == NO_SLOT )
@@ -2925,14 +2937,14 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 		return( TRAJECTORYCURS );
 	}
 
-	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || ( pSoldier->bWeaponMode == WM_BURST && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
+	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || ( pSoldier->bWeaponMode == WM_BURST && ItemIsGrenadeLauncher(pSoldier->inv[HANDPOS].usItem) ) )
 	{
 		if ( gGameSettings.fOptions [ TOPTION_GL_BURST_CURSOR ] )
 			return( TARGETCURS );
 		else
 			return ( TRAJECTORYCURS );	
 	}
-	else if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || ( pSoldier->bWeaponMode == WM_AUTOFIRE && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
+	else if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || ( pSoldier->bWeaponMode == WM_AUTOFIRE && ItemIsGrenadeLauncher(pSoldier->inv[HANDPOS].usItem) ) )
 	{
 		if ( gGameSettings.fOptions [ TOPTION_GL_BURST_CURSOR ] )
 			return( TARGETCURS );
@@ -2964,7 +2976,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 	// Flugente: cursor for constructing/deconstructing
 	// at the moment the gridno is not required in these functions, thus 1 suffices
-	if (!Item[usInHand].wirecutters && (IsStructureConstructItem(usInHand, 1, pSoldier) || IsStructureDeconstructItem(usInHand, 1, pSoldier)))
+	if (!ItemIsWirecutters(usInHand) && (IsStructureConstructItem(usInHand, 1, pSoldier) || IsStructureDeconstructItem(usInHand, 1, pSoldier)))
 	{		
 		ubCursor = FORTICURS;
 	}

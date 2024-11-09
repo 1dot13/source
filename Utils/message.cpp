@@ -1522,21 +1522,7 @@ static struct DebugMessageLog {
 void WriteMessageToFile( const STR16 pString )
 {
 #ifdef JA2BETAVERSION
-#ifndef USE_VFS
-	FILE *fp;
-
-	fp = fopen( "DebugMessage.txt", "a" );
-
-	if( fp == NULL )
-	{
-		return;
-	}
-
-	fprintf( fp, "%S\n", pString );
-	fclose( fp );
-#else
 	SGP_LOG(s_DebugMessageLog.id, pString);
-#endif
 #endif
 }
 

@@ -214,10 +214,10 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 					cmp_val = Weapon[pSoldier->inv[HANDPOS].usItem].ubCalibre;
 					break;
 				case REQ_WEAPON_TWOHANDED:
-					cmp_val = TwoHandedItem(pSoldier->inv[HANDPOS].usItem);
+					cmp_val = ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem);
 					break;
 				case REQ_LEFT_WEAPON_TWOHANDED:
-					cmp_val = TwoHandedItem(pSoldier->inv[SECONDHANDPOS].usItem);
+					cmp_val = ItemIsTwoHanded(pSoldier->inv[SECONDHANDPOS].usItem);
 					break;
 				case REQ_VEST_AMOR_PROTECTION:
 					cmp_val = Armour[Item[pSoldier->inv[VESTPOS].usItem].ubClassIndex].ubProtection;

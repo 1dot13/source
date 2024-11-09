@@ -2380,12 +2380,15 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		UINT8  ubNumberOfTiles = pBase->pDBStructureRef->pDBStructure->ubNumberOfTiles;
 
 		INT32 sStructGridNo;
+		INT16 sX, sY, sX2, sY2;
+		ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
 
 		// loop through all tiles
 		for (UINT8 ubLoop = BASE_TILE; ubLoop < ubNumberOfTiles; ubLoop++)
 		{
 			sStructGridNo = AddPosRelToBase(pBase->sGridNo, ppTile[ubLoop]);
-			if( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( sStructGridNo ), (FLOAT) CenterY( sStructGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) )
+			ConvertGridNoToCenterCellXY(sStructGridNo, &sX2, &sY2);
+			if( LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) )
 			{
 				return( TRUE );
 			}
@@ -2393,14 +2396,18 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		return( FALSE );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) );
+	INT16 sX, sY, sX2, sY2;
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(pEndSoldier->sGridNo, &sX2, &sY2);
+
+	return( LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) );
 	}
 
 INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo )
 {
 	// figure out if there is a SINGLE window between the looker and target
 	FLOAT			dStartZPos, dEndZPos;
-	INT16			sXPos, sYPos;
+	INT16			sX, sY, sX2, sY2;
 	INT32			sWindowGridNo = NOWHERE;
 	INT32			iRet;
 
@@ -2413,24 +2420,23 @@ INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo
 	dStartZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[pStartSoldier->sGridNo].sHeight );
 	dEndZPos = dStartZPos;
 
-	ConvertGridNoToXY( sEndGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(sEndGridNo, &sX2, &sY2);
 
 	//ADB changed from 255 to 511 to handle new LOS test
 	// We don't want to consider distance limits here so pass in tile sight limit of 255( + 256)
 	// and consider trees as little as possible
-	iRet = LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, 511, TRUE, FALSE, &sWindowGridNo );
+	iRet = LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, 511, TRUE, FALSE, &sWindowGridNo );
 
 	return( sWindowGridNo );
 }
 
 INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int iTileSightLimit, bool adjustForSight )
 {
-	FLOAT						dStartZPos, dEndZPos;
-	INT16						sXPos, sYPos;
-	UINT16						ubTargetID;
-	BOOLEAN					fOk;
+	FLOAT dStartZPos, dEndZPos;
+	INT16 sXPos, sYPos;
+	UINT16 ubTargetID;
+	BOOLEAN fOk;
 
 	CHECKF( pStartSoldier );
 
@@ -2457,9 +2463,6 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 		dEndZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ sGridNo ].sHeight );
 	}
 
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, iTileSightLimit );
@@ -2468,14 +2471,17 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, adjustForSight ) );
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &sX, &sY);
+	ConvertGridNoToCenterCellXY(sGridNo, &sX2, &sY2);
+
+	return( LineOfSightTest( (FLOAT) sX, (FLOAT) sY, dStartZPos, (FLOAT) sX2, (FLOAT) sY2, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, adjustForSight ) );
 }
 
 INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit )
 {
-	FLOAT						dStartZPos, dEndZPos;
-	INT16						sXPos, sYPos;
-	BOOLEAN					fOk;
+	FLOAT dStartZPos, dEndZPos;
+	INT16 endXPos, endYPos, startXPos, startYPos;
+	BOOLEAN fOk;
 
 	CHECKF( pStartSoldier );
 
@@ -2504,10 +2510,6 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32
 	}
 
 
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
-
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, iTileSightLimit );
 	}
@@ -2515,13 +2517,15 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, false ) );
+	ConvertGridNoToCenterCellXY(pStartSoldier->sGridNo, &startXPos, &startYPos);
+	ConvertGridNoToCenterCellXY(sGridNo, &endXPos, &endYPos);
+	return(LineOfSightTest((FLOAT)startXPos, (FLOAT)startYPos, dStartZPos, (FLOAT)endXPos, (FLOAT)endYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics(pStartSoldier), NULL, false));
 }
 
 INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit, FLOAT dStartPos, FLOAT dEndPos )
 {
-	FLOAT						dStartZPos, dEndZPos;
-	INT16						sStartXPos, sStartYPos, sEndXPos, sEndYPos;
+	FLOAT dStartZPos, dEndZPos;
+	INT16 sStartXPos, sStartYPos, sEndXPos, sEndYPos;
 
 	// Bob: prevent access violation 
 	if (sStartGridNo < 0) { 
@@ -2544,18 +2548,10 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 	// add in ground height
 	dStartZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ sStartGridNo ].sHeight );
 
-	ConvertGridNoToXY( sStartGridNo, &sStartXPos, &sStartYPos );
-	sStartXPos = sStartXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sStartYPos = sStartYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
-
 	// sevenfm: use height argument
 	dEndZPos = dEndPos + bEndLevel * HEIGHT_UNITS;
 	// add in ground height
 	dEndZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ sEndGridNo ].sHeight );
-
-	ConvertGridNoToXY( sEndGridNo, &sEndXPos, &sEndYPos );
-	sEndXPos = sEndXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sEndYPos = sEndYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR)
 	{
@@ -2565,6 +2561,10 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 	{
 		iTileSightLimit = 255 + MaxNormalDistanceVisible();
 	}
+
+	ConvertGridNoToCenterCellXY(sStartGridNo, &sStartXPos, &sStartYPos);
+	ConvertGridNoToCenterCellXY(sEndGridNo, &sEndXPos, &sEndYPos);
+
 	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, iTileSightLimit, bAware, FALSE, NULL ) );
 }
 
@@ -2931,20 +2931,24 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 						
 							// Flugente: we measure the distance of the bullet's location to the location of the soldier, and to the 2 gridnos his head and leg occupy
 							// From this we can decide what body part was hit
-							FLOAT bodycenterX = (FLOAT)CenterX( pTarget->sGridNo );
-							FLOAT bodycenterY = (FLOAT)CenterY( pTarget->sGridNo );
+							INT16 sX, sY;
+							ConvertGridNoToCenterCellXY(pTarget->sGridNo, &sX, &sY);
+							FLOAT bodycenterX = (FLOAT) sX;
+							FLOAT bodycenterY = (FLOAT) sY;
 
 							FLOAT difftobodycenter = sqrt( (bodycenterX - x) * (bodycenterX - x) + (bodycenterY - y) * (bodycenterY - y) );
 
 							INT32 viewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( pTarget->ubDirection ) );
-							FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
-							FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
+							ConvertGridNoToCenterCellXY(viewdirectiongridno, &sX, &sY);
+							FLOAT nextgridnocenterX = (FLOAT) sX;
+							FLOAT nextgridnocenterY = (FLOAT) sY;
 
 							FLOAT difftonextgridno = sqrt( (nextgridnocenterX - x) * (nextgridnocenterX - x) + (nextgridnocenterY - y) * (nextgridnocenterY - y) );
 
 							INT32 oppositeviewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( gOppositeDirection[pTarget->ubDirection] ) );
-							FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
-							FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
+							ConvertGridNoToCenterCellXY(oppositeviewdirectiongridno, &sX, &sY);
+							FLOAT oppositenextgridnocenterX = (FLOAT) sX;
+							FLOAT oppositenextgridnocenterY = (FLOAT) sY;
 
 							FLOAT difftooppositenextgridno = sqrt( (oppositenextgridnocenterX - x) * (oppositenextgridnocenterX - x) + (oppositenextgridnocenterY - y) * (oppositenextgridnocenterY - y) );
 
@@ -4319,8 +4323,9 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 
 UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier )
 {
-	FLOAT			dEndZPos;
-	BOOLEAN		fOk;
+	INT16 sX, sY;
+	FLOAT dEndZPos;
+	BOOLEAN fOk;
 
 	if (pStartSoldier == pEndSoldier)
 	{
@@ -4337,15 +4342,18 @@ UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTY
 	// set startsoldier's target ID ... need an ID stored in case this
 	// is the AI calculating cover to a location where he might not be any more
 	pStartSoldier->ubCTGTTargetID = pEndSoldier->ubID;
-	return( ChanceToGetThrough( pStartSoldier, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos ) );
+
+	ConvertGridNoToCenterCellXY(pEndSoldier->sGridNo, &sX, &sY);
+	return( ChanceToGetThrough( pStartSoldier, (FLOAT) sX, (FLOAT) sY, dEndZPos ) );
 }
 
 UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubAimLocation )
 {
 	// does like StS-CTGT but with a particular body part in mind
-	FLOAT			dEndZPos;
-	BOOLEAN		fOk;
-	UINT8			ubPosType;
+	INT16 sX, sY;
+	FLOAT dEndZPos;
+	BOOLEAN fOk;
+	UINT8 ubPosType;
 
 	if (pStartSoldier == pEndSoldier)
 	{
@@ -4378,7 +4386,8 @@ UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, S
 	// set startsoldier's target ID ... need an ID stored in case this
 	// is the AI calculating cover to a location where he might not be any more
 	pStartSoldier->ubCTGTTargetID = pEndSoldier->ubID;
-	return( ChanceToGetThrough( pStartSoldier, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos ) );
+	ConvertGridNoToCenterCellXY(pEndSoldier->sGridNo, &sX, &sY);
+	return( ChanceToGetThrough( pStartSoldier, (FLOAT) sX, (FLOAT) sY, dEndZPos ) );
 }
 
 UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT16 ubTargetID )
@@ -4423,9 +4432,7 @@ UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sG
 		}
 
 		dEndZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[sGridNo].sHeight );
-		ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-		sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-		sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
+		ConvertGridNoToCenterCellXY(sGridNo, &sXPos, &sYPos);
 
 		// set startsoldier's target ID ... need an ID stored in case this
 		// is the AI calculating cover to a location where he might not be any more
@@ -4437,6 +4444,7 @@ UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sG
 UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier )
 {
 	// Like a standard CTGT algorithm BUT fakes the start soldier at standing height
+	INT16 sX, sY;
 	FLOAT			dEndZPos;
 	BOOLEAN		fOk;
 	UINT8			ubChance;
@@ -4460,7 +4468,8 @@ UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIER
 	// is the AI calculating cover to a location where he might not be any more
 	pStartSoldier->ubCTGTTargetID = NOBODY;
 
-	ubChance = ChanceToGetThrough( pStartSoldier, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos );
+	ConvertGridNoToCenterCellXY(pEndSoldier->sGridNo, &sX, &sY);
+	ubChance = ChanceToGetThrough( pStartSoldier, (FLOAT) sX, (FLOAT) sY, dEndZPos );
 	pStartSoldier->usAnimState = usTrueState;
 	return( ubChance );
 }
@@ -4510,9 +4519,7 @@ UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 
 		}
 
 		dEndZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[sGridNo].sHeight );
-		ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-		sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-		sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
+		ConvertGridNoToCenterCellXY(sGridNo, &sXPos, &sYPos);
 
 		// set startsoldier's target ID ... need an ID stored in case this
 		// is the AI calculating cover to a location where he might not be any more
@@ -4788,6 +4795,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n=0;
+	INT16 sXPos, sYPos;
 
 	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
 
@@ -4799,8 +4807,9 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 
 	CalculateSoldierZPos( pFirer, FIRING_POS, &dStartZ );
 
-	dStartX = (FLOAT) CenterX( pFirer->sGridNo );
-	dStartY = (FLOAT) CenterY( pFirer->sGridNo );
+	ConvertGridNoToCenterCellXY(pFirer->sGridNo, &sXPos, &sYPos);
+	dStartX = (FLOAT) sXPos;
+	dStartY = (FLOAT) sYPos;
 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
@@ -4831,15 +4840,15 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -5228,7 +5237,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -5279,6 +5288,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n=0;
+	INT16 sXPos, sYPos;
 
 	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
 
@@ -5290,8 +5300,9 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 	CalculateSoldierZPos( pFirer, FIRING_POS, &dStartZ );
 
-	dStartX = (FLOAT) CenterX( pFirer->sGridNo );
-	dStartY = (FLOAT) CenterY( pFirer->sGridNo );
+	ConvertGridNoToCenterCellXY(pFirer->sGridNo, &sXPos, &sYPos);
+	dStartX = (FLOAT) sXPos;
+	dStartY = (FLOAT) sYPos;
 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
@@ -5324,15 +5335,15 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -5742,7 +5753,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -5954,6 +5965,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n=0;
+	INT16 sXPos, sYPos;
 
 	UINT16 usItem = pObj->usItem;
 	UINT8 ammotype = ( *pObj )[0]->data.gun.ubGunAmmoType;
@@ -5962,8 +5974,9 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	if ( AmmoTypes[ammotype].numberOfBullets > 1 )
 		fBuckshot = TRUE;
 		
-	dStartX = (FLOAT) CenterX( gridno );
-	dStartY = (FLOAT) CenterY( gridno );
+	ConvertGridNoToCenterCellXY(gridno, &sXPos, &sYPos);
+	dStartX = (FLOAT) sXPos;
+	dStartY = (FLOAT) sYPos;
 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
@@ -5994,15 +6007,15 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6541,13 +6554,15 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n = 0;
-	
+	INT16 sXPos, sYPos;
+
 	BOOLEAN fBuckshot = FALSE;
 	if ( AmmoTypes[ammotype].numberOfBullets > 1 )
 		fBuckshot = TRUE;
 
-	dStartX = (FLOAT)CenterX( gridno );
-	dStartY = (FLOAT)CenterY( gridno );
+	ConvertGridNoToCenterCellXY(gridno, &sXPos, &sYPos);
+	dStartX = (FLOAT)sXPos;
+	dStartY = (FLOAT)sYPos;
 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
@@ -6579,15 +6594,15 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6908,7 +6923,7 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 	// sevenfm: check that weapon exists!
 	if (pObjHand->exists() &&
 		pObjHand->usItem == pFirer->usAttackingWeapon &&
-		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher))
+		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || ItemIsRocketLauncher(pFirer->usAttackingWeapon)))
 	{
 		BOOLEAN fBuckShot = FALSE;
 
@@ -8537,8 +8552,10 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	CalculateSoldierZPos( pShooter, FIRING_POS, &dStartZ );
 
 	// Locate absolute center X,Y of the shooter
-	dStartX = (FLOAT) CenterX( pShooter->sGridNo );
-	dStartY = (FLOAT) CenterY( pShooter->sGridNo );
+	INT16 sXPos, sYPos;
+	ConvertGridNoToCenterCellXY(pShooter->sGridNo, &sXPos, &sYPos);
+	dStartX = (FLOAT) sXPos;
+	dStartY = (FLOAT) sYPos;
 
 	////////////////////////////////////////////////////////////////////////////
 	// Calculate difference (Delta) between start and end point of bullet flight
@@ -8626,7 +8643,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 
 	//INT32 iLaserRange = GetBestLaserRange(&(pShooter->inv[pSoldier->ubAttackingHand]));
 	INT16 sLaserRange = GetBestLaserRange(pWeapon);
-	if (AM_A_ROBOT(pShooter) && Item[pShooter->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	if (AM_A_ROBOT(pShooter) && ItemProvidesRobotLaserBonus(pShooter->inv[ROBOT_TARGETING_SLOT].usItem))
 	{
 		sLaserRange = max(sLaserRange, GetBestLaserRange(&pShooter->inv[ROBOT_TARGETING_SLOT]));
 	}
@@ -9157,8 +9174,10 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	{
 		// HEADROCK HAM 4: Hopefully the right spot for this: This soldier has no "old" coordinates, so just set them
 		// to wherever he/she is currently standing.
-		pTarget->sOldXPos = CenterX( pTarget->sGridNo );
-		pTarget->sOldYPos = CenterY( pTarget->sGridNo );
+		INT16 sXPos, sYPos;
+		ConvertGridNoToCenterCellXY(pTarget->sGridNo, &sXPos, &sYPos);
+		pTarget->sOldXPos = sXPos;
+		pTarget->sOldYPos = sYPos;
 		// Since movement is now nonexistent, break the formula here without adjusting coordinates.
 		return;
 	}

@@ -48,6 +48,7 @@
 	#include "militiasquads.h"				// added by Flugente
 	#include "SkillCheck.h"					// added by Flugente
 	#include "Strategic Transport Groups.h"
+	#include "Utilities.h"
 
 #ifdef JA2UB
 #include "ub_config.h"
@@ -99,13 +100,23 @@ enum //GraphicIDs for the panel
 #define ROW_HEIGHT				10
 //The start of the black space
 #define TOP_Y							113
+#define TOP_Y_TEXT_BUFFER 1
 //The end of the black space
-//#define BOTTOM_Y					(349+(OUR_TEAM_SIZE_NO_VEHICLE-18)*ROW_HEIGHT)
-#define BOTTOM_Y					349
+#define BOTTOM_HEIGHT 8
 //The internal height of the uninvolved panel
-#define INTERNAL_HEIGHT		27
-//The actual height of the uninvolved panel
-#define ACTUAL_HEIGHT			24
+#define UNINVOLVED_RELEVANT_HEIGHT 28
+#define UNINVOLVED_OFFSET_HEIGHT 7
+
+#define PREBATTLE_INTERFACE_WIDTH	261
+INT32 iPrebattleInterfaceHeight = 360;
+UINT16 xOffset;
+UINT16 yOffset;
+UINT16 blanketStartX;
+UINT16 blanketStartY;
+
+INT16 bListOffset = 0;
+UINT16 ubDesiredListHeight = 0;
+UINT16 ubAllowedListHeight = 0;
 
 BOOLEAN gfDisplayPotentialRetreatPaths = FALSE;
 UINT16 gusRetreatButtonLeft, gusRetreatButtonTop, gusRetreatButtonRight, gusRetreatButtonBottom;
@@ -300,6 +311,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	gAmbushRadiusModifier = 0.0f;
 
+	bListOffset = 0;
+
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
 	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
@@ -481,22 +494,59 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	fMapScreenBottomDirty = TRUE;
 	ChangeSelectedMapSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
-	// Headrock: Added FALSE argument, We might need TRUE but not sure. Will need to initiate battle :)
-	RenderMapScreenInterfaceBottom( FALSE );
 
 	if( !fShowTeamFlag )
 	{
 		ToggleShowTeamsMode();
 	}
 
-	//Define the blanket region to cover all of the other regions used underneath the panel.
-	MSYS_DefineRegion( &PBInterfaceBlanket, 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 359 + yResOffset, MSYS_PRIORITY_HIGHEST - 5, 0, 0, 0 );
-
 	//Create the panel
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	GetMLGFilename( VObjectDesc.ImageFile, MLG_PREBATTLEPANEL );
+
+	// anv: prebattle interface per vertical resolution
+	if (isWidescreenUI())
+	{
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_1280x720);
+		iPrebattleInterfaceHeight = 600;
+		xOffset = xResOffset + 15;
+		yOffset = 0;
+		blanketStartX = 0;
+		blanketStartY = 0;
+	}
+	else if (iResolution >= _640x480 && iResolution < _800x600)
+	{
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL);
+		iPrebattleInterfaceHeight = 360;
+		xOffset = xResOffset;
+		yOffset = yResOffset;
+		blanketStartX = yOffset;
+		blanketStartY = yOffset;
+	}
+	else if (iResolution < _1024x768)
+	{
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_800x600);
+		iPrebattleInterfaceHeight = 478;
+		xOffset = xResOffset;
+		yOffset = yResOffset;
+		blanketStartX = yOffset;
+		blanketStartY = yOffset;
+	}
+	else
+	{
+		GetMLGFilename(VObjectDesc.ImageFile, MLG_PREBATTLEPANEL_1024x768);
+		iPrebattleInterfaceHeight = 647;
+		xOffset = xResOffset;
+		yOffset = yResOffset;
+		blanketStartX = yOffset;
+		blanketStartY = yOffset;
+	}
+	ubAllowedListHeight = iPrebattleInterfaceHeight - TOP_Y - BOTTOM_HEIGHT;
+
 	if( !AddVideoObject( &VObjectDesc, &uiInterfaceImages ) )
 		AssertMsg( 0, "Failed to load interface\\PreBattlePanel.sti" );
+
+	//Define the blanket region to cover all of the other regions used underneath the panel.
+	MSYS_DefineRegion( &PBInterfaceBlanket, blanketStartX, blanketStartY, PREBATTLE_INTERFACE_WIDTH + xOffset, iPrebattleInterfaceHeight + yOffset, MSYS_PRIORITY_HIGHEST, 0, 0, 0 );
 
 	//Create the 3 buttons
 	iPBButtonImage[0] = LoadButtonImage( "INTERFACE\\PreBattleButton.sti", -1, 0, -1, 1, -1 );
@@ -504,9 +554,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		AssertMsg( 0, "Failed to load interface\\PreBattleButton.sti" );
 	iPBButtonImage[1] = UseLoadedButtonImage( iPBButtonImage[ 0 ], -1, 0, -1, 1, -1 );
 	iPBButtonImage[2] = UseLoadedButtonImage( iPBButtonImage[ 0 ], -1, 0, -1, 1, -1 );
-	iPBButton[0] = QuickCreateButton( iPBButtonImage[0], 27 + xResOffset, 54 + yResOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 2, DEFAULT_MOVE_CALLBACK, AutoResolveBattleCallback );
-	iPBButton[1] = QuickCreateButton( iPBButtonImage[1], 98 + xResOffset, 54 + yResOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 2, DEFAULT_MOVE_CALLBACK, GoToSectorCallback );
-	iPBButton[2] = QuickCreateButton( iPBButtonImage[2], 169 + xResOffset, 54 + yResOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 2, DEFAULT_MOVE_CALLBACK, RetreatMercsCallback );
+	iPBButton[0] = QuickCreateButton( iPBButtonImage[0], 27 + xOffset, 54 + yOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST, DEFAULT_MOVE_CALLBACK, AutoResolveBattleCallback );
+	iPBButton[1] = QuickCreateButton( iPBButtonImage[1], 98 + xOffset, 54 + yOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST, DEFAULT_MOVE_CALLBACK, GoToSectorCallback );
+	iPBButton[2] = QuickCreateButton( iPBButtonImage[2], 169 + xOffset, 54 + yOffset, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST, DEFAULT_MOVE_CALLBACK, RetreatMercsCallback );
 
 	SpecifyGeneralButtonTextAttributes( iPBButton[0], gpStrategicString[ STR_PB_AUTORESOLVE_BTN ], BLOCKFONT, FONT_BEIGE, 141 );
 	SpecifyGeneralButtonTextAttributes( iPBButton[1], gpStrategicString[ STR_PB_GOTOSECTOR_BTN ], BLOCKFONT, FONT_BEIGE, 141 );
@@ -1050,7 +1100,7 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	INT32 iPercentage, iFactor;
 	UINT32 uiTimeRange;
 	INT16 sStartLeft, sEndLeft, sStartTop, sEndTop;
-	INT32 iLeft, iTop, iWidth, iHeight;
+	INT32 iLeft, iTop, iWidth;
 	BOOLEAN fEnterAutoResolveMode = FALSE;
 
 	if( !gfExtraBuffer )
@@ -1058,12 +1108,11 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 
 	PauseTime( FALSE );
 
-	PBIRect.iLeft = 0 + xResOffset;
-	PBIRect.iTop = 0 + yResOffset;
-	PBIRect.iRight = 261 + xResOffset;
-	PBIRect.iBottom = 359 + yResOffset;
-	iWidth = 261;
-	iHeight = 359;
+	PBIRect.iLeft = 0 + xOffset;
+	PBIRect.iTop = 0 + yOffset;
+	PBIRect.iRight = PREBATTLE_INTERFACE_WIDTH + xOffset;
+	PBIRect.iBottom = iPrebattleInterfaceHeight + yOffset;
+	iWidth = PREBATTLE_INTERFACE_WIDTH;
 
 	uiTimeRange = 1000;
 	iPercentage = 0;
@@ -1072,8 +1121,8 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	GetScreenXYFromMapXY( gubPBSectorX, gubPBSectorY, &sStartLeft, &sStartTop );
 	sStartLeft += UI_MAP.GridSize.iX / 2;
 	sStartTop += UI_MAP.GridSize.iY / 2;
-	sEndLeft = 131 + xResOffset;
-	sEndTop = 180 + yResOffset;
+	sEndLeft = PBIRect.iLeft;
+	sEndTop = PBIRect.iTop;
 
 	//save the mapscreen buffer
 	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
@@ -1095,16 +1144,22 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 		gfEnterAutoResolveMode = TRUE;
 	}
 
-	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 27 + xResOffset, 54 + yResOffset, 209, 32 );
+	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 27 + xOffset, 54 + yOffset, 209, 32 );
 	RenderButtons();
-	BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 27 + xResOffset, 54 + yResOffset, 209, 32 );
+	BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 27 + xOffset, 54 + yOffset, 209, 32 );
 	gfRenderPBInterface = TRUE;
 
 	//hide the prebattle interface
-	BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 359 + yResOffset );
+	BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, 0 + xOffset, 0 + yOffset, PREBATTLE_INTERFACE_WIDTH + xOffset, iPrebattleInterfaceHeight + yOffset );
 	PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 	InvalidateScreen();
 	RefreshScreen( NULL );
+
+	SGPRect PrevRect;
+	PrevRect.iLeft = sStartLeft;
+	PrevRect.iRight = sStartLeft + 1;
+	PrevRect.iTop = sStartTop;
+	PrevRect.iBottom = sStartTop + 1;
 
 	while( iPercentage < 100	)
 	{
@@ -1117,19 +1172,12 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 		if( iPercentage < 50 )
 			iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
 		else
-			iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.05);
+			iPercentage = (UINT32)(iPercentage + (100 - iPercentage) * iFactor * 0.01 + 0.05);
 
-		//Calculate the center point.
-		iLeft = sStartLeft - (sStartLeft-sEndLeft+1) * iPercentage / 100;
-		if( sStartTop > sEndTop )
-			iTop = sStartTop - (sStartTop-sEndTop+1) * iPercentage / 100;
-		else
-			iTop = sStartTop + (sEndTop-sStartTop+1) * iPercentage / 100;
-
-		DstRect.iLeft = iLeft - iWidth * iPercentage / 200;
+		DstRect.iLeft = sStartLeft + (sEndLeft - sStartLeft) * iPercentage / 100;
 		DstRect.iRight = DstRect.iLeft + max( iWidth * iPercentage / 100, 1 );
-		DstRect.iTop = iTop - iHeight * iPercentage / 200;
-		DstRect.iBottom = DstRect.iTop + max( iHeight * iPercentage / 100, 1 );
+		DstRect.iTop = sStartTop + (sEndTop - sStartTop) * iPercentage / 100;
+		DstRect.iBottom = DstRect.iTop + max(iPrebattleInterfaceHeight * iPercentage / 100, 1);
 
 		BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 0, &PBIRect, &DstRect );
 
@@ -1137,12 +1185,33 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 		RefreshScreen( NULL );
 
 		//Restore the previous rect.
-		BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, (UINT16)DstRect.iLeft, (UINT16)DstRect.iTop,
-			(UINT16)(DstRect.iRight-DstRect.iLeft+1), (UINT16)(DstRect.iBottom-DstRect.iTop+1) );
+		BlitBufferToBuffer(guiEXTRABUFFER, FRAME_BUFFER, (UINT16)PrevRect.iLeft, (UINT16)PrevRect.iTop,
+			(UINT16)PrevRect.iRight, (UINT16)PrevRect.iBottom);
+
+		PrevRect.iLeft = DstRect.iLeft;
+		PrevRect.iRight = DstRect.iRight;
+		PrevRect.iTop = DstRect.iTop;
+		PrevRect.iBottom = DstRect.iBottom;
 	}
 	BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	gfZoomDone = TRUE;
+}
+
+void ScrollPreBattleInterface( BOOLEAN fUp )
+{
+	if ( ubDesiredListHeight <= ubAllowedListHeight )
+		return;
+
+	if ( fUp )
+	{
+		bListOffset = max( 0, bListOffset - ubAllowedListHeight );
+	}
+	else
+	{
+		bListOffset = min( bListOffset + ubAllowedListHeight, ubDesiredListHeight - ubAllowedListHeight );
+	}
+	gfRenderPBInterface = TRUE;
 }
 
 void KillPreBattleInterface()
@@ -1184,7 +1253,7 @@ void KillPreBattleInterface()
 	//Enable the options button when the auto resolve	screen comes up
 	EnableDisAbleMapScreenOptionsButton( TRUE );
 
-	ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, 261 + xResOffset, 359 + yResOffset, 0 );
+	ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, PREBATTLE_INTERFACE_WIDTH + xOffset, iPrebattleInterfaceHeight + yOffset, 0 );
 
 	EnableTeamInfoPanels();
 	if( ButtonList[ giMapContractButton ] )
@@ -1277,8 +1346,8 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 	}
 	width = StringPixLength( str, FONT10ARIALBOLD );
 	x = 130 - width / 2;
-	mprintf( x + xResOffset, 4 + yResOffset, str );
-	InvalidateRegion( 0, 0, 231 + xResOffset, 12 + yResOffset );
+	mprintf( x + xOffset, 4 + yOffset, str );
+	InvalidateRegion( 0, 0, 231 + xOffset, 12 + yOffset );
 	*piX = x;
 	*piWidth = width;
 }
@@ -1293,10 +1362,15 @@ void RenderPreBattleInterface()
 	UINT8 ubHPPercent, ubBPPercent;
 	BOOLEAN fMouseInRetreatButtonArea;
 	UINT8 ubJunk;
+	SGPRect ClipRect;
+	UINT16 ubDesiredParticipantsListHeight = 0;
+	UINT16 ubDesiredUninvolvedListHeight = 0;
+	UINT16 ubUninvolvedStartY = 0;
+
 	//PLAYERGROUP *pPlayer;
 
 	// Make the background black!
-	//ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, 261 + xResOffset, SCREEN_HEIGHT - 120, 0 );
+	//ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, 261 + xOffset, SCREEN_HEIGHT - 120, 0 );
 
 	//This code determines if the cursor is inside the rectangle consisting of the
 	//retreat button.	If it is inside, then we set up the variables so that the retreat
@@ -1337,33 +1411,21 @@ void RenderPreBattleInterface()
 		gfRenderPBInterface = FALSE;
 		GetVideoObject( &hVObject, uiInterfaceImages );
 		//main panel
-		BltVideoObject( guiSAVEBUFFER, hVObject, MAINPANEL, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject( guiSAVEBUFFER, hVObject, MAINPANEL, xOffset, yOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		//main title
 
 		RenderPBHeader( &x, &width );
 		//now draw the title bars up to the text.
 		for( i = x - 12; i > 20; i -= 10 )
 		{
-			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xResOffset, 6 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xOffset, 6 + yOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 		for( i = x + width + 2; i < 231; i += 10 )
 		{
-			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xResOffset, 6 + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject( guiSAVEBUFFER, hVObject, TITLE_BAR_PIECE, i + xOffset, 6 + yOffset, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 10, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 20, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, BOTTOM_Y + yResOffset + 30, VO_BLT_SRCTRANSPARENCY, NULL);
-		//Draw the bottom edges
-		for (i = 0; i < max(guiNumUninvolved, 1); i++)
-		{
-			y = BOTTOM_Y + ROW_HEIGHT * (i + 1) + 30;
-			BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_LINE, 0 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		}
-		BltVideoObject(guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xResOffset, BOTTOM_Y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-		BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_END, 0 + xResOffset, BOTTOM_Y + yResOffset + 35 + ROW_HEIGHT * max(guiNumUninvolved, 1), VO_BLT_SRCTRANSPARENCY, NULL);
-
+		// header
 		SetFont( BLOCKFONT );
 		SetFontForeground( FONT_BEIGE );
 		swprintf( str, gpStrategicString[ STR_PB_LOCATION ] );
@@ -1373,7 +1435,7 @@ void RenderPreBattleInterface()
 			SetFont( BLOCKFONTNARROW );
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
-		mprintf( 65 - width + xResOffset , 17 + yResOffset, str );
+		mprintf( 65 - width + xOffset , 17 + yOffset, str );
 
 		SetFont( BLOCKFONT );
 		if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
@@ -1405,7 +1467,7 @@ void RenderPreBattleInterface()
 			SetFont( BLOCKFONTNARROW );
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
-		mprintf( 54 + xResOffset - width , 38 + yResOffset, str );
+		mprintf( 54 + xOffset - width , 38 + yOffset, str );
 
 		SetFont( BLOCKFONT );
 		swprintf( str, gpStrategicString[ STR_PB_MERCS ] );
@@ -1415,7 +1477,7 @@ void RenderPreBattleInterface()
 			SetFont( BLOCKFONTNARROW );
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
-		mprintf( 139 + xResOffset - width , 38 + yResOffset, str );
+		mprintf( 139 + xOffset - width , 38 + yOffset, str );
 
 		SetFont( BLOCKFONT );
 		swprintf( str, gpStrategicString[ STR_PB_MILITIA ] );
@@ -1425,21 +1487,45 @@ void RenderPreBattleInterface()
 			SetFont( BLOCKFONTNARROW );
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
-		mprintf( 224 + xResOffset - width , 38 + yResOffset, str );
+		mprintf( 224 + xOffset - width , 38 + yOffset, str );
 
-		//Draw the bottom columns
-		for( i = 0; i < (INT32)max( guiNumUninvolved, 1 ); i++ )
+		ubDesiredParticipantsListHeight = guiNumInvolved * ROW_HEIGHT;
+		ubDesiredUninvolvedListHeight = UNINVOLVED_RELEVANT_HEIGHT + max(guiNumUninvolved, 1) * ROW_HEIGHT;
+
+		ubDesiredListHeight = ubDesiredParticipantsListHeight + ubDesiredUninvolvedListHeight;
+
+		if (ubDesiredListHeight >= ubAllowedListHeight)
 		{
-			y = BOTTOM_Y + ROW_HEIGHT * (i+1) + 1 + ACTUAL_HEIGHT;
-			BltVideoObject( guiSAVEBUFFER, hVObject, BOTTOM_COLUMN, 161 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubUninvolvedStartY = ubDesiredParticipantsListHeight;
+		}
+		else
+		{
+			ubUninvolvedStartY = ubAllowedListHeight - ubDesiredUninvolvedListHeight;
 		}
 
-        // WDS - make number of mercenaries, etc. be configurable
-		for( i = 0; i < (INT32)(25/*3+ OUR_TEAM_SIZE_NO_VEHICLE - max( guiNumUninvolved, 1 )*/); i++ )
+		ClipRect.iLeft = xOffset;
+		ClipRect.iTop = yOffset + TOP_Y;
+		ClipRect.iRight = xOffset + PREBATTLE_INTERFACE_WIDTH;
+		ClipRect.iBottom = yOffset + TOP_Y + ubAllowedListHeight;// + TOP_Y_BUFFER;
+		SetClippingRect(&ClipRect);
+
+		// Draw the top columns
+		// Draw from the top to uninvolved header
+		for ( y = TOP_Y - bListOffset; y < TOP_Y - bListOffset + ubUninvolvedStartY; y += ROW_HEIGHT )
 		{
-			y = TOP_Y + ROW_HEIGHT * i;
-			BltVideoObject( guiSAVEBUFFER, hVObject, TOP_COLUMN, 186 + xResOffset, y + yResOffset, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(guiSAVEBUFFER, hVObject, TOP_COLUMN, 186 + xOffset, y + yOffset, VO_BLT_CLIP | VO_BLT_SRCTRANSPARENCY, NULL);
 		}
+
+		// Draw extra empty participants rows to close off bottom of the content area
+		for ( y = TOP_Y - bListOffset + ubUninvolvedStartY + ROW_HEIGHT; y < TOP_Y - bListOffset + ubUninvolvedStartY + ubDesiredUninvolvedListHeight; y += ROW_HEIGHT )
+		{
+			BltVideoObject(guiSAVEBUFFER, hVObject, BOTTOM_COLUMN, 161 + xOffset, y + yOffset, VO_BLT_CLIP | VO_BLT_SRCTRANSPARENCY, NULL);
+		}
+
+		// Draw uninvolved header
+		BltVideoObject( guiSAVEBUFFER, hVObject, UNINVOLVED_HEADER, 8 + xOffset, yOffset + TOP_Y + ubUninvolvedStartY - UNINVOLVED_OFFSET_HEIGHT - bListOffset, VO_BLT_CLIP | VO_BLT_SRCTRANSPARENCY, NULL );
+
+		RestoreClipRegionToFullScreen();
 
 		//location
 		SetFont( FONT10ARIAL );
@@ -1447,7 +1533,7 @@ void RenderPreBattleInterface()
 		SetFontShadow( FONT_NEARBLACK );
 
 		GetSectorIDString( gubPBSectorX, gubPBSectorY, gubPBSectorZ, pSectorName, TRUE );
-		mprintf( 70 + xResOffset, 17 + yResOffset, L"%s %s", gpStrategicString[ STR_PB_SECTOR ], pSectorName );
+		mprintf( 70 + xOffset, 17 + yOffset, L"%s %s", gpStrategicString[STR_PB_SECTOR], pSectorName );
 
 		//enemy
 		SetFont( FONT14ARIAL );
@@ -1472,58 +1558,55 @@ void RenderPreBattleInterface()
 		}
 		x = 57 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
 		y = 36;
-		mprintf( x + xResOffset, y + yResOffset, str );
+		mprintf( x + xOffset, y + yOffset, str );
 		//player
 		swprintf( str, L"%d", guiNumInvolved );
 		x = 142 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
-		mprintf( x + xResOffset, y + yResOffset, str );
+		mprintf( x + xOffset, y + yOffset, str );
 		//militia
 		swprintf( str, L"%d", NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, MILITIA_TEAM ) );
 		x = 227 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
-		mprintf( x + xResOffset, y + yResOffset, str );
+		mprintf( x + xOffset, y + yOffset, str );
 		SetFontShadow( FONT_NEARBLACK );
 
 		SetFont( BLOCKFONT2 );
 		SetFontForeground( FONT_YELLOW );
 
+		SetFontDestBuffer( guiSAVEBUFFER, xOffset, yOffset + TOP_Y,
+			xOffset + PREBATTLE_INTERFACE_WIDTH, yOffset + TOP_Y + ubAllowedListHeight, FALSE );
+
 		//print out the participants of the battle.
 		// |	NAME	| ASSIGN |	COND	|	HP	|	BP	|
 		line = 0;
-		y = TOP_Y + 1;
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		y = TOP_Y + TOP_Y_TEXT_BUFFER - bListOffset;
+		for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++) 
 		{
-			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+			if( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
-				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
-				{ //involved
-					if( line == giHilitedInvolved )
-						SetFontForeground( FONT_WHITE );
-					else
-						SetFontForeground( FONT_YELLOW );
+				if( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+				{
 					//NAME
 					wcscpy( str, MercPtrs[ i ]->name );
-					x = 17 + (52-StringPixLength( str, BLOCKFONT2)) / 2;
-					mprintf( x + xResOffset , y + yResOffset, str );
+					x = 17 + (52 - StringPixLength(str, BLOCKFONT2)) / 2;
+					mprintf( x + xOffset, y + yOffset, str );
 					//ASSIGN
 					GetMapscreenMercAssignmentString( MercPtrs[ i ], str );
-					x = 72 + (54-StringPixLength( str, BLOCKFONT2)) / 2;
-					mprintf( x + xResOffset, y + yResOffset, str );
+					x = 72 + (54 - StringPixLength(str, BLOCKFONT2)) / 2;
+					mprintf( x + xOffset, y + yOffset, str );
 					//COND
 					GetSoldierConditionInfo( MercPtrs[ i ], str, &ubHPPercent, &ubBPPercent );
-					x = 129 + (58-StringPixLength( str, BLOCKFONT2)) / 2;
-					mprintf( x + xResOffset, y + yResOffset, str );
+					x = 129 + (58 - StringPixLength(str, BLOCKFONT2)) / 2;
+					mprintf( x + xOffset, y + yOffset, str );
 					//HP
 					swprintf( str, L"%d%%", ubHPPercent );
-					x = 189 + (25-StringPixLength( str, BLOCKFONT2)) / 2;
+					x = 189 + (25 - StringPixLength(str, BLOCKFONT2)) / 2;
 					wcscat( str, sSpecialCharacters[0] );
-					mprintf( x + xResOffset, y + yResOffset, str );
+					mprintf( x + xOffset, y + yOffset, str );
 					//BP
 					swprintf( str, L"%d%%", ubBPPercent );
 					x = 217 + (25-StringPixLength( str, BLOCKFONT2)) / 2;
 					wcscat( str, sSpecialCharacters[0] );
-					mprintf( x + xResOffset, y + yResOffset, str );
-
-					line++;
+					mprintf( x + xOffset, y + yOffset, str );
 					y += ROW_HEIGHT;
 				}
 			}
@@ -1533,51 +1616,44 @@ void RenderPreBattleInterface()
 		// |	NAME	| ASSIGN |	LOC	|	DEST	|	DEP	|
 		if( !guiNumUninvolved )
 		{
-			SetFontForeground( FONT_YELLOW );
 			wcscpy( str, gpStrategicString[ STR_PB_NONE ] );
-			x = 17 + (52-StringPixLength( str, BLOCKFONT2)) / 2;
-			y = BOTTOM_Y + ROW_HEIGHT + 2 + ACTUAL_HEIGHT;
-			mprintf( x + xResOffset, y + yResOffset, str );
+			x = 17 + (52 - StringPixLength( str, BLOCKFONT2)) / 2;
+			mprintf( x + xOffset, yOffset + TOP_Y + TOP_Y_TEXT_BUFFER + ubUninvolvedStartY + UNINVOLVED_RELEVANT_HEIGHT - bListOffset, str );
 		}
 		else
 		{			
 			pGroup = gpGroupList;
-			y = BOTTOM_Y + ROW_HEIGHT + 2 + ACTUAL_HEIGHT;
-			for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+			y = TOP_Y + TOP_Y_TEXT_BUFFER + ubUninvolvedStartY + UNINVOLVED_RELEVANT_HEIGHT - bListOffset;
+			for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
 			{
 				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( !PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+					if( !PlayerMercInvolvedInThisCombat(MercPtrs[ i ]) )
 					{
-						// uninvolved
-						if( line == giHilitedUninvolved )
-							SetFontForeground( FONT_WHITE );
-						else
-							SetFontForeground( FONT_YELLOW );
 						//NAME
 						wcscpy( str, MercPtrs[ i ]->name );
-						x = 17 + (52-StringPixLength( str, BLOCKFONT2)) / 2;
-						mprintf( x + xResOffset, y + yResOffset, str );
+						x = 17 + (52 - StringPixLength(str, BLOCKFONT2)) / 2;
+						mprintf( x + xOffset, y + yOffset, str );
 						//ASSIGN
 						GetMapscreenMercAssignmentString( MercPtrs[ i ], str );
-						x = 72 + (54-StringPixLength( str, BLOCKFONT2)) / 2;
-						mprintf( x + xResOffset, y + yResOffset, str );
+						x = 72 + (54 - StringPixLength(str, BLOCKFONT2)) / 2;
+						mprintf( x + xOffset, y + yOffset, str );
 						//LOC
 						GetMapscreenMercLocationString( MercPtrs[ i ], str );
-						x = 128 + (33-StringPixLength( str, BLOCKFONT2)) / 2;
-						mprintf( x + xResOffset, y + yResOffset, str );
+						x = 128 + (33 - StringPixLength(str, BLOCKFONT2)) / 2;
+						mprintf( x + xOffset, y + yOffset, str );
 						//DEST
 						GetMapscreenMercDestinationString( MercPtrs[ i ], str );
-						if( wcslen( str ) > 0 )
+						if (wcslen(str) > 0)
 						{
-							x = 164 + (41-StringPixLength( str, BLOCKFONT2)) / 2;
-							mprintf( x + xResOffset, y + yResOffset, str );
+							x = 164 + (41 - StringPixLength(str, BLOCKFONT2)) / 2;
+							mprintf( x + xOffset, y + yOffset, str );
 						}
 						//DEP
 						GetMapscreenMercDepartureString( MercPtrs[ i ], str, &ubJunk );
-						x = 208 + (34-StringPixLength( str, BLOCKFONT2)) / 2;
-						mprintf( x + xResOffset, y + yResOffset, str );
-						line++;
+						x = 208 + (34 - StringPixLength(str, BLOCKFONT2)) / 2;
+						mprintf(x + xOffset, y + yOffset, str);
+
 						y += ROW_HEIGHT;
 					}
 				}
@@ -1587,12 +1663,7 @@ void RenderPreBattleInterface()
 		// mark any and ALL pop up boxes as altered
 		MarkAllBoxesAsAltered( );
 
-		if(!gfZoomDone)
-			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 359 + yResOffset );
-		else if(!guiNumUninvolved)		
-			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, 389 + yResOffset );
-		else
-			RestoreExternBackgroundRect( 0 + xResOffset, 0 + yResOffset, 261 + xResOffset, y + yResOffset );
+		RestoreExternBackgroundRect( 0 + xOffset, 0 + yOffset, PREBATTLE_INTERFACE_WIDTH, iPrebattleInterfaceHeight );
 
 		// restore font destinanation buffer to the frame buffer
 		SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
@@ -1602,7 +1673,7 @@ void RenderPreBattleInterface()
 		RenderPBHeader( &x, &width ); //the text is important enough to blink.
 	}
 
-	//InvalidateRegion( 0, 0, 261, 359 );
+	InvalidateRegion( 0, 0, PREBATTLE_INTERFACE_WIDTH, iPrebattleInterfaceHeight );
 	if( gfEnterAutoResolveMode )
 	{
 		gfEnterAutoResolveMode = FALSE;
@@ -1611,7 +1682,6 @@ void RenderPreBattleInterface()
 	}
 
 	gfIgnoreAllInput = FALSE;
-
 }
 
 void AutoResolveBattleCallback( GUI_BUTTON *btn, INT32 reason )

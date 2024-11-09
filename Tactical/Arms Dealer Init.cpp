@@ -71,7 +71,6 @@ void		GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UIN
 void		GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems );
 
 void		ArmsDealerGetsFreshStock( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubNumItems );
-BOOLEAN ItemContainsLiquid( UINT16 usItemIndex );
 UINT8		DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex );
 
 BOOLEAN DoesItemAppearInDealerInventoryList( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer );
@@ -84,8 +83,6 @@ BOOLEAN CanThisItemBeSoldToSimulatedCustomer( UINT8 ubArmsDealerID, UINT16 usIte
 #endif
 
 void GuaranteeMinimumAlcohol( UINT8 ubArmsDealer );
-
-BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
 
 BOOLEAN GetArmsDealerShopHours( UINT8 ubArmsDealer, UINT32 *puiOpeningTime, UINT32 *puiClosingTime );
 
@@ -961,7 +958,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 					return( ARMS_DEALER_HANDGUNCLASS );
 					break;
 				case RIFLECLASS:
-					if ( ItemIsARocketRifle( usItem ) )
+					if (ItemHasFingerPrintID( usItem ) )
 						return( ARMS_DEALER_ROCKET_RIFLE );
 					else
 						return( ARMS_DEALER_RIFLECLASS );
@@ -1010,15 +1007,15 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 		{
 			if ( Item [usItem].alcohol > 0.0f )
 				return( ARMS_DEALER_ALCOHOL );
-			else if ( Item [usItem].electronic )
+			else if (ItemIsElectronic(usItem))
 				return( ARMS_DEALER_ELECTRONICS );
-			else if ( Item [usItem].hardware )
+			else if (ItemIsHardware(usItem))
 				return( ARMS_DEALER_HARDWARE );
-			else if ( Item [usItem].medical )
+			else if (ItemIsMedical(usItem))
 				return( ARMS_DEALER_MEDICAL );
-			else if ( Item [usItem].attachment )
+			else if (ItemIsAttachment(usItem))
 				return( ARMS_DEALER_ATTACHMENTS );
-			else if ( Item [usItem].detonator || Item [usItem].remotedetonator || Item [usItem].remotetrigger )
+			else if (ItemIsDetonator(usItem) || ItemIsRemoteDetonator(usItem) || ItemIsRemoteTrigger(usItem))
 				return( ARMS_DEALER_DETONATORS );
 			else
 				return( ARMS_DEALER_MISC );
@@ -1076,7 +1073,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 			return( ARMS_DEALER_AMMO );
 			break;
 		case IC_FACE:
-			if (Item[usItem].electronic )
+			if (ItemIsElectronic(usItem))
 				return ARMS_DEALER_ELECTRONICS;
 			else
 				return ARMS_DEALER_FACE;
@@ -1278,8 +1275,7 @@ BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex )
 //	uiFlags = Item[ usItemIndex ].fFlags;
 
 	// can't repair anything that's not repairable!
-//	if ( !( uiFlags & ITEM_REPAIRABLE ) )
-	if ( !( Item[ usItemIndex ].repairable	) )
+	if ( !ItemIsRepairable(usItemIndex) )
 	{
 		return(FALSE);
 	}
@@ -1297,8 +1293,7 @@ BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex )
 		case ARMS_DEALER_PERKO:
 #endif		
 			// repairs ANYTHING non-electronic
-//			if ( !( uiFlags & ITEM_ELECTRONIC ) )
-			if ( !( Item[ usItemIndex ].electronic ) )
+			if ( !ItemIsElectronic(usItemIndex) )
 			{
 				return(TRUE);
 			}
@@ -1306,8 +1301,7 @@ BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex )
 
 		case ARMS_DEALER_FREDO:
 			// repairs ONLY electronics
-//			if ( uiFlags & ITEM_ELECTRONIC )
-			if ( Item[ usItemIndex ].electronic	)
+			if (ItemIsElectronic(usItemIndex))
 			{
 				return(TRUE);
 			}
@@ -1318,7 +1312,7 @@ BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex )
 				// Flugente: if we set this guy to be a repairguy, and this item is NOT electronic, well, we can
 				if ( armsDealerInfo[ubArmsDealer].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 				{
-					if ( !( Item[ usItemIndex ].electronic ) )
+					if ( !ItemIsElectronic(usItemIndex) )
 						return(TRUE);
 					else
 						return(FALSE);
@@ -1369,7 +1363,7 @@ UINT8 DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex )
 
 	// if it's a damagable item, and not a liquid (those are always sold full)
 //	if ( ( Item[ usItemIndex ].fFlags & ITEM_DAMAGEABLE ) && !ItemContainsLiquid( usItemIndex ) )
-	if ( ( Item[ usItemIndex ].damageable ) && !ItemContainsLiquid( usItemIndex ) )
+	if (ItemIsDamageable(usItemIndex) && !ItemContainsLiquid(usItemIndex))
 	{
 		// if he ONLY has used items, or 50% of the time if he carries both used & new items
 		if ( ( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_ONLY_USED_ITEMS ) ||
@@ -1383,25 +1377,6 @@ UINT8 DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex )
 	return( ubCondition);
 }
 
-BOOLEAN ItemContainsLiquid( UINT16 usItemIndex )
-{
-	return Item[usItemIndex].containsliquid;
-
-	//switch ( usItemIndex )
-	//{
-	//	case CANTEEN:
-	//	case BEER:
-	//	case ALCOHOL:
-	//	case JAR_HUMAN_BLOOD:
-	//	case JAR_CREATURE_BLOOD:
-	//	case JAR_QUEEN_CREATURE_BLOOD:
-	//	case JAR_ELIXIR:
-	//	case GAS_CAN:
-	//		return( TRUE );
-	//}
-
-	//return( FALSE );
-}
 
 bool ItemIsSpecial(DEALER_SPECIAL_ITEM& item)
 {
@@ -1839,7 +1814,7 @@ void MakeObjectOutOfDealerItems( DEALER_SPECIAL_ITEM *pSpclItemInfo, OBJECTTYPE 
 			// they don't have ammo for by selling them to Tony & buying them right back fully loaded!	One could repeat this
 			// ad nauseum (empty the gun between visits) as a (really expensive) way to get unlimited special ammo like rockets.
 			//CHRISL: If we're working with a SingleShotRocketLauncher, we need ubGunShotsLeft to equal 1
-			if(Item[pObject->usItem].singleshotrocketlauncher == TRUE)
+			if(ItemIsSingleShotRocketLauncher(pObject->usItem))
 				(*pObject)[subObject]->data.gun.ubGunShotsLeft = 1;
 			else
 				(*pObject)[subObject]->data.gun.ubGunShotsLeft = 0;
@@ -1863,7 +1838,7 @@ void GiveObjectToArmsDealerForRepair( UINT8 ubArmsDealer, OBJECTTYPE *pObject, U
 	Assert( CanDealerRepairItem( ubArmsDealer, pObject->usItem ) );
 
 	//		c) Actually damaged, or a rocket rifle (being reset)
-	Assert( ( (*pObject)[0]->data.objectStatus < 100 ) || ItemIsARocketRifle( pObject->usItem ) );
+	Assert( ( (*pObject)[0]->data.objectStatus < 100 ) || ItemHasFingerPrintID( pObject->usItem ) );
 
 /* ARM: Can now repair with removeable attachments still attached...
 	//		d) Already stripped of all *detachable* attachments
@@ -1898,7 +1873,7 @@ void GiveItemToArmsDealerforRepair( UINT8 ubArmsDealer, OBJECTTYPE* pObject, UIN
 
 	Assert( DoesDealerDoRepairs( ubArmsDealer ) );
 	Assert( (*pObject)[0]->data.objectStatus > 0 );
-	Assert( ( (*pObject)[0]->data.objectStatus < 100 ) || ItemIsARocketRifle( pObject->usItem ) );
+	Assert( ( (*pObject)[0]->data.objectStatus < 100 ) || ItemHasFingerPrintID( pObject->usItem ) );
 
 	// figure out the earliest the repairman will be free to start repairing this item
 	uiTimeWhenFreeToStartIt = WhenWillRepairmanBeAllDoneRepairing( ubArmsDealer );
@@ -1995,8 +1970,7 @@ UINT32 CalculateSimpleItemRepairTime( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 	// repairs on electronic items take twice as long if the guy doesn't have the skill
 	// for dealers, this means anyone but Fredo the Electronics guy takes twice as long (but doesn't charge double)
 	// (Mind you, current he's the ONLY one who CAN repair Electronics at all!	Oh well.)
-//	if( ( Item[ usItemIndex ].fFlags & ITEM_ELECTRONIC ) && ( ubArmsDealer != ARMS_DEALER_FREDO ) )
-	if( ( Item[ usItemIndex ].electronic	) && ( ubArmsDealer != ARMS_DEALER_FREDO ) )
+	if( ItemIsElectronic(usItemIndex) && ( ubArmsDealer != ARMS_DEALER_FREDO ) )
 	{
 		uiTimeToRepair *= 2;
 	}
@@ -2065,7 +2039,7 @@ UINT32 CalculateSimpleItemRepairCost( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 	}
 */
 
-	if ( ItemIsARocketRifle( usItemIndex ) )
+	if (ItemHasFingerPrintID( usItemIndex ) )
 	{
 		// resetting imprinting for a rocket rifle costs something extra even if rifle is at 100%
 		uiRepairCost += 100;
@@ -2167,7 +2141,7 @@ UINT16 CalcValueOfItemToDealer( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN 
 	// the rest of this function applies only to the "general" dealers ( Jake, Keith, and Franz )
 
 	// Micky & Gabby specialize in creature parts & such, the others don't buy these at all (exception: jars)
-	if ( ( !Item[usItemIndex].jar ) &&
+	if ( ( !ItemIsJar(usItemIndex)) &&
 				( DoesItemAppearInDealerInventoryList( ARMS_DEALER_MICKY, usItemIndex, TRUE ) ||
 					DoesItemAppearInDealerInventoryList( ARMS_DEALER_GABBY, usItemIndex, TRUE ) ) )
 	{
@@ -2214,7 +2188,7 @@ UINT16 CalcValueOfItemToDealer( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN 
 	{
 		// exception: Gas (Jake's)
 //		if ( usItemIndex != GAS_CAN )
-		if ( !Item[usItemIndex].gascan )
+		if ( !ItemIsGascan(usItemIndex))
 		{
 			// they pay only 1/3 of true value!
 			usValueToThisDealer /= 3;
@@ -2242,11 +2216,6 @@ void GuaranteeMinimumAlcohol( UINT8 ubArmsDealer )
 	GuaranteeAtLeastXItemsOfIndex( ubArmsDealer, BEER,		( UINT8 ) ( GetDealersMaxItemAmount( ubArmsDealer, BEER ) / 3 ) );
 	GuaranteeAtLeastXItemsOfIndex( ubArmsDealer, WINE,		( UINT8 ) ( GetDealersMaxItemAmount( ubArmsDealer, WINE ) / 3 ) );
 	GuaranteeAtLeastXItemsOfIndex( ubArmsDealer, ALCOHOL, ( UINT8 ) ( GetDealersMaxItemAmount( ubArmsDealer, ALCOHOL ) / 3 ) );
-}
-
-BOOLEAN ItemIsARocketRifle( INT16 sItemIndex )
-{
-	return( Item[sItemIndex].fingerprintid );
 }
 
 BOOLEAN GetArmsDealerShopHours( UINT8 ubArmsDealer, UINT32 *puiOpeningTime, UINT32 *puiClosingTime )

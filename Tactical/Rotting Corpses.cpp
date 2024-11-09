@@ -561,8 +561,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	}
 	else
 	{
-		AniParams.sX = CenterX(pCorpse->def.sGridNo);
-		AniParams.sY = CenterY(pCorpse->def.sGridNo);
+		ConvertGridNoToCenterCellXY(pCorpse->def.sGridNo, &AniParams.sX, &AniParams.sY);
 	}
 		
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
@@ -1015,7 +1014,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 				{
 					// and make sure that it really is a droppable item type
 					// if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
-					if ( !(Item[ pObj->usItem ].defaultundroppable ) )
+					if ( !ItemIsUndroppableByDefault(pObj->usItem) )
 					{
 						ReduceAmmoDroppedByNonPlayerSoldiers( pSoldier, cnt );
 						//if this soldier was an enemy
@@ -1028,7 +1027,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 
-							if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
+							if (ItemIsDamageable(pObj->usItem) && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
 							{
 								// silversurfer: externalized this
 								//(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
@@ -1588,8 +1587,7 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 		AniParams.sDelay = (INT16)( 80 );
 		AniParams.sStartFrame = 0;
 		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD;
-		AniParams.sX = CenterX( sBaseGridNo );
-		AniParams.sY = CenterY( sBaseGridNo );
+		ConvertGridNoToCenterCellXY(sBaseGridNo, &AniParams.sX, &AniParams.sY);
 		AniParams.sZ = (INT16)pCorpse->def.sHeightAdjustment;
 
 		strcpy( AniParams.zCachedFile, "TILECACHE\\GEN_BLOW.STI" );
@@ -2284,10 +2282,12 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		Corpse.ubBodyType = REGMALE;
 	}
 
+	INT16 sX, sY;
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
 	Corpse.sGridNo = sGridNo;
-	
-	Corpse.dXPos = CenterX(Corpse.sGridNo);
-	Corpse.dYPos = CenterY(Corpse.sGridNo);
+	Corpse.dXPos = sX;
+	Corpse.dYPos = sY;
 
 	Corpse.sHeightAdjustment = 0;
 

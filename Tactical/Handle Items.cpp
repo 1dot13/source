@@ -279,7 +279,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	{
 		pTargetSoldier = MercPtrs[ usSoldierIndex ];
 
-		if ( fFromUI )
+		// anv: don't try to heal interactive spots
+		if (fFromUI && Item[usHandItem].usItemClass != IC_MEDKIT)
 		{
 			INT32 sInteractiveGridNo;
 
@@ -318,13 +319,20 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		pSoldier->ubProfile != NO_PROFILE &&
 		pTargetSoldier &&		
 		Item[usHandItem].usItemClass != IC_MEDKIT &&
-		!Item[usHandItem].gascan &&
+		!ItemIsGascan(usHandItem) &&
 		!ItemCanBeAppliedToOthers(usHandItem) &&
 		!HasItemFlag(usHandItem, EMPTY_BLOOD_BAG) &&
 		!HasItemFlag( usHandItem, MEDICAL_SPLINT ) )
 	{
 		if (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral)
 		{
+			// anv: don't try to attack yourself, it will only cause deadlock
+			if (pSoldier == pTargetSoldier)
+			{
+				TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+				return(ITEM_HANDLE_REFUSAL);
+			}
+
 			// nice mercs won't shoot other nice guys or neutral civilians
 			if ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) &&
 				((pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->aiData.bNeutral && pTargetSoldier->ubBodyType != CROW) ||
@@ -465,8 +473,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].usItemClass == IC_GUN || Item[ usHandItem ].usItemClass == IC_THROWING_KNIFE )
 	{
 		// WEAPONS
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleItem: checking for fingerprintID, item id = %d,id required = %d, imprint id = %d, soldier id = %d",usHandItem,Item[usHandItem].fingerprintid,pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.ubImprintID,pSoldier->ubProfile));
-		if ( Item[usHandItem].fingerprintid )
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleItem: checking for fingerprintID, item id = %d,id required = %d, imprint id = %d, soldier id = %d",usHandItem, ItemHasFingerPrintID(usHandItem), pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.ubImprintID,pSoldier->ubProfile));
+		if (ItemHasFingerPrintID(usHandItem))
 		{
 			// check imprint ID
 			// NB not-imprinted value is NO_PROFILE
@@ -799,7 +807,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				}
 
 				// ATE: Here to make cursor go back to move after LAW shot...
-				if ( fFromUI && Item[usHandItem].singleshotrocketlauncher)
+				if ( fFromUI && ItemIsSingleShotRocketLauncher(usHandItem) )
 				{
 					guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
 				}
@@ -961,7 +969,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	BOOLEAN fCorpse = FALSE;
 	if(pCorpse != NULL)
 		fCorpse = IsValidDecapitationCorpse( pCorpse );
-	if ( Item[usHandItem].wirecutters && pTargetSoldier == NULL && !pCorpse ) // Madd: quick fix to allow wirecutter/knives
+	if (ItemIsWirecutters(usHandItem) && pTargetSoldier == NULL && !pCorpse ) // Madd: quick fix to allow wirecutter/knives
 	{
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
@@ -1017,7 +1025,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	if ( Item[usHandItem].toolkit )
+	if (ItemIsToolkit(usHandItem))
 	{
 		UINT16 ubMercID;
 		BOOLEAN	fVehicle = FALSE;
@@ -1090,7 +1098,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	if ( Item[usHandItem].gascan )
+	if (ItemIsGascan(usHandItem))
 	{
 		UINT16 ubMercID;
 		 INT32		sVehicleGridNo=-1;
@@ -1162,7 +1170,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	}
 
 
-	if ( Item[usHandItem].jar )
+	if (ItemIsJar(usHandItem))
 	{
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
@@ -1606,7 +1614,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	if ( Item[usHandItem].canandstring )
+	if (ItemIsCanAndString(usHandItem))
 	{
 		STRUCTURE					*pStructure;
 		LEVELNODE					*pIntTile;
@@ -1678,7 +1686,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
 			DeductPoints( pSoldier, sAPCost, 0 );
-			if ( Item[usHandItem].xray )
+			if (ItemHasXRay(usHandItem))
 			{
 				PlayJA2Sample( USE_X_RAY_MACHINE, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
@@ -1859,7 +1867,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sAPCost = MinAPsToAttack( pSoldier, sTargetGridNo, TRUE, pSoldier->aiData.bAimTime, 0 );
 
 		// Check if these is room to place mortar!
-		if ( Item[usHandItem].mortar )
+		if (ItemIsMortar(usHandItem))
 		{
 			ubDirection = (UINT8)GetDirectionFromGridNo( sTargetGridNo, pSoldier );
 
@@ -1873,7 +1881,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 			//pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;//dnl ch72 270913 no reason why not charge for stance change
 		}
-		else if ( Item[usHandItem].grenadelauncher )//usHandItem == GLAUNCHER || usHandItem == UNDER_GLAUNCHER )
+		else if (ItemIsGrenadeLauncher(usHandItem))//usHandItem == GLAUNCHER || usHandItem == UNDER_GLAUNCHER )
 		{
 			GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sTargetGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, pSoldier->aiData.bAimTime );
 			usTurningCost = CalculateTurningCost(pSoldier, usHandItem, fAddingTurningCost);
@@ -1952,7 +1960,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].ubCursor == INVALIDCURS )
 	{
 		// Found detonator...
-		if ( HasAttachmentOfClass( &(pSoldier->inv[pSoldier->ubAttackingHand]), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[usHandItem].tripwire )
+		if ( HasAttachmentOfClass( &(pSoldier->inv[pSoldier->ubAttackingHand]), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || ItemIsTripwire(usHandItem))
 		{
 			StartBombMessageBox( pSoldier, sGridNo );
 
@@ -1972,7 +1980,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	// Does this have detonator that needs info?
-	if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[ (&(pSoldier->inv[ HANDPOS ] ))->usItem ].tripwire == 1)
+	if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || ItemIsTripwire((&(pSoldier->inv[ HANDPOS ] ))->usItem) )
 	{
 		StartBombMessageBox( pSoldier, sGridNo );
 	}
@@ -1995,7 +2003,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			if ( iResult >= 0 )
 			{
 				// Less explosives gain for placing tripwire
-				if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire )
+				if (ItemIsTripwire(pSoldier->inv[ HANDPOS ].usItem))
 					StatChange( pSoldier, EXPLODEAMT, 1, FALSE );
 				else if ( HasItemFlag( (pSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
 					StatChange( pSoldier, MECHANAMT, 10, FALSE );
@@ -2019,7 +2027,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 					pSoldier->inv[ HANDPOS ][0]->data.bTrap++;
 
 				// anv: additional tile properties - modify trap level depending on its placement
-				if(gGameExternalOptions.fAdditionalTileProperties && Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
+				if(gGameExternalOptions.fAdditionalTileProperties && !ItemIsTripwire(pSoldier->inv[ HANDPOS ].usItem))
 				{
 					ADDITIONAL_TILE_PROPERTIES_VALUES zAllTileValues = GetAllAdditonalTilePropertiesForGrid( sGridNo, pSoldier->pathing.bLevel );
 					pSoldier->inv[ HANDPOS ][0]->data.bTrap += zAllTileValues.bTrapBonus;
@@ -2064,7 +2072,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				StatChange( pSoldier, EXPLODEAMT, 10, FROM_FAILURE );
 
 				// oops!	How badly did we screw up?
-				if ( iResult < -20 && Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
+				if ( iResult < -20 && !ItemIsTripwire(pSoldier->inv[ HANDPOS ].usItem) )
 				{
 					// OOPS! ... BOOM!
 					IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[ HANDPOS ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ HANDPOS ] );
@@ -2179,7 +2187,7 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 					pSoldier->usPendingAnimation = LOB_ITEM;
 			}
 			// Draw item depending on distance from buddy
-			else if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
+			else if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
 			{
 				//ddd maybe need to add check for throwing item class - grenade
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
@@ -2568,7 +2576,7 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 		if ( ItemExistsAtLocation( sGridNo, iItemIndex, pSoldier->pathing.bLevel ) )
 		{
 			// Flugente: if item is tripwireactivated and is a planted bomb, call the defuse dialogue. We obviously know about the items' existence already...
-			if ( gWorldItems[ iItemIndex ].object.exists() && gWorldItems[ iItemIndex ].object.fFlags & OBJECT_ARMED_BOMB && Item[gWorldItems[ iItemIndex ].object.usItem].tripwireactivation == 1 )
+			if ( gWorldItems[ iItemIndex ].object.exists() && gWorldItems[ iItemIndex ].object.fFlags & OBJECT_ARMED_BOMB && ItemHasTripwireActivation(gWorldItems[ iItemIndex ].object.usItem) )
 			{
 				gpBoobyTrapItemPool = GetItemPoolForIndex( sGridNo, iItemIndex, pSoldier->pathing.bLevel );
 				gpBoobyTrapSoldier = pSoldier;
@@ -2990,8 +2998,7 @@ OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 
 	if ( TERRAIN_IS_WATER( bTerrainID) )
 	{
-		//		if ( Item[ pObject->usItem ].fFlags & ITEM_SINKS )
-		if ( Item[ pObject->usItem ].sinks	)
+		if (ItemSinks(pObject->usItem))
 		{
 			return( NULL );
 		}
@@ -3332,7 +3339,7 @@ BOOLEAN MarblesExistAtLocation( INT32 sGridNo, UINT8 ubLevel, INT32 * piItemInde
 		pItemPoolTemp = pItemPool;
 		while( pItemPoolTemp != NULL )
 		{
-			if ( Item[gWorldItems[ pItemPoolTemp->iItemIndex ].object.usItem].marbles )
+			if (ItemIsMarbles(gWorldItems[ pItemPoolTemp->iItemIndex ].object.usItem))
 			{
 				if ( piItemIndex )
 				{
@@ -5146,7 +5153,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
-	if (Item[ pSoldier->inv[HANDPOS].usItem].remotetrigger )
+	if (ItemIsRemoteTrigger(pSoldier->inv[HANDPOS].usItem))
 	{
 		wcscpy( gzUserDefinedButton[0], L"1" );
 		wcscpy( gzUserDefinedButton[1], L"2" );
@@ -5241,7 +5248,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	{
 		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
-	else if ( Item[ (&(pSoldier->inv[HANDPOS]))->usItem ].tripwire == 1 )
+	else if (ItemIsTripwire((&(pSoldier->inv[HANDPOS]))->usItem))
 	{
 		wcscpy( gzUserDefinedButton[0], L"1-A" );
 		wcscpy( gzUserDefinedButton[1], L"1-B" );
@@ -5565,10 +5572,10 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 	if (gpTempSoldier)
 	{
 		// sevenfm: remember last tripwire network settings
-		if(Item[ gpTempSoldier->inv[HANDPOS].usItem ].tripwire )
+		if(ItemIsTripwire(gpTempSoldier->inv[HANDPOS].usItem))
 			gubLastTripwire = ubExitValue;
 
-		if (Item[ gpTempSoldier->inv[HANDPOS].usItem ].remotetrigger )
+		if (ItemIsRemoteTrigger(gpTempSoldier->inv[HANDPOS].usItem))
 		{
 			// Flugente: jamming can prevent bomb activation
 			if ( !gSkillTraitValues.fVOJammingBlocksRemoteBombs || !SectorJammed() )
@@ -5594,7 +5601,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 			if ( iResult >= 0 )
 			{
 				// Less explosives gain for placing tripwire
-				if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire == 1 )
+				if (ItemIsTripwire(gpTempSoldier->inv[ HANDPOS ].usItem))
 					StatChange( gpTempSoldier, EXPLODEAMT, 5, FALSE );
 				else if ( HasItemFlag( (gpTempSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
 					StatChange( gpTempSoldier, MECHANAMT, 10, FALSE );
@@ -5635,7 +5642,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				else
 				{
 					// we can't blow up tripwire, no matter how bad we fail
-					if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
+					if ( !ItemIsTripwire(gpTempSoldier->inv[ HANDPOS ].usItem))
 					{
 						// OOPS! ... BOOM!
 						IgniteExplosion( NOBODY, gpTempSoldier->sX, gpTempSoldier->sY, (INT16) (gpWorldLevelData[gpTempSoldier->sGridNo].sHeight), gpTempSoldier->sGridNo, gpTempSoldier->inv[ HANDPOS ].usItem, gpTempSoldier->pathing.bLevel, gpTempSoldier->ubDirection, &gpTempSoldier->inv[ HANDPOS ] );
@@ -5691,7 +5698,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 					gTempObject[0]->data.ubDirection = gpTempSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
 
 					// Flugente: tripwire was called through a messagebox, but has to be buried nevertheless
-					if ( Item[ (&gTempObject)->usItem ].tripwire == 1 )
+					if (ItemIsTripwire((&gTempObject)->usItem))
 					{
 						AddItemToPool( gsTempGridNo, &gTempObject, BURIED, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 						// sevenfm: set flag only if planting tripwire
@@ -5831,7 +5838,7 @@ BOOLEAN HandItemWorks( SOLDIERTYPE *pSoldier, INT8 bSlot )
 	// shape to be usable, and doesn't break during use.
 	// Exception: land mines.	You can bury them broken, they just won't blow!
 	//	if ( (Item[ pObj->usItem ].fFlags & ITEM_DAMAGEABLE) && (pObj->usItem != MINE) && (Item[ pObj->usItem ].usItemClass != IC_MEDKIT) && pObj->usItem != GAS_CAN )
-	if ( Item[pObj->usItem].damageable && !Item[pObj->usItem].mine && (Item[pObj->usItem].usItemClass != IC_MEDKIT) && !Item[pObj->usItem].gascan && !IsStructureConstructItem( pObj->usItem, pSoldier->sGridNo, NULL ) )
+	if (ItemIsDamageable(pObj->usItem) && !ItemIsMine(pObj->usItem) && (Item[pObj->usItem].usItemClass != IC_MEDKIT) && !ItemIsGascan(pObj->usItem) && !IsStructureConstructItem( pObj->usItem, pSoldier->sGridNo, NULL ) )
 	{
 		// if it's still usable, check whether it breaks
 		if ( (*pObj)[0]->data.objectStatus >= USABLE)
@@ -5911,8 +5918,7 @@ void SetOffBoobyTrap( ITEM_POOL * pItemPool )
 	if ( pItemPool )
 	{
 		INT16 sX, sY;
-		sX = CenterX( pItemPool->sGridNo );
-		sY = CenterY( pItemPool->sGridNo );
+		ConvertGridNoToCenterCellXY(pItemPool->sGridNo, &sX, &sY);
 		IgniteExplosion( NOBODY, sX, sY, (INT16) (gpWorldLevelData[pItemPool->sGridNo].sHeight + pItemPool->bRenderZHeightAboveLevel), pItemPool->sGridNo, MINI_GRENADE, 0 );
 		RemoveItemFromPool( pItemPool->sGridNo, pItemPool->iItemIndex, pItemPool->ubLevel );
 	}
@@ -6096,7 +6102,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 					CreateItem(gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &TempObject);
 
 					// also spawn attached guns/explosives
-					if (gTempObject.usItem != ACTION_ITEM && (Item[gTempObject.usItem].tripwire || Item[gTempObject.usItem].usItemClass & IC_EXPLOSV))
+					if (gTempObject.usItem != ACTION_ITEM && (ItemIsTripwire(gTempObject.usItem) || Item[gTempObject.usItem].usItemClass & IC_EXPLOSV))
 					{
 						// search for attached items
 						OBJECTTYPE* pAttItem = NULL;
@@ -6983,7 +6989,7 @@ INT32 FindNearestAvailableGridNoForItem( INT32 sSweetGridNo, INT8 ubRadius )
 
 BOOLEAN CanPlayerUseRocketRifle( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay )
 {
-	if ( Item[pSoldier->inv[ pSoldier->ubAttackingHand ].usItem].fingerprintid )
+	if (ItemHasFingerPrintID(pSoldier->inv[ pSoldier->ubAttackingHand ].usItem))
 	{
 		// check imprint ID
 		// NB not-imprinted value is NO_PROFILE
@@ -7035,7 +7041,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 		fStealItem = FALSE;
 
 		pObject=&pOpponent->inv[i];
-		if ((pObject->exists() == true) && !(Item[pObject->usItem].defaultundroppable  )) // CHECK! Undroppable items cannot be stolen - SANDRO
+		if ((pObject->exists() == true) && !ItemIsUndroppableByDefault(pObject->usItem)) // CHECK! Undroppable items cannot be stolen - SANDRO
 		{
 			// Is the enemy collapsed
 			if ( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed )
@@ -8158,7 +8164,7 @@ void CorrectDragStructData( INT32 sGridNo, INT8 sLevel, UINT8 ausHitpoints, UINT
 		if ( pStruct->ubHitPoints < pStruct->pDBStructureRef->pDBStructure->ubHitPoints
 			|| pStruct->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
 		{
-			gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			//SetRenderFlags( RENDER_FLAG_FULL );
 		}
@@ -8706,9 +8712,9 @@ void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationS
 	UpdateFortificationPossibleAmount();
 }
 
-std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( )
+GetAllForticationGridNoResult GetAllForticationGridNo()
 {
-	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > gridnovector;
+	GetAllForticationGridNoResult gridnovector;
 
 	if ( !gWorldSectorX || !gWorldSectorY )
 		return gridnovector;
@@ -9848,7 +9854,7 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 								}
 							}
 							// if we want to equip a two-handed item in our first hand, also drop whatever we have in the second hand
-							else if ( node.slot == HANDPOS && Item[node.item].twohanded && pSoldier->inv[SECONDHANDPOS].exists( ) )
+							else if ( node.slot == HANDPOS && ItemIsTwoHanded(node.item) && pSoldier->inv[SECONDHANDPOS].exists( ) )
 							{
 								AutoPlaceObjectInInventoryStash( &pSoldier->inv[SECONDHANDPOS], pSoldier->sGridNo, pSoldier->pathing.bLevel );
 								DeleteObj( &pSoldier->inv[SECONDHANDPOS] );
@@ -10261,7 +10267,7 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 				}
 
 				// if there is water in this sector, refill canteens
-				if ( refillwaterfromsector && Item[(pSoldier->inv[slot]).usItem].canteen && Food[Item[(pSoldier->inv[slot]).usItem].foodtype].bDrinkPoints > 0 )
+				if ( refillwaterfromsector && ItemIsCanteen(pSoldier->inv[slot].usItem) && Food[Item[(pSoldier->inv[slot]).usItem].foodtype].bDrinkPoints > 0 )
 				{
 					OBJECTTYPE* pObj = &(pSoldier->inv[slot]);
 

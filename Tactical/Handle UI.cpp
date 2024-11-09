@@ -2988,11 +2988,12 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 			if ( pTSoldier != NULL )
 			{
 				// If this is one of our own guys.....pop up requiester...
+				UINT16 usItem = pSoldier->inv[HANDPOS].usItem;
 				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) 
-					&& Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT 
-					&& !Item[pSoldier->inv[ HANDPOS ].usItem].gascan
-					&& !Item[pSoldier->inv[HANDPOS].usItem].toolkit
-					&& !ItemCanBeAppliedToOthers( pSoldier->inv[ HANDPOS ].usItem )
+					&& Item[ usItem ].usItemClass != IC_MEDKIT 
+					&& !ItemIsGascan(usItem)
+					&& !ItemIsToolkit(usItem)
+					&& !ItemCanBeAppliedToOthers( usItem )
 					&& gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile 
 					&& ( pTSoldier->ubID != pSoldier->ubID ) )
 				{
@@ -3010,7 +3011,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 				}
 				////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - Should we ask if we really want to do the surgery?
-				else if (Item[ pSoldier->inv[ HANDPOS ].usItem ].medicalkit && (NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery)
+				else if (ItemIsMedicalKit(usItem) && (NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery)
 					&& (pTSoldier->bTeam == OUR_TEAM || pTSoldier->bTeam == MILITIA_TEAM) 
 					&& (IS_MERC_BODY_TYPE( pTSoldier ) || IS_CIV_BODY_TYPE( pTSoldier )) 
 					&& gGameOptions.fNewTraitSystem && pTSoldier->iHealableInjury >= 100 
@@ -3894,7 +3895,7 @@ void UIHandleSoldierStanceChange( UINT16 ubSoldierID, INT8	bNewStance )
 				gGameExternalOptions.ubAllowAlternativeWeaponHolding &&
 				pSoldier->inv[HANDPOS].exists() &&
 				Weapon[pSoldier->inv[HANDPOS].usItem].HeavyGun &&
-				Item[pSoldier->inv[HANDPOS].usItem].twohanded &&
+				ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) &&
 				bNewStance == ANIM_STAND)
 			{
 				ChangeScopeMode(pSoldier, NOWHERE);
@@ -3937,7 +3938,7 @@ void UIHandleSoldierStanceChange( UINT16 ubSoldierID, INT8	bNewStance )
 			gGameExternalOptions.ubAllowAlternativeWeaponHolding &&
 			pSoldier->inv[HANDPOS].exists() &&
 			Weapon[pSoldier->inv[HANDPOS].usItem].HeavyGun &&
-			Item[pSoldier->inv[HANDPOS].usItem].twohanded &&
+			ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) &&
 			bNewStance == ANIM_STAND)
 		{
 			ChangeScopeMode(pSoldier, NOWHERE);
@@ -4628,7 +4629,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 	}
 	else if ( uiFlags == MOVEUI_TARGET_BOMB )
 	{
-		if(Item[pSoldier->inv[HANDPOS].usItem].mine == 1)
+		if(ItemIsMine(pSoldier->inv[HANDPOS].usItem))
 			sAPCost += GetAPsToPlantMine( pSoldier );
 		else
 			sAPCost += GetAPsToDropBomb( pSoldier );
@@ -5014,7 +5015,7 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		}
 
 		// SANDRO - doctor with medical bag trying to do the surgery
-		if ((NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && Item[pSoldier->inv[ HANDPOS ].usItem].medicalkit && gGameOptions.fNewTraitSystem
+		if ((NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && ItemIsMedicalKit(pSoldier->inv[ HANDPOS ].usItem) && gGameOptions.fNewTraitSystem
 			&& (pTSoldier->stats.bLife != pTSoldier->stats.bLifeMax) && (pTSoldier->iHealableInjury >= 100))
 		{
 			// should come a question first if you really want to do the surgery
@@ -5619,7 +5620,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 		sTargetGridNo = MercPtrs[ ubTargID ]->sGridNo;
 	}
 
-	uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo );
+	uiRange = PythSpacesAway( pSoldier->sGridNo, sTargetGridNo );
 
 
 	if ( uiRange <= NPC_TALK_RADIUS )
@@ -6610,7 +6611,7 @@ BOOLEAN HandleTalkInit(	)
 			}
 
 			// Check distance
-			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, usMapPos );
+			uiRange = PythSpacesAway( pSoldier->sGridNo, usMapPos );
 
 			// Double check path
 			if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )

@@ -4616,6 +4616,28 @@ void HandleSettingTheSelectedListOfMercs( void )
 		INT8 pbErrorNumber = -1;
 		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
 		INT8 bSquadValue = pSoldier->bAssignment;
+		if (bSquadValue == VEHICLE)
+		{
+			for (INT8 bCounter = 0; bCounter < NUMBER_OF_SQUADS; ++bCounter)
+			{
+				if (Squad[bCounter][0] != NULL && IsVehicle(Squad[bCounter][0]) &&
+					Squad[bCounter][0]->bVehicleID == pSoldier->iVehicleId)
+				{
+					bSquadValue = bCounter;
+					break;
+				}
+			}
+		}
+		if (bSquadValue >= NUMBER_OF_SQUADS)
+		{
+			if (pbErrorNumber != -1)
+			{
+				ReportMapScreenMovementError(pbErrorNumber);
+			}
+			SetSelectedDestChar(-1);
+			giDestHighLine = -1;
+			return;
+		}
 
 		// find number of characters in particular squad.
 		for (INT8 bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter)
@@ -4727,17 +4749,21 @@ INT8 FindSquadThatSoldierCanJoin( SOLDIERTYPE *pSoldier )
 	// run through the list of squads
 	for( bCounter = 0; bCounter < NUMBER_OF_SQUADS; bCounter++ )
 	{
-		// is this squad in this sector
-		if( IsThisSquadInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, bCounter ) )
+		// anv: don't automatically put people in vehicle squads
+		if (Squad[bCounter][0] == NULL || !IsVehicle(Squad[bCounter][0]))
 		{
-			// does it have room?
-			if( IsThisSquadFull( bCounter ) == FALSE )
+			// is this squad in this sector
+			if (IsThisSquadInThisSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, bCounter))
 			{
-				// is it doing the same thing as the soldier is (staying or going) ?
-				if( IsSquadSelectedForMovement( bCounter ) == IsSoldierSelectedForMovement( pSoldier ) )
+				// does it have room?
+				if (IsThisSquadFull(bCounter) == FALSE)
 				{
-					// go ourselves a match, then
-					return( bCounter );
+					// is it doing the same thing as the soldier is (staying or going) ?
+					if (IsSquadSelectedForMovement(bCounter) == IsSoldierSelectedForMovement(pSoldier))
+					{
+						// go ourselves a match, then
+						return(bCounter);
+					}
 				}
 			}
 		}

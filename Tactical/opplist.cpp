@@ -6134,10 +6134,8 @@ void ProcessNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrT
 			{
 				// ALL RIGHT!	Passed all the tests, this listener hears this noise!!!
 				HearNoise(pSoldier,ubSource,sGridNo,bLevel,ubEffVolume,ubNoiseType, (UINT8 *)&bSeen);
-
 				bHeard = TRUE;
-
-				ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sGridNo),CenterY(sGridNo));
+				ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sGridNo);
 
 				// check the 'noise heard & reported' bit for that soldier & direction
 				if ( ubNoiseType != NOISE_MOVEMENT || bTeam != OUR_TEAM || (pSoldier->aiData.bInterruptDuelPts != NO_INTERRUPT) || !(pSoldier->ubMovementNoiseHeard & (1 << ubNoiseDir) ) )
@@ -6445,8 +6443,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 b
 	// ignore muzzle flashes when turning head to see noise
 	if ( ubNoiseType == NOISE_GUNFIRE && ubNoiseMaker != NOBODY && MercPtrs[ ubNoiseMaker ]->flags.fMuzzleFlash )
 	{
-		sNoiseX = CenterX(sGridNo);
-		sNoiseY = CenterY(sGridNo);
+		ConvertGridNoToCenterCellXY(sGridNo, &sNoiseX, &sNoiseY);
 		bDirection = atan8(pSoldier->sX,pSoldier->sY,sNoiseX,sNoiseY);
 		if ( pSoldier->ubDirection != bDirection && pSoldier->ubDirection != gOneCDirection[ bDirection ] && pSoldier->ubDirection != gOneCCDirection[ bDirection ] )
 		{
@@ -6467,8 +6464,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT16 ubNoiseMaker, INT32 sGridNo, INT8 b
 	if (PythSpacesAway(pSoldier->sGridNo,sGridNo) <= sDistVisible )
 	{
 		// just use the XXadjustedXX center of the gridno
-		sNoiseX = CenterX(sGridNo);
-		sNoiseY = CenterY(sGridNo);
+		ConvertGridNoToCenterCellXY(sGridNo, &sNoiseX, &sNoiseY);
 
 		if (pSoldier->ubDirection != atan8(pSoldier->sX,pSoldier->sY,sNoiseX,sNoiseY))
 		{

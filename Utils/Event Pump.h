@@ -1,7 +1,6 @@
 #ifndef EVENT_PROCESSOR_H
 #define EVENT_PROCESSOR_H
 
-#include "Event Manager.h"
 #include "Overhead Types.h"
 
 
@@ -271,8 +270,6 @@ BOOLEAN AddGameEventFromNetwork( UINT32 uiEvent, UINT16 usDelay, PTR pEventData 
 BOOLEAN DequeAllGameEvents( BOOLEAN fExecute );
 BOOLEAN DequeueAllDemandGameEvents( BOOLEAN fExecute );
 
-// clean out the evetn queue
+// clean out the event queue
 BOOLEAN ClearEventQueue( void );
-
-
 #endif

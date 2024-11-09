@@ -51,9 +51,7 @@ extern CHAR16 gzErrorCatchString[ 256 ];
 
 //dnl ch81 031213
 extern CHAR16 gzFilename[FILENAME_BUFLEN];
-#ifdef USE_VFS
 extern CHAR8 gzProfileName[FILENAME_BUFLEN];
-#endif
 
 #endif
 #endif

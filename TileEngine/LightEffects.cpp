@@ -84,7 +84,10 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 
 	LightSpritePower( pLight->iLight, TRUE );
 //	LightSpriteFake( pLight->iLight );
-	LightSpritePosition( pLight->iLight, (INT16)( CenterX( pLight->sGridNo ) / CELL_X_SIZE ), (INT16)( CenterY( pLight->sGridNo ) / CELL_Y_SIZE ) );
+	INT16 sX, sY;
+	ConvertGridNoToCenterCellXY(pLight->sGridNo, &sX, &sY);
+
+	LightSpritePosition( pLight->iLight, (INT16)( sX / CELL_X_SIZE ), (INT16)( sY / CELL_Y_SIZE ) );
 }
 
 // Flugente: create a pure light, worry about updating sight in other functions

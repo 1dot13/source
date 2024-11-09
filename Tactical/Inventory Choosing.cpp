@@ -738,7 +738,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			switch( Item[ pItem->usItem ].usItemClass )
 			{
 				case IC_GUN:
-					if ( !Item[pItem->usItem].rocketlauncher )
+					if ( !ItemIsRocketLauncher(pItem->usItem) )
 					{
 						bWeaponClass *= -1;
 					}
@@ -873,7 +873,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 				pp->Inv[ i ][0]->data.gun.ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 				pp->Inv[ i ][0]->data.gun.usGunAmmoItem = usAmmoIndex;
 
-				if ( Item[usGunIndex].fingerprintid )
+				if (ItemHasFingerPrintID(usGunIndex))
 				{
 					pp->Inv[ i ][0]->data.ubImprintID = (NO_PROFILE + 1);
 				}
@@ -951,7 +951,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
 	// Rocket Rifles must come pre-imprinted, in case carrier gets killed without getting a shot off
-	if ( Item[usGunIndex].fingerprintid )
+	if (ItemHasFingerPrintID(usGunIndex))
 	{
 		pp->Inv[ HANDPOS ][0]->data.ubImprintID = (NO_PROFILE + 1);
 	}
@@ -2246,29 +2246,45 @@ void ChooseBombsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bBombClas
 void ChooseLBEsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bLBEClass )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ChooseLBEsForSoldierCreateStruct");
-	//UINT16 i;
-	//INVTYPE *pItem;
-	//UINT16 usRandom;
-	UINT16 usItem = 0;
 
 	// CHRISL: If we're using the old inventory system, just return
 	if((UsingNewInventorySystem() == false))
 		return;
 
-	usItem = PickARandomItem( LBE, pp->ubSoldierClass, bLBEClass, FALSE );
+	UINT16 usItem = PickARandomItem( LBE, pp->ubSoldierClass, bLBEClass, FALSE );
 	if ( usItem > 0 )
 	{
 		CreateItem( usItem, (INT8)(80 + Random( 21 )), &gTempObject );
 		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-		// put backpacks into the backpack slot for LOBOT
-		if ((UsingNewInventorySystem()) && (Item[usItem].usItemClass & IC_LBEGEAR) && (LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass == BACKPACK))
+
+		auto isLBEgear = Item[usItem].usItemClass & IC_LBEGEAR;
+		if (isLBEgear)
 		{
-			pp->Inv[BPACKPOCKPOS] = gTempObject;
+			// put backpacks into the backpack slot for LOBOT
+			auto lbeClass = LoadBearingEquipment[Item[usItem].ubClassIndex].lbeClass;
+			if (lbeClass == BACKPACK && !pp->Inv[BPACKPOCKPOS].exists())
+			{
+				pp->Inv[BPACKPOCKPOS] = gTempObject;
+				return;
+			}
+			// same for pistol holster
+			if (lbeClass == THIGH_PACK)
+			{
+				if (!pp->Inv[LTHIGHPOCKPOS].exists())
+				{
+					pp->Inv[LTHIGHPOCKPOS] = gTempObject;
+					return;
+				}
+				if (!pp->Inv[RTHIGHPOCKPOS].exists())
+				{
+					pp->Inv[RTHIGHPOCKPOS] = gTempObject;
+					return;
+				}
+			}
 		}
-		else
-		{
-			PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
-		}
+
+		// Couldn't find a specific pocket, just stuff it somewhere
+		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
 	}
 }
 
@@ -3128,7 +3144,7 @@ void ReplaceExtendedGuns( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 	{
 		usItem = pp->Inv[ uiLoop ].usItem;
 
-		if ( ( Item[ usItem ].usItemClass & IC_GUN ) && ExtendedGunListGun( usItem ) )
+		if ( ( Item[ usItem ].usItemClass & IC_GUN ) && ItemIsOnlyInTonsOfGuns( usItem ) )
 		{
 			if ( bSoldierClass == SOLDIER_CLASS_NONE )
 			{
@@ -3512,7 +3528,7 @@ UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & IC_FACE )
 	{
-		if ( Item[ pObj->usItem ].gasmask )
+		if (ItemIsGasmask(pObj->usItem))
 			value = (*pObj)[idx]->data.objectStatus;
 		else if ( Item[ pObj->usItem ].hearingrangebonus )
 		{
@@ -4170,7 +4186,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_FACE && (!si[SI_SIGHT].done || !si[SI_FACE2].done || !si[SI_FACE_SPARESIGHT].done || !si[SI_GASMASK].done) )
 					{
 						// gasmasks are reserved for a special slot and will only be worn if we do not have 2 face items. items that increase our vision (NVGs adn sungooggles) get to slot 1, everything else in 2
-						if ( Item[ pWorldItem[ uiCount ].object.usItem ].gasmask )
+						if (ItemIsGasmask(pWorldItem[ uiCount ].object.usItem))
 							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GASMASK] );
 						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus > 0 )
 						{
@@ -4249,7 +4265,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 						if ( fnd == launcherhelpmap.end() )
 						{
 							LauncherHelpStruct tmp;
-							tmp.fNeedsAmmo = !Item[pWorldItem[ uiCount ].object.usItem].singleshotrocketlauncher;
+							tmp.fNeedsAmmo = !ItemIsSingleShotRocketLauncher(pWorldItem[ uiCount ].object.usItem);
 							launcherhelpmap[ pWorldItem[ uiCount ].object.usItem ] = tmp;
 						}
 					}

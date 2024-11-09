@@ -6,7 +6,6 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Debug Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/dsutil.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Encrypted File.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Event Manager.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Event Pump.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/ExportStrings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Font Control.cpp"

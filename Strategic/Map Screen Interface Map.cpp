@@ -1792,10 +1792,15 @@ void InitializeMilitiaPopup(void)
 	const UINT16 xVal = 330 + xResOffset;
 	const UINT16 yVal = 25 + yResOffset;
 
-	if (isWidescreenUI() || iResolution >= _1024x768)
+	if (iResolution >= _1024x768)
 	{
 		MAP_MILITIA_BOX_POS_X = xVal + 190;
 		MAP_MILITIA_BOX_POS_Y = yVal + 285;
+	}
+	else if (isWidescreenUI())
+	{
+		MAP_MILITIA_BOX_POS_X = xVal + 190;
+		MAP_MILITIA_BOX_POS_Y = yVal + 116;
 	}
 	else if (iResolution >= _800x600)
 	{

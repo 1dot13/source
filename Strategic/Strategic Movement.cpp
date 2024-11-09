@@ -1757,30 +1757,30 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 	Corpse.usFlags = ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO;
 
 	// 1st gridno
-	Corpse.sGridNo								= 14319; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 14319; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)( sXPos );
+	Corpse.dYPos = (FLOAT)( sYPos );
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);
 
 
 	// 2nd gridno
-	Corpse.sGridNo								= 9835; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 9835; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)(sXPos);
+	Corpse.dYPos = (FLOAT)(sYPos);
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);
 
 
 	// 3rd gridno
-	Corpse.sGridNo								= 11262; //dnl!!!
-	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
+	Corpse.sGridNo = 11262; //dnl!!!
+	ConvertGridNoToCenterCellXY(Corpse.sGridNo, &sXPos, &sYPos);
+	Corpse.dXPos = (FLOAT)(sXPos);
+	Corpse.dYPos = (FLOAT)(sYPos);
 
 	//Add the rotting corpse info to the sectors unloaded rotting corpse file
 	AddRottingCorpseToUnloadedSectorsRottingCorpseFile( sSectorX, sSectorY, 0, &Corpse);
@@ -1951,33 +1951,33 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			SectorInfo[SECTOR( pGroup->ubSectorX, pGroup->ubSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
 		}
 
-		// award life 'experience' for travelling, based on travel time!
-		if ( !pGroup->fVehicle )
+		// Flugente: do not award experience gain if we never left
+		if (!fNeverLeft)
 		{
-			// Flugente: do not award experience gain if we never left
-			if ( !fNeverLeft )
+			// award life 'experience' for travelling, based on travel time!
+			if (!pGroup->fVehicle)
 			{
 				// gotta be walking to get tougher
-				AwardExperienceForTravelling( pGroup );
+				AwardExperienceForTravelling(pGroup);
 			}
-		}
-		else if( !IsGroupTheHelicopterGroup( pGroup ) )
-		{
-			SOLDIERTYPE *pSoldier;
-			INT32 iVehicleID;
-			iVehicleID = GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID );
-			AssertMsg( iVehicleID != -1, "GroupArrival for vehicle group. Invalid iVehicleID. " );
-
-			pSoldier = GetSoldierStructureForVehicle( iVehicleID );
-			AssertMsg( pSoldier, "GroupArrival for vehicle group. Invalid soldier pointer." );
-
-			SpendVehicleFuel( pSoldier, (INT16)(pGroup->uiTraverseTime*6) );
-
-			if( !VehicleFuelRemaining( pSoldier ) )
+			else if (!IsGroupTheHelicopterGroup(pGroup))
 			{
-				ReportVehicleOutOfGas( iVehicleID, pGroup->ubSectorX, pGroup->ubSectorY );
-				//Nuke the group's path, so they don't continue moving.
-				ClearMercPathsAndWaypointsForAllInGroup( pGroup );
+				SOLDIERTYPE* pSoldier;
+				INT32 iVehicleID;
+				iVehicleID = GivenMvtGroupIdFindVehicleId(pGroup->ubGroupID);
+				AssertMsg(iVehicleID != -1, "GroupArrival for vehicle group. Invalid iVehicleID. ");
+
+				pSoldier = GetSoldierStructureForVehicle(iVehicleID);
+				AssertMsg(pSoldier, "GroupArrival for vehicle group. Invalid soldier pointer.");
+
+				SpendVehicleFuel(pSoldier, (INT16)(pGroup->uiTraverseTime * 6));
+
+				if (!VehicleFuelRemaining(pSoldier))
+				{
+					ReportVehicleOutOfGas(iVehicleID, pGroup->ubSectorX, pGroup->ubSectorY);
+					//Nuke the group's path, so they don't continue moving.
+					ClearMercPathsAndWaypointsForAllInGroup(pGroup);
+				}
 			}
 		}
 	}
@@ -5137,7 +5137,7 @@ void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle )
 	OBJECTTYPE *pItem;
 	INT16 sFuelNeeded, sFuelAvailable, sFuelAdded;
 	pItem = &pSoldier->inv[ HANDPOS ];
-	if( !Item[pItem->usItem].gascan )
+	if( !ItemIsGascan(pItem->usItem))
 	{
 		#ifdef JA2BETAVERSION
 			CHAR16 str[ 100 ];

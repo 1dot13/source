@@ -136,7 +136,7 @@ void PruneWorldItems(void)
 	for (size_t i = 0; i < gAllWorldItems.Items.size(); i++)
 	{
 		std::vector<WORLDITEM>& items = gAllWorldItems.Items[i];
-		for (INT32 j = items.size()-1; j > 0; j--)
+		for (INT32 j = items.size()-1; j >= 0; j--)
 		{
 				if (items[j].fExists == false)
 				{
@@ -149,6 +149,11 @@ void PruneWorldItems(void)
 		}
 		else
 		{
+			auto x = gAllWorldItems.sectors[i].x;
+			auto y = gAllWorldItems.sectors[i].y;
+			auto z = gAllWorldItems.sectors[i].z;
+			ReSetSectorFlag(x, y, z, SF_ITEM_TEMP_FILE_EXISTS);
+
 			gAllWorldItems.sectors.erase(gAllWorldItems.sectors.begin() + i);
 			gAllWorldItems.NumItems.erase(gAllWorldItems.NumItems.begin() + i);
 			gAllWorldItems.Items.erase(gAllWorldItems.Items.begin() + i);
@@ -452,7 +457,7 @@ INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKno
 		{
 			pObj = &( gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].object );
 
-			if ( pObj && Item[pObj->usItem].tripwire )
+			if ( pObj && ItemIsTripwire(pObj->usItem) )
 			{
 				if ( !fKnown )
 					return( gWorldBombs[ uiBombIndex ].iItemIndex );
@@ -862,7 +867,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				}
 			}
 
-			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && ( Item[dummyItem.object.usItem].mine || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
+			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && (ItemIsMine(dummyItem.object.usItem) || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
 			{
 				ArmBomb( &dummyItem.object, BOMB_PRESSURE );
 				dummyItem.usFlags |= WORLD_ITEM_ARMED_BOMB;

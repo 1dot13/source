@@ -995,13 +995,13 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 			if( ( pSoldier->bAssignment != VEHICLE ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 			//if ( pSoldier->bAssignment != VEHICLE )
 			{ //Can only remove groups if they aren't persistant (not in a squad or vehicle)
-				RemoveGroup( pSoldier->ubGroupID );
+				RemovePlayerFromGroup(pSoldier->ubGroupID, pSoldier);
 			}
 			else
 			{
 				// remove him from any existing merc slot he could be in
 				RemoveMercSlot( pSoldier );
-		TakeSoldierOutOfVehicle( pSoldier );
+				TakeSoldierOutOfVehicle( pSoldier );
 			}
 		}
 

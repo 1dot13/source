@@ -473,8 +473,7 @@ INT8 DecideActionSchedule( SOLDIERTYPE * pSoldier )
 		switch( pSoldier->bAIScheduleProgress )
 		{
 		case 0:
-			sX = CenterX( pSoldier->sOffWorldGridNo );
-			sY = CenterY( pSoldier->sOffWorldGridNo );
+			ConvertGridNoToCenterCellXY(pSoldier->sOffWorldGridNo, &sX, &sY);
 			pSoldier->EVENT_SetSoldierPosition( sX, sY );
 			pSoldier->bInSector = TRUE;
 			MoveSoldierFromAwayToMercSlot( pSoldier );
@@ -565,7 +564,7 @@ INT8 DecideActionBoxerEnteringRing(SOLDIERTYPE *pSoldier)
 			if (!TileIsOutOfBounds(sDesiredMercLoc))
 			{
 				// see if we are facing this person
-				ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sDesiredMercLoc),CenterY(sDesiredMercLoc));
+				ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sDesiredMercLoc);
 
 				// if not already facing in that direction,
 				if ( pSoldier->ubDirection != ubDesiredMercDir && pSoldier->InternalIsValidStance( ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
@@ -626,7 +625,7 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 			}
 
 			// see if we are facing this person
-			ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sDesiredMercLoc),CenterY(sDesiredMercLoc));
+			ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sDesiredMercLoc);
 
 			// if not already facing in that direction,
 			if (pSoldier->ubDirection != ubDesiredMercDir && pSoldier->InternalIsValidStance( ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
@@ -782,7 +781,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			UINT8 ubRingDir;
 			// face ring!
 
-			ubRingDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(CENTER_OF_RING),CenterY(CENTER_OF_RING));
+			ubRingDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, CENTER_OF_RING);
 			if ( gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
 			{
 				if ( pSoldier->ubDirection != ubRingDir )
@@ -966,7 +965,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
 					// see if we are facing this person
-					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+					UINT8 ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo);
 
 					// if not already facing in that direction,
 					if ( pSoldier->ubDirection != ubDesiredMercDir )
@@ -1495,8 +1494,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 						UINT8 ubNoiseDir;
 						
 						if (TileIsOutOfBounds(sNoiseGridNo) || 
-							(ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo))
-							) == pSoldier->ubDirection )
+							( ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sNoiseGridNo) ) == pSoldier->ubDirection )
 						
 						{
 							pSoldier->aiData.usActionData = PreRandom(8);
@@ -1668,7 +1666,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 					{
 						// see if we are facing this person
-						UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+						UINT8 ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo);
 
 						// if not already facing in that direction,
 						if ( pSoldier->ubDirection != ubDesiredMercDir )
@@ -1721,7 +1719,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
 					// see if we are facing this person
-					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+					UINT8 ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo);
 
 					// if not already facing in that direction,
 					if ( pSoldier->ubDirection != ubDesiredMercDir )
@@ -1798,7 +1796,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 
 	// determine direction from this soldier in which the noise lies
-	ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
+	ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sNoiseGridNo);
 
 	// if soldier is not already facing in that direction,
 	// and the noise source is close enough that it could possibly be seen
@@ -2737,15 +2735,16 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if (BestThrow.ubPossible)
 		{
 			// sevenfm: allow using mortars, grenade launchers, flares and grenades in RED state
-			if (Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar ||
-				//Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].cannon ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].rocketlauncher ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].grenadelauncher ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].flare ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].usItemClass & IC_GRENADE)
+			UINT16 usItem = pSoldier->inv[BestThrow.bWeaponIn].usItem;
+			if (ItemIsMortar(usItem) ||
+				//Item[usItem].cannon ||
+				ItemIsRocketLauncher(usItem) ||
+				ItemIsGrenadeLauncher(usItem) ||
+				ItemIsFlare(usItem) ||
+				Item[usItem].usItemClass & IC_GRENADE)
 			{
 				// if firing mortar make sure we have room
-				if (Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar)
+				if (ItemIsMortar(usItem))
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("using mortar, check room to deploy"));
 					ubOpponentDir = AIDirection(pSoldier->sGridNo, BestThrow.sTarget);
@@ -3293,7 +3292,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 					{
 						// see if we are facing this person
-						UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+						UINT8 ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo);
 
 						// if not already facing in that direction,
 						if ( pSoldier->ubDirection != ubDesiredMercDir )
@@ -3341,7 +3340,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
 					// see if we are facing this person
-					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+					UINT8 ubDesiredMercDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo);
 
 					// if not already facing in that direction,
 					if ( pSoldier->ubDirection != ubDesiredMercDir )
@@ -4521,7 +4520,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if (!TileIsOutOfBounds(sClosestOpponent))
 		{
 			// determine direction from this soldier to the closest opponent
-			ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 			// if soldier is not already facing in that direction,
 			// and the opponent is close enough that he could possibly be seen
@@ -4625,7 +4624,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			
 			if (!TileIsOutOfBounds(sClosestDisturbance))
 			{
-				ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
+				ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestDisturbance);
 				if ( pSoldier->ubDirection == ubOpponentDir )
 				{
 					ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
@@ -4768,7 +4767,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					if (!gfTurnBasedAI || (GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints)
 					{
 						// determine direction from this soldier to the closest opponent
-						ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+						ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 						if (!WeaponReady(pSoldier) && 
 							pSoldier->ubDirection == ubOpponentDir &&
@@ -4802,7 +4801,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		
 		if (!TileIsOutOfBounds(sClosestDisturbance))
 		{
-			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestDisturbance);
 			if ( pSoldier->ubDirection != ubOpponentDir )
 			{
 				if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
@@ -5505,7 +5504,7 @@ INT16 ubMinAPCost;
 		if (BestThrow.ubPossible)
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"good throw possible");
-			if ( Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].mortar )
+			if (ItemIsMortar(pSoldier->inv[ BestThrow.bWeaponIn ].usItem))
 			{
 				ubOpponentDir = AIDirection(pSoldier->sGridNo, BestThrow.sTarget);
 
@@ -6325,7 +6324,7 @@ INT16 ubMinAPCost;
 						}
 
 						// SANDRO: more likely to burst when firing from hip
-						if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+						if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && ItemIsTwoHanded(pSoldier->inv[BestAttack.bWeaponIn].usItem) )
 							iChance += 40;
 
 						// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
@@ -6442,7 +6441,7 @@ L_NEWAIM:
 							}
 
 							// SANDRO: more likely to burst when firing from hip
-							if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+							if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && ItemIsTwoHanded(pSoldier->inv[BestAttack.bWeaponIn].usItem) )
 								iChance += 40;
 
 							// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
@@ -6994,7 +6993,7 @@ L_NEWAIM:
 			if(!TileIsOutOfBounds(pSoldier->sLastTarget))
 				sClosestOpponent = pSoldier->sLastTarget;
 			pSoldier->aiData.bNextAction = AI_ACTION_CHANGE_FACING;
-			pSoldier->aiData.usNextActionData = atan8(CenterX(sBestCover),CenterY(sBestCover),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+			pSoldier->aiData.usNextActionData = GetDirectionFromCenterCellXYGridNo(sBestCover, sClosestOpponent);
 		}
 		return(AI_ACTION_TAKE_COVER);
 	}
@@ -7088,7 +7087,7 @@ L_NEWAIM:
 							// if we have a closest seen opponent						
 							if (!TileIsOutOfBounds(sClosestOpponent))
 							{
-								bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+								bDirection = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 								// if we're not facing towards him
 								if (pSoldier->ubDirection != bDirection)
@@ -7149,7 +7148,7 @@ L_NEWAIM:
 			{
 				if(!TileIsOutOfBounds(pSoldier->sLastTarget))//dnl ch58 150913
 					sClosestOpponent = pSoldier->sLastTarget;
-				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+				bDirection = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 				// if we're not facing towards him
 				if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
@@ -7801,7 +7800,7 @@ INT8 ArmedVehicleDecideActionGreen( SOLDIERTYPE *pSoldier )
 						UINT8 ubNoiseDir;
 
 						if ( TileIsOutOfBounds( sNoiseGridNo ) ||
-							 (ubNoiseDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sNoiseGridNo ), CenterY( sNoiseGridNo ) )
+							 (ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sNoiseGridNo)
 							 ) == pSoldier->ubDirection )
 
 						{
@@ -7904,7 +7903,7 @@ INT8 ArmedVehicleDecideActionYellow( SOLDIERTYPE *pSoldier )
 	////////////////////////////////////////////////////////////////////////////
 
 	// determine direction from this soldier in which the noise lies
-	ubNoiseDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sNoiseGridNo ), CenterY( sNoiseGridNo ) );
+	ubNoiseDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sNoiseGridNo);
 
 	// if soldier is not already facing in that direction,
 	// and the noise source is close enough that it could possibly be seen
@@ -8405,10 +8404,10 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		if ( BestThrow.ubPossible )
 		{
 			// if firing mortar make sure we have room
-			//if ( Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].mortar ) //comm by ddd
-			if ( Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar
-				 || Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].grenadelauncher
-				 || Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].flare )
+			UINT16 usItem = pSoldier->inv[BestThrow.bWeaponIn].usItem;
+			if (ItemIsMortar(usItem)
+				 || ItemIsGrenadeLauncher(usItem)
+				 || ItemIsFlare(usItem) )
 			{
 				ubOpponentDir = GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
 
@@ -9153,7 +9152,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 					if ( bHighestWatchLoc != -1 )
 					{
 						// see if we need turn to face that location
-						ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc] ), CenterY( gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc] ) );
+						ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc]);
 
 						// if soldier is not already facing in that direction,
 						// and the opponent is close enough that he could possibly be seen
@@ -9339,7 +9338,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		if ( !TileIsOutOfBounds( sClosestOpponent ) )
 		{
 			// determine direction from this soldier to the closest opponent
-			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestOpponent ), CenterY( sClosestOpponent ) );
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 			// if soldier is not already facing in that direction,
 			// and the opponent is close enough that he could possibly be seen
@@ -9384,7 +9383,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 
 		if ( !TileIsOutOfBounds( sClosestDisturbance ) )
 		{
-			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestDisturbance);
 			if ( pSoldier->ubDirection == ubOpponentDir )
 			{
 				ubOpponentDir = (UINT8)PreRandom( NUM_WORLD_DIRECTIONS );
@@ -9435,7 +9434,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 
 		if ( !TileIsOutOfBounds( sClosestDisturbance ) )
 		{
-			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
+			ubOpponentDir = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestDisturbance);
 			if ( pSoldier->ubDirection != ubOpponentDir )
 			{
 				if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
@@ -9801,7 +9800,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 		if ( BestThrow.ubPossible )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "good throw possible" );
-			if ( Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].mortar )
+			if (ItemIsMortar(pSoldier->inv[BestThrow.bWeaponIn].usItem))
 			{
 				ubOpponentDir = (UINT8)GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
 
@@ -10019,7 +10018,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 			if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical )
 			{
 				// first get the direction, as we will need to pass that in to ShootingStanceChange
-				bDirection = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( BestAttack.sTarget ), CenterY( BestAttack.sTarget ) );
+				bDirection = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, BestAttack.sTarget);
 				
 				// Change facing
 				if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[pSoldier->usAnimState].ubEndHeight ) )
@@ -10306,7 +10305,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 			{
 				if ( !TileIsOutOfBounds( pSoldier->sLastTarget ) )//dnl ch58 150913
 					sClosestOpponent = pSoldier->sLastTarget;
-				bDirection = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestOpponent ), CenterY( sClosestOpponent ) );
+				bDirection = GetDirectionFromCenterCellXYGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 				// if we're not facing towards him
 				if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[pSoldier->usAnimState].ubEndHeight ) )

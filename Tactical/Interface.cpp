@@ -978,12 +978,12 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	}
 	else
 	{
-		if ( Item[pSoldier->inv[ HANDPOS ].usItem].toolkit )
+		if (ItemIsToolkit(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = TOOLKITACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
 		}
-		else if ( Item[pSoldier->inv[ HANDPOS ].usItem].wirecutters )
+		else if (ItemIsWirecutters(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = WIRECUTACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
@@ -2478,14 +2478,16 @@ BOOLEAN DrawCTHIndicator()
 
 	//////////////////////////////////
 	// Calculate Aperture
-
+	INT16 sX, sY;
 	// Calculate the center point of the shooter, in world coordinates.
-	FLOAT dStartX = (FLOAT) CenterX( gCTHDisplay.iShooterGridNo );
-	FLOAT dStartY = (FLOAT) CenterY( gCTHDisplay.iShooterGridNo );
+	ConvertGridNoToCenterCellXY(gCTHDisplay.iShooterGridNo, &sX, &sY);
+	FLOAT dStartX = (FLOAT) sX;
+	FLOAT dStartY = (FLOAT) sY;
 
 	// Calculate the center point of the target, in world coordinates.
-	FLOAT dEndX = (FLOAT) CenterX( gCTHDisplay.iTargetGridNo );
-	FLOAT dEndY = (FLOAT) CenterY( gCTHDisplay.iTargetGridNo );
+	ConvertGridNoToCenterCellXY(gCTHDisplay.iTargetGridNo, &sX, &sY);
+	FLOAT dEndX = (FLOAT) sX;
+	FLOAT dEndY = (FLOAT) sY;
 
 	// Calculate a delta: the difference between the shooter and target.
 	FLOAT dDeltaX = dEndX - dStartX;
@@ -6041,7 +6043,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );
@@ -6057,7 +6059,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );

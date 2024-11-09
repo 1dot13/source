@@ -4164,7 +4164,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 			UINT32 invsize = pProfile->inv.size();
 			for ( cnt = 0; cnt < pProfile->inv.size(); ++cnt )
 			{
-				if ( pProfile->inv[ cnt ] == NOTHING || Item[pProfile->inv[cnt]].attachment) {
+				if ( pProfile->inv[ cnt ] == NOTHING || ItemIsAttachment(pProfile->inv[cnt]) ) {
 					continue;
 				}
 				fRet = CreateItems( pProfile->inv[ cnt ], pProfile->bInvStatus[ cnt ], pProfile->bInvNumber[ cnt ], &gTempObject );
@@ -4189,7 +4189,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 				if ( pProfile->inv[ cnt ] == NOTHING) {
 					continue;
 				}
-				if (!Item[pProfile->inv[cnt]].attachment) {
+				if (!ItemIsAttachment(pProfile->inv[cnt])) {
 					continue;
 				}
 				fRet = CreateItems( pProfile->inv[ cnt ], pProfile->bInvStatus[ cnt ], pProfile->bInvNumber[ cnt ], &gTempObject );
@@ -4294,7 +4294,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 					if(fRet)
 					{
 						pSoldier->inv[cnt] = gTempObject;
-						if ( Item[gTempObject.usItem].fingerprintid )
+						if (ItemHasFingerPrintID(gTempObject.usItem))
 						{
 							for (int x = 0; x < pProfile->bInvNumber[ cnt ]; ++x) {
 								gTempObject[x]->data.ubImprintID = pSoldier->ubProfile;
@@ -5091,7 +5091,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			}
 		}
 		// Chance to gain second weapon
-		if ( Chance( iChance / 4 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded ) // 1/4 of chance
+		if ( Chance( iChance / 4 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) ) // 1/4 of chance
 		{
 			(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 
@@ -5179,7 +5179,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 						BTraitAssigned = TRUE;
 
 						// elites can have third skill trait
-						if ( Chance( iChance / 3 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded &&
+						if ( Chance( iChance / 3 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) &&
 							(ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
 						{
 							pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
@@ -5189,7 +5189,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 
 					}
 					// Chance to gain second weapon and ambidextrous trait
-					else if ( Chance( iChance / 2 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded && !BTraitAssigned ) // 1/2 of chance
+					else if ( Chance( iChance / 2 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) && !BTraitAssigned ) // 1/2 of chance
 					{
 						if ( pCreateStruct->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
 							;
@@ -5207,7 +5207,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					BTraitAssigned = TRUE;
 
 					// elites can have third skill trait
-					if ( Chance( iChance / 3 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded &&
+					if ( Chance( iChance / 3 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) &&
 						(ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
 					{
 						pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
@@ -5223,7 +5223,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					pSoldier->stats.ubSkillTraits[0] = AMBIDEXT_OT;
 					ATraitAssigned = TRUE;
 					// Ambidextrous trait gives us second weapon automatically
-					if ( !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded )
+					if ( !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) )
 					{
 						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 					}
@@ -5233,7 +5233,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					pSoldier->stats.ubSkillTraits[1] = AMBIDEXT_OT;
 					BTraitAssigned = TRUE;
 					// Ambidextrous trait gives us second weapon automatically
-					if ( !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded )
+					if ( !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) )
 					{
 						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 					}
@@ -5268,28 +5268,29 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		{
 			if ( pCreateStruct->Inv[bLoop].exists( ) == true )
 			{
-				if ( Item[pCreateStruct->Inv[bLoop].usItem].mortar )
+				UINT16 usItem = pCreateStruct->Inv[bLoop].usItem;
+				if (ItemIsMortar(usItem))
 					foundMortar = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].rocketlauncher )
+				else if (ItemIsRocketLauncher(usItem))
 					foundRocketlauncher = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].grenadelauncher )
+				else if (ItemIsGrenadeLauncher(usItem))
 					foundGrenadelauncher = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_BLADE )
+				else if ( Item[usItem].usItemClass == IC_BLADE )
 					foundKnife = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_THROWING_KNIFE )
+				else if ( Item[usItem].usItemClass == IC_THROWING_KNIFE )
 					foundThrowing = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_GRENADE )
+				else if ( Item[usItem].usItemClass == IC_GRENADE )
 					foundGrenades = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].brassknuckles )
+				else if (ItemIsBrassKnuckles(usItem))
 					foundHtH = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
-					Item[pCreateStruct->Inv[bLoop].usItem].uiIndex != 0 )
+				else if ( Item[usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
+					Item[usItem].uiIndex != 0 )
 					foundMelee = TRUE;
-				else if ( HasItemFlag( pCreateStruct->Inv[bLoop].usItem, RADIO_SET ) )
+				else if ( HasItemFlag( usItem, RADIO_SET ) )
 					fRadioSetFound = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].firstaidkit )
+				else if (ItemIsFirstAidKit(usItem))
 					fFirstAidKitFound = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].medicalkit )
+				else if (ItemIsMedicalKit(usItem))
 				{
 					// Flugente: for enemy medic purposes, med kits also count as first aid kits
 					fFirstAidKitFound = TRUE;

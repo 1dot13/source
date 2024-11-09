@@ -1009,6 +1009,12 @@ BOOLEAN UpdateVideoOverlay( VIDEO_OVERLAY_DESC *pTopmostDesc, UINT32 iBlitterInd
 				}
 			}
 
+			if ( uiFlags & VOVERLAY_DESC_FONT )
+			{
+				gVideoOverlays[iBlitterIndex].uiFontID = pTopmostDesc->uiFontID;
+				gVideoOverlays[iBlitterIndex].ubFontBack = pTopmostDesc->ubFontBack;
+				gVideoOverlays[iBlitterIndex].ubFontFore = pTopmostDesc->ubFontFore;
+			}
 
 			if ( uiFlags & VOVERLAY_DESC_DISABLED )
 			{

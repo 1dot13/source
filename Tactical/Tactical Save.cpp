@@ -1027,6 +1027,7 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 	// handle all reachable before save
 	HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 	UpdateWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ, guiNumWorldItems, gWorldItems);
+	PruneWorldItems();
 
 	std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
 
@@ -1678,33 +1679,7 @@ BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX,
 //Deletes the Temp map Directory
 BOOLEAN InitTacticalSave( BOOLEAN fCreateTempDir )
 {
-#ifndef USE_VFS
-	UINT32	uiRetVal;
-
-	//If the Map Temp directory exists, removes the temp files
-	uiRetVal = FileGetAttributes( MAPS_DIR );
-	if( uiRetVal != 0xFFFFFFFF )
-	{
-		if( uiRetVal & FILE_ATTRIBUTES_DIRECTORY )
-		{
-			//Erase the directory
-			if( !EraseDirectory( MAPS_DIR ) )
-			{
-				//error erasing the temporary maps directory
-			}
-		}
-	}
-	else
-	{
-		if( !MakeFileManDirectory( MAPS_DIR ) )
-		{
-			//Erro creating the temp map directory
-			AssertMsg( 0, "Error creating the Temp Directory.");
-		}
-	}
-#else
 	EraseDirectory( MAPS_DIR );
-#endif
 	if( fCreateTempDir )
 	{
 		//Create the initial temp file for the Npc Quote Info
@@ -1878,8 +1853,10 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 			def.sGridNo = gMapInformation.sWestGridNo;
 		}
 		//Recalculate the dx,dy info
-		def.dXPos = CenterX( def.sGridNo );
-		def.dYPos = CenterY( def.sGridNo );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(def.sGridNo, &sX, &sY);
+		def.dXPos = sX;
+		def.dYPos = sY;
 		// If not from loading a save....
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
@@ -2701,7 +2678,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 					pWorldItems[ bCount ].bVisible = TRUE;
 					pWorldItems[ bCount ].bRenderZHeightAboveLevel = 0;
 
-					if ( Item[pSoldier->inv[i].usItem].damageable ) // Madd: drop crappier items on higher difficulty levels
+					if (ItemIsDamageable(pSoldier->inv[i].usItem)) // Madd: drop crappier items on higher difficulty levels
 					{
 						// silversurfer: externalized this
 						//pSoldier->inv[i][0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
@@ -2737,15 +2714,14 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 	memset( &Corpse, 0, sizeof( ROTTING_CORPSE_DEFINITION ) );
 
 	// Setup some values!
-	Corpse.ubBodyType							= pSoldier->ubBodyType;
-	Corpse.sGridNo								= sGridNo;
+	ConvertGridNoToCenterCellXY(sGridNo, &sXPos, &sYPos);
 
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-
-	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
-	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
-	Corpse.sHeightAdjustment			= pSoldier->sHeightAdjustment;
-	Corpse.bVisible								=	TRUE;
+	Corpse.ubBodyType			= pSoldier->ubBodyType;
+	Corpse.sGridNo				= sGridNo;
+	Corpse.dXPos				= (FLOAT)( sXPos );
+	Corpse.dYPos				= (FLOAT)( sYPos );
+	Corpse.sHeightAdjustment	= pSoldier->sHeightAdjustment;
+	Corpse.bVisible				=	TRUE;
 
 	SET_PALETTEREP_ID ( Corpse.HeadPal,		pSoldier->HeadPal );
 	SET_PALETTEREP_ID ( Corpse.VestPal,		pSoldier->VestPal );
@@ -3194,14 +3170,13 @@ void LoadWorldItemsFromTempFiles(INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 
 void SaveWorldItemsToTempFiles()
 {
-	PruneWorldItems();
 	for (size_t i = 0; i < gAllWorldItems.sectors.size(); i++)
 	{
 		const auto x = gAllWorldItems.sectors[i].x;
 		const auto y = gAllWorldItems.sectors[i].y;
 		const auto z = gAllWorldItems.sectors[i].z;
 		const auto nItems = gAllWorldItems.NumItems[i];
-		auto Items = gAllWorldItems.Items[i];
+		auto &Items = gAllWorldItems.Items[i];
 
 		SaveWorldItemsToTempItemFile(x, y, (INT8)z, nItems, Items);
 	}

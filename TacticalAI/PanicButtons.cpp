@@ -10,6 +10,7 @@
 
 #include "Queen Command.h"
 
+
 void MakeClosestEnemyChosenOne()
 {
 	UINT32				cnt;

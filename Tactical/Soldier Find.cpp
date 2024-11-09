@@ -814,8 +814,7 @@ BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, UINT16 usReasonID, INT8 
 
 	*puiScrollFlags = 0;
 
-	sX = CenterX( sGridNo );
-	sY = CenterY( sGridNo );
+	ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
 	// Get screen coordinates for current position of soldier
 	GetWorldXYAbsoluteScreenXY( (INT16)(sX/CELL_X_SIZE), (INT16)(sY/CELL_Y_SIZE), &sWorldX, &sWorldY);
@@ -954,25 +953,28 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 					// Then, depending on whether this is the gridno we are looking at, this will be head or legs
 					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne )
 					{
-						INT16 sWorldX, sWorldY;
+						INT16 sWorldX, sWorldY, sX, sY;
 						GetMouseWorldCoords( &sWorldX, &sWorldY );
 
 						// Flugente: we measure the distance of the bullet's location to the location of the soldier, and to the 2 gridnos his head and leg occupy
 						// From this we can decide what body part was hit
-						FLOAT bodycenterX = (FLOAT)CenterX( pSoldier->sGridNo );
-						FLOAT bodycenterY = (FLOAT)CenterY( pSoldier->sGridNo );
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						FLOAT bodycenterX = (FLOAT) sX;
+						FLOAT bodycenterY = (FLOAT) sY;
 
 						FLOAT difftobodycenter = sqrt( (bodycenterX - sWorldX) * (bodycenterX - sWorldX) + (bodycenterY - sWorldY) * (bodycenterY - sWorldY) );
 						
 						INT32 viewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
-						FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
-						FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
+						ConvertGridNoToCenterCellXY(viewdirectiongridno, &sX, &sY);
+						FLOAT nextgridnocenterX = (FLOAT) sX;
+						FLOAT nextgridnocenterY = (FLOAT) sY;
 
 						FLOAT difftonextgridno = sqrt( (nextgridnocenterX - sWorldX) * (nextgridnocenterX - sWorldX) + (nextgridnocenterY - sWorldY) * (nextgridnocenterY - sWorldY) );
 						
 						INT32 oppositeviewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[pSoldier->ubDirection] ) );
-						FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
-						FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
+						ConvertGridNoToCenterCellXY(oppositeviewdirectiongridno, &sX, &sY);
+						FLOAT oppositenextgridnocenterX = (FLOAT) sX;
+						FLOAT oppositenextgridnocenterY = (FLOAT) sY;
 
 						FLOAT difftooppositenextgridno = sqrt( (oppositenextgridnocenterX - sWorldX) * (oppositenextgridnocenterX - sWorldX) + (oppositenextgridnocenterY - sWorldY) * (oppositenextgridnocenterY - sWorldY) );
 
@@ -1030,13 +1032,15 @@ UINT16 QuickFindSoldier( INT32 sGridNo )
 
 void GetGridNoScreenPos( INT32 sGridNo, UINT8 ubLevel, INT16 *psScreenX, INT16 *psScreenY )
 {
-		INT16 sScreenX, sScreenY;
+		INT16 sScreenX, sScreenY, sX, sY;
 		FLOAT dOffsetX, dOffsetY;
 		FLOAT dTempX_S, dTempY_S;
 
+		ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
+
 		// Get 'TRUE' merc position
-		dOffsetX = (FLOAT)( CenterX( sGridNo ) - gsRenderCenterX );
-		dOffsetY = (FLOAT)( CenterY( sGridNo ) - gsRenderCenterY );
+		dOffsetX = (FLOAT)( sX - gsRenderCenterX );
+		dOffsetY = (FLOAT)( sY - gsRenderCenterY );
 
 		// OK, DONT'T ASK... CONVERSION TO PROPER Y NEEDS THIS...
 		dOffsetX -= CELL_Y_SIZE;

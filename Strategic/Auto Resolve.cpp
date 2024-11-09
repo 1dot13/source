@@ -681,7 +681,7 @@ UINT32 AutoResolveScreenHandle()
 		SGPRect ClipRect;
 		gpAR->fEnteringAutoResolve = FALSE;
 		//Take the framebuffer, shade it, and save it to the SAVEBUFFER.
-		ClipRect.iLeft = 0 + xResOffset;
+		ClipRect.iLeft = 0;
 		ClipRect.iTop = 0;
 		/*ClipRect.iRight = 640;
 		ClipRect.iBottom = 480;*/
@@ -692,7 +692,7 @@ UINT32 AutoResolveScreenHandle()
 		Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 		UnLockVideoSurface( FRAME_BUFFER );
 		//BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		KillPreBattleInterface();
 		CalculateAutoResolveInfo();
 		CalculateSoldierCells( FALSE );
@@ -4257,7 +4257,7 @@ BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
 	{
 		pItem = &pSoldier->inv[i];
 
-		if ( Item[pItem->usItem].cannon )
+		if (ItemIsCannon(pItem->usItem))
 		{
 			PlayAutoResolveSample( Weapon[pItem->usItem].sSound, RATE_11025, 50, 1, MIDDLEPAN );
 
@@ -4291,7 +4291,7 @@ BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
 	{
 		pItem = &pSoldier->inv[i];
 
-		if ( Item[pItem->usItem].usItemClass == IC_LAUNCHER || Item[pItem->usItem].cannon )
+		if ( Item[pItem->usItem].usItemClass == IC_LAUNCHER || ItemIsCannon(pItem->usItem))
 		{
 			pAttacker->bWeaponSlot = (INT8)i;
 			if ( gpAR->fUnlimitedAmmo )

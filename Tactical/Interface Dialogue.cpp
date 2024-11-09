@@ -1827,7 +1827,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 	EXITGRID								ExitGrid;
 	INT32 iRandom = 0;
 	UINT8										ubMineIndex;
-
+	INT16 sX, sY, sX2, sY2;
 
 	pSoldier2 = NULL;
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Handling %s, action %d at %ld", gMercProfiles[ ubTargetNPC ].zNickname, usActionCode, GetJA2Clock() );
@@ -1840,7 +1840,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 		if (pSoldier && pSoldier2)
 		{
 			// see if we are facing this person
-			ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(pSoldier2->sGridNo),CenterY(pSoldier2->sGridNo));
+			ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+			ConvertGridNoToCenterCellXY(pSoldier2->sGridNo, &sX2, &sY2);
+			ubDesiredMercDir = atan8(sX, sY, sX2, sY2);
 			// if not already facing in that direction,
 			if (pSoldier->ubDirection != ubDesiredMercDir)
 			{
@@ -2317,7 +2319,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					if (!TileIsOutOfBounds(sGridNo))
 					{
 						// see if we are facing this person
-						ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sGridNo),CenterY(sGridNo));
+						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(sGridNo, &sX2, &sY2);
+						ubDesiredMercDir = atan8(sX, sY, sX2, sY2);
 						// if not already facing in that direction,
 						if (pSoldier->ubDirection != ubDesiredMercDir)
 						{
@@ -5632,7 +5636,9 @@ void HandleRaulBlowingHimselfUp()
 
 		//blow himself up with, hmmm, lets say TNT.  :)
 		usItem = HAND_GRENADE;
-		IgniteExplosion( RAUL_UB, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
+		INT16 sX, sY;
+		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+		IgniteExplosion( RAUL_UB, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
 
 		SetJa25GeneralFlag( JA_GF__RAUL_BLOW_HIMSELF_UP );
 	}

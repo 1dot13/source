@@ -179,8 +179,78 @@ BOOLEAN ValidAttachmentClass( UINT16 usAttachment, UINT16 usItem );
 //Determines if it is possible to equip this weapon with this ammo.
 BOOLEAN ValidAmmoType( UINT16 usItem, UINT16 usAmmoType );
 
-//Determines if this item is a two handed item.
-BOOLEAN TwoHandedItem( UINT16 usItem );
+BOOLEAN ItemIsDamageable(UINT16 usItem);
+BOOLEAN ItemIsRepairable(UINT16 usItem);
+BOOLEAN ItemIsDamagedByWater(UINT16 usItem);
+BOOLEAN ItemIsMetal(UINT16 usItem);
+BOOLEAN ItemSinks(UINT16 usItem);
+BOOLEAN ItemIsTwoHanded(UINT16 usItem);
+BOOLEAN ItemIsHiddenAddon(UINT16 usItem);
+BOOLEAN ItemIsNotBuyable(UINT16 usItem);
+BOOLEAN ItemIsAttachment(UINT16 usItem);
+BOOLEAN ItemIsHiddenAttachment(UINT16 usItem);
+BOOLEAN ItemIsOnlyInTonsOfGuns(UINT16 usItem);
+BOOLEAN ItemIsNotInEditor(UINT16 usItem);
+BOOLEAN ItemIsUndroppableByDefault(UINT16 usItem);
+BOOLEAN ItemIsUnaerodynamic(UINT16 usItem);
+BOOLEAN ItemIsElectronic(UINT16 usItem);
+BOOLEAN ItemIsCannon(UINT16 usItem);
+BOOLEAN ItemIsRocketRifle(UINT16 usItem);
+BOOLEAN ItemHasFingerPrintID(UINT16 usItem);
+BOOLEAN ItemIsMetalDetector(UINT16 usItem);
+BOOLEAN ItemIsGasmask(UINT16 usItem);
+BOOLEAN ItemIsLockBomb(UINT16 usItem);
+BOOLEAN ItemIsFlare(UINT16 usItem);
+BOOLEAN ItemIsGrenadeLauncher(UINT16 usItem);
+BOOLEAN ItemIsMortar(UINT16 usItem);
+BOOLEAN ItemIsDuckbill(UINT16 usItem);
+BOOLEAN ItemIsDetonator(UINT16 usItem);
+BOOLEAN ItemIsRemoteDetonator(UINT16 usItem);
+BOOLEAN ItemHasHiddenMuzzleFlash(UINT16 usItem);
+BOOLEAN ItemIsRocketLauncher(UINT16 usItem);
+BOOLEAN ItemIsSingleShotRocketLauncher(UINT16 usItem);
+BOOLEAN ItemIsBrassKnuckles(UINT16 usItem);
+BOOLEAN ItemIsCrowbar(UINT16 usItem);
+BOOLEAN ItemIsGLgrenade(UINT16 usItem);
+BOOLEAN ItemIsFlakJacket(UINT16 usItem);
+BOOLEAN ItemIsLeatherJacket(UINT16 usItem);
+BOOLEAN ItemIsBatteries(UINT16 usItem);
+BOOLEAN ItemNeedsBatteries(UINT16 usItem);
+BOOLEAN ItemHasXRay(UINT16 usItem);
+BOOLEAN ItemIsWirecutters(UINT16 usItem);
+BOOLEAN ItemIsToolkit(UINT16 usItem);
+BOOLEAN ItemIsFirstAidKit(UINT16 usItem);
+BOOLEAN ItemIsMedicalKit(UINT16 usItem);
+BOOLEAN ItemIsCanteen(UINT16 usItem);
+BOOLEAN ItemIsJar(UINT16 usItem);
+BOOLEAN ItemIsCanAndString(UINT16 usItem);
+BOOLEAN ItemIsMarbles(UINT16 usItem);
+BOOLEAN ItemIsWalkman(UINT16 usItem);
+BOOLEAN ItemIsRemoteTrigger(UINT16 usItem);
+BOOLEAN ItemIsRobotRemote(UINT16 usItem);
+BOOLEAN ItemIsCamoKit(UINT16 usItem);
+BOOLEAN ItemIsLocksmithKit(UINT16 usItem);
+BOOLEAN ItemIsMine(UINT16 usItem);
+BOOLEAN ItemIsATMine(UINT16 usItem);
+BOOLEAN ItemIsHardware(UINT16 usItem);
+BOOLEAN ItemIsMedical(UINT16 usItem);
+BOOLEAN ItemIsGascan(UINT16 usItem);
+BOOLEAN ItemContainsLiquid(UINT16 usItem);
+BOOLEAN ItemIsRock(UINT16 usItem);
+BOOLEAN ItemIsThermalOptics(UINT16 usItem);
+BOOLEAN ItemIsOnlyInScifi(UINT16 usItem);
+BOOLEAN ItemIsOnlyInNIV(UINT16 usItem);
+BOOLEAN ItemIsBarrel(UINT16 usItem);
+BOOLEAN ItemHasTripwireActivation(UINT16 usItem);
+BOOLEAN ItemIsTripwire(UINT16 usItem);
+BOOLEAN ItemIsDirectional(UINT16 usItem);
+BOOLEAN ItemBlocksIronsight(UINT16 usItem);
+BOOLEAN ItemAllowsClimbing(UINT16 usItem);
+BOOLEAN ItemIsCigarette(UINT16 usItem);
+BOOLEAN ItemIsOnlyInDisease(UINT16 usItem);
+BOOLEAN ItemProvidesRobotCamo(UINT16 usItem);
+BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem);
+BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem);
 
 //Existing functions without header def's, added them here, just incase I'll need to call
 //them from the editor.
@@ -222,7 +292,6 @@ UINT8 ConvertObjectTypeMoneyValueToProfileMoneyValue( UINT32 uiMoneyAmount );
 BOOLEAN CheckForChainReaction( UINT16 usItem, INT16 bStatus, INT16 bDamage, BOOLEAN fOnGround );
 
 BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness = FALSE );
-BOOLEAN ExtendedGunListGun( UINT16 usGun );
 UINT16 StandardGunListReplacement( UINT16 usGun );
 UINT16 FindReplacementMagazine( UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType);
 UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UINT16 usNewGun );
@@ -497,7 +566,8 @@ UINT64 GetAvailableAttachmentPoint ( OBJECTTYPE * pObject, UINT8 subObject );
 void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, INT8* defusefrequency );
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag );
+BOOLEAN HasItemFlag(UINT16 usItem, UINT64 aFlag);
+BOOLEAN HasItemFlag2(UINT16 usItem, UINT64 aFlag);
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
 BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag );
@@ -568,6 +638,7 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj );
 UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier );
 
 void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments=TRUE);//dnl ch75 261013
+BOOLEAN FindAttachmentRange(UINT16 usAttachment, UINT32* pStartIndex, UINT32* pEndIndex);
 
 // Flugente: is this object useable by militia?
 BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj );

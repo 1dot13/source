@@ -570,9 +570,6 @@ static int l_AnimMercPtsrusStrategicInsertionData (lua_State *L);
 
 static int l_SetMusicMode (lua_State *L);
 static int l_MusicPlay (lua_State *L);
-#ifdef NEWMUSIC
-static int l_MusicPlayId (lua_State *L);
-#endif
 static int l_MusicSetVolume (lua_State *L);
 static int l_MusicGetVolume (lua_State *L);
 #ifdef NEWMUSIC
@@ -1398,7 +1395,6 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "SetMusicMode", l_SetMusicMode );
 	lua_register(L, "MusicPlay", l_MusicPlay );
 	#ifdef NEWMUSIC
-	lua_register(L, "MusicIdPlay", l_MusicPlayId );
 	lua_register(L, "AddMusic", l_gAddMusic );
 	
 	lua_register(L, "SetMusicID", l_SetMusicID );
@@ -5717,32 +5713,15 @@ static int l_gAddMusic(lua_State *L)
 #endif
 static int l_MusicPlay (lua_State *L)
 {
-	if ( lua_gettop(L) >= 1 )
-	{
-		UINT32 uiNum = lua_tointeger(L,1);
-		#ifdef NEWMUSIC
-		MusicPlay( uiNum, MUSIC_OLD_TYPE, FALSE);
-		#else
-		MusicPlay( uiNum );
-		#endif
-	}	
-return 0;
-}
-
-#ifdef NEWMUSIC
-static int l_MusicPlayId (lua_State *L)
-{
 	if ( lua_gettop(L) >= 2 )
 	{
-		UINT32 uiNum = lua_tointeger(L,1);
-		UINT32 uiType = lua_tointeger(L,2);
-
-		if (uiType>=1 || uiType<=5 )
-			MusicPlay( uiNum, uiType, TRUE);
+		UINT32 musicMode = lua_tointeger(L, 1);
+		UINT32 song = lua_tointeger(L,2);
+		MusicPlay( static_cast<NewMusicList>(musicMode), song );
 	}	
 return 0;
 }
-#endif
+
 static int l_SetMusicMode (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
@@ -13614,58 +13593,43 @@ static int l_GetNumHostilesInSector( lua_State *L )
 
 void LuaGetIntelAndQuestMapData( INT32 aLevel )
 {
-	static LuaScopeState _LS(true);
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction(_LS.L(), TRUE);
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "GetIntelAndQuestMapData" ).Param<int>( aLevel ).Call( 1 );
 }
 
 void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft )
 {
-	static LuaScopeState _LS(true);
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction(_LS.L(), TRUE);
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "SetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Param<int>( sProgressLeft ).Call( 6 );
 }
 
 INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber )
 {
-	static LuaScopeState _LS( true );
-	static bool isInitialized = false;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	// Initialize only once during lifetime of program
-	if (!isInitialized)
-	{
-		isInitialized = true;
-		IniFunction( _LS.L(), TRUE );
-		IniGlobalGameSetting(_LS.L());
-		const char* filename = "scripts\\strategicmap.lua";
-		SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
-	}
+	LuaScopeState _LS( true );
 
-	IniGlobalGameSetting(_LS.L());
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
 	LuaFunction( _LS.L, "GetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Call( 5 );
 	
 	if ( lua_gettop( _LS.L() ) >= 0 )

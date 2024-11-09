@@ -4297,10 +4297,10 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 			// ADJUST BASED ON ITEM IN HAND....
 			usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !Item[usItem].rocketlauncher)
+			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !ItemIsRocketLauncher(usItem) )
 			{
 				//				if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-				if ( (Item[ usItem ].twohanded ) )
+				if (ItemIsTwoHanded(usItem))
 				{
 					ubWaterHandIndex = 0;
 				}
@@ -4321,7 +4321,7 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 		// ADJUST BASED ON ITEM IN HAND....
 		usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-		if ( !(Item[ usItem ].usItemClass == IC_GUN ) && !(Item[ usItem ].usItemClass == IC_LAUNCHER ) || Item[usItem].rocketlauncher )
+		if ( !(Item[ usItem ].usItemClass == IC_GUN ) && !(Item[ usItem ].usItemClass == IC_LAUNCHER ) || ItemIsRocketLauncher(usItem) )
 		{
 			if ( usAnimState == STANDING )
 			{
@@ -4342,10 +4342,10 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 		else
 		{
 			// CHECK FOR HANDGUN
-			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !Item[usItem].rocketlauncher )
+			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !ItemIsRocketLauncher(usItem) )
 			{
 				//				if ( !(Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-				if ( !(Item[ usItem ].twohanded ) )
+				if ( !ItemIsTwoHanded(usItem) )
 				{
 					// SANDRO - new anim for running with pistol by PasHancock
 					if ( usAnimState == RUNNING )

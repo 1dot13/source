@@ -20,6 +20,7 @@
 #include <iterator>
 #include "GameSettings.h"	// added by Flugente
 #include "Disease.h"		// added by Flugente
+#include <functional>
 
 #define PTR_CIVILIAN	(pSoldier->bTeam == CIV_TEAM)
 #define PTR_CROUCHED	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH)
@@ -465,12 +466,13 @@ enum
 
 #define BACKGROUND_ANIMALFRIEND					0x0000000000000200	//512			// refuses to attack animals
 #define BACKGROUND_CIVGROUPLOYAL				0x0000000000000400	//1024			// refuses to attack members of the same civgroup
+#define BACKGROUND_ALT_IMP_CREATION				0x0000000000000800	//2048			// BG can only be used when ALT_IMP_CREATION is TRUE in ja2options.ini (IMP creation)
 
-#define BACKGROUND_FLAG_MAX	11					// number of flagged backgrounds - keep this updated, or properties will get lost!
+#define BACKGROUND_FLAG_MAX	12					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // some properties are hidden (forbid background in MP creation)
 // corruption property is not relevant in 1.13
-#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE|BACKGROUND_CORRUPTIONSPREAD)
+#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE|BACKGROUND_CORRUPTIONSPREAD|BACKGROUND_ALT_IMP_CREATION)
 
 // anv: externalised taunts
 // taunt properties
@@ -770,6 +772,9 @@ public:
 	// How any slots are there in this inventory?
 	unsigned int size() const;
 
+	// const-only accessor
+	auto get() const -> const std::vector<OBJECTTYPE>&;
+
 	//temporarily? public
 	std::vector<int>			bNewItemCount;
 	std::vector<int>			bNewItemCycleCount;
@@ -1068,6 +1073,8 @@ public:
 	INT32												sBlackList;
 	INT8												bPathStored;	// good for AI to reduct redundancy
 };
+
+enum class BackgroundVectorTypes;
 
 class SOLDIERTYPE//last edited at version 102
 {
@@ -1655,6 +1662,10 @@ public:
 	UINT8	ubQuickItemSlot;
 
 	UINT16	usGrenadeItem;
+
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	std::function<void()> delayedDamageFunction;
+
 public:
 	// CREATION FUNCTIONS
 	BOOLEAN DeleteSoldier( void );
@@ -1718,6 +1729,9 @@ public:
 	void ReviveSoldier( void );
 	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT16 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
+	// anv: resolve damage with delay, e.g. damage applied mid movement that would cause issues with world data if applied immediately
+	void SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage);
+	void ResolveDelayedDamage();
 
 	// Palette functions for soldiers
 	BOOLEAN CreateSoldierPalettes( void );
@@ -1944,6 +1958,8 @@ public:
 	// Flugente: do we have a specific background flag?
 	BOOLEAN		HasBackgroundFlag( UINT64 aFlag );
 	INT16		GetBackgroundValue( UINT16 aNr );
+
+	const std::vector<INT16>& SOLDIERTYPE::GetBackgroundValueVector(BackgroundVectorTypes backgroundVectorType) const;
 
 	INT8		GetSuppressionResistanceBonus();			// bonus to resistance against suppression
 	INT16		GetMeleeDamageBonus();
@@ -2191,7 +2207,8 @@ BOOLEAN GetDirectionChangeAmount( INT32 sGridNo, SOLDIERTYPE *pSoldier, UINT8 ui
 UINT8 GetDirectionFromGridNo( INT32 sGridNo, SOLDIERTYPE *pSoldier );
 UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 );
 UINT8 atan8FromAngle( DOUBLE dAngle );
-INT16 GetDirectionToGridNoFromGridNo( INT32 sGridNoDest, INT32 sGridNoSrc );
+INT16 GetDirectionToGridNoFromGridNo(INT32 sGridNoDest, INT32 sGridNoSrc);
+INT16 GetDirectionFromCenterCellXYGridNo(INT32 EndGridNo, INT32 StartGridNo);
 // This function is now obsolete.	Call ReduceAttackBusyCount instead.
 // void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier );
 

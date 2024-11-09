@@ -98,6 +98,7 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 //Random Stats 
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
 void RandomStats();
+void RandomGrowthModifiers();
 void RandomStartSalary();
 
 //Jenilee
@@ -457,6 +458,35 @@ void RandomStats()
 		}
 
 		ExitRandomMercs();	}
+}
+
+void RandomGrowthModifiers()
+{
+	UINT32 cnt;
+	MERCPROFILESTRUCT * pProfile;
+	BOOLEAN useBellCurve = TRUE;
+
+	 if (gGameExternalOptions.fMercRandomGrowthModifiers == TRUE)
+	{
+		for (cnt = 0; cnt < NUM_PROFILES; cnt++)
+		{
+			pProfile = &(gMercProfiles[cnt]);
+
+			// cap minimum growth modifier to negative half subpoints. this is effectively double speed using default values (subpoints = 50)
+			// cap maximum growth modifier to 30000. this would make a merc take 600x as long to level up a stat using default values
+			pProfile->bGrowthModifierExpLevel		= RandomAbsoluteRange( pProfile->bGrowthModifierExpLevel,		-gGameExternalOptions.usLevelSubpointsToImprove/2,			30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierLife			= RandomAbsoluteRange( pProfile->bGrowthModifierLife,			-gGameExternalOptions.usHealthSubpointsToImprove/2,			30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierAgility		= RandomAbsoluteRange( pProfile->bGrowthModifierAgility,		-gGameExternalOptions.usAgilitySubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierDexterity		= RandomAbsoluteRange( pProfile->bGrowthModifierDexterity,		-gGameExternalOptions.usDexteritySubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierStrength		= RandomAbsoluteRange( pProfile->bGrowthModifierStrength,		-gGameExternalOptions.usStrengthSubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierLeadership		= RandomAbsoluteRange( pProfile->bGrowthModifierLeadership,		-gGameExternalOptions.usLeadershipSubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierWisdom			= RandomAbsoluteRange( pProfile->bGrowthModifierWisdom,			-gGameExternalOptions.usWisdomSubpointsToImprove/2,			30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMarksmanship	= RandomAbsoluteRange( pProfile->bGrowthModifierMarksmanship,	-gGameExternalOptions.usMarksmanshipSubpointsToImprove/2,	30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMechanical		= RandomAbsoluteRange( pProfile->bGrowthModifierMechanical,		-gGameExternalOptions.usMechanicalSubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierExplosive		= RandomAbsoluteRange( pProfile->bGrowthModifierExplosive,		-gGameExternalOptions.usExplosivesSubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+			pProfile->bGrowthModifierMedical		= RandomAbsoluteRange( pProfile->bGrowthModifierMedical,		-gGameExternalOptions.usMedicalSubpointsToImprove/2,		30000, gGameExternalOptions.iMercRandomGrowthModifiersRange, useBellCurve );
+		}
+	}
 }
 
 void RandomStartSalary()
@@ -996,6 +1026,8 @@ for( int i = 0; i < NUM_PROFILES; i++ )
 	// ---------------
 		
 	RandomStats (); //random stats by Jazz
+
+	RandomGrowthModifiers();
 	
 	// Buggler: random starting salary
 	RandomStartSalary ();
@@ -1813,7 +1845,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 		if ( bSlot != NO_SLOT )
 		{
 //			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].fFlags & ITEM_TWO_HANDED )
-			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].twohanded )
+			if (ItemIsTwoHanded(pNewSoldier->inv[ bSlot ].usItem))
 			{
 				if ( bSlot != SECONDHANDPOS && pNewSoldier->inv[ SECONDHANDPOS ].exists() == true )
 				{
@@ -2522,7 +2554,7 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].bMechanical = tempProfiles[ uiLoop ].bMechanical ;
 		gMercProfiles[ uiLoop ].bExpLevel = tempProfiles[ uiLoop ].bExpLevel ;
 
-		gMercProfiles[ uiLoop ].bEvolution = tempProfiles[ uiLoop ].bEvolution ;
+		gMercProfiles[uiLoop].fRegresses = tempProfiles[ uiLoop ].fRegresses;
 		//////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - Check old/new traits and repair possible errors
 		if (gGameOptions.fNewTraitSystem)
@@ -2636,6 +2668,19 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].usBackground = tempProfiles[uiLoop].usBackground;
 		gMercProfiles[ uiLoop ].usVoiceIndex = tempProfiles[uiLoop].usVoiceIndex;
 		gMercProfiles[ uiLoop ].Type = tempProfiles[uiLoop].Type;
+
+		gMercProfiles[uiLoop].fRegresses = tempProfiles[uiLoop].fRegresses;
+		gMercProfiles[uiLoop].bGrowthModifierLife = tempProfiles[uiLoop].bGrowthModifierLife;
+		gMercProfiles[uiLoop].bGrowthModifierStrength = tempProfiles[uiLoop].bGrowthModifierStrength;
+		gMercProfiles[uiLoop].bGrowthModifierAgility = tempProfiles[uiLoop].bGrowthModifierAgility;
+		gMercProfiles[uiLoop].bGrowthModifierDexterity = tempProfiles[uiLoop].bGrowthModifierDexterity;
+		gMercProfiles[uiLoop].bGrowthModifierWisdom = tempProfiles[uiLoop].bGrowthModifierWisdom;
+		gMercProfiles[uiLoop].bGrowthModifierMarksmanship = tempProfiles[uiLoop].bGrowthModifierMarksmanship;
+		gMercProfiles[uiLoop].bGrowthModifierExplosive = tempProfiles[uiLoop].bGrowthModifierExplosive;
+		gMercProfiles[uiLoop].bGrowthModifierLeadership = tempProfiles[uiLoop].bGrowthModifierLeadership;
+		gMercProfiles[uiLoop].bGrowthModifierMedical = tempProfiles[uiLoop].bGrowthModifierMedical;
+		gMercProfiles[uiLoop].bGrowthModifierMechanical = tempProfiles[uiLoop].bGrowthModifierMechanical;
+		gMercProfiles[uiLoop].bGrowthModifierExpLevel = tempProfiles[uiLoop].bGrowthModifierExpLevel;
 
 		gProfileType[uiLoop] = gMercProfiles[uiLoop].Type;
 				

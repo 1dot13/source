@@ -1,6 +1,7 @@
 #ifndef __XML_H
 #define __XML_H
 
+#include "expat.h"
 #include "armsdealerinvinit.h"
 #include "EnemyItemDrops.h"
 #include "Loading Screen.h"
@@ -44,7 +45,10 @@ enum
 	ELEMENT_DISABILITY_EFFECT,
 	ELEMENT_DISABILITY_EFFECT_PROPERTY,
 	ELEMENT_PERSONALITY_EFFECT,
-	ELEMENT_PERSONALITY_EFFECT_PROPERTY
+	ELEMENT_PERSONALITY_EFFECT_PROPERTY,
+
+	ELEMENT_VECTOR_OF_NUMBERS,
+	ELEMENT_VECTOR_OF_NUMBERS_NUMBER,
 }
 typedef PARSE_STAGE;
 
@@ -157,8 +161,8 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define HELISITESFILENAME						"Map\\HeliSites.xml"
-#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
-#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME						"Map\\ExtraItems\\A9_0_ExtraItems"	// ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME2						"Map\\ExtraItems\\A11_0_ExtraItems" // ".xml" will be added @runtime
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
@@ -577,5 +581,7 @@ extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInHistorys(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN ReadInDifficultySettings(STR fileName, BOOLEAN localizedVersion);
+
+extern const XML_Char* GetAttribute(const XML_Char* name, const XML_Char** atts);
 
 #endif

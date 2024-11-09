@@ -1334,7 +1334,7 @@ void CheckForMissingHospitalSupplies( void )
 					}
 				}
 #endif//obsoleteCode
-				if ( Item[pObj->usItem].firstaidkit || Item[pObj->usItem].medicalkit || pObj->usItem == REGEN_BOOSTER || pObj->usItem == ADRENALINE_BOOSTER )
+				if (ItemIsFirstAidKit(pObj->usItem) || ItemIsMedicalKit(pObj->usItem) || pObj->usItem == REGEN_BOOSTER || pObj->usItem == ADRENALINE_BOOSTER )
 				{
 					for (StackedObjects::iterator iter = pObj->objectStack.begin(); iter != pObj->objectStack.end(); ++iter) {
 						if ( iter->data.objectStatus > 60 )

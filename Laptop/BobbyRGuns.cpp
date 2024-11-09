@@ -362,6 +362,29 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber );
 void HandleBobbyRGunsKeyBoardInput();
 void HandleBobbyRayMouseWheel(void);
 
+// Appends source STR16 to target STR16 using decorators ("\n" and "...").
+// Returns TRUE if everything fits target, FALSE otherwise.
+static BOOLEAN DecorateAppendString(STR16 target, size_t targetCapacity, STR16 source, UINT32 frontDecoratorsCnt = 1)
+{
+	const CHAR16 DECORATOR0[] = L"\n";
+	const CHAR16 DECORATOR1[] = L"\n...";
+	BOOLEAN result = FALSE;
+	size_t decoratorLen = wcslen(DECORATOR0) * frontDecoratorsCnt;
+
+	if (wcslen(target) + decoratorLen + wcslen(source) + 1 < targetCapacity)
+	{
+		for (UINT32 i = 0; i < frontDecoratorsCnt; i++)
+			wcscat(target, DECORATOR0);
+		wcscat(target, source);
+		result = TRUE;
+	}
+	else if (wcslen(target) + wcslen(DECORATOR1) + 1 < targetCapacity)
+	{
+		wcscat(target, DECORATOR1);
+	}  // otherwise don't even touch the target
+	return result;
+}
+
 void GameInitBobbyRGuns()
 {
 	guiTempCurrentMode=0;
@@ -1742,11 +1765,11 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 					{
 						if ( iSubFilter > -1 ) // Madd: new BR filters
 						{
-							if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter )
+							if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter )
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
 						}
 						else
@@ -2630,11 +2653,11 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilte
 							{
 								if (iSubFilter > -1 )
 								{
-									if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter)
+									if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter)
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment )
+									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
 								}
 								else
@@ -3618,11 +3641,11 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 						{
 							if (guiCurrentMiscSubFilterMode > -1) // Madd: new BR filter options
 							{
-								if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
+								if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
 							}
 							else 
@@ -4088,7 +4111,8 @@ void HandleBobbyRayMouseWheel(void)
 }
 
 void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
-{		
+{
+	const size_t ATTACHMENTS_STRBUF_SIZE = 3800;
 	CHAR16	zItemName[ SIZE_ITEM_NAME ];
 	UINT8	ubItemCount=0;
 
@@ -4115,12 +4139,9 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 			// HEADROCK HAM 3: Variables for "Possible Attachment List"
 			BOOLEAN		fAttachmentsFound = FALSE;
 			// Contains entire string of attachment names
-			CHAR16		attachStr[3900];
-			// Contains current attachment string
-			CHAR16		attachStr2[100];
+			CHAR16		attachStr[ATTACHMENTS_STRBUF_SIZE];
 			// Contains temporary attachment list before added to string constant from text.h
-			CHAR16		attachStr3[3900];
-			UINT16		usAttachment;
+			CHAR16		attachStr3[ATTACHMENTS_STRBUF_SIZE];
 
 			CreateItem(usItemNumber, 100, &pObject);
 			INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
@@ -4146,109 +4167,69 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 			else
 				wcscat( apStr, L" / -" );
 
-			// HEADROCK HAM 3: Empty these strings first, to avoid crashes. Please keep this here.
-			swprintf( attachStr, L"" );
-			swprintf( attachStr2, L"" );
-			swprintf( attachStr3, L"" );
+			attachStr[0] = 0;
+			attachStr3[0] = 0;
 
 			// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
 			if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
 			{
-				UINT16 iLoop = 0;
-				// Check entire attachment list
-				while( 1 )
+				if (UsingNewAttachmentSystem())
 				{
-					//Madd: Common Attachment Framework
-					//TODO: Note that the items in this list will be duplicated if they are present in both the CAF and the old attachment method
-					//need to refactor this to work more like the NAS attachment slots method
-					usAttachment = 0;
-					if ( IsAttachmentPointAvailable(Item[usItemNumber].uiIndex, iLoop) )
-					{	
-						usAttachment = iLoop;
-						// If the attachment is not hidden
-						if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
-						{
-							if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
-							{
-								// End list early to avoid stack overflow
-								wcscat( attachStr3, L"\n..." );
-								break;
-							}
-							else
-							{// Add the attachment's name to the list.
-								fAttachmentsFound = TRUE;
-								swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
-								wcscat( attachStr3, attachStr2);
-							}
-						}
-					}
-
-					// Is the weapon we're checking the same as the one we're tooltipping?
-					usAttachment = 0;
-					if (Attachment[iLoop][1] == Item[usItemNumber].uiIndex)
+					std::pair<std::multimap<UINT16, AttachmentStruct>::iterator, std::multimap<UINT16, AttachmentStruct>::iterator> range;
+					std::multimap<UINT16, AttachmentStruct>::iterator it;
+					range = AttachmentBackmap.equal_range(Item[usItemNumber].uiIndex);
+					for (it = range.first; it != range.second; it++)
 					{
-						usAttachment = Attachment[iLoop][0];
-					}
-
-					// If the attachment is not hidden
-					if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
-					{
-						if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
+						UINT16 attachmentId = it->second.attachmentIndex;
+						if (!ItemIsHiddenAddon(attachmentId) && !ItemIsHiddenAttachment(attachmentId) && ItemIsLegal(attachmentId, TRUE))
 						{
-							// End list early to avoid stack overflow
-							wcscat( attachStr3, L"\n..." );
-							break;
-						}
-						else
-						{// Add the attachment's name to the list.
 							fAttachmentsFound = TRUE;
-							swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
-							wcscat( attachStr3, attachStr2);
+							if (DecorateAppendString(attachStr3, ATTACHMENTS_STRBUF_SIZE, Item[attachmentId].szItemName) == FALSE)
+								break;
 						}
-					}
-
-
-					iLoop++;
-					if (Attachment[iLoop][0] == 0 && Item[iLoop].usItemClass == 0)
-					{
-						// Reached end of list
-						break;
 					}
 				}
+				else  // old attachment system
+				{
+					for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
+					{
+						// If the attachment is not hidden and attachable to the gun (usItemNumber)
+						if (!ItemIsHiddenAddon(itemId) && !ItemIsHiddenAttachment(itemId) &&
+							ItemIsLegal(itemId, TRUE) && IsAttachmentPointAvailable(Item[usItemNumber].uiIndex, itemId))
+						{
+							fAttachmentsFound = TRUE;
+							if (DecorateAppendString(attachStr3, ATTACHMENTS_STRBUF_SIZE, Item[itemId].szItemName) == FALSE)
+								break;
+						}
+					}
+				}
+
 				if (fAttachmentsFound)
 				{
-					// Add extra empty line and attachment list title
-					swprintf( attachStr, L"\n \n%s", gWeaponStatsDesc[ 14 ] );
-					wcscat( attachStr, attachStr3 );
+					DecorateAppendString(attachStr, ATTACHMENTS_STRBUF_SIZE, gWeaponStatsDesc[14], 2);  // 2 new lines and "Attachments:" title
+					DecorateAppendString(attachStr, ATTACHMENTS_STRBUF_SIZE, attachStr3, 0);  // no new line, list of attachments (starts with new line)
 				}
 			}
 
 			//Sum up default attachments.
 			BOOLEAN fFoundDefault = FALSE;
-			swprintf( attachStr2, L"" );
-			swprintf( attachStr3, L"" );
-			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
-				if(Item[usItemNumber].defaultattachments[cnt] != 0){
-					if (wcslen( attachStr ) + wcslen(attachStr3) + wcslen(Item[ Item[usItemNumber].defaultattachments[cnt] ].szItemName) > 3800)
-					{
-						// End list early to avoid stack overflow
-						wcscat( attachStr3, L"\n..." );
+			attachStr3[0] = 0;
+			for (UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++)
+			{
+				if (Item[usItemNumber].defaultattachments[cnt] != 0)
+				{
+					if (DecorateAppendString(attachStr3, ATTACHMENTS_STRBUF_SIZE, Item[Item[usItemNumber].defaultattachments[cnt]].szItemName) == FALSE)
 						break;
-					}
 					fFoundDefault = TRUE;
-					swprintf( attachStr2, L"\n%s", Item[ Item[usItemNumber].defaultattachments[cnt] ].szItemName );
-					wcscat( attachStr3, attachStr2 );
-				} else {
-					//If we found an empty entry, we can assume the rest will be empty too.
-					break;
 				}
+				else  // If we found an empty entry, we can assume the rest will be empty too.
+					break;
 			}
-			if(fFoundDefault){
-				//Found at least one default attachment, write it to the attachment string.
-				CHAR16 defaultStr[50];
-				swprintf( defaultStr, L"\n \n%s", gWeaponStatsDesc[ 17 ] );
-				wcscat( attachStr, defaultStr );
-				wcscat( attachStr, attachStr3 );
+
+			if (fFoundDefault)
+			{
+				DecorateAppendString(attachStr, ATTACHMENTS_STRBUF_SIZE, gWeaponStatsDesc[17], 2);  // 2 new lines and "Default:" title
+				DecorateAppendString(attachStr, ATTACHMENTS_STRBUF_SIZE, attachStr3, 0);  // no new line, list of attachments (starts with new line)
 			}
 
 			// HEADROCK HAM 3: Added last string (attachStr), for display of the possible attachment list. 

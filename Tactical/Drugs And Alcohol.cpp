@@ -205,7 +205,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 			gMercProfiles[pSoldier->ubProfile].ubNumTimesDrugUseInLifetime++;
 		}
 
-		if ( Item[usItem].cigarette )
+		if (ItemIsCigarette(usItem))
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_MERC_TOOK_CIGARETTE], pSoldier->GetName( ), ShortItemNames[usItem] );
 		}

@@ -171,17 +171,6 @@ BINKFLIC *BinkOpenFlic( const CHAR8 *cFilename )
 		ErrorMsg("BINK ERROR: Out of flic slots, cannot open another");
 		return(NULL);
 	}
-#ifndef USE_VFS
-	// Attempt opening the filename
-	if(!(pBink->hFileHandle = FileOpen( const_cast<CHAR8*>(cFilename), FILE_OPEN_EXISTING | FILE_ACCESS_READ, FALSE ) ) )
-	{
-		ErrorMsg("BINK ERROR: Can't open the BINK file");
-		return(NULL);
-	}
-
-	//Get the real file handle for the file man handle for the smacker file
-	HANDLE hFile = GetRealFileHandleFromFileManFileHandle( pBink->hFileHandle );
-#else
 	vfs::Path introname(cFilename);
 	vfs::Path dir,filename;
 	introname.splitLast(dir,filename);
@@ -207,11 +196,7 @@ BINKFLIC *BinkOpenFlic( const CHAR8 *cFilename )
 			SGP_RETHROW(_BS(L"Intro file \"") << filename << L"\" could not be extracted" << _BS::wget, ex);
 		}
 	}
-#endif
 
-#ifndef USE_VFS
-	if( !( pBink->BinkHandle = BinkOpen((CHAR8 *)hFile, BINKFILEHANDLE ) ) ) //| SMACKTRACKS 
-#else
 	vfs::Path tempfilename;
 	try
 	{
@@ -226,7 +211,6 @@ BINKFLIC *BinkOpenFlic( const CHAR8 *cFilename )
 		SGP_RETHROW(L"Temporary intro file could not be read", ex);
 	}
 	if( !( pBink->BinkHandle = BinkOpen(tempfilename.to_string().c_str(), BINKNOTHREADEDIO /*BINKFILEHANDLE*/ ) ) ) //| SMACKTRACKS 
-#endif
 	{
 		ErrorMsg("BINK ERROR: Bink won't open the BINK file");
 		return(NULL);
