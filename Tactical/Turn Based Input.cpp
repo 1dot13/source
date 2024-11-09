@@ -2209,7 +2209,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					// sevenfm: unready weapon for all selected
 					if (!fFound)
 					{
-						UINT8 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+						UINT16 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 						for (SOLDIERTYPE *pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++)
 						{
 							if (pSoldier->bActive && pSoldier->bInSector && pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED && WeaponReady(pSoldier))
@@ -8311,7 +8311,7 @@ void HandleTBBackpacks(void)
 		bool backpackDropped = false;
 		SOLDIERTYPE* pTeamSoldier;
 
-		for (UINT8 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		for (UINT16 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
 		{
 			pTeamSoldier = MercPtrs[ubLoop];
 
