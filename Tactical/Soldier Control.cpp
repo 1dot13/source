@@ -22475,7 +22475,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection 
 
 }
 
-extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+extern UINT16 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection )
 {

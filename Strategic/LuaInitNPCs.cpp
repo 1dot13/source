@@ -220,7 +220,7 @@ static int l_iStringToUse(lua_State *L);
 static int l_StopVideo(lua_State *L);
 static int l_StartVideo(lua_State *L);
 
-UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
 
 BOOLEAN LoadLuaGlobalFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveLuaGlobalToSaveGameFile( HWFILE hFile );
@@ -13574,7 +13574,7 @@ static int l_SetPhotoFactLaptopData( lua_State *L )
 	return 0;
 }
 
-extern UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+extern UINT16 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 static int l_GetNumHostilesInSector( lua_State *L )
 {

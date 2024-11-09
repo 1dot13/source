@@ -39,7 +39,7 @@ int gCivPreservedTempFileVersion[256];
 
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode, GROUP *pGroup = NULL );
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumRobots, UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT16 *pubNumRobots, UINT16 *pubNumElites, UINT16 *pubNumRegulars, UINT16 *pubNumAdmins, UINT16 *pubNumCreatures, UINT16 *pubNumTanks, UINT16 *pubNumJeeps );
 
 BOOLEAN gfRestoringEnemySoldiersFromTempFile = FALSE;
 BOOLEAN gfRestoringCiviliansFromTempFile = FALSE;
@@ -100,8 +100,8 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
-	UINT8 ubStrategicRobots, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
+	UINT16 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
+	UINT16 ubStrategicRobots, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -695,8 +695,8 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
-	UINT8 ubStrategicRobots = 0, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
+	UINT16 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
+	UINT16 ubStrategicRobots = 0, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -1638,7 +1638,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 
 
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumRobots, UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT16 *pubNumRobots, UINT16 *pubNumElites, UINT16 *pubNumRegulars, UINT16 *pubNumAdmins, UINT16 *pubNumCreatures, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
 //	SOLDIERINITNODE *curr;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;

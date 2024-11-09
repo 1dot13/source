@@ -6,7 +6,7 @@
 
 typedef struct SOLDIERINITNODE
 {
-	UINT8 ubNodeID;
+	UINT16 ubNodeID;
 	UINT16 ubSoldierID;
 	BASIC_SOLDIERCREATE_STRUCT *pBasicPlacement;
 	SOLDIERCREATE_STRUCT *pDetailedPlacement;
@@ -39,13 +39,13 @@ SOLDIERINITNODE* AddBasicPlacementToSoldierInitList( BASIC_SOLDIERCREATE_STRUCT 
 void RemoveSoldierNodeFromInitList( SOLDIERINITNODE *pNode );
 SOLDIERINITNODE* FindSoldierInitNodeWithID( UINT16 usID );
 
-UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum );
-void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalRobots, UINT8 ubTotalTanks, UINT8 ubTotalJeeps );
-void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNumInfants,	
-																	UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, 
-																	UINT8 ubNumAdultFemales );
+UINT16 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT16 ubMaxNum );
+void AddSoldierInitListEnemyDefenceSoldiers( UINT16 ubTotalAdmin, UINT16 ubTotalTroops, UINT16 ubTotalElite, UINT16 ubTotalRobots, UINT16 ubTotalTanks, UINT16 ubTotalJeeps );
+void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT16 ubNumLarvae, UINT16 ubNumInfants,	
+																	UINT16 ubNumYoungMales, UINT16 ubNumYoungFemales, UINT16 ubNumAdultMales, 
+																	UINT16 ubNumAdultFemales );
 void AddSoldierInitListOtherCreatures( UINT8 usNum );
-void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites );
+void AddSoldierInitListMilitia( UINT16 ubNumGreen, UINT16 ubNumReg, UINT16 ubNumElites );
 void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites );
 
 void AddSoldierInitListBloodcats();
@@ -55,7 +55,7 @@ void UseEditorAlternateList();
 void AddPlacementToWorldByProfileID( UINT8 ubProfile );
 
 void EvaluateDeathEffectsToSoldierInitList( SOLDIERTYPE *pSoldier );
-void RemoveDetailedPlacementInfo( UINT8 ubNodeID );
+void RemoveDetailedPlacementInfo( UINT16 ubNodeID );
 
 void AddProfilesUsingProfileInsertionData();
 void AddProfilesNotUsingProfileInsertionData();

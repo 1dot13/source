@@ -487,18 +487,18 @@ typedef struct SECTORINFO
 										//This value determines how quickly it is investigated by the enemy.
 	UINT8	ubGarrisonID;				//IF the sector has an ID for this (non 255), then the queen values this sector and it
 										//indexes the garrison group.
-	INT8	ubPendingReinforcements;	//when the enemy owns this sector, this value will keep track of HIGH priority reinforcements -- not regular.
+	INT8		ubPendingReinforcements;	//when the enemy owns this sector, this value will keep track of HIGH priority reinforcements -- not regular.
 	BOOLEAN fMilitiaTrainingPaid;
 	UINT8	ubMilitiaTrainingPercentDone;
 	UINT8	ubMilitiaTrainingHundredths;
 	//enemy military presence
 	BOOLEAN	fPlayer[ 4 ];				//whether the player THINKS the sector is unde his control or not. array is for sublevels
 	//enemy only info
-	UINT8	ubNumTroops;				//the actual number of troops here.
-	UINT8	ubNumElites;				//the actual number of elites here.
-	UINT8	ubNumAdmins;				//the actual number of admins here.
-	UINT8	ubNumCreatures;				//only set when immediately before ground attack made!
-	UINT8	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
+	UINT16	ubNumTroops;				//the actual number of troops here.
+	UINT16	ubNumElites;				//the actual number of elites here.
+	UINT16	ubNumAdmins;				//the actual number of admins here.
+	UINT16	ubNumCreatures;				//only set when immediately before ground attack made!
+	UINT16	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	INT8	bLastKnownEnemies;			// -1 means never been there, no idea, otherwise it's what we'd observed most recently
 										// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
@@ -511,8 +511,8 @@ typedef struct SECTORINFO
 										//throught the sector without entering it.
 	INT8	bNameId;
 	INT8	bUSUSED;	
-	INT8	bBloodCats;
-	INT8	bBloodCatPlacements;
+	INT16	bBloodCats;
+	INT16	bBloodCatPlacements;
 	INT8	UNUSEDbSAMCondition;
 
 	UINT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
@@ -551,8 +551,8 @@ typedef struct SECTORINFO
 
 	UINT32	uiTimeAIArtillerywasOrdered;			// Flugente: updated every time an artillery strike is ordered from the militia
 	
-	UINT8	ubNumTanks;
-	UINT8	ubTanksInBattle;
+	UINT16	ubNumTanks;
+	UINT16	ubTanksInBattle;
 
 	// Flugente: disease
 	UINT16	usNumCorpses;				// number of corpses in this sector
@@ -565,8 +565,8 @@ typedef struct SECTORINFO
 	FLOAT	dFortification_UnappliedProgress;	// progress done via assignment work. As we cannot update unloaded sectors, update happens once sector is loaded
 
 	// Flugente: enemy jeeps
-	UINT8	ubNumJeeps;
-	UINT8	ubJeepsInBattle;
+	UINT16	ubNumJeeps;
+	UINT16	ubJeepsInBattle;
 	
 	UINT8	usWorkers;
 	UINT8	ubWorkerTrainingHundredths;
@@ -583,8 +583,8 @@ typedef struct SECTORINFO
 	UINT8	ubNumElites_Turncoat;	
 	UINT8	usExplorationProgress;
 
-	UINT8	ubNumRobots;
-	UINT8	ubRobotsInBattle;
+	UINT16	ubNumRobots;
+	UINT16	ubRobotsInBattle;
 	INT8	bPadding[ 6 ];
 
 }SECTORINFO;
@@ -600,18 +600,18 @@ typedef struct UNDERGROUND_SECTORINFO
 {
 	UINT32	uiFlags;
 	UINT8	ubSectorX, ubSectorY, ubSectorZ;
-	UINT8	ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
+	UINT16	ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
 	UINT8	fVisited;
-	INT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
+	INT8		ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
 										//the more people go near it.	A travel rating of 0 means there are never people
 										//around.	This value is used for determining how often items would "vanish" from
 										//a sector.
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
 	struct	UNDERGROUND_SECTORINFO *next;
 
-	UINT8	ubNumBloodcats;				// Bloodcat population
+	UINT16	ubNumBloodcats;				// Bloodcat population
 	UINT8	ubCreatureHabitat;			//determines how creatures live in this sector (see creature spreading.c)
-	UINT8	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
+	UINT16	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	// adding these (should not change struct layout due to padding)
 	UINT8	ubMusicMode, ubUnsed;
@@ -622,20 +622,20 @@ typedef struct UNDERGROUND_SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
+	UINT16	uiNumberOfPrisonersOfWar[PRISONER_MAX];
 
-	UINT8	ubNumTanks;
-	UINT8	ubTanksInBattle;
+	UINT16	ubNumTanks;
+	UINT16	ubTanksInBattle;
 
 	// Flugente: fortification
 	FLOAT	dFortification_MaxPossible;	// the amount of fortification that can still be done in this sector, given the current layout plans. Is updated every time we unload a sector
 	FLOAT	dFortification_UnappliedProgress;	// progress done via assignment work. As we cannot update unloaded sectors, update happens once sector is loaded
 
-	UINT8	ubNumJeeps;
-	UINT8	ubJeepsInBattle;
+	UINT16	ubNumJeeps;
+	UINT16	ubJeepsInBattle;
 	UINT8	usExplorationProgress;
-	UINT8	ubNumRobots;
-	UINT8	ubRobotsInBattle;
+	UINT16	ubNumRobots;
+	UINT16	ubRobotsInBattle;
 
 	INT8	bPadding[10];
 	//no padding left!

@@ -12,26 +12,26 @@
 extern BOOLEAN gfPendingNonPlayerTeam[PLAYER_PLAN];
 
 
-UINT8 NumFreeSlots( UINT8 ubTeam );
+UINT16 NumFreeSlots( UINT8 ubTeam );
 
 //Counts enemies and crepitus, but not bloodcats.
-UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+UINT16 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
-UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+UINT16 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 // returns how many members of a team are in a sector - not intended for OUR_TEAM!
-UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam );
+UINT16 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam );
 
 // returns how many members of a team are in a sector - only intended for OUR_TEAM! POWs not included
 UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
 
 UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam );
-UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
-UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
-void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+UINT16 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
+UINT16 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
+void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps );
+void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT16 usTeam, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps );
+void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps );
+void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps );
 
 //Called when entering a sector so the campaign AI can automatically insert the
 //correct number of troops of each type based on the current number in the sector
@@ -39,8 +39,8 @@ void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAd
 BOOLEAN PrepareEnemyForSectorBattle();
 BOOLEAN PrepareEnemyForUndergroundBattle();
 
-void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumRobots, UINT8 ubNumTanks, UINT8 abNumJeeps, BOOLEAN fMagicallyAppeared );
-void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumGreens, UINT8 ubNumRegulars, UINT8 ubNumElites, BOOLEAN fMagicallyAppeared );
+void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT16 ubNumAdmins, UINT16 ubNumTroops, UINT16 ubNumElites, UINT16 ubNumRobots, UINT16 ubNumTanks, UINT16 abNumJeeps, BOOLEAN fMagicallyAppeared );
+void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT16 ubNumGreens, UINT16 ubNumRegulars, UINT16 ubNumElites, BOOLEAN fMagicallyAppeared );
 void AddPossiblePendingEnemiesToBattle();
 void EndTacticalBattleForEnemy();
 

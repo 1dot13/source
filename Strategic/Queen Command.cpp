@@ -141,9 +141,9 @@ void ValidateEnemiesHaveWeapons()
 }
 
 //Counts enemies and crepitus, but not bloodcats.
-UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
+UINT16 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
-	UINT8 ubNumHostiles = 0;
+	UINT16 ubNumHostiles = 0;
 
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
@@ -158,7 +158,7 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		pSector = FindUnderGroundSector( sSectorX, sSectorY, (UINT8)sSectorZ );
 		if( pSector )
 		{
-			ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+			ubNumHostiles = (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 		}
 	}
 	else
@@ -168,7 +168,7 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 		//Count stationary hostiles
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
-		ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+		ubNumHostiles = (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 
 		//Count mobile enemies
 		pGroup = gpGroupList;
@@ -185,9 +185,9 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 	return ubNumHostiles;
 }
 
-UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
+UINT16 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
-	UINT8 ubNumEnemies = 0;
+	UINT16 ubNumEnemies = 0;
 
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
@@ -202,7 +202,7 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		pSector = FindUnderGroundSector( sSectorX, sSectorY, (UINT8)sSectorZ );
 		if( pSector )
 		{
-			ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+			ubNumEnemies = (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 		}
 	}
 	else
@@ -212,7 +212,7 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 		//Count stationary enemies
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
-		ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+		ubNumEnemies = (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 
 		//Count mobile enemies
 		pGroup = gpGroupList;
@@ -230,11 +230,11 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 }
 
 // returns how many members of a team are in a sector - not intended for OUR_TEAM!
-UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam )
+UINT16 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam )
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNumTroops;
+	UINT16 ubNumTroops = 0;
 
 	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
     // probably isn't. But I need this bit to work.
@@ -255,14 +255,14 @@ UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubT
 
 	if ( ubTeam == ENEMY_TEAM )
 	{
-		ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+		ubNumTroops = (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 	
 		if ( is_networked )
 			ubNumTroops += numenemyLAN((UINT8)sSectorX,(UINT8)sSectorY ); //hayden
 	}
 	else if ( ubTeam == MILITIA_TEAM )
 	{
-		ubNumTroops = (UINT8)(pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2]);
+		ubNumTroops = (pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2]);
 	}
 	else if ( ubTeam == CREATURE_TEAM )
 	{
@@ -309,7 +309,7 @@ UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTe
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT16 ubNum;
+	UINT16 ubNum = 0;
 
 	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
 	// probably isn't. But I need this bit to work.
@@ -344,7 +344,7 @@ UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTe
 	return ubNum;
 }
 
-UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
+UINT16 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	SECTORINFO *pSector;
 
@@ -368,14 +368,14 @@ UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		return( 0 );
 	}
 
-	return (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks + pSector->ubNumJeeps + pSector->ubNumRobots);
+	return (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks + pSector->ubNumJeeps + pSector->ubNumRobots);
 }
 
-UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
+UINT16 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	GROUP *pGroup;
 	SECTORINFO *pSector;
-	UINT8 ubNumTroops;
+	UINT16 ubNumTroops;
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
 	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
@@ -396,13 +396,13 @@ UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	if( pSector->ubGarrisonID == ROADBLOCK )
 	{
 		//consider these troops as mobile troops even though they are in a garrison
-		ubNumTroops += (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
+		ubNumTroops += (pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumRobots + pSector->ubNumJeeps + pSector->ubNumTanks);
 	}
 
 	return ubNumTroops;
 }
 
-void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
 	GROUP *pGroup;
 	SECTORINFO *pSector;
@@ -441,7 +441,7 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 	}
 }
 
-void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT16 usTeam, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
 	GROUP *pGroup;
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
@@ -468,7 +468,7 @@ void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSe
 }
 
 
-void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
 	SECTORINFO *pSector;
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
@@ -486,9 +486,9 @@ void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8
 	*pubNumJeeps = pSector->ubNumJeeps;
 }
 
-void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+	UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
 
 	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumRobots, pubNumTanks, pubNumJeeps );
 
@@ -576,9 +576,9 @@ void EndTacticalBattleForEnemy()
 	}
 }
 
-UINT8 NumFreeSlots( UINT8 ubTeam )
+UINT16 NumFreeSlots( UINT8 ubTeam )
 {
-	UINT8 ubNumFreeSlots = 0;
+	UINT16 ubNumFreeSlots = 0;
 
 	//Count the number of free enemy slots.  It is possible to have multiple groups exceed the maximum.
 	for ( INT32 i = gTacticalStatus.Team[ubTeam].bFirstID; i <= gTacticalStatus.Team[ubTeam].bLastID; ++i )
@@ -590,13 +590,12 @@ UINT8 NumFreeSlots( UINT8 ubTeam )
 	// the militia team size can be restricted by the ini
 	if ( ubTeam == MILITIA_TEAM )
 	{
-		ubNumFreeSlots = (UINT8)max( 0, (INT8)ubNumFreeSlots - (INT8)(gGameExternalOptions.ubGameMaximumNumberOfRebels - gGameExternalOptions.iMaxMilitiaPerSector) );
+		ubNumFreeSlots = (UINT16)max( 0, (INT16)ubNumFreeSlots - (INT16)(gGameExternalOptions.ubGameMaximumNumberOfRebels - gGameExternalOptions.iMaxMilitiaPerSector) );
 	}
 
 	return ubNumFreeSlots;
 }
 
-#pragma optimize("",off)
 //Called when entering a sector so the campaign AI can automatically insert the
 //correct number of troops of each type based on the current number in the sector
 //in global focus (gWorldSectorX/Y)
@@ -1187,7 +1186,7 @@ BOOLEAN PrepareEnemyForUndergroundBattle()
 	Assert( FALSE );
 	return FALSE;
 }
-#pragma optimize("",on)
+
 //The queen AI layer must process the event by subtracting forces, etc.
 void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 {
@@ -2176,12 +2175,12 @@ void NotifyPlayersOfNewEnemies()
 	}
 }
 
-void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumRobots, UINT8 ubNumTanks, UINT8 ubNumJeeps, BOOLEAN fMagicallyAppeared )
+void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT16 ubNumAdmins, UINT16 ubNumTroops, UINT16 ubNumElites, UINT16 ubNumRobots, UINT16 ubNumTanks, UINT16 ubNumJeeps, BOOLEAN fMagicallyAppeared )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo;
-	UINT8 ubCurrSlot;
-	UINT8 ubTotalSoldiers;
+	UINT16 ubCurrSlot;
+	UINT16 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 	
 	// while transport groups can't normally reinforce, this covers the case where a transport group enters a sector (via normal movement)
@@ -2323,7 +2322,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumTroops && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops) )
+		else if( ubNumTroops && Random( ubTotalSoldiers ) < (ubNumElites + ubNumTroops) )
 		{
 			ubNumTroops--;
 			ubTotalSoldiers--;
@@ -2346,7 +2345,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumAdmins && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops + ubNumAdmins) )
+		else if( ubNumAdmins && Random( ubTotalSoldiers ) < (ubNumElites + ubNumTroops + ubNumAdmins) )
 		{
 			ubNumAdmins--;
 			ubTotalSoldiers--;
@@ -2369,7 +2368,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumRobots && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots) )
+		else if( ubNumRobots && Random( ubTotalSoldiers ) < (ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots) )
 		{
 			ubNumRobots--;
 			ubTotalSoldiers--;
@@ -2392,7 +2391,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumTanks && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots + ubNumTanks) && ubNumberOfVehicles < 9 )
+		else if( ubNumTanks && Random( ubTotalSoldiers ) < (ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots + ubNumTanks) && ubNumberOfVehicles < 9 )
 		{
 			ubNumTanks--;
 			ubTotalSoldiers--;
@@ -2415,7 +2414,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if ( ubNumJeeps && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots + ubNumTanks + ubNumJeeps) && ubNumberOfVehicles < 9 )
+		else if ( ubNumJeeps && Random( ubTotalSoldiers ) < (ubNumElites + ubNumTroops + ubNumAdmins + ubNumRobots + ubNumTanks + ubNumJeeps) && ubNumberOfVehicles < 9 )
 		{
 			ubNumJeeps--;
 			ubTotalSoldiers--;
@@ -2463,12 +2462,12 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 #endif
 }
 
-void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumGreens, UINT8 ubNumRegulars, UINT8 ubNumElites, BOOLEAN fMagicallyAppeared )
+void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT16 ubNumGreens, UINT16 ubNumRegulars, UINT16 ubNumElites, BOOLEAN fMagicallyAppeared )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo;
-	UINT8 ubCurrSlot;
-	UINT8 ubTotalSoldiers;
+	UINT16 ubCurrSlot;
+	UINT16 ubTotalSoldiers;
 	UINT8 bDesiredDirection = 0;
 
 	switch ( ubStrategicInsertionCode )
@@ -2558,7 +2557,7 @@ void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if ( ubNumRegulars && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumRegulars) )
+		else if ( ubNumRegulars && Random( ubTotalSoldiers ) < (ubNumElites + ubNumRegulars) )
 		{
 			ubNumRegulars--;
 			ubTotalSoldiers--;
@@ -2581,7 +2580,7 @@ void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if ( ubNumGreens && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumRegulars + ubNumGreens) )
+		else if ( ubNumGreens && Random( ubTotalSoldiers ) < (ubNumElites + ubNumRegulars + ubNumGreens) )
 		{
 			ubNumGreens--;
 			ubTotalSoldiers--;

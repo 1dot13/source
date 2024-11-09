@@ -543,7 +543,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 		{
 			// Enemies can steal items left lying about, each one can carry out up to X kg (defined in RemoveRandomItemsInSector).
 			// Don't care underground sectors here -- we are in overground code branch.
-			UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+			UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
 			GetNumberOfStationaryEnemiesInSector( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumRobots, &ubNumTanks, &ubNumJeeps );
 			RemoveRandomItemsInSector( sMapX, sMapY, bMapZ, (UINT32)ubNumAdmins + ubNumTroops + ubNumElites );
 		}

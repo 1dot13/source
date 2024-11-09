@@ -163,13 +163,13 @@ typedef struct AUTORESOLVE_STRUCT
 
 	UINT8 ubEnemyLeadership;
 	UINT8 ubPlayerLeadership;
-	UINT8 ubMercs, ubCivs, ubEnemies;
-	UINT8 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps, ubRobots;
-	UINT8 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
-	UINT8 ubBloodcats;
-	UINT8 ubZombies;
-	UINT8 ubBandits;
-	UINT8 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
+	UINT16 ubMercs, ubCivs, ubEnemies;
+	UINT16 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps, ubRobots;
+	UINT16 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
+	UINT16 ubBloodcats;
+	UINT16 ubZombies;
+	UINT16 ubBandits;
+	UINT16 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
 	UINT8 ubMercCols, ubMercRows;
 	UINT8 ubEnemyCols, ubEnemyRows;
 	UINT8 ubCivCols, ubCivRows;
@@ -410,10 +410,10 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	GROUP *pGroup, *pDeleteGroup;
 	SECTORINFO *pSector;
 	INT32 i;
-	UINT8 ubNumEnemies[ NUM_ENEMY_RANKS ];
-	UINT8 ubNumTanks = 0;
-	UINT8 ubNumJeeps = 0;
-	UINT8 ubNumRobots = 0;
+	UINT16 ubNumEnemies[NUM_ENEMY_RANKS]{};
+	UINT16 ubNumTanks = 0;
+	UINT16 ubNumJeeps = 0;
+	UINT16 ubNumRobots = 0;
 	UINT8 ubRankIndex;
 
 	//Clear any possible battle locator
@@ -3067,7 +3067,7 @@ void CalculateAutoResolveInfo()
 																				&gpAR->ubAMCreatures, &gpAR->ubAFCreatures );
 		}
 
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
 	else if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
 		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
@@ -3087,7 +3087,7 @@ void CalculateAutoResolveInfo()
 				gpAR->ubBandits = gubNumCreaturesAttackingTown;
 		}
 
-		gpAR->ubEnemies = (UINT8)min( gubNumCreaturesAttackingTown, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gubNumCreaturesAttackingTown, MAX_AR_TEAM_SIZE );
 	}
 	else
 	{
@@ -3096,7 +3096,7 @@ void CalculateAutoResolveInfo()
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
 			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubRobots, &gpAR->ubTanks, &gpAR->ubJeeps );
 
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots, MAX_AR_TEAM_SIZE );
 	}
 
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
