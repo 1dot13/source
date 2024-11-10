@@ -1004,7 +1004,7 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 	pSoldier->ubMilitiaAssists = 0;
 }
 
-void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites )
+void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT16 usGreens, UINT16 usRegulars, UINT16 usElites )
 {
 	if ( !usGreens && !usRegulars && !usElites )
 		return;
@@ -1042,7 +1042,7 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 
 
 // militia are disbanded - we have to take note of that
-void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites )
+void DisbandIndividualMilitia( UINT8 aSector, UINT16 usGreens, UINT16 usRegulars, UINT16 usElites )
 {
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )

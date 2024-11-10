@@ -298,9 +298,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	VOBJECT_DESC	VObjectDesc;
 	INT32 i;
 	UINT8 ubGroupID = 0;
-	UINT8 ubNumStationaryEnemies = 0;
-	UINT8 ubNumMobileEnemies = 0;
-	UINT8 ubNumMercs;
+	UINT16 ubNumStationaryEnemies = 0;
+	UINT16 ubNumMobileEnemies = 0;
+	UINT16 ubNumMercs;
 	BOOLEAN fUsePluralVersion = FALSE;
 	INT8	bBestExpLevel = 0;
 	BOOLEAN fRetreatAnOption = TRUE;
@@ -2387,9 +2387,9 @@ void RetreatAllInvolvedMilitiaGroups()
 		return;
 
 	// as group size will be cut to MAX_STRATEGIC_ENEMY_GROUP_SIZE, see how many troops are allowed and reduce sector count accordingly
-	UINT8 greens	= pSector->ubNumberOfCivsAtLevel[0];
-	UINT8 regulars  = pSector->ubNumberOfCivsAtLevel[1];
-	UINT8 elites	= pSector->ubNumberOfCivsAtLevel[2];
+	UINT16 greens	= pSector->ubNumberOfCivsAtLevel[0];
+	UINT16 regulars  = pSector->ubNumberOfCivsAtLevel[1];
+	UINT16 elites	= pSector->ubNumberOfCivsAtLevel[2];
 
 	pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sBattleSectorX, sBattleSectorY ), greens, regulars, elites );
 

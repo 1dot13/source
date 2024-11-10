@@ -140,12 +140,12 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	SECTORINFO *pTSectorInfo = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
 
-	UINT8 bGreensSourceTeam = 0, bGreensDestTeam = 0;
-	UINT8 bRegularsSourceTeam = 0, bRegularsDestTeam = 0;
-	UINT8 bElitesSourceTeam = 0, bElitesDestTeam = 0;
-	UINT8 bTotalGreens = 0, bTotalRegulars = 0, bTotalElites = 0;
+	UINT16 bGreensSourceTeam = 0, bGreensDestTeam = 0;
+	UINT16 bRegularsSourceTeam = 0, bRegularsDestTeam = 0;
+	UINT16 bElitesSourceTeam = 0, bElitesDestTeam = 0;
+	UINT16 bTotalGreens = 0, bTotalRegulars = 0, bTotalElites = 0;
 	UINT8 bTotalGreensPercent = 0, bTotalRegularsPercent = 0, bTotalElitesPercent = 0;
-	INT8 bNewSourceGroupSize = 0, bNewDestGroupSize = 0, bGroupSizeRatio = 0;
+	INT16 bNewSourceGroupSize = 0, bNewDestGroupSize = 0, bGroupSizeRatio = 0;
 	UINT8 ubChanceToSpreadOut;
 		
 	//////////////////////////////////////////////////////////
@@ -165,8 +165,8 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	{
 		// Wilderness->Wilderness movement. Calculate Spread Out chance based on threats.
 
-		UINT8 ubNumEnemiesNearOrigin = NumEnemiesInFiveSectors( sMapX, sMapY );
-		UINT8 ubNumEnemiesNearTarget = NumEnemiesInFiveSectors( sTMapX, sTMapY );
+		UINT16 ubNumEnemiesNearOrigin = NumEnemiesInFiveSectors( sMapX, sMapY );
+		UINT16 ubNumEnemiesNearTarget = NumEnemiesInFiveSectors( sTMapX, sTMapY );
 
 		if (ubNumEnemiesNearOrigin == 0 &&
 			ubNumEnemiesNearTarget > 0 )
@@ -264,9 +264,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
-			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
-			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT16 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT16 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT16 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
@@ -306,9 +306,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
-			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
-			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT16 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT16 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT16 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
@@ -336,7 +336,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	{
 		// Source team moves En-Masse to target sector.
 
-		bNewDestGroupSize = __min( (NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) + NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM )), (UINT8)gGameExternalOptions.iMaxMilitiaPerSector );
+		bNewDestGroupSize = __min( (NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) + NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM )), (UINT16)gGameExternalOptions.iMaxMilitiaPerSector );
 		bNewSourceGroupSize = __max( 0, (NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) + NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM )) - gGameExternalOptions.iMaxMilitiaPerSector );
 
 		// If there are still going to be two teams after the transfer
@@ -396,9 +396,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
-			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
-			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT16 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT16 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT16 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 			
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
@@ -432,9 +432,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// Flugente: update individual militia data
 			ApplyTacticalLifeRatioToMilitia( );
 
-			UINT8 greens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
-			UINT8 regulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
-			UINT8 elites = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+			UINT16 greens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+			UINT16 regulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+			UINT16 elites = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, greens );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, regulars );
@@ -549,7 +549,7 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 		for( sLMY = MINIMUM_VALID_Y_COORDINATE; sLMY <= MAXIMUM_VALID_Y_COORDINATE ; ++sLMY )
 	{
 //		SECTORINFO *pSectorInfo = &( SectorInfo[ uiSector ] );
-		UINT8 uiSumOfEnemyTroops = NumNonPlayerTeamMembersInSector( sLMX, sLMY, ENEMY_TEAM );
+		UINT16 uiSumOfEnemyTroops = NumNonPlayerTeamMembersInSector( sLMX, sLMY, ENEMY_TEAM );
 			//pSectorInfo->ubNumAdmins + pSectorInfo->ubNumTroops + pSectorInfo->ubNumElites;
 
 		// there's an enemy
@@ -605,21 +605,21 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 		return iRes;
 	}
 
-	UINT8 ubMaxSquadSize = gGameExternalOptions.iMaxMilitiaPerSector;
+	UINT16 ubMaxSquadSize = gGameExternalOptions.iMaxMilitiaPerSector;
 
-	UINT8 ubSourceGreens = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
-	UINT8 ubSourceRegulars = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
-	UINT8 ubSourceElites = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
-	UINT8 ubTargetGreens = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
-	UINT8 ubTargetRegulars = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
-	UINT8 ubTargetElites = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	UINT16 ubSourceGreens = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+	UINT16 ubSourceRegulars = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+	UINT16 ubSourceElites = SectorInfo[SECTOR(sMapX, sMapY)].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	UINT16 ubTargetGreens = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+	UINT16 ubTargetRegulars = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+	UINT16 ubTargetElites = SectorInfo[SECTOR(sDMapX, sDMapY)].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 
-	UINT8 ubSourceMilitia = ubSourceGreens + ubSourceRegulars + ubSourceElites;
-	UINT8 ubTargetMilitia = ubTargetGreens + ubTargetRegulars + ubTargetElites;
+	UINT16 ubSourceMilitia = ubSourceGreens + ubSourceRegulars + ubSourceElites;
+	UINT16 ubTargetMilitia = ubTargetGreens + ubTargetRegulars + ubTargetElites;
 
 	UINT16 usSourceEnemiesInFiveSectors = NumEnemiesInFiveSectors( sMapX, sMapY );
 	UINT16 usTargetEnemiesInFiveSectors = NumEnemiesInFiveSectors( sDMapX, sDMapY );
-	UINT8 ubTargetEnemies = NumNonPlayerTeamMembersInSector( sDMapX, sDMapY, ENEMY_TEAM );
+	UINT16 ubTargetEnemies = NumNonPlayerTeamMembersInSector( sDMapX, sDMapY, ENEMY_TEAM );
 
 	UINT16 usSourceMilitiaInFiveSectors = CountAllMilitiaInFiveSectors( sMapX, sMapY );
 	UINT16 usTargetMilitiaInFiveSectors = CountAllMilitiaInFiveSectors( sDMapX, sDMapY );
@@ -1112,7 +1112,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	UINT16 pMoveDir[4][3];
 	UINT8 uiDirNumber = 0;
 	UINT8 x;
-	UINT8 uiNumGreen = 0, uiNumReg = 0, uiNumElite = 0;
+	UINT16 uiNumGreen = 0, uiNumReg = 0, uiNumElite = 0;
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	BOOLEAN fMoreTroopsLeft[4] = {FALSE,FALSE,FALSE,FALSE};
 	BOOLEAN fFirstLoop = TRUE;
@@ -1175,7 +1175,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 // Flugente: order sNumber reinforcements from src sector to target sector
 BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 sSrcMapX, INT16 sSrcMapY, UINT16 sNumber )
 {
-	UINT8 uiNumGreen = 0, uiNumReg = 0, uiNumElite = 0;
+	UINT16 uiNumGreen = 0, uiNumReg = 0, uiNumElite = 0;
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sTargetMapX, sTargetMapY ) ] );
 
 	guiDirNumber = 0;
@@ -1236,9 +1236,9 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 	{
 		++sMilitiaMoved;
 
-		UINT8 militia_green = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, GREEN_MILITIA );
-		UINT8 militia_troop = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, REGULAR_MILITIA );
-		UINT8 militia_elite = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, ELITE_MILITIA );
+		UINT16 militia_green = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, GREEN_MILITIA );
+		UINT16 militia_troop = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, REGULAR_MILITIA );
+		UINT16 militia_elite = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, ELITE_MILITIA );
 
 		gpAttackDirs[guiDirNumber][0] += militia_green - uiNumGreen;
 		gpAttackDirs[guiDirNumber][1] += militia_troop - uiNumReg;

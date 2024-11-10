@@ -3924,23 +3924,23 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	}
 }
 
-void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, UINT8 usElites, UINT8 usRegulars, UINT8 usGreens)
+void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, UINT16 usElites, UINT16 usRegulars, UINT16 usGreens)
 {
 	if ( !gGameExternalOptions.fMilitiaUseSectorInventory )
 		return;
 
 	// atm there is no class-specific selection, but that might change in the future
-	for (UINT8 i = 0; i < usElites; ++i)
+	for (UINT16 i = 0; i < usElites; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_ELITE_MILITIA);
 	}
 
-	for (UINT8 i = 0; i < usRegulars; ++i)
+	for (UINT16 i = 0; i < usRegulars; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_REG_MILITIA);
 	}
 
-	for (UINT8 i = 0; i < usGreens; ++i)
+	for (UINT16 i = 0; i < usGreens; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_GREEN_MILITIA);
 	}

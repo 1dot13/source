@@ -3182,7 +3182,7 @@ INT32 GetMiningPolicyBonus(INT16 townId)
 	return 0;
 }
 
-void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& elite, BOOLEAN createGroup)
+void GetBonusMilitia(INT16 sx, INT16 sy, UINT16& green, UINT16& regular, UINT16& elite, BOOLEAN createGroup)
 {
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;

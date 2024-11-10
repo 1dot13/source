@@ -1771,8 +1771,8 @@ void AddPossiblePendingEnemiesToBattle()
 	BOOLEAN fMagicallyAppeared=FALSE;
 #endif
 
-	UINT8 ubSlots, ubNumAvailable;
-	UINT8 ubNumRobots, ubNumElites, ubNumTroops, ubNumAdmins, ubNumTanks, ubNumJeeps;
+	UINT16 ubSlots, ubNumAvailable;
+	UINT16 ubNumRobots, ubNumElites, ubNumTroops, ubNumAdmins, ubNumTanks, ubNumJeeps;
 	UINT8 ubNumGroupsInSector;
 	UINT8 ubGroupIndex;
 	GROUP *pGroup;
@@ -2000,7 +2000,7 @@ void AddPossiblePendingEnemiesToBattle()
 		pGroup = pGroupInSectorList[ ubGroupIndex];
 
 		// Flugente fix: check for underflow...
-		UINT8 currentgroupsize = pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle 
+		UINT16 currentgroupsize = pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle 
 			+ pGroup->pEnemyGroup->ubRobotsInBattle + pGroup->pEnemyGroup->ubTanksInBattle + pGroup->pEnemyGroup->ubJeepsInBattle;
 		if ( currentgroupsize > pGroup->ubGroupSize )
 			ubNumAvailable = 0;

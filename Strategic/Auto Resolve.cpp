@@ -2048,7 +2048,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	swprintf( gpCivs[i].pSoldier->name, gpStrategicString[ STR_AR_MILITIA_NAME ] );
 }
 
-static void ARCreateMilitiaSquad( UINT8 *cnt, UINT8 ubEliteMilitia, UINT8 ubRegMilitia, UINT8 ubGreenMilitia, INT16 sX, INT16 sY)
+static void ARCreateMilitiaSquad( UINT16 *cnt, UINT16 ubEliteMilitia, UINT16 ubRegMilitia, UINT16 ubGreenMilitia, INT16 sX, INT16 sY)
 {
 	while( *cnt < gpAR->ubCivs && (ubEliteMilitia || ubRegMilitia || ubGreenMilitia) )
 	{
@@ -2077,10 +2077,10 @@ void CreateAutoResolveInterface()
 	VOBJECT_DESC	VObjectDesc;
 	INT32 i, index;
 	HVOBJECT hVObject;
-	UINT8 ubGreenMilitia, ubRegMilitia, ubEliteMilitia;
+	UINT16 ubGreenMilitia, ubRegMilitia, ubEliteMilitia;
 	UINT16 pMoveDir[4][3];
 	UINT8 uiDirNumber = 0;
-	UINT8 cnt;
+	UINT16 cnt;
 
 	//Setup new autoresolve blanket interface.
 	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-1, 0,
@@ -2200,7 +2200,7 @@ void CreateAutoResolveInterface()
 	ubGreenMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, GREEN_MILITIA );
 
 	// see if we get any bonus militia from nearby towns
-	UINT8 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
+	UINT16 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
 	RebelCommand::GetBonusMilitia(gpAR->ubSectorX, gpAR->ubSectorY, bonusGreenMilitia, bonusRegularMilitia, bonusEliteMilitia, FALSE); // no need to create a group for autoresolve as we're just increasing local militia pop
 	ubEliteMilitia += bonusEliteMilitia;
 	ubRegMilitia += bonusRegularMilitia;

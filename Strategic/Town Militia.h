@@ -30,9 +30,9 @@ INT8 SoldierClassToMilitiaRank(UINT8 ubSoldierClass);
 INT8 MilitiaRankToSoldierClass(UINT8 ubRank);
 
 // these add, promote, and remove militias of a certain rank
-void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany);
-void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT8 ubHowMany);
-void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany);
+void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT16 ubHowMany);
+void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT16 ubHowMany);
+void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT16 ubHowMany);
 
 void StrategicRemoveAllStaticMilitiaFromSector( INT16 sMapX, INT16 sMapY, UINT8 ubRank );
 
@@ -49,9 +49,9 @@ UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8
 // call this if the player attacks his own militia
 void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY);
 
-UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank);
-UINT8 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank );
-UINT8 MilitiaInSectorOfRankInGroups( INT16 sMapX, INT16 sMapY, UINT8 ubRank );
+UINT16 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank);
+UINT16 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank );
+UINT16 MilitiaInSectorOfRankInGroups( INT16 sMapX, INT16 sMapY, UINT8 ubRank );
 
 // Returns TRUE if sector is under player control, has no enemies in it, and isn't currently in combat mode
 BOOLEAN SectorOursAndPeaceful( INT16 sMapX, INT16 sMapY, INT8 bMapZ );

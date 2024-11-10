@@ -44,9 +44,9 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT16 ubTotalAdmin, UINT16 ubTotal
 void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT16 ubNumLarvae, UINT16 ubNumInfants,	
 																	UINT16 ubNumYoungMales, UINT16 ubNumYoungFemales, UINT16 ubNumAdultMales, 
 																	UINT16 ubNumAdultFemales );
-void AddSoldierInitListOtherCreatures( UINT8 usNum );
+void AddSoldierInitListOtherCreatures( UINT16 usNum );
 void AddSoldierInitListMilitia( UINT16 ubNumGreen, UINT16 ubNumReg, UINT16 ubNumElites );
-void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites );
+void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT16 ubNumGreen, UINT16 ubNumReg, UINT16 ubNumElites );
 
 void AddSoldierInitListBloodcats();
 

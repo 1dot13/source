@@ -6231,14 +6231,14 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				usSector = SECTOR( sSectorX, sSectorY );
 
 				// distribute here
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT8 )( iNumberOfGreens / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT16 )( iNumberOfGreens / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT16 )( iNumberOfRegulars / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT16 )( iNumberOfElites / iNumberUnderControl );
 
 				// Flugente: indivdual militia
-				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT16)(iNumberOfGreens / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT16)(iNumberOfRegulars / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT16)(iNumberOfElites / iNumberUnderControl) );
 
 				// Flugente: as we do not move the group militia, we have to make sure we don't accidentally overfill a sector
 				sTotalSoFar = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );

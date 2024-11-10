@@ -519,7 +519,7 @@ typedef struct SECTORINFO
 										//the more people go near it.	A travel rating of 0 means there are never people
 										//around.	This value is used for determining how often items would "vanish" from
 										//a sector (nice theory, except it isn't being used that way.	Stealing is only in towns.	ARM)
-	UINT8	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
+	UINT16	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
 	// HEADROCK HAM 3.6: Adding separate training percentage for MOBILES.
 	UINT8	usFiller3;
 	UINT8	usFiller1;

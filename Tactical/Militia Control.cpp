@@ -199,7 +199,7 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 {
 	SECTORINFO *pSector;
 	INT32 x;
-	UINT8 ubGreen, ubRegs, ubElites;
+	UINT16 ubGreen, ubRegs, ubElites;
 
 	if( gbWorldSectorZ > 0 )
 		return;

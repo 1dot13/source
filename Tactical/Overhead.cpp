@@ -994,7 +994,7 @@ BOOLEAN ExecuteOverhead( )
 	// check if bonus militia join us
 	if (checkBonusMilitia == TRUE && gGameExternalOptions.fRebelCommandEnabled && gubPBSectorZ == 0)
 	{
-		UINT8 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
+		UINT16 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
 		RebelCommand::GetBonusMilitia(gubPBSectorX, gubPBSectorY, bonusGreenMilitia, bonusRegularMilitia, bonusEliteMilitia, TRUE);
 		checkBonusMilitia = FALSE;
 	}

@@ -2109,12 +2109,12 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT16 ubNumLarvae, UINT16 ubN
 	}
 }
 
-void AddSoldierInitListOtherCreatures( UINT8 usNum )
+void AddSoldierInitListOtherCreatures( UINT16 usNum )
 {
 	SOLDIERINITNODE *curr;
-	UINT8 ubFreeSlots;
+	UINT16 ubFreeSlots;
 	BOOLEAN fDoPlacement;
-	UINT8 ubNumCreatures = usNum;
+	UINT16 ubNumCreatures = usNum;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "AddSoldierInitListBloodcats" ) );
 
@@ -2465,7 +2465,7 @@ void AddSoldierInitListBloodcats()
 	else
 	{ //We don't yet know the number of bloodcat placements in this sector so
 		//count them now, and permanently record it.
-		INT8 bBloodCatPlacements = 0;
+		INT16 bBloodCatPlacements = 0;
 		curr = gSoldierInitHead;
 		while( curr )
 		{
@@ -2513,11 +2513,11 @@ void AddSoldierInitListBloodcats()
 	}
 	if( pSector->bBloodCats > 0 )
 	{ //Add them to the world now...
-		UINT8 ubNumAdded = 0;
-		UINT8 ubMaxNum = (UINT8)pSector->bBloodCats;
+		UINT16 ubNumAdded = 0;
+		UINT16 ubMaxNum = (UINT16)pSector->bBloodCats;
 		SOLDIERINITNODE *mark;
-		UINT8 ubSlotsToFill;
-		UINT8 ubSlotsAvailable;
+		UINT16 ubSlotsToFill;
+		UINT16 ubSlotsAvailable;
 		SOLDIERINITNODE *curr;
 
 		//Sort the list in the following manner:
@@ -2983,12 +2983,12 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 //#define CENTRAL_GRIDNO 13202
 //#define CENTRAL_RADIUS 30
 
-void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites )
+void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT16 ubNumGreen, UINT16 ubNumReg, UINT16 ubNumElites )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo;
-	UINT8 ubCurrSlot;
-	UINT8 ubTotalSoldiers;
+	UINT16 ubCurrSlot;
+	UINT16 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 
 	ubTotalSoldiers = ubNumGreen + ubNumReg + ubNumElites;
@@ -3073,7 +3073,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumReg && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg) )
+		else if( ubNumReg && (UINT16)Random( ubTotalSoldiers ) < (ubNumElites + ubNumReg) )
 		{
 			ubNumReg--;
 			ubTotalSoldiers--;
@@ -3113,7 +3113,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumGreen && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg + ubNumGreen) )
+		else if( ubNumGreen && (UINT16)Random( ubTotalSoldiers ) < (UINT16)(ubNumElites + ubNumReg + ubNumGreen) )
 		{
 			ubNumGreen--;
 			ubTotalSoldiers--;
@@ -3219,7 +3219,7 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		return;
 
 	// now count militia, and which type (green, regular, elite) is most numerous - that will be the best type to blend in	
-	UINT8 militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+	UINT16 militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
 	UINT8 militiadisguise = GREEN_MILITIA;
 	if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) > militiacnt )
 	{
@@ -3290,7 +3290,7 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	}
 
 	// we can't spawn if all civilian slots are already taken (we leave a bit of reserve for more important civs)
-	UINT8 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
+	UINT16 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
 
 	for (UINT16 i = numberofpows; i < numprisoners; ++i)
 	{

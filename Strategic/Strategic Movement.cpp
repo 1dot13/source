@@ -806,7 +806,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	return NULL;
 }
 
-GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNumAdmins, UINT8& arusNumTroops, UINT8& arusNumElites )
+GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT16& arusNumAdmins, UINT16& arusNumTroops, UINT16& arusNumElites )
 {
 	GROUP *pNew;
 	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewMilitiaGroupDepartingFromSector with out of range value of %d", uiSector ) );
@@ -846,7 +846,7 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNum
 	pNew->pEnemyGroup->ubNumAdmins = arusNumAdmins;
 	pNew->pEnemyGroup->ubNumTroops = arusNumTroops;
 	pNew->pEnemyGroup->ubNumElites = arusNumElites;
-	pNew->ubGroupSize = (UINT8)(arusNumAdmins + arusNumTroops + arusNumElites);
+	pNew->ubGroupSize = arusNumAdmins + arusNumTroops + arusNumElites;
 	pNew->ubTransportationMask = FOOT;
 	pNew->fVehicle = FALSE;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;
@@ -1120,7 +1120,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 				gfCantRetreatInPBI = TRUE;
 			}
 
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
+			ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 			pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
 			gpTacticalTraversalChosenSoldier = pSoldier;
@@ -1149,7 +1149,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 			gfCantRetreatInPBI = TRUE;
 		}
 
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
 
