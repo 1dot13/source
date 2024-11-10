@@ -1190,7 +1190,6 @@ BOOLEAN PrepareEnemyForUndergroundBattle()
 //The queen AI layer must process the event by subtracting forces, etc.
 void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 {
-	INT32 iNumEnemiesInSector;
 	SECTORINFO *pSector;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
     DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
@@ -1735,22 +1734,6 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 						break;
 				}
 			}
-		}
-	}
-	if( !pSoldier->bSectorZ )
-	{
-		pSector = &SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ];
-		iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM );
-		if( iNumEnemiesInSector )
-		{
-			if( pSector->bLastKnownEnemies >= 0 )
-			{
-				pSector->bLastKnownEnemies = (INT8)iNumEnemiesInSector;
-			}
-		}
-		else
-		{
-			pSector->bLastKnownEnemies = 0;
 		}
 	}
 }

@@ -500,9 +500,6 @@ typedef struct SECTORINFO
 	UINT16	ubNumCreatures;				//only set when immediately before ground attack made!
 	UINT16	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
-	INT8	bLastKnownEnemies;			// -1 means never been there, no idea, otherwise it's what we'd observed most recently
-										// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
-
 	UINT32	ubDayOfLastCreatureAttack;
 	UINT32	uiFacilitiesFlags;			// the flags for various facilities
 

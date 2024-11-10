@@ -1946,11 +1946,6 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
-		if( pGroup->ubSectorZ == 0 )
-		{
-			SectorInfo[SECTOR( pGroup->ubSectorX, pGroup->ubSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
-		}
-
 		// Flugente: do not award experience gain if we never left
 		if (!fNeverLeft)
 		{
@@ -3769,8 +3764,6 @@ INT32 GetTravelTimeForFootTeam( UINT8 ubSector, UINT8 ubDirection )
 void HandleArrivalOfReinforcements( GROUP *pGroup )
 {
 	SOLDIERTYPE *pSoldier;
-	SECTORINFO *pSector;
-	INT32 iNumEnemiesInSector;
 	INT32	cnt;
 
 	if ( pGroup->usGroupTeam == OUR_TEAM )
@@ -3833,22 +3826,6 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 	{
 		gfPendingNonPlayerTeam[MILITIA_TEAM] = TRUE;
 		AddPossiblePendingMilitiaToBattle( );
-	}
-
-	//Update the known number of enemies in the sector.
-	pSector = &SectorInfo[ SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) ];
-	iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
-	if( iNumEnemiesInSector )
-	{
-		if( pSector->bLastKnownEnemies >= 0 )
-		{
-			pSector->bLastKnownEnemies = (INT8)iNumEnemiesInSector;
-		}
-		//if we don't know how many enemies there are, then we can't update this value.
-	}
-	else
-	{
-		pSector->bLastKnownEnemies = 0;
 	}
 }
 

@@ -7520,11 +7520,6 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
     if ( fBattleLost || fBattleWon )
     {
-        if( !gbWorldSectorZ )
-        {
-			SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM );
-        }
-
 		// Flugente: note number of wounded for campaign stats
 		UpdateWoundedFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
     }
