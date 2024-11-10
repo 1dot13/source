@@ -62,28 +62,28 @@ typedef struct PLAYERGROUP
 
 typedef struct ENEMYGROUP
 {
-	UINT8 ubNumTroops;						//number of regular troops in the group
-	UINT8 ubNumElites;						//number of elite troops in the group
-	UINT8 ubNumAdmins;						//number of administrators in the group
+	UINT16 ubNumTroops;						//number of regular troops in the group
+	UINT16 ubNumElites;						//number of elite troops in the group
+	UINT16 ubNumAdmins;						//number of administrators in the group
 	UINT8 ubLeaderProfileID;			//could be Mike, maybe the warden... someone new, but likely nobody.
-	UINT8 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
-	UINT8 ubAdminsInBattle;				//number of administrators in currently in battle.
+	UINT16 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
+	UINT16 ubAdminsInBattle;				//number of administrators in currently in battle.
 	UINT8 ubIntention;						//the type of group this is:	patrol, assault, spies, etc.
-	UINT8 ubTroopsInBattle;				//number of soldiers currently in battle.
-	UINT8 ubElitesInBattle;				//number of elite soldiers currently in battle.
+	UINT16 ubTroopsInBattle;				//number of soldiers currently in battle.
+	UINT16 ubElitesInBattle;				//number of elite soldiers currently in battle.
 	// WDS - New AI
-	UINT8 ubNumTanks;
-	UINT8 ubTanksInBattle;
-	UINT8 ubNumJeeps;
-	UINT8 ubJeepsInBattle;
+	UINT16 ubNumTanks;
+	UINT16 ubTanksInBattle;
+	UINT16 ubNumJeeps;
+	UINT16 ubJeepsInBattle;
 
 	// Flugente: number of turncoats
 	UINT8	ubNumAdmins_Turncoat;
 	UINT8	ubNumTroops_Turncoat;
 	UINT8	ubNumElites_Turncoat;
 
-	UINT8 ubNumRobots;						//number of enemy robots in the group
-	UINT8 ubRobotsInBattle;				//number of enemy robots currently in battle.
+	UINT16 ubNumRobots;						//number of enemy robots in the group
+	UINT16 ubRobotsInBattle;				//number of enemy robots currently in battle.
 
 	INT8	bPadding[11];
 }ENEMYGROUP;
@@ -120,7 +120,7 @@ typedef struct GROUP
 	BOOLEAN fVehicle;							//vehicle controlled group?
 	BOOLEAN fPersistant;					//This flag when set prevents the group from being automatically deleted when it becomes empty.
 	UINT8 ubGroupID;							//the unique ID of the group (used for hooking into events and SOLDIERTYPE)
-	UINT8 ubGroupSize;						//total number of individuals in the group.
+	UINT16 ubGroupSize;						//total number of individuals in the group.
 	UINT8 ubSectorX, ubSectorY;		//last/curr sector occupied
 	UINT8 ubSectorZ;
 	UINT8 ubNextX, ubNextY;				//next sector destination

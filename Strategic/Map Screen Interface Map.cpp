@@ -8090,7 +8090,7 @@ void MilitiaGroupBoxButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				UINT8 militiatype = id / 2;
 
 				// for now, always alter by 1
-				UINT8 howmany = 1;
+				UINT16 howmany = 1;
 
 				// either add or remove a militia from currently selected group
 				if ( id % 2 )

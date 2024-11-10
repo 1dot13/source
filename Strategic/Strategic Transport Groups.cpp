@@ -52,10 +52,10 @@ extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTION
 extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
 
-std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
+std::map<UINT8, std::map<int, UINT16>> transportGroupIdToSoldierMap;
 std::map<UINT8, TransportGroupSectorInfo> transportGroupSectorInfo;
 
-void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& jeeps, UINT8& tanks, UINT8& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase);
+void PopulateTransportGroup(UINT16& admins, UINT16& troops, UINT16& elites, UINT16& jeeps, UINT16& tanks, UINT16& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase);
 
 BOOLEAN DeployTransportGroup()
 {
@@ -128,7 +128,7 @@ BOOLEAN DeployTransportGroup()
 
 	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
 
-	UINT8 admins, troops, elites, robots, jeeps, tanks;
+	UINT16 admins, troops, elites, robots, jeeps, tanks;
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
 	PopulateTransportGroup(admins, troops, elites, jeeps, tanks, robots, progress, difficulty, mineSectorIds.size() == 1);
 
@@ -152,7 +152,7 @@ BOOLEAN DeployTransportGroup()
 
 BOOLEAN ForceDeployTransportGroup(UINT8 sectorId)
 {
-	UINT8 admins, troops, elites, robots, jeeps, tanks;
+	UINT16 admins, troops, elites, robots, jeeps, tanks;
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
 	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
@@ -603,7 +603,7 @@ void UpdateTransportGroupInventory()
 	{
 		SOLDIERTYPE* pSoldier = &Menptr[slot];
 
-		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
+		const std::map<UINT8, std::map<int, UINT16>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
 		if (groupIter != transportGroupIdToSoldierMap.end())
 		{
 			// let's find out if this group is coming home or still outgoing to its target destination
@@ -620,7 +620,7 @@ void UpdateTransportGroupInventory()
 			}
 
 			// found a matching transport groupid
-			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
+			std::map<int, UINT16>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
 			if (cachedGroupJeepCount.find(groupIter->first) == cachedGroupJeepCount.end())
 			{
 				cachedGroupJeepCount[groupIter->first] = soldierClassIter == groupIter->second.end() ? 0 : groupIter->second[SOLDIER_CLASS_JEEP];
@@ -874,7 +874,7 @@ void UpdateTransportGroupInventory()
 	}
 }
 
-void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
+void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT16 amount)
 {
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 	{
@@ -913,7 +913,7 @@ void NotifyTransportGroupDefeated()
 	AddStrategicEvent(EVENT_TRANSPORT_GROUP_DEFEATED, GetWorldTotalMin() + 60 * hoursToRememberDefeat, 0);
 }
 
-void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& jeeps, UINT8& tanks, UINT8& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase)
+void PopulateTransportGroup(UINT16& admins, UINT16& troops, UINT16& elites, UINT16& jeeps, UINT16& tanks, UINT16& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase)
 {
 	admins = troops = elites = robots = jeeps = tanks = 0;
 

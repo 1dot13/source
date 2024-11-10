@@ -70,7 +70,7 @@
 #define DIR_SOUTH 2
 #define DIR_WEST 3
 
-UINT8 gpAttackDirs[5][4]; // 0. Green Militia 1. Regular Militia 2. Elite Militia 3. Insertion code
+UINT16 gpAttackDirs[5][4]; // 0. Green Militia 1. Regular Militia 2. Elite Militia 3. Insertion code
 UINT8 guiDirNumber = 0;
 BOOLEAN gfMSBattle = FALSE;
 
