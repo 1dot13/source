@@ -522,7 +522,7 @@ void ShowTownText( void );
 void DrawTownLabels(STR16 pString, STR16 pStringA,UINT16 usFirstX, UINT16 usFirstY);
 void ShowTeamAndVehicles(INT32 fShowFlags);
 BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor );
-BOOLEAN ShadeMapElements(const INT32(&colorMap)[16][16]);
+BOOLEAN ShadeMapElements(const INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINATE][MAXIMUM_VALID_X_COORDINATE]);
 void AdjustXForLeftMapEdge(STR16 wString, INT16 *psX, INT32 iFont);
 void BlitTownGridMarkers( void );
 void BlitMineGridMarkers( void );
