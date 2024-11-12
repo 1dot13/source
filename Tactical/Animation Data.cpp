@@ -1022,7 +1022,7 @@ BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 
 		}
 
 		// get structure data if any
-		pStructureFileRef = InternalGetAnimationStructureRef( (UINT8)usSoldierID, usSurfaceIndex, usAnimState, TRUE );
+		pStructureFileRef = InternalGetAnimationStructureRef( usSoldierID, usSurfaceIndex, usAnimState, TRUE );
 
 		if ( pStructureFileRef != NULL )
 		{
