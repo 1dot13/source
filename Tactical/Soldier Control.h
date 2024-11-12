@@ -1103,7 +1103,7 @@ public:
 	// properly until it is all fixed and the files updated.
 public:
 	// ID
-	UINT16												ubID;
+	SoldierID												ubID;
 	CHAR16											name[ 10 ];
 
 	INT16	GetMaxDistanceVisible(INT32 sGridNo = -1, INT8 bLevel = -1, int calcAsType = -1);

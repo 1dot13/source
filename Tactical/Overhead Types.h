@@ -32,7 +32,7 @@
 //TACTICAL OVERHEAD STUFF
 //#define			NO_SOLDIER			TOTAL_SOLDIERS // SAME AS NOBODY
 //#define			NOBODY				NO_SOLDIER
-#define				NOBODY				TOTAL_SOLDIERS
+//#define				NOBODY				TOTAL_SOLDIERS
 
 
 
@@ -375,4 +375,74 @@ typedef struct
 																						// strcmp returns 0 if true!		
 #define	 COMPARE_PALETTEREP_ID( a, b )		( strcmp( a, b ) ? FALSE : TRUE )
 
+
+typedef struct SoldierID
+{
+	UINT16 i;
+
+	// Implicit conversion and constructor to provide compatibility with unchanged code
+	// TODO: Remove once SoldierID is used everywhere and these are no longer needed
+	inline operator UINT16() const { return i; }
+	SoldierID(const UINT16 val = 0)
+		: i(val)
+	{}
+} SoldierID;
+
+//inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
+//inline bool operator!=(const SoldierID lhs, const SoldierID rhs) { return lhs.i != rhs.i; }
+
+inline bool operator<(const SoldierID lhs, const SoldierID rhs) { return lhs.i < rhs.i; }
+inline bool operator<(const SoldierID lhs, const int rhs) { return lhs.i < rhs; }
+inline bool operator<(const int lhs, const SoldierID rhs) { return lhs < rhs.i; }
+inline bool operator<(const unsigned int lhs, const SoldierID rhs) { return lhs < rhs.i; }
+inline bool operator<(const UINT16 lhs, const SoldierID rhs) { return lhs < rhs.i; }
+
+inline bool operator>(const SoldierID lhs, const SoldierID rhs) { return lhs.i > rhs.i; }
+inline bool operator>(const SoldierID lhs, const int rhs) { return lhs.i > rhs; }
+inline bool operator>(const int lhs, const SoldierID rhs) { return lhs > rhs.i; }
+inline bool operator>(const UINT16 lhs, const SoldierID rhs) { return lhs > rhs.i; }
+
+inline bool operator<=(const SoldierID lhs, const SoldierID rhs) { return lhs.i <= rhs.i; }
+inline bool operator<=(const SoldierID lhs, const int rhs) { return lhs.i <= rhs; }
+inline bool operator<=(const SoldierID lhs, const UINT16 rhs) { return lhs.i <= rhs; }
+inline bool operator<=(const int lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const UINT32 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const UINT16 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const INT16 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+
+inline bool operator>=(const SoldierID lhs, const SoldierID rhs) { return lhs.i >= rhs.i; }
+inline bool operator>=(const SoldierID lhs, const int rhs) { return lhs.i >= rhs; }
+inline bool operator>=(const SoldierID lhs, const UINT16 rhs) { return lhs.i >= rhs; }
+inline bool operator>=(const int lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+inline bool operator>=(const unsigned int lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+inline bool operator>=(const UINT16 lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+
+inline SoldierID operator-(const SoldierID lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs.i) }; }
+inline SoldierID operator-(const SoldierID lhs, const int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const SoldierID lhs, const unsigned int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const SoldierID lhs, const UINT16 rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs - rhs.i) }; }
+inline SoldierID operator-(const unsigned int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs - rhs.i) }; }
+
+inline SoldierID operator+(const SoldierID lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs.i) }; }
+inline SoldierID operator+(const SoldierID lhs, const int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const SoldierID lhs, const unsigned int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const SoldierID lhs, const UINT16 rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const unsigned int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
+inline SoldierID operator+(const INT16 lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
+
+inline SoldierID operator--(SoldierID lhs)
+{
+	lhs.i -= 1;
+	return lhs;
+}
+
+inline SoldierID operator++(SoldierID lhs)
+{
+	lhs.i += 1;
+	return lhs;
+}
+
+//TODO: Change this to constexpr after SoldierID is ready and the user defined constructor from uint16 is not needed anymore.
+inline const SoldierID NOBODY{ TOTAL_SOLDIERS };
 #endif
