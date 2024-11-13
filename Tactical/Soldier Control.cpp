@@ -13269,7 +13269,7 @@ void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection, U
 {
 	SOLDIERTYPE *pTSoldier;
 	UINT32 uiMercFlags;
-	UINT16 usSoldierIndex;
+	SoldierID usSoldierIndex;
 
 	if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 	{

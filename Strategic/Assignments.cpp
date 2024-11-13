@@ -292,7 +292,7 @@ extern BOOLEAN fInMapMode;
 INT8 gbTrainingMode = -1;
 
 // who is the highlighted guy
-extern UINT16 gusUIFullTargetID;
+extern SoldierID gusUIFullTargetID;
 
 // showing town info?
 extern BOOLEAN fShowTownInfo;

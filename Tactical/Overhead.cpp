@@ -5482,7 +5482,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     INT32		sClosest = -1, sSpot;
     INT32		sCloseGridNo = NOWHERE;
     UINT32		uiMercFlags;
-    UINT16		usSoldierIndex;
+    SoldierID	usSoldierIndex;
     UINT8		ubDir;
     STRUCTURE	*pDoor;
     UINT8		ubWallOrientation;
@@ -5845,7 +5845,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     INT32 sClosest = -1, sSpot, sSpot2;
     INT32 sCloseGridNo = NOWHERE;
     UINT32 uiMercFlags;
-    UINT16 usSoldierIndex;
+    SoldierID usSoldierIndex;
     UINT8 ubDir;
     STRUCTURE *pDoor;
     UINT8 ubWallOrientation;

@@ -268,16 +268,16 @@ extern BOOLEAN		gfUIHandlePhysicsTrajectory;
 
 
 // GLOBALS FOR FAST LOOKUP FOR FINDING MERCS FROM THE MOUSE
-extern BOOLEAN	gfUISelectiveTargetFound;
-extern UINT16	gusUISelectiveTargetID;
-extern UINT32	guiUISelectiveTargetFlags;
+extern BOOLEAN	 gfUISelectiveTargetFound;
+extern SoldierID gusUISelectiveTargetID;
+extern UINT32	 guiUISelectiveTargetFlags;
 
-extern BOOLEAN	gfUIFullTargetFound;
-extern UINT16	gusUIFullTargetID;
-extern UINT32	guiUIFullTargetFlags;
+extern BOOLEAN	 gfUIFullTargetFound;
+extern SoldierID gusUIFullTargetID;
+extern UINT32	 guiUIFullTargetFlags;
 
 extern BOOLEAN	gfUIConfirmExitArrows;
-extern INT32	gsJumpOverGridNo;
+extern INT32		gsJumpOverGridNo;
 
 extern UINT32	HandleTacticalUI(void);
 extern UINT32	UIHandleEndTurn( UI_EVENT *pUIEvent );

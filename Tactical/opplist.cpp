@@ -3985,11 +3985,11 @@ extern UINT32 guiNumBackSaves;
 
 void DebugSoldierPage1( )
 {
-	SOLDIERTYPE				*pSoldier;
-	UINT16						usSoldierIndex;
-	UINT32						uiMercFlags;
-	INT32 usMapPos;
-	UINT8							ubLine=0;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	usSoldierIndex;
+	UINT32		uiMercFlags;
+	INT32		usMapPos;
+	UINT8		ubLine=0;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 	{
@@ -4168,13 +4168,13 @@ void DebugSoldierPage1( )
 
 void DebugSoldierPage2( )
 {
-	SOLDIERTYPE				*pSoldier;
-	UINT16						usSoldierIndex;
-	UINT32						uiMercFlags;
-	INT32 usMapPos;
-	TILE_ELEMENT							TileElem;
-	LEVELNODE					*pNode;
-	UINT8							ubLine;
+	SOLDIERTYPE		*pSoldier;
+	SoldierID		usSoldierIndex;
+	UINT32			uiMercFlags;
+	INT32			usMapPos;
+	TILE_ELEMENT		TileElem;
+	LEVELNODE		*pNode;
+	UINT8			ubLine;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 	{
@@ -4442,11 +4442,11 @@ void DebugSoldierPage2( )
 
 void DebugSoldierPage3( )
 {
-	SOLDIERTYPE				*pSoldier;
-	UINT16						usSoldierIndex;
-	UINT32						uiMercFlags;
-	INT32 usMapPos;
-	UINT8							ubLine;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	usSoldierIndex;
+	UINT32		uiMercFlags;
+	INT32		usMapPos;
+	UINT8		ubLine;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 	{
@@ -4835,12 +4835,12 @@ void WriteQuantityAndAttachments( OBJECTTYPE *pObject, INT32 yp )
 
 void DebugSoldierPage4( )
 {
-	SOLDIERTYPE				*pSoldier;
-	UINT32						uiMercFlags;
-	CHAR16 szOrders[20];
-	CHAR16 szAttitude[20];
-	UINT16						usSoldierIndex;
-	UINT8							ubLine;
+	SOLDIERTYPE	*pSoldier;
+	UINT32		uiMercFlags;
+	CHAR16		szOrders[20];
+	CHAR16		szAttitude[20];
+	SoldierID	usSoldierIndex;
+	UINT8		ubLine;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 	{

@@ -30,16 +30,16 @@ class SOLDIERTYPE;
 #define			FINDSOLDIERSELECTIVESAMELEVEL( l )		(	( ( FIND_SOLDIER_SELECTIVE | FIND_SOLDIER_SAMELEVEL ) | ( l << 16 ) ) )
 
 
-BOOLEAN FindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags );
-BOOLEAN SelectiveFindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags );
-BOOLEAN FindSoldier( INT32 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags , UINT32 uiFlags );
+BOOLEAN FindSoldierFromMouse( SoldierID *pusSoldierIndex, UINT32 *pMercFlags );
+BOOLEAN SelectiveFindSoldierFromMouse( SoldierID *pusSoldierIndex, UINT32 *pMercFlags );
+BOOLEAN FindSoldier( INT32 sGridNo, SoldierID *pusSoldierIndex, UINT32 *pMercFlags , UINT32 uiFlags );
 SOLDIERTYPE * SimpleFindSoldier( INT32 sGridNo, INT8 bLevel );
 
 BOOLEAN CycleSoldierFindStack( INT32 usMapPos );
 
 BOOLEAN GridNoOnScreen( INT32 sGridNo );
 
-BOOLEAN SoldierOnScreen( UINT16 usID );
+BOOLEAN SoldierOnScreen( SoldierID usID );
 BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, UINT16 usReasonID, INT8 *pbDirection, UINT32 *puiScrollFlags );
 void GetSoldierScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *psScreenY );
 void GetSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth );
@@ -48,7 +48,7 @@ void GetSoldierTRUEScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *ps
 BOOLEAN IsPointInSoldierBoundingBox( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY );
 BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT16 sX, INT16 sY );
 
-UINT16 QuickFindSoldier( INT32 sGridNo );
+SoldierID QuickFindSoldier( INT32 sGridNo );
 void GetGridNoScreenPos( INT32 sGridNo, UINT8 ubLevel, INT16 *psScreenX, INT16 *psScreenY );
 
 

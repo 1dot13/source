@@ -272,12 +272,12 @@ extern BOOLEAN	gfGetNewPathThroughPeople;
 extern BOOLEAN	gfIgnoreOnSelectedGuy;
 extern BOOLEAN	gfInOpenDoorMenu;
 
-BOOLEAN gfUIFullTargetFound;
-UINT32	guiUIFullTargetFlags;
-UINT16 gusUIFullTargetID;
-BOOLEAN	gfUISelectiveTargetFound;
-UINT32	guiUISelectiveTargetFlags;
-UINT16	gusUISelectiveTargetID;
+BOOLEAN		gfUIFullTargetFound;
+UINT32		guiUIFullTargetFlags;
+SoldierID	gusUIFullTargetID;
+BOOLEAN		gfUISelectiveTargetFound;
+UINT32		guiUISelectiveTargetFlags;
+SoldierID	gusUISelectiveTargetID;
 
 SOLDIERTYPE			*gpRequesterMerc = NULL;
 SOLDIERTYPE			*gpRequesterTargetMerc = NULL;

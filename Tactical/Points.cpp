@@ -2006,7 +2006,7 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 {
 	UINT8 ubDirection;
 	UINT32	uiMercFlags;
-	UINT16	usTargID;
+	SoldierID usTargID;
 	BOOLEAN	fAddingTurningCost = FALSE;
 	BOOLEAN	fAddingRaiseGunCost = FALSE;
 	
@@ -2189,7 +2189,7 @@ UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost,
 INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost )
 {
 	UINT32	uiMercFlags;
-	UINT16	usTargID;
+	SoldierID usTargID;
 	INT16	bFullAPs;
 	INT16 bAimSkill;
 	INT16	bAPCost = APBPConstants[AP_MIN_AIM_ATTACK];

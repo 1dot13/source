@@ -2046,7 +2046,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					SOLDIERTYPE *pTSoldier;
 					UINT32 uiMercFlags;
-					UINT16 usSoldierIndex;
+					SoldierID usSoldierIndex;
 
 					if ( FindSoldier( pSoldier->sTargetGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 					{
