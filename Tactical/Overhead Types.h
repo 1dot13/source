@@ -376,6 +376,9 @@ typedef struct
 #define	 COMPARE_PALETTEREP_ID( a, b )		( strcmp( a, b ) ? FALSE : TRUE )
 
 
+struct SOLDIERTYPE;
+extern SOLDIERTYPE *MercPtrs[TOTAL_SOLDIERS];
+
 typedef struct SoldierID
 {
 	UINT16 i;
@@ -386,6 +389,9 @@ typedef struct SoldierID
 	SoldierID(const UINT16 val = 0)
 		: i(val)
 	{}
+
+	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
+	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
 } SoldierID;
 
 //inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
