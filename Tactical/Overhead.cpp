@@ -674,13 +674,15 @@ void ShutdownTacticalEngine( )
 BOOLEAN InitOverhead( )
 {
     UINT32  cnt;
-    UINT16   cnt2;
+    UINT16  cnt2;
 
     // Set pointers list
     for( cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
     {
         MercPtrs[ cnt ] = &Menptr[ cnt ];
         MercPtrs[ cnt ]->bActive = FALSE;
+        // Zero out merc slots!
+        MercSlots[cnt] = NULL;
     }
     memset( &gTacticalStatus, 0, sizeof( TacticalStatusType ) );
     UINT8 maxteams;
@@ -774,11 +776,6 @@ BOOLEAN InitOverhead( )
         }
     }
 
-    // Zero out merc slots!
-    for ( cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
-    {
-        MercSlots[ cnt ] = NULL;
-    }
 
     // Set other tactical flags
     gTacticalStatus.uiFlags = TURNBASED | TRANSLUCENCY_TYPE;
