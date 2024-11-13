@@ -12911,7 +12911,7 @@ void HandleChangeOfInfoChar( void )
 			if( gCharactersList[ bOldInfoChar ].fValid == TRUE )
 			{
 				// set face in active
-				SetAutoFaceInActiveFromSoldier( Menptr[ gCharactersList[ bOldInfoChar ].usSolID ].ubID );
+				SetAutoFaceInActiveFromSoldier( gCharactersList[ bOldInfoChar ].usSolID );
 			}
 		}
 
