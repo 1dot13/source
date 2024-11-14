@@ -63,7 +63,7 @@ public:
 	UINT32 usData2[MAX_SCHEDULE_ACTIONS];	// Secondary information, not used by most actions
 	UINT8 ubAction[MAX_SCHEDULE_ACTIONS];
 	UINT8 ubScheduleID;
-	UINT16 ubSoldierID;
+	SoldierID ubSoldierID;
 	UINT16 usFlags;
 public:
 	SCHEDULENODE& operator=(const _OLD_SCHEDULENODE& src);
