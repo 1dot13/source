@@ -392,13 +392,30 @@ typedef struct SoldierID
 
 	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
 	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
+	inline operator SOLDIERTYPE* () { return MercPtrs[i]; }
+	inline operator const SOLDIERTYPE*() const { return MercPtrs[i]; }
 } SoldierID;
 
-//inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
-//inline bool operator!=(const SoldierID lhs, const SoldierID rhs) { return lhs.i != rhs.i; }
+inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
+inline bool operator==(const SoldierID lhs, const int rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const UINT32 rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const UINT16 rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const INT16 rhs) { return lhs.i == rhs; }
+inline bool operator==(const int lhs, const SoldierID rhs) { return lhs == rhs.i; }
+inline bool operator==(const UINT16 lhs, const SoldierID rhs) { return lhs == rhs.i; }
+inline bool operator==(const INT16 lhs, const SoldierID rhs) { return lhs == rhs.i; }
+
+inline bool operator!=(const SoldierID lhs, const SoldierID rhs) { return lhs.i != rhs.i; }
+inline bool operator!=(const SoldierID lhs, const UINT32 rhs) { return lhs.i != rhs; }
+inline bool operator!=(const SoldierID lhs, const UINT16 rhs) { return lhs.i != rhs; }
+inline bool operator!=(const int lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const UINT32 lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const UINT16 lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const INT16 lhs, const SoldierID rhs) { return lhs != rhs.i; }
 
 inline bool operator<(const SoldierID lhs, const SoldierID rhs) { return lhs.i < rhs.i; }
 inline bool operator<(const SoldierID lhs, const int rhs) { return lhs.i < rhs; }
+inline bool operator<(const SoldierID lhs, UINT16 rhs) { return lhs.i < rhs; }
 inline bool operator<(const int lhs, const SoldierID rhs) { return lhs < rhs.i; }
 inline bool operator<(const unsigned int lhs, const SoldierID rhs) { return lhs < rhs.i; }
 inline bool operator<(const UINT16 lhs, const SoldierID rhs) { return lhs < rhs.i; }
