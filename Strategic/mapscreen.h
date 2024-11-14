@@ -137,7 +137,7 @@ extern BOOLEAN gfSkyriderEmptyHelpGiven;
 extern std::vector<SOLDIERTYPE*> gSelectedSoldiers;
 
 
-BOOLEAN SetInfoChar(UINT16 ubID);
+BOOLEAN SetInfoChar(SoldierID ubID);
 void EndMapScreen( BOOLEAN fDuringFade );
 void ReBuildCharactersList( void );
 

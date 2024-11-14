@@ -1902,7 +1902,7 @@ BOOLEAN InitializeInvPanelCoordsRobot()
 }
 
 // the tries to select a mapscreen character by his soldier ID
-BOOLEAN SetInfoChar( UINT16 ubID )
+BOOLEAN SetInfoChar( SoldierID ubID )
 {
 	for (INT16 bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++)
 	{
@@ -2223,7 +2223,7 @@ void GlowTrashCan( void )
 void DrawFace( INT16 sCharNumber )
 {
 	SOLDIERTYPE	*pSoldier = NULL;
-	static INT16 sOldId = -1;
+	static SoldierID sOldId = NOBODY;
 
 	// draws the face of the currently selected merc, being displayed int he upper left hand corner
 
