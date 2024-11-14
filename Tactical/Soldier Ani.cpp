@@ -78,7 +78,7 @@ class SOLDIERTYPE;
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10
 #define		TIME_FOR_RANDOM_ANIM_CHECK	1
 
-BOOLEAN		gfLastMercTalkedAboutKillingID = NOBODY;
+SoldierID gfLastMercTalkedAboutKillingID = NOBODY;
 
 extern void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle );
 

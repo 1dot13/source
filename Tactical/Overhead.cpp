@@ -6783,7 +6783,7 @@ void SetEnemyPresence( )
 }
 
 
-extern BOOLEAN gfLastMercTalkedAboutKillingID;
+extern SoldierID gfLastMercTalkedAboutKillingID;
 
 BOOLEAN SoldierHasSeenEnemiesLastFewTurns( SOLDIERTYPE *pTeamSoldier )
 {
