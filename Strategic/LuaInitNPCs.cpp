@@ -7129,7 +7129,7 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 
 		if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			UINT16	ubID;
+			SoldierID	soldier;
 			OBJECTTYPE DoorCloser;
 			INT16	sTeleportSpot;
 			INT16	sDoorSpot;
@@ -7142,16 +7142,16 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 			if ( TileIsOutOfBounds(sGridNo) )
 				return 0;
 
-			ubID = WhoIsThere2( sGridNo, 0 );
-			if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
+			soldier = WhoIsThere2( sGridNo, 0 );
+			if ( (soldier != NOBODY) && (soldier->bTeam == gbPlayerNum) )
 			{
-				if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
+				if ( InARoom( sGridNo, &usRoom ) && InARoom( soldier->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
 				{
 					// also require there to be a miniskirt civ in the room
 					if ( HookerInRoom( usRoom ) )
 					{
 						// stop the merc...
-						MercPtrs[ ubID ]->EVENT_StopMerc( MercPtrs[ ubID ]->sGridNo, MercPtrs[ ubID ]->ubDirection );
+						soldier->EVENT_StopMerc( soldier->sGridNo, soldier->ubDirection );
 
 						if ( sGridNo == gModSettings.iCarlaDoorGridNo +1 )
 						{
@@ -7181,25 +7181,25 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 							PerformItemAction( sDoorSpot, &DoorCloser );
 
 							// Flugente: additional dialogue
-							AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[ubID], ADE_SEX );
+							AdditionalTacticalCharacterDialogue_CallsLua( soldier, ADE_SEX );
 
 							// have sex
 							HandleNPCDoAction( 0, NPC_ACTION_SEX, 0 );
 
 							// move the merc outside of the room again
-							sTeleportSpot = FindGridNoFromSweetSpotWithStructData( MercPtrs[ ubID ], STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
-							MercPtrs[ ubID ]->ChangeSoldierState( STANDING, 0, TRUE );
-							TeleportSoldier( MercPtrs[ ubID ], sTeleportSpot, FALSE );
+							sTeleportSpot = FindGridNoFromSweetSpotWithStructData( soldier, STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
+							soldier->ChangeSoldierState( STANDING, 0, TRUE );
+							TeleportSoldier( soldier, sTeleportSpot, FALSE );
 
-							HandleMoraleEvent( MercPtrs[ ubID ], MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							DirtyMercPanelInterface( MercPtrs[ ubID ], DIRTYLEVEL1 );
+							HandleMoraleEvent( soldier, MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							DirtyMercPanelInterface( soldier, DIRTYLEVEL1 );
 
 							// Flugente: we might get a disease from this...
-							HandlePossibleInfection( MercPtrs[ubID], NULL, INFECTION_TYPE_SEX );
+							HandlePossibleInfection( soldier, NULL, INFECTION_TYPE_SEX );
 						}
 					}
 				}
