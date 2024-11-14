@@ -48,9 +48,9 @@ bool checkLBEArrayIntegrity(bool verbose) {
 	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items...");
 
 	for (int i = 0; i < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; i++) {
-		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID < 0) continue;
+		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID >= NOBODY) continue;
 
-		int id = gCharactersList[i].usSolID;
+		SoldierID id = gCharactersList[i].usSolID;
 		SOLDIERTYPE soldier = Menptr[id];
 
 		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier.name);
