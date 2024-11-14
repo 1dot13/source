@@ -1095,7 +1095,7 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 //--------------------------------------------------------------
 #pragma optimize("", off)
 // anv: start enemy taunt with probabilty depending on taunt settings
-void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 uiTargetID )
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SoldierID uiTargetID )
 {
 	SOLDIERTYPE *pTarget = NULL;
 	if( uiTargetID != NOBODY )
