@@ -2471,7 +2471,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 		// Is it a guy?
 		if ( usStructureID < INVALID_STRUCTURE_ID )
 		{
-			if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
+			if ( pObject->ubLastTargetTakenDamage != usStructureID )
 			{
 				// Flugente: if this fails, something is very wrong indeed
 				Assert(usStructureID<TOTAL_SOLDIERS);
@@ -2488,7 +2488,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 				pSoldier->EVENT_SoldierGotHit( NOTHING, sDamage, sBreath, pSoldier->ubDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
 
-				pObject->ubLastTargetTakenDamage = (UINT8)( usStructureID );
+				pObject->ubLastTargetTakenDamage = usStructureID;
 			}
 		}
 	}

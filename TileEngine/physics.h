@@ -133,7 +133,7 @@ public:
 	BOOLEAN	 fPotentialForDebug;
 	INT32		sLevelNodeGridNo;
 	INT32		iSoundID;
-	UINT8		ubLastTargetTakenDamage;
+	SoldierID		ubLastTargetTakenDamage;
 	// OJW - 20091002 - mp explosives
 	UINT8			mpTeam; // the intiating clients team
 	INT32			mpRealObjectID; // ID from the initiating client
