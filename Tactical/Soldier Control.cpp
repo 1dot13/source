@@ -11529,7 +11529,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 		if ( this->usDragPersonID != NOBODY )
 		{
-			SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
+			SOLDIERTYPE* pSoldier = this->usDragPersonID;
 			
 			if ( pSoldier )
 			{
@@ -20876,7 +20876,7 @@ void	SOLDIERTYPE::CancelDrag()
 	// if we are dragging a person, set them to the center of their gridno, otherwise their position might be off
 	if (this->usDragPersonID != NOBODY)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
+		SOLDIERTYPE* pSoldier = this->usDragPersonID;
 
 		if ( pSoldier && !TileIsOutOfBounds(pSoldier->sGridNo) )
 		{

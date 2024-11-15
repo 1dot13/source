@@ -3167,7 +3167,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 	{
 		if (pSoldier->usDragPersonID != NOBODY)
 		{
-			SOLDIERTYPE* pOtherSoldier = MercPtrs[pSoldier->usDragPersonID];
+			SOLDIERTYPE* pOtherSoldier = pSoldier->usDragPersonID;
 
 			uiTotalWeight += GetTotalWeight( pOtherSoldier );
 			uiTotalWeight += pOtherSoldier->GetBodyWeight();
