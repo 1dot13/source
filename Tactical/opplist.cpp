@@ -4642,16 +4642,16 @@ void DebugSoldierPage3( )
 		
 		// OPIONION OF SELECTED MERC
 		if ( gusSelectedSoldier != NOBODY && pSoldier->ubProfile != NO_PROFILE && (
-			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_AIM ||
-			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_MERC ||
-			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_RPC ||
-			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_IMP ) )
+			gMercProfiles[gusSelectedSoldier->ubProfile].Type == PROFILETYPE_AIM ||
+			gMercProfiles[gusSelectedSoldier->ubProfile].Type == PROFILETYPE_MERC ||
+			gMercProfiles[gusSelectedSoldier->ubProfile].Type == PROFILETYPE_RPC ||
+			gMercProfiles[gusSelectedSoldier->ubProfile].Type == PROFILETYPE_IMP ) )
 		{
 			SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 			gprintf( 0, LINE_HEIGHT * ubLine, L"NPC Opinion:");
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
-			if (OKToCheckOpinion(MercPtrs[ gusSelectedSoldier ]->ubProfile))
-				gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
+			if (OKToCheckOpinion(gusSelectedSoldier->ubProfile))
+				gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ gusSelectedSoldier->ubProfile ] );
 			ubLine++;
 		}
 	}

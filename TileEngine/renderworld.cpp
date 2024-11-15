@@ -1069,7 +1069,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			SOLDIERTYPE * pSelSoldier;
 			if (gusSelectedSoldier != NOBODY)
 			{
-				pSelSoldier = MercPtrs[gusSelectedSoldier];
+				pSelSoldier = gusSelectedSoldier;
 			}
 			else
 			{
@@ -1149,7 +1149,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			}
 			//if ( gusSelectedSoldier != NOBODY )
 			//{
-			//  pSelSoldier = MercPtrs[ gusSelectedSoldier ];
+			//  pSelSoldier = gusSelectedSoldier;
 			// Shade differently depending on visiblity
 			//  if ( pSoldier->bVisible == 0 || ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] == 0  ) )
 			//  {

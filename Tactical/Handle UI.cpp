@@ -1013,7 +1013,7 @@ void SetUIMouseCursor( )
 
 			if( GetMouseMapPos( &usMapPos) )
 			{
-				if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->pathing.bLevel == 0 )
+				if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->pathing.bLevel == 0 )
 				{
 					// ATE: Is this place revealed?
 					if ( !InARoom( usMapPos, &usRoomNum ) || ( InARoom( usMapPos, &usRoomNum ) && gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_REVEALED ) )
@@ -1953,7 +1953,7 @@ UINT32 UIHandleAOnTerrain( UI_EVENT *pUIEvent )
 				if ( gfUIFullTargetFound )
 				{
 					// No, ok display message IF this is the first time at this gridno
-					if ( gsOutOfRangeGridNo != MercPtrs[ gusUIFullTargetID ]->sGridNo || gubOutOfRangeMerc != gusSelectedSoldier )
+					if ( gsOutOfRangeGridNo != gusUIFullTargetID->sGridNo || gubOutOfRangeMerc != gusSelectedSoldier )
 					{
 						// Display
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ OUT_OF_RANGE_STRING ] );
@@ -1961,7 +1961,7 @@ UINT32 UIHandleAOnTerrain( UI_EVENT *pUIEvent )
 						//PlayJA2Sample( TARGET_OUT_OF_RANGE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 
 						// Set
-						gsOutOfRangeGridNo = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+						gsOutOfRangeGridNo = gusUIFullTargetID->sGridNo;
 						gubOutOfRangeMerc	= gusSelectedSoldier;
 					}
 				}
@@ -2058,7 +2058,7 @@ UINT32 UIHandleCWait( UI_EVENT *pUIEvent )
 	{
 		if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 		{
-			pSoldier = GetSoldierStructureForVehicle( MercPtrs[ gusSelectedSoldier ]->iVehicleId );
+			pSoldier = GetSoldierStructureForVehicle( gusSelectedSoldier->iVehicleId );
 		}
 
 		pInvTile = GetCurInteractiveTile( );
@@ -3746,7 +3746,7 @@ BOOLEAN UIHandleOnMerc( BOOLEAN fMovementMode )
 						// anv: don't switch if passengers are blocked from attacking
 						if( gusSelectedSoldier != NOBODY )
 						{
-							SOLDIERTYPE *pSelectedSoldier = MercPtrs[gusSelectedSoldier];
+							SOLDIERTYPE *pSelectedSoldier = gusSelectedSoldier;
 							if( pSelectedSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 							{
 								SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSelectedSoldier->iVehicleId );
@@ -6386,7 +6386,7 @@ BOOLEAN IsValidTalkableNPC( UINT16 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMer
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		if ( AM_A_ROBOT( MercPtrs[ gusSelectedSoldier ] ) )
+		if ( AM_A_ROBOT( gusSelectedSoldier ) )
 		{
 			return( FALSE );
 		}
@@ -7042,7 +7042,7 @@ BOOLEAN SelectedGuyInBusyAnimation( )
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 
 		if ( pSoldier->usAnimState == LOB_ITEM ||
 			pSoldier->usAnimState == THROW_ITEM ||

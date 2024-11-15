@@ -2763,7 +2763,7 @@ BOOLEAN ReCreateSelectedSoldierLight( )
 		return(FALSE);
 	}
 
-	pSoldier = MercPtrs[gusSelectedSoldier];
+	pSoldier = gusSelectedSoldier;
 
 	return(pSoldier->ReCreateSoldierLight( ));
 }

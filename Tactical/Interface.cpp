@@ -851,7 +851,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 	}
 
 	// Blit background!
@@ -6136,7 +6136,7 @@ void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier )
 	INT32 iVisibleDistance;
 
 	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSelectedSoldier = gusSelectedSoldier;
 	else
 		return;
 
@@ -6182,7 +6182,7 @@ void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier )
 	SOLDIERTYPE *pSelectedSoldier;
 
 	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSelectedSoldier = gusSelectedSoldier;
 	else
 		return;
 	

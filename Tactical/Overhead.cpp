@@ -298,7 +298,7 @@ SOLDIERTYPE* SoldierFromID(const SoldierID id, SOLDIERTYPE* Array[TOTAL_SOLDIERS
 UINT8           gbPlayerNum = 0;
 
 // Global for current selected soldier
-UINT16          gusSelectedSoldier = NOBODY;
+SoldierID       gusSelectedSoldier = NOBODY;
 INT8            gbShowEnemies = FALSE;
 BOOLEAN         gfMovingAnimation = FALSE;
 
@@ -3362,7 +3362,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
     if ( gusSelectedSoldier != NOBODY )
     {
         // Get guy
-        pOldSoldier = MercPtrs[ gusSelectedSoldier ];
+        pOldSoldier = gusSelectedSoldier;
         pOldSoldier->flags.fShowLocator     = FALSE;
         pOldSoldier->flags.fFlashLocator = FALSE;
 
@@ -4249,8 +4249,8 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     //if the person was Raul, and we are to say the blown up quotes
     if( pSoldierOld->ubProfile == RAUL_UB /*RAUL */ && IsJa25GeneralFlagSet( JA_GF__RAUL_BLOW_HIMSELF_UP ) )
     {
-        UINT8 SoldierId1;
-        UINT8 SoldierId2;
+        SoldierID SoldierId1;
+        SoldierID SoldierId2;
 
         //Get some random Soldier ID's of the valid mercs
         if( Get3RandomQualifiedMercs( &SoldierId1, &SoldierId2, NULL ) != 0 )
@@ -6571,8 +6571,8 @@ void EnterCombatMode( UINT8 ubStartingTeam )
         DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("EnterCombatMode continuing... start player turn, selected soldier = %d",gusSelectedSoldier));
         // OK, make sure we have a selected guy
         // Madd: this was causing a weird crash becuase gusSelectedSoldier was 156 (out of the array bounds) for some reason
-        //if ( MercPtrs[ gusSelectedSoldier ]->aiData.bOppCnt == 0 )
-        if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->aiData.bOppCnt == 0 )
+        //if ( gusSelectedSoldier->aiData.bOppCnt == 0 )
+        if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->aiData.bOppCnt == 0 )
         {
             DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode continuing... nobody selected");
             // OK, look through and find one....
@@ -9631,7 +9631,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
     if (gTacticalStatus.ubCurrentTeam == gbPlayerNum && gusSelectedSoldier < TOTAL_SOLDIERS)
     {
-        pSoldier = MercPtrs[ gusSelectedSoldier ];
+        pSoldier = gusSelectedSoldier;
     }
     else
     {
@@ -9658,7 +9658,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
                 return( NULL );
         }
 
-        pSoldier = MercPtrs[ gusSelectedSoldier ];
+        pSoldier = gusSelectedSoldier;
     }
 
     if (!pSoldier)
@@ -10179,7 +10179,7 @@ void RemoveManFromTeam( INT8 bTeam )
 
 void RemoveSoldierFromTacticalSector( SOLDIERTYPE *pSoldier, BOOLEAN fAdjustSelected )
 {
-    UINT16   ubID;
+    SoldierID   ubID;
     SOLDIERTYPE *pNewSoldier;
 
     // reset merc's opplist
@@ -10935,7 +10935,7 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 
 	INT16 approachselected = DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().GetSelectedEntryKey();
 
-	UINT8 approachchance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, approachselected );
+	UINT8 approachchance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, approachselected );
 
 	// you can never turn a VIP (though we don't tell the player if someone is a VIP, lest they have an exploit to find out)
 	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
@@ -10953,24 +10953,24 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[0], pSoldier->GetName() );
 
 		// increase intel penalty. We can only try to convert enemies if the penalty is low, and having a high penalty means we can't mine intel for a few hours but have to hide
-		MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 1;
+		gusSelectedSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 1;
 		
-		StatChange( MercPtrs[gusSelectedSoldier], EXPERAMT, 2, FROM_SUCCESS );
-		StatChange( MercPtrs[gusSelectedSoldier], LDRAMT, 4, FROM_SUCCESS );
+		StatChange( gusSelectedSoldier, EXPERAMT, 2, FROM_SUCCESS );
+		StatChange( gusSelectedSoldier, LDRAMT, 4, FROM_SUCCESS );
 	}
 	else
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[1], pSoldier->GetName() );
 
 		// increase intel penalty. We can only try to convert enemies if the penalty is low, and having a high penalty means we can't mine intel for a few hours but have to hide
-		MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 4;
+		gusSelectedSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 4;
 
-		StatChange( MercPtrs[gusSelectedSoldier], EXPERAMT, 1, FROM_FAILURE );
-		StatChange( MercPtrs[gusSelectedSoldier], LDRAMT, 1, FROM_FAILURE );
+		StatChange( gusSelectedSoldier, EXPERAMT, 1, FROM_FAILURE );
+		StatChange( gusSelectedSoldier, LDRAMT, 1, FROM_FAILURE );
 	}
 
 	// explain that suspicion is so high that we have to stop
-	if ( MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] >= 20 )
+	if ( gusSelectedSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] >= 20 )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[2] );
 
 	// use up resources spent, regardless of whether or not we were successful
@@ -10979,7 +10979,7 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 		INT32 bribeamount = 10 * min( 10, CurrentPlayerProgressPercentage() );
 
 		// substract money spent
-		AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, MercPtrs[gusSelectedSoldier]->ubProfile, GetWorldTotalMin(), -bribeamount );
+		AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, gusSelectedSoldier->ubProfile, GetWorldTotalMin(), -bribeamount );
 	}
 	else if ( approachselected == 4 )
 	{
@@ -10989,7 +10989,7 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 	}
 	
 	// spend AP
-	DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+	DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
 	//ReduceAttackBusyCount();
 }
@@ -11014,12 +11014,12 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 		std::vector<std::pair<INT16, STR16> > dropdownvector_1;
 		INT16 cnt = 1;
 
-		UINT8 chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+		UINT8 chance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
 		swprintf( gTurncoatDropdownText[cnt-1], szTurncoatText[3], chance );
 		dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
 
 		++cnt;
-		chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+		chance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
 		swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[4], chance );
 		dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
 
@@ -11028,7 +11028,7 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 		INT32 bribeamount = 10 * min( 10, ubCurrentProgress );
 		if ( bribeamount <= balance )
 		{
-			chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+			chance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
 			swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[5], bribeamount, chance );
 			dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
 		}
@@ -11038,7 +11038,7 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 		int intelbribeneeded = max( 2, ( ubCurrentProgress + 5 ) / 10 );
 		if ( intelbribeneeded <= intelreserve )
 		{
-			chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+			chance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
 			swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[6], intelbribeneeded, chance );
 			dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
 		}
@@ -11163,7 +11163,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
     if ( ubExitValue == 1 )
     {
 		SOLDIERTYPE *pSoldierToSurrender = MercPtrs[prisonerdialoguetargetID];
-        DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+        DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
         if ( !gGameExternalOptions.fEnemyCanSurrender )
         {
@@ -11285,7 +11285,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			
 			// dynamic opinion: a merc caused the remaining enemies to give up
 			if (gGameExternalOptions.fDynamicOpinions && gusSelectedSoldier != NOBODY )
-				HandleDynamicOpinionChange( MercPtrs[gusSelectedSoldier], OPINIONEVENT_BATTLE_TOOK_PRISONER, TRUE, TRUE );
+				HandleDynamicOpinionChange( gusSelectedSoldier, OPINIONEVENT_BATTLE_TOOK_PRISONER, TRUE, TRUE );
         }
         else
         {
@@ -11295,22 +11295,22 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER] );
 
             // if asking for surrender while undercover and the enemy refuses, he learns who you are, so he uncovers you
-            if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+            if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
             {
-                MercPtrs[ gusSelectedSoldier ]->LooseDisguise();
+                gusSelectedSoldier->LooseDisguise();
 
 				if ( gSkillTraitValues.fCOStripIfUncovered )
-					MercPtrs[ gusSelectedSoldier ]->Strip();
+					gusSelectedSoldier->Strip();
 
                 ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SURRENDER_FAILED]  );
-                ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], MercPtrs[ gusSelectedSoldier ]->GetName()  );
+                ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], gusSelectedSoldier->GetName()  );
             }
         }
     }
     // we offered to surrender OURSELVES TO the enemy
     else if ( ubExitValue == 2 )
     {
-        DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+        DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
         if ( !gGameExternalOptions.fPlayerCanAsktoSurrender || MercPtrs[prisonerdialoguetargetID]->bTeam == CREATURE_TEAM )
         {
@@ -11323,7 +11323,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )
 	{
-		DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+		DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
 		// Flugente: if we are disguised and talk to a non-profile NPC, we will continue to 'chat' with the enemy as long as we aren't ordered to do something else.
 		// This way we can easily order our spies to 'distract' enemies
@@ -11367,7 +11367,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		else
 		{
 			// normal dialog
-			DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+			DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 			StartCivQuote(MercPtrs[prisonerdialoguetargetID]);
 		}
     }

@@ -657,13 +657,13 @@ void HandleDialogue( )
 	{
 		if( gfMorrisShouldSayHi )
 		{
-			SOLDIERTYPE * pMorris;
-			SOLDIERTYPE * pSoldier;
-			INT16	sPlayerGridNo;
-			UINT8	ubPlayerID;
-			UINT8	ubQualifiedSoldierIDArray[ NUM_MERCS_WITH_NEW_QUOTES ];
-			UINT8	ubNumQualifiedMercs=0;
-			UINT8	ubCnt=0;
+			SOLDIERTYPE *pMorris;
+			SOLDIERTYPE *pSoldier;
+			INT16		sPlayerGridNo;
+			SoldierID	ubPlayerID;
+			UINT8		ubQualifiedSoldierIDArray[ NUM_MERCS_WITH_NEW_QUOTES ];
+			UINT8		ubNumQualifiedMercs=0;
+			UINT8		ubCnt=0;
 
 			if( !( gMercProfiles[ MORRIS_UB ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
 			{
@@ -676,7 +676,7 @@ void HandleDialogue( )
 						ubPlayerID = WhoIsThere2( sPlayerGridNo, 0 );
 						if (ubPlayerID != NOBODY)
 						{
-							InitiateConversation( pMorris, MercPtrs[ ubPlayerID ], NPC_INITIAL_QUOTE, 0 );
+							InitiateConversation( pMorris, ubPlayerID, NPC_INITIAL_QUOTE, 0 );
 							gMercProfiles[ pMorris->ubProfile ].ubMiscFlags2 |= PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE;
 						}
 					}
@@ -1887,7 +1887,7 @@ BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceI
 	{
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
+			AdditionalTacticalCharacterDialogue_CallsLua( gusSelectedSoldier, ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
 		}
 	}
 	// if team members talk, anyone may answer

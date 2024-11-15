@@ -202,11 +202,11 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			if ( MercPtrs[ gusSelectedSoldier ]->pTempObject != NULL )
+			if ( gusSelectedSoldier->pTempObject != NULL )
 			{
 				return;
 			}
-			if ( MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+			if ( gusSelectedSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 			{
 				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ usSubjectSoldier ]->iVehicleId );
 				usSubjectSoldier = pVehicle->ubID;
@@ -448,8 +448,8 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 								{
 									// Set movement mode
 									// OK, only change this if we are stationary!
-									//if ( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY )
-									//if ( MercPtrs[ gusSelectedSoldier ]->usAnimState == WALKING )
+									//if ( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY )
+									//if ( gusSelectedSoldier->usAnimState == WALKING )
 									{
 										MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = TRUE;
 										*puiNewEvent = C_MOVE_MERC;
@@ -621,7 +621,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 													//{
 													//	if ( gusSelectedSoldier != NOBODY )
 													//	{
-													//		if ( !( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+													//		if ( !( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY ) )
 													//		{
 
 													//gUITargetShotWaiting	= TRUE;
@@ -680,7 +680,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																				// OK, if we have a selected guy.. make him part too....
 																				if ( gusSelectedSoldier != NOBODY )
 																				{
-																					MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
+																					gusSelectedSoldier->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
 																				}
 																			}
 
@@ -715,7 +715,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																		// OK, if we have a selected guy.. make him part too....
 																		if ( gusSelectedSoldier != NOBODY )
 																		{
-																			MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
+																			gusSelectedSoldier->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
 																		}
 
 																		gfIgnoreOnSelectedGuy = TRUE;
@@ -1017,7 +1017,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 								if ( gfUICanBeginAllMoveCycle )
 								{
 									// ATE: Here, check if we can do this....
-									if ( !UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) )
+									if ( !UIOKMoveDestination( gusSelectedSoldier, usMapPos ) )
 									{
 										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANT_MOVE_THERE_STR ] );
 										gfRTClickLeftHoldIntercepted = TRUE;
@@ -1041,7 +1041,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 						{
 							gfBeginBurstSpreadTracking = FALSE;
 							gfRTClickLeftHoldIntercepted = TRUE;
-							MercPtrs[ gusSelectedSoldier ]->flags.fDoSpread				= FALSE;
+							gusSelectedSoldier->flags.fDoSpread				= FALSE;
 							fClickHoldIntercepted = TRUE;
 							*puiNewEvent = A_END_ACTION;
 							gCurrentUIMode = MOVE_MODE;
@@ -1234,7 +1234,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 										case MOVE_MODE:
 										case TALKCURSOR_MODE:
 											// anv: don't switch if passengers are blocked from attacking
-											pSoldier = MercPtrs[ gusSelectedSoldier ];
+											pSoldier = gusSelectedSoldier;
 											if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 											{
 												SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
@@ -2032,13 +2032,13 @@ void HandleMouseRTWheel( void )
 											if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-												GotoLowerStance(MercPtrs[ gusSelectedSoldier ]);
+												GotoLowerStance(gusSelectedSoldier);
 				return;
 											}
 
 											if ( gusSelectedSoldier != NOBODY )
 											{ //Select prev merc
-												bID = FindPrevActiveAndAliveMerc( MercPtrs[ gusSelectedSoldier ], TRUE, TRUE );
+												bID = FindPrevActiveAndAliveMerc( gusSelectedSoldier, TRUE, TRUE );
 												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
 												// Center to guy....
 												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
@@ -2050,14 +2050,14 @@ void HandleMouseRTWheel( void )
 											if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-													GotoHeigherStance( MercPtrs[ gusSelectedSoldier ] );
+													GotoHeigherStance( gusSelectedSoldier );
 				return;
 											}
 
 											//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"wheel %d", gViewportRegion.WheelState);
 											if ( gusSelectedSoldier != NOBODY )
 											{ //Select next merc
-												bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
+												bID = FindNextMercInTeamPanel( gusSelectedSoldier, FALSE, FALSE );
 												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
 												// Center to guy....
 												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
@@ -2073,7 +2073,7 @@ void HandleMouseRTMButton( UINT32 *puiNewEvent )
 		// toggle fire mode
 		if ( ( gpItemPointer == NULL ) && ( gusSelectedSoldier != NOBODY ) &&
 			( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ BURSTMODE_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-			ChangeWeaponMode( MercPtrs[ gusSelectedSoldier ] );
+			ChangeWeaponMode( gusSelectedSoldier );
 			}
 	else
 		*puiNewEvent = LC_LOOK;
@@ -2140,7 +2140,7 @@ void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 void HandleMouseRTX2Button( UINT32 *puiNewEvent )
 {
 			if ( _KeyDown( ALT ) )
-				AutoReload( MercPtrs[ gusSelectedSoldier ] );
+				AutoReload( gusSelectedSoldier );
 			else
 			// Toggle squad's stealth mode.....
 			// For each guy on squad...
@@ -2252,7 +2252,7 @@ void HandleRTToggleFireMode( void )
 	// toggle fire mode
 	if ( ( gpItemPointer == NULL ) && ( gusSelectedSoldier != NOBODY ) &&
 		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ BURSTMODE_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-		ChangeWeaponMode( MercPtrs[ gusSelectedSoldier ] );
+		ChangeWeaponMode( gusSelectedSoldier );
 }
 void HandleRTLocateSoldier( void )
 {

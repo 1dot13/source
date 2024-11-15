@@ -766,7 +766,7 @@ BOOLEAN EnterShopKeeperInterface()
 	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
 	//but if we are physically too far away, we don't have extended arms!
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 	SOLDIERTYPE* pShopkeeper = NULL;
 	
 	if ( gusIDOfCivTrader != NOBODY )
@@ -826,7 +826,7 @@ BOOLEAN EnterShopKeeperInterface()
 	}
 
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
-	AssertMsg( CanMercInteractWithSelectedShopkeeper( MercPtrs[ gusSelectedSoldier ] ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
+	AssertMsg( CanMercInteractWithSelectedShopkeeper( gusSelectedSoldier ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
 
 	// Create a video surface to blt corner of the tactical screen that still shines through
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -2477,7 +2477,7 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT16 aMercID 
 
 	// Flugente: additional dialogue
 	if ( gusSelectedSoldier != NOBODY )
-		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
+		AdditionalTacticalCharacterDialogue_CallsLua( gusSelectedSoldier, ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
 
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }
@@ -6780,7 +6780,7 @@ void DealWithItemsStillOnTheTable()
 	}
 	else
 	{
-		pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+		pDropSoldier = gusSelectedSoldier;
 	}
 
 	// this guy HAS to be valid!
@@ -7023,7 +7023,7 @@ void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT
 		}
 		else
 		{
-			pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+			pDropSoldier = gusSelectedSoldier;
 		}
 
 		//if we don't have an item, pick one up

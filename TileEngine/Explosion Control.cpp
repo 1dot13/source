@@ -4387,7 +4387,7 @@ void HandleExplosionWarningAnimations( )
 	// show focus area if skill is active
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[gusSelectedSoldier];
+		SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 
 		if ( pSoldier->bActive && pSoldier->bInSector)
 		{
@@ -5620,10 +5620,8 @@ void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECT
 
 void HavePersonAtGridnoStop( UINT32 sGridNo )
 {
-	UINT8	ubID;
-
 	//Sewe if there is a person at the gridno
-	ubID = WhoIsThere2( sGridNo, 0 );
+	SoldierID ubID = WhoIsThere2( sGridNo, 0 );
 
 	//is it a valid person
 	if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
@@ -5813,8 +5811,7 @@ void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo )
 
 void HandleSeeingPowerGenFan( UINT32 sGridNo )
 {
-//	INT8 bID;
-	UINT8 ubPerson;
+	SoldierID ubPerson;
 	BOOLEAN fFanIsStopped;
 	BOOLEAN	fFanHasBeenStopped;
 	SOLDIERTYPE *pSoldier;

@@ -3291,7 +3291,7 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	// CHECK IF OUR SELECTED GUY IS GONE!
 	if(gusSelectedSoldier != NOBODY)
 	{
-		if(MercPtrs[gusSelectedSoldier]->bActive == FALSE)
+		if(gusSelectedSoldier->bActive == FALSE)
 			gusSelectedSoldier = NOBODY;
 	}
 	AdjustSoldierCreationStartValues();

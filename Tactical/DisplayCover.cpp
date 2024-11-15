@@ -538,11 +538,10 @@ void DisplayCover( BOOLEAN forceUpdate )
 
 static void CalculateCoverFromEnemies()
 {
-	if (gusSelectedSoldier == NOBODY)
+	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
 		return;
 
-	SOLDIERTYPE* pSoldier;
-	GetSoldier(&pSoldier, gusSelectedSoldier);
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 	const INT8 OurSoldierStealth = GetStealth(pSoldier);
 	const INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
 
@@ -673,10 +672,10 @@ void CalculateCover()
 	INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
 
-	if (gusSelectedSoldier == NOBODY)
+	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
 		return;
 
-	GetSoldier(&pSoldier, gusSelectedSoldier);
+	pSoldier = gusSelectedSoldier;
 
 	for (ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
 	{
@@ -1199,7 +1198,7 @@ void CalculateMines()
 			return;
 	}
 	
-	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 		
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
@@ -1453,7 +1452,7 @@ void CalculateTraitRange()
 		return;
 	}
 				
-	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 	
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
@@ -1591,7 +1590,7 @@ void CalculateTrackerRange( )
 
 	UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 
-	const INT32& sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 	
 	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
 	{
@@ -1775,7 +1774,7 @@ void CalculateWeapondata()
 
 	BOOLEAN guninhand = WeaponInHand( pSoldier );
 
-	INT32 sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
+	INT32 sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 
 	if ( TileIsOutOfBounds( sSelectedSoldierGridNo ) )
 		return;

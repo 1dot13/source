@@ -364,7 +364,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 			// If we are in realtime, follow!
 			if ( ( !( gTacticalStatus.uiFlags & INCOMBAT ) ) )
 			{
-				if ( ( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+				if ( ( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY ) )
 				{
 					if ( gUITargetShotWaiting )
 					{

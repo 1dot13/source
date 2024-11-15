@@ -6201,7 +6201,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								if ( OK_CONTROLLABLE_MERC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
 								{
 									//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s added", MercPtrs[ ubSoldierID ]->name );
-									MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+									gusSelectedSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
 									MercPtrs[ ubSoldierID ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
 									EndMultiSoldierSelection( TRUE );
 								}
@@ -6213,7 +6213,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								MercPtrs[ ubSoldierID ]->flags.uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
 								if (ubSoldierID != gusSelectedSoldier)
 								{
-									MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+									gusSelectedSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
 								}
 								EndMultiSoldierSelection( TRUE );
 							}
@@ -7194,7 +7194,7 @@ UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLif
 			//Select next squad
 			iCurrentSquad = CurrentSquad( );
 
-			pNewSoldier = FindNextActiveSquad( MercPtrs[ gusSelectedSoldier ] );
+			pNewSoldier = FindNextActiveSquad( gusSelectedSoldier );
 
 			if ( pNewSoldier->bAssignment != iCurrentSquad )
 			{

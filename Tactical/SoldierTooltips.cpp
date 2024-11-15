@@ -132,8 +132,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if ( gusSelectedSoldier != NOBODY && gusUIFullTargetID != NOBODY )
 		{
 			//CHRISL: Changed the second parameter to use the same information as the 'F' hotkey uses.
-			//iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
-			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, MercPtrs[ gusUIFullTargetID ]->sGridNo ) / 10;
+			//iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( gusSelectedSoldier->sGridNo, sSoldierGridNo ) / 10;
+			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( gusSelectedSoldier->sGridNo, MercPtrs[ gusUIFullTargetID ]->sGridNo ) / 10;
 		}
 		// WANNE: If we want to show the tooltip of milita and no merc is present in the sector
 		else
@@ -145,14 +145,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// SANDRO - don't use this if detail set to debug!
 		if ( gGameExternalOptions.gfAllowUDTRange && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
-			uiMaxTooltipDistance = (UINT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
+			uiMaxTooltipDistance = (UINT32)( gusSelectedSoldier->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
 			uiMaxTooltipDistance /= 100;
 		}
 		//SCORE: Otherwise if we're using dynamics then do this
 		// SANDRO - don't use this if detail set to debug!
 		else if ( gGameExternalOptions.fEnableDynamicSoldierTooltips && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
-			OBJECTTYPE* pObject = &(MercPtrs[gusSelectedSoldier]->inv[HANDPOS]);
+			OBJECTTYPE* pObject = &(gusSelectedSoldier->inv[HANDPOS]);
 			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter) {
 				if ( Item[iter->usItem].visionrangebonus > 0 && iter->exists())
 				{
@@ -175,14 +175,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 				// add 10% to max tooltip viewing distance per level of the merc
 				// sevenfm: fixed incorrect integer calculation
-				uiMaxTooltipDistance = (INT32)( uiMaxTooltipDistance * ( 1 + ( (FLOAT)( EffectiveExpLevel( MercPtrs[ gusSelectedSoldier ] ) ) / 10.0 ) ) ); // SANDRO - changed to effective level calc
+				uiMaxTooltipDistance = (INT32)( uiMaxTooltipDistance * ( 1 + ( (FLOAT)( EffectiveExpLevel( gusSelectedSoldier ) ) / 10.0 ) ) ); // SANDRO - changed to effective level calc
 
 				// sevenfm: this calculation doesn't make sense: disabled
 				//if ( gGameExternalOptions.gfAllowLimitedVision )
 				//	uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
 
-				if ( !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
-					!(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
+				if ( !(Item[gusSelectedSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
+					!(Item[gusSelectedSoldier->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
  					!DayTime() )
 				{
 					// if night reduce max tooltip viewing distance by a factor of 4 if merc is not wearing NVG
@@ -321,7 +321,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if ( ubTooltipDetailLevel < DL_Full)
 		{
 			// Get the current selected merc
-			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+			SOLDIERTYPE* pMerc = gusSelectedSoldier;
 
 			if ( pMerc->aiData.bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
 			{

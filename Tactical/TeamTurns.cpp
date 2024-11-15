@@ -212,10 +212,10 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 			if ( gusSelectedSoldier != NOBODY )
 			{
 				// Check if this guy is able to be selected....
-				if ( MercPtrs[ gusSelectedSoldier ]->stats.bLife < OKLIFE )
+				if ( gusSelectedSoldier->stats.bLife < OKLIFE )
 				{
 					DebugMsg(TOPIC_JA2INTERRUPT,DBG_LEVEL_3,String("StartPlayerTeamTurn: SelectNextAvailSoldier"));
-					SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+					SelectNextAvailSoldier( gusSelectedSoldier );
 				}
 				else
 				{
@@ -230,7 +230,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 					if ( fDoBattleSnd )
 					{
 						// Say ATTENTION SOUND...
-						MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+						gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 					}
 
 					if ( gsInterfaceLevel == 1 )
@@ -1289,14 +1289,14 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				gfHiddenInterrupt = FALSE;
 
 				// If we can continue a move, do so!
-				if ( MercPtrs[ gusSelectedSoldier ]->flags.fNoAPToFinishMove && pSoldier->ubReasonCantFinishMove != REASON_STOPPED_SIGHT )
+				if ( gusSelectedSoldier->flags.fNoAPToFinishMove && pSoldier->ubReasonCantFinishMove != REASON_STOPPED_SIGHT )
 				{
 					// Continue
-					MercPtrs[ gusSelectedSoldier ]->AdjustNoAPToFinishMove( FALSE );
+					gusSelectedSoldier->AdjustNoAPToFinishMove( FALSE );
 
-					if ( MercPtrs[ gusSelectedSoldier ]->sGridNo != MercPtrs[ gusSelectedSoldier ]->pathing.sFinalDestination )
+					if ( gusSelectedSoldier->sGridNo != gusSelectedSoldier->pathing.sFinalDestination )
 					{
-						MercPtrs[ gusSelectedSoldier ]->EVENT_GetNewSoldierPath( MercPtrs[ gusSelectedSoldier ]->pathing.sFinalDestination, MercPtrs[ gusSelectedSoldier ]->usUIMovementMode );
+						gusSelectedSoldier->EVENT_GetNewSoldierPath( gusSelectedSoldier->pathing.sFinalDestination, gusSelectedSoldier->usUIMovementMode );
 					}
 					else
 					{
@@ -1332,7 +1332,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
 
 					// Say ATTENTION SOUND...
-					MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 
 					if ( gsInterfaceLevel == 1 )
 					{
@@ -1692,7 +1692,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponen
 		// the selected character, ie. his friends...
 		if ( pOpponent->bTeam == gbPlayerNum )
 		{
-			if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != Menptr[gusSelectedSoldier].bSide))
+			if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != gusSelectedSoldier->bSide))
 			{
 				return( FALSE );
 			}
@@ -1714,7 +1714,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponen
 		}
 		/* old DG code for same:
 
-		if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != Menptr[gusSelectedSoldier].bSide))
+		if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != gusSelectedSoldier->bSide))
 		{
 			return(FALSE);
 		}
@@ -2356,7 +2356,7 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 					send_interrupt( npSoldier );
 
 
-					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+					SOLDIERTYPE* pMerc = gusSelectedSoldier;
 					//AdjustNoAPToFinishMove( pMerc, TRUE );	
 					pMerc->HaultSoldierFromSighting(TRUE);
 					//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??

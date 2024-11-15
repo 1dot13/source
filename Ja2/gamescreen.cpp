@@ -261,17 +261,17 @@ void EnterTacticalScreen( )
 	if ( gusSelectedSoldier != NOBODY )
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check our guy"));
-		if ( !OK_CONTROLLABLE_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+		if ( !OK_CONTROLLABLE_MERC( gusSelectedSoldier ) )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc not controllable"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: who is selected? %d", gusSelectedSoldier));
 		// ATE: If the current guy is sleeping, change....
-		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->flags.fMercAsleep )
+		if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->flags.fMercAsleep )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc asleep"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 	}
 	else
@@ -684,7 +684,7 @@ UINT32	MainGameScreenHandle(void)
 		// Select a guy if he hasn;'
 		if( !gfTacticalPlacementGUIActive )
 		{
-			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( gusSelectedSoldier ) )
 			{
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: selectsoldier"));
 				SelectSoldier( gusSelectedSoldier, FALSE, TRUE );
@@ -933,7 +933,7 @@ UINT32	MainGameScreenHandle(void)
 			if ( gusSelectedSoldier != NOBODY )
 			{
 				if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
-					MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 			}
 		}
 

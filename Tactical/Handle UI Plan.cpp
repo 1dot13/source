@@ -197,7 +197,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 					pPlanSoldier->ChangeSoldierState( pPlanSoldier->usUIMovementMode, 0, FALSE );
 
 					// Change selected soldier
-					gusSelectedSoldier = (UINT16)pPlanSoldier->ubID;
+					gusSelectedSoldier = pPlanSoldier->ubID;
 
 					// Change global planned mode to this guy!
 					gpUIPlannedSoldier = pPlanSoldier;
@@ -243,6 +243,7 @@ void EndUIPlan(	)
 	SOLDIERTYPE *pSoldier;
 
 	// Zero out any planned soldiers
+	//FIXME
 	for( cnt = MAX_NUM_SOLDIERS; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		pSoldier = MercPtrs[ cnt ];
