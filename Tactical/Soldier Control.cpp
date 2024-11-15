@@ -5700,7 +5700,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 
 #pragma optimize("", off)
 // ATE: THIS FUNCTION IS USED FOR ALL SOLDIER TAKE DAMAGE FUNCTIONS!
-void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGrid )
+void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGrid )
 {
 	UINT8		ubCombinedLoss, ubVolume, ubReason;
 	//	SOLDIERTYPE * pNewSoldier;
@@ -5719,7 +5719,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// DO STUFF COMMON FOR ALL TYPES
 	if ( ubAttackerID != NOBODY )
 	{
-		MercPtrs[ubAttackerID]->aiData.bLastAttackHit = TRUE;
+		ubAttackerID->aiData.bLastAttackHit = TRUE;
 	}
 
 	// Set attacker's ID
@@ -5759,8 +5759,8 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 	// Flugente: check the ammo
 	else if ( ubAttackerID != NOBODY
-		&& MercPtrs[ubAttackerID]->inv[HANDPOS].exists()
-		&& AmmoTypes[*&( MercPtrs[ubAttackerID]->inv[HANDPOS] )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_FIRE )
+		&& ubAttackerID->inv[HANDPOS].exists()
+		&& AmmoTypes[*&( ubAttackerID->inv[HANDPOS] )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_FIRE )
 	{
 		ubReason = TAKE_DAMAGE_GAS_FIRE;
 
@@ -5780,7 +5780,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 	// callahan update end
 
-	else if ( Item[usWeaponIndex].usItemClass & (IC_GUN | IC_THROWING_KNIFE) && AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand][0]->data.gun.ubGunAmmoType].explosionSize <= 1 )
+	else if ( Item[usWeaponIndex].usItemClass & (IC_GUN | IC_THROWING_KNIFE) && AmmoTypes[ ubAttackerID->inv[ ubAttackerID->ubAttackingHand ][0]->data.gun.ubGunAmmoType ].explosionSize <= 1 )
 	{
 		if ( ubSpecial == FIRE_WEAPON_SLEEP_DART_SPECIAL )
 		{
@@ -5848,16 +5848,16 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		ubReason = TAKE_DAMAGE_BLADE;
 
 		// Flugente: check wether we can make this blade bloody
-		if ( ubAttackerID != NOBODY && MercPtrs[ubAttackerID]->inv[HANDPOS].exists( ) )
+		if ( ubAttackerID != NOBODY && ubAttackerID->inv[HANDPOS].exists( ) )
 		{
-			if ( Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem > 0 )
+			if ( Item[ ubAttackerID->inv[HANDPOS].usItem ].bloodieditem > 0 )
 			{
 				// magic happens
-				MercPtrs[ubAttackerID]->inv[HANDPOS].usItem = Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem;
+				ubAttackerID->inv[HANDPOS].usItem = Item[ ubAttackerID->inv[HANDPOS].usItem ].bloodieditem;
 			}
 
 			// Flugente: if the blade is infected, infect the victim
-			if ( *&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
+			if ( *&(ubAttackerID->inv[HANDPOS])[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
 			{
 				// infect us with the first disease
 				this->Infect( 0 );
@@ -5865,7 +5865,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 
 			// if this guy has the disease, infect the blade
 			if ( this->sDiseasePoints[0] > 0 )
-				*&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag |= INFECTED;
+				*&(ubAttackerID->inv[HANDPOS])[0]->data.sObjectFlag |= INFECTED;
 		}
 	}
 	else if ( Item[usWeaponIndex].usItemClass & IC_PUNCH )
@@ -5877,7 +5877,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		{
 			if ( ubAttackerID != NOBODY )
 			{
-				if ( !(MercPtrs[ubAttackerID]->inv[HANDPOS].exists( )) || ItemIsBrassKnuckles(MercPtrs[ubAttackerID]->inv[HANDPOS].usItem) )
+				if ( !(ubAttackerID->inv[HANDPOS].exists( )) || ItemIsBrassKnuckles(ubAttackerID->inv[HANDPOS].usItem) )
 				{
 					// with enhanced CCS, make the lost breath harder to regenerate, which makes CQC more usable
 					if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
@@ -5886,11 +5886,11 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 					sBreathLoss = sDamage * (100 + gSkillTraitValues.bPercentModifierHtHBreathLoss); // 80% only for untrained mercs
 
 					// martial arts bonus for breath damage
-					if ( HAS_SKILL_TRAIT( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT ) )
+					if ( HAS_SKILL_TRAIT( ubAttackerID, MARTIAL_ARTS_NT ) )
 					{
-						sBreathLoss += sDamage * gSkillTraitValues.ubMABonusBreathDamageHandToHand * NUM_SKILL_TRAITS( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT );
+						sBreathLoss += sDamage * gSkillTraitValues.ubMABonusBreathDamageHandToHand * NUM_SKILL_TRAITS( ubAttackerID, MARTIAL_ARTS_NT );
 
-						sBreathRegainPenaltyMultiplier += (gSkillTraitValues.usMALostBreathRegainPenalty * NUM_SKILL_TRAITS( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT ));
+						sBreathRegainPenaltyMultiplier += (gSkillTraitValues.usMALostBreathRegainPenalty * NUM_SKILL_TRAITS( ubAttackerID, MARTIAL_ARTS_NT ));
 					}
 				}
 				else
@@ -5947,7 +5947,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			if (ItemNeedsBatteries(usWeaponIndex))
 			{
 				// check for batteries
-				OBJECTTYPE* pBatteries = FindAttachedBatteries( &(MercPtrs[ubAttackerID]->inv[HANDPOS]) );
+				OBJECTTYPE* pBatteries = FindAttachedBatteries( &(ubAttackerID->inv[HANDPOS]) );
 				if ( pBatteries )
 				{
 					sDamage = 0;
@@ -5964,7 +5964,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 						// destroy batteries
 						pBatteries->RemoveObjectsFromStack( 1 );
 						if ( pBatteries->exists( ) == false ) {
-							MercPtrs[ubAttackerID]->inv[HANDPOS].RemoveAttachment( pBatteries );
+							ubAttackerID->inv[HANDPOS].RemoveAttachment( pBatteries );
 						}
 					}
 
@@ -5976,7 +5976,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 	// marke added one 'or' for explosive ammo. variation of: AmmoTypes[this->inv[this->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1
 	//  extracting attacker�s ammo type
-	else if ( Item[usWeaponIndex].usItemClass & IC_EXPLOSV || AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand][0]->data.gun.ubGunAmmoType].explosionSize > 1 )
+	else if ( Item[usWeaponIndex].usItemClass & IC_EXPLOSV || AmmoTypes[ubAttackerID->inv[ubAttackerID->ubAttackingHand][0]->data.gun.ubGunAmmoType].explosionSize > 1 )
 	{
 		INT8 bDeafValue;
 
@@ -6371,7 +6371,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GUNFIRE, ubAttackerID );
 			if (ubAttackerID != NOBODY)
 			{
-				PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID );
+				PossiblyStartEnemyTaunt( ubAttackerID, TAUNT_HIT_GUNFIRE, this->ubID );
 			}
 		}
 		else
@@ -6379,7 +6379,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_THROWING_KNIFE, ubAttackerID );
 			if (ubAttackerID != NOBODY)
 			{
-				PossiblyStartEnemyTaunt(MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID);
+				PossiblyStartEnemyTaunt(ubAttackerID, TAUNT_HIT_THROWING_KNIFE, this->ubID);
 			}
 		}
 	}
@@ -6395,12 +6395,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( Item[usWeaponIndex].usItemClass & IC_EXPLOSV || ubReason == TAKE_DAMAGE_EXPLOSION )
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, ubAttackerID );
-			//PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_EXPLOSION, this );
+			//PossiblyStartEnemyTaunt( ubAttackerID, TAUNT_HIT_EXPLOSION, this );
 		}
 		else if ( Item[usWeaponIndex].usItemClass & IC_TENTACLES )
 		{
 			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_TENTACLES, ubAttackerID );
-			//PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_TENTACLES, this );
+			//PossiblyStartEnemyTaunt( ubAttackerID, TAUNT_HIT_TENTACLES, this );
 		}
 	}
 	if ( Item[usWeaponIndex].usItemClass & IC_PUNCH )

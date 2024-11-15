@@ -1670,7 +1670,7 @@ public:
 	void EVENT_SetSoldierDirection( UINT16	usNewDirection );
 	void EVENT_SetSoldierDesiredDirection( UINT16	usNewDirection );
 	void EVENT_FireSoldierWeapon( INT32 sTargetGridNo );
-	void EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 ubDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGridNo );
+	void EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 ubDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGridNo );
 	void EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection );
