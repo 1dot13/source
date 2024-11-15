@@ -2148,12 +2148,10 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 }
 
 
-BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVehicle )
+BOOLEAN InternalTacticalRemoveSoldier( SoldierID usSoldierIndex, BOOLEAN fRemoveVehicle )
 {
-	SOLDIERTYPE *		pSoldier;
-
 	// Check range of index given
-	if ( usSoldierIndex < 0 || usSoldierIndex > TOTAL_SOLDIERS-1 )
+	if ( usSoldierIndex >= NOBODY )
 	{
 		// Set debug message
 
@@ -2171,9 +2169,7 @@ BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVeh
 		gfUISelectiveTargetFound = FALSE;
 	}
 
-	pSoldier = MercPtrs[ usSoldierIndex ];
-
-	return TacticalRemoveSoldierPointer( pSoldier, fRemoveVehicle );
+	return TacticalRemoveSoldierPointer(usSoldierIndex, fRemoveVehicle );
 }
 
 BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehicle )
@@ -2244,7 +2240,7 @@ BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehi
 	return( TRUE );
 }
 
-BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex )
+BOOLEAN TacticalRemoveSoldier( SoldierID usSoldierIndex )
 {
 	return( InternalTacticalRemoveSoldier( usSoldierIndex, TRUE ) );
 }

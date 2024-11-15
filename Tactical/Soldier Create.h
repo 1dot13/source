@@ -451,7 +451,7 @@ public:
 
 
 //Original functions currently used throughout the game.
-BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex );
+BOOLEAN TacticalRemoveSoldier( SoldierID usSoldierIndex );
 BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehicle );
 
 INT8 CalcDifficultyModifier( UINT8 ubSoldierClass );
@@ -562,7 +562,7 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UIN
 
 void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID );
 
-BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVehicle );
+BOOLEAN InternalTacticalRemoveSoldier( SoldierID usSoldierIndex, BOOLEAN fRemoveVehicle );
 
 //SPECIAL!	Certain events in the game can cause profiled NPCs to become enemies.	The two cases are 
 //adding Mike and Iggy.	We will only add one NPC in any given combat and the conditions for setting
