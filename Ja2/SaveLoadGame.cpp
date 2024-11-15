@@ -296,12 +296,12 @@ typedef struct
 
 
 
-	BOOLEAN	fSkyriderEmptyHelpGiven;
-	BOOLEAN	fEnterMapDueToContract;
+	BOOLEAN		fSkyriderEmptyHelpGiven;
+	BOOLEAN		fEnterMapDueToContract;
 	UINT8		ubHelicopterHitsTaken;
 	UINT8		ubQuitType;
-	BOOLEAN fSkyriderSaidCongratsOnTakingSAM;
-	INT16		sContractRehireSoldierID;
+	BOOLEAN		fSkyriderSaidCongratsOnTakingSAM;
+	SoldierID	sContractRehireSoldierID;
 
 
 	GAME_OPTIONS		GameOptions;
@@ -8505,7 +8505,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	if( pContractReHireSoldier != NULL )
 		sGeneralInfo.sContractRehireSoldierID = pContractReHireSoldier->ubID;
 	else
-		sGeneralInfo.sContractRehireSoldierID = -1;
+		sGeneralInfo.sContractRehireSoldierID = NOBODY;
 
 	memcpy( &sGeneralInfo.GameOptions, &gGameOptions, sizeof( GAME_OPTIONS ) );
 #ifndef BMP_RANDOM//dnl ch55 111009
@@ -8784,7 +8784,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterHitsTaken, sizeof(sGeneralInfo.ubHelicopterHitsTaken), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubQuitType, sizeof(sGeneralInfo.ubQuitType), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM, sizeof(sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sContractRehireSoldierID, sizeof(sGeneralInfo.sContractRehireSoldierID), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sContractRehireSoldierID, sizeof(sGeneralInfo.sContractRehireSoldierID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.GameOptions, sizeof(sGeneralInfo.GameOptions), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiSeedNumber, sizeof(sGeneralInfo.uiSeedNumber), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiBaseJA2Clock, sizeof(sGeneralInfo.uiBaseJA2Clock), sizeof(UINT32), numBytesRead);
@@ -9045,10 +9045,10 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	ubQuitType = sGeneralInfo.ubQuitType;
 
 	//if the soldier id is valid
-	if( sGeneralInfo.sContractRehireSoldierID == -1 )
+	if( sGeneralInfo.sContractRehireSoldierID == NOBODY )
 		pContractReHireSoldier = NULL;
 	else
-		pContractReHireSoldier = &Menptr[ sGeneralInfo.sContractRehireSoldierID ];
+		pContractReHireSoldier = sGeneralInfo.sContractRehireSoldierID;
 
 	memcpy( &gGameOptions, &sGeneralInfo.GameOptions, sizeof( GAME_OPTIONS ) );
 #ifndef BMP_RANDOM//dnl ch55 111009
