@@ -9968,12 +9968,12 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 }
 
 
-UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT16 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
+UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, SoldierID ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
 {
 #ifdef JA2BETAVERSION
 	if ( is_networked ) {
 		CHAR tmpMPDbgString[512];
-		sprintf( tmpMPDbgString, "SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage );
+		sprintf( tmpMPDbgString, "SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker.i, sSourceGrid, sSubsequent, fShowDamage );
 		MPDebugMsg( tmpMPDbgString );
 	}
 #endif
@@ -9988,24 +9988,24 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	this->ubLastDamageReason = ubReason;
 		
 	// Flugente: dynamic opinions
-	if (ubAttacker != NOBODY && MercPtrs[ubAttacker] )
+	if (ubAttacker < NOBODY)
 	{
 		if (gGameExternalOptions.fDynamicOpinions)
 		{
-			AddOpinionEvent(this->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_FRIENDLYFIRE);
+			AddOpinionEvent(this->ubProfile, ubAttacker->ubProfile, OPINIONEVENT_FRIENDLYFIRE);
 
 			// if this is a civilian, other mercs can complain about mercs shooting innocents
 			// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-			if ((this->bTeam != OUR_TEAM) && (this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide))
+			if ((this->bTeam != OUR_TEAM) && (this->aiData.bNeutral || this->bSide == ubAttacker->bSide))
 			{
 				// not for killing animals though...
 				if (this->ubBodyType != CROW && this->ubBodyType != COW)
-					HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE);
+					HandleDynamicOpinionChange(ubAttacker, OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE);
 			}
 		}
 
 		// if we are a turncoat, lose the flag if we were attacked by player forces
-		if ( (this->usSoldierFlagMask2 & SOLDIER_TURNCOAT) && MercPtrs[ubAttacker]->bSide == 0 )
+		if ( (this->usSoldierFlagMask2 & SOLDIER_TURNCOAT) && ubAttacker->bSide == 0 )
 		{
 			this->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
 
@@ -10049,9 +10049,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		//  if we have equipped a riot shield and are being attacked in melee, ignore damage from some directions
 		if ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND || ubReason == TAKE_DAMAGE_TENTACLES )
 		{
-			if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
+			if ( ubAttacker < NOBODY )
 			{
-				UINT8 attackdir_inverse = GetDirectionToGridNoFromGridNo( this->sGridNo, MercPtrs[ubAttacker]->sGridNo );
+				UINT8 attackdir_inverse = GetDirectionToGridNoFromGridNo( this->sGridNo, ubAttacker->sGridNo );
 
 				// if the shield faces the direction of the attacker, we block the attack
 				if ( attackdir_inverse == this->ubDirection || attackdir_inverse == gOneCCDirection[this->ubDirection] || attackdir_inverse == gOneCDirection[this->ubDirection] )
@@ -10107,8 +10107,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		HandleTakeDamageDeath( this, bOldLife, ubReason );
 
 		// add to our records.
-		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && MercPtrs[ubAttacker]->ubProfile != NO_PROFILE )
-			gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usDamageDealt += sLifeDeduct;
+		if ( ubAttacker < NOBODY && ubAttacker->ubProfile != NO_PROFILE )
+			gMercProfiles[ubAttacker->ubProfile].records.usDamageDealt += sLifeDeduct;
 
 		if ( this->ubProfile != NO_PROFILE )
 			gMercProfiles[this->ubProfile].records.usDamageTaken += sLifeDeduct;
@@ -10174,7 +10174,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 				}
 				else
 				{
-					sReductionFactor = 4 + PythSpacesAway( MercPtrs[ubAttacker]->sGridNo, this->sGridNo ) / 2;
+					sReductionFactor = 4 + PythSpacesAway( ubAttacker->sGridNo, this->sGridNo ) / 2;
 				}
 				break;
 			}
@@ -10280,8 +10280,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	}
 
 	// add to our records.
-	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && MercPtrs[ubAttacker]->ubProfile != NO_PROFILE )
-		gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usDamageDealt += sLifeDeduct;
+	if ( ubAttacker < NOBODY && ubAttacker->ubProfile != NO_PROFILE )
+		gMercProfiles[ubAttacker->ubProfile].records.usDamageDealt += sLifeDeduct;
 
 	if ( this->ubProfile != NO_PROFILE )
 		gMercProfiles[this->ubProfile].records.usDamageTaken += sLifeDeduct;
@@ -10304,8 +10304,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	// Flugente we might get a disease from this...
 	if ( gGameExternalOptions.fDisease && sLifeDeduct > 0 )
 	{
-		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && CREATURE_OR_BLOODCAT( MercPtrs[ubAttacker] ) )
-			HandlePossibleInfection( this, MercPtrs[ubAttacker], INFECTION_TYPE_WOUND_ANIMAL );
+		if ( ubAttacker < NOBODY && CREATURE_OR_BLOODCAT( ubAttacker ) )
+			HandlePossibleInfection( this, ubAttacker, INFECTION_TYPE_WOUND_ANIMAL );
 
 		if ( ubReason == TAKE_DAMAGE_TENTACLES )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_ANIMAL );
@@ -10577,12 +10577,12 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	if ( ubAttacker != NOBODY )
 	{
 		// don't give exp for hitting friends!
-		if ( (MercPtrs[ubAttacker]->bTeam == gbPlayerNum) && (this->bTeam != gbPlayerNum) )
+		if ( (ubAttacker->bTeam == gbPlayerNum) && (this->bTeam != gbPlayerNum) )
 		{
 			if ( ubReason == TAKE_DAMAGE_EXPLOSION )
 			{
 				// EXPLOSIVES GAIN (combLoss):  Causing wounds in battle
-				StatChange( MercPtrs[ubAttacker], EXPLODEAMT, (UINT16)(10 * ubCombinedLoss), FROM_FAILURE );
+				StatChange( ubAttacker, EXPLODEAMT, (UINT16)(10 * ubCombinedLoss), FROM_FAILURE );
 			}
 			/*
 			else if ( ubReason == TAKE_DAMAGE_GUNFIRE )
@@ -10630,7 +10630,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		}
 	}
 	
-	if ( (ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && gMercProfiles[this->ubProfile].Type == PROFILETYPE_RPC ||
+	if ( (ubAttacker != NOBODY) && (ubAttacker->bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && gMercProfiles[this->ubProfile].Type == PROFILETYPE_RPC ||
 		gMercProfiles[this->ubProfile].Type == PROFILETYPE_NPC )
 	{
 		gMercProfiles[this->ubProfile].ubMiscFlags |= PROFILE_MISC_FLAG_WOUNDEDBYPLAYER;
@@ -10655,13 +10655,13 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 #ifdef JA2UB	
 	//if the attacker is MORRIS, AND he didnt kill the person
-	if ( Menptr[ubAttacker].ubProfile == MORRIS_UB )	//MORRIS
+	if ( ubAttacker->ubProfile == MORRIS_UB )	//MORRIS
 	{
 		//if the soldier is hurt, but not dead
 		if ( this->stats.bLife < bOldLife && this->stats.bLife > 0 )
 		{
 			//if he hasnt said his quote #1 before
-			if ( !(Menptr[ubAttacker].usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU) )
+			if ( !(ubAttacker->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU) )
 			{
 				//said a flag so morris can say this quote next turn
 				gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn = TRUE;
@@ -10675,7 +10675,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		else if ( gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn &&
 				  gJa25SaveStruct.ubPlayerMorrisHurt == this->ubProfile &&
 				  this->stats.bLife <= 0 &&
-				  !(Menptr[ubAttacker].usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU) )
+				  !(ubAttacker->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU) )
 		{
 			//said a flag so morris can say this quote next turn
 			gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn = FALSE;
@@ -10705,7 +10705,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	return(ubCombinedLoss);
 }
 
-void SOLDIERTYPE::SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage)
+void SOLDIERTYPE::SoldierTakeDelayedDamage(INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, SoldierID ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage)
 {
 	delayedDamageFunction = [this, bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage]()
 	{
