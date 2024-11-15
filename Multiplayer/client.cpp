@@ -3863,9 +3863,9 @@ void send_death( SOLDIERTYPE *pSoldier )
 	if(pAttacker)
 	{
 		// if attacker was one of our own mercs, use the last hostile attacker as the killer if there is one
-		if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubPreviousAttackerID != NULL && pSoldier->ubPreviousAttackerID != NOBODY)
+		if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubPreviousAttackerID < NOBODY)
 		{
-			pAttacker=MercPtrs[ pSoldier->ubPreviousAttackerID ];
+			pAttacker = pSoldier->ubPreviousAttackerID;
 			// check if the new attacker was also a friendly...
 			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubNextToPreviousAttackerID != NULL && pSoldier->ubNextToPreviousAttackerID != NOBODY)
 				pAttacker=MercPtrs[ pSoldier->ubNextToPreviousAttackerID ];

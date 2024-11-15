@@ -3788,21 +3788,19 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		// if we can afford the minimum AP cost to throw this tossable item
 		if (pSoldier->bActionPoints >= ubMinAPcost)
 		{
-			INT32	sSpot = pSoldier->sGridNo;
-			INT8	bLevel = pSoldier->pathing.bLevel;
+			INT32 sSpot = pSoldier->sGridNo;
+			INT8	 bLevel = pSoldier->pathing.bLevel;
 
-			INT32	sTargetSpot = NOWHERE;
-			INT8	bTargetLevel = bLevel;
+			INT32 sTargetSpot = NOWHERE;
+			INT8	 bTargetLevel = bLevel;
 
-			INT32	sClosestThreat;
-			UINT16 ubClosestThreatID = pSoldier->ubPreviousAttackerID;
+			INT32 sClosestThreat;
+			SoldierID ubClosestThreatID = pSoldier->ubPreviousAttackerID;
 
 			// try to find good spot for smoke
-			if (ubClosestThreatID != NOBODY &&
-				MercPtrs[ubClosestThreatID] &&
-				!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+			if (ubClosestThreatID != NOBODY && !TileIsOutOfBounds(ubClosestThreatID->sGridNo))
 			{
-				sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+				sClosestThreat = ubClosestThreatID->sGridNo;
 
 				sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
 			}
@@ -3811,11 +3809,9 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			{
 				ubClosestThreatID = ClosestSeenThreatID(pSoldier, uiThreatCnt, SEEN_LAST_TURN);
 
-				if (ubClosestThreatID != NOBODY &&
-					MercPtrs[ubClosestThreatID] &&
-					!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+				if (ubClosestThreatID != NOBODY && !TileIsOutOfBounds(ubClosestThreatID->sGridNo))
 				{
-					sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+					sClosestThreat = ubClosestThreatID->sGridNo;
 
 					sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
 				}
@@ -3825,11 +3821,9 @@ void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			{
 				ubClosestThreatID = ClosestKnownThreatID(pSoldier, uiThreatCnt);
 
-				if (ubClosestThreatID != NOBODY &&
-					MercPtrs[ubClosestThreatID] &&
-					!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+				if (ubClosestThreatID != NOBODY && !TileIsOutOfBounds(ubClosestThreatID->sGridNo))
 				{
-					sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+					sClosestThreat = ubClosestThreatID->sGridNo;
 
 					sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
 				}

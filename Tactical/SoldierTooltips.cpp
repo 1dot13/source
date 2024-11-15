@@ -261,13 +261,13 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			swprintf(pStrInfo, L"%s|Roaming |Range: %d\n", pStrInfo, RoamingRange(pSoldier, &usOrigin));
 			swprintf(pStrInfo, L"%s|Team |Aware: %d\n", pStrInfo, gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition);
 			swprintf(pStrInfo, L"%s|Collapsed %d |BreathCollapsed %d\n", pStrInfo, pSoldier->bCollapsed, pSoldier->bBreathCollapsed);
-			if (pSoldier->ubPreviousAttackerID != NOBODY && MercPtrs[pSoldier->ubPreviousAttackerID])
+			if (pSoldier->ubPreviousAttackerID < NOBODY)
 			{
-				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d AttackerTarget %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID, MercPtrs[pSoldier->ubPreviousAttackerID]->sLastTarget);
+				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d AttackerTarget %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID.i, pSoldier->ubPreviousAttackerID->sLastTarget);
 			}
 			else
 			{
-				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID);
+				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID.i);
 			}
 
 			swprintf(pStrInfo, L"%s|Visible %d |Moved %d\n", pStrInfo, pSoldier->bVisible, pSoldier->aiData.bMoved);

@@ -3936,7 +3936,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		}
 		else if(pSoldier->ubPreviousAttackerID != NOBODY)
 		{
-			pKillerSoldier = MercPtrs[pSoldier->ubPreviousAttackerID];
+			pKillerSoldier = pSoldier->ubPreviousAttackerID;
 		}
 		if(pKillerSoldier != NULL)
 		{
