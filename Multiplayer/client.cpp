@@ -3848,7 +3848,7 @@ void send_death( SOLDIERTYPE *pSoldier )
 	{
 		if (pSoldier->ubPreviousAttackerID < NOBODY)
 			nDeath.attacker_id = pSoldier->ubPreviousAttackerID;
-		else if (pSoldier->ubNextToPreviousAttackerID != NOBODY && pSoldier->ubNextToPreviousAttackerID != NULL)
+		else if (pSoldier->ubNextToPreviousAttackerID < NOBODY)
 			nDeath.attacker_id = pSoldier->ubNextToPreviousAttackerID;
 	}
 
@@ -3867,8 +3867,8 @@ void send_death( SOLDIERTYPE *pSoldier )
 		{
 			pAttacker = pSoldier->ubPreviousAttackerID;
 			// check if the new attacker was also a friendly...
-			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubNextToPreviousAttackerID != NULL && pSoldier->ubNextToPreviousAttackerID != NOBODY)
-				pAttacker=MercPtrs[ pSoldier->ubNextToPreviousAttackerID ];
+			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubNextToPreviousAttackerID < NOBODY)
+				pAttacker = pSoldier->ubNextToPreviousAttackerID;
 			// if its still a friendly, use the original attacker id...for posterity
 			// guy must snore too loudly if all his mates wanna kill him :)
 			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubAttackerID != NOBODY)

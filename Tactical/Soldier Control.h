@@ -1504,7 +1504,7 @@ public:
 	UINT8				ubLastDamageReason;
 	INT32				sLastTwoLocations[2];
 	INT32				uiTimeSinceLastBleedGrunt;
-	UINT16				ubNextToPreviousAttackerID;
+	SoldierID			ubNextToPreviousAttackerID;
 	UINT8				bDoAutofire;
 	INT8					numFlanks;
 	INT32				lastFlankSpot;
