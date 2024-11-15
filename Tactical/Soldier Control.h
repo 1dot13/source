@@ -1464,7 +1464,7 @@ public:
 
 	UINT8				ubNumLocateCycles;
 	UINT8				ubDelayedMovementFlags;
-	UINT16				ubCTGTTargetID;
+	SoldierID			ubCTGTTargetID;
 
 	UINT32				uiMercChecksum;
 
