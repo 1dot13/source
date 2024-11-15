@@ -85,7 +85,7 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 		//add to the history log the fact that the merc died and the circumstances
 		if( pSoldier->ubAttackerID != NOBODY )
 		{
-			pKiller = MercPtrs[ pSoldier->ubAttackerID ];
+			pKiller = pSoldier->ubAttackerID;
 		}
 
 		// CJC Nov 11, 2002
@@ -141,7 +141,7 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 				gMercProfiles[ pSoldier->ubProfile ].ubSuspiciousDeath = VERY_SUSPICIOUS_DEATH;
 			}
 			// if killed by someone on our team, or while there weren't any opponents around
-			else if (Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM || !gTacticalStatus.fEnemyInSector )
+			else if (pSoldier->ubAttackerID->bTeam == OUR_TEAM || !gTacticalStatus.fEnemyInSector )
 			{
 				// cause insurance company to suspect fraud and investigate this claim
 				gMercProfiles[ pSoldier->ubProfile ].ubSuspiciousDeath = SUSPICIOUS_DEATH;

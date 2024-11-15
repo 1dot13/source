@@ -740,13 +740,13 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	}
 	*/
 	// set killer team
-	bKillerTeam = Menptr[ pSoldier->ubAttackerID ].bTeam;
+	bKillerTeam = pSoldier->ubAttackerID->bTeam;
 
 
 	// if the player did the killing
 	if( bKillerTeam == OUR_TEAM )
 	{
-		SOLDIERTYPE *pKiller = MercPtrs[ pSoldier->ubAttackerID ];
+		SOLDIERTYPE *pKiller = pSoldier->ubAttackerID;
 
 		// apply morale penalty for killing a civilian!
 		HandleMoraleEvent( pKiller, MORALE_KILLED_CIVILIAN, pKiller->sSectorX, pKiller->sSectorY, pKiller->bSectorZ );
@@ -800,7 +800,7 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 		}
 
 		// killer seen by civ?
-		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, MercPtrs[ pSoldier->ubAttackerID ], TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
+		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, pSoldier->ubAttackerID, TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
 		{
 			bSeenState |= 1;
 		}
@@ -908,7 +908,7 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 
 	case CREATURE_TEAM:
 			// killed by a monster - make sure it was one
-			if( ( Menptr[ pSoldier->ubAttackerID ].ubBodyType >= ADULTFEMALEMONSTER ) && ( Menptr[ pSoldier->ubAttackerID ].ubBodyType <= QUEENMONSTER ) )
+			if( ( pSoldier->ubAttackerID->ubBodyType >= ADULTFEMALEMONSTER ) && ( pSoldier->ubAttackerID->ubBodyType <= QUEENMONSTER ) )
 			{
 				// increase for the extreme horror of being killed by a monster
 				iLoyaltyChange *= MULTIPLIER_FOR_MURDER_BY_MONSTER;

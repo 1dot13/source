@@ -5732,9 +5732,9 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// handle morale for heavy damage attacks
 	if ( sDamage > 25 )
 	{
-		if ( this->ubAttackerID != NOBODY && MercPtrs[this->ubAttackerID]->bTeam == gbPlayerNum )
+		if ( this->ubAttackerID != NOBODY && this->ubAttackerID->bTeam == gbPlayerNum )
 		{
-			HandleMoraleEvent( MercPtrs[this->ubAttackerID], MORALE_DID_LOTS_OF_DAMAGE, MercPtrs[this->ubAttackerID]->sSectorX, MercPtrs[this->ubAttackerID]->sSectorY, MercPtrs[this->ubAttackerID]->bSectorZ );
+			HandleMoraleEvent( this->ubAttackerID, MORALE_DID_LOTS_OF_DAMAGE, this->ubAttackerID->sSectorX, this->ubAttackerID->sSectorY, this->ubAttackerID->bSectorZ );
 			this->ubLastMoraleFromHit++;
 		}
 		if ( this->bTeam == gbPlayerNum )
@@ -10475,7 +10475,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		sTestOne = EffectiveStrength( this, FALSE );
 		sTestTwo = 2 * max(sLifeDeduct, (sBreathLoss / 100));
 		
-		if (this->ubAttackerID != NOBODY && MercPtrs[this->ubAttackerID]->ubBodyType == BLOODCAT)
+		if (this->ubAttackerID != NOBODY && this->ubAttackerID->ubBodyType == BLOODCAT)
 		{
 			// bloodcat boost, let them make people drop items more
 			sTestTwo += 20;

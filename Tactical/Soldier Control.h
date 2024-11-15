@@ -1187,8 +1187,8 @@ public:
 
 	UINT32			uiAIDelay;
 	INT16			sReloadDelay;
-	UINT16			ubAttackerID;
 	UINT16			ubPreviousAttackerID;
+	SoldierID		ubAttackerID;
 
 	INT32			sInsertionGridNo;
 

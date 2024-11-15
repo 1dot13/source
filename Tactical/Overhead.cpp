@@ -3796,7 +3796,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         {
             if ( pSoldierOld->ubAttackerID != NOBODY )
             {
-                pKiller = MercPtrs[ pSoldierOld->ubAttackerID ];
+                pKiller = pSoldierOld->ubAttackerID;
             }
             if( pKiller && pKiller->bTeam == OUR_TEAM )
             {
@@ -4016,7 +4016,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         {
             if ( pSoldierOld->ubAttackerID != NOBODY )
             {
-                pKiller = MercPtrs[ pSoldierOld->ubAttackerID ];
+                pKiller = pSoldierOld->ubAttackerID;
             }
 
             BeginHandleDeidrannaDeath( pKiller, pSoldierOld->sGridNo, pSoldierOld->pathing.bLevel );
@@ -4088,7 +4088,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
         // If the militia's killer is known
         // silversurfer: did the player team kill the militia? If not, militia shouldn't become hostile towards the player.
-        if ( pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == OUR_TEAM )
+        if ( pSoldierOld->ubAttackerID != NOBODY && pSoldierOld->ubAttackerID->bTeam == OUR_TEAM )
         {
             // also treat this as murder - but player will never be blamed for militia death he didn't cause
             // HEADROCK HAM 3.6: Actually this function never runs for militia (see function for details)
@@ -4118,7 +4118,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
             if ( pSoldierOld->ubAttackerID != NOBODY )
             {
-                pKiller = MercPtrs[ pSoldierOld->ubAttackerID ];
+                pKiller = pSoldierOld->ubAttackerID;
 
                 BeginHandleQueenBitchDeath( pKiller, pSoldierOld->sGridNo, pSoldierOld->pathing.bLevel );
             }
@@ -4130,9 +4130,9 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
             TrackEnemiesKilled( ENEMY_KILLED_IN_TACTICAL, pSoldierOld->ubSoldierClass );
         }
         // If enemy guy was killed by the player, give morale boost to player's team!
-        if (pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == gbPlayerNum )
+        if (pSoldierOld->ubAttackerID != NOBODY && pSoldierOld->ubAttackerID->bTeam == gbPlayerNum )
         {
-            HandleMoraleEvent( MercPtrs[pSoldierOld->ubAttackerID], MORALE_KILLED_ENEMY, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+            HandleMoraleEvent( pSoldierOld->ubAttackerID, MORALE_KILLED_ENEMY, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
         }
 
         HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
@@ -4176,7 +4176,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         UINT16   ubAssister = NOBODY;
 
         // if it was a kill by a player's merc
-        if (pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == gbPlayerNum )
+        if (pSoldierOld->ubAttackerID != NOBODY && pSoldierOld->ubAttackerID->bTeam == gbPlayerNum )
         {
             // SANDRO - for special NPCs, you gain more experiences
             UINT16 usNumExpChances = ( 10 * pSoldierOld->stats.bExpLevel ); // basic value
@@ -4207,7 +4207,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                     break;
             }
             // EXPERIENCE CLASS GAIN:   Earned a kill
-            StatChange( MercPtrs[ pSoldierOld->ubAttackerID ], EXPERAMT, usNumExpChances, FALSE );
+            StatChange( pSoldierOld->ubAttackerID, EXPERAMT, usNumExpChances, FALSE );
         }
 
         // JA2 Gold: if previous and current attackers are the same, the next-to-previous attacker gets the assist
@@ -4229,9 +4229,9 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         }
     }
 
-    if (pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == MILITIA_TEAM )
+    if (pSoldierOld->ubAttackerID != NOBODY && pSoldierOld->ubAttackerID->bTeam == MILITIA_TEAM )
     {
-		MercPtrs[pSoldierOld->ubAttackerID]->ubMilitiaAssists++;
+		pSoldierOld->ubAttackerID->ubMilitiaAssists++;
     }
 
     //if the NPC is a dealer, add the dealers items to the ground
@@ -4567,7 +4567,7 @@ UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked )
                 // if in LOS of this guy's attacker
                 if ( (pAttacked->ubAttackerID != NOBODY && pSoldier->aiData.bOppList[pAttacked->ubAttackerID] == SEEN_CURRENTLY)
                         || ( PythSpacesAway( pSoldier->sGridNo, pAttacked->sGridNo ) < pAttacked->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->pathing.bLevel) )
-                        || ( pAttacked->ubAttackerID != NOBODY && PythSpacesAway( pSoldier->sGridNo, MercPtrs[ pAttacked->ubAttackerID ]->sGridNo ) < pAttacked->GetMaxDistanceVisible(MercPtrs[ pAttacked->ubAttackerID ]->sGridNo, MercPtrs[ pAttacked->ubAttackerID ]->pathing.bLevel) ) )
+                        || ( pAttacked->ubAttackerID != NOBODY && PythSpacesAway( pSoldier->sGridNo, pAttacked->ubAttackerID->sGridNo ) < pAttacked->GetMaxDistanceVisible(pAttacked->ubAttackerID->sGridNo, pAttacked->ubAttackerID->pathing.bLevel) ) )
                 {
                     MakeCivHostile(pSoldier);
                     if ( pSoldier->aiData.bOppCnt > 0 )

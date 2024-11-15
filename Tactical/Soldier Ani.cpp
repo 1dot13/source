@@ -3932,7 +3932,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		SOLDIERTYPE *pKillerSoldier = NULL;
 		if(pSoldier->ubAttackerID != NOBODY)
 		{
-			pKillerSoldier = MercPtrs[pSoldier->ubAttackerID];
+			pKillerSoldier = pSoldier->ubAttackerID;
 		}
 		else if(pSoldier->ubPreviousAttackerID != NOBODY)
 		{
@@ -3995,8 +3995,8 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		{
 			//////////////////////////////////////////////////////////////
 			// SANDRO - some changes here
-			UINT16   ubAttacker = pSoldier->ubAttackerID; 
-			UINT16	ubAssister = pSoldier->ubPreviousAttackerID;
+			SoldierID ubAttacker = pSoldier->ubAttackerID; 
+			SoldierID ubAssister = pSoldier->ubPreviousAttackerID;
 			// If attacker is nobody, and we died, then set the last attacker(if exists) as our killer 
 			if ( ubAttacker == NOBODY )
 			{
@@ -4024,9 +4024,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			{
 				// anv: note that ubAttacker can be already different from pSoldier->ubAttackerID
 				// IF this guy has an attacker and he's a good guy, play sound
-				if ( pSoldier->ubAttackerID != NOBODY )
+				if ( pSoldier->ubAttackerID < NOBODY )
 				{								
-					if ( MercPtrs[ pSoldier->ubAttackerID ] != NULL && MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
+					if ( pSoldier->ubAttackerID->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
 					{
 						gTacticalStatus.fKilledEnemyOnAttack	= TRUE;
 						gTacticalStatus.ubEnemyKilledOnAttack = pSoldier->ubID;
@@ -4110,7 +4110,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 								}
 								break;
 						}
-						//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;
+						//gMercProfiles[ pSoldier->ubAttackerID->ubProfile ].usKills++;
 						/////////////////////////////////////////////////////////////////////////////////////
 						gStrategicStatus.usPlayerKills++;
 
@@ -4456,7 +4456,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 			// SANDRO - if Martial Artist took someone down, always fall back if possible (for the fun)
 			if ( pSoldier->ubAttackerID != NOBODY && gGameOptions.fNewTraitSystem )
 			{ 
-				if ( HAS_SKILL_TRAIT( MercPtrs[ pSoldier->ubAttackerID ], MARTIAL_ARTS_NT ) && (!MercPtrs[ pSoldier->ubAttackerID ]->usAttackingWeapon || ItemIsBrassKnuckles(MercPtrs[ pSoldier->ubAttackerID ]->inv[HANDPOS].usItem)) )
+				if ( HAS_SKILL_TRAIT( pSoldier->ubAttackerID, MARTIAL_ARTS_NT ) && (!pSoldier->ubAttackerID->usAttackingWeapon || ItemIsBrassKnuckles(pSoldier->ubAttackerID->inv[HANDPOS].usItem)) )
 				{
 					fAlwaysFallBack = TRUE;
 				}
@@ -4468,7 +4468,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->ubAttackerID != NOBODY )
 				{
 					// Find direction!
-					bTestDirection = (INT8)GetDirectionFromGridNo( MercPtrs[ pSoldier->ubAttackerID ]->sGridNo, pSoldier );
+					bTestDirection = (INT8)GetDirectionFromGridNo( pSoldier->ubAttackerID->sGridNo, pSoldier );
 					fForceDirection = TRUE;
 				}
 
