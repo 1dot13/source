@@ -3468,15 +3468,15 @@ void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceRese
 
 BOOLEAN ResetAllAnimationCache( )
 {
-    UINT32                          cnt;
-    SOLDIERTYPE          *pSoldier;
+    UINT16 cnt;
+    SOLDIERTYPE *pSoldier;
 
     // Loop through all mercs and make go
     for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, cnt++ )
     {
         if ( pSoldier != NULL )
         {
-            InitAnimationCache( (UINT16)cnt, &(pSoldier->AnimCache) );
+            InitAnimationCache( cnt, &(pSoldier->AnimCache) );
 
         }
 

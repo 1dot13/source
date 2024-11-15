@@ -2413,7 +2413,7 @@ void	SOLDIERTYPE::DoNinjaAttack( void )
 }
 
 
-BOOLEAN SOLDIERTYPE::CreateSoldierCommon( UINT8 ubBodyType, UINT16 usSoldierID, UINT16 usState )
+BOOLEAN SOLDIERTYPE::CreateSoldierCommon( UINT8 ubBodyType, SoldierID usSoldierID, UINT16 usState )
 {
 	BOOLEAN fSuccess = FALSE;
 	INT32 iCounter = 0;

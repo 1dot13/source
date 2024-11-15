@@ -20,16 +20,16 @@ void DetermineOptimumAnimationCacheSize( )
 	guiCacheSize = MIN_CACHE_SIZE;
 }
 
-BOOLEAN InitAnimationCache( UINT16 usSoldierID, AnimationSurfaceCacheType *pAnimCache )
+BOOLEAN InitAnimationCache( SoldierID usSoldierID, AnimationSurfaceCacheType *pAnimCache )
 {
 	UINT32 cnt;
 
 	// Allocate entries
-	AnimDebugMsg( String( "*** Initializing anim cache surface for soldier %d", usSoldierID ) );
+	AnimDebugMsg( String( "*** Initializing anim cache surface for soldier %d", usSoldierID.i ) );
 	pAnimCache->usCachedSurfaces = (UINT16 *) MemAlloc( sizeof( UINT16 ) * guiCacheSize );
 	CHECKF( pAnimCache->usCachedSurfaces!= NULL );
 
-	AnimDebugMsg( String( "*** Initializing anim cache hit counter for soldier %d", usSoldierID ) );
+	AnimDebugMsg( String( "*** Initializing anim cache hit counter for soldier %d", usSoldierID.i ) );
 	pAnimCache->sCacheHits = (INT16 *) MemAlloc( sizeof( UINT16) * guiCacheSize );
 	CHECKF( pAnimCache->sCacheHits!= NULL );
 
@@ -41,7 +41,7 @@ BOOLEAN InitAnimationCache( UINT16 usSoldierID, AnimationSurfaceCacheType *pAnim
 	}
 	pAnimCache->ubCacheSize = 0;
 
-	// Zero surface databse history for this soldeir
+	// Zero surface database history for this soldier
 	ClearAnimationSurfacesUsageHistory( usSoldierID );
 
 	return( TRUE );

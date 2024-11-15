@@ -1656,7 +1656,7 @@ public:
 	BOOLEAN CreateSoldierLight( void );
 	BOOLEAN DeleteSoldierLight( void );
 
-	BOOLEAN CreateSoldierCommon( UINT8 ubBodyType, UINT16 usSoldierID, UINT16 usState );
+	BOOLEAN CreateSoldierCommon( UINT8 ubBodyType, SoldierID usSoldierID, UINT16 usState );
 
 
 	// Soldier Management functions, called by Event Pump.c

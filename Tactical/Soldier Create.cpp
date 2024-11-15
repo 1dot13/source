@@ -1189,7 +1189,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 
 			// Copy into merc struct
 			*MercPtrs[ Soldier.ubID ] = Soldier;
 			// Alrighty then, we are set to create the merc, stuff after here can fail!
-			CHECKF( MercPtrs[ Soldier.ubID ]->CreateSoldierCommon( Soldier.ubBodyType, Soldier.ubID, STANDING ) != FALSE );
+			CHECKF( Soldier.ubID->CreateSoldierCommon( Soldier.ubBodyType, Soldier.ubID, STANDING ) != FALSE );
 		}
 	}
 	else
