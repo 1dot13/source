@@ -21010,7 +21010,7 @@ void		SOLDIERTYPE::StopChatting()
 {
 	if ( this->usChatPartnerID != NOBODY )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[DISTRACT_STOP_STR], this->GetName(), MercPtrs[this->usChatPartnerID]->GetName() );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[DISTRACT_STOP_STR], this->GetName(), this->usChatPartnerID->GetName() );
 
 		MercPtrs[this->usChatPartnerID]->usChatPartnerID = NOBODY;
 		this->usChatPartnerID = NOBODY;

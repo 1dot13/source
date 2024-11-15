@@ -11397,7 +11397,7 @@ void CheckChatPartners()
 					if ( fMercQuoteThisTime )
 						GetSoldierScreenPos( pSoldier, &sScreenX, &sScreenY );
 					else
-						GetSoldierScreenPos( MercPtrs[pSoldier->usChatPartnerID], &sScreenX, &sScreenY );
+						GetSoldierScreenPos( pSoldier->usChatPartnerID, &sScreenX, &sScreenY );
 
 					if ( gsVIEWPORT_START_X <= sScreenX &&
 						gsVIEWPORT_END_X >= sScreenX &&
@@ -11407,7 +11407,7 @@ void CheckChatPartners()
 						if ( fMercQuoteThisTime )
 							BeginChatQuote( pSoldier, sScreenX, sScreenY );
 						else
-							BeginChatQuote( MercPtrs[pSoldier->usChatPartnerID], sScreenX, sScreenY );
+							BeginChatQuote( pSoldier->usChatPartnerID, sScreenX, sScreenY );
 
 						fMercQuoteThisTime = !fMercQuoteThisTime;
 
