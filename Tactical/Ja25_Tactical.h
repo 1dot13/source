@@ -50,7 +50,7 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
 
 
-extern UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 );
+extern UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 );
 
 void HandleWhenCertainPercentageOfEnemiesDie();
 

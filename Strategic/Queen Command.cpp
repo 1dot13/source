@@ -3158,8 +3158,8 @@ void HandleBloodCatDeaths( SECTORINFO *pSector )
 		//if ALL the bloodcats are killed
 		if( pSector->bBloodCats == 0 )
 		{
-			UINT8 bId1=-1;
-			UINT8 bId2=-1;
+			SoldierID bId1 = NOBODY;
+			SoldierID bId2 = NOBODY;
 			UINT8 bNum=0;
 
 			SetFactTrue( FACT_PLAYER_KILLED_ALL_BETTYS_BLOODCATS );
@@ -3174,13 +3174,13 @@ void HandleBloodCatDeaths( SECTORINFO *pSector )
 			if( bNum != 0 )
 			{
 				//must make sure TEX doesnt say the quote
-				if( bId1 != NOBODY && Menptr[ bId1 ].ubProfile != TEX_UB )
+				if( bId1 != NOBODY && bId1->ubProfile != TEX_UB )
 				{
-					TacticalCharacterDialogue( &Menptr[ bId1 ], QUOTE_UB_HANDLE_BLOODCATDEATHS );
+					TacticalCharacterDialogue( bId1, QUOTE_UB_HANDLE_BLOODCATDEATHS );
 				}
-				else if( bId2 != NOBODY && Menptr[ bId2 ].ubProfile != TEX_UB )
+				else if( bId2 != NOBODY && bId2->ubProfile != TEX_UB )
 				{
-					TacticalCharacterDialogue( &Menptr[ bId2 ], QUOTE_UB_HANDLE_BLOODCATDEATHS );
+					TacticalCharacterDialogue( bId2, QUOTE_UB_HANDLE_BLOODCATDEATHS );
 				}
 			}
 		}
