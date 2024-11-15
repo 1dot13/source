@@ -2085,57 +2085,57 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->initialize();
 
 	// Set default values
-	pSoldier->bVisible							= -1;
-	pSoldier->iFaceIndex						= -1;
+	pSoldier->bVisible = -1;
+	pSoldier->iFaceIndex	 = -1;
 
 	// Set morale default
-	//pSoldier->aiData.bMorale								= DEFAULT_MORALE;
-	pSoldier->aiData.bMorale								= gMoraleSettings.ubDefaultMorale;
+	//pSoldier->aiData.bMorale = DEFAULT_MORALE;
+	pSoldier->aiData.bMorale = gMoraleSettings.ubDefaultMorale;
 
-	pSoldier->ubAttackerID					= NOBODY;
-	pSoldier->ubPreviousAttackerID	= NOBODY;
-	pSoldier->ubNextToPreviousAttackerID	= NOBODY;
+	pSoldier->ubAttackerID = NOBODY;
+	pSoldier->ubPreviousAttackerID = NOBODY;
+	pSoldier->ubNextToPreviousAttackerID	 = NOBODY;
 
 	//Set AI Delay!
-	pSoldier->uiAIDelay							= 100;
+	pSoldier->uiAIDelay = 100;
 
-	pSoldier->iLight								= -1;
-	pSoldier->iFaceIndex						= -1;
+	pSoldier->iLight = -1;
+	pSoldier->iFaceIndex = -1;
 
 	// Set update time to new speed
-	pSoldier->ubDesiredHeight				= NO_DESIRED_HEIGHT;
-	pSoldier->bViewRange						= NORMAL_VIEW_RANGE;
-	pSoldier->bInSector							= FALSE;
-	pSoldier->sGridNo								= NOWHERE;
-	pSoldier->iMuzFlash							= -1;
-	pSoldier->usPendingAnimation		= NO_PENDING_ANIMATION;
+	pSoldier->ubDesiredHeight			= NO_DESIRED_HEIGHT;
+	pSoldier->bViewRange					= NORMAL_VIEW_RANGE;
+	pSoldier->bInSector					= FALSE;
+	pSoldier->sGridNo					= NOWHERE;
+	pSoldier->iMuzFlash					= -1;
+	pSoldier->usPendingAnimation			= NO_PENDING_ANIMATION;
 	pSoldier->usPendingAnimation2		= NO_PENDING_ANIMATION;
-	pSoldier->ubPendingStanceChange	= NO_PENDING_STANCE;
-	pSoldier->ubPendingDirection		= NO_PENDING_DIRECTION;
-	pSoldier->aiData.ubPendingAction				= NO_PENDING_ACTION;
+	pSoldier->ubPendingStanceChange		= NO_PENDING_STANCE;
+	pSoldier->ubPendingDirection			= NO_PENDING_DIRECTION;
+	pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
 	pSoldier->bLastRenderVisibleValue	= -1;
-	pSoldier->bBreath								= 99;
-	pSoldier->bBreathMax						= 100;
-	pSoldier->bActive									= TRUE;
-	pSoldier->flags.fShowLocator						= FALSE;
-	pSoldier->sLastTarget							= NOWHERE;
+	pSoldier->bBreath					= 99;
+	pSoldier->bBreathMax					= 100;
+	pSoldier->bActive					= TRUE;
+	pSoldier->flags.fShowLocator			= FALSE;
+	pSoldier->sLastTarget				= NOWHERE;
 	pSoldier->sAbsoluteFinalDestination = NOWHERE;
-	pSoldier->sZLevelOverride					= -1;
-	pSoldier->ubServicePartner				= NOBODY;
-	pSoldier->ubAttackingHand					= HANDPOS;
-	pSoldier->usAnimState							= STANDING;
-	pSoldier->aiData.bInterruptDuelPts				= NO_INTERRUPT;
-	pSoldier->aiData.bMoved									= FALSE;
+	pSoldier->sZLevelOverride			= -1;
+	pSoldier->ubServicePartner			= NOBODY;
+	pSoldier->ubAttackingHand			= HANDPOS;
+	pSoldier->usAnimState				= STANDING;
+	pSoldier->aiData.bInterruptDuelPts	= NO_INTERRUPT;
+	pSoldier->aiData.bMoved				= FALSE;
 	pSoldier->ubRobotRemoteHolderID		= NOBODY;
-	pSoldier->aiData.sNoiseGridno						= NOWHERE;
-	pSoldier->ubPrevSectorID					= 255;
-	pSoldier->aiData.bNextPatrolPnt					= 1;
-	pSoldier->bCurrentCivQuote				= -1;
+	pSoldier->aiData.sNoiseGridno		= NOWHERE;
+	pSoldier->ubPrevSectorID				= 255;
+	pSoldier->aiData.bNextPatrolPnt		= 1;
+	pSoldier->bCurrentCivQuote			= -1;
 	pSoldier->bCurrentCivQuoteDelta		= 0;
-	pSoldier->uiBattleSoundID					= NO_SAMPLE;
-	pSoldier->aiData.ubXRayedBy							= NOBODY;
-	pSoldier->uiXRayActivatedTime			= 0;
-	pSoldier->bBulletsLeft						= 0;
+	pSoldier->uiBattleSoundID			= NO_SAMPLE;
+	pSoldier->aiData.ubXRayedBy			= NOBODY;
+	pSoldier->uiXRayActivatedTime		= 0;
+	pSoldier->bBulletsLeft				= 0;
 	pSoldier->bVehicleUnderRepairID		= -1;
 	pSoldier->sFacilityTypeOperated		= -1; // HEADROCK HAM 3.6: Facility Operated
 	pSoldier->usChatPartnerID			= NOBODY;
