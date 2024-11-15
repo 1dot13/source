@@ -9676,7 +9676,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     pTarget = NULL;
     if (pSoldier->ubTargetID != NOBODY)
     {
-        pTarget = MercPtrs[ pSoldier->ubTargetID ];
+        pTarget = pSoldier->ubTargetID;
     }
 
 	// Flugente 18-07-22: commenting this out - it doesn't do harm in realtime, and is more realistic

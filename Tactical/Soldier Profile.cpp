@@ -1713,7 +1713,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 
 
 		// Set insertion gridNo
-		pNewSoldier->sInsertionGridNo								= sOldGridNo;
+		pNewSoldier->sInsertionGridNo = sOldGridNo;
 
 		if ( gfPotentialTeamChangeDuringDeath )
 		{

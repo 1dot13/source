@@ -1557,7 +1557,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					if ( pSoldier->bTeam != gbPlayerNum )
 					{
 						// only locate if the enemy is visible or he's aiming at a player
-						if ( pSoldier->bVisible != -1 || (pSoldier->ubTargetID != NOBODY && MercPtrs[ pSoldier->ubTargetID ]->bTeam == gbPlayerNum) )
+						if ( pSoldier->bVisible != -1 || (pSoldier->ubTargetID != NOBODY && pSoldier->ubTargetID->bTeam == gbPlayerNum) )
 						{
 							LocateGridNo( pSoldier->sTargetGridNo );
 						}
@@ -4043,13 +4043,13 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 					else if ( pSoldier->bVisible == TRUE )
 					{
 						// We were a visible enemy, say laugh!
-						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( MercPtrs[ ubAttacker ] ) )
+						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( ubAttacker ) )
 						{
 							// if the attacker was from the same team, play a curse, otherwise play a laugh
-							if ( MercPtrs[ubAttacker]->bSide == pSoldier->bSide )
-								MercPtrs[ubAttacker]->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							if ( ubAttacker->bSide == pSoldier->bSide )
+								ubAttacker->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 							else
-								MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
+								ubAttacker->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 						}
 					}					
 				}
@@ -4061,7 +4061,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 				// militia also now track kills...
 				if ( ubAttacker != NOBODY )
 				{
-					if ( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
+					if ( ubAttacker->bTeam == gbPlayerNum )
 					{
 						// increment kills
 						/////////////////////////////////////////////////////////////////////////////////////
@@ -4069,43 +4069,43 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						switch(pSoldier->ubSoldierClass)
 						{
 							case SOLDIER_CLASS_ROBOT:
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 								break;
 							case SOLDIER_CLASS_ELITE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsElites++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsElites++;
 								break;
 							case SOLDIER_CLASS_ARMY :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsRegulars++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsRegulars++;
 								break;
 							case SOLDIER_CLASS_ADMINISTRATOR :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsAdmins++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsAdmins++;
 								break;
 							case SOLDIER_CLASS_CREATURE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsCreatures++;
 								break;
 							case SOLDIER_CLASS_ZOMBIE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsZombies++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsZombies++;
 								break;
 							case SOLDIER_CLASS_BANDIT:
-								gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usKillsOthers++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 								break;
 							default :
 								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsCreatures++;
 								else if ( ARMED_VEHICLE( pSoldier ) )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsTanks++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsTanks++;
 								else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsHostiles++;
 								else
 								{
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 
 									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-									if (gGameExternalOptions.fDynamicOpinions && pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+									if (gGameExternalOptions.fDynamicOpinions && pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == ubAttacker->bSide) )
 									{
 										// not for killing animals though...
 										if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
-											HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+											HandleDynamicOpinionChange( ubAttacker, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 									}
 								}
 								break;
@@ -4117,61 +4117,61 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
 						if (gGameExternalOptions.fDynamicOpinions)
 						{
-							if (pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide))
+							if (pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == ubAttacker->bSide))
 							{
 								// not for killing animals though...
 								if (pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW)
-									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE);
+									HandleDynamicOpinionChange(ubAttacker, OPINIONEVENT_CIVKILLER, TRUE, TRUE);
 							}
 							else
 							{
 								// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
-								if (pSoldier->ubTargetID != NOBODY && MercPtrs[pSoldier->ubTargetID]->bBleeding > 10)
+								if (pSoldier->ubTargetID != NOBODY && pSoldier->ubTargetID->bBleeding > 10)
 								{
-									AddOpinionEvent(MercPtrs[pSoldier->ubTargetID]->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR);
+									AddOpinionEvent(pSoldier->ubTargetID->ubProfile, ubAttacker->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR);
 								}
 								else
 								{
 									// complain about a fragthief, or thank for assistance - correct event is chosen internally
-									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_FRAGTHIEF, TRUE, TRUE);
+									HandleDynamicOpinionChange(ubAttacker, OPINIONEVENT_FRAGTHIEF, TRUE, TRUE);
 								}
 							}
 						}
 					}
-					else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
+					else if ( ubAttacker->bTeam == MILITIA_TEAM )
 					{
 						// get a kill! 2 points!
-						MercPtrs[ ubAttacker ]->ubMilitiaKills += 1;
+						ubAttacker->ubMilitiaKills += 1;
 					}
 
 				}
 				
 				if ( ubAssister != NOBODY && ubAssister != ubAttacker )
 				{
-					if ( MercPtrs[ ubAssister ]->bTeam == gbPlayerNum )
+					if ( ubAssister->bTeam == gbPlayerNum )
 					{
 						/////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - new mercs' records
-						if( MercPtrs[ ubAttacker ] != NULL )
+						if( ubAttacker != NOBODY )
 						{
-							if( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMercs++;
-							else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMilitia++;
+							if( ubAttacker->bTeam == gbPlayerNum )
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsMercs++;
+							else if ( ubAttacker->bTeam == MILITIA_TEAM )
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsMilitia++;
 							else
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsOthers++;
 						}
 						else
 						{
-							gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+							gMercProfiles[ ubAssister->ubProfile ].records.usAssistsOthers++;
 						}
-						//gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].usAssists++;
+						//gMercProfiles[ ubAssister->ubProfile ].usAssists++;
 						/////////////////////////////////////////////////////////////////////////////////////
 					}
-					else if ( MercPtrs[ ubAssister ]->bTeam == MILITIA_TEAM )
+					else if ( ubAssister->bTeam == MILITIA_TEAM )
 					{
 						// get an assist - 1 points
-						MercPtrs[ubAssister]->ubMilitiaAssists += 1;
+						ubAssister->ubMilitiaAssists += 1;
 					}
 				}
 				/*

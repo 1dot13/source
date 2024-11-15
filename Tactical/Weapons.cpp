@@ -2807,7 +2807,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		// HEADROCK: Actually, it's 1 for the first shot. Works fine regardless though.
 		// HEADROCK HAM 4: Extra experience gain now given when the target is hit. This part only gives basic points
 		// for the attack (FAILURE type).
-		if ( PTR_OURTEAM && pSoldier->ubTargetID != NOBODY && (!pSoldier->bDoBurst || pSoldier->bDoBurst == 2 ) && (gTacticalStatus.uiFlags & INCOMBAT ) && ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, MercPtrs[ pSoldier->ubTargetID ], pSoldier->bAimShotLocation ) > 0 ) )
+		if ( PTR_OURTEAM && pSoldier->ubTargetID != NOBODY && (!pSoldier->bDoBurst || pSoldier->bDoBurst == 2 ) && (gTacticalStatus.uiFlags & INCOMBAT ) && ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, pSoldier->ubTargetID, pSoldier->bAimShotLocation ) > 0 ) )
 		{
 			// add base pts for taking a shot, whether it hits or misses
 			dExpGain = 2.0f;
@@ -2818,11 +2818,11 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				dExpGain = (dExpGain * 2) / 3;
 			}
 
-			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			if ( pSoldier->ubTargetID->ubBodyType == COW || pSoldier->ubTargetID->ubBodyType == CROW )
 			{
 				dExpGain /= 2;
 			}
-			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			else if ( pSoldier->ubTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier->ubTargetID ) || TANK( pSoldier->ubTargetID ) )
 			{
 				// no exp from shooting a vehicle that you can't damage and can't move!
 				dExpGain = 0;
@@ -2856,11 +2856,11 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// add base pts for taking a shot, whether it hits or misses
 			dExpGain = 5.0f;
 
-			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			if ( pSoldier->ubTargetID->ubBodyType == COW || pSoldier->ubTargetID->ubBodyType == CROW )
 			{
 				dExpGain /= 2;
 			}
-			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			else if ( pSoldier->ubTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier->ubTargetID ) || TANK( pSoldier->ubTargetID ) )
 			{
 				// no exp from shooting a vehicle that you can't damage and can't move!
 				dExpGain = 0;
@@ -3535,7 +3535,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		}
 		// NB bDoBurst will be 2 at this point for the first shot since it was incremented
 		// above
-		if ( PTR_OURTEAM && pSoldier->ubTargetID != NOBODY && (!pSoldier->bDoBurst || pSoldier->bDoBurst == 2 ) && (gTacticalStatus.uiFlags & INCOMBAT ) && ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, MercPtrs[ pSoldier->ubTargetID ], pSoldier->bAimShotLocation ) > 0 ) )
+		if ( PTR_OURTEAM && pSoldier->ubTargetID != NOBODY && (!pSoldier->bDoBurst || pSoldier->bDoBurst == 2 ) && (gTacticalStatus.uiFlags & INCOMBAT ) && ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, pSoldier->ubTargetID, pSoldier->bAimShotLocation ) > 0 ) )
 		{
 			if ( fGonnaHit )
 			{
@@ -3562,11 +3562,11 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				usExpGain = (usExpGain * 2) / 3;
 			}
 
-			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			if ( pSoldier->ubTargetID->ubBodyType == COW || pSoldier->ubTargetID->ubBodyType == CROW )
 			{
 				usExpGain /= 2;
 			}
-			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			else if ( pSoldier->ubTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier->ubTargetID ) || TANK( pSoldier->ubTargetID ) )
 			{
 				// no exp from shooting a vehicle that you can't damage and can't move!
 				usExpGain = 0;
@@ -3632,11 +3632,11 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// add base pts for taking a shot, whether it hits or misses
 			usExpGain += 10;
 
-			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			if ( pSoldier->ubTargetID->ubBodyType == COW || pSoldier->ubTargetID->ubBodyType == CROW )
 			{
 				usExpGain /= 2;
 			}
-			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			else if ( pSoldier->ubTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier->ubTargetID ) || TANK( pSoldier->ubTargetID ) )
 			{
 				// no exp from shooting a vehicle that you can't damage and can't move!
 				usExpGain = 0;
@@ -4134,11 +4134,11 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// add base pts for taking a shot, whether it hits or misses
 			usExpGain += 10;
 
-			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			if ( pSoldier->ubTargetID->ubBodyType == COW || pSoldier->ubTargetID->ubBodyType == CROW )
 			{
 				usExpGain /= 2;
 			}
-			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			else if ( pSoldier->ubTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier->ubTargetID ) || TANK( pSoldier->ubTargetID ) )
 			{
 				// no exp from shooting a vehicle that you can't damage and can't move!
 				usExpGain = 0;

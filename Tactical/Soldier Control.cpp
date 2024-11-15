@@ -16044,12 +16044,12 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT16 ubObserverID )
 		if ( this->sSectorX == gWorldSectorX && this->sSectorY == gWorldSectorY && this->bSectorZ == gbWorldSectorZ )
 		{
 			// are we targeting a buddy of our observer?
-			if ( this->ubTargetID != NOBODY && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
+			if ( this->ubTargetID < NOBODY && this->ubTargetID->bTeam == pSoldier->bTeam )
 			{
 				// if we are aiming at a soldier, others will notice our intent... not covert!
 				if ( WeaponReady( this ) )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->GetName(), MercPtrs[this->ubTargetID]->GetName() );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->GetName(), this->ubTargetID->GetName() );
 					return FALSE;
 				}
 			}

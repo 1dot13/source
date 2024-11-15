@@ -4907,7 +4907,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
 			if (pFirer->ubTargetID != NOBODY)
 			{
-				MercPtrs[ pFirer->ubTargetID ]->bNumPelletsHitBy = 0;
+				pFirer->ubTargetID->bNumPelletsHitBy = 0;
 			}
 		}
 		weapon=NULL;
@@ -5435,7 +5435,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
 			if (pFirer->ubTargetID != NOBODY)
 			{
-				MercPtrs[ pFirer->ubTargetID ]->bNumPelletsHitBy = 0;
+				pFirer->ubTargetID->bNumPelletsHitBy = 0;
 			}
 		}
 		weapon=NULL;
@@ -6951,7 +6951,7 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 		// sevenfm: additionally initialize usAttackingWeapon, ubTargetID, bDoBurst and bDoAutofire which are used by FireBulletGivenTarget()
 		UINT16 oldAttackingWeapon = pFirer->usAttackingWeapon;
 		UINT8 oldAttackingHand = pFirer->ubAttackingHand;
-		UINT8 oldTargetID = pFirer->ubTargetID;
+		SoldierID oldTargetID = pFirer->ubTargetID;
 		INT8 oldBurst = pFirer->bDoBurst;
 		INT8 oldAutofire = pFirer->bDoAutofire;
 

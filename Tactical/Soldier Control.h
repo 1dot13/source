@@ -1406,7 +1406,7 @@ public:
 	INT8					bBlockedByAnotherMercDirection;
 	UINT16				usAttackingWeapon;
 	INT8					bWeaponMode;
-	UINT16				ubTargetID;
+	SoldierID			ubTargetID;
 	INT8					bAIScheduleProgress;
 	INT32				sOffWorldGridNo;
 	struct TAG_anitile	*pAniTile;	
