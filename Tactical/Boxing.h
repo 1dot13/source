@@ -19,14 +19,14 @@ enum DisqualificationReasons
 	BAD_ATTACK
 } ;
 
-extern INT32 gsBoxerGridNo[ NUM_BOXERS ];
-extern UINT16 gubBoxerID[ NUM_BOXERS ];
-extern BOOLEAN gfBoxerFought[ NUM_BOXERS ];
-extern INT8 gbBoxingState;
-extern BOOLEAN gfLastBoxingMatchWonByPlayer;
-extern UINT8 gubBoxingMatchesWon;
-extern UINT8 gubBoxersRests;
-extern BOOLEAN gfBoxersResting;
+extern INT32			gsBoxerGridNo[ NUM_BOXERS ];
+extern SoldierID		gubBoxerID[ NUM_BOXERS ];
+extern BOOLEAN		gfBoxerFought[ NUM_BOXERS ];
+extern INT8			gbBoxingState;
+extern BOOLEAN		gfLastBoxingMatchWonByPlayer;
+extern UINT8			gubBoxingMatchesWon;
+extern UINT8			gubBoxersRests;
+extern BOOLEAN		gfBoxersResting;
 
 extern void BoxingPlayerDisqualified( SOLDIERTYPE * pOffender, INT8 bReason );
 extern BOOLEAN PickABoxer( void );

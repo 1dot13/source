@@ -3601,7 +3601,7 @@ static int l_gubBoxerID(lua_State *L)
 	if ( n >= 2 )
 	{
 		UINT8 val = lua_tointeger( L, 1 );
-		UINT8 val2 = lua_tointeger( L, 2 );
+		UINT16 val2 = lua_tointeger( L, 2 );
 
 		if (val <= 2)
 		{

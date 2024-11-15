@@ -232,7 +232,7 @@ typedef struct
 	BOOLEAN	fHavePurchasedItemsFromTony;
 
 	//The selected soldier in tactical
-	UINT16	usSelectedSoldier;
+	SoldierID	usSelectedSoldier;
 
 	// The x and y scroll position
 	INT16		sRenderCenterX;
@@ -313,7 +313,7 @@ typedef struct
 
 	INT16		sCurInterfacePanel;
 
-	UINT16		ubSMCurrentMercID;
+	SoldierID	ubSMCurrentMercID;
 
 	BOOLEAN	fFirstTimeInMapScreen;
 
@@ -321,9 +321,9 @@ typedef struct
 
 	BOOLEAN fDisableMapInterfaceDueToBattle;
 
-	INT32 sBoxerGridNo[ NUM_BOXERS ];
-	UINT16		ubBoxerID[ NUM_BOXERS ];
-	BOOLEAN	fBoxerFought[ NUM_BOXERS ];
+	INT32		sBoxerGridNo[ NUM_BOXERS ];
+	SoldierID	ubBoxerID[ NUM_BOXERS ];
+	BOOLEAN		fBoxerFought[ NUM_BOXERS ];
 
 	BOOLEAN	fHelicopterDestroyed;								//if the chopper is destroyed
 	BOOLEAN	fShowMapScreenHelpText;							//If true, displays help in mapscreen
@@ -341,8 +341,8 @@ typedef struct
 
 	BOOLEAN ubPlayerProgressSkyriderLastCommentedOn;
 
-	BOOLEAN								gfMeanwhileTryingToStart;
-	BOOLEAN								gfInMeanwhile;
+	BOOLEAN gfMeanwhileTryingToStart;
+	BOOLEAN gfInMeanwhile;
 
 	// list of dead guys for squads...in id values->-1 means no one home 
 	INT16 sDeadMercs[ NUMBER_OF_SQUADS ][ NUMBER_OF_SOLDIERS_PER_SQUAD ];
@@ -8536,7 +8536,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 
 	// Save boxing info
 	memcpy( &sGeneralInfo.sBoxerGridNo, &gsBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
-	memcpy( &sGeneralInfo.ubBoxerID, &gubBoxerID, NUM_BOXERS * sizeof( INT8 ) );
+	memcpy( &sGeneralInfo.ubBoxerID, &gubBoxerID, NUM_BOXERS * sizeof( UINT16 ) );
 	memcpy( &sGeneralInfo.fBoxerFought, &gfBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
 	//Save the helicopter status
@@ -9068,7 +9068,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	if( sGeneralInfo.ubSMCurrentMercID == NOBODY)
 		gpSMCurrentMerc = NULL;
 	else
-		gpSMCurrentMerc = &Menptr[ sGeneralInfo.ubSMCurrentMercID ];
+		gpSMCurrentMerc = sGeneralInfo.ubSMCurrentMercID;
 
 	//Set the interface panel to the team panel
 	ShutdownCurrentPanel( );

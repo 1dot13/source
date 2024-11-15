@@ -23,13 +23,13 @@
 	#include "message.h"
 	#include "GameSettings.h" // added by SANDRO
 
-INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
-UINT16 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
-BOOLEAN gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
-BOOLEAN	gfLastBoxingMatchWonByPlayer = FALSE;
-UINT8	gubBoxingMatchesWon = 0;
-UINT8	gubBoxersRests = 0;
-BOOLEAN gfBoxersResting = FALSE;
+INT32		gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
+SoldierID	gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
+BOOLEAN		gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
+BOOLEAN		gfLastBoxingMatchWonByPlayer = FALSE;
+UINT8		gubBoxingMatchesWon = 0;
+UINT8		gubBoxersRests = 0;
+BOOLEAN		gfBoxersResting = FALSE;
 
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
 
@@ -326,8 +326,8 @@ void CountPeopleInBoxingRingAndDoActions( void )
 
 BOOLEAN CheckOnBoxers( void )
 {
-	UINT32					uiLoop;
-	UINT16						ubID;
+	UINT32 uiLoop;
+	SoldierID ubID;
 
 	// repick boxer IDs every time
 	if ( gubBoxerID[0] == NOBODY )
@@ -337,15 +337,15 @@ BOOLEAN CheckOnBoxers( void )
 		{
 			ubID = WhoIsThere2( gsBoxerGridNo[ uiLoop ], 0 );
 
-			// WANNE: Safty check!
+			// WANNE: Safety check!
 			if (ubID < TOTAL_SOLDIERS)
 			{
-				if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT &&
-					IS_MERC_BODY_TYPE( MercPtrs[ ubID ] ) )
+				if ( FindObjClass( ubID, IC_WEAPON ) == NO_SLOT &&
+					IS_MERC_BODY_TYPE( ubID ) )
 				{
 					// no weapon and not a civilian so this guy is a boxer
 					gubBoxerID[ uiLoop ] = ubID;
-					DebugQuestInfo(String("CheckOnBoxers: set gubBoxerID[%d] %d", ubID, gubBoxerID[uiLoop]));
+					DebugQuestInfo(String("CheckOnBoxers: set gubBoxerID[%d] to %d", uiLoop, ubID.i));
 				}
 			}
 		}
@@ -375,8 +375,8 @@ BOOLEAN BoxerExists( void )
 
 BOOLEAN PickABoxer( void )
 {
-	UINT32			uiLoop;
-	SOLDIERTYPE*	pBoxer;
+	UINT32		uiLoop;
+	SOLDIERTYPE	*pBoxer;
 
 	for( uiLoop = 0; uiLoop < NUM_BOXERS; ++uiLoop )
 	{
@@ -385,11 +385,11 @@ BOOLEAN PickABoxer( void )
 			if ( gfBoxerFought[ uiLoop ] )
 			{
 				// pathetic attempt to prevent multiple AI boxers
-				MercPtrs[ gubBoxerID[ uiLoop ] ]->DeleteBoxingFlag();
+				gubBoxerID[ uiLoop ]->DeleteBoxingFlag();
 			}
 			else
 			{
-				pBoxer = MercPtrs[ gubBoxerID[ uiLoop ] ];
+				pBoxer = gubBoxerID[ uiLoop ];
 				// pick this boxer!
 				if ( pBoxer->bActive && pBoxer->bInSector && pBoxer->stats.bLife >= OKLIFE )
 				{
@@ -446,7 +446,7 @@ BOOLEAN BoxerAvailable( void )
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+			if( gubBoxerID[ ubLoop ]->bActive && gubBoxerID[ ubLoop ]->bInSector && gubBoxerID[ ubLoop ]->stats.bLife >= OKLIFE )
 				return( TRUE );
 		}
 	}
@@ -458,13 +458,13 @@ BOOLEAN BoxerAvailable( void )
 // SEQUEL FIGHT.   Maybe we could check Kingpin's location instead!
 UINT8 BoxersAvailable( void )
 {
-	UINT8			ubCount = 0;
+	UINT8 ubCount = 0;
 
 	for (UINT8 ubLoop = 0; ubLoop < NUM_BOXERS; ++ubLoop)
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+			if( gubBoxerID[ ubLoop ]->bActive && gubBoxerID[ ubLoop ]->bInSector && gubBoxerID[ ubLoop ]->stats.bLife >= OKLIFE )
 				++ubCount;
 		}
 	}
