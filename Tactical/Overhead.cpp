@@ -10918,7 +10918,7 @@ void HandleDisplayingOfPlayerLostDialogue( )
 }
 #endif
 
-static UINT16 prisonerdialoguetargetID = NOBODY;
+static SoldierID prisonerdialoguetargetID = NOBODY;
 
 void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 {
@@ -10928,7 +10928,7 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 		|| gusSelectedSoldier == NOBODY )
 		return;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[prisonerdialoguetargetID];
+	SOLDIERTYPE* pSoldier = prisonerdialoguetargetID;
 
 	if ( !pSoldier )
 		return;
@@ -11162,7 +11162,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
     if ( ubExitValue == 1 )
     {
-		SOLDIERTYPE *pSoldierToSurrender = MercPtrs[prisonerdialoguetargetID];
+		SOLDIERTYPE *pSoldierToSurrender = prisonerdialoguetargetID;
         DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
         if ( !gGameExternalOptions.fEnemyCanSurrender )
@@ -11312,9 +11312,9 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
     {
         DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
-        if ( !gGameExternalOptions.fPlayerCanAsktoSurrender || MercPtrs[prisonerdialoguetargetID]->bTeam == CREATURE_TEAM )
+        if ( !gGameExternalOptions.fPlayerCanAsktoSurrender || prisonerdialoguetargetID->bTeam == CREATURE_TEAM )
         {
-            StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
+            StartCivQuote( prisonerdialoguetargetID );
             return;
         }
 
@@ -11329,23 +11329,23 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		// This way we can easily order our spies to 'distract' enemies
 		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) &&
 			pSoldier->bTeam == gbPlayerNum &&
-			MercPtrs[prisonerdialoguetargetID] &&
-			MercPtrs[prisonerdialoguetargetID]->bTeam == ENEMY_TEAM &&
-			MercPtrs[prisonerdialoguetargetID]->ubProfile == NO_PROFILE &&
-			MercPtrs[prisonerdialoguetargetID]->aiData.bAlertStatus < STATUS_RED &&
-			!MercPtrs[prisonerdialoguetargetID]->RecognizeAsCombatant( gusSelectedSoldier ) )
+			prisonerdialoguetargetID &&
+			prisonerdialoguetargetID->bTeam == ENEMY_TEAM &&
+			prisonerdialoguetargetID->ubProfile == NO_PROFILE &&
+			prisonerdialoguetargetID->aiData.bAlertStatus < STATUS_RED &&
+			!prisonerdialoguetargetID->RecognizeAsCombatant( gusSelectedSoldier ) )
 		{
 			// both soldiers face each other
-			pSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, MercPtrs[prisonerdialoguetargetID]->sGridNo ) );
-			MercPtrs[prisonerdialoguetargetID]->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( MercPtrs[prisonerdialoguetargetID]->sGridNo, pSoldier->sGridNo ) );
+			pSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, prisonerdialoguetargetID->sGridNo ) );
+			prisonerdialoguetargetID->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( prisonerdialoguetargetID->sGridNo, pSoldier->sGridNo ) );
 
-			MercPtrs[prisonerdialoguetargetID]->usChatPartnerID = gusSelectedSoldier;
+			prisonerdialoguetargetID->usChatPartnerID = gusSelectedSoldier;
 			pSoldier->usChatPartnerID = prisonerdialoguetargetID;
 		}
 		else
 		{
 			// normal dialog
-			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
+			StartCivQuote( prisonerdialoguetargetID );
 		}
 	}
 	else
@@ -11354,21 +11354,21 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		if (gSkillTraitValues.fCOTurncoats == TRUE &&
 			GetSoldier( &pSoldier, gusSelectedSoldier ) &&
 			pSoldier->bTeam == gbPlayerNum &&
-			MercPtrs[prisonerdialoguetargetID] &&
-			MercPtrs[prisonerdialoguetargetID]->bTeam == ENEMY_TEAM &&
-			MercPtrs[prisonerdialoguetargetID]->ubProfile == NO_PROFILE &&
-			MercPtrs[prisonerdialoguetargetID]->aiData.bAlertStatus < STATUS_RED &&
-			!MercPtrs[prisonerdialoguetargetID]->RecognizeAsCombatant( gusSelectedSoldier ) )
+			prisonerdialoguetargetID &&
+			prisonerdialoguetargetID->bTeam == ENEMY_TEAM &&
+			prisonerdialoguetargetID->ubProfile == NO_PROFILE &&
+			prisonerdialoguetargetID->aiData.bAlertStatus < STATUS_RED &&
+			!prisonerdialoguetargetID->RecognizeAsCombatant( gusSelectedSoldier ) )
 		{
 			MSYS_RemoveRegion(&(gMsgBox.BackRegion));
-			pSoldier->UseSkill(SKILLS_CREATE_TURNCOAT, MercPtrs[prisonerdialoguetargetID]->sGridNo, MercPtrs[prisonerdialoguetargetID]->ubID);
+			pSoldier->UseSkill(SKILLS_CREATE_TURNCOAT, prisonerdialoguetargetID->sGridNo, prisonerdialoguetargetID->ubID);
 			// AP reduction is handled inside the turncoat attempt flow (TurnCoatAttemptMessageBoxCallBack)
 		}
 		else
 		{
 			// normal dialog
 			DeductPoints( gusSelectedSoldier, APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
-			StartCivQuote(MercPtrs[prisonerdialoguetargetID]);
+			StartCivQuote(prisonerdialoguetargetID);
 		}
     }
 
