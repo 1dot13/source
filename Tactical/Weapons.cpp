@@ -5635,13 +5635,13 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 		if ( pAttacker->ubOppNum != NOBODY )
 		{
 			// if it was another team shooting at someone under our control
-			if ( (pAttacker->bTeam != Menptr[ pAttacker->ubOppNum ].bTeam ) )
+			if ( pAttacker->bTeam != pAttacker->ubOppNum->bTeam )
 			{
 				// if OPPONENT is under our control
-				if (Menptr[ pAttacker->ubOppNum ].bTeam == gbPlayerNum )
+				if ( pAttacker->ubOppNum->bTeam == gbPlayerNum )
 				{
 					// AGILITY GAIN: Opponent "dodged" a bullet shot at him (it missed)
-					StatChange( MercPtrs[ pAttacker->ubOppNum ], AGILAMT, 5, FROM_FAILURE );
+					StatChange( pAttacker->ubOppNum, AGILAMT, 5, FROM_FAILURE );
 				}
 			}
 		}
@@ -6057,31 +6057,35 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			// anv: enemy taunt on miss
 			if( pBullet->pFirer != NULL && pBullet->pFirer->ubOppNum != NOBODY )
 			{
+				SoldierID OpponentID = pBullet->pFirer->ubOppNum;
+				INT8 Team = OpponentID->bTeam;
+				SoldierID ShooterID = pBullet->pFirer->ubID;
+
 				if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_GUN )
 				{
 					if (gTauntsSettings.fTauntVoice)
 					{
 						// say taunt only to inform others
-						if (gbPublicOpplist[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam][pBullet->pFirer->ubID] != SEEN_CURRENTLY &&
-							gbPublicOpplist[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam][pBullet->pFirer->ubID] != SEEN_THIS_TURN &&
-							gTacticalStatus.Team[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam].bMenInSector > 1)
+						if (gbPublicOpplist[Team][ShooterID] != SEEN_CURRENTLY &&
+							gbPublicOpplist[Team][ShooterID] != SEEN_THIS_TURN &&
+							gTacticalStatus.Team[Team].bMenInSector > 1)
 						{
-							PossiblyStartEnemyTaunt(MercPtrs[pBullet->pFirer->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer->ubID);
+							PossiblyStartEnemyTaunt(OpponentID, TAUNT_GOT_MISSED_GUNFIRE, ShooterID);
 						}
 					}
-					else if (MercPtrs[pBullet->pFirer->ubOppNum]->aiData.bOppList[pBullet->pFirer->ubID] == SEEN_CURRENTLY)
+					else if (OpponentID->aiData.bOppList[ShooterID] == SEEN_CURRENTLY)
 					{
-						PossiblyStartEnemyTaunt(MercPtrs[pBullet->pFirer->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer->ubID);
+						PossiblyStartEnemyTaunt(OpponentID, TAUNT_GOT_MISSED_GUNFIRE, ShooterID);
 					}
 
-					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_GUNFIRE, pBullet->pFirer->ubOppNum );
+					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_GUNFIRE, OpponentID);
 				}
 				else if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_THROWING_KNIFE )
 				{
-					if( MercPtrs[ pBullet->pFirer->ubOppNum ]->aiData.bOppList[  pBullet->pFirer->ubID ] == SEEN_CURRENTLY )
-						PossiblyStartEnemyTaunt( MercPtrs[ pBullet->pFirer->ubOppNum ], TAUNT_GOT_MISSED_THROWING_KNIFE, pBullet->pFirer->ubID );
+					if( OpponentID->aiData.bOppList[ShooterID] == SEEN_CURRENTLY )
+						PossiblyStartEnemyTaunt(OpponentID, TAUNT_GOT_MISSED_THROWING_KNIFE, ShooterID);
 
-					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_THROWING_KNIFE, pBullet->pFirer->ubOppNum );
+					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_THROWING_KNIFE, OpponentID);
 				}
 			}
 		}
@@ -9060,7 +9064,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 void ShotMiss( UINT16 ubAttackerID, INT32 iBullet )
 {
 	BOOLEAN			fDoMissForGun = FALSE;
-	SOLDIERTYPE*	pAttacker = NULL;
+	SOLDIERTYPE*		pAttacker = NULL;
 	BULLET*			pBullet;
 
 	if ( ubAttackerID == NOBODY )
@@ -9071,13 +9075,13 @@ void ShotMiss( UINT16 ubAttackerID, INT32 iBullet )
 	if ( pAttacker->ubOppNum != NOBODY )
 	{
 		// if it was another team shooting at someone under our control
-		if ( (pAttacker->bTeam != Menptr[ pAttacker->ubOppNum ].bTeam ) )
+		if ( (pAttacker->bTeam != pAttacker->ubOppNum->bTeam ) )
 		{
 			// if OPPONENT is under our control
-			if (Menptr[ pAttacker->ubOppNum ].bTeam == gbPlayerNum )
+			if (pAttacker->ubOppNum->bTeam == gbPlayerNum )
 			{
 				// AGILITY GAIN: Opponent "dodged" a bullet shot at him (it missed)
-				StatChange( MercPtrs[ pAttacker->ubOppNum ], AGILAMT, 5, FROM_FAILURE );
+				StatChange( pAttacker->ubOppNum, AGILAMT, 5, FROM_FAILURE );
 			}
 		}
 	}
@@ -9161,17 +9165,19 @@ void ShotMiss( UINT16 ubAttackerID, INT32 iBullet )
 	// anv: enemy taunt on miss
 	if ( pAttacker != NULL && pAttacker->ubOppNum != NOBODY )
 	{
+		SoldierID OpponentID = pAttacker->ubOppNum;
+
 		if( Item[ pAttacker->usAttackingWeapon ].usItemClass & IC_GUN )
 		{
-			if( MercPtrs[pAttacker->ubOppNum]->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
-				PossiblyStartEnemyTaunt( MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pAttacker->ubID );
-			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_GUNFIRE, pAttacker->ubOppNum );
+			if(OpponentID->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
+				PossiblyStartEnemyTaunt( OpponentID, TAUNT_GOT_MISSED_GUNFIRE, pAttacker->ubID );
+			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_GUNFIRE, OpponentID );
 		}
 		else if( Item[ pAttacker->usAttackingWeapon ].usItemClass & IC_THROWING_KNIFE )
 		{
-			if( MercPtrs[pAttacker->ubOppNum]->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
-				PossiblyStartEnemyTaunt( MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED_THROWING_KNIFE, pAttacker->ubID );
-			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_THROWING_KNIFE, pAttacker->ubOppNum );
+			if( OpponentID->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
+				PossiblyStartEnemyTaunt( OpponentID, TAUNT_GOT_MISSED_THROWING_KNIFE, pAttacker->ubID );
+			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_THROWING_KNIFE, OpponentID );
 		}
 	}
 }

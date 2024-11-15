@@ -1134,7 +1134,7 @@ public:
 	UINT8			ubWaitActionToDo;
 	INT8				ubInsertionDirection;
 	INT8				bGunType;
-	UINT16			ubOppNum;
+	SoldierID		ubOppNum;
 	INT8				bLastRenderVisibleValue;
 	UINT8			ubAttackingHand;
 	INT16			sWeightCarriedAtTurnStart;
