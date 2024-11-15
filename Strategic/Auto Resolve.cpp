@@ -2835,7 +2835,7 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 		if( gpAR->pRobotCell )
 		{
 			//if robot is retreating, set the retreat time to be the same as the robot's controller.
-			UINT16 ubRobotControllerID;
+			SoldierID ubRobotControllerID;
 
 			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 

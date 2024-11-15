@@ -1595,7 +1595,7 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 	{
 		if ( pSoldier->CanRobotBeControlled( ) )
 		{
-			return( TacticalCharacterDialogue( MercPtrs[ pSoldier->ubRobotRemoteHolderID ], usQuoteNum ) );
+			return( TacticalCharacterDialogue( pSoldier->ubRobotRemoteHolderID, usQuoteNum ) );
 		}
 		else
 		{

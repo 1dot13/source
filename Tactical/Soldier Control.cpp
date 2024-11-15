@@ -23549,8 +23549,6 @@ BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
 }
 BOOLEAN SOLDIERTYPE::CanRobotBeControlled( void )
 {
-	SOLDIERTYPE *pController;
-
 	if ( !(this->flags.uiStatusFlags & SOLDIER_ROBOT) )
 	{
 		return(FALSE);
@@ -23561,7 +23559,7 @@ BOOLEAN SOLDIERTYPE::CanRobotBeControlled( void )
 		return(FALSE);
 	}
 
-	pController = MercPtrs[this->ubRobotRemoteHolderID];
+	SOLDIERTYPE* pController = this->ubRobotRemoteHolderID;
 
 	if ( pController->bActive )
 	{
@@ -23665,7 +23663,7 @@ SOLDIERTYPE *SOLDIERTYPE::GetRobotController( void )
 	}
 	else
 	{
-		return(MercPtrs[this->ubRobotRemoteHolderID]);
+		return(this->ubRobotRemoteHolderID);
 	}
 }
 

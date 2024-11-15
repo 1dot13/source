@@ -1428,7 +1428,7 @@ public:
 	INT32				iBurstSoundID;
 	INT8					bSlotItemTakenFrom;
 	UINT16				ubAutoBandagingMedic;
-	UINT16				ubRobotRemoteHolderID;
+	SoldierID			ubRobotRemoteHolderID;
 	UINT32				uiTimeOfLastContractUpdate;
 	INT8					bTypeOfLastContract;
 	INT8					bTurnsCollapsed;
