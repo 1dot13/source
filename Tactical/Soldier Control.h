@@ -1387,7 +1387,7 @@ public:
 
 	UINT8			ubSoldierClass;									//admin, elite, troop (creature types?) Nav: 2 seems to mean elite, 3 troop so admin is 1
 	UINT8			ubAPsLostToSuppression;
-	UINT16			ubSuppressorID;
+	SoldierID		ubSuppressorID;
 
 	//Squad merging vars
 	UINT8			ubDesiredSquadAssignment;
