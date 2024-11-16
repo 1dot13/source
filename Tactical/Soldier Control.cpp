@@ -9105,7 +9105,10 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->flags.fUseMoverrideMoveSpeed )
 	{
-		pStatsSoldier = MercPtrs[pSoldier->bOverrideMoveSpeed];
+		if (pSoldier->bOverrideMoveSpeed >= 0 && pSoldier->bOverrideMoveSpeed < TOTAL_SOLDIERS)
+		{
+			pStatsSoldier = MercPtrs[pSoldier->bOverrideMoveSpeed];
+		}
 	}
 
 	// Only calculate if set to zero
