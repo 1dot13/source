@@ -25,8 +25,8 @@ class SOLDIERTYPE;
 
 typedef struct
 {
-	BOOLEAN	fActive;
-	UINT16		ubSoldierID;
+	BOOLEAN		fActive;
+	SoldierID	ubSoldierID;
 	UINT8		ubMercID;
 	INT32		iPayOutPrice;
 } LIFE_INSURANCE_PAYOUT;
