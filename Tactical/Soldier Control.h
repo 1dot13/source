@@ -1488,7 +1488,7 @@ public:
 
 	struct GROUP			*pGroup;
 	UINT8				ubLeaveHistoryCode;
-	INT8					bOverrideMoveSpeed;
+	SoldierID			bOverrideMoveSpeed;
 
 	UINT32				uiTimeSoldierWillArrive;
 
