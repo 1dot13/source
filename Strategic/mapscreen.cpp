@@ -15770,7 +15770,7 @@ void ChangeSelectedInfoChar( INT16 bCharNumber, BOOLEAN fResetSelectedList )
 				fShowInventoryFlag = FALSE;
 			}
 			//shadooow: this resets the current highlight item selection to be redrawn again
-			HandleCompatibleAmmoUI(MercPtrs[gCharactersList[bCharNumber].usSolID], NO_SLOT, FALSE);
+			HandleCompatibleAmmoUI(gCharactersList[bCharNumber].usSolID, NO_SLOT, FALSE);
 			if (gpItemPointer != NULL)
 			{
 				gfCheckForMouseOverItem = TRUE;

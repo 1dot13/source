@@ -3796,11 +3796,11 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 		WORLDITEM wi = gWorldItems[iWorldIndex];
 		if (wi.fExists)
 		{
-			INT16 soldierID = wi.soldierID; // bomb's owner
-			if (soldierID == -1)
+			SoldierID soldierID = wi.soldierID; // bomb's owner
+			if (soldierID == NOBODY)
 				soldierID = wi.object[0]->data.misc.ubBombOwner - 2; // undo the hack
 
-			if (IsOurSoldier(gubPersonToSetOffExplosions) || IsOurSoldier(soldierID))
+			if (IsOurSoldier(gubPersonToSetOffExplosions) || IsOurSoldier((SOLDIERTYPE*)soldierID))
 			{
 				// we set off the bomb (could be failed disarm) or we own it, tell the other clients we are setting it off
 				send_detonate_explosive(iWorldIndex,gubPersonToSetOffExplosions);

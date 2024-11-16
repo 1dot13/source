@@ -1135,17 +1135,16 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 	return(sGridNo);
 }
 
-BOOLEAN InternalAddSoldierToSector(UINT16 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
+BOOLEAN InternalAddSoldierToSector(SoldierID ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
 {
-	UINT8					ubDirection = 0;
-	UINT8					ubCalculatedDirection = 0;
-	SOLDIERTYPE				*pSoldier = 0;
-	INT32			sGridNo = NOWHERE;
-	INT32			sExitGridNo = NOWHERE;
+	UINT8	ubDirection = 0;
+	UINT8	ubCalculatedDirection = 0;
+	INT32	sGridNo = NOWHERE;
+	INT32	sExitGridNo = NOWHERE;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalAddSoldierToSector"));
 
-	pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	if ( pSoldier->bActive	)
 	{
@@ -1332,7 +1331,7 @@ BOOLEAN InternalAddSoldierToSector(UINT16 ubID, BOOLEAN fCalculateDirection, BOO
 	return( FALSE );
 }
 
-BOOLEAN AddSoldierToSector( UINT16 ubID )
+BOOLEAN AddSoldierToSector( SoldierID ubID )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSector"));
 	return( InternalAddSoldierToSector( ubID, TRUE, FALSE, 0 , 0) );

@@ -201,7 +201,7 @@ INT32 iCurrentInventoryPoolPage = 0;
 INT32 iLastInventoryPoolPage = 0;
 
 INT32 sObjectSourceGridNo = -1;//shadooow: I don't see much of a sense in this, we have gpItemPointerSoldier and we can use gpItemPointerSoldier->sGridNo to do this, this is actually unused
-INT16  sObjectSourseSoldierID = -1;
+SoldierID  sObjectSourseSoldierID = NOBODY;
 
 // number of unseen items in sector
 UINT32 uiNumberOfUnSeenItems = 0;
@@ -2660,7 +2660,7 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			// anv: swap ownerships too
 			if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
 			{
-				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 			}
 			pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;		
 		}
@@ -2674,10 +2674,10 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
 			if( iDestSlot != (-1) && iSrcSlot != (-1) )
 			{
-				pInventoryPoolList[ iDestSlot ].soldierID = (-1);
-				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				pInventoryPoolList[ iDestSlot ].soldierID = NOBODY;
+				pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 				iCurrentlyPickedUpItem = iDestSlot;
-				sObjectSourseSoldierID = (-1);
+				sObjectSourseSoldierID = NOBODY;
 			}
 			// stacking
 			pInventorySlot->AddObjectsToStack(*pItemPtr);
@@ -2689,9 +2689,9 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 				// anv: swap ownerships too
 				if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
 				{
-					pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+					pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 				}
-				INT32 iTempSoldierID = pInventoryPoolList[ iDestSlot ].soldierID;
+				SoldierID iTempSoldierID = pInventoryPoolList[ iDestSlot ].soldierID;
 				pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;
 				sObjectSourseSoldierID = iTempSoldierID;
 				iCurrentlyPickedUpItem = iDestSlot;
@@ -5159,7 +5159,7 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ )
 	{
 		// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
-		pInventoryPoolList[ uiLoop ].soldierID = (-1);
+		pInventoryPoolList[ uiLoop ].soldierID = NOBODY;
 	}
 
 	// Run through sector inventory.

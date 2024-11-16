@@ -3901,7 +3901,7 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 			pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 			pWorldItem_tmp[uiCount].bVisible									= 1;
 			pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
-			pWorldItem_tmp[uiCount].soldierID									= -1;
+			pWorldItem_tmp[uiCount].soldierID									= NOBODY;
 			pWorldItem_tmp[uiCount].object										= tmp.Inv[ i ];
 		}
 	}
@@ -4647,7 +4647,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 				pWorldItem[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 				pWorldItem[uiCount].bVisible									= 1;
 				pWorldItem[uiCount].bRenderZHeightAboveLevel					= 0;
-				pWorldItem[uiCount].soldierID									= -1;
+				pWorldItem[uiCount].soldierID									= NOBODY;
 				pWorldItem[uiCount].object										= newAmmoObj;
 
 				fNewMagCreated = FALSE;
@@ -4686,7 +4686,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 		pWorldItem_tmp[uiCount].bVisible									= 1;
 		pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
-		pWorldItem_tmp[uiCount].soldierID									= -1;
+		pWorldItem_tmp[uiCount].soldierID									= NOBODY;
 		pWorldItem_tmp[uiCount].object										= newAmmoObj;
 
 		fNewMagCreated = FALSE;

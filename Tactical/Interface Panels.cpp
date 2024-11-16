@@ -4209,7 +4209,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 		{
 			if(gWorldItems[wi].soldierID == pSoldier->ubID)
 			{
-				gWorldItems[wi].soldierID = -1;
+				gWorldItems[wi].soldierID = NOBODY;
 			}
 		}
 		MoveItemToLBEItem( pSoldier, BPACKPOCKPOS );
@@ -4231,7 +4231,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 			//CHRISL: There's the remote chance that a non-LBE item might get associated with a merc.  If that happens, we can
 			//	have a CTD, so lets resolve that here.
 			if(Item[gWorldItems[wi].object.usItem].usItemClass != IC_LBEGEAR)
-				gWorldItems[wi].soldierID = -1;
+				gWorldItems[wi].soldierID = NOBODY;
 			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].fExists == TRUE && Item[gWorldItems[wi].object.usItem].usItemClass == IC_LBEGEAR && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
 			{
 				for (int x = 0; x < gWorldItems[wi].object.ubNumberOfObjects; ++x) {

@@ -11478,7 +11478,7 @@ void RenderItemPickupMenu( )
 						!gfStealing &&
 						Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 						LoadBearingEquipment[Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != -1 &&
+						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != NOBODY &&
 						MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID])
 						//swprintf(pStr, L"%s (%s)", ShortItemNames[pObject->usItem], MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
 						swprintf(pStr, L"(%s)", MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());

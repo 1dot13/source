@@ -30,7 +30,7 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 
 // Adds a soldier ( already created in mercptrs[] array )! 
 // Finds a good placement based on data in the loaded sector and if they are enemy's or not, etc...
-BOOLEAN AddSoldierToSector( UINT16 ubID );
+BOOLEAN AddSoldierToSector( SoldierID ubID );
 
 BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT16 ubID );
 
