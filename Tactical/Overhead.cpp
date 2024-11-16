@@ -3488,7 +3488,7 @@ BOOLEAN ResetAllAnimationCache( )
 
 
 
-void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator)
+void LocateSoldier( SoldierID usID, BOOLEAN fSetLocator)
 {
     SOLDIERTYPE *pSoldier;
     INT16 sNewCenterWorldX, sNewCenterWorldY;
@@ -3501,7 +3501,7 @@ void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator)
     if (!SoldierOnScreen(usID) || fSetLocator == 10 )
     {
         // Get pointer of soldier
-        pSoldier = MercPtrs[ usID ];
+        pSoldier = usID;
 
         // Center on guy
         sNewCenterWorldX = (INT16)pSoldier->dXPos;

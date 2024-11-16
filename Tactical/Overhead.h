@@ -231,7 +231,7 @@ void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceRese
 void RevealAllDroppedEnemyItems();
 
 void LocateGridNo( INT32 sGridNo );
-void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator);
+void LocateSoldier( SoldierID usID, BOOLEAN fSetLocator);
 
 void BeginTeamTurn( UINT8 ubTeam );
 void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSetLocator) ;

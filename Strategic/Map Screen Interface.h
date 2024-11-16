@@ -516,8 +516,8 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString );
 void HandleLeavingOfEquipmentInCurrentSector( SoldierID uiMercId );
 
 // set up a linked list of items being dropped and post an event to later drop them
-void HandleMercLeavingEquipmentInDrassen( UINT32 uiMercId );
-void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId );
+void HandleMercLeavingEquipmentInDrassen( SoldierID uiMercId );
+void HandleMercLeavingEquipmentInOmerta( SoldierID uiMercId );
 
 // actually drop the stored list of items
 void HandleEquipmentLeftInOmerta( UINT32 uiSlotIndex );
@@ -537,7 +537,7 @@ void FreeLeaveListSlot( UINT32 uiSlotIndex );
 INT32 FindFreeSlotInLeaveList( void );
 
 // set up drop list
-INT32 SetUpDropItemListForMerc( UINT32 uiMercId );
+INT32 SetUpDropItemListForMerc( SoldierID uiMercId );
 // store owner's profile id for the items added to this leave slot index
 void SetUpMercAboutToLeaveEquipment( UINT32 ubProfileId, UINT32 uiSlotIndex );
 

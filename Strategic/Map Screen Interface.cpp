@@ -1625,7 +1625,7 @@ void HandleLeavingOfEquipmentInCurrentSector( SoldierID uiMercId )
 
 
 
-void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId )
+void HandleMercLeavingEquipmentInOmerta( SoldierID uiMercId )
 {
 	INT32 iSlotIndex = 0;
 
@@ -1643,7 +1643,7 @@ void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId )
 }
 
 
-void HandleMercLeavingEquipmentInDrassen( UINT32 uiMercId )
+void HandleMercLeavingEquipmentInDrassen( SoldierID uiMercId )
 {
 	INT32 iSlotIndex = 0;
 
@@ -1856,7 +1856,7 @@ INT32 FindFreeSlotInLeaveList( void )
 }
 
 
-INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
+INT32 SetUpDropItemListForMerc( SoldierID uiMercId )
 {
 	// will set up a drop list for this grunt, remove items from inventory, and profile
 	INT32 iSlotIndex = -1;
@@ -1867,27 +1867,27 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 		return( -1 );
 	}
 
-	UINT32 invsize = Menptr[ uiMercId ].inv.size();
+	UINT32 invsize = uiMercId->inv.size();
 	for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 	{
 		// slot found,
 		// check if actual item
-		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+		if(	uiMercId->inv[ iCounter ].exists() == true )
 		{
 			// make a linked list of the items left behind, with the ptr to its head in this free slot
-			AddItemToLeaveIndex( &( Menptr[ uiMercId ].inv[ iCounter ] ), iSlotIndex );
+			AddItemToLeaveIndex( &( uiMercId->inv[ iCounter ] ), iSlotIndex );
 
 			// store owner's profile id for the items added to this leave slot index
-			SetUpMercAboutToLeaveEquipment( Menptr[ uiMercId ].ubProfile, iSlotIndex );
+			SetUpMercAboutToLeaveEquipment( uiMercId->ubProfile, iSlotIndex );
 		}
 	}
 
 	// ATE: Added this to drop keyring keys - the 2nd last paramter says to add it to a leave list...
 	// the gridno, level and visiblity are ignored
-	DropKeysInKeyRing( MercPtrs[ uiMercId ], NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
+	DropKeysInKeyRing( uiMercId, NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
 
 	// zero out profiles
-	gMercProfiles[ Menptr[ uiMercId ].ubProfile ].clearInventory();
+	gMercProfiles[ uiMercId->ubProfile ].clearInventory();
 
 	return( iSlotIndex );
 }
