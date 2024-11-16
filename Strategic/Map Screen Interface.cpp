@@ -471,6 +471,7 @@ void ResetSelectedListForMapScreen( void )
     // WDS - make number of mercenaries, etc. be configurable
 	// set all the entries int he selected list to false
 	memset( fSelectedListOfMercsForMapScreen, FALSE, sizeof(fSelectedListOfMercsForMapScreen) );
+	gSelectedSoldiers.clear();
 
 	// if we still have a valid dude selected
 	if ( ( bSelectedInfoChar != -1 ) && ( gCharactersList[ bSelectedInfoChar ].fValid == TRUE ) )
