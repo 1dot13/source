@@ -1522,22 +1522,25 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 
 
 // NOTE: This doesn't use the "LeaveList" system at all!
-void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
+void HandleLeavingOfEquipmentInCurrentSector( SoldierID uiMercId )
 {
 	// just drop the stuff in the current sector
 	//INT32 iCounter = 0;
 	INT32 sGridNo, sTempGridNo;
 
-	INT8 sectorz = Menptr[uiMercId].bSectorZ;
-	if ( SPY_LOCATION( Menptr[uiMercId].bAssignment ) )
+	INT8 sectorz = uiMercId->bSectorZ;
+	if ( SPY_LOCATION( uiMercId->bAssignment ) )
 		sectorz = max( 0, sectorz - 10 ); 
-	
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
+
+	const auto x = uiMercId->sSectorX;
+	const auto y = uiMercId->sSectorY;
+
+	if( x != gWorldSectorX || y != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
 		// ATE: Use insertion gridno if not nowhere and insertion is gridno		
-		if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(Menptr[ uiMercId ].usStrategicInsertionData) )
+		if ( uiMercId->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(uiMercId->usStrategicInsertionData) )
 		{
-			sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
+			sGridNo = uiMercId->usStrategicInsertionData;
 		}
 		else
 		{
@@ -1548,7 +1551,7 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	else
 	{
 		// ATE: Mercs can have a gridno of NOWHERE.....
-		sGridNo = Menptr[ uiMercId ].sGridNo;
+		sGridNo = uiMercId->sGridNo;
 
 		if (TileIsOutOfBounds(sGridNo))	
 		{
@@ -1565,36 +1568,38 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		}
 	}
 
-	UINT32 invsize = Menptr[ uiMercId ].inv.size();
-	UINT32 uiFoundItems = 0;
-	Inventory invTemporaryBeforeDrop;
+	Inventory &inv = uiMercId->inv;
+	const UINT32 invsize = inv.size();
 
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
+	if( x != gWorldSectorX || y != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
-		if (fShowMapInventoryPool && Menptr[uiMercId].sSectorX == sSelMapX && Menptr[uiMercId].sSectorY == sSelMapY && Menptr[uiMercId].bSectorZ == iCurrentMapSectorZ)
+		if (fShowMapInventoryPool && x == sSelMapX && y == sSelMapY && uiMercId->bSectorZ == iCurrentMapSectorZ)
 		{
 			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
 			{
-				if (Menptr[uiMercId].inv[iCounter].exists())
+				if (inv[iCounter].exists())
 				{
-					AutoPlaceObjectInInventoryStash(&Menptr[uiMercId].inv[iCounter], Menptr[uiMercId].sGridNo, Menptr[uiMercId].pathing.bLevel);
+					AutoPlaceObjectInInventoryStash(&( inv[iCounter] ), uiMercId->sGridNo, uiMercId->pathing.bLevel);
 				}
 			}
 		}
 		else
 		{
+			Inventory invTemporaryBeforeDrop;
+			UINT32 uiFoundItems = 0;
+
 			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
 			{
 				// slot found,
 				// check if actual item
-				if (Menptr[uiMercId].inv[iCounter].exists() == true)
+				if (inv[iCounter].exists() == true)
 				{
-					invTemporaryBeforeDrop[uiFoundItems] = Menptr[uiMercId].inv[iCounter];
+					invTemporaryBeforeDrop[uiFoundItems] = inv[iCounter];
 					uiFoundItems++;
 				}
 			}
 			// anv: add all items at once (less file operations = less lag)
-			AddItemsToUnLoadedSector(Menptr[uiMercId].sSectorX, Menptr[uiMercId].sSectorY, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]), Menptr[uiMercId].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE);
+			AddItemsToUnLoadedSector(x, y, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]), uiMercId->pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE);
 		}
 	}
 	else
@@ -1603,14 +1608,14 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		{
 			// slot found,
 			// check if actual item
-			if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+			if(	inv[ iCounter ].exists() == true )
 			{
-				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
+				AddItemToPool( sGridNo, &( inv[ iCounter ] ) , 1, uiMercId->pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
 			}
 		}
 	}
 
-	DropKeysInKeyRing( MercPtrs[ uiMercId ], sGridNo, MercPtrs[ uiMercId ]->pathing.bLevel, 1, FALSE, 0, FALSE );
+	DropKeysInKeyRing( uiMercId, sGridNo, uiMercId->pathing.bLevel, 1, FALSE, 0, FALSE );
 }
 
 
