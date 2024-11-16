@@ -1379,7 +1379,7 @@ void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer, UI
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		// valid soldier?
 		if( pSoldier->bActive == FALSE )
@@ -1532,7 +1532,7 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 				// selected?
 				if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) || ( iCounter == bSelectedAssignChar ) )
 				{
-					pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+					pSoldier = gCharactersList[ iCounter ].usSolID;
 
 					// HEADROCK HAM 3.6: Two different conditions depending on the type of militia being trained.
 					if( ubMilitiaType == TOWN_MILITIA )

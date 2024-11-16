@@ -502,7 +502,7 @@ void MercArrivesCallback(	UINT16 ubSoldierID )
 		{
 			if (gCharactersList[cnt].fValid)
 			{
-				pTeamSoldier = &Menptr[gCharactersList[cnt].usSolID];
+				pTeamSoldier = gCharactersList[cnt].usSolID;
 				if (pTeamSoldier != pSoldier && pTeamSoldier->bAssignment != ASSIGNMENT_DEAD && pTeamSoldier->bAssignment != ASSIGNMENT_POW && pTeamSoldier->bAssignment != IN_TRANSIT && pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER)
 				{
 					force_helidrop = false;

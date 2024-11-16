@@ -150,7 +150,7 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 BOOLEAN CanToggleSelectedCharInventory( void );
 
-BOOLEAN CanExtendContractForCharSlot( INT8 bCharNumber );
+BOOLEAN CanExtendContractForCharSlot( INT16 bCharNumber );
 
 void TellPlayerWhyHeCantCompressTime( void );
 
@@ -168,7 +168,7 @@ void CancelChangeArrivalSectorMode( void );
 
 void ExplainWhySkyriderCantFly( void );
 
-BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
+BOOLEAN CanChangeSleepStatusForCharSlot( INT16 bCharNumber );
 BOOLEAN CanChangeSleepStatusForSoldier( SOLDIERTYPE *pSoldier );
 
 BOOLEAN MapCharacterHasAccessibleInventory( INT16 bCharNumber );

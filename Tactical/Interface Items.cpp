@@ -2362,16 +2362,17 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup )
 }
 
 POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
+	SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 	if(	!(	
 		guiCurrentItemDescriptionScreen == MAP_SCREEN 
-	&&	fShowMapInventoryPool 
-	&&	(	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
+		&&	fShowMapInventoryPool 
+		&&	( ( pSelectedSoldier->sSectorX == sSelMapX )
+		&&	( pSelectedSoldier->sSectorY == sSelMapY )
+		&&	( pSelectedSoldier->bSectorZ == iCurrentMapSectorZ ) 
 		)
-	&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )	
-	) )
+		&&	CanPlayerUseSectorInventory( pSelectedSoldier )	
+		) )
 	{
 		return NULL;
 	}
@@ -5853,13 +5854,14 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 				}
 				BOOLEAN showAttachmentPopups = FALSE;
+				SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 				if(	guiCurrentItemDescriptionScreen == MAP_SCREEN 
 					&&	fShowMapInventoryPool 
-					&&	( (Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) )
-					&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
+					&&	( (pSoldier->sSectorX == sSelMapX )
+					&&	( pSoldier->sSectorY == sSelMapY )
+					&&	( pSoldier->bSectorZ == iCurrentMapSectorZ ) )
+					&&	CanPlayerUseSectorInventory( pSoldier )
 					&&	attachList.size()>0 )	// silversurfer: no need to show popups if we have nothing to display
 				{
 					showAttachmentPopups = TRUE;
@@ -10546,18 +10548,20 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX != sSelMapX ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY != sSelMapY ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ != iCurrentMapSectorZ ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.fBetweenSectors ) )
+		SOLDIERTYPE* pSelected = gCharactersList[bSelectedInfoChar].usSolID;
+
+		if( ( pSelected->sSectorX != sSelMapX ) ||
+				( pSelected->sSectorY != sSelMapY ) ||
+				( pSelected->bSectorZ != iCurrentMapSectorZ ) ||
+				( pSelected->flags.fBetweenSectors ) )
 		{
 			if ( gpItemPointer == NULL )
 			{
-				swprintf( sString, pMapInventoryErrorString[ 2 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+				swprintf( sString, pMapInventoryErrorString[ 2 ], pSelected->name );
 			}
 			else
 			{
-				swprintf( sString, pMapInventoryErrorString[ 5 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+				swprintf( sString, pMapInventoryErrorString[ 5 ], pSelected->name );
 			}
 			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 			return;
@@ -12824,7 +12828,7 @@ void UpdateItemHatches()
   {
 		if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		}
 	}
 	else
@@ -14539,7 +14543,7 @@ void UpdateMercBodyRegionHelpText( )
 		wcscpy( sString, L"" );
 
 		// valid soldier selected
-		pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
+		pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 		// health/energy/morale
 		if ( pSoldier->bAssignment != ASSIGNMENT_POW )
@@ -14551,7 +14555,7 @@ void UpdateMercBodyRegionHelpText( )
 					// robot (condition only)
 					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[3], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
-				else if ( Menptr[gCharactersList[bSelectedInfoChar].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE )
+				else if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle (condition/fuel)
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d",

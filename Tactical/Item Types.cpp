@@ -51,24 +51,24 @@ bool checkLBEArrayIntegrity(bool verbose) {
 		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID >= NOBODY) continue;
 
 		SoldierID id = gCharactersList[i].usSolID;
-		SOLDIERTYPE soldier = Menptr[id];
+		SOLDIERTYPE *soldier = id;
 
-		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier.name);
+		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier->name);
 
-		for (int j = 0; j < soldier.inv.size(); j++) {
-			OBJECTTYPE * object = &(soldier.inv[j]);
+		for (int j = 0; j < soldier->inv.size(); j++) {
+			OBJECTTYPE * object = &(soldier->inv[j]);
 			if (object->HasAnyActiveLBEs()) {
 
 				if (!checkObjectLBEIntegrity(object)) {
-					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: %s -> %s!", soldier.name, Item[object->usItem].szItemName);
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: %s -> %s!", soldier->name, Item[object->usItem].szItemName);
 					integrityCheck = false;
 				}
 				else {
-					if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+					if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: %s -> %s", soldier->name, Item[object->usItem].szItemName);
 				}
 			}
 			else {
-				if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+				if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: %s -> %s", soldier->name, Item[object->usItem].szItemName);
 			}
 		}
 	}

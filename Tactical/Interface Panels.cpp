@@ -7320,9 +7320,7 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 
 
-
-
-		pSoldier = &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] );
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		sStartYPosition = MAP_START_KEYRING_Y;
 		sWidth = 261;
 		sHeight = ( 359 - 107 );
@@ -7457,7 +7455,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else
 		{
-			UINT16			ubSrcID, ubDestID;
+			SoldierID	ubSrcID, ubDestID;
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 

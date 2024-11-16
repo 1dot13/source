@@ -552,7 +552,7 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMiliti
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive == FALSE )
 		{
@@ -586,7 +586,7 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive == FALSE )
 		{
@@ -618,7 +618,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 		{
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 			{
-				pSoldier2 = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier2 = gCharactersList[ iCounter ].usSolID;
 
 				// skip the guy we are
 				if ( pSoldier == pSoldier2 )
@@ -707,7 +707,7 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 			// if not already selected
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == FALSE )
 			{
-				pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier = gCharactersList[ iCounter ].usSolID;
 
 				// if on a squad or in a vehicle
 				if ( ( pSoldier->bAssignment < ON_DUTY ) || ( pSoldier->bAssignment == VEHICLE ) )
@@ -735,7 +735,7 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 			// if selected
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 			{
-				pSoldier2 = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier2 = gCharactersList[ iCounter ].usSolID;
 
 				// if they have the same assignment
 				if( pSoldier->bAssignment == pSoldier2->bAssignment )
@@ -1295,10 +1295,10 @@ void CheckAndUpdateBasedOnContractTimes( void )
 		if( gCharactersList[iCounter].fValid == TRUE )
 		{
 				// what kind of merc
-			if(Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			if(gCharactersList[iCounter].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
 				// amount of time left on contract
-				iTimeRemaining=Menptr[gCharactersList[iCounter].usSolID].iEndofContractTime-GetWorldTotalMin();
+				iTimeRemaining = gCharactersList[iCounter].usSolID->iEndofContractTime - GetWorldTotalMin();
 				if(iTimeRemaining >60*24)
 				{
 					// more than a day, display in green
@@ -1329,9 +1329,9 @@ void CheckAndUpdateBasedOnContractTimes( void )
 					}
 				}
 			}
-			else if( Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+			else if( gCharactersList[iCounter].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 			{
-				iTimeRemaining = Menptr[gCharactersList[iCounter].usSolID].iTotalContractLength;
+				iTimeRemaining = gCharactersList[iCounter].usSolID->iTotalContractLength;
 
 				if( iTimeRemaining != iOldContractTimes[ iCounter ])
 				{
@@ -1395,7 +1395,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 		if( gCharactersList[ ubCount + FIRSTmercTOdisplay ].fValid == TRUE )
 		{
 			// are they in the selected list or int he same mvt group as this guy
-			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
+			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID->ubGroupID != 0 ) ? ( gCharactersList[GetSelectedDestChar()].usSolID->ubGroupID == gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID->ubGroupID ) : FALSE ) : FALSE ) )
 			{
 				sYPosition = y + ( ubCount * ( Y_SIZE + 2) ) - 1;
 
@@ -1426,10 +1426,15 @@ void HandleDisplayOfItemPopUpForSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	{
 		if( gCharactersList[ bSelectedInfoChar ].fValid == TRUE )
 		{
-			if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorX == sMapX ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorY == sMapY ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bSectorZ == sMapZ ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bActive ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife >= OKLIFE ) )
+			SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
+			if( ( pSoldier->sSectorX == sMapX ) &&
+				( pSoldier->sSectorY == sMapY ) &&
+				( pSoldier->bSectorZ == sMapZ ) &&
+				( pSoldier->bActive ) &&
+				( pSoldier->stats.bLife >= OKLIFE ) )
 			{
 				// valid character
-				InitializeItemPickupMenu( &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID] ), NOWHERE , pItemPool, MAP_INVEN_POOL_X, MAP_INVEN_POOL_Y, -1 );
+				InitializeItemPickupMenu( pSoldier, NOWHERE , pItemPool, MAP_INVEN_POOL_X, MAP_INVEN_POOL_Y, -1 );
 				fWasInited = TRUE;
 
 				CreateScreenMaskForInventoryPoolPopUp( );
@@ -1937,19 +1942,19 @@ void UpdateCharRegionHelpText( void )
 	if( ( bSelectedInfoChar != -1 ) && ( gCharactersList[ bSelectedInfoChar ].fValid == TRUE ) )
 	{
 		// valid soldier selected
-		pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 
 		// health/energy/morale
 		if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND )
 		{
 			if ( pSoldier->stats.bLife != 0 )
 			{
-				if ( AM_A_ROBOT( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
+				if ( AM_A_ROBOT(pSoldier) )
 				{
 					// robot (condition only)
 					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
-				else if ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.uiStatusFlags & SOLDIER_VEHICLE )
+				else if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle (condition/fuel)
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d",
@@ -2491,7 +2496,7 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 	}
 
 
-	pNewSoldier = MercPtrs[ gCharactersList[ iNewCharSlot ].usSolID ];
+	pNewSoldier = gCharactersList[ iNewCharSlot ].usSolID;
 
 	// if in a hostile sector, disallow
 	if (gTacticalStatus.fEnemyInSector && pNewSoldier->bInSector)
@@ -2531,7 +2536,7 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 		}
 		else
 		{
-			pOldSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			pOldSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		}
 	}
 
@@ -3633,7 +3638,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( ( pSoldier->bActive ) &&
 					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) && ( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
@@ -4584,7 +4589,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 		// is the current guy a valid character?
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
@@ -4620,7 +4625,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 	if( GetSelectedDestChar() != -1 )
 	{
 		INT8 pbErrorNumber = -1;
-		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
+		pSoldier = gCharactersList[GetSelectedDestChar()].usSolID;
 		INT8 bSquadValue = pSoldier->bAssignment;
 		if (bSquadValue == VEHICLE)
 		{
@@ -5679,7 +5684,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 	else
 	{
 		// if merc is an AIM merc
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 		{
 			SetRegionFastHelpText( &(gContractIconRegion), zMarksMapScreenText[ 22 ] );
 		}
@@ -5689,7 +5694,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 		}
 
 		// if merc has life insurance
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].usLifeInsurance > 0 )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->usLifeInsurance > 0 )
 		{
 			SetRegionFastHelpText( &(gInsuranceIconRegion), zMarksMapScreenText[ 3 ] );
 		}
@@ -5699,7 +5704,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 		}
 
 		// if merc has a medical deposit
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].usMedicalDeposit > 0 )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->usMedicalDeposit > 0 )
 		{
 			SetRegionFastHelpText( &(gDepositIconRegion), zMarksMapScreenText[ 12 ] );
 		}
@@ -6310,7 +6315,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
 			// get soldier
-			pCurrentSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+			pCurrentSoldier = gCharactersList[ iCounter ].usSolID;
 
 			// skip inactive grunts
 			if( pCurrentSoldier->bActive == FALSE )

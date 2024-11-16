@@ -1298,7 +1298,7 @@ INT32 ShowOnDutyTeam( INT16 sMapX, INT16 sMapY )
 	// run through list
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 				( pSoldier->sSectorX == sMapX) &&
@@ -1350,7 +1350,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// given number of on duty members, find number of assigned chars
 		// start at beginning of list, look for people who are in sector and assigned
@@ -7126,7 +7126,7 @@ UINT8 NumActiveCharactersInSector( INT16 sSectorX, INT16 sSectorY, INT16 bSector
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
-			pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( pSoldier->bActive && ( pSoldier->stats.bLife > 0 ) &&
 					( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )

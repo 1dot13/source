@@ -1096,7 +1096,7 @@ EquipmentSelection::Functions(UINT32 aVal)
 	}
 	else if ( aVal < gTemplateVector.size( ) )
 	{
-		SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+		SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 		if ( pSoldier )
 		{
 			std::string name = gTemplateVector[aVal];

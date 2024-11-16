@@ -632,7 +632,7 @@ BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pSoldier
 
 extern void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE *pSoldier );
 
-extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
+extern BOOLEAN CanChangeSleepStatusForCharSlot( INT16 bCharNumber );
 
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector
 // HEADROCK HAM 3.6: Now takes an extra argument for Militia Type
@@ -3106,7 +3106,7 @@ void VerifyTownTrainingIsPaidFor( void )
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive && ( pSoldier->bAssignment == TRAIN_TOWN ) )
 		{
@@ -9643,7 +9643,8 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 
 			return;
 		}
-		if( ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].stats.bLife == 0 ) || ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].bAssignment == ASSIGNMENT_POW ) )
+
+		if( ( gCharactersList[bSelectedAssignChar].usSolID->stats.bLife == 0 ) || ( gCharactersList[bSelectedAssignChar].usSolID->bAssignment == ASSIGNMENT_POW ) )
 		{
 			// dead guy handle menu stuff
 			fShowRemoveMenu = fShowAssignmentMenu | fShowContractMenu;
@@ -11114,7 +11115,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionForFacilityMenu();
 	CreateDestroyMouseRegionsForFacilityAssignmentMenu();
 
-	if( ( ( Menptr[gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife == 0 )||( Menptr[gCharactersList[bSelectedInfoChar].usSolID].bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
+	if( ( ( gCharactersList[ bSelectedInfoChar ].usSolID->stats.bLife == 0 )||( gCharactersList[bSelectedInfoChar].usSolID->bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
 	{
 		// show basic assignment menu
 		ShowBox( ghRemoveMercAssignBox );
@@ -11596,7 +11597,7 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 
 			return;
 		}
-		if( Menptr[gCharactersList[bSelectedContractChar].usSolID].stats.bLife == 0 )
+		if( gCharactersList[bSelectedContractChar].usSolID->stats.bLife == 0 )
 		{
 
 			// dead guy handle menu stuff
@@ -12825,7 +12826,7 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
-		pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 	}
 	else
 	{
@@ -18406,7 +18407,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		if( gCharactersList[ iCounter ].fValid )
 		{
 			// get the soldier pointer
-			pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( pSoldier->bActive == FALSE )
 			{
@@ -18807,7 +18808,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 	{
 		if( gCharactersList[ bSelectedAssignChar ].fValid == TRUE )
 		{
-			pSelectedSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];
+			pSelectedSoldier = gCharactersList[ bSelectedAssignChar ].usSolID;
 		}
 	}
 
@@ -18819,9 +18820,9 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 		if( ( gCharactersList[ iCounter ].fValid ) &&
 				( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) &&
 				( iCounter != bSelectedAssignChar ) &&
-				!(Menptr[ gCharactersList[ iCounter ].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+				!(gCharactersList[ iCounter ].usSolID->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			// assume it's NOT gonna work
 			fItWorked = FALSE;
@@ -19616,13 +19617,13 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK, BOOLEAN fReturnVehicleDr
 		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) &&
 				( gCharactersList[ bSelectedAssignChar ].fValid ) )
 		{
-			pSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];
+			pSoldier = gCharactersList[ bSelectedAssignChar ].usSolID;
 		}
 	}
 	else
 	{
 		// tactical version
-		pSoldier = &Menptr[ gusUIFullTargetID ];
+		pSoldier = gusUIFullTargetID;
 	}
 
 	if ( !fNullOK )
@@ -20079,7 +20080,7 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainer = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pTrainer = gCharactersList[ ubCounter ].usSolID;
 			
 		// Is trainer awake?
 		if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pTrainee->bTrainStat && 
@@ -20115,7 +20116,7 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainee = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pTrainee = gCharactersList[ ubCounter ].usSolID;
 			
 		// Is trainee awake?
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
@@ -21058,7 +21059,7 @@ INT8 CountFreeFacilitySlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType )
 		// Count number of people doing anything at this facility.
 		while(gCharactersList[ubCounter].fValid)
 		{
-			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 			// Is character operating this facility?
 			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
@@ -21101,7 +21102,7 @@ INT8 CountFreeFacilityAssignmentSlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilit
 		// Count number of people doing this assignment at this facility.
 		while(gCharactersList[ubCounter].fValid)
 		{
-			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 			// Is character operating this facility?
 			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
@@ -21527,7 +21528,7 @@ void ResetAllExpensiveFacilityAssignments()
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character doing facility work?
 		INT8 ubAssignmentIndex = GetSoldierFacilityAssignmentIndex( pSoldier );
