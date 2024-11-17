@@ -13,13 +13,13 @@
 
 void MakeClosestEnemyChosenOne()
 {
-	UINT32				cnt;
-	INT16					sPathCost, sShortestPath = 1000;
-	INT8					bOldKeys = -1;
-	UINT16					ubClosestEnemy = NOBODY;
+	UINT32			cnt;
+	INT16			sPathCost, sShortestPath = 1000;
+	INT8				bOldKeys = -1;
+	SoldierID		ubClosestEnemy = NOBODY;
 	SOLDIERTYPE *	pSoldier;
-	INT8					bPanicTrigger;
-	INT32					sPanicTriggerGridNo;
+	INT8				bPanicTrigger;
+	INT32			sPanicTriggerGridNo;
 
 	if ( ! (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) )
 	{
@@ -162,7 +162,7 @@ void MakeClosestEnemyChosenOne()
 		NumMessage("TEST MSG: The chosen one is ",TheChosenOne);
 #endif
 
-		pSoldier = MercPtrs[gTacticalStatus.ubTheChosenOne];
+		pSoldier = gTacticalStatus.ubTheChosenOne;
 		if ( pSoldier->aiData.bAlertStatus < STATUS_RED )
 		{
 			pSoldier->aiData.bAlertStatus = STATUS_RED;

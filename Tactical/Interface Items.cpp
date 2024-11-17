@@ -230,12 +230,12 @@ enum
 MOUSE_REGION				gInvRegions[ NUM_INV_SLOTS ];
 
 extern	MOUSE_REGION    gMPanelRegion;
-extern	BOOLEAN					fMapInventoryItem;
-extern	BOOLEAN					gfAddingMoneyToMercFromPlayersAccount;
-extern	SOLDIERTYPE			*gpSMCurrentMerc;
-extern  UINT16 gubSelectSMPanelToMerc;
+extern	BOOLEAN			fMapInventoryItem;
+extern	BOOLEAN			gfAddingMoneyToMercFromPlayersAccount;
+extern	SOLDIERTYPE		*gpSMCurrentMerc;
+extern  SoldierID		gubSelectSMPanelToMerc;
 extern	MOUSE_REGION		gSM_SELMERCMoneyRegion;
-extern	UINT32					guiMapInvSecondHandBlockout;
+extern	UINT32			guiMapInvSecondHandBlockout;
 
 //jackaians: global variables added for the stealing pickup menu
 BOOLEAN				gfStealing = FALSE;

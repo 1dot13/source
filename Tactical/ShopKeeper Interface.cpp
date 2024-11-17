@@ -379,17 +379,17 @@ BOOLEAN gfPerformTransactionInProgress = FALSE;
 
 BOOLEAN gfCommonQuoteUsedThisSession[ NUM_COMMON_SK_QUOTES ];
 
-extern		SOLDIERTYPE			*gpSMCurrentMerc;
-extern		SOLDIERTYPE			*gpItemDescSoldier;
+extern		SOLDIERTYPE		*gpSMCurrentMerc;
+extern		SOLDIERTYPE		*gpItemDescSoldier;
 extern		MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
 extern		MOUSE_REGION		gInvDesc;
-extern		BOOLEAN					gfSMDisableForItems;
-extern		OBJECTTYPE			*gpItemDescObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		void						HandleShortCutExitState( void );
-extern		UINT16						gubSelectSMPanelToMerc;
-extern		INT32						giItemDescAmmoButton;
+extern		BOOLEAN			gfSMDisableForItems;
+extern		OBJECTTYPE		*gpItemDescObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		void				HandleShortCutExitState( void );
+extern		SoldierID		gubSelectSMPanelToMerc;
+extern		INT32			giItemDescAmmoButton;
 
 extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurface, UINT32 fBltFlags, INT32 iDestX, INT32 iDestY, RECT *SrcRect );
 
@@ -1686,16 +1686,13 @@ void		GetShopKeeperInterfaceUserInput()
 
 				case SPACE:
 					{
-						UINT8	ubID;
-
 						DeleteItemDescriptionBox( );
 
 						// skip Robot and EPCs
-						ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
-
+						SoldierID ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
 						gubSelectSMPanelToMerc = ubID;
-
 						LocateSoldier( ubID, DONTSETLOCATOR );
+
 						// refresh background for player slots (in case item values change due to Flo's discount)
 						gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 					}

@@ -72,11 +72,11 @@ CAMO_FACE gCamoFace[NUM_PROFILES];
 FACE_GEAR_VALUES zNewFaceGear[MAXITEMS];
 FACE_GEAR_VALUES zNewFaceGearIMP[MAXITEMS];
 
-extern BOOLEAN	gfSMDisableForItems;
-extern INT16		gsCurInterfacePanel;
-extern UINT16		gusSMCurrentMerc;
-extern BOOLEAN	gfRerenderInterfaceFromHelpText;
-extern	BOOLEAN	gfInItemPickupMenu;
+extern BOOLEAN		gfSMDisableForItems;
+extern INT16			gsCurInterfacePanel;
+extern SoldierID		gusSMCurrentMerc;
+extern BOOLEAN		gfRerenderInterfaceFromHelpText;
+extern BOOLEAN		gfInItemPickupMenu;
 
 BOOLEAN FaceRestoreSavedBackgroundRect( INT32 iFaceIndex, INT16 sDestLeft, INT16 sDestTop, INT16 sSrcLeft, INT16 sSrcTop, INT16 sWidth, INT16 sHeight );
 void SetupFinalTalkingDelay( FACETYPE *pFace );

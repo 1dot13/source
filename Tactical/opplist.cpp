@@ -87,7 +87,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 // The_Bob - real time sneaking code 01/06/09
 extern void CancelItemPointer(void);
 extern BOOLEAN NobodyAlerted(void);
-extern void ShowRadioLocator( UINT16 ubID, UINT8 ubLocatorSpeed );
+extern void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed );
 //#define TESTOPPLIST
 
 // for ManSeesMan()
@@ -116,7 +116,7 @@ BOOLEAN	gfMikeShouldSayHi				= FALSE;
 BOOLEAN   gfMorrisShouldSayHi				 = FALSE;
 #endif
 
-UINT16			gubBestToMakeSighting[BEST_SIGHTING_ARRAY_SIZE];
+SoldierID		gubBestToMakeSighting[BEST_SIGHTING_ARRAY_SIZE];
 UINT8			gubBestToMakeSightingSize = 0;
 //BOOLEAN		gfHumanSawSomeoneInRealtime;
 
@@ -124,11 +124,11 @@ BOOLEAN		gfDelayResolvingBestSightingDueToDoor = FALSE;
 
 #define SHOULD_BECOME_HOSTILE_SIZE 32
 
-UINT16			gubShouldBecomeHostileOrSayQuote[ SHOULD_BECOME_HOSTILE_SIZE ];
+SoldierID		gubShouldBecomeHostileOrSayQuote[ SHOULD_BECOME_HOSTILE_SIZE ];
 UINT8			gubNumShouldBecomeHostileOrSayQuote;
 
 // NB this ID is set for someone opening a door
-UINT16			gubInterruptProvoker = NOBODY;
+SoldierID		gubInterruptProvoker = NOBODY;
 
 INT8 gbPublicOpplist[MAXTEAMS][TOTAL_SOLDIERS];
 INT8 gbSeenOpponents[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
@@ -356,9 +356,8 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 
 void SwapBestSightingPositions( INT8 bPos1, INT8 bPos2 )
 {
-	UINT16 ubTemp;
+	SoldierID ubTemp = gubBestToMakeSighting[ bPos1 ];
 
-	ubTemp = gubBestToMakeSighting[ bPos1 ];
 	gubBestToMakeSighting[ bPos1 ] = gubBestToMakeSighting[ bPos2 ];
 	gubBestToMakeSighting[ bPos2 ] = ubTemp;
 }
@@ -406,7 +405,7 @@ void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuel
 			// must percolate him down
 			for ( ubLoop2 = ubLoop + 1; ubLoop2 < gubBestToMakeSightingSize; ubLoop2++ )
 			{
-				if ( gubBestToMakeSighting[ ubLoop2 ] != NOBODY && MercPtrs[ gubBestToMakeSighting[ ubLoop2 - 1 ] ]->aiData.bInterruptDuelPts < MercPtrs[ gubBestToMakeSighting[ ubLoop2 ] ]->aiData.bInterruptDuelPts )
+				if ( gubBestToMakeSighting[ ubLoop2 ] != NOBODY && gubBestToMakeSighting[ ubLoop2 - 1 ]->aiData.bInterruptDuelPts < gubBestToMakeSighting[ ubLoop2 ]->aiData.bInterruptDuelPts )
 				{
 					SwapBestSightingPositions( (UINT8) (ubLoop2 - 1), ubLoop2 );
 				}
@@ -439,11 +438,11 @@ void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuel
 		{
 			for ( ubLoop = 0; ubLoop < gubBestToMakeSightingSize; ubLoop++ )
 			{
-				if ( pSoldier->RecognizeAsCombatant(gubBestToMakeSighting[ ubLoop ])  && (gubBestToMakeSighting[ ubLoop ] == NOBODY) || ( gubBestToMakeSighting[ ubLoop ] != NOBODY && bInterruptDuelPts > MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->aiData.bInterruptDuelPts ) )
+				if ( pSoldier->RecognizeAsCombatant(gubBestToMakeSighting[ ubLoop ])  && (gubBestToMakeSighting[ ubLoop ] == NOBODY) || ( gubBestToMakeSighting[ ubLoop ] != NOBODY && bInterruptDuelPts > gubBestToMakeSighting[ ubLoop ]->aiData.bInterruptDuelPts ) )
 				{
 					if ( gubBestToMakeSighting[ gubBestToMakeSightingSize - 1 ] != NOBODY )
 					{
-						MercPtrs[ gubBestToMakeSighting[ gubBestToMakeSightingSize - 1 ] ]->aiData.bInterruptDuelPts = NO_INTERRUPT;
+						gubBestToMakeSighting[ gubBestToMakeSightingSize - 1 ]->aiData.bInterruptDuelPts = NO_INTERRUPT;
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP: resetting points for %d to zilch", pSoldier->ubID ) );
 					}
 
@@ -468,7 +467,7 @@ void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuel
 	{
 		if ( (gubBestToMakeSighting[ ubLoop ] != NOBODY) )
 		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP entry %d: %d (%d pts)", ubLoop, gubBestToMakeSighting[ ubLoop ], MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->aiData.bInterruptDuelPts ) );
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP entry %d: %d (%d pts)", ubLoop, gubBestToMakeSighting[ ubLoop ], gubBestToMakeSighting[ ubLoop ]->aiData.bInterruptDuelPts ) );
 		}
 	}
 
@@ -503,52 +502,51 @@ void HandleBestSightingPositionInRealtime( void )
 			{	// The_Bob - real time sneaking code 01/06/09
 				// if real time sneaking conditions are met...
 				// this is now in the preferences window - SANDRO				
-				if (gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] && MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == OUR_TEAM && NobodyAlerted() )
+				if (gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] && gubBestToMakeSighting[ 0 ]->bTeam == OUR_TEAM && NobodyAlerted() )
 				{
 					// get rid of the item under cursor (we gotta react FAST)
 					CancelItemPointer();
 					// select (and center screen on) the merc who saw the enemy
 					// HEADROCK HAM 3.6: A much-requested toggle.
-					if (gusSelectedSoldier != MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
-						!gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
-						SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
+					if (gusSelectedSoldier != gubBestToMakeSighting[ 0 ]->ubID && !gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
+						SelectSoldier(gubBestToMakeSighting[ 0 ]->ubID, false, true);
 					// if not quiet, emit a message warning the player
 					if (!gGameExternalOptions.fQuietRealTimeSneak)
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_ENEMIES_SPOOTED]);
 
 					return;	// and do nothing
 				}
-				else if ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam != OUR_TEAM && MercPtrs[gubBestToMakeSighting[ 0 ]]->aiData.bOppCnt > 0 )
+				else if ( gubBestToMakeSighting[ 0 ]->bTeam != OUR_TEAM && gubBestToMakeSighting[ 0 ]->aiData.bOppCnt > 0 )
 				{
 					// otherwise, simply award the turn to the team that saw the enemy first
-					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
+					EnterCombatMode( gubBestToMakeSighting[ 0 ]->bTeam );
 				}
 				else
 					// otherwise, simply award the turn to the team that saw the enemy first
-					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
+					EnterCombatMode( gubBestToMakeSighting[ 0 ]->bTeam );
 			}
 			else
 			{
 
 
 				// if 1st and 2nd on same team, or 1st and 3rd on same team, or there IS no 3rd, award turn to 1st
-				if (  /*MercPtrs[gubBestToMakeSighting[ 0 ]]->aiData.bOppCnt > 0 &&*/ ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == MercPtrs[gubBestToMakeSighting[ 1 ]]->bTeam ) ||
-							( (gubBestToMakeSighting[ 2 ] == NOBODY) || ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == MercPtrs[gubBestToMakeSighting[ 2 ]]->bTeam ) )
+				if (  /*gubBestToMakeSighting[ 0 ]->aiData.bOppCnt > 0 &&*/ ( gubBestToMakeSighting[ 0 ]->bTeam == gubBestToMakeSighting[ 1 ]->bTeam ) ||
+							( (gubBestToMakeSighting[ 2 ] == NOBODY) || ( gubBestToMakeSighting[ 0 ]->bTeam == gubBestToMakeSighting[ 2 ]->bTeam ) )
 					)
 				{
-					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
+					EnterCombatMode( gubBestToMakeSighting[ 0 ]->bTeam );
 				}
-				else //if ( MercPtrs[gubBestToMakeSighting[ 1 ]]->aiData.bOppCnt > 0 ) // give turn to 2nd best but interrupt to 1st
+				else //if ( gubBestToMakeSighting[ 1 ]->aiData.bOppCnt > 0 ) // give turn to 2nd best but interrupt to 1st
 				{
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Entering combat mode: turn for 2nd best, int for best" );
 
-					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 1 ]]->bTeam );
+					EnterCombatMode( gubBestToMakeSighting[ 1 ]->bTeam );
 					// 2nd guy loses control
 					AddToIntList( gubBestToMakeSighting[ 1 ], FALSE, TRUE);
 					// 1st guy gains control
 					AddToIntList( gubBestToMakeSighting[ 0 ], TRUE, TRUE);
 					// done
-					DoneAddingToIntList( MercPtrs[gubBestToMakeSighting[ 0 ]], TRUE, SIGHTINTERRUPT );
+					DoneAddingToIntList( gubBestToMakeSighting[ 0 ], TRUE, SIGHTINTERRUPT );
 				}
 			}
 		}
@@ -557,8 +555,8 @@ void HandleBestSightingPositionInRealtime( void )
 		{
 			if ( gubBestToMakeSighting[ ubLoop ] != NOBODY )
 			{
-				MercPtrs[ gubBestToMakeSighting[ ubLoop ]]->aiData.bInterruptDuelPts = NO_INTERRUPT;
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP: done, resetting points for %d to zilch", MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->ubID ) );
+				gubBestToMakeSighting[ ubLoop ]->aiData.bInterruptDuelPts = NO_INTERRUPT;
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP: done, resetting points for %d to zilch", gubBestToMakeSighting[ ubLoop ]->ubID ) );
 			}
 		}
 
@@ -583,7 +581,7 @@ void HandleBestSightingPositionInTurnbased( void )
 
 	if ( gubBestToMakeSighting[ 0 ] != NOBODY )
 	{
-		if ( MercPtrs[ gubBestToMakeSighting[ 0 ] ]->bTeam != gTacticalStatus.ubCurrentTeam )
+		if ( gubBestToMakeSighting[ 0 ]->bTeam != gTacticalStatus.ubCurrentTeam )
 		{
 
 			// interrupt!
@@ -605,7 +603,7 @@ void HandleBestSightingPositionInTurnbased( void )
 					}
 
 				}
-				else if ( MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->bTeam == gTacticalStatus.ubCurrentTeam )
+				else if ( gubBestToMakeSighting[ ubLoop ]->bTeam == gTacticalStatus.ubCurrentTeam )
 				{
 					fOk = TRUE;
 					break;
@@ -621,7 +619,7 @@ void HandleBestSightingPositionInTurnbased( void )
 					AddToIntList( gubBestToMakeSighting[ ubLoop2 ], TRUE, TRUE);
 				}
 				// done
-				DoneAddingToIntList( MercPtrs[ gubBestToMakeSighting[ ubLoop ] ], TRUE, SIGHTINTERRUPT );
+				DoneAddingToIntList( gubBestToMakeSighting[ ubLoop ], TRUE, SIGHTINTERRUPT );
 			}
 
 		}
@@ -629,8 +627,8 @@ void HandleBestSightingPositionInTurnbased( void )
 		{
 			if ( gubBestToMakeSighting[ ubLoop ] != NOBODY )
 			{
-				MercPtrs[ gubBestToMakeSighting[ ubLoop ]]->aiData.bInterruptDuelPts = NO_INTERRUPT;
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP (TB): done, resetting points for %d to zilch", MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->ubID ) );
+				gubBestToMakeSighting[ ubLoop ]->aiData.bInterruptDuelPts = NO_INTERRUPT;
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "RBSP (TB): done, resetting points for %d to zilch", gubBestToMakeSighting[ ubLoop ]->ubID ) );
 			}
 		}
 
@@ -672,13 +670,13 @@ void InitSightArrays( void )
 	}
 }
 
-void AddToShouldBecomeHostileOrSayQuoteList( UINT16 ubID )
+void AddToShouldBecomeHostileOrSayQuoteList( SoldierID ubID )
 {
 	UINT16 ubLoop;
 
 	Assert( gubNumShouldBecomeHostileOrSayQuote < SHOULD_BECOME_HOSTILE_SIZE );
 
-	if ( MercPtrs[ ubID ]->stats.bLife < OKLIFE )
+	if ( ubID->stats.bLife < OKLIFE )
 	{
 		return;
 	}
@@ -696,15 +694,15 @@ void AddToShouldBecomeHostileOrSayQuoteList( UINT16 ubID )
 	gubNumShouldBecomeHostileOrSayQuote++;
 }
 
-UINT16 SelectSpeakerFromHostileOrSayQuoteList( void )
+SoldierID SelectSpeakerFromHostileOrSayQuoteList( void )
 {
-	UINT16 ubProfileList[ SHOULD_BECOME_HOSTILE_SIZE ]; // NB list of merc IDs, not profiles!
+	SoldierID IDList[ SHOULD_BECOME_HOSTILE_SIZE ];
 	UINT8 ubLoop, ubNumProfiles = 0;
 	SOLDIERTYPE *		pSoldier;
 
 	for ( ubLoop = 0; ubLoop < gubNumShouldBecomeHostileOrSayQuote; ubLoop++ )
 	{
-		pSoldier = MercPtrs[ gubShouldBecomeHostileOrSayQuote[ ubLoop ] ];
+		pSoldier = gubShouldBecomeHostileOrSayQuote[ ubLoop ];
 		if ( pSoldier->ubProfile != NO_PROFILE )
 		{
 
@@ -713,7 +711,7 @@ UINT16 SelectSpeakerFromHostileOrSayQuoteList( void )
 
 			if ( NPCHasUnusedHostileRecord( pSoldier->ubProfile, APPROACH_DECLARATION_OF_HOSTILITY ) )
 			{
-				ubProfileList[ ubNumProfiles ] = gubShouldBecomeHostileOrSayQuote[ ubLoop ];
+				IDList[ ubNumProfiles ] = gubShouldBecomeHostileOrSayQuote[ ubLoop ];
 				ubNumProfiles++;
 			}
 			else
@@ -731,7 +729,7 @@ UINT16 SelectSpeakerFromHostileOrSayQuoteList( void )
 	}
 	else
 	{
-		return( ubProfileList[ Random( ubNumProfiles ) ] );
+		return(IDList[ Random( ubNumProfiles ) ] );
 	}
 }
 
@@ -745,7 +743,8 @@ void CheckHostileOrSayQuoteList( void )
 	}
 	else
 	{
-		UINT16	ubSpeaker, ubLoop;
+		SoldierID ubSpeaker;
+		UINT16 ubLoop;
 		SOLDIERTYPE * pSoldier;
 
 		ubSpeaker = SelectSpeakerFromHostileOrSayQuoteList();
@@ -754,7 +753,7 @@ void CheckHostileOrSayQuoteList( void )
 			// make sure everyone on this list is hostile
 			for ( ubLoop = 0; ubLoop < gubNumShouldBecomeHostileOrSayQuote; ubLoop++ )
 			{
-				pSoldier = MercPtrs[ gubShouldBecomeHostileOrSayQuote[ ubLoop ] ];
+				pSoldier = gubShouldBecomeHostileOrSayQuote[ ubLoop ];
 				if ( pSoldier->aiData.bNeutral )
 				{
 					MakeCivHostile(pSoldier);
@@ -789,13 +788,13 @@ void CheckHostileOrSayQuoteList( void )
 			// stop everyone?
 
 			// We want to make this guy visible to the player.
-			if ( MercPtrs[ ubSpeaker ]->bVisible != TRUE )
+			if ( ubSpeaker->bVisible != TRUE )
 			{
 				gbPublicOpplist[ gbPlayerNum ][ ubSpeaker ] = HEARD_THIS_TURN;
-				HandleSight( MercPtrs[ ubSpeaker ], SIGHT_LOOK | SIGHT_RADIO );
+				HandleSight( ubSpeaker, SIGHT_LOOK | SIGHT_RADIO );
 			}
 			// trigger hater
-			TriggerNPCWithIHateYouQuote( MercPtrs[ ubSpeaker ]->ubProfile );
+			TriggerNPCWithIHateYouQuote( ubSpeaker->ubProfile );
 		}
 	}
 }
@@ -1743,8 +1742,8 @@ void AllTeamsLookForAll(UINT8 ubAllowInterrupts)
  InterruptsAllowed = TRUE;
  */
 
- // reset interrupt only guynum which may have been used
- gubInterruptProvoker = NOBODY;
+	 // reset interrupt only guynum which may have been used
+	 gubInterruptProvoker = NOBODY;
 }
 
 
@@ -5528,7 +5527,7 @@ UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 	return( ubDoorNoise );
 }
 
-void MakeNoise(UINT16 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
+void MakeNoise(SoldierID ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
 {
 	EV_S_NOISE	SNoise;
 

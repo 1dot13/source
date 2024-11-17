@@ -1699,7 +1699,7 @@ void RemoveRandomItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemI
 }
 
 
-BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT16 aMercID )
+BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, SoldierID aMercID )
 {
 	//Get Dealer ID from from merc Id
 	INT8 bArmsDealer = GetArmsDealerIDFromMercID( usProfileID );
@@ -1710,7 +1710,7 @@ BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT16 aMercID )
 	// not if this isn't a proper profile
 	if ( usProfileID == NO_PROFILE )
 	{
-		pSoldier = MercPtrs[aMercID];
+		pSoldier = aMercID;
 
 		if ( pSoldier && pSoldier->sNonNPCTraderID > 0 )
 			bArmsDealer = pSoldier->sNonNPCTraderID;

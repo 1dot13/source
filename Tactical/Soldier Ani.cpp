@@ -107,7 +107,7 @@ extern void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
 extern UINT16 NumCapableEnemyInSector( );
 extern BOOLEAN gfKillingGuysForLosingBattle;
 
-extern UINT16 gubInterruptProvoker;
+extern SoldierID gubInterruptProvoker;
 
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 

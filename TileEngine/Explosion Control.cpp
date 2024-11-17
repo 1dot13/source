@@ -172,15 +172,15 @@ EXPLOSION_DATA gExpAniData[ NUM_EXP_TYPES ] =
 
 #define MAX_BOMB_QUEUE 40
 ExplosionQueueElement	gExplosionQueue[MAX_BOMB_QUEUE];
-UINT8			gubElementsOnExplosionQueue = 0;
-BOOLEAN		 gfExplosionQueueActive = FALSE;
+UINT8		gubElementsOnExplosionQueue = 0;
+BOOLEAN		gfExplosionQueueActive = FALSE;
 
-BOOLEAN		 gfExplosionQueueMayHaveChangedSight = FALSE;
-UINT16			gubPersonToSetOffExplosions = NOBODY;
+BOOLEAN		gfExplosionQueueMayHaveChangedSight = FALSE;
+SoldierID	gubPersonToSetOffExplosions = NOBODY;
 
 INT32			gsTempActionGridNo = NOWHERE;
 
-extern UINT16 gubInterruptProvoker;
+extern SoldierID gubInterruptProvoker;
 
 #define	NUM_EXPLOSION_SLOTS	 100
 
@@ -245,7 +245,7 @@ void RecountExplosions( void )
 extern void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsDmg );
 
 // GENERATE EXPLOSION
-void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
+void InternalIgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
@@ -273,7 +273,7 @@ void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT3
 	// Let's check for the attacker first.
 	if ( ubOwner != NOBODY )
 	{
-		OBJECTTYPE* pUsedGun = MercPtrs[ ubOwner ]->GetUsedWeapon( &MercPtrs [ ubOwner ]->inv[MercPtrs[ubOwner]->ubAttackingHand] );
+		OBJECTTYPE* pUsedGun = ubOwner->GetUsedWeapon( &( ubOwner->inv[ ubOwner->ubAttackingHand ] ) );
 
 		ammotype = (*pUsedGun)[0]->data.gun.ubGunAmmoType;
 
@@ -283,7 +283,7 @@ void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT3
 		}
 
 		// Flugente: campaign stats
-		if ( MercPtrs[ ubOwner ]->bTeam == OUR_TEAM )
+		if ( ubOwner->bTeam == OUR_TEAM )
 		{
 			if ( Item[ usItem ].usItemClass & IC_EXPLOSV )
 				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_EXPLOSIVES, (FLOAT)(Item[usItem].ubWeight) );
@@ -344,7 +344,7 @@ void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT3
 	UINT16 tmp;
 	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < NUM_PROFILES && InARoom( sGridNo, &tmp ) )
 	{
-		HandleLoyaltyForDemolitionOfBuilding( MercPtrs[ubOwner], Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
+		HandleLoyaltyForDemolitionOfBuilding( ubOwner, Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
 
 		// Flugente: campaign stats
 		gCurrentIncident.usIncidentFlags |= INCIDENT_BUILDINGS_DAMAGED;
@@ -386,7 +386,7 @@ void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT3
 }
 
 
-void IgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
+void IgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
 {
 	InternalIgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, usItem, TRUE, bLevel, ubDirection,  pObj );
 }
@@ -1898,7 +1898,7 @@ BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGrid
 	return( TRUE );
 }
 
-BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT16 ubOwner, BOOL fFromRemoteClient )
+BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, SoldierID ubOwner, BOOL fFromRemoteClient )
 {
 					// OJW - 20091028
 	if (is_networked && is_client)
@@ -1916,7 +1916,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"DishOutGasDamage ( ubSoldierID : %i , ubExplosiveType : %i , sSubsequent : %i , recompileMoveCosts : %i , sWoundAmt : %i , sBreathAmt : %i , ubOwner : %i , fRemote : %i)\n", pSoldier->ubID , pExplosive->ubType , sSubsequent , fRecompileMovementCosts , sWoundAmt , sBreathAmt , ubOwner , fFromRemoteClient );
+	sprintf(tmpMPDbgString,"DishOutGasDamage ( ubSoldierID : %i , ubExplosiveType : %i , sSubsequent : %i , recompileMoveCosts : %i , sWoundAmt : %i , sBreathAmt : %i , ubOwner : %i , fRemote : %i)\n", pSoldier->ubID.i , pExplosive->ubType , sSubsequent , fRecompileMovementCosts , sWoundAmt , sBreathAmt , ubOwner.i , fFromRemoteClient );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 	}
@@ -2155,9 +2155,9 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 		}
 
-		if ( ubOwner != NOBODY && MercPtrs[ ubOwner ]->bTeam == gbPlayerNum && pSoldier->bTeam != gbPlayerNum )
+		if ( ubOwner != NOBODY && ubOwner->bTeam == gbPlayerNum && pSoldier->bTeam != gbPlayerNum )
 		{
-			ProcessImplicationsOfPCAttack( MercPtrs[ ubOwner ], &pSoldier, REASON_EXPLOSION );
+			ProcessImplicationsOfPCAttack( ubOwner, &pSoldier, REASON_EXPLOSION );
 		}
 	}
 	return( fRecompileMovementCosts );
@@ -3800,7 +3800,7 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 			if (soldierID == NOBODY)
 				soldierID = wi.object[0]->data.misc.ubBombOwner - 2; // undo the hack
 
-			if (IsOurSoldier(gubPersonToSetOffExplosions) || IsOurSoldier((SOLDIERTYPE*)soldierID))
+			if (IsOurSoldier((SOLDIERTYPE*)gubPersonToSetOffExplosions) || IsOurSoldier((SOLDIERTYPE*)soldierID))
 			{
 				// we set off the bomb (could be failed disarm) or we own it, tell the other clients we are setting it off
 				send_detonate_explosive(iWorldIndex,gubPersonToSetOffExplosions);
@@ -3827,7 +3827,7 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 }
 
 // Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel with regard to the tripwire netwrok and hierarchy determined by ubFlag
-BOOLEAN ActivateSurroundingTripwire( UINT16 ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag )
+BOOLEAN ActivateSurroundingTripwire( SoldierID ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag )
 {
 	UINT32	uiTimeStamp= GetJA2Clock();
 	BOOLEAN	fFoundMine = FALSE;
@@ -4285,9 +4285,9 @@ void HandleExplosionQueue( void )
 		// re-enable sight
 		gTacticalStatus.uiFlags &= (~DISALLOW_SIGHT);
 
-		if ( gubPersonToSetOffExplosions != NOBODY && !(MercPtrs[ gubPersonToSetOffExplosions ]->flags.uiStatusFlags & SOLDIER_PC) )
+		if ( gubPersonToSetOffExplosions != NOBODY && !(gubPersonToSetOffExplosions->flags.uiStatusFlags & SOLDIER_PC) )
 		{
-			FreeUpNPCFromPendingAction( MercPtrs[ gubPersonToSetOffExplosions ] );
+			FreeUpNPCFromPendingAction( gubPersonToSetOffExplosions );
 		}
 
 		if (gfExplosionQueueMayHaveChangedSight)
@@ -4588,11 +4588,11 @@ void DecayBombTimers( void )
 					// ATE: CC black magic....
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
-						gubPersonToSetOffExplosions = (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2);
+						gubPersonToSetOffExplosions = ((*pObj)[0]->data.misc.ubBombOwner - 2);
 						// SANDRO - merc records - detonating explosives
-						if ( MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile != NO_PROFILE && MercPtrs[ gubPersonToSetOffExplosions ]->bTeam == gbPlayerNum )
+						if ( gubPersonToSetOffExplosions->ubProfile != NO_PROFILE && gubPersonToSetOffExplosions->bTeam == gbPlayerNum )
 						{
-							gMercProfiles[ MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile ].records.usExpDetonated++;
+							gMercProfiles[ gubPersonToSetOffExplosions->ubProfile ].records.usExpDetonated++;
 						}
 					}
 					else
@@ -4642,11 +4642,11 @@ void DecayBombTimers( void )
 								// ATE: CC black magic....
 								if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 								{
-									gubPersonToSetOffExplosions = (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2);
+									gubPersonToSetOffExplosions = ((*pObj)[0]->data.misc.ubBombOwner - 2);
 									// SANDRO - merc records - detonating explosives
-									if ( MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile != NO_PROFILE && MercPtrs[ gubPersonToSetOffExplosions ]->bTeam == gbPlayerNum )
+									if ( gubPersonToSetOffExplosions->ubProfile != NO_PROFILE && gubPersonToSetOffExplosions->bTeam == gbPlayerNum )
 									{
-										gMercProfiles[ MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile ].records.usExpDetonated++;
+										gMercProfiles[ gubPersonToSetOffExplosions->ubProfile ].records.usExpDetonated++;
 									}
 								}
 								else
@@ -4667,7 +4667,7 @@ void DecayBombTimers( void )
 	}
 }
 
-void SetOffBombsByFrequency( UINT16 ubID, INT8 bFrequency )
+void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency )
 {
 	UINT32	uiWorldBombIndex;
 	UINT32	uiTimeStamp;
@@ -4893,7 +4893,7 @@ void SetOffPanicBombs( UINT16 ubID, INT8 bPanicTrigger )
 	}
 }
 
-BOOLEAN SetOffBombsInGridNo( UINT16 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel )
+BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel )
 {
 	UINT32	uiWorldBombIndex;
 	UINT32	uiTimeStamp;
@@ -4916,7 +4916,7 @@ BOOLEAN SetOffBombsInGridNo( UINT16 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8
 					if ( !fAllBombs && ubID != NOBODY && ItemIsATMine(pObj->usItem))
 					{
 						// if this is not a vehicle, not a robot and not a tank, don't activate
-						if ( !(MercPtrs[ubID]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ubID] ) && !ARMED_VEHICLE( MercPtrs[ubID] ) && !ENEMYROBOT( MercPtrs[ubID] ) )
+						if ( !(ubID->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( ubID ) && !ARMED_VEHICLE( ubID ) && !ENEMYROBOT( ubID ) )
 							continue;
 					}
 					
@@ -4977,7 +4977,7 @@ BOOLEAN SetOffBombsInGridNo( UINT16 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8
 
 						// SANDRO - merc records
 						// only if we blew up somebody not in our team(no achievement for blowing our guys :)), only if owner exists and have profile
-						if ( (MercPtrs[ubID]->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+						if ( (ubID->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
 						{
 							if ( MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile != NO_PROFILE && MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->bTeam == gbPlayerNum ) 
 								gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;

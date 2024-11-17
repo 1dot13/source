@@ -70,7 +70,7 @@ struct TacticalStatusType
     INT32                   sPanicTriggerGridNoUnused;
     INT16                   sHandGrid;
     UINT16                  ubSpottersCalledForBy;
-    UINT16                  ubTheChosenOne;
+    SoldierID               ubTheChosenOne;
     UINT32                  uiTimeOfLastInput;
     UINT32                  uiTimeSinceDemoOn;
     UINT32                  uiCountdownToRestart;
@@ -224,7 +224,7 @@ void EndTurn( UINT8 ubNextTeam );
 void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode );
 void EndTacticalDemo( );
 
-void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect    );
+void SelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect    );
 
 //Kaiden: Function declaration from UB to reveal all items after combat.
 void RevealAllDroppedEnemyItems();
@@ -241,8 +241,8 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier );
 UINT16 LastActiveTeamMember( UINT16 ubTeam );
 BOOLEAN SoldierOnVisibleWorldTile( SOLDIERTYPE *pSoldier );
 
-UINT16 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
-UINT16 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
 
 BOOLEAN CheckForPlayerTeamInMissionExit( );
 void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldier );

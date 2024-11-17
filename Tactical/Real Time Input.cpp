@@ -2021,51 +2021,53 @@ void HandleAltMouseRTX2Button(UINT32 *puiNewEvent)
 // sevenfm: original mouse commands functionality
 void HandleMouseRTWheel( void )
 {
-	UINT16		bID;
-								// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-								if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
-									( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-								{
-										if ( gViewportRegion.WheelState > 0 ) //wheel up
-										{
-											//change stance ->DOWN
-											if ( _KeyDown( ALT ) )
+	SoldierID bID;
+	// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+	if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
+		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+	{
+		if ( gViewportRegion.WheelState > 0 ) //wheel up
+		{
+			//change stance ->DOWN
+			if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-												GotoLowerStance(gusSelectedSoldier);
+					GotoLowerStance(gusSelectedSoldier);
 				return;
-											}
+			}
 
-											if ( gusSelectedSoldier != NOBODY )
-											{ //Select prev merc
-												bID = FindPrevActiveAndAliveMerc( gusSelectedSoldier, TRUE, TRUE );
-												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
-												// Center to guy....
-												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-											}
-										}
-										else
-										{
-											//change stance ->UP
-											if ( _KeyDown( ALT ) )
+			if ( gusSelectedSoldier != NOBODY )
+			{ //Select prev merc
+				bID = FindPrevActiveAndAliveMerc( gusSelectedSoldier, TRUE, TRUE );
+				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				// Center to guy....
+				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+			}
+		}
+		else
+		{
+			//change stance ->UP
+			if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-													GotoHeigherStance( gusSelectedSoldier );
+					GotoHeigherStance( gusSelectedSoldier );
 				return;
-											}
+			}
 
-											//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"wheel %d", gViewportRegion.WheelState);
-											if ( gusSelectedSoldier != NOBODY )
-											{ //Select next merc
-												bID = FindNextMercInTeamPanel( gusSelectedSoldier, FALSE, FALSE );
-												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
-												// Center to guy....
-												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-											}
-										}
-										//*puiNewEvent = M_ON_TERRAIN; ????????????????
-								}
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"wheel %d", gViewportRegion.WheelState);
+			if ( gusSelectedSoldier != NOBODY )
+			{ //Select next merc
+				bID = FindNextMercInTeamPanel( gusSelectedSoldier, FALSE, FALSE );
+				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				// Center to guy....
+				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+			}
+		}
+			//*puiNewEvent = M_ON_TERRAIN; ????????????????
+	}
 }
+
+
 void HandleMouseRTMButton( UINT32 *puiNewEvent )
 {
 	if ( _KeyDown( ALT ) )
@@ -2078,6 +2080,8 @@ void HandleMouseRTMButton( UINT32 *puiNewEvent )
 	else
 		*puiNewEvent = LC_LOOK;
 }
+
+
 void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 {
 			if ( !_KeyDown( ALT ) && !_KeyDown( SHIFT ))

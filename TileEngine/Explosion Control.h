@@ -100,8 +100,8 @@ extern	EXPLOSIONTYPE								gExplosionData[ NUM_EXPLOSION_SLOTS ];
 extern UINT8 gubElementsOnExplosionQueue;
 extern BOOLEAN gfExplosionQueueActive;
 
-void IgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
-void InternalIgniteExplosion( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
+void IgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
+void InternalIgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
 
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
@@ -110,8 +110,8 @@ void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
 void HandleExplosionWarningAnimations( );
 
 void DecayBombTimers( void );
-void SetOffBombsByFrequency( UINT16 ubID, INT8 bFrequency );
-BOOLEAN SetOffBombsInGridNo( UINT16 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
+void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency );
+BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
 void ActivateSwitchInGridNo( UINT16 ubID, INT32 sGridNo );
 void SetOffPanicBombs( UINT16 ubID, INT8 bPanicTrigger );
 
@@ -137,12 +137,12 @@ void RemoveActiveExplosionMarkers();
 
 // OJW - 20091028 - Explosion damage sync
 BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent, BOOL fFromRemoteClient = FALSE );
-BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT16 ubOwner, BOOL fFromRemoteClient = FALSE );
+BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, SoldierID ubOwner, BOOL fFromRemoteClient = FALSE );
 void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum, BOOL fFromRemoteClient = FALSE, BOOL fNewSmokeEffect = FALSE );
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient = FALSE );
 
 // Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel with regard to the tripwire netwrok and hierarchy determined by ubFlag
-BOOLEAN ActivateSurroundingTripwire( UINT16 ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag );
+BOOLEAN ActivateSurroundingTripwire( SoldierID ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag );
 
 // Flugente: A special function for tripwire gun traps. Search if pObj has a gun attached. If so, fire a shot from that gun in a specific direction. Afterwards place the gun on the ground
 void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT16 ubId, UINT8 ubDirection );

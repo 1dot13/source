@@ -77,9 +77,9 @@ void UpdateTEAMPanel( );
  */
 BOOLEAN InitializeTEAMPanelCoords( ); 
 
-void SetSMPanelCurrentMerc( UINT16 ubNewID );
+void SetSMPanelCurrentMerc( SoldierID ubNewID );
 void SetTEAMPanelCurrentMerc( UINT16 ubNewID );
-UINT16 GetSMPanelCurrentMerc(	);
+SoldierID GetSMPanelCurrentMerc(	);
 void UpdateSMPanel( );
 
 BOOLEAN InitTEAMSlots( );
@@ -107,7 +107,7 @@ extern INT8		gbNewItem[ NUM_INV_SLOTS ];
 extern INT8		gbNewItemCycle[ NUM_INV_SLOTS ];
 extern UINT8	gubNewItemMerc;
 
-void ShowRadioLocator( UINT16 ubID, UINT8 ubLocatorSpeed );
+void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed );
 void EndRadioLocator( UINT16 ubID );
 
 

@@ -3287,9 +3287,9 @@ void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier )
 
 
 
-void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI )
+void InternalSelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI )
 {
-    SOLDIERTYPE          *pSoldier, *pOldSoldier;
+    SOLDIERTYPE *pSoldier, *pOldSoldier;
 
     // ARM: can't call SelectSoldier() in mapscreen, that will initialize interface panels!!!
     // ATE: Adjusted conditions a bit ( sometimes were not getting selected )
@@ -3312,7 +3312,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 
 
     // Get guy
-    pSoldier = MercPtrs[ usSoldierID ];
+    pSoldier = usSoldierID;
 
 	if( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
@@ -3460,7 +3460,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 
 }
 
-void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect )
+void SelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect )
 {
     InternalSelectSoldier( usSoldierID, fAcknowledge, fForceReselect, FALSE );
 }
@@ -3575,14 +3575,13 @@ void SlideTo(SoldierID usSoldierID, BOOLEAN fSetLocator)
         ShowRadioLocator( usSoldierID, SHOW_LOCATOR_NORMAL );
 
     // FIRST CHECK IF WE ARE ON SCREEN
-    if ( GridNoOnScreen( MercPtrs[ usSoldierID ]->sGridNo ) )
+    if ( GridNoOnScreen( usSoldierID->sGridNo ) )
     {
         return;
     }
 
     // sGridNo here for DG compatibility
-    gTacticalStatus.sSlideTarget = MercPtrs[ usSoldierID ]->sGridNo;
-    gTacticalStatus.sSlideReason = usReasonID;
+    gTacticalStatus.sSlideTarget = usSoldierID->sGridNo;
 
     // Plot new path!
     gfPlotNewMovement = TRUE;
@@ -3612,8 +3611,8 @@ void SlideToLocation( INT32 sDestGridNo )
 
 void RebuildAllSoldierShadeTables( )
 {
-    UINT32                          cnt;
-    SOLDIERTYPE          *pSoldier;
+    UINT32 cnt;
+    SOLDIERTYPE *pSoldier;
 
     // Loop through all mercs and make go
     for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, cnt++ )
@@ -3628,11 +3627,11 @@ void RebuildAllSoldierShadeTables( )
 
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 {
-    INT32                   cnt;
-    INT32                   iNewSelectedSoldier = -1;
-    SOLDIERTYPE          *pTeamSoldier;
-    BOOLEAN              fMissionFailed = TRUE;
-    INT8                                        bBuddyIndex;
+    INT32       cnt;
+    INT32       iNewSelectedSoldier = -1;
+    SOLDIERTYPE *pTeamSoldier;
+    BOOLEAN     fMissionFailed = TRUE;
+    INT8        bBuddyIndex;
 
     VerifyPublicOpplistDueToDeath( pSoldier );
 
@@ -4169,7 +4168,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     // killing crows/cows is not worth any experience!
     if ( ( pSoldierOld->ubBodyType != CROW ) && ( pSoldierOld->ubBodyType != COW ) ) //&& pSoldierOld->ubLastDamageReason != TAKE_DAMAGE_BLOODLOSS ) // SANDRO - why not give exp for bleeding out?
     {
-        UINT16   ubAssister = NOBODY;
+        SoldierID ubAssister = NOBODY;
 
         // if it was a kill by a player's merc
         if (pSoldierOld->ubAttackerID != NOBODY && pSoldierOld->ubAttackerID->bTeam == gbPlayerNum )
@@ -4218,10 +4217,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         }
 
         // if it was assisted by a player's merc
-        if (ubAssister != NOBODY && MercPtrs[ ubAssister ]->bTeam == gbPlayerNum )
+        if (ubAssister != NOBODY && ubAssister->bTeam == gbPlayerNum )
         {
             // EXPERIENCE CLASS GAIN:   Earned an assist
-            StatChange( MercPtrs[ ubAssister ], EXPERAMT, (UINT16)( 5 * pSoldierOld->stats.bExpLevel ), FALSE );
+            StatChange( ubAssister, EXPERAMT, (UINT16)( 5 * pSoldierOld->stats.bExpLevel ), FALSE );
         }
     }
 
@@ -4252,7 +4251,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         if( Get3RandomQualifiedMercs( &SoldierId1, &SoldierId2, NULL ) != 0 )
         {       
             //Say the "he blew himself up quote"
-            TacticalCharacterDialogue( &Menptr[SoldierId1], QUOTE_GREETING );
+            TacticalCharacterDialogue( SoldierId1, QUOTE_GREETING );
 
             //if there isnt a second soldier
             if( SoldierId2 == NOBODY )
@@ -4261,7 +4260,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
             }
 
             //say the "darn he took the inventoruy with him"
-            TacticalCharacterDialogue( &Menptr[SoldierId2], QUOTE_SMALL_TALK );
+            TacticalCharacterDialogue( SoldierId2, QUOTE_SMALL_TALK );
         }
     }
 #endif
@@ -4272,7 +4271,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 UINT16 LastActiveTeamMember( UINT16 ubTeam )
 {
     INT32 cnt;
-    SOLDIERTYPE          *pSoldier;
+    SOLDIERTYPE *pSoldier;
 
     cnt = gTacticalStatus.Team[ ubTeam ].bLastID;
 
@@ -4682,8 +4681,8 @@ SOLDIERTYPE * CivilianGroupMemberChangesSides( SOLDIERTYPE * pAttacked )
 void CivilianGroupChangesSides( UINT8 ubCivilianGroup )
 {
     // change civ group side due to external event (wall blowing up)
-    INT32                                       cnt;
-    SOLDIERTYPE *                       pSoldier;
+    INT32 cnt;
+    SOLDIERTYPE *pSoldier;
 
     gTacticalStatus.fCivGroupHostile[ ubCivilianGroup ] = CIV_GROUP_HOSTILE;
 
@@ -4741,9 +4740,8 @@ void HickCowAttacked( SOLDIERTYPE * pNastyGuy, SOLDIERTYPE * pTarget )
 void MilitiaChangesSides( )
 {
     // make all the militia change sides
-
-    INT32                       cnt;
-    SOLDIERTYPE *       pSoldier;
+    INT32 cnt;
+    SOLDIERTYPE *pSoldier;
 
     if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
     {
@@ -4783,7 +4781,7 @@ gTacticalStatus.fCivGroupHostile[ ubLoop ] = CIV_GROUP_HOSTILE;
 UINT16 NumActiveAndConsciousTeamMembers( UINT8 ubTeam )
 {
     INT32 cnt;
-    SOLDIERTYPE          *pSoldier;
+    SOLDIERTYPE *pSoldier;
     UINT16 ubCount = 0;
 
     cnt = gTacticalStatus.Team[ ubTeam ].bFirstID;
@@ -4801,11 +4799,11 @@ UINT16 NumActiveAndConsciousTeamMembers( UINT8 ubTeam )
 }
 
 
-UINT16 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
+SoldierID FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
     UINT16   bLastTeamID;
     UINT16 cnt;
-    SOLDIERTYPE          *pTeamSoldier;
+    SOLDIERTYPE *pTeamSoldier;
 
     cnt = pSoldier->ubID + 1;
     bLastTeamID = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
@@ -4915,11 +4913,11 @@ SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier )
 }
 
 
-UINT16 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife,    BOOLEAN fOnlyRegularMercs )
+SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
-    UINT16   bLastTeamID;
-    INT32 cnt;
-    SOLDIERTYPE          *pTeamSoldier;
+    UINT16      bLastTeamID;
+    INT32       cnt;
+    SOLDIERTYPE *pTeamSoldier;
 
 
     // loop back

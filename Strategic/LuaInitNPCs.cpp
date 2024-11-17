@@ -7400,7 +7400,7 @@ static int l_SetOffBombsByFrequency (lua_State *L)
 	if ( lua_gettop(L) >= 2 )
 	{
 		INT8 ACTION = lua_tointeger(L,1);
-		UINT8 ID = lua_tointeger(L,2);
+		SoldierID ID = lua_tointeger(L,2);
 
 
 		if (ACTION >= 1 || ACTION <=4)

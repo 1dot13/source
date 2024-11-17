@@ -3612,7 +3612,7 @@ void recieveNEWSMOKEEFFECT (RPCParameters *rpcParameters)
 	}
 }
 
-void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT16 ubOwner )
+void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, SoldierID ubOwner )
 {
 	explosiondamage_struct exp;
 	exp.ubDamageFunc = 1;

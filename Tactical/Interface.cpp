@@ -185,9 +185,9 @@ BOOLEAN	gfPanelAllocated = FALSE;
 
 extern MOUSE_REGION	gDisableRegion;
 extern MOUSE_REGION gUserTurnRegion;
-extern BOOLEAN gfUserTurnRegionActive;
-extern UINT16 gubSelectSMPanelToMerc;
-extern BOOLEAN gfIgnoreOnSelectedGuy;
+extern BOOLEAN		gfUserTurnRegionActive;
+extern SoldierID		gubSelectSMPanelToMerc;
+extern BOOLEAN		gfIgnoreOnSelectedGuy;
 
 enum
 {
@@ -4216,7 +4216,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_OPEN_DOOR], APBPConstants[BP_OPEN_DOOR], FALSE ) )
 				{
 				// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					if ( gOpenDoorMenu.fClosingDoor )
 					{

@@ -399,9 +399,9 @@ BOOLEAN		gfDisableTacticalPanelButtons			= FALSE;
 BOOLEAN		gfAddingMoneyToMercFromPlayersAccount	= FALSE;
 
 BOOLEAN		gfCheckForMouseOverItem				= FALSE;
-UINT32		guiMouseOverItemTime				= 0;
-INT8		gbCheckForMouseOverItemPos			= 0;
-UINT16		gubSelectSMPanelToMerc				= NOBODY;
+UINT32		guiMouseOverItemTime					= 0;
+INT8			gbCheckForMouseOverItemPos			= 0;
+SoldierID	gubSelectSMPanelToMerc				= NOBODY;
 BOOLEAN		gfReEvaluateDisabledINVPanelButtons = FALSE;
 
 UINT32		guiBrownBackgroundForTeamPanel;
@@ -478,8 +478,8 @@ void HelpTextDoneCallback( void );
 
 // Globals - for one - the current merc here
 INT8				gbSMCurStanceObj;
-UINT16				gusSMCurrentMerc = 0;
-SOLDIERTYPE			*gpSMCurrentMerc = NULL;
+SoldierID		gusSMCurrentMerc = NOBODY;
+SOLDIERTYPE		*gpSMCurrentMerc = NULL;
 // CHRISL:
 extern	INT8		gbCompatibleApplyItem;
 extern	SOLDIERTYPE *gpItemPopupSoldier;
@@ -589,11 +589,11 @@ INT16 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 void CheckForDisabledForGiveItem( )
 {
 	INT16			sDist;
-	INT32 sDestGridNo;
-	INT8			bDestLevel;
+	INT32			sDestGridNo;
+	INT8				bDestLevel;
 	INT32			cnt;
 	SOLDIERTYPE		*pSoldier;
-	UINT16			ubSrcSoldier;
+	SoldierID		ubSrcSoldier;
 
 	// CHRISL: If Merc hasn't been set, default to first merc
 	if(gpSMCurrentMerc==NULL)
@@ -646,17 +646,17 @@ void CheckForDisabledForGiveItem( )
 		{
 			if ( gusSMCurrentMerc != ubSrcSoldier )
 			{
-				sDestGridNo = MercPtrs[ gusSMCurrentMerc ]->sGridNo;
-				bDestLevel	= MercPtrs[ gusSMCurrentMerc ]->pathing.bLevel;
+				sDestGridNo = gusSMCurrentMerc->sGridNo;
+				bDestLevel	= gusSMCurrentMerc->pathing.bLevel;
 
 				// Get distance....
-				sDist = PythSpacesAway( MercPtrs[ ubSrcSoldier ]->sGridNo, sDestGridNo );
+				sDist = PythSpacesAway( ubSrcSoldier->sGridNo, sDestGridNo );
 
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS )  )
+				if ( SoldierTo3DLocationLineOfSightTest( ubSrcSoldier, sDestGridNo,  bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS )  )
 				{
 					// UNCONSCIOUS GUYS ONLY 1 tile AWAY
-					if ( MercPtrs[ gusSMCurrentMerc ]->stats.bLife < CONSCIOUSNESS )
+					if ( gusSMCurrentMerc->stats.bLife < CONSCIOUSNESS )
 					{
 						if ( sDist <= PASSING_ITEM_DISTANCE_NOTOKLIFE )
 						{
@@ -669,7 +669,7 @@ void CheckForDisabledForGiveItem( )
 					}
 				}
 				// anv: passengers in the same vehicle can pass items freely
-				else if ( MercPtrs[ ubSrcSoldier ]->iVehicleId != -1 && MercPtrs[ ubSrcSoldier ]->iVehicleId == MercPtrs[ gusSMCurrentMerc ]->iVehicleId )
+				else if ( ubSrcSoldier->iVehicleId != -1 && ubSrcSoldier->iVehicleId == gusSMCurrentMerc->iVehicleId )
 				{
 					gfSMDisableForItems = FALSE;
 				}
@@ -686,13 +686,13 @@ void CheckForDisabledForGiveItem( )
 	}
 }
 
-void SetSMPanelCurrentMerc( UINT16 ubNewID )
+void SetSMPanelCurrentMerc( SoldierID ubNewID )
 {
 	gubSelectSMPanelToMerc = NOBODY;
 
 	gusSMCurrentMerc = ubNewID;
 
-	gpSMCurrentMerc = MercPtrs[ ubNewID ];
+	gpSMCurrentMerc = ubNewID;
 
 	// Set to current guy's interface level
 	//if ( gsInterfaceLevel != gpSMCurrentMerc->bUIInterfaceLevel )
@@ -1384,7 +1384,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 	}
 }
 
-UINT16 GetSMPanelCurrentMerc( )
+SoldierID GetSMPanelCurrentMerc( )
 {
 	return( gusSMCurrentMerc );
 }
@@ -4798,8 +4798,6 @@ void BtnMuteCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason)
 {
-	INT16 sID;
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
@@ -4811,9 +4809,9 @@ void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		sID = FindPrevActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
+		SoldierID sID = FindPrevActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
 
-		gubSelectSMPanelToMerc = (UINT16)sID;
+		gubSelectSMPanelToMerc = sID;
 
 		if ( !gfInItemPickupMenu )
 		{
@@ -4846,8 +4844,6 @@ void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason)
 {
-	INT16 sID;
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
@@ -4859,10 +4855,10 @@ void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		sID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
+		SoldierID sID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, TRUE, TRUE );
 
 		// Give him the panel!
-		gubSelectSMPanelToMerc = (UINT16)sID;
+		gubSelectSMPanelToMerc = sID;
 
 		if ( !gfInItemPickupMenu )
 		{
@@ -6251,13 +6247,13 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 }
 
-extern void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
+extern void InternalSelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
 
-void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
+void HandleLocateSelectMerc( SoldierID ubID, INT8 bFlag	)
 {
 	BOOLEAN fSelect = FALSE;
 
-	if( !MercPtrs[ ubID ]->bActive )
+	if( !ubID->bActive )
 	{
 		return;
 	}
@@ -6270,14 +6266,14 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 
 
 	// ATE: No matter what we do... if below OKLIFE, just locate....
-	if ( MercPtrs[ ubID ]->stats.bLife < OKLIFE )
+	if ( ubID->stats.bLife < OKLIFE )
 	{
 		LocateSoldier( ubID, SETLOCATOR );
 		return;
 	}
 
 	// Flugente: frozen soldiers can't be selected
-	if ( MercPtrs[ubID]->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+	if ( ubID->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
 	{
 		LocateSoldier( ubID, SETLOCATOR );
 		return;
@@ -6289,7 +6285,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 		{
 			// Select merc
 			InternalSelectSoldier( ubID, TRUE, FALSE, TRUE);
-			MercPtrs[ ubID ]->flags.fFlashLocator = FALSE;
+			ubID->flags.fFlashLocator = FALSE;
 			ResetMultiSelection( );
 		}
 		else
@@ -6300,7 +6296,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 	}
 	else
 	{
-		if ( MercPtrs[ ubID ]->flags.fFlashLocator == FALSE )
+		if ( ubID->flags.fFlashLocator == FALSE )
 		{
 			if ( gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ] )
 			{
@@ -6364,7 +6360,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 		if ( fSelect )
 		{
 			// Select merc, only if alive!
-			if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_DEAD ) )
+			if ( !( ubID->flags.uiStatusFlags & SOLDIER_DEAD ) )
 			{
 				InternalSelectSoldier( ubID, TRUE, FALSE, TRUE );
 			}
@@ -6374,36 +6370,36 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 	ResetMultiSelection( );
 
 	// Handle locate select merc....
-	HandleMouseOverSoldierFaceForContMove( MercPtrs[ ubID ], TRUE );
+	HandleMouseOverSoldierFaceForContMove( ubID, TRUE );
 
 }
 
 
 
-void ShowRadioLocator( UINT16 ubID, UINT8 ubLocatorSpeed )
+void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed )
 {
-	RESETTIMECOUNTER( MercPtrs[ ubID ]->timeCounters.FlashSelCounter, FLASH_SELECTOR_DELAY );
+	RESETTIMECOUNTER( ubID->timeCounters.FlashSelCounter, FLASH_SELECTOR_DELAY );
 
 	//LocateSoldier( ubID, FALSE );	// IC - this is already being done outside of this function :)
-	MercPtrs[ ubID ]->flags.fFlashLocator = TRUE;
+	ubID->flags.fFlashLocator = TRUE;
 	//gbPanelSelectedGuy = ubID;	IC - had to move this outside to make this function versatile
-	MercPtrs[ ubID ]->sLocatorFrame = 0;
+	ubID->sLocatorFrame = 0;
 
 	if ( ubLocatorSpeed == SHOW_LOCATOR_NORMAL )
 	{
 		// If we are an AI guy, and we have the baton, make lower...
-		// ( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL && MercPtrs[ ubID ]->bTeam != gbPlayerNum )
+		// ( ubID->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL && ubID->bTeam != gbPlayerNum )
 		//
 		//ercPtrs[ ubID ]->ubNumLocateCycles = 3;
 		//
 		//se
 		//
-			MercPtrs[ ubID ]->ubNumLocateCycles = 5;
+			ubID->ubNumLocateCycles = 5;
 		//
 	}
 	else
 	{
-		MercPtrs[ ubID ]->ubNumLocateCycles = 3;
+		ubID->ubNumLocateCycles = 3;
 	}
 }
 

@@ -1551,7 +1551,7 @@ UINT32 UIHandleChangeLevel( UI_EVENT *pUIEvent )
 }
 
 
-extern void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
+extern void InternalSelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
 
 UINT32 UIHandleSelectMerc( UI_EVENT *pUIEvent )
 {
@@ -1715,12 +1715,11 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 			// THIS IS JUST A CRUDE TEST FOR NOW
 			if ( pSoldier->stats.bLife < OKLIFE )
 			{
-				UINT16 ubID;
 				// Show reg. cursor
 				// GO INTO IDLE MODE
 				// guiPendingOverrideEvent = I_CHANGE_TO_IDLE;
 				// gusSelectedSoldier = NOBODY;
-				ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
+				 SoldierID ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
 
 				if ( ubID != NOBODY )
 				{

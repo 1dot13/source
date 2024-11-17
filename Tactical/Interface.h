@@ -482,7 +482,7 @@ void HandleUpDownArrowBackgrounds( );
 
 void EndDeadlockMsg( );
 
-void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag );
+void HandleLocateSelectMerc( SoldierID ubID, INT8 bFlag );
 
 void DirtyMercPanelInterface( SOLDIERTYPE *pSoldier, UINT8 ubDirtyLevel );
 

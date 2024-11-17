@@ -1327,8 +1327,6 @@ void RebuildSquad( INT8 bSquadValue )
 
 void UpdateCurrentlySelectedMerc( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 {
-	UINT16	ubID;
-
 	// if this squad is the current one and and the psoldier is the currently selected soldier, get rid of 'em
 	if( bSquadValue != iCurrentTacticalSquad )
 	{
@@ -1338,7 +1336,7 @@ void UpdateCurrentlySelectedMerc( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 	// Are we the selected guy?
 	if( gusSelectedSoldier == pSoldier->ubID )
 	{
-		ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
+		SoldierID ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
 
 		if ( ubID != NOBODY && ubID != gusSelectedSoldier )
 		{
