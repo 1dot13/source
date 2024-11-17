@@ -341,8 +341,8 @@ BOOLEAN HandleTalkInit(	);
 
 BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustForConfirm );
 
-void SetUIBusy( UINT16 ubID );
-void UnSetUIBusy( UINT16 ubID );
+void SetUIBusy( SoldierID ubID );
+void UnSetUIBusy( SoldierID ubID );
 
 UINT32 UIHandleLUIEndLock( UI_EVENT *pUIEvent );
 

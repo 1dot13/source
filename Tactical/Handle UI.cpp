@@ -6708,7 +6708,7 @@ BOOLEAN HandleTalkInit(	)
 
 
 
-void SetUIBusy( UINT16 ubID )
+void SetUIBusy( SoldierID ubID )
 {
 	if ( (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
@@ -6720,7 +6720,7 @@ void SetUIBusy( UINT16 ubID )
 	}
 }
 
-void UnSetUIBusy( UINT16 ubID )
+void UnSetUIBusy( SoldierID ubID )
 {
 	if ( gfUserTurnRegionActive && (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
