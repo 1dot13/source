@@ -7800,7 +7800,7 @@ BOOLEAN	BuildStructFromName( INT32 sGridNo, INT8 sLevel, const char* aStr, UINT8
 
 SoldierID gusTempDragBuildSoldierID = NOBODY;
 
-BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID )
+BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, SoldierID usSoldierID )
 {
 	// needs to be a valid location
 	if ( TileIsOutOfBounds( sGridNo ) )

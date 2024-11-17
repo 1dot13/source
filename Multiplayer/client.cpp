@@ -3793,7 +3793,7 @@ void recieveSTATE(RPCParameters *rpcParameters)
 {
 	EV_S_CHANGESTATE*	new_state = (EV_S_CHANGESTATE*)rpcParameters->input;
 
-	SOLDIERTYPE * pSoldier=MercPtrs[ new_state->usSoldierID ];
+	SOLDIERTYPE * pSoldier = new_state->usSoldierID;
 
 	if(pSoldier->bActive)
 	{
