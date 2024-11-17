@@ -28,7 +28,7 @@ typedef struct
     COLORVAL    RadarColor;
     INT8        bSide;
     INT16       bMenInSector;
-    UINT16      ubLastMercToRadio;
+    SoldierID   ubLastMercToRadio;
     INT8        bTeamActive;
     INT8        bAwareOfOpposition;
     INT8        bHuman;
@@ -89,8 +89,8 @@ struct TacticalStatusType
     INT8                    bRealtimeSpeed;
     UINT8                   ubEnemyIntention;
     UINT8                   ubEnemyIntendedRetreatDirection;
-    UINT16                  ubEnemySightingOnTheirTurnEnemyID;
-    UINT16                  ubEnemySightingOnTheirTurnPlayerID;
+    SoldierID               ubEnemySightingOnTheirTurnEnemyID;
+    SoldierID               ubEnemySightingOnTheirTurnPlayerID;
     BOOLEAN                 fEnemySightingOnTheirTurn;
     BOOLEAN                 fAutoBandageMode;
     UINT8                   ubAttackBusyCount;

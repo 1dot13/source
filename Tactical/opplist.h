@@ -117,7 +117,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 void DecideTrueVisibility(SOLDIERTYPE *pSoldier, UINT8 ubLocate);
 void AddOneOpponent(SOLDIERTYPE *pSoldier);
 void RemoveOneOpponent(SOLDIERTYPE *pSoldier);
-void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel);
+void UpdatePersonal(SOLDIERTYPE *pSoldier, SoldierID ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalDistanceVisible( void );
 INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel, const BOOLEAN& isCowering, const UINT8& tunnelVision);
 void ResetLastKnownLocs(SOLDIERTYPE *ptr);
@@ -129,7 +129,7 @@ void InitOpponentKnowledgeSystem(void);
 void InitSoldierOppList(SOLDIERTYPE *pSoldier);
 void BetweenTurnsVisibilityAdjustments(void);
 void RemoveManAsTarget(SOLDIERTYPE *pSoldier);
-void UpdatePublic(UINT8 ubTeam, UINT16 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel );
+void UpdatePublic(UINT8 ubTeam, SoldierID ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel );
 void RadioSightings(SOLDIERTYPE *pSoldier, UINT16 ubAbout, UINT8 ubTeamToRadioTo );
 void OurTeamRadiosRandomlyAbout(UINT16 ubAbout);
 void DebugSoldierPage1( );

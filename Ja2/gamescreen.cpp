@@ -580,9 +580,9 @@ UINT32	MainGameScreenHandle(void)
 			{
 				if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 				{
-					MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->AdjustNoAPToFinishMove( FALSE );
+					gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->AdjustNoAPToFinishMove( FALSE );
 				}
-				MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->flags.fPauseAllAnimation = FALSE;
+				gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->flags.fPauseAllAnimation = FALSE;
 
 				gTacticalStatus.fEnemySightingOnTheirTurn = FALSE;
 			}
