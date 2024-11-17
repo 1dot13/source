@@ -390,7 +390,7 @@ INT32		giSMZipperButton			= -1;
 
 BOOLEAN		gfSwitchPanel		= FALSE;
 UINT8		gbNewPanel			= SM_PANEL;
-UINT16		gubNewPanelParam	= 0;
+SoldierID	gubNewPanelParam	 = NOBODY;
 
 BOOLEAN		gfUIStanceDifferent						= FALSE;
 BOOLEAN		gfAllDisabled							= FALSE;

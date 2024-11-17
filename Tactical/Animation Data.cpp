@@ -913,7 +913,7 @@ BOOLEAN DeInitAnimationSystem( )
 
 
 
-STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
+STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
 {
 	INT8	bStructDataType;
 
@@ -935,26 +935,26 @@ STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( UINT16 usSoldierID, UINT16
 	if ( ( usAnimState == FALLFORWARD_FROMHIT_STAND || usAnimState == GENERIC_HIT_STAND ||
 			usAnimState == FALLFORWARD_FROMHIT_CROUCH || usAnimState == STANDING_BURST_HIT ) && !fUseAbsolute )
 	{
-		return( gAnimStructureDatabase[ MercPtrs[ usSoldierID ]->ubBodyType ][ S_STRUCT ].pStructureFileRef );
+		return( gAnimStructureDatabase[ usSoldierID->ubBodyType ][ S_STRUCT ].pStructureFileRef );
 	}
 
-	return( gAnimStructureDatabase[ MercPtrs[ usSoldierID ]->ubBodyType ][ bStructDataType ].pStructureFileRef );
+	return( gAnimStructureDatabase[ usSoldierID->ubBodyType ][ bStructDataType ].pStructureFileRef );
 }
 
 
-STRUCTURE_FILE_REF	*GetAnimationStructureRef( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
+STRUCTURE_FILE_REF	*GetAnimationStructureRef( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
 {
 	return( InternalGetAnimationStructureRef( usSoldierID, usSurfaceIndex, usAnimState, FALSE ) );
 }
 
 
-STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT16 usSoldierID )
+STRUCTURE_FILE_REF	*GetDefaultStructureRef( SoldierID usSoldierID )
 {
-	return( gAnimStructureDatabase[ MercPtrs[ usSoldierID ]->ubBodyType ][ DEFAULT_STRUCT ].pStructureFileRef );
+	return( gAnimStructureDatabase[ usSoldierID->ubBodyType ][ DEFAULT_STRUCT ].pStructureFileRef );
 }
 
-// Surface mamagement functions
-BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
+// Surface management functions
+BOOLEAN LoadAnimationSurface( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
 {
 	AuxObjectData *pAuxData;
 
@@ -1075,7 +1075,7 @@ BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 
 }
 
 
-BOOLEAN UnLoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex )
+BOOLEAN UnLoadAnimationSurface( SoldierID usSoldierID, UINT16 usSurfaceIndex )
 {
 	// Decrement usage flag, only if this soldier has it currently tagged
 	if ( gbAnimUsageHistory[ usSurfaceIndex ][ usSoldierID ] > 0 )
@@ -1120,7 +1120,7 @@ BOOLEAN UnLoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex )
 
 }
 
-void ClearAnimationSurfacesUsageHistory( UINT16 usSoldierID )
+void ClearAnimationSurfacesUsageHistory( SoldierID usSoldierID )
 {
 	UINT32 cnt;
 

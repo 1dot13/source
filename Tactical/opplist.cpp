@@ -7672,7 +7672,7 @@ void CommunicateWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoi
 
 void IncrementWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 {
-	INT8	bPoint;
+	INT8 bPoint;
 
 	bPoint = FindWatchedLoc( ubID, sGridNo, bLevel );
 	if (bPoint == -1)

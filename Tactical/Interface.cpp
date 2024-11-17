@@ -661,10 +661,7 @@ void ShutdownCurrentPanel( )
 
 
 
-
-
-
-void SetCurrentTacticalPanelCurrentMerc( UINT16 ubID )
+void SetCurrentTacticalPanelCurrentMerc( SoldierID ubID )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -674,7 +671,7 @@ void SetCurrentTacticalPanelCurrentMerc( UINT16 ubID )
 	if ( gsCurInterfacePanel == SM_PANEL )
 	{
 		// If we are not of merc bodytype, or am an epc, and going into inv, goto another....
-		pSoldier = MercPtrs[ ubID ];
+		pSoldier = ubID;
 
 		if ( !IS_MERC_BODY_TYPE( pSoldier ) || AM_AN_EPC( pSoldier ) )
 		{
@@ -693,9 +690,8 @@ void SetCurrentTacticalPanelCurrentMerc( UINT16 ubID )
 			SetTEAMPanelCurrentMerc( gusSelectedSoldier );
 			break;
 	}
-
-
 }
+
 
 void CreateCurrentTacticalPanelButtons( )
 {

@@ -69,7 +69,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
 
 // HEADROCK HAM 5.1: Explosion Fragments launcher
-void FireFragments( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
+void FireFragments( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
 
 // Flugente: shoot a gun without anyone operating it (used for makeshift traps wih guns)
 void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECTTYPE* pObj, UINT8 ubDirection = NORTH );
@@ -394,16 +394,16 @@ void IgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGr
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams )
 {
 	EXPLOSIONTYPE	*pExplosion;
-	UINT32	uiFlags;
-	UINT8	ubOwner;
-	UINT8	ubTypeID;
-	INT16	sX;
-	INT16	sY;
-	INT16	sZ;
-	INT32 sGridNo;
-	UINT16	usItem;
-	INT32	iIndex;
-	INT8	bLevel;
+	UINT32		uiFlags;
+	SoldierID	ubOwner;
+	UINT8		ubTypeID;
+	INT16		sX;
+	INT16		sY;
+	INT16		sZ;
+	INT32		sGridNo;
+	UINT16		usItem;
+	INT32		iIndex;
+	INT8			bLevel;
 
 	// Assign param values
 	uiFlags	= pExpParams->uiFlags;
@@ -449,17 +449,17 @@ void GenerateExplosion( EXPLOSION_PARAMS *pExpParams )
 
 void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 {
-	UINT32	uiFlags;
-	UINT8	ubOwner;
-	UINT8	ubTypeID;
-	INT16	sX;
-	INT16	sY;
-	INT16	sZ;
-	INT32 sGridNo;
-	UINT16	usItem;
-	UINT8	ubTerrainType;
-	INT8	bLevel;
-	INT32	sSoundID;
+	UINT32		uiFlags;
+	SoldierID	ubOwner;
+	UINT8		ubTypeID;
+	INT16		sX;
+	INT16		sY;
+	INT16		sZ;
+	INT32		sGridNo;
+	UINT16		usItem;
+	UINT8		ubTerrainType;
+	INT8			bLevel;
+	INT32		sSoundID;
 
 	ANITILE_PARAMS AniParams;
 
@@ -5004,7 +5004,7 @@ BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, I
 	return( fFoundMine );
 }
 
-void ActivateSwitchInGridNo( UINT16 ubID, INT32 sGridNo )
+void ActivateSwitchInGridNo( SoldierID ubID, INT32 sGridNo )
 {
 	UINT32	uiWorldBombIndex;
 	OBJECTTYPE * pObj;
@@ -5430,7 +5430,7 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 // HEADROCK HAM 5.1: This handles launching fragments out of an explosion. The number of fragments is read from
 // the Explosives.XML file, and they each have a set amount of damage and range as well. They are currently
 // fired at completely random trajectories.
-void FireFragments( UINT16 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
+void FireFragments( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
 {
 	// WANNE: Disable Fragments in a multiplayer game, because this can lead to crashes when stepping on mines, ...
 	if (is_networked)

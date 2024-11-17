@@ -632,7 +632,7 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 
 extern UINT16 gusTempDragBuildSoldierID;
 
-BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY )
+BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
 	DB_STRUCTURE *	pDBStructure;
@@ -646,15 +646,15 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	BOOLEAN fIgnorePeople = (BOOLEAN)(sExclusionID == IGNORE_PEOPLE_STRUCTURE_ID);
 
 	BOOLEAN fVehicleIgnoreObstacles = (BOOLEAN)(sExclusionID == VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID);
-	if( gGameExternalOptions.ubCarsRammingMaxStructureArmour && sSoldierID != NOBODY && MercPtrs[ sSoldierID ]->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
+	if( gGameExternalOptions.ubCarsRammingMaxStructureArmour && sSoldierID != NOBODY && sSoldierID->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
-	else if ( gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour && sSoldierID != NOBODY && COMBAT_JEEP( MercPtrs[sSoldierID] ) )
+	else if ( gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour && sSoldierID != NOBODY && COMBAT_JEEP( sSoldierID ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
-	else if ( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( MercPtrs[sSoldierID] ) )
+	else if ( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( sSoldierID ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
@@ -736,25 +736,25 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 						// but not monsters and such (they can't fall down due to lack of animations)
 						// also make sure AI won't flatten their allies
 						if( !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT | SOLDIER_MONSTER ) ) && 
-							((!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowCarsDrivingOverPeople) ||
-							(ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowTanksDrivingOverPeople)) &&
-							( MercPtrs[ sSoldierID ]->bTeam == gbPlayerNum || MercPtrs[ sSoldierID ]->bTeam != pSoldier->bTeam ) )
+							((!ARMED_VEHICLE( sSoldierID ) && gGameExternalOptions.fAllowCarsDrivingOverPeople) ||
+							(ARMED_VEHICLE( sSoldierID ) && gGameExternalOptions.fAllowTanksDrivingOverPeople)) &&
+							( sSoldierID->bTeam == gbPlayerNum || sSoldierID->bTeam != pSoldier->bTeam ) )
 						{
 							pExistingStructure = pExistingStructure->pNext;
 							// damage people when driving on them
 							if( fAddingForReal )
 							{	
-								if ( TANK( MercPtrs[sSoldierID] ) )
+								if ( TANK( sSoldierID ) )
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
-								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && MercPtrs[ sSoldierID ]->IsFastMovement() )
+								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && sSoldierID->IsFastMovement() )
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
 								else
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
 							}
 							continue;
@@ -770,9 +770,9 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					else
 					{
 						// only if structure is weak enough
-						if ( (!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubCarsRammingMaxStructureArmour) ||
-							 (COMBAT_JEEP( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour) ||
-							(TANK( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubTanksRammingMaxStructureArmour) )
+						if ( (!ARMED_VEHICLE( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubCarsRammingMaxStructureArmour) ||
+							 (COMBAT_JEEP( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour) ||
+							(TANK( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubTanksRammingMaxStructureArmour) )
 						{
 							// when not just plotting path, really destroy structure
 							if( fAddingForReal )
@@ -911,7 +911,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					{
 						if( MercPtrs[ pExistingStructure->usStructureID ] != NULL && MercPtrs[ pExistingStructure->usStructureID ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 						{						
-							if( MercPtrs[ sSoldierID ]->flags.fInNonintAnim == TRUE || gAnimControl[ MercPtrs[ sSoldierID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
+							if( sSoldierID->flags.fInNonintAnim == TRUE || gAnimControl[ sSoldierID->usAnimState ].ubEndHeight == ANIM_PRONE )
 							{
 								pExistingStructure = pExistingStructure->pNext;
 								continue;
@@ -958,7 +958,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	return( TRUE );
 }
 
-BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
+BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, SoldierID sSoldierID )
 {
 	UINT8 ubLoop;
 	INT16									sCubeOffset;
@@ -1001,7 +1001,7 @@ BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_ST
 	return( TRUE );
 }
 
-BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, SoldierID sSoldierID )
 {
 	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, fAddingForReal, sSoldierID ) );
 }
@@ -1036,15 +1036,15 @@ BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, U
 STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
 {
 	// Adds a complete structure to the world at a location plus all other locations covered by the structure
-	INT32 sGridNo;
-	STRUCTURE **					ppStructure;
-	STRUCTURE *						pBaseStructure;
-	DB_STRUCTURE *				pDBStructure;
-	DB_STRUCTURE_TILE	**	ppTile;
-	UINT8 ubLoop;
-	UINT8 ubLoop2;
-	INT16									sBaseTileHeight=-1;
-	UINT16								usStructureID;
+	INT32				sGridNo;
+	STRUCTURE			**ppStructure;
+	STRUCTURE			*pBaseStructure;
+	DB_STRUCTURE			*pDBStructure;
+	DB_STRUCTURE_TILE	**ppTile;
+	UINT8				ubLoop;
+	UINT8				ubLoop2;
+	INT16				sBaseTileHeight=-1;
+	UINT16				usStructureID;
 
 	CHECKF( pDBStructureRef );
 	CHECKF( pLevelNode );

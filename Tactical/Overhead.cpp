@@ -5082,7 +5082,7 @@ CHAR8 *GetSceneFilename(    )
     return( gzLevelFilenames[ gubCurrentScene ] );
 }
 
-extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID );
+extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, SoldierID sSoldierID );
 
 // NB if making changes don't forget to update NewOKDestinationAndDirection
 BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
@@ -5482,7 +5482,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     UINT8		ubWallOrientation;
     BOOLEAN		fCheckGivenGridNo = TRUE;
     UINT8		ubTestDirection;
-    EXITGRID	ExitGrid;
+    EXITGRID    	ExitGrid;
 
     // Set default direction
     if (pubDirection)
@@ -5551,7 +5551,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     {
         if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
         {
-			SOLDIERTYPE *pTargetSoldier = MercPtrs[usSoldierIndex];
+			SOLDIERTYPE *pTargetSoldier = usSoldierIndex;
             sGridNo = pTargetSoldier->sGridNo;
 			if (CREATURE_OR_BLOODCAT(pTargetSoldier) || gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 			{
@@ -5874,7 +5874,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     {
         if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
         {
-			SOLDIERTYPE *pTargetSoldier = MercPtrs[usSoldierIndex];
+			SOLDIERTYPE *pTargetSoldier = usSoldierIndex;
 			sGridNo = pTargetSoldier->sGridNo;
 			if (CREATURE_OR_BLOODCAT(pTargetSoldier) || gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 			{
@@ -7307,7 +7307,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 									// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
 									if ( pTeamSoldier->bTeam == ENEMY_TEAM ||
 										(gGameExternalOptions.ubMilitiaDropEquipment == 2 && pTeamSoldier->bTeam == MILITIA_TEAM) ||
-										(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && Menptr[pTeamSoldier->ubAttackerID].bTeam != OUR_TEAM) )
+										(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && pTeamSoldier->ubAttackerID->bTeam != OUR_TEAM) )
 									{
 										//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 										usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
@@ -7328,7 +7328,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 									// HEADROCK HAM B2.8: Militia will drop items only if allowed.
 									if ( !(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pTeamSoldier->bTeam == MILITIA_TEAM) &&
-										!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && Menptr[pTeamSoldier->ubAttackerID].bTeam == OUR_TEAM) )
+										!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && pTeamSoldier->ubAttackerID->bTeam == OUR_TEAM) )
 									{
 										AddItemToPool( pTeamSoldier->sGridNo, pObj, bVisible, pTeamSoldier->pathing.bLevel, usItemFlags, -1 );
 									}
@@ -7784,7 +7784,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
                 // Change music modes
-                if ( gfLastMercTalkedAboutKillingID == NOBODY || ( gfLastMercTalkedAboutKillingID != NOBODY && !( MercPtrs[ gfLastMercTalkedAboutKillingID ]->flags.uiStatusFlags & SOLDIER_MONSTER ) ) )
+                if ( gfLastMercTalkedAboutKillingID == NOBODY || ( gfLastMercTalkedAboutKillingID != NOBODY && !( gfLastMercTalkedAboutKillingID->flags.uiStatusFlags & SOLDIER_MONSTER ) ) )
                 {
 					#ifdef NEWMUSIC
 					GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ];
@@ -7798,7 +7798,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                     if (!is_networked)
                         ShouldBeginAutoBandage( );
                 }
-                else if ( gfLastMercTalkedAboutKillingID != NOBODY && ( MercPtrs[ gfLastMercTalkedAboutKillingID ]->flags.uiStatusFlags & SOLDIER_MONSTER ) )
+                else if ( gfLastMercTalkedAboutKillingID != NOBODY && ( gfLastMercTalkedAboutKillingID->flags.uiStatusFlags & SOLDIER_MONSTER ) )
                 {
                     // OJW - 20081222 - dont auto-bandage if networked
                     if (!is_networked)
@@ -7820,11 +7820,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 {
                     // OK, If we have just finished a battle with creatures........ play killed creature quote...
                     //
-                    if ( gfLastMercTalkedAboutKillingID != NOBODY && ( MercPtrs[ gfLastMercTalkedAboutKillingID ]->flags.uiStatusFlags & SOLDIER_MONSTER ) )
+                    if ( gfLastMercTalkedAboutKillingID != NOBODY && ( gfLastMercTalkedAboutKillingID->flags.uiStatusFlags & SOLDIER_MONSTER ) )
                     {
 
                     }
-                    else if ( gfLastMercTalkedAboutKillingID != NOBODY && ( MercPtrs[ gfLastMercTalkedAboutKillingID ]->ubBodyType == BLOODCAT ) )
+                    else if ( gfLastMercTalkedAboutKillingID != NOBODY && ( gfLastMercTalkedAboutKillingID->ubBodyType == BLOODCAT ) )
                     {
                         SayBattleSoundFromAnyBodyInSector( BATTLE_SOUND_COOL1 );
                     }
@@ -11529,9 +11529,9 @@ void TeamRestock(UINT8 bTeam)
 }
 
 // are we allowed to steal access this guy's inventory?
-BOOLEAN AllowedToStealFromTeamMate( UINT16 ubID, UINT16 ubTargetID )
+BOOLEAN AllowedToStealFromTeamMate( SoldierID ubID, SoldierID ubTargetID )
 {
-	if ( gGameExternalOptions.fAccessOtherMercInventories && ubID != ubTargetID && MercPtrs[ubID]->bTeam == MercPtrs[ubTargetID]->bTeam && !AM_AN_EPC(MercPtrs[ubTargetID]) && !IsVehicle(MercPtrs[ubTargetID]) )
+	if ( gGameExternalOptions.fAccessOtherMercInventories && ubID != ubTargetID && ubID->bTeam == ubTargetID->bTeam && !AM_AN_EPC(ubTargetID) && !IsVehicle(ubTargetID) )
 		return TRUE;
 
 	return FALSE;

@@ -372,9 +372,9 @@ enum
 
 extern BOOLEAN		gfSwitchPanel;
 extern BOOLEAN		gfUIStanceDifferent;
-extern UINT8		gbNewPanel;
-extern UINT16		gubNewPanelParam;
-extern INT16		gsCurInterfacePanel;
+extern UINT8			gbNewPanel;
+extern SoldierID		gubNewPanelParam;
+extern INT16			gsCurInterfacePanel;
 
 extern UINT32		guiRENDERBUFFER;
 extern UINT32		guiCLOSE;
@@ -465,7 +465,7 @@ BOOLEAN DrawCTHIndicator();
 
 void CreateCurrentTacticalPanelButtons( );
 void RemoveCurrentTacticalPanelButtons( );
-void SetCurrentTacticalPanelCurrentMerc( UINT16 ubID );
+void SetCurrentTacticalPanelCurrentMerc( SoldierID ubID );
 void SetCurrentInterfacePanel( UINT8 ubNewPanel );
 BOOLEAN IsMercPortraitVisible( UINT16 ubSoldierID );
 

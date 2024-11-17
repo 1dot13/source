@@ -13,20 +13,17 @@
 // Explosion Data
 typedef struct
 {
-	UINT32											uiFlags;
-
-	UINT16												ubOwner;
-	INT8												ubTypeID;
-
-	UINT16											usItem;
-
-	INT16												sX;										// World X ( optional )
-	INT16												sY;										// World Y ( optional )
-	INT16												sZ;										// World Z ( optional )
-	INT32 sGridNo;							// World GridNo
-	BOOLEAN											fLocate;
-	INT8												bLevel;								// World level
-	UINT8												ubUnsed[1];
+	UINT32		uiFlags;
+	SoldierID	ubOwner;
+	INT8			ubTypeID;
+	UINT16		usItem;
+	INT16		sX;			// World X ( optional )
+	INT16		sY;			// World Y ( optional )
+	INT16		sZ;			// World Z ( optional )
+	INT32		sGridNo;		// World GridNo
+	BOOLEAN		fLocate;
+	INT8			bLevel;		// World level
+	UINT8		ubUnsed[1];
 
 } EXPLOSION_PARAMS;
  
@@ -34,12 +31,11 @@ typedef struct
 typedef struct
 {
 	EXPLOSION_PARAMS		Params;
-	BOOLEAN							fAllocated;
-	INT16								sCurrentFrame;
-	INT32								iID;
-	INT32								iLightID;
-	UINT8								ubUnsed[2];
-
+	BOOLEAN				fAllocated;
+	INT16				sCurrentFrame;
+	INT32				iID;
+	INT32				iLightID;
+	UINT8				ubUnsed[2];
 
 } EXPLOSIONTYPE;
 
@@ -112,7 +108,7 @@ void HandleExplosionWarningAnimations( );
 void DecayBombTimers( void );
 void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency );
 BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
-void ActivateSwitchInGridNo( UINT16 ubID, INT32 sGridNo );
+void ActivateSwitchInGridNo( SoldierID ubID, INT32 sGridNo );
 void SetOffPanicBombs( UINT16 ubID, INT8 bPanicTrigger );
 
 void UpdateExplosionFrame( INT32 iIndex, INT16 sCurrentFrame );
