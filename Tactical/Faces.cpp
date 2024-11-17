@@ -2087,10 +2087,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// Flugente: are we supplying ammo to someone else?
 			if (gGameExternalOptions.ubExternalFeeding > 0)
 			{
-				UINT16 ubID1 = 0;
+				SoldierID ubID1 = NOBODY;
 				UINT16 ubGunSlot1 = 0;
 				UINT16 ubFaceSlot1 = 0;
-				UINT16 ubID2 = 0;
+				SoldierID ubID2 = NOBODY;
 				UINT16 ubGunSlot2 = 0;
 				UINT16 ubFaceSlot2 = 0;
 				if (pSoldier->IsFeedingExternal(&ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2))

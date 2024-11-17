@@ -176,7 +176,7 @@ INT16 sVehicleInternalOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES ][ NUMBER_OF_
 
 
 // set the driver of the vehicle
-void SetDriver( INT32 iID, UINT16 ubID );
+void SetDriver( INT32 iID, SoldierID ubID );
 
 //void RemoveSoldierFromVehicleBetweenSectors( pSoldier, iId );
 
@@ -1556,7 +1556,7 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 	INT32 iCounter;
 	if( pVehicleList[ iID ].ubDriver != NOBODY )
 	{
-		return( MercPtrs[ pVehicleList[ iID ].ubDriver ] );
+		return( pVehicleList[ iID ].ubDriver );
 	}
 	else
 	{
@@ -1573,25 +1573,27 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 }
 
 
-void SetDriver( INT32 iID, UINT16 ubID )
+void SetDriver( INT32 iID, SoldierID ubID )
 {
 	// anv: first make sure previous driver won't be driver anymore
-	if( pVehicleList[ iID ].ubDriver != NOBODY && MercPtrs[ pVehicleList[ iID ].ubDriver ]->iVehicleId == iID )
+	SOLDIERTYPE* prevDriver = pVehicleList[iID].ubDriver;
+
+	if( prevDriver != NOBODY && prevDriver->iVehicleId == iID )
 	{
-		if( MercPtrs[ pVehicleList[ iID ].ubDriver ] )
+		if( prevDriver )
 		{
-			MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags &= ~(SOLDIER_DRIVER);
-			if( GetSeatIndexFromSoldier( MercPtrs[ pVehicleList[ iID ].ubDriver ] ) != (-1) )
+			prevDriver->flags.uiStatusFlags &= ~(SOLDIER_DRIVER);
+			if( GetSeatIndexFromSoldier( prevDriver ) != (-1) )
 			{
-				MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags |= SOLDIER_PASSENGER;
+				prevDriver->flags.uiStatusFlags |= SOLDIER_PASSENGER;
 			}
 		}
 	}
 	// set proper flags
 	if( ubID != NOBODY )
 	{
-		MercPtrs[ ubID ]->flags.uiStatusFlags |= SOLDIER_DRIVER;
-		MercPtrs[ ubID ]->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
+		ubID->flags.uiStatusFlags |= SOLDIER_DRIVER;
+		ubID->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
 	}
 	pVehicleList[ iID ].ubDriver = ubID;
 }
@@ -1821,7 +1823,7 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 			}
 			else
 			{
-				UINT16 usTempSelectedSoldier = gusSelectedSoldier;
+				SoldierID usTempSelectedSoldier = gusSelectedSoldier;
 
 				SetCurrentSquad( CurrentSquad(), TRUE );
 
@@ -1984,7 +1986,7 @@ void AddPassangersToTeamPanel( INT32 iId )
 }
 
 
-void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT16 ubAttackerID )
+void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, SoldierID ubAttackerID )
 {
 	if ( ubReason != TAKE_DAMAGE_GAS_FIRE && ubReason != TAKE_DAMAGE_GAS_NOTFIRE )
 	{
@@ -2013,7 +2015,7 @@ void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo
 }
 
 
-void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT16 ubAttackerID )
+void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, SoldierID ubAttackerID )
 {
 	// check state the armor was s'posed to be in vs. the current state..the difference / orig state is % chance
 	// that a critical hit will occur

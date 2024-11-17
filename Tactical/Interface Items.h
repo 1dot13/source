@@ -166,7 +166,7 @@ public:
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
 
-	UINT16				ubSoldierID;
+	SoldierID			ubSoldierID;
 	UINT8				ubInvSlot;
 	BOOLEAN				fCursorActive;
 	OBJECTTYPE			ItemPointerInfo;

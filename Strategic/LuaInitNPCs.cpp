@@ -2717,7 +2717,7 @@ void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, B
 
 void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY,
  INT8 bSectorZ, 
-									   INT32 sGridNo, UINT8 bLevel, UINT16 ubId,
+									   INT32 sGridNo, UINT8 bLevel, SoldierID ubId,
 									   UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill )
 {
 	const char* filename = "scripts\\Overhead.lua";
@@ -2731,7 +2731,7 @@ void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY,
 
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
-	LuaFunction( _LS.L, "HandleInteractiveActionResult" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubId ).Param<int>( usActionType ).Param<int>( sLuaactionid ).Param<int>( difficulty ).Param<int>( skill ).Call( 10 );
+	LuaFunction( _LS.L, "HandleInteractiveActionResult" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubId.i ).Param<int>( usActionType ).Param<int>( sLuaactionid ).Param<int>( difficulty ).Param<int>( skill ).Call( 10 );
 }
 
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )

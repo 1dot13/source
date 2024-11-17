@@ -181,7 +181,7 @@ extern UI_EVENT gEvents[ NUM_UI_EVENTS ];
 extern UI_MODE		gCurrentUIMode;
 extern UI_MODE		gOldUIMode;
 extern UINT32		guiCurrentEvent;
-extern INT16		gsSelectedLevel;
+extern INT16			gsSelectedLevel;
 extern BOOLEAN		gfPlotNewMovement;
 extern UINT32		guiPendingOverrideEvent;
 
@@ -191,34 +191,34 @@ extern BOOLEAN		gfUIDisplayActionPoints;
 extern BOOLEAN		gfUIDisplayActionPointsInvalid;
 extern BOOLEAN		gfUIDisplayActionPointsBlack;
 extern BOOLEAN		gfUIDisplayActionPointsCenter;
-extern INT16		gUIDisplayActionPointsOffY;
-extern INT16		gUIDisplayActionPointsOffX;
+extern INT16			gUIDisplayActionPointsOffY;
+extern INT16			gUIDisplayActionPointsOffX;
 extern BOOLEAN		gfUIDoNotHighlightSelMerc;
 extern UINT32		guiShowUPDownArrows;
 extern BOOLEAN		gfUIHandleSelection;
 extern BOOLEAN		gfUIHandleSelectionAboveGuy;
-extern INT32		gsSelectedGridNo;
-extern INT16		gsSelectedGuy;
+extern INT32			gsSelectedGridNo;
+extern INT16			gsSelectedGuy;
 extern BOOLEAN		gfUIInDeadlock;
 extern UINT16		gUIDeadlockedSoldier;
 
 extern BOOLEAN		gfUIMouseOnValidCatcher;
-extern UINT16		gubUIValidCatcherID;
+extern SoldierID		gubUIValidCatcherID;
 extern BOOLEAN		gUIUseReverse;
 
 
 extern BOOLEAN		gfUIHandleShowMoveGrid;
-extern INT32		gsUIHandleShowMoveGridLocation;
+extern INT32			gsUIHandleShowMoveGridLocation;
 
 extern BOOLEAN		gfUIDisplayDamage;
 extern INT8			gbDamage;
-extern INT32		gsDamageGridNo;
+extern INT32			gsDamageGridNo;
 
 extern BOOLEAN		gfFontPopupDo;
 
 extern BOOLEAN		gUITargetReady;
 extern BOOLEAN		gUITargetShotWaiting;
-extern INT32		gsUITargetShotGridNo;
+extern INT32			gsUITargetShotGridNo;
 
 extern CHAR16		gzLocation[ 20 ];
 extern BOOLEAN		gfUIBodyHitLocation;

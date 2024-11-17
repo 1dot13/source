@@ -388,16 +388,16 @@ typedef struct
 
 typedef struct
 {
-	UINT16		usSoldierID;
-	FLOAT dNewXPos;
-	FLOAT dNewYPos;
+	SoldierID	usSoldierID;
+	FLOAT		dNewXPos;
+	FLOAT		dNewYPos;
 
 } gui_pos;
 
 typedef struct
 {
-	UINT16		usSoldierID;
-	INT16	usNewDirection;
+	SoldierID	usSoldierID;
+	INT16		usNewDirection;
 
 } gui_dir;
 
@@ -425,12 +425,12 @@ typedef struct
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT8 bTeam;
 	UINT16 gubOutOfTurnPersons;
 	UINT16 gubOutOfTurnOrder[MAXMERCS];
 	BOOLEAN fMarkInterruptOccurred;
-	UINT16 Interrupted;
+	SoldierID Interrupted;
 } INT_STRUCT;
 
 typedef struct
@@ -486,7 +486,7 @@ typedef struct
 	float dZ;
 	INT32 sGridNo;
 	bool bWasDud;
-	UINT16 ubOwnerID;
+	SoldierID ubOwnerID;
 	INT32 RealObjectID; // the local ID on the initiating client
 	UINT32 uiPreRandomIndex; // send out our current pre-random index
 } grenade_result;
@@ -967,7 +967,7 @@ void send_hit(  EV_S_WEAPONHIT *SWeaponHit  )
 			
 	memcpy( &weaphit_struct , SWeaponHit, sizeof( EV_S_WEAPONHIT ));
 	
-	UINT16  usSoldierID=weaphit_struct.usSoldierID;
+	SoldierID usSoldierID = weaphit_struct.usSoldierID;
 
 	if(SWeaponHit->usSoldierID < 20)weaphit_struct.usSoldierID = weaphit_struct.usSoldierID+ubID_prefix;
 	if(SWeaponHit->ubAttackerID < 20)weaphit_struct.ubAttackerID = weaphit_struct.ubAttackerID+ubID_prefix;
@@ -981,9 +981,9 @@ void recieveHIT(RPCParameters *rpcParameters)
 		
 	EV_S_WEAPONHIT* SWeaponHit = (EV_S_WEAPONHIT*)rpcParameters->input;
 	
-	SOLDIERTYPE *pSoldier = MercPtrs[ SWeaponHit->usSoldierID ];
-	UINT16 usSoldierID;
-	UINT16 ubAttackerID;
+	SOLDIERTYPE *pSoldier = SWeaponHit->usSoldierID;
+	SoldierID usSoldierID;
+	SoldierID ubAttackerID;
 
 	if((SWeaponHit->usSoldierID >= ubID_prefix) && (SWeaponHit->usSoldierID < (ubID_prefix+6))) // within our netbTeam range...
 		usSoldierID = (SWeaponHit->usSoldierID - ubID_prefix);
@@ -1157,7 +1157,7 @@ void send_gui_pos(SOLDIERTYPE *pSoldier,  FLOAT dNewXPos, FLOAT dNewYPos)
 {
 	gui_pos gnPOS;
 
-	gnPOS.usSoldierID = (pSoldier->ubID)+ubID_prefix;
+	gnPOS.usSoldierID = pSoldier->ubID + ubID_prefix;
 	
 	gnPOS.dNewXPos = dNewXPos;
 	gnPOS.dNewYPos = dNewYPos;
@@ -1916,7 +1916,7 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT16) * MAXMERCS);
 	INT.gubOutOfTurnPersons = gubOutOfTurnPersons;
 	
-	INT.Interrupted=gusSelectedSoldier+ubID_prefix;
+	INT.Interrupted = gusSelectedSoldier + ubID_prefix;
 
 	if(INT.bTeam==0)
 	{
@@ -3030,11 +3030,11 @@ void recieveGRENADE (RPCParameters *rpcParameters)
 }
 
 // we send a grenade result out to the clients as it may have been a fizzer
-void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, UINT8 ubOwnerID, INT32 iRealObjectID, bool bIsDud)
+void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, SoldierID ubOwnerID, INT32 iRealObjectID, bool bIsDud)
 {
 	ubOwnerID = MPEncodeSoldierID(ubOwnerID); // translate our soldier to the "network" version
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ubOwnerID];
+	SOLDIERTYPE* pSoldier = ubOwnerID;
 	if (pSoldier != NULL)
 	{
 		if ((pSoldier->bTeam == 1 && is_server) || IsOurSoldier(pSoldier))
@@ -3343,11 +3343,11 @@ void recieveDETONATEEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldItem, UINT16 ubID)
+void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldItem, SoldierID ubID)
 {
 	ubID = MPEncodeSoldierID(ubID);
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ubID];
+	SOLDIERTYPE* pSoldier = ubID;
 	if (pSoldier != NULL)
 	{
 		// explosive disarmed on this client, notify the other clients

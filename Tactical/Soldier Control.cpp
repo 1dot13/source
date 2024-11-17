@@ -2285,14 +2285,13 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 
 void	SOLDIERTYPE::DoNinjaAttack( void )
 {
-	//UINT32						uiMercFlags;
-	UINT16						usSoldierIndex;
-	SOLDIERTYPE				*pTSoldier;
-	UINT8							ubTDirection;
-	UINT8							ubTargetStance;
+	//UINT32		uiMercFlags;
+	SOLDIERTYPE	*pTSoldier;
+	UINT8		ubTDirection;
+	UINT8		ubTargetStance;
 
 
-	usSoldierIndex = WhoIsThere2( this->sTargetGridNo, this->pathing.bLevel );
+	SoldierID usSoldierIndex = WhoIsThere2( this->sTargetGridNo, this->pathing.bLevel );
 	if ( usSoldierIndex != NOBODY )
 	{
 		GetSoldier( &pTSoldier, usSoldierIndex );
@@ -9449,8 +9448,8 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 		return;//hayden disable climbing roof
 	}
 
-	INT8							bNewDirection;
-	UINT16							ubWhoIsThere;
+	INT8 bNewDirection;
+	SoldierID ubWhoIsThere;
 
 	if (FindHeigherLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel == 0))
 	{
@@ -9623,8 +9622,8 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 
 void SOLDIERTYPE::BeginSoldierClimbWall( void )
 {
-	INT8							bNewDirection;
-	UINT16							ubWhoIsThere;
+	INT8 bNewDirection;
+	SoldierID ubWhoIsThere;
 
 	if ( FindWallJumpDirection( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel == 0) )
 	{
@@ -9660,8 +9659,8 @@ void SOLDIERTYPE::BeginSoldierClimbWall( void )
 
 void SOLDIERTYPE::BeginSoldierClimbWallUp( void )
 {
-	INT8							bNewDirection;
-	UINT16	ubWhoIsThere;
+	INT8 bNewDirection;
+	SoldierID ubWhoIsThere;
 
 	if ( FindLowerLevelWall( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel > 0) )
 	{
@@ -11309,8 +11308,8 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 
 void SOLDIERTYPE::BeginSoldierClimbDownRoof(void)
 {
-	INT8							bNewDirection;
-	UINT16	ubWhoIsThere;
+	INT8 bNewDirection;
+	SoldierID ubWhoIsThere;
 
 	if (FindLowerLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel > 0))
 	{
@@ -12469,7 +12468,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 {
 	SOLDIERTYPE *pTSoldier;
 	//UINT32 uiMercFlags;
-	UINT16 usSoldierIndex;
+	SoldierID usSoldierIndex;
 	UINT8 ubTDirection;
 	ROTTING_CORPSE *pCorpse;
 
@@ -12692,7 +12691,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	BOOLEAN			fMartialArtist = FALSE;
 	SOLDIERTYPE *pTSoldier;
 	//UINT32 uiMercFlags;
-	UINT16 usSoldierIndex;
+	SoldierID usSoldierIndex;
 	UINT8 ubTDirection;
 	UINT16	usItem;
 
@@ -15148,7 +15147,7 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 }
 
 // Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
-BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT16 * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT16 * pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2 )
+BOOLEAN		SOLDIERTYPE::IsFeedingExternal( SoldierID * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, SoldierID * pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2 )
 {
 	// make sure we have to check this...
 	if ( gGameExternalOptions.ubExternalFeeding == 0 )

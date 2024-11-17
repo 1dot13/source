@@ -1,7 +1,7 @@
 #ifndef ITEM_TYPES_H
 #define ITEM_TYPES_H
 
-#include "types.h"
+#include "Overhead Types.h"
 #include <vector>
 #include <list>
 // THE_BOB : added for pocket popup definitions
@@ -408,15 +408,15 @@ namespace ObjectDataStructs {
 	struct OBJECT_BOMBS_AND_OTHER
 	{ // this is used by placed bombs, switches, and the action item
 		INT16		bBombStatus;		// % status
-		INT8		bDetonatorType;		// timed, remote, or pressure-activated
+		INT8			bDetonatorType;		// timed, remote, or pressure-activated
 		UINT16		usBombItem;			// the usItem of the bomb.
 		union
 		{
 			INT8		bDelay;			// >=0 values used only
 			INT8		bFrequency;		// >=0 values used only
 		};
-		UINT16	ubBombOwner;			// side which placed the bomb
-		UINT8	bActionValue;			// this is used by the ACTION_ITEM fake item
+		SoldierID	ubBombOwner;			// side which placed the bomb
+		UINT8		bActionValue;			// this is used by the ACTION_ITEM fake item
 		union
 		{
 			UINT8 ubTolerance;			// tolerance value for panic triggers

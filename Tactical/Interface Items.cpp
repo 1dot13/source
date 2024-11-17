@@ -3548,7 +3548,7 @@ void DegradeNewlyAddedItems( )
 			// GET SOLDIER
 			if ( gTeamPanel[ cnt2 ].fOccupied )
 			{
-				pSoldier = MercPtrs[ gTeamPanel[ cnt2 ].ubID ];
+				pSoldier = gTeamPanel[ cnt2 ].ubID;
 
 				UINT32 invsize = pSoldier->inv.size();
 				for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
@@ -4434,7 +4434,7 @@ void INVRenderSteeringWheel( UINT32 uiBuffer, UINT32 uiSteeringWheelIndex, SOLDI
 		return;
 	}
 
-	pVehicle = GetSoldierStructureForVehicle ( MercPtrs[ pSoldier->ubID ]->iVehicleId );
+	pVehicle = GetSoldierStructureForVehicle ( pSoldier->ubID->iVehicleId );
 
 	if ( pVehicle == NULL )
 	{
@@ -8796,11 +8796,11 @@ void DrawItemTileCursor( )
 		/*CHRISL: For some reason it's possible that gpItemPointerSoldier is not correctly set when we come into this function, but we require it to be set for 
 			this function to work.  So for now, let's set it using gusUIFullTargetID.*/
 		if(gpItemPointerSoldier->exists() == false)
-			gpItemPointerSoldier = MercPtrs[ gusUIFullTargetID ];
+			gpItemPointerSoldier = gusUIFullTargetID;
 		if ( gfUIFullTargetFound )
 		{
 			// Force mouse position to guy...
-			usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+			usMapPos = gusUIFullTargetID->sGridNo;
 		}
 
 		gusCurMousePos = usMapPos;
@@ -8871,7 +8871,7 @@ void DrawItemTileCursor( )
 				if ( gfUIFullTargetFound )
 				{
 					// Get soldier
-					pSoldier = MercPtrs[ gusUIFullTargetID ];
+					pSoldier = gusUIFullTargetID;
 
 					// Are they on our team?
 					// ATE: Can't be an EPC
@@ -8881,7 +8881,7 @@ void DrawItemTileCursor( )
 						{
 							// OK, on a valid pass
 							gfUIMouseOnValidCatcher = 4;
-							gubUIValidCatcherID			= gusUIFullTargetID;
+							gubUIValidCatcherID = gusUIFullTargetID;
 						}
 						else
 						{
@@ -8890,7 +8890,7 @@ void DrawItemTileCursor( )
 							{
 								// OK, set global that this buddy can see catch...
 								gfUIMouseOnValidCatcher = TRUE;
-								gubUIValidCatcherID			= gusUIFullTargetID;
+								gubUIValidCatcherID = gusUIFullTargetID;
 							}
 						}
 					}
@@ -8927,7 +8927,7 @@ void DrawItemTileCursor( )
 				gubUIValidCatcherID			= gusUIFullTargetID;
 
 				// If this is a robot, change to say 'reload'
-				if ( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+				if ( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_ROBOT )
 				{
 					gfUIMouseOnValidCatcher = 3;
 				}
@@ -8947,9 +8947,9 @@ void DrawItemTileCursor( )
 
 
 					// Get AP cost
-					if ( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+					if ( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_ROBOT )
 					{
-						sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier, MercPtrs[ gusUIFullTargetID ] );
+						sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier, gusUIFullTargetID );
 					}
 					else
 					{
@@ -9011,7 +9011,7 @@ void DrawItemTileCursor( )
 					{
 						if ( gfUIMouseOnValidCatcher )
 						{
-							switch( gAnimControl[ MercPtrs[ gubUIValidCatcherID ]->usAnimState ].ubHeight )
+							switch( gAnimControl[ gubUIValidCatcherID->usAnimState ].ubHeight )
 							{
 								case ANIM_STAND:
 
@@ -9029,7 +9029,7 @@ void DrawItemTileCursor( )
 									break;
 							}
 
-							if ( MercPtrs[ gubUIValidCatcherID ]->pathing.bLevel > 0 )
+							if ( gubUIValidCatcherID->pathing.bLevel > 0 )
 							{
 								sEndZ = 0;
 							}
@@ -9135,9 +9135,9 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 	if ( gfUIFullTargetFound )
 	{
 		// Force mouse position to guy...
-		usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		usMapPos = gusUIFullTargetID->sGridNo;
 
-		if ( gAnimControl[ MercPtrs[ gusUIFullTargetID ]->usAnimState ].uiFlags & ANIM_MOVING )
+		if ( gAnimControl[ gusUIFullTargetID->usAnimState ].uiFlags & ANIM_MOVING )
 		{
 			return( FALSE );
 		}
@@ -9380,14 +9380,14 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		sGridNo = usMapPos;
 
 		// Kaiden: Vehicle Inventory change - Commented the following If test:
-		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) && !( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && gusUIFullTargetID->bTeam == gbPlayerNum && !AM_AN_EPC( gusUIFullTargetID ) && !( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 
 		// And added this one instead:
-		if ( ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) ) && !( (!gGameExternalOptions.fVehicleInventory) && (MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
+		if ( ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && gusUIFullTargetID->bTeam == gbPlayerNum && !AM_AN_EPC( gusUIFullTargetID ) ) && !( (!gGameExternalOptions.fVehicleInventory) && (gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
 		{
 			// OK, do the transfer...
 			{
-				pSoldier = MercPtrs[ gusUIFullTargetID ];
+				pSoldier = gusUIFullTargetID;
 
 				{
 					// Change to inventory....
@@ -9489,7 +9489,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 			// IF OVER OUR GUY...
 			if ( gfUIFullTargetFound )
 			{
-				pSoldier = MercPtrs[ gusUIFullTargetID ];
+				pSoldier = gusUIFullTargetID;
 
 				// Kaiden: Vehicle Inventory change - Commented the following If Test:
 				//if ( pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -11483,9 +11483,9 @@ void RenderItemPickupMenu( )
 						Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 						LoadBearingEquipment[Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
 						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != NOBODY &&
-						MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID])
+						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID)
 						//swprintf(pStr, L"%s (%s)", ShortItemNames[pObject->usItem], MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
-						swprintf(pStr, L"(%s)", MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
+						swprintf(pStr, L"(%s)", gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID->GetName());
 					else
 						swprintf( pStr, L"%s", ShortItemNames[ pObject->usItem ] );
 				}
@@ -12757,7 +12757,7 @@ BOOLEAN LoadItemCursorFromSavedGame( HWFILE hFile )
 	}
 	else
 	{
-		gpItemPointerSoldier = MercPtrs[ SaveStruct.ubSoldierID ];
+		gpItemPointerSoldier = SaveStruct.ubSoldierID;
 	}
 
 	// Inv slot

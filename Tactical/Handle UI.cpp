@@ -429,41 +429,41 @@ INT16				guiCreateBadGuyIndex = 8;
 
 // FLAGS
 // These flags are set for a single frame execution and then are reset for the next iteration.
-BOOLEAN		gfUIDisplayActionPoints					= FALSE;
+BOOLEAN		gfUIDisplayActionPoints			= FALSE;
 BOOLEAN		gfUIDisplayActionPointsInvalid	= FALSE;
 BOOLEAN		gfUIDisplayActionPointsBlack		= FALSE;
-BOOLEAN		gfUIDisplayActionPointsCenter		= FALSE;
+BOOLEAN		gfUIDisplayActionPointsCenter	= FALSE;
 
-INT16			gUIDisplayActionPointsOffY			= 0;
-INT16			gUIDisplayActionPointsOffX			= 0;
-BOOLEAN		gfUIDoNotHighlightSelMerc				= FALSE;
-BOOLEAN		gfUIHandleSelection							= FALSE;
-BOOLEAN		gfUIHandleSelectionAboveGuy			= FALSE;
-BOOLEAN		gfUIInDeadlock									= FALSE;
-UINT16			gUIDeadlockedSoldier						= NOBODY;
-BOOLEAN		gfUIHandleShowMoveGrid					= FALSE;
+INT16		gUIDisplayActionPointsOffY		= 0;
+INT16		gUIDisplayActionPointsOffX		= 0;
+BOOLEAN		gfUIDoNotHighlightSelMerc		= FALSE;
+BOOLEAN		gfUIHandleSelection				= FALSE;
+BOOLEAN		gfUIHandleSelectionAboveGuy		= FALSE;
+BOOLEAN		gfUIInDeadlock					= FALSE;
+UINT16		gUIDeadlockedSoldier				= NOBODY;
+BOOLEAN		gfUIHandleShowMoveGrid			= FALSE;
 INT32		gsUIHandleShowMoveGridLocation  = NOWHERE ;
-BOOLEAN		gfUIOverItemPool								= FALSE;
-INT32			gfUIOverItemPoolGridNo					= 0;
-INT16			gsCurrentActionPoints						= 1;
-BOOLEAN		gfUIHandlePhysicsTrajectory			= FALSE;
-BOOLEAN		gfUIMouseOnValidCatcher					= FALSE;
-UINT16			gubUIValidCatcherID							= 0;
+BOOLEAN		gfUIOverItemPool					= FALSE;
+INT32		gfUIOverItemPoolGridNo			= 0;
+INT16		gsCurrentActionPoints			= 1;
+BOOLEAN		gfUIHandlePhysicsTrajectory		= FALSE;
+BOOLEAN		gfUIMouseOnValidCatcher			= FALSE;
+SoldierID	gubUIValidCatcherID				= NOBODY;
 
 
 
-BOOLEAN		gfUIConfirmExitArrows						= FALSE;
+BOOLEAN		gfUIConfirmExitArrows			= FALSE;
 
-BOOLEAN		gfUIShowCurIntTile							= FALSE;
+BOOLEAN		gfUIShowCurIntTile				= FALSE;
 
-BOOLEAN		gfUIWaitingForUserSpeechAdvance		= FALSE;		// Waiting for key input/mouse click to advance speech
-BOOLEAN		gfUIKeyCheatModeOn								= FALSE;		// Sets cool cheat keys on
-BOOLEAN		gfUIAllMoveOn											= FALSE;		// Sets to all move
-BOOLEAN		gfUICanBeginAllMoveCycle					= FALSE;		// GEts set so we know that the next right-click is a move-call inc\stead of a movement cycle through
+BOOLEAN		gfUIWaitingForUserSpeechAdvance	= FALSE;		// Waiting for key input/mouse click to advance speech
+BOOLEAN		gfUIKeyCheatModeOn				= FALSE;		// Sets cool cheat keys on
+BOOLEAN		gfUIAllMoveOn					= FALSE;		// Sets to all move
+BOOLEAN		gfUICanBeginAllMoveCycle			= FALSE;		// GEts set so we know that the next right-click is a move-call inc\stead of a movement cycle through
 
-INT32 gsSelectedGridNo								= 0;
-INT16			gsSelectedLevel									= I_GROUND_LEVEL;
-INT16			gsSelectedGuy										= NOBODY;
+INT32		gsSelectedGridNo					= 0;
+INT16		gsSelectedLevel					= I_GROUND_LEVEL;
+INT16		gsSelectedGuy					= NOBODY;
 
 BOOLEAN		gfUIDisplayDamage								= FALSE;
 INT8			gbDamage												= 0;

@@ -83,11 +83,11 @@ SoldierID GetSMPanelCurrentMerc(	);
 void UpdateSMPanel( );
 
 BOOLEAN InitTEAMSlots( );
-void AddPlayerToInterfaceTeamSlot( UINT16 ubID );
+void AddPlayerToInterfaceTeamSlot( SoldierID ubID );
 BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubID );
 BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT16 * pubID );
 void RemoveAllPlayersFromSlot( );
-BOOLEAN PlayerExistsInSlot( UINT16 ubID );
+BOOLEAN PlayerExistsInSlot( SoldierID ubID );
 BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT16 ubMercID );
 void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier );
 void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
@@ -105,7 +105,7 @@ void InitOldInventorySystem( );
 // ATE TO BE MOVED TO INTERFACE_ITEMS.C
 extern INT8		gbNewItem[ NUM_INV_SLOTS ];
 extern INT8		gbNewItemCycle[ NUM_INV_SLOTS ];
-extern UINT8	gubNewItemMerc;
+extern UINT8		gubNewItemMerc;
 
 void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed );
 void EndRadioLocator( UINT16 ubID );
@@ -118,12 +118,12 @@ extern BOOLEAN		gfDisableTacticalPanelButtons;
 
 typedef struct
 {
-	UINT16	ubID;
-	BOOLEAN	fOccupied;
+	SoldierID	ubID;
+	BOOLEAN		fOccupied;
 
 } TEAM_PANEL_SLOTS_TYPE;
 
-extern TEAM_PANEL_SLOTS_TYPE	gTeamPanel[ NUM_TEAM_SLOTS ];
+extern TEAM_PANEL_SLOTS_TYPE gTeamPanel[ NUM_TEAM_SLOTS ];
 
 
 

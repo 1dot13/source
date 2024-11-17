@@ -128,7 +128,7 @@ struct TacticalStatusType
     BOOLEAN                 fCantGetThrough;
     INT32                   sCantGetThroughGridNo;
     INT32                   sCantGetThroughSoldierGridNo;
-    UINT16                  ubCantGetThroughID;
+    SoldierID               ubCantGetThroughID;
     BOOLEAN                 fDidGameJustStart;
     BOOLEAN                 fStatChangeCheatOn;
     UINT8                   ubLastRequesterTargetID;

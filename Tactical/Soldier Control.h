@@ -1839,7 +1839,7 @@ public:
 	void	InventoryExplosion( void );
 
 	// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
-	BOOLEAN		IsFeedingExternal(UINT16 * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT16 * pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
+	BOOLEAN		IsFeedingExternal(SoldierID * pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, SoldierID* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
 
 	// Flugente: return first found object with a specific flag from our inventory
 	OBJECTTYPE* GetObjectWithFlag( UINT64 aFlag );

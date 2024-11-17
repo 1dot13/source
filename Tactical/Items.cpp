@@ -15287,10 +15287,10 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
 	if ( !pSoldier || !pObject)
 		return( FALSE );
 		
-	UINT16  usSoldierFeedingTarget1 = 0;
+	SoldierID  usSoldierFeedingTarget1 = NOBODY;
 	UINT16 usGunSlot1 = 0;
 	UINT16 usAmmoSlot1 = 0;
-	UINT16  usSoldierFeedingTarget2 = 0;
+	SoldierID  usSoldierFeedingTarget2 = NOBODY;
 	UINT16 usGunSlot2 = 0;
 	UINT16 usAmmoSlot2 = 0;
 	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
@@ -15345,10 +15345,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 				continue;
 
 			// we check if that guy is feeding someone, and that someone is really us
-			UINT16  usTeamSoldierFeedingTarget1 = 0;
+			SoldierID  usTeamSoldierFeedingTarget1 = NOBODY;
 			UINT16 usGunSlot1 = 0;
 			UINT16 usAmmoSlot1 = 0;
-			UINT16  usTeamSoldierFeedingTarget2 = 0;
+			SoldierID  usTeamSoldierFeedingTarget2 = NOBODY;
 			UINT16 usGunSlot2 = 0;
 			UINT16 usAmmoSlot2 = 0;
 			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )

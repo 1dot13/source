@@ -569,7 +569,7 @@ void UpdateSelectedSoldier( UINT16 usSoldierID, BOOLEAN fSelect );
 
 void CheckForFacePanelStartAnims( SOLDIERTYPE *pSoldier, INT16 sPanelX, INT16 sPanelY );
 void HandleSoldierFaceFlash( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY );
-BOOLEAN PlayerExistsInSlot( UINT16 ubID );
+BOOLEAN PlayerExistsInSlot( SoldierID ubID );
 void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease, BOOLEAN fDamaged, BOOLEAN fAugmented ); // SANDRO - added argument // Flugente - me too
 
 extern void UpdateItemHatches();
@@ -6812,7 +6812,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 
-BOOLEAN PlayerExistsInSlot( UINT16 ubID )
+BOOLEAN PlayerExistsInSlot( SoldierID ubID )
 {
 	INT32 cnt;
 
@@ -6870,17 +6870,17 @@ BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT16 ubMercID )
 }
 
 
-void AddPlayerToInterfaceTeamSlot( UINT16 ubID )
+void AddPlayerToInterfaceTeamSlot( SoldierID ubID )
 {
 	INT32	cnt;
 
 	// If we are a vehicle don't ever add.....
-	if ( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	if ( ubID->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
 
-	if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+	if ( !( ubID->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 	{
 		if ( !PlayerExistsInSlot( ubID ) )
 		{
@@ -6899,7 +6899,7 @@ void AddPlayerToInterfaceTeamSlot( UINT16 ubID )
 					fInterfacePanelDirty = DIRTYLEVEL2;
 
 					// Set ID to do open anim
-					MercPtrs[ ubID ]->flags.fUInewMerc						= TRUE;
+					ubID->flags.fUInewMerc						= TRUE;
 
 					break;
 				}
@@ -6909,14 +6909,14 @@ void AddPlayerToInterfaceTeamSlot( UINT16 ubID )
 	else
 	{
 		// anv: for passengers, position on team panel will be linked with seat in vehicle
-		if ( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		if ( ubID->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 		{
-			SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubID ]->iVehicleId );
+			SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( ubID->iVehicleId );
 			if( pVehicle != NULL )
 			{
-				for( UINT8 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+				for( UINT8 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ ubID->iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 				{
-					SOLDIERTYPE *pPassenger = pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].pPassengers[ iCounter ];
+					SOLDIERTYPE *pPassenger = pVehicleList[ ubID->iVehicleId ].pPassengers[ iCounter ];
 					if( pPassenger != NULL && pPassenger->ubID == ubID )
 					{
 						gTeamPanel[ iCounter ].fOccupied = TRUE;
@@ -6929,7 +6929,7 @@ void AddPlayerToInterfaceTeamSlot( UINT16 ubID )
 						fInterfacePanelDirty = DIRTYLEVEL2;
 
 						// Set ID to do open anim
-						MercPtrs[ ubID ]->flags.fUInewMerc = TRUE;
+						ubID->flags.fUInewMerc = TRUE;
 	
 						return;
 					}
