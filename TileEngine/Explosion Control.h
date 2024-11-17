@@ -109,7 +109,7 @@ void DecayBombTimers( void );
 void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency );
 BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
 void ActivateSwitchInGridNo( SoldierID ubID, INT32 sGridNo );
-void SetOffPanicBombs( UINT16 ubID, INT8 bPanicTrigger );
+void SetOffPanicBombs( SoldierID ubID, INT8 bPanicTrigger );
 
 void UpdateExplosionFrame( INT32 iIndex, INT16 sCurrentFrame );
 void RemoveExplosionData( INT32 iIndex );

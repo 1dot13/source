@@ -1667,7 +1667,7 @@ void DrawCTHPixelToBuffer( UINT16 *pBuffer, UINT32 uiPitch, INT16 sLeft, INT16 s
 
 //QUOTE_SYSTEM_STRUCT	soldierTTInfo;
 
-void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
+void DrawSelectedUIAboveGuy( SoldierID usSoldierID )
 {
 	SOLDIERTYPE		*pSoldier;
 	INT16			sXPos, sYPos;

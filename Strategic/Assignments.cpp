@@ -3776,7 +3776,7 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 }
 
 // Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
-FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID )
+FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, SoldierID *pubID )
 {
 	// if nobody is here, nobody can fire
 	FLOAT bestsamcth = 0.0f;

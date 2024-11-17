@@ -133,7 +133,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 			//CHRISL: Changed the second parameter to use the same information as the 'F' hotkey uses.
 			//iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( gusSelectedSoldier->sGridNo, sSoldierGridNo ) / 10;
-			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( gusSelectedSoldier->sGridNo, MercPtrs[ gusUIFullTargetID ]->sGridNo ) / 10;
+			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( gusSelectedSoldier->sGridNo, gusUIFullTargetID->sGridNo ) / 10;
 		}
 		// WANNE: If we want to show the tooltip of milita and no merc is present in the sector
 		else
@@ -145,7 +145,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// SANDRO - don't use this if detail set to debug!
 		if ( gGameExternalOptions.gfAllowUDTRange && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
-			uiMaxTooltipDistance = (UINT32)( gusSelectedSoldier->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
+			uiMaxTooltipDistance = (UINT32)( gusSelectedSoldier->GetMaxDistanceVisible(gusUIFullTargetID->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
 			uiMaxTooltipDistance /= 100;
 		}
 		//SCORE: Otherwise if we're using dynamics then do this

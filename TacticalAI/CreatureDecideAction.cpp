@@ -1154,8 +1154,8 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 						// if the selected opponent is not a threat (unconscious & !serviced)
 						// (usually, this means all the guys we see our unconscious, but, on
 						//	rare occasions, we may not be able to shoot a healthy guy, too)
-						if ((Menptr[BestShot.ubOpponent].stats.bLife < OKLIFE) &&
-							!Menptr[BestShot.ubOpponent].bService)
+						if ((BestShot.ubOpponent->stats.bLife < OKLIFE) &&
+							!BestShot.ubOpponent->bService)
 						{
 							// if our attitude is NOT aggressive
 							if (pSoldier->aiData.bAttitude != AGGRESSIVE)

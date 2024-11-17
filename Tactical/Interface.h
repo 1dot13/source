@@ -458,7 +458,7 @@ void HandleInterfaceBackgrounds( );
 void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... );
 void EndOverlayMessage( );
 
-void DrawSelectedUIAboveGuy( UINT16 usSoldierID );
+void DrawSelectedUIAboveGuy( SoldierID usSoldierID );
 
 // HEADROCK HAM 4: Draw the CTH indicator, using values grabbed from the global CTH array
 BOOLEAN DrawCTHIndicator();

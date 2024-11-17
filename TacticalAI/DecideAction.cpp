@@ -595,10 +595,10 @@ INT8 DecideActionBoxerEnteringRing(SOLDIERTYPE *pSoldier)
 
 INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 {
-	INT32 sDesiredMercLoc;
-	UINT8	ubDesiredMercDir;
-	UINT8	ubDesiredMerc;
-	INT32	sDesiredMercDist;
+	INT32		sDesiredMercLoc;
+	UINT8		ubDesiredMercDir;
+	SoldierID	ubDesiredMerc;
+	INT32		sDesiredMercDist;
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif

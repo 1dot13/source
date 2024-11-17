@@ -108,7 +108,7 @@ extern INT8		gbNewItemCycle[ NUM_INV_SLOTS ];
 extern UINT8		gubNewItemMerc;
 
 void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed );
-void EndRadioLocator( UINT16 ubID );
+void EndRadioLocator( SoldierID ubID );
 
 
 extern MOUSE_REGION	gSMPanelRegion;

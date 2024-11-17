@@ -3009,9 +3009,7 @@ void MercCellMouseClickCallback( MOUSE_REGION *reg, INT32 reason )
 
 		if( gpAR->pRobotCell )
 		{ //if controller is retreating, make the robot retreat too.
-			UINT16 ubRobotControllerID;
-
-			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
+			SoldierID ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 
 			if( ubRobotControllerID == NOBODY )
 			{

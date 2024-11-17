@@ -134,7 +134,7 @@ BOOLEAN GetMouseRecalcAndShowAPFlags( UINT32 *puiCursorFlags, BOOLEAN *pfShowAPs
 
 
 // FUNCTIONS FOR CURSOR DETERMINATION!
-UINT8	GetProperItemCursor( UINT16 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated )
+UINT8	GetProperItemCursor( SoldierID ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated )
 {
 	SOLDIERTYPE *pSoldier;
 	UINT32 uiCursorFlags;
@@ -144,7 +144,7 @@ UINT8	GetProperItemCursor( UINT16 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPo
 	UINT8 ubCursorID=0;
 	UINT8 ubItemCursor = 0;
 
-	pSoldier = MercPtrs[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	fRecalc = GetMouseRecalcAndShowAPFlags( &uiCursorFlags, &fShowAPs );
 
@@ -159,7 +159,7 @@ UINT8	GetProperItemCursor( UINT16 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPo
 	// Calculate target gridno!
 	if ( gfUIFullTargetFound )
 	{
-		sTargetGridNo = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		sTargetGridNo = gusUIFullTargetID->sGridNo;
 	}
 	else
 	{
@@ -573,7 +573,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 		{
 			if ( gusUIFullTargetID != NOBODY )
 			{
-				if ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, MercPtrs[ gusUIFullTargetID ], pSoldier->bAimShotLocation ) < OK_CHANCE_TO_GET_THROUGH )
+				if ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, gusUIFullTargetID, pSoldier->bAimShotLocation ) < OK_CHANCE_TO_GET_THROUGH )
 				{
 					gfCannotGetThrough = TRUE;
 				}
@@ -1556,7 +1556,7 @@ void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN 
 			// Check if we can find a soldier here
 			if ( gfUIFullTargetFound )
 			{
-				pTargetSoldier = MercPtrs[ gusUIFullTargetID ];
+				pTargetSoldier = gusUIFullTargetID;
 
 				if ( FindRelativeSoldierPosition( pTargetSoldier, &usFlags, gusMouseXPos, gusMouseYPos )	)
 				{
@@ -1594,7 +1594,7 @@ void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN 
 	{
 		if ( gfUIFullTargetFound )
 		{
-			pTargetSoldier = MercPtrs[ gusUIFullTargetID ];
+			pTargetSoldier = gusUIFullTargetID;
 
 			if ( pTargetSoldier->ubBodyType == CROW )
 			{
@@ -2583,7 +2583,7 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
 	{
-		usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		usMapPos = gusUIFullTargetID->sGridNo;
 	}
 
 
@@ -2609,7 +2609,7 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 					if ( gfUIFullTargetFound )
 					{
 						// Get target soldier, if one exists
-						pTSoldier = MercPtrs[ gusUIFullTargetID ];
+						pTSoldier = gusUIFullTargetID;
 						sGridNo = pTSoldier->sGridNo;
 						bTargetLevel = pSoldier->pathing.bLevel;
 
@@ -2727,7 +2727,7 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 				if ( gfUIFullTargetFound )
 				{
 					// Get target soldier, if one exists
-					pTSoldier = MercPtrs[ gusUIFullTargetID ];
+					pTSoldier = gusUIFullTargetID;
 					sGridNo = pTSoldier->sGridNo;
 					bTargetLevel = pSoldier->pathing.bLevel;
 
@@ -3172,7 +3172,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, INT16 sDelta
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
 	{
-		sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		sMapPos = gusUIFullTargetID->sGridNo;
 	}
 
 	switch( ubCursor )
@@ -3180,8 +3180,8 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, INT16 sDelta
 		case TARGETCURS:
 			// warn if bad chance to get through
 			if ( gfUIFullTargetFound &&
-				!HandleCheckForBadChangeToGetThrough( pSoldier, MercPtrs[ gusUIFullTargetID ],
-							MercPtrs[ gusUIFullTargetID ]->sGridNo , MercPtrs[ gusUIFullTargetID ]->pathing.bLevel ) )
+				!HandleCheckForBadChangeToGetThrough( pSoldier, gusUIFullTargetID,
+							gusUIFullTargetID->sGridNo , gusUIFullTargetID->pathing.bLevel ) )
 			{
 				return;
 			}
@@ -3370,7 +3370,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, INT16 sDelta
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
 	{
-		sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		sMapPos = gusUIFullTargetID->sGridNo;
 	}
 
 
@@ -3442,7 +3442,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, INT16 sDelta
 				if ( gfUIFullTargetFound )
 				{
 					// Get target soldier, if one exists
-					pTSoldier = MercPtrs[ gusUIFullTargetID ];
+					pTSoldier = gusUIFullTargetID;
 					sGridNo = pTSoldier->sGridNo;
 					bTargetLevel = pSoldier->pathing.bLevel;
 
@@ -3608,7 +3608,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
-		sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		sMapPos = gusUIFullTargetID->sGridNo;
 	
 	int aimlevelchange = 1;
 	int maxAimCanAfford = 0;
@@ -3681,7 +3681,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 					if ( gfUIFullTargetFound )
 					{
 						// Get target soldier, if one exists
-						pTSoldier = MercPtrs[ gusUIFullTargetID ];
+						pTSoldier = gusUIFullTargetID;
 						sGridNo = pTSoldier->sGridNo;
 						bTargetLevel = pSoldier->pathing.bLevel;
 
@@ -3836,7 +3836,7 @@ void HandleWheelAdjustCursorWOAB( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sD
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
 	{
-		sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		sMapPos = gusUIFullTargetID->sGridNo;
 	}
 
 
@@ -3908,7 +3908,7 @@ void HandleWheelAdjustCursorWOAB( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sD
 				if ( gfUIFullTargetFound )
 				{
 					// Get target soldier, if one exists
-					pTSoldier = MercPtrs[ gusUIFullTargetID ];
+					pTSoldier = gusUIFullTargetID;
 					sGridNo = pTSoldier->sGridNo;
 					bTargetLevel = pSoldier->pathing.bLevel;
 

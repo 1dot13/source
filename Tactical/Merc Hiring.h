@@ -46,7 +46,7 @@ extern INT16	gsMercArriveSectorY;
 
 
 INT8		HireMerc( MERC_HIRE_STRUCT *pHireMerc);
-void		MercArrivesCallback(	UINT16 ubSoldierID );
+void		MercArrivesCallback( SoldierID ubSoldierID );
 BOOLEAN IsMercHireable( UINT8 ubMercID );
 BOOLEAN IsMercDead( UINT8 ubMercID );
 UINT16		NumberOfMercsOnPlayerTeam();

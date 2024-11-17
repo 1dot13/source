@@ -1091,7 +1091,7 @@ void EnemyHeliSAMCheck( INT16 id )
 					// also check whether this sector is not enemy-controlled - we can't have the AI shooting at its own helis
 					if ( pSAMStrategicMap && !pSAMStrategicMap->fEnemyControlled )
 					{
-						UINT16 ubBestSAMOperatorID = NOBODY;
+						SoldierID ubBestSAMOperatorID = NOBODY;
 						FLOAT samcth = GetBestSAMOperatorCTH_Player( gpSamSectorX[i], gpSamSectorY[i], 0, &ubBestSAMOperatorID );
 
 						// cth is reduced if SAM is damaged, even if it can still operate

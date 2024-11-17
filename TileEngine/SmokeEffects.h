@@ -28,16 +28,16 @@ typedef struct TAG_SMOKE_EFFECT
 
 	UINT8		ubDuration;		// the number of turns gas will remain effective
 	UINT8		ubRadius;			// the current radius of the cloud in map tiles
-	UINT8	bFlags;			// 0 - outdoors (fast spread), 1 - indoors (slow)
+	UINT8		bFlags;			// 0 - outdoors (fast spread), 1 - indoors (slow)
 	UINT8		bAge;			 // the number of turns gas has been around
-	BOOLEAN	fAllocated;
-	INT8		bType;
-	UINT16	usItem;
-	UINT16	ubOwner;
-	UINT8	ubGeneration;
-	UINT32	uiTimeOfLastUpdate;
-	INT8	iMPTeamIndex;
-	INT32	iMPSmokeEffectID;
+	BOOLEAN		fAllocated;
+	INT8			bType;
+	UINT16		usItem;
+	SoldierID	ubOwner;
+	UINT8		ubGeneration;
+	UINT32		uiTimeOfLastUpdate;
+	INT8			iMPTeamIndex;
+	INT32		iMPSmokeEffectID;
 } SMOKEEFFECT;
 
 extern SMOKEEFFECT				gSmokeEffectData[ NUM_SMOKE_EFFECT_SLOTS ];

@@ -788,65 +788,65 @@ public:
 	void				ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src);
 public:
 	// AI STUFF from before the changes to the memory structure
-	INT8												bOppList[MAX_NUM_SOLDIERS]; // AI knowledge database
-	INT8												bLastAction;
-	INT8												bAction;	
-	INT32												usActionData;
-	INT8												bNextAction;
-	INT32												usNextActionData;
-	INT8												bActionInProgress;
-	INT8												bAlertStatus;
-	INT8												bOppCnt;
-	INT8												bNeutral;
-	INT8												bNewSituation;
-	INT8												bNextTargetLevel;
-	INT8												bOrders;
-	INT8												bAttitude;
-	INT8												bUnderFire;
-	INT8												bShock;
-	INT8												bUnderEscort;
-	INT8												bBypassToGreen;
-	UINT8												ubLastMercToRadio;
-	INT8												bDominantDir;				// AI main direction to face...
-	INT8												bPatrolCnt;					// number of patrol gridnos
-	INT8												bNextPatrolPnt;			// index to next patrol gridno
-	INT32											sPatrolGrid[MAXPATROLGRIDS];// AI list for ptr->orders==PATROL
-	INT32												sNoiseGridno;
-	UINT8												ubNoiseVolume;
-	INT8												bLastAttackHit;
-	UINT16												ubXRayedBy;
-	FLOAT												dHeightAdjustment;
-	INT8												bMorale;
-	INT8												bTeamMoraleMod;
-	INT8												bTacticalMoraleMod;
-	INT8												bStrategicMoraleMod;
-	INT8												bAIMorale;
-	UINT8												ubPendingAction;
-	UINT8												ubPendingActionAnimCount;
-	UINT32												uiPendingActionData1;
-	INT32												sPendingActionData2;
-	INT8												bPendingActionData3;
-	INT8												ubDoorHandleCode;
-	UINT32												uiPendingActionData4;
-	INT8												bInterruptDuelPts;
-	INT8												bPassedLastInterrupt;
-	INT16												bIntStartAPs;	//100AP
-	INT8												bMoved;
-	INT8												bHunting;
-	UINT8												ubLastCall;
-	UINT16												ubCaller;
-	INT32												sCallerGridNo;
-	UINT8												bCallPriority;
-	INT8												bCallActedUpon;
-	INT8												bFrenzied;
-	INT8												bNormalSmell;
-	INT8												bMonsterSmell;
-	INT8												bMobility;
-	INT8												bRTPCombat;
-	INT8												fAIFlags;
-	INT16												bAimTime;	//100AP
-	INT8												bShownAimTime;
-	UINT8												ubInterruptCounter[MAX_NUM_SOLDIERS]; // SANDRO - interrupt counter added
+	INT8				bOppList[MAX_NUM_SOLDIERS]; // AI knowledge database
+	INT8				bLastAction;
+	INT8				bAction;	
+	INT32			usActionData;
+	INT8				bNextAction;
+	INT32			usNextActionData;
+	INT8				bActionInProgress;
+	INT8				bAlertStatus;
+	INT8				bOppCnt;
+	INT8				bNeutral;
+	INT8				bNewSituation;
+	INT8				bNextTargetLevel;
+	INT8				bOrders;
+	INT8				bAttitude;
+	INT8				bUnderFire;
+	INT8				bShock;
+	INT8				bUnderEscort;
+	INT8				bBypassToGreen;
+	UINT8			ubLastMercToRadio;
+	INT8				bDominantDir;				// AI main direction to face...
+	INT8				bPatrolCnt;					// number of patrol gridnos
+	INT8				bNextPatrolPnt;			// index to next patrol gridno
+	INT32			sPatrolGrid[MAXPATROLGRIDS];// AI list for ptr->orders==PATROL
+	INT32			sNoiseGridno;
+	UINT8			ubNoiseVolume;
+	INT8				bLastAttackHit;
+	UINT16			ubXRayedBy;
+	FLOAT			dHeightAdjustment;
+	INT8				bMorale;
+	INT8				bTeamMoraleMod;
+	INT8				bTacticalMoraleMod;
+	INT8				bStrategicMoraleMod;
+	INT8				bAIMorale;
+	UINT8			ubPendingAction;
+	UINT8			ubPendingActionAnimCount;
+	UINT32			uiPendingActionData1;
+	INT32			sPendingActionData2;
+	INT8				bPendingActionData3;
+	INT8				ubDoorHandleCode;
+	UINT32			uiPendingActionData4;
+	INT8				bInterruptDuelPts;
+	INT8				bPassedLastInterrupt;
+	INT16			bIntStartAPs;	//100AP
+	INT8				bMoved;
+	INT8				bHunting;
+	UINT8			ubLastCall;
+	SoldierID		ubCaller;
+	INT32			sCallerGridNo;
+	UINT8			bCallPriority;
+	INT8				bCallActedUpon;
+	INT8				bFrenzied;
+	INT8				bNormalSmell;
+	INT8				bMonsterSmell;
+	INT8				bMobility;
+	INT8				bRTPCombat;
+	INT8				fAIFlags;
+	INT16			bAimTime;	//100AP
+	INT8				bShownAimTime;
+	UINT8			ubInterruptCounter[MAX_NUM_SOLDIERS]; // SANDRO - interrupt counter added
 };
 
 class STRUCT_Flags//last edited at version 102

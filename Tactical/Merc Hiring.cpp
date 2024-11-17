@@ -425,7 +425,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 }
 
 
-void MercArrivesCallback(	UINT16 ubSoldierID )
+void MercArrivesCallback( SoldierID ubSoldierID )
 {
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERTYPE							*pSoldier;
@@ -457,7 +457,7 @@ void MercArrivesCallback(	UINT16 ubSoldierID )
 	// stop time compression until player restarts it
 	StopTimeCompression();
 
-	pSoldier = &Menptr[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	pMerc = &gMercProfiles[ pSoldier->ubProfile ];
 

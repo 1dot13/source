@@ -4855,7 +4855,7 @@ void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency )
 	}
 }
 
-void SetOffPanicBombs( UINT16 ubID, INT8 bPanicTrigger )
+void SetOffPanicBombs( SoldierID ubID, INT8 bPanicTrigger )
 {
 	// need to turn off gridnos & flags in gTacticalStatus
 	gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ] = NOWHERE;	

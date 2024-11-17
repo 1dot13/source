@@ -200,7 +200,7 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 		if (*pbPublOL < NOT_HEARD_OR_SEEN)
 		{
 			// calculate how far this noise was, and its relative "importance"
-			iDistAway = SpacesAway(pSoldier->sGridNo,gsPublicLastKnownOppLoc[pSoldier->bTeam][pTemp->ubID]);
+			iDistAway = SpacesAway(pSoldier->sGridNo, gsPublicLastKnownOppLoc[pSoldier->bTeam][pTemp->ubID]);
 			iNoiseValue = (*pbPublOL) * iDistAway;				// always a negative number!
 
 			if (iNoiseValue > iBestValue)

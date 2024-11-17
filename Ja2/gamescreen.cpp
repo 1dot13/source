@@ -108,10 +108,10 @@ INT32		giCounterPeriodOverlay = 0;
 BOOLEAN	gfExitToNewSector					= FALSE;
 //UINT8		gubNewSectorExitDirection;
 
-BOOLEAN	gfGameScreenLocateToSoldier = FALSE;
-BOOLEAN	gfEnteringMapScreen					= FALSE;
-UINT32	uiOldMouseCursor;
-UINT16	gubPreferredInitialSelectedGuy = NOBODY;
+BOOLEAN		gfGameScreenLocateToSoldier = FALSE;
+BOOLEAN		gfEnteringMapScreen					= FALSE;
+UINT32		uiOldMouseCursor;
+SoldierID	gubPreferredInitialSelectedGuy = NOBODY;
 
 BOOLEAN				gfTacticalIsModal = FALSE;
 MOUSE_REGION	gTacticalDisableRegion;
@@ -1038,7 +1038,7 @@ void TacticalScreenLocateToSoldier( )
 	if ( gubPreferredInitialSelectedGuy != NOBODY )
 	{
 		// ATE: Put condition here...
-		if ( OK_CONTROLLABLE_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) && OK_INTERRUPT_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) )
+		if ( OK_CONTROLLABLE_MERC( gubPreferredInitialSelectedGuy ) && OK_INTERRUPT_MERC( gubPreferredInitialSelectedGuy ) )
 		{
 			LocateSoldier( gubPreferredInitialSelectedGuy, 10 );
 			SelectSoldier( gubPreferredInitialSelectedGuy, FALSE, TRUE );

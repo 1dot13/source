@@ -361,7 +361,7 @@ typedef CHAR8 PaletteRepID[ 30 ];
 typedef struct 
 {
 	UINT8					ubType;
-	PaletteRepID	ID;
+	PaletteRepID				ID;
 	UINT8					ubPaletteSize;
 	UINT8					*r;
 	UINT8					*g;

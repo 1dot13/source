@@ -119,7 +119,7 @@ void AICenterXY( INT32 sGridNo, FLOAT * pdX, FLOAT * pdY )
 	*pdY = (FLOAT) (sYPos * CELL_Y_SIZE + CELL_Y_SIZE / 2);
 }
 
-INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -158,7 +158,7 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOp
 	return( bWorstCTGT );
 }
 
-INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -192,7 +192,7 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 s
 }
 
 
-INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// NOTE: CTGT stands for "ChanceToGetThrough..."
 
@@ -592,7 +592,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
 	UINT8	ubLoop, ubCount;
-	UINT16 ubWhoIsThere;
+	SoldierID ubWhoIsThere;
 	INT32	sTempGridNo;
 
 	ubCount = 0;
@@ -603,7 +603,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		if ( sTempGridNo != sGridNo )
 		{
 			ubWhoIsThere = WhoIsThere2( sTempGridNo, pSoldier->pathing.bLevel );
-			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && MercPtrs[ ubWhoIsThere ]->bTeam == pSoldier->bTeam )
+			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && ubWhoIsThere->bTeam == pSoldier->bTeam )
 			{
 				ubCount++;
 			}

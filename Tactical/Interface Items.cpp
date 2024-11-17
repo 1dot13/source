@@ -8773,23 +8773,23 @@ BOOLEAN SoldierCanSeeCatchComing( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo )
 
 void DrawItemTileCursor( )
 {
-	INT32 usMapPos;
-	UINT16						usIndex;
-	UINT16							ubSoldierID;
-	INT16							sAPCost;
-	BOOLEAN						fRecalc;
-	UINT32						uiCursorFlags;
-	INT32 sFinalGridNo;
-	UINT32						uiCursorId = CURSOR_ITEM_GOOD_THROW;
-	SOLDIERTYPE				*pSoldier;
-	BOOLEAN						fGiveItem = FALSE;
-	INT32 sActionGridNo;
-	UINT8							ubDirection;
-	static UINT32			uiOldCursorId = 0;
-	static UINT16			usOldMousePos = 0;
-	INT16							sEndZ = 0;
-	INT16							sDist;
-	INT8							bLevel;
+	INT32			usMapPos;
+	UINT16			usIndex;
+	SoldierID		ubSoldierID;
+	INT16			sAPCost;
+	BOOLEAN			fRecalc;
+	UINT32			uiCursorFlags;
+	INT32			sFinalGridNo;
+	UINT32			uiCursorId = CURSOR_ITEM_GOOD_THROW;
+	SOLDIERTYPE		*pSoldier;
+	BOOLEAN			fGiveItem = FALSE;
+	INT32			sActionGridNo;
+	UINT8			ubDirection;
+	static UINT32	uiOldCursorId = 0;
+	static UINT16	usOldMousePos = 0;
+	INT16			sEndZ = 0;
+	INT16			sDist;
+	INT8				bLevel;
 
 	if (GetMouseMapPos( &usMapPos) )
 	{
@@ -9120,15 +9120,15 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 	}
 
 
-	UINT8 ubDirection;
-	UINT16	ubSoldierID;
-	UINT16	  usItem;
+	UINT8			ubDirection;
+	SoldierID		ubSoldierID;
+	UINT16			usItem;
 	INT16			sAPCost;
 	SOLDIERTYPE		*pSoldier=NULL;
 	UINT8			ubThrowActionCode=0;
-	UINT32		uiThrowActionData=0;
+	UINT32			uiThrowActionData=0;
 	INT16			sEndZ = 0;
-	BOOLEAN		fGiveItem = FALSE;
+	BOOLEAN			fGiveItem = FALSE;
 	INT32			sGridNo;
 	INT16			sDist;
 

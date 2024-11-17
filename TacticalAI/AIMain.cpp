@@ -874,7 +874,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 {
-	UINT16 ubID;
+	SoldierID ubID;
 
 	if (gfTurnBasedAI)
 	{
@@ -885,19 +885,19 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		}
 
 		// search for any player merc to say close call quote
-		for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubID++ )
+		for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubID )
 		{
-			if ( OK_INSECTOR_MERC( MercPtrs[ ubID ] ) )
+			if ( OK_INSECTOR_MERC( ubID ) )
 			{
-				if ( MercPtrs[ ubID ]->flags.fCloseCall )
+				if ( ubID->flags.fCloseCall )
 				{
-					if ( !gTacticalStatus.fSomeoneHit && MercPtrs[ ubID ]->bNumHitsThisTurn == 0 && !(MercPtrs[ ubID ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+					if ( !gTacticalStatus.fSomeoneHit && ubID->bNumHitsThisTurn == 0 && !(ubID->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
 					{
 						// say close call quote!
-						TacticalCharacterDialogue( MercPtrs[ ubID ], QUOTE_CLOSE_CALL );
-						MercPtrs[ ubID ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+						TacticalCharacterDialogue( ubID, QUOTE_CLOSE_CALL );
+						ubID->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
 					}
-					MercPtrs[ ubID ]->flags.fCloseCall = FALSE;
+					ubID->flags.fCloseCall = FALSE;
 				}
 			}
 		}
@@ -942,7 +942,7 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		ubID = RemoveFirstAIListEntry();
 		if (ubID != NOBODY)
 		{
-			StartNPCAI( MercPtrs[ ubID ] );
+			StartNPCAI( ubID );
 			return;
 		}
 
@@ -1165,12 +1165,12 @@ INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 	return(sCheapestDest);
 }
 
-UINT16 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
+SoldierID GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 {
-	UINT32				uiLoop;
-	INT32				iThreatVal,iMinThreat = 30000;
-	SOLDIERTYPE			*pTargetSoldier;
-	UINT16					ubTargetSoldier = NOBODY;
+	UINT32			uiLoop;
+	INT32			iThreatVal,iMinThreat = 30000;
+	SOLDIERTYPE		*pTargetSoldier;
+	SoldierID		ubTargetSoldier = NOBODY;
 
 	// Loop through all mercs
 
@@ -1914,7 +1914,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
 	INT8 bSlot;
-	UINT16 usSoldierIndex; // added by SANDRO
+	SoldierID usSoldierIndex; // added by SANDRO
 
 #ifdef TESTAICONTROL
 	if (gfTurnBasedAI || gTacticalStatus.fAutoBandageMode)
@@ -2594,7 +2594,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             usSoldierIndex = WhoIsThere2( pSoldier->aiData.usActionData, pSoldier->bTargetLevel);
             if ( usSoldierIndex != NOBODY )
 			{
-                MercStealFromMerc( pSoldier, MercPtrs[usSoldierIndex] );
+                MercStealFromMerc( pSoldier, usSoldierIndex );
 				PossiblyStartEnemyTaunt( pSoldier, TAUNT_STEAL, usSoldierIndex );
 			}
 
@@ -2628,7 +2628,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		case AI_ACTION_USE_SKILL:
 			{
-				UINT16 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
+				SoldierID ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
 
 				BOOLEAN result = pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
 

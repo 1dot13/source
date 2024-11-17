@@ -42,7 +42,7 @@ BOOLEAN FindAutobandageClimbPoint( INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 	BUILDING *	pBuilding;
 	UINT8 ubNumClimbSpots;
 	UINT8 ubLoop;
-	UINT16 ubWhoIsThere;
+	SoldierID ubWhoIsThere;
 
 	pBuilding = FindBuilding( sDesiredGridNo );
 	if (!pBuilding)
@@ -55,12 +55,12 @@ BOOLEAN FindAutobandageClimbPoint( INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 	for ( ubLoop = 0; ubLoop < ubNumClimbSpots; ubLoop++ )
 	{
 		ubWhoIsThere = WhoIsThere2( pBuilding->sUpClimbSpots[ ubLoop ], 1 );
-		if ( ubWhoIsThere != NOBODY && !CanCharacterAutoBandageTeammate( MercPtrs[ ubWhoIsThere ] ) )
+		if ( ubWhoIsThere != NOBODY && !CanCharacterAutoBandageTeammate( ubWhoIsThere ) )
 		{
 			continue;
 		}
 		ubWhoIsThere = WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 0 );
-		if ( ubWhoIsThere != NOBODY && !CanCharacterAutoBandageTeammate( MercPtrs[ ubWhoIsThere ] ) )
+		if ( ubWhoIsThere != NOBODY && !CanCharacterAutoBandageTeammate( ubWhoIsThere ) )
 		{
 			continue;
 		}
@@ -122,7 +122,7 @@ BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck )
 	UINT16 cnt;
 	UINT16 ubMedics = 0, ubPatients = 0;
 	SOLDIERTYPE * pSoldier;
-	static UINT16	ubIDForFullCheck = NOBODY;
+	static SoldierID 	ubIDForFullCheck = NOBODY;
 
 	// run though the list of chars on team
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -311,7 +311,7 @@ INT8 FindBestPatient( SOLDIERTYPE * pSoldier, BOOLEAN * pfDoClimb )
 							{
 								// only switch to this patient if our distance is closer than
 								// the other medic's
-								pOtherMedic = MercPtrs[ pPatient->ubAutoBandagingMedic ];
+								pOtherMedic = pPatient->ubAutoBandagingMedic;
 								sOtherAdjacentGridNo = FindAdjacentGridEx( pOtherMedic, sPatientGridNo, &ubDirection, &sAdjustedGridNo, FALSE, FALSE );
 								if (sOtherAdjacentGridNo != -1)
 								{
@@ -379,8 +379,8 @@ INT8 FindBestPatient( SOLDIERTYPE * pSoldier, BOOLEAN * pfDoClimb )
 		if (pBestPatient->ubAutoBandagingMedic != NOBODY)
 		{
 			// cancel that medic
-			DebugAI(AI_MSG_INFO, MercPtrs[pBestPatient->ubAutoBandagingMedic], String("CancelAIAction: medic: find patient"));
-			CancelAIAction( MercPtrs[ pBestPatient->ubAutoBandagingMedic ], TRUE );
+			DebugAI(AI_MSG_INFO, pBestPatient->ubAutoBandagingMedic, String("CancelAIAction: medic: find patient"));
+			CancelAIAction( pBestPatient->ubAutoBandagingMedic, TRUE );
 		}
 		pBestPatient->ubAutoBandagingMedic = pSoldier->ubID;
 		*pfDoClimb = FALSE;

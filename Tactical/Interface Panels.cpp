@@ -6403,10 +6403,10 @@ void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed )
 	}
 }
 
-void EndRadioLocator( UINT16 ubID )
+void EndRadioLocator( SoldierID ubID )
 {
-	MercPtrs[ ubID ]->flags.fFlashLocator = FALSE;
-	MercPtrs[ ubID ]->flags.fShowLocator = FALSE;
+	ubID->flags.fFlashLocator = FALSE;
+	ubID->flags.fShowLocator = FALSE;
 }
 
 

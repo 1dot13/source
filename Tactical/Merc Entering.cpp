@@ -355,7 +355,7 @@ UINT8			ubHeliScripts[ NUM_HELI_STATES ][ MAX_HELI_SCRIPT ] =
 
 
 BOOLEAN		gfHandleHeli = FALSE;
-UINT16			gusHeliSeats[ MAX_MERC_IN_HELI ];
+SoldierID	gusHeliSeats[ MAX_MERC_IN_HELI ];
 INT8			gbNumHeliSeatsOccupied = 0;
 
 BOOLEAN		gfFirstGuyDown = FALSE;
@@ -392,7 +392,7 @@ void ResetHeliSeats( )
 	gbNumHeliSeatsOccupied = 0;
 }
 
-void AddMercToHeli( UINT16 ubID )
+void AddMercToHeli( SoldierID ubID )
 {
 	if ( gbNumHeliSeatsOccupied < MAX_MERC_IN_HELI )
 	{
@@ -502,21 +502,21 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 			{
 				// Add merc to sector
 				#ifdef JA2UB
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+				//gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				gusHeliSeats[ cnt ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
 				#else
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				//gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				gusHeliSeats[ cnt ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
 				#endif
 				// HEADROCK HAM 3.5: Externalized!
-				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
+				UpdateMercInSector( gusHeliSeats[ cnt ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
 				// Check for merc arrives quotes...
-				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
+				HandleMercArrivesQuotes( gusHeliSeats[ cnt ] );
 
-				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->GetName() );
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], gusHeliSeats[ cnt ]->GetName() );
 
 			}
 
@@ -558,23 +558,23 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 			{
 				// Add merc to sector
 #ifdef JA2UB
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+				//gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				gusHeliSeats[ cnt ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
 #else
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;				
-				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				//gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;				
+				gusHeliSeats[ cnt ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				// sevenfm: if soldiers land into enemy sector, use gsGridNoSweetSpot
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
-				MercPtrs[gusHeliSeats[cnt]]->usStrategicInsertionData = gsGridNoSweetSpot;
+				//gusHeliSeats[ cnt ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				gusHeliSeats[ cnt ]->usStrategicInsertionData = gsGridNoSweetSpot;
 				#endif
 				// HEADROCK HAM 3.5: Externalized!
-				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
+				UpdateMercInSector( gusHeliSeats[ cnt ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
 				// Check for merc arrives quotes...
-				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
+				HandleMercArrivesQuotes( gusHeliSeats[ cnt ] );
 
-				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->GetName() );
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], gusHeliSeats[ cnt ]->GetName() );
 			}
 
 			// Remove heli
@@ -698,24 +698,24 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 						{
 							// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
 							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING animation. 
-							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
-							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
+							gusHeliSeats[ gbCurDrop ]->usAnimState = STANDING;
+							gusHeliSeats[ gbCurDrop ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
 							// Change insertion code
-							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gsGridNoSweetSpot;
+							gusHeliSeats[ gbCurDrop ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							gusHeliSeats[ gbCurDrop ]->usStrategicInsertionData = gsGridNoSweetSpot;
 
 							// HEADROCK HAM 3.5: Externalized!
-							UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
-							//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
+							UpdateMercInSector( gusHeliSeats[ gbCurDrop ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
+							//EVENT_SetSoldierPosition( gusHeliSeats[ gbCurDrop ], sWorldX, sWorldY );
 
 							// IF the first guy down, set squad!
 							if ( gfFirstGuyDown )
 							{
 								gfFirstGuyDown = FALSE;
-								SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
+								SetCurrentSquad( gusHeliSeats[ gbCurDrop ]->bAssignment, TRUE );
 							}
-							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->GetName() );
+							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], gusHeliSeats[ gbCurDrop ]->GetName() );
 
 							++gbCurDrop;
 						
@@ -1024,7 +1024,7 @@ void HandleFirstHeliDropOfGame( )
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
 }
 
-UINT16 SpawnAirDropElite( INT32 sGridNo )
+SoldierID SpawnAirDropElite( INT32 sGridNo )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -1076,7 +1076,7 @@ void InitiateEnemyAirDropSoldiers( INT32 sGridNo )
 
 	for ( int i = 0; i < 6; ++i )
 	{
-		UINT16 id = SpawnAirDropElite( gMapInformation.sSouthGridNo + i );
+		SoldierID id = SpawnAirDropElite( gMapInformation.sSouthGridNo + i );
 
 		if ( id == NOBODY )
 			return;
@@ -1192,23 +1192,23 @@ void HandleEnemyAirdrop( )
 						{
 							// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
 							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING aniamtion. 
-							//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
-							MercPtrs[gusHeliSeats[gbCurDrop]]->EVENT_InitNewSoldierAnim( HELIDROP, 0, FALSE );
+							//gusHeliSeats[ gbCurDrop ]->usAnimState = STANDING;
+							gusHeliSeats[gbCurDrop]->EVENT_InitNewSoldierAnim( HELIDROP, 0, FALSE );
 
 							// Change insertion code
-							MercPtrs[gusHeliSeats[gbCurDrop]]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							MercPtrs[gusHeliSeats[gbCurDrop]]->usStrategicInsertionData = gsGridNoSweetSpot;
+							gusHeliSeats[gbCurDrop]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							gusHeliSeats[gbCurDrop]->usStrategicInsertionData = gsGridNoSweetSpot;
 
 							// HEADROCK HAM 3.5: Externalized!
-							UpdateMercInSector( MercPtrs[gusHeliSeats[gbCurDrop]], gWorldSectorX, gWorldSectorY, startingZ );
+							UpdateMercInSector( gusHeliSeats[gbCurDrop], gWorldSectorX, gWorldSectorY, startingZ );
 
 							// IF the first guy down, set squad!
 							if ( gfFirstGuyDown )
 							{
 								gfFirstGuyDown = FALSE;
-								//SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
+								//SetCurrentSquad( gusHeliSeats[ gbCurDrop ]->bAssignment, TRUE );
 							}
-							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[MERC_HAS_ARRIVED_STR], MercPtrs[gusHeliSeats[gbCurDrop]]->GetName( ) );
+							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[MERC_HAS_ARRIVED_STR], gusHeliSeats[gbCurDrop]->GetName( ) );
 
 							++gbCurDrop;
 

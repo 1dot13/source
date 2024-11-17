@@ -130,20 +130,20 @@ typedef struct
 class ATTACKTYPE
 {
 public:
-	UINT8 ubPossible;				// is this attack form possible
-	UINT16 ubOpponent;				// which soldier is the victim
+	UINT8		ubPossible;				// is this attack form possible
+	SoldierID	ubOpponent;				// which soldier is the victim
 	//CHANGED STRUCTURE VALUE BY GOTTHARD 7/14/07
-	INT16 ubAimTime;				// how many extra APs to spend on aiming
-	INT16 ubChanceToReallyHit;		// chance to hit * chance to get through cover
+	INT16		ubAimTime;				// how many extra APs to spend on aiming
+	INT16		ubChanceToReallyHit;		// chance to hit * chance to get through cover
 	//END STRUCTURE CHANGE BY GOTTHARD 7/14/07
-	INT16 ubAPCost;					// how many APs the attack will use up
-	INT32 iAttackValue;				// relative worthiness of this type of attack
-	INT32 sTarget;					// target gridno of this attack
-	INT8 bTargetLevel;				// target level of this attack
-	INT8 bWeaponIn;					// the inv slot of the weapon in question
-	INT8 bScopeMode;				// SANDRO: added for scope mode and alternative weapon holding
-	UINT8 ubStance;					// recommended stance for attack
-	UINT8 ubFriendlyFireChance;		// highest chance to hit someone of our guys //dnl ch61 180813
+	INT16		ubAPCost;				// how many APs the attack will use up
+	INT32		iAttackValue;			// relative worthiness of this type of attack
+	INT32		sTarget;					// target gridno of this attack
+	INT8			bTargetLevel;			// target level of this attack
+	INT8			bWeaponIn;				// the inv slot of the weapon in question
+	INT8			bScopeMode;				// SANDRO: added for scope mode and alternative weapon holding
+	UINT8		ubStance;				// recommended stance for attack
+	UINT8		ubFriendlyFireChance;	// highest chance to hit someone of our guys //dnl ch61 180813
 
 	ATTACKTYPE(void){ InitAttackType(this); }
 	void InitAttackType(ATTACKTYPE *pAttack);
@@ -212,7 +212,7 @@ void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
 // sevenfm:
 void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
 void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
-void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT16 ubOpponentID);
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, SoldierID ubOpponentID);
 INT32 FindTossSpotInDirection(INT32 sSpot, INT8 bLevel, INT32 sTargetSpot, BOOLEAN fCheckAdjacentDirections, BOOLEAN fCheckFarther);
 void CheckTossGrenadeAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubGrenadeType);
 
@@ -254,7 +254,7 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubPathMode, UINT8 ubWaterOK, UINT8 fFlags);
 void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier);
 INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN * pfClimbingNecessary, BOOLEAN * pfReachable );
-INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc );
+INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, SoldierID * pubDesiredMerc );
 void NPCDoesAct(SOLDIERTYPE *pSoldier);
 void NPCDoesNothing(SOLDIERTYPE *pSoldier);
 INT8 OKToAttack(SOLDIERTYPE *ptr, int target);
@@ -318,7 +318,7 @@ BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, U
 // Get the ID of the farthest opponent  we can see, with an optional minimum range
 // puID - ID of the farthest opponent pSoldier can see
 // sRange - only return true and give an idea if opponent found is further away than this
-BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT16 * puID, INT16 sRange);
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, SoldierID *puID, INT16 sRange);
 
 // are there more allies than friends in adjacent sectors?
 BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY, INT8 aZ);

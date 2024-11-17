@@ -716,16 +716,16 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 				//dnl ch62 180813 ignore firing into breathless targets if there are targets in better condition
 				// sevenfm: check that best opponent exists
 				if (pBestShot->ubOpponent != NOBODY &&
-					(Menptr[pBestShot->ubOpponent].bCollapsed || Menptr[pBestShot->ubOpponent].bBreathCollapsed) &&
-					Menptr[pBestShot->ubOpponent].bBreath < OKBREATH
-					&& Menptr[pBestShot->ubOpponent].bBreath < pOpponent->bBreath)
+					(pBestShot->ubOpponent->bCollapsed || pBestShot->ubOpponent->bBreathCollapsed) &&
+					pBestShot->ubOpponent->bBreath < OKBREATH
+					&& pBestShot->ubOpponent->bBreath < pOpponent->bBreath)
 				{
 					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
 				}
 
 				// sevenfm: if best opponent is dying and new opponent is ok, use new opponent
 				if (pBestShot->ubOpponent != NOBODY &&
-					Menptr[pBestShot->ubOpponent].stats.bLife < OKLIFE &&
+					pBestShot->ubOpponent->stats.bLife < OKLIFE &&
 					pOpponent->stats.bLife >= OKLIFE)
 				{
 					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
@@ -735,7 +735,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 				// guy is conscious at all
 				if (iPercentBetter < -PERCENT_TO_IGNORE_THREAT &&
 					pBestShot->ubOpponent != NOBODY &&
-					Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE)
+					pBestShot->ubOpponent->stats.bLife >= OKLIFE)
 				{
 					// then stick with the older guy as the better target
 					continue;
@@ -753,7 +753,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 
 			// sevenfm: if new opponent is dying and best opponent is ok, ignore new opponent
 			if (pBestShot->ubOpponent != NOBODY &&
-				Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE &&
+				pBestShot->ubOpponent->stats.bLife >= OKLIFE &&
 				pOpponent->stats.bLife < OKLIFE)
 			{
 				//DebugShot(pSoldier, String("new opponent is dying, best opponent is ok - skip"));
@@ -845,7 +845,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	INT32	sGridNo, sEndGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS];
 	INT8	bFriendLevel[MAXMERCS], bOpponentLevel[MAXMERCS];
 	INT32	iEstDamage;
-	UINT16	ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
+	UINT16	ubFriendCnt = 0, ubOpponentCnt = 0;
+	SoldierID ubOpponentID[MAXMERCS];
 	UINT8	ubMaxPossibleAimTime;
 	INT16	sRawAPCost, sMinAPcost;
 	UINT8	ubChanceToHit, ubChanceToGetThrough, ubChanceToReallyHit, ubFriendlyFireChance;
@@ -1479,7 +1480,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 						iThreatValue = iOppThreatValue[ubLoop2];
 
 						// estimate how much damage this tossed item would do to him
-						iEstDamage = EstimateThrowDamage(pSoldier,bPayloadPocket,MercPtrs[ubOpponentID[ubLoop2]],sGridNo);
+						iEstDamage = EstimateThrowDamage(pSoldier, bPayloadPocket, ubOpponentID[ubLoop2], sGridNo);
 
 						if (usOppDist)
 						{
@@ -1492,7 +1493,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 						iTotalThreatValue += (iThreatValue * iEstDamage);
 
 						// only count opponents still standing worth shooting at (in range)
-						if (Menptr[ ubOpponentID[ubLoop2] ].stats.bLife >= OKLIFE)
+						if (ubOpponentID[ubLoop2]->stats.bLife >= OKLIFE)
 						{
 							ubOppsInRange++;
 							if (usOppDist < 2)
@@ -1599,7 +1600,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				// limit RPG use, unless can hit several enemies, shooting at tank or opponent is in a room
 				if (ItemIsRocketLauncher(usInHand) &&
 					ubOppsInRange < 2 &&
-					!ARMED_VEHICLE(MercPtrs[ubOpponentID[ubLoop]]) &&
+					!ARMED_VEHICLE(ubOpponentID[ubLoop]) &&
 					(!InARoom(sOpponentTile[ubLoop], NULL) || pSoldier->bTeam != ENEMY_TEAM))
 				{
 					continue;				// next gridno
@@ -1691,7 +1692,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	{
 		ubMinChanceToReallyHit = 30;
 	}
-	else if (EXPLOSIVE_GUN(usInHand) && !ARMED_VEHICLE(pSoldier) && (pBestThrow->ubOpponent == NOBODY || !ARMED_VEHICLE(MercPtrs[pBestThrow->ubOpponent])))
+	else if (EXPLOSIVE_GUN(usInHand) && !ARMED_VEHICLE(pSoldier) && (pBestThrow->ubOpponent == NOBODY || !ARMED_VEHICLE(pBestThrow->ubOpponent)))
 	{
 		ubMinChanceToReallyHit = 80;
 	}
@@ -1916,7 +1917,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 				// guy is conscious at all
 				if (iPercentBetter < -PERCENT_TO_IGNORE_THREAT &&
 					pBestStab->ubOpponent != NOBODY &&
-					Menptr[pBestStab->ubOpponent].stats.bLife >= OKLIFE)
+					pBestStab->ubOpponent->stats.bLife >= OKLIFE)
 				{
 					// then stick with the older guy as the better target
 					continue;
@@ -1937,12 +1938,12 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 			// OOOF!	That was a lot of work!	But we've got a new best target!
 			pBestStab->ubPossible			= TRUE;
 			pBestStab->ubOpponent			= pOpponent->ubID;
-			pBestStab->ubAimTime			= ubBestAimTime;
-			pBestStab->ubChanceToReallyHit = ubChanceToReallyHit;
-			pBestStab->sTarget			 = pOpponent->sGridNo;
-			pBestStab->bTargetLevel		= pOpponent->pathing.bLevel;
-			pBestStab->iAttackValue		= iAttackValue;
-			pBestStab->ubAPCost			= ubMinAPCost + ubBestAimTime;
+			pBestStab->ubAimTime				= ubBestAimTime;
+			pBestStab->ubChanceToReallyHit  = ubChanceToReallyHit;
+			pBestStab->sTarget				= pOpponent->sGridNo;
+			pBestStab->bTargetLevel			= pOpponent->pathing.bLevel;
+			pBestStab->iAttackValue			= iAttackValue;
+			pBestStab->ubAPCost				= ubMinAPCost + ubBestAimTime;
 		}
 	}
 
@@ -3480,7 +3481,8 @@ BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, U
 {
 	UINT16 ubLoop, ubLoop2;
 	INT32 sGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS], sTabooTile[MAXMERCS];
-	UINT16 ubFriendCnt = 0,ubOpponentCnt = 0, ubTabooCnt = 0, ubOpponentID[MAXMERCS];
+	UINT16 ubFriendCnt = 0, ubOpponentCnt = 0, ubTabooCnt = 0;
+	SoldierID ubOpponentID[MAXMERCS];
 	INT32	bMaxLeft,bMaxRight,bMaxUp,bMaxDown, i, j;
 	INT8	bPersOL, bPublOL;
 	SOLDIERTYPE *pFriend;
@@ -3670,7 +3672,7 @@ BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, U
 // Get the ID of the farthest opponent  we can see, with an optional minimum range
 // puID - ID of the farthest opponent pSoldier can see
 // sRange - only return an true and give an idea if opponent found is further away than this
-BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT16 * puID, INT16 sRange)
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, SoldierID *puID, INT16 sRange)
 {
 	INT32 sGridNo;
 	UINT32 uiLoop;
@@ -3885,13 +3887,13 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			INT8	bLevel = pSoldier->pathing.bLevel;
 
 			// check all friends
-			SOLDIERTYPE * pFriend;
-			INT32	sClosestFriendSpot = NOWHERE;
-			INT8	bClosestFriendLevel = 0;
-			UINT16	ubClosestFriendID = NOBODY;
+			SOLDIERTYPE *pFriend;
+			INT32		sClosestFriendSpot = NOWHERE;
+			INT8			bClosestFriendLevel = 0;
+			SoldierID	ubClosestFriendID = NOBODY;
 
 			INT32	sFriendSpot;
-			INT8	bFriendLevel;
+			INT8		bFriendLevel;
 
 			INT32	sClosestOpponent;
 
@@ -3999,7 +4001,7 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 // check if we can toss grenade at spot, and prepare attack data
 // grenade should be in hand
-void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT16 ubOpponentID)
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, SoldierID ubOpponentID)
 {
 	UINT16	usInHand, usGrenade;
 	INT32	iTossRange;

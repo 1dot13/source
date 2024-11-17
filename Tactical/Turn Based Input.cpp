@@ -573,7 +573,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 				if ( gfUIFullTargetFound )
 				{
 					// Select guy
-					if ( ( guiUIFullTargetFlags & SELECTED_MERC) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC ) && !( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+					if ( ( guiUIFullTargetFlags & SELECTED_MERC) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC ) && !( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 					{
 						*puiNewEvent = M_CHANGE_TO_ADJPOS_MODE;
 						fIgnoreLeftUp = FALSE;
@@ -1250,7 +1250,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 					if( gfUIFullTargetFound )
 					{
 						// ATE: Don't do this automatically for enemies......
-						if ( MercPtrs[ gusUIFullTargetID ]->bTeam != ENEMY_TEAM )
+						if ( gusUIFullTargetID->bTeam != ENEMY_TEAM )
 						{
 							uiMoveTargetSoldierId = gusUIFullTargetID;
 							if ( IsValidTalkableNPC( gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && !ValidQuickExchangePosition( ) )
@@ -1280,7 +1280,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 				{
 					guiUITargetSoldierId = gusUIFullTargetID;
 
-					if ( MercPtrs[ gusUIFullTargetID ]->bTeam != gbPlayerNum )
+					if ( gusUIFullTargetID->bTeam != gbPlayerNum )
 					{
 						fOnValidGuy = TRUE;
 						//ddd turn off flag that indicates aim/autofire mode adjustment (aimed burst/auto)
@@ -3593,7 +3593,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if ( gfUIFullTargetFound )
 							{
 								//Display the range to the target
-								DisplayRangeToTarget( gusSelectedSoldier, MercPtrs[gusUIFullTargetID]->sGridNo );
+								DisplayRangeToTarget( gusSelectedSoldier, gusUIFullTargetID->sGridNo );
 							}
 							else
 							{
@@ -4648,7 +4648,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if ( gfUIFullTargetFound )
 						{
 							// Get soldier...
-							pSoldier2 = MercPtrs[ gusUIFullTargetID ];
+							pSoldier2 = gusUIFullTargetID;
 
 							// Check if both OK....
 							if ( pSoldier1->stats.bLife >= OKLIFE && pSoldier2->ubID != gusSelectedSoldier )
@@ -5677,7 +5677,7 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 
 	if ( gfUIFullTargetFound	)
 	{
-		pTSoldier = MercPtrs[ gusUIFullTargetID ];
+		pTSoldier = gusUIFullTargetID;
 
 		// anv: added condition - make sure we won't put vehicle in another vehicle
 		if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER | SOLDIER_VEHICLE ) ) )
@@ -5824,18 +5824,18 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 			// Flugente: allow stealing if the other guy is an enemy, OR if we are on the same team
 			if ( (( guiUIFullTargetFlags & ENEMY_MERC ) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC )) || (AllowedToStealFromTeamMate(pSoldier->ubID, (UINT8)gusUIFullTargetID) && guiUIFullTargetFlags & OWNED_MERC) )
 			{
-				sActionGridNo =	FindAdjacentGridEx( pSoldier, MercPtrs[ gusUIFullTargetID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+				sActionGridNo =	FindAdjacentGridEx( pSoldier, gusUIFullTargetID->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 				if ( sActionGridNo == -1 )
 				{
 					sActionGridNo = sAdjustedGridNo;
 				}
 
 				// Steal!
-				sAPCost = GetAPsToStealItem( pSoldier, MercPtrs[ gusUIFullTargetID ], sActionGridNo ); // SANDRO - added target variable
+				sAPCost = GetAPsToStealItem( pSoldier, gusUIFullTargetID, sActionGridNo ); // SANDRO - added target variable
 
 				if ( EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
 				{
-					MercStealFromMerc( pSoldier, MercPtrs[ gusUIFullTargetID ] );
+					MercStealFromMerc( pSoldier, gusUIFullTargetID );
 
 					*puiNewEvent = A_CHANGE_TO_MOVE;
 
@@ -5962,7 +5962,7 @@ void HandleHandCursorRightClick( INT32 usMapPos, UINT32 *puiNewEvent )
 
 		if( gfUIFullTargetFound )
 		{
-			pTSoldier = MercPtrs[ gusUIFullTargetID ];
+			pTSoldier = gusUIFullTargetID;
 			if( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) )
 			{
 				// anv: if we are passengers, only show menu when clicking on vehicle we're in
@@ -6058,10 +6058,10 @@ INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 			if ( ValidQuickExchangePosition( ) )
 			{
 				// Check if we can...
-				if ( CanExchangePlaces( pSoldier, MercPtrs[ gusUIFullTargetID ], TRUE ) )
+				if ( CanExchangePlaces( pSoldier, gusUIFullTargetID, TRUE ) )
 				{
 					gpExchangeSoldier1 = pSoldier;
-					gpExchangeSoldier2 = MercPtrs[ gusUIFullTargetID ];
+					gpExchangeSoldier2 = gusUIFullTargetID;
 
 					// Do message box...
 					//DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ EXCHANGE_PLACES_REQUESTER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, ExchangeMessageBoxCallBack, NULL );

@@ -2557,12 +2557,13 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	}
 }
 
-INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc )
+INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, SoldierID * pubDesiredMerc )
 {
-	INT32						sMyGridNo, sDist, sDesiredMercDist = 100;
-	UINT8						ubNPC;
-	UINT16 ubMerc, ubDesiredMerc = NOBODY;
-	UINT8						ubTalkDesire, ubHighestTalkDesire = 0;
+	INT32		sMyGridNo, sDist, sDesiredMercDist = 100;
+	UINT8		ubNPC;
+	UINT16		ubMerc;
+	SoldierID	ubDesiredMerc = NOBODY;
+	UINT8		ubTalkDesire, ubHighestTalkDesire = 0;
 	SOLDIERTYPE *		pMerc;
 	SOLDIERTYPE *		pDesiredMerc = NULL;
 	NPCQuoteInfo *	pNPCQuoteInfoArray;

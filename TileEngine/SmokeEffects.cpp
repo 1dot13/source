@@ -348,7 +348,7 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwne
 	// OJW - 20091027 - Synchronizing smoke effect start for multiplayer
 	if (is_networked && is_client)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[ubOwner];
+		SOLDIERTYPE* pSoldier = ubOwner;
 		if (pSoldier != NULL)
 		{
 			if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))

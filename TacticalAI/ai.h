@@ -228,7 +228,7 @@ void FreeUpNPCFromLoweringGun( SOLDIERTYPE *pSoldier );
 void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier );
 
 UINT8 GetClosestOpponent( SOLDIERTYPE *pSoldier );
-UINT16 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier );
+SoldierID GetMostThreateningOpponent( SOLDIERTYPE *pSoldier );
 
 void HandleSoldierAI( SOLDIERTYPE *pSoldier );
 void HandleInitialRedAlert( INT8 bTeam, UINT8 ubCommunicate);
@@ -271,9 +271,9 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction );
 BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp );
 
 // HEADROCK HAM 3.6: Adding includes for A* cover calculations
-INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
-INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
-INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT16 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
+INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft );
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // Flugente: get the id of the closest soldier (coser than x tiles) of a specific team with a specific flag that we can currently see

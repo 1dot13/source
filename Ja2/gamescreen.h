@@ -1,7 +1,7 @@
 #ifndef _GAMESCREEN_H
 #define _GAMESCREEN_H
 
-
+#include "Overhead Types.h"
 #include "fade screen.h"
 
 #define		ARE_IN_FADE_IN( )		( gfFadeIn || gfFadeInitialized )
@@ -14,9 +14,9 @@ void FadeOutGameScreen( );
 typedef void (*MODAL_HOOK)( void );	
 
 
-extern BOOLEAN	gfGameScreenLocateToSoldier;
-extern BOOLEAN	gfEnteringMapScreen;
-extern UINT16	gubPreferredInitialSelectedGuy;
+extern BOOLEAN		gfGameScreenLocateToSoldier;
+extern BOOLEAN		gfEnteringMapScreen;
+extern SoldierID 	gubPreferredInitialSelectedGuy;
 
 
 void EnterMapScreen( );

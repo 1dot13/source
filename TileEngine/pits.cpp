@@ -207,7 +207,7 @@ void RemoveAllPits()
 void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 sRadius )
 {
 	INT32 x, y, sNewGridNo;
-	UINT16	ubID;
+	SoldierID	ubID;
 	SOLDIERTYPE *pSoldier;
 
 
@@ -227,7 +227,7 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 s
 			{
 				// OK, make guy fall...
 				// Set data to look for exit grid....
-				pSoldier = MercPtrs[ ubID ];
+				pSoldier = ubID;
 
 				pSoldier->aiData.uiPendingActionData4 = sNewGridNo;
 
