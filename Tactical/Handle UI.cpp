@@ -440,7 +440,6 @@ BOOLEAN		gfUIDoNotHighlightSelMerc		= FALSE;
 BOOLEAN		gfUIHandleSelection				= FALSE;
 BOOLEAN		gfUIHandleSelectionAboveGuy		= FALSE;
 BOOLEAN		gfUIInDeadlock					= FALSE;
-UINT16		gUIDeadlockedSoldier				= NOBODY;
 BOOLEAN		gfUIHandleShowMoveGrid			= FALSE;
 INT32		gsUIHandleShowMoveGridLocation  = NOWHERE ;
 BOOLEAN		gfUIOverItemPool					= FALSE;

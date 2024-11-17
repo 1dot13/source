@@ -200,7 +200,6 @@ extern BOOLEAN		gfUIHandleSelectionAboveGuy;
 extern INT32			gsSelectedGridNo;
 extern SoldierID		gsSelectedGuy;
 extern BOOLEAN		gfUIInDeadlock;
-extern UINT16		gUIDeadlockedSoldier;
 
 extern BOOLEAN		gfUIMouseOnValidCatcher;
 extern SoldierID		gubUIValidCatcherID;
