@@ -203,7 +203,7 @@ void ShutdownTacticalEngine( );
 
 BOOLEAN InitOverhead( );
 BOOLEAN ShutdownOverhead( );
-BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex );
+BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, SoldierID usSoldierIndex );
 
 UINT32 CountNonVehiclesOnPlayerTeam( );
 

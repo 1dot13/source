@@ -79,7 +79,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 			if ( TacticalCreateSoldier( &MercCreateStruct, &ubNewIndex ) )
 			{
 				// Get pointer to soldier
-				GetSoldier( &pPlanSoldier, (UINT16)ubNewIndex );
+				GetSoldier( &pPlanSoldier, ubNewIndex );
 
 				pPlanSoldier->sPlannedTargetX = -1;
 				pPlanSoldier->sPlannedTargetY = -1;

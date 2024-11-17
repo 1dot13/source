@@ -832,21 +832,21 @@ BOOLEAN ShutdownOverhead( )
     return( TRUE );
 }
 
-BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex )
+BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, SoldierID usSoldierIndex )
 {
     // Check range of index given
     *ppSoldier = NULL;
-    if ( usSoldierIndex < 0 || usSoldierIndex > TOTAL_SOLDIERS-1 )
+    if ( usSoldierIndex >= NOBODY )
     {
         // Set debug message
         return( FALSE );
     }
     // Check if a guy exists here
     // Does another soldier exist here?
-    if ( MercPtrs[ usSoldierIndex ]->bActive )
+    if ( usSoldierIndex->bActive )
     {
         // Set Existing guy
-        *ppSoldier = MercPtrs[ usSoldierIndex ];
+        *ppSoldier = usSoldierIndex;
         return( TRUE);
     }
     else
