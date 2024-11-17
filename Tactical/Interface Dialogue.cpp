@@ -5206,10 +5206,10 @@ void CarmenLeavesSectorCallback( void )
 
 void PerformJerryMiloAction301()
 {
-	UINT8		ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
+	SoldierID	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
 	UINT8		usNumMercsPresent;
 	SOLDIERTYPE	*pSoldier=NULL;
-	UINT8		ubId;
+	SoldierID	ubId;
 
 	//Get the number and array of the new soldiers
 	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
@@ -5219,7 +5219,7 @@ void PerformJerryMiloAction301()
 	{
 		ubId = ubMercsPresent[ cnt ];
 		
-		TacticalCharacterDialogue( MercPtrs[ubId], QUOTE_DEATH_RATE_REFUSAL );
+		TacticalCharacterDialogue( ubId, QUOTE_DEATH_RATE_REFUSAL );
 	}
 
 	//Trigger Jerry Milo's script record 11 ( call action 302 )
@@ -5231,8 +5231,8 @@ void PerformJerryMiloAction301()
 
 void PerformJerryMiloAction302()
 {
-	UINT8	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
-	UINT8	usNumMercsPresent;
+	SoldierID	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
 	
 	//off jazz
 	//Get the number and array of the new soldiers
@@ -5384,11 +5384,11 @@ void HandleSpecificQuoteWhenLeavingNpcTalkMenu()
 
 void HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( UINT8 ubNpcProfileID, UINT32 uiQuoteNum )
 {
-	UINT8	usNumMercsPresent;
-	UINT8 SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
-	UINT8 ValidSoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES] = {0};
-	UINT8 ubNumValidSoldiers=0;
-	UINT8	ubCnt;
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	SoldierID	ValidSoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES] = {0};
+	UINT8		ubNumValidSoldiers=0;
+	UINT8		ubCnt;
 	SOLDIERTYPE *pSoldier=NULL;
 	SOLDIERTYPE * pNPC;
 

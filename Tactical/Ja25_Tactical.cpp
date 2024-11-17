@@ -452,7 +452,7 @@ BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier )
 	}
 }
 
-UINT8 GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray )
+UINT8 GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierID *pSoldierIdArray, UINT8 *pProfileIdArray )
 {
 	SOLDIERTYPE *pSoldier=NULL;
 	UINT8		usNumMercsPresent=0;
@@ -523,10 +523,10 @@ INT16	RandomProfileIdFromNewMercsOnPlayerTeam()
 	}
 }
 
-INT16	RandomSoldierIdFromNewMercsOnPlayerTeam()
+SoldierID RandomSoldierIdFromNewMercsOnPlayerTeam()
 {
-	UINT8	usNumMercsPresent;
-	UINT8 SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
 
 	//Get the number and array of the new soldiers
 	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierIdArray, NULL );
@@ -536,20 +536,20 @@ INT16	RandomSoldierIdFromNewMercsOnPlayerTeam()
 	if( usNumMercsPresent > 0 )
 	{
 		//return a random merc from the array
-		return( (INT16)( SoldierIdArray[ Random( usNumMercsPresent ) ] ));
+		return( ( SoldierIdArray[ Random( usNumMercsPresent ) ] ));
 	}
 	else
 	{
-		return( -1 );
+		return( NOBODY );
 	}
 }
 
 UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
 {
-	UINT8	usNumMercsPresent;
-	UINT8	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
-	BOOLEAN UsedArray[NUM_MERCS_WITH_NEW_QUOTES];
-	BOOLEAN	fFound=FALSE;
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	BOOLEAN		UsedArray[NUM_MERCS_WITH_NEW_QUOTES];
+	BOOLEAN		fFound=FALSE;
 	UINT8		ubRand;
 
 	memset( UsedArray, 0, NUM_MERCS_WITH_NEW_QUOTES );
@@ -1060,8 +1060,8 @@ void HandlePlayingQuoteWhenHiringNpc( UINT8 ubProfile )
 
 BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQuoteNum )
 {
-	UINT8				usNumMercsPresent;
-	UINT8				SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
 	SOLDIERTYPE *pSoldier=NULL;
 
 	//Get an array of the mercs on the team

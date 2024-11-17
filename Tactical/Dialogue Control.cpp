@@ -661,7 +661,7 @@ void HandleDialogue( )
 			SOLDIERTYPE *pSoldier;
 			INT16		sPlayerGridNo;
 			SoldierID	ubPlayerID;
-			UINT8		ubQualifiedSoldierIDArray[ NUM_MERCS_WITH_NEW_QUOTES ];
+			SoldierID	ubQualifiedSoldierIDArray[ NUM_MERCS_WITH_NEW_QUOTES ];
 			UINT8		ubNumQualifiedMercs=0;
 			UINT8		ubCnt=0;
 
@@ -693,7 +693,7 @@ void HandleDialogue( )
 					//loop through all the mercs
 					for( ubCnt=0; ubCnt<ubNumQualifiedMercs; ++ubCnt )
 					{
-						pSoldier = MercPtrs[ ubQualifiedSoldierIDArray[ ubCnt ] ];
+						pSoldier = ubQualifiedSoldierIDArray[ ubCnt ];
 
 						TacticalCharacterDialogue( pSoldier, QUOTE_JOINING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM );
 						pSoldier->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_MORRIS;

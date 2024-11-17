@@ -535,18 +535,18 @@ typedef struct
 
 typedef struct
 {
-	UINT8 ubDamageFunc; // 1 - gas damage , 2 - explosive damage
-	UINT16 ubSoldierID;
-	UINT16 usExplosiveClassID;
-	INT16 sSubsequent;
-	BOOL fRecompileMovementCosts;
-	INT16 sWoundAmt;
-	INT16 sBreathAmt;
-	UINT16 ubAttackerID;
-	UINT16 usItem;
-	INT32 sBombGridNo;
-	UINT32 uiDist;
-	UINT32 uiPreRandomIndex;
+	UINT8		ubDamageFunc; // 1 - gas damage , 2 - explosive damage
+	SoldierID	ubSoldierID;
+	UINT16		usExplosiveClassID;
+	INT16		sSubsequent;
+	BOOL			fRecompileMovementCosts;
+	INT16		sWoundAmt;
+	INT16		sBreathAmt;
+	SoldierID	ubAttackerID;
+	UINT16		usItem;
+	INT32		sBombGridNo;
+	UINT32		uiDist;
+	UINT32		uiPreRandomIndex;
 } explosiondamage_struct;
 
 bullets_table bTable[11][50];
@@ -2920,7 +2920,7 @@ void recieveMAPCHANGE( RPCParameters *rpcParameters )
 }
 
 // 20091002 - OJW - Explosives
-void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT16 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade)
+void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade)
 {
 	ubOwner = MPEncodeSoldierID(ubOwner); // translate our soldier to the "network" version
 
@@ -3229,11 +3229,11 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_detonate_explosive (UINT32 uiWorldIndex, UINT16 ubID)
+void send_detonate_explosive (UINT32 uiWorldIndex, SoldierID ubID)
 {
 	ubID = MPEncodeSoldierID(ubID);
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ubID];
+	SOLDIERTYPE* pSoldier = ubID;
 	if (pSoldier != NULL)
 	{
 		// explosive detonated on this client, notify the other clients
@@ -3466,7 +3466,7 @@ void recieveDISARMEXPLOSIVE (RPCParameters *rpcParameters)
 	}
 }
 
-void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID )
+void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID )
 {
 	spreadeffect_struct sef;
 
@@ -3551,7 +3551,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 	}
 }
 
-void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, INT32 iSmokeEffectID)
+void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, INT32 iSmokeEffectID)
 {
 	// i'm reusing this struct, the parameters are essentially the same
 	spreadeffect_struct sef;
@@ -3634,7 +3634,7 @@ void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sS
 	client->RPC("sendEXPLOSIONDAMAGE",(const char*)&exp, (int)sizeof(explosiondamage_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
-void send_explosivedamage( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent )
+void send_explosivedamage( SoldierID ubPerson, SoldierID ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent )
 {
 	explosiondamage_struct exp;
 	exp.ubDamageFunc = 2;

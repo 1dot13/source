@@ -38,70 +38,70 @@
 
 typedef struct TAG_anitile
 {
-	struct TAG_anitile				*pNext;
-	UINT32											uiFlags;							// flags struct
-	UINT32											uiTimeLastUpdate;			// Stuff for animated tiles
+	struct TAG_anitile	*pNext;
+	UINT32				uiFlags;							// flags struct
+	UINT32				uiTimeLastUpdate;			// Stuff for animated tiles
 
-	LEVELNODE										*pLevelNode;
-	UINT8												ubLevelID;
-	INT16											sCurrentFrame;		
-	INT16												sStartFrame;	
-	INT16												sDelay;								
-	UINT16											usTileType;
-	UINT16											usNumFrames;
+	LEVELNODE			*pLevelNode;
+	UINT8				ubLevelID;
+	INT16				sCurrentFrame;		
+	INT16				sStartFrame;	
+	INT16				sDelay;								
+	UINT16				usTileType;
+	UINT16				usNumFrames;
 
-	UINT16											usMissAnimationPlayed;	
-	UINT16											ubAttackerMissed;				
-	INT16												sRelativeX;							
-	INT16												sRelativeY;							
-	INT16												sRelativeZ;	
-	INT32 sGridNo;
-	UINT16											usTileIndex;
+	UINT16				usMissAnimationPlayed;	
+	SoldierID			ubAttackerMissed;
+	INT16				sRelativeX;							
+	INT16				sRelativeY;							
+	INT16				sRelativeZ;	
+	INT32				sGridNo;
+	UINT16				usTileIndex;
 
-	UINT16											usCachedTileSubIndex;		// sub Index 
-	INT16												sCachedTileID;					// Index into cached tile ID
+	UINT16				usCachedTileSubIndex;		// sub Index 
+	INT16				sCachedTileID;					// Index into cached tile ID
 
-	UINT8												ubOwner;
-	UINT8												ubKeyFrame1;
-	UINT32											uiKeyFrame1Code;
-	UINT8												ubKeyFrame2;
-	UINT32											uiKeyFrame2Code;
+	UINT8				ubOwner;
+	UINT8				ubKeyFrame1;
+	UINT32				uiKeyFrame1Code;
+	UINT8				ubKeyFrame2;
+	UINT32				uiKeyFrame2Code;
 
-	UINT32											uiUserData;
-	UINT8												ubUserData2;
-	UINT32											uiUserData3;
+	UINT32				uiUserData;
+	UINT8				ubUserData2;
+	UINT32				uiUserData3;
 
-	INT8												bFrameCountAfterStart;
-	INT32											lightSprite;
+	INT8					bFrameCountAfterStart;
+	INT32				lightSprite;
 } ANITILE;
 
 
 typedef struct TAG_anitile_params
 {
-	UINT32											uiFlags;							// flags struct
-	UINT8												ubLevelID;						// Level ID for rendering layer
-	INT16											sStartFrame;					// Start frame
-	INT16												sDelay;								// Delay time
-	UINT16											usTileType;						// Tile databse type ( optional )
-	UINT16											usTileIndex;					// Tile database index ( optional )
-	INT16												sX;										// World X ( optional )
-	INT16												sY;										// World Y ( optional )
-	INT16												sZ;										// World Z ( optional )
-	INT32 sGridNo;							// World GridNo
+	UINT32				uiFlags;							// flags struct
+	UINT8				ubLevelID;						// Level ID for rendering layer
+	INT16				sStartFrame;					// Start frame
+	INT16				sDelay;								// Delay time
+	UINT16				usTileType;						// Tile databse type ( optional )
+	UINT16				usTileIndex;					// Tile database index ( optional )
+	INT16				sX;										// World X ( optional )
+	INT16				sY;										// World Y ( optional )
+	INT16				sZ;										// World Z ( optional )
+	INT32				sGridNo;							// World GridNo
 
-	LEVELNODE										*pGivenLevelNode;			// Levelnode for existing tile ( optional )
-	CHAR8												zCachedFile[ 100 ];		// Filename for cached tile name ( optional )
+	LEVELNODE			*pGivenLevelNode;			// Levelnode for existing tile ( optional )
+	CHAR8				zCachedFile[ 100 ];		// Filename for cached tile name ( optional )
 
-	UINT8												ubOwner;							// UBID for the owner
-	UINT8												ubKeyFrame1;					// Key frame 1
-	UINT32											uiKeyFrame1Code;			// Key frame code
-	UINT8												ubKeyFrame2;					// Key frame 2
-	UINT32											uiKeyFrame2Code;			// Key frame code
+	UINT8				ubOwner;							// UBID for the owner
+	UINT8				ubKeyFrame1;					// Key frame 1
+	UINT32				uiKeyFrame1Code;			// Key frame code
+	UINT8				ubKeyFrame2;					// Key frame 2
+	UINT32				uiKeyFrame2Code;			// Key frame code
 
-	UINT32											uiUserData;
-	UINT8												ubUserData2;
-	UINT32											uiUserData3;
-	INT32											lightSprite;
+	UINT32				uiUserData;
+	UINT8				ubUserData2;
+	UINT32				uiUserData3;
+	INT32				lightSprite;
 } ANITILE_PARAMS;
 
 

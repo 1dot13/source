@@ -1764,7 +1764,7 @@ BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pub
 	return( TRUE );
 }
 
-INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT16 ubOwner, INT32 sAntiMaterialImpact )
+INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, SoldierID ubOwner, INT32 sAntiMaterialImpact )
 {
 	// do damage to a structure; returns TRUE if the structure should be removed
 	STRUCTURE			*pBase;

@@ -30,49 +30,49 @@ typedef struct
 	LEVELNODE* pNodes[BULLET_TRACER_MAX_LENGTH];
 	//afp-end
 	INT32		iBullet;
-	UINT16		ubFirerID;
-	UINT16		ubTargetID;
-	INT8		bStartCubesAboveLevelZ;
-	INT8		bEndCubesAboveLevelZ;
-	INT32	sGridNo;
+	SoldierID	ubFirerID;
+	SoldierID	ubTargetID;
+	INT8			bStartCubesAboveLevelZ;
+	INT8			bEndCubesAboveLevelZ;
+	INT32		sGridNo;
 	INT16		sUnused;
-	UINT16	usLastStructureHit;
-	FIXEDPT	qCurrX;
-	FIXEDPT	qCurrY;
-	FIXEDPT	qCurrZ;
-	FIXEDPT	qIncrX;
-	FIXEDPT	qIncrY;
-	FIXEDPT	qIncrZ;
-	DOUBLE	ddHorizAngle;
+	UINT16		usLastStructureHit;
+	FIXEDPT		qCurrX;
+	FIXEDPT		qCurrY;
+	FIXEDPT		qCurrZ;
+	FIXEDPT		qIncrX;
+	FIXEDPT		qIncrY;
+	FIXEDPT		qIncrZ;
+	DOUBLE		ddHorizAngle;
 	INT32		iCurrTileX;
 	INT32		iCurrTileY;
-	INT8		bLOSIndexX;
-	INT8		bLOSIndexY;
-	BOOLEAN	fCheckForRoof;
+	INT8			bLOSIndexX;
+	INT8			bLOSIndexY;
+	BOOLEAN		fCheckForRoof;
 	INT32		iCurrCubesZ;
 	INT32		iLoop;
-	BOOLEAN	fAllocated;
-	BOOLEAN	fToDelete;
-	BOOLEAN	fLocated;
-	BOOLEAN fReal;
-	BOOLEAN	fAimed;
-	UINT32	uiLastUpdate;
+	BOOLEAN		fAllocated;
+	BOOLEAN		fToDelete;
+	BOOLEAN		fLocated;
+	BOOLEAN		fReal;
+	BOOLEAN		fAimed;
+	UINT32		uiLastUpdate;
 	UINT8		ubTilesPerUpdate;
-	UINT16	usClockTicksPerUpdate;
-	SOLDIERTYPE		*pFirer;			// Flugente: WARNING! We cannot assume this will be valid. Check wether ubFirerID is NOBODY first
-	INT32	sOrigGridNo;	// HEADROCK HAM 5.1: Original tile does not necessarily have to be the pFirer's tile
-	INT32	sTargetGridNo;
+	UINT16		usClockTicksPerUpdate;
+	SOLDIERTYPE	*pFirer;			// Flugente: WARNING! We cannot assume this will be valid. Check wether ubFirerID is NOBODY first
+	INT32		sOrigGridNo;	// HEADROCK HAM 5.1: Original tile does not necessarily have to be the pFirer's tile
+	INT32		sTargetGridNo;
 	INT16		sHitBy;
 	INT32		iImpact;
 	INT32		iImpactReduction;
 	INT32		iRange;
 	INT32		iDistanceLimit;
-	UINT16	usFlags;
-	ANITILE			*pAniTile;
-	ANITILE			*pShadowAniTile;
+	UINT16		usFlags;
+	ANITILE		*pAniTile;
+	ANITILE		*pShadowAniTile;
 	UINT16		ubItemStatus;
-	UINT16	fromItem;
-	INT32 flash;
+	UINT16		fromItem;
+	INT32		flash;
 	// HEADROCK HAM B2.5: Experimental bullet tracer info. If the new tracer system is activated, this flag tells
 	// the bullet animation functions to create a lightpath for this bullet. This means now all bullets in a tracer
 	// magazine will cause a lightshow (that's the intended result).
@@ -83,7 +83,7 @@ typedef struct
 
 extern UINT32 guiNumBullets;
 
-INT32	CreateBullet( UINT16 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem );
+INT32	CreateBullet( SoldierID ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem );
 void	RemoveBullet( INT32 iBullet );
 void	StopBullet( INT32 iBullet );
 void	UpdateBullets( );

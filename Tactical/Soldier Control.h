@@ -2227,7 +2227,7 @@ BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier );
 // added by Flugente
 BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber );						// determine if this (new) trait has two stages
 BOOLEAN MajorTrait( UINT8 uiSkillTraitNumber );							// determine if this is a major trait
-BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo);	// retrieve the gridno of a radio operator who (or whose team) ordered an artillery strike
+BOOLEAN GetRadioOperatorSignal( SoldierID usOwner, INT32* psTargetGridNo);	// retrieve the gridno of a radio operator who (or whose team) ordered an artillery strike
 BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 bTeam );		// can an artillery strike be ordered FROM this sector
 BOOLEAN SectorJammed();
 BOOLEAN PlayerTeamIsScanning();

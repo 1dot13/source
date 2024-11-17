@@ -5670,7 +5670,7 @@ BOOLEAN DuskLight(void)
 	return FALSE;
 }
 
-BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	INT8		bPersonalKnowledge;
 	INT8		bPublicKnowledge;
@@ -5694,7 +5694,7 @@ BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return FALSE;
 }
 
-INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT8 Knowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5709,7 +5709,7 @@ INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return PublicKnowledge(pSoldier->bTeam, ubOpponentID);
 }
 
-INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5724,7 +5724,7 @@ INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return KnownPublicLocation(pSoldier->bTeam, ubOpponentID);
 }
 
-INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5739,7 +5739,7 @@ INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return KnownPublicLevel(pSoldier->bTeam, ubOpponentID);
 }
 
-INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5749,7 +5749,7 @@ INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return pSoldier->aiData.bOppList[ubOpponentID];
 }
 
-INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5763,7 +5763,7 @@ INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return gsLastKnownOppLoc[pSoldier->ubID][ubOpponentID];
 }
 
-INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID)
 {
 	if (!pSoldier || ubOpponentID == NOBODY)
 	{
@@ -5773,7 +5773,7 @@ INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID)
 	return gbLastKnownOppLevel[pSoldier->ubID][ubOpponentID];
 }
 
-INT8 PublicKnowledge(UINT8 bTeam, UINT16 ubOpponentID)
+INT8 PublicKnowledge(UINT8 bTeam, SoldierID ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{
@@ -5783,7 +5783,7 @@ INT8 PublicKnowledge(UINT8 bTeam, UINT16 ubOpponentID)
 	return gbPublicOpplist[bTeam][ubOpponentID];
 }
 
-INT32 KnownPublicLocation(UINT8 bTeam, UINT16 ubOpponentID)
+INT32 KnownPublicLocation(UINT8 bTeam, SoldierID ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{
@@ -5797,7 +5797,7 @@ INT32 KnownPublicLocation(UINT8 bTeam, UINT16 ubOpponentID)
 	return gsPublicLastKnownOppLoc[bTeam][ubOpponentID];
 }
 
-INT8 KnownPublicLevel(UINT8 bTeam, UINT16 ubOpponentID)
+INT8 KnownPublicLevel(UINT8 bTeam, SoldierID ubOpponentID)
 {
 	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
 	{

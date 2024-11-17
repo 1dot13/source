@@ -25194,13 +25194,13 @@ BOOLEAN MajorTrait( UINT8 uiSkillTraitNumber )
 	return FALSE;
 }
 
-BOOLEAN GetRadioOperatorSignal( UINT8 usOwner, INT32* psTargetGridNo )
+BOOLEAN GetRadioOperatorSignal( SoldierID usOwner, INT32* psTargetGridNo )
 {
 	// get the 'real owner'
 	if ( usOwner > 1 )
 	{
 		// a merc planted this - if he's a radio operator, use his gridno
-		SOLDIERTYPE* pSoldier = MercPtrs[usOwner - 2];
+		SOLDIERTYPE* pSoldier = (usOwner - 2);
 
 		if ( pSoldier && pSoldier->CanUseRadio( FALSE ) && pSoldier->bActive && pSoldier->bInSector && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
 		{

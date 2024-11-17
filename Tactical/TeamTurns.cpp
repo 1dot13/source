@@ -114,10 +114,10 @@ typedef struct
 {
 	UINT16		ubOutOfTurnPersons;
 
-	INT16		InterruptOnlyGuynum;
+	SoldierID	InterruptOnlyGuynum;
 	INT16		sWhoThrewRock;
-	BOOLEAN InterruptsAllowed;
-	BOOLEAN fHiddenInterrupt;
+	BOOLEAN		InterruptsAllowed;
+	BOOLEAN		fHiddenInterrupt;
 	UINT8		ubLastInterruptedGuy;
 
 	UINT8	ubFiller[16];

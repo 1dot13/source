@@ -9304,7 +9304,7 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT16 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, SoldierID ubOwner )
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];

@@ -387,19 +387,19 @@ BOOLEAN AICheckSpecialRole(SOLDIERTYPE *pSoldier);
 // Knowledge functions
 // *************************************************************
 
-INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
-INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
-INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT8 Knowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
 
-BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
 
-INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
-INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
-INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT16 ubOpponentID);
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, SoldierID ubOpponentID);
 
-INT8 PublicKnowledge(UINT8 bTeam, UINT16 ubOpponentID);
-INT32 KnownPublicLocation(UINT8 bTeam, UINT16 ubOpponentID);
-INT8 KnownPublicLevel(UINT8 bTeam, UINT16 ubOpponentID);
+INT8 PublicKnowledge(UINT8 bTeam, SoldierID ubOpponentID);
+INT32 KnownPublicLocation(UINT8 bTeam, SoldierID ubOpponentID);
+INT8 KnownPublicLevel(UINT8 bTeam, SoldierID ubOpponentID);
 
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25

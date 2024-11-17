@@ -71,7 +71,7 @@ void RecountBullets(void)
 }
 
 
-INT32	CreateBullet( UINT16 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
+INT32	CreateBullet( SoldierID ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
 {
 	INT32			iBulletIndex;
 	BULLET		*pBullet;
@@ -245,7 +245,7 @@ void LocateBullet( INT32 iBulletIndex )
 	// Check if a bad guy fired!
 	if ( gBullets[ iBulletIndex ].ubFirerID != NOBODY )
 	{
-		if ( MercPtrs[ gBullets[ iBulletIndex ].ubFirerID ]->bSide == gbPlayerNum )
+		if ( gBullets[ iBulletIndex ].ubFirerID->bSide == gbPlayerNum )
 		{
 			if ( !gBullets[ iBulletIndex ].fLocated )
 			{
@@ -633,7 +633,7 @@ BOOLEAN LoadBulletStructureFromSavedGameFile( HWFILE hFile )
 		//Set some parameters
 		gBullets[usCnt].uiLastUpdate = 0;
 		if( gBullets[usCnt].ubFirerID != NOBODY )
-			gBullets[usCnt].pFirer = &Menptr[ gBullets[usCnt].ubFirerID ];
+			gBullets[usCnt].pFirer = gBullets[usCnt].ubFirerID;
 		else
 			gBullets[usCnt].pFirer = NULL;
 

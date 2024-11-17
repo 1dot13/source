@@ -332,7 +332,7 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner,
 	return( iSmokeIndex );
 }
 
-INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
+INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;

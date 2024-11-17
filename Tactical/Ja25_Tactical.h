@@ -37,8 +37,8 @@ typedef struct
 extern	BOOLEAN		gfFirstTimeInGameHeliCrash;
 
 INT16		RandomProfileIdFromNewMercsOnPlayerTeam();
-INT16		RandomSoldierIdFromNewMercsOnPlayerTeam();
-UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray );
+SoldierID	RandomSoldierIdFromNewMercsOnPlayerTeam();
+UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierID *pSoldierIdArray, UINT8 *pProfileIdArray );
 BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier );

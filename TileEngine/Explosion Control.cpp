@@ -63,7 +63,7 @@ BOOLEAN HookerInRoom( UINT16 usRoom );
 // MODULE FOR EXPLOSIONS
 
 // Spreads the effects of explosions...
-BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usItem, UINT16 ubOwner, INT16 sSubsequent, BOOLEAN *pfMercHit, INT8 bLevel, INT32 iSmokeEffectID );
+BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usItem, SoldierID ubOwner, INT16 sSubsequent, BOOLEAN *pfMercHit, INT8 bLevel, INT32 iSmokeEffectID );
 
 // Flashbang effect on soldier
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
@@ -192,7 +192,7 @@ UINT32		guiNumExplosions = 0;
 INT32 GetFreeExplosion( void );
 void RecountExplosions( void );
 void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion );
-void HandleBuldingDestruction( INT32 sGridNo, UINT16 ubOwner );
+void HandleBuldingDestruction( INT32 sGridNo, SoldierID ubOwner );
 
 #ifdef JA2UB
 //JA25 UB
@@ -650,13 +650,13 @@ void HandleFencePartnerCheck( INT32 sStructGridNo )
 
 INT8 ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextCurrent,  INT32 sGridNo, INT16 sWoundAmt,
  UINT32 uiDist,
-	BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT16 ubOwner, INT8 bLevel,
+	BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, BOOLEAN fSubSequentMultiTilesTransitionDamage, SoldierID ubOwner, INT8 bLevel,
 	UINT8 ubReason )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"ExplosiveDamageStructureAtGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompMoveCosts : %i , fOnlyWalls : %i , SubsMulTilTransDmg :  %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt , uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
+		sprintf(tmpMPDbgString,"ExplosiveDamageStructureAtGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompMoveCosts : %i , fOnlyWalls : %i , SubsMulTilTransDmg :  %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt , uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , (int)fSubSequentMultiTilesTransitionDamage , ubOwner.i , bLevel );
 		MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -1329,14 +1329,14 @@ STRUCTURE *gStruct;
 
 void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
  BOOLEAN *pfRecompileMovementCosts, 
-	BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT16 ubOwner,
+	BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, SoldierID ubOwner,
  INT8 bLevel,
 	UINT8 ubReason )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"ExplosiveDamageGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompileMoveCosts : %i , fOnlyWalls : %i , MultiStructSpecialFlag : %i ,fSubsequentMultiTilesTransDmg : %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt ,uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , bMultiStructSpecialFlag , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
+		sprintf(tmpMPDbgString,"ExplosiveDamageGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompileMoveCosts : %i , fOnlyWalls : %i , MultiStructSpecialFlag : %i ,fSubsequentMultiTilesTransDmg : %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt ,uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , bMultiStructSpecialFlag , (int)fSubSequentMultiTilesTransitionDamage , ubOwner.i , bLevel );
 		MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -1511,12 +1511,12 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
 }
 
 
-BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent, BOOL fFromRemoteClient )
+BOOLEAN DamageSoldierFromBlast( SoldierID ubPerson, SoldierID ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent, BOOL fFromRemoteClient )
 {
 	// OJW - 20091028
 	if (is_networked && is_client)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+		SOLDIERTYPE* pSoldier = ubPerson;
 		if (pSoldier != NULL)
 		{
 			// only the owner of a merc may send damage (as this takes into account equipped armor)
@@ -1532,9 +1532,9 @@ BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGrid
 			}
 		}
 #ifdef JA2BETAVERSION
-	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"DamageSoldierFromBlast ( ubPerson : %i , ubOwner : %i , sBombGridNo : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , usItem : %i , sSubs : %i , fFromRemoteClient : %i )\n",ubPerson, ubOwner , sBombGridNo , sWoundAmt , sBreathAmt , uiDist , usItem , sSubsequent , fFromRemoteClient );
-	MPDebugMsg(tmpMPDbgString);
+		CHAR tmpMPDbgString[512];
+		sprintf(tmpMPDbgString,"DamageSoldierFromBlast ( ubPerson : %i , ubOwner : %i , sBombGridNo : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , usItem : %i , sSubs : %i , fFromRemoteClient : %i )\n",ubPerson.i, ubOwner.i , sBombGridNo , sWoundAmt , sBreathAmt , uiDist , usItem , sSubsequent , fFromRemoteClient );
+		MPDebugMsg(tmpMPDbgString);
 #endif
 	}
 
@@ -1547,7 +1547,7 @@ BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGrid
 	BOOLEAN fFlashbang = Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLASHBANG;
 	UINT16 usHalfExplosionRadius;
 
-	pSoldier = MercPtrs[ ubPerson ];	// someone is here, and they're gonna get hurt
+	pSoldier = ubPerson;	// someone is here, and they're gonna get hurt
 
 	if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife )
 		return( FALSE );
@@ -1612,29 +1612,29 @@ BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGrid
 	// SANDRO - STOMP traits
 	else
 	{
-		if ( ubOwner < TOTAL_SOLDIERS && (MercPtrs[ ubOwner ] != NULL) && gGameOptions.fNewTraitSystem)
+		if ( ubOwner < TOTAL_SOLDIERS && gGameOptions.fNewTraitSystem)
 		{
 			// Demolitions damage bonus with bombs and mines
-			if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], DEMOLITIONS_NT ) &&
+			if ( HAS_SKILL_TRAIT(  ubOwner, DEMOLITIONS_NT ) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && Item[usItem].usItemClass == IC_BOMB &&
 				(!ItemIsAttachment(usItem) || ItemIsMine(usItem)))
 			{
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines) / 100.0f + 0.5f);
 			}
 			// Heavy Weapons trait bonus damage to tanks
-			if ( HAS_SKILL_TRAIT( MercPtrs[ubOwner], HEAVY_WEAPONS_NT ) && (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) &&
+			if ( HAS_SKILL_TRAIT( ubOwner, HEAVY_WEAPONS_NT ) && (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL )
 			{
-				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +30%
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS(  ubOwner, HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +30%
 			}
 			// Heavy Weapons trait bonus damage with rocket, grenade launchers and mortar
-			else if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ) &&
+			else if ( HAS_SKILL_TRAIT(  ubOwner, HEAVY_WEAPONS_NT ) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
 				((Item[usItem].usItemClass == IC_BOMB && ItemIsAttachment(usItem) &&	!ItemIsMine(usItem) ) || // mortar shells
 				(Item[usItem].usItemClass == IC_GRENADE && (ItemIsGLgrenade(usItem) || ItemIsElectronic(usItem)) ) || // rockets for rocketlaunchers (I haven't found any other way)
 				(Item[usItem].usItemClass == IC_LAUNCHER ) || ItemIsRocketLauncher(usItem) || ItemIsSingleShotRocketLauncher(usItem) ) )
 			{
-				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +15%
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS(  ubOwner, HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +15%
 			}
 		}
 
@@ -1890,9 +1890,9 @@ BOOLEAN DamageSoldierFromBlast( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGrid
 	
 	pSoldier->ubMiscSoldierFlags |= SOLDIER_MISC_HURT_BY_EXPLOSION;
 
-	if ( ubOwner != NOBODY && MercPtrs[ ubOwner ]->bTeam == gbPlayerNum && pSoldier->bTeam != gbPlayerNum )
+	if ( ubOwner != NOBODY &&  ubOwner->bTeam == gbPlayerNum && pSoldier->bTeam != gbPlayerNum )
 	{
-		ProcessImplicationsOfPCAttack( MercPtrs[ ubOwner ], &pSoldier, REASON_EXPLOSION );
+		ProcessImplicationsOfPCAttack(  ubOwner, &pSoldier, REASON_EXPLOSION );
 	}
 
 	return( TRUE );
@@ -2163,7 +2163,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 	return( fRecompileMovementCosts );
 }
 
-BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usItem, UINT16 ubOwner,  INT16 sSubsequent, BOOLEAN *pfMercHit, INT8 bLevel, INT32 iSmokeEffectID )
+BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usItem, SoldierID ubOwner,  INT16 sSubsequent, BOOLEAN *pfMercHit, INT8 bLevel, INT32 iSmokeEffectID )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
@@ -2174,7 +2174,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 #endif
 
 	INT16 sWoundAmt = 0,sBreathAmt = 0, /* sNewWoundAmt = 0, sNewBreathAmt = 0, */ sStructDmgAmt;
-	UINT16 ubPerson;
+	SoldierID ubPerson;
 	SOLDIERTYPE *pSoldier;
 	EXPLOSIVETYPE *pExplosive;
 	INT16 sX, sY;
@@ -2533,7 +2533,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 				return( fRecompileMovementCosts );
 			}
 
-			pSoldier = MercPtrs[ ubPerson ];	// someone is here, and they're gonna get hurt
+			pSoldier = ubPerson;	// someone is here, and they're gonna get hurt
 
 			// silversurfer: Gas now only has an effect when the container had time to emit some. Initially it will do nothing.
 			// This prevents the problem that we have to suffer two times without a chance to react (1st when the grenade hits our position, 2nd when our turn starts)
@@ -2918,11 +2918,11 @@ void GetRayStopInfo( UINT32 uiNewSpot, UINT8 ubDir, INT8 bLevel, BOOLEAN fSmokeE
 
 
 
-void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID, BOOL fFromRemoteClient, BOOL fNewSmokeEffect  )
+void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID, BOOL fFromRemoteClient, BOOL fNewSmokeEffect  )
 {
 	if (is_networked && is_client)
 	{
-		SOLDIERTYPE* pAttacker = MercPtrs[ubOwner];
+		SOLDIERTYPE* pAttacker = ubOwner;
 		if (pAttacker != NULL)
 		{
 			if (IsOurSoldier(pAttacker) || (pAttacker->bTeam == 1 && is_server))
@@ -2932,7 +2932,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner,
 				{
 					// let all the other clients know we are spawning this effect
 					// and align them with our random number generator
-					send_spreadeffect(sGridNo,ubRadius,usItem,ubOwner,fSubsequent,bLevel,iSmokeEffectID);
+					send_spreadeffect(sGridNo, ubRadius, usItem, ubOwner, fSubsequent, bLevel, iSmokeEffectID);
 				}
 			}
 			else if (!fFromRemoteClient)
@@ -3803,7 +3803,7 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 			if (IsOurSoldier((SOLDIERTYPE*)gubPersonToSetOffExplosions) || IsOurSoldier((SOLDIERTYPE*)soldierID))
 			{
 				// we set off the bomb (could be failed disarm) or we own it, tell the other clients we are setting it off
-				send_detonate_explosive(iWorldIndex,gubPersonToSetOffExplosions);
+				send_detonate_explosive(iWorldIndex, gubPersonToSetOffExplosions);
 			}
 			else if (gWorldBombs[uiWorldBombIndex].bIsFromRemotePlayer && !fFromRemoteClient)
 			{
@@ -3932,10 +3932,10 @@ BOOLEAN ActivateSurroundingTripwire( SoldierID ubID, INT32 sGridNo, INT8 bLevel,
 
 							// SANDRO - merc records
 							// only if we blew up somebody not in our team(no achievement for blowing our guys :)), only if owner exists and have profile
-							if ( (MercPtrs[ubID]->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+							if ( (ubID->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
 							{
-								if ( MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile != NO_PROFILE && MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->bTeam == gbPlayerNum ) 
-									gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
+								if ( ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile != NO_PROFILE && ((*pObj)[0]->data.misc.ubBombOwner - 2)->bTeam == gbPlayerNum ) 
+									gMercProfiles[ ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile ].records.usExpDetonated++;
 							}
 
 							/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
@@ -3962,7 +3962,7 @@ BOOLEAN ActivateSurroundingTripwire( SoldierID ubID, INT32 sGridNo, INT8 bLevel,
 }
 
 // Flugente: A special function for tripwire gun traps. Search if pObj has a gun attached. If so, fire a shot from that gun in a specific direction. Afterwards place the gun on the ground
-void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT16 ubId, UINT8 ubDirection )
+void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, SoldierID ubId, UINT8 ubDirection )
 {
 	if ( !pObj )
 		return;
@@ -3980,7 +3980,7 @@ void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT
 			gTacticalStatus.uiFlags |= (DISALLOW_SIGHT | CHECK_SIGHT_AT_END_OF_ATTACK);
 		}
 
-		FireFragmentsTrapGun( MercPtrs[ubId], sGridNo, 0, pObj, ubDirection );
+		FireFragmentsTrapGun( ubId, sGridNo, 0, pObj, ubDirection );
 
 		// this is important... if not set, the game will remain in a loop
 		gTacticalStatus.ubAttackBusyCount = 0;
@@ -4055,11 +4055,11 @@ void HandleExplosionQueue( void )
 					if ( sSoundID > NO_ALT_SOUND )
 						PlayJA2Sample( sSoundID, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 					
-					UINT16 ubID = WhoIsThere2( sGridNo, ubLevel );
+					SoldierID ubID = WhoIsThere2( sGridNo, ubLevel );
 
 					if ( ubID != NOBODY )
 					{
-						SOLDIERTYPE* pSoldier = MercPtrs[ubID];
+						SOLDIERTYPE* pSoldier = ubID;
 
 						INT16 damage = Explosive[Item[pObj->usItem].ubClassIndex].ubDamage * 0.67f + Random( Explosive[Item[pObj->usItem].ubClassIndex].ubDamage * 0.67f );
 						INT16 breathdamage = Explosive[Item[pObj->usItem].ubClassIndex].ubStunDamage * 0.67f + Random( Explosive[Item[pObj->usItem].ubClassIndex].ubStunDamage * 0.67f );
@@ -4172,7 +4172,7 @@ void HandleExplosionQueue( void )
 							INT16 sX, sY;
 							ConvertGridNoToCenterCellXY(sGridNo, &sX, &sY);
 
-							fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0,
+							fAttFound = HandleAttachedExplosions( ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0,
 											sGridNo, (*pObj)[0]->data.misc.usBombItem, FALSE, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
 						}
 					}
@@ -4219,7 +4219,7 @@ void HandleExplosionQueue( void )
 					// determine gridno to attack - smoke signal required. Otherwise, it is assumed the radio operator ordered the bombing of his OWN position
 					// if we cannot even find a radio operator, all bets are off - target a random gridno
 					// the usual +/- 2 shenanigans
-					UINT16 usOwner = NOBODY;
+					SoldierID usOwner = NOBODY;
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 						usOwner = (*pObj)[0]->data.misc.ubBombOwner - 2;
 
@@ -4251,7 +4251,7 @@ void HandleExplosionQueue( void )
 					// bomb objects only store the SIDE who placed the bomb! :-(
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
-						IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+						IgniteExplosion( ((*pObj)[0]->data.misc.ubBombOwner - 2), sX, sY, 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
 					}
 					else
 					{
@@ -4704,12 +4704,12 @@ void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency )
 						// SANDRO - added merc records and some exp
 						if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
 						{
-							if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
-								MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+							if ( ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile != NO_PROFILE &&
+								((*pObj)[0]->data.misc.ubBombOwner - 2)->bTeam == gbPlayerNum )
 							{
-								gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
+								gMercProfiles[((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile].records.usExpDetonated++;
 
-								StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+								StatChange( ((*pObj)[0]->data.misc.ubBombOwner - 2), EXPLODEAMT, ( 5 ), FALSE );					
 							}
 						}
 
@@ -4804,12 +4804,12 @@ void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency )
 									// SANDRO - added merc records and some exp
 									if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
 									{
-										if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
-											MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+										if ( ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile != NO_PROFILE &&
+											((*pObj)[0]->data.misc.ubBombOwner - 2)->bTeam == gbPlayerNum )
 										{
-											gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
+											gMercProfiles[((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile].records.usExpDetonated++;
 
-											StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+											StatChange( ((*pObj)[0]->data.misc.ubBombOwner - 2), EXPLODEAMT, ( 5 ), FALSE );					
 										}
 									}
 
@@ -4979,8 +4979,8 @@ BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, I
 						// only if we blew up somebody not in our team(no achievement for blowing our guys :)), only if owner exists and have profile
 						if ( (ubID->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
 						{
-							if ( MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile != NO_PROFILE && MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->bTeam == gbPlayerNum ) 
-								gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
+							if ( ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile != NO_PROFILE && ((*pObj)[0]->data.misc.ubBombOwner - 2)->bTeam == gbPlayerNum ) 
+								gMercProfiles[ ((*pObj)[0]->data.misc.ubBombOwner - 2)->ubProfile ].records.usExpDetonated++;
 						}
 
 						/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
@@ -5305,7 +5305,7 @@ void UpdateSAMDoneRepair( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ	)
 // loop through civ team and find
 // anybody who is an NPC and
 // see if they get angry
-void HandleBuldingDestruction( INT32 sGridNo, UINT16 ubOwner )
+void HandleBuldingDestruction( INT32 sGridNo, SoldierID ubOwner )
 {
 	SOLDIERTYPE *	pSoldier;
 	UINT16		cnt;
@@ -5315,7 +5315,7 @@ void HandleBuldingDestruction( INT32 sGridNo, UINT16 ubOwner )
 		return;
 	}
 
-	if ( MercPtrs[ ubOwner ]->bTeam != gbPlayerNum )
+	if (  ubOwner->bTeam != gbPlayerNum )
 	{
 		return;
 	}
@@ -5339,7 +5339,7 @@ void HandleBuldingDestruction( INT32 sGridNo, UINT16 ubOwner )
 
 				if ( DoesNPCOwnBuilding( pSoldier, sGridNo ) )
 				{
-					MakeNPCGrumpyForMinorOffense( pSoldier, MercPtrs[ ubOwner ] );
+					MakeNPCGrumpyForMinorOffense( pSoldier,  ubOwner );
 				}
 			}
 		}
@@ -5624,9 +5624,9 @@ void HavePersonAtGridnoStop( UINT32 sGridNo )
 	SoldierID ubID = WhoIsThere2( sGridNo, 0 );
 
 	//is it a valid person
-	if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
+	if ( (ubID != NOBODY) && (ubID->bTeam == gbPlayerNum) )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+		SOLDIERTYPE *pSoldier = ubID;
 
 		//Stop the merc
 		pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
@@ -5732,10 +5732,10 @@ void HandleDestructionOfPowerGenFan()
 	// Have a qualified merc say a quote
 	//
 	//Get a random qualified merc to say the quote
-	INT16 bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
-	if( bID != -1 )
+	SoldierID bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	if( bID != NOBODY )
 	{
-		DelayedMercQuote( Menptr[ bID ].ubProfile, QUOTE_ACCEPT_CONTRACT_RENEWAL, GetWorldTotalSeconds() + 2 );
+		DelayedMercQuote( bID->ubProfile, QUOTE_ACCEPT_CONTRACT_RENEWAL, GetWorldTotalSeconds() + 2 );
 	}
 }
 
@@ -5773,8 +5773,8 @@ void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 	gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_HAS_SEEN_FORTIFIED_DOOR;
 
 	//find out whos is the one walking across the trap
-	INT16 sID = WhoIsThere2( sGridNo, 0 );
-	if( sID != NOBODY && IsSoldierQualifiedMerc( &Menptr[ sID ] ) )
+	SoldierID sID = WhoIsThere2( sGridNo, 0 );
+	if( sID != NOBODY && IsSoldierQualifiedMerc( sID ) )
 	{
 	}
 	else
@@ -5783,10 +5783,10 @@ void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 		sID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 	}
 
-	if( sID != -1 )
+	if( sID != NOBODY )
 	{
 		//say the quote
-		TacticalCharacterDialogue( &Menptr[ sID ], QUOTE_LENGTH_OF_CONTRACT );
+		TacticalCharacterDialogue( sID, QUOTE_LENGTH_OF_CONTRACT );
 	}
 }
 
@@ -5801,11 +5801,11 @@ void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo )
 	//remeber that the switch to open the forified door on level 1, has been pulled
 	gJa25SaveStruct.ubStatusOfFortifiedDoor = FD__OPEN;
 
-	INT16 bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	SoldierID bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 
-	if( bID != -1 )
+	if( bID != NOBODY )
 	{
-		TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_COMMENT_BEFORE_HANG_UP );
+		TacticalCharacterDialogue( bID, QUOTE_COMMENT_BEFORE_HANG_UP );
 	}
 }
 
@@ -5834,7 +5834,7 @@ void HandleSeeingPowerGenFan( UINT32 sGridNo )
 
 	if( ubPerson != NOBODY )
 	{
-		pSoldier = &Menptr[ ubPerson ];
+		pSoldier = ubPerson;
 
 		//if the fan is stopped And is this merc is a qualified merc but Not a power gen fan qualified merc?
 		if( IsSoldierQualifiedMerc( pSoldier ) && fFanIsStopped )
@@ -5886,7 +5886,7 @@ void HandleSeeingPowerGenFan( UINT32 sGridNo )
 }
 #endif
 
-void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
+void HandleBuddyExplosions(SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
 {
 	// Flugente: Items can have secondary explosions
 	if ( Item[usItem].usBuddyItem )
@@ -5907,7 +5907,7 @@ void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sG
 }
 
 // sevenfm: handle explosive items from attachments
-BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj)
+BOOLEAN HandleAttachedExplosions( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj)
 {
 	BOOLEAN binderFound = FALSE;
 	BOOLEAN detonator = FALSE;
@@ -6264,10 +6264,10 @@ void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 
 	// if there is anybody at the floor level, damage them with the debris
 	// we have to do this BEFORE people drop down. It would otherwise be possible for a falling person to avoid this damage, depending on order of collapsing and possible gridno-shifts.
-	UINT16 ubId = WhoIsThere2( sGridNo, 0 );
+	SoldierID ubId = WhoIsThere2( sGridNo, 0 );
 	if ( ubId != NOBODY )
 	{
-		pSoldier = MercPtrs[ubId];
+		pSoldier = ubId;
 
 		pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 
@@ -6283,7 +6283,7 @@ void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 	ubId = WhoIsThere2( sGridNo, 1 );
 	if ( ubId != NOBODY )
 	{
-		pSoldier = MercPtrs[ubId];
+		pSoldier = ubId;
 
 		INT32 soldierdropoffgridno = sGridNo;
 		if ( !IsLocationSittable( soldierdropoffgridno, FALSE ) )

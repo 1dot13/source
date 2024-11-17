@@ -2435,7 +2435,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 {
 	FLOAT dStartZPos, dEndZPos;
 	INT16 sX, sY, sX2, sY2;
-	UINT16 ubTargetID;
+	SoldierID ubTargetID;
 	BOOLEAN fOk;
 
 	CHECKF( pStartSoldier );
@@ -2455,7 +2455,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 		if (ubTargetID != NOBODY)
 		{
 			// there's a merc there; do a soldier-to-soldier test
-			return( SoldierToSoldierLineOfSightTest( pStartSoldier, MercPtrs[ubTargetID], bAware, iTileSightLimit, LOS_POS, adjustForSight) );
+			return( SoldierToSoldierLineOfSightTest( pStartSoldier, ubTargetID, bAware, iTileSightLimit, LOS_POS, adjustForSight) );
 		}
 		// else... assume standing height
 		dEndZPos = STANDING_LOS_POS + bLevel * HEIGHT_UNITS;
@@ -4640,7 +4640,7 @@ void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle,
 	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
 
-INT8 FireBullet( UINT16 ubFirer, BULLET * pBullet, BOOLEAN fFake )
+INT8 FireBullet( SoldierID ubFirer, BULLET * pBullet, BOOLEAN fFake )
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet"));
 
@@ -4654,7 +4654,7 @@ INT8 FireBullet( UINT16 ubFirer, BULLET * pBullet, BOOLEAN fFake )
 	pBullet->sGridNo = MAPROWCOLTOPOS( pBullet->iCurrTileY, pBullet->iCurrTileX );
 
 	if ( ubFirer != NOBODY )
-		pBullet->pFirer = MercPtrs[ ubFirer ];
+		pBullet->pFirer = ubFirer;
 	else
 		pBullet->pFirer = NULL;
 
@@ -5775,7 +5775,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 // Note that this function does not make provisions for Fake Firing. There is no need for it, and it would needlessly
 // complicate things anyway.
 // Also note we receive start coordinates from the bomb itself, because there's nowhere else to get them.
-INT8 FireFragmentGivenTarget( UINT16 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
+INT8 FireFragmentGivenTarget( SoldierID ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
 {
 	// Artificial...
 	dStartZ++;
@@ -6986,9 +6986,8 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 
 void MoveBullet( INT32 iBullet )
 {
-	BULLET	*pBullet;
-
-	FIXEDPT	qLandHeight;
+	BULLET		*pBullet;
+	FIXEDPT		qLandHeight;
 	INT32		iCurrAboveLevelZ;
 	INT32		iCurrCubesAboveLevelZ;
 	INT16		sDesiredLevel;
@@ -6997,48 +6996,48 @@ void MoveBullet( INT32 iBullet )
 	INT32		iOldTileY;
 	INT32		iOldCubesZ;
 
-	MAP_ELEMENT *		pMapElement;
-	STRUCTURE *			pStructure;
-	STRUCTURE *			pRoofStructure = NULL;
+	MAP_ELEMENT *pMapElement;
+	STRUCTURE	*pStructure;
+	STRUCTURE	*pRoofStructure = NULL;
 
-	FIXEDPT					qLastZ;
+	FIXEDPT		qLastZ;
 
-	SOLDIERTYPE *		pTarget;
-	UINT16						ubTargetID;
-	BOOLEAN					fIntended;
-	BOOLEAN					fStopped;
-	INT8						bOldLOSIndexX;
-	INT8						bOldLOSIndexY;
+	SOLDIERTYPE *pTarget;
+	SoldierID	ubTargetID;
+	BOOLEAN		fIntended;
+	BOOLEAN		fStopped;
+	INT8			bOldLOSIndexX;
+	INT8			bOldLOSIndexY;
 
-	UINT32					uiTileInc = 0;
-	UINT32					uiTime;
+	UINT32		uiTileInc = 0;
+	UINT32		uiTime;
 
-	INT8						bDir;
-	INT32						iGridNo, iAdjGridNo;
+	INT8			bDir;
+	INT32		iGridNo, iAdjGridNo;
 
-	INT32						iRemainingImpact;
+	INT32		iRemainingImpact;
 
-	FIXEDPT					qDistToTravelX;
-	FIXEDPT					qDistToTravelY;
-	INT32						iStepsToTravelX;
-	INT32						iStepsToTravelY;
-	INT32						iStepsToTravel;
+	FIXEDPT		qDistToTravelX;
+	FIXEDPT		qDistToTravelY;
+	INT32		iStepsToTravelX;
+	INT32		iStepsToTravelY;
+	INT32		iStepsToTravel;
 
-	INT32						iNumLocalStructures;
-	INT32						iStructureLoop;
-	UINT32					uiChanceOfHit;
+	INT32		iNumLocalStructures;
+	INT32		iStructureLoop;
+	UINT32		uiChanceOfHit;
 
-	BOOLEAN					fResolveHit;
+	BOOLEAN		fResolveHit;
 
-	INT32						i;
-	BOOLEAN					fGoingOver = FALSE;
-	BOOLEAN					fHitStructure;
+	INT32		i;
+	BOOLEAN		fGoingOver = FALSE;
+	BOOLEAN		fHitStructure;
 
-	FIXEDPT					qWallHeight;
-	FIXEDPT					qWindowBottomHeight;
-	FIXEDPT					qWindowTopHeight;
+	FIXEDPT		qWallHeight;
+	FIXEDPT		qWindowBottomHeight;
+	FIXEDPT		qWindowTopHeight;
 
-	UINT16					lastriotshieldholder = NOBODY;	// added by Flugente
+	SoldierID	lastriotshieldholder = NOBODY;	// added by Flugente
 
 	pBullet = GetBulletPtr( iBullet );
 
@@ -7358,7 +7357,7 @@ void MoveBullet( INT32 iBullet )
 						ubTargetID = WhoIsThere2( iAdjGridNo, (INT8) sDesiredLevel );
 						if (ubTargetID != NOBODY)
 						{
-							pTarget = MercPtrs[ ubTargetID ];
+							pTarget = ubTargetID;
 							if ( IS_MERC_BODY_TYPE( pTarget ) && (pBullet->ubFirerID == NOBODY || pBullet->pFirer->bSide != pTarget->bSide) )
 							{
 								// buckshot has only a 1 in 2 chance of applying a suppression point
@@ -9911,7 +9910,7 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	// If we can't see the target, but buddies can see it, CF-Accuracy drops by 50%
 	// If we can't see the target and neither can buddies, CF-Accuracy drops by 75%
 
-	UINT16 ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
+	SoldierID ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
 	INT16 sDistVis = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	gbForceWeaponNotReady = true;
 	INT16 sDistVisNoScope = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
@@ -9920,12 +9919,12 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 
 	INT32 iSightRange = 0;
 	if (ubTargetID != NOBODY)
-		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false );
+		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, ubTargetID, TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false );
 	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pShooter, pShooter->sTargetGridNo, pShooter->bTargetLevel, pShooter->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
 	}
 	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
-		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false, true );
+		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, ubTargetID, TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false, true );
 	}
 
 	// Modify iSightRange for scope use

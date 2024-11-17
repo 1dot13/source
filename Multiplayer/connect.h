@@ -111,19 +111,19 @@ void send_stop (EV_S_STOP_MERC *SStopMerc);
 void send_interrupt(SOLDIERTYPE *pSoldier);
 
 // OJW - 20091002 - explosives
-void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT16 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade);
+void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade);
 void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, SoldierID ubOwnerID, INT32 iRealObjectID, bool bIsDud);
 void send_plant_explosive (UINT16 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
-void send_detonate_explosive (UINT32 uiWorldIndex, UINT16 ubID);
-void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT16 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
-void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, INT32 iSmokeEffectID);
+void send_detonate_explosive (UINT32 uiWorldIndex, SoldierID ubID);
+void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
+void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, INT32 iSmokeEffectID);
 void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, SoldierID ubOwner );
-void send_explosivedamage( UINT16 ubPerson, UINT16 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent );
+void send_explosivedamage( SoldierID ubPerson, SoldierID ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent );
 void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, SoldierID ubID);
 
 void OpenChatMsgBox(void);
 
-INT8 FireBullet( UINT16 ubFirer, BULLET * pBullet, BOOLEAN fFake );
+INT8 FireBullet( SoldierID ubFirer, BULLET * pBullet, BOOLEAN fFake );
 
 void reapplySETTINGS();
 
