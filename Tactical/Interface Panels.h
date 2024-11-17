@@ -85,10 +85,10 @@ void UpdateSMPanel( );
 BOOLEAN InitTEAMSlots( );
 void AddPlayerToInterfaceTeamSlot( SoldierID ubID );
 BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubID );
-BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT16 * pubID );
+BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, SoldierID * pubID );
 void RemoveAllPlayersFromSlot( );
 BOOLEAN PlayerExistsInSlot( SoldierID ubID );
-BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT16 ubMercID );
+BOOLEAN RemovePlayerFromTeamSlotGivenMercID( SoldierID ubMercID );
 void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier );
 void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 
@@ -149,7 +149,7 @@ void GoToMapScreenFromTactical( void );
 
 void FinishAnySkullPanelAnimations( );
 
-UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
 
 // CHRISL: New callback functions for backpack buttons
 BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus);

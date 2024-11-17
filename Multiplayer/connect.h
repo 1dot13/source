@@ -96,7 +96,7 @@ void send_dir ( SOLDIERTYPE *pSoldier, UINT16 usDesiredDirection );
 void send_fire( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 void send_hit(  EV_S_WEAPONHIT *SWeaponHit  );
 void send_bullet(  BULLET * pBullet, UINT16 usHandItem); 
-void send_hire( UINT8 iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLength, BOOLEAN fCopyProfileItemsOver);
+void send_hire( SoldierID iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLength, BOOLEAN fCopyProfileItemsOver);
 void send_dismiss( UINT16 ubCurrentSoldierID);
 
 void send_gui_pos(SOLDIERTYPE *pSoldier,  FLOAT dNewXPos, FLOAT dNewYPos);
@@ -113,7 +113,7 @@ void send_interrupt(SOLDIERTYPE *pSoldier);
 // OJW - 20091002 - explosives
 void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID, bool bIsThrownGrenade);
 void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, SoldierID ubOwnerID, INT32 iRealObjectID, bool bIsDud);
-void send_plant_explosive (UINT16 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
+void send_plant_explosive ( SoldierID ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
 void send_detonate_explosive (UINT32 uiWorldIndex, SoldierID ubID);
 void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
 void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, INT32 iSmokeEffectID);
@@ -220,7 +220,7 @@ inline SoldierID MPEncodeSoldierID( SoldierID ubID )
 }
 
 // this one can be called anywhere, even if the ID was not "encoded"
-inline UINT16 MPDecodeSoldierID( UINT16 ubID )
+inline SoldierID MPDecodeSoldierID( SoldierID ubID )
 {
 	if ( ubID >= ubID_prefix && ubID < (ubID_prefix + 7) )
 		return ubID - ubID_prefix; // soldier is ours

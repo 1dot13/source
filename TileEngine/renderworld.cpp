@@ -1106,7 +1106,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			}
 			// Set shade
 			// If a bad guy is highlighted
-			if (gfUIHandleSelectionAboveGuy == TRUE && MercPtrs[gsSelectedGuy]->bSide != gbPlayerNum)
+			if (gfUIHandleSelectionAboveGuy == TRUE && gsSelectedGuy->bSide != gbPlayerNum)
 			{
 				if (gsSelectedGuy == pSoldier->ubID)
 				{

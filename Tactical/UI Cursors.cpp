@@ -1420,7 +1420,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 }
 
 
-void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc )
+void DetermineCursorBodyLocation( SoldierID ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc )
 {
 	INT32 usMapPos;
 	SOLDIERTYPE				*pTargetSoldier = NULL, *pSoldier;
@@ -1429,7 +1429,7 @@ void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN 
 	BOOLEAN	fOnGuy = FALSE;
 	LEVELNODE		*pNode;
 
-	pSoldier = MercPtrs[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	if ( gTacticalStatus.ubAttackBusyCount > 0 )
 	{
@@ -2263,10 +2263,10 @@ UINT8 HandleBloodbagCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActiv
 	if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, EMPTY_BLOOD_BAG ) )
 	{
 		// is there a person here?
-		UINT16 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		SoldierID usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
 		if ( usSoldierIndex != NOBODY )
 		{
-			if ( usSoldierIndex != pSoldier->ubID && MercPtrs[usSoldierIndex]->IsValidBloodDonor() )
+			if ( usSoldierIndex != pSoldier->ubID && usSoldierIndex->IsValidBloodDonor() )
 				return BLOODBAG_GREY_UICURSOR;
 		}
 	}
@@ -2298,10 +2298,10 @@ UINT8 HandleSplintCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 		}
 
 		// is there a person here?
-		UINT16 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		SoldierID usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
 		if ( usSoldierIndex != NOBODY )
 		{
-			if ( usSoldierIndex != pSoldier->ubID && MercPtrs[usSoldierIndex]->CanReceiveSplint() )
+			if ( usSoldierIndex != pSoldier->ubID && usSoldierIndex->CanReceiveSplint() )
 				return SPLINT_GREY_UICURSOR;
 		}
 	}
@@ -2384,8 +2384,8 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, HANDCUFFS ) )
 	{
 		// is there a person here?
-		UINT16 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
-		if (usSoldierIndex != NOBODY && MercPtrs[usSoldierIndex] && MercPtrs[usSoldierIndex]->bVisible >= 0 && MercPtrs[usSoldierIndex]->CanBeCaptured())
+		SoldierID usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		if (usSoldierIndex != NOBODY && usSoldierIndex->bVisible >= 0 && usSoldierIndex->CanBeCaptured())
 		{
 			return( HANDCUFF_GREY_UICURSOR );
 		}
@@ -2406,8 +2406,8 @@ UINT8 HandleApplyItemCursor(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 	if (ItemCanBeAppliedToOthers((&(pSoldier->inv[HANDPOS]))->usItem))
 	{
 		// is there a person here?
-		UINT16 ubPerson = WhoIsThere2(sGridNo, pSoldier->pathing.bLevel);
-		if (ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible >= 0)
+		SoldierID ubPerson = WhoIsThere2(sGridNo, pSoldier->pathing.bLevel);
+		if (ubPerson != NOBODY && ubPerson->bVisible >= 0)
 		{
 			return(APPLYITEM_GREY_UICURSOR);
 		}
@@ -3022,8 +3022,8 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 			if ( GetMouseMapPos( &usMapPos ) )
 			{
 				// is there a person here?
-				UINT16 ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
-				if (ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible >= 0)
+				SoldierID ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
+				if (ubPerson != NOBODY && ubPerson->bVisible >= 0)
 				{
 					ubCursor = APPLYITEMCURS;
 				}

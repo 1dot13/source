@@ -1416,7 +1416,7 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 	SOLDIERTYPE *pSoldier = NULL, *pSoldierWhoWillQuit = NULL;
 	INT32				iCounter= 0, iNumberOnTeam = 0;
 // WDS - make number of mercenaries, etc. be configurable
-	UINT16				ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	SoldierID			ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT16				ubNumMercs = 0;
 	UINT16				ubChosenMerc;
 
@@ -1499,15 +1499,16 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 		if ( ubNumMercs > 0 )
 		{
 			ubChosenMerc = (UINT16)Random( ubNumMercs );
+			SOLDIERTYPE *pChosenSoldier = ubPotentialMercs[ubChosenMerc];
 
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
-			HandleImportantMercQuote( MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ], QUOTE_CONTRACTS_OVER );
+			HandleImportantMercQuote( pChosenSoldier, QUOTE_CONTRACTS_OVER );
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
 
 			AddReasonToWaitingListQueue( CONTRACT_EXPIRE_WARNING_REASON );
-			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ], 0, DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU, 0,0 );
+			TacticalCharacterDialogueWithSpecialEvent( pChosenSoldier, 0, DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU, 0,0 );
 
-			MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ]->ubContractRenewalQuoteCode = SOLDIER_CONTRACT_RENEW_QUOTE_89_USED;
+			pChosenSoldier->ubContractRenewalQuoteCode = SOLDIER_CONTRACT_RENEW_QUOTE_89_USED;
 		}
 	}
 }

@@ -610,7 +610,7 @@ void ResizeWorldItems(void)//dnl ch75 271013
 #endif
 }
 
-INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT16 soldierID )
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, SoldierID soldierID )
 {
 	UINT32	iItemIndex;
 	INT32		iReturn;
@@ -658,12 +658,15 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 			{
 				SOLDIERTYPE* pSoldier = NULL;
 
-				if (soldierID == -1)
+				if (soldierID == NOBODY)
 				{
 					if (gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner > 1)
 					{
 						soldierID = gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner - 2; // undo the hack
-						pSoldier = MercPtrs[ soldierID ];
+						if ( soldierID < NOBODY )
+						{
+							pSoldier = soldierID;
+						}
 					}
 				}
 				

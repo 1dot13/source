@@ -3725,7 +3725,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else	// item in cursor
 		{
-			UINT16			ubSrcID, ubDestID;
+			SoldierID	ubSrcID, ubDestID;
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 
@@ -5277,7 +5277,7 @@ BOOLEAN InitializeTEAMPanel(	)
 		{
 			if ( gTeamPanel[ cnt ].ubID != NOBODY )
 			{
-				HandleMouseOverSoldierFaceForContMove( MercPtrs[ gTeamPanel[ cnt ].ubID ], TRUE );
+				HandleMouseOverSoldierFaceForContMove( gTeamPanel[ cnt ].ubID, TRUE );
 			}
 		}
 
@@ -5352,7 +5352,7 @@ BOOLEAN ShutdownTEAMPanel( )
 
 		if ( gTeamPanel[ cnt ].ubID != NOBODY )
 		{
-			HandleMouseOverSoldierFaceForContMove( MercPtrs[ gTeamPanel[ cnt ].ubID ], FALSE );
+			HandleMouseOverSoldierFaceForContMove( gTeamPanel[ cnt ].ubID, FALSE );
 		}
 
 	}
@@ -5416,7 +5416,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			}
 			else
 			{
-				pSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+				pSoldier = gTeamPanel[ cnt ].ubID;
 
 				if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
 				{
@@ -5520,7 +5520,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 		// GET SOLDIER
 		if ( gTeamPanel[ cnt ].fOccupied )
 		{
-			pSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+			pSoldier = gTeamPanel[ cnt ].ubID;
 
 			// Update animations....
 			if ( pSoldier->flags.fClosePanel || pSoldier->flags.fClosePanelToDie )
@@ -6016,7 +6016,8 @@ void HandleMouseOverTeamFaceForContMove( BOOLEAN fOn )
 
 void MercFacePanelMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16 ubID, ubSoldierID;
+	UINT16 ubID;
+	SoldierID ubSoldierID;
 	SOLDIERTYPE	*pSoldier;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
@@ -6040,7 +6041,7 @@ void MercFacePanelMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
-	pSoldier = MercPtrs[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	if ( !pSoldier->bActive )
 	{
@@ -6062,7 +6063,8 @@ void MercFacePanelMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16 ubID, ubSoldierID;
+	UINT16 ubID;
+	SoldierID ubSoldierID;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -6085,7 +6087,7 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
-	if ( !MercPtrs[ ubSoldierID ]->bActive )
+	if ( !ubSoldierID->bActive )
 	{
 		return;
 	}
@@ -6093,14 +6095,14 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		//if ( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 		//{
 		//}
 		//else
 		{
 			SOLDIERTYPE *pSoldier;
 
-			pSoldier = MercPtrs[ ubSoldierID ];
+			pSoldier = ubSoldierID;
 
 			if ( pSoldier->aiData.bOppCnt > 0 )
 			{	// Cycle....
@@ -6117,7 +6119,8 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16 ubID, ubSoldierID;
+	UINT16 ubID;
+	SoldierID ubSoldierID;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -6155,12 +6158,12 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
-	if ( !MercPtrs[ ubSoldierID ]->bActive )
+	if ( !ubSoldierID->bActive )
 	{
 		return;
 	}
 
-	if (!OK_INTERRUPT_MERC(MercPtrs[ubSoldierID]))
+	if (!OK_INTERRUPT_MERC(ubSoldierID))
 	{
 		return;
 	}
@@ -6169,10 +6172,10 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !gfInItemPickupMenu && gpItemPointer == NULL )
 		{
-			//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
-			//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
+			//if ( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			//if ( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
 			//{
-			//	pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
+			//	pVehicle = GetSoldierStructureForVehicle( ubSoldierID->iVehicleId );
 
 			//	HandleLocateSelectMerc( pVehicle->ubID, 0 );
 			//}
@@ -6181,10 +6184,10 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( !InOverheadMap( ) )
 				{
 					// If we can continue a move, do so!
-					if ( CheckForMercContMove( MercPtrs[ ubSoldierID ] ) )
+					if ( CheckForMercContMove( ubSoldierID ) )
 					{
 						// Continue
-						ContinueMercMovement( MercPtrs[ ubSoldierID ] );
+						ContinueMercMovement( ubSoldierID );
 						ErasePath( TRUE );
 					}
 					else
@@ -6192,21 +6195,21 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// HEADROCK HAM 3.5: Shift-Click a merc's face will add him to the current selection.
 						if (!(gTacticalStatus.uiFlags & INCOMBAT) && _KeyDown( SHIFT ) )
 						{
-							if ( ! (MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
+							if ( ! (ubSoldierID->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
 							{
-								if ( OK_CONTROLLABLE_MERC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
+								if ( OK_CONTROLLABLE_MERC( ubSoldierID ) && !( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
 								{
-									//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s added", MercPtrs[ ubSoldierID ]->name );
+									//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s added", ubSoldierID->name );
 									gusSelectedSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
-									MercPtrs[ ubSoldierID ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+									ubSoldierID->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
 									EndMultiSoldierSelection( TRUE );
 								}
 							}
 							// A shift-click on a selected character will remove that character from the current selection.
 							else
 							{
-								//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s removed", MercPtrs[ ubSoldierID ]->name );
-								MercPtrs[ ubSoldierID ]->flags.uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
+								//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s removed", ubSoldierID->name );
+								ubSoldierID->flags.uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
 								if (ubSoldierID != gusSelectedSoldier)
 								{
 									gusSelectedSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
@@ -6216,7 +6219,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						}
 						else
 						{
-							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s selected", MercPtrs[ ubSoldierID ]->name );
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s selected", ubSoldierID->name );
 							HandleLocateSelectMerc( ubSoldierID, 0 );
 						}
 					}
@@ -6233,8 +6236,8 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		if ( !InOverheadMap( ) )
 		{
 			// Only if guy is not dead!
-			//if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
-			if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) )
+			//if ( !( ubSoldierID->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( ubSoldierID ) && !( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			if ( !( ubSoldierID->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( ubSoldierID ) )
 			{
 				gfSwitchPanel = TRUE;
 				gbNewPanel = SM_PANEL;
@@ -6671,7 +6674,8 @@ void RenderSoldierTeamInv( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, UINT8 ubPa
 
 void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16 ubID, ubSoldierID;
+	UINT16 ubID;
+	SoldierID ubSoldierID;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -6694,7 +6698,7 @@ void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	ubSoldierID = gTeamPanel[ ubID ].ubID;
 
 
-	if ( !MercPtrs[ ubSoldierID ]->bActive )
+	if ( !ubSoldierID->bActive )
 	{
 		return;
 	}
@@ -6721,7 +6725,8 @@ void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16		ubID, ubSoldierID;
+	UINT16	ubID;
+	SoldierID ubSoldierID;
 	UINT16	usOldHandItem;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
@@ -6739,9 +6744,9 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason == MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		// anv: select vehicle by clicking on the steering wheel
-		//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+		//if ( ubSoldierID->flags.uiStatusFlags & SOLDIER_DRIVER )
 		//{
-		//	SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
+		//	SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( ubSoldierID->iVehicleId );
 		//	HandleLocateSelectMerc( pVehicle->ubID, 0 );
 		//}
 		//else
@@ -6753,12 +6758,12 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason == MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
-		if ( !AM_A_ROBOT( MercPtrs[ ubSoldierID ] ) )
+		if ( !AM_A_ROBOT( ubSoldierID ) )
 		{
-			usOldHandItem = MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem;
-			//SwapOutHandItem( MercPtrs[ ubSoldierID ] );
-			SwapHandItems( MercPtrs[ ubSoldierID ] );
-			MercPtrs[ ubSoldierID ]->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
+			usOldHandItem = ubSoldierID->inv[HANDPOS].usItem;
+			//SwapOutHandItem( ubSoldierID );
+			SwapHandItems( ubSoldierID );
+			ubSoldierID->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, ubSoldierID->inv[HANDPOS].usItem );
 			fInterfacePanelDirty = DIRTYLEVEL2;
 		}
 	}
@@ -6767,7 +6772,8 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT16 ubID, ubSoldierID;
+	UINT16 ubID;
+	SoldierID ubSoldierID;
 	UINT16	usOldHandItem;
 
 	ubID = (UINT16) MSYS_GetRegionUserData( pRegion, 0 );
@@ -6783,28 +6789,28 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason == MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+		if ( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 		{
-			ExitVehicle( MercPtrs[ ubSoldierID ] );
+			ExitVehicle( ubSoldierID );
 		}
-		else if (UsingNewInventorySystem() && !AM_A_ROBOT(MercPtrs[ubSoldierID]))
+		else if (UsingNewInventorySystem() && !AM_A_ROBOT(ubSoldierID))
 		{
-			MercPtrs[ubSoldierID]->SwitchWeapons();
+			ubSoldierID->SwitchWeapons();
 		}
 	}
 
 	if (iReason == MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+		if ( ubSoldierID->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 		{
 		}
 		else
 		{
-			if ( !AM_A_ROBOT( MercPtrs[ ubSoldierID ] ) )
+			if ( !AM_A_ROBOT( ubSoldierID ) )
 			{
-				usOldHandItem = MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem;
-				SwapHandItems( MercPtrs[ ubSoldierID ] );
-				MercPtrs[ ubSoldierID ]->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
+				usOldHandItem = ubSoldierID->inv[HANDPOS].usItem;
+				SwapHandItems( ubSoldierID );
+				ubSoldierID->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, ubSoldierID->inv[HANDPOS].usItem );
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 		}
@@ -6831,7 +6837,7 @@ BOOLEAN PlayerExistsInSlot( SoldierID ubID )
 }
 
 
-INT8 GetTeamSlotFromPlayerID( UINT16 ubID )
+INT8 GetTeamSlotFromPlayerID( SoldierID ubID )
 {
 	INT8 cnt;
 
@@ -6850,7 +6856,7 @@ INT8 GetTeamSlotFromPlayerID( UINT16 ubID )
 }
 
 
-BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT16 ubMercID )
+BOOLEAN RemovePlayerFromTeamSlotGivenMercID( SoldierID ubMercID )
 {
 	INT32 cnt;
 
@@ -6954,7 +6960,7 @@ BOOLEAN InitTEAMSlots( )
 }
 
 
-BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT16 * pubID )
+BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, SoldierID * pubID )
 {
 	if ( ubPanelSlot >= gGameOptions.ubSquadSize )
 	{
@@ -6992,14 +6998,14 @@ BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubPanelSlot )
 
 	if ( gTeamPanel[ ubPanelSlot ].fOccupied )
 	{
-		if ( !( MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->flags.uiStatusFlags & SOLDIER_DEAD ) )
+		if ( !( gTeamPanel[ ubPanelSlot ].ubID->flags.uiStatusFlags & SOLDIER_DEAD ) )
 	{
 		// Set Id to close
-		MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->flags.fUICloseMerc		= TRUE;
+		gTeamPanel[ ubPanelSlot ].ubID->flags.fUICloseMerc		= TRUE;
 	}
 
 		// Set face to inactive...
-		SetAutoFaceInActive( MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->iFaceIndex );
+		SetAutoFaceInActive( gTeamPanel[ ubPanelSlot ].ubID->iFaceIndex );
 
 
 		gTeamPanel[ ubPanelSlot ].fOccupied = FALSE;
@@ -7132,7 +7138,7 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 	}
 }
 
-UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
+SoldierID FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
 	INT32 cnt;
 	INT32 bFirstID;
@@ -7151,7 +7157,7 @@ UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLif
 		if ( gTeamPanel[ cnt ].fOccupied )
 		{
 			// Set Id to close
-			pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+			pTeamSoldier = gTeamPanel[ cnt ].ubID;
 
 			if ( fOnlyRegularMercs )
 			{
@@ -7211,7 +7217,7 @@ UINT16 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLif
 	{
 		if ( gTeamPanel[ cnt ].fOccupied )
 		{
-			pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+			pTeamSoldier = gTeamPanel[ cnt ].ubID;
 
 			if ( fOnlyRegularMercs )
 			{

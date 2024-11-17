@@ -2558,15 +2558,16 @@ void CheckForRobotAndIfItsControlled( void )
 	// search for the robot on player's team
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && AM_A_ROBOT( MercPtrs[ i ] ))
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if( pSoldier->bActive && pSoldier->stats.bLife && AM_A_ROBOT( pSoldier ))
 		{
 			// check whether it has a valid controller with it. This sets its ubRobotRemoteHolderID field.
-			MercPtrs[ i ]->UpdateRobotControllerGivenRobot( );
+			pSoldier->UpdateRobotControllerGivenRobot( );
 
 			// if he has a controller, set controllers
-			if ( MercPtrs[ i ]->ubRobotRemoteHolderID != NOBODY )
+			if ( pSoldier->ubRobotRemoteHolderID != NOBODY )
 			{
-				MercPtrs[ MercPtrs[ i ]->ubRobotRemoteHolderID ]->UpdateRobotControllerGivenController( );
+				pSoldier->ubRobotRemoteHolderID->UpdateRobotControllerGivenController( );
 			}
 
 			break;

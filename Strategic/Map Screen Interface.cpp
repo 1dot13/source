@@ -2380,9 +2380,9 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 {
 	PLAYERGROUP *pPlayer;
 	SOLDIERTYPE *pSoldier;
-	UINT16				ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT16				ubNumMercs = 0;
-	UINT16				ubChosenMerc;
+	SoldierID	ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16		ubNumMercs = 0;
+	UINT16		ubChosenMerc;
 
 
 	// if traversing tactically, don't do this, unless time compression was required for some reason (don't go to sector)
@@ -2414,7 +2414,7 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 	if ( ubNumMercs > 0 )
 	{
 		ubChosenMerc = (UINT16)Random( ubNumMercs );
-		pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
+		pSoldier = ubMercsInGroup[ ubChosenMerc ];
 
 		TacticalCharacterDialogue( pSoldier, usQuoteNum );
 	}

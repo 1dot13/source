@@ -247,7 +247,7 @@ public:
 
 	UINT32				lbeClass;
 	UINT16				lbeIndex;
-	UINT16				ubID;
+	SoldierID			ubID;
 	BOOLEAN				ZipperFlag;
 	int					uniqueID;
 	UINT32				uiNodeChecksum;
@@ -259,7 +259,7 @@ public:
 #define SIZEOF_LBENODE_POD (offsetof(LBENODE, endOfPOD))
 bool	checkLBEArrayIntegrity(bool verbose=false); // BOB: checks all worldItems for missing LBE info
 
-void	CreateLBE(OBJECTTYPE* pObj, UINT16 ubID, int numSubPockets);
+void	CreateLBE(OBJECTTYPE* pObj, SoldierID ubID, int numSubPockets);
 bool	DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex = 0);
 void	DestroyLBE(OBJECTTYPE* pObj, int stackIndex = 0);
 void	GetLBESlots(UINT32 LBEType, std::vector<INT8>& LBESlots);

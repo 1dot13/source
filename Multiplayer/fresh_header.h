@@ -5,29 +5,29 @@ extern int readyteamreg[10];
 
 typedef struct
 {
-	UINT16 soldier_id;
-	UINT16 attacker_id;
+	SoldierID soldier_id;
+	SoldierID attacker_id;
 	UINT8 attacker_team;
 	UINT8 soldier_team;
 }death_struct;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT32 sGridNo;
 	BOOLEAN fNoAnimations;
 }doors;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT8 bLife;
 	INT8 bBleeding;
 }heal;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT8 bteam;
 }AIint;
 

@@ -284,7 +284,7 @@ void	ItemCreationCallBack( UINT8 ubResult );
 void	CheatCreateItem();
 // silversurfer: added for merc portrait swapping in tactical
 void	SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection );
-extern	INT8 GetTeamSlotFromPlayerID( UINT16 ubID );
+extern	INT8 GetTeamSlotFromPlayerID( SoldierID ubID );
 extern FACETYPE	*gpCurrentTalkingFace;
 
 // Flugente:  toggle display of enemy role indicators
@@ -6257,7 +6257,7 @@ void ChangeCurrentSquad( INT32 iSquad )
 
 void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode )
 {
-	UINT16 ubID;
+	SoldierID ubID;
 
 	if ( GetPlayerIDFromInterfaceTeamSlot( ubPanelSlot, &ubID ) )
 	{

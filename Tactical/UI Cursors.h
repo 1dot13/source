@@ -10,7 +10,7 @@
 
 
 UINT8 GetProperItemCursor( SoldierID ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated );
-void DetermineCursorBodyLocation( UINT16 ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc );
+void DetermineCursorBodyLocation( SoldierID ubSoldierID, BOOLEAN fDisplay, BOOLEAN fRecalc );
 
 void HandleLeftClickCursor( SOLDIERTYPE *pSoldier );
 void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos );

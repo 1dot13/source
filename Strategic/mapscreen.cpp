@@ -14656,7 +14656,7 @@ void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse 
 	INT32 iCounter = 0, iCounterA = 0;
 	INT16 sEndSectorA, sEndSectorB;
 	INT32 iExpiryTime, iExpiryTimeA;
-	UINT16 uiID, uiIDA;
+	SoldierID uiID, uiIDA;
 	SOLDIERTYPE *pSelectedSoldier[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 	SOLDIERTYPE *pCurrentSoldier = NULL;
 	SOLDIERTYPE *pPreviousSelectedInfoChar = NULL;
@@ -15859,7 +15859,7 @@ void CancelPathsOfAllSelectedCharacters()
 		// if we've clicked on a selected valid character
 		if( ( gCharactersList[ bCounter ].fValid == TRUE ) && IsEntryInSelectedListSet( bCounter ) )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ bCounter ].usSolID ];
+			pSoldier = gCharactersList[ bCounter ].usSolID;
 
 			// and he has a route set
 			if ( GetLengthOfMercPath( pSoldier ) > 0 )
@@ -16283,10 +16283,10 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iCounter;
 // WDS - make number of mercenaries, etc. be configurable
-	UINT16	ubSelectedMercID[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT16	ubSelectedMercIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT16	ubNumMercs = 0;
-	UINT16	ubChosenMerc;
+	SoldierID	ubSelectedMercID[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16		ubSelectedMercIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16		ubNumMercs = 0;
+	UINT16		ubChosenMerc;
 
 
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
@@ -16313,7 +16313,7 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 		// select that merc so that when he speaks we're showing his portrait and not someone else
 		ChangeSelectedInfoChar( ubSelectedMercIndex[ ubChosenMerc ], FALSE );
 
-		MercPtrs[ ubSelectedMercID[ ubChosenMerc ] ]->DoMercBattleSound( BATTLE_SOUND_OK1 );
+		ubSelectedMercID[ ubChosenMerc ]->DoMercBattleSound( BATTLE_SOUND_OK1 );
 		//TacticalCharacterDialogue( MercPtrs[ ubSelectedMercID[ ubChosenMerc ] ], ubQuoteNum );
 	}
 }

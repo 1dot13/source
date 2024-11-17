@@ -1461,8 +1461,8 @@ void InsuranceContractPayLifeInsuranceForDeadMerc( UINT16 ubPayoutID )
 	if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID == Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].ubID )
 	{
 		// and if the soldier is still active ( player hasn't removed carcass yet ), reset insurance flag
-		if( Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].bActive )
-			Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].usLifeInsurance = 0;
+		if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->bActive )
+			LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->usLifeInsurance = 0;
 	}
 
 	//add transaction to players account
