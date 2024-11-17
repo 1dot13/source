@@ -2087,7 +2087,7 @@ public:
 
 	// Flugente: turncoats
 	BOOLEAN		InPositionForTurncoatAttempt( UINT16 usID );
-	UINT8		GetTurncoatConvinctionChance( UINT16 usID, INT16 usApproach );
+	UINT8		GetTurncoatConvinctionChance( SoldierID usID, INT16 usApproach );
 	void		AttemptToCreateTurncoat( UINT16 usID );
 	BOOLEAN		OrderTurnCoatToSwitchSides( UINT16 usID );
 	void		OrderAllTurnCoatToSwitchSides();

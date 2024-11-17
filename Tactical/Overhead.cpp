@@ -8799,7 +8799,7 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 
 extern void IncrementWatchedLoc(UINT16 ubID, INT32 sGridNo, INT8 bLevel);
 
-void HandleSuppressionFire( UINT16 ubTargetedMerc, UINT16 ubCausedAttacker )
+void HandleSuppressionFire( SoldierID ubTargetedMerc, SoldierID ubCausedAttacker )
 {
     ///////////////////////////////////////////////////////////////////////////////
     // 
@@ -8831,7 +8831,7 @@ void HandleSuppressionFire( UINT16 ubTargetedMerc, UINT16 ubCausedAttacker )
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // SANDRO - modify suppression effectiveness based on weapon caliber (i.e. damage)
     INT16 sFinalSuppressionEffectiveness = gGameExternalOptions.sSuppressionEffectiveness;
-	pAttacker = MercPtrs[ubCausedAttacker];
+	pAttacker = ubCausedAttacker;
 	if (pAttacker && pAttacker->inv[pAttacker->ubAttackingHand].exists() && Item[pAttacker->inv[pAttacker->ubAttackingHand].usItem].usItemClass == IC_GUN)
     {
 		OBJECTTYPE *pWeapon = &pAttacker->inv[pAttacker->ubAttackingHand];
@@ -9577,11 +9577,11 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     // Strange as this may seem, this function returns a pointer to
     // the *target* in case the target has changed sides as a result
     // of being attacked
-    SOLDIERTYPE *               pSoldier;
-    SOLDIERTYPE *               pTarget;
-    BOOLEAN                         fEnterCombat = FALSE;
-    UINT32                      cnt;
-    UINT16                       ubID;
+    SOLDIERTYPE *pSoldier;
+    SOLDIERTYPE *pTarget;
+    BOOLEAN     fEnterCombat = FALSE;
+    UINT32      cnt;
+    SoldierID   ubID;
 
 
     //  if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))

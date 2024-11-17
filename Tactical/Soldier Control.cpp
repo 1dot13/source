@@ -21415,12 +21415,12 @@ BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( UINT16 usID )
 	return FALSE;
 }
 
-UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, INT16 sApproach )
+UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( SoldierID usID, INT16 sApproach )
 {
 	if ( usID >= NOBODY )
 		return 0;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+	SOLDIERTYPE* pSoldier = usID;
 
 	if ( !pSoldier
 		|| pSoldier->bTeam != ENEMY_TEAM )
