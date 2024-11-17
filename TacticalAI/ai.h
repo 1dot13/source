@@ -220,7 +220,7 @@ BOOLEAN FindRoofClimbingPoints( SOLDIERTYPE * pSoldier, INT16 sDesiredSpot );
 INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier);
 INT32 FindSweetCoverSpot(SOLDIERTYPE *pSoldier);
 
-void FreeUpNPCFromAttacking(UINT16 ubID);
+void FreeUpNPCFromAttacking(SoldierID ubID);
 void FreeUpNPCFromPendingAction( SOLDIERTYPE * pSoldier );
 void FreeUpNPCFromTurning(SOLDIERTYPE *pSoldier, INT8 bLook);
 void FreeUpNPCFromStanceChange(SOLDIERTYPE *pSoldier );

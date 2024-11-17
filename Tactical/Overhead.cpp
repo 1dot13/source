@@ -1508,12 +1508,10 @@ BOOLEAN ExecuteOverhead( )
                                         }
                                         else // otherwise determine our target position
                                         {
-                                            SOLDIERTYPE *pTarget;
-                                            UINT16 usSoldierIndex;
-                                            usSoldierIndex = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
+                                            SoldierID usSoldierIndex = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
                                             if ( usSoldierIndex != NOBODY )
                                             {
-                                                pTarget = MercPtrs[ usSoldierIndex ];
+                                                SOLDIERTYPE* pTarget = usSoldierIndex;
 
                                                 // we always need to crouch to prone target
                                                 if ( gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE )
@@ -3659,8 +3657,8 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
         {
             if ( pSoldier->ubAutoBandagingMedic != NOBODY )
             {
-				DebugAI(AI_MSG_INFO, MercPtrs[pSoldier->ubAutoBandagingMedic], String("CancelAIAction: stop autobandaging in HandlePlayerTeamMemberDeath"));
-                CancelAIAction( MercPtrs[ pSoldier->ubAutoBandagingMedic ], TRUE );
+				DebugAI(AI_MSG_INFO, pSoldier->ubAutoBandagingMedic, String("CancelAIAction: stop autobandaging in HandlePlayerTeamMemberDeath"));
+                CancelAIAction( pSoldier->ubAutoBandagingMedic, TRUE );
             }
         }
 
@@ -5087,7 +5085,7 @@ extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel
 // NB if making changes don't forget to update NewOKDestinationAndDirection
 BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
 {
-    UINT16 bPerson;
+    SoldierID bPerson;
     STRUCTURE *pStructure;
     INT16 sDesiredLevel;
     BOOLEAN fOKCheckStruct;
@@ -5112,7 +5110,7 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
         {
             if ( pCurrSoldier->bTeam == gbPlayerNum )
             {
-                if ( ( Menptr[ bPerson ].bVisible >= 0) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) )
+                if ( ( bPerson->bVisible >= 0) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) )
                     return( FALSE );                 // if someone there it's NOT OK
             }
             else
@@ -5234,7 +5232,7 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
 // NB if making changes don't forget to update NewOKDestination
 INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, INT8 bDirection, BOOLEAN fPeopleToo, INT8 bLevel )
 {
-    UINT16 bPerson;
+    SoldierID bPerson;
     STRUCTURE *pStructure;
     INT16 sDesiredLevel;
     BOOLEAN fOKCheckStruct;
@@ -5247,7 +5245,7 @@ INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, I
         {
             if ( pCurrSoldier->bTeam == gbPlayerNum )
             {
-                if ( ( Menptr[ bPerson ].bVisible >= 0) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) )
+                if ( ( bPerson->bVisible >= 0) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) )
                     return( FALSE );                 // if someone there it's NOT OK
             }
             else
@@ -5845,7 +5843,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     UINT8 ubWallOrientation;
     BOOLEAN fCheckGivenGridNo = TRUE;
     UINT8 ubTestDirection;
-    UINT16 ubWhoIsThere;
+    SoldierID ubWhoIsThere;
 
     // CHECK IF WE WANT TO FORCE GRIDNO TO PERSON
     if ( psAdjustedGridNo != NULL )
@@ -6151,7 +6149,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSoldier, INT32 * psAdjustedTargetGridNo, UINT8 * pubDirection )
 {
     INT32   sSpot;  
-    UINT16   ubGuyThere;
+    SoldierID   ubGuyThere;
 
     for ( UINT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; ++cnt )
     {
@@ -6221,13 +6219,13 @@ BOOLEAN UIOKMoveDestination( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 
 void HandleTeamServices( UINT8 ubTeamNum )
 {
-    INT32                           cnt;
-    SOLDIERTYPE          *pTeamSoldier, *pTargetSoldier;
-    UINT32                  uiPointsUsed;
-    UINT16                  usSoldierIndex;
-    UINT16                  usKitPts;
-    INT8                                        bSlot;
-    BOOLEAN                                 fDone;
+    INT32        cnt;
+    SOLDIERTYPE  *pTeamSoldier, *pTargetSoldier;
+    UINT32       uiPointsUsed;
+    SoldierID    usSoldierIndex;
+    UINT16       usKitPts;
+    INT8         bSlot;
+    BOOLEAN      fDone;
 
     // IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
     cnt = gTacticalStatus.Team[ ubTeamNum ].bFirstID;
@@ -6246,7 +6244,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
                 usSoldierIndex = WhoIsThere2( pTeamSoldier->sTargetGridNo, pTeamSoldier->pathing.bLevel );
                 if ( usSoldierIndex != NOBODY )
                 {
-                    pTargetSoldier = MercPtrs[ usSoldierIndex ];
+                    pTargetSoldier = usSoldierIndex;
 
                     if ( pTargetSoldier->ubServiceCount )
                     {
@@ -6313,11 +6311,11 @@ void HandleTeamServices( UINT8 ubTeamNum )
 void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 {
     SOLDIERTYPE  *pTargetSoldier;
-    UINT32                  uiPointsUsed;
-    UINT16                  usSoldierIndex;
-    UINT16                  usKitPts;
-    INT8                                        bSlot;
-    BOOLEAN                                 fDone = FALSE;
+    UINT32       uiPointsUsed;
+    SoldierID    usSoldierIndex;
+    UINT16       usKitPts;
+    INT8         bSlot;
+    BOOLEAN      fDone = FALSE;
 
     if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive )
     {
@@ -6330,7 +6328,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 
             if ( usSoldierIndex != NOBODY )
             {
-                pTargetSoldier = MercPtrs[ usSoldierIndex ];
+                pTargetSoldier = usSoldierIndex;
 
                 if ( pTargetSoldier->ubServiceCount )
                 {
@@ -11384,7 +11382,7 @@ void CheckChatPartners()
 			{
 				pSoldier = MercPtrs[ubLoop];
 
-				if ( pSoldier && pSoldier->bVisible && pSoldier->usChatPartnerID != NOBODY && MercPtrs[pSoldier->usChatPartnerID]->bVisible )
+				if ( pSoldier && pSoldier->bVisible && pSoldier->usChatPartnerID != NOBODY && pSoldier->usChatPartnerID->bVisible )
 				{
 					INT16 sScreenX, sScreenY;
 

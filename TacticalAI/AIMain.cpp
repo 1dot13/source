@@ -1254,13 +1254,10 @@ void FreeUpNPCFromPendingAction( 	SOLDIERTYPE *pSoldier )
 	}
 }
 
-void FreeUpNPCFromAttacking(UINT16 ubID)
+void FreeUpNPCFromAttacking(SoldierID ubID)
 {
-	SOLDIERTYPE *pSoldier;
-
-	pSoldier = MercPtrs[ubID];
-	ActionDone(pSoldier);
-	pSoldier->pathing.bNeedToLook = TRUE;
+	ActionDone(ubID);
+	ubID->pathing.bNeedToLook = TRUE;
 }
 
 void FreeUpNPCFromLoweringGun( SOLDIERTYPE *pSoldier )
