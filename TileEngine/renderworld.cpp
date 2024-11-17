@@ -4133,7 +4133,7 @@ void ScrollWorld( )
 				ScrollFlags = 0;
 				fDoScroll = FALSE;
 				//
-				if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, gTacticalStatus.sSlideReason, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
+				if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
 				{
 					ScrollFlags = gScrollDirectionFlags[ bDirection ];
 					fDoScroll			= TRUE;

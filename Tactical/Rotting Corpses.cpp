@@ -1436,7 +1436,7 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 					BeginMultiPurposeLocator( sGridNo, pCorpse->def.bLevel, FALSE );
 
 					// Slide to...
-					SlideToLocation( 0, sGridNo );
+					SlideToLocation( sGridNo );
 
 					return;
 				}

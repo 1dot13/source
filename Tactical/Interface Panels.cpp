@@ -6307,7 +6307,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 				// If we are currently selected, slide to location
 				if ( ubID == gusSelectedSoldier )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
+					SlideTo(gusSelectedSoldier, SETLOCATOR);
 				}
 				else
 				{
@@ -6318,7 +6318,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 			{
 				if ( ubID == gusSelectedSoldier )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR );
+					SlideTo(gusSelectedSoldier, SETLOCATOR );
 				}
 				else
 				{
@@ -6334,7 +6334,7 @@ void HandleLocateSelectMerc( UINT16 ubID, INT8 bFlag	)
 				// If we are currently selected, slide to location
 				if ( ubID == gusSelectedSoldier )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,DONTSETLOCATOR);
+					SlideTo(gusSelectedSoldier, DONTSETLOCATOR);
 				}
 				else
 				{

@@ -64,7 +64,7 @@ struct TacticalStatusType
     TacticalTeamType        Team[ MAXTEAMS ];
     UINT8                   ubCurrentTeam;
     INT32                   sSlideTarget;
-    INT16                   sSlideReason;
+    INT16                   sSlideReason_UNUSED;
     UINT32                  uiTimeSinceMercAIStart;
     INT8                    fPanicFlags;
     INT32                   sPanicTriggerGridNoUnused;
@@ -233,8 +233,8 @@ void LocateGridNo( INT32 sGridNo );
 void LocateSoldier( SoldierID usID, BOOLEAN fSetLocator);
 
 void BeginTeamTurn( UINT8 ubTeam );
-void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSetLocator) ;
-void SlideToLocation( UINT16 usReasonID, INT32 sDestGridNo );
+void SlideTo(SoldierID usSoldierID, BOOLEAN fSetLocator) ;
+void SlideToLocation( INT32 sDestGridNo );
 
 void RebuildAllSoldierShadeTables( );
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier );

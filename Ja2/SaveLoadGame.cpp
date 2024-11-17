@@ -7661,7 +7661,7 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.Team, sizeof(gTacticalStatus.Team), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubCurrentTeam, sizeof(gTacticalStatus.ubCurrentTeam), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideTarget, sizeof(gTacticalStatus.sSlideTarget), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideReason, sizeof(gTacticalStatus.sSlideReason), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideReason_UNUSED, sizeof(gTacticalStatus.sSlideReason_UNUSED), sizeof(INT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiTimeSinceMercAIStart, sizeof(gTacticalStatus.uiTimeSinceMercAIStart), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fPanicFlags, sizeof(gTacticalStatus.fPanicFlags), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sPanicTriggerGridNoUnused, sizeof(gTacticalStatus.sPanicTriggerGridNoUnused), sizeof(INT32), numBytesRead);

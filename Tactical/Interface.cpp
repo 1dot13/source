@@ -5712,7 +5712,6 @@ void BeginMultiPurposeLocator( INT32 sGridNo, INT8 bLevel, BOOLEAN fSlideTo )
 
 	// sGridNo here for DG compatibility
 	gTacticalStatus.sSlideTarget = sGridNo;
-	gTacticalStatus.sSlideReason = NOBODY;
 
 	// Plot new path!
 	gfPlotNewMovement = TRUE;

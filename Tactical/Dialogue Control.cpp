@@ -977,7 +977,7 @@ void HandleDialogue( )
 			gTacticalStatus.fLockItemLocators = FALSE;
 
 			// Slide to location!
-			SlideToLocation( 0,  QItem.uiSpecialEventData );
+			SlideToLocation( QItem.uiSpecialEventData );
 
 			// Flugente: only set up face if we can access correctly
 			if ( QItem.iFaceIndex >= 0 )

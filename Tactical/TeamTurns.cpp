@@ -225,7 +225,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 				// Slide to selected guy...
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
+					SlideTo(gusSelectedSoldier, SETLOCATOR);
 
 					if ( fDoBattleSnd )
 					{
@@ -688,7 +688,7 @@ void DisplayHiddenInterrupt( SOLDIERTYPE * pSoldier )
 
 	if (pSoldier->bVisible != -1 )
 	{
-		SlideTo( NOWHERE, pSoldier->ubID, NOBODY ,SETLOCATOR);
+		SlideTo( pSoldier->ubID, SETLOCATOR);
 	}
 
 		if(is_client)
@@ -961,7 +961,7 @@ void StartInterrupt( void )
 			SelectSoldier( ubFirstInterrupter, TRUE, TRUE );
 
 			// ATE; Slide to guy who got interrupted!
-			SlideTo( NOWHERE, gubLastInterruptedGuy, NOBODY, SETLOCATOR);
+			SlideTo( gubLastInterruptedGuy, SETLOCATOR);
 
 			// Dirty panel interface!
 			fInterfacePanelDirty						= DIRTYLEVEL2;
@@ -1329,7 +1329,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
+					SlideTo( gusSelectedSoldier, SETLOCATOR);
 
 					// Say ATTENTION SOUND...
 					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );

@@ -3551,11 +3551,8 @@ void LocateGridNo( INT32 sGridNo )
 
 
 
-void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSetLocator)
+void SlideTo(SoldierID usSoldierID, BOOLEAN fSetLocator)
 {
-    INT32 cnt;
-
-
     if ( usSoldierID == NOBODY )
     {
         return;
@@ -3563,7 +3560,7 @@ void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSet
 
     if ( fSetLocator == SETANDREMOVEPREVIOUSLOCATOR )
     {
-        for ( cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
+        for (INT32 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
         {
             if ( MercPtrs[ cnt ]->bActive && MercPtrs[ cnt ]->bInSector )
             {
@@ -3592,7 +3589,7 @@ void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSet
 }
 
 
-void SlideToLocation( UINT16 usReasonID, INT32 sDestGridNo )
+void SlideToLocation( INT32 sDestGridNo )
 {   
     if (TileIsOutOfBounds(sDestGridNo))
     {
@@ -3607,7 +3604,6 @@ void SlideToLocation( UINT16 usReasonID, INT32 sDestGridNo )
 
     // sGridNo here for DG compatibility
     gTacticalStatus.sSlideTarget = sDestGridNo;
-    gTacticalStatus.sSlideReason = usReasonID;
 
     // Plot new path!
     gfPlotNewMovement = TRUE;
@@ -8014,7 +8010,7 @@ void CycleThroughKnownEnemies( BOOLEAN backward )
 						//LocateSoldier( pSoldier->ubID, 1 );
 
 						//ATE: Change to Slide To...
-						SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+						SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
 						return;
 					}
 					else
@@ -8043,7 +8039,7 @@ void CycleThroughKnownEnemies( BOOLEAN backward )
                     //LocateSoldier( pSoldier->ubID, 1 );
 
                     //ATE: Change to Slide To...
-                    SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
                     return;
                 }
                 else
@@ -8100,7 +8096,7 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
                     pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
-                    SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
 
                     ChangeInterfaceLevel( pSoldier->pathing.bLevel );
                     return;
@@ -8128,7 +8124,7 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
                     pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
-                    SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
 
                     ChangeInterfaceLevel( pSoldier->pathing.bLevel );
                     return;
@@ -8163,7 +8159,7 @@ void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
                     pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
-                    SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
 
                     ChangeInterfaceLevel( pSoldier->pathing.bLevel );
                     return;
@@ -8192,7 +8188,7 @@ void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
                     pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
 
                     //ATE: Change to Slide To...
-                    SlideTo( 0, pSoldier->ubID, 0, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
 
                     ChangeInterfaceLevel( pSoldier->pathing.bLevel );
                     return;
@@ -9884,7 +9880,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
             // Turn off item lock for locators...
             gTacticalStatus.fLockItemLocators = FALSE;
             // Slide to location!
-            SlideToLocation( 0, gTacticalStatus.usItemsSeenOnAttackGridNo );
+            SlideToLocation( gTacticalStatus.usItemsSeenOnAttackGridNo );
         }
     }
 

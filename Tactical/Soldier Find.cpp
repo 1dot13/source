@@ -798,7 +798,7 @@ BOOLEAN SoldierOnVisibleWorldTile( SOLDIERTYPE *pSoldier )
 
 
 
-BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, UINT16 usReasonID, INT8 *pbDirection, UINT32 *puiScrollFlags )
+BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, INT8 *pbDirection, UINT32 *puiScrollFlags )
 {
 	INT16 sWorldX;
 	INT16 sWorldY;

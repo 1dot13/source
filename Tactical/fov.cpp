@@ -765,7 +765,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 														 // Turn off item lock for locators...
 														 gTacticalStatus.fLockItemLocators = FALSE;
 														 // Slide to location!
-														SlideToLocation( 0, marker );
+														SlideToLocation( marker );
 													}
 												}
 

@@ -2798,7 +2798,7 @@ if(SEE_MENT)
 				{
 					//SlideTo(0,pOpponent->ubID, pSoldier->ubID, SETLOCATOR);
 					//rain
-					SlideTo(0,pOpponent->ubID, pSoldier->ubID, SETLOCATORFAST);
+					SlideTo(pOpponent->ubID, SETLOCATORFAST);
 					//end rain
 				}
 			}
@@ -2857,7 +2857,7 @@ void DecideTrueVisibility(SOLDIERTYPE *pSoldier, UINT8 ubLocate)
 		//if (Status.stopSlidingAt == NOBODY)
 				if (gTacticalStatus.uiFlags & TURNBASED && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 			//LocateSoldier(pSoldier->ubID,DONTSETLOCATOR);
-					SlideTo(0,pSoldier->ubID, NOBODY, DONTSETLOCATOR);
+					SlideTo(pSoldier->ubID, DONTSETLOCATOR);
 
 	 // follow his movement on our screen as he moves around...
 	 //LocateMember(ptr->guynum,DONTSETLOCATOR);
@@ -3618,7 +3618,7 @@ void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumN
 					LocateSoldier( pSoldier->ubID, SETLOCATOR );
 
 					// Now slide to other guy....
-					SlideTo( NOWHERE, gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, NOBODY ,SETLOCATOR);
+					SlideTo(gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, SETLOCATOR);
 
 				}
 

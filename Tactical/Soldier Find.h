@@ -40,7 +40,7 @@ BOOLEAN CycleSoldierFindStack( INT32 usMapPos );
 BOOLEAN GridNoOnScreen( INT32 sGridNo );
 
 BOOLEAN SoldierOnScreen( SoldierID usID );
-BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, UINT16 usReasonID, INT8 *pbDirection, UINT32 *puiScrollFlags );
+BOOLEAN SoldierLocationRelativeToScreen( INT32 sGridNo, INT8 *pbDirection, UINT32 *puiScrollFlags );
 void GetSoldierScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *psScreenY );
 void GetSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth );
 void GetSoldierAnimOffsets( SOLDIERTYPE *pSoldier, INT16 *sOffsetX, INT16 *sOffsetY );
