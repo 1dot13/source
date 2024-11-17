@@ -630,7 +630,7 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 	return( pStructure );
 }
 
-extern UINT16 gusTempDragBuildSoldierID;
+extern SoldierID gusTempDragBuildSoldierID;
 
 BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY )
 {
@@ -942,7 +942,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 			{
 				// Flugente: we allow this if this structure is being dragged by a soldier, otherwise we can't move containers our of rooms (and are likely to unintenionally bar rooms)
 				if (pExistingStructure->fFlags & STRUCTURE_OPENABLE
-					&& !( gusTempDragBuildSoldierID != NOBODY && MercPtrs[gusTempDragBuildSoldierID]->sDragGridNo ) )
+					&& !( gusTempDragBuildSoldierID != NOBODY && gusTempDragBuildSoldierID->sDragGridNo ) )
 				{
 					// don't allow two openable structures in the same tile or things will screw
 					// up on an interface level

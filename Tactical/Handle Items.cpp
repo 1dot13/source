@@ -7798,7 +7798,7 @@ BOOLEAN	BuildStructFromName( INT32 sGridNo, INT8 sLevel, const char* aStr, UINT8
 	return FALSE;
 }
 
-UINT16 gusTempDragBuildSoldierID = NOBODY;
+SoldierID gusTempDragBuildSoldierID = NOBODY;
 
 BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID )
 {
