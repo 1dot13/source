@@ -2820,9 +2820,10 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 // This function reevaluates the stance if the guy sees us!
 BOOLEAN ReevaluateEnemyStance( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 {
-	INT32		cnt, iClosestEnemy = NOBODY;
+	INT32		cnt;
+	SoldierID	iClosestEnemy = NOBODY;
 	INT16		sTargetXPos, sTargetYPos;
-	BOOLEAN	fReturnVal = FALSE;
+	BOOLEAN		fReturnVal = FALSE;
 	INT16		sDist, sClosestDist = 10000;
 
 	// make the chosen one not turn to face us
@@ -2875,21 +2876,21 @@ BOOLEAN ReevaluateEnemyStance( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 						if ( gGameExternalOptions.fNoEnemyAutoReadyWeapon == 0 )
 						{
 							// Change to fire ready animation
-							ConvertGridNoToXY( MercPtrs[iClosestEnemy]->sGridNo, &sTargetXPos, &sTargetYPos );
+							ConvertGridNoToXY( iClosestEnemy->sGridNo, &sTargetXPos, &sTargetYPos );
 
 							pSoldier->flags.fDontChargeReadyAPs = TRUE;
 
 							// Ready weapon
-							fReturnVal = pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, AIDecideHipOrShoulderStance( pSoldier, MercPtrs[iClosestEnemy]->sGridNo ) );
+							fReturnVal = pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, AIDecideHipOrShoulderStance( pSoldier, iClosestEnemy->sGridNo ) );
 
 							return(fReturnVal);
 						}
 						// this makes the soldier to only turn towards our direction, instead of raising his weapon
 						else if ( gGameExternalOptions.fNoEnemyAutoReadyWeapon == 2 )
 						{
-							//ConvertGridNoToXY( MercPtrs[ iClosestEnemy ]->sGridNo, &sTargetXPos, &sTargetYPos );
+							//ConvertGridNoToXY( iClosestEnemy->sGridNo, &sTargetXPos, &sTargetYPos );
 							//sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
-							INT16 sFacingDir = GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, MercPtrs[iClosestEnemy]->sGridNo );
+							INT16 sFacingDir = GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, iClosestEnemy->sGridNo );
 
 							if ( sFacingDir != pSoldier->ubDirection )
 							{

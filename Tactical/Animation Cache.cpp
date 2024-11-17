@@ -47,7 +47,7 @@ BOOLEAN InitAnimationCache( SoldierID usSoldierID, AnimationSurfaceCacheType *pA
 	return( TRUE );
 }
 
-void DeleteAnimationCache( UINT16 usSoldierID, AnimationSurfaceCacheType *pAnimCache )
+void DeleteAnimationCache( SoldierID usSoldierID, AnimationSurfaceCacheType *pAnimCache )
 {
 	// Allocate entries
 	if ( pAnimCache->usCachedSurfaces!= NULL )
@@ -146,7 +146,7 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 
 
 
-void UnLoadCachedAnimationSurfaces( UINT16 usSoldierID, AnimationSurfaceCacheType *pAnimCache )
+void UnLoadCachedAnimationSurfaces( SoldierID usSoldierID, AnimationSurfaceCacheType *pAnimCache )
 {
 	UINT8			cnt;
 
