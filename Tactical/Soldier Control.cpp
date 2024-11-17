@@ -1731,7 +1731,7 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight );
 void SelectFallAnimation( SOLDIERTYPE *pSoldier );
 BOOLEAN FullStructAlone( INT32 sGridNo, UINT8 ubRadius );
 void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
-void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitBlade( SOLDIERTYPE* pSoldier, UINT8 ubHitLocation );
 void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitVehicle( SOLDIERTYPE* pSoldier, UINT16 bDirection );
@@ -6386,7 +6386,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 	if ( Item[usWeaponIndex].usItemClass & IC_BLADE )
 	{
-		SoldierGotHitBlade( this, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation );
+		SoldierGotHitBlade( this, ubHitLocation );
 		// anv: taunts are called from UseBlade()
 	}
 	// marke setting ammo explosions included here with 3rd 'or' including ubReason
@@ -6813,11 +6813,10 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 		SoldierCollapse( pSoldier );
 		break;
 	}
-
 }
 
 
-void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT8 ubHitLocation )
 {
 	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
 	if ( ubHitLocation == AIM_SHOT_TORSO )
@@ -6856,7 +6855,6 @@ void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDam
 		pSoldier->EVENT_InitNewSoldierAnim( GENERIC_HIT_PRONE, 0, FALSE );
 		break;
 	}
-
 }
 
 
