@@ -783,15 +783,15 @@ BOOLEAN InitOverhead( )
     gTacticalStatus.uiTimeOfLastInput = GetJA2Clock();
     gTacticalStatus.uiTimeSinceDemoOn = GetJA2Clock();
     gTacticalStatus.uiCountdownToRestart = GetJA2Clock();
-    gTacticalStatus.fGoingToEnterDemo               = FALSE;
-    gTacticalStatus.fNOTDOLASTDEMO                  = FALSE;
+    gTacticalStatus.fGoingToEnterDemo = FALSE;
+    gTacticalStatus.fNOTDOLASTDEMO = FALSE;
 
     if (is_networked)
-        gTacticalStatus.fDidGameJustStart               = FALSE;
+        gTacticalStatus.fDidGameJustStart = FALSE;
     else
-        gTacticalStatus.fDidGameJustStart               = TRUE;
+        gTacticalStatus.fDidGameJustStart = TRUE;
 
-    gTacticalStatus.ubLastRequesterTargetID                 = NO_PROFILE;
+    gTacticalStatus.ubLastRequesterTargetID = NO_PROFILE;
     gTacticalStatus.ubLastRequesterSurgeryTargetID = NOBODY; // SANDRO - reset surgery requester too
 
     for ( cnt = 0; cnt < NUM_PANIC_TRIGGERS; cnt++ )

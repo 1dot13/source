@@ -158,7 +158,7 @@ struct TacticalStatusType
     UINT16                  sCreatureTenseQuoteDelay;
     UINT32                  uiCreatureTenseQuoteLastUpdate;
     // SANDRO - added these
-    UINT16                  ubLastRequesterSurgeryTargetID;
+    SoldierID               ubLastRequesterSurgeryTargetID;
     UINT8                   ubInterruptPending;
 	// sevenfm: Ctrl+D disable interrupts
 	BOOLEAN					ubDisablePlayerInterrupts;
