@@ -5,6 +5,8 @@
 #ifndef SOUND_CONTROL_H
 #define SOUND_CONTROL_H
 
+#include "Overhead Types.h"
+
 // == Lesh modifications ======
 #define FARLEFT		 0
 #define LEFTSIDE		96
@@ -423,7 +425,7 @@ UINT32 PlayJA2StreamingSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ub
 UINT32	PlayJA2Ambient( UINT32 usNum, UINT32 ubVolume, UINT32 ubLoops);
 UINT32	PlayJA2AmbientRandom(UINT32 usNum, UINT32 uiTimeMin, UINT32 uiTimeMax);
 
-UINT32 PlaySoldierJA2Sample( UINT16 usID, UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, BOOLEAN fCheck );
+UINT32 PlaySoldierJA2Sample( SoldierID usID, UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, BOOLEAN fCheck );
 
 
 
