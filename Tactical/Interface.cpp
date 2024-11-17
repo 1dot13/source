@@ -164,8 +164,6 @@ MOUSE_REGION	gMenuOverlayRegion;
 
 MOUSE_REGION	gBottomPanalRegion;
 
-UINT16				gusOldSelectedSoldier		= NOBODY;
-
 // OVerlay ID
 INT32					giPopupSlideMessageOverlay = -1;
 UINT16				gusOverlayPopupBoxWidth, gusOverlayPopupBoxHeight;

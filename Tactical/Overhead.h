@@ -171,7 +171,6 @@ extern UINT8    gbPlayerNum;
 extern INT8     gbShowEnemies;
 
 extern SoldierID    gusSelectedSoldier;
-extern UINT16       gusOldSelectedSoldier;
 
 extern CHAR8    gzAlertStr[][ 30 ];
 extern CHAR8    gzActionStr[][ 30 ];

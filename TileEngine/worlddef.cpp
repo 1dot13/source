@@ -3327,8 +3327,6 @@ BOOLEAN NewWorld( INT32 nMapRows,  INT32 nMapCols )
 	UINT16				NewIndex;
 	INT32					cnt;
 
-	gusSelectedSoldier = gusOldSelectedSoldier = NOBODY;
-
 	AdjustSoldierCreationStartValues( );
 
 	TrashWorld();
