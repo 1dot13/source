@@ -59,170 +59,171 @@ typedef struct
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT16	usNewState;
+	UINT32		usTargetGridNo; // WANNE - MP: Used for manipulating the target grid no
+	UINT32		uiUniqueId;
+	SoldierID	usSoldierID;
+	UINT16		usNewState;
 	INT16		sXPos;
 	INT16		sYPos;
-	UINT16	usStartingAniCode;
-	BOOLEAN	fForce;
-	UINT8	usNewDirection;//hayden
-	UINT32	usTargetGridNo; // WANNE - MP: Used for manipulating the target grid no
+	UINT16		usStartingAniCode;
+	BOOLEAN		fForce;
+	UINT8		usNewDirection;//hayden
 
 } EV_S_CHANGESTATE;
 
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	INT32	usNewDestination;
+	SoldierID	usSoldierID;
+	UINT32		uiUniqueId;
+	INT32		usNewDestination;
 
 } EV_S_CHANGEDEST;
 
 typedef struct
 {
-	UINT16 usSoldierID;
-	UINT32	uiUniqueId;
-	FLOAT	dNewXPos;
-	FLOAT	dNewYPos;
+	SoldierID	usSoldierID;
+	UINT32		uiUniqueId;
+	FLOAT		dNewXPos;
+	FLOAT		dNewYPos;
 
 } EV_S_SETPOSITION;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	INT32 sDestGridNo;
+	UINT32		uiUniqueId;
+	INT32		sDestGridNo;
+	SoldierID	usSoldierID;
 	UINT16		usMovementAnim;		
 
 } EV_S_GETNEWPATH;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
+	UINT32		uiUniqueId;
+	SoldierID	usSoldierID;
+
 } EV_S_BEGINTURN;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT8		ubNewStance;
+	UINT32		uiUniqueId;
+	SoldierID	usSoldierID;
 	INT16		sXPos;
 	INT16		sYPos;
+	UINT8		ubNewStance;
 
 } EV_S_CHANGESTANCE;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT16	usNewDirection;
+	UINT32		uiUniqueId;
+	SoldierID	usSoldierID;
+	UINT16		usNewDirection;
 
 } EV_S_SETDIRECTION;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT16	usDesiredDirection;
+	UINT32		uiUniqueId;
+	SoldierID	usSoldierID;
+	UINT16		usDesiredDirection;
 
 } EV_S_SETDESIREDDIRECTION;
 
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	INT32 sTargetGridNo;
-	INT8		bTargetLevel;
-	INT8		bTargetCubeLevel;
+	UINT32		uiUniqueId;
+	INT32		sTargetGridNo;
+	SoldierID	usSoldierID;
+	INT8			bTargetLevel;
+	INT8			bTargetCubeLevel;
 } EV_S_BEGINFIREWEAPON;
 
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	INT32 sTargetGridNo;
-	INT8		bTargetLevel;
-	INT8		bTargetCubeLevel;
+	UINT32		uiUniqueId;
+	INT32		sTargetGridNo;
+	SoldierID	usSoldierID;
+	INT8			bTargetLevel;
+	INT8			bTargetCubeLevel;
 } EV_S_FIREWEAPON;
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT16	usWeaponIndex;
+	UINT32		uiUniqueId;
+	INT32		iBullet;
+	SoldierID	usSoldierID;
+	SoldierID	ubAttackerID;
+	UINT16		usWeaponIndex;
 	INT16		sDamage;
 	INT16		sBreathLoss;
-	UINT16	usDirection;
+	UINT16		usDirection;
 	INT16		sXPos;
 	INT16		sYPos;
 	INT16		sZPos;
 	INT16		sRange;
-	UINT16		ubAttackerID;
-	BOOLEAN fHit;
+	BOOLEAN		fHit;
 	UINT8		ubSpecial;
 	UINT8		ubLocation;
-	INT32 iBullet;
-	BOOLEAN fStopped;
+	BOOLEAN		fStopped;
 
 } EV_S_WEAPONHIT;
 
 typedef struct
 {
+	INT32		iImpact;
+	INT32		iBullet;
 	INT16		sXPos;
 	INT16		sYPos;
 	INT16		sZPos;
-	UINT16	usWeaponIndex;
+	UINT16		usWeaponIndex;
 	INT16		bWeaponStatus;
-	UINT16		ubAttackerID;
-	UINT16	usStructureID;
-	INT32		iImpact;
-	INT32		iBullet;
-	BOOLEAN fStopped;//hayden
+	SoldierID	ubAttackerID;
+	UINT16		usStructureID;
+	BOOLEAN		fStopped;//hayden
 
 } EV_S_STRUCTUREHIT;
 
 typedef struct
 {
-	INT32 sGridNo;
-	UINT16	usStructureID;
-	BOOLEAN	fBlowWindowSouth;
-	BOOLEAN	fLargeForce;
-	UINT16 ubAttackerID;
-	INT32 iBullet;
+	INT32		sGridNo;
+	INT32		iBullet;
+	UINT16		usStructureID;
+	BOOLEAN		fBlowWindowSouth;
+	BOOLEAN		fLargeForce;
+	SoldierID	ubAttackerID;
 } EV_S_WINDOWHIT;
 
 typedef struct
 {
-	UINT16 ubAttackerID;
-	INT32 iBullet;
+	INT32		iBullet;
+	SoldierID	ubAttackerID;
 } EV_S_MISS;
 
 typedef struct
 {
-	UINT16 ubNoiseMaker;
-	INT32 sGridNo;
-	UINT8 bLevel;
-	UINT8 ubTerrType;
-	UINT8 ubVolume;
-	UINT8 ubNoiseType;
-	CHAR16 zNoiseMessage[320];
+	INT32		sGridNo;
+	SoldierID	ubNoiseMaker;
+	UINT8		bLevel;
+	UINT8		ubTerrType;
+	UINT8		ubVolume;
+	UINT8		ubNoiseType;
+	CHAR16		zNoiseMessage[320];
 } EV_S_NOISE;
 
 
 typedef struct
 {
-	UINT16	usSoldierID;
-	UINT32	uiUniqueId;
-	UINT8		ubDirection;
-	INT32 sGridNo;
+	UINT32		uiUniqueId;
+	INT32		sGridNo;
+	SoldierID	usSoldierID;
 	INT16		sXPos;
 	INT16		sYPos;
-	BOOLEAN fset;
+	UINT8		ubDirection;
+	BOOLEAN		fset;
 
 } EV_S_STOP_MERC;
 
@@ -230,35 +231,34 @@ typedef struct
 
 typedef struct
 {
-	UINT16		usSoldierID;
-//	UINT32  uiUniqueId;
+	SoldierID	usSoldierID;
+//	UINT32		uiUniqueId;
 	UINT16		usPathDataSize;			// Size of Path
-	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
+	INT32		sAtGridNo;					// Owner merc is at this tile when sending packet
 	UINT16		usCurrentPathIndex;	// Index the owner of the merc is at when sending packet
 	UINT16		usPathData[ MAX_PATH_LIST_SIZE ];		// make define  // Next X tile to go to
 	UINT16		ubNewState;			// new movment Anim
-	INT32		 sDestGridNo;
-//	INT8		bActionPoints;
-//	INT8		bBreath;			// current breath value
-//	INT8		bDesiredDirection;
-
+	INT32		sDestGridNo;
+//	INT8			bActionPoints;
+//	INT8			bBreath;			// current breath value
+//	INT8			bDesiredDirection;
 
 	// maybe send current action & breath points
 } EV_S_SENDPATHTONETWORK;
 
 typedef struct
 {
-	UINT16		usSoldierID;	
-	//UINT32  uiUniqueId;
-	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
-	INT8		bActionPoints;			// current A.P. value
-	INT8		bBreath;						// current breath value
+	INT32		sAtGridNo;					// Owner merc is at this tile when sending packet
+	SoldierID	usSoldierID;
+	//UINT32		uiUniqueId;
+	INT8			bActionPoints;			// current A.P. value
+	INT8			bBreath;						// current breath value
 	//hayden
-	INT8 bLife;
-	INT8 bBleeding;
-	UINT16 usTactialTurnLimitCounter;
-	UINT16 usTactialTurnLimitMax;
-	UINT8	ubDirection;
+	INT8			bLife;
+	INT8			bBleeding;
+	UINT16		usTactialTurnLimitCounter;
+	UINT16		usTactialTurnLimitMax;
+	UINT8		ubDirection;
 	UINT8		ubNewStance;
 
 } EV_S_UPDATENETWORKSOLDIER;
