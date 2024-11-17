@@ -24132,8 +24132,8 @@ void SetSoldierPersonalLightLevel( SOLDIERTYPE *pSoldier )
 
 void BeginSoldierClimbWallUp( SOLDIERTYPE *pSoldier )
 {
-	INT8							bNewDirection;
-	UINT16	ubWhoIsThere;
+	INT8			bNewDirection;
+	SoldierID	ubWhoIsThere;
 
 	if ( FindLowerLevelWall( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && (pSoldier->pathing.bLevel > 0) )
 	{
@@ -25356,10 +25356,10 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, INT8 bTeam )
 		{
 			BOOLEAN targetseen = FALSE;
 
-			UINT16 usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
+			SoldierID usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
 
 			// is someone is at the sGridNo, check wether the spotter can see any part of him check wether head can be seen)
-			if ( usID != NOBODY && SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[usID], 0, NO_DISTANCE_LIMIT, AIM_SHOT_HEAD ) > 0 )
+			if ( usID != NOBODY && SoldierToSoldierLineOfSightTest( pSoldier, usID, 0, NO_DISTANCE_LIMIT, AIM_SHOT_HEAD ) > 0 )
 				targetseen = TRUE;
 			// otherwise check wether we can see the ground floor
 			else if ( SoldierToVirtualSoldierLineOfSightTest( pSoldier, sGridNo, pSniper->pathing.bLevel, ANIM_PRONE, FALSE, NO_DISTANCE_LIMIT ) > 0 )

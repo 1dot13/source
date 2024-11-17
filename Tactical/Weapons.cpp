@@ -12144,7 +12144,7 @@ FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fAimCap, FLOA
 extern BOOLEAN	IsRoofPresentAtGridNo( INT32 sGridNo );
 
 // Flugente: fire item from A to B (intended for mortarshells and launchable grenades)
-BOOLEAN ArtilleryStrike( UINT16 usItem, UINT16 ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos )
+BOOLEAN ArtilleryStrike( UINT16 usItem, SoldierID ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos )
 {
 	FLOAT				dForce, dDegrees;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;

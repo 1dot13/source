@@ -536,7 +536,7 @@ FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
 
-BOOLEAN ArtilleryStrike( UINT16 usItem, UINT16 ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
+BOOLEAN ArtilleryStrike( UINT16 usItem, SoldierID ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
 
 // Flugente: functions for using several barrels at once
 UINT8 GetNextBarrelMode( UINT16 usItem, UINT8 aBarrelMode );
