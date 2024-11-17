@@ -295,7 +295,7 @@ INT32			giSKIMessageBox=-1;
 INT8			gbSelectedArmsDealerID = -1;		//Contains the enum value for the currently selected arms dealer
 
 // Flugente: while we're trading, store the ID of non-NPC dealers
-UINT16			gusIDOfCivTrader = NOBODY;
+SoldierID	gusIDOfCivTrader = NOBODY;
 
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
@@ -770,7 +770,7 @@ BOOLEAN EnterShopKeeperInterface()
 	SOLDIERTYPE* pShopkeeper = NULL;
 	
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
@@ -1027,7 +1027,7 @@ BOOLEAN EnterShopKeeperInterface()
 		{
 			//add the item back to the current PC into the slot it came from
 			//ADB screw slot, slot is (used to be, before it was deleted) only ever, so autoplace it
-			AutoPlaceObject(&Menptr[ gpSMCurrentMerc->ubID ], &gItemToAdd.ItemObject, FALSE);
+			AutoPlaceObject(gpSMCurrentMerc->ubID, &gItemToAdd.ItemObject, FALSE);
 		}
 
 		//Clear the contents of the structure
@@ -1472,7 +1472,7 @@ BOOLEAN RenderShopKeeperInterface()
 	// Flugente: if this is a non-NPC dealer, we instead show their body in their current animation
 	else if ( gusIDOfCivTrader != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[gusIDOfCivTrader];
+		SOLDIERTYPE* pSoldier = gusIDOfCivTrader;
 
 		if ( pSoldier )
 		{
@@ -2457,7 +2457,7 @@ void EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer )
 }
 
 // Flugente: set up shopkeeper with a non-NPC
-void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT16 aMercID )
+void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, SoldierID aMercID )
 {
 	gusIDOfCivTrader = aMercID;
 

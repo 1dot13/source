@@ -1992,7 +1992,7 @@ BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, 
 }
 
 extern INT8 gbSelectedArmsDealerID;
-extern UINT16 gusIDOfCivTrader;
+extern SoldierID gusIDOfCivTrader;
 
 BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier )
 {
@@ -2107,7 +2107,7 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		&& iFaceIndex == -1
 		&& gusIDOfCivTrader != NOBODY )
 	{
-		SOLDIERTYPE* pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		SOLDIERTYPE* pShopkeeper = gusIDOfCivTrader;
 
 		if ( pShopkeeper )
 		{

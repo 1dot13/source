@@ -97,7 +97,7 @@ bool RepairmanItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& 
 void			EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer );
 
 // Flugente: set up shopkeeper with a non-NPC
-void			EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT16 aMercID );
+void			EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, SoldierID aMercID );
 
 void	EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int bpAction);
 
