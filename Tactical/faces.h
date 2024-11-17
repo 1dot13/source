@@ -170,7 +170,7 @@ typedef struct
 	BOOLEAN		fOldShowHighlight;
 	INT8			bOldAssignment;
 	INT8			ubOldServiceCount;
-	UINT8			ubOldServicePartner;
+	SoldierID	ubOldServicePartner;
 	BOOLEAN		fOldShowMoveHilight;
 
 	UINT16		sMouthFrame;

@@ -6378,9 +6378,9 @@ BOOLEAN IsValidTalkableNPCFromMouse( UINT16 * pubSoldierID, BOOLEAN fGive, BOOLE
 }
 
 
-BOOLEAN IsValidTalkableNPC( UINT16 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
+BOOLEAN IsValidTalkableNPC( SoldierID ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
+	SOLDIERTYPE *pSoldier = ubSoldierID;
 	BOOLEAN			fValidGuy = FALSE;
 
 	if ( gusSelectedSoldier != NOBODY )

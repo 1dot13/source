@@ -5478,23 +5478,23 @@ BOOLEAN DoSpecialEffectAmmoMiss( UINT16 ubAttackerID, UINT16 usWeaponIndex, INT3
 }
 
 
-void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange, UINT16 ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation )
+void WeaponHit( SoldierID usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange, SoldierID ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
 	SOLDIERTYPE*			pTargetSoldier = NULL;
 	SOLDIERTYPE*			pSoldier = NULL;
-	OBJECTTYPE*				pObj = NULL;
+	OBJECTTYPE*			pObj = NULL;
 
 	// Get attacker
 	if ( ubAttackerID != NOBODY )
 	{
-		pSoldier		= MercPtrs[ ubAttackerID ];
+		pSoldier		= ubAttackerID;
 
 		// Flugente: check for underbarrel weapons and use that object if necessary
 		pObj			= pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
 	}
 
 	// Get Target
-	pTargetSoldier	= MercPtrs[ usSoldierID ];
+	pTargetSoldier	= usSoldierID;
 
 	MakeNoise( ubAttackerID, pTargetSoldier->sGridNo, pTargetSoldier->pathing.bLevel, gpWorldLevelData[pTargetSoldier->sGridNo].ubTerrainID, Weapon[ usWeaponIndex ].ubHitVolume, NOISE_BULLET_IMPACT );
 
@@ -5589,12 +5589,12 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 }
 
 
-void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UINT16 ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped )
+void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, SoldierID ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped )
 {
 	BOOLEAN			fDoMissForGun = FALSE;
 	ANITILE			*pNode;
 	INT32			sGridNo;
-	INT8			bLevel;
+	INT8				bLevel;
 	ANITILE_PARAMS	AniParams;
 	UINT16			usMissTileIndex, usMissTileType;
 	STRUCTURE		*pStructure = NULL;
@@ -5610,9 +5610,9 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	if ( ubAttackerID != NOBODY )
 	{
-		pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs [ ubAttackerID ]->inv[MercPtrs[ubAttackerID]->ubAttackingHand] );
+		pObj = ubAttackerID->GetUsedWeapon( &ubAttackerID->inv[ubAttackerID->ubAttackingHand] );
 
-		pAttacker = MercPtrs[ ubAttackerID ];
+		pAttacker = ubAttackerID;
 	}
 
 	// HEADROCK HAM 5: Define differently for fragments
@@ -5676,7 +5676,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 
 	    // Get attacker
 		if ( ubAttackerID != NOBODY )
-			pSoldier = MercPtrs[ ubAttackerID ];
+			pSoldier = ubAttackerID;
 
 		UINT8 usDirection = DIRECTION_IRRELEVANT;
 		if ( pSoldier )
@@ -5777,13 +5777,13 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			case MGCLASS:
 
 				// Guy has missed, play random sound
-				if (  ubAttackerID != NOBODY && MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
+				if (  ubAttackerID != NOBODY && ubAttackerID->bTeam == gbPlayerNum )
 				{
-					if ( !MercPtrs[ ubAttackerID ]->bDoBurst )
+					if ( !ubAttackerID->bDoBurst )
 					{
 						if ( Random( 40 ) == 0 )
 						{
-							MercPtrs[ ubAttackerID ]->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							ubAttackerID->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 						}
 					}
 				}
@@ -6046,7 +6046,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				// ATE: Show misses...( if our team )
 				if ( gGameSettings.fOptions[ TOPTION_SHOW_MISSES ] )
 				{
-					if ( ubAttackerID != NOBODY && MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
+					if ( ubAttackerID != NOBODY && ubAttackerID->bTeam == gbPlayerNum )
 					{
 						LocateGridNo( sGridNo );
 					}

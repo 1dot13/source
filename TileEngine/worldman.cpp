@@ -3750,7 +3750,7 @@ BOOLEAN IsRoofVisible2( INT32 sMapPos )
 }
 
 
-UINT16 WhoIsThere2( INT32 sGridNo, INT8 bLevel )
+SoldierID WhoIsThere2( INT32 sGridNo, INT8 bLevel )
 {
 	STRUCTURE * pStructure;
 

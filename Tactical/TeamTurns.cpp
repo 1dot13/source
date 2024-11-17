@@ -102,9 +102,9 @@ UINT16 gubOutOfTurnPersons = 0;
 #define REMOVE_LATEST_INTERRUPT_GUY()	(DeleteFromIntList( (gubOutOfTurnPersons), TRUE ))
 #define INTERRUPTS_OVER (gubOutOfTurnPersons == 1)
 
-INT16 InterruptOnlyGuynum = NOBODY;
-BOOLEAN InterruptsAllowed = TRUE;
-BOOLEAN gfHiddenInterrupt = FALSE;
+SoldierID	InterruptOnlyGuynum = NOBODY;
+BOOLEAN		InterruptsAllowed = TRUE;
+BOOLEAN		gfHiddenInterrupt = FALSE;
 UINT8		gubLastInterruptedGuy = 0;
 
 extern UINT16 gsWhoThrewRock;
@@ -1797,7 +1797,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponen
 }
 
 
-INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN fUseWatchSpots )
+INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, SoldierID ubOpponentID, BOOLEAN fUseWatchSpots )
 {
 	INT32 iPoints;
 	INT8 bLightLevel;
@@ -1853,7 +1853,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN 
 	if (fUseWatchSpots && !(pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS))
 	{
 		// if this is a previously noted spot of enemies, give bonus points!
-		iPoints += GetWatchedLocPoints( pSoldier->ubID, MercPtrs[ ubOpponentID ]->sGridNo, MercPtrs[ ubOpponentID ]->pathing.bLevel );
+		iPoints += GetWatchedLocPoints( pSoldier->ubID, ubOpponentID->sGridNo, ubOpponentID->pathing.bLevel );
 	}
 
 	// LOSE one point for each 2 additional opponents he currently sees, above 2
@@ -1882,7 +1882,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN 
 	// if soldier is still in shock from recent injuries, that penalizes him
 	iPoints -= pSoldier->aiData.bShock;
 
-	ubDistance = (UINT8) PythSpacesAway( pSoldier->sGridNo, MercPtrs[ ubOpponentID ]->sGridNo );
+	ubDistance = (UINT8) PythSpacesAway( pSoldier->sGridNo, ubOpponentID->sGridNo );
 
 	// if we are in combat mode - thus doing an interrupt rather than determine who gets first turn -
 	// then give bonus
@@ -1951,7 +1951,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN 
 				INT16 range = PythSpacesAway( pSoldier->sFocusGridNo, pSoldier->sGridNo );
 				INT16 radius = gSkillTraitValues.ubSNFocusRadius * range / 20;
 
-				INT16 range_opponent = PythSpacesAway( pSoldier->sFocusGridNo, MercPtrs[ubOpponentID]->sGridNo );
+				INT16 range_opponent = PythSpacesAway( pSoldier->sFocusGridNo, ubOpponentID->sGridNo );
 
 				if ( range_opponent <= radius )
 					iPoints += gSkillTraitValues.sSNFocusInterruptBonus;
@@ -2034,7 +2034,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, BOOLEAN 
 	#endif
 if(is_networked)
 {
-	SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
+	SOLDIERTYPE	*pOpp = ubOpponentID;
 		#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_MPSYSTEM, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
 		#endif
@@ -2448,7 +2448,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 
 							default:		// interrupt is possible, run a duel
 								DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, "Calculating int duel pts for onlooker in ResolveInterruptsVs" );
-								pSoldier->aiData.bInterruptDuelPts = CalcInterruptDuelPts(pSoldier,pOpponent->ubID,TRUE);
+								pSoldier->aiData.bInterruptDuelPts = CalcInterruptDuelPts(pSoldier, pOpponent->ubID, TRUE);
 								fIntOccurs = InterruptDuel(pOpponent,pSoldier);
 								#ifdef DEBUG_INTERRUPTS
 								if (fIntOccurs)

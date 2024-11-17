@@ -1254,7 +1254,7 @@ public:
 	UINT16			*pCurrentShade;
 	UINT8			ubFadeLevel;
 	UINT8			ubServiceCount;
-	UINT16			ubServicePartner;
+	SoldierID		ubServicePartner;
 	THROW_PARAMS		*pThrowParams;
 	INT8				bReverse;
 	LEVELNODE		*pLevelNode;
@@ -1427,7 +1427,7 @@ public:
 	INT8					bOldBattleSnd;
 	INT32				iBurstSoundID;
 	INT8					bSlotItemTakenFrom;
-	UINT16				ubAutoBandagingMedic;
+	SoldierID			ubAutoBandagingMedic;
 	SoldierID			ubRobotRemoteHolderID;
 	UINT32				uiTimeOfLastContractUpdate;
 	INT8					bTypeOfLastContract;
@@ -1808,7 +1808,7 @@ public:
 
 	BOOLEAN CheckSoldierHitRoof( void );
 	BOOLEAN CheckForBreathCollapse( void );
-	BOOLEAN PlayerSoldierStartTalking( UINT16 ubTargetID, BOOLEAN fValidate );
+	BOOLEAN PlayerSoldierStartTalking( SoldierID ubTargetID, BOOLEAN fValidate );
 	BOOLEAN InternalIsValidStance( INT8 bDirection, INT8 bNewStance );
 	BOOLEAN IsValidSecondHandShot( void );
 	BOOLEAN IsValidSecondHandBurst( void );
@@ -1859,10 +1859,10 @@ public:
 	BOOLEAN		EquipmentTooGood( BOOLEAN fCloselook );
 	
 	// does soldier ubObserverID recognize us as his enemy?
-	BOOLEAN		SeemsLegit( UINT16 ubObserverID );
+	BOOLEAN		SeemsLegit( SoldierID ubObserverID );
 
 	// do we recognize someone else as a combatant?
-	BOOLEAN		RecognizeAsCombatant(UINT16 ubTargetID);
+	BOOLEAN		RecognizeAsCombatant(SoldierID ubTargetID);
 
 	// loose covert property
 	void		LooseDisguise( void );	
@@ -2053,12 +2053,12 @@ public:
 
 	// Flugente: drag people
 	BOOLEAN		CanDragInPrinciple(BOOLEAN fCheckStance = FALSE);
-	BOOLEAN		CanDragPerson(UINT16 usID, BOOLEAN fCheckStance = FALSE);
+	BOOLEAN		CanDragPerson(SoldierID usID, BOOLEAN fCheckStance = FALSE);
 	BOOLEAN		CanDragCorpse(UINT16 usCorpseNum, BOOLEAN fCheckStance = FALSE);
 	BOOLEAN		CanDragStructure(INT32 sGridNo, BOOLEAN fCheckStance = FALSE);
 	BOOLEAN		IsDragging(bool aStopIfConditionNotSatisfied = true);
-	void		SetDragOrderPerson( UINT16 usID );
-	void		SetDragOrderCorpse( UINT32 usID );
+	void		SetDragOrderPerson( SoldierID usID );
+	void		SetDragOrderCorpse( UINT32 uiCorpseID );
 	void		SetDragOrderStructure( INT32 sGridNo );
 	void		CancelDrag();
 
@@ -2086,10 +2086,10 @@ public:
 	UINT8		GetThiefEvadeDetectionChance();
 
 	// Flugente: turncoats
-	BOOLEAN		InPositionForTurncoatAttempt( UINT16 usID );
+	BOOLEAN		InPositionForTurncoatAttempt( SoldierID usID );
 	UINT8		GetTurncoatConvinctionChance( SoldierID usID, INT16 usApproach );
-	void		AttemptToCreateTurncoat( UINT16 usID );
-	BOOLEAN		OrderTurnCoatToSwitchSides( UINT16 usID );
+	void		AttemptToCreateTurncoat( SoldierID usID );
+	BOOLEAN		OrderTurnCoatToSwitchSides( SoldierID usID );
 	void		OrderAllTurnCoatToSwitchSides();
 
 	// Flugente: exploration assignment

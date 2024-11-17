@@ -214,7 +214,7 @@ void RecountObjectSlots(void)
 }
 
 
-INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT16 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
+INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
 {
 	INT32			iObjectIndex;
 	FLOAT			mass;
@@ -258,7 +258,7 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->Position.z	= zPos;
 	pObject->fVisible		= TRUE;
 	pObject->fTestObject	= fTestObject;
-	pObject->ubOwner	= ubOwner;
+	pObject->ubOwner = ubOwner;
 	pObject->ubActionCode = ubActionCode;
 	pObject->uiActionData = uiActionData;
 	pObject->fDropItem		= TRUE;
@@ -546,7 +546,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 						{
 							SOLDIERTYPE *pSoldier;
 
-							pSoldier = MercPtrs[ pObject->ubLastTargetTakenDamage ];
+							pSoldier = pObject->ubLastTargetTakenDamage;
 
 							bLevel = pSoldier->pathing.bLevel;
 						}

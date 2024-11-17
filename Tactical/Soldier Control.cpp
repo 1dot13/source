@@ -1730,10 +1730,10 @@ void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier );
 UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight );
 void SelectFallAnimation( SOLDIERTYPE *pSoldier );
 BOOLEAN FullStructAlone( INT32 sGridNo, UINT8 ubRadius );
-void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitBlade( SOLDIERTYPE* pSoldier, UINT8 ubHitLocation );
-void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
-void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitVehicle( SOLDIERTYPE* pSoldier, UINT16 bDirection );
 UINT8 CalcScreamVolume( SOLDIERTYPE * pSoldier, UINT8 ubCombinedLoss );
 void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
@@ -6492,7 +6492,7 @@ void DoGenericHit( SOLDIERTYPE *pSoldier, UINT8 ubSpecial, INT16 bDirection )
 }
 
 
-void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT16 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
 	INT32	usNewGridNo;
 	BOOLEAN	fBlownAway = FALSE;
@@ -6517,7 +6517,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					if ( Item[usWeaponIndex].usItemClass == IC_GUN )
 						ubDistMessy *= gItemSettings.fDistMessyModifierGun[Weapon[usWeaponIndex].ubWeaponType];
 
-					if ( SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= ubDistMessy )
+					if ( SpacesAway( pSoldier->sGridNo, ubAttackerID->sGridNo ) <= ubDistMessy )
 					{
 						usNewGridNo = NewGridNo( pSoldier->sGridNo, (INT8)(DirectionInc( pSoldier->ubDirection )) );
 
@@ -6546,7 +6546,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					if ( Item[usWeaponIndex].usItemClass == IC_GUN )
 						ubDistMessy *= gItemSettings.fDistMessyModifierGun[Weapon[usWeaponIndex].ubWeaponType];
 
-					if ( SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= ubDistMessy )
+					if ( SpacesAway( pSoldier->sGridNo, ubAttackerID->sGridNo ) <= ubDistMessy )
 					{
 
 						// possibly play torso explosion anim!
@@ -6619,7 +6619,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 			// Flugente: dynamic opinions
 			if (gGameExternalOptions.fDynamicOpinions && ubAttackerID != NOBODY )
-				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
+				HandleDynamicOpinionChange( ubAttackerID, OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
 
 			return;
 		}
@@ -6634,7 +6634,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 			// Flugente: dynamic opinions
 			if (gGameExternalOptions.fDynamicOpinions && ubAttackerID != NOBODY )
-				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
+				HandleDynamicOpinionChange( ubAttackerID, OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
 
 			return;
 		}
@@ -6643,7 +6643,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 	DoGenericHit( pSoldier, ubSpecial, bDirection );
 }
 
-void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
 	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
 	if ( ubHitLocation == AIM_SHOT_TORSO )
@@ -6858,7 +6858,7 @@ void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT8 ubHitLocation )
 }
 
 
-void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, SoldierID ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
 
 	// IF HERE AND GUY IS DEAD, RETURN!
@@ -12507,9 +12507,9 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 	if ( this->flags.uiStatusFlags & SOLDIER_MONSTER )
 	{
 		// Is there an unconscious guy at gridno......
-		UINT16 ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
+		SoldierID ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
 
-		if ( ubTargetID != NOBODY && ((MercPtrs[ubTargetID]->stats.bLife < OKLIFE && MercPtrs[ubTargetID]->stats.bLife > 0) || (MercPtrs[ubTargetID]->bBreath < OKBREATH && MercPtrs[ubTargetID]->bCollapsed)) )
+		if ( ubTargetID != NOBODY && ((ubTargetID->stats.bLife < OKLIFE && ubTargetID->stats.bLife > 0) || (ubTargetID->bBreath < OKBREATH && ubTargetID->bCollapsed)) )
 		{
 			this->aiData.uiPendingActionData4 = ubTargetID;
 
@@ -13140,13 +13140,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 {
 	SOLDIERTYPE *pTSoldier;
 	//UINT32 uiMercFlags;
-	UINT16 usSoldierIndex;
 	BOOLEAN fRefused = FALSE;
 
-	usSoldierIndex = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID usSoldierIndex = WhoIsThere2( sGridNo, this->pathing.bLevel );
 	if ( usSoldierIndex != NOBODY )
 	{
-		pTSoldier = MercPtrs[usSoldierIndex];
+		pTSoldier = usSoldierIndex;
 
 		//SANDRO - hack! Find out if we are a doctor with medical bag trying to make a surgery
 		this->fDoingSurgery = FALSE;
@@ -13275,7 +13274,7 @@ void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection, U
 
 	if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 	{
-		pTSoldier = MercPtrs[usSoldierIndex];
+		pTSoldier = usSoldierIndex;
 
 		// Enter vehicle...
 		EnterVehicle( pTSoldier, this, ubSeatIndex );
@@ -13790,7 +13789,7 @@ void SOLDIERTYPE::InternalGivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 	// GET TARGET SOLDIER
 	if ( this->ubServicePartner != NOBODY )
 	{
-		pTSoldier = MercPtrs[this->ubServicePartner];
+		pTSoldier = this->ubServicePartner;
 
 		// END SERVICE!
 		pTSoldier->ubServiceCount--;
@@ -14773,12 +14772,12 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 			{
 				// resting our gun on people is allowed sometimes
-				UINT16 usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				SoldierID usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 				if ( usPersonID == NOBODY )
 					applybipod = TRUE;
 				else
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
+					SOLDIERTYPE* pSoldier = usPersonID;
 
 					// anv: vehicles don't mind
 					if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -14797,7 +14796,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 							// Flugente: dynamic opinions
 							if (gGameExternalOptions.fDynamicOpinions)
 							{
-								AddOpinionEvent(MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
+								AddOpinionEvent(pSoldier->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
 							}
 						}
 					}
@@ -14847,12 +14846,12 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 			{
 				// resting our gun on people is allowed sometimes
-				UINT16 usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				SoldierID usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 				if ( usPersonID == NOBODY )
 					applybipod = TRUE;
 				else
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
+					SOLDIERTYPE* pSoldier = usPersonID;
 
 					// anv: vehicles don't mind
 					if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -14867,7 +14866,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 						// Flugente: dynamic opinions
 						if (gGameExternalOptions.fDynamicOpinions)
 						{
-							AddOpinionEvent(MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
+							AddOpinionEvent(pSoldier->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
 						}
 					}
 				}
@@ -15328,7 +15327,7 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT16 * pubId1, UINT16* pGunSlot1, UIN
 	UINT16 lastslotforammo = MEDPOCK3POS;
 
 	// for robots and AI-controlled soldiers (who don't have any LBE gear), we put a change in here so that ALL their slots are checked for ammo
-	if ( this->bTeam != gbPlayerNum || MercPtrs[this->ubID]->flags.uiStatusFlags & SOLDIER_ROBOT )
+	if ( this->bTeam != gbPlayerNum || this->ubID->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
 		firstslotforammo = HANDPOS;
 		lastslotforammo = NUM_INV_SLOTS;
@@ -15835,9 +15834,9 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 
 
 // are we in covert mode? we need to have the correct flag set, and not wear anything suspicious, or behave in a suspicious way
-BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT16 ubObserverID )
+BOOLEAN		SOLDIERTYPE::SeemsLegit( SoldierID ubObserverID )
 {
-	SOLDIERTYPE* pSoldier = MercPtrs[ubObserverID];
+	SOLDIERTYPE* pSoldier = ubObserverID;
 
 	if ( !pSoldier )
 		return TRUE;
@@ -16123,7 +16122,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT16 ubObserverID )
 }
 
 // do we recognize someone else as a combatant?
-BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT16 ubTargetID )
+BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( SoldierID ubTargetID )
 {
 	// this will only work with the new trait system
 	if ( !gGameOptions.fNewTraitSystem )
@@ -16132,7 +16131,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT16 ubTargetID )
 	if ( ubTargetID == NOBODY )
 		return TRUE;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ubTargetID];
+	SOLDIERTYPE* pSoldier = ubTargetID;
 
 	if ( !pSoldier )
 		return TRUE;
@@ -16462,12 +16461,12 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner( )
 	// we can only free people we are facing
 	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 
-	UINT16 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+	SoldierID target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 
 	// is there somebody?
 	if ( target != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[target];
+		SOLDIERTYPE* pSoldier = target;
 
 		// if he is captured, free him!
 		// note that this would also work for prisoner civs that we spawn in our prisons. All needed would be commanding the AI to get there
@@ -18860,7 +18859,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		// if he does not do so, active vox operators will be targetted. Who knows, the vox operator might be doing a heroic last stand for all we know...
 		//BOOLEAN signalshellfired = FALSE;
 		const UINT8 maxFiringMortarsAmount = 5;
-		UINT16 radiooperatorID = 0;
+		SoldierID radiooperatorID = 0;
 		UINT8 mortaritemcnt = 0;
 		UINT16 mortararray[maxFiringMortarsAmount] = { 0 };
 
@@ -19008,7 +19007,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 		if ( radiooperatorID )
 		{
-			pSoldier = MercPtrs[radiooperatorID];
+			pSoldier = radiooperatorID;
 
 			// also drain the other guy's radio batteries
 			pSoldier->UseRadio( );
@@ -19337,12 +19336,12 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 	// we can only free people we are facing
 	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 
-	UINT16 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+	SoldierID target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 
 	// is there somebody?
 	if ( target != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[target];
+		SOLDIERTYPE* pSoldier = target;
 
 		if ( pSoldier->bTeam != ENEMY_TEAM )
 			return FALSE;
@@ -20517,13 +20516,13 @@ BOOLEAN		SOLDIERTYPE::CanDragInPrinciple(BOOLEAN fCheckStance)
 	return TRUE;
 }
 
-BOOLEAN		SOLDIERTYPE::CanDragPerson(UINT16 usID, BOOLEAN fCheckStance)
+BOOLEAN		SOLDIERTYPE::CanDragPerson(SoldierID usID, BOOLEAN fCheckStance)
 {
 	if (!CanDragInPrinciple(fCheckStance))
 		return FALSE;
 		
 	// check whether this guy exists etc.
-	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+	SOLDIERTYPE* pSoldier = usID;
 
 	if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 	{
@@ -20804,7 +20803,7 @@ BOOLEAN		SOLDIERTYPE::IsDragging( bool aStopIfConditionNotSatisfied )
 	return FALSE;
 }
 
-void	SOLDIERTYPE::SetDragOrderPerson( UINT16 usID )
+void	SOLDIERTYPE::SetDragOrderPerson( SoldierID usID )
 {
 	if ( CanDragPerson( usID ) )
 	{
@@ -20825,16 +20824,16 @@ void	SOLDIERTYPE::SetDragOrderPerson( UINT16 usID )
 	}
 }
 
-void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 usID )
+void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 uiCorpseID )
 {
-	if ( CanDragCorpse( usID ) )
+	if ( CanDragCorpse( uiCorpseID ) )
 	{
 		// sevenfm: if someone is dragging this corpse, cancel drag
 		SOLDIERTYPE *pSoldier;
 		for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 		{
 			pSoldier = MercPtrs[uiLoop];
-			if (pSoldier && pSoldier->sDragCorpseID == usID)
+			if (pSoldier && pSoldier->sDragCorpseID == uiCorpseID)
 			{
 				pSoldier->CancelDrag();
 			}
@@ -20842,7 +20841,7 @@ void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 usID )
 
 		CancelDrag();
 
-		this->sDragCorpseID = usID;
+		this->sDragCorpseID = uiCorpseID;
 	}
 }
 
@@ -21014,7 +21013,7 @@ void		SOLDIERTYPE::StopChatting()
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[DISTRACT_STOP_STR], this->GetName(), this->usChatPartnerID->GetName() );
 
-		MercPtrs[this->usChatPartnerID]->usChatPartnerID = NOBODY;
+		this->usChatPartnerID->usChatPartnerID = NOBODY;
 		this->usChatPartnerID = NOBODY;
 	}
 }
@@ -21372,7 +21371,7 @@ UINT8		SOLDIERTYPE::GetThiefEvadeDetectionChance()
 	return totalvalue;
 }
 
-BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( UINT16 usID )
+BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( SoldierID usID )
 {
 	if ( !gSkillTraitValues.fCOTurncoats
 		|| gbWorldSectorZ
@@ -21387,7 +21386,7 @@ BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( UINT16 usID )
 		|| usID == NOBODY )
 		return FALSE;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+	SOLDIERTYPE* pSoldier = usID;
 
 	if ( !pSoldier
 		|| pSoldier->bTeam != ENEMY_TEAM
@@ -21543,12 +21542,12 @@ UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( SoldierID usID, INT16 sApproac
 	return max( 0, min( 100, recruitrating - enemyresistancerating ) );
 }
 
-void		SOLDIERTYPE::AttemptToCreateTurncoat( UINT16 usID )
+void		SOLDIERTYPE::AttemptToCreateTurncoat( SoldierID usID )
 {
 	if ( usID >= NOBODY )
 		return;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+	SOLDIERTYPE* pSoldier = usID;
 
 	if ( !pSoldier
 		|| pSoldier->bTeam != ENEMY_TEAM
@@ -21558,12 +21557,12 @@ void		SOLDIERTYPE::AttemptToCreateTurncoat( UINT16 usID )
 	HandleTurncoatAttempt( pSoldier );
 }
 
-BOOLEAN		SOLDIERTYPE::OrderTurnCoatToSwitchSides( UINT16 usID )
+BOOLEAN		SOLDIERTYPE::OrderTurnCoatToSwitchSides( SoldierID usID )
 {
 	if ( usID >= NOBODY )
 		return FALSE;
 
-	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+	SOLDIERTYPE* pSoldier = usID;
 
 	if (!pSoldier 
 		|| pSoldier->bTeam != ENEMY_TEAM
@@ -22545,12 +22544,12 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 	if ( !gGameExternalOptions.fAllowPrisonerSystem )
 		return;
 
-	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
-	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->CanBeCaptured( ) )
+	if ( ubPerson != NOBODY && ubPerson->CanBeCaptured( ) )
 	{
 		// we found someone we can handcuff
-		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+		SOLDIERTYPE* pSoldier = ubPerson;
 
 		// check wether we will be successful
 		BOOLEAN success = FALSE;
@@ -22688,12 +22687,12 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY )
 	{
 		// we found someone
-		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+		SOLDIERTYPE* pSoldier = ubPerson;
 
 		OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
 
@@ -22824,12 +22823,12 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && ubPerson != this->ubID )
 	{
 		// we found someone
-		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+		SOLDIERTYPE* pSoldier = ubPerson;
 
 		OBJECTTYPE* pObj = &( this->inv[HANDPOS] );
 
@@ -22895,12 +22894,12 @@ void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirec
 
 void SOLDIERTYPE::EVENT_SoldierApplySplintToPerson( INT32 sGridNo, UINT8 ubDirection )
 {
-	UINT16 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && ubPerson != this->ubID )
 	{
 		// we found someone
-		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+		SOLDIERTYPE* pSoldier = ubPerson;
 
 		OBJECTTYPE* pObj = &( this->inv[HANDPOS] );
 		
@@ -22964,12 +22963,10 @@ void SOLDIERTYPE::EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usAction
 
 void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )
 {
-	UINT16 ubPerson;
-
 	// Make sure we have a robot here....
-	ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
-	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->flags.uiStatusFlags & SOLDIER_ROBOT )
+	if ( ubPerson != NOBODY && ubPerson->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
 		if (this->ubDirection != ubDirection)
@@ -23195,18 +23192,18 @@ void AbandonBoxingDueToSurrenderCallback(UINT8 ubExitValue)
 }
 
 SOLDIERTYPE				*pTMilitiaSoldier;//global pointer
-BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT16 ubTargetID, BOOLEAN fValidate )
+BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( SoldierID ubTargetID, BOOLEAN fValidate )
 {
-	INT16							sFacingDir, sXPos, sYPos, sAPCost;
-	SOLDIERTYPE				*pTSoldier;
-	UINT32						uiRange;
+	INT16		sFacingDir, sXPos, sYPos, sAPCost;
+	SOLDIERTYPE *pTSoldier;
+	UINT32		uiRange;
 
 	if ( ubTargetID == NOBODY )
 	{
 		return(FALSE);
 	}
 
-	pTSoldier = MercPtrs[ubTargetID];
+	pTSoldier = ubTargetID;
 
 	// Check distance again, to be sure
 	if ( fValidate )
@@ -23392,7 +23389,7 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandBurst( void )
 	{
 		if ( this->bDoAutofire )
 		{
-			// if second gun cannot use atuofire mode
+			// if second gun cannot use autofire mode
 			if ( !IsGunAutofireCapable( &this->inv[SECONDHANDPOS] ) )
 			{
 				return(FALSE);
