@@ -386,14 +386,31 @@ typedef struct SoldierID
 	// Implicit conversion and constructor to provide compatibility with unchanged code
 	// TODO: Remove once SoldierID is used everywhere and these are no longer needed
 	inline operator UINT16() const { return i; }
-	SoldierID(const UINT16 val = 0)
-		: i(val)
+
+	SoldierID(const UINT16 val = TOTAL_SOLDIERS) : i(val)
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS )
+			i = TOTAL_SOLDIERS;
+	}
+	SoldierID ( const UINT32 val ) : i ( val )
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS )
+			i = TOTAL_SOLDIERS;
+	}
+	SoldierID ( const INT32 val ) : i ( val )
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
 		if ( i > TOTAL_SOLDIERS )
 			i = TOTAL_SOLDIERS;
 	}
 
+	// No conversions from 8-bit integers!
+	SoldierID ( const UINT8 ) = delete;
+	SoldierID ( const INT8 ) = delete;
+
+	
 	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
 	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
 	inline operator SOLDIERTYPE* () { return MercPtrs[i]; }
