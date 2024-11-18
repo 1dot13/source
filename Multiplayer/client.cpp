@@ -2948,7 +2948,7 @@ void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yP
 
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - send_grenade ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gren.usItem, gren.sTargetGridNo , gren.ubID , guiPreRandomIndex );
+			sprintf(tmpMPDbgString,"MP - send_grenade ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gren.usItem, gren.sTargetGridNo , gren.ubID.i , guiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -2974,7 +2974,7 @@ void recieveGRENADE (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveGRENADE ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gren->usItem, gren->sTargetGridNo , gren->ubID , guiPreRandomIndex );
+			sprintf(tmpMPDbgString,"MP - recieveGRENADE ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gren->usItem, gren->sTargetGridNo , gren->ubID.i , guiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -3021,7 +3021,7 @@ void recieveGRENADE (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg[128];
-		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveGRENADE()",gren->ubID);
+		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveGRENADE()", gren->ubID.i);
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg);
 #endif
@@ -3120,7 +3120,7 @@ void recieveGRENADERESULT (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg[128];
-		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveGRENADERESULT()",gres->ubOwnerID);
+		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveGRENADERESULT()", gres->ubOwnerID.i);
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg);
 #endif
@@ -3146,7 +3146,7 @@ void send_plant_explosive (SoldierID ubID,UINT16 usItem,UINT8 ubItemStatus,UINT1
 
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"MP - send_plant_explosive ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i , uiWorldItemIndex : %i )\n",exp.usItem, exp.sGridNo , exp.ubID , guiPreRandomIndex , uiWorldItemIndex );
+	sprintf(tmpMPDbgString,"MP - send_plant_explosive ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i , uiWorldItemIndex : %i )\n",exp.usItem, exp.sGridNo , exp.ubID.i , guiPreRandomIndex , uiWorldItemIndex );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3221,7 +3221,7 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg[128];
-		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recievePLANTEXPLOSIVE()",exp->ubID);
+		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recievePLANTEXPLOSIVE()",exp->ubID.i);
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg);
 #endif
@@ -3304,7 +3304,7 @@ void recieveDETONATEEXPLOSIVE (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveDETONATEEXPLOSIVE ( MPTeam : %i , uiWorldIndex : %i , uiPreRandomIndex : %i , ubID : %i )\n",det->ubMPTeamIndex, det->uiWorldItemIndex , det->uiPreRandomIndex , det->ubID );
+			sprintf(tmpMPDbgString,"MP - recieveDETONATEEXPLOSIVE ( MPTeam : %i , uiWorldIndex : %i , uiPreRandomIndex : %i , ubID : %i )\n",det->ubMPTeamIndex, det->uiWorldItemIndex , det->uiPreRandomIndex , det->ubID.i );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -3417,7 +3417,7 @@ void recieveDISARMEXPLOSIVE (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveDISARMEXPLOSIVE ( MPTeam : %i , uiWorldItemIndex : %i , uiPreRandomIndex : %i , ubID : %i , sGridNo : %i )\n",disarm->ubMPTeamIndex, disarm->uiWorldItemIndex , disarm->uiPreRandomIndex , disarm->ubID , disarm->sGridNo );
+			sprintf(tmpMPDbgString,"MP - recieveDISARMEXPLOSIVE ( MPTeam : %i , uiWorldItemIndex : %i , uiPreRandomIndex : %i , ubID : %i , sGridNo : %i )\n",disarm->ubMPTeamIndex, disarm->uiWorldItemIndex , disarm->uiPreRandomIndex , disarm->ubID.i, disarm->sGridNo );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -3480,7 +3480,7 @@ void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID
 
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"MP - send_spreadeffect ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef.sGridNo, sef.ubRadius ,sef.usItem, sef.ubOwner, sef.fSubsequent, sef.bLevel, sef.iSmokeEffectID, sef.uiPreRandomIndex );
+	sprintf(tmpMPDbgString,"MP - send_spreadeffect ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef.sGridNo, sef.ubRadius ,sef.usItem, sef.ubOwner.i, sef.fSubsequent, sef.bLevel, sef.iSmokeEffectID, sef.uiPreRandomIndex );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3502,7 +3502,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveSPREADEFFECT ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef->sGridNo, sef->ubRadius ,sef->usItem, sef->ubOwner, sef->fSubsequent, sef->bLevel, sef->iSmokeEffectID, sef->uiPreRandomIndex );
+			sprintf(tmpMPDbgString,"MP - recieveSPREADEFFECT ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef->sGridNo, sef->ubRadius ,sef->usItem, sef->ubOwner.i, sef->fSubsequent, sef->bLevel, sef->iSmokeEffectID, sef->uiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3543,7 +3543,7 @@ void recieveSPREADEFFECT (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg2[128];
-		sprintf(tmpMsg2,"ERROR! - Invalid Soldier pointer from ubID %i in recieveSPREADEFFECT()",sef->ubOwner);
+		sprintf(tmpMsg2,"ERROR! - Invalid Soldier pointer from ubID %i in recieveSPREADEFFECT()",sef->ubOwner.i );
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg2);
 #endif
@@ -3564,7 +3564,7 @@ void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ub
 
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"MP - send_newsmokeeffect ( sGridNo : %i , usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef.sGridNo, sef.usItem, sef.ubOwner, sef.bLevel, sef.iSmokeEffectID, sef.uiPreRandomIndex );
+	sprintf(tmpMPDbgString,"MP - send_newsmokeeffect ( sGridNo : %i , usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef.sGridNo, sef.usItem, sef.ubOwner.i, sef.bLevel, sef.iSmokeEffectID, sef.uiPreRandomIndex );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3586,7 +3586,7 @@ void recieveNEWSMOKEEFFECT (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveNEWSMOKEEFFECT ( sGridNo : %i , usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef->sGridNo, sef->usItem, sef->ubOwner, sef->bLevel, sef->iSmokeEffectID, sef->uiPreRandomIndex );
+			sprintf(tmpMPDbgString,"MP - recieveNEWSMOKEEFFECT ( sGridNo : %i , usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i , uiPreRandomIndex : %i )\n",sef->sGridNo, sef->usItem, sef->ubOwner.i, sef->bLevel, sef->iSmokeEffectID, sef->uiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3604,7 +3604,7 @@ void recieveNEWSMOKEEFFECT (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg[128];
-		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveNEWSMOKEEFFECT()",sef->ubOwner);
+		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveNEWSMOKEEFFECT()",sef->ubOwner.i );
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg);
 #endif
@@ -3626,7 +3626,7 @@ void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID, INT16 sS
 
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"MP - send_gasdamage ( ubSoldierID : %i , usExplosiveClassID : %i , sSubsequent : %i , recompileMoveCosts : %i , sWoundAmt : %i , sBreathAmt : %i , ubOwner : %i )\n", exp.ubSoldierID , usExplosiveClassID , sSubsequent , fRecompileMovementCosts , sWoundAmt , sBreathAmt , exp.ubAttackerID );
+	sprintf(tmpMPDbgString, "MP - send_gasdamage ( ubSoldierID : %i , usExplosiveClassID : %i , sSubsequent : %i , recompileMoveCosts : %i , sWoundAmt : %i , sBreathAmt : %i , ubOwner : %i )\n", exp.ubSoldierID.i, usExplosiveClassID , sSubsequent , fRecompileMovementCosts , sWoundAmt , sBreathAmt , exp.ubAttackerID.i );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3649,7 +3649,7 @@ void send_explosivedamage( SoldierID ubPerson, SoldierID ubOwner, INT32 sBombGri
 
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"MP - send_explosivedamage ( ubPerson : %i , ubOwner : %i , sBombGridNo : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , usItem : %i , sSubs : %i )\n",ubPerson, ubOwner , sBombGridNo , sWoundAmt , sBreathAmt , uiDist , usItem , sSubsequent );
+	sprintf(tmpMPDbgString, "MP - send_explosivedamage ( ubPerson : %i , ubOwner : %i , sBombGridNo : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , usItem : %i , sSubs : %i )\n", ubPerson.i, ubOwner.i, sBombGridNo , sWoundAmt , sBreathAmt , uiDist , usItem , sSubsequent );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3673,7 +3673,7 @@ void recieveEXPLOSIONDAMAGE (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveEXPLOSIONDAMAGE ( ubDamageFunc : %i , ubSoldierID : %i , ubAttackerID : %i , usItem : %i , usExplosiveClassID : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , sSubs : %i , sBombGridNo : %i , uiPreRandomIndex : %i )\n", exp->ubDamageFunc , exp->ubSoldierID , exp->ubAttackerID , exp->usItem , exp->usExplosiveClassID , exp->sWoundAmt , exp->sBreathAmt , exp->uiDist , exp->sSubsequent , exp->sBombGridNo , exp->uiPreRandomIndex );
+			sprintf(tmpMPDbgString, "MP - recieveEXPLOSIONDAMAGE ( ubDamageFunc : %i , ubSoldierID : %i , ubAttackerID : %i , usItem : %i , usExplosiveClassID : %i , sWoundAmt : %i , sBreathAmt : %i , uiDist : %i , sSubs : %i , sBombGridNo : %i , uiPreRandomIndex : %i )\n", exp->ubDamageFunc , exp->ubSoldierID.i, exp->ubAttackerID.i, exp->usItem , exp->usExplosiveClassID , exp->sWoundAmt , exp->sBreathAmt , exp->uiDist , exp->sSubsequent , exp->sBombGridNo , exp->uiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -3698,7 +3698,7 @@ void recieveEXPLOSIONDAMAGE (RPCParameters *rpcParameters)
 	{
 #ifdef JA2BETAVERSION
 		char tmpMsg[128];
-		sprintf(tmpMsg,"ERROR! - Invalid Soldier pointer from ubID %i in recieveEXPLOSIONDAMAGE()",exp->ubAttackerID);
+		sprintf(tmpMsg, "ERROR! - Invalid Soldier pointer from ubID %i in recieveEXPLOSIONDAMAGE()", exp->ubAttackerID.i );
 		//ScreenMsg(FONT_RED,MSG_MPSYSTEM,tmpMsg);
 		MPDebugMsg(tmpMsg);
 #endif
