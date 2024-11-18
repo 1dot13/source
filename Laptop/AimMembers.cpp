@@ -2397,9 +2397,9 @@ INT8 AimMemberHireMerc()
 	MERC_HIRE_STRUCT HireMercStruct;
 //	UINT8		ubCurrentSoldier = AimMercArray[gbCurrentIndex];
 	UINT8		ubCurrentSoldier =  gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-	INT8		bReturnCode;
-	INT16		sSoldierID=0;
-	INT8		bTypeOfContract=0;
+	INT8			bReturnCode;
+	SoldierID	sSoldierID = NOBODY;
+	INT8			bTypeOfContract=0;
 
 
 	if( LaptopSaveInfo.iCurrentBalance < giContractAmount )
@@ -2475,9 +2475,10 @@ INT8 AimMemberHireMerc()
 
 	//Set the type of contract the merc is on
 	sSoldierID = GetSoldierIDFromMercID( ubCurrentSoldier );
-	if( sSoldierID == -1 )
+	if( sSoldierID == NOBODY )
 		return( FALSE );
-	Menptr[ sSoldierID ].bTypeOfLastContract = bTypeOfContract;
+
+	sSoldierID->bTypeOfLastContract = bTypeOfContract;
 
 
 	//add an entry in the finacial page for the hiring of the merc
