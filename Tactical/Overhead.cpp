@@ -3624,7 +3624,7 @@ void RebuildAllSoldierShadeTables( )
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 {
     INT32       cnt;
-    INT32       iNewSelectedSoldier = -1;
+    SoldierID   iNewSelectedSoldier;
     SOLDIERTYPE *pTeamSoldier;
     BOOLEAN     fMissionFailed = TRUE;
     INT8        bBuddyIndex;
