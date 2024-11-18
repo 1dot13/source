@@ -1383,14 +1383,14 @@ void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 {
 	SOLDIERTYPE *pSoldier2;
 	UINT32		usSleepSpot2;
-	SoldierID	uiLoop;
+	UINT16		uiLoop;
 	SCHEDULENODE *pSchedule;
 	UINT8		ubDirection;
 
 	// start after this soldier's ID so we don't duplicate work done in previous passes
-	for ( uiLoop = pSoldier->ubID + 1; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++uiLoop )
+	for ( uiLoop = pSoldier->ubID + 1; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; uiLoop++ )
 	{
-		pSoldier2 = uiLoop;
+		pSoldier2 = MercPtrs[uiLoop];
 		if ( pSoldier2->bActive && pSoldier2->bInSector && pSoldier2->ubScheduleID != 0 )
 		{
 			pSchedule = GetSchedule( pSoldier2->ubScheduleID );
