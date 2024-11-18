@@ -64,7 +64,7 @@ void DeleteAnimationCache( SoldierID usSoldierID, AnimationSurfaceCacheType *pAn
 }
 
 
-BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType *pAnimCache, UINT16 usSurfaceIndex, UINT16 usCurrentAnimation )
+BOOLEAN GetCachedAnimationSurface( SoldierID usSoldierID, AnimationSurfaceCacheType *pAnimCache, UINT16 usSurfaceIndex, UINT16 usCurrentAnimation )
 {
 	UINT8			cnt;
 	UINT8			ubLowestIndex = 0;
@@ -89,7 +89,7 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 		AnimDebugMsg( String( "Anim Cache: Determining Bump Candidate ( Soldier %d )", usSoldierID ) );
 
 		// Determine exisiting surface used by merc
-		usCurrentAnimSurface = DetermineSoldierAnimationSurface( MercPtrs[ usSoldierID ], usCurrentAnimation );
+		usCurrentAnimSurface = DetermineSoldierAnimationSurface( usSoldierID, usCurrentAnimation );
 		// If the surface we are going to bump is our existing animation, reject it as a candidate
 
 		// If we get here, we need to remove an animation, pick the best one
@@ -142,7 +142,7 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 	}
 
 	return( TRUE );
-	}
+}
 
 
 
