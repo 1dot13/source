@@ -18875,7 +18875,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		// if he does not do so, active vox operators will be targetted. Who knows, the vox operator might be doing a heroic last stand for all we know...
 		//BOOLEAN signalshellfired = FALSE;
 		const UINT8 maxFiringMortarsAmount = 5;
-		SoldierID radiooperatorID = 0;
+		SoldierID radiooperatorID = NOBODY;
 		UINT8 mortaritemcnt = 0;
 		UINT16 mortararray[maxFiringMortarsAmount] = { 0 };
 
