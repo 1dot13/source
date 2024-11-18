@@ -388,7 +388,11 @@ typedef struct SoldierID
 	inline operator UINT16() const { return i; }
 	SoldierID(const UINT16 val = 0)
 		: i(val)
-	{}
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS )
+			i = TOTAL_SOLDIERS;
+	}
 
 	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
 	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
