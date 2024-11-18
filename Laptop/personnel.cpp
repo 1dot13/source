@@ -326,7 +326,7 @@ void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreatePersonnelButtons( void );
 void DeletePersonnelButtons( void );
 void DisplayHeader( void );
-void DisplayCharName( INT32 iId, INT32 iSlot );
+void DisplayCharName( SoldierID iId, INT32 iSlot );
 void DisplayCharStats(INT32 iId, INT32 iSlot);
 void DisplayCharPersonality( INT32 iId, INT32 iSlot );
 void SetPersonnelButtonStates( void );
@@ -1268,7 +1268,7 @@ void DisplayHeader( void )
 }
 
 
-void DisplayCharName( INT32 iId, INT32 iSlot )
+void DisplayCharName( SoldierID Id, INT32 iSlot )
 {
 	// get merc's nickName, assignment, and sector location info
 	INT16 sX, sY;
@@ -1280,7 +1280,11 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 
 	sTownName[0] = L'\0';
 
-	pSoldier=MercPtrs[iId];
+	if ( Id == NOBODY )
+	{
+		return;
+	}
+	pSoldier = Id;
 
 	SetFont(CHAR_NAME_FONT);
 	SetFontForeground(PERS_TEXT_FONT_COLOR);
@@ -1291,16 +1295,16 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 		return;
 	}
 
-	if( Menptr[iId].bAssignment == ASSIGNMENT_POW )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW )
 	{
 	}
-	else if( Menptr[iId].bAssignment == IN_TRANSIT )
+	else if( pSoldier->bAssignment == IN_TRANSIT )
 	{
 	}
 	else
 	{
 		// name of town, if any
-		bTownId = GetTownIdForSector( Menptr[iId].sSectorX, Menptr[iId].sSectorY );
+		bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
 
 		if( bTownId != BLANK_SECTOR )
 		{
@@ -1313,12 +1317,12 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	if( sTownName[0] != L'\0' )
 	{
 		//nick name - town name
-		swprintf( sString, L"%s - %s", gMercProfiles[Menptr[iId].ubProfile].zNickname, sTownName );
+		swprintf( sString, L"%s - %s", gMercProfiles[pSoldier->ubProfile].zNickname, sTownName );
 	}
 	else
 	{
 		//nick name
-		swprintf( sString, L"%s", gMercProfiles[Menptr[iId].ubProfile].zNickname );
+		swprintf( sString, L"%s", gMercProfiles[pSoldier->ubProfile].zNickname );
 	}
 
 
@@ -1334,10 +1338,10 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	//Display the mercs name
 	mprintf( sX + iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
 
-	if ( gGameExternalOptions.fUseXMLSquadNames && Menptr[iId].bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
-		swprintf( sString, L"%s", gSquadNameVector[Menptr[iId].bAssignment].c_str() );
+	if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
+		swprintf( sString, L"%s", gSquadNameVector[pSoldier->bAssignment].c_str() );
 	else
-		swprintf( sString, L"%s", pPersonnelAssignmentStrings[Menptr[iId].bAssignment]);
+		swprintf( sString, L"%s", pPersonnelAssignmentStrings[pSoldier->bAssignment]);
 
 	// nick name - assignment
 	FindFontCenterCoordinates(IMAGE_BOX_X-5,0,IMAGE_BOX_WIDTH + 90 , 0,sString,CHAR_NAME_FONT, &sX, &sY );
@@ -1356,36 +1360,36 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	//
 
 	//first get height of text to be displayed
-	iHeightOfText = DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[Menptr[iId].ubProfile].zName, 0, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
+	iHeightOfText = DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[pSoldier->ubProfile].zName, 0, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
 
 	//if the string will rap
 	if( ( iHeightOfText - 2 ) > GetFontHeight( PERS_FONT ) )
 	{
 		//raise where we display it, and rap it
-		DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y - GetFontHeight( PERS_FONT )), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[Menptr[iId].ubProfile].zName, 0, FALSE, CENTER_JUSTIFIED);
+		DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y - GetFontHeight( PERS_FONT )), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[pSoldier->ubProfile].zName, 0, FALSE, CENTER_JUSTIFIED);
 	}
 	else
 	{
-		DrawTextToScreen( gMercProfiles[Menptr[iId].ubProfile].zName, IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, PERS_FONT, PERS_FONT_COLOR, 0, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gMercProfiles[pSoldier->ubProfile].zName, IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, PERS_FONT, PERS_FONT_COLOR, 0, FALSE, CENTER_JUSTIFIED );
 	}
 
 /*
 Moved so the name of the town will be in the same line as the name
 
 
-	if( Menptr[iId].bAssignment == ASSIGNMENT_POW )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW )
 	{
 //		FindFontCenterCoordinates(IMAGE_BOX_X-5,0,IMAGE_BOX_WIDTH, 0,pPOWStrings[ 1 ],CHAR_NAME_FONT, &sX, &sY );
 //	mprintf(sX+iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y+20,pPOWStrings[ 1 ] );
 	}
-	else if( Menptr[iId].bAssignment == IN_TRANSIT )
+	else if( pSoldier->bAssignment == IN_TRANSIT )
 	{
 		return;
 	}
 	else
 	{
 		// name of town, if any
-		bTownId = GetTownIdForSector( Menptr[iId].sSectorX, Menptr[iId].sSectorY );
+		bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
 
 		if( bTownId != BLANK_SECTOR )
 		{
