@@ -1142,7 +1142,24 @@ void SOLDIERTYPE::initialize( )
 
 	// sevenfm:initialize additional data
 	this->InitializeExtraData();
+
+	// Initialize all SoldierID fields to NOBODY. 0 is a valid value!
+	this->ubID = NOBODY;
+	this->ubOppNum = NOBODY;
+	this->ubAttackerID = NOBODY;
+	this->ubPreviousAttackerID = NOBODY;
+	this->ubServicePartner = NOBODY;
+	this->ubSuppressorID = NOBODY;
+	this->ubTargetID = NOBODY;
+	this->ubAutoBandagingMedic = NOBODY;
+	this->ubRobotRemoteHolderID = NOBODY;
+	this->ubCTGTTargetID = NOBODY;
+	this->bOverrideMoveSpeed = NOBODY;
+	this->ubNextToPreviousAttackerID = NOBODY;
+	this->usDragPersonID = NOBODY;
+	this->usChatPartnerID = NOBODY;
 }
+
 
 bool SOLDIERTYPE::exists( )
 {
