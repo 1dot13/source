@@ -190,7 +190,7 @@ void ProcessTacticalSchedule( UINT8 ubScheduleID )
 	}
 
 	//Validate the existance of the soldier.
-	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
+	pSoldier = pSchedule->ubSoldierID;
 	if ( pSoldier->stats.bLife < OKLIFE )
 	{
 		// dead or dying!
@@ -331,7 +331,7 @@ void PrepareSchedulesForEditorEntry()
 				prev->next = curr->next;
 			else
 				gpScheduleList = gpScheduleList->next;
-			MercPtrs[ curr->ubSoldierID ]->ubScheduleID = 0;
+			curr->ubSoldierID->ubScheduleID = 0;
 			temp = curr;
 			curr = curr->next;
 			MemFree( temp );
@@ -653,11 +653,11 @@ BOOLEAN SortSchedule( SCHEDULENODE *pSchedule )
 
 BOOLEAN BumpAnyExistingMerc( INT32 sGridNo ) 
 {
-	UINT16						ubID;
-	SOLDIERTYPE *		pSoldier; // NB this is the person already in the location,
-	INT32 sNewGridNo;
-	UINT8						ubDir;
-	INT16						sCellX, sCellY;
+	SoldierID	ubID;
+	SOLDIERTYPE *pSoldier; // NB this is the person already in the location,
+	INT32		sNewGridNo;
+	UINT8		ubDir;
+	INT16		sCellX, sCellY;
 
 	// this is for autoprocessing schedules...
 	// there could be someone in the destination location, in which case
@@ -675,7 +675,7 @@ BOOLEAN BumpAnyExistingMerc( INT32 sGridNo )
 		return( TRUE );
 	}
 
-	pSoldier = MercPtrs[ ubID ];
+	pSoldier = ubID;
 
 	// what if the existing merc is prone?
 	sNewGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, STANDING, 5, &ubDir, 1, pSoldier );
@@ -707,7 +707,7 @@ void AutoProcessSchedule( SCHEDULENODE *pSchedule, INT32 index )
 		return;
 	}
 
-	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
+	pSoldier = pSchedule->ubSoldierID;
 
 	if (pSoldier->ubID == 0)
 	{
@@ -1381,16 +1381,16 @@ void ReplaceSleepSpot( SCHEDULENODE * pSchedule, UINT16 usNewSpot )
 
 void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 {
-	SOLDIERTYPE *			pSoldier2;
-	UINT32				usSleepSpot2;
-	UINT32						uiLoop;
-	SCHEDULENODE *		pSchedule;
-	UINT8							ubDirection;
+	SOLDIERTYPE *pSoldier2;
+	UINT32		usSleepSpot2;
+	SoldierID	uiLoop;
+	SCHEDULENODE *pSchedule;
+	UINT8		ubDirection;
 
 	// start after this soldier's ID so we don't duplicate work done in previous passes
-	for ( uiLoop = pSoldier->ubID + 1; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; uiLoop++ )
+	for ( uiLoop = pSoldier->ubID + 1; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++uiLoop )
 	{
-		pSoldier2 = MercPtrs[ uiLoop ];
+		pSoldier2 = uiLoop;
 		if ( pSoldier2->bActive && pSoldier2->bInSector && pSoldier2->ubScheduleID != 0 )
 		{
 			pSchedule = GetSchedule( pSoldier2->ubScheduleID );
