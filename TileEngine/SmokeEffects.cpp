@@ -211,7 +211,7 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner,
 			{
 				// let all the other clients know we are spawning this effect
 				// and align them with our random number generator
-				send_newsmokeeffect(sGridNo,usItem,ubOwner,bLevel,iSmokeIndex);
+				send_newsmokeeffect(sGridNo, usItem, bLevel, ubOwner, iSmokeIndex);
 			}
 			else if (!fFromRemoteClient)
 			{
