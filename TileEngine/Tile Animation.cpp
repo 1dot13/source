@@ -572,11 +572,11 @@ void UpdateAniTiles( )
 							{
 								// Do sound....
 								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );
-								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, (UINT8)pNode->ubUserData2 );
+								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, pNode->ubUserData2 );
 							}
 							else
 							{
-								SpreadEffect( pNode->sGridNo, (UINT8)Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, (UINT8)pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
+								SpreadEffect( pNode->sGridNo, (UINT8)Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
 							}
 							// Forfait any other animations this frame....
 							return;
