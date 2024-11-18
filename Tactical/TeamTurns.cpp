@@ -105,7 +105,7 @@ UINT16 gubOutOfTurnPersons = 0;
 SoldierID	InterruptOnlyGuynum = NOBODY;
 BOOLEAN		InterruptsAllowed = TRUE;
 BOOLEAN		gfHiddenInterrupt = FALSE;
-UINT8		gubLastInterruptedGuy = 0;
+SoldierID	gubLastInterruptedGuy = NOBODY;
 
 extern UINT16 gsWhoThrewRock;
 extern UINT8 gubSightFlags;
@@ -118,7 +118,7 @@ typedef struct
 	INT16		sWhoThrewRock;
 	BOOLEAN		InterruptsAllowed;
 	BOOLEAN		fHiddenInterrupt;
-	UINT8		ubLastInterruptedGuy;
+	SoldierID	ubLastInterruptedGuy;
 
 	UINT8	ubFiller[16];
 } TEAM_TURN_SAVE_STRUCT;
