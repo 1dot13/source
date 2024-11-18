@@ -107,7 +107,7 @@ typedef	struct
 	INT8					bLevel;
 	INT8					bTeam;
 	INT8					bSide;
-	UINT8					ubAttackerID;
+	SoldierID			ubAttackerID;
 	UINT16				usAttackingWeapon;
 	FLOAT					dXPos;
 	FLOAT					dYPos;
