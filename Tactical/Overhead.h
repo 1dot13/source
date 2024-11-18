@@ -433,7 +433,5 @@ BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
 BOOLEAN IsFreeSlotAvailable( int aTeam );
 void AttemptToCapturePlayerSoldiers();
 
-SOLDIERTYPE* SoldierFromID(const SoldierID id);
-SOLDIERTYPE* SoldierFromID(const SoldierID id, SOLDIERTYPE* Array[TOTAL_SOLDIERS]);
 #endif
 

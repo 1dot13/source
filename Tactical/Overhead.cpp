@@ -274,25 +274,6 @@ UINT32          guiNumMercSlots = 0;
 SOLDIERTYPE*    AwaySlots[ TOTAL_SOLDIERS ];
 UINT32          guiNumAwaySlots = 0;
 
-SOLDIERTYPE* SoldierFromID(const SoldierID id)
-{
-    if (id >= TOTAL_SOLDIERS)
-    {
-        return nullptr;
-    }
-
-    return &Menptr[id.i];
-}
-
-SOLDIERTYPE* SoldierFromID(const SoldierID id, SOLDIERTYPE* Array[TOTAL_SOLDIERS])
-{
-    if (id >= TOTAL_SOLDIERS)
-    {
-        return nullptr;
-    }
-
-    return Array[id.i];
-}
 
 // DEF: changed to have client wait for gPlayerNum assigned from host
 UINT8           gbPlayerNum = 0;
