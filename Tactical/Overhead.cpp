@@ -3474,10 +3474,8 @@ BOOLEAN ResetAllAnimationCache( )
     {
         if ( pSoldier != NULL )
         {
-            InitAnimationCache( cnt, &(pSoldier->AnimCache) );
-
+            InitAnimationCache( pSoldier->ubID, &(pSoldier->AnimCache) );
         }
-
     }
 
     return( TRUE );
