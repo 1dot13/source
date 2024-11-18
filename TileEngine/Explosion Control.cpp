@@ -250,7 +250,7 @@ void InternalIgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, I
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"InternalIgniteExplosion ( ubOwner : %i , sX : %i , sY : %i , sZ : %i , sGridNo : %i , usItem : %i , fLocate : %i , bLevel : %i , ubDirection : %i )\n",ubOwner, sX , sY , sZ , sGridNo , usItem , (int)fLocate , bLevel, ubDirection );
+	sprintf(tmpMPDbgString,"InternalIgniteExplosion ( ubOwner : %i , sX : %i , sY : %i , sZ : %i , sGridNo : %i , usItem : %i , fLocate : %i , bLevel : %i , ubDirection : %i )\n",ubOwner.i, sX , sY , sZ , sGridNo , usItem , (int)fLocate , bLevel, ubDirection );
 	MPDebugMsg(tmpMPDbgString);
 	}
 #endif
