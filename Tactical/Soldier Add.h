@@ -41,8 +41,8 @@ BOOLEAN IsMercOnTeam( UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive 
 
 
 
-// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns -1
-INT16 GetSoldierIDFromMercID(UINT8 ubMercID);
+// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns NOBODY
+SoldierID GetSoldierIDFromMercID(UINT8 ubMercID);
 
 INT32 FindGridNoFromSweetSpotWithStructData( SOLDIERTYPE *pSoldier, UINT16 usAnimState, INT32 sSweetGridNo, INT8 ubRadius, UINT8 *pubDirection, BOOLEAN fClosestToMerc );
 
