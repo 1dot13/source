@@ -393,13 +393,13 @@ typedef struct SoldierID
 		if ( i > TOTAL_SOLDIERS )
 			i = TOTAL_SOLDIERS;
 	}
-	SoldierID ( const UINT32 val ) : i ( val )
+	SoldierID( const UINT32 val ) : i( val )
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
 		if ( i > TOTAL_SOLDIERS )
 			i = TOTAL_SOLDIERS;
 	}
-	SoldierID ( const INT32 val ) : i ( val )
+	constexpr SoldierID( const INT32 val ) : i( val )
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
 		if ( i > TOTAL_SOLDIERS )
@@ -407,8 +407,8 @@ typedef struct SoldierID
 	}
 
 	// No conversions from 8-bit integers!
-	SoldierID ( const UINT8 ) = delete;
-	SoldierID ( const INT8 ) = delete;
+	SoldierID( const UINT8 ) = delete;
+	SoldierID( const INT8 ) = delete;
 
 	
 	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
@@ -488,5 +488,5 @@ inline SoldierID operator++(SoldierID lhs)
 }
 
 //TODO: Change this to constexpr after SoldierID is ready and the user defined constructor from uint16 is not needed anymore.
-inline const SoldierID NOBODY{ TOTAL_SOLDIERS };
+inline constexpr SoldierID NOBODY{ TOTAL_SOLDIERS };
 #endif

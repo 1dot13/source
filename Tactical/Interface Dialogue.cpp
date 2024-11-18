@@ -5484,7 +5484,7 @@ BOOLEAN IsMineEntranceInSectorI13AtThisGridNo( UINT32 sGridNo )
 void HaveBiggensDetonatingExplosivesByTheMine()
 {
 	SOLDIERTYPE *pSoldier = NULL;
-	UINT8	ubID=NOBODY;
+	SoldierID	ubID = NOBODY;
 
 	pSoldier = FindSoldierByProfileID( BIGGENS_UB , FALSE ); //BIGGENS
 	if( pSoldier != NULL )
@@ -5638,7 +5638,7 @@ void HandleRaulBlowingHimselfUp()
 		usItem = HAND_GRENADE;
 		INT16 sX, sY;
 		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
-		IgniteExplosion( RAUL_UB, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
+		IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
 
 		SetJa25GeneralFlag( JA_GF__RAUL_BLOW_HIMSELF_UP );
 	}

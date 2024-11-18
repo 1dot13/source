@@ -47,7 +47,7 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 
 //Pass in an array of size NUM_MERCS_WITH_NEW_QUOTES, array will be filled with
 //random soldier IDs of the qualified mercs
-UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
+UINT8 RandomArrayOfQualifiedMercs( SoldierID *pRandomSoldierIdArray );
 
 
 extern UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 );

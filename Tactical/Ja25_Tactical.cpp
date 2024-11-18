@@ -544,7 +544,7 @@ SoldierID RandomSoldierIdFromNewMercsOnPlayerTeam()
 	}
 }
 
-UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
+UINT8 RandomArrayOfQualifiedMercs( SoldierID *pRandomSoldierIdArray )
 {
 	UINT8		usNumMercsPresent;
 	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
@@ -586,9 +586,9 @@ UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
 
 UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 )
 {
-	UINT8	usNumMercs;
-	UINT8 RandomSoldierIdArray[ NUM_MERCS_WITH_NEW_QUOTES ];
-	UINT8 ubNumberDifMercsAssigned=0;
+	UINT8		usNumMercs;
+	SoldierID	RandomSoldierIdArray[ NUM_MERCS_WITH_NEW_QUOTES ];
+	UINT8		ubNumberDifMercsAssigned=0;
 
 	usNumMercs = RandomArrayOfQualifiedMercs( RandomSoldierIdArray );
 

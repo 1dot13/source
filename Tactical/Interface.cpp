@@ -4338,7 +4338,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_EXPLODE_DOOR], APBPConstants[BP_EXPLODE_DOOR], FALSE ) )
 				{
 					// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_EXPLODE );
 				}
@@ -4397,7 +4397,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_USE_CROWBAR], APBPConstants[BP_USE_CROWBAR], FALSE ) )
 				{
 					// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_CROWBAR );
 				}
