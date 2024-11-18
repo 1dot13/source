@@ -68,7 +68,7 @@ typedef struct TAG_anitile
 	UINT32				uiKeyFrame2Code;
 
 	UINT32				uiUserData;
-	UINT8				ubUserData2;
+	UINT16				ubUserData2; // NOTE: Expanded the type due to SoldierID
 	UINT32				uiUserData3;
 
 	INT8					bFrameCountAfterStart;
@@ -99,7 +99,7 @@ typedef struct TAG_anitile_params
 	UINT32				uiKeyFrame2Code;			// Key frame code
 
 	UINT32				uiUserData;
-	UINT8				ubUserData2;
+	UINT16				ubUserData2; // NOTE: Expanded the type due to SoldierID
 	UINT32				uiUserData3;
 	INT32				lightSprite;
 } ANITILE_PARAMS;
