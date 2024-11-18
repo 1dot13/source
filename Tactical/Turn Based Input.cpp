@@ -5822,7 +5822,7 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 		if ( gfUIFullTargetFound )
 		{
 			// Flugente: allow stealing if the other guy is an enemy, OR if we are on the same team
-			if ( (( guiUIFullTargetFlags & ENEMY_MERC ) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC )) || (AllowedToStealFromTeamMate(pSoldier->ubID, (UINT8)gusUIFullTargetID) && guiUIFullTargetFlags & OWNED_MERC) )
+			if ( (( guiUIFullTargetFlags & ENEMY_MERC ) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC )) || (AllowedToStealFromTeamMate(pSoldier->ubID, gusUIFullTargetID) && guiUIFullTargetFlags & OWNED_MERC) )
 			{
 				sActionGridNo =	FindAdjacentGridEx( pSoldier, gusUIFullTargetID->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 				if ( sActionGridNo == -1 )
