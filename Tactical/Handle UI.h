@@ -379,6 +379,6 @@ void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier);
 void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
 
 //Legion by Jazz
-void GetMercOknoDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
+void GetMercOknoDirection( SoldierID ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
 
 #endif

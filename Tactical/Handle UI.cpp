@@ -494,7 +494,7 @@ UINT8 GetAdjustedAnimHeight( UINT8 ubAnimHeight, INT8 bChange );
 
 
 //-------------------------Legion 2 okno-----------------------------------------------------------
-void GetMercOknoDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp )
+void GetMercOknoDirection( SoldierID ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp )
 {
 	INT8							bNewDirection;
 	SOLDIERTYPE				*pSoldier;
