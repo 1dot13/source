@@ -1489,7 +1489,7 @@ BOOLEAN ExecuteOverhead( )
                                     }
                                     else if ( pSoldier->aiData.ubPendingAction == MERC_TALK )
                                     {
-                                        pSoldier->PlayerSoldierStartTalking( (UINT8)pSoldier->aiData.uiPendingActionData1, TRUE );
+                                        pSoldier->PlayerSoldierStartTalking ( pSoldier->aiData.uiPendingActionData1, TRUE );
                                         pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
                                     }
                                     else if ( pSoldier->aiData.ubPendingAction == MERC_DROPBOMB )
@@ -3270,7 +3270,7 @@ void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier )
     if ( fSoldierFound )
     {
         DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SelectNextAvailSoldier: selectsoldier"));
-        SelectSoldier( (INT16)cnt, FALSE, FALSE );
+        SelectSoldier( cnt, FALSE, FALSE );
     }
     else
     {
@@ -3755,7 +3755,7 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
     {
         if ( !fMissionFailed )
         {
-            SelectSoldier( (INT16)iNewSelectedSoldier, FALSE, FALSE );
+            SelectSoldier( iNewSelectedSoldier, FALSE, FALSE );
         }
         else
         {
@@ -4937,14 +4937,14 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
             // Check for bLife > 0
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT16)cnt );
+                return( cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT16)cnt );
+                return( cnt );
             }
         }
     }
@@ -4967,14 +4967,14 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
         {
             if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT16)cnt );
+                return( cnt );
             }
         }
         else
         {
             if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
-                return( (UINT16)cnt );
+                return( cnt );
             }
         }
     }
