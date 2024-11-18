@@ -159,7 +159,7 @@ public:
 		this->fCursorActive = src.fCursorActive;
 		this->ItemPointerInfo = src.ItemPointerInfo;
 		this->ubInvSlot = src.ubInvSlot;
-		this->ubSoldierID = src.ubSoldierID;
+		this->ubSoldierID = static_cast<UINT16>(src.ubSoldierID);
 		return *this;
 	}
 	//could use a little tidying up

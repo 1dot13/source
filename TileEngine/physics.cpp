@@ -160,7 +160,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->dLifeSpan = src.dLifeSpan;
 	this->fFirstTimeMoved = src.fFirstTimeMoved;
 	this->sFirstGridNo = src.sFirstGridNo;
-	this->ubOwner = src.ubOwner;
+	this->ubOwner = static_cast<UINT16>(src.ubOwner);
 	this->ubActionCode = src.ubActionCode;
 	this->uiActionData = src.uiActionData;
 	this->fDropItem = src.fDropItem;
@@ -175,7 +175,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->fPotentialForDebug = src.fPotentialForDebug;
 	this->sLevelNodeGridNo = src.sLevelNodeGridNo;
 	this->iSoundID = src.iSoundID;
-	this->ubLastTargetTakenDamage = src.ubLastTargetTakenDamage;
+	this->ubLastTargetTakenDamage = static_cast<UINT16>(src.ubLastTargetTakenDamage);
 	return *this;
 }
 
@@ -1120,10 +1120,10 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					{
 						gTacticalStatus.ubAttackBusyCount++;
 						DebugAttackBusy( String( "Incrementing attack busy because of delayed water explosion. Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
-						AniParams.ubKeyFrame1					= 11;
+						AniParams.ubKeyFrame1				= 11;
 						AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_CHAIN_WATER_EXPLOSION;
 						AniParams.uiUserData					= pObject->Obj.usItem;
-						AniParams.ubUserData2					= pObject->ubOwner;
+						AniParams.ubUserData2				= pObject->ubOwner;
 					}
 
 					pNode = CreateAnimationTile( &AniParams );

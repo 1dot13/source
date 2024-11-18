@@ -632,7 +632,7 @@ void STRUCT_AIData::ConvertFrom_101_To_102( const OLDSOLDIERTYPE_101& src )
 	this->bMoved = src.bMoved;
 	this->bHunting = src.bHunting;
 	this->ubLastCall = src.ubLastCall;
-	this->ubCaller = src.ubCaller;
+	this->ubCaller = static_cast<UINT16>( src.ubCaller );
 	this->sCallerGridNo = src.sCallerGridNo;
 	this->bCallPriority = src.bCallPriority;
 	this->bCallActedUpon = src.bCallActedUpon;
@@ -694,7 +694,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->sLastTwoLocations[0] = src.sLastTwoLocations[0];
 		this->sLastTwoLocations[1] = src.sLastTwoLocations[1];
 
-		this->ubID = src.ubID;
+		this->ubID = static_cast<UINT16>( src.ubID );
 		//this->bReserved1 = src.bReserved1;
 
 		this->ubBodyType = src.ubBodyType;
@@ -717,7 +717,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->ubWaitActionToDo = src.ubWaitActionToDo;
 		this->ubInsertionDirection = src.ubInsertionDirection;
 		this->bGunType = src.bGunType;
-		this->ubOppNum = src.ubOppNum;
+		this->ubOppNum = static_cast<UINT16>( src.ubOppNum );
 		this->bLastRenderVisibleValue = src.bLastRenderVisibleValue;
 		this->ubAttackingHand = src.ubAttackingHand;
 		this->sWeightCarriedAtTurnStart = src.sWeightCarriedAtTurnStart;
@@ -756,8 +756,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->uiAIDelay = src.uiAIDelay;
 		this->sReloadDelay = src.sReloadDelay;
-		this->ubAttackerID = src.ubAttackerID;
-		this->ubPreviousAttackerID = src.ubPreviousAttackerID;
+		this->ubAttackerID = static_cast<UINT16>( src.ubAttackerID );
+		this->ubPreviousAttackerID = static_cast<UINT16>( src.ubPreviousAttackerID );
 
 		this->sInsertionGridNo = src.sInsertionGridNo;
 
@@ -808,7 +808,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->pCurrentShade = src.pCurrentShade;
 		this->ubFadeLevel = src.ubFadeLevel;
 		this->ubServiceCount = src.ubServiceCount;
-		this->ubServicePartner = src.ubServicePartner;
+		this->ubServicePartner = static_cast<UINT16>( src.ubServicePartner );
 		this->pThrowParams = src.pThrowParams;
 		this->bReverse = src.bReverse;
 		this->pLevelNode = src.pLevelNode;
@@ -931,7 +931,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->ubSoldierClass = src.ubSoldierClass;									//admin, elite, troop (creature types?)
 		this->ubAPsLostToSuppression = src.ubAPsLostToSuppression;
-		this->ubSuppressorID = src.ubSuppressorID;
+		this->ubSuppressorID = static_cast<UINT16>( src.ubSuppressorID );
 
 		this->ubDesiredSquadAssignment = src.ubDesiredSquadAssignment;
 		this->ubNumTraversalsAllowedToMerge = src.ubNumTraversalsAllowedToMerge;
@@ -946,7 +946,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bBlockedByAnotherMercDirection = src.bBlockedByAnotherMercDirection;
 		this->usAttackingWeapon = src.usAttackingWeapon;
 		this->bWeaponMode = src.bWeaponMode;
-		this->ubTargetID = src.ubTargetID;
+		this->ubTargetID = static_cast<UINT16>( src.ubTargetID );
 		this->bAIScheduleProgress = src.bAIScheduleProgress;
 		this->sOffWorldGridNo = src.sOffWorldGridNo;
 		this->pAniTile = src.pAniTile;
@@ -966,8 +966,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bOldBattleSnd = src.bOldBattleSnd;
 		this->iBurstSoundID = src.iBurstSoundID;
 		this->bSlotItemTakenFrom = src.bSlotItemTakenFrom;
-		this->ubAutoBandagingMedic = src.ubAutoBandagingMedic;
-		this->ubRobotRemoteHolderID = src.ubRobotRemoteHolderID;
+		this->ubAutoBandagingMedic = static_cast<UINT16>( src.ubAutoBandagingMedic );
+		this->ubRobotRemoteHolderID = static_cast<UINT16>( src.ubRobotRemoteHolderID );
 		this->uiTimeOfLastContractUpdate = src.uiTimeOfLastContractUpdate;
 		this->bTypeOfLastContract = src.bTypeOfLastContract;
 		this->bTurnsCollapsed = src.bTurnsCollapsed;
@@ -1003,7 +1003,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usValueGoneUp = src.usValueGoneUp;
 		this->ubNumLocateCycles = src.ubNumLocateCycles;
 		this->ubDelayedMovementFlags = src.ubDelayedMovementFlags;
-		this->ubCTGTTargetID = src.ubCTGTTargetID;
+		this->ubCTGTTargetID = static_cast<UINT16>( src.ubCTGTTargetID );
 
 		this->uiMercChecksum = src.uiMercChecksum;
 
@@ -1027,7 +1027,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->pGroup = src.pGroup;
 		this->ubLeaveHistoryCode = src.ubLeaveHistoryCode;
-		this->bOverrideMoveSpeed = src.bOverrideMoveSpeed;
+		this->bOverrideMoveSpeed = static_cast<UINT16>( src.bOverrideMoveSpeed );
 
 		this->uiTimeSoldierWillArrive = src.uiTimeSoldierWillArrive;
 		this->bVehicleUnderRepairID = src.bVehicleUnderRepairID;
@@ -1040,7 +1040,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->iTuringSoundID = src.iTuringSoundID;
 		this->ubLastDamageReason = src.ubLastDamageReason;
 		this->uiTimeSinceLastBleedGrunt = src.uiTimeSinceLastBleedGrunt;
-		this->ubNextToPreviousAttackerID = src.ubNextToPreviousAttackerID;
+		this->ubNextToPreviousAttackerID = static_cast<UINT16>( src.ubNextToPreviousAttackerID );
 		this->bDoAutofire = src.bDoAutofire;
 		this->numFlanks = src.numFlanks;
 		this->lastFlankSpot = src.lastFlankSpot;

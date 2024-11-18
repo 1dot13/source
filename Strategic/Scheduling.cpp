@@ -483,7 +483,7 @@ SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE& src)
 		TranslateArrayFields(usData2, src.usData2, OLD_MAX_SCHEDULE_ACTIONS, INT16_INT32);
 		TranslateArrayFields(ubAction, src.ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
 		ubScheduleID = src.ubScheduleID;
-		ubSoldierID = src.ubSoldierID;
+		ubSoldierID = static_cast<UINT16>( src.ubSoldierID );
 		usFlags = src.usFlags;
 	}
 	return(*this);
