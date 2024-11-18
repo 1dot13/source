@@ -433,12 +433,12 @@ void RenderMercCompareAnalyze()
 
 BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 {
-	VOBJECT_DESC	VObjectDesc;
-	HVOBJECT		hPixHandle;
+	VOBJECT_DESC 	VObjectDesc;
+	HVOBJECT			hPixHandle;
 	UINT16			usPosX, usPosY, usPosY2;
 	UINT32			uiInsMercFaceImage;
 	INT32			iCostOfContract = 0;
-	char			sTemp[100];
+	char				sTemp[100];
 	CHAR16			sText[800];
 	BOOLEAN			fDisplayMercContractStateTextColorInRed = FALSE;
 	
@@ -452,14 +452,14 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	if ( !pProfileA || !pProfileB )
 		return FALSE;
 
-	INT16 idA = GetSoldierIDFromMercID( usProfileA );
-	INT16 idB = GetSoldierIDFromMercID( usProfileB );
+	SoldierID idA = GetSoldierIDFromMercID( usProfileA );
+	SoldierID idB = GetSoldierIDFromMercID( usProfileB );
 
-	if ( idA < 0 || idB < 0 )
+	if ( idA == NOBODY || idB == NOBODY )
 		return FALSE;
 
-	SOLDIERTYPE* pSoldierA = MercPtrs[idA];
-	SOLDIERTYPE* pSoldierB = MercPtrs[idB];
+	SOLDIERTYPE* pSoldierA = idA;
+	SOLDIERTYPE* pSoldierB = idB;
 
 	if ( !pSoldierA || !pSoldierB )
 		return FALSE;
