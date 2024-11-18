@@ -85,7 +85,7 @@ SoldierID RemoveFirstAIListEntry( void )
 		DeleteAIListEntry( pOldFirstEntry );
 
 		// make sure conditions still met
-		if ( SatisfiesAIListConditions( MercPtrs[ ubID ], NULL, FALSE ) )
+		if ( SatisfiesAIListConditions( ubID, NULL, FALSE ) )
 		{
 			return( ubID );
 		}
