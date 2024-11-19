@@ -79,7 +79,7 @@ typedef	struct
 {
 	BOOLEAN				fInAirRaid;
 	BOOLEAN				fAirRaidScheduled;
-	UINT8					ubAirRaidMode;
+	UINT8				ubAirRaidMode;
 	UINT32				uiSoundSample;
 	UINT32				uiRaidLastUpdate;
 	BOOLEAN				fFadingRaidIn;
@@ -87,32 +87,32 @@ typedef	struct
 	INT8					bNumDives;
 	INT8					bMaxDives;
 	BOOLEAN				fFadingRaidOut;
-	INT16					sDiveX;
-	INT16					sDiveY;
-	INT16					sDiveTargetLocation;
-	UINT8					ubDiveDirection;
-	INT16					sNumGridNosMoved;
-	INT32					iNumTurnsSinceLastDive;
-	INT32					iNumTurnsSinceDiveStarted;
-	INT32					iNumGridNosMovedThisTurn;
+	INT16				sDiveX;
+	INT16				sDiveY;
+	INT16				sDiveTargetLocation;
+	UINT8				ubDiveDirection;
+	INT16				sNumGridNosMoved;
+	INT32				iNumTurnsSinceLastDive;
+	INT32				iNumTurnsSinceDiveStarted;
+	INT32				iNumGridNosMovedThisTurn;
 	BOOLEAN				fAirRaidHasHadTurn;
-	UINT8					ubBeginTeamTurn;
+	UINT8				ubBeginTeamTurn;
 	BOOLEAN				fHaveTBBatton;
 	AIR_RAID_DEFINITION	AirRaidDef;
-	INT16					sRaidSoldierID;
+	SoldierID			sRaidSoldierID;
 
-	INT16					sNotLocatedYet;
-	INT32					iNumFrames;
+	INT16				sNotLocatedYet;
+	INT32				iNumFrames;
 
 	INT8					bLevel;
 	INT8					bTeam;
 	INT8					bSide;
 	SoldierID			ubAttackerID;
 	UINT16				usAttackingWeapon;
-	FLOAT					dXPos;
-	FLOAT					dYPos;
-	INT16					sX;
-	INT16					sY;
+	FLOAT				dXPos;
+	FLOAT				dYPos;
+	INT16				sX;
+	INT16				sY;
 	INT32 sGridNo;
 
 
@@ -1349,7 +1349,7 @@ BOOLEAN SaveAirRaidInfoToSaveGameFile( HWFILE hFile )
 ////		sAirRaidSaveStruct.sRaidSoldierID = gpRaidSoldier->ubID;
 //	}
 //	else
-		sAirRaidSaveStruct.sRaidSoldierID = -1;
+		sAirRaidSaveStruct.sRaidSoldierID = NOBODY;
 
 
 	memcpy( &sAirRaidSaveStruct.AirRaidDef, &gAirRaidDef, sizeof( AIR_RAID_DEFINITION	) );
@@ -1407,9 +1407,9 @@ BOOLEAN LoadAirRaidInfoFromSaveGameFile( HWFILE hFile )
 	giNumFrames = sAirRaidSaveStruct.iNumFrames;
 
 
-	if( sAirRaidSaveStruct.sRaidSoldierID != -1 )
+	if( sAirRaidSaveStruct.sRaidSoldierID != NOBODY )
 	{
-		gpRaidSoldier = &Menptr[ sAirRaidSaveStruct.sRaidSoldierID ];
+		gpRaidSoldier = sAirRaidSaveStruct.sRaidSoldierID;
 
 		gpRaidSoldier->pathing.bLevel = sAirRaidSaveStruct.bLevel;
 		gpRaidSoldier->bTeam = sAirRaidSaveStruct.bTeam;
