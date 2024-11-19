@@ -3665,12 +3665,10 @@ void DisplayPlayersOfferArea()
 				//get an updated status from the amount in the pocket
 				if( PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation != -1 && PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 				{
-					INT16 sSoldierID;
+					SoldierID sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
+					Assert(sSoldierID != NOBODY);
 
-					sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
-					Assert(sSoldierID != -1);
-
-					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = Menptr[ sSoldierID ].inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
+					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = sSoldierID->inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
 					PlayersOfferArea[ sCnt ].uiItemPrice = PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount;
 				}
 			}
@@ -6489,23 +6487,21 @@ void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible,
 
 void IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv )
 {
-	INT16 sSoldierID;
-
 	//if the item picked up was in a previous location, and that location is on a merc's inventory
 	if ( ( pInv->bSlotIdInOtherLocation != -1 ) && ( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE ) )
 	{
 		// get soldier
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
-		Assert( sSoldierID != -1 );
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		Assert( sSoldierID != NOBODY );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		// then it better be a valid slot #
-		Assert( pInv->bSlotIdInOtherLocation < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( pInv->bSlotIdInOtherLocation < (INT8)(sSoldierID->inv.size()) );
 		// and it better have a valid merc who owned it
 		Assert( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE );
 		
 		//Copy the object back into that merc's original inventory slot
-		Menptr[ sSoldierID ].inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
+		sSoldierID->inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
 	}
 }
 
@@ -6521,15 +6517,15 @@ void IfMercOwnedRemoveItemFromMercInv2( UINT8 ubOwnerProfileId, INT16 bOwnerSlot
 	{
 		// and it better have a valid merc who owned it
 		Assert( ubOwnerProfileId != NO_PROFILE );
-		INT16 sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
-		Assert( sSoldierID != -1 );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
+		Assert( sSoldierID != NOBODY );
 		// then it better be a valid slot #
-		Assert( bOwnerSlotId < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( bOwnerSlotId < (INT8)(sSoldierID->inv.size() ));
 
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		//remove the object from that merc's original inventory slot
-		DeleteObj(&(Menptr[ sSoldierID ].inv[bOwnerSlotId]));
+		DeleteObj(&(sSoldierID->inv[bOwnerSlotId]));
 	}
 }
 
@@ -7087,9 +7083,8 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	//if the dealer is Micky
 	if( gbSelectedArmsDealerID == ARMS_DEALER_MICKY )
 	{
-		INT16	sSoldierID;
-		sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
-		if( ( sSoldierID != -1 ) && ( GetDrunkLevel( &Menptr[ sSoldierID ] ) == DRUNK ) )
+		SoldierID sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
+		if( ( sSoldierID != NOBODY ) && ( GetDrunkLevel( sSoldierID ) == DRUNK ) )
 		{
 			//Micky is DRUNK, pays more!
 			dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier;
