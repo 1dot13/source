@@ -553,7 +553,6 @@ void BeginAutoBandageCallBack( UINT8 bExitValue )
 
 void SetUpAutoBandageUpdatePanel( void )
 {
-
 	INT32 iNumberDoctoring = 0;
 	INT32 iNumberPatienting = 0;
 	INT32 iNumberOnTeam = 0;
@@ -574,24 +573,21 @@ void SetUpAutoBandageUpdatePanel( void )
 	// grab number of potential grunts on players team
 	iNumberOnTeam = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-	// run through mercs on squad...if they can doctor, add to list
+	// run through mercs on squad...if they can be a doctor or patient, add to list
 	for( iCounterA = 0; iCounterA < iNumberOnTeam; iCounterA++ )
 	{
-		if( CanCharacterAutoBandageTeammate( &Menptr[ iCounterA ] ) )
+		SOLDIERTYPE *pSoldier = &Menptr[iCounterA];
+
+		if( CanCharacterAutoBandageTeammate( pSoldier ))
 		{
 			// add to list, up the count
 			iDoctorList[ iNumberDoctoring ] = iCounterA;
 			iNumberDoctoring++;
 		}
-	}
-
-	// run through mercs on squad, if they can patient, add to list
-	for( iCounterA = 0; iCounterA < iNumberOnTeam; iCounterA++ )
-	{
-		if( CanCharacterBeAutoBandagedByTeammate( &Menptr[ iCounterA ] ) )
+		if ( CanCharacterBeAutoBandagedByTeammate( pSoldier ) )
 		{
 			// add to list, up the count
-			iPatientList[ iNumberPatienting ] = iCounterA;
+			iPatientList[iNumberPatienting] = iCounterA;
 			iNumberPatienting++;
 		}
 	}
