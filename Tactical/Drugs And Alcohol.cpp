@@ -319,7 +319,7 @@ INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 }
 
 // does a merc have a disability/personality, or is he under drugs that simulate this?
-BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal )
+BOOLEAN DoesMercHaveDisability( const SOLDIERTYPE *pSoldier, UINT8 aVal )
 {
 	if ( pSoldier->ubProfile != NO_PROFILE )
 	{
