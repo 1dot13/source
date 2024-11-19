@@ -371,7 +371,7 @@ INT32 GetTheStateOfDepartedMerc( INT32 iId );
 void DisplayPersonnelTextOnTitleBar( void );
 INT32 GetIdOfDepartedMercWithHighestStat( INT32 iStat );
 INT32 GetIdOfDepartedMercWithLowestStat( INT32 iStat );
-void RenderInventoryForCharacter( INT32 iId, INT32 iSlot );
+void RenderInventoryForCharacter( SoldierID iId, INT32 iSlot );
 void DisplayInventoryForSelectedChar( void );
 INT32 GetNumberOfInventoryItemsOnCurrentMerc( void );
 void CreateDestroyPersonnelInventoryScrollButtons( void );
@@ -2749,7 +2749,7 @@ void DisplayInventoryForSelectedChar( void )
 	}
 }
 
-void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
+void RenderInventoryForCharacter( SoldierID iId, INT32 iSlot )
 {
 	UINT8 ubCounter = 0;
 	SOLDIERTYPE *pSoldier;
@@ -2786,7 +2786,7 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 	// render the bar for the character
 	RenderSliderBarForPersonnelInventory( );
 
-	pSoldier = &Menptr[ iId ];
+	pSoldier = iId;
 
 	//if this is a robot, dont display any inventory
 	if( AM_A_ROBOT( pSoldier ) )
@@ -7140,7 +7140,7 @@ DEF:3/19/99:
 			{
 				mprintf((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter-1].y,pPersonnelScreenStrings[PRSNL_TXT_UNPAID_AMOUNT]);
 
-				swprintf( sString, L"%d", pMercProfile->sSalary * gMercProfiles[Menptr[ iId ].ubProfile ].iMercMercContractLength );
+				swprintf( sString, L"%d", pMercProfile->sSalary * pMercProfile->iMercMercContractLength );
 				InsertCommasForDollarFigure( sString );
 				InsertDollarSignInToString( sString );
 
