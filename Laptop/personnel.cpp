@@ -388,7 +388,7 @@ void UpDateStateOfStartButton( void );
 void HandlePersonnelKeyboard( void );
 
 
-void DisplayEmploymentinformation( INT32 iId, INT32 iSlot );
+void DisplayEmploymentinformation( SoldierID iId, INT32 iSlot );
 
 
 
@@ -6992,7 +6992,7 @@ BOOLEAN IsPastMercOther( INT32 iId )
 	}
 }
 
-void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
+void DisplayEmploymentinformation( SoldierID iId, INT32 iSlot )
 {
 	INT32 iCounter=0;
 	CHAR16 sString[50];
@@ -7011,73 +7011,74 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 		}
 	}
 
-	if( Menptr[iId].flags.uiStatusFlags & SOLDIER_VEHICLE )
+	SOLDIERTYPE *pSoldier = iId;
+	const MERCPROFILESTRUCT *pMercProfile = &gMercProfiles[pSoldier->ubProfile];
+	const STRUCT_Records *pRecords = &pMercProfile->records;
+
+	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
 
 	// display the stats for a char
-	for(iCounter=0;iCounter <MAX_STATS; ++iCounter)
+	for ( iCounter = 0; iCounter < MAX_STATS; ++iCounter )
 	{
+		const INT32 x = pPersonnelScreenPoints[iCounter].x + (iSlot * TEXT_BOX_WIDTH);
+		const INT32 y = pPersonnelScreenPoints[iCounter].y;
+
 		switch(iCounter)
 		{
-
-//		case 12:
-
 		//Remaining Contract:
 		case 0:
 		{
-			//UINT32 uiTimeUnderThisDisplayAsHours = 24*60;
+
 #ifdef JA2UB
 			wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
+			mprintf(x, y, pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
 #else
 			static const UINT32 uiMinutesInDay = 24 * 60;
 
-				if(Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC || Menptr[iId].ubProfile == SLAY )
+			if ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC || pSoldier->ubProfile == SLAY )
+			{
+				INT32 iTimeLeftOnContract = CalcTimeLeftOnMercContract( pSoldier );
+
+				//if the merc is in transit
+				if( pSoldier->bAssignment == IN_TRANSIT )
 				{
-					INT32 iTimeLeftOnContract = CalcTimeLeftOnMercContract( &Menptr[iId] );
-
-					//if the merc is in transit
-					if( Menptr[iId ].bAssignment == IN_TRANSIT )
+					//and if the time left on the contract is greater than the contract time
+					if( iTimeLeftOnContract > (INT32)( pSoldier->iTotalContractLength * uiMinutesInDay ) )
 					{
-						//and if the ttime left on the cotract is greater then the contract time
-						if( iTimeLeftOnContract > (INT32)( Menptr[iId].iTotalContractLength * uiMinutesInDay ) )
-						{
-							iTimeLeftOnContract = ( Menptr[iId].iTotalContractLength * uiMinutesInDay );
-						}
+						iTimeLeftOnContract = ( pSoldier->iTotalContractLength * uiMinutesInDay );
 					}
-					// if there is going to be a both days and hours left on the contract
-					if( iTimeLeftOnContract / uiMinutesInDay )
-					{
-						swprintf(sString, L"%d%s %d%s / %d%s",( iTimeLeftOnContract / uiMinutesInDay ), gpStrategicString[ STR_PB_DAYS_ABBREVIATION ], (iTimeLeftOnContract % uiMinutesInDay)/60, gpStrategicString[ STR_PB_HOURS_ABBREVIATION ], Menptr[iId].iTotalContractLength, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ]);
-						mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
-					}
-
-					//else there is under a day left
-					else
-					{
-						//DEF: removed 2/7/99
-						swprintf(sString, L"%d%s / %d%s", (iTimeLeftOnContract % uiMinutesInDay)/60, gpStrategicString[ STR_PB_HOURS_ABBREVIATION ], Menptr[iId].iTotalContractLength, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ]);
-						mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
-					}
-
 				}
-				else if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__MERC)
+
+				UINT32 days = iTimeLeftOnContract / uiMinutesInDay;
+				UINT32 hours = (iTimeLeftOnContract % uiMinutesInDay) / 60;
+
+				// if there is going to be a both days and hours left on the contract
+				if( days > 0)
 				{
-//					swprintf(sString, L"%d%s / %d%s",Menptr[iId].iTotalContractLength, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ], ( GetWorldTotalMin( ) -Menptr[iId].iStartContractTime ) / ( 24 * 60 ), gpStrategicString[ STR_PB_DAYS_ABBREVIATION ] );
-
-					wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-					mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
+					swprintf( sString, L"%d%s %d%s / %d%s", days, gpStrategicString[STR_PB_DAYS_ABBREVIATION], hours, gpStrategicString[STR_PB_HOURS_ABBREVIATION], pSoldier->iTotalContractLength, gpStrategicString[STR_PB_DAYS_ABBREVIATION] );
+					mprintf( x, y, pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT] );
 				}
+
+				//else there is under a day left
 				else
 				{
-					wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-					mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
+					//DEF: removed 2/7/99
+					swprintf(sString, L"%d%s / %d%s", hours, gpStrategicString[ STR_PB_HOURS_ABBREVIATION ], pSoldier->iTotalContractLength, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ]);
+					mprintf( x, y, pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT] );
 				}
+
+			}
+			else
+			{
+				wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				mprintf( x, y, pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT] );
+			}
 #endif
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			FindFontRightCoordinates( (INT16)(x + Prsnl_DATA_OffSetX), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, y, sString );
 		}
 		break;
 
@@ -7086,14 +7087,14 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 		case 1:
 
 			// total contract time served
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_TOTAL_SERVICE]);
+			mprintf( x, y, pPersonnelScreenStrings[PRSNL_TXT_TOTAL_SERVICE] );
 
 			//./DEF 2/4/99: total service days used to be calced as 'days -1'
 
-			swprintf(sString, L"%d %s",gMercProfiles[Menptr[iId].ubProfile].usTotalDaysServed, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ] );
+			swprintf(sString, L"%d %s",pMercProfile->usTotalDaysServed, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ] );
 
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			FindFontRightCoordinates( (INT16)(x + Prsnl_DATA_OffSetX), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf(sX,y,sString);
 		break;
 
 //		case 13:
@@ -7101,16 +7102,16 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 		// cost (PRSNL_TXT_TOTAL_COST)
 
 /*
-			if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
 				UINT32 uiDailyCost = 0;
 
-				if( Menptr[iId].bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
+				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
 				{
 					// 2 week contract
 					uiDailyCost = gMercProfiles[ Menptr[ iId ].ubProfile ].uiBiWeeklySalary / 14;
 				}
-				else if( Menptr[iId].bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
+				else if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
 				{
 					// 1 week contract
 					uiDailyCost = gMercProfiles[ Menptr[ iId ].ubProfile ].uiWeeklySalary / 7;
@@ -7123,7 +7124,7 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 //				swprintf( sString, L"%d",uiDailyCost * Menptr[ iId ].iTotalContractLength );
 				swprintf( sString, L"%d", gMercProfiles[ Menptr[ iId ].ubProfile ].uiTotalCostToDate );
 			}
-			else if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__MERC)
+			else if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC)
 			{
 //					swprintf( sString, L"%d",gMercProfiles[ Menptr[ iId ].ubProfile ].sSalary * gMercProfiles[ Menptr[ iId ].ubProfile ].iMercMercContractLength );
 					swprintf( sString, L"%d", gMercProfiles[ Menptr[ iId ].ubProfile ].uiTotalCostToDate );
@@ -7136,7 +7137,7 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 				swprintf( sString, L"%d", gMercProfiles[ Menptr[ iId ].ubProfile ].uiTotalCostToDate );
 			}
 */
-				swprintf( sString, L"%d", gMercProfiles[ Menptr[ iId ].ubProfile ].uiTotalCostToDate );
+				swprintf( sString, L"%d", pMercProfile->uiTotalCostToDate );
 
 				// insert commas and dollar sign
 				InsertCommasForDollarFigure( sString );
@@ -7144,7 +7145,7 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 
 /*
 DEF:3/19/99:
-			if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 			{
 			swprintf( sStringA, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_UNPAID_AMOUNT ] );
 			}
@@ -7154,69 +7155,54 @@ DEF:3/19/99:
 				swprintf( sStringA, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_TOTAL_COST ]	);
 			}
 
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x +(iSlot*TEXT_BOX_WIDTH) ),pPersonnelScreenPoints[ iCounter ].y,sStringA);
+			FindFontRightCoordinates( (INT16)(x + Prsnl_DATA_OffSetX), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( x, y, sStringA );
 
 			// print contract cost
-			mprintf( ( INT16 ) ( sX ) , pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( sX, y, sString );
 
-			if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
-				// daily rate
-				if( Menptr[iId].bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
+				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
 				{
 					// 2 week contract
-					swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].uiBiWeeklySalary / 14 );
-				InsertCommasForDollarFigure( sStringA );
+					swprintf( sStringA, L"%d", pMercProfile->uiBiWeeklySalary / 14 );
+					InsertCommasForDollarFigure( sStringA );
 					InsertDollarSignInToString( sStringA );
 					swprintf( sString, L"%s", sStringA );
 				}
-				else if( Menptr[iId].bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
+				else if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
 				{
 					// 1 week contract
-					swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].uiWeeklySalary / 7 );
-				InsertCommasForDollarFigure( sStringA );
+					swprintf( sStringA, L"%d", pMercProfile->uiWeeklySalary / 7 );
+					InsertCommasForDollarFigure( sStringA );
 					InsertDollarSignInToString( sStringA );
 					swprintf( sString, L"%s",	sStringA );
 				}
 				else
 				{
-
-					swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].sSalary );
+					// daily rate
+					swprintf( sStringA, L"%d", pMercProfile->sSalary );
 					InsertCommasForDollarFigure( sStringA );
-				InsertDollarSignInToString( sStringA );
+					InsertDollarSignInToString( sStringA );
 					swprintf( sString,	L"%s", sStringA );
 				}
 			}
-			else if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__MERC)
-			{
-//DEF: 99/2/7
-//				swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].sSalary * Menptr[ iId ].iTotalContractLength);
-				swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].sSalary );
-				InsertCommasForDollarFigure( sStringA );
-				InsertDollarSignInToString( sStringA );
-				swprintf( sString,	L"%s", sStringA );
-			}
-
 			else
 			{
-				//Display a $0 amount
-//				swprintf( sString, L"0" );
-//				InsertDollarSignInToString( sString );
-				swprintf( sStringA, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].sSalary );
+				swprintf( sStringA, L"%d", pMercProfile->sSalary );
 				InsertCommasForDollarFigure( sStringA );
 				InsertDollarSignInToString( sStringA );
 				swprintf( sString,	L"%s", sStringA );
 			}
 
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			FindFontRightCoordinates( (INT16)(x + Prsnl_DATA_OffSetX), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
 
-//			iCounter++;
 			iCounter++;
 
-		// now print daily rate
-			mprintf( ( INT16 )( sX ),pPersonnelScreenPoints[ iCounter+1 ].y,sString);
-			mprintf( (INT16)(pPersonnelScreenPoints[iCounter+1].x +(iSlot*TEXT_BOX_WIDTH) ),pPersonnelScreenPoints[ iCounter +1].y, pPersonnelScreenStrings[PRSNL_TXT_DAILY_COST]);
+			// now print daily rate
+			mprintf( sX, pPersonnelScreenPoints[iCounter + 1].y, sString );
+			mprintf( pPersonnelScreenPoints[iCounter + 1].x + (iSlot * TEXT_BOX_WIDTH), pPersonnelScreenPoints[iCounter + 1].y, pPersonnelScreenStrings[PRSNL_TXT_DAILY_COST] );
 
 			break;
 
@@ -7224,11 +7210,11 @@ DEF:3/19/99:
 		// medical deposit
 
 			//if its a merc merc, display the salary oweing
-			if( Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 			{
 				mprintf((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter-1].y,pPersonnelScreenStrings[PRSNL_TXT_UNPAID_AMOUNT]);
 
-				swprintf( sString, L"%d", gMercProfiles[Menptr[ iId ].ubProfile].sSalary * gMercProfiles[Menptr[ iId ].ubProfile ].iMercMercContractLength );
+				swprintf( sString, L"%d", pMercProfile->sSalary * gMercProfiles[Menptr[ iId ].ubProfile ].iMercMercContractLength );
 				InsertCommasForDollarFigure( sString );
 				InsertDollarSignInToString( sString );
 
@@ -7239,7 +7225,7 @@ DEF:3/19/99:
 			{
 				mprintf((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter-1].y,pPersonnelScreenStrings[PRSNL_TXT_MED_DEPOSIT]);
 
-				swprintf(sString, L"%d",gMercProfiles[Menptr[iId].ubProfile].sMedicalDepositAmount);
+				swprintf(sString, L"%d",pMercProfile->sMedicalDepositAmount);
 
 				// insert commas and dollar sign
 				InsertCommasForDollarFigure( sString );
@@ -7259,7 +7245,7 @@ DEF:3/19/99:
 		// kills
 			mprintf((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[20].y - 12),pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
 
-			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usKillsElites + gMercProfiles[Menptr[iId].ubProfile].records.usKillsRegulars + gMercProfiles[Menptr[iId].ubProfile].records.usKillsAdmins + gMercProfiles[Menptr[iId].ubProfile].records.usKillsHostiles + gMercProfiles[Menptr[iId].ubProfile].records.usKillsCreatures + gMercProfiles[Menptr[iId].ubProfile].records.usKillsZombies + gMercProfiles[Menptr[iId].ubProfile].records.usKillsTanks + gMercProfiles[Menptr[iId].ubProfile].records.usKillsOthers));
+			swprintf(sString, L"%d",(pRecords->usKillsElites + pRecords->usKillsRegulars + pRecords->usKillsAdmins + pRecords->usKillsHostiles + pRecords->usKillsCreatures + pRecords->usKillsZombies + pRecords->usKillsTanks + pRecords->usKillsOthers));
 
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[20].y - 12),sString);
@@ -7278,13 +7264,13 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[7] );
 			fAddedTraitRegion[7] = TRUE;
 			// Assign the text
-			AssignPersonnelKillsHelpText( Menptr[iId].ubProfile );
+			AssignPersonnelKillsHelpText( pSoldier->ubProfile );
 
 		break;
 		case 15:
 			// assists
 			mprintf((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[21].y - 10),pPersonnelScreenStrings[PRSNL_TXT_ASSISTS]);
-			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usAssistsMercs + gMercProfiles[Menptr[iId].ubProfile].records.usAssistsMilitia + gMercProfiles[Menptr[iId].ubProfile].records.usAssistsOthers));
+			swprintf(sString, L"%d",(pRecords->usAssistsMercs + pRecords->usAssistsMilitia + pRecords->usAssistsOthers));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[21].y - 10),sString);
 		
@@ -7302,19 +7288,21 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[8] );
 			fAddedTraitRegion[8] = TRUE;
 			// Assign the text
-			AssignPersonnelAssistsHelpText( Menptr[iId].ubProfile );
+			AssignPersonnelAssistsHelpText( pSoldier->ubProfile );
 
 		break;
 		case 16:
+		{
 			// shots/hits
-			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[22].y - 8),pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
-			uiHits = ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].records.usShotsHit;
+			mprintf( (INT16)(pPersonnelScreenPoints[22].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[22].y - 8), pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE] );
+			uiHits = (UINT32)pRecords->usShotsHit;
 			uiHits *= 100;
 
 			// check we have shot at least once
-			if( (gMercProfiles[Menptr[iId].ubProfile].records.usShotsFired + gMercProfiles[Menptr[iId].ubProfile].records.usMissilesLaunched + gMercProfiles[Menptr[iId].ubProfile].records.usGrenadesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usKnivesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usBladeAttacks + gMercProfiles[Menptr[iId].ubProfile].records.usHtHAttacks) > 0 )
+			UINT32 uiAttacks = pRecords->usShotsFired + pRecords->usMissilesLaunched + pRecords->usGrenadesThrown + pRecords->usKnivesThrown + pRecords->usBladeAttacks + pRecords->usHtHAttacks;
+			if ( uiAttacks > 0 )
 			{
-				uiHits /= ( UINT32 )(gMercProfiles[Menptr[iId].ubProfile].records.usShotsFired + gMercProfiles[Menptr[iId].ubProfile].records.usMissilesLaunched + gMercProfiles[Menptr[iId].ubProfile].records.usGrenadesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usKnivesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usBladeAttacks + gMercProfiles[Menptr[iId].ubProfile].records.usHtHAttacks);
+				uiHits /= uiAttacks;
 				if ( uiHits > 100 )
 					uiHits = 100;
 			}
@@ -7325,32 +7313,32 @@ DEF:3/19/99:
 			}
 
 
-			swprintf(sString, L"%d %%%%",uiHits);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			sX += StringPixLength( sSpecialCharacters[0],	PERS_FONT );
-			mprintf(sX,(pPersonnelScreenPoints[22].y - 8),sString);
-			
-			GetVideoObject(&hHandle, guiQMark);
-			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[22].x + 148), ( pPersonnelScreenPoints[22].y - 9 ), VO_BLT_SRCTRANSPARENCY,NULL );
+			swprintf( sString, L"%d %%%%", uiHits );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[22].x + (iSlot * TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			sX += StringPixLength( sSpecialCharacters[0], PERS_FONT );
+			mprintf( sX, (pPersonnelScreenPoints[22].y - 8), sString );
+
+			GetVideoObject( &hHandle, guiQMark );
+			BltVideoObject( FRAME_BUFFER, hHandle, 0, (pPersonnelScreenPoints[22].x + 148), (pPersonnelScreenPoints[22].y - 9), VO_BLT_SRCTRANSPARENCY, NULL );
 
 			// Add specific region for fast help window
-			if( fAddedTraitRegion[9] )
+			if ( fAddedTraitRegion[9] )
 			{
 				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[9] );
 			}
-			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[9], (UINT16)( pPersonnelScreenPoints[22].x + 147 ), (UINT16)( pPersonnelScreenPoints[22].y - 10 ),
-							(UINT16)( pPersonnelScreenPoints[22].x + 166 ), (UINT16)(pPersonnelScreenPoints[22].y + 1), MSYS_PRIORITY_HIGH,
-								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[9], (UINT16)(pPersonnelScreenPoints[22].x + 147), (UINT16)(pPersonnelScreenPoints[22].y - 10),
+				(UINT16)(pPersonnelScreenPoints[22].x + 166), (UINT16)(pPersonnelScreenPoints[22].y + 1), MSYS_PRIORITY_HIGH,
+				MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[9] );
 			fAddedTraitRegion[9] = TRUE;
 			// Assign the text
-			AssignPersonnelHitPercentageHelpText( Menptr[iId].ubProfile );
-
+			AssignPersonnelHitPercentageHelpText( pSoldier->ubProfile );
+		}
 		break;
 		case 17:
 			// Achievements
 			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y - 6),pPersonnelScreenStrings[PRSNL_TXT_ACHIEVEMNTS]);
-			swprintf(sString, L"%d %%%%", CalculateMercsAchievementPercentage( Menptr[iId].ubProfile ));
+			swprintf(sString, L"%d %%%%", CalculateMercsAchievementPercentage( pSoldier->ubProfile ));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			sX += StringPixLength( sSpecialCharacters[0],	PERS_FONT );
 			mprintf(sX,(pPersonnelScreenPoints[23].y - 6),sString);
@@ -7369,13 +7357,13 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[10] );
 			fAddedTraitRegion[10] = TRUE;
 			// Assign the text
-			AssignPersonnelAchievementsHelpText( Menptr[iId].ubProfile );
+			AssignPersonnelAchievementsHelpText( pSoldier->ubProfile );
 
 		break;
 		case 18:
 			// battles
 			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[24].y - 4),pPersonnelScreenStrings[PRSNL_TXT_BATTLES]);
-			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usBattlesTactical + gMercProfiles[Menptr[iId].ubProfile].records.usBattlesAutoresolve));
+			swprintf(sString, L"%d",(pRecords->usBattlesTactical + pRecords->usBattlesAutoresolve));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[24].y - 4),sString);
 			
@@ -7393,13 +7381,13 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[11] );
 			fAddedTraitRegion[11] = TRUE;
 			// Assign the text
-			AssignPersonnelBattlesHelpText( Menptr[iId].ubProfile );
+			AssignPersonnelBattlesHelpText( pSoldier->ubProfile );
 
 		break;
 		case 19:
 			// wounds
 			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[25].y - 2),pPersonnelScreenStrings[PRSNL_TXT_TIMES_WOUNDED]);
-			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedShot + gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedStabbed + (gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedPunched/2) + gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedBlasted));
+			swprintf(sString, L"%d",(pRecords->usTimesWoundedShot + pRecords->usTimesWoundedStabbed + (pRecords->usTimesWoundedPunched/2) + pRecords->usTimesWoundedBlasted));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[25].y - 2),sString);
 			
@@ -7417,7 +7405,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[12] );
 			fAddedTraitRegion[12] = TRUE;
 			// Assign the text
-			AssignPersonnelWoundsHelpText( Menptr[iId].ubProfile );
+			AssignPersonnelWoundsHelpText( pSoldier->ubProfile );
 
 		break;
 
