@@ -328,7 +328,7 @@ void DeletePersonnelButtons( void );
 void DisplayHeader( void );
 void DisplayCharName( SoldierID iId, INT32 iSlot );
 void DisplayCharStats(SoldierID iId, INT32 iSlot);
-void DisplayCharPersonality( INT32 iId, INT32 iSlot );
+void DisplayCharPersonality( SoldierID iId, INT32 iSlot );
 void SetPersonnelButtonStates( void );
 void CreateDestroyButtonsForPersonnelDepartures( void );
 void LoadPersonnelScreenBackgroundGraphics( void );
@@ -2124,11 +2124,12 @@ void DisplayCharStats( SoldierID iId, INT32 iSlot )
 	}
 }
 
-void DisplayCharPersonality(INT32 iId, INT32 iSlot)
+void DisplayCharPersonality(SoldierID iId, INT32 iSlot)
 {
 	INT32 iCounter=0;
 	INT16 sX, sY;
-	SOLDIERTYPE *pSoldier = &Menptr[iId];
+	SOLDIERTYPE *pSoldier = iId;
+	const MERCPROFILESTRUCT *pMercProfile = &gMercProfiles[pSoldier->ubProfile];
 
 	// SANDRO - remove the regions
 	for( INT8 i = 0; i < 13; ++i )
@@ -2182,7 +2183,7 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 		++region;
 	}
 
-	if ( (gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
+	if ( (pMercProfile->ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
 	{
 		CHAR16 sStr1[200];
 		swprintf( sStr1, szLaptopStatText[LAPTOP_STAT_TEXT_GOOD_GUY] );
@@ -2215,7 +2216,7 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 
 	if (gGameExternalOptions.fMercGrowthModifiersEnabled)
 	{
-		if (gMercProfiles[pSoldier->ubProfile].fRegresses)
+		if (pMercProfile->fRegresses)
 		{
 			CHAR16 sStr2[200];
 			swprintf(sStr2, szLaptopStatText[LAPTOP_STAT_TEXT_MERC_REGRESSES]);
@@ -2236,9 +2237,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_HEALTH_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierLife <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLife >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierLife >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2251,9 +2252,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_STRENGTH_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierStrength <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierStrength >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierStrength >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2266,9 +2267,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_AGILITY_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierAgility <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierAgility >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierAgility >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2281,9 +2282,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_DEXTERITY_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierDexterity <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierDexterity >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierDexterity >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2296,9 +2297,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_WISDOM_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierWisdom <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierWisdom >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierWisdom >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2311,9 +2312,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MARKSMANSHIP_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierMarksmanship <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMarksmanship >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierMarksmanship >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2326,9 +2327,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPLOSIVES_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierExplosive <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExplosive >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierExplosive >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2341,9 +2342,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_LEADERSHIP_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierLeadership <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierLeadership >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierLeadership >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2356,9 +2357,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MEDICAL_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierMedical <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMedical >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierMedical >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2371,9 +2372,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_MECHANICAL_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierMechanical <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierMechanical >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierMechanical >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
@@ -2386,9 +2387,9 @@ void DisplayCharPersonality(INT32 iId, INT32 iSlot)
 				swprintf(statTxt, szLaptopStatText[LAPTOP_STAT_TEXT_EXPERIENCE_SPEED]);
 				mprintf((INT16)(pPersonnelScreenPoints[loc].x + (iSlot * TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + yOffset), statTxt);
 
-				if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel <= THRESHOLD_FAST)
+				if (pMercProfile->bGrowthModifierExpLevel <= THRESHOLD_FAST)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_FAST]);
-				else if (gMercProfiles[pSoldier->ubProfile].bGrowthModifierExpLevel >= THRESHOLD_SLOW)
+				else if (pMercProfile->bGrowthModifierExpLevel >= THRESHOLD_SLOW)
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_SLOW]);
 				else
 					swprintf(statTxt, L"%s", szLaptopStatText[LAPTOP_STAT_TEXT_AVERAGE]);
