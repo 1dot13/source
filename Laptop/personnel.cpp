@@ -306,7 +306,7 @@ BOOLEAN fCreateRegionsForPastCurrentToggle = FALSE;
 
 // WDS - make number of mercenaries, etc. be configurable
 // List of ids of current team members, dea or alive
-std::vector<INT32>	currentTeamList (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
+SoldierID currentTeamList[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
 // The index of the last current team members
 int maxCurrentTeamIndex = -1;
 // The id of currently displayed merc
@@ -319,7 +319,7 @@ void LoadPersonnelGraphics( void );
 void RemovePersonnelGraphics( void );
 void RenderPersonnel( void );
 void RenderPersonnelStats(INT32 iId, INT32 iSlot);
-void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther );
+void RenderPersonnelFace(SoldierID iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther );
 void LeftButtonCallBack(GUI_BUTTON *btn,INT32 reason);
 void RightButtonCallBack(GUI_BUTTON *btn,INT32 reason);
 void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason );
@@ -552,7 +552,7 @@ void EnterPersonnel( void )
 
 	// Clear out the current team list
 	for (unsigned idx=0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
-		currentTeamList[idx] = -1;
+		currentTeamList[idx] = NOBODY;
 	}
 
 	// Fill in the current team list
@@ -574,7 +574,7 @@ void EnterPersonnel( void )
 		}
 	}
 
-	if (currentTeamList[0] >= 0)
+	if (currentTeamList[0] < NOBODY)
 		currentTeamIndex = 0;
 	else
 		currentTeamIndex = -1;
@@ -813,11 +813,11 @@ void RenderPersonnelStats( INT32 iId, INT32 iSlot )
 // ID -> fortlaufende ID, und nicht die mercID
 // -> bei aktuellen Merc passt es
 // -> bei departed Merc wird die MercId anstatt der fortlaufenden ID übergeben!!
-void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther )
+void RenderPersonnelFace(SoldierID iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther )
 {
 	// Get the profile id (from profileId or slotId)
 	INT32 profileId = iId;
-	if (profileId == -1)
+	if (profileId == NOBODY)
 	{
 		profileId = MercPtrs[iSlot]->ubProfile;
 	}
@@ -2582,7 +2582,7 @@ void DisplayPicturesOfCurrentTeam( void )
 			return;
 		} // if
 
-		SOLDIERTYPE *pSoldier = MercPtrs[currentTeamList[currentOnSreenIndex]];
+		SOLDIERTYPE *pSoldier = currentTeamList[currentOnSreenIndex];
 		
 		if ( pSoldier->ubProfile >= 0 )
 		{
@@ -2639,7 +2639,7 @@ void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			currentTeamIndex = iPortraitId + currentTeamFirstIndex;
 			fReDrawScreenFlag = TRUE;
 			// if the selected merc is valid, and they are a POW, change to the inventory display
-			if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN ) {
+			if( currentTeamIndex != -1 && currentTeamList[currentTeamIndex]->bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN ) {
 				gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 			}
 		} else {
@@ -2683,7 +2683,7 @@ void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			guiSliderPosition = 0;
 
 			//if the selected merc is valid, and they are a POW, change to the inventory display
-			if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN) {
+			if( currentTeamIndex != -1 && currentTeamList[currentTeamIndex]->bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN) {
 				gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 			}
 		}
@@ -3048,7 +3048,7 @@ INT32 GetNumberOfInventoryItemsOnCurrentMerc( void )
 	if (!fCurrentTeamMode)
 		return( 0 );
 
-	SOLDIERTYPE *pSoldier = &Menptr[currentTeamList[currentTeamIndex]];
+	SOLDIERTYPE *pSoldier = currentTeamList[currentTeamIndex];
 
 	INT32 ubCount = 0;
 	UINT8 invsize = pSoldier->inv.size();
@@ -6177,7 +6177,7 @@ void ATMOtherButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			if (fCurrentTeamMode && 
 				currentTeamIndex != -1) {
 				// set soldier
-				pSoldier = MercPtrs[ currentTeamList[currentTeamIndex] ];
+				pSoldier = currentTeamList[currentTeamIndex];
 
 				switch( iValue ) {
 					case( OK_ATM ):
@@ -6564,11 +6564,11 @@ void UpDateStateOfStartButton( void )
 			for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
 				EnableButton( giPersonnelATMStartButton[ i ] );
 
-			INT32 iId = currentTeamList[currentTeamIndex];
+			SoldierID iId = currentTeamList[currentTeamIndex];
 
-			if (iId != -1)
+			if (iId != NOBODY)
 			{
-				if ( Menptr[ iId ].bAssignment == ASSIGNMENT_POW )
+				if ( iId->bAssignment == ASSIGNMENT_POW )
 				{
 					DisableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
 
@@ -6612,7 +6612,7 @@ void DisplayAmountOnCurrentMerc( void )
 		pSoldier = NULL;
 	} else {
 		// set soldier
-		pSoldier = MercPtrs[ currentTeamList[currentTeamIndex] ];
+		pSoldier = currentTeamList[currentTeamIndex];
 	}
 
 	INT32 iFunds = GetFundsOnMerc( pSoldier );
@@ -6697,7 +6697,7 @@ void HandlePersonnelKeyboard( void )
 						guiSliderPosition = 0;
 
 						//if the selected merc is valid, and they are a POW, change to the inventory display
-						if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
+						if( currentTeamIndex != -1 && currentTeamList[currentTeamIndex]->bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
 							gubPersonnelInfoState = PERSONNEL_EMPLOYMENT_BTN;
 
 						fPausedReDrawScreenFlag = TRUE;
@@ -6718,7 +6718,7 @@ void HandlePersonnelKeyboard( void )
 						guiSliderPosition = 0;
 
 						//if the selected merc is valid, and they are a POW, change to the inventory display
-						if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
+						if( currentTeamIndex != -1 && currentTeamList[currentTeamIndex]->bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
 							gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 						
 						fPausedReDrawScreenFlag = TRUE;
