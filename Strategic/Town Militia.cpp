@@ -54,7 +54,7 @@ BOOLEAN gfAreWePromotingRegular = FALSE;
 
 
 //the completed list of sector soldiers for training militia
-INT32 giListOfMercsInSectorsCompletedMilitiaTraining[ SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST ];
+SoldierID giListOfMercsInSectorsCompletedMilitiaTraining[ SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST ];
 SOLDIERTYPE *pMilitiaTrainerSoldier = NULL;
 
 // note that these sector values are STRATEGIC INDEXES, not 0-255!
@@ -1421,10 +1421,10 @@ void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE
 	// get the sector value
 	sSector = pSoldier->sSectorX + pSoldier->sSectorY * MAP_WORLD_X;
 
-	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != -1 )
+	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != NOBODY )
 	{
 		// get the current soldier
-		pCurrentSoldier = &Menptr[ giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] ];
+		pCurrentSoldier = giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ];
 
 		// get the current sector value
 		sCurrentSector = CALCULATE_STRATEGIC_INDEX( pCurrentSoldier->sSectorX, pCurrentSoldier->sSectorY );
@@ -1455,7 +1455,7 @@ void ClearSectorListForCompletedTrainingOfMilitia( void )
 
 	for( iCounter = 0; iCounter < SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST; iCounter++ )
 	{
-		giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] = -1;
+		giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] = NOBODY;
 	}
 
 	return;
@@ -1469,10 +1469,10 @@ void HandleContinueOfTownTraining( void )
 	BOOLEAN fContinueEventPosted = FALSE;
 
 
-	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != -1 )
+	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != NOBODY )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] ];
+		pSoldier = giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ];
 
 		if( pSoldier->bActive )
 		{
@@ -1552,7 +1552,7 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 	else
 	{
 		// handle for tactical
-		pSoldier = &Menptr[ gusUIFullTargetID ];
+		pSoldier = gusUIFullTargetID;
 		iCounter = 0;
 
 		if (ubMilitiaType == TOWN_MILITIA)
