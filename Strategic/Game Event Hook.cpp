@@ -254,12 +254,14 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			MercsContractIsFinished( (UINT8) pEvent->uiParam );
 			break;
 		case EVENT_ADDSOLDIER_TO_UPDATE_BOX:
+		{
 			// if the grunt is currently active, add to update box
 			SoldierID usID = pEvent->uiParam;
-			if( usID != NOBODY && usID->bActive )
+			if ( usID != NOBODY && usID->bActive )
 			{
 				AddSoldierToWaitingListQueue( usID );
 			}
+		}
 			break;
 		case EVENT_SET_MENU_REASON:
 			AddReasonToWaitingListQueue( (UINT8) pEvent->uiParam );
