@@ -255,9 +255,10 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		case EVENT_ADDSOLDIER_TO_UPDATE_BOX:
 			// if the grunt is currently active, add to update box
-			if( Menptr[ pEvent->uiParam ].bActive )
+			SoldierID usID = pEvent->uiParam;
+			if( usID != NOBODY && usID->bActive )
 			{
-				AddSoldierToWaitingListQueue( &( Menptr[ pEvent->uiParam ] ) );
+				AddSoldierToWaitingListQueue( usID );
 			}
 			break;
 		case EVENT_SET_MENU_REASON:
