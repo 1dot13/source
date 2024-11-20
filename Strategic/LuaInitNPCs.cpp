@@ -12034,7 +12034,7 @@ static int l_VisibleTown (lua_State *L)
 static int l_HireMerc(lua_State *L)
 {
 	MERC_HIRE_STRUCT HireMercStruct;
-	INT16	sSoldierID = 0;
+	SoldierID	sSoldierID = NOBODY;
 	INT16	iTotalContract = 7;
 	UINT32  iTimeTillMercArrives = 0;
 	UINT8 n = lua_gettop(L);
@@ -12071,8 +12071,8 @@ static int l_HireMerc(lua_State *L)
 		if (!HireMerc(&HireMercStruct))
 		{
 			sSoldierID = GetSoldierIDFromMercID(ubCurrentSoldier);
-			if (sSoldierID > -1)
-				Menptr[sSoldierID].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
+			if (sSoldierID != NOBODY)
+				sSoldierID->bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
 
 			gMercProfiles[ubCurrentSoldier].bMercStatus = MERC_OK;
 
