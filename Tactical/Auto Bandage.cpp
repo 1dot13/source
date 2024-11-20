@@ -1024,7 +1024,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 	INT32 iCounter = 0;
 	INT32 iNumberOfDoctors = 0;
 	VOBJECT_DESC	 VObjectDesc;
-
+	const MERCPROFILESTRUCT *profile;
 
     // WDS - make number of mercenaries, etc. be configurable
 	// reset
@@ -1040,21 +1040,24 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
 		{
-			if( gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex < 100 )
+			profile = &gMercProfiles[(Menptr[iDoctorList[iCounter]]).ubProfile];
+			const UINT8 face = profile->ubFaceIndex;
+
+			if( face < 100 )
 			{
 				// grab filename of face
-				if ((iDoctorList[ iCounter ] != -1) && gMercProfiles[( Menptr[iDoctorList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", face );
 			}
 			else
 			{
 				// grab filename of face
-				if ((iDoctorList[ iCounter ] != -1) && gMercProfiles[( Menptr[iDoctorList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", face );
 			}
 
 			// load the face
@@ -1073,21 +1076,24 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
 		{
-			if( gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex < 100 )
+			profile = &gMercProfiles[(Menptr[iPatientList[iCounter]]).ubProfile];
+			const UINT8 face = profile->ubFaceIndex;
+
+			if( face < 100 )
 			{
 				// grab filename of face
-				if ((iPatientList[ iCounter ] != -1) && gMercProfiles[( Menptr[iPatientList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", face );
 			}
 			else
 			{
 				// grab filename of face
-				if ( (iPatientList[ iCounter ] != -1) && gMercProfiles[( Menptr[iPatientList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", face );
 			}
 		
 			// load the face
