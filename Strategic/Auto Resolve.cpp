@@ -1854,12 +1854,14 @@ void RenderAutoResolve()
 				case BATTLE_CAPTURED:
 					for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 					{
-						if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
+						SOLDIERTYPE *pSoldier = MercPtrs[i];
+
+						if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 						{ //Merc is active and alive, and not a vehicle or robot
-							if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+							if ( PlayerMercInvolvedInThisCombat( pSoldier ) )
 							{
 								// This morale event is PER INDIVIDUAL SOLDIER
-								HandleMoraleEvent( MercPtrs[ i ], MORALE_MERC_CAPTURED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+								HandleMoraleEvent( pSoldier, MORALE_MERC_CAPTURED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 							}
 						}
 					}
@@ -5959,10 +5961,12 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 				unsigned mercCnt = 0;
 				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 				{
-					if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
+					SOLDIERTYPE *pSoldier = MercPtrs[i];
+
+					if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 					{
 						//Merc is active and alive, and not a vehicle or robot
-						if ((MercPtrs[ i ]->sSectorX == sX) &&(MercPtrs[ i ]->sSectorY == sY) && (MercPtrs[ i ]->bSectorZ == 0))
+						if ( (pSoldier->sSectorX == sX) && (pSoldier->sSectorY == sY) && (pSoldier->bSectorZ == 0) )
 						{
 							++mercCnt;
 						}
