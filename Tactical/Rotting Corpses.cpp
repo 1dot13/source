@@ -1155,14 +1155,14 @@ INT16 FindNearestRottingCorpse( SOLDIERTYPE *pSoldier )
 void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT8										ubBodyType = CROW;
-	UINT16										iNewIndex;
-	INT32 sGridNo;
-	UINT8										ubDirection;
-	SOLDIERTYPE							*pSoldier;
+	INT8						ubBodyType = CROW;
+	SoldierID				iNewIndex;
+	INT32					sGridNo;
+	UINT8					ubDirection;
+	SOLDIERTYPE				*pSoldier;
 	//DBrot: More Rooms
-	//UINT8										ubRoomNum;
-	UINT16	usRoomNum;
+	//UINT8					ubRoomNum;
+	UINT16					usRoomNum;
 	// No crows inside :(
 	if ( InARoom( pCorpse->def.sGridNo, &usRoomNum ) )
 	{
@@ -2918,7 +2918,7 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 																								
 	MercCreateStruct.fVisible			= TRUE;
 
-	UINT16 iNewIndex;
+	SoldierID iNewIndex;
 	if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 	{
 		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and

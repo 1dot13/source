@@ -37,12 +37,12 @@ BOOLEAN BeginUIPlan( SOLDIERTYPE *pSoldier )
 BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 {
 	SOLDIERTYPE				*pPlanSoldier;
-	INT16							sXPos, sYPos;
-	INT16							sAPCost = 0;
-	INT8							bDirection;
-	INT32							iLoop;
+	INT16					sXPos, sYPos;
+	INT16					sAPCost = 0;
+	INT8						bDirection;
+	INT32					iLoop;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT16							ubNewIndex;
+	SoldierID				ubNewIndex;
 
 	// Depeding on stance and direction facing, add guy!
 

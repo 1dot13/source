@@ -6926,12 +6926,12 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 
 BOOLEAN LoadSoldierStructure( HWFILE hFile )
 {
-	UINT16	cnt;
-	UINT32	uiNumBytesRead=0;
-	UINT16		ubId;
+	UINT16		cnt;
+	UINT32		uiNumBytesRead=0;
+	SoldierID	ubId;
 	UINT8		ubOne = 1;
 	UINT8		ubActive = 1;
-	UINT32	uiPercentage;
+	UINT32		uiPercentage;
 	SOLDIERTYPE SavedSoldierInfo;
 
 	//Loop through all the soldier and delete them all

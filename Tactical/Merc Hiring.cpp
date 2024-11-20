@@ -127,7 +127,7 @@ UINT16	GetInitialHeliRandomTime();
 INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
-	UINT16		iNewIndex;
+	SoldierID	iNewIndex;
 	UINT8		ubCurrentSoldier = pHireMerc->ubProfileID;
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;

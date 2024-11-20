@@ -3749,7 +3749,7 @@ void CreateTempPlayerMerc()
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	static INT32		iSoldierCount=0;
-	UINT16 ubID;
+	SoldierID ubID;
 
 	//Init the merc create structure with basic information
 	MercCreateStruct.bTeam									= SOLDIER_CREATE_AUTO_TEAM;

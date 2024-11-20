@@ -5471,7 +5471,7 @@ void CreateNextCivType()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		UINT16 iNewIndex;
+		SoldierID iNewIndex;
 		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
@@ -5518,7 +5518,7 @@ void CreateCow()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		UINT16 iNewIndex;
+		SoldierID iNewIndex;
 		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
@@ -5547,7 +5547,7 @@ void CreateBloodCat()
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		UINT16 iNewIndex;
+		SoldierID iNewIndex;
 		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
@@ -5577,7 +5577,7 @@ void CreatePlayerControlledCow()
 
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
-		UINT16 iNewIndex;
+		SoldierID iNewIndex;
 		if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 		{
 			AddSoldierToSector( iNewIndex );
@@ -5642,7 +5642,7 @@ void CreatePlayerControlledMonster()
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		SOLDIERCREATE_STRUCT		MercCreateStruct;
-		UINT16 iNewIndex;
+		SoldierID iNewIndex;
 
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX			= gWorldSectorX;

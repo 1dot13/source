@@ -1082,7 +1082,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	send_hire_struct* sHireMerc = (send_hire_struct*)rpcParameters->input;
 
 	SOLDIERTYPE	*pSoldier;
-	UINT16		iNewIndex;
+	SoldierID	iNewIndex;
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	BOOLEAN fReturn = FALSE;
@@ -1097,7 +1097,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 
 	TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) ;
 
-	pSoldier = &Menptr[iNewIndex];
+	pSoldier = iNewIndex;
 	pSoldier->flags.uiStatusFlags |= SOLDIER_PC;
 	gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags |= PROFILE_MISC_FLAG_RECRUITED;
 	
@@ -1290,7 +1290,7 @@ void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct )
 
 void recieveAI (RPCParameters *rpcParameters)
 {
-	UINT16 iNewIndex;
+	SoldierID iNewIndex;
 	SOLDIERTYPE *pSoldier;
 	AI_STRUCT* send_inv = (AI_STRUCT*)rpcParameters->input;
 
@@ -1354,7 +1354,7 @@ void recieveAI (RPCParameters *rpcParameters)
 	new_standard_data.fPlayerPlan=1;
 
 	TacticalCreateSoldier( &new_standard_data, &iNewIndex );
-	pSoldier = &Menptr[iNewIndex];
+	pSoldier = iNewIndex;
 	pSoldier->flags.uiStatusFlags |= SOLDIER_PC;
 
 	AddSoldierToSector( iNewIndex );

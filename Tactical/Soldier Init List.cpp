@@ -582,7 +582,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	UINT8 ubProfile;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
 	SOLDIERTYPE *pSoldier;
-	UINT16 ubID;
+	SoldierID ubID;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld"));
 	// First check if this guy has a profile and if so check his location such that it matches!
@@ -2659,7 +2659,7 @@ void AddProfilesUsingProfileInsertionData()
 		if( !pSoldier )
 		{ //Create a new soldier, as this one doesn't exist
 			SOLDIERCREATE_STRUCT		MercCreateStruct;
-			UINT16 ubID;
+			SoldierID ubID;
 
 			//Set up the create struct so that we can properly create the profile soldier.
 			MercCreateStruct.initialize();

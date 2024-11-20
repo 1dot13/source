@@ -1559,19 +1559,19 @@ SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnl
 
 SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 {
-	UINT16										ubID;
-	SOLDIERTYPE							*pNewSoldier = NULL;
+	SoldierID				ubID;
+	SOLDIERTYPE				*pNewSoldier = NULL;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT32									cnt;
-	INT32										sOldGridNo;
+	UINT32					cnt;
+	INT32					sOldGridNo;
 
-	UINT16										ubOldID;
-	UINT32									uiOldUniqueId;
+	SoldierID				ubOldID;
+	UINT32					uiOldUniqueId;
 
-	UINT32									uiSlot;
-	SOLDIERTYPE							*pGroupMember;
+	UINT32					uiSlot;
+	SOLDIERTYPE				*pGroupMember;
 
-	BOOLEAN								success;
+	BOOLEAN					success;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ChangeSoldierTeam"));
 

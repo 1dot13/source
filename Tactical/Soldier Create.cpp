@@ -571,7 +571,7 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 // For this reason, we add a little helper variable that stores such a sector.
 INT16 gsStrategicDiseaseOriginSector = -1;
 #pragma optimize("", off)
-SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID )
+SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, SoldierID *pubID )
 {
 	SOLDIERTYPE Soldier;
 	INT32 cnt;
@@ -3076,7 +3076,7 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3109,7 +3109,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3143,7 +3143,7 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3185,7 +3185,7 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3227,7 +3227,7 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3270,7 +3270,7 @@ SOLDIERTYPE* TacticalCreateEnemyRobot()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3313,7 +3313,7 @@ SOLDIERTYPE* TacticalCreateZombie()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3387,7 +3387,7 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if (gpBattleGroup &&
@@ -3428,7 +3428,7 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3454,7 +3454,7 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier = NULL;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3503,9 +3503,9 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
 		return NULL;
 
-	UINT16					ubID = NOBODY;
-	SOLDIERTYPE*			pSoldier = NULL;
-	SOLDIERCREATE_STRUCT	MercCreateStruct;
+	SoldierID				ubID = NOBODY;
+	SOLDIERTYPE*				pSoldier = NULL;
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
 
 	MercCreateStruct.initialize( );
 	MercCreateStruct.bTeam = CIV_TEAM;
@@ -3602,7 +3602,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3667,7 +3667,7 @@ SOLDIERTYPE* TacticalCreateBandit()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT16 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3858,7 +3858,7 @@ void CreatePrisonerOfWar()
 	}
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT16						ubID;
+	SoldierID				ubID;
 
 	static INT8 bPowBodyType = REGMALE;
 
@@ -3940,7 +3940,7 @@ void CreateDownedPilot( )
 	while ( TileIsOutOfBounds( sGridNo ) || FindStructure( sGridNo, STRUCTURE_BLOCKSMOVES ) || TERRAIN_IS_WATER( gpWorldLevelData[sGridNo].ubTerrainID ) || GridNoNearPlayerMercs( sGridNo, 25 ) );
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT16						ubID;
+	SoldierID				ubID;
 	
 	MercCreateStruct.initialize( );
 	MercCreateStruct.bTeam = CIV_TEAM;
@@ -4102,7 +4102,7 @@ void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID )
 	// Create guy # X
 	SOLDIERCREATE_STRUCT MercCreateStruct;
 	INT16 sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
-	UINT16 ubID;
+	SoldierID ubID;
 	INT32 usMapPos;
 
 	if ( GetMouseXY( &sGridX, &sGridY ) )
