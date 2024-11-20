@@ -6411,9 +6411,9 @@ void CommonEnterCombatModeCode( )
     // Loop through all mercs and make go
     for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, ++cnt )
     {
-        if ( pSoldier && pSoldier->bActive )
+        if ( pSoldier->bActive && pSoldier->bInSector )
         {
-            if ( pSoldier->bInSector && pSoldier->ubBodyType != CROW )
+            if ( pSoldier->ubBodyType != CROW )
             {
                 // Set some flags for quotes
                 pSoldier->usQuoteSaidFlags &= (~SOLDIER_QUOTE_SAID_IN_SHIT );
@@ -6606,45 +6606,42 @@ void ExitCombatMode( )
     // Loop through all mercs and make go
     for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, cnt++ )
     {
-        if ( pSoldier->bActive )
+        if ( pSoldier->bActive && pSoldier->bInSector )
         {
-            if ( pSoldier->bInSector )
+            // Reset some flags
+            if ( pSoldier->flags.fNoAPToFinishMove && pSoldier->stats.bLife >= OKLIFE )
             {
-                // Reset some flags
-                if ( pSoldier->flags.fNoAPToFinishMove && pSoldier->stats.bLife >= OKLIFE )
+                pSoldier->AdjustNoAPToFinishMove( FALSE );
+
+                // ary-05/05/2009 : fix lower ready weapons
+                //previously "ready weapon" state was being dropped in a couple of cases
+                //the fix involves bypassing the reset animation state for the various "ready weapon" types
+                //since this is a reset animation function, we should be VERY specific about when and what we dont reset
+
+                UINT16  test;
+                test = pSoldier->usAnimState; 
+                if (!(  test == AIM_RIFLE_STAND ||  test == AIM_RIFLE_CROUCH ||
+                            test == AIM_RIFLE_PRONE ||  test == AIM_DUAL_STAND   ||
+                            test == AIM_DUAL_CROUCH ||  test == AIM_DUAL_PRONE
+                        )) 
                 {
-                    pSoldier->AdjustNoAPToFinishMove( FALSE );
-
-                    // ary-05/05/2009 : fix lower ready weapons
-                    //previously "ready weapon" state was being dropped in a couple of cases
-                    //the fix involves bypassing the reset animation state for the various "ready weapon" types
-                    //since this is a reset animation function, we should be VERY specific about when and what we dont reset
-
-                    UINT16  test;
-                    test = pSoldier->usAnimState; 
-                    if (!(  test == AIM_RIFLE_STAND ||  test == AIM_RIFLE_CROUCH ||
-                                test == AIM_RIFLE_PRONE ||  test == AIM_DUAL_STAND   ||
-                                test == AIM_DUAL_CROUCH ||  test == AIM_DUAL_PRONE
-                         )) 
-                    {
-                        pSoldier->SoldierGotoStationaryStance( );
-                    }               
-                }
-
-                //Cancel pending events
-                pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-                pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
-                pSoldier->aiData.ubPendingAction    = NO_PENDING_ACTION;
-
-                // Reset moved flag
-                pSoldier->aiData.bMoved = FALSE;
-
-                // Set final destination
-                pSoldier->pathing.sFinalDestination = pSoldier->sGridNo;
-
-                // remove AI controlled flag
-                pSoldier->flags.uiStatusFlags &= ~SOLDIER_UNDERAICONTROL;
+                    pSoldier->SoldierGotoStationaryStance( );
+                }               
             }
+
+            //Cancel pending events
+            pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+            pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+            pSoldier->aiData.ubPendingAction    = NO_PENDING_ACTION;
+
+            // Reset moved flag
+            pSoldier->aiData.bMoved = FALSE;
+
+            // Set final destination
+            pSoldier->pathing.sFinalDestination = pSoldier->sGridNo;
+
+            // remove AI controlled flag
+            pSoldier->flags.uiStatusFlags &= ~SOLDIER_UNDERAICONTROL;
         }
     }
 
