@@ -1275,7 +1275,7 @@ UINT8 numenemyLAN( UINT8 ubSectorX, UINT8 ubSectorY )
 	return ubNumEnemies;
 }
 
-void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID )
+void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct )
 {
 	AI_STRUCT send_inv;
 	send_inv.standard_data = *pCreateStruct;

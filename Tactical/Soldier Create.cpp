@@ -603,7 +603,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 
 		}
 		if ( is_server && tbTeam > OUR_TEAM && tbTeam < PLAYER_PLAN )
 		{
-			send_AI(pCreateStruct,pubID);
+			send_AI(pCreateStruct);
 		}
 		if(is_client && !is_server && tfPP==1)
 		{

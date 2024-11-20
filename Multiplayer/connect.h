@@ -104,7 +104,7 @@ void send_gui_dir(SOLDIERTYPE *pSoldier, UINT16	usNewDirection);
 
 void send_EndTurn( UINT8 ubNextTeam );
 
-void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT16 * pubID );
+void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct );
 
 void send_stop (EV_S_STOP_MERC *SStopMerc);
 
