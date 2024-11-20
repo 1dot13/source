@@ -665,19 +665,19 @@ void			ChangeFactState( INT32 iNumber );
 void			DisplayCurrentGridNo();
 void			EnableQDSButtons();
 
-BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			IncrementActiveDropDownBox( INT16 sIncrementValue );
-INT16			IsMercInTheSector( UINT16 usMercID );
+SoldierID	IsMercInTheSector( UINT8 ubMercProfileID );
 void			RefreshAllNPCInventory();
 void			SetQDSMercProfile();
 void			HandleQDSTalkingMerc();
 void			DisplayQDSCurrentlyQuoteNum( );
 void			SetTalkingMercPauseState( BOOLEAN fState );
-UINT8			WhichPanelShouldTalkingMercUse( );
+UINT8		WhichPanelShouldTalkingMercUse( );
 void			EndMercTalking();
 void			EnableFactMouseRegions();
 void			DisableFactMouseRegions();
-INT32			GetMaxNumberOfQuotesToPlay( );
+INT32		GetMaxNumberOfQuotesToPlay( );
 void			GetDebugLocationString( UINT16 usProfileID, STR16 pzText );
 
 //ppp
@@ -3270,7 +3270,7 @@ void BtnQuestDebugAllOrSectorNPCToggleCallback( GUI_BUTTON *btn, INT32 reason )
 				DisableButton( guiQuestDebugStartMercTalkingButtonButton );
 			}
 
-			if( IsMercInTheSector( gNpcListBox.sCurSelectedItem ) == -1 )
+			if( IsMercInTheSector( gNpcListBox.sCurSelectedItem ) == NOBODY )
 				DisableButton( guiQuestDebugViewNPCInvButton );
 
 			EnableQDSButtons();
@@ -3567,7 +3567,7 @@ void EnableQDSButtons()
 
 	if( gfUseLocalNPCs )
 	{
-		if( IsMercInTheSector( gubCurrentNpcInSector[ gNpcListBox.sCurSelectedItem ] ) != -1 )
+		if( IsMercInTheSector( gubCurrentNpcInSector[ gNpcListBox.sCurSelectedItem ] ) != NOBODY )
 		{
 			EnableButton( guiQuestDebugViewNPCInvButton );
 			EnableButton( guiQuestDebugNPCRefreshButtonButton );
@@ -3664,20 +3664,20 @@ void IncrementActiveDropDownBox( INT16 sIncrementValue )
 }
 
 
-INT16	IsMercInTheSector( UINT16 usMercID )
+SoldierID IsMercInTheSector( UINT8 ubMercProfileID )
 {
 	UINT16 cnt;
 	for ( cnt=0; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		//if the merc is active
-		if( Menptr[ cnt ].ubProfile == usMercID )
+		if( Menptr[ cnt ].ubProfile == ubMercProfileID )
 		{
 			if( Menptr[ cnt ].bActive )
 				return( Menptr[ cnt ].ubID );
 		}
 	}
 
-	return( -1 );
+	return( NOBODY );
 }
 
 
