@@ -1787,7 +1787,7 @@ BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 }
 
 
-// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns -1
+// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns NOBODY
 SoldierID GetSoldierIDFromMercID(UINT8 ubMercID)
 {
 	SOLDIERTYPE		*pTeamSoldier = NULL;
