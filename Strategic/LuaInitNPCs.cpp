@@ -7562,12 +7562,11 @@ static int l_EVENT_InitNewSoldierAnim (lua_State *L)
 	if ( lua_gettop(L) >= 3 )
 	{
 		UINT16 ubTargetNPC = lua_tointeger(L,1);
-		//if (i == 2 ) BodyType = lua_tointeger(L,i);
 		UINT32 ANIM = lua_tointeger(L,2);
-		INT32 cnt = lua_tointeger(L,3);
-		//if (i == 4 ) PlayerControl = lua_tointeger(L,i);
+		SoldierID solID = lua_tointeger(L,3);
 
-		if (ubTargetNPC > NOBODY)
+		// This is not my favorite, but now it will at least work. -Asdow
+		if (ubTargetNPC != NOBODY)
 		{
 			SOLDIERTYPE* pSoldier = FindSoldierByProfileID ( ubTargetNPC, TRUE );
 			if ( pSoldier )//&& pSoldier->ubBodyType == BodyType )
@@ -7576,10 +7575,10 @@ static int l_EVENT_InitNewSoldierAnim (lua_State *L)
 				pSoldier->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
 			}	
 		}
-		else if (ubTargetNPC == NOBODY)
+		else
 		{
-			if ( MercPtrs[ cnt ]->bInSector )
-				MercPtrs[ cnt ]->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
+			if ( solID != NOBODY && solID->bInSector )
+				solID->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
 		}
 	}
 			
@@ -8049,12 +8048,12 @@ static int l_ChangeMercPtrsTeam (lua_State *L)
 {
 	if ( lua_gettop(L) >= 2 )
 	{
-		UINT16 UID = lua_tointeger(L,1);
+		SoldierID UID = lua_tointeger(L,1);
 		INT8 Side = lua_tointeger(L,2);
 		
-		if ( MercPtrs[UID] && MercPtrs[ UID ]->bInSector && MercPtrs[ UID ]->bActive )
+		if ( UID != NOBODY && UID->bInSector && UID->bActive )
 		{
-			MercPtrs[UID]->bSide = Side;
+			UID->bSide = Side;
 		}
 	}	
 	
