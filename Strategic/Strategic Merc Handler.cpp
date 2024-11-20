@@ -721,11 +721,9 @@ void HandleMercsAboutToLeave( SOLDIERTYPE *pMercList )
 
 // ATE: This function deals with MERC MERC and NPC's leaving because of not getting paid...
 // NOT AIM renewals....
-void MercsContractIsFinished( UINT16 ubID )
+void MercsContractIsFinished( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier;
-
-	pSoldier = &Menptr[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	//if the soldier was removed before getting into this function, return
 	if( !pSoldier->bActive )
@@ -775,11 +773,9 @@ void MercsContractIsFinished( UINT16 ubID )
 }
 
 // ATE: Called for RPCs who should now complain about no pay...
-void RPCWhineAboutNoPay( UINT16 ubID )
+void RPCWhineAboutNoPay( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier;
-
-	pSoldier = &Menptr[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	//if the soldier was removed before getting into this function, return
 	if( !pSoldier->bActive )

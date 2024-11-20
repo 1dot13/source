@@ -251,7 +251,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		//When a merc is supposed to leave
 		case EVENT_MERC_CONTRACT_OVER:
-			MercsContractIsFinished( (UINT8) pEvent->uiParam );
+			MercsContractIsFinished( pEvent->uiParam );
 			break;
 		case EVENT_ADDSOLDIER_TO_UPDATE_BOX:
 		{
@@ -432,7 +432,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			BeginContractRenewalSequence( );
 			break;
 		case EVENT_RPC_WHINE_ABOUT_PAY:
-			RPCWhineAboutNoPay( (UINT8) pEvent->uiParam );
+			RPCWhineAboutNoPay( pEvent->uiParam );
 			break;
 
 		case EVENT_HAVENT_MADE_IMP_CHARACTER_EMAIL:
