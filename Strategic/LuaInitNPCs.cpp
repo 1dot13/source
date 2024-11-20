@@ -2969,25 +2969,6 @@ SOLDIERTYPE * FindSoldierByProfileID2( UINT8 ubProfileID, BOOLEAN fPlayerMercsOn
 	return( NULL );
 }
 
-BOOLEAN FindSoldier(SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex, BOOLEAN fPlayerMercsOnly)
-{
-	*ppSoldier = NULL;
-
-	if (usSoldierIndex >= TOTAL_SOLDIERS)
-	{
-		return(FALSE);
-	}
-
-	if (MercPtrs[usSoldierIndex]->bActive)
-	{
-		*ppSoldier = MercPtrs[usSoldierIndex];
-		return(TRUE);
-	}
-	else
-	{
-		return(FALSE);
-	}
-}
 
 //--------------------------------
 
