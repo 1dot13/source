@@ -4310,12 +4310,12 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 {
 	PLAYERGROUP		*pTemp=NULL;
 	PLAYERGROUP		*pHead=NULL;
-	UINT32	uiNumberOfNodes=0;
-	UINT32	uiProfileID=0;
-	UINT32	uiNumBytesRead;
-	UINT32	cnt=0;
-	INT16		sTempID;
-	GROUP		*pTempGroup = *pGroup;
+	UINT32			uiNumberOfNodes=0;
+	UINT32			uiProfileID=0;
+	UINT32			uiNumBytesRead;
+	UINT32			cnt=0;
+	SoldierID		sTempID;
+	GROUP			*pTempGroup = *pGroup;
 
 //	pTemp = pGroup;
 
@@ -4350,10 +4350,10 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 		sTempID = GetSoldierIDFromMercID( pTemp->ubProfileID );
 
 		//Should never happen
-		Assert( sTempID != -1 );
-		pTemp->ubID = (UINT16) sTempID;
+		Assert( sTempID != NOBODY );
+		pTemp->ubID = sTempID;
 
-		pTemp->pSoldier = &Menptr[ pTemp->ubID ];
+		pTemp->pSoldier = pTemp->ubID;
 
 		pTemp->next = NULL;
 
