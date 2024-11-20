@@ -3050,7 +3050,7 @@ void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, Sol
 
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - send_grenade_result ( RealObjectID : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gres.RealObjectID, gres.sGridNo , gres.ubOwnerID , guiPreRandomIndex );
+			sprintf( tmpMPDbgString, "MP - send_grenade_result ( RealObjectID : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n", gres.RealObjectID, gres.sGridNo, gres.ubOwnerID.i, guiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -3074,7 +3074,7 @@ void recieveGRENADERESULT (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recieveGRENADERESULT ( RealObjectID : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",gres->RealObjectID, gres->sGridNo , gres->ubOwnerID , gres->uiPreRandomIndex );
+			sprintf( tmpMPDbgString, "MP - recieveGRENADERESULT ( RealObjectID : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n", gres->RealObjectID, gres->sGridNo, gres->ubOwnerID.i, gres->uiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 			gfMPDebugOutputRandoms = true;
 #endif
@@ -3167,7 +3167,7 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 		{
 #ifdef JA2BETAVERSION
 			CHAR tmpMPDbgString[512];
-			sprintf(tmpMPDbgString,"MP - recievePLANTEXPLOSIVE ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n",exp->usItem, exp->sGridNo , exp->ubID , guiPreRandomIndex );
+			sprintf( tmpMPDbgString, "MP - recievePLANTEXPLOSIVE ( usItem : %i , sGridNo : %i , ubSoldierID : %i , uiPreRandomIndex : %i )\n", exp->usItem, exp->sGridNo, exp->ubID.i, guiPreRandomIndex );
 			MPDebugMsg(tmpMPDbgString);
 #endif
 

@@ -365,7 +365,7 @@ void sendDEATH(RPCParameters *rpcParameters)
 	_itow(iCLnum,clnum,10);
 	ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"DEBUG: Soldier Killed : Attacking team %s , Soldier Team %s, Sender %s",ateam,steam,clnum);
 	char logmsg[100];
-	sprintf(logmsg, "MP DEBUG: Soldier Killed #%i : Attacking team %i , Soldier Team %i, Sender %i\n",nDeath->soldier_id,nDeath->attacker_team,nDeath->soldier_team,iCLnum);
+	sprintf( logmsg, "MP DEBUG: Soldier Killed #%i : Attacking team %i , Soldier Team %i, Sender %i\n", nDeath->soldier_id.i, nDeath->attacker_team, nDeath->soldier_team, iCLnum );
 	MPDebugMsg( logmsg );
 #endif
 }
