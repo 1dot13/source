@@ -3724,11 +3724,10 @@ INT32 GetIdOfDepartedMercWithLowestStat( INT32 iStat )
 }
 
 
-INT32 GetIdOfMercWithHighestStat( INT32 iStat )
+SoldierID GetIdOfMercWithHighestStat( INT32 iStat )
 {
 	// will return the id value of the merc on the players team with highest in this stat
-	// -1 means error
-	INT32 iId = -1;
+	INT32 iId = NOBODY;
 	INT32 iValue =0;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
 	INT32 cnt=0;
@@ -3847,11 +3846,10 @@ INT32 GetIdOfMercWithHighestStat( INT32 iStat )
 	return( iId );
 }
 
-INT32 GetIdOfMercWithLowestStat( INT32 iStat )
+SoldierID GetIdOfMercWithLowestStat( INT32 iStat )
 {
 	// will return the id value of the merc on the players team with highest in this stat
-	// -1 means error
-	INT32 iId = -1;
+	SoldierID iId = NOBODY;
 	INT32 iValue =999999;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
 	INT32 cnt=0;
@@ -3924,7 +3922,7 @@ INT32 GetIdOfMercWithLowestStat( INT32 iStat )
 				break;
 				case 6:
 					// exper
-			if(	pTeamSoldier->stats.bExpLevel <= iValue )
+					if(	pTeamSoldier->stats.bExpLevel <= iValue )
 					{
 						iId = cnt;
 						iValue = pTeamSoldier->stats.bExpLevel;
@@ -4304,12 +4302,12 @@ void DisplayAverageStatValuesForCurrentTeam( void )
 void DisplayLowestStatValuesForCurrentTeam( void )
 {
 	// will display the average values for stats for the current team
-	INT16 sX, sY;
-	INT32 iCounter = 0;
-	CHAR16 sString[ 32 ];
-	INT32 iStat = 0;
-	INT32	iDepartedId=0;
-	INT32	iId = 0;
+	INT16		sX, sY;
+	INT32		iCounter = 0;
+	CHAR16		sString[ 32 ];
+	INT32		iStat = 0;
+	INT32		iDepartedId = -1;
+	SoldierID	iId;
 
 	// set up font
 	SetFont( FONT10ARIAL );
@@ -4338,7 +4336,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 	{
 		if (fCurrentTeamMode) {
 			iId = GetIdOfMercWithLowestStat( iCounter );
-			if( iId == -1 )
+			if( iId == NOBODY )
 				continue;
 		} else {
 			iDepartedId = GetIdOfDepartedMercWithLowestStat( iCounter );
@@ -4354,11 +4352,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 		}
 
 		if (fCurrentTeamMode) {
-			// get name
-			/*if( iId == -1 )
-				swprintf( sString, L"%s", pPOWStrings[1] );
-			else*/
-				swprintf( sString, L"%s", MercPtrs[ iId ]->GetName() );
+				swprintf( sString, L"%s", iId->GetName() );
 		} else {
 			// get name
 			swprintf( sString, L"%s", gMercProfiles[ iDepartedId ].zNickname );
@@ -4370,10 +4364,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 0:
 				// health
 				if (fCurrentTeamMode) {
-					/*if( iId == -1 )
-						iStat = -1;
-					else*/
-						iStat = MercPtrs[ iId ]->stats.bLifeMax;
+						iStat = iId->stats.bLifeMax;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bLife;
 				}
@@ -4381,7 +4372,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 1:
 				// agility
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bAgility;
+					iStat = iId->stats.bAgility;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bAgility;
 				}
@@ -4389,7 +4380,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 2:
 				// dexterity
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bDexterity;
+					iStat = iId->stats.bDexterity;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bDexterity;
 				}
@@ -4397,7 +4388,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 3:
 				// strength
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bStrength;
+					iStat = iId->stats.bStrength;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bStrength;
 				}
@@ -4405,7 +4396,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 4:
 				// leadership
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bLeadership;
+					iStat = iId->stats.bLeadership;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bLeadership;
 				}
@@ -4413,7 +4404,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 5:
 				// wisdom
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bWisdom;
+					iStat = iId->stats.bWisdom;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bWisdom;
 				}
@@ -4421,7 +4412,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 6:
 				// exper
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bExpLevel;
+					iStat = iId->stats.bExpLevel;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bExpLevel;
 				}
@@ -4429,7 +4420,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 7:
 				//mrkmanship
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMarksmanship;
+					iStat = iId->stats.bMarksmanship;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bMarksmanship;
 				}
@@ -4437,7 +4428,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 8:
 				// mech
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMechanical;
+					iStat = iId->stats.bMechanical;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bMechanical;
 				}
@@ -4445,7 +4436,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 9:
 				// exp
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bExplosive;
+					iStat = iId->stats.bExplosive;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bExplosive;
 				}
@@ -4453,17 +4444,14 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 10:
 				// med
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMedical;
+					iStat = iId->stats.bMedical;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bMedical;
 				}
 				break;
-			}
+		}
 
-			/*if( iStat == -1 )
-				swprintf( sString, L"%s", pPOWStrings[1] );
-			else*/
-				swprintf( sString, L"%d", iStat );
+		swprintf( sString, L"%d", iStat );
 
 		// right justify
 		FindFontRightCoordinates(	PERS_STAT_LOWEST_X, 0 ,PERS_STAT_LOWEST_WIDTH, 0 , sString, FONT10ARIAL , &sX, &sY );
@@ -4479,7 +4467,8 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 	INT32 iCounter = 0;
 	CHAR16 sString[ 32 ];
 	INT32 iStat = 0;
-	INT32 iId=0;
+	SoldierID iId;
+	INT32 iDepartedId = -1;
 
 	// set up font
 	SetFont( FONT10ARIAL );
@@ -4506,13 +4495,18 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 
 	for( iCounter = 0; iCounter < 11; iCounter++ )
 	{
-		if (fCurrentTeamMode)
+		if ( fCurrentTeamMode )
+		{
 			iId = GetIdOfMercWithHighestStat( iCounter );
+			if ( iId == NOBODY )
+				continue;
+		}
 		else
-			iId = GetIdOfDepartedMercWithHighestStat( iCounter );
-
-		if( iId == -1 )
-			continue;
+		{
+			iDepartedId = GetIdOfDepartedMercWithHighestStat( iCounter );
+			if ( iDepartedId == -1 )
+				continue;
+		}
 
 		// even or odd?..color black or yellow?
 		if( iCounter % 2 == 0 )
@@ -4526,18 +4520,12 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 
 		if (fCurrentTeamMode)
 		{
-			// get name
-			/*if( iId == -1 )
-			{
-				swprintf( sString, L"%s", pPOWStrings[1] );
-			}
-			else*/
-				swprintf( sString, L"%s", MercPtrs[ iId ]->GetName() );
+			swprintf( sString, L"%s", iId->GetName() );
 		}
 		else
 		{
 			// get name
-			swprintf( sString, L"%s", gMercProfiles[ iId ].zNickname );
+			swprintf( sString, L"%s", gMercProfiles[ iDepartedId ].zNickname );
 		}
 		// print name
 		mprintf( PERS_STAT_HIGHEST_X, PERS_STAT_AVG_Y + ( iCounter + 1 ) * ( GetFontHeight( FONT10ARIAL ) + 3 ), sString );
@@ -4546,100 +4534,94 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 			case 0:
 				// health
 				if (fCurrentTeamMode) {
-					/*if( iId == -1 )
-						iStat = -1;
-					else*/
-						iStat = MercPtrs[ iId ]->stats.bLifeMax;
+					iStat = iId->stats.bLifeMax;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bLife;
+					iStat =	gMercProfiles[ iDepartedId ] . bLife;
 				}
 				break;
 			case 1:
 				// agility
 				if (fCurrentTeamMode) {
-						iStat = MercPtrs[ iId ]->stats.bAgility;
+					iStat = iId->stats.bAgility;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bAgility;
+					iStat =	gMercProfiles[ iDepartedId ] . bAgility;
 				}
 				break;
 			case 2:
 				// dexterity
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bDexterity;
+					iStat = iId->stats.bDexterity;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bDexterity;
+					iStat =	gMercProfiles[ iDepartedId ] . bDexterity;
 				}
 				break;
 			case 3:
 				// strength
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bStrength;
+					iStat = iId->stats.bStrength;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bStrength;
+					iStat =	gMercProfiles[ iDepartedId ] . bStrength;
 				}
 				break;
 			case 4:
 				// leadership
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bLeadership;
+					iStat = iId->stats.bLeadership;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bLeadership;
+					iStat =	gMercProfiles[ iDepartedId ] . bLeadership;
 				}
 				break;
 			case 5:
 				// wisdom
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bWisdom;
+					iStat = iId->stats.bWisdom;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bWisdom;
+					iStat =	gMercProfiles[ iDepartedId ] . bWisdom;
 				}
 				break;
 			case 6:
 				// exper
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bExpLevel;
+					iStat = iId->stats.bExpLevel;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bExpLevel;
+					iStat =	gMercProfiles[ iDepartedId ] . bExpLevel;
 				}
 				break;
 			case 7:
 				//mrkmanship
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMarksmanship;
+					iStat = iId->stats.bMarksmanship;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bMarksmanship;
+					iStat =	gMercProfiles[ iDepartedId ] . bMarksmanship;
 				}
 				break;
 			case 8:
 				// mech
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMechanical;
+					iStat = iId->stats.bMechanical;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bMechanical;
+					iStat =	gMercProfiles[ iDepartedId ] . bMechanical;
 				}
 				break;
 			case 9:
 				// exp
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bExplosive;
+					iStat = iId->stats.bExplosive;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bExplosive;
+					iStat =	gMercProfiles[ iDepartedId ] . bExplosive;
 				}
 				break;
 			case 10:
 				// med
 				if (fCurrentTeamMode) {
-					iStat = MercPtrs[ iId ]->stats.bMedical;
+					iStat = iId->stats.bMedical;
 				} else {
-					iStat =	gMercProfiles[ iId ] . bMedical;
+					iStat =	gMercProfiles[ iDepartedId ] . bMedical;
 				}
 				break;
-			}
+		}
 
-			/*if( iStat == -1 )
-				swprintf( sString, L"%s", pPOWStrings[1] );
-			else*/
-				swprintf( sString, L"%d", iStat );
+		swprintf( sString, L"%d", iStat );
 
 		// right justify
 		FindFontRightCoordinates(	PERS_STAT_HIGHEST_X, 0 ,PERS_STAT_LOWEST_WIDTH, 0 , sString, FONT10ARIAL , &sX, &sY );
