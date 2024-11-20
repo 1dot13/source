@@ -8602,14 +8602,15 @@ BOOLEAN KillIncompacitatedEnemyInSector( )
             {
                 // KIll......
                 // SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
+                SoldierID usAttacker = NOBODY;
                 if ( pTeamSoldier->ubAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+                    usAttacker = pTeamSoldier->ubAttackerID;
                 else if ( pTeamSoldier->ubPreviousAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+                    usAttacker = pTeamSoldier->ubPreviousAttackerID;
                 else if ( pTeamSoldier->ubNextToPreviousAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
-                else 
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+                    usAttacker = pTeamSoldier->ubNextToPreviousAttackerID;
+
+                pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, usAttacker, NOWHERE, 0, TRUE );
 
                 fReturnVal = TRUE;
             }
