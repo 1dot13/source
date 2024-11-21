@@ -1716,16 +1716,17 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 
 	for ( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife >= CONSCIOUSNESS && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
-			MercPtrs[ i ]->sSectorX == sQuestSectorX && MercPtrs[ i ]->sSectorY == sQuestsSectorY && !MercPtrs[ i ]->flags.fBetweenSectors && MercPtrs[ i ]->bTeam == gbPlayerNum &&
-			MercPtrs[ i ]->bAssignment != IN_TRANSIT && MercPtrs[ i ]->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ MercPtrs[ i ]->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if( pSoldier->bActive && pSoldier->stats.bLife >= CONSCIOUSNESS && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
+			pSoldier->sSectorX == sQuestSectorX && pSoldier->sSectorY == sQuestsSectorY && !pSoldier->flags.fBetweenSectors && pSoldier->bTeam == gbPlayerNum &&
+			pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ pSoldier->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )
 		{
-			if ( MercPtrs[ i ]->ubProfile != bException )
+			if ( pSoldier->ubProfile != bException )
 			{
-				gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.ubQuestsHandled++;
+				gMercProfiles[ pSoldier->ubProfile ].records.ubQuestsHandled++;
 
 				if ( bExpReward > 0 && gGameExternalOptions.usAwardSpecialExpForQuests > 0 )
-					StatChange( MercPtrs[ i ], EXPERAMT, (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests), FALSE );
+					StatChange( pSoldier, EXPERAMT, (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests), FALSE );
 			}
 		}
 	}	

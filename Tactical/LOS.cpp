@@ -7223,8 +7223,10 @@ void MoveBullet( INT32 iBullet )
 			}
 			else if (pStructure->fFlags & STRUCTURE_PERSON)
 			{
+				SOLDIERTYPE *pSoldier = MercPtrs[pStructure->usStructureID];
+
 				// HEADROCK HAM 5: Fragments can hit the shooter.
-				if ( MercPtrs[ pStructure->usStructureID ] != pBullet->pFirer || pBullet->fFragment == TRUE )
+				if ( pSoldier != pBullet->pFirer || pBullet->fFragment == TRUE )
 				{
 					// in actually moving the bullet, we consider only count friends as targets if the bullet is unaimed
 					// (buckshot), if they are the intended target, or beyond the range of automatic friendly fire hits
@@ -7243,13 +7245,13 @@ void MoveBullet( INT32 iBullet )
 					else if ( pBullet->pFirer->flags.uiStatusFlags & SOLDIER_MONSTER )
 					{
 						// monsters firing will always accidentally hit people but never accidentally hit each other.
-						if ( !(MercPtrs[ pStructure->usStructureID ]->flags.uiStatusFlags & SOLDIER_MONSTER) )
+						if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) )
 						{
 							gpLocalStructure[iNumLocalStructures] = pStructure;
 							iNumLocalStructures++;
 						}
 					}
-					else if (MercPtrs[pStructure->usStructureID]->bVisible == TRUE &&
+					else if (pSoldier->bVisible == TRUE &&
 							PositionAllowsHit(pBullet, pStructure) &&
 							(pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS || 
 							!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED ||
@@ -7261,16 +7263,16 @@ void MoveBullet( INT32 iBullet )
 					}
 
 					// this might be a close call
-					if ( pBullet->ubFirerID != NOBODY && MercPtrs[ pStructure->usStructureID ]->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == MercPtrs[ pStructure->usStructureID ]->pathing.bLevel )
+					if ( pBullet->ubFirerID != NOBODY && pSoldier->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == pSoldier->pathing.bLevel )
 					{
-						MercPtrs[ pStructure->usStructureID ]->flags.fCloseCall = TRUE;
+						pSoldier->flags.fCloseCall = TRUE;
 					}
 
-					if ( IS_MERC_BODY_TYPE( MercPtrs[pStructure->usStructureID] ) )
+					if ( IS_MERC_BODY_TYPE( pSoldier ) )
 					{
 						// apply suppression, regardless of friendly or enemy
 						// except if friendly, not within a few tiles of shooter
-						if (pBullet->ubFirerID == NOBODY || MercPtrs[pStructure->usStructureID]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > gGameExternalOptions.usMinDistanceFriendlySuppression)
+						if (pBullet->ubFirerID == NOBODY || pSoldier->bSide != pBullet->pFirer->bSide || pBullet->iLoop > gGameExternalOptions.usMinDistanceFriendlySuppression)
 						{
 							// buckshot has only a 1 in 2 chance of applying a suppression point
 							// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
@@ -7279,7 +7281,7 @@ void MoveBullet( INT32 iBullet )
 							if (!(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Chance(gGameExternalOptions.ubBuckshotSuppressionEffectiveness))
 							{
 								// bullet goes whizzing by this guy!
-								switch ( gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight )
+								switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 								{
 								case ANIM_PRONE:
 									// two 1/4 chances of avoiding suppression pt - one below
@@ -7296,8 +7298,8 @@ void MoveBullet( INT32 iBullet )
 									}
 									// else fall through
 								default:
-									MercPtrs[pStructure->usStructureID]->ubSuppressionPoints++;
-									MercPtrs[pStructure->usStructureID]->ubSuppressorID = pBullet->ubFirerID;
+									pSoldier->ubSuppressionPoints++;
+									pSoldier->ubSuppressorID = pBullet->ubFirerID;
 									break;
 								}
 							}

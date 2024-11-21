@@ -3151,7 +3151,7 @@ void UpdatePublic(UINT8 ubTeam, SoldierID ubID, INT8 bNewOpplist, INT32 sGridNo,
 				// if soldier isn't aware of guynum, give him another chance to see
 				if (pSoldier->aiData.bOppList[ubID] == NOT_HEARD_OR_SEEN)
 				{
-					if (ManLooksForMan(pSoldier,MercPtrs[ubID],UPDATEPUBLIC))
+					if ( ManLooksForMan( pSoldier, ubID, UPDATEPUBLIC ) )
 						// then he actually saw guynum because of our new public knowledge
 						ubMadeDifference = TRUE;
 
@@ -7624,16 +7624,17 @@ INT8 GetHighestWatchedLocPoints( UINT16 ubID )
 }
 
 
-void CommunicateWatchedLoc( UINT16 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoints )
+void CommunicateWatchedLoc( SoldierID ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoints )
 {
 	UINT16 ubLoop;
 	INT8 bTeam, bLoopPoint, bPoint;
 
-	bTeam = MercPtrs[ ubID ]->bTeam;
+	bTeam = ubID->bTeam;
 
 	for ( ubLoop = gTacticalStatus.Team[ bTeam ].bFirstID; ubLoop <= gTacticalStatus.Team[ bTeam ].bLastID; ubLoop++ )
 	{
-		if ( ubLoop == ubID || MercPtrs[ ubLoop ]->bActive == FALSE || MercPtrs[ ubLoop ]->bInSector == FALSE || MercPtrs[ ubLoop ]->stats.bLife < OKLIFE )
+		SOLDIERTYPE *pSoldier = MercPtrs[ubLoop];
+		if ( ubLoop == ubID || pSoldier->bActive == FALSE || pSoldier->bInSector == FALSE || pSoldier->stats.bLife < OKLIFE )
 		{
 			continue;
 		}

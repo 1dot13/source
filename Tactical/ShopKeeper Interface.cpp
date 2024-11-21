@@ -6537,9 +6537,7 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 	// if it does have an owner
 	if( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 	{
-		INT16 sSoldierID;
-
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
 		// if that soldier is not in player's hire any longer
 		if ( sSoldierID == -1 )
 		{
@@ -6548,13 +6546,13 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 
 		// For owners of repaired items, this checks that owner is still hired, in sector,
 		// on current squad, close enough to the shopkeeper, etc.
-		if ( !CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) )
+		if ( !CanMercInteractWithSelectedShopkeeper( sSoldierID ) )
 		{
 			return(FALSE);
 		}
 
 		// Try to find a place to put in its owner's inventory (regardless of which merc is currently displayed!)
-		if ( SKITryToAddInvToMercsInventory( pInv, MercPtrs[ sSoldierID ] ) )
+		if ( SKITryToAddInvToMercsInventory( pInv, sSoldierID ) )
 		{
 			return( TRUE );
 		}

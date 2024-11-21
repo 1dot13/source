@@ -2556,11 +2556,13 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 
 			for ( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
-					MercPtrs[ i ]->sSectorX == sMapX && MercPtrs[ i ]->sSectorY == sMapY && MercPtrs[ i ]->bSectorZ == bMapZ && !MercPtrs[ i ]->flags.fBetweenSectors &&
-					MercPtrs[ i ]->bAssignment != IN_TRANSIT && MercPtrs[ i ]->bAssignment != ASSIGNMENT_DEAD )
+				SOLDIERTYPE *pSoldier = MercPtrs[i];
+
+				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
+					pSoldier->sSectorX == sMapX && pSoldier->sSectorY == sMapY && pSoldier->bSectorZ == bMapZ && !pSoldier->flags.fBetweenSectors &&
+					pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD )
 				{
-					gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usSectorsDiscovered++;
+					gMercProfiles[ pSoldier->ubProfile ].records.usSectorsDiscovered++;
 				}
 			}
 		}

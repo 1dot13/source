@@ -3126,15 +3126,11 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				// Reload robot....
 				{
-					UINT16 ubPerson;
-					SOLDIERTYPE	*pRobot;
+					SoldierID ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
 
-					// Get pointer...
-					ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
-
-					if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+					if ( ubPerson != NOBODY && ubPerson->flags.uiStatusFlags & SOLDIER_ROBOT )
 					{
-						pRobot = MercPtrs[ ubPerson ];
+						SOLDIERTYPE *pRobot = ubPerson;
 
 						ReloadGun( pRobot, &(pRobot->inv[ HANDPOS ] ), pSoldier->pTempObject );
 
@@ -3658,50 +3654,51 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	if ( ubNumMercs > 0 )
 	{
 		ubChosenMerc = (UINT16)Random( ubNumMercs );
+		SOLDIERTYPE *pChosen = MercPtrs[ubMercsInSector[ubChosenMerc]];
 
 		switch( bBuddyIndex[ ubChosenMerc ] )
 		{
 		case 0:
 			usQuoteNum = QUOTE_BUDDY_1_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
 			break;
 
 		case 1:
 			usQuoteNum = QUOTE_BUDDY_2_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
 			break;
 
 		case 2:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_3_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_3_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
 			break;
 
 		case 3:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_4_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_4_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
 			break;
 
 		case 4:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_5_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_5_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
 			break;
 
 		case 5:
 			usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
 			break;
 		}
 
-		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
+		TacticalCharacterDialogue( pChosen, usQuoteNum );
 
 		buddyquoteused = TRUE;
 	}

@@ -119,7 +119,6 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 {
 	UINT32 uiTraverseTimeInMinutes;
 	SOLDIERTYPE *pSoldier;
-	INT32 i;
 	SGPRect	aRect;
 	UINT16	usTextBoxWidth, usTextBoxHeight;
 	INT32 usMapPos = 0;
@@ -189,10 +188,10 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 
 	if ( gTacticalStatus.uiFlags & INCOMBAT )
 	{
-		INT32 i, cnt = 0;
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		INT32 cnt = 0;
+		for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 		{
-			if( OK_INSECTOR_MERC( MercPtrs[ i ] ) )
+			if( OK_INSECTOR_MERC( id ) )
 				cnt++;
 		}
 		if( cnt != 1 )
@@ -220,13 +219,14 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 	gExitDialog.ubNumPeopleOnSquad				= NumberOfPlayerControllableMercsInSquad( gusSelectedSoldier->bAssignment );
 
 	//Determine
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[ i ];
-		if( i == gusSelectedSoldier )
+		if( id == gusSelectedSoldier )
 		{
 			continue;
 		}
+
+		pSoldier = id;
 		if( !pSoldier->flags.fBetweenSectors &&
 				pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ &&
 				pSoldier->stats.bLife >= OKLIFE &&
@@ -262,21 +262,21 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 		//Assuming that the matching squad assignment is in the same sector.
 		UINT16 ubNumMercs = 1; //selected soldier is a merc
 		UINT16 ubNumEPCs = 0;
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 		{
-			if( i == gusSelectedSoldier )
+			if( id == gusSelectedSoldier )
 			{
 				continue;
 			}
-			if( MercPtrs[ i ]->bAssignment == gusSelectedSoldier->bAssignment )
+			if( id->bAssignment == gusSelectedSoldier->bAssignment )
 			{
-				if( AM_AN_EPC( MercPtrs[ i ] ) )
+				if( AM_AN_EPC( id ) )
 				{
 					ubNumEPCs++;
 					//record the slot of the epc.	If there are more than one EPCs, then
 					//it doesn't matter.	This is used in building the text message explaining
 					//why the selected merc can't leave.	This is how we extract the EPC's name.
-					gExitDialog.bSingleMoveWillIsolateEPC = (INT16)i;
+					gExitDialog.bSingleMoveWillIsolateEPC = id;
 				}
 				else
 				{ //We have more than one merc, so we will allow the selected merc to leave alone if

@@ -184,8 +184,8 @@ BOOLEAN		fUsingEdgePointsForStrategicEntry = FALSE;
 BOOLEAN		gfInvalidTraversal = FALSE;
 BOOLEAN		gfLoneEPCAttemptingTraversal = FALSE;
 BOOLEAN		gfRobotWithoutControllerAttemptingTraversal = FALSE;
-BOOLEAN   gubLoneMercAttemptingToAbandonEPCs = 0;
-INT8			gbPotentiallyAbandonedEPCSlotID = -1;
+BOOLEAN		gubLoneMercAttemptingToAbandonEPCs = 0;
+SoldierID	gbPotentiallyAbandonedEPCSlotID = NOBODY;
 
 INT8 gbGreenToElitePromotions = 0;
 INT8 gbGreenToRegPromotions = 0;
@@ -2140,10 +2140,12 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//	GridNo = NOWHERE, which causes this assertion to fail
 			//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
 			//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
-			if (!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && !SPY_LOCATION(MercPtrs[i]->bAssignment) && MercPtrs[i]->bAssignment != ASSIGNMENT_POW)
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+
+			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_DEAD) && pSoldier->bAssignment != VEHICLE && !SPY_LOCATION(pSoldier->bAssignment) && pSoldier->bAssignment != ASSIGNMENT_POW)
 			{
-				//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
-				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds( MercPtrs[i]->sGridNo ) || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
+				//Assert( !pSoldier->bActive || !pSoldier->bInSector || pSoldier->sGridNo != NOWHERE || pSoldier->bVehicleID == iHelicopterVehicleId );
+				Assert( !pSoldier->bActive || !pSoldier->bInSector || !TileIsOutOfBounds( pSoldier->sGridNo ) || pSoldier->bVehicleID == iHelicopterVehicleId );
 			}
 		}
 
@@ -2190,10 +2192,11 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//	GridNo = NOWHERE, which causes this assertion to fail
 			//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
 			//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
-			if (!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && MercPtrs[i]->bAssignment != ASSIGNMENT_POW)
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			if (!(pSoldier->flags.uiStatusFlags & SOLDIER_DEAD) && pSoldier->bAssignment != VEHICLE && pSoldier->bAssignment != ASSIGNMENT_POW)
 			{
-				//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
-				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds( MercPtrs[i]->sGridNo ) || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
+				//Assert( !pSoldier->bActive || !pSoldier->bInSector || pSoldier->sGridNo != NOWHERE || pSoldier->bVehicleID == iHelicopterVehicleId );
+				Assert( !pSoldier->bActive || !pSoldier->bInSector || !TileIsOutOfBounds( pSoldier->sGridNo ) || pSoldier->bVehicleID == iHelicopterVehicleId );
 			}
 		}
 
@@ -2967,9 +2970,10 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	{
 		for ( i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; i++ )
 		{
-			if ( MercPtrs[i]->bActive && MercPtrs[i]->bInSector )
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
-				SetupProfileInsertionDataForSoldier( MercPtrs[i] );
+				SetupProfileInsertionDataForSoldier( pSoldier );
 			}
 		}
 	}
@@ -4869,7 +4873,7 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 	gfInvalidTraversal = FALSE;
 	gfLoneEPCAttemptingTraversal = FALSE;
 	gubLoneMercAttemptingToAbandonEPCs = 0;
-	gbPotentiallyAbandonedEPCSlotID = -1;
+	gbPotentiallyAbandonedEPCSlotID = NOBODY;
 
 	// Look through all mercs and check if they are within range of east end....
 	cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
@@ -4894,7 +4898,7 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 			{
 				ubNumEPCs++;
 				//Also record the EPC's slot ID incase we later build a string using the EPC's name.
-				gbPotentiallyAbandonedEPCSlotID = (INT8)cnt;
+				gbPotentiallyAbandonedEPCSlotID = cnt;
 				if ( AM_A_ROBOT( pSoldier ) && !pSoldier->CanRobotBeControlled( ) )
 				{
 					gfRobotWithoutControllerAttemptingTraversal = TRUE;
@@ -6491,9 +6495,10 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 		//@@@Evaluate
 		for ( i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; i++ )
 		{
-			if ( MercPtrs[i]->bActive && MercPtrs[i]->bInSector )
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
-				SetupProfileInsertionDataForSoldier( MercPtrs[i] );
+				SetupProfileInsertionDataForSoldier( pSoldier );
 			}
 		}
 
@@ -6511,19 +6516,21 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 	//co-exist in the sector, then make them fight for control of the sector via autoresolve.
 	for ( int i = gTacticalStatus.Team[ENEMY_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; i++ )
 	{
-		if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife )
+		SOLDIERTYPE *pEnemy = MercPtrs[i];
+		if ( pEnemy->bActive && pEnemy->stats.bLife )
 		{
-			if ( MercPtrs[i]->sSectorX == pSectorX &&
-				 MercPtrs[i]->sSectorY == pSectorY &&
-				 MercPtrs[i]->bSectorZ == pSectorZ )
+			if ( pEnemy->sSectorX == pSectorX &&
+				 pEnemy->sSectorY == pSectorY &&
+				 pEnemy->bSectorZ == pSectorZ )
 			{ //We have enemies, now look for militia!
 				for ( i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; i++ )
 				{
-					if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && MercPtrs[i]->bSide == OUR_TEAM )
+					SOLDIERTYPE *pMilitia = MercPtrs[i];
+					if ( pMilitia->bActive && pMilitia->stats.bLife && pMilitia->bSide == OUR_TEAM )
 					{
-						if ( MercPtrs[i]->sSectorX == pSectorX &&
-							 MercPtrs[i]->sSectorY == pSectorY &&
-							 MercPtrs[i]->bSectorZ == pSectorZ )
+						if ( pMilitia->sSectorX == pSectorX &&
+							 pMilitia->sSectorY == pSectorY &&
+							 pMilitia->bSectorZ == pSectorZ )
 						{ //We have militia and enemies and no mercs!  Let's finish this battle in autoresolve.
 							gfEnteringMapScreen = TRUE;
 							gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
@@ -6587,14 +6594,15 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 		{
 			for ( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
 			{ //If we have a live and valid soldier
-				if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !MercPtrs[i]->flags.fBetweenSectors && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[i] ) && !AM_AN_EPC( MercPtrs[i] ) )
+				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				if ( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) )
 				{
-					if ( MercPtrs[i]->sSectorX == gWorldSectorX &&
-						 MercPtrs[i]->sSectorY == gWorldSectorY &&
-						 MercPtrs[i]->bSectorZ == gbWorldSectorZ )
+					if ( pSoldier->sSectorX == gWorldSectorX &&
+						 pSoldier->sSectorY == gWorldSectorY &&
+						 pSoldier->bSectorZ == gbWorldSectorZ )
 					{
-						MercPtrs[i]->RemoveSoldierFromGridNo( );
-						InitSoldierOppList( MercPtrs[i] );
+						pSoldier->RemoveSoldierFromGridNo( );
+						InitSoldierOppList( pSoldier );
 					}
 				}
 			}
@@ -6604,11 +6612,12 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 	{	//Check and see if we have any live mercs in the sector.
 		for ( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
 		{ //If we have a live and valid soldier
-			if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !MercPtrs[i]->flags.fBetweenSectors && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[i] ) && !AM_AN_EPC( MercPtrs[i] ) )
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			if ( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) )
 			{
-				if ( MercPtrs[i]->sSectorX == gWorldSectorX &&
-					 MercPtrs[i]->sSectorY == gWorldSectorY &&
-					 MercPtrs[i]->bSectorZ == gbWorldSectorZ )
+				if ( pSoldier->sSectorX == gWorldSectorX &&
+					 pSoldier->sSectorY == gWorldSectorY &&
+					 pSoldier->bSectorZ == gbWorldSectorZ )
 				{
 					return FALSE;
 				}

@@ -4890,12 +4890,12 @@ BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 				if( gMercProfiles[ gusSelectedSoldier->ubProfile ].bSex == MALE )
 				{ //male singular
 					swprintf( str, pExitingSectorHelpText[ EXIT_GUI_MERC_CANT_ISOLATE_EPC_HELPTEXT_MALE_SINGULAR ], gusSelectedSoldier->GetName(),
-						MercPtrs[ gbPotentiallyAbandonedEPCSlotID ]->GetName() );
+						gbPotentiallyAbandonedEPCSlotID->GetName() );
 				}
 				else
 				{ //female singular
 					swprintf( str, pExitingSectorHelpText[ EXIT_GUI_MERC_CANT_ISOLATE_EPC_HELPTEXT_FEMALE_SINGULAR ], gusSelectedSoldier->GetName(),
-						MercPtrs[ gbPotentiallyAbandonedEPCSlotID ]->GetName() );
+						gbPotentiallyAbandonedEPCSlotID->GetName() );
 				}
 			}
 			else

@@ -506,7 +506,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"BeginTeamTurn");
 	INT32 cnt;
-	UINT16	ubID;
+	SoldierID	ubID;
 	SOLDIERTYPE		*pSoldier;
 
 	//rain
@@ -657,7 +657,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 					{
 						AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ ubTeam ] );
 					}
-					StartNPCAI( MercPtrs[ ubID ] );
+					StartNPCAI( ubID );
 					/*if(is_server && !net_turn) send_EndTurn(ubTeam);
 					if(net_turn == true) net_turn = false;*/
 					if(is_server) send_EndTurn(ubTeam);
@@ -983,22 +983,23 @@ void StartInterrupt( void )
 			// report any close call quotes for us here
 			for ( iCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; iCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iCounter++ )
 			{
-				if ( OK_INSECTOR_MERC( MercPtrs[ iCounter ] ) )
+				SOLDIERTYPE *pSoldier = MercPtrs[iCounter];
+
+				if ( OK_INSECTOR_MERC( pSoldier ) )
 				{
-					if ( MercPtrs[ iCounter ]->flags.fCloseCall )
+					if ( pSoldier->flags.fCloseCall )
 					{
-						if ( MercPtrs[ iCounter ]->bNumHitsThisTurn == 0 && !(MercPtrs[ iCounter ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+						if ( pSoldier->bNumHitsThisTurn == 0 && !(pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
 						{
 							// say close call quote!
-							TacticalCharacterDialogue( MercPtrs[ iCounter ], QUOTE_CLOSE_CALL );
-							MercPtrs[ iCounter ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+							TacticalCharacterDialogue( pSoldier, QUOTE_CLOSE_CALL );
+							pSoldier->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
 						}
-						MercPtrs[ iCounter ]->flags.fCloseCall = FALSE;
+						pSoldier->flags.fCloseCall = FALSE;
 					}
 				}
 			}
 		}
-
 	}
 	else
 	{

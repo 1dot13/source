@@ -224,27 +224,29 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	std::map<UINT8, MonitoredSectorState> monitoredTowns;
 	for( INT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive &&
-			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
-			(MercPtrs[ i ]->bAssignment < ON_DUTY || MercPtrs[ i ]->bAssignment == GATHERINTEL) &&
-			!MercPtrs[ i ]->flags.fMercAsleep)
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+
+		if( pSoldier->bActive &&
+			pSoldier->stats.bLife >= OKLIFE &&
+			(pSoldier->bAssignment < ON_DUTY || pSoldier->bAssignment == GATHERINTEL) &&
+			!pSoldier->flags.fMercAsleep)
 		{
 			if (gGameOptions.fNewTraitSystem)
 			{
-				if (HAS_SKILL_TRAIT(MercPtrs[i], SCOUTING_NT))
+				if (HAS_SKILL_TRAIT(pSoldier, SCOUTING_NT))
 				{
-					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_SCOUT;
+					detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_SCOUT;
 				}
-				else if (HAS_SKILL_TRAIT(MercPtrs[i], RADIO_OPERATOR_NT) && MercPtrs[i]->CanUseRadio(FALSE))
+				else if (HAS_SKILL_TRAIT(pSoldier, RADIO_OPERATOR_NT) && pSoldier->CanUseRadio(FALSE))
 				{
-					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_RADIO;
+					detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_RADIO;
 				}
-				else if (HAS_SKILL_TRAIT(MercPtrs[i], COVERT_NT))
+				else if (HAS_SKILL_TRAIT(pSoldier, COVERT_NT))
 				{
-					if (MercPtrs[i]->bAssignment == GATHERINTEL)
+					if (pSoldier->bAssignment == GATHERINTEL)
 					{
-						detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_COVERT;
-						monitoredTowns[GetTownIdForSector(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = MonitoredSectorState::Monitored;
+						detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_COVERT;
+						monitoredTowns[GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY)] = MonitoredSectorState::Monitored;
 					}
 				}
 			}
@@ -481,11 +483,12 @@ void UpdateTransportGroupInventory()
 		std::set<UINT8> playerCalibres;
 		for (INT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++)
 		{
-			if (MercPtrs[i]->bActive && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			if (pSoldier->bActive && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 			{
-				for (int j = 0 ; j < MercPtrs[i]->inv.size(); ++j)
+				for (int j = 0 ; j < pSoldier->inv.size(); ++j)
 				{
-					OBJECTTYPE& obj = MercPtrs[i]->inv[j];
+					OBJECTTYPE& obj = pSoldier->inv[j];
 					if (obj.exists()
 					&& Item[obj.usItem].usItemClass == IC_GUN)
 					{

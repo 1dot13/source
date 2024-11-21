@@ -2198,7 +2198,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 	INT8	bLoopState = LOOPING_CLOCKWISE;
 	//BOOLEAN fLoopForwards = FALSE;
 	BOOLEAN	fCheckedBehind = FALSE;
-	UINT16	ubMerc;
+	SoldierID	ubMerc;
 	INT32 iDestX,iDestY, iLocX, iLocY, dx, dy;
 	INT32	newLoc,curLoc;
 	//INT32 curY;
@@ -3145,7 +3145,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 				// sevenfm: for player mercs, ignore invisible opponents
 				if (ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID && 
-					(!(s->flags.uiStatusFlags & SOLDIER_PC) || MercPtrs[ubMerc]->bSide == s->bSide || MercPtrs[ubMerc]->aiData.bNeutral || MercPtrs[ubMerc]->bVisible >= 0 || SoldierToSoldierLineOfSightTest(s, MercPtrs[ubMerc], TRUE, CALC_FROM_ALL_DIRS)))
+					(!(s->flags.uiStatusFlags & SOLDIER_PC) || ubMerc->bSide == s->bSide || ubMerc->aiData.bNeutral || ubMerc->bVisible >= 0 || SoldierToSoldierLineOfSightTest(s, ubMerc, TRUE, CALC_FROM_ALL_DIRS)))
 				//if ( ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID )
 				{
 					goto NEXTDIR;

@@ -116,13 +116,13 @@ BOOLEAN SelectiveFindSoldierFromMouse( SoldierID *pusSoldierIndex, UINT32 *pMerc
 }
 
 
-UINT32 GetSoldierFindFlags( const SoldierID ubID )
+UINT32 GetSoldierFindFlags( SoldierID ubID )
 {
 	UINT32 MercFlags = 0;
 	SOLDIERTYPE *pSoldier;
 
 	// Get pSoldier!
-	pSoldier = MercPtrs[ ubID ];
+	pSoldier = ubID;
 
 	// Find out and set flags
 	if ( ubID == gusSelectedSoldier )
@@ -530,13 +530,13 @@ SOLDIERTYPE * SimpleFindSoldier( INT32 sGridNo, INT8 bLevel )
 	}
 	else
 	{
-		return( MercPtrs[ ubID ] );
+		return( ubID );
 	}
 }
 
 BOOLEAN IsValidTargetMerc( SoldierID ubSoldierID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
+	SOLDIERTYPE *pSoldier = ubSoldierID;
 
 
 	// CHECK IF ACTIVE!

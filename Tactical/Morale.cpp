@@ -315,7 +315,8 @@ void DecayTacticalMoraleModifiers( void )
 						fHandleNervous = TRUE;
 						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop2++ )
 						{
-							if ( MercPtrs[ ubLoop2 ] != pSoldier && MercPtrs[ ubLoop2 ]->bActive && MercPtrs[ ubLoop2 ]->sSectorX == pSoldier->sSectorX && MercPtrs[ ubLoop2 ]->sSectorY == pSoldier->sSectorY && MercPtrs[ ubLoop2 ]->bSectorZ == pSoldier->bSectorZ )
+							SOLDIERTYPE *pSoldier = MercPtrs[ubLoop2];
+							if ( pSoldier != pSoldier && pSoldier->bActive && pSoldier->sSectorX == pSoldier->sSectorX && pSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pSoldier->bSectorZ )
 							{
 								// found someone!
 								fHandleNervous = FALSE;

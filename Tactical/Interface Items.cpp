@@ -9185,10 +9185,10 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		usItem = gpItemPointer->usItem;
 
 		// If the target is a robot,
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+		if ( ubSoldierID->flags.uiStatusFlags & SOLDIER_ROBOT )
 		{
 			// Charge APs to reload robot!
-			sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier,  MercPtrs[ ubSoldierID ] );
+			sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier,  ubSoldierID );
 		}
 		else
 		{
@@ -9208,12 +9208,12 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 //		}
 /*
 		//if the user just clicked on an arms dealer
-		if( IsMercADealer( MercPtrs[ ubSoldierID ]->ubProfile ) )
+		if( IsMercADealer( ubSoldierID->ubProfile ) )
 		{
 			if ( EnoughPoints( gpItemPointerSoldier, sAPCost, 0, TRUE ) )
 			{
 				//Enter the shopkeeper interface
-				EnterShopKeeperInterfaceScreen( MercPtrs[ ubSoldierID ]->ubProfile );
+				EnterShopKeeperInterfaceScreen( ubSoldierID->ubProfile );
 
 				EndItemPointer( );
 			}
@@ -9225,10 +9225,10 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		if ( EnoughPoints( gpItemPointerSoldier, sAPCost, 0, TRUE ) )
 		{
 			// If we are a robot, check if this is proper item to reload!
-			if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+			if ( ubSoldierID->flags.uiStatusFlags & SOLDIER_ROBOT )
 			{
 				// Check if we can reload robot....
-				if ( IsValidAmmoToReloadRobot( MercPtrs[ ubSoldierID ], &gTempObject ) )
+				if ( IsValidAmmoToReloadRobot( ubSoldierID, &gTempObject ) )
 				{
 					 INT32 sActionGridNo;
 					 UINT8	ubDirection;
@@ -9236,7 +9236,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 
 					 // Walk up to him and reload!
 					 // See if we can get there to stab
-					 sActionGridNo =  FindAdjacentGridEx( gpItemPointerSoldier, MercPtrs[ ubSoldierID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+					 sActionGridNo =  FindAdjacentGridEx( gpItemPointerSoldier, ubSoldierID->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
 					 if ( sActionGridNo != -1 && gbItemPointerSrcSlot != NO_SLOT )
 					 {
@@ -9279,16 +9279,16 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 				//if (gbItemPointerSrcSlot != NO_SLOT )
 				{
 					// Give guy this item.....
-					SoldierGiveItem( gpItemPointerSoldier, MercPtrs[ ubSoldierID ], &gTempObject, gbItemPointerSrcSlot );
+					SoldierGiveItem( gpItemPointerSoldier, ubSoldierID, &gTempObject, gbItemPointerSrcSlot );
 
 					gfDontChargeAPsToPickup = FALSE;
 					EndItemPointer( );
 
 					// If we are giving it to somebody not on our team....
-					if ( gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_AIM ||
-						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_MERC ||
-						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP
-						|| RPC_RECRUITED( MercPtrs[ubSoldierID] ) )
+					if ( gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_AIM ||
+						gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_MERC ||
+						gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_IMP
+						|| RPC_RECRUITED( ubSoldierID ) )
 					{
 
 					}
@@ -10533,7 +10533,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32					uiItemPos;
 	UINT32					iItemCap;
-	INT32					ubID;
+	SoldierID				ubID;
 	CHAR16					sString[ 128 ];
 
 	uiItemPos = MSYS_GetRegionUserData( pRegion, 0 );
@@ -10625,11 +10625,11 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				fTeamPanelDirty=TRUE;
 
 				// remember which gridno the object came from
-				sObjectSourceGridNo = MercPtrs[ubID]->sGridNo;
+				sObjectSourceGridNo = ubID->sGridNo;
 				// and who owned it last
-				gpItemPointerSoldier = MercPtrs[ubID];
+				gpItemPointerSoldier = ubID;
 
-				ReevaluateItemHatches( MercPtrs[ubID], FALSE );
+				ReevaluateItemHatches( ubID, FALSE );
 			}
 
 				//Dirty interface

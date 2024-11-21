@@ -5458,13 +5458,14 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		{
 			for( UINT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[i]->bAssignment != ASSIGNMENT_REBELCOMMAND && MercPtrs[ i ]->stats.bLife >= OKLIFE )
+					if ( pSoldier->sSectorX == pGroup->ubSectorX && pSoldier->sSectorY == pGroup->ubSectorY && pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND && pSoldier->stats.bLife >= OKLIFE )
 					{
-						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
+						if( HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->ubProfile != NO_PROFILE )
 						{
-							gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+							gMercProfiles[ pSoldier->ubProfile ].records.usAmbushesExperienced++;
 						}
 					}
 				}
@@ -5943,13 +5944,14 @@ BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 	// sevenfm: scout should not be sleeping, in vehicle or on assignment
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive &&
-			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
-			MercPtrs[ i ]->sSectorX == ubSectorNumX &&
-			MercPtrs[ i ]->sSectorY == ubSectorNumY &&
-			MercPtrs[ i ]->bAssignment < ON_DUTY &&
-			!MercPtrs[ i ]->flags.fMercAsleep &&
-			HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) )
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if( pSoldier->bActive &&
+			pSoldier->stats.bLife >= OKLIFE &&
+			pSoldier->sSectorX == ubSectorNumX &&
+			pSoldier->sSectorY == ubSectorNumY &&
+			pSoldier->bAssignment < ON_DUTY &&
+			!pSoldier->flags.fMercAsleep &&
+			HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) )
 		{
 			fScoutPresent = TRUE;
 		}
@@ -5982,11 +5984,12 @@ BOOLEAN ConcealedMercInSector( INT16 ubSectorNumX, INT16 ubSectorNumY, BOOLEAN a
 
 	for ( int i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
 	{
-		if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE && SPY_LOCATION( MercPtrs[i]->bAssignment ) )
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && SPY_LOCATION( pSoldier->bAssignment ) )
 		{
-			if ( MercPtrs[i]->sSectorX == ubSectorNumX && MercPtrs[i]->sSectorY == ubSectorNumY && MercPtrs[i]->bSectorZ == 10 )
+			if ( pSoldier->sSectorX == ubSectorNumX && pSoldier->sSectorY == ubSectorNumY && pSoldier->bSectorZ == 10 )
 			{
-				if ( !aScoutsOnly || HAS_SKILL_TRAIT( MercPtrs[i], SCOUTING_NT ) )
+				if ( !aScoutsOnly || HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) )
 				{
 					return TRUE;
 				}

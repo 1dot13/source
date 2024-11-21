@@ -210,11 +210,11 @@ BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection );
 bool IsEscapeDirectionValid(WorldDirections pbDirection);
 //Used for determining the type of error message that comes up when you can't traverse to
 //an adjacent sector.	THESE VALUES DO NOT NEED TO BE SAVED!
-extern BOOLEAN	gfInvalidTraversal;
-extern BOOLEAN	gfLoneEPCAttemptingTraversal;
-extern BOOLEAN	gfRobotWithoutControllerAttemptingTraversal;
-extern UINT8		gubLoneMercAttemptingToAbandonEPCs;
-extern INT8			gbPotentiallyAbandonedEPCSlotID;
+extern BOOLEAN		gfInvalidTraversal;
+extern BOOLEAN		gfLoneEPCAttemptingTraversal;
+extern BOOLEAN		gfRobotWithoutControllerAttemptingTraversal;
+extern UINT8			gubLoneMercAttemptingToAbandonEPCs;
+extern SoldierID		gbPotentiallyAbandonedEPCSlotID;
 
 extern INT8 gbGreenToElitePromotions;
 extern INT8 gbGreenToRegPromotions;

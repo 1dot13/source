@@ -3224,7 +3224,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( pSoldier )
 				{
 					INT32		sNearestPC;
-					UINT16		ubID;
+					SoldierID	ubID;
 					INT8		bMoneySlot;
 					INT8		bEmptySlot;
 
@@ -3235,7 +3235,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						ubID = WhoIsThere2( sNearestPC, 0 );
 						if (ubID != NOBODY)
 						{
-							pSoldier2 = MercPtrs[ ubID ];
+							pSoldier2 = ubID;
 						}
 					}
 
@@ -3357,7 +3357,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT16 ubTargetID;
+					SoldierID ubTargetID;
 					SOLDIERTYPE *pTarget;
 
 					// Target a different merc....
@@ -3384,7 +3384,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					}
 					else
 					{
-						pTarget = MercPtrs[ ubTargetID ];
+						pTarget = ubTargetID;
 					}
 
 					// Use a different approach....
@@ -3477,7 +3477,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT16 ubTargetID;
+					SoldierID ubTargetID;
 					SOLDIERTYPE *pTarget;
 					INT32				cnt;
 					BOOLEAN			fGoodTarget = FALSE;
@@ -3491,7 +3491,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						}
 						else
 						{
-							pTarget = MercPtrs[ ubTargetID ];
+							pTarget = ubTargetID;
 						}
 
 						pSoldier->aiData.uiPendingActionData4 = APPROACH_DONE_PUNCH_1;
@@ -3901,7 +3901,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( !gfInTalkPanel )
 				{
 					INT32		sNearestPC;
-					UINT16		ubID;
+					SoldierID	ubID;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 					if ( pSoldier )
@@ -3914,7 +3914,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 							ubID = WhoIsThere2( sNearestPC, 0 );
 							if (ubID != NOBODY)
 							{
-								pSoldier2 = MercPtrs[ ubID ];
+								pSoldier2 = ubID;
 							}
 						}
 

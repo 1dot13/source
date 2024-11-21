@@ -4513,17 +4513,18 @@ void BtnDropPackCallback(GUI_BUTTON *btn,INT32 reason)
 			INT8 bAssignment = gpSMCurrentMerc->bAssignment;
 			for( int x = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; x <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; x++ )
 			{
+				SOLDIERTYPE *pSoldier = MercPtrs[x];
 				/* Is DropPackFlag currently false and is there something in the backpack pocket?  If so, we haven't
 				dropped a pack yet and apparently want to*/
-				if(MercPtrs[x]->bAssignment == bAssignment && MercPtrs[x]->inv[BPACKPOCKPOS].exists() == true && !MercPtrs[x]->flags.DropPackFlag)
+				if(pSoldier->bAssignment == bAssignment && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.DropPackFlag)
 				{
-					ChangeDropPackStatus(MercPtrs[x], TRUE);
+					ChangeDropPackStatus(pSoldier, TRUE);
 				}
 				/* Is DropPackFlag currently true, is nothing in the backpack pocket and have we dropped a pack?  If so, we
 				must want to retreive a backpack we previously dropped.*/
-				else if(MercPtrs[x]->bAssignment == bAssignment && MercPtrs[x]->inv[BPACKPOCKPOS].exists() == false && MercPtrs[x]->flags.DropPackFlag)
+				else if(pSoldier->bAssignment == bAssignment && pSoldier->inv[BPACKPOCKPOS].exists() == false && pSoldier->flags.DropPackFlag)
 				{
-					ChangeDropPackStatus(MercPtrs[x], FALSE);
+					ChangeDropPackStatus(pSoldier, FALSE);
 				}
 			}
 		}

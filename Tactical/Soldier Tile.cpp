@@ -96,8 +96,6 @@ void OutputDebugInfoForTurnBasedNextTileWaiting( SOLDIERTYPE * pSoldier )
 
 void SetDelayedTileWaiting( SOLDIERTYPE *pSoldier, INT32 sCauseGridNo, INT8 bValue )
 {
-	UINT16		ubPerson;
-
 	// Cancel AI Action
 	// CancelAIAction( pSoldier, TRUE );
 
@@ -108,7 +106,7 @@ void SetDelayedTileWaiting( SOLDIERTYPE *pSoldier, INT32 sCauseGridNo, INT8 bVal
 
 	// ATE: Now update realtime movement speed....
 	// check if guy exists here...
-	ubPerson = WhoIsThere2( sCauseGridNo, pSoldier->pathing.bLevel );
+	SoldierID ubPerson = WhoIsThere2( sCauseGridNo, pSoldier->pathing.bLevel );
 
 	// There may not be anybody there, but it's reserved by them!
 	if ( ( gpWorldLevelData[ sCauseGridNo ].uiFlags & MAPELEMENT_MOVEMENT_RESERVED ) )
@@ -119,7 +117,7 @@ void SetDelayedTileWaiting( SOLDIERTYPE *pSoldier, INT32 sCauseGridNo, INT8 bVal
 	if ( ubPerson != NOBODY )
 	{
 		// if they are our own team members ( both )
-		if ( MercPtrs[ ubPerson ]->bTeam == gbPlayerNum && pSoldier->bTeam == gbPlayerNum )
+		if ( ubPerson->bTeam == gbPlayerNum && pSoldier->bTeam == gbPlayerNum )
 		{
 			// Here we have another guy.... save his stats so we can use them for
 			// speed determinations....
@@ -205,7 +203,6 @@ void UnMarkMovementReserved( SOLDIERTYPE *pSoldier )
 
 INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 bLevel )
 {
-	UINT16		ubPerson;
 	INT32		sTempDestGridNo;
 	INT32 sNewGridNo;
 	BOOLEAN	fSwapInDoor = FALSE;
@@ -225,7 +222,7 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 		return( MOVE_TILE_CLEAR );
 	}
 
-	ubPerson = WhoIsThere2( sGridNo, bLevel );
+	SoldierID ubPerson = WhoIsThere2( sGridNo, bLevel );
 
 
 	if ( ubPerson != NOBODY )
@@ -243,7 +240,7 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 
 				// Are we only temporarily blocked?
 				// Check if our final destination is = our gridno
-				if ( ( MercPtrs[ ubPerson ]->pathing.sFinalDestination == MercPtrs[ ubPerson ]->sGridNo )	)
+				if ( ( ubPerson->pathing.sFinalDestination == ubPerson->sGridNo )	)
 				{
 					return( MOVE_TILE_STATIONARY_BLOCKED );
 				}
@@ -251,12 +248,12 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 				{
 					// OK, if buddy who is blocking us is trying to move too...
 					// And we are in opposite directions...
-					if ( MercPtrs[ ubPerson ]->flags.fBlockedByAnotherMerc && MercPtrs[ ubPerson ]->bBlockedByAnotherMercDirection == gOppositeDirection[ bDirection ] )
+					if ( ubPerson->flags.fBlockedByAnotherMerc && ubPerson->bBlockedByAnotherMercDirection == gOppositeDirection[ bDirection ] )
 					{
 						// OK, try and get a path around buddy....
 						// We have to temporarily make buddy stopped...
-						sTempDestGridNo = MercPtrs[ ubPerson ]->pathing.sFinalDestination;
-						MercPtrs[ ubPerson ]->pathing.sFinalDestination = MercPtrs[ ubPerson ]->sGridNo;
+						sTempDestGridNo = ubPerson->pathing.sFinalDestination;
+						ubPerson->pathing.sFinalDestination = ubPerson->sGridNo;
 
 						if ( PlotPath( pSoldier, pSoldier->pathing.sFinalDestination, NO_COPYROUTE, NO_PLOT, TEMPORARY, pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) )
 						{
@@ -264,7 +261,7 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 							// OK, make guy go here...
 							pSoldier->EVENT_GetNewSoldierPath( pSoldier->pathing.sFinalDestination, pSoldier->usUIMovementMode );
 							// Restore final dest....
-							MercPtrs[ ubPerson ]->pathing.sFinalDestination = sTempDestGridNo;
+							ubPerson->pathing.sFinalDestination = sTempDestGridNo;
 							pSoldier->flags.fBlockedByAnotherMerc = FALSE;
 
 							// Is the next tile blocked too?
@@ -288,18 +285,18 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 
 
 									// Swap now!
-									MercPtrs[ ubPerson ]->flags.fBlockedByAnotherMerc = FALSE;
+									ubPerson->flags.fBlockedByAnotherMerc = FALSE;
 
 									// Restore final dest....
-									MercPtrs[ ubPerson ]->pathing.sFinalDestination = sTempDestGridNo;
+									ubPerson->pathing.sFinalDestination = sTempDestGridNo;
 
 									// Swap merc positions.....
-									SwapMercPositions( pSoldier, MercPtrs[ ubPerson ] );
+									SwapMercPositions( pSoldier, ubPerson );
 
 									// With these two guys swapped, they should try and continue on their way....
 									// Start them both again along their way...
 									pSoldier->EVENT_GetNewSoldierPath( pSoldier->pathing.sFinalDestination, pSoldier->usUIMovementMode );
-									MercPtrs[ ubPerson ]->EVENT_GetNewSoldierPath( MercPtrs[ ubPerson ]->pathing.sFinalDestination, MercPtrs[ ubPerson ]->usUIMovementMode );
+									ubPerson->EVENT_GetNewSoldierPath( ubPerson->pathing.sFinalDestination, ubPerson->usUIMovementMode );
 								}
 						}
 					}
@@ -311,14 +308,14 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 				//return( MOVE_TILE_STATIONARY_BLOCKED );
 				// ATE: OK, put some smartshere...
 				// If we are waiting for more than a few times, change to stationary...
-				if ( MercPtrs[ ubPerson ]->flags.fDelayedMovement >= 105 )
+				if ( ubPerson->flags.fDelayedMovement >= 105 )
 				{
 					// Set to special 'I want to walk through people' value
 					pSoldier->flags.fDelayedMovement = 150;
 
 					return( MOVE_TILE_STATIONARY_BLOCKED );
 				}
-				if ( MercPtrs[ ubPerson ]->sGridNo == MercPtrs[ ubPerson ]->pathing.sFinalDestination )
+				if ( ubPerson->sGridNo == ubPerson->pathing.sFinalDestination )
 				{
 					return( MOVE_TILE_STATIONARY_BLOCKED );
 				}
@@ -495,11 +492,11 @@ BOOLEAN HandleNextTile( SOLDIERTYPE *pSoldier, INT8 bDirection, INT32 sGridNo, I
 BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 {
 	// Buddy is waiting to continue his path
-	INT8		bBlocked, bPathBlocked;
+	INT8			bBlocked, bPathBlocked;
 	INT32		sCost;
-	INT32 sNewGridNo, sCheckGridNo;
+	INT32		sNewGridNo, sCheckGridNo;
 	UINT8		ubDirection, bCauseDirection;
-	UINT16		ubPerson;
+	SoldierID	ubPerson;
 	UINT8		fFlags = 0;
 
 
@@ -659,16 +656,16 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 					ubPerson = WhoIsThere2( pSoldier->sDelayedMovementCauseGridNo, pSoldier->pathing.bLevel );
 
 					// if either on a mission from god, or two AI guys not on stationary...
-					if ( ubPerson != NOBODY && ( pSoldier->ubQuoteRecord != 0 || ( pSoldier->bTeam != gbPlayerNum && pSoldier->aiData.bOrders != STATIONARY && MercPtrs[ ubPerson ]->bTeam != gbPlayerNum && MercPtrs[ ubPerson ]->aiData.bOrders != STATIONARY ) || (pSoldier->bTeam == gbPlayerNum && gTacticalStatus.fAutoBandageMode && !(MercPtrs[ ubPerson ]->bTeam == CIV_TEAM && MercPtrs[ ubPerson ]->aiData.bOrders == STATIONARY ) ) ) )
+					if ( ubPerson != NOBODY && ( pSoldier->ubQuoteRecord != 0 || ( pSoldier->bTeam != gbPlayerNum && pSoldier->aiData.bOrders != STATIONARY && ubPerson->bTeam != gbPlayerNum && ubPerson->aiData.bOrders != STATIONARY ) || (pSoldier->bTeam == gbPlayerNum && gTacticalStatus.fAutoBandageMode && !(ubPerson->bTeam == CIV_TEAM && ubPerson->aiData.bOrders == STATIONARY ) ) ) )
 					{
 						// Swap now!
-						//MercPtrs[ ubPerson ]->flags.fBlockedByAnotherMerc = FALSE;
+						//ubPerson->flags.fBlockedByAnotherMerc = FALSE;
 
 						// Restore final dest....
-						//MercPtrs[ ubPerson ]->pathing.sFinalDestination = sTempDestGridNo;
+						//ubPerson->pathing.sFinalDestination = sTempDestGridNo;
 
 						// Swap merc positions.....
-						SwapMercPositions( pSoldier, MercPtrs[ ubPerson ] );
+						SwapMercPositions( pSoldier, ubPerson );
 
 						// With these two guys swapped, we should try to continue on our way....
 						pSoldier->flags.fDelayedMovement = FALSE;
@@ -693,7 +690,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 						pSoldier->pathing.bPathStored = TRUE;
 
 						pSoldier->EVENT_GetNewSoldierPath( pSoldier->sAbsoluteFinalDestination, pSoldier->usUIMovementMode );
-						//EVENT_GetNewSoldierPath( MercPtrs[ ubPerson ], MercPtrs[ ubPerson ]->pathing.sFinalDestination, MercPtrs[ ubPerson ]->usUIMovementMode );
+						//EVENT_GetNewSoldierPath( ubPerson, ubPerson->pathing.sFinalDestination, ubPerson->usUIMovementMode );
 					}
 
 				}
