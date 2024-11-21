@@ -3417,11 +3417,11 @@ UnderFire gUnderFire;
 void UnderFire::Clear(void)
 {
 	usUnderFireCnt = 0;
-	memset(usUnderFireID, 0, sizeof(usUnderFireID));
+	memset(usUnderFireID, TOTAL_SOLDIERS, sizeof(usUnderFireID));
 	memset(ubUnderFireCTH, 0, sizeof(ubUnderFireCTH));
 }
 
-void UnderFire::Add(UINT16 usID, UINT8 ubCTH)
+void UnderFire::Add(SoldierID usID, UINT8 ubCTH)
 {
 	if (!fEnable)
 		return;
@@ -3448,7 +3448,7 @@ UINT16 UnderFire::Count(INT8 bTeam)
 	UINT16 cnt = 0;
 	for (UINT16 i = 0; i < usUnderFireCnt; i++)
 	{
-		if (MercPtrs[usUnderFireID[i]]->bTeam == bTeam)
+		if (usUnderFireID[i]->bTeam == bTeam)
 			++cnt;
 	}
 	return(cnt);
@@ -3459,7 +3459,7 @@ UINT8 UnderFire::Chance(INT8 bTeam, INT8 bSide, BOOLEAN fCheckNeutral)
 	UINT8 cth = 0;
 	for (UINT16 i = 0; i < usUnderFireCnt; i++)
 	{
-		if ((MercPtrs[usUnderFireID[i]]->bTeam == bTeam || MercPtrs[usUnderFireID[i]]->bSide == bSide || fCheckNeutral && MercPtrs[usUnderFireID[i]]->aiData.bNeutral) &&
+		if ((usUnderFireID[i]->bTeam == bTeam || usUnderFireID[i]->bSide == bSide || fCheckNeutral && usUnderFireID[i]->aiData.bNeutral) &&
 			ubUnderFireCTH[i] > cth)
 		{
 			cth = ubUnderFireCTH[i];

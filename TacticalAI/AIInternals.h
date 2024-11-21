@@ -154,14 +154,14 @@ public:
 class UnderFire
 {
 private:
-	BOOLEAN fEnable;
-	UINT16 usUnderFireCnt;
-	UINT16 usUnderFireID[MAXUNDERFIRE];
-	UINT8 ubUnderFireCTH[MAXUNDERFIRE];
+	BOOLEAN		fEnable;
+	UINT16		usUnderFireCnt;
+	SoldierID	usUnderFireID[MAXUNDERFIRE];
+	UINT8		ubUnderFireCTH[MAXUNDERFIRE];
 public:
 	UnderFire(void){ Clear(); fEnable = FALSE; }
 	void Clear(void);
-	void Add(UINT16 usID, UINT8 ubCTH);
+	void Add(SoldierID usID, UINT8 ubCTH);
 	void Enable(void){ fEnable=TRUE; }
 	void Disable(void){ fEnable=FALSE; }
 	UINT16 GetUnderFireCnt(void){ return(usUnderFireCnt); }
