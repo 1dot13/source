@@ -415,6 +415,16 @@ typedef struct SoldierID
 	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
 	inline operator SOLDIERTYPE* () { return MercPtrs[i]; }
 	inline operator const SOLDIERTYPE*() const { return MercPtrs[i]; }
+	inline SoldierID &operator++()
+	{
+		i++;
+		return *this;
+	}
+	inline SoldierID &operator--()
+	{
+		i--;
+		return *this;
+	}
 } SoldierID;
 
 inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
@@ -475,17 +485,6 @@ inline SoldierID operator+(const SoldierID lhs, const UINT16 rhs) { return Soldi
 inline SoldierID operator+(const unsigned int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
 inline SoldierID operator+(const INT16 lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
 
-inline SoldierID operator--(SoldierID lhs)
-{
-	lhs.i -= 1;
-	return lhs;
-}
-
-inline SoldierID operator++(SoldierID lhs)
-{
-	lhs.i += 1;
-	return lhs;
-}
 
 //TODO: Change this to constexpr after SoldierID is ready and the user defined constructor from uint16 is not needed anymore.
 inline constexpr SoldierID NOBODY{ TOTAL_SOLDIERS };
