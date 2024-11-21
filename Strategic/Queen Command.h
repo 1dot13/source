@@ -46,7 +46,6 @@ void EndTacticalBattleForEnemy();
 
 void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier );
 
-void HandleEnemyStatusInCurrentMapBeforeLoadingNewMap();
 BOOLEAN SaveUnderGroundSectorInfoToSaveGame( HWFILE hFile );
 BOOLEAN LoadUnderGroundSectorInfoFromSavedGame( HWFILE hFile );
 
