@@ -282,9 +282,9 @@ void EndCurrentContractRenewal( )
 	}
 }
 
-void HandleMercIsWillingToRenew( UINT16 ubID )
+void HandleMercIsWillingToRenew( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	// We wish to lock interface
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1,MAP_SCREEN,0,0,0 );
@@ -302,9 +302,9 @@ void HandleMercIsWillingToRenew( UINT16 ubID )
 }
 
 
-void HandleMercIsNotWillingToRenew( UINT16 ubID )
+void HandleMercIsNotWillingToRenew( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	// We wish to lock interface
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1,MAP_SCREEN,0,0,0 );
