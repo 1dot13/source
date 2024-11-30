@@ -252,7 +252,7 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier);
 
 INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 *pFromGridNo);
 
-void SetCivilianDestination(UINT8 ubWho, INT32 sGridNo);
+void SetCivilianDestination(SoldierID ubWho, INT32 sGridNo);
 void SetNewSituation( SOLDIERTYPE * pSoldier );
 
 UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier );

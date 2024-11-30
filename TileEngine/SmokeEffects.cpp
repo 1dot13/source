@@ -192,7 +192,7 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 
 
 
-INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner, BOOL fFromRemoteClient )
+INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOL fFromRemoteClient )
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;
@@ -222,7 +222,7 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT16 ubOwner,
 		}
 #ifdef JA2BETAVERSION
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n",sGridNo, usItem , ubOwner , bLevel , iSmokeIndex );
+		sprintf(tmpMPDbgString,"NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n",sGridNo, usItem , ubOwner.i , bLevel , iSmokeIndex );
 		MPDebugMsg(tmpMPDbgString);
 		gfMPDebugOutputRandoms = true;
 #endif

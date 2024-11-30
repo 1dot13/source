@@ -1,6 +1,8 @@
 #ifndef __PITS_H
 #define __PITS_H
 
+#include "overhead types.h"
+
 void Add3X3Pit( INT32 iMapIndex );
 void Add5X5Pit( INT32 iMapIndex );
 void Remove3X3Pit( INT32 iMapIndex );
@@ -14,7 +16,7 @@ void RemoveAllPits();
 extern BOOLEAN gfShowPits;
 extern BOOLEAN gfLoadPitsWithoutArming;
 
-void HandleFallIntoPitFromAnimation( UINT16 ubID );
+void HandleFallIntoPitFromAnimation( SoldierID ubID );
 
 
 #endif

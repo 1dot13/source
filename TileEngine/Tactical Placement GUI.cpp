@@ -327,15 +327,15 @@ void InitTacticalPlacementGUI()
 	giPlacements = 0;
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-
-		if( MercPtrs[ i ]->bActive && !MercPtrs[ i ]->flags.fBetweenSectors &&
-			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
-				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT &&
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_REBELCOMMAND &&
-				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
-				MercPtrs[ i ]->bAssignment != IN_TRANSIT )
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if( pSoldier->bActive && !pSoldier->flags.fBetweenSectors &&
+			CurrentBattleSectorIs( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
+				!( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
+				pSoldier->bAssignment != ASSIGNMENT_POW &&
+				pSoldier->bAssignment != ASSIGNMENT_MINIEVENT &&
+				pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND &&
+				!( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
+				pSoldier->bAssignment != IN_TRANSIT )
 		{
 			++giPlacements;
 		}
@@ -347,58 +347,59 @@ void InitTacticalPlacementGUI()
 	giPlacements = 0;
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !MercPtrs[ i ]->flags.fBetweenSectors &&
-			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT &&
-				MercPtrs[ i ]->bAssignment != ASSIGNMENT_REBELCOMMAND &&
-				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
-				MercPtrs[ i ]->bAssignment != IN_TRANSIT &&
-				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) ) // ATE Ignore vehicles
+		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		if( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors &&
+			CurrentBattleSectorIs( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
+				pSoldier->bAssignment != ASSIGNMENT_POW &&
+				pSoldier->bAssignment != ASSIGNMENT_MINIEVENT &&
+				pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND &&
+				!( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
+				pSoldier->bAssignment != IN_TRANSIT &&
+				!( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) ) // ATE Ignore vehicles
 		{
 			// Flugente: if options allow it and we entered this sector - in combat - via helicopter, then allow us free selection of our entry point, and drop us from the helicopter
-			if ( MercPtrs[ i ]->bTeam == gbPlayerNum && (gGameExternalOptions.ubSkyriderHotLZ == 1 || gGameExternalOptions.ubSkyriderHotLZ == 3) && MercPtrs[ i ]->usSoldierFlagMask & SOLDIER_AIRDROP )
+			if ( pSoldier->bTeam == gbPlayerNum && (gGameExternalOptions.ubSkyriderHotLZ == 1 || gGameExternalOptions.ubSkyriderHotLZ == 3) && pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
-				AddMercToHeli( MercPtrs[ i ]->ubID );
+				AddMercToHeli( pSoldier->ubID );
 				DisableButton(iTPButtons[SPREAD_BUTTON]);
 
 				gMercPlacement[ giPlacements ].ubStrategicInsertionCode = INSERTION_CODE_CHOPPER;
-				MercPtrs[ i ]->ubStrategicInsertionCode					= INSERTION_CODE_CHOPPER;
+				pSoldier->ubStrategicInsertionCode					= INSERTION_CODE_CHOPPER;
 				gfCenter = TRUE;
 			}
 
 			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				gMercPlacement[giPlacements].ubStrategicInsertionCode	= INSERTION_CODE_CENTER;
-				MercPtrs[i]->ubStrategicInsertionCode					= INSERTION_CODE_CENTER;
+				pSoldier->ubStrategicInsertionCode					= INSERTION_CODE_CENTER;
 				gfCenter = TRUE;
 			}
 
 			// WANNE - MP: Check if the desired insertion direction is valid on the map. If not, choose another entry direction!
 			if (is_networked)
 			{
-				MercPtrs[ i ]->ubStrategicInsertionCode = GetValidInsertionDirectionForMP(MercPtrs[ i ]->ubStrategicInsertionCode);
+				pSoldier->ubStrategicInsertionCode = GetValidInsertionDirectionForMP(pSoldier->ubStrategicInsertionCode);
 			}
 			// ATE: If we are in a vehicle - remove ourselves from it!
-			//if ( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			//if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			//{
-			//	RemoveSoldierFromVehicle( MercPtrs[ i ], MercPtrs[ i ]->bVehicleID );
+			//	RemoveSoldierFromVehicle( pSoldier, pSoldier->bVehicleID );
 			//}
 
-			if( MercPtrs[ i ]->ubStrategicInsertionCode == INSERTION_CODE_PRIMARY_EDGEINDEX ||
-					MercPtrs[ i ]->ubStrategicInsertionCode == INSERTION_CODE_SECONDARY_EDGEINDEX )
+			if( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_PRIMARY_EDGEINDEX ||
+					pSoldier->ubStrategicInsertionCode == INSERTION_CODE_SECONDARY_EDGEINDEX )
 			{
-				MercPtrs[ i ]->ubStrategicInsertionCode = (UINT8)MercPtrs[ i ]->usStrategicInsertionData;
+				pSoldier->ubStrategicInsertionCode = (UINT8)pSoldier->usStrategicInsertionData;
 			}
-			gMercPlacement[ giPlacements ].pSoldier = MercPtrs[ i ];
-			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = MercPtrs[ i ]->ubStrategicInsertionCode;
+			gMercPlacement[ giPlacements ].pSoldier = pSoldier;
+			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = pSoldier->ubStrategicInsertionCode;
 			gMercPlacement[ giPlacements ].fPlaced = FALSE;
 			
 			// WANNE: We always want to have edgepoints
-			CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
+			CheckForValidMapEdge( &pSoldier->ubStrategicInsertionCode );
 			
 			// Flugente: campaign stats
-			switch( MercPtrs[ i ]->ubStrategicInsertionCode )
+			switch( pSoldier->ubStrategicInsertionCode )
 			{
 				case INSERTION_CODE_NORTH:					
 					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_NORTH;
@@ -415,7 +416,7 @@ void InitTacticalPlacementGUI()
 			}
 
 			// WANNE - MP: Center
-			if (is_networked && MercPtrs[ i ]->ubStrategicInsertionCode == INSERTION_CODE_CENTER)
+			if (is_networked && pSoldier->ubStrategicInsertionCode == INSERTION_CODE_CENTER)
 			{
 				gfCenter = TRUE;
 			}	

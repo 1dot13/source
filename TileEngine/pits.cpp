@@ -237,9 +237,9 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 s
 	}
 }
 
-void HandleFallIntoPitFromAnimation( UINT16 ubID )
+void HandleFallIntoPitFromAnimation( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 	EXITGRID ExitGrid;
 	INT32 sPitGridNo;
 	// OK, get exit grid...

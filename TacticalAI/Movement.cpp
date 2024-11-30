@@ -881,12 +881,14 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 	}
 }
 
-void SetCivilianDestination(UINT8 ubWho, INT32 sGridNo)
+void SetCivilianDestination(SoldierID ubWho, INT32 sGridNo)
 {
- SOLDIERTYPE *pSoldier;
+	if ( ubWho == NOBODY )
+	{
+		return;
+	}
 
-
- pSoldier = MercPtrs[ubWho];
+	SOLDIERTYPE *pSoldier = ubWho;
 
 /*
  // if we control the civilian
@@ -896,12 +898,12 @@ void SetCivilianDestination(UINT8 ubWho, INT32 sGridNo)
 	// if the destination is different from what he has now
 	if (pSoldier->aiData.usActionData != sGridNo)
 	{
-	 // store his new destination
-	 pSoldier->aiData.usActionData = sGridNo;
+		// store his new destination
+		pSoldier->aiData.usActionData = sGridNo;
 
-	 // and cancel any movement in progress that he was still engaged in
-	 pSoldier->aiData.bAction = AI_ACTION_NONE;
-	 pSoldier->aiData.bActionInProgress = FALSE;
+		// and cancel any movement in progress that he was still engaged in
+		pSoldier->aiData.bAction = AI_ACTION_NONE;
+		pSoldier->aiData.bActionInProgress = FALSE;
 	}
 
 	// only set the underEscort flag once you give him a destination

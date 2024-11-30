@@ -904,12 +904,12 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	// SANDRO - bonus for communication with people for assertive people
 	if ( gGameOptions.fNewTraitSystem && bApproach != APPROACH_THREATEN)
 	{
-		INT16 id = GetSoldierIDFromMercID( ubMerc );
-		if ( id > -1 )
+		SoldierID id = GetSoldierIDFromMercID( ubMerc );
+		if ( id != NOBODY )
 		{
-			if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_ASSERTIVE ) )
+			if ( DoesMercHavePersonality( id, CHAR_TRAIT_ASSERTIVE ) )
 				iPersonalVal += 50;
-			else if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_MALICIOUS ) )
+			else if ( DoesMercHavePersonality( id, CHAR_TRAIT_MALICIOUS ) )
 				iPersonalVal -= 50;
 		}
 	}

@@ -2001,14 +2001,14 @@ UINT8 GetFittingInterjectorProfile( UINT8 usEvent, UINT8 usProfileVictim, UINT8 
 	if ( usEvent >= OPINIONEVENT_MAX )
 		return NO_PROFILE;
 
-	INT16 idVictim = GetSoldierIDFromMercID( usProfileVictim );
-	INT16 idCause = GetSoldierIDFromMercID( usProfileCause );
+	SoldierID idVictim = GetSoldierIDFromMercID( usProfileVictim );
+	SoldierID idCause = GetSoldierIDFromMercID( usProfileCause );
 
-	if ( idVictim < 0 || idCause < 0 )
+	if ( idVictim == NOBODY || idCause == NOBODY )
 		return NO_PROFILE;
 
-	SOLDIERTYPE* pSoldierVictim = MercPtrs[idVictim];
-	SOLDIERTYPE* pSoldierCause = MercPtrs[idCause];
+	SOLDIERTYPE* pSoldierVictim = idVictim;
+	SOLDIERTYPE* pSoldierCause = idCause;
 
 	if ( !pSoldierVictim || !pSoldierCause )
 		return NO_PROFILE;
