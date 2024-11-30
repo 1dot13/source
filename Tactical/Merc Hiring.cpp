@@ -673,10 +673,10 @@ BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 
 UINT16	NumberOfMercsOnPlayerTeam()
 {
-	UINT16			cnt;
-	SOLDIERTYPE		*pSoldier;
-	UINT16			bLastTeamID;
-	UINT16			ubCount=0;
+	SoldierID	cnt;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	bLastTeamID;
+	UINT16		ubCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -685,8 +685,9 @@ UINT16	NumberOfMercsOnPlayerTeam()
 	if (! MercPtrs[cnt])
 		return 0;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; cnt <= bLastTeamID; ++cnt )
 	{
+		pSoldier = cnt;
 		AssertNotNIL(pSoldier);
 
 		//if the is active, and is not a vehicle
@@ -702,9 +703,9 @@ UINT16	NumberOfMercsOnPlayerTeam()
 
 void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
-	UINT16								cnt, usLastTeamID;
-	INT8								bHated;
-	SOLDIERTYPE							*pTeamSoldier;
+	SoldierID	cnt, usLastTeamID;
+	INT8			bHated;
+	SOLDIERTYPE	*pTeamSoldier;
 #ifdef JA2UB
 	//if we are at the begining of the game going through the initial heli scequence
 	if( pSoldier->fWaitingToGetupFromJA25Start )
@@ -730,8 +731,9 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		usLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 		//loop though all the mercs
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= usLastTeamID; ++cnt, ++pTeamSoldier)
+		for ( ; cnt <= usLastTeamID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			if ( pTeamSoldier->bActive )
 			{
 				if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
@@ -819,14 +821,13 @@ UINT32 GetMercArrivalTimeOfDay( )
 
 void UpdateAnyInTransitMercsWithGlobalArrivalSector( )
 {
-	INT32 cnt;
 	SOLDIERTYPE		*pSoldier;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bAssignment == IN_TRANSIT )

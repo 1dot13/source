@@ -591,7 +591,7 @@ void CheckForDisabledForGiveItem( )
 	INT16			sDist;
 	INT32			sDestGridNo;
 	INT8				bDestLevel;
-	INT32			cnt;
+	SoldierID		cnt;
 	SOLDIERTYPE		*pSoldier;
 	SoldierID		ubSrcSoldier;
 
@@ -614,8 +614,9 @@ void CheckForDisabledForGiveItem( )
 	{
 		// Go through each merc and see if there is one closeby....
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) && pSoldier->bInSector && IsMercOnCurrentSquad( pSoldier ) )
 			{
 				sDist = PythSpacesAway( gpSMCurrentMerc->sGridNo, pSoldier->sGridNo );
@@ -4511,9 +4512,9 @@ void BtnDropPackCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( _KeyDown( SHIFT ) )
 		{
 			INT8 bAssignment = gpSMCurrentMerc->bAssignment;
-			for( int x = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; x <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; x++ )
+			for( SoldierID x = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; x <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++x )
 			{
-				SOLDIERTYPE *pSoldier = MercPtrs[x];
+				SOLDIERTYPE *pSoldier = x;
 				/* Is DropPackFlag currently false and is there something in the backpack pocket?  If so, we haven't
 				dropped a pack yet and apparently want to*/
 				if(pSoldier->bAssignment == bAssignment && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.DropPackFlag)
@@ -6437,13 +6438,12 @@ void CheckForFacePanelStartAnims( SOLDIERTYPE *pSoldier, INT16 sPanelX, INT16 sP
 void FinishAnySkullPanelAnimations( )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32		cnt2;
-
-	cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt2++,pTeamSoldier++ )
+	for ( ; cnt2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt2 )
 	{
+		pTeamSoldier = cnt2;
 		if ( pTeamSoldier->bActive && pTeamSoldier->stats.bLife == 0 )
 		{
 			if ( pTeamSoldier->flags.fUIdeadMerc || pTeamSoldier->flags.fClosePanelToDie )
@@ -6455,7 +6455,6 @@ void FinishAnySkullPanelAnimations( )
 			}
 		}
 	}
-
 }
 
 void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )

@@ -176,12 +176,11 @@ void ResetMilitia()
 void RemoveMilitiaFromTactical()
 {
 	SOLDIERINITNODE *curr;
-	INT32 i;
-	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
+	for( SoldierID id = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; id <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++id )
 	{
-		if( MercPtrs[ i ]->bActive )
+		if( id->bActive )
 		{
-			TacticalRemoveSoldier( MercPtrs[ i ]->ubID );
+			TacticalRemoveSoldier( id );
 		}
 	}
 	curr = gSoldierInitHead;
@@ -327,7 +326,6 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 
 void HandleMilitiaPromotions( void )
 {
-	UINT16				cnt;
 	SOLDIERTYPE*		pTeamSoldier;
 
 	gbGreenToElitePromotions = 0;
@@ -335,10 +333,11 @@ void HandleMilitiaPromotions( void )
 	gbRegToElitePromotions = 0;
 	gbMilitiaPromotions = 0;
 
-	cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt, ++pTeamSoldier)
+	for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
 		{
 			// Flugente: take care of promotions and individual militia update
@@ -1422,13 +1421,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_ATTACK ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1459,13 +1459,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_HOLD ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;						
+						SoldierID cnt;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1495,14 +1496,15 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_RETREAT ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						INT16 sActionGridNo;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1558,15 +1560,16 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_COMETOME ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						UINT8 ubDirection;
 						INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1615,14 +1618,15 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_SPREAD ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						INT32 sActionGridNo;
 						SOLDIERTYPE *pTeamSoldier;
 
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1668,13 +1672,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_GETDOWN ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1706,13 +1711,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_CROUCH ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt, ++pTeamSoldier)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI
@@ -1744,15 +1750,16 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_TAKE_COVER ):
 					if (fAllowSectorOrder)
 					{
-						UINT16 cnt;
+						SoldierID cnt;
 						INT16 sActionGridNo;
 						INT32 iDummy;
 						SOLDIERTYPE *pTeamSoldier;
 
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 						{
+							pTeamSoldier = cnt;
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
 								// sevenfm: stop any AI

@@ -1818,16 +1818,16 @@ void HandleFactForNPCUnescorted( UINT8 ubNPC )
 
 void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum )
 {
-	INT32										cnt;
-	SOLDIERTYPE			 *pSoldier, *pSoldier2;
-	INT8										bNumDone = 0;
-	INT32 sGridNo = NOWHERE, sAdjustedGridNo;
-	INT8										bItemIn;
-	UINT8										ubDesiredMercDir;
-	EXITGRID								ExitGrid;
-	INT32 iRandom = 0;
-	UINT8										ubMineIndex;
-	INT16 sX, sY, sX2, sY2;
+	SoldierID	cnt;
+	SOLDIERTYPE *pSoldier, *pSoldier2;
+	INT8			bNumDone = 0;
+	INT32		sGridNo = NOWHERE, sAdjustedGridNo;
+	INT8			bItemIn;
+	UINT8		ubDesiredMercDir;
+	EXITGRID		ExitGrid;
+	INT32		iRandom = 0;
+	UINT8		ubMineIndex;
+	INT16		sX, sY, sX2, sY2;
 
 	pSoldier2 = NULL;
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Handling %s, action %d at %ld", gMercProfiles[ ubTargetNPC ].zNickname, usActionCode, GetJA2Clock() );
@@ -1880,8 +1880,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// Squad here to search for...
 
 				// look for all mercs on the same team,
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					// Are we in this sector, On the current squad?
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 					{
@@ -2170,8 +2171,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 				// look for all mercs on the same team,
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					// Are we in this sector, On the current squad?
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector )
 					{
@@ -3726,8 +3728,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					//HOSPITAL_PATIENT_DISTANCE
 					cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-					for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+					for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 					{
+						pSoldier = cnt;
 						// Are we in this sector, On the current squad?
 						if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && (pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0) && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL && PythSpacesAway( pSoldier->sGridNo, pSoldier2->sGridNo ) < HOSPITAL_PATIENT_DISTANCE )
 						{
@@ -4578,9 +4581,9 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 
 	INT32 sGridNo = pNPC->sGridNo;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
+	for ( SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
 		{
 			if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0)
@@ -4850,13 +4853,14 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				// He tried to lie.....
 				// Find the best conscious merc with a chance....
-				UINT16							cnt;
-				SOLDIERTYPE *			pLier = NULL;
-				SOLDIERTYPE *			pSoldier;
+				SoldierID	cnt;
+				SOLDIERTYPE *pLier = NULL;
+				SOLDIERTYPE *pSoldier;
 
 				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->bBreath >= OKBREATH )
 					{
 						if (!pLier || (EffectiveWisdom( pSoldier ) + EffectiveLeadership( pSoldier ) > EffectiveWisdom( pLier ) + EffectiveLeadership( pSoldier ) ) )
@@ -5016,13 +5020,13 @@ void	DoneFadeInActionBasement( )
 {
 	// Start conversation, etc
 	SOLDIERTYPE *pSoldier, *pNPCSoldier;
-	INT32										cnt;
 
 	// Look for someone to talk to
 	// look for all mercs on the same team,
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 		{

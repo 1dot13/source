@@ -5503,9 +5503,9 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 {
-	INT16							sXPos, sYPos;
-	SOLDIERTYPE				*pSoldier;
-	INT32						cnt;
+	INT16		sXPos, sYPos;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	cnt;
 	if ( !GetMouseXY( &sXPos, &sYPos ) )
 	{
 		return( GAME_SCREEN );
@@ -5515,8 +5515,9 @@ UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -5820,10 +5821,10 @@ void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY )
 
 void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 {
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-	SOLDIERTYPE			*pFirstSoldier = NULL;
-	BOOLEAN					fSelectedSoldierInBatch = FALSE;
+	SOLDIERTYPE *pSoldier;
+	SoldierID	cnt;
+	SOLDIERTYPE	*pFirstSoldier = NULL;
+	BOOLEAN		fSelectedSoldierInBatch = FALSE;
 
 
 	gTacticalStatus.fAtLeastOneGuyOnMultiSelect = FALSE;
@@ -5833,8 +5834,9 @@ void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 	// check if our currently selected guy is among the
 	// lucky few.. if not, change to a guy who is...
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -5879,15 +5881,16 @@ BOOLEAN StopRubberBandedMercFromMoving(void)
 	}
 
 	SOLDIERTYPE *pSoldier;
-	INT32		cnt;
+	SoldierID	cnt;
 	BOOLEAN		fFound = FALSE;
 
 	// OK, loop through all guys who are 'multi-selected' and
 	// check if our currently selected guy is among the
 	// lucky few.. if not, change to a guy who is...
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -5923,10 +5926,10 @@ void EndRubberBanding( )
 
 BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 {
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-	BOOLEAN					fAtLeastOneMultiSelect = FALSE;
-	BOOLEAN					fMoveFast = FALSE;
+	SOLDIERTYPE *pSoldier;
+	SoldierID	cnt;
+	BOOLEAN		fAtLeastOneMultiSelect = FALSE;
+	BOOLEAN		fMoveFast = FALSE;
 
 	// OK, loop through all guys who are 'multi-selected' and
 	// Make them move....
@@ -5935,8 +5938,9 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 	gfGetNewPathThroughPeople = TRUE;
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -5958,8 +5962,9 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 	INT32 highestY = 0;
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -5978,8 +5983,9 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 	INT32 centerY = (highestY + lowestY)/2;
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -6068,9 +6074,10 @@ void ResetMultiSelection( )
 {
 	// OK, loop through all guys who are 'multi-selected' and
 	// Make them move....
-	INT32 cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for (SOLDIERTYPE* pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		SOLDIERTYPE *pSoldier = cnt;
 		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -6087,12 +6094,12 @@ void ResetMultiSelection( )
 
 UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 {
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-	INT16						sScreenX, sScreenY;
-	INT32						iTemp;
-	SGPRect					aRect;
-	BOOLEAN		 fAtLeastOne = FALSE;
+	SOLDIERTYPE *pSoldier;
+	SoldierID	cnt;
+	INT16		sScreenX, sScreenY;
+	INT32		iTemp;
+	SGPRect		aRect;
+	BOOLEAN		fAtLeastOne = FALSE;
 
 	guiNewUICursor = NO_UICURSOR;
 	//SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
@@ -6120,8 +6127,9 @@ UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 
 	// ATE:Check at least for one guy that's in point!
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Check if this guy is OK to control....
 		if ( OK_CONTROLLABLE_MERC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
 		{
@@ -6148,9 +6156,9 @@ UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 
 	// ATE: Now loop through our guys and see if any fit!
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
-
+		pSoldier = cnt;
 		// Check if this guy is OK to control....
 		if ( OK_CONTROLLABLE_MERC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
 		{

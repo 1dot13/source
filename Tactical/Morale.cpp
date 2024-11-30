@@ -253,12 +253,13 @@ void DecayStrategicMorale( SOLDIERTYPE * pSoldier )
 void DecayTacticalMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT16 ubLoop, ubLoop2;
+	SoldierID ubLoop, ubLoop2;
 	BOOLEAN				fHandleNervous;
 
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pSoldier++ )
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
+		pSoldier = ubLoop;
 		//if the merc is active, in Arulco
 		// CJC: decay modifiers while asleep! or POW!
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
@@ -313,10 +314,10 @@ void DecayTacticalMoraleModifiers( void )
 					{
 						// look for anyone else in same sector
 						fHandleNervous = TRUE;
-						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop2++ )
+						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop2 )
 						{
-							SOLDIERTYPE *pSoldier = MercPtrs[ubLoop2];
-							if ( pSoldier != pSoldier && pSoldier->bActive && pSoldier->sSectorX == pSoldier->sSectorX && pSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pSoldier->bSectorZ )
+							SOLDIERTYPE *pSoldier2 = ubLoop2;
+							if ( pSoldier2 != pSoldier && pSoldier2->bActive && pSoldier2->sSectorX == pSoldier->sSectorX && pSoldier2->sSectorY == pSoldier->sSectorY && pSoldier2->bSectorZ == pSoldier->bSectorZ )
 							{
 								// found someone!
 								fHandleNervous = FALSE;
@@ -361,11 +362,11 @@ void DecayTacticalMoraleModifiers( void )
 void DecayStrategicMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT16 ubLoop;
+	SoldierID ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pSoldier++ )
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
+		pSoldier = ubLoop;
 		//if the merc is active, in Arulco
 		// CJC: decay modifiers while asleep! or POW!
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&

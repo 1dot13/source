@@ -15332,10 +15332,11 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 		// loop over other members of our team in this sector. This includes ourself, as our gun can be fed from a belt in our inventory
 		SOLDIERTYPE* pTeamSoldier = NULL;
-		INT32 cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
-		INT32 lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
+		for ( ; cnt < lastid; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// check if teamsoldier exists in this sector
 			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->stats.bLife < OKLIFE || pTeamSoldier->sSectorX != pSoldier->sSectorX || pTeamSoldier->sSectorY != pSoldier->sSectorY || pTeamSoldier->bSectorZ != pSoldier->bSectorZ )
 				continue;
