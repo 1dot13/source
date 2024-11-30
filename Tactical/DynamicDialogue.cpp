@@ -1749,11 +1749,11 @@ void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile )
 				oldcontract -= 14 * 1440;
 
 			// someones contract got extended. Other mercs who have less time on their contract will be annoyed by this, as they feel they should have been paid first
-			SOLDIERTYPE*		pSoldier = NULL;
-			UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-			UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-			for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
+			SoldierID bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+			for ( ; bMercID <= bLastTeamID; ++bMercID )
 			{
+				SOLDIERTYPE *pSoldier = bMercID;
 				if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != usProfile &&
 					 !(pSoldier->bAssignment == IN_TRANSIT ||
 					 pSoldier->bAssignment == ASSIGNMENT_DEAD) )
