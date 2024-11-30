@@ -292,9 +292,6 @@ void HandleObjectHighlighting( );
 
 extern BOOLEAN	gfUIForceReExamineCursorData;
 
-extern INT16	guiCreateGuyIndex;
-extern INT16	guiCreateBadGuyIndex;
-
 // WANNE: Calculate the APs to turn around
 INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT32 sAdjustedGridNo);
 
@@ -315,7 +312,6 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent );
 void QueryRTLeftButton( UINT32 *puiNewEvent );
 void QueryRTRightButton( UINT32 *puiNewEvent );
 
-void AdjustSoldierCreationStartValues( );
 
 BOOLEAN SelectedMercCanAffordAttack( );
 BOOLEAN SelectedMercCanAffordMove(	);
