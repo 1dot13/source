@@ -12864,12 +12864,12 @@ void ReBuildCharactersList( void )
 		gCharactersList[ sCount ].usSolID = NOBODY;
 	}
 
-	// fills array with pressence of player controlled characters
-	for ( INT32 cnt=gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++)
+	// fills array with presence of player controlled characters
+	for ( SoldierID soldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; soldier <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++soldier )
 	{
-		if(Menptr[ cnt ].bActive == 1)
+		if( soldier->bActive )
 		{
-			AddCharacter( &Menptr[ cnt ] );
+			AddCharacter( soldier );
 		}
 	}
 
@@ -16029,19 +16029,15 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 
 BOOLEAN AnyMovableCharsInOrBetweenThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32 iFirstId = 0, iLastId = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-
-
 	// to speed it up a little?
-	iFirstId = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
-	for( iCounter = iFirstId; iCounter <= iLastId; iCounter++ )
+	for( ; id <= iLastId; ++id)
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// is the soldier active
 		if( pSoldier->bActive == FALSE )
@@ -17629,12 +17625,11 @@ BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY )
 	// 3. they are a radio operator in an adjacent sector
 	// 4. they are a radio operator in a sector adjacent to the militia's town
 	// 5. they are a radio operator in a town adjacent to the militia's sector
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE )
 		{
 			BOOLEAN fRadioOperator = pSoldier->CanUseRadio( FALSE );

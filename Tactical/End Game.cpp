@@ -240,15 +240,16 @@ void DoneFadeInKilledQueen( void )
 
 void DoneFadeOutKilledQueen( void )
 {
-	INT32 cnt;
+	SoldierID cnt;
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
 
 	// For one, loop through our current squad and move them over
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for (; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 		{
@@ -272,8 +273,9 @@ void DoneFadeOutKilledQueen( void )
 	cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we active and in sector.....
 		if ( pTeamSoldier->bActive	)
 		{
@@ -350,7 +352,7 @@ void HandleDoneLastKilledQueenQuote( )
 
 void EndQueenDeathEndgameBeginEndCimenatic( )
 {
-	INT32 cnt;
+	SoldierID cnt;
 	SOLDIERTYPE *pSoldier;
 
 	// Start end cimimatic....
@@ -360,8 +362,9 @@ void EndQueenDeathEndgameBeginEndCimenatic( )
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) )
 		{
@@ -633,7 +636,7 @@ void FadeOutToLaptopOnEndGame( void )
 void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
+	SoldierID cnt;
 
 
 	gpKillerSoldier = pKillerSoldier;
@@ -654,8 +657,9 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 	cnt = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Are we active and ALIVE and in sector.....
 		if ( pTeamSoldier->bActive && pTeamSoldier->stats.bLife > 0 )
 		{
@@ -679,8 +683,7 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
-	UINT16		ubKillerSoldierID = NOBODY;
+	SoldierID		ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
@@ -693,13 +696,14 @@ void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLe
 
 	// STEP 1 ) START ALL QUOTES GOING!
 	// OK - loop through all witnesses and see if they want to say something abou this...
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
 		if ( cnt != ubKillerSoldierID )
 		{
+			pTeamSoldier = cnt;
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
 			{
 				if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpWitnessQueenBugDeath )

@@ -679,7 +679,6 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	INT8 bTownId = 0;
 	INT32 iLoyaltyChange = 0;
 	INT8 bSeenState = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pCivSoldier = NULL;
 	UINT32 uiChanceFalseAccusal = 0;
 	INT8 bKillerTeam = 0;
@@ -789,10 +788,10 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	// check if LOS between any civ, killer and killed
 	// if so, then do not adjust
 
-	for( iCounter = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; iCounter++ )
+	for( SoldierID iCounter = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++iCounter )
 	{
 		// set current civ soldier
-		pCivSoldier = MercPtrs[ iCounter ];
+		pCivSoldier = iCounter;
 
 		if ( pCivSoldier == pSoldier )
 		{
@@ -2129,13 +2128,12 @@ BOOLEAN DidFirstBattleTakePlaceInThisTown( INT8 bTownId )
 
 UINT32 PlayerStrength( void )
 {
-	UINT16 ubLoop;
-	SOLDIERTYPE * pSoldier;
+	SOLDIERTYPE *pSoldier;
 	UINT32 uiStrength, uiTotal = 0;
 
-	for ( ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++ )
+	for ( SoldierID ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
-		pSoldier = MercPtrs[ ubLoop ];
+		pSoldier = ubLoop;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bInSector || (pSoldier->flags.fBetweenSectors && SECTORX( pSoldier->ubPrevSectorID ) == gWorldSectorX && SECTORY( pSoldier->ubPrevSectorID ) == gWorldSectorY && (pSoldier->bSectorZ == gbWorldSectorZ)) )
@@ -2151,13 +2149,12 @@ UINT32 PlayerStrength( void )
 
 UINT32 EnemyStrength( void )
 {
-	UINT16 ubLoop;
 	SOLDIERTYPE * pSoldier;
 	UINT32 uiStrength, uiTotal = 0;
 
-		for ( ubLoop = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 		{
-			pSoldier = MercPtrs[ ubLoop ];
+			pSoldier = ubLoop;
 			if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral )
 			{
 				// count this person's strength (condition), calculated as life reduced up to half according to maxbreath

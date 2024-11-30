@@ -394,7 +394,7 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	//DBrot: More Rooms
 	//UINT8						ubRoom;
 	UINT16 usRoom;
-	UINT16		bLoop;
+	SoldierID		bLoop;
 	SOLDIERTYPE * pSoldier;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
@@ -404,9 +404,9 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	}
 	usRoom = gusWorldRoomInfo[ pNPC->sGridNo ];
 
-	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 	{
-		pSoldier = MercPtrs[ bLoop ];
+		pSoldier = bLoop;
 		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( gusWorldRoomInfo[ pSoldier->sGridNo ] == usRoom )
@@ -536,12 +536,11 @@ BOOLEAN FemalePresent( UINT8 ubProfileID )
 
 BOOLEAN CheckPlayerHasHead( void )
 {
-	UINT16 bLoop;
 	SOLDIERTYPE * pSoldier;
 
-	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+	for ( SoldierID bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 	{
-		pSoldier = MercPtrs[ bLoop ];
+		pSoldier = bLoop;
 
 		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )
 		{
@@ -1714,9 +1713,9 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 {
 	ScreenMsg( FONT_MCOLOR_LTBLUE, MSG_TESTVERSION, L"QUEST COMPLETED - Adding to merc records and awarding experiences (%d).", (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests) );
 
-	for ( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+	for ( SoldierID i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && pSoldier->stats.bLife >= CONSCIOUSNESS && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
 			pSoldier->sSectorX == sQuestSectorX && pSoldier->sSectorY == sQuestsSectorY && !pSoldier->flags.fBetweenSectors && pSoldier->bTeam == gbPlayerNum &&
 			pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ pSoldier->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )

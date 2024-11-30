@@ -1676,9 +1676,9 @@ void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT16 *pubNumC
 	*pubNumCreatures = 0;
 	pSector->ubNumCreatures = 0;
 	pSector->ubCreaturesInBattle = 0;
-	for( INT32 i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			switch( pSoldier->ubBodyType )
@@ -1712,9 +1712,9 @@ void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT16* pu
 	*pubNumCreatures = 0;
 	pSector->ubNumCreatures = 0;
 	pSector->ubCreaturesInBattle = 0;
-	for ( INT32 i = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
+	for ( SoldierID i = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[i];
+		pSoldier = i;
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if ( pSoldier->IsZombie() )
@@ -2243,7 +2243,6 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine()
 {
 	CREATURE_DIRECTIVE *curr;
 	SOLDIERTYPE *pSoldier;
-	INT32 i;
 	INT16 sSectorX, sSectorY;
 	INT8 bSectorZ;
 
@@ -2261,9 +2260,9 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine()
 		bSectorZ = (INT8)curr->pLevel->ubSectorZ;
 		//Loop through all the creature directives (mine sectors that are infectible) and
 		//see if players are there.
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
-			pSoldier = MercPtrs[ i ];
+			pSoldier = i;
 			if( pSoldier->bActive && pSoldier->stats.bLife &&
 					pSoldier->sSectorX == sSectorX &&
 					pSoldier->sSectorY == sSectorY &&

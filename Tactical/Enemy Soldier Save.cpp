@@ -1395,7 +1395,6 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 {
 	SOLDIERINITNODE *curr;
 	SOLDIERTYPE *pSoldier;
-	INT32 i;
 	INT32 slots = 0;
 	UINT32 uiNumBytesWritten;
 	UINT32 uiTimeStamp;
@@ -1428,9 +1427,9 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 	//STEP ONE:	Prep the soldiers for saving...
 
 	//modify the map's soldier init list to reflect the changes to the members still alive...
-	for( i = gTacticalStatus.Team[ ubStartID ].bFirstID; i <= gTacticalStatus.Team[ ubEndID ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ ubStartID ].bFirstID; i <= gTacticalStatus.Team[ ubEndID ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 
 		//make sure the person is active, alive, in the sector, and is not a profiled person
 		if( pSoldier && pSoldier->bActive /*&& pSoldier->bInSector*/ && pSoldier->stats.bLife && pSoldier->ubProfile == NO_PROFILE )
@@ -1584,9 +1583,9 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 		return TRUE;
 	}
 
-	for( i = gTacticalStatus.Team[ ubStartID ].bFirstID; i <= gTacticalStatus.Team[ ubEndID ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ ubStartID ].bFirstID; i <= gTacticalStatus.Team[ ubEndID ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		// CJC: note that bInSector is not required; the civ could be offmap!
 		if( pSoldier->bActive /*&& pSoldier->bInSector*/ && pSoldier->stats.bLife )
 		{

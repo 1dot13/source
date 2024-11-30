@@ -5389,15 +5389,16 @@ void UpdateGear()
 	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) )
 		return;
 		
-	UINT16									bMercID, bLastTeamID;
+	SoldierID									bMercID, bLastTeamID;
 	SOLDIERTYPE*							pSoldier = NULL;
 
 	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
 	// loop through all mercs
-	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		//if the merc is in this sector
 		if ( pSoldier->bActive && pSoldier->bInSector && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
 		{
@@ -6735,7 +6736,7 @@ void CheckForPickedOwnership( void )
 	UINT8 ubProfile;
 	UINT8 ubCivGroup;
 	SOLDIERTYPE * pSoldier;
-	UINT16 ubLoop;
+	SoldierID ubLoop;
 
 	// LOOP THROUGH LIST TO FIND NODE WE WANT
 	GetItemPool( gsTempGridNo, &pItemPool, gpTempSoldier->pathing.bLevel );
@@ -6762,9 +6763,9 @@ void CheckForPickedOwnership( void )
 					pItemPool = pItemPool->pNext;
 					continue;
 				}
-				for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+				for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 				{
-					pSoldier = MercPtrs[ ubLoop ];
+					pSoldier = ubLoop;
 					if ( pSoldier && pSoldier->ubCivilianGroup == ubCivGroup )
 					{
 						TestPotentialOwner( pSoldier );

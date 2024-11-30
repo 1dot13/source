@@ -184,8 +184,8 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 // MercDailyUpdate() gets called every day at midnight.	If something is to happen to a merc that day, add an event for it.
 void MercDailyUpdate()
 {
-	INT32		cnt;
-	UINT16		bLastTeamID;
+	SoldierID		id;
+	SoldierID		bLastTeamID;
 	SOLDIERTYPE		*pSoldier;
 	//SOLDIERTYPE *pQuitList[ 21 ];
 	MERCPROFILESTRUCT *pProfile;
@@ -217,12 +217,13 @@ void MercDailyUpdate()
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_2,	0 );
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_3,	0 );
 	
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 	
 	//loop though all the mercs
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; ++cnt,++pSoldier)
+	for ( ; id <= bLastTeamID; ++id)
 	{
+		pSoldier = id;
 		//if the merc is active
 		if ( ( pSoldier->bActive )&&( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )
 		{
@@ -374,11 +375,10 @@ void MercDailyUpdate()
 		}
 	}
 
-	//r eset the counter
-	cnt = 0;
-
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	//reset the counter
+	for ( id = 0; id <= bLastTeamID; ++id )
 	{
+		pSoldier = id;
 		//if the merc is active
 		if ( ( pSoldier->bActive )&&( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )
 		{
@@ -402,7 +402,7 @@ void MercDailyUpdate()
 	// WANNE: Only send mails from the original 1.13 merc, and not from the wildfire merc,
 	// otherwise we get wrong mails cause of hardcoded Email.edt structure!!!!!	
 	UINT16 numOriginalProfiles = 255;
-	for( cnt = 0; cnt < numOriginalProfiles; ++cnt)
+	for( UINT16 cnt = 0; cnt < numOriginalProfiles; ++cnt)
 	{
 		pProfile = &(gMercProfiles[ cnt ]);
 
@@ -900,7 +900,7 @@ void MercComplainAboutEquipment( UINT8 ubProfile )
 
 void UpdateBuddyAndHatedCounters( void )
 {
-	UINT16 bMercID, bOtherID, bLastTeamID;
+	SoldierID bMercID, bOtherID, bLastTeamID;
 	INT32 iLoop;
 	UINT8 ubOtherProfileID;
 	SOLDIERTYPE *pSoldier;
@@ -913,8 +913,9 @@ void UpdateBuddyAndHatedCounters( void )
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	//loop though all the mercs
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		fSameGroupOnly = FALSE;
 
 		//if the merc is active and on a combat assignment
@@ -931,9 +932,9 @@ void UpdateBuddyAndHatedCounters( void )
 			fUpdatedTimeTillNextHatedComplaint = FALSE;
 
 			bOtherID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
-			for ( pOtherSoldier = MercPtrs[ bOtherID ]; bOtherID <= bLastTeamID; bOtherID++, pOtherSoldier++)
+			for ( ; bOtherID <= bLastTeamID; ++bOtherID )
 			{
+				pOtherSoldier = bOtherID;
 				// is this guy in the same sector and on active duty (or in the same moving group)
 
 				if (bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->bAssignment < ON_DUTY )
@@ -1248,15 +1249,16 @@ void UpdateBuddyAndHatedCounters( void )
 
 void HourlyCamouflageUpdate( void )
 {
-	UINT16 bMercID, bLastTeamID;
+	SoldierID bMercID, bLastTeamID;
 	SOLDIERTYPE * pSoldier;
 	BOOLEAN camoWoreOff = FALSE;
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// loop through all mercs
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		if ( pSoldier->bActive )
 		{
 			// SANDRO - new Ranger trait reduces camo degrading, which replaces camouflage trait

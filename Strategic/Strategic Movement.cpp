@@ -5456,9 +5456,9 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		// merc recoeds - get a point to scouts
 		if ( fBloodCatAmbushPrevented )
 		{
-			for( UINT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 			{
-				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				SOLDIERTYPE *pSoldier = i;
 				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
 					if ( pSoldier->sSectorX == pGroup->ubSectorX && pSoldier->sSectorY == pGroup->ubSectorY && pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND && pSoldier->stats.bLife >= OKLIFE )
@@ -5939,12 +5939,10 @@ BOOLEAN ValidateGroups( GROUP *pGroup )
 BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 {
 	BOOLEAN fScoutPresent = FALSE;
-	INT32 i;
-
 	// sevenfm: scout should not be sleeping, in vehicle or on assignment
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive &&
 			pSoldier->stats.bLife >= OKLIFE &&
 			pSoldier->sSectorX == ubSectorNumX &&
@@ -5982,9 +5980,9 @@ BOOLEAN ConcealedMercInSector( INT16 ubSectorNumX, INT16 ubSectorNumY, BOOLEAN a
 	if ( !gGameOptions.fNewTraitSystem )
 		return FALSE;
 
-	for ( int i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && SPY_LOCATION( pSoldier->bAssignment ) )
 		{
 			if ( pSoldier->sSectorX == ubSectorNumX && pSoldier->sSectorY == ubSectorNumY && pSoldier->bSectorZ == 10 )

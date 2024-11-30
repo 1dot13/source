@@ -1403,15 +1403,16 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 					// WANNE: Ignore, so the game can continue ...
 				}
 
-				INT32 tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+				SoldierID tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 				SOLDIERTYPE *tS;
 
 				INT16	sXOffset, sYOffset;
 				INT32	sGridNo;
 				UINT16	usSightLimit=0;
 
-				for ( tS = MercPtrs[ tcnt ]; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++tcnt, tS++ )
+				for ( ; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++tcnt )
 				{
+					tS = tcnt;
 					if ( tS->stats.bLife >= OKLIFE && tS->sGridNo != NOWHERE && tS->bInSector )
 					{
 						//loop through all the gridnos that we are interested in
@@ -2113,17 +2114,17 @@ UINT32 UIHandleCWait( UI_EVENT *pUIEvent )
 // SelectedMercCanAffordMove
 UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 {
-	INT32 usMapPos;
-	SOLDIERTYPE				*pSoldier;
-	INT32							sDestGridNo;
-	INT32 sActionGridNo;
-	STRUCTURE					*pStructure;
-	UINT8							ubDirection = 0xff;
-	BOOLEAN						fAllMove;
-	UINT16							bLoop;
-	LEVELNODE					*pIntTile;
-	INT32 sIntTileGridNo;
-	BOOLEAN						fOldFastMove;
+	INT32		usMapPos;
+	SOLDIERTYPE	*pSoldier;
+	INT32		sDestGridNo;
+	INT32		sActionGridNo;
+	STRUCTURE	*pStructure;
+	UINT8		ubDirection = 0xff;
+	BOOLEAN		fAllMove;
+	SoldierID	bLoop;
+	LEVELNODE	*pIntTile;
+	INT32		sIntTileGridNo;
+	BOOLEAN		fOldFastMove;
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
@@ -2144,13 +2145,14 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 
 			// Loop through all mercs and make go!
 			// TODO: Only our squad!
-			for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pSoldier++)
+			for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
 			{
+				pSoldier = bLoop;
 				if ( OK_CONTROLLABLE_MERC( pSoldier ) && pSoldier->bAssignment == CurrentSquad( ) && !pSoldier->flags.fMercAsleep )
 				{
-					 // If we can't be controlled, returninvalid...
-					 if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
-					 {
+					// If we can't be controlled, returninvalid...
+					if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
+					{
 						if ( !pSoldier->CanRobotBeControlled( ) )
 						{
 							continue;

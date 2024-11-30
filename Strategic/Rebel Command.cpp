@@ -2178,9 +2178,9 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 
 	// temp/fixme
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[i];
+		SOLDIERTYPE* pSoldier = i;
 
 		if (pSoldier && pSoldier->bActive
 			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
@@ -2823,9 +2823,9 @@ void PrepareMission(INT8 index)
 
 	// confirmation popup
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[i];
+		SOLDIERTYPE* pSoldier = i;
 
 		if (pSoldier && pSoldier->bActive
 			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
@@ -2988,9 +2988,9 @@ void PrepareMission(INT8 index)
 
 			if (!evt.sentGenericRebelAgent)
 			{
-				for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					SOLDIERTYPE* pSoldier = i;
 					if (pSoldier->ubProfile == evt.mercProfileId)
 					{
 						TakeSoldierOutOfVehicle(pSoldier);
@@ -4908,9 +4908,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		// make sure the merc's still on our team
 		BOOLEAN foundMerc = FALSE;
-		for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			const SOLDIERTYPE* pSoldier = MercPtrs[i];
+			const SOLDIERTYPE* pSoldier = i;
 
 			if (pSoldier->ubProfile == evt1.mercProfileId && pSoldier->bActive)
 			{
@@ -4979,9 +4979,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				if (!evt1.sentGenericRebelAgent)
 				{
-					for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+					for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 					{
-						SOLDIERTYPE* pSoldier = MercPtrs[i];
+						SOLDIERTYPE* pSoldier = i;
 						if (pSoldier->ubProfile == evt1.mercProfileId)
 						{
 							if (mission == RCAM_FORGE_TRANSPORT_ORDERS)
@@ -5006,9 +5006,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		{
 			if (!evt1.sentGenericRebelAgent && foundMerc)
 			{
-				for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					SOLDIERTYPE* pSoldier = i;
 					if (pSoldier->ubProfile == evt1.mercProfileId)
 					{
 						// mission failed! we tried, give some pity exp
@@ -5028,9 +5028,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		if (!evt1.sentGenericRebelAgent && foundMerc)
 		{
-			for (UINT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 			{
-				SOLDIERTYPE* pSoldier = MercPtrs[i];
+				SOLDIERTYPE* pSoldier = i;
 				if (pSoldier->ubProfile == evt1.mercProfileId)
 				{
 					// merc ready for reassignment

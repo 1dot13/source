@@ -6173,7 +6173,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
 	{
 		//DBrot: More Rooms
-		UINT16	/*ubRoom,*/ cnt;
+		SoldierID	/*ubRoom,*/ cnt;
 		UINT16 usRoom;
 		SOLDIERTYPE * pSoldier2;
 
@@ -6181,8 +6181,9 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		{
 			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-			for ( pSoldier2 = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier2++)
+			for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt)
 			{
+				pSoldier2 = cnt;
 				if ( pSoldier2->bActive )
 				{
 					if ( FindObj( pSoldier2, CHALICE ) != ITEM_NOT_FOUND )

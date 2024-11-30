@@ -1852,11 +1852,14 @@ void RenderAutoResolve()
 
 				case BATTLE_SURRENDERED:
 				case BATTLE_CAPTURED:
-					for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+				{
+					SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+					const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+					for ( ; id <= lastid; ++id )
 					{
-						SOLDIERTYPE *pSoldier = MercPtrs[i];
+						SOLDIERTYPE *pSoldier = id;
 
-						if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
+						if ( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 						{ //Merc is active and alive, and not a vehicle or robot
 							if ( PlayerMercInvolvedInThisCombat( pSoldier ) )
 							{
@@ -1866,17 +1869,18 @@ void RenderAutoResolve()
 						}
 					}
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					#ifdef NEWMUSIC
-					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0];
-					if ( MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] != -1 )
-						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] );
+					if ( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+#ifdef NEWMUSIC
+					GlobalSoundID = MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0];
+					if ( MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0] != -1 )
+						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0] );
 					else
-					#endif
-					SetMusicMode( MUSIC_TACTICAL_DEATH );
+#endif
+						SetMusicMode( MUSIC_TACTICAL_DEATH );
 
 					gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					break;
+				}
 				case BATTLE_DEFEAT:
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 
@@ -5959,9 +5963,11 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 				(!gTacticalStatus.fEnemyInSector))
 			{
 				unsigned mercCnt = 0;
-				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+				SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+				const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+				for ( ; id <= lastid; ++id )
 				{
-					SOLDIERTYPE *pSoldier = MercPtrs[i];
+					SOLDIERTYPE *pSoldier = id;
 
 					if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 					{

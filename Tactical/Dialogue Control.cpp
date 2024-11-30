@@ -1759,9 +1759,10 @@ void AdditionalTacticalCharacterDialogue_AllInSector(INT16 aSectorX, INT16 aSect
 	UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3, INT32 aAroundGridno, INT32 aRadius )
 {
 	SOLDIERTYPE* pSoldier;
-	int cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, pSoldier++ )
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive &&
 			pSoldier->ubProfile != ausIgnoreProfile &&
 			pSoldier->sSectorX == aSectorX && pSoldier->sSectorY == aSectorY && pSoldier->bSectorZ == aSectorZ &&
@@ -3122,10 +3123,10 @@ void HandleDialogueEnd( FACETYPE *pFace )
 								break;
 							default:
 								// select random enemy, who we see, who sees us and isn't deaf
-								for(UINT16 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
+								for( SoldierID cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; ++cnt )
 								{
-									if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
-										&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )
+									if( cnt->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
+										&& pSoldier->ubID->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( cnt->bDeafenedCounter > 0 ) )
 									{
 										ubSeenEnemies[ubSeenEnemiesCnt] = cnt; 
 										ubSeenEnemiesCnt++;
@@ -3297,16 +3298,16 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 	{
+		pTeamSoldier = id;
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
 		{
@@ -3329,7 +3330,7 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 #endif
 			}
 
-			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)id;
 			ubNumMercs++;
 		}
 	}
@@ -3342,7 +3343,7 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 		// If we are air raid, AND red exists somewhere...
 		if ( usQuoteNum == QUOTE_AIR_RAID )
 		{
-			for ( cnt = 0; cnt < ubNumMercs; cnt++ )
+			for ( UINT16 cnt = 0; cnt < ubNumMercs; cnt++ )
 			{
 				if ( ubMercsInSector[ cnt ] == 11 )
 				{
@@ -3366,16 +3367,16 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->bActive )
 		{
 			// Add guy if he's a candidate...
@@ -3419,16 +3420,16 @@ void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuo
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && PythSpacesAway( sGridNo, pTeamSoldier->sGridNo ) < bDistance && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep &&
 			SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo, 0, 0, TRUE ) )
@@ -3464,14 +3465,15 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && PythSpacesAway( sGridNo, pTeamSoldier->sGridNo ) < bDistance && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep &&
 			SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo, 0, 0, TRUE ) )

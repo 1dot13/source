@@ -2953,17 +2953,14 @@ SOLDIERTYPE * FindSoldierByProfileID_( UINT8 ubProfileID )
 
 SOLDIERTYPE * FindSoldierByProfileID2( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly )
 {
-	UINT16 cnt2, ubLoopLimit;
-	SOLDIERTYPE * pSoldier;
+	SoldierID soldier = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[CIV_TEAM].bLastID;
 
-		ubLoopLimit = gTacticalStatus.Team[CIV_TEAM].bLastID;
-
-	cnt2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-  for ( pSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt2++ ,pSoldier++)
+	for ( ; soldier <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++soldier)
 	{
-		if ( pSoldier->bActive && pSoldier->bInSector )
+		if ( soldier->bActive && soldier->bInSector )
 		{
-			return( pSoldier );
+			return( soldier );
 		}
 	}
 	return( NULL );
@@ -5977,7 +5974,6 @@ return 0;
 
 static int l_ActionInProgress(lua_State *L)
 {
-	UINT16 cnt2;
 	SOLDIERTYPE * pSoldier;
 
 	if (lua_gettop(L) >= 2)
@@ -5995,9 +5991,10 @@ static int l_ActionInProgress(lua_State *L)
 		}
 		else
 		{
-			cnt2 = gTacticalStatus.Team[CIV_TEAM].bFirstID;
-			for (pSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[CIV_TEAM].bLastID; cnt2++, pSoldier++)
+			SoldierID cnt2 = gTacticalStatus.Team[CIV_TEAM].bFirstID;
+			for ( ; cnt2 <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt2)
 			{
+				pSoldier = cnt2;
 				if (pSoldier->bActive && pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE)
 				{
 					pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier);
@@ -7623,9 +7620,9 @@ static int l_SetEnterCombatMode (lua_State *L)
 			return 0;
 
 		SOLDIERTYPE*		pGoon = NULL;
-		for ( UINT16 ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop)
 		{
-			pGoon = MercPtrs[ ubLoop ];
+			pGoon = ubLoop;
 			if ( pGoon->ubCivilianGroup == group && pGoon->bActive && pGoon->bInSector && pGoon->stats.bLife >= OKLIFE && pGoon->aiData.bOppList[ ubID ] == SEEN_CURRENTLY )
 			{
 				MakeCivHostile(pGoon);

@@ -711,9 +711,10 @@ void CalculateCover()
 				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect) // view of selected mercs
 				{
 					// OK, loop through all guys who are 'multi-selected' and
-					INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-					for (pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier)
+					SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+					for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 					{
+						pSoldier = cnt;
 						if (pSoldier->bActive && pSoldier->bInSector)
 						{
 							if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED)

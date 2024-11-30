@@ -2429,15 +2429,15 @@ BOOLEAN MapExists( UINT8 * szFilename )
 
 void RemoveMercsInSector( )
 {
-	INT32					cnt;
 	SOLDIERTYPE		*pSoldier;
 
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-	cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
 	// ATE: only for OUR guys.. the rest is taken care of in TrashWorld() when a new sector is added...
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive )
 		{
 			pSoldier->RemoveSoldierFromGridNo( );
@@ -2698,7 +2698,6 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 	//UINT8		ubRandomMiner[RANDOM_HEAD_MINERS] = { 106, 156, 157, 158 };
 	//UINT8		ubMiner, ubMinersPlaced, ubMine;
 	UINT8		ubThisMine;
-	UINT16		cnt;
 	SOLDIERTYPE * pSoldier;
 
 	// are we in a mine sector, on the surface?
@@ -2783,13 +2782,13 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 
 	// Check to see if any player merc has the Chalice; if so,
 	// note it as stolen
-	cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
-		if ( pSoldier->bActive )
+		if ( cnt->bActive )
 		{
-			if ( FindObj( pSoldier, CHALICE ) != ITEM_NOT_FOUND )
+			if ( FindObj( cnt, CHALICE ) != ITEM_NOT_FOUND )
 			{
 				SetFactTrue( FACT_CHALICE_STOLEN );
 			}
@@ -2951,7 +2950,6 @@ extern void SetLastTimePlayerWasInSector( );
 // @calls SetLastTimePlayerWasInSector
 BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32 i;
 	UNDERGROUND_SECTORINFO *pNode = NULL;
 	CHAR8 bFilename[50];
 
@@ -2968,9 +2966,9 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	//@@@Evaluate
 	if ( gfWorldLoaded )
 	{
-		for ( i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; i++ )
+		for ( SoldierID i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++i )
 		{
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = i;
 			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
 				SetupProfileInsertionDataForSoldier( pSoldier );
@@ -3099,7 +3097,6 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32					cnt;
 	SOLDIERTYPE		*pSoldier;
 	BOOLEAN				fPOWSquadSet = FALSE;
 	UINT8					ubPOWSquad = 0;
@@ -3129,8 +3126,9 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 	//if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
-		for ( cnt = 0, pSoldier = MercPtrs[cnt]; cnt < MAX_NUM_SOLDIERS; ++cnt, ++pSoldier )
+		for ( SoldierID cnt = 0; cnt < MAX_NUM_SOLDIERS; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( gfRestoringEnemySoldiersFromTempFile &&
 				 cnt >= gTacticalStatus.Team[ENEMY_TEAM].bFirstID &&
 				 cnt <= gTacticalStatus.Team[CREATURE_TEAM].bLastID )
@@ -3954,7 +3952,6 @@ UINT8 GetStrategicInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirect
 
 void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 sAdditionalData )//dnl ch56 151009
 {
-	INT32 cnt;
 	SOLDIERTYPE		*pSoldier;
 	SOLDIERTYPE *pValidSoldier = NULL;
 	GROUP *pGroup;
@@ -3972,11 +3969,12 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 	{
 		// TODO: Check flags to see if we can jump!
 		// Move controllable mercs!
-		cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
 		// look for all mercs on the same team,
-		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
+		for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			// If we are controllable
 			if ( OK_CONTROLLABLE_MERC( pSoldier ) && pSoldier->bAssignment == CurrentSquad( ) )
 			{
@@ -4214,12 +4212,13 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 void JumpIntoEscapedSector(UINT8 ubTacticalDirection)
 {
 	// Remove any incapacitated mercs from current squads and assign them to new squad
-	UINT32 i = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID const lastID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 	INT8 currentSquad = -1;
 
-	for (SOLDIERTYPE* pSoldier = MercPtrs[i]; i <= lastID; ++i, ++pSoldier)
+	for ( ; id <= lastID; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
 		// Are we not active in sector
 		if (!pSoldier->bActive || !pSoldier->bInSector || pSoldier->stats.bLife >= OKLIFE)
 		{
@@ -4833,7 +4832,6 @@ BOOLEAN SoldierOKForSectorExit( SOLDIERTYPE * pSoldier, INT8 bExitDirection, INT
 //ATE: Returns FALSE if NOBODY is close enough, 1 if ONLY selected guy is and 2 if all on squad are...
 BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *puiTraverseTimeInMinutes )//dnl ch56 151009
 {
-	INT32 cnt;
 	SOLDIERTYPE		*pSoldier;
 	BOOLEAN		fAtLeastOneMercControllable = FALSE;
 	BOOLEAN		fOnlySelectedGuy = FALSE;
@@ -4876,11 +4874,12 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 	gbPotentiallyAbandonedEPCSlotID = NOBODY;
 
 	// Look through all mercs and check if they are within range of east end....
-	cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// If we are controllable
 		if ( OK_CONTROLLABLE_MERC( pSoldier ) && (pSoldier->bAssignment == CurrentSquad( ) ||
 			(pSoldier->bAssignment == VEHICLE && pSoldier->iVehicleId != iHelicopterVehicleId && GetSoldierStructureForVehicle( pSoldier->iVehicleId )->bAssignment == CurrentSquad( ))) )
@@ -5157,7 +5156,7 @@ void SetSamHackStatus( INT16 sSectorX, INT16 sSectorY, INT8 sStatus )
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 {
-	INT32 cnt;
+	SoldierID cnt;
 	SOLDIERTYPE *pSoldier;
 
 	// if not a valid sector
@@ -5170,8 +5169,9 @@ BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all living, fighting mercs on player's team.  Robot and EPCs qualify!
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// ARM: now allows loading of sector with all mercs below OKLIFE as long as they're alive
 		if( ( pSoldier->bActive && pSoldier->stats.bLife ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 			( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) && ( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
@@ -6430,8 +6430,6 @@ BOOLEAN IsSectorRoad( INT16 sSectorX, INT16 sSectorY )
 
 BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 {
-	INT32 i;
-
 	// clear tactical queue
 	ClearEventQueue( );
 
@@ -6493,9 +6491,9 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 
 		//Setup the tactical existance of the current soldier.
 		//@@@Evaluate
-		for ( i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; i++ )
+		for ( SoldierID i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++i )
 		{
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = i;
 			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
 				SetupProfileInsertionDataForSoldier( pSoldier );
@@ -6514,18 +6512,18 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 {
 	//We don't have mercs in the sector.  Now, we check to see if there are BOTH enemies and militia.  If both
 	//co-exist in the sector, then make them fight for control of the sector via autoresolve.
-	for ( int i = gTacticalStatus.Team[ENEMY_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; i++ )
+	for ( SoldierID i = gTacticalStatus.Team[ENEMY_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
 	{
-		SOLDIERTYPE *pEnemy = MercPtrs[i];
+		SOLDIERTYPE *pEnemy = i;
 		if ( pEnemy->bActive && pEnemy->stats.bLife )
 		{
 			if ( pEnemy->sSectorX == pSectorX &&
 				 pEnemy->sSectorY == pSectorY &&
 				 pEnemy->bSectorZ == pSectorZ )
 			{ //We have enemies, now look for militia!
-				for ( i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; i++ )
+				for ( SoldierID j = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; j <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++j )
 				{
-					SOLDIERTYPE *pMilitia = MercPtrs[i];
+					SOLDIERTYPE *pMilitia = j;
 					if ( pMilitia->bActive && pMilitia->stats.bLife && pMilitia->bSide == OUR_TEAM )
 					{
 						if ( pMilitia->sSectorX == pSectorX &&
@@ -6567,7 +6565,6 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 
 BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 {
-	INT32 i;
 	INT16 sBattleSectorX, sBattleSectorY, sBattleSectorZ;
 
 	//Don't bother checking this if we don't have a world loaded.
@@ -6592,9 +6589,9 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 	{ //The user has decided to let the game autoresolve the current battle.
 		if ( gWorldSectorX == sBattleSectorX && gWorldSectorY == sBattleSectorY && gbWorldSectorZ == sBattleSectorZ )
 		{
-			for ( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
+			for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
 			{ //If we have a live and valid soldier
-				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				SOLDIERTYPE *pSoldier = i;
 				if ( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) )
 				{
 					if ( pSoldier->sSectorX == gWorldSectorX &&
@@ -6610,9 +6607,9 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 	}
 	else
 	{	//Check and see if we have any live mercs in the sector.
-		for ( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
 		{ //If we have a live and valid soldier
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = i;
 			if ( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) )
 			{
 				if ( pSoldier->sSectorX == gWorldSectorX &&

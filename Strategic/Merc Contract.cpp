@@ -742,16 +742,12 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent )
 {
-	UINT16 bMercID;
-	UINT16 bLastTeamID;
-	SOLDIERTYPE * pSoldier;
-
-
-	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 	// loop through all mercs to find buddies
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( ; bMercID <= bLastTeamID; ++bMercID)
 	{
+		SOLDIERTYPE *pSoldier = bMercID;
 		//if the merc is active, in Arulco, not POW and is a buddy
 		if ( WhichBuddy(pSoldier->ubProfile,pFiredSoldier->ubProfile) != (-1) &&
 			pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&

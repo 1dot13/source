@@ -6948,19 +6948,15 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 
 BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32 iFirstId = 0, iLastId = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-
 	// to speed it up a little?
-	iFirstId = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = iFirstId; iCounter <= iLastId; iCounter++ )
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	const SoldierID iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for( ; id <= iLastId; ++id )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// is the soldier active
 		if( pSoldier->bActive == FALSE )

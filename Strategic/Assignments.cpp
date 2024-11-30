@@ -18407,12 +18407,12 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 
 BOOLEAN IsAnyOneOnPlayersTeamOnThisAssignment( INT8 bAssignment )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	
-	for( INT32 iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
+	SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+	for( ; id <= lastid; ++id)
 	{
 		// get the current soldier
-		pSoldier = &Menptr[ iCounter ];
+		SOLDIERTYPE *pSoldier = id;
 
 		// active?
 		if( pSoldier->bActive == FALSE )
@@ -18443,7 +18443,6 @@ void RebuildAssignmentsBox( void )
 
 void BandageBleedingDyingPatientsBeingTreated( )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	SOLDIERTYPE *pDoctor = NULL;
 	INT32 iKitSlot;
@@ -18452,10 +18451,10 @@ void BandageBleedingDyingPatientsBeingTreated( )
 	UINT32 uiKitPtsUsed;
 	BOOLEAN fSomeoneStillBleedingDying = FALSE;
 	
-	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// check if the soldier is currently active?
 		if( pSoldier->bActive == FALSE )
@@ -19601,9 +19600,11 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 		fSomethingWasRepairedThisPass = FALSE;
 		
 		// look for jammed guns on other soldiers in sector and unjam them
-		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+		SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; id <= lastid; ++id )
 		{
-			pOtherSoldier = MercPtrs[ bLoop ];
+			pOtherSoldier = id;
 
 			// check character is valid, alive, same sector, not between, has inventory, etc.
 			if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
@@ -19621,9 +19622,11 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 			pBestOtherSoldier = NULL;
 
 			// now look for items to repair on other mercs
-			for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+			SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+			for ( ; id <= lastid; ++id )
 			{
-				pOtherSoldier = MercPtrs[ bLoop ];
+				pOtherSoldier = id;
 
 				// check character is valid, alive, same sector, not between, has inventory, etc.
 				if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
@@ -22806,11 +22809,11 @@ BOOLEAN MercStaffsMilitaryHQ()
 		return TRUE;
 
 	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
+		pSoldier = id;
 		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
 		{
 			return TRUE;

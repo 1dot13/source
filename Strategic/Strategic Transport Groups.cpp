@@ -222,9 +222,9 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	// build map of detection sectors + ranges
 	std::map<std::pair<INT16,INT16>, INT8> detectionMap;
 	std::map<UINT8, MonitoredSectorState> monitoredTowns;
-	for( INT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 
 		if( pSoldier->bActive &&
 			pSoldier->stats.bLife >= OKLIFE &&
@@ -448,8 +448,8 @@ void UpdateTransportGroupInventory()
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return;
 
-	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+	const SoldierID firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	const SoldierID lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	const UINT8 progress = CurrentPlayerProgressPercentage();
 
 	enum ItemTypes
@@ -481,9 +481,9 @@ void UpdateTransportGroupInventory()
 	{
 		// let's be nice to the player and only drop ammo for guns their mercs have in inventory
 		std::set<UINT8> playerCalibres;
-		for (INT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++)
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = i;
 			if (pSoldier->bActive && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 			{
 				for (int j = 0 ; j < pSoldier->inv.size(); ++j)
@@ -602,9 +602,9 @@ void UpdateTransportGroupInventory()
 
 	// cache the initial jeep count of every group we find
 	std::map<UINT8, int> cachedGroupJeepCount;
-	for (int slot = firstSlot; (slot <= lastSlot); ++slot)
+	for ( SoldierID slot = firstSlot; (slot <= lastSlot); ++slot)
 	{
-		SOLDIERTYPE* pSoldier = &Menptr[slot];
+		SOLDIERTYPE* pSoldier = slot;
 
 		const std::map<UINT8, std::map<int, UINT16>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
 		if (groupIter != transportGroupIdToSoldierMap.end())

@@ -9122,81 +9122,85 @@ void AssignPersonnelWoundsHelpText( INT32 ubProfile )
 INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt=0;
 	UINT32 uiMercPoints, uiMercPercentage; 
 	unsigned long ulTotalMercPoints = 0;
 
 	// run through active soldiers
-	for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++)
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
-		pTeamSoldier = MercPtrs[cnt];
+		pTeamSoldier = id;
 		// Only count stats of merc (not vehicles)
 		if ( !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pTeamSoldier ) )
 		{
 			if( pTeamSoldier->bActive && pTeamSoldier->stats.bLife > 0 && pTeamSoldier->ubProfile != 0 )
 			{
+				const STRUCT_Records &records = gMercProfiles[pTeamSoldier->ubProfile].records;
+
 				// get total value of all mercs, adjust by importance
 				ulTotalMercPoints += 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usLocksPicked )
+					( records.usLocksPicked )
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usLocksBreached )
+					( records.usLocksBreached )
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usTrapsRemoved *3/2)
+					( records.usTrapsRemoved *3/2)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usExpDetonated *3/2)
+					( records.usExpDetonated *3/2)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsRepaired /2)
+					( records.usItemsRepaired /2)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsCombined *2)
+					( records.usItemsCombined *2)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsStolen )
+					( records.usItemsStolen )
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usMercsBandaged *3/4)
+					( records.usMercsBandaged *3/4)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usSurgeriesMade *3/2)
+					( records.usSurgeriesMade *3/2)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usNPCsDiscovered *4/3)
+					( records.usNPCsDiscovered *4/3)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usSectorsDiscovered )
+					( records.usSectorsDiscovered )
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usMilitiaTrained /4)
+					( records.usMilitiaTrained /4)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.ubQuestsHandled *2)
+					( records.ubQuestsHandled *2)
 					+
-					(gMercProfiles[pTeamSoldier->ubProfile].records.usInterrogations);
+					( records.usInterrogations);
 			}
 		}
 	}
 
 	// Now get points of our mercs
-	uiMercPoints = 
-		( gMercProfiles[ ubProfile ].records.usLocksPicked )
+	const STRUCT_Records &records = gMercProfiles[ubProfile].records;
+	uiMercPoints =
+		( records.usLocksPicked )
 		+ 
-		( gMercProfiles[ ubProfile ].records.usLocksBreached )
+		( records.usLocksBreached )
 		+ 
-		( gMercProfiles[ ubProfile ].records.usTrapsRemoved *3/2)
+		( records.usTrapsRemoved *3/2)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usExpDetonated *3/2)
+		( records.usExpDetonated *3/2)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usItemsRepaired /2)
+		( records.usItemsRepaired /2)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usItemsCombined *2)
+		( records.usItemsCombined *2)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usItemsStolen )
+		( records.usItemsStolen )
 		+ 
-		( gMercProfiles[ ubProfile ].records.usMercsBandaged *3/4)
+		( records.usMercsBandaged *3/4)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usSurgeriesMade *3/2)
+		( records.usSurgeriesMade *3/2)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usNPCsDiscovered *4/3)
+		( records.usNPCsDiscovered *4/3)
 		+ 
-		( gMercProfiles[ ubProfile ].records.usSectorsDiscovered )
+		( records.usSectorsDiscovered )
 		+ 
-		( gMercProfiles[ ubProfile ].records.usMilitiaTrained /4)
+		( records.usMilitiaTrained /4)
 		+ 
-		( gMercProfiles[ ubProfile ].records.ubQuestsHandled *2)
+		( records.ubQuestsHandled *2)
 		+
-		( gMercProfiles[ubProfile].records.usInterrogations );
+		( records.usInterrogations );
 
 	// Calculate percentage
 	if( ulTotalMercPoints != 0 )

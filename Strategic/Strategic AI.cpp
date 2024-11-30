@@ -912,7 +912,6 @@ void RemovePlayersFromAllMismatchGroups( SOLDIERTYPE *pSoldier )
 #ifdef JA2BETAVERSION
 void ValidatePlayersAreInOneGroupOnly()
 {
-	INT32 i;
 	INT32 iGroups;
 	INT32 iMismatches;
 	INT32 iNumErrors;
@@ -923,10 +922,10 @@ void ValidatePlayersAreInOneGroupOnly()
 	UINT8 ubGroupID;
 	//Go through each merc slot in the player team
 	iNumErrors = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{ //check to see if the merc has a group ID
 
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 
 		if( !pSoldier || !pSoldier->bActive || !pSoldier->stats.bLife || !pSoldier->ubGroupID )
 		{ //non-existant, dead, or in no group (don't care, skip to next merc)
@@ -4107,13 +4106,12 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		}
 		else
 		{ //We are in the basement sector, relocate queen to proper position.
-			INT32 i;
-			for( i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++i )
 			{
-				if( MercPtrs[ i ]->ubProfile == QUEEN )
+				if( i->ubProfile == QUEEN )
 				{ //Found queen, relocate her to 16866
 					BumpAnyExistingMerc( 16866 );
-					TeleportSoldier( MercPtrs[ i ], 16866, TRUE );
+					TeleportSoldier( i, 16866, TRUE );
 					break;
 				}
 			}

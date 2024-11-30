@@ -103,13 +103,13 @@ void ValidateEnemiesHaveWeapons()
 {
 	#ifdef JA2BETAVERSION
 		SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
-		INT32 i, iErrorDialog;
+		INT32 iErrorDialog;
 		SOLDIERTYPE *pSoldier;
 		INT32 iNumInvalid = 0;
 
-		for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++i )
+		for( SoldierID i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++i )
 		{
-			pSoldier = MercPtrs[ i ];
+			pSoldier = i;
 			if( !pSoldier->bActive || !pSoldier->bInSector )
 			{
 				continue;
@@ -287,11 +287,12 @@ UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSecto
 {
 	UINT16 teammemberspresent = 0;
 
-	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	SOLDIERTYPE *pTeamSoldier = NULL;
+	SoldierID	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pTeamSoldier = bMercID;
 		// we test several conditions before we allow adding an opinion
 		// other merc must be active, have a profile, be someone else and not be in transit or dead
 		if ( pTeamSoldier->bActive && !pTeamSoldier->flags.fBetweenSectors  && pTeamSoldier->stats.bLife > 0 && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
@@ -505,7 +506,6 @@ void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumA
 void EndTacticalBattleForEnemy()
 {
 	GROUP *pGroup;
-	INT32 i;
 
 	//Clear enemies in battle for all stationary groups in the sector.
 	if( gbWorldSectorZ > 0 )
@@ -558,15 +558,15 @@ void EndTacticalBattleForEnemy()
 
 	//Check to see if any of our mercs have abandoned the militia during a battle.  This is cause for a rather
 	//severe loyalty blow.
-	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE )
 		{ //found one live militia, so look for any enemies/creatures.
 			// NOTE: this is relying on ENEMY_TEAM being immediately followed by CREATURE_TEAM
-			for(UINT16 j = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; j <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
+			for( SoldierID j = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; j <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++j )
 			{
-				SOLDIERTYPE *pEnemy = MercPtrs[j];
+				SOLDIERTYPE *pEnemy = j;
 				if( pEnemy->bActive && pEnemy->bInSector && pEnemy->stats.bLife >= OKLIFE )
 				{ //confirmed at least one enemy here, so do the loyalty penalty.
 					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ABANDON_MILITIA, gWorldSectorX, gWorldSectorY, 0 );
@@ -583,9 +583,9 @@ UINT16 NumFreeSlots( UINT8 ubTeam )
 	UINT16 ubNumFreeSlots = 0;
 
 	//Count the number of free enemy slots.  It is possible to have multiple groups exceed the maximum.
-	for ( INT32 i = gTacticalStatus.Team[ubTeam].bFirstID; i <= gTacticalStatus.Team[ubTeam].bLastID; ++i )
+	for ( SoldierID i = gTacticalStatus.Team[ubTeam].bFirstID; i <= gTacticalStatus.Team[ubTeam].bLastID; ++i )
 	{
-		if ( !Menptr[i].bActive )
+		if ( !i->bActive )
 			++ubNumFreeSlots;
 	}
 
@@ -2106,14 +2106,14 @@ void AddPossiblePendingEnemiesToBattle()
 
 void NotifyPlayersOfNewEnemies()
 {
-	INT32 iSoldiers, iChosenSoldier, i;
+	INT32 iSoldiers, iChosenSoldier;
 	SOLDIERTYPE *pSoldier;
 	BOOLEAN fIgnoreBreath = FALSE;
 
 	iSoldiers = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{ //find a merc that is aware.
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bInSector && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bBreath >= OKBREATH )
 		{
 			iSoldiers++;
@@ -2123,9 +2123,9 @@ void NotifyPlayersOfNewEnemies()
 	{ // look for an out of breath merc.
 		fIgnoreBreath = TRUE;
 
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{ //find a merc that is aware.
-			pSoldier = MercPtrs[ i ];
+			pSoldier = i;
 			if( pSoldier->bInSector && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE )
 			{
 				iSoldiers++;
@@ -2135,9 +2135,9 @@ void NotifyPlayersOfNewEnemies()
 	if( iSoldiers )
 	{
 		iChosenSoldier = Random( iSoldiers );
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{ //find a merc that is aware.
-			pSoldier = MercPtrs[ i ];
+			pSoldier = i;
 			if( pSoldier->bInSector && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE &&
 				( ( pSoldier->bBreath >= OKBREATH ) || fIgnoreBreath ) )
 			{
@@ -2969,13 +2969,13 @@ BOOLEAN PlayerSectorDefended( UINT8 ubSectorID )
 BOOLEAN OnlyHostileCivsInSector()
 {
 	SOLDIERTYPE *pSoldier;
-	INT32 i;
+	SoldierID i;
 	BOOLEAN fHostileCivs = FALSE;
 
 	//Look for any hostile civs.
-	for( i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if( !pSoldier->aiData.bNeutral )
@@ -2990,9 +2990,9 @@ BOOLEAN OnlyHostileCivsInSector()
 		return FALSE;
 	}
 	//Look for anybody else hostile.  If found, return FALSE immediately.
-	for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if( !pSoldier->aiData.bNeutral )
@@ -3001,9 +3001,9 @@ BOOLEAN OnlyHostileCivsInSector()
 			}
 		}
 	}
-	for( i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if( !pSoldier->aiData.bNeutral )
@@ -3012,9 +3012,9 @@ BOOLEAN OnlyHostileCivsInSector()
 			}
 		}
 	}
-	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if( !pSoldier->aiData.bNeutral )

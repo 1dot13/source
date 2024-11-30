@@ -1836,13 +1836,9 @@ void TestDumpStatChanges(void)
 
 void AwardExperienceBonusToActiveSquad( UINT8 ubExpBonusType )
 {
-	UINT16 usXPs = 0;
-	UINT16 ubGuynum;
-	SOLDIERTYPE *pSoldier;
-
-
 	Assert ( ubExpBonusType < NUM_EXP_BONUS_TYPES );
 
+	UINT16 usXPs = 0;
 	switch ( ubExpBonusType )
 	{
 		case EXP_BONUS_MINIMUM:		usXPs =   25;			break;
@@ -1853,9 +1849,9 @@ void AwardExperienceBonusToActiveSquad( UINT8 ubExpBonusType )
 	}
 
 	// to do: find guys in sector on the currently active squad, those that are conscious get this amount in XPs
-	for ( ubGuynum = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pSoldier = MercPtrs[ ubGuynum ];
-				ubGuynum <= gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-				ubGuynum++, pSoldier++ )
+	for ( SoldierID pSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID ;
+				pSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+				++pSoldier)
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && IsMercOnCurrentSquad( pSoldier ) && ( pSoldier->stats.bLife >= CONSCIOUSNESS ) &&
 				 !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )

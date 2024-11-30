@@ -296,7 +296,6 @@ FLOAT gAmbushRadiusModifier = 1.0f;
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 {
 	VOBJECT_DESC	VObjectDesc;
-	INT32 i;
 	UINT8 ubGroupID = 0;
 	UINT16 ubNumStationaryEnemies = 0;
 	UINT16 ubNumMobileEnemies = 0;
@@ -600,9 +599,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//Count the number of players involved or not involved in this battle
 	guiNumUninvolved = 0;
 	guiNumInvolved = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
 			if ( PlayerMercInvolvedInThisCombat( pSoldier ) )
@@ -889,9 +888,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	// SANDRO - merc records - ambush experienced
 	if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || fAmbushPrevented )
 	{
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = i;
 			if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
 				if ( PlayerMercInvolvedInThisCombat( pSoldier ) && pSoldier->ubProfile != NO_PROFILE )
@@ -1577,9 +1576,9 @@ void RenderPreBattleInterface()
 		// |	NAME	| ASSIGN |	COND	|	HP	|	BP	|
 		line = 0;
 		y = TOP_Y + TOP_Y_TEXT_BUFFER - bListOffset;
-		for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++) 
+		for( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id)
 		{
-			SOLDIERTYPE *pSoldier = MercPtrs[i];
+			SOLDIERTYPE *pSoldier = id;
 			if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
 				if( PlayerMercInvolvedInThisCombat( pSoldier ) )
@@ -1623,9 +1622,9 @@ void RenderPreBattleInterface()
 		{			
 			pGroup = gpGroupList;
 			y = TOP_Y + TOP_Y_TEXT_BUFFER + ubUninvolvedStartY + UNINVOLVED_RELEVANT_HEIGHT - bListOffset;
-			for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
+			for( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 			{
-				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				SOLDIERTYPE *pSoldier = id;
 				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
 					if( !PlayerMercInvolvedInThisCombat(pSoldier) )
@@ -1816,9 +1815,9 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			/////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records - times retreated counter
-			for( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++i )
 			{
-				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				SOLDIERTYPE *pSoldier = i;
 				if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE )
 				{
 					if ( PlayerMercInvolvedInThisCombat( pSoldier ) && pSoldier->ubProfile != NO_PROFILE )
@@ -2558,12 +2557,10 @@ BOOLEAN CurrentBattleSectorIs( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CheckForRobotAndIfItsControlled( void )
 {
-	INT32 i;
-
 	// search for the robot on player's team
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && pSoldier->stats.bLife && AM_A_ROBOT( pSoldier ))
 		{
 			// check whether it has a valid controller with it. This sets its ubRobotRemoteHolderID field.

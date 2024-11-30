@@ -282,9 +282,9 @@ void UpdateMilitia( MILITIA aMilitia )
 
 SOLDIERTYPE* GetUsedSoldierToIndividualMilitia( UINT32 aMilitiaId )
 {
-	for ( UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt )
+	for ( SoldierID cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[cnt];
+		SOLDIERTYPE *pSoldier = cnt;
 		if ( pSoldier && pSoldier->bActive && pSoldier->usIndividualMilitiaID == aMilitiaId )
 		{
 			return pSoldier;
@@ -300,11 +300,11 @@ void ApplyTacticalLifeRatioToMilitia()
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return;
 
-	SOLDIERTYPE* pSoldier;
-	UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-	for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+	SoldierID cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		SOLDIERTYPE *pSoldier = cnt;
 		MILITIA militia;
 		if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLifeMax && GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
 		{
@@ -326,11 +326,11 @@ void ApplyMilitiaHealthRatioToTactical()
 	if ( !gGameExternalOptions.fIndividualMilitia || !gGameExternalOptions.fIndividualMilitia_ManageHealth )
 		return;
 
-	SOLDIERTYPE* pSoldier;
-	UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-	for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+	SoldierID cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		SOLDIERTYPE *pSoldier = cnt;
 		MILITIA militia;
 		if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLifeMax && GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
 		{
@@ -696,12 +696,12 @@ UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 			// fitting data found - now we have to make sure this one isn't already in use
 			BOOLEAN found = FALSE;
 
-			SOLDIERTYPE* pSoldier;
-
-			INT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
-			INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-			for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+			SoldierID cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+			SoldierID lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
+			for ( ; cnt < lastid; ++cnt )
 			{
+				SOLDIERTYPE *pSoldier = cnt;
+				
 				if ( pSoldier && pSoldier->bActive && ( *it ).id == pSoldier->usIndividualMilitiaID && IsLegalMilitiaId( pSoldier->usIndividualMilitiaID ) )
 				{
 					found = TRUE;
@@ -853,10 +853,11 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
 	{
 		BOOLEAN changesnecessary = FALSE;
 
-		SOLDIERTYPE* pSoldier = NULL;
-		int cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
-		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt, ++pSoldier )
+		SoldierID cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
+		for ( ; cnt < lastid; ++cnt )
 		{
+			SOLDIERTYPE *pSoldier = cnt;
 			MILITIA militia;
 
 			if ( pSoldier && GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )

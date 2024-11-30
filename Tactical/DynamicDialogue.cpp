@@ -1632,11 +1632,11 @@ void HandleDynamicOpinionsDailyRefresh( )
 		RolloverDynamicOpinions( usProfileA );
 	}
 
-	SOLDIERTYPE*		pSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
+	SoldierID bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		SOLDIERTYPE* pSoldier = bMercID;
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 			 !(pSoldier->bAssignment == IN_TRANSIT || AM_A_ROBOT(pSoldier) ||
 			 pSoldier->bAssignment == ASSIGNMENT_DEAD) )
@@ -1672,11 +1672,11 @@ void RolloverDynamicOpinions( UINT8 usProfileA )
 // check wether other people are friends with someone else we hate. All persons must be in Arulco
 void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 {
-	UINT16									bMercID, bOtherID, bThirdID, bLastTeamID;
-	INT8									bOpinion = -1;
-	INT8									bSecondOpinion = -1;
-	SOLDIERTYPE*							pOtherSoldier;
-	SOLDIERTYPE*							pThirdSoldier;
+	SoldierID	bMercID, bOtherID, bThirdID, bLastTeamID;
+	INT8			bOpinion = -1;
+	INT8			bSecondOpinion = -1;
+	SOLDIERTYPE *pOtherSoldier;
+	SOLDIERTYPE *pThirdSoldier;
 
 	// make sure we ourselves aren't in transit
 	if ( !pSoldier->bActive || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier) || pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD )
@@ -1687,8 +1687,9 @@ void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 
 	// loop through all other mercs
 	bOtherID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	for ( pOtherSoldier = MercPtrs[bOtherID]; bOtherID <= bLastTeamID; ++bOtherID, pOtherSoldier++ )
+	for ( ; bOtherID <= bLastTeamID; ++bOtherID )
 	{
+		pOtherSoldier = bOtherID;
 		// skip past ourselves and all inactive mercs
 		if ( bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
 			 !(pOtherSoldier->bAssignment == IN_TRANSIT ||
@@ -1702,8 +1703,9 @@ void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 				// there is someone in our team that we hate. We dislike his friends somewhat, purely because they like our foe
 				// loop through all other mercs
 				bThirdID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-				for ( pThirdSoldier = MercPtrs[bThirdID]; bThirdID <= bLastTeamID; ++bThirdID, pThirdSoldier++ )
+				for ( ; bThirdID <= bLastTeamID; ++bThirdID )
 				{
+					pThirdSoldier = bThirdID;
 					// skip past ourselves and all inactive mercs
 					if ( bThirdID != bMercID && bThirdID != bOtherID && pThirdSoldier->bActive && pThirdSoldier->ubProfile != NO_PROFILE &&
 						 !(pThirdSoldier->bAssignment == IN_TRANSIT ||
@@ -1843,11 +1845,11 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier) || pSoldier->newdrugs.drinkstaken <= 0.0 )
 		return;
 
-	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	SoldierID	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID)
 	{
+		SOLDIERTYPE* pTeamSoldier = bMercID;
 		// everybody other merc in the same sector can get updated if they are drugged too
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
 			 pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
@@ -1902,11 +1904,11 @@ void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat )
 		break;
 	}
 
-	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	SoldierID bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID)
 	{
+		SOLDIERTYPE* pTeamSoldier = bMercID;
 		// award event for every trainer in this sector
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
 			 pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
@@ -1939,16 +1941,16 @@ UINT32 GetSoldierLeaderRating( SOLDIERTYPE* pSoldier )
 }
 
 
-UINT16 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
+SoldierID GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
 {
-	UINT32				highestrating = 0;
-	UINT16				bestid = NOBODY;
+	UINT32 highestrating = 0;
+	SoldierID bestid = NOBODY;
+	SoldierID bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	SOLDIERTYPE*		pSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		SOLDIERTYPE* pSoldier = bMercID;
 		// everybody other merc in the same sector gets annoyed
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 			 pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && pSoldier->bSectorZ == sZ &&
@@ -1971,10 +1973,11 @@ UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<U
 {
 	std::vector<UINT16>	resultvector;
 	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pTeamSoldier )
+	SoldierID				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pTeamSoldier = bMercID;
 		// everybody other merc in the same sector gets annoyed
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE &&
 			 pTeamSoldier->sSectorX == sX && pTeamSoldier->sSectorY == sY && pTeamSoldier->bSectorZ == sZ &&
@@ -2017,10 +2020,11 @@ UINT8 GetFittingInterjectorProfile( UINT8 usEvent, UINT8 usProfileVictim, UINT8 
 	std::vector<UINT8>  profilevector;
 
 	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[pSoldierVictim->bTeam].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[pSoldierVictim->bTeam].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	SoldierID				bMercID = gTacticalStatus.Team[pSoldierVictim->bTeam].bFirstID;
+	SoldierID				bLastTeamID = gTacticalStatus.Team[pSoldierVictim->bTeam].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pTeamSoldier = bMercID;
 		// only people that are here
 		if ( !pTeamSoldier->bActive || pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT || pTeamSoldier->bAssignment == ASSIGNMENT_REBELCOMMAND )
 			continue;
@@ -2156,10 +2160,11 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 
 	UINT8				usEventUsed;		// it is possible that the individual event is switched
 	SOLDIERTYPE*		pTeamSoldier = NULL;
-	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	SoldierID				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pTeamSoldier = bMercID;
 		// we test several conditions before we allow adding an opinion
 		// other merc must be active, have a profile, be someone else and not be in transit or dead
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&

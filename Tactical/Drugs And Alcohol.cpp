@@ -407,16 +407,16 @@ BOOLEAN MercDrugged( SOLDIERTYPE *pSoldier )
 
 void HourlyDrugUpdate( )
 {
-	for ( UINT16 ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ubID )
+	for ( SoldierID ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ubID )
 	{
 		// every hour, we lower our alcohol counter
-		if ( MercPtrs[ubID]->newdrugs.drinkstaken > 0.0f )
+		if ( ubID->newdrugs.drinkstaken > 0.0f )
 		{
-			MercPtrs[ubID]->newdrugs.drinkstaken = max( 0.0, MercPtrs[ubID]->newdrugs.drinkstaken - 0.15f );
+			ubID->newdrugs.drinkstaken = max( 0.0, ubID->newdrugs.drinkstaken - 0.15f );
 
-			if ( MercPtrs[ubID]->newdrugs.drinkstaken <= 0.0f )
+			if ( ubID->newdrugs.drinkstaken <= 0.0f )
 			{
-				MercPtrs[ubID]->usSoldierFlagMask2 &= ~SOLDIER_HUNGOVER;
+				ubID->usSoldierFlagMask2 &= ~SOLDIER_HUNGOVER;
 			}
 		}
 	}
