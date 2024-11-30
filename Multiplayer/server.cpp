@@ -227,7 +227,7 @@ void sendHIT(RPCParameters *rpcParameters)
 {
 	EV_S_WEAPONHIT* hit = (EV_S_WEAPONHIT*)rpcParameters->input;
 	
-	int team = MercPtrs[ hit->ubAttackerID ]->bTeam;
+	int team = hit->ubAttackerID->bTeam;
 	
 	// AI
 	if (team == 1) 
@@ -373,10 +373,9 @@ void sendhitSTRUCT(RPCParameters *rpcParameters)
 {
 	EV_S_STRUCTUREHIT* miss = (EV_S_STRUCTUREHIT*)rpcParameters->input;
 	
-	SOLDIERTYPE* pAttacker = MercPtrs[ miss->ubAttackerID ];
-	if (pAttacker != NULL)
+	if ( miss->ubAttackerID != NOBODY)
 	{
-		int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+		int team = miss->ubAttackerID->bTeam;
 		
 		// AI
 		if (team == 1) 
@@ -398,10 +397,9 @@ void sendhitWINDOW(RPCParameters *rpcParameters)
 	EV_S_WINDOWHIT* miss = (EV_S_WINDOWHIT*)rpcParameters->input;
 	
 
-	SOLDIERTYPE* pAttacker = MercPtrs[ miss->ubAttackerID ];
-	if (pAttacker != NULL)
+	if ( miss->ubAttackerID != NOBODY)
 	{
-		int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+		int team = miss->ubAttackerID->bTeam;
 		
 		// AI
 		if (team == 1) 
@@ -422,10 +420,9 @@ void sendMISS(RPCParameters *rpcParameters)
 {
 	EV_S_MISS* miss = (EV_S_MISS*)rpcParameters->input;
 
-	SOLDIERTYPE* pAttacker = MercPtrs[ miss->ubAttackerID ];
-	if (pAttacker != NULL)
+	if ( miss->ubAttackerID != NOBODY)
 	{
-		int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+		int team = miss->ubAttackerID->bTeam;
 		
 		// AI
 		if (team == 1) 
