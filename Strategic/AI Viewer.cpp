@@ -649,7 +649,7 @@ void RenderInfoInSector()
 {
 	UINT8 ubSectorX, ubSectorY;
 	UINT16 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
-	INT32 i, xp, yp;
+	INT32 xp, yp;
 
 	if( gfViewEnemies && !gbViewLevel )
 	{
@@ -694,11 +694,10 @@ void RenderInfoInSector()
 
 
 	//Count the number of mercs and their states (even for underground sectors)
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
-		SOLDIERTYPE *pSoldier;
+		SOLDIERTYPE *pSoldier = id;
 
-		pSoldier = MercPtrs[ i ];
 		if( pSoldier->bActive && pSoldier->sSectorX == ubSectorX && pSoldier->sSectorY == ubSectorY && pSoldier->bSectorZ == gbViewLevel )
 		{
 			if( pSoldier->stats.bLife )

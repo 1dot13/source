@@ -175,8 +175,7 @@ void BeginHandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8
 void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
-	UINT16		ubKillerSoldierID = NOBODY;
+	SoldierID ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
@@ -189,11 +188,13 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 
 	// STEP 1 ) START ALL QUOTES GOING!
 	// OK - loop through all witnesses and see if they want to say something abou this...
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
+
 		if ( cnt != ubKillerSoldierID )
 		{
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
