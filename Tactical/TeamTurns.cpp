@@ -1496,7 +1496,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 }
 
 
-BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponentID, INT8 bOldOppList)
+BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, SoldierID ubOpponentID, INT8 bOldOppList)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StandardInterruptConditionsMet");
 //	UINT8 ubAniType;
@@ -1540,7 +1540,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT16 ubOpponen
 			return(FALSE);
 		}
 
-		pOpponent = MercPtrs[ ubOpponentID ];
+		pOpponent = ubOpponentID;
 	}
 	else	// no opponent, so controller of 'ptr' makes the call instead
 	{

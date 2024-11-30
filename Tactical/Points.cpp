@@ -2018,7 +2018,7 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 			// Given a gridno here, check if we are on a guy - if so - get his gridno
 			if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 			{
-					sGridNo = MercPtrs[ usTargID ]->sGridNo;
+					sGridNo = usTargID->sGridNo;
 			}
 
 			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
@@ -2230,7 +2230,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
 		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 		{
-				sGridNo = MercPtrs[ usTargID ]->sGridNo;
+				sGridNo = usTargID->sGridNo;
 		}
 		//usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 	}
@@ -2473,12 +2473,12 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 	// sevenfm: check enemy only if we have correct gridNo
 	if( !TileIsOutOfBounds(sGridNo) )
 	{
-		UINT16 usTargID = WhoIsThere2(sGridNo, pSoldier->bTargetLevel);
+		SoldierID usTargID = WhoIsThere2(sGridNo, pSoldier->bTargetLevel);
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
 		if(usTargID != NOBODY)
 		{
 			// Check if target is prone, if so, calc cost...
-			if(gAnimControl[MercPtrs[usTargID]->usAnimState].ubEndHeight == ANIM_PRONE)
+			if(gAnimControl[usTargID->usAnimState].ubEndHeight == ANIM_PRONE)
 				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);
 			else
 				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_STAND);

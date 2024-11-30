@@ -1142,9 +1142,9 @@ void EnemyHeliSAMCheck( INT16 id )
 							if ( ubBestSAMOperatorID != NOBODY )
 							{
 								if ( fHit )
-									StatChange( MercPtrs[ubBestSAMOperatorID], EXPERAMT, fDestroyed ? 30 : 10, TRUE );
+									StatChange( ubBestSAMOperatorID, EXPERAMT, fDestroyed ? 30 : 10, TRUE );
 
-								StatChange( MercPtrs[ubBestSAMOperatorID], MECHANAMT, 5, TRUE );
+								StatChange( ubBestSAMOperatorID, MECHANAMT, 5, TRUE );
 							}
 						}
 					}

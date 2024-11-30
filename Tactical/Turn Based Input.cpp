@@ -7233,12 +7233,12 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	if ( gpCurrentTalkingFace != NULL )
 		return;
 
-	UINT16 ubSourceMerc = gusSelectedSoldier;
-	UINT16 ubTargetMerc;
+	SoldierID ubSourceMerc = gusSelectedSoldier;
+	SoldierID ubTargetMerc;
 	INT32 iSourceFace;
 	INT32 iTargetFace;
 	UINT8 ubGroupID = pSoldier->ubGroupID;
-	INT8 bOldPosition = GetTeamSlotFromPlayerID ( MercPtrs[ ubSourceMerc ]->ubID );
+	INT8 bOldPosition = GetTeamSlotFromPlayerID ( ubSourceMerc );
 	INT8 bNewPosition = bOldPosition + bDirection;
 	SOLDIERTYPE TempMenptr = Menptr[ ubSourceMerc ];
 
@@ -7266,15 +7266,15 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		ubTargetMerc = gTeamPanel[ bNewPosition ].ubID;
 
 		// Hey, you're dead. I don't want to swap with you.
-		if ( MercPtrs[ubTargetMerc]->stats.bLife <= 0 )
+		if ( ubTargetMerc->stats.bLife <= 0 )
 		{
 			RebuildCurrentSquad( );
 			return;
 		}
 
 		// store face indexes
-		iSourceFace = MercPtrs[ ubSourceMerc ]->iFaceIndex;
-		iTargetFace = MercPtrs[ ubTargetMerc ]->iFaceIndex;
+		iSourceFace = ubSourceMerc->iFaceIndex;
+		iTargetFace = ubTargetMerc->iFaceIndex;
 		FACETYPE TempFace = gFacesData[ iSourceFace ];
 
 		// swap the data
@@ -7299,11 +7299,11 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		Menptr[ ubTargetMerc ].iFaceIndex = iTargetFace;
 
 		// update group info
-		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
-		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
-		AddPlayerToGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
-		AddPlayerToGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
-		SortSquadByID( MercPtrs[ ubSourceMerc ]->bAssignment );
+		RemovePlayerFromGroup( ubGroupID, ubSourceMerc );
+		RemovePlayerFromGroup( ubGroupID, ubTargetMerc );
+		AddPlayerToGroup( ubGroupID, ubSourceMerc );
+		AddPlayerToGroup( ubGroupID, ubTargetMerc );
+		SortSquadByID( ubSourceMerc->bAssignment );
 		RebuildCurrentSquad( );
 
 		// don't forget to renew selection of merc

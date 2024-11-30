@@ -6625,7 +6625,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	Assert( gbSelectedArmsDealerID != -1 );
 
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 

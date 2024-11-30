@@ -190,7 +190,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 	static BOOLEAN	fValidDoubleClickPossible = FALSE;
 	static BOOLEAN	fCanCheckForSpeechAdvance = FALSE;
 	static INT32		sMoveClickGridNo					= 0;
-	UINT16 usSubjectSoldier = gusSelectedSoldier;
+	SoldierID usSubjectSoldier = gusSelectedSoldier;
 
 	// LEFT MOUSE BUTTON
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
@@ -208,7 +208,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 			}
 			if ( gusSelectedSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 			{
-				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ usSubjectSoldier ]->iVehicleId );
+				pVehicle = GetSoldierStructureForVehicle( usSubjectSoldier->iVehicleId );
 				usSubjectSoldier = pVehicle->ubID;
 			}
 		}
@@ -313,7 +313,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 												if ( usSubjectSoldier != NOBODY )
 												{
-													if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
+													if ( ( fResult = UIOKMoveDestination( usSubjectSoldier, usMapPos ) ) == 1 )
 													{
 														if ( gsCurrentActionPoints != 0 )
 														{
@@ -365,7 +365,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 						if(	FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 						{
 							// Select guy
-							if ( (uiMercFlags & SELECTED_MERC) && !( uiMercFlags & UNCONSCIOUS_MERC ) && !( MercPtrs[ usSoldierIndex ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+							if ( (uiMercFlags & SELECTED_MERC) && !( uiMercFlags & UNCONSCIOUS_MERC ) && !( usSoldierIndex->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 							{
 								*puiNewEvent = M_CHANGE_TO_ADJPOS_MODE;
 							}
@@ -451,7 +451,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 									//if ( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY )
 									//if ( gusSelectedSoldier->usAnimState == WALKING )
 									{
-										MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = TRUE;
+										usSubjectSoldier->flags.fUIMovementFast = TRUE;
 										*puiNewEvent = C_MOVE_MERC;
 									}
 								}
@@ -595,13 +595,13 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 													if ( usSubjectSoldier != NOBODY )
 													{
-														if ( MercPtrs[ usSubjectSoldier ]->usAnimState != RUNNING )
+														if ( usSubjectSoldier->usAnimState != RUNNING )
 														{
 															*puiNewEvent = C_MOVE_MERC;
 														}
 														else
 														{
-															MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = 2;
+															usSubjectSoldier->flags.fUIMovementFast = 2;
 															*puiNewEvent = C_MOVE_MERC;
 														}
 													}
@@ -792,7 +792,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 																			if ( usSubjectSoldier != NOBODY )
 																			{
-																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
+																				if ( ( fResult = UIOKMoveDestination( usSubjectSoldier, usMapPos ) ) == 1 )
 																				{
 																					if ( gfUIAllMoveOn )
 																					{

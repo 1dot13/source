@@ -175,7 +175,7 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier );
 
 INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier );
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT16 * pubOpponentID = NULL);
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID *pubOpponentID = NULL);
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );
 INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
@@ -277,13 +277,13 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT3
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // Flugente: get the id of the closest soldier (coser than x tiles) of a specific team with a specific flag that we can currently see
-UINT16 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight = TRUE );
+SoldierID GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight = TRUE );
 
 // get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
-UINT16 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
+SoldierID GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 // get the id of the closest medic (closer than x tiles) of a specific team
-UINT16 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
+SoldierID GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 // sevenfm:
 BOOLEAN NightLight(void);

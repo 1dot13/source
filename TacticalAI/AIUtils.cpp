@@ -1378,7 +1378,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 }
 
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT16 * pubOpponentID)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID * pubOpponentID)
 {
 	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
@@ -3445,9 +3445,9 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 }
 
 // Flugente: get the id of the closest soldier with a specific flag that we can currently see
-UINT16 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight )
+SoldierID GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight )
 {
-	UINT16				id = NOBODY;
+	SoldierID			id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
@@ -3498,9 +3498,9 @@ UINT16 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 a
 }
 
 // get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
-UINT16 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
+SoldierID GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
 {
-	UINT16				id = NOBODY;
+	SoldierID			id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
@@ -3547,9 +3547,9 @@ UINT16 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 a
 }
 
 // get the id of the closest medic (closer than x tiles) of a specific team
-UINT16 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
+SoldierID GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
 {
-	UINT16				id = NOBODY;
+	SoldierID			id = NOBODY;
 	UINT32				uiLoop;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;

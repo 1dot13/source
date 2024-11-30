@@ -2924,7 +2924,7 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
 		*	make an exception for zombies every time...
 		*/
-		SOLDIERTYPE* pNewSoldier = MercPtrs[ iNewIndex ];
+		SOLDIERTYPE* pNewSoldier = iNewIndex;
 			
 		pNewSoldier->bActionPoints			= 60;
 		pNewSoldier->bInitialActionPoints	= 60;

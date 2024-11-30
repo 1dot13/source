@@ -3299,17 +3299,17 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				// REFUELING A VEHICLE
 				// THE GAS_CAN IS IN THE MERCS MAIN HAND AT THIS TIME
 				{
-					UINT16 ubPerson;
-					SOLDIERTYPE *pVehicle;
-
 					// Get pointer to vehicle...
-					ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
-					pVehicle = MercPtrs[ ubPerson ];
+					SoldierID ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
+					if ( ubPerson != NOBODY )
+					{
+						SOLDIERTYPE *pVehicle = ubPerson;
 
-					// this is a ubID for soldiertype....
-					AddFuelToVehicle( pSoldier, pVehicle );
+						// this is a ubID for soldiertype....
+						AddFuelToVehicle( pSoldier, pVehicle );
 
-					fInterfacePanelDirty = DIRTYLEVEL2;
+						fInterfacePanelDirty = DIRTYLEVEL2;
+					}
 				}
 				break;
 
