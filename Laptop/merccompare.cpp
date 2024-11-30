@@ -340,13 +340,12 @@ BOOLEAN EnterMercCompareAnalyze()
 	// We fill two dropdowns with all mercs on our team
 	std::vector<std::pair<INT16, STR16> > mercvector;
 
-	SOLDIERTYPE* pSoldier = NULL;
-	UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16 lastid  = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pSoldier = MercPtrs[id]; id <= lastid; ++id, pSoldier++ )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID lastid  = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
-		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE )
-			mercvector.push_back( std::make_pair( pSoldier->ubProfile, gMercProfiles[pSoldier->ubProfile].zNickname ) );
+		if ( id->bActive && id->ubProfile != NO_PROFILE )
+			mercvector.push_back( std::make_pair( id->ubProfile, gMercProfiles[id->ubProfile].zNickname ) );
 	}
 	
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).SetEntries( mercvector );
@@ -976,17 +975,16 @@ BOOLEAN EnterMercCompareMatrix( )
 	// create a map of all current squads  with at least 2 members
 	std::map<INT16, INT16>	squadmap;
 
-	SOLDIERTYPE* pSoldier = NULL;
-	UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pSoldier = MercPtrs[id]; id <= lastid; ++id, pSoldier++ )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id )
 	{
-		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bAssignment < ON_DUTY )
+		if ( id->bActive && id->ubProfile != NO_PROFILE && id->bAssignment < ON_DUTY )
 		{
-			if ( squadmap.find( pSoldier->bAssignment ) == squadmap.end() )
-				squadmap[pSoldier->bAssignment] = 1;
+			if ( squadmap.find( id->bAssignment ) == squadmap.end() )
+				squadmap[id->bAssignment] = 1;
 			else
-				++squadmap[pSoldier->bAssignment];
+				++squadmap[id->bAssignment];
 		}
 	}
 		
@@ -1079,15 +1077,14 @@ void RenderMercCompareMatrix( )
 
 		// display a table with all squadmembers
 		std::vector<UINT8> squadvector;
-		SOLDIERTYPE* pSoldier = NULL;
-		UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-		UINT16 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-		for ( pSoldier = MercPtrs[id]; id <= lastid; ++id, pSoldier++ )
+		SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; id <= lastid; ++id )
 		{
-			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bAssignment == gSquadToShow )
+			if ( id->bActive && id->ubProfile != NO_PROFILE && id->bAssignment == gSquadToShow )
 			{
 				// remember squamember
-				squadvector.push_back( pSoldier->ubProfile );
+				squadvector.push_back( id->ubProfile );
 			}
 		}
 
@@ -1117,13 +1114,12 @@ void RenderMercCompareMatrix( )
 
 		for ( std::vector<UINT8>::iterator it = squadvector.begin(); it != itend; ++it )
 		{
-			INT16 idA = GetSoldierIDFromMercID( (*it) );
+			SoldierID idA = GetSoldierIDFromMercID( (*it) );
 
-			if ( idA < 0 )
+			if ( idA == NOBODY )
 				continue;
 
-			SOLDIERTYPE* pSoldierA = MercPtrs[idA];
-
+			SOLDIERTYPE* pSoldierA = idA;
 			if ( !pSoldierA )
 				continue;
 
@@ -1140,9 +1136,9 @@ void RenderMercCompareMatrix( )
 
 			for ( std::vector<UINT8>::iterator it2 = squadvector.begin( ); it2 != itend; ++it2 )
 			{
-				INT16 idB = GetSoldierIDFromMercID( (*it2) );
+				SoldierID idB = GetSoldierIDFromMercID( (*it2) );
 
-				if ( idB < 0 )
+				if ( idB == NOBODY )
 					continue;
 
 				if ( idA == idB )
@@ -1151,8 +1147,7 @@ void RenderMercCompareMatrix( )
 					continue;
 				}
 
-				SOLDIERTYPE* pSoldierB = MercPtrs[idB];
-
+				SOLDIERTYPE* pSoldierB = idB;
 				if ( !pSoldierB )
 					continue;
 

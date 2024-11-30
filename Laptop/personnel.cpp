@@ -558,10 +558,11 @@ void EnterPersonnel( void )
 	// Fill in the current team list
 	maxCurrentTeamIndex = -1;
     SOLDIERTYPE *pTeamSoldier = MercPtrs[ 0 ];
-	for (int idx = gTacticalStatus.Team[ pTeamSoldier->bTeam ].bFirstID; 
+	for (SoldierID idx = gTacticalStatus.Team[ pTeamSoldier->bTeam ].bFirstID; 
 	     idx <= gTacticalStatus.Team[ pTeamSoldier->bTeam ].bLastID; 
-		 ++idx) {
-        pTeamSoldier = MercPtrs[ idx ]; 
+		 ++idx)
+	{
+        pTeamSoldier = idx; 
 				
 		// WANNE: Bugfix: Also show the roboter in ther personnel screen. This bug was introduced in revision 2498, when Many Mercenary was included.
 		//if ((pTeamSoldier->bActive) && 

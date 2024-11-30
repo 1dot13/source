@@ -163,7 +163,7 @@ BOOLEAN		DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID );
 INT8			GetNumberOfHireMercsStartingFromID( UINT8 ubStartMercID );
 //INT32			CalculateInsuranceCost( SOLDIERTYPE *pSoldier, BOOLEAN fHaveInsurance );
 void			InsuranceContractUserTextFieldCallBack( UINT8 ubID, BOOLEAN fEntering );
-INT8			CountInsurableMercs();
+UINT16		CountInsurableMercs();
 void			DisableInsuranceContractNextPreviousbuttons();
 void			CreateDestroyInsuranceContractFormButtons( BOOLEAN fCreate);
 void			HandleAcceptButton( SoldierID ubSoldierID, UINT8 ubFormID );
@@ -943,20 +943,17 @@ void SelectInsuranceContractRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	}
 }
 
-INT8 CountInsurableMercs()
+UINT16 CountInsurableMercs()
 {
-	UINT16 cnt;
-	SOLDIERTYPE *pSoldier;
-	UINT16 bLastTeamID;
-	INT8 bCount=0;
+	UINT16 bCount = 0;
 
 	// Set locator to first merc
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
-		if (MercIsInsurable(pSoldier))
+		if (MercIsInsurable(Soldier))
 		{
 			bCount++;
 		}
@@ -1094,33 +1091,29 @@ void HandleAcceptButton( SoldierID ubSoldierID, UINT8 ubFormID )
 // determines if a merc will run out of their insurance contract
 void DailyUpdateOfInsuredMercs()
 {
-	INT16		cnt;
-	INT16		bLastTeamID;
-	SOLDIERTYPE		*pSoldier;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
 		//if the soldier is in the team array
-		if( pSoldier->bActive )
+		if( Soldier->bActive )
 		{
 			//if the merc has life insurance
-			if( pSoldier->usLifeInsurance )
+			if( Soldier->usLifeInsurance )
 			{
 				//if the merc wasn't just hired
-				if( (INT16)GetWorldDay() != pSoldier->iStartOfInsuranceContract )
+				if( (INT16)GetWorldDay() != Soldier->iStartOfInsuranceContract )
 				{
 					//if the contract has run out of time
-					if( GetTimeRemainingOnSoldiersInsuranceContract( pSoldier ) <= 0 )
+					if( GetTimeRemainingOnSoldiersInsuranceContract( Soldier ) <= 0 )
 					{
 						//if the soldier isn't dead
-						if( !IsMercDead( pSoldier->ubProfile ) )
+						if( !IsMercDead( Soldier->ubProfile ) )
 						{
-							pSoldier->usLifeInsurance = 0;
-							pSoldier->iTotalLengthOfInsuranceContract = 0;
-							pSoldier->iStartOfInsuranceContract = 0;
+							Soldier->usLifeInsurance = 0;
+							Soldier->iTotalLengthOfInsuranceContract = 0;
+							Soldier->iStartOfInsuranceContract = 0;
 						}
 					}
 				}
@@ -1254,20 +1247,16 @@ void InsContractNoMercsPopupCallBack( UINT8 bExitValue )
 
 void BuildInsuranceArray()
 {
-	INT16					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 	gsMaxPlayersOnTeam = 0;
 
 	// store profile #s of all insurable mercs in an array
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
-		if( MercIsInsurable(pSoldier) )
+		if( MercIsInsurable(Soldier) )
 		{
-			gubInsuranceMercArray[ gsMaxPlayersOnTeam ] = pSoldier->ubProfile;
+			gubInsuranceMercArray[ gsMaxPlayersOnTeam ] = Soldier->ubProfile;
 			gsMaxPlayersOnTeam++;
 		}
 	}
@@ -1787,14 +1776,13 @@ INT32	CalcStartDayOfInsurance( SOLDIERTYPE *pSoldier )
 
 BOOLEAN AreAnyAimMercsOnTeam( )
 {
-	SOLDIERTYPE *pSoldier = NULL;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	for( int cnt = 0; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
+	for( ; Soldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++Soldier)
 	{
-		pSoldier = MercPtrs[cnt];
-
 		//check to see if any of the mercs are AIM mercs
-		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+		if( Soldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 		{
 			return TRUE;
 		}
