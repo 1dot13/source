@@ -6731,9 +6731,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	// player team character fixes
 	SOLDIERTYPE	*pTeamSoldier;
-	for (UINT16 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+	for (SoldierID bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop)
 	{
-		pTeamSoldier=MercPtrs[bLoop]; 
+		pTeamSoldier = bLoop;
 
 		// silversurfer: added additional check to only remove the flags when there is no boxing activity going on at the moment.
 		// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
@@ -9277,20 +9277,20 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 			gCamoFace[i].gSnowCamoface = FALSE;
 		}
 		
-		SOLDIERTYPE * pSoldier;
-		UINT16 bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-		UINT16 bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID,pSoldier++)
+		SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier)
 		{
-			if ( pSoldier )
+			if ( Soldier )
 			{
-				gCamoFace[pSoldier->ubProfile].gCamoface = ( pSoldier->bCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gUrbanCamoface = ( pSoldier->urbanCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gDesertCamoface = ( pSoldier->desertCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gSnowCamoface = ( pSoldier->snowCamo > 0 );
+				UINT8 profile = Soldier->ubProfile;
+				gCamoFace[profile].gCamoface = ( Soldier->bCamo > 0 );
+				gCamoFace[profile].gUrbanCamoface = ( Soldier->urbanCamo > 0 );
+				gCamoFace[profile].gDesertCamoface = ( Soldier->desertCamo > 0 );
+				gCamoFace[profile].gSnowCamoface = ( Soldier->snowCamo > 0 );
 
-				DeleteSoldierFace( pSoldier );
-				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+				DeleteSoldierFace( Soldier );
+				Soldier->iFaceIndex = InitSoldierFace( Soldier );
 			}
 		}
 	}
@@ -9511,18 +9511,19 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 	}
 	else
 	{
-		UINT16 sSoldierCnt;
+		SoldierID sSoldierCnt;
+		SoldierID bLastTeamID;
 		SOLDIERTYPE *pSoldier;
-		UINT16 bLastTeamID;
-		BOOLEAN fFoundAMerc=FALSE;
+		BOOLEAN fFoundAMerc = FALSE;
 
 		// Set locator to first merc
 		sSoldierCnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		//loop through all the mercs on the players team to find the one that is not moving
-		for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
+		for ( ; sSoldierCnt <= bLastTeamID; ++sSoldierCnt )
 		{
+			pSoldier = sSoldierCnt;
 			// test for !NULL (if initilization fails and MercPtrs contains 'NULL's)
 			if( pSoldier && pSoldier->bActive )
 			{
@@ -9546,8 +9547,9 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 			bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 			//loop through all the mercs and find one that is moving
-			for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
+			for ( ; sSoldierCnt <= bLastTeamID; ++sSoldierCnt )
 			{
+				pSoldier = sSoldierCnt;
 				if( pSoldier && pSoldier->bActive )
 				{
 					//we found an alive, merc that is not moving

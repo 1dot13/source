@@ -7541,16 +7541,15 @@ void HandleMovingTheEnemiesToBeNearPlayerWhenEnteringComplexMap( )
 	//if the player made a 'noise' going through the gate at the end of the tunnel sector
 	if ( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__DID_PLAYER_MAKE_SOUND_GOING_THROUGH_TUNNEL_GATE )
 	{
-		UINT8	cnt;
-
 		//
 		//Move some of the enemies to be 'near' them player when the enter the room
 		//
 
 		// Loop through the list and move some of the enemies
-		cnt = gTacticalStatus.Team[ENEMY_TEAM].bFirstID;
-		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; cnt++, pSoldier++ )
+		SoldierID cnt = gTacticalStatus.Team[ENEMY_TEAM].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; ++cnt)
 		{
+			pSoldier = cnt;
 			//if the soldier is active,
 			if ( pSoldier->bActive )
 			{
@@ -7581,8 +7580,9 @@ void HandleMovingTheEnemiesToBeNearPlayerWhenEnteringComplexMap( )
 		while ( ubNumEnemiesMoved < 3 )
 		{
 			cnt = gTacticalStatus.Team[ENEMY_TEAM].bFirstID;
-			for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; cnt++, pSoldier++ )
+			for ( ; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; ++cnt )
 			{
+				pSoldier = cnt;
 				//if the soldier is active,
 				if ( pSoldier->bActive  && pSoldier->sGridNo != 15705 && pSoldier->sGridNo != 15712 && pSoldier->sGridNo != 15233 )
 				{

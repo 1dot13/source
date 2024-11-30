@@ -1030,10 +1030,7 @@ void DisableFPSOverlay( BOOLEAN fEnable )
 
 void TacticalScreenLocateToSoldier( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	UINT16					bLastTeamID;
-	BOOLEAN				fPreferedGuyUsed = FALSE;
+	BOOLEAN fPreferedGuyUsed = FALSE;
 
 	if ( gubPreferredInitialSelectedGuy != NOBODY )
 	{
@@ -1050,14 +1047,14 @@ void TacticalScreenLocateToSoldier( )
 	if ( !fPreferedGuyUsed )
 	{
 		// Set locator to first merc
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+		SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier)
 		{
-			if ( OK_CONTROLLABLE_MERC( pSoldier ) && OK_INTERRUPT_MERC( pSoldier ) )
+			if ( OK_CONTROLLABLE_MERC( Soldier ) && OK_INTERRUPT_MERC( Soldier ) )
 			{
-				LocateSoldier( pSoldier->ubID, 10 );
-				SelectSoldier( pSoldier->ubID, FALSE, TRUE );
+				LocateSoldier( Soldier, 10 );
+				SelectSoldier( Soldier, FALSE, TRUE );
 				break;
 			}
 		}
@@ -1075,22 +1072,17 @@ void EnterMapScreen( )
 
 void UpdateTeamPanelAssignments( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	UINT16					bLastTeamID;
-
 	// Remove all players
 	RemoveAllPlayersFromSlot( );
 
 	// Set locator to first merc
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
 		// Setup team interface
-		CheckForAndAddMercToTeamPanel( pSoldier );
+		CheckForAndAddMercToTeamPanel( Soldier );
 	}
-
 }
 
 
