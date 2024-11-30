@@ -13754,6 +13754,75 @@ void PrisonerMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
+static void CheckForSurgery(SOLDIERTYPE *pSoldier)
+{
+	if ( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
+	{
+		SOLDIERTYPE *pBestMedic = NULL;
+		INT8 bSlot;
+
+		// Find the best doctor
+		SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+		const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+		for ( ; id <= lastid; ++id )
+		{
+			SOLDIERTYPE *pMedic = id;
+			if ( !(pMedic->bActive) || !(pMedic->bInSector) || (pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE) || (pMedic->bAssignment == VEHICLE) )
+				continue; // is nowhere around!
+
+			if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR( pMedic->bAssignment ) )
+				continue; // cannot make surgery on self or not on the right assignment!	
+
+			bSlot = FindMedKit( pMedic );
+			if ( bSlot == NO_SLOT )
+				continue;// no medical kit!
+
+			if ( pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) )
+			{
+				if ( pBestMedic != NULL )
+				{
+					if ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ) )
+						pBestMedic = pMedic;
+				}
+				else
+				{
+					pBestMedic = pMedic;
+				}
+			}
+		}
+
+		if ( pBestMedic != NULL )
+		{
+			CHAR16	zStr[200];
+			pAutomaticSurgeryDoctor = pBestMedic;
+			pAutomaticSurgeryPatient = pSoldier;
+
+			INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT )) / 10000;
+
+			// Flugente: check whether we have a bloodbag we can use
+			INT32 healwith_bloodbag = -1;
+			if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
+				healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT )) / 10000;
+
+			if ( healwith_bloodbag > healwithout_bloodbag )
+			{
+				swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
+
+				wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+				wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+				wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+				wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, (MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION), SurgeryBeforePatientingRequesterCallback );
+			}
+			else
+			{
+				swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
+			}
+		}
+	}
+}
+
 void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
@@ -13832,71 +13901,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						
 						/////////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - added check for surgery
-						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
-						{
-							SOLDIERTYPE * pMedic = NULL;
-							SOLDIERTYPE * pBestMedic = NULL;
-							UINT16 cnt;
-							INT8 bSlot;
-
-							// Find the best doctor
-							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
-							{
-								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
-									continue; // is nowhere around!
-
-								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
-									continue; // cannot make surgery on self or not on the right assignment!	
-
-								bSlot = FindMedKit( pMedic );
-								if (bSlot == NO_SLOT)
-									continue;// no medical kit!
-
-								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
-								{
-									if (pBestMedic != NULL)
-									{
-										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
-											pBestMedic = pMedic;
-									}
-									else
-									{
-										pBestMedic = pMedic;
-									}
-								}
-							}
-
-							if (pBestMedic != NULL)
-							{
-								CHAR16	zStr[200];
-								pAutomaticSurgeryDoctor = pBestMedic;
-								pAutomaticSurgeryPatient = pSoldier;
-
-								INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								// Flugente: check whether we have a bloodbag we can use
-								INT32 healwith_bloodbag = -1;
-								if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
-									healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								if ( healwith_bloodbag > healwithout_bloodbag )
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
-
-									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
-									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
-									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
-								}
-								else
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
-								}
-							}
-						}
+						CheckForSurgery( pSoldier );
 						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
@@ -14114,71 +14119,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						/////////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - added check for surgery
-						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
-						{
-							SOLDIERTYPE * pMedic = NULL;
-							SOLDIERTYPE * pBestMedic = NULL;
-							UINT16 cnt;
-							INT8 bSlot;
-
-							// Find the best doctor
-							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
-							{
-								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
-									continue; // is nowhere around!
-
-								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
-									continue; // cannot make surgery on self or not on the right assignment!
-
-								bSlot = FindMedKit( pMedic );
-								if (bSlot == NO_SLOT)
-									continue;// no medical kit!
-
-								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
-								{
-									if (pBestMedic != NULL)
-									{
-										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
-											pBestMedic = pMedic;
-									}
-									else
-									{
-										pBestMedic = pMedic;
-									}
-								}
-							}
-
-							if (pBestMedic != NULL)
-							{
-								CHAR16	zStr[200];
-								pAutomaticSurgeryDoctor = pBestMedic;
-								pAutomaticSurgeryPatient = pSoldier;
-								
-								INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								// Flugente: check whether we have a bloodbag we can use
-								INT32 healwith_bloodbag = -1;
-								if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
-									healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								if ( healwith_bloodbag > healwithout_bloodbag )
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
-									
-									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
-									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
-									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
-								}
-								else
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
-								}
-							}
-						}
+						CheckForSurgery( pSoldier );
 						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
