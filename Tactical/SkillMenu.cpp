@@ -784,17 +784,17 @@ SoldierSelection::Setup( UINT32 aVal )
 
 		// pretty simple: we find every soldier in a radius around the target position and add him to the list
 		// loop through all soldiers around
-		for ( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID ; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID ; ++cnt )
+		for ( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID ; id <= gTacticalStatus.Team[ CIV_TEAM ].bLastID ; ++id )
 		{
-			INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( sTraitsMenuTargetGridNo, MercPtrs[ cnt ]->sGridNo );
+			INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( sTraitsMenuTargetGridNo, id->sGridNo );
 
 			if ( iRange < 100 )
 			{
-				if ( cnt != pSoldier->ubID )
+				if ( id != pSoldier->ubID )
 				{
-					swprintf( pStr, L"%s", MercPtrs[ cnt ]->GetName() );
+					swprintf( pStr, L"%s", id->GetName() );
 
-					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT8>( &Wrapper_Function_SoldierSelection, cnt ) );
+					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT16>( &Wrapper_Function_SoldierSelection, id ) );
 
 					// grey out if no artillery can be called from this sector
 					if ( 0 )
@@ -865,11 +865,11 @@ DragSelection::Setup( UINT32 aVal )
 
 		// pretty simple: we find every soldier in a radius around the target position and add him to the list
 		// loop through all soldiers around
-		for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt )
+		for ( SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt )
 		{
 			if ( cnt != pSoldier->ubID && pSoldier->CanDragPerson(cnt) )
 			{
-				swprintf( pStr, L"%s", MercPtrs[cnt]->GetName( ) );
+				swprintf( pStr, L"%s", cnt->GetName( ) );
 
 				pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection, cnt ) );
 				

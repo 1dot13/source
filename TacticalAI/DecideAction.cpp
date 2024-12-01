@@ -754,9 +754,9 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 						{
 							// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
 							SOLDIERTYPE	*pTeamSoldier;
-							for (UINT16 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+							for ( SoldierID bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
 							{
-								pTeamSoldier=MercPtrs[bLoop]; 
+								pTeamSoldier = bLoop;
 
 								if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL)
 									pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);

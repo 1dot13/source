@@ -119,7 +119,7 @@ void SaveNPCInformationToProfileStruct( );
 BOOLEAN DoesTempFileExistsForMap( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 
-INT16 GetSoldierIDFromAnyMercID(UINT8 ubMercID);
+SoldierID GetSoldierIDFromAnyMercID(UINT8 ubMercID);
 
 
 BOOLEAN SetUnderGroundSectorFlag( INT16 sSectorX, INT16 sSectorY, UINT8 ubSectorZ, UINT32 uiFlagToSet );
@@ -1131,7 +1131,6 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
 	// find out which items in the list are reachable
-	UINT32 uiCounter = 0;
 	UINT8	ubDir, ubMovementCost;
 	BOOLEAN fReachable = FALSE;
 	INT32 sGridNo = NOWHERE, sGridNo2 = NOWHERE;
@@ -1179,9 +1178,9 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	{
 		sGridNo2 = gMapInformation.sIsolatedGridNo;
 
-		for( uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
+		for( SoldierID uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
 		{
-			pSoldier = MercPtrs[ uiCounter ];
+			pSoldier = uiCounter;
 			if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife > 0 && pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == bSectorZ )
 			{
 				if ( FindBestPath( pSoldier, sGridNo2, pSoldier->pathing.bLevel, WALKING, NO_COPYROUTE, 0 ) )
@@ -1200,7 +1199,7 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 
 	GlobalItemsReachableTest( sGridNo, sGridNo2 );
 
-	for( uiCounter = 0; uiCounter < guiNumWorldItems; ++uiCounter )
+	for( UINT32 uiCounter = 0; uiCounter < guiNumWorldItems; ++uiCounter )
 	{
 		// reset reachablity
 		fReachable = FALSE;
@@ -2130,29 +2129,26 @@ BOOLEAN DoesTempFileExistsForMap( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 
 }
 
 
-INT16 GetSoldierIDFromAnyMercID(UINT8 ubMercID)
+SoldierID GetSoldierIDFromAnyMercID(UINT8 ubMercID)
 {
-	UINT16 cnt;
-	UINT16 ubLastTeamID;
 	SOLDIERTYPE *pTeamSoldier;
+	SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID ubLastTeamID = TOTAL_SOLDIERS;
 
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-
-	ubLastTeamID = TOTAL_SOLDIERS;
-
-  // look for all mercs on the same team,
-  for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; cnt++,pTeamSoldier++)
+	// look for all mercs on the same team,
+	for ( ; cnt <= ubLastTeamID; ++cnt )
 	{
-		if( pTeamSoldier->bActive )
+		pTeamSoldier = cnt;
+		if ( pTeamSoldier->bActive )
 		{
 			if ( pTeamSoldier->ubProfile == ubMercID )
 			{
-				return( cnt );
+				return(cnt);
 			}
 		}
 	}
 
-	return( -1 );
+	return(NOBODY);
 }
 
 
@@ -2554,9 +2550,9 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 				UpdateLastDayOfPlayerActivity( (UINT16) GetWorldDay() );
 			}
 
-			for ( UINT16 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
-				SOLDIERTYPE *pSoldier = MercPtrs[i];
+				SOLDIERTYPE *pSoldier = id;
 
 				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
 					pSoldier->sSectorX == sMapX && pSoldier->sSectorY == sMapY && pSoldier->bSectorZ == bMapZ && !pSoldier->flags.fBetweenSectors &&

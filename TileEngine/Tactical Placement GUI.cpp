@@ -227,7 +227,7 @@ void InitTacticalPlacementGUI()
 {
 	islocked=0;//hayden
 	VOBJECT_DESC VObjectDesc;
-	INT32 i, xp, yp;
+	INT32 xp, yp;
 	UINT8 ubFaceIndex;
 	gfTacticalPlacementGUIActive = TRUE;
 	gfTacticalPlacementGUIDirty = TRUE;
@@ -325,9 +325,9 @@ void InitTacticalPlacementGUI()
 	//First pass:	Count the number of mercs that are going to be placed by the player.
 	//			 This determines the size of the array we will allocate.
 	giPlacements = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && !pSoldier->flags.fBetweenSectors &&
 			CurrentBattleSectorIs( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
 				!( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
@@ -345,9 +345,9 @@ void InitTacticalPlacementGUI()
 	Assert( gMercPlacement );
 	//Second pass:	Assign the mercs to their respective slots.
 	giPlacements = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[i];
+		SOLDIERTYPE *pSoldier = i;
 		if( pSoldier->bActive && pSoldier->stats.bLife && !pSoldier->flags.fBetweenSectors &&
 			CurrentBattleSectorIs( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
 				pSoldier->bAssignment != ASSIGNMENT_POW &&
@@ -426,7 +426,7 @@ void InitTacticalPlacementGUI()
 	}
 
 	//add all the faces now
-	for( i = 0; i < giPlacements; ++i )
+	for( INT32 i = 0; i < giPlacements; ++i )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
@@ -483,7 +483,7 @@ void InitTacticalPlacementGUI()
 	{
 		ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
-		for( i = 0; i < giPlacements; ++i )
+		for( INT32 i = 0; i < giPlacements; ++i )
 		{ //go from the currently selected soldier to the end
 			if( !gMercPlacement[ i ].fPlaced )
 			{ //Found an unplaced merc.	Select him.

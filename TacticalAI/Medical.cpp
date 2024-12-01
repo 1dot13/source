@@ -72,7 +72,6 @@ BOOLEAN FindAutobandageClimbPoint( INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 
 BOOLEAN FullPatientCheck( SOLDIERTYPE * pPatient )
 {
-	UINT16 cnt;
 	SOLDIERTYPE * pSoldier;
 
 	if ( CanCharacterAutoBandageTeammate( pPatient ) )
@@ -90,9 +89,10 @@ BOOLEAN FullPatientCheck( SOLDIERTYPE * pPatient )
 	else
 	{
 		// run though the list of chars on team
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			// can this character help out?
 			if ( CanCharacterAutoBandageTeammate( pSoldier ) == TRUE )
 			{
@@ -119,17 +119,16 @@ BOOLEAN FullPatientCheck( SOLDIERTYPE * pPatient )
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck )
 {
 	// returns false if we should stop being in auto-bandage mode
-	UINT16 cnt;
 	UINT16 ubMedics = 0, ubPatients = 0;
 	SOLDIERTYPE * pSoldier;
 	static SoldierID 	ubIDForFullCheck = NOBODY;
 
 	// run though the list of chars on team
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt)
 	{
 		// can this character help out?
-		if( CanCharacterAutoBandageTeammate( pSoldier ) == TRUE )
+		if( CanCharacterAutoBandageTeammate( cnt ) == TRUE )
 		{
 			// yep, up the number of medics in sector
 			ubMedics++;
@@ -143,8 +142,9 @@ BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck )
 	}
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// can this character be helped out by a teammate?
 		if ( CanCharacterBeAutoBandagedByTeammate( pSoldier ) == TRUE )
 		{
@@ -227,7 +227,6 @@ BOOLEAN CanCharacterBeAutoBandagedByTeammate( SOLDIERTYPE *pSoldier )
 
 INT8 FindBestPatient( SOLDIERTYPE * pSoldier, BOOLEAN * pfDoClimb )
 {
-	UINT16 cnt;
 	UINT8 cnt2;
 	INT32 bBestPriority = 0, sBestAdjGridNo = NOWHERE;
 	INT32 sPatientGridNo = NOWHERE, sBestPatientGridNo = NOWHERE;
@@ -244,9 +243,10 @@ INT8 FindBestPatient( SOLDIERTYPE * pSoldier, BOOLEAN * pfDoClimb )
 	gubGlobalPathFlags = PATH_THROUGH_PEOPLE;
 
 	// search for someone who needs aid
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	for ( pPatient = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pPatient++)
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
+		pPatient = cnt;
 		if ( !(pPatient->bActive) || !(pPatient->bInSector) )
 		{
 			continue; // NEXT!!!
@@ -475,13 +475,13 @@ INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier )
 BOOLEAN DoctorIsPresent( SOLDIERTYPE * pPatient, BOOLEAN fOnDoctorAssignmentCheck )
 {
 	SOLDIERTYPE *	pMedic = NULL;
-	UINT16			cnt;
 	INT8			bSlot;
 	BOOLEAN			fDoctorHasBeenFound = FALSE;
 
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
+		pMedic = cnt;
 		if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
 		{
 			// is nowhere around!

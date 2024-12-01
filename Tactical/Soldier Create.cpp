@@ -574,7 +574,6 @@ INT16 gsStrategicDiseaseOriginSector = -1;
 SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, SoldierID *pubID )
 {
 	SOLDIERTYPE Soldier;
-	INT32 cnt;
 	SOLDIERTYPE *pTeamSoldier;
 	BOOLEAN fGuyAvail = FALSE;
 	UINT16 bLastTeamID;
@@ -761,7 +760,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, Soldier
 
 		if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 		{
-			cnt = gTacticalStatus.Team[ Soldier.bTeam ].bFirstID;
+			SoldierID cnt = gTacticalStatus.Team[ Soldier.bTeam ].bFirstID;
 
 			// ATE: If we are a vehicle, and a player, start at a different slot ( 2 - max )
 			if( Soldier.ubBodyType == HUMVEE ||
@@ -778,8 +777,9 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, Soldier
 			bLastTeamID = gTacticalStatus.Team[ Soldier.bTeam ].bLastID;
 
 			// look for all mercs on the same team,
-			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+			for ( ; cnt <= bLastTeamID; ++cnt )
 			{
+				pTeamSoldier = cnt;
 				if ( !pTeamSoldier->bActive )
 				{
 					fGuyAvail = TRUE;
@@ -794,7 +794,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, Soldier
 			}
 
 			// OK, set ID
-			Soldier.ubID = (UINT16)cnt;
+			Soldier.ubID = cnt;
 			*pubID = Soldier.ubID;
 		}
 
@@ -3031,7 +3031,7 @@ void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID )
 
 SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 {
-	INT32 i, iStart, iEnd;
+	SoldierID i, iStart, iEnd;
 	SOLDIERTYPE *pSoldier;
 	//This code looks for a soldier of specified type that currently exists in tactical and
 	//returns the pointer to that soldier.	This is used when copying the exact status of
@@ -3049,13 +3049,13 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 		iEnd = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID;
 	}
 	for( i = iStart; i <= iEnd; ++i )
-	{		
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
+	{
+		if( i->bActive && i->bInSector && i->stats.bLife && !TileIsOutOfBounds(i->sGridNo))
 		{
-			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
+			if( i->ubSoldierClass == ubSoldierClass )
 			{
 				//reserve this soldier
-				MercPtrs[ i ]->sGridNo = NOWHERE;
+				i->sGridNo = NOWHERE;
 
 				//Allocate and copy the soldier
 				pSoldier = new SOLDIERTYPE(*MercPtrs[i]); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
@@ -3348,7 +3348,7 @@ SOLDIERTYPE* TacticalCreateZombie()
 
 SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 {
-	INT32 i, iStart, iEnd;
+	SoldierID i, iStart, iEnd;
 	SOLDIERTYPE *pSoldier;
 
 	// For description look original ReserveTacticalSoldierForAutoresolve()
@@ -3356,14 +3356,14 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 	iStart = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 	iEnd = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID;
 
-	for( i = iStart; i <= iEnd; i++ )
+	for( i = iStart; i <= iEnd; ++i )
 	{		
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
+		if( i->bActive && i->bInSector && i->stats.bLife && !TileIsOutOfBounds(i->sGridNo))
 		{
-			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
+			if( i->ubSoldierClass == ubSoldierClass )
 			{
 				//reserve this soldier
-				MercPtrs[ i ]->sGridNo = NOWHERE;
+				i->sGridNo = NOWHERE;
 
 				//Allocate and copy the soldier
 				pSoldier = new SOLDIERTYPE(*MercPtrs[i]); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );

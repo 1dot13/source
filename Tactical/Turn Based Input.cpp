@@ -2209,9 +2209,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					// sevenfm: unready weapon for all selected
 					if (!fFound)
 					{
-						UINT16 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-						for (SOLDIERTYPE *pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++)
+						SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+						for (; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 						{
+							SOLDIERTYPE *pSoldier = cnt;
 							if (pSoldier->bActive && pSoldier->bInSector && pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED && WeaponReady(pSoldier))
 							{
 								pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE);
@@ -4125,14 +4126,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				// swap sungoggles and nightgoggles / put on gas masks
 			case 'N':
-				SOLDIERTYPE	*pTeamSoldier;
-				UINT16 bLoop;
+			{
+				SOLDIERTYPE *pTeamSoldier;
+				SoldierID id;
 
 				// emergency command: everybody in this sector puts on gasmasks
 				if ( fAlt )
 				{
-					for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier = MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++ )
+					for ( id = gTacticalStatus.Team[gbPlayerNum].bFirstID; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 					{
+						pTeamSoldier = id;
 						if ( !AM_A_ROBOT( pTeamSoldier ) && pTeamSoldier->stats.bLife >= OKLIFE && (pTeamSoldier->sSectorX == gWorldSectorX) && (pTeamSoldier->sSectorY == gWorldSectorY) && (pTeamSoldier->bSectorZ == gbWorldSectorZ) )
 						{
 							WearGasMaskIfAvailable( pTeamSoldier );
@@ -4149,37 +4152,39 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					BOOLEAN fToNightVision;
 
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+					for ( id = gTacticalStatus.Team[gbPlayerNum].bFirstID; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 					{
-						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+						pTeamSoldier = id;
+						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
 						{
 							if ( pTeamSoldier->inv[HEAD1POS].exists() || pTeamSoldier->inv[HEAD2POS].exists() )
 							{
-								fToNightVision = ( Item[pTeamSoldier->inv[HEAD1POS].usItem].brightlightvisionrangebonus > 0 || Item[pTeamSoldier->inv[HEAD2POS].usItem].brightlightvisionrangebonus > 0 );
+								fToNightVision = (Item[pTeamSoldier->inv[HEAD1POS].usItem].brightlightvisionrangebonus > 0 || Item[pTeamSoldier->inv[HEAD2POS].usItem].brightlightvisionrangebonus > 0);
 								break;
 							}
-							if ( bLoop == gTacticalStatus.Team[gbPlayerNum].bLastID )
+							if ( id == gTacticalStatus.Team[gbPlayerNum].bLastID )
 							{
 								// Default to night or day based on game hour
 								fToNightVision = NightTime();
 							}
 						}
 					}
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+					for ( id = gTacticalStatus.Team[gbPlayerNum].bFirstID; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 					{
+						pTeamSoldier = id;
 						// HEADROCK HAM 3.5: When this INI setting is enabled, ALL mercs in the current sector will do a goggle swap.
-						if (gGameExternalOptions.fGoggleSwapAffectsAllMercsInSector)
+						if ( gGameExternalOptions.fGoggleSwapAffectsAllMercsInSector )
 						{
 							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->sSectorX == gWorldSectorX && pTeamSoldier->sSectorY == gWorldSectorY && pTeamSoldier->bSectorZ == gbWorldSectorZ && !AM_A_ROBOT( pTeamSoldier ) )
 							{
-								SwapGogglesUniformly(pTeamSoldier, fToNightVision);
+								SwapGogglesUniformly( pTeamSoldier, fToNightVision );
 							}
 						}
 						else
 						{
-							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
 							{
-								SwapGogglesUniformly(pTeamSoldier, fToNightVision);
+								SwapGogglesUniformly( pTeamSoldier, fToNightVision );
 							}
 						}
 					}
@@ -4189,7 +4194,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					HandleTBSwapGoogles();
 				}
 				break;
-
+			}
 			case 'n':
 				if ( !AreInMeanwhile() )
 				{
@@ -6271,7 +6276,6 @@ void HandleSelectMercSlot( UINT8 ubPanelSlot, INT8 bCode )
 void TestMeanWhile( INT32 iID )
 {
 	MEANWHILE_DEFINITION MeanwhileDef;
-	INT32	cnt;
 	SOLDIERTYPE *pSoldier;
 
 	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX; //3
@@ -6288,10 +6292,11 @@ void TestMeanWhile( INT32 iID )
 
 		// Loop through our mercs and set gridnos once some found.....
 		// look for all mercs on the same team,
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			// Are we a POW in this sector?
 			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
@@ -6363,16 +6368,16 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 {
 	// If we have multiple guys selected, make all change stance!
 	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
 
 	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		// check if our currently selected guy is amoung the
 		// lucky few.. if not, change to a guy who is...
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -6485,16 +6490,16 @@ void HandleStealthChangeFromUIKeys(	)
 {
 	// If we have multiple guys selected, make all change stance!
 	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
 
 	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		// check if our currently selected guy is amoung the
 		// lucky few.. if not, change to a guy who is...
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive && !AM_A_ROBOT( pSoldier ) && pSoldier->bInSector )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
@@ -7682,12 +7687,13 @@ void HandleTBToggleStealthAll( void )
 	// Toggle squad's stealth mode.....
 	// For each guy on squad...
 	SOLDIERTYPE *pTeamSoldier;
-	UINT16 bLoop;
+	SoldierID bLoop;
 	BOOLEAN fStealthOn = FALSE;
 
 	// Check if at least one guy is on stealth....
-	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
 	{
+		pTeamSoldier = bLoop;
 		if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) )
 		{
 			if ( pTeamSoldier->bStealthMode )
@@ -7697,8 +7703,9 @@ void HandleTBToggleStealthAll( void )
 
 	fStealthOn = !fStealthOn;
 
-	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
 	{
+		pTeamSoldier = bLoop;
 		if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 		{
 			if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
@@ -7715,6 +7722,7 @@ void HandleTBToggleStealthAll( void )
 	else
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_OFF_STEALTHMODE ] );
 }
+
 void HandleTBToggleFireMode( void )
 {
 	// toggle fire mode
@@ -7722,23 +7730,23 @@ void HandleTBToggleFireMode( void )
 		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ BURSTMODE_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 		SetBurstMode();
 }
+
 void HandleTBSelectAllMercs( void )
 {
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
-				{
-
+	SOLDIERTYPE *pSoldier;
+	SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
+	{
+		pSoldier = cnt;
 		// Check if this guy is OK to control....
-		if ( OK_CONTROLLABLE_MERC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
+		if ( OK_CONTROLLABLE_MERC( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER)) )
 		{
 			pSoldier->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
-				}
-			}
+		}
+	}
 	EndMultiSoldierSelection( TRUE );
 }
+
 void HandleTBCycleThroughKnownEnemies( void )
 {
 	if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -7747,6 +7755,7 @@ void HandleTBCycleThroughKnownEnemies( void )
 			CycleThroughKnownEnemies( );
 		}
 }
+
 void HandleTBCycleThroughKnownEnemiesBackward( void )
 {
 	if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -7755,6 +7764,7 @@ void HandleTBCycleThroughKnownEnemiesBackward( void )
 			CycleThroughKnownEnemies( TRUE );
 	}
 }
+
 void HandleTBCycleThroughVisibleEnemies( void )
 {
 	SOLDIERTYPE *pSoldier;
@@ -7848,10 +7858,10 @@ void HandleTBSwapSidearm( void )
 void HandleTBSwapGoogles( void )
 {
 	SOLDIERTYPE	*pTeamSoldier;
-	UINT16		bLoop;
 
-	for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+	for ( SoldierID bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
 	{
+		pTeamSoldier = bLoop;
 		// HEADROCK HAM 3.5: When this INI setting is enabled, ALL mercs in the current sector will do a goggle swap.
 		if (gGameExternalOptions.fGoggleSwapAffectsAllMercsInSector)
 		{
@@ -7945,270 +7955,270 @@ void HandleTBReload( void )
 }
 void HandleTBReloadAll( void )
 {
-				if (! ( gTacticalStatus.fEnemyInSector ) )
+	if ( !(gTacticalStatus.fEnemyInSector) )
+	{
+		SOLDIERTYPE *pTeamSoldier;
+		SoldierID 	bLoop;
+		UINT16		bullets;
+		OBJECTTYPE *pGun, *pAmmo, *pAmmoMags;
+
+		// Search for soldier
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
+			{
+				// Search for gun in soldier inventory
+				UINT32 invsize = pTeamSoldier->inv.size();
+				for ( UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2 )
 				{
-					SOLDIERTYPE	*pTeamSoldier;
-					UINT16		bLoop;
-					UINT16		bullets;		
-					OBJECTTYPE *pGun, *pAmmo, *pAmmoMags;
-
-					// Search for soldier
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+					if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
 					{
-						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+						pGun = &(pTeamSoldier->inv[bLoop2]);
+
+						UINT16 gunmagsize = GetMagSize( pGun );
+
+						//if magazine is not full
+						if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
 						{
-							// Search for gun in soldier inventory
-							UINT32 invsize = pTeamSoldier->inv.size();
-							for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
+							// Search for ammo in sector
+							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
 							{
-								if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
+								if ( (gWorldItems[uiLoop].bVisible == TRUE) && (gWorldItems[uiLoop].fExists) && (gWorldItems[uiLoop].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
 								{
-									pGun	= &(pTeamSoldier->inv[bLoop2]);
-
-									UINT16 gunmagsize = GetMagSize( pGun );
-
-									//if magazine is not full
-									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
+									if ( (Item[gWorldItems[uiLoop].object.usItem].usItemClass & IC_AMMO) ) // the item is ammo
 									{
-										// Search for ammo in sector
-										for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
+										pAmmo = &(gWorldItems[uiLoop].object);
+
+										if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
 										{
-											if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
+											// same ammo type in gun and magazine
+											if ( Magazine[Item[(*pGun)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
 											{
-												if ( ( Item[ gWorldItems[ uiLoop ].object.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
-												{
-													pAmmo = &( gWorldItems[ uiLoop ].object );
-
-													if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
-													{
-														// same ammo type in gun and magazine
-														if ( Magazine[Item[(*pGun)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
-														{
-															ReloadGun( pTeamSoldier, pGun, pAmmo );
-														}
-
-														if ((*pAmmo)[0]->data.ubShotsLeft == 0)
-														{
-															RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
-														}
-
-														// if gun is full, we can stop this
-														if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
-															break;
-													}
-												}
+												ReloadGun( pTeamSoldier, pGun, pAmmo );
 											}
+
+											if ( (*pAmmo)[0]->data.ubShotsLeft == 0 )
+											{
+												RemoveItemFromPool( gWorldItems[uiLoop].sGridNo, uiLoop, gWorldItems[uiLoop].ubLevel );
+											}
+
+											// if gun is full, we can stop this
+											if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
+												break;
 										}
-									}
-									//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
-									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
-									{
-										AutoReload( pTeamSoldier );
 									}
 								}
 							}
 						}
-					}
-
-					//MM: loop thru the soldiers again (lazy copy/paste :p).  could do it all at once, but then there may not be enough ammo from the world items to fill everyone's guns first
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
-					{
-						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+						//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
+						if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
 						{
-							// Search for ammo in soldier inventory
-							UINT32 invsize = pTeamSoldier->inv.size();
-							for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
-							{
-								if ( Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_AMMO )
-								{
-									pAmmoMags = &(pTeamSoldier->inv[bLoop2]);
-
-									for ( UINT16 stackMag = 0; stackMag < (*pAmmoMags).ubNumberOfObjects; stackMag++ )
-									{
-										if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
-										{
-											// Search for ammo in sector
-											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
-											{
-												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
-												{
-													if ( ( Item[ gWorldItems[ uiLoop ].object.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
-													{
-														pAmmo = &( gWorldItems[ uiLoop ].object );
-
-														if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
-														{
-															// same ammo type
-															if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
-															{
-																bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
-																
-																if ((*pAmmo)[0]->data.ubShotsLeft < bullets)
-																	bullets = (*pAmmo)[0]->data.ubShotsLeft;
-
-																(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
-																(*pAmmo)[0]->data.ubShotsLeft -= bullets;
-
-																fCharacterInfoPanelDirty = TRUE;
-																fInterfacePanelDirty = DIRTYLEVEL2;
-															}
-
-															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
-															{
-																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
-															}
-														}
-													}
-												}
-											}
-
-											//MM: if magazines still are partly empty, look through inventory for boxes and crates
-											if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
-											{
-												UINT32 invsize = pTeamSoldier->inv.size();
-												for (UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop)
-												{
-													if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO) && Magazine[Item[pTeamSoldier->inv[uiLoop].usItem].ubClassIndex].ubMagType >= AMMO_BOX )
-													{
-														pAmmo = &(pTeamSoldier->inv[uiLoop]);
-
-														if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
-														{
-															// same ammo type
-															if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
-															{
-																bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
-																
-																if ((*pAmmo)[0]->data.ubShotsLeft < bullets)
-																	bullets = (*pAmmo)[0]->data.ubShotsLeft;
-
-																(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
-																(*pAmmo)[0]->data.ubShotsLeft -= bullets;
-
-																fCharacterInfoPanelDirty = TRUE;
-																fInterfacePanelDirty = DIRTYLEVEL2;
-															}
-
-															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
-																DeleteObj(pAmmo);
-														}
-													}
-												}
-											}
-										}
-									}
-
-									if (IsWeaponAttached(pGun, IC_GUN))
-									{
-										OBJECTTYPE *pGun2 = FindAttachedWeapon(pGun, IC_GUN);
-
-										UINT16 gunmagsize2 = GetMagSize( pGun2 );
-
-										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
-										{
-											// Search for ammo in sector
-											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
-											{
-												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
-												{
-													if ( ( Item[ gWorldItems[ uiLoop ].object.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
-													{
-														pAmmo = &( gWorldItems[ uiLoop ].object );
-
-														if ( CompatibleAmmoForGun( pAmmo, pGun2 ) ) // can use the ammo with this gun
-														{
-															// same ammo type in gun and magazine
-															if ( Magazine[Item[(*pGun2)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
-															{
-																ReloadGun( pTeamSoldier, pGun2, pAmmo );
-															}
-
-															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
-															{
-																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
-															}
-
-															// if gun is full, we can stop this
-															if ( (*pGun2)[0]->data.gun.ubGunShotsLeft >= gunmagsize2 )
-																break;
-														}
-													}
-												}
-											}
-										}
-
-										//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
-										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
-										{
-											AutoReload( pTeamSoldier );
-										}
-									}
-								}
-							}
+							AutoReload( pTeamSoldier );
 						}
 					}
 				}
-				else
+			}
+		}
+
+		//MM: loop thru the soldiers again (lazy copy/paste :p).  could do it all at once, but then there may not be enough ammo from the world items to fill everyone's guns first
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
+			{
+				// Search for ammo in soldier inventory
+				UINT32 invsize = pTeamSoldier->inv.size();
+				for ( UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2 )
 				{
-					SOLDIERTYPE	*pTeamSoldier;
-					UINT16 bLoop;
-					OBJECTTYPE *pGun, *pAmmo;
-
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop, pTeamSoldier++)
+					if ( Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_AMMO )
 					{
-						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
-						{
-							if ( (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & (IC_GUN | IC_LAUNCHER) ) )
-							{
-								if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
-								{
-									// Flugente: check for underbarrel weapons and use that object if necessary
-									pGun = pTeamSoldier->GetUsedWeapon( &(pTeamSoldier->inv[HANDPOS]) );
+						pAmmoMags = &(pTeamSoldier->inv[bLoop2]);
 
-									//magazine is not full
-									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
+						for ( UINT16 stackMag = 0; stackMag < (*pAmmoMags).ubNumberOfObjects; stackMag++ )
+						{
+							if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
+							{
+								// Search for ammo in sector
+								for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
+								{
+									if ( (gWorldItems[uiLoop].bVisible == TRUE) && (gWorldItems[uiLoop].fExists) && (gWorldItems[uiLoop].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
 									{
-										AutoReload( pTeamSoldier );
+										if ( (Item[gWorldItems[uiLoop].object.usItem].usItemClass & IC_AMMO) ) // the item is ammo
+										{
+											pAmmo = &(gWorldItems[uiLoop].object);
+
+											if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
+											{
+												// same ammo type
+												if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+												{
+													bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
+
+													if ( (*pAmmo)[0]->data.ubShotsLeft < bullets )
+														bullets = (*pAmmo)[0]->data.ubShotsLeft;
+
+													(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
+													(*pAmmo)[0]->data.ubShotsLeft -= bullets;
+
+													fCharacterInfoPanelDirty = TRUE;
+													fInterfacePanelDirty = DIRTYLEVEL2;
+												}
+
+												if ( (*pAmmo)[0]->data.ubShotsLeft == 0 )
+												{
+													RemoveItemFromPool( gWorldItems[uiLoop].sGridNo, uiLoop, gWorldItems[uiLoop].ubLevel );
+												}
+											}
+										}
 									}
 								}
-								else
+
+								//MM: if magazines still are partly empty, look through inventory for boxes and crates
+								if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
 								{
-									// Search for gun in soldier inventory
 									UINT32 invsize = pTeamSoldier->inv.size();
-									for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
+									for ( UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop )
 									{
-										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
+										if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO) && Magazine[Item[pTeamSoldier->inv[uiLoop].usItem].ubClassIndex].ubMagType >= AMMO_BOX )
 										{
-											pGun	= &(pTeamSoldier->inv[bLoop2]);
+											pAmmo = &(pTeamSoldier->inv[uiLoop]);
 
-											UINT16 gunmagsize = GetMagSize( pGun );
-
-											//if magazine is not full
-											if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
+											if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
 											{
-												// Search for ammo in soldier inventory
-												for ( UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop )
+												// same ammo type
+												if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
 												{
-													if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO ) ) // the item is ammo
-													{
-														pAmmo = &(pTeamSoldier->inv[uiLoop]);
+													bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
 
-														if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
-														{
-															// same ammo type in gun and magazine
-															if ( Magazine[Item[(*pGun)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
-															{
-																ReloadGun( pTeamSoldier, pGun, pAmmo );
+													if ( (*pAmmo)[0]->data.ubShotsLeft < bullets )
+														bullets = (*pAmmo)[0]->data.ubShotsLeft;
 
-																fCharacterInfoPanelDirty = TRUE;
-																fInterfacePanelDirty = DIRTYLEVEL2;
+													(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
+													(*pAmmo)[0]->data.ubShotsLeft -= bullets;
 
-																// if gun is full, we can stop this
-																if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
-																	break;
-															}
-														}
-													}
+													fCharacterInfoPanelDirty = TRUE;
+													fInterfacePanelDirty = DIRTYLEVEL2;
+												}
+
+												if ( (*pAmmo)[0]->data.ubShotsLeft == 0 )
+													DeleteObj( pAmmo );
+											}
+										}
+									}
+								}
+							}
+						}
+
+						if ( IsWeaponAttached( pGun, IC_GUN ) )
+						{
+							OBJECTTYPE *pGun2 = FindAttachedWeapon( pGun, IC_GUN );
+
+							UINT16 gunmagsize2 = GetMagSize( pGun2 );
+
+							if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
+							{
+								// Search for ammo in sector
+								for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
+								{
+									if ( (gWorldItems[uiLoop].bVisible == TRUE) && (gWorldItems[uiLoop].fExists) && (gWorldItems[uiLoop].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
+									{
+										if ( (Item[gWorldItems[uiLoop].object.usItem].usItemClass & IC_AMMO) ) // the item is ammo
+										{
+											pAmmo = &(gWorldItems[uiLoop].object);
+
+											if ( CompatibleAmmoForGun( pAmmo, pGun2 ) ) // can use the ammo with this gun
+											{
+												// same ammo type in gun and magazine
+												if ( Magazine[Item[(*pGun2)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+												{
+													ReloadGun( pTeamSoldier, pGun2, pAmmo );
+												}
+
+												if ( (*pAmmo)[0]->data.ubShotsLeft == 0 )
+												{
+													RemoveItemFromPool( gWorldItems[uiLoop].sGridNo, uiLoop, gWorldItems[uiLoop].ubLevel );
+												}
+
+												// if gun is full, we can stop this
+												if ( (*pGun2)[0]->data.gun.ubGunShotsLeft >= gunmagsize2 )
+													break;
+											}
+										}
+									}
+								}
+							}
+
+							//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
+							if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
+							{
+								AutoReload( pTeamSoldier );
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		SOLDIERTYPE *pTeamSoldier;
+		SoldierID bLoop;
+		OBJECTTYPE *pGun, *pAmmo;
+
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
+			{
+				if ( (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
+				{
+					if ( (gTacticalStatus.uiFlags & INCOMBAT) )
+					{
+						// Flugente: check for underbarrel weapons and use that object if necessary
+						pGun = pTeamSoldier->GetUsedWeapon( &(pTeamSoldier->inv[HANDPOS]) );
+
+						//magazine is not full
+						if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun ) )
+						{
+							AutoReload( pTeamSoldier );
+						}
+					}
+					else
+					{
+						// Search for gun in soldier inventory
+						UINT32 invsize = pTeamSoldier->inv.size();
+						for ( UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2 )
+						{
+							if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
+							{
+								pGun = &(pTeamSoldier->inv[bLoop2]);
+
+								UINT16 gunmagsize = GetMagSize( pGun );
+
+								//if magazine is not full
+								if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
+								{
+									// Search for ammo in soldier inventory
+									for ( UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop )
+									{
+										if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO) ) // the item is ammo
+										{
+											pAmmo = &(pTeamSoldier->inv[uiLoop]);
+
+											if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
+											{
+												// same ammo type in gun and magazine
+												if ( Magazine[Item[(*pGun)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+												{
+													ReloadGun( pTeamSoldier, pGun, pAmmo );
+
+													fCharacterInfoPanelDirty = TRUE;
+													fInterfacePanelDirty = DIRTYLEVEL2;
+
+													// if gun is full, we can stop this
+													if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
+														break;
 												}
 											}
 										}
@@ -8218,6 +8228,9 @@ void HandleTBReloadAll( void )
 						}
 					}
 				}
+			}
+		}
+	}
 }
 
 void HandleTBShowCover( void )
@@ -8311,9 +8324,9 @@ void HandleTBBackpacks(void)
 		bool backpackDropped = false;
 		SOLDIERTYPE* pTeamSoldier;
 
-		for (UINT16 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		for ( SoldierID ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++ubLoop )
 		{
-			pTeamSoldier = MercPtrs[ubLoop];
+			pTeamSoldier = ubLoop;
 
 			if (OK_CONTROLLABLE_MERC(pTeamSoldier) && pTeamSoldier->flags.DropPackFlag)
 			{
@@ -8336,31 +8349,30 @@ void HandleTBBackpacks(void)
 void HandleTBDropBackpacks( void )
 {
 	//if( UsingNewInventorySystem() && gusSelectedSoldier != NOBODY )
-	if( UsingNewInventorySystem() )
+	if ( UsingNewInventorySystem() )
 	{
 		//SOLDIERTYPE *pSoldier = gusSelectedSoldier;
-		SOLDIERTYPE	*pTeamSoldier;
-		UINT16		ubLoop;
+		SOLDIERTYPE *pTeamSoldier;
 
 		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
 		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
 
-		for( ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++ubLoop )
 		{
-			pTeamSoldier=MercPtrs[ ubLoop ];
+			pTeamSoldier = ubLoop;
 
-			if( OK_CONTROLLABLE_MERC( pTeamSoldier ) &&
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) &&
 				OK_INTERRUPT_MERC( pTeamSoldier ) &&
 				!AM_A_ROBOT( pTeamSoldier ) &&
-				EnoughPoints(pTeamSoldier, sAPCost, iBPCost, FALSE) &&
+				EnoughPoints( pTeamSoldier, sAPCost, iBPCost, FALSE ) &&
 				//pTeamSoldier->bAssignment == pSoldier->bAssignment &&
 				pTeamSoldier->bAssignment < ON_DUTY &&
 				pTeamSoldier->inv[BPACKPOCKPOS].exists() &&
 				!pTeamSoldier->flags.DropPackFlag )
-			{				
-				if( ChangeDropPackStatus(pTeamSoldier, TRUE) )
+			{
+				if ( ChangeDropPackStatus( pTeamSoldier, TRUE ) )
 				{
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_SOLDIER_DROP], pTeamSoldier->GetName());
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_SOLDIER_DROP], pTeamSoldier->GetName() );
 				}
 			}
 		}
@@ -8378,14 +8390,13 @@ void HandleTBPickUpBackpacks( void )
 	{
 		//SOLDIERTYPE *pSoldier = gusSelectedSoldier;
 		SOLDIERTYPE	*pTeamSoldier;
-		UINT16		ubLoop;
 
 		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
 		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
 
-		for( ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++ )
+		for( SoldierID ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++ubLoop )
 		{
-			pTeamSoldier=MercPtrs[ubLoop];
+			pTeamSoldier = ubLoop;
 
 			if( OK_CONTROLLABLE_MERC( pTeamSoldier ) &&
 				OK_INTERRUPT_MERC( pTeamSoldier ) &&
@@ -9602,7 +9613,6 @@ void HandleTBPickUpBackpacks(BOOLEAN fAll)
 	{
 		SOLDIERTYPE* pSoldier = NULL;
 		SOLDIERTYPE* pTeamSoldier;
-		UINT16 ubLoop;
 
 		if (gusSelectedSoldier != NOBODY)
 		{
@@ -9612,9 +9622,9 @@ void HandleTBPickUpBackpacks(BOOLEAN fAll)
 		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
 		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
 
-		for (ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++)
+		for ( SoldierID ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++ubLoop )
 		{
-			pTeamSoldier = MercPtrs[ubLoop];
+			pTeamSoldier = ubLoop;
 
 			if (pTeamSoldier &&
 				OK_CONTROLLABLE_MERC(pTeamSoldier) &&

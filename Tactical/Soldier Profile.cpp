@@ -2717,11 +2717,10 @@ void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
 // SANDRO - added function
 INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTeammate;
-	BOOLEAN				fOnlyOneException = FALSE;
+	INT8			bNumber = 0;
+	SOLDIERTYPE *	pSoldier;
+	SOLDIERTYPE *pTeammate;
+	BOOLEAN		fOnlyOneException = FALSE;
 
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
 	if (!pSoldier || !( pSoldier->bActive ) || !( pSoldier->bInSector ) )
@@ -2729,9 +2728,9 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 		return( -1 );
 	}
 
-	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	for ( SoldierID uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++uiLoop )
 	{
-		pTeammate = MercPtrs[ uiLoop ];
+		pTeammate = uiLoop;
 		if ( pTeammate == NULL )
 		{
 			continue;

@@ -1336,10 +1336,11 @@ INT32 RandomGridNo()
 BOOLEAN GridNoNearPlayerMercs( INT32 sGridNo, INT16 sRadius )
 {
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector )
 		{
 			if ( PythSpacesAway(sGridNo, pTeamSoldier->sGridNo) < sRadius )

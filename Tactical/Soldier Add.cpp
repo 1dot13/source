@@ -1761,16 +1761,14 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 // IsMercOnTeam() checks to see if the passed in Merc Profile ID is currently on the player's team
 BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 {
-	UINT16 cnt;
-	UINT16 ubLastTeamID;
 	SOLDIERTYPE *pTeamSoldier;
-
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; ++cnt, pTeamSoldier++)
+	for ( ; cnt <= ubLastTeamID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID && pTeamSoldier->bActive )
 		{
 			if ( aAlreadyInCountry && pTeamSoldier->bAssignment == IN_TRANSIT )
@@ -1791,12 +1789,12 @@ BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 SoldierID GetSoldierIDFromMercID(UINT8 ubMercID)
 {
 	SOLDIERTYPE		*pTeamSoldier = NULL;
-
-	UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pTeamSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID )
 		{
 			if( pTeamSoldier->bActive )

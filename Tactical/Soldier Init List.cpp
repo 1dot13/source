@@ -1891,9 +1891,9 @@ void AddSoldierInitListMilitia( UINT16 ubNumGreen, UINT16 ubNumRegs, UINT16 ubNu
 	{
 		// determine how many militia have already been created in this sector (this can also have happened in another function), so count all active ones
 		UINT16 tacticalmilitia = 0;
-		for ( UINT16 i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM ].bLastID; ++i )
+		for ( SoldierID i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM ].bLastID; ++i )
 		{
-			if ( MercPtrs[i]->bInSector && MercPtrs[i]->bActive )
+			if ( i->bInSector && i->bActive )
 				++tacticalmilitia;
 		}
 
@@ -3205,10 +3205,11 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	// count current number of civilians
 	UINT16 numberofcivs = 0;
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID  cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID  lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// check if teamsoldier exists in this sector
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
 			++numberofcivs;
@@ -3276,10 +3277,11 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	UINT16 numberofcivs = 0;
 	UINT16 numberofpows = 0;
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID  cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID  lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// check if teamsoldier exists in this sector
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
 			++numberofcivs;

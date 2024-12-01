@@ -874,8 +874,6 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 {
-	UINT16 ubID;
-
 	if (gfTurnBasedAI)
 	{
 		if (gTacticalStatus.uiFlags & PLAYER_TEAM_DEAD)
@@ -885,9 +883,9 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		}
 
 		// search for any player merc to say close call quote
-		for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubID )
+		for ( SoldierID ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubID )
 		{
-			SOLDIERTYPE *pMerc = MercPtrs[ubID];
+			SOLDIERTYPE *pMerc = ubID;
 
 			if ( OK_INSECTOR_MERC( pMerc ) )
 			{
@@ -941,10 +939,10 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 #endif
 
 		// find the next AI guy
-		ubID = RemoveFirstAIListEntry();
+		SoldierID ubID = RemoveFirstAIListEntry();
 		if (ubID != NOBODY)
 		{
-			StartNPCAI( MercPtrs[ ubID ] );
+			StartNPCAI( ubID );
 			return;
 		}
 
@@ -1119,14 +1117,13 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 
 BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
-	INT32 cnt;
 	SOLDIERTYPE *pOurTeam;
-
-	cnt = gTacticalStatus.Team[pSoldier->bTeam].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[pSoldier->bTeam].bFirstID;
 
 	// make a list of all of our team's mercs
-	for (pOurTeam = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; cnt++,pOurTeam++)
+	for ( ; cnt <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; ++cnt )
 	{
+		pOurTeam = cnt;
 		if ( pOurTeam->bActive )
 		{
 			if (pOurTeam->sGridNo == sGridNo || pOurTeam->aiData.usActionData == sGridNo)

@@ -2913,7 +2913,6 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
-	INT32 cnt;
 
 	// First get pointer to NPC
 	pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
@@ -2921,11 +2920,12 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && pTeamSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 		{
@@ -3649,7 +3649,6 @@ void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 	UINT16 ubNumMercsAvailable = 0, ubChosenMerc;
 	SOLDIERTYPE * pTeamSoldier;
 	SOLDIERTYPE * pSoldier;
-	INT32 cnt;
 	INT8 bTeam;
 
 	// First get pointer to NPC
@@ -3663,11 +3662,12 @@ void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 	// Loop through all our guys and find one to yell
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( pTeamSoldier->bActive && pSoldier->bInSector && pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bBreath >= OKBREATH && pTeamSoldier->aiData.bOppCnt > 0 && pTeamSoldier->ubProfile != NO_PROFILE )
 		{

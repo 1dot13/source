@@ -21,7 +21,6 @@ void CallAvailableEnemiesTo( INT32 sGridNo )
 
 void CallAvailableTeamEnemiesTo( INT32 sGridNo, INT8 bTeam )
 {
-	INT32	iLoop2;
 	SOLDIERTYPE * pSoldier;
 
 	// All enemy teams become aware of a very important "noise" coming from here!
@@ -36,9 +35,10 @@ void CallAvailableTeamEnemiesTo( INT32 sGridNo, INT8 bTeam )
 			gubPublicNoiseVolume[bTeam] = MAX_MISC_NOISE_DURATION;
 
 			// new situation for everyone;
-			iLoop2 = gTacticalStatus.Team[ bTeam ].bFirstID;
-			for ( pSoldier = MercPtrs[iLoop2]; iLoop2 <= gTacticalStatus.Team[ bTeam ].bLastID; iLoop2++, pSoldier++ )
+			SoldierID iLoop2 = gTacticalStatus.Team[ bTeam ].bFirstID;
+			for ( ; iLoop2 <= gTacticalStatus.Team[ bTeam ].bLastID; ++iLoop2 )
 			{
+				pSoldier = iLoop2;
 				if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE)
 				{
 					SetNewSituation( pSoldier );
@@ -54,7 +54,6 @@ void CallAvailableKingpinMenTo( INT32 sGridNo )
 	// like call all enemies, but only affects civgroup KINGPIN guys with
 	// NO PROFILE
 
-	INT32	iLoop2;
 	SOLDIERTYPE * pSoldier;
 
 	// All enemy teams become aware of a very important "noise" coming from here!
@@ -67,9 +66,10 @@ void CallAvailableKingpinMenTo( INT32 sGridNo )
 
 		// new situation for everyone...
 
-		iLoop2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-		for ( pSoldier = MercPtrs[iLoop2]; iLoop2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; iLoop2++, pSoldier++ )
+		SoldierID iLoop2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+		for ( ; iLoop2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++iLoop2 )
 		{
+			pSoldier = iLoop2;
 			if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP && pSoldier->ubProfile == NO_PROFILE)
 			{
 				SetNewSituation( pSoldier );

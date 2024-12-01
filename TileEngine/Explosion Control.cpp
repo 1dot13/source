@@ -3283,13 +3283,12 @@ void BillyBlocksDoorCallback( void )
 BOOLEAN HookerInRoom( UINT16 usRoom )
 {
 	//DBrot: More Rooms
-	UINT16		ubLoop;//, ubTempRoom;
 	UINT16		usTempRoom;
 	SOLDIERTYPE *	pSoldier;
 
-	for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+	for ( SoldierID ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 	{
-		pSoldier = MercPtrs[ ubLoop ];
+		pSoldier = ubLoop;
 
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->aiData.bNeutral && pSoldier->ubBodyType == MINICIV )
 		{
@@ -4292,7 +4291,7 @@ void HandleExplosionQueue( void )
 
 		if (gfExplosionQueueMayHaveChangedSight)
 		{
-			UINT16 ubLoop;
+			SoldierID ubLoop;
 			SOLDIERTYPE * pTeamSoldier;
 
 			// set variable so we may at least have someone to resolve interrupts vs
@@ -4301,8 +4300,9 @@ void HandleExplosionQueue( void )
 
 			// call fov code
 			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 			{
+				pTeamSoldier = ubLoop;
 				if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 				{
 					RevealRoofsAndItems( pTeamSoldier, TRUE, FALSE, pTeamSoldier->pathing.bLevel, FALSE );
@@ -4442,17 +4442,17 @@ void HandleExplosionWarningAnimations( )
 						// soldiers
 						if (!fShow)
 						{
-							for (UINT32 ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++ubID)
+							for ( SoldierID ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++ubID)
 							{
 								if (ubID != pSoldier->ubID &&
-									MercPtrs[ubID] &&
-									MercPtrs[ubID]->sGridNo == sSpot &&
-									MercPtrs[ubID]->bVisible == TRUE &&
-									MercPtrs[ubID]->pathing.bLevel == bLevel &&
-									gAnimControl[MercPtrs[ubID]->usAnimState].ubEndHeight == ANIM_PRONE &&
-									!Water(MercPtrs[ubID]->sGridNo, MercPtrs[ubID]->pathing.bLevel) &&
+									ubID != NOBODY &&
+									ubID->sGridNo == sSpot &&
+									ubID->bVisible == TRUE &&
+									ubID->pathing.bLevel == bLevel &&
+									gAnimControl[ubID->usAnimState].ubEndHeight == ANIM_PRONE &&
+									!Water(ubID->sGridNo, ubID->pathing.bLevel) &&
 									pSoldier->ubBodyType <= REGFEMALE &&
-									(MercPtrs[ubID]->bTeam == pSoldier->bTeam || MercPtrs[ubID]->IsUnconscious() || MercPtrs[ubID]->stats.bLife < OKLIFE))
+									(ubID->bTeam == pSoldier->bTeam || ubID->IsUnconscious() || ubID->stats.bLife < OKLIFE))
 								{
 									fShow = TRUE;
 								}
@@ -5308,7 +5308,6 @@ void UpdateSAMDoneRepair( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ	)
 void HandleBuldingDestruction( INT32 sGridNo, SoldierID ubOwner )
 {
 	SOLDIERTYPE *	pSoldier;
-	UINT16		cnt;
 
 	if ( ubOwner == NOBODY )
 	{
@@ -5324,9 +5323,10 @@ void HandleBuldingDestruction( INT32 sGridNo, SoldierID ubOwner )
 	if ( sGridNo == NOWHERE || !InARoom( sGridNo, NULL ) )
 		return;
 
-	cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt++ ,pSoldier++ )
+	SoldierID cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife && pSoldier->aiData.bNeutral )
 		{
 			if ( pSoldier->ubProfile != NO_PROFILE )

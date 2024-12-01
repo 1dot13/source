@@ -2143,55 +2143,57 @@ void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 
 void HandleMouseRTX2Button( UINT32 *puiNewEvent )
 {
-			if ( _KeyDown( ALT ) )
-				AutoReload( gusSelectedSoldier );
-			else
-			// Toggle squad's stealth mode.....
-			// For each guy on squad...
+	if ( _KeyDown( ALT ) )
+		AutoReload( gusSelectedSoldier );
+	else
+		// Toggle squad's stealth mode.....
+		// For each guy on squad...
+	{
+		SOLDIERTYPE *pTeamSoldier;
+		SoldierID	bLoop;
+		BOOLEAN		fStealthOn = FALSE;
+
+		// Check if at least one guy is on stealth....
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() )
 			{
-				SOLDIERTYPE				*pTeamSoldier;
-				INT16					bLoop;
-				BOOLEAN					fStealthOn = FALSE;
-
-				// Check if at least one guy is on stealth....
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+				if ( pTeamSoldier->bStealthMode )
 				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) )
-					{
-						if ( pTeamSoldier->bStealthMode )
-						{
-							fStealthOn = TRUE;
-						}
-					}
-				}
-
-				fStealthOn = !fStealthOn;
-
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
-				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
-					{
-						if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
-						{
-							gfUIStanceDifferent = TRUE;
-						}
-
-						pTeamSoldier->bStealthMode = fStealthOn;
-					}
-				}
-
-				fInterfacePanelDirty = DIRTYLEVEL2;
-
-				// OK, display message
-				if ( fStealthOn )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ON_STEALTHMODE ] );
-				}
-				else
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_OFF_STEALTHMODE ] );
+					fStealthOn = TRUE;
 				}
 			}
+		}
+
+		fStealthOn = !fStealthOn;
+
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
+			{
+				if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
+				{
+					gfUIStanceDifferent = TRUE;
+				}
+
+				pTeamSoldier->bStealthMode = fStealthOn;
+			}
+		}
+
+		fInterfacePanelDirty = DIRTYLEVEL2;
+
+		// OK, display message
+		if ( fStealthOn )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ON_STEALTHMODE] );
+		}
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_OFF_STEALTHMODE] );
+		}
+	}
 }
 
 // sevenfm: common functionality

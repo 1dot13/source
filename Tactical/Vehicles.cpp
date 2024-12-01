@@ -1718,15 +1718,15 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeat
 
 SOLDIERTYPE *GetVehicleSoldierPointerFromPassenger( SOLDIERTYPE *pSrcSoldier )
 {
-	UINT32									cnt;
-	SOLDIERTYPE			 *pSoldier;
+	SOLDIERTYPE *pSoldier;
 
 	// End the turn of player charactors
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			// Check ubID....
@@ -2906,14 +2906,12 @@ BOOLEAN SoldierMustDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId, BOOLEA
 
 BOOLEAN OnlythisCanDriveVehicle( SOLDIERTYPE *pthis, INT32 iVehicleId )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-
-	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
 		// get the current soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// skip checking THIS soldier, we wanna know about everyone else
 		if ( pSoldier == pthis )

@@ -759,7 +759,6 @@ UINT32	ShopKeeperScreenShutdown()
 BOOLEAN EnterShopKeeperInterface()
 {
 	VOBJECT_DESC		VObjectDesc;
-	UINT16				ubCnt;
 	CHAR8				zTemp[32];
 	VSURFACE_DESC		vs_desc;
 
@@ -886,9 +885,9 @@ BOOLEAN EnterShopKeeperInterface()
 	//Create an array of all mercs (anywhere!) currently in the player's employ, and load their small faces
 	// This is to support showing of repair item owner's faces even when they're not in the sector, as long as they still work for player
 	gubNumberMercsInArray = 0;
-	for( ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
+	for( SoldierID ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
 	{
-		pSoldier = MercPtrs[ ubCnt ];
+		pSoldier = ubCnt;
 
 		if( pSoldier->bActive && ( pSoldier->ubProfile != NO_PROFILE ) &&
 			!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )

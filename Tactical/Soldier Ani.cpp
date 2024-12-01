@@ -3559,7 +3559,6 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 	UINT16	usQuoteNum;
 	BOOLEAN buddyquoteused = FALSE;
 
@@ -3570,11 +3569,12 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 		return;
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pTeamSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...		
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) 
 			&& !pTeamSoldier->flags.fMercAsleep && !TileIsOutOfBounds(pTeamSoldier->sGridNo) && pTeamSoldier->ubProfile != pKillerSoldier->ubProfile )
@@ -3709,8 +3709,9 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	{
 		cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
-		for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pTeamSoldier )
+		for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// we do not exclude the buddies from above. If we get to this point, it might have been a buddy that already said his line. In that case additional dialogue might play other ones
 
 			// Add guy if he's a candidate...		
@@ -3742,7 +3743,6 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 // WDS - make number of mercenaries, etc. be configurable
 	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 	UINT16	ubNumMercs = 0;
@@ -3802,11 +3802,12 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 			if ( fDoSomeoneElse )
 			{
 				// Check if a person is here that has this quote....
-				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+				SoldierID  cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 				// run through list
-				for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pTeamSoldier = cnt;
 					if ( cnt != pKillerSoldier->ubID )
 					{
 						if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )

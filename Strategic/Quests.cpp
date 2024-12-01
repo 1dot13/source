@@ -1713,9 +1713,9 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 {
 	ScreenMsg( FONT_MCOLOR_LTBLUE, MSG_TESTVERSION, L"QUEST COMPLETED - Adding to merc records and awarding experiences (%d).", (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests) );
 
-	for ( SoldierID i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++i )
+	for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 	{
-		SOLDIERTYPE *pSoldier = i;
+		SOLDIERTYPE *pSoldier = id;
 		if( pSoldier->bActive && pSoldier->stats.bLife >= CONSCIOUSNESS && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
 			pSoldier->sSectorX == sQuestSectorX && pSoldier->sSectorY == sQuestsSectorY && !pSoldier->flags.fBetweenSectors && pSoldier->bTeam == gbPlayerNum &&
 			pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ pSoldier->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )

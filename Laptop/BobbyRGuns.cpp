@@ -3719,26 +3719,27 @@ void OutOfStockMessageBoxCallBack( UINT8 bExitValue )
 UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID )
 {
 	UINT8	ubItemCount=0;
-	UINT16	ubMercCount;
 	UINT8	ubPocketCount;
 
-	UINT16	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT16	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SoldierID 	id;
+	SoldierID 	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID 	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	//loop through all the mercs on the team
-	for( ubMercCount = ubFirstID; ubMercCount <= ubLastID; ++ubMercCount )
+	for( id = ubFirstID; id <= ubLastID; ++id )
 	{
-		if( Menptr[ ubMercCount ].bActive )
+		SOLDIERTYPE *pSoldier = id;
+		if( pSoldier->bActive )
 		{
 			//loop through all the pockets on the merc
-			UINT8 invsize = Menptr[ ubMercCount ].inv.size();
+			UINT8 invsize = pSoldier->inv.size();
 			for( ubPocketCount=0; ubPocketCount<invsize; ++ubPocketCount)
 			{
 				//if there is a weapon here
-				if( Item[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].usItemClass == IC_GUN )
+				if( Item[ pSoldier->inv[ ubPocketCount ].usItem ].usItemClass == IC_GUN )
 				{
 					//if the weapon uses the same kind of ammo as the one passed in, return true
-					if( Weapon[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].ubCalibre == Magazine[ Item[ sItemID ].ubClassIndex ].ubCalibre )
+					if( Weapon[ pSoldier->inv[ ubPocketCount ].usItem ].ubCalibre == Magazine[ Item[ sItemID ].ubClassIndex ].ubCalibre )
 					{
 						++ubItemCount;
 					}

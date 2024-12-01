@@ -4102,7 +4102,6 @@ void recieveMISS  (RPCParameters *rpcParameters)
 BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 {
 	SOLDIERTYPE *pSoldier;
-	int cnt;
 	int soldiers= 0 ;
 	int numActiveSides = 0;
 	
@@ -4112,9 +4111,9 @@ BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 	{
 		soldiers=0;
 
-		for(cnt = gTacticalStatus.Team[ x ].bFirstID;cnt <= gTacticalStatus.Team[ x ].bLastID; cnt++)
+		for( SoldierID cnt = gTacticalStatus.Team[ x ].bFirstID;cnt <= gTacticalStatus.Team[ x ].bLastID; ++cnt)
 		{
-			pSoldier = MercPtrs[ cnt ];
+			pSoldier = cnt;
 			if(pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive && pSoldier->bInSector)
 			{
 				soldiers++;
@@ -4331,14 +4330,14 @@ void null_team (RPCParameters *rpcParameters)
 {
 	kickR* kick = (kickR*)rpcParameters->input;
 	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, MPClientMessage[29],(kick->ubResult-5),client_names[kick->ubResult-6] );
-	int fID = gTacticalStatus.Team[ kick->ubResult ].bFirstID;
-	int lID = gTacticalStatus.Team[ kick->ubResult ].bLastID;
+	SoldierID fID = gTacticalStatus.Team[ kick->ubResult ].bFirstID;
+	SoldierID lID = gTacticalStatus.Team[ kick->ubResult ].bLastID;
 	
 	if(kick->ubResult==netbTeam)
 		fID=0,lID=19;
 	
-	int cnt;
-	for ( cnt=fID ; cnt <= lID; cnt++ )
+	SoldierID cnt;
+	for ( cnt=fID ; cnt <= lID; ++cnt )
 	{
 		TacticalRemoveSoldier( cnt );
 	}

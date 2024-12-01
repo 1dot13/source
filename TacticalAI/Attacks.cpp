@@ -3903,9 +3903,9 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			UINT8	ubDirection;
 
 			// Run through each friendly.
-			for (UINT16 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
+			for ( SoldierID iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; ++iCounter)
 			{
-				pFriend = MercPtrs[iCounter];
+				pFriend = iCounter;
 
 				// check that friend is alive and needs cover
 				if (pFriend &&

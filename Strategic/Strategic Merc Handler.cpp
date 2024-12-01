@@ -185,7 +185,7 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 void MercDailyUpdate()
 {
 	SoldierID		id;
-	SoldierID		bLastTeamID;
+	SoldierID		lastid;
 	SOLDIERTYPE		*pSoldier;
 	//SOLDIERTYPE *pQuitList[ 21 ];
 	MERCPROFILESTRUCT *pProfile;
@@ -218,10 +218,10 @@ void MercDailyUpdate()
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_3,	0 );
 	
 	id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	lastid = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 	
 	//loop though all the mercs
-	for ( ; id <= bLastTeamID; ++id)
+	for ( ; id <= lastid; ++id)
 	{
 		pSoldier = id;
 		//if the merc is active
@@ -376,7 +376,7 @@ void MercDailyUpdate()
 	}
 
 	//reset the counter
-	for ( id = 0; id <= bLastTeamID; ++id )
+	for ( id = 0; id <= lastid; ++id )
 	{
 		pSoldier = id;
 		//if the merc is active
