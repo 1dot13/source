@@ -5399,7 +5399,8 @@ void SetScopeMode( INT32 usMapPos )
 		ManLooksForOtherTeams( gusSelectedSoldier );
 	}
 }
-#pragma optimize("", off)
+
+
 void ObliterateSector()
 {
 	INT32 cnt;
@@ -5433,7 +5434,7 @@ void ObliterateSector()
 		}
 	}
 }
-#pragma optimize("", on)
+
 
 void RandomizeMercProfile()
 {

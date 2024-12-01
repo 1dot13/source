@@ -1093,7 +1093,6 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 	return( TRUE );
 }
 //--------------------------------------------------------------
-#pragma optimize("", off)
 // anv: start enemy taunt with probabilty depending on taunt settings
 void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SoldierID uiTargetID )
 {
@@ -1308,7 +1307,6 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SoldierID
 	
 	StartEnemyTaunt( pCiv, iTauntType, pTarget );
 }
-#pragma optimize("", on)
 
 // SANDRO - soldier taunts 
 void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )

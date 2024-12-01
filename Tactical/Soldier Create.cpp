@@ -570,7 +570,6 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 // This causes an issue if someone enters a sector from an adjacent sector - they should be affected by their point of origin, not the current sector
 // For this reason, we add a little helper variable that stores such a sector.
 INT16 gsStrategicDiseaseOriginSector = -1;
-#pragma optimize("", off)
 SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, SoldierID *pubID )
 {
 	SOLDIERTYPE Soldier;
@@ -1267,7 +1266,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, Soldier
 		return pSoldier;
 	}
 }
-#pragma optimize("", on)
+
 
 BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct )
 {
