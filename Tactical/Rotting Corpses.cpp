@@ -3259,3 +3259,26 @@ FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse )
 
 	return (FLOAT)(min(gGameExternalOptions.usCorpseDelayUntilRotting, GetWorldTotalMin() - pCorpse->def.uiTimeOfDeath)) / gGameExternalOptions.usCorpseDelayUntilRotting;
 }
+
+void CheckForZombieMusic()
+{
+	extern UINT8 LightGetColors( SGPPaletteEntry * pPal );
+
+	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+	{
+		SGPPaletteEntry	LColors[3];
+		LightGetColors( LColors );
+
+		// If we're underground in the creature caves, use creepy music based on the cave light colors.
+		// Without this, the crepitus cave music is not working correctly as these checks override the original musicmode choice
+		// See PrepareCreaturesForBattle() in Creature Spreading.cpp
+		if ( gbWorldSectorZ )
+		{
+			UseCreatureMusic( LColors->peBlue || HostileZombiesPresent() );
+		}
+		else
+		{
+			UseCreatureMusic( HostileZombiesPresent() );
+		}
+	}
+}
