@@ -11728,14 +11728,6 @@ UINT16 NumSoldiersofClassWithFlag2InSector( UINT8 aTeam, UINT8 aSoldierClass, UI
 	return num;
 }
 
-INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag )
-{
-	INT32 sBestGridNo = NOWHERE;
-
-
-
-	return sBestGridNo;
-}
 
 // Flugente: VIP targets
 // can a new VIP be created?

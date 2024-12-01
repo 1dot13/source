@@ -405,7 +405,6 @@ UINT16 HighestEnemyOfficersInSector(UINT8& aType);
 // count all soldiers in the current sector that have a specific flag set
 UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);
 UINT16 NumSoldiersofClassWithFlag2InSector( UINT8 aTeam, UINT8 aSoldierClass, UINT32 aFlag );
-INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag );
 
 // Flugente: VIP targets
 // can a new VIP be created?
