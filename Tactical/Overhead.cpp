@@ -6664,7 +6664,7 @@ void ExitCombatMode( )
     // unused
     //gfForceMusicToTense = TRUE;
 
-    UseCreatureMusic(HostileZombiesPresent());
+    CheckForZombieMusic();
 
 #ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
@@ -6706,63 +6706,62 @@ void ExitCombatMode( )
 }
 
 
-void SetEnemyPresence( )
+void SetEnemyPresence()
 {
-    // We have an ememy present....
-    DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence"));
+	// We have an ememy present....
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "SetEnemyPresence" ) );
 
-    // Check if we previously had no enemys present and we are in a virgin secotr ( no enemys spotted yet )
-    if ( !gTacticalStatus.fEnemyInSector && gTacticalStatus.fVirginSector )
-    {
-        // If we have a guy selected, say quote!
-        // For now, display ono status message
-        ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ ENEMY_IN_SECTOR_STR ] );
+	// Check if we previously had no enemys present and we are in a virgin secotr ( no enemys spotted yet )
+	if ( !gTacticalStatus.fEnemyInSector && gTacticalStatus.fVirginSector )
+	{
+		// If we have a guy selected, say quote!
+		// For now, display ono status message
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ENEMY_IN_SECTOR_STR] );
 
-        // Change music modes..
+		// Change music modes..
 
-        // If we are just starting game, don't do this!
+		// If we are just starting game, don't do this!
 
 #ifdef JA2UB    
-        //Ja25: no meanwhiles
-        if ( !DidGameJustStart() )
+		//Ja25: no meanwhiles
+		if ( !DidGameJustStart() )
 #else
-            if ( !DidGameJustStart() && !AreInMeanwhile( ) )
-
+		if ( !DidGameJustStart() && !AreInMeanwhile() )
 #endif
-            {
+		{
 
-                UseCreatureMusic(HostileZombiesPresent());
+            CheckForZombieMusic();
 
 #ifdef NEWMUSIC
-				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
-				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
-					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
-				else
+			GlobalSoundID = MusicSoundValues[SECTOR( gWorldSectorX, gWorldSectorY )].SoundTacticalTensor[gbWorldSectorZ];
+			if ( MusicSoundValues[SECTOR( gWorldSectorX, gWorldSectorY )].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+				SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[SECTOR( gWorldSectorX, gWorldSectorY )].SoundTacticalTensor[gbWorldSectorZ] );
+			else
 #endif
-					SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
-                DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
-                sniperwarning = FALSE;
-                biggunwarning = FALSE;
-                gogglewarning = FALSE;
-                checkBonusMilitia = TRUE;
-                //          airstrikeavailable = TRUE;
-            }
-            else
-            {
-                DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = true"));
-                sniperwarning = TRUE;
-                biggunwarning = TRUE;
-                //gogglewarning = TRUE;
-                //          airstrikeavailable = FALSE;
-            }
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "SetEnemyPresence: warnings = false" ) );
+			sniperwarning = FALSE;
+			biggunwarning = FALSE;
+			gogglewarning = FALSE;
+			checkBonusMilitia = TRUE;
+			//          airstrikeavailable = TRUE;
+		}
+		else
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "SetEnemyPresence: warnings = true" ) );
+			sniperwarning = TRUE;
+			biggunwarning = TRUE;
+			//gogglewarning = TRUE;
+			//          airstrikeavailable = FALSE;
+		}
 
-        // Say quote...
-        //SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
+		// Say quote...
+		//SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
 
-        gTacticalStatus.fEnemyInSector = TRUE;
+		gTacticalStatus.fEnemyInSector = TRUE;
 
-    }
+	}
 }
 
 
@@ -7078,7 +7077,7 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
         // Begin tense music....
         // unused
         //gfForceMusicToTense = TRUE;
-        UseCreatureMusic(HostileZombiesPresent());
+        CheckForZombieMusic();
 
 #ifdef NEWMUSIC
 		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];

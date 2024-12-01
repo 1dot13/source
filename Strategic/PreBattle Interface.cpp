@@ -1071,8 +1071,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//Disable the options button when the auto resolve	screen comes up
 	EnableDisAbleMapScreenOptionsButton( FALSE );
 
-	UseCreatureMusic(HostileZombiesPresent());
-	
+	CheckForZombieMusic();
+
 #ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gubPBSectorX, gubPBSectorY ) ].SoundTacticalTensor[gubPBSectorZ];
 	if ( MusicSoundValues[ SECTOR( gubPBSectorX, gubPBSectorY ) ].SoundTacticalTensor[gubPBSectorZ] != -1 )
