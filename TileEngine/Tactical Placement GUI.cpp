@@ -40,13 +40,19 @@
 typedef struct MERCPLACEMENT
 {
 	SOLDIERTYPE		*pSoldier;
-	UINT32				uiVObjectID;
-	MOUSE_REGION	region;
-	UINT8					ubStrategicInsertionCode;
-	BOOLEAN				fPlaced;
+	UINT32			uiVObjectID;
+	MOUSE_REGION		region;
+	UINT8			ubStrategicInsertionCode;
+	BOOLEAN			fPlaced;
 }MERCPLACEMENT;
 
 MERCPLACEMENT *gMercPlacement = NULL;
+
+UINT8 gfirstMercIndex = 0; // Index into gMercPlacement for the first visible merc face that is rendered
+UINT16 gFacePanelXStart; // Defines the area for mouse wheel scrolling
+UINT16 gFacePanelXEnd;
+UINT16 gFacePanelYStart;
+UINT16 gFacePanelYEnd;
 
 enum
 {
@@ -219,7 +225,314 @@ void CheckForValidMapEdge( UINT8 *pubStrategicInsertionCode )
 	}
 }
 
-//#endif
+
+static UINT8 MaxRenderedFaces()
+{
+	// Based on OverheadInterface.sti files
+	if ( iResolution >= _640x480 && iResolution < _800x600 )
+	{
+		return 20;
+	}
+	else if ( iResolution < _1024x768 )
+	{
+		return 26;
+	}
+	else
+	{
+		return 34;
+	}
+}
+
+static void InitializeMercScrollArea()
+{
+	// Based on OverheadInterface.sti files
+	gFacePanelXStart = 88 + xResOffset;
+	gFacePanelXEnd = SCREEN_WIDTH - xResOffset;
+	gFacePanelYStart = SCREEN_HEIGHT - 120;
+	gFacePanelYEnd = SCREEN_HEIGHT;
+}
+
+
+UINT32 gTacticalPlacementGUIPrevNextButtons[2];
+UINT32 gTacticalPlacementGUIPrevNextButtonImages[2];
+UINT32 gTacticalPlacementGUISliderBar;
+MOUSE_REGION gTacticalPlacementGUISliderBarRegion;
+UINT16 gScrollAreaXStart;
+UINT16 gScrollAreaXEnd;
+UINT16 gScrollAreaYStart;
+UINT16 gScrollAreaYEnd;
+UINT32 gScrollAreaGfx;
+
+static void IncreaseMercIndex()
+{
+	if ( gfirstMercIndex < (giPlacements - MaxRenderedFaces()) )
+	{
+		if ( gfirstMercIndex + MaxRenderedFaces() >= giPlacements - 1 )
+		{
+			gfirstMercIndex += 1;
+		}
+		else
+		{
+			gfirstMercIndex += 2;
+		}
+		gfTacticalPlacementGUIDirty = TRUE;
+	}
+}
+
+static void DecreaseMercIndex()
+{
+	if ( gfirstMercIndex > 0 )
+	{
+		if ( gfirstMercIndex == 1 )
+		{
+			gfirstMercIndex -= 1;
+		}
+		else
+		{
+			gfirstMercIndex -= 2;
+		}
+		gfTacticalPlacementGUIDirty = TRUE;
+	}
+}
+
+static void BtnTacticalPlacementNextCallback( GUI_BUTTON *btn, INT32 reason )
+{
+
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		gfTacticalPlacementGUIDirty = TRUE;
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
+	}
+	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if ( btn->uiFlags & BUTTON_CLICKED_ON )
+		{
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
+
+			IncreaseMercIndex();
+		}
+	}
+}
+
+static void BtnTacticalPlacementPrevCallback( GUI_BUTTON *btn, INT32 reason )
+{
+
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		gfTacticalPlacementGUIDirty = TRUE;
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
+	}
+	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if ( btn->uiFlags & BUTTON_CLICKED_ON )
+		{
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
+
+			DecreaseMercIndex();
+		}
+	}
+}
+
+
+static void InitializeMercScrollButtons()
+{
+	UINT16 xPrev, xNext, y;
+	// Button locations based on OverheadInterface.sti files
+	xNext = SCREEN_WIDTH - 17 - xResOffset;
+	xPrev = 89 + xResOffset;
+	y = SCREEN_HEIGHT - 19;
+
+	// time compression buttons
+	gTacticalPlacementGUIPrevNextButtonImages[0] = LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti", 10, 1, -1, 3, -1 );
+	gTacticalPlacementGUIPrevNextButtonImages[1] = LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti", 9, 0, -1, 2, -1 );
+
+
+	gTacticalPlacementGUIPrevNextButtons[0] = QuickCreateButton( gTacticalPlacementGUIPrevNextButtonImages[0], xNext, y,
+		BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2,
+		(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalPlacementNextCallback );
+
+	gTacticalPlacementGUIPrevNextButtons[1] = QuickCreateButton( gTacticalPlacementGUIPrevNextButtonImages[1], xPrev, y,
+		BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2,
+		(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalPlacementPrevCallback );
+
+
+	SetButtonCursor( gTacticalPlacementGUIPrevNextButtons[0], MSYS_NO_CURSOR );
+	SetButtonCursor( gTacticalPlacementGUIPrevNextButtons[1], MSYS_NO_CURSOR );
+}
+
+static void LoadSliderBar( void )
+{
+	VOBJECT_DESC VObjectDesc;
+
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	sprintf( VObjectDesc.ImageFile, "INTERFACE\\map_screen_bottom_arrows.sti" );
+	if ( !AddVideoObject( &VObjectDesc, &gTacticalPlacementGUISliderBar ) )
+	{
+		AssertMsg( 0, "Failed to load Interface\\map_screen_bottom_arrows.sti" );
+	}
+
+	
+	sprintf( VObjectDesc.ImageFile, "INTERFACE\\OverheadInterface_scrollarea.sti" );
+	if ( !AddVideoObject( &VObjectDesc, &gScrollAreaGfx ) )
+	{
+		AssertMsg( 0, "Failed to load Interface\\OverheadInterface_scrollarea.sti" );
+	}
+}
+
+
+static void TacticalPlacementScrollBarCallBack( MOUSE_REGION *pRegion, INT32 iReason )
+{
+	POINT MousePos;
+	UINT16 desiredMercIndex;
+	const UINT8 sliderWidth = 11;
+	const UINT16 sliderBarRange = gScrollAreaXEnd - gScrollAreaXStart - sliderWidth;
+
+	if ( iReason & MSYS_CALLBACK_REASON_INIT )
+	{
+		return;
+	}
+
+
+	if ( iReason & (MSYS_CALLBACK_REASON_LBUTTON_DWN | MSYS_CALLBACK_REASON_LBUTTON_REPEAT) )
+	{
+		// region is supposed to be disabled if there aren't enough messages to scroll.	Formulas assume this
+		if ( giPlacements > MaxRenderedFaces() )
+		{
+			// where is the mouse?
+			GetCursorPos( &MousePos );
+			ScreenToClient( ghWindow, &MousePos ); // In window coords!
+
+			const UINT16 ubMouseXOffset = (UINT16)MousePos.x - gScrollAreaXStart;
+
+			// if clicking in the top 5 pixels of the slider bar
+			if ( ubMouseXOffset < (sliderWidth / 2) )
+			{
+				// scroll all the way to the top
+				desiredMercIndex = 0;
+			}
+			// if clicking in the bottom 6 pixels of the slider bar
+			else if ( ubMouseXOffset >= ((gScrollAreaXEnd - gScrollAreaXStart) - (sliderWidth / 2)) )
+			{
+				// scroll all the way to the bottom
+				desiredMercIndex = giPlacements - MaxRenderedFaces();
+			}
+			else
+			{
+				// somewhere in between
+				const UINT16 desiredSliderOffset = ubMouseXOffset - (sliderWidth / 2);
+
+				Assert( desiredSliderOffset <= sliderBarRange );
+
+				// calculate what the index should be to place the slider at this offset (round fractions of .5+ up)
+				desiredMercIndex = ((desiredSliderOffset * (giPlacements - MaxRenderedFaces())) + (sliderBarRange / 2)) / sliderBarRange;
+			}
+
+			// if it's a change
+			if ( desiredMercIndex != gfirstMercIndex )
+			{
+				gfirstMercIndex = desiredMercIndex;
+				gfTacticalPlacementGUIDirty = TRUE;
+			}
+		}
+	}
+}
+
+
+static void CreateTacticalPlacementGUIScrollBarRegion( void )
+{
+	// Locations based on OverheadInterface.sti files
+	gScrollAreaXStart = 104 + xResOffset;
+	gScrollAreaXEnd = SCREEN_WIDTH - 18 - xResOffset;
+	gScrollAreaYStart = SCREEN_HEIGHT - 19;
+	gScrollAreaYEnd = gScrollAreaYStart + 11; //SLIDER_HEIGHT / SLIDER_WIDTH in Map Screen Interface Bottom.cpp;
+
+	MSYS_DefineRegion( &gTacticalPlacementGUISliderBarRegion,
+		gScrollAreaXStart,
+		gScrollAreaYStart,
+		gScrollAreaXEnd,
+		gScrollAreaYEnd,
+		MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, TacticalPlacementScrollBarCallBack
+	);
+}
+
+
+static void DisplayTacticalPlacementSlider()
+{
+	// will display the scroll bar icon
+	HVOBJECT hHandle;
+
+	// only show the slider if there are more messages than will fit on screen
+	if ( giPlacements > MaxRenderedFaces() )
+	{
+		// Slider bar area graphics
+		UINT16 imageIndex;
+		if ( (iResolution >= _640x480 && iResolution < _800x600) )
+		{
+			imageIndex = 0;
+		}
+		else if ( iResolution < _1024x768 )
+		{
+			imageIndex = 1;
+		}
+		else
+		{
+			imageIndex = 2;
+		}
+
+		GetVideoObject( &hHandle, gScrollAreaGfx );
+		BltVideoObject( FRAME_BUFFER, hHandle, imageIndex, gScrollAreaXStart, gScrollAreaYStart, VO_BLT_SRCTRANSPARENCY, NULL );
+
+
+		// calculate where slider should be positioned
+		UINT8 sliderWidth = 11;
+		UINT16 sliderBarRange = gScrollAreaXEnd - gScrollAreaXStart - sliderWidth;
+		UINT16 ubSliderOffset = (sliderBarRange * gfirstMercIndex) / (giPlacements - MaxRenderedFaces());
+
+		GetVideoObject( &hHandle, gTacticalPlacementGUISliderBar );
+		BltVideoObject( FRAME_BUFFER, hHandle, 8, gScrollAreaXStart + ubSliderOffset, gScrollAreaYStart + 1 , VO_BLT_SRCTRANSPARENCY, NULL );
+	}
+}
+
+
+static void EnableDisableTacticalPlacementScrollButtonsAndRegions( void )
+{
+	// if no scrolling required, or already showing the first merc
+	if ( (giPlacements <= MaxRenderedFaces()) || (gfirstMercIndex == 0) )
+	{
+		DisableButton( gTacticalPlacementGUIPrevNextButtons[1] );
+		ButtonList[gTacticalPlacementGUIPrevNextButtons[1]]->uiFlags &= ~(BUTTON_CLICKED_ON);
+	}
+	else
+	{
+		EnableButton( gTacticalPlacementGUIPrevNextButtons[1] );
+		ShowButton( gTacticalPlacementGUIPrevNextButtons[1] );
+	}
+
+	// if no scrolling required, or already showing the last merc
+	if ( giPlacements <= MaxRenderedFaces() ||
+		((gfirstMercIndex + MaxRenderedFaces()) >= giPlacements) )
+	{
+		DisableButton( gTacticalPlacementGUIPrevNextButtons[0] );
+		ButtonList[gTacticalPlacementGUIPrevNextButtons[0]]->uiFlags &= ~(BUTTON_CLICKED_ON);
+	}
+	else
+	{
+		EnableButton( gTacticalPlacementGUIPrevNextButtons[0] );
+		ShowButton( gTacticalPlacementGUIPrevNextButtons[0] );
+	}
+
+	if ( giPlacements <= MaxRenderedFaces())
+	{
+		MSYS_DisableRegion( &gTacticalPlacementGUISliderBarRegion );
+		HideButton( gTacticalPlacementGUIPrevNextButtons[0] );
+		HideButton( gTacticalPlacementGUIPrevNextButtons[1] );
+	}
+	else
+	{
+		MSYS_EnableRegion( &gTacticalPlacementGUISliderBarRegion );
+	}
+}
+
 
 extern BOOLEAN		gfTacticalDoHeliRun;
 
@@ -233,6 +546,7 @@ void InitTacticalPlacementGUI()
 	gfTacticalPlacementGUIDirty = TRUE;
 	gfValidLocationsChanged = TRUE;
 	gfTacticalPlacementFirstTime = TRUE;
+	gfirstMercIndex = 0;
 
 	// WANNE - MP: Center
 	gfCenter = FALSE;
@@ -246,6 +560,10 @@ void InitTacticalPlacementGUI()
 
 	//Enter overhead map
 	GoIntoOverheadMap();
+
+	MSYS_DisableRegion( &gRadarRegion ); // So it doesn't interfere with selecting mercs
+	InitializeMercScrollArea();
+	LoadSliderBar();
 
 	//Load the images
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -473,7 +791,7 @@ void InitTacticalPlacementGUI()
 		}
 
 		//yp = (i % 2) ? 412 : 361;
-		MSYS_DefineRegion( &gMercPlacement[ i ].region, (UINT16)xp, (UINT16)yp, (UINT16)(xp + 54), (UINT16)(yp + 62), MSYS_PRIORITY_HIGH, 0, MercMoveCallback, MercClickCallback );
+		MSYS_DefineRegion( &gMercPlacement[ i ].region, (UINT16)xp, (UINT16)yp, (UINT16)(xp + 54), (UINT16)(yp + 51), MSYS_PRIORITY_HIGH, 0, MercMoveCallback, MercClickCallback );
 	}
 
 	if(!is_client)
@@ -497,6 +815,9 @@ void InitTacticalPlacementGUI()
 			}
 		}
 	}
+
+	InitializeMercScrollButtons();
+	CreateTacticalPlacementGUIScrollBarRegion();
 }
 
 // WANNE - MP: This method checks, if the desired entry direction (N, E, S, W) on the map is valid. If not it chooses the next valid diretion
@@ -610,6 +931,15 @@ UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint)
 	return validInsertionDirection;
 }
 
+
+static void DisableFaceMouseRegions()
+{
+	for ( size_t i = 0; i < giPlacements; i++ )
+	{
+		MSYS_DisableRegion( &gMercPlacement[i].region );
+	}
+}
+
 void RenderTacticalPlacementGUI()
 {
 	INT32 i, xp, yp, width, height;
@@ -620,26 +950,31 @@ void RenderTacticalPlacementGUI()
 	CHAR16 str[ 128 ];
 	UINT8 *pDestBuf;
 	UINT8 ubColor;	
+	const UINT8 maxFaces = MaxRenderedFaces();
 
 	if( gfTacticalPlacementFirstTime )
 	{
 		gfTacticalPlacementFirstTime = FALSE;
 		DisableScrollMessages();
 	}
+	EnableDisableTacticalPlacementScrollButtonsAndRegions();
 
 	//Check to make sure that if we have a hilighted merc (not selected) and the mouse has moved out
 	//of it's region, then we will clear the hilighted ID, and refresh the display.
 	if( !gfTacticalPlacementGUIDirty && gbHilightedMercID != -1 )
 	{
-		xp = xResOffset + 91 + (gbHilightedMercID / 2) * 54;
+		// Shift the index so we render the faces at the right locations
+		UINT8 highlightedMercIndex = gbHilightedMercID - gfirstMercIndex;
 
-		if (gbHilightedMercID % 2)
+		xp = xResOffset + 91 + (highlightedMercIndex / 2) * 54;
+
+		if ( highlightedMercIndex % 2)
 		{
-			yp = SCREEN_HEIGHT - 68;
+			yp = SCREEN_HEIGHT - 71;
 		}
 		else
 		{
-			yp = SCREEN_HEIGHT - 119;
+			yp = SCREEN_HEIGHT - 122;
 		}
 
 		//yp = (gbHilightedMercID % 2) ? 412 : 361;
@@ -657,33 +992,46 @@ void RenderTacticalPlacementGUI()
 	if( gfTacticalPlacementGUIDirty )
 	{
 		BltVideoObjectFromIndex( FRAME_BUFFER, giOverheadPanelImage, 0, xResOffset, SCREEN_HEIGHT - 160, VO_BLT_SRCTRANSPARENCY, 0 );
-		InvalidateRegion( 0 + xResOffset, SCREEN_HEIGHT - 160, 320 + xResOffset, SCREEN_HEIGHT );
+		InvalidateRegion( 0 + xResOffset, SCREEN_HEIGHT - 160, SCREEN_WIDTH, SCREEN_HEIGHT );
 		gfTacticalPlacementGUIDirty = FALSE;
 		MarkButtonsDirty();
 		//DisableHilightsAndHelpText();
 		//RenderButtons();
 		//EnableHilightsAndHelpText();
-		for( i = 0; i < giPlacements; ++i )
+
+		DisableFaceMouseRegions();
+		UINT8 end = min(giPlacements, gfirstMercIndex + maxFaces);
+		for( UINT8 j = gfirstMercIndex; j < end; ++j )
 		{
 			//Render the mercs
-			pSoldier = gMercPlacement[ i ].pSoldier;
-			
+			pSoldier = gMercPlacement[ j ].pSoldier;
+
+			// Shift the index so we render the faces at the right locations
+			i = j - gfirstMercIndex;
+
 			xp = xResOffset + 95 + (i / 2) * 54;
 
 			if (i % 2)
 			{
-				yp = SCREEN_HEIGHT - 58;
+				yp = SCREEN_HEIGHT - 61;
 			}
 			else
 			{
-				yp = SCREEN_HEIGHT - 109;
+				yp = SCREEN_HEIGHT - 112;
 			}
+
+			// Shift the mouse region as well
+			gMercPlacement[j].region.RegionTopLeftX = xp;
+			gMercPlacement[j].region.RegionTopLeftY = yp;
+			gMercPlacement[j].region.RegionBottomRightX = xp + 54;
+			gMercPlacement[j].region.RegionBottomRightY = yp + 51;
+			MSYS_EnableRegion( &gMercPlacement[j].region );
 
 			//yp = (i % 2) ? 422 : 371;
 
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, yp+2, xp+44,	yp+30, 0 );
 			BltVideoObjectFromIndex( FRAME_BUFFER, giMercPanelImage, 0, xp, yp, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( FRAME_BUFFER, gMercPlacement[ i ].uiVObjectID, 0, xp+2, yp+2, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( FRAME_BUFFER, gMercPlacement[ j ].uiVObjectID, 0, xp+2, yp+2, VO_BLT_SRCTRANSPARENCY, NULL );
 			//HEALTH BAR
 
 			if( !pSoldier->stats.bLife )
@@ -725,6 +1073,8 @@ void RenderTacticalPlacementGUI()
 
 		//Shade out the part of the tactical map that isn't considered placable.
 		BlitBufferToBuffer(FRAME_BUFFER, guiSAVEBUFFER, 0, SCREEN_HEIGHT - 160, SCREEN_WIDTH, 160);
+
+		DisplayTacticalPlacementSlider();
 	}
 
 	if( gfValidLocationsChanged )
@@ -1054,31 +1404,35 @@ void RenderTacticalPlacementGUI()
 		UnLockVideoSurface( FRAME_BUFFER );
 	}
 
-	for( i = 0; i < giPlacements; ++i )
+	UINT8 end = min( giPlacements, gfirstMercIndex + maxFaces );
+	for ( UINT8 j = gfirstMercIndex; j < end; ++j )
 	{
-		//Render the merc's names
-		pSoldier = gMercPlacement[ i ].pSoldier;
+		//Render the mercs
+		pSoldier = gMercPlacement[j].pSoldier;
+
+		// Shift the index so we render the faces at the right locations
+		i = j - gfirstMercIndex;
 
 		xp = xResOffset + 95 + (i / 2) * 54;
 
 		if (i % 2)
 		{
-			yp = SCREEN_HEIGHT - 58;
+			yp = SCREEN_HEIGHT - 61;
 		}
 		else
 		{
-			yp = SCREEN_HEIGHT - 109;
+			yp = SCREEN_HEIGHT - 112;
 		}
 
 		//yp = (i % 2) ? 422 : 371;
 		//NAME
-		if( gubDefaultButton == GROUP_BUTTON && gMercPlacement[ i ].pSoldier->ubGroupID == gubSelectedGroupID ||
-			gubDefaultButton != GROUP_BUTTON && i == gbSelectedMercID )
+		if( gubDefaultButton == GROUP_BUTTON && gMercPlacement[ j ].pSoldier->ubGroupID == gubSelectedGroupID ||
+			gubDefaultButton != GROUP_BUTTON && j == gbSelectedMercID )
 		{
 			ubColor = FONT_YELLOW;
 		}
-		else if( gubDefaultButton == GROUP_BUTTON && gMercPlacement[ i ].pSoldier->ubGroupID == gubHilightedGroupID ||
-						gubDefaultButton != GROUP_BUTTON && i == gbHilightedMercID )
+		else if( gubDefaultButton == GROUP_BUTTON && gMercPlacement[ j ].pSoldier->ubGroupID == gubHilightedGroupID ||
+						gubDefaultButton != GROUP_BUTTON && j == gbHilightedMercID )
 		{
 			ubColor = FONT_WHITE;
 		}
@@ -1091,7 +1445,7 @@ void RenderTacticalPlacementGUI()
 		SetFontShadow( 141 );
 
 		//Render the question mark over the face if the merc hasn't yet been placed.
-		if( gMercPlacement[ i ].fPlaced )
+		if( gMercPlacement[ j ].fPlaced )
 		{
 			RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, (INT16)(xp + 16), (INT16)(yp + 14), (INT16)(xp + 24), (INT16)(yp + 22) );
 		}
@@ -1165,6 +1519,29 @@ void lockui (bool unlock) //lock onluck ui for lan //hayden
 					gMsgBox.bHandled = MSG_BOX_RETURN_OK; //close if still open
 		}
 }
+
+static void HandleMouseWheelScroll( void )
+{
+	// Scroll through pages with regular mouse wheel
+	SGPPoint	MousePos;
+	GetMousePos( &MousePos );
+	const auto x = MousePos.iX;
+	const auto y = MousePos.iY;
+	if ( (gFacePanelXStart < x && x < gFacePanelXEnd) && (gFacePanelYStart < y && y < gFacePanelYEnd) )
+	{
+		const auto Wheelstate = _WheelValue * (gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1);
+		if ( Wheelstate < 0 )
+		{
+			IncreaseMercIndex();
+		}
+		else if ( Wheelstate > 0 )
+		{
+			DecreaseMercIndex();
+		}
+		_WheelValue = 0;
+	}
+}
+
 
 void TacticalPlacementHandle()
 {
@@ -1331,6 +1708,7 @@ void TacticalPlacementHandle()
 	}
 
 	ScrollOverheadMap();//dnl ch45 021009
+	HandleMouseWheelScroll();
 }
 
 void KillTacticalPlacementGUI()
@@ -1364,6 +1742,16 @@ void KillTacticalPlacementGUI()
 		DeleteVideoObjectFromIndex( gMercPlacement[ i ].uiVObjectID );
 		MSYS_RemoveRegion( &gMercPlacement[ i ].region );
 	}
+
+	for ( size_t i = 0; i < 2; i++ )
+	{
+		UnloadButtonImage( gTacticalPlacementGUIPrevNextButtonImages[i] );
+		RemoveButton( gTacticalPlacementGUIPrevNextButtons[i] );
+	}
+	MSYS_RemoveRegion( &gTacticalPlacementGUISliderBarRegion );
+	DeleteVideoObjectFromIndex( gTacticalPlacementGUISliderBar );
+	DeleteVideoObjectFromIndex( gScrollAreaGfx );
+
 
 	if( gsCurInterfacePanel < 0 || gsCurInterfacePanel >= NUM_UI_PANELS )
 		gsCurInterfacePanel = TEAM_PANEL;
