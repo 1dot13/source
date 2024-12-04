@@ -5351,7 +5351,7 @@ UINT32 MapScreenHandle(void)
 			else
 				maxNumberOfMercVisibleInStrategyList = 51;
 		}
-		else if (iResolution < _1024x768)
+		else if ( iResolution >= _800x600 && iResolution < _1024x768)
 		{
 			maxNumberOfMercVisibleInStrategyList = 34;
 		}
