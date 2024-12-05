@@ -232,7 +232,7 @@ typedef struct
 	BOOLEAN	fHavePurchasedItemsFromTony;
 
 	//The selected soldier in tactical
-	UINT16	usSelectedSoldier;
+	SoldierID	usSelectedSoldier;
 
 	// The x and y scroll position
 	INT16		sRenderCenterX;
@@ -296,15 +296,15 @@ typedef struct
 
 
 
-	BOOLEAN	fSkyriderEmptyHelpGiven;
-	BOOLEAN	fEnterMapDueToContract;
+	BOOLEAN		fSkyriderEmptyHelpGiven;
+	BOOLEAN		fEnterMapDueToContract;
 	UINT8		ubHelicopterHitsTaken;
 	UINT8		ubQuitType;
-	BOOLEAN fSkyriderSaidCongratsOnTakingSAM;
-	INT16		sContractRehireSoldierID;
+	BOOLEAN		fSkyriderSaidCongratsOnTakingSAM;
+	SoldierID	sContractRehireSoldierID;
 
 
-	GAME_OPTIONS	GameOptions;
+	GAME_OPTIONS		GameOptions;
 
 	UINT32	uiSeedNumber;
 
@@ -313,7 +313,7 @@ typedef struct
 
 	INT16		sCurInterfacePanel;
 
-	UINT8		ubSMCurrentMercID;
+	SoldierID	ubSMCurrentMercID;
 
 	BOOLEAN	fFirstTimeInMapScreen;
 
@@ -321,9 +321,9 @@ typedef struct
 
 	BOOLEAN fDisableMapInterfaceDueToBattle;
 
-	INT32 sBoxerGridNo[ NUM_BOXERS ];
-	UINT8		ubBoxerID[ NUM_BOXERS ];
-	BOOLEAN	fBoxerFought[ NUM_BOXERS ];
+	INT32		sBoxerGridNo[ NUM_BOXERS ];
+	SoldierID	ubBoxerID[ NUM_BOXERS ];
+	BOOLEAN		fBoxerFought[ NUM_BOXERS ];
 
 	BOOLEAN	fHelicopterDestroyed;								//if the chopper is destroyed
 	BOOLEAN	fShowMapScreenHelpText;							//If true, displays help in mapscreen
@@ -341,8 +341,8 @@ typedef struct
 
 	BOOLEAN ubPlayerProgressSkyriderLastCommentedOn;
 
-	BOOLEAN								gfMeanwhileTryingToStart;
-	BOOLEAN								gfInMeanwhile;
+	BOOLEAN gfMeanwhileTryingToStart;
+	BOOLEAN gfInMeanwhile;
 
 	// list of dead guys for squads...in id values->-1 means no one home 
 	INT16 sDeadMercs[ NUMBER_OF_SQUADS ][ NUMBER_OF_SOLDIERS_PER_SQUAD ];
@@ -412,7 +412,7 @@ typedef struct
 
 	UINT32	uiMeanWhileFlags;
 
-	INT8 bSelectedInfoChar;
+	INT16 bSelectedInfoChar;
 	INT8 bHospitalPriceModifier;
 	INT8 bUnused2[ 2 ];
 
@@ -550,8 +550,8 @@ BOOLEAN		SetMercsInsertionGridNo( );
 BOOLEAN		LoadOppListInfoFromSavedGame( HWFILE hFile );
 BOOLEAN		SaveOppListInfoToSavedGame( HWFILE hFile );
 
-BOOLEAN		LoadMercPathToSoldierStruct( HWFILE hFilem, UINT8	ubID );
-BOOLEAN		SaveMercPathFromSoldierStruct( HWFILE hFilem, UINT8	ubID );
+BOOLEAN		LoadMercPathToSoldierStruct( HWFILE hFilem, UINT16 ubID );
+BOOLEAN		SaveMercPathFromSoldierStruct( HWFILE hFilem, UINT16 ubID );
 
 BOOLEAN		LoadGeneralInfo( HWFILE hFile );
 BOOLEAN		SaveGeneralInfo( HWFILE hFile );
@@ -1073,7 +1073,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		//3 bytes of info, screw being neat
-		if ( !FileRead( hFile, this, 3, &uiNumBytesRead ) )
+		if ( !FileRead( hFile, this, SIZEOF_ITEM_CURSOR_SAVE_INFO_POD, &uiNumBytesRead ) )
 		{
 			return FALSE;
 		}
@@ -1102,7 +1102,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Save(HWFILE hFile)
 {
 	UINT32 uiNumBytesWritten;
 	//3 bytes of info, screw being neat
-	if ( !FileWrite( hFile, this, 3, &uiNumBytesWritten ) )
+	if ( !FileWrite( hFile, this, SIZEOF_ITEM_CURSOR_SAVE_INFO_POD, &uiNumBytesWritten ) )
 	{
 		return FALSE;
 	}
@@ -1936,7 +1936,7 @@ use of this function should allow changes to be made to various structures withi
 INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount)
 {
 	UINT32	uiNumBytesRead;
-	char	padding[10];
+	char		padding[10];
 	UINT32	uiBytesRead = uiCurByteCount;	// used to track our new byte count
 	UINT32	sampleBytesRead = uiBytesRead;	// used to determine how much padding is needed
 
@@ -1969,8 +1969,20 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		//the soldier type info has changed at version 102
 		//CHRISL: To accomodate future changes to this structure, we'll load each value field by field
 		numBytesRead = 0;
-		FileRead( hFile, this, (offsetof(SOLDIERTYPE, ubBodyType)+sizeof(ubBodyType)), &uiNumBytesRead );
-		numBytesRead += uiNumBytesRead;
+		if (guiCurrentSaveGameVersion >= INCREASED_TEAMSIZES)
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->ubID, sizeof(ubID), sizeof(UINT16), numBytesRead);
+		}
+		else
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->ubID, sizeof(ubID), sizeof(UINT8), numBytesRead);
+			// Read and discard bReserved1 so numBytesRead matches the struct size later
+			UINT8 bReserved1 = 0;
+			numBytesRead = ReadFieldByField(hFile, &bReserved1, sizeof(bReserved1), sizeof(UINT8), numBytesRead);
+		}
+		numBytesRead = ReadFieldByField(hFile, &this->name, sizeof(name), sizeof(CHAR16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubBodyType, sizeof(ubBodyType), sizeof(UINT8), numBytesRead);
+
 		if(guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE)
 		{	//CHRISL: It was  changed at version 104 to allow for 16bit action points for the 100AP system
 			numBytesRead = ReadFieldByField(hFile, &this->bActionPoints, sizeof(bActionPoints), sizeof(INT16), numBytesRead);
@@ -1998,7 +2010,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->ubWaitActionToDo, sizeof(ubWaitActionToDo), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubInsertionDirection, sizeof(ubInsertionDirection), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bGunType, sizeof(bGunType), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubOppNum, sizeof(ubOppNum), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubOppNum, sizeof(ubOppNum), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bLastRenderVisibleValue, sizeof(bLastRenderVisibleValue), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubAttackingHand, sizeof(ubAttackingHand), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sWeightCarriedAtTurnStart, sizeof(sWeightCarriedAtTurnStart), sizeof(INT16), numBytesRead);
@@ -2042,8 +2054,8 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->usAnimState, sizeof(usAnimState), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->uiAIDelay, sizeof(uiAIDelay), sizeof(UINT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sReloadDelay, sizeof(sReloadDelay), sizeof(INT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubAttackerID, sizeof(ubAttackerID), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubPreviousAttackerID, sizeof(ubPreviousAttackerID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubAttackerID, sizeof(ubAttackerID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubPreviousAttackerID, sizeof(ubPreviousAttackerID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sInsertionGridNo, sizeof(sInsertionGridNo), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->AnimCache, sizeof(AnimCache), 1, numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bSide, sizeof(bSide), sizeof(UINT8), numBytesRead);
@@ -2123,7 +2135,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->pCurrentShade, sizeof(pCurrentShade), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubFadeLevel, sizeof(ubFadeLevel), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubServiceCount, sizeof(ubServiceCount), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubServicePartner, sizeof(ubServicePartner), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubServicePartner, sizeof(ubServicePartner), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->pThrowParams, sizeof(pThrowParams), 4, numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bReverse, sizeof(bReverse), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->pLevelNode, sizeof(pLevelNode), 4, numBytesRead);
@@ -2221,7 +2233,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->iTotalLengthOfInsuranceContract, sizeof(iTotalLengthOfInsuranceContract), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubSoldierClass, sizeof(ubSoldierClass), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubAPsLostToSuppression, sizeof(ubAPsLostToSuppression), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubSuppressorID, sizeof(ubSuppressorID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubSuppressorID, sizeof(ubSuppressorID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubDesiredSquadAssignment, sizeof(ubDesiredSquadAssignment), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubNumTraversalsAllowedToMerge, sizeof(ubNumTraversalsAllowedToMerge), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->usPendingAnimation2, sizeof(usPendingAnimation2), sizeof(UINT16), numBytesRead);
@@ -2233,7 +2245,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bBlockedByAnotherMercDirection, sizeof(bBlockedByAnotherMercDirection), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->usAttackingWeapon, sizeof(usAttackingWeapon), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bWeaponMode, sizeof(bWeaponMode), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubTargetID, sizeof(ubTargetID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubTargetID, sizeof(ubTargetID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bAIScheduleProgress, sizeof(bAIScheduleProgress), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sOffWorldGridNo, sizeof(sOffWorldGridNo), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->pAniTile, sizeof(pAniTile), 1, numBytesRead);
@@ -2254,8 +2266,8 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bOldBattleSnd, sizeof(bOldBattleSnd), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->iBurstSoundID, sizeof(iBurstSoundID), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bSlotItemTakenFrom, sizeof(bSlotItemTakenFrom), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubAutoBandagingMedic, sizeof(ubAutoBandagingMedic), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubRobotRemoteHolderID, sizeof(ubRobotRemoteHolderID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubAutoBandagingMedic, sizeof(ubAutoBandagingMedic), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubRobotRemoteHolderID, sizeof(ubRobotRemoteHolderID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->uiTimeOfLastContractUpdate, sizeof(uiTimeOfLastContractUpdate), sizeof(UINT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bTypeOfLastContract, sizeof(bTypeOfLastContract), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bTurnsCollapsed, sizeof(bTurnsCollapsed), sizeof(INT8), numBytesRead);
@@ -2274,7 +2286,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bRegenBoostersUsedToday, sizeof(bRegenBoostersUsedToday), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bNumPelletsHitBy, sizeof(bNumPelletsHitBy), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sSkillCheckGridNo, sizeof(sSkillCheckGridNo), sizeof(INT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubLastEnemyCycledID, sizeof(ubLastEnemyCycledID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubLastEnemyCycledID, sizeof(ubLastEnemyCycledID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubPrevSectorID, sizeof(ubPrevSectorID), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubNumTilesMovesSinceLastForget, sizeof(ubNumTilesMovesSinceLastForget), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bTurningIncrement, sizeof(bTurningIncrement), sizeof(INT8), numBytesRead);
@@ -2282,7 +2294,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->usValueGoneUp, sizeof(usValueGoneUp), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubNumLocateCycles, sizeof(ubNumLocateCycles), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubDelayedMovementFlags, sizeof(ubDelayedMovementFlags), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubCTGTTargetID, sizeof(ubCTGTTargetID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubCTGTTargetID, sizeof(ubCTGTTargetID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->uiMercChecksum, sizeof(uiMercChecksum), sizeof(UINT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bCurrentCivQuote, sizeof(bCurrentCivQuote), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bCurrentCivQuoteDelta, sizeof(bCurrentCivQuoteDelta), sizeof(INT8), numBytesRead);
@@ -2300,7 +2312,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->ubDoorOpeningNoise, sizeof(ubDoorOpeningNoise), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->pGroup, sizeof(pGroup), 1, numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubLeaveHistoryCode, sizeof(ubLeaveHistoryCode), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bOverrideMoveSpeed, sizeof(bOverrideMoveSpeed), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bOverrideMoveSpeed, sizeof(bOverrideMoveSpeed), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->uiTimeSoldierWillArrive, sizeof(uiTimeSoldierWillArrive), sizeof(UINT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bVehicleUnderRepairID, sizeof(bVehicleUnderRepairID), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->iTimeCanSignElsewhere, sizeof(iTimeCanSignElsewhere), sizeof(INT32), numBytesRead);
@@ -2313,7 +2325,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->ubLastDamageReason, sizeof(ubLastDamageReason), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sLastTwoLocations, sizeof(sLastTwoLocations), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->uiTimeSinceLastBleedGrunt, sizeof(uiTimeSinceLastBleedGrunt), sizeof(INT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->ubNextToPreviousAttackerID, sizeof(ubNextToPreviousAttackerID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubNextToPreviousAttackerID, sizeof(ubNextToPreviousAttackerID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bDoAutofire, sizeof(bDoAutofire), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->numFlanks, sizeof(numFlanks), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->lastFlankSpot, sizeof(lastFlankSpot), sizeof(INT32), numBytesRead);
@@ -2340,9 +2352,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubMilitiaAssists, sizeof(ubMilitiaAssists), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->sNonNPCTraderID, sizeof(sNonNPCTraderID), sizeof(INT8), numBytesRead );
-		//numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
-		numBytesRead = ReadFieldByField(hFile, &this->usDragPersonID, sizeof(usDragPersonID), sizeof(UINT8), numBytesRead );
-		//numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->usDragPersonID, sizeof(usDragPersonID), sizeof(UINT16), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->sDragCorpseID, sizeof(sDragCorpseID), sizeof(INT16), numBytesRead );
 		
 		if ( guiCurrentSaveGameVersion < DRAGPERSONS )
@@ -2461,10 +2471,10 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 
 			if ( guiCurrentSaveGameVersion >= DISEASE_SYSTEM )
 			{
-				numBytesRead = ReadFieldByField( hFile, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT32), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT16), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->sDiseaseFlag, sizeof(sDiseaseFlag), sizeof(UINT8), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof( ubFiller ), sizeof( UINT8 ), numBytesRead );
-				numBytesRead = ReadFieldByField( hFile, &this->ubHoursRemainingOnMiniEvent, sizeof( ubHoursRemainingOnMiniEvent), sizeof( UINT8 ), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->ubHoursRemainingOnMiniEvent, sizeof( ubHoursRemainingOnMiniEvent), sizeof( UINT16 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usGLDelayMode, sizeof( usGLDelayMode ), sizeof( UINT8 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usBarrelMode, sizeof( usBarrelMode ), sizeof( UINT8 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usBarrelCounter, sizeof( usBarrelCounter ), sizeof( UINT8 ), numBytesRead );
@@ -2596,140 +2606,6 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				buffer++;
 		}
 
-		/*if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
-		{
-			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageStrength, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
-
-			if ( guiCurrentSaveGameVersion >=  MULTITURN_ACTIONS )
-			{
-				numBytesRead = ReadFieldByField(hFile, &this->bOverTurnAPS, sizeof(bOverTurnAPS), sizeof(INT16), numBytesRead);
-				numBytesRead = ReadFieldByField(hFile, &this->sMTActionGridNo, sizeof(sMTActionGridNo), sizeof(INT32), numBytesRead);
-				numBytesRead = ReadFieldByField(hFile, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
-				numBytesRead = ReadFieldByField(hFile, &this->bAIIndex, sizeof(bAIIndex), sizeof(UINT16), numBytesRead);
-
-				if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
-				{
-					numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
-					numBytesRead = ReadFieldByField(hFile, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
-										
-					if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
-					{
-						numBytesRead = ReadFieldByField(hFile, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
-						numBytesRead = ReadFieldByField(hFile, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
-						numBytesRead = ReadFieldByField(hFile, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
-					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
-				}
-				else
-				{
-						for(UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)
-							this->usSkillCounter[i] = 0;
-
-						for(UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i)
-							this->usSkillCooldown[i] = 0;
-
-						this->usAISkillUse = 0;
-
-						// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
-						const UINT8 tmp = sizeof(usSkillCounter) + sizeof(usSkillCooldown) + sizeof(usAISkillUse);
-						UINT8 blarg[tmp];
-						numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
-				
-						numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
-					}
-				}
-				else
-				{
-					this->usSoldierProfile = 0;
-					this->usItemMoveSectorID = 0;
-
-					// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
-					const UINT8 tmp = sizeof(usSoldierProfile) + sizeof(usItemMoveSectorID);
-					UINT8 blarg[tmp];
-					numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
-				
-					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
-				}
-			}
-			else
-			{
-				this->bOverTurnAPS		= 0;
-				this->sMTActionGridNo	= NOWHERE;
-				this->usMultiTurnAction = 0;
-				this->bAIIndex			= 0;
-				this->usSoldierProfile	= 0;
-				this->usItemMoveSectorID = 0;
-
-				// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
-				// +1 for padding
-				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction) + sizeof(bAIIndex) + 1 + sizeof(usSoldierProfile) + sizeof(usItemMoveSectorID);
-				UINT8 blarg[tmp];
-				numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
-				
-				numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
-			}
-		}
-		else
-		{
-			//CHRISL: We have to make sure we add a buffer to account for the lack of ubInterruptCounter and that buffer needs to be a full DWORD in size
-			for(int i = 0; i < sizeof(bFoodLevel); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(bDrinkLevel); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(usStarveDamageHealth); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(usStarveDamageStrength); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(bOverTurnAPS); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(sMTActionGridNo); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(usMultiTurnAction); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(bAIIndex); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(usSoldierProfile); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-
-			for(int i = 0; i < sizeof(usItemMoveSectorID); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-						
-			for(int i = 0; i < sizeof(ubFiller); ++i)
-				buffer++;
-			while((buffer%4) > 0)
-				buffer++;
-		}*/
-
 #ifdef JA2UB
 		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->GetupFromJA25StartCounter, sizeof(GetupFromJA25StartCounter), sizeof(TIMECOUNTER), numBytesRead);
@@ -2737,38 +2613,9 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->ubPercentDamageInflictedByTeam, sizeof(ubPercentDamageInflictedByTeam), sizeof(UINT8), numBytesRead);
 #endif
 		numBytesRead += buffer;
-		if(numBytesRead != SIZEOF_SOLDIERTYPE_POD)
+		const UINT32 PODsize = SIZEOF_SOLDIERTYPE_POD;
+		if(numBytesRead != PODsize)
 			return(FALSE);
-/*		//CHRISL: It was further changed at version 104 to allow for 16bit action points for the 100AP system
-		//first, load the POD
-		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
-		{
-			if ( !FileRead( hFile, this, SIZEOF_SOLDIERTYPE_POD, &uiNumBytesRead ) )
-			{
-				return(FALSE);
-			}
-		}
-		else
-		{
-			numBytesRead = 0;
-			FileRead( hFile, this, (offsetof(SOLDIERTYPE, ubBodyType)+sizeof(ubBodyType)), &uiNumBytesRead );
-			numBytesRead += uiNumBytesRead;
-			numBytesRead = ReadFieldByField(hFile, &this->bActionPoints, 1, 1, numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bInitialActionPoints, 1, 1, numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bOldLife, sizeof(bOldLife), sizeof(INT8), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bVisible, sizeof(bVisible), sizeof(INT8), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bActive, sizeof(bActive), sizeof(INT8), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->bTeam, sizeof(bTeam), sizeof(INT8), numBytesRead);
-			//CHRISL: in the old structure, there are 3 padding bytes at this point in the file.  We need to account for
-			//	them before continuing.  We also want to include them in our numBytesRead since they cover the changes
-			//	caused by increasing two elements by 1byte each.  This includes shifting one byte of padding
-			FileRead( hFile, padding, 3, &uiNumBytesRead );
-			numBytesRead += uiNumBytesRead;
-			FileRead( hFile, &this->pTempObject, (SIZEOF_SOLDIERTYPE_POD-numBytesRead), &uiNumBytesRead );
-			numBytesRead += uiNumBytesRead;
-			if(numBytesRead != SIZEOF_SOLDIERTYPE_POD)
-				return(FALSE);
-		}*/
 
 		//load the OO inventory
 		if ( !this->inv.Load(hFile) )
@@ -2806,7 +2653,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.sNoiseGridno, sizeof(aiData.sNoiseGridno), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubNoiseVolume, sizeof(aiData.ubNoiseVolume), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bLastAttackHit, sizeof(aiData.bLastAttackHit), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubXRayedBy, sizeof(aiData.ubXRayedBy), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubXRayedBy, sizeof(aiData.ubXRayedBy), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.dHeightAdjustment, sizeof(aiData.dHeightAdjustment), sizeof(FLOAT), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMorale, sizeof(aiData.bMorale), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bTeamMoraleMod, sizeof(aiData.bTeamMoraleMod), sizeof(INT8), numBytesRead);
@@ -2829,7 +2676,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMoved, sizeof(aiData.bMoved), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bHunting, sizeof(aiData.bHunting), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubLastCall, sizeof(aiData.ubLastCall), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubCaller, sizeof(aiData.ubCaller), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubCaller, sizeof(aiData.ubCaller), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.sCallerGridNo, sizeof(aiData.sCallerGridNo), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallPriority, sizeof(aiData.bCallPriority), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallActedUpon, sizeof(aiData.bCallActedUpon), sizeof(INT8), numBytesRead);
@@ -3061,9 +2908,14 @@ BOOLEAN WORLDITEM::Load(INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMap
 			LOADDATA(&oldWorldItem, *hBuffer, _OLD_SIZEOF_WORLDITEM_POD);
 			*this = oldWorldItem;
 		}
+		else if (dMajorMapVersion < 8.0)
+		{
+			LOADDATA(this, *hBuffer, _SIZEOF_WORLDITEM_INT8_ID_POD);
+		}
 		else
+		{
 			LOADDATA(this, *hBuffer, SIZEOF_WORLDITEM_POD);
-		
+		}
 		// Load the OO OBJECTTYPE
 		this->object.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion);
 	}
@@ -6634,7 +6486,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if( gTacticalStatus.ubAttackBusyCount > 1 )
 	{
 		//Lock the ui
-		SetUIBusy( (UINT8)gusSelectedSoldier );
+		SetUIBusy( gusSelectedSoldier );
 	}
 	// OJW - 20090403 - Fix Tactical Interface is still locked after quick-load
 	else
@@ -6879,9 +6731,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	// player team character fixes
 	SOLDIERTYPE	*pTeamSoldier;
-	for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+	for (SoldierID bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop)
 	{
-		pTeamSoldier=MercPtrs[bLoop]; 
+		pTeamSoldier = bLoop;
 
 		// silversurfer: added additional check to only remove the flags when there is no boxing activity going on at the moment.
 		// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
@@ -7074,12 +6926,12 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 
 BOOLEAN LoadSoldierStructure( HWFILE hFile )
 {
-	UINT16	cnt;
-	UINT32	uiNumBytesRead=0;
-	UINT8		ubId;
+	UINT16		cnt;
+	UINT32		uiNumBytesRead=0;
+	SoldierID	ubId;
 	UINT8		ubOne = 1;
 	UINT8		ubActive = 1;
-	UINT32	uiPercentage;
+	UINT32		uiPercentage;
 	SOLDIERTYPE SavedSoldierInfo;
 
 	//Loop through all the soldier and delete them all
@@ -7809,13 +7661,13 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.Team, sizeof(gTacticalStatus.Team), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubCurrentTeam, sizeof(gTacticalStatus.ubCurrentTeam), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideTarget, sizeof(gTacticalStatus.sSlideTarget), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideReason, sizeof(gTacticalStatus.sSlideReason), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sSlideReason_UNUSED, sizeof(gTacticalStatus.sSlideReason_UNUSED), sizeof(INT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiTimeSinceMercAIStart, sizeof(gTacticalStatus.uiTimeSinceMercAIStart), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fPanicFlags, sizeof(gTacticalStatus.fPanicFlags), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sPanicTriggerGridNoUnused, sizeof(gTacticalStatus.sPanicTriggerGridNoUnused), sizeof(INT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sHandGrid, sizeof(gTacticalStatus.sHandGrid), sizeof(INT16), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubSpottersCalledForBy, sizeof(gTacticalStatus.ubSpottersCalledForBy), sizeof(UINT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubTheChosenOne, sizeof(gTacticalStatus.ubTheChosenOne), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubSpottersCalledForBy, sizeof(gTacticalStatus.ubSpottersCalledForBy), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubTheChosenOne, sizeof(gTacticalStatus.ubTheChosenOne), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiTimeOfLastInput, sizeof(gTacticalStatus.uiTimeOfLastInput), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiTimeSinceDemoOn, sizeof(gTacticalStatus.uiTimeSinceDemoOn), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiCountdownToRestart, sizeof(gTacticalStatus.uiCountdownToRestart), sizeof(UINT32), numBytesRead);
@@ -7834,13 +7686,13 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bRealtimeSpeed, sizeof(gTacticalStatus.bRealtimeSpeed), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyIntention, sizeof(gTacticalStatus.ubEnemyIntention), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyIntendedRetreatDirection, sizeof(gTacticalStatus.ubEnemyIntendedRetreatDirection), sizeof(UINT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID), sizeof(UINT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fEnemySightingOnTheirTurn, sizeof(gTacticalStatus.fEnemySightingOnTheirTurn), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fAutoBandageMode, sizeof(gTacticalStatus.fAutoBandageMode), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubAttackBusyCount, sizeof(gTacticalStatus.ubAttackBusyCount), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bNumEnemiesFoughtInBattleUnused, sizeof(gTacticalStatus.bNumEnemiesFoughtInBattleUnused), sizeof(INT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEngagedInConvFromActionMercID, sizeof(gTacticalStatus.ubEngagedInConvFromActionMercID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEngagedInConvFromActionMercID, sizeof(gTacticalStatus.ubEngagedInConvFromActionMercID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.usTactialTurnLimitCounter, sizeof(gTacticalStatus.usTactialTurnLimitCounter), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fInTopMessage, sizeof(gTacticalStatus.fInTopMessage), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubTopMessageType, sizeof(gTacticalStatus.ubTopMessageType), sizeof(UINT8), numBytesRead);
@@ -7858,7 +7710,7 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fSaidCreatureFlavourQuote, sizeof(gTacticalStatus.fSaidCreatureFlavourQuote), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fHaveSeenCreature, sizeof(gTacticalStatus.fHaveSeenCreature), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fKilledEnemyOnAttack, sizeof(gTacticalStatus.fKilledEnemyOnAttack), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyKilledOnAttack, sizeof(gTacticalStatus.ubEnemyKilledOnAttack), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyKilledOnAttack, sizeof(gTacticalStatus.ubEnemyKilledOnAttack), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bEnemyKilledOnAttackLevel, sizeof(gTacticalStatus.bEnemyKilledOnAttackLevel), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyKilledOnAttackLocation, sizeof(gTacticalStatus.ubEnemyKilledOnAttackLocation), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fItemsSeenOnAttack, sizeof(gTacticalStatus.fItemsSeenOnAttack), sizeof(BOOLEAN), numBytesRead);
@@ -7872,7 +7724,7 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fCantGetThrough, sizeof(gTacticalStatus.fCantGetThrough), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sCantGetThroughGridNo, sizeof(gTacticalStatus.sCantGetThroughGridNo), sizeof(INT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sCantGetThroughSoldierGridNo, sizeof(gTacticalStatus.sCantGetThroughSoldierGridNo), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubCantGetThroughID, sizeof(gTacticalStatus.ubCantGetThroughID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubCantGetThroughID, sizeof(gTacticalStatus.ubCantGetThroughID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fDidGameJustStart, sizeof(gTacticalStatus.fDidGameJustStart), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fStatChangeCheatOn, sizeof(gTacticalStatus.fStatChangeCheatOn), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubLastRequesterTargetID, sizeof(gTacticalStatus.ubLastRequesterTargetID), sizeof(UINT8), numBytesRead);
@@ -7886,25 +7738,24 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fHasAGameBeenStarted, sizeof(gTacticalStatus.fHasAGameBeenStarted), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes, sizeof(gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fSomeoneHit, sizeof(gTacticalStatus.fSomeoneHit), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubPaddingSmall, sizeof(gTacticalStatus.ubPaddingSmall), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiTimeSinceLastOpplistDecay, sizeof(gTacticalStatus.uiTimeSinceLastOpplistDecay), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bMercArrivingQuoteBeingUsed, sizeof(gTacticalStatus.bMercArrivingQuoteBeingUsed), sizeof(INT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyKilledOnAttackKiller, sizeof(gTacticalStatus.ubEnemyKilledOnAttackKiller), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubEnemyKilledOnAttackKiller, sizeof(gTacticalStatus.ubEnemyKilledOnAttackKiller), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fCountingDownForGuideDescription, sizeof(gTacticalStatus.fCountingDownForGuideDescription), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bGuideDescriptionCountDown, sizeof(gTacticalStatus.bGuideDescriptionCountDown), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubGuideDescriptionToUse, sizeof(gTacticalStatus.ubGuideDescriptionToUse), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bGuideDescriptionSectorX, sizeof(gTacticalStatus.bGuideDescriptionSectorX), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.bGuideDescriptionSectorY, sizeof(gTacticalStatus.bGuideDescriptionSectorY), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fEnemyFlags, sizeof(gTacticalStatus.fEnemyFlags), sizeof(INT8), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus. fAutoBandagePending, sizeof(gTacticalStatus. fAutoBandagePending), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus. fHasEnteredCombatModeSinceEntering, sizeof(gTacticalStatus. fHasEnteredCombatModeSinceEntering), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus. fDontAddNewCrows, sizeof(gTacticalStatus. fDontAddNewCrows), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fAutoBandagePending, sizeof(gTacticalStatus. fAutoBandagePending), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fHasEnteredCombatModeSinceEntering, sizeof(gTacticalStatus. fHasEnteredCombatModeSinceEntering), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.fDontAddNewCrows, sizeof(gTacticalStatus. fDontAddNewCrows), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubMorePadding, sizeof(gTacticalStatus.ubMorePadding), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.sCreatureTenseQuoteDelay, sizeof(gTacticalStatus.sCreatureTenseQuoteDelay), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.uiCreatureTenseQuoteLastUpdate, sizeof(gTacticalStatus.uiCreatureTenseQuoteLastUpdate), sizeof(UINT32), numBytesRead);
 	if ( guiCurrentSaveGameVersion >= BUGFIX_NPC_DATA_FOR_BIG_MAPS )
 	{
-		numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubLastRequesterSurgeryTargetID, sizeof(gTacticalStatus.ubLastRequesterSurgeryTargetID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubLastRequesterSurgeryTargetID, sizeof(gTacticalStatus.ubLastRequesterSurgeryTargetID), sizeof(UINT16), numBytesRead);
 		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
        {
 			numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubInterruptPending, sizeof(gTacticalStatus.ubInterruptPending), sizeof(UINT8), numBytesRead);
@@ -8350,7 +8201,7 @@ void CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName )
 
 
 
-BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT8	ubID )
+BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT16 ubID )
 {
 	UINT32	uiNumOfNodes=0;
 	PathStPtr	pTempPath = Menptr[ ubID ].pMercPath;
@@ -8391,7 +8242,7 @@ BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT8	ubID )
 
 
 
-BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
+BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT16 ubID )
 {
 	UINT32	uiNumOfNodes=0;
 	PathStPtr	pTempPath = NULL;
@@ -8654,7 +8505,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	if( pContractReHireSoldier != NULL )
 		sGeneralInfo.sContractRehireSoldierID = pContractReHireSoldier->ubID;
 	else
-		sGeneralInfo.sContractRehireSoldierID = -1;
+		sGeneralInfo.sContractRehireSoldierID = NOBODY;
 
 	memcpy( &sGeneralInfo.GameOptions, &gGameOptions, sizeof( GAME_OPTIONS ) );
 #ifndef BMP_RANDOM//dnl ch55 111009
@@ -8674,7 +8525,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	if( gpSMCurrentMerc )
 		sGeneralInfo.ubSMCurrentMercID = gpSMCurrentMerc->ubID;
 	else
-		sGeneralInfo.ubSMCurrentMercID = 255;
+		sGeneralInfo.ubSMCurrentMercID = NOBODY;
 
 	//Save the fact that it is the first time in mapscreen
 	sGeneralInfo.fFirstTimeInMapScreen = fFirstTimeInMapScreen;
@@ -8685,7 +8536,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 
 	// Save boxing info
 	memcpy( &sGeneralInfo.sBoxerGridNo, &gsBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
-	memcpy( &sGeneralInfo.ubBoxerID, &gubBoxerID, NUM_BOXERS * sizeof( INT8 ) );
+	memcpy( &sGeneralInfo.ubBoxerID, &gubBoxerID, NUM_BOXERS * sizeof( UINT16 ) );
 	memcpy( &sGeneralInfo.fBoxerFought, &gfBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
 	//Save the helicopter status
@@ -8933,17 +8784,17 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterHitsTaken, sizeof(sGeneralInfo.ubHelicopterHitsTaken), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubQuitType, sizeof(sGeneralInfo.ubQuitType), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM, sizeof(sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sContractRehireSoldierID, sizeof(sGeneralInfo.sContractRehireSoldierID), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sContractRehireSoldierID, sizeof(sGeneralInfo.sContractRehireSoldierID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.GameOptions, sizeof(sGeneralInfo.GameOptions), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiSeedNumber, sizeof(sGeneralInfo.uiSeedNumber), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiBaseJA2Clock, sizeof(sGeneralInfo.uiBaseJA2Clock), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sCurInterfacePanel, sizeof(sGeneralInfo.sCurInterfacePanel), sizeof(INT16), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubSMCurrentMercID, sizeof(sGeneralInfo.ubSMCurrentMercID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubSMCurrentMercID, sizeof(sGeneralInfo.ubSMCurrentMercID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fFirstTimeInMapScreen, sizeof(sGeneralInfo.fFirstTimeInMapScreen), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fDisableDueToBattleRoster, sizeof(sGeneralInfo.fDisableDueToBattleRoster), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fDisableMapInterfaceDueToBattle, sizeof(sGeneralInfo.fDisableMapInterfaceDueToBattle), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sBoxerGridNo, sizeof(sGeneralInfo.sBoxerGridNo), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubBoxerID, sizeof(sGeneralInfo.ubBoxerID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubBoxerID, sizeof(sGeneralInfo.ubBoxerID), sizeof(UINT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fBoxerFought, sizeof(sGeneralInfo.fBoxerFought), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fHelicopterDestroyed, sizeof(sGeneralInfo.fHelicopterDestroyed), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowMapScreenHelpText, sizeof(sGeneralInfo.fShowMapScreenHelpText), sizeof(BOOLEAN), numBytesRead);
@@ -9021,7 +8872,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fExplosionQueueActive, sizeof(sGeneralInfo.fExplosionQueueActive), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubUnused, sizeof(sGeneralInfo.ubUnused), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiMeanWhileFlags, sizeof(sGeneralInfo.uiMeanWhileFlags), sizeof(UINT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bSelectedInfoChar, sizeof(sGeneralInfo.bSelectedInfoChar), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bSelectedInfoChar, sizeof(sGeneralInfo.bSelectedInfoChar), sizeof(INT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bHospitalPriceModifier, sizeof(sGeneralInfo.bHospitalPriceModifier), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.bUnused2, sizeof(sGeneralInfo.bUnused2), sizeof(INT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iHospitalTempBalance, sizeof(sGeneralInfo.iHospitalTempBalance), sizeof(INT32), numBytesRead);
@@ -9194,10 +9045,10 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	ubQuitType = sGeneralInfo.ubQuitType;
 
 	//if the soldier id is valid
-	if( sGeneralInfo.sContractRehireSoldierID == -1 )
+	if( sGeneralInfo.sContractRehireSoldierID == NOBODY )
 		pContractReHireSoldier = NULL;
 	else
-		pContractReHireSoldier = &Menptr[ sGeneralInfo.sContractRehireSoldierID ];
+		pContractReHireSoldier = sGeneralInfo.sContractRehireSoldierID;
 
 	memcpy( &gGameOptions, &sGeneralInfo.GameOptions, sizeof( GAME_OPTIONS ) );
 #ifndef BMP_RANDOM//dnl ch55 111009
@@ -9214,10 +9065,10 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 
 	// Restore the selected merc
-	if( sGeneralInfo.ubSMCurrentMercID == 255 )
+	if( sGeneralInfo.ubSMCurrentMercID == NOBODY)
 		gpSMCurrentMerc = NULL;
 	else
-		gpSMCurrentMerc = &Menptr[ sGeneralInfo.ubSMCurrentMercID ];
+		gpSMCurrentMerc = sGeneralInfo.ubSMCurrentMercID;
 
 	//Set the interface panel to the team panel
 	ShutdownCurrentPanel( );
@@ -9245,7 +9096,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fDisableMapInterfaceDueToBattle = sGeneralInfo.fDisableMapInterfaceDueToBattle;
 
 	memcpy( &gsBoxerGridNo, &sGeneralInfo.sBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
-	memcpy( &gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof( UINT8 ) );
+	memcpy( &gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof( UINT16 ) );
 	memcpy( &gfBoxerFought, &sGeneralInfo.fBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
 	//Load the helicopter status
@@ -9426,20 +9277,20 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 			gCamoFace[i].gSnowCamoface = FALSE;
 		}
 		
-		SOLDIERTYPE * pSoldier;
-		UINT16 bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-		UINT16 bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID,pSoldier++)
+		SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier)
 		{
-			if ( pSoldier )
+			if ( Soldier )
 			{
-				gCamoFace[pSoldier->ubProfile].gCamoface = ( pSoldier->bCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gUrbanCamoface = ( pSoldier->urbanCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gDesertCamoface = ( pSoldier->desertCamo > 0 );
-				gCamoFace[pSoldier->ubProfile].gSnowCamoface = ( pSoldier->snowCamo > 0 );
+				UINT8 profile = Soldier->ubProfile;
+				gCamoFace[profile].gCamoface = ( Soldier->bCamo > 0 );
+				gCamoFace[profile].gUrbanCamoface = ( Soldier->urbanCamo > 0 );
+				gCamoFace[profile].gDesertCamoface = ( Soldier->desertCamo > 0 );
+				gCamoFace[profile].gSnowCamoface = ( Soldier->snowCamo > 0 );
 
-				DeleteSoldierFace( pSoldier );
-				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+				DeleteSoldierFace( Soldier );
+				Soldier->iFaceIndex = InitSoldierFace( Soldier );
 			}
 		}
 	}
@@ -9660,18 +9511,19 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 	}
 	else
 	{
-		INT16					sSoldierCnt;
-		SOLDIERTYPE		*pSoldier;
-		INT16					bLastTeamID;
-		BOOLEAN				fFoundAMerc=FALSE;
+		SoldierID sSoldierCnt;
+		SoldierID bLastTeamID;
+		SOLDIERTYPE *pSoldier;
+		BOOLEAN fFoundAMerc = FALSE;
 
 		// Set locator to first merc
 		sSoldierCnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		//loop through all the mercs on the players team to find the one that is not moving
-		for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
+		for ( ; sSoldierCnt <= bLastTeamID; ++sSoldierCnt )
 		{
+			pSoldier = sSoldierCnt;
 			// test for !NULL (if initilization fails and MercPtrs contains 'NULL's)
 			if( pSoldier && pSoldier->bActive )
 			{
@@ -9695,8 +9547,9 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 			bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 			//loop through all the mercs and find one that is moving
-			for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
+			for ( ; sSoldierCnt <= bLastTeamID; ++sSoldierCnt )
 			{
+				pSoldier = sSoldierCnt;
 				if( pSoldier && pSoldier->bActive )
 				{
 					//we found an alive, merc that is not moving

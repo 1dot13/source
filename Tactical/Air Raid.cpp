@@ -79,7 +79,7 @@ typedef	struct
 {
 	BOOLEAN				fInAirRaid;
 	BOOLEAN				fAirRaidScheduled;
-	UINT8					ubAirRaidMode;
+	UINT8				ubAirRaidMode;
 	UINT32				uiSoundSample;
 	UINT32				uiRaidLastUpdate;
 	BOOLEAN				fFadingRaidIn;
@@ -87,32 +87,32 @@ typedef	struct
 	INT8					bNumDives;
 	INT8					bMaxDives;
 	BOOLEAN				fFadingRaidOut;
-	INT16					sDiveX;
-	INT16					sDiveY;
-	INT16					sDiveTargetLocation;
-	UINT8					ubDiveDirection;
-	INT16					sNumGridNosMoved;
-	INT32					iNumTurnsSinceLastDive;
-	INT32					iNumTurnsSinceDiveStarted;
-	INT32					iNumGridNosMovedThisTurn;
+	INT16				sDiveX;
+	INT16				sDiveY;
+	INT16				sDiveTargetLocation;
+	UINT8				ubDiveDirection;
+	INT16				sNumGridNosMoved;
+	INT32				iNumTurnsSinceLastDive;
+	INT32				iNumTurnsSinceDiveStarted;
+	INT32				iNumGridNosMovedThisTurn;
 	BOOLEAN				fAirRaidHasHadTurn;
-	UINT8					ubBeginTeamTurn;
+	UINT8				ubBeginTeamTurn;
 	BOOLEAN				fHaveTBBatton;
 	AIR_RAID_DEFINITION	AirRaidDef;
-	INT16					sRaidSoldierID;
+	SoldierID			sRaidSoldierID;
 
-	INT16					sNotLocatedYet;
-	INT32					iNumFrames;
+	INT16				sNotLocatedYet;
+	INT32				iNumFrames;
 
 	INT8					bLevel;
 	INT8					bTeam;
 	INT8					bSide;
-	UINT8					ubAttackerID;
+	SoldierID			ubAttackerID;
 	UINT16				usAttackingWeapon;
-	FLOAT					dXPos;
-	FLOAT					dYPos;
-	INT16					sX;
-	INT16					sY;
+	FLOAT				dXPos;
+	FLOAT				dYPos;
+	INT16				sX;
+	INT16				sY;
 	INT32 sGridNo;
 
 
@@ -187,7 +187,6 @@ void ScheduleAirRaid( AIR_RAID_DEFINITION *pAirRaidDef )
 
 BOOLEAN BeginAirRaid( )
 {
-	INT32 cnt=0;
 	BOOLEAN fOK = FALSE;
 	SOLDIERTYPE *pSoldier;
 	gfQuoteSaid = FALSE;
@@ -215,9 +214,10 @@ BOOLEAN BeginAirRaid( )
 		// Do we have any guys in here...
 
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginAirRaid: check for mercs: first id = %d, last id = %d ",gTacticalStatus.Team[ gbPlayerNum ].bFirstID, gTacticalStatus.Team[ gbPlayerNum ].bLastID));
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginAirRaid: soldier id = %d, active = %d",pSoldier->ubID,pSoldier->bActive));
 			if ( pSoldier->bActive	)
 			{
@@ -305,27 +305,27 @@ BOOLEAN BeginAirRaid( )
 
 INT32 PickLocationNearAnyMercInSector( )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubMercsInSector[ 20 ] = { 0 };
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt=0;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"PickLocationNearAnyMercInSector");
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: total guys = %d", gTacticalStatus.Team[ gbPlayerNum ].bLastID));
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: looping %d",cnt));
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) )
 		{
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 			ubNumMercs++;
 		}
 	}
@@ -334,7 +334,7 @@ INT32 PickLocationNearAnyMercInSector( )
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: number of guys %d",ubNumMercs));
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickLocationNearAnyMercInSector: chosen guy = %d",ubChosenMerc));
 		return( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->sGridNo );
@@ -1057,9 +1057,10 @@ void HandleAirRaid( )
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleAirRaid: check for mercs: first id = %d, last id = %d ",gTacticalStatus.Team[ gbPlayerNum ].bFirstID, gTacticalStatus.Team[ gbPlayerNum ].bLastID));
 		SOLDIERTYPE * pSoldier;
 		BOOLEAN fOK = FALSE;
-		int cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleAirRaid: soldier id = %d, active = %d",pSoldier->ubID,pSoldier->bActive));
 			if ( pSoldier->bActive	)
 			{
@@ -1349,7 +1350,7 @@ BOOLEAN SaveAirRaidInfoToSaveGameFile( HWFILE hFile )
 ////		sAirRaidSaveStruct.sRaidSoldierID = gpRaidSoldier->ubID;
 //	}
 //	else
-		sAirRaidSaveStruct.sRaidSoldierID = -1;
+		sAirRaidSaveStruct.sRaidSoldierID = NOBODY;
 
 
 	memcpy( &sAirRaidSaveStruct.AirRaidDef, &gAirRaidDef, sizeof( AIR_RAID_DEFINITION	) );
@@ -1407,9 +1408,9 @@ BOOLEAN LoadAirRaidInfoFromSaveGameFile( HWFILE hFile )
 	giNumFrames = sAirRaidSaveStruct.iNumFrames;
 
 
-	if( sAirRaidSaveStruct.sRaidSoldierID != -1 )
+	if( sAirRaidSaveStruct.sRaidSoldierID != NOBODY )
 	{
-		gpRaidSoldier = &Menptr[ sAirRaidSaveStruct.sRaidSoldierID ];
+		gpRaidSoldier = sAirRaidSaveStruct.sRaidSoldierID;
 
 		gpRaidSoldier->pathing.bLevel = sAirRaidSaveStruct.bLevel;
 		gpRaidSoldier->bTeam = sAirRaidSaveStruct.bTeam;
@@ -1447,12 +1448,12 @@ void EndAirRaid( )
 		if ( !gTacticalStatus.Team[ ENEMY_TEAM ].bTeamActive && !gTacticalStatus.Team[ CREATURE_TEAM ].bTeamActive )
 		{
 			SOLDIERTYPE * pTeamSoldier;
-			INT32	cnt;
 
 			// Loop through all militia and restore them to peaceful status
-			cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++,pTeamSoldier++)
+			SoldierID cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
+			for ( ; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt )
 			{
+				pTeamSoldier = cnt;
 				if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 				{
 					pTeamSoldier->aiData.bAlertStatus = STATUS_GREEN;
@@ -1462,8 +1463,9 @@ void EndAirRaid( )
 
 			cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
 			// Loop through all civs and restore them to peaceful status
-			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt++,pTeamSoldier++)
+			for ( ; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++cnt )
 			{
+				pTeamSoldier = cnt;
 				if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 				{
 					pTeamSoldier->aiData.bAlertStatus = STATUS_GREEN;

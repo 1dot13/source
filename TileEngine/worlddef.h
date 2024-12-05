@@ -36,7 +36,7 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 // SB: new map version, with map dimensions added
-#define MAJOR_MAP_VERSION		7.0		
+#define MAJOR_MAP_VERSION		8.0		// 7.0 -> 8.0 Due to increased teamsizes. 
 //Current minor map version updater.
 #define MINOR_MAP_OVERHEATING		28		// 27 -> 28: Flugente:: increased to 28 because of included weapon overheated and tripwire feature. See ObjectClass for the new Tags!
 //#define MINOR_MAP_VERSION		29		// 28 -> 29: increased range of roomnumbers to full UINT16 by DBrot
@@ -273,7 +273,7 @@ typedef struct
 	UINT8										ubAdjacentSoldierCnt;
 	UINT8										ubTerrainID;
 
- 	UINT8										ubReservedSoldierID;
+ 	UINT16										ubReservedSoldierID;
 	UINT8										ubBloodInfo;
 	UINT8										ubSmellInfo;
 } MAP_ELEMENT;

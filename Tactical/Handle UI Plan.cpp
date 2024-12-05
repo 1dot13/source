@@ -37,12 +37,12 @@ BOOLEAN BeginUIPlan( SOLDIERTYPE *pSoldier )
 BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 {
 	SOLDIERTYPE				*pPlanSoldier;
-	INT16							sXPos, sYPos;
-	INT16							sAPCost = 0;
-	INT8							bDirection;
-	INT32							iLoop;
+	INT16					sXPos, sYPos;
+	INT16					sAPCost = 0;
+	INT8						bDirection;
+	INT32					iLoop;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8							ubNewIndex;
+	SoldierID				ubNewIndex;
 
 	// Depeding on stance and direction facing, add guy!
 
@@ -79,7 +79,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 			if ( TacticalCreateSoldier( &MercCreateStruct, &ubNewIndex ) )
 			{
 				// Get pointer to soldier
-				GetSoldier( &pPlanSoldier, (UINT16)ubNewIndex );
+				GetSoldier( &pPlanSoldier, ubNewIndex );
 
 				pPlanSoldier->sPlannedTargetX = -1;
 				pPlanSoldier->sPlannedTargetY = -1;
@@ -118,7 +118,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 				pPlanSoldier->ChangeSoldierState( pPlanSoldier->usUIMovementMode, 0, FALSE );
 
 				// Change selected soldier
-				gusSelectedSoldier = (UINT16)pPlanSoldier->ubID;
+				gusSelectedSoldier = pPlanSoldier->ubID;
 
 				// Change global planned mode to this guy!
 				gpUIPlannedSoldier = pPlanSoldier;
@@ -161,7 +161,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 				if ( TacticalCreateSoldier( &MercCreateStruct, &ubNewIndex ) )
 				{
 					// Get pointer to soldier
-					GetSoldier( &pPlanSoldier, (UINT16)ubNewIndex );
+					GetSoldier( &pPlanSoldier, ubNewIndex );
 
 					pPlanSoldier->sPlannedTargetX = -1;
 					pPlanSoldier->sPlannedTargetY = -1;
@@ -197,7 +197,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 					pPlanSoldier->ChangeSoldierState( pPlanSoldier->usUIMovementMode, 0, FALSE );
 
 					// Change selected soldier
-					gusSelectedSoldier = (UINT16)pPlanSoldier->ubID;
+					gusSelectedSoldier = pPlanSoldier->ubID;
 
 					// Change global planned mode to this guy!
 					gpUIPlannedSoldier = pPlanSoldier;
@@ -243,6 +243,7 @@ void EndUIPlan(	)
 	SOLDIERTYPE *pSoldier;
 
 	// Zero out any planned soldiers
+	//FIXME
 	for( cnt = MAX_NUM_SOLDIERS; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		pSoldier = MercPtrs[ cnt ];

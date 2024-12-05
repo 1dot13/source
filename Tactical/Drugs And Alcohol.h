@@ -66,7 +66,7 @@ void HandleEndTurnDrugAdjustments_New( SOLDIERTYPE *pSoldier );
 INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier );
 
 // does a merc have a disability/personality, or is he under drugs that simulate this?
-BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal );
+BOOLEAN DoesMercHaveDisability( const SOLDIERTYPE *pSoldier, UINT8 aVal );
 BOOLEAN DoesMercHavePersonality( SOLDIERTYPE *pSoldier, UINT8 aVal );
 
 //void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier );

@@ -295,7 +295,6 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	INT8		itemVisible = FALSE;
 	INT8		Blocking,twoMoreTiles,markerDir;
 	INT8		nextDir=0;
-	UINT8		who; //,itemIndex; // for each square checked
 	UINT8		dir,range,Path2;
 	//DBrot: More Rooms
 	//UINT8		ubRoomNo;
@@ -355,7 +354,6 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	MercLooksForDoors( pSoldier, TRUE );
 
 
-	who = pSoldier->ubID;
 	dir = pSoldier->ubDirection;
 
 	//NumMessage("good old reveal",dir);
@@ -767,7 +765,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 														 // Turn off item lock for locators...
 														 gTacticalStatus.fLockItemLocators = FALSE;
 														 // Slide to location!
-														SlideToLocation( 0, marker );
+														SlideToLocation( marker );
 													}
 												}
 

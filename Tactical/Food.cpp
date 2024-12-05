@@ -101,7 +101,7 @@ BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	if ( UsingFoodSystem() )
 	{
 		// static variables to remember the last food someone was forced to eat
-		static UINT8 lasteater = 0;
+		static UINT16 lasteater = 0;
 		static UINT16 lastitem = 0;
 
 		UINT32 foodtype = Item[pObj->usItem].foodtype;
@@ -763,15 +763,16 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 
 void HourlyFoodUpdate( void )
 {
-	INT8									bMercID, bLastTeamID;
-	SOLDIERTYPE *							pSoldier = NULL;
+	SoldierID bMercID, bLastTeamID;
+	SOLDIERTYPE * pSoldier = NULL;
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// loop through all mercs to calculate their morale
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier)
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		//if the merc is active, and in Arulco
 		if ( pSoldier && pSoldier->bActive && !AM_AN_EPC(pSoldier) && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) && !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 		{			
@@ -829,15 +830,16 @@ void SectorFillCanteens( void )
 			addtemperature = FOOD_WATER_POISONOUS_TEMPERATURE;
 
 		// first step: fill all canteens in inventories
-		INT8									bMercID, bLastTeamID;
-		SOLDIERTYPE *							pSoldier = NULL;
+		SoldierID bMercID, bLastTeamID;
+		SOLDIERTYPE * pSoldier = NULL;
 
 		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		// loop through all mercs
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, pSoldier++)
+		for ( ; bMercID <= bLastTeamID; ++bMercID )
 		{
+			pSoldier = bMercID;
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
@@ -903,15 +905,16 @@ void SectorFillCanteens( void )
 		INT32 drumsize = Food[Item[pWaterDrum->usItem].foodtype].bDrinkPoints;
 
 		// first step: fill all canteens in inventories
-		INT8									bMercID, bLastTeamID;
-		SOLDIERTYPE *							pSoldier = NULL;
+		SoldierID bMercID, bLastTeamID;
+		SOLDIERTYPE * pSoldier = NULL;
 
 		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		// loop through all mercs
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, pSoldier++)
+		for ( ; bMercID <= bLastTeamID; ++bMercID )
 		{
+			pSoldier = bMercID;
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{

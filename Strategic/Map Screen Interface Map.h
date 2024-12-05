@@ -372,19 +372,19 @@ extern BOOLEAN fDrawTempHeliPath;
 extern BOOLEAN fDrawTempMilitiaPath;
 
 // selected destination char
-INT8 GetSelectedDestChar();
-void SetSelectedDestChar( INT8 aVal );
+INT16 GetSelectedDestChar();
+void SetSelectedDestChar( INT16 aVal );
 
 extern bool gSquadEncumbranceCheckNecessary;
 
 // current assignment character
-extern INT8 bSelectedAssignChar;
+extern INT16 bSelectedAssignChar;
 
 // the info character
-extern INT8 bSelectedInfoChar;
+extern INT16 bSelectedInfoChar;
 
 // the contract char 
-extern INT8 bSelectedContractChar;
+extern INT16 bSelectedContractChar;
 
 // map arrows graphical index value
 extern UINT32 guiMAPCURSORS;
