@@ -1,1 +1,1 @@
-remove CMakePresets.json file as soon as Visual Studio 2022 doesn't output a `Include is not found at path "x:\xxx\cmakepresets.json"` error when it's absent
+
