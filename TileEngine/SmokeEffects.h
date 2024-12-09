@@ -28,16 +28,16 @@ typedef struct TAG_SMOKE_EFFECT
 
 	UINT8		ubDuration;		// the number of turns gas will remain effective
 	UINT8		ubRadius;			// the current radius of the cloud in map tiles
-	UINT8	bFlags;			// 0 - outdoors (fast spread), 1 - indoors (slow)
+	UINT8		bFlags;			// 0 - outdoors (fast spread), 1 - indoors (slow)
 	UINT8		bAge;			 // the number of turns gas has been around
-	BOOLEAN	fAllocated;
-	INT8		bType;
-	UINT16	usItem;
-	UINT8	ubOwner;
-	UINT8	ubGeneration;
-	UINT32	uiTimeOfLastUpdate;
-	INT8	iMPTeamIndex;
-	INT32	iMPSmokeEffectID;
+	BOOLEAN		fAllocated;
+	INT8			bType;
+	UINT16		usItem;
+	SoldierID	ubOwner;
+	UINT8		ubGeneration;
+	UINT32		uiTimeOfLastUpdate;
+	INT8			iMPTeamIndex;
+	INT32		iMPSmokeEffectID;
 } SMOKEEFFECT;
 
 extern SMOKEEFFECT				gSmokeEffectData[ NUM_SMOKE_EFFECT_SLOTS ];
@@ -57,7 +57,7 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 
 void RemoveSmokeEffectFromTile( INT32 sGridNo, INT8 bLevel );
 
-INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOLEAN fFromRemoteClient = 0, UINT8 ubDuration = 0, UINT8 ubRadius = 0, UINT8 ubGeneration = 0);
+INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOLEAN fFromRemoteClient = 0, UINT8 ubDuration = 0, UINT8 ubRadius = 0, UINT8 ubGeneration = 0);
 
 BOOLEAN SaveSmokeEffectsToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadSmokeEffectsFromLoadGameFile( HWFILE hFile );

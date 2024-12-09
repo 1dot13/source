@@ -127,7 +127,7 @@ UINT16	GetInitialHeliRandomTime();
 INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
-	UINT8		iNewIndex;
+	SoldierID	iNewIndex;
 	UINT8		ubCurrentSoldier = pHireMerc->ubProfileID;
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
@@ -211,18 +211,18 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 			// make an objecttype
 			CreateItem(LETTER, 100, &gTempObject);
 			// Give it
-			fReturn = AutoPlaceObject( MercPtrs[iNewIndex], &gTempObject, FALSE );
+			fReturn = AutoPlaceObject( iNewIndex, &gTempObject, FALSE );
 			// CHRISL: This condition should resolve the issue of the letter not being issued to the first merc
 			if(!fReturn)
 			{
 				if (UsingNewInventorySystem())
 				{
-					(MercPtrs[iNewIndex]->inv[NUM_INV_SLOTS-1]) = gTempObject;
+					(iNewIndex->inv[NUM_INV_SLOTS-1]) = gTempObject;
 					fReturn=TRUE;
 				}
 				else
 				{
-					(MercPtrs[iNewIndex]->inv[SMALLPOCK8POS]) = gTempObject;
+					(iNewIndex->inv[SMALLPOCK8POS]) = gTempObject;
 					fReturn = TRUE;
 				}
 			}
@@ -239,7 +239,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	//record how long the merc will be gone for
 	pMerc->bMercStatus = (UINT8)pHireMerc->iTotalContractLength;
 
-	pSoldier = &Menptr[iNewIndex];
+	pSoldier = iNewIndex;
 
 	//Copy over insertion data....
 	pSoldier->ubStrategicInsertionCode = pHireMerc->ubInsertionCode;
@@ -425,7 +425,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 }
 
 
-void MercArrivesCallback(	UINT8	ubSoldierID )
+void MercArrivesCallback( SoldierID ubSoldierID )
 {
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERTYPE							*pSoldier;
@@ -457,7 +457,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	// stop time compression until player restarts it
 	StopTimeCompression();
 
-	pSoldier = &Menptr[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	pMerc = &gMercProfiles[ pSoldier->ubProfile ];
 
@@ -498,11 +498,11 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	{
 		bool force_helidrop = true;
 		SOLDIERTYPE	*pTeamSoldier;
-		for (UINT8 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
+		for (UINT16 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
 		{
 			if (gCharactersList[cnt].fValid)
 			{
-				pTeamSoldier = &Menptr[gCharactersList[cnt].usSolID];
+				pTeamSoldier = gCharactersList[cnt].usSolID;
 				if (pTeamSoldier != pSoldier && pTeamSoldier->bAssignment != ASSIGNMENT_DEAD && pTeamSoldier->bAssignment != ASSIGNMENT_POW && pTeamSoldier->bAssignment != IN_TRANSIT && pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER)
 				{
 					force_helidrop = false;
@@ -671,12 +671,12 @@ BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 		return(FALSE);
 }
 
-UINT8	NumberOfMercsOnPlayerTeam()
+UINT16	NumberOfMercsOnPlayerTeam()
 {
-	INT8			cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16			bLastTeamID;
-	UINT8			ubCount=0;
+	SoldierID	cnt;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	bLastTeamID;
+	UINT16		ubCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -685,8 +685,9 @@ UINT8	NumberOfMercsOnPlayerTeam()
 	if (! MercPtrs[cnt])
 		return 0;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; cnt <= bLastTeamID; ++cnt )
 	{
+		pSoldier = cnt;
 		AssertNotNIL(pSoldier);
 
 		//if the is active, and is not a vehicle
@@ -702,9 +703,9 @@ UINT8	NumberOfMercsOnPlayerTeam()
 
 void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
-	UINT8								cnt, usLastTeamID;
-	INT8								bHated;
-	SOLDIERTYPE							*pTeamSoldier;
+	SoldierID	cnt, usLastTeamID;
+	INT8			bHated;
+	SOLDIERTYPE	*pTeamSoldier;
 #ifdef JA2UB
 	//if we are at the begining of the game going through the initial heli scequence
 	if( pSoldier->fWaitingToGetupFromJA25Start )
@@ -730,8 +731,9 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		usLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 		//loop though all the mercs
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= usLastTeamID; ++cnt, ++pTeamSoldier)
+		for ( ; cnt <= usLastTeamID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			if ( pTeamSoldier->bActive )
 			{
 				if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
@@ -819,14 +821,13 @@ UINT32 GetMercArrivalTimeOfDay( )
 
 void UpdateAnyInTransitMercsWithGlobalArrivalSector( )
 {
-	INT32 cnt;
 	SOLDIERTYPE		*pSoldier;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bAssignment == IN_TRANSIT )

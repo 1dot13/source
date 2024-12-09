@@ -48,27 +48,27 @@ bool checkLBEArrayIntegrity(bool verbose) {
 	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items...");
 
 	for (int i = 0; i < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; i++) {
-		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID < 0) continue;
+		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID >= NOBODY) continue;
 
-		int id = gCharactersList[i].usSolID;
-		SOLDIERTYPE soldier = Menptr[id];
+		SoldierID id = gCharactersList[i].usSolID;
+		SOLDIERTYPE *soldier = id;
 
-		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier.name);
+		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier->name);
 
-		for (int j = 0; j < soldier.inv.size(); j++) {
-			OBJECTTYPE * object = &(soldier.inv[j]);
+		for (int j = 0; j < soldier->inv.size(); j++) {
+			OBJECTTYPE * object = &(soldier->inv[j]);
 			if (object->HasAnyActiveLBEs()) {
 
 				if (!checkObjectLBEIntegrity(object)) {
-					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: %s -> %s!", soldier.name, Item[object->usItem].szItemName);
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: %s -> %s!", soldier->name, Item[object->usItem].szItemName);
 					integrityCheck = false;
 				}
 				else {
-					if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+					if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: %s -> %s", soldier->name, Item[object->usItem].szItemName);
 				}
 			}
 			else {
-				if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+				if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: %s -> %s", soldier->name, Item[object->usItem].szItemName);
 			}
 		}
 	}
@@ -125,7 +125,7 @@ bool IsSlotASmallPocket(int slot)
 	return false;
 }
 
-void CreateLBE (OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets)
+void CreateLBE (OBJECTTYPE* pObj, SoldierID ubID, int numSubPockets)
 {
 	int uniqueID;
 	LBENODE* pLBE = NULL;
@@ -1566,7 +1566,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.misc.bDetonatorType = src.ugYucky.bDetonatorType;
 				(*this)[0]->data.misc.usBombItem = src.ugYucky.usBombItem;
 				(*this)[0]->data.misc.bDelay = src.ugYucky.bDelay;	// includes bFrequency
-				(*this)[0]->data.misc.ubBombOwner = src.ugYucky.ubBombOwner;
+				(*this)[0]->data.misc.ubBombOwner = static_cast<UINT16>(src.ugYucky.ubBombOwner);
 				(*this)[0]->data.misc.bActionValue = src.ugYucky.bActionValue;
 				(*this)[0]->data.misc.ubTolerance = src.ugYucky.ubTolerance;	// includes ubLocationID
 				(*this)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
@@ -1658,7 +1658,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.misc.bDetonatorType = src.ugYucky.bDetonatorType;
 				(*this)[0]->data.misc.usBombItem = src.ugYucky.usBombItem;
 				(*this)[0]->data.misc.bDelay = src.ugYucky.bDelay;	// includes bFrequency
-				(*this)[0]->data.misc.ubBombOwner = src.ugYucky.ubBombOwner;
+				(*this)[0]->data.misc.ubBombOwner = static_cast<UINT16>(src.ugYucky.ubBombOwner);
 				(*this)[0]->data.misc.bActionValue = src.ugYucky.bActionValue;
 				(*this)[0]->data.misc.ubTolerance = src.ugYucky.ubTolerance;	// includes ubLocationID
 				(*this)[0]->data.ubWireNetworkFlag = TRIPWIRE_NETWORK_OWNER_ENEMY;	// it is always assumed that preplated traps are of hostile origin

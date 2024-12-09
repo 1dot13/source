@@ -3291,10 +3291,9 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	// CHECK IF OUR SELECTED GUY IS GONE!
 	if(gusSelectedSoldier != NOBODY)
 	{
-		if(MercPtrs[gusSelectedSoldier]->bActive == FALSE)
+		if(gusSelectedSoldier->bActive == FALSE)
 			gusSelectedSoldier = NOBODY;
 	}
-	AdjustSoldierCreationStartValues();
 	RenderProgressBar(0, 60);
 	InvalidateWorldRedundency();
 	// SAVE FILENAME
@@ -3327,9 +3326,6 @@ BOOLEAN NewWorld( INT32 nMapRows,  INT32 nMapCols )
 	UINT16				NewIndex;
 	INT32					cnt;
 
-	gusSelectedSoldier = gusOldSelectedSoldier = NOBODY;
-
-	AdjustSoldierCreationStartValues( );
 
 	TrashWorld();
 

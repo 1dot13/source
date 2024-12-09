@@ -926,7 +926,7 @@ BOOLEAN SetCurrentSquad( INT32 iCurrentSquad, BOOLEAN fForce )
 	// check if the currently selected guy is on this squad, if not, get the first one on the new squad
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		if( Menptr[ gusSelectedSoldier ].bAssignment != iCurrentTacticalSquad )
+		if( gusSelectedSoldier->bAssignment != iCurrentTacticalSquad )
 		{
 			// ATE: Changed this to FALSE for ackoledgement sounds.. sounds bad if just starting/entering sector..
 			SelectSoldier( Squad[ iCurrentTacticalSquad ][ 0 ]->ubID, FALSE, TRUE );
@@ -995,16 +995,13 @@ void RebuildCurrentSquad( void )
 
 void ExamineCurrentSquadLights( void )
 {
-	// rebuilds current squad to reset faces in tactical
-	UINT8 ubLoop;
-
 	// OK, we should add lights for any guy currently bInSector who is not bad OKLIFE...
-	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++)
+	SoldierID usID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; usID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++usID)
 	{
-		if ( MercPtrs[ ubLoop ]->bInSector && MercPtrs[ ubLoop ]->stats.bLife >= OKLIFE )
+		if ( usID->bInSector && usID->stats.bLife >= OKLIFE )
 		{
-			MercPtrs[ ubLoop ]->PositionSoldierLight(	);
+			usID->PositionSoldierLight(	);
 		}
 	}
 
@@ -1327,8 +1324,6 @@ void RebuildSquad( INT8 bSquadValue )
 
 void UpdateCurrentlySelectedMerc( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 {
-	UINT8	ubID;
-
 	// if this squad is the current one and and the psoldier is the currently selected soldier, get rid of 'em
 	if( bSquadValue != iCurrentTacticalSquad )
 	{
@@ -1338,7 +1333,7 @@ void UpdateCurrentlySelectedMerc( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 	// Are we the selected guy?
 	if( gusSelectedSoldier == pSoldier->ubID )
 	{
-		ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
+		SoldierID ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE );
 
 		if ( ubID != NOBODY && ubID != gusSelectedSoldier )
 		{

@@ -66,8 +66,8 @@ extern UILayout_CharPanelIconRegion UI_CHAR_Icon;
 extern UILayout_CharList UI_CHARLIST;
 
 // marke strogg more mercs
-extern UINT8 FIRSTmercTOdisplay = 0 ; 
-extern UINT8 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displayed in the list depends on the resolution
+extern UINT16 FIRSTmercTOdisplay = 0 ; 
+extern UINT16 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displayed in the list depends on the resolution
 
 // inventory pool position on screen
 #define MAP_INVEN_POOL_X				300
@@ -223,7 +223,7 @@ extern UINT32 guiSAVEBUFFER;
 
 extern BOOLEAN fShowInventoryFlag;
 extern FACETYPE *gpCurrentTalkingFace;
-extern UINT8			gubCurrentTalkingID;
+extern UINT16			gubCurrentTalkingID;
 extern BOOLEAN fMapScreenBottomDirty;
 extern MOUSE_REGION	gMPanelRegion;
 
@@ -450,7 +450,7 @@ void InitalizeVehicleAndCharacterList( void )
 	memset(&gCharactersList, 0, sizeof( gCharactersList ));
 }
 
-void SetEntryInSelectedCharacterList( INT8 bEntry )
+void SetEntryInSelectedCharacterList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -458,7 +458,7 @@ void SetEntryInSelectedCharacterList( INT8 bEntry )
 	fSelectedListOfMercsForMapScreen[ bEntry ] = TRUE;
 }
 
-void ResetEntryForSelectedList( INT8 bEntry )
+void ResetEntryForSelectedList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -471,6 +471,7 @@ void ResetSelectedListForMapScreen( void )
     // WDS - make number of mercenaries, etc. be configurable
 	// set all the entries int he selected list to false
 	memset( fSelectedListOfMercsForMapScreen, FALSE, sizeof(fSelectedListOfMercsForMapScreen) );
+	gSelectedSoldiers.clear();
 
 	// if we still have a valid dude selected
 	if ( ( bSelectedInfoChar != -1 ) && ( gCharactersList[ bSelectedInfoChar ].fValid == TRUE ) )
@@ -480,7 +481,7 @@ void ResetSelectedListForMapScreen( void )
 	}
 }
 
-BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
+BOOLEAN IsEntryInSelectedListSet( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -489,7 +490,7 @@ BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 	return( fSelectedListOfMercsForMapScreen[ bEntry ] );
 }
 
-void ToggleEntryInSelectedList( INT8 bEntry )
+void ToggleEntryInSelectedList( INT16 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
@@ -497,9 +498,9 @@ void ToggleEntryInSelectedList( INT8 bEntry )
 	fSelectedListOfMercsForMapScreen[ bEntry ] = !( fSelectedListOfMercsForMapScreen[ bEntry ] );
 }
 
-void BuildSelectedListFromAToB( INT8 bA, INT8 bB )
+void BuildSelectedListFromAToB( INT16 bA, INT16 bB )
 {
-	INT8 bStart =0, bEnd = 0;
+	INT16 bStart =0, bEnd = 0;
 
 	// run from a to b..set slots as selected
 
@@ -551,7 +552,7 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMiliti
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive == FALSE )
 		{
@@ -585,7 +586,7 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive == FALSE )
 		{
@@ -617,7 +618,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 		{
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 			{
-				pSoldier2 = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier2 = gCharactersList[ iCounter ].usSolID;
 
 				// skip the guy we are
 				if ( pSoldier == pSoldier2 )
@@ -636,7 +637,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier2, pSoldier->iVehicleId ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if anchor guy IS a vehicle
@@ -645,7 +646,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier2, pSoldier->bVehicleID ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if this guy is IN a vehicle
@@ -654,7 +655,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier, pSoldier2->iVehicleId ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// if this guy IS a vehicle
@@ -663,13 +664,13 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					if ( !CanSoldierMoveWithVehicleId( pSoldier, pSoldier2->bVehicleID ) )
 					{
 						// reset entry for selected list
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 				// reject those not a squad (vehicle handled above)
 				else if( pSoldier2->bAssignment >= ON_DUTY )
 				{
-					ResetEntryForSelectedList( ( INT8 )iCounter );
+					ResetEntryForSelectedList( iCounter );
 				}
 				else
 				{
@@ -678,14 +679,14 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 							( pSoldier->sSectorY != pSoldier2->sSectorY ) ||
 							( pSoldier->bSectorZ != pSoldier2->bSectorZ ) )
 					{
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 
 					// if either is between sectors, they must be in the same movement group
 					if ( ( pSoldier->flags.fBetweenSectors || pSoldier2->flags.fBetweenSectors ) &&
 							( pSoldier->ubGroupID != pSoldier2->ubGroupID ) )
 					{
-						ResetEntryForSelectedList( ( INT8 )iCounter );
+						ResetEntryForSelectedList( iCounter );
 					}
 				}
 
@@ -706,7 +707,7 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 			// if not already selected
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == FALSE )
 			{
-				pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier = gCharactersList[ iCounter ].usSolID;
 
 				// if on a squad or in a vehicle
 				if ( ( pSoldier->bAssignment < ON_DUTY ) || ( pSoldier->bAssignment == VEHICLE ) )
@@ -715,7 +716,7 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 					if ( AnyMercInSameSquadOrVehicleIsSelected( pSoldier ) )
 					{
 						// then also select this guy
-						SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+						SetEntryInSelectedCharacterList( iCounter );
 					}
 				}
 			}
@@ -734,7 +735,7 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 			// if selected
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 			{
-				pSoldier2 = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+				pSoldier2 = gCharactersList[ iCounter ].usSolID;
 
 				// if they have the same assignment
 				if( pSoldier->bAssignment == pSoldier2->bAssignment )
@@ -1294,10 +1295,10 @@ void CheckAndUpdateBasedOnContractTimes( void )
 		if( gCharactersList[iCounter].fValid == TRUE )
 		{
 				// what kind of merc
-			if(Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			if(gCharactersList[iCounter].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
 				// amount of time left on contract
-				iTimeRemaining=Menptr[gCharactersList[iCounter].usSolID].iEndofContractTime-GetWorldTotalMin();
+				iTimeRemaining = gCharactersList[iCounter].usSolID->iEndofContractTime - GetWorldTotalMin();
 				if(iTimeRemaining >60*24)
 				{
 					// more than a day, display in green
@@ -1328,9 +1329,9 @@ void CheckAndUpdateBasedOnContractTimes( void )
 					}
 				}
 			}
-			else if( Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+			else if( gCharactersList[iCounter].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 			{
-				iTimeRemaining = Menptr[gCharactersList[iCounter].usSolID].iTotalContractLength;
+				iTimeRemaining = gCharactersList[iCounter].usSolID->iTotalContractLength;
 
 				if( iTimeRemaining != iOldContractTimes[ iCounter ])
 				{
@@ -1351,7 +1352,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 {
 	INT16 sYPosition = 0;
 	HVOBJECT hHandle;
-	UINT8 ubCount = 0;
+	UINT16 ubCount = 0;
 
 	UINT16 selectedCharArrowX = UI_CHARLIST.Region.x + 1;
 
@@ -1394,7 +1395,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 		if( gCharactersList[ ubCount + FIRSTmercTOdisplay ].fValid == TRUE )
 		{
 			// are they in the selected list or int he same mvt group as this guy
-			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
+			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID->ubGroupID != 0 ) ? ( gCharactersList[GetSelectedDestChar()].usSolID->ubGroupID == gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID->ubGroupID ) : FALSE ) : FALSE ) )
 			{
 				sYPosition = y + ( ubCount * ( Y_SIZE + 2) ) - 1;
 
@@ -1425,10 +1426,15 @@ void HandleDisplayOfItemPopUpForSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	{
 		if( gCharactersList[ bSelectedInfoChar ].fValid == TRUE )
 		{
-			if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorX == sMapX ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorY == sMapY ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bSectorZ == sMapZ ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bActive ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife >= OKLIFE ) )
+			SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
+			if( ( pSoldier->sSectorX == sMapX ) &&
+				( pSoldier->sSectorY == sMapY ) &&
+				( pSoldier->bSectorZ == sMapZ ) &&
+				( pSoldier->bActive ) &&
+				( pSoldier->stats.bLife >= OKLIFE ) )
 			{
 				// valid character
-				InitializeItemPickupMenu( &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID] ), NOWHERE , pItemPool, MAP_INVEN_POOL_X, MAP_INVEN_POOL_Y, -1 );
+				InitializeItemPickupMenu( pSoldier, NOWHERE , pItemPool, MAP_INVEN_POOL_X, MAP_INVEN_POOL_Y, -1 );
 				fWasInited = TRUE;
 
 				CreateScreenMaskForInventoryPoolPopUp( );
@@ -1521,22 +1527,25 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 
 
 // NOTE: This doesn't use the "LeaveList" system at all!
-void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
+void HandleLeavingOfEquipmentInCurrentSector( SoldierID uiMercId )
 {
 	// just drop the stuff in the current sector
 	//INT32 iCounter = 0;
 	INT32 sGridNo, sTempGridNo;
 
-	INT8 sectorz = Menptr[uiMercId].bSectorZ;
-	if ( SPY_LOCATION( Menptr[uiMercId].bAssignment ) )
+	INT8 sectorz = uiMercId->bSectorZ;
+	if ( SPY_LOCATION( uiMercId->bAssignment ) )
 		sectorz = max( 0, sectorz - 10 ); 
-	
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
+
+	const auto x = uiMercId->sSectorX;
+	const auto y = uiMercId->sSectorY;
+
+	if( x != gWorldSectorX || y != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
 		// ATE: Use insertion gridno if not nowhere and insertion is gridno		
-		if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(Menptr[ uiMercId ].usStrategicInsertionData) )
+		if ( uiMercId->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(uiMercId->usStrategicInsertionData) )
 		{
-			sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
+			sGridNo = uiMercId->usStrategicInsertionData;
 		}
 		else
 		{
@@ -1547,7 +1556,7 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	else
 	{
 		// ATE: Mercs can have a gridno of NOWHERE.....
-		sGridNo = Menptr[ uiMercId ].sGridNo;
+		sGridNo = uiMercId->sGridNo;
 
 		if (TileIsOutOfBounds(sGridNo))	
 		{
@@ -1564,36 +1573,38 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		}
 	}
 
-	UINT32 invsize = Menptr[ uiMercId ].inv.size();
-	UINT32 uiFoundItems = 0;
-	Inventory invTemporaryBeforeDrop;
+	Inventory &inv = uiMercId->inv;
+	const UINT32 invsize = inv.size();
 
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
+	if( x != gWorldSectorX || y != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
-		if (fShowMapInventoryPool && Menptr[uiMercId].sSectorX == sSelMapX && Menptr[uiMercId].sSectorY == sSelMapY && Menptr[uiMercId].bSectorZ == iCurrentMapSectorZ)
+		if (fShowMapInventoryPool && x == sSelMapX && y == sSelMapY && uiMercId->bSectorZ == iCurrentMapSectorZ)
 		{
 			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
 			{
-				if (Menptr[uiMercId].inv[iCounter].exists())
+				if (inv[iCounter].exists())
 				{
-					AutoPlaceObjectInInventoryStash(&Menptr[uiMercId].inv[iCounter], Menptr[uiMercId].sGridNo, Menptr[uiMercId].pathing.bLevel);
+					AutoPlaceObjectInInventoryStash(&( inv[iCounter] ), uiMercId->sGridNo, uiMercId->pathing.bLevel);
 				}
 			}
 		}
 		else
 		{
+			Inventory invTemporaryBeforeDrop;
+			UINT32 uiFoundItems = 0;
+
 			for (UINT32 iCounter = 0; iCounter < invsize; ++iCounter)
 			{
 				// slot found,
 				// check if actual item
-				if (Menptr[uiMercId].inv[iCounter].exists() == true)
+				if (inv[iCounter].exists() == true)
 				{
-					invTemporaryBeforeDrop[uiFoundItems] = Menptr[uiMercId].inv[iCounter];
+					invTemporaryBeforeDrop[uiFoundItems] = inv[iCounter];
 					uiFoundItems++;
 				}
 			}
 			// anv: add all items at once (less file operations = less lag)
-			AddItemsToUnLoadedSector(Menptr[uiMercId].sSectorX, Menptr[uiMercId].sSectorY, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]), Menptr[uiMercId].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE);
+			AddItemsToUnLoadedSector(x, y, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]), uiMercId->pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE);
 		}
 	}
 	else
@@ -1602,19 +1613,19 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		{
 			// slot found,
 			// check if actual item
-			if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+			if(	inv[ iCounter ].exists() == true )
 			{
-				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
+				AddItemToPool( sGridNo, &( inv[ iCounter ] ) , 1, uiMercId->pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
 			}
 		}
 	}
 
-	DropKeysInKeyRing( MercPtrs[ uiMercId ], sGridNo, MercPtrs[ uiMercId ]->pathing.bLevel, 1, FALSE, 0, FALSE );
+	DropKeysInKeyRing( uiMercId, sGridNo, uiMercId->pathing.bLevel, 1, FALSE, 0, FALSE );
 }
 
 
 
-void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId )
+void HandleMercLeavingEquipmentInOmerta( SoldierID uiMercId )
 {
 	INT32 iSlotIndex = 0;
 
@@ -1632,7 +1643,7 @@ void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId )
 }
 
 
-void HandleMercLeavingEquipmentInDrassen( UINT32 uiMercId )
+void HandleMercLeavingEquipmentInDrassen( SoldierID uiMercId )
 {
 	INT32 iSlotIndex = 0;
 
@@ -1845,7 +1856,7 @@ INT32 FindFreeSlotInLeaveList( void )
 }
 
 
-INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
+INT32 SetUpDropItemListForMerc( SoldierID uiMercId )
 {
 	// will set up a drop list for this grunt, remove items from inventory, and profile
 	INT32 iSlotIndex = -1;
@@ -1856,27 +1867,27 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 		return( -1 );
 	}
 
-	UINT32 invsize = Menptr[ uiMercId ].inv.size();
+	UINT32 invsize = uiMercId->inv.size();
 	for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 	{
 		// slot found,
 		// check if actual item
-		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+		if(	uiMercId->inv[ iCounter ].exists() == true )
 		{
 			// make a linked list of the items left behind, with the ptr to its head in this free slot
-			AddItemToLeaveIndex( &( Menptr[ uiMercId ].inv[ iCounter ] ), iSlotIndex );
+			AddItemToLeaveIndex( &( uiMercId->inv[ iCounter ] ), iSlotIndex );
 
 			// store owner's profile id for the items added to this leave slot index
-			SetUpMercAboutToLeaveEquipment( Menptr[ uiMercId ].ubProfile, iSlotIndex );
+			SetUpMercAboutToLeaveEquipment( uiMercId->ubProfile, iSlotIndex );
 		}
 	}
 
 	// ATE: Added this to drop keyring keys - the 2nd last paramter says to add it to a leave list...
 	// the gridno, level and visiblity are ignored
-	DropKeysInKeyRing( MercPtrs[ uiMercId ], NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
+	DropKeysInKeyRing( uiMercId, NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
 
 	// zero out profiles
-	gMercProfiles[ Menptr[ uiMercId ].ubProfile ].clearInventory();
+	gMercProfiles[ uiMercId->ubProfile ].clearInventory();
 
 	return( iSlotIndex );
 }
@@ -1931,19 +1942,19 @@ void UpdateCharRegionHelpText( void )
 	if( ( bSelectedInfoChar != -1 ) && ( gCharactersList[ bSelectedInfoChar ].fValid == TRUE ) )
 	{
 		// valid soldier selected
-		pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 
 		// health/energy/morale
 		if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND )
 		{
 			if ( pSoldier->stats.bLife != 0 )
 			{
-				if ( AM_A_ROBOT( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
+				if ( AM_A_ROBOT(pSoldier) )
 				{
 					// robot (condition only)
 					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
-				else if ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.uiStatusFlags & SOLDIER_VEHICLE )
+				else if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle (condition/fuel)
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d",
@@ -2115,8 +2126,8 @@ void FindAndSetThisContractSoldier( SOLDIERTYPE *pSoldier )
 		{
 			if( gCharactersList[ iCounter].usSolID == pSoldier->ubID )
 			{
-				ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
-				bSelectedContractChar = ( INT8 )iCounter;
+				ChangeSelectedInfoChar( ( INT16 )iCounter, TRUE );
+				bSelectedContractChar = ( INT16 )iCounter;
 				fShowContractMenu = TRUE;
 
 				// create
@@ -2369,9 +2380,9 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 {
 	PLAYERGROUP *pPlayer;
 	SOLDIERTYPE *pSoldier;
-	UINT8				ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-	UINT8				ubNumMercs = 0;
-	UINT8				ubChosenMerc;
+	SoldierID	ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+	UINT16		ubNumMercs = 0;
+	UINT16		ubChosenMerc;
 
 
 	// if traversing tactically, don't do this, unless time compression was required for some reason (don't go to sector)
@@ -2402,8 +2413,8 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 	// At least say quote....
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
-		pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
+		pSoldier = ubMercsInGroup[ ubChosenMerc ];
 
 		TacticalCharacterDialogue( pSoldier, usQuoteNum );
 	}
@@ -2450,7 +2461,7 @@ BOOLEAN ValidSelectableCharForNextOrPrev( INT32 iNewCharSlot )
 	if ( fShowInventoryFlag || fHoldingItem )
 	{
 		// the new guy must have accessible inventory
-		if ( !MapCharacterHasAccessibleInventory( ( INT8 ) iNewCharSlot ) )
+		if ( !MapCharacterHasAccessibleInventory( ( INT16 ) iNewCharSlot ) )
 		{
 			return( FALSE );
 		}
@@ -2485,7 +2496,7 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 	}
 
 
-	pNewSoldier = MercPtrs[ gCharactersList[ iNewCharSlot ].usSolID ];
+	pNewSoldier = gCharactersList[ iNewCharSlot ].usSolID;
 
 	// if in a hostile sector, disallow
 	if (gTacticalStatus.fEnemyInSector && pNewSoldier->bInSector)
@@ -2525,7 +2536,7 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 		}
 		else
 		{
-			pOldSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			pOldSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		}
 	}
 
@@ -2600,7 +2611,7 @@ void GoToNextCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
+			ChangeSelectedInfoChar( iCount, TRUE );
 			break;
 		}
 		else
@@ -2635,7 +2646,7 @@ void GoToFirstCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			ChangeSelectedInfoChar( iCounter, TRUE );
 			break;
 		}
 	}
@@ -2661,7 +2672,7 @@ void GoToLastCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			ChangeSelectedInfoChar( iCounter, TRUE );
 			break;
 		}
 	}
@@ -2691,7 +2702,7 @@ void GoToPrevCharacterInList( void )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
-			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
+			ChangeSelectedInfoChar( iCount, TRUE );
 			break;
 		}
 		else
@@ -3627,7 +3638,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( ( pSoldier->bActive ) &&
 					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) && ( pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND ) &&
@@ -3678,60 +3689,67 @@ void CreatePopUpBoxForMovementBox( void )
 
 	// create the pop up box and mouse regions for movement list
 
- // create basic box
- CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	 // create basic box
+	 CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, ( POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
 
- // which buffer will box render to
- SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
+	 // which buffer will box render to
+	 SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
 
- // border type?
- SetBorderType(ghMoveBox,guiPOPUPBORDERS);
+	 // border type?
+	 SetBorderType(ghMoveBox,guiPOPUPBORDERS);
 
- // background texture
- SetBackGroundSurface(ghMoveBox, guiPOPUPTEX);
+	 // background texture
+	 SetBackGroundSurface(ghMoveBox, guiPOPUPTEX);
 
- // margin sizes
- SetMargins( ghMoveBox, 6, 6, 4, 4 );
+	 // margin sizes
+	 SetMargins( ghMoveBox, 6, 6, 4, 4 );
 
- // space between lines
- SetLineSpace(ghMoveBox, 2);
+	 // space between lines
+	 SetLineSpace(ghMoveBox, 2);
 
- // set current box to this one
- SetCurrentBox( ghMoveBox );
+	 // set current box to this one
+	 SetCurrentBox( ghMoveBox );
 
- // add strings
- AddStringsToMoveBox( );
+	 // add strings
+	 AddStringsToMoveBox( );
 
 
- // set font type
- SetBoxFont(ghMoveBox, MAP_SCREEN_FONT);
+	 // set font type
+	 SetBoxFont(ghMoveBox, MAP_SCREEN_FONT);
 
- // set highlight color
- SetBoxHighLight(ghMoveBox, FONT_WHITE);
+	 // set highlight color
+	 SetBoxHighLight(ghMoveBox, FONT_WHITE);
 
- // unhighlighted color
- SetBoxForeground(ghMoveBox, FONT_LTGREEN);
+	 // unhighlighted color
+	 SetBoxForeground(ghMoveBox, FONT_LTGREEN);
 
- // make the header line WHITE
- SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
+	 // make the header line WHITE
+	 SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
 
- // make the done and cancel lines YELLOW
- SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
+	 // make the done and cancel lines YELLOW
+	 SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
 
 	if ( IsAnythingSelectedForMoving() )
 	{
 		SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 2, FONT_YELLOW );
 	}
 
- // background color
- SetBoxBackground(ghMoveBox, FONT_BLACK);
+	 // background color
+	 SetBoxBackground(ghMoveBox, FONT_BLACK);
 
- // shaded color..for darkened text
- SetBoxShade( ghMoveBox, FONT_BLACK );
+	 // shaded color..for darkened text
+	 SetBoxShade( ghMoveBox, FONT_BLACK );
 
+	 SetBoxSecondColumnForeground(ghMoveBox, FONT_LTGREEN);
+	 SetBoxSecondColumnBackground(ghMoveBox, FONT_BLACK);
+	 SetBoxSecondColumnHighLight(ghMoveBox, FONT_WHITE);
+	 SetBoxSecondColumnShade(ghMoveBox, FONT_BLACK);
+	 SetBoxSecondColumnFont(ghMoveBox, MAP_SCREEN_FONT);
+	 SetBoxSecondColumnMinimumOffset(ghMoveBox, 1);
+	 SetBoxSecondColumnOffsetAdjustment(ghMoveBox, -50);
 
- // resize box to text
- ResizeBoxToText( ghMoveBox );
+	 // resize box to text
+	 ResizeBoxToText( ghMoveBox );
 
 	GetBoxPosition( ghMoveBox, &Position);
 	GetBoxSize( ghMoveBox, &Dimensions );
@@ -3758,7 +3776,9 @@ void AddStringsToMoveBox( void )
 	CHAR16 sString[ 128 ], sStringB[ 128 ];
 	UINT32 hStringHandle;
 	BOOLEAN fFirstOne = TRUE;
-
+	const INT32 firstColumnMaxEntries = 4 * gGameOptions.ubSquadSize;
+	INT32 entries = 0;
+	bool isFirstColumnFull = false;
 
 	// set the current box
 	SetCurrentBox( ghMoveBox );
@@ -3771,16 +3791,19 @@ void AddStringsToMoveBox( void )
 	GetShortSectorString( sSelMapX, sSelMapY, sStringB );
 	swprintf( sString, L"%s %s", pMovementMenuStrings[ 0 ], sStringB );
 	AddMonoString(&hStringHandle, sString );
+	AddSecondColumnMonoString(&hStringHandle, L"");
 
 
 	// blank line
 	AddMonoString(&hStringHandle, L"" );
+	AddSecondColumnMonoString(&hStringHandle, L"");
 
 	// add Select all line
 	if (giNumberOfSquadsInSectorMoving > 1)
 	{
 		swprintf(sString, L"%s", pMovementMenuStrings[4]);
 		AddMonoString(&hStringHandle, sString);
+		AddSecondColumnMonoString(&hStringHandle, L"");
 	}
 
 
@@ -3802,7 +3825,15 @@ void AddStringsToMoveBox( void )
 			else
 				swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
-		AddMonoString(&hStringHandle, sString );
+		if (!isFirstColumnFull)
+		{
+			AddMonoString(&hStringHandle, sString);
+		}
+		else
+		{
+			AddMonoStringToSecondColumn(&hStringHandle, sString );
+		}
+		entries += 1;
 
 		// now add all the grunts in it
 		for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
@@ -3818,8 +3849,22 @@ void AddStringsToMoveBox( void )
 				{
 					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
-				AddMonoString(&hStringHandle, sString );
+
+				if (!isFirstColumnFull)
+				{
+					AddMonoString(&hStringHandle, sString);
+				}
+				else
+				{
+					AddMonoStringToSecondColumn(&hStringHandle, sString);
+				}
+				entries += 1;
 			}
+		}
+
+		if (entries > firstColumnMaxEntries)
+		{
+			isFirstColumnFull = true;
 		}
 	}
 
@@ -4119,7 +4164,7 @@ void ClearMouseRegionsForMoveBox( void )
 	INT32 iCounter = 0;
 
 	// run through list of mouse regions
-	for( iCounter = 0; iCounter < ( INT32 )GetNumberOfLinesOfTextInBox( ghMoveBox ); iCounter++ )
+	for( iCounter = 0; iCounter < ( INT32 )(GetNumberOfLinesOfTextInBox( ghMoveBox ) + GetNumberOfSecondaryLinesOfTextInBox(ghMoveBox)); iCounter++)
 	{
 		// remove this region
 		MSYS_RemoveRegion( &gMoveMenuRegion[ iCounter ] );
@@ -4544,7 +4589,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 		// is the current guy a valid character?
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
@@ -4564,15 +4609,15 @@ void HandleSettingTheSelectedListOfMercs( void )
 					// yes, then set them as the destination plotting character for movement arrow purposes
 					fFirstOne = FALSE;
 
-					SetSelectedDestChar(( INT8 )iCounter );
+					SetSelectedDestChar(( INT16 )iCounter );
 					// make DEST column glow
 					giDestHighLine = iCounter;
 
-					ChangeSelectedInfoChar( ( INT8 ) iCounter, TRUE );
+					ChangeSelectedInfoChar( iCounter, TRUE );
 				}
 
 				// add this guy to the selected list of grunts
-				SetEntryInSelectedCharacterList( ( INT8 )iCounter );
+				SetEntryInSelectedCharacterList( iCounter );
 			}
 		}
 	}
@@ -4580,7 +4625,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 	if( GetSelectedDestChar() != -1 )
 	{
 		INT8 pbErrorNumber = -1;
-		pSoldier = MercPtrs[gCharactersList[GetSelectedDestChar()].usSolID];
+		pSoldier = gCharactersList[GetSelectedDestChar()].usSolID;
 		INT8 bSquadValue = pSoldier->bAssignment;
 		if (bSquadValue == VEHICLE)
 		{
@@ -5639,7 +5684,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 	else
 	{
 		// if merc is an AIM merc
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 		{
 			SetRegionFastHelpText( &(gContractIconRegion), zMarksMapScreenText[ 22 ] );
 		}
@@ -5649,7 +5694,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 		}
 
 		// if merc has life insurance
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].usLifeInsurance > 0 )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->usLifeInsurance > 0 )
 		{
 			SetRegionFastHelpText( &(gInsuranceIconRegion), zMarksMapScreenText[ 3 ] );
 		}
@@ -5659,7 +5704,7 @@ void UpdateHelpTextForMapScreenMercIcons( void )
 		}
 
 		// if merc has a medical deposit
-		if( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].usMedicalDeposit > 0 )
+		if( gCharactersList[ bSelectedInfoChar ].usSolID->usMedicalDeposit > 0 )
 		{
 			SetRegionFastHelpText( &(gDepositIconRegion), zMarksMapScreenText[ 12 ] );
 		}
@@ -6128,7 +6173,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
 	{
 		//DBrot: More Rooms
-		UINT8	/*ubRoom,*/ cnt;
+		SoldierID	/*ubRoom,*/ cnt;
 		UINT16 usRoom;
 		SOLDIERTYPE * pSoldier2;
 
@@ -6136,8 +6181,9 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		{
 			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-			for ( pSoldier2 = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier2++)
+			for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt)
 			{
+				pSoldier2 = cnt;
 				if ( pSoldier2->bActive )
 				{
 					if ( FindObj( pSoldier2, CHALICE ) != ITEM_NOT_FOUND )
@@ -6270,7 +6316,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
 			// get soldier
-			pCurrentSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+			pCurrentSoldier = gCharactersList[ iCounter ].usSolID;
 
 			// skip inactive grunts
 			if( pCurrentSoldier->bActive == FALSE )

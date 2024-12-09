@@ -567,7 +567,7 @@ void HandleOverheadMap( )
 
 	if( !gfEditMode && !gfTacticalPlacementGUIActive && gusSelectedSoldier != NOBODY )
 	{
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 
 	DisplayMercNameInOverhead( pSoldier );
 	}
@@ -747,7 +747,7 @@ void GoIntoOverheadMap( )
 		// Make sure we are in team panel mode...
 		gfSwitchPanel = TRUE;
 		gbNewPanel = TEAM_PANEL;
-		gubNewPanelParam = (UINT8)gusSelectedSoldier;
+		gubNewPanelParam = gusSelectedSoldier;
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		// Disable tactical buttons......
@@ -768,7 +768,7 @@ void HandleOverheadUI(void)
 {
 	INT32 sMousePos = 0;
 	InputAtom InputEvent;
-	UINT8 ubID;
+	SoldierID ubID;
 
 	// CHECK FOR MOUSE OVER REGIONS...
 	if(GetOverheadMouseGridNo(&sMousePos))

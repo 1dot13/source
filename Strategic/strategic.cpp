@@ -101,16 +101,16 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 
 void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 {
-	INT32 cnt = 0;
 	SOLDIERTYPE *pTeamSoldier;
 	INT8 bBuddyIndex;
 
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-	cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
 	
 	// see if this was the friend of a living merc
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive )
 		{
 			bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );

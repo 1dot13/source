@@ -159,18 +159,19 @@ public:
 		this->fCursorActive = src.fCursorActive;
 		this->ItemPointerInfo = src.ItemPointerInfo;
 		this->ubInvSlot = src.ubInvSlot;
-		this->ubSoldierID = src.ubSoldierID;
+		this->ubSoldierID = static_cast<UINT16>(src.ubSoldierID);
 		return *this;
 	}
 	//could use a little tidying up
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
 
-	UINT8				ubSoldierID;
+	SoldierID			ubSoldierID;
 	UINT8				ubInvSlot;
 	BOOLEAN				fCursorActive;
 	OBJECTTYPE			ItemPointerInfo;
 };
+#define SIZEOF_ITEM_CURSOR_SAVE_INFO_POD offsetof( ITEM_CURSOR_SAVE_INFO, ItemPointerInfo )
 
 // HEADROCK HAM 5: Enums for big-item display attachment asterisks.
 enum
