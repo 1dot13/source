@@ -253,12 +253,13 @@ void DecayStrategicMorale( SOLDIERTYPE * pSoldier )
 void DecayTacticalMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT8 ubLoop, ubLoop2;
+	SoldierID ubLoop, ubLoop2;
 	BOOLEAN				fHandleNervous;
 
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pSoldier++ )
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
+		pSoldier = ubLoop;
 		//if the merc is active, in Arulco
 		// CJC: decay modifiers while asleep! or POW!
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
@@ -313,9 +314,10 @@ void DecayTacticalMoraleModifiers( void )
 					{
 						// look for anyone else in same sector
 						fHandleNervous = TRUE;
-						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop2++ )
+						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop2 )
 						{
-							if ( MercPtrs[ ubLoop2 ] != pSoldier && MercPtrs[ ubLoop2 ]->bActive && MercPtrs[ ubLoop2 ]->sSectorX == pSoldier->sSectorX && MercPtrs[ ubLoop2 ]->sSectorY == pSoldier->sSectorY && MercPtrs[ ubLoop2 ]->bSectorZ == pSoldier->bSectorZ )
+							SOLDIERTYPE *pSoldier2 = ubLoop2;
+							if ( pSoldier2 != pSoldier && pSoldier2->bActive && pSoldier2->sSectorX == pSoldier->sSectorX && pSoldier2->sSectorY == pSoldier->sSectorY && pSoldier2->bSectorZ == pSoldier->bSectorZ )
 							{
 								// found someone!
 								fHandleNervous = FALSE;
@@ -360,11 +362,11 @@ void DecayTacticalMoraleModifiers( void )
 void DecayStrategicMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT8 ubLoop;
+	SoldierID ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pSoldier++ )
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
+		pSoldier = ubLoop;
 		//if the merc is active, in Arulco
 		// CJC: decay modifiers while asleep! or POW!
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
@@ -726,9 +728,9 @@ void HandleMoraleEventForSoldier( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 
 void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
-	UINT8 ubLoop;
-	SOLDIERTYPE *					pTeamSoldier;
-	MERCPROFILESTRUCT *		pProfile;
+	SoldierID id;
+	SOLDIERTYPE *pTeamSoldier;
+	MERCPROFILESTRUCT *pProfile;
 
 	gfSomeoneSaidMoraleQuote = FALSE;
 
@@ -776,9 +778,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 
 		case MORALE_BATTLE_WON:
 			// affects everyone to varying degrees
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive )
 				{
 					if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) )
@@ -795,9 +798,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			break;
 		case MORALE_RAN_AWAY:
 			// affects everyone to varying degrees
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive )
 				{
 					// CJC: adding to SOLDIER_IN_SECTOR check special stuff because the old sector values might
@@ -867,9 +871,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_MONSTER_QUEEN_KILLED:
 		case MORALE_DEIDRANNA_KILLED:
 			// affects everyone, everywhere
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive )
 				{
 					if ( gGameOptions.fNewTraitSystem && bMoraleEvent != MORALE_DEIDRANNA_KILLED)
@@ -896,9 +901,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_GREAT_MORALE:
 		case MORALE_AIRSTRIKE:
 			// affects every in sector
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive && SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) )
 				{
 					HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
@@ -911,9 +917,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			Assert( pSoldier );
 
 			// affects everyone
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive )
 				{
 					HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
@@ -925,9 +932,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			Assert( pSoldier );
 
 			// affects everyone, in sector differently than not, extra bonuses if it's a buddy or hated merc
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE)
 				{
 					pProfile = &(gMercProfiles[ pTeamSoldier->ubProfile ]);
@@ -980,9 +988,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			// female mercs get unhappy based on how sexist they are (=hate men)
 			// gentlemen males get unhappy too
 
-			ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE )
 				{
 					if ( WhichHated( pTeamSoldier->ubProfile, pSoldier->ubProfile ) != -1 )
@@ -1042,9 +1051,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 
 		case MORALE_ENEMYGROUP_COWARD:
 			// affects coward in sector
-			ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ubLoop]; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++, pTeamSoldier++ )
+			id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
 			{
+				pTeamSoldier = id;
 				if ( pTeamSoldier->bActive && (pTeamSoldier->sSectorX == sMapX) && (pTeamSoldier->sSectorY == sMapY) && (pTeamSoldier->bSectorZ == bMapZ) )
 				{
 					if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_COWARD ) )
@@ -1140,28 +1150,28 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 
 void HourlyMoraleUpdate( void )
 {
-	INT8									bMercID, bOtherID;
-	INT8									bActualTeamOpinion;
-	INT8									bTeamMoraleModChange, bTeamMoraleModDiff;
-	INT8									bOpinion=-1;
-	INT32									iTotalOpinions;
-	INT8									bNumTeamMembers;
-	INT8									bHighestTeamLeadership = 0;
-	INT8									bLastTeamID;
-	SOLDIERTYPE *					pSoldier;
-	SOLDIERTYPE *					pOtherSoldier;
-	MERCPROFILESTRUCT *		pProfile;
-	BOOLEAN								fSameGroupOnly;
-	static INT8						bStrategicMoraleUpdateCounter = 0;
-	BOOLEAN								fFoundHated = FALSE;
-	INT8									bHated;
+	SoldierID			bMercID, bOtherID, bLastTeamID;
+	INT8					bActualTeamOpinion;
+	INT8					bTeamMoraleModChange, bTeamMoraleModDiff;
+	INT8					bOpinion=-1;
+	INT32				iTotalOpinions;
+	INT8					bNumTeamMembers;
+	INT8					bHighestTeamLeadership = 0;
+	SOLDIERTYPE			*pSoldier;
+	SOLDIERTYPE			*pOtherSoldier;
+	MERCPROFILESTRUCT	*pProfile;
+	BOOLEAN				fSameGroupOnly;
+	static INT8			bStrategicMoraleUpdateCounter = 0;
+	BOOLEAN				fFoundHated = FALSE;
+	INT8					bHated;
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// loop through all mercs to calculate their morale
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID,pSoldier++)
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		//if the merc is active, in Arulco, and conscious, not POW
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 																!(pSoldier->bAssignment == IN_TRANSIT ||
@@ -1193,8 +1203,9 @@ void HourlyMoraleUpdate( void )
 
 			// loop through all other mercs
 			bOtherID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pOtherSoldier = MercPtrs[ bOtherID ]; bOtherID <= bLastTeamID; bOtherID++,pOtherSoldier++)
+			for ( ; bOtherID <= bLastTeamID; ++bOtherID )
 			{
+				pOtherSoldier = bOtherID;
 				// skip past ourselves and all inactive mercs
 				if (bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
 					!(pOtherSoldier->bAssignment == IN_TRANSIT ||
@@ -1344,13 +1355,12 @@ void HourlyMoraleUpdate( void )
 
 void HandleSnitchCheck( void )
 {
-	UINT16									bMercID, bOtherID;
-	INT8									bOpinion = -1;
-	UINT16									bLastTeamID;
-	SOLDIERTYPE*							pSoldier;
-	SOLDIERTYPE*							pOtherSoldier;
-	MERCPROFILESTRUCT*						pProfile;
-	BOOLEAN									fSameGroupOnly;
+	SoldierID			bMercID, bOtherID, bLastTeamID;
+	INT8					bOpinion = -1;
+	SOLDIERTYPE			*pSoldier;
+	SOLDIERTYPE			*pOtherSoldier;
+	MERCPROFILESTRUCT	*pProfile;
+	BOOLEAN				fSameGroupOnly;
 	// anv: save merc id and his negative morale event for snitches
 	std::vector<SnitchEvent>				snitcheventvector;
 
@@ -1358,8 +1368,9 @@ void HandleSnitchCheck( void )
 	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
 	// loop through all mercs to calculate their morale
-	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		//if the merc is active, in Arulco, not POW, not a vehicle
 		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 			!(pSoldier->bAssignment == IN_TRANSIT ||
@@ -1382,8 +1393,9 @@ void HandleSnitchCheck( void )
 			}
 			// loop through all other mercs
 			bOtherID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-			for ( pOtherSoldier = MercPtrs[bOtherID]; bOtherID <= bLastTeamID; ++bOtherID, pOtherSoldier++ )
+			for ( ; bOtherID <= bLastTeamID; ++bOtherID )
 			{
+				pOtherSoldier = bOtherID;
 				// skip past ourselves and all inactive mercs
 				if ( bOtherID != bMercID && pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
 					!(pOtherSoldier->bAssignment == IN_TRANSIT ||
@@ -1557,7 +1569,7 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 
 void RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, std::vector<SnitchEvent>& aVec )
 {
-	UINT16 bSnitchID;
+	SoldierID bSnitchID;
 	INT16 sSnitchingChance = 0;
 	UINT8 ubSnitchProfile;
 	SOLDIERTYPE * pSnitch;
@@ -1569,8 +1581,9 @@ void RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProf
 
 	// loop through all other mercs
 	bSnitchID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	for ( pSnitch = MercPtrs[bSnitchID]; bSnitchID <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bSnitchID, pSnitch++ )
+	for ( ; bSnitchID <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bSnitchID )
 	{
+		pSnitch = bSnitchID;
 		ubSnitchProfile = pSnitch->ubProfile;
 		// skip past ourselves and all inactive mercs
 		if ( ProfileHasSkillTrait( ubSnitchProfile, SNITCH_NT ) &&
@@ -1702,10 +1715,10 @@ void DailyMoraleUpdate(SOLDIERTYPE *pSoldier)
 // Added by SANDRO
 BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier )
 {
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pTeammate;
-	BOOLEAN				fOneException = FALSE;
-	BOOLEAN				fYesHeIs = FALSE;
+	SoldierID	uiLoop;
+	SOLDIERTYPE *pTeammate;
+	BOOLEAN		fOneException = FALSE;
+	BOOLEAN		fYesHeIs = FALSE;
 
 	if (!pSoldier)
 	{
@@ -1716,9 +1729,9 @@ BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier )
 		return( FALSE );	
 	}
 
-	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++uiLoop )
 	{
-		pTeammate = MercPtrs[ uiLoop ];
+		pTeammate = uiLoop;
 		if ( pTeammate == NULL )
 		{
 			continue;

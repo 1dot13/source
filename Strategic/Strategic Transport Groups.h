@@ -22,7 +22,7 @@ void UpdateTransportGroupInventory();
 
 const std::map<UINT8, TransportGroupSectorInfo> GetTransportGroupSectorInfo();
 
-void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount);
+void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT16 amount);
 void ClearTransportGroupMap();
 
 void NotifyTransportGroupDefeated();

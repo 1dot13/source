@@ -104,7 +104,7 @@ UINT32  AniEditScreenHandle(void)
 		fToggle2   = FALSE;
 		ubCurLoadedState = 0;
 
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 
 		gTacticalStatus.uiFlags |= LOADING_SAVED_GAME;
 

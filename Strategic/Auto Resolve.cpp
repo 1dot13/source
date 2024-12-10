@@ -163,13 +163,13 @@ typedef struct AUTORESOLVE_STRUCT
 
 	UINT8 ubEnemyLeadership;
 	UINT8 ubPlayerLeadership;
-	UINT8 ubMercs, ubCivs, ubEnemies;
-	UINT8 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps, ubRobots;
-	UINT8 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
-	UINT8 ubBloodcats;
-	UINT8 ubZombies;
-	UINT8 ubBandits;
-	UINT8 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
+	UINT16 ubMercs, ubCivs, ubEnemies;
+	UINT16 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps, ubRobots;
+	UINT16 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
+	UINT16 ubBloodcats;
+	UINT16 ubZombies;
+	UINT16 ubBandits;
+	UINT16 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
 	UINT8 ubMercCols, ubMercRows;
 	UINT8 ubEnemyCols, ubEnemyRows;
 	UINT8 ubCivCols, ubCivRows;
@@ -410,10 +410,10 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	GROUP *pGroup, *pDeleteGroup;
 	SECTORINFO *pSector;
 	INT32 i;
-	UINT8 ubNumEnemies[ NUM_ENEMY_RANKS ];
-	UINT8 ubNumTanks = 0;
-	UINT8 ubNumJeeps = 0;
-	UINT8 ubNumRobots = 0;
+	UINT16 ubNumEnemies[NUM_ENEMY_RANKS]{};
+	UINT16 ubNumTanks = 0;
+	UINT16 ubNumJeeps = 0;
+	UINT16 ubNumRobots = 0;
 	UINT8 ubRankIndex;
 
 	//Clear any possible battle locator
@@ -460,7 +460,6 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 		pSector->ubNumJeeps = 0;
 		pSector->ubNumRobots = 0;
 		pSector->ubNumCreatures = 0;
-		pSector->bLastKnownEnemies = 0;
 		//Remove the mobile forces here, but only if battle is over.
 		while( pGroup )
 		{
@@ -755,9 +754,9 @@ void AssociateEnemiesWithStrategicGroups()
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots;	//how many soldiers of the type do we still have to assign to a group? 
-	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks, ubISNumJeeps, ubISNumRobots;
-	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup, ubNumJeepsInGroup, ubNumRobotsInGroup;
+	UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots;	//how many soldiers of the type do we still have to assign to a group? 
+	UINT16 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks, ubISNumJeeps, ubISNumRobots;
+	UINT16 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup, ubNumJeepsInGroup, ubNumRobotsInGroup;
 	INT32 i;
 	UINT8 pSectors[4];
 	UINT8 ubDirAmount;
@@ -1839,7 +1838,6 @@ void RenderAutoResolve()
 					HandleMoraleEvent( NULL, MORALE_BATTLE_WON, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 
-					SectorInfo[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].bLastKnownEnemies = 0;
 					SetThisSectorAsPlayerControlled( gpAR->ubSectorX, gpAR->ubSectorY, 0, TRUE );
 					#ifdef NEWMUSIC
 					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalVictory[0];
@@ -1854,29 +1852,35 @@ void RenderAutoResolve()
 
 				case BATTLE_SURRENDERED:
 				case BATTLE_CAPTURED:
-					for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+				{
+					SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+					const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+					for ( ; id <= lastid; ++id )
 					{
-						if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
+						SOLDIERTYPE *pSoldier = id;
+
+						if ( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 						{ //Merc is active and alive, and not a vehicle or robot
-							if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+							if ( PlayerMercInvolvedInThisCombat( pSoldier ) )
 							{
 								// This morale event is PER INDIVIDUAL SOLDIER
-								HandleMoraleEvent( MercPtrs[ i ], MORALE_MERC_CAPTURED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+								HandleMoraleEvent( pSoldier, MORALE_MERC_CAPTURED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 							}
 						}
 					}
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					#ifdef NEWMUSIC
-					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0];
-					if ( MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] != -1 )
-						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] );
+					if ( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+#ifdef NEWMUSIC
+					GlobalSoundID = MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0];
+					if ( MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0] != -1 )
+						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[SECTOR( gpAR->ubSectorX, gpAR->ubSectorY )].SoundTacticalDeath[0] );
 					else
-					#endif
-					SetMusicMode( MUSIC_TACTICAL_DEATH );
+#endif
+						SetMusicMode( MUSIC_TACTICAL_DEATH );
 
 					gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					break;
+				}
 				case BATTLE_DEFEAT:
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 
@@ -2048,7 +2052,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	swprintf( gpCivs[i].pSoldier->name, gpStrategicString[ STR_AR_MILITIA_NAME ] );
 }
 
-static void ARCreateMilitiaSquad( UINT8 *cnt, UINT8 ubEliteMilitia, UINT8 ubRegMilitia, UINT8 ubGreenMilitia, INT16 sX, INT16 sY)
+static void ARCreateMilitiaSquad( UINT16 *cnt, UINT16 ubEliteMilitia, UINT16 ubRegMilitia, UINT16 ubGreenMilitia, INT16 sX, INT16 sY)
 {
 	while( *cnt < gpAR->ubCivs && (ubEliteMilitia || ubRegMilitia || ubGreenMilitia) )
 	{
@@ -2077,10 +2081,10 @@ void CreateAutoResolveInterface()
 	VOBJECT_DESC	VObjectDesc;
 	INT32 i, index;
 	HVOBJECT hVObject;
-	UINT8 ubGreenMilitia, ubRegMilitia, ubEliteMilitia;
+	UINT16 ubGreenMilitia, ubRegMilitia, ubEliteMilitia;
 	UINT16 pMoveDir[4][3];
 	UINT8 uiDirNumber = 0;
-	UINT8 cnt;
+	UINT16 cnt;
 
 	//Setup new autoresolve blanket interface.
 	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-1, 0,
@@ -2200,7 +2204,7 @@ void CreateAutoResolveInterface()
 	ubGreenMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, GREEN_MILITIA );
 
 	// see if we get any bonus militia from nearby towns
-	UINT8 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
+	UINT16 bonusGreenMilitia = 0, bonusRegularMilitia = 0, bonusEliteMilitia = 0;
 	RebelCommand::GetBonusMilitia(gpAR->ubSectorX, gpAR->ubSectorY, bonusGreenMilitia, bonusRegularMilitia, bonusEliteMilitia, FALSE); // no need to create a group for autoresolve as we're just increasing local militia pop
 	ubEliteMilitia += bonusEliteMilitia;
 	ubRegMilitia += bonusRegularMilitia;
@@ -2837,7 +2841,7 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 		if( gpAR->pRobotCell )
 		{
 			//if robot is retreating, set the retreat time to be the same as the robot's controller.
-			UINT8 ubRobotControllerID;
+			SoldierID ubRobotControllerID;
 
 			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 
@@ -3011,9 +3015,7 @@ void MercCellMouseClickCallback( MOUSE_REGION *reg, INT32 reason )
 
 		if( gpAR->pRobotCell )
 		{ //if controller is retreating, make the robot retreat too.
-			UINT8 ubRobotControllerID;
-
-			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
+			SoldierID ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
 
 			if( ubRobotControllerID == NOBODY )
 			{
@@ -3067,7 +3069,7 @@ void CalculateAutoResolveInfo()
 																				&gpAR->ubAMCreatures, &gpAR->ubAFCreatures );
 		}
 
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
 	else if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
 		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
@@ -3087,7 +3089,7 @@ void CalculateAutoResolveInfo()
 				gpAR->ubBandits = gubNumCreaturesAttackingTown;
 		}
 
-		gpAR->ubEnemies = (UINT8)min( gubNumCreaturesAttackingTown, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gubNumCreaturesAttackingTown, MAX_AR_TEAM_SIZE );
 	}
 	else
 	{
@@ -3096,7 +3098,7 @@ void CalculateAutoResolveInfo()
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
 			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubRobots, &gpAR->ubTanks, &gpAR->ubJeeps );
 
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots, MAX_AR_TEAM_SIZE );
 	}
 
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
@@ -3735,7 +3737,7 @@ UINT8 GetUnusedMercProfileID()
 	BOOLEAN fUnique = FALSE;
 	while( !fUnique )
 	{
-		ubRandom = (UINT8)PreRandom( 40 );
+		ubRandom = (UINT8)PreRandom(CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);
 		for( i = 0; i < 19; i++ )
 		{
 			fUnique = TRUE;
@@ -3753,7 +3755,7 @@ void CreateTempPlayerMerc()
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	static INT32		iSoldierCount=0;
-	UINT8							ubID;
+	SoldierID ubID;
 
 	//Init the merc create structure with basic information
 	MercCreateStruct.bTeam									= SOLDIER_CREATE_AUTO_TEAM;
@@ -5961,12 +5963,16 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 				(!gTacticalStatus.fEnemyInSector))
 			{
 				unsigned mercCnt = 0;
-				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+				SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+				const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+				for ( ; id <= lastid; ++id )
 				{
-					if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
+					SOLDIERTYPE *pSoldier = id;
+
+					if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pSoldier ) )
 					{
 						//Merc is active and alive, and not a vehicle or robot
-						if ((MercPtrs[ i ]->sSectorX == sX) &&(MercPtrs[ i ]->sSectorY == sY) && (MercPtrs[ i ]->bSectorZ == 0))
+						if ( (pSoldier->sSectorX == sX) && (pSoldier->sSectorY == sY) && (pSoldier->bSectorZ == 0) )
 						{
 							++mercCnt;
 						}

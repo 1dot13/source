@@ -256,7 +256,7 @@ void WORLDITEM::initialize()
 	this->bRenderZHeightAboveLevel = 0;
 	this->bVisible = 0;
 	this->ubNonExistChance = 0;
-	this->soldierID = -1;
+	this->soldierID = NOBODY;
 	this->object.initialize();
 }
 
@@ -270,7 +270,7 @@ WORLDITEM& WORLDITEM::operator=(OLD_WORLDITEM_101& src)
 	this->bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
 	this->bVisible = src.bVisible;
 	this->ubNonExistChance = src.ubNonExistChance;
-	this->soldierID = -1;
+	this->soldierID = NOBODY;
 
 	//convert the OBJECTTYPE
 	this->object = src.oldObject;
@@ -288,7 +288,7 @@ WORLDITEM& WORLDITEM::operator=(_OLD_WORLDITEM& src)//dnl ch42 280909
 		bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
 		bVisible = src.bVisible;
 		ubNonExistChance = src.ubNonExistChance;
-		soldierID = -1;
+		soldierID = NOBODY;
 		object = src.object;
 	}
 	return(*this);
@@ -610,7 +610,7 @@ void ResizeWorldItems(void)//dnl ch75 271013
 #endif
 }
 
-INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, SoldierID soldierID )
 {
 	UINT32	iItemIndex;
 	INT32		iReturn;
@@ -658,12 +658,15 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 			{
 				SOLDIERTYPE* pSoldier = NULL;
 
-				if (soldierID == -1)
+				if (soldierID == NOBODY)
 				{
 					if (gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner > 1)
 					{
 						soldierID = gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner - 2; // undo the hack
-						pSoldier = MercPtrs[ soldierID ];
+						if ( soldierID < NOBODY )
+						{
+							pSoldier = soldierID;
+						}
 					}
 				}
 				

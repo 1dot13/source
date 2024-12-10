@@ -3167,7 +3167,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 	{
 		if (pSoldier->usDragPersonID != NOBODY)
 		{
-			SOLDIERTYPE* pOtherSoldier = MercPtrs[pSoldier->usDragPersonID];
+			SOLDIERTYPE* pOtherSoldier = pSoldier->usDragPersonID;
 
 			uiTotalWeight += GetTotalWeight( pOtherSoldier );
 			uiTotalWeight += pOtherSoldier->GetBodyWeight();
@@ -9304,7 +9304,7 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, SoldierID ubOwner )
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
@@ -15287,10 +15287,10 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
 	if ( !pSoldier || !pObject)
 		return( FALSE );
 		
-	UINT8  usSoldierFeedingTarget1 = 0;
+	SoldierID  usSoldierFeedingTarget1 = NOBODY;
 	UINT16 usGunSlot1 = 0;
 	UINT16 usAmmoSlot1 = 0;
-	UINT8  usSoldierFeedingTarget2 = 0;
+	SoldierID  usSoldierFeedingTarget2 = NOBODY;
 	UINT16 usGunSlot2 = 0;
 	UINT16 usAmmoSlot2 = 0;
 	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
@@ -15332,10 +15332,11 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 		// loop over other members of our team in this sector. This includes ourself, as our gun can be fed from a belt in our inventory
 		SOLDIERTYPE* pTeamSoldier = NULL;
-		INT32 cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
-		INT32 lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
+		for ( ; cnt < lastid; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// check if teamsoldier exists in this sector
 			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->stats.bLife < OKLIFE || pTeamSoldier->sSectorX != pSoldier->sSectorX || pTeamSoldier->sSectorY != pSoldier->sSectorY || pTeamSoldier->bSectorZ != pSoldier->bSectorZ )
 				continue;
@@ -15345,10 +15346,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 				continue;
 
 			// we check if that guy is feeding someone, and that someone is really us
-			UINT8  usTeamSoldierFeedingTarget1 = 0;
+			SoldierID  usTeamSoldierFeedingTarget1 = NOBODY;
 			UINT16 usGunSlot1 = 0;
 			UINT16 usAmmoSlot1 = 0;
-			UINT8  usTeamSoldierFeedingTarget2 = 0;
+			SoldierID  usTeamSoldierFeedingTarget2 = NOBODY;
 			UINT16 usGunSlot2 = 0;
 			UINT16 usAmmoSlot2 = 0;
 			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )
