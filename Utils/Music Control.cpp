@@ -234,7 +234,7 @@ BOOLEAN MusicPlay(NewMusicList mode, UINT8 songIndex)
 		return FALSE;
 	}
 
-	MusicPlay(MusicLists[mode][songIndex]);
+	return MusicPlay(MusicLists[mode][songIndex]);
 }
 
 //********************************************************************************
