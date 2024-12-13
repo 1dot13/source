@@ -108,10 +108,10 @@ INT32		giCounterPeriodOverlay = 0;
 BOOLEAN	gfExitToNewSector					= FALSE;
 //UINT8		gubNewSectorExitDirection;
 
-BOOLEAN	gfGameScreenLocateToSoldier = FALSE;
-BOOLEAN	gfEnteringMapScreen					= FALSE;
-UINT32	uiOldMouseCursor;
-UINT8		gubPreferredInitialSelectedGuy = NOBODY;
+BOOLEAN		gfGameScreenLocateToSoldier = FALSE;
+BOOLEAN		gfEnteringMapScreen					= FALSE;
+UINT32		uiOldMouseCursor;
+SoldierID	gubPreferredInitialSelectedGuy = NOBODY;
 
 BOOLEAN				gfTacticalIsModal = FALSE;
 MOUSE_REGION	gTacticalDisableRegion;
@@ -261,17 +261,17 @@ void EnterTacticalScreen( )
 	if ( gusSelectedSoldier != NOBODY )
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check our guy"));
-		if ( !OK_CONTROLLABLE_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+		if ( !OK_CONTROLLABLE_MERC( gusSelectedSoldier ) )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc not controllable"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: who is selected? %d", gusSelectedSoldier));
 		// ATE: If the current guy is sleeping, change....
-		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->flags.fMercAsleep )
+		if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->flags.fMercAsleep )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc asleep"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 	}
 	else
@@ -580,9 +580,9 @@ UINT32	MainGameScreenHandle(void)
 			{
 				if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 				{
-					MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->AdjustNoAPToFinishMove( FALSE );
+					gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->AdjustNoAPToFinishMove( FALSE );
 				}
-				MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->flags.fPauseAllAnimation = FALSE;
+				gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->flags.fPauseAllAnimation = FALSE;
 
 				gTacticalStatus.fEnemySightingOnTheirTurn = FALSE;
 			}
@@ -684,7 +684,7 @@ UINT32	MainGameScreenHandle(void)
 		// Select a guy if he hasn;'
 		if( !gfTacticalPlacementGUIActive )
 		{
-			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( gusSelectedSoldier ) )
 			{
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: selectsoldier"));
 				SelectSoldier( gusSelectedSoldier, FALSE, TRUE );
@@ -735,11 +735,11 @@ UINT32	MainGameScreenHandle(void)
 
 	if ( !ARE_IN_FADE_IN( ) )
   	{
-	HandleAutoBandagePending( );
+		HandleAutoBandagePending( );
      
-	  #ifdef JA2UB
-      HandleThePlayerBeNotifiedOfSomeoneElseInSector();
-	  #endif
+#ifdef JA2UB
+		HandleThePlayerBeNotifiedOfSomeoneElseInSector();
+#endif
      }
 
 
@@ -933,7 +933,7 @@ UINT32	MainGameScreenHandle(void)
 			if ( gusSelectedSoldier != NOBODY )
 			{
 				if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
-					MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 			}
 		}
 
@@ -1030,15 +1030,12 @@ void DisableFPSOverlay( BOOLEAN fEnable )
 
 void TacticalScreenLocateToSoldier( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-	BOOLEAN				fPreferedGuyUsed = FALSE;
+	BOOLEAN fPreferedGuyUsed = FALSE;
 
 	if ( gubPreferredInitialSelectedGuy != NOBODY )
 	{
 		// ATE: Put condition here...
-		if ( OK_CONTROLLABLE_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) && OK_INTERRUPT_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) )
+		if ( OK_CONTROLLABLE_MERC( gubPreferredInitialSelectedGuy ) && OK_INTERRUPT_MERC( gubPreferredInitialSelectedGuy ) )
 		{
 			LocateSoldier( gubPreferredInitialSelectedGuy, 10 );
 			SelectSoldier( gubPreferredInitialSelectedGuy, FALSE, TRUE );
@@ -1050,14 +1047,14 @@ void TacticalScreenLocateToSoldier( )
 	if ( !fPreferedGuyUsed )
 	{
 		// Set locator to first merc
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+		SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier)
 		{
-			if ( OK_CONTROLLABLE_MERC( pSoldier ) && OK_INTERRUPT_MERC( pSoldier ) )
+			if ( OK_CONTROLLABLE_MERC( Soldier ) && OK_INTERRUPT_MERC( Soldier ) )
 			{
-				LocateSoldier( pSoldier->ubID, 10 );
-				SelectSoldier( pSoldier->ubID, FALSE, TRUE );
+				LocateSoldier( Soldier, 10 );
+				SelectSoldier( Soldier, FALSE, TRUE );
 				break;
 			}
 		}
@@ -1075,22 +1072,17 @@ void EnterMapScreen( )
 
 void UpdateTeamPanelAssignments( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-
 	// Remove all players
 	RemoveAllPlayersFromSlot( );
 
 	// Set locator to first merc
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
 		// Setup team interface
-		CheckForAndAddMercToTeamPanel( pSoldier );
+		CheckForAndAddMercToTeamPanel( Soldier );
 	}
-
 }
 
 

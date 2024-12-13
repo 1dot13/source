@@ -179,10 +179,10 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd );
 // handle possible militia promotion and individual militia update
 void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve );
 
-void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites );
+void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT16 usGreens, UINT16 usRegulars, UINT16 usElites );
 
 // militia are disbanded - we have to take note of that
-void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites );
+void DisbandIndividualMilitia( UINT8 aSector, UINT16 usGreens, UINT16 usRegulars, UINT16 usElites );
 
 void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass );
 

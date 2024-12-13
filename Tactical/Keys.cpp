@@ -1390,11 +1390,11 @@ DOOR_STATUS	*GetDoorStatus( INT32 sGridNo )
 
 BOOLEAN AllMercsLookForDoor( INT32 sGridNo, BOOLEAN fUpdateValue )
 {
-	INT32					cnt, cnt2;
-	INT8										bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
-	SOLDIERTYPE							*pSoldier;
-	DOOR_STATUS							*pDoorStatus;
-	INT32											usNewGridNo;
+	INT32		cnt2;
+	INT8			bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
+	SOLDIERTYPE	*pSoldier;
+	DOOR_STATUS	*pDoorStatus;
+	INT32		usNewGridNo;
 
 	// Get door
 	pDoorStatus = GetDoorStatus( sGridNo );
@@ -1405,11 +1405,12 @@ BOOLEAN AllMercsLookForDoor( INT32 sGridNo, BOOLEAN fUpdateValue )
 	}
 
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// ATE: Ok, lets check for some basic things here!		
 		if ( pSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pSoldier->sGridNo) && pSoldier->bActive && pSoldier->bInSector )
 		{
@@ -2070,11 +2071,10 @@ BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 
 void ExamineDoorsOnEnteringSector( )
 {
-	INT32					cnt;
-	DOOR_STATUS							*pDoorStatus;
-	SOLDIERTYPE				*pSoldier;
-	BOOLEAN									fOK = FALSE;
-	INT8										bTownId;
+	DOOR_STATUS	*pDoorStatus;
+	SOLDIERTYPE *pSoldier;
+	BOOLEAN		fOK = FALSE;
+	INT8			bTownId;
 
 	// OK, only do this if conditions are met....
 	// If this is any omerta tow, don't do it...
@@ -2093,10 +2093,11 @@ void ExamineDoorsOnEnteringSector( )
 
 	// there is at least one human being in that sector.
 	// check for civ
-	cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bInSector )
@@ -2110,7 +2111,7 @@ void ExamineDoorsOnEnteringSector( )
 	// Let's do it!
 	if ( fOK )
 	{
-		for ( cnt = 0; cnt < gubNumDoorStatus; cnt++ )
+		for ( UINT8 cnt = 0; cnt < gubNumDoorStatus; cnt++ )
 		{
 			pDoorStatus = &( gpDoorStatus[ cnt ] );
 
@@ -2126,12 +2127,11 @@ void ExamineDoorsOnEnteringSector( )
 
 void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 {
-	INT32					cnt;
-	DOOR_STATUS							*pDoorStatus;
-	SOLDIERTYPE				*pSoldier;
-	BOOLEAN									fOK = FALSE;
-	INT32										iNumNewMercs = 0;
-	INT8										bTownId;
+	DOOR_STATUS	*pDoorStatus;
+	SOLDIERTYPE	*pSoldier;
+	BOOLEAN		fOK = FALSE;
+	INT32		iNumNewMercs = 0;
+	INT8			bTownId;
 
 	// OK, only do this if conditions are met....
 
@@ -2145,7 +2145,7 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 
 	// 1 ) there is at least one human being in that sector.
 	// check for civ
-	cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 
 	// Check time...
 	if ( ( GetWorldTotalMin( ) - gTacticalStatus.uiTimeSinceLastInTactical ) < 30 )
@@ -2154,8 +2154,9 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 	}
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			fOK = TRUE;
@@ -2165,8 +2166,9 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 
 	// Loop through our team now....
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++ ,pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector && gbMercIsNewInThisSector[ cnt ] )
 		{
 			iNumNewMercs++;
@@ -2182,7 +2184,7 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 	// Let's do it!
 	if ( fOK )
 	{
-		for ( cnt = 0; cnt < gubNumDoorStatus; cnt++ )
+		for ( UINT8 cnt = 0; cnt < gubNumDoorStatus; cnt++ )
 		{
 			pDoorStatus = &( gpDoorStatus[ cnt ] );
 

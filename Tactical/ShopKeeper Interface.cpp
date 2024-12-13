@@ -295,7 +295,7 @@ INT32			giSKIMessageBox=-1;
 INT8			gbSelectedArmsDealerID = -1;		//Contains the enum value for the currently selected arms dealer
 
 // Flugente: while we're trading, store the ID of non-NPC dealers
-UINT8			gusIDOfCivTrader = NOBODY;
+SoldierID	gusIDOfCivTrader = NOBODY;
 
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
@@ -356,7 +356,7 @@ BOOLEAN		gfDoneBusinessThisSession = FALSE;
 // this is used within SKI exclusively, to handle small faces
 UINT8			gubArrayOfEmployedMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 UINT32		guiSmallSoldiersFace[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-UINT8			gubNumberMercsInArray;
+UINT16			gubNumberMercsInArray;
 
 //The subutitled text for what the merc is saying
 CHAR16		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
@@ -379,17 +379,17 @@ BOOLEAN gfPerformTransactionInProgress = FALSE;
 
 BOOLEAN gfCommonQuoteUsedThisSession[ NUM_COMMON_SK_QUOTES ];
 
-extern		SOLDIERTYPE			*gpSMCurrentMerc;
-extern		SOLDIERTYPE			*gpItemDescSoldier;
+extern		SOLDIERTYPE		*gpSMCurrentMerc;
+extern		SOLDIERTYPE		*gpItemDescSoldier;
 extern		MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
 extern		MOUSE_REGION		gInvDesc;
-extern		BOOLEAN					gfSMDisableForItems;
-extern		OBJECTTYPE			*gpItemDescObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		void						HandleShortCutExitState( void );
-extern		UINT8						gubSelectSMPanelToMerc;
-extern		INT32						giItemDescAmmoButton;
+extern		BOOLEAN			gfSMDisableForItems;
+extern		OBJECTTYPE		*gpItemDescObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		void				HandleShortCutExitState( void );
+extern		SoldierID		gubSelectSMPanelToMerc;
+extern		INT32			giItemDescAmmoButton;
 
 extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurface, UINT32 fBltFlags, INT32 iDestX, INT32 iDestY, RECT *SrcRect );
 
@@ -759,18 +759,17 @@ UINT32	ShopKeeperScreenShutdown()
 BOOLEAN EnterShopKeeperInterface()
 {
 	VOBJECT_DESC		VObjectDesc;
-	UINT16				ubCnt;
 	CHAR8				zTemp[32];
 	VSURFACE_DESC		vs_desc;
 
 	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
 	//but if we are physically too far away, we don't have extended arms!
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 	SOLDIERTYPE* pShopkeeper = NULL;
 	
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
@@ -826,7 +825,7 @@ BOOLEAN EnterShopKeeperInterface()
 	}
 
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
-	AssertMsg( CanMercInteractWithSelectedShopkeeper( MercPtrs[ gusSelectedSoldier ] ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
+	AssertMsg( CanMercInteractWithSelectedShopkeeper( gusSelectedSoldier ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
 
 	// Create a video surface to blt corner of the tactical screen that still shines through
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -869,8 +868,8 @@ BOOLEAN EnterShopKeeperInterface()
 
 	//Reinitialize the team panel to be the SM panel
 	SetCurrentInterfacePanel( SM_PANEL );
-	SetCurrentTacticalPanelCurrentMerc( (UINT8)gusSelectedSoldier );
-	SetSMPanelCurrentMerc( (UINT8)gusSelectedSoldier );
+	SetCurrentTacticalPanelCurrentMerc( gusSelectedSoldier );
+	SetSMPanelCurrentMerc( gusSelectedSoldier );
 	
 	// load the Main trade screen background image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -886,9 +885,9 @@ BOOLEAN EnterShopKeeperInterface()
 	//Create an array of all mercs (anywhere!) currently in the player's employ, and load their small faces
 	// This is to support showing of repair item owner's faces even when they're not in the sector, as long as they still work for player
 	gubNumberMercsInArray = 0;
-	for( ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
+	for( SoldierID ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
 	{
-		pSoldier = MercPtrs[ ubCnt ];
+		pSoldier = ubCnt;
 
 		if( pSoldier->bActive && ( pSoldier->ubProfile != NO_PROFILE ) &&
 			!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )
@@ -1027,7 +1026,7 @@ BOOLEAN EnterShopKeeperInterface()
 		{
 			//add the item back to the current PC into the slot it came from
 			//ADB screw slot, slot is (used to be, before it was deleted) only ever, so autoplace it
-			AutoPlaceObject(&Menptr[ gpSMCurrentMerc->ubID ], &gItemToAdd.ItemObject, FALSE);
+			AutoPlaceObject(gpSMCurrentMerc->ubID, &gItemToAdd.ItemObject, FALSE);
 		}
 
 		//Clear the contents of the structure
@@ -1126,7 +1125,7 @@ BOOLEAN ExitShopKeeperInterface()
 	UnloadButtonImage( guiSKI_InvPageDownButtonImage );
 
 	//loop through the area and delete small faces
-	for (UINT8 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
+	for (UINT16 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
 	{
 		DeleteVideoObjectFromIndex( guiSmallSoldiersFace[ ubCnt ] );
 	}
@@ -1472,7 +1471,7 @@ BOOLEAN RenderShopKeeperInterface()
 	// Flugente: if this is a non-NPC dealer, we instead show their body in their current animation
 	else if ( gusIDOfCivTrader != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[gusIDOfCivTrader];
+		SOLDIERTYPE* pSoldier = gusIDOfCivTrader;
 
 		if ( pSoldier )
 		{
@@ -1686,16 +1685,13 @@ void		GetShopKeeperInterfaceUserInput()
 
 				case SPACE:
 					{
-						UINT8	ubID;
-
 						DeleteItemDescriptionBox( );
 
 						// skip Robot and EPCs
-						ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
-
+						SoldierID ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
 						gubSelectSMPanelToMerc = ubID;
-
 						LocateSoldier( ubID, DONTSETLOCATOR );
+
 						// refresh background for player slots (in case item values change due to Flo's discount)
 						gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 					}
@@ -2460,7 +2456,7 @@ void EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer )
 }
 
 // Flugente: set up shopkeeper with a non-NPC
-void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
+void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, SoldierID aMercID )
 {
 	gusIDOfCivTrader = aMercID;
 
@@ -2477,7 +2473,7 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
 
 	// Flugente: additional dialogue
 	if ( gusSelectedSoldier != NOBODY )
-		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
+		AdditionalTacticalCharacterDialogue_CallsLua( gusSelectedSoldier, ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
 
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }
@@ -3668,12 +3664,10 @@ void DisplayPlayersOfferArea()
 				//get an updated status from the amount in the pocket
 				if( PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation != -1 && PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 				{
-					INT16 sSoldierID;
+					SoldierID sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
+					Assert(sSoldierID != NOBODY);
 
-					sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
-					Assert(sSoldierID != -1);
-
-					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = Menptr[ sSoldierID ].inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
+					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = sSoldierID->inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
 					PlayersOfferArea[ sCnt ].uiItemPrice = PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount;
 				}
 			}
@@ -5191,7 +5185,7 @@ int CountNumberOfItemsInTheArmsDealersOfferArea( )
 
 INT8 GetSlotNumberForMerc( UINT8 ubProfile )
 {
-	for( INT8 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
+	for( UINT16 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
 	{
 		if( gubArrayOfEmployedMercs[ bCnt ] == ubProfile )
 			return( bCnt );
@@ -6492,23 +6486,21 @@ void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible,
 
 void IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv )
 {
-	INT16 sSoldierID;
-
 	//if the item picked up was in a previous location, and that location is on a merc's inventory
 	if ( ( pInv->bSlotIdInOtherLocation != -1 ) && ( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE ) )
 	{
 		// get soldier
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
-		Assert( sSoldierID != -1 );
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		Assert( sSoldierID != NOBODY );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		// then it better be a valid slot #
-		Assert( pInv->bSlotIdInOtherLocation < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( pInv->bSlotIdInOtherLocation < (INT8)(sSoldierID->inv.size()) );
 		// and it better have a valid merc who owned it
 		Assert( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE );
 		
 		//Copy the object back into that merc's original inventory slot
-		Menptr[ sSoldierID ].inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
+		sSoldierID->inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
 	}
 }
 
@@ -6524,15 +6516,15 @@ void IfMercOwnedRemoveItemFromMercInv2( UINT8 ubOwnerProfileId, INT16 bOwnerSlot
 	{
 		// and it better have a valid merc who owned it
 		Assert( ubOwnerProfileId != NO_PROFILE );
-		INT16 sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
-		Assert( sSoldierID != -1 );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
+		Assert( sSoldierID != NOBODY );
 		// then it better be a valid slot #
-		Assert( bOwnerSlotId < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( bOwnerSlotId < (INT8)(sSoldierID->inv.size() ));
 
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		//remove the object from that merc's original inventory slot
-		DeleteObj(&(Menptr[ sSoldierID ].inv[bOwnerSlotId]));
+		DeleteObj(&(sSoldierID->inv[bOwnerSlotId]));
 	}
 }
 
@@ -6544,9 +6536,7 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 	// if it does have an owner
 	if( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 	{
-		INT16 sSoldierID;
-
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
 		// if that soldier is not in player's hire any longer
 		if ( sSoldierID == -1 )
 		{
@@ -6555,13 +6545,13 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 
 		// For owners of repaired items, this checks that owner is still hired, in sector,
 		// on current squad, close enough to the shopkeeper, etc.
-		if ( !CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) )
+		if ( !CanMercInteractWithSelectedShopkeeper( sSoldierID ) )
 		{
 			return(FALSE);
 		}
 
 		// Try to find a place to put in its owner's inventory (regardless of which merc is currently displayed!)
-		if ( SKITryToAddInvToMercsInventory( pInv, MercPtrs[ sSoldierID ] ) )
+		if ( SKITryToAddInvToMercsInventory( pInv, sSoldierID ) )
 		{
 			return( TRUE );
 		}
@@ -6634,7 +6624,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	Assert( gbSelectedArmsDealerID != -1 );
 
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
@@ -6675,7 +6665,7 @@ void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sSectorX, sSectorY;
-	UINT8									ubID;
+	UINT16									ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 
@@ -6780,7 +6770,7 @@ void DealWithItemsStillOnTheTable()
 	}
 	else
 	{
-		pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+		pDropSoldier = gusSelectedSoldier;
 	}
 
 	// this guy HAS to be valid!
@@ -7023,7 +7013,7 @@ void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT
 		}
 		else
 		{
-			pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+			pDropSoldier = gusSelectedSoldier;
 		}
 
 		//if we don't have an item, pick one up
@@ -7090,9 +7080,8 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	//if the dealer is Micky
 	if( gbSelectedArmsDealerID == ARMS_DEALER_MICKY )
 	{
-		INT16	sSoldierID;
-		sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
-		if( ( sSoldierID != -1 ) && ( GetDrunkLevel( &Menptr[ sSoldierID ] ) == DRUNK ) )
+		SoldierID sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
+		if( ( sSoldierID != NOBODY ) && ( GetDrunkLevel( sSoldierID ) == DRUNK ) )
 		{
 			//Micky is DRUNK, pays more!
 			dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier;

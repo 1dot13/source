@@ -29,9 +29,9 @@
 UINT8 gubReinforcementMinEnemyStaticGroupSize = 12;
 UINT32 guiMilitiaReinforceTurn = 0, guiMilitiaArrived = 0;//dnl ch68 090913
 
-void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT16 *pubNumAdmins, UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 *pubNumRobots, UINT16 *pubNumTanks, UINT16 *pubNumJeeps )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+	UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
 	UINT16 pusMoveDir[4][3];	//first column in this matrix is number of sector, except for 4th row
 	UINT8 ubDirNumber, ubIndex;
 	
@@ -156,9 +156,9 @@ void ActivateTurncoatsForAutoResolve( INT16 sSectorX, INT16 sSectorY )
 	}
 }
 
-UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
+UINT16 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+	UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
 
 	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumRobots, &ubNumTanks, &ubNumJeeps );
 	

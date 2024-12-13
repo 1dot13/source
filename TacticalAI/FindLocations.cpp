@@ -119,7 +119,7 @@ void AICenterXY( INT32 sGridNo, FLOAT * pdX, FLOAT * pdY )
 	*pdY = (FLOAT) (sYPos * CELL_Y_SIZE + CELL_Y_SIZE / 2);
 }
 
-INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -158,7 +158,7 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOpp
 	return( bWorstCTGT );
 }
 
-INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -192,7 +192,7 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sO
 }
 
 
-INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, SoldierID ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// NOTE: CTGT stands for "ChanceToGetThrough..."
 
@@ -591,7 +591,8 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
-	UINT8	ubLoop, ubCount, ubWhoIsThere;
+	UINT8	ubLoop, ubCount;
+	SoldierID ubWhoIsThere;
 	INT32	sTempGridNo;
 
 	ubCount = 0;
@@ -602,7 +603,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		if ( sTempGridNo != sGridNo )
 		{
 			ubWhoIsThere = WhoIsThere2( sTempGridNo, pSoldier->pathing.bLevel );
-			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && MercPtrs[ ubWhoIsThere ]->bTeam == pSoldier->bTeam )
+			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && ubWhoIsThere->bTeam == pSoldier->bTeam )
 			{
 				ubCount++;
 			}
@@ -1987,7 +1988,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							if ( pItem->usItemClass == IC_GUN && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								// maybe this gun has ammo (adjust for whether it is better than ours!)
-								if ( (*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) )
+								if ( (*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NO_PROFILE && (*pObj)[0]->data.ubImprintID != pSoldier->ubProfile) )
 								{
 									iTempValue = 0;
 								}
@@ -2028,7 +2029,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							if (pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								DebugAI(AI_MSG_INFO, pSoldier, String("weapon has good status"));
-								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
+								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NO_PROFILE && (*pObj)[0]->data.ubImprintID != pSoldier->ubProfile) ) )
 								{
 									// jammed or out of ammo, skip it!
 									DebugAI(AI_MSG_INFO, pSoldier, String("jammed or out of ammo, skip it!"));
@@ -2079,7 +2080,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							if ( pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								DebugAI(AI_MSG_INFO, pSoldier, String("gun has good status"));
-								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
+								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (ItemHasFingerPrintID(pObj->usItem) && (*pObj)[0]->data.ubImprintID != NO_PROFILE && (*pObj)[0]->data.ubImprintID != pSoldier->ubProfile) ) )
 								{
 									// jammed or out of ammo, skip it!
 									DebugAI(AI_MSG_INFO, pSoldier, String("jammed or out of ammo, skip it!"));

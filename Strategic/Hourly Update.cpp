@@ -361,18 +361,18 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 
 void HourlyLarryUpdate()
 {
-	SOLDIERTYPE *				pSoldier = NULL;
-	SOLDIERTYPE *				pOtherSoldier = NULL;
-	INT8						bSlot = NO_SLOT, bBoozeSlot;
-	UINT16						usTemptation = 0;
-	UINT16						usCashAmount;
-	BOOLEAN						fBar = FALSE;
-	OBJECTTYPE*					pObj = NULL;
-	BOOLEAN						fTookDrugs = FALSE;
+	SOLDIERTYPE *pSoldier = NULL;
+	SOLDIERTYPE *pOtherSoldier = NULL;
+	INT8			bSlot = NO_SLOT, bBoozeSlot;
+	UINT16		usTemptation = 0;
+	UINT16		usCashAmount;
+	BOOLEAN		fBar = FALSE;
+	OBJECTTYPE*	pObj = NULL;
+	BOOLEAN		fTookDrugs = FALSE;
 
-	for( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep && ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) ) )
 		{
@@ -484,9 +484,9 @@ void HourlyLarryUpdate()
 				{
 					// anv: snitches stop mercs from getting wasted
 					BOOLEAN fSnitchStoppedBehaviour = FALSE;
-					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
+					for( SoldierID id2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id2 )
 					{					
-						pOtherSoldier = MercPtrs[ cnt2 ];
+						pOtherSoldier = id2;
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
 						{
@@ -612,12 +612,12 @@ void HourlyLarryUpdate()
 // Flugente: mercs that are smokers occasionally consume smokes if they have some in their inventory
 void HourlySmokerUpdate( )
 {
-	SOLDIERTYPE *				pSoldier = NULL;
-	OBJECTTYPE*					pObj = NULL;
+	SOLDIERTYPE *pSoldier = NULL;
+	OBJECTTYPE *pObj = NULL;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	for ( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[cnt];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep )
 		{
@@ -647,9 +647,9 @@ void HourlyDisabilityUpdate( )
 	SOLDIERTYPE*				pSoldier = NULL;
 	SOLDIERTYPE*				pOtherSoldier = NULL;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	for ( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[cnt];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive )
 		{
@@ -664,9 +664,9 @@ void HourlyDisabilityUpdate( )
 				{
 					// anv: snitches stop mercs from getting wasted
 					BOOLEAN fSnitchStoppedBehaviour = FALSE;
-					for ( INT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
+					for ( SoldierID id2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; id2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id2 )
 					{
-						pOtherSoldier = MercPtrs[cnt2];
+						pOtherSoldier = id2;
 
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if ( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
@@ -760,9 +760,9 @@ void HourlyStealUpdate()
 	SOLDIERTYPE *				pSoldier = NULL;
 	SOLDIERTYPE *				pOtherSoldier = NULL;
 	
-	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	for( SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = cnt;
 
 		// merc must be alive, not travelling and awake. If he is in the currently loaded sector, we may not be in tactical (we would see an item suddenly disappearing) and not in combat
 		if ( pSoldier
@@ -794,9 +794,9 @@ void HourlyStealUpdate()
 
 			// anv: snitches prevent scrounging in the same sector
 			BOOLEAN fSnitchStoppedBehaviour = FALSE;
-			for ( UINT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
+			for ( SoldierID cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
 			{
-				pOtherSoldier = MercPtrs[cnt2];
+				pOtherSoldier = cnt2;
 
 				// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
 				if ( pOtherSoldier
