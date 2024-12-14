@@ -45,7 +45,7 @@
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/File/vfs_file.h>
 
-#define				GAME_SETTINGS_FILE				"Ja2_Settings.INI"
+#define				GAME_SETTINGS_FILE				"Ja2_Settings.ini"
 
 #define				FEATURE_FLAGS_FILE				"Ja2_Features.ini"
 

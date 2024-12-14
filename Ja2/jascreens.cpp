@@ -397,7 +397,7 @@ UINT32 InitScreenHandle(void)
 		// Handle queued .ini file error messages
  		int y = 40;
 		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
-		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.log", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 		while (! iniErrorMessages.empty()) {
 			static BOOL iniErrorMessage_create_out_file = TRUE;
@@ -407,7 +407,7 @@ UINT32 InitScreenHandle(void)
 			if (iniErrorMessage_create_out_file)
 			{
 				y += 25;
-				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.txt has been created." );
+				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.log has been created." );
 				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 				iniErrorMessage_create_out_file = FALSE;
 			}
