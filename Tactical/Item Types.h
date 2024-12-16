@@ -871,6 +871,7 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_fProvidesRobotCamo			0x0000010000000000		// rftr: robot attachments
 #define ITEM_fProvidesRobotNightVision	0x0000020000000000		// rftr: robot attachments
 #define ITEM_fProvidesRobotLaserBonus	0x0000040000000000		// rftr: robot attachments
+#define ITEM_FoodSystemExclusive	    0x0000080000000000		// kitty: item exclusively available with food feature
 
 // ----------------------------------------------------------------
 
