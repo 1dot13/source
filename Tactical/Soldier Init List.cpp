@@ -2980,6 +2980,25 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 //dnl ch56 141009
 //#define CENTRAL_GRIDNO 13202
 //#define CENTRAL_RADIUS 30
+static auto BackTowardsStrategicInsertionCode(const UINT8 strategicInsertionCode) -> WorldDirections  {
+	switch(strategicInsertionCode) {
+		case INSERTION_CODE_NORTH:
+			return SOUTHEAST;
+			break;
+		case INSERTION_CODE_EAST:
+			return SOUTHWEST;
+			break;
+		case INSERTION_CODE_SOUTH:
+			return NORTHWEST;
+			break;
+		case INSERTION_CODE_WEST:
+			return NORTHEAST;
+			break;
+		default:
+			AssertMsg( 0, "Illegal INSERTION_CODE_* passed to BackTowardsStrategicInsertionCode()" );
+			break;
+	}
+}
 
 void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites )
 {
