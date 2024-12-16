@@ -3174,7 +3174,10 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		
+
+		// Soldiers face direction opposite they entered from
+		pSoldier->ubDirection = BackTowardsStrategicInsertionCode(ubStrategicInsertionCode);
+
 		// HEADROCK HAM 3.2: Experimental, militia reinforcements arrive with 0 APs.
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 3)
 		{
