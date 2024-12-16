@@ -1592,6 +1592,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.iTransportGroupMaxProgress = (INT8)atoi(pData->szCharData);
 		}
+        else if (strcmp(name, "FoodSystemExclusive") == 0)
+		{
+		    pData->curElement = ELEMENT;
+			if ((BOOLEAN)atol(pData->szCharData))
+				pData->curItem.usItemFlag2 |= ITEM_FoodSystemExclusive;
+		}
 
 		--pData->maxReadDepth;
 	}
@@ -2225,6 +2231,7 @@ BOOLEAN WriteItemStats()
 			if (ItemProvidesRobotNightvision(cnt))			FilePrintf(hFile, "\t\t<ProvidesRobotNightVision>%d</ProvidesRobotNightVision>\r\n", 1);
 			if (ItemProvidesRobotLaserBonus(cnt))			FilePrintf(hFile, "\t\t<ProvidesRobotLaserBonus>%d</ProvidesRobotLaserBonus>\r\n", 1);
 			if (ItemIsOnlyInDisease(cnt))					FilePrintf(hFile, "\t\t<DiseaseSystemExclusive>%d</DiseaseSystemExclusive>\r\n", 1);
+			if (ItemIsOnlyInFood(cnt))					    FilePrintf(hFile, "\t\t<FoodSystemExclusive>%d</FoodSystemExclusive>\r\n", 1);
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

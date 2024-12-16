@@ -1271,12 +1271,14 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
 		return FALSE;
 
-	// silversurfer: no food items if the food system is off
-	if ( !UsingFoodSystem() && Item[ usItemIndex ].foodtype > 0 )
+
+	// kitty: no food items if the food system is off
+	// whether the item is exclusive is defined by tag
+	// replaced previous system which used Item[usItemIndex].foodtype > 0 as criteria
+	// that also restricted dual use items (i.e. drugs that also have a foodtype, like coffee, etc.)
+	if (!gGameExternalOptions.fFoodSystem && ItemIsOnlyInFood(usItemIndex))
 	{
-		// Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
-		if ( Food[Item[usItemIndex].foodtype].bFoodPoints > 0 )
-			return FALSE;
+		return FALSE;
 	}
 
 	// kitty: no disease items if the disease system is off
@@ -16128,3 +16130,4 @@ BOOLEAN ItemIsOnlyInDisease(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_Di
 BOOLEAN ItemProvidesRobotCamo(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotCamo); }
 BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotNightVision); }
 BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotLaserBonus); }
+BOOLEAN ItemIsOnlyInFood(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_FoodSystemExclusive); }
