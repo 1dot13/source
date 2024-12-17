@@ -213,7 +213,6 @@
 		<RobotUtilitySkillGrant>0</RobotUtilitySkillGrant>
 		<TransportGroupMinProgress>0</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>0</TransportGroupMaxProgress>
-		<FoodSystemExclusive>0</FoodSystemExclusive>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -46821,7 +46820,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>3</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>5</FoodType>
 		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46847,7 +46845,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>25</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>6</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46873,7 +46870,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>20</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>7</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46898,7 +46894,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>8</FoodType>
 		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46923,7 +46918,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>9</FoodType>
 		<usPortionSize>15</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46948,7 +46942,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>10</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46973,7 +46966,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>11</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -46998,7 +46990,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>12</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47023,7 +47014,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>13</FoodType>
 		<usPortionSize>13</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47049,7 +47039,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>15</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>14</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47075,7 +47064,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>15</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>15</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47101,7 +47089,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>18</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>16</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47127,7 +47114,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>7</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>17</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47152,7 +47138,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>18</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47177,7 +47162,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>19</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47202,7 +47186,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>20</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47227,7 +47210,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>21</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47252,7 +47234,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>22</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47277,7 +47258,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>23</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47302,7 +47282,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>24</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47327,7 +47306,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>25</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47353,7 +47331,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>26</FoodType>
 		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47379,7 +47356,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>27</FoodType>
 		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47404,7 +47380,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>28</FoodType>
 		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47429,7 +47404,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>29</FoodType>
 		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
@@ -47799,7 +47773,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>37</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47823,7 +47796,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<FoodSystemExclusive>1</FoodSystemExclusive>
 		<FoodType>38</FoodType>
 		<usPortionSize>8</usPortionSize>
 		<STAND_MODIFIERS />
