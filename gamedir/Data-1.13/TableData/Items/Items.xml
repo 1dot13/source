@@ -51309,7 +51309,7 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<Sinks>1</Sinks>
@@ -51342,7 +51342,7 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<Sinks>1</Sinks>
@@ -52666,7 +52666,7 @@
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>80</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>2</ubCoolness>
 		<Medical>1</Medical>
 		<BR_NewInventory>6</BR_NewInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -52808,7 +52808,7 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>11</ItemSize>
 		<usPrice>20</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>2</ubCoolness>
 		<Medical>1</Medical>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -52834,7 +52834,7 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>11</ItemSize>
 		<usPrice>25</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<Medical>1</Medical>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
