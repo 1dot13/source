@@ -251,7 +251,6 @@ BOOLEAN ItemIsOnlyInDisease(UINT16 usItem);
 BOOLEAN ItemProvidesRobotCamo(UINT16 usItem);
 BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem);
 BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem);
-BOOLEAN ItemIsOnlyInFood(UINT16 usItem);
 
 //Existing functions without header def's, added them here, just incase I'll need to call
 //them from the editor.
