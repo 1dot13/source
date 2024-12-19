@@ -4883,6 +4883,7 @@
 		<szBRDesc>No more grenades dangling from D-rings and ripping off while crawling through the underbrush. Our grenade carrier panel has four individual pouches to carry your grenades safely.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>573</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -4898,7 +4899,6 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7821,6 +7821,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>8</ItemFlag>
 		<ubGraphicNum>43</ubGraphicNum>
 		<ubWeight>20</ubWeight>
 		<ItemSize>27</ItemSize>
@@ -7831,7 +7832,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Electronic>1</Electronic>
-		<ItemFlag>8</ItemFlag>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7984,6 +7984,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>16384</ItemFlag>
 		<ubClassIndex>107</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>136</ubGraphicNum>
@@ -7995,7 +7996,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -33873,6 +33873,7 @@
 		<szBRDesc>A quadruple pouch, mounted on a leg rig. The long adjustable straps let you store 40mm grenades of any length.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>5</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>685</ubGraphicNum>
@@ -33883,8 +33884,7 @@
 		<ubCoolness>5</ubCoolness>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36957,6 +36957,7 @@
 		<szBRDesc>Here we have a utility pouch, combined with three individual grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>28</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>717</ubGraphicNum>
@@ -36967,7 +36968,6 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -37004,6 +37004,7 @@
 		<szBRDesc>This leg rig mounts two large magazine pouches, combined with two individual grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>30</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>719</ubGraphicNum>
@@ -37014,7 +37015,6 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38031,6 +38031,7 @@
 		<szBRDesc>This panel is equipped with a canteen pouch and three grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>735</ubGraphicNum>
@@ -38041,7 +38042,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38055,6 +38055,7 @@
 		<szBRDesc>A sub-version of one of our other leg rigs, this panel replaces one grenade pouch with a canteen pouch.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>736</ubGraphicNum>
@@ -38065,7 +38066,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38079,6 +38079,7 @@
 		<szBRDesc>This panel has a canteen pouch instead of a grenade pouch of our other large magazine pouch setup.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>737</ubGraphicNum>
@@ -38088,8 +38089,7 @@
 		<ubCoolness>5</ubCoolness>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48994,6 +48994,7 @@
 		<szBRDesc>At 2 million volts, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>1048576</ItemFlag>
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
@@ -49017,8 +49018,7 @@
 		<DefaultAttachment>322</DefaultAttachment>
 		<BrassKnuckles>1</BrassKnuckles>
 		<NeedsBatteries>1</NeedsBatteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<ItemFlag>1048576</ItemFlag>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49595,6 +49595,7 @@
 		<szBRDesc>A leg rig, suitable for the safe transport of explosives.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>169</ubGraphicNum>
@@ -49604,8 +49605,7 @@
 		<ubCoolness>5</ubCoolness>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49781,6 +49781,7 @@
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>54</ubClassIndex>
@@ -49795,7 +49796,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49984,6 +49984,7 @@
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>61</ubClassIndex>
@@ -49998,7 +49999,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50458,6 +50458,7 @@
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>78</ubClassIndex>
@@ -50472,7 +50473,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50682,6 +50682,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
@@ -50691,13 +50692,12 @@
 		<ubWeight>4</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>90</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<ubCoolness>6</ubCoolness>			
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50712,6 +50712,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
@@ -50727,7 +50728,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50954,6 +50954,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
+		<ItemFlag>2147483648</ItemFlag>
 		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
@@ -50968,8 +50969,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>2</CamoBonus>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2147483648</ItemFlag>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51335,7 +51335,6 @@
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentPoint>8</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
-		<Attachment>1</Attachment>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>225</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -51742,14 +51741,14 @@
 		<szBRName>Roof Collapse</szBRName>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>268435456</ItemFlag>
 		<ubClassIndex>99</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>49</ubGraphicNum>
 		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<ItemFlag>268435456</ItemFlag>
+		<ItemSize>14</ItemSize>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51998,6 +51997,7 @@
 		<szBRDesc>Another famous Russian export, this MANPADS is comparable to certain western counterparts, but is a lot cheaper. Get yours now!</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>2</ItemFlag>	<!-- surface-to-air missile launcher -->
 		<ubClassIndex>1736</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>372</ubGraphicNum>
@@ -52021,7 +52021,6 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<ItemFlag>2</ItemFlag>	<!-- surface-to-air missile launcher -->
 		<TransportGroupMinProgress>50</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
 		<STAND_MODIFIERS />
@@ -52118,6 +52117,7 @@
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>134217728</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>27</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -52128,8 +52128,7 @@
 		<Metal>1</Metal>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<FoodType>40</FoodType>
-		<usPortionSize>100</usPortionSize>
-		<ItemFlag>134217728</ItemFlag>
+		<usPortionSize>100</usPortionSize>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -52143,6 +52142,7 @@
 		<szBRDesc>Recommended by ACME.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>4</ItemFlag>
 		<ubClassIndex>103</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
@@ -52159,8 +52159,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>4</BR_UsedInventory>
 		<Mine>1</Mine>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>4</ItemFlag>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
