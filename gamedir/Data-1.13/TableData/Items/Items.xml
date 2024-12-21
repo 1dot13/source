@@ -39268,7 +39268,7 @@
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>730</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>70000</usPrice>
+		<usPrice>63000</usPrice>
 		<ubCoolness>9</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -39292,7 +39292,7 @@
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>75000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -39340,7 +39340,7 @@
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>500</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>150000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>9</ubCoolness>
 		<bReliability>-1</bReliability>
 		<Metal>1</Metal>
@@ -40254,7 +40254,7 @@
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>100000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>10</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -40279,7 +40279,7 @@
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>500</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>200000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>10</ubCoolness>
 		<bReliability>-1</bReliability>
 		<Metal>1</Metal>
@@ -42787,7 +42787,7 @@
 		<ubGraphicNum>88</ubGraphicNum>
 		<ubWeight>1000</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>375000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -42811,7 +42811,7 @@
 		<ubGraphicNum>90</ubGraphicNum>
 		<ubWeight>1000</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>375000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -42835,7 +42835,7 @@
 		<ubGraphicNum>89</ubGraphicNum>
 		<ubWeight>1000</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>375000</usPrice>
+		<usPrice>65000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
