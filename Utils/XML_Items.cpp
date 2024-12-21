@@ -353,7 +353,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "PercentDropCompensation") == 0 ||
 				strcmp(name, "PercentMaxCounterForce") == 0 ||
 				strcmp(name, "PercentCounterForceAccuracy") == 0 ||
-				strcmp(name, "PercentCounterForceFrequency") == 0 ||
 				strcmp(name, "AimLevels") == 0))
 		{
 			pData->curElement = ELEMENT_SUBLIST_PROPERTY;
