@@ -205,7 +205,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "CamouflageKit") == 0 ||
 				strcmp(name, "LocksmithKit") == 0 ||
 				strcmp(name, "Mine") == 0 ||
-				strcmp(name, "antitankmine" ) == 0 ||
+				strcmp(name, "AntitankMine" ) == 0 ||
 				strcmp(name, "GasCan") == 0 ||
 				strcmp(name, "ContainsLiquid") == 0 ||
 				strcmp(name, "Rock") == 0 ||
@@ -248,7 +248,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "RecoilModifierX") == 0 ||
 				strcmp(name, "RecoilModifierY") == 0 ||
 				strcmp(name, "PercentRecoilModifier") == 0 ||
-				strcmp(name, "barrel") == 0 ||
+				strcmp(name, "Barrel") == 0 ||
 				strcmp(name, "usOverheatingCooldownFactor") == 0 ||
 				strcmp(name, "overheatTemperatureModificator") == 0 ||
 				strcmp(name, "overheatCooldownModificator") == 0 ||
@@ -284,16 +284,16 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "SleepModifier") == 0 ||
 				strcmp(name, "usSpotting") == 0 ||
 				strcmp(name, "sBackpackWeightModifier") == 0 ||
-				strcmp(name, "fAllowClimbing") == 0 ||
+				strcmp(name, "AllowClimbing") == 0 ||
 				strcmp(name, "cigarette" ) == 0 ||
 				strcmp(name, "usPortionSize" ) == 0 ||
-				strcmp(name, "diseaseprotectionface" ) == 0 ||
-				strcmp(name, "diseaseprotectionhand" ) == 0||
+				strcmp(name, "DiseaseprotectionFace" ) == 0 ||
+				strcmp(name, "DiseaseprotectionHand" ) == 0||
 				strcmp(name, "usRiotShieldStrength" ) == 0 ||
 				strcmp(name, "usRiotShieldGraphic" ) == 0 ||
-				strcmp(name, "bloodbag" ) == 0 ||
-				strcmp(name, "emptybloodbag" ) == 0 ||
-				strcmp(name, "medicalsplint" ) == 0 ||
+				strcmp(name, "Bloodbag" ) == 0 ||
+				strcmp(name, "EmptyBloodbag" ) == 0 ||
+				strcmp(name, "MedicalSplint" ) == 0 ||
 				strcmp(name, "sFireResistance" ) == 0 ||
 				strcmp(name, "usAdministrationModifier" ) == 0) ||
 				strcmp(name, "RobotDamageReduction") == 0 ||
@@ -1098,7 +1098,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if ((BOOLEAN)atol(pData->szCharData))
 				pData->curItem.usItemFlag2 |= ITEM_mine;
 		}
-		else if ( strcmp( name, "antitankmine" ) == 0 )
+		else if ( strcmp( name, "AntitankMine" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 			if ((BOOLEAN)atol(pData->szCharData))
@@ -1277,7 +1277,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		}
 
 		// Flugente
-		else if(strcmp(name, "barrel")	 == 0)
+		else if(strcmp(name, "Barrel")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			if ((BOOLEAN)atol(pData->szCharData))
@@ -1341,11 +1341,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			if ((BOOLEAN)atol(pData->szCharData))
 				pData->curItem.usItemFlag2 |= ITEM_blockironsight;
-		}
-		else if(strcmp(name, "ItemFlag") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curItem.usItemFlag = (UINT64) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "FoodType") == 0)
 		{
@@ -1448,7 +1443,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.sBackpackWeightModifier = (INT16)atol(pData->szCharData);
 		}
-		else if (strcmp(name, "fAllowClimbing") == 0)
+		else if (strcmp(name, "AllowClimbing") == 0)
 		{
 			pData->curElement = ELEMENT;
 			if ((BOOLEAN)atol(pData->szCharData))
@@ -1466,7 +1461,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curItem.usPortionSize = (UINT8)atol( pData->szCharData );
 		}
 		// Flugente: simple tags in the xml get translated into flags
-		else if ( strcmp( name, "diseaseprotectionface" ) == 0 )
+		else if ( strcmp( name, "DiseaseprotectionFace" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
@@ -1474,7 +1469,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if ( val )
 				pData->curItem.usItemFlag |= DISEASEPROTECTION_1;
 		}
-		else if ( strcmp( name, "diseaseprotectionhand" ) == 0 )
+		else if ( strcmp( name, "DiseaseprotectionHand" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
@@ -1492,21 +1487,224 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.usRiotShieldGraphic = (UINT16)atol( pData->szCharData );
 		}
-		else if ( strcmp( name, "bloodbag" ) == 0 )
+		else if ( strcmp( name, "Bloodbag" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
 			if ( (BOOLEAN)atol( pData->szCharData ) )
 				pData->curItem.usItemFlag |= BLOOD_BAG;
 		}
-		else if ( strcmp( name, "emptybloodbag" ) == 0 )
+		else if ( strcmp( name, "Manpad" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= MANPAD;
+		}
+		else if ( strcmp( name, "Beartrap" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= BEARTRAP;
+		}
+		else if ( strcmp( name, "Camera" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= CAMERA;
+		}
+		else if ( strcmp( name, "Waterdrum" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= WATER_DRUM;
+		}
+		else if ( strcmp( name, "BloodcatMeat" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= MEAT_BLOODCAT;
+		}
+		else if ( strcmp( name, "CowMeat" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= MEAT_COW;
+		}
+		else if ( strcmp( name, "Beltfed" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= BELT_FED;
+		}
+		else if ( strcmp( name, "Ammobelt" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= AMMO_BELT;
+		}
+		else if ( strcmp( name, "AmmobeltVest" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= AMMO_BELT_VEST;
+		}
+		else if ( strcmp( name, "CamoRemoval" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= CAMO_REMOVAL;
+		}
+		else if ( strcmp( name, "Cleaningkit" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= CLEANING_KIT;
+		}
+		else if ( strcmp( name, "AttentionItem" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= ATTENTION_ITEM;
+		}
+		else if ( strcmp( name, "Garotte" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= GAROTTE;
+		}
+		else if ( strcmp( name, "Covert" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= COVERT;
+		}
+		else if ( strcmp( name, "Corpse" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= CORPSE;
+		}
+		else if ( strcmp( name, "BloodcatSkin" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SKIN_BLOODCAT;
+		}
+		else if ( strcmp( name, "NoMetalDetection" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= NO_METAL_DETECTION;
+		}
+		else if ( strcmp( name, "JumpGrenade" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= JUMP_GRENADE;
+		}
+		else if ( strcmp( name, "Handcuffs" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= HANDCUFFS;
+		}
+		else if ( strcmp( name, "Taser" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= TASER;
+		}
+		else if ( strcmp( name, "ScubaBottle" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SCUBA_BOTTLE;
+		}
+		else if ( strcmp( name, "ScubaMask" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SCUBA_MASK;
+		}
+		else if ( strcmp( name, "ScubaFins" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SCUBA_FINS;
+		}
+		else if ( strcmp( name, "TripwireRoll" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= TRIPWIREROLL;
+		}
+		else if ( strcmp( name, "Radioset" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= RADIO_SET;
+		}
+		else if ( strcmp( name, "SignalShell" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SIGNAL_SHELL;
+		}
+		else if ( strcmp( name, "Soda" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= SODA;
+		}
+		else if ( strcmp( name, "RoofcollapseItem" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= ROOF_COLLAPSE_ITEM;
+		}
+		else if ( strcmp( name, "LBEexplosionproof" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= LBE_EXPLOSIONPROOF;
+		}
+		else if ( strcmp( name, "EmptyBloodbag" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
 			if ( (BOOLEAN)atol( pData->szCharData ) )
 				pData->curItem.usItemFlag |= EMPTY_BLOOD_BAG;
 		}
-		else if ( strcmp( name, "medicalsplint" ) == 0 )
+		else if ( strcmp( name, "MedicalSplint" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
@@ -1971,153 +2169,88 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"</szBRDesc>\r\n");
 
 			FilePrintf(hFile,"\t\t<usItemClass>%d</usItemClass>\r\n",						Item[cnt].usItemClass);
-			FilePrintf(hFile,"\t\t<nasAttachmentClass>%d</nasAttachmentClass>\r\n",						Item[cnt].nasAttachmentClass);
-			FilePrintf(hFile,"\t\t<nasLayoutClass>%d</nasLayoutClass>\r\n",						Item[cnt].nasLayoutClass);
-			FilePrintf(hFile,"\t\t<ubClassIndex>%d</ubClassIndex>\r\n",							Item[cnt].ubClassIndex);
-			FilePrintf(hFile,"\t\t<ubCursor>%d</ubCursor>\r\n",							Item[cnt].ubCursor);
-			FilePrintf(hFile,"\t\t<bSoundType>%d</bSoundType>\r\n",					Item[cnt].bSoundType);
+			FilePrintf(hFile,"\t\t<nasAttachmentClass>%d</nasAttachmentClass>\r\n",			Item[cnt].nasAttachmentClass);
+			FilePrintf(hFile,"\t\t<nasLayoutClass>%d</nasLayoutClass>\r\n",					Item[cnt].nasLayoutClass);
+			FilePrintf(hFile,"\t\t<ubClassIndex>%d</ubClassIndex>\r\n",						Item[cnt].ubClassIndex);
+			FilePrintf(hFile,"\t\t<ubCursor>%d</ubCursor>\r\n",								Item[cnt].ubCursor);
+			FilePrintf(hFile,"\t\t<bSoundType>%d</bSoundType>\r\n",							Item[cnt].bSoundType);
 			FilePrintf(hFile,"\t\t<ubGraphicType>%d</ubGraphicType>\r\n",					Item[cnt].ubGraphicType);
 			FilePrintf(hFile,"\t\t<ubGraphicNum>%d</ubGraphicNum>\r\n",						Item[cnt].ubGraphicNum);
-			FilePrintf(hFile,"\t\t<ubWeight>%d</ubWeight>\r\n",						Item[cnt].ubWeight);
-			FilePrintf(hFile,"\t\t<ubPerPocket>%d</ubPerPocket>\r\n",									Item[cnt].ubPerPocket);
-			FilePrintf(hFile,"\t\t<ItemSize>%d</ItemSize>\r\n",									Item[cnt].ItemSize);
-			FilePrintf(hFile,"\t\t<usPrice>%d</usPrice>\r\n",							Item[cnt].usPrice);
-			FilePrintf(hFile,"\t\t<ubCoolness>%d</ubCoolness>\r\n",								Item[cnt].ubCoolness);
-			FilePrintf(hFile,"\t\t<bReliability>%d</bReliability>\r\n",								Item[cnt].bReliability);
-			FilePrintf(hFile,"\t\t<bRepairEase>%d</bRepairEase>\r\n",									Item[cnt].bRepairEase);
+			FilePrintf(hFile,"\t\t<ubWeight>%d</ubWeight>\r\n",								Item[cnt].ubWeight);
+			FilePrintf(hFile,"\t\t<ubPerPocket>%d</ubPerPocket>\r\n",						Item[cnt].ubPerPocket);
+			FilePrintf(hFile,"\t\t<ItemSize>%d</ItemSize>\r\n",								Item[cnt].ItemSize);
+			FilePrintf(hFile,"\t\t<usPrice>%d</usPrice>\r\n",								Item[cnt].usPrice);
+			FilePrintf(hFile,"\t\t<ubCoolness>%d</ubCoolness>\r\n",							Item[cnt].ubCoolness);
+			FilePrintf(hFile,"\t\t<bReliability>%d</bReliability>\r\n",						Item[cnt].bReliability);
+			FilePrintf(hFile,"\t\t<bRepairEase>%d</bRepairEase>\r\n",						Item[cnt].bRepairEase);
 
-			if (ItemIsDamageable(cnt))					FilePrintf(hFile, "\t\t<Damageable>%d</Damageable>\r\n", 1);
-			if (ItemIsRepairable(cnt))					FilePrintf(hFile, "\t\t<Repairable>%d</Repairable>\r\n", 1);
-			if (ItemIsDamagedByWater(cnt))				FilePrintf(hFile, "\t\t<WaterDamages>%d</WaterDamages>\r\n", 1);
-			if (ItemIsMetal(cnt))						FilePrintf(hFile, "\t\t<Metal>%d</Metal>\r\n", 1);
-			if (ItemSinks(cnt))							FilePrintf(hFile, "\t\t<Sinks>%d</Sinks>\r\n", 1);
-			if (HasItemFlag2(cnt, ITEM_showstatus))		FilePrintf(hFile, "\t\t<ShowStatus>%d</ShowStatus>\r\n", 1);
-			if (ItemIsHiddenAddon(cnt))					FilePrintf(hFile, "\t\t<HiddenAddon>%d</HiddenAddon>\r\n", 1);
-			if (ItemIsTwoHanded(cnt))					FilePrintf(hFile, "\t\t<TwoHanded>%d</TwoHanded>\r\n", 1);
-			if (ItemIsNotBuyable(cnt))					FilePrintf(hFile, "\t\t<NotBuyable>%d</NotBuyable>\r\n", 1);
-			if (ItemIsAttachment(cnt))					FilePrintf(hFile, "\t\t<Attachment>%d</Attachment>\r\n", 1);
-			if (ItemIsHiddenAttachment(cnt))			FilePrintf(hFile, "\t\t<HiddenAttachment>%d</HiddenAttachment>\r\n", 1);
-			if (ItemIsOnlyInTonsOfGuns(cnt))			FilePrintf(hFile, "\t\t<BigGunList>%d</BigGunList>\r\n", 1);
-			if (ItemIsOnlyInScifi(cnt))					FilePrintf(hFile, "\t\t<SciFi>%d</SciFi>\r\n", 1);
-			if (ItemIsOnlyInNIV(cnt))					FilePrintf(hFile, "\t\t<NewInv>%d</NewInv>\r\n", 1);
-			if (ItemIsNotInEditor(cnt))					FilePrintf(hFile, "\t\t<NotInEditor>%d</NotInEditor>\r\n", 1);
-			if (ItemIsUndroppableByDefault(cnt))		FilePrintf(hFile, "\t\t<DefaultUndroppable>%d</DefaultUndroppable>\r\n", 1);
-			if (ItemIsUnaerodynamic(cnt))				FilePrintf(hFile, "\t\t<Unaerodynamic>%d</Unaerodynamic>\r\n", 1);
-			if (ItemIsElectronic(cnt))					FilePrintf(hFile, "\t\t<Electronic>%d</Electronic>\r\n", 1);
-			if (ItemHasHiddenMuzzleFlash(cnt))			FilePrintf(hFile, "\t\t<HideMuzzleFlash>%d</HideMuzzleFlash>\r\n", 1);
-
-			FilePrintf(hFile,"\t\t<AttachmentSystem>%d</AttachmentSystem>\r\n",						Item[cnt].ubAttachmentSystem   );
+			FilePrintf(hFile,"\t\t<AttachmentSystem>%d</AttachmentSystem>\r\n",				Item[cnt].ubAttachmentSystem   );
 			FilePrintf(hFile,"\t\t<Inseparable>%d</Inseparable>\r\n",						Item[cnt].inseparable );
 
-			FilePrintf(hFile,"\t\t<BR_NewInventory>%d</BR_NewInventory>\r\n",						StoreInventory[cnt][0] );
-			FilePrintf(hFile,"\t\t<BR_UsedInventory>%d</BR_UsedInventory>\r\n",						StoreInventory[cnt][1] );
-			FilePrintf(hFile,"\t\t<BR_ROF>%d</BR_ROF>\r\n",						WeaponROF[cnt]);
+			FilePrintf(hFile,"\t\t<BR_NewInventory>%d</BR_NewInventory>\r\n",				StoreInventory[cnt][0] );
+			FilePrintf(hFile,"\t\t<BR_UsedInventory>%d</BR_UsedInventory>\r\n",				StoreInventory[cnt][1] );
+			FilePrintf(hFile,"\t\t<BR_ROF>%d</BR_ROF>\r\n",									WeaponROF[cnt]);
 
-			FilePrintf(hFile,"\t\t<PercentNoiseReduction>%d</PercentNoiseReduction>\r\n",						Item[cnt].percentnoisereduction  );
-			FilePrintf(hFile,"\t\t<Bipod>%d</Bipod>\r\n",						Item[cnt].bipod  );
-			FilePrintf(hFile,"\t\t<RangeBonus>%d</RangeBonus>\r\n",						Item[cnt].rangebonus   );
-			FilePrintf(hFile,"\t\t<PercentRangeBonus>%d</PercentRangeBonus>\r\n",						Item[cnt].rangebonus   );
-			FilePrintf(hFile,"\t\t<ToHitBonus>%d</ToHitBonus>\r\n",						Item[cnt].tohitbonus    );
-			FilePrintf(hFile,"\t\t<AimBonus>%d</AimBonus>\r\n",						Item[cnt].aimbonus   );
-			FilePrintf(hFile,"\t\t<MinRangeForAimBonus>%d</MinRangeForAimBonus>\r\n",						Item[cnt].minrangeforaimbonus  );
+			FilePrintf(hFile,"\t\t<PercentNoiseReduction>%d</PercentNoiseReduction>\r\n",	Item[cnt].percentnoisereduction  );
+			FilePrintf(hFile,"\t\t<Bipod>%d</Bipod>\r\n",									Item[cnt].bipod  );
+			FilePrintf(hFile,"\t\t<RangeBonus>%d</RangeBonus>\r\n",							Item[cnt].rangebonus   );
+			FilePrintf(hFile,"\t\t<PercentRangeBonus>%d</PercentRangeBonus>\r\n",			Item[cnt].rangebonus   );
+			FilePrintf(hFile,"\t\t<ToHitBonus>%d</ToHitBonus>\r\n",							Item[cnt].tohitbonus    );
+			FilePrintf(hFile,"\t\t<AimBonus>%d</AimBonus>\r\n",								Item[cnt].aimbonus   );
+			FilePrintf(hFile,"\t\t<MinRangeForAimBonus>%d</MinRangeForAimBonus>\r\n",		Item[cnt].minrangeforaimbonus  );
 
 			FilePrintf(hFile,"\t\t<MagSizeBonus>%d</MagSizeBonus>\r\n",						Item[cnt].magsizebonus    );
-			FilePrintf(hFile,"\t\t<RateOfFireBonus>%d</RateOfFireBonus>\r\n",						Item[cnt].rateoffirebonus   );
-			FilePrintf(hFile,"\t\t<BulletSpeedBonus>%d</BulletSpeedBonus>\r\n",						Item[cnt].bulletspeedbonus );
-			FilePrintf(hFile,"\t\t<BurstSizeBonus>%d</BurstSizeBonus>\r\n",						Item[cnt].burstsizebonus );
-			FilePrintf(hFile,"\t\t<BestLaserRange>%d</BestLaserRange>\r\n",						Item[cnt].bestlaserrange );
-			FilePrintf(hFile,"\t\t<BurstToHitBonus>%d</BurstToHitBonus>\r\n",						Item[cnt].bursttohitbonus );
-			FilePrintf(hFile,"\t\t<AutofireToHitBonus>%d</AutofireToHitBonus>\r\n",						Item[cnt].autofiretohitbonus);
-			FilePrintf(hFile,"\t\t<APBonus>%d</APBonus>\r\n",						Item[cnt].APBonus );
+			FilePrintf(hFile,"\t\t<RateOfFireBonus>%d</RateOfFireBonus>\r\n",				Item[cnt].rateoffirebonus   );
+			FilePrintf(hFile,"\t\t<BulletSpeedBonus>%d</BulletSpeedBonus>\r\n",				Item[cnt].bulletspeedbonus );
+			FilePrintf(hFile,"\t\t<BurstSizeBonus>%d</BurstSizeBonus>\r\n",					Item[cnt].burstsizebonus );
+			FilePrintf(hFile,"\t\t<BestLaserRange>%d</BestLaserRange>\r\n",					Item[cnt].bestlaserrange );
+			FilePrintf(hFile,"\t\t<BurstToHitBonus>%d</BurstToHitBonus>\r\n",				Item[cnt].bursttohitbonus );
+			FilePrintf(hFile,"\t\t<AutofireToHitBonus>%d</AutofireToHitBonus>\r\n",			Item[cnt].autofiretohitbonus);
+			FilePrintf(hFile,"\t\t<APBonus>%d</APBonus>\r\n",								Item[cnt].APBonus );
 
-			FilePrintf(hFile,"\t\t<PercentBurstFireAPReduction>%d</PercentBurstFireAPReduction>\r\n",						Item[cnt].percentburstfireapreduction    );
-			FilePrintf(hFile,"\t\t<PercentAutofireAPReduction>%d</PercentAutofireAPReduction>\r\n",						Item[cnt].percentautofireapreduction    );
-			FilePrintf(hFile,"\t\t<PercentReadyTimeAPReduction>%d</PercentReadyTimeAPReduction>\r\n",						Item[cnt].percentreadytimeapreduction );
-			FilePrintf(hFile,"\t\t<PercentReloadTimeAPReduction>%d</PercentReloadTimeAPReduction>\r\n",						Item[cnt].percentreloadtimeapreduction );
-			FilePrintf(hFile,"\t\t<PercentAPReduction>%d</PercentAPReduction>\r\n",						Item[cnt].percentapreduction   );
-			FilePrintf(hFile,"\t\t<PercentStatusDrainReduction>%d</PercentStatusDrainReduction>\r\n",						Item[cnt].percentstatusdrainreduction   );
+			FilePrintf(hFile,"\t\t<PercentBurstFireAPReduction>%d</PercentBurstFireAPReduction>\r\n",		Item[cnt].percentburstfireapreduction    );
+			FilePrintf(hFile,"\t\t<PercentAutofireAPReduction>%d</PercentAutofireAPReduction>\r\n",			Item[cnt].percentautofireapreduction    );
+			FilePrintf(hFile,"\t\t<PercentReadyTimeAPReduction>%d</PercentReadyTimeAPReduction>\r\n",		Item[cnt].percentreadytimeapreduction );
+			FilePrintf(hFile,"\t\t<PercentReloadTimeAPReduction>%d</PercentReloadTimeAPReduction>\r\n",		Item[cnt].percentreloadtimeapreduction );
+			FilePrintf(hFile,"\t\t<PercentAPReduction>%d</PercentAPReduction>\r\n",							Item[cnt].percentapreduction   );
+			FilePrintf(hFile,"\t\t<PercentStatusDrainReduction>%d</PercentStatusDrainReduction>\r\n",		Item[cnt].percentstatusdrainreduction   );
 
-			FilePrintf(hFile,"\t\t<DamageBonus>%d</DamageBonus>\r\n",								Item[cnt].damagebonus   );
-			FilePrintf(hFile,"\t\t<MeleeDamageBonus>%d</MeleeDamageBonus>\r\n",						Item[cnt].meleedamagebonus  );
-			FilePrintf(hFile,"\t\t<DiscardedLauncherItem>%d</DiscardedLauncherItem>\r\n",			Item[cnt].discardedlauncheritem  );
+			FilePrintf(hFile,"\t\t<DamageBonus>%d</DamageBonus>\r\n",						Item[cnt].damagebonus   );
+			FilePrintf(hFile,"\t\t<MeleeDamageBonus>%d</MeleeDamageBonus>\r\n",				Item[cnt].meleedamagebonus  );
+			FilePrintf(hFile,"\t\t<DiscardedLauncherItem>%d</DiscardedLauncherItem>\r\n",	Item[cnt].discardedlauncheritem  );
 
-			if (ItemIsMortar(cnt))						FilePrintf(hFile, "\t\t<Mortar>%d</Mortar>\r\n", 1);
-			if (ItemIsRocketLauncher(cnt))				FilePrintf(hFile, "\t\t<RocketLauncher>%d</RocketLauncher>\r\n", 1);
-			if (ItemIsSingleShotRocketLauncher(cnt))	FilePrintf(hFile, "\t\t<SingleShotRocketLauncher>%d</SingleShotRocketLauncher>\r\n", 1);
-			if (ItemIsGrenadeLauncher(cnt))				FilePrintf(hFile, "\t\t<GrenadeLauncher>%d</GrenadeLauncher>\r\n", 1);
-			if (ItemIsDuckbill(cnt))					FilePrintf(hFile, "\t\t<Duckbill>%d</Duckbill>\r\n", 1);
-			if (ItemIsGLgrenade(cnt))					FilePrintf(hFile, "\t\t<GLGrenade>%d</GLGrenade>\r\n", 1);
-			if (ItemIsMine(cnt))						FilePrintf(hFile, "\t\t<Mine>%d</Mine>\r\n", 1);
-			if (ItemIsATMine(cnt))						FilePrintf(hFile, "\t\t<antitankmine>%d</antitankmine>\r\n", 1);
-			if (ItemIsRocketRifle(cnt))					FilePrintf(hFile, "\t\t<RocketRifle>%d</RocketRifle>\r\n", 1);
-			if (ItemHasFingerPrintID(cnt))				FilePrintf(hFile, "\t\t<FingerPrintID>%d</FingerPrintID>\r\n", 1);
-			if (ItemIsCannon(cnt))						FilePrintf(hFile, "\t\t<Cannon>%d</Cannon>\r\n", 1);
 			
 			for(UINT8 cnt2 = 0; cnt2 < MAX_DEFAULT_ATTACHMENTS; cnt2++){
 				if(Item[cnt].defaultattachments[cnt2] != 0){
-					FilePrintf(hFile,"\t\t<DefaultAttachment>%d</DefaultAttachment>\r\n",						Item[cnt].defaultattachments[cnt2]  );
+					FilePrintf(hFile,"\t\t<DefaultAttachment>%d</DefaultAttachment>\r\n",	Item[cnt].defaultattachments[cnt2]  );
 				}
 			}
 
-			if (ItemIsBrassKnuckles(cnt))		FilePrintf(hFile, "\t\t<BrassKnuckles>%d</BrassKnuckles>\r\n", 1);
-			if (ItemIsCrowbar(cnt))				FilePrintf(hFile, "\t\t<Crowbar>%d</Crowbar>\r\n", 1);
-			if (ItemIsRock(cnt))				FilePrintf(hFile, "\t\t<Rock>%d</Rock>\r\n", 1);
 
 			FilePrintf(hFile,"\t\t<BloodiedItem>%d</BloodiedItem>\r\n",						Item[cnt].bloodieditem  );
-			FilePrintf(hFile,"\t\t<CamoBonus>%d</CamoBonus>\r\n",						Item[cnt].camobonus  );
-			FilePrintf(hFile,"\t\t<UrbanCamoBonus>%d</UrbanCamoBonus>\r\n",						Item[cnt].urbanCamobonus  );
-			FilePrintf(hFile,"\t\t<DesertCamoBonus>%d</DesertCamoBonus>\r\n",						Item[cnt].desertCamobonus  );
-			FilePrintf(hFile,"\t\t<SnowCamoBonus>%d</SnowCamoBonus>\r\n",						Item[cnt].snowCamobonus );
+			FilePrintf(hFile,"\t\t<CamoBonus>%d</CamoBonus>\r\n",							Item[cnt].camobonus  );
+			FilePrintf(hFile,"\t\t<UrbanCamoBonus>%d</UrbanCamoBonus>\r\n",					Item[cnt].urbanCamobonus  );
+			FilePrintf(hFile,"\t\t<DesertCamoBonus>%d</DesertCamoBonus>\r\n",				Item[cnt].desertCamobonus  );
+			FilePrintf(hFile,"\t\t<SnowCamoBonus>%d</SnowCamoBonus>\r\n",					Item[cnt].snowCamobonus );
 			FilePrintf(hFile,"\t\t<StealthBonus>%d</StealthBonus>\r\n",						Item[cnt].stealthbonus  );
 
-			if (ItemIsFlakJacket(cnt))			FilePrintf(hFile, "\t\t<FlakJacket>%d</FlakJacket>\r\n", 1);
-			if (ItemIsLeatherJacket(cnt))		FilePrintf(hFile, "\t\t<LeatherJacket>%d</LeatherJacket>\r\n", 1);
-			if (ItemIsDetonator(cnt))			FilePrintf(hFile, "\t\t<Detonator>%d</Detonator>\r\n", 1);
-			if (ItemIsRemoteDetonator(cnt))		FilePrintf(hFile, "\t\t<RemoteDetonator>%d</RemoteDetonator>\r\n", 1);
-			if (ItemIsRemoteTrigger(cnt))		FilePrintf(hFile, "\t\t<RemoteTrigger>%d</RemoteTrigger>\r\n", 1);
-			if (ItemIsLockBomb(cnt))			FilePrintf(hFile, "\t\t<LockBomb>%d</LockBomb>\r\n", 1);
-			if (ItemIsFlare(cnt))				FilePrintf(hFile, "\t\t<Flare>%d</Flare>\r\n", 1);
-			if (ItemIsRobotRemote(cnt))			FilePrintf(hFile, "\t\t<RobotRemoteControl>%d</RobotRemoteControl>\r\n", 1);
-			if (ItemIsWalkman(cnt))				FilePrintf(hFile, "\t\t<Walkman>%d</Walkman>\r\n", 1);
-			if (ItemIsThermalOptics(cnt))		FilePrintf(hFile, "\t\t<ThermalOptics>%d</ThermalOptics>\r\n", 1);
-			if (ItemIsGasmask(cnt))				FilePrintf(hFile, "\t\t<GasMask>%d</GasMask>\r\n", 1);
-
 			FilePrintf(hFile,"\t\t<HearingRangeBonus>%d</HearingRangeBonus>\r\n",						Item[cnt].hearingrangebonus  );
-			FilePrintf(hFile,"\t\t<VisionRangeBonus>%d</VisionRangeBonus>\r\n",						Item[cnt].visionrangebonus  );
-			FilePrintf(hFile,"\t\t<NightVisionRangeBonus>%d</NightVisionRangeBonus>\r\n",						Item[cnt].nightvisionrangebonus  );
-			FilePrintf(hFile,"\t\t<DayVisionRangeBonus>%d</DayVisionRangeBonus>\r\n",						Item[cnt].dayvisionrangebonus  );
-			FilePrintf(hFile,"\t\t<CaveVisionRangeBonus>%d</CaveVisionRangeBonus>\r\n",						Item[cnt].cavevisionrangebonus  );
-			FilePrintf(hFile,"\t\t<BrightLightVisionRangeBonus>%d</BrightLightVisionRangeBonus>\r\n",						Item[cnt].brightlightvisionrangebonus  );
-			FilePrintf(hFile,"\t\t<ItemSizeBonus>%d</ItemSizeBonus>\r\n",						Item[cnt].itemsizebonus  );
-			FilePrintf(hFile,"\t\t<PercentTunnelVision>%d</PercentTunnelVision>\r\n",						Item[cnt].percenttunnelvision );
-			FilePrintf(hFile,"\t\t<Alcohol>%3.2f</Alcohol>\r\n",						Item[cnt].alcohol  );
-
-			if (ItemIsHardware(cnt))			FilePrintf(hFile, "\t\t<Hardware>%d</Hardware>\r\n", 1);
-			if (ItemIsMedical(cnt))				FilePrintf(hFile, "\t\t<Medical>%d</Medical>\r\n", 1);
-			if (ItemIsCamoKit(cnt))				FilePrintf(hFile, "\t\t<CamouflageKit>%d</CamouflageKit>\r\n", 1);
-			if (ItemIsLocksmithKit(cnt))		FilePrintf(hFile, "\t\t<LocksmithKit>%d</LocksmithKit>\r\n", 1);
-			if (ItemIsToolkit(cnt))				FilePrintf(hFile, "\t\t<Toolkit>%d</Toolkit>\r\n", 1);
-			if (ItemIsFirstAidKit(cnt))			FilePrintf(hFile, "\t\t<FirstAidKit>%d</FirstAidKit>\r\n", 1);
-			if (ItemIsMedicalKit(cnt))			FilePrintf(hFile, "\t\t<MedicalKit>%d</MedicalKit>\r\n", 1);
-			if (ItemIsWirecutters(cnt))			FilePrintf(hFile, "\t\t<WireCutters>%d</WireCutters>\r\n", 1);
-			if (ItemIsCanteen(cnt))				FilePrintf(hFile, "\t\t<Canteen>%d</Canteen>\r\n", 1);
-			if (ItemIsGascan(cnt))				FilePrintf(hFile, "\t\t<GasCan>%d</GasCan>\r\n", 1);
-			if (ItemIsMarbles(cnt))				FilePrintf(hFile, "\t\t<Marbles>%d</Marbles>\r\n", 1);
-			if (ItemIsCanAndString(cnt))		FilePrintf(hFile, "\t\t<CanAndString>%d</CanAndString>\r\n", 1);
-			if (ItemIsJar(cnt))					FilePrintf(hFile, "\t\t<Jar>%d</Jar>\r\n", 1);
-			if (ItemHasXRay(cnt))				FilePrintf(hFile, "\t\t<XRay>%d</XRay>\r\n", 1);
-			if (ItemIsBatteries(cnt))			FilePrintf(hFile, "\t\t<Batteries>%d</Batteries>\r\n", 1);
-			if (ItemNeedsBatteries(cnt))		FilePrintf(hFile, "\t\t<NeedsBatteries>%d</NeedsBatteries>\r\n", 1);
-			if (ItemContainsLiquid(cnt))		FilePrintf(hFile, "\t\t<ContainsLiquid>%d</ContainsLiquid>\r\n", 1);
-			if (ItemIsMetalDetector(cnt))		FilePrintf(hFile, "\t\t<MetalDetector>%d</MetalDetector>\r\n", 1);
+			FilePrintf(hFile,"\t\t<VisionRangeBonus>%d</VisionRangeBonus>\r\n",							Item[cnt].visionrangebonus  );
+			FilePrintf(hFile,"\t\t<NightVisionRangeBonus>%d</NightVisionRangeBonus>\r\n",				Item[cnt].nightvisionrangebonus  );
+			FilePrintf(hFile,"\t\t<DayVisionRangeBonus>%d</DayVisionRangeBonus>\r\n",					Item[cnt].dayvisionrangebonus  );
+			FilePrintf(hFile,"\t\t<CaveVisionRangeBonus>%d</CaveVisionRangeBonus>\r\n",					Item[cnt].cavevisionrangebonus  );
+			FilePrintf(hFile,"\t\t<BrightLightVisionRangeBonus>%d</BrightLightVisionRangeBonus>\r\n",	Item[cnt].brightlightvisionrangebonus  );
+			FilePrintf(hFile,"\t\t<ItemSizeBonus>%d</ItemSizeBonus>\r\n",								Item[cnt].itemsizebonus  );
+			FilePrintf(hFile,"\t\t<PercentTunnelVision>%d</PercentTunnelVision>\r\n",					Item[cnt].percenttunnelvision );
+			FilePrintf(hFile,"\t\t<Alcohol>%3.2f</Alcohol>\r\n",											Item[cnt].alcohol  );
 
 			// HEADROCK HAM 4: Print out new values
 			FilePrintf(hFile,"\t\t<ScopeMagFactor>%d</ScopeMagFactor>\r\n",						Item[cnt].scopemagfactor    );
-			FilePrintf(hFile,"\t\t<ProjectionFactor>%d</ProjectionFactor>\r\n",						Item[cnt].projectionfactor    );
-			FilePrintf(hFile,"\t\t<PercentAccuracyModifier>%d</PercentAccuracyModifier>\r\n",		Item[cnt].percentaccuracymodifier    );
-			FilePrintf(hFile,"\t\t<RecoilModifierX>%d</RecoilModifierX>\r\n",						Item[cnt].RecoilModifierX    );
-			FilePrintf(hFile,"\t\t<RecoilModifierY>%d</RecoilModifierY>\r\n",						Item[cnt].RecoilModifierY    );
-			FilePrintf(hFile,"\t\t<PercentRecoilModifier>%d</PercentRecoilModifier>\r\n",			Item[cnt].PercentRecoilModifier		);
+			FilePrintf(hFile,"\t\t<ProjectionFactor>%d</ProjectionFactor>\r\n",					Item[cnt].projectionfactor    );
+			FilePrintf(hFile,"\t\t<PercentAccuracyModifier>%d</PercentAccuracyModifier>\r\n",	Item[cnt].percentaccuracymodifier    );
+			FilePrintf(hFile,"\t\t<RecoilModifierX>%d</RecoilModifierX>\r\n",					Item[cnt].RecoilModifierX    );
+			FilePrintf(hFile,"\t\t<RecoilModifierY>%d</RecoilModifierY>\r\n",					Item[cnt].RecoilModifierY    );
+			FilePrintf(hFile,"\t\t<PercentRecoilModifier>%d</PercentRecoilModifier>\r\n",		Item[cnt].PercentRecoilModifier		);
 
 			// HEADROCK HAM 4: Print out stance-based values
 			FilePrintf(hFile,"\t\t<STAND_MODIFIERS>\r\n");
@@ -2130,7 +2263,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[0]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[0]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[0]    );
-			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",											Item[cnt].aimlevelsmodifier[0]    );
 			FilePrintf(hFile,"\t\t</STAND_MODIFIERS>\r\n");
 
 			FilePrintf(hFile,"\t\t<CROUCH_MODIFIERS>\r\n");
@@ -2143,7 +2276,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[1]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[1]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[1]    );
-			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",											Item[cnt].aimlevelsmodifier[1]    );
 			FilePrintf(hFile,"\t\t</CROUCH_MODIFIERS>\r\n");
 
 			FilePrintf(hFile,"\t\t<PRONE_MODIFIERS>\r\n");
@@ -2156,58 +2289,42 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[2]    );
-			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",											Item[cnt].aimlevelsmodifier[2]    );
 			FilePrintf(hFile,"\t\t</PRONE_MODIFIERS>\r\n");
 
 			// Flugente FTW 1.2
-			if (ItemIsBarrel(cnt))					FilePrintf(hFile, "\t\t<barrel>%d</barrel>\r\n", 1);
-			FilePrintf(hFile,"\t\t<usOverheatingCooldownFactor>%4.2f</usOverheatingCooldownFactor>\r\n",						Item[cnt].usOverheatingCooldownFactor    );
-			FilePrintf(hFile,"\t\t<overheatTemperatureModificator>%4.2f</overheatTemperatureModificator>\r\n",					Item[cnt].overheatTemperatureModificator    );
-			FilePrintf(hFile,"\t\t<overheatCooldownModificator>%4.2f</overheatCooldownModificator>\r\n",						Item[cnt].overheatCooldownModificator    );
-			FilePrintf(hFile,"\t\t<overheatJamThresholdModificator>%4.2f</overheatJamThresholdModificator>\r\n",				Item[cnt].overheatJamThresholdModificator    );
-			FilePrintf(hFile,"\t\t<overheatDamageThresholdModificator>%4.2f</overheatDamageThresholdModificator>\r\n",			Item[cnt].overheatDamageThresholdModificator    );
+			FilePrintf(hFile,"\t\t<usOverheatingCooldownFactor>%4.2f</usOverheatingCooldownFactor>\r\n",				Item[cnt].usOverheatingCooldownFactor    );
+			FilePrintf(hFile,"\t\t<overheatTemperatureModificator>%4.2f</overheatTemperatureModificator>\r\n",		Item[cnt].overheatTemperatureModificator    );
+			FilePrintf(hFile,"\t\t<overheatCooldownModificator>%4.2f</overheatCooldownModificator>\r\n",				Item[cnt].overheatCooldownModificator    );
+			FilePrintf(hFile,"\t\t<overheatJamThresholdModificator>%4.2f</overheatJamThresholdModificator>\r\n",		Item[cnt].overheatJamThresholdModificator    );
+			FilePrintf(hFile,"\t\t<overheatDamageThresholdModificator>%4.2f</overheatDamageThresholdModificator>\r\n",	Item[cnt].overheatDamageThresholdModificator    );
 
-			FilePrintf(hFile,"\t\t<AttachmentClass>%4.2f</AttachmentClass>\r\n",												Item[cnt].attachmentclass    );
-
-			if (ItemHasTripwireActivation(cnt))		FilePrintf(hFile, "\t\t<TripwireActivation>%d</TripwireActivation>\r\n", 1);
-			if (ItemIsTripwire(cnt))				FilePrintf(hFile, "\t\t<TripWire>%d</TripWire>\r\n", 1);
-			if (ItemIsDirectional(cnt))				FilePrintf(hFile, "\t\t<Directional>%d</Directional>\r\n", 1);
-			if (ItemBlocksIronsight(cnt))			FilePrintf(hFile, "\t\t<BlockIronSight>%d</BlockIronSight>\r\n", 1);
-
-			FilePrintf(hFile,"\t\t<ItemFlag>%d</ItemFlag>\r\n",											Item[cnt].usItemFlag  );
-			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype  );
-			FilePrintf(hFile,"\t\t<FoodType>%d</FoodType>\r\n",											Item[cnt].foodtype  );
+			FilePrintf(hFile,"\t\t<AttachmentClass>%4.2f</AttachmentClass>\r\n",							Item[cnt].attachmentclass );
+			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype );
+			FilePrintf(hFile,"\t\t<FoodType>%d</FoodType>\r\n",											Item[cnt].foodtype );
 			
 			//JMich_SkillModifiers: Adding the values here as well
-			FilePrintf(hFile, "\t\t<LockPickModifier>%d</LockPickModifier>\r\n",						Item[cnt].LockPickModifier );
+			FilePrintf(hFile, "\t\t<LockPickModifier>%d</LockPickModifier>\r\n",							Item[cnt].LockPickModifier );
 			FilePrintf(hFile, "\t\t<CrowbarModifier>%d</CrowbarModifier>\r\n",							Item[cnt].CrowbarModifier );
-			FilePrintf(hFile, "\t\t<DisarmModifier>%d</DisarmModifier>\r\n",							Item[cnt].DisarmModifier );
-			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",							Item[cnt].RepairModifier );
+			FilePrintf(hFile, "\t\t<DisarmModifier>%d</DisarmModifier>\r\n",								Item[cnt].DisarmModifier );
+			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",								Item[cnt].RepairModifier );
 			FilePrintf(hFile, "\t\t<usHackingModifier>%d</usHackingModifier>\r\n",						Item[cnt].usHackingModifier );
-			FilePrintf(hFile, "\t\t<usBurialModifier>%d</usBurialModifier>\r\n",						Item[cnt].usBurialModifier );
+			FilePrintf(hFile, "\t\t<usBurialModifier>%d</usBurialModifier>\r\n",							Item[cnt].usBurialModifier );
 			
 			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
 			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );
 
-			FilePrintf(hFile,"\t\t<usActionItemFlag>%d</usActionItemFlag>\r\n",							Item[cnt].usActionItemFlag  );
-			FilePrintf(hFile,"\t\t<clothestype>%d</clothestype>\r\n",									Item[cnt].clothestype  );
-			FilePrintf(hFile,"\t\t<randomitem>%d</randomitem>\r\n",										Item[cnt].randomitem  );
+			FilePrintf(hFile,"\t\t<usActionItemFlag>%d</usActionItemFlag>\r\n",								Item[cnt].usActionItemFlag  );
+			FilePrintf(hFile,"\t\t<clothestype>%d</clothestype>\r\n",										Item[cnt].clothestype  );
+			FilePrintf(hFile,"\t\t<randomitem>%d</randomitem>\r\n",											Item[cnt].randomitem  );
 			FilePrintf(hFile,"\t\t<randomitemcoolnessmodificator>%d</randomitemcoolnessmodificator>\r\n",	Item[cnt].randomitemcoolnessmodificator  );
-			FilePrintf(hFile,"\t\t<FlashLightRange>%d</FlashLightRange>\r\n",							Item[cnt].usFlashLightRange  );
-			FilePrintf(hFile,"\t\t<ItemChoiceTimeSetting>%d</ItemChoiceTimeSetting>\r\n",				Item[cnt].usItemChoiceTimeSetting  );
-			FilePrintf(hFile,"\t\t<buddyitem>%d</buddyitem>\r\n",										Item[cnt].usBuddyItem  );
-			FilePrintf(hFile,"\t\t<SleepModifier>%d</SleepModifier>\r\n",								Item[cnt].ubSleepModifier  );
-			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",										Item[cnt].usSpotting  );
-			FilePrintf(hFile,"\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
-			FilePrintf(hFile,"\t\t<usPortionSize>%d</usPortionSize>\r\n",								Item[cnt].usPortionSize );
-
-			if (ItemAllowsClimbing(cnt))					FilePrintf(hFile, "\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n", 1);
-			if (ItemIsCigarette(cnt))						FilePrintf(hFile, "\t\t<cigarette>%d</cigarette>\r\n", 1);
-			if ( HasItemFlag( cnt, DISEASEPROTECTION_1 ) )	FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
-			if ( HasItemFlag( cnt, DISEASEPROTECTION_2 ) )	FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
-			if ( HasItemFlag( cnt, BLOOD_BAG) )				FilePrintf( hFile, "\t\t<bloodbag>%d</bloodbag>\r\n", 1 );
-			if ( HasItemFlag( cnt, EMPTY_BLOOD_BAG ) )		FilePrintf( hFile, "\t\t<emptybloodbag>%d</emptybloodbag>\r\n", 1 );
-			if ( HasItemFlag( cnt, MEDICAL_SPLINT ) )		FilePrintf( hFile, "\t\t<medicalsplint>%d</medicalsplint>\r\n", 1 );
+			FilePrintf(hFile,"\t\t<FlashLightRange>%d</FlashLightRange>\r\n",								Item[cnt].usFlashLightRange  );
+			FilePrintf(hFile,"\t\t<ItemChoiceTimeSetting>%d</ItemChoiceTimeSetting>\r\n",					Item[cnt].usItemChoiceTimeSetting  );
+			FilePrintf(hFile,"\t\t<buddyitem>%d</buddyitem>\r\n",											Item[cnt].usBuddyItem  );
+			FilePrintf(hFile,"\t\t<SleepModifier>%d</SleepModifier>\r\n",									Item[cnt].ubSleepModifier  );
+			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",											Item[cnt].usSpotting  );
+			FilePrintf(hFile,"\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",				Item[cnt].sBackpackWeightModifier);
+			FilePrintf(hFile,"\t\t<usPortionSize>%d</usPortionSize>\r\n",									Item[cnt].usPortionSize );
 						
 			FilePrintf(hFile,"\t\t<usRiotShieldStrength>%d</usRiotShieldStrength>\r\n",					Item[cnt].usRiotShieldStrength );
 			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );
@@ -2221,10 +2338,117 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<RobotChassisSkillGrant>%d</RobotChassisSkillGrant>\r\n",				Item[cnt].bRobotChassisSkillGrant );
 			FilePrintf(hFile,"\t\t<RobotUtilitySkillGrant>%d</RobotUtilitySkillGrant>\r\n",				Item[cnt].bRobotUtilitySkillGrant );
 
-			if (ItemProvidesRobotCamo(cnt))					FilePrintf(hFile, "\t\t<ProvidesRobotCamo>%d</ProvidesRobotCamo>\r\n", 1);
-			if (ItemProvidesRobotNightvision(cnt))			FilePrintf(hFile, "\t\t<ProvidesRobotNightVision>%d</ProvidesRobotNightVision>\r\n", 1);
-			if (ItemProvidesRobotLaserBonus(cnt))			FilePrintf(hFile, "\t\t<ProvidesRobotLaserBonus>%d</ProvidesRobotLaserBonus>\r\n", 1);
-			if (ItemIsOnlyInDisease(cnt))					FilePrintf(hFile, "\t\t<DiseaseSystemExclusive>%d</DiseaseSystemExclusive>\r\n", 1);
+			// usItemFlag
+			if ( HasItemFlag( cnt, BLOOD_BAG ) )				FilePrintf( hFile, "\t\t<Bloodbag>%d</Bloodbag>\r\n", 1 );
+			if ( HasItemFlag( cnt, MANPAD ) )				FilePrintf( hFile, "\t\t<Manpad>%d</Manpad>\r\n", 1 );
+			if ( HasItemFlag( cnt, BEARTRAP ) )				FilePrintf( hFile, "\t\t<Beartrap>%d</Beartrap>\r\n", 1 );
+			if ( HasItemFlag( cnt, CAMERA ) )				FilePrintf( hFile, "\t\t<Camera>%d</Camera>\r\n", 1 );
+			if ( HasItemFlag( cnt, WATER_DRUM ) )			FilePrintf( hFile, "\t\t<Waterdrum>%d</Waterdrum>\r\n", 1 );
+			if ( HasItemFlag( cnt, MEAT_BLOODCAT ) )			FilePrintf( hFile, "\t\t<BloodcatMeat>%d</BloodcatMeat>\r\n", 1 );
+			if ( HasItemFlag( cnt, MEAT_COW ) )				FilePrintf( hFile, "\t\t<CowMeat>%d</CowMeat>\r\n", 1 );
+			if ( HasItemFlag( cnt, BELT_FED ) )				FilePrintf( hFile, "\t\t<Beltfed>%d</Beltfed>\r\n", 1 );
+			if ( HasItemFlag( cnt, AMMO_BELT ) )				FilePrintf( hFile, "\t\t<Ammobelt>%d</Ammobelt>\r\n", 1 );
+			if ( HasItemFlag( cnt, AMMO_BELT_VEST ) )		FilePrintf( hFile, "\t\t<AmmobeltVest>%d</AmmobeltVest>\r\n", 1 );
+			if ( HasItemFlag( cnt, CAMO_REMOVAL ) )			FilePrintf( hFile, "\t\t<CamoRemoval>%d</CamoRemoval>\r\n", 1 );
+			if ( HasItemFlag( cnt, CLEANING_KIT ) )			FilePrintf( hFile, "\t\t<Cleaningkit>%d</Cleaningkit>\r\n", 1 );
+			if ( HasItemFlag( cnt, ATTENTION_ITEM ) )		FilePrintf( hFile, "\t\t<AttentionItem>%d</AttentionItem>\r\n", 1 );
+			if ( HasItemFlag( cnt, GAROTTE ) )				FilePrintf( hFile, "\t\t<Garotte>%d</Garotte>\r\n", 1 );
+			if ( HasItemFlag( cnt, COVERT ) )				FilePrintf( hFile, "\t\t<Covert>%d</Covert>\r\n", 1 );
+			if ( HasItemFlag( cnt, CORPSE ) )				FilePrintf( hFile, "\t\t<Corpse>%d</Corpse>\r\n", 1 );
+			if ( HasItemFlag( cnt, SKIN_BLOODCAT ) )			FilePrintf( hFile, "\t\t<BloodcatSkin>%d</BloodcatSkin>\r\n", 1 );
+			if ( HasItemFlag( cnt, NO_METAL_DETECTION ) )	FilePrintf( hFile, "\t\t<NoMetalDetection>%d</NoMetalDetection>\r\n", 1 );
+			if ( HasItemFlag( cnt, JUMP_GRENADE ) )			FilePrintf( hFile, "\t\t<JumpGrenade>%d</JumpGrenade>\r\n", 1 );
+			if ( HasItemFlag( cnt, HANDCUFFS ) )				FilePrintf( hFile, "\t\t<Handcuffs>%d</Handcuffs>\r\n", 1 );
+			if ( HasItemFlag( cnt, TASER ) )					FilePrintf( hFile, "\t\t<Taser>%d</Taser>\r\n", 1 );
+			if ( HasItemFlag( cnt, SCUBA_BOTTLE ) )			FilePrintf( hFile, "\t\t<ScubaBottle>%d</ScubaBottle>\r\n", 1 );
+			if ( HasItemFlag( cnt, SCUBA_MASK ) )			FilePrintf( hFile, "\t\t<ScubaMask>%d</ScubaMask>\r\n", 1 );
+			if ( HasItemFlag( cnt, SCUBA_FINS ) )			FilePrintf( hFile, "\t\t<ScubaFins>%d</ScubaFins>\r\n", 1 );
+			if ( HasItemFlag( cnt, TRIPWIREROLL ) )			FilePrintf( hFile, "\t\t<TripwireRoll>%d</TripwireRoll>\r\n", 1 );
+			if ( HasItemFlag( cnt, RADIO_SET ) )				FilePrintf( hFile, "\t\t<Radioset>%d</Radioset>\r\n", 1 );
+			if ( HasItemFlag( cnt, SIGNAL_SHELL ) )			FilePrintf( hFile, "\t\t<SignalShell>%d</SignalShell>\r\n", 1 );
+			if ( HasItemFlag( cnt, SODA ) )					FilePrintf( hFile, "\t\t<Soda>%d</Soda>\r\n", 1 );
+			if ( HasItemFlag( cnt, ROOF_COLLAPSE_ITEM ) )	FilePrintf( hFile, "\t\t<RoofcollapseItem>%d</RoofcollapseItem>\r\n", 1 );
+			if ( HasItemFlag( cnt, DISEASEPROTECTION_1 ) )	FilePrintf( hFile, "\t\t<DiseaseprotectionFace>%d</DiseaseprotectionFace>\r\n", 1 );
+			if ( HasItemFlag( cnt, DISEASEPROTECTION_2 ) )	FilePrintf( hFile, "\t\t<DiseaseprotectionHand>%d</DiseaseprotectionHand>\r\n", 1 );
+			if ( HasItemFlag( cnt, LBE_EXPLOSIONPROOF ) )	FilePrintf( hFile, "\t\t<LBEexplosionproof>%d</LBEexplosionproof>\r\n", 1 );
+			if ( HasItemFlag( cnt, EMPTY_BLOOD_BAG ) )		FilePrintf( hFile, "\t\t<EmptyBloodbag>%d</EmptyBloodbag>\r\n", 1 );
+			if ( HasItemFlag( cnt, MEDICAL_SPLINT ) )		FilePrintf( hFile, "\t\t<MedicalSplint>%d</MedicalSplint>\r\n", 1 );
+			if ( ItemIsDamageable( cnt ) )					FilePrintf( hFile, "\t\t<Damageable>%d</Damageable>\r\n", 1 );
+			if ( ItemIsRepairable( cnt ) )					FilePrintf( hFile, "\t\t<Repairable>%d</Repairable>\r\n", 1 );
+			if ( ItemIsDamagedByWater( cnt ) )				FilePrintf( hFile, "\t\t<WaterDamages>%d</WaterDamages>\r\n", 1 );
+			if ( ItemIsMetal( cnt ) )						FilePrintf( hFile, "\t\t<Metal>%d</Metal>\r\n", 1 );
+			if ( ItemSinks( cnt ) )							FilePrintf( hFile, "\t\t<Sinks>%d</Sinks>\r\n", 1 );
+			if ( HasItemFlag( cnt, ITEM_showstatus ) )		FilePrintf( hFile, "\t\t<ShowStatus>%d</ShowStatus>\r\n", 1 );
+			if ( ItemIsHiddenAddon( cnt ) )					FilePrintf( hFile, "\t\t<HiddenAddon>%d</HiddenAddon>\r\n", 1 );
+			if ( ItemIsTwoHanded( cnt ) )					FilePrintf( hFile, "\t\t<TwoHanded>%d</TwoHanded>\r\n", 1 );
+			if ( ItemIsNotBuyable( cnt ) )					FilePrintf( hFile, "\t\t<NotBuyable>%d</NotBuyable>\r\n", 1 );
+			if ( ItemIsAttachment( cnt ) )					FilePrintf( hFile, "\t\t<Attachment>%d</Attachment>\r\n", 1 );
+			if ( ItemIsHiddenAttachment( cnt ) )				FilePrintf( hFile, "\t\t<HiddenAttachment>%d</HiddenAttachment>\r\n", 1 );
+			if ( ItemIsOnlyInTonsOfGuns( cnt ) )				FilePrintf( hFile, "\t\t<BigGunList>%d</BigGunList>\r\n", 1 );
+			if ( ItemIsNotInEditor( cnt ) )					FilePrintf( hFile, "\t\t<NotInEditor>%d</NotInEditor>\r\n", 1 );
+			if ( ItemIsUndroppableByDefault( cnt ) )			FilePrintf( hFile, "\t\t<DefaultUndroppable>%d</DefaultUndroppable>\r\n", 1 );
+			if ( ItemIsUnaerodynamic( cnt ) )				FilePrintf( hFile, "\t\t<Unaerodynamic>%d</Unaerodynamic>\r\n", 1 );
+			if ( ItemIsElectronic( cnt ) )					FilePrintf( hFile, "\t\t<Electronic>%d</Electronic>\r\n", 1 );
+			if ( ItemIsCannon( cnt ) )						FilePrintf( hFile, "\t\t<Cannon>%d</Cannon>\r\n", 1 );
+			if ( ItemIsRocketRifle( cnt ) )					FilePrintf( hFile, "\t\t<RocketRifle>%d</RocketRifle>\r\n", 1 );
+			if ( ItemHasFingerPrintID( cnt ) )				FilePrintf( hFile, "\t\t<FingerPrintID>%d</FingerPrintID>\r\n", 1 );
+			if ( ItemIsMetalDetector( cnt ) )				FilePrintf( hFile, "\t\t<MetalDetector>%d</MetalDetector>\r\n", 1 );
+			if ( ItemIsGasmask( cnt ) )						FilePrintf( hFile, "\t\t<GasMask>%d</GasMask>\r\n", 1 );
+			if ( ItemIsLockBomb( cnt ) )						FilePrintf( hFile, "\t\t<LockBomb>%d</LockBomb>\r\n", 1 );
+			if ( ItemIsFlare( cnt ) )						FilePrintf( hFile, "\t\t<Flare>%d</Flare>\r\n", 1 );
+			if ( ItemIsGrenadeLauncher( cnt ) )				FilePrintf( hFile, "\t\t<GrenadeLauncher>%d</GrenadeLauncher>\r\n", 1 );
+			if ( ItemIsMortar( cnt ) )						FilePrintf( hFile, "\t\t<Mortar>%d</Mortar>\r\n", 1 );
+			if ( ItemIsDuckbill( cnt ) )						FilePrintf( hFile, "\t\t<Duckbill>%d</Duckbill>\r\n", 1 );
+			if ( ItemIsDetonator( cnt ) )					FilePrintf( hFile, "\t\t<Detonator>%d</Detonator>\r\n", 1 );
+			if ( ItemIsRemoteDetonator( cnt ) )				FilePrintf( hFile, "\t\t<RemoteDetonator>%d</RemoteDetonator>\r\n", 1 );
+			if ( ItemHasHiddenMuzzleFlash( cnt ) )			FilePrintf( hFile, "\t\t<HideMuzzleFlash>%d</HideMuzzleFlash>\r\n", 1 );
+			if ( ItemIsRocketLauncher( cnt ) )				FilePrintf( hFile, "\t\t<RocketLauncher>%d</RocketLauncher>\r\n", 1 );
+
+			// usItemFlag2
+			if ( ItemIsSingleShotRocketLauncher( cnt ) )		FilePrintf( hFile, "\t\t<SingleShotRocketLauncher>%d</SingleShotRocketLauncher>\r\n", 1 );
+			if ( ItemIsBrassKnuckles( cnt ) )				FilePrintf( hFile, "\t\t<BrassKnuckles>%d</BrassKnuckles>\r\n", 1 );
+			if ( ItemIsCrowbar( cnt ) )						FilePrintf( hFile, "\t\t<Crowbar>%d</Crowbar>\r\n", 1 );
+			if ( ItemIsGLgrenade( cnt ) )					FilePrintf( hFile, "\t\t<GLGrenade>%d</GLGrenade>\r\n", 1 );
+			if ( ItemIsFlakJacket( cnt ) )					FilePrintf( hFile, "\t\t<FlakJacket>%d</FlakJacket>\r\n", 1 );
+			if ( ItemIsLeatherJacket( cnt ) )				FilePrintf( hFile, "\t\t<LeatherJacket>%d</LeatherJacket>\r\n", 1 );
+			if ( ItemIsBatteries( cnt ) )					FilePrintf( hFile, "\t\t<Batteries>%d</Batteries>\r\n", 1 );
+			if ( ItemNeedsBatteries( cnt ) )					FilePrintf( hFile, "\t\t<NeedsBatteries>%d</NeedsBatteries>\r\n", 1 );
+			if ( ItemHasXRay( cnt ) )						FilePrintf( hFile, "\t\t<XRay>%d</XRay>\r\n", 1 );
+			if ( ItemIsWirecutters( cnt ) )					FilePrintf( hFile, "\t\t<WireCutters>%d</WireCutters>\r\n", 1 );
+			if ( ItemIsToolkit( cnt ) )						FilePrintf( hFile, "\t\t<Toolkit>%d</Toolkit>\r\n", 1 );
+			if ( ItemIsFirstAidKit( cnt ) )					FilePrintf( hFile, "\t\t<FirstAidKit>%d</FirstAidKit>\r\n", 1 );
+			if ( ItemIsMedicalKit( cnt ) )					FilePrintf( hFile, "\t\t<MedicalKit>%d</MedicalKit>\r\n", 1 );
+			if ( ItemIsCanteen( cnt ) )						FilePrintf( hFile, "\t\t<Canteen>%d</Canteen>\r\n", 1 );
+			if ( ItemIsJar( cnt ) )							FilePrintf( hFile, "\t\t<Jar>%d</Jar>\r\n", 1 );
+			if ( ItemIsCanAndString( cnt ) )					FilePrintf( hFile, "\t\t<CanAndString>%d</CanAndString>\r\n", 1 );
+			if ( ItemIsMarbles( cnt ) )						FilePrintf( hFile, "\t\t<Marbles>%d</Marbles>\r\n", 1 );
+			if ( ItemIsWalkman( cnt ) )						FilePrintf( hFile, "\t\t<Walkman>%d</Walkman>\r\n", 1 );
+			if ( ItemIsRemoteTrigger( cnt ) )				FilePrintf( hFile, "\t\t<RemoteTrigger>%d</RemoteTrigger>\r\n", 1 );
+			if ( ItemIsRobotRemote( cnt ) )					FilePrintf( hFile, "\t\t<RobotRemoteControl>%d</RobotRemoteControl>\r\n", 1 );
+			if ( ItemIsCamoKit( cnt ) )						FilePrintf( hFile, "\t\t<CamouflageKit>%d</CamouflageKit>\r\n", 1 );
+			if ( ItemIsLocksmithKit( cnt ) )					FilePrintf( hFile, "\t\t<LocksmithKit>%d</LocksmithKit>\r\n", 1 );
+			if ( ItemIsMine( cnt ) )							FilePrintf( hFile, "\t\t<Mine>%d</Mine>\r\n", 1 );
+			if ( ItemIsATMine( cnt ) )						FilePrintf( hFile, "\t\t<AntitankMine>%d</AntitankMine>\r\n", 1 );
+			if ( ItemIsHardware( cnt ) )						FilePrintf( hFile, "\t\t<Hardware>%d</Hardware>\r\n", 1 );
+			if ( ItemIsMedical( cnt ) )						FilePrintf( hFile, "\t\t<Medical>%d</Medical>\r\n", 1 );
+			if ( ItemIsGascan( cnt ) )						FilePrintf( hFile, "\t\t<GasCan>%d</GasCan>\r\n", 1 );
+			if ( ItemContainsLiquid( cnt ) )					FilePrintf( hFile, "\t\t<ContainsLiquid>%d</ContainsLiquid>\r\n", 1 );
+			if ( ItemIsRock( cnt ) )							FilePrintf( hFile, "\t\t<Rock>%d</Rock>\r\n", 1 );
+			if ( ItemIsThermalOptics( cnt ) )				FilePrintf( hFile, "\t\t<ThermalOptics>%d</ThermalOptics>\r\n", 1 );
+			if ( ItemIsOnlyInScifi( cnt ) )					FilePrintf( hFile, "\t\t<SciFi>%d</SciFi>\r\n", 1 );
+			if ( ItemIsOnlyInNIV( cnt ) )					FilePrintf( hFile, "\t\t<NewInv>%d</NewInv>\r\n", 1 );
+			if ( ItemIsOnlyInDisease( cnt ) )				FilePrintf( hFile, "\t\t<DiseaseSystemExclusive>%d</DiseaseSystemExclusive>\r\n", 1 );
+			if ( ItemIsBarrel( cnt ) )						FilePrintf( hFile, "\t\t<Barrel>%d</Barrel>\r\n", 1 );
+			if ( ItemHasTripwireActivation( cnt ) )			FilePrintf( hFile, "\t\t<TripwireActivation>%d</TripwireActivation>\r\n", 1 );
+			if ( ItemIsTripwire( cnt ) )						FilePrintf( hFile, "\t\t<TripWire>%d</TripWire>\r\n", 1 );
+			if ( ItemIsDirectional( cnt ) )					FilePrintf( hFile, "\t\t<Directional>%d</Directional>\r\n", 1 );
+			if ( ItemBlocksIronsight( cnt ) )				FilePrintf( hFile, "\t\t<BlockIronSight>%d</BlockIronSight>\r\n", 1 );
+			if ( ItemAllowsClimbing( cnt ) )					FilePrintf( hFile, "\t\t<AllowClimbing>%d</AllowClimbing>\r\n", 1 );
+			if ( ItemIsCigarette( cnt ) )					FilePrintf( hFile, "\t\t<Cigarette>%d</Cigarette>\r\n", 1 );
+			if ( ItemProvidesRobotCamo( cnt ) )				FilePrintf( hFile, "\t\t<ProvidesRobotCamo>%d</ProvidesRobotCamo>\r\n", 1 );
+			if ( ItemProvidesRobotNightvision( cnt ) )		FilePrintf( hFile, "\t\t<ProvidesRobotNightVision>%d</ProvidesRobotNightVision>\r\n", 1 );
+			if ( ItemProvidesRobotLaserBonus( cnt ) )		FilePrintf( hFile, "\t\t<ProvidesRobotLaserBonus>%d</ProvidesRobotLaserBonus>\r\n", 1 );
+
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

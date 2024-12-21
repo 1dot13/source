@@ -738,18 +738,18 @@ extern OBJECTTYPE gTempObject;
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 #define BLOOD_BAG				0x00000001	//1			// this item is a blood bag can can be used to boost surgery
 #define MANPAD					0x00000002	//2			// this item is a MAn-Portable Air-Defense System
-#define BEARTRAP				0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
+#define BEARTRAP					0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
 #define CAMERA					0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
 #define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
 #define MEAT_COW   				0x00000040	//64		// retrieve this by gutting a cow
-#define BELT_FED				0x00000080	//128		// item can be fed externally
+#define BELT_FED					0x00000080	//128		// item can be fed externally
 
 #define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
 #define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
-#define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
-#define CLEANING_KIT			0x00000800	//2048		// weapon cleaning kit
+#define CAMO_REMOVAL				0x00000400	//1024		// item can be used to remove camo
+#define CLEANING_KIT				0x00000800	//2048		// weapon cleaning kit
 
 #define ATTENTION_ITEM			0x00001000	//4096		// this item is 'interesting' to the AI. Dumb soldiers may try to pick it up
 #define GAROTTE					0x00002000	//8192		// this item is a garotte
@@ -758,18 +758,18 @@ extern OBJECTTYPE gTempObject;
 
 #define SKIN_BLOODCAT			0x00010000	//65536		// retrieve this by skinning (=decapitating) a bloodcat
 #define NO_METAL_DETECTION      0x00020000	//131072	// a planted bomb with this flag can NOT be detected via metal detector. Use sparingly!
-#define JUMP_GRENADE			0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
+#define JUMP_GRENADE				0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
 #define HANDCUFFS				0x00080000	//524288	// item can be used to capture soldiers
 
 #define TASER					0x00100000	//1048576	// item is a taser, melee hits with this will drain breath (if batteries are supplied)
-#define SCUBA_BOTTLE			0x00200000	//2097152	// item is a scuba gear air bottle
+#define SCUBA_BOTTLE				0x00200000	//2097152	// item is a scuba gear air bottle
 #define SCUBA_MASK				0x00400000	//4194304	// item is a scuba gear breathing mask
 #define SCUBA_FINS				0x00800000	//8388608	// this item speed up swimming, but slows walking and running
 
-#define TRIPWIREROLL			0x01000000	//16777216	// this item is a tripwire roll
+#define TRIPWIREROLL				0x01000000	//16777216	// this item is a tripwire roll
 #define RADIO_SET				0x02000000	//33554432	// item can be used to radio militia/squads in other sectors
-#define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
-#define SODA					0x08000000	//134217728	// item is a can of soda, sold in vending machines
+#define SIGNAL_SHELL				0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
+#define SODA						0x08000000	//134217728	// item is a can of soda, sold in vending machines
 
 #define ROOF_COLLAPSE_ITEM		0x10000000	//268435456	// this item is required in the collapsing of roof tiles. It is used internally and should never be seen by the player
 #define DISEASEPROTECTION_1		0x20000000	//536870912		// this item protects us from getting diseases by human contact if kept in inventory
@@ -787,40 +787,40 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_sinks				0x0000004000000000
 #define ITEM_showstatus			0x0000008000000000
 
-#define ITEM_hiddenaddon		0x0000010000000000
+#define ITEM_hiddenaddon			0x0000010000000000
 #define ITEM_twohanded			0x0000020000000000
 #define ITEM_notbuyable			0x0000040000000000
 #define ITEM_attachment			0x0000080000000000
 
 #define ITEM_hiddenattachment	0x0000100000000000
 #define ITEM_biggunlist			0x0000200000000000
-#define ITEM_notineditor		0x0000400000000000
+#define ITEM_notineditor			0x0000400000000000
 #define ITEM_defaultundroppable	0x0000800000000000
 
 #define ITEM_unaerodynamic		0x0001000000000000
 #define ITEM_electronic			0x0002000000000000
 #define ITEM_cannon				0x0004000000000000
-#define ITEM_rocketrifle		0x0008000000000000
+#define ITEM_rocketrifle			0x0008000000000000
 
 #define ITEM_fingerprintid		0x0010000000000000
 #define ITEM_metaldetector		0x0020000000000000
-#define ITEM_gasmask			0x0040000000000000
+#define ITEM_gasmask				0x0040000000000000
 #define ITEM_lockbomb			0x0080000000000000
 
 #define ITEM_flare				0x0100000000000000
-#define ITEM_grenadelauncher	0x0200000000000000
+#define ITEM_grenadelauncher		0x0200000000000000
 #define ITEM_mortar				0x0400000000000000
 #define ITEM_duckbill			0x0800000000000000
 
 #define ITEM_detonator			0x1000000000000000
-#define ITEM_remotedetonator	0x2000000000000000
-#define ITEM_hidemuzzleflash	0x4000000000000000
+#define ITEM_remotedetonator		0x2000000000000000
+#define ITEM_hidemuzzleflash		0x4000000000000000
 #define ITEM_rocketlauncher		0x8000000000000000
 
 // New UINT64 Item Flag => usItemFlag2
 #define ITEM_singleshotrocketlauncher	0x00000001
 #define ITEM_brassknuckles				0x00000002
-#define ITEM_crowbar					0x00000004
+#define ITEM_crowbar						0x00000004
 #define ITEM_glgrenade					0x00000008
 
 #define ITEM_flakjacket					0x00000010
@@ -829,17 +829,17 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_needsbatteries				0x00000080
 
 #define ITEM_xray						0x00000100
-#define ITEM_wirecutters				0x00000200
-#define ITEM_toolkit					0x00000400
-#define ITEM_firstaidkit				0x00000800
+#define ITEM_wirecutters					0x00000200
+#define ITEM_toolkit						0x00000400
+#define ITEM_firstaidkit					0x00000800
 
 #define ITEM_medicalkit					0x00001000
-#define ITEM_canteen					0x00002000
-#define ITEM_jar						0x00004000
+#define ITEM_canteen						0x00002000
+#define ITEM_jar							0x00004000
 #define ITEM_canandstring				0x00008000
 
-#define ITEM_marbles					0x00010000
-#define ITEM_walkman					0x00020000
+#define ITEM_marbles						0x00010000
+#define ITEM_walkman						0x00020000
 #define ITEM_remotetrigger				0x00040000
 #define ITEM_robotremotecontrol			0x00080000
 
@@ -849,7 +849,7 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_antitankmine				0x00800000
 
 #define ITEM_hardware					0x01000000
-#define ITEM_medical					0x02000000
+#define ITEM_medical						0x02000000
 #define ITEM_gascan						0x04000000
 #define ITEM_containsliquid				0x08000000
 
@@ -863,7 +863,7 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_tripwireactivation			0x0000000400000000		// item (mine) can be activated by nearby tripwire
 #define ITEM_tripwire					0x0000000800000000		// item is tripwire
 
-#define ITEM_directional				0x0000001000000000		// item is a directional mine/bomb (actual direction is set upon planting)
+#define ITEM_directional					0x0000001000000000		// item is a directional mine/bomb (actual direction is set upon planting)
 #define ITEM_blockironsight				0x0000002000000000		// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
 #define ITEM_fAllowClimbing				0x0000004000000000		// JMich: BackpackClimb does item allow climbing while wearing it
 #define ITEM_cigarette					0x0000008000000000		// Flugente: this item can be smoked
