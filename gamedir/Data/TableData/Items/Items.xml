@@ -32,6 +32,7 @@
 		<BR_UsedInventory>0</BR_UsedInventory>
 		<BR_ROF>0</BR_ROF>
 		<DrugType>0</DrugType>
+		<FoodType>0</FoodType>
 		<usActionItemFlag>0</usActionItemFlag>
 		<clothestype>0</clothestype>
 		<spreadPattern></spreadPattern>
@@ -236,6 +237,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -248,6 +250,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -260,6 +263,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -6548,6 +6552,7 @@
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>5</BR_NewInventory>
+		<FoodType>1</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -7304,6 +7309,7 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>2</DrugType>
+		<FoodType>2</FoodType>
 		<Alcohol>192</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>10</usPortionSize>
@@ -7521,6 +7527,7 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>4</DrugType>
+		<FoodType>4</FoodType>
 		<Alcohol>61.6</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
@@ -7546,6 +7553,7 @@
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>3</DrugType>
+		<FoodType>3</FoodType>
 		<Alcohol>16.56</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>

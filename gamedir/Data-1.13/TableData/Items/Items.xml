@@ -32,6 +32,7 @@
 		<BR_UsedInventory>0</BR_UsedInventory>
 		<BR_ROF>0</BR_ROF>
 		<DrugType>0</DrugType>
+		<FoodType>0</FoodType>
 		<usActionItemFlag>0</usActionItemFlag>
 		<clothestype>0</clothestype>
 		<spreadPattern></spreadPattern>
@@ -236,6 +237,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -248,6 +250,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -260,6 +263,7 @@
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
 			<FlatAim>0</FlatAim>
+			<PercentAim>0</PercentAim>
 			<PercentCap>0</PercentCap>
 			<PercentHandling>0</PercentHandling>
 			<PercentTargetTrackingSpeed>0</PercentTargetTrackingSpeed>
@@ -6753,6 +6757,7 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>5</BR_NewInventory>
+		<FoodType>1</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -7517,6 +7522,7 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>2</DrugType>
+		<FoodType>2</FoodType>
 		<Alcohol>192</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>10</usPortionSize>
@@ -7736,6 +7742,7 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>4</DrugType>
+		<FoodType>4</FoodType>
 		<Alcohol>61.6</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
@@ -7761,6 +7768,7 @@
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>3</DrugType>
+		<FoodType>3</FoodType>
 		<Alcohol>16.56</Alcohol>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
@@ -46702,6 +46710,7 @@
 		<usPrice>16</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<BR_NewInventory>3</BR_NewInventory>
+		<FoodType>5</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46726,6 +46735,7 @@
 		<usPrice>12</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<BR_NewInventory>25</BR_NewInventory>
+		<FoodType>6</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46750,6 +46760,7 @@
 		<usPrice>28</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<BR_NewInventory>20</BR_NewInventory>
+		<FoodType>7</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46773,6 +46784,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>15</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>8</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>10</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46796,6 +46808,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>12</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>9</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>15</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46819,6 +46832,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>10</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46842,6 +46856,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>11</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46865,6 +46880,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>12</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46888,6 +46904,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>5</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>13</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>13</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46912,6 +46929,7 @@
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>15</BR_NewInventory>
+		<FoodType>14</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46936,6 +46954,7 @@
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>15</BR_NewInventory>
+		<FoodType>15</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46960,6 +46979,7 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>18</BR_NewInventory>
+		<FoodType>16</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -46984,6 +47004,7 @@
 		<usPrice>12</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<BR_NewInventory>7</BR_NewInventory>
+		<FoodType>17</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47007,6 +47028,7 @@
 		<ItemSize>13</ItemSize>
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>18</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47030,6 +47052,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>19</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47053,6 +47076,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>24</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>20</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47076,6 +47100,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>22</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>21</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47099,6 +47124,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>7</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>22</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47122,6 +47148,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>23</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47145,6 +47172,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>23</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>24</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47168,6 +47196,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>21</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>25</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47191,6 +47220,7 @@
 		<ItemSize>30</ItemSize>
 		<usPrice>12</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>26</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>10</usPortionSize>
 		<CowMeat>1</CowMeat>
@@ -47215,6 +47245,7 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>27</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>10</usPortionSize>
 		<BloodcatMeat>1</BloodcatMeat>
@@ -47239,6 +47270,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>28</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47262,6 +47294,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>29</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>50</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47285,6 +47318,7 @@
 		<ItemSize>30</ItemSize>
 		<usPrice>65</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>30</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>1</usPortionSize>
 		<Waterdrum>1</Waterdrum>
@@ -47311,6 +47345,7 @@
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>30</BR_NewInventory>
+		<FoodType>31</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47335,6 +47370,7 @@
 		<usPrice>3</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>14</BR_NewInventory>
+		<FoodType>32</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47358,6 +47394,7 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>3</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>33</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47382,6 +47419,7 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>12</DrugType>
+		<FoodType>34</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47406,6 +47444,7 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>12</DrugType>
+		<FoodType>35</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47430,6 +47469,7 @@
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<DrugType>13</DrugType>
+		<FoodType>36</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Damageable>1</Damageable>
@@ -47624,6 +47664,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>37</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<Damageable>1</Damageable>
 		<STAND_MODIFIERS />
@@ -47646,6 +47687,7 @@
 		<ItemSize>14</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>38</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>8</usPortionSize>
 		<Damageable>1</Damageable>
@@ -51294,6 +51336,7 @@
 		<usPrice>60</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>5</BR_NewInventory>
+		<FoodType>39</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>20</usPortionSize>
 		<Damageable>1</Damageable>
@@ -51969,6 +52012,7 @@
 		<ItemSize>18</ItemSize>
 		<usPrice>3</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<FoodType>40</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<usPortionSize>100</usPortionSize>
 		<Soda>1</Soda>
