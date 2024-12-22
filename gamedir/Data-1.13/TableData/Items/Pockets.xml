@@ -58,9 +58,7 @@
 	<POCKET>
 		<pIndex>2</pIndex>
 		<pName>Knife</pName>
-		<pSilhouette>11</pSilhouette>
-		<pType>1</pType>
-		<pRestriction>12</pRestriction>    
+		<pSilhouette>11</pSilhouette>  
 		<pVolume>15</pVolume>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
 		<ItemCapacityPerSize16>1</ItemCapacityPerSize16>
@@ -394,7 +392,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Double Belt</pName>
+		<pName>Double Ammo Belt</pName>
 		<pSilhouette>22</pSilhouette>
 		<pType>2</pType>
 		<pRestriction>1024</pRestriction>
@@ -632,9 +630,9 @@
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>5</pVolume>
-		<ItemCapacityPerSize10>3</ItemCapacityPerSize10>
-		<ItemCapacityPerSize11>1</ItemCapacityPerSize11>
-		<ItemCapacityPerSize15>1</ItemCapacityPerSize15>
+		<ItemCapacityPerSize10>7</ItemCapacityPerSize10>
+		<ItemCapacityPerSize11>3</ItemCapacityPerSize11>
+		<ItemCapacityPerSize15>2</ItemCapacityPerSize15>
 	</POCKET>
 	<POCKET>
 		<pIndex>43</pIndex>
@@ -820,5 +818,17 @@
 		<pRestriction>1024</pRestriction>
 		<pVolume>11</pVolume>
 		<ItemCapacityPerSize22>1</ItemCapacityPerSize22>
+	</POCKET>
+	<POCKET>
+		<pIndex>61</pIndex>
+		<pName>Belt Feeder</pName>
+		<pSilhouette>55</pSilhouette>
+		<pType>2</pType>
+		<pRestriction>1024</pRestriction>
+		<pVolume>15</pVolume>
+		<ItemCapacityPerSize22>4</ItemCapacityPerSize22>
+		<ItemCapacityPerSize24>4</ItemCapacityPerSize24>
+		<ItemCapacityPerSize25>4</ItemCapacityPerSize25>
+		<ItemCapacityPerSize27>2</ItemCapacityPerSize27>
 	</POCKET>
 </POCKETLIST>
