@@ -6,11 +6,11 @@
     ===
     
         Preamble
-        ง0. Constants
-        ง1. Underground sector list compilation
-        ง2. Defining enemy garrisons and creature population
-        ง3. Internal workings
-        ง3.1. Underground sector names
+        ยง0. Constants
+        ยง1. Underground sector list compilation
+        ยง2. Defining enemy garrisons and creature population
+        ยง3. Internal workings
+        ยง3.1. Underground sector names
 
 
     Preamble
@@ -26,12 +26,12 @@
     have an effect on a game in progress.
 
     
-    Modders likely want to focus on ง1. and ง2.
+    Modders likely want to focus on ยง1. and ยง2.
 
 
     There is also another script closely related to this one, which defines
     sector names ("undergroundsectornames.lua" and localized versions). See
-    ง3.1. for more details.
+    ยง3.1. for more details.
     
 
     The game will call this script for any of three reasons:
@@ -73,7 +73,7 @@ math.randomseed( os.time() ); math.random(); math.random(); math.random()
 
 
 -------------------
--- ง0. Constants --
+-- ยง0. Constants --
 -------------------
 
 Habitat = {             -- creature type distribution in percentages
@@ -100,16 +100,16 @@ CreatureMusic = {
 
 
 ---------------------------------------------
--- ง1. Underground sector list compilation --
+-- ยง1. Underground sector list compilation --
 ---------------------------------------------
 
 --[[
 
     In this list add underground sectors by specifying their location.
     If no loadscreen attribute is given the script will use "LS_Mine" for
-    level 1 sectors and "LS_Cave" for level 2 and level 3 sectors (see ง3.).
+    level 1 sectors and "LS_Cave" for level 2 and level 3 sectors (see ยง3.).
     
-    Also specify any other static attributes in this list (cf. ง2.)
+    Also specify any other static attributes in this list (cf. ยง2.)
 
 ]]
 
@@ -137,6 +137,99 @@ local sectorList = {
 
 --[[
 
+    LimitUndergroundEnemies
+
+Remarks
+
+    Used to limit the amount of enemies in underground sectors to what 
+    can be present in tactical at once. We cannot drip feed enemy amounts
+    over the maximum allowed in underground sectors, resulting in assertion
+    error in void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalRobots, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
+    in Soldier Init List.cpp when trying to enter the sector.
+
+Parameters
+
+    sector (sectorlist element)
+    
+        What sector we're checking for illegal enemy amounts
+    
+    maxEnemies (integer)
+
+        The maximum amount of enemies that can be present at once in tactical mode
+        MAX_NUMBER_ENEMIES_IN_TACTICAL defined in JA2_Options.ini
+]]
+
+local function LimitUndergroundEnemies(sector, maxEnemies)
+    local enemiesToRemove = 0
+    local admins = 0
+    local troops = 0
+    local elites = 0
+
+    if sector.numAdmins ~= nil then
+        admins = sector.numAdmins
+        enemiesToRemove = enemiesToRemove + admins
+    end
+    if sector.numTroops ~= nil then
+        troops = sector.numTroops
+        enemiesToRemove = enemiesToRemove + troops
+    end
+    if sector.numElites ~= nil then
+        elites = sector.numElites
+        enemiesToRemove = enemiesToRemove + elites
+    end
+    enemiesToRemove = enemiesToRemove - maxEnemies
+
+    -- Start removing enemies from the lowest class, we wouldn't want to 
+    -- make the game any easier, now would we?
+    if enemiesToRemove > 0 then
+        if enemiesToRemove > admins then
+            enemiesToRemove = enemiesToRemove - admins
+            admins = 0
+        else
+            admins = admins - enemiesToRemove
+            enemiesToRemove = 0
+        end
+
+        if enemiesToRemove > troops then
+            enemiesToRemove = enemiesToRemove - troops
+            troops = 0
+        else
+            troops = troops - enemiesToRemove
+            enemiesToRemove = 0
+        end
+
+        if enemiesToRemove > elites then
+            enemiesToRemove = enemiesToRemove - elites
+            elites = 0
+        else
+            elites = elites - enemiesToRemove
+            enemiesToRemove = 0
+        end
+    end
+
+    -- Guard against negative enemy amounts
+    if sector.numAdmins ~= nil then
+        if admins < 0 then
+            admins = 0
+        end
+        sector.numAdmins = admins
+    end
+    if sector.numTroops ~= nil then
+        if troops < 0 then
+            troops = 0
+        end
+        sector.numTroops = troops
+    end
+    if sector.numElites ~= nil then
+        if elites < 0 then
+            elites = 0
+        end
+        sector.numElites = elites
+    end
+end
+
+--[[
+
     PopulateSectors
 
 Remarks
@@ -155,15 +248,20 @@ Parameters
     
         Indicates whether or not the player selected the scifi option.
             0: realistic, 1: scifi
+    
+    maxEnemies (integer)
+
+        The maximum amount of enemies that can be present at once in tactical mode
+        MAX_NUMBER_ENEMIES_IN_TACTICAL defined in JA2_Options.ini
 ]]
 
-local function PopulateSectors(difficultyLevel, gameStyle)
+local function PopulateSectors(difficultyLevel, gameStyle, maxEnemies)
 
     local s = sectorList
 
 
     ----------------------------------------------------------
-    -- ง2. Defining enemy garrisons and creature population --
+    -- ยง2. Defining enemy garrisons and creature population --
     ----------------------------------------------------------
     
 	if difficultyLevel == 1 then
@@ -179,7 +277,8 @@ local function PopulateSectors(difficultyLevel, gameStyle)
 		s["K15-1"].numTroops = 14 + math.random(0, 6)
 		s["K15-1"].numElites = 10 + math.random(0, 2)
 	end
-	
+    LimitUndergroundEnemies(s["K15-1"], maxEnemies)
+
 	if difficultyLevel == 1 then
 		s["K15-2"].numTroops = 10 + math.random(0, 3)
 		s["K15-2"].numElites = 0
@@ -193,6 +292,7 @@ local function PopulateSectors(difficultyLevel, gameStyle)
 		s["K15-2"].numTroops = 14 + math.random(0, 6)
 		s["K15-2"].numElites = 10 + math.random(0, 2)
 	end
+    LimitUndergroundEnemies(s["K15-2"], maxEnemies)
 	
 	if difficultyLevel == 1 then
 		s["L15-2"].numTroops = 12 + math.random(0, 2)
@@ -207,6 +307,7 @@ local function PopulateSectors(difficultyLevel, gameStyle)
 		s["L15-2"].numTroops = 14 + math.random(0, 6)
 		s["L15-2"].numElites = 10 + math.random(0, 2)
 	end
+    LimitUndergroundEnemies(s["L15-2"], maxEnemies)
     
 	if difficultyLevel == 1 then
 		s["L15-3"].numTroops = 26
@@ -221,13 +322,14 @@ local function PopulateSectors(difficultyLevel, gameStyle)
 		s["L15-3"].numTroops = 10
 		s["L15-3"].numElites = 22
 	end
+    LimitUndergroundEnemies(s["L15-3"], maxEnemies)
 
 end
 
 
 
 ---------------------------
--- ง3. Internal workings --
+-- ยง3. Internal workings --
 ---------------------------
 
 --[[
@@ -272,23 +374,23 @@ Return value
     
     - numCreatures
       integer, specifying number of creatures in total, default: 0
-      Distribution of creature types depends on creature habitat (see ง0.)
+      Distribution of creature types depends on creature habitat (see ยง0.)
 
     - creatureHabitat
       integer, specifying creature distribution type
-      Use one of the constants from the Habitat enumeration (see ง0.)
+      Use one of the constants from the Habitat enumeration (see ยง0.)
     
     - music
       integer, specifying under which circumstances to use creepy music
-      Use one of the costants from CreatureMusic enumeration (see ง0.)
+      Use one of the costants from CreatureMusic enumeration (see ยง0.)
 ]]
 
 function BuildUndergroundSectorList(gameSettings)
 
     local difficultyLevel = gameSettings["difficultyLevel"]
     local gameStyle = gameSettings["gameStyle"]
-
-    PopulateSectors(difficultyLevel, gameStyle)
+    local maxEnemies = gameSettings["maxTacticalEnemies"]
+    PopulateSectors(difficultyLevel, gameStyle, maxEnemies)
 
     return sectorList
     
@@ -303,7 +405,7 @@ Remarks
 
     Provides the game with the name and file format of the loadscreen for a
     given sector. The function forwards the loadscreen attribute as declared
-    in the sectorList (cf. ง1.) or uses default screens.
+    in the sectorList (cf. ยง1.) or uses default screens.
     The game will use the name and format as well as screen resolution to
     build the complete file name itself.
     
@@ -363,7 +465,7 @@ end
 
 
 ------------------------------------
--- ง3.1. Underground sector names --
+-- ยง3.1. Underground sector names --
 ------------------------------------
 
 --[[
