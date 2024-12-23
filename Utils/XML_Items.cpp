@@ -291,7 +291,36 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "DiseaseprotectionHand" ) == 0||
 				strcmp(name, "usRiotShieldStrength" ) == 0 ||
 				strcmp(name, "usRiotShieldGraphic" ) == 0 ||
-				strcmp(name, "Bloodbag" ) == 0 ||
+				strcmp(name, "Bloodbag") == 0 ||
+				strcmp(name, "Manpad" ) == 0 ||
+				strcmp(name, "Beartrap") == 0 ||
+				strcmp(name, "Camera") == 0 ||
+				strcmp(name, "Waterdrum") == 0 ||
+				strcmp(name, "BloodcatMeat") == 0 ||
+				strcmp(name, "CowMeat") == 0 ||
+				strcmp(name, "Beltfed") == 0 ||
+				strcmp(name, "Ammobelt") == 0 ||
+				strcmp(name, "AmmobeltVest") == 0 ||
+				strcmp(name, "CamoRemoval") == 0 ||
+				strcmp(name, "Cleaningkit") == 0 ||
+				strcmp(name, "AttentionItem") == 0 ||
+				strcmp(name, "Garotte") == 0 ||
+				strcmp(name, "Covert") == 0 ||
+				strcmp(name, "Corpse") == 0 ||
+				strcmp(name, "BloodcatSkin") == 0 ||
+				strcmp(name, "NoMetalDetection") == 0 ||
+				strcmp(name, "JumpGrenade") == 0 ||
+				strcmp(name, "Handcuffs") == 0 ||
+				strcmp(name, "Taser") == 0 ||
+				strcmp(name, "ScubaBottle") == 0 ||
+				strcmp(name, "ScubaMask") == 0 ||
+				strcmp(name, "ScubaFins") == 0 ||
+				strcmp(name, "TripwireRoll") == 0 ||
+				strcmp(name, "Radioset") == 0 ||
+				strcmp(name, "SignalShell") == 0 ||
+				strcmp(name, "Soda") == 0 ||
+				strcmp(name, "RoofcollapseItem") == 0 ||
+				strcmp(name, "LBEexplosionproof") == 0 ||
 				strcmp(name, "EmptyBloodbag" ) == 0 ||
 				strcmp(name, "MedicalSplint" ) == 0 ||
 				strcmp(name, "sFireResistance" ) == 0 ||
