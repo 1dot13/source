@@ -64,6 +64,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 			.TableOpen()
 			.TParam("difficultyLevel", int(gGameOptions.ubDifficultyLevel))
 			.TParam("gameStyle", int(gGameOptions.ubGameStyle))
+			.TParam("maxTacticalEnemies", int(gGameExternalOptions.ubGameMaximumNumberOfEnemies))
 			.TableClose();		
 		
 		SGP_THROW_IFFALSE(initsectorlist_func.Call(1), "call to lua function BuildUndergroundSectorList failed");
