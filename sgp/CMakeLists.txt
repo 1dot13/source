@@ -14,7 +14,6 @@ set(sgpSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/himage.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/impTGA.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/input.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Ja2 Libs.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/LibraryDataBase.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/line.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MemMan.cpp"
