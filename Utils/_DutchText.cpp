@@ -5919,6 +5919,7 @@ STR16			CharacterInfo[] =
 	L"Uitrusting 3",				// Text on Starting Gear Selection Button 3
 	L"Uitrusting 4",				// Text on Starting Gear Selection Button 4
 	L"Uitrusting 5",				// Text on Starting Gear Selection Button 5
+	L"Mission Fee",			// For UB fixed price contracts
 };
 
 
