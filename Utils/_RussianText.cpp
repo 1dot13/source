@@ -5912,6 +5912,7 @@ STR16			CharacterInfo[] =
 	L"Набор 3",				// Text on Starting Gear Selection Button 3
 	L"Набор 4",				// Text on Starting Gear Selection Button 4
 	L"Набор 5",				// Text on Starting Gear Selection Button 5
+	L"Mission Fee",			// For UB fixed price contracts
 };
 
 

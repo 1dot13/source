@@ -5916,6 +5916,7 @@ STR16			CharacterInfo[] =
 	L"装备3",				// Text on Starting Gear Selection Button 3
 	L"装备4",				// Text on Starting Gear Selection Button 4
 	L"装备5",				// Text on Starting Gear Selection Button 5
+	L"Mission Fee",			// For UB fixed price contracts
 };
 
 
