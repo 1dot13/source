@@ -50,4 +50,5 @@ Lua
 bfVFS
 "ws2_32.lib"
 Multiplayer
+sgp
 PARENT_SCOPE)
