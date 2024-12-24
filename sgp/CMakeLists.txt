@@ -1,4 +1,4 @@
-set(sgpSrc
+add_library(sgp
 "${CMAKE_CURRENT_SOURCE_DIR}/Button Sound Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Button System.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Compression.cpp"
@@ -14,7 +14,6 @@ set(sgpSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/himage.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/impTGA.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/input.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Ja2 Libs.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/LibraryDataBase.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/line.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MemMan.cpp"
@@ -34,4 +33,7 @@ set(sgpSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/vobject_blitters.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/vsurface.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/WinFont.cpp"
-PARENT_SCOPE)
+)
+target_link_libraries(sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+target_link_libraries(sgp PUBLIC libpng)
+target_compile_definitions(sgp PRIVATE NO_ZLIB_COMPRESSION)

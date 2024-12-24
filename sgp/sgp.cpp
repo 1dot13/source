@@ -58,6 +58,7 @@
 #endif
 #include <Music Control.h>
 
+#include <language.hpp>
 
 static void MAGIC(std::string const& aarrrrgggh = "")
 {}
@@ -884,13 +885,13 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	}
 #endif
 
-#	ifdef ENGLISH
+	if( g_lang == i18n::Lang::en ) {
 	try
 	{
 		SetIntroType( INTRO_SPLASH );
 	}
 	HANDLE_FATAL_ERROR;
-#	endif
+	}
 
 	gfApplicationActive = TRUE;
 	gfProgramIsRunning = TRUE;

@@ -39,6 +39,7 @@ include_directories(
 	"${CMAKE_SOURCE_DIR}/Multiplayer"
 	"${CMAKE_SOURCE_DIR}/Editor"
 	"${CMAKE_SOURCE_DIR}/Console"
+	"${CMAKE_SOURCE_DIR}/i18n/include"
 )
 
 # external libraries
@@ -55,6 +56,7 @@ add_subdirectory("ext/export/src")
 # and therefore only need to be compiled once. Good.
 add_subdirectory(Lua)
 add_subdirectory(Multiplayer)
+add_subdirectory(sgp)
 
 # static libraries whose source files, header files or header files included
 # by header files rely on Application and Language preprocessor definitions, and
@@ -64,12 +66,12 @@ TileEngine
 TacticalAI
 Utils
 Strategic
-sgp
 Laptop
 Editor
 Console
 Tactical
 ModularizedTacticalAI
+i18n
 )
 foreach(lib IN LISTS Ja2_Libs)
 	add_subdirectory(${lib})
@@ -127,10 +129,5 @@ foreach(lang IN LISTS LangTargets)
 			)
 			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
 		endforeach()
-
-		# for sgp only
-		target_link_libraries(${Executable}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${Executable}_sgp PUBLIC libpng)
-		target_compile_definitions(${Executable}_sgp PRIVATE NO_ZLIB_COMPRESSION)
 	endforeach()
 endforeach()
