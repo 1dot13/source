@@ -23,7 +23,23 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
-include_directories(Ja2 "ext/VFS/include" Utils TileEngine TacticalAI "ModularizedTacticalAI/include" Tactical Strategic sgp "Ja2/Res" Lua Laptop Multiplayer Editor Console)
+include_directories(
+	"${CMAKE_SOURCE_DIR}/Ja2"
+	"${CMAKE_SOURCE_DIR}/ext/VFS/include"
+	"${CMAKE_SOURCE_DIR}/Utils"
+	"${CMAKE_SOURCE_DIR}/TileEngine"
+	"${CMAKE_SOURCE_DIR}/TacticalAI"
+	"${CMAKE_SOURCE_DIR}/ModularizedTacticalAI/include"
+	"${CMAKE_SOURCE_DIR}/Tactical"
+	"${CMAKE_SOURCE_DIR}/Strategic"
+	"${CMAKE_SOURCE_DIR}/sgp"
+	"${CMAKE_SOURCE_DIR}/Ja2/Res"
+	"${CMAKE_SOURCE_DIR}/Lua"
+	"${CMAKE_SOURCE_DIR}/Laptop"
+	"${CMAKE_SOURCE_DIR}/Multiplayer"
+	"${CMAKE_SOURCE_DIR}/Editor"
+	"${CMAKE_SOURCE_DIR}/Console"
+)
 
 # external libraries
 add_subdirectory("ext/libpng")
