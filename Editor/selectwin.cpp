@@ -29,6 +29,16 @@ extern BOOLEAN fDontUseRandom;
 
 extern UINT16 GenericButtonFillColors[40];
 
+struct SelectionWindow
+{
+	SGPRect window;
+	SGPPoint displayAreaStart; // Area where selectable items are drawn
+	SGPPoint displayAreaEnd;
+	SGPPoint spacing; // For displayed items
+};
+
+SelectionWindow gSelection;
+
 BOOLEAN gfRenderSquareArea = FALSE;
 INT16 iStartClickX,iStartClickY;
 INT16 iEndClickX,iEndClickY;
@@ -40,7 +50,6 @@ INT32 iSelectWin,iCancelWin,iScrollUp,iScrollDown,iOkWin;
 BOOLEAN fAllDone=FALSE;
 BOOLEAN fButtonsPresent=FALSE;
 
-SGPPoint SelWinSpacing, SelWinStartPoint, SelWinEndPoint;
 
 //These definitions help define the start and end of the various wall indices.
 //This needs to be maintained if the walls change.
@@ -172,6 +181,30 @@ UINT16 SelWinHilightFillColor = 0x23BA;		//blue, formerly 0x000d a kind of mediu
 //
 void CreateJA2SelectionWindow( INT16 sWhat )
 {
+	auto selectWinWidth = 600;
+	const auto selectWinHeight = SCREEN_HEIGHT - 120; // From top edge to taskbar
+	if (iResolution > _800x600)
+	{
+		selectWinWidth = 900;
+	}
+	auto tlX = 0;
+	auto tlY = 0;
+	auto brX = tlX + selectWinWidth;
+	auto brY = tlY + selectWinHeight;
+	gSelection.window.iLeft = tlX;
+	gSelection.window.iTop = tlY;
+	gSelection.window.iRight = brX;
+	gSelection.window.iBottom = brY;
+	gSelection.displayAreaStart.iX = tlX + 1;
+	gSelection.displayAreaStart.iY = tlY + 15;
+	gSelection.displayAreaEnd.iX = brX - 1;
+	gSelection.displayAreaEnd.iY= brY - 1;
+	gSelection.spacing.iX = 2;
+	gSelection.spacing.iY = 2;
+
+	iTopWinCutOff = gSelection.displayAreaStart.iY;
+	iBotWinCutOff = gSelection.displayAreaEnd.iY;
+
 	DisplaySpec *pDSpec;
 	UINT16 usNSpecs;
 
@@ -185,32 +218,33 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 	iButtonIcons[ SEL_WIN_DOWN_ICON ]	= LoadGenericButtonIcon( "EDITOR//lgDownArrow.sti" );
 	iButtonIcons[ SEL_WIN_OK_ICON ]		= LoadGenericButtonIcon( "EDITOR//checkmark.sti" );
 
-	iSelectWin = CreateHotSpot(0, 0, 600, 360, MSYS_PRIORITY_HIGH,
+
+	iSelectWin = CreateHotSpot(0, 0, selectWinWidth, selectWinHeight, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelWinClkCallback);
 
 	iOkWin = CreateIconButton((INT16)iButtonIcons[SEL_WIN_OK_ICON], 0,
-														BUTTON_USE_DEFAULT, 600, 0,
+														BUTTON_USE_DEFAULT, selectWinWidth, 0,
 														40, 40, BUTTON_TOGGLE,
 														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, OkClkCallback);
 	SetButtonFastHelpText(iOkWin,pDisplaySelectionWindowButtonText[0]);
 
 	iCancelWin = CreateIconButton((INT16)iButtonIcons[SEL_WIN_CANCEL_ICON], 0,
-														BUTTON_USE_DEFAULT, 600, 40,
+														BUTTON_USE_DEFAULT, selectWinWidth, 40,
 														40, 40, BUTTON_TOGGLE,
  														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, CnclClkCallback);
 	SetButtonFastHelpText(iCancelWin,pDisplaySelectionWindowButtonText[1]);
 
 	iScrollUp = CreateIconButton((INT16)iButtonIcons[SEL_WIN_UP_ICON], 0,
-														BUTTON_USE_DEFAULT, 600, 80,
+														BUTTON_USE_DEFAULT, selectWinWidth, 80,
 														40, 160, BUTTON_NO_TOGGLE,
 														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, UpClkCallback);
 	SetButtonFastHelpText(iScrollUp,pDisplaySelectionWindowButtonText[2]);
 
 	iScrollDown = CreateIconButton((INT16)iButtonIcons[SEL_WIN_DOWN_ICON], 0,
-														BUTTON_USE_DEFAULT, 600, 240,
+														BUTTON_USE_DEFAULT, selectWinWidth, 240,
 														40, 160, BUTTON_NO_TOGGLE,
 														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, DwnClkCallback);
@@ -218,18 +252,6 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 
 	fButtonsPresent = TRUE;
 
-	SelWinSpacing.iX = 2;
-	SelWinSpacing.iY = 2;
-
-	SelWinStartPoint.iX = 1;
-	SelWinStartPoint.iY = 15;
-
-	iTopWinCutOff = 15;
-
-	SelWinEndPoint.iX = 599;
-	SelWinEndPoint.iY = 359;
-
-	iBotWinCutOff = 359;
 
 	switch( sWhat )
 	{
@@ -347,8 +369,8 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 			return;
 	}
 
-	BuildDisplayWindow( pDSpec, usNSpecs, &pDispList, &SelWinStartPoint, &SelWinEndPoint,
-										&SelWinSpacing, CLEAR_BACKGROUND);
+	BuildDisplayWindow( pDSpec, usNSpecs, &pDispList, &gSelection.displayAreaStart , &gSelection.displayAreaEnd,
+										&gSelection.spacing, CLEAR_BACKGROUND);
 }
 
 
@@ -849,12 +871,14 @@ void RenderSelectionWindow( void )
 		return;
 
 	ColorFillVideoSurfaceArea(FRAME_BUFFER,
-													0, 0, 600, 400,
-													GenericButtonFillColors[0]);
+		gSelection.window.iLeft, gSelection.window.iTop, gSelection.window.iRight, gSelection.window.iBottom,
+		GenericButtonFillColors[0]
+	);
 	DrawSelections( );
 	MarkButtonsDirty();
 	RenderButtons( );
 
+	// Draw selection rectangle
 	if ( gfRenderSquareArea )
 	{
 		button = ButtonList[iSelectWin];
@@ -862,7 +886,7 @@ void RenderSelectionWindow( void )
 			return;
 
 		if ( (abs( iStartClickX - button->Area.MouseXPos ) > 9) ||
-			(abs( iStartClickY - (button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY)) > 9) )
+			(abs( iStartClickY - (button->Area.MouseYPos + iTopWinCutOff - (INT16)gSelection.displayAreaStart.iY)) > 9) )
 		{
 //			iSX = (INT32)iStartClickX;
 //			iEX = (INT32)button->Area.MouseXPos;
@@ -870,7 +894,7 @@ void RenderSelectionWindow( void )
 //			iEY = (INT32)(button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY);
 
 			iSX = iStartClickX;
-			iSY = iStartClickY - iTopWinCutOff + SelWinStartPoint.iY;
+			iSY = iStartClickY - iTopWinCutOff + gSelection.displayAreaStart.iY;
 			iEX = gusMouseXPos;
 			iEY = gusMouseYPos;
 
@@ -889,10 +913,10 @@ void RenderSelectionWindow( void )
 				iEY ^= iSY;
 			}
 
-			iEX = min( iEX, 600 );
-			iSY = max( SelWinStartPoint.iY, iSY );
-			iEY = min( 359, iEY );
-			iEY = max( SelWinStartPoint.iY, iEY );
+			iEX = min( gSelection.displayAreaEnd.iX, iEX);
+			iSY = max( gSelection.displayAreaStart.iY, iSY );
+			iEY = min( gSelection.displayAreaEnd.iY, iEY );
+			iEY = max( gSelection.displayAreaStart.iY, iEY );
 
 			usFillColor = Get16BPPColor(FROMRGB(255, usFillGreen, 0));
 			usFillGreen += usDir;
@@ -928,7 +952,7 @@ void SelWinClkCallback( GUI_BUTTON *button, INT32 reason )
 		return;
 
 	iClickX = button->Area.MouseXPos;
-	iClickY = button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY;
+	iClickY = button->Area.MouseYPos + iTopWinCutOff - (INT16)gSelection.displayAreaStart.iY;
 
 	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
@@ -1035,9 +1059,9 @@ void DisplaySelectionWindowGraphicalInformation()
 	UINT16 y;
 	//Determine if there is a valid picture at cursor position.
 	//iRelX = gusMouseXPos;
-	//iRelY = gusMouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY;
+	//iRelY = gusMouseYPos + iTopWinCutOff - (INT16)gSelection.displayAreaStart.iY;
 
-	y = gusMouseYPos + iTopWinCutOff - (UINT16)SelWinStartPoint.iY;
+	y = gusMouseYPos + iTopWinCutOff - (UINT16)gSelection.displayAreaStart.iY;
 	pNode = pDispList;
 	fDone = FALSE;
 	while( (pNode != NULL) && !fDone )
@@ -1470,10 +1494,10 @@ void DrawSelections( void )
 {
 	SGPRect					ClipRect, NewRect;
 
-	NewRect.iLeft = SelWinStartPoint.iX;
-	NewRect.iTop = SelWinStartPoint.iY;
-	NewRect.iRight = SelWinEndPoint.iX;
-	NewRect.iBottom = SelWinEndPoint.iY;
+	NewRect.iLeft = gSelection.displayAreaStart.iX;
+	NewRect.iTop = gSelection.displayAreaStart.iY;
+	NewRect.iRight = gSelection.displayAreaEnd.iX;
+	NewRect.iBottom = gSelection.displayAreaEnd.iY;
 
 	GetClippingRect(&ClipRect);
 	SetClippingRect(&NewRect);
@@ -1483,7 +1507,7 @@ void DrawSelections( void )
 	SetObjectShade( gvoLargeFontType1, 0 );
 //	SetObjectShade( gvoLargeFont, 0 );
 
-	DisplayWindowFunc( pDispList, iTopWinCutOff, iBotWinCutOff, &SelWinStartPoint, CLEAR_BACKGROUND );
+	DisplayWindowFunc( pDispList, iTopWinCutOff, iBotWinCutOff, &gSelection.displayAreaStart, CLEAR_BACKGROUND );
 
 	SetObjectShade( gvoLargeFontType1, 4 );
 
