@@ -54,6 +54,7 @@ include_directories(
 	"${CMAKE_SOURCE_DIR}/Multiplayer"
 	"${CMAKE_SOURCE_DIR}/Editor"
 	"${CMAKE_SOURCE_DIR}/Console"
+	"${CMAKE_SOURCE_DIR}/i18n/include"
 )
 
 # external libraries
@@ -85,6 +86,7 @@ Editor
 Console
 Tactical
 ModularizedTacticalAI
+i18n
 )
 foreach(lib IN LISTS Ja2_Libs)
 	add_subdirectory(${lib})
