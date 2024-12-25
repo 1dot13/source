@@ -1,7 +1,6 @@
 ﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("GERMAN")
 
-	#include "Language Defines.h"
 	#ifdef GERMAN
 		#include "text.h"
 		#include "Fileman.h"

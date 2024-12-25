@@ -45,7 +45,6 @@
 	#include "Sound Control.h"
 	#include "WordWrap.h"
 	#include "text.h"
-	#include "Language Defines.h"
 	#include "IniReader.h"
 
 #include "sgp_logger.h"

@@ -4,7 +4,6 @@
 #include "Types.h"
 #include "Multi Language Graphic Utils.h"
 
-#include "Language Defines.h"
 //SB
 #include "FileMan.h"
 

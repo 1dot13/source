@@ -1,6 +1,5 @@
 	#include "Types.h"
 	#include "Credits.h"
-	#include "Language Defines.h"
 	#include "vsurface.h"
 	#include "mousesystem.h"
 	#include "Text.h"

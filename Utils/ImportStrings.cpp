@@ -1,6 +1,5 @@
 #include "ImportStrings.h"
 #include "LocalizedStrings.h"
-#include "Language Defines.h"
 
 #include <vfs/Tools/vfs_tools.h>
 #include <vfs/Core/vfs.h>

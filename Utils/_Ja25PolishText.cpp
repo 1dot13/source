@@ -2,7 +2,6 @@
 // WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
 //#pragma setlocale("POLISH")
 
-	#include "Language Defines.h"
 	#ifdef POLISH
 		#include "text.h"
 		#include "Fileman.h"
