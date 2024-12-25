@@ -1,5 +1,22 @@
 set(i18nSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/language.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Ja2 Libs.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/ExportStrings.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_ChineseText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_DutchText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_EnglishText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_FrenchText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_GermanText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_ItalianText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25ChineseText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25DutchText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25EnglishText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25FrenchText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25GermanText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25ItalianText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25PolishText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_Ja25RussianText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_PolishText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/_RussianText.cpp"
 PARENT_SCOPE
 )
