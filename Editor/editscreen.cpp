@@ -1,4 +1,4 @@
-	#include "builddefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 
