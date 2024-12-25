@@ -403,14 +403,42 @@ void PlaceRoadMacroAtGridNo( INT32 iMapIndex, INT32 iMacroID )
 	while( gRoadMacros[ i ].sMacroID == iMacroID )
 	{
 		// need to recalc MACROSTRUCT::sOffset 'cause it sticked to 160*160 old map size
-		INT32 sdX = gRoadMacros[ i ].sOffset % OLD_WORLD_COLS;
-		INT32 sdY = gRoadMacros[ i ].sOffset / OLD_WORLD_COLS;
-		INT32 sOffset = sdY*WORLD_COLS + sdX;
+		INT32 sdY = gRoadMacros[ i ].sOffset / (OLD_WORLD_COLS);
+		INT32 sdX = gRoadMacros[ i ].sOffset -  (sdY*OLD_WORLD_COLS);
+
+		// Take into account the dfference between old and new row size for tiles that are shifted
+		// by one row due to X offset
+		// For example:
+		// {RBR, 159},
+		//{ RBR, -159 },
+		// 
+		// Offsets for 160x160 map
+		// []		[]		[-159]
+		// []		[0]		[]
+		// [159]	[]		[]
 		//
-		AddToUndoList( iMapIndex + sOffset );
-		RemoveAllObjectsOfTypeRange( iMapIndex + sOffset, ROADPIECES, ROADPIECES );//dnl this was but is very wrong and leading to stacking tilesets, RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
+		// Converted to 200x200 map
+		// []		[]		[-199]
+		// []		[0]		[]
+		// [199]	[]		[]
+		// 
+		// Without this the original conversion would output 159 and -159 for X coordinate
+		if (sdX < -OLD_WORLD_COLS/2)
+		{
+			sdX -= WORLD_COLS - OLD_WORLD_COLS;
+		}
+		else if (sdX > OLD_WORLD_COLS / 2)
+		{
+			sdX += WORLD_COLS - OLD_WORLD_COLS;
+		}
+
+		INT32 sOffset = sdY*WORLD_COLS + sdX;
+		INT32 newGridNo = iMapIndex + sOffset;
+
+		AddToUndoList( newGridNo );
+		RemoveAllObjectsOfTypeRange( newGridNo, ROADPIECES, ROADPIECES );//dnl this was but is very wrong and leading to stacking tilesets, RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
 		GetTileIndexFromTypeSubIndex( ROADPIECES, (UINT16)(i+1) , &usTileIndex );
-		AddObjectToHead( iMapIndex + sOffset, usTileIndex );
+		AddObjectToHead( newGridNo, usTileIndex );
 		i++;
 	}
 }
