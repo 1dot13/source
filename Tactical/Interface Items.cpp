@@ -57,7 +57,6 @@
 	#include "game clock.h"
 	#include "squads.h"
 	#include "MessageBoxScreen.h"
-	#include "Language Defines.h"
 	#include "GameSettings.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Quests.h"

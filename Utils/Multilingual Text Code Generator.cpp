@@ -32,7 +32,6 @@ CREATED:	Feb 16, 1999
 #include "builddefines.h"
 #include <stdio.h>
 #include "types.h"
-#include "Language Defines.h"
 #include "debug.h"
 #include "Fileman.h"
 

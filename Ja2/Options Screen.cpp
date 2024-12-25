@@ -29,7 +29,6 @@
 	#include	"Text.h"
 	#include	"Interface Control.h"
 	#include	"Message.h"
-	#include	"Language Defines.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "Map Information.h"
 	#include "SmokeEffects.h"
