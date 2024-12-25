@@ -30,3 +30,25 @@ const int MAX_MESSAGES_ON_MAP_BOTTOM{
     9
 #endif
 };
+
+auto GetLanguagePrefix() -> const STR {
+  return
+#if defined(ENGLISH)
+  ""
+#elif defined(CHINESE)
+  "Chinese."
+#elif defined(DUTCH)
+  "Dutch."
+#elif defined(FRENCH)
+  "French."
+#elif defined(GERMAN)
+  "German."
+#elif defined(ITALIAN)
+  "Italian."
+#elif defined(POLISH)
+  "Polish."
+#elif defined(RUSSIAN)
+  "Russian."
+#endif
+  ;
+}

@@ -78,6 +78,8 @@
 #include "DynamicDialogueWidget.h"		// added by Flugente for InitMyBoxes()
 #include "Animation Data.h"				// added by Flugente
 
+#include <language.hpp>
+
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[TOTALBODYTYPES];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
@@ -132,34 +134,6 @@ static void AddLanguagePrefix(STR fileName, const STR language)
 	// Make sure to use the overlap-safe version of memory copy
 	memmove( fileComponent + strlen( language), fileComponent, strlen( fileComponent) + 1);
 	memmove( fileComponent, language, strlen( language) );
-}
-
-static const STR GetLanguagePrefix()
-{
-#ifdef ENGLISH
-	return "";
-#endif
-#ifdef GERMAN 
-	return GERMAN_PREFIX;
-#endif
-#ifdef RUSSIAN 
-	return RUSSIAN_PREFIX;
-#endif
-#ifdef DUTCH 
-	return DUTCH_PREFIX;
-#endif
-#ifdef POLISH 
-	return POLISH_PREFIX;
-#endif
-#ifdef FRENCH 
-	return FRENCH_PREFIX;
-#endif
-#ifdef ITALIAN 
-	return ITALIAN_PREFIX;
-#endif
-#ifdef CHINESE
-	return CHINESE_PREFIX;
-#endif
 }
 
 static void AddLanguagePrefix(STR fileName)
