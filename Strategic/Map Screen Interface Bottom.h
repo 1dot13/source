@@ -4,12 +4,6 @@
 #include "types.h"
 #include "Soldier Control.h"
 
-
-#ifdef CHINESE //zwwoooooo: Chinese fonts relatively high , so to reduce the number of rows
-#define MAX_MESSAGES_ON_MAP_BOTTOM	6
-#else
-#define MAX_MESSAGES_ON_MAP_BOTTOM	9
-#endif
 #ifdef JA2UB
 extern	INT8 gbExitingMapScreenToWhere;
 #endif

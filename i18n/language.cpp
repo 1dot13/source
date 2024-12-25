@@ -22,3 +22,11 @@ const i18n::Lang g_lang{
   i18n::Lang::ru
 #endif
 };
+
+const int MAX_MESSAGES_ON_MAP_BOTTOM{
+#if defined(CHINESE) // zwwoooooo: Chinese fonts relatively high , so to reduce the number of rows
+    6
+#else
+    9
+#endif
+};

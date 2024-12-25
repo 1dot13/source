@@ -55,6 +55,7 @@
 
 #include "connect.h"
 
+#include <language.hpp>
 
 struct UILayout_BottomButtons
 {

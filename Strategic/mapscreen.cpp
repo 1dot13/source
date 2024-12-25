@@ -115,6 +115,7 @@
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"
 #include "vobject.h"
+#include <language.hpp>
 
 #ifdef JA2UB
 #include "laptop.h"

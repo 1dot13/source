@@ -15,3 +15,5 @@ enum class Lang
 }
 
 extern const i18n::Lang g_lang;
+
+extern const int MAX_MESSAGES_ON_MAP_BOTTOM;
