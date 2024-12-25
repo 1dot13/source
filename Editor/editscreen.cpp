@@ -2954,6 +2954,23 @@ UINT32 WaitForSelectionWindowResponse( void )
 		}
 	}
 
+	// Mousewheel scroll
+	if (_WheelValue > 0)
+	{
+		while (_WheelValue--)
+		{
+			ScrollSelWinUp();
+		}
+	}
+	else
+	{
+		while (_WheelValue++)
+		{
+			ScrollSelWinDown();
+		}
+	}
+	_WheelValue = 0;
+
 	if ( DoWindowSelection( ) )
 	{
 		fSelectionWindow = FALSE;
