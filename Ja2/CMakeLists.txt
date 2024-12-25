@@ -14,7 +14,6 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/JA2 Splash.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Ja25Update.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/jascreens.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Language Defines.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Loading Screen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MainMenuScreen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MessageBoxScreen.cpp"
