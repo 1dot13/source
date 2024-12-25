@@ -1,4 +1,5 @@
 set(i18nSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/language.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Ja2 Libs.cpp"
 PARENT_SCOPE
 )
