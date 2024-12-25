@@ -67,6 +67,7 @@
 #include "ub_config.h"
 
 #include "history.h"
+#include <language.hpp>
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2407,8 +2408,8 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	{
 		if ( fWavFile )
 		{
-#ifdef RUSSIAN
-				if ( ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC ||
+				if ( g_lang == i18n::Lang::ru &&
+				     ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC ||
 					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_NPC ||
 					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_VEHICLE ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
@@ -2426,7 +2427,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 #endif
 				}
 				else
-#endif
+
 			{
 				// build name of wav file (characternum + quotenum)
 				sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );
