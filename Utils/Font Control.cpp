@@ -5,6 +5,7 @@
 	#include "vsurface.h"
 	#include "wcheck.h"
 	#include "Font Control.h"
+#include <language.hpp>
 
 INT32		  giCurWinFont = 0;
 //BOOLEAN		gfUseWinFonts = FALSE;
@@ -77,8 +78,8 @@ HVOBJECT				gvoBlockFontNarrow;
 INT32						gp14PointHumanist;
 HVOBJECT				gvo14PointHumanist;
 
-#if defined( JA2EDITOR ) && defined( ENGLISH )
-	INT32					gpHugeFont;
+#if defined( JA2EDITOR )
+	INT32				gpHugeFont;
 	HVOBJECT			gvoHugeFont;
 #endif
 
@@ -94,8 +95,8 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj );
 extern UINT16 gzFontName[32];
 
 auto GetHugeFont() -> INT32 {
-#if defined(JA2EDITOR) && defined(ENGLISH)
-	return gpHugeFont;
+#if defined(JA2EDITOR)
+	return g_lang == i18n::Lang::en ? gpHugeFont : gp16PointArial;
 #else
 	return gp16PointArial;
 #endif
@@ -216,10 +217,12 @@ BOOLEAN	InitializeFonts( )
 	gvo14PointHumanist = GetFontObject( gp14PointHumanist );
 	CHECKF( CreateFontPaletteTables( gvo14PointHumanist ) );
 
-	#if defined( JA2EDITOR ) && defined( ENGLISH )
+	#if defined( JA2EDITOR )
+	if(g_lang == i18n::Lang::en) {
 		gpHugeFont = LoadFontFile( "FONTS\\HUGEFONT.sti" );
 		gvoHugeFont = GetFontObject( gpHugeFont );
 		CHECKF( CreateFontPaletteTables( gvoHugeFont ) );
+	}
 	#endif
 
 	// Set default for font system
@@ -254,8 +257,10 @@ void ShutdownFonts( )
 	UnloadFont( gp14PointArial);
   UnloadFont( gpBlockyFont);
 	UnloadFont( gp12PointArialFixedFont );
-	#if defined( JA2EDITOR ) && defined( ENGLISH )
+	#if defined( JA2EDITOR )
+	if(g_lang == i18n::Lang::en) {
 		UnloadFont( gpHugeFont );
+	}
 	#endif
 
   // ATE: Shutdown any win fonts
