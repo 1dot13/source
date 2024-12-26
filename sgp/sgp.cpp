@@ -367,14 +367,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 
 	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
-#ifdef USE_CODE_PAGE
-			if(s_DebugKeyboardInput)
-			{
-				static vfs::Log& debugKeys = *vfs::Log::Create(L"DebugKeys.txt");
-				static int input_counter = 1;
-				debugKeys << (input_counter++) << " : " << (int)wParam << vfs::Log::endl;
-			}
-#endif // USE_CODE_PAGE
 			KeyDown(wParam, lParam);
 			gfSGPInputReceived =	TRUE;
 			break;
@@ -514,24 +506,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		}
 	}
 
-#ifdef USE_CODE_PAGE
-	charSet::InitializeCharSets();
-	
-	if(!s_CodePage.empty())
-	{
-		try
-		{
-			CodePageReader cpr;
-			cpr.ReadCodePage(s_CodePage);
-		}
-		catch(std::exception& ex)
-		{
-			std::wstringstream wss;
-			wss << L"Could not process codepage file \"" << s_CodePage() << L"\"";
-			SGP_RETHROW(wss.str().c_str(), ex);
-		}
-	}
-#endif // USE_CODE_PAGE
 
 	if(g_bUseXML_Strings)
 	{
@@ -1255,10 +1229,6 @@ void GetRuntimeSettings( )
 	// haydent: mouse scrolling
 	iDisableMouseScrolling = (int)oProps.getIntProperty("Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling);
 
-#ifdef USE_CODE_PAGE
-	s_DebugKeyboardInput = oProps.getBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
-	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
-#endif // USE_CODE_PAGE
 
 	// WANNE: Highspeed Timer always ON (no more optional in the ja2.ini)
 	// get timer/clock initialization state
