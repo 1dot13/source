@@ -6,10 +6,11 @@
 
 //SB
 #include "FileMan.h"
+#include <language.hpp>
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 {
-	#if defined( ENGLISH )
+	if( g_lang == i18n::Lang::en ) {
 		switch( usMLGGraphicID )
 		{
 			case MLG_AIMSYMBOL:
@@ -141,7 +142,7 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 		}
 
-	#elif defined( GERMAN )
+	} else if( g_lang == i18n::Lang::de ) {
 		switch( usMLGGraphicID )
 		{
 			case MLG_AIMSYMBOL:
@@ -279,7 +280,7 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 		}
 
-	#else
+	} else {
 
 		UINT8 zLanguage[64];
 
@@ -292,29 +293,19 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 		//
 		//		"GERMAN\\IMPSymbol_German.sti"
 
-		#if   defined( DUTCH )
+		if(g_lang == i18n::Lang::nl) {
 		  sprintf( (char *)zLanguage, "DUTCH" );
-		#elif defined( FRENCH )
+		} else if(g_lang == i18n::Lang::fr) {
 		  sprintf( (char *)zLanguage, "FRENCH" );
-		#elif defined( GERMAN )
-		  sprintf( (char *)zLanguage, "GERMAN" );
-		#elif defined( ITALIAN )
+		} else if(g_lang == i18n::Lang::it) {
 		  sprintf( (char *)zLanguage, "ITALIAN" );
-		#elif defined( JAPANESE )
-		  sprintf( (char *)zLanguage, "JAPANESE" );
-		#elif defined( KOREAN )
-		  sprintf( (char *)zLanguage, "KOREAN" );
-		#elif defined( POLISH )
+		} else if(g_lang == i18n::Lang::pl) {
 		  sprintf( (char *)zLanguage, "POLISH" );
-		#elif defined( RUSSIAN )
+		} else if(g_lang == i18n::Lang::ru) {
 		  sprintf( (char *)zLanguage, "RUSSIAN" );
-		#elif defined( SPANISH )
-		  sprintf( (char *)zLanguage, "SPANISH" );
-		#elif defined( CHINESE )
+		} else if(g_lang == i18n::Lang::zh) {
 		  sprintf( (char *)zLanguage, "CHINESE" );
-		#else
-		#	error "At least You have to specify a Language somewhere. See comments above."
-		#endif
+		}
 
 //SB: Also check for russian Gold version, like English
 		switch( usMLGGraphicID )
@@ -584,7 +575,7 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			return TRUE;
 		}
 
-	#endif
+	}
 
 	return FALSE;
 }
