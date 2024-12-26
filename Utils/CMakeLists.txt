@@ -15,7 +15,6 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/MapUtility.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MercTextBox.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/message.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/Multi Language Graphic Utils.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Multilingual Text Code Generator.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Music Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/PopUpBox.cpp"

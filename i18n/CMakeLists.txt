@@ -18,5 +18,6 @@ set(i18nSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/_Ja25RussianText.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/_PolishText.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/_RussianText.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Multi Language Graphic Utils.cpp"
 PARENT_SCOPE
 )
