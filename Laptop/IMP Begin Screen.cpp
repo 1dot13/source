@@ -577,7 +577,6 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 
 		if( uiKey != '#')
 #else
-	#ifndef USE_CODE_PAGE
 		if( uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
@@ -585,9 +584,6 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 					uiKey == ' ' || uiKey == '"' ||
 					uiKey == 39 // This is ' which cannot be written explicitly here of course
 					)
-	#else
-		if( charSet::IsFromSet( uiKey, charSet::CS_SPACE|charSet::CS_ALPHA_NUM|charSet::CS_SPECIAL_ALPHA ) )
-	#endif
 #endif
 		{
 			// if the current string position is at max or great, do nothing
