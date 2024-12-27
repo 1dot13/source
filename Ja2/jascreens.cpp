@@ -959,7 +959,6 @@ void DoneFadeOutForDemoExitScreen( void )
 // unused
 //extern INT8 gbFadeSpeed;
 
-#ifdef GERMAN
 void DisplayTopwareGermanyAddress()
 {
 	VOBJECT_DESC		vo_desc;
@@ -994,7 +993,6 @@ void DisplayTopwareGermanyAddress()
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
 }
-#endif
 
 UINT32 DemoExitScreenHandle(void)
 {

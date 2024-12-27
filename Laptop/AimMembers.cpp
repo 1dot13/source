@@ -5367,11 +5367,17 @@ BOOLEAN DisplayShadedStretchedMercFace( UINT8 ubMercID, UINT16 usPosX, UINT16 us
 void DemoHiringOfMercs( )
 {
 	INT16	i;
-	#ifdef GERMAN
-		UINT8	MercID[]={ 7, 10, 4, 14, 50 };
-	#else
-		UINT8	MercID[]={ 7, 10, 4, 42, 33 };
-	#endif
+	UINT8 MercID[5];
+	MercID[0] = 7;
+	MercID[1] = 10;
+	MercID[2] = 4;
+	if( g_lang == i18n::Lang::de ) {
+		MercID[3] = 14;
+		MercID[4] = 50;
+	} else {
+		MercID[3] = 42;
+		MercID[4] = 33;
+	}
 	MERC_HIRE_STRUCT HireMercStruct;
 	static BOOLEAN	fHaveCalledBefore=FALSE;
 
