@@ -37,9 +37,7 @@ typedef struct
 	COLORVAL	BackColor;
 	UINT8 Height;
 	UINT8 InternalLeading;
-#ifdef CHINESE
 	UINT8 Width[0x80];
-#endif
 } HWINFONT;
 
 LONG gWinFontAdjust;
