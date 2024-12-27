@@ -1,1 +1,4 @@
+# stuff that needs doing
+# priority (LOW,HIGH) and description
 
+LOW readd the C4838 (https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-1-c4838) warning to CMakeLists.txt once they're all fixed in the code
