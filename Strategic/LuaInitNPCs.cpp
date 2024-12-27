@@ -96,6 +96,7 @@ extern "C" {
 #include "Merc Contract.h"
 #include "message.h"
 #include "Town Militia.h"
+#include <language.hpp>
 
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
@@ -13208,26 +13209,7 @@ static int l_GetUsedLanguage( lua_State *L )
 {
 	if ( lua_gettop( L ) )
 	{
-		INT32 val = 0;
-
-#if defined(ENGLISH)
-		val = 0;
-#elif defined(GERMAN)
-		val = 1;
-#elif defined(RUSSIAN)
-		val = 2;
-#elif defined(DUTCH)
-		val = 3;
-#elif defined(POLISH)
-		val = 4;
-#elif defined(FRENCH)
-		val = 5;
-#elif defined(ITALIAN)
-		val = 6;
-#elif defined(CHINESE)
-		val = 7;
-#endif
-
+		INT32 val = static_cast<INT32>(g_lang);
 		lua_pushinteger( L, val );
 	}
 
