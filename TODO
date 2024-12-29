@@ -2,3 +2,4 @@
 # priority (LOW,HIGH) and description
 
 LOW readd the C4838 (https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-1-c4838) warning to CMakeLists.txt once they're all fixed in the code
+HIGH get rid of ENGLISH, GERMAN, etc preprocessor definitions completely. that way i18n can be built just once and language can be changed in the options screen pending game restart (hotloading will likely require more work)
