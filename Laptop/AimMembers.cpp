@@ -49,6 +49,7 @@
 #include "Encrypted File.h"
 #include "InterfaceItemImages.h"
 #include <sstream>
+#include <language.hpp>
 
 //
 //******	Defines	******
@@ -5461,20 +5462,20 @@ void DisplayPopUpBoxExplainingMercArrivalLocationAndTime( )
 	//create the string to display to the user, looks like....
 	//	L"%s should arrive at the designated drop-off point ( sector %d:%d %s ) on day %d, at approximately %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 	//Germans version has a different argument order
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString,
 							zSectorIDString );
-#else
+} else {
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							zSectorIDString,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString );
-#endif
+}
 
 
 

@@ -30,6 +30,7 @@
 #include "GameSettings.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/File/vfs_file.h>
+#include <language.hpp>
 
 /*
 typedef struct
@@ -488,11 +489,11 @@ BOOLEAN EnterBobbyRMailOrder()
 	SetButtonCursor(guiBobbyRClearOrder, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiBobbyRClearOrder, DISABLED_STYLE_NONE );
  //inshy: fix position of text for buttons
-#ifdef FRENCH
+if(g_lang == i18n::Lang::fr) {
 	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 13, 10, TRUE );
-#else
+} else {
 	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 39, 10, TRUE );
-#endif
+}
 
 	// Accept Order button
 	guiBobbyRAcceptOrderImage = LoadButtonImage("LAPTOP\\AcceptOrderButton.sti", 2,0,-1,1,-1 );
@@ -504,11 +505,11 @@ BOOLEAN EnterBobbyRMailOrder()
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRAcceptOrderCallback);
 	SetButtonCursor( guiBobbyRAcceptOrder, CURSOR_LAPTOP_SCREEN);
  //inshy: fix position of text for buttons
-#ifdef FRENCH
+if(g_lang == i18n::Lang::fr) {
 	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 15, 24, TRUE );
-#else
+} else {
 	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 43, 24, TRUE );
-#endif
+}
 	SpecifyDisabledButtonStyle( guiBobbyRAcceptOrder, DISABLED_STYLE_SHADED );
 
 	if( gbSelectedCity == -1 )

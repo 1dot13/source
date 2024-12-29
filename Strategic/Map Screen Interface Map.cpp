@@ -56,6 +56,7 @@
 #include "MilitiaSquads.h"
 
 #include "LaptopSave.h"
+#include <language.hpp>
 
 // added by Flugente
 extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
@@ -1199,11 +1200,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen1");
 			// don't show loyalty string until loyalty tracking for that town has been started
 			if( gTownLoyalty[ bTown ].fStarted && gfTownUsesLoyalty[ bTown ])
 			{
-				#ifdef CHINESE
+				if ( g_lang == i18n::Lang::zh ) {
 					swprintf( sStringA, L"%d%ге%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
-				#else
+				} else {
 					swprintf( sStringA, L"%d%%%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
-				#endif
+				}
 				
 				// if loyalty is too low to train militia, and militia training is allowed here
 				if ( ( gTownLoyalty[ bTown ].ubRating < iMinLoyaltyToTrain ) && MilitiaTrainingAllowedInTown( bTown ) )
@@ -4873,11 +4874,11 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		// if potential is not nil, show percentage of the two
 		if (GetMaxPeriodicRemovalFromMine(ubMineIndex) > 0)
 		{
-			#ifdef CHINESE
+			if ( g_lang == i18n::Lang::zh ) {
 				swprintf( wSubString, L" (%d%ге%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
-			#else
+			} else {
 				swprintf( wSubString, L" (%d%%%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
-			#endif
+			}
 			
 			wcscat( wString, wSubString );
 		}

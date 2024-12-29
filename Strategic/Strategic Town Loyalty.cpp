@@ -40,6 +40,7 @@
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"
 #include "Interface.h"
+#include <language.hpp>
 
 #include "GameInitOptionsScreen.h"
 extern WorldItems gAllWorldItems;
@@ -1631,12 +1632,12 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 		swprintf( str, gpStrategicString[STR_PB_BANDIT_KILLCIVS_IN_SECTOR], ubHowMany, pSectorString );
 	else
 	{
-#ifdef CHINESE
+if( g_lang == i18n::Lang::zh ) {
 		//diffrent order of words in Chinese
 		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], pSectorString, ubHowMany );
-#else
+} else {
 		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], ubHowMany, pSectorString );
-#endif
+}
 	}
 
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );

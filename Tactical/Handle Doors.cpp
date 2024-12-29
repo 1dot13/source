@@ -33,6 +33,7 @@
 	#include "GameSettings.h"
 #include "fresh_header.h"
 #include "connect.h"
+#include <language.hpp>
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -1492,7 +1493,7 @@ void SetDoorString( INT32 sGridNo )
 	// ATE: If here, we try to say, opened or closed...
 	if ( gfUIIntTileLocation2 == FALSE )
 	{
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 
 			wcscpy( gzIntTileLocation2, TacticalStr[ DOOR_DOOR_MOUSE_DESCRIPTION ] );
 			gfUIIntTileLocation2 = TRUE;
@@ -1535,7 +1536,7 @@ void SetDoorString( INT32 sGridNo )
 					gfUIIntTileLocation = TRUE;
 				}
 			}
-#else
+} else {
 
 			// Try to get doors status here...
 			pDoorStatus = GetDoorStatus( sGridNo );
@@ -1576,7 +1577,7 @@ void SetDoorString( INT32 sGridNo )
 				}
 			}
 
-#endif
+}
 	}
 
 }

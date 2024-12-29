@@ -228,7 +228,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, AMMOFILENAME);
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 		
 	if ( FileExists(fileName) )
@@ -242,9 +242,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		strcat(fileName, AMMOFILENAME);
 		SGP_THROW_IFFALSE(ReadInAmmoStats(fileName),AMMOFILENAME);
 	}
-#else	
+} else {
 	SGP_THROW_IFFALSE(ReadInAmmoStats(fileName),AMMOFILENAME);
-#endif
+}
 
 	// Lesh: added this, begin
 	strcpy(fileName, directoryName);
@@ -268,14 +268,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 // the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
 
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInItemStats(fileName,TRUE), fileName);
 	}
-#endif
+}
 
 	//if(!WriteItemStats())
 	//	return FALSE;
@@ -340,14 +340,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat( fileName, DISEASEFILENAME );
 	SGP_THROW_IFFALSE( ReadInDiseaseStats( fileName,FALSE ), DISEASEFILENAME );
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInDiseaseStats(fileName,TRUE), DISEASEFILENAME);
 	}
-#endif
+}
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, STRUCTUREDECONSTRUCTFILENAME);
@@ -385,14 +385,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, LOADSCREENHINTSFILENAME);
 	SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName, FALSE),LOADSCREENHINTSFILENAME);
 
-	#ifndef ENGLISH
+	if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName,TRUE), fileName);
 		}
-	#endif
+	}
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
@@ -422,14 +422,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		}
 	}
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,TRUE), fileName);
 	}
-#endif
+}
 
 	// THE_BOB : added for pocket popup definitions
 	LBEPocketPopup.clear();
@@ -437,7 +437,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, LBEPOCKETPOPUPFILENAME);
 	SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 
 	if (FileExists(fileName))
@@ -452,10 +452,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		strcat(fileName, LBEPOCKETPOPUPFILENAME);
 		SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
 	}
-#else
+} else {
 	// WANNE: Load english file
 	SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
-#endif
+}
 
 
 #ifdef JA2UB
@@ -471,14 +471,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, MERCSTARTINGGEARFILENAME);
 	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName, FALSE), MERCSTARTINGGEARFILENAME);
 
-	#ifndef ENGLISH
+	if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName,TRUE), fileName);
 		}
-	#endif
+	}
 
 #endif
 
@@ -495,14 +495,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, ATTACHMENTSLOTSFILENAME);
 	SGP_THROW_IFFALSE(ReadInAttachmentSlotsStats(fileName, FALSE),ATTACHMENTSLOTSFILENAME);
 
-	#ifndef ENGLISH
+	if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInAttachmentSlotsStats(fileName,TRUE), fileName);
 		}
-	#endif
+	}
 
 	// Flugente: created separate gun and item choices for different soldier classes - read in different xmls
 	strcpy(fileName, directoryName);
@@ -676,14 +676,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat(fileName, CITYTABLEFILENAME);
 	SGP_THROW_IFFALSE(ReadInMapStructure(fileName, FALSE),CITYTABLEFILENAME);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInStrategicMapSectorTownNames(fileName,TRUE), fileName);
 	}
-#endif
+}
 
 	// Lesh: Strategic movement costs will be read in Strategic\Strategic Movement Costs.cpp,
 	//		function BOOLEAN InitStrategicMovementCosts();
@@ -734,14 +734,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInShippingDestinations(fileName, FALSE),SHIPPINGDESTINATIONSFILENAME);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInShippingDestinations(fileName, TRUE),fileName);
 	}
-#endif
+}
 	
 	strcpy(fileName, directoryName);
 	strcat(fileName, DELIVERYMETHODSFILENAME);
@@ -754,14 +754,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInFacilityTypes(fileName,FALSE), FACILITYTYPESFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInFacilityTypes(fileName,TRUE), fileName);
 	}
-#endif
+}
 
 	// HEADROCK HAM 3.4: Read in facility locations
 	strcpy(fileName, directoryName);
@@ -775,14 +775,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,0), SECTORNAMESFILENAME);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInSectorNames(fileName,TRUE, 0), fileName);
 	}
-#endif	
+}
 
 	// HEADROCK HAM 5: Read in Coolness by Sector
 	strcpy(fileName, directoryName);
@@ -804,7 +804,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));		
 		SGP_THROW_IFFALSE(ReadInMercProfiles(fileName, FALSE), MERCPROFILESFILENAME25);
 		
-		#ifndef ENGLISH
+		if( g_lang != i18n::Lang::en ) {
 			AddLanguagePrefix(fileName);
 			if ( FileExists(fileName) )
 			{
@@ -812,7 +812,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 				if(!ReadInMercProfiles(fileName,TRUE))
 				return FALSE;
 			}
-		#endif
+		}
 		}
 
 		strcpy(fileName, directoryName);
@@ -830,14 +830,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInMercProfiles(fileName, FALSE), MERCPROFILESFILENAME);
 
-		#ifndef ENGLISH
+		if( g_lang != i18n::Lang::en ) {
 			AddLanguagePrefix(fileName);
 			if ( FileExists(fileName) )
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 				SGP_THROW_IFFALSE(ReadInMercProfiles(fileName,TRUE), fileName);
 			}
-		#endif
+		}
 
 		// HEADROCK PROFEX: Read in Merc Opinion data to replace PROF.DAT data
 		strcpy(fileName, directoryName);
@@ -900,14 +900,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEnemyNames(fileName,FALSE), ENEMYNAMESFILENAME);		
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInEnemyNames(fileName,TRUE), fileName);
 		}
-#endif
+}
 	}
 	
 	
@@ -919,14 +919,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInCivGroupNamesStats(fileName,FALSE), CIVGROUPNAMESFILENAME);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInCivGroupNamesStats(fileName,TRUE), fileName);
 		}
-#endif
+}
 	}
 	
 	
@@ -936,14 +936,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInSenderNameList(fileName,FALSE), EMAILSENDERNAMELIST);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInSenderNameList(fileName,TRUE), fileName);
 		}
-#endif
+}
 	
 	if (gGameExternalOptions.fEnemyRank == TRUE)
     {
@@ -953,14 +953,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEnemyRank(fileName,FALSE), ENEMYRANKFILENAME);		
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInEnemyRank(fileName,TRUE), fileName);
 		}
-#endif
+}
 	}
 
 	// Flugente: backgrounds
@@ -969,14 +969,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInBackgrounds(fileName,FALSE), BACKGROUNDSFILENAME);
 			
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInBackgrounds(fileName,TRUE), BACKGROUNDSFILENAME);
 	}
-#endif
+}
 
 	// Flugente: individual militia
 	strcpy( fileName, directoryName );
@@ -990,14 +990,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInCampaignStatsEvents(fileName,FALSE), CAMPAIGNSTATSEVENTSFILENAME);
 			
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInCampaignStatsEvents(fileName,TRUE), CAMPAIGNSTATSEVENTSFILENAME);
 	}
-#endif
+}
 
 	// WANNE: Only in a singleplayer game...
 	// Externalised taunts
@@ -1018,14 +1018,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 			strcat(fileName, FileInfo.zFileName);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
-	#ifndef ENGLISH
+	if( g_lang != i18n::Lang::en ) {
 			AddLanguagePrefix(fileName);
 			if ( FileExists(fileName) )
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 				SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), fileName);
 			}
-	#endif
+	}
 			while( GetFileNext(&FileInfo) )
 			{
 				strcpy(fileName, directoryName);
@@ -1033,14 +1033,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 				strcat(fileName, FileInfo.zFileName);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 				SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
-	#ifndef ENGLISH
+	if( g_lang != i18n::Lang::en ) {
 				AddLanguagePrefix(fileName);
 				if ( FileExists(fileName) )
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 					SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), fileName);
 				}
-	#endif
+	}
 			}
 			GetFileClose(&FileInfo);
 		}
@@ -1052,14 +1052,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInHistorys(fileName,FALSE), HISTORYNAMEFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInHistorys(fileName,TRUE), fileName);
 		}
-#endif
+}
 
 	// IMP Portraits List by Jazz
 	strcpy(fileName, directoryName);
@@ -1067,14 +1067,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInIMPPortraits(fileName,FALSE), IMPPORTRAITS);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInIMPPortraits(fileName,TRUE), fileName);
 		}
-#endif
+}
 
 	LoadIMPPortraitsTEMP( );
 
@@ -1159,14 +1159,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	SGP_THROW_IFFALSE(ReadInFaceGear(zNewFaceGear, fileName), FACEGEARFILENAME);
 	//WriteFaceGear();
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInMercAvailability(fileName,TRUE), fileName);
 		}
-#endif
+}
 	UINT32 i;
 		for(i=0; i<NUM_PROFILES; i++)
 		{
@@ -1180,14 +1180,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInAimAvailability(fileName,FALSE), AIMAVAILABILITY);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInAimAvailability(fileName,TRUE), fileName);
 		}
-#endif
+}
 
 	//Main Menu by Jazz	
 	strcpy(fileName, directoryName);
@@ -1200,7 +1200,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInActionItems(fileName,FALSE), ACTIONITEMSFILENAME);	
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1208,7 +1208,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 			if(!ReadInActionItems(fileName,TRUE))
 				return FALSE;
 		}
-#endif
+}
 
 if ( ReadXMLEmail == TRUE )
 {
@@ -1218,7 +1218,7 @@ if ( ReadXMLEmail == TRUE )
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEmailMercAvailable(fileName,FALSE), EMAILMERCAVAILABLE);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1226,7 +1226,7 @@ if ( ReadXMLEmail == TRUE )
 			if(!ReadInEmailMercAvailable(fileName,TRUE))
 				return FALSE;
 		}
-#endif
+}
 
 		// EMAIL MERC LEVEL UP by Jazz
 		strcpy(fileName, directoryName);
@@ -1234,7 +1234,7 @@ if ( ReadXMLEmail == TRUE )
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEmailMercLevelUp(fileName,FALSE), EMAILMERCLEVELUP);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1242,7 +1242,7 @@ if ( ReadXMLEmail == TRUE )
 			if(!ReadInEmailMercLevelUp(fileName,TRUE))
 				return FALSE;
 		}
-#endif
+}
 }
 /*
 		// EMAIL OTHER by Jazz
@@ -1251,7 +1251,7 @@ if ( ReadXMLEmail == TRUE )
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEmailOther(fileName,FALSE), EMAILOTHER);
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1259,7 +1259,7 @@ if ( ReadXMLEmail == TRUE )
 			if(!ReadInEmailOther(fileName,TRUE))
 				return FALSE;
 		}
-#endif
+}
 */
 	//new vehicles by Jazz	
 	
@@ -1270,7 +1270,7 @@ if ( ReadXMLEmail == TRUE )
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInNewVehicles(fileName,FALSE), VEHICLESFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1278,9 +1278,9 @@ if ( ReadXMLEmail == TRUE )
 			if(!ReadInNewVehicles(fileName,TRUE))
 				return FALSE;
 		}
-#endif
+}
 
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
@@ -1288,7 +1288,7 @@ if ( ReadXMLEmail == TRUE )
 			if(!ReadInLanguageLocation(fileName,TRUE,zlanguageText,0))
 				return FALSE;
 		}
-#endif
+}
 
 #ifdef ENABLE_BRIEFINGROOM
 	strcpy(fileName, directoryName);
@@ -1296,14 +1296,14 @@ if ( ReadXMLEmail == TRUE )
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInBriefingRoom(fileName,FALSE,gBriefingRoomData, 4), BRIEFINGROOMFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInBriefingRoom(fileName,TRUE,gBriefingRoomData, 4), fileName);
 		}
-#endif
+}
 
 BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 
@@ -1315,14 +1315,14 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInMinerals(fileName,FALSE), MINERALSFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInMinerals(fileName,TRUE), fileName);
 	}
-#endif
+}
 
 	// Old AIM Archive
 		UINT8 p;
@@ -1336,14 +1336,14 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInAimOldArchive(fileName,FALSE), OLDAIMARCHIVEFILENAME);
 	
-#ifndef ENGLISH
+if( g_lang != i18n::Lang::en ) {
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInAimOldArchive(fileName,TRUE), fileName);
 		}
-#endif
+}
 		UINT8 emptyslotsinarchives = 0;
 		for (p=0;p<NUM_PROFILES;p++)
 		{
@@ -1393,14 +1393,14 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,FALSE), DIFFICULTYFILENAME);
 
-			#ifndef ENGLISH
+			if( g_lang != i18n::Lang::en ) {
 				AddLanguagePrefix(fileName);
 				if ( FileExists(fileName) )
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 					SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,TRUE), fileName);
 				}
-			#endif
+			}
 
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());

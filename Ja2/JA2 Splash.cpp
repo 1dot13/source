@@ -5,6 +5,7 @@
 #include "Timer Control.h"
 #include "Multi Language Graphic Utils.h"
 #include <stdio.h>
+#include <language.hpp>
 
 UINT32 guiSplashFrameFade = 10;
 UINT32 guiSplashStartTime = 0;
@@ -13,10 +14,10 @@ extern HVSURFACE ghFrameBuffer;
 //Simply create videosurface, load image, and draw it to the screen.
 void InitJA2SplashScreen()
 {
-#ifdef ENGLISH
+if( g_lang == i18n::Lang::en ) {
 	ClearMainMenu();
 
-#else
+} else {
 	UINT32 uiLogoID = 0;
 	HVSURFACE hVSurface; // unused jonathanl	// lalien reenabled for international versions
 	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
@@ -69,7 +70,7 @@ void InitJA2SplashScreen()
 	GetVideoSurface( &hVSurface, uiLogoID );
 	BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
 	DeleteVideoSurfaceFromIndex( uiLogoID );
-#endif // ENGLISH
+} // ENGLISH
 
 	InvalidateScreen();
 	RefreshScreen( NULL );

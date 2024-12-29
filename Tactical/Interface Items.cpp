@@ -82,6 +82,7 @@
 	#include "Sound Control.h"
 
 #include "Multi Language Graphic Utils.h"
+#include <language.hpp>
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -7409,11 +7410,11 @@ void RenderItemDescriptionBox( )
 					FindFontRightCoordinates( gODBItemDescRegions[0][0].sLeft, gODBItemDescRegions[0][0].sTop, gODBItemDescRegions[0][0].sRight - gODBItemDescRegions[0][0].sLeft, gODBItemDescRegions[0][0].sBottom - gODBItemDescRegions[0][0].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 				}
 
-				#ifdef CHINESE
+				if( g_lang == i18n::Lang::zh ) {
 					wcscat( pStr, ChineseSpecString1 );
-				#else			
+				} else {
 					wcscat( pStr, L"%%" );
-				#endif
+				}
 
 				mprintf( usX, usY, pStr );
 			}
@@ -11178,11 +11179,11 @@ void SetupPickupPage( INT8 bPage )
 	    }
       else
       {
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			swprintf( pStr, ChineseSpecString3, sValue );
-		#else
+		} else {
 			swprintf( pStr, L"%d%%", sValue );
-		#endif	
+		}
       }
 
     	SetRegionFastHelpText( &(gItemPickupMenu.Regions[ cnt - iStart ]), pStr );

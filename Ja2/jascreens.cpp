@@ -48,6 +48,7 @@
 	#include "IniReader.h"
 
 #include "sgp_logger.h"
+#include <language.hpp>
 
 #define _UNICODE
 // Networking Stuff
@@ -331,7 +332,7 @@ UINT32 InitScreenHandle(void)
 
 	if ( ubCurrentScreen == 255 )
 	{
-	#ifdef ENGLISH
+	if( g_lang == i18n::Lang::en ) {
 		if( gfDoneWithSplashScreen )
 		{
 			ubCurrentScreen = 0;
@@ -341,9 +342,9 @@ UINT32 InitScreenHandle(void)
 			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 			return( INTRO_SCREEN );
 		}
-	#else
+	} else {
 		ubCurrentScreen = 0;
-	#endif
+	}
 	}
 
 	if ( ubCurrentScreen == 0 )

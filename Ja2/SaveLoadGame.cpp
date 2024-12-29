@@ -152,6 +152,7 @@
 #endif
 
 #include "LuaInitNPCs.h"
+#include <language.hpp>
 
 
 #ifdef JA2UB
@@ -7205,7 +7206,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 					}
 				}
 
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 				// Fix neutral flags
 				if ( guiCurrentSaveGameVersion < 94 )
 				{
@@ -7215,7 +7216,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 						Menptr[ cnt].aiData.bNeutral = FALSE;
 					}
 				}
-#endif
+}
 				//#ifdef JA2UB
 				//if the soldier has the NON weapon version of the merc knofe or merc umbrella
 				//ConvertWeapons( &Menptr[ cnt ] );
@@ -9896,9 +9897,9 @@ UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader )
 		}
 	}
 
-	#ifdef GERMAN
+	if( g_lang == i18n::Lang::de ) {
 		uiEncryptionSet *= 11;
-	#endif
+	}
 
 	uiEncryptionSet = uiEncryptionSet % 10;
 

@@ -9665,27 +9665,27 @@ void BltCharInvPanel()
 		// print armor/weight/camo labels
 		mprintf(UI_CHARINV.Text.ArmorLabel.iX, UI_CHARINV.Text.ArmorLabel.iY, pInvPanelTitleStrings[ 0 ] );
 
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, L"%%" );
-		#endif
+		}
 
 		mprintf(UI_CHARINV.Text.WeightLabel.iX, UI_CHARINV.Text.WeightLabel.iY, pInvPanelTitleStrings[ 1 ]  );
 		
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, L"%%" );
-		#endif
+		}
 
 		mprintf(UI_CHARINV.Text.CamoLabel.iX, UI_CHARINV.Text.CamoLabel.iY, pInvPanelTitleStrings[ 2 ]  );
 		
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, L"%%" );
-		#endif
+		}
 
 		const auto width = UI_CHARINV.Text.PercentWidth;
 		const auto height = UI_CHARINV.Text.PercentHeight;
