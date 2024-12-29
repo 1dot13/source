@@ -22,12 +22,12 @@ endif()
 
 option(ADDRESS_SANITIZER OFF)
 if(ADDRESS_SANITIZER)
-	message(STATUS "AddressSanitizer ENABLED for non-Release builds")
-	add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
+  message(STATUS "AddressSanitizer ENABLED for non-Release builds")
+  add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
 endif()
 
 if(MSVC)
-	add_compile_options("/wd4838")
+  add_compile_options("/wd4838")
 endif()
 
 # whether we are using MSBuild as a generator
@@ -39,22 +39,22 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
 include_directories(
-	"${CMAKE_SOURCE_DIR}/Ja2"
-	"${CMAKE_SOURCE_DIR}/ext/VFS/include"
-	"${CMAKE_SOURCE_DIR}/Utils"
-	"${CMAKE_SOURCE_DIR}/TileEngine"
-	"${CMAKE_SOURCE_DIR}/TacticalAI"
-	"${CMAKE_SOURCE_DIR}/ModularizedTacticalAI/include"
-	"${CMAKE_SOURCE_DIR}/Tactical"
-	"${CMAKE_SOURCE_DIR}/Strategic"
-	"${CMAKE_SOURCE_DIR}/sgp"
-	"${CMAKE_SOURCE_DIR}/Ja2/Res"
-	"${CMAKE_SOURCE_DIR}/Lua"
-	"${CMAKE_SOURCE_DIR}/Laptop"
-	"${CMAKE_SOURCE_DIR}/Multiplayer"
-	"${CMAKE_SOURCE_DIR}/Editor"
-	"${CMAKE_SOURCE_DIR}/Console"
-	"${CMAKE_SOURCE_DIR}/i18n/include"
+  "${CMAKE_SOURCE_DIR}/Ja2"
+  "${CMAKE_SOURCE_DIR}/ext/VFS/include"
+  "${CMAKE_SOURCE_DIR}/Utils"
+  "${CMAKE_SOURCE_DIR}/TileEngine"
+  "${CMAKE_SOURCE_DIR}/TacticalAI"
+  "${CMAKE_SOURCE_DIR}/ModularizedTacticalAI/include"
+  "${CMAKE_SOURCE_DIR}/Tactical"
+  "${CMAKE_SOURCE_DIR}/Strategic"
+  "${CMAKE_SOURCE_DIR}/sgp"
+  "${CMAKE_SOURCE_DIR}/Ja2/Res"
+  "${CMAKE_SOURCE_DIR}/Lua"
+  "${CMAKE_SOURCE_DIR}/Laptop"
+  "${CMAKE_SOURCE_DIR}/Multiplayer"
+  "${CMAKE_SOURCE_DIR}/Editor"
+  "${CMAKE_SOURCE_DIR}/Console"
+  "${CMAKE_SOURCE_DIR}/i18n/include"
 )
 
 # external libraries
@@ -76,20 +76,20 @@ add_subdirectory(Multiplayer)
 # by header files rely on Application and Language preprocessor definitions, and
 # therefore need to be compiled multiple times. Very Bad.
 set(Ja2_Libs
-TileEngine
-TacticalAI
-Utils
-Strategic
-sgp
-Laptop
-Editor
-Console
-Tactical
-ModularizedTacticalAI
-i18n
+  TileEngine
+  TacticalAI
+  Utils
+  Strategic
+  sgp
+  Laptop
+  Editor
+  Console
+  Tactical
+  ModularizedTacticalAI
+  i18n
 )
 foreach(lib IN LISTS Ja2_Libs)
-	add_subdirectory(${lib})
+  add_subdirectory(${lib})
 endforeach()
 
 add_subdirectory(Ja2)
@@ -111,43 +111,43 @@ set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBU
 # every library-language-executable combination is its own compilation target
 # TODO: refactor preprocessor usage onto, ideally, a single translation unit
 foreach(lang IN LISTS LangTargets)
-	foreach(exe IN LISTS ApplicationTargets)
-		set(Executable ${exe}_${lang})
+  foreach(exe IN LISTS ApplicationTargets)
+    set(Executable ${exe}_${lang})
 
-		# executable for an application/language combination, e.g. JA2_ENGLISH.exe
-		add_executable(${Executable} WIN32)
-		target_sources(${Executable} PRIVATE ${Ja2Src})
+    # executable for an application/language combination, e.g. JA2_ENGLISH.exe
+    add_executable(${Executable} WIN32)
+    target_sources(${Executable} PRIVATE ${Ja2Src})
 
-		# Good libraries have already been built, can be simply linked here
-		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
-		target_link_options(${Executable} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
+    # Good libraries have already been built, can be simply linked here
+    target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
+    target_link_options(${Executable} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
 
-		# for each app/lang combination, the Very Bad libraries need to be built,
-		# with the appropriate preprocessor definitions
-		foreach(lib IN LISTS Ja2_Libs)
-			# syntactic sugar to hopefully make this more readable
-			set(VeryBadLib ${Executable}_${lib})
-			set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
-			set(isUb $<STREQUAL:${exe},JA2UB>)
-			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
+    # for each app/lang combination, the Very Bad libraries need to be built,
+    # with the appropriate preprocessor definitions
+    foreach(lib IN LISTS Ja2_Libs)
+      # syntactic sugar to hopefully make this more readable
+      set(VeryBadLib ${Executable}_${lib})
+      set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
+      set(isUb $<STREQUAL:${exe},JA2UB>)
+      set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
 
-			# static library for an app/lang combination, e.g. JA2_ENGLISH_sgp.lib
-			add_library(${VeryBadLib})
-			target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
+      # static library for an app/lang combination, e.g. JA2_ENGLISH_sgp.lib
+      add_library(${VeryBadLib})
+      target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
 
-			target_compile_definitions(${VeryBadLib} PUBLIC
-				$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
-				$<IF:${isUb},JA2UB;JA2UBMAPS,>
-				$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
-				${debugFlags}
-				${lang}
-			)
-			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
-		endforeach()
+      target_compile_definitions(${VeryBadLib} PUBLIC
+	$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
+	$<IF:${isUb},JA2UB;JA2UBMAPS,>
+	$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
+	${debugFlags}
+	${lang}
+      )
+      target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
+    endforeach()
 
-		# for sgp only
-		target_link_libraries(${Executable}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${Executable}_sgp PUBLIC libpng)
-		target_compile_definitions(${Executable}_sgp PRIVATE NO_ZLIB_COMPRESSION)
-	endforeach()
+    # for sgp only
+    target_link_libraries(${Executable}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+    target_link_libraries(${Executable}_sgp PUBLIC libpng)
+    target_compile_definitions(${Executable}_sgp PRIVATE NO_ZLIB_COMPRESSION)
+  endforeach()
 endforeach()
