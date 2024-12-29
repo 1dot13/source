@@ -9,12 +9,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(LTO_OPTION "Enable link-time optimization if supported by compiler" OFF)
+
 include(CheckIPOSupported)
 check_ipo_supported(RESULT LinkTimeOptimization OUTPUT IpoError LANGUAGES C CXX)
-if(LinkTimeOptimization)
+if(LinkTimeOptimization AND LTO_OPTION)
+  message(STATUS "Configuring WITH link-time optimization")
   set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 else()
-  message(WARNING "IPO is not supported: ${IpoError}")
+  message(STATUS "Configuring WITHOUT link-time optimization ${IpoError}")
 endif()
 
 option(ADDRESS_SANITIZER OFF)
