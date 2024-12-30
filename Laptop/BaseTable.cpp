@@ -627,7 +627,7 @@ TestTable::Display( )
 				{
 					MSYS_DefineRegion( &it->mMouseRegion[i - mFirstEntryShown],
 						usPosX, usPosY, usPosX + it->GetRequiredLength(), usPosY + heightperrow,
-						MSYS_PRIORITY_HIGHEST, CURSOR_WWW,
+						MSYS_PRIORITY_HIGHEST-3, CURSOR_WWW,
 						MSYS_NO_CALLBACK, ( *it ).RegionClickCallBack );
 					MSYS_AddRegion( &it->mMouseRegion[i - mFirstEntryShown] );
 
