@@ -36,17 +36,3 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_Layout_MainMenu.cpp"
 ${CMAKE_CURRENT_SOURCE_DIR}/Res/ja2.rc
 PARENT_SCOPE)
-
-set(Ja2_Libraries
-"${CMAKE_SOURCE_DIR}/libexpatMT.lib"
-"Dbghelp.lib"
-Lua
-"${CMAKE_SOURCE_DIR}/lua51.lib"
-"${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
-"Winmm.lib"
-"${CMAKE_SOURCE_DIR}/SMACKW32.LIB"
-"${CMAKE_SOURCE_DIR}/binkw32.lib"
-bfVFS
-"ws2_32.lib"
-Multiplayer
-PARENT_SCOPE)

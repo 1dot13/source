@@ -25,6 +25,7 @@ void RenderBobbyR();
 #define		BOBBYR_GRIDLOC_X		LAPTOP_SCREEN_UL_X + 4
 #define		BOBBYR_GRIDLOC_Y		LAPTOP_SCREEN_WEB_UL_Y + 5	//LAPTOP_SCREEN_WEB_UL_Y + 45
 
+#define		BOBBYR_ORDER_NUM_WIDTH						15
 
 /*
 extern	UINT16	gusFirstGunIndex;

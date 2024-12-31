@@ -22,6 +22,7 @@
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
 
+#include <language.hpp>
 typedef struct
 {
 	UINT32	uiFont;

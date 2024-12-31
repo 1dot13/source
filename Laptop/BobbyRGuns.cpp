@@ -20,6 +20,7 @@
 	// HEADROCK HAM 4
 	#include "input.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
+	#include <language.hpp>
 
 
 #define		BOBBYR_DEFAULT_MENU_COLOR					255
@@ -86,7 +87,6 @@
 #define		BOBBYR_ITEM_NAME_X								BOBBYR_GRIDLOC_X + 6
 #define		BOBBYR_ITEM_NAME_Y_OFFSET					54
 
-#define		BOBBYR_ORDER_NUM_WIDTH						15
 #define		BOBBYR_ORDER_NUM_X								BOBBYR_GRIDLOC_X + 120 - BOBBYR_ORDER_NUM_WIDTH	//BOBBYR_ITEM_STOCK_TEXT_X
 #define		BOBBYR_ORDER_NUM_Y_OFFSET					1
 
@@ -114,12 +114,6 @@
 
 #define		BOBBYR_ITEM_QTY_NUM_X							BOBBYR_GRIDLOC_X + 105//BOBBYR_ITEM_COST_TEXT_X + 1
 #define		BOBBYR_ITEM_QTY_NUM_Y							BOBBYR_ITEM_QTY_TEXT_Y//BOBBYR_ITEM_COST_TEXT_Y + 40
-
-#ifdef CHINESE
-	#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH - 10	//BOBBYR_ITEM_QTY_NUM_X
-#else
-	#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH//BOBBYR_ITEM_QTY_NUM_X
-#endif
 
 #define		BOBBY_RAY_NOT_PURCHASED						255
 #define		BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE		200
@@ -2516,11 +2510,11 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 	//if it's a used item, display how damaged the item is
 	if( fUsed )
 	{
-		#ifdef CHINESE
+		if ( g_lang == i18n::Lang::zh ) {
 			swprintf( sTemp, ChineseSpecString2, LaptopSaveInfo.BobbyRayUsedInventory[ usBobbyIndex ].ubItemQuality );//zww
-		#else
+		} else {
 			swprintf( sTemp, L"*%3d%%%%", LaptopSaveInfo.BobbyRayUsedInventory[ usBobbyIndex ].ubItemQuality );
-		#endif
+		}
 		
 		DrawTextToScreen(sTemp, (UINT16)(BOBBYR_ITEM_NAME_X-2), (UINT16)(usPosY - BOBBYR_ORDER_NUM_Y_OFFSET), BOBBYR_ORDER_NUM_WIDTH, BOBBYR_ITEM_NAME_TEXT_FONT, BOBBYR_ITEM_NAME_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}

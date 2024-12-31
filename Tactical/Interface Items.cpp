@@ -82,6 +82,7 @@
 	#include "Sound Control.h"
 
 #include "Multi Language Graphic Utils.h"
+#include <language.hpp>
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -7409,11 +7410,11 @@ void RenderItemDescriptionBox( )
 					FindFontRightCoordinates( gODBItemDescRegions[0][0].sLeft, gODBItemDescRegions[0][0].sTop, gODBItemDescRegions[0][0].sRight - gODBItemDescRegions[0][0].sLeft, gODBItemDescRegions[0][0].sBottom - gODBItemDescRegions[0][0].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 				}
 
-				#ifdef CHINESE
+				if( g_lang == i18n::Lang::zh ) {
 					wcscat( pStr, ChineseSpecString1 );
-				#else			
+				} else {
 					wcscat( pStr, L"%%" );
-				#endif
+				}
 
 				mprintf( usX, usY, pStr );
 			}
@@ -11178,11 +11179,11 @@ void SetupPickupPage( INT8 bPage )
 	    }
       else
       {
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			swprintf( pStr, ChineseSpecString3, sValue );
-		#else
+		} else {
 			swprintf( pStr, L"%d%%", sValue );
-		#endif	
+		}
       }
 
     	SetRegionFastHelpText( &(gItemPickupMenu.Regions[ cnt - iStart ]), pStr );
@@ -12280,12 +12281,28 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString11,
-					#else
+					ItemNames[ usItem ],
+					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					} else {
 						swprintf( pStr, L"%s (%s) [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#endif
-					
 					ItemNames[ usItem ],
 					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
 					sValue,
@@ -12304,16 +12321,12 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units	
 					);
+					}
 				}
 				else
 				{					
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString4,
-					#else
-						swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#endif
-					
-					
 					ItemNames[ usItem ],
 					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
 					sValue,
@@ -12331,6 +12344,28 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+					} else {
+
+						swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
+					ItemNames[ usItem ],
+					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
+					sValue,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					}
+
 				}
 			}
 			break;
@@ -12379,12 +12414,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, L"%s [%d%ге(%d%ге)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#else
-						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#endif
-
 					ItemNames[ usItem ],
 					sValue,
 					sThreshold,
@@ -12402,15 +12433,31 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+					} else {
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
+					ItemNames[ usItem ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					}
 				}
 				else
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#else
-						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
-					#endif
-
 					ItemNames[ usItem ],
 					sValue,
 					gWeaponStatsDesc[ 9 ],		//Accuracy String
@@ -12427,6 +12474,25 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+					} else {
+						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
+					ItemNames[ usItem ],
+					sValue,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					}
 				}
 			}
 			break;
@@ -12437,13 +12503,9 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 			{
 				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString9,
-					#else
-						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %1.1f %s",
-					#endif
-
-						ItemNames[ usItem ],
+					ItemNames[ usItem ],
 						sValue,
 						sThreshold,
 						gWeaponStatsDesc[ 11 ],					//Damage String
@@ -12454,16 +12516,26 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 						fWeight,								//Weight
 						GetWeightUnitString()					//Weight units
 						);
+					} else {
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %1.1f %s",
+					ItemNames[ usItem ],
+						sValue,
+						sThreshold,
+						gWeaponStatsDesc[ 11 ],					//Damage String
+						GetDamage(pObject), 					//Melee damage
+						gWeaponStatsDesc[ 6 ],					//AP String
+						BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
+						gWeaponStatsDesc[ 12 ],					//Weight String
+						fWeight,								//Weight
+						GetWeightUnitString()					//Weight units
+						);
+					}
 				}
 				else
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString5,
-					#else
-						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
-					#endif
-
-						ItemNames[ usItem ],
+					ItemNames[ usItem ],
 						sValue,
 						gWeaponStatsDesc[ 11 ],					//Damage String
 						GetDamage(pObject), 					//Melee damage
@@ -12473,6 +12545,19 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 						fWeight,								//Weight
 						GetWeightUnitString()					//Weight units
 						);
+					} else {
+						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
+					ItemNames[ usItem ],
+						sValue,
+						gWeaponStatsDesc[ 11 ],					//Damage String
+						GetDamage(pObject), 					//Melee damage
+						gWeaponStatsDesc[ 6 ],					//AP String
+						BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
+						gWeaponStatsDesc[ 12 ],					//Weight String
+						fWeight,								//Weight
+						GetWeightUnitString()					//Weight units
+						);
+					}
 				}
 			}
 			break;
@@ -12512,13 +12597,9 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItem ].ubClassIndex].ubDamage, 0 );
 				UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItem ].ubClassIndex].ubStunDamage, 1 );
 
-				#ifdef CHINESE
+				if( g_lang == i18n::Lang::zh ) {
 					swprintf( pStr, ChineseSpecString5,
-				#else
-					swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
-				#endif
-
-					ItemNames[ usItem ],
+				ItemNames[ usItem ],
 					sValue,
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					explDamage,
@@ -12528,6 +12609,19 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+				} else {
+					swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
+				ItemNames[ usItem ],
+					sValue,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					explDamage,
+					gWeaponStatsDesc[ 13 ],		//Stun Damage String
+					explStunDamage,				//Stun Damage
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+				}
 			}
 			break;
 
@@ -12557,12 +12651,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString10,
-					#else
-						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
-					#endif
-				
 					ItemNames[ usItem ],		//Item long name
 					sValue,						//Item condition
 					sThreshold,					//repair threshold
@@ -12576,15 +12666,27 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+					} else {
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
+					ItemNames[ usItem ],		//Item long name
+					sValue,						//Item condition
+					sThreshold,					//repair threshold
+					pInvPanelTitleStrings[ 4 ],	//Protection string
+					iProtection,				//Protection rating in % based on best armor
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
+					pInvPanelTitleStrings[ 3 ],	//Camo string
+					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
+					gWeaponStatsDesc[ 12 ],		//Weight string
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					}
 				}
 				else
 				{
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						swprintf( pStr, ChineseSpecString6,
-					#else
-						swprintf( pStr, L"%s [%d%%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
-					#endif
-				
 					ItemNames[ usItem ],		//Item long name
 					sValue,						//Item condition
 					pInvPanelTitleStrings[ 4 ],	//Protection string
@@ -12597,6 +12699,21 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+					} else {
+						swprintf( pStr, L"%s [%d%%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
+					ItemNames[ usItem ],		//Item long name
+					sValue,						//Item condition
+					pInvPanelTitleStrings[ 4 ],	//Protection string
+					iProtection,				//Protection rating in % based on best armor
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
+					pInvPanelTitleStrings[ 3 ],	//Camo string
+					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
+					gWeaponStatsDesc[ 12 ],		//Weight string
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+					}
 				}
 			}
 			break;
@@ -12609,17 +12726,23 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		default:
 			{
 				// The final, and typical case, is that of an item with a percent status
-				#ifdef CHINESE
+				if( g_lang == i18n::Lang::zh ) {
 					swprintf( pStr, ChineseSpecString7,
-				#else
-					swprintf( pStr, L"%s [%d%%]\n%s %1.1f %s",
-				#endif
 					ItemNames[ usItem ],		//Item long name
 					sValue,						//Item condition
 					gWeaponStatsDesc[ 12 ],		//Weight String
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+				} else {
+					swprintf( pStr, L"%s [%d%%]\n%s %1.1f %s",
+					ItemNames[ usItem ],		//Item long name
+					sValue,						//Item condition
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+				}
 			}
 			break;
 		}

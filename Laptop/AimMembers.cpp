@@ -49,6 +49,7 @@
 #include "Encrypted File.h"
 #include "InterfaceItemImages.h"
 #include <sstream>
+#include <language.hpp>
 
 //
 //******	Defines	******
@@ -5366,11 +5367,17 @@ BOOLEAN DisplayShadedStretchedMercFace( UINT8 ubMercID, UINT16 usPosX, UINT16 us
 void DemoHiringOfMercs( )
 {
 	INT16	i;
-	#ifdef GERMAN
-		UINT8	MercID[]={ 7, 10, 4, 14, 50 };
-	#else
-		UINT8	MercID[]={ 7, 10, 4, 42, 33 };
-	#endif
+	UINT8 MercID[5];
+	MercID[0] = 7;
+	MercID[1] = 10;
+	MercID[2] = 4;
+	if( g_lang == i18n::Lang::de ) {
+		MercID[3] = 14;
+		MercID[4] = 50;
+	} else {
+		MercID[3] = 42;
+		MercID[4] = 33;
+	}
 	MERC_HIRE_STRUCT HireMercStruct;
 	static BOOLEAN	fHaveCalledBefore=FALSE;
 
@@ -5461,20 +5468,20 @@ void DisplayPopUpBoxExplainingMercArrivalLocationAndTime( )
 	//create the string to display to the user, looks like....
 	//	L"%s should arrive at the designated drop-off point ( sector %d:%d %s ) on day %d, at approximately %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 	//Germans version has a different argument order
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString,
 							zSectorIDString );
-#else
+} else {
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							zSectorIDString,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString );
-#endif
+}
 
 
 

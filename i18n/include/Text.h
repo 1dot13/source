@@ -2584,18 +2584,18 @@ extern STR16 MPServerMessage[];
 extern STR16 MPClientMessage[];
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
-extern STR16 ChineseSpecString1;
-extern STR16 ChineseSpecString2;
-extern STR16 ChineseSpecString3;
-extern STR16 ChineseSpecString4;
-extern STR16 ChineseSpecString5;
-extern STR16 ChineseSpecString6;
-extern STR16 ChineseSpecString7;
-extern STR16 ChineseSpecString8;
-extern STR16 ChineseSpecString9;
-extern STR16 ChineseSpecString10;
-extern STR16 ChineseSpecString11;
-extern STR16 ChineseSpecString12;
+inline constexpr STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
+inline constexpr STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode
+inline constexpr STR16 ChineseSpecString3 = L"%d%％";		//defined in _ChineseText.cpp as this file is already unicode
+inline constexpr STR16 ChineseSpecString4 = L"%s (%s) [%d%％]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s";
+inline constexpr STR16 ChineseSpecString5 = L"%s [%d%％]\n%s %d\n%s %d\n%s %1.1f %s";
+inline constexpr STR16 ChineseSpecString6 = L"%s [%d%％]\n%s %d%％ (%d/%d)\n%s %d%％\n%s %1.1f %s";
+inline constexpr STR16 ChineseSpecString7 = L"%s [%d%％]\n%s %1.1f %s";
+inline constexpr STR16 ChineseSpecString8 = L"%s (%s) [%d%％(%d%％)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s\n%s %.2f%%";	// added by Flugente
+inline constexpr STR16 ChineseSpecString9 = L"%s [%d%％(%d%％)]\n%s %d\n%s %d\n%s %1.1f %s";								// added by Flugente
+inline constexpr STR16 ChineseSpecString10 = L"%s [%d%％(%d%％)]\n%s %d%％ (%d/%d)\n%s %d%％\n%s %1.1f %s";						// added by Flugente
+inline constexpr STR16 ChineseSpecString11 = L"%s (%s) [%d%％(%d%％)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s";	// added by Flugente
+inline constexpr STR16 ChineseSpecString12 = L"%s (%s) [%d%％]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s\n%s %.2f%%";	// added by Flugente
 
 enum
 {

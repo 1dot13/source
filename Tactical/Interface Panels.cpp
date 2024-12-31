@@ -73,6 +73,8 @@
 
 //legion by Jazz
 #include "Interface Utils.h"
+#include <language.hpp>
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -2747,27 +2749,27 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 			mprintf( SM_ARMOR_LABEL_X - StringPixLength( pInvPanelTitleStrings[0], BLOCKFONT2 ) / 2, SM_ARMOR_LABEL_Y, pInvPanelTitleStrings[ 0 ] );
 
-			#ifdef CHINESE
+			if( g_lang == i18n::Lang::zh ) {
 				mprintf( SM_ARMOR_PERCENT_X, SM_ARMOR_PERCENT_Y, ChineseSpecString1 );
-			#else
+			} else {
 				mprintf( SM_ARMOR_PERCENT_X, SM_ARMOR_PERCENT_Y, L"%%" );
-			#endif
+			}
 
 			mprintf( SM_WEIGHT_LABEL_X - StringPixLength( pInvPanelTitleStrings[1], BLOCKFONT2 ), SM_WEIGHT_LABEL_Y, pInvPanelTitleStrings[ 1 ] );
 
-			#ifdef CHINESE
+			if( g_lang == i18n::Lang::zh ) {
 				mprintf( SM_WEIGHT_PERCENT_X, SM_WEIGHT_PERCENT_Y, ChineseSpecString1 );
-			#else
+			} else {
 				mprintf( SM_WEIGHT_PERCENT_X, SM_WEIGHT_PERCENT_Y, L"%%" );
-			#endif
+			}
 			
 			mprintf( SM_CAMMO_LABEL_X - StringPixLength( pInvPanelTitleStrings[2], BLOCKFONT2 ), SM_CAMMO_LABEL_Y, pInvPanelTitleStrings[ 2 ] );
 
-			#ifdef CHINESE
+			if( g_lang == i18n::Lang::zh ) {
 				mprintf( SM_CAMMO_PERCENT_X, SM_CAMMO_PERCENT_Y, ChineseSpecString1 );
-			#else
+			} else {
 				mprintf( SM_CAMMO_PERCENT_X, SM_CAMMO_PERCENT_Y, L"%%" );
-			#endif
+			}
 
 				UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE ? TRUE : FALSE), (BOOLEAN)((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraAgility != 0 ); // SANDRO
 

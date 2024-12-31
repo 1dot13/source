@@ -22,12 +22,12 @@ endif()
 
 option(ADDRESS_SANITIZER OFF)
 if(ADDRESS_SANITIZER)
-	message(STATUS "AddressSanitizer ENABLED for non-Release builds")
-	add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
+  message(STATUS "AddressSanitizer ENABLED for non-Release builds")
+  add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
 endif()
 
 if(MSVC)
-	add_compile_options("/wd4838")
+  add_compile_options("/wd4838")
 endif()
 
 # whether we are using MSBuild as a generator
@@ -39,21 +39,22 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
 include_directories(
-	"${CMAKE_SOURCE_DIR}/Ja2"
-	"${CMAKE_SOURCE_DIR}/ext/VFS/include"
-	"${CMAKE_SOURCE_DIR}/Utils"
-	"${CMAKE_SOURCE_DIR}/TileEngine"
-	"${CMAKE_SOURCE_DIR}/TacticalAI"
-	"${CMAKE_SOURCE_DIR}/ModularizedTacticalAI/include"
-	"${CMAKE_SOURCE_DIR}/Tactical"
-	"${CMAKE_SOURCE_DIR}/Strategic"
-	"${CMAKE_SOURCE_DIR}/sgp"
-	"${CMAKE_SOURCE_DIR}/Ja2/Res"
-	"${CMAKE_SOURCE_DIR}/Lua"
-	"${CMAKE_SOURCE_DIR}/Laptop"
-	"${CMAKE_SOURCE_DIR}/Multiplayer"
-	"${CMAKE_SOURCE_DIR}/Editor"
-	"${CMAKE_SOURCE_DIR}/Console"
+  "${CMAKE_SOURCE_DIR}/Ja2"
+  "${CMAKE_SOURCE_DIR}/ext/VFS/include"
+  "${CMAKE_SOURCE_DIR}/Utils"
+  "${CMAKE_SOURCE_DIR}/TileEngine"
+  "${CMAKE_SOURCE_DIR}/TacticalAI"
+  "${CMAKE_SOURCE_DIR}/ModularizedTacticalAI/include"
+  "${CMAKE_SOURCE_DIR}/Tactical"
+  "${CMAKE_SOURCE_DIR}/Strategic"
+  "${CMAKE_SOURCE_DIR}/sgp"
+  "${CMAKE_SOURCE_DIR}/Ja2/Res"
+  "${CMAKE_SOURCE_DIR}/Lua"
+  "${CMAKE_SOURCE_DIR}/Laptop"
+  "${CMAKE_SOURCE_DIR}/Multiplayer"
+  "${CMAKE_SOURCE_DIR}/Editor"
+  "${CMAKE_SOURCE_DIR}/Console"
+  "${CMAKE_SOURCE_DIR}/i18n/include"
 )
 
 # external libraries
@@ -65,32 +66,44 @@ target_link_libraries(bfVFS PRIVATE 7z)
 # ja2export utility
 add_subdirectory("ext/export/src")
 
-# static libraries whose source files, header files or header files included
-# by header files do not rely on Applications or Languages preprocessor definitions,
-# and therefore only need to be compiled once. Good.
+# static libraries whose translation units don't rely on Application preprocessor definitions.
 add_subdirectory(Lua)
 add_subdirectory(Multiplayer)
 
-# static libraries whose source files, header files or header files included
-# by header files rely on Application and Language preprocessor definitions, and
-# therefore need to be compiled multiple times. Very Bad.
+set(Ja2_Libraries
+"${CMAKE_SOURCE_DIR}/binkw32.lib"
+"${CMAKE_SOURCE_DIR}/libexpatMT.lib"
+"${CMAKE_SOURCE_DIR}/lua51.lib"
+"${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
+"${CMAKE_SOURCE_DIR}/SMACKW32.LIB"
+"Dbghelp.lib"
+"Winmm.lib"
+"ws2_32.lib"
+bfVFS
+Lua
+Multiplayer
+)
+
+# static libraries whose translation units rely on Application preprocessor definitions.
 set(Ja2_Libs
-TileEngine
-TacticalAI
-Utils
-Strategic
-sgp
-Laptop
-Editor
-Console
-Tactical
-ModularizedTacticalAI
+  Console
+  Editor
+  Ja2
+  Laptop
+  ModularizedTacticalAI
+  sgp
+  Strategic
+  Tactical
+  TacticalAI
+  TileEngine
+  Utils
 )
 foreach(lib IN LISTS Ja2_Libs)
-	add_subdirectory(${lib})
+  add_subdirectory(${lib})
 endforeach()
 
-add_subdirectory(Ja2)
+# language library relies on Application _and_ Language preprocessor definition. very bad.
+add_subdirectory(i18n)
 
 # simple function to validate Languages and Application choices
 include(cmake/ValidateOptions.cmake)
@@ -105,47 +118,47 @@ ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "Applica
 # preprocessor definitions for Debug build, per the legacy MSBuild
 set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>)
 
-# Due to widespread preprocessor definition abuse in the codebase, practically
-# every library-language-executable combination is its own compilation target
-# TODO: refactor preprocessor usage onto, ideally, a single translation unit
-foreach(lang IN LISTS LangTargets)
-	foreach(exe IN LISTS ApplicationTargets)
-		set(Executable ${exe}_${lang})
+foreach(app IN LISTS ApplicationTargets)
+  set(isEditor $<STREQUAL:${app},JA2MAPEDITOR>)
+  set(isUb $<STREQUAL:${app},JA2UB>)
+  set(isUbEditor $<STREQUAL:${app},JA2UBMAPEDITOR>)
+  set(compilationFlags
+    $<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
+    $<IF:${isUb},JA2UB;JA2UBMAPS,>
+    $<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
+  )
 
-		# executable for an application/language combination, e.g. JA2_ENGLISH.exe
-		add_executable(${Executable} WIN32)
-		target_sources(${Executable} PRIVATE ${Ja2Src})
+  foreach(lib IN LISTS Ja2_Libs)
+    # library for an application, e.g. JA2UB_sgp
+    set(game_library ${app}_${lib})
+    add_library(${game_library})
+    target_sources(${game_library} PRIVATE ${${lib}Src})
+    target_compile_definitions(${game_library} PRIVATE ${compilationFlags} ${debugFlags})
+  endforeach()
 
-		# Good libraries have already been built, can be simply linked here
-		target_link_libraries(${Executable} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
-		target_link_options(${Executable} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
+  foreach(lang IN LISTS LangTargets)
+    # executable for an application/language combination, e.g. JA2_ENGLISH.exe
+    set(exe ${app}_${lang})
+    file(WRITE dummy.cpp "")
+    add_executable(${exe} WIN32 dummy.cpp)
+    target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
+    target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
 
-		# for each app/lang combination, the Very Bad libraries need to be built,
-		# with the appropriate preprocessor definitions
-		foreach(lib IN LISTS Ja2_Libs)
-			# syntactic sugar to hopefully make this more readable
-			set(VeryBadLib ${Executable}_${lib})
-			set(isEditor $<STREQUAL:${exe},JA2MAPEDITOR>)
-			set(isUb $<STREQUAL:${exe},JA2UB>)
-			set(isUbEditor $<STREQUAL:${exe},JA2UBMAPEDITOR>)
+    # language library for an application, e.g. JA2MAPEDITOR_ENGLISH_i18n
+    set(language_library ${exe}_i18n)
+    add_library(${language_library})
+    target_sources(${language_library} PRIVATE ${i18nSrc})
+    target_compile_definitions(${language_library} PRIVATE ${compilationFlags} ${debugFlags} ${lang})
+    target_link_libraries(${exe} PRIVATE ${language_library})
 
-			# static library for an app/lang combination, e.g. JA2_ENGLISH_sgp.lib
-			add_library(${VeryBadLib})
-			target_sources(${VeryBadLib} PRIVATE ${${lib}Src})
+    # go through all game libraries again and link them to the app/language executable
+    foreach(lib IN LISTS Ja2_Libs)
+      target_link_libraries(${exe} PRIVATE ${app}_${lib})
+    endforeach()
+  endforeach()
 
-			target_compile_definitions(${VeryBadLib} PUBLIC
-				$<IF:${isEditor},JA2EDITOR;JA2BETAVERSION,>
-				$<IF:${isUb},JA2UB;JA2UBMAPS,>
-				$<IF:${isUbEditor},JA2UB;JA2UBMAPS;JA2EDITOR;JA2BETAVERSION,>
-				${debugFlags}
-				${lang}
-			)
-			target_link_libraries(${Executable} PUBLIC ${VeryBadLib})
-		endforeach()
-
-		# for sgp only
-		target_link_libraries(${Executable}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
-		target_link_libraries(${Executable}_sgp PUBLIC libpng)
-		target_compile_definitions(${Executable}_sgp PRIVATE NO_ZLIB_COMPRESSION)
-	endforeach()
+  # for SGP only
+  target_link_libraries(${app}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
+  target_link_libraries(${app}_sgp PRIVATE libpng)
+  target_compile_definitions(${app}_sgp PRIVATE NO_ZLIB_COMPRESSION)
 endforeach()

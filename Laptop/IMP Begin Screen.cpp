@@ -24,6 +24,7 @@
 	#include "text.h"
 	#include "LaptopSave.h"
 
+#include <language.hpp>
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138
 #define NICK_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 195
@@ -552,7 +553,7 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		//Heinz (18.01.2009): Russian layout
 		// ViSoR (07.01.2012) : Russian and Belarussian layouts
 		//
-#if defined(RUSSIAN) || defined(BELARUSSIAN)
+if(g_lang == i18n::Lang::ru) {
 		// ViSoR (02.02.2013): Fix for Cyrillic layouts
 		DWORD threadId = GetWindowThreadProcessId( ghWindow, 0 );
 		DWORD layout = (DWORD)GetKeyboardLayout( threadId ) & 0xFFFF;
@@ -574,17 +575,16 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		}
 		else if( !CheckIsKeyValid( uiKey ) )
 			uiKey = '#';
-
-		if( uiKey != '#')
-#else
-		if( uiKey >= 'A' && uiKey <= 'Z' ||
+}
+		if( (g_lang != i18n::Lang::ru &&
+			uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' ||
 					uiKey == ' ' || uiKey == '"' ||
 					uiKey == 39 // This is ' which cannot be written explicitly here of course
-					)
-#endif
+					) ||
+			uiKey != '#')
 		{
 			// if the current string position is at max or great, do nothing
 			switch( ubTextEnterMode )
