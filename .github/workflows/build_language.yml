@@ -54,6 +54,16 @@ jobs:
           sed -i "s|@Build@|${GAME_BUILD:0:255}|" Ja2/GameVersion.cpp
           cat Ja2/GameVersion.cpp
 
+      - name: Turn on link-time optimization?
+        if: fromJSON(inputs.assemble)
+        shell: bash
+        run: |
+          set -eux
+
+          echo "
+          LTO=ON
+          " >> $GITHUB_ENV
+
       - name: Prepare build properties
         shell: bash
         run: |
@@ -77,7 +87,7 @@ jobs:
           arch: x86
       - name: Prepare build
         run: |
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application" -DLTO_OPTION="$Env:LTO"
       - name: Build
         run: |
           cmake --build build/ -- -v
