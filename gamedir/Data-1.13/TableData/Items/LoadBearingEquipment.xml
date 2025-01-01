@@ -463,7 +463,7 @@
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>23</lbeIndex>                                     <!-- Tactical Tailor 3-Day Pack -->
 		<lbeClass>3</lbeClass>
-		<lbeCombo>0</lbeCombo>
+		<lbeCombo>2</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
@@ -483,7 +483,7 @@
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>24</lbeIndex>                                     <!-- Blackhawk Patrol Pack -->
 		<lbeClass>3</lbeClass>
-		<lbeCombo>0</lbeCombo>
+		<lbeCombo>2</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
@@ -1823,7 +1823,7 @@
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>91</lbeIndex>                                     <!-- Sniper Drag Bag -->
 		<lbeClass>4</lbeClass>
-		<lbeCombo>2</lbeCombo>
+		<lbeCombo>4</lbeCombo>
 		<lbeFilledSize>32</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
@@ -1961,7 +1961,7 @@
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>98</lbeIndex>                                     <!-- 3.11 ILBE Gen II Main Ruck -->
+		<lbeIndex>98</lbeIndex>                                     <!-- 3.11 USMC Backpack -->
 		<lbeClass>4</lbeClass>
 		<lbeCombo>1</lbeCombo>
 		<lbeFilledSize>34</lbeFilledSize>
@@ -1981,7 +1981,7 @@
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>99</lbeIndex>                                     <!-- 3.11 ILBE Gen II Assault Pack -->
+		<lbeIndex>99</lbeIndex>                                     <!-- 3.11 USMC combatpack -->
 		<lbeClass>3</lbeClass>
 		<lbeCombo>1</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
@@ -2123,7 +2123,7 @@
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>106</lbeIndex>                                     <!-- Tactical Sling -->
 		<lbeClass>4</lbeClass>
-		<lbeCombo>1</lbeCombo>
+		<lbeCombo>3</lbeCombo>
 		<lbeFilledSize>34</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
