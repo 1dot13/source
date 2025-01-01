@@ -59,7 +59,7 @@ jobs:
         run: |
           set -eux
           
-          touch CMakeUserPresets.json
+          touch CMakePresets.json
 
           JA2Language=$(echo '${{ inputs.language }}' | tr '[:lower:]' '[:upper:]')
           JA2Application=$(echo '${{ matrix.application }}' | tr '[:lower:]' '[:upper:]')
