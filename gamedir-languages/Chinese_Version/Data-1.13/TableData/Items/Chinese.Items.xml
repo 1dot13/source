@@ -14105,4 +14105,20 @@
 		<szBRName>FN PS90</szBRName>
 		<szBRDesc>FN PS90配有加长的16英寸枪管和皮卡汀尼导轨，便于安装各种不同的瞄准镜。</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1763</uiIndex>
+		<szItemName>空的防护装备包</szItemName>
+		<szLongItemName>空的防护装备包</szLongItemName>
+		<szItemDesc>保护您的防护装备免受磨损，安全存放口罩和手套，整洁收纳。适合在恶劣环境下长期执行任务。</szItemDesc>
+		<szBRName>空的防护装备包</szBRName>
+		<szBRDesc>保护您的防护装备免受磨损，安全存放口罩和手套，整洁收纳。适合在恶劣环境下长期执行任务。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1764</uiIndex>
+		<szItemName>防护装备包</szItemName>
+		<szLongItemName>防护装备包</szLongItemName>
+		<szItemDesc>这款小巧的防护装备包可容纳基础防护装备（口罩和手套），预防空气传播疾病和接触感染者的风险。适合在疫区执行任务。</szItemDesc>
+		<szBRName>PPE Bag</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>
 </ITEMLIST>
