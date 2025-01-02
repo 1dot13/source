@@ -139,8 +139,10 @@ foreach(app IN LISTS ApplicationTargets)
   foreach(lang IN LISTS LangTargets)
     # executable for an application/language combination, e.g. JA2_ENGLISH.exe
     set(exe ${app}_${lang})
-    file(WRITE dummy.cpp "")
-    add_executable(${exe} WIN32 dummy.cpp)
+    add_executable(${exe} WIN32
+      sgp/sgp.cpp
+      Ja2/Res/Ja2.rc
+    )
     target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
     target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
 
