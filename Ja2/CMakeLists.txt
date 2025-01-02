@@ -34,5 +34,4 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_DifficultySettings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_IntroFiles.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XML_Layout_MainMenu.cpp"
-${CMAKE_CURRENT_SOURCE_DIR}/Res/ja2.rc
 PARENT_SCOPE)
