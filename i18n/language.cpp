@@ -1,8 +1,5 @@
 #include <language.hpp>
 
-#include <BobbyR.h>
-#include <laptop.h>
-
 /* FIXME: The ugliest of ugly hacks. Getting rid of this and letting language
  * (ideally text and voice separately) be set in the options menu would be
  * ideal. */
@@ -31,12 +28,6 @@ const int MAX_MESSAGES_ON_MAP_BOTTOM{
     6
 #else
     9
-#endif
-};
-
-const int BOBBYR_ITEMS_BOUGHT_X{BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH
-#ifdef CHINESE
-  - 10
 #endif
 };
 
