@@ -87,6 +87,7 @@
 #define		BOBBYR_ITEM_NAME_X								BOBBYR_GRIDLOC_X + 6
 #define		BOBBYR_ITEM_NAME_Y_OFFSET					54
 
+#define		BOBBYR_ORDER_NUM_WIDTH						15
 #define		BOBBYR_ORDER_NUM_X								BOBBYR_GRIDLOC_X + 120 - BOBBYR_ORDER_NUM_WIDTH	//BOBBYR_ITEM_STOCK_TEXT_X
 #define		BOBBYR_ORDER_NUM_Y_OFFSET					1
 
@@ -114,6 +115,8 @@
 
 #define		BOBBYR_ITEM_QTY_NUM_X							BOBBYR_GRIDLOC_X + 105//BOBBYR_ITEM_COST_TEXT_X + 1
 #define		BOBBYR_ITEM_QTY_NUM_Y							BOBBYR_ITEM_QTY_TEXT_Y//BOBBYR_ITEM_COST_TEXT_Y + 40
+
+#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH//BOBBYR_ITEM_QTY_NUM_X
 
 #define		BOBBY_RAY_NOT_PURCHASED						255
 #define		BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE		200
@@ -2500,7 +2503,11 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 		if( ubPurchaseNumber != BOBBY_RAY_NOT_PURCHASED)
 		{
 			swprintf(sTemp, L"% 4d", BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased);
-			DrawTextToScreen(sTemp, BOBBYR_ITEMS_BOUGHT_X, (UINT16)usPosY, 0, FONT14ARIAL, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+			auto bobbyRItemsBoughtX{ BOBBYR_ITEMS_BOUGHT_X };
+			if (g_lang == i18n::Lang::zh) {
+				bobbyRItemsBoughtX -= 10;
+			}
+			DrawTextToScreen(sTemp, bobbyRItemsBoughtX, (UINT16)usPosY, 0, FONT14ARIAL, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 		}
 	}
 
