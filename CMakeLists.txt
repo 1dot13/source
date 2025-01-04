@@ -67,7 +67,7 @@ target_link_libraries(bfVFS PRIVATE 7z)
 add_subdirectory("ext/export/src")
 
 # static libraries whose translation units don't rely on Application preprocessor definitions.
-add_subdirectory(Lua)
+add_subdirectory(lua)
 add_subdirectory(Multiplayer)
 
 set(Ja2_Libraries
@@ -141,7 +141,7 @@ foreach(app IN LISTS ApplicationTargets)
     set(exe ${app}_${lang})
     add_executable(${exe} WIN32
       sgp/sgp.cpp
-      Ja2/Res/Ja2.rc
+      Ja2/Res/ja2.rc
     )
     target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
     target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
