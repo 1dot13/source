@@ -27,7 +27,7 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/profiler.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadGame.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadScreen.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/SCREENS.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/Screens.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Sys Globals.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/TimeLogging.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/ub_config.cpp"
