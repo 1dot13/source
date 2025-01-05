@@ -11,7 +11,7 @@ on:
       assemble:
         description: 'assemble full package'
         required: true
-        default: true
+        default: false
         type: boolean
       continue-on-error:
         description: 'allows a language to fail, used when building all languages'
