@@ -4793,9 +4793,6 @@ UINT32 MapScreenHandle(void)
 
 		InitPreviousPaths();
 
-		// HEADROCK HAM 3.6: Init coordinates for new variable-sized message window
-		InitMapScreenInterfaceBottomCoords();
-
 		// if arrival sector is invalid, reset to A9
 		if ( ( gsMercArriveSectorX <	1 ) || ( gsMercArriveSectorY <	1 ) ||
 				( gsMercArriveSectorX > 16 ) || ( gsMercArriveSectorY > 16 ) )

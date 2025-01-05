@@ -51,6 +51,7 @@
 	#include "Multilingual Text Code Generator.h"
 	#include "editscreen.h"
 	#include "Arms Dealer Init.h"
+#include "Map Screen Interface Bottom.h"
 #include "MPXmlTeams.hpp"
 #include "Strategic Mines LUA.h"
 #include "UndergroundInit.h"
@@ -1473,6 +1474,10 @@ UINT32 InitializeJA2(void)
 	{
 		return( ERROR_SCREEN );
 	}
+
+	// InitRadarScreenCoords() depend on Mapscreen Interface Bottom coordinates -> need to initiate them first
+	// before calling InitTacticalEngine()
+	InitMapScreenInterfaceBottomCoords();
 
 	// Init tactical engine
 	if ( !InitTacticalEngine( ) )
