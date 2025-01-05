@@ -35,7 +35,6 @@
 	#include "tile cache.h"
 	#include "strategicmap.h"
 	#include "Map Information.h"
-	#include "laptop.h"
 	#include "Shade Table Util.h"
 	#include "Exit Grids.h"
 	#include "Summary Info.h"
@@ -77,7 +76,6 @@
 #include "AimArchives.h"
 #include "connect.h"
 #include "DynamicDialogueWidget.h"		// added by Flugente for InitMyBoxes()
-#include "Animation Data.h"				// added by Flugente
 
 #include <language.hpp>
 
