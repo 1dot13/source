@@ -69,6 +69,7 @@ add_subdirectory("ext/export/src")
 # static libraries whose translation units don't rely on Application preprocessor definitions.
 add_subdirectory(lua)
 add_subdirectory(Multiplayer)
+add_subdirectory(wine)
 
 set(Ja2_Libraries
 "${CMAKE_SOURCE_DIR}/binkw32.lib"
@@ -82,6 +83,7 @@ set(Ja2_Libraries
 bfVFS
 Lua
 Multiplayer
+wine
 )
 
 # static libraries whose translation units rely on Application preprocessor definitions.
