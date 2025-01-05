@@ -11,10 +11,8 @@
 	#include "font.h"
 	#include "screenids.h"
 	#include "screens.h"
-	#include "gameloop.h"
 	#include "overhead.h"
 	#include "sysutil.h"
-	#include "input.h"
 	#include "Event Pump.h"
 	#include "Font Control.h"
 	#include "Timer Control.h"
@@ -44,18 +42,15 @@
 	#include "PopUpBox.h"
 	#include "Game Clock.h"
 	#include "items.h"
-	#include "vobject.h"
 	#include "Cursor Control.h"
 	#include "text.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
-	#include "interface.h"
 	#include "strategic pathing.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Interface Map.h"
 	#include "Map Screen Interface.h"
-	#include "Strategic Pathing.h"
 	#include "Assignments.h"
 	#include "points.h"
 	#include "Squads.h"
@@ -114,7 +109,6 @@
 
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"
-#include "vobject.h"
 #include <language.hpp>
 
 #ifdef JA2UB
