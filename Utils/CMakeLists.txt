@@ -29,6 +29,7 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Text Utils.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Timer Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Utilities.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/wine.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/WordWrap.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XMLProperties.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/XMLWriter.cpp"
