@@ -190,14 +190,12 @@ jobs:
         merge-multiple: true
 
     - name: Checkout Repo
-      if: github.ref == 'refs/heads/master'
       uses: actions/checkout@v4
       with:
         path: source
         fetch-depth: 1
         sparse-checkout: 'README.md'
     - name: Create latest pre-release
-      if: github.ref == 'refs/heads/master'
       working-directory: source
       run: |
         gh release delete latest --cleanup-tag || true
