@@ -34,29 +34,25 @@ jobs:
         name: Set global variables
         run: |
           set -eux
-
-          all_languages="${{ inputs.build_all_languages }}"
-          assemble_release="${{ inputs.assemble_release }}"
-          repo="${{ github.repository }}"
-          is_tag="${{ startsWith(github.ref, 'refs/tags/v') }}"
-
-          if [ "$assemble_release" = "true" ] || { [ "$repo" = "1dot13/source" ] && [ "$is_tag" = "true" ]; }
+          
+          full_release='${{ ( github.repository == '1dot13/source' && github.ref_name == 'master' ) || startsWith(github.ref, 'refs/tags/v') }}'
+          
+          if [[ '${{ inputs.build_all_languages }}' == 'true' || ( '${{ inputs.build_all_languages }}' == '' && "$full_release" == 'true' ) ]]
           then
-            full_release="true"
-          else
-            full_release="false"
-          fi
-
-          if [ "$all_languages" = "true" ] || [ "$full_release" = "true" ]
-          then
-            languages_json_array='["Chinese", "German", "English", "French", "Polish", "Italian", "Dutch", "Russian"]'
+            languages_json_array='["Chinese", "German", "English", "French", "Polish", "Italian", "Dutch", "Russian"]';
           else
             # English + some other language for compilation testing
             languages_json_array='["German", "English"]'
           fi
-
-          echo "languages_json_array=$languages_json_array" >> "$GITHUB_OUTPUT"
-          echo "assemble_release=$full_release" >> "$GITHUB_OUTPUT"
+          echo "languages_json_array=$languages_json_array" >> $GITHUB_OUTPUT
+          
+          if [[ '${{ inputs.assemble_release }}' == 'true' || ( '${{ inputs.assemble_release }}' == '' && "$full_release" == 'true' ) ]]
+          then
+            assemble_release='true'
+          else
+            assemble_release='false'
+          fi
+          echo "assemble_release=$assemble_release" >> $GITHUB_OUTPUT
 
       - name: Clone repos metadata
         run: |
@@ -190,12 +186,14 @@ jobs:
         merge-multiple: true
 
     - name: Checkout Repo
+      if: github.ref == 'refs/heads/master'
       uses: actions/checkout@v4
       with:
         path: source
         fetch-depth: 1
         sparse-checkout: 'README.md'
     - name: Create latest pre-release
+      if: github.ref == 'refs/heads/master'
       working-directory: source
       run: |
         gh release delete latest --cleanup-tag || true
