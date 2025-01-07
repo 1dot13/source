@@ -38,10 +38,9 @@ jobs:
           all_languages="${{ inputs.build_all_languages }}"
           assemble_release="${{ inputs.assemble_release }}"
           repo="${{ github.repository }}"
-          refname="${{ github.ref_name }}"
           is_tag="${{ startsWith(github.ref, 'refs/tags/v') }}"
 
-          if [ "$assemble_release" = "true" ] || { [ "$repo" = "1dot13/source" ] && [ "$refname" = "master" ] && [ "$is_tag" = "true" ]; }
+          if [ "$assemble_release" = "true" ] || { [ "$repo" = "1dot13/source" ] && [ "$is_tag" = "true" ]; }
           then
             full_release="true"
           else
