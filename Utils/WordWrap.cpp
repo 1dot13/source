@@ -1733,7 +1733,8 @@ UINT16 IanWrappedStringHeight(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT
 
 				// get the length (in pixels) of this word
 				usWordLengthPixels = WFStringPixLength(zWordString,uiLocalFont);
-	      if (g_lang == i18n::Lang::zh && currentChar <= 255)
+	      if (g_lang != i18n::Lang::zh ||
+			  g_lang == i18n::Lang::zh && currentChar <= 255)
 				// add a space (in case we add another word to it)
 				zWordString[usDestCounter++] = 32;
 
