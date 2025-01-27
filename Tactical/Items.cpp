@@ -12076,7 +12076,7 @@ BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsDetonator(iter->usItem) && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_DETONATOR ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -12092,7 +12092,7 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsRemoteDetonator(iter->usItem) && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_REMOTEDET ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -16081,8 +16081,6 @@ BOOLEAN ItemIsFlare(UINT16 usItem) { return HasItemFlag(usItem, ITEM_flare); }
 BOOLEAN ItemIsGrenadeLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_grenadelauncher); }
 BOOLEAN ItemIsMortar(UINT16 usItem) { return HasItemFlag(usItem, ITEM_mortar); }
 BOOLEAN ItemIsDuckbill(UINT16 usItem) { return HasItemFlag(usItem, ITEM_duckbill); }
-BOOLEAN ItemIsDetonator(UINT16 usItem) { return HasItemFlag(usItem, ITEM_detonator); }
-BOOLEAN ItemIsRemoteDetonator(UINT16 usItem) { return HasItemFlag(usItem, ITEM_remotedetonator); }
 BOOLEAN ItemHasHiddenMuzzleFlash(UINT16 usItem) { return HasItemFlag(usItem, ITEM_hidemuzzleflash); }
 BOOLEAN ItemIsRocketLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_rocketlauncher); }
 // usItemFlag2

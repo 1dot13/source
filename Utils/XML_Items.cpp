@@ -863,18 +863,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if ((BOOLEAN)atol(pData->szCharData))
 				pData->curItem.usItemFlag |= ITEM_duckbill;
 		}
-		else if(strcmp(name, "Detonator")	 == 0)
-		{
-			pData->curElement = ELEMENT;
-			if ((BOOLEAN)atol(pData->szCharData))
-				pData->curItem.usItemFlag |= ITEM_detonator;
-		}
-		else if(strcmp(name, "RemoteDetonator")	 == 0)
-		{
-			pData->curElement = ELEMENT;
-			if ((BOOLEAN)atol(pData->szCharData))
-				pData->curItem.usItemFlag |= ITEM_remotedetonator;
-		}
 		else if(strcmp(name, "ThermalOptics")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -2427,8 +2415,6 @@ BOOLEAN WriteItemStats()
 			if ( ItemIsGrenadeLauncher( cnt ) )				FilePrintf( hFile, "\t\t<GrenadeLauncher>%d</GrenadeLauncher>\r\n", 1 );
 			if ( ItemIsMortar( cnt ) )						FilePrintf( hFile, "\t\t<Mortar>%d</Mortar>\r\n", 1 );
 			if ( ItemIsDuckbill( cnt ) )						FilePrintf( hFile, "\t\t<Duckbill>%d</Duckbill>\r\n", 1 );
-			if ( ItemIsDetonator( cnt ) )					FilePrintf( hFile, "\t\t<Detonator>%d</Detonator>\r\n", 1 );
-			if ( ItemIsRemoteDetonator( cnt ) )				FilePrintf( hFile, "\t\t<RemoteDetonator>%d</RemoteDetonator>\r\n", 1 );
 			if ( ItemHasHiddenMuzzleFlash( cnt ) )			FilePrintf( hFile, "\t\t<HideMuzzleFlash>%d</HideMuzzleFlash>\r\n", 1 );
 			if ( ItemIsRocketLauncher( cnt ) )				FilePrintf( hFile, "\t\t<RocketLauncher>%d</RocketLauncher>\r\n", 1 );
 
