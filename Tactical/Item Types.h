@@ -812,8 +812,8 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_mortar				0x0400000000000000
 #define ITEM_duckbill			0x0800000000000000
 
-#define ITEM_detonator			0x1000000000000000
-#define ITEM_remotedetonator		0x2000000000000000
+//UNUSED #define ITEM_detonator			0x1000000000000000
+//UNUSED #define ITEM_remotedetonator		0x2000000000000000
 #define ITEM_hidemuzzleflash		0x4000000000000000
 #define ITEM_rocketlauncher		0x8000000000000000
 

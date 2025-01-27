@@ -204,8 +204,6 @@ BOOLEAN ItemIsFlare(UINT16 usItem);
 BOOLEAN ItemIsGrenadeLauncher(UINT16 usItem);
 BOOLEAN ItemIsMortar(UINT16 usItem);
 BOOLEAN ItemIsDuckbill(UINT16 usItem);
-BOOLEAN ItemIsDetonator(UINT16 usItem);
-BOOLEAN ItemIsRemoteDetonator(UINT16 usItem);
 BOOLEAN ItemHasHiddenMuzzleFlash(UINT16 usItem);
 BOOLEAN ItemIsRocketLauncher(UINT16 usItem);
 BOOLEAN ItemIsSingleShotRocketLauncher(UINT16 usItem);

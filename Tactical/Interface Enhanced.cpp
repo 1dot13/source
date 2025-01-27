@@ -2527,7 +2527,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// REMOTE DETONATOR
-		if (ItemIsRemoteDetonator(gpItemDescObject->usItem))
+		if ( IsAttachmentClass( gpItemDescObject->usItem, AC_REMOTEDET ) )
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 15 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 15 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2536,7 +2536,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// TIMER DETONATOR
-		if (ItemIsDetonator(gpItemDescObject->usItem))
+		if ( IsAttachmentClass( gpItemDescObject->usItem, AC_DETONATOR ))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 16 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 16 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -6246,16 +6246,16 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	//////////////////// REMOTE DETONATOR
-	if ( (ItemIsRemoteDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
-		( fComparisonMode && ItemIsRemoteDetonator(gpComparedItemDescObject->usItem) ) )
+	if ( (IsAttachmentClass( gpItemDescObject->usItem, AC_REMOTEDET ) && !fComparisonMode ) ||
+		( fComparisonMode && IsAttachmentClass( gpComparedItemDescObject->usItem, AC_REMOTEDET )) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 15, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// TIMER DETONATOR
-	if ( (ItemIsDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
-		( fComparisonMode && ItemIsDetonator(gpComparedItemDescObject->usItem)) )
+	if ( (IsAttachmentClass( gpItemDescObject->usItem, AC_DETONATOR ) && !fComparisonMode ) ||
+		( fComparisonMode && IsAttachmentClass( gpComparedItemDescObject->usItem, AC_DETONATOR )) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 16, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
