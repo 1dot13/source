@@ -44,4 +44,12 @@
 		<id>10</id>
 		<name>Signal Shell</name>
 	</ExplosionType>
+	<ExplosionType>
+		<id>11</id>
+		<name>Roof Collapse</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>12</id>
+		<name>White Smoke</name>
+	</ExplosionType>
 </JA2Data>

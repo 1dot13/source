@@ -46,10 +46,10 @@
 	</ExplosionType>
 	<ExplosionType>
 		<id>11</id>
-		<name>???</name>
+		<name>Roof Collapse</name>
 	</ExplosionType>
 	<ExplosionType>
 		<id>12</id>
-		<name>???</name>
+		<name>White Smoke</name>
 	</ExplosionType>
 </JA2Data>

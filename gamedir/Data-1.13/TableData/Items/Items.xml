@@ -47624,7 +47624,7 @@
 		<AttachmentClass>33554432</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>16</ubClassIndex>
+		<ubClassIndex>1581</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>149</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -49175,7 +49175,7 @@
 		<szBRDesc>Let there be light! Batteries included.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>49</ubClassIndex>
+		<ubClassIndex>1636</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>
@@ -49212,7 +49212,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>49</ubClassIndex>
+		<ubClassIndex>1637</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>

@@ -20,10 +20,10 @@ Video = {
 }
 
  IntroType = {
-	INTRO_HELI_CRASH = 0,
-	INTRO_BEGINNING =  1,		--  set when viewing the intro at the begining of the game
-	INTRO_ENDING = 2,			-- set when viewing the end game video.
-	INTRO_SPLASH = 3,
+	INTRO_BEGINNING =  0,		--  set when viewing the intro at the begining of the game
+	INTRO_ENDING = 1,			-- set when viewing the end game video.
+	INTRO_SPLASH = 2,
+	INTRO_HELI_CRASH = 3,
 }
 
 ScreenTypes = 

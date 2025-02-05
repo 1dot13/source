@@ -20788,12 +20788,15 @@
 			<mVestStatus>95</mVestStatus>
 			<mWeapon>8</mWeapon>
 			<mWeaponStatus>91</mWeaponStatus>
-			<mBig0>80</mBig0>
+            <mBig0>80</mBig0>
 			<mBig0Status>100</mBig0Status>
 			<mBig0Quantity>2</mBig0Quantity>
-			<mBig0>399</mBig0>
-			<mBig0Status>100</mBig0Status>
-			<mBig0Quantity>2</mBig0Quantity>
+			<mBig1>82</mBig1>
+			<mBig1Status>100</mBig1Status>
+			<mBig1Quantity>2</mBig1Quantity>
+			<mBig2>399</mBig2>
+			<mBig2Status>100</mBig2Status>
+			<mBig2Quantity>4</mBig2Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
 		</GEARKIT>
