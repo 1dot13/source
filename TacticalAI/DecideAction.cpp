@@ -2548,32 +2548,35 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	}
 
 	// if we're an alerted enemy, and there are panic bombs or a trigger around
-	if ( (!PTR_CIVILIAN || pSoldier->ubProfile == WARDEN) && ( ( gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || (pSoldier->ubID == gTacticalStatus.ubTheChosenOne) || (pSoldier->ubProfile == WARDEN) ) &&
-		(gTacticalStatus.fPanicFlags & (PANIC_BOMBS_HERE | PANIC_TRIGGERS_HERE ) ) ) )
+	if ( !ENEMYROBOT(pSoldier) )
 	{
-		if ( pSoldier->ubProfile == WARDEN && gTacticalStatus.ubTheChosenOne == NOBODY )
+		if ( (!PTR_CIVILIAN || pSoldier->ubProfile == WARDEN) && ( ( gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || (pSoldier->ubID == gTacticalStatus.ubTheChosenOne) || (pSoldier->ubProfile == WARDEN) ) &&
+			(gTacticalStatus.fPanicFlags & (PANIC_BOMBS_HERE | PANIC_TRIGGERS_HERE ) ) ) )
 		{
-			PossiblyMakeThisEnemyChosenOne( pSoldier );
+			if ( pSoldier->ubProfile == WARDEN && gTacticalStatus.ubTheChosenOne == NOBODY )
+			{
+				PossiblyMakeThisEnemyChosenOne( pSoldier );
+			}
+
+			// do some special panic AI decision making
+			bActionReturned = PanicAI(pSoldier,ubCanMove);
+
+			// if we decided on an action while in there, we're done
+			if (bActionReturned != -1)
+				return(bActionReturned);
 		}
 
-		// do some special panic AI decision making
-		bActionReturned = PanicAI(pSoldier,ubCanMove);
-
-		// if we decided on an action while in there, we're done
-		if (bActionReturned != -1)
-			return(bActionReturned);
-	}
-
-	if ( pSoldier->ubProfile != NO_PROFILE )
-	{
-		if ( (pSoldier->ubProfile == QUEEN || pSoldier->ubProfile == JOE) && ubCanMove )
+		if ( pSoldier->ubProfile != NO_PROFILE )
 		{
-			if ( gWorldSectorX == 3 && gWorldSectorY == MAP_ROW_P && gbWorldSectorZ == 0 && !gfUseAlternateQueenPosition )
+			if ( (pSoldier->ubProfile == QUEEN || pSoldier->ubProfile == JOE) && ubCanMove )
 			{
-				bActionReturned = HeadForTheStairCase( pSoldier );
-				if ( bActionReturned != AI_ACTION_NONE )
+				if ( gWorldSectorX == 3 && gWorldSectorY == MAP_ROW_P && gbWorldSectorZ == 0 && !gfUseAlternateQueenPosition )
 				{
-					return( bActionReturned );
+					bActionReturned = HeadForTheStairCase( pSoldier );
+					if ( bActionReturned != AI_ACTION_NONE )
+					{
+						return( bActionReturned );
+					}
 				}
 			}
 		}
