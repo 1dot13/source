@@ -175,9 +175,6 @@ CHAR8				gzCommandLine[100];		// Command line given
 CHAR8				gzErrorMsg[2048]="";
 BOOLEAN				gfIgnoreMessages=FALSE;
 
-// GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
-UINT8				gbPixelDepth = PIXEL_DEPTH;
-
 
 INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 {
@@ -1195,8 +1192,6 @@ void GetRuntimeSettings( )
 			iResY = iResY - 70;
 	}
 
-	// Adjust again
-	gbPixelDepth = PIXEL_DEPTH;
 
 	SCREEN_WIDTH = iResX;
 	SCREEN_HEIGHT = iResY;

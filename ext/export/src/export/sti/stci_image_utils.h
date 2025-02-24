@@ -42,10 +42,5 @@ namespace ja2xp
 	UINT32	UnpackETRLEImageToBuffer(UINT8 *pBuffer, image_type *pImage, UINT16 ueETRLEIndex); 
 	UINT32	UnpackETRLEImageToRGBABuffer(UINT8 *pBuffer, image_type *pImage, UINT16 ueETRLEIndex); 
 
-	/**
-	 *  NOTE: implemented in msvc inline assembler 
-	 *        does not work with gcc -> use 'UnpackETRLEImageToBuffer'
-	 */
-	BOOLEAN Blt8BPPDataTo8BPPBuffer( UINT8 *pBuffer, UINT32 uiDestPitchBYTES, image_type *hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex );
 };
 #endif // _STCI_IMAGE_UTILS_H_
