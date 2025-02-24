@@ -9048,12 +9048,8 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	// clip to view region
 	ClipBlitsToMapViewRegionForRectangleAndABit( uiDestPitchBYTES );
 
-	if(gbPixelDepth==16)
-	{
-		// DB Need to add a radar color for 8-bit
-		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	UI_MAP.GridSize.iX, sScreenY +	UI_MAP.GridSize.iY - 1, usLineColor, pDestBuf );
-		InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + UI_MAP.GridSize.iX + 1 + 1, sScreenY + UI_MAP.GridSize.iY + 1 - 1 );
-	}
+	RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	UI_MAP.GridSize.iX, sScreenY +	UI_MAP.GridSize.iY - 1, usLineColor, pDestBuf );
+	InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + UI_MAP.GridSize.iX + 1 + 1, sScreenY + UI_MAP.GridSize.iY + 1 - 1 );
 
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
 	UnLockVideoSurface( FRAME_BUFFER );

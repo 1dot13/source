@@ -5,8 +5,6 @@
 #include "sgp.h"
 
 
-#define GETPIXELDEPTH( )	( gbPixelDepth )
-
 // WANNE: Maximum number of characters in german description (German xml files)
 #define MAXLINE		200
 

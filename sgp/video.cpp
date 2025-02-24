@@ -356,7 +356,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	//
 	if( 0==iScreenMode ) /* Fullscreen mode */
 	{
-		ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, gbPixelDepth, 0, 0 );
+		ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, PIXEL_DEPTH, 0, 0 );
 		if (ReturnCode != DD_OK)
 		{
 			IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL);
@@ -372,7 +372,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 
 	gusScreenWidth = SCREEN_WIDTH;
 	gusScreenHeight = SCREEN_HEIGHT;
-	gubScreenPixelDepth = gbPixelDepth;
+	gubScreenPixelDepth = PIXEL_DEPTH;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -2756,11 +2756,6 @@ BOOLEAN GetRGBDistribution(void)
 
 	Assert ( gpPrimarySurface != NULL );
 
-	// ONLY DO IF WE ARE IN 16BIT MODE
-	if ( gbPixelDepth == 8 )
-	{
-		return( TRUE );
-	}
 
 	ZEROMEM(SurfaceDescription);
 	SurfaceDescription.dwSize = sizeof (DDSURFACEDESC);
