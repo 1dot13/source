@@ -1,4 +1,5 @@
-﻿<MERCPROFILES>
+<?xml version='1.0' encoding='UTF-8'?>
+<MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
 		<zName>Barry Unger</zName>
@@ -166,7 +167,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>33</uiIndex>
-		<zName>Dr Q. Huaong</zName>
+		<zName>Dr. Q. Huaong</zName>
 		<zNickname>Dr. Q</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -256,32 +257,32 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>51</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGmale1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGmale2 </zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>53</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGmale3</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>54</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>55</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>56</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady3</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -356,8 +357,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<zName></zName>
-		<zNickname>RPC71</zNickname>
+		<zName>Combat Jeep</zName>
+		<zNickname>C. Jeep</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>72</uiIndex>
@@ -476,7 +477,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>95</uiIndex>
-		<zName>Kyle  Lemmons</zName>
+		<zName>Kyle Lemmons</zName>
 		<zNickname>Kyle</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -781,7 +782,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>156</uiIndex>
-		<zName>Oswald  Johnston</zName>
+		<zName>Oswald Johnston</zName>
 		<zNickname>Oswald</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -796,33 +797,33 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>Speck...</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>160</uiIndex>
-		<zName>Hummer</zName>
-		<zNickname>Hummer</zNickname>
+		<zName>悍马</zName>
+		<zNickname>悍马</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>161</uiIndex>
-		<zName>El Dorado</zName>
-		<zNickname>El Dorado</zNickname>
+		<zName>凯迪拉克</zName>
+		<zNickname>凯迪拉克</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>162</uiIndex>
-		<zName>Ice Cream Truck</zName>
-		<zNickname>Truck</zNickname>
+		<zName>冰淇淋车</zName>
+		<zNickname>冰淇淋车</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>直升机</zName>
+		<zNickname>直升机</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>坦克</zName>
+		<zNickname>坦克</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -846,7 +847,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>169</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 </MERCPROFILES>

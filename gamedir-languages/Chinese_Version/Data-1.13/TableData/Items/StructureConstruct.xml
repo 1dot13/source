@@ -21,15 +21,15 @@
 		<szTileSetDisplayName>铁丝网</szTileSetDisplayName>
 		<szTileSetName>spot_1.sti</szTileSetName>
 		<dCreationCost>1.0</dCreationCost>
-		<fFortifyAdjacentAdjustment>1</fFortifyAdjacentAdjustment>
-		<northfacingtile>2</northfacingtile>
-		<northfacingtile>4</northfacingtile>
-		<southfacingtile>2</southfacingtile>
-		<southfacingtile>4</southfacingtile>
-		<eastfacingtile>3</eastfacingtile>
-		<eastfacingtile>5</eastfacingtile>
-		<westfacingtile>3</westfacingtile>
-		<westfacingtile>5</westfacingtile>
+		<fFortifyAdjacentAdjustment>0</fFortifyAdjacentAdjustment>  <!--recommended to be 0 for concertina wire-->
+		<northfacingtile>3</northfacingtile>
+		<northfacingtile>5</northfacingtile>
+		<southfacingtile>3</southfacingtile>
+		<southfacingtile>5</southfacingtile>
+		<eastfacingtile>2</eastfacingtile>
+		<eastfacingtile>4</eastfacingtile>
+		<westfacingtile>2</westfacingtile>
+		<westfacingtile>4</westfacingtile>
 	</STRUCTURE>
 	<STRUCTURE><!--medium debris -->
 		<usCreationItem>1724</usCreationItem>
