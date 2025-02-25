@@ -993,9 +993,9 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>162</uiIndex>
-		<Name>卡车</Name>
-		<LongName>冰激凌卡车</LongName>
-		<ShortName>卡车</ShortName>
+		<Name>冰淇淋车</Name>
+		<LongName>冰淇淋车</LongName>
+		<ShortName>冰淇淋车</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>163</uiIndex>
