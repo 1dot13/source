@@ -3,6 +3,7 @@
 	<Layer name="blood" render="1" shadow="0">1</Layer>
 	<Layer name="shadow" render="1" shadow="1">0</Layer>
 	<Layer name="legs" render="1" shadow="0">1</Layer>
+	<Layer name="legarmor" render="1" shadow="0">2</Layer>
 	<Layer name="body" render="1" shadow="0">2</Layer>
 	<Layer name="head" render="1" shadow="0">4</Layer>
 	<Layer name="hands" render="1" shadow="0">3</Layer>
@@ -15,5 +16,7 @@
 	<Layer name="gun" render="1" shadow="1">5</Layer>
 	<Layer name="gunleft" render="1" shadow="1">5</Layer>
 	<Layer name="facegear" render="1" shadow="0">6</Layer>
+	<Layer name="gasmask" render="1" shadow="0">6</Layer>
+	<Layer name="ears" render="1" shadow="0">6</Layer>
 	<Layer name="helmet" render="1" shadow="0">7</Layer>
 </Layers>
