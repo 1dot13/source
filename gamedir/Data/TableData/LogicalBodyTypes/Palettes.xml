@@ -10,5 +10,4 @@
 	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
 	<Palette name = "WoodlandCamo" filename = "Palettes\WoodlandCamo.act" />
 	<Palette name = "swat_blue" filename = "Palettes\swat_blue.act" />
-	<Palette name = "guns_desert_tan" filename = "Palettes\guns_desert_tan.act" />
 </Palettes>
