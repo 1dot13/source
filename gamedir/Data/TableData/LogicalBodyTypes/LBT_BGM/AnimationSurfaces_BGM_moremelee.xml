@@ -1,0 +1,138 @@
+<!-- note that this is an external entity, so it is not a valid xml file by itself -->
+<!-- NOTE! Filenames have a 27 character limit. If they're longer, JA will crash when trying to load said file-->
+
+<!-- Combat Knife -->
+<AnimSurface name="BGMEMPTY_IDLE_knife2" file="Anims\LOBOT\BGM\M_N_STD_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_knife2" file="Anims\LOBOT\BGM\M_N_CRCH_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_knife2" file="Anims\LOBOT\BGM\M_N_SWAT_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_knife2" file="Anims\LOBOT\BGM\M_N_RUN_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_knife2" file="Anims\LOBOT\BGM\M_N_WALK_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_knife2" file="Anims\LOBOT\BGM\M_N_WALK_HURT_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_knife2" file="Anims\LOBOT\BGM\M_N_PRNE_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_knife2" file="Anims\LOBOT\BGM\M_N_PAIN_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_knife2" file="Anims\LOBOT\BGM\M_N_DRUNK_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_knife2" file="Anims\LOBOT\BGM\M_DODGE_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_knife2" file="Anims\LOBOT\BGM\M_STAB_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_knife2" file="Anims\LOBOT\BGM\M_SLICE_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_knife2" file="Anims\LOBOT\BGM\M_K_THROW_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_knife2" file="Anims\LOBOT\BGM\M_K_BREATH_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_knife2" file="Anims\LOBOT\BGM\M_C_STAB_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Machete -->
+<AnimSurface name="BGMEMPTY_IDLE_machete" file="Anims\LOBOT\BGM\M_N_STD_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_machete" file="Anims\LOBOT\BGM\M_N_CRCH_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_machete" file="Anims\LOBOT\BGM\M_N_SWAT_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_machete" file="Anims\LOBOT\BGM\M_N_RUN_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_machete" file="Anims\LOBOT\BGM\M_N_WALK_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_machete" file="Anims\LOBOT\BGM\M_N_WALK_HURT_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_machete" file="Anims\LOBOT\BGM\M_N_PRNE_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_machete" file="Anims\LOBOT\BGM\M_N_PAIN_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_machete" file="Anims\LOBOT\BGM\M_N_DRUNK_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_machete" file="Anims\LOBOT\BGM\M_DODGE_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_machete" file="Anims\LOBOT\BGM\M_STAB_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_machete" file="Anims\LOBOT\BGM\M_SLICE_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_machete" file="Anims\LOBOT\BGM\M_K_THROW_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_machete" file="Anims\LOBOT\BGM\M_K_BREATH_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_machete" file="Anims\LOBOT\BGM\M_C_STAB_machete.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Katana -->
+<AnimSurface name="BGMEMPTY_IDLE_katana" file="Anims\LOBOT\BGM\M_N_STD_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_katana" file="Anims\LOBOT\BGM\M_N_CRCH_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_katana" file="Anims\LOBOT\BGM\M_N_SWAT_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_katana" file="Anims\LOBOT\BGM\M_N_RUN_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_katana" file="Anims\LOBOT\BGM\M_N_WALK_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_katana" file="Anims\LOBOT\BGM\M_N_WALK_HURT_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_katana" file="Anims\LOBOT\BGM\M_N_PRNE_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_katana" file="Anims\LOBOT\BGM\M_N_PAIN_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_katana" file="Anims\LOBOT\BGM\M_N_DRUNK_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_katana" file="Anims\LOBOT\BGM\M_DODGE_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_katana" file="Anims\LOBOT\BGM\M_STAB_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_katana" file="Anims\LOBOT\BGM\M_SLICE_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_katana" file="Anims\LOBOT\BGM\M_K_THROW_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_katana" file="Anims\LOBOT\BGM\M_K_BREATH_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_katana" file="Anims\LOBOT\BGM\M_C_STAB_katana.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Cavalry Sabre -->
+<AnimSurface name="BGMEMPTY_IDLE_sabre" file="Anims\LOBOT\BGM\M_N_STD_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_sabre" file="Anims\LOBOT\BGM\M_N_CRCH_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_sabre" file="Anims\LOBOT\BGM\M_N_SWAT_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_sabre" file="Anims\LOBOT\BGM\M_N_RUN_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_sabre" file="Anims\LOBOT\BGM\M_N_WALK_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_sabre" file="Anims\LOBOT\BGM\M_N_WALK_HURT_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_sabre" file="Anims\LOBOT\BGM\M_N_PRNE_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_sabre" file="Anims\LOBOT\BGM\M_N_PAIN_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_sabre" file="Anims\LOBOT\BGM\M_N_DRUNK_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_sabre" file="Anims\LOBOT\BGM\M_DODGE_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_sabre" file="Anims\LOBOT\BGM\M_STAB_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_sabre" file="Anims\LOBOT\BGM\M_SLICE_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_sabre" file="Anims\LOBOT\BGM\M_K_THROW_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_sabre" file="Anims\LOBOT\BGM\M_K_BREATH_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_sabre" file="Anims\LOBOT\BGM\M_C_STAB_sabre.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Rambo Knife -->
+<AnimSurface name="BGMEMPTY_IDLE_bigknife" file="Anims\LOBOT\BGM\M_N_STD_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_bigknife" file="Anims\LOBOT\BGM\M_N_CRCH_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_bigknife" file="Anims\LOBOT\BGM\M_N_SWAT_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_bigknife" file="Anims\LOBOT\BGM\M_N_RUN_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_bigknife" file="Anims\LOBOT\BGM\M_N_WALK_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_bigknife" file="Anims\LOBOT\BGM\M_N_WALK_HURT_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_bigknife" file="Anims\LOBOT\BGM\M_N_PRNE_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_bigknife" file="Anims\LOBOT\BGM\M_N_PAIN_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_bigknife" file="Anims\LOBOT\BGM\M_N_DRUNK_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_bigknife" file="Anims\LOBOT\BGM\M_DODGE_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_bigknife" file="Anims\LOBOT\BGM\M_STAB_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_bigknife" file="Anims\LOBOT\BGM\M_SLICE_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_bigknife" file="Anims\LOBOT\BGM\M_K_THROW_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_bigknife" file="Anims\LOBOT\BGM\M_K_BREATH_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_bigknife" file="Anims\LOBOT\BGM\M_C_STAB_bigknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Ka-Bar Cutlass -->
+<AnimSurface name="BGMEMPTY_IDLE_cutlass" file="Anims\LOBOT\BGM\M_N_STD_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_cutlass" file="Anims\LOBOT\BGM\M_N_CRCH_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_cutlass" file="Anims\LOBOT\BGM\M_N_SWAT_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_cutlass" file="Anims\LOBOT\BGM\M_N_RUN_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_cutlass" file="Anims\LOBOT\BGM\M_N_WALK_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_cutlass" file="Anims\LOBOT\BGM\M_N_WALK_HURT_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_cutlass" file="Anims\LOBOT\BGM\M_N_PRNE_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_cutlass" file="Anims\LOBOT\BGM\M_N_PAIN_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_cutlass" file="Anims\LOBOT\BGM\M_N_DRUNK_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_cutlass" file="Anims\LOBOT\BGM\M_DODGE_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_cutlass" file="Anims\LOBOT\BGM\M_STAB_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_cutlass" file="Anims\LOBOT\BGM\M_SLICE_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_cutlass" file="Anims\LOBOT\BGM\M_K_THROW_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_cutlass" file="Anims\LOBOT\BGM\M_K_BREATH_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_cutlass" file="Anims\LOBOT\BGM\M_C_STAB_cutlass.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- KCB Knife -->
+<AnimSurface name="BGMEMPTY_IDLE_kcbknife" file="Anims\LOBOT\BGM\M_N_STD_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_kcbknife" file="Anims\LOBOT\BGM\M_N_CRCH_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_kcbknife" file="Anims\LOBOT\BGM\M_N_SWAT_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_kcbknife" file="Anims\LOBOT\BGM\M_N_RUN_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_kcbknife" file="Anims\LOBOT\BGM\M_N_WALK_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_kcbknife" file="Anims\LOBOT\BGM\M_N_WALK_HURT_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_kcbknife" file="Anims\LOBOT\BGM\M_N_PRNE_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_kcbknife" file="Anims\LOBOT\BGM\M_N_PAIN_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_kcbknife" file="Anims\LOBOT\BGM\M_N_DRUNK_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_kcbknife" file="Anims\LOBOT\BGM\M_DODGE_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_kcbknife" file="Anims\LOBOT\BGM\M_STAB_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_kcbknife" file="Anims\LOBOT\BGM\M_SLICE_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_kcbknife" file="Anims\LOBOT\BGM\M_K_THROW_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_kcbknife" file="Anims\LOBOT\BGM\M_K_BREATH_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_kcbknife" file="Anims\LOBOT\BGM\M_C_STAB_kcbknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Exacto Knife -->
+<AnimSurface name="BGMEMPTY_IDLE_boxknife" file="Anims\LOBOT\BGM\M_N_STD_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_boxknife" file="Anims\LOBOT\BGM\M_N_CRCH_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_boxknife" file="Anims\LOBOT\BGM\M_N_SWAT_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_boxknife" file="Anims\LOBOT\BGM\M_N_RUN_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_boxknife" file="Anims\LOBOT\BGM\M_N_WALK_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_boxknife" file="Anims\LOBOT\BGM\M_N_WALK_HURT_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_boxknife" file="Anims\LOBOT\BGM\M_N_PRNE_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_boxknife" file="Anims\LOBOT\BGM\M_N_PAIN_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_boxknife" file="Anims\LOBOT\BGM\M_N_DRUNK_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_boxknife" file="Anims\LOBOT\BGM\M_DODGE_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_boxknife" file="Anims\LOBOT\BGM\M_STAB_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_boxknife" file="Anims\LOBOT\BGM\M_SLICE_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_boxknife" file="Anims\LOBOT\BGM\M_K_THROW_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_boxknife" file="Anims\LOBOT\BGM\M_K_BREATH_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_boxknife" file="Anims\LOBOT\BGM\M_C_STAB_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />

@@ -6321,7 +6321,7 @@
 		<uiIndex>681</uiIndex>
 		<szWeaponName>Jati-Matic GG-95 PDW</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>16.4</ubShotsPer4Turns>
