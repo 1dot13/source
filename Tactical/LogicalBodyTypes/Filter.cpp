@@ -258,6 +258,18 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 				case REQ_LEGPOSATTACHMENT3:
 					cmp_val = CompareAttachment(pSoldier, LEGPOS, 3);
 					break;
+				case REQ_VESTPOSATTACHMENT0:
+					cmp_val = CompareAttachment( pSoldier, VESTPOS, 0 );
+					break;
+				case REQ_VESTPOSATTACHMENT1:
+					cmp_val = CompareAttachment( pSoldier, VESTPOS, 1 );
+					break;
+				case REQ_VESTPOSATTACHMENT2:
+					cmp_val = CompareAttachment( pSoldier, VESTPOS, 2 );
+					break;
+				case REQ_VESTPOSATTACHMENT3:
+					cmp_val = CompareAttachment( pSoldier, VESTPOS, 3 );
+					break;
 				default:
 					if (q < NUM_REQTYPESINV) {
 						cmp_val = pSoldier->inv[q].usItem;
