@@ -1678,6 +1678,49 @@
 			<Surface name="BGM_WATER_PISTOL_WALK_GRIZZLY" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_GRIZZLY" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasDualRightPepperSpray" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_PSPRAY" animsurface="BGMDBLBREATH" />
+			<Surface name="BGMEMPTY_WALK_PSPRAY" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMDUAL_AIM_PSPRAY" animsurface="BGMSTANDDWALAIM" />
+			<Surface name="BGM_CROUCHWALK_DUAL_PSPRAY" animsurface="BGMCROUCH_D_RDY" />
+			<Surface name="BGMDUAL_CR_AIM_PSPRAY" animsurface="BGMCDBLSHOT" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMDUAL_PRONE_PSPRAY" animsurface="BGMDWPRONE" />
+			<Surface name="BGMEMPTY_PAIN_PSPRAY" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_AIM_PSPRAY" animsurface="BGMSIDESTEP_D_RDY" />
+			<Surface name="BGMDUAL_RDY_WALK_PSPRAY" animsurface="BGMWALK_D_RDY" />
+			<Surface name="BGMDUAL_SDSTP_PSPRAY" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_PSPRAY" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_WALK_HURT_PSPRAY" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGM_WATER_EMPTY_IDLE_PSPRAY" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_EMPTY_WALK_PSPRAY" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_DUAL_AIM_PSPRAY" animsurface="BGMWATER_DBLSHT" />
+		</LayerProp>
+		<LayerProp filter="HasPepperSprayInHand" palette="guns_v2">
+			<Surface name="BGM_CROUCHWALK_PSPRAY" animsurface="BGMCROUCH_P_RDY" />
+			<Surface name="BGMEMPTY_PRONE_PSPRAY" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMPISTOL_IDLE_PSPRAY" animsurface="BGMPISTOLBREATH" />
+			<Surface name="BGMPISTOL_WALK_PSPRAY" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMPISTOL_AIM_PSPRAY" animsurface="BGMHANDGUN_S_SHOT" />
+			<Surface name="BGMPISTOL_AIM_1H_PSPRAY" animsurface="BGM_PFSHOT_AIM" />
+			<Surface name="BGMPISTOL_RDY_WALK_PSPRAY" animsurface="BGMWALK_P_RDY" />
+			<Surface name="BGMEMPTY_SWAT_PSPRAY" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_CROUCH_PSPRAY" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMPISTOL_CR_AIM_PSPRAY" animsurface="BGMHANDGUN_C_SHOT" />		
+			<Surface name="BGMPISTOL_SDSTP_AIM_PSPRAY" animsurface="BGMSIDESTEP_P_RDY" />
+			<Surface name="BGMPISTOL_LOW_PSPRAY" animsurface="BGMPISTOLSHOOTLOW" />
+			<Surface name="BGMPISTOL_LOW_PSPRAY" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_PSPRAY" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMPISTOL_SDSTP_PSPRAY" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_PSPRAY" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_WALK_HURT_PSPRAY" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGM_WATER_PISTOL_IDLE_PSPRAY" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_PISTOL_WALK_PSPRAY" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_PISTOL_AIM_PSPRAY" animsurface="BGMWATER_N_AIM" />
+		</LayerProp>
 		<LayerProp filter="HasDualRight93R" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_93R" animsurface="BGMDBLBREATH" />
 			<Surface name="BGMEMPTY_WALK_93R" animsurface="BGMNOTHING_WALK" />
@@ -12549,6 +12592,51 @@
 			<Surface name="BGM_WATER_RIFLE_AIM_AR" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_AR" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
+		<LayerProp filter="HasBatonInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_baton" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_baton" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_baton" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_baton" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_baton" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_baton" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_baton" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_baton" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_baton" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_baton" animsurface="BGMDODGE" />
+			<Surface name="BGMCROWBAR_HIT_baton" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_baton" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGM_PUNCH_baton" animsurface="BGMPUNCH" />
+		</LayerProp>
+		<LayerProp filter="HasShovelInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_shovel" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_shovel" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_shovel" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_shovel" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_shovel" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_shovel" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_shovel" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_shovel" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_shovel" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_shovel" animsurface="BGMDODGE" />
+			<Surface name="BGMCROWBAR_HIT_shovel" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_shovel" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGM_PUNCH_shovel" animsurface="BGMPUNCH" />
+		</LayerProp>
+		<LayerProp filter="HasPipeWrenchInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_wrench" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_wrench" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_wrench" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_wrench" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_wrench" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_wrench" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_wrench" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_wrench" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_wrench" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_wrench" animsurface="BGMDODGE" />
+			<Surface name="BGMCROWBAR_HIT_wrench" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_wrench" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGM_PUNCH_wrench" animsurface="BGMPUNCH" />
+		</LayerProp>
 		<LayerProp filter="HasCrowbarInHand" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_CROWBAR" animsurface="BGMNOTHING_STD" />
 			<Surface name="BGMEMPTY_WALK_CROWBAR" animsurface="BGMNOTHING_WALK" />
@@ -12561,6 +12649,71 @@
 			<Surface name="BGMEMPTY_DRUNK_CROWBAR" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGMEMPTY_DODGE_CROWBAR" animsurface="BGMDODGE" />
 			<Surface name="BGMCROWBAR_HIT_CROWBAR" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_CROWBAR" animsurface="BGMPUNCHLOW" />
+		</LayerProp>
+		<LayerProp filter="HasNightstickInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_nstick" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_nstick" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_nstick" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_nstick" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_nstick" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_nstick" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_nstick" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_nstick" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_nstick" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_nstick" animsurface="BGMDODGE" />
+			<Surface name="BGM_PUNCH_nstick" animsurface="BGMPUNCH" />
+			<Surface name="BGMEMPTY_CPUNCH_nstick" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_KARATELK_nstick" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_nstick" animsurface="RGMSPINKICK" />
+		</LayerProp>
+		<LayerProp filter="HasStunGunInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_stunner" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_stunner" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_stunner" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_stunner" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_stunner" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_stunner" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_stunner" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_stunner" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_stunner" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_stunner" animsurface="BGMDODGE" />
+			<Surface name="BGM_PUNCH_stunner" animsurface="BGMPUNCH" />
+			<Surface name="BGMEMPTY_CPUNCH_stunner" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_KARATELK_stunner" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_stunner" animsurface="RGMSPINKICK" />
+		</LayerProp>
+		<LayerProp filter="HasFlashlightInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_etorch" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_etorch" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_etorch" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_etorch" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_etorch" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_etorch" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_etorch" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_etorch" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_etorch" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_etorch" animsurface="BGMDODGE" />
+			<Surface name="BGM_PUNCH_etorch" animsurface="BGMPUNCH" />
+			<Surface name="BGMEMPTY_CPUNCH_etorch" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_KARATELK_etorch" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_etorch" animsurface="RGMSPINKICK" />
+		</LayerProp>
+		<LayerProp filter="HasKnuckleDusterInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_kduster" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_kduster" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_kduster" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_kduster" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_RUN_kduster" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_kduster" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_kduster" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_kduster" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_kduster" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_kduster" animsurface="BGMDODGE" />
+			<Surface name="BGM_PUNCH_kduster" animsurface="BGMPUNCH" />
+			<Surface name="BGMEMPTY_CPUNCH_kduster" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_KARATELK_kduster" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_kduster" animsurface="RGMSPINKICK" />
 		</LayerProp>
 		<LayerProp filter="HasCombatKnifeInHand" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_knife2" animsurface="BGMNOTHING_STD" />
@@ -12705,6 +12858,24 @@
 			<Surface name="BGMKNIFE_THROW_boxknife" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_boxknife" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMKNIFE_CSTAB_boxknife" animsurface="BGMCSTAB" />
+		</LayerProp>
+		<LayerProp filter="HasUmbrellaInHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_umbrella" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_WALK_umbrella" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_CROUCH_umbrella" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_umbrella" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_SWAT_umbrella" animsurface="BGMSWKNIFE" />
+			<Surface name="BGMEMPTY_RUN_umbrella" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_PAIN_umbrella" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_PRONE_umbrella" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMEMPTY_WALK_HURT_umbrella" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_DRUNK_umbrella" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_DODGE_umbrella" animsurface="BGMDODGE" />
+			<Surface name="BGMKNIFE_STAB_umbrella" animsurface="BGMSTAB" />
+			<Surface name="BGMKNIFE_SLICE_umbrella" animsurface="BGMSLICE" />
+			<Surface name="BGMKNIFE_THROW_umbrella" animsurface="BGMTHROWKNIFE" />
+			<Surface name="BGMKNIFE_BREATH_umbrella" animsurface="BGMBREATHKNIFE" />
+			<Surface name="BGMKNIFE_CSTAB_umbrella" animsurface="BGMCSTAB" />
 		</LayerProp>
 		<LayerProp filter="HasKnifeInHand" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_KNIFE" animsurface="BGMNOTHING_STD" />
@@ -13575,6 +13746,28 @@
 			<Surface name="BGM_WATER_EMPTY_IDLE_GRIZZLY_LEFT" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_EMPTY_WALK_GRIZZLY_LEFT" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_DUAL_AIM_GRIZZLY_LEFT" animsurface="BGMWATER_DBLSHT" />
+		</LayerProp>
+		<LayerProp filter="HasPepperSprayInLeftHand" palette="guns_v2">
+			<Surface name="BGMEMPTY_IDLE_PSPRAY_LEFT" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGMEMPTY_IDLE_PSPRAY_LEFT" animsurface="BGMDBLBREATH" />
+			<Surface name="BGMEMPTY_WALK_PSPRAY_LEFT" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMDUAL_AIM_PSPRAY_LEFT" animsurface="BGMSTANDDWALAIM" />
+			<Surface name="BGMEMPTY_CROUCH_PSPRAY_LEFT" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_PSPRAY_LEFT" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGM_CROUCHWALK_DUAL_PSPRAY_LEFT" animsurface="BGMCROUCH_D_RDY" />
+			<Surface name="BGMDUAL_CR_AIM_PSPRAY_LEFT" animsurface="BGMCDBLSHOT" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY_LEFT" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMDUAL_PRONE_PSPRAY_LEFT" animsurface="BGMDWPRONE" />
+			<Surface name="BGMEMPTY_PAIN_PSPRAY_LEFT" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMEMPTY_RUN_PSPRAY_LEFT" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_AIM_PSPRAY_LEFT" animsurface="BGMSIDESTEP_D_RDY" />
+			<Surface name="BGMDUAL_RDY_WALK_PSPRAY_LEFT" animsurface="BGMWALK_D_RDY" />
+			<Surface name="BGMDUAL_SDSTP_PSPRAY_LEFT" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_PSPRAY_LEFT" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_WALK_HURT_PSPRAY_LEFT" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGM_WATER_EMPTY_IDLE_PSPRAY_LEFT" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_EMPTY_WALK_PSPRAY_LEFT" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_DUAL_AIM_PSPRAY_LEFT" animsurface="BGMWATER_DBLSHT" />
 		</LayerProp>
 		<LayerProp filter="Has93RInLeftHand" palette="guns_v2">
 			<Surface name="BGMEMPTY_IDLE_93R_LEFT" animsurface="BGMNOTHING_STD" />

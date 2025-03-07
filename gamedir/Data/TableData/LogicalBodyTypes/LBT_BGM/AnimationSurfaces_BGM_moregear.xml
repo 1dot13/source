@@ -81,6 +81,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Ushanka" file="Anims\LOBOT\BGM\M_K_THROW_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Ushanka" file="Anims\LOBOT\BGM\M_K_BREATH_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Ushanka" file="Anims\LOBOT\BGM\M_CROWBAR_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Ushanka" file="Anims\LOBOT\BGM\M_C_CROWBAR_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Ushanka" file="Anims\LOBOT\BGM\M_D_FWD_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Ushanka" file="Anims\LOBOT\BGM\M_D_FWD_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Ushanka" file="Anims\LOBOT\BGM\M_DIEBAC_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -222,6 +223,7 @@
 <AnimSurface name="BGMKNIFE_THROW_UScap" file="Anims\LOBOT\BGM\M_K_THROW_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_UScap" file="Anims\LOBOT\BGM\M_K_BREATH_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_UScap" file="Anims\LOBOT\BGM\M_CROWBAR_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_UScap" file="Anims\LOBOT\BGM\M_C_CROWBAR_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_UScap" file="Anims\LOBOT\BGM\M_D_FWD_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_UScap" file="Anims\LOBOT\BGM\M_D_FWD_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_UScap" file="Anims\LOBOT\BGM\M_DIEBAC_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -363,6 +365,7 @@
 <AnimSurface name="BGMKNIFE_THROW_USSRcap" file="Anims\LOBOT\BGM\M_K_THROW_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_USSRcap" file="Anims\LOBOT\BGM\M_K_BREATH_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_USSRcap" file="Anims\LOBOT\BGM\M_CROWBAR_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_USSRcap" file="Anims\LOBOT\BGM\M_C_CROWBAR_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_USSRcap" file="Anims\LOBOT\BGM\M_D_FWD_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_USSRcap" file="Anims\LOBOT\BGM\M_D_FWD_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_USSRcap" file="Anims\LOBOT\BGM\M_DIEBAC_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -504,6 +507,7 @@
 <AnimSurface name="BGMKNIFE_THROW_RUScap" file="Anims\LOBOT\BGM\M_K_THROW_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_RUScap" file="Anims\LOBOT\BGM\M_K_BREATH_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_RUScap" file="Anims\LOBOT\BGM\M_CROWBAR_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_RUScap" file="Anims\LOBOT\BGM\M_C_CROWBAR_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_RUScap" file="Anims\LOBOT\BGM\M_D_FWD_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_RUScap" file="Anims\LOBOT\BGM\M_D_FWD_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_RUScap" file="Anims\LOBOT\BGM\M_DIEBAC_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -645,6 +649,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Blackcap" file="Anims\LOBOT\BGM\M_K_THROW_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Blackcap" file="Anims\LOBOT\BGM\M_K_BREATH_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Blackcap" file="Anims\LOBOT\BGM\M_CROWBAR_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Blackcap" file="Anims\LOBOT\BGM\M_C_CROWBAR_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Blackcap" file="Anims\LOBOT\BGM\M_D_FWD_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Blackcap" file="Anims\LOBOT\BGM\M_D_FWD_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Blackcap" file="Anims\LOBOT\BGM\M_DIEBAC_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -786,6 +791,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Steelhelm" file="Anims\LOBOT\BGM\M_K_THROW_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Steelhelm" file="Anims\LOBOT\BGM\M_K_BREATH_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Steelhelm" file="Anims\LOBOT\BGM\M_CROWBAR_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Steelhelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Steelhelm" file="Anims\LOBOT\BGM\M_D_FWD_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Steelhelm" file="Anims\LOBOT\BGM\M_D_FWD_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Steelhelm" file="Anims\LOBOT\BGM\M_DIEBAC_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -927,6 +933,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Kvlrhelm" file="Anims\LOBOT\BGM\M_K_THROW_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Kvlrhelm" file="Anims\LOBOT\BGM\M_K_BREATH_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Kvlrhelm" file="Anims\LOBOT\BGM\M_CROWBAR_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Kvlrhelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Kvlrhelm" file="Anims\LOBOT\BGM\M_D_FWD_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Kvlrhelm" file="Anims\LOBOT\BGM\M_D_FWD_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Kvlrhelm" file="Anims\LOBOT\BGM\M_DIEBAC_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1068,6 +1075,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Spechelm" file="Anims\LOBOT\BGM\M_K_THROW_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Spechelm" file="Anims\LOBOT\BGM\M_K_BREATH_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Spechelm" file="Anims\LOBOT\BGM\M_CROWBAR_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Spechelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Spechelm" file="Anims\LOBOT\BGM\M_D_FWD_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Spechelm" file="Anims\LOBOT\BGM\M_D_FWD_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Spechelm" file="Anims\LOBOT\BGM\M_DIEBAC_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1209,6 +1217,7 @@
 <AnimSurface name="BGMKNIFE_THROW_SWAThelm" file="Anims\LOBOT\BGM\M_K_THROW_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_SWAThelm" file="Anims\LOBOT\BGM\M_K_BREATH_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_SWAThelm" file="Anims\LOBOT\BGM\M_CROWBAR_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_SWAThelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_SWAThelm" file="Anims\LOBOT\BGM\M_D_FWD_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_SWAThelm" file="Anims\LOBOT\BGM\M_D_FWD_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_SWAThelm" file="Anims\LOBOT\BGM\M_DIEBAC_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1350,6 +1359,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Twahelm" file="Anims\LOBOT\BGM\M_K_THROW_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Twahelm" file="Anims\LOBOT\BGM\M_K_BREATH_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Twahelm" file="Anims\LOBOT\BGM\M_CROWBAR_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Twahelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Twahelm" file="Anims\LOBOT\BGM\M_D_FWD_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Twahelm" file="Anims\LOBOT\BGM\M_D_FWD_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Twahelm" file="Anims\LOBOT\BGM\M_DIEBAC_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1491,6 +1501,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Dynhelm" file="Anims\LOBOT\BGM\M_K_THROW_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Dynhelm" file="Anims\LOBOT\BGM\M_K_BREATH_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Dynhelm" file="Anims\LOBOT\BGM\M_CROWBAR_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Dynhelm" file="Anims\LOBOT\BGM\M_C_CROWBAR_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Dynhelm" file="Anims\LOBOT\BGM\M_D_FWD_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Dynhelm" file="Anims\LOBOT\BGM\M_D_FWD_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Dynhelm" file="Anims\LOBOT\BGM\M_DIEBAC_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1632,6 +1643,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Goggles" file="Anims\LOBOT\BGM\M_K_THROW_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Goggles" file="Anims\LOBOT\BGM\M_K_BREATH_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Goggles" file="Anims\LOBOT\BGM\M_CROWBAR_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Goggles" file="Anims\LOBOT\BGM\M_C_CROWBAR_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Goggles" file="Anims\LOBOT\BGM\M_D_FWD_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Goggles" file="Anims\LOBOT\BGM\M_D_FWD_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Goggles" file="Anims\LOBOT\BGM\M_DIEBAC_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1773,6 +1785,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Headset" file="Anims\LOBOT\BGM\M_K_THROW_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Headset" file="Anims\LOBOT\BGM\M_K_BREATH_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Headset" file="Anims\LOBOT\BGM\M_CROWBAR_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Headset" file="Anims\LOBOT\BGM\M_C_CROWBAR_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Headset" file="Anims\LOBOT\BGM\M_D_FWD_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Headset" file="Anims\LOBOT\BGM\M_D_FWD_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Headset" file="Anims\LOBOT\BGM\M_DIEBAC_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -1914,6 +1927,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Flakvest" file="Anims\LOBOT\BGM\M_K_THROW_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Flakvest" file="Anims\LOBOT\BGM\M_K_BREATH_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Flakvest" file="Anims\LOBOT\BGM\M_CROWBAR_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Flakvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Flakvest" file="Anims\LOBOT\BGM\M_D_FWD_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Flakvest" file="Anims\LOBOT\BGM\M_D_FWD_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Flakvest" file="Anims\LOBOT\BGM\M_DIEBAC_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2055,6 +2069,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Guardvest" file="Anims\LOBOT\BGM\M_K_THROW_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Guardvest" file="Anims\LOBOT\BGM\M_K_BREATH_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Guardvest" file="Anims\LOBOT\BGM\M_CROWBAR_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Guardvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Guardvest" file="Anims\LOBOT\BGM\M_D_FWD_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Guardvest" file="Anims\LOBOT\BGM\M_D_FWD_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Guardvest" file="Anims\LOBOT\BGM\M_DIEBAC_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2196,6 +2211,7 @@
 <AnimSurface name="BGMKNIFE_THROW_SWATvest" file="Anims\LOBOT\BGM\M_K_THROW_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_SWATvest" file="Anims\LOBOT\BGM\M_K_BREATH_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_SWATvest" file="Anims\LOBOT\BGM\M_CROWBAR_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_SWATvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_SWATvest" file="Anims\LOBOT\BGM\M_D_FWD_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_SWATvest" file="Anims\LOBOT\BGM\M_D_FWD_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_SWATvest" file="Anims\LOBOT\BGM\M_DIEBAC_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2337,6 +2353,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Twavest" file="Anims\LOBOT\BGM\M_K_THROW_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Twavest" file="Anims\LOBOT\BGM\M_K_BREATH_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Twavest" file="Anims\LOBOT\BGM\M_CROWBAR_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Twavest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Twavest" file="Anims\LOBOT\BGM\M_D_FWD_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Twavest" file="Anims\LOBOT\BGM\M_D_FWD_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Twavest" file="Anims\LOBOT\BGM\M_DIEBAC_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2478,6 +2495,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Dynvest" file="Anims\LOBOT\BGM\M_K_THROW_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Dynvest" file="Anims\LOBOT\BGM\M_K_BREATH_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Dynvest" file="Anims\LOBOT\BGM\M_CROWBAR_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Dynvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Dynvest" file="Anims\LOBOT\BGM\M_D_FWD_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Dynvest" file="Anims\LOBOT\BGM\M_D_FWD_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Dynvest" file="Anims\LOBOT\BGM\M_DIEBAC_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2619,6 +2637,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Zylonvest" file="Anims\LOBOT\BGM\M_K_THROW_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Zylonvest" file="Anims\LOBOT\BGM\M_K_BREATH_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Zylonvest" file="Anims\LOBOT\BGM\M_CROWBAR_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Zylonvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Zylonvest" file="Anims\LOBOT\BGM\M_D_FWD_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Zylonvest" file="Anims\LOBOT\BGM\M_D_FWD_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Zylonvest" file="Anims\LOBOT\BGM\M_DIEBAC_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2760,6 +2779,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Dressvest" file="Anims\LOBOT\BGM\M_K_THROW_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Dressvest" file="Anims\LOBOT\BGM\M_K_BREATH_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Dressvest" file="Anims\LOBOT\BGM\M_CROWBAR_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Dressvest" file="Anims\LOBOT\BGM\M_C_CROWBAR_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Dressvest" file="Anims\LOBOT\BGM\M_D_FWD_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Dressvest" file="Anims\LOBOT\BGM\M_D_FWD_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Dressvest" file="Anims\LOBOT\BGM\M_DIEBAC_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -2901,6 +2921,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Kvlrlegs" file="Anims\LOBOT\BGM\M_K_THROW_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Kvlrlegs" file="Anims\LOBOT\BGM\M_K_BREATH_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Kvlrlegs" file="Anims\LOBOT\BGM\M_CROWBAR_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Kvlrlegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Kvlrlegs" file="Anims\LOBOT\BGM\M_D_FWD_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Kvlrlegs" file="Anims\LOBOT\BGM\M_D_FWD_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Kvlrlegs" file="Anims\LOBOT\BGM\M_DIEBAC_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3039,6 +3060,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Speclegs" file="Anims\LOBOT\BGM\M_K_THROW_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Speclegs" file="Anims\LOBOT\BGM\M_K_BREATH_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Speclegs" file="Anims\LOBOT\BGM\M_CROWBAR_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Speclegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Speclegs" file="Anims\LOBOT\BGM\M_D_FWD_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Speclegs" file="Anims\LOBOT\BGM\M_D_FWD_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Speclegs" file="Anims\LOBOT\BGM\M_DIEBAC_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3177,6 +3199,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Twalegs" file="Anims\LOBOT\BGM\M_K_THROW_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Twalegs" file="Anims\LOBOT\BGM\M_K_BREATH_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Twalegs" file="Anims\LOBOT\BGM\M_CROWBAR_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Twalegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Twalegs" file="Anims\LOBOT\BGM\M_D_FWD_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Twalegs" file="Anims\LOBOT\BGM\M_D_FWD_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Twalegs" file="Anims\LOBOT\BGM\M_DIEBAC_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3315,6 +3338,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Dynlegs" file="Anims\LOBOT\BGM\M_K_THROW_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Dynlegs" file="Anims\LOBOT\BGM\M_K_BREATH_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Dynlegs" file="Anims\LOBOT\BGM\M_CROWBAR_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Dynlegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Dynlegs" file="Anims\LOBOT\BGM\M_D_FWD_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Dynlegs" file="Anims\LOBOT\BGM\M_D_FWD_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Dynlegs" file="Anims\LOBOT\BGM\M_DIEBAC_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3453,6 +3477,7 @@
 <AnimSurface name="BGMKNIFE_THROW_SWATlegs" file="Anims\LOBOT\BGM\M_K_THROW_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_SWATlegs" file="Anims\LOBOT\BGM\M_K_BREATH_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_SWATlegs" file="Anims\LOBOT\BGM\M_CROWBAR_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_SWATlegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_SWATlegs" file="Anims\LOBOT\BGM\M_D_FWD_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_SWATlegs" file="Anims\LOBOT\BGM\M_D_FWD_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_SWATlegs" file="Anims\LOBOT\BGM\M_DIEBAC_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3591,6 +3616,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Zylonlegs" file="Anims\LOBOT\BGM\M_K_THROW_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Zylonlegs" file="Anims\LOBOT\BGM\M_K_BREATH_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Zylonlegs" file="Anims\LOBOT\BGM\M_CROWBAR_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Zylonlegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Zylonlegs" file="Anims\LOBOT\BGM\M_D_FWD_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Zylonlegs" file="Anims\LOBOT\BGM\M_D_FWD_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Zylonlegs" file="Anims\LOBOT\BGM\M_DIEBAC_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3729,6 +3755,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Dresslegs" file="Anims\LOBOT\BGM\M_K_THROW_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Dresslegs" file="Anims\LOBOT\BGM\M_K_BREATH_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Dresslegs" file="Anims\LOBOT\BGM\M_CROWBAR_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Dresslegs" file="Anims\LOBOT\BGM\M_C_CROWBAR_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Dresslegs" file="Anims\LOBOT\BGM\M_D_FWD_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Dresslegs" file="Anims\LOBOT\BGM\M_D_FWD_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Dresslegs" file="Anims\LOBOT\BGM\M_DIEBAC_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -3867,6 +3894,7 @@
 <AnimSurface name="BGMKNIFE_THROW_CP" file="Anims\LOBOT\BGM\M_K_THROW_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_CP" file="Anims\LOBOT\BGM\M_K_BREATH_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_CP" file="Anims\LOBOT\BGM\M_CROWBAR_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_CP" file="Anims\LOBOT\BGM\M_C_CROWBAR_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_CP" file="Anims\LOBOT\BGM\M_D_FWD_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_CP" file="Anims\LOBOT\BGM\M_D_FWD_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_CP" file="Anims\LOBOT\BGM\M_DIEBAC_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -4009,6 +4037,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Bigradio" file="Anims\LOBOT\BGM\M_K_THROW_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Bigradio" file="Anims\LOBOT\BGM\M_K_BREATH_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Bigradio" file="Anims\LOBOT\BGM\M_CROWBAR_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Bigradio" file="Anims\LOBOT\BGM\M_C_CROWBAR_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Bigradio" file="Anims\LOBOT\BGM\M_D_FWD_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Bigradio" file="Anims\LOBOT\BGM\M_D_FWD_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Bigradio" file="Anims\LOBOT\BGM\M_DIEBAC_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />
@@ -4151,6 +4180,7 @@
 <AnimSurface name="BGMKNIFE_THROW_Medradio" file="Anims\LOBOT\BGM\M_K_THROW_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_Medradio" file="Anims\LOBOT\BGM\M_K_BREATH_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMCROWBAR_HIT_Medradio" file="Anims\LOBOT\BGM\M_CROWBAR_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_Medradio" file="Anims\LOBOT\BGM\M_C_CROWBAR_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIE_Medradio" file="Anims\LOBOT\BGM\M_D_FWD_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_JFK_Medradio" file="Anims\LOBOT\BGM\M_D_FWD_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALL.JSD" directions = "8" framesperdir="35" profile="-1" />
 <AnimSurface name="BGMEMPTY_DIEFB_Medradio" file="Anims\LOBOT\BGM\M_DIEBAC_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_FALLBACK.JSD" directions = "8" framesperdir="23" profile="-1" />

@@ -107,6 +107,7 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEPANTS" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEPANTS" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEPANTS" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEPANTS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEPANTS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEPANTS" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEPANTS" animsurface="RGMCSTAB" />
@@ -239,6 +240,7 @@
 			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
@@ -264,134 +266,6 @@
 			<Surface name="WATER_EMPTY_DIE_LEGS_C" animsurface="RGMWATER_DIE" />
 			<Surface name="WATER_DUAL_AIM_LEGS_C" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_LEGS_C" animsurface="RGMMORTAR" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPantsAndPistol" palette="hats">
-			<Surface name="RGMPISTOL_WALK_Dresslegs" animsurface="RGMNOTHING_WALK" />
-			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMPISTOL_RUN" />			
-			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMNOTHING_RUN" />
-			<Surface name="RGMPISTOL_SDSTP_Dresslegs" animsurface="RGMSIDESTEP" />
-			<Surface name="WATER_PISTOL_IDLE_Dresslegs" animsurface="RGMWATER_N_STD" />
-			<Surface name="WATER_PISTOL_WALK_Dresslegs" animsurface="RGMWATER_N_WALK" />
-			<Surface name="WATER_PISTOL_AIM_Dresslegs" animsurface="RGMWATER_N_AIM" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPantsAndRifle" palette="hats">
-			<Surface name="RGM_RIFLE_OPEN_Dresslegs" animsurface="RGMOPEN" />
-			<Surface name="RGMRIFLE_COWER_Dresslegs" animsurface="RGMCOWER" />
-			<Surface name="RGMRIFLE_PRN_COWER_Dresslegs" animsurface="RGM_COWER_PRONE" />
-			<Surface name="RGMRIFLE_KICKDOOR_Dresslegs" animsurface="RGMKICKDOOR" />
-			<Surface name="RGMRIFLE_SQUISH_Dresslegs" animsurface="RGM_SQUISH" />
-			<Surface name="RGMRIFLE_LOOK_Dresslegs" animsurface="RGM_LOOK" />
-			<Surface name="RGMRIFLE_SPIT_Dresslegs" animsurface="RGM_SPIT" />
-			<Surface name="RGMRIFLE_DRUNK_Dresslegs" animsurface="RGMDRUNK" />
-			<Surface name="RGMRIFLE_LOW_Dresslegs" animsurface="RGMSHOOT_LOW" />
-			<Surface name="RGMRIFLE_HIP_LOW_Dresslegs" animsurface="RGM_HIP_LOW" />
-			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dresslegs" animsurface="RGMSIDESTEP_R_RDY" />
-			<Surface name="RGMRIFLE_ROLL_SIDE_Dresslegs" animsurface="RGMROLL_PR" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPants" palette="hats">
-			<Surface name="RGMRIFLE_WALK_CROUCH_Dresslegs" animsurface="RGMCROUCH_R_RDY" />
-			<Surface name="RGM_CROUCHWALK_Dresslegs" animsurface="RGMCROUCH_P_RDY" />
-			<Surface name="RGM_CROUCHWALK_DUAL_Dresslegs" animsurface="RGMCROUCH_D_RDY" />
-			<Surface name="RGMRIFLE_IDLE_Dresslegs" animsurface="RGMSTANDING" />
-			<Surface name="RGMBASICWALK_Dresslegs" animsurface="RGMBASICWALKING" />
-			<Surface name="RGMRUNNING_Dresslegs" animsurface="RGMRUNNING" />
-			<Surface name="RGMRIFLE_CROUCH_Dresslegs" animsurface="RGMCROUCHING" />
-			<Surface name="RGMRIFLE_SIDESTEP_Dresslegs" animsurface="RGMSIDESTEP" />
-			<Surface name="RGMRIFLE_SWAT_Dresslegs" animsurface="RGMSNEAKING" />
-			<Surface name="RGMRIFLE_WALK_Dresslegs" animsurface="RGMWALK_R_RDY" />
-			<Surface name="RGMRIFLE_RAISE_Dresslegs" animsurface="RGMRAISE" />
-			<Surface name="RGMRIFLE_AIM_Dresslegs" animsurface="RGMSTANDAIM" />
-			<Surface name="RGMRIFLE_HIP_Dresslegs" animsurface="RGM_HIP_AIM" />
-			<Surface name="RGMRIFLE_CR_AIM_Dresslegs" animsurface="RGMCROUCHAIM" />
-			<Surface name="RGMRIFLE_PRONE_Dresslegs" animsurface="RGMPRONE" />
-			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMHOPFENCE" />
-			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMJUMPWINDOWS" />
-			<Surface name="RGM_PUNCH_Dresslegs" animsurface="RGMPUNCH" />
-			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMNOTHING_STD" />
-			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMDBLBREATH" />
-			<Surface name="RGM_OPEN_Dresslegs" animsurface="RGMOPEN" />
-			<Surface name="RGM_PICKUP_Dresslegs" animsurface="RGMPICKUP" />
-			<Surface name="RGMMEDIC_CROUCH_Dresslegs" animsurface="RGMMEDIC" />
-			<Surface name="RGMRIFLE_HIT_Dresslegs" animsurface="RGMRHIT" />
-			<Surface name="RGMEMPTY_CROUCH_Dresslegs" animsurface="RGMNOTHING_CROUCH" />
-			<Surface name="RGMEMPTY_SWAT_Dresslegs" animsurface="RGMNOTHING_SWAT" />
-			<Surface name="RGMEMPTY_SWAT_Dresslegs" animsurface="RGMSWKNIFE" />
-			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMPISTOL_RUN" />			
-			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMNOTHING_RUN" />
-			<Surface name="RGMEMPTY_WALK_Dresslegs" animsurface="RGMNOTHING_WALK" />
-			<Surface name="RGMEMPTY_PRONE_Dresslegs" animsurface="RGMHANDGUN_PRONE" />
-			<Surface name="RGMPISTOL_IDLE_Dresslegs" animsurface="RGMPISTOLBREATH" />
-			<Surface name="RGMPISTOL_AIM_Dresslegs" animsurface="RGMHANDGUN_S_SHOT" />
-			<Surface name="RGMPISTOL_AIM_1H_Dresslegs" animsurface="RGM_PFSHOT_AIM" />
-			<Surface name="RGMPISTOL_RDY_WALK_Dresslegs" animsurface="RGMWALK_P_RDY" />
-			<Surface name="RGMDUAL_RDY_WALK_Dresslegs" animsurface="RGMWALK_D_RDY" />
-			<Surface name="RGMPISTOL_CR_AIM_Dresslegs" animsurface="RGMHANDGUN_C_SHOT" />		
-			<Surface name="RGMPISTOL_SDSTP_AIM_Dresslegs" animsurface="RGMSIDESTEP_P_RDY" />
-			<Surface name="RGMDUAL_SDSTP_AIM_Dresslegs" animsurface="RGMSIDESTEP_D_RDY" />
-			<Surface name="RGMPISTOL_LOW_Dresslegs" animsurface="RGMPISTOLSHOOTLOW" />
-			<Surface name="RGMPISTOL_LOW_Dresslegs" animsurface="RGMSHOOT_LOW" />
-			<Surface name="RGMDUAL_AIM_Dresslegs" animsurface="RGMSTANDDWALAIM" />
-			<Surface name="RGMDUAL_CR_AIM_Dresslegs" animsurface="RGMCDBLSHOT" />
-			<Surface name="RGMMEDIC_PRONE_Dresslegs" animsurface="RGMMEDICPRN" />
-			<Surface name="RGMCOWER_PRONE_Dresslegs" animsurface="RGM_COWER_PRONE" />
-			<Surface name="RGMDIE_PRONE_Dresslegs" animsurface="RGMHITPRONE" />
-			<Surface name="RGMDUAL_PRONE_Dresslegs" animsurface="RGMDWPRONE" />
-			<Surface name="RGMEMPTY_PAIN_Dresslegs" animsurface="RGMHURTSTANDINGN" />
-			<Surface name="RGMRIFLE_PAIN_Dresslegs" animsurface="RGMHURTSTANDINGR" />
-			<Surface name="RGMEMPTY_DIE_Dresslegs" animsurface="RGMHITSTAND" />
-			<Surface name="RGMEMPTY_JFK_Dresslegs" animsurface="RGMDIE_JFK" />
-			<Surface name="RGMEMPTY_CDIE_Dresslegs" animsurface="RGMHITCROUCH" />
-			<Surface name="RGMEMPTY_COWER_Dresslegs" animsurface="RGMCOWER" />
-			<Surface name="RGMEMPTY_ROLL_Dresslegs" animsurface="RGMROLLOVER" />
-			<Surface name="RGMEMPTY_ROLL_SIDE_Dresslegs" animsurface="RGMROLL_PR" />
-			<Surface name="RGMEMPTY_DIEFB_Dresslegs" animsurface="RGMHITFALLBACK" />
-			<Surface name="RGMEMPTY_DIEFBH_Dresslegs" animsurface="RGMHITHARD" />
-			<Surface name="RGMEMPTY_DIEFBHB_Dresslegs" animsurface="RGMHITHARDBLOOD" />
-			<Surface name="RGMRIFLE_WALK_HURT_Dresslegs" animsurface="RGMHURTWALKINGR" />
-			<Surface name="RGMRIFLE_BAYONET_Dresslegs" animsurface="RGMBAYONET_S_S" />
-			<Surface name="RGMRIFLE_BAYONET_L_Dresslegs" animsurface="RGMBAYONET_S_P" />
-			<Surface name="RGMEMPTY_DODGE_Dresslegs" animsurface="RGMDODGE" />
-			<Surface name="RGMEMPTY_THROW_Dresslegs" animsurface="RGMTHROW" />
-			<Surface name="RGMEMPTY_THROW_G_Dresslegs" animsurface="RGMSTHRG" />
-			<Surface name="RGMEMPTY_LOB_Dresslegs" animsurface="RGMLOB" />
-			<Surface name="RGMEMPTY_LOB_G_Dresslegs" animsurface="RGMSLOBG" />
-			<Surface name="RGMEMPTY_KICKDOOR_Dresslegs" animsurface="RGMKICKDOOR" />
-			<Surface name="RGMEMPTY_SQUISH_Dresslegs" animsurface="RGM_SQUISH" />
-			<Surface name="RGMEMPTY_RADIO_Dresslegs" animsurface="RGMRADIO" />
-			<Surface name="RGMEMPTY_PULL_Dresslegs" animsurface="RGM_PULL" />
-			<Surface name="RGMEMPTY_REMOTE_Dresslegs" animsurface="RGMUSEREMOTE" />
-			<Surface name="RGMKNIFE_STAB_Dresslegs" animsurface="RGMSTAB" />
-			<Surface name="RGMKNIFE_SLICE_Dresslegs" animsurface="RGMSLICE" />
-			<Surface name="RGMKNIFE_THROW_Dresslegs" animsurface="RGMTHROWKNIFE" />
-			<Surface name="RGMKNIFE_BREATH_Dresslegs" animsurface="RGMBREATHKNIFE" />
-			<Surface name="RGMCROWBAR_HIT_Dresslegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMEMPTY_CPUNCH_Dresslegs" animsurface="RGMPUNCHLOW" />
-			<Surface name="RGMEMPTY_CTHROW_Dresslegs" animsurface="RGMCRTHROW" />
-			<Surface name="RGMKNIFE_CSTAB_Dresslegs" animsurface="RGMCSTAB" />
-			<Surface name="RGMEMPTY_CRADIO_Dresslegs" animsurface="RGMCRRADIO" />
-			<Surface name="RGMEMPTY_SLEEP_Dresslegs" animsurface="RGMSLEEP" />
-			<Surface name="RGMEMPTY_DRUNK_Dresslegs" animsurface="RGMPISTOLDRUNK" />
-			<Surface name="RGMEMPTY_WALK_HURT_Dresslegs" animsurface="RGMHURTWALKINGN" />
-			<Surface name="RGMEMPTY_FALL_Dresslegs" animsurface="RGMFALL" />
-			<Surface name="RGMEMPTY_FALLFWD_Dresslegs" animsurface="RGMFALLF" />
-			<Surface name="RGM_CLIMB_Dresslegs" animsurface="RGMCLIMBROOF" />
-			<Surface name="RGM_CLIMB_Dresslegs" animsurface="RGMWALLJUMP" />
-			<Surface name="RGMEMPTY_KARATELK_Dresslegs" animsurface="RGMLOWKICK" />
-			<Surface name="RGMEMPTY_KARATESPINK_Dresslegs" animsurface="RGMSPINKICK" />
-			<Surface name="RGMLAW_Dresslegs" animsurface="RGMROCKET" />
-			<Surface name="RGMLAW_CR_Dresslegs" animsurface="RGMCRROCKET" />
-			<Surface name="RGM_HELIDROP_Dresslegs" animsurface="RGMHELIDROP" />
-			<Surface name="WATER_RIFLE_IDLE_Dresslegs" animsurface="RGMWATER_R_STD" />
-			<Surface name="WATER_RIFLE_WALK_Dresslegs" animsurface="RGMWATER_R_WALK" />
-			<Surface name="WATER_RIFLE_AIM_Dresslegs" animsurface="RGMWATER_R_AIM" />
-			<Surface name="WATER_RIFLE_HIP_Dresslegs" animsurface="RGM_WATER_HIP_AIM" />
-			<Surface name="WATER_EMPTY_IDLE_Dresslegs" animsurface="RGMWATER_N_STD" />
-			<Surface name="WATER_EMPTY_WALK_Dresslegs" animsurface="RGMWATER_N_WALK" />
-			<Surface name="WATER_EMPTY_THROW_Dresslegs" animsurface="RGMWATERTHROW" />
-			<Surface name="WATER_EMPTY_FALL_Dresslegs" animsurface="RGMWATER_TRANS" />
-			<Surface name="WATER_EMPTY_DIE_Dresslegs" animsurface="RGMWATER_DIE" />
-			<Surface name="WATER_DUAL_AIM_Dresslegs" animsurface="RGMWATER_DBLSHT" />
-			<Surface name="CROUCH_MORTAR_Dresslegs" animsurface="RGMMORTAR" />
 		</LayerProp>
 		<LayerProp filter="SWATLeggingsAndPistol" palette="swat_blue">
 			<Surface name="RGMPISTOL_WALK_SWATlegs" animsurface="RGMNOTHING_WALK" />
@@ -493,6 +367,7 @@
 			<Surface name="RGMKNIFE_THROW_SWATlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWATlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWATlegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWATlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWATlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWATlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWATlegs" animsurface="RGMCSTAB" />
@@ -621,6 +496,7 @@
 			<Surface name="RGMKNIFE_THROW_Zylonlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Zylonlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Zylonlegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Zylonlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Zylonlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Zylonlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Zylonlegs" animsurface="RGMCSTAB" />
@@ -755,6 +631,7 @@
 			<Surface name="RGMKNIFE_THROW_eod_l" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_l" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_l" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_l" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_l" animsurface="RGMCSTAB" />
@@ -780,6 +657,135 @@
 			<Surface name="WATER_EMPTY_DIE_eod_l" animsurface="RGMWATER_DIE" />
 			<Surface name="WATER_DUAL_AIM_eod_l" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_eod_l" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndPistol" palette="hats">
+			<Surface name="RGMPISTOL_WALK_Dresslegs" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_Dresslegs" animsurface="RGMSIDESTEP" />
+			<Surface name="WATER_PISTOL_IDLE_Dresslegs" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_Dresslegs" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_Dresslegs" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndRifle" palette="hats">
+			<Surface name="RGM_RIFLE_OPEN_Dresslegs" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_Dresslegs" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_Dresslegs" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_Dresslegs" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_Dresslegs" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_Dresslegs" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_Dresslegs" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_Dresslegs" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_Dresslegs" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_Dresslegs" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dresslegs" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_Dresslegs" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPants" palette="hats">
+			<Surface name="RGMRIFLE_WALK_CROUCH_Dresslegs" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_Dresslegs" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_Dresslegs" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_IDLE_Dresslegs" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_Dresslegs" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRUNNING_Dresslegs" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_CROUCH_Dresslegs" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_Dresslegs" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_SWAT_Dresslegs" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_Dresslegs" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRIFLE_RAISE_Dresslegs" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_Dresslegs" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_Dresslegs" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_Dresslegs" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_Dresslegs" animsurface="RGMPRONE" />
+			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_Dresslegs" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_Dresslegs" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_Dresslegs" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_Dresslegs" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_Dresslegs" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_Dresslegs" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_Dresslegs" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_Dresslegs" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_Dresslegs" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_Dresslegs" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_Dresslegs" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_Dresslegs" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_Dresslegs" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_Dresslegs" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_Dresslegs" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_Dresslegs" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_Dresslegs" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_Dresslegs" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_Dresslegs" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_Dresslegs" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_Dresslegs" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_Dresslegs" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_Dresslegs" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_Dresslegs" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_Dresslegs" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_Dresslegs" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_Dresslegs" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_Dresslegs" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_Dresslegs" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_Dresslegs" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_JFK_Dresslegs" animsurface="RGMDIE_JFK" />
+			<Surface name="RGMEMPTY_CDIE_Dresslegs" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_Dresslegs" animsurface="RGMCOWER" />
+			<Surface name="RGMEMPTY_ROLL_Dresslegs" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_Dresslegs" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_Dresslegs" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_Dresslegs" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_Dresslegs" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_Dresslegs" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_Dresslegs" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_Dresslegs" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_Dresslegs" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_Dresslegs" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_Dresslegs" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_Dresslegs" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_Dresslegs" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_Dresslegs" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_Dresslegs" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_Dresslegs" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_Dresslegs" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_Dresslegs" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_Dresslegs" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_Dresslegs" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_Dresslegs" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_Dresslegs" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_Dresslegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dresslegs" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_Dresslegs" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_Dresslegs" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_Dresslegs" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_Dresslegs" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_Dresslegs" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_Dresslegs" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_Dresslegs" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_Dresslegs" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_Dresslegs" animsurface="RGMFALLF" />
+			<Surface name="RGM_CLIMB_Dresslegs" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_Dresslegs" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_KARATELK_Dresslegs" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_Dresslegs" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_Dresslegs" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_Dresslegs" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_Dresslegs" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_Dresslegs" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_Dresslegs" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_Dresslegs" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_Dresslegs" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_Dresslegs" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_Dresslegs" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_Dresslegs" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_Dresslegs" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_DIE_Dresslegs" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_Dresslegs" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_Dresslegs" animsurface="RGMMORTAR" />
 		</LayerProp>
 	</Layer>
 	<Layer name="legarmor">
@@ -883,6 +889,7 @@
 			<Surface name="RGMKNIFE_THROW_Kvlrlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Kvlrlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Kvlrlegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Kvlrlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Kvlrlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Kvlrlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Kvlrlegs" animsurface="RGMCSTAB" />
@@ -1011,6 +1018,7 @@
 			<Surface name="RGMKNIFE_THROW_Speclegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Speclegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Speclegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Speclegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Speclegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Speclegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Speclegs" animsurface="RGMCSTAB" />
@@ -1139,6 +1147,7 @@
 			<Surface name="RGMKNIFE_THROW_Twalegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twalegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twalegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twalegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twalegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twalegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twalegs" animsurface="RGMCSTAB" />
@@ -1267,6 +1276,7 @@
 			<Surface name="RGMKNIFE_THROW_Dynlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynlegs" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynlegs" animsurface="RGMCSTAB" />
@@ -1403,6 +1413,7 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEVEST" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEVEST" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEVEST" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEVEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEVEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEVEST" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEVEST" animsurface="RGMCSTAB" />
@@ -1539,6 +1550,7 @@
 			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
@@ -1671,6 +1683,7 @@
 			<Surface name="RGMKNIFE_THROW_Dressvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dressvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dressvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dressvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dressvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dressvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dressvest" animsurface="RGMCSTAB" />
@@ -1809,6 +1822,7 @@
 			<Surface name="RGMKNIFE_THROW_LSLEEVE" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LSLEEVE" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LSLEEVE" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_LSLEEVE" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LSLEEVE" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LSLEEVE" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LSLEEVE" animsurface="RGMCSTAB" />
@@ -1942,6 +1956,7 @@
 			<Surface name="RGMKNIFE_THROW_balaclava" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_balaclava" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_balaclava" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_balaclava" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_balaclava" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_balaclava" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_balaclava" animsurface="RGMCSTAB" />
@@ -2075,6 +2090,7 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEHOOD" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEHOOD" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEHOOD" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEHOOD" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEHOOD" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEHOOD" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEHOOD" animsurface="RGMCSTAB" />
@@ -2221,6 +2237,7 @@
 			<Surface name="RGMKNIFE_THROW_eod_h" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_h" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_h" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_h" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_h" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_h" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_h" animsurface="RGMCSTAB" />
@@ -2352,6 +2369,7 @@
 			<Surface name="RGMKNIFE_THROW_CAMOHELMET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_CAMOHELMET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_CAMOHELMET" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_CAMOHELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_CAMOHELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_CAMOHELMET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_CAMOHELMET" animsurface="RGMCSTAB" />
@@ -2483,6 +2501,7 @@
 			<Surface name="RGMKNIFE_THROW_Steelhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Steelhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Steelhelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Steelhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Steelhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Steelhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Steelhelm" animsurface="RGMCSTAB" />
@@ -2614,6 +2633,7 @@
 			<Surface name="RGMKNIFE_THROW_Kvlrhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Kvlrhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Kvlrhelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Kvlrhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Kvlrhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Kvlrhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Kvlrhelm" animsurface="RGMCSTAB" />
@@ -2745,6 +2765,7 @@
 			<Surface name="RGMKNIFE_THROW_Spechelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Spechelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Spechelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Spechelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Spechelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Spechelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Spechelm" animsurface="RGMCSTAB" />
@@ -2876,6 +2897,7 @@
 			<Surface name="RGMKNIFE_THROW_SWAThelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWAThelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWAThelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWAThelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWAThelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWAThelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWAThelm" animsurface="RGMCSTAB" />
@@ -3007,6 +3029,7 @@
 			<Surface name="RGMKNIFE_THROW_Twahelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twahelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twahelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twahelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twahelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twahelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twahelm" animsurface="RGMCSTAB" />
@@ -3138,6 +3161,7 @@
 			<Surface name="RGMKNIFE_THROW_Dynhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynhelm" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynhelm" animsurface="RGMCSTAB" />
@@ -3269,6 +3293,7 @@
 			<Surface name="RGMKNIFE_THROW_HELMET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_HELMET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_HELMET" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_HELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_HELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_HELMET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_HELMET" animsurface="RGMCSTAB" />
@@ -3400,6 +3425,7 @@
 			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
@@ -3531,6 +3557,7 @@
 			<Surface name="RGMKNIFE_THROW_BOONEY" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BOONEY" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BOONEY" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BOONEY" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BOONEY" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BOONEY" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BOONEY" animsurface="RGMCSTAB" />
@@ -3662,6 +3689,7 @@
 			<Surface name="RGMKNIFE_THROW_Ushanka" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Ushanka" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Ushanka" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Ushanka" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Ushanka" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Ushanka" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Ushanka" animsurface="RGMCSTAB" />
@@ -3793,6 +3821,7 @@
 			<Surface name="RGMKNIFE_THROW_UScap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_UScap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_UScap" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_UScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_UScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_UScap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_UScap" animsurface="RGMCSTAB" />
@@ -3924,6 +3953,7 @@
 			<Surface name="RGMKNIFE_THROW_USSRcap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_USSRcap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_USSRcap" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_USSRcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_USSRcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_USSRcap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_USSRcap" animsurface="RGMCSTAB" />
@@ -4055,6 +4085,7 @@
 			<Surface name="RGMKNIFE_THROW_RUScap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_RUScap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_RUScap" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_RUScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_RUScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_RUScap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_RUScap" animsurface="RGMCSTAB" />
@@ -4186,6 +4217,7 @@
 			<Surface name="RGMKNIFE_THROW_Blackcap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Blackcap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Blackcap" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Blackcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Blackcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Blackcap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Blackcap" animsurface="RGMCSTAB" />
@@ -4317,6 +4349,7 @@
 			<Surface name="RGMKNIFE_THROW_BCAP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BCAP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BCAP" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BCAP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BCAP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BCAP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BCAP" animsurface="RGMCSTAB" />
@@ -4450,6 +4483,7 @@
 			<Surface name="RGMKNIFE_THROW_NVG" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_NVG" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_NVG" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_NVG" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_NVG" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_NVG" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_NVG" animsurface="RGMCSTAB" />
@@ -4581,6 +4615,7 @@
 			<Surface name="RGMKNIFE_THROW_Goggles" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Goggles" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Goggles" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Goggles" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Goggles" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Goggles" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Goggles" animsurface="RGMCSTAB" />
@@ -4714,6 +4749,7 @@
 			<Surface name="RGMKNIFE_THROW_GMASK" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GMASK" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GMASK" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_GMASK" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GMASK" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GMASK" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GMASK" animsurface="RGMCSTAB" />
@@ -4847,6 +4883,7 @@
 			<Surface name="RGMKNIFE_THROW_Headset" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Headset" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Headset" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Headset" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Headset" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Headset" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Headset" animsurface="RGMCSTAB" />
@@ -4981,6 +5018,7 @@
 			<Surface name="RGMKNIFE_THROW_eod_v" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_v" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_v" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_v" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_v" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_v" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_v" animsurface="RGMCSTAB" />
@@ -5113,6 +5151,7 @@
 			<Surface name="RGMKNIFE_THROW_spectra" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_spectra" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_spectra" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_spectra" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_spectra" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_spectra" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_spectra" animsurface="RGMCSTAB" />
@@ -5245,6 +5284,7 @@
 			<Surface name="RGMKNIFE_THROW_kevlar" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_kevlar" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_kevlar" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_kevlar" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_kevlar" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_kevlar" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_kevlar" animsurface="RGMCSTAB" />
@@ -5377,6 +5417,7 @@
 			<Surface name="RGMKNIFE_THROW_Flakvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Flakvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Flakvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Flakvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Flakvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Flakvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Flakvest" animsurface="RGMCSTAB" />
@@ -5509,6 +5550,7 @@
 			<Surface name="RGMKNIFE_THROW_Guardvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Guardvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Guardvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Guardvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Guardvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Guardvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Guardvest" animsurface="RGMCSTAB" />
@@ -5641,6 +5683,7 @@
 			<Surface name="RGMKNIFE_THROW_SWATvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWATvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWATvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWATvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWATvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWATvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWATvest" animsurface="RGMCSTAB" />
@@ -5773,6 +5816,7 @@
 			<Surface name="RGMKNIFE_THROW_Zylonvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Zylonvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Zylonvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Zylonvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Zylonvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Zylonvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Zylonvest" animsurface="RGMCSTAB" />
@@ -5905,6 +5949,7 @@
 			<Surface name="RGMKNIFE_THROW_Twavest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twavest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twavest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twavest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twavest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twavest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twavest" animsurface="RGMCSTAB" />
@@ -6037,6 +6082,7 @@
 			<Surface name="RGMKNIFE_THROW_Dynvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynvest" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynvest" animsurface="RGMCSTAB" />
@@ -6169,6 +6215,7 @@
 			<Surface name="RGMKNIFE_THROW_VEST" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_VEST" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_VEST" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_VEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_VEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_VEST" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_VEST" animsurface="RGMCSTAB" />
@@ -6300,6 +6347,7 @@
 			<Surface name="RGMKNIFE_THROW_Bigradio" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Bigradio" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Bigradio" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Bigradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Bigradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Bigradio" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Bigradio" animsurface="RGMCSTAB" />
@@ -6430,6 +6478,7 @@
 			<Surface name="RGMKNIFE_THROW_Medradio" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Medradio" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Medradio" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_Medradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Medradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Medradio" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Medradio" animsurface="RGMCSTAB" />
@@ -6559,6 +6608,7 @@
 			<Surface name="RGMKNIFE_THROW_CP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_CP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_CP" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_CP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_CP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_CP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_CP" animsurface="RGMCSTAB" />
@@ -6688,6 +6738,7 @@
 			<Surface name="RGMKNIFE_THROW_BP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BP" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BP" animsurface="RGMCSTAB" />
@@ -6821,6 +6872,7 @@
 			<Surface name="RGMKNIFE_THROW_holster" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_holster" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_holster" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_holster" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_holster" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_holster" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_holster" animsurface="RGMCSTAB" />
@@ -6951,6 +7003,7 @@
 			<Surface name="RGMKNIFE_THROW_holster_l" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_holster_l" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_holster_l" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_holster_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_holster_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_holster_l" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_holster_l" animsurface="RGMCSTAB" />
@@ -7081,6 +7134,7 @@
 			<Surface name="RGMKNIFE_THROW_PADS" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_PADS" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_PADS" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_PADS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_PADS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_PADS" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_PADS" animsurface="RGMCSTAB" />

@@ -1,6 +1,10 @@
 <!-- note that this is an external entity, so it is not a valid xml file by itself -->
 <!-- NOTE! Filenames have a 27 character limit. If they're longer, JA will crash when trying to load said file-->
 
+
+<!-- Bladed weapons -->
+
+
 <!-- Combat Knife -->
 <AnimSurface name="RGF_RIFLE_WALK_HURT_knife2" file="Anims\LOBOT\RGF\F_R_WALK_HURT_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_EMPTY_IDLE_knife2" file="Anims\LOBOT\RGF\F_N_STD_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
@@ -136,3 +140,141 @@
 <AnimSurface name="RGF_boxknife_THROW_boxknife" file="Anims\LOBOT\RGF\F_K_THROW_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="RGF_boxknife_BREATH_boxknife" file="Anims\LOBOT\RGF\F_K_BREATH_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="RGF_boxknife_CSTAB_boxknife" file="Anims\LOBOT\RGF\F_C_STAB_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Umbrella -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_umbrella" file="Anims\LOBOT\RGF\F_R_WALK_HURT_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_umbrella" file="Anims\LOBOT\RGF\F_N_STD_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_umbrella" file="Anims\LOBOT\RGF\F_N_CRCH_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_umbrella" file="Anims\LOBOT\RGF\F_N_SWAT_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_umbrella" file="Anims\LOBOT\RGF\F_N_RUN_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_umbrella" file="Anims\LOBOT\RGF\F_N_WALK_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_umbrella" file="Anims\LOBOT\RGF\F_N_PRNE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_umbrella" file="Anims\LOBOT\RGF\F_N_PAIN_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_umbrella" file="Anims\LOBOT\RGF\F_N_DRUNK_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_umbrella" file="Anims\LOBOT\RGF\F_DODGE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_umbrella_STAB_umbrella" file="Anims\LOBOT\RGF\F_STAB_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_umbrella_SLICE_umbrella" file="Anims\LOBOT\RGF\F_SLICE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_umbrella_THROW_umbrella" file="Anims\LOBOT\RGF\F_K_THROW_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_umbrella_BREATH_umbrella" file="Anims\LOBOT\RGF\F_K_BREATH_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_umbrella_CSTAB_umbrella" file="Anims\LOBOT\RGF\F_C_STAB_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+
+<!-- Blunt weapons -->
+
+
+<!-- Retractable Baton -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_baton" file="Anims\LOBOT\RGF\F_R_WALK_HURT_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_baton" file="Anims\LOBOT\RGF\F_N_STD_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_baton" file="Anims\LOBOT\RGF\F_N_CRCH_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_baton" file="Anims\LOBOT\RGF\F_N_SWAT_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_baton" file="Anims\LOBOT\RGF\F_N_RUN_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_baton" file="Anims\LOBOT\RGF\F_N_WALK_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_baton" file="Anims\LOBOT\RGF\F_N_PRNE_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_baton" file="Anims\LOBOT\RGF\F_N_PAIN_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_baton" file="Anims\LOBOT\RGF\F_N_DRUNK_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_baton" file="Anims\LOBOT\RGF\F_DODGE_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_HIT_baton" file="Anims\LOBOT\RGF\F_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_CR_HIT_baton" file="Anims\LOBOT\RGF\F_C_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<!--<AnimSurface name="RGF_PUNCH_baton" file="Anims\LOBOT\RGF\F_PUNCH_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />-->
+
+<!-- Shovel -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_shovel" file="Anims\LOBOT\RGF\F_R_WALK_HURT_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_shovel" file="Anims\LOBOT\RGF\F_N_STD_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_shovel" file="Anims\LOBOT\RGF\F_N_CRCH_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_shovel" file="Anims\LOBOT\RGF\F_N_SWAT_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_shovel" file="Anims\LOBOT\RGF\F_N_RUN_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_shovel" file="Anims\LOBOT\RGF\F_N_WALK_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_shovel" file="Anims\LOBOT\RGF\F_N_PRNE_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_shovel" file="Anims\LOBOT\RGF\F_N_PAIN_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_shovel" file="Anims\LOBOT\RGF\F_N_DRUNK_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_shovel" file="Anims\LOBOT\RGF\F_DODGE_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_HIT_shovel" file="Anims\LOBOT\RGF\F_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_CR_HIT_shovel" file="Anims\LOBOT\RGF\F_C_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<!--<AnimSurface name="RGF_PUNCH_shovel" file="Anims\LOBOT\RGF\F_PUNCH_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />-->
+
+<!-- Pipe Wrench -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_wrench" file="Anims\LOBOT\RGF\F_R_WALK_HURT_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_wrench" file="Anims\LOBOT\RGF\F_N_STD_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_wrench" file="Anims\LOBOT\RGF\F_N_CRCH_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_wrench" file="Anims\LOBOT\RGF\F_N_SWAT_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_wrench" file="Anims\LOBOT\RGF\F_N_RUN_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_wrench" file="Anims\LOBOT\RGF\F_N_WALK_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_wrench" file="Anims\LOBOT\RGF\F_N_PRNE_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_wrench" file="Anims\LOBOT\RGF\F_N_PAIN_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_wrench" file="Anims\LOBOT\RGF\F_N_DRUNK_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_wrench" file="Anims\LOBOT\RGF\F_DODGE_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_HIT_wrench" file="Anims\LOBOT\RGF\F_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="RGF_CROWBAR_CR_HIT_wrench" file="Anims\LOBOT\RGF\F_C_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<!--<AnimSurface name="RGF_PUNCH_wrench" file="Anims\LOBOT\RGF\F_PUNCH_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />-->
+
+
+<!-- Fist weapons -->
+
+
+<!-- Knuckle Duster -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_kduster" file="Anims\LOBOT\RGF\F_R_WALK_HURT_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_kduster" file="Anims\LOBOT\RGF\F_N_STD_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_kduster" file="Anims\LOBOT\RGF\F_N_CRCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_kduster" file="Anims\LOBOT\RGF\F_N_SWAT_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_kduster" file="Anims\LOBOT\RGF\F_N_RUN_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_kduster" file="Anims\LOBOT\RGF\F_N_WALK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_kduster" file="Anims\LOBOT\RGF\F_N_PRNE_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_kduster" file="Anims\LOBOT\RGF\F_N_PAIN_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_kduster" file="Anims\LOBOT\RGF\F_N_DRUNK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_kduster" file="Anims\LOBOT\RGF\F_DODGE_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_PUNCH_kduster" file="Anims\LOBOT\RGF\F_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CPUNCH_kduster" file="Anims\LOBOT\RGF\F_C_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATEP_kduster" file="Anims\LOBOT\RGF\F_K_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATELK_kduster" file="Anims\LOBOT\RGF\F_K_LOWKICK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATESPINK_kduster" file="Anims\LOBOT\RGF\F_K_SPINKICK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Nightstick -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_nstick" file="Anims\LOBOT\RGF\F_R_WALK_HURT_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_nstick" file="Anims\LOBOT\RGF\F_N_STD_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_nstick" file="Anims\LOBOT\RGF\F_N_CRCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_nstick" file="Anims\LOBOT\RGF\F_N_SWAT_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_nstick" file="Anims\LOBOT\RGF\F_N_RUN_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_nstick" file="Anims\LOBOT\RGF\F_N_WALK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_nstick" file="Anims\LOBOT\RGF\F_N_PRNE_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_nstick" file="Anims\LOBOT\RGF\F_N_PAIN_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_nstick" file="Anims\LOBOT\RGF\F_N_DRUNK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_nstick" file="Anims\LOBOT\RGF\F_DODGE_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_PUNCH_nstick" file="Anims\LOBOT\RGF\F_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CPUNCH_nstick" file="Anims\LOBOT\RGF\F_C_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATEP_nstick" file="Anims\LOBOT\RGF\F_K_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATELK_nstick" file="Anims\LOBOT\RGF\F_K_LOWKICK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATESPINK_nstick" file="Anims\LOBOT\RGF\F_K_SPINKICK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Stun Gun -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_stunner" file="Anims\LOBOT\RGF\F_R_WALK_HURT_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_stunner" file="Anims\LOBOT\RGF\F_N_STD_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_stunner" file="Anims\LOBOT\RGF\F_N_CRCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_stunner" file="Anims\LOBOT\RGF\F_N_SWAT_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_stunner" file="Anims\LOBOT\RGF\F_N_RUN_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_stunner" file="Anims\LOBOT\RGF\F_N_WALK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_stunner" file="Anims\LOBOT\RGF\F_N_PRNE_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_stunner" file="Anims\LOBOT\RGF\F_N_PAIN_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_stunner" file="Anims\LOBOT\RGF\F_N_DRUNK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_stunner" file="Anims\LOBOT\RGF\F_DODGE_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_PUNCH_stunner" file="Anims\LOBOT\RGF\F_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CPUNCH_stunner" file="Anims\LOBOT\RGF\F_C_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATEP_stunner" file="Anims\LOBOT\RGF\F_K_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATELK_stunner" file="Anims\LOBOT\RGF\F_K_LOWKICK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATESPINK_stunner" file="Anims\LOBOT\RGF\F_K_SPINKICK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Flashlight -->
+<AnimSurface name="RGF_RIFLE_WALK_HURT_etorch" file="Anims\LOBOT\RGF\F_R_WALK_HURT_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_IDLE_etorch" file="Anims\LOBOT\RGF\F_N_STD_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CROUCH_etorch" file="Anims\LOBOT\RGF\F_N_CRCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGF_EMPTY_SWAT_etorch" file="Anims\LOBOT\RGF\F_N_SWAT_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGF_EMPTY_RUN_etorch" file="Anims\LOBOT\RGF\F_N_RUN_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_WALK_etorch" file="Anims\LOBOT\RGF\F_N_WALK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PRONE_etorch" file="Anims\LOBOT\RGF\F_N_PRNE_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGF_EMPTY_PAIN_etorch" file="Anims\LOBOT\RGF\F_N_PAIN_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DRUNK_etorch" file="Anims\LOBOT\RGF\F_N_DRUNK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGF_EMPTY_DODGE_etorch" file="Anims\LOBOT\RGF\F_DODGE_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="RGF_PUNCH_etorch" file="Anims\LOBOT\RGF\F_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_CPUNCH_etorch" file="Anims\LOBOT\RGF\F_C_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATEP_etorch" file="Anims\LOBOT\RGF\F_K_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATELK_etorch" file="Anims\LOBOT\RGF\F_K_LOWKICK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="RGF_EMPTY_KARATESPINK_etorch" file="Anims\LOBOT\RGF\F_K_SPINKICK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
