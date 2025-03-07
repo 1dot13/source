@@ -1,6 +1,10 @@
 <!-- note that this is an external entity, so it is not a valid xml file by itself -->
 <!-- NOTE! Filenames have a 27 character limit. If they're longer, JA will crash when trying to load said file-->
 
+
+<!-- Bladed weapons -->
+
+
 <!-- Combat Knife -->
 <AnimSurface name="BGMEMPTY_IDLE_knife2" file="Anims\LOBOT\BGM\M_N_STD_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="BGMEMPTY_CROUCH_knife2" file="Anims\LOBOT\BGM\M_N_CRCH_knife2.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
@@ -136,3 +140,141 @@
 <AnimSurface name="BGMKNIFE_THROW_boxknife" file="Anims\LOBOT\BGM\M_K_THROW_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
 <AnimSurface name="BGMKNIFE_BREATH_boxknife" file="Anims\LOBOT\BGM\M_K_BREATH_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
 <AnimSurface name="BGMKNIFE_CSTAB_boxknife" file="Anims\LOBOT\BGM\M_C_STAB_boxknife.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+<!-- Umbrella -->
+<AnimSurface name="BGMEMPTY_IDLE_umbrella" file="Anims\LOBOT\BGM\M_N_STD_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_umbrella" file="Anims\LOBOT\BGM\M_N_CRCH_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_umbrella" file="Anims\LOBOT\BGM\M_N_SWAT_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_umbrella" file="Anims\LOBOT\BGM\M_N_RUN_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_umbrella" file="Anims\LOBOT\BGM\M_N_WALK_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_umbrella" file="Anims\LOBOT\BGM\M_N_WALK_HURT_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_umbrella" file="Anims\LOBOT\BGM\M_N_PRNE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_umbrella" file="Anims\LOBOT\BGM\M_N_PAIN_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_umbrella" file="Anims\LOBOT\BGM\M_N_DRUNK_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_umbrella" file="Anims\LOBOT\BGM\M_DODGE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMKNIFE_STAB_umbrella" file="Anims\LOBOT\BGM\M_STAB_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_SLICE_umbrella" file="Anims\LOBOT\BGM\M_SLICE_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_THROW_umbrella" file="Anims\LOBOT\BGM\M_K_THROW_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMKNIFE_BREATH_umbrella" file="Anims\LOBOT\BGM\M_K_BREATH_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMKNIFE_CSTAB_umbrella" file="Anims\LOBOT\BGM\M_C_STAB_umbrella.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+
+
+<!-- Blunt weapons -->
+
+
+<!-- Retractable Baton -->
+<AnimSurface name="BGMEMPTY_IDLE_baton" file="Anims\LOBOT\BGM\M_N_STD_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_baton" file="Anims\LOBOT\BGM\M_N_CRCH_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_baton" file="Anims\LOBOT\BGM\M_N_SWAT_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_baton" file="Anims\LOBOT\BGM\M_N_RUN_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_baton" file="Anims\LOBOT\BGM\M_N_WALK_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_baton" file="Anims\LOBOT\BGM\M_N_WALK_HURT_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_baton" file="Anims\LOBOT\BGM\M_N_PRNE_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_baton" file="Anims\LOBOT\BGM\M_N_PAIN_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_baton" file="Anims\LOBOT\BGM\M_N_DRUNK_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_baton" file="Anims\LOBOT\BGM\M_DODGE_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMCROWBAR_HIT_baton" file="Anims\LOBOT\BGM\M_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_baton" file="Anims\LOBOT\BGM\M_C_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGM_PUNCH_baton" file="Anims\LOBOT\BGM\M_PUNCH_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+
+<!-- Shovel -->
+<AnimSurface name="BGMEMPTY_IDLE_shovel" file="Anims\LOBOT\BGM\M_N_STD_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_shovel" file="Anims\LOBOT\BGM\M_N_CRCH_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_shovel" file="Anims\LOBOT\BGM\M_N_SWAT_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_shovel" file="Anims\LOBOT\BGM\M_N_RUN_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_shovel" file="Anims\LOBOT\BGM\M_N_WALK_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_shovel" file="Anims\LOBOT\BGM\M_N_WALK_HURT_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_shovel" file="Anims\LOBOT\BGM\M_N_PRNE_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_shovel" file="Anims\LOBOT\BGM\M_N_PAIN_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_shovel" file="Anims\LOBOT\BGM\M_N_DRUNK_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_shovel" file="Anims\LOBOT\BGM\M_DODGE_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMCROWBAR_HIT_shovel" file="Anims\LOBOT\BGM\M_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_shovel" file="Anims\LOBOT\BGM\M_C_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGM_PUNCH_shovel" file="Anims\LOBOT\BGM\M_PUNCH_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+
+<!-- Pipe Wrench -->
+<AnimSurface name="BGMEMPTY_IDLE_wrench" file="Anims\LOBOT\BGM\M_N_STD_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_wrench" file="Anims\LOBOT\BGM\M_N_CRCH_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_wrench" file="Anims\LOBOT\BGM\M_N_SWAT_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_wrench" file="Anims\LOBOT\BGM\M_N_RUN_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_wrench" file="Anims\LOBOT\BGM\M_N_WALK_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_wrench" file="Anims\LOBOT\BGM\M_N_WALK_HURT_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_wrench" file="Anims\LOBOT\BGM\M_N_PRNE_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_wrench" file="Anims\LOBOT\BGM\M_N_PAIN_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_wrench" file="Anims\LOBOT\BGM\M_N_DRUNK_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_wrench" file="Anims\LOBOT\BGM\M_DODGE_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGMCROWBAR_HIT_wrench" file="Anims\LOBOT\BGM\M_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGMCROWBAR_CR_HIT_wrench" file="Anims\LOBOT\BGM\M_C_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
+<AnimSurface name="BGM_PUNCH_wrench" file="Anims\LOBOT\BGM\M_PUNCH_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+
+
+<!-- Fist weapons -->
+
+
+<!-- Knuckle Duster -->
+<AnimSurface name="BGMEMPTY_IDLE_kduster" file="Anims\LOBOT\BGM\M_N_STD_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_kduster" file="Anims\LOBOT\BGM\M_N_CRCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_kduster" file="Anims\LOBOT\BGM\M_N_SWAT_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_kduster" file="Anims\LOBOT\BGM\M_N_RUN_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_kduster" file="Anims\LOBOT\BGM\M_N_WALK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_kduster" file="Anims\LOBOT\BGM\M_N_WALK_HURT_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_kduster" file="Anims\LOBOT\BGM\M_N_PRNE_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_kduster" file="Anims\LOBOT\BGM\M_N_PAIN_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_kduster" file="Anims\LOBOT\BGM\M_N_DRUNK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_kduster" file="Anims\LOBOT\BGM\M_DODGE_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGM_PUNCH_kduster" file="Anims\LOBOT\BGM\M_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_CPUNCH_kduster" file="Anims\LOBOT\BGM\M_C_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATEP_kduster" file="Anims\LOBOT\BGM\M_K_PUNCH_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATELK_kduster" file="Anims\LOBOT\BGM\M_K_LOWKICK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATESPINK_kduster" file="Anims\LOBOT\BGM\M_K_SPINKICK_kduster.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Nightstick -->
+<AnimSurface name="BGMEMPTY_IDLE_nstick" file="Anims\LOBOT\BGM\M_N_STD_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_nstick" file="Anims\LOBOT\BGM\M_N_CRCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_nstick" file="Anims\LOBOT\BGM\M_N_SWAT_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_nstick" file="Anims\LOBOT\BGM\M_N_RUN_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_nstick" file="Anims\LOBOT\BGM\M_N_WALK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_nstick" file="Anims\LOBOT\BGM\M_N_WALK_HURT_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_nstick" file="Anims\LOBOT\BGM\M_N_PRNE_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_nstick" file="Anims\LOBOT\BGM\M_N_PAIN_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_nstick" file="Anims\LOBOT\BGM\M_N_DRUNK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_nstick" file="Anims\LOBOT\BGM\M_DODGE_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGM_PUNCH_nstick" file="Anims\LOBOT\BGM\M_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_CPUNCH_nstick" file="Anims\LOBOT\BGM\M_C_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATEP_nstick" file="Anims\LOBOT\BGM\M_K_PUNCH_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATELK_nstick" file="Anims\LOBOT\BGM\M_K_LOWKICK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATESPINK_nstick" file="Anims\LOBOT\BGM\M_K_SPINKICK_nstick.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Stun Gun -->
+<AnimSurface name="BGMEMPTY_IDLE_stunner" file="Anims\LOBOT\BGM\M_N_STD_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_stunner" file="Anims\LOBOT\BGM\M_N_CRCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_stunner" file="Anims\LOBOT\BGM\M_N_SWAT_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_stunner" file="Anims\LOBOT\BGM\M_N_RUN_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_stunner" file="Anims\LOBOT\BGM\M_N_WALK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_stunner" file="Anims\LOBOT\BGM\M_N_WALK_HURT_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_stunner" file="Anims\LOBOT\BGM\M_N_PRNE_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_stunner" file="Anims\LOBOT\BGM\M_N_PAIN_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_stunner" file="Anims\LOBOT\BGM\M_N_DRUNK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_stunner" file="Anims\LOBOT\BGM\M_DODGE_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGM_PUNCH_stunner" file="Anims\LOBOT\BGM\M_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_CPUNCH_stunner" file="Anims\LOBOT\BGM\M_C_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATEP_stunner" file="Anims\LOBOT\BGM\M_K_PUNCH_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATELK_stunner" file="Anims\LOBOT\BGM\M_K_LOWKICK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATESPINK_stunner" file="Anims\LOBOT\BGM\M_K_SPINKICK_stunner.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />
+
+<!-- Flashlight -->
+<AnimSurface name="BGMEMPTY_IDLE_etorch" file="Anims\LOBOT\BGM\M_N_STD_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="BGMEMPTY_CROUCH_etorch" file="Anims\LOBOT\BGM\M_N_CRCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="BGMEMPTY_SWAT_etorch" file="Anims\LOBOT\BGM\M_N_SWAT_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="BGMEMPTY_RUN_etorch" file="Anims\LOBOT\BGM\M_N_RUN_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_etorch" file="Anims\LOBOT\BGM\M_N_WALK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_WALK_HURT_etorch" file="Anims\LOBOT\BGM\M_N_WALK_HURT_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="BGMEMPTY_PRONE_etorch" file="Anims\LOBOT\BGM\M_N_PRNE_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="BGMEMPTY_PAIN_etorch" file="Anims\LOBOT\BGM\M_N_PAIN_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_DRUNK_etorch" file="Anims\LOBOT\BGM\M_N_DRUNK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="BGMEMPTY_DODGE_etorch" file="Anims\LOBOT\BGM\M_DODGE_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
+<AnimSurface name="BGM_PUNCH_etorch" file="Anims\LOBOT\BGM\M_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_CPUNCH_etorch" file="Anims\LOBOT\BGM\M_C_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATEP_etorch" file="Anims\LOBOT\BGM\M_K_PUNCH_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATELK_etorch" file="Anims\LOBOT\BGM\M_K_LOWKICK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="44" profile="-1" />
+<AnimSurface name="BGMEMPTY_KARATESPINK_etorch" file="Anims\LOBOT\BGM\M_K_SPINKICK_etorch.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="70" profile="-1" />

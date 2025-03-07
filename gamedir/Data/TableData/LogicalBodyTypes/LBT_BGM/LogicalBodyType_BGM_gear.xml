@@ -118,6 +118,7 @@
 			<Surface name="BGMKNIFE_THROW_GHILLIEPANTS" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_GHILLIEPANTS" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_GHILLIEPANTS" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_GHILLIEPANTS" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_GHILLIEPANTS" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_GHILLIEPANTS" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_GHILLIEPANTS" animsurface="BGMCSTAB" />
@@ -266,6 +267,7 @@
 			<Surface name="BGMKNIFE_THROW_LEGS_C" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_LEGS_C" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_LEGS_C" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_LEGS_C" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_LEGS_C" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_LEGS_C" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_LEGS_C" animsurface="BGMCSTAB" />
@@ -296,146 +298,6 @@
 			<Surface name="BGM_WATER_EMPTY_DROWN_LEGS_C" animsurface="BGMDEEPWATER_DIE" />
 			<Surface name="BGM_WATER_DUAL_AIM_LEGS_C" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_LEGS_C" animsurface="BGMMORTAR" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPantsAndPistol" palette="hats">
-			<Surface name="BGMPISTOL_WALK_Dresslegs" animsurface="BGMNOTHING_WALK" />
-			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
-			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMNOTHING_RUN" />
-			<Surface name="BGMPISTOL_SDSTP_Dresslegs" animsurface="BGMSIDESTEP" />
-			<Surface name="BGM_WATER_PISTOL_IDLE_Dresslegs" animsurface="BGMWATER_N_STD" />
-			<Surface name="BGM_WATER_PISTOL_WALK_Dresslegs" animsurface="BGMWATER_N_WALK" />
-			<Surface name="BGM_WATER_PISTOL_AIM_Dresslegs" animsurface="BGMWATER_N_AIM" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPantsAndRifle" palette="hats">
-			<Surface name="BGM_RIFLE_OPEN_Dresslegs" animsurface="BGMOPEN" />
-			<Surface name="BGMRIFLE_COWER_Dresslegs" animsurface="BGMCOWER" />
-			<Surface name="BGMRIFLE_PRN_COWER_Dresslegs" animsurface="BGM_COWER_PRONE" />
-			<Surface name="BGMRIFLE_KICKDOOR_Dresslegs" animsurface="BGMKICKDOOR" />
-			<Surface name="BGMRIFLE_DUST_SHOE_Dresslegs" animsurface="BGMSHOEDUST" />
-			<Surface name="BGMRIFLE_WIPE_Dresslegs" animsurface="BGMHEADTURN" />
-			<Surface name="BGMRIFLE_NECK_Dresslegs" animsurface="BGMIDLENECK" />
-			<Surface name="BGMRIFLE_NECK_HERO_Dresslegs" animsurface="BGMIDLENECK2" />
-			<Surface name="BGMRIFLE_DRUNK_Dresslegs" animsurface="BGMDRUNK" />
-			<Surface name="BGMRIFLE_LOW_Dresslegs" animsurface="BGMSHOOT_LOW" />
-			<Surface name="BGMRIFLE_HIP_LOW_Dresslegs" animsurface="RGM_HIP_LOW" />
-			<Surface name="BGMRIFLE_SIDESTEP_AIM_Dresslegs" animsurface="BGMSIDESTEP_R_RDY" />
-			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_Dresslegs" animsurface="BGMSIDESTEP_R_RDY2" />
-			<Surface name="BGMRIFLE_ROLL_SIDE_Dresslegs" animsurface="BGMROLL_PR" />
-		</LayerProp>
-		<LayerProp filter="DressUniformPants" palette="hats">
-			<Surface name="BGMRIFLE_WALK_CROUCH_Dresslegs" animsurface="BGMCROUCH_R_RDY" />
-			<Surface name="BGM_CROUCHWALK_Dresslegs" animsurface="BGMCROUCH_P_RDY" />
-			<Surface name="BGM_CROUCHWALK_DUAL_Dresslegs" animsurface="BGMCROUCH_D_RDY" />
-			<Surface name="BGMRIFLE_IDLE_HERO_Dresslegs" animsurface="BGMSTANDING" />
-			<Surface name="BGMRIFLE_IDLE_Dresslegs" animsurface="BGMTHREATENSTAND" />
-			<Surface name="BGMRIFLE_WALK_HERO_Dresslegs" animsurface="BGMWALKING" />
-			<Surface name="BGMBASICWALK_Dresslegs" animsurface="BGMWALK2" />
-			<Surface name="BGMRUNNING_HERO_Dresslegs" animsurface="BGMRUNNING" />
-			<Surface name="BGMRUNNING_Dresslegs" animsurface="BGMRUN2" />
-			<Surface name="BGMRIFLE_CROUCH_HERO_Dresslegs" animsurface="BGMCROUCHING" />
-			<Surface name="BGMRIFLE_CROUCH_BIGM_Dresslegs" animsurface="BGMCROUCHTRANS" />
-			<Surface name="BGMRIFLE_SIDESTEP_Dresslegs" animsurface="BGMSIDESTEP" />
-			<Surface name="BGMRIFLE_SWAT_Dresslegs" animsurface="BGMSNEAKING" />
-			<Surface name="BGMRIFLE_WALK_RDY_HERO_Dresslegs" animsurface="BGMWALK_R_RDY2" />
-			<Surface name="BGMRIFLE_WALK_Dresslegs" animsurface="BGMWALK_R_RDY" />
-			<Surface name="BGMRIFLE_RAISE_HERO_Dresslegs" animsurface="BGMRAISE" />
-			<Surface name="BGMRIFLE_RAISE_Dresslegs" animsurface="BGMRAISE2" />
-			<Surface name="BGMRIFLE_AIM_HERO_Dresslegs" animsurface="BGMSTANDAIM" />
-			<Surface name="BGMRIFLE_AIM_Dresslegs" animsurface="BGMSTANDAIM2" />
-			<Surface name="BGMRIFLE_AIM_Dresslegs" animsurface="BGMSRAIMALT" />
-			<Surface name="BGMRIFLE_HIP_Dresslegs" animsurface="BGM_HIP_AIM" />
-			<Surface name="BGMRIFLE_HIP_HERO_Dresslegs" animsurface="BGMHIPAIMALT" />
-			<Surface name="BGMRIFLE_CR_AIM_HERO_Dresslegs" animsurface="BGMCROUCHAIM" />
-			<Surface name="BGMRIFLE_PRONE_HERO_Dresslegs" animsurface="BGMPRONE" />
-			<Surface name="BGM_HOP_Dresslegs" animsurface="BGMHOPFENCE" />
-			<Surface name="BGM_HOP_Dresslegs" animsurface="BGMJUMPWINDOWS" />
-			<Surface name="BGM_PUNCH_Dresslegs" animsurface="BGMPUNCH" />
-			<Surface name="BGM_IDLE_Dresslegs" animsurface="BGMNOTHING_STD" />
-			<Surface name="BGM_IDLE_Dresslegs" animsurface="BGMDBLBREATH" />
-			<Surface name="BGM_OPEN_Dresslegs" animsurface="BGMOPEN" />
-			<Surface name="BGM_PICKUP_Dresslegs" animsurface="BGMPICKUP" />
-			<Surface name="BGMMEDIC_CROUCH_Dresslegs" animsurface="BGMMEDIC" />
-			<Surface name="BGMRIFLE_HIT_HERO_Dresslegs" animsurface="BGMRHIT" />
-			<Surface name="BGMEMPTY_CROUCH_Dresslegs" animsurface="BGMNOTHING_CROUCH" />
-			<Surface name="BGMEMPTY_SWAT_Dresslegs" animsurface="BGMNOTHING_SWAT" />
-			<Surface name="BGMEMPTY_SWAT_Dresslegs" animsurface="BGMSWKNIFE" />
-			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
-			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMNOTHING_RUN" />
-			<Surface name="BGMEMPTY_WALK_Dresslegs" animsurface="BGMNOTHING_WALK" />
-			<Surface name="BGMEMPTY_PRONE_Dresslegs" animsurface="BGMHANDGUN_PRONE" />
-			<Surface name="BGMPISTOL_IDLE_Dresslegs" animsurface="BGMPISTOLBREATH" />
-			<Surface name="BGMPISTOL_AIM_Dresslegs" animsurface="BGMHANDGUN_S_SHOT" />
-			<Surface name="BGMPISTOL_AIM_1H_Dresslegs" animsurface="BGM_PFSHOT_AIM" />
-			<Surface name="BGMPISTOL_RDY_WALK_Dresslegs" animsurface="BGMWALK_P_RDY" />
-			<Surface name="BGMDUAL_RDY_WALK_Dresslegs" animsurface="BGMWALK_D_RDY" />
-			<Surface name="BGMPISTOL_CR_AIM_Dresslegs" animsurface="BGMHANDGUN_C_SHOT" />		
-			<Surface name="BGMPISTOL_SDSTP_AIM_Dresslegs" animsurface="BGMSIDESTEP_P_RDY" />
-			<Surface name="BGMDUAL_SDSTP_AIM_Dresslegs" animsurface="BGMSIDESTEP_D_RDY" />
-			<Surface name="BGMPISTOL_LOW_Dresslegs" animsurface="BGMPISTOLSHOOTLOW" />
-			<Surface name="BGMPISTOL_LOW_Dresslegs" animsurface="BGMSHOOT_LOW" />
-			<Surface name="BGMDUAL_AIM_Dresslegs" animsurface="BGMSTANDDWALAIM" />
-			<Surface name="BGMDUAL_CR_AIM_Dresslegs" animsurface="BGMCDBLSHOT" />
-			<Surface name="BGMMEDIC_PRONE_Dresslegs" animsurface="BGMMEDICPRN" />
-			<Surface name="BGMCOWER_PRONE_Dresslegs" animsurface="BGM_COWER_PRONE" />
-			<Surface name="BGMDIE_PRONE_Dresslegs" animsurface="BGMHITPRONE" />
-			<Surface name="BGMDUAL_PRONE_Dresslegs" animsurface="BGMDWPRONE" />
-			<Surface name="BGMEMPTY_PAIN_Dresslegs" animsurface="BGMHURTSTANDINGN" />
-			<Surface name="BGMRIFLE_PAIN_Dresslegs" animsurface="BGMHURTSTANDINGR" />
-			<Surface name="BGMEMPTY_DIE_Dresslegs" animsurface="BGMHITSTAND" />
-			<Surface name="BGMEMPTY_JFK_Dresslegs" animsurface="BGMDIE_JFK" />
-			<Surface name="BGMEMPTY_CDIE_Dresslegs" animsurface="BGMHITCROUCH" />
-			<Surface name="BGMEMPTY_COWER_Dresslegs" animsurface="BGMCOWER" />
-			<Surface name="BGMEMPTY_ROLL_Dresslegs" animsurface="BGMROLLOVER" />
-			<Surface name="BGMEMPTY_ROLL_SIDE_Dresslegs" animsurface="BGMROLL_PR" />
-			<Surface name="BGMEMPTY_DIEFB_Dresslegs" animsurface="BGMHITFALLBACK" />
-			<Surface name="BGMEMPTY_DIEFBH_Dresslegs" animsurface="BGMHITHARD" />
-			<Surface name="BGMEMPTY_DIEFBHB_Dresslegs" animsurface="BGMHITHARDBLOOD" />
-			<Surface name="BGMRIFLE_WALK_HURT_Dresslegs" animsurface="BGMHURTWALKINGR" />
-			<Surface name="BGMRIFLE_BAYONET_Dresslegs" animsurface="BGMBAYONET_S_S" />
-			<Surface name="BGMRIFLE_BAYONET_L_Dresslegs" animsurface="BGMBAYONET_S_P" />
-			<Surface name="BGMEMPTY_DODGE_Dresslegs" animsurface="BGMDODGE" />
-			<Surface name="BGMEMPTY_THROW_Dresslegs" animsurface="BGMTHROW" />
-			<Surface name="BGMEMPTY_THROW_G_Dresslegs" animsurface="BGMSTHRG" />
-			<Surface name="BGMEMPTY_LOB_Dresslegs" animsurface="BGMLOB" />
-			<Surface name="BGMEMPTY_LOB_G_Dresslegs" animsurface="BGMSLOBG" />
-			<Surface name="BGMEMPTY_KICKDOOR_Dresslegs" animsurface="BGMKICKDOOR" />
-			<Surface name="BGM_STRETCH_Dresslegs" animsurface="BGMSTRECH" />
-			<Surface name="BGMEMPTY_RADIO_Dresslegs" animsurface="BGMRADIO" />
-			<Surface name="BGM_FLEX_Dresslegs" animsurface="BGMFLEX" />
-			<Surface name="BGMEMPTY_REMOTE_Dresslegs" animsurface="BGMUSEREMOTE" />
-			<Surface name="BGMKNIFE_STAB_Dresslegs" animsurface="BGMSTAB" />
-			<Surface name="BGMKNIFE_SLICE_Dresslegs" animsurface="BGMSLICE" />
-			<Surface name="BGMKNIFE_THROW_Dresslegs" animsurface="BGMTHROWKNIFE" />
-			<Surface name="BGMKNIFE_BREATH_Dresslegs" animsurface="BGMBREATHKNIFE" />
-			<Surface name="BGMCROWBAR_HIT_Dresslegs" animsurface="BGMCROWBAR" />
-			<Surface name="BGMEMPTY_CPUNCH_Dresslegs" animsurface="BGMPUNCHLOW" />
-			<Surface name="BGMEMPTY_CTHROW_Dresslegs" animsurface="BGMCRTHROW" />
-			<Surface name="BGMKNIFE_CSTAB_Dresslegs" animsurface="BGMCSTAB" />
-			<Surface name="BGMEMPTY_CRADIO_Dresslegs" animsurface="BGMCRRADIO" />
-			<Surface name="BGMEMPTY_SLEEP_Dresslegs" animsurface="BGMSLEEP" />
-			<Surface name="BGMEMPTY_DRUNK_Dresslegs" animsurface="BGMPISTOLDRUNK" />
-			<Surface name="BGMEMPTY_WALK_HURT_Dresslegs" animsurface="BGMHURTWALKINGN" />
-			<Surface name="BGMEMPTY_FALL_Dresslegs" animsurface="BGMFALL" />
-			<Surface name="BGMEMPTY_FALLFWD_Dresslegs" animsurface="BGMFALLF" />
-			<Surface name="BGM_CLIMB_Dresslegs" animsurface="BGMCLIMBROOF" />
-			<Surface name="BGM_CLIMB_Dresslegs" animsurface="BGMWALLJUMP" />
-			<Surface name="BGMEMPTY_KARATELK_Dresslegs" animsurface="RGMLOWKICK" />
-			<Surface name="BGMEMPTY_KARATESPINK_Dresslegs" animsurface="RGMSPINKICK" />
-			<Surface name="BGMLAW_Dresslegs" animsurface="BGMROCKET" />
-			<Surface name="BGMLAW_CR_Dresslegs" animsurface="BGMCRROCKET" />
-			<Surface name="BGM_ROCK_Dresslegs" animsurface="BGMWITHSTONE" />
-			<Surface name="BGM_HELIDROP_Dresslegs" animsurface="BGMHELIDROP" />
-			<Surface name="BGM_WATER_RIFLE_IDLE_Dresslegs" animsurface="BGMWATER_R_STD" />
-			<Surface name="BGM_WATER_RIFLE_WALK_Dresslegs" animsurface="BGMWATER_R_WALK" />
-			<Surface name="BGM_WATER_RIFLE_AIM_Dresslegs" animsurface="BGMWATER_R_AIM" />
-			<Surface name="BGM_WATER_RIFLE_HIP_Dresslegs" animsurface="BGM_WATER_HIP_AIM" />
-			<Surface name="BGM_WATER_EMPTY_IDLE_Dresslegs" animsurface="BGMWATER_N_STD" />
-			<Surface name="BGM_WATER_EMPTY_WALK_Dresslegs" animsurface="BGMWATER_N_WALK" />
-			<Surface name="BGM_WATER_EMPTY_THROW_Dresslegs" animsurface="BGMWATERTHROW" />
-			<Surface name="BGM_WATER_EMPTY_FALL_Dresslegs" animsurface="BGMWATER_TRANS" />
-			<Surface name="BGM_WATER_EMPTY_DIE_Dresslegs" animsurface="BGMWATER_DIE" />
-			<Surface name="BGM_WATER_DUAL_AIM_Dresslegs" animsurface="BGMWATER_DBLSHT" />
-			<Surface name="BGM_CROUCH_MORTAR_Dresslegs" animsurface="BGMMORTAR" />
 		</LayerProp>
 		<LayerProp filter="SWATLeggingsAndPistol" palette="swat_blue">
 			<Surface name="BGMPISTOL_WALK_SWATlegs" animsurface="BGMNOTHING_WALK" />
@@ -548,6 +410,7 @@
 			<Surface name="BGMKNIFE_THROW_SWATlegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_SWATlegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_SWATlegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_SWATlegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_SWATlegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_SWATlegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_SWATlegs" animsurface="BGMCSTAB" />
@@ -688,6 +551,7 @@
 			<Surface name="BGMKNIFE_THROW_Zylonlegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Zylonlegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Zylonlegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Zylonlegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Zylonlegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Zylonlegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Zylonlegs" animsurface="BGMCSTAB" />
@@ -834,6 +698,7 @@
 			<Surface name="BGMKNIFE_THROW_eod_l" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_eod_l" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_eod_l" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_eod_l" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_eod_l" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_eod_l" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_eod_l" animsurface="BGMCSTAB" />
@@ -864,6 +729,147 @@
 			<Surface name="BGM_WATER_EMPTY_DROWN_eod_l" animsurface="BGMDEEPWATER_DIE" />
 			<Surface name="BGM_WATER_DUAL_AIM_eod_l" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_eod_l" animsurface="BGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndPistol" palette="hats">
+			<Surface name="BGMPISTOL_WALK_Dresslegs" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMPISTOL_SDSTP_Dresslegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGM_WATER_PISTOL_IDLE_Dresslegs" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_PISTOL_WALK_Dresslegs" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_PISTOL_AIM_Dresslegs" animsurface="BGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndRifle" palette="hats">
+			<Surface name="BGM_RIFLE_OPEN_Dresslegs" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_COWER_Dresslegs" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_Dresslegs" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_KICKDOOR_Dresslegs" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_Dresslegs" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_Dresslegs" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_Dresslegs" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_Dresslegs" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_Dresslegs" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_LOW_Dresslegs" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_Dresslegs" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_Dresslegs" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_Dresslegs" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_Dresslegs" animsurface="BGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="DressUniformPants" palette="hats">
+			<Surface name="BGMRIFLE_WALK_CROUCH_Dresslegs" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGM_CROUCHWALK_Dresslegs" animsurface="BGMCROUCH_P_RDY" />
+			<Surface name="BGM_CROUCHWALK_DUAL_Dresslegs" animsurface="BGMCROUCH_D_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_Dresslegs" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_IDLE_Dresslegs" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_Dresslegs" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_Dresslegs" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_Dresslegs" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_Dresslegs" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_Dresslegs" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_Dresslegs" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_Dresslegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SWAT_Dresslegs" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_Dresslegs" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_Dresslegs" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_RAISE_HERO_Dresslegs" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_Dresslegs" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_Dresslegs" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_Dresslegs" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_Dresslegs" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_Dresslegs" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_Dresslegs" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_Dresslegs" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_Dresslegs" animsurface="BGMPRONE" />
+			<Surface name="BGM_HOP_Dresslegs" animsurface="BGMHOPFENCE" />
+			<Surface name="BGM_HOP_Dresslegs" animsurface="BGMJUMPWINDOWS" />
+			<Surface name="BGM_PUNCH_Dresslegs" animsurface="BGMPUNCH" />
+			<Surface name="BGM_IDLE_Dresslegs" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGM_IDLE_Dresslegs" animsurface="BGMDBLBREATH" />
+			<Surface name="BGM_OPEN_Dresslegs" animsurface="BGMOPEN" />
+			<Surface name="BGM_PICKUP_Dresslegs" animsurface="BGMPICKUP" />
+			<Surface name="BGMMEDIC_CROUCH_Dresslegs" animsurface="BGMMEDIC" />
+			<Surface name="BGMRIFLE_HIT_HERO_Dresslegs" animsurface="BGMRHIT" />
+			<Surface name="BGMEMPTY_CROUCH_Dresslegs" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_Dresslegs" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_SWAT_Dresslegs" animsurface="BGMSWKNIFE" />
+			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_WALK_Dresslegs" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_PRONE_Dresslegs" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMPISTOL_IDLE_Dresslegs" animsurface="BGMPISTOLBREATH" />
+			<Surface name="BGMPISTOL_AIM_Dresslegs" animsurface="BGMHANDGUN_S_SHOT" />
+			<Surface name="BGMPISTOL_AIM_1H_Dresslegs" animsurface="BGM_PFSHOT_AIM" />
+			<Surface name="BGMPISTOL_RDY_WALK_Dresslegs" animsurface="BGMWALK_P_RDY" />
+			<Surface name="BGMDUAL_RDY_WALK_Dresslegs" animsurface="BGMWALK_D_RDY" />
+			<Surface name="BGMPISTOL_CR_AIM_Dresslegs" animsurface="BGMHANDGUN_C_SHOT" />		
+			<Surface name="BGMPISTOL_SDSTP_AIM_Dresslegs" animsurface="BGMSIDESTEP_P_RDY" />
+			<Surface name="BGMDUAL_SDSTP_AIM_Dresslegs" animsurface="BGMSIDESTEP_D_RDY" />
+			<Surface name="BGMPISTOL_LOW_Dresslegs" animsurface="BGMPISTOLSHOOTLOW" />
+			<Surface name="BGMPISTOL_LOW_Dresslegs" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMDUAL_AIM_Dresslegs" animsurface="BGMSTANDDWALAIM" />
+			<Surface name="BGMDUAL_CR_AIM_Dresslegs" animsurface="BGMCDBLSHOT" />
+			<Surface name="BGMMEDIC_PRONE_Dresslegs" animsurface="BGMMEDICPRN" />
+			<Surface name="BGMCOWER_PRONE_Dresslegs" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMDIE_PRONE_Dresslegs" animsurface="BGMHITPRONE" />
+			<Surface name="BGMDUAL_PRONE_Dresslegs" animsurface="BGMDWPRONE" />
+			<Surface name="BGMEMPTY_PAIN_Dresslegs" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMRIFLE_PAIN_Dresslegs" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMEMPTY_DIE_Dresslegs" animsurface="BGMHITSTAND" />
+			<Surface name="BGMEMPTY_JFK_Dresslegs" animsurface="BGMDIE_JFK" />
+			<Surface name="BGMEMPTY_CDIE_Dresslegs" animsurface="BGMHITCROUCH" />
+			<Surface name="BGMEMPTY_COWER_Dresslegs" animsurface="BGMCOWER" />
+			<Surface name="BGMEMPTY_ROLL_Dresslegs" animsurface="BGMROLLOVER" />
+			<Surface name="BGMEMPTY_ROLL_SIDE_Dresslegs" animsurface="BGMROLL_PR" />
+			<Surface name="BGMEMPTY_DIEFB_Dresslegs" animsurface="BGMHITFALLBACK" />
+			<Surface name="BGMEMPTY_DIEFBH_Dresslegs" animsurface="BGMHITHARD" />
+			<Surface name="BGMEMPTY_DIEFBHB_Dresslegs" animsurface="BGMHITHARDBLOOD" />
+			<Surface name="BGMRIFLE_WALK_HURT_Dresslegs" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_BAYONET_Dresslegs" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_Dresslegs" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMEMPTY_DODGE_Dresslegs" animsurface="BGMDODGE" />
+			<Surface name="BGMEMPTY_THROW_Dresslegs" animsurface="BGMTHROW" />
+			<Surface name="BGMEMPTY_THROW_G_Dresslegs" animsurface="BGMSTHRG" />
+			<Surface name="BGMEMPTY_LOB_Dresslegs" animsurface="BGMLOB" />
+			<Surface name="BGMEMPTY_LOB_G_Dresslegs" animsurface="BGMSLOBG" />
+			<Surface name="BGMEMPTY_KICKDOOR_Dresslegs" animsurface="BGMKICKDOOR" />
+			<Surface name="BGM_STRETCH_Dresslegs" animsurface="BGMSTRECH" />
+			<Surface name="BGMEMPTY_RADIO_Dresslegs" animsurface="BGMRADIO" />
+			<Surface name="BGM_FLEX_Dresslegs" animsurface="BGMFLEX" />
+			<Surface name="BGMEMPTY_REMOTE_Dresslegs" animsurface="BGMUSEREMOTE" />
+			<Surface name="BGMKNIFE_STAB_Dresslegs" animsurface="BGMSTAB" />
+			<Surface name="BGMKNIFE_SLICE_Dresslegs" animsurface="BGMSLICE" />
+			<Surface name="BGMKNIFE_THROW_Dresslegs" animsurface="BGMTHROWKNIFE" />
+			<Surface name="BGMKNIFE_BREATH_Dresslegs" animsurface="BGMBREATHKNIFE" />
+			<Surface name="BGMCROWBAR_HIT_Dresslegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Dresslegs" animsurface="BGMPUNCHLOW"/>
+			<Surface name="BGMEMPTY_CPUNCH_Dresslegs" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_CTHROW_Dresslegs" animsurface="BGMCRTHROW" />
+			<Surface name="BGMKNIFE_CSTAB_Dresslegs" animsurface="BGMCSTAB" />
+			<Surface name="BGMEMPTY_CRADIO_Dresslegs" animsurface="BGMCRRADIO" />
+			<Surface name="BGMEMPTY_SLEEP_Dresslegs" animsurface="BGMSLEEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dresslegs" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_WALK_HURT_Dresslegs" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_FALL_Dresslegs" animsurface="BGMFALL" />
+			<Surface name="BGMEMPTY_FALLFWD_Dresslegs" animsurface="BGMFALLF" />
+			<Surface name="BGM_CLIMB_Dresslegs" animsurface="BGMCLIMBROOF" />
+			<Surface name="BGM_CLIMB_Dresslegs" animsurface="BGMWALLJUMP" />
+			<Surface name="BGMEMPTY_KARATELK_Dresslegs" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_Dresslegs" animsurface="RGMSPINKICK" />
+			<Surface name="BGMLAW_Dresslegs" animsurface="BGMROCKET" />
+			<Surface name="BGMLAW_CR_Dresslegs" animsurface="BGMCRROCKET" />
+			<Surface name="BGM_ROCK_Dresslegs" animsurface="BGMWITHSTONE" />
+			<Surface name="BGM_HELIDROP_Dresslegs" animsurface="BGMHELIDROP" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_Dresslegs" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_Dresslegs" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_Dresslegs" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_Dresslegs" animsurface="BGM_WATER_HIP_AIM" />
+			<Surface name="BGM_WATER_EMPTY_IDLE_Dresslegs" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_EMPTY_WALK_Dresslegs" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_EMPTY_THROW_Dresslegs" animsurface="BGMWATERTHROW" />
+			<Surface name="BGM_WATER_EMPTY_FALL_Dresslegs" animsurface="BGMWATER_TRANS" />
+			<Surface name="BGM_WATER_EMPTY_DIE_Dresslegs" animsurface="BGMWATER_DIE" />
+			<Surface name="BGM_WATER_DUAL_AIM_Dresslegs" animsurface="BGMWATER_DBLSHT" />
+			<Surface name="BGM_CROUCH_MORTAR_Dresslegs" animsurface="BGMMORTAR" />
 		</LayerProp>
 	</Layer>
 	<Layer name="legarmor">
@@ -978,6 +984,7 @@
 			<Surface name="BGMKNIFE_THROW_Kvlrlegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Kvlrlegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Kvlrlegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Kvlrlegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Kvlrlegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Kvlrlegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Kvlrlegs" animsurface="BGMCSTAB" />
@@ -1118,6 +1125,7 @@
 			<Surface name="BGMKNIFE_THROW_Speclegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Speclegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Speclegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Speclegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Speclegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Speclegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Speclegs" animsurface="BGMCSTAB" />
@@ -1258,6 +1266,7 @@
 			<Surface name="BGMKNIFE_THROW_Twalegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Twalegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Twalegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Twalegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Twalegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Twalegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Twalegs" animsurface="BGMCSTAB" />
@@ -1398,6 +1407,7 @@
 			<Surface name="BGMKNIFE_THROW_Dynlegs" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Dynlegs" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Dynlegs" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Dynlegs" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Dynlegs" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Dynlegs" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Dynlegs" animsurface="BGMCSTAB" />
@@ -1546,6 +1556,7 @@
 			<Surface name="BGMKNIFE_THROW_GHILLIEVEST" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_GHILLIEVEST" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_GHILLIEVEST" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_GHILLIEVEST" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_GHILLIEVEST" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_GHILLIEVEST" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_GHILLIEVEST" animsurface="BGMCSTAB" />
@@ -1694,6 +1705,7 @@
 			<Surface name="BGMKNIFE_THROW_TORSO_C" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_TORSO_C" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_TORSO_C" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_TORSO_C" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_TORSO_C" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_TORSO_C" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_TORSO_C" animsurface="BGMCSTAB" />
@@ -1838,6 +1850,7 @@
 			<Surface name="BGMKNIFE_THROW_Dressvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Dressvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Dressvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Dressvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Dressvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Dressvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Dressvest" animsurface="BGMCSTAB" />
@@ -1988,6 +2001,7 @@
 			<Surface name="BGMKNIFE_THROW_LSLEEVE" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_LSLEEVE" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_LSLEEVE" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_LSLEEVE" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_LSLEEVE" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_LSLEEVE" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_LSLEEVE" animsurface="BGMCSTAB" />
@@ -2133,6 +2147,7 @@
 			<Surface name="BGMKNIFE_THROW_balaclava" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_balaclava" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_balaclava" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_balaclava" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_balaclava" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_balaclava" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_balaclava" animsurface="BGMCSTAB" />
@@ -2278,6 +2293,7 @@
 			<Surface name="BGMKNIFE_THROW_GHILLIEHOOD" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_GHILLIEHOOD" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_GHILLIEHOOD" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_GHILLIEHOOD" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_GHILLIEHOOD" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_GHILLIEHOOD" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_GHILLIEHOOD" animsurface="BGMCSTAB" />
@@ -2437,6 +2453,7 @@
 			<Surface name="BGMKNIFE_THROW_eod_h" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_eod_h" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_eod_h" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_eod_h" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_eod_h" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_eod_h" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_eod_h" animsurface="BGMCSTAB" />
@@ -2580,6 +2597,7 @@
 			<Surface name="BGMKNIFE_THROW_CAMOHELMET" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_CAMOHELMET" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_CAMOHELMET" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_CAMOHELMET" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_CAMOHELMET" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_CAMOHELMET" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_CAMOHELMET" animsurface="BGMCSTAB" />
@@ -2723,6 +2741,7 @@
 			<Surface name="BGMKNIFE_THROW_Steelhelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Steelhelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Steelhelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Steelhelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Steelhelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Steelhelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Steelhelm" animsurface="BGMCSTAB" />
@@ -2866,6 +2885,7 @@
 			<Surface name="BGMKNIFE_THROW_Kvlrhelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Kvlrhelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Kvlrhelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Kvlrhelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Kvlrhelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Kvlrhelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Kvlrhelm" animsurface="BGMCSTAB" />
@@ -3009,6 +3029,7 @@
 			<Surface name="BGMKNIFE_THROW_Spechelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Spechelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Spechelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Spechelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Spechelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Spechelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Spechelm" animsurface="BGMCSTAB" />
@@ -3152,6 +3173,7 @@
 			<Surface name="BGMKNIFE_THROW_SWAThelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_SWAThelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_SWAThelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_SWAThelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_SWAThelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_SWAThelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_SWAThelm" animsurface="BGMCSTAB" />
@@ -3295,6 +3317,7 @@
 			<Surface name="BGMKNIFE_THROW_Twahelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Twahelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Twahelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Twahelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Twahelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Twahelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Twahelm" animsurface="BGMCSTAB" />
@@ -3438,6 +3461,7 @@
 			<Surface name="BGMKNIFE_THROW_Dynhelm" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Dynhelm" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Dynhelm" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Dynhelm" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Dynhelm" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Dynhelm" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Dynhelm" animsurface="BGMCSTAB" />
@@ -3581,6 +3605,7 @@
 			<Surface name="BGMKNIFE_THROW_HELMET" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_HELMET" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_HELMET" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_HELMET" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_HELMET" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_HELMET" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_HELMET" animsurface="BGMCSTAB" />
@@ -3724,6 +3749,7 @@
 			<Surface name="BGMKNIFE_THROW_BERET" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_BERET" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_BERET" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_BERET" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_BERET" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_BERET" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_BERET" animsurface="BGMCSTAB" />
@@ -3867,6 +3893,7 @@
 			<Surface name="BGMKNIFE_THROW_BOONEY" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_BOONEY" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_BOONEY" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_BOONEY" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_BOONEY" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_BOONEY" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_BOONEY" animsurface="BGMCSTAB" />
@@ -4010,6 +4037,7 @@
 			<Surface name="BGMKNIFE_THROW_Ushanka" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Ushanka" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Ushanka" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Ushanka" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Ushanka" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Ushanka" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Ushanka" animsurface="BGMCSTAB" />
@@ -4153,6 +4181,7 @@
 			<Surface name="BGMKNIFE_THROW_UScap" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_UScap" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_UScap" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_UScap" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_UScap" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_UScap" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_UScap" animsurface="BGMCSTAB" />
@@ -4296,6 +4325,7 @@
 			<Surface name="BGMKNIFE_THROW_USSRcap" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_USSRcap" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_USSRcap" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_USSRcap" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_USSRcap" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_USSRcap" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_USSRcap" animsurface="BGMCSTAB" />
@@ -4439,6 +4469,7 @@
 			<Surface name="BGMKNIFE_THROW_RUScap" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_RUScap" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_RUScap" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_RUScap" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_RUScap" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_RUScap" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_RUScap" animsurface="BGMCSTAB" />
@@ -4582,6 +4613,7 @@
 			<Surface name="BGMKNIFE_THROW_Blackcap" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Blackcap" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Blackcap" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Blackcap" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Blackcap" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Blackcap" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Blackcap" animsurface="BGMCSTAB" />
@@ -4725,6 +4757,7 @@
 			<Surface name="BGMKNIFE_THROW_BCAP" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_BCAP" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_BCAP" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_BCAP" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_BCAP" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_BCAP" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_BCAP" animsurface="BGMCSTAB" />
@@ -4870,6 +4903,7 @@
 			<Surface name="BGMKNIFE_THROW_NVG" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_NVG" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_NVG" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_NVG" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_NVG" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_NVG" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_NVG" animsurface="BGMCSTAB" />
@@ -5013,6 +5047,7 @@
 			<Surface name="BGMKNIFE_THROW_Goggles" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Goggles" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Goggles" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Goggles" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Goggles" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Goggles" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Goggles" animsurface="BGMCSTAB" />
@@ -5158,6 +5193,7 @@
 			<Surface name="BGMKNIFE_THROW_GMASK" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_GMASK" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_GMASK" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_GMASK" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_GMASK" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_GMASK" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_GMASK" animsurface="BGMCSTAB" />
@@ -5303,6 +5339,7 @@
 			<Surface name="BGMKNIFE_THROW_Headset" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Headset" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Headset" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Headset" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Headset" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Headset" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Headset" animsurface="BGMCSTAB" />
@@ -5449,6 +5486,7 @@
 			<Surface name="BGMKNIFE_THROW_eod_v" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_eod_v" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_eod_v" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_eod_v" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_eod_v" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_eod_v" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_eod_v" animsurface="BGMCSTAB" />
@@ -5593,6 +5631,7 @@
 			<Surface name="BGMKNIFE_THROW_spectra" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_spectra" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_spectra" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_spectra" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_spectra" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_spectra" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_spectra" animsurface="BGMCSTAB" />
@@ -5737,6 +5776,7 @@
 			<Surface name="BGMKNIFE_THROW_kevlar" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_kevlar" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_kevlar" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_kevlar" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_kevlar" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_kevlar" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_kevlar" animsurface="BGMCSTAB" />
@@ -5881,6 +5921,7 @@
 			<Surface name="BGMKNIFE_THROW_Flakvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Flakvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Flakvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Flakvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Flakvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Flakvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Flakvest" animsurface="BGMCSTAB" />
@@ -6025,6 +6066,7 @@
 			<Surface name="BGMKNIFE_THROW_Guardvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Guardvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Guardvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Guardvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Guardvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Guardvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Guardvest" animsurface="BGMCSTAB" />
@@ -6169,6 +6211,7 @@
 			<Surface name="BGMKNIFE_THROW_SWATvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_SWATvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_SWATvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_SWATvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_SWATvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_SWATvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_SWATvest" animsurface="BGMCSTAB" />
@@ -6313,6 +6356,7 @@
 			<Surface name="BGMKNIFE_THROW_Twavest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Twavest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Twavest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Twavest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Twavest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Twavest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Twavest" animsurface="BGMCSTAB" />
@@ -6457,6 +6501,7 @@
 			<Surface name="BGMKNIFE_THROW_Dynvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Dynvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Dynvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Dynvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Dynvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Dynvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Dynvest" animsurface="BGMCSTAB" />
@@ -6601,6 +6646,7 @@
 			<Surface name="BGMKNIFE_THROW_Zylonvest" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Zylonvest" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Zylonvest" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Zylonvest" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Zylonvest" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Zylonvest" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Zylonvest" animsurface="BGMCSTAB" />
@@ -6745,6 +6791,7 @@
 			<Surface name="BGMKNIFE_THROW_VEST" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_VEST" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_VEST" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_VEST" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_VEST" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_VEST" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_VEST" animsurface="BGMCSTAB" />
@@ -6888,6 +6935,7 @@
 			<Surface name="BGMKNIFE_THROW_Bigradio" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Bigradio" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Bigradio" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Bigradio" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Bigradio" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Bigradio" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Bigradio" animsurface="BGMCSTAB" />
@@ -7030,6 +7078,7 @@
 			<Surface name="BGMKNIFE_THROW_Medradio" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_Medradio" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_Medradio" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Medradio" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_Medradio" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_Medradio" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_Medradio" animsurface="BGMCSTAB" />
@@ -7171,6 +7220,7 @@
 			<Surface name="BGMKNIFE_THROW_CP" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_CP" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_CP" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_CP" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_CP" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_CP" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_CP" animsurface="BGMCSTAB" />
@@ -7312,6 +7362,7 @@
 			<Surface name="BGMKNIFE_THROW_BP" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_BP" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_BP" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_BP" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_BP" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_BP" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_BP" animsurface="BGMCSTAB" />
@@ -7457,6 +7508,7 @@
 			<Surface name="BGMKNIFE_THROW_holster" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_holster" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_holster" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_holster" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_holster" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_holster" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_holster" animsurface="BGMCSTAB" />
@@ -7599,6 +7651,7 @@
 			<Surface name="BGMKNIFE_THROW_holster_l" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_holster_l" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_holster_l" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_holster_l" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_holster_l" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_holster_l" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_holster_l" animsurface="BGMCSTAB" />
@@ -7741,6 +7794,7 @@
 			<Surface name="BGMKNIFE_THROW_PADS" animsurface="BGMTHROWKNIFE" />
 			<Surface name="BGMKNIFE_BREATH_PADS" animsurface="BGMBREATHKNIFE" />
 			<Surface name="BGMCROWBAR_HIT_PADS" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_PADS" animsurface="BGMPUNCHLOW"/>
 			<Surface name="BGMEMPTY_CPUNCH_PADS" animsurface="BGMPUNCHLOW" />
 			<Surface name="BGMEMPTY_CTHROW_PADS" animsurface="BGMCRTHROW" />
 			<Surface name="BGMKNIFE_CSTAB_PADS" animsurface="BGMCSTAB" />

@@ -8861,6 +8861,58 @@
 <AnimSurface name="WATER_DUAL_AIM_GRIZZLY" file="Anims\LOBOT\RGM\SW_DBLSHOT_GRIZZLY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
 <AnimSurface name="WATER_DUAL_AIM_GRIZZLY_LEFT" file="Anims\LOBOT\RGM\SW_DBLSHOT_lGRIZZLY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
 
+<!-- Pepper Spray -->
+<AnimSurface name="RGM_CROUCHWALK_PSPRAY" file="Anims\LOBOT\RGM\cr_walk_pistol_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGM_CROUCHWALK_DUAL_PSPRAY" file="Anims\LOBOT\RGM\cr_walk_dual_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGM_CROUCHWALK_DUAL_PSPRAY_LEFT" file="Anims\LOBOT\RGM\cr_walk_dual_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGMEMPTY_IDLE_PSPRAY" file="Anims\LOBOT\RGM\S_N_STD_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGMEMPTY_IDLE_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_STD_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGMEMPTY_CROUCH_PSPRAY" file="Anims\LOBOT\RGM\S_N_CRCH_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGMEMPTY_CROUCH_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_CRCH_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="RGMEMPTY_SWAT_PSPRAY" file="Anims\LOBOT\RGM\S_N_SWAT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGMEMPTY_SWAT_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_SWAT_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="RGMEMPTY_RUN_PSPRAY" file="Anims\LOBOT\RGM\S_N_RUN_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_RUN_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_RUN_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_WALK_PSPRAY" file="Anims\LOBOT\RGM\S_N_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_WALK_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_WALK_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_WALK_HURT_PSPRAY" file="Anims\LOBOT\RGM\S_N_WALK_HURT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_WALK_HURT_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_WALK_HURT_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMEMPTY_PRONE_PSPRAY" file="Anims\LOBOT\RGM\S_N_PRNE_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="RGMDUAL_PRONE_PSPRAY" file="Anims\LOBOT\RGM\S_DB_PRN_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_PRONE_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_DB_PRN_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMPISTOL_IDLE_PSPRAY" file="Anims\LOBOT\RGM\S_P_BRTH_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGMPISTOL_WALK_PSPRAY" file="Anims\LOBOT\RGM\S_P_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMPISTOL_RDY_WALK_PSPRAY" file="Anims\LOBOT\RGM\S_P_RDY_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_RDY_WALK_PSPRAY" file="Anims\LOBOT\RGM\S_DBL_RDY_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_RDY_WALK_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_DBL_RDY_WALK_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMPISTOL_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_N_SHOT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="RGMPISTOL_AIM_1H_PSPRAY" file="Anims\LOBOT\RGM\S_N_SHOT2_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="RGMPISTOL_LOW_PSPRAY" file="Anims\LOBOT\RGM\S_P_LOW_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="RGMPISTOL_CR_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_CR_AIM_P_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="RGMDUAL_CR_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_CR_AIM_D_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="25" profile="-1" />
+<AnimSurface name="RGMDUAL_CR_AIM_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_CR_AIM_D_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="25" profile="-1" />
+<AnimSurface name="RGMPISTOL_SDSTP_PSPRAY" file="Anims\LOBOT\RGM\S_P_SDSP_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMPISTOL_SDSTP_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_P_SDSP_AIM_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_SDSTP_PSPRAY" file="Anims\LOBOT\RGM\S_DBL_SDSP_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_SDSTP_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_DBL_SDSP_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_SDSTP_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_DBL_SDSP_AIM_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_SDSTP_AIM_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_DBL_SDSP_AIM_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="RGMDUAL_AIM_PSPRAY" file="Anims\LOBOT\RGM\S_DBLSHOT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
+<AnimSurface name="RGMDUAL_AIM_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_DBLSHOT_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
+<AnimSurface name="RGMEMPTY_PAIN_PSPRAY" file="Anims\LOBOT\RGM\S_N_PAIN_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGMEMPTY_PAIN_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_PAIN_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="14" profile="-1" />
+<AnimSurface name="RGMEMPTY_DRUNK_PSPRAY" file="Anims\LOBOT\RGM\S_N_DRUNK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="RGMEMPTY_DRUNK_PSPRAY_LEFT" file="Anims\LOBOT\RGM\S_N_DRUNK_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="20" profile="-1" />
+<AnimSurface name="WATER_EMPTY_IDLE_PSPRAY" file="Anims\LOBOT\RGM\SW_N_STD_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="WATER_EMPTY_IDLE_PSPRAY_LEFT" file="Anims\LOBOT\RGM\SW_N_STD_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="WATER_EMPTY_WALK_PSPRAY" file="Anims\LOBOT\RGM\SW_N_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="WATER_EMPTY_WALK_PSPRAY_LEFT" file="Anims\LOBOT\RGM\SW_N_WALK_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="WATER_PISTOL_IDLE_PSPRAY" file="Anims\LOBOT\RGM\SW_P_BRTH_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="WATER_PISTOL_WALK_PSPRAY" file="Anims\LOBOT\RGM\SW_P_WALK_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="WATER_PISTOL_AIM_PSPRAY" file="Anims\LOBOT\RGM\SW_N_SHOT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="WATER_DUAL_AIM_PSPRAY" file="Anims\LOBOT\RGM\SW_DBLSHOT_PSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
+<AnimSurface name="WATER_DUAL_AIM_PSPRAY_LEFT" file="Anims\LOBOT\RGM\SW_DBLSHOT_lPSPRAY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="25" profile="-1" />
+
 
 <!-- Machine Pistols -->
 
