@@ -9,5 +9,9 @@
 	<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.act" />
 	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
 	<Palette name = "WoodlandCamo" filename = "Palettes\WoodlandCamo.act" />
+	<Palette name = "UrbanlandCamo" filename = "Palettes\UrbanlandCamo.act" />
+	<Palette name = "DesertlandCamo" filename = "Palettes\DesertlandCamo.act" />
+	<Palette name = "Bluehats" filename = "Palettes\BlueHats.act" />
+	<Palette name = "Greenhats" filename = "Palettes\GreenHats.act" />
 	<Palette name = "swat_blue" filename = "Palettes\swat_blue.act" />
 </Palettes>

@@ -267,6 +267,272 @@
 			<Surface name="WATER_DUAL_AIM_LEGS_C" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_LEGS_C" animsurface="RGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DesertCamoPantsAndPistolLeft" palette="DesertlandCamo">
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMDUAL_SDSTP_LEGS_C" animsurface="RGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoPantsAndPistol" palette="DesertlandCamo">
+			<Surface name="RGMPISTOL_WALK_LEGS_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_LEGS_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMEMPTY_DRUNK_LEGS_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="WATER_PISTOL_IDLE_LEGS_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_LEGS_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_LEGS_C" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoPantsAndRifle" palette="DesertlandCamo">
+			<Surface name="RGM_RIFLE_OPEN_LEGS_C" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_LEGS_C" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_LEGS_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_LEGS_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_LEGS_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_LEGS_C" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_LEGS_C" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_LEGS_C" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_LEGS_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_LEGS_C" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoPants" palette="DesertlandCamo">
+			<Surface name="RGMRIFLE_SWAT_LEGS_C" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS_C" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_LEGS_C" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_LEGS_C" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_WALK_LEGS_C" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRUNNING_LEGS_C" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_IDLE_LEGS_C" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_LEGS_C" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRIFLE_CROUCH_LEGS_C" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_LEGS_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_RAISE_LEGS_C" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_LEGS_C" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_LEGS_C" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_LEGS_C" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_LEGS_C" animsurface="RGMPRONE" />
+			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_LEGS_C" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_LEGS_C" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_LEGS_C" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_LEGS_C" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_LEGS_C" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_LEGS_C" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_LEGS_C" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_LEGS_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_LEGS_C" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_LEGS_C" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_LEGS_C" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_LEGS_C" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_LEGS_C" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_LEGS_C" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_LEGS_C" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_LEGS_C" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_LEGS_C" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_LEGS_C" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_LEGS_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_LEGS_C" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_LEGS_C" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_LEGS_C" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_LEGS_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_LEGS_C" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_LEGS_C" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_LEGS_C" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_LEGS_C" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_LEGS_C" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_JFK_LEGS_C" animsurface="RGMDIE_JFK" />
+			<Surface name="RGMEMPTY_CDIE_LEGS_C" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_LEGS_C" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_LEGS_C" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_LEGS_C" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_LEGS_C" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_LEGS_C" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_LEGS_C" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_LEGS_C" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_LEGS_C" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_LEGS_C" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_LEGS_C" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_LEGS_C" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_LEGS_C" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_LEGS_C" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_LEGS_C" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_LEGS_C" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_LEGS_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_LEGS_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_LEGS_C" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_LEGS_C" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_LEGS_C" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_LEGS_C" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_LEGS_C" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_LEGS_C" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_LEGS_C" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_LEGS_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_LEGS_C" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_LEGS_C" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_LEGS_C" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_LEGS_C" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_LEGS_C" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_LEGS_C" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_LEGS_C" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_LEGS_C" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_LEGS_C" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_LEGS_C" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_LEGS_C" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_LEGS_C" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_LEGS_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_LEGS_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_LEGS_C" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_LEGS_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_DIE_LEGS_C" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_LEGS_C" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_LEGS_C" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoPantsAndPistolLeft" palette="UrbanlandCamo">
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMDUAL_SDSTP_LEGS_C" animsurface="RGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoPantsAndPistol" palette="UrbanlandCamo">
+			<Surface name="RGMPISTOL_WALK_LEGS_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_LEGS_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMEMPTY_DRUNK_LEGS_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="WATER_PISTOL_IDLE_LEGS_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_LEGS_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_LEGS_C" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoPantsAndRifle" palette="UrbanlandCamo">
+			<Surface name="RGM_RIFLE_OPEN_LEGS_C" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_LEGS_C" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_LEGS_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_LEGS_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_LEGS_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_LEGS_C" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_LEGS_C" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_LEGS_C" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_LEGS_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_LEGS_C" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoPants" palette="UrbanlandCamo">
+			<Surface name="RGMRIFLE_SWAT_LEGS_C" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS_C" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_LEGS_C" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_LEGS_C" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_WALK_LEGS_C" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRUNNING_LEGS_C" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_IDLE_LEGS_C" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_LEGS_C" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRIFLE_CROUCH_LEGS_C" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_LEGS_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_RAISE_LEGS_C" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_LEGS_C" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_LEGS_C" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_LEGS_C" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_LEGS_C" animsurface="RGMPRONE" />
+			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_LEGS_C" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_LEGS_C" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_LEGS_C" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_LEGS_C" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_LEGS_C" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_LEGS_C" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_LEGS_C" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_LEGS_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_LEGS_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_LEGS_C" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_LEGS_C" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_LEGS_C" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_LEGS_C" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_LEGS_C" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_LEGS_C" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_LEGS_C" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_LEGS_C" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_LEGS_C" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_LEGS_C" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_LEGS_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_LEGS_C" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_LEGS_C" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_LEGS_C" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_LEGS_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_LEGS_C" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_LEGS_C" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_LEGS_C" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_LEGS_C" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_LEGS_C" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_JFK_LEGS_C" animsurface="RGMDIE_JFK" />
+			<Surface name="RGMEMPTY_CDIE_LEGS_C" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_LEGS_C" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_LEGS_C" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_LEGS_C" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_LEGS_C" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_LEGS_C" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_LEGS_C" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_LEGS_C" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_LEGS_C" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_LEGS_C" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_LEGS_C" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_LEGS_C" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_LEGS_C" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_LEGS_C" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_LEGS_C" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_LEGS_C" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_LEGS_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_LEGS_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_LEGS_C" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_LEGS_C" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_LEGS_C" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_LEGS_C" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_LEGS_C" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_LEGS_C" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_LEGS_C" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_LEGS_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_LEGS_C" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_LEGS_C" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_LEGS_C" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_LEGS_C" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_LEGS_C" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_LEGS_C" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_LEGS_C" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_LEGS_C" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_LEGS_C" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_LEGS_C" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_LEGS_C" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_LEGS_C" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_LEGS_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_LEGS_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_LEGS_C" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_LEGS_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_DIE_LEGS_C" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_LEGS_C" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_LEGS_C" animsurface="RGMMORTAR" />
+		</LayerProp>
 		<LayerProp filter="SWATLeggingsAndPistol" palette="swat_blue">
 			<Surface name="RGMPISTOL_WALK_SWATlegs" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMEMPTY_RUN_SWATlegs" animsurface="RGMPISTOL_RUN" />			
@@ -1473,6 +1739,280 @@
 			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
 		<LayerProp filter="CamoLongsleeves" palette="WoodlandCamo">
+			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_TORSO_C" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_TORSO_C" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_WALK_TORSO_C" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRUNNING_TORSO_C" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_IDLE_TORSO_C" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_TORSO_C" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRIFLE_CROUCH_TORSO_C" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_TORSO_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_RAISE_TORSO_C" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_TORSO_C" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_TORSO_C" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_TORSO_C" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_TORSO_C" animsurface="RGMPRONE" />
+			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_TORSO_C" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_TORSO_C" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_TORSO_C" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_TORSO_C" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_TORSO_C" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_TORSO_C" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_TORSO_C" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_TORSO_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_TORSO_C" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_TORSO_C" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_TORSO_C" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_TORSO_C" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_TORSO_C" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_TORSO_C" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_TORSO_C" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_TORSO_C" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_TORSO_C" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_TORSO_C" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_TORSO_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_TORSO_C" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_TORSO_C" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_TORSO_C" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_TORSO_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_TORSO_C" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_TORSO_C" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_TORSO_C" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_TORSO_C" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_TORSO_C" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_JFK_TORSO_C" animsurface="RGMDIE_JFK" />
+			<Surface name="RGMEMPTY_CDIE_TORSO_C" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_TORSO_C" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_TORSO_C" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_TORSO_C" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_TORSO_C" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_TORSO_C" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_TORSO_C" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_TORSO_C" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_TORSO_C" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_TORSO_C" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_TORSO_C" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_TORSO_C" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_TORSO_C" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_TORSO_C" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_TORSO_C" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_TORSO_C" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_TORSO_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_TORSO_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_TORSO_C" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_TORSO_C" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_TORSO_C" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_TORSO_C" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_TORSO_C" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_TORSO_C" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_TORSO_C" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_TORSO_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_TORSO_C" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_TORSO_C" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_TORSO_C" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_TORSO_C" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_TORSO_C" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_TORSO_C" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_TORSO_C" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_TORSO_C" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_TORSO_C" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_TORSO_C" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_TORSO_C" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_TORSO_C" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_TORSO_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_TORSO_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_TORSO_C" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_TORSO_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_FALL_TORSO_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_TREAD_TORSO_C" animsurface="RGMDEEPWATER_TRED" />
+			<Surface name="WATER_EMPTY_SWIM_TORSO_C" animsurface="RGMDEEPWATER_SWIM" />
+			<Surface name="WATER_EMPTY_DIE_TORSO_C" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_EMPTY_DROWN_TORSO_C" animsurface="RGMDEEPWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_TORSO_C" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_TORSO_C" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleevesAndPistolLeft" palette="DesertlandCamo">
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMDUAL_SDSTP_TORSO_C" animsurface="RGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleevesAndPistol" palette="DesertlandCamo">
+			<Surface name="RGMPISTOL_WALK_TORSO_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_TORSO_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMEMPTY_DRUNK_TORSO_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="WATER_PISTOL_IDLE_TORSO_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_TORSO_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_TORSO_C" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleevesAndRifle" palette="DesertlandCamo">
+			<Surface name="RGM_RIFLE_OPEN_TORSO_C" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_TORSO_C" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_TORSO_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_TORSO_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_TORSO_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_TORSO_C" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_TORSO_C" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_TORSO_C" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_TORSO_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_TORSO_C" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleeves" palette="DesertlandCamo">
+			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_TORSO_C" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_TORSO_C" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_WALK_TORSO_C" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRUNNING_TORSO_C" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_IDLE_TORSO_C" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_TORSO_C" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRIFLE_CROUCH_TORSO_C" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SIDESTEP_TORSO_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMRIFLE_RAISE_TORSO_C" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_TORSO_C" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_TORSO_C" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_TORSO_C" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_TORSO_C" animsurface="RGMPRONE" />
+			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_TORSO_C" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_TORSO_C" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_TORSO_C" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_TORSO_C" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_TORSO_C" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_TORSO_C" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_TORSO_C" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_TORSO_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_TORSO_C" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_TORSO_C" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_TORSO_C" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_TORSO_C" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_TORSO_C" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_TORSO_C" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_TORSO_C" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_TORSO_C" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_TORSO_C" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_TORSO_C" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_TORSO_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_TORSO_C" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_TORSO_C" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_TORSO_C" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_TORSO_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_TORSO_C" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_TORSO_C" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_TORSO_C" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_TORSO_C" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_TORSO_C" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_JFK_TORSO_C" animsurface="RGMDIE_JFK" />
+			<Surface name="RGMEMPTY_CDIE_TORSO_C" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_TORSO_C" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_TORSO_C" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_TORSO_C" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_TORSO_C" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_TORSO_C" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_TORSO_C" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_TORSO_C" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_TORSO_C" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_TORSO_C" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_TORSO_C" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_TORSO_C" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_TORSO_C" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_TORSO_C" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_TORSO_C" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_TORSO_C" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_TORSO_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_TORSO_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_TORSO_C" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_TORSO_C" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_TORSO_C" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_TORSO_C" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_TORSO_C" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_TORSO_C" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_TORSO_C" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_TORSO_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_TORSO_C" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_TORSO_C" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_TORSO_C" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_TORSO_C" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_TORSO_C" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_TORSO_C" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_TORSO_C" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_TORSO_C" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_TORSO_C" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_TORSO_C" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_TORSO_C" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_TORSO_C" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_TORSO_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_TORSO_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_TORSO_C" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_TORSO_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_FALL_TORSO_C" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_TREAD_TORSO_C" animsurface="RGMDEEPWATER_TRED" />
+			<Surface name="WATER_EMPTY_SWIM_TORSO_C" animsurface="RGMDEEPWATER_SWIM" />
+			<Surface name="WATER_EMPTY_DIE_TORSO_C" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_EMPTY_DROWN_TORSO_C" animsurface="RGMDEEPWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_TORSO_C" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_TORSO_C" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleevesAndPistolLeft" palette="UrbanlandCamo">
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMDUAL_SDSTP_TORSO_C" animsurface="RGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleevesAndPistol" palette="UrbanlandCamo">
+			<Surface name="RGMPISTOL_WALK_TORSO_C" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_TORSO_C" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_TORSO_C" animsurface="RGMSIDESTEP" />
+			<Surface name="RGMEMPTY_DRUNK_TORSO_C" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="WATER_PISTOL_IDLE_TORSO_C" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_TORSO_C" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_TORSO_C" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleevesAndRifle" palette="UrbanlandCamo">
+			<Surface name="RGM_RIFLE_OPEN_TORSO_C" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_TORSO_C" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_TORSO_C" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_TORSO_C" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_TORSO_C" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_TORSO_C" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_TORSO_C" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_TORSO_C" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_TORSO_C" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_TORSO_C" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleeves" palette="UrbanlandCamo">
 			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_TORSO_C" animsurface="RGMCROUCH_P_RDY" />
@@ -3324,7 +3864,7 @@
 			<Surface name="WATER_DUAL_AIM_HELMET" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_HELMET" animsurface="RGMMORTAR" />
 		</LayerProp> 
-		<LayerProp filter="IsWearingBeretAndHasPistol" palette="hats">
+		<LayerProp filter="IsWearingRedBeretAndHasPistol" palette="hats">
 			<Surface name="RGMPISTOL_WALK_BERET" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
 			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
@@ -3333,7 +3873,7 @@
 			<Surface name="WATER_PISTOL_WALK_BERET" animsurface="RGMWATER_N_WALK" />
 			<Surface name="WATER_PISTOL_AIM_BERET" animsurface="RGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBeretAndHasRifle" palette="hats">
+		<LayerProp filter="IsWearingRedBeretAndHasRifle" palette="hats">
 			<Surface name="RGM_RIFLE_OPEN_BERET" animsurface="RGMOPEN" />
 			<Surface name="RGMRIFLE_COWER_BERET" animsurface="RGMCOWER" />
 			<Surface name="RGMRIFLE_PRN_COWER_BERET" animsurface="RGM_COWER_PRONE" />
@@ -3347,7 +3887,271 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBeret" palette="hats">
+		<LayerProp filter="IsWearingRedBeret" palette="hats">
+			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRUNNING_BERET" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_CROUCH_BERET" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SWAT_BERET" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_BERET" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_BERET" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_BERET" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_BERET" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_RAISE_BERET" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_BERET" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_BERET" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_BERET" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_BERET" animsurface="RGMPRONE" />
+			<Surface name="RGMRIFLE_SIDESTEP_BERET" animsurface="RGMSIDESTEP" />
+			<Surface name="RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_BERET" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_BERET" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_BERET" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_BERET" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_BERET" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_BERET" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_BERET" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_BERET" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_BERET" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_BERET" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_BERET" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_BERET" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_BERET" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_BERET" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_BERET" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_BERET" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_BERET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_BERET" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_BERET" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_BERET" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_BERET" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_BERET" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_BERET" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_BERET" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_BERET" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_CDIE_BERET" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_BERET" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_BERET" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_BERET" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_BERET" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_BERET" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_BERET" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_BERET" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_BERET" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_BERET" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_BERET" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_BERET" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_BERET" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_BERET" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_BERET" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_BERET" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_BERET" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_BERET" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_BERET" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_BERET" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_BERET" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_BERET" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_BERET" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_BERET" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_BERET" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_BERET" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_BERET" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_BERET" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_BERET" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_BERET" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_BERET" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_BERET" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_BERET" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_BERET" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_BERET" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_BERET" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_BERET" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_BERET" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_BERET" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_FALL_BERET" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_TREAD_BERET" animsurface="RGMDEEPWATER_TRED" />
+			<Surface name="WATER_EMPTY_SWIM_BERET" animsurface="RGMDEEPWATER_SWIM" />
+			<Surface name="WATER_EMPTY_DIE_BERET" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_EMPTY_DROWN_BERET" animsurface="RGMDEEPWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_BERET" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_BERET" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="IsWearingGreenBeretAndHasPistol" palette="Greenhats">
+			<Surface name="RGMPISTOL_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_BERET" animsurface="RGMSIDESTEP" />
+			<Surface name="WATER_PISTOL_IDLE_BERET" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_BERET" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_BERET" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="IsWearingGreenBeretAndHasRifle" palette="Greenhats">
+			<Surface name="RGM_RIFLE_OPEN_BERET" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_BERET" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_BERET" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_BERET" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_BERET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_BERET" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="IsWearingGreenBeret" palette="Greenhats">
+			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRUNNING_BERET" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_CROUCH_BERET" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SWAT_BERET" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_BERET" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_BERET" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_BERET" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_BERET" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_RAISE_BERET" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_BERET" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_BERET" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_BERET" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_BERET" animsurface="RGMPRONE" />
+			<Surface name="RGMRIFLE_SIDESTEP_BERET" animsurface="RGMSIDESTEP" />
+			<Surface name="RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_BERET" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_BERET" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_BERET" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_BERET" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_BERET" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_BERET" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_BERET" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_BERET" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_BERET" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_BERET" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_BERET" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_BERET" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_BERET" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_BERET" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_BERET" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_BERET" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_BERET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_BERET" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_BERET" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_BERET" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_BERET" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_BERET" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_BERET" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_BERET" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_BERET" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_CDIE_BERET" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_BERET" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_BERET" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_BERET" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_BERET" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_BERET" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_BERET" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_BERET" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_BERET" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_BERET" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_BERET" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_BERET" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_BERET" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_BERET" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_BERET" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_BERET" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_BERET" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_BERET" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_BERET" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_BERET" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_BERET" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_BERET" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_BERET" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_BERET" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_BERET" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_BERET" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_BERET" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_BERET" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_BERET" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_BERET" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_BERET" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_BERET" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_BERET" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_BERET" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_BERET" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_BERET" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_BERET" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_BERET" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_BERET" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_FALL_BERET" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_TREAD_BERET" animsurface="RGMDEEPWATER_TRED" />
+			<Surface name="WATER_EMPTY_SWIM_BERET" animsurface="RGMDEEPWATER_SWIM" />
+			<Surface name="WATER_EMPTY_DIE_BERET" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_EMPTY_DROWN_BERET" animsurface="RGMDEEPWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_BERET" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_BERET" animsurface="RGMMORTAR" />
+		</LayerProp>
+		<LayerProp filter="IsWearingBlueBeretAndHasPistol" palette="Bluehats">
+			<Surface name="RGMPISTOL_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_BERET" animsurface="RGMSIDESTEP" />
+			<Surface name="WATER_PISTOL_IDLE_BERET" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_BERET" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_BERET" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="IsWearingBlueBeretAndHasRifle" palette="Bluehats">
+			<Surface name="RGM_RIFLE_OPEN_BERET" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_BERET" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_BERET" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_BERET" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_BERET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_BERET" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="IsWearingBlueBeret" palette="Bluehats">
 			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
 			<Surface name="RGMRUNNING_BERET" animsurface="RGMRUNNING" />
