@@ -8343,7 +8343,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
-		<szItemName>Zylon Combat Pants</szItemName>
+		<szItemName>Zylon Pants</szItemName>
 		<szLongItemName>Zylon Combat Pants</szLongItemName>
 		<szItemDesc>This is the standard issue body armor of the US military. What were they thinking? This stuff wears out way too fast.</szItemDesc>
 		<szBRName>Zylon Combat Pants</szBRName>
@@ -8379,7 +8379,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
-		<szItemName>Zylon Combat Vest</szItemName>
+		<szItemName>Zylon Vest</szItemName>
 		<szLongItemName>Zylon Combat Vest</szLongItemName>
 		<szItemDesc>This is the standard issue body armor of the US military. What were they thinking? This stuff wears out way too fast.</szItemDesc>
 		<szBRName>Zylon Combat Vest</szBRName>
@@ -8427,12 +8427,13 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
-		<szItemName>Uniform</szItemName>
-		<szLongItemName>Field Uniform</szLongItemName>
-		<szItemDesc>More fatigues than real armor, this BDU is better than nothing, but wont stop a lot of damage.</szItemDesc>
-		<szBRName>Field Uniform</szBRName>
-		<szBRDesc>These lightweight fatigues provide limited protection while retaining full mobility. They can be outfitted with plates for increased protection.</szBRDesc>
+		<szItemName>BDU Jacket</szItemName>
+		<szLongItemName>Woodland BDU Jacket</szLongItemName>
+		<szItemDesc>A Battle Dress Uniform jacket, in woodland camouflage. Fits under most body armor vests.</szItemDesc>
+		<szBRName>Woodland BDU Jacket</szBRName>
+		<szBRDesc>This lightweight, high-quality Battle Dress Uniform jacket is the perfect garment for hunting trips and other such armed activities in forested areas.</szBRDesc>
 		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -8447,8 +8448,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<CamoBonus>15</CamoBonus>
-		<DesertCamoBonus>10</DesertCamoBonus>
-		<StealthBonus>-5</StealthBonus>
+		<DesertCamoBonus>5</DesertCamoBonus>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
@@ -8456,16 +8456,10 @@
 		<BigGunList>1</BigGunList>
 		<ProvidesRobotCamo>1</ProvidesRobotCamo>
 		<STAND_MODIFIERS>
-			<PercentBase>-1</PercentBase>
-			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-2</PercentBase>
-			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-1</PercentBase>
-			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -8560,9 +8554,9 @@
 		<uiIndex>288</uiIndex>
 		<szItemName>Beret</szItemName>
 		<szLongItemName>Red Beret</szLongItemName>
-		<szItemDesc>Worn by commandos and police forces alike, this beret definitely increases your coolness.</szItemDesc>
+		<szItemDesc>Worn by commandos and police forces alike, this red beret definitely increases your coolness.</szItemDesc>
 		<szBRName>Red Beret</szBRName>
-		<szBRDesc>Start your own special forces team!</szBRDesc>
+		<szBRDesc>Start your own special forces team with this red military-style beret!</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>45</ubClassIndex>
@@ -31627,7 +31621,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>235</ubGraphicNum>
+		<ubGraphicNum>916</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
@@ -37217,10 +37211,10 @@
 	<ITEM>
 		<uiIndex>1184</uiIndex>
 		<szItemName>Camo Shirt</szItemName>
-		<szLongItemName>Underarmor Shirt</szLongItemName>
-		<szItemDesc>This shirt is designed to go underneath a ballistic vest. Therefore, disruptive pattern material (DPM) is only present on the visible parts.</szItemDesc>
+		<szLongItemName>Underarmor Camo Shirt</szLongItemName>
+		<szItemDesc>This comfortable shirt is designed to go underneath a ballistic vest. Therefore, disruptive pattern material (DPM) is only present on the visible parts.</szItemDesc>
 		<szBRName>Underarmor Shirt</szBRName>
-		<szBRDesc>There's no need to have a full camouflage shirt when you wear a ballistic vest over it anyway, so this shirt was designed for use with those vests.</szBRDesc>
+		<szBRDesc>There's no need to have a full camouflage shirt when you wear a ballistic vest over it anyway, so this lightweight, superbly breathable shirt was designed for use with those vests.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
@@ -37234,6 +37228,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<CamoBonus>5</CamoBonus>
+		<StealthBonus>5</StealthBonus>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Attachment>1</Attachment>
@@ -52147,7 +52142,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>234</ubGraphicNum>
+		<ubGraphicNum>915</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>25</ItemSize>
@@ -52216,7 +52211,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>234</ubGraphicNum>
+		<ubGraphicNum>915</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>25</ItemSize>
@@ -52254,7 +52249,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>235</ubGraphicNum>
+		<ubGraphicNum>917</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
@@ -52291,7 +52286,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>235</ubGraphicNum>
+		<ubGraphicNum>916</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
@@ -52323,7 +52318,7 @@
 		<AttachmentClass>32</AttachmentClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>235</ubGraphicNum>
+		<ubGraphicNum>917</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
@@ -52763,11 +52758,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1766</uiIndex>
-		<szItemName>Camo Pants</szItemName>
-		<szLongItemName>Woodland Camo Pants</szLongItemName>
-		<szItemDesc>These tough BDU pants in woodland camouflage will protect your lower limbs from minor cuts and bruises, and will easily fit under dedicated leg armor systems.</szItemDesc>
-		<szBRName>Woodland Camo Pants</szBRName>
-		<szBRDesc>Battle Dress Uniform pants, available in several different forest and woodland camouflage patterns. 30 percent off, for a limited time only!</szBRDesc>
+		<szItemName>BDU Pants</szItemName>
+		<szLongItemName>Woodland BDU Pants</szLongItemName>
+		<szItemDesc>These Battle Dress Uniform pants in woodland camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
+		<szBRName>Woodland BDU Pants</szBRName>
+		<szBRDesc>Battle Dress Uniform pants, available in several different forest and jungle camouflage patterns. 30 percent off, for a limited time only!</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -52783,12 +52778,208 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<CamoBonus>10</CamoBonus>
-		<DesertCamoBonus>5</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1767</uiIndex>
+		<szItemName>BDU Pants</szItemName>
+		<szLongItemName>Desert BDU Pants</szLongItemName>
+		<szItemDesc>These Battle Dress Uniform pants in desert camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
+		<szBRName>Desert BDU Pants</szBRName>
+		<szBRDesc>Battle Dress Uniform pants, available in various desert and arid camouflage patterns. 30 percent off, for a limited time only!</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>200</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>911</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>23</ItemSize>
+		<usPrice>130</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<CamoBonus>3</CamoBonus>
+		<DesertCamoBonus>10</DesertCamoBonus>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1768</uiIndex>
+		<szItemName>BDU Pants</szItemName>
+		<szLongItemName>Urban BDU Pants</szLongItemName>
+		<szItemDesc>These Battle Dress Uniform pants in urban camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
+		<szBRName>Urban BDU Pants</szBRName>
+		<szBRDesc>Battle Dress Uniform pants, available in several different urban camouflage patterns. 30 percent off, for a limited time only!</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>200</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>912</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>23</ItemSize>
+		<usPrice>130</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<UrbanCamoBonus>10</UrbanCamoBonus>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1769</uiIndex>
+		<szItemName>BDU Jacket</szItemName>
+		<szLongItemName>Desert BDU Jacket</szLongItemName>
+		<szItemDesc>A Battle Dress Uniform jacket, in desert camouflage. Fits snugly under most body armor vests.</szItemDesc>
+		<szBRName>Desert BDU Jacket</szBRName>
+		<szBRDesc>This Battle Dress Uniform jacket, available in a number of desert camouflage patterns, is the right choice for tours of duty in the Middle East and anywhere else with lots of sand.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>41</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>913</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<ItemSize>25</ItemSize>
+		<usPrice>250</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<CamoBonus>5</CamoBonus>
+		<DesertCamoBonus>15</DesertCamoBonus>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
+		<STAND_MODIFIERS>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+		</PRONE_MODIFIERS>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1770</uiIndex>
+		<szItemName>BDU Jacket</szItemName>
+		<szLongItemName>Urban BDU Jacket</szLongItemName>
+		<szItemDesc>A Battle Dress Uniform jacket, in urban camouflage. Fits snugly under most body armor vests.</szItemDesc>
+		<szBRName>Urban BDU Jacket</szBRName>
+		<szBRDesc>Every self-respecting street warrior should own one of these stylish BDU jackets. Our selection includes a wide variety of camouflage patterns specifically designed for urban environments.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>41</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>914</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<ItemSize>25</ItemSize>
+		<usPrice>250</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<UrbanCamoBonus>15</UrbanCamoBonus>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<ProvidesRobotCamo>1</ProvidesRobotCamo>
+		<STAND_MODIFIERS>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+		</PRONE_MODIFIERS>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1771</uiIndex>
+		<szItemName>Beret</szItemName>
+		<szLongItemName>Green Beret</szLongItemName>
+		<szItemDesc>Simply wearing this green beret doesn't make you an actual Green Beret, but it might still help you channel your inner unconventional warfare specialist.</szItemDesc>
+		<szBRName>Green Beret</szBRName>
+		<szBRDesc>Start your own special forces team with this green military-style beret!</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>45</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>918</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>15</ItemSize>
+		<usPrice>30</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1772</uiIndex>
+		<szItemName>Beret</szItemName>
+		<szLongItemName>Blue Beret</szLongItemName>
+		<szItemDesc>With this fancy beret in United Nations blue, you too can keep the peace with style and panache. Or break it, if that's more your thing.</szItemDesc>
+		<szBRName>Blue Beret</szBRName>
+		<szBRDesc>Start your own special forces team with this light blue military-style beret!</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>45</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>919</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>15</ItemSize>
+		<usPrice>30</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />

@@ -97,6 +97,42 @@
 			<VESTPOSATTACHMENT3 op="in">1184</VESTPOSATTACHMENT3>
 		</OR>
 	</Filter>
+	<Filter name="DesertCamoPants">
+		<OR>
+			<LEGPOS op="in">1767</LEGPOS>
+			<LEGPOSATTACHMENT0 op="in">1767</LEGPOSATTACHMENT0>
+			<LEGPOSATTACHMENT1 op="in">1767</LEGPOSATTACHMENT1>
+			<LEGPOSATTACHMENT2 op="in">1767</LEGPOSATTACHMENT2>
+			<LEGPOSATTACHMENT3 op="in">1767</LEGPOSATTACHMENT3>
+		</OR>
+	</Filter>
+	<Filter name="DesertCamoLongsleeves">
+		<OR>
+			<VESTPOS op="in">1769</VESTPOS>
+			<VESTPOSATTACHMENT0 op="in">1769</VESTPOSATTACHMENT0>
+			<VESTPOSATTACHMENT1 op="in">1769</VESTPOSATTACHMENT1>
+			<VESTPOSATTACHMENT2 op="in">1769</VESTPOSATTACHMENT2>
+			<VESTPOSATTACHMENT3 op="in">1769</VESTPOSATTACHMENT3>
+		</OR>
+	</Filter>
+	<Filter name="UrbanCamoPants">
+		<OR>
+			<LEGPOS op="in">1768</LEGPOS>
+			<LEGPOSATTACHMENT0 op="in">1768</LEGPOSATTACHMENT0>
+			<LEGPOSATTACHMENT1 op="in">1768</LEGPOSATTACHMENT1>
+			<LEGPOSATTACHMENT2 op="in">1768</LEGPOSATTACHMENT2>
+			<LEGPOSATTACHMENT3 op="in">1768</LEGPOSATTACHMENT3>
+		</OR>
+	</Filter>
+	<Filter name="UrbanCamoLongsleeves">
+		<OR>
+			<VESTPOS op="in">1770</VESTPOS>
+			<VESTPOSATTACHMENT0 op="in">1770</VESTPOSATTACHMENT0>
+			<VESTPOSATTACHMENT1 op="in">1770</VESTPOSATTACHMENT1>
+			<VESTPOSATTACHMENT2 op="in">1770</VESTPOSATTACHMENT2>
+			<VESTPOSATTACHMENT3 op="in">1770</VESTPOSATTACHMENT3>
+		</OR>
+	</Filter>
 	<Filter name="GhilliePants">
 		<OR>
 			<LEGPOS op="in">808</LEGPOS>
@@ -177,7 +213,43 @@
 			<FILTER>CamoLongsleeves</FILTER>
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
-	</Filter>	
+	</Filter>
+	<Filter name="DesertCamoLongsleevesAndPistolLeft">
+		<AND>
+			<FILTER>DesertCamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="DesertCamoLongsleevesAndPistol">
+		<AND>
+			<FILTER>DesertCamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="DesertCamoLongsleevesAndRifle">
+		<AND>
+			<FILTER>DesertCamoLongsleeves</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoLongsleevesAndPistolLeft">
+		<AND>
+			<FILTER>UrbanCamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoLongsleevesAndPistol">
+		<AND>
+			<FILTER>UrbanCamoLongsleeves</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoLongsleevesAndRifle">
+		<AND>
+			<FILTER>UrbanCamoLongsleeves</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="CamoPantsAndPistolLeft">
 		<AND>
 			<FILTER>CamoPants</FILTER>
@@ -195,7 +267,43 @@
 			<FILTER>CamoPants</FILTER>
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
-	</Filter>	
+	</Filter>
+	<Filter name="DesertCamoPantsAndPistolLeft">
+		<AND>
+			<FILTER>DesertCamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="DesertCamoPantsAndPistol">
+		<AND>
+			<FILTER>DesertCamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="DesertCamoPantsAndRifle">
+		<AND>
+			<FILTER>DesertCamoPants</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoPantsAndPistolLeft">
+		<AND>
+			<FILTER>UrbanCamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoPantsAndPistol">
+		<AND>
+			<FILTER>UrbanCamoPants</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="UrbanCamoPantsAndRifle">
+		<AND>
+			<FILTER>UrbanCamoPants</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="Longsleeves">
 		<AND>
 			<VESTPOS op="in">840, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
@@ -2634,20 +2742,54 @@
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
-	<Filter name="IsWearingBeret">
+	<Filter name="IsWearingRedBeret">
 		<AND>
 			<HELMETPOS op="in">288</HELMETPOS>
 		</AND>
 	</Filter>
-	<Filter name="IsWearingBeretAndHasPistol">
+	<Filter name="IsWearingRedBeretAndHasPistol">
 		<AND>
-			<FILTER>IsWearingBeret</FILTER>
+			<FILTER>IsWearingRedBeret</FILTER>
 			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
 		</AND>
 	</Filter>
-	<Filter name="IsWearingBeretAndHasRifle">
+	<Filter name="IsWearingRedBeretAndHasRifle">
 		<AND>
-			<FILTER>IsWearingBeret</FILTER>
+			<FILTER>IsWearingRedBeret</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingGreenBeret">
+		<AND>
+			<HELMETPOS op="in">1771</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingGreenBeretAndHasPistol">
+		<AND>
+			<FILTER>IsWearingGreenBeret</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingGreenBeretAndHasRifle">
+		<AND>
+			<FILTER>IsWearingGreenBeret</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBlueBeret">
+		<AND>
+			<HELMETPOS op="in">1772</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBlueBeretAndHasPistol">
+		<AND>
+			<FILTER>IsWearingBlueBeret</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBlueBeretAndHasRifle">
+		<AND>
+			<FILTER>IsWearingBlueBeret</FILTER>
 			<FILTER>HasRifleTypeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
