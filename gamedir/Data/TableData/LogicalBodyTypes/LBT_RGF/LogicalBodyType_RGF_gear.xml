@@ -19,6 +19,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_GHILLIEPANTS" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_GHILLIEPANTS" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="GhilliePantsAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_GHILLIEPANTS" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_GHILLIEPANTS" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GhilliePants" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_GHILLIEPANTS" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_GHILLIEPANTS" animsurface="RGFWALK_R_RDY"/>
@@ -146,6 +150,10 @@
 			<Surface name="RGF_RIFLE_LOW_LEGS_C" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_LEGS_C" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="CamoPantsAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_LEGS_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_LEGS_C" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="CamoPants" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_LEGS_C" animsurface="RGFCROUCH_R_RDY"/>
@@ -275,6 +283,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_LEGS_C" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="DesertCamoPantsAndBluntMeleeWeapon" palette="DesertlandCamo">
+			<Surface name="RGF_BLUNT_LEGS_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_LEGS_C" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DesertCamoPants" palette="DesertlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_LEGS_C" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_LEGS_C" animsurface="RGFWALK_R_RDY"/>
@@ -402,6 +414,10 @@
 			<Surface name="RGF_RIFLE_LOW_LEGS_C" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_LEGS_C" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="UrbanCamoPantsAndBluntMeleeWeapon" palette="UrbanlandCamo">
+			<Surface name="RGF_BLUNT_LEGS_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_LEGS_C" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="UrbanCamoPants" palette="UrbanlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_LEGS_C" animsurface="RGFCROUCH_R_RDY"/>
@@ -534,6 +550,10 @@
 			<Surface name="RGF_RIFLE_LOW_SWATlegs" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_SWATlegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_SWATlegs" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="SWATLeggingsAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGF_BLUNT_SWATlegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_SWATlegs" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="SWATLeggings" palette="swat_blue">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SWATlegs" animsurface="RGFCROUCH_R_RDY"/>
@@ -668,6 +688,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Zylonlegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Zylonlegs" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="ZylonPantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Zylonlegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Zylonlegs" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="ZylonPants" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Zylonlegs" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Zylonlegs" animsurface="RGFCROUCH_P_RDY"/>
@@ -799,6 +823,10 @@
 			<Surface name="RGF_RIFLE_LOW_eod_l" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_eod_l" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_eod_l" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="EODpantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_eod_l" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_eod_l" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="EODpants" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_eod_l" animsurface="RGFCROUCH_R_RDY"/>
@@ -936,6 +964,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Dresslegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Dresslegs" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Dresslegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Dresslegs" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DressUniformPants" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Dresslegs" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Dresslegs" animsurface="RGFCROUCH_P_RDY"/>
@@ -1071,6 +1103,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Kvlrlegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Kvlrlegs" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="KevlarLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Kvlrlegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Kvlrlegs" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="KevlarLeggings" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Kvlrlegs" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Kvlrlegs" animsurface="RGFCROUCH_P_RDY"/>
@@ -1203,6 +1239,10 @@
 			<Surface name="RGF_RIFLE_LOW_Speclegs" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Speclegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Speclegs" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="SpectraLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Speclegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Speclegs" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="SpectraLeggings" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Speclegs" animsurface="RGFCROUCH_R_RDY"/>
@@ -1337,6 +1377,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Twalegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Twalegs" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="TwaronLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Twalegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Twalegs" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronLeggings" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Twalegs" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Twalegs" animsurface="RGFCROUCH_P_RDY"/>
@@ -1469,6 +1513,10 @@
 			<Surface name="RGF_RIFLE_LOW_Dynlegs" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Dynlegs" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Dynlegs" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="DyneemaLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Dynlegs" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Dynlegs" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="DyneemaLeggings" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Dynlegs" animsurface="RGFCROUCH_R_RDY"/>
@@ -1606,6 +1654,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_GHILLIEVEST" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_GHILLIEVEST" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="GhillieVestAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_GHILLIEVEST" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_GHILLIEVEST" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GhillieVest" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_SWAT_GHILLIEVEST" animsurface="RGFSNEAKING"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_GHILLIEVEST" animsurface="RGFCROUCH_R_RDY"/>
@@ -1738,6 +1790,10 @@
 			<Surface name="RGF_RIFLE_LOW_TORSO_C" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_TORSO_C" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="CamoLongsleevesAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_TORSO_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_TORSO_C" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="CamoLongsleeves" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_SWAT_TORSO_C" animsurface="RGFSNEAKING"/>
@@ -1872,6 +1928,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_TORSO_C" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleevesAndBluntMeleeWeapon" palette="DesertlandCamo">
+			<Surface name="RGF_BLUNT_TORSO_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_TORSO_C" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DesertCamoLongsleeves" palette="DesertlandCamo">
 			<Surface name="RGF_RIFLE_SWAT_TORSO_C" animsurface="RGFSNEAKING"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_TORSO_C" animsurface="RGFCROUCH_R_RDY"/>
@@ -2004,6 +2064,10 @@
 			<Surface name="RGF_RIFLE_LOW_TORSO_C" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_TORSO_C" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleevesAndBluntMeleeWeapon" palette="UrbanlandCamo">
+			<Surface name="RGF_BLUNT_TORSO_C" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_TORSO_C" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="UrbanCamoLongsleeves" palette="UrbanlandCamo">
 			<Surface name="RGF_RIFLE_SWAT_TORSO_C" animsurface="RGFSNEAKING"/>
@@ -2138,6 +2202,10 @@
 			<Surface name="RGF_RIFLE_LOW_Dressvest" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Dressvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Dressvest" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="DressUniformVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Dressvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Dressvest" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="DressUniformVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Dressvest" animsurface="RGFCROUCH_R_RDY"/>
@@ -2280,6 +2348,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_LSLEEVE" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_LSLEEVE" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="LongsleevesAndBluntMeleeWeapon" >
+			<Surface name="RGF_BLUNT_LSLEEVE" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_LSLEEVE" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Longsleeves">
 			<Surface name="RGF_RIFLE_SWAT_LSLEEVE" animsurface="RGFSNEAKING"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_LSLEEVE" animsurface="RGFCROUCH_R_RDY"/>
@@ -2417,6 +2489,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_balaclava" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_balaclava" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="BalaclavaAndBluntMeleeWeapon" >
+			<Surface name="RGF_BLUNT_balaclava" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_balaclava" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Balaclava">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_balaclava" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_balaclava" animsurface="RGFWALK_R_RDY"/>
@@ -2550,6 +2626,10 @@
 			<Surface name="RGF_RIFLE_LOW_GHILLIEHOOD" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_GHILLIEHOOD" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_GHILLIEHOOD" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="GhillieHoodAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_GHILLIEHOOD" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_GHILLIEHOOD" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="GhillieHood" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_GHILLIEHOOD" animsurface="RGFCROUCH_R_RDY"/>
@@ -2697,6 +2777,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_eod_h" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_eod_h" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="EODhelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_eod_h" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_eod_h" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="EODhelmet" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_eod_h" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_eod_h" animsurface="RGFWALK_R_RDY"/>
@@ -2831,6 +2915,10 @@
 			<Surface name="RGF_RIFLE_LOW_CAMOHELMET" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_CAMOHELMET" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_CAMOHELMET" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="CamoHelmetAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_CAMOHELMET" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_CAMOHELMET" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="IsWearingCamoHelmet" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_CAMOHELMET" animsurface="RGFCROUCH_R_RDY"/>
@@ -2967,6 +3055,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Steelhelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Steelhelm" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="SteelHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Steelhelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Steelhelm" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SteelHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Steelhelm" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_Steelhelm" animsurface="RGFWALKING"/>
@@ -3101,6 +3193,10 @@
 			<Surface name="RGF_RIFLE_LOW_Kvlrhelm" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Kvlrhelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Kvlrhelm" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="KevlarHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Kvlrhelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Kvlrhelm" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="KevlarHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Kvlrhelm" animsurface="RGFSTANDING"/>
@@ -3237,6 +3333,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Spechelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Spechelm" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="SpectraHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Spechelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Spechelm" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SpectraHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Spechelm" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_Spechelm" animsurface="RGFWALKING"/>
@@ -3371,6 +3471,10 @@
 			<Surface name="RGF_RIFLE_LOW_SWAThelm" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_SWAThelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_SWAThelm" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="SWATHelmetAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGF_BLUNT_SWAThelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_SWAThelm" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="SWATHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_SWAThelm" animsurface="RGFSTANDING"/>
@@ -3507,6 +3611,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Twahelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Twahelm" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="TwaronHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Twahelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Twahelm" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Twahelm" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_Twahelm" animsurface="RGFWALKING"/>
@@ -3641,6 +3749,10 @@
 			<Surface name="RGF_RIFLE_LOW_Dynhelm" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Dynhelm" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Dynhelm" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="DyneemaHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Dynhelm" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Dynhelm" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="DyneemaHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Dynhelm" animsurface="RGFSTANDING"/>
@@ -3777,6 +3889,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_HELMET" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_HELMET" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="HelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_HELMET" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_HELMET" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingHelmet" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_HELMET" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_HELMET" animsurface="RGFWALK_R_RDY"/>
@@ -3911,6 +4027,10 @@
 			<Surface name="RGF_RIFLE_LOW_BERET" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BERET" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BERET" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="RedBeretAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_BERET" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BERET" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="IsWearingRedBeret" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_BERET" animsurface="RGFSTANDING"/>
@@ -4047,6 +4167,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BERET" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BERET" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="GreenBeretAndBluntMeleeWeapon" palette="Greenhats">
+			<Surface name="RGF_BLUNT_BERET" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BERET" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingGreenBeret" palette="Greenhats">
 			<Surface name="RGF_RIFLE_IDLE_BERET" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_BERET" animsurface="RGFWALKING"/>
@@ -4181,6 +4305,10 @@
 			<Surface name="RGF_RIFLE_LOW_BERET" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BERET" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BERET" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="BlueBeretAndBluntMeleeWeapon" palette="Bluehats">
+			<Surface name="RGF_BLUNT_BERET" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BERET" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="IsWearingBlueBeret" palette="Bluehats">
 			<Surface name="RGF_RIFLE_IDLE_BERET" animsurface="RGFSTANDING"/>
@@ -4317,6 +4445,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BOONEY" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BOONEY" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="HatAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGF_BLUNT_BOONEY" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BOONEY" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingHat" palette="WoodlandCamo">
 			<Surface name="RGF_RIFLE_IDLE_BOONEY" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_BOONEY" animsurface="RGFWALKING"/>
@@ -4451,6 +4583,10 @@
 			<Surface name="RGF_RIFLE_LOW_Ushanka" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Ushanka" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Ushanka" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="FurHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Ushanka" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Ushanka" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="FurHat" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Ushanka" animsurface="RGFSTANDING"/>
@@ -4587,6 +4723,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_UScap" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_UScap" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="USOfficerHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_UScap" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_UScap" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="USOfficerHat" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_UScap" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_UScap" animsurface="RGFWALKING"/>
@@ -4721,6 +4861,10 @@
 			<Surface name="RGF_RIFLE_LOW_USSRcap" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_USSRcap" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_USSRcap" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="USSROfficerHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_USSRcap" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_USSRcap" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="USSROfficerHat" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_USSRcap" animsurface="RGFSTANDING"/>
@@ -4857,6 +5001,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_RUScap" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_RUScap" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="RussianCapAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_RUScap" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_RUScap" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="RussianCap" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_RUScap" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_RUScap" animsurface="RGFWALKING"/>
@@ -4992,6 +5140,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Blackcap" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Blackcap" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="BlackCapAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Blackcap" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Blackcap" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="BlackCap" palette="hats">
 			<Surface name="RGF_RIFLE_IDLE_Blackcap" animsurface="RGFSTANDING"/>
 			<Surface name="RGF_BASICWALK_Blackcap" animsurface="RGFWALKING"/>
@@ -5126,6 +5278,10 @@
 			<Surface name="RGF_RIFLE_LOW_BCAP" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BCAP" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BCAP" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="BallcapAndBluntMeleeWeapon" >
+			<Surface name="RGF_BLUNT_BCAP" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BCAP" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="IsWearingBallcap">
 			<Surface name="RGF_RIFLE_IDLE_BCAP" animsurface="RGFSTANDING"/>
@@ -5265,6 +5421,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_NVG" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_NVG" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="NVGAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_NVG" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_NVG" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingNVG" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_NVG" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_NVG" animsurface="RGFWALK_R_RDY"/>
@@ -5400,6 +5560,10 @@
 			<Surface name="RGF_RIFLE_LOW_Goggles" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Goggles" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Goggles" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="GogglesAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Goggles" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Goggles" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="Goggles" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Goggles" animsurface="RGFCROUCH_R_RDY"/>
@@ -5539,6 +5703,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_GMASK" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_GMASK" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="GasmaskAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_GMASK" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_GMASK" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingGasmask" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_GMASK" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_GMASK" animsurface="RGFWALK_R_RDY"/>
@@ -5677,6 +5845,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Headset" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Headset" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="HeadSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Headset" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Headset" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="HeadSet" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Headset" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_Headset" animsurface="RGFWALK_R_RDY"/>
@@ -5814,6 +5986,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_eod_v" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_eod_v" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="EODvestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_eod_v" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_eod_v" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="EODvest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_eod_v" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_eod_v" animsurface="RGFWALK_R_RDY"/>
@@ -5928,7 +6104,7 @@
 			<Surface name="RGF_CROUCH_MORTAR_eod_v" animsurface="RGFMORTAR" />
 			<Surface name="RGF_SLAP_eod_v" animsurface="RGFSLAP" />			
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraAndHasPistol" palette="hats">
+		<LayerProp filter="IsWearingSpectraVestAndHasPistol" palette="hats">
 			<Surface name="RGF_PISTOL_IDLE_spectra" animsurface="RGFPISTOLBREATH"/>
 			<Surface name="RGF_EMPTY_WALK_spectra" animsurface="RGFNOTHING_WALK"/>
 			<Surface name="RGF_PISTOL_RDY_WALK_spectra" animsurface="RGFWALK_P_RDY"/>
@@ -5939,7 +6115,7 @@
 			<Surface name="RGF_WATER_EMPTY_WALK_spectra" animsurface="RGFWATER_N_WALK" />
 			<Surface name="RGF_WATER_PISTOL_AIM_spectra" animsurface="RGFWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraAndHasRifle" palette="hats">
+		<LayerProp filter="IsWearingSpectraVestAndHasRifle" palette="hats">
 			<Surface name="RGF_RIFLE_OPEN_spectra" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_COWER_spectra" animsurface="RGFCOWER"/>
 			<Surface name="RGF_RIFLE_PRN_COWER_spectra" animsurface="RGF_COWER_PRONE"/>
@@ -5951,6 +6127,10 @@
 			<Surface name="RGF_RIFLE_LOW_spectra" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_spectra" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_spectra" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="SpectraVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_spectra" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_spectra" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="SpectraVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_spectra" animsurface="RGFCROUCH_R_RDY"/>
@@ -6065,7 +6245,7 @@
 			<Surface name="RGF_CROUCH_MORTAR_spectra" animsurface="RGFMORTAR" />
 			<Surface name="RGF_SLAP_spectra" animsurface="RGFSLAP" />			
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarAndHasPistol" palette="hats">
+		<LayerProp filter="IsWearingKevlarVestAndHasPistol" palette="hats">
 			<Surface name="RGF_PISTOL_IDLE_kevlar" animsurface="RGFPISTOLBREATH"/>
 			<Surface name="RGF_EMPTY_WALK_kevlar" animsurface="RGFNOTHING_WALK"/>
 			<Surface name="RGF_PISTOL_RDY_WALK_kevlar" animsurface="RGFWALK_P_RDY"/>
@@ -6076,7 +6256,7 @@
 			<Surface name="RGF_WATER_EMPTY_WALK_kevlar" animsurface="RGFWATER_N_WALK" />
 			<Surface name="RGF_WATER_PISTOL_AIM_kevlar" animsurface="RGFWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarAndHasRifle" palette="hats">
+		<LayerProp filter="IsWearingKevlarVestAndHasRifle" palette="hats">
 			<Surface name="RGF_RIFLE_OPEN_kevlar" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_COWER_kevlar" animsurface="RGFCOWER"/>
 			<Surface name="RGF_RIFLE_PRN_COWER_kevlar" animsurface="RGF_COWER_PRONE"/>
@@ -6088,6 +6268,10 @@
 			<Surface name="RGF_RIFLE_LOW_kevlar" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_kevlar" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_kevlar" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="KevlarVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_kevlar" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_kevlar" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="KevlarVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_kevlar" animsurface="RGFCROUCH_R_RDY"/>
@@ -6226,6 +6410,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Flakvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Flakvest" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="FlakVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Flakvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Flakvest" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="FlakVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Flakvest" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_Flakvest" animsurface="RGFWALK_R_RDY"/>
@@ -6362,6 +6550,10 @@
 			<Surface name="RGF_RIFLE_LOW_Guardvest" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Guardvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Guardvest" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Guardvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Guardvest" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="GuardianVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Guardvest" animsurface="RGFCROUCH_R_RDY"/>
@@ -6500,6 +6692,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_SWATvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_SWATvest" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="SWATVestAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGF_BLUNT_SWATvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_SWATvest" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SWATVest" palette="swat_blue">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SWATvest" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SWATvest" animsurface="RGFWALK_R_RDY"/>
@@ -6636,6 +6832,10 @@
 			<Surface name="RGF_RIFLE_LOW_Zylonvest" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Zylonvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Zylonvest" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="ZylonVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Zylonvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Zylonvest" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="ZylonVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Zylonvest" animsurface="RGFCROUCH_R_RDY"/>
@@ -6774,6 +6974,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Twavest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Twavest" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="TwaronVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Twavest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Twavest" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Twavest" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_Twavest" animsurface="RGFWALK_R_RDY"/>
@@ -6911,6 +7115,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Dynvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Dynvest" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="DyneemaVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Dynvest" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Dynvest" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DyneemaVest" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Dynvest" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_Dynvest" animsurface="RGFWALK_R_RDY"/>
@@ -7047,6 +7255,10 @@
 			<Surface name="RGF_RIFLE_LOW_VEST" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_VEST" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_VEST" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="FlakJacketAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_VEST" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_VEST" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="FlakJacket" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_VEST" animsurface="RGFCROUCH_R_RDY"/>
@@ -7186,6 +7398,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Bigradio" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Bigradio" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="BigRadioSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Bigradio" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Bigradio" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBigRadioSet" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Bigradio" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Bigradio" animsurface="RGFCROUCH_P_RDY"/>
@@ -7321,6 +7537,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Medradio" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Medradio" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="MedRadioSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Medradio" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Medradio" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingMedRadioSet" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Medradio" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_Medradio" animsurface="RGFCROUCH_P_RDY"/>
@@ -7455,6 +7675,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_CP" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_CP" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="CombatPackAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_CP" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_CP" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingCombatPack" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_CP" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_CP" animsurface="RGFCROUCH_P_RDY"/>
@@ -7588,6 +7812,10 @@
 			<Surface name="RGF_RIFLE_LOW_BP" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_BP" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_BP" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="BackpackAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_BP" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_BP" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="IsWearingBackpack" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_BP" animsurface="RGFCROUCH_R_RDY"/>
@@ -7725,6 +7953,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_holster" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_holster" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="HolsterAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_holster" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_holster" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Holster" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_holster" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_holster" animsurface="RGFCROUCH_P_RDY"/>
@@ -7860,6 +8092,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_holster_l" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_holster_l" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="LeftHolsterAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_holster_l" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_holster_l" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="HolsterLeft" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_holster_l" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_CROUCHWALK_holster_l" animsurface="RGFCROUCH_P_RDY"/>
@@ -7994,6 +8230,10 @@
 			<Surface name="RGF_RIFLE_LOW_PADS" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_PADS" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_PADS" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="KneepadsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_PADS" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_PADS" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="HasKneepads" palette="hats">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_PADS" animsurface="RGFCROUCH_R_RDY"/>
