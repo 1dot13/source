@@ -175,7 +175,7 @@
 <AnimSurface name="RGMEMPTY_DODGE_baton" file="Anims\LOBOT\RGM\S_DODGE_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
 <AnimSurface name="RGMCROWBAR_HIT_baton" file="Anims\LOBOT\RGM\S_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="RGMCROWBAR_CR_HIT_baton" file="Anims\LOBOT\RGM\S_C_CROWBAR_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
-<AnimSurface name="RGM_PUNCH_baton" file="Anims\LOBOT\RGM\S_PUNCH_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGM_BLUNT_baton" file="Anims\LOBOT\RGM\S_BLUNT_baton.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 
 <!-- Shovel -->
 <AnimSurface name="RGMEMPTY_IDLE_shovel" file="Anims\LOBOT\RGM\S_N_STD_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
@@ -190,7 +190,7 @@
 <AnimSurface name="RGMEMPTY_DODGE_shovel" file="Anims\LOBOT\RGM\S_DODGE_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
 <AnimSurface name="RGMCROWBAR_HIT_shovel" file="Anims\LOBOT\RGM\S_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="RGMCROWBAR_CR_HIT_shovel" file="Anims\LOBOT\RGM\S_C_CROWBAR_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
-<AnimSurface name="RGM_PUNCH_shovel" file="Anims\LOBOT\RGM\S_PUNCH_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGM_BLUNT_shovel" file="Anims\LOBOT\RGM\S_BLUNT_shovel.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 
 <!-- Pipe Wrench -->
 <AnimSurface name="RGMEMPTY_IDLE_wrench" file="Anims\LOBOT\RGM\S_N_STD_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
@@ -205,7 +205,7 @@
 <AnimSurface name="RGMEMPTY_DODGE_wrench" file="Anims\LOBOT\RGM\S_DODGE_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="6" profile="-1" />
 <AnimSurface name="RGMCROWBAR_HIT_wrench" file="Anims\LOBOT\RGM\S_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="19" profile="-1" />
 <AnimSurface name="RGMCROWBAR_CR_HIT_wrench" file="Anims\LOBOT\RGM\S_C_CROWBAR_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="19" profile="-1" />
-<AnimSurface name="RGM_PUNCH_wrench" file="Anims\LOBOT\RGM\S_PUNCH_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGM_BLUNT_wrench" file="Anims\LOBOT\RGM\S_BLUNT_wrench.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 
 
 <!-- Fist weapons -->

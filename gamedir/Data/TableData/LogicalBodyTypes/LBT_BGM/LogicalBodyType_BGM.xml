@@ -35,6 +35,10 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_SHADOW" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_SHADOW" animsurface="BGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="BGM_BLUNT_SHADOW" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_SHADOW" animsurface="BGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="BGMRIFLE_SWAT_SHADOW" animsurface="BGMSNEAKING" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_SHADOW" animsurface="BGMCROUCH_R_RDY" />
@@ -192,6 +196,10 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_LEGS" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_LEGS" animsurface="BGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="BGM_BLUNT_LEGS" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_LEGS" animsurface="BGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="BGMRIFLE_SWAT_LEGS" animsurface="BGMSNEAKING" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_LEGS" animsurface="BGMCROUCH_R_RDY" />
@@ -341,6 +349,10 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_TORSO" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_TORSO" animsurface="BGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="BGM_BLUNT_TORSO" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_TORSO" animsurface="BGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="BGMRIFLE_SWAT_TORSO" animsurface="BGMSNEAKING" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_TORSO" animsurface="BGMCROUCH_R_RDY" />
@@ -488,6 +500,10 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HANDS" animsurface="BGMSIDESTEP_R_RDY" />
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_HANDS" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_HANDS" animsurface="BGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="BGM_BLUNT_HANDS" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_HANDS" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="BGMRIFLE_SWAT_HANDS" animsurface="BGMSNEAKING" />
@@ -638,6 +654,10 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HEAD" animsurface="BGMSIDESTEP_R_RDY" />
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_HEAD" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_HEAD" animsurface="BGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="BGM_BLUNT_HEAD" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_HEAD" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="BGMRIFLE_SWAT_HEAD" animsurface="BGMSNEAKING" />

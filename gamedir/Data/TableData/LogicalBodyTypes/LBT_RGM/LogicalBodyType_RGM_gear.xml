@@ -29,6 +29,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_GHILLIEPANTS" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_GHILLIEPANTS" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GhilliePantsAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_GHILLIEPANTS" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEPANTS" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GhilliePants" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_SWAT_GHILLIEPANTS" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_GHILLIEPANTS" animsurface="RGMCROUCH_R_RDY" />
@@ -48,6 +52,7 @@
 			<Surface name="RGM_HOP_GHILLIEPANTS" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_GHILLIEPANTS" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_GHILLIEPANTS" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_GHILLIEPANTS" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_GHILLIEPANTS" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_GHILLIEPANTS" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_GHILLIEPANTS" animsurface="RGMOPEN" />
@@ -107,7 +112,6 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEPANTS" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEPANTS" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEPANTS" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEPANTS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEPANTS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEPANTS" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEPANTS" animsurface="RGMCSTAB" />
@@ -162,6 +166,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="CamoPantsAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="CamoPants" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_SWAT_LEGS_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS_C" animsurface="RGMCROUCH_R_RDY" />
@@ -181,6 +189,7 @@
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_LEGS_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_LEGS_C" animsurface="RGMOPEN" />
@@ -240,7 +249,6 @@
 			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
@@ -295,6 +303,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DesertCamoPantsAndBluntMeleeWeapon" palette="DesertlandCamo">
+			<Surface name="RGM_BLUNT_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DesertCamoPants" palette="DesertlandCamo">
 			<Surface name="RGMRIFLE_SWAT_LEGS_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS_C" animsurface="RGMCROUCH_R_RDY" />
@@ -314,6 +326,7 @@
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_LEGS_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_LEGS_C" animsurface="RGMOPEN" />
@@ -373,7 +386,6 @@
 			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
@@ -428,6 +440,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="UrbanCamoPantsAndBluntMeleeWeapon" palette="UrbanlandCamo">
+			<Surface name="RGM_BLUNT_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="UrbanCamoPants" palette="UrbanlandCamo">
 			<Surface name="RGMRIFLE_SWAT_LEGS_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS_C" animsurface="RGMCROUCH_R_RDY" />
@@ -447,6 +463,7 @@
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_LEGS_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_LEGS_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_LEGS_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_LEGS_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_LEGS_C" animsurface="RGMOPEN" />
@@ -506,7 +523,6 @@
 			<Surface name="RGMKNIFE_THROW_LEGS_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LEGS_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LEGS_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LEGS_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LEGS_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LEGS_C" animsurface="RGMCSTAB" />
@@ -556,6 +572,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_SWATlegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_SWATlegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="SWATLeggingsAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGM_BLUNT_SWATlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWATlegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SWATLeggings" palette="swat_blue">
 			<Surface name="RGMRIFLE_WALK_CROUCH_SWATlegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_SWATlegs" animsurface="RGMCROUCH_P_RDY" />
@@ -575,6 +595,7 @@
 			<Surface name="RGM_HOP_SWATlegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_SWATlegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_SWATlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_SWATlegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_SWATlegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_SWATlegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_SWATlegs" animsurface="RGMOPEN" />
@@ -633,7 +654,6 @@
 			<Surface name="RGMKNIFE_THROW_SWATlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWATlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWATlegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_SWATlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWATlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWATlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWATlegs" animsurface="RGMCSTAB" />
@@ -685,6 +705,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Zylonlegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Zylonlegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="ZylonPantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Zylonlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Zylonlegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="ZylonPants" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Zylonlegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Zylonlegs" animsurface="RGMCROUCH_P_RDY" />
@@ -704,6 +728,7 @@
 			<Surface name="RGM_HOP_Zylonlegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Zylonlegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Zylonlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Zylonlegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Zylonlegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Zylonlegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Zylonlegs" animsurface="RGMOPEN" />
@@ -762,7 +787,6 @@
 			<Surface name="RGMKNIFE_THROW_Zylonlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Zylonlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Zylonlegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Zylonlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Zylonlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Zylonlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Zylonlegs" animsurface="RGMCSTAB" />
@@ -819,6 +843,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_eod_l" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_eod_l" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="EODpantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_eod_l" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_l" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="EODpants" palette="hats">
 			<Surface name="RGMRIFLE_SWAT_eod_l" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_eod_l" animsurface="RGMCROUCH_R_RDY" />
@@ -838,6 +866,7 @@
 			<Surface name="RGM_HOP_eod_l" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_eod_l" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_eod_l" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_eod_l" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_eod_l" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_eod_l" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_eod_l" animsurface="RGMOPEN" />
@@ -897,7 +926,6 @@
 			<Surface name="RGMKNIFE_THROW_eod_l" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_l" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_l" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_eod_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_l" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_l" animsurface="RGMCSTAB" />
@@ -947,6 +975,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dresslegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Dresslegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Dresslegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dresslegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DressUniformPants" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Dresslegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Dresslegs" animsurface="RGMCROUCH_P_RDY" />
@@ -966,6 +998,7 @@
 			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Dresslegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Dresslegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Dresslegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Dresslegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Dresslegs" animsurface="RGMOPEN" />
@@ -1024,7 +1057,6 @@
 			<Surface name="RGMKNIFE_THROW_Dresslegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dresslegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dresslegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Dresslegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dresslegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dresslegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dresslegs" animsurface="RGMCSTAB" />
@@ -1078,6 +1110,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Kvlrlegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Kvlrlegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="KevlarLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Kvlrlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Kvlrlegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="KevlarLeggings" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Kvlrlegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Kvlrlegs" animsurface="RGMCROUCH_P_RDY" />
@@ -1097,6 +1133,7 @@
 			<Surface name="RGM_HOP_Kvlrlegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Kvlrlegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Kvlrlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Kvlrlegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Kvlrlegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Kvlrlegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Kvlrlegs" animsurface="RGMOPEN" />
@@ -1155,7 +1192,6 @@
 			<Surface name="RGMKNIFE_THROW_Kvlrlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Kvlrlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Kvlrlegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Kvlrlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Kvlrlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Kvlrlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Kvlrlegs" animsurface="RGMCSTAB" />
@@ -1207,6 +1243,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Speclegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Speclegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="SpectraLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Speclegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Speclegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SpectraLeggings" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Speclegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Speclegs" animsurface="RGMCROUCH_P_RDY" />
@@ -1226,6 +1266,7 @@
 			<Surface name="RGM_HOP_Speclegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Speclegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Speclegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Speclegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Speclegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Speclegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Speclegs" animsurface="RGMOPEN" />
@@ -1284,7 +1325,6 @@
 			<Surface name="RGMKNIFE_THROW_Speclegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Speclegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Speclegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Speclegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Speclegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Speclegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Speclegs" animsurface="RGMCSTAB" />
@@ -1336,6 +1376,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Twalegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Twalegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="TwaronLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Twalegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twalegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronLeggings" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Twalegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Twalegs" animsurface="RGMCROUCH_P_RDY" />
@@ -1355,6 +1399,7 @@
 			<Surface name="RGM_HOP_Twalegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Twalegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Twalegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Twalegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Twalegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Twalegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Twalegs" animsurface="RGMOPEN" />
@@ -1413,7 +1458,6 @@
 			<Surface name="RGMKNIFE_THROW_Twalegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twalegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twalegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Twalegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twalegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twalegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twalegs" animsurface="RGMCSTAB" />
@@ -1465,6 +1509,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dynlegs" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Dynlegs" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaLeggingsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Dynlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynlegs" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DyneemaLeggings" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Dynlegs" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Dynlegs" animsurface="RGMCROUCH_P_RDY" />
@@ -1484,6 +1532,7 @@
 			<Surface name="RGM_HOP_Dynlegs" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Dynlegs" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Dynlegs" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Dynlegs" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Dynlegs" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Dynlegs" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Dynlegs" animsurface="RGMOPEN" />
@@ -1542,7 +1591,6 @@
 			<Surface name="RGMKNIFE_THROW_Dynlegs" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynlegs" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynlegs" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Dynlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynlegs" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynlegs" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynlegs" animsurface="RGMCSTAB" />
@@ -1601,6 +1649,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_GHILLIEVEST" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_GHILLIEVEST" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GhillieVestAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_GHILLIEVEST" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEVEST" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GhillieVest" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_SWAT_GHILLIEVEST" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_GHILLIEVEST" animsurface="RGMCROUCH_R_RDY" />
@@ -1620,6 +1672,7 @@
 			<Surface name="RGM_HOP_GHILLIEVEST" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_GHILLIEVEST" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_GHILLIEVEST" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_GHILLIEVEST" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_GHILLIEVEST" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_GHILLIEVEST" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_GHILLIEVEST" animsurface="RGMOPEN" />
@@ -1679,7 +1732,6 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEVEST" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEVEST" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEVEST" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEVEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEVEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEVEST" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEVEST" animsurface="RGMCSTAB" />
@@ -1738,6 +1790,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="CamoLongsleevesAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="CamoLongsleeves" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
@@ -1757,6 +1813,7 @@
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_TORSO_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_TORSO_C" animsurface="RGMOPEN" />
@@ -1816,7 +1873,6 @@
 			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
@@ -1875,6 +1931,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DesertCamoLongsleevesAndBluntMeleeWeapon" palette="DesertlandCamo">
+			<Surface name="RGM_BLUNT_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DesertCamoLongsleeves" palette="DesertlandCamo">
 			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
@@ -1894,6 +1954,7 @@
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_TORSO_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_TORSO_C" animsurface="RGMOPEN" />
@@ -1953,7 +2014,6 @@
 			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
@@ -2012,6 +2072,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO_C" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO_C" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="UrbanCamoLongsleevesAndBluntMeleeWeapon" palette="UrbanlandCamo">
+			<Surface name="RGM_BLUNT_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="UrbanCamoLongsleeves" palette="UrbanlandCamo">
 			<Surface name="RGMRIFLE_SWAT_TORSO_C" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_TORSO_C" animsurface="RGMCROUCH_R_RDY" />
@@ -2031,6 +2095,7 @@
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_TORSO_C" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_TORSO_C" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_TORSO_C" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_TORSO_C" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_TORSO_C" animsurface="RGMOPEN" />
@@ -2090,7 +2155,6 @@
 			<Surface name="RGMKNIFE_THROW_TORSO_C" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_TORSO_C" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_TORSO_C" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_TORSO_C" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_TORSO_C" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_TORSO_C" animsurface="RGMCSTAB" />
@@ -2146,6 +2210,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dressvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Dressvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DressUniformVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Dressvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dressvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DressUniformVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Dressvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Dressvest" animsurface="RGMWALK_R_RDY" />
@@ -2166,6 +2234,7 @@
 			<Surface name="RGM_HOP_Dressvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Dressvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Dressvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Dressvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Dressvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Dressvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Dressvest" animsurface="RGMOPEN" />
@@ -2223,7 +2292,6 @@
 			<Surface name="RGMKNIFE_THROW_Dressvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dressvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dressvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Dressvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dressvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dressvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dressvest" animsurface="RGMCSTAB" />
@@ -2284,6 +2352,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_LSLEEVE" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_LSLEEVE" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="LongsleevesAndBluntMeleeWeapon" >
+			<Surface name="RGM_BLUNT_LSLEEVE" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_LSLEEVE" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Longsleeves" >
 			<Surface name="RGMRIFLE_SWAT_LSLEEVE" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_LSLEEVE" animsurface="RGMCROUCH_R_RDY" />
@@ -2303,6 +2375,7 @@
 			<Surface name="RGM_HOP_LSLEEVE" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_LSLEEVE" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_LSLEEVE" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_LSLEEVE" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_LSLEEVE" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_LSLEEVE" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_LSLEEVE" animsurface="RGMOPEN" />
@@ -2362,7 +2435,6 @@
 			<Surface name="RGMKNIFE_THROW_LSLEEVE" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_LSLEEVE" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_LSLEEVE" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_LSLEEVE" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_LSLEEVE" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_LSLEEVE" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_LSLEEVE" animsurface="RGMCSTAB" />
@@ -2418,6 +2490,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_balaclava" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_balaclava" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BalaclavaAndBluntMeleeWeapon" >
+			<Surface name="RGM_BLUNT_balaclava" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_balaclava" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Balaclava">
 			<Surface name="RGMRIFLE_WALK_CROUCH_balaclava" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_balaclava" animsurface="RGMWALK_R_RDY" />
@@ -2438,6 +2514,7 @@
 			<Surface name="RGM_HOP_balaclava" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_balaclava" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_balaclava" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_balaclava" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_balaclava" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_balaclava" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_balaclava" animsurface="RGMOPEN" />
@@ -2496,7 +2573,6 @@
 			<Surface name="RGMKNIFE_THROW_balaclava" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_balaclava" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_balaclava" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_balaclava" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_balaclava" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_balaclava" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_balaclava" animsurface="RGMCSTAB" />
@@ -2552,6 +2628,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_GHILLIEHOOD" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_GHILLIEHOOD" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GhillieHoodAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_GHILLIEHOOD" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEHOOD" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GhillieHood" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_IDLE_GHILLIEHOOD" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_GHILLIEHOOD" animsurface="RGMBASICWALKING" />
@@ -2571,6 +2651,7 @@
 			<Surface name="RGM_HOP_GHILLIEHOOD" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_GHILLIEHOOD" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_GHILLIEHOOD" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_GHILLIEHOOD" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_GHILLIEHOOD" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_GHILLIEHOOD" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_GHILLIEHOOD" animsurface="RGMOPEN" />
@@ -2630,7 +2711,6 @@
 			<Surface name="RGMKNIFE_THROW_GHILLIEHOOD" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GHILLIEHOOD" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GHILLIEHOOD" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_GHILLIEHOOD" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GHILLIEHOOD" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GHILLIEHOOD" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GHILLIEHOOD" animsurface="RGMCSTAB" />
@@ -2699,6 +2779,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_eod_h" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_eod_h" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="EODhelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_eod_h" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_h" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="EODhelmet" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_eod_h" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_eod_h" animsurface="RGMWALK_R_RDY" />
@@ -2719,6 +2803,7 @@
 			<Surface name="RGM_HOP_eod_h" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_eod_h" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_eod_h" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_eod_h" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_eod_h" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_eod_h" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_eod_h" animsurface="RGMOPEN" />
@@ -2777,7 +2862,6 @@
 			<Surface name="RGMKNIFE_THROW_eod_h" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_h" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_h" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_eod_h" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_h" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_h" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_h" animsurface="RGMCSTAB" />
@@ -2831,6 +2915,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_CAMOHELMET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_CAMOHELMET" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="CamoHelmetAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_CAMOHELMET" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_CAMOHELMET" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingCamoHelmet" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_WALK_CROUCH_CAMOHELMET" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_CAMOHELMET" animsurface="RGMWALK_R_RDY" />
@@ -2851,6 +2939,7 @@
 			<Surface name="RGM_HOP_CAMOHELMET" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_CAMOHELMET" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_CAMOHELMET" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_CAMOHELMET" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_CAMOHELMET" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_CAMOHELMET" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_CAMOHELMET" animsurface="RGMOPEN" />
@@ -2909,7 +2998,6 @@
 			<Surface name="RGMKNIFE_THROW_CAMOHELMET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_CAMOHELMET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_CAMOHELMET" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_CAMOHELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_CAMOHELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_CAMOHELMET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_CAMOHELMET" animsurface="RGMCSTAB" />
@@ -2963,6 +3051,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Steelhelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Steelhelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="SteelHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Steelhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Steelhelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SteelHelmet" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Steelhelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Steelhelm" animsurface="RGMBASICWALKING" />
@@ -2982,6 +3074,7 @@
 			<Surface name="RGM_HOP_Steelhelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Steelhelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Steelhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Steelhelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Steelhelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Steelhelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Steelhelm" animsurface="RGMOPEN" />
@@ -3041,7 +3134,6 @@
 			<Surface name="RGMKNIFE_THROW_Steelhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Steelhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Steelhelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Steelhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Steelhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Steelhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Steelhelm" animsurface="RGMCSTAB" />
@@ -3095,6 +3187,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Kvlrhelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Kvlrhelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="KevlarHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Kvlrhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Kvlrhelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="KevlarHelmet" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Kvlrhelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Kvlrhelm" animsurface="RGMBASICWALKING" />
@@ -3114,6 +3210,7 @@
 			<Surface name="RGM_HOP_Kvlrhelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Kvlrhelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Kvlrhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Kvlrhelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Kvlrhelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Kvlrhelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Kvlrhelm" animsurface="RGMOPEN" />
@@ -3173,7 +3270,6 @@
 			<Surface name="RGMKNIFE_THROW_Kvlrhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Kvlrhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Kvlrhelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Kvlrhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Kvlrhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Kvlrhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Kvlrhelm" animsurface="RGMCSTAB" />
@@ -3227,6 +3323,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Spechelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Spechelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="SpectraHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Spechelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Spechelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SpectraHelmet" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Spechelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Spechelm" animsurface="RGMBASICWALKING" />
@@ -3246,6 +3346,7 @@
 			<Surface name="RGM_HOP_Spechelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Spechelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Spechelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Spechelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Spechelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Spechelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Spechelm" animsurface="RGMOPEN" />
@@ -3305,7 +3406,6 @@
 			<Surface name="RGMKNIFE_THROW_Spechelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Spechelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Spechelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Spechelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Spechelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Spechelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Spechelm" animsurface="RGMCSTAB" />
@@ -3336,7 +3436,7 @@
 			<Surface name="WATER_DUAL_AIM_Spechelm" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_Spechelm" animsurface="RGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="SWATHelmetAndPistol" palette="hats">
+		<LayerProp filter="SWATHelmetAndPistol" palette="swat_blue">
 			<Surface name="RGMPISTOL_WALK_SWAThelm" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMEMPTY_RUN_SWAThelm" animsurface="RGMPISTOL_RUN" />			
 			<Surface name="RGMEMPTY_RUN_SWAThelm" animsurface="RGMNOTHING_RUN" />
@@ -3345,7 +3445,7 @@
 			<Surface name="WATER_PISTOL_WALK_SWAThelm" animsurface="RGMWATER_N_WALK" />
 			<Surface name="WATER_PISTOL_AIM_SWAThelm" animsurface="RGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="SWATHelmetAndRifle" palette="hats">
+		<LayerProp filter="SWATHelmetAndRifle" palette="swat_blue">
 			<Surface name="RGM_RIFLE_OPEN_SWAThelm" animsurface="RGMOPEN" />
 			<Surface name="RGMRIFLE_COWER_SWAThelm" animsurface="RGMCOWER" />
 			<Surface name="RGMRIFLE_PRN_COWER_SWAThelm" animsurface="RGM_COWER_PRONE" />
@@ -3359,7 +3459,11 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_SWAThelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_SWAThelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
-		<LayerProp filter="SWATHelmet" palette="hats">
+		<LayerProp filter="SWATHelmetAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGM_BLUNT_SWAThelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWAThelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
+		<LayerProp filter="SWATHelmet" palette="swat_blue">
 			<Surface name="RGMRIFLE_IDLE_SWAThelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_SWAThelm" animsurface="RGMBASICWALKING" />
 			<Surface name="RGMRUNNING_SWAThelm" animsurface="RGMRUNNING" />
@@ -3378,6 +3482,7 @@
 			<Surface name="RGM_HOP_SWAThelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_SWAThelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_SWAThelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_SWAThelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_SWAThelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_SWAThelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_SWAThelm" animsurface="RGMOPEN" />
@@ -3437,7 +3542,6 @@
 			<Surface name="RGMKNIFE_THROW_SWAThelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWAThelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWAThelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_SWAThelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWAThelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWAThelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWAThelm" animsurface="RGMCSTAB" />
@@ -3491,6 +3595,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Twahelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Twahelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="TwaronHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Twahelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twahelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronHelmet" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Twahelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Twahelm" animsurface="RGMBASICWALKING" />
@@ -3510,6 +3618,7 @@
 			<Surface name="RGM_HOP_Twahelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Twahelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Twahelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Twahelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Twahelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Twahelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Twahelm" animsurface="RGMOPEN" />
@@ -3569,7 +3678,6 @@
 			<Surface name="RGMKNIFE_THROW_Twahelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twahelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twahelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Twahelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twahelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twahelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twahelm" animsurface="RGMCSTAB" />
@@ -3623,6 +3731,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dynhelm" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Dynhelm" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaHelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Dynhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynhelm" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DyneemaHelmet" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Dynhelm" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Dynhelm" animsurface="RGMBASICWALKING" />
@@ -3642,6 +3754,7 @@
 			<Surface name="RGM_HOP_Dynhelm" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Dynhelm" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Dynhelm" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Dynhelm" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Dynhelm" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Dynhelm" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Dynhelm" animsurface="RGMOPEN" />
@@ -3701,7 +3814,6 @@
 			<Surface name="RGMKNIFE_THROW_Dynhelm" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynhelm" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynhelm" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Dynhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynhelm" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynhelm" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynhelm" animsurface="RGMCSTAB" />
@@ -3755,6 +3867,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_HELMET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_HELMET" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HelmetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_HELMET" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_HELMET" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingHelmet" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_HELMET" animsurface="RGMWALK_R_RDY" />
@@ -3775,6 +3891,7 @@
 			<Surface name="RGM_HOP_HELMET" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_HELMET" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_HELMET" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_HELMET" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_HELMET" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_HELMET" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_HELMET" animsurface="RGMOPEN" />
@@ -3833,7 +3950,6 @@
 			<Surface name="RGMKNIFE_THROW_HELMET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_HELMET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_HELMET" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_HELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_HELMET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_HELMET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_HELMET" animsurface="RGMCSTAB" />
@@ -3887,6 +4003,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="RedBeretAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingRedBeret" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
@@ -3906,6 +4026,7 @@
 			<Surface name="RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_BERET" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BERET" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BERET" animsurface="RGMOPEN" />
@@ -3965,7 +4086,6 @@
 			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
@@ -4019,6 +4139,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GreenBeretAndBluntMeleeWeapon" palette="Greenhats">
+			<Surface name="RGM_BLUNT_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingGreenBeret" palette="Greenhats">
 			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
@@ -4038,6 +4162,7 @@
 			<Surface name="RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_BERET" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BERET" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BERET" animsurface="RGMOPEN" />
@@ -4097,7 +4222,6 @@
 			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
@@ -4151,6 +4275,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BERET" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BERET" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BlueBeretAndBluntMeleeWeapon" palette="Bluehats">
+			<Surface name="RGM_BLUNT_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBlueBeret" palette="Bluehats">
 			<Surface name="RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BERET" animsurface="RGMBASICWALKING" />
@@ -4170,6 +4298,7 @@
 			<Surface name="RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_BERET" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BERET" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BERET" animsurface="RGMOPEN" />
@@ -4229,7 +4358,6 @@
 			<Surface name="RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
@@ -4283,6 +4411,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BOONEY" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BOONEY" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HatAndBluntMeleeWeapon" palette="WoodlandCamo">
+			<Surface name="RGM_BLUNT_BOONEY" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BOONEY" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingHat" palette="WoodlandCamo">
 			<Surface name="RGMRIFLE_IDLE_BOONEY" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BOONEY" animsurface="RGMBASICWALKING" />
@@ -4302,6 +4434,7 @@
 			<Surface name="RGM_HOP_BOONEY" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_BOONEY" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_BOONEY" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BOONEY" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BOONEY" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BOONEY" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BOONEY" animsurface="RGMOPEN" />
@@ -4361,7 +4494,6 @@
 			<Surface name="RGMKNIFE_THROW_BOONEY" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BOONEY" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BOONEY" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BOONEY" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BOONEY" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BOONEY" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BOONEY" animsurface="RGMCSTAB" />
@@ -4415,6 +4547,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Ushanka" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Ushanka" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="FurHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Ushanka" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Ushanka" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="FurHat" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Ushanka" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Ushanka" animsurface="RGMBASICWALKING" />
@@ -4434,6 +4570,7 @@
 			<Surface name="RGM_HOP_Ushanka" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Ushanka" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Ushanka" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Ushanka" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Ushanka" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Ushanka" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Ushanka" animsurface="RGMOPEN" />
@@ -4493,7 +4630,6 @@
 			<Surface name="RGMKNIFE_THROW_Ushanka" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Ushanka" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Ushanka" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Ushanka" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Ushanka" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Ushanka" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Ushanka" animsurface="RGMCSTAB" />
@@ -4547,6 +4683,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_UScap" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_UScap" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="USOfficerHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_UScap" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_UScap" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="USOfficerHat" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_UScap" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_UScap" animsurface="RGMBASICWALKING" />
@@ -4566,6 +4706,7 @@
 			<Surface name="RGM_HOP_UScap" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_UScap" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_UScap" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_UScap" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_UScap" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_UScap" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_UScap" animsurface="RGMOPEN" />
@@ -4625,7 +4766,6 @@
 			<Surface name="RGMKNIFE_THROW_UScap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_UScap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_UScap" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_UScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_UScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_UScap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_UScap" animsurface="RGMCSTAB" />
@@ -4679,6 +4819,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_USSRcap" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_USSRcap" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="USSROfficerHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_USSRcap" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_USSRcap" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="USSROfficerHat" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_USSRcap" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_USSRcap" animsurface="RGMBASICWALKING" />
@@ -4698,6 +4842,7 @@
 			<Surface name="RGM_HOP_USSRcap" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_USSRcap" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_USSRcap" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_USSRcap" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_USSRcap" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_USSRcap" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_USSRcap" animsurface="RGMOPEN" />
@@ -4757,7 +4902,6 @@
 			<Surface name="RGMKNIFE_THROW_USSRcap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_USSRcap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_USSRcap" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_USSRcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_USSRcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_USSRcap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_USSRcap" animsurface="RGMCSTAB" />
@@ -4811,6 +4955,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_RUScap" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_RUScap" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="RussianCapAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_RUScap" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_RUScap" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="RussianCap" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_RUScap" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_RUScap" animsurface="RGMBASICWALKING" />
@@ -4830,6 +4978,7 @@
 			<Surface name="RGM_HOP_RUScap" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_RUScap" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_RUScap" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_RUScap" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_RUScap" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_RUScap" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_RUScap" animsurface="RGMOPEN" />
@@ -4889,7 +5038,6 @@
 			<Surface name="RGMKNIFE_THROW_RUScap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_RUScap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_RUScap" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_RUScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_RUScap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_RUScap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_RUScap" animsurface="RGMCSTAB" />
@@ -4943,6 +5091,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Blackcap" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Blackcap" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BlackCapAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Blackcap" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Blackcap" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="BlackCap" palette="hats">
 			<Surface name="RGMRIFLE_IDLE_Blackcap" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_Blackcap" animsurface="RGMBASICWALKING" />
@@ -4962,6 +5114,7 @@
 			<Surface name="RGM_HOP_Blackcap" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Blackcap" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Blackcap" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Blackcap" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Blackcap" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Blackcap" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Blackcap" animsurface="RGMOPEN" />
@@ -5021,7 +5174,6 @@
 			<Surface name="RGMKNIFE_THROW_Blackcap" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Blackcap" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Blackcap" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Blackcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Blackcap" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Blackcap" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Blackcap" animsurface="RGMCSTAB" />
@@ -5075,6 +5227,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BCAP" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BCAP" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BallcapAndBluntMeleeWeapon" >
+			<Surface name="RGM_BLUNT_BCAP" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BCAP" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBallcap" >
 			<Surface name="RGMRIFLE_IDLE_BCAP" animsurface="RGMSTANDING" />
 			<Surface name="RGMBASICWALK_BCAP" animsurface="RGMBASICWALKING" />
@@ -5094,6 +5250,7 @@
 			<Surface name="RGM_HOP_BCAP" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_BCAP" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_BCAP" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BCAP" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BCAP" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BCAP" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BCAP" animsurface="RGMOPEN" />
@@ -5153,7 +5310,6 @@
 			<Surface name="RGMKNIFE_THROW_BCAP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BCAP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BCAP" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BCAP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BCAP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BCAP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BCAP" animsurface="RGMCSTAB" />
@@ -5209,6 +5365,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_NVG" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_NVG" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="NVGAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_NVG" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_NVG" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingNVG" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_NVG" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_NVG" animsurface="RGMWALK_R_RDY" />
@@ -5229,6 +5389,7 @@
 			<Surface name="RGM_HOP_NVG" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_NVG" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_NVG" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_NVG" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_NVG" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_NVG" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_NVG" animsurface="RGMOPEN" />
@@ -5287,7 +5448,6 @@
 			<Surface name="RGMKNIFE_THROW_NVG" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_NVG" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_NVG" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_NVG" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_NVG" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_NVG" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_NVG" animsurface="RGMCSTAB" />
@@ -5341,6 +5501,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Goggles" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Goggles" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GogglesAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Goggles" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Goggles" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Goggles" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Goggles" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Goggles" animsurface="RGMWALK_R_RDY" />
@@ -5361,6 +5525,7 @@
 			<Surface name="RGM_HOP_Goggles" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Goggles" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Goggles" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Goggles" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Goggles" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Goggles" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Goggles" animsurface="RGMOPEN" />
@@ -5419,7 +5584,6 @@
 			<Surface name="RGMKNIFE_THROW_Goggles" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Goggles" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Goggles" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Goggles" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Goggles" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Goggles" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Goggles" animsurface="RGMCSTAB" />
@@ -5475,6 +5639,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_GMASK" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_GMASK" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GasmaskAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_GMASK" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_GMASK" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingGasmask" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_GMASK" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_GMASK" animsurface="RGMWALK_R_RDY" />
@@ -5495,6 +5663,7 @@
 			<Surface name="RGM_HOP_GMASK" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_GMASK" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_GMASK" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_GMASK" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_GMASK" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_GMASK" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_GMASK" animsurface="RGMOPEN" />
@@ -5553,7 +5722,6 @@
 			<Surface name="RGMKNIFE_THROW_GMASK" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_GMASK" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_GMASK" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_GMASK" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_GMASK" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_GMASK" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_GMASK" animsurface="RGMCSTAB" />
@@ -5609,6 +5777,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Headset" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Headset" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HeadSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Headset" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Headset" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="HeadSet" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Headset" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Headset" animsurface="RGMWALK_R_RDY" />
@@ -5629,6 +5801,7 @@
 			<Surface name="RGM_HOP_Headset" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Headset" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Headset" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Headset" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Headset" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Headset" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Headset" animsurface="RGMOPEN" />
@@ -5687,7 +5860,6 @@
 			<Surface name="RGMKNIFE_THROW_Headset" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Headset" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Headset" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Headset" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Headset" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Headset" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Headset" animsurface="RGMCSTAB" />
@@ -5745,6 +5917,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_eod_v" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_eod_v" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="EODvestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_eod_v" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_eod_v" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="EODvest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_eod_v" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_eod_v" animsurface="RGMWALK_R_RDY" />
@@ -5765,6 +5941,7 @@
 			<Surface name="RGM_HOP_eod_v" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_eod_v" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_eod_v" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_eod_v" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_eod_v" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_eod_v" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_eod_v" animsurface="RGMOPEN" />
@@ -5822,7 +5999,6 @@
 			<Surface name="RGMKNIFE_THROW_eod_v" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_eod_v" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_eod_v" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_eod_v" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_eod_v" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_eod_v" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_eod_v" animsurface="RGMCSTAB" />
@@ -5853,7 +6029,7 @@
 			<Surface name="WATER_DUAL_AIM_eod_v" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_eod_v" animsurface="RGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraAndHasPistol" palette="hats">
+		<LayerProp filter="IsWearingSpectraVestAndHasPistol" palette="hats">
 			<Surface name="RGMPISTOL_IDLE_spectra" animsurface="RGMPISTOLBREATH" />
 			<Surface name="RGMPISTOL_WALK_spectra" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMPISTOL_RDY_WALK_spectra" animsurface="RGMWALK_P_RDY" />
@@ -5864,7 +6040,7 @@
 			<Surface name="WATER_PISTOL_WALK_spectra" animsurface="RGMWATER_N_WALK" />
 			<Surface name="WATER_PISTOL_AIM_spectra" animsurface="RGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraAndHasRifle" palette="hats">
+		<LayerProp filter="IsWearingSpectraVestAndHasRifle" palette="hats">
 			<Surface name="RGM_RIFLE_OPEN_spectra" animsurface="RGMOPEN" />
 			<Surface name="RGMRIFLE_COWER_spectra" animsurface="RGMCOWER" />
 			<Surface name="RGMRIFLE_PRN_COWER_spectra" animsurface="RGM_COWER_PRONE" />
@@ -5877,6 +6053,10 @@
 			<Surface name="RGMRIFLE_HIP_LOW_spectra" animsurface="RGM_HIP_LOW" />
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_spectra" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_spectra" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="SpectraVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_spectra" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_spectra" animsurface="RGMPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="SpectraVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_spectra" animsurface="RGMCROUCH_R_RDY" />
@@ -5898,6 +6078,7 @@
 			<Surface name="RGM_HOP_spectra" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_spectra" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_spectra" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_spectra" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_spectra" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_spectra" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_spectra" animsurface="RGMOPEN" />
@@ -5955,7 +6136,6 @@
 			<Surface name="RGMKNIFE_THROW_spectra" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_spectra" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_spectra" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_spectra" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_spectra" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_spectra" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_spectra" animsurface="RGMCSTAB" />
@@ -5986,7 +6166,7 @@
 			<Surface name="WATER_DUAL_AIM_spectra" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_spectra" animsurface="RGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarAndHasPistol" palette="hats">
+		<LayerProp filter="IsWearingKevlarVestAndHasPistol" palette="hats">
 			<Surface name="RGMPISTOL_IDLE_kevlar" animsurface="RGMPISTOLBREATH" />
 			<Surface name="RGMPISTOL_WALK_kevlar" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMPISTOL_RDY_WALK_kevlar" animsurface="RGMWALK_P_RDY" />
@@ -5997,7 +6177,7 @@
 			<Surface name="WATER_PISTOL_WALK_kevlar" animsurface="RGMWATER_N_WALK" />
 			<Surface name="WATER_PISTOL_AIM_kevlar" animsurface="RGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarAndHasRifle" palette="hats">
+		<LayerProp filter="IsWearingKevlarVestAndHasRifle" palette="hats">
 			<Surface name="RGM_RIFLE_OPEN_kevlar" animsurface="RGMOPEN" />
 			<Surface name="RGMRIFLE_COWER_kevlar" animsurface="RGMCOWER" />
 			<Surface name="RGMRIFLE_PRN_COWER_kevlar" animsurface="RGM_COWER_PRONE" />
@@ -6010,6 +6190,10 @@
 			<Surface name="RGMRIFLE_HIP_LOW_kevlar" animsurface="RGM_HIP_LOW" />
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_kevlar" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_kevlar" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="KevlarVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_kevlar" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_kevlar" animsurface="RGMPUNCHLOW" />
 		</LayerProp>
 		<LayerProp filter="KevlarVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_kevlar" animsurface="RGMCROUCH_R_RDY" />
@@ -6031,6 +6215,7 @@
 			<Surface name="RGM_HOP_kevlar" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_kevlar" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_kevlar" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_kevlar" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_kevlar" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_kevlar" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_kevlar" animsurface="RGMOPEN" />
@@ -6088,7 +6273,6 @@
 			<Surface name="RGMKNIFE_THROW_kevlar" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_kevlar" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_kevlar" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_kevlar" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_kevlar" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_kevlar" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_kevlar" animsurface="RGMCSTAB" />
@@ -6144,6 +6328,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Flakvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Flakvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="FlakVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Flakvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Flakvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="FlakVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Flakvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Flakvest" animsurface="RGMWALK_R_RDY" />
@@ -6164,6 +6352,7 @@
 			<Surface name="RGM_HOP_Flakvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Flakvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Flakvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Flakvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Flakvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Flakvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Flakvest" animsurface="RGMOPEN" />
@@ -6221,7 +6410,6 @@
 			<Surface name="RGMKNIFE_THROW_Flakvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Flakvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Flakvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Flakvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Flakvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Flakvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Flakvest" animsurface="RGMCSTAB" />
@@ -6277,6 +6465,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Guardvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Guardvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Guardvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Guardvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="GuardianVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Guardvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Guardvest" animsurface="RGMWALK_R_RDY" />
@@ -6297,6 +6489,7 @@
 			<Surface name="RGM_HOP_Guardvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Guardvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Guardvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Guardvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Guardvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Guardvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Guardvest" animsurface="RGMOPEN" />
@@ -6354,7 +6547,6 @@
 			<Surface name="RGMKNIFE_THROW_Guardvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Guardvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Guardvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Guardvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Guardvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Guardvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Guardvest" animsurface="RGMCSTAB" />
@@ -6410,6 +6602,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_SWATvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_SWATvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="SWATVestAndBluntMeleeWeapon" palette="swat_blue">
+			<Surface name="RGM_BLUNT_SWATvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_SWATvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="SWATVest" palette="swat_blue">
 			<Surface name="RGMRIFLE_WALK_CROUCH_SWATvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_SWATvest" animsurface="RGMWALK_R_RDY" />
@@ -6430,6 +6626,7 @@
 			<Surface name="RGM_HOP_SWATvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_SWATvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_SWATvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_SWATvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_SWATvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_SWATvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_SWATvest" animsurface="RGMOPEN" />
@@ -6487,7 +6684,6 @@
 			<Surface name="RGMKNIFE_THROW_SWATvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_SWATvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_SWATvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_SWATvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_SWATvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_SWATvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_SWATvest" animsurface="RGMCSTAB" />
@@ -6543,6 +6739,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Zylonvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Zylonvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="ZylonVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Zylonvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Zylonvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="ZylonVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Zylonvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Zylonvest" animsurface="RGMWALK_R_RDY" />
@@ -6563,6 +6763,7 @@
 			<Surface name="RGM_HOP_Zylonvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Zylonvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Zylonvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Zylonvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Zylonvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Zylonvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Zylonvest" animsurface="RGMOPEN" />
@@ -6620,7 +6821,6 @@
 			<Surface name="RGMKNIFE_THROW_Zylonvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Zylonvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Zylonvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Zylonvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Zylonvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Zylonvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Zylonvest" animsurface="RGMCSTAB" />
@@ -6676,6 +6876,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Twavest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Twavest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="TwaronVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Twavest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Twavest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="TwaronVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Twavest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Twavest" animsurface="RGMWALK_R_RDY" />
@@ -6696,6 +6900,7 @@
 			<Surface name="RGM_HOP_Twavest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Twavest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Twavest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Twavest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Twavest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Twavest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Twavest" animsurface="RGMOPEN" />
@@ -6753,7 +6958,6 @@
 			<Surface name="RGMKNIFE_THROW_Twavest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Twavest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Twavest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Twavest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Twavest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Twavest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Twavest" animsurface="RGMCSTAB" />
@@ -6809,6 +7013,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Dynvest" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Dynvest" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaVestAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Dynvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Dynvest" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="DyneemaVest" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Dynvest" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_Dynvest" animsurface="RGMWALK_R_RDY" />
@@ -6829,6 +7037,7 @@
 			<Surface name="RGM_HOP_Dynvest" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_Dynvest" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_Dynvest" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Dynvest" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Dynvest" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Dynvest" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Dynvest" animsurface="RGMOPEN" />
@@ -6886,7 +7095,6 @@
 			<Surface name="RGMKNIFE_THROW_Dynvest" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Dynvest" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Dynvest" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Dynvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Dynvest" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Dynvest" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Dynvest" animsurface="RGMCSTAB" />
@@ -6942,6 +7150,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_VEST" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_VEST" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="FlakJacketAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_VEST" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_VEST" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="FlakJacket" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_VEST" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGMRIFLE_WALK_VEST" animsurface="RGMWALK_R_RDY" />
@@ -6962,6 +7174,7 @@
 			<Surface name="RGM_HOP_VEST" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_VEST" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_VEST" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_VEST" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_VEST" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_VEST" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_VEST" animsurface="RGMOPEN" />
@@ -7019,7 +7232,6 @@
 			<Surface name="RGMKNIFE_THROW_VEST" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_VEST" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_VEST" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_VEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_VEST" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_VEST" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_VEST" animsurface="RGMCSTAB" />
@@ -7076,6 +7288,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Bigradio" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Bigradio" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BigRadioSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Bigradio" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Bigradio" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBigRadioSet" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Bigradio" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Bigradio" animsurface="RGMCROUCH_P_RDY" />
@@ -7093,6 +7309,7 @@
 			<Surface name="RGMRIFLE_CR_AIM_Bigradio" animsurface="RGMCROUCHAIM" />
 			<Surface name="RGMRIFLE_PRONE_Bigradio" animsurface="RGMPRONE" />
 			<Surface name="RGM_PUNCH_Bigradio" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Bigradio" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Bigradio" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Bigradio" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Bigradio" animsurface="RGMOPEN" />
@@ -7151,7 +7368,6 @@
 			<Surface name="RGMKNIFE_THROW_Bigradio" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Bigradio" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Bigradio" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Bigradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Bigradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Bigradio" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Bigradio" animsurface="RGMCSTAB" />
@@ -7207,6 +7423,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_Medradio" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_Medradio" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="MedRadioSetAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Medradio" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Medradio" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingMedRadioSet" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_Medradio" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_Medradio" animsurface="RGMCROUCH_P_RDY" />
@@ -7224,6 +7444,7 @@
 			<Surface name="RGMRIFLE_CR_AIM_Medradio" animsurface="RGMCROUCHAIM" />
 			<Surface name="RGMRIFLE_PRONE_Medradio" animsurface="RGMPRONE" />
 			<Surface name="RGM_PUNCH_Medradio" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Medradio" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_Medradio" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_Medradio" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_Medradio" animsurface="RGMOPEN" />
@@ -7282,7 +7503,6 @@
 			<Surface name="RGMKNIFE_THROW_Medradio" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_Medradio" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_Medradio" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_Medradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_Medradio" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_Medradio" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_Medradio" animsurface="RGMCSTAB" />
@@ -7337,6 +7557,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_CP" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_CP" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="CombatPackAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_CP" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_CP" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingCombatPack" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_CP" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_CP" animsurface="RGMCROUCH_P_RDY" />
@@ -7354,6 +7578,7 @@
 			<Surface name="RGMRIFLE_CR_AIM_CP" animsurface="RGMCROUCHAIM" />
 			<Surface name="RGMRIFLE_PRONE_CP" animsurface="RGMPRONE" />
 			<Surface name="RGM_PUNCH_CP" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_CP" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_CP" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_CP" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_CP" animsurface="RGMOPEN" />
@@ -7412,7 +7637,6 @@
 			<Surface name="RGMKNIFE_THROW_CP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_CP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_CP" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_CP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_CP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_CP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_CP" animsurface="RGMCSTAB" />
@@ -7467,6 +7691,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_BP" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_BP" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="BackpackAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_BP" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_BP" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBackpack" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_BP" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_BP" animsurface="RGMCROUCH_P_RDY" />
@@ -7484,6 +7712,7 @@
 			<Surface name="RGMRIFLE_CR_AIM_BP" animsurface="RGMCROUCHAIM" />
 			<Surface name="RGMRIFLE_PRONE_BP" animsurface="RGMPRONE" />
 			<Surface name="RGM_PUNCH_BP" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_BP" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_BP" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_BP" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_BP" animsurface="RGMOPEN" />
@@ -7542,7 +7771,6 @@
 			<Surface name="RGMKNIFE_THROW_BP" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_BP" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_BP" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_BP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_BP" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_BP" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_BP" animsurface="RGMCSTAB" />
@@ -7599,6 +7827,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_holster" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_holster" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HolsterAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_holster" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_holster" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="Holster" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_holster" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_holster" animsurface="RGMCROUCH_P_RDY" />
@@ -7618,6 +7850,7 @@
 			<Surface name="RGM_HOP_holster" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_holster" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_holster" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_holster" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_holster" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_holster" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_holster" animsurface="RGMOPEN" />
@@ -7676,7 +7909,6 @@
 			<Surface name="RGMKNIFE_THROW_holster" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_holster" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_holster" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_holster" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_holster" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_holster" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_holster" animsurface="RGMCSTAB" />
@@ -7730,6 +7962,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_holster_l" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_holster_l" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="LeftHolsterAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_holster_l" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_holster_l" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="HolsterLeft" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_holster_l" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_holster_l" animsurface="RGMCROUCH_P_RDY" />
@@ -7749,6 +7985,7 @@
 			<Surface name="RGM_HOP_holster_l" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_holster_l" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_holster_l" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_holster_l" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_holster_l" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_holster_l" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_holster_l" animsurface="RGMOPEN" />
@@ -7807,7 +8044,6 @@
 			<Surface name="RGMKNIFE_THROW_holster_l" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_holster_l" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_holster_l" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_holster_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_holster_l" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_holster_l" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_holster_l" animsurface="RGMCSTAB" />
@@ -7861,6 +8097,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_PADS" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_PADS" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="KneepadsAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_PADS" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_PADS" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="HasKneepads" palette="hats">
 			<Surface name="RGMRIFLE_WALK_CROUCH_PADS" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="RGM_CROUCHWALK_PADS" animsurface="RGMCROUCH_P_RDY" />
@@ -7880,6 +8120,7 @@
 			<Surface name="RGM_HOP_PADS" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_PADS" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_PADS" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_PADS" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_PADS" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_PADS" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_PADS" animsurface="RGMOPEN" />
@@ -7938,7 +8179,6 @@
 			<Surface name="RGMKNIFE_THROW_PADS" animsurface="RGMTHROWKNIFE" />
 			<Surface name="RGMKNIFE_BREATH_PADS" animsurface="RGMBREATHKNIFE" />
 			<Surface name="RGMCROWBAR_HIT_PADS" animsurface="RGMCROWBAR" />
-			<Surface name="RGMCROWBAR_CR_HIT_PADS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CPUNCH_PADS" animsurface="RGMPUNCHLOW" />
 			<Surface name="RGMEMPTY_CTHROW_PADS" animsurface="RGMCRTHROW" />
 			<Surface name="RGMKNIFE_CSTAB_PADS" animsurface="RGMCSTAB" />

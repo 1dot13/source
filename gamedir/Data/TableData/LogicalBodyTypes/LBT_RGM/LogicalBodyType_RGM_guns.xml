@@ -10262,7 +10262,7 @@
 			<Surface name="RGMEMPTY_DODGE_baton" animsurface="RGMDODGE" />
 			<Surface name="RGMCROWBAR_HIT_baton" animsurface="RGMCROWBAR" />
 			<Surface name="RGMCROWBAR_CR_HIT_baton" animsurface="RGMPUNCHLOW" />
-			<Surface name="RGM_PUNCH_baton" animsurface="RGMPUNCH" />
+			<Surface name="RGM_BLUNT_baton" animsurface="RGMPUNCH" />
 		</LayerProp>
 		<LayerProp filter="HasShovelInHand" palette="guns_v2">
 			<Surface name="RGMEMPTY_IDLE_shovel" animsurface="RGMNOTHING_STD" />
@@ -10277,7 +10277,7 @@
 			<Surface name="RGMEMPTY_DODGE_shovel" animsurface="RGMDODGE" />
 			<Surface name="RGMCROWBAR_HIT_shovel" animsurface="RGMCROWBAR" />
 			<Surface name="RGMCROWBAR_CR_HIT_shovel" animsurface="RGMPUNCHLOW" />
-			<Surface name="RGM_PUNCH_shovel" animsurface="RGMPUNCH" />
+			<Surface name="RGM_BLUNT_shovel" animsurface="RGMPUNCH" />
 		</LayerProp>
 		<LayerProp filter="HasPipeWrenchInHand" palette="guns_v2">
 			<Surface name="RGMEMPTY_IDLE_wrench" animsurface="RGMNOTHING_STD" />
@@ -10292,7 +10292,7 @@
 			<Surface name="RGMEMPTY_DODGE_wrench" animsurface="RGMDODGE" />
 			<Surface name="RGMCROWBAR_HIT_wrench" animsurface="RGMCROWBAR" />
 			<Surface name="RGMCROWBAR_CR_HIT_wrench" animsurface="RGMPUNCHLOW" />
-			<Surface name="RGM_PUNCH_wrench" animsurface="RGMPUNCH" />
+			<Surface name="RGM_BLUNT_wrench" animsurface="RGMPUNCH" />
 		</LayerProp>
 		<LayerProp filter="HasCrowbarInHand" palette="guns_v2">
 			<Surface name="RGMEMPTY_IDLE_CROWBAR" animsurface="RGMNOTHING_STD" />

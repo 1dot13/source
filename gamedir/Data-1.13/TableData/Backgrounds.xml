@@ -5140,7 +5140,7 @@
 		<uiIndex>271</uiIndex>
 		<szName>Intelligence Agent</szName>
 		<szShortName>Agent</szShortName>
-		<szDescription>You were recruited, thoroughly trained and employed by an unspecified intelligence&#10;agency in your country of origin. That's all in the past, though, these&#10;days you're a freelancer with no remaining ties to any government...&#10;At least, that's what you claim yourself.</szDescription>
+		<szDescription>You were recruited, thoroughly trained and employed by an unspecified intelligence&#10;agency in your country of origin. That's all in the past, though, these days&#10;you're a freelancer with no remaining ties to any government... allegedly.</szDescription>
 		<mechanical>2</mechanical>
 		<wisdom>2</wisdom>
 		<explosives>2</explosives>
@@ -5461,7 +5461,7 @@
 		<uiIndex>290</uiIndex>
 		<szName>Arulcan Ultranationalist</szName>
 		<szShortName>Ultranationalist</szShortName>
-		<szDescription>This is your country, your land, your people, and you have pledged&#10;your life to free them. While your vision for Arulco's future is much more radical&#10;than Chivaldori's or Cordona's, you can work with them...&#10;at least until the Queen's dead and buried.</szDescription>
+		<szDescription>This is your country, your land, your people, and you have pledged your&#10;life to free them. While your vision for Arulco's future is much more radical&#10;than Chivaldori's or Cordona's, you can work with them... at least&#10;until the Queen's dead and buried.</szDescription>
 		<ap_swamp>4</ap_swamp>
 		<ap_urban>4</ap_urban>
 		<ap_forest>4</ap_forest>
@@ -5746,7 +5746,7 @@
 		<uiIndex>306</uiIndex>
 		<szName>Surgeon</szName>
 		<szShortName>Surgeon</szShortName>
-		<szDescription>Everyone can cut human flesh - but sewing it back&#10;is a quest for the best, and you're one of them.</szDescription>
+		<szDescription>Anyone can cut human flesh - but sewing it back&#10;is a quest for the best, and you're one of them.</szDescription>
 		<medical>6</medical>
 		<dexterity>5</dexterity>
 		<ap_fortify>10</ap_fortify>
@@ -5923,7 +5923,7 @@
 		<uiIndex>318</uiIndex>
 		<szName>University Graduate</szName>
 		<szShortName>Graduate</szShortName>
-		<szDescription>Fresh out of university, with a diploma still warm in hand,&#10;it's time to finally make yourself a living. Your education didn't include a single&#10;course on mercenary skills, but you're a quick study, you'll&#10;surely become an expert in no time at all.</szDescription>
+		<szDescription>Fresh out of university, with a diploma still warm in hand, it's time&#10;to finally make yourself a living. Your education didn't include a single&#10;course on mercenary skills, but you're a quick study, you'll surely&#10;become an expert in no time at all.</szDescription>
 		<wisdom>5</wisdom>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>

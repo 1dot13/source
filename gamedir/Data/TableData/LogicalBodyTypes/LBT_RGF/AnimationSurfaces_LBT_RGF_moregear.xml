@@ -25,6 +25,7 @@
 <AnimSurface name="RGF_HOP_Ushanka" file="Anims\LOBOT\RGF\F_HOP_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Ushanka" file="Anims\LOBOT\RGF\F_CLIMB_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Ushanka" file="Anims\LOBOT\RGF\F_PUNCH_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Ushanka" file="Anims\LOBOT\RGF\F_BLUNT_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Ushanka" file="Anims\LOBOT\RGF\F_N_STD_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Ushanka" file="Anims\LOBOT\RGF\F_OPEN_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Ushanka" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Ushanka.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -145,6 +146,7 @@
 <AnimSurface name="RGF_HOP_UScap" file="Anims\LOBOT\RGF\F_HOP_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_UScap" file="Anims\LOBOT\RGF\F_CLIMB_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_UScap" file="Anims\LOBOT\RGF\F_PUNCH_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_UScap" file="Anims\LOBOT\RGF\F_BLUNT_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_UScap" file="Anims\LOBOT\RGF\F_N_STD_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_UScap" file="Anims\LOBOT\RGF\F_OPEN_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_UScap" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_UScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -265,6 +267,7 @@
 <AnimSurface name="RGF_HOP_USSRcap" file="Anims\LOBOT\RGF\F_HOP_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_USSRcap" file="Anims\LOBOT\RGF\F_CLIMB_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_USSRcap" file="Anims\LOBOT\RGF\F_PUNCH_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_USSRcap" file="Anims\LOBOT\RGF\F_BLUNT_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_USSRcap" file="Anims\LOBOT\RGF\F_N_STD_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_USSRcap" file="Anims\LOBOT\RGF\F_OPEN_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_USSRcap" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_USSRcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -385,6 +388,7 @@
 <AnimSurface name="RGF_HOP_RUScap" file="Anims\LOBOT\RGF\F_HOP_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_RUScap" file="Anims\LOBOT\RGF\F_CLIMB_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_RUScap" file="Anims\LOBOT\RGF\F_PUNCH_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_RUScap" file="Anims\LOBOT\RGF\F_BLUNT_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_RUScap" file="Anims\LOBOT\RGF\F_N_STD_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_RUScap" file="Anims\LOBOT\RGF\F_OPEN_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_RUScap" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_RUScap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -505,6 +509,7 @@
 <AnimSurface name="RGF_HOP_Blackcap" file="Anims\LOBOT\RGF\F_HOP_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Blackcap" file="Anims\LOBOT\RGF\F_CLIMB_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Blackcap" file="Anims\LOBOT\RGF\F_PUNCH_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Blackcap" file="Anims\LOBOT\RGF\F_BLUNT_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Blackcap" file="Anims\LOBOT\RGF\F_N_STD_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Blackcap" file="Anims\LOBOT\RGF\F_OPEN_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Blackcap" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Blackcap.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -625,6 +630,7 @@
 <AnimSurface name="RGF_HOP_Steelhelm" file="Anims\LOBOT\RGF\F_HOP_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Steelhelm" file="Anims\LOBOT\RGF\F_CLIMB_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Steelhelm" file="Anims\LOBOT\RGF\F_PUNCH_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Steelhelm" file="Anims\LOBOT\RGF\F_BLUNT_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Steelhelm" file="Anims\LOBOT\RGF\F_N_STD_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Steelhelm" file="Anims\LOBOT\RGF\F_OPEN_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Steelhelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Steelhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -745,6 +751,7 @@
 <AnimSurface name="RGF_HOP_Kvlrhelm" file="Anims\LOBOT\RGF\F_HOP_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Kvlrhelm" file="Anims\LOBOT\RGF\F_CLIMB_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Kvlrhelm" file="Anims\LOBOT\RGF\F_PUNCH_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Kvlrhelm" file="Anims\LOBOT\RGF\F_BLUNT_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Kvlrhelm" file="Anims\LOBOT\RGF\F_N_STD_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Kvlrhelm" file="Anims\LOBOT\RGF\F_OPEN_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Kvlrhelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Kvlrhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -865,6 +872,7 @@
 <AnimSurface name="RGF_HOP_Spechelm" file="Anims\LOBOT\RGF\F_HOP_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Spechelm" file="Anims\LOBOT\RGF\F_CLIMB_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Spechelm" file="Anims\LOBOT\RGF\F_PUNCH_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Spechelm" file="Anims\LOBOT\RGF\F_BLUNT_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Spechelm" file="Anims\LOBOT\RGF\F_N_STD_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Spechelm" file="Anims\LOBOT\RGF\F_OPEN_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Spechelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Spechelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -985,6 +993,7 @@
 <AnimSurface name="RGF_HOP_SWAThelm" file="Anims\LOBOT\RGF\F_HOP_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_SWAThelm" file="Anims\LOBOT\RGF\F_CLIMB_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_SWAThelm" file="Anims\LOBOT\RGF\F_PUNCH_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_SWAThelm" file="Anims\LOBOT\RGF\F_BLUNT_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_SWAThelm" file="Anims\LOBOT\RGF\F_N_STD_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_SWAThelm" file="Anims\LOBOT\RGF\F_OPEN_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_SWAThelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_SWAThelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1105,6 +1114,7 @@
 <AnimSurface name="RGF_HOP_Twahelm" file="Anims\LOBOT\RGF\F_HOP_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Twahelm" file="Anims\LOBOT\RGF\F_CLIMB_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Twahelm" file="Anims\LOBOT\RGF\F_PUNCH_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Twahelm" file="Anims\LOBOT\RGF\F_BLUNT_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Twahelm" file="Anims\LOBOT\RGF\F_N_STD_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Twahelm" file="Anims\LOBOT\RGF\F_OPEN_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Twahelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Twahelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1225,6 +1235,7 @@
 <AnimSurface name="RGF_HOP_Dynhelm" file="Anims\LOBOT\RGF\F_HOP_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Dynhelm" file="Anims\LOBOT\RGF\F_CLIMB_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Dynhelm" file="Anims\LOBOT\RGF\F_PUNCH_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Dynhelm" file="Anims\LOBOT\RGF\F_BLUNT_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Dynhelm" file="Anims\LOBOT\RGF\F_N_STD_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Dynhelm" file="Anims\LOBOT\RGF\F_OPEN_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Dynhelm" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Dynhelm.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1345,6 +1356,7 @@
 <AnimSurface name="RGF_HOP_Goggles" file="Anims\LOBOT\RGF\F_HOP_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Goggles" file="Anims\LOBOT\RGF\F_CLIMB_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Goggles" file="Anims\LOBOT\RGF\F_PUNCH_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Goggles" file="Anims\LOBOT\RGF\F_BLUNT_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Goggles" file="Anims\LOBOT\RGF\F_N_STD_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Goggles" file="Anims\LOBOT\RGF\F_OPEN_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Goggles" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Goggles.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1465,6 +1477,7 @@
 <AnimSurface name="RGF_HOP_Headset" file="Anims\LOBOT\RGF\F_HOP_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Headset" file="Anims\LOBOT\RGF\F_CLIMB_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Headset" file="Anims\LOBOT\RGF\F_PUNCH_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Headset" file="Anims\LOBOT\RGF\F_BLUNT_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Headset" file="Anims\LOBOT\RGF\F_N_STD_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Headset" file="Anims\LOBOT\RGF\F_OPEN_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Headset" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Headset.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1585,6 +1598,7 @@
 <AnimSurface name="RGF_HOP_Flakvest" file="Anims\LOBOT\RGF\F_HOP_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Flakvest" file="Anims\LOBOT\RGF\F_CLIMB_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Flakvest" file="Anims\LOBOT\RGF\F_PUNCH_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Flakvest" file="Anims\LOBOT\RGF\F_BLUNT_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Flakvest" file="Anims\LOBOT\RGF\F_N_STD_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Flakvest" file="Anims\LOBOT\RGF\F_OPEN_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Flakvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Flakvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1705,6 +1719,7 @@
 <AnimSurface name="RGF_HOP_Guardvest" file="Anims\LOBOT\RGF\F_HOP_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Guardvest" file="Anims\LOBOT\RGF\F_CLIMB_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Guardvest" file="Anims\LOBOT\RGF\F_PUNCH_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Guardvest" file="Anims\LOBOT\RGF\F_BLUNT_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Guardvest" file="Anims\LOBOT\RGF\F_N_STD_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Guardvest" file="Anims\LOBOT\RGF\F_OPEN_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Guardvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Guardvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1825,6 +1840,7 @@
 <AnimSurface name="RGF_HOP_SWATvest" file="Anims\LOBOT\RGF\F_HOP_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_SWATvest" file="Anims\LOBOT\RGF\F_CLIMB_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_SWATvest" file="Anims\LOBOT\RGF\F_PUNCH_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_SWATvest" file="Anims\LOBOT\RGF\F_BLUNT_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_SWATvest" file="Anims\LOBOT\RGF\F_N_STD_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_SWATvest" file="Anims\LOBOT\RGF\F_OPEN_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_SWATvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_SWATvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -1945,6 +1961,7 @@
 <AnimSurface name="RGF_HOP_Zylonvest" file="Anims\LOBOT\RGF\F_HOP_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Zylonvest" file="Anims\LOBOT\RGF\F_CLIMB_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Zylonvest" file="Anims\LOBOT\RGF\F_PUNCH_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Zylonvest" file="Anims\LOBOT\RGF\F_BLUNT_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Zylonvest" file="Anims\LOBOT\RGF\F_N_STD_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Zylonvest" file="Anims\LOBOT\RGF\F_OPEN_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Zylonvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Zylonvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2065,6 +2082,7 @@
 <AnimSurface name="RGF_HOP_Twavest" file="Anims\LOBOT\RGF\F_HOP_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Twavest" file="Anims\LOBOT\RGF\F_CLIMB_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Twavest" file="Anims\LOBOT\RGF\F_PUNCH_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Twavest" file="Anims\LOBOT\RGF\F_BLUNT_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Twavest" file="Anims\LOBOT\RGF\F_N_STD_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Twavest" file="Anims\LOBOT\RGF\F_OPEN_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Twavest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Twavest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2185,6 +2203,7 @@
 <AnimSurface name="RGF_HOP_Dynvest" file="Anims\LOBOT\RGF\F_HOP_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Dynvest" file="Anims\LOBOT\RGF\F_CLIMB_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Dynvest" file="Anims\LOBOT\RGF\F_PUNCH_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Dynvest" file="Anims\LOBOT\RGF\F_BLUNT_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Dynvest" file="Anims\LOBOT\RGF\F_N_STD_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Dynvest" file="Anims\LOBOT\RGF\F_OPEN_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Dynvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Dynvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2305,6 +2324,7 @@
 <AnimSurface name="RGF_HOP_Dressvest" file="Anims\LOBOT\RGF\F_HOP_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Dressvest" file="Anims\LOBOT\RGF\F_CLIMB_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Dressvest" file="Anims\LOBOT\RGF\F_PUNCH_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Dressvest" file="Anims\LOBOT\RGF\F_BLUNT_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Dressvest" file="Anims\LOBOT\RGF\F_N_STD_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Dressvest" file="Anims\LOBOT\RGF\F_OPEN_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Dressvest" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Dressvest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2425,6 +2445,7 @@
 <AnimSurface name="RGF_HOP_Kvlrlegs" file="Anims\LOBOT\RGF\F_HOP_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Kvlrlegs" file="Anims\LOBOT\RGF\F_CLIMB_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Kvlrlegs" file="Anims\LOBOT\RGF\F_PUNCH_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Kvlrlegs" file="Anims\LOBOT\RGF\F_BLUNT_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Kvlrlegs" file="Anims\LOBOT\RGF\F_N_STD_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Kvlrlegs" file="Anims\LOBOT\RGF\F_OPEN_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Kvlrlegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Kvlrlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2542,6 +2563,7 @@
 <AnimSurface name="RGF_HOP_Speclegs" file="Anims\LOBOT\RGF\F_HOP_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Speclegs" file="Anims\LOBOT\RGF\F_CLIMB_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Speclegs" file="Anims\LOBOT\RGF\F_PUNCH_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Speclegs" file="Anims\LOBOT\RGF\F_BLUNT_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Speclegs" file="Anims\LOBOT\RGF\F_N_STD_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Speclegs" file="Anims\LOBOT\RGF\F_OPEN_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Speclegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Speclegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2659,6 +2681,7 @@
 <AnimSurface name="RGF_HOP_Twalegs" file="Anims\LOBOT\RGF\F_HOP_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Twalegs" file="Anims\LOBOT\RGF\F_CLIMB_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Twalegs" file="Anims\LOBOT\RGF\F_PUNCH_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Twalegs" file="Anims\LOBOT\RGF\F_BLUNT_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Twalegs" file="Anims\LOBOT\RGF\F_N_STD_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Twalegs" file="Anims\LOBOT\RGF\F_OPEN_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Twalegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Twalegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2776,6 +2799,7 @@
 <AnimSurface name="RGF_HOP_Dynlegs" file="Anims\LOBOT\RGF\F_HOP_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Dynlegs" file="Anims\LOBOT\RGF\F_CLIMB_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Dynlegs" file="Anims\LOBOT\RGF\F_PUNCH_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Dynlegs" file="Anims\LOBOT\RGF\F_BLUNT_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Dynlegs" file="Anims\LOBOT\RGF\F_N_STD_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Dynlegs" file="Anims\LOBOT\RGF\F_OPEN_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Dynlegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Dynlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -2893,6 +2917,7 @@
 <AnimSurface name="RGF_HOP_SWATlegs" file="Anims\LOBOT\RGF\F_HOP_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_SWATlegs" file="Anims\LOBOT\RGF\F_CLIMB_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_SWATlegs" file="Anims\LOBOT\RGF\F_PUNCH_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_SWATlegs" file="Anims\LOBOT\RGF\F_BLUNT_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_SWATlegs" file="Anims\LOBOT\RGF\F_N_STD_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_SWATlegs" file="Anims\LOBOT\RGF\F_OPEN_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_SWATlegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_SWATlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -3010,6 +3035,7 @@
 <AnimSurface name="RGF_HOP_Zylonlegs" file="Anims\LOBOT\RGF\F_HOP_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Zylonlegs" file="Anims\LOBOT\RGF\F_CLIMB_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Zylonlegs" file="Anims\LOBOT\RGF\F_PUNCH_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Zylonlegs" file="Anims\LOBOT\RGF\F_BLUNT_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Zylonlegs" file="Anims\LOBOT\RGF\F_N_STD_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Zylonlegs" file="Anims\LOBOT\RGF\F_OPEN_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Zylonlegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Zylonlegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -3127,6 +3153,7 @@
 <AnimSurface name="RGF_HOP_Dresslegs" file="Anims\LOBOT\RGF\F_HOP_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Dresslegs" file="Anims\LOBOT\RGF\F_CLIMB_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Dresslegs" file="Anims\LOBOT\RGF\F_PUNCH_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Dresslegs" file="Anims\LOBOT\RGF\F_BLUNT_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Dresslegs" file="Anims\LOBOT\RGF\F_N_STD_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Dresslegs" file="Anims\LOBOT\RGF\F_OPEN_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Dresslegs" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Dresslegs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -3244,6 +3271,7 @@
 <AnimSurface name="RGF_HOP_CP" file="Anims\LOBOT\RGF\F_HOP_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_CP" file="Anims\LOBOT\RGF\F_CLIMB_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_CP" file="Anims\LOBOT\RGF\F_PUNCH_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_CP" file="Anims\LOBOT\RGF\F_BLUNT_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_CP" file="Anims\LOBOT\RGF\F_N_STD_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_CP" file="Anims\LOBOT\RGF\F_OPEN_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_CP" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_CP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -3365,6 +3393,7 @@
 <AnimSurface name="RGF_HOP_Bigradio" file="Anims\LOBOT\RGF\F_HOP_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Bigradio" file="Anims\LOBOT\RGF\F_CLIMB_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Bigradio" file="Anims\LOBOT\RGF\F_PUNCH_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Bigradio" file="Anims\LOBOT\RGF\F_BLUNT_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Bigradio" file="Anims\LOBOT\RGF\F_N_STD_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Bigradio" file="Anims\LOBOT\RGF\F_OPEN_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Bigradio" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Bigradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
@@ -3486,6 +3515,7 @@
 <AnimSurface name="RGF_HOP_Medradio" file="Anims\LOBOT\RGF\F_HOP_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
 <AnimSurface name="RGF_CLIMB_Medradio" file="Anims\LOBOT\RGF\F_CLIMB_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="44" profile="-1" />
 <AnimSurface name="RGF_PUNCH_Medradio" file="Anims\LOBOT\RGF\F_PUNCH_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="RGF_BLUNT_Medradio" file="Anims\LOBOT\RGF\F_BLUNT_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="RGF_IDLE_Medradio" file="Anims\LOBOT\RGF\F_N_STD_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
 <AnimSurface name="RGF_OPEN_Medradio" file="Anims\LOBOT\RGF\F_OPEN_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
 <AnimSurface name="RGF_RIFLE_OPEN_Medradio" file="Anims\LOBOT\RGF\F_RIFLE_OPEN_Medradio.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />

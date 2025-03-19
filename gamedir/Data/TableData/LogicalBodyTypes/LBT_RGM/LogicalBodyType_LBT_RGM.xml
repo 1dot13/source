@@ -33,6 +33,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_SHADOW" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_SHADOW" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGM_BLUNT_SHADOW" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_SHADOW" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="RGMRIFLE_SWAT_SHADOW" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_SHADOW" animsurface="RGMCROUCH_R_RDY" />
@@ -52,6 +56,7 @@
 			<Surface name="RGM_HOP_SHADOW" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_SHADOW" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_SHADOW" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_SHADOW" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_SHADOW" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_SHADOW" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_SHADOW" animsurface="RGMOPEN" />
@@ -174,6 +179,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_LEGS" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_LEGS" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGM_BLUNT_LEGS" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_LEGS" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="RGMRIFLE_SWAT_LEGS" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_LEGS" animsurface="RGMCROUCH_R_RDY" />
@@ -193,6 +202,7 @@
 			<Surface name="RGM_HOP_LEGS" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_LEGS" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_LEGS" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_LEGS" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_LEGS" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_LEGS" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_LEGS" animsurface="RGMOPEN" />
@@ -311,6 +321,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_TORSO" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_TORSO" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGM_BLUNT_TORSO" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_TORSO" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="RGMBURN" animsurface="RGMBURN" />
 			<Surface name="RGMBLOWUP" animsurface="BODYEXPLODE" />
@@ -334,6 +348,7 @@
 			<Surface name="RGM_HOP_TORSO" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_TORSO" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_TORSO" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_TORSO" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_TORSO" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_TORSO" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_TORSO" animsurface="RGMOPEN" />
@@ -452,6 +467,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_HANDS" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_HANDS" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGM_BLUNT_HANDS" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_HANDS" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="RGMRIFLE_SWAT_HANDS" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_HANDS" animsurface="RGMCROUCH_R_RDY" />
@@ -471,6 +490,7 @@
 			<Surface name="RGM_HOP_HANDS" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_HANDS" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_HANDS" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_HANDS" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_HANDS" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_HANDS" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_HANDS" animsurface="RGMOPEN" />
@@ -590,6 +610,10 @@
 			<Surface name="RGMRIFLE_SIDESTEP_AIM_HEAD" animsurface="RGMSIDESTEP_R_RDY" />
 			<Surface name="RGMRIFLE_ROLL_SIDE_HEAD" animsurface="RGMROLL_PR" />
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGM_BLUNT_HEAD" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_HEAD" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="RGMRIFLE_SWAT_HEAD" animsurface="RGMSNEAKING" />
 			<Surface name="RGMRIFLE_WALK_CROUCH_HEAD" animsurface="RGMCROUCH_R_RDY" />
@@ -609,6 +633,7 @@
 			<Surface name="RGM_HOP_HEAD" animsurface="RGMHOPFENCE" />
 			<Surface name="RGM_HOP_HEAD" animsurface="RGMJUMPWINDOWS" />
 			<Surface name="RGM_PUNCH_HEAD" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_HEAD" animsurface="RGMNPUNCH" />
 			<Surface name="RGM_IDLE_HEAD" animsurface="RGMNOTHING_STD" />
 			<Surface name="RGM_IDLE_HEAD" animsurface="RGMDBLBREATH" />
 			<Surface name="RGM_OPEN_HEAD" animsurface="RGMOPEN" />

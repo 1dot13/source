@@ -31,6 +31,10 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_SHADOW" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_SHADOW" animsurface="RGFROLL_PR"/>
 		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGF_BLUNT_SHADOW" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_SHADOW" animsurface="RGFPUNCHLOW"/>
+		</LayerProp>
 		<LayerProp filter="">
 			<Surface name="RGF_RIFLE_SWAT_SHADOW" animsurface="RGFSNEAKING"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SHADOW" animsurface="RGFCROUCH_R_RDY"/>
@@ -109,7 +113,6 @@
 			<Surface name="RGF_KNIFE_THROW_SHADOW" animsurface="RGFTHROWKNIFE"/>
 			<Surface name="RGF_KNIFE_BREATH_SHADOW" animsurface="RGFBREATHKNIFE"/>
 			<Surface name="RGF_CROWBAR_HIT_SHADOW" animsurface="RGFCROWBAR"/>
-			<Surface name="RGF_CROWBAR_CR_HIT_SHADOW" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CPUNCH_SHADOW" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CTHROW_SHADOW" animsurface="RGFCRTHROW"/>
 			<Surface name="RGF_KNIFE_CSTAB_SHADOW" animsurface="RGFCSTAB"/>
@@ -164,6 +167,10 @@
 			<Surface name="RGF_RIFLE_LOW_LEGS" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_LEGS" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_LEGS" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGF_BLUNT_LEGS" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_LEGS" animsurface="RGFPUNCHLOW"/>
 		</LayerProp>
 		<LayerProp filter="">
 			<Surface name="RGF_RIFLE_SWAT_LEGS" animsurface="RGFSNEAKING"/>
@@ -243,7 +250,6 @@
 			<Surface name="RGF_KNIFE_THROW_LEGS" animsurface="RGFTHROWKNIFE"/>
 			<Surface name="RGF_KNIFE_BREATH_LEGS" animsurface="RGFBREATHKNIFE"/>
 			<Surface name="RGF_CROWBAR_HIT_LEGS" animsurface="RGFCROWBAR"/>
-			<Surface name="RGF_CROWBAR_CR_HIT_LEGS" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CPUNCH_LEGS" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CTHROW_LEGS" animsurface="RGFCRTHROW"/>
 			<Surface name="RGF_KNIFE_CSTAB_LEGS" animsurface="RGFCSTAB"/>
@@ -305,6 +311,10 @@
 			<Surface name="RGF_RIFLE_LOW_TORSO" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_TORSO" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_TORSO" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGF_BLUNT_TORSO" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_TORSO" animsurface="RGFPUNCHLOW"/>
 		</LayerProp>
 		<LayerProp filter="">
 			<Surface name="RGF_RIFLE_SWAT_TORSO" animsurface="RGFSNEAKING"/>
@@ -384,7 +394,6 @@
 			<Surface name="RGF_KNIFE_THROW_TORSO" animsurface="RGFTHROWKNIFE"/>
 			<Surface name="RGF_KNIFE_BREATH_TORSO" animsurface="RGFBREATHKNIFE"/>
 			<Surface name="RGF_CROWBAR_HIT_TORSO" animsurface="RGFCROWBAR"/>
-			<Surface name="RGF_CROWBAR_CR_HIT_TORSO" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CPUNCH_TORSO" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CTHROW_TORSO" animsurface="RGFCRTHROW"/>
 			<Surface name="RGF_KNIFE_CSTAB_TORSO" animsurface="RGFCSTAB"/>
@@ -446,6 +455,10 @@
 			<Surface name="RGF_RIFLE_LOW_HANDS" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_HANDS" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_HANDS" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGF_BLUNT_HANDS" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_HANDS" animsurface="RGFPUNCHLOW"/>
 		</LayerProp>
 		<LayerProp filter="">
 			<Surface name="RGF_RIFLE_SWAT_HANDS" animsurface="RGFSNEAKING"/>
@@ -525,7 +538,6 @@
 			<Surface name="RGF_KNIFE_THROW_HANDS" animsurface="RGFTHROWKNIFE"/>
 			<Surface name="RGF_KNIFE_BREATH_HANDS" animsurface="RGFBREATHKNIFE"/>
 			<Surface name="RGF_CROWBAR_HIT_HANDS" animsurface="RGFCROWBAR"/>
-			<Surface name="RGF_CROWBAR_CR_HIT_HANDS" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CPUNCH_HANDS" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CTHROW_HANDS" animsurface="RGFCRTHROW"/>
 			<Surface name="RGF_KNIFE_CSTAB_HANDS" animsurface="RGFCSTAB"/>
@@ -588,6 +600,10 @@
 			<Surface name="RGF_RIFLE_LOW_HEAD" animsurface="RGFSHOOT_LOW"/>
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_HEAD" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_HEAD" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="HasBluntMeleeWeaponInHand" >
+			<Surface name="RGF_BLUNT_HEAD" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_HEAD" animsurface="RGFPUNCHLOW"/>
 		</LayerProp>
 		<LayerProp filter="">
 			<Surface name="RGF_RIFLE_SWAT_HEAD" animsurface="RGFSNEAKING"/>
@@ -667,7 +683,6 @@
 			<Surface name="RGF_KNIFE_THROW_HEAD" animsurface="RGFTHROWKNIFE"/>
 			<Surface name="RGF_KNIFE_BREATH_HEAD" animsurface="RGFBREATHKNIFE"/>
 			<Surface name="RGF_CROWBAR_HIT_HEAD" animsurface="RGFCROWBAR"/>
-			<Surface name="RGF_CROWBAR_CR_HIT_HEAD" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CPUNCH_HEAD" animsurface="RGFPUNCHLOW"/>
 			<Surface name="RGF_EMPTY_CTHROW_HEAD" animsurface="RGFCRTHROW"/>
 			<Surface name="RGF_KNIFE_CSTAB_HEAD" animsurface="RGFCSTAB"/>

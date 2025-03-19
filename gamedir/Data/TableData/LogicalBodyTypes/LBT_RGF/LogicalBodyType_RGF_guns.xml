@@ -10475,7 +10475,7 @@
 			<Surface name="RGF_EMPTY_DODGE_baton" animsurface="RGFDODGE"/>
 			<Surface name="RGF_CROWBAR_HIT_baton" animsurface="RGFCROWBAR"/>
 			<Surface name="RGF_CROWBAR_CR_HIT_baton" animsurface="RGFPUNCHLOW"/>
-			<!--<Surface name="RGF_PUNCH_baton" animsurface="RGFPUNCH"/>-->
+			<Surface name="RGF_BLUNT_baton" animsurface="RGFPUNCH"/>
 		</LayerProp>
 		<LayerProp filter="HasShovelInHand" palette="guns_v2">
 			<Surface name="RGF_EMPTY_IDLE_shovel" animsurface="RGFNOTHING_STD"/>
@@ -10490,7 +10490,7 @@
 			<Surface name="RGF_EMPTY_DODGE_shovel" animsurface="RGFDODGE"/>
 			<Surface name="RGF_CROWBAR_HIT_shovel" animsurface="RGFCROWBAR"/>
 			<Surface name="RGF_CROWBAR_CR_HIT_shovel" animsurface="RGFPUNCHLOW"/>
-			<!--<Surface name="RGF_PUNCH_shovel" animsurface="RGFPUNCH"/>-->
+			<Surface name="RGF_BLUNT_shovel" animsurface="RGFPUNCH"/>
 		</LayerProp>
 		<LayerProp filter="HasPipeWrenchInHand" palette="guns_v2">
 			<Surface name="RGF_EMPTY_IDLE_wrench" animsurface="RGFNOTHING_STD"/>
@@ -10505,7 +10505,7 @@
 			<Surface name="RGF_EMPTY_DODGE_wrench" animsurface="RGFDODGE"/>
 			<Surface name="RGF_CROWBAR_HIT_wrench" animsurface="RGFCROWBAR"/>
 			<Surface name="RGF_CROWBAR_CR_HIT_wrench" animsurface="RGFPUNCHLOW"/>
-			<!--<Surface name="RGF_PUNCH_wrench" animsurface="RGFPUNCH"/>-->
+			<Surface name="RGF_BLUNT_wrench" animsurface="RGFPUNCH"/>
 		</LayerProp>
 		<LayerProp filter="HasCrowbarInHand" palette="guns_v2">
 			<Surface name="RGF_EMPTY_IDLE_CROWBAR" animsurface="RGFNOTHING_STD"/>
