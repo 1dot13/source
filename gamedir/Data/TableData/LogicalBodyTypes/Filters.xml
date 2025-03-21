@@ -141,17 +141,29 @@
 	<Filter name="GhilliePants">
 		<OR>
 			<LEGPOS op="in">808</LEGPOS>
+			<LEGPOSATTACHMENT0 op="in">1198</LEGPOSATTACHMENT0>
+			<LEGPOSATTACHMENT1 op="in">1198</LEGPOSATTACHMENT1>
+			<LEGPOSATTACHMENT2 op="in">1198</LEGPOSATTACHMENT2>
+			<LEGPOSATTACHMENT3 op="in">1198</LEGPOSATTACHMENT3>
 		</OR>
 	</Filter>
 	<Filter name="GhillieVest">
-		<AND>
+		<OR>
 			<VESTPOS op="in">809</VESTPOS>
-		</AND>
+			<VESTPOSATTACHMENT0 op="in">1199</VESTPOSATTACHMENT0>
+			<VESTPOSATTACHMENT1 op="in">1199</VESTPOSATTACHMENT1>
+			<VESTPOSATTACHMENT2 op="in">1199</VESTPOSATTACHMENT2>
+			<VESTPOSATTACHMENT3 op="in">1199</VESTPOSATTACHMENT3>
+		</OR>
 	</Filter>
 	<Filter name="GhillieHood">
-		<AND>
+		<OR>
 			<HELMETPOS op="in">807</HELMETPOS>
-		</AND>
+			<HELMETPOSATTACHMENT0 op="in">1197</HELMETPOSATTACHMENT0>
+			<HELMETPOSATTACHMENT1 op="in">1197</HELMETPOSATTACHMENT1>
+			<HELMETPOSATTACHMENT2 op="in">1197</HELMETPOSATTACHMENT2>
+			<HELMETPOSATTACHMENT3 op="in">1197</HELMETPOSATTACHMENT3>
+		</OR>
 	</Filter>
 	<Filter name="GhillieHoodAndPistol">
 		<AND>
@@ -1890,7 +1902,12 @@
 -->
 	<Filter name="HasDragunovInHand">
 		<AND>
-			<HANDPOS op="in">18, 734</HANDPOS>
+			<HANDPOS op="in">18</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSVDSInHand">
+		<AND>
+			<HANDPOS op="in">734</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasPSG1InHand">
@@ -3199,6 +3216,29 @@
 	<Filter name="BlackCapAndBluntMeleeWeapon">
 		<AND>
 			<FILTER>BlackCap</FILTER>
+			<FILTER>HasBluntMeleeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CowboyHat">
+		<AND>
+			<HELMETPOS op="in">1773</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="CowboyHatAndPistol">
+		<AND>
+			<FILTER>CowboyHat</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CowboyHatAndRifle">
+		<AND>
+			<FILTER>CowboyHat</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="CowboyHatAndBluntMeleeWeapon">
+		<AND>
+			<FILTER>CowboyHat</FILTER>
 			<FILTER>HasBluntMeleeWeaponInHand</FILTER>
 		</AND>
 	</Filter>

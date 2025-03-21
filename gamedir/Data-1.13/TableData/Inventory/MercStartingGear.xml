@@ -17621,7 +17621,7 @@
 			<mPriceMod>0</mPriceMod>
 			<mGearKitName />
 			<mAbsolutePrice>-1</mAbsolutePrice>
-			<mHelmet>0</mHelmet>
+			<mHelmet>1773</mHelmet>
 			<mHelmetDrop>0</mHelmetDrop>
 			<mHelmetStatus>0</mHelmetStatus>
 			<mVest>0</mVest>
@@ -17686,6 +17686,7 @@
 		</GEARKIT>
 		<GEARKIT>
 			<mAbsolutePrice>-1</mAbsolutePrice>
+			<mHelmet>1773</mHelmet>
 			<mVest>188</mVest>
 			<mVestStatus>95</mVestStatus>
 			<mWeapon>66</mWeapon>
@@ -17705,6 +17706,7 @@
 		</GEARKIT>
 		<GEARKIT>
 			<mAbsolutePrice>-1</mAbsolutePrice>
+			<mHelmet>1773</mHelmet>
 			<mVest>161</mVest>
 			<mVestStatus>95</mVestStatus>
 			<mWeapon>66</mWeapon>
@@ -17725,6 +17727,7 @@
 		</GEARKIT>
 		<GEARKIT>
 			<mAbsolutePrice>-1</mAbsolutePrice>
+			<mHelmet>1773</mHelmet>
 			<mVest>164</mVest>
 			<mVestStatus>95</mVestStatus>
 			<mWeapon>66</mWeapon>
@@ -17752,6 +17755,7 @@
 		</GEARKIT>
 		<GEARKIT>
 			<mAbsolutePrice>-1</mAbsolutePrice>
+			<mHelmet>1773</mHelmet>
 			<mVest>164</mVest>
 			<mVestStatus>95</mVestStatus>
 			<mWeapon>66</mWeapon>
