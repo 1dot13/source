@@ -48,5 +48,52 @@
 			<Surface name="BGM_WATER_RIFLE_AIM_M14" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_M14" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>-->
+		<LayerProp filter="HasSVDSInHand" palette="guns_v2_pal_swap_wood_to_dark">
+			<Surface name="BGM_RIFLE_OPEN_DRAGUNOV" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_WALK_CROUCH_DRAGUNOV" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_DRAGUNOV" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_DRAGUNOV" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_DRAGUNOV" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_IDLE_DRAGUNOV" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_DRAGUNOV" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_DRAGUNOV" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_DRAGUNOV" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_DRAGUNOV" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_DRAGUNOV" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_DRAGUNOV" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_DRAGUNOV" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_DRAGUNOV" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_DRAGUNOV" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_SWAT_DRAGUNOV" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_RAISE_HERO_DRAGUNOV" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_DRAGUNOV" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_DRAGUNOV" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_DRAGUNOV" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_DRAGUNOV" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_DRAGUNOV" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_DRAGUNOV" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_DRAGUNOV" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_DRAGUNOV" animsurface="BGMPRONE" />
+			<Surface name="BGMRIFLE_HIT_HERO_DRAGUNOV" animsurface="BGMRHIT" />
+			<Surface name="BGMRIFLE_PAIN_DRAGUNOV" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMRIFLE_COWER_DRAGUNOV" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_DRAGUNOV" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_WALK_HURT_DRAGUNOV" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_KICKDOOR_DRAGUNOV" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_DRAGUNOV" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_DRAGUNOV" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_DRAGUNOV" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_DRAGUNOV" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_DRAGUNOV" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_BAYONET_DRAGUNOV" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_DRAGUNOV" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMRIFLE_LOW_DRAGUNOV" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_DRAGUNOV" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_DRAGUNOV" animsurface="BGMROLL_PR" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_DRAGUNOV" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_DRAGUNOV" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_DRAGUNOV" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_DRAGUNOV" animsurface="BGM_WATER_HIP_AIM" />
+		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>

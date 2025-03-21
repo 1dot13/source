@@ -8465,9 +8465,9 @@
 	<ITEM>
 		<uiIndex>285</uiIndex>
 		<szItemName>Hat</szItemName>
-		<szLongItemName>Hat</szLongItemName>
-		<szItemDesc>A nice hat to wear when your helmet gets too hot. Provides limited camouflage.</szItemDesc>
-		<szBRName>Hat</szBRName>
+		<szLongItemName>Boonie Hat</szLongItemName>
+		<szItemDesc>A nice boonie hat to wear when your helmet gets too hot. Provides limited camouflage.</szItemDesc>
+		<szBRName>Boonie Hat</szBRName>
 		<szBRDesc>As seen on TV! This is the same hat that "Wild Bill" wore on the G.I. Joe Saturday-morning cartoon show. Ok, so it's not the same hat. But it's still a nice hat.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -52975,6 +52975,34 @@
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1773</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Cowboy Hat</szLongItemName>
+		<szItemDesc>A wide-brimmed cowboy hat. This is the headwear of choice for dealing with rustlers and outlaws.</szItemDesc>
+		<szBRName>Cowboy Hat</szBRName>
+		<szBRDesc>Look as calm, cool and collected as Cordell Walker with one of these limited-edition western style hats. Comes with a reproduction Texas Ranger badge signed by Chuck Norris himself.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>42</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>920</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<BR_NewInventory>2</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>

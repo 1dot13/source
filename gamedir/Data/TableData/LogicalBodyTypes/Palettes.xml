@@ -14,4 +14,5 @@
 	<Palette name = "Bluehats" filename = "Palettes\BlueHats.act" />
 	<Palette name = "Greenhats" filename = "Palettes\GreenHats.act" />
 	<Palette name = "swat_blue" filename = "Palettes\swat_blue.act" />
+	<Palette name = "guns_v2_pal_swap_wood_to_dark" filename = "Palettes\guns_v2_paletteswap_wood_to_dark.act" />
 </Palettes>

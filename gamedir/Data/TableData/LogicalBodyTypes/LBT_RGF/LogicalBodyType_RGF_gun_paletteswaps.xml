@@ -38,5 +38,42 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_M14" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_M14" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>-->
+		<LayerProp filter="HasSVDSInHand" palette="guns_v2_pal_swap_wood_to_dark">
+			<Surface name="RGF_RIFLE_OPEN_DRAGUNOV" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_WALK_CROUCH_DRAGUNOV" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_DRAGUNOV" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_DRAGUNOV" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_DRAGUNOV" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_DRAGUNOV" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_DRAGUNOV" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_DRAGUNOV" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_DRAGUNOV" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_SWAT_DRAGUNOV" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_DRAGUNOV" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_DRAGUNOV" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_DRAGUNOV" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_DRAGUNOV" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_DRAGUNOV" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_DRAGUNOV" animsurface="RGFRHIT"/>
+			<Surface name="RGF_RIFLE_PAIN_DRAGUNOV" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_RIFLE_COWER_DRAGUNOV" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_DRAGUNOV" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_DRAGUNOV" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_DRAGUNOV" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_DRAGUNOV" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_DRAGUNOV" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_DRAGUNOV" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_DRAGUNOV" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_BAYONET_DRAGUNOV" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_DRAGUNOV" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_RIFLE_LOW_DRAGUNOV" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_DRAGUNOV" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_RIFLE_LOOK_DRAGUNOV" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_DRAGUNOV" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_DRAGUNOV" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_DRAGUNOV" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_DRAGUNOV" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_DRAGUNOV" animsurface="RGF_WATER_HIP_AIM" />
+		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>

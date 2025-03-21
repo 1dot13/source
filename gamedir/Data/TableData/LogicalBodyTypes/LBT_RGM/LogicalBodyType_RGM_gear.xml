@@ -5204,6 +5204,142 @@
 			<Surface name="WATER_DUAL_AIM_Blackcap" animsurface="RGMWATER_DBLSHT" />
 			<Surface name="CROUCH_MORTAR_Blackcap" animsurface="RGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="CowboyHatAndPistol" palette="hats">
+			<Surface name="RGMPISTOL_WALK_Stetson" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_RUN_Stetson" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_Stetson" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMPISTOL_SDSTP_Stetson" animsurface="RGMSIDESTEP" />
+			<Surface name="WATER_PISTOL_IDLE_Stetson" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_PISTOL_WALK_Stetson" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_PISTOL_AIM_Stetson" animsurface="RGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="CowboyHatAndRifle" palette="hats">
+			<Surface name="RGM_RIFLE_OPEN_Stetson" animsurface="RGMOPEN" />
+			<Surface name="RGMRIFLE_COWER_Stetson" animsurface="RGMCOWER" />
+			<Surface name="RGMRIFLE_PRN_COWER_Stetson" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMRIFLE_KICKDOOR_Stetson" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMRIFLE_SQUISH_Stetson" animsurface="RGM_SQUISH" />
+			<Surface name="RGMRIFLE_LOOK_Stetson" animsurface="RGM_LOOK" />
+			<Surface name="RGMRIFLE_SPIT_Stetson" animsurface="RGM_SPIT" />
+			<Surface name="RGMRIFLE_DRUNK_Stetson" animsurface="RGMDRUNK" />
+			<Surface name="RGMRIFLE_LOW_Stetson" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMRIFLE_HIP_LOW_Stetson" animsurface="RGM_HIP_LOW" />
+			<Surface name="RGMRIFLE_SIDESTEP_AIM_Stetson" animsurface="RGMSIDESTEP_R_RDY" />
+			<Surface name="RGMRIFLE_ROLL_SIDE_Stetson" animsurface="RGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="CowboyHatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGM_BLUNT_Stetson" animsurface="RGMPUNCH" />
+			<Surface name="RGMCROWBAR_CR_HIT_Stetson" animsurface="RGMPUNCHLOW" />
+		</LayerProp>
+		<LayerProp filter="CowboyHat" palette="hats">
+			<Surface name="RGMRIFLE_IDLE_Stetson" animsurface="RGMSTANDING" />
+			<Surface name="RGMBASICWALK_Stetson" animsurface="RGMBASICWALKING" />
+			<Surface name="RGMRUNNING_Stetson" animsurface="RGMRUNNING" />
+			<Surface name="RGMRIFLE_CROUCH_Stetson" animsurface="RGMCROUCHING" />
+			<Surface name="RGMRIFLE_SWAT_Stetson" animsurface="RGMSNEAKING" />
+			<Surface name="RGMRIFLE_WALK_Stetson" animsurface="RGMWALK_R_RDY" />
+			<Surface name="RGMRIFLE_WALK_CROUCH_Stetson" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="RGM_CROUCHWALK_Stetson" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="RGM_CROUCHWALK_DUAL_Stetson" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="RGMRIFLE_RAISE_Stetson" animsurface="RGMRAISE" />
+			<Surface name="RGMRIFLE_AIM_Stetson" animsurface="RGMSTANDAIM" />
+			<Surface name="RGMRIFLE_HIP_Stetson" animsurface="RGM_HIP_AIM" />
+			<Surface name="RGMRIFLE_CR_AIM_Stetson" animsurface="RGMCROUCHAIM" />
+			<Surface name="RGMRIFLE_PRONE_Stetson" animsurface="RGMPRONE" />
+			<Surface name="RGMRIFLE_SIDESTEP_Stetson" animsurface="RGMSIDESTEP" />
+			<Surface name="RGM_HOP_Stetson" animsurface="RGMHOPFENCE" />
+			<Surface name="RGM_HOP_Stetson" animsurface="RGMJUMPWINDOWS" />
+			<Surface name="RGM_PUNCH_Stetson" animsurface="RGMPUNCH" />
+			<Surface name="RGMEMPTY_KARATEP_Stetson" animsurface="RGMNPUNCH" />
+			<Surface name="RGM_IDLE_Stetson" animsurface="RGMNOTHING_STD" />
+			<Surface name="RGM_IDLE_Stetson" animsurface="RGMDBLBREATH" />
+			<Surface name="RGM_OPEN_Stetson" animsurface="RGMOPEN" />
+			<Surface name="RGM_PICKUP_Stetson" animsurface="RGMPICKUP" />
+			<Surface name="RGMMEDIC_CROUCH_Stetson" animsurface="RGMMEDIC" />
+			<Surface name="RGMRIFLE_HIT_Stetson" animsurface="RGMRHIT" />
+			<Surface name="RGMEMPTY_CROUCH_Stetson" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="RGMEMPTY_SWAT_Stetson" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="RGMEMPTY_SWAT_Stetson" animsurface="RGMSWKNIFE" />
+			<Surface name="RGMEMPTY_RUN_Stetson" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="RGMEMPTY_RUN_Stetson" animsurface="RGMNOTHING_RUN" />
+			<Surface name="RGMEMPTY_WALK_Stetson" animsurface="RGMNOTHING_WALK" />
+			<Surface name="RGMEMPTY_PRONE_Stetson" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="RGMPISTOL_IDLE_Stetson" animsurface="RGMPISTOLBREATH" />
+			<Surface name="RGMPISTOL_AIM_Stetson" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="RGMPISTOL_AIM_1H_Stetson" animsurface="RGM_PFSHOT_AIM" />
+			<Surface name="RGMPISTOL_RDY_WALK_Stetson" animsurface="RGMWALK_P_RDY" />
+			<Surface name="RGMDUAL_RDY_WALK_Stetson" animsurface="RGMWALK_D_RDY" />
+			<Surface name="RGMPISTOL_CR_AIM_Stetson" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="RGMPISTOL_SDSTP_AIM_Stetson" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="RGMDUAL_SDSTP_AIM_Stetson" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="RGMPISTOL_LOW_Stetson" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="RGMPISTOL_LOW_Stetson" animsurface="RGMSHOOT_LOW" />
+			<Surface name="RGMDUAL_AIM_Stetson" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="RGMDUAL_CR_AIM_Stetson" animsurface="RGMCDBLSHOT" />
+			<Surface name="RGMMEDIC_PRONE_Stetson" animsurface="RGMMEDICPRN" />
+			<Surface name="RGMCOWER_PRONE_Stetson" animsurface="RGM_COWER_PRONE" />
+			<Surface name="RGMDIE_PRONE_Stetson" animsurface="RGMHITPRONE" />
+			<Surface name="RGMDUAL_PRONE_Stetson" animsurface="RGMDWPRONE" />
+			<Surface name="RGMEMPTY_PAIN_Stetson" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="RGMRIFLE_PAIN_Stetson" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="RGMEMPTY_DIE_Stetson" animsurface="RGMHITSTAND" />
+			<Surface name="RGMEMPTY_CDIE_Stetson" animsurface="RGMHITCROUCH" />
+			<Surface name="RGMEMPTY_COWER_Stetson" animsurface="RGMCOWER" />
+			<Surface name="RGM_CLIMB_Stetson" animsurface="RGMCLIMBROOF" />
+			<Surface name="RGM_CLIMB_Stetson" animsurface="RGMWALLJUMP" />
+			<Surface name="RGMEMPTY_ROLL_Stetson" animsurface="RGMROLLOVER" />
+			<Surface name="RGMEMPTY_ROLL_SIDE_Stetson" animsurface="RGMROLL_PR" />
+			<Surface name="RGMEMPTY_DIEFB_Stetson" animsurface="RGMHITFALLBACK" />
+			<Surface name="RGMEMPTY_DIEFBH_Stetson" animsurface="RGMHITHARD" />
+			<Surface name="RGMEMPTY_DIEFBHB_Stetson" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="RGMRIFLE_WALK_HURT_Stetson" animsurface="RGMHURTWALKINGR" />
+			<Surface name="RGMRIFLE_BAYONET_Stetson" animsurface="RGMBAYONET_S_S" />
+			<Surface name="RGMRIFLE_BAYONET_L_Stetson" animsurface="RGMBAYONET_S_P" />
+			<Surface name="RGMEMPTY_DODGE_Stetson" animsurface="RGMDODGE" />
+			<Surface name="RGMEMPTY_THROW_Stetson" animsurface="RGMTHROW" />
+			<Surface name="RGMEMPTY_THROW_G_Stetson" animsurface="RGMSTHRG" />
+			<Surface name="RGMEMPTY_LOB_Stetson" animsurface="RGMLOB" />
+			<Surface name="RGMEMPTY_LOB_G_Stetson" animsurface="RGMSLOBG" />
+			<Surface name="RGMEMPTY_KICKDOOR_Stetson" animsurface="RGMKICKDOOR" />
+			<Surface name="RGMEMPTY_SQUISH_Stetson" animsurface="RGM_SQUISH" />
+			<Surface name="RGMEMPTY_RADIO_Stetson" animsurface="RGMRADIO" />
+			<Surface name="RGMEMPTY_PULL_Stetson" animsurface="RGM_PULL" />
+			<Surface name="RGMEMPTY_REMOTE_Stetson" animsurface="RGMUSEREMOTE" />
+			<Surface name="RGMKNIFE_STAB_Stetson" animsurface="RGMSTAB" />
+			<Surface name="RGMKNIFE_SLICE_Stetson" animsurface="RGMSLICE" />
+			<Surface name="RGMKNIFE_THROW_Stetson" animsurface="RGMTHROWKNIFE" />
+			<Surface name="RGMKNIFE_BREATH_Stetson" animsurface="RGMBREATHKNIFE" />
+			<Surface name="RGMCROWBAR_HIT_Stetson" animsurface="RGMCROWBAR" />
+			<Surface name="RGMEMPTY_CPUNCH_Stetson" animsurface="RGMPUNCHLOW" />
+			<Surface name="RGMEMPTY_CTHROW_Stetson" animsurface="RGMCRTHROW" />
+			<Surface name="RGMKNIFE_CSTAB_Stetson" animsurface="RGMCSTAB" />
+			<Surface name="RGMEMPTY_CRADIO_Stetson" animsurface="RGMCRRADIO" />
+			<Surface name="RGMEMPTY_SLEEP_Stetson" animsurface="RGMSLEEP" />
+			<Surface name="RGMEMPTY_DRUNK_Stetson" animsurface="RGMPISTOLDRUNK" />
+			<Surface name="RGMEMPTY_WALK_HURT_Stetson" animsurface="RGMHURTWALKINGN" />
+			<Surface name="RGMEMPTY_FALL_Stetson" animsurface="RGMFALL" />
+			<Surface name="RGMEMPTY_FALLFWD_Stetson" animsurface="RGMFALLF" />
+			<Surface name="RGMEMPTY_KARATELK_Stetson" animsurface="RGMLOWKICK" />
+			<Surface name="RGMEMPTY_KARATESPINK_Stetson" animsurface="RGMSPINKICK" />
+			<Surface name="RGMLAW_Stetson" animsurface="RGMROCKET" />
+			<Surface name="RGMLAW_CR_Stetson" animsurface="RGMCRROCKET" />
+			<Surface name="RGM_HELIDROP_Stetson" animsurface="RGMHELIDROP" />
+			<Surface name="WATER_RIFLE_IDLE_Stetson" animsurface="RGMWATER_R_STD" />
+			<Surface name="WATER_RIFLE_WALK_Stetson" animsurface="RGMWATER_R_WALK" />
+			<Surface name="WATER_RIFLE_AIM_Stetson" animsurface="RGMWATER_R_AIM" />
+			<Surface name="WATER_RIFLE_HIP_Stetson" animsurface="RGM_WATER_HIP_AIM" />
+			<Surface name="WATER_EMPTY_IDLE_Stetson" animsurface="RGMWATER_N_STD" />
+			<Surface name="WATER_EMPTY_WALK_Stetson" animsurface="RGMWATER_N_WALK" />
+			<Surface name="WATER_EMPTY_THROW_Stetson" animsurface="RGMWATERTHROW" />
+			<Surface name="WATER_EMPTY_FALL_Stetson" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_FALL_Stetson" animsurface="RGMWATER_TRANS" />
+			<Surface name="WATER_EMPTY_TREAD_Stetson" animsurface="RGMDEEPWATER_TRED" />
+			<Surface name="WATER_EMPTY_SWIM_Stetson" animsurface="RGMDEEPWATER_SWIM" />
+			<Surface name="WATER_EMPTY_DIE_Stetson" animsurface="RGMWATER_DIE" />
+			<Surface name="WATER_EMPTY_DROWN_Stetson" animsurface="RGMDEEPWATER_DIE" />
+			<Surface name="WATER_DUAL_AIM_Stetson" animsurface="RGMWATER_DBLSHT" />
+			<Surface name="CROUCH_MORTAR_Stetson" animsurface="RGMMORTAR" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBallcapAndHasPistol" >
 			<Surface name="RGMPISTOL_WALK_BCAP" animsurface="RGMNOTHING_WALK" />
 			<Surface name="RGMEMPTY_RUN_BCAP" animsurface="RGMPISTOL_RUN" />			
