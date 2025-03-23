@@ -10,6 +10,7 @@
 			<Surface name="BGMEMPTY_RUN_GHILLIEPANTS" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_GHILLIEPANTS" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_GHILLIEPANTS" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_GHILLIEPANTS" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_GHILLIEPANTS" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_GHILLIEPANTS" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_GHILLIEPANTS" animsurface="BGMWATER_N_AIM" />
@@ -163,6 +164,7 @@
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_LEGS_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_LEGS_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_LEGS_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_LEGS_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_LEGS_C" animsurface="BGMWATER_N_AIM" />
@@ -316,6 +318,7 @@
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_LEGS_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_LEGS_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_LEGS_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_LEGS_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_LEGS_C" animsurface="BGMWATER_N_AIM" />
@@ -469,6 +472,7 @@
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_LEGS_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_LEGS_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_LEGS_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_LEGS_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_LEGS_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_LEGS_C" animsurface="BGMWATER_N_AIM" />
@@ -613,11 +617,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_LEGS_C" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_LEGS_C" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SWATLeggingsAndPistolLeft" palette="swat_blue">
+			<Surface name="BGMEMPTY_RUN_SWATlegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_SWATlegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SWATLeggingsAndPistol" palette="swat_blue">
 			<Surface name="BGMPISTOL_WALK_SWATlegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_SWATlegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_SWATlegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_SWATlegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_SWATlegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_SWATlegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_SWATlegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_SWATlegs" animsurface="BGMWATER_N_AIM" />
@@ -758,11 +767,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_SWATlegs" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_SWATlegs" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="ZylonPantsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Zylonlegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Zylonlegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="ZylonPantsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Zylonlegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Zylonlegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Zylonlegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Zylonlegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Zylonlegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Zylonlegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Zylonlegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Zylonlegs" animsurface="BGMWATER_N_AIM" />
@@ -912,6 +926,7 @@
 			<Surface name="BGMEMPTY_RUN_eod_l" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_eod_l" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_eod_l" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_eod_l" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_eod_l" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_eod_l" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_eod_l" animsurface="BGMWATER_N_AIM" />
@@ -1056,11 +1071,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_eod_l" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_eod_l" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DressUniformPantsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Dresslegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="DressUniformPantsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Dresslegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Dresslegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Dresslegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dresslegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Dresslegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Dresslegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Dresslegs" animsurface="BGMWATER_N_AIM" />
@@ -1203,11 +1223,16 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="legarmor">
+		<LayerProp filter="KevlarLeggingsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Kvlrlegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Kvlrlegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="KevlarLeggingsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Kvlrlegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Kvlrlegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Kvlrlegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Kvlrlegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Kvlrlegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Kvlrlegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Kvlrlegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Kvlrlegs" animsurface="BGMWATER_N_AIM" />
@@ -1348,11 +1373,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Kvlrlegs" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Kvlrlegs" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SpectraLeggingsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Speclegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Speclegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SpectraLeggingsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Speclegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Speclegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Speclegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Speclegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Speclegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Speclegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Speclegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Speclegs" animsurface="BGMWATER_N_AIM" />
@@ -1493,11 +1523,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Speclegs" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Speclegs" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="TwaronLeggingsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Twalegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Twalegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="TwaronLeggingsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Twalegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Twalegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Twalegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Twalegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Twalegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Twalegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Twalegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Twalegs" animsurface="BGMWATER_N_AIM" />
@@ -1638,11 +1673,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Twalegs" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Twalegs" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaLeggingsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Dynlegs" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Dynlegs" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="DyneemaLeggingsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Dynlegs" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Dynlegs" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Dynlegs" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Dynlegs" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dynlegs" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Dynlegs" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Dynlegs" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Dynlegs" animsurface="BGMWATER_N_AIM" />
@@ -1794,6 +1834,7 @@
 			<Surface name="BGMEMPTY_RUN_GHILLIEVEST" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_GHILLIEVEST" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_GHILLIEVEST" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_GHILLIEVEST" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_GHILLIEVEST" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_GHILLIEVEST" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_GHILLIEVEST" animsurface="BGMWATER_N_AIM" />
@@ -1947,6 +1988,7 @@
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_TORSO_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_TORSO_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_TORSO_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_TORSO_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_TORSO_C" animsurface="BGMWATER_N_AIM" />
@@ -2100,6 +2142,7 @@
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_TORSO_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_TORSO_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_TORSO_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_TORSO_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_TORSO_C" animsurface="BGMWATER_N_AIM" />
@@ -2253,6 +2296,7 @@
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_TORSO_C" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_TORSO_C" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_TORSO_C" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_TORSO_C" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_TORSO_C" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_TORSO_C" animsurface="BGMWATER_N_AIM" />
@@ -2397,11 +2441,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_TORSO_C" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_TORSO_C" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DressUniformVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Dressvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Dressvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="DressUniformVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Dressvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Dressvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Dressvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Dressvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dressvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Dressvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Dressvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Dressvest" animsurface="BGMWATER_N_AIM" />
@@ -2548,11 +2597,11 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="hands">
-		<LayerProp filter="LongsleevesANDHasPistolOrMPistolInLeftHand" >
+		<LayerProp filter="LongsleevesAndPistolLeft" >
 			<Surface name="BGMEMPTY_RUN_LSLEEVE" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMDUAL_SDSTP_LSLEEVE" animsurface="BGMSIDESTEP" />
 		</LayerProp>
-		<LayerProp filter="LongsleevesANDHasPistolOrMPistolInRightHand" >
+		<LayerProp filter="LongsleevesAndPistol" >
 			<Surface name="BGMPISTOL_WALK_LSLEEVE" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_LSLEEVE" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_LSLEEVE" animsurface="BGMNOTHING_RUN" />
@@ -2562,7 +2611,7 @@
 			<Surface name="BGM_WATER_PISTOL_WALK_LSLEEVE" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_LSLEEVE" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="LongsleevesANDHasRifleTypeWeaponInHand" >
+		<LayerProp filter="LongsleevesAndRifle" >
 			<Surface name="BGM_RIFLE_OPEN_LSLEEVE" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_LSLEEVE" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_LSLEEVE" animsurface="BGM_COWER_PRONE" />
@@ -2703,16 +2752,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="head">
-		<LayerProp filter="IsWearingBalaclavaAndHasPistol">
+		<LayerProp filter="BalaclavaAndPistolLeft" >
+			<Surface name="BGMEMPTY_RUN_balaclava" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_balaclava" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BalaclavaAndPistol" >
 			<Surface name="BGMPISTOL_WALK_balaclava" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_balaclava" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_balaclava" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_balaclava" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_balaclava" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_balaclava" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_balaclava" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_balaclava" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBalaclavaAndHasRifle">
+		<LayerProp filter="BalaclavaAndRifle">
 			<Surface name="BGM_RIFLE_OPEN_balaclava" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_balaclava" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_balaclava" animsurface="BGM_COWER_PRONE" />
@@ -2853,11 +2907,16 @@
 		</LayerProp> 
 	</Layer>
 	<Layer name="helmet">
+		<LayerProp filter="GhillieHoodAndPistolLeft" palette="WoodlandCamo">
+			<Surface name="BGMEMPTY_RUN_GHILLIEHOOD" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_GHILLIEHOOD" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="GhillieHoodAndPistol" palette="WoodlandCamo">
 			<Surface name="BGMPISTOL_WALK_GHILLIEHOOD" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_GHILLIEHOOD" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_GHILLIEHOOD" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_GHILLIEHOOD" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_GHILLIEHOOD" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_GHILLIEHOOD" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_GHILLIEHOOD" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_GHILLIEHOOD" animsurface="BGMWATER_N_AIM" />
@@ -3016,11 +3075,16 @@
 			<Surface name="BGMEMPTY_ROLL_SIDE_eod_h2" animsurface="BGMROLL_PR" />
 			<Surface name="BGMRIFLE_PRN_COWER_eod_h2" animsurface="BGM_COWER_PRONE" />
 		</LayerProp>
+		<LayerProp filter="EODhelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_eod_h" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_eod_h" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="EODhelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_eod_h" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_eod_h" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_eod_h" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_eod_h" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_eod_h" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_eod_h" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_eod_h" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_eod_h" animsurface="BGMWATER_N_AIM" />
@@ -3165,16 +3229,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_eod_h" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_eod_h" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCamoHelmetAndHasPistol" palette="WoodlandCamo">
+		<LayerProp filter="CamoHelmetAndPistolLeft" palette="WoodlandCamo">
+			<Surface name="BGMEMPTY_RUN_CAMOHELMET" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_CAMOHELMET" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="CamoHelmetAndPistol" palette="WoodlandCamo">
 			<Surface name="BGMPISTOL_WALK_CAMOHELMET" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_CAMOHELMET" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_CAMOHELMET" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_CAMOHELMET" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_CAMOHELMET" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_CAMOHELMET" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_CAMOHELMET" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_CAMOHELMET" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCamoHelmetAndHasRifle" palette="WoodlandCamo">
+		<LayerProp filter="CamoHelmetAndRifle" palette="WoodlandCamo">
 			<Surface name="BGM_RIFLE_OPEN_CAMOHELMET" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_CAMOHELMET" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_CAMOHELMET" animsurface="BGM_COWER_PRONE" />
@@ -3194,7 +3263,7 @@
 			<Surface name="BGM_BLUNT_CAMOHELMET" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_CAMOHELMET" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCamoHelmet" palette="WoodlandCamo">
+		<LayerProp filter="CamoHelmet" palette="WoodlandCamo">
 			<Surface name="BGMRIFLE_WALK_CROUCH_CAMOHELMET" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_CAMOHELMET" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_CAMOHELMET" animsurface="BGMWALK_R_RDY" />
@@ -3313,11 +3382,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_CAMOHELMET" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_CAMOHELMET" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SteelHelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Steelhelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Steelhelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SteelHelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Steelhelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Steelhelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Steelhelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Steelhelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Steelhelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Steelhelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Steelhelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Steelhelm" animsurface="BGMWATER_N_AIM" />
@@ -3461,11 +3535,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Steelhelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Steelhelm" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="KevlarHelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Kvlrhelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Kvlrhelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="KevlarHelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Kvlrhelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Kvlrhelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Kvlrhelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Kvlrhelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Kvlrhelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Kvlrhelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Kvlrhelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Kvlrhelm" animsurface="BGMWATER_N_AIM" />
@@ -3609,11 +3688,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Kvlrhelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Kvlrhelm" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SpectraHelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Spechelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Spechelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SpectraHelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Spechelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Spechelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Spechelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Spechelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Spechelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Spechelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Spechelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Spechelm" animsurface="BGMWATER_N_AIM" />
@@ -3757,11 +3841,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Spechelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Spechelm" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SWATHelmetAndPistolLeft" palette="swat_blue">
+			<Surface name="BGMEMPTY_RUN_SWAThelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_SWAThelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SWATHelmetAndPistol" palette="swat_blue">
 			<Surface name="BGMPISTOL_WALK_SWAThelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_SWAThelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_SWAThelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_SWAThelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_SWAThelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_SWAThelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_SWAThelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_SWAThelm" animsurface="BGMWATER_N_AIM" />
@@ -3905,11 +3994,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_SWAThelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_SWAThelm" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="TwaronHelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Twahelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Twahelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="TwaronHelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Twahelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Twahelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Twahelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Twahelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Twahelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Twahelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Twahelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Twahelm" animsurface="BGMWATER_N_AIM" />
@@ -4053,11 +4147,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Twahelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Twahelm" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaHelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Dynhelm" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Dynhelm" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="DyneemaHelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Dynhelm" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Dynhelm" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Dynhelm" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Dynhelm" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dynhelm" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Dynhelm" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Dynhelm" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Dynhelm" animsurface="BGMWATER_N_AIM" />
@@ -4201,16 +4300,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Dynhelm" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Dynhelm" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHelmetAndHasPistol" palette="hats">
+		<LayerProp filter="HelmetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_HELMET" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_HELMET" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="HelmetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_HELMET" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_HELMET" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_HELMET" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_HELMET" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_HELMET" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_HELMET" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_HELMET" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_HELMET" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHelmetAndHasRifle" palette="hats">
+		<LayerProp filter="HelmetAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_HELMET" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_HELMET" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_HELMET" animsurface="BGM_COWER_PRONE" />
@@ -4230,7 +4334,7 @@
 			<Surface name="BGM_BLUNT_HELMET" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_HELMET" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHelmet" palette="hats">
+		<LayerProp filter="Helmet" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_HELMET" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_HELMET" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_HELMET" animsurface="BGMWALK_R_RDY" />
@@ -4349,16 +4453,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_HELMET" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_HELMET" animsurface="BGMMORTAR" />
 		</LayerProp> 
-		<LayerProp filter="IsWearingRedBeretAndHasPistol" palette="hats">
+		<LayerProp filter="RedBeretAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="RedBeretAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_BERET" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BERET" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BERET" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BERET" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BERET" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingRedBeretAndHasRifle" palette="hats">
+		<LayerProp filter="RedBeretAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_BERET" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BERET" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BERET" animsurface="BGM_COWER_PRONE" />
@@ -4378,7 +4487,7 @@
 			<Surface name="BGM_BLUNT_BERET" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BERET" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingRedBeret" palette="hats">
+		<LayerProp filter="RedBeret" palette="hats">
 			<Surface name="BGMRIFLE_IDLE_HERO_BERET" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_BERET" animsurface="BGMTHREATENSTAND" />
 			<Surface name="BGMRIFLE_WALK_HERO_BERET" animsurface="BGMWALKING" />
@@ -4497,16 +4606,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_BERET" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_BERET" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingGreenBeretAndHasPistol" palette="Greenhats">
+		<LayerProp filter="GreenBeretAndPistolLeft" palette="Greenhats">
+			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="GreenBeretAndPistol" palette="Greenhats">
 			<Surface name="BGMPISTOL_WALK_BERET" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BERET" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BERET" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BERET" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BERET" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingGreenBeretAndHasRifle" palette="Greenhats">
+		<LayerProp filter="GreenBeretAndRifle" palette="Greenhats">
 			<Surface name="BGM_RIFLE_OPEN_BERET" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BERET" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BERET" animsurface="BGM_COWER_PRONE" />
@@ -4526,7 +4640,7 @@
 			<Surface name="BGM_BLUNT_BERET" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BERET" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingGreenBeret" palette="Greenhats">
+		<LayerProp filter="GreenBeret" palette="Greenhats">
 			<Surface name="BGMRIFLE_IDLE_HERO_BERET" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_BERET" animsurface="BGMTHREATENSTAND" />
 			<Surface name="BGMRIFLE_WALK_HERO_BERET" animsurface="BGMWALKING" />
@@ -4645,16 +4759,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_BERET" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_BERET" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBlueBeretAndHasPistol" palette="Bluehats">
+		<LayerProp filter="BlueBeretAndPistolLeft" palette="Bluehats">
+			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BlueBeretAndPistol" palette="Bluehats">
 			<Surface name="BGMPISTOL_WALK_BERET" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BERET" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BERET" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BERET" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BERET" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BERET" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BERET" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBlueBeretAndHasRifle" palette="Bluehats">
+		<LayerProp filter="BlueBeretAndRifle" palette="Bluehats">
 			<Surface name="BGM_RIFLE_OPEN_BERET" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BERET" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BERET" animsurface="BGM_COWER_PRONE" />
@@ -4674,7 +4793,7 @@
 			<Surface name="BGM_BLUNT_BERET" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BERET" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBlueBeret" palette="Bluehats">
+		<LayerProp filter="BlueBeret" palette="Bluehats">
 			<Surface name="BGMRIFLE_IDLE_HERO_BERET" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_BERET" animsurface="BGMTHREATENSTAND" />
 			<Surface name="BGMRIFLE_WALK_HERO_BERET" animsurface="BGMWALKING" />
@@ -4793,16 +4912,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_BERET" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_BERET" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHatAndHasPistol" palette="WoodlandCamo">
+		<LayerProp filter="BooneyHatAndPistolLeft" palette="WoodlandCamo">
+			<Surface name="BGMEMPTY_RUN_BOONEY" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BOONEY" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BooneyHatAndPistol" palette="WoodlandCamo">
 			<Surface name="BGMPISTOL_WALK_BOONEY" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BOONEY" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BOONEY" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BOONEY" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BOONEY" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BOONEY" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BOONEY" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BOONEY" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHatAndHasRifle" palette="WoodlandCamo">
+		<LayerProp filter="BooneyHatAndRifle" palette="WoodlandCamo">
 			<Surface name="BGM_RIFLE_OPEN_BOONEY" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BOONEY" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BOONEY" animsurface="BGM_COWER_PRONE" />
@@ -4818,11 +4942,11 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_BOONEY" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_BOONEY" animsurface="BGMROLL_PR" />
 		</LayerProp>
-		<LayerProp filter="HatAndBluntMeleeWeapon" palette="WoodlandCamo">
+		<LayerProp filter="BooneyHatAndBluntMeleeWeapon" palette="WoodlandCamo">
 			<Surface name="BGM_BLUNT_BOONEY" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BOONEY" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingHat" palette="WoodlandCamo">
+		<LayerProp filter="BooneyHat" palette="WoodlandCamo">
 			<Surface name="BGMRIFLE_IDLE_HERO_BOONEY" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_BOONEY" animsurface="BGMTHREATENSTAND" />
 			<Surface name="BGMRIFLE_WALK_HERO_BOONEY" animsurface="BGMWALKING" />
@@ -4941,11 +5065,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_BOONEY" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_BOONEY" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="FurHatAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Ushanka" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Ushanka" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="FurHatAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Ushanka" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Ushanka" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Ushanka" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Ushanka" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Ushanka" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Ushanka" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Ushanka" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Ushanka" animsurface="BGMWATER_N_AIM" />
@@ -5089,11 +5218,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Ushanka" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Ushanka" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="USOfficerHatAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_UScap" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_UScap" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="USOfficerHatAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_UScap" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_UScap" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_UScap" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_UScap" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_UScap" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_UScap" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_UScap" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_UScap" animsurface="BGMWATER_N_AIM" />
@@ -5237,11 +5371,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_UScap" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_UScap" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="USSROfficerHatAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_USSRcap" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_USSRcap" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="USSROfficerHatAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_USSRcap" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_USSRcap" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_USSRcap" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_USSRcap" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_USSRcap" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_USSRcap" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_USSRcap" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_USSRcap" animsurface="BGMWATER_N_AIM" />
@@ -5385,11 +5524,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_USSRcap" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_USSRcap" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="RussianCapAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_RUScap" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_RUScap" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="RussianCapAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_RUScap" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_RUScap" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_RUScap" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_RUScap" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_RUScap" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_RUScap" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_RUScap" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_RUScap" animsurface="BGMWATER_N_AIM" />
@@ -5533,11 +5677,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_RUScap" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_RUScap" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="BlackCapAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Blackcap" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Blackcap" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="BlackCapAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Blackcap" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Blackcap" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Blackcap" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Blackcap" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Blackcap" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Blackcap" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Blackcap" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Blackcap" animsurface="BGMWATER_N_AIM" />
@@ -5681,11 +5830,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Blackcap" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Blackcap" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="CowboyHatAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Stetson" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Stetson" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="CowboyHatAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Stetson" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Stetson" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Stetson" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Stetson" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Stetson" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Stetson" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Stetson" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Stetson" animsurface="BGMWATER_N_AIM" />
@@ -5829,16 +5983,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Stetson" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Stetson" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBallcapAndHasPistol" >
+		<LayerProp filter="BallcapAndPistolLeft" >
+			<Surface name="BGMEMPTY_RUN_BCAP" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BCAP" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BallcapAndPistol" >
 			<Surface name="BGMPISTOL_WALK_BCAP" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BCAP" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BCAP" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BCAP" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BCAP" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BCAP" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BCAP" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BCAP" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBallcapAndHasRifle" >
+		<LayerProp filter="BallcapAndRifle" >
 			<Surface name="BGM_RIFLE_OPEN_BCAP" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BCAP" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BCAP" animsurface="BGM_COWER_PRONE" />
@@ -5858,7 +6017,7 @@
 			<Surface name="BGM_BLUNT_BCAP" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BCAP" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBallcap" >
+		<LayerProp filter="Ballcap" >
 			<Surface name="BGMRIFLE_IDLE_HERO_BCAP" animsurface="BGMSTANDING" />
 			<Surface name="BGMRIFLE_IDLE_BCAP" animsurface="BGMTHREATENSTAND" />
 			<Surface name="BGMRIFLE_WALK_HERO_BCAP" animsurface="BGMWALKING" />
@@ -5979,16 +6138,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="facegear">
-		<LayerProp filter="IsWearingNVGandHasPistol" palette="hats">
+		<LayerProp filter="NVGAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_NVG" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_NVG" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="NVGAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_NVG" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_NVG" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_NVG" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_NVG" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_NVG" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_NVG" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_NVG" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_NVG" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingNVGandHasRifle" palette="hats">
+		<LayerProp filter="NVGAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_NVG" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_NVG" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_NVG" animsurface="BGM_COWER_PRONE" />
@@ -6008,7 +6172,7 @@
 			<Surface name="BGM_BLUNT_NVG" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_NVG" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingNVG" palette="hats">
+		<LayerProp filter="NVG" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_NVG" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_NVG" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_NVG" animsurface="BGMWALK_R_RDY" />
@@ -6127,11 +6291,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_NVG" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_NVG" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="GogglesAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Goggles" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Goggles" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="GogglesAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Goggles" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Goggles" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Goggles" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Goggles" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Goggles" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Goggles" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Goggles" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Goggles" animsurface="BGMWATER_N_AIM" />
@@ -6277,16 +6446,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="gasmask">
-		<LayerProp filter="IsWearingGasmaskAndHasPistol" palette="hats">
+		<LayerProp filter="GasmaskAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_GMASK" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_GMASK" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="GasmaskAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_GMASK" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_GMASK" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_GMASK" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_GMASK" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_GMASK" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_GMASK" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_GMASK" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_GMASK" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingGasmaskAndHasRifle" palette="hats">
+		<LayerProp filter="GasmaskAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_GMASK" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_GMASK" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_GMASK" animsurface="BGM_COWER_PRONE" />
@@ -6306,7 +6480,7 @@
 			<Surface name="BGM_BLUNT_GMASK" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_GMASK" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingGasmask" palette="hats">
+		<LayerProp filter="Gasmask" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_GMASK" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_GMASK" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_GMASK" animsurface="BGMWALK_R_RDY" />
@@ -6427,11 +6601,16 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="ears">
+		<LayerProp filter="HeadSetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Headset" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Headset" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="HeadSetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Headset" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Headset" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Headset" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Headset" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Headset" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Headset" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Headset" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Headset" animsurface="BGMWATER_N_AIM" />
@@ -6577,11 +6756,16 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="vest">
+		<LayerProp filter="EODvestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_eod_v" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_eod_v" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="EODvestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_eod_v" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_eod_v" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_eod_v" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_eod_v" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_eod_v" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_eod_v" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_eod_v" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_eod_v" animsurface="BGMWATER_N_AIM" />
@@ -6726,16 +6910,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_eod_v" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_eod_v" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraVestAndHasPistol" palette="hats">
+		<LayerProp filter="SpectraVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_spectra" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_spectra" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="SpectraVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_spectra" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_spectra" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_spectra" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_spectra" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_spectra" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_spectra" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_spectra" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_spectra" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingSpectraVestAndHasRifle" palette="hats">
+		<LayerProp filter="SpectraVestAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_spectra" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_spectra" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_spectra" animsurface="BGM_COWER_PRONE" />
@@ -6875,16 +7064,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_spectra" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_spectra" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarVestAndHasPistol" palette="hats">
+		<LayerProp filter="KevlarVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_kevlar" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_kevlar" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="KevlarVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_kevlar" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_kevlar" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_kevlar" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_kevlar" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_kevlar" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_kevlar" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_kevlar" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_kevlar" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingKevlarVestAndHasRifle" palette="hats">
+		<LayerProp filter="KevlarVestAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_kevlar" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_kevlar" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_kevlar" animsurface="BGM_COWER_PRONE" />
@@ -7024,11 +7218,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_kevlar" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_kevlar" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="FlakVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Flakvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Flakvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="FlakVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Flakvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Flakvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Flakvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Flakvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Flakvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Flakvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Flakvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Flakvest" animsurface="BGMWATER_N_AIM" />
@@ -7173,11 +7372,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Flakvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Flakvest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="GuardianVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Guardvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="GuardianVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Guardvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Guardvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Guardvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Guardvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Guardvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Guardvest" animsurface="BGMWATER_N_AIM" />
@@ -7322,11 +7526,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Guardvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Guardvest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="SWATVestAndPistolLeft" palette="swat_blue">
+			<Surface name="BGMEMPTY_RUN_SWATvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_SWATvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="SWATVestAndPistol" palette="swat_blue">
 			<Surface name="BGMPISTOL_WALK_SWATvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_SWATvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_SWATvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_SWATvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_SWATvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_SWATvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_SWATvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_SWATvest" animsurface="BGMWATER_N_AIM" />
@@ -7471,11 +7680,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_SWATvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_SWATvest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="ZylonVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Zylonvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Zylonvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="ZylonVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Zylonvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Zylonvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Zylonvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Zylonvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Zylonvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Zylonvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Zylonvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Zylonvest" animsurface="BGMWATER_N_AIM" />
@@ -7620,11 +7834,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Zylonvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Zylonvest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="TwaronVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Twavest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Twavest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="TwaronVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Twavest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Twavest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Twavest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Twavest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Twavest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Twavest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Twavest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Twavest" animsurface="BGMWATER_N_AIM" />
@@ -7769,11 +7988,16 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Twavest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Twavest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="DyneemaVestAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Dynvest" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Dynvest" animsurface="BGMSIDESTEP" />
+		</LayerProp>
 		<LayerProp filter="DyneemaVestAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Dynvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Dynvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Dynvest" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Dynvest" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Dynvest" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Dynvest" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Dynvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Dynvest" animsurface="BGMWATER_N_AIM" />
@@ -7918,16 +8142,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Dynvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Dynvest" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingFlakJacketAndHasPistol" palette="hats">
+		<LayerProp filter="ChestRigAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_VEST" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_VEST" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="ChestRigAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_VEST" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_VEST" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_VEST" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_VEST" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_VEST" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_VEST" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_VEST" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_VEST" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingFlakJacketAndHasRifle" palette="hats">
+		<LayerProp filter="ChestRigAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_VEST" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_VEST" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_VEST" animsurface="BGM_COWER_PRONE" />
@@ -7943,11 +8172,11 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_VEST" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_VEST" animsurface="BGMROLL_PR" />
 		</LayerProp>
-		<LayerProp filter="FlakJacketAndBluntMeleeWeapon" palette="hats">
+		<LayerProp filter="ChestRigAndBluntMeleeWeapon" palette="hats">
 			<Surface name="BGM_BLUNT_VEST" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_VEST" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="FlakJacket" palette="hats">
+		<LayerProp filter="ChestRig" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_VEST" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_VEST" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_VEST" animsurface="BGMWALK_R_RDY" />
@@ -8070,16 +8299,21 @@
 	</Layer>
 	<Layer name="backpack">
 <!--
-		<LayerProp filter="IsWearingBigRadioSetAndHasPistol" palette="hats">
+		<LayerProp filter="BigRadioSetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Bigradio" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Bigradio" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BigRadioSetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Bigradio" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Bigradio" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Bigradio" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Bigradio" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Bigradio" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Bigradio" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Bigradio" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Bigradio" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBigRadioSetAndHasRifle" palette="hats">
+		<LayerProp filter="BigRadioSetAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_Bigradio" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_Bigradio" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_Bigradio" animsurface="BGM_COWER_PRONE" />
@@ -8099,7 +8333,7 @@
 			<Surface name="BGM_BLUNT_Bigradio" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_Bigradio" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBigRadioSet" palette="hats">
+		<LayerProp filter="BigRadioSet" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_Bigradio" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_Bigradio" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_Bigradio" animsurface="BGMCROUCH_D_RDY" />
@@ -8217,16 +8451,21 @@
 			<Surface name="BGM_CROUCH_MORTAR_Bigradio" animsurface="BGMMORTAR" />
 		</LayerProp>
 -->
-		<LayerProp filter="IsWearingMedRadioSetAndHasPistol" palette="hats">
+		<LayerProp filter="MedRadioSetAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Medradio" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Medradio" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="MedRadioSetAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_Medradio" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Medradio" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Medradio" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_Medradio" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Medradio" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_Medradio" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_Medradio" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Medradio" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingMedRadioSetAndHasRifle" palette="hats">
+		<LayerProp filter="MedRadioSetAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_Medradio" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_Medradio" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_Medradio" animsurface="BGM_COWER_PRONE" />
@@ -8246,7 +8485,7 @@
 			<Surface name="BGM_BLUNT_Medradio" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_Medradio" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingMedRadioSet" palette="hats">
+		<LayerProp filter="MedRadioSet" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_Medradio" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_Medradio" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_Medradio" animsurface="BGMCROUCH_D_RDY" />
@@ -8363,16 +8602,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Medradio" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Medradio" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCombatPackAndHasPistol" palette="hats">
+		<LayerProp filter="CombatPackAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_CP" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_CP" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="CombatPackAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_CP" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_CP" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_CP" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_CP" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_CP" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_CP" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_CP" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_CP" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCombatPackAndHasRifle" palette="hats">
+		<LayerProp filter="CombatPackAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_CP" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_CP" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_CP" animsurface="BGM_COWER_PRONE" />
@@ -8392,7 +8636,7 @@
 			<Surface name="BGM_BLUNT_CP" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_CP" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingCombatPack" palette="hats">
+		<LayerProp filter="CombatPack" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_CP" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_CP" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_CP" animsurface="BGMCROUCH_D_RDY" />
@@ -8509,16 +8753,21 @@
 			<Surface name="BGM_WATER_DUAL_AIM_CP" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_CP" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBackpackAndHasPistol" palette="hats">
+		<LayerProp filter="BackpackAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_BP" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_BP" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="BackpackAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_BP" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_BP" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_BP" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_BP" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_BP" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_BP" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_BP" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_BP" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBackpackAndHasRifle" palette="hats">
+		<LayerProp filter="BackpackAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_BP" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_BP" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_BP" animsurface="BGM_COWER_PRONE" />
@@ -8538,7 +8787,7 @@
 			<Surface name="BGM_BLUNT_BP" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_BP" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBackpack" palette="hats">
+		<LayerProp filter="Backpack" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_BP" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_BP" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_BP" animsurface="BGMCROUCH_D_RDY" />
@@ -8657,16 +8906,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="legrig">
-		<LayerProp filter="HasHolsterAndPistol" palette="hats">
+		<LayerProp filter="HolsterAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_holster" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_holster" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="HolsterAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_holster" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_holster" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_holster" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_holster" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_holster" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_holster" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_holster" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_holster" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasHolsterAndRifle" palette="hats">
+		<LayerProp filter="HolsterAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_holster" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_holster" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_holster" animsurface="BGM_COWER_PRONE" />
@@ -8804,16 +9058,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="legrig_left">
-		<LayerProp filter="HasLeftHolsterAndPistol" palette="hats">
+		<LayerProp filter="LeftHolsterAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_holster_l" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_holster_l" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="LeftHolsterAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_holster_l" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_holster_l" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_holster_l" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_holster_l" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_holster_l" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_holster_l" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_holster_l" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_holster_l" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasLeftHolsterAndRifle" palette="hats">
+		<LayerProp filter="LeftHolsterAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_holster_l" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_holster_l" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_holster_l" animsurface="BGM_COWER_PRONE" />
@@ -8833,7 +9092,7 @@
 			<Surface name="BGM_BLUNT_holster_l" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_holster_l" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="HolsterLeft" palette="hats">
+		<LayerProp filter="LeftHolster" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_holster_l" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_holster_l" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_holster_l" animsurface="BGMCROUCH_D_RDY" />
@@ -8951,16 +9210,21 @@
 		</LayerProp>
 	</Layer>
 	<Layer name="knees">
-		<LayerProp filter="HasKneepadsAndHasPistol" palette="hats">
+		<LayerProp filter="KneepadsAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_PADS" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_PADS" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="KneepadsAndPistol" palette="hats">
 			<Surface name="BGMPISTOL_WALK_PADS" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_PADS" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_PADS" animsurface="BGMNOTHING_RUN" />
 			<Surface name="BGMPISTOL_SDSTP_PADS" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_PADS" animsurface="BGMPISTOLDRUNK" />
 			<Surface name="BGM_WATER_PISTOL_IDLE_PADS" animsurface="BGMWATER_N_STD" />
 			<Surface name="BGM_WATER_PISTOL_WALK_PADS" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_PADS" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasKneepadsAndHasRifle" palette="hats">
+		<LayerProp filter="KneepadsAndRifle" palette="hats">
 			<Surface name="BGM_RIFLE_OPEN_PADS" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_PADS" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_PADS" animsurface="BGM_COWER_PRONE" />
@@ -8980,7 +9244,7 @@
 			<Surface name="BGM_BLUNT_PADS" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_PADS" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="HasKneepads" palette="hats">
+		<LayerProp filter="Kneepads" palette="hats">
 			<Surface name="BGMRIFLE_WALK_CROUCH_PADS" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGM_CROUCHWALK_PADS" animsurface="BGMCROUCH_P_RDY" />
 			<Surface name="BGM_CROUCHWALK_DUAL_PADS" animsurface="BGMCROUCH_D_RDY" />

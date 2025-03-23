@@ -53013,4 +53013,33 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1774</uiIndex>
+		<szItemName>Army Cap</szItemName>
+		<szLongItemName>Army Cap</szLongItemName>
+		<szItemDesc>A lightweight field cap.</szItemDesc>
+		<szBRName>Army Cap</szBRName>
+		<szBRDesc>This practical and comfortable patrol cap is a stylish choice for both leisure activities and paramilitary outings. Available in a wide range of different colors.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>42</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>921</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>15</ItemSize>
+		<usPrice>15</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
