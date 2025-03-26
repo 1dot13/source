@@ -2377,6 +2377,151 @@
 			<Surface name="RGF_CROUCH_MORTAR_Dressvest" animsurface="RGFMORTAR" />
 			<Surface name="RGF_SLAP_Dressvest" animsurface="RGFSLAP" />			
 		</LayerProp>
+		<LayerProp filter="OfficerCoatAndPistolLeft" palette="hats">
+			<Surface name="RGF_EMPTY_RUN_Ofcrcoat" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_DUAL_SDSTP_Ofcrcoat" animsurface="RGFSIDESTEP"/>
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndPistol" palette="hats">
+			<Surface name="RGF_EMPTY_RUN_Ofcrcoat" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_Ofcrcoat" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_PISTOL_SDSTP_Ofcrcoat" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_Ofcrcoat" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_WATER_PISTOL_IDLE_Ofcrcoat" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_Ofcrcoat" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_PISTOL_AIM_Ofcrcoat" animsurface="RGFWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndRifle" palette="hats">
+			<Surface name="RGF_RIFLE_OPEN_Ofcrcoat" animsurface="RGFOPEN"/>
+			<Surface name="RGF_RIFLE_COWER_Ofcrcoat" animsurface="RGFCOWER"/>
+			<Surface name="RGF_RIFLE_PRN_COWER_Ofcrcoat" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_RIFLE_KICKDOOR_Ofcrcoat" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_RIFLE_SQUISH_Ofcrcoat" animsurface="RGF_SQUISH" />
+			<Surface name="RGF_RIFLE_LOOK_Ofcrcoat" animsurface="RGF_LOOK" />
+			<Surface name="RGF_RIFLE_SPIT_Ofcrcoat" animsurface="RGF_SPIT" />-->
+			<Surface name="RGF_RIFLE_DRUNK_Ofcrcoat" animsurface="RGFDRUNK"/>
+			<Surface name="RGF_RIFLE_LOW_Ofcrcoat" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Ofcrcoat" animsurface="RGFSIDESTEP_R_RDY"/>
+			<Surface name="RGF_RIFLE_ROLL_SIDE_Ofcrcoat" animsurface="RGFROLL_PR"/>
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="RGF_BLUNT_Ofcrcoat" animsurface="RGFPUNCH" />
+			<Surface name="RGF_CROWBAR_CR_HIT_Ofcrcoat" animsurface="RGFPUNCHLOW" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoat" palette="hats">
+			<Surface name="RGF_RIFLE_WALK_CROUCH_Ofcrcoat" animsurface="RGFCROUCH_R_RDY"/>
+			<Surface name="RGF_RIFLE_WALK_Ofcrcoat" animsurface="RGFWALK_R_RDY"/>
+			<Surface name="RGF_RIFLE_IDLE_Ofcrcoat" animsurface="RGFSTANDING"/>
+			<Surface name="RGF_BASICWALK_Ofcrcoat" animsurface="RGFWALKING"/>
+			<Surface name="RGF_RUNNING_Ofcrcoat" animsurface="RGFRUNNING"/>
+			<Surface name="RGF_RIFLE_CROUCH_Ofcrcoat" animsurface="RGFCROUCHING"/>
+			<Surface name="RGF_RIFLE_SIDESTEP_Ofcrcoat" animsurface="RGFSIDESTEP"/>
+			<Surface name="RGF_RIFLE_SWAT_Ofcrcoat" animsurface="RGFSNEAKING"/>
+			<Surface name="RGF_RIFLE_RAISE_Ofcrcoat" animsurface="RGFRAISE"/>
+			<Surface name="RGF_RIFLE_AIM_Ofcrcoat" animsurface="RGFSTANDAIM"/>
+			<Surface name="RGF_RIFLE_HIP_Ofcrcoat" animsurface="RGF_HIP_AIM"/>
+			<Surface name="RGF_RIFLE_CR_AIM_Ofcrcoat" animsurface="RGFCROUCHAIM"/>
+			<Surface name="RGF_RIFLE_PRONE_Ofcrcoat" animsurface="RGFPRONE"/>
+			<Surface name="RGF_RIFLE_HIT_Ofcrcoat" animsurface="RGFRHIT"/>
+			<Surface name="RGF_CROUCHWALK_Ofcrcoat" animsurface="RGFCROUCH_P_RDY"/>
+			<Surface name="RGF_CROUCHWALK_DUAL_Ofcrcoat" animsurface="RGFCROUCH_D_RDY"/>
+			<Surface name="RGF_HOP_Ofcrcoat" animsurface="RGFHOPFENCE"/>
+			<Surface name="RGF_HOP_Ofcrcoat" animsurface="RGFJUMPWINDOWS"/>
+			<Surface name="RGF_PUNCH_Ofcrcoat" animsurface="RGFPUNCH"/>
+			<Surface name="RGF_IDLE_Ofcrcoat" animsurface="RGFNOTHING_STD"/>
+			<Surface name="RGF_PISTOL_IDLE_Ofcrcoat" animsurface="RGFDBLBREATH"/>
+			<Surface name="RGF_OPEN_Ofcrcoat" animsurface="RGFOPEN"/>
+			<Surface name="RGF_PICKUP_Ofcrcoat" animsurface="RGFPICKUP"/>
+			<Surface name="RGF_MEDIC_CROUCH_Ofcrcoat" animsurface="RGFMEDIC"/>
+			<Surface name="RGF_MEDIC_PRONE_Ofcrcoat" animsurface="RGFMEDICPRN"/>
+			<Surface name="RGF_COWER_PRONE_Ofcrcoat" animsurface="RGF_COWER_PRONE"/>
+			<Surface name="RGF_DIE_PRONE_Ofcrcoat" animsurface="RGFHITPRONE"/>
+			<Surface name="RGF_EMPTY_CROUCH_Ofcrcoat" animsurface="RGFNOTHING_CROUCH"/>
+			<Surface name="RGF_EMPTY_SWAT_Ofcrcoat" animsurface="RGFNOTHING_SWAT"/>
+			<Surface name="RGF_EMPTY_SWAT_Ofcrcoat" animsurface="RGFSWKNIFE"/>
+			<Surface name="RGF_EMPTY_RUN_Ofcrcoat" animsurface="RGFPISTOL_RUN"/>
+			<Surface name="RGF_EMPTY_RUN_Ofcrcoat" animsurface="RGFNOTHING_RUN"/>
+			<Surface name="RGF_EMPTY_WALK_Ofcrcoat" animsurface="RGFNOTHING_WALK"/>
+			<Surface name="RGF_EMPTY_PRONE_Ofcrcoat" animsurface="RGFHANDGUN_PRONE"/>
+			<Surface name="RGF_DUAL_PRONE_Ofcrcoat" animsurface="RGFDWPRONE"/>
+			<Surface name="RGF_DUAL_RDY_WALK_Ofcrcoat" animsurface="RGFWALK_D_RDY"/>
+			<Surface name="RGF_PISTOL_IDLE_Ofcrcoat" animsurface="RGFPISTOLBREATH"/>
+			<Surface name="RGF_PISTOL_RDY_WALK_Ofcrcoat" animsurface="RGFWALK_P_RDY"/>
+			<Surface name="RGF_PISTOL_AIM_Ofcrcoat" animsurface="RGFHANDGUN_S_SHOT"/>
+			<Surface name="RGF_PISTOL_AIM_1H_Ofcrcoat" animsurface="RGF_PFSHOT_AIM"/>
+			<Surface name="RGF_PISTOL_LOW_Ofcrcoat" animsurface="RGFPISTOLSHOOTLOW"/>
+			<Surface name="RGF_PISTOL_LOW_Ofcrcoat" animsurface="RGFSHOOT_LOW"/>
+			<Surface name="RGF_PISTOL_CR_AIM_Ofcrcoat" animsurface="RGFHANDGUN_C_SHOT"/>
+			<Surface name="RGF_DUAL_CR_AIM_Ofcrcoat" animsurface="RGFCDBLSHOT"/>
+			<Surface name="RGF_PISTOL_SDSTP_AIM_Ofcrcoat" animsurface="RGFSIDESTEP_P_RDY"/>
+			<Surface name="RGF_DUAL_SDSTP_AIM_Ofcrcoat" animsurface="RGFSIDESTEP_D_RDY"/>
+			<Surface name="RGF_DUAL_AIM_Ofcrcoat" animsurface="RGFSTANDDWALAIM"/>
+			<Surface name="RGF_EMPTY_PAIN_Ofcrcoat" animsurface="RGFHURTSTANDINGN"/>
+			<Surface name="RGF_RIFLE_PAIN_Ofcrcoat" animsurface="RGFHURTSTANDINGR"/>
+			<Surface name="RGF_EMPTY_DIE_Ofcrcoat" animsurface="RGFHITSTAND"/>
+			<Surface name="RGF_EMPTY_JFK_Ofcrcoat" animsurface="RGFDIE_JFK"/>
+			<Surface name="RGF_EMPTY_CDIE_Ofcrcoat" animsurface="RGFHITCROUCH"/>
+			<Surface name="RGF_EMPTY_COWER_Ofcrcoat" animsurface="RGFCOWER"/>
+			<Surface name="RGF_CLIMB_Ofcrcoat" animsurface="RGFCLIMBROOF"/>
+			<Surface name="RGF_CLIMB_Ofcrcoat" animsurface="RGFWALLJUMP"/>
+			<Surface name="RGF_EMPTY_ROLL_Ofcrcoat" animsurface="RGFROLLOVER"/>
+			<Surface name="RGF_EMPTY_ROLL_SIDE_Ofcrcoat" animsurface="RGFROLL_PR"/>
+			<Surface name="RGF_EMPTY_DIEFB_Ofcrcoat" animsurface="RGFHITFALLBACK"/>
+			<Surface name="RGF_EMPTY_DIEFBH_Ofcrcoat" animsurface="RGFHITHARD"/>
+			<Surface name="RGF_EMPTY_DIEFBHB_Ofcrcoat" animsurface="RGFHITHARDBLOOD"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_Ofcrcoat" animsurface="RGFHURTWALKINGR"/>
+			<Surface name="RGF_RIFLE_BAYONET_Ofcrcoat" animsurface="RGFBAYONET_S_S"/>
+			<Surface name="RGF_RIFLE_BAYONET_L_Ofcrcoat" animsurface="RGFBAYONET_S_P"/>
+			<Surface name="RGF_EMPTY_DODGE_Ofcrcoat" animsurface="RGFDODGE"/>
+			<Surface name="RGF_EMPTY_THROW_Ofcrcoat" animsurface="RGFTHROW"/>
+			<Surface name="RGF_EMPTY_THROW_G_Ofcrcoat" animsurface="RGFSTHRG"/>
+			<Surface name="RGF_EMPTY_LOB_Ofcrcoat" animsurface="RGFLOB"/>
+			<Surface name="RGF_EMPTY_LOB_G_Ofcrcoat" animsurface="RGFSLOBG"/>
+			<Surface name="RGF_EMPTY_KICKDOOR_Ofcrcoat" animsurface="RGFKICKDOOR"/>
+			<!--<Surface name="RGF_EMPTY_SQUISH_Ofcrcoat" animsurface="RGF_SQUISH" />-->
+			<Surface name="RGF_EMPTY_RADIO_Ofcrcoat" animsurface="RGFRADIO"/>
+			<!--<Surface name="RGF_EMPTY_PULL_Ofcrcoat" animsurface="RGF_PULL" />-->
+			<Surface name="RGF_EMPTY_REMOTE_Ofcrcoat" animsurface="RGFUSEREMOTE"/>
+			<Surface name="RGF_KNIFE_STAB_Ofcrcoat" animsurface="RGFSTAB"/>
+			<Surface name="RGF_KNIFE_SLICE_Ofcrcoat" animsurface="RGFSLICE"/>
+			<Surface name="RGF_KNIFE_THROW_Ofcrcoat" animsurface="RGFTHROWKNIFE"/>
+			<Surface name="RGF_KNIFE_BREATH_Ofcrcoat" animsurface="RGFBREATHKNIFE"/>
+			<Surface name="RGF_CROWBAR_HIT_Ofcrcoat" animsurface="RGFCROWBAR"/>
+			<Surface name="RGF_CROWBAR_CR_HIT_Ofcrcoat" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CPUNCH_Ofcrcoat" animsurface="RGFPUNCHLOW"/>
+			<Surface name="RGF_EMPTY_CTHROW_Ofcrcoat" animsurface="RGFCRTHROW"/>
+			<Surface name="RGF_KNIFE_CSTAB_Ofcrcoat" animsurface="RGFCSTAB"/>
+			<Surface name="RGF_EMPTY_CRADIO_Ofcrcoat" animsurface="RGFCRRADIO"/>
+			<Surface name="RGF_EMPTY_SLEEP_Ofcrcoat" animsurface="RGFSLEEP"/>
+			<Surface name="RGF_EMPTY_DRUNK_Ofcrcoat" animsurface="RGFPISTOLDRUNK"/>
+			<Surface name="RGF_RIFLE_WALK_HURT_Ofcrcoat" animsurface="RGFHURTWALKINGN"/>
+			<Surface name="RGF_EMPTY_FALL_Ofcrcoat" animsurface="RGFFALL"/>
+			<Surface name="RGF_EMPTY_FALLFWD_Ofcrcoat" animsurface="RGFFALLF"/>
+			<!--<Surface name="RGF_EMPTY_KARATELK_Ofcrcoat" animsurface="RGFLOWKICK" />
+			<Surface name="RGF_EMPTY_KARATESPINK_Ofcrcoat" animsurface="RGFSPINKICK" />-->
+			<Surface name="RGF_LAW_Ofcrcoat" animsurface="RGFROCKET"/>
+			<Surface name="RGF_LAW_CR_Ofcrcoat" animsurface="RGFCRROCKET"/>
+			<Surface name="RGF_EMPTY_KICKSAND_Ofcrcoat" animsurface="RGFKICKSN"/>
+			<Surface name="RGF_EMPTY_WIPEFACE_Ofcrcoat" animsurface="RGFWIPE"/>
+			<Surface name="RGF_RIFLE_LOOK_Ofcrcoat" animsurface="RGFALOOK"/>
+			<Surface name="RGF_RIFLE_CLEAN_Ofcrcoat" animsurface="RGFCLEAN"/>
+			<Surface name="RGF_WATER_RIFLE_IDLE_Ofcrcoat" animsurface="RGFWATER_R_STD" />
+			<Surface name="RGF_WATER_RIFLE_WALK_Ofcrcoat" animsurface="RGFWATER_R_WALK" />
+			<Surface name="RGF_WATER_RIFLE_AIM_Ofcrcoat" animsurface="RGFWATER_R_AIM" />
+			<Surface name="RGF_WATER_RIFLE_HIP_Ofcrcoat" animsurface="RGF_WATER_HIP_AIM" />
+			<Surface name="RGF_WATER_EMPTY_IDLE_Ofcrcoat" animsurface="RGFWATER_N_STD" />
+			<Surface name="RGF_WATER_EMPTY_WALK_Ofcrcoat" animsurface="RGFWATER_N_WALK" />
+			<Surface name="RGF_WATER_EMPTY_THROW_Ofcrcoat" animsurface="RGFWATERTHROW" />
+			<Surface name="RGF_WATER_EMPTY_FALL_Ofcrcoat" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_FALL_Ofcrcoat" animsurface="RGFWATER_TRANS" />
+			<Surface name="RGF_WATER_EMPTY_TREAD_Ofcrcoat" animsurface="RGFDEEPWATER_TRED" />
+			<Surface name="RGF_WATER_EMPTY_SWIM_Ofcrcoat" animsurface="RGFDEEPWATER_SWIM" />
+			<Surface name="RGF_WATER_EMPTY_DIE_Ofcrcoat" animsurface="RGFWATER_DIE" />
+			<Surface name="RGF_WATER_EMPTY_DROWN_Ofcrcoat" animsurface="RGFDEEPWATER_DIE" />
+			<Surface name="RGF_WATER_DUAL_AIM_Ofcrcoat" animsurface="RGFWATER_DBLSHT" />
+			<Surface name="RGF_HELIDROP_Ofcrcoat" animsurface="RGFHELIDROP" />
+			<Surface name="RGF_CROUCH_MORTAR_Ofcrcoat" animsurface="RGFMORTAR" />
+			<Surface name="RGF_SLAP_Ofcrcoat" animsurface="RGFSLAP" />			
+		</LayerProp>
 	</Layer>
 	<Layer name="hands">
 		<LayerProp filter="LongsleevesAndPistolLeft">
@@ -6866,11 +7011,11 @@
 			<Surface name="RGF_CROUCH_MORTAR_Flakvest" animsurface="RGFMORTAR" />
 			<Surface name="RGF_SLAP_Flakvest" animsurface="RGFSLAP" />			
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndPistolLeft" palette="hats">
+		<LayerProp filter="GuardianVestAndPistolLeft" palette="hats_guardian_vest">
 			<Surface name="RGF_EMPTY_RUN_Guardvest" animsurface="RGFPISTOL_RUN"/>
 			<Surface name="RGF_DUAL_SDSTP_Guardvest" animsurface="RGFSIDESTEP"/>
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndPistol" palette="hats">
+		<LayerProp filter="GuardianVestAndPistol" palette="hats_guardian_vest">
 			<Surface name="RGF_EMPTY_RUN_Guardvest" animsurface="RGFPISTOL_RUN"/>
 			<Surface name="RGF_EMPTY_RUN_Guardvest" animsurface="RGFNOTHING_RUN"/>
 			<Surface name="RGF_PISTOL_SDSTP_Guardvest" animsurface="RGFSIDESTEP"/>
@@ -6879,7 +7024,7 @@
 			<Surface name="RGF_WATER_EMPTY_WALK_Guardvest" animsurface="RGFWATER_N_WALK" />
 			<Surface name="RGF_WATER_PISTOL_AIM_Guardvest" animsurface="RGFWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndRifle" palette="hats">
+		<LayerProp filter="GuardianVestAndRifle" palette="hats_guardian_vest">
 			<Surface name="RGF_RIFLE_OPEN_Guardvest" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_COWER_Guardvest" animsurface="RGFCOWER"/>
 			<Surface name="RGF_RIFLE_PRN_COWER_Guardvest" animsurface="RGF_COWER_PRONE"/>
@@ -6892,11 +7037,11 @@
 			<Surface name="RGF_RIFLE_SIDESTEP_AIM_Guardvest" animsurface="RGFSIDESTEP_R_RDY"/>
 			<Surface name="RGF_RIFLE_ROLL_SIDE_Guardvest" animsurface="RGFROLL_PR"/>
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats">
+		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats_guardian_vest">
 			<Surface name="RGF_BLUNT_Guardvest" animsurface="RGFPUNCH" />
 			<Surface name="RGF_CROWBAR_CR_HIT_Guardvest" animsurface="RGFPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="GuardianVest" palette="hats">
+		<LayerProp filter="GuardianVest" palette="hats_guardian_vest">
 			<Surface name="RGF_RIFLE_WALK_CROUCH_Guardvest" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_Guardvest" animsurface="RGFWALK_R_RDY"/>
 			<Surface name="RGF_RIFLE_IDLE_Guardvest" animsurface="RGFSTANDING"/>

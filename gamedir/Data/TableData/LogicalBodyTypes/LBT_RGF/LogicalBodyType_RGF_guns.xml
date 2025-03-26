@@ -4290,7 +4290,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_AR7090" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_AR7090" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARLCQCInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARLCQCInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARLCQC" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARLCQC" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARLCQC" animsurface="RGFWALK_R_RDY"/>
@@ -4327,7 +4327,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARLCQC" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARLCQC" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARHCQCInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARHCQCInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARHCQC" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARHCQC" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARHCQC" animsurface="RGFWALK_R_RDY"/>
@@ -4364,7 +4364,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARHCQC" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARHCQC" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCAR68CQCInHand" palette="guns_v2">
+		<LayerProp filter="HasSCAR68CQCInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCAR68CQC" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCAR68CQC" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCAR68CQC" animsurface="RGFWALK_R_RDY"/>
@@ -4401,7 +4401,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCAR68CQC" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCAR68CQC" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARWPCQCInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARWPCQCInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARWPCQC" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARWPCQC" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARWPCQC" animsurface="RGFWALK_R_RDY"/>
@@ -4438,7 +4438,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARWPCQC" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARWPCQC" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARLSVInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARLSVInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARLSV" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARLSV" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARLSV" animsurface="RGFWALK_R_RDY"/>
@@ -4475,7 +4475,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARLSV" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARLSV" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARHSVInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARHSVInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARHSV" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARHSV" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARHSV" animsurface="RGFWALK_R_RDY"/>
@@ -4512,7 +4512,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARHSV" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARHSV" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCAR68SVInHand" palette="guns_v2">
+		<LayerProp filter="HasSCAR68SVInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCAR68SV" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCAR68SV" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCAR68SV" animsurface="RGFWALK_R_RDY"/>
@@ -4549,7 +4549,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCAR68SV" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCAR68SV" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARWPSVInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARWPSVInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARWPSV" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARWPSV" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARWPSV" animsurface="RGFWALK_R_RDY"/>
@@ -4586,7 +4586,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARWPSV" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARWPSV" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasXM8InHand" palette="guns_v2">
+		<LayerProp filter="HasXM8InHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_XM8" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_XM8" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_XM8" animsurface="RGFWALK_R_RDY"/>
@@ -4623,7 +4623,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_XM8" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_XM8" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasXM8CompactInHand" palette="guns_v2">
+		<LayerProp filter="HasXM8CompactInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_XM8C" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_XM8C" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_XM8C" animsurface="RGFWALK_R_RDY"/>
@@ -4660,7 +4660,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_XM8C" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_XM8C" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasXM8SharpshooterInHand" palette="guns_v2">
+		<LayerProp filter="HasXM8SharpshooterInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_XM8S" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_XM8S" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_XM8S" animsurface="RGFWALK_R_RDY"/>
@@ -4697,7 +4697,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_XM8S" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_XM8S" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasXM8AutomaticInHand" palette="guns_v2">
+		<LayerProp filter="HasXM8AutomaticInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_XM8A" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_XM8A" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_XM8A" animsurface="RGFWALK_R_RDY"/>
@@ -10314,7 +10314,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_FAMAS" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_FAMAS" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasSCARInHand" palette="guns_v2">
+		<LayerProp filter="HasSCARInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_SCARH" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_SCARH" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_SCARH" animsurface="RGFWALK_R_RDY"/>
@@ -10351,7 +10351,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_SCARH" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_SCARH" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<LayerProp filter="HasMilkorInHand" palette="guns_v2">
+		<LayerProp filter="HasMilkorInHand" palette="guns_v2_tan_fix">
 			<Surface name="RGF_RIFLE_OPEN_MKL" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_MKL" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_MKL" animsurface="RGFWALK_R_RDY"/>

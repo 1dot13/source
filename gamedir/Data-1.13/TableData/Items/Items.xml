@@ -8645,6 +8645,7 @@
 		<szBRName>Officer's Coat</szBRName>
 		<szBRDesc>A Soviet officer's coat. Available with and without pocket lint.</szBRDesc>
 		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
