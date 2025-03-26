@@ -2595,6 +2595,160 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Dressvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Dressvest" animsurface="BGMMORTAR" />
 		</LayerProp>
+		<LayerProp filter="OfficerCoatAndPistolLeft" palette="hats">
+			<Surface name="BGMEMPTY_RUN_Ofcrcoat" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMDUAL_SDSTP_Ofcrcoat" animsurface="BGMSIDESTEP" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndPistol" palette="hats">
+			<Surface name="BGMPISTOL_WALK_Ofcrcoat" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_RUN_Ofcrcoat" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMEMPTY_RUN_Ofcrcoat" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMPISTOL_SDSTP_Ofcrcoat" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMEMPTY_DRUNK_Ofcrcoat" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGM_WATER_PISTOL_IDLE_Ofcrcoat" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_PISTOL_WALK_Ofcrcoat" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_PISTOL_AIM_Ofcrcoat" animsurface="BGMWATER_N_AIM" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndRifle" palette="hats">
+			<Surface name="BGM_RIFLE_OPEN_Ofcrcoat" animsurface="BGMOPEN" />
+			<Surface name="BGMRIFLE_COWER_Ofcrcoat" animsurface="BGMCOWER" />
+			<Surface name="BGMRIFLE_PRN_COWER_Ofcrcoat" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMRIFLE_KICKDOOR_Ofcrcoat" animsurface="BGMKICKDOOR" />
+			<Surface name="BGMRIFLE_DUST_SHOE_Ofcrcoat" animsurface="BGMSHOEDUST" />
+			<Surface name="BGMRIFLE_WIPE_Ofcrcoat" animsurface="BGMHEADTURN" />
+			<Surface name="BGMRIFLE_NECK_Ofcrcoat" animsurface="BGMIDLENECK" />
+			<Surface name="BGMRIFLE_NECK_HERO_Ofcrcoat" animsurface="BGMIDLENECK2" />
+			<Surface name="BGMRIFLE_DRUNK_Ofcrcoat" animsurface="BGMDRUNK" />
+			<Surface name="BGMRIFLE_LOW_Ofcrcoat" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMRIFLE_HIP_LOW_Ofcrcoat" animsurface="RGM_HIP_LOW" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_Ofcrcoat" animsurface="BGMSIDESTEP_R_RDY" />
+			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_Ofcrcoat" animsurface="BGMSIDESTEP_R_RDY2" />
+			<Surface name="BGMRIFLE_ROLL_SIDE_Ofcrcoat" animsurface="BGMROLL_PR" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoatAndBluntMeleeWeapon" palette="hats">
+			<Surface name="BGM_BLUNT_Ofcrcoat" animsurface="BGMPUNCH" />
+			<Surface name="BGMCROWBAR_CR_HIT_Ofcrcoat" animsurface="BGMPUNCHLOW" />
+		</LayerProp>
+		<LayerProp filter="OfficerCoat" palette="hats">
+			<Surface name="BGMRIFLE_WALK_CROUCH_Ofcrcoat" animsurface="BGMCROUCH_R_RDY" />
+			<Surface name="BGMRIFLE_WALK_RDY_HERO_Ofcrcoat" animsurface="BGMWALK_R_RDY2" />
+			<Surface name="BGMRIFLE_WALK_Ofcrcoat" animsurface="BGMWALK_R_RDY" />
+			<Surface name="BGMRIFLE_IDLE_HERO_Ofcrcoat" animsurface="BGMSTANDING" />
+			<Surface name="BGMRIFLE_IDLE_Ofcrcoat" animsurface="BGMTHREATENSTAND" />
+			<Surface name="BGMRIFLE_WALK_HERO_Ofcrcoat" animsurface="BGMWALKING" />
+			<Surface name="BGMBASICWALK_Ofcrcoat" animsurface="BGMWALK2" />
+			<Surface name="BGMRUNNING_HERO_Ofcrcoat" animsurface="BGMRUNNING" />
+			<Surface name="BGMRUNNING_Ofcrcoat" animsurface="BGMRUN2" />
+			<Surface name="BGMRIFLE_CROUCH_HERO_Ofcrcoat" animsurface="BGMCROUCHING" />
+			<Surface name="BGMRIFLE_CROUCH_BIGM_Ofcrcoat" animsurface="BGMCROUCHTRANS" />
+			<Surface name="BGMRIFLE_SIDESTEP_Ofcrcoat" animsurface="BGMSIDESTEP" />
+			<Surface name="BGMRIFLE_SWAT_Ofcrcoat" animsurface="BGMSNEAKING" />
+			<Surface name="BGMRIFLE_RAISE_HERO_Ofcrcoat" animsurface="BGMRAISE" />
+			<Surface name="BGMRIFLE_RAISE_Ofcrcoat" animsurface="BGMRAISE2" />
+			<Surface name="BGMRIFLE_AIM_HERO_Ofcrcoat" animsurface="BGMSTANDAIM" />
+			<Surface name="BGMRIFLE_AIM_Ofcrcoat" animsurface="BGMSTANDAIM2" />
+			<Surface name="BGMRIFLE_AIM_Ofcrcoat" animsurface="BGMSRAIMALT" />
+			<Surface name="BGMRIFLE_HIP_Ofcrcoat" animsurface="BGM_HIP_AIM" />
+			<Surface name="BGMRIFLE_HIP_HERO_Ofcrcoat" animsurface="BGMHIPAIMALT" />
+			<Surface name="BGMRIFLE_CR_AIM_HERO_Ofcrcoat" animsurface="BGMCROUCHAIM" />
+			<Surface name="BGMRIFLE_PRONE_HERO_Ofcrcoat" animsurface="BGMPRONE" />
+			<Surface name="BGMRIFLE_HIT_HERO_Ofcrcoat" animsurface="BGMRHIT" />
+			<Surface name="BGM_CROUCHWALK_Ofcrcoat" animsurface="BGMCROUCH_P_RDY" />
+			<Surface name="BGM_CROUCHWALK_DUAL_Ofcrcoat" animsurface="BGMCROUCH_D_RDY" />
+			<Surface name="BGM_HOP_Ofcrcoat" animsurface="BGMHOPFENCE" />
+			<Surface name="BGM_HOP_Ofcrcoat" animsurface="BGMJUMPWINDOWS" />
+			<Surface name="BGM_PUNCH_Ofcrcoat" animsurface="BGMPUNCH" />
+			<Surface name="BGM_IDLE_Ofcrcoat" animsurface="BGMNOTHING_STD" />
+			<Surface name="BGM_IDLE_Ofcrcoat" animsurface="BGMDBLBREATH" />
+			<Surface name="BGM_OPEN_Ofcrcoat" animsurface="BGMOPEN" />
+			<Surface name="BGM_PICKUP_Ofcrcoat" animsurface="BGMPICKUP" />
+			<Surface name="BGMMEDIC_CROUCH_Ofcrcoat" animsurface="BGMMEDIC" />
+			<Surface name="BGMMEDIC_PRONE_Ofcrcoat" animsurface="BGMMEDICPRN" />
+			<Surface name="BGMCOWER_PRONE_Ofcrcoat" animsurface="BGM_COWER_PRONE" />
+			<Surface name="BGMDIE_PRONE_Ofcrcoat" animsurface="BGMHITPRONE" />
+			<Surface name="BGMEMPTY_CROUCH_Ofcrcoat" animsurface="BGMNOTHING_CROUCH" />
+			<Surface name="BGMEMPTY_SWAT_Ofcrcoat" animsurface="BGMNOTHING_SWAT" />
+			<Surface name="BGMEMPTY_SWAT_Ofcrcoat" animsurface="BGMSWKNIFE" />
+			<Surface name="BGMEMPTY_RUN_Ofcrcoat" animsurface="BGMPISTOL_RUN" />			
+			<Surface name="BGMEMPTY_RUN_Ofcrcoat" animsurface="BGMNOTHING_RUN" />
+			<Surface name="BGMEMPTY_WALK_Ofcrcoat" animsurface="BGMNOTHING_WALK" />
+			<Surface name="BGMEMPTY_PRONE_Ofcrcoat" animsurface="BGMHANDGUN_PRONE" />
+			<Surface name="BGMDUAL_PRONE_Ofcrcoat" animsurface="BGMDWPRONE" />
+			<Surface name="BGMPISTOL_IDLE_Ofcrcoat" animsurface="BGMPISTOLBREATH" />
+			<Surface name="BGMPISTOL_RDY_WALK_Ofcrcoat" animsurface="BGMWALK_P_RDY" />
+			<Surface name="BGMDUAL_RDY_WALK_Ofcrcoat" animsurface="BGMWALK_D_RDY" />
+			<Surface name="BGMPISTOL_AIM_Ofcrcoat" animsurface="BGMHANDGUN_S_SHOT" />
+			<Surface name="BGMPISTOL_AIM_1H_Ofcrcoat" animsurface="BGM_PFSHOT_AIM" />
+			<Surface name="BGMPISTOL_LOW_Ofcrcoat" animsurface="BGMPISTOLSHOOTLOW" />
+			<Surface name="BGMPISTOL_LOW_Ofcrcoat" animsurface="BGMSHOOT_LOW" />
+			<Surface name="BGMPISTOL_CR_AIM_Ofcrcoat" animsurface="BGMHANDGUN_C_SHOT" />		
+			<Surface name="BGMDUAL_CR_AIM_Ofcrcoat" animsurface="BGMCDBLSHOT" />
+			<Surface name="BGMPISTOL_SDSTP_AIM_Ofcrcoat" animsurface="BGMSIDESTEP_P_RDY" />
+			<Surface name="BGMDUAL_SDSTP_AIM_Ofcrcoat" animsurface="BGMSIDESTEP_D_RDY" />
+			<Surface name="BGMDUAL_AIM_Ofcrcoat" animsurface="BGMSTANDDWALAIM" />
+			<Surface name="BGMEMPTY_PAIN_Ofcrcoat" animsurface="BGMHURTSTANDINGN" />
+			<Surface name="BGMRIFLE_PAIN_Ofcrcoat" animsurface="BGMHURTSTANDINGR" />
+			<Surface name="BGMEMPTY_DIE_Ofcrcoat" animsurface="BGMHITSTAND" />
+			<Surface name="BGMEMPTY_JFK_Ofcrcoat" animsurface="BGMDIE_JFK" />
+			<Surface name="BGMEMPTY_CDIE_Ofcrcoat" animsurface="BGMHITCROUCH" />
+			<Surface name="BGMEMPTY_COWER_Ofcrcoat" animsurface="BGMCOWER" />
+			<Surface name="BGM_CLIMB_Ofcrcoat" animsurface="BGMCLIMBROOF" />
+			<Surface name="BGM_CLIMB_Ofcrcoat" animsurface="BGMWALLJUMP" />
+			<Surface name="BGMEMPTY_ROLL_Ofcrcoat" animsurface="BGMROLLOVER" />
+			<Surface name="BGMEMPTY_ROLL_SIDE_Ofcrcoat" animsurface="BGMROLL_PR" />
+			<Surface name="BGMEMPTY_DIEFB_Ofcrcoat" animsurface="BGMHITFALLBACK" />
+			<Surface name="BGMEMPTY_DIEFBH_Ofcrcoat" animsurface="BGMHITHARD" />
+			<Surface name="BGMEMPTY_DIEFBHB_Ofcrcoat" animsurface="BGMHITHARDBLOOD" />
+			<Surface name="BGMRIFLE_WALK_HURT_Ofcrcoat" animsurface="BGMHURTWALKINGR" />
+			<Surface name="BGMRIFLE_BAYONET_Ofcrcoat" animsurface="BGMBAYONET_S_S" />
+			<Surface name="BGMRIFLE_BAYONET_L_Ofcrcoat" animsurface="BGMBAYONET_S_P" />
+			<Surface name="BGMEMPTY_DODGE_Ofcrcoat" animsurface="BGMDODGE" />
+			<Surface name="BGMEMPTY_THROW_Ofcrcoat" animsurface="BGMTHROW" />
+			<Surface name="BGMEMPTY_THROW_G_Ofcrcoat" animsurface="BGMSTHRG" />
+			<Surface name="BGMEMPTY_LOB_Ofcrcoat" animsurface="BGMLOB" />
+			<Surface name="BGMEMPTY_LOB_G_Ofcrcoat" animsurface="BGMSLOBG" />
+			<Surface name="BGMEMPTY_KICKDOOR_Ofcrcoat" animsurface="BGMKICKDOOR" />
+			<Surface name="BGM_STRETCH_Ofcrcoat" animsurface="BGMSTRECH" />
+			<Surface name="BGMEMPTY_RADIO_Ofcrcoat" animsurface="BGMRADIO" />
+			<Surface name="BGM_FLEX_Ofcrcoat" animsurface="BGMFLEX" />
+			<Surface name="BGMEMPTY_REMOTE_Ofcrcoat" animsurface="BGMUSEREMOTE" />
+			<Surface name="BGMKNIFE_STAB_Ofcrcoat" animsurface="BGMSTAB" />
+			<Surface name="BGMKNIFE_SLICE_Ofcrcoat" animsurface="BGMSLICE" />
+			<Surface name="BGMKNIFE_THROW_Ofcrcoat" animsurface="BGMTHROWKNIFE" />
+			<Surface name="BGMKNIFE_BREATH_Ofcrcoat" animsurface="BGMBREATHKNIFE" />
+			<Surface name="BGMCROWBAR_HIT_Ofcrcoat" animsurface="BGMCROWBAR" />
+			<Surface name="BGMCROWBAR_CR_HIT_Ofcrcoat" animsurface="BGMPUNCHLOW"/>
+			<Surface name="BGMEMPTY_CPUNCH_Ofcrcoat" animsurface="BGMPUNCHLOW" />
+			<Surface name="BGMEMPTY_CTHROW_Ofcrcoat" animsurface="BGMCRTHROW" />
+			<Surface name="BGMKNIFE_CSTAB_Ofcrcoat" animsurface="BGMCSTAB" />
+			<Surface name="BGMEMPTY_CRADIO_Ofcrcoat" animsurface="BGMCRRADIO" />
+			<Surface name="BGMEMPTY_SLEEP_Ofcrcoat" animsurface="BGMSLEEP" />
+			<Surface name="BGMEMPTY_DRUNK_Ofcrcoat" animsurface="BGMPISTOLDRUNK" />
+			<Surface name="BGMEMPTY_WALK_HURT_Ofcrcoat" animsurface="BGMHURTWALKINGN" />
+			<Surface name="BGMEMPTY_FALL_Ofcrcoat" animsurface="BGMFALL" />
+			<Surface name="BGMEMPTY_FALLFWD_Ofcrcoat" animsurface="BGMFALLF" />
+			<Surface name="BGMEMPTY_KARATELK_Ofcrcoat" animsurface="RGMLOWKICK" />
+			<Surface name="BGMEMPTY_KARATESPINK_Ofcrcoat" animsurface="RGMSPINKICK" />
+			<Surface name="BGMLAW_Ofcrcoat" animsurface="BGMROCKET" />
+			<Surface name="BGMLAW_CR_Ofcrcoat" animsurface="BGMCRROCKET" />
+			<Surface name="BGM_ROCK_Ofcrcoat" animsurface="BGMWITHSTONE" />
+			<Surface name="BGM_HELIDROP_Ofcrcoat" animsurface="BGMHELIDROP" />
+			<Surface name="BGM_WATER_RIFLE_IDLE_Ofcrcoat" animsurface="BGMWATER_R_STD" />
+			<Surface name="BGM_WATER_RIFLE_WALK_Ofcrcoat" animsurface="BGMWATER_R_WALK" />
+			<Surface name="BGM_WATER_RIFLE_AIM_Ofcrcoat" animsurface="BGMWATER_R_AIM" />
+			<Surface name="BGM_WATER_RIFLE_HIP_Ofcrcoat" animsurface="BGM_WATER_HIP_AIM" />
+			<Surface name="BGM_WATER_EMPTY_IDLE_Ofcrcoat" animsurface="BGMWATER_N_STD" />
+			<Surface name="BGM_WATER_EMPTY_WALK_Ofcrcoat" animsurface="BGMWATER_N_WALK" />
+			<Surface name="BGM_WATER_EMPTY_THROW_Ofcrcoat" animsurface="BGMWATERTHROW" />
+			<Surface name="BGM_WATER_EMPTY_FALL_Ofcrcoat" animsurface="BGMWATER_TRANS" />
+			<Surface name="BGM_WATER_EMPTY_FALL_Ofcrcoat" animsurface="BGMWATER_TRANS" />
+			<Surface name="BGM_WATER_EMPTY_TREAD_Ofcrcoat" animsurface="BGMDEEPWATER_TRED" />
+			<Surface name="BGM_WATER_EMPTY_SWIM_Ofcrcoat" animsurface="BGMDEEPWATER_SWIM" />
+			<Surface name="BGM_WATER_EMPTY_DIE_Ofcrcoat" animsurface="BGMWATER_DIE" />
+			<Surface name="BGM_WATER_EMPTY_DROWN_Ofcrcoat" animsurface="BGMDEEPWATER_DIE" />
+			<Surface name="BGM_WATER_DUAL_AIM_Ofcrcoat" animsurface="BGMWATER_DBLSHT" />
+			<Surface name="BGM_CROUCH_MORTAR_Ofcrcoat" animsurface="BGMMORTAR" />
+		</LayerProp>
 	</Layer>
 	<Layer name="hands">
 		<LayerProp filter="LongsleevesAndPistolLeft" >
@@ -7372,11 +7526,11 @@
 			<Surface name="BGM_WATER_DUAL_AIM_Flakvest" animsurface="BGMWATER_DBLSHT" />
 			<Surface name="BGM_CROUCH_MORTAR_Flakvest" animsurface="BGMMORTAR" />
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndPistolLeft" palette="hats">
+		<LayerProp filter="GuardianVestAndPistolLeft" palette="hats_guardian_vest">
 			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMDUAL_SDSTP_Guardvest" animsurface="BGMSIDESTEP" />
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndPistol" palette="hats">
+		<LayerProp filter="GuardianVestAndPistol" palette="hats_guardian_vest">
 			<Surface name="BGMPISTOL_WALK_Guardvest" animsurface="BGMNOTHING_WALK" />
 			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMPISTOL_RUN" />			
 			<Surface name="BGMEMPTY_RUN_Guardvest" animsurface="BGMNOTHING_RUN" />
@@ -7386,7 +7540,7 @@
 			<Surface name="BGM_WATER_PISTOL_WALK_Guardvest" animsurface="BGMWATER_N_WALK" />
 			<Surface name="BGM_WATER_PISTOL_AIM_Guardvest" animsurface="BGMWATER_N_AIM" />
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndRifle" palette="hats">
+		<LayerProp filter="GuardianVestAndRifle" palette="hats_guardian_vest">
 			<Surface name="BGM_RIFLE_OPEN_Guardvest" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_COWER_Guardvest" animsurface="BGMCOWER" />
 			<Surface name="BGMRIFLE_PRN_COWER_Guardvest" animsurface="BGM_COWER_PRONE" />
@@ -7402,11 +7556,11 @@
 			<Surface name="BGMRIFLE_SIDESTEP_AIM_HERO_Guardvest" animsurface="BGMSIDESTEP_R_RDY2" />
 			<Surface name="BGMRIFLE_ROLL_SIDE_Guardvest" animsurface="BGMROLL_PR" />
 		</LayerProp>
-		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats">
+		<LayerProp filter="GuardianVestAndBluntMeleeWeapon" palette="hats_guardian_vest">
 			<Surface name="BGM_BLUNT_Guardvest" animsurface="BGMPUNCH" />
 			<Surface name="BGMCROWBAR_CR_HIT_Guardvest" animsurface="BGMPUNCHLOW" />
 		</LayerProp>
-		<LayerProp filter="GuardianVest" palette="hats">
+		<LayerProp filter="GuardianVest" palette="hats_guardian_vest">
 			<Surface name="BGMRIFLE_WALK_CROUCH_Guardvest" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_Guardvest" animsurface="BGMWALK_R_RDY2" />
 			<Surface name="BGMRIFLE_WALK_Guardvest" animsurface="BGMWALK_R_RDY" />

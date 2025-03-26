@@ -410,6 +410,39 @@
 			<FILTER>HasBluntMeleeWeaponInHand</FILTER>
 		</AND>
 	</Filter>
+	<Filter name="OfficerCoat">
+		<OR>
+			<VESTPOS op="in">291</VESTPOS>
+			<VESTPOSATTACHMENT0 op="in">291</VESTPOSATTACHMENT0>
+			<VESTPOSATTACHMENT1 op="in">291</VESTPOSATTACHMENT1>
+			<VESTPOSATTACHMENT2 op="in">291</VESTPOSATTACHMENT2>
+			<VESTPOSATTACHMENT3 op="in">291</VESTPOSATTACHMENT3>
+		</OR>
+	</Filter>
+	<Filter name="OfficerCoatAndPistolLeft">
+		<AND>
+			<FILTER>OfficerCoat</FILTER>
+			<FILTER>HasPistolOrMPistolInLeftHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="OfficerCoatAndPistol">
+		<AND>
+			<FILTER>OfficerCoat</FILTER>
+			<FILTER>HasPistolOrMPistolInRightHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="OfficerCoatAndRifle">
+		<AND>
+			<FILTER>OfficerCoat</FILTER>
+			<FILTER>HasRifleTypeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
+	<Filter name="OfficerCoatAndBluntMeleeWeapon">
+		<AND>
+			<FILTER>OfficerCoat</FILTER>
+			<FILTER>HasBluntMeleeWeaponInHand</FILTER>
+		</AND>
+	</Filter>
 	<Filter name="DressUniformVest">
 		<OR>
 			<VESTPOS op="in">286</VESTPOS>

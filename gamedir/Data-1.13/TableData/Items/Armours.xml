@@ -1389,7 +1389,7 @@
 	<ARMOUR>
 		<uiIndex>198</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
-		<ubProtection>5</ubProtection>
+		<ubProtection>1</ubProtection>
 		<ubCoverage>25</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
