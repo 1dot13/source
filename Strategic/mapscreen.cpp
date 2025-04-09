@@ -10968,7 +10968,7 @@ void CreateMouseRegionsForTeamList( void )
 	// will create mouse regions for assignments, path plotting, character info selection
 	// the info region...is the background for the list itself
 	// OJW - MP
-	int max_rows = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+	int max_rows = maxNumberOfMercVisibleInStrategyList;
 	if (is_networked)
 		max_rows = 7; // <TODO> check this value is correct / unhardcode it
 
