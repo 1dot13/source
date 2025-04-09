@@ -3683,7 +3683,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CreatePopUpBoxForMovementBox( void )
 {
-	SGPPoint MovePosition = { UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width / 2, UI_MAP.ViewRegion.y + 100 };
+	SGPPoint MovePosition = { gMapViewRegion.MouseXPos, gMapViewRegion.MouseYPos };
 	SGPPoint Position;
 	SGPRect Dimensions;
 
@@ -4186,7 +4186,7 @@ void MoveMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
 		// highlight string
-	HighLightBoxLine( ghMoveBox, iValue );
+		HighLightBoxLine( ghMoveBox, iValue );
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
