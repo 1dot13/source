@@ -186,8 +186,6 @@
 		<GrenadeLauncher>0</GrenadeLauncher>
 		<Mortar>0</Mortar>
 		<Duckbill>0</Duckbill>
-		<Detonator>0</Detonator>
-		<RemoteDetonator>0</RemoteDetonator>
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<RocketLauncher>0</RocketLauncher>
 		<SingleShotRocketLauncher>0</SingleShotRocketLauncher>
