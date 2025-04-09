@@ -1180,7 +1180,6 @@ void CreateMapInventoryPoolSlots( )
 	INT16 sXA = 0, sYA = 0;
 	INT16 sULX = 0, sULY = 0;
 	INT16 sBRX = 0, sBRY = 0;
-	extern MOUSE_REGION gMapViewRegion;
 	//Moa: removed MapInventoryPoolMask, instead we disable map mouseregion and enable again when deleting stash regions
 	MSYS_DisableRegion( &gMapViewRegion );
 	//MSYS_DefineRegion( &MapInventoryPoolMask,
@@ -1217,7 +1216,6 @@ void CreateMapInventoryPoolSlots( )
 void DestroyMapInventoryPoolSlots( void )
 {
 	INT32 iCounter = 0;
-	extern MOUSE_REGION gMapViewRegion;
 
 	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
 	{

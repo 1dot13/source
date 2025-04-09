@@ -123,6 +123,8 @@ struct UILayout_CharList
 	int widthTimeRemaining;
 };
 
+extern MOUSE_REGION gMapViewRegion;
+
 extern BOOLEAN fCharacterInfoPanelDirty;
 extern BOOLEAN fTeamPanelDirty;
 extern BOOLEAN fMapPanelDirty;
