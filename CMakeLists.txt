@@ -147,7 +147,7 @@ foreach(app IN LISTS ApplicationTargets)
     )
     target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
     target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
-    target_compile_definitions(${exe} PRIVATE ${compilationFlags})
+    target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
 
     # language library for an application, e.g. JA2MAPEDITOR_ENGLISH_i18n
     set(language_library ${exe}_i18n)
