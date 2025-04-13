@@ -3796,27 +3796,27 @@ void AddStringsToMoveBox( void )
 	// add title
 	GetShortSectorString( sSelMapX, sSelMapY, sStringB );
 	swprintf( sString, L"%s %s", pMovementMenuStrings[ 0 ], sStringB );
-	AddStringToBoxColumn(&hStringHandle, sString, 0 );
+	AddMonoString(&hStringHandle, sString, 0 );
 	// Add empty lines to other columns
 	for ( size_t i = 1; i < MAX_POPUP_BOX_COLUMNS; i++ )
 	{
-		AddStringToBoxColumn( &hStringHandle, L"", i);
+		AddMonoString( &hStringHandle, L"", i);
 	}
 
 	// blank line
 	for ( size_t i = 0; i < MAX_POPUP_BOX_COLUMNS; i++ )
 	{
-		AddStringToBoxColumn( &hStringHandle, L"", i );
+		AddMonoString( &hStringHandle, L"", i );
 	}
 
 	// add Select all line
 	if (giNumberOfSquadsInSectorMoving > 1)
 	{
 		swprintf(sString, L"%s", pMovementMenuStrings[4]);
-		AddStringToBoxColumn( &hStringHandle, sString, 0 );
+		AddMonoString( &hStringHandle, sString, 0 );
 		for ( size_t i = 1; i < MAX_POPUP_BOX_COLUMNS; i++ )
 		{
-			AddStringToBoxColumn( &hStringHandle, L"", i );
+			AddMonoString( &hStringHandle, L"", i );
 		}
 	}
 
@@ -3842,21 +3842,21 @@ void AddStringsToMoveBox( void )
 		// Determine which column to add
 		if (!isFirstColumnFull)
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 0 );
+			AddMonoString( &hStringHandle, sString, 0 );
 		}
 		else if ( !secondColumnFull )
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 1 );
+			AddMonoString( &hStringHandle, sString, 1 );
 			gColumnEntries[1] += 1;
 		}
 		else if ( !thirdColumnFull )
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 2 );
+			AddMonoString( &hStringHandle, sString, 2 );
 			gColumnEntries[2] += 1;
 		}
 		else
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 3 );
+			AddMonoString( &hStringHandle, sString, 3 );
 			gColumnEntries[3] += 1;
 		}
 		entries += 1;
@@ -3878,21 +3878,21 @@ void AddStringsToMoveBox( void )
 
 				if ( !isFirstColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 0 );
+					AddMonoString( &hStringHandle, sString, 0 );
 				}
 				else if ( !secondColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 1 );
+					AddMonoString( &hStringHandle, sString, 1 );
 					gColumnEntries[1] += 1;
 				}
 				else if ( !thirdColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 2 );
+					AddMonoString( &hStringHandle, sString, 2 );
 					gColumnEntries[2] += 1;
 				}
 				else
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 3 );
+					AddMonoString( &hStringHandle, sString, 3 );
 					gColumnEntries[3] += 1;
 				}
 				entries += 1;
@@ -3930,21 +3930,21 @@ void AddStringsToMoveBox( void )
 
 		if ( !isFirstColumnFull )
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 0 );
+			AddMonoString( &hStringHandle, sString, 0 );
 		}
 		else if ( !secondColumnFull )
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 1 );
+			AddMonoString( &hStringHandle, sString, 1 );
 			gColumnEntries[1] += 1;
 		}
 		else if ( !thirdColumnFull )
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 2 );
+			AddMonoString( &hStringHandle, sString, 2 );
 			gColumnEntries[2] += 1;
 		}
 		else
 		{
-			AddStringToBoxColumn( &hStringHandle, sString, 3 );
+			AddMonoString( &hStringHandle, sString, 3 );
 			gColumnEntries[3] += 1;
 		}
 		entries += 1;
@@ -3966,21 +3966,21 @@ void AddStringsToMoveBox( void )
 
 				if ( !isFirstColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 0 );
+					AddMonoString( &hStringHandle, sString, 0 );
 				}
 				else if ( !secondColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 1 );
+					AddMonoString( &hStringHandle, sString, 1 );
 					gColumnEntries[1] += 1;
 				}
 				else if ( !thirdColumnFull )
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 2 );
+					AddMonoString( &hStringHandle, sString, 2 );
 					gColumnEntries[2] += 1;
 				}
 				else
 				{
-					AddStringToBoxColumn( &hStringHandle, sString, 3 );
+					AddMonoString( &hStringHandle, sString, 3 );
 					gColumnEntries[3] += 1;
 				}
 				entries += 1;
