@@ -1,4 +1,4 @@
-	#include "Map Screen Interface.h"
+#include "Map Screen Interface.h"
 	#include "string.h"
 	#include "Map Screen Interface Map.h"
 	#include "Render Dirty.h"
@@ -127,7 +127,7 @@ INT32 iUpdateBoxWaitingList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 FASTHELPREGION pFastHelpMapScreenList[ MAX_MAPSCREEN_FAST_HELP ];
 
 // the move menu region
-MOUSE_REGION gMoveMenuRegion[ MAX_POPUP_BOX_STRING_COUNT ];
+MOUSE_REGION gMoveMenuRegion[ MAX_POPUP_BOX_COLUMNS*MAX_POPUP_BOX_STRING_COUNT ];
 
 MOUSE_REGION gMapScreenHelpTextMask;
 
@@ -3685,79 +3685,79 @@ void CreatePopUpBoxForMovementBox( void )
 {
 	SGPPoint MovePosition = { gMapViewRegion.MouseXPos, gMapViewRegion.MouseYPos };
 	SGPPoint Position;
-	SGPRect Dimensions;
+	SGPRect Dimensions = { 0,0, 100, 95 };
 
 	// create the pop up box and mouse regions for movement list
 
 	 // create basic box
-	 CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, ( POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	CreatePopUpBox( &ghMoveBox, Dimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_RESIZE) );
 
-	 // which buffer will box render to
-	 SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
+	// which buffer will box render to
+	SetBoxBuffer( ghMoveBox, FRAME_BUFFER );
 
-	 // border type?
-	 SetBorderType(ghMoveBox,guiPOPUPBORDERS);
+	// border type?
+	SetBorderType( ghMoveBox, guiPOPUPBORDERS );
 
-	 // background texture
-	 SetBackGroundSurface(ghMoveBox, guiPOPUPTEX);
+	// background texture
+	SetBackGroundSurface( ghMoveBox, guiPOPUPTEX );
 
-	 // margin sizes
-	 SetMargins( ghMoveBox, 6, 6, 4, 4 );
+	// margin sizes
+	SetMargins( ghMoveBox, 6, 6, 4, 4 );
 
-	 // space between lines
-	 SetLineSpace(ghMoveBox, 2);
+	// space between lines
+	SetLineSpace( ghMoveBox, 2 );
 
-	 // set current box to this one
-	 SetCurrentBox( ghMoveBox );
+	// set current box to this one
+	SetCurrentBox( ghMoveBox );
 
-	 // add strings
-	 AddStringsToMoveBox( );
+	// add strings
+	AddStringsToMoveBox();
 
+	// set font type
+	SetBoxFont( ghMoveBox, MAP_SCREEN_FONT );
 
-	 // set font type
-	 SetBoxFont(ghMoveBox, MAP_SCREEN_FONT);
+	// set highlight color
+	SetBoxHighLight( ghMoveBox, FONT_WHITE );
 
-	 // set highlight color
-	 SetBoxHighLight(ghMoveBox, FONT_WHITE);
+	// unhighlighted color
+	SetBoxForeground( ghMoveBox, FONT_LTGREEN );
 
-	 // unhighlighted color
-	 SetBoxForeground(ghMoveBox, FONT_LTGREEN);
+	// make the header line WHITE
+	SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
 
-	 // make the header line WHITE
-	 SetBoxLineForeground( ghMoveBox, 0, FONT_WHITE );
-
-	 // make the done and cancel lines YELLOW
-	 SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
+	// make the done and cancel lines YELLOW
+	SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 1, FONT_YELLOW );
 
 	if ( IsAnythingSelectedForMoving() )
 	{
 		SetBoxLineForeground( ghMoveBox, GetNumberOfLinesOfTextInBox( ghMoveBox ) - 2, FONT_YELLOW );
 	}
 
-	 // background color
-	 SetBoxBackground(ghMoveBox, FONT_BLACK);
+	// background color
+	SetBoxBackground( ghMoveBox, FONT_BLACK );
 
-	 // shaded color..for darkened text
-	 SetBoxShade( ghMoveBox, FONT_BLACK );
+	// shaded color..for darkened text
+	SetBoxShade( ghMoveBox, FONT_BLACK );
 
-	 SetBoxSecondColumnForeground(ghMoveBox, FONT_LTGREEN);
-	 SetBoxSecondColumnBackground(ghMoveBox, FONT_BLACK);
-	 SetBoxSecondColumnHighLight(ghMoveBox, FONT_WHITE);
-	 SetBoxSecondColumnShade(ghMoveBox, FONT_BLACK);
-	 SetBoxSecondColumnFont(ghMoveBox, MAP_SCREEN_FONT);
-	 SetBoxSecondColumnMinimumOffset(ghMoveBox, 1);
-	 SetBoxSecondColumnOffsetAdjustment(ghMoveBox, -50);
+	for ( size_t i = 1; i < MAX_POPUP_BOX_COLUMNS; i++ )
+	{
+		SetBoxColumnForeground( ghMoveBox, FONT_LTGREEN, i );
+		SetBoxColumnBackground( ghMoveBox, FONT_BLACK, i );
+		SetBoxColumnHighLight( ghMoveBox, FONT_WHITE, i );
+		SetBoxColumnShade( ghMoveBox, FONT_BLACK, i );
+		SetBoxColumnFont( ghMoveBox, MAP_SCREEN_FONT, i );
+	}
 
-	 // resize box to text
-	 ResizeBoxToText( ghMoveBox );
+	ResizeBoxToText( ghMoveBox );
 
-	GetBoxPosition( ghMoveBox, &Position);
+	GetBoxPosition( ghMoveBox, &Position );
 	GetBoxSize( ghMoveBox, &Dimensions );
+
 
 	// adjust position to try to keep it in the map area as best as possible
 	if ( Position.iX + Dimensions.iRight >= (UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width) )
 	{
-		Position.iX = max(UI_MAP.ViewRegion.x, (UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width) - Dimensions.iRight );
+		Position.iX = max( UI_MAP.ViewRegion.x, (UI_MAP.ViewRegion.x + UI_MAP.ViewRegion.width) - Dimensions.iRight );
 		SetBoxPosition( ghMoveBox, Position );
 	}
 
@@ -3769,6 +3769,7 @@ void CreatePopUpBoxForMovementBox( void )
 }
 
 
+UINT32 gColumnEntries[MAX_POPUP_BOX_COLUMNS];
 
 void AddStringsToMoveBox( void )
 {
@@ -3776,9 +3777,15 @@ void AddStringsToMoveBox( void )
 	CHAR16 sString[ 128 ], sStringB[ 128 ];
 	UINT32 hStringHandle;
 	BOOLEAN fFirstOne = TRUE;
-	const INT32 firstColumnMaxEntries = 4 * gGameOptions.ubSquadSize;
+	const INT32 columnMaxEntries = 5 * gGameOptions.ubSquadSize;
 	INT32 entries = 0;
 	bool isFirstColumnFull = false;
+	bool secondColumnFull = false;
+	bool thirdColumnFull = false;
+	for ( size_t i = 0; i < MAX_POPUP_BOX_COLUMNS; i++ )
+	{
+		gColumnEntries[i] = 0;
+	}
 
 	// set the current box
 	SetCurrentBox( ghMoveBox );
@@ -3786,24 +3793,31 @@ void AddStringsToMoveBox( void )
 	// clear all the strings out of the box
 	RemoveAllCurrentBoxStrings();
 
-
 	// add title
 	GetShortSectorString( sSelMapX, sSelMapY, sStringB );
 	swprintf( sString, L"%s %s", pMovementMenuStrings[ 0 ], sStringB );
-	AddMonoString(&hStringHandle, sString );
-	AddSecondColumnMonoString(&hStringHandle, L"");
-
+	AddStringToBoxColumn(&hStringHandle, sString, 0 );
+	// Add empty lines to other columns
+	for ( size_t i = 1; i < MAX_POPUP_BOX_COLUMNS; i++ )
+	{
+		AddStringToBoxColumn( &hStringHandle, L"", i);
+	}
 
 	// blank line
-	AddMonoString(&hStringHandle, L"" );
-	AddSecondColumnMonoString(&hStringHandle, L"");
+	for ( size_t i = 0; i < MAX_POPUP_BOX_COLUMNS; i++ )
+	{
+		AddStringToBoxColumn( &hStringHandle, L"", i );
+	}
 
 	// add Select all line
 	if (giNumberOfSquadsInSectorMoving > 1)
 	{
 		swprintf(sString, L"%s", pMovementMenuStrings[4]);
-		AddMonoString(&hStringHandle, sString);
-		AddSecondColumnMonoString(&hStringHandle, L"");
+		AddStringToBoxColumn( &hStringHandle, sString, 0 );
+		for ( size_t i = 1; i < MAX_POPUP_BOX_COLUMNS; i++ )
+		{
+			AddStringToBoxColumn( &hStringHandle, L"", i );
+		}
 	}
 
 
@@ -3825,13 +3839,25 @@ void AddStringsToMoveBox( void )
 			else
 				swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
+		// Determine which column to add
 		if (!isFirstColumnFull)
 		{
-			AddMonoString(&hStringHandle, sString);
+			AddStringToBoxColumn( &hStringHandle, sString, 0 );
+		}
+		else if ( !secondColumnFull )
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 1 );
+			gColumnEntries[1] += 1;
+		}
+		else if ( !thirdColumnFull )
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 2 );
+			gColumnEntries[2] += 1;
 		}
 		else
 		{
-			AddMonoStringToSecondColumn(&hStringHandle, sString );
+			AddStringToBoxColumn( &hStringHandle, sString, 3 );
+			gColumnEntries[3] += 1;
 		}
 		entries += 1;
 
@@ -3850,21 +3876,41 @@ void AddStringsToMoveBox( void )
 					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
 
-				if (!isFirstColumnFull)
+				if ( !isFirstColumnFull )
 				{
-					AddMonoString(&hStringHandle, sString);
+					AddStringToBoxColumn( &hStringHandle, sString, 0 );
+				}
+				else if ( !secondColumnFull )
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 1 );
+					gColumnEntries[1] += 1;
+				}
+				else if ( !thirdColumnFull )
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 2 );
+					gColumnEntries[2] += 1;
 				}
 				else
 				{
-					AddMonoStringToSecondColumn(&hStringHandle, sString);
+					AddStringToBoxColumn( &hStringHandle, sString, 3 );
+					gColumnEntries[3] += 1;
 				}
 				entries += 1;
 			}
 		}
 
-		if (entries > firstColumnMaxEntries)
+		if (entries > columnMaxEntries && !isFirstColumnFull)
 		{
 			isFirstColumnFull = true;
+			gColumnEntries[0] = entries;
+		}
+		else if ( entries - gColumnEntries[0] > columnMaxEntries && !secondColumnFull )
+		{
+			secondColumnFull = true;
+		}
+		else if ( entries - gColumnEntries[0] - gColumnEntries[1] > columnMaxEntries && !thirdColumnFull )
+		{
+			thirdColumnFull = true;
 		}
 	}
 
@@ -3875,15 +3921,33 @@ void AddStringsToMoveBox( void )
 		// add this vehicle
 		if( fVehicleIsMoving[ iCount ] )
 		{
-		//	swprintf( sString, L"*%s*", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ] ].ubVehicleType ] );
 			swprintf( sString, L"*%s*", gNewVehicle[ pVehicleList[ iVehicleMovingList[ iCount ] ].ubVehicleType ].NewVehicleStrings );
 		}
 		else
 		{
-		//	swprintf( sString, L"%s", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ] );
 			swprintf( sString, L"%s", gNewVehicle[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ].NewVehicleStrings);
 		}
-		AddMonoString(&hStringHandle, sString );
+
+		if ( !isFirstColumnFull )
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 0 );
+		}
+		else if ( !secondColumnFull )
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 1 );
+			gColumnEntries[1] += 1;
+		}
+		else if ( !thirdColumnFull )
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 2 );
+			gColumnEntries[2] += 1;
+		}
+		else
+		{
+			AddStringToBoxColumn( &hStringHandle, sString, 3 );
+			gColumnEntries[3] += 1;
+		}
+		entries += 1;
 
 		// now add all the grunts in it
 		for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
@@ -3899,8 +3963,43 @@ void AddStringsToMoveBox( void )
 				{
 					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
-				AddMonoString(&hStringHandle, sString );
+
+				if ( !isFirstColumnFull )
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 0 );
+				}
+				else if ( !secondColumnFull )
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 1 );
+					gColumnEntries[1] += 1;
+				}
+				else if ( !thirdColumnFull )
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 2 );
+					gColumnEntries[2] += 1;
+				}
+				else
+				{
+					AddStringToBoxColumn( &hStringHandle, sString, 3 );
+					gColumnEntries[3] += 1;
+				}
+				entries += 1;
 			}
+		}
+
+
+		if ( entries > columnMaxEntries && !isFirstColumnFull )
+		{
+			isFirstColumnFull = true;
+			gColumnEntries[0] = entries;
+		}
+		else if ( entries - gColumnEntries[0] > columnMaxEntries && !secondColumnFull )
+		{
+			secondColumnFull = true;
+		}
+		else if ( entries - gColumnEntries[0] - gColumnEntries[1] > columnMaxEntries && !thirdColumnFull )
+		{
+			thirdColumnFull = true;
 		}
 	}
 
@@ -3999,7 +4098,6 @@ void BuildMouseRegionsForMoveBox( void )
 
 	SetCurrentBox( ghMoveBox );
 
-
 	// box heading
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
@@ -4024,66 +4122,302 @@ void BuildMouseRegionsForMoveBox( void )
 
 	// calc total number of "moving" lines in the box
 	iTotalNumberOfLines = giNumberOfSoldiersInSectorMoving + giNumberOfSquadsInSectorMoving + giNumberOfVehiclesInSectorMoving;
-	// add the blank lines
+	// add the blank line
 	iTotalNumberOfLines += iCounter;
 
 
 	// now add the strings
+	const UINT32 firstColumnWidth = GetBoxSecondColumnCurrentOffset( ghMoveBox );
+	bool firstColumnFull = false;
+	bool secondColumnFull = false;
+	bool thirdColumnFull = false;
+	INT32 entries = 0;
+	// Take into account any possible entries in the columnns after 1st for entries that come after squads
+	 const UINT32 rowOffset = gColumnEntries[1] + gColumnEntries[2] + gColumnEntries[3];
+
 	while( iCounter < iTotalNumberOfLines )
 	{
 		// define regions for squad lines
 		for( iCount = 0; iCount < giNumberOfSquadsInSectorMoving; iCount++ )
 		{
-			MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+			// First column coordinates
+			UINT16 tlx = iBoxXPosition;
+			UINT16 tly = iBoxYPosition + iFontHeight * iCounter;
+			UINT16 brx = iBoxXPosition + firstColumnWidth;
+			UINT16 bry = iBoxYPosition + iFontHeight * (iCounter + 1);
+
+			if ( thirdColumnFull )
+			{
+				tlx = iBoxXPosition + 3 * firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+			}
+			else if ( secondColumnFull )
+			{
+				tlx = iBoxXPosition + 2*firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1]));
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1]));
+			}
+			else if ( firstColumnFull )
+			{
+				tlx = iBoxXPosition + firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - gColumnEntries[0]);
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - gColumnEntries[0]);
+			}
+
+			MSYS_DefineRegion( &gMoveMenuRegion[iCounter], tlx, tly, brx, bry, MSYS_PRIORITY_HIGHEST,
+				MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 			// set user defines
-			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+			if ( thirdColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] - gColumnEntries[2] );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 3 ); // Column index
+			}
+			else if ( secondColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1]);
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 2 );
+			}
+			else if ( firstColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 1 );
+			}
+			else
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 0 );
+			}
+
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, SQUAD_REGION );
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, iCount );
-			iCounter++;
 
+
+			iCounter++;
+			entries += 1;
+
+			// Squad soldiers
 			for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 			{
 				if( pSoldierMovingList[ iCountB ]->bAssignment == iSquadMovingList[ iCount ] )
 				{
-					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+					tlx = iBoxXPosition;
+					tly = iBoxYPosition + iFontHeight * iCounter;
+					brx = iBoxXPosition + firstColumnWidth;
+					bry = iBoxYPosition + iFontHeight * (iCounter + 1);
+
+					if ( thirdColumnFull )
+					{
+						tlx = iBoxXPosition + 3 * firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+					}
+					else if ( secondColumnFull )
+					{
+						tlx = iBoxXPosition + 2 * firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1]));
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1]));
+					}
+					else if ( firstColumnFull )
+					{
+						tlx = iBoxXPosition + firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - gColumnEntries[0]);
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - gColumnEntries[0]);
+					}
+
+
+					MSYS_DefineRegion( &gMoveMenuRegion[iCounter], tlx, tly, brx, bry, MSYS_PRIORITY_HIGHEST,
+						MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
-					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+					if ( thirdColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] - gColumnEntries[2] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 3 );
+					}
+					else if ( secondColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 2 );
+					}
+					else if ( firstColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 1 );
+					}
+					else
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 0 );
+					}
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, SOLDIER_REGION );
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, iCountB );
+
+
 					iCounter++;
+					entries += 1;
 				}
+			}
+
+			if ( entries >= gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2] && gColumnEntries[2] > 0 )
+			{
+				thirdColumnFull = true;
+			}
+			else if ( entries >= gColumnEntries[0] + gColumnEntries[1] && gColumnEntries[1] > 0 )
+			{
+				secondColumnFull = true;
+			}
+			else if ( entries >= gColumnEntries[0] && gColumnEntries[0] > 0 )
+			{
+				firstColumnFull = true;
 			}
 		}
 
+
+		// Vehicles
 		for( iCount = 0; iCount < giNumberOfVehiclesInSectorMoving; iCount++ )
 		{
 			// define regions for vehicle lines
-			MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+			UINT16 tlx = iBoxXPosition;
+			UINT16 tly = iBoxYPosition + iFontHeight * (iCounter);
+			UINT16 brx = iBoxXPosition + iBoxWidth;
+			UINT16 bry = iBoxYPosition + iFontHeight * (iCounter + 1);
+
+			if ( thirdColumnFull )
+			{
+				tlx = iBoxXPosition + 3 * firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+			}
+			else if ( secondColumnFull )
+			{
+				tlx = iBoxXPosition + 2 * firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1]));
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1]));
+			}
+			else if ( firstColumnFull )
+			{
+				tlx = iBoxXPosition + firstColumnWidth;
+				brx = tlx + firstColumnWidth;
+				tly = iBoxYPosition + iFontHeight * (iCounter - gColumnEntries[0]);
+				bry = iBoxYPosition + iFontHeight * (iCounter + 1 - gColumnEntries[0]);
+			}
+
+			MSYS_DefineRegion( &gMoveMenuRegion[iCounter], tlx, tly, brx, bry, MSYS_PRIORITY_HIGHEST,
+				MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 			// set user defines
-			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+			if ( thirdColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] - gColumnEntries[2] );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 3 );
+			}
+			else if ( secondColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 2 );
+			}
+			else if ( firstColumnFull )
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 1 );
+			}
+			else
+			{
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter );
+				MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 0 );
+			}
+
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, VEHICLE_REGION );
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, iCount );
 			iCounter++;
+			entries += 1;
 
+			// Soldiers inside a vehicle
 			for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 			{
 				if( ( pSoldierMovingList[ iCountB ]->bAssignment == VEHICLE ) &&( pSoldierMovingList[ iCountB ]->iVehicleId == iVehicleMovingList[ iCount ] ) )
 				{
-					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+					tlx = iBoxXPosition;
+					tly = iBoxYPosition + iFontHeight * iCounter;
+					brx = iBoxXPosition + firstColumnWidth;
+					bry = iBoxYPosition + iFontHeight * (iCounter + 1);
+
+					if ( thirdColumnFull )
+					{
+						tlx = iBoxXPosition + 3 * firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2]));
+					}
+					else if ( secondColumnFull )
+					{
+						tlx = iBoxXPosition + 2 * firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - (gColumnEntries[0] + gColumnEntries[1]));
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - (gColumnEntries[0] + gColumnEntries[1]));
+					}
+					else if ( firstColumnFull )
+					{
+						tlx = iBoxXPosition + firstColumnWidth;
+						brx = tlx + firstColumnWidth;
+						tly = iBoxYPosition + iFontHeight * (iCounter - gColumnEntries[0]);
+						bry = iBoxYPosition + iFontHeight * (iCounter + 1 - gColumnEntries[0]);
+					}
+
+
+					MSYS_DefineRegion( &gMoveMenuRegion[iCounter], tlx, tly, brx, bry, MSYS_PRIORITY_HIGHEST,
+						MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
-					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+					if ( thirdColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] - gColumnEntries[2] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 3 );
+					}
+					else if ( secondColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] - gColumnEntries[1] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 2 );
+					}
+					else if ( firstColumnFull )
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter - gColumnEntries[0] );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 1 );
+					}
+					else
+					{
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 0, iCounter );
+						MSYS_SetRegionUserData( &gMoveMenuRegion[iCounter], 3, 0 );
+					}
+
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, SOLDIER_REGION );
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, iCountB );
 					iCounter++;
+					entries += 1;
 				}
+			}
+
+			if ( entries >= gColumnEntries[0] + gColumnEntries[1] + gColumnEntries[2] && gColumnEntries[2] > 0 )
+			{
+				thirdColumnFull = true;
+			}
+			else if ( entries >= gColumnEntries[0] + gColumnEntries[1] && gColumnEntries[1] > 0 )
+			{
+				secondColumnFull = true;
+			}
+			else if ( entries >= gColumnEntries[0] && gColumnEntries[0] > 0 )
+			{
+				firstColumnFull = true;
 			}
 		}
 
@@ -4097,7 +4431,7 @@ void BuildMouseRegionsForMoveBox( void )
 				// this line gets place only once...
 				if( !fDefinedOtherRegion )
 				{
-					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + firstColumnWidth), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset) ), MSYS_PRIORITY_HIGHEST,
 							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
@@ -4109,7 +4443,7 @@ void BuildMouseRegionsForMoveBox( void )
 					fDefinedOtherRegion = TRUE;
 				}
 
-				MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+				MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + firstColumnWidth), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset) ), MSYS_PRIORITY_HIGHEST,
 					MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 				// set user defines
@@ -4123,7 +4457,7 @@ void BuildMouseRegionsForMoveBox( void )
 
 
 	// blank line
-	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset ) ), MSYS_PRIORITY_HIGHEST,
 						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iCounter++;
 
@@ -4131,7 +4465,7 @@ void BuildMouseRegionsForMoveBox( void )
 	if ( IsAnythingSelectedForMoving() )
 	{
 		// DONE line
-		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset ) ), MSYS_PRIORITY_HIGHEST,
 							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 		// set user defines
@@ -4143,13 +4477,13 @@ void BuildMouseRegionsForMoveBox( void )
 	else
 	{
 		// blank line
-		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset) ), MSYS_PRIORITY_HIGHEST,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 		iCounter++;
 	}
 
 	// CANCEL line
-	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
+	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * (iCounter - rowOffset) ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 - rowOffset ) ), MSYS_PRIORITY_HIGHEST,
 						MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 	// set user defines
@@ -4161,10 +4495,10 @@ void BuildMouseRegionsForMoveBox( void )
 
 void ClearMouseRegionsForMoveBox( void )
 {
-	INT32 iCounter = 0;
-
+	UINT32 iCounter = 0;
+	UINT32 lines = GetTotalNumberOfLinesOfTextInBox( ghMoveBox );
 	// run through list of mouse regions
-	for( iCounter = 0; iCounter < ( INT32 )(GetNumberOfLinesOfTextInBox( ghMoveBox ) + GetNumberOfSecondaryLinesOfTextInBox(ghMoveBox)); iCounter++)
+	for( iCounter = 0; iCounter < lines; iCounter++)
 	{
 		// remove this region
 		MSYS_RemoveRegion( &gMoveMenuRegion[ iCounter ] );
@@ -4182,11 +4516,12 @@ void MoveMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 
 	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 column = MSYS_GetRegionUserData( pRegion, 3 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
 		// highlight string
-		HighLightBoxLine( ghMoveBox, iValue );
+		HighLightBoxLine( ghMoveBox, iValue, column );
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{

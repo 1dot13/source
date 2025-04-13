@@ -9,6 +9,7 @@
 
 #define MAX_POPUP_BOX_COUNT 32
 #define MAX_POPUP_BOX_STRING_COUNT 128		// worst case = 45: move menu with 20 soldiers, each on different squad + overhead
+#define MAX_POPUP_BOX_COLUMNS 4
 
 // PopUpBox Flags
 #define POPUP_BOX_FLAG_CLIP_TEXT 1
@@ -51,7 +52,8 @@ struct popupbox{
 	BOOLEAN fUpdated;
 	BOOLEAN fShowBox;
 
-	POPUPSTRINGPTR Text[ MAX_POPUP_BOX_STRING_COUNT ];
+	POPUPSTRINGPTR Text[MAX_POPUP_BOX_COLUMNS][ MAX_POPUP_BOX_STRING_COUNT ];
+	// TODO Remove pSecondColumnString
 	POPUPSTRINGPTR pSecondColumnString[ MAX_POPUP_BOX_STRING_COUNT ];
 };
 
@@ -76,6 +78,8 @@ void SetBoxPosition(INT32 hBoxHandle,SGPPoint Position);
 void GetBoxPosition( INT32 hBoxHandle, SGPPoint *Position );
 UINT32 GetNumberOfLinesOfTextInBox( INT32 hBoxHandle );
 UINT32 GetNumberOfSecondaryLinesOfTextInBox(INT32 hBoxHandle);
+UINT32 GetTotalNumberOfLinesOfTextInBox( INT32 hBoxHandle );
+UINT32 GetBoxSecondColumnCurrentOffset( INT32 hBoxHandle );
 void SetBoxSize( INT32 hBoxHandle, SGPRect Dimensions );
 void GetBoxSize(	INT32 hBoxHandle, SGPRect *Dimensions );
 void SetBoxFlags( INT32 hBoxHandle, UINT32 uiFlags);
@@ -96,8 +100,10 @@ void SetBoxHighLight(INT32 hBoxHandle, UINT8 ubColor);
 void SetBoxShade(INT32 hBoxHandle, UINT8 ubColor);
 void ShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber );
 void UnShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber );
-void HighLightLine(INT32 hStringHandle);
-void HighLightBoxLine( INT32 hBoxHandle, INT32 iLineNumber );
+void HighLightLine( INT32 hStringHandle, UINT8 column );
+void HighLight2ndLine( INT32 hStringHandle );
+void HighLightBoxLine( INT32 hBoxHandle, INT32 iLineNumber, UINT8 column = 0 );
+void HighLight2ndBoxLine( INT32 hBoxHandle, INT32 iLineNumber );
 void UnHighLightLine(INT32 hStringHandle);
 void UnHighLightBox(INT32 hBoxHandle);
 void RemoveOneCurrentBoxString(INT32 hStringHandle, BOOLEAN fFillGaps);
@@ -109,6 +115,9 @@ void DisplayBoxes(UINT32 uiBuffer);
 void DisplayOnePopupBox( UINT32 uiIndex, UINT32 uiBuffer );
 void SetCurrentBox(INT32 hBoxHandle);
 void GetCurrentBox(INT32 *hBoxHandle);
+
+void AddStringToBoxColumn( UINT32 *hStringHandle, STR16 pString, UINT8 column );
+void AddColumnMonoString( UINT32 *hStringHandle, STR16 pString, UINT8 column );
 
 // resize this box to the text it contains
 void ResizeBoxToText(INT32 hBoxHandle);
@@ -161,6 +170,13 @@ void SetBoxSecondColumnHighLight(INT32 hBoxHandle, UINT8 ubColor);
 void SetBoxSecondColumnShade(INT32 hBoxHandle, UINT8 ubColor);
 // Manual adjustment for 2nd column offset, eg. when 1st column has a title text that's wider than the rest and you want to move 2nd column texts towards the 1st column some.
 void SetBoxSecondColumnOffsetAdjustment(INT32 hBoxHandle, INT16 x);
+
+// Set attributes by column
+void SetBoxColumnForeground( INT32 hBoxHandle, UINT8 ubColor, UINT8 column );
+void SetBoxColumnBackground( INT32 hBoxHandle, UINT8 ubColor, UINT8 column );
+void SetBoxColumnHighLight( INT32 hBoxHandle, UINT8 ubColor, UINT8 column );
+void SetBoxColumnShade( INT32 hBoxHandle, UINT8 ubColor, UINT8 column );
+void SetBoxColumnFont( INT32 hBoxHandle, UINT32 uiFont, UINT8 column );
 
 
 // secondary shades for boxes
