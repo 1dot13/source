@@ -1043,7 +1043,7 @@ void UpdateJerryMiloInInitialSector()
     //SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
 	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
     //SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
-	StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
+	StrategicMap[ (UINT8)CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
     
 if ( gGameUBOptions.InGameHeli == TRUE )
 	return; //AA
@@ -1071,7 +1071,7 @@ if ( gGameUBOptions.InGameHeliCrash == TRUE )
 	//Record the initial sector as ours
 	//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
 	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
-	  StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
+	  StrategicMap[ (UINT8)CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
  
 	  if ( gGameUBOptions.InJerry == TRUE ) 
 	{
