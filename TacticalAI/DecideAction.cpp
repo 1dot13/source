@@ -5164,13 +5164,16 @@ INT16 ubMinAPCost;
 
 	// offer surrender?
 #ifndef JA2UB
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
+	if ( !is_networked ) // No surrender in multiplayer
 	{
-		if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
+		if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 		{
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+			if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
 			{
-				return( AI_ACTION_OFFER_SURRENDER );
+				if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+				{
+					return( AI_ACTION_OFFER_SURRENDER );
+				}
 			}
 		}
 	}
@@ -9584,13 +9587,16 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 
 	// offer surrender?
 #ifndef JA2UB
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
+	if ( !is_networked ) // No surrender in multiplayer
 	{
-		if ( gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0 && gTacticalStatus.Team[CREATURE_TEAM].bMenInSector == 0 && NumPCsInSector( ) < 4 && gTacticalStatus.Team[ENEMY_TEAM].bMenInSector >= NumPCsInSector( ) * 3 )
+		if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 		{
-			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+			if ( gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0 && gTacticalStatus.Team[CREATURE_TEAM].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ENEMY_TEAM].bMenInSector >= NumPCsInSector() * 3 )
 			{
-				return(AI_ACTION_OFFER_SURRENDER);
+				if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED )
+				{
+					return(AI_ACTION_OFFER_SURRENDER);
+				}
 			}
 		}
 	}
