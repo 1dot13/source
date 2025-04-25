@@ -5429,6 +5429,7 @@ STR16 MercInfo[] =
 	L"Offene Beträge",
 	L"Bio",
 	L"Inv",								
+	L"Special Offer!",
 };
 
 // For use at the M.E.R.C. web site. Text relating to opening an account with MERC

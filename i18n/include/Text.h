@@ -1262,6 +1262,7 @@ enum
 	MERC_FILES_MERC_OUTSTANDING,
 	MERC_FILES_BIO,	//JMich_MMG: Adding two new texts for the small button, assuming we manage to add a silhouette with the gear, add it after this.
 	MERC_FILES_INVENTORY,
+	MERC_FILES_SPECIAL_OFFER,
 	TEXT_NUM_MERC_FILES,
 };
 extern		STR16			MercInfo[];
