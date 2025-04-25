@@ -1847,6 +1847,10 @@ void MercProcessHireAfterGear()
 
 void NextMercMember()
 {
+	// Reset selected kit, cannot assume next merc has more than 1 kit
+	gSelectedMercKit = 0;
+	MercWeaponKitSelectionUpdate( gSelectedMercKit );
+
 	if (gfKeyState [ CTRL ])
 		gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
 	else if (gfKeyState [ SHIFT ])
@@ -1877,6 +1881,10 @@ void NextMercMember()
 
 void PrevMercMember()
 {
+	// Reset selected kit, cannot assume next merc has more than 1 kit
+	gSelectedMercKit = 0;
+	MercWeaponKitSelectionUpdate( gSelectedMercKit );
+
 	if (gfKeyState [ CTRL ])
 		gubCurMercIndex = 0;
 	else if (gfKeyState [ SHIFT ])
