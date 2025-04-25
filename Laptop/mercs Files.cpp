@@ -1840,11 +1840,22 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 void MercHireButtonGearYesNoCallback (UINT8 bExitValue)
 {
 	//yes, buy gear
-	if( bExitValue == MSG_BOX_RETURN_YES )
+	if ( bExitValue == MSG_BOX_RETURN_YES )
+	{
 		fMercBuyEquipment = 1;
+	}
 	//no, no gear 
 	else
+	{
+#ifdef JA2UB
+		// Switch to the free, first kit
+		gSelectedMercKit = 0;
+		MercWeaponKitSelectionUpdate( gSelectedMercKit );
+		fMercBuyEquipment = 1;
+#else
 		fMercBuyEquipment = 0;
+#endif // JA2UB
+	}
 	
 	MercProcessHireAfterGear();
 }
