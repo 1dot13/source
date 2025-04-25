@@ -1070,14 +1070,27 @@ void DisplayMercsStats( UINT8 ubMercID )
 	if (gubCurMercFilesTogglePage == MERC_FILES_INV_PAGE)
 	{
 		//Gear Cost
-		usPosY = usPosY + 145;
+		usPosY = usPosY + 148;
 		DrawTextToScreen( MercInfo[MERC_FILES_GEAR], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 		
-		if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ) 
-			&& ( !(gMercProfiles[ ubMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID) || gGameExternalOptions.fGearKitsAlwaysAvailable ) )
+		if ( (gMercProfiles[ubMercID].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)
+			&& (!(gMercProfiles[ubMercID].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID) || gGameExternalOptions.fGearKitsAlwaysAvailable) )
+		{
 			gMercProfiles[ ubMercID ].usOptionalGearCost = 0;
+		}
+#ifdef JA2UB
+		if ( gSelectedMercKit == 0 ) // First kit is free, due to M.E.R.C special offer
+		{
+			gMercProfiles[ubMercID].usOptionalGearCost = 0;
 
-		swprintf(NsString, L"+ ");
+			// Special offer text above the gear cost
+			const auto y = usPosY - MERC_SPACE_BN_LINES + 2;
+			swprintf( NsString, MercInfo[MERC_FILES_SPECIAL_OFFER] );
+			DrawTextToScreen( NsString, usPosX, y, 95, MERC_TITLE_FONT, MERC_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
+		}
+#endif // JA2UB
+
+		swprintf( NsString, L"+ " );
 		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost);
 		InsertCommasForDollarFigure( sTemp );
 		InsertDollarSignInToString( sTemp );
@@ -1089,7 +1102,11 @@ void DisplayMercsStats( UINT8 ubMercID )
 		DrawTextToScreen( MercInfo[MERC_FILES_TOTAL], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_NAME_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		swprintf(N2sString, L"= ");
+#ifdef JA2UB
+		swprintf( sTemp, L"%d", gMercProfiles[ubMercID].usOptionalGearCost + gMercProfiles[ubMercID].uiWeeklySalary );
+#else
 		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost+gMercProfiles[ ubMercID ].sSalary);
+#endif
 		InsertCommasForDollarFigure( sTemp );
 		InsertDollarSignInToString( sTemp );
 		wcscat( N2sString, sTemp );
@@ -1207,16 +1224,25 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 			AddTransactionToPlayersBook( HIRED_MERC, ubMercID, GetWorldTotalMin(), Namount );
 		}
 		
-		#ifdef JA2UB
+#ifdef JA2UB
 		//add an entry in the finacial page for the hiring of the merc
-		AddTransactionToPlayersBook(PAY_SPECK_FOR_MERC, ubMercID, GetWorldTotalMin(), -(INT32)( gMercProfiles[ubMercID].uiWeeklySalary ) );
-		#endif
+		INT32 totalCost = gMercProfiles[ubMercID].uiWeeklySalary;
+		if ( gSelectedMercKit > 0 ) // First kit is included in the initial fee
+		{
+			totalCost += gMercProfiles[ubMercID].usOptionalGearCost;
+		}
+		AddTransactionToPlayersBook(PAY_SPECK_FOR_MERC, ubMercID, GetWorldTotalMin(), -totalCost );
+#endif
 
 		//JMich_MMG: Setting the flag that we bought the gear and still haven't paid for it if we succesfully hired the merc
 		if ( fMercBuyEquipment )
 		{
 			gMercProfiles[ ubMercID ].ubMiscFlags |= PROFILE_MISC_FLAG_ALREADY_USED_ITEMS;
+#ifdef JA2UB
+			// Gear cost gets added to initial hiring fee in UB
+#else
 			gMercProfiles[ ubMercID ].ubMiscFlags2 |= PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID;
+#endif // JA2UB
 		}
 
 		return(TRUE);

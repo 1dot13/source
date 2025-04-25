@@ -5478,6 +5478,7 @@ STR16			MercInfo[] =
 	L"Unsettled Bills",
 	L"Bio",
 	L"Inv",
+	L"Special Offer!",
 };
 
 

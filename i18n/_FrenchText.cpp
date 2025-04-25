@@ -5485,6 +5485,7 @@ STR16			MercInfo[] =
 	L"Payez sa solde",
 	L"Biographie",
 	L"Inventaire",								
+	L"Special Offer!",
 };
 
 

@@ -5468,6 +5468,7 @@ STR16			MercInfo[] =
 	L"Unsettled Bills", // TODO.Translate
 	L"Bio", // TODO.Translate
 	L"Inv",								
+	L"Special Offer!",
 };
 
 
