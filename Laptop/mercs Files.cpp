@@ -1040,14 +1040,25 @@ void DisplayMercsStats( UINT8 ubMercID )
 	DrawNumeralsToScreen(gMercProfiles[ ubMercID ].bMedical, 3, MERC_STATS_SECOND_NUM_COL_X, usPosY, MERC_STATS_FONT, ubColor);
 	usPosY += MERC_SPACE_BN_LINES;
 
-	//Daily Salary
-	DrawTextToScreen( MercInfo[MERC_FILES_SALARY], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	//Merc Salary
+#ifdef JA2UB
+	// One time "Fee" instead of "Salary" per day
+	DrawTextToScreen( CharacterInfo[AIM_MEMBER_FEE], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_TITLE_FONT, MERC_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength(MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT);
-	swprintf(sString, L"%d", gMercProfiles[ ubMercID ].sSalary);
+	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( CharacterInfo[AIM_MEMBER_FEE], MERC_NAME_FONT );
+	swprintf( sString, L"%d", gMercProfiles[ubMercID].uiWeeklySalary );
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
-	swprintf(sTemp, L" %s", MercInfo[MERC_FILES_PER_DAY]);
+#else
+	DrawTextToScreen( MercInfo[MERC_FILES_SALARY], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
+	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT );
+	swprintf( sString, L"%d", gMercProfiles[ubMercID].sSalary );
+	InsertCommasForDollarFigure( sString );
+	InsertDollarSignInToString( sString );
+	swprintf( sTemp, L" %s", MercInfo[MERC_FILES_PER_DAY] );
+#endif // JA2UB
+
 	wcscat( sString, sTemp );
 	DrawTextToScreen( sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
