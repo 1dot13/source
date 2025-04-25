@@ -418,6 +418,34 @@ BOOLEAN EnterMercsFiles()
 	return( TRUE );
 }
 
+static void TryToHireMERC()
+{
+	if ( (gMercProfiles[GetAvailableMercIDFromMERCArray( gubCurMercIndex )].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
+	{
+		//bought gear before
+		fMercBuyEquipment = 0;
+		MercProcessHireAfterGear();
+	}
+	else
+	{
+#ifdef JA2UB
+		if ( gSelectedMercKit == 0 ) // First kit is free, due to M.E.R.C special offer
+		{
+			fMercBuyEquipment = 1;
+			MercProcessHireAfterGear();
+		}
+		else
+		{
+			//prompt to buy gear
+			DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[MERC_FILES_BUY_GEAR], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+		}
+#else
+		//prompt to buy gear
+		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[MERC_FILES_BUY_GEAR], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+#endif // JA2UB
+	}
+}
+
 void SelectMercsFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
@@ -442,15 +470,7 @@ void SelectMercsFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		//else try to hire the merc
 		else
 		{
-			if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-			{	
-				//bought gear before
-				fMercBuyEquipment = 0;
-				MercProcessHireAfterGear();
-			}
-			else
-				//prompt to buy gear
-				DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+			TryToHireMERC();
 		}
 	}
 }
@@ -701,15 +721,7 @@ void BtnMercHireButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			//else try to hire the merc
 			else
 			{
-				if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-				{	
-					//bought gear before
-					fMercBuyEquipment = 0;
-					MercProcessHireAfterGear();
-				}
-				else
-					//prompt to buy gear
-					DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+				TryToHireMERC();
 			}
 
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -1358,15 +1370,7 @@ void HandleMercsFilesKeyBoardInput( )
 						//else try to hire the merc
 						else
 						{
-							//bought gear before
-							if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-							{	
-								fMercBuyEquipment = 0;
-								MercProcessHireAfterGear();
-							}
-							//prompt to buy gear
-							else
-								DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+							TryToHireMERC();
 						}
 					}
 				break;
