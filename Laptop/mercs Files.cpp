@@ -1203,6 +1203,22 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 		return(FALSE);//not enough big ones $$$sATMText
 	}
 
+#ifdef JA2UB
+	Namount = 0;
+	Namount += gMercProfiles[ubMercID].uiWeeklySalary;
+	if ( gSelectedMercKit > 0 )
+	{
+		Namount += gMercProfiles[ubMercID].usOptionalGearCost;
+	}
+
+	if ( Namount > LaptopSaveInfo.iCurrentBalance )
+	{
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[4], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		return(FALSE);//not enough big ones $$$sATMText
+	}
+#endif // JA2UB
+
+
 	bReturnCode = HireMerc( &HireMercStruct );
 
 	//already have limit of mercs on the team
