@@ -67,6 +67,7 @@ typedef struct
 	UINT32  PowergenSectorGridNo3;
 	UINT32  PowergenSectorGridNo4;
 	UINT32  PowergenSectorExitgridGridNo;
+	UINT32  PowergenSectorExitgridSrcGridNo;
 	UINT32  PowergenFanSoundGridNo1;
 	UINT32  PowergenFanSoundGridNo2;
 	UINT32  StartFanbackupAgainGridNo;

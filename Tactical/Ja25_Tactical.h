@@ -5,7 +5,6 @@
 
 #include "MapScreen Quotes.h"
 
-#define		PGF__FAN_EXIT_GRID_GRIDNO																	10979
 
 #define		NUM_MERCS_WITH_NEW_QUOTES												20//7
 

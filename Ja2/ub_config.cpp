@@ -238,7 +238,8 @@ void LoadGameUBOptions()
 	gGameUBOptions.PowergenSectorGridNo3 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_3", 14155);	
 	gGameUBOptions.PowergenSectorGridNo4 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_4", 13980);	
 	
-	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749);	
+	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger( "Unfinished Business Settings", "POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749 );
+	gGameUBOptions.PowergenSectorExitgridSrcGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_SRC_GRIDNO", 10979 );
 	gGameUBOptions.PowergenFanSoundGridNo1 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_1", 10979);	
 	gGameUBOptions.PowergenFanSoundGridNo2 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_2", 19749);	
 	gGameUBOptions.StartFanbackupAgainGridNo = iniReader.ReadInteger("Unfinished Business Settings","START_FANBACKUP_AGAIN_GRIDNO", 10980);	
