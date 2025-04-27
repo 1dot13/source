@@ -7778,6 +7778,7 @@ void HandleMovingEnemiesCloseToEntranceInSecondTunnelMap( )
 
 void HandlePowerGenFanSoundModification( )
 {
+	extern UINT32 POWERGENSECTOREXITGRID_SRC_GRIDNO;
 	SetTileAnimCounter( TILE_ANIM__FAST_SPEED );
 
 	switch ( gJa25SaveStruct.ubStateOfFanInPowerGenSector )
@@ -7786,7 +7787,7 @@ void HandlePowerGenFanSoundModification( )
 		HandleAddingPowerGenFanSound( );
 
 		//MAKE SURE the fan does not have an exit grid
-		RemoveExitGridFromWorld( PGF__FAN_EXIT_GRID_GRIDNO );
+		RemoveExitGridFromWorld( POWERGENSECTOREXITGRID_SRC_GRIDNO );
 		break;
 
 	case PGF__STOPPED:
