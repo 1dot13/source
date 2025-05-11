@@ -909,9 +909,12 @@ DragSelection::Setup( UINT32 aVal )
 
 				if ( xmlentry >= 0 )
 				{
+<<<<<<< HEAD
 					//swprintf( pStr, L"%hs (%s)", gStructureMovePossible[xmlentry].szTileSetDisplayName, FaceDirs[gOneCDirection[ubDirection]] );
 
 					// zwwooooo: Fix the issue of UTF-8 text garbling. (Method provided by @Learner)
+=======
+>>>>>>> PR2
 					WCHAR buf[256];
 					MultiByteToWideChar(CP_UTF8, 0, gStructureMovePossible[xmlentry].szTileSetDisplayName, -1, buf, 256);
 					swprintf(pStr, L"%s (%s)", buf, FaceDirs[gOneCDirection[ubDirection]]);
