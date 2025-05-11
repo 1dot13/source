@@ -244,4 +244,8 @@
 		<pIndex>60</pIndex>
 		<pName>弹鼓包</pName>
   </POCKET>
+	<POCKET>
+		<pIndex>61</pIndex>
+		<pName>弹链供弹带</pName>
+  </POCKET>
 </POCKETLIST>

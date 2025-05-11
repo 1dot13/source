@@ -7508,7 +7508,7 @@
 		<uiIndex>938</uiIndex>
 		<szItemName>7.62x54R，200发比赛弹链</szItemName>
 		<szLongItemName>7.62x54R，200发比赛弹链</szLongItemName>
-		<szItemDesc>200发7.62x54R狙击弹链。</szItemDesc>
+		<szItemDesc>200发7.62x54R比赛弹链。</szItemDesc>
 		<szBRName>7.62x54R，200发比赛弹链</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
@@ -13245,9 +13245,9 @@
 	<ITEM>
 		<uiIndex>1655</uiIndex>
 		<szItemName>双MP5弹匣袋</szItemName>
-		<szLongItemName>双MP5弹匣袋</szLongItemName>
+		<szLongItemName>3.11双MP5弹匣袋</szLongItemName>
 		<szItemDesc>专门为战术人员和执法人员设计，这个双MP5弹匣松紧带口袋为标准9mm弹匣提供安全和便利的取放。</szItemDesc>
-		<szBRName>双MP5弹匣袋</szBRName>
+		<szBRName>3.11双MP5弹匣袋</szBRName>
 		<szBRDesc>可以完美兼容3.11战术系统的NAS系列和MOLLE平台。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13308,59 +13308,59 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1663</uiIndex>
-		<szItemName>7发霰弹带</szItemName>
-		<szLongItemName>7发霰弹带</szLongItemName>
+		<szItemName>3.11 7发霰弹带</szItemName>
+		<szLongItemName>3.11 7发霰弹带</szLongItemName>
 		<szItemDesc>这个NAS系列霰弹带可以容纳7发霰弹。</szItemDesc>
-		<szBRName>7发霰弹带</szBRName>
+		<szBRName>3.11 7发霰弹带</szBRName>
 		<szBRDesc>这个NAS系列霰弹带可以让你快捷取用霰弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1664</uiIndex>
-		<szItemName>文件挂袋</szItemName>
-		<szLongItemName>文件挂袋</szLongItemName>
+		<szItemName>3.11文件挂袋</szItemName>
+		<szLongItemName>3.11文件挂袋</szLongItemName>
 		<szItemDesc>这个文件挂袋可以挂载到各种MOLLE兼容系统或标准背带上，用来存放重要的地图和文件。</szItemDesc>
-		<szBRName>文件挂袋</szBRName>
+		<szBRName>3.11文件挂袋</szBRName>
 		<szBRDesc>可以根据需求提供拓展储存空间，不用的时候这个文件挂袋可以折叠储存起来。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1665</uiIndex>
-		<szItemName>挂式腿部枪套</szItemName>
-		<szLongItemName>挂式腿部枪套</szLongItemName>
+		<szItemName>3.11挂式腿部枪套</szItemName>
+		<szLongItemName>3.11挂式腿部枪套</szLongItemName>
 		<szItemDesc>这个LBT-6099Z是左右通用的模式化兼容型枪套。</szItemDesc>
-		<szBRName>挂式腿部枪套</szBRName>
+		<szBRName>3.11挂式腿部枪套</szBRName>
 		<szBRDesc>这个枪套可以调整多种不同的携带形式，以适应添加了不同附件的枪支。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1666</uiIndex>
-		<szItemName>伤员应急包</szItemName>
-		<szLongItemName>伤员应急包</szLongItemName>
+		<szItemName>3.11伤员应急包</szItemName>
+		<szLongItemName>3.11伤员应急包</szLongItemName>
 		<szItemDesc>快捷取放应急剪刀，并且兼容MOLLE附件系统。</szItemDesc>
-		<szBRName>伤员应急包</szBRName>
+		<szBRName>3.11伤员应急包</szBRName>
 		<szBRDesc>这个伤员应急包可以快捷取放应急剪刀，并且兼容MOLLE附件系统。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1667</uiIndex>
-		<szItemName>黑色MOLLE背心</szItemName>
-		<szLongItemName>黑色MOLLE背心</szLongItemName>
+		<szItemName>3.11黑色MOLLE背心</szItemName>
+		<szLongItemName>3.11黑色MOLLE背心</szLongItemName>
 		<szItemDesc>这个黑色战术背心密密麻麻全是MOLLE兼容网，非常易于添加你需要的各种MOLLE零部件。</szItemDesc>
-		<szBRName>黑色MOLLE背心</szBRName>
+		<szBRName>3.11黑色MOLLE背心</szBRName>
 		<szBRDesc>这个军用背心有可以添加储存单元的挂钩和两个带拉链的内置包网，适合携带不能装进MOLLE包的小物件。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1668</uiIndex>
-		<szItemName>Multicam MOLLE背心</szItemName>
-		<szLongItemName>Multicam迷彩MOLLE背心</szLongItemName>
+		<szItemName>3.11 Multicam背心</szItemName>
+		<szLongItemName>3.11 Multicam迷彩背心</szLongItemName>
 		<szItemDesc>Multicam迷彩MOLLE战术背心装载在结实的网材上，具有极好的透气性，并且可以挂载各种类型的弹药袋和各种武器枪套。</szItemDesc>
-		<szBRName>Multicam迷彩MOLLE背心</szBRName>
+		<szBRName>3.11 Multicam背心</szBRName>
 		<szBRDesc>Multicam迷彩MOLLE战术背心是军用背心中实用性和耐用性最高的MOLLE兼容背心。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1669</uiIndex>
-		<szItemName>投掷刀具套</szItemName>
-		<szLongItemName>投掷刀具套</szLongItemName>
-		<szItemDesc>3.11模块化投掷刀具套可以为你在定制个人携行具系统时提供最大的便利。</szItemDesc>
-		<szBRName>投掷刀具套</szBRName>
-		<szBRDesc>可以快速取出你的刀具。</szBRDesc>
+		<szItemName>3.11投掷刀具袋</szItemName>
+		<szLongItemName>3.11投掷刀具袋</szLongItemName>
+		<szItemDesc>3.11模块化投掷刀具袋可以为你在定制个人携行具系统时提供最大的便利。</szItemDesc>
+		<szBRName>3.11投掷刀具袋</szBRName>
+		<szBRDesc>可以快速取出你的刀具。适配大多数MOLLE携行系统。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1670</uiIndex>
@@ -13372,58 +13372,58 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1671</uiIndex>
-		<szItemName>口袋挂袋</szItemName>
-		<szLongItemName>口袋挂袋</szLongItemName>
+		<szItemName>3.11口袋挂袋</szItemName>
+		<szLongItemName>3.11口袋挂袋</szLongItemName>
 		<szItemDesc>这种挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要物件。</szItemDesc>
-		<szBRName>口袋挂袋</szBRName>
-		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋不用时可以折叠收起。</szBRDesc>
+		<szBRName>3.11口袋挂袋</szBRName>
+		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋MOLLE不用时可以折叠收起。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1672</uiIndex>
-		<szItemName>狙击枪子弹袋</szItemName>
-		<szLongItemName>狙击枪子弹袋</szLongItemName>
+		<szItemName>3.11狙击枪子弹袋</szItemName>
+		<szLongItemName>3.11狙击枪子弹袋</szLongItemName>
 		<szItemDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szItemDesc>
-		<szBRName>狙击枪子弹袋</szBRName>
+		<szBRName>3.11狙击枪子弹袋</szBRName>
 		<szBRDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1673</uiIndex>
-		<szItemName>双步枪弹匣袋</szItemName>
-		<szLongItemName>双步枪弹匣袋</szLongItemName>
+		<szItemName>3.11双步枪弹匣袋</szItemName>
+		<szLongItemName>3.11双步枪弹匣袋</szLongItemName>
 		<szItemDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szItemDesc>
-		<szBRName>双步枪弹匣袋</szBRName>
+		<szBRName>3.11双步枪弹匣袋</szBRName>
 		<szBRDesc>这种子弹袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以存放重要弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1674</uiIndex>
-		<szItemName>皮革刀套</szItemName>
-		<szLongItemName>皮革刀套</szLongItemName>
+		<szItemName>3.11皮革刀套</szItemName>
+		<szLongItemName>3.11皮革刀套</szLongItemName>
 		<szItemDesc>Bowie削刃尖刀刀鞘，带有挂绳和前端弧套跨过护具。</szItemDesc>
-		<szBRName>皮革刀套</szBRName>
+		<szBRName>3.11皮革刀套</szBRName>
 		<szBRDesc>Bowie削刃尖刀刀鞘，带有挂绳和前端弧套跨过护具。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1675</uiIndex>
-		<szItemName>中国左轮枪套</szItemName>
-		<szLongItemName>中国左轮枪套</szLongItemName>
+		<szItemName>3.11中国左轮枪套</szItemName>
+		<szLongItemName>3.11中国左轮枪套</szLongItemName>
 		<szItemDesc>中国制造的M81美国丛林迷彩尼龙左轮枪套。适用于大部分MOLLE系统。</szItemDesc>
-		<szBRName>中国左轮枪套</szBRName>
+		<szBRName>3.11中国左轮枪套</szBRName>
 		<szBRDesc>中国制造的M81美国丛林迷彩尼龙左轮枪套。适用于大部分MOLLE系统。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1676</uiIndex>
-		<szItemName>Specter腿袋</szItemName>
-		<szLongItemName>Specter腿袋</szLongItemName>
+		<szItemName>3.11 Specter腿袋</szItemName>
+		<szLongItemName>3.11 Specter腿袋</szLongItemName>
 		<szItemDesc>这个腿袋有四排MOLLE兼容网带和一个挂防毒面具用的环绳。</szItemDesc>
-		<szBRName>Specter腿袋</szBRName>
+		<szBRName>3.11 Specter腿袋</szBRName>
 		<szBRDesc>这个腿袋有四排MOLLE兼容网带，可以根据任务需要配置不同口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1677</uiIndex>
-		<szItemName>俄国手枪套</szItemName>
-		<szLongItemName>俄国手枪套</szLongItemName>
+		<szItemName>3.11俄国手枪套</szItemName>
+		<szLongItemName>3.11俄国手枪套</szLongItemName>
 		<szItemDesc>这个MOLLE枪套可以用来存放加装了消音器的Glock、PMM、APS、GSh-18和PB手枪。</szItemDesc>
-		<szBRName>俄国手枪套</szBRName>
+		<szBRName>3.11俄国手枪套</szBRName>
 		<szBRDesc>这个MOLLE枪套可以用来存放加装了消音器的Glock、PMM、APS、GSh-18和PB手枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13444,42 +13444,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1680</uiIndex>
-		<szItemName>突击步枪弹匣袋</szItemName>
-		<szLongItemName>突击步枪弹匣袋</szLongItemName>
+		<szItemName>3.11突击步枪弹匣袋</szItemName>
+		<szLongItemName>3.11突击步枪弹匣袋</szLongItemName>
 		<szItemDesc>这个NAS系列MOLLE弹匣袋可以装下2个30发5.56mm口径M16/M4系列步枪弹匣。</szItemDesc>
-		<szBRName>突击步枪弹匣袋</szBRName>
+		<szBRName>3.11突击步枪弹匣袋</szBRName>
 		<szBRDesc>这个NAS系列MOLLE弹匣袋可以装下2个30发5.56mm口径M16/M4系列步枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1681</uiIndex>
-		<szItemName>小工具挂袋</szItemName>
-		<szLongItemName>小工具挂袋</szLongItemName>
+		<szItemName>3.11小工具挂袋</szItemName>
+		<szLongItemName>3.11小工具挂袋</szLongItemName>
 		<szItemDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szItemDesc>
-		<szBRName>小工具挂袋</szBRName>
+		<szBRName>3.11小工具挂袋</szBRName>
 		<szBRDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1682</uiIndex>
-		<szItemName>TT模块背心</szItemName>
-		<szLongItemName>TT模块背心</szLongItemName>
+		<szItemName>3.11 TT模块背心</szItemName>
+		<szLongItemName>3.11 TT模块背心</szLongItemName>
 		<szItemDesc>TT可调节式战术背心是传统模块背心的现代升级版。</szItemDesc>
-		<szBRName>TT模块背心</szBRName>
+		<szBRName>3.11 TT模块背心</szBRName>
 		<szBRDesc>TT可调节式战术背心是传统模块背心的现代升级版。最新的MAT-V设计兼顾了功能组合和舒适度。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1683</uiIndex>
-		<szItemName>S.T.R.I.K.E.背心</szItemName>
-		<szLongItemName>S.T.R.I.K.E.背心</szLongItemName>
+		<szItemName>3.11 S.T.R.I.K.E.背心</szItemName>
+		<szLongItemName>3.11 S.T.R.I.K.E.背心</szLongItemName>
 		<szItemDesc>内部有两个带拉链的地图口袋，肩部可添加附件D型环。可以使用3.11战术系统的口袋。</szItemDesc>
-		<szBRName>S.T.R.I.K.E.背心</szBRName>
+		<szBRName>3.11 S.T.R.I.K.E.背心</szBRName>
 		<szBRDesc>内部有两个带拉链的地图口袋，肩部可添加附件D型环。可以使用3.11战术系统的口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1684</uiIndex>
-		<szItemName>杂物挂袋</szItemName>
-		<szLongItemName>杂物挂袋</szLongItemName>
+		<szItemName>3.11杂物挂袋</szItemName>
+		<szLongItemName>3.11杂物挂袋</szLongItemName>
 		<szItemDesc>我们的挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要物件。</szItemDesc>
-		<szBRName>杂物挂袋</szBRName>
+		<szBRName>3.11杂物挂袋</szBRName>
 		<szBRDesc>根据个人需求提供拓展储存空间，这个杂物挂袋不用时可以折叠收起。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13492,42 +13492,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1686</uiIndex>
-		<szItemName>三联装手雷袋</szItemName>
-		<szLongItemName>三联装手雷袋</szLongItemName>
+		<szItemName>3.11三联装手雷袋</szItemName>
+		<szLongItemName>3.11三联装手雷袋</szLongItemName>
 		<szItemDesc>可安全存放三个MK2自卫手雷。</szItemDesc>
-		<szBRName>三联装手雷袋</szBRName>
+		<szBRName>3.11三联装手雷袋</szBRName>
 		<szBRDesc>可安全存放三个MK2自卫手雷。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1687</uiIndex>
-		<szItemName>三联装闪光弹袋</szItemName>
-		<szLongItemName>三联装闪光弹袋</szLongItemName>
+		<szItemName>3.11三联装闪光弹袋</szItemName>
+		<szLongItemName>3.11三联装闪光弹袋</szLongItemName>
 		<szItemDesc>可安全存放最多三个闪光弹。</szItemDesc>
-		<szBRName>三联装闪光弹袋</szBRName>
+		<szBRName>3.11三联装闪光弹袋</szBRName>
 		<szBRDesc>可安全存放最多三个闪光弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1688</uiIndex>
-		<szItemName>三联装手枪弹匣袋</szItemName>
-		<szLongItemName>三联装手枪弹匣袋</szLongItemName>
+		<szItemName>3.11三联装手枪弹匣袋</szItemName>
+		<szLongItemName>3.11三联装手枪弹匣袋</szLongItemName>
 		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹匣。</szItemDesc>
-		<szBRName>三联装手枪弹匣袋</szBRName>
+		<szBRName>3.11三联装手枪弹匣袋</szBRName>
 		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1689</uiIndex>
-		<szItemName>三联装冲锋枪弹匣袋</szItemName>
-		<szLongItemName>三联装冲锋枪弹匣袋</szLongItemName>
+		<szItemName>3.11三联装冲锋枪弹匣袋</szItemName>
+		<szLongItemName>3.11三联装冲锋枪弹匣袋</szLongItemName>
 		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹匣。</szItemDesc>
-		<szBRName>三联装冲锋枪弹匣袋</szBRName>
+		<szBRName>3.11三联装冲锋枪弹匣袋</szBRName>
 		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1690</uiIndex>
-		<szItemName>大型模块腿袋</szItemName>
-		<szLongItemName>大型模块腿袋</szLongItemName>
+		<szItemName>3.11大型模块腿袋</szItemName>
+		<szLongItemName>3.11大型模块腿袋</szLongItemName>
 		<szItemDesc>这个腿袋有五排MOLLE兼容模块网带可以自定义设置腿袋从而达到特定的携带需求。</szItemDesc>
-		<szBRName>大型模块腿袋</szBRName>
+		<szBRName>3.11大型模块腿袋</szBRName>
 		<szBRDesc>这个腿袋有五排MOLLE兼容模块网带可以自定义设置腿袋从而达到特定的携带需求。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13540,42 +13540,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1692</uiIndex>
-		<szItemName>休闲泥色背心</szItemName>
-		<szLongItemName>休闲泥色背心</szLongItemName>
+		<szItemName>3.11休闲泥色背心</szItemName>
+		<szLongItemName>3.11休闲泥色背心</szLongItemName>
 		<szItemDesc>这个性价比高又非常实用的背心提供了很多口袋，包括两个双层子弹袋（相当于四个子弹袋），后背的网格口袋可以用来放空弹壳。</szItemDesc>
-		<szBRName>休闲泥色背心</szBRName>
+		<szBRName>3.11休闲泥色背心</szBRName>
 		<szBRDesc>这个性价比高又非常实用的背心提供了很多口袋，包括两个双层子弹袋（相当于四个子弹袋），后背的网格口袋可以用来放空弹壳。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1693</uiIndex>
-		<szItemName>秃鹫突击背心</szItemName>
-		<szLongItemName>秃鹫突击背心</szLongItemName>
+		<szItemName>3.11秃鹫突击背心</szItemName>
+		<szLongItemName>3.11秃鹫突击背心</szLongItemName>
 		<szItemDesc>当任务变得艰难时，你需要重型突击背心。这个背心自身就是个MOLLE系统，因此射手可以根据自身需求进行配置。</szItemDesc>
-		<szBRName>秃鹫突击背心</szBRName>
+		<szBRName>3.11秃鹫突击背心</szBRName>
 		<szBRDesc>当任务变得艰难时，你需要重型突击背心。这个背心自身就是个MOLLE系统，因此射手可以根据自身需求进行配置。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1694</uiIndex>
-		<szItemName>中国射手突击背心</szItemName>
-		<szLongItemName>中国射手突击背心</szLongItemName>
+		<szItemName>3.11中国射手突击背心</szItemName>
+		<szLongItemName>3.11中国射手突击背心</szLongItemName>
 		<szItemDesc>中国制造的特种部队携行具背心，有可以支持MOLLE系统的挂带。</szItemDesc>
-		<szBRName>中国射手突击背心</szBRName>
+		<szBRName>3.11中国射手突击背心</szBRName>
 		<szBRDesc>中国制造的特种部队携行具背心，有可以支持MOLLE系统的挂带。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1695</uiIndex>
-		<szItemName>挂钩</szItemName>
-		<szLongItemName>挂钩</szLongItemName>
+		<szItemName>3.11挂钩</szItemName>
+		<szLongItemName>3.11挂钩</szLongItemName>
 		<szItemDesc>这个形状非常适宜挂东西，其栏框可以装载登山用绳索。</szItemDesc>
-		<szBRName>挂钩</szBRName>
+		<szBRName>3.11挂钩</szBRName>
 		<szBRDesc>这个形状非常适宜挂东西，其栏框可以装载登山用绳索。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1696</uiIndex>
-		<szItemName>双手雷袋</szItemName>
-		<szLongItemName>双手雷袋</szLongItemName>
+		<szItemName>3.11双手雷袋</szItemName>
+		<szLongItemName>3.11双手雷袋</szLongItemName>
 		<szItemDesc>这个口袋负责安全存放两个MK2自卫手雷。</szItemDesc>
-		<szBRName>双手雷袋</szBRName>
+		<szBRName>3.11双手雷袋</szBRName>
 		<szBRDesc>这个口袋负责安全存放两个MK2自卫手雷。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -13644,34 +13644,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1705</uiIndex>
-		<szItemName>USMC背包</szItemName>
-		<szLongItemName>ILBE第二代主背包</szLongItemName>
+		<szItemName>3.11 USMC背包</szItemName>
+		<szLongItemName>3.11 ILBE第二代主背包</szLongItemName>
 		<szItemDesc>改进型携行具系统（ILBE）背包是为美国海军陆战队定制的产品，基于伊拉克战争中初期作战时所遇到的问题反馈所作出的改进。</szItemDesc>
-		<szBRName>USMC背包</szBRName>
+		<szBRName>3.11 USMC背包</szBRName>
 		<szBRDesc>ILBE系统由三个主要部分组成，主体背包、供水系统和突击包。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1706</uiIndex>
-		<szItemName>USMC突击包</szItemName>
-		<szLongItemName>ILBE第二代突击包</szLongItemName>
+		<szItemName>3.11 USMC突击包</szItemName>
+		<szLongItemName>3.11 ILBE第二代突击包</szLongItemName>
 		<szItemDesc>外部主体正面和侧面都有MOLLE网带。两侧的扣带可以用来压缩背包体积，或者用来连接到ILBE主体背包上。</szItemDesc>
-		<szBRName>USMC突击包</szBRName>
+		<szBRName>3.11 USMC突击包</szBRName>
 		<szBRDesc>外部主体正面和侧面都有MOLLE网带。两侧的扣带可以用来压缩背包体积，或者用来连接到ILBE主体背包上。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1707</uiIndex>
-		<szItemName>TT拓展行动包</szItemName>
-		<szLongItemName>TT拓展行动包</szLongItemName>
+		<szItemName>3.11 TT拓展行动包</szItemName>
+		<szLongItemName>3.11 TT拓展行动包</szLongItemName>
 		<szItemDesc>Operator背包系列最大的一个就是这个拓展行动包。它超大的体积和附加的各种延伸功能在长期作战中将十分实用。</szItemDesc>
-		<szBRName>TT拓展行动包</szBRName>
+		<szBRName>3.11 TT拓展行动包</szBRName>
 		<szBRDesc>Operator背包系列最大的一个就是这个拓展行动包。它超大的体积和附加的各种延伸功能在长期作战中将十分实用。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1708</uiIndex>
-		<szItemName>TT模块包</szItemName>
-		<szLongItemName>TT模块包</szLongItemName>
+		<szItemName>3.11 TT模块包</szItemName>
+		<szLongItemName>3.11 TT模块包</szLongItemName>
 		<szItemDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szItemDesc>
-		<szBRName>TT模块包</szBRName>
+		<szBRName>3.11 TT模块包</szBRName>
 		<szBRDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szBRDesc>		
 	</ITEM>
 	<ITEM>
@@ -13726,41 +13726,41 @@
 		<uiIndex>1715</uiIndex>
 		<szItemName>储水袋</szItemName>
 		<szLongItemName>储水袋</szLongItemName>
-		<szItemDesc>一种单独储水袋可直接使用，也可与ILBE US帆布背包或其它水袋背包配合使用。用于长途旅行。</szItemDesc>
+		<szItemDesc>独立水袋系统，专为ArmorBak水袋携行系统设计（可搭载MOLLE系统，USMC背包已标配此系统）。</szItemDesc>
 		<szBRName>储水袋</szBRName>
-		<szBRDesc>一种单独储水袋可直接使用，也可与ILBE US帆布背包或其它水袋背包配合使用。用于长途旅行。</szBRDesc>
+		<szBRDesc>独立水袋系统，专为ArmorBak水袋携行系统设计（可搭载MOLLE系统，USMC背包已标配此系统），是长时间远征任务的理想解决方案。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1716</uiIndex>
-		<szItemName>水袋背包</szItemName>
-		<szLongItemName>水袋背包</szLongItemName>
-		<szItemDesc>可配合储水袋或其它水囊使用的补水背包。</szItemDesc>
-		<szBRName>水袋背包</szBRName>
-		<szBRDesc>可配合储水袋或其它水囊使用的补水背包。</szBRDesc>
+		<szItemName>3.11水袋背包</szItemName>
+		<szLongItemName>3.11 ArmorBak水袋背包</szLongItemName>
+		<szItemDesc>轻量化水袋携行系统，操作简便。只需安装水袋即可完成整套系统，同时兼容多种MOLLE系统（USMC背包已标配）。</szItemDesc>
+		<szBRName>3.11 ArmorBak水袋背包</szBRName>
+		<szBRDesc>轻量化水袋携行系统，操作简便。只需安装水袋即可完成整套系统，同时兼容多种MOLLE系统（USMC背包已标配）。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1717</uiIndex>
-		<szItemName>装弹器口袋</szItemName>
-		<szLongItemName>快速装弹器口袋</szLongItemName>
-		<szItemDesc>MOLLE弹夹袋，专为左轮快速装弹器安全存放设计。</szItemDesc>
-		<szBRName>装弹器口袋</szBRName>
-		<szBRDesc>MOLLE弹夹袋，专为左轮快速装弹器安全存放设计。</szBRDesc>
+		<szItemName>3.11装弹器口袋</szItemName>
+		<szLongItemName>3.11快速装弹器口袋</szLongItemName>
+		<szItemDesc>用于存放快速装弹器的口袋。</szItemDesc>
+		<szBRName>3.11装弹器口袋</szBRName>
+		<szBRDesc>用于存放快速装弹器的口袋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1718</uiIndex>
-		<szItemName>单步枪弹匣袋</szItemName>
-		<szLongItemName>单步枪弹匣袋</szLongItemName>
+		<szItemName>3.11单步枪弹匣袋</szItemName>
+		<szLongItemName>3.11单步枪弹匣袋</szLongItemName>
 		<szItemDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szItemDesc>
-		<szBRName>单步枪弹匣袋</szBRName>
+		<szBRName>3.11单步枪弹匣袋</szBRName>
 		<szBRDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1719</uiIndex>
-		<szItemName>弹鼓袋</szItemName>
-		<szLongItemName>弹鼓袋</szLongItemName>
-		<szItemDesc>专为弹鼓及同类弹药容器设计，适配多种MOLLE系统装备，战术收纳灵活无忧。</szItemDesc>
-		<szBRName>弹鼓袋</szBRName>
-		<szBRDesc>专为弹鼓及同类弹药容器设计，适配多种MOLLE系统装备，战术收纳灵活无忧。</szBRDesc>
+		<szItemName>3.11弹鼓袋</szItemName>
+		<szLongItemName>3.11弹鼓袋</szLongItemName>
+		<szItemDesc>专为携带弹鼓及同类形状弹药容器设计，适配多种MOLLE携行装备。</szItemDesc>
+		<szBRName>3.11弹鼓袋</szBRName>
+		<szBRDesc>专为携带弹鼓及同类形状弹药容器设计，适配多种MOLLE携行装备。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1720</uiIndex>
@@ -13920,6 +13920,7 @@
 		<szLongItemName>屋顶塌陷烟雾</szLongItemName>
 		<szItemDesc>内部项目，不要使用!!!</szItemDesc>
 		<szBRName>屋顶塌陷烟雾</szBRName>
+		<szBRDesc>内部项目，不要使用!!!</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1740</uiIndex>
@@ -14021,9 +14022,9 @@
 		<uiIndex>1752</uiIndex>
 		<szItemName>止痛片</szItemName>
 		<szLongItemName>西药止痛片</szLongItemName>
-		<szItemDesc>这些小药丸可以缓解疼痛，请只用于医疗。</szItemDesc>
+		<szItemDesc>这些小药片可缓解疼痛，但不可替代专业医疗护理。</szItemDesc>
 		<szBRName>止痛片</szBRName>
-		<szBRDesc>非常有效的止痛药剂。现享永久特惠价！注意：请在医师的指导下购买和使用。</szBRDesc>
+		<szBRDesc>一瓶强效止痛药，现以永久折扣价出售。警告：服用前务必咨询专业医疗人员。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1753</uiIndex>
