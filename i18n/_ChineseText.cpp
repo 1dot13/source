@@ -5478,7 +5478,7 @@ STR16			MercInfo[] =
 	L"未结账单", //L"Unsettled Bills",
 	L"生平", //L"Bio",
 	L"物品", //L"Inv",
-	L"特别优惠！",
+	L"Special Offer!",
 };
 
 
