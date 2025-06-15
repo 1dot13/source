@@ -1467,7 +1467,16 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->ubLastDateSpokenTo, sizeof(this->ubLastDateSpokenTo), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bLastQuoteSaidWasSpecial, sizeof(this->bLastQuoteSaidWasSpecial), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bSectorZ, sizeof(this->bSectorZ), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(this->usStrategicInsertionData), sizeof(UINT16), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= MERC_PROFILE_INSERTION_DATA )
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof( this->usStrategicInsertionData ), sizeof( UINT32 ), numBytesRead );
+		}
+		else
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(this->usStrategicInsertionData), sizeof(UINT16), numBytesRead);
+		}
+
 		numBytesRead = ReadFieldByField( hFile, &this->bFriendlyOrDirectDefaultResponseUsedRecently, sizeof(this->bFriendlyOrDirectDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bRecruitDefaultResponseUsedRecently, sizeof(this->bRecruitDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bThreatenDefaultResponseUsedRecently, sizeof(this->bThreatenDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);

@@ -934,7 +934,7 @@ public:
 	UINT8 ubLastDateSpokenTo;
 	UINT8 bLastQuoteSaidWasSpecial;
 	INT8	bSectorZ;
-	UINT16 usStrategicInsertionData;
+	UINT32 usStrategicInsertionData;
 	INT8 bFriendlyOrDirectDefaultResponseUsedRecently;
 	INT8 bRecruitDefaultResponseUsedRecently;
 	INT8 bThreatenDefaultResponseUsedRecently;
