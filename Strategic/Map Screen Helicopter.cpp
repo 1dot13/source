@@ -1278,8 +1278,7 @@ void LandHelicopter( void )
 	else
 	{
 #ifdef JA2UB
-		Assert( 0 );
-//No meanwhiles
+		//No meanwhiles in UB
 #else
 		// play meanwhile scene if it hasn't been used yet
 		HandleKillChopperMeanwhileScene();
