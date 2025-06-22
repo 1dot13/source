@@ -1077,7 +1077,7 @@ BOOLEAN ExecuteOverhead( )
                             pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
                         }
 
-                        SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, pSoldier->ubProfile, 0, 0, pSoldier->iFaceIndex, 0 );
+                        SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_GETUP_AFTER_HELI_CRASH, pSoldier->ubProfile, 0, pSoldier->iFaceIndex, 0 );
                     }
                 }
                 else
