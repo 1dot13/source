@@ -1345,10 +1345,10 @@ void HandleDialogue( )
 			{
 				HandleEveryoneDoneTheirEndGameQuotes();
 			}
-			else
+			else if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_GETUP_AFTER_HELI_CRASH )
 			{
 				// grab soldier ptr from profile ID
-				pSoldier = FindSoldierByProfileID( (UINT8)QItem.uiSpecialEventData, FALSE );
+				pSoldier = FindSoldierByProfileID( (UINT8)QItem.uiSpecialEventData2, FALSE );
 
 				// FindSoldier was returning a lot of nullptrs which would crash the game very quickly after Jerry gets up. This check is here to circumvent that.
 				if (pSoldier != nullptr)
