@@ -918,7 +918,7 @@ void HandleAddingPowerGenFanSound()
 		sGridNo = POWERGENFANSOUND_GRIDNO2;
 
 	//Create the new ambient fan sound
-	//gJa25SaveStruct.iPowerGenFanPositionSndID = NewPositionSnd( sGridNo, POSITION_SOUND_STATIONATY_OBJECT, 0, POWER_GEN_FAN_SOUND );
+	gJa25SaveStruct.iPowerGenFanPositionSndID = NewPositionSnd( sGridNo, POSITION_SOUND_STATIONATY_OBJECT, 0, POWER_GEN_FAN_SOUND, 30 );
 
 	SetPositionSndsInActive( );
 	SetPositionSndsActive( );
