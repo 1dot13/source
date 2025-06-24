@@ -774,6 +774,7 @@ typedef struct
 	UINT32		uiData;
 	BOOLEAN		fAllocated;
 	BOOLEAN		fInActive;
+	UINT8		volume;
 
 } POSITIONSND;
 
@@ -820,7 +821,7 @@ void RecountPositionSnds( void )
 }
 
 
-INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay )
+INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay, UINT8 volume )
 {
 	POSITIONSND *pPositionSnd;
 	INT32				iPositionSndIndex;
@@ -849,6 +850,7 @@ INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoun
 	pPositionSnd->uiFlags	 = uiFlags;
 	pPositionSnd->fAllocated	= TRUE;
 	pPositionSnd->iSoundToPlay = iSoundToPlay;
+	pPositionSnd->volume = volume;
 
 	pPositionSnd->iSoundSampleID = NO_SAMPLE;
 
@@ -892,7 +894,7 @@ void SetPositionSndGridNo( INT32 iPositionSndIndex, INT32 sGridNo )
 	}
 }
 
-void SetPositionSndsActive( )
+void SetPositionSndsActive()
 {
 	UINT32 cnt;
 	POSITIONSND *pPositionSnd;
@@ -901,19 +903,26 @@ void SetPositionSndsActive( )
 
 	for ( cnt = 0; cnt < guiNumPositionSnds; cnt++ )
 	{
-		pPositionSnd = &gPositionSndData[ cnt ];
+		pPositionSnd = &gPositionSndData[cnt];
 
-	if ( pPositionSnd->fAllocated )
-	{
-		if ( pPositionSnd->fInActive )
+		if ( pPositionSnd->fAllocated )
 		{
-		pPositionSnd->fInActive = FALSE;
+			if ( pPositionSnd->fInActive )
+			{
+				pPositionSnd->fInActive = FALSE;
 
-		// Begin sound effect
-		// Volume 0
-		pPositionSnd->iSoundSampleID = PlayJA2Sample( pPositionSnd->iSoundToPlay, RATE_11025, 0, 0, MIDDLEPAN );
+				// Begin sound effect
+				// Volume 0
+				if ( pPositionSnd->iSoundToPlay == POWER_GEN_FAN_SOUND )
+				{
+					pPositionSnd->iSoundSampleID = PlayJA2SampleFromFile( "Sounds\\POWERGENFAN.WAV", RATE_11025, 0, 0, MIDDLEPAN);
+				}
+				else
+				{
+					pPositionSnd->iSoundSampleID = PlayJA2Sample( pPositionSnd->iSoundToPlay, RATE_11025, 0, 0, MIDDLEPAN );
+				}
+			}
 		}
-	}
 	}
 }
 
@@ -1068,7 +1077,7 @@ void SetPositionSndsVolumeAndPanning( )
 		{
 		 if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
 		 {
-			bVolume = PositionSoundVolume( 15, pPositionSnd->sGridNo );
+			bVolume = PositionSoundVolume( pPositionSnd->volume, pPositionSnd->sGridNo );
 
 			if ( pPositionSnd->uiFlags & POSITION_SOUND_FROM_SOLDIER )
 			{
