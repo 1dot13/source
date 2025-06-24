@@ -650,7 +650,7 @@ void HandleWhenCertainPercentageOfEnemiesDie()
 	UINT32				uiPercentEnemiesKilled;
 	UINT8					ubSectorID;
 
-	//if there isnt enemies in the sector
+	//if there isn't enemies in the sector
 	if( ( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) == 0 )
 	{
 		//get out
@@ -667,7 +667,7 @@ void HandleWhenCertainPercentageOfEnemiesDie()
 			switch( ubSectorID )
 			{
 				case SEC_K15:
-					//all enemies are dead and if the quote hasnt been said yet
+					//all enemies are dead and if the quote hasn't been said yet
 					if( uiPercentEnemiesKilled >= 100 && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__ALL_DEAD_TOP_LEVEL_OF_COMPLEX ) )
 					{
 						INT16 bProfile = RandomProfileIdFromNewMercsOnPlayerTeam();
@@ -707,7 +707,7 @@ void StopPowerGenFan()
 		return;
 	}
 
-	//Remeber how the player got through
+	//Remember how the player got through
 	SetJa25GeneralFlag( JA_GF__POWER_GEN_FAN_HAS_BEEN_STOPPED );
 
 	gJa25SaveStruct.ubStateOfFanInPowerGenSector = PGF__STOPPED;
@@ -725,7 +725,7 @@ void StopPowerGenFan()
 	//Turn off the power gen fan sound
 	HandleRemovingPowerGenFanSound();
 
-	//remeber which turn the fan stopped on
+	//remember which turn the fan stopped on
 	gJa25SaveStruct.uiTurnPowerGenFanWentDown = gJa25SaveStruct.uiTacticalTurnCounter;
 
 
@@ -733,7 +733,7 @@ void StopPowerGenFan()
 	// Replace the Fan graphic
 	//
 
-	// Turn on permenant changes....
+	// Turn on permanent changes....
 	ApplyMapChangesToMapTempFile( TRUE );
 
 	//Add the exit grid to the power gen fan
@@ -788,7 +788,7 @@ void StartFanBackUpAgain()
 		return;
 	}
 
-	//Remeber how the player got through
+	//Remember how the player got through
 	gJa25SaveStruct.ubStateOfFanInPowerGenSector = PGF__RUNNING_NORMALLY;
 
 
@@ -800,7 +800,7 @@ void StartFanBackUpAgain()
 	// Replace the Fan graphic
 	//
 
-	// Turn on permenant changes....
+	// Turn on permanent changes....
 	ApplyMapChangesToMapTempFile( TRUE );
 
 	// Remove it!
