@@ -305,8 +305,8 @@ UINT32  SECTOR_LAUNCH_MISSLES_Y = 12;
 UINT32  SECTOR_LAUNCH_MISSLES_Z = 3;
 //J13-0
 UINT32  SECTOR_FAN_X = 13;
-UINT32  SECTOR_FAN_Z = 10;
-UINT32  SECTOR_FAN_Y = 0;
+UINT32  SECTOR_FAN_Y = 10;
+UINT32  SECTOR_FAN_Z = 0;
 //K14-1
 UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_X = 14;
 UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_Y = 11;
@@ -342,8 +342,8 @@ void InitGridNoUB()
 	SECTOR_LAUNCH_MISSLES_Z = gGameUBOptions.SectorLaunchMisslesZ; //3;
 	//J13-0
 	SECTOR_FAN_X = gGameUBOptions.SectorFanX; //13;
-	SECTOR_FAN_Z = gGameUBOptions.SectorFanY; //10;
-	SECTOR_FAN_Y = gGameUBOptions.SectorFanZ; //0;
+	SECTOR_FAN_Y = gGameUBOptions.SectorFanY; //10;
+	SECTOR_FAN_Z = gGameUBOptions.SectorFanZ; //0;
 	//K14-1
 	SECTOR_OPEN_GATE_IN_TUNNEL_X = gGameUBOptions.SectorOpenGateInTunnelX; //14;
 	SECTOR_OPEN_GATE_IN_TUNNEL_Y = gGameUBOptions.SectorOpenGateInTunnelY; //11;
