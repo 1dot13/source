@@ -3171,7 +3171,7 @@ BOOLEAN CheckPendingNonPlayerTeam( UINT8 usTeam )
 void HandleBloodCatDeaths( SECTORINFO *pSector )
 {
 	//if the current sector is the first part of the town
-	if( gWorldSectorX == 10 && gWorldSectorY == 9 && gbWorldSectorZ == 0 )
+	if( gWorldSectorX == BETTY_BLOODCAT_SECTOR_X && gWorldSectorY == BETTY_BLOODCAT_SECTOR_Y && gbWorldSectorZ == BETTY_BLOODCAT_SECTOR_Z )
 	{
 		//if ALL the bloodcats are killed
 		if( pSector->bBloodCats == 0 )
