@@ -6585,7 +6585,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
-		<usBackground>58</usBackground>
+		<usBackground>165</usBackground>
 		<GrowthModifierLife>0</GrowthModifierLife>
 		<GrowthModifierStrength>0</GrowthModifierStrength>
 		<GrowthModifierAgility>0</GrowthModifierAgility>
@@ -6692,7 +6692,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
-		<usBackground>59</usBackground>
+		<usBackground>166</usBackground>
 		<GrowthModifierLife>0</GrowthModifierLife>
 		<GrowthModifierStrength>0</GrowthModifierStrength>
 		<GrowthModifierAgility>0</GrowthModifierAgility>
@@ -6800,7 +6800,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>70</bTownAttachment>
-		<usBackground>60</usBackground>
+		<usBackground>229</usBackground>
 		<GrowthModifierLife>0</GrowthModifierLife>
 		<GrowthModifierStrength>0</GrowthModifierStrength>
 		<GrowthModifierAgility>0</GrowthModifierAgility>
