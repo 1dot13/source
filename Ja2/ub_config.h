@@ -220,7 +220,10 @@ typedef struct
 	UINT32 SectorDoorInTunnelGridNo;
 	
 	UINT8 MaxNumberOfMercs;
-       
+
+	INT16 BettyBloodCatSectorX;
+	INT16 BettyBloodCatSectorY;
+	INT8 BettyBloodCatSectorZ;
 } GAME_UB_OPTIONS;
 
 extern GAME_UB_OPTIONS gGameUBOptions; 

@@ -357,6 +357,11 @@ void LoadGameUBOptions()
 	gGameUBOptions.H10SectorPlayerQuoteZ = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Z", 0); 
 
 
+	gGameUBOptions.BettyBloodCatSectorX = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_X", 10 );
+	gGameUBOptions.BettyBloodCatSectorY = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Y", 9 );
+	gGameUBOptions.BettyBloodCatSectorZ = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Z", 0 );
+
+
 	if ( gGameUBOptions.InGameHeli == TRUE ) 
 		gGameUBOptions.InGameHeliCrash = FALSE;
 	

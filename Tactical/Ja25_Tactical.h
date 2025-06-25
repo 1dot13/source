@@ -143,6 +143,10 @@ extern UINT8 RAUL_UB;
 extern UINT8 MORRIS_UB;
 extern UINT8 RUDY_UB;
 
+extern INT16  BETTY_BLOODCAT_SECTOR_X;
+extern INT16  BETTY_BLOODCAT_SECTOR_Y;
+extern INT8   BETTY_BLOODCAT_SECTOR_Z;
+
 extern void Old_UB_Inventory ();
 extern void New_UB_Inventory ();
 
