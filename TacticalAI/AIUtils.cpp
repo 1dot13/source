@@ -830,7 +830,8 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 {
 	UINT32				uiLoop;
 	UINT16				usMaxDist;
-	UINT16					ubFriendCount, ubFriendIDs[MAXMERCS], ubFriendID;
+	UINT16				ubFriendCount;
+	SoldierID			ubFriendIDs[MAXMERCS], ubFriendID;
 	UINT8				ubDirection;
 	UINT8					ubDirsLeft;
 	BOOLEAN				fDirChecked[8];
@@ -5929,14 +5930,14 @@ INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxD
 }
 
 // first call PrepareThreatlist to make threat list
-UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt)
+SoldierID ClosestKnownThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt)
 {
 	CHECKF(pSoldier);
 
 	UINT32	uiLoop;
 	INT32	sClosestOpponent = NOWHERE;
 	INT32	iRange, iClosestRange;
-	UINT16	ubClosestOpponentID = NOBODY;
+	SoldierID	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
 	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
@@ -5959,14 +5960,14 @@ UINT16 ClosestKnownThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt)
 }
 
 // first call PrepareThreatlist to make threat list
-UINT16 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt, UINT8 ubMax)
+SoldierID ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT32 uiThreatCnt, UINT8 ubMax)
 {
 	CHECKF(pSoldier);
 
 	UINT32	uiLoop;
 	INT32	sClosestOpponent = NOWHERE;
 	INT32	iRange, iClosestRange;
-	UINT16	ubClosestOpponentID = NOBODY;
+	SoldierID	ubClosestOpponentID = NOBODY;
 
 	// use global defined threat list
 	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)

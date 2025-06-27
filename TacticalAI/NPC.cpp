@@ -2909,7 +2909,7 @@ BOOLEAN PCDoesFirstAidOnNPC( UINT8 ubNPC )
 void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 {
 	// Loop through all mercs, gather closest mercs who can see and trigger one!
-	UINT16	ubMercsInSector[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = { 0 }; //std::vector would probably be better here
+	SoldierID	ubMercsInSector[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = {}; //std::vector would probably be better here
 	UINT16	ubNumMercs = 0;
 	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
@@ -2929,7 +2929,7 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && pTeamSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 		{
-			ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
+			ubMercsInSector[ ubNumMercs ] = cnt;
 			ubNumMercs++;
 		}
 	}
@@ -2945,11 +2945,11 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 		// If 64, do something special
 		if ( pQuotePtr->ubTriggerNPCRec == QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO )
 		{
-			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], pQuotePtr->ubTriggerNPCRec, DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC, 57, 6 );
+			TacticalCharacterDialogueWithSpecialEvent( ubMercsInSector[ ubChosenMerc ], pQuotePtr->ubTriggerNPCRec, DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC, 57, 6 );
 		}
 		else
 		{
-			TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], pQuotePtr->ubTriggerNPCRec );
+			TacticalCharacterDialogue( ubMercsInSector[ ubChosenMerc ], pQuotePtr->ubTriggerNPCRec );
 		}
 	}
 

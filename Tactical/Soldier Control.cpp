@@ -992,7 +992,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bRegenBoostersUsedToday = src.bRegenBoostersUsedToday;
 		this->bNumPelletsHitBy = src.bNumPelletsHitBy;
 		this->sSkillCheckGridNo = src.sSkillCheckGridNo;
-		this->ubLastEnemyCycledID = src.ubLastEnemyCycledID;
+		this->ubLastEnemyCycledID = static_cast<UINT16>( src.ubLastEnemyCycledID );
 
 		this->ubPrevSectorID = src.ubPrevSectorID;
 		this->ubNumTilesMovesSinceLastForget = src.ubNumTilesMovesSinceLastForget;

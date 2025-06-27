@@ -1453,7 +1453,7 @@ public:
 	INT8					bRegenBoostersUsedToday;				// Flugente: not used anymore!
 	INT8					bNumPelletsHitBy;
 	INT32				sSkillCheckGridNo;
-	UINT16				ubLastEnemyCycledID;
+	SoldierID			ubLastEnemyCycledID;
 
 	UINT8				ubPrevSectorID;
 	UINT8				ubNumTilesMovesSinceLastForget;

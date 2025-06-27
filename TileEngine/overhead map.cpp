@@ -1378,11 +1378,10 @@ void RenderOverheadOverlays()
 {
 	UINT32			uiDestPitchBYTES;
 	WORLDITEM		*pWorldItem;
-	UINT32				i;
 	SOLDIERTYPE	*pSoldier;
 	HVOBJECT		hVObject;
 	INT16				sX, sY;
-	UINT16			end;
+	SoldierID			id, end;
 	UINT16			usLineColor=0;
 	UINT8				*pDestBuf;
 	UINT8				ubPassengers = 0;
@@ -1416,10 +1415,10 @@ void RenderOverheadOverlays()
 		|| RebelCommand::ShowApproximateEnemyLocations())
 		marklastenemy = TRUE;
 	
-	for( i = 0; i < end; ++i )
+	for( id = 0; id < end; ++id )
 	{
 		//First, check to see if the soldier exists and is in the sector.
-		pSoldier = MercPtrs[ i ];
+		pSoldier = id;
 		if( !pSoldier->bActive || !pSoldier->bInSector )
 			continue;
 		//Soldier is here.	Calculate his screen position based on his current gridno.
@@ -1695,7 +1694,7 @@ void RenderOverheadOverlays()
 		FLOAT radius_inner = radius - thickness / 2;
 		FLOAT radius_outer = radius + thickness / 2;
 		
-		for( i = 0 ; i < guiNumWorldItems; ++i	)
+		for( UINT32 i = 0 ; i < guiNumWorldItems; ++i	)
 		{
 			pWorldItem = &gWorldItems[ i ];
 			if( !pWorldItem	|| !pWorldItem->fExists )

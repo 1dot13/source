@@ -107,7 +107,7 @@ BOOLEAN		InterruptsAllowed = TRUE;
 BOOLEAN		gfHiddenInterrupt = FALSE;
 SoldierID	gubLastInterruptedGuy = NOBODY;
 
-extern UINT16 gsWhoThrewRock;
+extern SoldierID gsWhoThrewRock;
 extern UINT8 gubSightFlags;
 
 typedef struct
@@ -115,7 +115,7 @@ typedef struct
 	UINT16		ubOutOfTurnPersons;
 
 	SoldierID	InterruptOnlyGuynum;
-	INT16		sWhoThrewRock;
+	SoldierID	sWhoThrewRock;
 	BOOLEAN		InterruptsAllowed;
 	BOOLEAN		fHiddenInterrupt;
 	SoldierID	ubLastInterruptedGuy;

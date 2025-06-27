@@ -655,7 +655,6 @@ void ShutdownTacticalEngine( )
 BOOLEAN InitOverhead( )
 {
     UINT32  cnt;
-    UINT16  cnt2;
 
     // Set pointers list
     for( cnt = 0; cnt < TOTAL_SOLDIERS; cnt++ )
@@ -751,9 +750,9 @@ BOOLEAN InitOverhead( )
         gTacticalStatus.Team[ cnt ].bAwareOfOpposition = FALSE;
 
         // set team values in soldier structures for all who are on this team
-        for ( cnt2 = gTacticalStatus.Team[ cnt ].bFirstID; cnt2 <= gTacticalStatus.Team[ cnt ].bLastID; cnt2++ )
+        for (SoldierID cnt2 = gTacticalStatus.Team[ cnt ].bFirstID; cnt2 <= gTacticalStatus.Team[ cnt ].bLastID; ++cnt2 )
         {
-            MercPtrs[ cnt2 ]->bTeam = (INT8) cnt;
+            cnt2->bTeam = (INT8) cnt;
         }
     }
 
@@ -3962,7 +3961,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 #ifdef JA2UB
 		if ( pSoldierOld->ubProfile == MORRIS_UB )
 		{
-			INT16 bSoldierID;
+            SoldierID bSoldierID;
 			SOLDIERTYPE* pOther = FindSoldierByProfileID( MORRIS_UB, FALSE );
 			if ( pOther )
 			{
@@ -3975,10 +3974,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
             bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 
             //if there is any
-            if( bSoldierID != -1 )
+            if( bSoldierID != NOBODY )
             {
                 //say the MORRIS dead quote
-                TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW );
+                TacticalCharacterDialogue( bSoldierID, QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW );
             }
         }
         // Ja25no queen
@@ -6860,10 +6859,8 @@ BOOLEAN WeSawSomeoneThisTurn( )
 void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
 {
     // WDS - make number of mercenaries, etc. be configurable
-    //  UINT8   ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-    std::vector<UINT16>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+    SoldierID ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = {};
     UINT16   ubNumMercs = 0;
-    UINT16   ubChosenMerc;
     SOLDIERTYPE *pTeamSoldier;
 
     // Loop through all our guys and randomly say one from someone in our sector
@@ -6878,7 +6875,7 @@ void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
         // Add guy if he's a candidate...
         if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
         {
-            ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
+            ubMercsInSector[ ubNumMercs ] = cnt;
             ubNumMercs++;
         }
     }
@@ -6886,9 +6883,9 @@ void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
     // If we are > 0
     if ( ubNumMercs > 0 )
     {
-        ubChosenMerc = ubMercsInSector[ (UINT16)Random( ubNumMercs ) ];
+        SoldierID ubChosenMerc = ubMercsInSector[ (UINT16)Random( ubNumMercs ) ];
 
-        MercPtrs[ ubChosenMerc ]->DoMercBattleSound( (UINT8)iBattleSnd );
+        ubChosenMerc->DoMercBattleSound( (UINT8)iBattleSnd );
     }
 }
 
@@ -7945,10 +7942,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 void CycleThroughKnownEnemies( BOOLEAN backward )
 {
     // static to indicate last position we were at:
-    SOLDIERTYPE     *pSoldier;
-    static BOOLEAN fFirstTime = TRUE;
-    static UINT16   usStartToLook;
-    UINT32              cnt;
+    static BOOLEAN      fFirstTime = TRUE;
+    static SoldierID    usStartToLook;
+    SoldierID           enemy;
     BOOLEAN             fEnemyBehindStartLook = FALSE;
     BOOLEAN             fEnemiesFound = FALSE;
 
@@ -7959,30 +7955,31 @@ void CycleThroughKnownEnemies( BOOLEAN backward )
 		if(backward)
 			usStartToLook = TOTAL_SOLDIERS;
 		else
-        usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+            usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
     }
 
-	if(backward)
-		for ( cnt = TOTAL_SOLDIERS-1 , pSoldier = MercPtrs[ cnt ]; cnt >= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt--, pSoldier-- )
+    if (backward)
+    {
+		for ( enemy = TOTAL_SOLDIERS-1; enemy >= gTacticalStatus.Team[ gbPlayerNum ].bLastID; --enemy )
 		{
 			// try to find first active, OK enemy
-			if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+			if ( enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
 			{
-				if ( pSoldier->bVisible != -1 )
+				if ( enemy->bVisible != -1 )
 				{
 					fEnemiesFound = TRUE;
 
 					// If we are < ok start, this is the one!
-					if ( cnt < usStartToLook )
+					if ( enemy < usStartToLook )
 					{
-						usStartToLook = (UINT16)cnt;
+						usStartToLook = enemy;
 
 						// Locate to!
 						//LocateSoldier( pSoldier->ubID, 1 );
 
 						//ATE: Change to Slide To...
-						SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
+						SlideTo( enemy, SETANDREMOVEPREVIOUSLOCATOR );
 						return;
 					}
 					else
@@ -7992,31 +7989,34 @@ void CycleThroughKnownEnemies( BOOLEAN backward )
 				}
 			}
 		}
+    }
 	else
-    for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bLastID, pSoldier = MercPtrs[ cnt ]; cnt < TOTAL_SOLDIERS; cnt++, pSoldier++ )
     {
-        // try to find first active, OK enemy
-        if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+        for ( enemy = gTacticalStatus.Team[gbPlayerNum].bLastID; enemy < TOTAL_SOLDIERS; ++enemy )
         {
-            if ( pSoldier->bVisible != -1 )
+            // try to find first active, OK enemy
+            if ( enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
             {
-                fEnemiesFound = TRUE;
-
-                // If we are > ok start, this is the one!
-                if ( cnt > usStartToLook )
+                if (enemy->bVisible != -1)
                 {
-                    usStartToLook = (UINT16)cnt;
+                    fEnemiesFound = TRUE;
 
-                    // Locate to!
-                    //LocateSoldier( pSoldier->ubID, 1 );
+                    // If we are > ok start, this is the one!
+                    if (enemy > usStartToLook)
+                    {
+                        usStartToLook = enemy;
 
-                    //ATE: Change to Slide To...
-                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
-                    return;
-                }
-                else
-                {
-                    fEnemyBehindStartLook = TRUE;
+                        // Locate to!
+                        //LocateSoldier( pSoldier->ubID, 1 );
+
+                        //ATE: Change to Slide To...
+                        SlideTo(enemy, SETANDREMOVEPREVIOUSLOCATOR);
+                        return;
+                    }
+                    else
+                    {
+                        fEnemyBehindStartLook = TRUE;
+                    }
                 }
             }
         }
@@ -8038,39 +8038,34 @@ void CycleThroughKnownEnemies( BOOLEAN backward )
 		}
 		else
 		{
-        usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-        CycleThroughKnownEnemies( );
-    }
+            usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+            CycleThroughKnownEnemies( );
+        }
     }
 }
 
 
 void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
 {
-    // static to indicate last position we were at:
-    SOLDIERTYPE     *pSoldier;
-    UINT16  usStartToLook;
-    UINT32              cnt;
+    SoldierID       enemy;
+    SoldierID       usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-    usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-    for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bLastID, pSoldier = MercPtrs[ cnt ]; cnt < TOTAL_SOLDIERS; cnt++, pSoldier++ )
+    for ( enemy = gTacticalStatus.Team[ gbPlayerNum ].bLastID; enemy < TOTAL_SOLDIERS; ++enemy )
     {
         // try to find first active, OK enemy
-        if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+        if ( enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
         {
-            if ( pSrcSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY   )
+            if ( pSrcSoldier->aiData.bOppList[ enemy ] == SEEN_CURRENTLY   )
             {
                 // If we are > ok start, this is the one!
-                if ( cnt > pSrcSoldier->ubLastEnemyCycledID )
+                if ( enemy > pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = enemy;
 
                     //ATE: Change to Slide To...
-                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( enemy, SETANDREMOVEPREVIOUSLOCATOR );
 
-                    ChangeInterfaceLevel( pSoldier->pathing.bLevel );
+                    ChangeInterfaceLevel( enemy->pathing.bLevel );
                     return;
                 }
             }
@@ -8082,58 +8077,51 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
 
 
     usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-    for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bLastID, pSoldier = MercPtrs[ cnt ]; cnt < TOTAL_SOLDIERS; cnt++, pSoldier++ )
+    for ( enemy = gTacticalStatus.Team[ gbPlayerNum ].bLastID; enemy < TOTAL_SOLDIERS; ++enemy )
     {
         // try to find first active, OK enemy
-        if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+        if (enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
         {
-            if ( pSrcSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY   )
+            if ( pSrcSoldier->aiData.bOppList[ enemy ] == SEEN_CURRENTLY   )
             {
 
                 // If we are > ok start, this is the one!
-                if ( cnt > pSrcSoldier->ubLastEnemyCycledID )
+                if ( enemy > pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = enemy;
 
                     //ATE: Change to Slide To...
-                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo(enemy, SETANDREMOVEPREVIOUSLOCATOR );
 
-                    ChangeInterfaceLevel( pSoldier->pathing.bLevel );
+                    ChangeInterfaceLevel( enemy->pathing.bLevel );
                     return;
                 }
             }
         }
     }
-
-
 }
 
 void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
 {
-    // static to indicate last position we were at:
-    SOLDIERTYPE     *pSoldier;
-    UINT16  usStartToLook;
-    UINT32              cnt;
+    SoldierID   enemy;
+    SoldierID   usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-    usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-//    for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bLastID, pSoldier = MercPtrs[ cnt ]; cnt < TOTAL_SOLDIERS; cnt++, pSoldier++ )
-	for ( cnt = TOTAL_SOLDIERS-1, pSoldier = MercPtrs[ cnt ]; cnt >= gTacticalStatus.Team[ gbPlayerNum ].bLastID ; cnt--, pSoldier-- )
+	for ( enemy = TOTAL_SOLDIERS-1; enemy >= gTacticalStatus.Team[ gbPlayerNum ].bLastID ; --enemy )
     {
         // try to find first active, OK enemy
-        if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+        if ( enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
         {
-            if ( pSrcSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY   )
+            if ( pSrcSoldier->aiData.bOppList[ enemy ] == SEEN_CURRENTLY   )
             {
                 // If we are > ok start, this is the one!
-                if ( cnt < pSrcSoldier->ubLastEnemyCycledID )
+                if ( enemy < pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = enemy;
 
                     //ATE: Change to Slide To...
-                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( enemy, SETANDREMOVEPREVIOUSLOCATOR );
 
-                    ChangeInterfaceLevel( pSoldier->pathing.bLevel );
+                    ChangeInterfaceLevel( enemy->pathing.bLevel );
                     return;
                 }
             }
@@ -8145,24 +8133,23 @@ void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier )
 
 
     usStartToLook = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-    //for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bLastID, pSoldier = MercPtrs[ cnt ]; cnt >= 0; cnt--, pSoldier-- )
-	for ( cnt = TOTAL_SOLDIERS-1, pSoldier = MercPtrs[ cnt ]; cnt >= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt--, pSoldier-- )
+	for ( enemy = TOTAL_SOLDIERS-1; enemy >= gTacticalStatus.Team[ gbPlayerNum ].bLastID; --enemy )
     {
         // try to find first active, OK enemy
-        if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum) && (pSoldier->stats.bLife > 0) )
+        if ( enemy->bActive && enemy->bInSector && !enemy->aiData.bNeutral && (enemy->bSide != gbPlayerNum) && (enemy->stats.bLife > 0) )
         {
-            if ( pSrcSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY   )
+            if ( pSrcSoldier->aiData.bOppList[ enemy ] == SEEN_CURRENTLY   )
             {
 
                 // If we are > ok start, this is the one!
-                if ( cnt < pSrcSoldier->ubLastEnemyCycledID )
+                if ( enemy < pSrcSoldier->ubLastEnemyCycledID )
                 {
-                    pSrcSoldier->ubLastEnemyCycledID = (UINT16)cnt;
+                    pSrcSoldier->ubLastEnemyCycledID = enemy;
 
                     //ATE: Change to Slide To...
-                    SlideTo( pSoldier->ubID, SETANDREMOVEPREVIOUSLOCATOR );
+                    SlideTo( enemy, SETANDREMOVEPREVIOUSLOCATOR );
 
-                    ChangeInterfaceLevel( pSoldier->pathing.bLevel );
+                    ChangeInterfaceLevel( enemy->pathing.bLevel );
                     return;
                 }
             }
@@ -10492,8 +10479,7 @@ BOOLEAN HostileCreaturesPresent()
 void HandleCreatureTenseQuote( )
 {
     // WDS - make number of mercenaries, etc. be configurable
-    //  UINT8   ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-    std::vector<UINT16>  ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+    SoldierID   ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = {};
     UINT16   ubNumMercs = 0;
     UINT16   ubChosenMerc;
     SOLDIERTYPE *pTeamSoldier;
@@ -10523,7 +10509,7 @@ void HandleCreatureTenseQuote( )
                         // Add guy if he's a candidate...
                         if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
                         {
-                            ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
+                            ubMercsInSector[ ubNumMercs ] = cnt;
                             ubNumMercs++;
                         }
                     }
@@ -10533,7 +10519,7 @@ void HandleCreatureTenseQuote( )
                     {
                         ubChosenMerc = (UINT16)Random( ubNumMercs );
 
-                        DoCreatureTensionQuote ( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ] );
+                        DoCreatureTensionQuote ( ubMercsInSector[ ubChosenMerc ] );
                     }
 
                     // Adjust delay....

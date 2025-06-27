@@ -69,7 +69,7 @@ struct TacticalStatusType
     INT8                    fPanicFlags;
     INT32                   sPanicTriggerGridNoUnused;
     INT16                   sHandGrid;
-    UINT16                  ubSpottersCalledForBy;
+    SoldierID               ubSpottersCalledForBy;
     SoldierID               ubTheChosenOne;
     UINT32                  uiTimeOfLastInput;
     UINT32                  uiTimeSinceDemoOn;

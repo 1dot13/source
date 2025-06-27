@@ -248,7 +248,7 @@ INT8 gbSmellStrength[3] =
 };
 
 
-UINT16 gsWhoThrewRock = NOBODY;
+SoldierID gsWhoThrewRock = NOBODY;
 
 // % values of sighting distance at various light levels
 //DBrot: use gGameExternalOptions.ubBrightnessVisionMod instead
@@ -1056,7 +1056,7 @@ void OurTeamRadiosRandomlyAbout(UINT16 ubAbout)
 
 
 
-INT16 TeamNoLongerSeesMan( UINT8 ubTeam, SOLDIERTYPE *pOpponent, UINT16 ubExcludeID, INT8 bIteration )
+INT16 TeamNoLongerSeesMan( UINT8 ubTeam, SOLDIERTYPE *pOpponent, SoldierID ubExcludeID, INT8 bIteration )
 {
 	SOLDIERTYPE *pMate;
 	SoldierID bLoop = gTacticalStatus.Team[ubTeam].bFirstID;
@@ -1833,7 +1833,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 	{
 		// check if I was the only one who was seeing this guy (exlude ourselves)
 		// THIS MUST HAPPEN EVEN FOR ENEMIES, TO MAKE THEIR PUBLIC opplist DECAY!
-		if (TeamNoLongerSeesMan(pSoldier->bTeam,pOpponent,pSoldier->ubID, 0 ))
+		if (TeamNoLongerSeesMan(pSoldier->bTeam, pOpponent, pSoldier->ubID, 0))
 		{
 #ifdef TESTOPPLIST
 			DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3, String( "TeamNoLongerSeesMan: ID %d(%S) to ID %d",pSoldier->ubID,pSoldier->name,pOpponent->ubID) );
@@ -5720,7 +5720,7 @@ void ProcessNoise( SoldierID ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubT
 	UINT8 ubLoudestEffVolume, ubEffVolume;
 //	UINT8 ubPlayVolume;
 	UINT8 ubSourceTerrType;
-	UINT16 ubSource;
+	SoldierID ubSource;
 	INT8 bTellPlayer = FALSE, bHeard, bSeen;
 	SoldierID ubHeardLoudestBy = NOBODY;
 	UINT8 ubNoiseDir = 0xff, ubLoudestNoiseDir = 0xff;
@@ -7718,9 +7718,9 @@ void SetWatchedLocAsUsed( UINT16 ubID, INT32 sGridNo, INT8 bLevel )
 BOOLEAN WatchedLocLocationIsEmpty( INT32 sGridNo, INT8 bLevel, INT8 bTeam )
 {
 	// look to see if there is anyone near the watched loc who is not on this team
-	UINT16	ubID;
-	INT32	sTempGridNo;
-	INT16	sX, sY;
+	SoldierID	ubID;
+	INT32		sTempGridNo;
+	INT16		sX, sY;
 
 	for ( sY = -WATCHED_LOC_RADIUS; sY <= WATCHED_LOC_RADIUS; sY++ )
 	{
@@ -7732,7 +7732,7 @@ BOOLEAN WatchedLocLocationIsEmpty( INT32 sGridNo, INT8 bLevel, INT8 bTeam )
 				continue;
 			}
 			ubID = WhoIsThere2( sTempGridNo, bLevel );
-			if ( ubID != NOBODY && MercPtrs[ ubID ]->bTeam != bTeam )
+			if ( ubID != NOBODY && ubID->bTeam != bTeam )
 			{
 				return( FALSE );
 			}
