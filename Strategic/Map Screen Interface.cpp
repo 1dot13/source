@@ -4469,7 +4469,12 @@ void BuildMouseRegionsForMoveBox( void )
 							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 		// set user defines
-		MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+		auto rowIndex = iCounter;
+		if (firstColumnFull)
+		{
+			rowIndex -= rowOffset;
+		}
+		MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, rowIndex);
 		MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, DONE_REGION );
 		MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, 0 );
 		iCounter++;
@@ -4487,7 +4492,12 @@ void BuildMouseRegionsForMoveBox( void )
 						MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 	// set user defines
-	MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
+	auto rowIndex = iCounter;
+	if (firstColumnFull)
+	{
+		rowIndex -= rowOffset;
+	}
+	MSYS_SetRegionUserData(&gMoveMenuRegion[iCounter], 0, rowIndex);
 	MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 1, CANCEL_REGION );
 	MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 2, 0 );
 	iCounter++;
