@@ -387,13 +387,13 @@ typedef struct SoldierID
 	// TODO: Remove once SoldierID is used everywhere and these are no longer needed
 	inline operator UINT16() const { return i; }
 
-	SoldierID(const UINT16 val = TOTAL_SOLDIERS) : i(val)
+	constexpr SoldierID(const UINT16 val = TOTAL_SOLDIERS) : i(val)
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
 		if ( i > TOTAL_SOLDIERS )
 			i = TOTAL_SOLDIERS;
 	}
-	SoldierID( const UINT32 val ) : i( val )
+	constexpr SoldierID( const UINT32 val ) : i( val )
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
 		if ( i > TOTAL_SOLDIERS )
@@ -402,7 +402,7 @@ typedef struct SoldierID
 	constexpr SoldierID( const INT32 val ) : i( val )
 	{
 		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
-		if ( i > TOTAL_SOLDIERS )
+		if ( i > TOTAL_SOLDIERS || i < 0)
 			i = TOTAL_SOLDIERS;
 	}
 
@@ -486,6 +486,5 @@ inline SoldierID operator+(const unsigned int lhs, const SoldierID rhs) { return
 inline SoldierID operator+(const INT16 lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
 
 
-//TODO: Change this to constexpr after SoldierID is ready and the user defined constructor from uint16 is not needed anymore.
 inline constexpr SoldierID NOBODY{ TOTAL_SOLDIERS };
 #endif
