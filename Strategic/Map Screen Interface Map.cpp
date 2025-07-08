@@ -5283,12 +5283,12 @@ BOOLEAN LoadMilitiaPopUpBox( void )
 	// load the militia pop up box
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
-		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
-	else if (iResolution < _1024x768)
+	if ( isWidescreenUI() || iResolution >= _1024x768)
+		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
+	else if (iResolution >= _800x600)
 		FilenameForBPP("INTERFACE\\Militia_800x600.sti", VObjectDesc.ImageFile);
 	else
-		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
+		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMilitia));
 
