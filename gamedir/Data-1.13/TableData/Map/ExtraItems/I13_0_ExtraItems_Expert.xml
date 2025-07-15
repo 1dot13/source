@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   see the ExtraSectorItems-Readme.txt for details 
+-->
+<ExtraItems>
+   <Item>
+      <uiIndex>20</uiIndex>             <!-- Steyr Aug A2 -->
+      <quantity>1</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>148</uiIndex>             <!-- 40mm Tear Gas Grenade -->
+      <quantity>2</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>149</uiIndex>             <!-- 40mm Stun Grenade -->
+      <quantity>2</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>40</uiIndex>             <!-- >M79 Grenade Launcher -->
+      <quantity>1</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>94</uiIndex>             <!-- 5.56x45mm Mag, 30 AP -->
+      <quantity>2</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>320</uiIndex>             <!-- Pack of Gum -->
+      <quantity>2</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+</ExtraItems>
