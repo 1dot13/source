@@ -7115,15 +7115,16 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 			tankCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
 		{
 			troopCount--;
 			jeepCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
 		{
-			const int numRobots = 1 + Random(difficultyMod);
+			// Limit amount of robots, if randomized difficulty bonus would cause us to go over the troopCount amount
+			const int numRobots = min( (1 + Random(difficultyMod)), troopCount); 
 			troopCount -= numRobots;
 			robotCount += numRobots;
 		}
