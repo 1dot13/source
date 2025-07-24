@@ -2,7 +2,7 @@
 #define __MAPSCREEN_H
 
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 #define			MAP_WORLD_X						18

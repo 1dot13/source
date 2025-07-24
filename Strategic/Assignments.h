@@ -3,7 +3,7 @@
 
 // header for assignment manipulation/updating for characters
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 #include "mousesystem.h"
 #include "Strategic Movement.h"

@@ -9,21 +9,21 @@
 	#include "Strategic Town Loyalty.h"
 	#include "Utilities.h"
 	#include "random.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "Map Screen Interface.h"
 	#include "Interface.h"
-	#include "Laptopsave.h"
+	#include "LaptopSave.h"
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Assignments.h"
-	#include "squads.h"
+	#include "Squads.h"
 	#include "Soldier Create.h"
 	#include "Dialogue Control.h"
 	#include "GameSettings.h"
 	#include "Queen Command.h"
 	#include "PreBattle Interface.h"
 	#include "Map Screen Interface Border.h"
-	#include "interface control.h"
+	#include "Interface Control.h"
 	#include "Map Screen Interface Map.h"
 	#include "laptop.h"							// added by Flugente
 	#include "Game Event Hook.h"				// added by Flugente
@@ -2071,7 +2071,7 @@ UINT32 CalcMilitiaUpkeep( void )
 			militia_static[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
 	}
 
-	// Flugente: if indivídual militia is on, calculate costs there and use the above as a fallback option
+	// Flugente: if indivï¿½dual militia is on, calculate costs there and use the above as a fallback option
 	if ( gGameExternalOptions.fIndividualMilitia )
 	{
 		uiTotalPayment = GetDailyUpkeep_IndividualMilitia( militia_individual[GREEN_MILITIA], militia_individual[REGULAR_MILITIA], militia_individual[ELITE_MILITIA] );
