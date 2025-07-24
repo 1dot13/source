@@ -1,10 +1,10 @@
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef __SUMMARY_INFO_H
 #define __SUMMARY_INFO_H
 
-#include "Types.h"
+#include "types.h"
 
 //dnl ch28
 #define GLOBAL_SUMMARY_VERSION	15
