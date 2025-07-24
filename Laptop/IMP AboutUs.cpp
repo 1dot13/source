@@ -2,10 +2,10 @@
 	#include "CharProfile.h"
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Text System.h"
 

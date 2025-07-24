@@ -2,10 +2,10 @@
 	#include "personnel.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Text.h"
@@ -26,9 +26,9 @@
 	#include "strategicmap.h"
 	#include "GameSettings.h"
 	#include "Merc Contract.h"
-	#include "_Ja25Englishtext.h" // added by SANDRO
+	#include "_Ja25EnglishText.h" // added by SANDRO
 
-#include "Soldier Macros.h"
+#include "Soldier macros.h"
 #include "InterfaceItemImages.h"
 
 #include "IMP Skill Trait.h"		// added by Flugente
@@ -814,7 +814,7 @@ void RenderPersonnelStats( INT32 iId, INT32 iSlot )
 
 // ID -> fortlaufende ID, und nicht die mercID
 // -> bei aktuellen Merc passt es
-// -> bei departed Merc wird die MercId anstatt der fortlaufenden ID übergeben!!
+// -> bei departed Merc wird die MercId anstatt der fortlaufenden ID ï¿½bergeben!!
 void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther )
 {
 	// Get the profile id (from profileId or slotId)
@@ -2738,7 +2738,7 @@ void DisplayFaceOfDisplayedMerc( )
 
 		DisplayHighLightBox();
 
-		// Hier dürfte der Aufruf falsch sein
+		// Hier dï¿½rfte der Aufruf falsch sein
 
 		RenderPersonnelFace(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, IsPastMercDead( iCurrentPersonSelectedId ), IsPastMercFired( iCurrentPersonSelectedId ), IsPastMercOther( iCurrentPersonSelectedId ) );
 		DisplayDepartedCharName(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iCurrentPersonSelectedId	) ) );

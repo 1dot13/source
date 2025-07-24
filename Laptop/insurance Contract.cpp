@@ -13,12 +13,12 @@
 	#include "Soldier Add.h"
 	#include "Game Clock.h"
 	#include "finances.h"
-	#include "History.h"
+	#include "history.h"
 	#include "Game Event Hook.h"
 	#include "LaptopSave.h"
 	#include "english.h"
 	#include "Text.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Status.h"
 	#include "Assignments.h"
 	#include "Map Screen Interface.h"
@@ -27,7 +27,7 @@
 
 #ifdef JA2UB
 #include "ub_config.h"
-#include "quests.h"
+#include "Quests.h"
 #endif
 
 #define		INS_CTRCT_ORDER_GRID_WIDTH					132
