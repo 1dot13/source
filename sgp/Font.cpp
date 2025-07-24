@@ -931,7 +931,7 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			//case 244:          siChar = 244;          break;	//?
 			//case 249:          siChar = 249;          break;	//?
 			//case 251:          siChar = 251;          break;	//?
-			//case 255:          siChar = 255;          break;	//�
+			//case 255:          siChar = 255;          break;	//ÿ
 //inshy: italian letters
 			//case 204:          siChar = 204;          break;	//I'
 			//case 236:          siChar = 236;          break;	//i'
@@ -1886,7 +1886,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 1102; // ?
 	temp++;
-	*temp = 1103; // �
+	*temp = 1103; // ÿ
 	temp++;
 
 	// BELORUSSIAN and UKRAINIAN letters in UNICODE
@@ -1936,23 +1936,23 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 377; // ?(zet)
 	temp++;
-	*temp = 261; // ?(��)
+	*temp = 261; // ?(îí)
 	temp++;
-	*temp = 263; // ?(��)
+	*temp = 263; // ?(öå)
 	temp++;
-	*temp = 281; // ?(��)
+	*temp = 281; // ?(ýí)
 	temp++;
-	*temp = 322; // ?(��?
+	*temp = 322; // ?(ýë?
 	temp++;
-	*temp = 324; // ?(��?
+	*temp = 324; // ?(ýí?
 	temp++;
-	*temp = 243; // ?(?������?
+	*temp = 243; // ?(?êðàòêî?
 	temp++;
-	*temp = 347; // ?(��?
+	*temp = 347; // ?(ýñ?
 	temp++;
-	*temp = 380; // ?(��?
+	*temp = 380; // ?(æå?
 	temp++;
-	*temp = 378; // ?(��?
+	*temp = 378; // ?(çå?
 	temp++;
 
 	// FRENCH and ITALIAN letters in UNICODE
@@ -2007,7 +2007,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 251; //?
 	temp++;
-	*temp = 255; //�
+	*temp = 255; //ÿ
 	temp++;
 //Italian letters
 	*temp = 204; //I'
