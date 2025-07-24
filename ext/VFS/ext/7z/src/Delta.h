@@ -4,7 +4,7 @@
 #ifndef __DELTA_H
 #define __DELTA_H
 
-#include "Types.h"
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
