@@ -1,13 +1,13 @@
 
 #include "Item Types.h"
-#include "Debug.h"
+#include "DEBUG.H"
 #include "Items.h"
 #include "GameSettings.h"
 #include "screenids.h"
 #include "Action Items.h"	// added by Flugente for the ACTION_ITEM_BLOW_UP value
-#include "Random.h"			// added by Flugente
-#include "Message.h"		// added by BOB for missing LBE info messages
-#include "overhead.h"		// added by BOB for missing LBE info messages
+#include "random.h"			// added by Flugente
+#include "message.h"		// added by BOB for missing LBE info messages
+#include "Overhead.h"		// added by BOB for missing LBE info messages
 #include "Map Screen Interface.h" // added by BOB for missing LBE info messages
 
 
@@ -1278,7 +1278,7 @@ OLD_OBJECTTYPE_101& OLD_OBJECTTYPE_101::operator=(OBJECTTYPE& src)
 
 			// Flugente fix: there is a severe problem with Action items. The problem is that in the above switch statement, we use the default stuff for action items.
 			// If the action item is a bomb etc. (bActionValue = 3), we want to set the bomb item. But due to EXTREME RETARDNESS, the ugYucky-struct differs on variable positions.
-			// To be precise (see in ItemTypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
+			// To be precise (see in Itemtypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
 			// 
 			// ...
 			//	INT8		bGunStatus;			// status % of gun
@@ -1419,7 +1419,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OBJECTTYPE& src)
 
 		// Flugente fix: there is a severe problem with Action items. The problem is that in the above switch statement, we use the default stuff for action items.
 		// If the action item is a bomb etc. (bActionValue = 3), we want to set the bomb item. But due to EXTREME RETARDNESS, the ugYucky-struct differs on variable positions.
-		// To be precise (see in ItemTypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
+		// To be precise (see in Itemtypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
 		// 
 		// ...
 		//	INT8		bGunStatus;			// status % of gun
@@ -1626,7 +1626,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 
 			// Flugente fix: there is a severe problem with Action items. The problem is that in the above switch statement, we use the default stuff for action items.
 			// If the action item is a bomb etc. (bActionValue = 3), we want to set the bomb item. But due to EXTREME RETARDNESS, the ugYucky-struct differs on variable positions.
-			// To be precise (see in ItemTypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
+			// To be precise (see in Itemtypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
 			// 
 			// ...
 			//	INT8		bGunStatus;			// status % of gun

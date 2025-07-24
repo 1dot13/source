@@ -1,8 +1,8 @@
 	#include "builddefines.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "types.h"
 	//#include "mssw.h"
-	#include "gap.h"
+	#include "GAP.H"
 	#include "Sound Control.h"
 	#include "soundman.h"
 	#include <stdio.h>

@@ -3,8 +3,8 @@
 
 #include "types.h"
 #include "Soldier Control.h"
-#include "los.h"
-#include "tile animation.h"
+#include "LOS.h"
+#include "Tile Animation.h"
 
 
 #define		BULLET_FLAG_CREATURE_SPIT			0x0001

@@ -2,10 +2,10 @@
 #include <wchar.h>
 #include <stdio.h>
 #include <string.h>
-#include "wcheck.h"
+#include "WCheck.h"
 #include "Render Fun.h"
 #include "stdlib.h"
-#include "debug.h"
+#include "DEBUG.H"
 #include "MemMan.h"
 #include "Overhead Types.h"
 //#include "Soldier Control.h"
@@ -14,28 +14,28 @@
 #include "Animation Control.h"
 #define _USE_MATH_DEFINES // for C
 #include <math.h>
-#include "pathai.h"
-#include "Random.h"
+#include "PATHAI.H"
+#include "random.h"
 #include "worldman.h"
 #include "Isometric Utils.h"
 #include "renderworld.h"
 #include "video.h"
-#include "points.h"
+#include "Points.h"
 #include "Sound Control.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "vobject_blitters.h"
 #include "Handle UI.h"
-#include "soldier ani.h"
-#include "Event pump.h"
+#include "Soldier Ani.h"
+#include "Event Pump.h"
 #include "opplist.h"
 #include "ai.h"
-#include "interface.h"
+#include "Interface.h"
 #include "lighting.h"
 #include "faces.h"
 #include "Soldier Profile.h"
-#include "gap.h"
-#include "campaign.h"
-#include "soldier macros.h"
+#include "GAP.H"
+#include "Campaign.h"
+#include "Soldier macros.h"
 #include "english.h"
 #include "Squads.h"
 
@@ -43,37 +43,37 @@
 #include "Networking.h"
 #include "NetworkEvent.h"
 #endif
-#include "structure wrap.h"
-#include "items.h"
-#include "Soundman.h"
-#include "utilities.h"
-#include "Strategic.h"
+#include "Structure Wrap.h"
+#include "Items.h"
+#include "soundman.h"
+#include "Utilities.h"
+#include "strategic.h"
 #include "soldier tile.h"
 #include "Smell.h"
 #include "Keys.h"
-#include "dialogue control.h"
-#include "soldier functions.h"
+#include "Dialogue Control.h"
+#include "Soldier Functions.h"
 #include "rt time defines.h"
 #include "Exit Grids.h"
 #include "Quests.h"
 #include "message.h"
 #include "NPC.h"
 #include "SkillCheck.h"
-#include "handle doors.h"
-#include "interface dialogue.h"
-#include "smokeeffects.h"
+#include "Handle Doors.h"
+#include "interface Dialogue.h"
+#include "SmokeEffects.h"
 #include	"GameSettings.h"
-#include "tile animation.h"
+#include "Tile Animation.h"
 #include "ShopKeeper Interface.h"
-#include "vehicles.h"
-#include "rotting corpses.h"
+#include "Vehicles.h"
+#include "Rotting Corpses.h"
 #include "Interface Control.h"
 #include "strategicmap.h"
-#include "morale.h"
-#include "meanwhile.h"
-#include "drugs and alcohol.h"
+#include "Morale.h"
+#include "Meanwhile.h"
+#include "Drugs And Alcohol.h"
 #include "SkillCheck.h"
-#include "boxing.h"
+#include "Boxing.h"
 #include "overhead map.h"
 #include "Map Information.h"
 #include "environment.h"
@@ -84,7 +84,7 @@
 #include "Strategic Merc Handler.h"
 #include "Campaign Types.h"
 #include "Strategic Status.h"
-#include "civ quotes.h"
+#include "Civ Quotes.h"
 #include "Strategic Pathing.h"
 #include "Debug Control.h"
 #include "LOS.h" // added by SANDRO
@@ -120,7 +120,7 @@
 #include "Tactical Save.h"		// added by Flugente for AddItemsToUnLoadedSector()
 #include "LightEffects.h"		// added by Flugente for CreatePersonalLight()
 #include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
-#include "strategic town loyalty.h"		// added by Flugente for gTownLoyalty
+#include "Strategic Town Loyalty.h"		// added by Flugente for gTownLoyalty
 #include "Rebel Command.h"
 
 //forward declarations of common classes to eliminate includes
@@ -5975,7 +5975,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		}
 	}
 	// marke added one 'or' for explosive ammo. variation of: AmmoTypes[this->inv[this->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1
-	//  extracting attacker´s ammo type
+	//  extracting attackerï¿½s ammo type
 	else if ( Item[usWeaponIndex].usItemClass & IC_EXPLOSV || AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand][0]->data.gun.ubGunAmmoType].explosionSize > 1 )
 	{
 		INT8 bDeafValue;

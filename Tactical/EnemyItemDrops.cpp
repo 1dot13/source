@@ -1,5 +1,5 @@
-	#include "Types.h"
-	#include "DEbug.h"
+	#include "types.h"
+	#include "DEBUG.H"
 	#include "EnemyItemDrops.h"
 
 WEAPON_DROPS gEnemyWeaponDrops[MAX_DROP_ITEMS];

@@ -2,9 +2,9 @@
 #define SOLDIER_MACROS_H
 
 // MACROS FOR EASIER SOLDIER CONTROL
-#include "teamturns.h"
-#include "soldier profile.h"
-#include "assignments.h"
+#include "TeamTurns.h"
+#include "Soldier Profile.h"
+#include "Assignments.h"
 #include "Animation Data.h"
 
 // MACROS

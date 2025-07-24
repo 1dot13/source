@@ -1,30 +1,30 @@
 	#include "sgp.h"
 	#include "worlddef.h"
-	#include "points.h"
-	#include "overhead.h"
-	#include "Font control.h"
-	#include "interface.h"
-	#include "Isometric utils.h"
-	#include "pathai.h"
-	#include "interface.h"
+	#include "Points.h"
+	#include "Overhead.h"
+	#include "Font Control.h"
+	#include "Interface.h"
+	#include "Isometric Utils.h"
+	#include "PATHAI.H"
+	#include "Interface.h"
 	#include "message.h"
 	#include "Animation Control.h"
 	#include "Weapons.h"
 
-	#include "structure wrap.h"
-	#include "dialogue control.h"
-	#include "items.h"
+	#include "Structure Wrap.h"
+	#include "Dialogue Control.h"
+	#include "Items.h"
 	#include "rt time defines.h"
 	#include "ai.h"
-	#include "handle ui.h"
-	#include "text.h"
+	#include "Handle UI.h"
+	#include "Text.h"
 	#include "SkillCheck.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "Soldier Profile.h"
 	#include "Soldier macros.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Campaign.h"
-	#include "drugs and alcohol.h"
+	#include "Drugs And Alcohol.h"
 	#include "GameSettings.h"
 	#include "worldman.h"
 	#include "math.h"
@@ -3589,7 +3589,7 @@ INT16 GetAPsToRefuelVehicle( SOLDIERTYPE *pSoldier )
 
 #define TOSSES_PER_10TURNS		18		// max # of grenades tossable in 10 turns
 //COMMENTED OUT, AS THEY WERE
-//1. ALREADY DEFINED IN POINTS.H TO BEGIN WITH
+//1. ALREADY DEFINED IN Points.h TO BEGIN WITH
 //2. EXTERNALIZED BY GOTTHARD 7/2/08
 //#define APBPConstants[AP_MIN_AIM_ATTACK]		0		// minimum permitted extra aiming
 //#define APBPConstants[AP_MAX_AIM_ATTACK]		4		// maximum permitted extra aiming

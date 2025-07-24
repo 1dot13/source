@@ -6,7 +6,7 @@
 #include "vobject.h"
 #include "Overhead Types.h"
 //#include "Item Types.h"
-#include "soldier control.h"
+#include "Soldier Control.h"
 
 #include <vector>
 #include <iterator>

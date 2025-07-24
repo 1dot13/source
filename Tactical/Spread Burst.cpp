@@ -1,17 +1,17 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
-	//#include "soldier control.h"
-	#include "weapons.h"
-	#include "cursor control.h"
-	#include "soldier find.h"
-	#include "isometric utils.h"
+	#include "DEBUG.H"
+	//#include "Soldier Control.h"
+	#include "Weapons.h"
+	#include "Cursor Control.h"
+	#include "Soldier Find.h"
+	#include "Isometric Utils.h"
 	#include "renderworld.h"
-	#include "render dirty.h"
-	#include "interface.h"
-	#include "spread burst.h"
-	#include "points.h"
+	#include "Render Dirty.h"
+	#include "Interface.h"
+	#include "Spread burst.h"
+	#include "Points.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
