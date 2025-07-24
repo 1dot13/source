@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Types.h>
+#include <types.h>
 
 namespace i18n {
 enum class Lang
