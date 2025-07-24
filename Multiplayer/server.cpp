@@ -21,18 +21,18 @@
 #include <list>
 #include "connect.h"
 #include "types.h"
-#include "gamesettings.h"
+#include "GameSettings.h"
 #include "message.h"
 #include "FileMan.h"
-#include "IniReader.h"
+#include "INIReader.h"
 #include <vfs/Core/vfs.h>
 #include "transfer_rules.h"
 #include "MPJoinScreen.h"
-#include "game init.h"
-#include "text.h"
+#include "Game Init.h"
+#include "Text.h"
 #include "network.h"
 #include "message.h"
-#include "overhead.h"
+#include "Overhead.h"
 #include "fresh_header.h"
 #include "Debug Control.h"
 #include "MPXmlTeams.hpp"
@@ -881,7 +881,7 @@ void start_server (void)
 		// Read from ja2_mp.ini
 		// ----------------------------
 
-		CIniReader iniReader(JA2MP_INI_FILENAME);	// Wird nur für Strings gebraucht
+		CIniReader iniReader(JA2MP_INI_FILENAME);	// Wird nur fï¿½r Strings gebraucht
 		strncpy(cServerName, iniReader.ReadString(JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_NAME, "My JA2 Server"), 30 );				
 		strncpy(gKitBag, iniReader.ReadString(JA2MP_INI_INITIAL_SECTION,JA2MP_KIT_BAG, ""), 100);
 		
