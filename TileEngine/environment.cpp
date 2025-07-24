@@ -2,13 +2,13 @@
 	#include "environment.h"
 	#include "renderworld.h"
 	#include "Sound Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Game Clock.h"
 	#include "Ambient Control.h"
 	#include "Game Events.h"
 	#include "message.h"
 	#include "opplist.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Points.h"					// added by Flugente
 	#include "Campaign.h"				// added by Flugente
 	#include "Isometric Utils.h"		// added by Flugente

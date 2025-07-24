@@ -4,13 +4,13 @@
 	#include "Sound Control.h"
 	#include "Game Events.h"
 	#include "lighting.h"
-	#include "Random.h"	
+	#include "random.h"	
 	// sevenfm
 	#include "SmokeEffects.h"
 	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "Game Clock.h"
-	#include "strategic mines.h"
+	#include "Strategic Mines.h"
 
 AMBIENTDATA_STRUCT		gAmbData[ MAX_AMBIENT_SOUNDS ];
 INT16					gsNumAmbData = 0;
