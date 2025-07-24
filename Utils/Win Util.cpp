@@ -4,7 +4,7 @@
 #include <mmsystem.h>
 #include <dsound.h>
 #include "dsutil.h"    
-#include "debug.h"    
+#include "DEBUG.H"    
 
 #include "sgp.h"
 

@@ -4,12 +4,12 @@
 	#include <time.h>
 	#include <wchar.h>
 	#include "input.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "english.h"
 	#include "vsurface.h"
 	#include "video.h"
-	#include "debug.h"
-	#include "cursors.h"
+	#include "DEBUG.H"
+	#include "Cursors.h"
 	#include "Text Input.h"
 	#include "Timer Control.h"
 	#include "vobject_blitters.h"

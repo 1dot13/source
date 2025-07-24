@@ -3,14 +3,14 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "types.h"
-	#include "compression.h"
-	#include "debug.h"
-	#include "fileman.h"
+	#include "Compression.h"
+	#include "DEBUG.H"
+	#include "FileMan.h"
 	#include "imgfmt.h"
 	#include "himage.h"
 	#include "pcx.h"
 	#include "impTGA.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 
 //CONVERT_TO_16_BIT
 BOOLEAN ConvertToETRLE( UINT8 ** ppDest, UINT32 * puiDestLen, UINT8 ** ppSubImageBuffer, UINT16 * pusNumberOfSubImages, UINT8 * p8BPPBuffer, UINT16 usWidth, UINT16 usHeight, UINT32 fFlags );

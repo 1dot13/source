@@ -1,16 +1,16 @@
 	#include "types.h"
 	#include <stdio.h>
-	#include <Windows.h>
+	#include <windows.h>
 	#include "sgp.h"
 	#include "time.h"
 	#include "vobject.h"
 	#include "FileMan.h"
 	#include "Utilities.h"
 	#include "Font Control.h"
-	#include "overhead.h"
-	#include "overhead types.h"
-	#include "wcheck.h"
-	#include "sys globals.h"
+	#include "Overhead.h"
+	#include "Overhead Types.h"
+	#include "WCheck.h"
+	#include "Sys Globals.h"
 
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
@@ -72,20 +72,20 @@ BOOLEAN PerformTimeLimitedCheck();
 // WANNE: Replaces german	specific characters
 //STR8 ReplaceGermanSpecialCharacters(STR8 text)
 //{
-//	// ä
-//	text = Replace(text, "Ã¤", "ä");
-//	// Ä
-//	text = Replace(text, "Ã„", "Ä");
-//	// ö
-//	text = Replace(text, "Ã¶", "ö");
-//	// Ö
-//	text = Replace(text, "Ã–", "Ö");
-//	// ü
-//	text = Replace(text, "Ã¼", "ü");
-//	// Ü
-//	text = Replace(text, "Ãœ", "Ü");
-//	// ß
-//	text = Replace(text, "ÃŸ", "ß");
+//	// ï¿½
+//	text = Replace(text, "Ã¤", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "Ã„", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "Ã¶", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "Ã–", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "Ã¼", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "Ãœ", "ï¿½");
+//	// ï¿½
+//	text = Replace(text, "ÃŸ", "ï¿½");
 //
 //	return text;
 //}

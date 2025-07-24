@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 #include "sgp.h"
-#include "wcheck.h"
+#include "WCheck.h"
 #include "Event Pump.h"
 #include "Timer.h"
 #include "Sound Control.h"
 #include "Overhead.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "Animation Control.h"
 #include "opplist.h"
 #include "Tactical Save.h"
