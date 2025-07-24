@@ -1,7 +1,7 @@
 #ifndef JA25UPDATE__C_
 #define JA25UPDATE__C_
 
-#include "Types.h"
+#include "types.h"
 
 #ifdef JA2UB
 

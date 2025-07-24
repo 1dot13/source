@@ -2,7 +2,7 @@
 #define __JASCREENS_H_
 
 #include "sgp.h"
-#include "ScreenIds.h"
+#include "screenids.h"
 #include "mousesystem.h"
 #include "Button System.h"
 #include <list>
