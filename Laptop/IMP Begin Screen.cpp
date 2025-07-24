@@ -560,7 +560,7 @@ if(g_lang == i18n::Lang::ru) {
 		if( layout == 0x419 ) // Russian
 		{
 			unsigned char TranslationTable[] = 
-				" #�####�####�-�.0123456789���#�,#���������������������������#�#_����������������������������#ڨ ";
+			    " #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#ÔÈÑÂÓÀÏÐØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïðøîëäüòùçéêûåãìö÷íÿÕ#Ú¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
@@ -568,7 +568,7 @@ if(g_lang == i18n::Lang::ru) {
 		else if( layout == 0x423 ) // Belarussian
 		{
 			unsigned char TranslationTable[] = 
-				" #�####�####�-�.0123456789���#�,#Բ�����������ҡ������������#'#_���������������������������#'� ";
+			    " #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#Ô²ÑÂÓÀÏÐØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïðøîëäüò¢çéêûåãìö÷íÿÕ#'¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
@@ -664,31 +664,31 @@ if(g_lang == i18n::Lang::ru) {
 
 UINT32 GetCyrillicUnicodeChar( UINT32 uiKey )
 {
-	// � - �
+    // À - ÿ
 	if (uiKey >= 192 && uiKey <= 255)
 		uiKey += 0x0350;
 
-	// �
+	// ¨
 	if (uiKey == 168)
 		uiKey = 0x0401;
 
-	// �
+	// ¸
 	if (uiKey == 184)
 		uiKey = 0x0451;
 
-	// �
+	// ¡
 	if (uiKey == 161)
 		uiKey = 0x040E;
 
-	// �
+	// ¢
 	if (uiKey == 162)
 		uiKey = 0x045E;
 
-	// �
+	// ²
 	if (uiKey == 178)
 		uiKey = 0x0406;
 
-	// �
+	// ³
 	if (uiKey == 179)
 		uiKey = 0x0456;
 
