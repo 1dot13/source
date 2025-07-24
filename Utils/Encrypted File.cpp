@@ -99,19 +99,19 @@ void DecodeString(STR16 pDestString, UINT32 uiSeekAmount)
 		//#ifdef GERMAN
   //             //switch( pDestString[ i ] )
   //             //{
-  //             //     // �
+  //             //     // ü
   //             //     case 252:          pDestString[i] = 252;          break;
-  //             //     // �
+  //             //     // Ü
   //             //     case 220:          pDestString[i] = 220;          break;
-  //             //     // �
+  //             //     // ä
   //             //     case 228:          pDestString[i] = 228;          break;
-  //             //     // �
+  //             //     // Ä
   //             //     case 196:          pDestString[i] = 196;          break;
-  //             //     // �
+  //             //     // ö
   //             //     case 246:          pDestString[i] = 246;          break;
-  //             //     // �
+  //             //     // Ö
   //             //     case 214:          pDestString[i] = 214;          break;
-  //             //     // �
+  //             //     // ß
   //             //     case 223:          pDestString[i] = 223;          break;
   //             //}
 		//#endif
@@ -158,12 +158,12 @@ void DecodeString(STR16 pDestString, UINT32 uiSeekAmount)
 		//		case 184:          pDestString[ i ] = 1105;  break; //U+0451           d1 91     CYRILLIC SMALL LETTER IO
 				//case 185:          pDestString[ i ] = 8470;  break;		// ?
 				//case 178:          pDestString[ i ] = 1030;  break;		// ?
-				//case 161:          pDestString[ i ] = 1038;  break;		// �
+				//case 161:          pDestString[ i ] = 1038;  break;		// í
 				//case 179:          pDestString[ i ] = 1110;  break;		// ?
-				//case 162:          pDestString[ i ] = 1118;  break;		// �
-				//case 165:          pDestString[ i ] = 1168;  break;		// �
-				//case 170:          pDestString[ i ] = 1028;  break;		// �
-				//case 175:          pDestString[ i ] = 1031;  break;		// �
+				//case 162:          pDestString[ i ] = 1118;  break;		// ó
+				//case 165:          pDestString[ i ] = 1168;  break;		// Ñ
+				//case 170:          pDestString[ i ] = 1028;  break;		// ¬
+				//case 175:          pDestString[ i ] = 1031;  break;		// »
 				//case 180:          pDestString[ i ] = 1169;  break;		// ?
 				//case 186:          pDestString[ i ] = 1108;  break;		// ?
 				//case 191:          pDestString[ i ] = 1111;  break;		// ?
