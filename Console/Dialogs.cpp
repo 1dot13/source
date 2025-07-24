@@ -29,7 +29,7 @@
 // About dialog class, etc...
 
 //#include "stdafx.h"
-#include <Windows.h>
+#include <windows.h>
 
 #include "resource.h"
 #include "Console.h"
