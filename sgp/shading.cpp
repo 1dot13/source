@@ -1,6 +1,6 @@
 	#include "DirectDraw Calls.h"
 	#include <stdio.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 		#include "video.h"
 	#include "himage.h"
 	#include "vobject.h"

@@ -17,12 +17,12 @@
 //**************************************************************************
 
 	#include "types.h"
-	#include "Fileman.h"
-	#include "memman.h"
+	#include "FileMan.h"
+	#include "MemMan.h"
 	#include "WCheck.h"
 	#include "himage.h"
 	#include "string.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 		#include "video.h"
 	#include "impTGA.h"
 

@@ -4,7 +4,7 @@
 #include "local.h"
 #include "types.h"
 #include "timer.h"
-#include "debug.h"
+#include "DEBUG.H"
 
 #include "video.h"
 
