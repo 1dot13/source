@@ -5,7 +5,7 @@
 	#include "sgp.h"
 	#include "strategic.h"
 	#include "mapscreen.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "strategicmap.h"
 	#include "Strategic Pathing.h"
 	#include "Map Screen Interface Border.h"

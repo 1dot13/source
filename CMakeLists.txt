@@ -49,7 +49,7 @@ include_directories(
   "${CMAKE_SOURCE_DIR}/Strategic"
   "${CMAKE_SOURCE_DIR}/sgp"
   "${CMAKE_SOURCE_DIR}/Ja2/Res"
-  "${CMAKE_SOURCE_DIR}/Lua"
+  "${CMAKE_SOURCE_DIR}/lua"
   "${CMAKE_SOURCE_DIR}/Laptop"
   "${CMAKE_SOURCE_DIR}/Multiplayer"
   "${CMAKE_SOURCE_DIR}/Editor"

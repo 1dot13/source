@@ -1,9 +1,9 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
 
@@ -11,9 +11,9 @@
 	#include "tiledef.h"
 	#include "Sys Globals.h"
 	#include "Debug Control.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 	#include "worlddef.h"
-	#include "Fileman.h"
+	#include "FileMan.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

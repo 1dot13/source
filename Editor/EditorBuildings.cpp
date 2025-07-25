@@ -18,7 +18,7 @@
 	#include "Editor Modes.h"
 	#include "Smoothing Utils.h"
 	#include "Text Input.h"
-	#include "keys.h"
+	#include "Keys.h"
 	#include "environment.h"
 	#include "selectwin.h"
 	#include "Simple Render Utils.h"

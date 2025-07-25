@@ -1,5 +1,5 @@
 	#include "sgp.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "sysutil.h"
 
 UINT32					guiBOTTOMPANEL = 0;

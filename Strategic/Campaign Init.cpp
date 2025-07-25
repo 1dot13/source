@@ -1,10 +1,10 @@
 	#include "ASD.h"		// added by Flugente
 	#include "types.h"
 	#include "Campaign Init.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Campaign Types.h"
 	#include "Queen Command.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "Strategic Status.h"
 	#include "GameSettings.h"

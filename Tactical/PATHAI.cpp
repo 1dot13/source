@@ -11,14 +11,14 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "MemMan.h"
 	#include "Overhead Types.h"
 
 	#include "Animation Cache.h"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include <math.h>
 
 	#include "input.h"
@@ -26,18 +26,18 @@
 	#include "worlddef.h"
 	#include "worldman.h"
 //	#include "renderworld.h"
-	#include "pathai.h"
+	#include "PATHAI.H"
 	#include "Points.h"
 	#include "ai.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "message.h"
-	#include "structure wrap.h"
-	#include "keys.h"
-	#include "gamesettings.h"
+	#include "Structure Wrap.h"
+	#include "Keys.h"
+	#include "GameSettings.h"
 	#include "Buildings.h"
-	#include "soldier profile.h" // added by SANDRO
+	#include "Soldier Profile.h" // added by SANDRO
 	#include "Soldier macros.h"
-	#include "AIinternals.h"
+	#include "AIInternals.h"
 	#include "Rotting Corpses.h"
 	#include "Meanwhile.h"
 #include "connect.h"
@@ -50,7 +50,7 @@ class SOLDIERTYPE;
 
 #include "BinaryHeap.hpp"
 #include "opplist.h"
-#include "weapons.h"
+#include "Weapons.h"
 extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
 extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
 extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];

@@ -2,7 +2,7 @@
 #define __XML_H
 
 #include "expat.h"
-#include "armsdealerinvinit.h"
+#include "ArmsDealerInvInit.h"
 #include "EnemyItemDrops.h"
 #include "Loading Screen.h"
 #include "faces.h"

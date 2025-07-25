@@ -6,7 +6,7 @@
 	#include "Shade Table Util.h"
 	#include "video.h"
 	#include "WorldDat.h"
-	#include "Fileman.h"
+	#include "FileMan.h"
 
 #include <vfs/Core/vfs.h>
 

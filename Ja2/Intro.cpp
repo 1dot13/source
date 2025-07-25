@@ -1,14 +1,14 @@
 	#include "sgp.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
-	#include "font control.h"
-	#include "cursor control.h"
-	#include "render dirty.h"
+	#include "Font Control.h"
+	#include "Cursor Control.h"
+	#include "Render Dirty.h"
 	#include	"Text.h"
 	#include	"Utilities.h"
 	#include	"WordWrap.h"
-	#include "text.h"
-	#include "Line.h"
+	#include "Text.h"
+	#include "line.h"
 	#include "Intro.h"
 	#include "Cinematics.h"
 	#include "Cinematics Bink.h"
@@ -307,7 +307,6 @@ UINT32	IntroScreenInit( void )
 	
 	// BF: If NO_DEFAULT_VALUES is set to true, then only the explicitely used videos will be shown.
 	BOOLEAN no_defaults                        = inireader.ReadBoolean("INTRO", "NO_DEFAULT_VALUES", false);
-
 	s_VFN[INTRO_REBEL_CRDT]					= inireader.ReadString("INTRO_BEGINNING", "INTRO_REBEL_CRDT",  no_defaults ? "" : "INTRO\\Rebel_cr");
 	s_VFN[INTRO_OMERTA]						= inireader.ReadString("INTRO_BEGINNING", "INTRO_OMERTA",      no_defaults ? "" : "INTRO\\Omerta");
 	s_VFN[INTRO_PRAGUE_CRDT]				= inireader.ReadString("INTRO_BEGINNING", "INTRO_PRAGUE_CRDT", no_defaults ? "" : "INTRO\\Prague_cr");
@@ -322,7 +321,6 @@ UINT32	IntroScreenInit( void )
 
 	s_VFN[INTRO_SPLASH_SCREEN]				= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_SCREEN",    no_defaults ? "" : "INTRO\\SplashScreen");
 	s_VFN[INTRO_SPLASH_TALONSOFT]			= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_TALONSOFT", no_defaults ? "" : "INTRO\\TalonSoftid_endhold");
-
 	//UB
 #ifdef JA2UB
 	s_VFN[INTRO_HELI_CRASH_SCENE_1]		= inireader.ReadString("INTRO_BEGINNING","INTRO_HELI_CRASH_SCENE",    no_defaults ? "" : "INTRO\\Intro");

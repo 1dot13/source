@@ -1,12 +1,12 @@
 #ifndef __CURSOR_DATABASE_
 #define __CURSOR_DATABASE_
 
-#include "Types.h"
+#include "types.h"
 #include "FileMan.h"
-#include "VObject.h"
-#include "VSurface.h"
+#include "vobject.h"
+#include "vsurface.h"
 
-#include "Video.h"
+#include "video.h"
 
 #ifdef __cplusplus
 extern "C" {

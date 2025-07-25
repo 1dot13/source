@@ -1,7 +1,7 @@
 	#include <string.h>
 	#include "types.h"
-	#include "wcheck.h"
-	#include "debug.h"
+	#include "WCheck.h"
+	#include "DEBUG.H"
 	#include "FileMan.h"
 	#include "MemMan.h"
 	#include "structure.h"
@@ -9,12 +9,12 @@
 	#include "worlddef.h"
 	#include "worldman.h"
 
-	#include "interface.h"
+	#include "Interface.h"
 
-	#include "isometric utils.h"
-	#include "font.h"
-	#include "font control.h"
-	#include "los.h"
+	#include "Isometric Utils.h"
+	#include "Font.h"
+	#include "Font Control.h"
+	#include "LOS.h"
 
 	#include "lighting.h"
 	#include "Smell.h"
@@ -29,12 +29,12 @@
 	#include "Editor Undo.h"	//for access to AddToUndoList( iMapIndex )
 	#endif
 
-	#include "explosion control.h"
+	#include "Explosion Control.h"
 	#include "Sound Control.h"
 
 	#include "Buildings.h"
 
-	#include "Random.h"
+	#include "random.h"
 
 	#include "Tile Animation.h"
 	#include "Explosion Control.h"	// added by Flugente

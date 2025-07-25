@@ -1,7 +1,7 @@
 #ifndef STRATEGIC_MINES_LUA_H
 #define STRATEGIC_MINES_LUA_H
 
-#include "Types.h"
+#include "types.h"
 
 extern "C" {
 #include "lua.h"

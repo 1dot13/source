@@ -3,20 +3,20 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
-	#include "weapons.h"
+	#include "DEBUG.H"
+	#include "Weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "animation control.h"
-	#include "tile animation.h"
+	#include "Animation Control.h"
+	#include "Tile Animation.h"
 	#include "handle items.h"
-	#include "smokeeffects.h"
+	#include "SmokeEffects.h"
 	#include "message.h"
-	#include "isometric utils.h"
+	#include "Isometric Utils.h"
 	#include "renderworld.h"
-	#include "explosion control.h"
-	#include "Random.h"
+	#include "Explosion Control.h"
+	#include "random.h"
 	#include "Game Clock.h"
 	#include "opplist.h"
 	#include "Campaign Types.h"
@@ -27,7 +27,7 @@
 	#include "Render Fun.h"
 
 #include "SaveLoadGame.h"
-#include "debug control.h"
+#include "Debug Control.h"
 
 #include "connect.h"
 

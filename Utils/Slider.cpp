@@ -1,11 +1,11 @@
-	#include	"Types.h"
+	#include	"types.h"
 	#include	"WordWrap.h"
 	#include	"Render Dirty.h"
 	#include	"Utilities.h"
 	#include	"WCheck.h"
 	#include	"Slider.h"
-	#include	"SysUtil.h"
-	#include	"Line.h"
+	#include	"sysutil.h"
+	#include	"line.h"
 
 
 

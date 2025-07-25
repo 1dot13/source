@@ -3,7 +3,7 @@
 
 // the .h to the mine management system
 
-#include "Types.h"
+#include "types.h"
 #include "strategicmap.h"
 #include "mapscreen.h"
 

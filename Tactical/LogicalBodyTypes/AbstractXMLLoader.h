@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 #include "expat.h"
-#include "Types.h"
+#include "types.h"
 #include "XML.h"
 #include "TopicIDs.h"
 #include "TopicOps.h"

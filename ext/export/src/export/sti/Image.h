@@ -1,7 +1,7 @@
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
 
-#include "Types.h"
+#include "types.h"
 #include "himage.h"
 
 #include <vfs/Core/vfs_types.h>

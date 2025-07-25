@@ -7,15 +7,15 @@
 	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "Timer Control.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Attribute Selection.h"
 	#include "IMP Text System.h"
 	#include "soundman.h"
-	#include "text.h"
+	#include "Text.h"
 
 
 #include "IMP Confirm.h"

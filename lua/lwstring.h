@@ -15,7 +15,7 @@ extern "C" {
 #include <lualib.h>
 }
 
-#include "Types.h"
+#include "types.h"
 
 typedef struct {
 	int len;

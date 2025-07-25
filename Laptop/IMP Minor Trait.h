@@ -1,7 +1,7 @@
 #ifndef __IMP_MINOR_TRAIT__H_
 #define __IMP_MINOR_TRAIT__H_
 
-#include "Types.h"
+#include "types.h"
 
 void EnterIMPMinorTrait( void );
 void RenderIMPMinorTrait( void );

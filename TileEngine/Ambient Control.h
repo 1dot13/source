@@ -3,7 +3,7 @@
 
 
 #include "sgp.h"
-#include "Ambient types.h"
+#include "Ambient Types.h"
 
 BOOLEAN LoadAmbientControlFile( UINT8 ubAmbientID );
 

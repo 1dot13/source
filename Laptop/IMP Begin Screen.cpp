@@ -5,23 +5,23 @@
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
 	#include "Timer Control.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Finish.h"
 	#include "IMP Text System.h"
 	#include "Text Input.h"
-	#include "messageboxscreen.h"
-	#include "Soldier Profile Type.h"
+	#include "MessageBoxScreen.h"
+	#include "soldier profile type.h"
 	#include "IMP Portraits.h"
 	#include "IMP Attribute Selection.h"
 	#include "english.h"
 	#include "line.h"
 	#include "Merc Hiring.h"
 	#include "strategic.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "LaptopSave.h"
 
 #include <language.hpp>
@@ -560,7 +560,7 @@ if(g_lang == i18n::Lang::ru) {
 		if( layout == 0x419 ) // Russian
 		{
 			unsigned char TranslationTable[] = 
-				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#ÔÈÑÂÓÀÏÐØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïðøîëäüòùçéêûåãìö÷íÿÕ#Ú¨ ";
+			    " #Ã####Ã½####Ã¡-Ã¾.0123456789Ã†Ã¦Ã#Ãž,#Ã”ÃˆÃ‘Ã‚Ã“Ã€ÃÃÃ˜ÃŽÃ‹Ã„ÃœÃ’Ã™Ã‡Ã‰ÃŠÃ›Ã…ÃƒÃŒÃ–Ã—ÃÃŸÃµ#Ãº#_Â¸Ã´Ã¨Ã±Ã¢Ã³Ã Ã¯Ã°Ã¸Ã®Ã«Ã¤Ã¼Ã²Ã¹Ã§Ã©ÃªÃ»Ã¥Ã£Ã¬Ã¶Ã·Ã­Ã¿Ã•#ÃšÂ¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
@@ -568,7 +568,7 @@ if(g_lang == i18n::Lang::ru) {
 		else if( layout == 0x423 ) // Belarussian
 		{
 			unsigned char TranslationTable[] = 
-				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#Ô²ÑÂÓÀÏÐØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïðøîëäüò¢çéêûåãìö÷íÿÕ#'¨ ";
+			    " #Ã####Ã½####Ã¡-Ã¾.0123456789Ã†Ã¦Ã#Ãž,#Ã”Â²Ã‘Ã‚Ã“Ã€ÃÃÃ˜ÃŽÃ‹Ã„ÃœÃ’Â¡Ã‡Ã‰ÃŠÃ›Ã…ÃƒÃŒÃ–Ã—ÃÃŸÃµ#'#_Â¸Ã´Â³Ã±Ã¢Ã³Ã Ã¯Ã°Ã¸Ã®Ã«Ã¤Ã¼Ã²Â¢Ã§Ã©ÃªÃ»Ã¥Ã£Ã¬Ã¶Ã·Ã­Ã¿Ã•#'Â¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
@@ -664,31 +664,31 @@ if(g_lang == i18n::Lang::ru) {
 
 UINT32 GetCyrillicUnicodeChar( UINT32 uiKey )
 {
-	// À - ÿ
+    // Ã€ - Ã¿
 	if (uiKey >= 192 && uiKey <= 255)
 		uiKey += 0x0350;
 
-	// ¨
+	// Â¨
 	if (uiKey == 168)
 		uiKey = 0x0401;
 
-	// ¸
+	// Â¸
 	if (uiKey == 184)
 		uiKey = 0x0451;
 
-	// ¡
+	// Â¡
 	if (uiKey == 161)
 		uiKey = 0x040E;
 
-	// ¢
+	// Â¢
 	if (uiKey == 162)
 		uiKey = 0x045E;
 
-	// ²
+	// Â²
 	if (uiKey == 178)
 		uiKey = 0x0406;
 
-	// ³
+	// Â³
 	if (uiKey == 179)
 		uiKey = 0x0456;
 

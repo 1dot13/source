@@ -3,7 +3,7 @@
 
 #include "Structure Internals.h"
 #include "tiledef.h"
-#include "overhead types.h"
+#include "Overhead Types.h"
 
 #define NOTHING_BLOCKING							0
 #define BLOCKING_REDUCE_RANGE					1

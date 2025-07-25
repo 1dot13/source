@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "XML.h"
 #include "expat.h"
-#include "DEBUG.h"
+#include "DEBUG.H"
 #include "string.h"
 #include "Tactical Save.h"
 #include "FileMan.h"

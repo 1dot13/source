@@ -3,7 +3,7 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "Interface.h"
-	#include "Faces.h"
+	#include "faces.h"
 
 struct
 {

@@ -6,7 +6,7 @@
 
 #include <stddef.h>
 
-#include "Types.h"
+#include "types.h"
 
 EXTERN_C_BEGIN
 

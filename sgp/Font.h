@@ -1,7 +1,7 @@
 #ifndef __FONT_H_
 #define __FONT_H_
 
-#include "Types.h"
+#include "types.h"
 #include "himage.h"
 #include "vobject.h"
 //#ifdef WINFONTS

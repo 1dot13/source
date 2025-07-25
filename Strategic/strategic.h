@@ -1,9 +1,9 @@
 #ifndef __STRATEGIC_H
 #define __STRATEGIC_H
 // header for strategic structure
-#include "Types.h"
+#include "types.h"
 #include "mapscreen.h"
-#include "soldier control.h"
+#include "Soldier Control.h"
 
 // Flugente: airspace flags
 #define AIRSPACE_ENEMY_ACTIVE				0x01	//1		// controlled by enemy and active

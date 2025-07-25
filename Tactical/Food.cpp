@@ -1,13 +1,13 @@
 	#include <math.h>
 	#include "sgp.h"
-	#include "soldier profile.h"
+	#include "Soldier Profile.h"
 	#include "Food.h"
-	#include "items.h"
-	#include "morale.h"
-	#include "points.h"
+	#include "Items.h"
+	#include "Morale.h"
+	#include "Points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "Interface.h"
 	#include "Dialogue Control.h"

@@ -1,15 +1,15 @@
 	#include "Handle UI Plan.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Isometric Utils.h"
-	#include "pathai.h"
+	#include "PATHAI.H"
 	#include "Handle UI.h"
-	#include "points.h"
-	#include "weapons.h"
+	#include "Points.h"
+	#include "Weapons.h"
 	#include "renderworld.h"
 	#include "Animation Control.h"
 	#include "message.h"
-	#include "soldier create.h"
-	#include "interface.h"
+	#include "Soldier Create.h"
+	#include "Interface.h"
 
 UINT8						gubNumUIPlannedMoves			= 0;
 SOLDIERTYPE			*gpUIPlannedSoldier			= NULL;

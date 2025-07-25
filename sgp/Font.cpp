@@ -8,10 +8,10 @@
 	#include <wchar.h>
 	#include "sgp.h"
 	#include "pcx.h"
-	#include "memman.h"
-	#include "fileman.h"
+	#include "MemMan.h"
+	#include "FileMan.h"
 	#include "Font.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 
 	#include "video.h"
 
@@ -931,7 +931,7 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			//case 244:          siChar = 244;          break;	//?
 			//case 249:          siChar = 249;          break;	//?
 			//case 251:          siChar = 251;          break;	//?
-			//case 255:          siChar = 255;          break;	//ÿ
+			//case 255:          siChar = 255;          break;	//Ã¿
 //inshy: italian letters
 			//case 204:          siChar = 204;          break;	//I'
 			//case 236:          siChar = 236;          break;	//i'
@@ -1886,7 +1886,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 1102; // ?
 	temp++;
-	*temp = 1103; // ÿ
+	*temp = 1103; // Ã¿
 	temp++;
 
 	// BELORUSSIAN and UKRAINIAN letters in UNICODE
@@ -1936,23 +1936,23 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 377; // ?(zet)
 	temp++;
-	*temp = 261; // ?(îí)
+	*temp = 261; // ?(Ã®Ã­)
 	temp++;
-	*temp = 263; // ?(öå)
+	*temp = 263; // ?(Ã¶Ã¥)
 	temp++;
-	*temp = 281; // ?(ýí)
+	*temp = 281; // ?(Ã½Ã­)
 	temp++;
-	*temp = 322; // ?(ýë?
+	*temp = 322; // ?(Ã½Ã«?
 	temp++;
-	*temp = 324; // ?(ýí?
+	*temp = 324; // ?(Ã½Ã­?
 	temp++;
-	*temp = 243; // ?(?êðàòêî?
+	*temp = 243; // ?(?ÃªÃ°Ã Ã²ÃªÃ®?
 	temp++;
-	*temp = 347; // ?(ýñ?
+	*temp = 347; // ?(Ã½Ã±?
 	temp++;
-	*temp = 380; // ?(æå?
+	*temp = 380; // ?(Ã¦Ã¥?
 	temp++;
-	*temp = 378; // ?(çå?
+	*temp = 378; // ?(Ã§Ã¥?
 	temp++;
 
 	// FRENCH and ITALIAN letters in UNICODE
@@ -2007,7 +2007,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 251; //?
 	temp++;
-	*temp = 255; //ÿ
+	*temp = 255; //Ã¿
 	temp++;
 //Italian letters
 	*temp = 204; //I'

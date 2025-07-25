@@ -1,21 +1,21 @@
 #include "builddefines.h"
 
 	#include "sysutil.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 	#include "renderworld.h"
 	#include "vobject_blitters.h"
 	#include "overhead map.h"
-	#include "interface control.h"
-	#include "overhead.h"
-	#include "radar screen.h"
-	#include "cursors.h"
+	#include "Interface Control.h"
+	#include "Overhead.h"
+	#include "Radar Screen.h"
+	#include "Cursors.h"
 	#include "Sys Globals.h"
-	#include "render dirty.h"
+	#include "Render Dirty.h"
 	#include "Game Clock.h"
-	#include "interface panels.h"
+	#include "Interface Panels.h"
 	#include "english.h"
 	#include "line.h"
-	#include "map information.h"
+	#include "Map Information.h"
 	#include "Tactical Placement GUI.h"
 	#include "Interactive Tiles.h"
 	#include "gameloop.h"
@@ -1014,7 +1014,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, (INT16)(640), (INT16)(gsVIEWPORT_WINDOW_END_Y), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		pDestBuf = LockVideoSurface(uiBigMap, &uiDestPitchBYTES);//dnl ch77 211113
 
-		// Nur Karte und position der gebäude
+		// Nur Karte und position der gebï¿½ude
 		do
 		{
 			fEndRenderRow = FALSE;
@@ -2103,7 +2103,7 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
 	//DBrot: big maps
 	if(gfUseBiggerOverview){
-		//there must be proper values to check for a 360² map, but I have no idea what they are
+		//there must be proper values to check for a 360ï¿½ map, but I have no idea what they are
 		//for now, we just pray that it works and only catch negatives 
 		if(sWorldScreenX < 0 || /*sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH ||*/ sWorldScreenY < 0 /*|| sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT*/)
 		return(FALSE);

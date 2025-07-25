@@ -2,7 +2,7 @@
 #define _STRATEGIC_TRANSPORT_GROUPS_H
 
 #include "Campaign Types.h"
-#include "Types.h"
+#include "types.h"
 #include <map>
 
 enum TransportGroupSectorInfo

@@ -7,7 +7,7 @@
 * @brief This file contains declarations of classes and functions used for dynamic dialogue
 */
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 // Flugente: calculate A's opinion of B

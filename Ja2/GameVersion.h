@@ -76,7 +76,7 @@ extern	CHAR16		zBuildInformation[256];
 #define			MORE_ROOMS										134 // changed room numbers from 8 to 16 bit by DBrot
 #define			FOOD_CHANGES									133	// changes for food system
 #define			ZOMBIE_CHANGES									132	// Included some changes for Zombies
-#define			JA25_UB_INTEGRATION								131	// Before this, the JA25 Unfinished Business code was not integrated (see "Builddefines.h" JA2UB)
+#define			JA25_UB_INTEGRATION								131	// Before this, the JA25 Unfinished Business code was not integrated (see "builddefines.h" JA2UB)
 #define			IMPROVED_INTERRUPT_SYSTEM						130	
 #define			ENCYCLOPEDIA_SAVEGAME_CHANGE					129	// Added encyclopedia
 #define			HIDDENTOWN_DATATYPE_CHANGE						128

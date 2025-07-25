@@ -12,7 +12,7 @@
 
 	#include "AIList.h"
 	#include "Overhead.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "AIInternals.h"
 	#include "ai.h"
 	#include "opplist.h"

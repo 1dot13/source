@@ -4,7 +4,7 @@
 #ifndef __7Z_THREADS_H
 #define __7Z_THREADS_H
 
-#include "Types.h"
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {

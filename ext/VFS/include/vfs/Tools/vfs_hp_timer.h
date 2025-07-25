@@ -27,7 +27,7 @@
 #include <vfs/vfs_config.h>
 
 #ifdef WIN32
-	#include <Windows.h>
+	#include <windows.h>
 #elif __linux__
   #include <sys/time.h>
 #endif

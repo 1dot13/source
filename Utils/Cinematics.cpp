@@ -11,7 +11,7 @@
 //----------------------------------------------------------------------------------
 //#include "LocalCodeAll.h"
 
-#include "Types.h"
+#include "types.h"
 #include <stdio.h>
 #include <io.h>
 #include <string.h>
@@ -23,7 +23,7 @@
 
 #include "DEBUG.H"
 #include "FileMan.h"
-#include "smack.h"
+#include "SMACK.H"
 #include "ddraw.h"
 #include "DirectX Common.h"
 #include "DirectDraw Calls.h"

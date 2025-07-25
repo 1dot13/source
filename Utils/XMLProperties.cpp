@@ -8,7 +8,7 @@
 
 #include "XML_Parser.h"
 #include "XMLWriter.h"
-#include "Debug.h"
+#include "DEBUG.H"
 
 vfs::PropertyContainer::TagMap::TagMap()
 {

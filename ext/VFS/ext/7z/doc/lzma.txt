@@ -76,7 +76,7 @@ C/  - C files
         LzmaDec.*  - LZMA decoding
         LzmaEnc.*  - LZMA encoding
         LzmaLib.*  - LZMA Library for DLL calling
-        Types.h    - Basic types for another .c files
+        types.h    - Basic types for another .c files
         Threads.*  - The code for multithreading.
 
     LzmaLib  - LZMA Library (.DLL for Windows)
@@ -321,7 +321,7 @@ If you want to use old interfaces you can download previous version of LZMA SDK
 from sourceforge.net site.
 
 To use ANSI-C LZMA Decoder you need the following files:
-1) LzmaDec.h + LzmaDec.c + Types.h
+1) LzmaDec.h + LzmaDec.c + types.h
 LzmaUtil/LzmaUtil.c is example application that uses these files.
 
 
@@ -356,7 +356,7 @@ You can use p = p; operator to disable compiler warnings.
 Single-call Decompressing
 -------------------------
 When to use: RAM->RAM decompressing
-Compile files: LzmaDec.h + LzmaDec.c + Types.h
+Compile files: LzmaDec.h + LzmaDec.c + types.h
 Compile defines: no defines
 Memory Requirements:
   - Input buffer: compressed size
@@ -410,7 +410,7 @@ Multi-call State Decompressing (zlib-like interface)
 ----------------------------------------------------
 
 When to use: file->file decompressing 
-Compile files: LzmaDec.h + LzmaDec.c + Types.h
+Compile files: LzmaDec.h + LzmaDec.c + types.h
 
 Memory Requirements:
  - Buffer for input stream: any size (for example, 16 KB)
@@ -451,7 +451,7 @@ For full code example, look at C/LzmaUtil/LzmaUtil.c code.
 How To compress data
 --------------------
 
-Compile files: LzmaEnc.h + LzmaEnc.c + Types.h +
+Compile files: LzmaEnc.h + LzmaEnc.c + types.h +
 LzFind.c + LzFind.h + LzFindMt.c + LzFindMt.h + LzHash.h
 
 Memory Requirements:

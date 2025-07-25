@@ -4,12 +4,12 @@
 #include "SaveLoadMap.h"
 #include "Structure Wrap.h"
 #include "Tactical Save.h"
-#include "laptopsave.h"
-#include "postalservice.h"
-#include "isometric utils.h"
-#include "debug.h"
-#include "game event hook.h"
-#include "game events.h"
+#include "LaptopSave.h"
+#include "PostalService.h"
+#include "Isometric Utils.h"
+#include "DEBUG.H"
+#include "Game Event Hook.h"
+#include "Game Events.h"
 #include <list>
 #include <string>
 #include <iostream>

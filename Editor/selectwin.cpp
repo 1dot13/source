@@ -6,7 +6,7 @@
 
 	#include "tiledef.h"
 	#include "vsurface.h"
-	#include "worlddat.h"
+	#include "WorldDat.h"
 	#include "random.h"
 	#include "sysutil.h"
 	#include "Font Control.h"

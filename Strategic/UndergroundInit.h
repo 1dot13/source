@@ -2,7 +2,7 @@
 #define _UNDERGROUNDINIT_H
 
 #include "Campaign Types.h"
-#include "Types.h"
+#include "types.h"
 //#include "Strategic Mines LUA.h"
 
 #include "lua_state.h"

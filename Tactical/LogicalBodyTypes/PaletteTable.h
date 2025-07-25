@@ -3,7 +3,7 @@
 #ifndef _LBT_PALETTETABLE__H_
 #define _LBT_PALETTETABLE__H_
 
-#include "soldier control.h"
+#include "Soldier Control.h"
 #include "Utilities.h"
 #include "lighting.h"
 

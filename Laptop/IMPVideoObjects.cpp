@@ -1,7 +1,7 @@
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "laptop.h"

@@ -4,7 +4,7 @@
 #include "types.h"
 #include "sgp.h"
 #include "Font Control.h"
-#include "messageboxscreen.h"
+#include "MessageBoxScreen.h"
 
 
 

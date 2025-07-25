@@ -2,7 +2,7 @@
 #define MAP_SCREEN_INTERFACE_H
 
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 #include "MessageBoxScreen.h"
 #include "Font Control.h"

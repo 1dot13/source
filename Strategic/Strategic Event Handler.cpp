@@ -5,20 +5,20 @@
 	#include "Handle Items.h"
 	#include "LaptopSave.h"
 	#include "Tactical Save.h"
-	#include "StrategicMap.h"
+	#include "strategicmap.h"
 	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "Game Event Hook.h"
 	#include "Game Clock.h"
-	#include "Interface Dialogue.h"
-	#include "Random.h"
+	#include "interface Dialogue.h"
+	#include "random.h"
 	#include "Overhead.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Soldier Init List.h"
 	#include "SaveLoadMap.h"
 	#include "Soldier Create.h"
 	#include "Soldier Add.h"
-	#include "Renderworld.h"
+	#include "renderworld.h"
 	#include "Soldier Profile.h"
 	#include "email.h"
 	#include "strategic.h"
@@ -59,7 +59,7 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 //void DropOffItemsInMeduna( UINT8 ubOrderNum );
 
 /*
-// WANNE: Dieser Code wird nicht mehr ausgeführt. Es gibt jetzt das PostalService.cpp::DeliverShipment()
+// WANNE: Dieser Code wird nicht mehr ausgefï¿½hrt. Es gibt jetzt das PostalService.cpp::DeliverShipment()
 // In der Methode DeliverShipment() fehlt eine ganze Menge (PABLO Quests, ...)
 void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 {

@@ -15,14 +15,14 @@
 	#include <windows.h>
 	#include <stdio.h>
 	#include <memory.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "input.h"
-	#include "memman.h"
+	#include "MemMan.h"
 	#include "line.h"
 		#include "video.h"
 		#define BASE_REGION_FLAGS		(MSYS_REGION_ENABLED | MSYS_SET_CURSOR)
 	#ifdef _JA2_RENDER_DIRTY
-		#include "render dirty.h"
+		#include "Render Dirty.h"
 		#include "Font Control.h"
 	#endif
 	#include "english.h"

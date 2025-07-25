@@ -5,7 +5,7 @@
 	//sgp
 	#include "Button System.h"
 	#include "Font Control.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	//editor
 	#include "EditorDefines.h"
 	#include "Editor Callback Prototypes.h"
@@ -14,7 +14,7 @@
 	#include "EditorMapInfo.h"
 	//tactical
 	#include "Soldier Create.h"
-	#include "overhead types.h"
+	#include "Overhead Types.h"
 	#include "local.h"
 	#include "Text.h"
 

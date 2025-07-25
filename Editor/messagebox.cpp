@@ -4,7 +4,7 @@
 
 	#include "vobject.h"
 	#include "video.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "Font Control.h"
 	#include "messagebox.h"
 	#include "input.h"

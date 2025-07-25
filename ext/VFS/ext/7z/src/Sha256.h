@@ -4,7 +4,7 @@
 #ifndef __CRYPTO_SHA256_H
 #define __CRYPTO_SHA256_H
 
-#include "Types.h"
+#include "types.h"
 
 EXTERN_C_BEGIN
 

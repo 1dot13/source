@@ -1,12 +1,12 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
 
-	#include "Random.h"
+	#include "random.h"
 	#include "Campaign.h"
 
 #include "XML.h"

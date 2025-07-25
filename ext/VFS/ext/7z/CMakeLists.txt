@@ -26,7 +26,7 @@ set(INCLUDE_7z
   src/LzmaLib.h
   src/Ppmd.h
   src/Sha256.h
-  src/Types.h
+  src/types.h
 #  src/Xz.h
 #  src/XzEnc.h
   src/7zAlloc.h

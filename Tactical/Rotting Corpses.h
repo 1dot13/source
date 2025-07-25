@@ -1,7 +1,7 @@
 #ifndef _ROTTING_CORPSES_H
 #define _ROTTING_CORPSES_H
 
-#include "tile animation.h"
+#include "Tile Animation.h"
 
 #define	NUM_CORPSE_SHADES		17
 #define CORPSE_WARNING_MAX 5

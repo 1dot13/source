@@ -1,7 +1,7 @@
 #ifndef __MAP_SCREEN_HELICOPTER_H
 #define __MAP_SCREEN_HELICOPTER_H
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 // costs of flying through sectors

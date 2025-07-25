@@ -3,9 +3,9 @@
 
 // header for town militia strategic control module
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
-#include "campaign types.h"
+#include "Campaign Types.h"
 
 //#define MAXIMUM_MILITIA_SQUAD_SIZE 30 
 

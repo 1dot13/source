@@ -1,7 +1,7 @@
 #ifndef __IMP_DISABILITY_TRAIT__H_
 #define __IMP_DISABILITY_TRAIT__H_
 
-#include "Types.h"
+#include "types.h"
 
 void EnterIMPDisabilityTrait( void );
 void RenderIMPDisabilityTrait( void );

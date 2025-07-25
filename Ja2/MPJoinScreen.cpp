@@ -1,18 +1,18 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "MPJoinScreen.h"
 	#include "GameSettings.h"
 	#include "Utilities.h"
-	#include "wCheck.h"
+	#include "WCheck.h"
 	#include "Font Control.h"
 	#include "WordWrap.h"
 	#include "Render Dirty.h"
-	#include "Input.h"
+	#include "input.h"
 	#include "Options Screen.h"
-	#include "English.h"
-	#include "Sysutil.h"
+	#include "english.h"
+	#include "sysutil.h"
 	#include "Fade Screen.h"
 	#include "Cursor Control.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "Text.h"
 	#include "Text Input.h"
 	#include "Soldier Profile.h"
@@ -20,15 +20,15 @@
 #include "gameloop.h"
 #include "connect.h"
 #include "network.h" // for client name
-#include "saveloadscreen.h"
-#include "game init.h"
+#include "SaveLoadScreen.h"
+#include "Game Init.h"
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
 #include <vfs/Tools/vfs_property_container.h>
 #include <vfs/Core/vfs_os_functions.h>
 
-#include "Random.h"
+#include "random.h"
 
 ////////////////////////////////////////////
 //

@@ -2,8 +2,8 @@
 //#pragma setlocale("CHINESE")
 
 	#ifdef CHINESE
-		#include "text.h"
-		#include "Fileman.h"
+		#include "Text.h"
+		#include "FileMan.h"
 	#endif
 
 //suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
