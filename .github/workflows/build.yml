@@ -200,6 +200,7 @@ jobs:
         git push --delete origin refs/tags/latest || true
         git tag latest
         git push --force origin refs/tags/latest
+        sleep 15 # make sure github can find the tag for gh release
         gh release create latest ../dist/* \
           --generate-notes \
           --title "Latest (unstable)" \
