@@ -7980,6 +7980,8 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -34110,6 +34112,8 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -34134,6 +34138,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -34157,6 +34163,8 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50723,6 +50731,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<StealthBonus>-10</StealthBonus>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51072,6 +51082,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<CamoBonus>5</CamoBonus>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51121,6 +51133,8 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51481,7 +51495,8 @@
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<Sinks>1</Sinks>
-		<Attachment>1</Attachment>
+		<AllowClimbing>1</AllowClimbing>
+		<sBackpackWeightModifier>-1</sBackpackWeightModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
