@@ -4773,7 +4773,7 @@ void ApplyAdditionalASDEffects()
 		case MissionHelpers::DISRUPT_ASD_STEAL_FUEL:
 		{
 			// spawn a gas can
-			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size()), 75 + Random(26));
+			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size() - 1), 75 + Random(26));
 
 			// say it came from the ASD's reserves
 			AddStrategicAIResources(ASD_FUEL, -(gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep)));
