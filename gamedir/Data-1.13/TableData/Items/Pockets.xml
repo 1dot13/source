@@ -451,8 +451,7 @@
 		<pType>2</pType>
 		<pRestriction>2</pRestriction>
 		<pVolume>20</pVolume>
-		<ItemCapacityPerSize4>1</ItemCapacityPerSize4>
-		<ItemCapacityPerSize5>1</ItemCapacityPerSize5>
+		<ItemCapacityPerSize3>1</ItemCapacityPerSize3>
 	</POCKET>
 	<POCKET>
 		<pIndex>26</pIndex>
