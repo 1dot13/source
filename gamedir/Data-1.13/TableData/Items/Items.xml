@@ -19833,6 +19833,7 @@
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<Covert>1</Covert>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
@@ -20578,6 +20579,7 @@
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<Covert>1</Covert>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
@@ -21148,7 +21150,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>128</ubGraphicNum>
 		<ubWeight>15</ubWeight>
-		<ItemSize>5</ItemSize>
+		<ItemSize>3</ItemSize>
 		<usPrice>700</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bReliability>5</bReliability>
@@ -21920,7 +21922,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>197</ubGraphicNum>
 		<ubWeight>18</ubWeight>
-		<ItemSize>4</ItemSize>
+		<ItemSize>3</ItemSize>
 		<usPrice>900</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bReliability>2</bReliability>
@@ -22200,6 +22202,7 @@
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<Covert>1</Covert>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
@@ -24454,6 +24457,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<Covert>1</Covert>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
@@ -33207,6 +33211,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<Covert>1</Covert>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
@@ -48934,6 +48939,7 @@
 		<ubGraphicNum>155</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>18</ItemSize>
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<BR_NewInventory>6</BR_NewInventory>
@@ -48960,6 +48966,7 @@
 		<ubGraphicNum>156</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>12</ItemSize>
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -52024,9 +52031,10 @@
 		<ItemSize>18</ItemSize>
 		<usPrice>3</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<DrugType>21</DrugType>
 		<FoodType>40</FoodType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usPortionSize>100</usPortionSize>
+		<usPortionSize>100</usPortionSize>		
 		<Soda>1</Soda>
 		<Metal>1</Metal>
 		<STAND_MODIFIERS />

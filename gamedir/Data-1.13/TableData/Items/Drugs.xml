@@ -806,4 +806,39 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 			<chance>3</chance>
 		</DISEASE_EFFECT>
 	</DRUG>
+	<DRUG>
+	    <!-- the Soda we get at vending machines -->
+		<uiIndex>21</uiIndex>
+		<szName>Soda</szName>
+		<!-- BP -->
+		<DRUG_EFFECT>
+			<effect>1</effect>          
+			<duration>4</duration>
+			<size>40</size>
+		</DRUG_EFFECT>
+		<!-- AP -->
+		<DRUG_EFFECT>
+			<effect>2</effect>          
+			<duration>2</duration>
+			<size>2</size>
+		</DRUG_EFFECT>
+		 <!-- AGI -->
+		<DRUG_EFFECT>
+			<effect>6</effect>         
+			<duration>5</duration>
+			<size>2</size>
+		</DRUG_EFFECT>
+		<!-- Nervous -->
+		<DISABILITY_EFFECT>
+			<disability>2</disability>  
+			<duration>6</duration>
+			<chance>40</chance>
+		</DISABILITY_EFFECT>
+		<!-- Chance to help curing (vomiting and diarrhea caused by) Staphylococcus -->
+		<DISEASE_EFFECT>
+			<disease>4</disease>
+			<size>-50</size>
+			<chance>30</chance>
+		</DISEASE_EFFECT>
+	</DRUG>
 </DRUGSLIST>
