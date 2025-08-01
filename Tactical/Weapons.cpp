@@ -9957,10 +9957,6 @@ BOOLEAN IsGunBurstCapable(OBJECTTYPE* pObject, BOOLEAN fNotify, SOLDIERTYPE* pSo
 						fCapable = TRUE;
 					}
 				}
-				else if (Weapon[pObject->usItem].fBurstOnlyByFanTheHammer)
-				{
-					fCapable = FALSE;
-				}
 			}
 		}
 	}
