@@ -9,7 +9,7 @@
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<uiType>1</uiType>
-		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate> 
 		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
@@ -162,4 +162,52 @@
 		<ubEnemyDropRate>50</ubEnemyDropRate>
 		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>27</uiIndex>
+		<uiType>27</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>28</uiIndex>
+		<uiType>28</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>29</uiIndex>
+		<uiType>29</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>30</uiIndex>
+		<uiType>30</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>31</uiIndex>
+		<uiType>31</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>32</uiIndex>
+		<uiType>32</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>33</uiIndex>
+		<uiType>33</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>34</uiIndex>
+		<uiType>26</uiType>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
+	</DROPITEM>	
 </AMMODROPLIST>
