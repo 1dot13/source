@@ -4,12 +4,12 @@
 		<uiIndex>0</uiIndex>
 		<name>Helmets</name>
 		<ubChoices>6</ubChoices>
-		<bItemNo1>176</bItemNo1>
-		<bItemNo2>177</bItemNo2>
-		<bItemNo3>180</bItemNo3>
-		<bItemNo4>810</bItemNo4>
-		<bItemNo5>801</bItemNo5>
-		<bItemNo6>302</bItemNo6>
+		<bItemNo1>176</bItemNo1>          <!-- Steel Helmet -->
+		<bItemNo2>177</bItemNo2>          <!-- Kevlar Helmet -->
+		<bItemNo3>180</bItemNo3>          <!-- Spectra Helmet -->
+		<bItemNo4>810</bItemNo4>          <!-- Twaron Helmet -->
+		<bItemNo5>801</bItemNo5>          <!-- Dyneema Helmet -->
+		<bItemNo6>302</bItemNo6>          <!-- Camo Steel Helmet -->
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -59,14 +59,14 @@
 		<uiIndex>1</uiIndex>
 		<name>Vests</name>
 		<ubChoices>8</ubChoices>
-		<bItemNo1>161</bItemNo1>
-		<bItemNo2>164</bItemNo2>
-		<bItemNo3>167</bItemNo3>
-		<bItemNo4>196</bItemNo4>
-		<bItemNo5>812</bItemNo5>
-		<bItemNo6>803</bItemNo6>
-		<bItemNo7>283</bItemNo7>
-		<bItemNo8>284</bItemNo8>
+		<bItemNo1>161</bItemNo1>          <!-- Flak Jacket -->
+		<bItemNo2>164</bItemNo2>          <!-- Kevlar Vest -->
+		<bItemNo3>167</bItemNo3>          <!-- Spectra Vest -->
+		<bItemNo4>196</bItemNo4>          <!-- Guardian Vest -->
+		<bItemNo5>812</bItemNo5>          <!-- Twaron Vest -->
+		<bItemNo6>803</bItemNo6>          <!-- Dyneema Vest -->
+		<bItemNo7>283</bItemNo7>          <!-- Zylon Vest -->
+		<bItemNo8>284</bItemNo8>          <!-- BDU Jacket -->
 		<bItemNo9>0</bItemNo9>
 		<bItemNo10>0</bItemNo10>
 		<bItemNo11>0</bItemNo11>
@@ -114,11 +114,11 @@
 		<uiIndex>2</uiIndex>
 		<name>Leggings</name>
 		<ubChoices>5</ubChoices>
-		<bItemNo1>170</bItemNo1>
-		<bItemNo2>173</bItemNo2>
-		<bItemNo3>811</bItemNo3>
-		<bItemNo4>802</bItemNo4>
-		<bItemNo5>282</bItemNo5>
+		<bItemNo1>170</bItemNo1>          <!-- Kevlar Leggings -->
+		<bItemNo2>173</bItemNo2>          <!-- Spectra Leggings -->
+		<bItemNo3>811</bItemNo3>          <!-- Twaron Leggings -->
+		<bItemNo4>802</bItemNo4>          <!-- Dyneema Leggings -->
+		<bItemNo5>282</bItemNo5>          <!-- Zylon Pants -->
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
@@ -169,13 +169,13 @@
 		<uiIndex>3</uiIndex>
 		<name>Hand Grenades</name>
 		<ubChoices>7</ubChoices>
-		<bItemNo1>131</bItemNo1>
-		<bItemNo2>132</bItemNo2>
-		<bItemNo3>133</bItemNo3>
-		<bItemNo4>134</bItemNo4>
-		<bItemNo5>135</bItemNo5>
-		<bItemNo6>146</bItemNo6>
-		<bItemNo7>151</bItemNo7>
+		<bItemNo1>131</bItemNo1>          <!-- Stun Grenade -->
+		<bItemNo2>132</bItemNo2>          <!-- Tear Gas Grenade -->
+		<bItemNo3>133</bItemNo3>          <!-- Mustard Gas Grenade -->
+		<bItemNo4>134</bItemNo4>          <!-- Mini Grenade -->
+		<bItemNo5>135</bItemNo5>          <!-- Mk2 Defensive Grenade -->
+		<bItemNo6>146</bItemNo6>          <!-- Chemical Break Light -->
+		<bItemNo7>151</bItemNo7>          <!-- Smoke Grenade -->
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
 		<bItemNo10>0</bItemNo10>
@@ -224,16 +224,16 @@
 		<uiIndex>4</uiIndex>
 		<name>Kits</name>
 		<ubChoices>10</ubChoices>
-		<bItemNo1>201</bItemNo1>
-		<bItemNo2>202</bItemNo2>
-		<bItemNo3>204</bItemNo3>
-		<bItemNo4>205</bItemNo4>
-		<bItemNo5>201</bItemNo5>
-		<bItemNo6>201</bItemNo6>
-		<bItemNo7>202</bItemNo7>
-		<bItemNo8>203</bItemNo8>
-		<bItemNo9>1027</bItemNo9>
-		<bItemNo10>1028</bItemNo10>
+		<bItemNo1>201</bItemNo1>          <!-- First Aid Kit -->
+		<bItemNo2>202</bItemNo2>          <!-- Medical Kit -->
+		<bItemNo3>204</bItemNo3>          <!-- Locksmith Kit -->
+		<bItemNo4>205</bItemNo4>          <!-- Wood Camo Kit -->
+		<bItemNo5>201</bItemNo5>          <!-- First Aid Kit -->
+		<bItemNo6>201</bItemNo6>          <!-- First Aid Kit -->
+		<bItemNo7>202</bItemNo7>          <!-- Medical Kit -->
+		<bItemNo8>203</bItemNo8>          <!-- Tool Kit -->
+		<bItemNo9>1027</bItemNo9>          <!-- Urban Camo Kit -->
+		<bItemNo10>1028</bItemNo10>          <!-- Desert Camo Kit -->
 		<bItemNo11>0</bItemNo11>
 		<bItemNo12>0</bItemNo12>
 		<bItemNo13>0</bItemNo13>
@@ -279,14 +279,14 @@
 		<uiIndex>5</uiIndex>
 		<name>Bombs</name>
 		<ubChoices>8</ubChoices>
-		<bItemNo1>137</bItemNo1>
-		<bItemNo2>139</bItemNo2>
-		<bItemNo3>141</bItemNo3>
-		<bItemNo4>142</bItemNo4>
-		<bItemNo5>145</bItemNo5>
-		<bItemNo6>223</bItemNo6>
-		<bItemNo7>224</bItemNo7>
-		<bItemNo8>242</bItemNo8>
+		<bItemNo1>137</bItemNo1>          <!-- TNT -->
+		<bItemNo2>139</bItemNo2>          <!-- HMX -->
+		<bItemNo3>141</bItemNo3>          <!-- Land Mine -->
+		<bItemNo4>142</bItemNo4>          <!-- C4 -->
+		<bItemNo5>145</bItemNo5>          <!-- Shaped Charge -->
+		<bItemNo6>223</bItemNo6>          <!-- Detonator -->
+		<bItemNo7>224</bItemNo7>          <!-- Remote Detonator -->
+		<bItemNo8>242</bItemNo8>          <!-- Remote Bomb Trigger -->
 		<bItemNo9>0</bItemNo9>
 		<bItemNo10>0</bItemNo10>
 		<bItemNo11>0</bItemNo11>
@@ -334,54 +334,54 @@
 		<uiIndex>6</uiIndex>
 		<name>Misc</name>
 		<ubChoices>48</ubChoices>
-		<bItemNo1>49</bItemNo1>
-		<bItemNo2>214</bItemNo2>
-		<bItemNo3>214</bItemNo3>
-		<bItemNo4>214</bItemNo4>
-		<bItemNo5>216</bItemNo5>
-		<bItemNo6>222</bItemNo6>
-		<bItemNo7>235</bItemNo7>
-		<bItemNo8>243</bItemNo8>
-		<bItemNo9>245</bItemNo9>
-		<bItemNo10>255</bItemNo10>
-		<bItemNo11>256</bItemNo11>
-		<bItemNo12>257</bItemNo12>
-		<bItemNo13>264</bItemNo13>
-		<bItemNo14>266</bItemNo14>
-		<bItemNo15>267</bItemNo15>
-		<bItemNo16>269</bItemNo16>
-		<bItemNo17>304</bItemNo17>
-		<bItemNo18>305</bItemNo18>
-		<bItemNo19>306</bItemNo19>
-		<bItemNo20>308</bItemNo20>
-		<bItemNo21>309</bItemNo21>
-		<bItemNo22>311</bItemNo22>
-		<bItemNo23>312</bItemNo23>
-		<bItemNo24>316</bItemNo24>
-		<bItemNo25>320</bItemNo25>
-		<bItemNo26>322</bItemNo26>
-		<bItemNo27>323</bItemNo27>
-		<bItemNo28>1022</bItemNo28>
-		<bItemNo29>1023</bItemNo29>
-		<bItemNo30>1016</bItemNo30>
-		<bItemNo31>1013</bItemNo31>
-		<bItemNo32>1015</bItemNo32>
-		<bItemNo33>1020</bItemNo33>
-		<bItemNo34>199</bItemNo34>
-		<bItemNo35>1377</bItemNo35>
-		<bItemNo36>1378</bItemNo36>
-		<bItemNo37>1379</bItemNo37>
-		<bItemNo38>1380</bItemNo38>
-		<bItemNo39>1381</bItemNo39>
-		<bItemNo40>1545</bItemNo40>
-		<bItemNo41>1546</bItemNo41>
-		<bItemNo42>1567</bItemNo42>
-		<bItemNo43>1570</bItemNo43>
-		<bItemNo44>1576</bItemNo44>
-		<bItemNo45>1626</bItemNo45>
-		<bItemNo46>1709</bItemNo46>
-		<bItemNo47>1536</bItemNo47>
-		<bItemNo48>1537</bItemNo48>
+		<bItemNo1>49</bItemNo1>          <!-- Knuckle Dusters -->
+		<bItemNo2>214</bItemNo2>          <!-- Canteen -->
+		<bItemNo3>214</bItemNo3>          <!-- Canteen -->
+		<bItemNo4>214</bItemNo4>          <!-- Canteen -->
+		<bItemNo5>216</bItemNo5>          <!-- Compound 18 -->
+		<bItemNo6>222</bItemNo6>          <!-- Energy Booster -->
+		<bItemNo7>235</bItemNo7>          <!-- Regeneration Booster -->
+		<bItemNo8>243</bItemNo8>          <!-- Wire Cutters -->
+		<bItemNo9>245</bItemNo9>          <!-- Bottle of Alcohol -->
+		<bItemNo10>255</bItemNo10>          <!-- Wine -->
+		<bItemNo11>256</bItemNo11>          <!-- Beer -->
+		<bItemNo12>257</bItemNo12>          <!-- Porno Magazine -->
+		<bItemNo13>264</bItemNo13>          <!-- Platinum Watch -->
+		<bItemNo14>266</bItemNo14>          <!-- Walkman -->
+		<bItemNo15>267</bItemNo15>          <!-- Portable TV -->
+		<bItemNo16>269</bItemNo16>          <!-- Cigars -->
+		<bItemNo17>304</bItemNo17>          <!-- Duct Tape -->
+		<bItemNo18>305</bItemNo18>          <!-- Aluminum Rod -->
+		<bItemNo19>306</bItemNo19>          <!-- Spring -->
+		<bItemNo20>308</bItemNo20>          <!-- Steel Tube -->
+		<bItemNo21>309</bItemNo21>          <!-- Quick Glue -->
+		<bItemNo22>311</bItemNo22>          <!-- String -->
+		<bItemNo23>312</bItemNo23>          <!-- Soda Can -->
+		<bItemNo24>316</bItemNo24>          <!-- Copper Wire -->
+		<bItemNo25>320</bItemNo25>          <!-- Pack of Gum -->
+		<bItemNo26>322</bItemNo26>          <!-- Batteries -->
+		<bItemNo27>323</bItemNo27>          <!-- Rubber Band -->
+		<bItemNo28>1022</bItemNo28>          <!-- Rag -->
+		<bItemNo29>1023</bItemNo29>          <!-- Cuban Cigars -->
+		<bItemNo30>1016</bItemNo30>          <!-- Gameboy -->
+		<bItemNo31>1013</bItemNo31>          <!-- Wallet -->
+		<bItemNo32>1015</bItemNo32>          <!-- Shovel -->
+		<bItemNo33>1020</bItemNo33>          <!-- Medal -->
+		<bItemNo34>199</bItemNo34>           <!-- Compact Binoculars -->
+		<bItemNo35>1377</bItemNo35>          <!-- 5.56x45mm Replaceable Barrel -->
+		<bItemNo36>1378</bItemNo36>          <!-- 7.62x51mm Replaceable Barrel -->
+		<bItemNo37>1379</bItemNo37>          <!-- 7.62x54R Replaceable Barrel -->
+		<bItemNo38>1380</bItemNo38>          <!-- 5.45x39mm Replaceable Barrel -->
+		<bItemNo39>1381</bItemNo39>          <!-- 7.62x39mm Replaceable Barrel -->
+		<bItemNo40>1545</bItemNo40>          <!-- MRE -->
+		<bItemNo41>1546</bItemNo41>          <!-- EPA -->
+		<bItemNo42>1567</bItemNo42>          <!-- Bread loaf -->
+		<bItemNo43>1570</bItemNo43>          <!-- PET bottle -->
+		<bItemNo44>1576</bItemNo44>          <!-- Gun Cleaning Kit -->
+		<bItemNo45>1626</bItemNo45>          <!-- Stun Gun -->
+		<bItemNo46>1709</bItemNo46>     <!-- Sleeping bag -->
+		<bItemNo47>1536</bItemNo47>          <!-- Reflex Drug -->
+		<bItemNo48>1537</bItemNo48>          <!-- Stim Drug (Copy) -->
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
 	</ENEMYITEMCHOICES>
@@ -389,12 +389,12 @@
 		<uiIndex>7</uiIndex>
 		<name>Grenade Launchers</name>
 		<ubChoices>6</ubChoices>
-		<bItemNo1>40</bItemNo1>
-		<bItemNo2>906</bItemNo2>
-		<bItemNo3>907</bItemNo3>
-		<bItemNo4>908</bItemNo4>
-		<bItemNo5>920</bItemNo5>
-		<bItemNo6>903</bItemNo6>
+		<bItemNo1>40</bItemNo1>          <!-- M79 Grenade Launcher -->
+		<bItemNo2>906</bItemNo2>          <!-- Milkor MGL-140 Grenade Launcher -->
+		<bItemNo3>907</bItemNo3>          <!-- RGM Kastet Grenade Launcher -->
+		<bItemNo4>908</bItemNo4>          <!-- XM25 Grenade Launcher -->
+		<bItemNo5>920</bItemNo5>          <!-- Colt Launcher System -->
+		<bItemNo6>903</bItemNo6>          <!-- GM-94 Grenade Launcher -->
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -444,10 +444,10 @@
 		<uiIndex>8</uiIndex>
 		<name>Single Shot Rocket Launchers</name>
 		<ubChoices>4</ubChoices>
-		<bItemNo1>51</bItemNo1>
-		<bItemNo2>918</bItemNo2>
-		<bItemNo3>916</bItemNo3>
-		<bItemNo4>917</bItemNo4>
+		<bItemNo1>51</bItemNo1>          <!-- M72A4 LAW -->
+		<bItemNo2>918</bItemNo2>          <!-- RPO-M Shmel -->
+		<bItemNo3>916</bItemNo3>          <!-- RPG-26 Aglen -->
+		<bItemNo4>917</bItemNo4>          <!-- RPG-27 Tavolga -->
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -499,8 +499,8 @@
 		<uiIndex>9</uiIndex>
 		<name>Multi-shot Rocket Launchers</name>
 		<ubChoices>2</ubChoices>
-		<bItemNo1>914</bItemNo1>
-		<bItemNo2>915</bItemNo2>
+		<bItemNo1>914</bItemNo1>          <!-- RPG-7 -->
+		<bItemNo2>915</bItemNo2>          <!-- RPG-16 Grom -->
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -554,8 +554,8 @@
 		<uiIndex>10</uiIndex>
 		<name>Mortars</name>
 		<ubChoices>2</ubChoices>
-		<bItemNo1>41</bItemNo1>
-		<bItemNo2>901</bItemNo2>
+		<bItemNo1>41</bItemNo1>           <!-- M224 Mortar -->
+		<bItemNo2>901</bItemNo2>          <!-- Commando Mortar -->
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -609,9 +609,9 @@
 		<uiIndex>11</uiIndex>
 		<name>Armour Attachments</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>183</bItemNo1>
-		<bItemNo2>837</bItemNo2>
-		<bItemNo3>838</bItemNo3>
+		<bItemNo1>183</bItemNo1>          <!-- Ceramic Plates -->
+		<bItemNo2>837</bItemNo2>          <!-- Titanium Plating -->
+		<bItemNo3>838</bItemNo3>          <!-- Leg Protectors -->
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -664,7 +664,7 @@
 		<uiIndex>12</uiIndex>
 		<name>Gas Masks</name>
 		<ubChoices>1</ubChoices>
-		<bItemNo1>213</bItemNo1>
+		<bItemNo1>213</bItemNo1>         <!-- Gas Mask -->
 		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
@@ -719,9 +719,9 @@
 		<uiIndex>13</uiIndex>
 		<name>Low Quality Face Items</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>211</bItemNo1>
-		<bItemNo2>212</bItemNo2>
-		<bItemNo3>246</bItemNo3>
+		<bItemNo1>211</bItemNo1>          <!-- Night Vision Goggles, Gen. I -->
+		<bItemNo2>212</bItemNo2>          <!-- Sun Goggles -->
+		<bItemNo3>246</bItemNo3>          <!-- Night Vision Goggles, Gen. II -->
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -774,9 +774,9 @@
 		<uiIndex>14</uiIndex>
 		<name>High Quality Face Items</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>1024</bItemNo1>
-		<bItemNo2>246</bItemNo2>
-		<bItemNo3>212</bItemNo3>
+		<bItemNo1>1024</bItemNo1>         <!-- Night Vision Goggles, Gen. III -->
+		<bItemNo2>246</bItemNo2>          <!-- Night Vision Goggles, Gen. II -->
+		<bItemNo3>212</bItemNo3>          <!-- Sun Goggles -->
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -829,7 +829,7 @@
 		<uiIndex>15</uiIndex>
 		<name>Hearing Aids</name>
 		<ubChoices>1</ubChoices>
-		<bItemNo1>210</bItemNo1>
+		<bItemNo1>210</bItemNo1>          <!-- Extended Ear -->
 		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
@@ -884,15 +884,15 @@
 		<uiIndex>16</uiIndex>
 		<name>Scopes</name>
 		<ubChoices>9</ubChoices>
-		<bItemNo1>208</bItemNo1>
-		<bItemNo2>999</bItemNo2>
-		<bItemNo3>1000</bItemNo3>
-		<bItemNo4>1007</bItemNo4>
-		<bItemNo5>1030</bItemNo5>
-		<bItemNo6>1029</bItemNo6>
-		<bItemNo7>1180</bItemNo7>
-		<bItemNo8>1181</bItemNo8>
-		<bItemNo9>1182</bItemNo9>
+		<bItemNo1>208</bItemNo1>          <!-- Sniper Scope, 10x -->
+		<bItemNo2>999</bItemNo2>          <!-- PSO-1 Scope -->
+		<bItemNo3>1000</bItemNo3>          <!-- PSO-3 Scope -->
+		<bItemNo4>1007</bItemNo4>          <!-- Battle Scope, 7x -->
+		<bItemNo5>1030</bItemNo5>          <!-- ACOG, 4x -->
+		<bItemNo6>1029</bItemNo6>          <!-- Small Scope, 2x -->
+		<bItemNo7>1180</bItemNo7>          <!-- ZF-42 Scope -->
+		<bItemNo8>1181</bItemNo8>          <!-- No.32 Scope -->
+		<bItemNo9>1182</bItemNo9>          <!-- PEM Scope -->
 		<bItemNo10>0</bItemNo10>
 		<bItemNo11>0</bItemNo11>
 		<bItemNo12>0</bItemNo12>
@@ -939,39 +939,39 @@
 		<uiIndex>17</uiIndex>
 		<name>Weapon Attachments</name>
 		<ubChoices>33</ubChoices>
-		<bItemNo1>207</bItemNo1>
-		<bItemNo2>208</bItemNo2>
-		<bItemNo3>209</bItemNo3>
-		<bItemNo4>241</bItemNo4>
-		<bItemNo5>244</bItemNo5>
-		<bItemNo6>1003</bItemNo6>
-		<bItemNo7>1004</bItemNo7>
-		<bItemNo8>1005</bItemNo8>
-		<bItemNo9>1006</bItemNo9>
-		<bItemNo10>1007</bItemNo10>
-		<bItemNo11>1008</bItemNo11>
-		<bItemNo12>1009</bItemNo12>
-		<bItemNo13>1011</bItemNo13>
-		<bItemNo14>1012</bItemNo14>
-		<bItemNo15>1001</bItemNo15>
-		<bItemNo16>1002</bItemNo16>
-		<bItemNo17>1026</bItemNo17>
-		<bItemNo18>902</bItemNo18>
-		<bItemNo19>904</bItemNo19>
-		<bItemNo20>905</bItemNo20>
-		<bItemNo21>913</bItemNo21>
-		<bItemNo22>307</bItemNo22>
-		<bItemNo23>310</bItemNo23>
-		<bItemNo24>1030</bItemNo24>
-		<bItemNo25>1029</bItemNo25>
-		<bItemNo26>999</bItemNo26>
-		<bItemNo27>1000</bItemNo27>
-		<bItemNo28>998</bItemNo28>
-		<bItemNo29>949</bItemNo29>
-		<bItemNo30>950</bItemNo30>
-		<bItemNo31>948</bItemNo31>
-		<bItemNo32>921</bItemNo32>
-		<bItemNo33>1525</bItemNo33>
+		<bItemNo1>207</bItemNo1>          <!-- Pistol Suppressor -->
+		<bItemNo2>208</bItemNo2>          <!-- Sniper Scope, 10x -->
+		<bItemNo3>209</bItemNo3>          <!-- Bipod -->
+		<bItemNo4>241</bItemNo4>          <!-- Laser Sight -->
+		<bItemNo5>244</bItemNo5>          <!-- Duckbill -->
+		<bItemNo6>1003</bItemNo6>          <!-- Flash Suppressor -->
+		<bItemNo7>1004</bItemNo7>          <!-- ACOG Combo, 4x -->
+		<bItemNo8>1005</bItemNo8>          <!-- Insight LAM-200 -->
+		<bItemNo9>1006</bItemNo9>          <!-- Reflex Sight -->
+		<bItemNo10>1007</bItemNo10>          <!-- Battle Scope, 7x -->
+		<bItemNo11>1008</bItemNo11>          <!-- Folding Stock -->
+		<bItemNo12>1009</bItemNo12>          <!-- Retractable Stock -->
+		<bItemNo13>1011</bItemNo13>          <!-- Foregrip -->
+		<bItemNo14>1012</bItemNo14>          <!-- AR Suppressor -->
+		<bItemNo15>1001</bItemNo15>          <!-- 5.56mm C-Mag Adapter -->
+		<bItemNo16>1002</bItemNo16>          <!-- 9mm C-Mag Adapter -->
+		<bItemNo17>1026</bItemNo17>          <!-- Retractable Stock -->
+		<bItemNo18>902</bItemNo18>          <!-- Colt M203PI Grenade Launcher -->
+		<bItemNo19>904</bItemNo19>          <!-- GP-30 Obuvka Grenade Launcher -->
+		<bItemNo20>905</bItemNo20>          <!-- HK AG36 Grenade Launcher -->
+		<bItemNo21>913</bItemNo21>          <!-- HK 79 Grenade Launcher -->
+		<bItemNo22>307</bItemNo22>          <!-- Rod & Spring -->
+		<bItemNo23>310</bItemNo23>          <!-- Gun Barrel Extender -->
+		<bItemNo24>1030</bItemNo24>          <!-- ACOG, 4x -->
+		<bItemNo25>1029</bItemNo25>          <!-- Small Scope, 2x -->
+		<bItemNo26>999</bItemNo26>          <!-- PSO-1 Scope -->
+		<bItemNo27>1000</bItemNo27>          <!-- PSO-3 Scope -->
+		<bItemNo28>998</bItemNo28>          <!-- Kobra -->
+		<bItemNo29>949</bItemNo29>          <!-- Rifle LAM -->
+		<bItemNo30>950</bItemNo30>          <!-- Rifle LAM-Flashlight Combo -->
+		<bItemNo31>948</bItemNo31>          <!-- Old Aimpoint Projector -->
+		<bItemNo32>921</bItemNo32>          <!-- FN EGLM Grenade Launcher -->
+		<bItemNo33>1525</bItemNo33>          <!-- Rifle Sling -->
 		<bItemNo34>0</bItemNo34>
 		<bItemNo35>0</bItemNo35>
 		<bItemNo36>0</bItemNo36>
@@ -994,18 +994,18 @@
 		<uiIndex>18</uiIndex>
 		<name>Knives</name>
 		<ubChoices>12</ubChoices>
-		<bItemNo1>37</bItemNo1>
-		<bItemNo2>38</bItemNo2>
-		<bItemNo3>54</bItemNo3>
-		<bItemNo4>300</bItemNo4>
-		<bItemNo5>298</bItemNo5>
-		<bItemNo6>593</bItemNo6>
-		<bItemNo7>594</bItemNo7>
-		<bItemNo8>595</bItemNo8>
-		<bItemNo9>596</bItemNo9>
-		<bItemNo10>299</bItemNo10>
-		<bItemNo11>600</bItemNo11>
-		<bItemNo12>297</bItemNo12>
+		<bItemNo1>37</bItemNo1>          <!-- Combat Knife -->
+		<bItemNo2>38</bItemNo2>          <!-- Throwing Knife -->
+		<bItemNo3>54</bItemNo3>          <!-- Machete -->
+		<bItemNo4>300</bItemNo4>          <!-- Light Knife -->
+		<bItemNo5>298</bItemNo5>          <!-- Nightstick -->
+		<bItemNo6>593</bItemNo6>          <!-- Ka-Bar Cutlass -->
+		<bItemNo7>594</bItemNo7>          <!-- KCB Knife -->
+		<bItemNo8>595</bItemNo8>          <!-- SOG Seal 2000 -->
+		<bItemNo9>596</bItemNo9>          <!-- Heavy Throwing Knife -->
+		<bItemNo10>299</bItemNo10>          <!-- Utility Knife -->
+		<bItemNo11>600</bItemNo11>          <!-- Rambo Knife -->
+		<bItemNo12>297</bItemNo12>          <!-- Retractable Baton -->
 		<bItemNo13>0</bItemNo13>
 		<bItemNo14>0</bItemNo14>
 		<bItemNo15>0</bItemNo15>
@@ -1047,40 +1047,40 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>19</uiIndex>
-		<name>Ammo</name>
-		<ubChoices>14</ubChoices>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>1</bItemNo2>
-		<bItemNo3>2</bItemNo3>
-		<bItemNo4>3</bItemNo4>
-		<bItemNo5>4</bItemNo5>
-		<bItemNo6>9</bItemNo6>
-		<bItemNo7>10</bItemNo7>
-		<bItemNo8>11</bItemNo8>
-		<bItemNo9>12</bItemNo9>
-		<bItemNo10>15</bItemNo10>
-		<bItemNo11>16</bItemNo11>
-		<bItemNo12>17</bItemNo12>
-		<bItemNo13>18</bItemNo13>
-		<bItemNo14>14</bItemNo14>
-		<bItemNo15>0</bItemNo15>
-		<bItemNo16>0</bItemNo16>
-		<bItemNo17>0</bItemNo17>
-		<bItemNo18>0</bItemNo18>
-		<bItemNo19>0</bItemNo19>
-		<bItemNo20>0</bItemNo20>
-		<bItemNo21>0</bItemNo21>
-		<bItemNo22>0</bItemNo22>
-		<bItemNo23>0</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
+		<name>Ammo</name>                 <!-- Ammotypes -->
+		<ubChoices>32</ubChoices>
+		<bItemNo1>0</bItemNo1>            <!-- Ball -->
+		<bItemNo2>1</bItemNo2>            <!-- HP -->
+		<bItemNo3>2</bItemNo3>            <!-- AP/FMJ -->
+		<bItemNo4>3</bItemNo4>            <!-- SAP -->
+		<bItemNo5>4</bItemNo5>            <!-- Buckshot -->
+		<bItemNo6>9</bItemNo6>            <!-- HE -->
+		<bItemNo7>10</bItemNo7>            <!-- HEAT -->
+		<bItemNo8>11</bItemNo8>            <!-- Dart -->
+		<bItemNo9>12</bItemNo9>            <!-- Flame -->
+		<bItemNo10>15</bItemNo10>            <!-- Tracer Ball -->
+		<bItemNo11>16</bItemNo11>            <!-- Tracer FMJ -->
+		<bItemNo12>17</bItemNo12>            <!-- Match Ball -->
+		<bItemNo13>18</bItemNo13>            <!-- Match FMJ -->
+		<bItemNo14>14</bItemNo14>            <!-- Glaser -->
+		<bItemNo15>5</bItemNo15>             <!-- Flechette -->
+		<bItemNo16>13</bItemNo16>            <!-- AET -->
+		<bItemNo17>19</bItemNo17>            <!-- Cold Ball -->
+		<bItemNo18>20</bItemNo18>            <!-- Cold HP -->
+		<bItemNo19>21</bItemNo19>            <!-- Cold AP/FMJ -->
+		<bItemNo20>22</bItemNo20>            <!-- Cold SAP -->
+		<bItemNo21>23</bItemNo21>            <!-- Cold Glaser Ball -->
+		<bItemNo22>24</bItemNo22>            <!-- Cold Glaser FMJ -->
+		<bItemNo23>25</bItemNo23>            <!-- Lock Buster -->
+		<bItemNo24>26</bItemNo24>            <!-- Depleted Uranium -->
+		<bItemNo25>27</bItemNo25>            <!-- Duplex Ball -->
+		<bItemNo26>28</bItemNo26>            <!-- HP Solid -->
+		<bItemNo27>29</bItemNo27>            <!-- Neurotoxin Dart -->
+		<bItemNo28>30</bItemNo28>            <!-- Pepper Spray -->
+		<bItemNo29>31</bItemNo29>            <!-- SAP, anti-material -->
+		<bItemNo30>32</bItemNo30>            <!-- Rubber -->
+		<bItemNo31>33</bItemNo31>            <!-- Cryo -->
+		<bItemNo32>34</bItemNo32>            <!-- Fire retardant -->
 		<bItemNo33>0</bItemNo33>
 		<bItemNo34>0</bItemNo34>
 		<bItemNo35>0</bItemNo35>
@@ -1104,26 +1104,26 @@
 		<uiIndex>20</uiIndex>
 		<name>LBE</name>
 		<ubChoices>20</ubChoices>
-		<bItemNo1>1079</bItemNo1>
-		<bItemNo2>1080</bItemNo2>
-		<bItemNo3>1081</bItemNo3>
-		<bItemNo4>1082</bItemNo4>
-		<bItemNo5>1083</bItemNo5>
-		<bItemNo6>1084</bItemNo6>
-		<bItemNo7>1086</bItemNo7>
-		<bItemNo8>1087</bItemNo8>
-		<bItemNo9>1088</bItemNo9>
-		<bItemNo10>1089</bItemNo10>
-		<bItemNo11>1090</bItemNo11>
-		<bItemNo12>1091</bItemNo12>
-		<bItemNo13>1093</bItemNo13>
-		<bItemNo14>1094</bItemNo14>
-		<bItemNo15>1095</bItemNo15>
-		<bItemNo16>1096</bItemNo16>
-		<bItemNo17>1097</bItemNo17>
-		<bItemNo18>1098</bItemNo18>
-		<bItemNo19>1099</bItemNo19>
-		<bItemNo20>1697</bItemNo20>
+		<bItemNo1>1079</bItemNo1>          <!-- TT TAC-1A Assault Vest -->
+		<bItemNo2>1080</bItemNo2>          <!-- 40mm Grenade Panel -->
+		<bItemNo3>1081</bItemNo3>          <!-- Double Mag Pouch -->
+		<bItemNo4>1082</bItemNo4>          <!-- SAW Pouch -->
+		<bItemNo5>1083</bItemNo5>          <!-- Blackhawk Vest -->
+		<bItemNo6>1084</bItemNo6>          <!-- Hongkong Police Vest -->
+		<bItemNo7>1086</bItemNo7>          <!-- Russian 106 Vest -->
+		<bItemNo8>1087</bItemNo8>          <!-- Russian 107 Vest -->
+		<bItemNo9>1088</bItemNo9>          <!-- Russian RM22SF Vest -->
+		<bItemNo10>1089</bItemNo10>          <!-- TT TAC-1B Utility Vest -->
+		<bItemNo11>1090</bItemNo11>          <!-- LBE Gear -->
+		<bItemNo12>1091</bItemNo12>          <!-- Holster -->
+		<bItemNo13>1093</bItemNo13>          <!-- MP Holster -->
+		<bItemNo14>1094</bItemNo14>          <!-- TIMS Backpack -->
+		<bItemNo15>1095</bItemNo15>          <!-- ARUC Backpack -->
+		<bItemNo16>1096</bItemNo16>          <!-- MALICE3 Backpack -->
+		<bItemNo17>1097</bItemNo17>          <!-- TIMS Combat Pack -->
+		<bItemNo18>1098</bItemNo18>          <!-- Tactical Tailor 3-Day Pack -->
+		<bItemNo19>1099</bItemNo19>          <!-- Blackhawk Patrol Pack -->
+		<bItemNo20>1697</bItemNo20>          <!-- Radio Set -->
 		<bItemNo21>0</bItemNo21>
 		<bItemNo22>0</bItemNo22>
 		<bItemNo23>0</bItemNo23>
