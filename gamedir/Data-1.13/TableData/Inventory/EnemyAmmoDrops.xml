@@ -206,7 +206,7 @@
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>34</uiIndex>
-		<uiType>26</uiType>
+		<uiType>34</uiType>
 		<ubEnemyDropRate>50</ubEnemyDropRate>
 		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>	
