@@ -506,6 +506,7 @@ typedef struct
 	FLOAT	sFoodDecayModificator;
 	
 	BOOLEAN fFoodEatingSounds;
+	BOOLEAN fAlwaysFood;
 
 	// Flugente: disease settings
 	BOOLEAN fDisease;
