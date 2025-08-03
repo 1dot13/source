@@ -1271,14 +1271,21 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
 		return FALSE;
 
-	// silversurfer: no food items if the food system is off
-	if (!UsingFoodSystem() && Item[usItemIndex].foodtype > 0)
-	{ 
-		// silversurfer: Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
-		// kitty: and only if food isn't a drug at the same time, to make sure using those drugs without food system is possible
-			if (Food[Item[usItemIndex].foodtype].bFoodPoints > 0 && Item[usItemIndex].drugtype == 0 )
-				return FALSE;
-	}
+	// kitty: players might want food items in game for roleplay reasons, i.e. when interacting with npc-dealer in restaurant, no food might seems odd
+	// with the option "ALWAYS_FOOD" set TRUE, food items will show even without using the foodsystem
+	// should it be set to FALSE, no food items will be shown without using the foodsystem
+	if (!gGameExternalOptions.fAlwaysFood)
+	{
+		  // silversurfer: no food items if the food system is off
+	      if (!UsingFoodSystem() && Item[usItemIndex].foodtype > 0 )
+		  {
+		      // silversurfer: Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
+		      // kitty: and only if food isn't a drug at the same time, to make sure using those drugs without food system is possible
+			  if (Food[Item[usItemIndex].foodtype].bFoodPoints > 0 && Item[usItemIndex].drugtype == 0 )
+
+				   return FALSE;
+	      }
+    }
 
 	// kitty: no disease items if the disease system is off
 	// whether the item is exclusive is defined by tag
