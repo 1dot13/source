@@ -4896,7 +4896,7 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
     SoldierID bLastTeamID = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
     SoldierID cnt = pSoldier->ubID - 1;
 
-    for ( ; cnt >= bLastTeamID; --cnt )
+    for ( ; cnt > bLastTeamID; --cnt )
     {
         pTeamSoldier = cnt;
         if ( fOnlyRegularMercs )
@@ -4928,7 +4928,7 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
     cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
 
     // look for all mercs on the same team,
-    for ( ; cnt >= bLastTeamID; --cnt )
+    for ( ; cnt > bLastTeamID; --cnt )
     {
         pTeamSoldier = cnt;
         if ( fOnlyRegularMercs )
