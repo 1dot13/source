@@ -7915,7 +7915,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             if ( CheckFact( FACT_FIRST_BATTLE_BEING_FOUGHT, 0 ) )
             {
                 // ATE: Need to trigger record for this event .... for NPC scripting
-                TriggerNPCRecord( PACOS, 18 );
+                TriggerNPCRecord( PACOS, 20 );
 
                 // this is our first battle... and we won!
                 SetFactTrue( FACT_FIRST_BATTLE_FOUGHT );
