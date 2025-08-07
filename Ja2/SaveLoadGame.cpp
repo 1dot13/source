@@ -1474,7 +1474,8 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		}
 		else
 		{
-			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(this->usStrategicInsertionData), sizeof(UINT16), numBytesRead);
+			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(UINT16), sizeof(UINT16), numBytesRead);
+			buffer += 4; // To make numBytesRead check match the struct size. 2 bytes from uint32 - uint16 and 2 bytes due to struct memory layout change when usStrategicInsertionData was increased to uint32
 		}
 
 		numBytesRead = ReadFieldByField( hFile, &this->bFriendlyOrDirectDefaultResponseUsedRecently, sizeof(this->bFriendlyOrDirectDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
