@@ -1,7 +1,7 @@
 #ifndef ITEM_TYPES_H
 #define ITEM_TYPES_H
 
-#include "types.h"
+#include "Overhead Types.h"
 #include <vector>
 #include <list>
 // THE_BOB : added for pocket popup definitions
@@ -247,7 +247,7 @@ public:
 
 	UINT32				lbeClass;
 	UINT16				lbeIndex;
-	UINT8				ubID;
+	SoldierID			ubID;
 	BOOLEAN				ZipperFlag;
 	int					uniqueID;
 	UINT32				uiNodeChecksum;
@@ -259,7 +259,7 @@ public:
 #define SIZEOF_LBENODE_POD (offsetof(LBENODE, endOfPOD))
 bool	checkLBEArrayIntegrity(bool verbose=false); // BOB: checks all worldItems for missing LBE info
 
-void	CreateLBE(OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets);
+void	CreateLBE(OBJECTTYPE* pObj, SoldierID ubID, int numSubPockets);
 bool	DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex = 0);
 void	DestroyLBE(OBJECTTYPE* pObj, int stackIndex = 0);
 void	GetLBESlots(UINT32 LBEType, std::vector<INT8>& LBESlots);
@@ -408,15 +408,15 @@ namespace ObjectDataStructs {
 	struct OBJECT_BOMBS_AND_OTHER
 	{ // this is used by placed bombs, switches, and the action item
 		INT16		bBombStatus;		// % status
-		INT8		bDetonatorType;		// timed, remote, or pressure-activated
+		INT8			bDetonatorType;		// timed, remote, or pressure-activated
 		UINT16		usBombItem;			// the usItem of the bomb.
 		union
 		{
 			INT8		bDelay;			// >=0 values used only
 			INT8		bFrequency;		// >=0 values used only
 		};
-		UINT8	ubBombOwner;			// side which placed the bomb
-		UINT8	bActionValue;			// this is used by the ACTION_ITEM fake item
+		SoldierID	ubBombOwner;			// side which placed the bomb
+		UINT8		bActionValue;			// this is used by the ACTION_ITEM fake item
 		union
 		{
 			UINT8 ubTolerance;			// tolerance value for panic triggers
@@ -1052,8 +1052,8 @@ typedef struct
 	UINT64 nasLayoutClass;
 	UINT64 ulAvailableAttachmentPoint;
 	UINT64 ulAttachmentPoint;
-	UINT64 usItemFlag; // bitflags to store various item properties (better than introducing 64 BOOLEAN values). If I only had thought of this earlier....
-	UINT64 usItemFlag2; // bitflags to store various item properties
+	FLAGS64 usItemFlag; // bitflags to store various item properties (better than introducing 64 BOOLEAN values). If I only had thought of this earlier....
+	FLAGS64 usItemFlag2; // bitflags to store various item properties
 
 	UINT32 uiIndex;
 	UINT32 usItemClass;

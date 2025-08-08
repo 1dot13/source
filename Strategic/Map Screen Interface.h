@@ -24,8 +24,8 @@ typedef struct FASTHELPREGION {
 // Flugente: externalised squad names
 extern std::vector<std::wstring> gSquadNameVector;
 
-extern UINT8 FIRSTmercTOdisplay ;
-extern UINT8 maxNumberOfMercVisibleInStrategyList;
+extern UINT16 FIRSTmercTOdisplay ;
+extern UINT16 maxNumberOfMercVisibleInStrategyList;
 
 // String Lengths Defines
 #define MAX_NAME_LENGTH 10
@@ -322,7 +322,7 @@ extern BOOLEAN fLockOutMapScreenInterface;
 // The character data structure
 typedef struct {
 
-	UINT16 usSolID;// soldier ID in MenPtrs 
+	SoldierID usSolID;// soldier ID in MenPtrs 
 	BOOLEAN fValid;// is the current soldier a valid soldier
 
 } MapScreenCharacterSt;
@@ -437,24 +437,24 @@ extern BOOLEAN fResetContractGlow;
 void InitalizeVehicleAndCharacterList( void );
 
 // set this entry to as selected
-void SetEntryInSelectedCharacterList( INT8 bEntry );
+void SetEntryInSelectedCharacterList( INT16 bEntry );
 // set this entry to as unselected
-void ResetEntryForSelectedList( INT8 bEntry );
+void ResetEntryForSelectedList( INT16 bEntry );
 
 // reset selected list
 void ResetSelectedListForMapScreen( );
 
 // build a selected list from a to b, inclusive
-void BuildSelectedListFromAToB( INT8 bA, INT8 bB );
+void BuildSelectedListFromAToB( INT16 bA, INT16 bB );
 
 // isa this entry int he selected character list set?
-BOOLEAN IsEntryInSelectedListSet( INT8 bEntry );
+BOOLEAN IsEntryInSelectedListSet( INT16 bEntry );
 
 // is there more than one person selected?
 BOOLEAN MultipleCharacterListEntriesSelected( void );
 
 // toggle this entry on or off
-void ToggleEntryInSelectedList( INT8 bEntry );
+void ToggleEntryInSelectedList( INT16 bEntry );
 
 // reset assignments for mercs on selected list who have this assignment
 // HEADROCK HAM 3.6: Argument was unused... adding my own.
@@ -513,11 +513,11 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier );
 void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString );
 
 // handle leaving of equipment in sector
-void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId );
+void HandleLeavingOfEquipmentInCurrentSector( SoldierID uiMercId );
 
 // set up a linked list of items being dropped and post an event to later drop them
-void HandleMercLeavingEquipmentInDrassen( UINT32 uiMercId );
-void HandleMercLeavingEquipmentInOmerta( UINT32 uiMercId );
+void HandleMercLeavingEquipmentInDrassen( SoldierID uiMercId );
+void HandleMercLeavingEquipmentInOmerta( SoldierID uiMercId );
 
 // actually drop the stored list of items
 void HandleEquipmentLeftInOmerta( UINT32 uiSlotIndex );
@@ -537,7 +537,7 @@ void FreeLeaveListSlot( UINT32 uiSlotIndex );
 INT32 FindFreeSlotInLeaveList( void );
 
 // set up drop list
-INT32 SetUpDropItemListForMerc( UINT32 uiMercId );
+INT32 SetUpDropItemListForMerc( SoldierID uiMercId );
 // store owner's profile id for the items added to this leave slot index
 void SetUpMercAboutToLeaveEquipment( UINT32 ubProfileId, UINT32 uiSlotIndex );
 

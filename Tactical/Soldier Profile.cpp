@@ -1530,7 +1530,7 @@ INT16 CalcMedicalDeposit( MERCPROFILESTRUCT * pProfile )
 
 SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly )
 {
-	UINT8 ubLoop, ubLoopLimit;
+	UINT16 ubLoop, ubLoopLimit;
 	SOLDIERTYPE * pSoldier;
 
 	// sevenfm: fix for last soldier in player team
@@ -1559,19 +1559,19 @@ SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnl
 
 SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 {
-	UINT8										ubID;
-	SOLDIERTYPE							*pNewSoldier = NULL;
+	SoldierID				ubID;
+	SOLDIERTYPE				*pNewSoldier = NULL;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT32									cnt;
-	INT32										sOldGridNo;
+	UINT32					cnt;
+	INT32					sOldGridNo;
 
-	UINT8										ubOldID;
-	UINT32									uiOldUniqueId;
+	SoldierID				ubOldID;
+	UINT32					uiOldUniqueId;
 
-	UINT32									uiSlot;
-	SOLDIERTYPE							*pGroupMember;
+	UINT32					uiSlot;
+	SOLDIERTYPE				*pGroupMember;
 
-	BOOLEAN								success;
+	BOOLEAN					success;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ChangeSoldierTeam"));
 
@@ -1713,7 +1713,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 
 
 		// Set insertion gridNo
-		pNewSoldier->sInsertionGridNo								= sOldGridNo;
+		pNewSoldier->sInsertionGridNo = sOldGridNo;
 
 		if ( gfPotentialTeamChangeDuringDeath )
 		{
@@ -2717,11 +2717,10 @@ void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
 // SANDRO - added function
 INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTeammate;
-	BOOLEAN				fOnlyOneException = FALSE;
+	INT8			bNumber = 0;
+	SOLDIERTYPE *	pSoldier;
+	SOLDIERTYPE *pTeammate;
+	BOOLEAN		fOnlyOneException = FALSE;
 
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
 	if (!pSoldier || !( pSoldier->bActive ) || !( pSoldier->bInSector ) )
@@ -2729,9 +2728,9 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 		return( -1 );
 	}
 
-	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	for ( SoldierID uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++uiLoop )
 	{
-		pTeammate = MercPtrs[ uiLoop ];
+		pTeammate = uiLoop;
 		if ( pTeammate == NULL )
 		{
 			continue;

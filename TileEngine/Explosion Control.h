@@ -13,20 +13,17 @@
 // Explosion Data
 typedef struct
 {
-	UINT32											uiFlags;
-
-	UINT8												ubOwner;
-	INT8												ubTypeID;
-
-	UINT16											usItem;
-
-	INT16												sX;										// World X ( optional )
-	INT16												sY;										// World Y ( optional )
-	INT16												sZ;										// World Z ( optional )
-	INT32 sGridNo;							// World GridNo
-	BOOLEAN											fLocate;
-	INT8												bLevel;								// World level
-	UINT8												ubUnsed[1];
+	UINT32		uiFlags;
+	SoldierID	ubOwner;
+	INT8			ubTypeID;
+	UINT16		usItem;
+	INT16		sX;			// World X ( optional )
+	INT16		sY;			// World Y ( optional )
+	INT16		sZ;			// World Z ( optional )
+	INT32		sGridNo;		// World GridNo
+	BOOLEAN		fLocate;
+	INT8			bLevel;		// World level
+	UINT8		ubUnsed[1];
 
 } EXPLOSION_PARAMS;
  
@@ -34,12 +31,11 @@ typedef struct
 typedef struct
 {
 	EXPLOSION_PARAMS		Params;
-	BOOLEAN							fAllocated;
-	INT16								sCurrentFrame;
-	INT32								iID;
-	INT32								iLightID;
-	UINT8								ubUnsed[2];
-
+	BOOLEAN				fAllocated;
+	INT16				sCurrentFrame;
+	INT32				iID;
+	INT32				iLightID;
+	UINT8				ubUnsed[2];
 
 } EXPLOSIONTYPE;
 
@@ -100,8 +96,8 @@ extern	EXPLOSIONTYPE								gExplosionData[ NUM_EXPLOSION_SLOTS ];
 extern UINT8 gubElementsOnExplosionQueue;
 extern BOOLEAN gfExplosionQueueActive;
 
-void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
-void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
+void IgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
+void InternalIgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT, OBJECTTYPE * pObj =NULL );
 
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
@@ -110,10 +106,10 @@ void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
 void HandleExplosionWarningAnimations( );
 
 void DecayBombTimers( void );
-void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency );
-BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
-void ActivateSwitchInGridNo( UINT8 ubID, INT32 sGridNo );
-void SetOffPanicBombs( UINT8 ubID, INT8 bPanicTrigger );
+void SetOffBombsByFrequency( SoldierID ubID, INT8 bFrequency );
+BOOLEAN SetOffBombsInGridNo( SoldierID ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );
+void ActivateSwitchInGridNo( SoldierID ubID, INT32 sGridNo );
+void SetOffPanicBombs( SoldierID ubID, INT8 bPanicTrigger );
 
 void UpdateExplosionFrame( INT32 iIndex, INT16 sCurrentFrame );
 void RemoveExplosionData( INT32 iIndex );
@@ -136,16 +132,16 @@ void RemoveActiveExplosionMarkers();
 #define GASMASK_MIN_STATUS 70
 
 // OJW - 20091028 - Explosion damage sync
-BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent , BOOL fFromRemoteClient = FALSE );
-BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT8 ubOwner , BOOL fFromRemoteClient = FALSE );
-void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum , BOOL fFromRemoteClient = FALSE , BOOL fNewSmokeEffect = FALSE );
+BOOLEAN DamageSoldierFromBlast( SoldierID ubPerson, SoldierID ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent, BOOL fFromRemoteClient = FALSE );
+BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, SoldierID ubOwner, BOOL fFromRemoteClient = FALSE );
+void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum, BOOL fFromRemoteClient = FALSE, BOOL fNewSmokeEffect = FALSE );
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient = FALSE );
 
 // Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel with regard to the tripwire netwrok and hierarchy determined by ubFlag
-BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag );
+BOOLEAN ActivateSurroundingTripwire( SoldierID ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag );
 
 // Flugente: A special function for tripwire gun traps. Search if pObj has a gun attached. If so, fire a shot from that gun in a specific direction. Afterwards place the gun on the ground
-void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT8 ubId, UINT8 ubDirection );
+void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, SoldierID ubId, UINT8 ubDirection );
 
 extern void ToggleActionItemsByFrequency( INT8 bFrequency );
 extern void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj );
@@ -168,15 +164,17 @@ extern void HandleSeeingPowerGenFan( UINT32 sGridNo );
 extern void HandleSeeingFortifiedDoor( UINT32 sGridNo );//Ja25 UB
 #endif
 
-void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLEAN *pfRecompileMovementCosts,
-	BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel,
+void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
+ BOOLEAN *pfRecompileMovementCosts,
+	BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, SoldierID ubOwner,
+ INT8 bLevel,
 	UINT8 ubReason );
 
 // Flugente: handle secondary explosive effects
-void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection );
+void HandleBuddyExplosions( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection );
 
 // sevenfm: handle explosive items from attachments
-BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj );
+BOOLEAN HandleAttachedExplosions( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj );
 void CheckForBuriedBombsAndRemoveFlags( INT32 sGridNo, INT8 bLevel );
 UINT16 CalcTotalVolatility(OBJECTTYPE * pObj);
 BOOLEAN FindBinderAttachment (OBJECTTYPE * pObj);

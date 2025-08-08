@@ -162,7 +162,7 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate );
 void RenderMercInventoryPanel();
 void SetDroppableCheckboxesBasedOnMercsInventory();
 
-extern BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode );
+extern BOOLEAN InternalAddSoldierToSector( SoldierID ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode );
 
 //array which keeps track of which item is in which slot.	This is dependant on the selected merc, so
 //these temp values must be updated when different mercs are selected, and reset when a merc detailed
@@ -559,7 +559,7 @@ void AddMercToWorld( INT32 iMapIndex )
 
 	if( IsLocationSittable( iMapIndex, gfRoofPlacement ) )
 	{
-		UINT8	ubID;
+		SoldierID ubID;
 		INT16 sSectorX, sSectorY;
 		SOLDIERINITNODE *pNode;
 
@@ -3783,7 +3783,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 	if( IsLocationSittable( iMapIndex, gfRoofPlacement ) )
 	{
-		UINT8	ubID;
+		SoldierID	ubID;
 		INT16 sSectorX, sSectorY;
 		SOLDIERINITNODE *pNode;
 

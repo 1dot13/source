@@ -77,18 +77,18 @@ void UpdateTEAMPanel( );
  */
 BOOLEAN InitializeTEAMPanelCoords( ); 
 
-void SetSMPanelCurrentMerc( UINT8 ubNewID );
-void SetTEAMPanelCurrentMerc( UINT8 ubNewID );
-UINT16 GetSMPanelCurrentMerc(	);
+void SetSMPanelCurrentMerc( SoldierID ubNewID );
+void SetTEAMPanelCurrentMerc( UINT16 ubNewID );
+SoldierID GetSMPanelCurrentMerc(	);
 void UpdateSMPanel( );
 
 BOOLEAN InitTEAMSlots( );
-void AddPlayerToInterfaceTeamSlot( UINT8 ubID );
+void AddPlayerToInterfaceTeamSlot( SoldierID ubID );
 BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubID );
-BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT8 *pubID );
+BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, SoldierID * pubID );
 void RemoveAllPlayersFromSlot( );
-BOOLEAN PlayerExistsInSlot( UINT8 ubID );
-BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID );
+BOOLEAN PlayerExistsInSlot( SoldierID ubID );
+BOOLEAN RemovePlayerFromTeamSlotGivenMercID( SoldierID ubMercID );
 void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier );
 void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 
@@ -105,10 +105,10 @@ void InitOldInventorySystem( );
 // ATE TO BE MOVED TO INTERFACE_ITEMS.C
 extern INT8		gbNewItem[ NUM_INV_SLOTS ];
 extern INT8		gbNewItemCycle[ NUM_INV_SLOTS ];
-extern UINT8	gubNewItemMerc;
+extern UINT8		gubNewItemMerc;
 
-void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed );
-void EndRadioLocator( UINT8 ubID );
+void ShowRadioLocator( SoldierID ubID, UINT8 ubLocatorSpeed );
+void EndRadioLocator( SoldierID ubID );
 
 
 extern MOUSE_REGION	gSMPanelRegion;
@@ -118,12 +118,12 @@ extern BOOLEAN		gfDisableTacticalPanelButtons;
 
 typedef struct
 {
-	UINT8	ubID;
-	BOOLEAN	fOccupied;
+	SoldierID	ubID;
+	BOOLEAN		fOccupied;
 
 } TEAM_PANEL_SLOTS_TYPE;
 
-extern TEAM_PANEL_SLOTS_TYPE	gTeamPanel[ NUM_TEAM_SLOTS ];
+extern TEAM_PANEL_SLOTS_TYPE gTeamPanel[ NUM_TEAM_SLOTS ];
 
 
 
@@ -149,7 +149,7 @@ void GoToMapScreenFromTactical( void );
 
 void FinishAnySkullPanelAnimations( );
 
-UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
 
 // CHRISL: New callback functions for backpack buttons
 BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus);

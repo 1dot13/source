@@ -180,11 +180,12 @@ void CreateDestroyTownInfoBox( void )
 		// set highlight color
 		SetBoxHighLight(ghTownMineBox, FONT_WHITE);
 
-		SetBoxSecondColumnForeground( ghTownMineBox, FONT_WHITE );
-		SetBoxSecondColumnBackground( ghTownMineBox, FONT_BLACK );
-		SetBoxSecondColumnHighLight( ghTownMineBox, FONT_WHITE );
-		SetBoxSecondColumnShade( ghTownMineBox, FONT_BLACK );
-		SetBoxSecondColumnFont( ghTownMineBox, BLOCKFONT2 );
+		const auto column = 1;
+		SetBoxColumnForeground( ghTownMineBox, FONT_WHITE, column );
+		SetBoxColumnBackground( ghTownMineBox, FONT_BLACK, column );
+		SetBoxColumnHighLight( ghTownMineBox, FONT_WHITE, column );
+		SetBoxColumnShade( ghTownMineBox, FONT_BLACK, column );
+		SetBoxColumnFont( ghTownMineBox, BLOCKFONT2, column );
 		SetBoxSecondColumnMinimumOffset( ghTownMineBox, 20 );
 
 		// unhighlighted color

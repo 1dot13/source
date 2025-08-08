@@ -78,7 +78,7 @@ class SOLDIERTYPE;
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10
 #define		TIME_FOR_RANDOM_ANIM_CHECK	1
 
-BOOLEAN		gfLastMercTalkedAboutKillingID = NOBODY;
+SoldierID gfLastMercTalkedAboutKillingID = NOBODY;
 
 extern void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle );
 
@@ -104,10 +104,10 @@ BOOLEAN HandleUnjamAnimation( SOLDIERTYPE *pSoldier );
 
 extern void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
 extern void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
-extern UINT8 NumCapableEnemyInSector( );
+extern UINT16 NumCapableEnemyInSector( );
 extern BOOLEAN gfKillingGuysForLosingBattle;
 
-extern UINT8 gubInterruptProvoker;
+extern SoldierID gubInterruptProvoker;
 
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
@@ -1163,7 +1163,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
 						{
-							send_grenade( pSoldier->pTempObject , pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->sTargetGridNo, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, iRealObjectID , true);
+							send_grenade( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->sTargetGridNo, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, iRealObjectID, true);
 						}
 					}
 
@@ -1557,7 +1557,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					if ( pSoldier->bTeam != gbPlayerNum )
 					{
 						// only locate if the enemy is visible or he's aiming at a player
-						if ( pSoldier->bVisible != -1 || (pSoldier->ubTargetID != NOBODY && MercPtrs[ pSoldier->ubTargetID ]->bTeam == gbPlayerNum) )
+						if ( pSoldier->bVisible != -1 || (pSoldier->ubTargetID != NOBODY && pSoldier->ubTargetID->bTeam == gbPlayerNum) )
 						{
 							LocateGridNo( pSoldier->sTargetGridNo );
 						}
@@ -1785,7 +1785,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						pSoldier->uiTimeOfLastRandomAction = 0;
 
 						// Don't play these generally if this is the guy selected by player, as this one is "awaiting orders"
-						if (pSoldier->ubID != (UINT8)gusSelectedSoldier || Random( 10 ) == 0 ) 
+						if (pSoldier->ubID != gusSelectedSoldier || Random( 10 ) == 0 ) 
 						{
 							// Don't do any in water!
 							// Also don't play if we are in the middle of something
@@ -2046,7 +2046,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					SOLDIERTYPE *pTSoldier;
 					UINT32 uiMercFlags;
-					UINT16 usSoldierIndex;
+					SoldierID usSoldierIndex;
 
 					if ( FindSoldier( pSoldier->sTargetGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
 					{
@@ -3126,15 +3126,11 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				// Reload robot....
 				{
-					UINT8				ubPerson;
-					SOLDIERTYPE	*pRobot;
+					SoldierID ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
 
-					// Get pointer...
-					ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
-
-					if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+					if ( ubPerson != NOBODY && ubPerson->flags.uiStatusFlags & SOLDIER_ROBOT )
 					{
-						pRobot = MercPtrs[ ubPerson ];
+						SOLDIERTYPE *pRobot = ubPerson;
 
 						ReloadGun( pRobot, &(pRobot->inv[ HANDPOS ] ), pSoldier->pTempObject );
 
@@ -3303,17 +3299,17 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				// REFUELING A VEHICLE
 				// THE GAS_CAN IS IN THE MERCS MAIN HAND AT THIS TIME
 				{
-					UINT8				ubPerson;
-					SOLDIERTYPE *pVehicle;
-
 					// Get pointer to vehicle...
-					ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
-					pVehicle = MercPtrs[ ubPerson ];
+					SoldierID ubPerson = WhoIsThere2( pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel );
+					if ( ubPerson != NOBODY )
+					{
+						SOLDIERTYPE *pVehicle = ubPerson;
 
-					// this is a ubID for soldiertype....
-					AddFuelToVehicle( pSoldier, pVehicle );
+						// this is a ubID for soldiertype....
+						AddFuelToVehicle( pSoldier, pVehicle );
 
-					fInterfacePanelDirty = DIRTYLEVEL2;
+						fInterfacePanelDirty = DIRTYLEVEL2;
+					}
 				}
 				break;
 
@@ -3555,15 +3551,14 @@ BOOLEAN ShouldMercSayHappyWithGunQuote( SOLDIERTYPE *pSoldier )
 void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 //	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	std::vector<INT8>	bBuddyIndex (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
 //	INT8	bBuddyIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { -1 };
 	INT8	bTempBuddyIndex;
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 	UINT16	usQuoteNum;
 	BOOLEAN buddyquoteused = FALSE;
 
@@ -3574,11 +3569,12 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 		return;
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pTeamSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...		
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) 
 			&& !pTeamSoldier->flags.fMercAsleep && !TileIsOutOfBounds(pTeamSoldier->sGridNo) && pTeamSoldier->ubProfile != pKillerSoldier->ubProfile )
@@ -3647,7 +3643,7 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 				}
 
 				// OK, a good candidate...
-				ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+				ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 				bBuddyIndex[ ubNumMercs ]	 = bTempBuddyIndex;
 				++ubNumMercs;
 			}
@@ -3657,51 +3653,52 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
+		SOLDIERTYPE *pChosen = MercPtrs[ubMercsInSector[ubChosenMerc]];
 
 		switch( bBuddyIndex[ ubChosenMerc ] )
 		{
 		case 0:
 			usQuoteNum = QUOTE_BUDDY_1_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
 			break;
 
 		case 1:
 			usQuoteNum = QUOTE_BUDDY_2_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
 			break;
 
 		case 2:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_3_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_3_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
 			break;
 
 		case 3:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_4_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_4_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
 			break;
 
 		case 4:
-			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			if( pChosen->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				usQuoteNum = QUOTE_AIM_BUDDY_5_GOOD;
 			else
 				usQuoteNum = QUOTE_NON_AIM_BUDDY_5_GOOD;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
 			break;
 
 		case 5:
 			usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
-			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
+			pChosen->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
 			break;
 		}
 
-		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
+		TacticalCharacterDialogue( pChosen, usQuoteNum );
 
 		buddyquoteused = TRUE;
 	}
@@ -3712,8 +3709,9 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	{
 		cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
-		for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pTeamSoldier )
+		for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// we do not exclude the buddies from above. If we get to this point, it might have been a buddy that already said his line. In that case additional dialogue might play other ones
 
 			// Add guy if he's a candidate...		
@@ -3745,12 +3743,10 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	BOOLEAN fDoSomeoneElse = FALSE;
 
 	gfLastMercTalkedAboutKillingID = pKilledSoldier->ubID;
@@ -3806,11 +3802,12 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 			if ( fDoSomeoneElse )
 			{
 				// Check if a person is here that has this quote....
-				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+				SoldierID  cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 				// run through list
-				for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pTeamSoldier = cnt;
 					if ( cnt != pKillerSoldier->ubID )
 					{
 						if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
@@ -3818,7 +3815,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 							// Can we see location?
 							if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 							{
-								ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+								ubMercsInSector[ ubNumMercs ] = (UINT16)cnt;
 								ubNumMercs++;
 							}
 						}
@@ -3828,7 +3825,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 				// Did we find anybody?
 				if ( ubNumMercs > 0 )
 				{
-					ubChosenMerc = (UINT8)Random( ubNumMercs );
+					ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 					// We have a random chance of not saying our we killed a guy quote
 					if ( Random( 100 ) < 50 )
@@ -3933,11 +3930,11 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		SOLDIERTYPE *pKillerSoldier = NULL;
 		if(pSoldier->ubAttackerID != NOBODY)
 		{
-			pKillerSoldier = MercPtrs[pSoldier->ubAttackerID];
+			pKillerSoldier = pSoldier->ubAttackerID;
 		}
 		else if(pSoldier->ubPreviousAttackerID != NOBODY)
 		{
-			pKillerSoldier = MercPtrs[pSoldier->ubPreviousAttackerID];
+			pKillerSoldier = pSoldier->ubPreviousAttackerID;
 		}
 		if(pKillerSoldier != NULL)
 		{
@@ -3996,8 +3993,8 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		{
 			//////////////////////////////////////////////////////////////
 			// SANDRO - some changes here
-			UINT8   ubAttacker = pSoldier->ubAttackerID; 
-			UINT8	ubAssister = pSoldier->ubPreviousAttackerID;
+			SoldierID ubAttacker = pSoldier->ubAttackerID; 
+			SoldierID ubAssister = pSoldier->ubPreviousAttackerID;
 			// If attacker is nobody, and we died, then set the last attacker(if exists) as our killer 
 			if ( ubAttacker == NOBODY )
 			{
@@ -4025,9 +4022,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			{
 				// anv: note that ubAttacker can be already different from pSoldier->ubAttackerID
 				// IF this guy has an attacker and he's a good guy, play sound
-				if ( pSoldier->ubAttackerID != NOBODY )
+				if ( pSoldier->ubAttackerID < NOBODY )
 				{								
-					if ( MercPtrs[ pSoldier->ubAttackerID ] != NULL && MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
+					if ( pSoldier->ubAttackerID->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
 					{
 						gTacticalStatus.fKilledEnemyOnAttack	= TRUE;
 						gTacticalStatus.ubEnemyKilledOnAttack = pSoldier->ubID;
@@ -4044,13 +4041,13 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 					else if ( pSoldier->bVisible == TRUE )
 					{
 						// We were a visible enemy, say laugh!
-						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( MercPtrs[ ubAttacker ] ) )
+						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( ubAttacker ) )
 						{
 							// if the attacker was from the same team, play a curse, otherwise play a laugh
-							if ( MercPtrs[ubAttacker]->bSide == pSoldier->bSide )
-								MercPtrs[ubAttacker]->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							if ( ubAttacker->bSide == pSoldier->bSide )
+								ubAttacker->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 							else
-								MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
+								ubAttacker->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 						}
 					}					
 				}
@@ -4062,7 +4059,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 				// militia also now track kills...
 				if ( ubAttacker != NOBODY )
 				{
-					if ( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
+					if ( ubAttacker->bTeam == gbPlayerNum )
 					{
 						// increment kills
 						/////////////////////////////////////////////////////////////////////////////////////
@@ -4070,109 +4067,109 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						switch(pSoldier->ubSoldierClass)
 						{
 							case SOLDIER_CLASS_ROBOT:
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 								break;
 							case SOLDIER_CLASS_ELITE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsElites++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsElites++;
 								break;
 							case SOLDIER_CLASS_ARMY :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsRegulars++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsRegulars++;
 								break;
 							case SOLDIER_CLASS_ADMINISTRATOR :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsAdmins++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsAdmins++;
 								break;
 							case SOLDIER_CLASS_CREATURE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsCreatures++;
 								break;
 							case SOLDIER_CLASS_ZOMBIE :
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsZombies++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsZombies++;
 								break;
 							case SOLDIER_CLASS_BANDIT:
-								gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usKillsOthers++;
+								gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 								break;
 							default :
 								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsCreatures++;
 								else if ( ARMED_VEHICLE( pSoldier ) )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsTanks++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsTanks++;
 								else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsHostiles++;
 								else
 								{
-									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+									gMercProfiles[ ubAttacker->ubProfile ].records.usKillsOthers++;
 
 									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-									if (gGameExternalOptions.fDynamicOpinions && pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+									if (gGameExternalOptions.fDynamicOpinions && pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == ubAttacker->bSide) )
 									{
 										// not for killing animals though...
 										if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
-											HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+											HandleDynamicOpinionChange( ubAttacker, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 									}
 								}
 								break;
 						}
-						//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;
+						//gMercProfiles[ pSoldier->ubAttackerID->ubProfile ].usKills++;
 						/////////////////////////////////////////////////////////////////////////////////////
 						gStrategicStatus.usPlayerKills++;
 
 						// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
 						if (gGameExternalOptions.fDynamicOpinions)
 						{
-							if (pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide))
+							if (pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == ubAttacker->bSide))
 							{
 								// not for killing animals though...
 								if (pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW)
-									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE);
+									HandleDynamicOpinionChange(ubAttacker, OPINIONEVENT_CIVKILLER, TRUE, TRUE);
 							}
 							else
 							{
 								// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
-								if (pSoldier->ubTargetID != NOBODY && MercPtrs[pSoldier->ubTargetID]->bBleeding > 10)
+								if (pSoldier->ubTargetID != NOBODY && pSoldier->ubTargetID->bBleeding > 10)
 								{
-									AddOpinionEvent(MercPtrs[pSoldier->ubTargetID]->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR);
+									AddOpinionEvent(pSoldier->ubTargetID->ubProfile, ubAttacker->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR);
 								}
 								else
 								{
 									// complain about a fragthief, or thank for assistance - correct event is chosen internally
-									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_FRAGTHIEF, TRUE, TRUE);
+									HandleDynamicOpinionChange(ubAttacker, OPINIONEVENT_FRAGTHIEF, TRUE, TRUE);
 								}
 							}
 						}
 					}
-					else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
+					else if ( ubAttacker->bTeam == MILITIA_TEAM )
 					{
 						// get a kill! 2 points!
-						MercPtrs[ ubAttacker ]->ubMilitiaKills += 1;
+						ubAttacker->ubMilitiaKills += 1;
 					}
 
 				}
 				
 				if ( ubAssister != NOBODY && ubAssister != ubAttacker )
 				{
-					if ( MercPtrs[ ubAssister ]->bTeam == gbPlayerNum )
+					if ( ubAssister->bTeam == gbPlayerNum )
 					{
 						/////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - new mercs' records
-						if( MercPtrs[ ubAttacker ] != NULL )
+						if( ubAttacker != NOBODY )
 						{
-							if( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMercs++;
-							else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMilitia++;
+							if( ubAttacker->bTeam == gbPlayerNum )
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsMercs++;
+							else if ( ubAttacker->bTeam == MILITIA_TEAM )
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsMilitia++;
 							else
-								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+								gMercProfiles[ ubAssister->ubProfile ].records.usAssistsOthers++;
 						}
 						else
 						{
-							gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+							gMercProfiles[ ubAssister->ubProfile ].records.usAssistsOthers++;
 						}
-						//gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].usAssists++;
+						//gMercProfiles[ ubAssister->ubProfile ].usAssists++;
 						/////////////////////////////////////////////////////////////////////////////////////
 					}
-					else if ( MercPtrs[ ubAssister ]->bTeam == MILITIA_TEAM )
+					else if ( ubAssister->bTeam == MILITIA_TEAM )
 					{
 						// get an assist - 1 points
-						MercPtrs[ubAssister]->ubMilitiaAssists += 1;
+						ubAssister->ubMilitiaAssists += 1;
 					}
 				}
 				/*
@@ -4457,7 +4454,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 			// SANDRO - if Martial Artist took someone down, always fall back if possible (for the fun)
 			if ( pSoldier->ubAttackerID != NOBODY && gGameOptions.fNewTraitSystem )
 			{ 
-				if ( HAS_SKILL_TRAIT( MercPtrs[ pSoldier->ubAttackerID ], MARTIAL_ARTS_NT ) && (!MercPtrs[ pSoldier->ubAttackerID ]->usAttackingWeapon || ItemIsBrassKnuckles(MercPtrs[ pSoldier->ubAttackerID ]->inv[HANDPOS].usItem)) )
+				if ( HAS_SKILL_TRAIT( pSoldier->ubAttackerID, MARTIAL_ARTS_NT ) && (!pSoldier->ubAttackerID->usAttackingWeapon || ItemIsBrassKnuckles(pSoldier->ubAttackerID->inv[HANDPOS].usItem)) )
 				{
 					fAlwaysFallBack = TRUE;
 				}
@@ -4469,7 +4466,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->ubAttackerID != NOBODY )
 				{
 					// Find direction!
-					bTestDirection = (INT8)GetDirectionFromGridNo( MercPtrs[ pSoldier->ubAttackerID ]->sGridNo, pSoldier );
+					bTestDirection = (INT8)GetDirectionFromGridNo( pSoldier->ubAttackerID->sGridNo, pSoldier );
 					fForceDirection = TRUE;
 				}
 

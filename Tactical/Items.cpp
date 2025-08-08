@@ -3175,7 +3175,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 	{
 		if (pSoldier->usDragPersonID != NOBODY)
 		{
-			SOLDIERTYPE* pOtherSoldier = MercPtrs[pSoldier->usDragPersonID];
+			SOLDIERTYPE* pOtherSoldier = pSoldier->usDragPersonID;
 
 			uiTotalWeight += GetTotalWeight( pOtherSoldier );
 			uiTotalWeight += pOtherSoldier->GetBodyWeight();
@@ -9312,11 +9312,11 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, SoldierID ubOwner )
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner );
+	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner.i );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -15257,18 +15257,18 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 }
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
+BOOLEAN HasItemFlag( UINT16 usItem, FLAGS64 aFlag )
 {
 	return( (Item[usItem].usItemFlag & aFlag) != 0 );
 }
 
-BOOLEAN HasItemFlag2(UINT16 usItem, UINT64 aFlag)
+BOOLEAN HasItemFlag2(UINT16 usItem, FLAGS64 aFlag)
 {
 	return((Item[usItem].usItemFlag2 & aFlag) != 0);
 }
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, FLAGS64 aFlag )
 {
 	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
@@ -15295,10 +15295,10 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
 	if ( !pSoldier || !pObject)
 		return( FALSE );
 		
-	UINT8  usSoldierFeedingTarget1 = 0;
+	SoldierID  usSoldierFeedingTarget1 = NOBODY;
 	UINT16 usGunSlot1 = 0;
 	UINT16 usAmmoSlot1 = 0;
-	UINT8  usSoldierFeedingTarget2 = 0;
+	SoldierID  usSoldierFeedingTarget2 = NOBODY;
 	UINT16 usGunSlot2 = 0;
 	UINT16 usAmmoSlot2 = 0;
 	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
@@ -15340,10 +15340,11 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 		// loop over other members of our team in this sector. This includes ourself, as our gun can be fed from a belt in our inventory
 		SOLDIERTYPE* pTeamSoldier = NULL;
-		INT32 cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
-		INT32 lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
+		for ( ; cnt < lastid; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// check if teamsoldier exists in this sector
 			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->stats.bLife < OKLIFE || pTeamSoldier->sSectorX != pSoldier->sSectorX || pTeamSoldier->sSectorY != pSoldier->sSectorY || pTeamSoldier->bSectorZ != pSoldier->bSectorZ )
 				continue;
@@ -15353,10 +15354,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 				continue;
 
 			// we check if that guy is feeding someone, and that someone is really us
-			UINT8  usTeamSoldierFeedingTarget1 = 0;
+			SoldierID  usTeamSoldierFeedingTarget1 = NOBODY;
 			UINT16 usGunSlot1 = 0;
 			UINT16 usAmmoSlot1 = 0;
-			UINT8  usTeamSoldierFeedingTarget2 = 0;
+			SoldierID  usTeamSoldierFeedingTarget2 = NOBODY;
 			UINT16 usGunSlot2 = 0;
 			UINT16 usAmmoSlot2 = 0;
 			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )

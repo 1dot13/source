@@ -39,7 +39,7 @@ namespace AI
             if(i.event_type_ ==  AIInputData::auditive_event)
                 return os<<"sound: "<<i.noise_maker_<<" made a sound at "<<i.grid_no_<<", lvl "<<i.level_<<" vol "<<i.volume_<<" type "<<i.type_;
             if(i.event_type_ == AIInputData::visual_event)
-                return os<<"visual: "<<(int)i.opponent_->ubID<<" was seen at "<<i.grid_no_<<", lvl "<<i.level_<<" caller1 "<<i.caller1_<<" caller2 "<<i.caller2_;
+                return os<<"visual: "<<i.opponent_->ubID.i<<" was seen at "<<i.grid_no_<<", lvl "<<i.level_<<" caller1 "<<i.caller1_<<" caller2 "<<i.caller2_;
             return os;
         }
 

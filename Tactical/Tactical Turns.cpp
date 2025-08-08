@@ -31,7 +31,7 @@
 extern void DecayPublicOpplist( INT8 bTeam );
 
 //not in overhead.h!
-extern UINT8 NumEnemyInSector();
+extern UINT16 NumEnemyInSector();
 
 #ifdef JA2UB
 
@@ -41,12 +41,11 @@ extern UINT8 NumEnemyInSector();
 void HandleRPCDescription(	)
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 //	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc = 0;
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc = 0;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32		cnt2;
 	BOOLEAN fSAMSite = FALSE;
 
 
@@ -97,12 +96,13 @@ void HandleRPCDescription(	)
 
 		// OK, count how many rpc guys we have....
 		// set up soldier ptr as first element in mercptrs list
-		cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		if (gTacticalStatus.ubGuideDescriptionToUse != 100)
 		{
 			// run through list
-			for ( pTeamSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2, pTeamSoldier++ )
+			for ( ; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2 )
 			{
+				pTeamSoldier = cnt2;
 				// Add guy if he's a candidate...
 				if ( RPC_RECRUITED( pTeamSoldier ) )
 				{
@@ -116,7 +116,7 @@ void HandleRPCDescription(	)
 							pTeamSoldier->ubProfile == CARLOS ||
 							pTeamSoldier->ubProfile == DIMITRI )
 						{
-							ubMercsInSector[ubNumMercs] = (UINT8)cnt2;
+							ubMercsInSector[ubNumMercs] = (UINT16)cnt2;
 							++ubNumMercs;
 						}
 					}
@@ -126,7 +126,7 @@ void HandleRPCDescription(	)
 			// If we are > 0
 			if ( ubNumMercs > 0 )
 			{
-				ubChosenMerc = (UINT8)Random( ubNumMercs );
+				ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 				TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ubMercsInSector[ubChosenMerc]], gTacticalStatus.ubGuideDescriptionToUse, DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES, 0, 0 );
 			}
@@ -137,8 +137,9 @@ void HandleRPCDescription(	)
 		{
 			// run through list
 			cnt2 = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-			for ( pTeamSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2, pTeamSoldier++ )
+			for ( ; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2 )
 			{
+				pTeamSoldier = cnt2;
 				if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive &&
 					pTeamSoldier->sSectorX == gTacticalStatus.bGuideDescriptionSectorX && pTeamSoldier->sSectorY == gTacticalStatus.bGuideDescriptionSectorY &&
 					pTeamSoldier->bSectorZ == gbWorldSectorZ &&
@@ -154,7 +155,6 @@ void HandleRPCDescription(	)
 
 void HandleTacticalEndTurn( )
 {
-	UINT32 cnt;
 	SOLDIERTYPE		*pSoldier;
 	UINT32				uiTime;
 	static UINT32 uiTimeSinceLastStrategicUpdate = 0;
@@ -239,9 +239,10 @@ void HandleTacticalEndTurn( )
 
 		BeginLoggingForBleedMeToos( TRUE );
 
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive && pSoldier->stats.bLife > 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 			{
 				// Handle everything from getting breath back, to bleeding, etc
@@ -275,7 +276,7 @@ void HandleTacticalEndTurn( )
 		// OK, loop through the mercs to perform 'end turn' events on each...
 		// We're looping through only mercs in tactical engine, ignoring our mercs
 		// because they were done earilier...
-		for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
+		for ( UINT32 cnt = 0; cnt < guiNumMercSlots; cnt++ )
 		{
 			pSoldier = MercSlots[ cnt ];
 

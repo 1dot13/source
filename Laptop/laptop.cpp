@@ -6243,7 +6243,7 @@ void PrintNumberOnTeam( void )
 {
 	CHAR16 pString[ 32 ];
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
-	INT32 cnt=0;
+	SoldierID cnt = 0;
 	INT32 iCounter=0;
 	UINT16 usPosX, usPosY, usFontHeight, usStrLength;
 
@@ -6256,9 +6256,9 @@ void PrintNumberOnTeam( void )
 	// grab number on team
 	pSoldier = MercPtrs[0];
 
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++, pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt )
 	{
-		pTeamSoldier = MercPtrs[ cnt ];
+		pTeamSoldier = cnt;
 
 		if( ( pTeamSoldier->bActive)&&( !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ) )
 		{

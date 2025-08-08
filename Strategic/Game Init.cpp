@@ -842,19 +842,14 @@ fFirstTimeInMapScreen = TRUE;
 
 BOOLEAN AnyMercsHired( )
 {
-	INT32 cnt;
-	SOLDIERTYPE		*pTeamSoldier;
-	INT16				bLastTeamID;
-
-	// Find first guy availible in team
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	// Find first guy available in team
+	SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+	for ( ; id <= bLastTeamID; ++id)
 	{
-		if ( pTeamSoldier->bActive )
+		if ( id->bActive )
 		{
 			return( TRUE );
 		}

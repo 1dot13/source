@@ -160,7 +160,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->dLifeSpan = src.dLifeSpan;
 	this->fFirstTimeMoved = src.fFirstTimeMoved;
 	this->sFirstGridNo = src.sFirstGridNo;
-	this->ubOwner = src.ubOwner;
+	this->ubOwner = static_cast<UINT16>(src.ubOwner);
 	this->ubActionCode = src.ubActionCode;
 	this->uiActionData = src.uiActionData;
 	this->fDropItem = src.fDropItem;
@@ -175,7 +175,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->fPotentialForDebug = src.fPotentialForDebug;
 	this->sLevelNodeGridNo = src.sLevelNodeGridNo;
 	this->iSoundID = src.iSoundID;
-	this->ubLastTargetTakenDamage = src.ubLastTargetTakenDamage;
+	this->ubLastTargetTakenDamage = static_cast<UINT16>(src.ubLastTargetTakenDamage);
 	return *this;
 }
 
@@ -214,7 +214,7 @@ void RecountObjectSlots(void)
 }
 
 
-INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
+INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
 {
 	INT32			iObjectIndex;
 	FLOAT			mass;
@@ -258,7 +258,7 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->Position.z	= zPos;
 	pObject->fVisible		= TRUE;
 	pObject->fTestObject	= fTestObject;
-	pObject->ubOwner	= ubOwner;
+	pObject->ubOwner = ubOwner;
 	pObject->ubActionCode = ubActionCode;
 	pObject->uiActionData = uiActionData;
 	pObject->fDropItem		= TRUE;
@@ -546,7 +546,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 						{
 							SOLDIERTYPE *pSoldier;
 
-							pSoldier = MercPtrs[ pObject->ubLastTargetTakenDamage ];
+							pSoldier = pObject->ubLastTargetTakenDamage;
 
 							bLevel = pSoldier->pathing.bLevel;
 						}
@@ -1120,10 +1120,10 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					{
 						gTacticalStatus.ubAttackBusyCount++;
 						DebugAttackBusy( String( "Incrementing attack busy because of delayed water explosion. Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
-						AniParams.ubKeyFrame1					= 11;
+						AniParams.ubKeyFrame1				= 11;
 						AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_CHAIN_WATER_EXPLOSION;
 						AniParams.uiUserData					= pObject->Obj.usItem;
-						AniParams.ubUserData2					= pObject->ubOwner;
+						AniParams.ubUserData2				= pObject->ubOwner;
 					}
 
 					pNode = CreateAnimationTile( &AniParams );
@@ -2188,7 +2188,7 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 
 	if ( pSoldier->sGridNo == sGridNo )
 	{
-		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID);
+		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID.i);
 		return FALSE;
 	}
 	// Ge7t basic launch params...
@@ -2471,7 +2471,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 		// Is it a guy?
 		if ( usStructureID < INVALID_STRUCTURE_ID )
 		{
-			if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
+			if ( pObject->ubLastTargetTakenDamage != usStructureID )
 			{
 				// Flugente: if this fails, something is very wrong indeed
 				Assert(usStructureID<TOTAL_SOLDIERS);
@@ -2488,7 +2488,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 				pSoldier->EVENT_SoldierGotHit( NOTHING, sDamage, sBreath, pSoldier->ubDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
 
-				pObject->ubLastTargetTakenDamage = (UINT8)( usStructureID );
+				pObject->ubLastTargetTakenDamage = usStructureID;
 			}
 		}
 	}
@@ -2734,7 +2734,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 				(*pObj)[0]->data.misc.bDelay = 1;
 
 				// for non-player grenades, add turn so player could disarm grenade or run away
-				if ( pObject->ubOwner != NOBODY && MercPtrs[pObject->ubOwner]->bTeam != gbPlayerNum )
+				if ( pObject->ubOwner != NOBODY && pObject->ubOwner->bTeam != gbPlayerNum )
 				{
 					(*pObj)[0]->data.misc.bDelay++;
 				}
@@ -2762,7 +2762,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 			if ( pObject->ubOwner != NOBODY && !fGoodStatus )
 			{
-				MercPtrs[ pObject->ubOwner ]->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
+				pObject->ubOwner->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
 			}
 		}
 	}

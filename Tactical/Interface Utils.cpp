@@ -43,7 +43,7 @@ extern UINT32 guiBrownBackgroundForTeamPanel;
 extern UINT32 guiGoldBackgroundForTeamPanel;
 
 // selected grunt
-extern UINT16 gusSelectedSoldier;
+extern SoldierID gusSelectedSoldier;
 
 // car portraits
 enum{
@@ -494,7 +494,7 @@ void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLE
 			}
 			else
 			{
-				SetAutoFaceActiveFromSoldier( FRAME_BUFFER, guiSAVEBUFFER, pSoldier->ubID , sFaceX, sFaceY );
+				SetAutoFaceActiveFromSoldier( FRAME_BUFFER, guiSAVEBUFFER, pSoldier->ubID, sFaceX, sFaceY );
 			//	SetAutoFaceActiveFromSoldier( FRAME_BUFFER, FACE_AUTO_RESTORE_BUFFER, pSoldier->ubID , sFaceX, sFaceY );
 			}
 		}

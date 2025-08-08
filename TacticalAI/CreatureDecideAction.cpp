@@ -66,11 +66,11 @@ INT8 gbHuntCallPriority[NUM_CREATURE_CALLS] =
 void CreatureCall( SOLDIERTYPE * pCaller )
 {
 	UINT8		ubCallerType=0;
-	UINT8		ubReceiver;
-	INT8		bFullPriority;
-	INT8		bPriority;
-	SOLDIERTYPE * pReceiver;
-	UINT16	usDistToCaller;
+	SoldierID 	ubReceiver;
+	INT8			bFullPriority;
+	INT8			bPriority;
+	SOLDIERTYPE *pReceiver;
+	UINT16		usDistToCaller;
 	// communicate call to all creatures on map through ultrasonics
 
 	gTacticalStatus.Team[pCaller->bTeam].bAwareOfOpposition = TRUE;
@@ -121,9 +121,9 @@ void CreatureCall( SOLDIERTYPE * pCaller )
 	}
 
 
-	for (ubReceiver = gTacticalStatus.Team[ pCaller->bTeam ].bFirstID; ubReceiver <= gTacticalStatus.Team[ pCaller->bTeam ].bLastID; ubReceiver++)
+	for (ubReceiver = gTacticalStatus.Team[ pCaller->bTeam ].bFirstID; ubReceiver <= gTacticalStatus.Team[ pCaller->bTeam ].bLastID; ++ubReceiver )
 	{
-		pReceiver = MercPtrs[ubReceiver];
+		pReceiver = ubReceiver;
 		if (pReceiver->bActive && pReceiver->bInSector && (pReceiver->stats.bLife >= OKLIFE) && (pReceiver != pCaller) && (pReceiver->aiData.bAlertStatus < STATUS_BLACK))
 		{
 			if (pReceiver->ubBodyType != LARVAE_MONSTER && pReceiver->ubBodyType != INFANT_MONSTER && pReceiver->ubBodyType != QUEENMONSTER)
@@ -1154,8 +1154,8 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 						// if the selected opponent is not a threat (unconscious & !serviced)
 						// (usually, this means all the guys we see our unconscious, but, on
 						//	rare occasions, we may not be able to shoot a healthy guy, too)
-						if ((Menptr[BestShot.ubOpponent].stats.bLife < OKLIFE) &&
-							!Menptr[BestShot.ubOpponent].bService)
+						if ((BestShot.ubOpponent->stats.bLife < OKLIFE) &&
+							!BestShot.ubOpponent->bService)
 						{
 							// if our attitude is NOT aggressive
 							if (pSoldier->aiData.bAttitude != AGGRESSIVE)

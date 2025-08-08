@@ -230,12 +230,12 @@ enum
 MOUSE_REGION				gInvRegions[ NUM_INV_SLOTS ];
 
 extern	MOUSE_REGION    gMPanelRegion;
-extern	BOOLEAN					fMapInventoryItem;
-extern	BOOLEAN					gfAddingMoneyToMercFromPlayersAccount;
-extern	SOLDIERTYPE			*gpSMCurrentMerc;
-extern  UINT8 gubSelectSMPanelToMerc;
+extern	BOOLEAN			fMapInventoryItem;
+extern	BOOLEAN			gfAddingMoneyToMercFromPlayersAccount;
+extern	SOLDIERTYPE		*gpSMCurrentMerc;
+extern  SoldierID		gubSelectSMPanelToMerc;
 extern	MOUSE_REGION		gSM_SELMERCMoneyRegion;
-extern	UINT32					guiMapInvSecondHandBlockout;
+extern	UINT32			guiMapInvSecondHandBlockout;
 
 //jackaians: global variables added for the stealing pickup menu
 BOOLEAN				gfStealing = FALSE;
@@ -2362,16 +2362,17 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup )
 }
 
 POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
+	SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 	if(	!(	
 		guiCurrentItemDescriptionScreen == MAP_SCREEN 
-	&&	fShowMapInventoryPool 
-	&&	(	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
+		&&	fShowMapInventoryPool 
+		&&	( ( pSelectedSoldier->sSectorX == sSelMapX )
+		&&	( pSelectedSoldier->sSectorY == sSelMapY )
+		&&	( pSelectedSoldier->bSectorZ == iCurrentMapSectorZ ) 
 		)
-	&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )	
-	) )
+		&&	CanPlayerUseSectorInventory( pSelectedSoldier )	
+		) )
 	{
 		return NULL;
 	}
@@ -3547,7 +3548,7 @@ void DegradeNewlyAddedItems( )
 			// GET SOLDIER
 			if ( gTeamPanel[ cnt2 ].fOccupied )
 			{
-				pSoldier = MercPtrs[ gTeamPanel[ cnt2 ].ubID ];
+				pSoldier = gTeamPanel[ cnt2 ].ubID;
 
 				UINT32 invsize = pSoldier->inv.size();
 				for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
@@ -4433,7 +4434,7 @@ void INVRenderSteeringWheel( UINT32 uiBuffer, UINT32 uiSteeringWheelIndex, SOLDI
 		return;
 	}
 
-	pVehicle = GetSoldierStructureForVehicle ( MercPtrs[ pSoldier->ubID ]->iVehicleId );
+	pVehicle = GetSoldierStructureForVehicle ( pSoldier->ubID->iVehicleId );
 
 	if ( pVehicle == NULL )
 	{
@@ -5853,13 +5854,14 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 				}
 				BOOLEAN showAttachmentPopups = FALSE;
+				SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 				if(	guiCurrentItemDescriptionScreen == MAP_SCREEN 
 					&&	fShowMapInventoryPool 
-					&&	( (Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) )
-					&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
+					&&	( (pSoldier->sSectorX == sSelMapX )
+					&&	( pSoldier->sSectorY == sSelMapY )
+					&&	( pSoldier->bSectorZ == iCurrentMapSectorZ ) )
+					&&	CanPlayerUseSectorInventory( pSoldier )
 					&&	attachList.size()>0 )	// silversurfer: no need to show popups if we have nothing to display
 				{
 					showAttachmentPopups = TRUE;
@@ -8771,34 +8773,34 @@ BOOLEAN SoldierCanSeeCatchComing( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo )
 
 void DrawItemTileCursor( )
 {
-	INT32 usMapPos;
-	UINT16						usIndex;
-	UINT8							ubSoldierID;
-	INT16							sAPCost;
-	BOOLEAN						fRecalc;
-	UINT32						uiCursorFlags;
-	INT32 sFinalGridNo;
-	UINT32						uiCursorId = CURSOR_ITEM_GOOD_THROW;
-	SOLDIERTYPE				*pSoldier;
-	BOOLEAN						fGiveItem = FALSE;
-	INT32 sActionGridNo;
-	UINT8							ubDirection;
-	static UINT32			uiOldCursorId = 0;
-	static UINT16			usOldMousePos = 0;
-	INT16							sEndZ = 0;
-	INT16							sDist;
-	INT8							bLevel;
+	INT32			usMapPos;
+	UINT16			usIndex;
+	SoldierID		ubSoldierID;
+	INT16			sAPCost;
+	BOOLEAN			fRecalc;
+	UINT32			uiCursorFlags;
+	INT32			sFinalGridNo;
+	UINT32			uiCursorId = CURSOR_ITEM_GOOD_THROW;
+	SOLDIERTYPE		*pSoldier;
+	BOOLEAN			fGiveItem = FALSE;
+	INT32			sActionGridNo;
+	UINT8			ubDirection;
+	static UINT32	uiOldCursorId = 0;
+	static UINT16	usOldMousePos = 0;
+	INT16			sEndZ = 0;
+	INT16			sDist;
+	INT8				bLevel;
 
 	if (GetMouseMapPos( &usMapPos) )
 	{
 		/*CHRISL: For some reason it's possible that gpItemPointerSoldier is not correctly set when we come into this function, but we require it to be set for 
 			this function to work.  So for now, let's set it using gusUIFullTargetID.*/
 		if(gpItemPointerSoldier->exists() == false)
-			gpItemPointerSoldier = MercPtrs[ gusUIFullTargetID ];
+			gpItemPointerSoldier = gusUIFullTargetID;
 		if ( gfUIFullTargetFound )
 		{
 			// Force mouse position to guy...
-			usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+			usMapPos = gusUIFullTargetID->sGridNo;
 		}
 
 		gusCurMousePos = usMapPos;
@@ -8869,7 +8871,7 @@ void DrawItemTileCursor( )
 				if ( gfUIFullTargetFound )
 				{
 					// Get soldier
-					pSoldier = MercPtrs[ gusUIFullTargetID ];
+					pSoldier = gusUIFullTargetID;
 
 					// Are they on our team?
 					// ATE: Can't be an EPC
@@ -8879,7 +8881,7 @@ void DrawItemTileCursor( )
 						{
 							// OK, on a valid pass
 							gfUIMouseOnValidCatcher = 4;
-							gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+							gubUIValidCatcherID = gusUIFullTargetID;
 						}
 						else
 						{
@@ -8888,7 +8890,7 @@ void DrawItemTileCursor( )
 							{
 								// OK, set global that this buddy can see catch...
 								gfUIMouseOnValidCatcher = TRUE;
-								gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+								gubUIValidCatcherID = gusUIFullTargetID;
 							}
 						}
 					}
@@ -8922,10 +8924,10 @@ void DrawItemTileCursor( )
 
 				// OK, set global that this buddy can see catch...
 				gfUIMouseOnValidCatcher = 2;
-				gubUIValidCatcherID			= (UINT8)gusUIFullTargetID;
+				gubUIValidCatcherID			= gusUIFullTargetID;
 
 				// If this is a robot, change to say 'reload'
-				if ( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+				if ( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_ROBOT )
 				{
 					gfUIMouseOnValidCatcher = 3;
 				}
@@ -8945,9 +8947,9 @@ void DrawItemTileCursor( )
 
 
 					// Get AP cost
-					if ( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+					if ( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_ROBOT )
 					{
-						sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier, MercPtrs[ gusUIFullTargetID ] );
+						sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier, gusUIFullTargetID );
 					}
 					else
 					{
@@ -9009,7 +9011,7 @@ void DrawItemTileCursor( )
 					{
 						if ( gfUIMouseOnValidCatcher )
 						{
-							switch( gAnimControl[ MercPtrs[ gubUIValidCatcherID ]->usAnimState ].ubHeight )
+							switch( gAnimControl[ gubUIValidCatcherID->usAnimState ].ubHeight )
 							{
 								case ANIM_STAND:
 
@@ -9027,7 +9029,7 @@ void DrawItemTileCursor( )
 									break;
 							}
 
-							if ( MercPtrs[ gubUIValidCatcherID ]->pathing.bLevel > 0 )
+							if ( gubUIValidCatcherID->pathing.bLevel > 0 )
 							{
 								sEndZ = 0;
 							}
@@ -9118,24 +9120,24 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 	}
 
 
-	UINT8 ubDirection;
-	UINT8	ubSoldierID;
-	UINT16	  usItem;
+	UINT8			ubDirection;
+	SoldierID		ubSoldierID;
+	UINT16			usItem;
 	INT16			sAPCost;
 	SOLDIERTYPE		*pSoldier=NULL;
 	UINT8			ubThrowActionCode=0;
-	UINT32		uiThrowActionData=0;
+	UINT32			uiThrowActionData=0;
 	INT16			sEndZ = 0;
-	BOOLEAN		fGiveItem = FALSE;
+	BOOLEAN			fGiveItem = FALSE;
 	INT32			sGridNo;
 	INT16			sDist;
 
 	if ( gfUIFullTargetFound )
 	{
 		// Force mouse position to guy...
-		usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		usMapPos = gusUIFullTargetID->sGridNo;
 
-		if ( gAnimControl[ MercPtrs[ gusUIFullTargetID ]->usAnimState ].uiFlags & ANIM_MOVING )
+		if ( gAnimControl[ gusUIFullTargetID->usAnimState ].uiFlags & ANIM_MOVING )
 		{
 			return( FALSE );
 		}
@@ -9183,10 +9185,10 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		usItem = gpItemPointer->usItem;
 
 		// If the target is a robot,
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+		if ( ubSoldierID->flags.uiStatusFlags & SOLDIER_ROBOT )
 		{
 			// Charge APs to reload robot!
-			sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier,  MercPtrs[ ubSoldierID ] );
+			sAPCost = GetAPsToReloadRobot( gpItemPointerSoldier,  ubSoldierID );
 		}
 		else
 		{
@@ -9206,12 +9208,12 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 //		}
 /*
 		//if the user just clicked on an arms dealer
-		if( IsMercADealer( MercPtrs[ ubSoldierID ]->ubProfile ) )
+		if( IsMercADealer( ubSoldierID->ubProfile ) )
 		{
 			if ( EnoughPoints( gpItemPointerSoldier, sAPCost, 0, TRUE ) )
 			{
 				//Enter the shopkeeper interface
-				EnterShopKeeperInterfaceScreen( MercPtrs[ ubSoldierID ]->ubProfile );
+				EnterShopKeeperInterfaceScreen( ubSoldierID->ubProfile );
 
 				EndItemPointer( );
 			}
@@ -9223,10 +9225,10 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		if ( EnoughPoints( gpItemPointerSoldier, sAPCost, 0, TRUE ) )
 		{
 			// If we are a robot, check if this is proper item to reload!
-			if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+			if ( ubSoldierID->flags.uiStatusFlags & SOLDIER_ROBOT )
 			{
 				// Check if we can reload robot....
-				if ( IsValidAmmoToReloadRobot( MercPtrs[ ubSoldierID ], &gTempObject ) )
+				if ( IsValidAmmoToReloadRobot( ubSoldierID, &gTempObject ) )
 				{
 					 INT32 sActionGridNo;
 					 UINT8	ubDirection;
@@ -9234,7 +9236,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 
 					 // Walk up to him and reload!
 					 // See if we can get there to stab
-					 sActionGridNo =  FindAdjacentGridEx( gpItemPointerSoldier, MercPtrs[ ubSoldierID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+					 sActionGridNo =  FindAdjacentGridEx( gpItemPointerSoldier, ubSoldierID->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
 					 if ( sActionGridNo != -1 && gbItemPointerSrcSlot != NO_SLOT )
 					 {
@@ -9277,16 +9279,16 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 				//if (gbItemPointerSrcSlot != NO_SLOT )
 				{
 					// Give guy this item.....
-					SoldierGiveItem( gpItemPointerSoldier, MercPtrs[ ubSoldierID ], &gTempObject, gbItemPointerSrcSlot );
+					SoldierGiveItem( gpItemPointerSoldier, ubSoldierID, &gTempObject, gbItemPointerSrcSlot );
 
 					gfDontChargeAPsToPickup = FALSE;
 					EndItemPointer( );
 
 					// If we are giving it to somebody not on our team....
-					if ( gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_AIM ||
-						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_MERC ||
-						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP
-						|| RPC_RECRUITED( MercPtrs[ubSoldierID] ) )
+					if ( gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_AIM ||
+						gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_MERC ||
+						gMercProfiles[ubSoldierID->ubProfile].Type == PROFILETYPE_IMP
+						|| RPC_RECRUITED( ubSoldierID ) )
 					{
 
 					}
@@ -9355,7 +9357,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 					case ANIM_CROUCH:
 					case ANIM_PRONE:
 
-						AddItemToPool( usMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+						AddItemToPool( usMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 						NotifySoldiersToLookforItems( );
 						break;
 				}
@@ -9378,14 +9380,14 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 		sGridNo = usMapPos;
 
 		// Kaiden: Vehicle Inventory change - Commented the following If test:
-		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) && !( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && gusUIFullTargetID->bTeam == gbPlayerNum && !AM_AN_EPC( gusUIFullTargetID ) && !( gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 
 		// And added this one instead:
-		if ( ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) ) && !( (!gGameExternalOptions.fVehicleInventory) && (MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
+		if ( ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && gusUIFullTargetID->bTeam == gbPlayerNum && !AM_AN_EPC( gusUIFullTargetID ) ) && !( (!gGameExternalOptions.fVehicleInventory) && (gusUIFullTargetID->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
 		{
 			// OK, do the transfer...
 			{
-				pSoldier = MercPtrs[ gusUIFullTargetID ];
+				pSoldier = gusUIFullTargetID;
 
 				{
 					// Change to inventory....
@@ -9487,7 +9489,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 			// IF OVER OUR GUY...
 			if ( gfUIFullTargetFound )
 			{
-				pSoldier = MercPtrs[ gusUIFullTargetID ];
+				pSoldier = gusUIFullTargetID;
 
 				// Kaiden: Vehicle Inventory change - Commented the following If Test:
 				//if ( pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -10531,7 +10533,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32					uiItemPos;
 	UINT32					iItemCap;
-	INT32					ubID;
+	SoldierID				ubID;
 	CHAR16					sString[ 128 ];
 
 	uiItemPos = MSYS_GetRegionUserData( pRegion, 0 );
@@ -10546,18 +10548,20 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX != sSelMapX ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY != sSelMapY ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ != iCurrentMapSectorZ ) ||
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.fBetweenSectors ) )
+		SOLDIERTYPE* pSelected = gCharactersList[bSelectedInfoChar].usSolID;
+
+		if( ( pSelected->sSectorX != sSelMapX ) ||
+				( pSelected->sSectorY != sSelMapY ) ||
+				( pSelected->bSectorZ != iCurrentMapSectorZ ) ||
+				( pSelected->flags.fBetweenSectors ) )
 		{
 			if ( gpItemPointer == NULL )
 			{
-				swprintf( sString, pMapInventoryErrorString[ 2 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+				swprintf( sString, pMapInventoryErrorString[ 2 ], pSelected->name );
 			}
 			else
 			{
-				swprintf( sString, pMapInventoryErrorString[ 5 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+				swprintf( sString, pMapInventoryErrorString[ 5 ], pSelected->name );
 			}
 			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 			return;
@@ -10621,11 +10625,11 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				fTeamPanelDirty=TRUE;
 
 				// remember which gridno the object came from
-				sObjectSourceGridNo = MercPtrs[ubID]->sGridNo;
+				sObjectSourceGridNo = ubID->sGridNo;
 				// and who owned it last
-				gpItemPointerSoldier = MercPtrs[ubID];
+				gpItemPointerSoldier = ubID;
 
-				ReevaluateItemHatches( MercPtrs[ubID], FALSE );
+				ReevaluateItemHatches( ubID, FALSE );
 			}
 
 				//Dirty interface
@@ -10904,7 +10908,7 @@ BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT32 sGridNo, ITEM_POO
 	// Change to INV panel if not there already...
 	gfSwitchPanel = TRUE;
 	gbNewPanel = SM_PANEL;
-	gubNewPanelParam = (UINT8)pSoldier->ubID;
+	gubNewPanelParam = pSoldier->ubID;
 
 	//Determine total #
 	cnt = 0;
@@ -11478,10 +11482,10 @@ void RenderItemPickupMenu( )
 						!gfStealing &&
 						Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 						LoadBearingEquipment[Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != -1 &&
-						MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID])
+						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != NOBODY &&
+						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID)
 						//swprintf(pStr, L"%s (%s)", ShortItemNames[pObject->usItem], MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
-						swprintf(pStr, L"(%s)", MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
+						swprintf(pStr, L"(%s)", gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID->GetName());
 					else
 						swprintf( pStr, L"%s", ShortItemNames[ pObject->usItem ] );
 				}
@@ -12838,7 +12842,7 @@ void CancelItemPointer( )
 				if ( !AutoPlaceObject( gpItemPointerSoldier, gpItemPointer, FALSE ) )
 				{
 					// Alright, place of the friggen ground!
-					AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+					AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 					NotifySoldiersToLookforItems( );
 				}
 			}
@@ -12846,7 +12850,7 @@ void CancelItemPointer( )
 		else
 		{
 			// We drop it here.....
-			AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+			AddItemToPool( gpItemPointerSoldier->sGridNo, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0, -1 );
 			NotifySoldiersToLookforItems( );
 		}
 		EndItemPointer( );
@@ -12875,7 +12879,7 @@ BOOLEAN LoadItemCursorFromSavedGame( HWFILE hFile )
 	}
 	else
 	{
-		gpItemPointerSoldier = MercPtrs[ SaveStruct.ubSoldierID ];
+		gpItemPointerSoldier = SaveStruct.ubSoldierID;
 	}
 
 	// Inv slot
@@ -12946,7 +12950,7 @@ void UpdateItemHatches()
   {
 		if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		}
 	}
 	else
@@ -12997,7 +13001,7 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 	// Change to INV panel if not there already...
 	gfSwitchPanel = TRUE;
 	gbNewPanel = SM_PANEL;
-	gubNewPanelParam = (UINT8)pSoldier->ubID;
+	gubNewPanelParam = pSoldier->ubID;
 
 	gItemPickupMenu.ubTotalItems = ubCount;
 
@@ -14661,7 +14665,7 @@ void UpdateMercBodyRegionHelpText( )
 		wcscpy( sString, L"" );
 
 		// valid soldier selected
-		pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
+		pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 		// health/energy/morale
 		if ( pSoldier->bAssignment != ASSIGNMENT_POW )
@@ -14673,7 +14677,7 @@ void UpdateMercBodyRegionHelpText( )
 					// robot (condition only)
 					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[3], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
-				else if ( Menptr[gCharactersList[bSelectedInfoChar].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE )
+				else if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle (condition/fuel)
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d",

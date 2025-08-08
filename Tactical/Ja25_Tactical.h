@@ -36,8 +36,8 @@ typedef struct
 extern	BOOLEAN		gfFirstTimeInGameHeliCrash;
 
 INT16		RandomProfileIdFromNewMercsOnPlayerTeam();
-INT16		RandomSoldierIdFromNewMercsOnPlayerTeam();
-UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray );
+SoldierID	RandomSoldierIdFromNewMercsOnPlayerTeam();
+UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierID *pSoldierIdArray, UINT8 *pProfileIdArray );
 BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier );
@@ -46,10 +46,10 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 
 //Pass in an array of size NUM_MERCS_WITH_NEW_QUOTES, array will be filled with
 //random soldier IDs of the qualified mercs
-UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
+UINT8 RandomArrayOfQualifiedMercs( SoldierID *pRandomSoldierIdArray );
 
 
-extern UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 );
+extern UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 );
 
 void HandleWhenCertainPercentageOfEnemiesDie();
 

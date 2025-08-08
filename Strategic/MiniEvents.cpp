@@ -1089,9 +1089,9 @@ namespace MiniEventHelpers
 		INT16 x = 0;
 		INT16 y = 0;
 		INT8 z = 0;
-		for (UINT32 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for (SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			const SOLDIERTYPE* merc = MercPtrs[i];
+			const SOLDIERTYPE* merc = i;
 			if (merc && merc->ubProfile == profileId)
 			{
 				x = merc->sSectorX;
@@ -1519,9 +1519,9 @@ void MiniEventsLua(UINT32 eventId)
 	gAllMercs.clear();
 
 	// get all mercs eligible to get a mini event
-	for (UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt)
+	for (SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[ cnt ];
+		SOLDIERTYPE* pSoldier = cnt;
 
 		if (pSoldier && pSoldier->bActive
 			&& pSoldier->stats.bLife > 0
@@ -1542,9 +1542,9 @@ void MiniEventsLua(UINT32 eventId)
 
 		// second param: a table containing basic info about all of the player's mercs ({ nickname = profileid })
 		f.TableOpen();
-		for (UINT32 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for (SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			const SOLDIERTYPE* merc = MercPtrs[i];
+			const SOLDIERTYPE* merc = i;
 			if (merc && merc->bActive && merc->bAssignment != IN_TRANSIT && !(merc->flags.uiStatusFlags & SOLDIER_VEHICLE) && !(AM_A_ROBOT(merc)))
 			{
 				std::wstring ws(gMercProfiles[merc->ubProfile].zNickname);
@@ -1561,9 +1561,9 @@ void MiniEventsLua(UINT32 eventId)
 		LuaFunction f = LuaFunction(gLS, "BeginRandomEvent");
 		// first param: a table containing basic info about all of the player's mercs ({ nickname = profileid })
 		f.TableOpen();
-		for (UINT32 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			const SOLDIERTYPE* merc = MercPtrs[i];
+			const SOLDIERTYPE* merc = i;
 			if (merc && merc->bActive && merc->bAssignment != IN_TRANSIT && !(merc->flags.uiStatusFlags & SOLDIER_VEHICLE) && !(AM_A_ROBOT(merc)))
 			{
 				std::wstring ws(gMercProfiles[merc->ubProfile].zNickname);
