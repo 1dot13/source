@@ -1980,17 +1980,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		//the soldier type info has changed at version 102
 		//CHRISL: To accomodate future changes to this structure, we'll load each value field by field
 		numBytesRead = 0;
-		if (guiCurrentSaveGameVersion >= INCREASED_TEAMSIZES)
-		{
-			numBytesRead = ReadFieldByField(hFile, &this->ubID, sizeof(ubID), sizeof(UINT16), numBytesRead);
-		}
-		else
-		{
-			numBytesRead = ReadFieldByField(hFile, &this->ubID, sizeof(ubID), sizeof(UINT8), numBytesRead);
-			// Read and discard bReserved1 so numBytesRead matches the struct size later
-			UINT8 bReserved1 = 0;
-			numBytesRead = ReadFieldByField(hFile, &bReserved1, sizeof(bReserved1), sizeof(UINT8), numBytesRead);
-		}
+		numBytesRead = ReadFieldByField(hFile, &this->ubID, sizeof(ubID), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->name, sizeof(name), sizeof(CHAR16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubBodyType, sizeof(ubBodyType), sizeof(UINT8), numBytesRead);
 
