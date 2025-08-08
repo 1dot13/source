@@ -3777,7 +3777,7 @@ void AddStringsToMoveBox( void )
 	CHAR16 sString[ 128 ], sStringB[ 128 ];
 	UINT32 hStringHandle;
 	BOOLEAN fFirstOne = TRUE;
-	const INT32 columnMaxEntries = 5 * gGameOptions.ubSquadSize;
+	const INT32 columnMaxEntries = 40;
 	INT32 entries = 0;
 	bool isFirstColumnFull = false;
 	bool secondColumnFull = false;
