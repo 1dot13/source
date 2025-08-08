@@ -29,38 +29,38 @@
 
 // HEY WIZARDRY DUDES, JA2 ISN'T THE ONLY PROGRAM WE COMPILE! :-)
 
-typedef unsigned int	UINT32;
-typedef signed __int64		 INT64;		// WANNE - BMP: Used for Big Maps
-typedef signed int	 INT32;
+typedef unsigned int		UINT32;
+typedef signed __int64		INT64;		// WANNE - BMP: Used for Big Maps
+typedef signed int			INT32;
 typedef unsigned __int64	UINT64;
 //typedef unsigned long long	UINT128;  //Madd:  Doing away with this redundant type
 
 // integers
 typedef unsigned char	UINT8;
-typedef signed char	 INT8;
+typedef signed char		INT8;
 typedef unsigned short	UINT16;
 typedef signed short	INT16;
 // floats
 typedef float			FLOAT;
 typedef double			DOUBLE;
 // strings
-typedef char					CHAR8;
-typedef wchar_t					CHAR16;
-typedef CHAR8 * 				STR;
-typedef CHAR8 *					STR8;
-typedef CHAR16 *				STR16;
+typedef char			CHAR8;
+typedef wchar_t			CHAR16;
+typedef CHAR8 * 		STR;
+typedef CHAR8 *			STR8;
+typedef CHAR16 *		STR16;
 // flags (individual bits used)
-typedef unsigned char		FLAGS8;
+typedef unsigned char	FLAGS8;
 typedef unsigned short	FLAGS16;
 typedef unsigned long	FLAGS32;
 typedef UINT64			FLAGS64;
 // other
-typedef unsigned char		BOOLEAN;
-typedef void *					PTR;
+typedef unsigned char	BOOLEAN;
+typedef void *			PTR;
 typedef unsigned short	HNDL;
-typedef UINT8						BYTE;
-typedef CHAR8						STRING512[512];
-typedef UINT32					HWFILE;
+typedef UINT8			BYTE;
+typedef CHAR8			STRING512[512];
+typedef UINT32			HWFILE;
 
 #define SGPFILENAME_LEN 100
 typedef CHAR8 SGPFILENAME[SGPFILENAME_LEN];	
