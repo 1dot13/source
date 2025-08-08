@@ -270,7 +270,7 @@ namespace LogicalBodyTypes {
 		/*****************************************
 		  Filter enum criterion types
 		******************************************/
-		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 43,
+		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 47,
 			Filter::REQ_HELMETPOS,
 			Filter::REQ_VESTPOS,
 			Filter::REQ_LEGPOS,
@@ -313,7 +313,11 @@ namespace LogicalBodyTypes {
 			Filter::REQ_LEGPOSATTACHMENT0,
 			Filter::REQ_LEGPOSATTACHMENT1,
 			Filter::REQ_LEGPOSATTACHMENT2,
-			Filter::REQ_LEGPOSATTACHMENT3
+			Filter::REQ_LEGPOSATTACHMENT3,
+			Filter::REQ_VESTPOSATTACHMENT0,
+			Filter::REQ_VESTPOSATTACHMENT1,
+			Filter::REQ_VESTPOSATTACHMENT2,
+			Filter::REQ_VESTPOSATTACHMENT3
 		);
 
 		/*****************************************

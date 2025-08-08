@@ -460,36 +460,36 @@ UINT16 usNumNodes;
 ***************************************************************************************/
 BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
-UINT16 usTileNo, usSrcTileNo;
+UINT32 uiTileNo, uiSrcTileNo;
 
 	Assert(gpWorldLevelData!=NULL);
 
-	usTileNo=MAPROWCOLTOPOS(iY, iX);
-	usSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+	uiTileNo=MAPROWCOLTOPOS(iY, iX);
+	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
 
-	if (TileIsOutOfBounds(usTileNo))
+	if (TileIsOutOfBounds(uiTileNo))
 	{
 		return( FALSE );
 	}
 
-	if (TileIsOutOfBounds(usSrcTileNo))
+	if (TileIsOutOfBounds(uiSrcTileNo))
 	{
 		return( FALSE );
 	}
 
-	if(gpWorldLevelData[ usTileNo ].sHeight > gpWorldLevelData[ usSrcTileNo ].sHeight)
+	if(gpWorldLevelData[ uiTileNo ].sHeight > gpWorldLevelData[ uiSrcTileNo ].sHeight)
 		return(TRUE);
 	{
-		UINT16 usTileNo;
+		UINT32 uiTileNo;
 		LEVELNODE *pStruct;
 
-		usTileNo=MAPROWCOLTOPOS(iY, iX);
+		uiTileNo=MAPROWCOLTOPOS(iY, iX);
 
-		pStruct = gpWorldLevelData[ usTileNo ].pStructHead;
+		pStruct = gpWorldLevelData[ uiTileNo ].pStructHead;
 		if ( pStruct != NULL )
 		{
 			// IF WE ARE A WINDOW, DO NOT BLOCK!
-			if ( FindStructure( usTileNo, STRUCTURE_WALLNWINDOW ) != NULL )
+			if ( FindStructure( uiTileNo, STRUCTURE_WALLNWINDOW ) != NULL )
 			{
 				return( FALSE );
 			}
@@ -509,8 +509,8 @@ BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
 //LEVELNODE *pStruct;
 //UINT32 uiType;
-UINT16 usTileNo;
-UINT16 usSrcTileNo;
+UINT32 uiTileNo;
+UINT32 uiSrcTileNo;
 INT8		bDirection;
 UINT8		ubTravelCost;
 //INT8		bWallCount = 0;
@@ -518,20 +518,20 @@ UINT8		ubTravelCost;
 
 	Assert(gpWorldLevelData!=NULL);
 
-	usTileNo=MAPROWCOLTOPOS(iY, iX);
-	usSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+	uiTileNo=MAPROWCOLTOPOS(iY, iX);
+	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
 
-	if ( usTileNo == usSrcTileNo )
+	if ( uiTileNo == uiSrcTileNo )
 	{
 		return( FALSE );
 	}
 	
-	if ( TileIsOutOfBounds(usTileNo))
+	if ( TileIsOutOfBounds(uiTileNo))
 	{
 		return( FALSE );
 	}
 
-	if ( TileIsOutOfBounds(usSrcTileNo))
+	if ( TileIsOutOfBounds(uiSrcTileNo))
 	{
 		return( FALSE );
 	}
@@ -541,7 +541,7 @@ UINT8		ubTravelCost;
 	bDirection = atan8( iSrcX, iSrcY, iX, iY );
 
 
-	ubTravelCost = gubWorldMovementCosts[ usTileNo ][ bDirection ][ 0 ];
+	ubTravelCost = gubWorldMovementCosts[ uiTileNo ][ bDirection ][ 0 ];
 
 	if ( ubTravelCost == TRAVELCOST_WALL	)
 	{
@@ -550,7 +550,7 @@ UINT8		ubTravelCost;
 
 	if ( IS_TRAVELCOST_DOOR( ubTravelCost ) )
 	{
-		ubTravelCost = DoorTravelCost( NULL, usTileNo, ubTravelCost, TRUE, NULL );
+		ubTravelCost = DoorTravelCost( NULL, uiTileNo, ubTravelCost, TRUE, NULL );
 
 		if ( ubTravelCost == TRAVELCOST_OBSTACLE || ubTravelCost == TRAVELCOST_DOOR )
 		{

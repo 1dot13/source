@@ -186,7 +186,6 @@ jobs:
         merge-multiple: true
 
     - name: Checkout Repo
-      if: github.ref == 'refs/heads/master'
       uses: actions/checkout@v4
       with:
         path: source
@@ -201,6 +200,7 @@ jobs:
         git push --delete origin refs/tags/latest || true
         git tag latest
         git push --force origin refs/tags/latest
+        sleep 15 # make sure github can find the tag for gh release
         gh release create latest ../dist/* \
           --generate-notes \
           --title "Latest (unstable)" \
@@ -213,7 +213,6 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/v')
       working-directory: source
       run: |
-        exit 0
         gh release upload "$GITHUB_REF_NAME" ../dist/* --clobber
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

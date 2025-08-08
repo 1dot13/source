@@ -342,8 +342,8 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 // Ja25:	no loyalty
 #else
 				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_SAM, sMapX, sMapY, bMapZ );
-				UpdateAirspaceControl( );
 #endif
+				UpdateAirspaceControl( );
 				// if Skyrider has been delivered to chopper, and already mentioned Drassen SAM site, but not used this quote yet
 				if ( IsHelicopterPilotAvailable( ) && ( guiHelicopterSkyriderTalkState >= 1 ) && ( !gfSkyriderSaidCongratsOnTakingSAM ) )
 				{

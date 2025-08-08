@@ -2398,617 +2398,528 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 								}
 								else
 								{
-									if (gbPixelDepth == 16)
+									/*if(fConvertTo16)
 									{
-										/*if(fConvertTo16)
+										ConvertVObjectRegionTo16BPP(hVObject, usImageIndex, 4);
+										if(CheckFor16BPPRegion(hVObject, usImageIndex, 4, &us16BPPIndex))
 										{
-											ConvertVObjectRegionTo16BPP(hVObject, usImageIndex, 4);
-											if(CheckFor16BPPRegion(hVObject, usImageIndex, 4, &us16BPPIndex))
-											{
-												Blt16BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES,  hVObject, sXPos, sYPos, us16BPPIndex, &gClippingRect);
-											}
-										}*/
-
-										if (fMultiTransShadowZBlitter)
-										{
-											if (fZBlitter)
-											{
-												if (fObscuredBlitter)
-												{
-													if (hVObjectAlpha == NULL) {
-														Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
-													}
-													else {
-														Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
-													}
-												}
-												else
-												{
-													if (hVObjectAlpha == NULL) {
-														Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
-													}
-													else {
-														Blt8BPPDataTo16BPPBufferTransZTransShadowIncClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
-													}
-												}
-											}
-											else
-											{
-												//Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect );
-											}
+											Blt16BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES,  hVObject, sXPos, sYPos, us16BPPIndex, &gClippingRect);
 										}
-										else if (fMultiZBlitter)
+									}*/
+
+									if (fMultiTransShadowZBlitter)
+									{
+										if (fZBlitter)
 										{
-											if (fZBlitter)
+											if (fObscuredBlitter)
 											{
-												if (fObscuredBlitter)
-												{
-													Blt8BPPDataTo16BPPBufferTransZIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												if (hVObjectAlpha == NULL) {
+													Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
 												}
-												else
-												{
-													if (fWallTile)
-													{
-														if (sZStripIndex == -1)
-														{
-															Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, usImageIndex);
-														}
-														else
-														{
-															Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sZStripIndex);
-														}
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferTransZIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
+												else {
+													Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
 												}
 											}
 											else
 											{
-												Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												if (hVObjectAlpha == NULL) {
+													Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+												}
+												else {
+													Blt8BPPDataTo16BPPBufferTransZTransShadowIncClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+												}
 											}
 										}
 										else
 										{
-											bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-											if (bBlitClipVal == TRUE)
-											{
-												if (fPixelate)
-												{
-													if (fTranslucencyType)
-													{
-														//if(fZWrite)
-														//	Blt8BPPDataTo16BPPBufferTransZClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														//else
-														Blt8BPPDataTo16BPPBufferTransZNBClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-													else
-													{
-														//if(fZWrite)
-														//	Blt8BPPDataTo16BPPBufferTransZClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														//else
-														Blt8BPPDataTo16BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-												}
-												else if (fMerc)
-												{
-													if (fZBlitter)
-													{
-														if (fZWrite)
-														{
-															if (hVObjectAlpha != NULL)
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowZClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																	hVObject,
-																	hVObjectAlpha,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	&gClippingRect,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-															else
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																	hVObject,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	&gClippingRect,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-														}
-														else
-														{
-															if (fObscuredBlitter)
-															{
-																if (hVObjectAlpha != NULL)
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		hVObjectAlpha,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		&gClippingRect,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-																else
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		&gClippingRect,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-															}
-															else
-															{
-																if (hVObjectAlpha != NULL)
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		hVObjectAlpha,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		&gClippingRect,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-																else
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		&gClippingRect,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-															}
-														}
-
-														if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
-														{
-															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
-
-															// BLIT HERE
-															if (hVObjectAlpha != NULL)
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																	hVObject,
-																	hVObjectAlpha,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	&gClippingRect,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-															else
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																	hVObject,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	&gClippingRect,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-
-															UnLockVideoSurface(guiSAVEBUFFER);
-
-															// Turn it off!
-															pNode->uiFlags &= (~LEVELNODE_UPDATESAVEBUFFERONCE);
-														}
-
-													}
-													else
-													{
-														if (hVObjectAlpha != NULL)
-														{
-															Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
-																hVObject,
-																hVObjectAlpha,
-																sXPos, sYPos,
-																usImageIndex,
-																&gClippingRect,
-																pShadeTable,
-																fIgnoreShadows);
-														}
-														else 
-														{
-															Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES,
-																hVObject,
-																sXPos, sYPos,
-																usImageIndex,
-																&gClippingRect,
-																pShadeTable,
-																fIgnoreShadows);
-														}
-													}
-												}
-												else if (fShadowBlitter)
-												{
-													if (fZBlitter)
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														else
-															Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-												}
-												else if (fIntensityBlitter)
-												{
-													if (fZBlitter)
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														else
-															Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferIntensityClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-												}
-												else if (fZBlitter)
-												{
-													if (fZWrite)
-													{
-														if (fObscuredBlitter)
-														{
-															Blt8BPPDataTo16BPPBufferTransZClipPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														}
-														else
-														{
-															Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														}
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-													}
-
-													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
-													{
-														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
-
-														// BLIT HERE
-														Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-														UnLockVideoSurface(guiSAVEBUFFER);
-													}
-
-												}
-												else
-													Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-											}
-											else if (bBlitClipVal == FALSE)
-											{
-												if (fPixelate)
-												{
-													if (fTranslucencyType)
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferTransZTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														else
-															Blt8BPPDataTo16BPPBufferTransZNBTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-													}
-													else
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferTransZPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														else
-															Blt8BPPDataTo16BPPBufferTransZNBPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-													}
-												}
-												else if (fMerc)
-												{
-													// Flugente: draw riot shield UNDER the soldier
-													if ( pSoldier &&
-														pSoldier->bVisible != -1 &&
-														( pSoldier->ubDirection == NORTH ||
-															pSoldier->ubDirection == NORTHWEST ||
-															pSoldier->ubDirection == WEST )
-														&& pSoldier->IsRiotShieldEquipped() )
-													{
-														ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
-													}
-
-													if (fZBlitter)
-													{
-														if (fZWrite)
-														{
-															if (hVObjectAlpha != NULL)
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowZAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																	hVObject,
-																	hVObjectAlpha,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-															else
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																	hVObject,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-														}
-														else
-														{
-															if (fObscuredBlitter)
-															{
-																if (hVObjectAlpha != NULL) {
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		hVObjectAlpha,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-																else {
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-															}
-															else
-															{
-																if (hVObjectAlpha != NULL)
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		hVObjectAlpha,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-																else
-																{
-																	Blt8BPPDataTo16BPPBufferTransShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																		hVObject,
-																		sXPos, sYPos,
-																		usImageIndex,
-																		pShadeTable,
-																		fIgnoreShadows);
-																}
-															}
-														}
-
-														if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
-														{
-															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
-
-															// BLIT HERE
-															if (hVObjectAlpha != NULL)
-															{
-																Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																	hVObject,
-																	hVObjectAlpha,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-															else
-															{
-																Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																	hVObject,
-																	sXPos, sYPos,
-																	usImageIndex,
-																	pShadeTable,
-																	fIgnoreShadows);
-															}
-
-															UnLockVideoSurface(guiSAVEBUFFER);
-
-														}
-
-													}
-													else
-													{
-														if (hVObjectAlpha != NULL)
-														{
-															Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
-																hVObject,
-																hVObjectAlpha,
-																sXPos, sYPos,
-																usImageIndex,
-																pShadeTable,
-																fIgnoreShadows);
-														}
-														else
-														{
-															Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pDestBuf, uiDestPitchBYTES,
-																hVObject,
-																sXPos, sYPos,
-																usImageIndex,
-																pShadeTable,
-																fIgnoreShadows);
-														}
-
-													}
-
-													// Flugente: draw riot shield OVER the soldier
-													if ( pSoldier &&
-														pSoldier->bVisible != -1 &&
-														( pSoldier->ubDirection == EAST ||
-															pSoldier->ubDirection == SOUTHEAST ||
-															pSoldier->ubDirection == SOUTH ||
-															pSoldier->ubDirection == SOUTHWEST ||
-															pSoldier->ubDirection == NORTHEAST )
-														&& pSoldier->IsRiotShieldEquipped() )
-													{
-														ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
-													}
-												}
-												else if (fShadowBlitter)
-												{
-													if (fZBlitter)
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														else
-															Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
-													}
-												}
-												else if (fIntensityBlitter)
-												{
-													if (fZBlitter)
-													{
-														if (fZWrite)
-															Blt8BPPDataTo16BPPBufferIntensityZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														else
-															Blt8BPPDataTo16BPPBufferIntensityZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-													}
-													else
-													{
-														Blt8BPPDataTo16BPPBufferIntensity((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
-													}
-												}
-												else if (fZBlitter)
-												{
-													if (fZWrite)
-													{
-														// TEST
-														//Blt8BPPDataTo16BPPBufferTransZPixelate( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-
-														if (fObscuredBlitter)
-														{
-															Blt8BPPDataTo16BPPBufferTransZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														}
-														else
-														{
-															Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-														}
-													}
-													else
-														Blt8BPPDataTo16BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-
-
-													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
-													{
-														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
-
-														// BLIT HERE
-														Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
-
-														UnLockVideoSurface(guiSAVEBUFFER);
-													}
-
-												}
-												else
-													Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
-											}
+											//Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect );
 										}
 									}
-									else // 8bpp section
+									else if (fMultiZBlitter)
 									{
-										if (fPixelate)
+										if (fZBlitter)
 										{
-											if (fZWrite)
-												Blt8BPPDataTo8BPPBufferTransZClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-											else
-												Blt8BPPDataTo8BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-										}
-										else if (BltIsClipped(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect))
-										{
-											if (fMerc)
+											if (fObscuredBlitter)
 											{
-												Blt8BPPDataTo8BPPBufferTransShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-													hVObject,
-													sXPos, sYPos,
-													usImageIndex,
-													&gClippingRect,
-													pShadeTable);
-											}
-											else if (fShadowBlitter)
-												if (fZWrite)
-													Blt8BPPDataTo8BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-												else
-													Blt8BPPDataTo8BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-											else if (fZBlitter)
-											{
-												if (fZWrite)
-													Blt8BPPDataTo8BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-												else
-													Blt8BPPDataTo8BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												Blt8BPPDataTo16BPPBufferTransZIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 											}
 											else
-												Blt8BPPDataTo8BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+											{
+												if (fWallTile)
+												{
+													if (sZStripIndex == -1)
+													{
+														Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, usImageIndex);
+													}
+													else
+													{
+														Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sZStripIndex);
+													}
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferTransZIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
+											}
 										}
 										else
 										{
-											if (fMerc)
-											{
+											Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+										}
+									}
+									else
+									{
+										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
-												// why to 16BPP here??
-												if (hVObjectAlpha != NULL)
+										if (bBlitClipVal == TRUE)
+										{
+											if (fPixelate)
+											{
+												if (fTranslucencyType)
 												{
-													Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-														hVObject,
-														hVObjectAlpha,
-														sXPos, sYPos,
-														usImageIndex,
-														pShadeTable,
-														fIgnoreShadows);
+													//if(fZWrite)
+													//	Blt8BPPDataTo16BPPBufferTransZClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													//else
+													Blt8BPPDataTo16BPPBufferTransZNBClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 												}
 												else
 												{
-													Blt8BPPDataTo16BPPBufferTransShadowZNBObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-														hVObject,
-														sXPos, sYPos,
-														usImageIndex,
-														pShadeTable,
-														fIgnoreShadows);
+													//if(fZWrite)
+													//	Blt8BPPDataTo16BPPBufferTransZClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													//else
+													Blt8BPPDataTo16BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 												}
+											}
+											else if (fMerc)
+											{
+												if (fZBlitter)
+												{
+													if (fZWrite)
+													{
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowZClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+													}
+													else
+													{
+														if (fObscuredBlitter)
+														{
+															if (hVObjectAlpha != NULL)
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+														else
+														{
+															if (hVObjectAlpha != NULL)
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNBClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+													}
 
-												//	Blt8BPPDataTo8BPPBufferTransShadowZNB( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-												//																							hVObject,
-												//																							sXPos, sYPos,
-												//																							usImageIndex,
-												//																							pShadeTable);
+													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
+													{
+														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
+
+														// BLIT HERE
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+
+														UnLockVideoSurface(guiSAVEBUFFER);
+
+														// Turn it off!
+														pNode->uiFlags &= (~LEVELNODE_UPDATESAVEBUFFERONCE);
+													}
+
+												}
+												else
+												{
+													if (hVObjectAlpha != NULL)
+													{
+														Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
+															hVObject,
+															hVObjectAlpha,
+															sXPos, sYPos,
+															usImageIndex,
+															&gClippingRect,
+															pShadeTable,
+															fIgnoreShadows);
+													}
+													else 
+													{
+														Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES,
+															hVObject,
+															sXPos, sYPos,
+															usImageIndex,
+															&gClippingRect,
+															pShadeTable,
+															fIgnoreShadows);
+													}
+												}
 											}
 											else if (fShadowBlitter)
 											{
-												if (fZWrite)
-													Blt8BPPDataTo8BPPBufferShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												if (fZBlitter)
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													else
+														Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
 												else
-													Blt8BPPDataTo8BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												{
+													Blt8BPPDataTo16BPPBufferShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
+											}
+											else if (fIntensityBlitter)
+											{
+												if (fZBlitter)
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													else
+														Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferIntensityClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
 											}
 											else if (fZBlitter)
 											{
 												if (fZWrite)
-													Blt8BPPDataTo8BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												{
+													if (fObscuredBlitter)
+													{
+														Blt8BPPDataTo16BPPBufferTransZClipPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													}
+													else
+													{
+														Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													}
+												}
 												else
-													Blt8BPPDataTo8BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												{
+													Blt8BPPDataTo16BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												}
+
+												if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
+												{
+													pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
+
+													// BLIT HERE
+													Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+
+													UnLockVideoSurface(guiSAVEBUFFER);
+												}
+
 											}
 											else
-												Blt8BPPDataTo8BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+												Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+
+										}
+										else if (bBlitClipVal == FALSE)
+										{
+											if (fPixelate)
+											{
+												if (fTranslucencyType)
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferTransZTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													else
+														Blt8BPPDataTo16BPPBufferTransZNBTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
+												else
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferTransZPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													else
+														Blt8BPPDataTo16BPPBufferTransZNBPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
+											}
+											else if (fMerc)
+											{
+												// Flugente: draw riot shield UNDER the soldier
+												if ( pSoldier &&
+													pSoldier->bVisible != -1 &&
+													( pSoldier->ubDirection == NORTH ||
+														pSoldier->ubDirection == NORTHWEST ||
+														pSoldier->ubDirection == WEST )
+													&& pSoldier->IsRiotShieldEquipped() )
+												{
+													ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
+												}
+
+												if (fZBlitter)
+												{
+													if (fZWrite)
+													{
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowZAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+													}
+													else
+													{
+														if (fObscuredBlitter)
+														{
+															if (hVObjectAlpha != NULL) {
+																Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else {
+																Blt8BPPDataTo16BPPBufferTransShadowZNBObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+														else
+														{
+															if (hVObjectAlpha != NULL)
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNBAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+													}
+
+													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
+													{
+														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
+
+														// BLIT HERE
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+
+														UnLockVideoSurface(guiSAVEBUFFER);
+
+													}
+
+												}
+												else
+												{
+													if (hVObjectAlpha != NULL)
+													{
+														Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
+															hVObject,
+															hVObjectAlpha,
+															sXPos, sYPos,
+															usImageIndex,
+															pShadeTable,
+															fIgnoreShadows);
+													}
+													else
+													{
+														Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pDestBuf, uiDestPitchBYTES,
+															hVObject,
+															sXPos, sYPos,
+															usImageIndex,
+															pShadeTable,
+															fIgnoreShadows);
+													}
+
+												}
+
+												// Flugente: draw riot shield OVER the soldier
+												if ( pSoldier &&
+													pSoldier->bVisible != -1 &&
+													( pSoldier->ubDirection == EAST ||
+														pSoldier->ubDirection == SOUTHEAST ||
+														pSoldier->ubDirection == SOUTH ||
+														pSoldier->ubDirection == SOUTHWEST ||
+														pSoldier->ubDirection == NORTHEAST )
+													&& pSoldier->IsRiotShieldEquipped() )
+												{
+													ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
+												}
+											}
+											else if (fShadowBlitter)
+											{
+												if (fZBlitter)
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													else
+														Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+												}
+											}
+											else if (fIntensityBlitter)
+											{
+												if (fZBlitter)
+												{
+													if (fZWrite)
+														Blt8BPPDataTo16BPPBufferIntensityZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													else
+														Blt8BPPDataTo16BPPBufferIntensityZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferIntensity((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+												}
+											}
+											else if (fZBlitter)
+											{
+												if (fZWrite)
+												{
+													// TEST
+													//Blt8BPPDataTo16BPPBufferTransZPixelate( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+
+													if (fObscuredBlitter)
+													{
+														Blt8BPPDataTo16BPPBufferTransZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													}
+													else
+													{
+														Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+													}
+												}
+												else
+													Blt8BPPDataTo16BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+
+
+												if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
+												{
+													pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
+
+													// BLIT HERE
+													Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+
+													UnLockVideoSurface(guiSAVEBUFFER);
+												}
+
+											}
+											else
+												Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 										}
 									}
 

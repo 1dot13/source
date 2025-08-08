@@ -152,6 +152,7 @@
 #endif
 
 #include "LuaInitNPCs.h"
+#include <language.hpp>
 
 
 #ifdef JA2UB
@@ -1466,7 +1467,17 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->ubLastDateSpokenTo, sizeof(this->ubLastDateSpokenTo), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bLastQuoteSaidWasSpecial, sizeof(this->bLastQuoteSaidWasSpecial), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bSectorZ, sizeof(this->bSectorZ), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(this->usStrategicInsertionData), sizeof(UINT16), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= MERC_PROFILE_INSERTION_DATA )
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof( this->usStrategicInsertionData ), sizeof( UINT32 ), numBytesRead );
+		}
+		else
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usStrategicInsertionData, sizeof(UINT16), sizeof(UINT16), numBytesRead);
+			buffer += 4; // To make numBytesRead check match the struct size. 2 bytes from uint32 - uint16 and 2 bytes due to struct memory layout change when usStrategicInsertionData was increased to uint32
+		}
+
 		numBytesRead = ReadFieldByField( hFile, &this->bFriendlyOrDirectDefaultResponseUsedRecently, sizeof(this->bFriendlyOrDirectDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bRecruitDefaultResponseUsedRecently, sizeof(this->bRecruitDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bThreatenDefaultResponseUsedRecently, sizeof(this->bThreatenDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
@@ -7057,7 +7068,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 					}
 				}
 
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 				// Fix neutral flags
 				if ( guiCurrentSaveGameVersion < 94 )
 				{
@@ -7067,7 +7078,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 						Menptr[ cnt].aiData.bNeutral = FALSE;
 					}
 				}
-#endif
+}
 				//#ifdef JA2UB
 				//if the soldier has the NON weapon version of the merc knofe or merc umbrella
 				//ConvertWeapons( &Menptr[ cnt ] );
@@ -9749,9 +9760,9 @@ UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader )
 		}
 	}
 
-	#ifdef GERMAN
+	if( g_lang == i18n::Lang::de ) {
 		uiEncryptionSet *= 11;
-	#endif
+	}
 
 	uiEncryptionSet = uiEncryptionSet % 10;
 

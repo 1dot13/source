@@ -67,6 +67,7 @@
 #include "ub_config.h"
 
 #include "history.h"
+#include <language.hpp>
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1344,10 +1345,10 @@ void HandleDialogue( )
 			{
 				HandleEveryoneDoneTheirEndGameQuotes();
 			}
-			else
+			else if ( QItem.uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_GETUP_AFTER_HELI_CRASH )
 			{
 				// grab soldier ptr from profile ID
-				pSoldier = FindSoldierByProfileID( (UINT8)QItem.uiSpecialEventData, FALSE );
+				pSoldier = FindSoldierByProfileID( (UINT8)QItem.uiSpecialEventData2, FALSE );
 
 				// FindSoldier was returning a lot of nullptrs which would crash the game very quickly after Jerry gets up. This check is here to circumvent that.
 				if (pSoldier != nullptr)
@@ -2408,8 +2409,8 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	{
 		if ( fWavFile )
 		{
-#ifdef RUSSIAN
-				if ( ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC ||
+				if ( g_lang == i18n::Lang::ru &&
+				     ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC ||
 					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_NPC ||
 					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_VEHICLE ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
@@ -2427,7 +2428,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 #endif
 				}
 				else
-#endif
+
 			{
 				// build name of wav file (characternum + quotenum)
 				sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );

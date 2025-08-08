@@ -1199,7 +1199,14 @@ BOOLEAN InternalAddSoldierToSector(SoldierID ubID, BOOLEAN fCalculateDirection, 
 			if( fCalculateDirection )
 				ubDirection = ubCalculatedDirection;
 			else
+			{
+				// Override calculated direction if we were told to....
+				if ( pSoldier->ubInsertionDirection >= 100 )
+				{
+					pSoldier->ubInsertionDirection -= 100;
+				}
 				ubDirection = pSoldier->ubInsertionDirection;
+			}
 		}
 		else
 		{			

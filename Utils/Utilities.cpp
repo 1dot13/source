@@ -15,8 +15,6 @@
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
-#define		DATA_8_BIT_DIR	"8-Bit\\"
-
 BOOLEAN PerformTimeLimitedCheck();
 
 // WANNE: Given a string, replaces all instances of "oldpiece" with "newpiece"
@@ -97,26 +95,7 @@ BOOLEAN PerformTimeLimitedCheck();
 //#define	TIME_LIMITED_VERSION
 void FilenameForBPP(STR pFilename, STR pDestination)
 {
-CHAR8 Drive[128], Dir[128], Name[128], Ext[128];
-
-	if(GETPIXELDEPTH()==16)
-	{
-		// no processing for 16 bit names
-		strcpy(pDestination, pFilename);
-	}
-	else
-	{
-		_splitpath(pFilename, Drive, Dir, Name, Ext);
-
-		strcat(Name, "_8");
-
-		strcpy(pDestination, Drive);
-		//strcat(pDestination, Dir);
-		strcat(pDestination, DATA_8_BIT_DIR);
-		strcat(pDestination, Name);
-		strcat(pDestination, Ext);
-	}
-
+	strcpy(pDestination, pFilename);
 }
 
 BOOLEAN CreateSGPPaletteFromCOLFile( SGPPaletteEntry *pPalette, SGPFILENAME ColFile )

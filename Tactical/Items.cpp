@@ -1271,13 +1271,21 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
 		return FALSE;
 
-	// silversurfer: no food items if the food system is off
-	if ( !UsingFoodSystem() && Item[ usItemIndex ].foodtype > 0 )
+	// kitty: players might want food items in game for roleplay reasons, i.e. when interacting with npc-dealer in restaurant, no food might seems odd
+	// with the option "ALWAYS_FOOD" set TRUE, food items will show even without using the foodsystem
+	// should it be set to FALSE, no food items will be shown without using the foodsystem
+	if (!gGameExternalOptions.fAlwaysFood)
 	{
-		// Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
-		if ( Food[Item[usItemIndex].foodtype].bFoodPoints > 0 )
-			return FALSE;
-	}
+		  // silversurfer: no food items if the food system is off
+	      if (!UsingFoodSystem() && Item[usItemIndex].foodtype > 0 )
+		  {
+		      // silversurfer: Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
+		      // kitty: and only if food isn't a drug at the same time, to make sure using those drugs without food system is possible
+			  if (Food[Item[usItemIndex].foodtype].bFoodPoints > 0 && Item[usItemIndex].drugtype == 0 )
+
+				   return FALSE;
+	      }
+    }
 
 	// kitty: no disease items if the disease system is off
 	// whether the item is exclusive is defined by tag
@@ -12075,7 +12083,7 @@ BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsDetonator(iter->usItem) && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_DETONATOR ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -12091,7 +12099,7 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsRemoteDetonator(iter->usItem) && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_REMOTEDET ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -16081,8 +16089,6 @@ BOOLEAN ItemIsFlare(UINT16 usItem) { return HasItemFlag(usItem, ITEM_flare); }
 BOOLEAN ItemIsGrenadeLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_grenadelauncher); }
 BOOLEAN ItemIsMortar(UINT16 usItem) { return HasItemFlag(usItem, ITEM_mortar); }
 BOOLEAN ItemIsDuckbill(UINT16 usItem) { return HasItemFlag(usItem, ITEM_duckbill); }
-BOOLEAN ItemIsDetonator(UINT16 usItem) { return HasItemFlag(usItem, ITEM_detonator); }
-BOOLEAN ItemIsRemoteDetonator(UINT16 usItem) { return HasItemFlag(usItem, ITEM_remotedetonator); }
 BOOLEAN ItemHasHiddenMuzzleFlash(UINT16 usItem) { return HasItemFlag(usItem, ITEM_hidemuzzleflash); }
 BOOLEAN ItemIsRocketLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_rocketlauncher); }
 // usItemFlag2

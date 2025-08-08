@@ -10,7 +10,6 @@
 	#include	"GameVersion.h"
 	#include	"LibraryDataBase.h"
 	#include	"Debug.h"
-	#include	"Language Defines.h"
 	#include "HelpScreen.h"
 	#include "INIReader.h"
 	#include "Shade Table Util.h"
@@ -45,7 +44,7 @@
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/File/vfs_file.h>
 
-#define				GAME_SETTINGS_FILE				"Ja2_Settings.INI"
+#define				GAME_SETTINGS_FILE				"Ja2_Settings.ini"
 
 #define				FEATURE_FLAGS_FILE				"Ja2_Features.ini"
 
@@ -1999,6 +1998,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fFoodDecayInSectors							= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_DECAY_IN_SECTORS", TRUE);
 	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0f, 0.1f, 10.0f);
 	gGameExternalOptions.fFoodEatingSounds								= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_EATING_SOUNDS", TRUE);
+	gGameExternalOptions.fAlwaysFood                                    = iniReader.ReadBoolean("Tactical Food Settings", "ALWAYS_FOOD", FALSE);
 	
 	//################# Disease Settings ##################
 	gGameExternalOptions.fDisease										= iniReader.ReadBoolean( "Disease Settings", "DISEASE", FALSE );
@@ -3794,7 +3794,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_WIS						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_WIS",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AGI						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_AGI",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_EXP_LEVEL					= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_EXP_LEVEL",2.0, 0.0, 100.0);
-	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR		= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR",2.0, 1.0, 100.0);
+	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR		= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_AUTO_WEAPONS_DIVISOR",2.0, 1.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_TRACER_BONUS				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_TRACER_BONUS",10.0, -1000.0, 1000.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_ANTICIPATION				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_ANTICIPATION",25.0, -1000.0, 1000.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_COMPENSATION				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_COMPENSATION",2.0, 0.0, 5.0);

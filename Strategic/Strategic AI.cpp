@@ -1609,6 +1609,11 @@ void InitStrategicAI()
 				case 1:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						// (0,0) coordinates signify a not used cache sector
+						if ( gModSettings.ubWeaponCache1X == 0 || gModSettings.ubWeaponCache1Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;					
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);	
@@ -1627,6 +1632,10 @@ void InitStrategicAI()
 				case 2:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache2X == 0 || gModSettings.ubWeaponCache2Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
@@ -1645,6 +1654,10 @@ void InitStrategicAI()
 				case 3:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache3X == 0 || gModSettings.ubWeaponCache3Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
@@ -1663,6 +1676,10 @@ void InitStrategicAI()
 				case 4:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache4X == 0 || gModSettings.ubWeaponCache4Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
@@ -1681,6 +1698,10 @@ void InitStrategicAI()
 				case 5:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache5X == 0 || gModSettings.ubWeaponCache5Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
@@ -1705,25 +1726,40 @@ void InitStrategicAI()
 	}
 	else
 	{
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
+		if ( gModSettings.ubWeaponCache1X != 0 && gModSettings.ubWeaponCache1Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y )]; //SEC_E11
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
+		if ( gModSettings.ubWeaponCache2X != 0 && gModSettings.ubWeaponCache2Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y )]; //SEC_H5
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
+		if ( gModSettings.ubWeaponCache3X != 0 && gModSettings.ubWeaponCache3Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y )]; //SEC_H10
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
+		if ( gModSettings.ubWeaponCache4X != 0 && gModSettings.ubWeaponCache4Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y )]; //SEC_J12
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);		
+		if ( gModSettings.ubWeaponCache5X != 0 && gModSettings.ubWeaponCache5Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y )]; //SEC_M9
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
+		}
 		
 		/*
 		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
@@ -7113,15 +7149,16 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT16 groupSize, UINT16
 			tankCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
 		{
 			troopCount--;
 			jeepCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
 		{
-			const int numRobots = 1 + Random(difficultyMod);
+			// Limit amount of robots, if randomized difficulty bonus would cause us to go over the troopCount amount
+			const int numRobots = min( (1 + Random(difficultyMod)), troopCount); 
 			troopCount -= numRobots;
 			robotCount += numRobots;
 		}

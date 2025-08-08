@@ -459,14 +459,7 @@ BOOLEAN InitializeTacticalInterface(	)
 
 	// failing the CHECKF after this will cause you to lose your mouse
 
-	if ( GETPIXELDEPTH() == 8 )
-	{
-		strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT_8.pcx" );
-	}
-	else if ( GETPIXELDEPTH() == 16 )
-	{
-		strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT.STI" );
-	}
+	strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT.STI" );
 
 	if( !AddVideoSurface( &vs_desc, &guiINTEXT ) )
 		AssertMsg( 0, "Missing INTERFACE\\In_text.sti");
@@ -3556,10 +3549,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		}
 		if ( pSoldier->ubID == gusSelectedSoldier )
 		{
-			if(gbPixelDepth==16)
-				RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color16, pDestBuf);
-			else
-				RectangleDraw8( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color8, pDestBuf);
+			RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color16, pDestBuf);
 		}
 	}
 
@@ -5805,10 +5795,7 @@ void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16
 	{
 		for( INT32 i=0; i < height; i++ )
 		{
-			if(gbPixelDepth==16)
-				LineDraw( TRUE, x, y+i, x+width-1, y+i, color16, pDestBuf );
-			else if(gbPixelDepth==8)
-				LineDraw8( TRUE, x, y+i, x+width-1, y+i, color8, pDestBuf );
+			LineDraw( TRUE, x, y+i, x+width-1, y+i, color16, pDestBuf );
 		}
 	}
 }

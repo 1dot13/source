@@ -1,4 +1,4 @@
-	#include "builddefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 
@@ -1069,10 +1069,7 @@ void ShowCurrentDrawingMode( void )
 	// Set the color for the window's border. Blueish color = Normal, Red = Fake lighting is turned on
 	usFillColor = GenericButtonFillColors[0];
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	if(gbPixelDepth==16)
-		RectangleDraw( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
-	else if(gbPixelDepth==8)
-		RectangleDraw8( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
+	RectangleDraw( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
@@ -2953,6 +2950,23 @@ UINT32 WaitForSelectionWindowResponse( void )
 			}
 		}
 	}
+
+	// Mousewheel scroll
+	if (_WheelValue > 0)
+	{
+		while (_WheelValue--)
+		{
+			ScrollSelWinUp();
+		}
+	}
+	else
+	{
+		while (_WheelValue++)
+		{
+			ScrollSelWinDown();
+		}
+	}
+	_WheelValue = 0;
 
 	if ( DoWindowSelection( ) )
 	{

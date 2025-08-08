@@ -238,7 +238,8 @@ void LoadGameUBOptions()
 	gGameUBOptions.PowergenSectorGridNo3 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_3", 14155);	
 	gGameUBOptions.PowergenSectorGridNo4 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_4", 13980);	
 	
-	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749);	
+	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger( "Unfinished Business Settings", "POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749 );
+	gGameUBOptions.PowergenSectorExitgridSrcGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_SRC_GRIDNO", 10979 );
 	gGameUBOptions.PowergenFanSoundGridNo1 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_1", 10979);	
 	gGameUBOptions.PowergenFanSoundGridNo2 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_2", 19749);	
 	gGameUBOptions.StartFanbackupAgainGridNo = iniReader.ReadInteger("Unfinished Business Settings","START_FANBACKUP_AGAIN_GRIDNO", 10980);	
@@ -354,6 +355,11 @@ void LoadGameUBOptions()
 	gGameUBOptions.H10SectorPlayerQuoteX = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_X", 10); 	
 	gGameUBOptions.H10SectorPlayerQuoteY = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Y", 8); 
 	gGameUBOptions.H10SectorPlayerQuoteZ = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Z", 0); 
+
+
+	gGameUBOptions.BettyBloodCatSectorX = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_X", 10 );
+	gGameUBOptions.BettyBloodCatSectorY = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Y", 9 );
+	gGameUBOptions.BettyBloodCatSectorZ = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Z", 0 );
 
 
 	if ( gGameUBOptions.InGameHeli == TRUE ) 

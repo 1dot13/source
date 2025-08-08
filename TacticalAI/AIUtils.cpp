@@ -2784,7 +2784,7 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 	BOOL OppPosKnown = FALSE;
 	if (CREATURE_OR_BLOODCAT(pSoldier))
 	{
-		if (pSoldier->aiData.bAlertStatus == STATUS_BLACK)
+		if (pSoldier->aiData.bAlertStatus > STATUS_YELLOW)
 		{
 			*pusFromGridNo = pSoldier->sGridNo; // from current position!
 			return(MAX_ROAMING_RANGE);

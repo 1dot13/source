@@ -23,7 +23,8 @@ extern	CHAR16		zBuildInformation[256];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
-#define			INCREASED_TEAMSIZES								185 // Asdow: SOLDIERTYPE ubID changed from UINT8 -> UINT16
+#define			INCREASED_TEAMSIZES								186 // Asdow: SOLDIERTYPE ubID changed from UINT8 -> UINT16
+#define			MERC_PROFILE_INSERTION_DATA					    185 // Bigmap support for AddProfileToMap function
 #define			GROWTH_MODIFIERS								184
 #define			REBELCOMMAND									183
 #define			DRAGSTRUCTURE									182 // Flugente: we can drag structures behind us

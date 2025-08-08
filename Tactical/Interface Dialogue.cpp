@@ -2355,7 +2355,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 			case NPC_ACTION_HAVE_PACOS_FOLLOW:
 				pSoldier = FindSoldierByProfileID( 114, FALSE );
-				sGridNo = 18193; //dnl!!!
+				sGridNo = 8537; //dnl!!!
+				//kitty: changed gridno from 18193 to 8537, that's at entrance door to rebel basement, where Fatima and Dimitri dialogue happens
 				if (pSoldier)
 				{
 					if (NewOKDestination( pSoldier, sGridNo, TRUE, 0 ) )
@@ -4334,7 +4335,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_PUT_PACOS_IN_BASEMENT:
 				gMercProfiles[ PACOS ].sSectorX = 10;
 				gMercProfiles[ PACOS ].sSectorY = MAP_ROW_A;
-				gMercProfiles[ PACOS ].bSectorZ = 0;
+				gMercProfiles[ PACOS ].bSectorZ = 1; //kitty: fixed - first level underground is 1, not 0 
 				break;
 			case NPC_ACTION_HISTORY_ASSASSIN:
 				AddHistoryToPlayersLog( HISTORY_ASSASSIN, 0, GetWorldTotalMin(), gWorldSectorX, gWorldSectorY );

@@ -24,14 +24,15 @@ AbstractXMLLoader::ParseData* AbstractXMLLoader::MakeParseData(XML_Parser* parse
 	return new ParseData(parser);
 }
 
-bool AbstractXMLLoader::LoadFromFile(const char* directoryName, const char* fileName) {
+bool AbstractXMLLoader::LoadFromFile(const char* directoryName, const char* fileName, CHAR8* errorBuf) {
 	HWFILE hFile;
 	UINT32 uiBytesRead;
 	UINT32 uiFSize;
 	CHAR8* lpcBuffer;
 	char fileNameFull[MAX_PATH + 1];
 	if (strlen(fileName) + strlen(directoryName) >= MAX_PATH) {
-		LiveMessage("Can't load file. Concatinated filename too long for buffer!");
+		sprintf(errorBuf, "Can't load file %s%s, Concatenated filename too long for buffer!", directoryName, fileName);
+		LiveMessage(errorBuf);
 		return false;
 	}
 	SetDirectoryName(directoryName);
@@ -46,12 +47,14 @@ bool AbstractXMLLoader::LoadFromFile(const char* directoryName, const char* file
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, msg.c_str());
 	hFile = FileOpen(fileNameFull, FILE_ACCESS_READ, FALSE);
 	if (!hFile) {
+		sprintf(errorBuf, "Can't open %s", fileNameFull);
 		delete data;
 		return false;
 	}
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8*)MemAlloc(uiFSize + 1);
 	if (!FileRead(hFile, lpcBuffer, uiFSize, &uiBytesRead)) {
+		sprintf(errorBuf, "Error reading %s to buffer", fileNameFull);
 		MemFree(lpcBuffer);
 		delete data;
 		return false;
@@ -72,7 +75,6 @@ bool AbstractXMLLoader::LoadFromFile(const char* directoryName, const char* file
 
 	try {
 		if (!XML_Parse(parser, lpcBuffer, uiFSize, TRUE)) {
-			CHAR8 errorBuf[512];
 			sprintf(errorBuf, "XML Parser Error in %s[%d]: %s", fileNameFull, XML_GetCurrentLineNumber(parser), XML_ErrorString(XML_GetErrorCode(parser)));
 			LiveMessage(errorBuf);
 			MemFree(lpcBuffer);
@@ -80,7 +82,6 @@ bool AbstractXMLLoader::LoadFromFile(const char* directoryName, const char* file
 			return false;
 		}
 	} catch (XMLParseException e) {
-		CHAR8 errorBuf[512];
 		sprintf(errorBuf, "XML Parser Exception in %s[%d]: %s", fileNameFull, e._LINE, e.what());
 		LiveMessage(errorBuf);
 		MemFree(lpcBuffer);

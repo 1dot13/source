@@ -44,7 +44,6 @@
 	#include "soldier macros.h"
 	#include "squads.h"
 	#include "MessageBoxScreen.h"
-	#include "Language Defines.h"
 	#include "GameSettings.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Quests.h"
@@ -55,6 +54,7 @@
 	#include "Food.h"	// added by Flugente
 
 #include "Multi Language Graphic Utils.h"
+#include <language.hpp>
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2527,7 +2527,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// REMOTE DETONATOR
-		if (ItemIsRemoteDetonator(gpItemDescObject->usItem))
+		if ( IsAttachmentClass( gpItemDescObject->usItem, AC_REMOTEDET ) )
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 15 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 15 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -2536,7 +2536,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// TIMER DETONATOR
-		if (ItemIsDetonator(gpItemDescObject->usItem))
+		if ( IsAttachmentClass( gpItemDescObject->usItem, AC_DETONATOR ))
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 16 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 16 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -6246,16 +6246,16 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	//////////////////// REMOTE DETONATOR
-	if ( (ItemIsRemoteDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
-		( fComparisonMode && ItemIsRemoteDetonator(gpComparedItemDescObject->usItem) ) )
+	if ( (IsAttachmentClass( gpItemDescObject->usItem, AC_REMOTEDET ) && !fComparisonMode ) ||
+		( fComparisonMode && IsAttachmentClass( gpComparedItemDescObject->usItem, AC_REMOTEDET )) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 15, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 
 	//////////////////// TIMER DETONATOR
-	if ( (ItemIsDetonator(gpItemDescObject->usItem) && !fComparisonMode ) ||
-		( fComparisonMode && ItemIsDetonator(gpComparedItemDescObject->usItem)) )
+	if ( (IsAttachmentClass( gpItemDescObject->usItem, AC_DETONATOR ) && !fComparisonMode ) ||
+		( fComparisonMode && IsAttachmentClass( gpComparedItemDescObject->usItem, AC_DETONATOR )) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 16, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
@@ -6587,11 +6587,11 @@ void DrawPropertyValueInColour( INT16 iValue, UINT8 ubNumLine, UINT8 ubNumRegion
 
 	if( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
 	{
-	#ifdef CHINESE
+	if( g_lang == i18n::Lang::zh ) {
 		wcscat( pStr, ChineseSpecString1 );
-	#else
+	} else {
 		wcscat( pStr, L"%" );
-	#endif
+	}
 	}
 
 	mprintf( usX, usY, pStr );
@@ -6682,11 +6682,11 @@ void DrawPropertyValueInColour_X( INT16 iValue, UINT8 numBullets, UINT8 ubNumLin
 
 	if ( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
 	{
-#ifdef CHINESE
+if( g_lang == i18n::Lang::zh ) {
 		wcscat( pStr, ChineseSpecString1 );
-#else
+} else {
 		wcscat( pStr, L"%" );
-#endif
+}
 	}
 
 	mprintf( usX, usY, pStr );
@@ -10357,11 +10357,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -10369,11 +10369,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -10485,11 +10485,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -10497,11 +10497,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -10613,11 +10613,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -10625,11 +10625,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -10746,11 +10746,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						swprintf( pStr, L"+%d", iModifier[cnt2] );
 						wcscat( pStr, L"%" );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iModifier[cnt2] < 0)
 					{
@@ -10758,11 +10758,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						swprintf( pStr, L"%d", iModifier[cnt2] );
 						wcscat( pStr, L"%" );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -10817,11 +10817,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						swprintf( pStr, L"+%d", iModifier[cnt2] );
 						wcscat( pStr, L"%" );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iModifier[cnt2] < 0)
 					{
@@ -10829,11 +10829,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						swprintf( pStr, L"%d", iModifier[cnt2] );
 						wcscat( pStr, L"%" );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode && cnt2 != 1 )
 					{
@@ -10889,11 +10889,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -10901,11 +10901,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -10959,11 +10959,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -10971,11 +10971,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11028,11 +11028,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11040,11 +11040,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11097,11 +11097,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11109,11 +11109,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11521,11 +11521,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11533,11 +11533,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11765,11 +11765,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11777,11 +11777,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11834,11 +11834,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11846,11 +11846,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -11962,11 +11962,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"-%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -11974,11 +11974,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12032,11 +12032,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"-%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12044,11 +12044,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12102,11 +12102,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"-%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12114,11 +12114,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12172,11 +12172,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"-%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12184,11 +12184,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12242,11 +12242,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"-%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12254,11 +12254,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12491,11 +12491,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] > 0)
 				{
@@ -12503,11 +12503,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", abs(iModifier[cnt2]) );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12680,11 +12680,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12692,11 +12692,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12750,11 +12750,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12762,11 +12762,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12820,11 +12820,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12832,11 +12832,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12890,11 +12890,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12902,11 +12902,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -12960,11 +12960,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -12972,11 +12972,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13030,11 +13030,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13042,11 +13042,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13100,11 +13100,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13112,11 +13112,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13170,11 +13170,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13182,11 +13182,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13240,11 +13240,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13252,11 +13252,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13310,11 +13310,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13322,11 +13322,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13380,11 +13380,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13392,11 +13392,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13450,11 +13450,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if (iModifier[cnt2] < 0)
 				{
@@ -13462,11 +13462,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
+					if( g_lang == i18n::Lang::zh ) {
 						wcscat( pStr, ChineseSpecString1 );
-					#else
+					} else {
 						wcscat( pStr, L"%" );
-					#endif
+					}
 				}
 				else if( fComparisonMode )
 				{
@@ -13539,11 +13539,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13552,11 +13552,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13616,11 +13616,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13629,11 +13629,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13693,11 +13693,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.0f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13706,11 +13706,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.0f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13770,11 +13770,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.0f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13783,11 +13783,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.0f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13844,11 +13844,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13857,11 +13857,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13918,11 +13918,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -13931,11 +13931,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -13989,11 +13989,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -14002,11 +14002,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -14060,11 +14060,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -14073,11 +14073,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -14131,11 +14131,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -14144,11 +14144,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -14212,11 +14212,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 							swprintf( pStr, L"+%4.2f", iFloatModifier[cnt2] );
 
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if (iFloatModifier[cnt2] < 0)
 					{
@@ -14225,11 +14225,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						#ifdef CHINESE
+						if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-						#else
+						} else {
 							wcscat( pStr, L"%" );
-						#endif
+						}
 					}
 					else if( fComparisonMode )
 					{
@@ -14595,11 +14595,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						if( !( fComparisonMode && iModifier[0] == 0 ) )
 						{
 							wcscat( pStr, L"%" );							
-#ifdef CHINESE
+if( g_lang == i18n::Lang::zh ) {
 							wcscat( pStr, ChineseSpecString1 );
-#else
+} else {
 							wcscat( pStr, L"%" );
-#endif
+}
 						}
 						mprintf( usX, usY, pStr );
 					}

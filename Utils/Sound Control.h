@@ -381,7 +381,9 @@ enum SoundDefines
 	S_VAL,
 	//BREAK_LIGHT_IGNITING,
 
-	NUM_SAMPLES
+	NUM_SAMPLES,
+	POWER_GEN_FAN_SOUND = 5001 // This is a workaround to get the generator fan positional sound working in UB campaign.
+	// Had to special case it because sound effects have been externalized.
 };
 
 enum AmbientDefines
@@ -455,7 +457,7 @@ void PlayDelayedJA2Sample( UINT32 uiDelay, UINT32 usNum, UINT32 usRate, UINT32 u
 #define POSITION_SOUND_FROM_SOLDIER	0x00000001
 #define POSITION_SOUND_STATIONATY_OBJECT	0x00000002
 
-INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay );
+INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay, UINT8 volume );
 void DeletePositionSnd( INT32 iPositionSndIndex );
 void SetPositionSndsActive( );
 void SetPositionSndsInActive( );

@@ -5,7 +5,6 @@
 
 #include "MapScreen Quotes.h"
 
-#define		PGF__FAN_EXIT_GRID_GRIDNO																	10979
 
 #define		NUM_MERCS_WITH_NEW_QUOTES												20//7
 
@@ -143,6 +142,10 @@ extern UINT8 BETTY_UB;
 extern UINT8 RAUL_UB;
 extern UINT8 MORRIS_UB;
 extern UINT8 RUDY_UB;
+
+extern INT16  BETTY_BLOODCAT_SECTOR_X;
+extern INT16  BETTY_BLOODCAT_SECTOR_Y;
+extern INT8   BETTY_BLOODCAT_SECTOR_Z;
 
 extern void Old_UB_Inventory ();
 extern void New_UB_Inventory ();

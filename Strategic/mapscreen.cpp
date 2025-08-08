@@ -11,10 +11,8 @@
 	#include "font.h"
 	#include "screenids.h"
 	#include "screens.h"
-	#include "gameloop.h"
 	#include "overhead.h"
 	#include "sysutil.h"
-	#include "input.h"
 	#include "Event Pump.h"
 	#include "Font Control.h"
 	#include "Timer Control.h"
@@ -44,18 +42,15 @@
 	#include "PopUpBox.h"
 	#include "Game Clock.h"
 	#include "items.h"
-	#include "vobject.h"
 	#include "Cursor Control.h"
 	#include "text.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
-	#include "interface.h"
 	#include "strategic pathing.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Interface Map.h"
 	#include "Map Screen Interface.h"
-	#include "Strategic Pathing.h"
 	#include "Assignments.h"
 	#include "points.h"
 	#include "Squads.h"
@@ -114,7 +109,7 @@
 
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"
-#include "vobject.h"
+#include <language.hpp>
 
 #ifdef JA2UB
 #include "laptop.h"
@@ -4795,9 +4790,6 @@ UINT32 MapScreenHandle(void)
 
 		InitPreviousPaths();
 
-		// HEADROCK HAM 3.6: Init coordinates for new variable-sized message window
-		InitMapScreenInterfaceBottomCoords();
-
 		// if arrival sector is invalid, reset to A9
 		if ( ( gsMercArriveSectorX <	1 ) || ( gsMercArriveSectorY <	1 ) ||
 				( gsMercArriveSectorX > 16 ) || ( gsMercArriveSectorY > 16 ) )
@@ -9065,12 +9057,8 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	// clip to view region
 	ClipBlitsToMapViewRegionForRectangleAndABit( uiDestPitchBYTES );
 
-	if(gbPixelDepth==16)
-	{
-		// DB Need to add a radar color for 8-bit
-		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	UI_MAP.GridSize.iX, sScreenY +	UI_MAP.GridSize.iY - 1, usLineColor, pDestBuf );
-		InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + UI_MAP.GridSize.iX + 1 + 1, sScreenY + UI_MAP.GridSize.iY + 1 - 1 );
-	}
+	RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	UI_MAP.GridSize.iX, sScreenY +	UI_MAP.GridSize.iY - 1, usLineColor, pDestBuf );
+	InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + UI_MAP.GridSize.iX + 1 + 1, sScreenY + UI_MAP.GridSize.iY + 1 - 1 );
 
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
 	UnLockVideoSurface( FRAME_BUFFER );
@@ -9673,27 +9661,27 @@ void BltCharInvPanel()
 		// print armor/weight/camo labels
 		mprintf(UI_CHARINV.Text.ArmorLabel.iX, UI_CHARINV.Text.ArmorLabel.iY, pInvPanelTitleStrings[ 0 ] );
 
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.ArmorPercent.iX, UI_CHARINV.Text.ArmorPercent.iY, L"%%" );
-		#endif
+		}
 
 		mprintf(UI_CHARINV.Text.WeightLabel.iX, UI_CHARINV.Text.WeightLabel.iY, pInvPanelTitleStrings[ 1 ]  );
 		
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.WeightPercent.iX, UI_CHARINV.Text.WeightPercent.iY, L"%%" );
-		#endif
+		}
 
 		mprintf(UI_CHARINV.Text.CamoLabel.iX, UI_CHARINV.Text.CamoLabel.iY, pInvPanelTitleStrings[ 2 ]  );
 		
-		#ifdef CHINESE
+		if( g_lang == i18n::Lang::zh ) {
 			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, ChineseSpecString1 );
-		#else
+		} else {
 			mprintf(UI_CHARINV.Text.CamoPercent.iX, UI_CHARINV.Text.CamoPercent.iY, L"%%" );
-		#endif
+		}
 
 		const auto width = UI_CHARINV.Text.PercentWidth;
 		const auto height = UI_CHARINV.Text.PercentHeight;

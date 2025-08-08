@@ -293,7 +293,8 @@ UINT32  POWERGENSECTOR_GRIDNO1 = 15100;
 UINT32  POWERGENSECTOR_GRIDNO2 = 12220;
 UINT32  POWERGENSECTOR_GRIDNO3 = 14155;
 UINT32  POWERGENSECTOR_GRIDNO4 = 13980;
-UINT32  POWERGENSECTOREXITGRID_GRIDNO1 = 19749;
+UINT32  POWERGENSECTOREXITGRID_SRC_GRIDNO = 10979;
+UINT32  POWERGENSECTOREXITGRID_DST_GRIDNO = 19749;
 UINT32  POWERGENFANSOUND_GRIDNO1 = 10979;
 UINT32  POWERGENFANSOUND_GRIDNO2 = 19749;
 UINT32  STARTFANBACKUPAGAIN_GRIDNO = 10980;
@@ -304,16 +305,21 @@ UINT32  SECTOR_LAUNCH_MISSLES_Y = 12;
 UINT32  SECTOR_LAUNCH_MISSLES_Z = 3;
 //J13-0
 UINT32  SECTOR_FAN_X = 13;
-UINT32  SECTOR_FAN_Z = 10;
-UINT32  SECTOR_FAN_Y = 0;
+UINT32  SECTOR_FAN_Y = 10;
+UINT32  SECTOR_FAN_Z = 0;
 //K14-1
 UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_X = 14;
 UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_Y = 11;
 UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_Z = 1;
-//J14-1
+// Destination sector for fan exitgrid
+//J14-1 
 UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X = 14;
 UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y = 10;
 UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z = 1;
+
+INT16  BETTY_BLOODCAT_SECTOR_X = 10;
+INT16  BETTY_BLOODCAT_SECTOR_Y = 9;
+INT8   BETTY_BLOODCAT_SECTOR_Z = 0;
 
 void InitGridNoUB()
 {
@@ -326,7 +332,8 @@ void InitGridNoUB()
 	POWERGENSECTOR_GRIDNO2 = gGameUBOptions.PowergenSectorGridNo2; //= 12220;
 	POWERGENSECTOR_GRIDNO3 = gGameUBOptions.PowergenSectorGridNo3; //= 14155;
 	POWERGENSECTOR_GRIDNO4 = gGameUBOptions.PowergenSectorGridNo4; //= 13980;
-	POWERGENSECTOREXITGRID_GRIDNO1 = gGameUBOptions.PowergenSectorExitgridGridNo; // = 19749;
+	POWERGENSECTOREXITGRID_SRC_GRIDNO = gGameUBOptions.PowergenSectorExitgridSrcGridNo; //= 10979; // Exitgrid location in the sector it is created in
+	POWERGENSECTOREXITGRID_DST_GRIDNO = gGameUBOptions.PowergenSectorExitgridGridNo; // = 19749; // Exitgrid location in the destination sector
 	POWERGENFANSOUND_GRIDNO1 = gGameUBOptions.PowergenFanSoundGridNo1; //= 10979;
 	POWERGENFANSOUND_GRIDNO2 = gGameUBOptions.PowergenFanSoundGridNo2; //= 19749;
 	STARTFANBACKUPAGAIN_GRIDNO = gGameUBOptions.StartFanbackupAgainGridNo; //= 10980;
@@ -338,8 +345,8 @@ void InitGridNoUB()
 	SECTOR_LAUNCH_MISSLES_Z = gGameUBOptions.SectorLaunchMisslesZ; //3;
 	//J13-0
 	SECTOR_FAN_X = gGameUBOptions.SectorFanX; //13;
-	SECTOR_FAN_Z = gGameUBOptions.SectorFanY; //10;
-	SECTOR_FAN_Y = gGameUBOptions.SectorFanZ; //0;
+	SECTOR_FAN_Y = gGameUBOptions.SectorFanY; //10;
+	SECTOR_FAN_Z = gGameUBOptions.SectorFanZ; //0;
 	//K14-1
 	SECTOR_OPEN_GATE_IN_TUNNEL_X = gGameUBOptions.SectorOpenGateInTunnelX; //14;
 	SECTOR_OPEN_GATE_IN_TUNNEL_Y = gGameUBOptions.SectorOpenGateInTunnelY; //11;
@@ -348,7 +355,12 @@ void InitGridNoUB()
 	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X = gGameUBOptions.ExitForFanToPowerGenSectorX; //14;
 	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y = gGameUBOptions.ExitForFanToPowerGenSectorY; //10;
 	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z = gGameUBOptions.ExitForFanToPowerGenSectorZ; //1;
-	
+
+	BETTY_BLOODCAT_SECTOR_X = gGameUBOptions.BettyBloodCatSectorX;
+	BETTY_BLOODCAT_SECTOR_Y = gGameUBOptions.BettyBloodCatSectorY;
+	BETTY_BLOODCAT_SECTOR_Z = gGameUBOptions.BettyBloodCatSectorZ;
+
+
 	MANUEL_UB = gGameUBOptions.ubMANUEL_UB;
 	BIGGENS_UB = gGameUBOptions.ubBIGGENS_UB;
 	JOHN_K_UB = gGameUBOptions.ubJOHN_K_UB;
@@ -646,7 +658,7 @@ void HandleWhenCertainPercentageOfEnemiesDie()
 	UINT32				uiPercentEnemiesKilled;
 	UINT8					ubSectorID;
 
-	//if there isnt enemies in the sector
+	//if there isn't enemies in the sector
 	if( ( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) == 0 )
 	{
 		//get out
@@ -663,7 +675,7 @@ void HandleWhenCertainPercentageOfEnemiesDie()
 			switch( ubSectorID )
 			{
 				case SEC_K15:
-					//all enemies are dead and if the quote hasnt been said yet
+					//all enemies are dead and if the quote hasn't been said yet
 					if( uiPercentEnemiesKilled >= 100 && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__ALL_DEAD_TOP_LEVEL_OF_COMPLEX ) )
 					{
 						INT16 bProfile = RandomProfileIdFromNewMercsOnPlayerTeam();
@@ -703,7 +715,7 @@ void StopPowerGenFan()
 		return;
 	}
 
-	//Remeber how the player got through
+	//Remember how the player got through
 	SetJa25GeneralFlag( JA_GF__POWER_GEN_FAN_HAS_BEEN_STOPPED );
 
 	gJa25SaveStruct.ubStateOfFanInPowerGenSector = PGF__STOPPED;
@@ -721,7 +733,7 @@ void StopPowerGenFan()
 	//Turn off the power gen fan sound
 	HandleRemovingPowerGenFanSound();
 
-	//remeber which turn the fan stopped on
+	//remember which turn the fan stopped on
 	gJa25SaveStruct.uiTurnPowerGenFanWentDown = gJa25SaveStruct.uiTacticalTurnCounter;
 
 
@@ -729,7 +741,7 @@ void StopPowerGenFan()
 	// Replace the Fan graphic
 	//
 
-	// Turn on permenant changes....
+	// Turn on permanent changes....
 	ApplyMapChangesToMapTempFile( TRUE );
 
 	//Add the exit grid to the power gen fan
@@ -784,7 +796,7 @@ void StartFanBackUpAgain()
 		return;
 	}
 
-	//Remeber how the player got through
+	//Remember how the player got through
 	gJa25SaveStruct.ubStateOfFanInPowerGenSector = PGF__RUNNING_NORMALLY;
 
 
@@ -796,7 +808,7 @@ void StartFanBackUpAgain()
 	// Replace the Fan graphic
 	//
 
-	// Turn on permenant changes....
+	// Turn on permanent changes....
 	ApplyMapChangesToMapTempFile( TRUE );
 
 	// Remove it!
@@ -821,7 +833,7 @@ void StartFanBackUpAgain()
 	gTacticalStatus.uiFlags |= NOHIDE_REDUNDENCY;
 
 	//Remove the exit grid
-	RemoveExitGridFromWorld( PGF__FAN_EXIT_GRID_GRIDNO );
+	RemoveExitGridFromWorld( POWERGENSECTOREXITGRID_SRC_GRIDNO );
 
 	// FOR THE NEXT RENDER LOOP, RE-EVALUATE REDUNDENT TILES
 	SetRenderFlags(RENDER_FLAG_FULL);
@@ -914,7 +926,7 @@ void HandleAddingPowerGenFanSound()
 		sGridNo = POWERGENFANSOUND_GRIDNO2;
 
 	//Create the new ambient fan sound
-	//gJa25SaveStruct.iPowerGenFanPositionSndID = NewPositionSnd( sGridNo, POSITION_SOUND_STATIONATY_OBJECT, 0, POWER_GEN_FAN_SOUND );
+	gJa25SaveStruct.iPowerGenFanPositionSndID = NewPositionSnd( sGridNo, POSITION_SOUND_STATIONATY_OBJECT, 0, POWER_GEN_FAN_SOUND, 30 );
 
 	SetPositionSndsInActive( );
 	SetPositionSndsActive( );
@@ -942,10 +954,10 @@ void AddExitGridForFanToPowerGenSector()
 	ExitGrid.ubGotoSectorX = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X; //14;
 	ExitGrid.ubGotoSectorY = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y; //MAP_ROW_J;
 	ExitGrid.ubGotoSectorZ = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z; //1;
-	ExitGrid.usGridNo = POWERGENSECTOREXITGRID_GRIDNO1;
+	ExitGrid.usGridNo = POWERGENSECTOREXITGRID_DST_GRIDNO;
 
 	//Add the exit grid when the fan is either stopped or blown up
-	AddExitGridToWorld( PGF__FAN_EXIT_GRID_GRIDNO, &ExitGrid );
+	AddExitGridToWorld( POWERGENSECTOREXITGRID_SRC_GRIDNO, &ExitGrid );
 }
 
 BOOLEAN HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( SOLDIERTYPE *pSoldierAtDoor, BOOLEAN fSayQuoteOnlyOnce )

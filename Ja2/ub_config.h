@@ -67,6 +67,7 @@ typedef struct
 	UINT32  PowergenSectorGridNo3;
 	UINT32  PowergenSectorGridNo4;
 	UINT32  PowergenSectorExitgridGridNo;
+	UINT32  PowergenSectorExitgridSrcGridNo;
 	UINT32  PowergenFanSoundGridNo1;
 	UINT32  PowergenFanSoundGridNo2;
 	UINT32  StartFanbackupAgainGridNo;
@@ -219,7 +220,10 @@ typedef struct
 	UINT32 SectorDoorInTunnelGridNo;
 	
 	UINT8 MaxNumberOfMercs;
-       
+
+	INT16 BettyBloodCatSectorX;
+	INT16 BettyBloodCatSectorY;
+	INT8 BettyBloodCatSectorZ;
 } GAME_UB_OPTIONS;
 
 extern GAME_UB_OPTIONS gGameUBOptions; 

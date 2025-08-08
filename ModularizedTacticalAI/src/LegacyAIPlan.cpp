@@ -15,7 +15,7 @@
 #include "../../TileEngine/Isometric Utils.h"   // defines NOWHERE
 #include "../../Utils/Debug Control.h"          // LiveMessage
 #include "../../Utils/Font Control.h"           // ScreenMsg about deadlock
-#include "../../Utils/Text.h"                   // Sniper warning
+#include <Text.h>                               // Sniper warning
 #include "../../Utils/message.h"                // ditto
 
 

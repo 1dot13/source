@@ -419,6 +419,7 @@ SOLDIERCREATE_STRUCT::~SOLDIERCREATE_STRUCT() {
 //	Note that the constructor does this automatically.
 void SOLDIERCREATE_STRUCT::initialize() {
 	memset( this, 0, SIZEOF_SOLDIERCREATE_STRUCT_POD);
+	this->bAIMorale = MORALE_NORMAL;
 	Inv.clear();
 }
 

@@ -50,11 +50,11 @@
 #include "Ja25 Strategic Ai.h"
 #include "MapScreen Quotes.h"
 #include "SaveLoadGame.h"
-#include "strategicmap.h"
 #endif
 
 #include "connect.h"
 
+#include <language.hpp>
 
 struct UILayout_BottomButtons
 {

@@ -22,6 +22,7 @@
 #include "font.h"
 #include "Font Control.h"
 #include "GameSettings.h"
+#include <language.hpp>
 
 #include <vfs/Tools/vfs_property_container.h>
 
@@ -37,9 +38,7 @@ typedef struct
 	COLORVAL	BackColor;
 	UINT8 Height;
 	UINT8 InternalLeading;
-#ifdef CHINESE
 	UINT8 Width[0x80];
-#endif
 } HWINFONT;
 
 LONG gWinFontAdjust;
@@ -355,7 +354,7 @@ INT32 CreateWinFont( LOGFONT &logfont )
 	HDC hdc = GetDC(NULL);
 	SelectObject(hdc, hFont);
 
-#ifdef CHINESE
+if(g_lang == i18n::Lang::zh) {
 	SIZE RectSize;
 	wchar_t str[2]=L"\1";
 	for (int i = 1; i<0x80; i++)
@@ -367,7 +366,7 @@ INT32 CreateWinFont( LOGFONT &logfont )
 	str[0] = L'啊';
     GetTextExtentPoint32W( hdc, str, 1, &RectSize );
     WinFonts[iFont].Width[0] = (UINT8)RectSize.cx;
-#endif
+}
 
 	TEXTMETRIC tm;
 	GetTextMetrics(hdc, &tm);
@@ -469,7 +468,7 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 
 	if (pWinFont == NULL) return(0);
 
-#ifdef CHINESE
+if(g_lang == i18n::Lang::zh) {
 	wchar_t *p=string2;
     UINT32 size = 0;
 	while (*p!=0)
@@ -484,7 +483,7 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 		p++;
 	}
 	return size;
-#else
+} else {
 	SIZE RectSize;
 	HDC hdc = GetDC(NULL);
 
@@ -493,7 +492,7 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 	ReleaseDC(NULL, hdc);
 	
 	return( (INT16)RectSize.cx );
-#endif
+}
 }
 
 
@@ -504,11 +503,11 @@ INT16 GetWinFontHeight(INT32 iFont)
 	pWinFont = GetWinFont(iFont);
 
 	if (pWinFont == NULL) return(0);
-#ifdef CHINESE //zwwooooo: Correct tactical interface font height to fixed Chinese characters smearing bug
+if(g_lang == i18n::Lang::zh) { //zwwooooo: Correct tactical interface font height to fixed Chinese characters smearing bug
 	if (iFont == WinFontMap[TINYFONT1] || iFont == WinFontMap[SMALLFONT1] || iFont == WinFontMap[FONT14ARIAL])
 	{
 		return pWinFont->Height + 2;
 	}
-#endif
+}
 	return pWinFont->Height;
 }

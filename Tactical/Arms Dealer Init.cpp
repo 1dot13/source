@@ -1015,7 +1015,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 				return( ARMS_DEALER_MEDICAL );
 			else if (ItemIsAttachment(usItem))
 				return( ARMS_DEALER_ATTACHMENTS );
-			else if (ItemIsDetonator(usItem) || ItemIsRemoteDetonator(usItem) || ItemIsRemoteTrigger(usItem))
+			else if ( IsAttachmentClass( usItem, (AC_DETONATOR | AC_REMOTEDET) ) || ItemIsRemoteTrigger(usItem))
 				return( ARMS_DEALER_DETONATORS );
 			else
 				return( ARMS_DEALER_MISC );

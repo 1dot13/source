@@ -1,8 +1,6 @@
 #ifndef _BUILDDEFINES_H
 #define _BUILDDEFINES_H
 
-#include "Language Defines.h"
-
 //----- Briefing Room (Mission based JA2 like in JA/DG) - by Jazz -----
 // Once enabled here and also enabled in the ja2_options.ini (BRIEFING_ROOM), 
 // you can access the briefing room feature from the laptop

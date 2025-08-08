@@ -36,6 +36,7 @@
 
 #include "LuaInitNPCs.h"
 #include "XML.h"
+#include <language.hpp>
 
 BOOLEAN Style_JA = TRUE;
 extern INT8 Test = 0;
@@ -726,11 +727,11 @@ void DisplaySirtechSplashScreen()
 			*								(2006-10-10, Sergeant_Kolja)
 			*/
 			#ifdef _DEBUG
-			#	if defined(ENGLISH)
+			if( g_lang == i18n::Lang::en ) {
 				AssertMsg( 0, String( "Wheter English nor German works. May be You built English - but have only German or other foreign Disk?" ) );
-			#	elif defined(GERMAN)
+			} else if( g_lang == i18n::Lang::de ) {
 				AssertMsg( 0, String( "Weder Englisch noch Deutsch geht. Deutsche Version kompiliert und mit englischer CDs gestartet? Das geht nicht!" ) );
-			#	endif
+			}
 			#endif
 			AssertMsg( 0, String( "Failed to load %s", VObjectDesc.ImageFile ) );
 			return;

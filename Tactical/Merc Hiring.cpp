@@ -1037,78 +1037,78 @@ if ( gGameUBOptions.InGameHeliCrash == TRUE )
 
 void UpdateJerryMiloInInitialSector()
 {
-	SOLDIERTYPE	*pSoldier = NULL;
-	SOLDIERTYPE	*pJerrySoldier=NULL;
+	SOLDIERTYPE *pSoldier = NULL;
+	SOLDIERTYPE *pJerrySoldier = NULL;
 
-	
-    //SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
-	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
-    //SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
-	StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
-    
-if ( gGameUBOptions.InGameHeli == TRUE )
-	return; //AA
 
-if ( gGameUBOptions.InGameHeliCrash == TRUE )
-   { 
-	//if it is the first sector we are loading up, place Jerry in the map
-	if( !gfFirstTimeInGameHeliCrash )
-		return;
-
-	if ( gGameUBOptions.InJerry == TRUE ) 
-	{
-	pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE ); //JERRY
-	if( pSoldier == NULL )
-	{
-		Assert( 0 );
-	}
-	
-	}
-
-	//the internet part of the laptop isnt working.  It gets broken in the heli crash.
-	if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
-	StartQuest( QUEST_FIX_LAPTOP, -1, -1 );
-
-	//Record the initial sector as ours
 	//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
-	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
-	  StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
- 
-	  if ( gGameUBOptions.InJerry == TRUE ) 
+	SectorInfo[(UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fSurfaceWasEverPlayerControlled = TRUE;
+	//SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
+	StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fEnemyControlled = FALSE;
+
+	if ( gGameUBOptions.InGameHeli == TRUE )
+		return; //AA
+
+	if ( gGameUBOptions.InGameHeliCrash == TRUE )
 	{
-	//Set some variable so Jerry will be on the ground
-	pSoldier->fWaitingToGetupFromJA25Start = TRUE;
-	pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
+		//if it is the first sector we are loading up, place Jerry in the map
+		if ( !gfFirstTimeInGameHeliCrash )
+			return;
 
-	//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO; //to by這 wy章czone
-	//pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( ); //to by這 wy章czone
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE ); //JERRY
+			if ( pSoldier == NULL )
+			{
+				Assert( 0 );
+			}
 
-	RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, gsInitialHeliRandomTimes[ 6 ] + 800 + Random( 400 ) );
+		}
 
-	//should we be on our back or tummy
-	if( Random( 100 ) < 50 )
-		pSoldier->EVENT_InitNewSoldierAnim( STAND_FALLFORWARD_STOP, 1, TRUE );
-	else
-		pSoldier->EVENT_InitNewSoldierAnim( FALLBACKHIT_STOP, 1, TRUE );
-	}
+		//the internet part of the laptop isnt working.  It gets broken in the heli crash.
+		if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
+			StartQuest( QUEST_FIX_LAPTOP, -1, -1 );
 
-//Wont work cause it gets reset every frame
-	//make sure we can see Jerry
-	
-	if ( gGameUBOptions.InJerry == TRUE ) 
-	{
-	pJerrySoldier = FindSoldierByProfileID(JERRY_MILO_UB, FALSE );//JERRY
-	if( pJerrySoldier != NULL )
-	{
-		//Make sure we can see the pilot
-		gbPublicOpplist[OUR_TEAM][ pJerrySoldier->ubID ] = SEEN_CURRENTLY;
-		pJerrySoldier->bVisible = TRUE;
-	}
+		//Record the initial sector as ours
+		//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
+		SectorInfo[(UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fSurfaceWasEverPlayerControlled = TRUE;
+		StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fEnemyControlled = FALSE;
 
-	}
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			//Set some variable so Jerry will be on the ground
+			pSoldier->fWaitingToGetupFromJA25Start = TRUE;
+			pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
 
-	//Lock the interface
-	guiPendingOverrideEvent = LU_BEGINUILOCK;
+			//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO; //to by這 wy章czone
+			//pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( ); //to by這 wy章czone
+
+			RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, gsInitialHeliRandomTimes[6] + 800 + Random( 400 ) );
+
+			//should we be on our back or tummy
+			if ( Random( 100 ) < 50 )
+				pSoldier->EVENT_InitNewSoldierAnim( STAND_FALLFORWARD_STOP, 1, TRUE );
+			else
+				pSoldier->EVENT_InitNewSoldierAnim( FALLBACKHIT_STOP, 1, TRUE );
+		}
+
+		//Wont work cause it gets reset every frame
+			//make sure we can see Jerry
+
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			pJerrySoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE );//JERRY
+			if ( pJerrySoldier != NULL )
+			{
+				//Make sure we can see the pilot
+				gbPublicOpplist[OUR_TEAM][pJerrySoldier->ubID] = SEEN_CURRENTLY;
+				pJerrySoldier->bVisible = TRUE;
+			}
+
+		}
+
+		//Lock the interface
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
 	}
 }
 

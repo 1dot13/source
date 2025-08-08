@@ -41,7 +41,6 @@
 #include "opplist.h"
 #include "himage.h"
 #include "vsurface_private.h"
-#include "Language Defines.h"
 #include "text.h"
 #include "Screens.h"
 #include "Maputility.h"

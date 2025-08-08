@@ -2,7 +2,6 @@
 	#include "FileMan.h"
 	#include "Debug.h"
 
-#include "Language Defines.h"
 // anv: for selecting random line
 #include "Random.h"
 
