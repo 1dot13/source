@@ -366,7 +366,7 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwne
 		}
 #ifdef JA2BETAVERSION
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString, "NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n", sGridNo, usItem, ubOwner, bLevel, iSmokeIndex);
+		sprintf(tmpMPDbgString, "NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n", sGridNo, usItem, ubOwner.i, bLevel, iSmokeIndex);
 		MPDebugMsg(tmpMPDbgString);
 		gfMPDebugOutputRandoms = true;
 #endif

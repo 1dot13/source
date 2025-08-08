@@ -2308,7 +2308,7 @@ BOOLEAN PlayVoiceTaunt(SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTa
 		if ((OutFile = fopen("VoiceTauntLog.txt", "a+t")) != NULL)
 		{
 			fprintf(OutFile, "Soldier [%d] TauntType %d %s\n",
-				pCiv->ubID,
+				pCiv->ubID.i,
 				iTauntType,
 				filename);
 			fclose(OutFile);

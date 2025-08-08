@@ -23977,13 +23977,13 @@ void DebugValidateSoldierData( )
 					!(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 				{
 					// This is bad!
-					swprintf( sString, L"Soldier Data Error: Soldier %d is alive but has a zero group ID.", cnt );
+					swprintf( sString, L"Soldier Data Error: Soldier %d is alive but has a zero group ID.", cnt.i );
 					fProblemDetected = TRUE;
 				}
 				else if ( (pSoldier->ubGroupID != 0) && (GetGroup( pSoldier->ubGroupID ) == NULL) )
 				{
 					// This is bad!
-					swprintf( sString, L"Soldier Data Error: Soldier %d has an invalid group ID of %d.", cnt, pSoldier->ubGroupID );
+					swprintf( sString, L"Soldier Data Error: Soldier %d has an invalid group ID of %d.", cnt.i, pSoldier->ubGroupID );
 					fProblemDetected = TRUE;
 				}
 			}
@@ -24003,7 +24003,7 @@ void DebugValidateSoldierData( )
 				 (pSoldier->sSectorY <= 0) || (pSoldier->sSectorY >= 17) ||
 				 (pSoldier->bSectorZ  < 0) || (pSoldier->bSectorZ > (SPY_LOCATION( pSoldier->bAssignment ) ? 13 : 3) ) ) )
 			{
-				swprintf( sString, L"Soldier Data Error: Soldier %d is located at %d/%d/%d.", cnt, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+				swprintf( sString, L"Soldier Data Error: Soldier %d is located at %d/%d/%d.", cnt.i, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 				fProblemDetected = TRUE;
 			}
 		}

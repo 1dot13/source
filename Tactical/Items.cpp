@@ -9316,7 +9316,7 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, IN
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner );
+	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner.i );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 

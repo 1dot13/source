@@ -2168,7 +2168,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"ExpAffect ( sBombGridNo : %i , sGridNo : %i , uiDist : %i , usItem : %i , ubOwner : %i , sSubsequent : %i , fMercHit : %i , bLevel : %i , iSmokeEffectID : %i )\n",sBombGridNo, sGridNo , uiDist , usItem , ubOwner , sSubsequent , (int)*pfMercHit , bLevel , iSmokeEffectID );
+		sprintf(tmpMPDbgString,"ExpAffect ( sBombGridNo : %i , sGridNo : %i , uiDist : %i , usItem : %i , ubOwner : %i , sSubsequent : %i , fMercHit : %i , bLevel : %i , iSmokeEffectID : %i )\n",sBombGridNo, sGridNo , uiDist , usItem , ubOwner.i , sSubsequent , (int)*pfMercHit , bLevel , iSmokeEffectID );
 		MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -2953,7 +2953,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, SoldierID ubOwn
 		}
 #ifdef JA2BETAVERSION
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"SpreadEffect ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , fFromRemote : %i , fNewSmoke : %i )\n",sGridNo, ubRadius , usItem , ubOwner , (int)fSubsequent  , bLevel , iSmokeEffectID , fFromRemoteClient , fNewSmokeEffect );
+		sprintf(tmpMPDbgString,"SpreadEffect ( sGridNo : %i , ubRadius : %i , usItem : %i , ubOwner : %i , fSubsequent : %i , bLevel : %i , iSmokeEffectID : %i , fFromRemote : %i , fNewSmoke : %i )\n",sGridNo, ubRadius , usItem , ubOwner.i , (int)fSubsequent  , bLevel , iSmokeEffectID , fFromRemoteClient , fNewSmokeEffect );
 		MPDebugMsg(tmpMPDbgString);
 		gfMPDebugOutputRandoms = true;
 #endif

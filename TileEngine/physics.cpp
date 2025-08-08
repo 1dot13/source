@@ -2188,7 +2188,7 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 
 	if ( pSoldier->sGridNo == sGridNo )
 	{
-		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID);
+		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID.i);
 		return FALSE;
 	}
 	// Ge7t basic launch params...

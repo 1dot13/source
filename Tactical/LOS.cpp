@@ -5639,7 +5639,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							pFirer->ubID, ubLoop, ubShots,
+							pFirer->ubID.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
@@ -6284,7 +6284,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							NOBODY, ubLoop, ubShots,
+							NOBODY.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
@@ -6834,7 +6834,7 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 						fprintf( OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							NOBODY, ubLoop, ubShots,
+							NOBODY.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);

@@ -235,7 +235,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 
 	sprintf(msg, "");
 
-	sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+	sprintf(buf, "[%d] (%d)", pSoldier->ubID.i, pSoldier->sGridNo);
 	strcat(msg, buf);
 
 	if (pSoldier->ubProfile != NO_PROFILE)
@@ -301,7 +301,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
 	}
 
 	// also log to individual file for selected soldier
-	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
+	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID.i);
 	if ((DebugFile = fopen(buf, "a+t")) != NULL)
 	{
 		if (bMsgType == AI_MSG_START)
@@ -697,19 +697,18 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
 
-			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID.i, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
 			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
 
 #ifdef JA2TESTVERSION
 			// display deadlock message
 			gfUIInDeadlock = TRUE;
-			gUIDeadlockedSoldier = pSoldier->ubID;
-			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
+			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID.i, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
 
 			// If we are in beta version, also report message!
 #ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID.i );
 #endif
 			// just abort
 			EndAIDeadlock();
