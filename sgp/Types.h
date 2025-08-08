@@ -52,7 +52,8 @@ typedef CHAR16 *				STR16;
 // flags (individual bits used)
 typedef unsigned char		FLAGS8;
 typedef unsigned short	FLAGS16;
-typedef unsigned long		FLAGS32;
+typedef unsigned long	FLAGS32;
+typedef UINT64			FLAGS64;
 // other
 typedef unsigned char		BOOLEAN;
 typedef void *					PTR;
