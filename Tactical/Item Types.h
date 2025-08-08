@@ -1052,8 +1052,8 @@ typedef struct
 	UINT64 nasLayoutClass;
 	UINT64 ulAvailableAttachmentPoint;
 	UINT64 ulAttachmentPoint;
-	UINT64 usItemFlag; // bitflags to store various item properties (better than introducing 64 BOOLEAN values). If I only had thought of this earlier....
-	UINT64 usItemFlag2; // bitflags to store various item properties
+	FLAGS64 usItemFlag; // bitflags to store various item properties (better than introducing 64 BOOLEAN values). If I only had thought of this earlier....
+	FLAGS64 usItemFlag2; // bitflags to store various item properties
 
 	UINT32 uiIndex;
 	UINT32 usItemClass;

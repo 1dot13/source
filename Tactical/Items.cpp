@@ -15249,18 +15249,18 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 }
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
+BOOLEAN HasItemFlag( UINT16 usItem, FLAGS64 aFlag )
 {
 	return( (Item[usItem].usItemFlag & aFlag) != 0 );
 }
 
-BOOLEAN HasItemFlag2(UINT16 usItem, UINT64 aFlag)
+BOOLEAN HasItemFlag2(UINT16 usItem, FLAGS64 aFlag)
 {
 	return((Item[usItem].usItemFlag2 & aFlag) != 0);
 }
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, FLAGS64 aFlag )
 {
 	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
