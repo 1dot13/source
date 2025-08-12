@@ -18251,7 +18251,6 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8 ubNumberOfSelectedSoldiers = 0;
-	CHAR16 sString[ 128 ];
 	
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
@@ -18306,27 +18305,21 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		}
 	}
 
-	// if there was anyone processed, check for success and inform player of failure
-	if( ubNumberOfSelectedSoldiers )
+	if( ubNumberOfSelectedSoldiers == 0 )
 	{
-		if( fSuccess == FALSE )
-		{
-			if( fWakeUp )
-			{
-				// inform player not everyone could be woke up
-				swprintf( sString, pMapErrorString[ 27 ] );
-			}
-			else
-			{
-				// inform player not everyone could be put to sleep
-				swprintf( sString, pMapErrorString[ 26 ]);
-			}
+	  return fSuccess;
+	}
 
-			if( fDisplayWarning )
-			{
-				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
-			}
-		}
+	if( !fDisplayWarning ) {
+	  return fSuccess;
+	}
+
+	CHAR16 sString[ 128 ];
+	swprintf( sString, fWakeUp ? pMapErrorString[ 27 ] : pMapErrorString[ 26 ] );
+	if( gGameExternalOptions.fSleepDisplayFailNotification )
+	{
+		// inform player not everyone could be woke up or put to sleep
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
 	}
 
 	return( fSuccess );
