@@ -147,52 +147,126 @@
 <!-- Nationality & HatedNationality -->
 
 <!-- (-1) No Nation (only used for HatedNationality) -->
-<!--  AMERICAN = 0,		// take that, Murica! Sirtech knew you have no value :-)
-      ARAB = 1,
-      AUSTRALIAN = 2,
-      BRITISH = 3,
-      CANADIAN = 4,
-      CUBAN = 5,
-      DANISH = 6,
-      FRENCH = 7,
-      RUSSIAN = 8,
-      NIGERIAN = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
-      SWISS = 10,
-      JAMAICAN = 11,
-      POLISH = 12,
-      CHINESE = 13,
-      IRISH = 14,
-      SOUTH_AFRICAN = 15,
-      HUNGARIAN = 16,
-      SCOTTISH = 17,
-      ARULCAN = 18,
-      GERMAN = 19,
-      AFRICAN = 20,
-      ITALIAN = 21,
-      DUTCH = 22,
-      ROMANIAN = 23,
-      METAVIRAN = 24,
+<!-- 	// old Sirtech values
+	AMERICAN = 0,		// take that, Murica! Sirtech knew you have no value :-)
+	ARAB = 1,          
+	AUSTRALIAN = 2,
+	BRITISH = 3,
+	CANADIAN = 4,
+	CUBAN 5,
+	DANISH = 6,
+	FRENCH = 7,
+	RUSSIAN = 8,       
+	TRACONIAN = 9,	   changed 9 from nigerian (moved down) to traconian (UB takes place in Tracona)
+	SWISS = 10,
+	JAMAICAN = 11,
+	POLISH = 12,
+	CHINESE = 13,
+	IRISH = 14,
+	SOUTH_AFRICAN = 15,
+	HUNGARIAN = 16,
+	SCOTTISH = 17,
+	ARULCAN = 18,
+	GERMAN = 19,
+	AFRICAN = 20,   
+	ITALIAN = 21,
+	DUTCH = 22,
+	ROMANIAN = 23,
+	METAVIRAN = 24,
 
-      // new values, because why not
-      GREEK,		// 25
-      ESTONIAN,
-      VENEZUELAN ,
-      JAPANESE,
-      TURKISH,
-      INDIAN,		// 30
-      MEXICAN,
-      NORWEGIAN,
-      SPANISH,
-      BRASILIAN,
-      FINNISH,	// 35
-      IRANIAN,
-      ISRAELI,
-      BULGARIAN,
-      SWEDISH,
-      IRAQI,		// 40
-      SYRIAN,
-      BELGIAN,
-      PORTOGUESE, -->
+	// new values, because why not
+	// more:
+	// added a few more and removed some, hoping to achieve a decent amount from every inhabited continent (plus one, in the 90's, relatively well-known fictional one)
+	// 0-24 original ja2 nationalities (except 9, see there)
+	// sorted non-original ones in (english) alphabetic order for some more ease of use during IMP creation
+	AFGHAN,       // 25 
+	ALBANIAN,
+	ARGENTINIAN,
+	ARMENIAN,
+	AZERBAIJANI,
+	BANGLADESHI,  // 30
+	BELARUSIAN,
+	BELGIAN,     
+	BENINESE,
+	BOLIVIAN,
+	BOSNIAN,      // 35
+	BRASILIAN,
+	BULGARIAN,
+	CAMBODIAN,
+	CHADIAN,
+	CHILEAN,      // 40
+	COLUMBIAN,
+	CONGOLESE,
+	CROATIAN,
+	ECUADORIAN,
+	EGYPTIAN,     // 45 
+	ENGLISH,    
+	ERITREAN,
+	ESTONIAN,
+	ETHIOPIAN,
+	FILIPINO,     // 50
+	FINNISH,  
+	GEORGIAN,
+	GREEK,
+	GUATEMALAN,
+	HAITIAN,      // 55
+	HONDURAN, 
+	INDIAN,
+	INDONESIAN,
+	IRANIAN,
+	IRAQI,        // 60
+	ISLANDIC, 
+	ISRAELI,
+	JAPANESE,
+	JORDANIAN,
+	KAZAKHSTANI,  // 65
+	KOREAN,    
+	KYRGYZSTANI,
+	LAOTIAN,
+	LATVIAN,
+	LEBANESE,     // 70
+	LITHUANIAN, 
+	LYBIAN,
+	MACEDONIAN,
+	MALAYSIAN,
+	MEXICAN,      // 75
+	MONGOLIAN,
+	MOROCCAN,
+	MOZAMBICAN,
+	MYANMA,
+	NAMIBIAN,     // 80
+	NICARAGUAN,
+	NIGERIAN,      
+	NIGERIEN,     
+	NORWEGIAN,
+	PAKISTANI,    // 85
+	PANAMANIAN,
+	PORTOGUESE,
+	RWANDANESE,
+	SALVADORAN,
+	SAUDI,        // 90
+	SERBIAN,
+	SLOVAKIAN,
+	SLOVENIAN,
+	SOMALI,
+	SPANISH,      // 95
+	SUDANESE,
+	SWEDISH,
+	SYRIAN,
+	THAI,
+	TOGOLESE,     // 100
+	TUNISIAN,
+	TURKISH,
+	UGANDAN,
+	UKRAINIAN,
+	URUGUAYAN,    // 105
+	UZBEKISTANI,
+	VENEZUELAN,
+	VIETNAMESE,
+	WELSH,
+	YEMENI,       // 110
+	ZAMUNDAN,     // Zamunda 
+	ZIMBABWEAN, -->
 
 <MERCPROFILES>
 	<PROFILE>
@@ -7356,7 +7430,7 @@
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
 		<bRace>0</bRace>
-		<bNationality>25</bNationality>
+		<bNationality>0</bNationality>
 		<bAppearance>0</bAppearance>
 		<bAppearanceCareLevel>0</bAppearanceCareLevel>
 		<bRefinement>0</bRefinement>
@@ -16284,7 +16358,7 @@
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
 		<bRace>2</bRace>
-		<bNationality>28</bNationality>
+		<bNationality>63</bNationality>
 		<bAppearance>0</bAppearance>
 		<bAppearanceCareLevel>0</bAppearanceCareLevel>
 		<bRefinement>0</bRefinement>
