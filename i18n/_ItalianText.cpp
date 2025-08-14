@@ -9427,7 +9427,7 @@ STR16		szNationalityText[]=
 	L"Danish",
 	L"French",
 	L"Russian",
-	L"Nigerian",
+	L"Traconian",
 	L"Swiss",			// 10
 	L"Jamaican",
 	L"Polish",
@@ -9445,57 +9445,94 @@ STR16		szNationalityText[]=
 	L"Metaviran",
 
 	// newly added from here on
-	L"Greek",			// 25
-	L"Estonian",
-	L"Venezuelan",
-	L"Japanese",
-	L"Turkish",
-	L"Indian",			// 30
-	L"Mexican",
-	L"Norwegian",
-	L"Spanish",
-	L"Brasilian",
-	L"Finnish",			// 35
-	L"Iranian",
-	L"Israeli",
-	L"Bulgarian",
-	L"Swedish",
-	L"Iraqi",			// 40
-	L"Syrian",
-	L"Belgian",
-	L"Portoguese",
-	L"Belarusian",		// TODO.Translate
-	L"Serbian",			// 45
-	L"Pakistani",
+	L"Afghan",       // 25 
 	L"Albanian",
 	L"Argentinian",
 	L"Armenian",
-	L"Azerbaijani", // 50
+	L"Azerbaijani",
+	L"Bangladeshi ", // 30
+	L"Belarusian",
+	L"Belgian",
+	L"Beninese",
 	L"Bolivian",
-	L"Chilean",
-	L"Circassian",
+	L"Bosnian",     // 35
+	L"Brasilian",
+	L"Bulgarian",
+	L"Cambodian",
+	L"Chadian",
+	L"Chilean",     // 40
 	L"Columbian",
-	L"Egyptian", // 55
+	L"Congolese",
+	L"Croatian",
+	L"Ecuadorian",
+	L"Egyptian",    // 45 
+	L"English",
+	L"Eritrean",
+	L"Estonian",
 	L"Ethiopian",
+	L"Filipino",    // 50
+	L"Finnish",
 	L"Georgian",
+	L"Greek",
+	L"Guatemalan",
+	L"Haitian",      // 55
+	L"Honduran",
+	L"Indian",
+	L"Indonesian",
+	L"Iranian",
+	L"Iraqi",      // 60
+	L"Islandic",
+	L"Israeli",
+	L"Japanese",
 	L"Jordanian",
-	L"Kazakhstani",
-	L"Kenyan", // 60
+	L"Kazakhstani",  // 65
 	L"Korean",
 	L"Kyrgyzstani",
+	L"Laotian",
+	L"Latvian",
+	L"Lebanese",    // 70
+	L"Lithuanian",
+	L"Lybian",
+	L"Macedonian",
+	L"Malaysian",
+	L"Mexican",    // 75
 	L"Mongolian",
-	L"Palestinian",
-	L"Panamanian", // 65
-	L"Rhodesian",
+	L"Moroccan",
+	L"Mozambican",
+	L"Myanma",
+	L"Namibian",   // 80
+	L"Nicaraguan",
+	L"Nigerian",
+	L"Nigerien",
+	L"Norwegian",
+	L"Pakistani",   // 85
+	L"Panamanian",
+	L"Portoguese",
+	L"Rwandanese",
 	L"Salvadoran",
-	L"Saudi",
+	L"Saudi",     // 90
+	L"Serbian",
+	L"Slovakian",
+	L"Slovenian",
 	L"Somali",
-	L"Thai", // 70
+	L"Spanish",     // 95
+	L"Sudanese",
+	L"Swedish",
+	L"Syrian",
+	L"Thai",
+	L"Togolese",    // 100
+	L"Tunisian",
+	L"Turkish",
+	L"Ugandan",
 	L"Ukrainian",
+	L"Uruguayan",   // 105
 	L"Uzbekistani",
+	L"Venezuelan",
+	L"Vietnamese",
 	L"Welsh",
-	L"Yazidi",
-	L"Zimbabwean", // 75
+	L"Yemeni",     // 110
+	L"Zamundan",   // Zamunda 
+	L"Zimbabwean",
 };
 
 STR16		szNationalityTextAdjective[] = // TODO.Translate
@@ -9509,7 +9546,7 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 	L"danes",
 	L"frenchmen",
 	L"russians",
-	L"nigerians",
+	L"traconians",
 	L"swiss",			// 10
 	L"jamaicans",
 	L"poles",
@@ -9527,57 +9564,94 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 	L"metavirans",
 
 	// newly added from here on
-	L"greek",			// 25
-	L"estonians",
-	L"venezuelans",
-	L"japanese",
-	L"turks",
-	L"indians",			// 30
-	L"mexicans",
-	L"norwegians",
-	L"spaniards",
-	L"brasilians",
-	L"finns",			// 35
-	L"iranians",
-	L"israelis",
-	L"bulgarians",
-	L"swedes",
-	L"iraqis",			// 40
-	L"syrians",
-	L"belgians",
-	L"portoguese",
-	L"belarusian",
-	L"serbians",		// 45
-	L"pakistanis",
+	L"afghans",       // 25 
 	L"albanians",
 	L"argentinians",
 	L"armenians",
-	L"azerbaijani", // 50
+	L"azerbaijani",
+	L"bangladeshi", // 30
+	L"belarusians",
+	L"belgians",
+	L"beninese",
 	L"bolivians",
-	L"chileans",
-	L"circassians",
+	L"bosnians",     // 35
+	L"brasilians",
+	L"bulgarians",
+	L"cambodians",
+	L"chadians",
+	L"chileans",     // 40
 	L"columbians",
-	L"egyptians", // 55
+	L"congolese",
+	L"croatians",
+	L"ecuadorians",
+	L"egyptians",    // 45 
+	L"englishmen",
+	L"eritreans",
+	L"estonians",
 	L"ethiopians",
+	L"filipinos",    // 50
+	L"finns",
 	L"georgians",
+	L"greek",
+	L"guatemalans",
+	L"haitians",      // 55
+	L"hondurans",
+	L"indians",
+	L"indonesians",
+	L"iranians",
+	L"iraqis",      // 60
+	L"islandics",
+	L"israelis",
+	L"japanese",
 	L"jordanians",
-	L"kazakhstani",
-	L"kenyans", // 60
+	L"kazakhstani",  // 65
 	L"koreans",
 	L"kyrgyzstani",
+	L"laotians",
+	L"latvians",
+	L"lebanese",    // 70
+	L"lithuanians",
+	L"lybians",
+	L"macedonians",
+	L"malaysians",
+	L"mexicans",    // 75
 	L"mongolians",
-	L"palestinians",
-	L"panamanians", // 65
-	L"rhodesians",
+	L"moroccans",
+	L"mozambicans",
+	L"myanmarians",
+	L"namibians",   // 80
+	L"nicaraguans",
+	L"nigerians",
+	L"nigeriens",
+	L"norwegians",
+	L"pakistanis",   // 85
+	L"panamanians",
+	L"portoguese",
+	L"rwandanese",
 	L"salvadorans",
-	L"saudis",
-	L"somalis",
-	L"thais", // 70
+	L"saudis",     // 90
+	L"serbians",
+	L"slovakians",
+	L"slovenians",
+	L"somali",
+	L"spaniards",     // 95
+	L"sudanese",
+	L"swedes",
+	L"syrians",
+	L"thais",
+	L"togolese",    // 100
+	L"tunisians",
+	L"turks",
+	L"ugandans",
 	L"ukrainians",
+	L"uruguayans",   // 105
 	L"uzbekistani",
+	L"venezuelans",
+	L"vietnamese",
 	L"welshs",
-	L"yazidis",
-	L"zimbabweans", // 75
+	L"yemenites",     // 110
+	L"zamundans",   // Zamunda 
+	L"zimbabweans",
 };
 
 // special text used if we do not hate any nation (value of -1)

@@ -242,15 +242,15 @@ typedef enum
 {
 	// old Sirtech values
 	AMERICAN_NAT = 0,		// take that, Murica! Sirtech knew you have no value :-)
-	ARAB_NAT = 1,
+	ARAB_NAT = 1,          
 	AUSTRALIAN_NAT = 2,
 	BRITISH_NAT = 3,
 	CANADIAN_NAT = 4,
 	CUBAN_NAT = 5,
 	DANISH_NAT = 6,
 	FRENCH_NAT = 7,
-	RUSSIAN_NAT = 8,
-	NIGERIAN_NAT = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
+	RUSSIAN_NAT = 8,       // kitty: changed 9 from nigerian (moved down) to traconian (UB takes place in Tracona)
+	TRACONIAN_NAT = 9,	   // this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
 	SWISS_NAT = 10,
 	JAMAICAN_NAT = 11,
 	POLISH_NAT = 12,
@@ -261,64 +261,105 @@ typedef enum
 	SCOTTISH_NAT = 17,
 	ARULCAN_NAT = 18,
 	GERMAN_NAT = 19,
-	AFRICAN_NAT = 20,
+	AFRICAN_NAT = 20,   
 	ITALIAN_NAT = 21,
 	DUTCH_NAT = 22,
 	ROMANIAN_NAT = 23,
 	METAVIRAN_NAT = 24,
 
 	// new values, because why not
-	GREEK_NAT,		// 25
-	ESTONIAN_NAT,
-	VENEZUELAN_NAT ,
-	JAPANESE_NAT,
-	TURKISH_NAT,
-	INDIAN_NAT,		// 30
-	MEXICAN_NAT,
-	NORWEGIAN_NAT,
-	SPANISH_NAT,
-	BRASILIAN_NAT,
-	FINNISH_NAT,	// 35
-	IRANIAN_NAT,
-	ISRAELI_NAT,
-	BULGARIAN_NAT,
-	SWEDISH_NAT,
-	IRAQI_NAT,		// 40
-	SYRIAN_NAT,
-	BELGIAN_NAT,
-	PORTOGUESE_NAT,
-	BELARUSIAN_NAT,
-	SERBIAN_NAT,	// 45
-	PAKISTANI_NAT,
+	// kitty:
+	// added a few more and removed some, hoping to achieve a decent amount from every inhabited continent (plus one, in the 90's, relatively well-known fictional one)
+	// 0-24 original ja2 nationalities (except 9, see there)
+	// sorted non-original ones in (english) alphabetic order for some more ease of use during IMP creation
+	AFGHAN_NAT,       // 25 
 	ALBANIAN_NAT,
 	ARGENTINIAN_NAT,
 	ARMENIAN_NAT,
-	AZERBAIJANI_NAT, // 50
+	AZERBAIJANI_NAT,
+	BANGLADESHI_NAT,  // 30
+	BELARUSIAN_NAT,
+	BELGIAN_NAT,     
+	BENINESE_NAT,
 	BOLIVIAN_NAT,
-	CHILEAN_NAT,
-	CIRCASSIAN_NAT,
+	BOSNIAN_NAT,      // 35
+	BRASILIAN_NAT,
+	BULGARIAN_NAT,
+	CAMBODIAN_NAT,
+	CHADIAN_NAT,
+	CHILEAN_NAT,      // 40
 	COLUMBIAN_NAT,
-	EGYPTIAN_NAT, // 55
+	CONGOLESE_NAT,
+	CROATIAN_NAT,
+	ECUADORIAN_NAT,
+	EGYPTIAN_NAT,     // 45 
+	ENGLISH_NAT,    
+	ERITREAN_NAT,
+	ESTONIAN_NAT,
 	ETHIOPIAN_NAT,
+	FILIPINO_NAT,     // 50
+	FINNISH_NAT,  
 	GEORGIAN_NAT,
+	GREEK_NAT,
+	GUATEMALAN_NAT,
+	HAITIAN_NAT,      // 55
+	HONDURAN_NAT, 
+	INDIAN_NAT,
+	INDONESIAN_NAT,
+	IRANIAN_NAT,
+	IRAQI_NAT,        // 60
+	ISLANDIC_NAT, 
+	ISRAELI_NAT,
+	JAPANESE_NAT,
 	JORDANIAN_NAT,
-	KAZAKHSTANI_NAT,
-	KENYAN_NAT, // 60
-	KOREAN_NAT,
+	KAZAKHSTANI_NAT,  // 65
+	KOREAN_NAT,    
 	KYRGYZSTANI_NAT,
+	LAOTIAN_NAT,
+	LATVIAN_NAT,
+	LEBANESE_NAT,     // 70
+	LITHUANIAN_NAT, 
+	LYBIAN_NAT,
+	MACEDONIAN_NAT,
+	MALAYSIAN_NAT,
+	MEXICAN_NAT,      // 75
 	MONGOLIAN_NAT,
-	PALESTINIAN_NAT,
-	PANAMANIAN_NAT, // 65
-	RHODESIAN_NAT,
+	MOROCCAN_NAT,
+	MOZAMBICAN_NAT,
+	MYANMA_NAT,
+	NAMIBIAN_NAT,     // 80
+	NICARAGUAN_NAT,
+	NIGERIAN_NAT,      
+	NIGERIEN_NAT,     
+	NORWEGIAN_NAT,
+	PAKISTANI_NAT,    // 85
+	PANAMANIAN_NAT,
+	PORTOGUESE_NAT,
+	RWANDANESE_NAT,
 	SALVADORAN_NAT,
-	SAUDI_NAT,
+	SAUDI_NAT,        // 90
+	SERBIAN_NAT,
+	SLOVAKIAN_NAT,
+	SLOVENIAN_NAT,
 	SOMALI_NAT,
-	THAI_NAT, // 70
+	SPANISH_NAT,      // 95
+	SUDANESE_NAT,
+	SWEDISH_NAT,
+	SYRIAN_NAT,
+	THAI_NAT,
+	TOGOLESE_NAT,     // 100
+	TUNISIAN_NAT,
+	TURKISH_NAT,
+	UGANDAN_NAT,
 	UKRAINIAN_NAT,
+	URUGUAYAN_NAT,    // 105
 	UZBEKISTANI_NAT,
+	VENEZUELAN_NAT,
+	VIETNAMESE_NAT,
 	WELSH_NAT,
-	YAZIDI_NAT,
-	ZIMBABWEAN_NAT, // 75
+	YEMENI_NAT,       // 110
+	ZAMUNDAN_NAT,     // Zamunda 
+	ZIMBABWEAN_NAT,
 
 	NUM_NATIONALITIES
 } Nationalities;
