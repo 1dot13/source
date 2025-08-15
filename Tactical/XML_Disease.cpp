@@ -1,5 +1,5 @@
 #include "sgp.h"
-#include "overhead.h"
+#include "Overhead.h"
 #include "Disease.h"
 #include "Debug Control.h"
 #include "expat.h"

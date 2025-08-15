@@ -11,7 +11,7 @@
 	#include <string.h>
 	#include "soundman.h"
 	#include "FileMan.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "MemMan.h"
 	#include "random.h"
 	#include "fmod.h"

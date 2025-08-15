@@ -1,7 +1,7 @@
 #ifndef _STCI_IMAGE_UTILS_H_
 #define _STCI_IMAGE_UTILS_H_
 
-#include "Types.h"
+#include "types.h"
 #include "himage.h"
 #include <vfs/Core/vfs_types.h>
 #include <vfs/Core/File/vfs_file.h>

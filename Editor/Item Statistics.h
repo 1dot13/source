@@ -1,4 +1,4 @@
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 #ifndef __ITEM_STATISTICS_H
 #define __ITEM_STATISTICS_H

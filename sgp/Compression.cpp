@@ -1,5 +1,5 @@
 	#include "MemMan.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "zlib.h"
 
 

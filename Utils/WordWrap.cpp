@@ -2,7 +2,7 @@
 	#include "sgp.h"
 	#include "Render Dirty.h"
 	#include "Font Control.h"
-	#include "Stdio.h"
+	#include "stdio.h"
 	#include "WinFont.h"
 
 #include <language.hpp>

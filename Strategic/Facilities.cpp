@@ -21,7 +21,7 @@
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
 	#include "SkillCheck.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "Campaign.h"

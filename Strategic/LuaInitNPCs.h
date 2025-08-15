@@ -1,7 +1,7 @@
 #ifndef _LUAINITNPCS_H
 #define _LUAINITNPCS_H
 
-#include "Types.h"
+#include "types.h"
 
 typedef struct
 {

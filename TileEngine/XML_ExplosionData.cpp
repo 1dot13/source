@@ -3,8 +3,8 @@
 
 	#include <stdio.h>
 	#include <string.h>
-	#include "explosion control.h"
-	#include "Debug.h"
+	#include "Explosion Control.h"
+	#include "DEBUG.H"
 	#include "FileMan.h"
 	#include "Debug Control.h"
 

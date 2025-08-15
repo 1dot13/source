@@ -6,7 +6,7 @@
  * @author Flugente (bears-pit.com)
  */
 
-#include "Types.h"
+#include "types.h"
 
 void	EnterIMPPrejudice( void );
 void	RenderIMPPrejudice( void );

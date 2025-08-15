@@ -4,7 +4,7 @@
  */
 
 #include "SkillMenu.h"
-#include "Soldier Profile Type.h"
+#include "soldier profile type.h"
 #include "Overhead.h"
 #include "Text.h"
 #include "Isometric Utils.h"

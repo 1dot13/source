@@ -1,7 +1,7 @@
 #include "builddefines.h"
-#include "IniReader.h"
+#include "INIReader.h"
 #include "FileMan.h"
-#include "debug.h"
+#include "DEBUG.H"
 #include "Font Control.h"
 #include "message.h"
 #include <stdio.h>

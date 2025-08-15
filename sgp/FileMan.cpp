@@ -24,7 +24,7 @@
 //				Includes
 //
 //**************************************************************************
-	#include "Types.h"
+	#include "types.h"
 	#include <stdlib.h>
 	#include <malloc.h>
 	#include <stdio.h>
@@ -34,7 +34,7 @@
 	#include "windows.h"
 	#include "FileMan.h"
 	#include "MemMan.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "LibraryDataBase.h"
 	#include "io.h"
 	#include "sgp_logger.h"

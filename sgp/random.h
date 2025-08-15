@@ -3,8 +3,8 @@
 
 #define BMP_RANDOM
 
-#include "Types.h"
-#include "Debug.h"
+#include "types.h"
+#include "DEBUG.H"
 #include "GameSettings.h"
 
 //IMPORTANT: Changing this define will invalidate the JA2 save.	If this is necessary, please ifdef your own value.

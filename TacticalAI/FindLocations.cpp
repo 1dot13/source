@@ -2,11 +2,11 @@
 	#include "Isometric Utils.h"
 	#include "ai.h"
 	#include "AIInternals.h"
-	#include "los.h"
+	#include "LOS.h"
 	#include "Weapons.h"
-	#include "Opplist.h"
-	#include "pathai.h"
-	#include "items.h"
+	#include "opplist.h"
+	#include "PATHAI.H"
+	#include "Items.h"
 	#include "World Items.h"
 	#include "Points.h"
 	#include "message.h"
@@ -26,7 +26,7 @@
 	#include "Buildings.h"
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
-	#include "rotting corpses.h"	// sevenfm
+	#include "Rotting Corpses.h"	// sevenfm
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

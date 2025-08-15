@@ -13,7 +13,7 @@
 #include "../../TacticalAI/AIInternals.h"      // DEBUGAIMSG
 #include "../../Tactical/Soldier Control.h" // For SOLDIERTYPE definition
 #include "../../Tactical/Animation Data.h"  // For the definition of, wait for it... BLOODCAT!
-#include "soldier macros.h"
+#include "Soldier macros.h"
 
 #include <stdio.h>
 

@@ -2,7 +2,7 @@
 #define __PERSONNEL_H
 
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 

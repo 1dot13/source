@@ -1,5 +1,5 @@
 #include "lua_state.h"
-#include <Debug.h>
+#include <DEBUG.H>
 #include "sgp_logger.h"
 
 #include <vfs/Core/vfs_string.h>

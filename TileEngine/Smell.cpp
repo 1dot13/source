@@ -1,16 +1,16 @@
 	#include "worlddef.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Smell.h"
 	#include "worldman.h"
 	#include "renderworld.h"
 	#include "SaveLoadMap.h"
-	#include "gamesettings.h"
+	#include "GameSettings.h"
 	#include "message.h"
-	#include "Isometric utils.h"
+	#include "Isometric Utils.h"
 	#include "Map Information.h"
 	#include "Game Clock.h"
 	#include "Overhead.h"
-	#include "debug control.h"
+	#include "Debug Control.h"
 
 /*
  * Smell & Blood system

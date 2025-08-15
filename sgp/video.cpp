@@ -1,16 +1,16 @@
 #include "types.h"
-#include "Video.h"
+#include "video.h"
 #include "vobject_blitters.h"
 #include "sgp.h"
 #include <stdio.h>
 #include <io.h>
 #include "renderworld.h"
 #include "Render Dirty.h"
-#include "fade screen.h"
+#include "Fade Screen.h"
 #include "impTGA.h"
-#include "timer control.h"
-#include "Fileman.h"
-#include "Input.h"
+#include "Timer Control.h"
+#include "FileMan.h"
+#include "input.h"
 #include "GameSettings.h"
 #include "sgp_logger.h"
 
@@ -18,8 +18,8 @@
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
 
-#include "Local.h"
-#include "text.h"
+#include "local.h"
+#include "Text.h"
 
 
 #ifndef _MT

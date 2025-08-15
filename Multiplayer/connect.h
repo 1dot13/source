@@ -3,7 +3,7 @@
 
 #include "Soldier Init List.h"
 #include "Merc Hiring.h"
-#include "event pump.h"
+#include "Event Pump.h"
 #include "Bullets.h"
 #include "builddefines.h"
 

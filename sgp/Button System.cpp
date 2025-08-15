@@ -8,9 +8,9 @@
 	#include <windows.h>
 	#include <stdio.h>
 	#include <memory.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "input.h"
-	#include "memman.h"
+	#include "MemMan.h"
 	#include "english.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
@@ -24,7 +24,7 @@
 		#ifdef _JA2_RENDER_DIRTY
 			#include "Font Control.h"
 			#include "Render Dirty.h"
-			#include "utilities.h"
+			#include "Utilities.h"
 		#endif
 #include <vector>
 

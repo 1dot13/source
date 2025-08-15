@@ -1,5 +1,5 @@
 	#include "Map Screen Interface Border.h"
-	#include "Types.h"
+	#include "types.h"
 	#include "vsurface.h"
 	#include "mousesystem.h"
 	#include "Button System.h"

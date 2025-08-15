@@ -2,7 +2,7 @@
 #define __SOLDER_PROFILE_H
 
 #include "Soldier Control.h"
-#include "Soldier Profile Type.h"
+#include "soldier profile type.h"
 #include "Merc Hiring.h"
 
 typedef struct

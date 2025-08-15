@@ -4,7 +4,7 @@
 #include "../../TacticalAI/AIInternals.h"       // ACTING_ON_SCHEDULE
 #include "../../TacticalAI/NPC.h"               // NPCReachedDestination
 #include "../../Tactical/Animation Control.h"   // defines ANIM_...
-#include "../../Tactical/Soldier Macros.h"      // CREATURE_OR_BLOODCAT
+#include "../../Tactical/Soldier macros.h"      // CREATURE_OR_BLOODCAT
 #include "../../Tactical/opplist.h"             // EndMuzzleFlash
 #include "../../Tactical/Dialogue Control.h"    // DialogueQueueIsEmpty
 #include "../../TileEngine/Isometric Utils.h"   // defines NOWHERE
@@ -12,7 +12,7 @@
 #include "../../Utils/Font Control.h"           // ScreenMsg about deadlock
 #include "../../Utils/message.h"                // ditto
 #include "../../TileEngine/Render Fun.h"        // defines InARoom
-#include "../../Strategic/quests.h"             // IN_BROTHEL
+#include "../../Strategic/Quests.h"             // IN_BROTHEL
 
 
 void HandleAITacticalTraversal(SOLDIERTYPE* pSoldier);  // defined in TacticalAI/AIMain.cpp

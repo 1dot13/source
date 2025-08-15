@@ -6,7 +6,7 @@
 #include "MilitiaIndividual.h"
 
 #include "random.h"
-#include "text.h"
+#include "Text.h"
 #include "Overhead Types.h"
 #include "Game Clock.h"
 #include "strategicmap.h"

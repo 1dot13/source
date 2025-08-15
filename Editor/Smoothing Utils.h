@@ -1,4 +1,4 @@
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef __SMOOTHING_UTILS_H

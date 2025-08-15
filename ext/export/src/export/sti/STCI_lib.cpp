@@ -4,7 +4,7 @@
 
 #include "imgfmt.h"
 #include "himage.h"
-#include "Types.h"
+#include "types.h"
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/vfs_debug.h>
 #include <string>

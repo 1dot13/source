@@ -24,7 +24,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "MemMan.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include <stdio.h>
 	#include "sgp_logger.h"
 	#ifdef _DEBUG

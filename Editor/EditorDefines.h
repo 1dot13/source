@@ -1,10 +1,10 @@
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef __EDITORDEFINES_H
 #define __EDITORDEFINES_H
 
-#include "Types.h"
+#include "types.h"
 #include "Button Defines.h"
 
 

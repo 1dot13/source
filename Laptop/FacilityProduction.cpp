@@ -8,7 +8,7 @@
 #include "WCheck.h"
 #include "Utilities.h"
 #include "WordWrap.h"
-#include "Line.h"
+#include "line.h"
 #include "Text.h"
 #include "FacilityProduction.h"
 #include "Map Screen Interface.h"

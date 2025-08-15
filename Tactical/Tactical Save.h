@@ -3,10 +3,10 @@
 
 
 #include "World Items.h"
-#include "WorldDef.h"
-#include "rotting corpses.h"
+#include "worlddef.h"
+#include "Rotting Corpses.h"
 
-#include "Soldier Profile Type.h"
+#include "soldier profile type.h"
 
 
 #define		MAPS_DIR		"Temp\\"	

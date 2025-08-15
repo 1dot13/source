@@ -1,7 +1,7 @@
 #ifndef __STRATEGIC_TOWN_LOYALTY_H
 #define __STRATEGIC_TOWN_LOYALTY_H
 
-#include "Types.h"
+#include "types.h"
 #include "mapscreen.h"
 #include "Soldier Control.h"
 
