@@ -129,21 +129,10 @@ namespace ItemIdCache
 {
 	// cache these values on load so that we don't need to search for them every time something happens
 	std::vector<UINT16> gasCans;
-	std::vector<UINT16> firstAidKits;
-	std::vector<UINT16> medKits;
-	std::vector<UINT16> toolKits;
-	std::vector<UINT16> ammo[10]; // coolness
 
 	void Clear()
 	{
 		gasCans.clear();
-		firstAidKits.clear();
-		medKits.clear();
-		toolKits.clear();
-		for (int i = 0; i < 10; ++i)
-		{
-			ammo[i].clear();
-		}
 	}
 }
 
@@ -4418,23 +4407,6 @@ void SetupInfo()
 	for (UINT16 i = 0; i < MAXITEMS; ++i)
 	{
 		if (ItemIsGascan(i)) ItemIdCache::gasCans.push_back(i);
-		else if (ItemIsFirstAidKit(i)) ItemIdCache::firstAidKits.push_back(i);
-		else if (ItemIsMedicalKit(i)) ItemIdCache::medKits.push_back(i);
-		else if (ItemIsToolkit(i)) ItemIdCache::toolKits.push_back(i);
-		else if (Item[i].usItemClass & IC_AMMO)
-		{
-			if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
-			{
-				if ((gGameOptions.fGunNut || !ItemIsOnlyInTonsOfGuns(i))
-				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !ItemIsOnlyInScifi(i)))
-				{
-					// coolness runs from 1-10, so apply offset
-					const UINT8 coolness = min(max(1, Item[i].ubCoolness), 10);
-					ItemIdCache::ammo[coolness-1].push_back(i);
-				}
-			}
-		}
-		
 	}
 }
 
