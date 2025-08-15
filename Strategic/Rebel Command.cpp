@@ -4772,8 +4772,10 @@ void ApplyAdditionalASDEffects()
 		{
 		case MissionHelpers::DISRUPT_ASD_STEAL_FUEL:
 		{
-			// spawn a gas can
-			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size() - 1), 75 + Random(26));
+			// only spawn a gas can if at least one gas can is known by the game (ItemIsGascan)
+			if (ItemIdCache::gasCans.size() > 0)
+				// The gas can is spawned like a Bobby Ray delivery (you need to open the crate)
+				CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size() -1), 75 + Random(26));
 
 			// say it came from the ASD's reserves
 			AddStrategicAIResources(ASD_FUEL, -(gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep)));
