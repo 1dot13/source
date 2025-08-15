@@ -616,7 +616,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 						pObj = &( pSoldier->inv[ vbLBESlots[ i ] ] );
 						usBackPackWeight += CalculateObjectWeight( pObj );
 					}
-					usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+					usBPPenalty = min( ( usBackPackWeight / gGameExternalOptions.ubBackPackWeightFactorForAPPenalty ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
 				}
 				else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
 				{

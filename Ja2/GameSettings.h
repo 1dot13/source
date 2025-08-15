@@ -1361,6 +1361,9 @@ typedef struct
 	INT16 sBackpackWeightToClimb;
 	BOOLEAN fUseGlobalBackpackSettings;
 
+	// Buscher
+	UINT8 ubBackPackWeightFactorForAPPenalty;
+
 	// sevenfm: show enemy weapon above soldier in tactical
 	BOOLEAN fShowEnemyWeapon;
 	BOOLEAN fShowEnemyExtendedInfo;
