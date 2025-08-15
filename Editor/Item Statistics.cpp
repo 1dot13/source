@@ -23,7 +23,7 @@
 	#include "random.h"
 	#include "Handle Items.h"
 	#include "World Items.h"
-	#include "PopupMenu.h"
+	#include "popupmenu.h"
 	#include "pits.h"
 	#include "Text.h"
 

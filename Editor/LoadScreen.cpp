@@ -6,7 +6,7 @@
 	#include "Font Control.h" 
 	#include "renderworld.h"
 	#include "Render Dirty.h"
-	#include "loadscreen.h"
+	#include "LoadScreen.h"
 	#include "selectwin.h"
 	#include "EditorDefines.h"
 	#include "messagebox.h"

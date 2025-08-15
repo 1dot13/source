@@ -35,7 +35,7 @@
 	#include "Simple Render Utils.h"
 	#include "worldman.h"
 	#include "random.h"
-	#include "Pits.h"
+	#include "pits.h"
 	#include "Keys.h"
 	#include "InterfaceItemImages.h"
 	#include "Editor Undo.h"//dnl ch86 220214

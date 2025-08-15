@@ -15,7 +15,7 @@
 	#include "line.h"
 	#include "input.h"
 	#include "vobject_blitters.h"
-	#include "loadscreen.h"
+	#include "LoadScreen.h"
 	#include "Text Input.h"
 	#include "mousesystem.h"
 	#include "strategicmap.h"
