@@ -8427,7 +8427,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
-		<szItemName>BDU Jacket</szItemName>
+		<szItemName>W-BDU Jacket</szItemName>
 		<szLongItemName>Woodland BDU Jacket</szLongItemName>
 		<szItemDesc>A Battle Dress Uniform jacket, in woodland camouflage. Fits under most body armor vests.</szItemDesc>
 		<szBRName>Woodland BDU Jacket</szBRName>
@@ -8464,7 +8464,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
-		<szItemName>Hat</szItemName>
+		<szItemName>Boonie Hat</szItemName>
 		<szLongItemName>Boonie Hat</szLongItemName>
 		<szItemDesc>A nice boonie hat to wear when your helmet gets too hot. Provides limited camouflage.</szItemDesc>
 		<szBRName>Boonie Hat</szBRName>
@@ -52780,7 +52780,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1766</uiIndex>
-		<szItemName>BDU Pants</szItemName>
+		<szItemName>W-BDU Pants</szItemName>
 		<szLongItemName>Woodland BDU Pants</szLongItemName>
 		<szItemDesc>These Battle Dress Uniform pants in woodland camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
 		<szBRName>Woodland BDU Pants</szBRName>
@@ -52813,7 +52813,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1767</uiIndex>
-		<szItemName>BDU Pants</szItemName>
+		<szItemName>D-BDU Pants</szItemName>
 		<szLongItemName>Desert BDU Pants</szLongItemName>
 		<szItemDesc>These Battle Dress Uniform pants in desert camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
 		<szBRName>Desert BDU Pants</szBRName>
@@ -52846,7 +52846,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1768</uiIndex>
-		<szItemName>BDU Pants</szItemName>
+		<szItemName>U-BDU Pants</szItemName>
 		<szLongItemName>Urban BDU Pants</szLongItemName>
 		<szItemDesc>These Battle Dress Uniform pants in urban camouflage will protect your lower limbs from minor cuts and bruises, and will fit under most leg armor systems.</szItemDesc>
 		<szBRName>Urban BDU Pants</szBRName>
@@ -52878,7 +52878,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1769</uiIndex>
-		<szItemName>BDU Jacket</szItemName>
+		<szItemName>D-BDU Jacket</szItemName>
 		<szLongItemName>Desert BDU Jacket</szLongItemName>
 		<szItemDesc>A Battle Dress Uniform jacket, in desert camouflage. Fits snugly under most body armor vests.</szItemDesc>
 		<szBRName>Desert BDU Jacket</szBRName>
@@ -52915,7 +52915,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1770</uiIndex>
-		<szItemName>BDU Jacket</szItemName>
+		<szItemName>U-BDU Jacket</szItemName>
 		<szLongItemName>Urban BDU Jacket</szLongItemName>
 		<szItemDesc>A Battle Dress Uniform jacket, in urban camouflage. Fits snugly under most body armor vests.</szItemDesc>
 		<szBRName>Urban BDU Jacket</szBRName>

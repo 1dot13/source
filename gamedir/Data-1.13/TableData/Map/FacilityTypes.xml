@@ -600,19 +600,30 @@
 			<usItemToCreate>195</usItemToCreate>
 			<sMinutesRequired>120</sMinutesRequired>
 			<sGridNo_Creation>12759</sGridNo_Creation>
-			<sHourlyCost>7</sHourlyCost>			
+			<sHourlyCost>7</sHourlyCost>
 			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
 		</PRODUCTIONLINE>
 		<PRODUCTIONLINE>
-			<!-- create green T-Shirt from string + rag (2x) -->
-			<usItemToCreate>1609</usItemToCreate>
+			<!-- create White Shirt (Civ Disguise) from string + rag (2x) -->
+			<usItemToCreate>1612</usItemToCreate>
 			<sMinutesRequired>120</sMinutesRequired>
 			<sGridNo_Creation>12917</sGridNo_Creation>
-			<sHourlyCost>7</sHourlyCost>			
-			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<sHourlyCost>20</sHourlyCost>
+			<usOptional_LoyaltyRequired>40</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Blue Jeans (Civ Disguise) from string + rag (2x) -->
+			<usItemToCreate>1619</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>12917</sGridNo_Creation>
+			<sHourlyCost>20</sHourlyCost>
+			<usOptional_LoyaltyRequired>40</usOptional_LoyaltyRequired>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
@@ -621,38 +632,120 @@
 			<!-- we have to build an upgrade before we can create uniforms -->
 			<szProductionName>Upgrade</szProductionName>
 			<sMinutesRequired>181</sMinutesRequired>
-			<sHourlyCost>100</sHourlyCost>			
-			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<sHourlyCost>100</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
 		</PRODUCTIONLINE>
 		<PRODUCTIONLINE>
-			<!-- create Field uniform from string (3x) + rag (3x) -->
+			<!-- create Woodland Boonie Hat from string (2x) + rag (2x) + WL camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>285</usItemToCreate>
+			<sMinutesRequired>200</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Woodland BDU Jacket from string (3x) + rag (3x) + WL camo kit -->
 			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
 			<usItemToCreate>284</usItemToCreate>
 			<sMinutesRequired>300</sMinutesRequired>
 			<sGridNo_Creation>11316</sGridNo_Creation>
-			<sHourlyCost>25</sHourlyCost>			
-			<usOptional_LoyaltyRequired>30</usOptional_LoyaltyRequired>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
 		</PRODUCTIONLINE>
 		<PRODUCTIONLINE>
-			<!-- create Field uniform from green T-Shirt, string (2x) + rag -->
-			<usItemToCreate>284</usItemToCreate>
-			<sMinutesRequired>180</sMinutesRequired>
+			<!-- create Woodland BDU Pants from string (3x) + rag (3x) + WL camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1766</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
 			<sGridNo_Creation>11316</sGridNo_Creation>
-			<sHourlyCost>37</sHourlyCost>			
-			<usOptional_LoyaltyRequired>30</usOptional_LoyaltyRequired>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
 			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
-			<usOptional_ItemUsedUp>1609</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Desert BDU Jacket from string (3x) + rag (3x) + Desert camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1769</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1028</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Desert BDU Pants from string (3x) + rag (3x) + Desert camo kit -->
+			<usItemToCreate>1767</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1028</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Urban BDU Jacket from string (3x) + rag (3x) + Urban camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1770</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1027</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Urban BDU Pants from string (3x) + rag (3x) + Urban camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1768</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1027</usOptional_ItemUsedUp>
 		</PRODUCTIONLINE>
 	</FACILITYTYPE>
-	
+
 	<FACILITYTYPE>
 		<ubIndex>24</ubIndex>
 		<szFacilityName>Hicks Farm</szFacilityName>
