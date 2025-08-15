@@ -1679,6 +1679,9 @@ void LoadGameExternalOptions()
 	//JMich.BackpackClimb
 	gGameExternalOptions.sBackpackWeightToClimb = iniReader.ReadInteger("Tactical Gameplay Settings", "MAX_BACKPACK_WEIGHT_TO_CLIMB", -1);
 	gGameExternalOptions.fUseGlobalBackpackSettings = iniReader.ReadBoolean("Tactical Gameplay Settings", "USE_GLOBAL_BACKPACK_SETTINGS", TRUE);
+
+	// Buscher
+	gGameExternalOptions.ubBackPackWeightFactorForAPPenalty = iniReader.ReadInteger("Tactical Gameplay Settings", "BACKPACK_WEIGHT_FACTOR", 50, 1, 250);
 	
 	// sevenfm
 	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
