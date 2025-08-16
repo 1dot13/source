@@ -6,7 +6,7 @@
 	#include "Strategic Mines.h"
 	#include "email.h"
 	#include "Game Clock.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "GameSettings.h"
 	#include "history.h"
 	#include "Strategic Town Loyalty.h"

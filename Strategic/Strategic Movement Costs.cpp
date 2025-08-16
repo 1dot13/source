@@ -3,7 +3,7 @@
 	#include "Strategic Movement.h"
 	#include "XML.h"
 	#include "expat.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "Debug Control.h"
 	#include "Tactical Save.h"
 #include "Map Screen Interface Map.h"

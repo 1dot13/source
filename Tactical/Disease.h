@@ -6,7 +6,7 @@
 * @author Flugente (bears-pit.com)
 */
 
-#include "Types.h"
+#include "types.h"
 
 // number of different diseases. Altering this will alter the size of INT32	sDiseasePoints[NUM_DISEASES]; in SOLDIERTYPE
 #define NUM_DISEASES			20

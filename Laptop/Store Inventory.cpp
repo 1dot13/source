@@ -1,11 +1,11 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "Store Inventory.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Weapons.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "LaptopSave.h"
 	#include "ShopKeeper Interface.h"
-	#include "armsdealerinvinit.h"
+	#include "ArmsDealerInvInit.h"
 	#include "GameSettings.h"
 
 

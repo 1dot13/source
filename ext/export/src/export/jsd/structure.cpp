@@ -2,7 +2,7 @@
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Tools/vfs_tools.h>
 
-#include <Types.h>
+#include <types.h>
 #include <XMLWriter.h>
 #include <sgp_auto_memory.h>
 #include <Structure Internals.h>

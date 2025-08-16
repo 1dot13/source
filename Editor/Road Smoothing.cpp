@@ -4,7 +4,7 @@
 
 	#include "types.h"
 	#include "Road Smoothing.h"
-	#include "tiledat.h"
+	#include "TileDat.h"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "Editor Undo.h"

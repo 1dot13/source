@@ -1,16 +1,16 @@
 	#include "types.h"
 	#include <stdio.h>
-	#include <Windows.h>
+	#include <windows.h>
 	#include "sgp.h"
 	#include "time.h"
 	#include "vobject.h"
 	#include "FileMan.h"
 	#include "Utilities.h"
 	#include "Font Control.h"
-	#include "overhead.h"
-	#include "overhead types.h"
-	#include "wcheck.h"
-	#include "sys globals.h"
+	#include "Overhead.h"
+	#include "Overhead Types.h"
+	#include "WCheck.h"
+	#include "Sys Globals.h"
 
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );

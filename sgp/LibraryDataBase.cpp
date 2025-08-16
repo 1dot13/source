@@ -1,11 +1,11 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "windows.h"
 	#include "FileMan.h"
 	#include "LibraryDataBase.h"
 	#include "MemMan.h"
 	#include "stdio.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 
 		#include "video.h"
 

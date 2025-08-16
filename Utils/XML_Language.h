@@ -1,7 +1,7 @@
 #ifndef __XML_LANGUAGE_H
 #define __XML_LANGUAGE_H
 
-#include "Types.h"
+#include "types.h"
 
 #define MAX_MESSAGE_NAMES_CHARS		400
 

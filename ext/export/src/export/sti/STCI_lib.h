@@ -1,4 +1,4 @@
-#include "Types.h"
+#include "types.h"
 #include "himage.h"
 
 #include <vfs/Core/File/vfs_file.h>

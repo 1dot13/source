@@ -1,6 +1,6 @@
 	#include "laptop.h"
 	#include "AimSort.h"
-	#include "Aim.h"
+	#include "aim.h"
 	#include "WCheck.h"
 	#include "Utilities.h"
 	#include "WordWrap.h"

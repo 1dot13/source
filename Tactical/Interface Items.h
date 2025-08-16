@@ -1,7 +1,7 @@
 #ifndef __INTERFACE_ITEMS_H
 #define __INTERFACE_ITEMS_H
 
-#include "items.h"
+#include "Items.h"
 #include "Handle Items.h"
 #include "popup_class.h"
 

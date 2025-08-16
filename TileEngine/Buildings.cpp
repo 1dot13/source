@@ -1,6 +1,6 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "Buildings.h"
-	#include "Pathai.h"
+	#include "PATHAI.H"
 	#include "Structure Wrap.h"
 	#include "Render Fun.h"
 	#include "worldman.h"

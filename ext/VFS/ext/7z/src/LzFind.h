@@ -4,7 +4,7 @@
 #ifndef __LZ_FIND_H
 #define __LZ_FIND_H
 
-#include "Types.h"
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {

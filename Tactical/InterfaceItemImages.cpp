@@ -2,7 +2,7 @@
 
 #include "DEBUG.H"
 #include "vobject.h"
-#include "utilities.h"
+#include "Utilities.h"
 #include "GameSettings.h"
 #include <vfs/Core/vfs.h>
 

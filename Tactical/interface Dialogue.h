@@ -3,7 +3,7 @@
 
 
 #include "mousesystem.h"
-#include "npc.h"
+#include "NPC.h"
 
 extern UINT8 gubSrcSoldierProfile;
 

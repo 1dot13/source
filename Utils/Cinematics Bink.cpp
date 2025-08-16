@@ -1,4 +1,4 @@
-#include "Types.h"
+#include "types.h"
 #include <stdio.h>
 #include <io.h>
 #include <string.h>
@@ -8,15 +8,15 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-#include "Debug.h"
+#include "DEBUG.H"
 #include "FileMan.h"
-#include "smack.h"
-#include "DDraw.h"
-#include "mss.h"
+#include "SMACK.H"
+#include "ddraw.h"
+#include "Mss.h"
 #include "DirectX Common.h"
 #include "DirectDraw Calls.h"
-#include "SoundMan.h"
-#include "Video.h"
+#include "soundman.h"
+#include "video.h"
 
 #include "Cinematics Bink.h"
 

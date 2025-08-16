@@ -1,7 +1,7 @@
-#include "Types.h"
+#include "types.h"
 #include "vsurface.h"
 #include "mainmenuscreen.h"
-#include "Video.h"
+#include "video.h"
 #include "Timer Control.h"
 #include "Multi Language Graphic Utils.h"
 #include <stdio.h>

@@ -1,4 +1,4 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "WCheck.h"
 	#include <string.h>
 	#include "GameSettings.h"

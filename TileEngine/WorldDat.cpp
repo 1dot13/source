@@ -1,9 +1,9 @@
 #include "builddefines.h"
 
-	#include "worlddat.h"
-	#include "sys globals.h"
-	#include "tile surface.h"
-	#include "Debug.h"
+	#include "WorldDat.h"
+	#include "Sys Globals.h"
+	#include "Tile Surface.h"
+	#include "DEBUG.H"
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>

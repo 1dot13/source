@@ -1,9 +1,9 @@
 	#include "Encrypted File.h"
 	#include "FileMan.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 
 // anv: for selecting random line
-#include "Random.h"
+#include "random.h"
 
 // anv: loading random line from the file
 BOOLEAN LoadEncryptedDataFromFileRandomLine(STR pFileName, STR16 pDestString, UINT32 uiSeekAmount)

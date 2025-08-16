@@ -6,7 +6,7 @@
 	#include "WCheck.h"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "text.h"
+	#include "Text.h"
 
 UINT32		guiAmmoBackground;
 UINT32		guiAmmoGrid;

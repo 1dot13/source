@@ -1,7 +1,7 @@
 #include "builddefines.h"
 
-	#include "debug.h"
-	#include "sys globals.h"
+	#include "DEBUG.H"
+	#include "Sys Globals.h"
 
 #include "XML.h"
 

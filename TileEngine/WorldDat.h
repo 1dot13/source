@@ -2,7 +2,7 @@
 #define WORLD_DAT_H
 
 #include "types.h"
-#include "tiledat.h"
+#include "TileDat.h"
 #include "World Tileset Enums.h"
 
 typedef void (*TILESET_CALLBACK)( void );	

@@ -5,7 +5,7 @@
 #define		ANGRY							2
 #define	SURPRISED					3
 
-#include "soldier control.h"
+#include "Soldier Control.h"
 #include "soldier profile type.h"
  
 // Defines

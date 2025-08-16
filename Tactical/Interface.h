@@ -1,7 +1,7 @@
 #ifndef _INTERFACE_H
 #define _INTERFACE_H
 
-#include "handle UI.h"
+#include "Handle UI.h"
 #include "mousesystem.h"
 #include "structure.h"
 #include "Assignments.h"		// added by Flugente for the stat-enums

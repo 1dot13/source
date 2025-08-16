@@ -7,7 +7,7 @@
 	#include "renderworld.h"
 	#include "random.h"
 	#include "worldman.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "Isometric Utils.h"
 	#include "editscreen.h"
 	#include "EditorDefines.h"

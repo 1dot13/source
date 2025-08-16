@@ -1,7 +1,7 @@
 #ifndef _LUAGLOBAL_H
 #define _LUAGLOBAL_H
 
-#include "Types.h"
+#include "types.h"
 
 extern "C" {
 #include "lua.h"

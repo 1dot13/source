@@ -2,10 +2,10 @@
 	#include "personnel.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Text.h"
@@ -26,9 +26,9 @@
 	#include "strategicmap.h"
 	#include "GameSettings.h"
 	#include "Merc Contract.h"
-	#include "_Ja25Englishtext.h" // added by SANDRO
+	#include "_Ja25EnglishText.h" // added by SANDRO
 
-#include "Soldier Macros.h"
+#include "Soldier macros.h"
 #include "InterfaceItemImages.h"
 
 #include "IMP Skill Trait.h"		// added by Flugente

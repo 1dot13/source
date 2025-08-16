@@ -3,15 +3,15 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "MemMan.h"
 	#include "Overhead Types.h"
 
 	#include "random.h"
-	#include "campaign.h"
-	#include "dialogue control.h"
+	#include "Campaign.h"
+	#include "Dialogue Control.h"
 	#include "Map Screen Interface.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Game Clock.h"
 	#include "Strategic Mines.h"
 	#include "Strategic Status.h"
@@ -22,7 +22,7 @@
 	#include "Interface.h"
 	#include "Game Event Hook.h"
 	#include "Overhead.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "Quests.h"
 	#include "Squads.h"
 	#include "Soldier macros.h"

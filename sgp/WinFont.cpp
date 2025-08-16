@@ -10,16 +10,16 @@
 #include <wchar.h>
 #include <string.h>
 #include "sgp.h"
-#include "memman.h"
-#include "fileman.h"
+#include "MemMan.h"
+#include "FileMan.h"
 #include "Font.h"
-#include "Debug.h"
+#include "DEBUG.H"
 #include "vsurface.h"
 #include "vsurface_private.h"
 #include "DirectX Common.h"
 #include <ddraw.h>
 #include "winfont.h"
-#include "font.h"
+#include "Font.h"
 #include "Font Control.h"
 #include "GameSettings.h"
 #include <language.hpp>

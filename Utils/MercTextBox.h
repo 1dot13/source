@@ -1,7 +1,7 @@
 #ifndef __MERCTEXTBOX_H_
 #define __MERCTEXTBOX_H_
 
-#include "Types.h"
+#include "types.h"
 
 
 #define MERC_POPUP_PREPARE_FLAGS_TRANS_BACK			0x00000001

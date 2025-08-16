@@ -1,9 +1,9 @@
 #include "builddefines.h"
 
-	#include "debug.h"
-	#include "animation control.h"
-	#include "lighteffects.h"
-	#include "isometric utils.h"
+	#include "DEBUG.H"
+	#include "Animation Control.h"
+	#include "LightEffects.h"
+	#include "Isometric Utils.h"
 	#include "lighting.h"
 	#include "Game Clock.h"
 	#include "opplist.h"

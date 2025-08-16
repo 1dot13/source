@@ -1,11 +1,11 @@
-	#include <String.h>
+	#include <string.h>
 	#include "Strategic Mines.h"
-	#include "Finances.h"
+	#include "finances.h"
 	#include "Strategic Town Loyalty.h"
 	#include "strategic.h"
 	#include "Game Clock.h"
 	#include "strategicmap.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
 	#include "Map Screen Interface.h"

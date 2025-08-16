@@ -2,13 +2,13 @@
 	#include "Weapons.h"
 	#include "opplist.h"
 	#include "Points.h"
-	#include "PathAI.h"
-	#include "WorldMan.h"
+	#include "PATHAI.H"
+	#include "worldman.h"
 	#include "AIInternals.h"
 	#include "Items.h"
 	#include "message.h"
-	#include "los.h"
-	#include "assignments.h"
+	#include "LOS.h"
+	#include "Assignments.h"
 	#include "Soldier Functions.h"
 	#include "Points.h"
 	#include "GameSettings.h"
@@ -23,7 +23,7 @@
 	#include "Vehicles.h"			// added by silversurfer
 	#include "Game Clock.h"			// sevenfm
 	#include "Rotting Corpses.h"	// sevenfm
-	#include "wcheck.h"				// sevenfm
+	#include "WCheck.h"				// sevenfm
 	#include "SmokeEffects.h"		// sevenfm
 
 #include "GameInitOptionsScreen.h"

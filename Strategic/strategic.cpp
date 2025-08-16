@@ -1,5 +1,5 @@
-	#include "Strategic.h"
-	#include "Types.h"
+	#include "strategic.h"
+	#include "types.h"
 	#include "Squads.h"
 	#include "jascreens.h"
 	#include "Assignments.h"
@@ -13,7 +13,7 @@
 	#include "Vehicles.h"
 	#include "Game Clock.h"
 	#include "CampaignStats.h"		// added by Flugente
-	#include "militiasquads.h"		// added by Flugente
+	#include "MilitiaSquads.h"		// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
 	#include "message.h"			// added by Flugente
 	#include "Text.h"				// added by Flugente

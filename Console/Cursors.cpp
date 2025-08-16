@@ -27,7 +27,7 @@
 // Cursors.h - cursor classes
 
 //#include "stdafx.h"
-#include <Windows.h>
+#include <windows.h>
 #include <tchar.h>
 #include "Cursors.h"
 

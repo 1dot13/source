@@ -1,7 +1,7 @@
 	#include <stdio.h>
 	#include "pcx.h"
-	#include "memman.h"
-	#include "fileman.h"
+	#include "MemMan.h"
+	#include "FileMan.h"
 
 // Local typedefs
 

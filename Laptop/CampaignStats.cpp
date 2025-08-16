@@ -11,7 +11,7 @@
 #include "Game Clock.h"
 #include "Soldier macros.h"
 #include "Text.h"
-#include "Laptop.h"
+#include "laptop.h"
 #include "LaptopSave.h"
 #include "email.h"
 #include "DynamicDialogue.h"

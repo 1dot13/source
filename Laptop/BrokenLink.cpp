@@ -1,9 +1,9 @@
-	#include "Types.h"
-	#include "font.h"
+	#include "types.h"
+	#include "Font.h"
 	#include "laptop.h"
 	#include "Font Control.h"
 	#include "Text.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 
 #define		BROKEN_LINK__FONT									FONT12ARIAL
 #define		BROKEN_LINK__COLOR								FONT_MCOLOR_BLACK

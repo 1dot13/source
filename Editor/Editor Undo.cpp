@@ -6,7 +6,7 @@
 	#include "worldman.h"
 	#include "smooth.h"
 	#include "input.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Isometric Utils.h"
 
 	#include "editscreen.h"
@@ -15,7 +15,7 @@
 	#include "Cursor Modes.h"
 	#include "Exit Grids.h"
 	//dnl ch86 110214
-	#include "keys.h"
+	#include "Keys.h"
 	#include "EditorItems.h"
 	#include "EditorMapInfo.h"
 

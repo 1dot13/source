@@ -1,7 +1,7 @@
 #ifndef __MILITIA_CONTROL_H
 #define __MILITIA_CONTROL_H
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 #include "mousesystem.h"
 #include "Strategic Movement.h"

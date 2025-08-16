@@ -3,12 +3,12 @@
 #include "Map Screen Interface.h"
 #include "personnel.h"
 #include "soldier profile type.h"
-#include "interface.h"
+#include "Interface.h"
 #include "Keys.h"
 #include "Merc Contract.h"
 #include "Campaign Types.h"
-#include "Finances.h"
-#include "Laptop.h"
+#include "finances.h"
+#include "laptop.h"
 
 #include <vfs/Core/vfs_string.h>
 #include <vfs/Tools/vfs_tools.h>
@@ -68,7 +68,7 @@ namespace Loc
 }
 
 #include "Assignments.h"
-#include "History.h"
+#include "history.h"
 
 template<typename T>
 void ExportSection(vfs::PropertyContainer& props, const vfs::String::char_t* section_name, T* strings, int min, int max)

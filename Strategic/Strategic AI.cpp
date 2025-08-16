@@ -7,7 +7,7 @@
 	#include "Game Event Hook.h"
 	#include "GameSettings.h"
 	#include "Campaign Types.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Pathing.h"
 	#include "message.h"
 	#include "strategicmap.h"
@@ -30,7 +30,7 @@
 	#include "Soldier Profile.h"
 	#include "Scheduling.h"
 	#include "Map Information.h"
-	#include "interface dialogue.h"
+	#include "interface Dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
 	#include "Game Event Hook.h"

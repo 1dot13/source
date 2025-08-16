@@ -1,7 +1,7 @@
 #ifndef __IMP_BACKGROUND__H_
 #define __IMP_BACKGROUND__H_
 
-#include "Types.h"
+#include "types.h"
 #include "mousesystem.h"
 
 void	EnterIMPBackground( void );

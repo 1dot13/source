@@ -1,7 +1,7 @@
 #ifndef __SOLDER_PROFILE_TYPE_H
 #define __SOLDER_PROFILE_TYPE_H
 
-#include "overhead types.h"
+#include "Overhead Types.h"
 #include "Soldier Control.h"
 #include "mapscreen.h"
 

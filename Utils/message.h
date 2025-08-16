@@ -2,10 +2,10 @@
 #define __MESSAGE_H
 
 //#include "sgp.h"
-#include "font.h"
+#include "Font.h"
 #include "Font Control.h"
 #include "types.h"
-#include "Fileman.h"
+#include "FileMan.h"
 
 
 struct stringstruct{

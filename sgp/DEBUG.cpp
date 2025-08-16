@@ -28,7 +28,7 @@
 	#include <stdio.h>
 	#include <string>
 	#include <sstream>
-	#include "debug.h"
+	#include "DEBUG.H"
 
 	//Kris addition
 		#include "screenids.h"
@@ -39,7 +39,7 @@
 
 	// CJC added
 	#ifndef _NO_DEBUG_TXT
-		#include "fileman.h"
+		#include "FileMan.h"
 	#endif
 #include "GameSettings.h"
 #include "SaveLoadGame.h"
