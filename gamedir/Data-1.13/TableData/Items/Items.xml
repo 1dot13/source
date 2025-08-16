@@ -3975,6 +3975,7 @@
 		<ubGraphicNum>563</ubGraphicNum>
 		<ubWeight>11</ubWeight>
 		<ItemSize>99</ItemSize>
+		<AttachmentSystem>1</AttachmentSystem>
 		<usPrice>1500</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bRepairEase>3</bRepairEase>
@@ -33169,6 +33170,7 @@
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>99</ItemSize>
+		<AttachmentSystem>1</AttachmentSystem>
 		<usPrice>340</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bRepairEase>2</bRepairEase>
