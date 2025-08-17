@@ -1,6 +1,6 @@
 	#include "Map Screen Interface TownMine Info.h"
 	#include "strategicmap.h"
-	#include "popupbox.h"
+	#include "PopUpBox.h"
 	#include "Map Screen Interface.h"
 	#include "Queen Command.h"
 	#include "Player Command.h"
@@ -15,7 +15,7 @@
 	#include "Strategic Mines.h"
 	#include "finances.h"
 	#include "Map Screen Interface Map Inventory.h"
-	#include "Strategic.h"
+	#include "strategic.h"
 	#include "Utilities.h"
 	#include "video.h"
 	#include "Town Militia.h"
@@ -23,7 +23,7 @@
 	#include "Map Screen Helicopter.h"
 	#include "Tactical Save.h"
 	#include "GameSettings.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Overhead.h"	// added by Flugente
 	#include "Game Clock.h"			// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente

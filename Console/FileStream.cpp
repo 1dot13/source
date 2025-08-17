@@ -33,7 +33,7 @@
 
 //#include "stdafx.h"
 //#include <atlbase.h>
-#include <Windows.h>
+#include <windows.h>
 #include <objidl.h>
 #include "FileStream.h"
 

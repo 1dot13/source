@@ -1,7 +1,7 @@
 ﻿#ifndef __TEXT_H
 #define __TEXT_H
 
-#include "items.h"
+#include "Items.h"
 #include "types.h"
 #include "mapscreen.h"
 #include "XML_Language.h"

@@ -2,9 +2,9 @@
 	#include <string.h>
 
 	#include "types.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Animation Cache.h"
 	#include "Animation Data.h"
 	#include "Animation Control.h"

@@ -42,7 +42,7 @@
 #include "Game Events.h"
 #include "email.h"
 #include "worldman.h"
-#include "text.h"
+#include "Text.h"
 #include "Dialogue Control.h"
 #include "Boxing.h"
 

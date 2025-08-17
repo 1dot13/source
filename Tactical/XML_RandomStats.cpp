@@ -6,7 +6,7 @@
 
 #include "soldier profile type.h"
 #include "Soldier Profile.h"
-#include "Random.h"
+#include "random.h"
 
 struct
 {

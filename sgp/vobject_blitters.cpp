@@ -1,10 +1,10 @@
 	#include "DirectDraw Calls.h"
 	#include <stdio.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 		#include "video.h"													// JA2
 	#include "himage.h"
 	#include "vobject.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
 	#include "shading.h"

@@ -4,7 +4,7 @@
 	#include "Game Events.h"
 	#include "Game Clock.h"
 	#include "MemMan.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "Font Control.h"
 	#include "message.h"
 	#include "MiniEvents.h"

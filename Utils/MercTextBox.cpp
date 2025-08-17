@@ -5,7 +5,7 @@
 	#include "Utilities.h"
 	#include "WordWrap.h"
 	#include "vobject_blitters.h"
-	#include "Message.h"
+	#include "message.h"
 
 
 #define		TEXT_POPUP_WINDOW_TEXT_OFFSET_X		8

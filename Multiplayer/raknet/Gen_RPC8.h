@@ -12,7 +12,7 @@
 #endif
 #include <stddef.h>
 //#define ASSEMBLY_BLOCK asm
-//#include "Types.h"
+//#include "types.h"
 #include "BitStream.h"
 // #define AUTO_RPC_NO_ASM
 

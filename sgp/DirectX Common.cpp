@@ -6,7 +6,7 @@
 	#include <ddraw.h>
 	#include "DirectX Common.h"
 	#include <windows.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 
 void	DirectXZeroMem ( void* pMemory, int nSize )
 {

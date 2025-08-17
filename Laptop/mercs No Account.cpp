@@ -6,7 +6,7 @@
 	#include "WordWrap.h"
 	#include "Cursors.h"
 	#include "LaptopSave.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "Speck Quotes.h"
 

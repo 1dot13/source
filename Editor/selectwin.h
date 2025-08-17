@@ -1,10 +1,10 @@
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef _SELECTION_WIN_H_
 #define _SELECTION_WIN_H_
 
-#include "Types.h"
+#include "types.h"
 #include "vobject.h"
 
 #include "mousesystem.h"

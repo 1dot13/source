@@ -7,7 +7,7 @@ extern "C" {
 #include "lualib.h"
 }
 
-#include "Types.h"
+#include "types.h"
 
 typedef struct {
 	STR8 name;

@@ -2,18 +2,18 @@
 #include <stdio.h>
 #include <string.h>
 #include "stdlib.h"
-#include "debug.h"
+#include "DEBUG.H"
 #include "Animation Control.h"
 #include "Animation Data.h"
 #include "FileMan.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "message.h"
 #include "structure.h"
 #include "worlddef.h"
 #include "worldman.h"
-#include "rotting corpses.h"
+#include "Rotting Corpses.h"
 #include "Debug Control.h"
-#include "Random.h"
+#include "random.h"
 #include "Soldier Control.h"
 
 #include "connect.h"

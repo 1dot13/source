@@ -7,17 +7,17 @@
 	#include <string.h>
 	#include "sgp.h"
 	#include "vobject.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "local.h"
-	#include "Fileman.h"
+	#include "FileMan.h"
 	#include "input.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "gameloop.h"
 	#include "soundman.h"
 		#include "JA2 Splash.h"
 		#include "Timer Control.h"
 	#include "LibraryDataBase.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 
 #include "GameSettings.h"
 #include "input.h"
@@ -51,7 +51,7 @@
 #include "english.h"
 #include "wine.h"
 
-	#include "BuildDefines.h"
+	#include "builddefines.h"
 	#include "Intro.h"
 
 #ifndef WIN32_LEAN_AND_MEAN

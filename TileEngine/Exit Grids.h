@@ -1,7 +1,7 @@
 #ifndef __EXIT_GRIDS_H
 #define __EXIT_GRIDS_H
 
-#include "Worlddef.h"
+#include "worlddef.h"
 
 //dnl ch42 250909
 typedef struct

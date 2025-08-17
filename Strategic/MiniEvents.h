@@ -3,7 +3,7 @@
 
 #define MINI_EVENT_Z_OFFSET 9
 
-#include "Types.h"
+#include "types.h"
 
 void InitMiniEvents();
 void CheckMiniEvents(UINT32 nextEventId);

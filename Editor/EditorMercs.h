@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BuildDefines.h"
+#include "builddefines.h"
 
 //-----------------------------------------------
 //

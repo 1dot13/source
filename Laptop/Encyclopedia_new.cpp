@@ -29,7 +29,7 @@
 /// uncomment to use just graphic + mouseregion instead of real buttons. No sounds, no button states, just plain 'hyperlinks'.
 #define ENC_USE_BUTTONSYSTEM
 
-	#include "Types.h"
+	#include "types.h"
 	#include "WCheck.h"
 	#include "DEBUG.H"
 	#include "GameSettings.h"

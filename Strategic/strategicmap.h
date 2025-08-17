@@ -2,7 +2,7 @@
 #define __STRATMAP_H
 // this file is for manipulation of the strategic map structure
 #include "types.h"
-#include "soldier control.h"
+#include "Soldier Control.h"
 #include "FileMan.h"
 
 #include "mapscreen.h"

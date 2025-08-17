@@ -75,7 +75,7 @@ Points of interest:
 #include "GameSettings.h"
 #include "GameVersion.h"
 #include "input.h"
-#include "Line.h"
+#include "line.h"
 #include "laptop.h"
 #include "message.h"
 #include "MessageBoxScreen.h"

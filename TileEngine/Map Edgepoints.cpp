@@ -1,11 +1,11 @@
 	//#include <cmath>		// added by Flugente
 	#include "Map Edgepoints.h"
 
-	#include "pathai.h"
+	#include "PATHAI.H"
 	#include "ai.h"
 	#include "Map Information.h"
-	#include "debug.h"
-	#include "Random.h"
+	#include "DEBUG.H"
+	#include "random.h"
 	#include "Animation Control.h"
 	#include "Render Fun.h"
 	#include "strategicmap.h"

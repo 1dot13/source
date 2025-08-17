@@ -3,8 +3,8 @@
 //#pragma setlocale("POLISH")
 
 	#if defined( POLISH )
-		#include "text.h"
-		#include "Fileman.h"
+		#include "Text.h"
+		#include "FileMan.h"
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"

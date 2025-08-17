@@ -8,7 +8,7 @@
 	#include "strategicmap.h"
 	#include "Isometric Utils.h"
 	#include "Sound Control.h"
-	#include "animation control.h"
+	#include "Animation Control.h"
 	#include "strategic.h"
 	#include "Action Items.h"
 

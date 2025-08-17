@@ -1,6 +1,6 @@
 	#include "sgp.h"
 	#include "Map Screen Interface.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"

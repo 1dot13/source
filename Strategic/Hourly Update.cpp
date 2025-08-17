@@ -10,7 +10,7 @@
 	#include "jascreens.h"
 	#include "screenids.h"
 	#include "Items.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "finances.h"
 	#include "history.h"
 	#include "Dialogue Control.h"

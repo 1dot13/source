@@ -2,14 +2,14 @@
 	#include <mmsystem.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Timer Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "handle items.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
-	#include "interface control.h"
-	#include "keymap.h"
+	#include "Interface Control.h"
+	#include "KeyMap.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 	#define WIN32_LEAN_AND_MEAN

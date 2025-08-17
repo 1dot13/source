@@ -2,7 +2,7 @@
 	#include "AIInternals.h"
 	#include "opplist.h"
 	#include "Soldier Profile.h"
-	#include "los.h"
+	#include "LOS.h"
 	#include "NPC.h"
 	#include "Quests.h"
 	#include "Render Fun.h"

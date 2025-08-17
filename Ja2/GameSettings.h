@@ -1,7 +1,7 @@
 #ifndef _GAME_SETTINGS__H_
 #define _GAME_SETTINGS__H_
 
-#include "Types.h"
+#include "types.h"
 #include "Strategic Status.h"
 #include "Morale.h"
 #include "GameInitOptionsScreen.h"

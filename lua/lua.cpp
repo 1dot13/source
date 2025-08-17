@@ -2,7 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include "Lua Interpreter.h"
-#include <Windows.h>
+#include <windows.h>
 #include "MemMan.h"
 
 lua_State *L;

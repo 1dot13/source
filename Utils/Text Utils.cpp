@@ -1,5 +1,5 @@
-	#include "text.h"
-	#include "Fileman.h"
+	#include "Text.h"
+	#include "FileMan.h"
 	#include "GameSettings.h"
 	// sevenfm
 	#include <codecvt>

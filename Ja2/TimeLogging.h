@@ -1,5 +1,5 @@
 #pragma once
-#include "Types.h"
+#include "types.h"
 
 void TimingLogInitialize(const CHAR8* filename);
 void TimingLog(const CHAR8* logEvent, int n);
