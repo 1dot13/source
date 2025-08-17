@@ -3,14 +3,14 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>0</uiIndex>
 		<name>Helmets</name>
-		<ubChoices>6</ubChoices>
+		<ubChoices>7</ubChoices>
 		<bItemNo1>176</bItemNo1>          <!-- Steel Helmet -->
 		<bItemNo2>177</bItemNo2>          <!-- Kevlar Helmet -->
 		<bItemNo3>180</bItemNo3>          <!-- Spectra Helmet -->
 		<bItemNo4>810</bItemNo4>          <!-- Twaron Helmet -->
 		<bItemNo5>801</bItemNo5>          <!-- Dyneema Helmet -->
 		<bItemNo6>302</bItemNo6>          <!-- Camo Steel Helmet -->
-		<bItemNo7>0</bItemNo7>
+		<bItemNo7>1774</bItemNo7>		  <!-- Army Cap -->
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
 		<bItemNo10>0</bItemNo10>

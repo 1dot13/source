@@ -4036,6 +4036,61 @@
 		<itemIndex>293</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Black Cap -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>281</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Boonie Hat -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>285</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, US-->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>287</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Red Beret-->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>288</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Russian Hat -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>289</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Fur Hat-->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>290</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, Soviet-->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>292</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+ 	<ATTACHMENT>  <!-- Green Beret-->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>1771</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Blue Beret -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>1772</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Cowboy Hat -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>1773</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Army Cap -->
+		<attachmentIndex>211</attachmentIndex>
+		<itemIndex>1774</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>212</attachmentIndex>
 		<itemIndex>176</itemIndex>
@@ -4425,6 +4480,61 @@
 		<attachmentIndex>212</attachmentIndex>
 		<itemIndex>293</itemIndex>
 		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Black Cap -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>281</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Boonie Hat -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>285</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, US-->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>287</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Red Beret-->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>288</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Russian Hat -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>289</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Fur Hat-->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>290</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, Soviet-->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>292</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+ 	<ATTACHMENT>  <!-- Green Beret-->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>1771</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Blue Beret -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>1772</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Cowboy Hat -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>1773</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Army Cap -->
+		<attachmentIndex>212</attachmentIndex>
+		<itemIndex>1774</itemIndex>
+		<APCost>16</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>213</attachmentIndex>
@@ -7705,6 +7815,61 @@
 		<attachmentIndex>246</attachmentIndex>
 		<itemIndex>293</itemIndex>
 		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Black Cap -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>281</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Boonie Hat -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>285</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, US-->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>287</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Red Beret-->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>288</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Russian Hat -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>289</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Fur Hat-->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>290</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, Soviet-->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>292</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+ 	<ATTACHMENT>  <!-- Green Beret-->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>1771</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Blue Beret -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>1772</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Cowboy Hat -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>1773</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Army Cap -->
+		<attachmentIndex>246</attachmentIndex>
+		<itemIndex>1774</itemIndex>
+		<APCost>16</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>284</attachmentIndex>
@@ -23172,6 +23337,61 @@
 		<itemIndex>293</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Black Cap -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>281</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Boonie Hat -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>285</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, US-->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>287</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Red Beret-->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>288</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Russian Hat -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>289</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Fur Hat-->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>290</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, Soviet-->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>292</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+ 	<ATTACHMENT>  <!-- Green Beret-->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>1771</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Blue Beret -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>1772</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Cowboy Hat -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>1773</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Army Cap -->
+		<attachmentIndex>1024</attachmentIndex>
+		<itemIndex>1774</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1025</attachmentIndex>
 		<itemIndex>176</itemIndex>
@@ -23266,6 +23486,61 @@
 		<attachmentIndex>1025</attachmentIndex>
 		<itemIndex>293</itemIndex>
 		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Black Cap -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>281</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Boonie Hat -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>285</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, US-->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>287</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Red Beret-->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>288</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Russian Hat -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>289</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Fur Hat-->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>290</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Officer's Hat, Soviet-->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>292</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+ 	<ATTACHMENT>  <!-- Green Beret-->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>1771</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Blue Beret -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>1772</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Cowboy Hat -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>1773</itemIndex>
+		<APCost>16</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>  <!-- Army Cap -->
+		<attachmentIndex>1025</attachmentIndex>
+		<itemIndex>1774</itemIndex>
+		<APCost>16</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1026</attachmentIndex>
