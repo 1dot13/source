@@ -66,7 +66,7 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 	<DRUG>
 		<uiIndex>0</uiIndex>
 		<szName>None</szName>
-0</opinionevent>
+        <opinionevent>0</opinionevent>
 		<DRUG_EFFECT>
 			<effect>0</effect>
 			<duration>0</duration>
@@ -840,3 +840,4 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 		</DISEASE_EFFECT>
 	</DRUG>
 </DRUGSLIST>
+
