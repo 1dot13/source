@@ -11897,12 +11897,12 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 				if( pSoldier->flags.fMercAsleep == TRUE )
 				{
 					// try to wake him up
-					if( SetMercAwake( pSoldier, TRUE, FALSE ) )
+					if( SetMercAwake( pSoldier, gGameExternalOptions.fSleepDisplayFailNotification, FALSE ) )
 					{
 						// HEADROCK HAM B2.8: New feature wakes all trainees/trainers automatically
 						HandleTrainingWakeSynchronize( pSoldier );
 						// propagate
-						HandleSelectedMercsBeingPutAsleep( TRUE, TRUE );
+						HandleSelectedMercsBeingPutAsleep( TRUE, gGameExternalOptions.fSleepDisplayFailNotification);
 						return;
 					}
 					else
@@ -11919,7 +11919,7 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 						// HEADROCK HAM B2.8: New feature sends all trainees/trainers to sleep automatically
 						HandleTrainingSleepSynchronize( pSoldier );
 						// propagate
-						HandleSelectedMercsBeingPutAsleep( FALSE, TRUE );
+						HandleSelectedMercsBeingPutAsleep( FALSE, gGameExternalOptions.fSleepDisplayFailNotification);
 						return;
 					}
 					else

@@ -18305,21 +18305,10 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		}
 	}
 
-	if( ubNumberOfSelectedSoldiers == 0 )
-	{
-	  return fSuccess;
-	}
-
-	if( !fDisplayWarning ) {
-	  return fSuccess;
-	}
-
-	CHAR16 sString[ 128 ];
-	swprintf( sString, fWakeUp ? pMapErrorString[ 27 ] : pMapErrorString[ 26 ] );
-	if( gGameExternalOptions.fSleepDisplayFailNotification )
+	if( ubNumberOfSelectedSoldiers && !fSuccess && fDisplayWarning )
 	{
 		// inform player not everyone could be woke up or put to sleep
-		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
+		DoScreenIndependantMessageBox(fWakeUp ? pMapErrorString[27] : pMapErrorString[26], MSG_BOX_FLAG_OK, NULL);
 	}
 
 	return( fSuccess );
