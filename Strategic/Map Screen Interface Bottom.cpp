@@ -713,6 +713,27 @@ void BtnTimeCompressMoreMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( CommonTimeCompressionChecks() == TRUE )
 			return;
+
+		// redraw region
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
+		{
+			fMapScreenBottomDirty = TRUE;
+		}
+
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+	}
+	// Start time compression which stops at the next hour
+	// Button down removes the pop up/tooltip, Button up calls the functionality
+	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			fMapScreenBottomDirty = TRUE;
+
+			stopTimeCompressionNextHour = true;
+			SetGameTimeCompressionLevel( TIME_COMPRESS_60MINS );
+		}
 	}
 }
 
