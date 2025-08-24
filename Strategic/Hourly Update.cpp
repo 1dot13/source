@@ -86,6 +86,11 @@ CHAR16	zString[128];
 	if(is_networked)
 		return;
 
+	if (stopTimeCompressionNextHour)
+	{
+		SetGameTimeCompressionLevel( TIME_COMPRESS_X0);
+	}	
+
 	// hourly update of town loyalty
 	HandleTownLoyalty();
 

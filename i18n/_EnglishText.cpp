@@ -4453,7 +4453,7 @@ STR16 pMapScreenBottomFastHelp[] =
 	L"|Laptop",
 	L"Tactical (|E|s|c)",
 	L"|Options",
-	L"Time Compress (|+)", 	// time compress more
+	L"Time Compress (|+)\nRight Click to fast forward one hour", 	// time compress more
 	L"Time Compress (|-)", 	// time compress less
 	L"Previous Message (|U|p)\nPrevious Page (|P|g|U|p)", 	// previous message in scrollable list
 	L"Next Message (|D|o|w|n)\nNext Page (|P|g|D|n)", 	// next message in the scrollable list

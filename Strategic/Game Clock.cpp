@@ -45,6 +45,9 @@ BOOLEAN fClockMouseRegionCreated = FALSE;
 
 BOOLEAN fTimeCompressHasOccured = FALSE;
 
+// run time compression till next hour
+bool stopTimeCompressionNextHour = false;
+
 //This value represents the time that the sector was loaded.	If you are in sector A9, and leave
 //the game clock at that moment will get saved into the temp file associated with it.	The next time you
 //enter A9, this value will contain that time.	Used for scheduling purposes.
@@ -524,6 +527,9 @@ void DecreaseGameTimeCompressionRate()
 void SetGameTimeCompressionLevel( UINT32 uiCompressionRate )
 {
 	Assert( uiCompressionRate < NUM_TIME_COMPRESS_SPEEDS );
+
+	if( uiCompressionRate == TIME_COMPRESS_X0 )
+		stopTimeCompressionNextHour = false;
 
 	if( guiCurrentScreen == GAME_SCREEN )
 	{
