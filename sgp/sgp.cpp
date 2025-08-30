@@ -45,7 +45,6 @@
 
 
 #include "INIReader.h"
-#include "Console.h"
 #include "Lua Interpreter.h"
 #include "connect.h"
 #include "english.h"
@@ -383,21 +382,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 			break;
 
-		case WM_INPUTREADY:
-			{
-				wstring *tstr = (wstring*) lParam;
-				if (EvalLua( tstr->c_str()))
-				{
-					tstr->erase();
-				}
-				else
-				{
-					cout << ">";
-				}
-
-				cout << "> ";
-			}
-			break;
 	default	:
 		return DefWindowProc(hWindow, Message, wParam, lParam);
 	}
