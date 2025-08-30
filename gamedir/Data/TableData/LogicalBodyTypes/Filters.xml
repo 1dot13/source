@@ -950,7 +950,7 @@
 	</Filter>
 	<Filter name="Holster">
 		<AND>
-			<RTHIGHPOCKPOS op="in">1091, 1092, 1093</RTHIGHPOCKPOS>
+			<RTHIGHPOCKPOS op="in">1091, 1092, 1093, 1200</RTHIGHPOCKPOS>
 		</AND>
 	</Filter>
 	<Filter name="HolsterAndPistolLeft">
@@ -979,7 +979,7 @@
 	</Filter>
 	<Filter name="LeftHolster">
 		<AND>
-			<LTHIGHPOCKPOS op="in">1091, 1092, 1093</LTHIGHPOCKPOS>
+			<LTHIGHPOCKPOS op="in">1091, 1092, 1093, 1200</LTHIGHPOCKPOS>
 		</AND>
 	</Filter>
 	<Filter name="LeftHolsterAndPistolLeft">
