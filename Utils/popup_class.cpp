@@ -8,7 +8,6 @@
 	#include "GameSettings.h"
 	#include "input.h"
 
-	#include "Console.h"
 	#include "lwstring.h"
 	#include "message.h"
 	#include "mousesystem.h"
