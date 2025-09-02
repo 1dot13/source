@@ -555,7 +555,7 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "QueenAttackLosingControlOfSector") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDifficultySettings.bQueenLosingControlOfSector	= (BOOLEAN) atol(pData->szCharData);
+			pData->curDifficultySettings.bQueenLosingControlOfSector	= atoi(pData->szCharData);
 		}	
 		else if(strcmp(name, "BloodcatAmbushSectors") == 0)
 		{
