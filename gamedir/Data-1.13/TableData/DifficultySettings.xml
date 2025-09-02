@@ -109,8 +109,7 @@
 										  When low limit is 0 and high limit is 4 that level 5 combatant could roll anything between level 5 and 9 making the game harder.
 		AllowUnrestrictedXPLevels : Usually the game limits the maximum XP level for combatants per difficulty level to 6 (Novice), 7 (Experienced) or 8 (Expert). "Insane" has no limit.
 									This setting allows to override this limiter and have combatants of up to level 10 in easier difficulty modes. 0 - false, 1 - true
-		QueenAttackLosingControlOfSector : Usually queen will stop attacking town sector that has been retaken by player x number of times.
-											x = 4 (Novice), 8 (Experienced), 12 (Expert) and 16 (Insane). Set this parameter to 1 to allow unlimited attacks of the queens troops.
+		QueenAttackLosingControlOfSector : Queen will stop attacking town sector that has been taken by player this # of times. Set to 0 to allow unlimited attacks by the queen.
 		BloodcatAmbushSectors : ? : 0 - false, 1 - true
 		AirRaidLookForDive : ? : 0 - false, 1 - true
 		
@@ -279,7 +278,7 @@
 		<LevelModifierLowLimit>0</LevelModifierLowLimit>
 		<LevelModifierHighLimit>0</LevelModifierHighLimit>
 		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
-		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
+		<QueenAttackLosingControlOfSector>4</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
 		<NumberOfTurnsPowerGenFanWillBeStoppedFor>2</NumberOfTurnsPowerGenFanWillBeStoppedFor>
@@ -358,7 +357,7 @@
 		<LevelModifierLowLimit>0</LevelModifierLowLimit>
 		<LevelModifierHighLimit>0</LevelModifierHighLimit>
 		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
-		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
+		<QueenAttackLosingControlOfSector>8</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
 		<NumberOfTurnsPowerGenFanWillBeStoppedFor>2</NumberOfTurnsPowerGenFanWillBeStoppedFor>
@@ -437,7 +436,7 @@
 		<LevelModifierLowLimit>0</LevelModifierLowLimit>
 		<LevelModifierHighLimit>0</LevelModifierHighLimit>
 		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
-		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
+		<QueenAttackLosingControlOfSector>12</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>
 		<NumberOfTurnsPowerGenFanWillBeStoppedFor>1</NumberOfTurnsPowerGenFanWillBeStoppedFor>
@@ -516,7 +515,7 @@
 		<LevelModifierLowLimit>0</LevelModifierLowLimit>
 		<LevelModifierHighLimit>0</LevelModifierHighLimit>
 		<AllowUnrestrictedXPLevels>1</AllowUnrestrictedXPLevels>
-		<QueenAttackLosingControlOfSector>1</QueenAttackLosingControlOfSector>
+		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>
 		<NumberOfTurnsPowerGenFanWillBeStoppedFor>1</NumberOfTurnsPowerGenFanWillBeStoppedFor>
