@@ -11,27 +11,27 @@
 
 // this distinguishes whether we're only looking for patients healable THIS HOUR (those that have been on their assignment
 // long enough), or those that will be healable EVER (regardless of whether they're getting healed during this hour)
-#define HEALABLE_EVER				0
-#define HEALABLE_THIS_HOUR	1
+constexpr auto HEALABLE_EVER = 0;
+constexpr auto HEALABLE_THIS_HOUR = 1;
 
 
 // merc collapses from fatigue if max breath drops to this.	Can't go any lower!
-#define BREATHMAX_ABSOLUTE_MINIMUM	10
-#define BREATHMAX_GOTTA_STOP_MOVING	30
-#define BREATHMAX_PRETTY_TIRED			50
-#define BREATHMAX_CANCEL_COLLAPSE		60
-#define BREATHMAX_CANCEL_TIRED			75
-#define BREATHMAX_FULLY_RESTED			95
+constexpr auto BREATHMAX_ABSOLUTE_MINIMUM = 10;
+constexpr auto BREATHMAX_GOTTA_STOP_MOVING = 30;
+constexpr auto BREATHMAX_PRETTY_TIRED = 50;
+constexpr auto BREATHMAX_CANCEL_COLLAPSE = 60;
+constexpr auto BREATHMAX_CANCEL_TIRED = 75;
+constexpr auto BREATHMAX_FULLY_RESTED = 95;
 
 
-#define	VEHICLE_REPAIR_POINTS_DIVISOR		10
+constexpr auto VEHICLE_REPAIR_POINTS_DIVISOR = 10;
 
 // controls how easily SAM sites are repaired
 // NOTE: A repairman must generate a least this many points / hour to be ABLE to repair a SAM site at all!
-#define SAM_SITE_REPAIR_DIVISOR		4			// Flugente: changed from 10 to 4
+constexpr auto SAM_SITE_REPAIR_DIVISOR = 4;			// Flugente: changed from 10 to 4;
 
 // minimum condition at which a destroyed SAM site controller is visible in tactical again
-#define MIN_CONDITION_SHOW_SAM_CONTROLLER 20
+constexpr auto MIN_CONDITION_SHOW_SAM_CONTROLLER = 20;
 
 // Assignments Defines
 enum
@@ -104,41 +104,44 @@ enum
 	NUM_ASSIGNMENTS,
 };
 
-#define IS_DOCTOR(assignment) ((assignment == DOCTOR) || (assignment == FACILITY_DOCTOR))
+constexpr auto IS_DOCTOR(int a) -> bool { return a == DOCTOR || a == FACILITY_DOCTOR; };
+
+// Does not include HOSPITAL since mercs are not responsible for their care
+constexpr auto IS_PATIENT(int a) -> bool { return IS_DOCTOR(a) || a == PATIENT || a == FACILITY_PATIENT; };
+
+constexpr auto IS_REPAIR(int a) -> bool { return a == REPAIR || a == FACILITY_REPAIR; };
+constexpr auto SPY_LOCATION(int a) -> bool { return a == CONCEALED || a == GATHERINTEL; };
+
+// Flugente: does this assignment benefit from other mercs being on administration assignment?
+constexpr auto ADMINISTRATION_BONUS(int a) -> bool {
+	return IS_DOCTOR(a)
+		|| IS_REPAIR(a)
+		|| a == TRAIN_SELF
+		|| a == TRAIN_TOWN
+		|| a == TRAIN_TEAMMATE
+		|| a == TRAIN_BY_OTHER
+		|| a == MOVE_EQUIPMENT
+		|| a == FACILITY_STAFF
+		|| a == FACILITY_INTERROGATE_PRISONERS
+		|| a == FACILITY_SPREAD_PROPAGANDA
+		|| a == FACILITY_SPREAD_PROPAGANDA_GLOBAL
+		|| a == FACILITY_STRATEGIC_MILITIA_MOVEMENT
+		|| a == DISEASE_DIAGNOSE
+		|| a == DISEASE_DOCTOR_SECTOR
+		|| a == FORTIFICATION
+		|| a == TRAIN_WORKERS
+		|| a == DOCTOR_MILITIA
+		|| a == DRILL_MILITIA
+		|| a == BURIAL;
+};
+
 // left the last : off so syntax is visually consistent with non-macro case statements
 #define CASE_DOCTOR case DOCTOR: case FACILITY_DOCTOR
 
-// Does not include HOSPITAL since mercs are not responsible for their care
-#define IS_PATIENT(assignment) ((assignment == DOCTOR) || (assignment == PATIENT) || (assignment == FACILITY_DOCTOR) || (assignment == FACILITY_PATIENT))
 // Does not include DOCTOR types because switch cases must be unique
 #define CASE_PATIENT case PATIENT: case FACILITY_PATIENT
 
-#define IS_REPAIR(assignment) ((assignment == REPAIR) || (assignment == FACILITY_REPAIR))
 #define CASE_REPAIR case REPAIR: case FACILITY_REPAIR
-
-#define SPY_LOCATION(assignment) ((assignment == CONCEALED) || (assignment == GATHERINTEL) )
-
-// Flugente: does this assignment benefit from other mercs being on administration assignment?
-#define ADMINISTRATION_BONUS(assignment)	(   IS_DOCTOR(assignment) || \
-											    IS_REPAIR(assignment) || \
-											    (assignment==TRAIN_SELF) || \
-											    (assignment==TRAIN_TOWN) || \
-												(assignment==TRAIN_TEAMMATE) || \
-												(assignment==TRAIN_BY_OTHER) || \
-												(assignment==MOVE_EQUIPMENT) || \
-												(assignment==FACILITY_STAFF) || \
-												(assignment==FACILITY_INTERROGATE_PRISONERS) || \
-												(assignment==FACILITY_SPREAD_PROPAGANDA) || \
-												(assignment==FACILITY_SPREAD_PROPAGANDA_GLOBAL) || \
-												(assignment==FACILITY_STRATEGIC_MILITIA_MOVEMENT) || \
-												(assignment==DISEASE_DIAGNOSE) || \
-												(assignment==DISEASE_DOCTOR_SECTOR) || \
-												(assignment==FORTIFICATION) || \
-												(assignment==TRAIN_WORKERS) || \
-												(assignment==DOCTOR_MILITIA) || \
-												(assignment==DRILL_MILITIA) || \
-												(assignment==BURIAL) \
-											)
 
 // strings for snitch exposition
 enum
@@ -168,7 +171,7 @@ enum
 	NUM_SNITCH_GATHERING_RUMOURS_RESULT,
 };
 
-#define NO_ASSIGNMENT		127 //used when no pSoldier->ubDesiredSquad
+constexpr auto NO_ASSIGNMENT = 127; //used when no pSoldier->ubDesiredSquad;
 
 // Train stats defines (must match ATTRIB_MENU_ defines, and pAttributeMenuStrings )
 enum
@@ -251,14 +254,14 @@ BOOLEAN CanCharacterBeAwakened( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot );
 // put character in vehicle?
 BOOLEAN CanCharacterVehicle( SOLDIERTYPE *pCharacter );
 
-#define CHARACTER_CANT_JOIN_SQUAD_ALREADY_IN_IT -6
-#define CHARACTER_CANT_JOIN_SQUAD_SQUAD_MOVING -5
-#define CHARACTER_CANT_JOIN_SQUAD_MOVING -4
-#define CHARACTER_CANT_JOIN_SQUAD_VEHICLE -3
-#define CHARACTER_CANT_JOIN_SQUAD_TOO_FAR -2
-#define CHARACTER_CANT_JOIN_SQUAD_FULL -1
-#define CHARACTER_CANT_JOIN_SQUAD 0
-#define CHARACTER_CAN_JOIN_SQUAD 1
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_ALREADY_IN_IT = -6;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_SQUAD_MOVING = -5;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_MOVING = -4;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_VEHICLE = -3;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_TOO_FAR = -2;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD_FULL = -1;
+constexpr auto CHARACTER_CANT_JOIN_SQUAD = 0;
+constexpr auto CHARACTER_CAN_JOIN_SQUAD = 1;
 
 // can character be added to squad
 INT8 CanCharacterSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue );
