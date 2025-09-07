@@ -9555,7 +9555,8 @@
 		<szBRName>Batteries</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasAttachmentClass>16384</nasAttachmentClass>
+		<AttachmentPoint>16</AttachmentPoint>			
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>26</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -9565,6 +9566,7 @@
 		<ubCoolness>1</ubCoolness>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>		
 		<Attachment>1</Attachment>
 		<Batteries>1</Batteries>
 		<STAND_MODIFIERS />
@@ -9602,6 +9604,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>			
 		<ubCursor>17</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>125</ubGraphicNum>
@@ -9612,7 +9615,9 @@
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>			
 		<Metal>1</Metal>
+		<Sinks>1</Sinks>		
 		<NotBuyable>1</NotBuyable>
 		<Electronic>1</Electronic>
 		<NeedsBatteries>1</NeedsBatteries>
@@ -29666,12 +29671,13 @@
 		<uiIndex>950</uiIndex>
 		<szItemName>LAM-Flashlight</szItemName>
 		<szLongItemName>Rifle LAM-Flashlight Combo</szLongItemName>
-		<szItemDesc>This laser aiming module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szItemDesc>
+		<szItemDesc>This laser aiming module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is currently OFF.</szItemDesc>
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>This laser aiming module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>4</AttachmentClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>			
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
@@ -29694,9 +29700,11 @@
 		<StealthBonus>-15</StealthBonus>
 		<TransportGroupMinProgress>30</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
-		<Damageable>1</Damageable>
+		<Damageable>1</Damageable>		
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>		
 		<Metal>1</Metal>
+		<Sinks>1</Sinks>		
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
@@ -48894,9 +48902,10 @@
 		<szLongItemName>Stun Gun</szLongItemName>
 		<szItemDesc>If used correctly, this stun gun will hit anyone it touches with over 2 million volts. In case you find yourself in need of a drooling, helpless victim.</szItemDesc>
 		<szBRName>Stun Gun</szBRName>
-		<szBRDesc>At 2 million volts, this baby will leave even the sturdiest men twitching helplessly on the floor. Batteries not included!</szBRDesc>
+		<szBRDesc>At 2 million volts, this baby will leave even the sturdiest men twitching helplessly on the floor. Batteries included!</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>			
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
@@ -48916,6 +48925,7 @@
 		<Taser>1</Taser>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>		
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -49142,12 +49152,13 @@
 		<uiIndex>1635</uiIndex>
 		<szItemName>LAM-Flashlight</szItemName>
 		<szLongItemName>Rifle LAM-Flashlight Combo</szLongItemName>
-		<szItemDesc>This laser aiming module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is ON.</szItemDesc>
+		<szItemDesc>This laser aiming module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is currently ON.</szItemDesc>
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>4</AttachmentClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>				
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
@@ -49171,8 +49182,13 @@
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>		
 		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>1</HiddenAttachment>
+		<NotBuyable>1</NotBuyable>
+		<NotInEditor>1</NotInEditor>		
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<NeedsBatteries>1</NeedsBatteries>
@@ -49184,12 +49200,13 @@
 		<uiIndex>1636</uiIndex>
 		<szItemName>Flashlight</szItemName>
 		<szLongItemName>Flashlight</szLongItemName>
-		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head.</szItemDesc>
+		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head.Flashlight is currently OFF.</szItemDesc>
 		<szBRName>Flashlight</szBRName>
 		<szBRDesc>Let there be light! Batteries included.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1636</ubClassIndex>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>			
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>
@@ -49207,6 +49224,7 @@
 		<DefaultAttachment>322</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>		
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -49221,12 +49239,13 @@
 		<uiIndex>1637</uiIndex>
 		<szItemName>Flashlight</szItemName>
 		<szLongItemName>Flashlight</szLongItemName>
-		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head. Flashlight is ON.</szItemDesc>
+		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head. Flashlight is currently ON.</szItemDesc>
 		<szBRName>Flashlight</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1637</ubClassIndex>
+		<AvailableAttachmentPoint>16</AvailableAttachmentPoint>			
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>
@@ -49243,12 +49262,15 @@
 		<DefaultAttachment>322</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>		
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<Electronic>1</Electronic>
 		<BrassKnuckles>1</BrassKnuckles>
 		<NeedsBatteries>1</NeedsBatteries>
+		<NotBuyable>1</NotBuyable>
+		<NotInEditor>1</NotInEditor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

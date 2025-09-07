@@ -60,4 +60,8 @@
 		<id>8192</id>
 		<name>MOLLE Medium</name>
 	</NasAttachmentClass>
+    <NasAttachmentClass>
+		<id>16384</id>
+		<name>Batteries</name>
+	</NasAttachmentClass>		
 </JA2Data>
