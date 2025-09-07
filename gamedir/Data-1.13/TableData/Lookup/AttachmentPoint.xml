@@ -28,4 +28,9 @@
 		<id>8</id>
 		<name>Surgical Mask and Gloves</name>
 	</AttachmentPoint>
+	</AttachmentPoint>
+		<AttachmentPoint>
+		<id>16</id>
+		<name>Batteries</name>
+	</AttachmentPoint>	
 </JA2Data>

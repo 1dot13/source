@@ -682,4 +682,15 @@
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>12</ubPocketMapping>
 	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>62</uiSlotIndex>
+		<szSlotName>Batteries</szSlotName>
+		<nasAttachmentClass>16384</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>138</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
+	</ATTACHMENTSLOT>	
 </ATTACHMENTSLOTLIST>
