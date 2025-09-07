@@ -6604,7 +6604,7 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 	{	//Check and see if we have any live mercs in the sector.
 		for ( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
 		{ //If we have a live and valid soldier
-			if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !MercPtrs[i]->flags.fBetweenSectors && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[i] ) && !AM_AN_EPC( MercPtrs[i] ) )
+			if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !MercPtrs[i]->flags.fBetweenSectors && MercPtrs[i]->bInSector && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[i] ) && !AM_AN_EPC( MercPtrs[i] ) )
 			{
 				if ( MercPtrs[i]->sSectorX == gWorldSectorX &&
 					 MercPtrs[i]->sSectorY == gWorldSectorY &&
