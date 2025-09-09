@@ -780,7 +780,7 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 		<DRUG_EFFECT>
 			<effect>0</effect>
 			<duration>3</duration>
-			<size>40</size>
+			<size>8</size>
 		</DRUG_EFFECT>		
 		<DISEASE_EFFECT>
 			<disease>15</disease>
