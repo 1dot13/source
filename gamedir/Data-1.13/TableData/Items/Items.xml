@@ -52436,6 +52436,7 @@
 		<usPrice>400</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<BR_NewInventory>3</BR_NewInventory>
+		<DiseaseSystemExclusive>1</DiseaseSystemExclusive>
 		<DrugType>19</DrugType>
 		<usPortionSize>5</usPortionSize>
 		<Medical>1</Medical>
