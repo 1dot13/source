@@ -31288,7 +31288,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<STAND_MODIFIERS>
 			<AimLevels>1</AimLevels>
@@ -31333,7 +31332,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<STAND_MODIFIERS>
 			<AimLevels>2</AimLevels>
@@ -31478,13 +31476,11 @@
 		<DayVisionRangeBonus>20</DayVisionRangeBonus>
 		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
-		<AttachmentSystem>1</AttachmentSystem>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BlockIronSight>1</BlockIronSight>
 		<STAND_MODIFIERS />
@@ -31608,7 +31604,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<BlockIronSight>1</BlockIronSight>
 		<STAND_MODIFIERS>
 			<AimLevels>2</AimLevels>
@@ -31632,7 +31627,7 @@
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>25</ItemSize>
 		<usPrice>400</usPrice>
-		<ubCoolness>1</ubCoolness><!-- default 5 -->
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>3</bRepairEase>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -31664,7 +31659,7 @@
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>400</usPrice>
-		<ubCoolness>1</ubCoolness><!-- default 5 -->
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>3</bRepairEase>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -32261,7 +32256,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -32301,7 +32295,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BlockIronSight>1</BlockIronSight>
 		<STAND_MODIFIERS>
@@ -37134,7 +37127,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS>
 			<AimLevels>2</AimLevels>
 		</STAND_MODIFIERS>
@@ -37174,7 +37166,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS>
 			<AimLevels>1</AimLevels>
 		</STAND_MODIFIERS>
@@ -37214,7 +37205,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<STAND_MODIFIERS>
 			<AimLevels>1</AimLevels>
 		</STAND_MODIFIERS>
@@ -40921,7 +40911,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
-		<BigGunList>1</BigGunList>
 		<NotInEditor>1</NotInEditor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
