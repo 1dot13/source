@@ -12,8 +12,8 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
-		<ubDeadliness>0</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
+		<ubDeadliness>0</ubDeadliness><!-- relevant for merc affinity towards weapon -->
+		<bAccuracy>0</bAccuracy><!-- bAccuracy used with OCTH -->
 		<ubMagSize>10</ubMagSize>
 		<usRange>0</usRange>
 		<usReloadDelay>0</usReloadDelay>
@@ -36,7 +36,7 @@
 		<EasyUnjam>0</EasyUnjam>
 		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>0</ManualReloadSound>
-		<nAccuracy>0</nAccuracy>
+		<nAccuracy>0</nAccuracy><!-- nAccuracy used with NCTH -->
 		<bRecoilX>0</bRecoilX>
 		<bRecoilY>0</bRecoilY>
 		<ubAimLevels>0</ubAimLevels>
@@ -47,6 +47,7 @@
 		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 		<HeavyGun>0</HeavyGun>
 		<fBurstOnlyByFanTheHammer>0</fBurstOnlyByFanTheHammer>	<!-- burst mode is accessible only if the user is a gunslinger holding it in hipfire (eye symbol on gun) -->
+		<!--  -->
 		<!-- This tag allows setting how many bullets the gun can fire per shot -->
 		<!-- if no value is set, it is assumed the gun can fire from one barrel -->
 		<!-- this tag can be added multiple times -->
@@ -1981,31 +1982,34 @@
 		<ubWeaponType>4</ubWeaponType>
 		<ubCalibre>16</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12.25</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>60</ubImpact>
 		<ubDeadliness>47</ubDeadliness>
-		<usRange>180</usRange>
+		<bAccuracy>9</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>215</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>427</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>103</sReloadSound>
 		<sLocknLoadSound>109</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
+		<ManualReloadSound>478</ManualReloadSound>
 		<bBurstAP>20</bBurstAP>
-		<APsToReload>24</APsToReload>
-		<ubMagSize>10</ubMagSize>
-		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<nAccuracy>33</nAccuracy>
+		<APsToReload>15</APsToReload>
+		<APsToReloadManually>20</APsToReloadManually>
+		<MaxDistForMessyDeath>17</MaxDistForMessyDeath>
+		<nAccuracy>55</nAccuracy>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>60000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>60000</usOverheatingDamageThreshold>
-	</WEAPON>
+		<EasyUnjam>1</EasyUnjam>		
+		<usOverheatingJamThreshold>55000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>35500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>		
+	</WEAPON>	
 	<WEAPON>
 		<uiIndex>64</uiIndex>
 		<szWeaponName>Crowbar</szWeaponName>
