@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TRANSFORMATIONS_LIST>
 	<TRANSFORM>
-		<usItem>194</usItem>
-		<usResult1>1022</usResult1>
-		<usResult2>1022</usResult2>
+		<usItem>194</usItem><!-- Arulco T-Shirt -->
+		<usResult1>1022</usResult1><!-- Rag -->
+		<usResult2>1022</usResult2><!-- Rag -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -18,9 +18,9 @@
 		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>195</usItem>
-		<usResult1>1022</usResult1>
-		<usResult2>1022</usResult2>
+		<usItem>195</usItem><!-- Deidranna T-Shirt -->
+		<usResult1>1022</usResult1><!-- Rag -->
+		<usResult2>1022</usResult2><!-- Rag -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -35,9 +35,9 @@
 		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>296</usItem>
-		<usResult1>1022</usResult1>
-		<usResult2>1022</usResult2>
+		<usItem>296</usItem><!-- T-Shirt (FY) -->
+		<usResult1>1022</usResult1><!-- Rag -->
+		<usResult2>1022</usResult2><!-- Rag -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -52,8 +52,8 @@
 		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>950</usItem>
-		<usResult1>1635</usResult1>
+		<usItem>950</usItem><!-- Rifle LAM-Flashlight Combo (OFF) -->
+		<usResult1>1635</usResult1><!-- Rifle LAM-Flashlight Combo (ON) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -69,8 +69,8 @@
 		<szTooltipText>Switch on flashlight.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1015</usItem>
-		<usResult1>1543</usResult1>
+		<usItem>1015</usItem><!-- Shovel (blunt weapon) -->
+		<usResult1>1543</usResult1><!-- Shovel (building mode) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -86,9 +86,9 @@
 		<szTooltipText>Ready for building.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1528</usItem>
-		<usResult1>131</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1528</usItem><!-- Tripwire Stun Grenade -->
+		<usResult1>131</usResult1><!-- Stun Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -103,9 +103,9 @@
 		<szTooltipText>Remove tripwire from stun grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1529</usItem>
-		<usResult1>132</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1529</usItem><!-- Tripwire Tear Gas Grenade -->
+		<usResult1>132</usResult1><!-- Tear Gas Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -120,9 +120,9 @@
 		<szTooltipText>Remove tripwire from tear gas grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1530</usItem>
-		<usResult1>133</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1530</usItem><!-- Tripwire Mustard Gas Grenade -->
+		<usResult1>133</usResult1><!-- Mustard Gas Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -137,9 +137,9 @@
 		<szTooltipText>Remove tripwire from mustard gas grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1531</usItem>
-		<usResult1>134</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1531</usItem><!-- Tripwire Mini Grenade -->
+		<usResult1>134</usResult1><!-- Mini Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -154,9 +154,9 @@
 		<szTooltipText>Remove tripwire from mini grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1532</usItem>
-		<usResult1>135</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1532</usItem><!-- Tripwire Grenade Mine -->
+		<usResult1>135</usResult1><!-- Mk2 Defensive Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -171,9 +171,9 @@
 		<szTooltipText>Remove tripwire from MK2 grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1533</usItem>
-		<usResult1>1189</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1533</usItem><!-- Tripwire Emergency Flare -->
+		<usResult1>1189</usResult1><!-- Emergency Flare -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -188,9 +188,9 @@
 		<szTooltipText>Remove tripwire from emergency flare.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1534</usItem>
-		<usResult1>151</usResult1>
-		<usResult2>1524</usResult2>
+		<usItem>1534</usItem><!-- Tripwire Smoke Grenade -->
+		<usResult1>151</usResult1><!-- Smoke Grenade -->
+		<usResult2>1524</usResult2><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
 		<usResult5>0</usResult5>
@@ -205,8 +205,8 @@
 		<szTooltipText>Remove tripwire from smoke grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1543</usItem>
-		<usResult1>1015</usResult1>
+		<usItem>1543</usItem><!-- Shovel (building mode)  -->
+		<usResult1>1015</usResult1><!-- Shovel (blunt weapon) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -222,8 +222,8 @@
 		<szTooltipText>Ready for combat.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1591</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1584</usItem><!-- M18 Claymore (NORTHEAST)  -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -235,12 +235,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1592</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1585</usItem><!-- M18 Claymore (EAST) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -252,12 +252,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1593</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1586</usItem><!-- M18 Claymore (SOUTHEAST) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -269,12 +269,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1594</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1587</usItem><!-- M18 Claymore (SOUTH) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -286,12 +286,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1595</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1588</usItem><!-- M18 Claymore (SOUTHWEST) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -303,12 +303,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1596</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1589</usItem><!-- M18 Claymore (WEST) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -320,12 +320,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1597</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1590</usItem><!-- M18 Claymore (NORTHWEST) -->
+		<usResult1>1523</usResult1><!-- Standard M18 Claymore (BR and NORTH) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -337,12 +337,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
-	</TRANSFORM>
+		<szMenuRowText>Transform Claymore</szMenuRowText>
+		<szTooltipText>Accept attachments and be stackable.</szTooltipText>
+	</TRANSFORM>	
 	<TRANSFORM>
-		<usItem>1598</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1591</usItem><!-- Tripwire (NET 1/LVL 2) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -354,12 +354,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1599</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1592</usItem><!-- Tripwire (NET 1/LVL 3) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -371,12 +371,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1600</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1593</usItem><!-- Tripwire (NET 1/LVL 4) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -388,12 +388,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1601</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1594</usItem><!-- Tripwire (NET 2/LVL 1) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -405,12 +405,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1602</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1595</usItem><!-- Tripwire (NET 2/LVL 2) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -422,12 +422,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1603</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1596</usItem><!-- Tripwire (NET 2/LVL 3) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -439,12 +439,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1604</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1597</usItem><!-- Tripwire (NET 2/LVL 4) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -456,12 +456,12 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1605</usItem>
-		<usResult1>1524</usResult1>
+		<usItem>1598</usItem><!-- Tripwire (NET 3/LVL 1) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -473,12 +473,131 @@
 		<usResult10>0</usResult10>
 		<usAPCost>0</usAPCost>
 		<iBPCost>0</iBPCost>
-		<szMenuRowText>Transform tripwire</szMenuRowText>
-		<szTooltipText>Make tripwire stackable.</szTooltipText>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1635</usItem>
-		<usResult1>950</usResult1>
+		<usItem>1599</usItem><!-- Tripwire (NET 3/LVL 2) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1600</usItem><!-- Tripwire (NET 3/LVL 3) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1601</usItem><!-- Tripwire (NET 3/LVL 4) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1602</usItem><!-- Tripwire (NET 4/LVL 1) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1603</usItem><!-- Tripwire (NET 4/LVL 2) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1604</usItem><!-- Tripwire (NET 4/LVL 3) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1605</usItem><!-- Tripwire (NET 4/LVL 4) -->
+		<usResult1>1524</usResult1><!-- Standard Tripwire (BR and NET 1/LVL 1) -->
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Restore tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire attachable and stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1635</usItem><!-- Rifle LAM-Flashlight Combo (ON) -->
+		<usResult1>950</usResult1><!-- Rifle LAM-Flashlight Combo (OFF) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -494,8 +613,8 @@
 		<szTooltipText>Switch off flashlight.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1636</usItem>
-		<usResult1>1637</usResult1>
+		<usItem>1636</usItem><!-- Flashlight (OFF) -->
+		<usResult1>1637</usResult1><!-- Flashlight (ON) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -511,8 +630,8 @@
 		<szTooltipText>Switch on flashlight.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1637</usItem>
-		<usResult1>1636</usResult1>
+		<usItem>1637</usItem><!-- Flashlight (ON) -->
+		<usResult1>1636</usResult1><!-- Flashlight (OFF) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -528,76 +647,8 @@
 		<szTooltipText>Switch off flashlight.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1722</usItem>
-		<usResult1>1721</usResult1>
-		<usResult2>1721</usResult2>
-		<usResult3>0</usResult3>
-		<usResult4>0</usResult4>
-		<usResult5>0</usResult5>
-		<usResult6>0</usResult6>
-		<usResult7>0</usResult7>
-		<usResult8>0</usResult8>
-		<usResult9>0</usResult9>
-		<usResult10>0</usResult10>
-		<usAPCost>20</usAPCost>
-		<iBPCost>20</iBPCost>
-		<szMenuRowText>Separate Stacks</szMenuRowText>
-		<szTooltipText>Separate into 2 small stacks.</szTooltipText>
-	</TRANSFORM>
-	<TRANSFORM>
-		<usItem>1723</usItem>
-		<usResult1>1722</usResult1>
-		<usResult2>1722</usResult2>
-		<usResult3>0</usResult3>
-		<usResult4>0</usResult4>
-		<usResult5>0</usResult5>
-		<usResult6>0</usResult6>
-		<usResult7>0</usResult7>
-		<usResult8>0</usResult8>
-		<usResult9>0</usResult9>
-		<usResult10>0</usResult10>
-		<usAPCost>20</usAPCost>
-		<iBPCost>20</iBPCost>
-		<szMenuRowText>Separate Stacks</szMenuRowText>
-		<szTooltipText>Separate into 2 medium stacks.</szTooltipText>
-	</TRANSFORM>
-	<TRANSFORM>
-		<usItem>1723</usItem>
-		<usResult1>1722</usResult1>
-		<usResult2>1721</usResult2>
-		<usResult3>1721</usResult3>
-		<usResult4>0</usResult4>
-		<usResult5>0</usResult5>
-		<usResult6>0</usResult6>
-		<usResult7>0</usResult7>
-		<usResult8>0</usResult8>
-		<usResult9>0</usResult9>
-		<usResult10>0</usResult10>
-		<usAPCost>20</usAPCost>
-		<iBPCost>20</iBPCost>
-		<szMenuRowText>Separate Stacks</szMenuRowText>
-		<szTooltipText>Separate into 1 medium and 2 small stacks.</szTooltipText>
-	</TRANSFORM>
-	<TRANSFORM>
-		<usItem>1723</usItem>
-		<usResult1>1721</usResult1>
-		<usResult2>1721</usResult2>
-		<usResult3>1721</usResult3>
-		<usResult4>1721</usResult4>
-		<usResult5>0</usResult5>
-		<usResult6>0</usResult6>
-		<usResult7>0</usResult7>
-		<usResult8>0</usResult8>
-		<usResult9>0</usResult9>
-		<usResult10>0</usResult10>
-		<usAPCost>20</usAPCost>
-		<iBPCost>20</iBPCost>
-		<szMenuRowText>Separate Stacks</szMenuRowText>
-		<szTooltipText>Separate into 4 small stacks.</szTooltipText>
-	</TRANSFORM>
-	<TRANSFORM>
-		<usItem>1008</usItem>
-		<usResult1>1745</usResult1>
+		<usItem>1008</usItem><!-- Folding Stock -->
+		<usResult1>1745</usResult1><!-- Folding Stock (folded) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -613,8 +664,8 @@
 		<szTooltipText>Fold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1745</usItem>
-		<usResult1>1008</usResult1>
+		<usItem>1745</usItem><!-- Folding Stock (folded) -->
+		<usResult1>1008</usResult1><!-- Folding Stock -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -630,8 +681,8 @@
 		<szTooltipText>Unfold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1746</usItem>
-		<usResult1>1747</usResult1>
+		<usItem>1746</usItem><!-- Folding Stock -->
+		<usResult1>1747</usResult1><!-- Folding Stock (folded) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -647,8 +698,8 @@
 		<szTooltipText>Fold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1747</usItem>
-		<usResult1>1746</usResult1>
+		<usItem>1747</usItem><!-- Folding Stock (folded) -->
+		<usResult1>1746</usResult1><!-- Folding Stock -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -664,8 +715,8 @@
 		<szTooltipText>Unfold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1009</usItem>
-		<usResult1>1748</usResult1>
+		<usItem>1009</usItem><!-- Retractable Stock -->
+		<usResult1>1748</usResult1><!-- Retractable Stock (retracted) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -681,8 +732,8 @@
 		<szTooltipText>Retract stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1748</usItem>
-		<usResult1>1009</usResult1>
+		<usItem>1748</usItem><!-- Retractable Stock (retracted) -->
+		<usResult1>1009</usResult1><!-- Retractable Stock -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -698,8 +749,8 @@
 		<szTooltipText>Extend stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1749</usItem>
-		<usResult1>1750</usResult1>
+		<usItem>1749</usItem><!-- Retractable Stock -->
+		<usResult1>1750</usResult1><!-- Retractable Stock (retracted) -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>
@@ -715,8 +766,8 @@
 		<szTooltipText>Retract stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1750</usItem>
-		<usResult1>1749</usResult1>
+		<usItem>1750</usItem><!-- Retractable Stock (retracted) -->
+		<usResult1>1749</usResult1><!-- Retractable Stock -->
 		<usResult2>0</usResult2>
 		<usResult3>0</usResult3>
 		<usResult4>0</usResult4>

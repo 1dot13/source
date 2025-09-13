@@ -1,1811 +1,1763 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <INCOMPATIBLEATTACHMENTLIST>
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>50</itemIndex>
+		<itemIndex>50</itemIndex><!-- *** TALON GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>50</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>1522</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- KAC Masterkey -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>183</itemIndex>
+		<itemIndex>183</itemIndex><!-- *** CERAMIC PLATES *** -->
 		<incompatibleattachmentIndex>837</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Titanium Plating -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>207</itemIndex>
+		<itemIndex>207</itemIndex><!-- *** PISTOL SUPPRESSOR *** -->
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>207</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Flash Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>207</itemIndex>
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AR Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>207</itemIndex>
 		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>208</itemIndex>
+		<itemIndex>208</itemIndex><!-- *** SNIPER SCOPE, 10X *** -->
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>209</itemIndex>
+		<itemIndex>209</itemIndex><!-- *** BIPOD *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>209</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>921</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- FN EGLM Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>211</itemIndex>
+		<itemIndex>211</itemIndex><!-- *** NVG I *** -->
 		<incompatibleattachmentIndex>246</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG II -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>211</itemIndex>
 		<incompatibleattachmentIndex>1024</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG III -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>211</itemIndex>
 		<incompatibleattachmentIndex>1025</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG IV -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>223</itemIndex>
+		<itemIndex>223</itemIndex><!-- *** DETONATOR *** -->
 		<incompatibleattachmentIndex>224</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Detonator -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>223</itemIndex>
 		<incompatibleattachmentIndex>1526</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Defuse -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>223</itemIndex>
 		<incompatibleattachmentIndex>1527</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Combo -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>224</itemIndex>
+		<itemIndex>224</itemIndex><!-- *** REMOTE DETONATOR *** -->
 		<incompatibleattachmentIndex>223</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Detonator -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>224</itemIndex>
 		<incompatibleattachmentIndex>1527</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Combo -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>241</itemIndex>
+		<itemIndex>241</itemIndex><!-- *** LASER SIGHT *** -->
 		<incompatibleattachmentIndex>1005</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Insight LAM-200 -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>241</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>241</itemIndex>
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM-Flashlight Combo (OFF) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>241</itemIndex>
 		<incompatibleattachmentIndex>949</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>241</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>244</itemIndex>
+		<itemIndex>244</itemIndex><!-- *** DUCKBILL *** -->
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>244</itemIndex>
 		<incompatibleattachmentIndex>1330</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Full Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>244</itemIndex>
 		<incompatibleattachmentIndex>1329</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Imp. Mod. Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>244</itemIndex>
 		<incompatibleattachmentIndex>1331</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifled Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>246</itemIndex>
+		<itemIndex>246</itemIndex><!-- *** NVG II *** -->
 		<incompatibleattachmentIndex>211</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG I -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>246</itemIndex>
 		<incompatibleattachmentIndex>1024</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG III -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>246</itemIndex>
 		<incompatibleattachmentIndex>1025</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT>><!-- NVG IV -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>284</itemIndex>
+		<itemIndex>284</itemIndex><!-- *** WOODLAND BDU JACKET *** -->
 		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>284</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>284</itemIndex>
 		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>284</itemIndex>
 		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>284</itemIndex>
 		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>284</itemIndex>
 		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>286</itemIndex>
+		<itemIndex>286</itemIndex><!-- *** DRESS UNIFORM *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>286</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>286</itemIndex>
 		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>286</itemIndex>
 		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>286</itemIndex>
 		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>286</itemIndex>
 		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>310</itemIndex>
+		<itemIndex>291</itemIndex><!-- *** OFFICER'S COAT *** -->
+		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>291</itemIndex>
+		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->	
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>291</itemIndex>
+		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>291</itemIndex>
+		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>291</itemIndex>
+		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>291</itemIndex>
+		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->	
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>310</itemIndex><!-- *** GUN BARREL EXTENDER *** -->
 		<incompatibleattachmentIndex>207</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Pistol Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>244</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Duckbill -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Flash Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AR Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>1330</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Full Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>1329</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Imp. Mod. Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
 		<incompatibleattachmentIndex>1331</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifled Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>592</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Flash Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>592</itemIndex>
+		<itemIndex>592</itemIndex><!-- *** SNIPER SUPPRESSOR *** -->
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>592</itemIndex>
 		<incompatibleattachmentIndex>207</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Pistol Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>592</itemIndex>
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AR Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>837</itemIndex>
+		<itemIndex>837</itemIndex><!-- *** TITANIUM PLATING *** -->
 		<incompatibleattachmentIndex>183</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ceramic Plates -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>885</itemIndex>
+		<itemIndex>885</itemIndex><!-- *** CAMO HELMET COVER MK.I *** -->
 		<incompatibleattachmentIndex>1197</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Cover -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>885</itemIndex>
 		<incompatibleattachmentIndex>886</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Camo Helmet Cover Mk.II -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>886</itemIndex>
+		<itemIndex>886</itemIndex><!-- *** CAMO HELMET COVER MK.II *** -->
 		<incompatibleattachmentIndex>1197</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Cover -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>886</itemIndex>
 		<incompatibleattachmentIndex>885</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Camo Helmet Cover Mk.I -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>902</itemIndex>
+		<itemIndex>902</itemIndex><!-- *** COLT M203PI GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>904</itemIndex>
+		<itemIndex>904</itemIndex><!-- *** GP-30 OBUVKA GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>904</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>904</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>905</itemIndex>
+		<itemIndex>905</itemIndex><!-- *** HK AG36 GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>905</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>905</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>909</itemIndex>
+		<itemIndex>909</itemIndex><!-- *** AICW GRENADE LAUNCHER (BUILT-IN) *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>909</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>909</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>910</itemIndex>
+		<itemIndex>910</itemIndex><!-- *** F2000 GRENADE LAUNCHER (BUILT-IN) *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>910</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>910</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>911</itemIndex>
+		<itemIndex>911</itemIndex><!-- *** GP-25 LAUNCHER (BUILT-IN) *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in)-->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>911</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>911</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>912</itemIndex>
+		<itemIndex>912</itemIndex><!-- *** OICW GRENADE LAUNCHER (BUILT-IN) *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>912</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>912</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>913</itemIndex>
+		<itemIndex>913</itemIndex><!-- *** HK 79 GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>913</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>921</itemIndex>
+		<itemIndex>921</itemIndex><!-- *** FN EGLM GRENADE LAUNCHER *** -->
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>921</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>921</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>921</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>946</itemIndex>
+		<itemIndex>946</itemIndex><!-- *** ISM-V-IR *** -->
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1005</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Insight LAM-200 -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Laser Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>949</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM-Flashlight Combo (OFF) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>946</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>947</itemIndex>
+		<itemIndex>947</itemIndex><!-- *** GRIPPOD *** -->
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>947</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Foregrip -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>902</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Colt M203PI Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>921</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- FN EGLM Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>948</itemIndex>
+		<itemIndex>948</itemIndex><!-- *** OLD AIMPOINT PROJECTOR *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Laser Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>949</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM-Flashlight Combo (OFF) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1005</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Insight LAM-200 -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>948</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>949</itemIndex>
+		<itemIndex>949</itemIndex><!-- *** RIFLE LAM *** -->
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>949</itemIndex>
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Laser Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>949</itemIndex>
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM-Flashlight Combo (OFF) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>949</itemIndex>
 		<incompatibleattachmentIndex>1005</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Insight LAM-200 -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>949</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>950</itemIndex>
+		<itemIndex>950</itemIndex><!-- *** RIFLE LAM-FLASHLIGHT (OFF) *** -->
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>950</itemIndex>
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Laser Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>950</itemIndex>
 		<incompatibleattachmentIndex>949</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>950</itemIndex>
 		<incompatibleattachmentIndex>1005</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Insight LAM-200 -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>950</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>998</itemIndex>
+		<itemIndex>998</itemIndex><!-- *** KOBRA *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>999</itemIndex>
+		<itemIndex>999</itemIndex><!-- *** PSO-1 SCOPE *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1000</itemIndex>
+		<itemIndex>1000</itemIndex><!-- *** PSO-3 SCOPE *** -->
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1000</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1001</itemIndex>
+		<itemIndex>1001</itemIndex><!-- *** 5.56MM C-MAG ADAPTER *** -->
 		<incompatibleattachmentIndex>1002</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!--9mm C-Mag Adapter  -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1002</itemIndex>
+		<itemIndex>1002</itemIndex><!-- *** 9MM C-MAG ADAPTER *** -->
 		<incompatibleattachmentIndex>1001</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- 5.56mm C-Mag Adapter -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1003</itemIndex>
+		<itemIndex>1003</itemIndex><!-- *** FLASH SUPPRESSOR *** -->
 		<incompatibleattachmentIndex>207</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Pistol Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1003</itemIndex>
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1003</itemIndex>
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AR Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1003</itemIndex>
 		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1004</itemIndex>
+		<itemIndex>1004</itemIndex><!-- *** ACOG COMBO, 4X *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1006</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Reflex Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1005</itemIndex>
+		<itemIndex>1005</itemIndex><!-- *** INSIGHT LAM-200 *** -->
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Laser Sight -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1005</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1005</itemIndex>
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM-Flashlight Combo (OFF) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1005</itemIndex>
 		<incompatibleattachmentIndex>949</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifle LAM -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1005</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1006</itemIndex>
+		<itemIndex>1006</itemIndex><!-- *** REFLEX SIGHT *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1006</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Kobra -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1006</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1006</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1006</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1006</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1007</itemIndex>
+		<itemIndex>1007</itemIndex><!-- *** BATTLE SCOPE, 7X *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1008</itemIndex>
+		<itemIndex>1008</itemIndex><!-- *** FOLDING STOCK *** -->
 		<incompatibleattachmentIndex>1009</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Retractable Stock -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1009</itemIndex>
+		<itemIndex>1009</itemIndex><!-- *** RETRACTABLE STOCK *** -->
 		<incompatibleattachmentIndex>1008</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Folding Stock -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
+		<itemIndex>1011</itemIndex><!-- *** FOREGRIP *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>921</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1010</itemIndex>
-		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1011</itemIndex>
-		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Bipod -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>904</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-30 Obuvka Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>905</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK AG36 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- AICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>910</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- F2000 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- GP-25 Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- OICW Grenade Launcher (Built-in) -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
-	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1011</itemIndex>
-		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- HK 79 Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>921</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- FN EGLM Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1011</itemIndex>
 		<incompatibleattachmentIndex>947</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Grippod -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1012</itemIndex>
+		<itemIndex>1012</itemIndex><!-- *** AR SUPPRESSOR *** -->
 		<incompatibleattachmentIndex>207</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Pistol Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1012</itemIndex>
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1012</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Flash Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1012</itemIndex>
 		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Suppressor -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1024</itemIndex>
+		<itemIndex>1024</itemIndex><!-- *** NVG III *** -->
 		<incompatibleattachmentIndex>211</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG I -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1024</itemIndex>
 		<incompatibleattachmentIndex>246</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG II -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1024</itemIndex>
 		<incompatibleattachmentIndex>1025</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT>><!-- NVG IV -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1025</itemIndex>
+		<itemIndex>1025</itemIndex><!-- *** NVG IV *** -->
 		<incompatibleattachmentIndex>211</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG I -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1025</itemIndex>
 		<incompatibleattachmentIndex>246</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG II -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1025</itemIndex>
 		<incompatibleattachmentIndex>1024</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- NVG III -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1029</itemIndex>
+		<itemIndex>1029</itemIndex><!-- *** SMALL SCOPE, 2X *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1030</itemIndex>
+		<itemIndex>1030</itemIndex><!-- *** ACOG, 4X *** -->
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1030</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1180</itemIndex>
+		<itemIndex>1180</itemIndex><!-- *** ZF-42 SCOPE *** -->
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1180</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1181</itemIndex>
+		<itemIndex>1181</itemIndex><!-- *** No.32 SCOPE *** -->
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1181</itemIndex>
 		<incompatibleattachmentIndex>1182</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PEM Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1182</itemIndex>
+		<itemIndex>1182</itemIndex><!-- *** PEM SCOPE *** -->
 		<incompatibleattachmentIndex>1030</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Small Scope, 2x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Battle Scope, 7x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ACOG Combo, 4x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Old Aimpoint Projector -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1000</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-3 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>999</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- PSO-1 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ISM-V-IR -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Sniper Scope, 10x -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1180</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- ZF-42 Scope -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- No.32 Scope -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1184</itemIndex>
+		<itemIndex>1184</itemIndex><!-- *** UNDERARMOR CAMO SHIRT *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1184</itemIndex>
 		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1184</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1184</itemIndex>
 		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1184</itemIndex>
 		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1184</itemIndex>
 		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1197</itemIndex>
+		<itemIndex>1197</itemIndex><!-- *** GHILLIE COVER *** -->
 		<incompatibleattachmentIndex>885</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Camo Helmet Cover Mk.I -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1197</itemIndex>
 		<incompatibleattachmentIndex>886</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Camo Helmet Cover Mk.II -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1198</itemIndex>
+		<itemIndex>1198</itemIndex><!-- *** GHILLIE LEGGINGS *** -->
 		<incompatibleattachmentIndex>1766</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1198</itemIndex>
 		<incompatibleattachmentIndex>1767</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1199</itemIndex>
+		<itemIndex>1199</itemIndex><!-- *** GHILLIE JACKET *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1199</itemIndex>
 		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1199</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1199</itemIndex>
 		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1199</itemIndex>
 		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1199</itemIndex>
 		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1329</itemIndex>
+		<itemIndex>1329</itemIndex><!-- *** IMP. MOD. SHOTGUN CHOKE *** -->
 		<incompatibleattachmentIndex>244</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Duckbill -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1329</itemIndex>
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1329</itemIndex>
 		<incompatibleattachmentIndex>1330</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Full Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1329</itemIndex>
 		<incompatibleattachmentIndex>1331</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifled Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1330</itemIndex>
+		<itemIndex>1330</itemIndex><!-- *** FULL SHOTGUN CHOKE *** -->
 		<incompatibleattachmentIndex>244</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Duckbill -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1330</itemIndex>
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1330</itemIndex>
 		<incompatibleattachmentIndex>1329</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Imp. Mod. Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1330</itemIndex>
 		<incompatibleattachmentIndex>1331</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Rifled Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1331</itemIndex>
+		<itemIndex>1331</itemIndex><!-- *** RIFLED SHOTGUN CHOKE *** -->
 		<incompatibleattachmentIndex>244</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Duckbill -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1331</itemIndex>
 		<incompatibleattachmentIndex>1330</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Full Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1331</itemIndex>
 		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Gun Barrel Extender -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1331</itemIndex>
 		<incompatibleattachmentIndex>1329</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Imp. Mod. Shotgun Choke -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1522</itemIndex>
+		<itemIndex>1522</itemIndex><!-- *** KAC MASTERKEY *** -->
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Talon Grenade Launcher -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1526</itemIndex>
+		<itemIndex>1526</itemIndex><!-- *** REMOTE DEFUSE *** -->
 		<incompatibleattachmentIndex>223</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Detonator -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1526</itemIndex>
 		<incompatibleattachmentIndex>1527</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Combo -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1527</itemIndex>
+		<itemIndex>1527</itemIndex><!-- *** REMOTE COMBO *** -->
 		<incompatibleattachmentIndex>223</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Detonator -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1527</itemIndex>
 		<incompatibleattachmentIndex>224</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Detonator -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1527</itemIndex>
 		<incompatibleattachmentIndex>1526</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Remote Defuse -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1766</itemIndex>
+		<itemIndex>1766</itemIndex><!-- *** WOODLAND BDU PANTS *** -->
 		<incompatibleattachmentIndex>1198</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Leggings -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1766</itemIndex>
 		<incompatibleattachmentIndex>1767</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1766</itemIndex>
 		<incompatibleattachmentIndex>1768</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1767</itemIndex>
+		<itemIndex>1767</itemIndex><!-- *** DESERT BDU PANTS *** -->
 		<incompatibleattachmentIndex>1198</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Leggings -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1767</itemIndex>
 		<incompatibleattachmentIndex>1766</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1767</itemIndex>
 		<incompatibleattachmentIndex>1768</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1768</itemIndex>
+		<itemIndex>1768</itemIndex><!-- *** URBAN BDU PANTS *** -->
 		<incompatibleattachmentIndex>1766</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1768</itemIndex>
 		<incompatibleattachmentIndex>1767</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1769</itemIndex>
+		<itemIndex>1769</itemIndex><!-- *** DESERT BDU JACKET *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1769</itemIndex>
 		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1769</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1769</itemIndex>
 		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1769</itemIndex>
 		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1769</itemIndex>
 		<incompatibleattachmentIndex>1770</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
-		<itemIndex>1770</itemIndex>
+		<itemIndex>1770</itemIndex><!-- *** URBAN BDU JACKET *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1770</itemIndex>
 		<incompatibleattachmentIndex>286</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Dress Uniform -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1770</itemIndex>
+		<incompatibleattachmentIndex>291</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Officer's Coat -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1770</itemIndex>
 		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Underarmor Camo Shirt -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1770</itemIndex>
 		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Jacket -->
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1770</itemIndex>
 		<incompatibleattachmentIndex>1769</incompatibleattachmentIndex>
-	</INCOMPATIBLEATTACHMENT>
+	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Jacket -->
 </INCOMPATIBLEATTACHMENTLIST>

@@ -1,187 +1,187 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <COMPATIBLEFACEITEMLIST>
-	<COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM><!-- *** EXTENDED EAR *** -->
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>211</itemIndex>
+		<itemIndex>211</itemIndex><!-- NVG I -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>212</itemIndex>
+		<itemIndex>212</itemIndex><!-- Sun Goggles -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>246</itemIndex>
+		<itemIndex>246</itemIndex><!-- NVG II -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>1024</itemIndex>
+		<itemIndex>1024</itemIndex><!-- NVG III -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>210</compatiblefaceitemIndex>
-		<itemIndex>1025</itemIndex>
+		<itemIndex>1025</itemIndex><!-- NVG IV -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM><!-- *** NVG I *** -->
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>211</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>211</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>211</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>211</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** SUN GOGGLES *** -->
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>212</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>212</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>212</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>212</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** GAS MASK *** -->
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>211</itemIndex><!-- NVG I -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>211</itemIndex>
+		<itemIndex>212</itemIndex><!-- Sun Goggles -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>212</itemIndex>
+		<itemIndex>246</itemIndex><!-- NVG II -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>246</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+		<itemIndex>1024</itemIndex><!-- NVG III -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>1024</itemIndex>
+		<itemIndex>1025</itemIndex><!-- NVG IV -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>213</compatiblefaceitemIndex>
-		<itemIndex>1025</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** NVG II *** -->
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>246</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>246</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>246</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>246</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** ROBOT REMOTE CONTROL *** -->
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
+		<itemIndex>211</itemIndex><!-- NVG I -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>211</itemIndex>
+		<itemIndex>212</itemIndex><!-- Sun Goggles -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>212</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>246</itemIndex><!-- NVG II -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>246</itemIndex>
+		<itemIndex>1024</itemIndex><!-- NVG III -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>1024</itemIndex>
+		<itemIndex>1025</itemIndex><!-- NVG IV -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>259</compatiblefaceitemIndex>
-		<itemIndex>1025</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** WALKMAN *** -->
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
+		<itemIndex>211</itemIndex><!-- NVG I -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>211</itemIndex>
+		<itemIndex>212</itemIndex><!-- Sun Goggles -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>212</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>246</itemIndex><!-- NVG II -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>246</itemIndex>
+		<itemIndex>1024</itemIndex><!-- NVG III -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>1024</itemIndex>
+		<itemIndex>1025</itemIndex><!-- NVG IV -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>266</compatiblefaceitemIndex>
-		<itemIndex>1025</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** NVG III *** -->
+		<compatiblefaceitemIndex>1024</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1024</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1024</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1024</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>1024</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+	<COMPATIBLEFACEITEM><!-- *** NVG IV *** -->
+		<compatiblefaceitemIndex>1025</compatiblefaceitemIndex>
+		<itemIndex>210</itemIndex><!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1025</compatiblefaceitemIndex>
-		<itemIndex>210</itemIndex>
+		<itemIndex>213</itemIndex><!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1025</compatiblefaceitemIndex>
-		<itemIndex>213</itemIndex>
+		<itemIndex>259</itemIndex><!-- Robot Remote Control -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>1025</compatiblefaceitemIndex>
-		<itemIndex>259</itemIndex>
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>1025</compatiblefaceitemIndex>
-		<itemIndex>266</itemIndex>
+		<itemIndex>266</itemIndex><!-- Walkman -->
 	</COMPATIBLEFACEITEM>
 </COMPATIBLEFACEITEMLIST>
