@@ -78,7 +78,7 @@
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>3</uiIndex>
 		<usItem>315</usItem>                   <!-- LameBoy Display  -->
-		<usAttachment1>316</usAttachment1>      <!-- Copper Wire -->
+		<usAttachment1>316</usAttachment1>     <!-- Copper Wire -->
 		<usAttachment2>0</usAttachment2>
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
@@ -103,7 +103,7 @@
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>4</uiIndex>
 		<usItem>264</usItem>                  <!-- Platinum Watch -->
-		<usAttachment1>316</usAttachment1>     <!-- Copper Wire -->
+		<usAttachment1>316</usAttachment1>    <!-- Copper Wire -->
 		<usAttachment2>0</usAttachment2>
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
@@ -127,9 +127,9 @@
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>5</uiIndex>
-		<usItem>1360</usItem>                   <!-- MERC Wrist Watch -->
-		<usAttachment1>1360</usAttachment1>       <!-- MERC Wrist Watch -->
-		<usAttachment2>1360</usAttachment2>           <!-- MERC Wrist Watch -->
+		<usItem>1360</usItem>                 <!-- MERC Wrist Watch -->
+		<usAttachment1>316</usAttachment1>    <!-- Copper Wire -->      
+		<usAttachment2>0</usAttachment2>           
 		<usAttachment3>0</usAttachment3>
 		<usAttachment4>0</usAttachment4>
 		<usAttachment5>0</usAttachment5>
@@ -148,7 +148,7 @@
 		<usAttachment18>0</usAttachment18>
 		<usAttachment19>0</usAttachment19>
 		<usAttachment20>0</usAttachment20>
-		<usResult>1360</usResult>                  <!-- MERC Wrist Watch --> 
+		<usResult>223</usResult>                <!-- Detonator -->                  
 	</ATTACHMENTCOMBOMERGE>
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>6</uiIndex>
