@@ -500,9 +500,10 @@ BombItem:
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>65</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Bear Trap</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1741</BombItem>		
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>66</uiIndex>
