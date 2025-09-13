@@ -2,100 +2,114 @@
 <ATTACHMENTINFOLIST>
 	<ATTACHMENTINFO>
 		<uiIndex>0</uiIndex>
-		<usItem>207</usItem>
+		<usItem>207</usItem><!-- Pistol Suppressor -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>1</uiIndex>
-		<usItem>208</usItem>
+		<usItem>208</usItem><!-- Sniper Scope, 10x -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>2</uiIndex>
-		<usItem>241</usItem>
+		<usItem>241</usItem><!-- Laser Sight -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>3</uiIndex>
-		<usItem>209</usItem>
+		<usItem>209</usItem><!-- Bipod -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>4</uiIndex>
-		<usItem>50</usItem>
+		<usItem>50</usItem><!-- Talon Grenade Launcher -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>5</uiIndex>
-		<usItem>244</usItem>
+		<usItem>244</usItem><!-- Duckbill -->
 		<uiItemClass>2</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>6</uiIndex>
-		<usItem>307</usItem>
+		<usItem>307</usItem><!-- Rod & Spring -->
 		<uiItemClass>2</uiItemClass>
-		<bAttachmentSkillCheck>13</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>13</bAttachmentSkillCheck><!-- Attach Special Item -->
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>7</uiIndex>
-		<usItem>310</usItem>
+		<usItem>310</usItem><!-- Gun Barrel Extender -->
 		<uiItemClass>2</uiItemClass>
-		<bAttachmentSkillCheck>13</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>13</bAttachmentSkillCheck><!-- Attach Special Item -->
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>8</uiIndex>
-		<usItem>223</usItem>
+		<usItem>223</usItem><!-- Detonator -->
 		<uiItemClass>512</uiItemClass>
-		<bAttachmentSkillCheck>3</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>3</bAttachmentSkillCheck><!-- Attach Timed Detonator -->
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>9</uiIndex>
-		<usItem>224</usItem>
+		<usItem>224</usItem><!-- Remote Detonator -->
 		<uiItemClass>512</uiItemClass>
-		<bAttachmentSkillCheck>4</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>4</bAttachmentSkillCheck><!-- Attach Remote Detonator -->
 		<bAttachmentSkillCheckMod>-10</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>10</uiIndex>
-		<usItem>319</usItem>
+		<usItem>319</usItem><!-- X-ray Tube -->
 		<uiItemClass>1</uiItemClass>
-		<bAttachmentSkillCheck>14</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>14</bAttachmentSkillCheck><!-- Attach Special Elec. Item -->
 		<bAttachmentSkillCheckMod>-15</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>11</uiIndex>
-		<usItem>316</usItem>
+		<usItem>316</usItem><!-- Copper Wire -->
 		<uiItemClass>1</uiItemClass>
-		<bAttachmentSkillCheck>14</bAttachmentSkillCheck>
+		<bAttachmentSkillCheck>14</bAttachmentSkillCheck><!-- Attach Special Elec. Item -->
 		<bAttachmentSkillCheckMod>20</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>12</uiIndex>
-		<usItem>183</usItem>
+		<usItem>183</usItem><!-- Ceramic Plates -->
 		<uiItemClass>2048</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>13</uiIndex>
-		<usItem>837</usItem>
+		<usItem>837</usItem><!-- Titanium Plating -->
 		<uiItemClass>2048</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>0</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
+	<ATTACHMENTINFO>
+		<uiIndex>14</uiIndex>
+		<usItem>1526</usItem><!-- Remote Defuse -->
+		<uiItemClass>512</uiItemClass>
+		<bAttachmentSkillCheck>4</bAttachmentSkillCheck><!-- Attach Remote Detonator -->
+		<bAttachmentSkillCheckMod>-10</bAttachmentSkillCheckMod>
+	</ATTACHMENTINFO>
+	<ATTACHMENTINFO>
+		<uiIndex>15</uiIndex>
+		<usItem>1527</usItem><!-- Remote Combo -->
+		<uiItemClass>512</uiItemClass>
+		<bAttachmentSkillCheck>4</bAttachmentSkillCheck><!-- Attach Remote Detonator -->
+		<bAttachmentSkillCheckMod>-10</bAttachmentSkillCheckMod>
+	</ATTACHMENTINFO>	
 </ATTACHMENTINFOLIST>
