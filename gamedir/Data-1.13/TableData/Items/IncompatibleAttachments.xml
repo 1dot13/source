@@ -1585,6 +1585,10 @@
 		<incompatibleattachmentIndex>1767</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT><!-- Desert BDU Pants -->
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1198</itemIndex>
+		<incompatibleattachmentIndex>1768</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Urban BDU Pants -->	
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1199</itemIndex><!-- *** GHILLIE JACKET *** -->
 		<incompatibleattachmentIndex>284</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Jacket -->
@@ -1708,6 +1712,10 @@
 		<itemIndex>1768</itemIndex><!-- *** URBAN BDU PANTS *** -->
 		<incompatibleattachmentIndex>1766</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT><!-- Woodland BDU Pants -->
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1768</itemIndex> -->
+		<incompatibleattachmentIndex>1198</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT><!-- Ghillie Leggings -->	
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1768</itemIndex>
 		<incompatibleattachmentIndex>1767</incompatibleattachmentIndex>
