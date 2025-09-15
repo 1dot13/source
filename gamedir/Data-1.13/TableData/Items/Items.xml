@@ -576,6 +576,7 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
+        <DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>

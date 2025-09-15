@@ -26339,6 +26339,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1323</attachmentIndex><!-- *** FOREGRIP (BUILT-IN) -->
+		<itemIndex>9</itemIndex><!-- HK MP5KA4 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
 		<itemIndex>727</itemIndex><!-- Steyr AUG Para -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
