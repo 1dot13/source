@@ -1947,6 +1947,7 @@
 		<TransportGroupMaxProgress>50</TransportGroupMaxProgress>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<AttachmentSystem>1</AttachmentSystem>		
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
