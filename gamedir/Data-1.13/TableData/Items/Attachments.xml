@@ -3283,11 +3283,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex>
-		<itemIndex>24</itemIndex><!-- FAMAS G2 -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
 		<itemIndex>25</itemIndex><!-- AK-74 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -9506,6 +9501,16 @@
 		<itemIndex>36</itemIndex><!-- HK 21E -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
 	<ATTACHMENT>
 		<attachmentIndex>307</attachmentIndex>
 		<itemIndex>68</itemIndex><!-- Calico M-900 -->
@@ -17778,6 +17783,16 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1004</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1004</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1004</attachmentIndex>
 		<itemIndex>68</itemIndex><!-- Calico M-900 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -19928,6 +19943,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
 		<itemIndex>56</itemIndex><!-- Automag III Custom -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -19936,6 +19956,11 @@
 		<itemIndex>61</itemIndex><!-- Dart Gun -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
 	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex>
 		<itemIndex>66</itemIndex><!-- Modified EMF Hartford 6 Shooter -->
@@ -21137,6 +21162,16 @@
 		<itemIndex>36</itemIndex><!-- HK 21E -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1007</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1007</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
 	<ATTACHMENT>
 		<attachmentIndex>1007</attachmentIndex>
 		<itemIndex>68</itemIndex><!-- Calico M-900 -->
@@ -22480,11 +22515,6 @@
 	<ATTACHMENT>
 		<attachmentIndex>1011</attachmentIndex>
 		<itemIndex>1190</itemIndex><!-- KAC PDW -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>1011</attachmentIndex>
-		<itemIndex>1191</itemIndex><!-- Magpul PDR-D -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
@@ -25129,6 +25159,16 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1030</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1030</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1030</attachmentIndex>
 		<itemIndex>68</itemIndex><!-- Calico M-900 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -26341,12 +26381,87 @@
 		<attachmentIndex>1323</attachmentIndex><!-- *** FOREGRIP (BUILT-IN) -->
 		<itemIndex>9</itemIndex><!-- HK MP5KA4 -->
 		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>55</itemIndex><!-- Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>63</itemIndex><!-- Flamethrower -->
+		<APCost>20</APCost>
+	</ATTACHMENT>		
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>65</itemIndex><!-- Auto Rocket Rifle -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>69</itemIndex><!-- Calico M-960A -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>628</itemIndex><!-- Carl Gustaf M/45B -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>641</itemIndex><!-- FAMAE Mini SAF -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>686</itemIndex><!-- Metal Storm Surf Zone -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>692</itemIndex><!-- Mini-Uzi -->
+		<APCost>20</APCost>
 	</ATTACHMENT>	
 	<ATTACHMENT>
 		<attachmentIndex>1323</attachmentIndex>
 		<itemIndex>727</itemIndex><!-- Steyr AUG Para -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>730</itemIndex><!-- Steyr TMP -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>731</itemIndex><!-- Street Sweeper -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>737</itemIndex><!-- Thompson M1928 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>1067</itemIndex><!-- Beretta M12 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>1071</itemIndex><!-- Owen .45 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>1177</itemIndex><!-- Spectre M4 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
+	<ATTACHMENT>
+		<attachmentIndex>1323</attachmentIndex>
+		<itemIndex>1191</itemIndex><!-- Magpul PDR-D -->
+		<APCost>20</APCost>
+	</ATTACHMENT>	
 	<ATTACHMENT>
 		<attachmentIndex>1324</attachmentIndex><!-- *** GRIPPOD (BUILT-IN) -->
 		<itemIndex>20</itemIndex><!-- Steyr AUG-A2 -->
