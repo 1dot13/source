@@ -1109,7 +1109,7 @@
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<DirtIncreaseFactor>33</DirtIncreaseFactor>
 		<DamageChance>10</DamageChance>
-		<DefaultAttachment>209</DefaultAttachment>
+		<DefaultAttachment>1325</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -2104,6 +2104,7 @@
 		<TransportGroupMinProgress>50</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
 		<DefaultAttachment>1749</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -2115,11 +2116,7 @@
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
 		<SciFi>1</SciFi>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -2329,7 +2326,6 @@
 		<ubCoolness>9</ubCoolness>
 		<bReliability>-2</bReliability>
 		<bRepairEase>-2</bRepairEase>
-		<DefaultAttachment>1323</DefaultAttachment>
 		<CamoBonus>-1</CamoBonus>
 		<DesertCamoBonus>-1</DesertCamoBonus>
 		<SnowCamoBonus>-1</SnowCamoBonus>
@@ -2338,6 +2334,7 @@
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<DirtIncreaseFactor>25</DirtIncreaseFactor>
 		<DamageChance>10</DamageChance>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -2421,6 +2418,7 @@
 		<TransportGroupMinProgress>60</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
 		<DefaultAttachment>1749</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -2432,11 +2430,7 @@
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
 		<SciFi>1</SciFi>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -2565,6 +2559,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1749</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -2572,11 +2567,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -9792,7 +9783,11 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>30</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -18087,6 +18082,7 @@
 		<DirtIncreaseFactor>20</DirtIncreaseFactor>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -18563,6 +18559,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -18570,11 +18567,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -19740,7 +19733,11 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>30</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -20266,6 +20263,7 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<TransportGroupMinProgress>60</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
 		<Damageable>1</Damageable>
@@ -20278,11 +20276,7 @@
 		<Electronic>1</Electronic>
 		<FingerPrintID>1</FingerPrintID>
 		<SciFi>1</SciFi>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -20490,6 +20484,7 @@
 		<DirtIncreaseFactor>20</DirtIncreaseFactor>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -21874,6 +21869,7 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
+		<DefaultAttachment>1323</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -21881,11 +21877,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -21916,6 +21908,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -21924,11 +21917,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -22146,6 +22135,7 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -22154,11 +22144,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -33343,6 +33329,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -33351,12 +33338,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-			<AimLevels>1</AimLevels>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -33490,6 +33472,7 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -33498,11 +33481,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -36997,6 +36976,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<DamageChance>10</DamageChance>
 		<DefaultAttachment>1746</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>		
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -37005,11 +36985,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -37496,7 +37472,7 @@
 		<DamageChance>10</DamageChance>
 		<TransportGroupMinProgress>50</TransportGroupMinProgress>
 		<TransportGroupMaxProgress>80</TransportGroupMaxProgress>
-		<DefaultAttachment>1011</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
