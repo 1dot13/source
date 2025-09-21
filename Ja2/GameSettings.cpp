@@ -2101,9 +2101,6 @@ void LoadGameExternalOptions()
 
 	//################# Strategic Gameplay Settings ##################
 
-	// Allow enemy and militia Strategic Groups to reinforce one another for battles?
-	// silversurfer: Obsolete. This is now in DifficultySettings.xml and will be set during InitNewGame().
-	gGameExternalOptions.gfAllowReinforcements				= TRUE;
 	// Allow reinforcements only between City sectors?
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
 
