@@ -1,5 +1,5 @@
 	#include "laptop.h"
-	#include "SirTech.h"
+	#include "sirtech.h"
 
 void GameInitSirTech()
 {

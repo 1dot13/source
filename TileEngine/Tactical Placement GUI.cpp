@@ -4,17 +4,17 @@
 
 	//sgp
 	#include "english.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "video.h"
 	#include "vobject_blitters.h"
 	#include "line.h"
 
 	//ja2
 	#include "Tactical Placement GUI.h"
-	#include "Overhead Map.h"
+	#include "overhead map.h"
 	#include "strategicmap.h"
 	#include "Interface.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
 	#include "PreBattle Interface.h"
@@ -24,10 +24,10 @@
 	#include "message.h"
 	#include "Map Information.h"
 	#include "Soldier Add.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "Cursor Control.h"
 	#include "MessageBoxScreen.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "WordWrap.h"
 	#include "Game Clock.h"
 	#include "Isometric Utils.h"

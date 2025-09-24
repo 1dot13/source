@@ -1,8 +1,8 @@
 #include "sgp_logger.h"
-#include "Debug.h"
+#include "DEBUG.H"
 #include "Font Control.h"
 
-#include "Message.h"
+#include "message.h"
 #include <iostream>
 
 static inline void flush_screen(std::wstringstream& stream)

@@ -1,22 +1,22 @@
 	#include "Assignments.h"
-	#include "Strategic.h"
+	#include "strategic.h"
 	#include "Items.h"
 	#include "Overhead.h"
 	#include "Game Clock.h"
 	#include "stdlib.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Font Control.h"
 	#include "Map Screen Interface.h"
-	#include "Soldier Profile Type.h"
+	#include "soldier profile type.h"
 	#include "Soldier Profile.h"
 	#include "Campaign.h"
 	#include "Queen Command.h"
 	#include "strategicmap.h"
 	#include "Text.h"
-	#include "dialogue control.h"
+	#include "Dialogue Control.h"
 	#include "NPC.h"
 	#include "Strategic Town Loyalty.h"
-	#include "animation control.h"
+	#include "Animation Control.h"
 	#include "mapscreen.h"
 	#include "Squads.h"
 	#include "Map Screen Helicopter.h"
@@ -26,20 +26,20 @@
 	#include "Map Screen Interface Map.h"
 	#include "Strategic Movement.h"
 	#include "laptop.h"
-	#include "Finances.h"
+	#include "finances.h"
 	#include "LaptopSave.h"
 	#include "renderworld.h"
 	#include "Interface Control.h"
 	#include "Interface.h"
 	#include "Soldier Find.h"
 	#include "ai.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 	#include "random.h"
 	#include "line.h"
 	#include "Soldier Add.h"
 	#include "GameSettings.h"
 	#include "Isometric Utils.h"
-	#include "Soldier Macros.h"
+	#include "Soldier macros.h"
 	#include "Explosion Control.h"
 	#include "SkillCheck.h"
 	#include "Quests.h"
@@ -54,7 +54,7 @@
 	#include "Strategic Status.h"
 	#include "history.h"
 	#include "Map Screen Interface Map Inventory.h"
-	#include "interface dialogue.h"
+	#include "interface Dialogue.h"
 	// added by SANDRO
 	#include "AIInternals.h"
 	#include "Morale.h"
@@ -18324,7 +18324,6 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8 ubNumberOfSelectedSoldiers = 0;
-	CHAR16 sString[ 128 ];
 	
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
@@ -18379,27 +18378,10 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		}
 	}
 
-	// if there was anyone processed, check for success and inform player of failure
-	if( ubNumberOfSelectedSoldiers )
+	if( ubNumberOfSelectedSoldiers && !fSuccess && fDisplayWarning )
 	{
-		if( fSuccess == FALSE )
-		{
-			if( fWakeUp )
-			{
-				// inform player not everyone could be woke up
-				swprintf( sString, pMapErrorString[ 27 ] );
-			}
-			else
-			{
-				// inform player not everyone could be put to sleep
-				swprintf( sString, pMapErrorString[ 26 ]);
-			}
-
-			if( fDisplayWarning )
-			{
-				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
-			}
-		}
+		// inform player not everyone could be woke up or put to sleep
+		DoScreenIndependantMessageBox(fWakeUp ? pMapErrorString[27] : pMapErrorString[26], MSG_BOX_FLAG_OK, NULL);
 	}
 
 	return( fSuccess );

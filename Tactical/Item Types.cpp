@@ -1,13 +1,13 @@
 
 #include "Item Types.h"
-#include "Debug.h"
+#include "DEBUG.H"
 #include "Items.h"
 #include "GameSettings.h"
 #include "screenids.h"
 #include "Action Items.h"	// added by Flugente for the ACTION_ITEM_BLOW_UP value
-#include "Random.h"			// added by Flugente
-#include "Message.h"		// added by BOB for missing LBE info messages
-#include "overhead.h"		// added by BOB for missing LBE info messages
+#include "random.h"			// added by Flugente
+#include "message.h"		// added by BOB for missing LBE info messages
+#include "Overhead.h"		// added by BOB for missing LBE info messages
 #include "Map Screen Interface.h" // added by BOB for missing LBE info messages
 
 

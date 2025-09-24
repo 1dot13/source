@@ -2,8 +2,8 @@
 //#pragma setlocale("CHINESE")
 
 	#if defined( CHINESE )
-		#include "text.h"
-		#include "Fileman.h"
+		#include "Text.h"
+		#include "FileMan.h"
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
@@ -9504,13 +9504,13 @@ STR16		szNationalityText[]=
 	L"丹麦人",
 	L"法国人",
 	L"俄国人",
-	L"尼日利亚人",
+	L"Tracona人",      // (UB takes place in Tracona)
 	L"瑞士人",			// 10
 	L"牙买加人",
 	L"波兰人",
 	L"中国人",
 	L"爱尔兰人",
-	L"南非人",	// 15
+	L"南非人",	       // 15
 	L"匈牙利人",
 	L"苏格兰人",
 	L"Arulco人",
@@ -9522,57 +9522,94 @@ STR16		szNationalityText[]=
 	L"Metavira人",
 
 	// newly added from here on
-	L"希腊人",			// 25
-	L"爱沙尼亚人",
-	L"委内瑞拉人",
-	L"日本人",
-	L"土耳其人",
-	L"印度人",			// 30
-	L"墨西哥人",
-	L"挪威人",
-	L"西班牙人",
-	L"巴西人",
-	L"芬兰人",			// 35
-	L"伊朗人",
-	L"以色列人",
-	L"保加利亚人",
-	L"瑞典人",
-	L"伊拉克人",			// 40
-	L"叙利亚人",
-	L"比利时人",
-	L"葡萄牙人",
-	L"白俄罗斯人",
-	L"塞尔维亚人",			// 45
-	L"巴基斯坦人",
+	L"Afghan",       // 25 
 	L"Albanian",
 	L"Argentinian",
 	L"Armenian",
-	L"Azerbaijani", // 50
+	L"Azerbaijani",
+	L"Bangladeshi ", // 30
+    L"白俄罗斯人",
+    L"比利时人",
+	L"Beninese",
 	L"Bolivian",
-	L"Chilean",
-	L"Circassian",
+	L"Bosnian",     // 35
+    L"巴西人",
+    L"保加利亚人",
+	L"Cambodian",
+	L"Chadian",
+	L"Chilean",     // 40
 	L"Columbian",
-	L"Egyptian", // 55
+	L"Congolese",
+	L"Croatian",
+	L"Ecuadorian",
+	L"Egyptian",    // 45 
+	L"English",
+	L"Eritrean",
+	L"爱沙尼亚人",
 	L"Ethiopian",
+	L"Filipino",    // 50
+	L"芬兰人",
 	L"Georgian",
+	L"希腊人",
+	L"Guatemalan",
+	L"Haitian",      // 55
+	L"Honduran",
+	L"印度人",
+	L"Indonesian",
+	L"伊朗人",
+	L"伊拉克人",	     // 60
+	L"Islandic",
+	L"以色列人",
+	L"日本人",
 	L"Jordanian",
-	L"Kazakhstani",
-	L"Kenyan", // 60
+	L"Kazakhstani",  // 65
 	L"Korean",
 	L"Kyrgyzstani",
+	L"Laotian",
+	L"Latvian",
+	L"Lebanese",    // 70
+	L"Lithuanian",
+	L"Lybian",
+	L"Macedonian",
+	L"Malaysian",
+	L"墨西哥人",    // 75
 	L"Mongolian",
-	L"Palestinian",
-	L"Panamanian", // 65
-	L"Rhodesian",
+	L"Moroccan",
+	L"Mozambican",
+	L"Myanma",
+	L"Namibian",   // 80
+	L"Nicaraguan",
+	L"尼日利亚人",
+	L"Nigerien",
+	L"挪威人",
+	L"Pakistani",   // 85
+	L"Panamanian",
+	L"葡萄牙人",
+	L"Rwandanese",
 	L"Salvadoran",
-	L"Saudi",
+	L"Saudi",     // 90
+	L"塞尔维亚人",
+	L"Slovakian",
+	L"Slovenian",
 	L"Somali",
-	L"Thai", // 70
+	L"西班牙人",     // 95
+	L"Sudanese",
+	L"瑞典人",
+	L"叙利亚人",
+	L"Thai",
+	L"Togolese",    // 100
+	L"Tunisian",
+	L"土耳其人",
+	L"Ugandan",
 	L"Ukrainian",
+	L"Uruguayan",   // 105
 	L"Uzbekistani",
+	L"委内瑞拉人",
+	L"Vietnamese",
 	L"Welsh",
-	L"Yazidi",
-	L"Zimbabwean", // 75
+	L"Yemeni",     // 110
+	L"Zamundan",   // Zamunda 
+	L"Zimbabwean",
 };
 
 STR16		szNationalityTextAdjective[] =
@@ -9586,13 +9623,13 @@ STR16		szNationalityTextAdjective[] =
 	L"丹麦人",
 	L"法国人",
 	L"俄国人",
-	L"尼日利亚人",
+	L"traconia人"       // UB takes place in Tracona
 	L"瑞士人",			// 10
 	L"牙买加人",
 	L"波兰人",
 	L"中国人",
 	L"爱尔兰人",
-	L"南非人",	// 15
+	L"南非人",	       // 15
 	L"匈牙利人",
 	L"苏格兰人",
 	L"Arulco人",
@@ -9604,57 +9641,94 @@ STR16		szNationalityTextAdjective[] =
 	L"Metavira人",
 
 	// newly added from here on
-	L"希腊人",			// 25
-	L"爱沙尼亚人",
-	L"委内瑞拉人",
-	L"日本人",
-	L"土耳其人",
-	L"印度人",			// 30
-	L"墨西哥人",
-	L"挪威人",
-	L"西班牙人",
-	L"巴西人",
-	L"芬兰人",			// 35
-	L"伊朗人",
-	L"以色列人",
-	L"保加利亚人",
-	L"瑞典人",
-	L"伊拉克人",			// 40
-	L"叙利亚人",
-	L"比利时人",
-	L"葡萄牙人",
-	L"白俄罗斯人",
-	L"塞尔维亚人",		// 45
-	L"巴基斯坦人",
+	L"afghans",      // 25 
 	L"albanians",
 	L"argentinians",
 	L"armenians",
-	L"azerbaijani", // 50
+	L"azerbaijani",
+	L"bangladeshi", // 30
+	L"白俄罗斯人",
+	L"比利时人",
+	L"beninese",
 	L"bolivians",
-	L"chileans",
-	L"circassians",
+	L"bosnians",     // 35
+	L"巴西人",
+	L"保加利亚人",
+	L"cambodians",
+	L"chadians",
+	L"chileans",     // 40
 	L"columbians",
-	L"egyptians", // 55
+	L"congolese",
+	L"croatians",
+	L"ecuadorians",
+	L"egyptians",    // 45 
+	L"englishmen",
+	L"eritreans",
+	L"爱沙尼亚人",
 	L"ethiopians",
+	L"filipinos",    // 50
+	L"芬兰人",
 	L"georgians",
+	L"希腊人",
+	L"guatemalans",
+	L"haitians",      // 55
+	L"hondurans",
+	L"印度人",
+	L"indonesians",
+	L"伊朗人",
+	L"伊拉克人",     // 60
+	L"islandics",
+	L"以色列人",
+	L"日本人",
 	L"jordanians",
-	L"kazakhstani",
-	L"kenyans", // 60
+	L"kazakhstani",  // 65
 	L"koreans",
 	L"kyrgyzstani",
+	L"laotians",
+	L"latvians",
+	L"lebanese",    // 70
+	L"lithuanians",
+	L"lybians",
+	L"macedonians",
+	L"malaysians",
+	L"墨西哥人",   // 75
 	L"mongolians",
-	L"palestinians",
-	L"panamanians", // 65
-	L"rhodesians",
+	L"moroccans",
+	L"mozambicans",
+	L"myanmarians",
+	L"namibians",   // 80
+	L"nicaraguans",
+	L"尼日利亚人",
+	L"nigeriens",
+	L"挪威人",
+	L"巴基斯坦人",   // 85
+	L"panamanians",
+	L"葡萄牙人",
+	L"rwandanese",
 	L"salvadorans",
-	L"saudis",
-	L"somalis",
-	L"thais", // 70
+	L"saudis",     // 90
+	L"塞尔维亚人",
+	L"slovakians",
+	L"slovenians",
+	L"somali",
+	L"西班牙人",    // 95
+	L"sudanese",
+	L"瑞典人",
+	L"叙利亚人",
+	L"thais",
+	L"togolese",    // 100
+	L"tunisians",
+	L"土耳其人",
+	L"ugandans",
 	L"ukrainians",
+	L"uruguayans",   // 105
 	L"uzbekistani",
+	L"委内瑞拉人",
+	L"vietnamese",
 	L"welshs",
-	L"yazidis",
-	L"zimbabweans", // 75
+	L"yemenites",     // 110
+	L"zamundans",   // Zamunda 
+	L"zimbabweans",
 };
 
 // special text used if we do not hate any nation (value of -1)

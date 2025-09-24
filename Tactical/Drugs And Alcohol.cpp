@@ -1,17 +1,17 @@
 	#include "sgp.h"
-	#include "soldier control.h"
-	#include "soldier profile.h"
-	#include "drugs and alcohol.h"
-	#include "items.h"
-	#include "morale.h"
-	#include "points.h"
+	#include "Soldier Control.h"
+	#include "Soldier Profile.h"
+	#include "Drugs And Alcohol.h"
+	#include "Items.h"
+	#include "Morale.h"
+	#include "Points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "Interface.h"
 	#include "Food.h"			// added by Flugente
-	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
+	#include "Animation Data.h"	// added by Flugente for SoldierBodyTypes
 	#include "CampaignStats.h"	// added by Flugente
 	#include "DynamicDialogue.h"// added by Flugente
 

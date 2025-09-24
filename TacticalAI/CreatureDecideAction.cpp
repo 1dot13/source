@@ -1,11 +1,11 @@
 	#include "types.h"
-	//#include "soldier control.h"
+	//#include "Soldier Control.h"
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "opplist.h"
 	#include "Items.h"
 	#include "Rotting Corpses.h"
-	#include "soldier add.h"
+	#include "Soldier Add.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

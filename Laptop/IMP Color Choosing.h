@@ -1,7 +1,7 @@
 #ifndef __IMP_COLOR_CHOOSING_SKIN_HAIR__H_
 #define __IMP_COLOR_CHOOSING_SKIN_HAIR__H_
 
-#include "Types.h"
+#include "types.h"
 
 void EnterIMPColorChoice( void );
 void RenderIMPColorChoice( void );

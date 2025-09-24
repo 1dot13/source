@@ -17,7 +17,7 @@
 	#include "WCheck.h"
 	#include "Assignments.h"
 	#include "Squads.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Soldier Profile.h"
 	#include "Player Command.h"
 	#include "Strategic Movement.h"

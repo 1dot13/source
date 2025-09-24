@@ -5,7 +5,7 @@
 	#include "Utilities.h"
 	#include "WordWrap.h"
 	#include "Cursors.h"
-	#include "Line.h"
+	#include "line.h"
 	#include "Insurance Text.h"
 	#include "Encrypted File.h"
 	#include "Text.h"

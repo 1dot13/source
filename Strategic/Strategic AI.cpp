@@ -7,7 +7,7 @@
 	#include "Game Event Hook.h"
 	#include "GameSettings.h"
 	#include "Campaign Types.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Pathing.h"
 	#include "message.h"
 	#include "strategicmap.h"
@@ -30,7 +30,7 @@
 	#include "Soldier Profile.h"
 	#include "Scheduling.h"
 	#include "Map Information.h"
-	#include "interface dialogue.h"
+	#include "interface Dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
 	#include "Game Event Hook.h"
@@ -5754,26 +5754,13 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	else
 		return;
 
-	//Madd: tweaked to increase attacks for experienced and expert to 8 and 12, and unlimited for insane
-		UINT8 value9;
-		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-			value9 = 1;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-			value9 = 2;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-			value9 = 3;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-			value9 = 4;
-		else
-		{
-			value9 = Random (4);
-			if (value9 == 0) value9 = 1;
-		}
-	
-	if( pSector->ubInvestigativeState >= ( 4 * value9 ) && !zDiffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector )
 	{
-		//This is the 4th time the player has conquered this sector.	We won't pester the player with probing attacks here anymore.
-		return;
+		const auto queenStopsAttacking = zDiffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector;
+		if (queenStopsAttacking != 0 && pSector->ubInvestigativeState >= queenStopsAttacking) {
+			/* This is equal or higher than QueenAttackLosingControlOfSector number of times the player has conquered this sector.
+			   We won't pester the player with probing attacks here anymore. */
+			return;
+		}
 	}
 
 	if( sSectorX != gWorldSectorX || sSectorY != gWorldSectorY )

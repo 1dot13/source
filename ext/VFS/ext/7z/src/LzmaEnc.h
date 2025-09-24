@@ -4,7 +4,7 @@
 #ifndef __LZMA_ENC_H
 #define __LZMA_ENC_H
 
-#include "Types.h"
+#include "types.h"
 
 EXTERN_C_BEGIN
 

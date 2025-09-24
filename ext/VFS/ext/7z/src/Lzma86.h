@@ -4,7 +4,7 @@
 #ifndef __LZMA86_H
 #define __LZMA86_H
 
-#include "Types.h"
+#include "types.h"
 
 EXTERN_C_BEGIN
 

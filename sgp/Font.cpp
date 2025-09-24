@@ -8,10 +8,10 @@
 	#include <wchar.h>
 	#include "sgp.h"
 	#include "pcx.h"
-	#include "memman.h"
-	#include "fileman.h"
+	#include "MemMan.h"
+	#include "FileMan.h"
 	#include "Font.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 
 	#include "video.h"
 

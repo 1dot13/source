@@ -4,7 +4,7 @@
 #include "CampaignStats.h"
 #include "mapscreen.h"
 #include "Soldier Control.h"
-#include "Types.h"
+#include "types.h"
 
 #define		REBEL_COMMAND_Z_OFFSET						9
 #define		REBEL_COMMAND_MAX_ACTIONS_PER_REGION		6

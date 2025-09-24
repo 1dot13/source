@@ -10,7 +10,7 @@
 	#include "jascreens.h"
 	#include "screenids.h"
 	#include "Items.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "finances.h"
 	#include "history.h"
 	#include "Dialogue Control.h"
@@ -85,6 +85,11 @@ CHAR16	zString[128];
 		return;
 	if(is_networked)
 		return;
+
+	if (stopTimeCompressionNextHour)
+	{
+		SetGameTimeCompressionLevel( TIME_COMPRESS_X0);
+	}	
 
 	// hourly update of town loyalty
 	HandleTownLoyalty();

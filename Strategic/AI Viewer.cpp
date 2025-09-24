@@ -15,13 +15,13 @@
 	#include "Text Input.h"
 	#include "mousesystem.h"
 	#include "strategicmap.h"
-	#include "Fileman.h"
+	#include "FileMan.h"
 	#include "Map Information.h"
-	#include "render dirty.h"
+	#include "Render Dirty.h"
 	#include "Game Clock.h"
 	#include "Campaign Types.h"
 	#include "Queen Command.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "GameSettings.h"
 	#include "Game Event Hook.h"
@@ -32,7 +32,7 @@
 	#include "Campaign.h"
 	#include "Auto Resolve.h"
 	#include "Strategic Status.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 	#include "Town Militia.h"	// added by Flugente
 
 #ifdef JA2BETAVERSION

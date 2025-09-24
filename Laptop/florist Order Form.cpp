@@ -10,15 +10,15 @@
 	#include "Encrypted File.h"
 	#include "florist Cards.h"
 	#include "Text Input.h"
-	#include "Finances.h"
-	#include "Game clock.h"
+	#include "finances.h"
+	#include "Game Clock.h"
 	#include "english.h"
 	#include "Text.h"
 	#include "LaptopSave.h"
-	#include "Random.h"
-	#include "postalservice.h"
+	#include "random.h"
+	#include "PostalService.h"
 
-#include "meanwhile.h"
+#include "Meanwhile.h"
 
 
 #define		FLOWER_ORDER_TINY_FONT					FONT10ARIAL

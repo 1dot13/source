@@ -5,13 +5,13 @@
 	#include "gameloop.h"
 	#include "sgp.h"
 	#include "vobject.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "worlddef.h"
 	#include "input.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "screenids.h"
-	#include "screens.h"
-	#include "overhead.h"
+	#include "Screens.h"
+	#include "Overhead.h"
 	#include "sysutil.h"
 	#include "Event Pump.h"
 	#include "Font Control.h"
@@ -19,18 +19,18 @@
 	#include "Interface.h"
 	#include "Handle UI.h"
 	#include "Interface Items.h"
-	#include "interface utils.h"
+	#include "Interface Utils.h"
 	#include "lighting.h"
 	#include <wchar.h>
 	#include <tchar.h>
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "Soldier Profile.h"
 	#include "Interface Panels.h"
 	#include "Interface Control.h"
-	#include "sys globals.h"
+	#include "Sys Globals.h"
 	#include "Radar Screen.h"
 	#include "Render Dirty.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 	#include "Game Init.h"
 	#include "renderworld.h"
 	#include "finances.h"
@@ -41,26 +41,26 @@
 	#include "faces.h"
 	#include "PopUpBox.h"
 	#include "Game Clock.h"
-	#include "items.h"
+	#include "Items.h"
 	#include "Cursor Control.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
-	#include "strategic pathing.h"
+	#include "Strategic Pathing.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Interface Map.h"
 	#include "Map Screen Interface.h"
 	#include "Assignments.h"
-	#include "points.h"
+	#include "Points.h"
 	#include "Squads.h"
 	#include "Merc Contract.h"
 	#include "Sound Control.h"
-	#include "strategic turns.h"
+	#include "Strategic Turns.h"
 	#include "Dialogue Control.h"
 	#include "Map Screen Interface TownMine Info.h"
 	#include "PreBattle Interface.h"
-	#include "Personnel.h"
+	#include "personnel.h"
 	#include "Animated ProgressBar.h"
 	#include "Queen Command.h"
 	#include "LaptopSave.h"
@@ -75,19 +75,19 @@
 	#include "SaveLoadScreen.h"
 	#include "Options Screen.h"
 	#include "Auto Resolve.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "Campaign.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Air Raid.h"
-	#include "quests.h"
+	#include "Quests.h"
 	#include "Town Militia.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Player Command.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "HelpScreen.h"
 	#include "Soldier macros.h"
 	#include "Map Information.h"
-	#include "cheats.h"
+	#include "Cheats.h"
 	#include "Strategic Town Loyalty.h"
 	#include "GameSettings.h"
 	#include "Militia Control.h"
@@ -11907,12 +11907,12 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 				if( pSoldier->flags.fMercAsleep == TRUE )
 				{
 					// try to wake him up
-					if( SetMercAwake( pSoldier, TRUE, FALSE ) )
+					if( SetMercAwake( pSoldier, gGameExternalOptions.fSleepDisplayFailNotification, FALSE ) )
 					{
 						// HEADROCK HAM B2.8: New feature wakes all trainees/trainers automatically
 						HandleTrainingWakeSynchronize( pSoldier );
 						// propagate
-						HandleSelectedMercsBeingPutAsleep( TRUE, TRUE );
+						HandleSelectedMercsBeingPutAsleep( TRUE, gGameExternalOptions.fSleepDisplayFailNotification);
 						return;
 					}
 					else
@@ -11929,7 +11929,7 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 						// HEADROCK HAM B2.8: New feature sends all trainees/trainers to sleep automatically
 						HandleTrainingSleepSynchronize( pSoldier );
 						// propagate
-						HandleSelectedMercsBeingPutAsleep( FALSE, TRUE );
+						HandleSelectedMercsBeingPutAsleep( FALSE, gGameExternalOptions.fSleepDisplayFailNotification);
 						return;
 					}
 					else

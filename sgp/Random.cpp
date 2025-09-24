@@ -1,5 +1,5 @@
-#include "Random.h"
-#include "debug control.h"
+#include "random.h"
+#include "Debug Control.h"
 
 extern bool is_client;
 extern bool is_server;

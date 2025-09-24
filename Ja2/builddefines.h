@@ -79,6 +79,6 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS
 #define _SCL_SECURE_NO_WARNINGS
 
-#include "Profiler.h"
+#include "profiler.h"
 
 #endif

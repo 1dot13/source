@@ -1,7 +1,7 @@
 #ifndef _VEHICLES_H
 #define _VEHICLES_H
 
-#include "Types.h"
+#include "types.h"
 
 #include "Soldier Control.h"
 #include "Strategic Movement.h"

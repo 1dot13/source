@@ -19,14 +19,14 @@
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "sysutil.h"
-	#include "debug.h"
-	#include "wcheck.h"
+	#include "DEBUG.H"
+	#include "WCheck.h"
 	#include "Animation Control.h"
 	#include "Sys Globals.h"
 	#include "lighting.h"
-	#include "structure wrap.h"
+	#include "Structure Wrap.h"
 	#include "Shade Table Util.h"
-	#include "rotting corpses.h"
+	#include "Rotting Corpses.h"
 	#include "PATHAI.H"
 
 #define LVL1_L1_PER			(50)

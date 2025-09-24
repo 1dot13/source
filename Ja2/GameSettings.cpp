@@ -1,7 +1,7 @@
-	#include	"Types.h"
+	#include	"types.h"
 	#include	"GameSettings.h"
 	#include	"FileMan.h"
-	#include	"String.h"
+	#include	"string.h"
 	#include	"Sound Control.h"
 	#include	"SaveLoadScreen.h"
 	#include	"Music Control.h"
@@ -9,19 +9,19 @@
 	#include	"Overhead.h"
 	#include	"GameVersion.h"
 	#include	"LibraryDataBase.h"
-	#include	"Debug.h"
+	#include	"DEBUG.H"
 	#include "HelpScreen.h"
 	#include "INIReader.h"
 	#include "Shade Table Util.h"
 	#include "soldier profile type.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "SaveLoadGame.h"
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "Font Control.h"
 	#include "message.h"
 	#include "Campaign.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "strategicmap.h"
 	#include "Queen Command.h"
 	#include "Game Clock.h"
@@ -1679,6 +1679,9 @@ void LoadGameExternalOptions()
 	//JMich.BackpackClimb
 	gGameExternalOptions.sBackpackWeightToClimb = iniReader.ReadInteger("Tactical Gameplay Settings", "MAX_BACKPACK_WEIGHT_TO_CLIMB", -1);
 	gGameExternalOptions.fUseGlobalBackpackSettings = iniReader.ReadBoolean("Tactical Gameplay Settings", "USE_GLOBAL_BACKPACK_SETTINGS", TRUE);
+
+	// Buscher
+	gGameExternalOptions.ubBackPackWeightFactorForAPPenalty = iniReader.ReadInteger("Tactical Gameplay Settings", "BACKPACK_WEIGHT_FACTOR", 50, 1, 250);
 	
 	// sevenfm
 	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
@@ -2602,7 +2605,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubNumberOfMajorTraitsAllowed = iniReader.ReadInteger( "Generic Traits Settings", "NUMBER_OF_MAJOR_TRAITS_ALLOWED", 3, 2, gSkillTraitValues.ubMaxNumberOfTraits - 1);
 
 	gSkillTraitValues.ubMaxNumberOfTraitsForIMP = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS_FOR_IMP", 3, 2, 30);
-	gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP = iniReader.ReadInteger( "Generic Traits Settings", "NUMBER_OF_MAJOR_TRAITS_ALLOWED_FOR_IMP", 2, 2, min( gSkillTraitValues.ubNumberOfMajorTraitsAllowed, gSkillTraitValues.ubMaxNumberOfTraitsForIMP - 1 ) );
+	gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP = iniReader.ReadInteger( "Generic Traits Settings", "NUMBER_OF_MAJOR_TRAITS_ALLOWED_FOR_IMP", 2, 2, min( gSkillTraitValues.ubNumberOfMajorTraitsAllowed, gSkillTraitValues.ubMaxNumberOfTraitsForIMP ) );
 
 	// Allow an exception in number of traits for Special Merc?
 	//gSkillTraitValues.fAllowSpecialMercTraitsException = iniReader.ReadBoolean("Generic Traits Settings","ALLOW_EXCEPTION_FOR_SPECIAL_MERC", TRUE); 

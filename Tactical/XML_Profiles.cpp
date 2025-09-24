@@ -13,7 +13,7 @@
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
-	#include "gamesettings.h"
+	#include "GameSettings.h"
 	#include "XML.h"
 	#include "Soldier Profile.h"
 		#include "Soldier Profile.h"

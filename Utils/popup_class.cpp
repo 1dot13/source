@@ -1,14 +1,13 @@
 	#include "Map Screen Interface.h"
-	#include "popupbox.h"
-	#include "interface control.h"
+	#include "PopUpBox.h"
+	#include "Interface Control.h"
 	#include "renderworld.h"
 	#include "Text.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 	#include "Interface.h"
 	#include "GameSettings.h"
-	#include "Input.h"
+	#include "input.h"
 
-	#include "Console.h"
 	#include "lwstring.h"
 	#include "message.h"
 	#include "mousesystem.h"
@@ -21,8 +20,8 @@
  //	functions and variable declarations for binding the class with C callbacks
 //////////////////////////////////////////////////////////////////
 
-vector<PopupIndex>	gPopupRegionIndex;
-vector<POPUP*>		gPopupIndex;	
+std::vector<PopupIndex>	gPopupRegionIndex;
+std::vector<POPUP*>		gPopupIndex;
 UINT32			gPopupRegionIndexCounter = 0;
 UINT32			gPopupIndexCounter = 0;
 UINT32			POPUP::nextid = 0;
@@ -237,19 +236,19 @@ BOOLEAN POPUP_OPTION::forceRun()
 //////////////////////////////////////////////////////////////////
 
 // constructor
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION(new wstring(L"Unnamed subPopup"),NULL)	//TODO: possible memmory leak!
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION(new std::wstring(L"Unnamed subPopup"),NULL)	//TODO: possible memmory leak!
 {
 	this->parent = NULL;
 	this->initSubPopup();
 }
 
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(wstring* name) : POPUP_OPTION(name, NULL)
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(std::wstring* name) : POPUP_OPTION(name, NULL)
 {
 	this->parent = NULL;
 	this->initSubPopup();
 }
 
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(wstring* newName, const POPUP * parent) : POPUP_OPTION(newName, NULL)
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(std::wstring* newName, const POPUP * parent) : POPUP_OPTION(newName, NULL)
 {
 	this->parent = parent;
 	this->initSubPopup();
@@ -342,7 +341,7 @@ static void unShadeOpenSubPopup( POPUP_SUB_POPUP_OPTION * opt ){
 
 void POPUP_SUB_POPUP_OPTION::initSubPopup()
 {
-	this->subPopup = new POPUP( (CHAR*) wstring(this->name).c_str() );
+	this->subPopup = new POPUP( (CHAR*) std::wstring(this->name).c_str() );
 	this->subPopup->setCallback(POPUP_CALLBACK_SHOW,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &shadeOpenSubPopup, this ));
 	this->subPopup->setCallback(POPUP_CALLBACK_HIDE,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &unShadeOpenSubPopup, this ));
 
@@ -563,7 +562,7 @@ void POPUP::setInitialValues(void)
 
 // setup functions
 
-POPUP_OPTION *  POPUP::addOption(wstring * name, popupCallback* action)
+POPUP_OPTION *  POPUP::addOption(std::wstring * name, popupCallback* action)
 {	
 	if (this->optionCount < POPUP_MAX_OPTIONS)
 	{
@@ -606,7 +605,7 @@ POPUP_OPTION * POPUP::getOption(UINT16 n)
 	return NULL;
 }
 
-POPUP * POPUP::addSubMenuOption(wstring * name)
+POPUP * POPUP::addSubMenuOption(std::wstring * name)
 {
 	if (this->subPopupOptionCount < POPUP_MAX_SUB_POPUPS)
 	{

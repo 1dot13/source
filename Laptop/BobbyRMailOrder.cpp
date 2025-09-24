@@ -10,7 +10,7 @@
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Game Event Hook.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "LaptopSave.h"
 	#include "Soldier Profile.h"
 	#include "input.h"
@@ -20,8 +20,8 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
-	#include "isometric utils.h"
-	#include "postalservice.h"
+	#include "Isometric Utils.h"
+	#include "PostalService.h"
 	#include "english.h"
 	#include <list>
 

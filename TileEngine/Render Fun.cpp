@@ -1,13 +1,13 @@
 	#include "Render Fun.h"
 	#include "sysutil.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "worldman.h"
 	#include "Isometric Utils.h"
 	#include "renderworld.h"
 	#include "fov.h"
 	#include "Fog Of War.h"
-	#include "dialogue control.h"
-	#include "Random.h"
+	#include "Dialogue Control.h"
+	#include "random.h"
 
 // Room Information
 //UINT8						gubWorldRoomInfo[ WORLD_MAX ];

@@ -85,7 +85,7 @@ typedef struct
 	UINT8 usLevelModifierLowLimit;
 	UINT8 usLevelModifierHighLimit;
 	BOOLEAN bAllowUnrestrictedXPLevels;
-	BOOLEAN bQueenLosingControlOfSector;
+	UINT8 bQueenLosingControlOfSector;
 	BOOLEAN bBloodcatAmbush;
 	BOOLEAN bAirRaidLookForDive;
 	UINT32 iGetNumberOfTurnsPowerGenFanWillBeStoppedFor; //UB

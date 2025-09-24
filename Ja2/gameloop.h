@@ -1,7 +1,7 @@
 #ifndef __GAMELOOP_
 #define __GAMELOOP_
 
-#include "Types.h"
+#include "types.h"
 
 // main game loop systems
 #define INIT_SYSTEM										0

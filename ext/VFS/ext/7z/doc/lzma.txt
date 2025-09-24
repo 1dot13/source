@@ -76,7 +76,7 @@ C/  - C files
         LzmaDec.*  - LZMA decoding
         LzmaEnc.*  - LZMA encoding
         LzmaLib.*  - LZMA Library for DLL calling
-        Types.h    - Basic types for another .c files
+        types.h    - Basic types for another .c files
         Threads.*  - The code for multithreading.
 
     LzmaLib  - LZMA Library (.DLL for Windows)

@@ -6,19 +6,19 @@
 	#include "types.h"
 
 	#include "strategicmap.h"
-	#include "overhead.h"
-	#include "isometric utils.h"
+	#include "Overhead.h"
+	#include "Isometric Utils.h"
 
-	#include "soldier add.h"
-	#include "soldier create.h"
+	#include "Soldier Add.h"
+	#include "Soldier Create.h"
 	#include "Soldier Init List.h"
-	#include "debug.h"
-	#include "Random.h"
-	#include "items.h"
+	#include "DEBUG.H"
+	#include "random.h"
+	#include "Items.h"
 
 
 	#include "Map Information.h"
-	#include "soldier profile.h"
+	#include "Soldier Profile.h"
 	#include "EditorMercs.h"
 	#include "Animation Data.h"
 	#include "message.h"

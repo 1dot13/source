@@ -1,7 +1,7 @@
 #ifndef _FACILITIES_H
 #define _FACILITIES_H
 
-#include "campaign types.h"
+#include "Campaign Types.h"
 #include "Soldier Control.h"
 
 // Get a specific modifier for a specific assignment at a specific facility. Includes Ambient (non-assignment based) 

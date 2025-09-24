@@ -1,17 +1,17 @@
 	#include "sgp.h"
 	#include "Game Clock.h"
 	#include "Font.h"
-	#include "render dirty.h"
+	#include "Render Dirty.h"
 	#include "Timer Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "environment.h"
 	#include "Game Clock.h"
 	#include "message.h"
 	#include "Game Events.h"
-	#include "assignments.h"
+	#include "Assignments.h"
 	#include "MercTextBox.h"
-	#include "Renderworld.h"
-	#include "Lighting.h"
+	#include "renderworld.h"
+	#include "lighting.h"
 	#include "Map Screen Interface.h"
 	#include "PreBattle Interface.h"
 	#include "Event Pump.h"
@@ -44,6 +44,9 @@ void SetClockResolutionToCompressMode( INT32 iCompressMode );
 BOOLEAN fClockMouseRegionCreated = FALSE;
 
 BOOLEAN fTimeCompressHasOccured = FALSE;
+
+// run time compression till next hour
+bool stopTimeCompressionNextHour = false;
 
 //This value represents the time that the sector was loaded.	If you are in sector A9, and leave
 //the game clock at that moment will get saved into the temp file associated with it.	The next time you
@@ -524,6 +527,9 @@ void DecreaseGameTimeCompressionRate()
 void SetGameTimeCompressionLevel( UINT32 uiCompressionRate )
 {
 	Assert( uiCompressionRate < NUM_TIME_COMPRESS_SPEEDS );
+
+	if( uiCompressionRate == TIME_COMPRESS_X0 )
+		stopTimeCompressionNextHour = false;
 
 	if( guiCurrentScreen == GAME_SCREEN )
 	{

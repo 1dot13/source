@@ -2,7 +2,7 @@
 #define __FONT_CONTROL_H
 
 #include "builddefines.h"
-#include "font.h"
+#include "Font.h"
 
 extern		BOOLEAN	 gfUseWinFonts;
 extern		INT32		giCurWinFont;

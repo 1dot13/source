@@ -1,6 +1,6 @@
 #include "KeyMap.h"
 #include <windows.h>
-#include "text.h"
+#include "Text.h"
 
 static Str8EnumLookupType gKeyTable[] = 
 {

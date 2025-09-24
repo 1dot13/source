@@ -17,7 +17,7 @@
 	#include "environment.h"
 	#include "worlddef.h"
 	#include "Exit Grids.h"
-	#include "Worldman.h"
+	#include "worldman.h"
 
 BOOLEAN gfShowExitGrids = FALSE;
 

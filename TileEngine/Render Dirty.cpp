@@ -6,7 +6,7 @@
 	#include "vobject_blitters.h"
 
 #ifdef JA2BETAVERSION
-#include "Message.h"
+#include "message.h"
 #endif
 
 // Forward Declarations

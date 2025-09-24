@@ -9,9 +9,9 @@
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "input.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "screenids.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "sysutil.h"
 	#include "Font Control.h"
 	#include "Animation Control.h"
@@ -23,8 +23,8 @@
 	#include <wchar.h>
 	#include <tchar.h>
 	#include "english.h"
-	#include "Fileman.h"
-	#include "messageboxscreen.h"
+	#include "FileMan.h"
+	#include "MessageBoxScreen.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

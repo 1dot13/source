@@ -1,30 +1,30 @@
 	#include "sgp.h"
 	#include "worlddef.h"
-	#include "points.h"
-	#include "overhead.h"
-	#include "Font control.h"
-	#include "interface.h"
-	#include "Isometric utils.h"
-	#include "pathai.h"
-	#include "interface.h"
+	#include "Points.h"
+	#include "Overhead.h"
+	#include "Font Control.h"
+	#include "Interface.h"
+	#include "Isometric Utils.h"
+	#include "PATHAI.H"
+	#include "Interface.h"
 	#include "message.h"
 	#include "Animation Control.h"
 	#include "Weapons.h"
 
-	#include "structure wrap.h"
-	#include "dialogue control.h"
-	#include "items.h"
+	#include "Structure Wrap.h"
+	#include "Dialogue Control.h"
+	#include "Items.h"
 	#include "rt time defines.h"
 	#include "ai.h"
-	#include "handle ui.h"
-	#include "text.h"
+	#include "Handle UI.h"
+	#include "Text.h"
 	#include "SkillCheck.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "Soldier Profile.h"
 	#include "Soldier macros.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Campaign.h"
-	#include "drugs and alcohol.h"
+	#include "Drugs And Alcohol.h"
 	#include "GameSettings.h"
 	#include "worldman.h"
 	#include "math.h"
@@ -604,19 +604,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 				UINT16 usBPPenalty = APBPConstants[AP_MODIFIER_PACK];
 				if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
 				{
-					OBJECTTYPE * pObj = &( pSoldier->inv[ BPACKPOCKPOS ] );
-					UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
-					// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
-					// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
-					// are activated where something can be carried. So we have to add the weights of those slots as well.
-					std::vector<INT8> vbLBESlots;
-					GetLBESlots( BPACKPOCKPOS, vbLBESlots );
-					for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
-					{
-						pObj = &( pSoldier->inv[ vbLBESlots[ i ] ] );
-						usBackPackWeight += CalculateObjectWeight( pObj );
-					}
-					usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+					usBPPenalty = GetBackbackAPPenaltyFromBackpack(pSoldier);
 				}
 				else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
 				{
@@ -3979,7 +3967,8 @@ INT16 GetAPsCrouch( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck )
 
 	// if backpack and new inventory
 	if ( fBackpackCheck && (UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
-		iFinalAPsToCrouch += fBackpackCheck;//dnl ch70 160913 was 1
+		// min was added to stick with the behaviour above (+1) assuming the backpack is heavier than BACKPACK_WEIGHT_FACTOR
+		iFinalAPsToCrouch += min(1, GetBackbackAPPenaltyFromBackpack(pSoldier));
 
 	// -x% APs needed to change stance for MA trait
 	if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
@@ -3999,7 +3988,8 @@ INT16 GetAPsProne( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck )
 
 	// if backpack and new inventory
 	if ( fBackpackCheck && (UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
-		iFinalAPsToLieDown += fBackpackCheck;//dnl ch70 160913 was 1
+		// min was added to stick with the behaviour above (+1) assuming the backpack is heavier than BACKPACK_WEIGHT_FACTOR
+		iFinalAPsToLieDown += min(1, GetBackbackAPPenaltyFromBackpack(pSoldier));
 
 	// -x% APs needed to change stance for MA trait
 	if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
@@ -4403,3 +4393,29 @@ INT16 GetAPsToStartDrag(SOLDIERTYPE *pSoldier, BOOLEAN fStance)
 	return sAPCost;
 }
 
+INT16 GetBackbackAPPenaltyFromBackpack(SOLDIERTYPE *pSoldier)
+{
+	UINT16 usBPPenalty = 0;
+	OBJECTTYPE * pObj = &( pSoldier->inv[ BPACKPOCKPOS ] );
+
+	if ((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() && pObj != NULL)
+	{
+		UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
+		// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
+		// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
+		// are activated where something can be carried. So we have to add the weights of those slots as well.
+		std::vector<INT8> vbLBESlots;
+		GetLBESlots( BPACKPOCKPOS, vbLBESlots );
+		for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
+		{
+			pObj = &( pSoldier->inv[ vbLBESlots[ i ] ] );
+			usBackPackWeight += CalculateObjectWeight( pObj );
+		}
+		//1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+		// BUSCHER: Externalized the weight factor (previously 50 = 5.0 kg)
+		// usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty );
+		usBPPenalty = min( ( usBackPackWeight / gGameExternalOptions.ubBackPackWeightFactorForAPPenalty), APBPConstants[AP_MODIFIER_PACK] );
+
+	}
+	return usBPPenalty;
+}

@@ -7,17 +7,17 @@
 	#include <string.h>
 	#include "sgp.h"
 	#include "vobject.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "local.h"
-	#include "Fileman.h"
+	#include "FileMan.h"
 	#include "input.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "gameloop.h"
 	#include "soundman.h"
 		#include "JA2 Splash.h"
 		#include "Timer Control.h"
 	#include "LibraryDataBase.h"
-	#include "utilities.h"
+	#include "Utilities.h"
 
 #include "GameSettings.h"
 #include "input.h"
@@ -45,13 +45,12 @@
 
 
 #include "INIReader.h"
-#include "Console.h"
 #include "Lua Interpreter.h"
 #include "connect.h"
 #include "english.h"
 #include "wine.h"
 
-	#include "BuildDefines.h"
+	#include "builddefines.h"
 	#include "Intro.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -383,21 +382,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 			break;
 
-		case WM_INPUTREADY:
-			{
-				wstring *tstr = (wstring*) lParam;
-				if (EvalLua( tstr->c_str()))
-				{
-					tstr->erase();
-				}
-				else
-				{
-					cout << ">";
-				}
-
-				cout << "> ";
-			}
-			break;
 	default	:
 		return DefWindowProc(hWindow, Message, wParam, lParam);
 	}

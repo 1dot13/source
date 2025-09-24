@@ -5,8 +5,8 @@
 	#include <stdio.h>
 	#include "Font Control.h" 
 	#include "renderworld.h"
-	#include "render dirty.h"
-	#include "loadscreen.h"
+	#include "Render Dirty.h"
+	#include "LoadScreen.h"
 	#include "selectwin.h"
 	#include "EditorDefines.h"
 	#include "messagebox.h"
