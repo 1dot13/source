@@ -6665,7 +6665,7 @@ void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sSectorX, sSectorY;
-	UINT16									ubID;
+	SoldierID									ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 
