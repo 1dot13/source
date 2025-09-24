@@ -31,9 +31,9 @@
 // -----------------------------
 
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
-#ifndef JA2BETAVERSION
-#define JA2BETAVERSION
-#endif
+//#ifndef JA2BETAVERSION
+//#define JA2BETAVERSION
+//#endif
 //#define JA2EDITOR
 // Normal test version
 //#define JA2TESTVERSION
