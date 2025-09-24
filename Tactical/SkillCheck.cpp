@@ -339,7 +339,6 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 	INT32	iSkill;
 	INT32	iChance, iReportChance;
 	INT32	iRoll, iMadeItBy;
-	INT32	iLoop;
 	SOLDIERTYPE * pTeamSoldier;
 	INT8	bBuddyIndex;
 	BOOLEAN fForceDamnSound = FALSE;
@@ -946,9 +945,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		if (iRoll < iChance)
 		{
 			// If a buddy of this merc is standing around nearby, they'll make a positive comment.
-			iLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pTeamSoldier = MercPtrs[ iLoop ]; iLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iLoop++,pTeamSoldier++ )
+			SoldierID iLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+			for ( ; iLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++iLoop )
 			{
+				pTeamSoldier = iLoop;
 				if ( OK_INSECTOR_MERC( pTeamSoldier ) )
 				{
 					if ( SpacesAway( pSoldier->sGridNo, pTeamSoldier->sGridNo ) < 15 )

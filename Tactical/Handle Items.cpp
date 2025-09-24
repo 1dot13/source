@@ -239,20 +239,20 @@ BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE 
 
 INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI )
 {
-	SOLDIERTYPE				*pTargetSoldier = NULL;
-	UINT16						usSoldierIndex;
-	INT32							sTargetGridNo;
-	INT16							sAPCost;
-	INT32							sActionGridNo;
-	UINT8							ubDirection = 0;
-	INT32							sAdjustedGridNo;
-	BOOLEAN						fDropBomb = FALSE;
-	BOOLEAN						fAddingTurningCost = FALSE;
-	BOOLEAN						fAddingRaiseGunCost = FALSE;
-	LEVELNODE					*pIntNode;
-	STRUCTURE					*pStructure;
-	UINT16						usRaiseGunCost = 0;
-	UINT16						usTurningCost = 0;
+	SOLDIERTYPE		*pTargetSoldier = NULL;
+	SoldierID		usSoldierIndex;
+	INT32			sTargetGridNo;
+	INT16			sAPCost;
+	INT32			sActionGridNo;
+	UINT8			ubDirection = 0;
+	INT32			sAdjustedGridNo;
+	BOOLEAN			fDropBomb = FALSE;
+	BOOLEAN			fAddingTurningCost = FALSE;
+	BOOLEAN			fAddingRaiseGunCost = FALSE;
+	LEVELNODE		*pIntNode;
+	STRUCTURE		*pStructure;
+	UINT16			usRaiseGunCost = 0;
+	UINT16			usTurningCost = 0;
 
 	//shadooow: automatically close EDB when opened and trying to use any weapon or action
 	if (gfInItemDescBox)
@@ -277,7 +277,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	//if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO )  )
 	if ( ( usSoldierIndex = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
 	{
-		pTargetSoldier = MercPtrs[ usSoldierIndex ];
+		pTargetSoldier = usSoldierIndex;
 
 		// anv: don't try to heal interactive spots
 		if (fFromUI && Item[usHandItem].usItemClass != IC_MEDKIT)
@@ -1027,7 +1027,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 	if (ItemIsToolkit(usHandItem))
 	{
-		UINT8 ubMercID;
+		UINT16 ubMercID;
 		BOOLEAN	fVehicle = FALSE;
 		INT32		sVehicleGridNo=-1;
 
@@ -1100,7 +1100,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 	if (ItemIsGascan(usHandItem))
 	{
-		UINT8 ubMercID;
+		UINT16 ubMercID;
 		 INT32		sVehicleGridNo=-1;
 
 		// For repair, check if we are over a vehicle, then get gridnot to edge of that vehicle!
@@ -1394,11 +1394,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	UINT8 ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
+	SoldierID ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
 
 	// Flugente: apply misc items to other soldiers
 	// sevenfm: check that target soldier is visible
-	if (ItemCanBeAppliedToOthers(usHandItem) && ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible != 0)
+	if (ItemCanBeAppliedToOthers(usHandItem) && ubPerson != NOBODY && ubPerson->bVisible != 0)
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
 		BOOLEAN	fHadToUseCursorPos = FALSE;
@@ -2137,7 +2137,7 @@ void SoldierHandleDropItem( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
+		AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
 		NotifySoldiersToLookforItems( );
 
 		OBJECTTYPE::DeleteMe( &pSoldier->pTempObject );
@@ -2380,7 +2380,7 @@ void HandleAutoPlaceFail( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo
 		else
 		{
 			// Add back to world...
-			AddItemToPool( sGridNo, &(gWorldItems[ iItemIndex ].object ), 1 , pSoldier->pathing.bLevel, 0, -1 );
+			AddItemToPool( sGridNo, &(gWorldItems[ iItemIndex ].object ), 1, pSoldier->pathing.bLevel, 0, -1 );
 
 			// If we are a merc, say DAMN quote....
 			if ( pSoldier->bTeam == gbPlayerNum )
@@ -2948,17 +2948,17 @@ void RemoveItemGraphicFromWorld( INVTYPE *pItem, INT32 sGridNo, UINT8 ubLevel, L
 }
 
 // INVENTORY POOL STUFF
-OBJECTTYPE* AddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID )
+OBJECTTYPE* AddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT16 soldierID)
 {
 	return InternalAddItemToPool( &sGridNo, pObject, bVisible, ubLevel, usFlags, bRenderZHeightAboveLevel, soldierID, NULL );
 }
 
-OBJECTTYPE * AddItemToPoolAndGetIndex( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex )
+OBJECTTYPE * AddItemToPoolAndGetIndex( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, SoldierID soldierID, INT32 * piItemIndex )
 {
 	return( InternalAddItemToPool( &sGridNo, pObject, bVisible, ubLevel, usFlags, bRenderZHeightAboveLevel, soldierID, piItemIndex ) );
 }
 
-OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex )
+OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, SoldierID soldierID, INT32 * piItemIndex )
 {
 	ITEM_POOL		*pItemPool;
 	ITEM_POOL		*pItemPoolTemp;
@@ -4292,9 +4292,8 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 				if (gGameExternalOptions.gfShowBackpackOwner &&
 					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
-					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
-					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], gWorldItems[pTempItemPool->iItemIndex].object.ubNumberOfObjects, MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+					gWorldItems[pItemPool->iItemIndex].soldierID != NOBODY)
+					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], gWorldItems[pTempItemPool->iItemIndex].object.ubNumberOfObjects, gWorldItems[pItemPool->iItemIndex].soldierID->GetName());
 				else
 					swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ], gWorldItems[ pTempItemPool->iItemIndex ].object.ubNumberOfObjects );
 			}
@@ -4303,9 +4302,8 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 				if (gGameExternalOptions.gfShowBackpackOwner &&
 					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
-					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
-					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+					gWorldItems[pItemPool->iItemIndex].soldierID != NOBODY)
+					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].soldierID->GetName());
 				else
 					swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ] );
 			}
@@ -4413,9 +4411,8 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 				if (gGameExternalOptions.gfShowBackpackOwner &&
 					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
-					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
-					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].object.ubNumberOfObjects, MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+					gWorldItems[pItemPool->iItemIndex].soldierID != NOBODY)
+					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].object.ubNumberOfObjects, gWorldItems[pItemPool->iItemIndex].soldierID->GetName());
 				else
 					swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ], gWorldItems[ pItemPool->iItemIndex ].object.ubNumberOfObjects );
 			}
@@ -4424,9 +4421,8 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 				if (gGameExternalOptions.gfShowBackpackOwner &&
 					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
 					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
-					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
-					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
-					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+					gWorldItems[pItemPool->iItemIndex].soldierID != NOBODY)
+					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].soldierID->GetName());
 				else
 					swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ] );
 			}
@@ -4814,12 +4810,12 @@ void RenderTopmostFlashingItems( )
 BOOLEAN VerifyGiveItem( SOLDIERTYPE *pSoldier, SOLDIERTYPE **ppTargetSoldier )
 {
 	SOLDIERTYPE *pTSoldier;
-	UINT16 usSoldierIndex;
+	SoldierID usSoldierIndex;
 	OBJECTTYPE	*pObject;
 
 	INT32 sGridNo;
-	UINT8				ubDirection;
-	UINT8				ubTargetMercID;
+	UINT8 ubDirection;
+	SoldierID ubTargetMercID;
 
 	// DO SOME CHECKS IF WE CAN DO ANIMATION.....
 
@@ -4828,7 +4824,7 @@ BOOLEAN VerifyGiveItem( SOLDIERTYPE *pSoldier, SOLDIERTYPE **ppTargetSoldier )
 
 	sGridNo		= pSoldier->aiData.sPendingActionData2;
 	ubDirection = pSoldier->aiData.bPendingActionData3;
-	ubTargetMercID = (UINT8)pSoldier->aiData.uiPendingActionData4;
+	ubTargetMercID = static_cast<UINT16>( pSoldier->aiData.uiPendingActionData4 );
 
 	usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
 
@@ -4854,7 +4850,7 @@ BOOLEAN VerifyGiveItem( SOLDIERTYPE *pSoldier, SOLDIERTYPE **ppTargetSoldier )
 	{
 		if ( pSoldier->pTempObject != NULL )
 		{
-			AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
+			AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
 
 			// Place it on the ground!
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ ITEM_HAS_BEEN_PLACED_ON_GROUND_STR ], ShortItemNames[ pSoldier->pTempObject->usItem ] );
@@ -4864,7 +4860,7 @@ BOOLEAN VerifyGiveItem( SOLDIERTYPE *pSoldier, SOLDIERTYPE **ppTargetSoldier )
 
 			if ( ubTargetMercID != NOBODY )
 			{
-				MercPtrs[ ubTargetMercID ]->flags.uiStatusFlags &= (~SOLDIER_ENGAGEDINACTION );
+				ubTargetMercID->flags.uiStatusFlags &= (~SOLDIER_ENGAGEDINACTION );
 			}
 
 			OBJECTTYPE::DeleteMe( &pSoldier->pTempObject );
@@ -4884,7 +4880,7 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 
 	INT32 sGridNo;
 	UINT8				ubDirection;
-	UINT8				ubTargetMercID;
+	UINT16				ubTargetMercID;
 	UINT16			usItemNum;
 	BOOLEAN			fToTargetPlayer = FALSE;
 
@@ -4913,7 +4909,7 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 
 	sGridNo		= pSoldier->aiData.sPendingActionData2;
 	ubDirection = pSoldier->aiData.bPendingActionData3;
-	ubTargetMercID = (UINT8)pSoldier->aiData.uiPendingActionData4;
+	ubTargetMercID = (UINT16)pSoldier->aiData.uiPendingActionData4;
 
 	// ATE: Deduct APs!
 	DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 ); // SANDRO
@@ -5007,7 +5003,7 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 					DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 				}
 
-				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
+				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
 
 				// We could not place it!
 				// Drop it on the ground?
@@ -5078,13 +5074,13 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 
 INT32 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	STRUCTURE		*pStructure;
-	INT16				sDesiredLevel;
-	INT32 sActionGridNo;
-	BOOLEAN			fStructFound = FALSE;
-	UINT8				ubDirection;
-	INT32 sAdjustedGridNo;
-	UINT8				ubTargetID;
+	STRUCTURE	*pStructure;
+	INT16		sDesiredLevel;
+	INT32		sActionGridNo;
+	BOOLEAN		fStructFound = FALSE;
+	UINT8		ubDirection;
+	INT32		sAdjustedGridNo;
+	SoldierID	ubTargetID;
 
 
 	sActionGridNo = sGridNo;
@@ -5393,15 +5389,16 @@ void UpdateGear()
 	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) )
 		return;
 		
-	UINT16									bMercID, bLastTeamID;
+	SoldierID									bMercID, bLastTeamID;
 	SOLDIERTYPE*							pSoldier = NULL;
 
 	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
 	// loop through all mercs
-	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+	for ( ; bMercID <= bLastTeamID; ++bMercID )
 	{
+		pSoldier = bMercID;
 		//if the merc is in this sector
 		if ( pSoldier->bActive && pSoldier->bInSector && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
 		{
@@ -6171,7 +6168,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				// OJW - 20091029 - disarm explosives
 				if (is_networked && is_client)
-						send_disarm_explosive( gsBoobyTrapGridNo , gpBoobyTrapItemPool->iItemIndex , gpBoobyTrapSoldier->ubID );
+						send_disarm_explosive( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gpBoobyTrapSoldier->ubID );
 				// remove it from the ground
 				RemoveItemFromPool( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gbBoobyTrapLevel );
 			}
@@ -6193,7 +6190,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 			
 					// OJW - 20091029 - disarm explosives
 					if (is_networked && is_client)
-						send_disarm_explosive( gsBoobyTrapGridNo , gpBoobyTrapItemPool->iItemIndex , gpBoobyTrapSoldier->ubID );
+						send_disarm_explosive( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gpBoobyTrapSoldier->ubID );
 
 					RemoveItemFromPool( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gbBoobyTrapLevel );
 				}
@@ -6210,7 +6207,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 					}
 					// OJW - 20091029 - disarm explosives
 					if (is_networked && is_client)
-						send_disarm_explosive( gsBoobyTrapGridNo , gpBoobyTrapItemPool->iItemIndex , gpBoobyTrapSoldier->ubID );
+						send_disarm_explosive( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gpBoobyTrapSoldier->ubID );
 
 					// remove it from the ground
 					RemoveItemFromPool( gsBoobyTrapGridNo, gpBoobyTrapItemPool->iItemIndex, gbBoobyTrapLevel );
@@ -6365,7 +6362,7 @@ void SwitchMessageBoxCallBack( UINT8 ubExitValue )
 		// Message that switch is activated...
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 60 ] );
 
-		SetOffBombsByFrequency( gpTempSoldier->ubID,	bTempFrequency );
+		SetOffBombsByFrequency( gpTempSoldier->ubID, bTempFrequency );
 	}
 }
 
@@ -6735,11 +6732,11 @@ void TestPotentialOwner( SOLDIERTYPE * pSoldier )
 
 void CheckForPickedOwnership( void )
 {
-	ITEM_POOL *				pItemPool;
-	UINT8							ubProfile;
-	UINT8							ubCivGroup;
-	SOLDIERTYPE *			pSoldier;
-	UINT8							ubLoop;
+	ITEM_POOL * pItemPool;
+	UINT8 ubProfile;
+	UINT8 ubCivGroup;
+	SOLDIERTYPE * pSoldier;
+	SoldierID ubLoop;
 
 	// LOOP THROUGH LIST TO FIND NODE WE WANT
 	GetItemPool( gsTempGridNo, &pItemPool, gpTempSoldier->pathing.bLevel );
@@ -6766,9 +6763,9 @@ void CheckForPickedOwnership( void )
 					pItemPool = pItemPool->pNext;
 					continue;
 				}
-				for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+				for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 				{
-					pSoldier = MercPtrs[ ubLoop ];
+					pSoldier = ubLoop;
 					if ( pSoldier && pSoldier->ubCivilianGroup == ubCivGroup )
 					{
 						TestPotentialOwner( pSoldier );
@@ -7798,9 +7795,9 @@ BOOLEAN	BuildStructFromName( INT32 sGridNo, INT8 sLevel, const char* aStr, UINT8
 	return FALSE;
 }
 
-UINT16 gusTempDragBuildSoldierID = NOBODY;
+SoldierID gusTempDragBuildSoldierID = NOBODY;
 
-BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID )
+BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, SoldierID usSoldierID )
 {
 	// needs to be a valid location
 	if ( TileIsOutOfBounds( sGridNo ) )
@@ -9405,11 +9402,11 @@ void DoInteractiveAction( INT32 sGridNo, SOLDIERTYPE *pSoldier )
 
 // handle the default result of an interactive action
 // This is called either if no lua action id is set, or by lua if this should happen as a supplement to whatever lua does
-void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSuccess )
+void DoInteractiveActionDefaultResult( INT32 sGridNo, SoldierID ubID, BOOLEAN aSuccess )
 {
 	SOLDIERTYPE* pSoldier = NULL;
 	if ( ubID != NOBODY )
-		pSoldier = MercPtrs[ubID];
+		pSoldier = ubID;
 
 	// we need a valid soldier and a valid object
 	if ( !pSoldier )
@@ -10457,9 +10454,9 @@ void TakePhoto(SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel )
 					InARoom( newgridno, &room );
 
 				// check if there is someone here
-				UINT16 ubid = WhoIsThere2( newgridno, bLevel );
+				SoldierID ubid = WhoIsThere2( newgridno, bLevel );
 
-				LuaAddPhotoData( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, newgridno, bLevel, pSoldier->ubProfile, room, ( ubid == NOBODY ) ? NO_PROFILE : MercPtrs[ubid]->ubProfile );
+				LuaAddPhotoData( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, newgridno, bLevel, pSoldier->ubProfile, room, ( ubid == NOBODY ) ? NO_PROFILE : ubid->ubProfile );
 			}
 		}
 	}

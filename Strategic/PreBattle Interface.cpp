@@ -296,11 +296,10 @@ FLOAT gAmbushRadiusModifier = 1.0f;
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 {
 	VOBJECT_DESC	VObjectDesc;
-	INT32 i;
 	UINT8 ubGroupID = 0;
-	UINT8 ubNumStationaryEnemies = 0;
-	UINT8 ubNumMobileEnemies = 0;
-	UINT8 ubNumMercs;
+	UINT16 ubNumStationaryEnemies = 0;
+	UINT16 ubNumMobileEnemies = 0;
+	UINT16 ubNumMercs;
 	BOOLEAN fUsePluralVersion = FALSE;
 	INT8	bBestExpLevel = 0;
 	BOOLEAN fRetreatAnOption = TRUE;
@@ -407,8 +406,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		gubPBSectorY = gpBattleGroup->ubSectorY;
 		gubPBSectorZ = gpBattleGroup->ubSectorZ;
 
-		// get number of enemies thought to be here
-		SectorInfo[SECTOR( gubPBSectorX, gubPBSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 		fMapPanelDirty = TRUE;
 	}
 	else if( gfPersistantPBI )
@@ -602,11 +599,12 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//Count the number of players involved or not involved in this battle
 	guiNumUninvolved = 0;
 	guiNumInvolved = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+		SOLDIERTYPE *pSoldier = i;
+		if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
-			if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+			if ( PlayerMercInvolvedInThisCombat( pSoldier ) )
 			{
 				// involved
 				if( !ubGroupID )
@@ -615,13 +613,13 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					//can detect it by comparing the first value with future values.	If we do, then
 					//we set a flag which determines whether to use the singular help text or plural version
 					//for the retreat button.
-					ubGroupID = MercPtrs[ i ]->ubGroupID;
+					ubGroupID = pSoldier->ubGroupID;
 					if( !gpBattleGroup )
 						gpBattleGroup = GetGroup( ubGroupID );
-					//if( bBestExpLevel > MercPtrs[ i ]->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
-					if( bBestExpLevel < MercPtrs[ i ]->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
-						bBestExpLevel = MercPtrs[ i ]->stats.bExpLevel;
-					if( MercPtrs[ i ]->ubPrevSectorID == 255 )
+					//if( bBestExpLevel > pSoldier->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
+					if( bBestExpLevel < pSoldier->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
+						bBestExpLevel = pSoldier->stats.bExpLevel;
+					if( pSoldier->ubPrevSectorID == 255 )
 					{ //Not able to retreat (calculate it for group)
 						GROUP *pTempGroup;
 						pTempGroup = GetGroup( ubGroupID );
@@ -629,7 +627,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						CalculateGroupRetreatSector( pTempGroup );
 					}
 				}
-				else if( ubGroupID != MercPtrs[ i ]->ubGroupID )
+				else if( ubGroupID != pSoldier->ubGroupID )
 				{
 					fUsePluralVersion = TRUE;
 				}
@@ -637,23 +635,23 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				++guiNumInvolved;
 
 				// SANDRO - added check if we have a scout in group, needed later
-				if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
+				if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
 				{
 					fScoutPresent = TRUE;
 				}
 
-				if ( MercPtrs[i]->usSoldierFlagMask & SOLDIER_AIRDROP )
+				if ( pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 				{
 					fAirDrop = TRUE;
 				}
 
-				UINT16 deploymentleadership = EffectiveLeadership( MercPtrs[i] );
-				FLOAT ambushradiusmodifier = 10 * EffectiveExpLevel( MercPtrs[i] ) + MercPtrs[i]->GetBackgroundValue( BG_AMBUSH_RADIUS );
+				UINT16 deploymentleadership = EffectiveLeadership( pSoldier );
+				FLOAT ambushradiusmodifier = 10 * EffectiveExpLevel( pSoldier ) + pSoldier->GetBackgroundValue( BG_AMBUSH_RADIUS );
 				if ( gGameOptions.fNewTraitSystem )
 				{
-					deploymentleadership += 50 * NUM_SKILL_TRAITS( MercPtrs[i], SQUADLEADER_NT );
+					deploymentleadership += 50 * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT );
 
-					ambushradiusmodifier += 50 * NUM_SKILL_TRAITS( MercPtrs[i], SCOUTING_NT );
+					ambushradiusmodifier += 50 * NUM_SKILL_TRAITS( pSoldier, SCOUTING_NT );
 				}
 				// bonus with old traits, so that the check can be won
 				else
@@ -666,7 +664,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				gAmbushRadiusModifier = max( gAmbushRadiusModifier, ambushradiusmodifier / 100 );
 
 				// Flugente: if a merc is inserted from concealed state, retreat is forbidden, as at least this merc will have to extract manually
-				if ( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
+				if ( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
 					fRetreatAnOption = FALSE;
 			}
 			else
@@ -890,16 +888,17 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	// SANDRO - merc records - ambush experienced
 	if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || fAmbushPrevented )
 	{
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
-			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+			SOLDIERTYPE *pSoldier = i;
+			if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
-				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
+				if ( PlayerMercInvolvedInThisCombat( pSoldier ) && pSoldier->ubProfile != NO_PROFILE )
 				{
 					if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
-						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
-					else if ( fAmbushPrevented && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) ) // Scouts actually get this as number of prevented ambushes
-						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+						gMercProfiles[ pSoldier->ubProfile ].records.usAmbushesExperienced++;
+					else if ( fAmbushPrevented && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) ) // Scouts actually get this as number of prevented ambushes
+						gMercProfiles[ pSoldier->ubProfile ].records.usAmbushesExperienced++;
 				}
 			}
 		}
@@ -1547,14 +1546,12 @@ void RenderPreBattleInterface()
 		{
 			// don't know how many
 			swprintf( str, L"?" );
-			SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = -2;
 		}
 		else
 		{
 			// know exactly how many
 			i = NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 			swprintf( str, L"%d", i );
-			SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = (INT8)i;
 		}
 		x = 57 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
 		y = 36;
@@ -1579,22 +1576,23 @@ void RenderPreBattleInterface()
 		// |	NAME	| ASSIGN |	COND	|	HP	|	BP	|
 		line = 0;
 		y = TOP_Y + TOP_Y_TEXT_BUFFER - bListOffset;
-		for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++) 
+		for( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id)
 		{
-			if( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+			SOLDIERTYPE *pSoldier = id;
+			if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
-				if( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
+				if( PlayerMercInvolvedInThisCombat( pSoldier ) )
 				{
 					//NAME
-					wcscpy( str, MercPtrs[ i ]->name );
+					wcscpy( str, pSoldier->name );
 					x = 17 + (52 - StringPixLength(str, BLOCKFONT2)) / 2;
 					mprintf( x + xOffset, y + yOffset, str );
 					//ASSIGN
-					GetMapscreenMercAssignmentString( MercPtrs[ i ], str );
+					GetMapscreenMercAssignmentString( pSoldier, str );
 					x = 72 + (54 - StringPixLength(str, BLOCKFONT2)) / 2;
 					mprintf( x + xOffset, y + yOffset, str );
 					//COND
-					GetSoldierConditionInfo( MercPtrs[ i ], str, &ubHPPercent, &ubBPPercent );
+					GetSoldierConditionInfo( pSoldier, str, &ubHPPercent, &ubBPPercent );
 					x = 129 + (58 - StringPixLength(str, BLOCKFONT2)) / 2;
 					mprintf( x + xOffset, y + yOffset, str );
 					//HP
@@ -1624,33 +1622,34 @@ void RenderPreBattleInterface()
 		{			
 			pGroup = gpGroupList;
 			y = TOP_Y + TOP_Y_TEXT_BUFFER + ubUninvolvedStartY + UNINVOLVED_RELEVANT_HEIGHT - bListOffset;
-			for( i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++ )
+			for( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+				SOLDIERTYPE *pSoldier = id;
+				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if( !PlayerMercInvolvedInThisCombat(MercPtrs[ i ]) )
+					if( !PlayerMercInvolvedInThisCombat(pSoldier) )
 					{
 						//NAME
-						wcscpy( str, MercPtrs[ i ]->name );
+						wcscpy( str, pSoldier->name );
 						x = 17 + (52 - StringPixLength(str, BLOCKFONT2)) / 2;
 						mprintf( x + xOffset, y + yOffset, str );
 						//ASSIGN
-						GetMapscreenMercAssignmentString( MercPtrs[ i ], str );
+						GetMapscreenMercAssignmentString( pSoldier, str );
 						x = 72 + (54 - StringPixLength(str, BLOCKFONT2)) / 2;
 						mprintf( x + xOffset, y + yOffset, str );
 						//LOC
-						GetMapscreenMercLocationString( MercPtrs[ i ], str );
+						GetMapscreenMercLocationString( pSoldier, str );
 						x = 128 + (33 - StringPixLength(str, BLOCKFONT2)) / 2;
 						mprintf( x + xOffset, y + yOffset, str );
 						//DEST
-						GetMapscreenMercDestinationString( MercPtrs[ i ], str );
+						GetMapscreenMercDestinationString( pSoldier, str );
 						if (wcslen(str) > 0)
 						{
 							x = 164 + (41 - StringPixLength(str, BLOCKFONT2)) / 2;
 							mprintf( x + xOffset, y + yOffset, str );
 						}
 						//DEP
-						GetMapscreenMercDepartureString( MercPtrs[ i ], str, &ubJunk );
+						GetMapscreenMercDepartureString( pSoldier, str, &ubJunk );
 						x = 208 + (34 - StringPixLength(str, BLOCKFONT2)) / 2;
 						mprintf(x + xOffset, y + yOffset, str);
 
@@ -1816,12 +1815,13 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			/////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records - times retreated counter
-			for( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++i )
 			{
-				if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE )
+				SOLDIERTYPE *pSoldier = i;
+				if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE )
 				{
-					if ( PlayerMercInvolvedInThisCombat( MercPtrs[i] ) && MercPtrs[i]->ubProfile != NO_PROFILE )
-						gMercProfiles[ MercPtrs[i]->ubProfile ].records.usBattlesRetreated++;
+					if ( PlayerMercInvolvedInThisCombat( pSoldier ) && pSoldier->ubProfile != NO_PROFILE )
+						gMercProfiles[ pSoldier->ubProfile ].records.usBattlesRetreated++;
 				}
 			}
 			/////////////////////////////////////////////////////////////////////////////////
@@ -2387,9 +2387,9 @@ void RetreatAllInvolvedMilitiaGroups()
 		return;
 
 	// as group size will be cut to MAX_STRATEGIC_ENEMY_GROUP_SIZE, see how many troops are allowed and reduce sector count accordingly
-	UINT8 greens	= pSector->ubNumberOfCivsAtLevel[0];
-	UINT8 regulars  = pSector->ubNumberOfCivsAtLevel[1];
-	UINT8 elites	= pSector->ubNumberOfCivsAtLevel[2];
+	UINT16 greens	= pSector->ubNumberOfCivsAtLevel[0];
+	UINT16 regulars  = pSector->ubNumberOfCivsAtLevel[1];
+	UINT16 elites	= pSector->ubNumberOfCivsAtLevel[2];
 
 	pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sBattleSectorX, sBattleSectorY ), greens, regulars, elites );
 
@@ -2557,20 +2557,19 @@ BOOLEAN CurrentBattleSectorIs( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CheckForRobotAndIfItsControlled( void )
 {
-	INT32 i;
-
 	// search for the robot on player's team
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && AM_A_ROBOT( MercPtrs[ i ] ))
+		SOLDIERTYPE *pSoldier = i;
+		if( pSoldier->bActive && pSoldier->stats.bLife && AM_A_ROBOT( pSoldier ))
 		{
 			// check whether it has a valid controller with it. This sets its ubRobotRemoteHolderID field.
-			MercPtrs[ i ]->UpdateRobotControllerGivenRobot( );
+			pSoldier->UpdateRobotControllerGivenRobot( );
 
 			// if he has a controller, set controllers
-			if ( MercPtrs[ i ]->ubRobotRemoteHolderID != NOBODY )
+			if ( pSoldier->ubRobotRemoteHolderID != NOBODY )
 			{
-				MercPtrs[ MercPtrs[ i ]->ubRobotRemoteHolderID ]->UpdateRobotControllerGivenController( );
+				pSoldier->ubRobotRemoteHolderID->UpdateRobotControllerGivenController( );
 			}
 
 			break;

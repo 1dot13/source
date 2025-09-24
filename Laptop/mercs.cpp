@@ -980,7 +980,8 @@ void BtnFileBoxButtonCallback(GUI_BUTTON *btn,INT32 reason)
 void DailyUpdateOfMercSite( UINT16 usDate)
 {
 	SOLDIERTYPE *pSoldier;
-	INT16		sSoldierID, i;
+	SoldierID	sSoldierID;
+	INT16		i;
 	UINT8		ubMercID;
 	INT32		iNumDays;
 
@@ -1006,7 +1007,7 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 			//	continue;
 
 			sSoldierID = GetSoldierIDFromMercID( ubMercID );
-			pSoldier = MercPtrs[ sSoldierID ];
+			pSoldier = sSoldierID;
 
 			//if the merc is dead, dont advance the contract length
 			if( !IsMercDead( pSoldier->ubProfile ) )

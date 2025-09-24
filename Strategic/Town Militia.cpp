@@ -54,7 +54,7 @@ BOOLEAN gfAreWePromotingRegular = FALSE;
 
 
 //the completed list of sector soldiers for training militia
-INT32 giListOfMercsInSectorsCompletedMilitiaTraining[ SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST ];
+SoldierID giListOfMercsInSectorsCompletedMilitiaTraining[ SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST ];
 SOLDIERTYPE *pMilitiaTrainerSoldier = NULL;
 
 // note that these sector values are STRATEGIC INDEXES, not 0-255!
@@ -471,7 +471,7 @@ INT8 MilitiaRankToSoldierClass(UINT8 ubRank)
 	return(bSoldierClass);
 }
 
-void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany)
+void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT16 ubHowMany)
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
@@ -486,15 +486,15 @@ void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 u
 	fMapPanelDirty = TRUE;
 }
 
-void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT8 ubHowMany)
+void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT16 ubHowMany)
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 	// damn well better have that many around to promote!
 	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] >= ubHowMany);
 
-	UINT8 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubCurrentRank );
-	UINT8 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubCurrentRank );
+	UINT16 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubCurrentRank );
+	UINT16 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubCurrentRank );
 
 	//KM : July 21, 1999 patch fix
 	if ( ubCurrentRank >= ELITE_MILITIA || stationary + ingroups < ubHowMany )
@@ -503,8 +503,8 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	}
 
 	// determine how many static and  - if necessary - group-based militia we have to remove
-	UINT8 reducestatic = min( stationary, ubHowMany );
-	UINT8 reducegroups = min( ingroups, ubHowMany - reducestatic );
+	UINT16 reducestatic = min( stationary, ubHowMany );
+	UINT16 reducegroups = min( ingroups, ubHowMany - reducestatic );
 	
 	pSectorInfo->ubNumberOfCivsAtLevel[ubCurrentRank] -= reducestatic;
 	pSectorInfo->ubNumberOfCivsAtLevel[ubCurrentRank + 1] += reducestatic;
@@ -541,7 +541,7 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	fMapPanelDirty = TRUE;
 }
 
-void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany)
+void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT16 ubHowMany)
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
@@ -549,8 +549,8 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 	// damn well better have that many around to remove!
 	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] >= ubHowMany);
 
-	UINT8 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubRank );
-	UINT8 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubRank );
+	UINT16 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubRank );
+	UINT16 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubRank );
 
 	//KM : July 21, 1999 patch fix
 	if ( stationary + ingroups < ubHowMany )
@@ -559,8 +559,8 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 	}
 
 	// determine how many static and  - if necessary - group-based militia we have to remove
-	UINT8 reducestatic = min( stationary, ubHowMany );
-	UINT8 reducegroups = min( ingroups, ubHowMany - reducestatic );
+	UINT16 reducestatic = min( stationary, ubHowMany );
+	UINT16 reducegroups = min( ingroups, ubHowMany - reducestatic );
 
 	pSectorInfo->ubNumberOfCivsAtLevel[ubRank] -= reducestatic;
 
@@ -571,21 +571,21 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 		{
 			if ( ubRank == GREEN_MILITIA )
 			{
-				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumAdmins );
+				UINT16 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumAdmins );
 				pGroup->pEnemyGroup->ubNumAdmins -= reduced;
 				pGroup->ubGroupSize -= reduced;
 				reducegroups -= reduced;
 			}
 			else if ( ubRank == REGULAR_MILITIA )
 			{
-				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumTroops );
+				UINT16 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumTroops );
 				pGroup->pEnemyGroup->ubNumTroops -= reduced;
 				pGroup->ubGroupSize -= reduced;
 				reducegroups -= reduced;
 			}
 			else if ( ubRank == ELITE_MILITIA )
 			{
-				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumElites );
+				UINT16 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumElites );
 				pGroup->pEnemyGroup->ubNumElites -= reduced;
 				pGroup->ubGroupSize -= reduced;
 				reducegroups -= reduced;
@@ -705,12 +705,12 @@ void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 	}
 }
 
-UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank)
+UINT16 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank)
 {
 	return MilitiaInSectorOfRankStationary( sMapX, sMapY, ubRank ) + MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubRank );
 }
 
-UINT8 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
+UINT16 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 {
 	if ( ubRank < MAX_MILITIA_LEVELS )
 		return SectorInfo[SECTOR( sMapX, sMapY )].ubNumberOfCivsAtLevel[ubRank];
@@ -718,9 +718,9 @@ UINT8 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 	return 0;
 }
 
-UINT8 MilitiaInSectorOfRankInGroups( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
+UINT16 MilitiaInSectorOfRankInGroups( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 {
-	UINT8 count = 0;
+	UINT16 count = 0;
 
 	GROUP *pGroup = gpGroupList;
 	while ( pGroup )
@@ -1379,7 +1379,7 @@ void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer, UI
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		// valid soldier?
 		if( pSoldier->bActive == FALSE )
@@ -1421,10 +1421,10 @@ void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE
 	// get the sector value
 	sSector = pSoldier->sSectorX + pSoldier->sSectorY * MAP_WORLD_X;
 
-	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != -1 )
+	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != NOBODY )
 	{
 		// get the current soldier
-		pCurrentSoldier = &Menptr[ giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] ];
+		pCurrentSoldier = giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ];
 
 		// get the current sector value
 		sCurrentSector = CALCULATE_STRATEGIC_INDEX( pCurrentSoldier->sSectorX, pCurrentSoldier->sSectorY );
@@ -1455,7 +1455,7 @@ void ClearSectorListForCompletedTrainingOfMilitia( void )
 
 	for( iCounter = 0; iCounter < SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST; iCounter++ )
 	{
-		giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] = -1;
+		giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] = NOBODY;
 	}
 
 	return;
@@ -1469,10 +1469,10 @@ void HandleContinueOfTownTraining( void )
 	BOOLEAN fContinueEventPosted = FALSE;
 
 
-	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != -1 )
+	while( giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] != NOBODY )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] ];
+		pSoldier = giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ];
 
 		if( pSoldier->bActive )
 		{
@@ -1532,7 +1532,7 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 				// selected?
 				if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) || ( iCounter == bSelectedAssignChar ) )
 				{
-					pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+					pSoldier = gCharactersList[ iCounter ].usSolID;
 
 					// HEADROCK HAM 3.6: Two different conditions depending on the type of militia being trained.
 					if( ubMilitiaType == TOWN_MILITIA )
@@ -1552,7 +1552,7 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 	else
 	{
 		// handle for tactical
-		pSoldier = &Menptr[ gusUIFullTargetID ];
+		pSoldier = gusUIFullTargetID;
 		iCounter = 0;
 
 		if (ubMilitiaType == TOWN_MILITIA)

@@ -56,6 +56,26 @@ enum
 	SQUAD_18,
 	SQUAD_19,
 	SQUAD_20,
+	SQUAD_21,
+	SQUAD_22,
+	SQUAD_23,
+	SQUAD_24,
+	SQUAD_25,
+	SQUAD_26,
+	SQUAD_27,
+	SQUAD_28,
+	SQUAD_29,
+	SQUAD_30,
+	SQUAD_31,
+	SQUAD_32,
+	SQUAD_33,
+	SQUAD_34,
+	SQUAD_35,
+	SQUAD_36,
+	SQUAD_37,
+	SQUAD_38,
+	SQUAD_39,
+	SQUAD_40,
 	ON_DUTY,
 	DOCTOR,
 	PATIENT,
@@ -321,7 +341,7 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier );
 UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
 // Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
-FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID );
+FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, SoldierID *pubID );
 
 INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier);
 

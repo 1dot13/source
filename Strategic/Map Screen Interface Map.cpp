@@ -476,10 +476,10 @@ UINT32 guiMAPCURSORS;
 UINT32 guiMapPathingArrows;
 
 // assignment selection character
-INT8 bSelectedAssignChar=-1;
+INT16 bSelectedAssignChar=-1;
 
 // current contract char
-INT8 bSelectedContractChar = -1;
+INT16 bSelectedContractChar = -1;
 
 
 // has the temp path for character or helicopter been already drawn?
@@ -523,7 +523,7 @@ void ShowTownText( void );
 void DrawTownLabels(STR16 pString, STR16 pStringA,UINT16 usFirstX, UINT16 usFirstY);
 void ShowTeamAndVehicles(INT32 fShowFlags);
 BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor );
-BOOLEAN ShadeMapElements(const INT32(&colorMap)[16][16]);
+BOOLEAN ShadeMapElements(const INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINATE][MAXIMUM_VALID_X_COORDINATE]);
 void AdjustXForLeftMapEdge(STR16 wString, INT16 *psX, INT32 iFont);
 void BlitTownGridMarkers( void );
 void BlitMineGridMarkers( void );
@@ -602,11 +602,11 @@ BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 // Flugente: added getter/setter so that we can easily check when a new char is set
 // we also set a marker determining when we should update the squads data, so that we only check that when required
 // destination plotting character
-INT8 bSelectedDestChar = -1;
+INT16 bSelectedDestChar = -1;
 bool gSquadEncumbranceCheckNecessary = true;
 
-INT8 GetSelectedDestChar() { return bSelectedDestChar; }
-void SetSelectedDestChar( INT8 aVal )
+INT16 GetSelectedDestChar() { return bSelectedDestChar; }
+void SetSelectedDestChar( INT16 aVal )
 {
 	bSelectedDestChar = aVal;
 	gSquadEncumbranceCheckNecessary = true;
@@ -1299,7 +1299,7 @@ INT32 ShowOnDutyTeam( INT16 sMapX, INT16 sMapY )
 	// run through list
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 				( pSoldier->sSectorX == sMapX) &&
@@ -1351,7 +1351,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// given number of on duty members, find number of assigned chars
 		// start at beginning of list, look for people who are in sector and assigned
@@ -6232,14 +6232,14 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				usSector = SECTOR( sSectorX, sSectorY );
 
 				// distribute here
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT8 )( iNumberOfGreens / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT16 )( iNumberOfGreens / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT16 )( iNumberOfRegulars / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT16 )( iNumberOfElites / iNumberUnderControl );
 
 				// Flugente: indivdual militia
-				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT16)(iNumberOfGreens / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT16)(iNumberOfRegulars / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT16)(iNumberOfElites / iNumberUnderControl) );
 
 				// Flugente: as we do not move the group militia, we have to make sure we don't accidentally overfill a sector
 				sTotalSoFar = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
@@ -6949,19 +6949,15 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 
 BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32 iFirstId = 0, iLastId = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-
 	// to speed it up a little?
-	iFirstId = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = iFirstId; iCounter <= iLastId; iCounter++ )
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	const SoldierID iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for( ; id <= iLastId; ++id )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// is the soldier active
 		if( pSoldier->bActive == FALSE )
@@ -7127,7 +7123,7 @@ UINT8 NumActiveCharactersInSector( INT16 sSectorX, INT16 sSectorY, INT16 bSector
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
-			pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( pSoldier->bActive && ( pSoldier->stats.bLife > 0 ) &&
 					( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )
@@ -8091,7 +8087,7 @@ void MilitiaGroupBoxButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				UINT8 militiatype = id / 2;
 
 				// for now, always alter by 1
-				UINT8 howmany = 1;
+				UINT16 howmany = 1;
 
 				// either add or remove a militia from currently selected group
 				if ( id % 2 )

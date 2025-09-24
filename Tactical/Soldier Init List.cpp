@@ -318,8 +318,8 @@ BOOLEAN LoadSoldiersFromMap(INT8** hBuffer, FLOAT dMajorMapVersion, UINT8 ubMino
 			AssertMsg(0, "Failed to allocate memory for new basic placement in LoadSoldiersFromMap.");
 			return(FALSE);
 		}
-		Assert(cnt < 256);
-		pNode->ubNodeID = (UINT8)cnt;
+		Assert(cnt < MAX_INDIVIDUALS);
+		pNode->ubNodeID = cnt;
 		if(tempBasicPlacement.fDetailedPlacement)
 		{
 			// Add the static detailed placement information in the same newly created node as the basic placement. Read static detailed placement from file.
@@ -369,7 +369,7 @@ BOOLEAN SaveSoldiersToMap(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMap
 	{
 		if(!curr)
 			return(FALSE);
-		curr->ubNodeID = (UINT8)i;
+		curr->ubNodeID = i;
 		curr->pBasicPlacement->Save(hFile, dMajorMapVersion, ubMinorMapVersion);
 		if(curr->pBasicPlacement->fDetailedPlacement)
 		{
@@ -577,13 +577,12 @@ void SortSoldierInitList()
 }
 
 extern FLOAT gAmbushRadiusModifier;
-
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 {
 	UINT8 ubProfile;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
 	SOLDIERTYPE *pSoldier;
-	UINT8 ubID;
+	SoldierID ubID;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld"));
 	// First check if this guy has a profile and if so check his location such that it matches!
@@ -874,12 +873,12 @@ void AddPlacementToWorldByProfileID( UINT8 ubProfile )
 	}
 }
 
-UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
+UINT16 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT16 ubMaxNum )
 {
-	UINT8 ubNumAdded = 0;
+	UINT16 ubNumAdded = 0;
 	SOLDIERINITNODE *mark;
-	UINT8 ubSlotsToFill;
-	UINT8 ubSlotsAvailable;
+	UINT16 ubSlotsToFill;
+	UINT16 ubSlotsAvailable;
 	SOLDIERINITNODE *curr;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListTeamToWorld"));
@@ -1047,21 +1046,21 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	return ubNumAdded;
 }
 
-void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalRobots, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
+void AddSoldierInitListEnemyDefenceSoldiers( UINT16 ubTotalAdmin, UINT16 ubTotalTroops, UINT16 ubTotalElite, UINT16 ubTotalRobots, UINT16 ubTotalTanks, UINT16 ubTotalJeeps )
 {
 	SOLDIERINITNODE *mark;
 	SOLDIERINITNODE *curr;
 	INT32 iRandom;
-	UINT8 ubMaxNum;
-	UINT8 ubRobotPDSlots = 0, ubRobotDSlots = 0, ubRobotPSlots = 0, ubRobotBSlots = 0;
-	UINT8 ubElitePDSlots = 0, ubEliteDSlots = 0, ubElitePSlots = 0, ubEliteBSlots = 0;
-	UINT8 ubTroopPDSlots = 0, ubTroopDSlots = 0, ubTroopPSlots = 0, ubTroopBSlots = 0;
-	UINT8 ubAdminPDSlots = 0, ubAdminDSlots = 0, ubAdminPSlots = 0, ubAdminBSlots = 0;
-	UINT8 ubTankPDSlots = 0, ubTankDSlots = 0, ubTankPSlots = 0, ubTankBSlots = 0;
-	UINT8 ubJeepPDSlots = 0, ubJeepDSlots = 0, ubJeepPSlots = 0, ubJeepBSlots = 0;
-	UINT8 ubFreeSlots;
-	UINT8 *pCurrSlots=NULL;
-	UINT8 *pCurrTotal=NULL;
+	UINT16 ubMaxNum;
+	UINT16 ubRobotPDSlots = 0, ubRobotDSlots = 0, ubRobotPSlots = 0, ubRobotBSlots = 0;
+	UINT16 ubElitePDSlots = 0, ubEliteDSlots = 0, ubElitePSlots = 0, ubEliteBSlots = 0;
+	UINT16 ubTroopPDSlots = 0, ubTroopDSlots = 0, ubTroopPSlots = 0, ubTroopBSlots = 0;
+	UINT16 ubAdminPDSlots = 0, ubAdminDSlots = 0, ubAdminPSlots = 0, ubAdminBSlots = 0;
+	UINT16 ubTankPDSlots = 0, ubTankDSlots = 0, ubTankPSlots = 0, ubTankBSlots = 0;
+	UINT16 ubJeepPDSlots = 0, ubJeepDSlots = 0, ubJeepPSlots = 0, ubJeepBSlots = 0;
+	UINT16 ubFreeSlots;
+	UINT16 *pCurrSlots=NULL;
+	UINT16 *pCurrTotal=NULL;
 	UINT8 ubCurrClass;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListEnemyDefenceSoldiers"));
@@ -1607,19 +1606,19 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 //sector, then they get to use the enemy placements.	However, we remove any orders from
 //placements containing RNDPTPATROL or POINTPATROL orders, as well as remove any detailed
 //placement information.
-void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumElites )
+void AddSoldierInitListMilitia( UINT16 ubNumGreen, UINT16 ubNumRegs, UINT16 ubNumElites )
 {
 	SOLDIERINITNODE *mark;
 	SOLDIERINITNODE *curr;
 	INT32 iRandom;
-	UINT8 ubMaxNum;
+	UINT16 ubMaxNum;
 	BOOLEAN fDoPlacement;
-	UINT8 ubEliteSlots = 0;
-	UINT8 ubRegSlots = 0;
-	UINT8 ubGreenSlots = 0;
-	UINT8 ubFreeSlots;
-	UINT8 *pCurrSlots=NULL;
-	UINT8 *pCurrTotal=NULL;
+	UINT16 ubEliteSlots = 0;
+	UINT16 ubRegSlots = 0;
+	UINT16 ubGreenSlots = 0;
+	UINT16 ubFreeSlots;
+	UINT16 *pCurrSlots=NULL;
+	UINT16 *pCurrTotal=NULL;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListMilitia"));
 
@@ -1892,9 +1891,9 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 	{
 		// determine how many militia have already been created in this sector (this can also have happened in another function), so count all active ones
 		UINT16 tacticalmilitia = 0;
-		for ( UINT16 i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM ].bLastID; ++i )
+		for ( SoldierID i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM ].bLastID; ++i )
 		{
-			if ( MercPtrs[i]->bInSector && MercPtrs[i]->bActive )
+			if ( i->bInSector && i->bActive )
 				++tacticalmilitia;
 		}
 
@@ -1955,22 +1954,22 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 	}
 }
 
-void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNumInfants,
-								 UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, 
-								 UINT8 ubNumAdultFemales )
+void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT16 ubNumLarvae, UINT16 ubNumInfants,
+								 UINT16 ubNumYoungMales, UINT16 ubNumYoungFemales, UINT16 ubNumAdultMales, 
+								 UINT16 ubNumAdultFemales )
 {
 	SOLDIERINITNODE *curr;
 	INT32 iRandom;
-	UINT8 ubFreeSlots;
+	UINT16 ubFreeSlots;
 	BOOLEAN fDoPlacement;
-	UINT8 ubNumCreatures;
+	UINT16 ubNumCreatures;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListCreatures"));
 
 	SortSoldierInitList();
 
 	//Okay, if we have a queen, place her first.	She MUST have a special placement, else
 	//we can't use anything.
-	ubNumCreatures = (UINT8)(ubNumLarvae + ubNumInfants + ubNumYoungMales + ubNumYoungFemales + ubNumAdultMales + ubNumAdultFemales);
+	ubNumCreatures = (ubNumLarvae + ubNumInfants + ubNumYoungMales + ubNumYoungFemales + ubNumAdultMales + ubNumAdultFemales);
 	if( fQueen )
 	{
 		curr = gSoldierInitHead;
@@ -2110,12 +2109,12 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 	}
 }
 
-void AddSoldierInitListOtherCreatures( UINT8 usNum )
+void AddSoldierInitListOtherCreatures( UINT16 usNum )
 {
 	SOLDIERINITNODE *curr;
-	UINT8 ubFreeSlots;
+	UINT16 ubFreeSlots;
 	BOOLEAN fDoPlacement;
-	UINT8 ubNumCreatures = usNum;
+	UINT16 ubNumCreatures = usNum;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "AddSoldierInitListBloodcats" ) );
 
@@ -2292,10 +2291,9 @@ void UseEditorAlternateList()
 //if the map was loaded again!
 void EvaluateDeathEffectsToSoldierInitList( SOLDIERTYPE *pSoldier )
 {
-	SOLDIERINITNODE *curr;
-	UINT8 ubNodeID;
-	curr = gSoldierInitHead;
-	ubNodeID = 0;
+	UINT16 ubNodeID = 0;
+	SOLDIERINITNODE* curr = gSoldierInitHead;
+
 	if( pSoldier->bTeam == MILITIA_TEAM )
 		return;
 	while( curr )
@@ -2319,7 +2317,7 @@ void EvaluateDeathEffectsToSoldierInitList( SOLDIERTYPE *pSoldier )
 	}
 }
 
-void RemoveDetailedPlacementInfo( UINT8 ubNodeID )
+void RemoveDetailedPlacementInfo( UINT16 ubNodeID )
 {
 	SOLDIERINITNODE *curr;
 	curr = gSoldierInitHead;
@@ -2345,7 +2343,7 @@ BOOLEAN SaveSoldierInitListLinks( HWFILE hfile )
 {
 	SOLDIERINITNODE *curr;
 	UINT32 uiNumBytesWritten;
-	UINT8 ubSlots = 0;
+	UINT16 ubSlots = 0;
 
 	//count the number of soldier init nodes...
 	curr = gSoldierInitHead;
@@ -2355,8 +2353,8 @@ BOOLEAN SaveSoldierInitListLinks( HWFILE hfile )
 		curr = curr->next;
 	}
 	//...and save it.
-	FileWrite( hfile, &ubSlots, 1, &uiNumBytesWritten );
-	if( uiNumBytesWritten != 1 )
+	FileWrite( hfile, &ubSlots, 2, &uiNumBytesWritten );
+	if( uiNumBytesWritten != 2 )
 	{
 		return FALSE;
 	}
@@ -2368,13 +2366,13 @@ BOOLEAN SaveSoldierInitListLinks( HWFILE hfile )
 		{
 			curr->ubSoldierID = 0;
 		}
-		FileWrite( hfile, &curr->ubNodeID, 1, &uiNumBytesWritten );
-		if( uiNumBytesWritten != 1 )
+		FileWrite( hfile, &curr->ubNodeID, 2, &uiNumBytesWritten );
+		if( uiNumBytesWritten != 2 )
 		{
 			return FALSE;
 		}
-		FileWrite( hfile, &curr->ubSoldierID, 1, &uiNumBytesWritten );
-		if( uiNumBytesWritten != 1 )
+		FileWrite( hfile, &curr->ubSoldierID, 2, &uiNumBytesWritten );
+		if( uiNumBytesWritten != 2 )
 		{
 			return FALSE;
 		}
@@ -2387,22 +2385,23 @@ BOOLEAN LoadSoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT16 ubSlots;
+	UINT16 ubSoldierID, ubNodeID;
 
-	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
+	FileRead( hfile, &ubSlots, 2, &uiNumBytesRead );
+	if( uiNumBytesRead != 2 )
 	{
 		return FALSE;
 	}
 	while( ubSlots-- )
 	{
-		FileRead( hfile, &ubNodeID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubNodeID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2466,7 +2465,7 @@ void AddSoldierInitListBloodcats()
 	else
 	{ //We don't yet know the number of bloodcat placements in this sector so
 		//count them now, and permanently record it.
-		INT8 bBloodCatPlacements = 0;
+		INT16 bBloodCatPlacements = 0;
 		curr = gSoldierInitHead;
 		while( curr )
 		{
@@ -2514,11 +2513,11 @@ void AddSoldierInitListBloodcats()
 	}
 	if( pSector->bBloodCats > 0 )
 	{ //Add them to the world now...
-		UINT8 ubNumAdded = 0;
-		UINT8 ubMaxNum = (UINT8)pSector->bBloodCats;
+		UINT16 ubNumAdded = 0;
+		UINT16 ubMaxNum = (UINT16)pSector->bBloodCats;
 		SOLDIERINITNODE *mark;
-		UINT8 ubSlotsToFill;
-		UINT8 ubSlotsAvailable;
+		UINT16 ubSlotsToFill;
+		UINT16 ubSlotsAvailable;
 		SOLDIERINITNODE *curr;
 
 		//Sort the list in the following manner:
@@ -2660,7 +2659,7 @@ void AddProfilesUsingProfileInsertionData()
 		if( !pSoldier )
 		{ //Create a new soldier, as this one doesn't exist
 			SOLDIERCREATE_STRUCT		MercCreateStruct;
-			UINT8									ubID;
+			SoldierID ubID;
 
 			//Set up the create struct so that we can properly create the profile soldier.
 			MercCreateStruct.initialize();
@@ -2798,22 +2797,23 @@ BOOLEAN NewWayOfLoadingEnemySoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT16 ubSlots;
+	UINT16 ubSoldierID, ubNodeID;
 
-	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
+	FileRead( hfile, &ubSlots, 2, &uiNumBytesRead );
+	if( uiNumBytesRead != 2 )
 	{
 		return FALSE;
 	}
 	while( ubSlots-- )
 	{
-		FileRead( hfile, &ubNodeID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubNodeID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2844,22 +2844,23 @@ BOOLEAN NewWayOfLoadingCivilianInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT16 ubSlots;
+	UINT16 ubSoldierID, ubNodeID;
 
-	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
+	FileRead( hfile, &ubSlots, 2, &uiNumBytesRead );
+	if( uiNumBytesRead != 2 )
 	{
 		return FALSE;
 	}
 	while( ubSlots-- )
 	{
-		FileRead( hfile, &ubNodeID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubNodeID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2890,22 +2891,23 @@ BOOLEAN LookAtButDontProcessEnemySoldierInitListLinks( HWFILE hfile )
 {
 	UINT32 uiNumBytesRead;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSlots, ubSoldierID, ubNodeID;
+	UINT16 ubSlots;
+	UINT16 ubSoldierID, ubNodeID;
 
-	FileRead( hfile, &ubSlots, 1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
+	FileRead( hfile, &ubSlots, 2, &uiNumBytesRead );
+	if( uiNumBytesRead != 2 )
 	{
 		return FALSE;
 	}
 	while( ubSlots-- )
 	{
-		FileRead( hfile, &ubNodeID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubNodeID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
-		FileRead( hfile, &ubSoldierID, 1, &uiNumBytesRead );
-		if( uiNumBytesRead != 1 )
+		FileRead( hfile, &ubSoldierID, 2, &uiNumBytesRead );
+		if( uiNumBytesRead != 2 )
 		{
 			return FALSE;
 		}
@@ -2981,12 +2983,12 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 //#define CENTRAL_GRIDNO 13202
 //#define CENTRAL_RADIUS 30
 
-void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites )
+void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT16 ubNumGreen, UINT16 ubNumReg, UINT16 ubNumElites )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo;
-	UINT8 ubCurrSlot;
-	UINT8 ubTotalSoldiers;
+	UINT16 ubCurrSlot;
+	UINT16 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
 
 	ubTotalSoldiers = ubNumGreen + ubNumReg + ubNumElites;
@@ -3071,7 +3073,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumReg && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg) )
+		else if( ubNumReg && (UINT16)Random( ubTotalSoldiers ) < (ubNumElites + ubNumReg) )
 		{
 			ubNumReg--;
 			ubTotalSoldiers--;
@@ -3111,7 +3113,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
-		else if( ubNumGreen && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg + ubNumGreen) )
+		else if( ubNumGreen && (UINT16)Random( ubTotalSoldiers ) < (UINT16)(ubNumElites + ubNumReg + ubNumGreen) )
 		{
 			ubNumGreen--;
 			ubTotalSoldiers--;
@@ -3203,10 +3205,11 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	// count current number of civilians
 	UINT16 numberofcivs = 0;
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID  cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID  lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// check if teamsoldier exists in this sector
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
 			++numberofcivs;
@@ -3217,7 +3220,7 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		return;
 
 	// now count militia, and which type (green, regular, elite) is most numerous - that will be the best type to blend in	
-	UINT8 militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+	UINT16 militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
 	UINT8 militiadisguise = GREEN_MILITIA;
 	if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) > militiacnt )
 	{
@@ -3274,10 +3277,11 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	UINT16 numberofcivs = 0;
 	UINT16 numberofpows = 0;
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID  cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID  lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// check if teamsoldier exists in this sector
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
 			++numberofcivs;
@@ -3288,7 +3292,7 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	}
 
 	// we can't spawn if all civilian slots are already taken (we leave a bit of reserve for more important civs)
-	UINT8 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
+	UINT16 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
 
 	for (UINT16 i = numberofpows; i < numprisoners; ++i)
 	{

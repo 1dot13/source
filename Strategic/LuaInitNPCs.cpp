@@ -221,7 +221,7 @@ static int l_iStringToUse(lua_State *L);
 static int l_StopVideo(lua_State *L);
 static int l_StartVideo(lua_State *L);
 
-UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
 
 BOOLEAN LoadLuaGlobalFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveLuaGlobalToSaveGameFile( HWFILE hFile );
@@ -927,7 +927,7 @@ UINT16 PROFILLUA_sSectorX;
 UINT16 PROFILLUA_sSectorY;
 UINT8 PROFILLUA_bSectorZ;
 UINT8 PROFILLUA_Level;
-UINT8 PROFILLUA_ubID;
+UINT16 PROFILLUA_ubID;
 UINT32 PROFILLUA_sGridNo;
 UINT8 PROFILLUA_ubDirectiono;
 UINT8 PROFILLUA_bTeam;
@@ -937,7 +937,7 @@ UINT16 PROFILLUA2_sSectorX;
 UINT16 PROFILLUA2_sSectorY;
 UINT8  PROFILLUA2_bSectorZ;
 UINT32 PROFILLUA2_sGridNo;
-UINT8  PROFILLUA2_ubID;
+UINT16  PROFILLUA2_ubID;
 
 LUA_GLOBAL	gLuaGlobal[1000]; 
 
@@ -2372,7 +2372,7 @@ static int l_WhoIsThere2 (lua_State *L)
 	{
 		UINT32 sGridNo = lua_tointeger(L,1);
 		INT8 bLevel = lua_tointeger(L,2);
-		UINT8 Val = WhoIsThere2( sGridNo, bLevel );
+		UINT16 Val = WhoIsThere2( sGridNo, bLevel );
 		
 		lua_pushinteger(L, Val);
 	}
@@ -2716,8 +2716,9 @@ void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, B
 	LuaFunction( _LS.L, "HandleSectorLiberation" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<bool>( fFirstTime ).Call( 4 );
 }
 
-void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, 
-									   INT32 sGridNo, UINT8 bLevel, UINT8 ubId,
+void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY,
+ INT8 bSectorZ, 
+									   INT32 sGridNo, UINT8 bLevel, SoldierID ubId,
 									   UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill )
 {
 	const char* filename = "scripts\\Overhead.lua";
@@ -2731,7 +2732,7 @@ void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSec
 
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
-	LuaFunction( _LS.L, "HandleInteractiveActionResult" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubId ).Param<int>( usActionType ).Param<int>( sLuaactionid ).Param<int>( difficulty ).Param<int>( skill ).Call( 10 );
+	LuaFunction( _LS.L, "HandleInteractiveActionResult" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubId.i ).Param<int>( usActionType ).Param<int>( sLuaactionid ).Param<int>( difficulty ).Param<int>( skill ).Call( 10 );
 }
 
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )
@@ -2936,7 +2937,7 @@ BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 u
 
 SOLDIERTYPE * FindSoldierByProfileID_( UINT8 ubProfileID )
 {
-	UINT8 ubLoop, ubLoopLimit;
+	UINT16 ubLoop, ubLoopLimit;
 	SOLDIERTYPE * pSoldier;
 
 		ubLoopLimit = MAX_NUM_SOLDIERS;
@@ -2953,41 +2954,19 @@ SOLDIERTYPE * FindSoldierByProfileID_( UINT8 ubProfileID )
 
 SOLDIERTYPE * FindSoldierByProfileID2( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly )
 {
-	UINT8 cnt2, ubLoopLimit;
-	SOLDIERTYPE * pSoldier;
+	SoldierID soldier = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[CIV_TEAM].bLastID;
 
-		ubLoopLimit = gTacticalStatus.Team[CIV_TEAM].bLastID;
-
-	cnt2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-  for ( pSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt2++ ,pSoldier++)
+	for ( ; soldier <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++soldier)
 	{
-		if ( pSoldier->bActive && pSoldier->bInSector )
+		if ( soldier->bActive && soldier->bInSector )
 		{
-			return( pSoldier );
+			return( soldier );
 		}
 	}
 	return( NULL );
 }
 
-BOOLEAN FindSoldier(SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex, BOOLEAN fPlayerMercsOnly)
-{
-	*ppSoldier = NULL;
-
-	if (usSoldierIndex >= TOTAL_SOLDIERS)
-	{
-		return(FALSE);
-	}
-
-	if (MercPtrs[usSoldierIndex]->bActive)
-	{
-		*ppSoldier = MercPtrs[usSoldierIndex];
-		return(TRUE);
-	}
-	else
-	{
-		return(FALSE);
-	}
-}
 
 //--------------------------------
 
@@ -3601,7 +3580,7 @@ static int l_gubBoxerID(lua_State *L)
 	if ( n >= 2 )
 	{
 		UINT8 val = lua_tointeger( L, 1 );
-		UINT8 val2 = lua_tointeger( L, 2 );
+		UINT16 val2 = lua_tointeger( L, 2 );
 
 		if (val <= 2)
 		{
@@ -4748,7 +4727,7 @@ static int l_NumMercsNear(lua_State *L)
 	{
 		UINT8 ubProfileID = lua_tointeger(L,1);
 		UINT8 ubMaxDist = lua_tointeger(L,2);
-		UINT8 ID2 = 	NumMercsNear( ubProfileID, ubMaxDist );
+		UINT16 ID2 = 	NumMercsNear( ubProfileID, ubMaxDist );
 		lua_pushinteger(L, ID2);
 		
 	}		
@@ -5800,7 +5779,7 @@ static int l_SetOffPanicBombs (lua_State *L)
 {
 	if ( lua_gettop(L) >= 2 )
 	{
-		UINT8 ubID = lua_tointeger(L,1);
+		UINT16 ubID = lua_tointeger(L,1);
 		INT8 bPanicTrigger = lua_tointeger(L,2);
 		SetOffPanicBombs( ubID, bPanicTrigger );
 	}	
@@ -5853,7 +5832,7 @@ static int l_MakeNoise(lua_State *L)
 
 	if ( lua_gettop(L) >= 6 )
 	{
-		UINT8 ubNoiseMaker = lua_tointeger(L,1);
+		UINT16 ubNoiseMaker = lua_tointeger(L,1);
 		INT32 sGridNo = lua_tointeger(L,2);
 		INT8 bLevel = lua_tointeger(L,3);
 		UINT8 ubTerrType = lua_tointeger(L,4);
@@ -5996,7 +5975,6 @@ return 0;
 
 static int l_ActionInProgress(lua_State *L)
 {
-	UINT8 cnt2;
 	SOLDIERTYPE * pSoldier;
 
 	if (lua_gettop(L) >= 2)
@@ -6014,9 +5992,10 @@ static int l_ActionInProgress(lua_State *L)
 		}
 		else
 		{
-			cnt2 = gTacticalStatus.Team[CIV_TEAM].bFirstID;
-			for (pSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[CIV_TEAM].bLastID; cnt2++, pSoldier++)
+			SoldierID cnt2 = gTacticalStatus.Team[CIV_TEAM].bFirstID;
+			for ( ; cnt2 <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt2)
 			{
+				pSoldier = cnt2;
 				if (pSoldier->bActive && pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE)
 				{
 					pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier);
@@ -6358,7 +6337,7 @@ static int l_ActivateSwitchInGridNo(lua_State *L)
 {
 	if (lua_gettop(L) >= 2)
 	{
-		UINT8 ubID = lua_tointeger(L, 1);
+		UINT16 ubID = lua_tointeger(L, 1);
 		INT32 sGridNo = lua_tointeger(L, 2);
 
 		if (!TileIsOutOfBounds(sGridNo) && ubID < TOTAL_SOLDIERS)
@@ -7129,7 +7108,7 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 
 		if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			UINT8	ubID;
+			SoldierID	soldier;
 			OBJECTTYPE DoorCloser;
 			INT16	sTeleportSpot;
 			INT16	sDoorSpot;
@@ -7142,16 +7121,16 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 			if ( TileIsOutOfBounds(sGridNo) )
 				return 0;
 
-			ubID = WhoIsThere2( sGridNo, 0 );
-			if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
+			soldier = WhoIsThere2( sGridNo, 0 );
+			if ( (soldier != NOBODY) && (soldier->bTeam == gbPlayerNum) )
 			{
-				if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
+				if ( InARoom( sGridNo, &usRoom ) && InARoom( soldier->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
 				{
 					// also require there to be a miniskirt civ in the room
 					if ( HookerInRoom( usRoom ) )
 					{
 						// stop the merc...
-						MercPtrs[ ubID ]->EVENT_StopMerc( MercPtrs[ ubID ]->sGridNo, MercPtrs[ ubID ]->ubDirection );
+						soldier->EVENT_StopMerc( soldier->sGridNo, soldier->ubDirection );
 
 						if ( sGridNo == gModSettings.iCarlaDoorGridNo +1 )
 						{
@@ -7181,25 +7160,25 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 							PerformItemAction( sDoorSpot, &DoorCloser );
 
 							// Flugente: additional dialogue
-							AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[ubID], ADE_SEX );
+							AdditionalTacticalCharacterDialogue_CallsLua( soldier, ADE_SEX );
 
 							// have sex
 							HandleNPCDoAction( 0, NPC_ACTION_SEX, 0 );
 
 							// move the merc outside of the room again
-							sTeleportSpot = FindGridNoFromSweetSpotWithStructData( MercPtrs[ ubID ], STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
-							MercPtrs[ ubID ]->ChangeSoldierState( STANDING, 0, TRUE );
-							TeleportSoldier( MercPtrs[ ubID ], sTeleportSpot, FALSE );
+							sTeleportSpot = FindGridNoFromSweetSpotWithStructData( soldier, STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
+							soldier->ChangeSoldierState( STANDING, 0, TRUE );
+							TeleportSoldier( soldier, sTeleportSpot, FALSE );
 
-							HandleMoraleEvent( MercPtrs[ ubID ], MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							FatigueCharacter( MercPtrs[ ubID ] );
-							DirtyMercPanelInterface( MercPtrs[ ubID ], DIRTYLEVEL1 );
+							HandleMoraleEvent( soldier, MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							FatigueCharacter( soldier );
+							DirtyMercPanelInterface( soldier, DIRTYLEVEL1 );
 
 							// Flugente: we might get a disease from this...
-							HandlePossibleInfection( MercPtrs[ubID], NULL, INFECTION_TYPE_SEX );
+							HandlePossibleInfection( soldier, NULL, INFECTION_TYPE_SEX );
 						}
 					}
 				}
@@ -7400,7 +7379,7 @@ static int l_SetOffBombsByFrequency (lua_State *L)
 	if ( lua_gettop(L) >= 2 )
 	{
 		INT8 ACTION = lua_tointeger(L,1);
-		UINT8 ID = lua_tointeger(L,2);
+		SoldierID ID = lua_tointeger(L,2);
 
 
 		if (ACTION >= 1 || ACTION <=4)
@@ -7580,13 +7559,12 @@ static int l_EVENT_InitNewSoldierAnim (lua_State *L)
 {
 	if ( lua_gettop(L) >= 3 )
 	{
-		UINT8 ubTargetNPC = lua_tointeger(L,1);
-		//if (i == 2 ) BodyType = lua_tointeger(L,i);
+		UINT16 ubTargetNPC = lua_tointeger(L,1);
 		UINT32 ANIM = lua_tointeger(L,2);
-		INT32 cnt = lua_tointeger(L,3);
-		//if (i == 4 ) PlayerControl = lua_tointeger(L,i);
+		SoldierID solID = lua_tointeger(L,3);
 
-		if (ubTargetNPC > NOBODY)
+		// This is not my favorite, but now it will at least work. -Asdow
+		if (ubTargetNPC != NOBODY)
 		{
 			SOLDIERTYPE* pSoldier = FindSoldierByProfileID ( ubTargetNPC, TRUE );
 			if ( pSoldier )//&& pSoldier->ubBodyType == BodyType )
@@ -7595,10 +7573,10 @@ static int l_EVENT_InitNewSoldierAnim (lua_State *L)
 				pSoldier->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
 			}	
 		}
-		else if (ubTargetNPC == NOBODY)
+		else
 		{
-			if ( MercPtrs[ cnt ]->bInSector )
-				MercPtrs[ cnt ]->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
+			if ( solID != NOBODY && solID->bInSector )
+				solID->EVENT_InitNewSoldierAnim( ANIM, 0, TRUE );
 		}
 	}
 			
@@ -7637,15 +7615,15 @@ static int l_SetEnterCombatMode (lua_State *L)
 	if ( lua_gettop(L) >= 2 )
 	{
 		UINT16 group = lua_tointeger(L,1);
-		UINT8 ubID = lua_tointeger(L,2);
+		SoldierID ubID = lua_tointeger(L,2);
 
 		if ( ubID == NOBODY )
 			return 0;
 
 		SOLDIERTYPE*		pGoon = NULL;
-		for ( UINT8 ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop)
 		{
-			pGoon = MercPtrs[ ubLoop ];
+			pGoon = ubLoop;
 			if ( pGoon->ubCivilianGroup == group && pGoon->bActive && pGoon->bInSector && pGoon->stats.bLife >= OKLIFE && pGoon->aiData.bOppList[ ubID ] == SEEN_CURRENTLY )
 			{
 				MakeCivHostile(pGoon);
@@ -7676,9 +7654,12 @@ static int l_MakeMercPtrsHostile (lua_State *L)
 {				
 	if ( lua_gettop(L) >= 1 )
 	{
-		UINT8 ubID = lua_tointeger(L,1);
+		SoldierID ubID = lua_tointeger(L,1);
 
-		MakeCivHostile(MercPtrs[ ubID ]);
+		if ( ubID != NOBODY )
+		{
+			MakeCivHostile(ubID);
+		}
 	}
 	
 	return 0;
@@ -7735,7 +7716,7 @@ static int l_EVENT_SoldierGotHit (lua_State *L)
 				DeleteTalkingMenu();
 				if ( pTarget2->stats.bLife >= 0 ) 
 				{
-					pTarget2->EVENT_SoldierGotHit( 1, 100, 10, pTarget2->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
+					pTarget2->EVENT_SoldierGotHit( 1, 100, 10, pTarget2->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
 				}			
 			}
 		}
@@ -7761,13 +7742,13 @@ BOOLEAN Bool;
 		if (i == 2 ) bNewSide = lua_tointeger(L,i);
 	}
 
-		if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive )
+		if ( ubID->bInSector && ubID->bActive )
 			Bool = TRUE;
 		else
 			Bool = FALSE;
 			
 		if ( Bool == TRUE )
-		{	pSoldier = MercPtrs[ ubID ];
+		{	pSoldier = ubID;
 			if (pSoldier)
 			{
 			pSoldier->bSide = 	bNewSide;
@@ -8068,12 +8049,12 @@ static int l_ChangeMercPtrsTeam (lua_State *L)
 {
 	if ( lua_gettop(L) >= 2 )
 	{
-		UINT8 UID = lua_tointeger(L,1);
+		SoldierID UID = lua_tointeger(L,1);
 		INT8 Side = lua_tointeger(L,2);
 		
-		if ( MercPtrs[UID] && MercPtrs[ UID ]->bInSector && MercPtrs[ UID ]->bActive )
+		if ( UID != NOBODY && UID->bInSector && UID->bActive )
 		{
-			MercPtrs[UID]->bSide = Side;
+			UID->bSide = Side;
 		}
 	}	
 	
@@ -8470,20 +8451,17 @@ static int l_CreateItemInvOrFloor( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 2 )
 	{
-		UINT16 ubID = lua_tointeger( L, 1 );
+		SoldierID ubID = lua_tointeger( L, 1 );
 		UINT16 usItem = lua_tointeger( L, 2 );
 
-		if ( ubID < TOTAL_SOLDIERS )
+		if ( ubID != NOBODY)
 		{
-			SOLDIERTYPE* pSoldier = MercPtrs[ubID];
-			if ( pSoldier )
-			{
-				CreateItem( usItem, 100, &gTempObject );
+			SOLDIERTYPE* pSoldier = ubID;
+			CreateItem( usItem, 100, &gTempObject );
 
-				if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
-				{
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
-				}
+			if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+			{
+				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
 			}
 		}
 	}
@@ -8495,12 +8473,12 @@ static int l_DestroyOneItemInInventory( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 2 )
 	{
-		UINT16 ubID = lua_tointeger( L, 1 );
+		SoldierID ubID = lua_tointeger( L, 1 );
 		UINT16 usItem = lua_tointeger( L, 2 );
 
 		if ( ubID < TOTAL_SOLDIERS )
 		{
-			MercPtrs[ubID]->DestroyOneItemInInventory( usItem );
+			ubID->DestroyOneItemInInventory( usItem );
 		}
 	}
 
@@ -8513,12 +8491,12 @@ static int l_HasItemInInventory( lua_State *L )
 
 	if ( lua_gettop( L ) >= 2 )
 	{
-		UINT16 ubID = lua_tointeger( L, 1 );
+		SoldierID ubID = lua_tointeger( L, 1 );
 		UINT16 usItem = lua_tointeger( L, 2 );
 
 		if ( ubID < TOTAL_SOLDIERS )
 		{
-			Bool = MercPtrs[ubID]->HasItemInInventory( usItem );
+			Bool = ubID->HasItemInInventory( usItem );
 		}
 	}
 
@@ -8529,36 +8507,25 @@ static int l_HasItemInInventory( lua_State *L )
 
 static int l_CreateKeyProfInvAndAddItemToPool(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-	OBJECTTYPE	Object;
-	UINT8 ubNumberOfKeys;
-	UINT8 ubKeyIdValue;
-	UINT8 ubTargetNPC;
-	SOLDIERTYPE *pSoldier;
-	INT32	iWorldItem;
-	INT32 sGridNo;
-	UINT8 bLevel;
-
-	for (i = 1; i <= n; i++)
+	if ( lua_gettop( L ) >= 5 )
 	{
-		if (i == 1) ubTargetNPC = lua_tointeger(L, i);
-		if (i == 2) ubNumberOfKeys = lua_tointeger(L, i);
-		if (i == 3) ubKeyIdValue = lua_tointeger(L, i);
-		if (i == 4) sGridNo = lua_tointeger(L, i);
-		if (i == 5) bLevel = lua_tointeger(L, i);
+		INT32  iWorldItem;
+		UINT8 ubTargetNPC = lua_tointeger( L, 1 );
+		UINT8 ubNumberOfKeys = lua_tointeger( L, 2 );
+		UINT8 ubKeyIdValue = lua_tointeger( L, 3 );
+		INT32 sGridNo = lua_tointeger( L, 4 );
+		UINT8 bLevel = lua_tointeger( L, 5 );
+
+		SOLDIERTYPE *pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
+
+		if ( pSoldier )
+		{
+			OBJECTTYPE Key;
+			CreateKeyObject( &Key, ubNumberOfKeys, ubKeyIdValue );
+			AutoPlaceObject( pSoldier, &Key, TRUE );
+			AddItemToPoolAndGetIndex( sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem );
+		}
 	}
-
-	pSoldier = FindSoldierByProfileID(ubTargetNPC, FALSE);
-
-	if (pSoldier)
-	{
-		OBJECTTYPE Key;
-		CreateKeyObject(&Key, ubNumberOfKeys, ubKeyIdValue);
-		AutoPlaceObject(pSoldier, &Key, TRUE);
-		AddItemToPoolAndGetIndex(sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem);
-	}
-
 	return 0;
 }
 
@@ -8879,46 +8846,33 @@ static int l_GetDirection (lua_State *L)
 
 static int l_ubID (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 ubTargetNPC = 0;
-	SOLDIERTYPE *pSoldier;
-
-	UINT32 ubID = 0;
-
-	for (i= 1; i<=n; i++ )
+	if (lua_gettop(L) >= 1)
 	{
-		if (i == 1 ) 
-			ubTargetNPC = lua_tointeger(L,i);
+		UINT8 ubTargetNPC = 0;
+		SOLDIERTYPE *pSoldier;
+
+		ubTargetNPC = lua_tointeger(L, 1);
+		pSoldier = FindSoldierByProfileID(ubTargetNPC, FALSE);
+		if (pSoldier)
+			lua_pushinteger(L, pSoldier->ubID);
+		else
+			lua_pushinteger(L, -1);
 	}
-	
-	pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE);
-	if ( pSoldier )
-		ubID = pSoldier->ubID;	
-	else
-		ubID = -1;
-	
-	lua_pushinteger(L, ubID);
-		
 	return 1;
 }
 //------------
 static int l_GetFirstID (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-	UINT8 team = 0;
-	UINT32 id;
-
-	for (i= 1; i<=n; i++ )
+	if (lua_gettop(L) >= 1)
 	{
-		if (i == 1 ) team = lua_tointeger(L,i);
+		UINT8 team = 0;
+		UINT32 id;
+
+		team = lua_tointeger(L, 1);
+		id = gTacticalStatus.Team[team].bFirstID;
+
+		lua_pushinteger(L, id);
 	}
-	
-	id = gTacticalStatus.Team[ team ].bFirstID;
-	
-	lua_pushinteger(L, id);
-		
 	return 1;
 }
 
@@ -8961,145 +8915,111 @@ static int l_SetCivGroupHostile (lua_State *L)
 //Merc 
 static int l_CheckMercPtrsAssignment (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	INT32 squad = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY )
+		{
+			INT32 squad = ubID->bAssignment;
+
+			lua_pushinteger( L, squad );
+		}
 	}
-	
-	squad = MercPtrs[ ubID ]->bAssignment;
-	
-	lua_pushinteger(L, squad);
-	
+
 	return 1;
 }
 
 static int l_CheckMercPtrsActive (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		BOOLEAN Bool = FALSE;
+
+		if ( ubID != NOBODY && ubID->bActive )
+			Bool = TRUE;
+		else
+			Bool = FALSE;
+
+		lua_pushboolean( L, Bool );
 	}
-	
-	if ( MercPtrs[ ubID ]->bActive )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-	
-	lua_pushboolean(L, Bool);
-	
+
 	return 1;
 }
 
 static int l_CheckMercPtsrInSector (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-	
-	lua_pushboolean(L, Bool);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		BOOLEAN Bool = FALSE;
 
+		if ( ubID != NOBODY && ubID->bInSector )
+			Bool = TRUE;
+		else
+			Bool = FALSE;
+
+		lua_pushboolean( L, Bool );
+	}
 	return 1;
 }
 
 static int l_GetMercPtsrProfileID (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	UINT8 profil = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-	}
-	
-	profil =  MercPtrs[ ubID ]->ubProfile;
-	
-	lua_pushinteger(L, profil);
+		SoldierID ubID = lua_tointeger( L, 1 );
 
+		if ( ubID != NOBODY )
+		{
+			UINT8 profil = ubID->ubProfile;
+			lua_pushinteger( L, profil );
+		}
+	}
 	return 1;
 }
 
 static int l_CheckMercPtrsLife (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	UINT8 life = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-	}
-	
-	life =  MercPtrs[ ubID ]->stats.bLife;
-	
-	lua_pushinteger(L, life);
+		SoldierID ubID = lua_tointeger( L, 1 );
 
+		if ( ubID != NOBODY )
+		{
+			INT8 life = ubID->stats.bLife;
+
+			lua_pushinteger( L, life );
+		}
+	}
 	return 1;
 }
 
 static int l_SoldierGiveItem (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID1 = 0;
-	UINT32 ubID2 = 0;
-
-SOLDIERTYPE *pSoldier;
-SOLDIERTYPE *pSoldier2;
-BOOLEAN bol = FALSE;
-UINT32 item;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 3 )
 	{
-		if (i == 1 ) ubID1 = lua_tointeger(L,i);
-		if (i == 2 ) ubID2 = lua_tointeger(L,i);
-		if (i == 3 ) item = lua_tointeger(L,i);
-	}
-	
+		SOLDIERTYPE *pSoldier;
+		SOLDIERTYPE *pSoldier2;
+		BOOLEAN bol = FALSE;
+
+		SoldierID ubID1 = lua_tointeger( L, 1 );
+		SoldierID ubID2 = lua_tointeger( L, 2 );
+		UINT32 item = lua_tointeger( L, 3 );
+
+		if ( ubID1 != NOBODY  && ubID2 != NOBODY)
+		{
 			pSoldier = FindSoldierByProfileID( ubID1, FALSE );
-			
 			pSoldier2 = FindSoldierByProfileID( ubID2, FALSE );
-			
-				if ( !pSoldier || !pSoldier2 )
-					bol = FALSE;
-				else
-					bol = TRUE;
-				
-		if ( bol == TRUE )
-			{			
+
+			if ( !pSoldier || !pSoldier2 )
+				bol = FALSE;
+			else
+				bol = TRUE;
+
+			if ( bol == TRUE )
+			{
 				// Look for letter....
 				{
 					INT8 bInvPos;
@@ -9109,81 +9029,64 @@ UINT32 item;
 
 					AssertMsg( bInvPos != NO_SLOT, "Interface Dialogue.C:	Gift item does not exist in NPC." );
 
-					SoldierGiveItem( pSoldier, pSoldier2, &(pSoldier->inv[ bInvPos ] ), bInvPos );
+					SoldierGiveItem( pSoldier, pSoldier2, &(pSoldier->inv[bInvPos]), bInvPos );
 				}
 			}
-					
+		}
+	}
 	return 0;
 }
 
 
 static int l_CheckMercPtsrTeleportToSector (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	INT16 SectorX = 0;
-	INT16 SectorY = 0;
-	INT8 SectorZ = 0;
-	UINT32 GridNo = 0;
-	SOLDIERTYPE * pSoldier;
-	BOOLEAN Bool = FALSE;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 5 )
 	{
-		if (i == 1 ) SectorX = lua_tointeger(L,i);
-		if (i == 2 ) SectorY = lua_tointeger(L,i);
-		if (i == 3 ) SectorZ = lua_tointeger(L,i);
-		if (i == 4 ) GridNo = lua_tointeger(L,i);
-		if (i == 5 ) ubID = lua_tointeger(L,i);
-	}
-	
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{		
-		pSoldier = MercPtrs[ ubID ];
+		SoldierID ubID = NOBODY;
+		INT16 SectorX = 0;
+		INT16 SectorY = 0;
+		INT8 SectorZ = 0;
+		UINT32 GridNo = 0;
+		SOLDIERTYPE *pSoldier;
 
-		if (pSoldier)
+		SectorX = lua_tointeger( L, 1 );
+		SectorY = lua_tointeger( L, 2 );
+		SectorZ = lua_tointeger( L, 3 );
+		GridNo = lua_tointeger( L, 4 );
+		ubID = lua_tointeger( L, 5 );
+
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-		pSoldier->sSectorX = SectorX;
-		pSoldier->sSectorY = SectorY;
-		pSoldier->bSectorZ = SectorZ;
+			pSoldier = ubID;
 
-		// Set gridno
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = GridNo;
+			if ( pSoldier )
+			{
+				pSoldier->sSectorX = SectorX;
+				pSoldier->sSectorY = SectorY;
+				pSoldier->bSectorZ = SectorZ;
+
+				// Set gridno
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = GridNo;
+			}
 		}
 	}
-		
 	return 0;
 }
 
 static int l_GetMercPtrsGroup (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0;
-
-	 UINT8 GroupID = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY)
+		{
+			UINT8 GroupID = ubID->ubGroupID;
+			lua_pushinteger( L, GroupID );
+		}
 	}
-	
-	GroupID = MercPtrs[ ubID ]->ubGroupID;
-
-	
-	lua_pushinteger(L, GroupID);
-
 	return 1;
 }
 
@@ -9191,11 +9094,11 @@ static int l_WearGasMaskIfAvailable(lua_State *L)
 {	
 	if ( lua_gettop( L ) >= 1 )
 	{
-		UINT8 ubID = lua_tointeger( L, 1 );
+		SoldierID ubID = lua_tointeger( L, 1 );
 
-		if ( MercPtrs[ubID] && MercPtrs[ubID]->bInSector && MercPtrs[ubID]->bActive )
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			WearGasMaskIfAvailable( MercPtrs[ubID] );
+			WearGasMaskIfAvailable( ubID );
 		}
 	}
 
@@ -9204,29 +9107,13 @@ static int l_WearGasMaskIfAvailable(lua_State *L)
 
 static int l_SetNewSituationMercPtsr(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
+	if ( lua_gettop( L ) >= 1 )
+	{
+		SoldierID ubID = lua_tointeger( L, 1 );
 
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-		SetNewSituation(pSoldier);
+			SetNewSituation( ubID);
 		}
 	}
 
@@ -9274,388 +9161,253 @@ static int l_gubPublicNoiseVolume(lua_State *L)
 
 static int l_AnimMercPtsrInSector (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-
-	UINT32 ubID = 0,Anim = 0;
-
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) Anim = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		UINT16 Anim = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector )
+			ubID->EVENT_InitNewSoldierAnim( Anim, 0, TRUE );
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->EVENT_InitNewSoldierAnim( Anim, 0, TRUE );
-		
 	return 0;
 }
 					
 static int l_AnimMercPtsrfAIFlags(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY && ubID->bInSector )
+			ubID->aiData.fAIFlags |= AI_HANDLE_EVERY_FRAME;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->aiData.fAIFlags |= AI_HANDLE_EVERY_FRAME;
-		
 	return 0;
 }
 					
 static int l_AnimMercPtsrusStrategicInsertionData(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,GridNo = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) GridNo = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT32 GridNo = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector )
+			ubID->usStrategicInsertionData = GridNo;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->usStrategicInsertionData = GridNo;
-		
 	return 0;
 }
 					
 					
 static int l_AnimMercPtsrubStrategicInsertionCode (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,GridNo = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) GridNo = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT32 GridNo = lua_tointeger( L, 2 );
+
+
+		if ( ubID != NOBODY && ubID->bInSector )
+				ubID->ubStrategicInsertionCode = GridNo;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->ubStrategicInsertionCode = GridNo;
-		
 	return 0;
 }	
 
 static int l_WhichBuddy (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID1 = 0,ubID2 = 0,bBuddyIndex = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID1 = lua_tointeger(L,i);
-		if (i == 2 ) ubID2 = lua_tointeger(L,i);
+		INT8 bBuddyIndex;
+
+		SoldierID ubID1 = lua_tointeger( L, 1 );
+		SoldierID ubID2 = lua_tointeger( L, 2 );
+
+
+		if ( (ubID1 != NOBODY && ubID1->bInSector) && (ubID2 != NOBODY && ubID2->bInSector) )
+				bBuddyIndex = WhichBuddy( ubID1->ubProfile, ubID2->ubProfile );
+
+		lua_pushinteger( L, bBuddyIndex );
 	}
-	
-	if ( MercPtrs[ ubID1 ]->bInSector && MercPtrs[ ubID2 ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		bBuddyIndex = WhichBuddy( ubID1, ubID2 );
-		
-	lua_pushinteger(L, bBuddyIndex);
-		
 	return 1;
 }
 
 static int l_AnimMercPtsrsAbsoluteFinalDestination (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,GridNo = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) GridNo = lua_tointeger(L,i);
+		SoldierID ubID;
+		INT32 GridNo = NOWHERE;
+
+		ubID = lua_tointeger( L, 1 );
+		GridNo = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector  && GridNo != NOWHERE)
+			ubID->sAbsoluteFinalDestination = GridNo;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->sAbsoluteFinalDestination = GridNo;
-		
 	return 0;
 }
 					
 static int l_AnimMercPtsrusNextActionData (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,GridNo = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) GridNo = lua_tointeger(L,i);
+		SoldierID ubID;
+		INT32 GridNo = NOWHERE;
+
+		ubID = lua_tointeger( L, 1 );
+		GridNo = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector && GridNo != NOWHERE )
+			ubID->aiData.usNextActionData = GridNo;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->aiData.usNextActionData = GridNo;
-		
 	return 0;
 }
 					
 static int l_AnimMercPtsrbNextAction (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,AI_ACTION = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) AI_ACTION = lua_tointeger(L,i);
+		SoldierID ubID;
+		INT8 AI_ACTION = 0;
+
+		ubID = lua_tointeger( L, 1 );
+		AI_ACTION = lua_tointeger( L, 2 );
+
+
+		if ( ubID != NOBODY && ubID->bInSector )
+			ubID->aiData.bNextAction = AI_ACTION;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->aiData.bNextAction = AI_ACTION;
-		
 	return 0;
 }
 
 static int l_SetSoldierBodyType (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,Anim = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) Anim = lua_tointeger(L,i);
+		SoldierID ubID;
+		UINT8 Anim = 0;
+
+		ubID = lua_tointeger( L, 1 );
+		Anim = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
+			ubID->ubBodyType = Anim;
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		MercPtrs[ ubID ]->ubBodyType = 	Anim;
-			
 	return 0;
 }
 
 static int l_GetSoldierBodyType (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,Anim = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID;
+		UINT8 Anim = 0;
+
+		ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
+			Anim = ubID->ubBodyType;
+
+		lua_pushinteger( L, Anim );
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-		Anim = MercPtrs[ ubID ]->ubBodyType;
-		
-		lua_pushinteger(L, Anim);
-			
 	return 1;
 }
 
 static int l_CheckSoldierBodyType (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,Anim = 0;
-	BOOLEAN Bool = FALSE, Bool2 = FALSE;
+	if ( lua_gettop( L ) >= 2 )
+	{
+		SoldierID ubID;
+		UINT8 Anim = 0;
 
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) Anim = lua_tointeger(L,i);
-	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		if ( MercPtrs[ ubID ]->ubBodyType == Anim )
-			Bool2 = TRUE;
+		ubID = lua_tointeger( L, 1 );
+		Anim = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive && ubID->ubBodyType == Anim )
+		{
+			lua_pushboolean( L, true );
+		}
 		else
-			Bool2 = FALSE;
+		{
+			lua_pushboolean( L, false );
+		}
 	}
-	
-	lua_pushboolean(L, Bool2);
-			
 	return 1;
 }
 
 static int l_IS_CIV_BODY_TYPE (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0;
-	BOOLEAN Bool = FALSE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive && IS_CIV_BODY_TYPE( ubID ) )
+			lua_pushboolean( L, true );
+		else
+			lua_pushboolean( L, false );
 	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive && IS_CIV_BODY_TYPE (MercPtrs[ ubID ]) == TRUE )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-				
-	lua_pushboolean(L, Bool);
-		
 	return 1;
 }
 
 static int l_SetOffBombsInGridNo (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 ubID = 0;
-	INT32 sGridNo = 0;
-	BOOLEAN fAllBombs = FALSE;
-	INT8 bLevel = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 4 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) sGridNo = lua_tointeger(L,i);
-		if (i == 3 ) fAllBombs = lua_toboolean(L,i);
-		if (i == 4 ) bLevel = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT32 sGridNo = lua_tointeger( L, 2 );
+		BOOLEAN fAllBombs = lua_toboolean( L, 3 );
+		INT8 bLevel = lua_tointeger( L, 4 );
+
+		SetOffBombsInGridNo( ubID, sGridNo, fAllBombs, bLevel );
 	}
-	
-	SetOffBombsInGridNo( ubID, sGridNo, fAllBombs,bLevel );
 	return 0;
 }
 
 
 static int l_AnimMercPtsrSoldierGotHit (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0;
-	BOOLEAN Bool = FALSE;
+	if ( lua_gettop( L ) >= 1 )
+	{
+		SoldierID ubID = lua_tointeger( L, 1 );
 
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		//if (i == 2 ) Anim = lua_tointeger(L,i);
-	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		if ( MercPtrs[ ubID ]->stats.bLife >= 0 ) 
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			MercPtrs[ ubID ]->EVENT_SoldierGotHit( 1, 100, 10, MercPtrs[ ubID ]->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
+			if ( ubID->stats.bLife >= 0 )
+			{
+				ubID->EVENT_SoldierGotHit( 1, 100, 10, ubID->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
+			}
 		}
 	}
-
 	return 0;
 }
 
-static int l_CheckMercPtsrubIDSeenubID2 (lua_State *L)
+static int l_CheckMercPtsrubIDSeenubID2( lua_State *L )
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT32 ubID = 0,ubID2 = 0;
-	UINT16 seen = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) ubID2 = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		SoldierID ubID2 = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID2 != NOBODY )
+		{
+			INT8 seen = ubID->aiData.bOppList[ubID2];
+			lua_pushinteger( L, seen );
+		}
 	}
-	
-	seen = MercPtrs[ ubID ]->aiData.bOppList[ ubID2 ];
-	
-	lua_pushinteger(L, seen);
-	
 	return 1;
 }
 
 static int l_CheckMercPtrsInCivilianGroup (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 group = 0;
-	UINT32 ubID = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
+		SoldierID ubID = lua_tointeger( L, 1 );
+
+		if ( ubID != NOBODY )
+		{
+			UINT8 group = ubID->ubCivilianGroup;
+			lua_pushinteger( L, group );
+		}
 	}
-	
-	group = MercPtrs[ ubID ]->ubCivilianGroup;
-	
-	lua_pushinteger(L, group);
 	return 1;
 }
 
@@ -9739,7 +9491,8 @@ static int l_FindSoldierByProfileID (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
 	int i = 0;
-	UINT8 ubTargetNPC = 0,ubLoop = 0,ubLoopLimit = 0;
+	UINT8 ubTargetNPC = 0;
+	UINT16 ubLoop = 0, ubLoopLimit = 0;
 	SOLDIERTYPE *pSoldier;
 	UINT8 id = -1;
 
@@ -9768,7 +9521,8 @@ static int l_FindSoldierByProfileIDBool (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
 	int i = 0;
-	UINT8 ubTargetNPC = 0,ubLoop = 0,ubLoopLimit = 0;
+	UINT8 ubTargetNPC = 0;
+	UINT16 ubLoop = 0, ubLoopLimit = 0;
 	SOLDIERTYPE *pSoldier;
 	UINT8 id = -1;
 	BOOLEAN ProfBool = FALSE;
@@ -11446,7 +11200,7 @@ static int l_SetMoneyInSoldierProfile(lua_State *L)
 
 static int l_AddToShouldBecomeHostileOrSayQuoteList(lua_State *L)
 {
-	UINT8 ubID = 0;
+	UINT16 ubID = 0;
 	UINT8 n = lua_gettop(L);
 	int i = 0;
 
@@ -12045,7 +11799,7 @@ static int l_VisibleTown (lua_State *L)
 static int l_HireMerc(lua_State *L)
 {
 	MERC_HIRE_STRUCT HireMercStruct;
-	INT16	sSoldierID = 0;
+	SoldierID	sSoldierID = NOBODY;
 	INT16	iTotalContract = 7;
 	UINT32  iTimeTillMercArrives = 0;
 	UINT8 n = lua_gettop(L);
@@ -12082,8 +11836,8 @@ static int l_HireMerc(lua_State *L)
 		if (!HireMerc(&HireMercStruct))
 		{
 			sSoldierID = GetSoldierIDFromMercID(ubCurrentSoldier);
-			if (sSoldierID > -1)
-				Menptr[sSoldierID].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
+			if (sSoldierID != NOBODY)
+				sSoldierID->bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
 
 			gMercProfiles[ubCurrentSoldier].bMercStatus = MERC_OK;
 
@@ -12381,286 +12135,126 @@ return 0;
 
 static int l_SetMercPtsrSectorZ(lua_State *L)
 {
-
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT8 SectorZ;
-
 	if ( lua_gettop(L) >= 2 )
 	{
-		ubID = lua_tointeger(L,1);
-		SectorZ = lua_tointeger(L,2);
+		SoldierID ubID = lua_tointeger(L,1);
+		INT8 SectorZ = lua_tointeger(L,2);
 	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive)
 		{
-			pSoldier->bSectorZ = SectorZ;
+			ubID->bSectorZ = SectorZ;
 		}
 	}
-	
-	}
-
 	return 0;
 }
 
 static int l_SetMercPtsrSectorX(lua_State *L)
 {
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT16 SectorX;
+	if ( lua_gettop( L ) >= 2 )
+	{
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT16 SectorX = lua_tointeger( L, 2 );
 
-	if ( lua_gettop(L) >= 2 )
-	{
-		ubID = lua_tointeger(L,1);
-		SectorX = lua_tointeger(L,2);
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			pSoldier->sSectorX = SectorX;
+			ubID->sSectorX = SectorX;
 		}
 	}
-	
-	}
-
 	return 0;
 }
 
 static int l_SetMercPtsrSectorY(lua_State *L)
 {
-
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT16 SectorY;
-
-	if ( lua_gettop(L) >= 2 )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		ubID = lua_tointeger(L,1);
-		SectorY = lua_tointeger(L,2);
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT16 SectorY = lua_tointeger( L, 2 );
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			pSoldier->sSectorY = SectorY;
+			ubID->sSectorY = SectorY;
 		}
 	}
-	
-	}
-
 	return 0;
 }
 
 static int l_SetMercPtsrubGroupID(lua_State *L)
 {
-
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT8 GroupID;
-
-	if ( lua_gettop(L) >= 2 )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		ubID = lua_tointeger(L,1);
-		GroupID = lua_tointeger(L,2);
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
-		{
-			pSoldier->ubGroupID = GroupID;
-		}
-	}
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT8 GroupID = lua_tointeger( L, 2 );
 
-	
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
+			ubID->ubGroupID = GroupID;
 	}
 	return 0;
 }
 
 static int l_CheckMercPtsrSectorY(lua_State *L)
 {
-
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT16 SectorY;
-
-	if ( lua_gettop(L) >= 1 )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		ubID = lua_tointeger(L,1);
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
-		{
-			SectorY = pSoldier->sSectorY;
-		}
-	}
-	else
-	{	
-		SectorY = 0;
-	}
-	
-	lua_pushinteger(L, SectorY);
-	
-	}
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT16 SectorY = 0;
 
+
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
+			SectorY = ubID->sSectorY;
+
+		lua_pushinteger( L, SectorY );
+	}
 	return 1;
 }
 
 static int l_CheckMercPtsrSectorX(lua_State *L)
 {
-
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT16 SectorX;
-
-	if ( lua_gettop(L) >= 1 )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		ubID = lua_tointeger(L,1);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT16 SectorX = 0;
 
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			SectorX = pSoldier->sSectorX;
+			SectorX = ubID->sSectorX;
 		}
-	}
-	else
-	{	
-		SectorX = 0;
-	}
-	
-	lua_pushinteger(L, SectorX);
-	
-	}	
 
+		lua_pushinteger( L, SectorX );
+	}
 	return 1;
 }
 
-static int l_CheckMercPtsrSectorZ(lua_State *L)
+static int l_CheckMercPtsrSectorZ( lua_State *L )
 {
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	INT16 SectorZ;
-
-	if ( lua_gettop(L) >= 1 )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		ubID = lua_tointeger(L,1);
+		SoldierID ubID = lua_tointeger( L, 1 );
+		INT8 SectorZ = 0;
 
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
 		{
-			SectorZ = pSoldier->bSectorZ;
+			SectorZ = ubID->bSectorZ;
 		}
-	}
-	else
-	{	
-		SectorZ = 0;
-	}
-	
-	lua_pushinteger(L, SectorZ);
 
+		lua_pushinteger( L, SectorZ );
 	}
-
 	return 1;
 }
 
 static int l_CheckMercPtsrubGroupID(lua_State *L)
 {
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
-	UINT8 GroupID;
-
-	if ( lua_gettop(L) >= 1 )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		ubID = lua_tointeger(L,1);
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
-		{
-			GroupID = pSoldier->ubGroupID;
-		}
-		else
-		{
-			GroupID = NUMBER_OF_SQUADS;
-		}
-	}
-	else
-		GroupID = NUMBER_OF_SQUADS;
-	
-	lua_pushinteger(L, GroupID);
-	
-	}
+		SoldierID ubID = lua_tointeger( L, 1 );
+		UINT8 GroupID = NUMBER_OF_SQUADS;
 
+		if ( ubID != NOBODY && ubID->bInSector && ubID->bActive )
+		{
+			GroupID = ubID->ubGroupID;
+		}
+
+		lua_pushinteger( L, GroupID );
+	}
 	return 1;
 }
 
@@ -13221,7 +12815,7 @@ static int l_DoInteractiveActionDefaultResult( lua_State *L )
 	if ( lua_gettop( L ) >= 3 )
 	{
 		INT32 sGridNo = lua_tointeger( L, 1 );
-		UINT8 ubID = lua_tointeger( L, 2 );
+		UINT16 ubID = lua_tointeger( L, 2 );
 		BOOLEAN success = lua_tointeger( L, 3 );
 
 		DoInteractiveActionDefaultResult( sGridNo, ubID, success );
@@ -13234,7 +12828,7 @@ static int l_GiveExp( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 3 )
 	{
-		UINT8 ubID = lua_tointeger( L, 1 );
+		UINT16 ubID = lua_tointeger( L, 1 );
 		UINT8 ubStat = lua_tointeger( L, 2 );
 		UINT16 usNumChances = lua_tointeger( L, 3 );
 
@@ -13327,7 +12921,7 @@ static int l_SoldierSpendMoney( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 2 )
 	{
-		UINT8 usId = lua_tointeger( L, 1 );
+		UINT16 usId = lua_tointeger( L, 1 );
 		UINT32 amount = lua_tointeger( L, 2 );
 
 		lua_pushinteger( L, SpendMoney( MercPtrs[usId], amount ) );
@@ -13566,7 +13160,7 @@ static int l_SetPhotoFactLaptopData( lua_State *L )
 	return 0;
 }
 
-extern UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+extern UINT16 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 static int l_GetNumHostilesInSector( lua_State *L )
 {

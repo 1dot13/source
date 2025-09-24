@@ -32,7 +32,7 @@
 //TACTICAL OVERHEAD STUFF
 //#define			NO_SOLDIER			TOTAL_SOLDIERS // SAME AS NOBODY
 //#define			NOBODY				NO_SOLDIER
-#define				NOBODY				TOTAL_SOLDIERS
+//#define				NOBODY				TOTAL_SOLDIERS
 
 
 
@@ -277,31 +277,32 @@ const int startingZ = 0;
 
 // ENUMERATION OF SOLDIER POSIITONS IN GLOBAL SOLDIER LIST
 // WDS - make number of mercenaries, etc. be configurable
-#define CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS 32
-extern UINT8	giMAXIMUM_NUMBER_OF_PLAYER_MERCS;
+#define CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS 254
+extern UINT16	giMAXIMUM_NUMBER_OF_PLAYER_MERCS;
 #define CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES 6
-extern UINT8	giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
+extern UINT16	giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
 #define CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES
-extern UINT8	giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-#define CODE_MAXIMUM_NUMBER_OF_ENEMIES 64
-extern UINT8	giMAXIMUM_NUMBER_OF_ENEMIES;
-#define CODE_MAXIMUM_NUMBER_OF_CREATURES 40
-extern UINT8	giMAXIMUM_NUMBER_OF_CREATURES;
-#define CODE_MAXIMUM_NUMBER_OF_REBELS 64
-extern UINT8	giMAXIMUM_NUMBER_OF_REBELS;
-#define CODE_MAXIMUM_NUMBER_OF_CIVS 40
-extern UINT8	giMAXIMUM_NUMBER_OF_CIVS;
+extern UINT16	giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+#define CODE_MAXIMUM_NUMBER_OF_ENEMIES 256
+extern UINT16	giMAXIMUM_NUMBER_OF_ENEMIES;
+#define CODE_MAXIMUM_NUMBER_OF_CREATURES 256
+extern UINT16	giMAXIMUM_NUMBER_OF_CREATURES;
+#define CODE_MAXIMUM_NUMBER_OF_REBELS 256
+extern UINT16	giMAXIMUM_NUMBER_OF_REBELS;
+#define CODE_MAXIMUM_NUMBER_OF_CIVS 256
+extern UINT16	giMAXIMUM_NUMBER_OF_CIVS;
 
 // The following should be the largest from the above set of constants.
 //   Note: Is there any way to compute this via the preprocessor?
-#define LARGEST_NUMBER_IN_ANY_GROUP 64
+#define LARGEST_NUMBER_IN_ANY_GROUP 260
 
 #define	MAX_NUM_SOLDIERS		(CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES+CODE_MAXIMUM_NUMBER_OF_CREATURES+CODE_MAXIMUM_NUMBER_OF_REBELS+CODE_MAXIMUM_NUMBER_OF_CIVS)
 #define	NUM_PLANNING_MERCS	8
-#define	TOTAL_SOLDIERS			( NUM_PLANNING_MERCS + MAX_NUM_SOLDIERS )
+//#define	TOTAL_SOLDIERS			( NUM_PLANNING_MERCS + MAX_NUM_SOLDIERS )
+#define	TOTAL_SOLDIERS			(MAX_NUM_SOLDIERS )
 
 // If there are more than (one less the size of the field used to store IDs (currently a char)) then fail
-#if TOTAL_SOLDIERS > 254
+#if TOTAL_SOLDIERS > 2048
 #error Too many!
 #endif
 #if CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS > LARGEST_NUMBER_IN_ANY_GROUP
@@ -360,7 +361,7 @@ typedef CHAR8 PaletteRepID[ 30 ];
 typedef struct 
 {
 	UINT8					ubType;
-	PaletteRepID	ID;
+	PaletteRepID				ID;
 	UINT8					ubPaletteSize;
 	UINT8					*r;
 	UINT8					*g;
@@ -374,4 +375,116 @@ typedef struct
 																						// strcmp returns 0 if true!		
 #define	 COMPARE_PALETTEREP_ID( a, b )		( strcmp( a, b ) ? FALSE : TRUE )
 
+
+struct SOLDIERTYPE;
+extern SOLDIERTYPE *MercPtrs[TOTAL_SOLDIERS];
+
+typedef struct SoldierID
+{
+	UINT16 i;
+
+	// Implicit conversion and constructor to provide compatibility with unchanged code
+	// TODO: Remove once SoldierID is used everywhere and these are no longer needed
+	inline operator UINT16() const { return i; }
+
+	constexpr SoldierID(const UINT16 val = TOTAL_SOLDIERS) : i(val)
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS )
+			i = TOTAL_SOLDIERS;
+	}
+	constexpr SoldierID( const UINT32 val ) : i( val )
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS )
+			i = TOTAL_SOLDIERS;
+	}
+	constexpr SoldierID( const INT32 val ) : i( val )
+	{
+		// Limit the maximum value to TOTAL_SOLDIERS. Anything beyond that is invalid
+		if ( i > TOTAL_SOLDIERS || i < 0)
+			i = TOTAL_SOLDIERS;
+	}
+
+	// No conversions from 8-bit integers!
+	SoldierID( const UINT8 ) = delete;
+	SoldierID( const INT8 ) = delete;
+
+	
+	SOLDIERTYPE* operator->() { return MercPtrs[i]; }
+	const SOLDIERTYPE* operator->() const { return MercPtrs[i]; }
+	inline operator SOLDIERTYPE* () { return MercPtrs[i]; }
+	inline operator const SOLDIERTYPE*() const { return MercPtrs[i]; }
+	inline SoldierID &operator++()
+	{
+		i++;
+		return *this;
+	}
+	inline SoldierID &operator--()
+	{
+		i--;
+		return *this;
+	}
+} SoldierID;
+
+inline bool operator==(const SoldierID lhs, const SoldierID rhs) { return lhs.i == rhs.i; }
+inline bool operator==(const SoldierID lhs, const int rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const UINT32 rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const UINT16 rhs) { return lhs.i == rhs; }
+inline bool operator==(const SoldierID lhs, const INT16 rhs) { return lhs.i == rhs; }
+inline bool operator==(const int lhs, const SoldierID rhs) { return lhs == rhs.i; }
+inline bool operator==(const UINT16 lhs, const SoldierID rhs) { return lhs == rhs.i; }
+inline bool operator==(const INT16 lhs, const SoldierID rhs) { return lhs == rhs.i; }
+
+inline bool operator!=(const SoldierID lhs, const SoldierID rhs) { return lhs.i != rhs.i; }
+inline bool operator!=(const SoldierID lhs, const UINT32 rhs) { return lhs.i != rhs; }
+inline bool operator!=(const SoldierID lhs, const UINT16 rhs) { return lhs.i != rhs; }
+inline bool operator!=(const int lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const UINT32 lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const UINT16 lhs, const SoldierID rhs) { return lhs != rhs.i; }
+inline bool operator!=(const INT16 lhs, const SoldierID rhs) { return lhs != rhs.i; }
+
+inline bool operator<(const SoldierID lhs, const SoldierID rhs) { return lhs.i < rhs.i; }
+inline bool operator<(const SoldierID lhs, const int rhs) { return lhs.i < rhs; }
+inline bool operator<(const SoldierID lhs, UINT16 rhs) { return lhs.i < rhs; }
+inline bool operator<(const int lhs, const SoldierID rhs) { return lhs < rhs.i; }
+inline bool operator<(const unsigned int lhs, const SoldierID rhs) { return lhs < rhs.i; }
+inline bool operator<(const UINT16 lhs, const SoldierID rhs) { return lhs < rhs.i; }
+
+inline bool operator>(const SoldierID lhs, const SoldierID rhs) { return lhs.i > rhs.i; }
+inline bool operator>(const SoldierID lhs, const int rhs) { return lhs.i > rhs; }
+inline bool operator>(const int lhs, const SoldierID rhs) { return lhs > rhs.i; }
+inline bool operator>(const UINT16 lhs, const SoldierID rhs) { return lhs > rhs.i; }
+
+inline bool operator<=(const SoldierID lhs, const SoldierID rhs) { return lhs.i <= rhs.i; }
+inline bool operator<=(const SoldierID lhs, const int rhs) { return lhs.i <= rhs; }
+inline bool operator<=(const SoldierID lhs, const UINT16 rhs) { return lhs.i <= rhs; }
+inline bool operator<=(const int lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const UINT32 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const UINT16 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+inline bool operator<=(const INT16 lhs, const SoldierID rhs) { return lhs <= rhs.i; }
+
+inline bool operator>=(const SoldierID lhs, const SoldierID rhs) { return lhs.i >= rhs.i; }
+inline bool operator>=(const SoldierID lhs, const int rhs) { return lhs.i >= rhs; }
+inline bool operator>=(const SoldierID lhs, const UINT16 rhs) { return lhs.i >= rhs; }
+inline bool operator>=(const int lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+inline bool operator>=(const unsigned int lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+inline bool operator>=(const UINT16 lhs, const SoldierID rhs) { return lhs >= rhs.i; }
+
+inline SoldierID operator-(const SoldierID lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs.i) }; }
+inline SoldierID operator-(const SoldierID lhs, const int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const SoldierID lhs, const unsigned int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const SoldierID lhs, const UINT16 rhs) { return SoldierID{ static_cast<UINT16>(lhs.i - rhs) }; }
+inline SoldierID operator-(const int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs - rhs.i) }; }
+inline SoldierID operator-(const unsigned int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs - rhs.i) }; }
+
+inline SoldierID operator+(const SoldierID lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs.i) }; }
+inline SoldierID operator+(const SoldierID lhs, const int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const SoldierID lhs, const unsigned int rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const SoldierID lhs, const UINT16 rhs) { return SoldierID{ static_cast<UINT16>(lhs.i + rhs) }; }
+inline SoldierID operator+(const unsigned int lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
+inline SoldierID operator+(const INT16 lhs, const SoldierID rhs) { return SoldierID{ static_cast<UINT16>(lhs + rhs.i) }; }
+
+
+inline constexpr SoldierID NOBODY{ TOTAL_SOLDIERS };
 #endif

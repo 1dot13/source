@@ -19,7 +19,7 @@ extern "C" {
 #include "connect.h"
 
 // externals
-UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
 extern BOOLEAN gfGettingNameFromSaveLoadScreen;
 
 // helper functions
@@ -43,6 +43,21 @@ bool LuaTable::getValue<UINT8>(const char * index, UINT8& value)
 	if (b)
 	{
 		value = static_cast<UINT8>(dummy);
+		return true;
+	}
+
+	return false;
+}
+
+template <>
+bool LuaTable::getValue<UINT16>(const char* index, UINT16& value)
+{
+	int dummy;
+
+	bool b = getValue(index, dummy);
+	if (b)
+	{
+		value = static_cast<UINT16>(dummy);
 		return true;
 	}
 

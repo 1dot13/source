@@ -52,10 +52,10 @@ extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTION
 extern ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 extern BOOLEAN gfTownUsesLoyalty[MAX_TOWNS];
 
-std::map<UINT8, std::map<int, UINT8>> transportGroupIdToSoldierMap;
+std::map<UINT8, std::map<int, UINT16>> transportGroupIdToSoldierMap;
 std::map<UINT8, TransportGroupSectorInfo> transportGroupSectorInfo;
 
-void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& jeeps, UINT8& tanks, UINT8& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase);
+void PopulateTransportGroup(UINT16& admins, UINT16& troops, UINT16& elites, UINT16& jeeps, UINT16& tanks, UINT16& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase);
 
 BOOLEAN DeployTransportGroup()
 {
@@ -128,7 +128,7 @@ BOOLEAN DeployTransportGroup()
 
 	TRANSPORT_GROUP_DEBUG(L"DeployTransportGroup sending group to sectorId: %d (%d/%d)", ubSectorID, SECTORX(ubSectorID), SECTORY(ubSectorID));
 
-	UINT8 admins, troops, elites, robots, jeeps, tanks;
+	UINT16 admins, troops, elites, robots, jeeps, tanks;
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
 	PopulateTransportGroup(admins, troops, elites, jeeps, tanks, robots, progress, difficulty, mineSectorIds.size() == 1);
 
@@ -152,7 +152,7 @@ BOOLEAN DeployTransportGroup()
 
 BOOLEAN ForceDeployTransportGroup(UINT8 sectorId)
 {
-	UINT8 admins, troops, elites, robots, jeeps, tanks;
+	UINT16 admins, troops, elites, robots, jeeps, tanks;
 	const INT8 recentLossCount = min(5, GetAllStrategicEventsOfType(EVENT_TRANSPORT_GROUP_DEFEATED).size());
 	const UINT8 progress = min(125, HighestPlayerProgressPercentage() + recentLossCount * 5);
 	const UINT8 difficulty = gGameOptions.ubDifficultyLevel;
@@ -222,29 +222,31 @@ void FillMapColoursForTransportGroups(INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINAT
 	// build map of detection sectors + ranges
 	std::map<std::pair<INT16,INT16>, INT8> detectionMap;
 	std::map<UINT8, MonitoredSectorState> monitoredTowns;
-	for( INT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		if( MercPtrs[ i ]->bActive &&
-			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
-			(MercPtrs[ i ]->bAssignment < ON_DUTY || MercPtrs[ i ]->bAssignment == GATHERINTEL) &&
-			!MercPtrs[ i ]->flags.fMercAsleep)
+		SOLDIERTYPE *pSoldier = i;
+
+		if( pSoldier->bActive &&
+			pSoldier->stats.bLife >= OKLIFE &&
+			(pSoldier->bAssignment < ON_DUTY || pSoldier->bAssignment == GATHERINTEL) &&
+			!pSoldier->flags.fMercAsleep)
 		{
 			if (gGameOptions.fNewTraitSystem)
 			{
-				if (HAS_SKILL_TRAIT(MercPtrs[i], SCOUTING_NT))
+				if (HAS_SKILL_TRAIT(pSoldier, SCOUTING_NT))
 				{
-					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_SCOUT;
+					detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_SCOUT;
 				}
-				else if (HAS_SKILL_TRAIT(MercPtrs[i], RADIO_OPERATOR_NT) && MercPtrs[i]->CanUseRadio(FALSE))
+				else if (HAS_SKILL_TRAIT(pSoldier, RADIO_OPERATOR_NT) && pSoldier->CanUseRadio(FALSE))
 				{
-					detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_RADIO;
+					detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_RADIO;
 				}
-				else if (HAS_SKILL_TRAIT(MercPtrs[i], COVERT_NT))
+				else if (HAS_SKILL_TRAIT(pSoldier, COVERT_NT))
 				{
-					if (MercPtrs[i]->bAssignment == GATHERINTEL)
+					if (pSoldier->bAssignment == GATHERINTEL)
 					{
-						detectionMap[std::pair<INT16,INT16>(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = DETECTION_RANGE_COVERT;
-						monitoredTowns[GetTownIdForSector(MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY)] = MonitoredSectorState::Monitored;
+						detectionMap[std::pair<INT16,INT16>(pSoldier->sSectorX, pSoldier->sSectorY)] = DETECTION_RANGE_COVERT;
+						monitoredTowns[GetTownIdForSector(pSoldier->sSectorX, pSoldier->sSectorY)] = MonitoredSectorState::Monitored;
 					}
 				}
 			}
@@ -446,8 +448,8 @@ void UpdateTransportGroupInventory()
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 		return;
 
-	const int firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-	const int lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+	const SoldierID firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	const SoldierID lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
 	const UINT8 progress = CurrentPlayerProgressPercentage();
 
 	enum ItemTypes
@@ -479,13 +481,14 @@ void UpdateTransportGroupInventory()
 	{
 		// let's be nice to the player and only drop ammo for guns their mercs have in inventory
 		std::set<UINT8> playerCalibres;
-		for (INT16 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; i++)
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			if (MercPtrs[i]->bActive && !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_VEHICLE))
+			SOLDIERTYPE *pSoldier = i;
+			if (pSoldier->bActive && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 			{
-				for (int j = 0 ; j < MercPtrs[i]->inv.size(); ++j)
+				for (int j = 0 ; j < pSoldier->inv.size(); ++j)
 				{
-					OBJECTTYPE& obj = MercPtrs[i]->inv[j];
+					OBJECTTYPE& obj = pSoldier->inv[j];
 					if (obj.exists()
 					&& Item[obj.usItem].usItemClass == IC_GUN)
 					{
@@ -599,11 +602,11 @@ void UpdateTransportGroupInventory()
 
 	// cache the initial jeep count of every group we find
 	std::map<UINT8, int> cachedGroupJeepCount;
-	for (int slot = firstSlot; (slot <= lastSlot); ++slot)
+	for ( SoldierID slot = firstSlot; (slot <= lastSlot); ++slot)
 	{
-		SOLDIERTYPE* pSoldier = &Menptr[slot];
+		SOLDIERTYPE* pSoldier = slot;
 
-		const std::map<UINT8, std::map<int, UINT8>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
+		const std::map<UINT8, std::map<int, UINT16>>::iterator groupIter = transportGroupIdToSoldierMap.find(pSoldier->ubGroupID);
 		if (groupIter != transportGroupIdToSoldierMap.end())
 		{
 			// let's find out if this group is coming home or still outgoing to its target destination
@@ -620,7 +623,7 @@ void UpdateTransportGroupInventory()
 			}
 
 			// found a matching transport groupid
-			std::map<int, UINT8>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
+			std::map<int, UINT16>::iterator soldierClassIter = groupIter->second.find(SOLDIER_CLASS_JEEP);
 			if (cachedGroupJeepCount.find(groupIter->first) == cachedGroupJeepCount.end())
 			{
 				cachedGroupJeepCount[groupIter->first] = soldierClassIter == groupIter->second.end() ? 0 : groupIter->second[SOLDIER_CLASS_JEEP];
@@ -874,7 +877,7 @@ void UpdateTransportGroupInventory()
 	}
 }
 
-void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount)
+void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT16 amount)
 {
 	if (gGameExternalOptions.fStrategicTransportGroupsEnabled == FALSE)
 	{
@@ -913,7 +916,7 @@ void NotifyTransportGroupDefeated()
 	AddStrategicEvent(EVENT_TRANSPORT_GROUP_DEFEATED, GetWorldTotalMin() + 60 * hoursToRememberDefeat, 0);
 }
 
-void PopulateTransportGroup(UINT8& admins, UINT8& troops, UINT8& elites, UINT8& jeeps, UINT8& tanks, UINT8& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase)
+void PopulateTransportGroup(UINT16& admins, UINT16& troops, UINT16& elites, UINT16& jeeps, UINT16& tanks, UINT16& robots, UINT8 progress, int difficulty, BOOLEAN trySpecialCase)
 {
 	admins = troops = elites = robots = jeeps = tanks = 0;
 

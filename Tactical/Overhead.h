@@ -23,12 +23,12 @@ enum
 // TACTICAL ENGINE STATUS FLAGS
 typedef struct
 {
-    UINT8           bFirstID;
-    UINT8           bLastID;
+    SoldierID   bFirstID;
+    SoldierID   bLastID;
     COLORVAL    RadarColor;
     INT8        bSide;
-    INT8            bMenInSector;
-    UINT8           ubLastMercToRadio;
+    INT16       bMenInSector;
+    SoldierID   ubLastMercToRadio;
     INT8        bTeamActive;
     INT8        bAwareOfOpposition;
     INT8        bHuman;
@@ -60,109 +60,108 @@ enum
 
 struct TacticalStatusType
 {
-    UINT32                          uiFlags;
+    UINT32                  uiFlags;
     TacticalTeamType        Team[ MAXTEAMS ];
-    UINT8                               ubCurrentTeam;
-    INT32                               sSlideTarget;
-    INT16                               sSlideReason;
-    UINT32                          uiTimeSinceMercAIStart;
-    INT8                                fPanicFlags;
-    INT32                               sPanicTriggerGridNoUnused;
-    INT16                               sHandGrid;
-    UINT8                               ubSpottersCalledForBy;
-    UINT8                               ubTheChosenOne;
-    UINT32                          uiTimeOfLastInput;
-    UINT32                          uiTimeSinceDemoOn;
-    UINT32                          uiCountdownToRestart;
-    BOOLEAN                         fGoingToEnterDemo;
-    BOOLEAN                         fNOTDOLASTDEMO;
-    BOOLEAN                         fMultiplayer;
-    BOOLEAN                         fCivGroupHostile[ NUM_CIV_GROUPS ];
-    UINT8                               ubLastBattleSectorX;                    
-    UINT8                               ubLastBattleSectorY;
-    BOOLEAN                         fLastBattleWon;
-    INT8                                bOriginalSizeOfEnemyForce;
-    INT8                                bPanicTriggerIsAlarmUnused;
-    BOOLEAN                         fVirginSector;
-    BOOLEAN                         fEnemyInSector;
-    BOOLEAN                         fInterruptOccurred;
-    INT8                                bRealtimeSpeed;
-    UINT8                               ubEnemyIntention;
-    UINT8                               ubEnemyIntendedRetreatDirection;
-    UINT8                               ubEnemySightingOnTheirTurnEnemyID;
-    UINT8                               ubEnemySightingOnTheirTurnPlayerID;
-    BOOLEAN                         fEnemySightingOnTheirTurn;
-    BOOLEAN                         fAutoBandageMode;
-    UINT8                               ubAttackBusyCount;
-    INT8                                bNumEnemiesFoughtInBattleUnused;
-    UINT8                               ubEngagedInConvFromActionMercID;
-    UINT16                          usTactialTurnLimitCounter;
-    BOOLEAN                         fInTopMessage;
-    UINT8                               ubTopMessageType;
-    CHAR16                              zTopMessageString[20];
-    UINT16                          usTactialTurnLimitMax;
-    UINT32                          uiTactialTurnLimitClock;
-    BOOLEAN                         fTactialTurnLimitStartedBeep;
-    INT8                                bBoxingState;
-    INT8                                bConsNumTurnsNotSeen;
-    UINT8                               ubArmyGuysKilled;
+    UINT8                   ubCurrentTeam;
+    INT32                   sSlideTarget;
+    INT16                   sSlideReason_UNUSED;
+    UINT32                  uiTimeSinceMercAIStart;
+    INT8                    fPanicFlags;
+    INT32                   sPanicTriggerGridNoUnused;
+    INT16                   sHandGrid;
+    SoldierID               ubSpottersCalledForBy;
+    SoldierID               ubTheChosenOne;
+    UINT32                  uiTimeOfLastInput;
+    UINT32                  uiTimeSinceDemoOn;
+    UINT32                  uiCountdownToRestart;
+    BOOLEAN                 fGoingToEnterDemo;
+    BOOLEAN                 fNOTDOLASTDEMO;
+    BOOLEAN                 fMultiplayer;
+    BOOLEAN                 fCivGroupHostile[ NUM_CIV_GROUPS ];
+    UINT8                   ubLastBattleSectorX;                    
+    UINT8                   ubLastBattleSectorY;
+    BOOLEAN                 fLastBattleWon;
+    INT8                    bOriginalSizeOfEnemyForce;
+    INT8                    bPanicTriggerIsAlarmUnused;
+    BOOLEAN                 fVirginSector;
+    BOOLEAN                 fEnemyInSector;
+    BOOLEAN                 fInterruptOccurred;
+    INT8                    bRealtimeSpeed;
+    UINT8                   ubEnemyIntention;
+    UINT8                   ubEnemyIntendedRetreatDirection;
+    SoldierID               ubEnemySightingOnTheirTurnEnemyID;
+    SoldierID               ubEnemySightingOnTheirTurnPlayerID;
+    BOOLEAN                 fEnemySightingOnTheirTurn;
+    BOOLEAN                 fAutoBandageMode;
+    UINT8                   ubAttackBusyCount;
+    INT8                    bNumEnemiesFoughtInBattleUnused;
+    UINT16                  ubEngagedInConvFromActionMercID;
+    UINT16                  usTactialTurnLimitCounter;
+    BOOLEAN                 fInTopMessage;
+    UINT8                   ubTopMessageType;
+    CHAR16                  zTopMessageString[20];
+    UINT16                  usTactialTurnLimitMax;
+    UINT32                  uiTactialTurnLimitClock;
+    BOOLEAN                 fTactialTurnLimitStartedBeep;
+    INT8                    bBoxingState;
+    INT8                    bConsNumTurnsNotSeen;
+    UINT8                   ubArmyGuysKilled;
 
-    INT32                               sPanicTriggerGridNo[ NUM_PANIC_TRIGGERS ];
-    INT8                                bPanicTriggerIsAlarm[ NUM_PANIC_TRIGGERS ];
-    UINT8                               ubPanicTolerance[ NUM_PANIC_TRIGGERS ];
-    BOOLEAN                         fAtLeastOneGuyOnMultiSelect;
-    BOOLEAN                         fSaidCreatureFlavourQuote;
-    BOOLEAN                         fHaveSeenCreature;
-    BOOLEAN                         fKilledEnemyOnAttack;
-    UINT8                               ubEnemyKilledOnAttack;
-    INT8                                bEnemyKilledOnAttackLevel;
-    UINT16                          ubEnemyKilledOnAttackLocation;
-    BOOLEAN                         fItemsSeenOnAttack;
-    BOOLEAN                         ubItemsSeenOnAttackSoldier;
-    BOOLEAN                         fBeenInCombatOnce;
-    BOOLEAN                         fSaidCreatureSmellQuote;
-    UINT32                          usItemsSeenOnAttackGridNo;
-    BOOLEAN                         fLockItemLocators;
-    UINT8                               ubLastQuoteSaid;
-    UINT8                               ubLastQuoteProfileNUm;
-    BOOLEAN                         fCantGetThrough;
-    INT32                               sCantGetThroughGridNo;
-    INT32                               sCantGetThroughSoldierGridNo;
-    UINT8                               ubCantGetThroughID;
-    BOOLEAN                         fDidGameJustStart;
-    BOOLEAN                         fStatChangeCheatOn;
-    UINT8                               ubLastRequesterTargetID;
-    BOOLEAN                         fGoodToAllowCrows;
-    UINT8                               ubNumCrowsPossible;
-    UINT32                          uiTimeCounterForGiveItemSrc;
-    BOOLEAN                         fUnLockUIAfterHiddenInterrupt;
-    INT8                                bNumFoughtInBattle[ MAXTEAMS ];
-    UINT32                          uiDecayBloodLastUpdate;
-    UINT32                          uiTimeSinceLastInTactical;
-    BOOLEAN                         fHasAGameBeenStarted;
-    INT8                                bConsNumTurnsWeHaventSeenButEnemyDoes;
-    BOOLEAN                             fSomeoneHit;
-    UINT8                               ubPaddingSmall;
-    UINT32                          uiTimeSinceLastOpplistDecay;
-    INT8                                bMercArrivingQuoteBeingUsed;
-    UINT8                               ubEnemyKilledOnAttackKiller;
-    BOOLEAN                         fCountingDownForGuideDescription;
-    INT8                                bGuideDescriptionCountDown;
-    UINT8                               ubGuideDescriptionToUse;
-    INT8                                bGuideDescriptionSectorX;
-    INT8                                bGuideDescriptionSectorY;
-    INT8                                fEnemyFlags;
-    BOOLEAN          fAutoBandagePending;
-    BOOLEAN          fHasEnteredCombatModeSinceEntering;
-    BOOLEAN          fDontAddNewCrows;
-    UINT8               ubMorePadding;
-    UINT16              sCreatureTenseQuoteDelay;
-    UINT32              uiCreatureTenseQuoteLastUpdate;
+    INT32                   sPanicTriggerGridNo[ NUM_PANIC_TRIGGERS ];
+    INT8                    bPanicTriggerIsAlarm[ NUM_PANIC_TRIGGERS ];
+    UINT8                   ubPanicTolerance[ NUM_PANIC_TRIGGERS ];
+    BOOLEAN                 fAtLeastOneGuyOnMultiSelect;
+    BOOLEAN                 fSaidCreatureFlavourQuote;
+    BOOLEAN                 fHaveSeenCreature;
+    BOOLEAN                 fKilledEnemyOnAttack;
+    UINT16                  ubEnemyKilledOnAttack;
+    INT8                    bEnemyKilledOnAttackLevel;
+    UINT16                  ubEnemyKilledOnAttackLocation;
+    BOOLEAN                 fItemsSeenOnAttack;
+    BOOLEAN                 ubItemsSeenOnAttackSoldier;
+    BOOLEAN                 fBeenInCombatOnce;
+    BOOLEAN                 fSaidCreatureSmellQuote;
+    UINT32                  usItemsSeenOnAttackGridNo;
+    BOOLEAN                 fLockItemLocators;
+    UINT8                   ubLastQuoteSaid;
+    UINT8                   ubLastQuoteProfileNUm;
+    BOOLEAN                 fCantGetThrough;
+    INT32                   sCantGetThroughGridNo;
+    INT32                   sCantGetThroughSoldierGridNo;
+    SoldierID               ubCantGetThroughID;
+    BOOLEAN                 fDidGameJustStart;
+    BOOLEAN                 fStatChangeCheatOn;
+    UINT8                   ubLastRequesterTargetID;
+    BOOLEAN                 fGoodToAllowCrows;
+    UINT8                   ubNumCrowsPossible;
+    UINT32                  uiTimeCounterForGiveItemSrc;
+    BOOLEAN                 fUnLockUIAfterHiddenInterrupt;
+    INT8                    bNumFoughtInBattle[ MAXTEAMS ];
+    UINT32                  uiDecayBloodLastUpdate;
+    UINT32                  uiTimeSinceLastInTactical;
+    BOOLEAN                 fHasAGameBeenStarted;
+    INT8                    bConsNumTurnsWeHaventSeenButEnemyDoes;
+    BOOLEAN                 fSomeoneHit;
+    UINT32                  uiTimeSinceLastOpplistDecay;
+    INT8                    bMercArrivingQuoteBeingUsed;
+    UINT16                  ubEnemyKilledOnAttackKiller;
+    BOOLEAN                 fCountingDownForGuideDescription;
+    INT8                    bGuideDescriptionCountDown;
+    UINT8                   ubGuideDescriptionToUse;
+    INT8                    bGuideDescriptionSectorX;
+    INT8                    bGuideDescriptionSectorY;
+    INT8                    fEnemyFlags;
+    BOOLEAN                 fAutoBandagePending;
+    BOOLEAN                 fHasEnteredCombatModeSinceEntering;
+    BOOLEAN                 fDontAddNewCrows;
+    UINT8                   ubMorePadding;
+    UINT16                  sCreatureTenseQuoteDelay;
+    UINT32                  uiCreatureTenseQuoteLastUpdate;
     // SANDRO - added these
-    UINT8                               ubLastRequesterSurgeryTargetID;
-    UINT8                               ubInterruptPending;
+    SoldierID               ubLastRequesterSurgeryTargetID;
+    UINT8                   ubInterruptPending;
 	// sevenfm: Ctrl+D disable interrupts
-	BOOLEAN								ubDisablePlayerInterrupts;
+	BOOLEAN					ubDisablePlayerInterrupts;
     // PADDING GONE!!!!!
 
 };
@@ -171,8 +170,7 @@ struct TacticalStatusType
 extern UINT8    gbPlayerNum;
 extern INT8     gbShowEnemies;
 
-extern UINT16   gusSelectedSoldier;
-extern UINT16   gusOldSelectedSoldier;
+extern SoldierID    gusSelectedSoldier;
 
 extern CHAR8    gzAlertStr[][ 30 ];
 extern CHAR8    gzActionStr[][ 30 ];
@@ -205,7 +203,7 @@ void ShutdownTacticalEngine( );
 
 BOOLEAN InitOverhead( );
 BOOLEAN ShutdownOverhead( );
-BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex );
+BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, SoldierID usSoldierIndex );
 
 UINT32 CountNonVehiclesOnPlayerTeam( );
 
@@ -226,25 +224,25 @@ void EndTurn( UINT8 ubNextTeam );
 void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode );
 void EndTacticalDemo( );
 
-void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect    );
+void SelectSoldier( SoldierID usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect    );
 
 //Kaiden: Function declaration from UB to reveal all items after combat.
 void RevealAllDroppedEnemyItems();
 
 void LocateGridNo( INT32 sGridNo );
-void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator);
+void LocateSoldier( SoldierID usID, BOOLEAN fSetLocator);
 
 void BeginTeamTurn( UINT8 ubTeam );
-void SlideTo(INT32 sGridNo, UINT16 usSoldierID , UINT16 usReasonID, BOOLEAN fSetLocator) ;
-void SlideToLocation( UINT16 usReasonID, INT32 sDestGridNo );
+void SlideTo(SoldierID usSoldierID, BOOLEAN fSetLocator) ;
+void SlideToLocation( INT32 sDestGridNo );
 
 void RebuildAllSoldierShadeTables( );
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier );
-UINT8 LastActiveTeamMember( UINT8 ubTeam );
+SoldierID LastActiveTeamMember( UINT16 ubTeam );
 BOOLEAN SoldierOnVisibleWorldTile( SOLDIERTYPE *pSoldier );
 
-UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
-UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
 
 BOOLEAN CheckForPlayerTeamInMissionExit( );
 void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldier );
@@ -261,7 +259,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 
 void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier );
 BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange);
-BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID );
+BOOLEAN IsValidTargetMerc( SoldierID ubSoldierID );
 
 // FUNCTIONS FOR MANIPULATING MERC SLOTS - A LIST OF ALL ACTIVE MERCS
 INT32 GetFreeMercSlot( );
@@ -323,7 +321,7 @@ BOOLEAN HostileBloodcatsPresent( );
 BOOLEAN HostileZombiesPresent( );
 BOOLEAN HostileCreaturesPresent();
 
-UINT8 NumPCsInSector( );
+UINT16 NumPCsInSector( );
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );
 void SetSoldierNeutral( SOLDIERTYPE * pSoldier );
 
@@ -334,10 +332,10 @@ void SetMsgBoxForPlayerBeNotifiedOfSomeoneElseInSector();
 void HandleDisplayingOfPlayerLostDialogue( );
 
 // UTILITY FUNCTIONS
-INT8    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
-UINT8 NumEnemyInSector( );
-UINT8 NumCapableEnemyInSector( );
-INT8    NumMercsOnPlayerTeam( );
+UINT16    NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
+UINT16 NumEnemyInSector( );
+UINT16 NumCapableEnemyInSector( );
+UINT16    NumMercsOnPlayerTeam( );
 #endif
 
 extern BOOLEAN sniperwarning;
@@ -351,10 +349,10 @@ extern BOOLEAN gogglewarning;
 // will a sam site under the players control shoot down an airraid?
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 // HEADROCK HAM 3.5: Externalized for First Arrival enemy check
-extern UINT8 NumEnemyInSector();
+extern UINT16 NumEnemyInSector();
 
 // Flugente
-extern UINT8 NumZombiesInSector();
+extern UINT16 NumZombiesInSector();
 
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );
@@ -371,7 +369,7 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);
 void TeamRestock(UINT8 bTeam);
 
 // are we allowed to steal access this guy's inventory?
-BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
+BOOLEAN AllowedToStealFromTeamMate( SoldierID ubID, SoldierID ubTargetID );
 
 // Flugente: is an soldier profile already used?
 BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
@@ -402,12 +400,11 @@ enum {
 };
 
 // Flugente: return number of enemy officers and highest rank found
-UINT8 HighestEnemyOfficersInSector(UINT8& aType);
+UINT16 HighestEnemyOfficersInSector(UINT8& aType);
 
 // count all soldiers in the current sector that have a specific flag set
 UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);
 UINT16 NumSoldiersofClassWithFlag2InSector( UINT8 aTeam, UINT8 aSoldierClass, UINT32 aFlag );
-INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag );
 
 // Flugente: VIP targets
 // can a new VIP be created?
@@ -434,5 +431,6 @@ BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
 
 BOOLEAN IsFreeSlotAvailable( int aTeam );
 void AttemptToCapturePlayerSoldiers();
+
 #endif
 

@@ -181,7 +181,7 @@ extern UI_EVENT gEvents[ NUM_UI_EVENTS ];
 extern UI_MODE		gCurrentUIMode;
 extern UI_MODE		gOldUIMode;
 extern UINT32		guiCurrentEvent;
-extern INT16		gsSelectedLevel;
+extern INT16			gsSelectedLevel;
 extern BOOLEAN		gfPlotNewMovement;
 extern UINT32		guiPendingOverrideEvent;
 
@@ -191,34 +191,33 @@ extern BOOLEAN		gfUIDisplayActionPoints;
 extern BOOLEAN		gfUIDisplayActionPointsInvalid;
 extern BOOLEAN		gfUIDisplayActionPointsBlack;
 extern BOOLEAN		gfUIDisplayActionPointsCenter;
-extern INT16		gUIDisplayActionPointsOffY;
-extern INT16		gUIDisplayActionPointsOffX;
+extern INT16			gUIDisplayActionPointsOffY;
+extern INT16			gUIDisplayActionPointsOffX;
 extern BOOLEAN		gfUIDoNotHighlightSelMerc;
 extern UINT32		guiShowUPDownArrows;
 extern BOOLEAN		gfUIHandleSelection;
 extern BOOLEAN		gfUIHandleSelectionAboveGuy;
-extern INT32		gsSelectedGridNo;
-extern INT16		gsSelectedGuy;
+extern INT32			gsSelectedGridNo;
+extern SoldierID		gsSelectedGuy;
 extern BOOLEAN		gfUIInDeadlock;
-extern UINT8		gUIDeadlockedSoldier;
 
 extern BOOLEAN		gfUIMouseOnValidCatcher;
-extern UINT8		gubUIValidCatcherID;
+extern SoldierID		gubUIValidCatcherID;
 extern BOOLEAN		gUIUseReverse;
 
 
 extern BOOLEAN		gfUIHandleShowMoveGrid;
-extern INT32		gsUIHandleShowMoveGridLocation;
+extern INT32			gsUIHandleShowMoveGridLocation;
 
 extern BOOLEAN		gfUIDisplayDamage;
 extern INT8			gbDamage;
-extern INT32		gsDamageGridNo;
+extern INT32			gsDamageGridNo;
 
 extern BOOLEAN		gfFontPopupDo;
 
 extern BOOLEAN		gUITargetReady;
 extern BOOLEAN		gUITargetShotWaiting;
-extern INT32		gsUITargetShotGridNo;
+extern INT32			gsUITargetShotGridNo;
 
 extern CHAR16		gzLocation[ 20 ];
 extern BOOLEAN		gfUIBodyHitLocation;
@@ -268,16 +267,16 @@ extern BOOLEAN		gfUIHandlePhysicsTrajectory;
 
 
 // GLOBALS FOR FAST LOOKUP FOR FINDING MERCS FROM THE MOUSE
-extern BOOLEAN	gfUISelectiveTargetFound;
-extern UINT16	gusUISelectiveTargetID;
-extern UINT32	guiUISelectiveTargetFlags;
+extern BOOLEAN	 gfUISelectiveTargetFound;
+extern SoldierID gusUISelectiveTargetID;
+extern UINT32	 guiUISelectiveTargetFlags;
 
-extern BOOLEAN	gfUIFullTargetFound;
-extern UINT16	gusUIFullTargetID;
-extern UINT32	guiUIFullTargetFlags;
+extern BOOLEAN	 gfUIFullTargetFound;
+extern SoldierID gusUIFullTargetID;
+extern UINT32	 guiUIFullTargetFlags;
 
 extern BOOLEAN	gfUIConfirmExitArrows;
-extern INT32	gsJumpOverGridNo;
+extern INT32		gsJumpOverGridNo;
 
 extern UINT32	HandleTacticalUI(void);
 extern UINT32	UIHandleEndTurn( UI_EVENT *pUIEvent );
@@ -292,9 +291,6 @@ void SetUIKeyboardHook( UIKEYBOARD_HOOK KeyboardHookFnc );
 void HandleObjectHighlighting( );
 
 extern BOOLEAN	gfUIForceReExamineCursorData;
-
-extern INT16	guiCreateGuyIndex;
-extern INT16	guiCreateBadGuyIndex;
 
 // WANNE: Calculate the APs to turn around
 INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT32 sAdjustedGridNo);
@@ -316,17 +312,16 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent );
 void QueryRTLeftButton( UINT32 *puiNewEvent );
 void QueryRTRightButton( UINT32 *puiNewEvent );
 
-void AdjustSoldierCreationStartValues( );
 
 BOOLEAN SelectedMercCanAffordAttack( );
 BOOLEAN SelectedMercCanAffordMove(	);
-void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
+void GetMercClimbDirection( SoldierID ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
 
 void ToggleHandCursorMode( UINT32 *puiNewEvent );
 void ToggleTalkCursorMode( UINT32 *puiNewEvent );
 void ToggleLookCursorMode( UINT32 *puiNewEvent );
 
-void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance );
+void UIHandleSoldierStanceChange( SoldierID ubSoldierID, INT8	bNewStance );
 void GetCursorMovementFlags( UINT32 *puiCursorFlags );
 
 BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, INT32 usMapPos, UINT32 uiFlags );
@@ -334,15 +329,15 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier );
 
 BOOLEAN UIOkForItemPickup( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
-BOOLEAN IsValidTalkableNPCFromMouse( UINT8 *pubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
-BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
+BOOLEAN IsValidTalkableNPCFromMouse( SoldierID *pubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
+BOOLEAN IsValidTalkableNPC( SoldierID ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
 
 BOOLEAN HandleTalkInit(	);
 
 BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustForConfirm );
 
-void SetUIBusy( UINT8 ubID );
-void UnSetUIBusy( UINT8 ubID );
+void SetUIBusy( SoldierID ubID );
+void UnSetUIBusy( SoldierID ubID );
 
 UINT32 UIHandleLUIEndLock( UI_EVENT *pUIEvent );
 
@@ -380,6 +375,6 @@ void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier);
 void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
 
 //Legion by Jazz
-void GetMercOknoDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
+void GetMercOknoDirection( SoldierID ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
 
 #endif

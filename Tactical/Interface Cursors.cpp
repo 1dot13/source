@@ -335,7 +335,7 @@ BOOLEAN DrawUICursor( )
 				// If we are over a target, jump to that....
 				if ( gfUIFullTargetFound )
 				{
-					gusTargetDropPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+					gusTargetDropPos = gusUIFullTargetID->sGridNo;
 				}
 
 				// Put tile on the floor
@@ -354,7 +354,7 @@ BOOLEAN DrawUICursor( )
 			// ATE; Is the current guy in steath mode?
 			if ( gusSelectedSoldier != NOBODY )
 			{
-				if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+				if ( gusSelectedSoldier->bStealthMode )
 				{
 					usTileCursor = FIRSTPOINTERS9;
 				}
@@ -367,7 +367,7 @@ BOOLEAN DrawUICursor( )
 				// ATE; Is the current guy in steath mode?
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+					if ( gusSelectedSoldier->bStealthMode )
 					{
 						usTileCursor = FIRSTPOINTERS10;
 					}

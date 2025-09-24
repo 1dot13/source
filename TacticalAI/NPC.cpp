@@ -904,12 +904,12 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	// SANDRO - bonus for communication with people for assertive people
 	if ( gGameOptions.fNewTraitSystem && bApproach != APPROACH_THREATEN)
 	{
-		INT16 id = GetSoldierIDFromMercID( ubMerc );
-		if ( id > -1 )
+		SoldierID id = GetSoldierIDFromMercID( ubMerc );
+		if ( id != NOBODY )
 		{
-			if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_ASSERTIVE ) )
+			if ( DoesMercHavePersonality( id, CHAR_TRAIT_ASSERTIVE ) )
 				iPersonalVal += 50;
-			else if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_MALICIOUS ) )
+			else if ( DoesMercHavePersonality( id, CHAR_TRAIT_MALICIOUS ) )
 				iPersonalVal -= 50;
 		}
 	}
@@ -2557,11 +2557,13 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	}
 }
 
-INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc )
+INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, SoldierID * pubDesiredMerc )
 {
-	INT32						sMyGridNo, sDist, sDesiredMercDist = 100;
-	UINT8						ubNPC, ubMerc, ubDesiredMerc = NOBODY;
-	UINT8						ubTalkDesire, ubHighestTalkDesire = 0;
+	INT32		sMyGridNo, sDist, sDesiredMercDist = 100;
+	UINT8		ubNPC;
+	UINT16		ubMerc;
+	SoldierID	ubDesiredMerc = NOBODY;
+	UINT8		ubTalkDesire, ubHighestTalkDesire = 0;
 	SOLDIERTYPE *		pMerc;
 	SOLDIERTYPE *		pDesiredMerc = NULL;
 	NPCQuoteInfo *	pNPCQuoteInfoArray;
@@ -2907,11 +2909,10 @@ BOOLEAN PCDoesFirstAidOnNPC( UINT8 ubNPC )
 void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 {
 	// Loop through all mercs, gather closest mercs who can see and trigger one!
-	UINT8	ubMercsInSector[ 40 ] = { 0 };
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	SoldierID	ubMercsInSector[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = {}; //std::vector would probably be better here
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier, *pSoldier;
-	INT32 cnt;
 
 	// First get pointer to NPC
 	pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
@@ -2919,15 +2920,16 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && pTeamSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 		{
-			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
+			ubMercsInSector[ ubNumMercs ] = cnt;
 			ubNumMercs++;
 		}
 	}
@@ -2935,7 +2937,7 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		// Post action to close panel
 		NPCClosePanel( );
@@ -2943,11 +2945,11 @@ void TriggerClosestMercWhoCanSeeNPC( UINT8 ubNPC, NPCQuoteInfo *pQuotePtr )
 		// If 64, do something special
 		if ( pQuotePtr->ubTriggerNPCRec == QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO )
 		{
-			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], pQuotePtr->ubTriggerNPCRec, DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC, 57, 6 );
+			TacticalCharacterDialogueWithSpecialEvent( ubMercsInSector[ ubChosenMerc ], pQuotePtr->ubTriggerNPCRec, DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC, 57, 6 );
 		}
 		else
 		{
-			TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], pQuotePtr->ubTriggerNPCRec );
+			TacticalCharacterDialogue( ubMercsInSector[ ubChosenMerc ], pQuotePtr->ubTriggerNPCRec );
 		}
 	}
 
@@ -3643,12 +3645,11 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersi
 
 void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 {
-	UINT8						ubMercsAvailable[ 40 ] = { 0 };
-	UINT8						ubNumMercsAvailable = 0, ubChosenMerc;
-	SOLDIERTYPE *		pTeamSoldier;
-	SOLDIERTYPE *		pSoldier;
-	INT32						cnt;
-	INT8						bTeam;
+	UINT16 ubMercsAvailable[CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS] = { 0 };
+	UINT16 ubNumMercsAvailable = 0, ubChosenMerc;
+	SOLDIERTYPE * pTeamSoldier;
+	SOLDIERTYPE * pSoldier;
+	INT8 bTeam;
 
 	// First get pointer to NPC
 	pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
@@ -3661,11 +3662,12 @@ void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 	// Loop through all our guys and find one to yell
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Add guy if he's a candidate...
 		if ( pTeamSoldier->bActive && pSoldier->bInSector && pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bBreath >= OKBREATH && pTeamSoldier->aiData.bOppCnt > 0 && pTeamSoldier->ubProfile != NO_PROFILE )
 		{
@@ -3691,7 +3693,7 @@ void TriggerFriendWithHostileQuote( UINT8 ubNPC )
 	if (ubNumMercsAvailable > 0)
 	{
 		PauseAITemporarily();
-		ubChosenMerc = (UINT8) Random( ubNumMercsAvailable );
+		ubChosenMerc = (UINT16) Random( ubNumMercsAvailable );
 		TriggerNPCWithIHateYouQuote( ubMercsAvailable[ ubChosenMerc ] );
 	}
 	else

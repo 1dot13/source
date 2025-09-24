@@ -123,6 +123,8 @@ struct UILayout_CharList
 	int widthTimeRemaining;
 };
 
+extern MOUSE_REGION gMapViewRegion;
+
 extern BOOLEAN fCharacterInfoPanelDirty;
 extern BOOLEAN fTeamPanelDirty;
 extern BOOLEAN fMapPanelDirty;
@@ -134,8 +136,10 @@ extern BOOLEAN gfInChangeArrivalSectorMode;
 
 extern BOOLEAN gfSkyriderEmptyHelpGiven;
 
+extern std::vector<SOLDIERTYPE*> gSelectedSoldiers;
 
-BOOLEAN SetInfoChar(UINT8 ubSolId);
+
+BOOLEAN SetInfoChar(SoldierID ubID);
 void EndMapScreen( BOOLEAN fDuringFade );
 void ReBuildCharactersList( void );
 
@@ -148,11 +152,11 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 BOOLEAN CanToggleSelectedCharInventory( void );
 
-BOOLEAN CanExtendContractForCharSlot( INT8 bCharNumber );
+BOOLEAN CanExtendContractForCharSlot( INT16 bCharNumber );
 
 void TellPlayerWhyHeCantCompressTime( void );
 
-void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList );
+void ChangeSelectedInfoChar( INT16 bCharNumber, BOOLEAN fResetSelectedList );
 
 void MAPEndItemPointer();
 
@@ -166,10 +170,10 @@ void CancelChangeArrivalSectorMode( void );
 
 void ExplainWhySkyriderCantFly( void );
 
-BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
+BOOLEAN CanChangeSleepStatusForCharSlot( INT16 bCharNumber );
 BOOLEAN CanChangeSleepStatusForSoldier( SOLDIERTYPE *pSoldier );
 
-BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
+BOOLEAN MapCharacterHasAccessibleInventory( INT16 bCharNumber );
 
 // CHRISL: New functions to handle initialization of inventory coordinates
 BOOLEAN InitializeInvPanelCoordsOld( );

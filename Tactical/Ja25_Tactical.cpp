@@ -84,7 +84,7 @@ typedef struct
 //Morris items
 //UINT32 MORRIS_INSTRUCTION_NOTE = 1362;
 
-UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 );
+UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 );
 
 //*******************************************************************
 //
@@ -464,7 +464,7 @@ BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier )
 	}
 }
 
-UINT8 GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray )
+UINT8 GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierID *pSoldierIdArray, UINT8 *pProfileIdArray )
 {
 	SOLDIERTYPE *pSoldier=NULL;
 	UINT8		usNumMercsPresent=0;
@@ -535,10 +535,10 @@ INT16	RandomProfileIdFromNewMercsOnPlayerTeam()
 	}
 }
 
-INT16	RandomSoldierIdFromNewMercsOnPlayerTeam()
+SoldierID RandomSoldierIdFromNewMercsOnPlayerTeam()
 {
-	UINT8	usNumMercsPresent;
-	UINT8 SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
 
 	//Get the number and array of the new soldiers
 	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierIdArray, NULL );
@@ -548,20 +548,20 @@ INT16	RandomSoldierIdFromNewMercsOnPlayerTeam()
 	if( usNumMercsPresent > 0 )
 	{
 		//return a random merc from the array
-		return( (INT16)( SoldierIdArray[ Random( usNumMercsPresent ) ] ));
+		return( ( SoldierIdArray[ Random( usNumMercsPresent ) ] ));
 	}
 	else
 	{
-		return( -1 );
+		return( NOBODY );
 	}
 }
 
-UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
+UINT8 RandomArrayOfQualifiedMercs( SoldierID *pRandomSoldierIdArray )
 {
-	UINT8	usNumMercsPresent;
-	UINT8	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
-	BOOLEAN UsedArray[NUM_MERCS_WITH_NEW_QUOTES];
-	BOOLEAN	fFound=FALSE;
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	BOOLEAN		UsedArray[NUM_MERCS_WITH_NEW_QUOTES];
+	BOOLEAN		fFound=FALSE;
 	UINT8		ubRand;
 
 	memset( UsedArray, 0, NUM_MERCS_WITH_NEW_QUOTES );
@@ -596,11 +596,11 @@ UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
 	return( usNumMercsPresent );
 }
 
-UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 )
+UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 )
 {
-	UINT8	usNumMercs;
-	UINT8 RandomSoldierIdArray[ NUM_MERCS_WITH_NEW_QUOTES ];
-	UINT8 ubNumberDifMercsAssigned=0;
+	UINT8		usNumMercs;
+	SoldierID	RandomSoldierIdArray[ NUM_MERCS_WITH_NEW_QUOTES ];
+	UINT8		ubNumberDifMercsAssigned=0;
 
 	usNumMercs = RandomArrayOfQualifiedMercs( RandomSoldierIdArray );
 
@@ -887,20 +887,20 @@ void HandlePowerGenAlarm()
 			}
 			else
 			{
-				UINT8 bSoldierId1, bSoldierId2, bSoldierId3;
+				SoldierID bSoldierId1, bSoldierId2, bSoldierId3;
 				Get3RandomQualifiedMercs( &bSoldierId1, &bSoldierId2, &bSoldierId3 );
 
-				if( bSoldierId1 != -1 && Menptr[ bSoldierId1 ].ubProfile != BIGGENS_UB ) //BIGGENS
+				if( bSoldierId1 != NOBODY && bSoldierId1->ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
+					TacticalCharacterDialogue( bSoldierId1, QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
-				else if( bSoldierId2 != -1 && Menptr[ bSoldierId2 ].ubProfile != BIGGENS_UB ) //BIGGENS
+				else if( bSoldierId2 != NOBODY && bSoldierId2->ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
+					TacticalCharacterDialogue( bSoldierId2, QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
-				else if( bSoldierId3 != -1 && Menptr[ bSoldierId3 ].ubProfile != BIGGENS_UB ) // BIGGENS
+				else if( bSoldierId3 != NOBODY && bSoldierId3->ubProfile != BIGGENS_UB ) // BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
+					TacticalCharacterDialogue( bSoldierId3, QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
 			}
 		}
@@ -1072,8 +1072,8 @@ void HandlePlayingQuoteWhenHiringNpc( UINT8 ubProfile )
 
 BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQuoteNum )
 {
-	UINT8				usNumMercsPresent;
-	UINT8				SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
 	SOLDIERTYPE *pSoldier=NULL;
 
 	//Get an array of the mercs on the team

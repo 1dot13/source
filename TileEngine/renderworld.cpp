@@ -1069,7 +1069,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			SOLDIERTYPE * pSelSoldier;
 			if (gusSelectedSoldier != NOBODY)
 			{
-				pSelSoldier = MercPtrs[gusSelectedSoldier];
+				pSelSoldier = gusSelectedSoldier;
 			}
 			else
 			{
@@ -1106,7 +1106,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			}
 			// Set shade
 			// If a bad guy is highlighted
-			if (gfUIHandleSelectionAboveGuy == TRUE && MercPtrs[gsSelectedGuy]->bSide != gbPlayerNum)
+			if (gfUIHandleSelectionAboveGuy == TRUE && gsSelectedGuy->bSide != gbPlayerNum)
 			{
 				if (gsSelectedGuy == pSoldier->ubID)
 				{
@@ -1149,7 +1149,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 			}
 			//if ( gusSelectedSoldier != NOBODY )
 			//{
-			//  pSelSoldier = MercPtrs[ gusSelectedSoldier ];
+			//  pSelSoldier = gusSelectedSoldier;
 			// Shade differently depending on visiblity
 			//  if ( pSoldier->bVisible == 0 || ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] == 0  ) )
 			//  {
@@ -4044,7 +4044,7 @@ void ScrollWorld( )
 				ScrollFlags = 0;
 				fDoScroll = FALSE;
 				//
-				if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, gTacticalStatus.sSlideReason, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
+				if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
 				{
 					ScrollFlags = gScrollDirectionFlags[ bDirection ];
 					fDoScroll			= TRUE;

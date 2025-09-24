@@ -418,7 +418,7 @@ void CheckForMeanwhileOKStart( )
 			SOLDIERTYPE *pSoldier;
 			BOOLEAN fFoundSoldierToInterrogate = FALSE;
 			UINT32 uiCount = 0;
-			for (pSoldier = MercPtrs[gCharactersList[uiCount].usSolID]; gCharactersList[uiCount].fValid; uiCount++, pSoldier++)
+			for (pSoldier = gCharactersList[uiCount].usSolID; gCharactersList[uiCount].fValid; uiCount++, pSoldier++)
 			{
 				if (pSoldier->sSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && pSoldier->sSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
 					pSoldier->bSectorZ == 0 && pSoldier->bAssignment == ASSIGNMENT_POW && pSoldier->stats.bLife > 0 && gMercProfiles[pSoldier->ubProfile].bMercStatus != MERC_FIRED_AS_A_POW)

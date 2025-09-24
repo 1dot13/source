@@ -1135,18 +1135,16 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 	return(sGridNo);
 }
 
-
-BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
+BOOLEAN InternalAddSoldierToSector(SoldierID ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
 {
-	UINT8					ubDirection = 0;
-	UINT8					ubCalculatedDirection = 0;
-	SOLDIERTYPE				*pSoldier = 0;
-	INT32			sGridNo = NOWHERE;
-	INT32			sExitGridNo = NOWHERE;
+	UINT8	ubDirection = 0;
+	UINT8	ubCalculatedDirection = 0;
+	INT32	sGridNo = NOWHERE;
+	INT32	sExitGridNo = NOWHERE;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalAddSoldierToSector"));
 
-	pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	if ( pSoldier->bActive	)
 	{
@@ -1340,20 +1338,19 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 	return( FALSE );
 }
 
-
-BOOLEAN AddSoldierToSector( UINT8 ubID )
+BOOLEAN AddSoldierToSector( SoldierID ubID )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSector"));
 	return( InternalAddSoldierToSector( ubID, TRUE, FALSE, 0 , 0) );
 }
 
-BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT8 ubID )
+BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT16 ubID )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSectorNoCalculateDirection"));
 	return( InternalAddSoldierToSector( ubID, FALSE, FALSE, 0, 0 ) );
 }
 
-BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode )
+BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT16 ubID, UINT16 usAnimState, UINT16 usAnimCode )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSectorNoCalculateDirectionUseAnimation"));
 	return( InternalAddSoldierToSector( ubID, FALSE, TRUE, usAnimState, usAnimCode ) );
@@ -1771,16 +1768,14 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 // IsMercOnTeam() checks to see if the passed in Merc Profile ID is currently on the player's team
 BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 {
-	UINT16 cnt;
-	UINT8		ubLastTeamID;
-	SOLDIERTYPE		*pTeamSoldier;
-
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SOLDIERTYPE *pTeamSoldier;
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; ++cnt, pTeamSoldier++)
+	for ( ; cnt <= ubLastTeamID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID && pTeamSoldier->bActive )
 		{
 			if ( aAlreadyInCountry && pTeamSoldier->bAssignment == IN_TRANSIT )
@@ -1797,16 +1792,16 @@ BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 }
 
 
-// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns -1
-INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
+// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns NOBODY
+SoldierID GetSoldierIDFromMercID(UINT8 ubMercID)
 {
 	SOLDIERTYPE		*pTeamSoldier = NULL;
-
-	UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pTeamSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID )
 		{
 			if( pTeamSoldier->bActive )
@@ -1814,7 +1809,7 @@ INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
 		}
 	}
 
-	return -1 ;
+	return NOBODY;
 }
 
 

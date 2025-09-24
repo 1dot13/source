@@ -81,9 +81,9 @@ void RandomStats ();
 void RandomAddEnemy( UINT8 SectorX, UINT8 SectorY, UINT8 Level )
 {
 UNDERGROUND_SECTORINFO *pSector;
-UINT8 ubNumAdmins = 0;
-UINT8 ubNumTroops = 0;
-UINT8 ubNumElites = 0;
+UINT16 ubNumAdmins = 0;
+UINT16 ubNumTroops = 0;
+UINT16 ubNumElites = 0;
 
 	if ( Level != 0 )
 	{

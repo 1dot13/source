@@ -52,38 +52,38 @@ typedef struct WAYPOINT
 
 typedef struct PLAYERGROUP
 {
-	UINT8 ubProfileID;						//SAVE THIS VALUE ONLY.	The others are temp (for quick access)
-	UINT8 ubID;										//index in the Menptr array
+	UINT8		ubProfileID;						//SAVE THIS VALUE ONLY.	The others are temp (for quick access)
+	SoldierID	ubID;										//index in the Menptr array
 	SOLDIERTYPE *pSoldier;				//direct access to the soldier pointer
-	UINT8 bFlags;									//flags referring to individual player soldiers
+	UINT8		bFlags;									//flags referring to individual player soldiers
 	struct PLAYERGROUP *next;			//next player in list
 }PLAYERGROUP;
 
 
 typedef struct ENEMYGROUP
 {
-	UINT8 ubNumTroops;						//number of regular troops in the group
-	UINT8 ubNumElites;						//number of elite troops in the group
-	UINT8 ubNumAdmins;						//number of administrators in the group
+	UINT16 ubNumTroops;						//number of regular troops in the group
+	UINT16 ubNumElites;						//number of elite troops in the group
+	UINT16 ubNumAdmins;						//number of administrators in the group
 	UINT8 ubLeaderProfileID;			//could be Mike, maybe the warden... someone new, but likely nobody.
-	UINT8 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
-	UINT8 ubAdminsInBattle;				//number of administrators in currently in battle.
+	UINT16 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
+	UINT16 ubAdminsInBattle;				//number of administrators in currently in battle.
 	UINT8 ubIntention;						//the type of group this is:	patrol, assault, spies, etc.
-	UINT8 ubTroopsInBattle;				//number of soldiers currently in battle.
-	UINT8 ubElitesInBattle;				//number of elite soldiers currently in battle.
+	UINT16 ubTroopsInBattle;				//number of soldiers currently in battle.
+	UINT16 ubElitesInBattle;				//number of elite soldiers currently in battle.
 	// WDS - New AI
-	UINT8 ubNumTanks;
-	UINT8 ubTanksInBattle;
-	UINT8 ubNumJeeps;
-	UINT8 ubJeepsInBattle;
+	UINT16 ubNumTanks;
+	UINT16 ubTanksInBattle;
+	UINT16 ubNumJeeps;
+	UINT16 ubJeepsInBattle;
 
 	// Flugente: number of turncoats
 	UINT8	ubNumAdmins_Turncoat;
 	UINT8	ubNumTroops_Turncoat;
 	UINT8	ubNumElites_Turncoat;
 
-	UINT8 ubNumRobots;						//number of enemy robots in the group
-	UINT8 ubRobotsInBattle;				//number of enemy robots currently in battle.
+	UINT16 ubNumRobots;						//number of enemy robots in the group
+	UINT16 ubRobotsInBattle;				//number of enemy robots currently in battle.
 
 	INT8	bPadding[11];
 }ENEMYGROUP;
@@ -120,7 +120,7 @@ typedef struct GROUP
 	BOOLEAN fVehicle;							//vehicle controlled group?
 	BOOLEAN fPersistant;					//This flag when set prevents the group from being automatically deleted when it becomes empty.
 	UINT8 ubGroupID;							//the unique ID of the group (used for hooking into events and SOLDIERTYPE)
-	UINT8 ubGroupSize;						//total number of individuals in the group.
+	UINT16 ubGroupSize;						//total number of individuals in the group.
 	UINT8 ubSectorX, ubSectorY;		//last/curr sector occupied
 	UINT8 ubSectorZ;
 	UINT8 ubNextX, ubNextY;				//next sector destination
@@ -204,7 +204,7 @@ BOOLEAN SetGroupPatrolParameters( UINT8 ubGroupID, UINT8 ubRestAtFL, UINT8 ubRes
 //............................................................
 GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumRobots, UINT8 ubNumTanks, UINT8 ubNumJeeps );
 
-GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNumAdmins, UINT8& arusNumTroops, UINT8& arusNumElites );
+GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT16& arusNumAdmins, UINT16& arusNumTroops, UINT16& arusNumElites );
 
 #ifdef JA2UB
 GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );

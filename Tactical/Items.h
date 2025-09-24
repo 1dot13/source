@@ -294,7 +294,7 @@ UINT16 StandardGunListReplacement( UINT16 usGun );
 UINT16 FindReplacementMagazine( UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType);
 UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UINT16 usNewGun );
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner );
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, SoldierID ubOwner );
 
 BOOLEAN CompatibleFaceItem( UINT16 usItem1, UINT16 usItem2 );
 
@@ -564,11 +564,11 @@ UINT64 GetAvailableAttachmentPoint ( OBJECTTYPE * pObject, UINT8 subObject );
 void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, INT8* defusefrequency );
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag(UINT16 usItem, UINT64 aFlag);
-BOOLEAN HasItemFlag2(UINT16 usItem, UINT64 aFlag);
+BOOLEAN HasItemFlag(UINT16 usItem, FLAGS64 aFlag);
+BOOLEAN HasItemFlag2(UINT16 usItem, FLAGS64 aFlag);
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag );
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, FLAGS64 aFlag );
 
 // Flugente: check if this object is currently fed from an external source (belts in inventory, other mercs)
 BOOLEAN ObjectIsBeingFedExternal(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);

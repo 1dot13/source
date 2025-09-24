@@ -1022,7 +1022,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 						// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
 						if( pSoldier->bTeam == ENEMY_TEAM ||
 							( gGameExternalOptions.ubMilitiaDropEquipment == 2 && pSoldier->bTeam == MILITIA_TEAM ) ||
-							( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam != OUR_TEAM ))
+							( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && pSoldier->ubAttackerID->bTeam != OUR_TEAM ))
 						{
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
@@ -1054,7 +1054,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 
 						// HEADROCK HAM B2.8: Militia will drop items only if allowed.
 						if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pSoldier->bTeam == MILITIA_TEAM ) &&
-							!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
+							!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && pSoldier->ubAttackerID->bTeam == OUR_TEAM ))
 						{
 							AddItemToPool( pSoldier->sGridNo, pObj, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
 						}
@@ -1155,14 +1155,14 @@ INT16 FindNearestRottingCorpse( SOLDIERTYPE *pSoldier )
 void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT8										ubBodyType = CROW;
-	UINT8										iNewIndex;
-	INT32 sGridNo;
-	UINT8										ubDirection;
-	SOLDIERTYPE							*pSoldier;
+	INT8						ubBodyType = CROW;
+	SoldierID				iNewIndex;
+	INT32					sGridNo;
+	UINT8					ubDirection;
+	SOLDIERTYPE				*pSoldier;
 	//DBrot: More Rooms
-	//UINT8										ubRoomNum;
-	UINT16	usRoomNum;
+	//UINT8					ubRoomNum;
+	UINT16					usRoomNum;
 	// No crows inside :(
 	if ( InARoom( pCorpse->def.sGridNo, &usRoomNum ) )
 	{
@@ -1272,11 +1272,11 @@ void HandleRottingCorpses( )
 	// ATE: Check for multiple crows.....
 	// Couint how many we have now...
 	{
-		UINT16 bLoop;
 		SOLDIERTYPE * pSoldier;
 
-		for ( bLoop=gTacticalStatus.Team[ CIV_TEAM ].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; bLoop++, pSoldier++)
+		for ( SoldierID bLoop=gTacticalStatus.Team[ CIV_TEAM ].bFirstID; bLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++bLoop )
 		{
+			pSoldier = bLoop;
 			if (pSoldier->bActive && pSoldier->bInSector && (pSoldier->stats.bLife >= OKLIFE) && !( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) )
 			{
 				if ( pSoldier->ubBodyType == CROW )
@@ -1344,8 +1344,7 @@ void MakeCorpseVisible( SOLDIERTYPE *pSoldier, ROTTING_CORPSE *pCorpse )
 
 void AllMercsOnTeamLookForCorpse( ROTTING_CORPSE *pCorpse, INT8 bTeam )
 {
-	INT32					cnt;
-	SOLDIERTYPE							*pSoldier;
+	SOLDIERTYPE *pSoldier;
 	INT32 sGridNo;
 
 	// If this cump is already visible, return
@@ -1360,13 +1359,14 @@ void AllMercsOnTeamLookForCorpse( ROTTING_CORPSE *pCorpse, INT8 bTeam )
 	}
 
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-	cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
 
 	sGridNo = pCorpse->def.sGridNo;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; cnt++,pSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ bTeam ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// ATE: Ok, lets check for some basic things here!		
 		if ( pSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pSoldier->sGridNo) && pSoldier->bActive && pSoldier->bInSector )
 		{
@@ -1436,7 +1436,7 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 					BeginMultiPurposeLocator( sGridNo, pCorpse->def.bLevel, FALSE );
 
 					// Slide to...
-					SlideToLocation( 0, sGridNo );
+					SlideToLocation( sGridNo );
 
 					return;
 				}
@@ -2526,7 +2526,6 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 {
 	ROTTING_CORPSE *pCorpse;
 	INT8			bToleranceThreshold = 0;
-	INT32			cnt;
 	SOLDIERTYPE		*pTeamSoldier;
 
 	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
@@ -2567,11 +2566,12 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 		if ( Random( 2 ) == 1 )
 		{
 			// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+			SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 			// look for all mercs on the same team,
-			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+			for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 			{
+				pTeamSoldier = cnt;
 				// ATE: Ok, lets check for some basic things here!				
 				if ( pTeamSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pTeamSoldier->sGridNo) && pTeamSoldier->bActive && pTeamSoldier->bInSector )
 				{
@@ -2918,13 +2918,13 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 																								
 	MercCreateStruct.fVisible			= TRUE;
 
-	INT8							iNewIndex;
-	if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+	SoldierID iNewIndex;
+	if ( TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 	{
 		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
 		*	make an exception for zombies every time...
 		*/
-		SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];
+		SOLDIERTYPE* pNewSoldier = iNewIndex;
 			
 		pNewSoldier->bActionPoints			= 60;
 		pNewSoldier->bInitialActionPoints	= 60;

@@ -317,7 +317,7 @@ void SetUpInterface( )
 	{
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			if ( MercPtrs[ gusSelectedSoldier ]->sGridNo != gsUIHandleShowMoveGridLocation )
+			if ( gusSelectedSoldier->sGridNo != gsUIHandleShowMoveGridLocation )
 			{
 				if ( gfUIHandleShowMoveGrid == 2 )
 				{
@@ -327,7 +327,7 @@ void SetUpInterface( )
 				}
 				else
 				{
-					if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+					if ( gusSelectedSoldier->bStealthMode )
 					{
 						AddTopmostToHead( gsUIHandleShowMoveGridLocation, GetSnapCursorIndex( FIRSTPOINTERS9 ) );
 						gpWorldLevelData[gsUIHandleShowMoveGridLocation].pTopmostHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
@@ -917,7 +917,7 @@ void RenderTopmostTacticalInterface( )
 			}
 			else
 			{
-				DrawSelectedUIAboveGuy((UINT16)pSoldier->ubID);
+				DrawSelectedUIAboveGuy(pSoldier->ubID);
 			}
 
 			DrawCounters( pSoldier );
