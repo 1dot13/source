@@ -629,7 +629,7 @@ void HandleRightClickOnMerc( INT32 iMapIndex )
 		if ( gsSelectedMercID != sThisMercID )
 		{ // We want to edit a new merc (or different merc)
 			//We need to avoid the editing of player mercs.
-			pNode = FindSoldierInitNodeWithID( (UINT8)sThisMercID );
+			pNode = FindSoldierInitNodeWithID( sThisMercID );
 			if( !pNode )
 				return;		//this is a player merc (which isn't in the list), or an error in logic.
 			IndicateSelectedMerc( sThisMercID );
@@ -1634,7 +1634,7 @@ void IndicateSelectedMerc( INT16 sID )
 			break;
 		default:
 			//search for the merc with the specific ID.
-			gpSelected = FindSoldierInitNodeWithID( (UINT8)sID );
+			gpSelected = FindSoldierInitNodeWithID( sID );
 			if( !gpSelected )
 			{
 				gsSelectedMercID = -1;
