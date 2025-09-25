@@ -1261,7 +1261,7 @@ BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 u
 	return(TRUE);
 }
 
-BOOLEAN DrawMoneyToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor)
+static auto FormatMoney(INT32 iNumber) -> std::wstring
 {
 	CHAR16		sStr[10];
 
@@ -1269,10 +1269,7 @@ BOOLEAN DrawMoneyToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLo
 	InsertCommasForDollarFigure( sStr );
 	InsertDollarSignInToString( sStr );
 
-//	DrawTextToScreen(L"$", usLocX, usLocY, 0, ulFont, ubColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	DrawTextToScreen(sStr, usLocX, usLocY, bWidth, ulFont, ubColor, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-
-	return(TRUE);
+	return std::wstring(sStr);
 }
 
 
@@ -1324,13 +1321,13 @@ BOOLEAN	UpdateMercInfo(void)
 	if(gGameExternalOptions.gfUseNewStartingGearInterface)
 	{
 #ifdef JA2UB
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH, FEE_X_UB, FEE_Y_UB_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_UB, FEE_Y_UB_NSGI, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 		DisplayWrappedString(AIM_OFFER_X, AGILITY_Y_NSGI, AIM_OFFER_WIDTH, 2, AIM_M_FONT_DYNAMIC_TEXT, AIM_FONT_MCOLOR_WHITE, zNewTacticalMessages[TACT_MSG__AIMMEMBER_FEE_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 #else
 		//Display the salaries
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].sSalary, FEE_WIDTH_NSGI, FEE_X_NSGI, HEALTH_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH_NSGI, FEE_X_NSGI, AGILITY_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary, FEE_WIDTH_NSGI, FEE_X_NSGI, DEXTERITY_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_X_NSGI, HEALTH_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_NSGI, AGILITY_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_X_NSGI, DEXTERITY_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 		//if medical deposit is required
 		if( gMercProfiles[gbCurrentSoldier].bMedicalDeposit )
@@ -1384,13 +1381,13 @@ BOOLEAN	UpdateMercInfo(void)
 	else
 	{
 #ifdef JA2UB
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH, FEE_X_UB, FEE_Y_UB, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_UB, FEE_Y_UB, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 		DisplayWrappedString(AIM_OFFER_X, AGILITY_Y, AIM_OFFER_WIDTH, 2, AIM_M_FONT_DYNAMIC_TEXT, AIM_FONT_MCOLOR_WHITE, zNewTacticalMessages[TACT_MSG__AIMMEMBER_FEE_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 #else
 		//Display the salaries
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].sSalary, FEE_WIDTH, FEE_X, HEALTH_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH, FEE_X, AGILITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary, FEE_WIDTH, FEE_X, DEXTERITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_WIDTH, FEE_X, HEALTH_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_WIDTH, FEE_X, AGILITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_WIDTH, FEE_X, DEXTERITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 		//if medical deposit is required
 		if( gMercProfiles[gbCurrentSoldier].bMedicalDeposit )
