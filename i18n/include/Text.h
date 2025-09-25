@@ -8,6 +8,8 @@
 
 #define STRING_LENGTH 255
 
+auto FormatMoney(INT32 iNumber) -> std::wstring;
+
 enum
 {
 	//TCTL_MSG__RANGE_TO_TARGET,

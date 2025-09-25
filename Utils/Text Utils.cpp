@@ -5,6 +5,19 @@
 	#include <codecvt>
 	#include <string>
 
+auto FormatMoney(INT32 iNumber) -> std::wstring
+{
+    static std::wstringstream wss([] {
+        std::wstringstream ss;
+        ss.imbue(std::locale(""));
+        return ss;
+        }());
+    wss.str(L"");
+    wss << iNumber;
+
+    return L"$" + wss.str();
+}
+
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 {
 	int j = 0;
