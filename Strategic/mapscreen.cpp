@@ -863,7 +863,7 @@ extern BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 
 // handle talking
 void HandleSpontanousTalking( void );
-BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone );
+BOOLEAN ContinueDialogue(SoldierID id, BOOLEAN fDone );
 extern void CreateDestroyMilitiaSectorButtons( void );
 extern void CreateDestroySupplySectorButtons();
 
@@ -13098,16 +13098,12 @@ void UpdatePausedStatesDueToTimeCompression( void )
 }
 
 
-BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
+BOOLEAN ContinueDialogue(SoldierID id, BOOLEAN fDone )
 {
 	// continue this grunts dialogue, restore when done
 	static INT16 bOldSelectedInfoChar = -1;
 	static BOOLEAN fTalkingingGuy = FALSE;
-
 	UINT16 bCounter = 0;
-
-
-
 
 	if( fDone == TRUE )
 	{
@@ -13131,7 +13127,7 @@ BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
 	}
 
 	// check if valid character talking?
-	if( pSoldier == NULL )
+	if( id >= NOBODY )
 	{
 		return FALSE;
 	}
@@ -13141,7 +13137,7 @@ BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
 	{
 		if( gCharactersList[bCounter].fValid == TRUE )
 		{
-			if( gCharactersList[bCounter].usSolID == pSoldier->ubID )
+			if( gCharactersList[bCounter].usSolID == id )
 			{
 				if( bSelectedInfoChar != bCounter )
 				{
