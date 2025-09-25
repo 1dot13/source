@@ -1,7 +1,7 @@
 #ifndef __PITS_H
 #define __PITS_H
 
-#include "overhead types.h"
+#include "Overhead Types.h"
 
 void Add3X3Pit( INT32 iMapIndex );
 void Add5X5Pit( INT32 iMapIndex );

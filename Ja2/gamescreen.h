@@ -2,7 +2,7 @@
 #define _GAMESCREEN_H
 
 #include "Overhead Types.h"
-#include "fade screen.h"
+#include "Fade Screen.h"
 
 #define		ARE_IN_FADE_IN( )		( gfFadeIn || gfFadeInitialized )
 
