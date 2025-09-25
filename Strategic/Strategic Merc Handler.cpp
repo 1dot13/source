@@ -318,15 +318,8 @@ void MercDailyUpdate()
 					}
 					else
 					{
-						CHAR16	zMoney[128];
-
-						//create a string for the salary owed to the npc
-						swprintf( zMoney, L"%d", sSalary );
-						InsertCommasForDollarFigure( zMoney );
-						InsertDollarSignInToString( zMoney );
-
 						//Display a screen msg indicating that the npc was NOT paid
-						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, pMessageStrings[ MSG_CANT_AFFORD_TO_PAY_NPC_DAILY_SALARY_MSG ], gMercProfiles[ pSoldier->ubProfile ].zNickname, zMoney );
+						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, pMessageStrings[ MSG_CANT_AFFORD_TO_PAY_NPC_DAILY_SALARY_MSG ], gMercProfiles[ pSoldier->ubProfile ].zNickname, FormatMoney(sSalary).data() );
 
 						//if the merc hasnt been paid for NUM_DAYS_TILL_UNPAID_RPC_QUITS days, the merc will quit
 						if( ( gMercProfiles[ pSoldier->ubProfile ].iBalance - sSalary ) <= -( sSalary * NUM_DAYS_TILL_UNPAID_RPC_QUITS ) )

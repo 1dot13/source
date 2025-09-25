@@ -3228,35 +3228,29 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		iDailyCost = gMercProfiles[ pSoldier->ubProfile ].sSalary;
 	}
 
-	swprintf(sString, L"%d", iDailyCost );
 
-	// insert commas and dollar sign
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
 	{
+		auto tmpMoney{ FormatMoney(iDailyCost) };
 		const auto x = UI_CHARPANEL.Text.Salary.x;
 		const auto y = UI_CHARPANEL.Text.Salary.y;
 		const auto w = UI_CHARPANEL.Text.Salary.width;
 		const auto h = UI_CHARPANEL.Text.Salary.height;
-		FindFontRightCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
-		DrawString(sString, usX, usY, CHAR_FONT);
+		FindFontRightCoordinates(x, y, w, h, tmpMoney.data(), CHAR_FONT, &usX, &usY);
+		DrawString(tmpMoney.data(), usX, usY, CHAR_FONT);
 	}
 
 	// medical deposit
 	if( gMercProfiles[ gCharactersList[ sCharNumber ].usSolID->ubProfile ].sMedicalDepositAmount > 0 )
 	{
-		swprintf(sString, L"%d", gMercProfiles[ gCharactersList[ sCharNumber ].usSolID->ubProfile ].sMedicalDepositAmount );
+		auto tmpMoney{ FormatMoney(gMercProfiles[gCharactersList[sCharNumber].usSolID->ubProfile].sMedicalDepositAmount) };
 
-		// insert commas and dollar sign
-		InsertCommasForDollarFigure( sString );
-		InsertDollarSignInToString( sString );
 		{
 			const auto x = UI_CHARPANEL.Text.Medical.x;
 			const auto y = UI_CHARPANEL.Text.Medical.y;
 			const auto w = UI_CHARPANEL.Text.Medical.width;
 			const auto h = UI_CHARPANEL.Text.Medical.height;
-			FindFontRightCoordinates(x, y, w, h, sString, CHAR_FONT, &usX, &usY);
-			DrawString(sString, usX, y, CHAR_FONT);
+			FindFontRightCoordinates(x, y, w, h, tmpMoney.data(), CHAR_FONT, &usX, &usY);
+			DrawString(tmpMoney.data(), usX, y, CHAR_FONT);
 		}
 	}
 

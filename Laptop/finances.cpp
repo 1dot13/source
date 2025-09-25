@@ -895,7 +895,6 @@ void InvalidateLapTopScreen( void )
 void DrawSummaryText( void )
 {
 	INT16 usX, usY;
-	CHAR16 pString[100];
 	INT32 iBalance = 0;
 
 
@@ -919,83 +918,75 @@ void DrawSummaryText( void )
 
 	// draw the actual numbers
 
-
+	std::wstring tmp{};
 
 	// yesterdays income
 	iBalance =	GetPreviousDaysIncome( );
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(), FINANCE_TEXT_FONT, &usX, &usY);
+	tmp = FormatMoney(iBalance);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, tmp.data(), FINANCE_TEXT_FONT, &usX, &usY);
 
-	mprintf(usX,YESTERDAYS_INCOME,pString);
+	mprintf(usX,YESTERDAYS_INCOME,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
 	// yesterdays other
 	iBalance =	GetYesterdaysOtherDeposits( );
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
+	tmp = FormatMoney(iBalance);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	mprintf(usX,YESTERDAYS_OTHER,pString);
+	mprintf(usX,YESTERDAYS_OTHER,tmp.data());
 
 	SetFontForeground( FONT_RED );
 
 	// yesterdays debits
 	iBalance =	GetYesterdaysDebits( );
+	tmp = FormatMoney(iBalance);
 	if( iBalance < 0 )
 	{
 		SetFontForeground( FONT_RED );
 		iBalance *= -1;
 	}
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	mprintf(usX,YESTERDAYS_DEBITS,pString);
+	mprintf(usX,YESTERDAYS_DEBITS,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
 	// yesterdays balance..ending balance..so todays balance then
 	iBalance =	GetTodaysBalance( );
-
+	tmp = FormatMoney(iBalance);
 	if( iBalance < 0 )
 	{
 		SetFontForeground( FONT_RED );
 		iBalance *= -1;
 	}
 
-	swprintf(pString, L"%d", iBalance );
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
+	tmp = FormatMoney(iBalance);
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	mprintf(usX,YESTERDAYS_BALANCE,pString);
+	mprintf(usX,YESTERDAYS_BALANCE,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
 	// todays income
 	iBalance =	GetTodaysDaysIncome( );
-	swprintf(pString, L"%d", iBalance );
+	tmp = FormatMoney(iBalance);
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-
-	mprintf(usX,TODAYS_INCOME,pString);
+	mprintf(usX,TODAYS_INCOME,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
 	// todays other
 	iBalance =	GetTodaysOtherDeposits( );
-	swprintf(pString, L"%d", iBalance );
+	tmp = FormatMoney(iBalance);
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-
-	mprintf(usX,TODAYS_OTHER,pString);
+	mprintf(usX,TODAYS_OTHER,tmp.data());
 
 	SetFontForeground( FONT_RED );
 
@@ -1008,15 +999,11 @@ void DrawSummaryText( void )
 		iBalance *= ( -1 );
 	}
 
-	swprintf(pString, L"%d", iBalance );
+	tmp = FormatMoney(iBalance);
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-
-	mprintf(usX,TODAYS_DEBITS,pString);
+	mprintf(usX,TODAYS_DEBITS,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
@@ -1024,36 +1011,26 @@ void DrawSummaryText( void )
 	iBalance = GetCurrentBalance( );
 	if( iBalance < 0 )
 	{
-		iBalance *= -1;
 		SetFontForeground( FONT_RED );
-		swprintf(pString, L"%d", iBalance );
-		iBalance *= -1;
+		tmp = FormatMoney(iBalance*-1);
 	}
 	else
 	{
-		swprintf(pString, L"%d", iBalance );
+		tmp = FormatMoney(iBalance);
 	}
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
-
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-	mprintf(usX,TODAYS_CURRENT_BALANCE,pString);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
+	mprintf(usX,TODAYS_CURRENT_BALANCE,tmp.data());
 	SetFontForeground( FONT_BLACK );
 
 
 	// todays forcast income
 	iBalance =	GetProjectedTotalDailyIncome( );
-	swprintf(pString, L"%d", iBalance );
+	tmp = FormatMoney(iBalance);
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-
-	mprintf(usX,TODAYS_CURRENT_FORCAST_INCOME,pString);
+	mprintf(usX,TODAYS_CURRENT_FORCAST_INCOME,tmp.data());
 
 	SetFontForeground( FONT_BLACK );
 
@@ -1062,22 +1039,16 @@ void DrawSummaryText( void )
 	iBalance = GetCurrentBalance( ) + GetProjectedTotalDailyIncome( );
 	if( iBalance < 0 )
 	{
-		iBalance *= -1;
 		SetFontForeground( FONT_RED );
-		swprintf(pString, L"%d", iBalance );
-		iBalance *= -1;
+		tmp = FormatMoney(iBalance*-1);
 	}
 	else
 	{
-		swprintf(pString, L"%d", iBalance );
+		tmp = FormatMoney(iBalance);
 	}
 
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
-
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
-	mprintf(usX,TODAYS_CURRENT_FORCAST_BALANCE,pString);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,tmp.data(),FINANCE_TEXT_FONT, &usX, &usY);
+	mprintf(usX,TODAYS_CURRENT_FORCAST_BALANCE,tmp.data());
 	SetFontForeground( FONT_BLACK );
 
 

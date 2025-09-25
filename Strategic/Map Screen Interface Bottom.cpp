@@ -1562,7 +1562,7 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 void DisplayCurrentBalanceForMapBottom( void )
 {
 	// show the current balance for the player on the map panel bottom
-	CHAR16 sString[ 128 ];
+	std::wstring sString;
 	INT16 sFontX, sFontY;
 
 	// ste the font buffer
@@ -1573,22 +1573,18 @@ void DisplayCurrentBalanceForMapBottom( void )
 	SetFontForeground( 183 );
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", LaptopSaveInfo.iCurrentBalance );
-
-	// insert
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney( LaptopSaveInfo.iCurrentBalance );
 
 	VarFindFontCenterCoordinates( 
 		UI_BOTTOM.Text.CurrentBalance.x, 
 		UI_BOTTOM.Text.CurrentBalance.y, 
 		UI_BOTTOM.Text.CurrentBalance.width, 
 		UI_BOTTOM.Text.CurrentBalance.height, 
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, sString.data()
 	);
 	
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", sString.data() );
 
 	return;
 }
@@ -1667,7 +1663,7 @@ void DisplayProjectedDailyMineIncome( void )
 {
 	INT32 iRate = 0;
 	static INT32 iOldRate = -1;
-	CHAR16 sString[ 128 ];
+	std::wstring sString;
 	INT16 sFontX, sFontY;
 
 	// grab the rate from the financial system
@@ -1692,22 +1688,18 @@ void DisplayProjectedDailyMineIncome( void )
 	SetFontForeground( 183 );
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", iRate );
-
-	// insert
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney( iRate );
 
 	VarFindFontCenterCoordinates( 
 		UI_BOTTOM.Text.CurrentIncome.x, 
 		UI_BOTTOM.Text.CurrentIncome.y,
 		UI_BOTTOM.Text.CurrentIncome.width,
 		UI_BOTTOM.Text.CurrentIncome.height,
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, sString.data()
 	);
 
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", sString.data() );
 
 	return;
 }
@@ -1716,7 +1708,6 @@ void DisplayProjectedDailyExpenses( void )
 {
 	INT32 iRate = 0;
 	static INT32 iOldExpensesRate = -1;
-	CHAR16 sString[ 128 ];
 	INT16 sFontX, sFontY;
 
 	// grab the rate from the financial system
@@ -1749,22 +1740,18 @@ void DisplayProjectedDailyExpenses( void )
 	}
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", iRate );
-
-	// insert extra characters
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	auto rate{FormatMoney(iRate)};
 
 	VarFindFontCenterCoordinates(
 		UI_BOTTOM.Text.CurrentExpenses.x, 
 		UI_BOTTOM.Text.CurrentExpenses.y, 
 		UI_BOTTOM.Text.CurrentExpenses.width,
 		UI_BOTTOM.Text.CurrentExpenses.height,
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, rate.data()
 	);
 
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", rate.data());
 
 	return;
 }

@@ -6166,7 +6166,7 @@ BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPt
 			else
 			{
 				//add the mercs name to the string
-				wcscat( pFinishedString, FormatMoney(pMail->iFirstData) );
+				wcscat( pFinishedString, FormatMoney(pMail->iFirstData).data() );
 			}
 		}
 		else
