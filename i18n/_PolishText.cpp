@@ -5978,9 +5978,9 @@ STR16			CharacterInfo[] =
 
 	L"Zapłata",
 	L"Czas",
-	L"1 dzień",
-	L"1 tydzień",
-	L"2 tygodnie",
+	L"1d",
+	L"1t",
+	L"2t",
 
 	// text for the buttons that either go to the previous merc, 
 	// start talking to the merc, or go to the next merc

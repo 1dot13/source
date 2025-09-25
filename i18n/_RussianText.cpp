@@ -5971,9 +5971,9 @@ STR16			CharacterInfo[] =
 
 	L"Гонорар",
 	L"Срок",
-	L"1 день",
-	L"7 дней",
-	L"14 дней",
+	L"1д",
+	L"7д",
+	L"14д",
 
 	// text for the buttons that either go to the previous merc, 
 	// start talking to the merc, or go to the next merc
