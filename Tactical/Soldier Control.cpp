@@ -11141,7 +11141,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	{
 		if( ubBattleSoundID == BATTLE_SOUND_CURSE1 )
 			spParms.uiVolume = (INT8)CalculateSpeechVolume( MIDVOLUME );
-		else
+		else if ( GetSpeechVolume() != 0 )
 			spParms.uiVolume = SoundVolume( (UINT8)spParms.uiVolume, pSoldier->sGridNo );
 	}
 
