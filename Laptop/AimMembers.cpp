@@ -1261,18 +1261,6 @@ BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 u
 	return(TRUE);
 }
 
-static auto FormatMoney(INT32 iNumber) -> std::wstring
-{
-	static std::wstringstream wss([] {
-		std::wstringstream ss;
-		ss.imbue(std::locale(""));
-		return ss;
-		}());
-	wss.str(L"");
-	wss << iNumber;
-
-	return L"$" + wss.str();
-}
 
 
 void SelectFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
