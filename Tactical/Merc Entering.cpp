@@ -481,7 +481,7 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 {
 	UINT8 ubScriptCode;
 	UINT32	uiClock;
-	INT32 iVol;
+	static INT32 iVol = 0;
 	INT32 cnt;
 	ANITILE_PARAMS	AniParams;
 
@@ -618,11 +618,15 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 			{
 				if( uiSoundSample!=NO_SAMPLE )
 				{
-					iVol=SoundGetVolume( uiSoundSample );
-					iVol=__min( HIGHVOLUME, iVol+5);
-					SoundSetVolume(uiSoundSample, iVol);
-					if(iVol==HIGHVOLUME)
+					iVol = __min(HIGHVOLUME, iVol + 5);
+					if ( GetSoundEffectsVolume() != 0)
+					{
+						SoundSetVolume(uiSoundSample, iVol);
+					}
+					if (iVol == HIGHVOLUME)
+					{
 						fFadingHeliIn=FALSE;
+					}
 				}
 				else
 				{
@@ -633,11 +637,11 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 			{
 				if( uiSoundSample!=NO_SAMPLE )
 				{
-					iVol=SoundGetVolume(uiSoundSample);
-
 					iVol=__max( 0, iVol-5);
-
-					SoundSetVolume(uiSoundSample, iVol);
+					if (GetSoundEffectsVolume() != 0)
+					{
+						SoundSetVolume(uiSoundSample, iVol);
+					}
 					if(iVol==0)
 					{
 						// Stop sound
