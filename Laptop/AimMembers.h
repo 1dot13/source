@@ -9,7 +9,6 @@ BOOLEAN RenderAIMMembers();
 
 
 BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor);
-BOOLEAN DrawMoneyToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor);
 
 void DisplayTextForMercFaceVideoPopUp(STR16 pString);
 
