@@ -1263,13 +1263,15 @@ BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 u
 
 static auto FormatMoney(INT32 iNumber) -> std::wstring
 {
-	CHAR16		sStr[10];
+	static std::wstringstream wss([] {
+		std::wstringstream ss;
+		ss.imbue(std::locale(""));
+		return ss;
+		}());
+	wss.str(L"");
+	wss << iNumber;
 
-	swprintf(sStr, L"%d",iNumber);
-	InsertCommasForDollarFigure( sStr );
-	InsertDollarSignInToString( sStr );
-
-	return std::wstring(sStr);
+	return L"$" + wss.str();
 }
 
 
