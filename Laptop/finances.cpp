@@ -809,33 +809,16 @@ void DrawRecordsText( void )
 		{
 			// increase in asset - debit
 	 swprintf(sString, L"%d", pCurFinance->iAmount);
-		// insert commas
-		InsertCommasForDollarFigure( sString );
-		// insert dollar sight for first record in the list
-//DEF: 3/19/99: removed cause we want to see the dollar sign on ALL entries
-//		if( iCounter == 0 )
-		{
-			InsertDollarSignInToString( sString );
-		}
-
 		FindFontCenterCoordinates(RECORD_DEBIT_X,0,RECORD_DEBIT_WIDTH,0, sString, FINANCE_TEXT_FONT,&usX, &usY);
-		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), sString);
+		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), FormatMoney(pCurFinance->iAmount).data());
 		}
 		else
 		{
 			// decrease in asset - credit
-	 swprintf(sString, L"%d", pCurFinance->iAmount * (-1));
-		SetFontForeground(FONT_RED);
-		InsertCommasForDollarFigure( sString );
-		// insert dollar sight for first record in the list
-//DEF: 3/19/99: removed cause we want to see the dollar sign on ALL entries
-//		if( iCounter == 0 )
-		{
-			InsertDollarSignInToString( sString );
-		}
-
+	 	SetFontForeground(FONT_RED);
+		
 		FindFontCenterCoordinates(RECORD_CREDIT_X ,0 , RECORD_CREDIT_WIDTH,0, sString, FINANCE_TEXT_FONT,&usX, &usY);
-		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), sString);
+		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), FormatMoney(pCurFinance->iAmount * (-1)).data());
 		SetFontForeground(FONT_BLACK);
 		}
 
@@ -860,17 +843,8 @@ void DrawRecordsText( void )
 
 
 		// print the balance string
-	swprintf(sString, L"%d", iBalance);
-		InsertCommasForDollarFigure( sString );
-		// insert dollar sight for first record in the list
-//DEF: 3/19/99: removed cause we want to see the dollar sign on ALL entries
-//		if( iCounter == 0 )
-		{
-			InsertDollarSignInToString( sString );
-		}
-
 		FindFontCenterCoordinates(RECORD_BALANCE_X,0,RECORD_BALANCE_WIDTH,0, sString, FINANCE_TEXT_FONT,&usX, &usY);
-		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), sString);
+		mprintf(usX, 12+RECORD_Y + (iCounter * ( GetFontHeight( FINANCE_TEXT_FONT ) + 6 ) ), FormatMoney(iBalance).data());
 
 		// restore font color
 		SetFontForeground(FONT_BLACK);
@@ -949,14 +923,7 @@ void DrawSummaryText( void )
 
 	// yesterdays income
 	iBalance =	GetPreviousDaysIncome( );
-	swprintf(pString, L"%d", iBalance );
-
-	InsertCommasForDollarFigure( pString );
-
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
-
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(), FINANCE_TEXT_FONT, &usX, &usY);
 
 	mprintf(usX,YESTERDAYS_INCOME,pString);
 
@@ -964,13 +931,7 @@ void DrawSummaryText( void )
 
 	// yesterdays other
 	iBalance =	GetYesterdaysOtherDeposits( );
-	swprintf(pString, L"%d", iBalance );
-
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
-
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
 
 	mprintf(usX,YESTERDAYS_OTHER,pString);
 
@@ -984,13 +945,7 @@ void DrawSummaryText( void )
 		iBalance *= -1;
 	}
 
-	swprintf(pString, L"%d", iBalance );
-
-	InsertCommasForDollarFigure( pString );
-	if( iBalance != 0 )
-		InsertDollarSignInToString( pString );
-
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
 
 	mprintf(usX,YESTERDAYS_DEBITS,pString);
 
@@ -1010,7 +965,7 @@ void DrawSummaryText( void )
 	if( iBalance != 0 )
 		InsertDollarSignInToString( pString );
 
-	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0,pString,FINANCE_TEXT_FONT, &usX, &usY);
+	FindFontRightCoordinates(0,0,iScreenWidthOffset + 580,0, FormatMoney(iBalance).data(),FINANCE_TEXT_FONT, &usX, &usY);
 
 	mprintf(usX,YESTERDAYS_BALANCE,pString);
 
@@ -1988,96 +1943,6 @@ BOOLEAN LoadInRecords( UINT32 uiPage )
 	pCurrentFinance = pFinanceListHead;
 
 	return( TRUE );
-}
-
-void InsertCommasForDollarFigure( STR16 pString )
-{
-	INT16 sCounter =0;
-	INT16 sZeroCount =0;
-	INT16 sTempCounter = 0;
-	INT16 sEndPosition = 0;
-
-	// go to end of dollar figure
-	while( pString[ sCounter ] != 0 )
-	{
-		sCounter++;
-	}
-
-	// negative?
-	if( pString[0] == '-' )
-	{
-		// stop one slot in advance of normal
-		sEndPosition = 1;
-	}
-
-	// is there under $1,000?
-	if( sCounter < 4 )
-	{
-		// can't do anything, return
-		return;
-	}
-
-	// at end, start backing up until beginning
-	while( sCounter > sEndPosition )
-	{
-
-
-		// enough for a comma?
-		if( sZeroCount==3 )
-		{
-			// reset count
-			sZeroCount =0;
-		// set tempcounter to current counter
-			sTempCounter = sCounter;
-
-			// run until end
-			while( pString[ sTempCounter ] != 0 )
-			{
-				sTempCounter++;
-			}
-			// now shift everything over ot the right one place until sTempCounter = sCounter
-			while( sTempCounter >= sCounter )
-			{
-				pString[ sTempCounter+1 ] = pString[ sTempCounter ];
-					sTempCounter--;
-			}
-			// now insert comma
-			pString[ sCounter ]=L',';
-		}
-
-		// increment count of digits
-		sZeroCount++;
-
-		// decrement counter
-		sCounter--;
-	}
-
-	return;
-
-}
-
-void InsertDollarSignInToString( STR16 pString )
-{
-	// run to end of string, copy everything in string 2 places right, insert a space at pString[ 1 ] and a L'$' at pString[ 0 ]
-
-	INT32 iCounter =0;
-
-	// run to end of string
-	while( pString[ iCounter ] != 0 )
-	{
-		iCounter++;
-	}
-
-	// now copy over
-	while( iCounter >= 0 )
-	{
-	pString[ iCounter + 1] = pString[ iCounter ];
-		iCounter--;
-	}
-
-	pString[ 0 ] = L'$';
-
-	return;
 }
 
 INT32 GetPreviousBalanceToDate( void )

@@ -1398,7 +1398,6 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 	CHAR16		zDateString[128];
 	CHAR16		zLocationString[128];
 	CHAR16		zNumMercsString[128];
-	CHAR16		zBalanceString[128];
 	SAVED_GAME_HEADER SaveGameHeader;
 	HVOBJECT hPixHandle;
 	UINT16		usPosX=SLG_FIRST_SAVED_SPOT_X;
@@ -1669,11 +1668,6 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 				}
 			}
 
-			//Get the current balance
-			swprintf( zBalanceString, L"%d", SaveGameHeader.iCurrentBalance);
-			InsertCommasForDollarFigure( zBalanceString );
-			InsertDollarSignInToString( zBalanceString );
-
 			//
 			// Display the Saved game information
 			//
@@ -1692,7 +1686,7 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 
 			//The balance
 			if(!is_networked)
-				DrawTextToScreen( zBalanceString, (UINT16)(usPosX+SLG_BALANCE_OFFSET_X), (UINT16)(usPosY+SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+				DrawTextToScreen(FormatMoney(SaveGameHeader.iCurrentBalance).data(), (UINT16)(usPosX + SLG_BALANCE_OFFSET_X), (UINT16)(usPosY + SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 			if( gbSaveGameArray[ VAL_SLOT_START + bEntryID ] || ( gfSaveGame && !gfUserInTextInputMode && ( gbSelectedSaveLocation == bEntryID ) ) )
 			{
