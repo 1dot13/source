@@ -203,7 +203,7 @@ void RenderSubtitleBoxOverlay( VIDEO_OVERLAY *pBlitter );
 void RenderFaceOverlay( VIDEO_OVERLAY *pBlitter );
 
 
-extern BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone );
+extern BOOLEAN ContinueDialogue(SoldierID id, BOOLEAN fDone );
 extern void HandlePendingInitConv( );
 extern BOOLEAN WillMercRenew( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote );
 extern void DrawFace( INT16 sCharNumber );
@@ -253,7 +253,7 @@ void HandleExternNPCSpeechFace( INT32 iIndex );
 
 
 
-extern BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone );
+extern BOOLEAN ContinueDialogue(SoldierID id, BOOLEAN fDone );
 extern	BOOLEAN		DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 
 
@@ -3005,10 +3005,9 @@ void HandleTacticalSpeechUI( UINT8 ubCharacterNum, INT32 iFaceIndex	)
 		// If so, set current guy active to talk.....
 		if ( pSoldier != NULL )
 		{
-			ContinueDialogue( pSoldier, FALSE );
+			ContinueDialogue( pSoldier->ubID, FALSE );
 		}
 	}
-
 }
 
 
