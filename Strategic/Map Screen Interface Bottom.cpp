@@ -2070,7 +2070,14 @@ void HandleExitsFromMapScreen( void )
 #ifdef JA2UB
 				//JA25 ub
 				case MAP_EXIT_TO_INTRO_SCREEN:
-				//	SetPendingNewScreen( INTRO_SCREEN );
+					//	SetPendingNewScreen( INTRO_SCREEN );
+					// Set the PBI sector locator to initial arrival sector.
+					// UB skips the call to HandleTimeCompressWithTeamJackedInAndGearedToGo() that would normally set it upon game start
+					// When it's not set, the MapscreenHandle() will error on assert when trying to draw the glowing red box around the sector under attack
+					gubPBSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+					gubPBSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
+					gubPBSectorZ = 0;
+
 					BeginLoadScreen();
 					break;
 #endif
