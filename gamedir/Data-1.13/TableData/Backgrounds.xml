@@ -1516,9 +1516,9 @@
 	<!-- Robot -->
 	<BACKGROUND>
 		<uiIndex>62</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Robot</szName>
+		<szShortName>Robot</szShortName>
+		<szDescription>Made in a barn with a box of scraps, this robotic combat unit represents&#10;the future of warfare... at least in its creator's opinion.</szDescription>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
