@@ -1173,10 +1173,10 @@ BOOLEAN ExitShopKeeperInterface()
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE ) )
 	{		
 		//Have a new merc say a quote
-		INT16 bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
-		if( bSoldierID > -1 )
+		SoldierID bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+		if( bSoldierID != NOBODY )
 		{
-			TacticalCharacterDialogue( &Menptr[bSoldierID], QUOTE_JA2UB_LAPTOP_FIXED );
+			TacticalCharacterDialogue( bSoldierID, QUOTE_JA2UB_LAPTOP_FIXED );
 		}
 
 		gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE;
@@ -6538,7 +6538,7 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 	{
 		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
 		// if that soldier is not in player's hire any longer
-		if ( sSoldierID == -1 )
+		if ( sSoldierID >= NOBODY )
 		{
 			return(FALSE);
 		}
