@@ -18,11 +18,9 @@
 #include "Quests.h"
 #include "ai.h"
 #include "Game Clock.h"
-#include "interface Dialogue.h"
 #include "Map Screen Helicopter.h"
 #include "NPC.h"
 #include "Strategic AI.h"
-#include "Tactical Save.h"
 #include "Items.h"
 #include "Handle Items.h"
 #include "Overhead.h"
@@ -32,7 +30,6 @@
 #include "soldier tile.h"
 #include "Soldier Profile.h"
 #include "Soldier Functions.h"
-#include "soldier tile.h"
 #include "Action Items.h"
 #include "AIInternals.h"
 #include "Handle Doors.h"
@@ -48,7 +45,6 @@
 
 #include "LOS.h"
 #include "Music Control.h"
-#include "NPC.h"
 
 #include "GameInitOptionsScreen.h"
 
