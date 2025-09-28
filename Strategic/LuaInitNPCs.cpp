@@ -8996,40 +8996,30 @@ static int l_SoldierGiveItem(lua_State* L)
 {
 	if (lua_gettop(L) >= 3)
 	{
-		SOLDIERTYPE* pSoldier;
-		SOLDIERTYPE* pSoldier2;
-		BOOLEAN bol = FALSE;
-
-		SoldierID ubID1 = lua_tointeger(L, 1);
-		SoldierID ubID2 = lua_tointeger(L, 2);
+		UINT8 ubID1 = lua_tointeger(L, 1);
+		UINT8 ubID2 = lua_tointeger(L, 2);
 		UINT32 item = lua_tointeger(L, 3);
 
-		if (ubID1 != NOBODY && ubID2 != NOBODY)
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ubID1, FALSE);
+		SOLDIERTYPE* pSoldier2 = FindSoldierByProfileID(ubID2, FALSE);
+
+		BOOLEAN bol = FALSE;
+		if (!pSoldier || !pSoldier2)
+			bol = FALSE;
+		else
+			bol = TRUE;
+
+		if (bol == TRUE)
 		{
-			pSoldier = FindSoldierByProfileID(ubID1, FALSE);
-			pSoldier2 = FindSoldierByProfileID(ubID2, FALSE);
+			// Look for item....
+			INT8 bInvPos = FindObj(pSoldier, item);
 
-			if (!pSoldier || !pSoldier2)
-				bol = FALSE;
-			else
-				bol = TRUE;
+			AssertMsg(bInvPos != NO_SLOT, "Interface Dialogue.C:	Gift item does not exist in NPC.");
 
-			if (bol == TRUE)
-			{
-				// Look for letter....
-				{
-					INT8 bInvPos;
-
-					// Look for item....
-					bInvPos = FindObj(pSoldier, item);
-
-					AssertMsg(bInvPos != NO_SLOT, "Interface Dialogue.C:	Gift item does not exist in NPC.");
-
-					SoldierGiveItem(pSoldier, pSoldier2, &(pSoldier->inv[bInvPos]), bInvPos);
-				}
-			}
+			SoldierGiveItem(pSoldier, pSoldier2, &(pSoldier->inv[bInvPos]), bInvPos);
 		}
 	}
+
 	return 0;
 }
 
