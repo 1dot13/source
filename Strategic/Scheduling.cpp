@@ -489,12 +489,34 @@ SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE& src)
 	return(*this);
 }
 
+SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE_PRE_ITS& src)
+{
+	if ((void*)this != (void*)&src)
+	{
+		next = NULL;
+		TranslateArrayFields(usTime, src.usTime, OLD_MAX_SCHEDULE_ACTIONS, UINT16_UINT16);
+		TranslateArrayFields(usData1, src.usData1, OLD_MAX_SCHEDULE_ACTIONS, UINT32_UINT32);
+		TranslateArrayFields(usData2, src.usData2, OLD_MAX_SCHEDULE_ACTIONS, UINT32_UINT32);
+		TranslateArrayFields(ubAction, src.ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
+		ubScheduleID = src.ubScheduleID;
+		ubSoldierID = static_cast<UINT16>(src.ubSoldierID);
+		usFlags = src.usFlags;
+	}
+	return(*this);
+}
+
 BOOLEAN SCHEDULENODE::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
 {
-	if(dMajorMapVersion < 7.0)
+	if (dMajorMapVersion < 7.0)
 	{
 		_OLD_SCHEDULENODE OldScheduleNode;
 		LOADDATA(&OldScheduleNode, *hBuffer, sizeof(_OLD_SCHEDULENODE));
+		*this = OldScheduleNode;
+	}
+	else if (dMajorMapVersion < 8.0)
+	{
+		_OLD_SCHEDULENODE_PRE_ITS OldScheduleNode;
+		LOADDATA(&OldScheduleNode, *hBuffer, sizeof(_OLD_SCHEDULENODE_PRE_ITS));
 		*this = OldScheduleNode;
 	}
 	else
