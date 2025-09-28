@@ -29803,11 +29803,6 @@
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>1766</attachmentIndex>
-		<itemIndex>8</itemIndex><!-- Colt M1911A1 -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
 		<attachmentIndex>1767</attachmentIndex><!-- *** DESERT BDU PANTS -->
 		<itemIndex>170</itemIndex><!-- Kevlar Leggings -->
 		<APCost>20</APCost>
@@ -29868,11 +29863,6 @@
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>1767</attachmentIndex>
-		<itemIndex>8</itemIndex><!-- Colt M1911A1 -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
 		<attachmentIndex>1768</attachmentIndex><!-- *** URBAN BDU PANTS -->
 		<itemIndex>170</itemIndex><!-- Kevlar Leggings -->
 		<APCost>20</APCost>
@@ -29930,11 +29920,6 @@
 	<ATTACHMENT>
 		<attachmentIndex>1768</attachmentIndex>
 		<itemIndex>835</itemIndex><!-- Coated Twaron Leggings -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>1768</attachmentIndex>
-		<itemIndex>8</itemIndex><!-- Colt M1911A1 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
