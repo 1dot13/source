@@ -2877,22 +2877,6 @@ BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 u
 	return true;
 }
 
-SOLDIERTYPE* FindSoldierByProfileID_(UINT8 ubProfileID)
-{
-	UINT16 ubLoop, ubLoopLimit;
-	SOLDIERTYPE* pSoldier;
-
-	ubLoopLimit = MAX_NUM_SOLDIERS;
-
-	for (ubLoop = 0, pSoldier = MercPtrs[0]; ubLoop < ubLoopLimit; ubLoop++, pSoldier++)
-	{
-		if (pSoldier->bActive && pSoldier->ubProfile == ubProfileID)
-		{
-			return(pSoldier);
-		}
-	}
-	return(NULL);
-}
 
 SOLDIERTYPE* FindSoldierByProfileID2(UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly)
 {
@@ -5454,32 +5438,15 @@ static int l_ActionInProgress(lua_State* L)
 
 static int l_SetSoldierNonNeutral(lua_State* L)
 {
-	SOLDIERTYPE* pSoldier;
-
 	if (lua_gettop(L))
 	{
 		UINT8 ID = lua_tointeger(L, 1);
 
-		if (ID != NO_PROFILE)
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ID, FALSE);
+		if (pSoldier)
 		{
-			pSoldier = FindSoldierByProfileID(ID, FALSE);
-			if (pSoldier)
-			{
-				SetSoldierNonNeutral(pSoldier);
-			}
+			SetSoldierNonNeutral(pSoldier);
 		}
-		else
-		{
-			pSoldier = FindSoldierByProfileID_(ID);
-			if (pSoldier->ubProfile == ID)
-			{
-				if (pSoldier)
-				{
-					SetSoldierNonNeutral(pSoldier);
-				}
-			}
-		}
-
 	}
 
 	return 0;
@@ -7198,26 +7165,10 @@ static int l_SetSoldierSide(lua_State* L)
 		UINT8 UID = lua_tointeger(L, 1);
 		INT8 bNewSide = lua_tointeger(L, 2);
 
-		SOLDIERTYPE* pSoldier = NULL;
-
-		if (UID != NO_PROFILE)
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(UID, FALSE);
+		if (pSoldier)
 		{
-			pSoldier = FindSoldierByProfileID(UID, FALSE);
-			if (pSoldier)
-			{
-				pSoldier->bSide = bNewSide;
-			}
-		}
-		else
-		{
-			pSoldier = FindSoldierByProfileID_(UID);
-			if (pSoldier->ubProfile == UID)
-			{
-				if (pSoldier)
-				{
-					pSoldier->bSide = bNewSide;
-				}
-			}
+			pSoldier->bSide = bNewSide;
 		}
 	}
 
@@ -7230,28 +7181,12 @@ static int l_CheckSoldierSide(lua_State* L)
 	if (lua_gettop(L))
 	{
 		UINT8 UID = lua_tointeger(L, 1);
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(UID, FALSE);
 
 		INT8 bNewSide = -1;
-		SOLDIERTYPE* pSoldier = NULL;
-
-		if (UID != NO_PROFILE)
+		if (pSoldier)
 		{
-			pSoldier = FindSoldierByProfileID(UID, FALSE);
-			if (pSoldier)
-			{
-				bNewSide = pSoldier->bSide;
-			}
-		}
-		else
-		{
-			pSoldier = FindSoldierByProfileID_(UID);
-			if (pSoldier->ubProfile == UID)
-			{
-				if (pSoldier)
-				{
-					bNewSide = pSoldier->bSide;
-				}
-			}
+			bNewSide = pSoldier->bSide;
 		}
 
 		if (bNewSide > -1)
@@ -7265,30 +7200,13 @@ static int l_CheckSoldierNeutral(lua_State* L)
 {
 	if (lua_gettop(L))
 	{
-		SOLDIERTYPE* pSoldier = NULL;
 		UINT8 UID = lua_tointeger(L, 1);
-		BOOLEAN Bool = FALSE;
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(UID, FALSE);
 
-		if (UID != NO_PROFILE)
+		if (pSoldier)
 		{
-			pSoldier = FindSoldierByProfileID(UID, FALSE);
-			if (pSoldier)
-			{
-				Bool = (pSoldier->aiData.bNeutral);
-				lua_pushboolean(L, Bool);
-			}
-		}
-		else
-		{
-			pSoldier = FindSoldierByProfileID_(UID);
-			if (pSoldier->ubProfile == UID)
-			{
-				if (pSoldier)
-				{
-					Bool = (pSoldier->aiData.bNeutral);
-					lua_pushboolean(L, Bool);
-				}
-			}
+			BOOLEAN Bool = (pSoldier->aiData.bNeutral);
+			lua_pushboolean(L, Bool);
 		}
 	}
 
