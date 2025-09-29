@@ -5412,7 +5412,12 @@ static int l_InitFace(lua_State* L)
 	return 0;
 }
 
-// TODO: fix this mess
+// FIXME: Aim of this function is unclear and it's a broken mess
+// FindSoldierByProfileID2 call is set to find a soldier with specific profile and restrict search to player controlled mercs
+// The function searches through CIV_TEAM which are never player controlled mercs *AND* does not check for profile
+// So if a call from lua side comes, the first branch will match for the first civilian who is in sector and active
+// Else branch does the same, except it will choose a civilian which doesn't have a profile
+// The call to register this as a valid lua function is currently commented out and should remain so until the function is fixed.
 static int l_ActionInProgress(lua_State* L)
 {
 	SOLDIERTYPE* pSoldier;
