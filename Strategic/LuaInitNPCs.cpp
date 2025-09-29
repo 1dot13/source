@@ -2877,7 +2877,10 @@ BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 u
 	return true;
 }
 
-
+// FIXME: Right now this function returns the very first pSoldier from CIV_TEAM that is active and in sector
+// Neither one of the function arguments are used inside the function and the only place where this is called
+// makes it look like it *is* supposed to match against specific profile *and* restrict the search to player mercs.
+// That last part makes no sense since player mercs are part of OUR_TEAM
 SOLDIERTYPE* FindSoldierByProfileID2(UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly)
 {
 	SoldierID soldier = gTacticalStatus.Team[CIV_TEAM].bFirstID;
