@@ -15128,8 +15128,9 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  CHAR16 sString[ 50 ];
  CHAR16 sDollarString[ 50 ];
 
- ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigContractPosition.iX;
- ContractPosition.iY = yResOffset + OrigContractPosition.iY;
+ GetMousePos(&ContractPosition);
+ // Shift X-position to clear the mouse
+ ContractPosition.iX += 15;
 
  if( giBoxY != 0 )
  {
@@ -15253,8 +15254,9 @@ void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT
 	ghContractBox = -1;
 	fShowContractMenu = TRUE;
 
-	ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH) / 2 + OrigContractPosition.iX;
-	ContractPosition.iY = yResOffset + OrigContractPosition.iY;
+	GetMousePos(&ContractPosition);
+	// Shift X-position to clear the mouse
+	ContractPosition.iX += 15;
 
 	if (giBoxY != 0)
 	{
