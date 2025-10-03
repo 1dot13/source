@@ -12738,10 +12738,6 @@ void ContractRegionMvtCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 void HandleShadingOfLinesForContractMenu( void )
 {
-	SOLDIERTYPE *pSoldier;
-	MERCPROFILESTRUCT *pProfile;
-
-
 	if( ( fShowContractMenu == FALSE ) || ( ghContractBox == - 1 ) )
 	{
 		return;
@@ -12762,13 +12758,31 @@ void HandleShadingOfLinesForContractMenu( void )
 	Assert( CanExtendContractForCharSlot( bSelectedContractChar ) );
 
 	// grab the character
-	pSoldier = gCharactersList[ bSelectedContractChar ].usSolID;
+	SOLDIERTYPE* pSoldier = gCharactersList[ bSelectedContractChar ].usSolID;
+	const bool multipleMercsSelected = (gSelectedSoldiers.size() > 0) ? true : false;
 
+	bool atLeastOneAIMmerc = false;
+	if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+	{
+		atLeastOneAIMmerc = true;
+
+	}
+	else if (multipleMercsSelected)
+	{
+		for (const auto& soldier : gSelectedSoldiers)
+		{
+			if (soldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			{
+				atLeastOneAIMmerc = true;
+				break;
+			}
+		}
+	}
 
 	// is guy in AIM? and well enough to talk and make such decisions?
-	if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) && ( pSoldier->stats.bLife >= OKLIFE ) )
+	if( (atLeastOneAIMmerc) && ( pSoldier->stats.bLife >= OKLIFE ) )
 	{
-		pProfile = &( gMercProfiles[ pSoldier->ubProfile ] );
+		MERCPROFILESTRUCT* pProfile = &( gMercProfiles[ pSoldier->ubProfile ] );
 
 		if (is_networked)
 		{
@@ -12779,8 +12793,30 @@ void HandleShadingOfLinesForContractMenu( void )
 		}
 		else
 		{
+			// Determine salary costs
+			UINT32 sumOneDay = 0;
+			UINT32 sumOneWeek = 0;
+			UINT32 sumBiWeekly = 0;
+			if (multipleMercsSelected)
+			{
+				for (const auto& soldier : gSelectedSoldiers)
+				{
+					const auto& profile = gMercProfiles[soldier->ubProfile];
+					sumOneDay += profile.sSalary;
+					sumOneWeek += profile.uiWeeklySalary;
+					sumBiWeekly += profile.uiBiWeeklySalary;
+				}
+
+			}
+			else
+			{
+				sumOneDay = pProfile->sSalary;
+				sumOneWeek = pProfile->uiWeeklySalary;
+				sumBiWeekly = pProfile->uiBiWeeklySalary;
+			}
+
 			// one day
-			if( pProfile->sSalary > LaptopSaveInfo.iCurrentBalance )
+			if(sumOneDay > LaptopSaveInfo.iCurrentBalance )
 			{
 				ShadeStringInBox( ghContractBox, CONTRACT_MENU_DAY );
 			}
@@ -12790,7 +12826,7 @@ void HandleShadingOfLinesForContractMenu( void )
 			}
 
 			// one week
-			if( ( INT32 )( pProfile->uiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
+			if( ( INT32 )(sumOneWeek) > LaptopSaveInfo.iCurrentBalance )
 			{
 				ShadeStringInBox( ghContractBox, CONTRACT_MENU_WEEK );
 			}
@@ -12800,7 +12836,7 @@ void HandleShadingOfLinesForContractMenu( void )
 			}
 
 			// two weeks
-			if( ( INT32 )( pProfile->uiBiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
+			if( ( INT32 )(sumBiWeekly) > LaptopSaveInfo.iCurrentBalance )
 			{
 				ShadeStringInBox( ghContractBox, CONTRACT_MENU_TWO_WEEKS );
 			}
@@ -12820,7 +12856,7 @@ void HandleShadingOfLinesForContractMenu( void )
 
 	// if THIS soldier is involved in a fight (dismissing in a hostile sector IS ok...)
 	// Also if we have multiple mercs selected, disable terminating contracts
-	if( gSelectedSoldiers.size() > 0 || (( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bInSector ))
+	if (multipleMercsSelected || (( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bInSector ))
 	{
 		ShadeStringInBox( ghContractBox, CONTRACT_MENU_TERMINATE );
 	}
