@@ -73,8 +73,6 @@ typedef struct finance *FinanceUnitPtr;
 extern FinanceUnitPtr pFinanceListHead;
 //extern INT32 iCurrentBalance;
 UINT32 AddTransactionToPlayersBook(UINT8 ubCode, UINT8 ubSecondCode, UINT32 uiDate, INT32 iAmount);
-void InsertDollarSignInToString( STR16 pString );
-void InsertCommasForDollarFigure( STR16 pString );
 INT32 GetTodaysDaysIncome( void );
 INT32 GetProjectedTotalDailyIncome( void );
 INT32 GetProjectedExpenses( void ); // HEADROCK HAM 3.6: Projected daily expenses.
