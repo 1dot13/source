@@ -1400,9 +1400,9 @@ BOOLEAN	UpdateMercInfo(void)
 		DisplayWrappedString(AIM_OFFER_X, AGILITY_Y, AIM_OFFER_WIDTH, 2, AIM_M_FONT_DYNAMIC_TEXT, AIM_FONT_MCOLOR_WHITE, zNewTacticalMessages[TACT_MSG__AIMMEMBER_FEE_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 #else
 		//Display the salaries
-		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_WIDTH, FEE_X, HEALTH_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
-		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_WIDTH, FEE_X, AGILITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
-		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_WIDTH, FEE_X, DEXTERITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_X, HEALTH_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X, AGILITY_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_X, DEXTERITY_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 		DrawDiscountedDailyCosts();
 
