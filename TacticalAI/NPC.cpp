@@ -1546,8 +1546,7 @@ BOOLEAN HandleNPCBeingGivenMoneyByPlayer( UINT8 ubNPC, UINT32 uiMoneyAmount, UIN
 				{
 					CHAR16		sTempString[ 100 ];
 
-					swprintf( sTempString, L"%ld", iCost - uiMoneyAmount - giHospitalTempBalance );
-					InsertDollarSignInToString( sTempString );
+					swprintf( sTempString, L"%s", FormatMoney(iCost - uiMoneyAmount - giHospitalTempBalance).data());
 
 					// not enough cash
 					ScreenMsg( FONT_MCOLOR_LTYELLOW,

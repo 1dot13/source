@@ -977,8 +977,7 @@ void DisplayMercsStats( UINT8 ubMercID )
 {
 	UINT16 usPosY, usPosX;
 	CHAR16 sPage[60];
-	CHAR16 sTemp[128];
-	CHAR16 sString[128];
+	std::wstring sString{};
 	CHAR16 NsString[128];
 	CHAR16 N2sString[128];
 	UINT8	ubColor;
@@ -1058,21 +1057,15 @@ void DisplayMercsStats( UINT8 ubMercID )
 	DrawTextToScreen( CharacterInfo[AIM_MEMBER_FEE], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_TITLE_FONT, MERC_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( CharacterInfo[AIM_MEMBER_FEE], MERC_NAME_FONT );
-	swprintf( sString, L"%d", gMercProfiles[ubMercID].uiWeeklySalary );
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney(gMercProfiles[ubMercID].uiWeeklySalary);
 #else
 	DrawTextToScreen( MercInfo[MERC_FILES_SALARY], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT );
-	swprintf( sString, L"%d", gMercProfiles[ubMercID].sSalary );
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
-	swprintf( sTemp, L" %s", MercInfo[MERC_FILES_PER_DAY] );
+	sString = FormatMoney(gMercProfiles[ubMercID].sSalary) + L" " + std::wstring(MercInfo[MERC_FILES_PER_DAY]);
 #endif // JA2UB
 
-	wcscat( sString, sTemp );
-	DrawTextToScreen( sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen( sString.data(), usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 	// Buggler: Display current MERC index & total MERC members at the bottom of the screen
 	swprintf( sPage, L"%d / %d", gubCurMercIndex + 1, LaptopSaveInfo.gubLastMercIndex + 1 );
@@ -1103,10 +1096,8 @@ void DisplayMercsStats( UINT8 ubMercID )
 #endif // JA2UB
 
 		swprintf( NsString, L"+ " );
-		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost);
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-		wcscat( NsString, sTemp );
+		sString = FormatMoney(gMercProfiles[ ubMercID ].usOptionalGearCost);
+		wcscat( NsString, sString.data() );
 		DrawTextToScreen( NsString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 		usPosY += MERC_SPACE_BN_LINES;
 
@@ -1115,13 +1106,11 @@ void DisplayMercsStats( UINT8 ubMercID )
 
 		swprintf(N2sString, L"= ");
 #ifdef JA2UB
-		swprintf( sTemp, L"%d", gMercProfiles[ubMercID].usOptionalGearCost + gMercProfiles[ubMercID].uiWeeklySalary );
+		sString = FormatMoney(gMercProfiles[ubMercID].usOptionalGearCost + gMercProfiles[ubMercID].uiWeeklySalary);
 #else
-		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost+gMercProfiles[ ubMercID ].sSalary);
+		sString = FormatMoney(gMercProfiles[ ubMercID ].usOptionalGearCost+gMercProfiles[ ubMercID ].sSalary);
 #endif
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-		wcscat( N2sString, sTemp );
+		wcscat( N2sString, sString.data() );
 		DrawTextToScreen( N2sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	}
 }

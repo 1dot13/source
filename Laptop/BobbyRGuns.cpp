@@ -1424,8 +1424,6 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	UINT8		ubCount=0;
 	UINT16	PosY, usTextPosY;
 	UINT16	usItemIndex;
-	CHAR16	sDollarTemp[60];
-	CHAR16	sTemp[60];
 	CHAR16	sPage[60];
 	INT16		pItemNumbers[ BOBBYR_NUM_WEAPONS_ON_PAGE ];
 	BOOLEAN		bAddItem = FALSE;
@@ -1434,11 +1432,8 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	usTextPosY = BOBBYR_ITEM_DESC_START_Y;
 
 	//Display the subtotal at the bottom of the screen
-	swprintf( sDollarTemp, L"%d", CalculateTotalPurchasePrice() );
-	InsertCommasForDollarFigure( sDollarTemp );
-	InsertDollarSignInToString( sDollarTemp );
-	swprintf( sTemp, L"%s %s", BobbyRText[BOBBYR_GUNS_SUB_TOTAL], sDollarTemp );
-	DrawTextToScreen(sTemp, BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
+	auto subtotal{ std::wstring(BobbyRText[BOBBYR_GUNS_SUB_TOTAL]) + std::wstring(L" ") + FormatMoney(CalculateTotalPurchasePrice()) };
+	DrawTextToScreen(subtotal.data(), BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
 
 	//Buggler: Display the current page & total pages at the bottom of the screen
 	swprintf( sPage, L"%d / %d", gubCurPage + 1, gubNumPages );
@@ -2059,11 +2054,7 @@ UINT16 DisplayCostAndQty(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight, UIN
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_COST], BOBBYR_ITEM_COST_TEXT_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 
-	swprintf(sTemp, L"%d", CalcBobbyRayCost( usIndex, usBobbyIndex, fUsed ));
-	InsertCommasForDollarFigure( sTemp );
-	InsertDollarSignInToString( sTemp );
-
-	DrawTextToScreen(sTemp, BOBBYR_ITEM_COST_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(FormatMoney(CalcBobbyRayCost(usIndex, usBobbyIndex, fUsed)).data(), BOBBYR_ITEM_COST_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 
 

@@ -5084,11 +5084,7 @@ void ShouldNewMailBeDisplayed()
 void DisplayPlayersBalanceToDate( void )
 {
 	// print players balance to date
-	CHAR16 sString[ 100 ];
 	INT16 sX, sY;
-
-	// initialize string
-	memset( sString, 0, sizeof( sString ) );
 
 	// font stuff
 	SetFont( FONT10ARIAL);
@@ -5096,24 +5092,20 @@ void DisplayPlayersBalanceToDate( void )
 	SetFontShadow(NO_SHADOW);
 
 	// parse straigth number
-	swprintf( sString, L"%d", LaptopSaveInfo.iCurrentBalance );
-
-	// put in commas, then dollar sign
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	std::wstring sString{FormatMoney(LaptopSaveInfo.iCurrentBalance)};
 
 	// get center
-	FindFontCenterCoordinates( (INT16)LAPTOP_ICON_TEXT_X, iScreenHeightOffset, (INT16)(LAPTOP_ICON_TEXT_WIDTH) ,(INT16)(LAPTOP_ICON_TEXT_HEIGHT), sString, LAPTOPICONFONT, &sX, &sY );
+	FindFontCenterCoordinates( (INT16)LAPTOP_ICON_TEXT_X, iScreenHeightOffset, (INT16)(LAPTOP_ICON_TEXT_WIDTH) ,(INT16)(LAPTOP_ICON_TEXT_HEIGHT), sString.data(), LAPTOPICONFONT, &sX, &sY);
 
 //	gprintfdirty( sX , LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString );
 	// printf it!
 	if( ButtonList[ gLaptopButton[ 5 ] ]->uiFlags & BUTTON_CLICKED_ON )
 	{
-		mprintf( sX + 5, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10 + 5, sString);
+		mprintf( sX + 5, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10 + 5, sString.data());
 	}
 	else
 	{
-		mprintf( sX, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString);
+		mprintf( sX, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString.data());
 	}
 
 	// reset shadow
@@ -6207,7 +6199,6 @@ void DeleteDesktopBackground( void )
 
 void PrintBalance( void )
 {
-	CHAR16 pString[ 32 ];
 //	UINT16 usX, usY;
 
 	SetFont( FONT10ARIAL );
@@ -6215,17 +6206,15 @@ void PrintBalance( void )
 	SetFontBackground( FONT_BLACK );
 	SetFontShadow( NO_SHADOW );
 
-	swprintf(pString, L"%d", LaptopSaveInfo.iCurrentBalance);
-	InsertCommasForDollarFigure( pString );
-	InsertDollarSignInToString( pString );
+	std::wstring pString{ FormatMoney(LaptopSaveInfo.iCurrentBalance) };
 
 	if( ButtonList[ gLaptopButton[ 5 ] ]->uiFlags & BUTTON_CLICKED_ON )
 	{
-		mprintf(iScreenWidthOffset + 48, iScreenHeightOffset + 273,pString);
+		mprintf(iScreenWidthOffset + 48, iScreenHeightOffset + 273,pString.data());
 	}
 	else
 	{
-		mprintf(iScreenWidthOffset + 47, iScreenHeightOffset + 272,pString);
+		mprintf(iScreenWidthOffset + 47, iScreenHeightOffset + 272,pString.data());
 	}
 
 

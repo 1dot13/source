@@ -3298,7 +3298,6 @@ INT32 GetHighestDailyCostOfCurrentTeam( void )
 void DisplayCostOfCurrentTeam( void )
 {
 	// display number on team
-	CHAR16 sString[ 32 ];
 	INT16 sX, sY;
 	
 	// font stuff
@@ -3307,38 +3306,30 @@ void DisplayCostOfCurrentTeam( void )
 	SetFontForeground( PERS_TEXT_FONT_COLOR );
 
 	if (fCurrentTeamMode) {
+		std::wstring sString{};
 		// daily cost
 		mprintf(	PERS_CURR_TEAM_COST_X, PERS_CURR_TEAM_COST_Y, pPersonelTeamStrings[ 2 ] );
 
-		swprintf( sString, L"%d", GetTotalDailyCostOfCurrentTeam( ) );
-		InsertCommasForDollarFigure( sString );
-		InsertDollarSignInToString( sString );
+		sString = FormatMoney( GetTotalDailyCostOfCurrentTeam( ) );
+		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString.data(), PERS_FONT, &sX, &sY);
 
-		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString, PERS_FONT,	&sX, &sY);
-
-		mprintf( sX ,PERS_CURR_TEAM_COST_Y, sString );
+		mprintf( sX ,PERS_CURR_TEAM_COST_Y, sString.data() );
 
 		// highest cost
 		mprintf(	PERS_CURR_TEAM_COST_X, PERS_CURR_TEAM_HIGHEST_Y, pPersonelTeamStrings[ 3 ] );
 
-		swprintf( sString, L"%d", GetHighestDailyCostOfCurrentTeam( ) );
-		InsertCommasForDollarFigure( sString );
-		InsertDollarSignInToString( sString );
+		sString = FormatMoney( GetHighestDailyCostOfCurrentTeam( ) );
+		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString.data(), PERS_FONT, &sX, &sY);
 
-		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString, PERS_FONT,	&sX, &sY);
-
-		mprintf( sX ,PERS_CURR_TEAM_HIGHEST_Y, sString );
+		mprintf( sX ,PERS_CURR_TEAM_HIGHEST_Y, sString.data() );
 
 		// the lowest cost
 		mprintf(	PERS_CURR_TEAM_COST_X, PERS_CURR_TEAM_LOWEST_Y, pPersonelTeamStrings[ 4 ] );
 
-		swprintf( sString, L"%d", GetLowestDailyCostOfCurrentTeam( ) );
-		InsertCommasForDollarFigure( sString );
-		InsertDollarSignInToString( sString );
+		sString = FormatMoney( GetLowestDailyCostOfCurrentTeam( ) );
+		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString.data(), PERS_FONT, &sX, &sY);
 
-		FindFontRightCoordinates((INT16)(PERS_CURR_TEAM_COST_X),0,PERS_CURR_TEAM_WIDTH,0,sString, PERS_FONT,	&sX, &sY);
-
-		mprintf( sX ,PERS_CURR_TEAM_LOWEST_Y, sString );
+		mprintf( sX ,PERS_CURR_TEAM_LOWEST_Y, sString.data() );
 	}
 }
 
@@ -5931,7 +5922,7 @@ void DisplayAmountOnCurrentMerc( void )
 {
 	// will display the amount that the merc is carrying on him or herself
 	SOLDIERTYPE *pSoldier = NULL;
-	CHAR16 sString[ 64 ];
+	std::wstring sString{};
 	INT16 sX, sY;
 
 	if (currentTeamIndex == -1) {
@@ -5941,13 +5932,7 @@ void DisplayAmountOnCurrentMerc( void )
 		pSoldier = currentTeamList[currentTeamIndex];
 	}
 
-	INT32 iFunds = GetFundsOnMerc( pSoldier );
-
-	swprintf( sString, L"%d", iFunds );
-
-	// insert commas and dollar sign
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney( GetFundsOnMerc( pSoldier ) );
 
 	// set font
 	SetFont( ATM_FONT );
@@ -5957,10 +5942,10 @@ void DisplayAmountOnCurrentMerc( void )
 	SetFontBackground( FONT_BLACK );
 
 	// right justify
-	FindFontRightCoordinates( ATM_DISPLAY_X, ATM_DISPLAY_Y, ATM_DISPLAY_WIDTH, ATM_DISPLAY_HEIGHT, sString, ATM_FONT, &sX, &sY );
+	FindFontRightCoordinates( ATM_DISPLAY_X, ATM_DISPLAY_Y, ATM_DISPLAY_WIDTH, ATM_DISPLAY_HEIGHT, sString.data(), ATM_FONT, &sX, &sY);
 
 	// print string
-	mprintf( sX, sY, sString );
+	mprintf( sX, sY, sString.data() );
 }
 
 void HandlePersonnelKeyboard( void )
@@ -6292,11 +6277,7 @@ void DisplayEmploymentinformation( SoldierID iId, INT32 iSlot )
 				swprintf( sString, L"%d", gMercProfiles[ Menptr[ iId ].ubProfile ].uiTotalCostToDate );
 			}
 */
-				swprintf( sString, L"%d", pMercProfile->uiTotalCostToDate );
-
-				// insert commas and dollar sign
-				InsertCommasForDollarFigure( sString );
-				InsertDollarSignInToString( sString );
+				swprintf( sString, L"%s", FormatMoney(pMercProfile->uiTotalCostToDate).data() );
 
 /*
 DEF:3/19/99:
@@ -6321,34 +6302,22 @@ DEF:3/19/99:
 				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
 				{
 					// 2 week contract
-					swprintf( sStringA, L"%d", pMercProfile->uiBiWeeklySalary / 14 );
-					InsertCommasForDollarFigure( sStringA );
-					InsertDollarSignInToString( sStringA );
-					swprintf( sString, L"%s", sStringA );
+					swprintf( sString, L"%s", FormatMoney( pMercProfile->uiBiWeeklySalary / 14 ).data() );
 				}
 				else if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
 				{
 					// 1 week contract
-					swprintf( sStringA, L"%d", pMercProfile->uiWeeklySalary / 7 );
-					InsertCommasForDollarFigure( sStringA );
-					InsertDollarSignInToString( sStringA );
-					swprintf( sString, L"%s",	sStringA );
+					swprintf( sString, L"%s", FormatMoney( pMercProfile->uiWeeklySalary / 7 ).data() );
 				}
 				else
 				{
 					// daily rate
-					swprintf( sStringA, L"%d", pMercProfile->sSalary );
-					InsertCommasForDollarFigure( sStringA );
-					InsertDollarSignInToString( sStringA );
-					swprintf( sString,	L"%s", sStringA );
+					swprintf( sString, L"%s", FormatMoney( pMercProfile->sSalary ).data() );
 				}
 			}
 			else
 			{
-				swprintf( sStringA, L"%d", pMercProfile->sSalary );
-				InsertCommasForDollarFigure( sStringA );
-				InsertDollarSignInToString( sStringA );
-				swprintf( sString,	L"%s", sStringA );
+				swprintf( sString, L"%s", FormatMoney( pMercProfile->sSalary ).data() );
 			}
 
 			FindFontRightCoordinates( (INT16)(x + Prsnl_DATA_OffSetX), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
@@ -6369,9 +6338,7 @@ DEF:3/19/99:
 			{
 				mprintf((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter-1].y,pPersonnelScreenStrings[PRSNL_TXT_UNPAID_AMOUNT]);
 
-				swprintf( sString, L"%d", pMercProfile->sSalary * pMercProfile->iMercMercContractLength );
-				InsertCommasForDollarFigure( sString );
-				InsertDollarSignInToString( sString );
+				swprintf( sString, L"%s", FormatMoney( pMercProfile->sSalary * pMercProfile->iMercMercContractLength ).data() );
 
 				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 				mprintf(sX,pPersonnelScreenPoints[iCounter-1].y,sString);
@@ -6380,11 +6347,7 @@ DEF:3/19/99:
 			{
 				mprintf((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter-1].y,pPersonnelScreenStrings[PRSNL_TXT_MED_DEPOSIT]);
 
-				swprintf(sString, L"%d",pMercProfile->sMedicalDepositAmount);
-
-				// insert commas and dollar sign
-				InsertCommasForDollarFigure( sString );
-				InsertDollarSignInToString( sString );
+				swprintf(sString, L"%s", FormatMoney(pMercProfile->sMedicalDepositAmount).data());
 
 				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter-1].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 				mprintf(sX,pPersonnelScreenPoints[iCounter-1].y,sString);

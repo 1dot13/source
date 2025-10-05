@@ -1518,16 +1518,8 @@ void HandleNotifyPlayerCantAffordInsurance( void )
 void HandleNotifyPlayerCanAffordInsurance( SOLDIERTYPE *pSoldier, UINT8 ubLength, INT32 iCost )
 {
 	CHAR16 sString[ 128 ];
-	CHAR16 sStringA[ 32 ];
 
-	//parse the cost
-	swprintf( sStringA, L"%d",iCost );
-
-	// insert the commans and dollar sign
-	InsertCommasForDollarFigure( sStringA );
-	InsertDollarSignInToString( sStringA );
-
-	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->GetName(), sStringA, ubLength );
+	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->GetName(), FormatMoney(iCost).data(), ubLength );
 
 	//Set the length to the global variable ( so we know how long the contract is in the callback )
 	gubContractLength = ubLength;

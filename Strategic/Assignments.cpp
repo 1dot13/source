@@ -15169,14 +15169,12 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].sSalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].sSalary).data() );
 				}
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15184,15 +15182,13 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].uiWeeklySalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].uiWeeklySalary).data() );
 				}
 
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString );
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15200,16 +15196,14 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].uiBiWeeklySalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].uiBiWeeklySalary).data() );
 				}
 
 
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15299,10 +15293,8 @@ void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT
 				//}
 				//else
 				{
-					swprintf(sDollarString, L"%d", DailySalaries);
+					swprintf(sDollarString, L"%s", FormatMoney(DailySalaries).data() );
 				}
-				InsertCommasForDollarFigure(sDollarString);
-				InsertDollarSignInToString(sDollarString);
 				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 				break;
@@ -15314,11 +15306,9 @@ void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT
 				//}
 				//else
 				{
-					swprintf(sDollarString, L"%d", WeeklySalaries);
+					swprintf(sDollarString, L"%s", FormatMoney(WeeklySalaries).data());
 				}
 
-				InsertCommasForDollarFigure(sDollarString);
-				InsertDollarSignInToString(sDollarString);
 				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 				break;
@@ -15330,12 +15320,10 @@ void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT
 				//}
 				//else
 				{
-					swprintf(sDollarString, L"%d", BiweeklySalaries);
+					swprintf(sDollarString, L"%s", FormatMoney(BiweeklySalaries).data());
 				}
 
 
-				InsertCommasForDollarFigure(sDollarString);
-				InsertDollarSignInToString(sDollarString);
 				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 				break;

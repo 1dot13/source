@@ -6261,11 +6261,7 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 			iValue = GetProjectedTotalDailyIncome( );
 
 			// parse the string
-			swprintf( sStringC, L"%d", iValue );
-
-			// insert
-			InsertCommasForDollarFigure( sStringC );
-			InsertDollarSignInToString( sStringC );
+			swprintf( sStringC, L"%s", FormatMoney(iValue).data());
 
 			swprintf( sStringB, pMapErrorString[ 16 ], sString, sStringC );
 
