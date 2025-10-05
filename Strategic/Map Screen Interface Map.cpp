@@ -4378,9 +4378,7 @@ void DisplayDistancesForHelicopter( void )
 	if( (INT32)uiTripCost > LaptopSaveInfo.iCurrentBalance )
 		SetFontForeground( FONT_LTRED );
 		
-	swprintf( sString, L"%d", uiTripCost );
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	swprintf( sString, L"%s", FormatMoney(uiTripCost).data());
 	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 3 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ) ), sString );
 
@@ -4857,9 +4855,7 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 	if (PlayerControlsMine(ubMineIndex) && !gMineStatus[ ubMineIndex ].fEmpty)
 	{
 		// show current production
-		swprintf( wSubString, L"%d", PredictDailyIncomeFromAMine(ubMineIndex, TRUE) );
-		InsertCommasForDollarFigure( wSubString );
-		InsertDollarSignInToString( wSubString );
+		swprintf( wSubString, L"%s", FormatMoney(PredictDailyIncomeFromAMine(ubMineIndex, TRUE)).data());
 		wcscpy( wString, wSubString );
 
 /*

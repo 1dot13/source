@@ -474,7 +474,6 @@ void HandleDialogue( )
 	BOOLEAN fDoneTalking = FALSE;
 	SOLDIERTYPE *pSoldier = NULL;
 	CHAR16	zText[ 512 ];
-	CHAR16	zMoney[128];
 
 	// we don't want to just delay action of some events, we want to pause the whole queue, regardless of the event
 	if( gfDialogueQueuePaused )
@@ -1055,18 +1054,16 @@ void HandleDialogue( )
 
 		if ( QItem.uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOPKEEPER )
 		{
+			std::wstring zMoney{};
 			if( QItem.uiSpecialEventData < 3 )
 			{
 				// post a notice if the player wants to withdraw money from thier account to cover the difference?
-				swprintf( zMoney, L"%d", QItem.uiSpecialEventData2 );
-				InsertCommasForDollarFigure( zMoney );
-				InsertDollarSignInToString( zMoney );
+				zMoney = FormatMoney(QItem.uiSpecialEventData2);
 			}
 			else if ( QItem.uiSpecialEventData > 7 )
 			{
 				// post a notice if the player wants to withdraw money from thier account to cover the difference?
-				swprintf( zMoney, L"%d", QItem.uiSpecialEventData2 );
-				InsertCommasForDollarFigure( zMoney );
+				zMoney = FormatMoney(QItem.uiSpecialEventData2);
 			}
 
 			switch( QItem.uiSpecialEventData )

@@ -700,6 +700,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 		iCostOfContract = 0;
 	}
 
+	std::wstring amountRefund{};
 	if( iCostOfContract < 0 )
 	{
 		//shouldnt get in here now since we can longer give refunds
@@ -712,19 +713,16 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 		DrawTextToScreen( sText, (UINT16)(usPosX+INS_CTRCT_EMPLYMNT_CNTRCT_TEXT_OFFSET_X), INS_CTRCT_ORDER_GRID1_Y+INS_CTRCT_PREMIUM_OWING_OFFSET_Y, INS_CTRCT_ORDER_GRID_WIDTH, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 		//display the amount of refund
-		swprintf( sText, L"%d", iCostOfContract );
-		InsertCommasForDollarFigure( sText );
-		InsertDollarSignInToString( sText );
+		amountRefund = FormatMoney(iCostOfContract);
 	}
 
 
 	if( IsMercDead( ubMercID ) )
 	{
-		swprintf( sText, L"0");
-		InsertDollarSignInToString( sText );
+		amountRefund = L"$0";
 	}
 	//display the amount owing
-	DrawTextToScreen( sText, (UINT16)(usPosX+32), INS_CTRCT_ORDER_GRID1_Y+179, 72, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
+	DrawTextToScreen( amountRefund.data(), (UINT16)(usPosX + 32), INS_CTRCT_ORDER_GRID1_Y + 179, 72, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 
 

@@ -7931,9 +7931,7 @@ void RenderItemDescriptionBox( )
 
 				//Display the total amount of money remaining
 				SetFontForeground( 5 );
-				swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemaining );
-				InsertCommasForDollarFigure( pStr );
-				InsertDollarSignInToString( pStr );
+				swprintf( pStr, L"%s", FormatMoney(gRemoveMoney.uiMoneyRemaining).data() );
 				if (UsingNewInventorySystem() == true)
 					FindFontRightCoordinates( gMoneyStats[ 4 ].sX + 50, gMoneyStats[ 4 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 				else
@@ -7942,9 +7940,7 @@ void RenderItemDescriptionBox( )
 
 				//Display the total amount of money removing
 				SetFontForeground( 5 );
-				swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemoving );
-				InsertCommasForDollarFigure( pStr );
-				InsertDollarSignInToString( pStr );
+				swprintf( pStr, L"%s", FormatMoney(gRemoveMoney.uiMoneyRemoving).data() );
 				if (UsingNewInventorySystem() == true)
 					FindFontRightCoordinates( gMoneyStats[ 5 ].sX + 50, gMoneyStats[ 5 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 				else
@@ -7973,9 +7969,7 @@ void RenderItemDescriptionBox( )
 //		{
 			SetFontForeground( FONT_FCOLOR_WHITE );
 			SetFontShadow( DEFAULT_SHADOW );
-			swprintf( pStr, L"%ld", (*gpItemDescObject)[gubItemDescStatusIndex]->data.money.uiMoneyAmount );
-			InsertCommasForDollarFigure( pStr );
-			InsertDollarSignInToString( pStr );
+			swprintf( pStr, L"%s", FormatMoney((*gpItemDescObject)[gubItemDescStatusIndex]->data.money.uiMoneyAmount).data() );
 			if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 				FindFontRightCoordinates( (INT16)(ITEMDESC_NAME_X), (INT16)(ITEMDESC_NAME_Y ), 245, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			else if ( UsingEDBSystem() > 0 )
@@ -11470,9 +11464,7 @@ void RenderItemPickupMenu( )
 				if ( Item[ pObject->usItem ].usItemClass == IC_MONEY )
 				{
 					CHAR16		pStr2[20];
-					swprintf( pStr2, L"%ld", (*pObject)[0]->data.money.uiMoneyAmount );
-					InsertCommasForDollarFigure( pStr2 );
-					InsertDollarSignInToString( pStr2 );
+					swprintf( pStr2, L"%s", FormatMoney((*pObject)[0]->data.money.uiMoneyAmount ).data());
 
 					swprintf( pStr, L"%s (%ls)", ItemNames[ pObject->usItem ], pStr2 );
 				}
@@ -12216,9 +12208,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		case MONEY:
 			//Money
 			{
-				swprintf( pStr, L"%ld", (*pObject)[subObject]->data.money.uiMoneyAmount );
-				InsertCommasForDollarFigure( pStr );
-				InsertDollarSignInToString( pStr );
+				swprintf( pStr, L"%s", FormatMoney((*pObject)[subObject]->data.money.uiMoneyAmount ).data());
 			}
 			break;
 
@@ -12227,9 +12217,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 			//if ( Item[ usItem ].usItemClass == IC_MONEY )
 			{
 				CHAR16		pStr2[20];
-				swprintf( pStr2, L"%ld", (*pObject)[subObject]->data.money.uiMoneyAmount );
-				InsertCommasForDollarFigure( pStr2 );
-				InsertDollarSignInToString( pStr2 );
+				swprintf( pStr2, L"%s", FormatMoney((*pObject)[subObject]->data.money.uiMoneyAmount ).data());
 
 				swprintf( pStr, L"%s (%ls)", ItemNames[ usItem ], pStr2 );
 			}

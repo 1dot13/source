@@ -1524,9 +1524,7 @@ BOOLEAN RenderShopKeeperInterface()
 	// display shopkeeper budget
 	DisplayWrappedString( SKI_BUDGET_X, SKI_BUDGET_Y, SKI_BUDGET_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[SKI_TEXT_BUDGET], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
-	swprintf( zMoney, L"%d", gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash );
-
-	InsertCommasForDollarFigure( zMoney );
+	swprintf( zMoney, L"%s", FormatMoney(gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash).data() );
 
 	CHAR16			zTemp2[64];
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
@@ -1554,14 +1552,12 @@ BOOLEAN RenderShopKeeperInterface()
 	//Display the players current balance value
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 	{
-		swprintf( zMoney, L"%d", (int)(GetIntel()) );
-		InsertCommasForDollarFigure( zMoney );
+		swprintf( zMoney, L"%s", FormatMoney((int)(GetIntel()) ).data());
 		swprintf( zTemp2, L"%s Intel", zMoney );
 	}
 	else
 	{
-		swprintf( zMoney, L"%d", LaptopSaveInfo.iCurrentBalance );
-		InsertCommasForDollarFigure( zMoney );
+		swprintf( zMoney, L"%s", FormatMoney(LaptopSaveInfo.iCurrentBalance ).data());
 		swprintf( zTemp2, L"$%s", zMoney );
 	}
 
@@ -1732,9 +1728,7 @@ void DisplayAllDealersCash()
 		DrawTextToScreen( gMercProfiles[ armsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 
 		//Display the arms dealer cash on hand
-		swprintf( zTemp, L"%d", gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash );
-
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash ).data());
 		
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
@@ -2789,8 +2783,7 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 	//if the item has a price, display it
 	if( uiItemCost != 0 )
 	{
-		swprintf( zTemp, L"%d", uiItemCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiItemCost).data() );
 
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
@@ -3462,8 +3455,7 @@ void DisplayArmsDealerOfferArea()
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		//Display the total cost text
-		swprintf( zTemp, L"%d", uiTotalCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiTotalCost).data() );
 
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
@@ -3727,8 +3719,7 @@ void DisplayPlayersOfferArea()
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		//Display the total cost text
-		swprintf( zTemp, L"%d", uiTotalCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiTotalCost).data() );
 		
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )

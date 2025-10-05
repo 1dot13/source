@@ -549,20 +549,14 @@ void AddTextToMineBox( void )
 		swprintf( wString, L"%s:", pwMineStrings[ 3 ]);
 		AddMonoString( &hStringHandle, wString );
 
-		swprintf( wString, L"%d", PredictDailyIncomeFromAMine( ubMineIndex, TRUE ) );
-		InsertCommasForDollarFigure( wString );
-		InsertDollarSignInToString( wString );
-		AddSecondColumnMonoString( &hStringHandle, wString );
+		AddSecondColumnMonoString( &hStringHandle, FormatMoney(PredictDailyIncomeFromAMine(ubMineIndex, TRUE)).data() );
 
 
 		// potential production
 		swprintf( wString, L"%s:", pwMineStrings[ 4 ]);
 		AddMonoString( &hStringHandle, wString );
 
-		swprintf( wString, L"%d", GetMaxDailyRemovalFromMine( ubMineIndex ) );
-		InsertCommasForDollarFigure( wString );
-		InsertDollarSignInToString( wString );
-		AddSecondColumnMonoString( &hStringHandle, wString );
+		AddSecondColumnMonoString( &hStringHandle, FormatMoney(GetMaxDailyRemovalFromMine(ubMineIndex)).data());
 
 
 		// if potential is not nil
@@ -616,9 +610,7 @@ void AddTextToMineBox( void )
 	wcscpy( wString, L"Remaining (DEBUG):");
 	AddMonoString( &hStringHandle, wString );
 
-	swprintf( wString, L"%d", GetTotalLeftInMine( ubMineIndex ) );
-	InsertCommasForDollarFigure( wString );
-	InsertDollarSignInToString( wString );
+	swprintf( wString, L"%s", FormatMoney( GetTotalLeftInMine( ubMineIndex ) ).data() );
 	AddSecondColumnMonoString( &hStringHandle, wString );
 #endif
 

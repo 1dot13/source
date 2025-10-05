@@ -6165,15 +6165,8 @@ BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPt
 			}
 			else
 			{
-				CHAR16	sDollarAmount[64];
-
-				swprintf( sDollarAmount, L"%d", pMail->iFirstData );
-
-				InsertCommasForDollarFigure( sDollarAmount );
-				InsertDollarSignInToString( sDollarAmount );
-
 				//add the mercs name to the string
-				wcscat( pFinishedString, sDollarAmount );
+				wcscat( pFinishedString, FormatMoney(pMail->iFirstData).data() );
 			}
 		}
 		else
