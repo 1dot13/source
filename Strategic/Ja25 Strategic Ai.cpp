@@ -1247,7 +1247,6 @@ BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile )
 	//	}
 //	}
 
-	gJa25SaveStruct.iPowerGenFanPositionSndID = -1;
 
 	return( TRUE );
 }

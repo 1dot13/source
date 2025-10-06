@@ -2996,6 +2996,15 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 #ifdef JA2UB
 	//Ja25 No meanwhiles
+	// But DO check if powergen fan sound needs to be restarted
+	extern UINT32  SECTOR_FAN_X;
+	extern UINT32  SECTOR_FAN_Y;
+	extern UINT32  SECTOR_FAN_Z;
+
+	if (gWorldSectorX == SECTOR_FAN_X && gWorldSectorY == SECTOR_FAN_Y && gbWorldSectorZ == SECTOR_FAN_Z)
+	{
+		HandlePowerGenFanSoundModification();
+	}
 #else
 	if ( AreInMeanwhile( ) == FALSE )
 #endif
