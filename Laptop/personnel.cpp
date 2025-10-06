@@ -422,7 +422,6 @@ void DisplayATMAmount( void );
 // create destroy ATM button
 void CreateDestroyStartATMButton( void );
 void CreateDestroyATMButton( void );
-void ATMStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void HandleStateOfATMButtons( void );
 void ATMOtherButtonCallback(GUI_BUTTON *btn,INT32 reason);
@@ -6049,33 +6048,6 @@ void CreateDestroyATMButton( void )
 	*/
 }
 
-
-void ATMStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-			fReDrawScreenFlag=TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-			fReDrawScreenFlag=TRUE;
-			fShowAtmPanel = TRUE;
-			fShowAtmPanelStartButton = FALSE;
-			fATMFlags = 0;
-
-		}
-	}
-}
 
 void PersonnelDataButtonCallback( GUI_BUTTON *btn, INT32 reason )
 {
