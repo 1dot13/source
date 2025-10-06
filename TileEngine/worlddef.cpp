@@ -3420,7 +3420,10 @@ void TrashWorld( void )
 	//Remove the schedules
 	DestroyAllSchedules();
 #ifdef JA2UB
-//Ja25 no meanwhiles
+	//Ja25 no meanwhiles
+	// But DO turn off powergen fan sound
+	extern void HandleRemovingPowerGenFanSound();
+	HandleRemovingPowerGenFanSound();
 #else
 	// on trash world sheck if we have to set up the first meanwhile
 	HandleFirstMeanWhileSetUpWithTrashWorld( );
