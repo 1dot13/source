@@ -587,6 +587,7 @@ AddProfileToMap (UB_GetRudyID(),7,8,0,15111) -- get id from UB_Options.ini
 
 -- Added enemy to sector
 if ( Test == false ) then
+		ubNumTanks = 0
 		-- H7
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
 			ubNumAdmins = 0
@@ -605,7 +606,7 @@ if ( Test == false ) then
 			ubNumTroops = 0
 			ubNumElites = 0
 		end
-		UB_SetNumberJa25EnemiesInSurfaceSector( 7, 8, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 7, 8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 
 		-- H8
@@ -627,7 +628,7 @@ if ( Test == false ) then
 				ubNumElites = 2 + math.random( 1, 2 )
 		end
 				
-		UB_SetNumberJa25EnemiesInSurfaceSector( 8,8, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 8,8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 	
 
 	-- Guard Post
@@ -650,7 +651,7 @@ if ( Test == false ) then
 				ubNumElites = 3 + math.random( 1, 2 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 9,8, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 9,8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- H10
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
@@ -671,7 +672,7 @@ if ( Test == false ) then
 				ubNumElites = 2 + math.random( 1, 4 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 10,8, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 10,8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- H11
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
@@ -692,7 +693,7 @@ if ( Test == false ) then
 				ubNumElites = 2 + math.random( 1, 3 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 11,8, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 11,8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 
 	-- I9
@@ -714,7 +715,7 @@ if ( Test == false ) then
 				ubNumElites = 2 + math.random( 1, 4 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 9,9, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 9,9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- First part of town
 	-- I10
@@ -736,7 +737,7 @@ if ( Test == false ) then
 				ubNumElites = 5 + math.random( 1, 3 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 10,9, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 10,9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 		
 	-- Second part of town
 	-- I11
@@ -758,7 +759,7 @@ if ( Test == false ) then
 				ubNumElites = 5 + math.random( 1, 4 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 11,9, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 11,9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- I12
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
@@ -779,7 +780,7 @@ if ( Test == false ) then
 				ubNumElites = 3 + math.random( 1, 2 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 12,9, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 12,9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- Abandoned mine
 	-- I13
@@ -801,7 +802,7 @@ if ( Test == false ) then
 				ubNumElites = 0 
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 13,9, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 13,9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- J11
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
@@ -822,7 +823,7 @@ if ( Test == false ) then
 				ubNumElites = 6 + math.random( 1, 3 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 11,10, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 11,10, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- J12
 		if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
@@ -843,7 +844,7 @@ if ( Test == false ) then
 				ubNumElites = 3 + math.random( 1, 2 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 12,10, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 12,10, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- Power Generator, Ground Level
 	-- J13
@@ -865,7 +866,7 @@ if ( Test == false ) then
 				ubNumElites = 7 + math.random( 1, 3 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 13,10, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 13,10, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 
 	-- Complex, Ground Level
 	-- K15
@@ -887,7 +888,7 @@ if ( Test == false ) then
 				ubNumElites = 8 + math.random( 1, 2 )
 		end
 
-		UB_SetNumberJa25EnemiesInSurfaceSector( 15,11, ubNumAdmins, ubNumTroops, ubNumElites )
+		UB_SetNumberJa25EnemiesInSurfaceSector( 15,11, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks )
 end
 
 	-- init hospital variables
