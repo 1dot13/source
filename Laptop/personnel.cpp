@@ -427,7 +427,6 @@ void HandleStateOfATMButtons( void );
 
 // atm misc functions
 
-void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void DisplayATMStrings( void );
 void DisplayAmountOnCurrentMerc( void );
 void RenderRectangleForPersonnelTransactionAmount( void );
@@ -5957,39 +5956,6 @@ void PersonnelDataButtonCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		
 		btn->uiFlags |= BUTTON_CLICKED_ON;
-	}
-}
-
-void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	INT32 iValue = 0;
-
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	iValue = MSYS_GetBtnUserData( btn, 0 );
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-			fReDrawScreenFlag=TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-
-		switch( iValue )
-		{
-			case( DEPOSIT_ATM ):
-				fATMFlags = 2;
-				fReDrawScreenFlag=TRUE;
-				ButtonList[ giPersonnelATMSideButton[ WIDTHDRAWL_ATM ] ]->uiFlags&=~(BUTTON_CLICKED_ON);
-			break;
-			case( WIDTHDRAWL_ATM ):
-				fATMFlags = 3;
-				fReDrawScreenFlag=TRUE;
-				ButtonList[ giPersonnelATMSideButton[ DEPOSIT_ATM ] ]->uiFlags&=~(BUTTON_CLICKED_ON);
-			break;
-		}
 	}
 }
 
