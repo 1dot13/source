@@ -426,7 +426,6 @@ void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason);
 
 void DisplayATMStrings( void );
 void DisplayAmountOnCurrentMerc( void );
-void RenderRectangleForPersonnelTransactionAmount( void );
 
 // SANDRO - added variables for popup help text windows
 MOUSE_REGION	gSkillTraitHelpTextRegion[13];
@@ -6359,45 +6358,6 @@ void HandlePersonnelKeyboard( void )
 			}
 		}
 	}
-}
-
-void RenderRectangleForPersonnelTransactionAmount( void )
-{
-	INT32 iLength = 0;
-	INT32 iHeight = GetFontHeight( ATM_FONT );
-	UINT32										uiDestPitchBYTES;
-	UINT8											*pDestBuf;
-	CHAR16 sTempString[ 32 ];
-	INT32	iCounter = 0;
-	
-	wcscpy( sTempString, sTransferString );
-
-	if( ( sTempString[ 0 ] == 48 ) && ( sTempString[ 1 ] != 0 ) )
-	{
-		// strip the zero from the beginning
-		for(iCounter = 1; iCounter < ( INT32 )wcslen( sTempString ); iCounter++ )
-		{
-			sTempString[ iCounter - 1 ] = sTempString[ iCounter ];
-		}
-	}
-
-	// insert commas and dollar sign
-	InsertCommasForDollarFigure( sTempString );
-	InsertDollarSignInToString( sTempString );
-
-	// string not worth worrying about?
-	if( wcslen( sTempString ) < 2 )
-	{
-		return;
-	}
-
-	// grab total length
-	iLength = StringPixLength( sTempString, ATM_FONT );
-
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
-	RectangleDraw( TRUE, ( ATM_DISPLAY_X + ATM_DISPLAY_WIDTH ) - iLength - 2,	ATM_DISPLAY_Y + 35, ATM_DISPLAY_X + ATM_DISPLAY_WIDTH + 1, ATM_DISPLAY_Y + iHeight + 36, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), pDestBuf );
-	UnLockVideoSurface( FRAME_BUFFER );
 }
 
 BOOLEAN IsPastMercDead( INT32 iId )
