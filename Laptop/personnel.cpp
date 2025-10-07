@@ -420,7 +420,6 @@ BOOLEAN RenderAtmPanel( void );
 // create destroy ATM button
 void CreateDestroyStartATMButton( void );
 void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void HandleStateOfATMButtons( void );
 
 
 // atm misc functions
@@ -5961,41 +5960,6 @@ void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		}
 	}
 }
-
-void HandleStateOfATMButtons( void )
-{
-	INT32 iCounter = 0;
-
-	// disable buttons based on state
-	if( ( fATMFlags == 0 ) )
-	{
-		for( iCounter = 0; iCounter < 10 ; iCounter++ )
-		{
-			DisableButton( iNumberPadButtons[ iCounter ] );
-		}
-
-		for( iCounter = 0; iCounter < NUMBER_ATM_BUTTONS; iCounter++ )
-		{
-			if( ( iCounter != DEPOSIT_ATM) && ( iCounter != WIDTHDRAWL_ATM ) && ( iCounter != CANCEL_ATM )	)
-			{
-				DisableButton( giPersonnelATMSideButton[ iCounter ] );
-			}
-		}
-	}
-	else
-	{
-		for( iCounter = 0; iCounter < 10; iCounter++ )
-		{
-			EnableButton( iNumberPadButtons[ iCounter ] );
-		}
-
-		for( iCounter = 0; iCounter < NUMBER_ATM_BUTTONS; iCounter++ )
-		{
-			EnableButton( giPersonnelATMSideButton[ iCounter ] );
-		}
-	}
-}
-
 
 INT32 GetFundsOnMerc( SOLDIERTYPE *pSoldier )
 {
