@@ -423,7 +423,6 @@ void DisplayATMAmount( void );
 void CreateDestroyStartATMButton( void );
 void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void HandleStateOfATMButtons( void );
-void ATMOtherButtonCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 // atm misc functions
@@ -5990,121 +5989,6 @@ void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				fReDrawScreenFlag=TRUE;
 				ButtonList[ giPersonnelATMSideButton[ DEPOSIT_ATM ] ]->uiFlags&=~(BUTTON_CLICKED_ON);
 			break;
-		}
-	}
-}
-
-void ATMOtherButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	INT32 iValue = 0;
-	SOLDIERTYPE *pSoldier = MercPtrs[ 0 ];
-
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	iValue = MSYS_GetBtnUserData( btn, 0 );
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-			fReDrawScreenFlag=TRUE;
-		}
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-
-			if (fCurrentTeamMode && 
-				currentTeamIndex != -1) {
-				// set soldier
-				pSoldier = currentTeamList[currentTeamIndex];
-
-				switch( iValue ) {
-					case( OK_ATM ):
-						if( fATMFlags == 0 ) {
-							fATMFlags = 1;
-							fReDrawScreenFlag=TRUE;
-							fOneFrameDelayInPersonnel = TRUE;
-						} else if( fATMFlags == 2 ) {
-							// deposit from merc to account
-							if( GetFundsOnMerc( pSoldier ) >= wcstol( sTransferString, NULL, 10 ) ) {
-								if( ( wcstol( sTransferString, NULL, 10 ) % 10 ) != 0 ) {
-									fOldATMFlags = fATMFlags;
-									fATMFlags = 5;
-									iValue = ( wcstol( sTransferString, NULL, 10 ) - ( wcstol( sTransferString, NULL, 10 ) % 10 ) );
-									swprintf( sTransferString, L"%d", iValue );
-									fReDrawScreenFlag=TRUE;
-								} else {
-									// transfer
-									TransferFundsFromMercToBank( pSoldier, wcstol( sTransferString, NULL, 10 ) );
-									sTransferString[ 0 ] = 0;
-									fReDrawScreenFlag=TRUE;
-								}
-							} else {
-								fOldATMFlags = fATMFlags;
-								fATMFlags = 4;
-								iValue = GetFundsOnMerc( pSoldier );
-								swprintf( sTransferString, L"%d", iValue );
-								fReDrawScreenFlag=TRUE;
-							}
-						} else if( fATMFlags == 3 ) {
-							// deposit from merc to account
-							if( LaptopSaveInfo.iCurrentBalance >= wcstol( sTransferString, NULL, 10 ) ) {
-								if( ( wcstol( sTransferString, NULL, 10 ) % 10 ) != 0 ) {
-									fOldATMFlags = fATMFlags;
-									fATMFlags = 5;
-									iValue = ( wcstol( sTransferString, NULL, 10 ) - ( wcstol( sTransferString, NULL, 10 ) % 10 ) );
-									swprintf( sTransferString, L"%d", iValue );
-									fReDrawScreenFlag=TRUE;
-								} else {
-									// transfer
-									TransferFundsFromBankToMerc( pSoldier, wcstol( sTransferString, NULL, 10 ) );
-									sTransferString[ 0 ] = 0;
-									fReDrawScreenFlag=TRUE;
-								}
-							} else {
-								fOldATMFlags = fATMFlags;
-								fATMFlags = 4;
-								iValue = LaptopSaveInfo.iCurrentBalance;
-								swprintf( sTransferString, L"%d", iValue );
-								fReDrawScreenFlag=TRUE;
-							}
-						} else if( fATMFlags == 4 ) {
-							fATMFlags = fOldATMFlags;
-							fReDrawScreenFlag=TRUE;
-						}
-						break;
-					case( DEPOSIT_ATM ):
-						fATMFlags = 2;
-						fReDrawScreenFlag=TRUE;
-						break;
-					case( WIDTHDRAWL_ATM ):
-						fATMFlags = 3;
-						fReDrawScreenFlag=TRUE;
-						break;
-					case( CANCEL_ATM ):
-						if( sTransferString[ 0 ] != 0 ) {
-							sTransferString[ 0 ] = 0;
-						} else if( fATMFlags != 0 ) {
-							fATMFlags = 0;
-							ButtonList[ giPersonnelATMSideButton[ WIDTHDRAWL_ATM ] ]->uiFlags&=~(BUTTON_CLICKED_ON);
-							ButtonList[ giPersonnelATMSideButton[ DEPOSIT_ATM ] ]->uiFlags&=~(BUTTON_CLICKED_ON);
-						} else {
-							fShowAtmPanel = FALSE;
-							fShowAtmPanelStartButton = TRUE;
-						}
-						fReDrawScreenFlag=TRUE;
-						break;
-					case( CLEAR_ATM ):
-						sTransferString[ 0 ] = 0;
-							fReDrawScreenFlag=TRUE;
-						break;
-				} // switch
-			}
 		}
 	}
 }
