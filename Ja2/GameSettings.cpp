@@ -2895,7 +2895,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.fSNTSnitchLeadershipBonusModifer	= iniReader.ReadFloat("Snitch","SNITCH_LEADERSHIP_BONUS_MODIFIER", 0.5, 0.0, 10.0);
 	gSkillTraitValues.bSNTSociableMercBonus						= iniReader.ReadInteger("Snitch","SOCIABLE_MERC_BONUS",  10, -100, 100);
 	gSkillTraitValues.bSNTLonerMercBonus					= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -10, -100, 100);
-	gSkillTraitValues.bSNTSameAssignmentBonus				= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -20, -100, 100);
+	gSkillTraitValues.bSNTSameAssignmentBonus				= iniReader.ReadInteger("Snitch","SAME_ASSIGNMENT_BONUS",  -20, -100, 100);
 	gSkillTraitValues.bSNTMercOpinionAboutMercTreshold		= iniReader.ReadInteger("Snitch","MERC_OPINION_ABOUT_MERC_TRESHOLD",  -10, -25, 25);
 
 	gSkillTraitValues.ubSNTPassiveReputationGain	= iniReader.ReadInteger("Snitch","PASSIVE_REPUTATION_GAIN",  3, 0, 100);
@@ -3611,10 +3611,10 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_CRAWL_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_CRAWL_ENERGYCOSTFACTOR",4);
 	APBPConstants[BP_RADIO] = iniReader.ReadInteger("BPConstants","BP_RADIO",0);
 	APBPConstants[BP_USE_DETONATOR] = iniReader.ReadInteger("BPConstants","BP_USE_DETONATOR",0);
-	APBPConstants[BP_PER_AP_NO_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_NO_EFFORT",-50),-50, TRUE);
-	APBPConstants[BP_PER_AP_MIN_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_MIN_EFFORT",-25),-25, TRUE);
-	APBPConstants[BP_PER_AP_LT_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_LT_EFFORT",-12),-12, TRUE);
-	APBPConstants[BP_PER_AP_MOD_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_MOD_EFFORT",0),0, TRUE);
+	APBPConstants[BP_PER_AP_NO_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("BPConstants","BP_PER_AP_NO_EFFORT",-50),-50, TRUE);
+	APBPConstants[BP_PER_AP_MIN_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("BPConstants","BP_PER_AP_MIN_EFFORT",-25),-25, TRUE);
+	APBPConstants[BP_PER_AP_LT_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("BPConstants","BP_PER_AP_LT_EFFORT",-12),-12, TRUE);
+	APBPConstants[BP_PER_AP_MOD_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("BPConstants","BP_PER_AP_MOD_EFFORT",0),0, TRUE);
 	APBPConstants[BP_MOVEMENT_FLAT] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_FLAT",5);
 	APBPConstants[BP_MOVEMENT_GRASS] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_GRASS",10);
 	APBPConstants[BP_MOVEMENT_BUSH] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_BUSH",20);
