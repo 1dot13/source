@@ -289,7 +289,6 @@ extern STR16 pDownloadString[];
 extern STR16 pBookmarkTitle[];
 extern STR16 pBookMarkStrings[];
 extern STR16 pLaptopIcons[];
-extern STR16 sATMText[ ];
 extern STR16 gsAtmStartButtonText[];
 extern STR16 pDownloadString[];
 extern STR16 pPersonnelTeamStatsStrings[];

@@ -5218,16 +5218,6 @@ STR16 gsAtmStartButtonText[] =
 	L"物品清单",	//L"Inventory", 			// view the inventory of the merc
 };
 
-STR16 sATMText[ ]=
-{
-	L"转帐？",		// transfer funds to merc?
-	L"确定？",		// are we certain?
-	L"输入金额",		// enter the amount you want to transfer to merc
-	L"选择类型",	// select the type of transfer to merc
-	L"资金不足",  //not enough money to transfer to merc
-	L"必须是$10的倍数", // transfer amount must be a multiple of $10
-};
-
 // Web error messages. Please use foreign language equivilant for these messages.
 // DNS is the acronym for Domain Name Server
 // URL is the acronym for Uniform Resource Locator

@@ -5218,16 +5218,6 @@ STR16 gsAtmStartButtonText[] =
 	L"Inventory", 			// view the inventory of the merc
 };
 
-STR16 sATMText[ ]=
-{
-	L"Transfer Funds?", 		// transfer funds to merc?
-	L"Ok?", 			// are we certain?
-	L"Enter Amount", 		// enter the amount you want to transfer to merc
-	L"Select Type", 		// select the type of transfer to merc
-	L"Insufficient Funds", 	// not enough money to transfer to merc
-	L"Amount must be a multiple of $10", // transfer amount must be a multiple of $10
-};
-
 // Web error messages. Please use foreign language equivilant for these messages.
 // DNS is the acronym for Domain Name Server
 // URL is the acronym for Uniform Resource Locator

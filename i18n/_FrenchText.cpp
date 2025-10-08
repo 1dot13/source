@@ -5228,16 +5228,6 @@ STR16 gsAtmStartButtonText[] =
 	L"Historique",
 };
 
-STR16 sATMText[ ]=
-{
-	L"Transférer les fonds ?", 		// transfer funds to merc?
-	L"Ok ?", 			// are we certain?
-	L"Entrer montant", 		// enter the amount you want to transfer to merc
-	L"Choix du type", 		// select the type of transfer to merc
-	L"Fonds insuffisants", 	// not enough money to transfer to merc
-	L"Le montant doit être un multiple de 10 $", // transfer amount must be a multiple of $10
-};
-
 // Web error messages. Please use foreign language equivilant for these messages. 
 // DNS is the acronym for Domain Name Server
 // URL is the acronym for Uniform Resource Locator
