@@ -5223,16 +5223,6 @@ STR16 gsAtmStartButtonText[] =
 	L"Werk",
 };
 
-STR16 sATMText[ ]=
-{
-	L"Overmaken geld?", 		// transfer funds to merc?
-	L"Ok?", 			// are we certain?
-	L"Geef bedrag", 		// enter the amount you want to transfer to merc
-	L"Geef type", 		// select the type of transfer to merc
-	L"Onvoldoende saldo", 	// not enough money to transfer to merc
-	L"Bedrag moet veelvoud zijn van $10", // transfer amount must be a multiple of $10
-};
-
 // Web error messages. Please use foreign language equivilant for these messages. 
 // DNS is the acronym for Domain Name Server
 // URL is the acronym for Uniform Resource Locator
