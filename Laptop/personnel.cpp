@@ -264,7 +264,6 @@ INT32 giPersonnelATMStartButtonImage[PERSONNEL_NUM_BTN];
 INT32 giPersonnelATMButton;
 INT32 giPersonnelATMButtonImage;
 
-BOOLEAN fATMFlags = 0;
 BOOLEAN fOldATMFlags = 0;
 
 // WDS - make number of mercenaries, etc. be configurable
@@ -423,7 +422,6 @@ void CreateDestroyStartATMButton( void );
 
 // atm misc functions
 
-void DisplayATMStrings( void );
 void DisplayAmountOnCurrentMerc( void );
 
 // SANDRO - added variables for popup help text windows
@@ -623,7 +621,6 @@ void ExitPersonnel( void )
 
 	// get rid of atm panel buttons
 	fShowAtmPanelStartButton = FALSE;
-	fATMFlags = 0;
 	CreateDestroyStartATMButton( );
 
 	gubPersonnelInfoState = PERSONNEL_STAT_BTN;
@@ -5733,9 +5730,6 @@ BOOLEAN RenderAtmPanel( void )
 
 		DeleteVideoObjectFromIndex( uiBox );
 
-		// display strings for ATM
-		DisplayATMStrings( );
-
 		//DisplayAmountOnCurrentMerc( );
 
 		// create destroy
@@ -6034,50 +6028,6 @@ BOOLEAN TransferFundsFromBankToMerc( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 	return( TRUE );
 }
 
-void DisplayATMStrings( void )
-{
-	// display strings for ATM
-	switch( fATMFlags )
-	{
-		case( 0 ):
-			if( fShowAtmPanelStartButton == FALSE )
-			{
-				DisplayWrappedString(iScreenWidthOffset + 509, ( INT16 )( iScreenHeightOffset + 80 ), 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 3 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-			}
-		break;
-		case( 2 ):
-			if( sTransferString[ 0 ] != 0 )
-			{
-				DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 80, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 0 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-			}
-			else
-			{
-				DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 80, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 2 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-			}
-		break;
-		case( 3 ):
-			if( sTransferString[ 0 ] != 0 )
-			{
-				DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 80, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 0 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-				//DisplayWrappedString(509, ( INT16 )( 80 + GetFontHeight( ATM_FONT ) ), 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 1 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-			}
-			else
-			{
-				DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 80, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 2 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-			}
-		break;
-		case( 4 ):
-			// not enough money
-			DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 80, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 4 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-		break;
-		case( 5 ):
-			// not enough money
-			DisplayWrappedString(iScreenWidthOffset + 509, iScreenHeightOffset + 73, 81, 2, ATM_FONT, FONT_WHITE, sATMText[ 5 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-		break;
-
-	}
-}
-
 void UpDateStateOfStartButton( void )
 {
 	// start button being shown?
@@ -6109,12 +6059,6 @@ void UpDateStateOfStartButton( void )
 					if ( gubPersonnelInfoState == PERSONNEL_INV_BTN )
 					{
 						gubPersonnelInfoState = PERSONNEL_STAT_BTN;
-						fPausedReDrawScreenFlag = TRUE;
-					}
-
-					if( fATMFlags )
-					{
-						fATMFlags = 0;
 						fPausedReDrawScreenFlag = TRUE;
 					}
 				}
