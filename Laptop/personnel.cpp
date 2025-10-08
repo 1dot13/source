@@ -280,7 +280,6 @@ INT32 giCurrentUpperLeftPortraitNumber = 0;
 BOOLEAN fCurrentTeamMode = TRUE;
 
 // show the atm panel?
-BOOLEAN fShowAtmPanel = FALSE;
 BOOLEAN fShowAtmPanelStartButton = TRUE;
 
 // create buttons for scrolling departures
@@ -417,7 +416,6 @@ INT32 GetAvgStatOfPastTeamStat( INT32 iStat );
 
 // render atm panel
 BOOLEAN RenderAtmPanel( void );
-void DisplayATMAmount( void );
 
 // create destroy ATM button
 void CreateDestroyStartATMButton( void );
@@ -430,7 +428,6 @@ void HandleStateOfATMButtons( void );
 void DisplayATMStrings( void );
 void DisplayAmountOnCurrentMerc( void );
 void RenderRectangleForPersonnelTransactionAmount( void );
-void HandleTimedAtmModes( void );
 
 // SANDRO - added variables for popup help text windows
 MOUSE_REGION	gSkillTraitHelpTextRegion[13];
@@ -629,7 +626,6 @@ void ExitPersonnel( void )
 
 	// get rid of atm panel buttons
 	fShowAtmPanelStartButton = FALSE;
-	fShowAtmPanel = FALSE;
 	fATMFlags = 0;
 	CreateDestroyStartATMButton( );
 
@@ -685,9 +681,6 @@ void HandlePersonnel( void )
 	EnableDisableInventoryScrollButtons( );
 
 	HandlePersonnelKeyboard( );
-
-	// handle timed modes for ATM
-	HandleTimedAtmModes( );
 }
 
 void LoadPersonnelGraphics( void )
@@ -5726,36 +5719,6 @@ BOOLEAN RenderAtmPanel( void )
 	HVOBJECT hHandle;
 
 
-	// render the ATM panel
-	if( fShowAtmPanel )
-	{
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("LAPTOP\\AtmButtons.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &uiBox));
-
-		// blit it
-		GetVideoObject(&hHandle, uiBox);
-		BltVideoObject(FRAME_BUFFER, hHandle, 0,( INT16 ) ( ATM_UL_X ), ( INT16 ) ( ATM_UL_Y ), VO_BLT_SRCTRANSPARENCY,NULL);
-
-		DeleteVideoObjectFromIndex( uiBox );
-
-		// show amount
-		DisplayATMAmount( );
-		RenderRectangleForPersonnelTransactionAmount( );
-
-		// create destroy
-		CreateDestroyStartATMButton( );
-
-		// display strings for ATM
-		DisplayATMStrings( );
-
-		// handle states
-		HandleStateOfATMButtons( );
-
-		//DisplayAmountOnCurrentMerc( );
-
-	}
-	else
 	{
 		// just show basic panel
 		// bounding
@@ -5998,51 +5961,6 @@ void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		}
 	}
 }
-
-void DisplayATMAmount( void )
-{
-
-	INT16 sX = 0, sY = 0;
-	CHAR16 sTempString[ 32 ];
-	INT32 iCounter = 0;
-
-	if( fShowAtmPanel == FALSE )
-	{
-		return;
-	}
-
-	wcscpy( sTempString, sTransferString );
-
-	if( ( sTempString[ 0 ] == 48 ) && ( sTempString[ 1 ] != 0 ) )
-	{
-		// strip the zero from the beginning
-		for(iCounter = 1; iCounter < ( INT32 )wcslen( sTempString ); iCounter++ )
-		{
-			sTempString[ iCounter - 1 ] = sTempString[ iCounter ];
-		}
-	}
-
-	// insert commas and dollar sign
-	InsertCommasForDollarFigure( sTempString );
-	InsertDollarSignInToString( sTempString );
-
-	// set font
-	SetFont( ATM_FONT );
-
-	// set back and foreground
-	SetFontForeground( FONT_WHITE );
-	SetFontBackground( FONT_BLACK );
-
-
-	// right justify
-	FindFontRightCoordinates( ATM_DISPLAY_X, ATM_DISPLAY_Y + 37, ATM_DISPLAY_WIDTH, ATM_DISPLAY_HEIGHT, sTempString, ATM_FONT, &sX, &sY );
-
-	// print string
-	mprintf( sX, sY, sTempString );
-
-	return;
-}
-
 
 void HandleStateOfATMButtons( void )
 {
@@ -6350,32 +6268,6 @@ void HandlePersonnelKeyboard( void )
 		{
 			switch (InputEvent.usParam)
 			{
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-					if( ( fShowAtmPanel ) && ( fATMFlags != 0 ) )
-					{
-						iValue = ( INT32 )( InputEvent.usParam - '0' );
-
-						for( iCounter = 0; iCounter < ( INT32 )wcslen( sTransferString ) ; iCounter++ );
-						sTransferString[ iCounter ] = ( sZero[ 0 ] + ( UINT16 )iValue );
-						sTransferString[ iCounter + 1 ] = 0;
-						fPausedReDrawScreenFlag=TRUE;
-
-						// gone too far
-						if( StringPixLength( sTransferString, ATM_FONT ) >= ATM_DISPLAY_WIDTH - 10 )
-						{
-							sTransferString[ iCounter ] = 0;
-						}
-					}
-				break;
 				case UPARROW:
 				case 'w':
 					if ( fCurrentTeamMode )
@@ -6542,38 +6434,6 @@ void RenderRectangleForPersonnelTransactionAmount( void )
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
 	RectangleDraw( TRUE, ( ATM_DISPLAY_X + ATM_DISPLAY_WIDTH ) - iLength - 2,	ATM_DISPLAY_Y + 35, ATM_DISPLAY_X + ATM_DISPLAY_WIDTH + 1, ATM_DISPLAY_Y + iHeight + 36, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), pDestBuf );
 	UnLockVideoSurface( FRAME_BUFFER );
-}
-
-void HandleTimedAtmModes( void )
-{
-	static BOOLEAN fOldAtmMode = 0;
-	static UINT32 uiBaseTime = 0;
-
-	if( fShowAtmPanel == FALSE )
-	{
-		return;
-	}
-
-	// update based on modes
-	if( fATMFlags != fOldAtmMode )
-	{
-		uiBaseTime = GetJA2Clock();
-		fOldAtmMode = fATMFlags;
-		fPausedReDrawScreenFlag = TRUE;
- 	}
-	
-	if( ( GetJA2Clock() - uiBaseTime ) > DELAY_PER_MODE_CHANGE_IN_ATM )
-	{
-		switch( fATMFlags )
-		{
-			case( 4 ):
-			case( 5 ):
-				// insufficient funds ended
-				fATMFlags = fOldATMFlags;
-				fPausedReDrawScreenFlag = TRUE;
-			break;
-		}
-	}
 }
 
 BOOLEAN IsPastMercDead( INT32 iId )
