@@ -145,11 +145,6 @@
 /// atm font
 #define ATM_FONT PERS_FONT
 
-// atm button positions
-#define ATM_BUTTONS_START_Y								iScreenHeightOffset + 110
-#define ATM_BUTTONS_START_X								iScreenWidthOffset + 510
-#define ATM_BUTTON_WIDTH 15
-#define ATM_BUTTON_HEIGHT 15
 #define ATM_DISPLAY_X									iScreenWidthOffset + 509
 #define ATM_DISPLAY_Y									iScreenHeightOffset + 58
 #define ATM_DISPLAY_HEIGHT 10
