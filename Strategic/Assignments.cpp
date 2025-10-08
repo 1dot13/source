@@ -1772,7 +1772,7 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	if ( LaptopSaveInfo.iCurrentBalance <= 0 )
 	{
 		if ( aErrorReport )
-			DoScreenIndependantMessageBox( sATMText[4], MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox(gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 
