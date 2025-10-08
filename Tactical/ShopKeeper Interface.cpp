@@ -1530,7 +1530,7 @@ BOOLEAN RenderShopKeeperInterface()
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 		swprintf( zTemp2, L"%s Intel", zMoney );
 	else
-		swprintf( zTemp2, L"$%s", zMoney );
+		swprintf( zTemp2, L"%s", zMoney );
 
 	DrawTextToScreen( zTemp2, SKI_BUDGET_X, SKI_BUDGET_OFFSET_TO_VALUE, SKI_BUDGET_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
@@ -1558,7 +1558,7 @@ BOOLEAN RenderShopKeeperInterface()
 	else
 	{
 		swprintf( zMoney, L"%s", FormatMoney(LaptopSaveInfo.iCurrentBalance ).data());
-		swprintf( zTemp2, L"$%s", zMoney );
+		swprintf( zTemp2, L"%s", zMoney );
 	}
 
 	DrawTextToScreen( zTemp2, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
@@ -1733,7 +1733,7 @@ void DisplayAllDealersCash()
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		ubForeColor = ( UINT8 ) ( ( bArmsDealer == gbSelectedArmsDealerID ) ? SKI_BUTTON_COLOR : SKI_TITLE_COLOR );
 		DrawTextToScreen( zTemp2, SCREEN_X_OFFSET + 590, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
@@ -2789,7 +2789,7 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y+4), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
@@ -3461,7 +3461,7 @@ void DisplayArmsDealerOfferArea()
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, SKI_ARMS_DEALER_TOTAL_COST_X, (UINT16)(SKI_ARMS_DEALER_TOTAL_COST_Y+5), SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
@@ -3725,7 +3725,7 @@ void DisplayPlayersOfferArea()
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
