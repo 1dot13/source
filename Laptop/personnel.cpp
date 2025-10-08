@@ -257,8 +257,7 @@ INT32 giCurrentUpperLeftPortraitNumber = 0;
 // which mode are we showing?..current team?...or deadly departed?
 BOOLEAN fCurrentTeamMode = TRUE;
 
-// show the atm panel?
-BOOLEAN fShowAtmPanelStartButton = TRUE;
+static bool showPersonnelButtons{ true };
 
 // create buttons for scrolling departures
 BOOLEAN fCreatePeronnelDepartureButton = FALSE;
@@ -559,8 +558,7 @@ void EnterPersonnel( void )
 	// load graphics for screen
 	LoadPersonnelGraphics( );
 
-	// show atm panel
-	fShowAtmPanelStartButton = TRUE;
+	showPersonnelButtons = true;
 
 	// create buttons needed
 	CreateDestroyButtonsForPersonnelDepartures( );
@@ -598,8 +596,7 @@ void ExitPersonnel( void )
 		fCurrentTeamMode = FALSE;
 	}
 
-	// get rid of atm panel buttons
-	fShowAtmPanelStartButton = FALSE;
+	showPersonnelButtons = false;
 	CreateDestroyStartATMButton( );
 
 	gubPersonnelInfoState = PERSONNEL_STAT_BTN;
@@ -5720,9 +5717,8 @@ BOOLEAN RenderAtmPanel( void )
 void CreateDestroyStartATMButton( void )
 {
 	static BOOLEAN fCreated = FALSE;
-	// create/destroy atm start button as needed
-	
-	if( ( fCreated == FALSE ) && ( fShowAtmPanelStartButton == TRUE ) )
+
+	if( ( fCreated == FALSE ) && showPersonnelButtons )
 	{
 		// not created, must create
 
@@ -5761,7 +5757,7 @@ void CreateDestroyStartATMButton( void )
 		
 		fCreated = TRUE;
 	}
-	else if( ( fCreated == TRUE ) && ( fShowAtmPanelStartButton == FALSE ) )
+	else if( ( fCreated == TRUE ) && !showPersonnelButtons )
 	{
 		// stop showing
 		for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
@@ -6009,8 +6005,7 @@ BOOLEAN TransferFundsFromBankToMerc( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 
 void UpDateStateOfStartButton( void )
 {
-	// start button being shown?
-	if (!fShowAtmPanelStartButton)
+	if (!showPersonnelButtons)
 		return;
 
 	for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
