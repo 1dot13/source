@@ -5720,22 +5720,6 @@ void CreateDestroyStartATMButton( void )
 
 	if( ( fCreated == FALSE ) && showPersonnelButtons )
 	{
-		// not created, must create
-
-		/*
-		// the ATM start button
-		giPersonnelATMStartButtonImage[ 0 ]=	LoadButtonImage( "LAPTOP\\AtmButtons.sti" ,-1,2,-1,3,-1 );
-		giPersonnelATMStartButton[ 0 ] = QuickCreateButton( giPersonnelATMStartButtonImage[ 0 ] , 519,87,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)ATMStartButtonCallback );
-
-		// set text and what not
-		SpecifyButtonText( giPersonnelATMStartButton[ 0 ] ,gsAtmStartButtonText[ 0 ] );
-		SpecifyButtonUpTextColors( giPersonnelATMStartButton[ 0 ], FONT_BLACK, FONT_BLACK );
-		SpecifyButtonFont( giPersonnelATMStartButton[ 0 ], PERS_FONT );
-		SetButtonCursor(giPersonnelATMStartButton[ 0 ], CURSOR_LAPTOP_SCREEN);
-*/
-
 		INT16 x = iScreenWidthOffset + 519;
 		INT16 y = iScreenHeightOffset + 74;
 
