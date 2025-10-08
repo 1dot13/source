@@ -376,10 +376,6 @@ BOOLEAN fReDrawBookMarkInfo = FALSE;
 // show the 2 second info about bookmarks being accessed by clicking on web
 BOOLEAN fShowBookmarkInfo = FALSE;
 
-// show start button for ATM panel?
-extern BOOLEAN fShowAtmPanelStartButton;
-
-
 //TEMP!	Disables the loadpending delay when switching b/n www pages
 BOOLEAN	gfTemporaryDisablingOfLoadPendingFlag=FALSE;
 
@@ -1092,8 +1088,6 @@ INT32 EnterLaptop()
 	//DEF: Added to Init things in various laptop pages
 	EnterLaptopInitLaptopPages();
 	InitalizeSubSitesList( );
-
-	fShowAtmPanelStartButton = TRUE;
 
 	// lock cursor to screen
 	if ( gGameExternalOptions.fLaptopMouseCaptured == TRUE )
