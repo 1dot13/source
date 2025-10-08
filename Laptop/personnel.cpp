@@ -5998,20 +5998,15 @@ void UpDateStateOfStartButton( void )
 	ButtonList[giPersonnelATMStartButton[gubPersonnelInfoState]]->uiFlags |= BUTTON_CLICKED_ON;
 
 	// if in current mercs and the currently selected guy is valid, enable button, else disable it
-	if (fCurrentTeamMode)
+	if (fCurrentTeamMode && currentTeamIndex != -1)
 	{
-		// is the current guy valid
-		if (currentTeamIndex != -1)
-		{
 			for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
 				EnableButton( giPersonnelATMStartButton[ i ] );
 
 			SoldierID iId = currentTeamList[currentTeamIndex];
 
-			if (iId != NOBODY)
+			if (iId != NOBODY && iId->bAssignment == ASSIGNMENT_POW )
 			{
-				if ( iId->bAssignment == ASSIGNMENT_POW )
-				{
 					DisableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
 
 					if ( gubPersonnelInfoState == PERSONNEL_INV_BTN )
@@ -6019,15 +6014,7 @@ void UpDateStateOfStartButton( void )
 						gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 						fPausedReDrawScreenFlag = TRUE;
 					}
-				}
 			}
-		}
-		else
-		{
-			// not valid, disable
-			for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
-				DisableButton( giPersonnelATMStartButton[ i ] );
-		}
 	}
 	else
 	{
