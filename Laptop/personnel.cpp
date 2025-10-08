@@ -164,16 +164,6 @@
 #define X_OF_PERSONNEL_SCROLL_REGION					(iScreenWidthOffset + 573)
 #define SIZE_OF_PERSONNEL_CURSOR 19
 
-// number buttons
-enum{
-	OK_ATM = 0,
-	DEPOSIT_ATM,
-	WIDTHDRAWL_ATM,
-	CANCEL_ATM,
-	CLEAR_ATM,
-	NUMBER_ATM_BUTTONS,
-};
-
 // enums for the buttons in the information side bar ( used with giPersonnelATMStartButton[] )
 enum
 {
@@ -196,15 +186,6 @@ extern void HandleShiftAltTabKeyInLaptop( void );
 UINT8 uiCurrentInventoryIndex = 0;
 
 UINT32 guiSliderPosition;
-
-// the transfer funds string
-CHAR16 sTransferString[ 32 ];
-
-INT32 giPersonnelATMSideButton[ NUMBER_ATM_BUTTONS ];
-INT32 giPersonnelATMSideButtonImage[ NUMBER_ATM_BUTTONS ];
-
-INT32 iNumberPadButtons[ 10 ];
-INT32 iNumberPadButtonsImages[ 10 ];
 
 #define PrsnlOffSetX	(-15) //-20
 #define Prsnl_DATA_OffSetX	(36)
@@ -263,8 +244,6 @@ INT32 giPersonnelATMStartButton[PERSONNEL_NUM_BTN];
 INT32 giPersonnelATMStartButtonImage[PERSONNEL_NUM_BTN];
 INT32 giPersonnelATMButton;
 INT32 giPersonnelATMButtonImage;
-
-BOOLEAN fOldATMFlags = 0;
 
 // WDS - make number of mercenaries, etc. be configurable
 // For the active mercenary screen...
