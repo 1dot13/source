@@ -247,7 +247,6 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"BookMark",					Loc::pBookMarkStrings,				0,	TEXT_NUM_LAPTOP_BOOKMARKS);
 	ExportSection(props, L"BookmarkTitle",				Loc::pBookmarkTitle,				0,	2);
 	ExportSection(props, L"Download",					Loc::pDownloadString,				0,	2);
-	ExportSection(props, L"AtmSideButton",				Loc::gsAtmSideButtonText,			0,	5);
 	ExportSection(props, L"AtmStartButton",				Loc::gsAtmStartButtonText,			0,	4);
 	ExportSection(props, L"ATM",						Loc::sATMText,						0,	6);
 	ExportSection(props, L"Error",						Loc::pErrorStrings,					0,	5);

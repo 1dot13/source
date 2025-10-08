@@ -5215,17 +5215,6 @@ STR16 pDownloadString[] =
 	L"Herladen",
 };
 
-//This is the text used on the bank machines, here called ATMs for Automatic Teller Machine
-
-STR16 gsAtmSideButtonText[] =
-{
-	L"OK",
-	L"Neem", 			// take money from merc
-	L"Geef", 			// give money to merc
-	L"Stop", 			// cancel transaction
-	L"Leeg", 			// clear amount being displayed on the screen
-};
-
 STR16 gsAtmStartButtonText[] =
 {
 	L"Maak over $", 		// transfer money to merc -- short form
