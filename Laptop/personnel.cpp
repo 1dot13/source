@@ -5688,29 +5688,27 @@ BOOLEAN RenderAtmPanel( void )
 	UINT32 uiBox = 0;
 	HVOBJECT hHandle;
 
+	// just show basic panel
+	// bounding
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\AtmButtons.sti", VObjectDesc.ImageFile);
+	CHECKF(AddVideoObject(&VObjectDesc, &uiBox));
 
-	{
-		// just show basic panel
-		// bounding
-		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("LAPTOP\\AtmButtons.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &uiBox));
+	GetVideoObject(&hHandle, uiBox);
+	BltVideoObject(FRAME_BUFFER, hHandle, 0,( INT16 ) ( ATM_UL_X ), ( INT16 ) ( ATM_UL_Y ), VO_BLT_SRCTRANSPARENCY,NULL);
 
-		GetVideoObject(&hHandle, uiBox);
-		BltVideoObject(FRAME_BUFFER, hHandle, 0,( INT16 ) ( ATM_UL_X ), ( INT16 ) ( ATM_UL_Y ), VO_BLT_SRCTRANSPARENCY,NULL);
-
-		// blit it
-		GetVideoObject(&hHandle, uiBox);
-		BltVideoObject(FRAME_BUFFER, hHandle, 1,( INT16 ) ( ATM_UL_X + 1 ), ( INT16 ) ( ATM_UL_Y + 18), VO_BLT_SRCTRANSPARENCY,NULL);
+	// blit it
+	GetVideoObject(&hHandle, uiBox);
+	BltVideoObject(FRAME_BUFFER, hHandle, 1,( INT16 ) ( ATM_UL_X + 1 ), ( INT16 ) ( ATM_UL_Y + 18), VO_BLT_SRCTRANSPARENCY,NULL);
 
 
-		DeleteVideoObjectFromIndex( uiBox );
+	DeleteVideoObjectFromIndex( uiBox );
 
-		//DisplayAmountOnCurrentMerc( );
+	//DisplayAmountOnCurrentMerc( );
 
-		// create destroy
-		CreateDestroyStartATMButton( );
-	}
+	// create destroy
+	CreateDestroyStartATMButton( );
+
 	return( TRUE );
 }
 
