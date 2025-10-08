@@ -419,7 +419,6 @@ BOOLEAN RenderAtmPanel( void );
 
 // create destroy ATM button
 void CreateDestroyStartATMButton( void );
-void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 // atm misc functions
@@ -5917,46 +5916,6 @@ void PersonnelDataButtonCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		
 		btn->uiFlags |= BUTTON_CLICKED_ON;
-	}
-}
-
-void ATMNumberButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-
-	INT32 iValue = 0;
-	INT32 iCounter = 0;
-	CHAR16 sZero[ 2 ] = L"0";
-
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	iValue = MSYS_GetBtnUserData( btn, 0 );
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-		{
-			fReDrawScreenFlag=TRUE;
-		}
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if(btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-			// find position in value string, append character at end
-			for( iCounter = 0; iCounter < ( INT32 )wcslen( sTransferString ) ; iCounter++ );
-			sTransferString[ iCounter ] = ( sZero[ 0 ] + ( UINT16 )iValue );
-			sTransferString[ iCounter + 1 ] = 0;
-			fReDrawScreenFlag=TRUE;
-
-			// gone too far
-			if( StringPixLength( sTransferString, ATM_FONT ) >= ATM_DISPLAY_WIDTH - 10 )
-			{
-				sTransferString[ iCounter ] = 0;
-			}
-		}
 	}
 }
 
