@@ -1211,8 +1211,8 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 
 	if(is_networked && (Namount*(-1) > LaptopSaveInfo.iCurrentBalance))
 	{
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-		return(FALSE);//not enough big ones $$$sATMText
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return(FALSE);
 	}
 
 #ifdef JA2UB
@@ -1225,8 +1225,8 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 
 	if ( Namount > LaptopSaveInfo.iCurrentBalance )
 	{
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[4], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return(FALSE);//not enough big ones $$$sATMText
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		return(FALSE);
 	}
 #endif // JA2UB
 
