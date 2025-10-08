@@ -5188,16 +5188,6 @@ STR16 pDownloadString[] = {
 	L"Neuladen läuft",
 };
 
-//This is the text used on the bank machines, here called ATMs for Automatic Teller Machine
-STR16 gsAtmSideButtonText[] = 
-{
-	L"OK",
-	L"Nehmen", 		// take money from merc
-	L"Geben", 		// give money to merc
-	L"Rückgängig", 		// cancel transaction
-	L"Löschen", 		// clear amount being displayed on the screen
-};
-
 STR16 gsAtmStartButtonText[] = 
 {
 	L"Überw $", 		// transfer money to merc -- short form

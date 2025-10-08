@@ -5210,17 +5210,6 @@ STR16 pDownloadString[] =
 	L"重载...",
 };
 
-//This is the text used on the bank machines, here called ATMs for Automatic Teller Machine
-
-STR16 gsAtmSideButtonText[] =
-{
-	L"好的",
-	L"拿取",		// take money from merc
-	L"给予",		//give money to merc
-	L"取消",		// cancel transaction
-	L"清除",		//clear amount being displayed on the screen
-};
-
 STR16 gsAtmStartButtonText[] =
 {
 	L"状态",	//L"Stats", 			// view stats of the merc

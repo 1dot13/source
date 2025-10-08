@@ -5202,17 +5202,6 @@ STR16 pDownloadString[] =
 	L"Caricamento",
 };
 
-//This is the text used on the bank machines, here called ATMs for Automatic Teller Machine
-
-STR16 gsAtmSideButtonText[] =
-{
-	L"OK",
-	L"Prendi", 			// take money from merc
-	L"Dai", 			// give money to merc
-	L"Annulla", 			// cancel transaction
-	L"Pulisci", 			// clear amount being displayed on the screen
-};
-
 STR16 gsAtmStartButtonText[] =
 {
 	L"Trasferisce $", 		// transfer money to merc -- short form
