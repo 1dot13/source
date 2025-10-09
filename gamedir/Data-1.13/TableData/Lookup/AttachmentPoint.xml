@@ -16,7 +16,6 @@
 		<id>3</id>
 		<name>All Molle</name>
 	</AttachmentPoint>
-		<AttachmentPoint>
 		<id>4</id>
 		<name>Hydration Carrier</name>
 	</AttachmentPoint>
@@ -29,7 +28,6 @@
 		<name>Surgical Mask and Gloves</name>
 	</AttachmentPoint>
 	</AttachmentPoint>
-		<AttachmentPoint>
 		<id>16</id>
 		<name>Batteries</name>
 	</AttachmentPoint>	
