@@ -31464,6 +31464,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<AttachmentSystem>1</AttachmentSystem>		
 		<Attachment>1</Attachment>
 		<Electronic>1</Electronic>
 		<BlockIronSight>1</BlockIronSight>
