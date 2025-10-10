@@ -279,23 +279,23 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_BLOOD_N_GORE]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_BLOOD_N_GORE"                     ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_DONT_MOVE_MOUSE]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DONT_MOVE_MOUSE"                  ,  FALSE );
 		gGameSettings.fOptions[TOPTION_OLD_SELECTION_METHOD]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_OLD_SELECTION_METHOD"             ,  FALSE );
-		gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALWAYS_SHOW_MOVEMENT_PATH"        ,  FALSE );
+		gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALWAYS_SHOW_MOVEMENT_PATH"        ,  TRUE );
 		gGameSettings.fOptions[TOPTION_SHOW_MISSES]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MISSES"                      ,  FALSE );
 		gGameSettings.fOptions[TOPTION_RTCONFIRM]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RTCONFIRM"                        ,  FALSE );
-		gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  TRUE  );
+		gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  FALSE );
 		gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  TRUE );
 		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]				= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_MERC_CASTS_LIGHT"				   , FALSE);
 		gGameSettings.fOptions[TOPTION_SMART_CURSOR]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SMART_CURSOR"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GLOW_ITEMS"                       ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_TREE_TOPS"                 ,  TRUE  );
-		gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_SMART_TREE_TOPS"				   ,  FALSE );
+		gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_SMART_TREE_TOPS"				   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_WIREFRAME"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_3D_CURSOR]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_3D_CURSOR"                        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_CTH_CURSOR]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CTH_CURSOR"                       ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GL_BURST_CURSOR"                  ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_TAUNTS"					   ,  TRUE  ); // changed from drop all - SANDRO
-		gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GL_HIGH_ANGLE"                    ,  FALSE );
+		gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GL_HIGH_ANGLE"                    ,  TRUE );
 		
 		if (!is_networked)		
 			gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_REAL_TIME_SNEAK"            ,  FALSE ); // Changed from aim levels restriction - SANDRO
@@ -305,7 +305,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_SPACE_SELECTS_NEXT_SQUAD]        = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SPACE_SELECTS_NEXT_SQUAD"         ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_SHOW_ITEM_SHADOW]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ITEM_SHADOW"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_SHOW_WEAPON_RANGE_IN_TILES]      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_WEAPON_RANGE_IN_TILES"       ,  TRUE  );
-		gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]         = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACERS_FOR_SINGLE_FIRE"          ,  FALSE );
+		gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]         = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACERS_FOR_SINGLE_FIRE"          ,  TRUE );
 		gGameSettings.fOptions[TOPTION_RAIN_SOUND]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RAIN_SOUND"                       ,  TRUE  );
 		
 		if (!is_networked)
@@ -332,12 +332,12 @@ BOOLEAN LoadGameSettings()
 		else
 			gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]			= FALSE;
 
-		gGameSettings.fOptions[TOPTION_ALT_START_AIM]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_START_AIM"				   , FALSE); // Start at max aiming level instead of default no aiming
+		gGameSettings.fOptions[TOPTION_ALT_START_AIM]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_START_AIM"				   , TRUE); // Start at max aiming level instead of default no aiming
 		gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_PATHFINDING"				   , FALSE); // A* pathfinding
 		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  TRUE ); // Flugente: mercenary formations
 		gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ENEMY_LOCATION"			   ,  FALSE); // sevenfm: show locations of known enemies
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
-		gGameSettings.fOptions[TOPTION_USE_LOGICAL_BODYTYPES]			= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_LOGICAL_BODYTYPES"			   ,  FALSE );
+		gGameSettings.fOptions[TOPTION_USE_LOGICAL_BODYTYPES]			= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_LOGICAL_BODYTYPES"			   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
 		gGameSettings.fOptions[TOPTION_SHOW_MERC_RANKS]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MERC_RANKS"				   ,  FALSE );
@@ -357,13 +357,13 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[NUM_GAME_OPTIONS]                        = iniReader.ReadBoolean("JA2 Game Settings","NUM_GAME_OPTIONS"                         ,  FALSE );
 		gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
-		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
+		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  TRUE );
 		gGameSettings.fOptions[TOPTION_QUIET_TRAINING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_TRAINING"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_REPAIRING"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_DOCTORING"				   ,  FALSE );
 		
 		if (!is_networked)
-			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AUTO_FAST_FORWARD_MODE"           ,  FALSE );
+			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AUTO_FAST_FORWARD_MODE"           ,  TRUE );
 		else
 			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= FALSE;
 
