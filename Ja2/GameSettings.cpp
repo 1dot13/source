@@ -776,17 +776,17 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_DONT_MOVE_MOUSE ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ]				= FALSE;
-	gGameSettings.fOptions[ TOPTION_ALWAYS_SHOW_MOVEMENT_PATH ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_ALWAYS_SHOW_MOVEMENT_PATH ]			= TRUE;
 	gGameSettings.fOptions[	TOPTION_SHOW_MISSES ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
-	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= TRUE;
+	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= FALSE;
 	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= TRUE;
 	gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT] = FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
 	gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ]					= TRUE;
-	gGameSettings.fOptions[ TOPTION_SMART_TREE_TOPS ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_SMART_TREE_TOPS ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_WIREFRAME ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_3D_CURSOR ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_CTH_CURSOR ]						= TRUE;
@@ -794,14 +794,14 @@ void InitGameSettings()
 	//Madd:
 	gGameSettings.fOptions[ TOPTION_GL_BURST_CURSOR ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_ALLOW_TAUNTS ]						= TRUE;	// changed - SANDRO
-	gGameSettings.fOptions[ TOPTION_GL_HIGH_ANGLE ]						= FALSE;
+	gGameSettings.fOptions[ TOPTION_GL_HIGH_ANGLE ]						= TRUE;
 	gGameSettings.fOptions[	TOPTION_ALLOW_REAL_TIME_SNEAK ]				= FALSE;	// changed - SANDRO
 
 	//lalien
 	gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ]		= TRUE;
-	gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_RAIN_SOUND ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_ALLOW_CROWS ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ]			= TRUE;
@@ -827,14 +827,14 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]				= FALSE;
 
 	// BIO
-	gGameSettings.fOptions[ TOPTION_USE_LOGICAL_BODYTYPES ]				= FALSE;
+	gGameSettings.fOptions[ TOPTION_USE_LOGICAL_BODYTYPES ]				= TRUE;
 
-	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = FALSE;
+	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = TRUE;
 	gGameSettings.fOptions[ TOPTION_QUIET_TRAINING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_REPAIRING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_DOCTORING ]					= FALSE;
 
-	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= TRUE;
 
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies	
 
@@ -846,7 +846,7 @@ void InitGameSettings()
 	
 	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercenary formations
 	gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]					= FALSE;	// sevenfm: show locations of known enemies
-	gGameSettings.fOptions[TOPTION_ALT_START_AIM]						= FALSE;
+	gGameSettings.fOptions[TOPTION_ALT_START_AIM]						= TRUE;
 	gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]						= FALSE;
 
 	// arynn: Cheat/Debug Menu
