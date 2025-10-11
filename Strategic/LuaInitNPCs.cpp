@@ -8657,7 +8657,7 @@ static int l_TileIsOutOfBoundsClosestPC(lua_State* L)
 static int l_FindSoldierByProfileID(lua_State* L)
 {
 	SOLDIERTYPE* pSoldier;
-	UINT16 id = NOBODY;
+	UINT8 foundProfileID = -1;
 	UINT16 ubLoop = 0, ubLoopLimit = MAX_NUM_SOLDIERS;
 
 	if (lua_gettop(L))
@@ -8668,11 +8668,12 @@ static int l_FindSoldierByProfileID(lua_State* L)
 		{
 			if (pSoldier->bActive && pSoldier->ubProfile == ubTargetNPC)
 			{
-				id = pSoldier->ubID;
+				foundProfileID = pSoldier->ubProfile;
+				break;
 			}
 		}
 
-		lua_pushinteger(L, id);
+		lua_pushinteger(L, foundProfileID);
 	}
 
 	return 1;
@@ -8695,6 +8696,7 @@ static int l_FindSoldierByProfileIDBool(lua_State* L)
 			if (pSoldier->bActive && pSoldier->ubProfile == ubTargetNPC)
 			{
 				ProfBool = TRUE;
+				break;
 			}
 		}
 
