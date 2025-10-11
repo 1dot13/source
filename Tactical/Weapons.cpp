@@ -4236,7 +4236,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				// give bonus for surprise, but not so much as struggle would still occur
 				iHitChance = CalcChanceToSteal( pSoldier, pTargetSoldier, pSoldier->aiData.bAimTime ) + 20;
 			}
-			else if ( pTargetSoldier->stats.bLife < OKLIFE || pTargetSoldier->bCollapsed )
+			else if (pTargetSoldier->stats.bLife < OKLIFE || pTargetSoldier->bCollapsed || pTargetSoldier->usSoldierFlagMask & SOLDIER_POW)
 			{
 				iHitChance = 100;
 				fSoldierCollapsed = TRUE;
