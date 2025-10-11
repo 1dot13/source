@@ -9,7 +9,12 @@ auto FormatMoney(INT32 iNumber) -> std::wstring
 {
     static std::wstringstream wss([] {
         std::wstringstream ss;
-        ss.imbue(std::locale(""));
+        try {
+            ss.imbue(std::locale("en_US.UTF-8"));
+        }
+        catch (const std::exception&) {
+            ss.imbue(std::locale::classic());
+        }
         return ss;
         }());
     wss.str(L"");
