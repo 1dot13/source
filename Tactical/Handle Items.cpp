@@ -7035,7 +7035,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 		if ((pObject->exists() == true) && !ItemIsUndroppableByDefault(pObject->usItem)) // CHECK! Undroppable items cannot be stolen - SANDRO
 		{
 			// Is the enemy collapsed
-			if ( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed )
+			if ( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed || (pOpponent->usSoldierFlagMask & SOLDIER_POW) )
 			{
 				// We can steal any of his items in the inventory
 				fStealItem = TRUE;
