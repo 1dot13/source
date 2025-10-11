@@ -1112,8 +1112,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	iCorpseID = AddRottingCorpse( &Corpse );
 
 	// If this is our guy......make visible...
-	//if ( pSoldier->bTeam == gbPlayerNum )
-	if ( iCorpseID != -1 )
+	if ( iCorpseID != -1 && pSoldier->bTeam == OUR_TEAM || gbPublicOpplist[OUR_TEAM][pSoldier->ubID] == SEEN_CURRENTLY )
 	{
 		MakeCorpseVisible( pSoldier, &( gRottingCorpse[ iCorpseID ] ) );
 	}
@@ -2527,6 +2526,15 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	ROTTING_CORPSE *pCorpse;
 	INT8			bToleranceThreshold = 0;
 	SOLDIERTYPE		*pTeamSoldier;
+
+	pCorpse = GetCorpseAtGridNo(sGridNo, ubLevel);
+	if (pCorpse == NULL)
+	{
+		return;
+	}
+
+	if (pCorpse->fActivated && pCorpse->def.bVisible != 1)
+		pCorpse->def.bVisible = 1;
 
 	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
 	{
