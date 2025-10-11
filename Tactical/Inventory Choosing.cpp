@@ -3129,7 +3129,8 @@ void AssignCreatureInventory( SOLDIERTYPE *pSoldier )
 
 	if (Random(100) < uiChanceToDrop)
 	{
-		CreateItem( (UINT16)(fBloodcat ? BLOODCAT_PELT : CREATURE_PART_ORGAN), (INT8) (80 + Random(21)), &(pSoldier->inv[BIGPOCK3POS]) );
+		if (!fBloodcat)
+			CreateItem((UINT16)CREATURE_PART_ORGAN, (INT8)(80 + Random(21)), &(pSoldier->inv[BIGPOCK3POS]));
 	}
 }
 
