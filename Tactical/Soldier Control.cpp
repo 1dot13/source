@@ -5481,7 +5481,7 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 		!WeaponReady(this) &&
 		this->inv[HANDPOS].exists() &&
 		this->inv[HANDPOS].usItem &&
-		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN)
+		(Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN || ItemIsBinoculars(this->inv[HANDPOS].usItem)))
 	{
 		CHAR8	zFilename[512];
 		sprintf(zFilename, "");
@@ -5551,7 +5551,8 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 	}
 
 	// Check if we have a gun.....
-	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_GUN && !ItemIsGrenadeLauncher(pSoldier->inv[HANDPOS].usItem) )
+	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_GUN && !ItemIsGrenadeLauncher(pSoldier->inv[HANDPOS].usItem) &&
+		!GetObjectModifier(pSoldier, &(pSoldier->inv[HANDPOS]), gAnimControl[pSoldier->usAnimState].ubEndHeight, ITEMMODIFIER_SPOTTER))
 	{
 		return(INVALID_ANIMATION);
 	}
@@ -19276,7 +19277,8 @@ BOOLEAN SOLDIERTYPE::CanSpot( INT32 sTargetGridNo )
 
 	// no item -> no spotting
 	if ( !(this->inv[HANDPOS].exists( ) && GetObjectModifier( this, &(this->inv[HANDPOS]), gAnimControl[this->usAnimState].ubEndHeight, ITEMMODIFIER_SPOTTER ))
-		 && !(this->inv[SECONDHANDPOS].exists( ) && GetObjectModifier( this, &(this->inv[SECONDHANDPOS]), gAnimControl[this->usAnimState].ubEndHeight, ITEMMODIFIER_SPOTTER )) )
+		 && !(this->inv[SECONDHANDPOS].exists( ) && GetObjectModifier( this, &(this->inv[SECONDHANDPOS]), gAnimControl[this->usAnimState].ubEndHeight, ITEMMODIFIER_SPOTTER ))
+		|| !WeaponReady(this))
 		 return FALSE;
 
 	return TRUE;

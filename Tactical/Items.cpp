@@ -11260,7 +11260,7 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 			}
 
 			// Flugente: weapons are checked later on...
-			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus += BonusReduceMore( pItem->visionrangebonus,	(*pObj)[0]->data.objectStatus );
 			}
@@ -11299,14 +11299,23 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].visionrangebonus, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
+				else if (ItemIsBinoculars(pObj->usItem))
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].visionrangebonus, (*pObj)[0]->data.objectStatus);
 			}
 			else
 			{
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				if (ItemIsBinoculars(pObj->usItem))
 				{
-					if( iter->exists() )
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].visionrangebonus, (*pObj)[0]->data.objectStatus);
+				}
+				else
+				{
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						sScopebonus += BonusReduceMore( Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus );
+						if (iter->exists())
+						{
+							sScopebonus += BonusReduceMore(Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus);
+						}
 					}
 				}
 			}
@@ -11373,7 +11382,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			}
 
 			// Flugente: weapons are checked later on...
-			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus += BonusReduceMore(
 					NightBonusScale( pItem->nightvisionrangebonus, bLightLevel ),
@@ -11416,16 +11425,25 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].nightvisionrangebonus, bLightLevel ),
 								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
+				else if (ItemIsBinoculars(pObj->usItem))
+					sScopebonus += BonusReduceMore(NightBonusScale(Item[pObj->usItem].nightvisionrangebonus, bLightLevel), (*pObj)[0]->data.objectStatus);
 			}
 			else
 			{
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				if (ItemIsBinoculars(pObj->usItem))
 				{
-					if(iter->exists() )
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].nightvisionrangebonus, (*pObj)[0]->data.objectStatus);
+				}
+				else
+				{
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						sScopebonus += BonusReduceMore(
-							NightBonusScale( Item[iter->usItem].nightvisionrangebonus, bLightLevel ),
-							(*iter)[0]->data.objectStatus );
+						if (iter->exists())
+						{
+							sScopebonus += BonusReduceMore(
+								NightBonusScale(Item[iter->usItem].nightvisionrangebonus, bLightLevel),
+								(*iter)[0]->data.objectStatus);
+						}
 					}
 				}
 			}
@@ -11479,7 +11497,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			}
 
 			// Flugente: weapons are checked later on...
-			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus += BonusReduceMore(
 					NightBonusScale( pItem->cavevisionrangebonus, bLightLevel ),
@@ -11522,16 +11540,25 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
 								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
+				else if (ItemIsBinoculars(pObj->usItem))
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].cavevisionrangebonus, (*pObj)[0]->data.objectStatus);
 			}
 			else
 			{
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				if (ItemIsBinoculars(pObj->usItem))
 				{
-					if(iter->exists() )
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].cavevisionrangebonus, (*pObj)[0]->data.objectStatus);
+				}
+				else
+				{
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						sScopebonus += BonusReduceMore(
-							NightBonusScale( Item[iter->usItem].cavevisionrangebonus, bLightLevel ),
-							(*iter)[0]->data.objectStatus );
+						if (iter->exists())
+						{
+							sScopebonus += BonusReduceMore(
+								NightBonusScale(Item[iter->usItem].cavevisionrangebonus, bLightLevel),
+								(*iter)[0]->data.objectStatus);
+						}
 					}
 				}
 			}
@@ -11590,7 +11617,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			}
 
 			// Flugente: weapons are checked later on...
-			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus += BonusReduceMore( idiv( pItem->dayvisionrangebonus
 					* lightlevelmultiplier, lightleveldivisor ),
@@ -11634,16 +11661,25 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 								* lightlevelmultiplier, lightleveldivisor ),
 								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
+				else if (ItemIsBinoculars(pObj->usItem))
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].dayvisionrangebonus, (*pObj)[0]->data.objectStatus);
 			}
 			else
 			{
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				if (ItemIsBinoculars(pObj->usItem))
 				{
-					if(iter->exists() )
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].dayvisionrangebonus, (*pObj)[0]->data.objectStatus);
+				}
+				else
+				{
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
-						* lightlevelmultiplier, lightleveldivisor ),
-						(*iter)[0]->data.objectStatus );
+						if (iter->exists())
+						{
+							sScopebonus += BonusReduceMore(idiv(Item[iter->usItem].dayvisionrangebonus
+								* lightlevelmultiplier, lightleveldivisor),
+								(*iter)[0]->data.objectStatus);
+						}
 					}
 				}
 			}
@@ -11692,7 +11728,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 			}
 
 			// Flugente: weapons are checked later on...
-			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus += BonusReduceMore( idiv( pItem->brightlightvisionrangebonus
 					* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -11735,16 +11771,25 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 									* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
 									(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
+				else if (ItemIsBinoculars(pObj->usItem))
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].brightlightvisionrangebonus, (*pObj)[0]->data.objectStatus);
 			}
 			else
 			{
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				if (ItemIsBinoculars(pObj->usItem))
 				{
-					if(iter->exists() )
+					sScopebonus += BonusReduceMore(Item[pObj->usItem].brightlightvisionrangebonus, (*pObj)[0]->data.objectStatus);
+				}
+				else
+				{
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].brightlightvisionrangebonus
-							* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
-							(*iter)[0]->data.objectStatus );
+						if (iter->exists())
+						{
+							sScopebonus += BonusReduceMore(idiv(Item[iter->usItem].brightlightvisionrangebonus
+								* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY),
+								(*iter)[0]->data.objectStatus);
+						}
 					}
 				}
 			}
@@ -11845,7 +11890,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 				continue;
 			}
 
-			if ( !IsWeapon(usItem) )
+			if (!IsWeapon(usItem) && !ItemIsBinoculars(usItem))
 			{
 				bonus_body = __max( bonus_body, pItem->percenttunnelvision );
 			}
@@ -11861,7 +11906,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 			usItem = pObj->usItem;
 			pItem = &(Item[usItem]);
 
-			if ( IsWeapon(usItem) ) //if not a weapon, then it was added already above
+			if (IsWeapon(usItem) || ItemIsBinoculars(usItem))
 				bonus_gun += Item[usItem].percenttunnelvision;
 
 			if ( gGameExternalOptions.fScopeModes && pSoldier )
@@ -16135,3 +16180,4 @@ BOOLEAN ItemIsOnlyInDisease(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_Di
 BOOLEAN ItemProvidesRobotCamo(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotCamo); }
 BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotNightVision); }
 BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotLaserBonus); }
+BOOLEAN ItemIsBinoculars(UINT16 usItem) { return Item[usItem].usSpotting > 0; }  // If we ever have a separate flag for binoculars this should be changed

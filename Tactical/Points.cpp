@@ -3254,6 +3254,12 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	else*/
 		usItem = pSoldier->inv[HANDPOS].usItem;
 
+	if (Item[usItem].usSpotting > 0)
+	{
+		// TODO: Externalize.
+		// Hardcode for now as I am too lazy to update gamedir...
+		return 10;
+	}
 	// If this is a dwel pistol anim
 	// ATE: What was I thinking, hooking into animations like this....
 	//if ( usAnimState == READY_DUAL_STAND || usAnimState == READY_DUAL_CROUCH )
