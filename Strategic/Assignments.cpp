@@ -4608,7 +4608,44 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	// if we will heal life and stats at the same time, increases the medical cost
 	if ( fWillHealLife && fWillRepairStats )
 		bMedFactor += 1;
-		
+
+	/////////////////////////// DISEASE CURE ////////////////////////////////////
+	if (fWillCureDisease && ptsleft > 0)
+	{
+		// determine how many points we use on disease cure
+		if (ptsleft < sHundredsToDiseaseCure)
+			sHundredsToDiseaseCure_Used = ptsleft;
+		else
+			sHundredsToDiseaseCure_Used = sHundredsToDiseaseCure;
+
+		// use up points
+		ptsleft -= sHundredsToDiseaseCure_Used;
+
+		INT32 curablepoints = sHundredsToDiseaseCure_Used;
+
+		if (curablepoints > 0)
+		{
+			// now apply healing: reduce disease points for each disease by the determined factor
+			UINT16 healingdone = 0;
+			for (int i = 0; i < NUM_DISEASES; ++i)
+			{
+				if ((pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED))
+				{
+					// amount cured is fraction of disease to total disease times fraction of healing done
+					INT32 cured = (sHundredsToDiseaseCure_Used * pPatient->sDiseasePoints[i]) / (FLOAT)(sHundredsToDiseaseCure);
+
+					if (cured > 0)
+					{
+						pPatient->AddDiseasePoints(i, -cured);
+					}
+				}
+			}
+
+			// patient expresses his gratitude
+			if (pDoctor)
+				AddOpinionEvent(pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE);
+		}
+	}
 	/////////////////////////// LIFE HEAL ////////////////////////////////////
 	// heal life points
 	if ( fWillHealLife && ptsleft > 0 )
@@ -4670,45 +4707,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		
 		RegainDamagedStats( pPatient, (sHundredsToRepair_Used * ubReturnDamagedStatRate / 100) );
 	}
-		
-	/////////////////////////// DISEASE CURE ////////////////////////////////////
-	if ( fWillCureDisease && ptsleft > 0 )
-	{
-		// determine how many points we use on stat repair
-		if ( ptsleft < sHundredsToDiseaseCure )
-			sHundredsToDiseaseCure_Used = ptsleft;
-		else
-			sHundredsToDiseaseCure_Used = sHundredsToDiseaseCure;
-
-		// use up points
-		ptsleft -= sHundredsToDiseaseCure_Used;
-
-		INT32 curablepoints = sHundredsToDiseaseCure_Used;
-
-		if ( curablepoints > 0 )
-		{
-			// now apply healing: reduce disease points for each disease by the determined factor
-			UINT16 healingdone = 0;
-			for ( int i = 0; i < NUM_DISEASES; ++i )
-			{
-				if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
-				{
-					// amount cured is fraction of disease to total disease times fraction of healing done
-					INT32 cured = (sHundredsToDiseaseCure_Used * pPatient->sDiseasePoints[i]) / (FLOAT)(sHundredsToDiseaseCure);
-
-					if ( cured > 0 )
-					{
-						pPatient->AddDiseasePoints( i, -cured );
-					}
-				}
-			}
-
-			// patient expresses his gratitude
-			if ( pDoctor )
-				AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
-		}
-	}
-	
+			
 	// Finally use all kit points (we are sure, we have that much)
 	if ( pDoctor && UseTotalMedicalKitPoints( pDoctor, max( 1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100 ) ) == FALSE )
 	{
