@@ -2527,14 +2527,6 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	INT8			bToleranceThreshold = 0;
 	SOLDIERTYPE		*pTeamSoldier;
 
-	pCorpse = GetCorpseAtGridNo(sGridNo, ubLevel);
-	if (pCorpse == NULL)
-	{
-		return;
-	}
-
-	if (pCorpse->fActivated && pCorpse->def.bVisible != 1)
-		pCorpse->def.bVisible = 1;
 
 	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
 	{
@@ -2547,6 +2539,9 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	{
 		return;
 	}
+
+	if (pCorpse->fActivated && pCorpse->def.bVisible != 1)
+		pCorpse->def.bVisible = 1;
 
 	if ( pCorpse->def.ubType != ROTTING_STAGE2 )
 	{
