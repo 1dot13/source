@@ -4612,7 +4612,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					if ( ( gpItemPointer == NULL ) &&
 						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ LOOK_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 					{
-						*puiNewEvent = LC_CHANGE_TO_LOOK;
+						*puiNewEvent = LC_LOOK;
 					}
 				}
 				break;
