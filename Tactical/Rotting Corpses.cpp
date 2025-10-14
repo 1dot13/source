@@ -2527,7 +2527,6 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	INT8			bToleranceThreshold = 0;
 	SOLDIERTYPE		*pTeamSoldier;
 
-
 	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
 	{
 		return;
