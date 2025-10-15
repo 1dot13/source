@@ -3283,6 +3283,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>24</itemIndex><!-- FAMAS G2 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
 		<itemIndex>25</itemIndex><!-- AK-74 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -26749,11 +26754,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1325</attachmentIndex><!-- *** BIPOD (BUILT-IN) -->
-		<itemIndex>24</itemIndex><!-- FAMAS G2 -->
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>1325</attachmentIndex>
 		<itemIndex>740</itemIndex><!-- Ultimax -->
 		<APCost>20</APCost>
 	</ATTACHMENT>

@@ -1109,7 +1109,7 @@
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<DirtIncreaseFactor>33</DirtIncreaseFactor>
 		<DamageChance>10</DamageChance>
-		<DefaultAttachment>1325</DefaultAttachment>
+		<DefaultAttachment>209</DefaultAttachment>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
