@@ -6945,7 +6945,7 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
         for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
         {
             pTeamSoldier = MercSlots[ cnt ];
-            if ( pTeamSoldier && pTeamSoldier->stats.bLife >= OKLIFE && !pTeamSoldier->aiData.bNeutral )
+            if ( pTeamSoldier && pTeamSoldier->stats.bLife >= OKLIFE && !pTeamSoldier->aiData.bNeutral && !(pTeamSoldier->usSoldierFlagMask & SOLDIER_POW) )
             {
                 if ( SoldierHasSeenEnemiesLastFewTurns( pTeamSoldier ) )
                 {
