@@ -615,11 +615,6 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 			case 441:
 				// CODE: Show muzzle flash
-				if ( pSoldier->bVisible == -1 )
-				{
-					break;
-				}
-
 				{
 					OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
 					if (IsFlashSuppressor(pObjAttHand, pSoldier) || (*pObjAttHand)[0]->data.gun.bGunAmmoStatus < 0)
