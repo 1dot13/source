@@ -3028,15 +3028,26 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	{
 		int size;
 
-		if (dMajorMapVersion >= 7 && ubMinorMapVersion >= MINOR_MAP_VERSION)
+		if (dMajorMapVersion >= 8 && ubMinorMapVersion >= MINOR_MAP_VERSION)
+		{
+			// Deal with Increased Team Sizes data
+			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+		}
+		else if (dMajorMapVersion >= 7 && ubMinorMapVersion >= MINOR_MAP_VERSION)
 		{
 			// Flugente: changed this, otherwise game would crash when reading WF maps if class ObjectData was different. this is a rough fix and by no means perfect
-			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+			//LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData));
+			ObjectData_PRE_ITS oldData;
+			LOADDATA(&(oldData), *hBuffer, sizeof(ObjectData_PRE_ITS));
+			this->data = oldData;
 		}
 		else if (dMajorMapVersion >= 7 && ubMinorMapVersion >= MINOR_MAP_REPAIR_SYSTEM)
 		{
 			// sObjectFlag'  size changed			
-			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) - sizeof(this->data.sObjectFlag) );
+			//LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) - sizeof(this->data.sObjectFlag) );
+			ObjectData_PRE_ITS oldData;
+			LOADDATA(&(oldData), *hBuffer, sizeof(ObjectData_PRE_ITS) - sizeof(oldData.sObjectFlag));
+			this->data = oldData;
 		}
 		// When saving maps with the new map editor that has weapon overheated feature included!
 		else if (dMajorMapVersion >= 7 && ubMinorMapVersion >= MINOR_MAP_OVERHEATING)
@@ -3047,14 +3058,20 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 			// But of course, we now 'read' the values for sRepairThreshold, but there weren't any in older map versions, resulting in garbage values - we therefore set that manually to 100
 			// Of course, once the ObjectData-Class is altered, this has to be altered as well!
 			//dnl ch74 241013 We cannot change past so hardcode 32 simply because that was sizeof(ObjectData) before current and all future changes ;-)
-			LOADDATA(&(this->data), *hBuffer, /*sizeof(ObjectData) - (sizeof(this->data.bDirtLevel) + sizeof(this->data.sObjectFlag) )*/32);
+			//LOADDATA(&(this->data), *hBuffer, /*sizeof(ObjectData) - (sizeof(this->data.bDirtLevel) + sizeof(this->data.sObjectFlag) )*/32);
+			ObjectData_PRE_ITS oldData;
+			LOADDATA(&(oldData), *hBuffer, 32);
+			this->data = oldData;
 			this->data.sRepairThreshold = 100;
 		}
 		else
 		{
 			// WF Maps have old format
 			// +1 because we have to account for endOfPOD itself
-			LOADDATA(&(this->data), *hBuffer, SIZEOF_OBJECTDATA_POD+1 );
+			//LOADDATA(&(this->data), *hBuffer, SIZEOF_OBJECTDATA_POD+1 );
+			ObjectData_PRE_ITS oldData;
+			LOADDATA(&(oldData), *hBuffer, SIZEOF_OBJECTDATA_POD_PRE_ITS + 1);
+			this->data = oldData;
 		}
 		
 		LOADDATA(&size, *hBuffer, sizeof(int) );
