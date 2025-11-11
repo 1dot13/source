@@ -1179,6 +1179,34 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 	return *this;
 }
 
+ObjectData& ObjectData::operator =(const ObjectData_PRE_ITS& src)
+{
+	if ((void*)this != (void*)&src)
+	{
+		//copy over the data
+		this->bTrap = src.bTrap;
+		this->fUsed = src.fUsed;
+		this->ubImprintID = src.ubImprintID;
+
+		this->bTemperature = src.bTemperature;
+		this->ubDirection = src.ubDirection;
+		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
+		this->bDefuseFrequency = src.bDefuseFrequency;
+		this->sRepairThreshold = src.sRepairThreshold;
+		this->sObjectFlag = src.sObjectFlag;
+
+		//copy over the union
+		this->misc.bBombStatus = src.misc.bBombStatus;
+		this->misc.bDetonatorType = src.misc.bDetonatorType;
+		this->misc.usBombItem = src.misc.usBombItem;
+		this->misc.bDelay = src.misc.bDelay;
+		this->misc.ubBombOwner = static_cast<UINT16>(src.misc.ubBombOwner);
+		this->misc.bActionValue = src.misc.bActionValue;
+		this->misc.ubTolerance = src.misc.ubTolerance;
+	}
+	return *this;
+}
+
 ObjectData::~ObjectData()
 {
 	DeleteLBE();
