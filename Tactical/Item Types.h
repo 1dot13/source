@@ -441,7 +441,7 @@ namespace ObjectDataStructs {
 		int		uniqueID;			// how the LBENODE is accessed
 	};
 
-	// For map load compatibility
+	// Used to maintain compatibility with major map versions older than 8.0
 	struct OBJECT_BOMBS_AND_OTHER_PRE_ITS
 	{
 		INT16		bBombStatus;
@@ -463,14 +463,8 @@ namespace ObjectDataStructs {
 };
 
 
-class ObjectData_PRE_ITS
+struct ObjectData_PRE_ITS
 {
-public:
-	ObjectData_PRE_ITS() { initialize(); };
-	// Assignment operator
-	ObjectData_PRE_ITS& operator=(const ObjectData_PRE_ITS&);
-	void	 initialize() { memset(this, 0, sizeof(ObjectData_PRE_ITS)); };
-
 	union {
 		INT16												objectStatus;//holds the same value as bStatus[0]
 		UINT16												ubShotsLeft;//holds the same value as ubShotsLeft[0]
@@ -481,14 +475,14 @@ public:
 		ObjectDataStructs::OBJECT_OWNER						owner;
 		ObjectDataStructs::OBJECT_LBE						lbe;
 	};
-	INT8		bTrap;			// 1-10 exp_lvl to detect
+	INT8			bTrap;			// 1-10 exp_lvl to detect
 	UINT8		fUsed;			// flags for whether the item is used or not
-	UINT8		ubImprintID;	// ID of merc that item is imprinted on
-	char		endOfPOD;		// For WF maps
+	UINT8		ubImprintID;		// ID of merc that item is imprinted on
+	char			endOfPOD;		// For WF maps
 	FLOAT		bTemperature;	// Flugente FTW 1.2: temperature of gun
 	UINT8		ubDirection;		// direction the bomb faces (for directional explosives)
 	UINT32		ubWireNetworkFlag;	// flags for the tripwire network
-	INT8		bDefuseFrequency;	// frequency for defusing, >=0 values used only
+	INT8			bDefuseFrequency;	// frequency for defusing, >=0 values used only
 	INT16		sRepairThreshold;	// repair only possible up to this value
 	FLOAT		bFiller;			// unused for now
 	UINT64		sObjectFlag;		// used to notify of various states that apply to this object, but not the item in general

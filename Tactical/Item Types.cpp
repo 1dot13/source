@@ -1181,10 +1181,8 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 
 ObjectData& ObjectData::operator =(const ObjectData_PRE_ITS& src)
 {
-	if ((void*)this != (void*)&src) {
-		//first get rid of any LBE this might have
-		//DeleteLBE();
-
+	if ((void*)this != (void*)&src)
+	{
 		//copy over the data
 		this->bTrap = src.bTrap;
 		this->fUsed = src.fUsed;
@@ -1198,16 +1196,13 @@ ObjectData& ObjectData::operator =(const ObjectData_PRE_ITS& src)
 		this->sObjectFlag = src.sObjectFlag;
 
 		//copy over the union
-		this->misc.bBombStatus = src.misc.bBombStatus;		// % status
-		this->misc.bDetonatorType = src.misc.bDetonatorType;		// timed, remote, or pressure-activated
-		this->misc.usBombItem = src.misc.usBombItem;			// the usItem of the bomb.
-		this->misc.bDelay = src.misc.bDelay;			// >=0 values used only
-		this->misc.ubBombOwner = static_cast<UINT16>(src.misc.ubBombOwner);			// side which placed the bomb
-		this->misc.bActionValue = src.misc.bActionValue;			// this is used by the ACTION_ITEM fake item
-		this->misc.ubTolerance = src.misc.ubTolerance;			// tolerance value for panic triggers
-
-		//duplicate the LBE data
-		//DuplicateLBE();
+		this->misc.bBombStatus = src.misc.bBombStatus;
+		this->misc.bDetonatorType = src.misc.bDetonatorType;
+		this->misc.usBombItem = src.misc.usBombItem;
+		this->misc.bDelay = src.misc.bDelay;
+		this->misc.ubBombOwner = static_cast<UINT16>(src.misc.ubBombOwner);
+		this->misc.bActionValue = src.misc.bActionValue;
+		this->misc.ubTolerance = src.misc.ubTolerance;
 	}
 	return *this;
 }
