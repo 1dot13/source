@@ -6445,6 +6445,9 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 			if(pObj->usItem == MONEY)
 				return( FALSE );
 
+			if (!HasAttachmentOfClass(pObj, AC_SLING))
+				return(FALSE);
+
 			if ( Item[pObj->usItem].usItemClass & (IC_AMMO | IC_GRENADE) )
 				return(CompatibleAmmoForGun(pObj, &pSoldier->inv[GUNSLINGPOCKPOS]) || ValidAttachment(pObj->usItem, &(pSoldier->inv[GUNSLINGPOCKPOS]) ) || ValidLaunchable(pObj->usItem, pSoldier->inv[GUNSLINGPOCKPOS].usItem));
 
