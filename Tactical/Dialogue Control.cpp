@@ -1069,21 +1069,21 @@ void HandleDialogue( )
 			switch( QItem.uiSpecialEventData )
 			{
 				case( 0 ):
-						swprintf( zText, SkiMessageBoxText[ SKI_SHORT_FUNDS_TEXT ], zMoney );
+						swprintf( zText, SkiMessageBoxText[ SKI_SHORT_FUNDS_TEXT ], zMoney.data() );
 
 						//popup a message stating the player doesnt have enough money
 						DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, ConfirmDontHaveEnoughForTheDealerMessageBoxCallBack );
 				break;
 				case( 1 ):
 						//if the player is trading items
-						swprintf( zText, SkiMessageBoxText[ SKI_QUESTION_TO_DEDUCT_MONEY_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE ], zMoney );
+						swprintf( zText, SkiMessageBoxText[ SKI_QUESTION_TO_DEDUCT_MONEY_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE ], zMoney.data() );
 
 						//ask them if we should deduct money out the players account to cover the difference
 						DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack );
 
 				break;
 				case( 2 ):
-						swprintf( zText, SkiMessageBoxText[ SKI_QUESTION_TO_DEDUCT_MONEY_FROM_PLAYERS_ACCOUNT_TO_COVER_COST ], zMoney );
+						swprintf( zText, SkiMessageBoxText[ SKI_QUESTION_TO_DEDUCT_MONEY_FROM_PLAYERS_ACCOUNT_TO_COVER_COST ], zMoney.data() );
 
 						//ask them if we should deduct money out the players account to cover the difference
 						DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack );
@@ -1116,7 +1116,7 @@ void HandleDialogue( )
 
 				case 8:
 					//if the player is trading items
-					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE], zMoney );
+					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE], zMoney.data() );
 
 					//ask them if we should deduct money out the players account to cover the difference
 					DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack );
@@ -1124,7 +1124,7 @@ void HandleDialogue( )
 					break;
 
 				case 9:
-					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_COST], zMoney );
+					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_COST], zMoney.data() );
 
 					//ask them if we should deduct money out the players account to cover the difference
 					DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack );
