@@ -48,7 +48,6 @@
 	#include "End Game.h"
 	#include "LOS.h"
 	#include "qarray.h"
-	#include "Soldier Profile.h"
 #include <vector>
 #include <queue>
 
