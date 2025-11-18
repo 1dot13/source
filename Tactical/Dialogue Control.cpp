@@ -59,9 +59,9 @@
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #include "Animation Control.h"
+#include "ub_config.h"
 #endif
 
-#include "ub_config.h"
 
 #include "history.h"
 #include <language.hpp>
