@@ -982,6 +982,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 				return( 0 );
 			}
 			// else treat as blade
+			[[fallthrough]];
 		case IC_BLADE:
 		case IC_THROWING_KNIFE:
 			return( ARMS_DEALER_BLADE );
