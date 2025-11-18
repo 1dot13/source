@@ -1,13 +1,9 @@
 
 	#include "Overhead.h"
-	#include "Render Fun.h"
-	#include "random.h"
 	#include "worldman.h"
 	#include "Soldier Profile.h"
 	#include "NPC.h"
-	#include "ai.h"
 	#include "Dialogue Control.h"
-	#include "Handle UI.h"
 	#include "End Game.h"
 	#include "Intro.h"
 	#include "Exit Grids.h"
