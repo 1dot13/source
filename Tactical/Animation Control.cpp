@@ -3730,7 +3730,7 @@ BOOLEAN LoadAnimationStateInstructions( )
 	}
 
 	//ddd Trick for loading more than 320 animation files (?)
-	UINT16 fuckTheBoundz[320][100];
+	UINT16 fuckTheBoundz[320][100] {};
 
 	//Read in block
 	//if ( !FileRead( hFile, gusAnimInst, sizeof( gusAnimInst ), &uiBytesRead ) ) //commentet by ddd
