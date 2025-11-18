@@ -38,7 +38,7 @@ int gXPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
 int gYPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
 //afp-end
 
-INT32 GetFreeBullet(void)
+static INT32 GetFreeBullet(void)
 {
 	UINT32 uiCount;
 
@@ -55,7 +55,7 @@ INT32 GetFreeBullet(void)
 }
 
 
-void RecountBullets(void)
+static void RecountBullets(void)
 {
 	INT32 uiCount;
 
