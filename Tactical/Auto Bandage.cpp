@@ -303,7 +303,7 @@ BOOLEAN HandleAutoBandage( )
 }
 
 
-BOOLEAN CreateAutoBandageString( void )
+static BOOLEAN CreateAutoBandageString( void )
 {
     // WDS - make number of mercenaries, etc. be configurable
 	UINT16				ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
