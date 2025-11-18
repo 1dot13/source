@@ -37,6 +37,7 @@
 #include "Game Init.h"
 #include "interface Dialogue.h"
 #include "ub_config.h"
+#include "Handle UI.h"
 
 void HandleAddingTheEndGameEmails();
 void EndFadeToCredits( void );
