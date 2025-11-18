@@ -1,19 +1,10 @@
 	#include "builddefines.h"
-	#include "math.h"
-	#include <stdio.h>
-	#include <errno.h>
 
 	#include "worlddef.h"
-	#include "renderworld.h"
-	#include "vsurface.h"
 	#include "sysutil.h"
 	#include "WCheck.h"
-	#include "video.h"
 	#include "vobject_blitters.h"
-	#include "faces.h"
-	#include "Utilities.h"
 	#include "Overhead.h"
-	#include "Soldier Profile.h"
 	#include "Bullets.h"
 	#include "LOS.h"
 	#include "worldman.h"
@@ -21,7 +12,6 @@
 	#include "GameSettings.h"
 	#include "FileMan.h"
 	#include "lighting.h"
-	#include "Buildings.h"
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.
