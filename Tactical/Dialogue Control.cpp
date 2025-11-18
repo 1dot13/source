@@ -465,7 +465,7 @@ void HandleDialogueUIAdjustments( )
 // Flugente: additional dialogue
 extern void LuaHandleAdditionalDialogue(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3);
 
-BOOLEAN ExecuteAdditionalCharacterDialogue(UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3)
+static BOOLEAN ExecuteAdditionalCharacterDialogue(UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3)
 {
 	SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ubProfile, TRUE);
 
