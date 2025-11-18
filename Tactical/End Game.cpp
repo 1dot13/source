@@ -275,7 +275,7 @@ void DoneFadeOutKilledQueen( void )
 	// look for all mercs on the same team,
 	for ( ; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++cnt )
 	{
-		pSoldier = cnt;
+		pTeamSoldier = cnt;
 		// Are we active and in sector.....
 		if ( pTeamSoldier->bActive	)
 		{
