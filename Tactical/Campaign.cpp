@@ -7,7 +7,7 @@
 	#include "random.h"
 	#include "Campaign.h"
 	#include "Dialogue Control.h"
-	#include "Map Screen Interface.h"
+	#include "Font Control.h"
 	#include "message.h"
 	#include "Game Clock.h"
 	#include "Strategic Mines.h"
