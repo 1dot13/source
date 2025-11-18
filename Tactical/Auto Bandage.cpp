@@ -21,12 +21,9 @@
 	#include "Map Screen Interface.h"
 	#include "Soldier Profile.h"
 	#include "Assignments.h"
-	#include "WordWrap.h"
 	#include "Cursors.h"
 	#include "english.h"
-	#include "SkillCheck.h"		// added by Flugente
 
-#include "Music Control.h"
 
 // max number of merc faces per row in autobandage box
 #define NUMBER_MERC_FACES_AUTOBANDAGE_BOX 4
