@@ -443,7 +443,7 @@ INT32 GetFreeMercSlot()
 }
 
 // WTF?
-void RecountMercSlots( )
+static void RecountMercSlots( )
 {
     INT32 iCount;
     if ( guiNumMercSlots > 0 )
@@ -488,7 +488,7 @@ BOOLEAN RemoveMercSlot( SOLDIERTYPE *pSoldier )
     return( FALSE );
 }
 
-INT32 GetFreeAwaySlot( )
+static INT32 GetFreeAwaySlot( )
 {
     UINT32 uiCount;
     for(uiCount=0; uiCount < guiNumAwaySlots; uiCount++)
@@ -501,7 +501,7 @@ INT32 GetFreeAwaySlot( )
     return(-1);
 }
 
-void RecountAwaySlots( )
+static void RecountAwaySlots( )
 {
     INT32 iCount;
     if ( guiNumAwaySlots > 0 )
@@ -832,7 +832,7 @@ BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, SoldierID usSoldierIndex )
 
 }
 
-BOOLEAN NextAIToHandle( UINT32 uiCurrAISlot )
+static BOOLEAN NextAIToHandle( UINT32 uiCurrAISlot )
 {
     UINT32  cnt;
 
@@ -2009,7 +2009,7 @@ BOOLEAN ExecuteOverhead( )
     return( TRUE );
 }
 
-void HaltGuyFromNewGridNoBecauseOfNoAPs( SOLDIERTYPE *pSoldier )
+static void HaltGuyFromNewGridNoBecauseOfNoAPs( SOLDIERTYPE *pSoldier )
 {
     HaltMoveForSoldierOutOfPoints( pSoldier );
     pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
@@ -2026,7 +2026,7 @@ void HaltGuyFromNewGridNoBecauseOfNoAPs( SOLDIERTYPE *pSoldier )
     UnSetEngagedInConvFromPCAction( pSoldier );
 }
 
-void HandleLocateToGuyAsHeWalks( SOLDIERTYPE *pSoldier )
+static void HandleLocateToGuyAsHeWalks( SOLDIERTYPE *pSoldier )
 {
     // Our guys if option set,
     if ( pSoldier->bTeam == gbPlayerNum )
@@ -2654,7 +2654,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
     return( TRUE );
 }
 
-void HandleMaryArrival( SOLDIERTYPE * pSoldier )
+static void HandleMaryArrival( SOLDIERTYPE * pSoldier )
 {
     INT32 sDist;
 
@@ -2692,7 +2692,7 @@ void HandleMaryArrival( SOLDIERTYPE * pSoldier )
 
 }
 
-void HandleJohnArrival( SOLDIERTYPE * pSoldier )
+static void HandleJohnArrival( SOLDIERTYPE * pSoldier )
 {
     SOLDIERTYPE * pSoldier2 = NULL;
     INT32 sDist;
@@ -4689,7 +4689,7 @@ void CivilianGroupChangesSides( UINT8 ubCivilianGroup )
      */
 }
 
-void HickCowAttacked( SOLDIERTYPE * pNastyGuy, SOLDIERTYPE * pTarget )
+static void HickCowAttacked( SOLDIERTYPE * pNastyGuy, SOLDIERTYPE * pTarget )
 {
     SOLDIERTYPE *pSoldier;
 
@@ -5176,7 +5176,7 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
 }
 
 // NB if making changes don't forget to update NewOKDestination
-INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, INT8 bDirection, BOOLEAN fPeopleToo, INT8 bLevel )
+static INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, INT8 bDirection, BOOLEAN fPeopleToo, INT8 bLevel )
 {
     SoldierID bPerson;
     STRUCTURE *pStructure;
@@ -6719,7 +6719,7 @@ void SetEnemyPresence()
 
 extern SoldierID gfLastMercTalkedAboutKillingID;
 
-BOOLEAN SoldierHasSeenEnemiesLastFewTurns( SOLDIERTYPE *pTeamSoldier )
+static BOOLEAN SoldierHasSeenEnemiesLastFewTurns( SOLDIERTYPE *pTeamSoldier )
 {
     SOLDIERTYPE *pSoldier;
     INT32       cnt;
@@ -6799,7 +6799,7 @@ BOOLEAN NobodyAlerted( )
 }
 
 
-BOOLEAN WeSawSomeoneThisTurn( )
+static BOOLEAN WeSawSomeoneThisTurn( )
 {
     UINT32      uiLoop, uiLoop2;
     SOLDIERTYPE * pSoldier;
@@ -6825,7 +6825,7 @@ BOOLEAN WeSawSomeoneThisTurn( )
 }
 
 
-void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
+static void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
 {
     // WDS - make number of mercenaries, etc. be configurable
     SoldierID ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = {};
@@ -7043,7 +7043,7 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 }
 
 
-void DeathNoMessageTimerCallback( )
+static void DeathNoMessageTimerCallback( )
 {
     //CheckAndHandleUnloadingOfCurrentWorld();
     if(!is_client)
@@ -7067,7 +7067,7 @@ void DeathNoMessageTimerCallback( )
 }
 
 // get a vector of all player-controlled sectors with prison facilities. It is assumed that a sector has max. one of these
-BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
+static BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
 {
     arSectorIDVector.clear();
 
@@ -7113,7 +7113,7 @@ extern void DoInterrogation( INT16 sMapX, INT16 sMapY, FLOAT aChanceModifier, IN
 // we cannot simply move all prisoners of a sector. It might be a prison we are already using, so we would move all inmates, not just the new ones
 INT16 gsNumPrisoner[PRISONER_MAX] = {0};
 
-void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
+static void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if ( DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().GetSelectedEntryKey() < 0 )
 	{
@@ -7160,7 +7160,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 CHAR16 gPrisonSectorNamesStr[256][128];
 
-void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+static void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	SOLDIERTYPE*	pTeamSoldier;
 	INT32           cnt = 0;
@@ -7341,7 +7341,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 // Flugente: for campaign stats, we want to know how many people were wounded.
 // Each time we are wounded, we set a 'wounded'-flag
 // Once combat ends, we count all these flags and remove them
-void UpdateWoundedFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+static void UpdateWoundedFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	SOLDIERTYPE			*pSoldier;
 	INT32               cnt = 0;
@@ -7366,7 +7366,7 @@ void UpdateWoundedFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	}
 }
 
-void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+static void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	if ( !bMapZ ) // Battle ended Above-ground
 	{
@@ -8575,7 +8575,7 @@ BOOLEAN KillIncompacitatedEnemyInSector( )
 
 
 
-BOOLEAN AttackOnGroupWitnessed( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget )
+static BOOLEAN AttackOnGroupWitnessed( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget )
 {
     UINT32                  uiSlot;
     SOLDIERTYPE *       pGroupMember;
@@ -8731,7 +8731,7 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 
 extern void IncrementWatchedLoc(UINT16 ubID, INT32 sGridNo, INT8 bLevel);
 
-void HandleSuppressionFire( SoldierID ubTargetedMerc, SoldierID ubCausedAttacker )
+static void HandleSuppressionFire( SoldierID ubTargetedMerc, SoldierID ubCausedAttacker )
 {
     ///////////////////////////////////////////////////////////////////////////////
     // 
@@ -9504,7 +9504,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
     return( fEnterCombat );
 }
 
-SOLDIERTYPE *InternalReduceAttackBusyCount( )
+static SOLDIERTYPE *InternalReduceAttackBusyCount( )
 {
     // Strange as this may seem, this function returns a pointer to
     // the *target* in case the target has changed sides as a result
@@ -10163,7 +10163,7 @@ void RemoveSoldierFromTacticalSector( SOLDIERTYPE *pSoldier, BOOLEAN fAdjustSele
 }
 
 
-void    DoneFadeOutDueToDeath( )
+static void    DoneFadeOutDueToDeath( )
 {
     // Quit game....
     InternalLeaveTacticalScreen( MAINMENU_SCREEN );
@@ -10237,7 +10237,7 @@ void InitializeTacticalStatusAtBattleStart( )
 }
 
 
-void    DoneFadeOutDemoCreatureLevel( )
+static void    DoneFadeOutDemoCreatureLevel( )
 {
     // OK, insertion data found, enter sector!
     SetCurrentWorldSector( 1, 16, 0 );
@@ -10246,7 +10246,7 @@ void    DoneFadeOutDemoCreatureLevel( )
 }
 
 
-void DemoEndOKCallback( INT8 bExitCode )
+static void DemoEndOKCallback( INT8 bExitCode )
 {
 }
 
@@ -10836,7 +10836,7 @@ void HandleDisplayingOfPlayerLostDialogue( )
 
 static SoldierID prisonerdialoguetargetID = NOBODY;
 
-void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
+static void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 {
 	// check ubExitValue to see whether we actually want to go through (2)
 	if ( ubExitValue != 2
@@ -10969,7 +10969,7 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 	}
 }
 
-void EscapeTimerCallback()
+static void EscapeTimerCallback()
 {
     const bool chanceToEscape = Chance(75);
     bool escaped = false;
@@ -11072,7 +11072,7 @@ void AttemptToCapturePlayerSoldiers()
 #endif
 }
 
-void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
+static void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
     SOLDIERTYPE *pSoldier = NULL;       
     BOOLEAN success = FALSE;
