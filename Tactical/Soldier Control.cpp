@@ -1674,7 +1674,6 @@ void MERCPROFILESTRUCT::CopyOldInventoryToNew( const OLD_MERCPROFILESTRUCT_101& 
 	bInvNumber[SMALLPOCK8POS] = src.DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK8POS];
 }
 
-BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );
 
 UINT8					*gubpNumReplacementsPerRange;
 PaletteSubRangeType		*gpPaletteSubRanges;
@@ -1739,7 +1738,6 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex );
 void SetSoldierLocatorOffsets( SOLDIERTYPE *pSoldier );
 void CheckForFullStructures( SOLDIERTYPE *pSoldier );
-UINT16 GetNewSoldierStateFromNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier );
 UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight );
