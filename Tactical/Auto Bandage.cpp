@@ -66,13 +66,11 @@ std::vector<INT32>	giAutoBandagesSoldierFaces (2*CODE_MAXIMUM_NUMBER_OF_PLAYER_S
 BOOLEAN fAutoEndBandageButtonCreated = FALSE;
 
 void BeginAutoBandageCallBack( UINT8 bExitValue );
-void CancelAutoBandageCallBack( UINT8 bExitValue );
 
 // the update box for autobandaging mercs
 void CreateTerminateAutoBandageButton( INT16 sX, INT16 sY );
 void DestroyTerminateAutoBandageButton( void );
 void DisplayAutoBandageUpdatePanel( void );
-void EndAutobandageButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void SetUpAutoBandageUpdatePanel( void );
 BOOLEAN AddFacesToAutoBandageBox( void );
 BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentXPosition, INT16 sCurrentYPosition );
