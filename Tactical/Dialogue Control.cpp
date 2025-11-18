@@ -1,5 +1,4 @@
 	#include "sgp.h"
-	//#include "Soldier Control.h"
 	#include "Encrypted File.h"
 	#include "faces.h"
 	#include "WCheck.h"
