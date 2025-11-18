@@ -1,5 +1,5 @@
 	#include "types.h"
-	#include "stdlib.h"
+	#include <cstdlib>
 	#include "Arms Dealer Init.h"
 	#include "DEBUG.H"
 	#include "random.h"
