@@ -146,7 +146,7 @@ void ChangeO3SectorStatue( BOOLEAN fFromExplosion )
 #ifdef JA2UB
 //Ja25 no queen
 #else
-void DeidrannaTimerCallback( void )
+static void DeidrannaTimerCallback( void )
 {
 	HandleDeidrannaDeath( gpKillerSoldier, gsGridNo, gbLevel );
 }
@@ -216,7 +216,7 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_DONE_KILLING_DEIDRANNA, 0,0,0,0 );
 }
 
-void DoneFadeInKilledQueen( void )
+static void DoneFadeInKilledQueen( void )
 {
 	SOLDIERTYPE *pNPCSoldier;
 
@@ -235,7 +235,7 @@ void DoneFadeInKilledQueen( void )
 
 }
 
-void DoneFadeOutKilledQueen( void )
+static void DoneFadeOutKilledQueen( void )
 {
 	SoldierID cnt;
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
@@ -417,7 +417,7 @@ EndQueenDeathEndgame( );
 
 
 
-void QueenBitchTimerCallback( void )
+static void QueenBitchTimerCallback( void )
 {
 #ifdef JA2UB
 //no Ub
