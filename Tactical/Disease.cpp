@@ -8,9 +8,7 @@
 #include "Overhead.h"
 #include "random.h"
 #include "Assignments.h"
-#include "message.h"
 #include "Soldier Profile.h"
-#include "Map Screen Interface Map.h"
 #include "Queen Command.h"
 #include "Quests.h"
 #include "finances.h"
@@ -18,9 +16,7 @@
 #include "LaptopSave.h"
 #include "strategic.h"
 #include "DynamicDialogue.h"
-#include <math.h>
 #include "Drugs And Alcohol.h"	// for DoesMercHaveDisability( ... )
-#include "environment.h"
 
 //GLOBALS
 DISEASE Disease[NUM_DISEASES];
