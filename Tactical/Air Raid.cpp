@@ -303,7 +303,7 @@ BOOLEAN BeginAirRaid( )
 }
 
 
-INT32 PickLocationNearAnyMercInSector( )
+static INT32 PickLocationNearAnyMercInSector( )
 {
 	UINT16	ubMercsInSector[ 20 ] = { 0 };
 	UINT16	ubNumMercs = 0;
@@ -344,7 +344,7 @@ INT32 PickLocationNearAnyMercInSector( )
 	return( NOWHERE );
 }
 
-INT32 PickRandomLocationAtMinSpacesAway( INT32 sGridNo, INT16 sMinValue, INT16 sRandomVar )
+static INT32 PickRandomLocationAtMinSpacesAway( INT32 sGridNo, INT16 sMinValue, INT16 sRandomVar )
 {
 	INT32 sNewGridNo = NOWHERE;
 	INT16 sX, sY, sNewX, sNewY;
@@ -382,7 +382,7 @@ INT32 PickRandomLocationAtMinSpacesAway( INT32 sGridNo, INT16 sMinValue, INT16 s
 	return( sNewGridNo );
 }
 
-void TryToStartRaid( )
+static void TryToStartRaid( )
 {
 	// OK, check conditions,
 
@@ -414,7 +414,7 @@ void TryToStartRaid( )
 
 }
 
-void AirRaidStart( )
+static void AirRaidStart( )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AirRaidStart"));
 	// Begin ambient sound....
@@ -434,7 +434,7 @@ void AirRaidStart( )
 	}
 }
 
-void AirRaidLookForDive( )
+static void AirRaidLookForDive( )
 {
 	BOOLEAN	fDoDive = FALSE;
 	BOOLEAN	fDoQuote = FALSE;
@@ -558,7 +558,7 @@ void AirRaidLookForDive( )
 }
 
 
-void 	AirRaidStartEnding( )
+static void 	AirRaidStartEnding( )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AirRaidStartEnding"));
 	// Fade out sound.....
@@ -566,7 +566,7 @@ void 	AirRaidStartEnding( )
 }
 
 
-void BeginBombing( )
+static void BeginBombing( )
 {
 	INT32 sGridNo;
 	UINT32	iSoundStartDelay;
@@ -623,7 +623,7 @@ void BeginBombing( )
 
 
 
-void BeginDive( )
+static void BeginDive( )
 {
 	INT32 sGridNo;
 	UINT32	iSoundStartDelay;
@@ -681,7 +681,7 @@ void BeginDive( )
 }
 
 
-void MoveDiveAirplane( FLOAT dAngle )
+static void MoveDiveAirplane( FLOAT dAngle )
 {
 	FLOAT					dDeltaPos;
 
@@ -701,7 +701,7 @@ void MoveDiveAirplane( FLOAT dAngle )
 }
 
 
-void DoDive(	)
+static void DoDive(	)
 {
 	INT16		sRange;
 	INT32 sGridNo, sOldGridNo;
@@ -877,7 +877,7 @@ void DoDive(	)
 }
 
 
-void DoBombing(	)
+static void DoBombing(	)
 {
 	INT16		sRange;
 	INT32		sGridNo, sOldGridNo, sBombGridNo;
@@ -1498,7 +1498,7 @@ void EndAirRaid( )
 }
 
 // Madd
-void CheckForAndSetupAirRaid ()
+static void CheckForAndSetupAirRaid ()
 {
 	//INT16 sSectorX;
 	//INT16 sSectorY;
@@ -1577,7 +1577,7 @@ void CheckForAndSetupAirRaid ()
 	//}
 }
 
-void EnemyCallInAirStrike (INT16 sSectorX, INT16 sSectorY)
+static void EnemyCallInAirStrike (INT16 sSectorX, INT16 sSectorY)
 {
 	//AIR_RAID_DEFINITION	AirRaidDef;
 
