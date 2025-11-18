@@ -210,7 +210,7 @@ UINT8 CountPeopleInBoxingRing( void )
 	return( ubTotalInRing );
 }
 
-void CountPeopleInBoxingRingAndDoActions( void )
+static void CountPeopleInBoxingRingAndDoActions( void )
 {
 	UINT32				uiLoop;
 	UINT8				ubTotalInRing = 0;
