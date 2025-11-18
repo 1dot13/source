@@ -1,20 +1,17 @@
 	#include "types.h"
 	#include "stdlib.h"
 	#include "Arms Dealer Init.h"
-	#include "string.h"
 	#include "DEBUG.H"
 	#include "random.h"
 	#include "Weapons.h"
 	#include "FileMan.h"
 	#include "Game Clock.h"
 	#include "ArmsDealerInvInit.h"
-	#include "message.h"
 	#include "Soldier Profile.h"
 	#include "Handle Items.h"
 	#include "Quests.h"
 	#include "Scheduling.h"
 	#include "GameSettings.h"
-	#include "Overhead.h"	// added by Flugente for MercPtrs[]
 	#include "LuaInitNPCs.h"	// added by Flugente
 
 #ifdef JA2UB
