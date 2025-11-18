@@ -1,19 +1,14 @@
-#include "builddefines.h"
-#include <stdio.h>
 #include <string.h>
-#include "stdlib.h"
 #include "DEBUG.H"
 #include "Animation Control.h"
 #include "Animation Data.h"
 #include "FileMan.h"
-#include "Weapons.h"
 #include "message.h"
 #include "structure.h"
 #include "worlddef.h"
 #include "worldman.h"
 #include "Rotting Corpses.h"
 #include "Debug Control.h"
-#include "random.h"
 #include "Soldier Control.h"
 
 #include "connect.h"
