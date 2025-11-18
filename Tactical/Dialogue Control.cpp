@@ -462,6 +462,22 @@ void HandleDialogueUIAdjustments( )
 }
 
 
+// Flugente: additional dialogue
+extern void LuaHandleAdditionalDialogue(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3);
+
+BOOLEAN ExecuteAdditionalCharacterDialogue(UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3)
+{
+	SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ubProfile, TRUE);
+
+	if ( !pSoldier )
+		return FALSE;
+
+	// call Lua script on whether we can play something here, and get text and sound file
+	LuaHandleAdditionalDialogue(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3);
+
+	return(TRUE);
+}
+
 
 void HandleDialogue( )
 {
@@ -2176,21 +2192,6 @@ BOOLEAN ExecuteSnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum,
 	return( TRUE );
 }
 
-// Flugente: additional dialogue
-extern void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 );
-
-BOOLEAN ExecuteAdditionalCharacterDialogue( UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 )
-{
-	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( ubProfile, TRUE );
-
-	if ( !pSoldier )
-		return FALSE;
-
-	// call Lua script on whether we can play something here, and get text and sound file
-	LuaHandleAdditionalDialogue( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 );
-	
-	return( TRUE );
-}
 
 void SetQuoteStr( STR16 aStr )
 {
