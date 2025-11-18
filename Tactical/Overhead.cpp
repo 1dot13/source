@@ -4896,7 +4896,13 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
     SoldierID bLastTeamID = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
     SoldierID cnt = pSoldier->ubID - 1;
 
-    for ( ; cnt > bLastTeamID; --cnt )
+    // Guard against ubID underflow. We'll start searching for previous merc from the lastID in that case
+    if ( cnt >= NOBODY )
+    {
+        cnt = gTacticalStatus.Team[pSoldier->bTeam].bLastID;
+    }
+
+    for ( ; cnt >= bLastTeamID; --cnt )
     {
         pTeamSoldier = cnt;
         if ( fOnlyRegularMercs )
