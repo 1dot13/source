@@ -8,7 +8,6 @@
 	#include "NPC.h"
 	#include "opplist.h"
 	#include "ai.h"
-	#include "Dialogue Control.h"
 	#include "Handle UI.h"
 	#include "Points.h"
 	#include "Interface.h"
@@ -19,8 +18,6 @@
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "Animation Data.h"
-	#include "Font Control.h"
-	#include "message.h"
 	#include "GameSettings.h" // added by SANDRO
 
 INT32		gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
