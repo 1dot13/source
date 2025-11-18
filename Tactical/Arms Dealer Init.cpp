@@ -202,7 +202,7 @@ void AddArmsDealerAdditionalIntelData( UINT16 ausDealer, UINT16 usItem, INT16 sI
 	gArmsDealerAdditionalIntelData[ausDealer].push_back( data );
 }
 
-void ArmsDealers_ReadIntelData()
+static void ArmsDealers_ReadIntelData()
 {
 	gArmsDealerAdditionalIntelData.clear();
 
