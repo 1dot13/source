@@ -2302,7 +2302,7 @@ void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum,
 }
 
 
-CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile )
+static CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile )
 {
 	static CHAR8 zFileName[164];
 	static CHAR8 zFileNameHelper[164];
@@ -2440,7 +2440,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	return( zFileName );
 }
 
-CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, BOOLEAN fName )
+static CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, BOOLEAN fName )
 {
 	static CHAR8 zFileName[164];
 	static CHAR8 zFilename_Used[164];
@@ -2489,7 +2489,7 @@ BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNu
 	return( FileExists( pFilename ) );
 }
 
-BOOLEAN SnitchDialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, STR8 *ppStr, BOOLEAN fName )
+static BOOLEAN SnitchDialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, STR8 *ppStr, BOOLEAN fName )
 {
 	STR8 pFilename;
 
@@ -3609,7 +3609,7 @@ void UnSetEngagedInConvFromPCAction( SOLDIERTYPE *pSoldier )
 }
 
 
-BOOLEAN IsStopTimeQuote( UINT16 usQuoteNum )
+static BOOLEAN IsStopTimeQuote( UINT16 usQuoteNum )
 {
 	INT32 cnt;
 
