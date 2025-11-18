@@ -1,10 +1,7 @@
 	#include "builddefines.h"
-	#include <wchar.h>
 	#include <stdio.h>
-	#include <string.h>
 	#include "stdlib.h"
 	#include "DEBUG.H"
-	#include "MemMan.h"
 	#include "Overhead Types.h"
 
 	#include "random.h"
