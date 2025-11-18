@@ -913,7 +913,7 @@ BOOLEAN DeInitAnimationSystem( )
 
 
 
-STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
+static STRUCTURE_FILE_REF	*InternalGetAnimationStructureRef( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState, BOOLEAN fUseAbsolute )
 {
 	INT8	bStructDataType;
 
