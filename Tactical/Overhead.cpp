@@ -37,7 +37,6 @@
 #include "screenids.h"
 #include "Weapons.h"
 #include "Rotting Corpses.h"
-#include "lighting.h"
 #include "Handle UI Plan.h"
 #include "structure.h"
 #include "Interface Panels.h"
@@ -65,7 +64,6 @@
 #include "Quests.h"
 #include "NPC.h"
 #include "strategicmap.h"
-#include "Soldier Profile.h"
 #include "Soldier Functions.h"
 #include "Auto Bandage.h"
 #include "Game Event Hook.h"
@@ -118,9 +116,7 @@
 
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"
-#include "Interface.h"
 #include "Vehicles.h"
-#include "Music Control.h"
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
