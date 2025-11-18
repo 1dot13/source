@@ -72,7 +72,6 @@
 #include "Morale.h"
 #include "Meanwhile.h"
 #include "Drugs And Alcohol.h"
-#include "SkillCheck.h"
 #include "Boxing.h"
 #include "overhead map.h"
 #include "Map Information.h"
@@ -113,7 +112,6 @@
 
 #include "fresh_header.h"
 
-#include "Dialogue Control.h"
 
 #include "IMP Skill Trait.h"	// added by Flugente
 #include "Food.h"				// added by Flugente
