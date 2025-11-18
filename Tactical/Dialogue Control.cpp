@@ -38,7 +38,6 @@
 	#include "Meanwhile.h"
 	#include "SkillCheck.h"
 	#include "Interface Control.h"
-	#include "finances.h"
 	#include "Civ Quotes.h"
 	#include "Map Screen Interface Map.h"
 	#include "opplist.h"
@@ -52,7 +51,6 @@
 	#include "Soldier Profile.h"
 #include <vector>
 #include <queue>
-#include "Auto Resolve.h"
 
 #include "connect.h"
 #ifdef JA2UB
