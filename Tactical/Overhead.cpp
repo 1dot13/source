@@ -11965,7 +11965,6 @@ BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup )
 
 BOOLEAN IsFreeSlotAvailable( int aTeam )
 {
-	SOLDIERTYPE *pSoldier;
     SoldierID cnt = gTacticalStatus.Team[aTeam].bFirstID;
 
 	// run through list
