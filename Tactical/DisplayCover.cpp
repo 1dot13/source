@@ -98,7 +98,7 @@ BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
 BOOLEAN HasAdjTile(const INT32& ubX, const INT32& ubY, const INT32& ubZ);
 
 
-TileDefines GetOverlayIndex( INT8 bOverlayType )
+static TileDefines GetOverlayIndex( INT8 bOverlayType )
 {
 	switch ( bOverlayType )
 	{
@@ -441,7 +441,7 @@ void RemoveCoverObjectsFromViewArea()
 	gNoRedraw = (gubDrawMode == DRAW_MODE_OFF);
 }
 
-void updateCoverViewArea()
+static void updateCoverViewArea()
 {
 	INT16 usTmp;
 	GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp);
@@ -1530,7 +1530,7 @@ void AddTraitObjectsToViewArea()
 	}
 }
 
-BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
 	INT32 ubTX, ubTY;
 
@@ -1684,7 +1684,7 @@ void AddTrackerObjectsToViewArea( )
 	}
 }
 
-BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
 	INT32 ubTX, ubTY;
 
