@@ -575,7 +575,7 @@ void RenderHighlight( INT16 sMouseX_M, INT16 sMouseY_M, INT16 sStartPointX_M, IN
 BOOLEAN CheckRenderCenter( INT16 sNewCenterX, INT16 sNewCenterY );
 
 // Flugente: display a riot shield
-void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
+static void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
 {
 	if (pSoldier)
 	{
@@ -655,7 +655,7 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchB
 INT32 gDecalBackgroundRectangle[MAX_DECALS_ONSCREEN] = { 0 };
 int gDecalBackgroundRectableCounter = 0;
 
-void ClearBackgroundRectanglesForDecal()
+static void ClearBackgroundRectanglesForDecal()
 {
 	for ( int i = 0; i < gDecalBackgroundRectableCounter; ++i )
 	{
@@ -669,7 +669,7 @@ void ClearBackgroundRectanglesForDecal()
 	gDecalBackgroundRectableCounter = 0;
 }
 
-bool SetupBackgroundRectanglesForDecal( UINT32 uiFlags, INT16 *pSaveArea, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
+static bool SetupBackgroundRectanglesForDecal( UINT32 uiFlags, INT16 *pSaveArea, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 {
 	if ( gDecalBackgroundRectableCounter < MAX_DECALS_ONSCREEN )
 	{
@@ -689,7 +689,7 @@ bool SetupBackgroundRectanglesForDecal( UINT32 uiFlags, INT16 *pSaveArea, INT16 
 }
 
 // Flugente: display decal
-void ShowDecal( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, INT32 sGridNo )
+static void ShowDecal( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, INT32 sGridNo )
 {
 	// we mark locations with decals with the 'DAMAGED' flag for easier filtering
 	if ( gGameExternalOptions.fAdditionalDecals 
@@ -996,7 +996,7 @@ void ResetSpecificLayerOptimizing( UINT32 uiRowFlag )
 }
 
 
-void SumAddiviveLayerOptimization( void )
+static void SumAddiviveLayerOptimization( void )
 {
 	uiLayerUsedFlags = uiAdditiveLayerUsedFlags;
 }
@@ -1028,7 +1028,7 @@ void RenderSetShadows(BOOLEAN fShadows)
 }
 }
 
-inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
+inline static UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
 {
 	UINT16 * pShadeTable;
 	// Shade guy always lighter than scene default!
@@ -1186,7 +1186,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 /* 
 MONSTERS BE HERE!
 */
-void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs)
+static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs)
 {
 
 	//#if 0
@@ -3666,7 +3666,7 @@ void RenderDynamicWorld(  )
 
 
 
-BOOLEAN HandleScrollDirections( UINT32 ScrollFlags, INT16 sScrollXStep, INT16 sScrollYStep, INT16 *psTempRenderCenterX, INT16 *psTempRenderCenterY, BOOLEAN fCheckOnly )
+static BOOLEAN HandleScrollDirections( UINT32 ScrollFlags, INT16 sScrollXStep, INT16 sScrollYStep, INT16 *psTempRenderCenterX, INT16 *psTempRenderCenterY, BOOLEAN fCheckOnly )
 {
 	BOOLEAN fAGoodMove = FALSE, fMovedPos = FALSE;
 	INT16		sTempX_W, sTempY_W;
@@ -9011,7 +9011,7 @@ void RenderCoverDebug( )
 	RenderCoverDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
 }
 
-void RenderGridNoVisibleDebug( )
+static void RenderGridNoVisibleDebug( )
 {
 	RenderGridNoVisibleDebugInfo( gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS );
 }
