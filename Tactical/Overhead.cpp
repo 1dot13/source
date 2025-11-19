@@ -4889,22 +4889,20 @@ SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier )
 
 SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
-    SOLDIERTYPE *pTeamSoldier;
-
-
-    // loop back
     SoldierID bLastTeamID = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
     SoldierID cnt = pSoldier->ubID - 1;
 
-    // Guard against ubID underflow. We'll start searching for previous merc from the lastID in that case
-    if ( cnt >= NOBODY )
-    {
-        cnt = gTacticalStatus.Team[pSoldier->bTeam].bLastID;
-    }
 
     for ( ; cnt >= bLastTeamID; --cnt )
     {
-        pTeamSoldier = cnt;
+        // Guard against ubID underflow. We'll start searching for previous merc from the lastID in that case
+        if ( cnt >= NOBODY )
+        {
+            cnt = gTacticalStatus.Team[pSoldier->bTeam].bLastID + 1;
+            continue;
+        }
+
+        SOLDIERTYPE* pTeamSoldier = cnt;
         if ( fOnlyRegularMercs )
         {
             if ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) )
@@ -4930,36 +4928,6 @@ SoldierID FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLes
         }
     }
 
-    bLastTeamID = pSoldier->ubID;
-    cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
-
-    // look for all mercs on the same team,
-    for ( ; cnt > bLastTeamID; --cnt )
-    {
-        pTeamSoldier = cnt;
-        if ( fOnlyRegularMercs )
-        {
-            if ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) )
-            {
-                continue;
-            }
-        }
-
-        if ( fGoodForLessOKLife )
-        {
-            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-            {
-                return( cnt );
-            }
-        }
-        else
-        {
-            if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-            {
-                return( cnt );
-            }
-        }
-    }
 
     // none found,
     // IF we are here, keep as we always were!
