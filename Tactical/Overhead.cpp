@@ -5,7 +5,6 @@
 #include "WCheck.h"
 #include "stdlib.h"
 #include "DEBUG.H"
-#include "math.h"
 #include "worlddef.h"
 #include "worldman.h"
 #include "renderworld.h"
@@ -16,7 +15,6 @@
 #include "Isometric Utils.h"
 #include "Event Pump.h"
 #include "Timer Control.h"
-#include "Render Fun.h"
 #include "Render Dirty.h"
 #include "mousesystem.h"
 #include "Interface.h"
@@ -102,7 +100,6 @@
 #include "PreBattle Interface.h"
 #include "Militia Control.h"
 #include "Lua Interpreter.h"
-#include "Bullets.h"
 #include "Inventory Choosing.h"			// added by Flugente for TakeMilitiaEquipmentfromSector()
 #include "CampaignStats.h"				// added by Flugente
 #include "DynamicDialogue.h"			// added by Flugente for HandleDynamicOpinions()
