@@ -5118,7 +5118,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							pFirer->ubID, ubLoop, ubShots,
+							pFirer->ubID.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
 							NULL
