@@ -19,6 +19,8 @@
 	#include "Game Clock.h"
 	#include "Animation Data.h"
 	#include "GameSettings.h" // added by SANDRO
+#include <Font Control.h>
+#include <message.h>
 
 INT32		gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
 SoldierID	gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
