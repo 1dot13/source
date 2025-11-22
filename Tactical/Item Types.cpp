@@ -1589,6 +1589,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			case IC_KEY:
 				(*this)[0]->data.key.ubKeyID = src.ugYucky.ubKeyID;
 				break;
+			case IC_MISC:
 			case IC_GRENADE:
 			case IC_BOMB:
 				(*this)[0]->data.misc.bDetonatorType = src.ugYucky.bDetonatorType;
