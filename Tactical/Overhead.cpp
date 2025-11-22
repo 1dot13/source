@@ -2269,15 +2269,15 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
             if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
             {
                 SOLDIERTYPE *pSoldier2;
-                SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+                SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
                 // look for all mercs on the same team,
-                for ( ; id >= gTacticalStatus.Team[ gbPlayerNum ].bFirstID; --id )
+                for ( ; id < gTacticalStatus.Team[gbPlayerNum].bLastID; ++id )
                 {
                     pSoldier2 = id;
                     if ( pSoldier2->bActive )
                     {
-                        pSoldier2->EVENT_StopMerc( pSoldier2->sGridNo, pSoldier2->ubDirection );
+                        pSoldier2->EVENT_StopMerc(pSoldier2->sGridNo, pSoldier2->ubDirection);
                     }
                 }
             }
@@ -2975,15 +2975,15 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
             if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
             {
                 SOLDIERTYPE *pSoldier2;
-                SoldierID cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+                SoldierID cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
                 // look for all mercs on the same team,
-                for ( ; cnt2 >= gTacticalStatus.Team[ gbPlayerNum ].bFirstID; --cnt2 )
+                for ( ; cnt2 < gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2 )
                 {
                     pSoldier2 = cnt2;
                     if ( pSoldier2->bActive )
                     {
-                        pSoldier2->EVENT_StopMerc( pSoldier2->sGridNo, pSoldier2->ubDirection );
+                        pSoldier2->EVENT_StopMerc(pSoldier2->sGridNo, pSoldier2->ubDirection);
                     }
                 }
             }
