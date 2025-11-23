@@ -571,8 +571,6 @@ void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, I
 
 void DeleteFromWorld( UINT16 usTileIndex, UINT32 uiRenderTiles, UINT16 usIndex );
 
-void RenderHighlight( INT16 sMouseX_M, INT16 sMouseY_M, INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
-BOOLEAN CheckRenderCenter( INT16 sNewCenterX, INT16 sNewCenterY );
 
 // Flugente: display a riot shield
 static void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
