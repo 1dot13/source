@@ -14,9 +14,7 @@
 	#include "Isometric Utils.h"
 	#include "Font.h"
 	#include "Font Control.h"
-	#include "LOS.h"
 
-	#include "lighting.h"
 	#include "Smell.h"
 	#include "SaveLoadMap.h"
 	#include "strategicmap.h"
@@ -41,9 +39,7 @@
 	// anv: for ramming people with vehicles
 	#include "Soldier macros.h"
 	#include "Overhead.h"
-	#include "Soldier Functions.h"
 	#include "Animation Control.h"
-	#include "Soldier Ani.h"
 	#include "ASD.h"		// added by Flugente
 	#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
 
@@ -437,7 +433,6 @@ BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataS
 	return( TRUE );
 }
 
-#include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/vfs.h>
 #include "XML_StructureData.hpp"
 
