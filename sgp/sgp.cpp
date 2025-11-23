@@ -56,7 +56,7 @@ static vfs::FileLogger *vfslog = NULL;
 
 int		iWindowedMode;
 
-void SHOWEXCEPTION(sgp::Exception& ex)
+static void SHOWEXCEPTION(sgp::Exception& ex)
 {
 	try {
 		_ExceptionMessage(ex);
@@ -67,7 +67,7 @@ void SHOWEXCEPTION(sgp::Exception& ex)
 	}
 }
 
-void SHOWEXCEPTION(vfs::Exception& ex)
+static void SHOWEXCEPTION(vfs::Exception& ex)
 {
 	try {
 		_ExceptionMessage(ex);
@@ -617,7 +617,7 @@ void ShutdownStandardGamingPlatform(void)
 
 #include "MPJoinScreen.h"
 
-vfs::String getGameID()
+static vfs::String getGameID()
 {
 	static vfs::String _id;
 	static bool has_id = false;
