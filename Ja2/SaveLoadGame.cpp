@@ -595,7 +595,7 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 			//when combined with copy assignment which makes a new LBENODE
 			gLastLBEUniqueID = uniqueID + 1;
 		}
-		int size;
+		int size = 0;
 		if ( !FileRead( hFile, &size, sizeof(int), &uiNumBytesRead ) )
 		{
 			return(FALSE);
@@ -671,7 +671,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 
 	if (guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE)
 	{
-		int dealers;
+		int dealers = 0;
 		if (!FileRead( hFile, &dealers, sizeof( int ), &uiNumBytesRead ))
 		{
 			return( FALSE );
@@ -699,7 +699,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 		//loop through all the dealers inventories
 		for( ubArmsDealer=0; ubArmsDealer<dealers; ++ubArmsDealer )
 		{
-			int size;
+			int size = 0;
 			if (!FileRead( hFile, &size, sizeof( int ), &uiNumBytesRead ))
 			{
 				return( FALSE );
@@ -1440,7 +1440,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			numBytesRead = ReadFieldByField(hFile, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
 		
 		//DBrot: More rooms
-		int size;
+		int size = 0;
 		if ( numBytesRead + buffer != SIZEOF_MERCPROFILESTRUCT_POD )
 		{
 			return(FALSE);
