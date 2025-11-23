@@ -660,7 +660,7 @@ BOOLEAN LBENODE::Save( HWFILE hFile, bool fSavingMap )
 	return TRUE;
 }
 
-BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
+static BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 	UINT8	ubArmsDealer;
@@ -8663,7 +8663,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 extern UINT32 guiRainLoop;
 //end rain
 
-void EnsureValidLoadScreen( UINT32* puiScreen ) 
+static void EnsureValidLoadScreen( UINT32* puiScreen )
 {
 	if (!puiScreen)
 		return;
