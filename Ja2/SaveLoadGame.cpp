@@ -214,7 +214,6 @@ BOOLEAN		gfDisplaySaveGamesNowInvalidatedMsg = FALSE;
 BOOLEAN	gfUseConsecutiveQuickSaveSlots = FALSE;
 UINT32	guiCurrentQuickSaveNumber = 0;
 UINT32	guiLastSaveGameNum = 1;
-BOOLEAN DoesAutoSaveFileExist( BOOLEAN fLatestAutoSave );
 
 UINT32	guiJA2EncryptionSet = 0;
 UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader );
@@ -532,10 +531,6 @@ BOOLEAN		LoadSavedMercProfiles( HWFILE hwFile );
 BOOLEAN		SaveSoldierStructure( HWFILE hFile );
 BOOLEAN		LoadSoldierStructure( HWFILE hFile );
 
-// CHRISL: New functions to save and load LBENODE data
-BOOLEAN SaveLBENODEToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadLBENODEFromSaveGameFile( HWFILE hFile );
-
 //BOOLEAN		SavePtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 //BOOLEAN		LoadPtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 
@@ -623,28 +618,7 @@ void ValidateStrategicGroups();
 //if all that sounds compilcated, it is
 
 extern int gLastLBEUniqueID;
-/*
-// CHRISL: New function to save/load LBENODE data
-BOOLEAN SaveLBENODEToSaveGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesWritten;
-	if ( !FileWrite( hFile, &gLastLBEUniqueID, sizeof(int), &uiNumBytesWritten ) )
-	{
-		return(FALSE);
-	}
-	return TRUE;
-}
 
-BOOLEAN LoadLBENODEFromSaveGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-	if ( !FileRead( hFile, &gLastLBEUniqueID, sizeof(int), &uiNumBytesRead ) )
-	{
-		return(FALSE);
-	}
-	return TRUE;
-}
-*/
 BOOLEAN LBENODE::Load( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
