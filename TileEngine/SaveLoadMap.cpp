@@ -7,7 +7,6 @@
 	#include "worldman.h"
 	#include "strategicmap.h"
 	#include "Campaign Types.h"
-	#include "renderworld.h"
 	#include "Render Fun.h"
 	#include "fov.h"
 	#include "worlddef.h"
@@ -16,7 +15,6 @@
 	#include "GameSettings.h"
 	#include "Smell.h"
 
-#include <vfs/Core/vfs.h>
 //SB: make size of gpRevealedMap dependable from variable tactical map dimensions
 #define			NUM_REVEALED_BYTES			(WORLD_MAX/8)
 
