@@ -32,6 +32,8 @@
 #include "Animation Control.h"
 #include "ASD.h"		// added by Flugente
 #include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
+#include <vfs/Core/vfs.h>
+#include "XML_StructureData.hpp"
 
 #ifdef COUNT_PATHS
 	extern UINT32 guiSuccessfulPathChecks;
@@ -423,8 +425,6 @@ BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataS
 	return( TRUE );
 }
 
-#include <vfs/Core/vfs.h>
-#include "XML_StructureData.hpp"
 
 void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
 {
