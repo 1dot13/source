@@ -168,8 +168,6 @@ extern		BOOLEAN				gfCreatureMeanwhileScenePlayed;
 BOOLEAN				gMusicModeToPlay = FALSE;
 
 
-//extern		BOOLEAN		gfFirstTimeInGameHeliCrash;
-
 #ifdef JA2BETAVERSION
 BOOLEAN		gfDisplaySaveGamesNowInvalidatedMsg = FALSE;
 #endif
