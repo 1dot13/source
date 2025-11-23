@@ -2,8 +2,6 @@
 //its test what doeas it do?
 	#include "types.h"
 	#include <windows.h>
-	#include <stdio.h>
-	#include <stdarg.h>
 	#include <string.h>
 	#include "sgp.h"
 	#include "vobject.h"
@@ -16,7 +14,6 @@
 	#include "soundman.h"
 		#include "JA2 Splash.h"
 		#include "Timer Control.h"
-	#include "LibraryDataBase.h"
 	#include "Utilities.h"
 
 #include "GameSettings.h"
@@ -25,28 +22,21 @@
 #include <vfs/Aspects/vfs_settings.h>
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
-#include <vfs/Core/vfs_os_functions.h>
-#include <vfs/Core/File/vfs_file.h>
 #include <vfs/Tools/vfs_log.h>
-#include <vfs/Tools/vfs_parser_tools.h>
 #include <vfs/Tools/vfs_file_logger.h>
 
 #include "sgp_logger.h"
 #include "Text.h"
-#include "LocalizedStrings.h"
 #include "ExportStrings.h"
 #include "ImportStrings.h"
 
 #define USE_CONSOLE 0
 
-#include <iostream>
 #include <excpt.h>
 
 
 #include "INIReader.h"
-#include "Lua Interpreter.h"
 #include "connect.h"
-#include "english.h"
 #include "wine.h"
 
 	#include "builddefines.h"
