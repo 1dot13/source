@@ -113,10 +113,6 @@
 #include "Enemy Soldier Save.h"
 #include "BobbyRMailOrder.h"
 #include "mercs.h"
-#ifdef JA2UB
-#include "Ja25 Strategic Ai.h"
-#include "Ja25_Tactical.h"
-#endif
 
 #include "LuaInitNPCs.h"
 #include "BriefingRoom_Data.h"
@@ -136,6 +132,8 @@
 /////////////////////////////////////////////////////
 
 #ifdef JA2UB
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
 #include "ub_config.h"
 #include "Ja25Update.h"
 #endif
