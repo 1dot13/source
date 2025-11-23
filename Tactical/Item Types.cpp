@@ -24,7 +24,7 @@ extern UINT32			guiCurrentItemDescriptionScreen;
 extern BOOLEAN			fShowMapInventoryPool;
 //extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
 
-bool checkObjectLBEIntegrity(OBJECTTYPE * object) {
+static bool checkObjectLBEIntegrity(OBJECTTYPE * object) {
 	bool integrityCheck = TRUE;
 
 	 
