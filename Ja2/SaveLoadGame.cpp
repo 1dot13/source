@@ -18,7 +18,6 @@
 	#include "Soldier Create.h"
 	#include "worlddef.h"
 	#include "LaptopSave.h"
-	#include "strategicmap.h"
 	#include "Queen Command.h"
 	#include "SaveLoadGame.h"
 	#include "Tactical Save.h"
@@ -48,7 +47,6 @@
 
 	#include "Interface.h"
 	#include "Map Screen Helicopter.h"
-	#include "environment.h"
 	#include "Arms Dealer Init.h"
 	#include "Tactical Placement GUI.h"
 
@@ -74,7 +72,6 @@
 	#include "Meanwhile.h"
 	#include "Dialogue Control.h"
 	#include "Text.h"
-	#include "Map Screen Interface.h"
 	#include "LightEffects.h"
 	#include "HelpScreen.h"
 	#include "Animated ProgressBar.h"
@@ -91,7 +88,6 @@
 	#include "Interface Panels.h"
 	#include "interface Dialogue.h"
 	#include "Assignments.h"
-	#include "Interface Items.h"
 	#include "ShopKeeper Interface.h"
 	#include "PostalService.h"
 	// HEADROCK HAM B1: Additional Include for HAM
@@ -113,21 +109,16 @@
 #include		"IMP Portraits.h"
 #include		"Loading Screen.h"
 #include		"Interface Utils.h"
-#include		"Squads.h"
 #include		"IMP Confirm.h"
 #include "Enemy Soldier Save.h"
 #include "BobbyRMailOrder.h"
 #include "mercs.h"
-#include "INIReader.h"
-#include "mercs.h"
-#include "Soldier Profile.h"
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #endif
 
 #include "LuaInitNPCs.h"
-#include "Vehicles.h"
 #include "BriefingRoom_Data.h"
 
 #include <vfs/Core/vfs.h>
@@ -145,13 +136,10 @@
 /////////////////////////////////////////////////////
 
 #ifdef JA2UB
-#include "Strategic Movement.h"
-#include "LuaInitNPCs.h"
 #include "ub_config.h"
 #include "Ja25Update.h"
 #endif
 
-#include "LuaInitNPCs.h"
 #include <language.hpp>
 
 
