@@ -224,7 +224,7 @@ BOOLEAN GridNoIndoors( INT32 iMapIndex )
 	return FALSE;
 }
 
-void DOIT( )
+static void DOIT( )
 {
 //	LEVELNODE *			pLand;
 	//LEVELNODE *			pObject;
@@ -339,7 +339,7 @@ void DeinitializeWorld()
 }
 
 
-BOOLEAN ReloadTilesetSlot( INT32 iSlot )
+static BOOLEAN ReloadTilesetSlot( INT32 iSlot )
 {
 	return(TRUE);
 }
@@ -768,7 +768,7 @@ void DestroyTileSurfaces( )
 	}
 }
 
-void CompileWorldTerrainIDs( void )
+static void CompileWorldTerrainIDs( void )
 {
 	INT32			sGridNo;
 	INT32			sTempGridNo;
@@ -823,7 +823,7 @@ void CompileWorldTerrainIDs( void )
 	}
 }
 
-BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
+static BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 {	
 
 	if (	(pStructure->fFlags & STRUCTURE_WALLNWINDOW) && gGameExternalOptions.fCanJumpThroughWindows
@@ -861,7 +861,7 @@ BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 
 	return FALSE;
 }
-void CompileTileMovementCosts( INT32 usGridNo )
+static void CompileTileMovementCosts( INT32 usGridNo )
 {
 	UINT8						ubTerrainID;
 	TILE_ELEMENT		TileElem;
@@ -2320,7 +2320,7 @@ INT8	bDirectionsForShadowSearch[ NUM_DIR_SEARCHES ] =
 	EAST
 };
 
-void OptimizeMapForShadows( )
+static void OptimizeMapForShadows( )
 {
 	INT32 cnt, dir;
 	INT32 sNewGridNo;
@@ -2350,7 +2350,7 @@ void OptimizeMapForShadows( )
 	}
 }
 
-void SetBlueFlagFlags( void )
+static void SetBlueFlagFlags( void )
 {
 	INT32		cnt;
 	LEVELNODE * pNode;
@@ -3714,7 +3714,7 @@ void SetLoadOverrideParams( BOOLEAN fForceLoad, BOOLEAN fForceFile, CHAR8 *zLoad
 }
 
 
-void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
+static void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 {
 	LEVELNODE			*pTopmost, *pTopmostTail;
 
@@ -3741,7 +3741,7 @@ void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 }
 
 
-UINT16 GetWireframeGraphicNumToUseForWall( INT32 sGridNo, STRUCTURE *pStructure )
+static UINT16 GetWireframeGraphicNumToUseForWall( INT32 sGridNo, STRUCTURE *pStructure )
 {
 	LEVELNODE	*pNode = NULL;
 	UINT8		ubWallOrientation;
