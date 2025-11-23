@@ -3530,7 +3530,7 @@ void TrashWorld( void )
 
 
 
-void TrashMapTile(INT16 MapTile)
+void TrashMapTile(INT32 MapTile)
 {
 	MAP_ELEMENT		*pMapTile;
 	LEVELNODE			*pLandNode;
