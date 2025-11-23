@@ -10,7 +10,6 @@
 	#include "history.h"
 	#include "files.h"
 	#include "laptop.h"
-	#include "INIReader.h"
 	#include "email.h"
 	#include "strategicmap.h"
 	#include "Game Events.h"
@@ -109,7 +108,6 @@
 #include		"IMP Portraits.h"
 #include		"Loading Screen.h"
 #include		"Interface Utils.h"
-#include		"IMP Confirm.h"
 #include "Enemy Soldier Save.h"
 #include "BobbyRMailOrder.h"
 #include "mercs.h"
@@ -117,13 +115,11 @@
 #include "LuaInitNPCs.h"
 #include "BriefingRoom_Data.h"
 
-#include <vfs/Core/vfs.h>
 //rain
 //end rain
 
 #include "connect.h"
 #include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
-#include "Sys Globals.h"//dnl ch74 201013
 #include "Ambient Control.h"		// added by Flugente for HandleNewSectorAmbience(...)
 /////////////////////////////////////////////////////
 //
