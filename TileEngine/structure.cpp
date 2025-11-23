@@ -149,7 +149,7 @@ index 25, indestructable metal
 };
 
 // Function operating on a structure tile
-UINT8 FilledTilePositions( DB_STRUCTURE_TILE * pTile )
+static UINT8 FilledTilePositions( DB_STRUCTURE_TILE * pTile )
 {
 	UINT8				ubFilled = 0, ubShapeValue;
 	INT8				bLoopX, bLoopY, bLoopZ;
@@ -254,7 +254,7 @@ BOOLEAN FreeStructureFile( STRUCTURE_FILE_REF * pStructureFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32 * puiStructureDataSize )
+static BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32 * puiStructureDataSize )
 //UINT8 **ppubStructureData, UINT32 * puiDataSize, STRUCTURE_FILE_HEADER * pHeader )
 {
 	// Loads a structure file's data as a honking chunk o' memory
@@ -354,7 +354,7 @@ BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32
 	return( TRUE );
 }
 
-BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataSize )
+static BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataSize )
 {
 	// Based on a file chunk, creates all the dynamic arrays for the
 	// structure definitions contained within
@@ -426,7 +426,7 @@ BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataS
 }
 
 
-void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
+static void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
 {
 	if(str1 == str2 && str1 == NULL)
 	{
@@ -563,7 +563,7 @@ STRUCTURE_FILE_REF * LoadStructureFile( STR szFileName )
 //
 
 
-STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileNum )
+static STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileNum )
 {
 	// Creates a STRUCTURE struct for one tile of a structure
 	STRUCTURE	*						pStructure;
@@ -616,7 +616,7 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 
 extern SoldierID gusTempDragBuildSoldierID;
 
-BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY )
+static BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
 	DB_STRUCTURE *	pDBStructure;
@@ -990,7 +990,7 @@ BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_
 	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, fAddingForReal, sSoldierID ) );
 }
 
-BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, UINT16 usStructureID )
+static BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, UINT16 usStructureID )
 {
 	// adds a STRUCTURE to a MAP_ELEMENT (adds part of a structure to a location on the map)
 	STRUCTURE *		pStructureTail;
@@ -1017,7 +1017,7 @@ BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, U
 }
 
 
-STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
+static STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
 {
 	// Adds a complete structure to the world at a location plus all other locations covered by the structure
 	INT32				sGridNo;
@@ -1319,7 +1319,7 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure )
 	return( TRUE );
 }
 
-STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
+static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
 {
 	// switch structure
 	LEVELNODE *				pLevelNode;
@@ -2503,13 +2503,13 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 	return( TRUE );
 }
 
-BOOLEAN InitStructureDB( void )
+static BOOLEAN InitStructureDB( void )
 {
 	gusNextAvailableStructureID = FIRST_AVAILABLE_STRUCTURE_ID;
 	return( TRUE );
 }
 
-BOOLEAN FiniStructureDB( void )
+static BOOLEAN FiniStructureDB( void )
 {
 	gusNextAvailableStructureID = FIRST_AVAILABLE_STRUCTURE_ID;
 	return( TRUE );
