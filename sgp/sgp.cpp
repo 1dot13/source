@@ -20,7 +20,6 @@
 	#include "Utilities.h"
 
 #include "GameSettings.h"
-#include "input.h"
 #include "zmouse.h"
 
 #include <vfs/Aspects/vfs_settings.h>
