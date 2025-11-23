@@ -133,7 +133,7 @@ void SelectNextUnplacedUnit();
 BOOLEAN gfNorthValid, gfEastValid, gfSouthValid, gfWestValid;
 BOOLEAN gfChangedEntrySide = FALSE;
 
-void FindValidInsertionCode( UINT8 *pubStrategicInsertionCode )
+static void FindValidInsertionCode( UINT8 *pubStrategicInsertionCode )
 {
 	if( gMapInformation.sNorthGridNo == -1 &&
 			gMapInformation.sEastGridNo == -1 &&
@@ -202,7 +202,7 @@ void FindValidInsertionCode( UINT8 *pubStrategicInsertionCode )
 	}
 }
 
-void CheckForValidMapEdge( UINT8 *pubStrategicInsertionCode )
+static void CheckForValidMapEdge( UINT8 *pubStrategicInsertionCode )
 {
 	switch( *pubStrategicInsertionCode )
 	{
@@ -1464,7 +1464,7 @@ void RenderTacticalPlacementGUI()
 	}
 }
 
-void EnsureDoneButtonStatus()
+static void EnsureDoneButtonStatus()
 {
 	INT32 i;
 	//static BOOLEAN fInside = FALSE;
@@ -1783,7 +1783,7 @@ void KillTacticalPlacementGUI()
 	MemFree( gMercPlacement);
 }
 
-void ChooseRandomEdgepoints()
+static void ChooseRandomEdgepoints()
 {
 	INT32 i;
 	UINT8	lastValidICode = INSERTION_CODE_GRIDNO;
