@@ -122,7 +122,6 @@ BOOLEAN gfInitAnimateLoading = FALSE;
 BOOLEAN LoadTileSurfaces( char pTileSurfaceFilenames[][32], UINT8 ubTilesetID );
 BOOLEAN AddTileSurface( SGPFILENAME cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot );
 void DestroyTileSurfaces( void );
-void ProcessTilesetNamesForBPP(void);
 BOOLEAN IsRoofVisibleForWireframe( INT32 sMapPos );
 
 #ifdef JA2UBMAPS
@@ -271,9 +270,6 @@ BOOLEAN InitializeWorld( )
 	#endif
 
 	SetNumberOfTiles();
-
-	// DB Adds the _8 to the names if we're in 8 bit mode.
-	//ProcessTilesetNamesForBPP();
 
 	// Memset tileset list
 	memset( TileSurfaceFilenames, '\0', sizeof( TileSurfaceFilenames ) );
