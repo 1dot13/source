@@ -120,7 +120,6 @@
 #include "ub_config.h"
 #include "Ja25Update.h"
 
-//void ConvertWeapons( SOLDIERTYPE *pSoldier );
 extern void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
 #endif
 
@@ -7020,10 +7019,6 @@ if( g_lang == i18n::Lang::de ) {
 					}
 				}
 }
-				//#ifdef JA2UB
-				//if the soldier has the NON weapon version of the merc knofe or merc umbrella
-				//ConvertWeapons( &Menptr[ cnt ] );
-				//#endif
 
 				// JA2Gold: fix next-to-previous attacker value
 				Menptr[cnt].ubNextToPreviousAttackerID = NOBODY;
@@ -9740,30 +9735,3 @@ UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader )
 
 	return( uiEncryptionSet );
 }
-
-//inshy: Now we dont need this convertation, all items chenged in the maps
-/*
-#ifdef JA2UB
-void ConvertWeapons( SOLDIERTYPE *pSoldier )
-{
-	INT32 iCnt;
-
-	for( iCnt=0; iCnt< NUM_INV_SLOTS; iCnt++)
-	{
-	
-	
-			if(UsingNewInventorySystem() == false && gGameOptions.ubAttachmentSystem == ATTACHMENT_OLD )
-		{
-			if( pSoldier->inv[ iCnt ].usItem == 97 || pSoldier->inv[ iCnt ].usItem == 1346 || pSoldier->inv[ iCnt ].usItem == 99 
-				|| pSoldier->inv[ iCnt ].usItem == 1347 || pSoldier->inv[ iCnt ].usItem == 584 || pSoldier->inv[ iCnt ].usItem == 551 ) 
-				pSoldier->inv[ iCnt ].usItem = 129; 	
-			
-			if( pSoldier->inv[ iCnt ].usItem == 117 || pSoldier->inv[ iCnt ].usItem ==  349 || pSoldier->inv[ iCnt ].usItem == 1263 )
-				pSoldier->inv[ iCnt ].usItem = 71; 				
-		}	
-
-		
-	}
-}
-#endif
-*/
