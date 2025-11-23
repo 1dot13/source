@@ -181,7 +181,7 @@ UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader );
 
 typedef struct
 {
-	//The screen that the gaem was saved from
+	//The screen that the game was saved from
 	UINT32	uiCurrentScreen;
 
 	UINT32	uiCurrentUniqueSoldierId;
