@@ -112,17 +112,14 @@
 // Local Defines
 //
 /////////////////////////////////////////////////////
+#include <language.hpp>
+
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #include "ub_config.h"
 #include "Ja25Update.h"
-#endif
 
-#include <language.hpp>
-
-
-#ifdef JA2UB
 //void ConvertWeapons( SOLDIERTYPE *pSoldier );
 extern void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
 #endif
