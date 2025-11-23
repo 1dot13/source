@@ -175,7 +175,7 @@ typedef std::map<ModifiedMapFile::Key, ModifiedMapFile, ltMMF> ModifiedMapFileSe
 ModifiedMapFileSet g_mapFileSet;
 BOOLEAN g_useSaveCache;
 
-void ClearTempFileSets()
+static void ClearTempFileSets()
 {
 	//for (ModifiedMapFileSet::iterator itr = g_mapFileSet.begin(), end = g_mapFileSet.end(); itr != end; ++itr )
 	//{
@@ -195,7 +195,7 @@ BOOLEAN EnableModifiedFileSetCache(BOOLEAN value)
 	return previousValue;
 }
 
-bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ, ModifiedMapFile** ppMMF )
+static bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ, ModifiedMapFile** ppMMF )
 {
 	if (ppMMF == NULL)
 		return false;
@@ -211,7 +211,7 @@ bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ,
 	return true;
 }
 
-ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+static ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 {
 	ModifiedMapFile* pResult = NULL;
 	if ( TryGetModifiedMapFile(uiType, sMapX, sMapY, bMapZ, &pResult) )
