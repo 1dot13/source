@@ -1,53 +1,47 @@
 /* $Id: sgp.c,v 1.4 2004/03/19 06:16:04 digicrab Exp $ */
 //its test what doeas it do?
-	#include "types.h"
-	#include <windows.h>
-	#include <string.h>
-	#include "sgp.h"
-	#include "vobject.h"
-	#include "Font.h"
-	#include "local.h"
-	#include "FileMan.h"
-	#include "input.h"
-	#include "random.h"
-	#include "gameloop.h"
-	#include "soundman.h"
-		#include "JA2 Splash.h"
-		#include "Timer Control.h"
-	#include "Utilities.h"
-
+#include "builddefines.h"
+#include "types.h"
+#include <windows.h>
+#include <string.h>
+#include "sgp.h"
+#include "vobject.h"
+#include "Font.h"
+#include "local.h"
+#include "FileMan.h"
+#include "input.h"
+#include "random.h"
+#include "gameloop.h"
+#include "soundman.h"
+#include "JA2 Splash.h"
+#include "Timer Control.h"
+#include "Utilities.h"
 #include "GameSettings.h"
 #include "zmouse.h"
-
 #include <vfs/Aspects/vfs_settings.h>
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
 #include <vfs/Tools/vfs_log.h>
 #include <vfs/Tools/vfs_file_logger.h>
-
 #include "sgp_logger.h"
 #include "Text.h"
 #include "ExportStrings.h"
 #include "ImportStrings.h"
-
-#define USE_CONSOLE 0
-
 #include <excpt.h>
-
-
 #include "INIReader.h"
 #include "connect.h"
 #include "wine.h"
+#include "Intro.h"
+#include <Music Control.h>
+#include <language.hpp>
 
-	#include "builddefines.h"
-	#include "Intro.h"
+
+#define USE_CONSOLE 0
 
 #ifndef WIN32_LEAN_AND_MEAN
-	#define WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
 #endif
-#include <Music Control.h>
 
-#include <language.hpp>
 
 static void MAGIC(std::string const& aarrrrgggh = "")
 {}
