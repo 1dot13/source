@@ -37,7 +37,6 @@
 	#include "random.h"
 
 	#include "Tile Animation.h"
-	#include "Explosion Control.h"	// added by Flugente
 
 	// anv: for ramming people with vehicles
 	#include "Soldier macros.h"
