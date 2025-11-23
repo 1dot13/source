@@ -1,47 +1,37 @@
-	#include <string.h>
-	#include "types.h"
-	#include "WCheck.h"
-	#include "DEBUG.H"
-	#include "FileMan.h"
-	#include "MemMan.h"
-	#include "structure.h"
-	#include "tiledef.h"
-	#include "worlddef.h"
-	#include "worldman.h"
-
-	#include "Interface.h"
-
-	#include "Isometric Utils.h"
-	#include "Font.h"
-	#include "Font Control.h"
-
-	#include "Smell.h"
-	#include "SaveLoadMap.h"
-	#include "strategicmap.h"
-	#include "sgp_logger.h"
-
-	#include "Sys Globals.h"	//for access to gfEditMode flag
-
-	//Kris:
-	#ifdef JA2EDITOR
-	#include "Editor Undo.h"	//for access to AddToUndoList( iMapIndex )
-	#endif
-
-	#include "Explosion Control.h"
-	#include "Sound Control.h"
-
-	#include "Buildings.h"
-
-	#include "random.h"
-
-	#include "Tile Animation.h"
-
-	// anv: for ramming people with vehicles
-	#include "Soldier macros.h"
-	#include "Overhead.h"
-	#include "Animation Control.h"
-	#include "ASD.h"		// added by Flugente
-	#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
+#include <string.h>
+#include "types.h"
+#include "WCheck.h"
+#include "DEBUG.H"
+#include "FileMan.h"
+#include "MemMan.h"
+#include "structure.h"
+#include "tiledef.h"
+#include "worlddef.h"
+#include "worldman.h"
+#include "Interface.h"
+#include "Isometric Utils.h"
+#include "Font.h"
+#include "Font Control.h"
+#include "Smell.h"
+#include "SaveLoadMap.h"
+#include "strategicmap.h"
+#include "sgp_logger.h"
+#include "Sys Globals.h"	//for access to gfEditMode flag
+//Kris:
+#ifdef JA2EDITOR
+#include "Editor Undo.h"	//for access to AddToUndoList( iMapIndex )
+#endif
+#include "Explosion Control.h"
+#include "Sound Control.h"
+#include "Buildings.h"
+#include "random.h"
+#include "Tile Animation.h"
+// anv: for ramming people with vehicles
+#include "Soldier macros.h"
+#include "Overhead.h"
+#include "Animation Control.h"
+#include "ASD.h"		// added by Flugente
+#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
 
 #ifdef COUNT_PATHS
 	extern UINT32 guiSuccessfulPathChecks;
