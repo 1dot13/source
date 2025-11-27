@@ -1329,7 +1329,6 @@ static void AddEnemiesToSecondTunnelSector()
 
 void HandleAddingEnemiesToTunnelMaps()
 {
-	BOOLEAN fInCombat = ( gTacticalStatus.uiFlags & INCOMBAT );
 	UINT8 ubNumEnemies = 0;
 	UINT8 ubNumAdmins = 0;
 	UINT8 ubNumTroops = 0;
