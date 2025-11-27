@@ -200,7 +200,17 @@ void LoadGameUBOptions()
 	gGameUBOptions.BorderItem = iniReader.ReadBoolean("Unfinished Business Settings","BORDER_ITEM", TRUE);
 		
 	gGameUBOptions.EventAttackInitialSectorIfPlayerStillThere = iniReader.ReadBoolean("Unfinished Business Settings","EVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE", TRUE);	
-	gGameUBOptions.HandleAddingEnemiesToTunnelMaps = iniReader.ReadBoolean("Unfinished Business Settings","HANDLE_ADDING_ENEMIES_TO_TUNNEL_MAPS", TRUE);		
+	gGameUBOptions.HandleAddingEnemiesToTunnelMaps = iniReader.ReadBoolean("Unfinished Business Settings","HANDLE_ADDING_ENEMIES_TO_TUNNEL_MAPS", TRUE);	
+
+	//J14-1
+	gGameUBOptions.Tunnel1_SectorX = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_X", 14);
+	gGameUBOptions.Tunnel1_SectorY = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_Y", 10);
+	gGameUBOptions.Tunnel1_SectorZ = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_Z", 1);
+	//K14-1
+	gGameUBOptions.Tunnel2_SectorX = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_X", 14);
+	gGameUBOptions.Tunnel2_SectorY = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_Y", 11);
+	gGameUBOptions.Tunnel2_SectorZ = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_Z", 1);
+
 	gGameUBOptions.ubEndDefaultSectorX	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_X", 16, 1, 16);
 	gGameUBOptions.ubEndDefaultSectorY	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_Y", 11, 1, 16);
 	gGameUBOptions.ubEndDefaultSectorZ	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_Z", 0, 0, 16);	

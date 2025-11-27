@@ -224,6 +224,14 @@ typedef struct
 	INT16 BettyBloodCatSectorX;
 	INT16 BettyBloodCatSectorY;
 	INT8 BettyBloodCatSectorZ;
+
+	INT16 Tunnel1_SectorX;
+	INT16 Tunnel1_SectorY;
+	INT8 Tunnel1_SectorZ;
+
+	INT16 Tunnel2_SectorX;
+	INT16 Tunnel2_SectorY;
+	INT8 Tunnel2_SectorZ;
 } GAME_UB_OPTIONS;
 
 extern GAME_UB_OPTIONS gGameUBOptions; 
