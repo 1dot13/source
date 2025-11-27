@@ -145,8 +145,6 @@ void			InitJohnKulbaInitialSector();
 
 void			FixEnemyCounterInSectorBug();
 
-void			AddEnemiesToFirstTunnelSector();
-void			AddEnemiesToSecondTunnelSector();
 UINT8			NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks, UINT8 *pJeeps, UINT8 *pRobots );
 UINT8			NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks, UINT8 *pJeeps, UINT8 *pRobots );
 void			RemoveAllEnemySoldierInitListLinks();
@@ -1272,10 +1270,70 @@ void InitJa25StrategicAiBloodcats( )
 }
 
 
+static BOOLEAN AddEnemiesToSectorPlayerIsIn(INT16 sectorX, INT16 sectorY, INT8 sectorZ, UINT8 admins, UINT8 troops, UINT8 elites)
+{
+	if ( gGameUBOptions.pJA2UB == TRUE )
+	{
+
+		if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
+		{
+			SetEnemyEncounterCode(ENEMY_INVASION_CODE);
+		}
+
+		SetNumberJa25EnemiesInSector(sectorX, sectorY, sectorZ, admins, troops, elites, 0, 0, 0);
+
+		SetThisSectorAsEnemyControlled(sectorX, sectorY, sectorZ, FALSE);
+
+		//Set up flag so enemies will go and find the player in that sector
+		gJa25SaveStruct.fEnemyShouldImmediatelySeekThePlayer = TRUE;
+		gJa25SaveStruct.bSectorTheEnemyWillSeekEnemy = SECTOR(sectorX, sectorY);
+	}
+
+	return(TRUE);
+}
+
+static void AddEnemiesToFirstTunnelSector()
+{
+	const auto x1 = gGameUBOptions.Tunnel1_SectorX;
+	const auto y1 = gGameUBOptions.Tunnel1_SectorY;
+	const auto z1 = gGameUBOptions.Tunnel1_SectorZ;
+
+	UINT8	ubNumAdmins = 0;
+	UINT8	ubNumTroops = 0;
+	UINT8	ubNumElites = 0;
+	UINT8	ubNumTanks = 0;
+	UINT8	ubNumJeeps = 0;
+	UINT8	ubNumRobots = 0;
+
+	NumEnemiesToAttackFirstTunnelSector(&ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps, &ubNumRobots);
+	SetNumberJa25EnemiesInSector(x1, y1, z1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots);
+}
+
+static void AddEnemiesToSecondTunnelSector()
+{
+	const auto x2 = gGameUBOptions.Tunnel2_SectorX;
+	const auto y2 = gGameUBOptions.Tunnel2_SectorY;
+	const auto z2 = gGameUBOptions.Tunnel2_SectorZ;
+
+	UINT8	ubNumAdmins = 0;
+	UINT8	ubNumTroops = 0;
+	UINT8	ubNumElites = 0;
+	UINT8	ubNumTanks = 0;
+	UINT8	ubNumJeeps = 0;
+	UINT8	ubNumRobots = 0;
+
+	NumEnemiesToAttackSecondTunnelSector(&ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps, &ubNumRobots);
+	SetNumberJa25EnemiesInSector(x2, y2, z2, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots);
+}
+
+
 void HandleAddingEnemiesToTunnelMaps()
 {
 	BOOLEAN fInCombat = ( gTacticalStatus.uiFlags & INCOMBAT );
-	UINT8 ubNumEnemies=0;
+	UINT8 ubNumEnemies = 0;
+	UINT8 ubNumAdmins = 0;
+	UINT8 ubNumTroops = 0;
+	UINT8 ubNumElites = 0;
 
 	//if the player has been in the complex
 	if( HaveMercsEverBeenInComplex() )
@@ -1284,21 +1342,35 @@ void HandleAddingEnemiesToTunnelMaps()
 		return;
 	}
 
+	const auto x1 = gGameUBOptions.Tunnel1_SectorX;
+	const auto y1 = gGameUBOptions.Tunnel1_SectorY;
+	const auto z1 = gGameUBOptions.Tunnel1_SectorZ;
+
+	const auto x2 = gGameUBOptions.Tunnel2_SectorX;
+	const auto y2 = gGameUBOptions.Tunnel2_SectorY;
+	const auto z2 = gGameUBOptions.Tunnel2_SectorZ;
+
+	const bool isPlayerInFirstTunnel = AreAnyPlayerMercsStillInSector(x1, y1, z1);
+	const bool isPlayerInSecondTunnel = AreAnyPlayerMercsStillInSector(x2, y2, z2);
+
 	//if the player IS NOT in either of the tunnel sectors
-	if( !AreAnyPlayerMercsStillInSector( 14, 10, 1 ) &&
-			!AreAnyPlayerMercsStillInSector( 14, 11, 1 ) )
+	if( !isPlayerInFirstTunnel && !isPlayerInSecondTunnel )
 	{
-		AddEnemiesToJa25TunnelMaps();
+		// Add enemies to both sectors if fan was blown up
+		if ( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
+		{
+			AddEnemiesToFirstTunnelSector();
+			AddEnemiesToSecondTunnelSector();
+		}
 	}
 
-	//else if the player IS NOT in the 2nd sector but in the first sector
-	else if( AreAnyPlayerMercsStillInSector( 14, 10, 1 ) &&
-					 !AreAnyPlayerMercsStillInSector( 14, 11, 1 ) )
+	//else if the player IS NOT in the 2nd sector but is in the first sector
+	else if( isPlayerInFirstTunnel && !isPlayerInSecondTunnel )
 	{
-		ubNumEnemies = NumEnemiesToAttackFirstTunnelSector( NULL, NULL, NULL, NULL, NULL, NULL );
+		ubNumEnemies = NumEnemiesToAttackFirstTunnelSector(&ubNumAdmins, &ubNumTroops, &ubNumElites, NULL, NULL, NULL );
 
 		//Add enemies to the first sector
-		HandleAddEnemiesToSectorPlayerIsntIn( JA25_J14_1, ubNumEnemies );
+		AddEnemiesToSectorPlayerIsIn( x1, y1, z1, ubNumAdmins, ubNumTroops, ubNumElites);
 
 		//Remember to move the enemies to be in the entrance to the tunnel
 		SetJa25GeneralFlag( JA_GF__MOVE_ENEMIES_TO_EDGE_IN_TUNNEL_1 );
@@ -1307,58 +1379,17 @@ void HandleAddingEnemiesToTunnelMaps()
 	}
 
 	//else if the player is in the second sector
-	else if( AreAnyPlayerMercsStillInSector( 14, 11, 1 ) )
+	else if( isPlayerInSecondTunnel )
 	{
-		ubNumEnemies = NumEnemiesToAttackSecondTunnelSector( NULL, NULL, NULL, NULL, NULL, NULL );
+		ubNumEnemies = NumEnemiesToAttackSecondTunnelSector(&ubNumAdmins, &ubNumTroops, &ubNumElites, NULL, NULL, NULL );
 
-		//Add enemies to the first sector
-		HandleAddEnemiesToSectorPlayerIsntIn( JA25_K14_1, ubNumEnemies );
+		AddEnemiesToSectorPlayerIsIn(x2, y2, z2, ubNumAdmins, ubNumTroops, ubNumElites);
 
 		//Remember to move the enemies to be in the entrance to the tunnel
 		SetJa25GeneralFlag( JA_GF__MOVE_ENEMIES_TO_EDGE_IN_TUNNEL_2 );
 	}
 }
 
-void AddEnemiesToJa25TunnelMaps()
-{
-	if( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
-	{
-		//if the player blew up the fan, add a ton of enemies to the sector
-		AddEnemiesToFirstTunnelSector();
-
-		AddEnemiesToSecondTunnelSector();
-	}
-	else if( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_STOPPED_FAN_TO_GET_THROUGH )
-	{
-	}
-}
-
-void AddEnemiesToFirstTunnelSector()
-{
-	UINT8	ubNumAdmins=0;
-	UINT8	ubNumTroops=0;
-	UINT8	ubNumElites=0;
-	UINT8	ubNumTanks=0;
-	UINT8	ubNumJeeps=0;
-	UINT8	ubNumRobots=0;
-
-	NumEnemiesToAttackFirstTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps, &ubNumRobots );
-
-	SetNumberJa25EnemiesInSector( 14, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
-}
-
-void AddEnemiesToSecondTunnelSector()
-{
-	UINT8	ubNumAdmins=0;
-	UINT8	ubNumTroops=0;
-	UINT8	ubNumElites=0;
-	UINT8	ubNumTanks=0;
-	UINT8	ubNumJeeps=0;
-	UINT8	ubNumRobots=0;
-
-	NumEnemiesToAttackSecondTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps, &ubNumRobots );
-	SetNumberJa25EnemiesInSector( 14, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
-}
 
 UINT8 NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks, UINT8 *pJeeps, UINT8 *pRobots )
 {
