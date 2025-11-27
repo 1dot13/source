@@ -1418,6 +1418,11 @@ UINT8 NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8
 			ubNumTroops = 4 + Random( 0 );
 			ubNumElites = 4 + Random( 0 );
 			break;
+		case DIF_LEVEL_INSANE:
+			ubNumAdmins = 0 + Random(0);
+			ubNumTroops = 0 + Random(0);
+			ubNumElites = 8 + Random(0);
+			break;
 	}
 
 	if( pAdmins )
@@ -1469,6 +1474,11 @@ UINT8 NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT
 			ubNumAdmins = 0 + Random( 0 );
 			ubNumTroops = 6 + Random( 0 );
 			ubNumElites = 4 + Random( 3 );
+			break;
+		case DIF_LEVEL_INSANE:
+			ubNumAdmins = 0 + Random(0);
+			ubNumTroops = 0 + Random(0);
+			ubNumElites = 10 + Random(0);
 			break;
 	}
 
