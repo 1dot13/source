@@ -2243,17 +2243,37 @@ static int l_SetNumberOfJa25BloodCatsInSector(lua_State* L)
 
 static int l_SetNumberJa25EnemiesInSurfaceSector(lua_State* L)
 {
-	if (lua_gettop(L) >= 6)
+	if ( lua_gettop(L) >= 3 )
 	{
 		INT16 sSectorX = lua_tointeger(L, 1);
 		INT16 sSectorY = lua_tointeger(L, 2);
 		UINT8 ubNumAdmins = lua_tointeger(L, 3);
-		UINT8 ubNumTroops = lua_tointeger(L, 4);
-		UINT8 ubNumElites = lua_tointeger(L, 5);
-		UINT8 ubNumTanks = lua_tointeger(L, 6);
-		//TODO: expand lua call to include these two
+		UINT8 ubNumTroops = 0;
+		UINT8 ubNumElites = 0;
+		UINT8 ubNumTanks = 0;
 		UINT8 ubNumJeeps = 0;
 		UINT8 ubNumRobots = 0;
+
+		if ( lua_gettop(L) >= 4 )
+		{
+			ubNumTroops = lua_tointeger(L, 4);
+		}
+		if ( lua_gettop(L) >= 5 )
+		{
+			ubNumElites = lua_tointeger(L, 5);
+        }
+        if ( lua_gettop(L) >= 6 )
+        {
+            ubNumTanks = lua_tointeger(L, 6);
+        }
+        if ( lua_gettop(L) >= 7 )
+        {
+            ubNumJeeps = lua_tointeger(L, 7);
+        }
+        if ( lua_gettop(L) >= 8 )
+        {
+            ubNumRobots = lua_tointeger(L, 8);
+        }
 
 		SetNumberJa25EnemiesInSurfaceSector(SECTOR(sSectorX, sSectorY), ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots);
 	}
