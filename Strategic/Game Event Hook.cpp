@@ -17,14 +17,12 @@
 	#include "Strategic Movement.h"
 	#include "Assignments.h"
 	#include "Strategic Mines.h"
-	#include "Strategic Town Loyalty.h"
 	#include "message.h"
 	#include "Map Screen Interface.h"
 	#include "Map Screen Helicopter.h"
 	#include "Scheduling.h"
 	#include "Arms Dealer Init.h"
 	#include "strategic town reputation.h"
-	#include "Air Raid.h"
 	#include "Meanwhile.h"
 	#include "Overhead.h"
 	#include "random.h"
@@ -32,7 +30,6 @@
 	#include "Strategic AI.h"
 	#include "Merc Contract.h"
 	#include "Strategic Status.h"
-	#include "INIReader.h"
 	#include "GameSettings.h"
 	#include "english.h"
 	#include "input.h"
@@ -50,7 +47,6 @@
 	#include "Rebel Command.h"
 	#include "interface Dialogue.h"
 
-#include "connect.h"
 
 #ifdef JA2UB
 #include "Explosion Control.h"
