@@ -44,7 +44,7 @@ static UINT8	 ubNumStates = 0;
 static UINT16   *pusStates = NULL;
 static INT8   ubCurLoadedState = 0;
 
-void CycleAnimations( )
+static void CycleAnimations( )
 {
 	INT32 cnt;
 
@@ -318,7 +318,7 @@ UINT32  AniEditScreenHandle(void)
 }
 
 
-UINT16 GetAnimStateFromName( STR8 zName )
+static UINT16 GetAnimStateFromName( STR8 zName )
 {
 	INT32 cnt;
 
