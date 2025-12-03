@@ -22,7 +22,6 @@
 	#include "Font Control.h"
 	#include "Soldier Create.h"
 	#include "Overhead.h"
-	#include "Interface.h"
 	#include "Items.h"
 	#include "Weapons.h"
 	#include "Sound Control.h"
@@ -31,14 +30,12 @@
 	#include "Campaign.h"
 	#include "Tactical Save.h"
 	#include "Strategic Status.h"
-	#include "Map Screen Interface.h"
 	#include "Text.h"
 	#include "WordWrap.h"
 	#include "Squads.h"
 	#include "random.h"
 	#include "line.h"
 	#include "english.h"
-	#include "Strategic Pathing.h"
 	#include "Strategic Merc Handler.h"
 	#include "strategic.h"
 	#include "message.h"
@@ -46,8 +43,6 @@
 	#include "Animation Data.h"
 	#include "Creature Spreading.h"
 	#include "Strategic AI.h"
-	#include "SkillCheck.h"
-	#include "rt time defines.h"
 	#include "Morale.h"
 	#include "Strategic Town Loyalty.h"
 	#include "GameSettings.h"
@@ -61,7 +56,6 @@
 	#include "Cheats.h"
 	#include "Map Information.h"
 	#include "MilitiaSquads.h"
-//	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "AIInternals.h" // added by SANDRO
 	#include "Bullets.h" // HEADROCK HAM 5, for use with Bullet Impact.
@@ -69,7 +63,6 @@
 	#include "DynamicDialogue.h"			// added by Flugente
 	#include "MilitiaIndividual.h"			// added by Flugente
 	#include "Rebel Command.h"
-
 #include "Reinforcement.h"
 
 //#define INVULNERABILITY
