@@ -949,7 +949,7 @@ void IniLuaGlobal()
 	}
 }
 
-void IniGlobal_0(lua_State* L)
+static void IniGlobal_0(lua_State* L)
 {
 
 	lua_pushinteger(L, PROFILLUA_sSectorX);
@@ -978,7 +978,7 @@ void IniGlobal_0(lua_State* L)
 
 }
 
-void IniGlobal_1(lua_State* L)
+static void IniGlobal_1(lua_State* L)
 {
 	lua_pushinteger(L, PROFILLUA2_ubProfile);
 	lua_setglobal(L, "ProfileId");
@@ -999,7 +999,7 @@ void IniGlobal_1(lua_State* L)
 	lua_setglobal(L, "ProfileIdsGridNo");
 
 }
-void IniFunction(lua_State* L, BOOLEAN bQuests)
+static void IniFunction(lua_State* L, BOOLEAN bQuests)
 {
 
 	lua_register(L, "HireMerc", l_HireMerc);
@@ -2900,7 +2900,7 @@ BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 u
 // Neither one of the function arguments are used inside the function and the only place where this is called
 // makes it look like it *is* supposed to match against specific profile *and* restrict the search to player mercs.
 // That last part makes no sense since player mercs are part of OUR_TEAM
-SOLDIERTYPE* FindSoldierByProfileID2(UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly)
+static SOLDIERTYPE* FindSoldierByProfileID2(UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly)
 {
 	SoldierID soldier = gTacticalStatus.Team[CIV_TEAM].bFirstID;
 	SoldierID lastid = gTacticalStatus.Team[CIV_TEAM].bLastID;
