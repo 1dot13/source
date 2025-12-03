@@ -1,41 +1,21 @@
 	#include "sgp.h"
 	#include "sysutil.h"
-	#include "vobject_blitters.h"
-	#include "Font Control.h"
 	#include "Cursor Control.h"
 	#include "Render Dirty.h"
-	#include	"Text.h"
 	#include	"Utilities.h"
-	#include	"WordWrap.h"
-	#include "Text.h"
-	#include "line.h"
 	#include "Intro.h"
 	#include "Cinematics.h"
 	#include "Cinematics Bink.h"
 	#include "mainmenuscreen.h"
 	#include "Music Control.h"
-	#include "LibraryDataBase.h"
 	#include "english.h"
-	#include "soldier profile type.h"
-	#include "MessageBoxScreen.h"
 	#include "sgp_logger.h"
-	#include "Soldier Profile.h"
-	#include "Game Init.h"
 	#include "INIReader.h"
 
-#include <vfs/Core/vfs.h>
 
 #include "Luaglobal.h"
-#ifdef JA2UB
-#include "strategicmap.h"
-#include "Map Screen Interface Map.h"
-#include "Map Screen Interface.h"
-#include "End Game.h"
-#include "Cinematics Bink.h"
-#endif
 
 #include "LuaInitNPCs.h"
-#include "XML.h"
 #include <language.hpp>
 
 BOOLEAN Style_JA = TRUE;
