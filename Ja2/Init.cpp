@@ -115,7 +115,7 @@ static void AddLanguagePrefix(STR fileName)
 	AddLanguagePrefix( fileName, GetLanguagePrefix());
 }
 
-void ResetEmptyRPCFaceSlots()
+static void ResetEmptyRPCFaceSlots()
 {
 	//legion by jazz (load small faces from rpcs)
 	// reset empty slots with "-1"
