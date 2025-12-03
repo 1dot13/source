@@ -24,16 +24,11 @@
 	#include "Animation Data.h"
 	#include "opplist.h"
 	#include "Meanwhile.h"
-	#include "Strategic AI.h"
-	#include "MessageBoxScreen.h"
 	#include "Map Information.h"
 	#include "Queen Command.h"
 	#include "ai.h"					// added by Flugente
-	#include "Isometric Utils.h"	// added by Flugente
 	#include "Soldier Create.h"		// added by Flugente
-	#include "Player Command.h"		// added by Flugente
-
-#include "Strategic Mines.h"
+	
 #include "connect.h"
 
 #include "GameInitOptionsScreen.h"
