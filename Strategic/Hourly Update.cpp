@@ -4,7 +4,6 @@
 	#include "Strategic Mines.h"
 	#include "Campaign.h"
 	#include "Morale.h"
-	#include "Quests.h"
 	#include "Game Clock.h"
 	#include "Overhead.h"
 	#include "jascreens.h"
