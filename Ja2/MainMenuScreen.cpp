@@ -16,13 +16,10 @@
 #include	"gameloop.h"
 #include	"Game Init.h"
 #include	"WordWrap.h"
-#include "Font Control.h"
 #include "Text.h"
 #include "Multi Language Graphic Utils.h"
 #include "JA2 Splash.h"
 #include "GameVersion.h"
-
-#include "GameSettings.h"
 #include "connect.h"
 #include "strategic.h"
 #include "Strategic Movement.h"
