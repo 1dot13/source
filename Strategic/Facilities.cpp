@@ -1993,8 +1993,8 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
-		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-				pSoldier->bSectorZ == 0  && pSoldier != NULL &&
+		if( pSoldier != NULL && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
+				pSoldier->bSectorZ == 0  && 
 				pSoldier->stats.bLife >= OKLIFE &&
 				!(pSoldier->flags.fMercAsleep) )
 		{
