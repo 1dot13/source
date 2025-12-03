@@ -306,7 +306,7 @@ void InitKnowFacilitiesFlags( )
 
 
 //Mobile groups are handled separately from sectors, because they are on the move.
-void GeneratePatrolGroups()
+static void GeneratePatrolGroups()
 {
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
@@ -524,7 +524,7 @@ void BuildUndergroundSectorInfoList()
 // Lesh: this function creates randomized world
 //		every sector can be randomized between common and alternative, chances 50/50
 //		randomization of individual sectors can be switched off via array RandomSector[]
-void InitWorld()
+static void InitWorld()
 {
 	INT16	sSectorCounter;
 
