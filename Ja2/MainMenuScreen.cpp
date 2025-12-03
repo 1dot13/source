@@ -73,7 +73,6 @@ void MenuButtonCallback(GUI_BUTTON *btn, INT32 reason);
 void HandleMainMenuKeyboardInput();
 void HandleMainMenuInput();
 void HandleMainMenuScreen();
-void DisplayAssignmentText();
 void ClearMainMenu();
 void SelectMainMenuBackGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SetMainMenuExitScreen( UINT32 uiNewScreen );
