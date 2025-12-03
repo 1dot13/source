@@ -155,7 +155,7 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 //extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
 
 
-CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
+static CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
 {
 	CREATURE_DIRECTIVE *curr;
 	UINT8 ubSectorX, ubSectorY;
@@ -273,7 +273,7 @@ void InitLairGrumm()
 }
 */
 
-void InitLair(INT32 iChosenMine)
+static void InitLair(INT32 iChosenMine)
 {
 	CREATURE_DIRECTIVE *curr;
 	giLairID = iChosenMine;
@@ -512,7 +512,7 @@ void InitCreatureQuest()
 	}
 }
 
-void AddCreatureToNode( CREATURE_DIRECTIVE *node )
+static void AddCreatureToNode( CREATURE_DIRECTIVE *node )
 {
 	node->pLevel->ubNumCreatures++;
 
@@ -524,7 +524,7 @@ void AddCreatureToNode( CREATURE_DIRECTIVE *node )
 	}
 }
 
-BOOLEAN PlaceNewCreature( CREATURE_DIRECTIVE *node, INT32 iDistance )
+static BOOLEAN PlaceNewCreature( CREATURE_DIRECTIVE *node, INT32 iDistance )
 {
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 	if( !node )
@@ -672,7 +672,7 @@ void DecayCreatures()
 
 }
 
-void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, UINT8 ubNumAdultFemales )
+static void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, UINT8 ubNumAdultFemales )
 {
 	INT32 iRandom;
 	SOLDIERTYPE *pSoldier;
@@ -759,7 +759,7 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 	AllTeamsLookForAll( FALSE );
 }
 
-void AddCreaturesToBattle_Other( UINT8 ubNum )
+static void AddCreaturesToBattle_Other( UINT8 ubNum )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo = {};
@@ -846,7 +846,7 @@ void AddCreaturesToBattle_Other( UINT8 ubNum )
 	AllTeamsLookForAll( FALSE );
 }
 
-void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
+static void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 {
 	INT32 iRandom, i;
 	UINT8 ubSectorX, ubSectorY;
@@ -1477,7 +1477,7 @@ void ChooseCreatureQuestStartDay()
 	}
 }
 
-void DeleteDirectiveNode( CREATURE_DIRECTIVE **node )
+static void DeleteDirectiveNode( CREATURE_DIRECTIVE **node )
 {
 	if( (*node)->next )
 		DeleteDirectiveNode( &((*node)->next) );
