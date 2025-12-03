@@ -81,7 +81,7 @@ void CrippledVersionEndGameCheck();
 
 
 
-BOOLEAN DelayEventIfBattleInProgress( STRATEGICEVENT *pEvent )
+static BOOLEAN DelayEventIfBattleInProgress( STRATEGICEVENT *pEvent )
 {
 	STRATEGICEVENT *pNewEvent;
 	if( gTacticalStatus.fEnemyInSector )
