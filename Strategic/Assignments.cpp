@@ -73,8 +73,6 @@
 #include "Facilities.h"
 
 //forward declarations of common classes to eliminate includes
-class OBJECTTYPE;
-class SOLDIERTYPE;
 extern int POP_UP_BOX_X;
 extern WorldItems gAllWorldItems;
 
