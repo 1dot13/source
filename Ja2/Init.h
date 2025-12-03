@@ -7,7 +7,6 @@
 #include "LogicalBodyTypes/SurfaceDB.h"
 #include "LogicalBodyTypes/FilterDB.h"
 #include "LogicalBodyTypes/EnumeratorDB.h"
-#include "LogicalBodyTypes/BodyTypeDB.h"
 #include "LogicalBodyTypes/PaletteDB.h"
 
 #include <iostream>
