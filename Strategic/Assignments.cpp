@@ -32,11 +32,10 @@
 	#include "Interface Control.h"
 	#include "Interface.h"
 	#include "Soldier Find.h"
-	#include "ai.h"
+	#include <Rotting Corpses.h>
 	#include "Utilities.h"
 	#include "random.h"
-	#include "line.h"
-	#include "Soldier Add.h"
+		#include "Soldier Add.h"
 	#include "GameSettings.h"
 	#include "Isometric Utils.h"
 	#include "Soldier macros.h"
@@ -46,11 +45,8 @@
 	#include "Town Militia.h"
 	#include "Map Screen Interface Border.h"
 	#include "math.h"
-	#include "SkillCheck.h"
-	#include "Strategic Pathing.h"
-	#include "Game Event Hook.h"
-	#include "Strategic Event Handler.h"
-	#include "Map Information.h"
+		#include "Game Event Hook.h"
+		#include "Map Information.h"
 	#include "Strategic Status.h"
 	#include "history.h"
 	#include "Map Screen Interface Map Inventory.h"
@@ -61,10 +57,8 @@
 	#include "Food.h"
 	#include "Tactical Save.h"		// added by Flugente
 	#include "Campaign Types.h"		// added by Flugente
-	#include "Strategic Town Loyalty.h"
 	#include "DynamicDialogue.h"	// added by Flugente
 	#include "Disease.h"			// added by Flugente
-	#include "Queen Command.h"		// added by Flugente
 	#include "PMC.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
 	#include "MilitiaIndividual.h"	// added by Flugente
@@ -76,7 +70,6 @@
 #include <vector>
 #include <queue>
 
-#include "Vehicles.h"
 
 #include "GameInitOptionsScreen.h"
 
@@ -86,11 +79,9 @@ class SOLDIERTYPE;
 extern int POP_UP_BOX_X;
 extern WorldItems gAllWorldItems;
 
-#include "MilitiaSquads.h"
 // HEADROCK HAM 3.5: Include Facility data
 #include "Facilities.h"
 
-#include "Vehicles.h"
 
 #ifdef JA2UB
 #include "Explosion Control.h"
