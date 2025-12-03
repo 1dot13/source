@@ -1,18 +1,16 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <time.h>
 	#include "sgp.h"
 	#include "gameloop.h"
-	#include "vobject.h"
-	#include "worlddef.h"
+	#include <Overhead Types.h>
+#include <Soldier Control.h>
 	#include "renderworld.h"
 	#include "Font.h"
 	#include "screenids.h"
 	#include "Screens.h"
-	#include "Overhead.h"
-	#include "Isometric Utils.h"
-	#include "sysutil.h"
-	#include "input.h"
+#include <Meanwhile.h>
+#include "HelpScreen.h"
+#include "Overhead.h"
 	#include "Event Pump.h"
 	#include "Font Control.h"
 	#include "Timer Control.h"
@@ -20,22 +18,17 @@
 	#include "Render Dirty.h"
 	#include "Interface.h"
 	#include "Handle UI.h"
-	#include <wchar.h>
-	#include <tchar.h>
 	#include "Cursors.h"
 	#include "vobject_blitters.h"
 	#include "Button System.h"
 	#include "lighting.h"
-	#include "renderworld.h"
 	#include "Sys Globals.h"
 	#include "environment.h"
 	#include "Bullets.h"
-	#include "Assignments.h"
+	#include <mousesystem.h>
 	#include "message.h"
-	#include <string.h>
 	#include "overhead map.h"
 	#include "Strategic Exit GUI.h"
-	#include "Strategic Movement.h"
 	#include "Tactical Placement GUI.h"
 	#include "Air Raid.h"
 	#include "Game Clock.h"
@@ -46,7 +39,6 @@
 	#include "Networking.h"
 	#endif
 	#include "Interface Control.h"
-	#include "Game Clock.h"
 	#include "physics.h"
 	#include "Fade Screen.h"
 	#include "Dialogue Control.h"
@@ -54,22 +46,14 @@
 	#include "faces.h"
 	#include "strategicmap.h"
 	#include "gamescreen.h"
-	#include "Interface.h"
 	#include "Cursor Control.h"
 	#include "Strategic Turns.h"
-
-	#include "merc entering.h"
-	#include "Soldier Create.h"
-	#include "Soldier Init List.h"
+#include "merc entering.h"
 	#include "Interface Panels.h"
 	#include "Map Information.h"
-	#include "environment.h"
 	#include "Squads.h"
 	#include "interface Dialogue.h"
 	#include "Auto Bandage.h"
-	#include "Meanwhile.h"
-	#include "Strategic AI.h"
-	#include "HelpScreen.h"
 	#include "PreBattle Interface.h"
 	#include "Sound Control.h"
 	#include "MessageBoxScreen.h"
@@ -79,7 +63,6 @@
 	#include "editscreen.h"
 	#include "Scheduling.h"
 	#include "Animated ProgressBar.h"
-
 #include "connect.h"
 
 #ifdef JA2UB
