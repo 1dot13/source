@@ -14,12 +14,10 @@
 	#include "GameSettings.h"
 	#include "Interface Control.h"
 	#include "Cursor Control.h"
-	#include "laptop.h"
 	#include "Text.h"
 	#include "Text Input.h"
 	#include "overhead map.h"
 	#include "DropDown.h"		// added by Flugente
-	#include "Utilities.h"		// added by Flugente for FilenameForBPP(...)
 	#include "FeaturesScreen.h"
 
 #define		MSGBOX_DEFAULT_WIDTH							300
