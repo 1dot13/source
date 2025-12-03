@@ -1,86 +1,82 @@
-	#include "Assignments.h"
-	#include "strategic.h"
-	#include "Items.h"
-	#include "Overhead.h"
-	#include "Game Clock.h"
-	#include "stdlib.h"
-	#include "message.h"
-	#include "Font Control.h"
-	#include "Map Screen Interface.h"
-	#include "soldier profile type.h"
-	#include "Soldier Profile.h"
-	#include "Campaign.h"
-	#include "Queen Command.h"
-	#include "strategicmap.h"
-	#include "Text.h"
-	#include "Dialogue Control.h"
-	#include "NPC.h"
-	#include "Strategic Town Loyalty.h"
-	#include "Animation Control.h"
-	#include "mapscreen.h"
-	#include "Squads.h"
-	#include "Map Screen Helicopter.h"
-	#include "PopUpBox.h"
-	#include "Vehicles.h"
-	#include "Merc Contract.h"
-	#include "Map Screen Interface Map.h"
-	#include "Strategic Movement.h"
-	#include "laptop.h"
-	#include "finances.h"
-	#include "LaptopSave.h"
-	#include "renderworld.h"
-	#include "Interface Control.h"
-	#include "Interface.h"
-	#include "Soldier Find.h"
-	#include <Rotting Corpses.h>
-	#include "Utilities.h"
-	#include "random.h"
-		#include "Soldier Add.h"
-	#include "GameSettings.h"
-	#include "Isometric Utils.h"
-	#include "Soldier macros.h"
-	#include "Explosion Control.h"
-	#include "SkillCheck.h"
-	#include "Quests.h"
-	#include "Town Militia.h"
-	#include "Map Screen Interface Border.h"
-	#include "math.h"
-		#include "Game Event Hook.h"
-		#include "Map Information.h"
-	#include "Strategic Status.h"
-	#include "history.h"
-	#include "Map Screen Interface Map Inventory.h"
-	#include "interface Dialogue.h"
-	// added by SANDRO
-	#include "AIInternals.h"
-	#include "Morale.h"
-	#include "Food.h"
-	#include "Tactical Save.h"		// added by Flugente
-	#include "Campaign Types.h"		// added by Flugente
-	#include "DynamicDialogue.h"	// added by Flugente
-	#include "Disease.h"			// added by Flugente
-	#include "PMC.h"				// added by Flugente
-	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
-	#include "MilitiaIndividual.h"	// added by Flugente
-	#include "Militia Control.h"	// added by Flugente
-	#include "ASD.h"				// added by Flugente
-	#include "Strategic AI.h"
-	#include "MiniEvents.h"
-	#include "Rebel Command.h"
+#include "Assignments.h"
+#include "strategic.h"
+#include "Items.h"
+#include "Overhead.h"
+#include "Game Clock.h"
+#include "stdlib.h"
+#include "message.h"
+#include "Font Control.h"
+#include "Map Screen Interface.h"
+#include "soldier profile type.h"
+#include "Soldier Profile.h"
+#include "Campaign.h"
+#include "Queen Command.h"
+#include "strategicmap.h"
+#include "Text.h"
+#include "Dialogue Control.h"
+#include "NPC.h"
+#include "Strategic Town Loyalty.h"
+#include "Animation Control.h"
+#include "mapscreen.h"
+#include "Squads.h"
+#include "Map Screen Helicopter.h"
+#include "PopUpBox.h"
+#include "Vehicles.h"
+#include "Merc Contract.h"
+#include "Map Screen Interface Map.h"
+#include "Strategic Movement.h"
+#include "laptop.h"
+#include "finances.h"
+#include "LaptopSave.h"
+#include "renderworld.h"
+#include "Interface Control.h"
+#include "Interface.h"
+#include "Soldier Find.h"
+#include <Rotting Corpses.h>
+#include "Utilities.h"
+#include "random.h"
+#include "Soldier Add.h"
+#include "GameSettings.h"
+#include "Isometric Utils.h"
+#include "Soldier macros.h"
+#include "Explosion Control.h"
+#include "SkillCheck.h"
+#include "Quests.h"
+#include "Town Militia.h"
+#include "Map Screen Interface Border.h"
+#include "math.h"
+#include "Game Event Hook.h"
+#include "Map Information.h"
+#include "Strategic Status.h"
+#include "history.h"
+#include "Map Screen Interface Map Inventory.h"
+#include "interface Dialogue.h"
+// added by SANDRO
+#include "AIInternals.h"
+#include "Morale.h"
+#include "Food.h"
+#include "Tactical Save.h"		// added by Flugente
+#include "Campaign Types.h"		// added by Flugente
+#include "DynamicDialogue.h"	// added by Flugente
+#include "Disease.h"			// added by Flugente
+#include "PMC.h"				// added by Flugente
+#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
+#include "MilitiaIndividual.h"	// added by Flugente
+#include "Militia Control.h"	// added by Flugente
+#include "ASD.h"				// added by Flugente
+#include "Strategic AI.h"
+#include "MiniEvents.h"
+#include "Rebel Command.h"
 #include <vector>
 #include <queue>
-
-
 #include "GameInitOptionsScreen.h"
+#include "Facilities.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 extern int POP_UP_BOX_X;
 extern WorldItems gAllWorldItems;
-
-// HEADROCK HAM 3.5: Include Facility data
-#include "Facilities.h"
 
 
 #ifdef JA2UB
