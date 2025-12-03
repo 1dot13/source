@@ -3,7 +3,6 @@
 	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "Timer Control.h"
-	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "email.h"
@@ -16,7 +15,7 @@
 	#include "sysutil.h"
 
 #include "LocalizedStrings.h"
-#include "Soldier Profile.h"
+#include <soldier profile type.h>
 
 UINT8 MAX_NUMBER_MERCS = 0;
 
