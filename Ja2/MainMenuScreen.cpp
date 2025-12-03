@@ -417,7 +417,7 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
+static void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
 	{
