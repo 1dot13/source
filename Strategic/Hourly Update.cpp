@@ -908,7 +908,7 @@ void HourlyStealUpdate()
 	}
 }
 
-BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
+static BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
 {
 	UINT32 uiTotalNumberOfRealItems = 0;
 	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
@@ -984,7 +984,7 @@ BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT1
 	return FALSE;
 }
 
-UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
+static UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
 {
 	UINT32 numfound = 0;
 	UINT32 uiTotalNumberOfRealItems = 0;
