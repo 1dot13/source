@@ -1,20 +1,17 @@
-	#include "sgp.h"
-	#include "sysutil.h"
-	#include "Cursor Control.h"
-	#include "Render Dirty.h"
-	#include	"Utilities.h"
-	#include "Intro.h"
-	#include "Cinematics.h"
-	#include "Cinematics Bink.h"
-	#include "mainmenuscreen.h"
-	#include "Music Control.h"
-	#include "english.h"
-	#include "sgp_logger.h"
-	#include "INIReader.h"
-
-
+#include "sgp.h"
+#include "sysutil.h"
+#include "Cursor Control.h"
+#include "Render Dirty.h"
+#include	"Utilities.h"
+#include "Intro.h"
+#include "Cinematics.h"
+#include "Cinematics Bink.h"
+#include "mainmenuscreen.h"
+#include "Music Control.h"
+#include "english.h"
+#include "sgp_logger.h"
+#include "INIReader.h"
 #include "Luaglobal.h"
-
 #include "LuaInitNPCs.h"
 #include <language.hpp>
 
