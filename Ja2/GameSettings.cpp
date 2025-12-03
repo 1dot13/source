@@ -156,7 +156,7 @@ BOOLEAN UsingInventoryCostsAPSystem()
 	return ( gGameExternalOptions.fInventoryCostsAP );
 }
 
-std::string StringToLower(std::string strToConvert)
+static std::string StringToLower(std::string strToConvert)
 {//change each element of the string to lower case
    for(unsigned int i=0;i<strToConvert.length();i++)
    {
@@ -185,7 +185,7 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 	return isValid;
 }
 
-void UpdateFeatureFlags()
+static void UpdateFeatureFlags()
 {
 	// do we need to override some ini settings?
 	if (gGameSettings.fFeatures[FF_FEATURES_SCREEN])
