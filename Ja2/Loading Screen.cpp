@@ -343,7 +343,7 @@ static void BuildLoadscreenFilename(std::string& dst, const char* path, int reso
 		dst.append(".sti");
 }
 
-std::string GetResolutionSuffix(SCREEN_RESOLUTION resolution)
+static std::string GetResolutionSuffix(SCREEN_RESOLUTION resolution)
 {
 	switch (resolution)
 	{
@@ -375,7 +375,7 @@ std::string GetResolutionSuffix(SCREEN_RESOLUTION resolution)
 	}
 }
 
-std::string FindBestFittingLoadscreenFilename(const std::string& baseName, SCREEN_RESOLUTION resolution)
+static std::string FindBestFittingLoadscreenFilename(const std::string& baseName, SCREEN_RESOLUTION resolution)
 {
 	for (SCREEN_RESOLUTION res = resolution; res <= _2560x1600; res = (SCREEN_RESOLUTION)(res + 1))
 	{
