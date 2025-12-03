@@ -9,7 +9,6 @@
 	#include	"stdio.h"
 	#include	"WordWrap.h"
 	#include	"strategicmap.h"
-	#include	"finances.h"
 	#include	"WCheck.h"
 	#include	"Utilities.h"
 	#include	"Cursors.h"
@@ -19,7 +18,6 @@
 	#include	"Options Screen.h"
 	#include	"GameVersion.h"
 	#include	"sysutil.h"
-	#include	"Tactical Save.h"
 	#include	"Overhead.h"
 	#include	"gamescreen.h"
 	#include	"GameSettings.h"
@@ -31,7 +29,6 @@
 	#include	"message.h"
 	#include	"Map Screen Interface.h"
 	#include	"Multi Language Graphic Utils.h"
-	#include	"Campaign Types.h"
 	#include	"PostalService.h"
 
 #include "connect.h"
@@ -41,10 +38,6 @@
 #include <vfs/Core/vfs_file_raii.h>
 
 #ifdef JA2UB
-#include "Strategic Movement.h"
-
-//#include "Strategic Movement Costs.h"
-
 #include "LuaInitNPCs.h"
 #endif
 
