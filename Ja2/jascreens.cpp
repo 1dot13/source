@@ -650,7 +650,7 @@ UINT32 DebugScreenInit(void)
 }
 
 
-BOOLEAN CheckForAndExitTacticalDebug( )
+static BOOLEAN CheckForAndExitTacticalDebug( )
 {
 	if ( gfExitDebugScreen )
 	{
@@ -667,7 +667,7 @@ BOOLEAN CheckForAndExitTacticalDebug( )
 	return( FALSE );
 }
 
-void ExitDebugScreen( )
+static void ExitDebugScreen( )
 {
 	if ( guiCurrentScreen == DEBUG_SCREEN )
 	{
@@ -922,7 +922,7 @@ UINT32 DemoExitScreenInit(void)
 }
 
 
-void DoneFadeOutForDemoExitScreen( void )
+static void DoneFadeOutForDemoExitScreen( void )
 {
 	gfProgramIsRunning = FALSE;
 }
@@ -930,7 +930,7 @@ void DoneFadeOutForDemoExitScreen( void )
 // unused
 //extern INT8 gbFadeSpeed;
 
-void DisplayTopwareGermanyAddress()
+static void DisplayTopwareGermanyAddress()
 {
 	VOBJECT_DESC		vo_desc;
 	UINT32					uiTempID;
