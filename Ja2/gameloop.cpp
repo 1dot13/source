@@ -17,7 +17,6 @@
 	#include "Tactical Save.h"
 	#include "Interface.h"
 	#include "GameSettings.h"
-	#include "mapscreen.h"
 	#include "Interface Control.h"
 	#include "Text.h"
 	#include "HelpScreen.h"
@@ -25,7 +24,6 @@
 	#include "Tactical Placement GUI.h"//dnl ch45 071009
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "World Items.h"//dnl ch77 191113
-	#include "Overhead.h"	// added by Flugente		
 	#include "Ambient Control.h"	// sevenfm
 
 #include "SaveLoadScreen.h"
