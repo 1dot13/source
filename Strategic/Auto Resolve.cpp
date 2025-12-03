@@ -330,7 +330,7 @@ SOLDIERCELL *gpCivs = NULL;
 SOLDIERCELL *gpEnemies = NULL;
 
 //Simple wrappers for autoresolve sounds that are played.
-void PlayAutoResolveSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
+static void PlayAutoResolveSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
 {
 	if( gpAR->fSound )
 	{
@@ -338,7 +338,7 @@ void PlayAutoResolveSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32
 	}
 }
 
-void	PlayAutoResolveSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
+static void	PlayAutoResolveSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
 {
 	if( gpAR->fSound )
 	{
@@ -349,7 +349,7 @@ void	PlayAutoResolveSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVol
 
 extern void ClearPreviousAIGroupAssignment( GROUP *pGroup );
 
-void EliminateAllMercs()
+static void EliminateAllMercs()
 {
 	SOLDIERCELL *pAttacker = NULL;
 	INT32 i, iNum = 0;
@@ -380,7 +380,7 @@ void EliminateAllMercs()
 	}
 }
 
-void EliminateAllFriendlies()
+static void EliminateAllFriendlies()
 {
 	INT32 i;
 	if( gpAR )
@@ -496,7 +496,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 #define ORIG_RIGHT		92
 #define ORIG_BOTTOM		84
 
-void DoTransitionFromPreBattleInterfaceToAutoResolve()
+static void DoTransitionFromPreBattleInterfaceToAutoResolve()
 {
 	SGPRect SrcRect, DstRect;
 	UINT32 uiStartTime, uiCurrTime;
@@ -727,7 +727,7 @@ UINT32 AutoResolveScreenHandle()
 	return AUTORESOLVE_SCREEN;
 }
 
-void RefreshMerc( SOLDIERTYPE *pSoldier )
+static void RefreshMerc( SOLDIERTYPE *pSoldier )
 {
 	pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 	pSoldier->bBleeding = 0;
@@ -743,7 +743,7 @@ void RefreshMerc( SOLDIERTYPE *pSoldier )
 
 //Now assign the pSoldier->ubGroupIDs for the enemies, so we know where to remove them.	Start with
 //stationary groups first.
-void AssociateEnemiesWithStrategicGroups()
+static void AssociateEnemiesWithStrategicGroups()
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
@@ -1186,7 +1186,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 }
 
 
-INT32 DetermineCellID( SOLDIERCELL *pCell )
+static INT32 DetermineCellID( SOLDIERCELL *pCell )
 {
 	INT32 iIndex;
 
@@ -1205,7 +1205,7 @@ INT32 DetermineCellID( SOLDIERCELL *pCell )
 	return 0;
 }
 
-BOOLEAN IsItAllowedToRender( SOLDIERCELL *pCell )
+static BOOLEAN IsItAllowedToRender( SOLDIERCELL *pCell )
 {
 	INT32 iID = DetermineCellID( pCell );
 
@@ -1348,7 +1348,7 @@ void RenderSoldierCellBars( SOLDIERCELL *pCell )
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+46, iStartY, pCell->xp+47, pCell->yp+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
 }
 
-void BuildInterfaceBuffer()
+static void BuildInterfaceBuffer()
 {
 	VSURFACE_DESC		vs_desc;
 	UINT16					usUselessWidth, usUselessHeight;
@@ -1430,7 +1430,7 @@ void BuildInterfaceBuffer()
 	SetClippingRect( &ClipRect );
 }
 
-void ExpandWindow()
+static void ExpandWindow()
 {
 	SGPRect OldRect;
 	UINT32	uiDestPitchBYTES;
@@ -1525,7 +1525,7 @@ void ExpandWindow()
 
 }
 
-OBJECTTYPE* FindMedicalKit()
+static OBJECTTYPE* FindMedicalKit()
 {
 	INT32 i;
 	INT32 iSlot;
@@ -1540,7 +1540,7 @@ OBJECTTYPE* FindMedicalKit()
 	return NULL;
 }
 
-UINT32 AutoBandageMercs()
+static UINT32 AutoBandageMercs()
 {
 	INT32 i, iBest;
 	UINT32 uiPointsUsed, uiCurrPointsUsed, uiMaxPointsUsed, uiParallelPointsUsed;
@@ -3723,7 +3723,7 @@ void RenderSoldierCellHealth( SOLDIERCELL *pCell )
 	mprintf( xp, yp, pStr );
 }
 
-UINT8 GetUnusedMercProfileID()
+static UINT8 GetUnusedMercProfileID()
 {
 	UINT8 ubRandom=0;
 	INT32 i;
@@ -3818,7 +3818,7 @@ void DetermineTeamLeader( BOOLEAN fFriendlyTeam )
 	}
 }
 
-void ResetNextAttackCounter( SOLDIERCELL *pCell )
+static void ResetNextAttackCounter( SOLDIERCELL *pCell )
 {
 	pCell->usNextAttack = min( 1000 - pCell->usAttack, 800 );
 	pCell->usNextAttack = (UINT16)(1000 + pCell->usNextAttack * 5 + PreRandom( 2000 - pCell->usAttack ) );
@@ -3828,7 +3828,7 @@ void ResetNextAttackCounter( SOLDIERCELL *pCell )
 	}
 }
 
-FLOAT CalcClassBonusOrPenalty( SOLDIERTYPE *pSoldier )
+static FLOAT CalcClassBonusOrPenalty( SOLDIERTYPE *pSoldier )
 {
 	switch( pSoldier->ubSoldierClass )
 	{
@@ -4108,7 +4108,7 @@ void DrawDebugText( SOLDIERCELL *pCell )
 	}
 }
 
-SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
+static SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
 {
 	INT32 iAvailableTargets;
 	INT32 index;
@@ -4178,7 +4178,7 @@ SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
 	return NULL;
 }
 
-BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
+static BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 {
 	OBJECTTYPE *pItem;
 	SOLDIERTYPE *pSoldier;
@@ -4232,7 +4232,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 	return FALSE;
 }
 
-BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
+static BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
 {
 	OBJECTTYPE *pItem;
 	SOLDIERTYPE *pSoldier;
@@ -4274,7 +4274,7 @@ BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
 	return FALSE;
 }
 
-BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
+static BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
 {
 	OBJECTTYPE *pItem;
 	SOLDIERTYPE *pSoldier;
@@ -4329,7 +4329,7 @@ BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
 	return FALSE;
 }
 
-BOOLEAN AttackerHasKnife( SOLDIERCELL *pAttacker )
+static BOOLEAN AttackerHasKnife( SOLDIERCELL *pAttacker )
 {
 	UINT8 invsize = pAttacker->pSoldier->inv.size();
 	for( UINT8 i = 0; i < invsize; ++i )
@@ -4344,7 +4344,7 @@ BOOLEAN AttackerHasKnife( SOLDIERCELL *pAttacker )
 	return FALSE;
 }
 
-BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
+static BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 {
 	OBJECTTYPE *pItem;
 	UINT8 invsize = pSoldier->inv.size();
@@ -4366,7 +4366,7 @@ BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 	return FALSE;
 }
 
-void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
+static void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 {
 	INT16 sAttack;
 	INT16 sDefence;
@@ -4986,7 +4986,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	}
 }
 
-void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
+static void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 {
 	INT32 iNewLife;
 	SOLDIERCELL *pAttacker;
@@ -5300,7 +5300,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	pTarget->uiFlags |= CELL_HITBYATTACKER | CELL_DIRTY;
 }
 
-void Delay( UINT32 uiMilliseconds )
+static void Delay( UINT32 uiMilliseconds )
 {
 	INT32 iTime;
 	iTime = GetJA2Clock();
