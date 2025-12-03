@@ -12,7 +12,6 @@
 	#include "Facilities.h"
 	#include "Soldier Control.h"
 	#include "Map Screen Interface.h"
-	#include "Overhead.h"
 	#include "Assignments.h"
 	#include "GameSettings.h"
 	#include "LaptopSave.h"
@@ -29,10 +28,7 @@
 	#include "Interface.h"
 	#include "message.h"
 	#include "Morale.h"
-	#include "Points.h"
-	#include "Soldier Control.h"
 	#include "Isometric Utils.h"
-	#include "MilitiaSquads.h"
 	#include "Tactical Save.h"
 #include <random>
 
