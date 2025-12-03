@@ -767,7 +767,7 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	fMapPanelDirty = TRUE;
 }
 
-BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
+static BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
 {
 	AssertNotNIL(pSoldier);
 	// global conditions restricting all assignment changes
@@ -1350,7 +1350,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	return( FALSE );
 }
 
-BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
+static BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2433,7 +2433,7 @@ BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2818,7 +2818,7 @@ BOOLEAN CanCharacterSnitch( SOLDIERTYPE *pSoldier )
 	return( FALSE );
 }
 
-BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2849,7 +2849,7 @@ BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2880,7 +2880,7 @@ BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterSnitchInPrison( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterSnitchInPrison( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -3158,7 +3158,7 @@ UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLE
 	return( ubNumberOfPeople );
 }
 
-SOLDIERTYPE* GetPatientThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
+static SOLDIERTYPE* GetPatientThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
 {
 	int cnt;
 	SOLDIERTYPE *pSoldier = MercPtrs[0], *pTeamSoldier = NULL;
@@ -3579,7 +3579,7 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier )
 	return( usValue );
 }
 
-UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
+static UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 {
 	// this is an assignment
 	UINT32 usValue = 0;	
@@ -3615,7 +3615,7 @@ UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 	return( usValue );
 }
 
-UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT32 prisonguardvalue = 0;	
 
@@ -3636,7 +3636,7 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	return( prisonguardvalue );
 }
 
-UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT32 prisonguardvalue = 0;	
 
@@ -3657,7 +3657,7 @@ UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ
 	return( prisonguardvalue );
 }
 
-UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT8 numprisonguards = 0;
 
@@ -3832,7 +3832,7 @@ INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
 }
 
 // anv: handle prisoners exposing snitch as a snitch
-BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
+static BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 {
 	UINT32 uiSuspicion = 0;	
 	UINT32 uiCoverQuality = 0;
@@ -5090,7 +5090,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket(SOLDIERTYPE * pSoldier, OBJECTTYP
 }
 
 // Flugente: changed this function so that it repairs items up to a variable threshold instead of always 100%. This will only happen if the option gGameExternalOptions.fAdvRepairSystem is used
-void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, INT16 sThreshold, UINT8 * pubRepairPtsLeft )
+static void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, INT16 sThreshold, UINT8 * pubRepairPtsLeft )
 {
 	INT16		sRepairCostAdj;
 	UINT16	usDamagePts, usPtsFixed;
@@ -6814,7 +6814,7 @@ struct admintmpstruct
 	FLOAT percentage;
 };
 
-UINT16 GetNumberofAdministratableMercs( INT16 sX, INT16 sY )
+static UINT16 GetNumberofAdministratableMercs( INT16 sX, INT16 sY )
 {
 	UINT16 num = 0;
 	UINT8 townid_origin = GetTownIdForSector( sX, sY );
@@ -7927,7 +7927,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	return ( FALSE );
 }
 
-void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
+static void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
 {
 	arMilitiaType = -1;
 
@@ -11454,7 +11454,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForPrisonerMenu( );
 }
 
-void CreateDestroyMouseRegions( void )
+static void CreateDestroyMouseRegions( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
@@ -12671,7 +12671,7 @@ void RemoveMercMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
+static void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 {
 	// This function will setup the quote, then start dialogue beginning the actual leave sequence
 	if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
@@ -12774,7 +12774,7 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 }
 
 
-void MercDismissConfirmCallBack( UINT8 bExitValue )
+static void MercDismissConfirmCallBack( UINT8 bExitValue )
 {
 	if ( bExitValue == MSG_BOX_RETURN_YES )
 	{
@@ -21371,7 +21371,7 @@ void PayFacilityCostsYesNoBoxCallback( UINT8 bExitValue )
 }
 
 // HEADROCK HAM 3.6: Callback on agreeing to pay off facility debts before you can assign another character to facility work.
-void PayFacilityDebtManuallyYesNoBoxCallback( UINT8 bExitValue )
+static void PayFacilityDebtManuallyYesNoBoxCallback( UINT8 bExitValue )
 {
 	// This callback should only be called if the player can pay off the ENTIRE debt!!
 	Assert( LaptopSaveInfo.iCurrentBalance >= giTotalOwedForFacilityOperationsToday );
