@@ -5,7 +5,8 @@
 #include "Strategic Mines.h"
 #include "BobbyRMailOrder.h"
 #include "Tactical Save.h"
-#include "connect.h"
+#include "Strategic Movement.h"
+#include <Soldier Create.h>
 #include "FileMan.h"
 #include "GameSettings.h"
 #include "Game Init.h"
@@ -29,7 +30,6 @@
 #include "Explosion Control.h"
 #include "soldier tile.h"
 #include "Soldier Profile.h"
-#include "Soldier Functions.h"
 #include "Action Items.h"
 #include "AIInternals.h"
 #include "Handle Doors.h"
@@ -72,7 +72,6 @@ extern "C" {
 #include "lua_state.h"
 #include "lua_function.h"
 
-#include "Encrypted File.h"
 
 #include "BriefingRoom_Data.h"
 #include "MiniGame.h"	// added by Flugente
