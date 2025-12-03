@@ -19,8 +19,6 @@
 	#include "_Ja25EnglishText.h"
 	#include "Soldier Profile.h"
 
-#include "gameloop.h"
-#include "connect.h"
 #include "SaveLoadScreen.h"
 
 #ifdef JA2UB
@@ -28,9 +26,7 @@
 #endif
 
 #include <vfs/Core/vfs.h>
-#include <vfs/Core/vfs_init.h>
 #include <vfs/Tools/vfs_property_container.h>
-#include <vfs/Core/vfs_os_functions.h>
 
 #ifdef JA2UB
 
