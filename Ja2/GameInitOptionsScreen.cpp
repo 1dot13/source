@@ -21,14 +21,12 @@
 
 #include "SaveLoadScreen.h"
 
-#ifdef JA2UB
-	#include "ub_config.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Tools/vfs_property_container.h>
 
 #ifdef JA2UB
+#include "ub_config.h"
 
 // *********************************
 // Unfinished Business: Initial Game Screen
