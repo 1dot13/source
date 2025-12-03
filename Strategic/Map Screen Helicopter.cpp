@@ -15,24 +15,19 @@
 	#include "Strategic Movement.h"
 	#include "Soldier Profile.h"
 	#include "Assignments.h"
-	#include "PreBattle Interface.h"
 	#include "strategicmap.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "TileDat.h"
 	#include "Map Screen Interface.h"
 	#include "Text.h"
 	#include "Squads.h"
-	#include "Player Command.h"
 	#include "Sound Control.h"
 	#include "GameSettings.h"
 	#include "Meanwhile.h"
 	#include "Map Screen Interface Border.h"
-	#include "Strategic Event Handler.h"
 	#include "Overhead.h"
 	#include "Soldier Create.h"
 	#include "renderworld.h"
-	#include "soundman.h"
 	#include "Isometric Utils.h"
 	#include "Scheduling.h"
 	// HEADROCK HAM 3.5: Added facility-based skyrider costs modifier
@@ -42,7 +37,6 @@
 	#include "merc entering.h"	// added by Flugente
 	#include "ASD.h"			// added by Flugente
 
-#include "Vehicles.h"
 #include "NPC.h"
 #include "history.h"
 
