@@ -96,14 +96,14 @@ UINT8 gubCheatLevel = STARTING_CHEAT_LEVEL;
 UINT8			gubScreenCount=0;
 
 #ifdef JA2UB
-void InitCustomStrategicLayer ( void )
+static void InitCustomStrategicLayer ( void )
 {
 	LetLuaGameInit(2); //load custom InitStrategicLayer
 }
 
 #endif
 
-void InitNPCs( void )
+static void InitNPCs( void )
 {		
 
 #ifdef LUA_GAME_INIT_NPCS
