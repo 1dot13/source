@@ -85,20 +85,6 @@ extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 extern	BOOLEAN	gfUseConsecutiveQuickSaveSlots;
 #endif
 
-#if defined( GERMAN ) && !defined( _DEBUG )
-	//#define LASERLOCK_ENABLED
-#endif
-
-
-#ifdef LASERLOCK_ENABLED
-	int	LASERLOK_Init( HINSTANCE hInstance );
-	int	LASERLOK_Run();
-	int	LASERLOK_Check();
-
-	BOOLEAN	PrepareLaserLockSystem();
-	void HandleLaserLockResult( BOOLEAN fSuccess );
-//	int	TestCall( int n);
-#endif
 
 extern	HINSTANCE					ghInstance;
 
@@ -1401,11 +1387,6 @@ if( g_lang != i18n::Lang::en ) {
 
 UINT32 InitializeJA2(void)
 {
-
-#ifdef LASERLOCK_ENABLED
-	HandleLaserLockResult( PrepareLaserLockSystem() );
-#endif
-
 	HandleJA2CDCheck( );
 
 	gfWorldLoaded = FALSE;
@@ -1668,74 +1649,6 @@ void ShutdownJA2(void)
 	ClearOutVehicleList();
 }
 
-
-#ifdef LASERLOCK_ENABLED
-
-BOOLEAN PrepareLaserLockSystem()
-{
-	INT32	iInitRetVal=0;
-	INT32	iRunRetVal=0;
-	INT32	iCheckRetVal=0;
-	CHAR8 zDirectory[512];
-
-	CHAR8		zCdLocation[ SGPFILENAME_LEN ];
-	CHAR8		zCdFile[ SGPFILENAME_LEN ];
-
-	//Get the "current" file directory
-	GetFileManCurrentDirectory( zDirectory );
-
-	if( GetCDromDriveLetter( zCdLocation ) )
-	{
-		// OK, build filename
-		sprintf( zCdFile, "%s%s", zCdLocation, "Data" );
-	}
-	else
-	{
-		goto FAILED_LASERLOK;
-	}
-
-	//Go back to the root directory
-	SetFileManCurrentDirectory( zCdFile );
-	//Init the laser lock system
-	iInitRetVal = LASERLOK_Init( ghInstance );
-	if( iInitRetVal != 0 )
-		goto FAILED_LASERLOK;
-
-	//makes the verification of the laserlok system
-	iRunRetVal = LASERLOK_Run();
-	if( iRunRetVal != 0 )
-		goto FAILED_LASERLOK;
-
-	//checks the result of the laserlok run function
-	iCheckRetVal = LASERLOK_Check();
-	if( iCheckRetVal != 0 )
-		goto FAILED_LASERLOK;
-
-	//Restore back to the proper directory
-	SetFileManCurrentDirectory( zDirectory );
-	return( TRUE );
-
-FAILED_LASERLOK:
-	//Restore back to the proper directory
-	SetFileManCurrentDirectory( zDirectory );
-	return( FALSE );
-}
-
-void HandleLaserLockResult( BOOLEAN fSuccess )
-{
-	if( !fSuccess )
-	{
-		CHAR8	zString[512];
-
-		sprintf( zString, "%S", gzLateLocalizedString[56] );
-
-//		ShowCursor(TRUE);
-//		ShowCursor(TRUE);
-		ShutdownWithErrorBox( zString );
-	}
-}
-
-#endif
 
 void SetupMaxActionPointsAnimation()
 {
