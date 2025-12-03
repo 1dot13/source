@@ -19,7 +19,6 @@ extern HVSURFACE ghFrameBuffer;
 extern BOOLEAN gfSchedulesHosed;
 
 #ifdef JA2UB
-	#include "Ja25_Tactical.h"
 	#include "Ja25 Strategic Ai.h"
 #endif
 UINT8 gubLastLoadingScreenID = LOADINGSCREEN_NOTHING;
