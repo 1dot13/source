@@ -3,8 +3,6 @@
 	#include "Campaign Init.h"
 	#include "random.h"
 	#include "Campaign Types.h"
-	#include "Queen Command.h"
-	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "Strategic Status.h"
 	#include "GameSettings.h"
@@ -15,7 +13,6 @@
 	#include "Tactical Save.h"
 
 #include "connect.h"
-#include <vfs/Core/vfs.h>
 #include "XMLWriter.h"
 
 #include "UndergroundInit.h"
