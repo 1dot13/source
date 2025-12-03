@@ -304,7 +304,6 @@ void SelectHelpScrollAreaCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 // region to mask the background
 MOUSE_REGION	gHelpScreenScrollAreaArrows;
-void SelectHelpScrollAreaArrowsCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 
 //checkbox to toggle show help again toggle
