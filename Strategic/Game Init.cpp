@@ -9,11 +9,9 @@
 	#include "Soldier Profile.h"
 	#include "strategicmap.h"
 	#include "Game Init.h"
-	#include "Animation Data.h"
-	#include "finances.h"
+		#include "finances.h"
 	#include "Soldier Create.h"
-	#include "Soldier Init List.h"
-	#include "strategic.h"
+		#include "strategic.h"
 	#include "history.h"
 	#include "merc entering.h"
 	#include "Squads.h"
@@ -31,12 +29,10 @@
 	#include "Creature Spreading.h"
 	#include "Quests.h"
 	#include "Strategic AI.h"
-	#include "LaptopSave.h"
 	#include "AimMembers.h"
 	#include "Dialogue Control.h"
 	#include "NPC.h"
 	#include "GameSettings.h"
-	#include "interface Dialogue.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Helicopter.h"
 	#include "Vehicles.h"
@@ -51,22 +47,17 @@
 	// HEADROCK HAM 3.6: Include for adding facility debt reset
 	#include "Facilities.h"
 	// HEADROCK HAM 4: Include for initializing Manual Restrictions
-	#include "MilitiaSquads.h"
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "CampaignStats.h"						// added by Flugente
 	#include "PMC.h"								// added by Flugente
-	#include "ASD.h"								// added by Flugente
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
 	#include "World Items.h"
 
-#include "Vehicles.h"
-#include "Text.h"
 #include "connect.h"
 #include "XML.h"
 #include "mercs.h"
 #include "aim.h"
-#include "Map Screen Interface.h"
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
