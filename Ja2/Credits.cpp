@@ -13,7 +13,6 @@
 	#include "Font Control.h"
 	#include "Cursors.h"
 	#include "Font.h"
-	#include "WordWrap.h"
 	#include "sysutil.h"
 	#include "input.h"
 	#include "english.h"
