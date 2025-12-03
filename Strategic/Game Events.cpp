@@ -214,7 +214,7 @@ BOOLEAN DeleteEventsWithDeletionPending()
 }
 
 
-void AdjustClockToEventStamp( STRATEGICEVENT *pEvent, UINT32 *puiAdjustment )
+static void AdjustClockToEventStamp( STRATEGICEVENT *pEvent, UINT32 *puiAdjustment )
 {
 	UINT32 uiDiff;
 
