@@ -13,7 +13,6 @@
 	#include "english.h"
 	#include "GameSettings.h"
 	#include "Cursor Control.h"
-	#include "laptop.h"
 	#include "Text.h"
 	#include "Text Input.h"
 	#include "overhead map.h"
