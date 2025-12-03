@@ -1,22 +1,22 @@
-	#include "builddefines.h"
-	#include <stdio.h>
-	#include <types.h>
+#include "builddefines.h"
+#include <stdio.h>
+#include <types.h>
 #include <video.h>
-	#include <MemMan.h>
-	#include <Overhead Types.h>
+#include <MemMan.h>
+#include <Overhead Types.h>
 #include <Soldier Control.h>
-	#include "renderworld.h"
-	#include "input.h"
-	#include "Font.h"
-	#include "screenids.h"
-	#include "Overhead.h"
-	#include "Font Control.h"
-	#include "Animation Control.h"
-	#include "Animation Data.h"
-	#include "Render Dirty.h"
-	#include "Sys Globals.h"
-	#include "english.h"
-	#include "MessageBoxScreen.h"
+#include "renderworld.h"
+#include "input.h"
+#include "Font.h"
+#include "screenids.h"
+#include "Overhead.h"
+#include "Font Control.h"
+#include "Animation Control.h"
+#include "Animation Data.h"
+#include "Render Dirty.h"
+#include "Sys Globals.h"
+#include "english.h"
+#include "MessageBoxScreen.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
