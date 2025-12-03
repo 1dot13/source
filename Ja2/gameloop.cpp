@@ -78,7 +78,7 @@ void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen );
 
 #ifdef JA2BETAVERSION
 BOOLEAN gubReportMapscreenLock = 0;
-void ReportMapscreenErrorLock()
+static void ReportMapscreenErrorLock()
 {
 	switch( gubReportMapscreenLock )
 	{
