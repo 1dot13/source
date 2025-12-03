@@ -503,7 +503,7 @@ BOOLEAN ReadInHeliInfo(STR fileName)
 	return TRUE;
 }
 
-BOOLEAN WriteInInfo(STR fileName)
+static BOOLEAN WriteInInfo(STR fileName)
 {
 	HWFILE		hFile;
 
@@ -2439,7 +2439,7 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 	return( FALSE );
 }
 
-void HeliCrashSoundStopCallback( void *pData )
+static void HeliCrashSoundStopCallback( void *pData )
 {
 	SkyriderDestroyed( );
 }
@@ -2582,7 +2582,7 @@ BOOLEAN CanHelicopterTakeOff( void )
 	return( FALSE );
 }
 
-void AddHeliPiece( INT32 iGridNo, UINT16 sOStruct )
+static void AddHeliPiece( INT32 iGridNo, UINT16 sOStruct )
 {
 	UINT16 usDummy;
 
