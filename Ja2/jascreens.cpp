@@ -1,6 +1,5 @@
 	#include "builddefines.h"
-	#include <stdio.h>
-	#include <time.h>
+	#include <cstdio>
 	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
@@ -9,33 +8,22 @@
 	#include "WCheck.h"
 	#include "input.h"
 	#include "Font.h"
-	#include "timer.h"
-	#include "mousesystem.h"
 	#include "screenids.h"
 	#include "Screens.h"
 	#include "Font Control.h"
-	#include "sysutil.h"
-	#include "tiledef.h"
-	#include "worlddef.h"
-	#include "editscreen.h"
-	#include <wchar.h>
-	#include <tchar.h>
+	#include <Overhead Types.h>
+#include <Soldier Control.h>
 	#include "Timer Control.h"
 	#include "Sys Globals.h"
-	#include "Interface.h"
+	#include <Handle UI.h>
 	#include "Overhead.h"
 	#include "Utilities.h"
 	#include "Render Dirty.h"
 	#include "jascreens.h"
-	#include "gameloop.h"
-	#include "Event Pump.h"
-	#include "Animation Cache.h"
-	#include "lighting.h"
 	#include "mainmenuscreen.h"
 	#include "Game Init.h"
 	#include "Init.h"
 	#include "Cursor Control.h"
-	#include "Utilities.h"
 	#include "GameVersion.h"
 	#include "Game Clock.h"
 	#include "gamescreen.h"
@@ -43,7 +31,6 @@
 	#include "random.h"
 	#include "WordWrap.h"
 	#include "Sound Control.h"
-	#include "WordWrap.h"
 	#include "Text.h"
 	#include "INIReader.h"
 
