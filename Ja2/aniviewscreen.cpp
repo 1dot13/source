@@ -1,29 +1,21 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <time.h>
-	#include "sgp.h"
-	#include "gameloop.h"
-	#include "himage.h"
-	#include "vobject.h"
-	#include "vobject_blitters.h"
-	#include "worlddef.h"
+	#include <types.h>
+#include <video.h>
+	#include <MemMan.h>
+	#include <Overhead Types.h>
+#include <Soldier Control.h>
 	#include "renderworld.h"
 	#include "input.h"
 	#include "Font.h"
 	#include "screenids.h"
 	#include "Overhead.h"
-	#include "sysutil.h"
 	#include "Font Control.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
-	#include "Event Pump.h"
 	#include "Render Dirty.h"
 	#include "Sys Globals.h"
-	#include "Interface.h"
-	#include <wchar.h>
-	#include <tchar.h>
 	#include "english.h"
-	#include "FileMan.h"
 	#include "MessageBoxScreen.h"
 
 //forward declarations of common classes to eliminate includes
