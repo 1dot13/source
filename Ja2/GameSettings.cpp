@@ -13,7 +13,6 @@
 	#include "HelpScreen.h"
 	#include "INIReader.h"
 	#include "Shade Table Util.h"
-	#include "soldier profile type.h"
 	#include "random.h"
 	#include "SaveLoadGame.h"
 	#include "sgp.h"
@@ -36,7 +35,6 @@
 #include "connect.h"
 #include "sgp_logger.h"
 
-#include "Map Information.h"
 
 #include "GameInitOptionsScreen.h"
 
