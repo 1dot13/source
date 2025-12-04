@@ -11735,7 +11735,6 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 					// if he's in the helicopter
 					if( gCharactersList[ iValue + FIRSTmercTOdisplay ].usSolID->iVehicleId == iHelicopterVehicleId )
 					{
-						TurnOnAirSpaceMode( );
 						if( RequestGiveSkyriderNewDestination( ) == FALSE )
 						{
 							// not allowed to change destination of the helicopter
@@ -16025,8 +16024,14 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 		{
 			if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 			{
-				// turn off airspace mode automatically
-				ToggleAirspaceMode();
+				// turn airspace OFF	
+				gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+				MapBorderButtonOff(MAP_BORDER_AIRSPACE_BTN);
+				// dirty regions
+				fMapPanelDirty = TRUE;
+				fTeamPanelDirty = TRUE;
+				fCharacterInfoPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
 			}
 		}
 
