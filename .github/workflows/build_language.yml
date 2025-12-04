@@ -77,7 +77,7 @@ jobs:
           arch: x86
       - name: Prepare build
         run: |
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLanguages="$Env:JA2Language" -DApplications="$Env:JA2Application"
       - name: Build
         run: |
           cmake --build build/ -- -v
