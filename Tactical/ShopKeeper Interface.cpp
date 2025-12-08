@@ -1,4 +1,5 @@
-	#include "types.h"
+#include "builddefines.h"
+#include "types.h"
 	#include "ShopKeeper Interface.h"
 	#include "Utilities.h"
 	#include "Game Clock.h"
@@ -32,14 +33,11 @@
 	#include "Squads.h"
 	#include "Soldier Profile.h"
 	#include "message.h"
-	#include "personnel.h"
 	#include "LaptopSave.h"
 	#include "Quests.h"
 	#include "Weapons.h"
 	#include "MessageBoxScreen.h"
-	#include "line.h"
 	#include "Drugs And Alcohol.h"
-	#include "Map Screen Interface.h"
 	#include "Soldier macros.h"
 	#include "ArmsDealerInvInit.h"
 	#include "opplist.h"
@@ -49,22 +47,17 @@
 	#include "PATHAI.H"
 	#include "Points.h"
 	#include "InterfaceItemImages.h"
-	#include "Encyclopedia_new.h"
 	#include "Animation Control.h"	// added by Flugente
 	#include "Town Militia.h"		// added by Flugente
 
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "Ja25_Tactical.h"
+#include "soldier profile type.h"
+#include <mousesystem.h>
 #include "ub_config.h"
 #endif
 
-#include "builddefines.h"
 #include <algorithm>
 
 ////////////////////////////////////////////

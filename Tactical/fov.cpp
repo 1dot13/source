@@ -15,7 +15,6 @@
 	#include "english.h"
 	#include "random.h"
 	#include "input.h"
-	#include "Exit Grids.h"
 	#include "environment.h"
 	#include "worldman.h"
 	#include "Fog Of War.h"

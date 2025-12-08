@@ -3,21 +3,16 @@
 	#include "Animation Control.h"
 	#include "Points.h"
 	#include "opplist.h"
-	#include "timer.h"
-	#include "Event Pump.h"
 	#include "Sound Control.h"
 	#include "Interface.h"
 	#include "Isometric Utils.h"
 	#include "Font Control.h"
 	#include "ai.h"
-	#include "Interface.h"
 	#include "message.h"
 	#include "Text.h"
 	#include "TeamTurns.h"
 	#include "Smell.h"
 	#include "Game Clock.h"
-	#include "Soldier Functions.h"
-	#include "Cursors.h"
 	#include "Queen Command.h"
 	#include "PATHAI.H"
 	#include "lighting.h"
@@ -28,7 +23,6 @@
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
 	#include "Air Raid.h"
-	#include "Meanwhile.h"
 	#include "SkillCheck.h"
 	#include "AIInternals.h"
 	#include "AIList.h"
@@ -42,20 +36,22 @@
 	#include "Soldier Profile.h"
 	#include "NPC.h"
 	#include "Drugs And Alcohol.h"	// added by Flugente
+#include "GameSettings.h"
+#include "Reinforcement.h"
+#include "fresh_header.h"
+#include "connect.h"
+
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#endif
+#else
+#include "meanwhile.h"
+#endif // JA2UB
 
-// HEADROCK HAM 3.2: Gamesettings.h for external modifications to team turns.
-#include "GameSettings.h"
-#include "Reinforcement.h"
-#include "fresh_header.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-#include "connect.h"
 
 extern INT8 STRAIGHT;
 //extern UINT8 gubSpeedUpAnimationFactor;

@@ -1,16 +1,14 @@
 #include "connect.h"
-#include "builddefines.h"
-#include <stdio.h>
-#include <string.h>
-#include "stdlib.h"
+#include <wchar.h>
+#include <cmath>
+#include <cstdio>
+#include <vector>
 #include "DEBUG.H"
-#include "math.h"
 #include "jascreens.h"
 #include "PATHAI.H"
 #include "Soldier Control.h"
 #include "Animation Control.h"
 #include "Animation Data.h"
-#include "Event Pump.h"
 #include "Timer Control.h"
 #include "mousesystem.h"
 #include "Cursors.h"
@@ -31,39 +29,31 @@
 #include "renderworld.h"
 #include "structure.h"
 #include "Interface Panels.h"
-#include "Weapons.h"
 #include "Handle items.h"
 #include "UI Cursors.h"
 #include "Handle UI Plan.h"
 #include "message.h"
 #include "Render Fun.h"
 #include "Interface Items.h"
-#include "physics.h"
 #include "Soldier Profile.h"
 #include "strategicmap.h"
-#include "Soldier Profile.h"
 #include "Soldier Create.h"
 #include "Soldier Add.h"
-#include "interface Dialogue.h"
+#include <NPC.h>
 #include "Soldier macros.h"
 #include "Soldier Functions.h"
 #include "Assignments.h"
 #include "Squads.h"
-#include "Strategic Pathing.h"
 #include "Strategic Movement.h"
 #include "strategic.h"
 #include "Exit Grids.h"
 #include "Structure Wrap.h"
-#include "Soldier Add.h"
-#include "random.h"
-#include "english.h"
 #include "random.h"
 #include "english.h"
 #include "Vehicles.h"
 #include "MessageBoxScreen.h"
 #include "Text.h"
 #include "Dialogue Control.h"
-#include "line.h"
 #include "GameSettings.h"
 #include "LOS.h"
 #include "Campaign Types.h"
@@ -78,13 +68,9 @@
 #include "qarray.h"
 #include "environment.h"
 #include "Map Information.h"
-#include "Soldier Control.h"
 #include "DisplayCover.h"
-#include "english.h"		// sevenfm: this is needed for _keydown(SHIFT) to work
 
 #include "TeamTurns.h"
-#include "Options Screen.h"
-#include "SaveLoadScreen.h"
 #include "Map Screen Interface.h"	// added by Flugente for SquadNames
 #include "Keys.h"	// added by silversurfer for door handling from the side
 

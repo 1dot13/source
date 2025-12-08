@@ -2,12 +2,9 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "WCheck.h"
-	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
-
-	#include "jascreens.h"
 	#include "tiledef.h"
 	#include "Sys Globals.h"
 	#include "Debug Control.h"

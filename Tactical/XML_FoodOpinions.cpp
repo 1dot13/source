@@ -1,5 +1,6 @@
 	#include "sgp.h"
-	#include "Overhead.h"
+	#include "FileMan.h"
+#include "Soldier Control.h"
 	#include "Food.h"
 	#include "Debug Control.h"
 	#include "expat.h"

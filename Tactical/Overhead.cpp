@@ -1,15 +1,14 @@
-#include <stdio.h>
+#include <cstdio>
 #include <string.h>
 #include <random>
 #include <array>
 #include "WCheck.h"
-#include "stdlib.h"
+#include <cstdlib>
 #include "DEBUG.H"
 #include "worlddef.h"
 #include "worldman.h"
 #include "renderworld.h"
 #include "Assignments.h"
-//#include "Soldier Control.h"
 #include "Animation Control.h"
 #include "Animation Data.h"
 #include "Isometric Utils.h"
@@ -80,8 +79,6 @@
 #include "Keys.h"
 #include "Boxing.h"
 #include "Town Militia.h"
-#include "Meanwhile.h"
-#include "Map Screen Helicopter.h"
 #include "Interface Control.h"
 #include "Exit Grids.h"
 #include "jascreens.h"
@@ -93,9 +90,6 @@
 #include "Drugs And Alcohol.h"
 #include "history.h"
 #include "LOS.h"
-#include "interface Dialogue.h"
-#include "Strategic AI.h"
-#include "End Game.h"
 #include "Strategic Status.h"
 #include "PreBattle Interface.h"
 #include "Militia Control.h"
@@ -110,25 +104,28 @@
 #include "Rebel Command.h"
 #include "MilitiaSquads.h"
 #include "connect.h"
-
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"
 #include "Vehicles.h"
+#include "XML.h"
+#include "GameInitOptionsScreen.h"
+
+
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #include "Soldier Control.h"
 #include "ub_config.h"
-#endif
-
-#ifdef JA2UB
 #else
-	// anv: for playable Speck
+#include "interface Dialogue.h"
+#include "Meanwhile.h"
+#include "Strategic AI.h"
+#include "Map Screen Helicopter.h"
+#include "End Game.h"
+// anv: for playable Speck
 	#include "mercs.h"
 #endif
 
-#include "XML.h"
-#include "GameInitOptionsScreen.h"
 
 // OJW - 20090419
 UINT16   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;

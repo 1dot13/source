@@ -1,7 +1,6 @@
 	#include "sgp.h"
 	#include "Overhead Types.h"
 	#include "Sound Control.h"
-	#include "Cheats.h"
 	#include "Overhead.h"
 	#include "Event Pump.h"
 	#include "Weapons.h"
@@ -26,14 +25,13 @@
 	#include "SkillCheck.h"
 	#include "Render Fun.h"
 	#include "Explosion Control.h"
-	#include "Quests.h"
+	#include "strategicmap.h"
 	#include "physics.h"
 	#include "random.h"
 	#include "Vehicles.h"
 	#include "Bullets.h"
 	#include "Morale.h"
 	#include "Meanwhile.h"
-	#include "SkillCheck.h"
 	#include "GameSettings.h"
 	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
@@ -45,22 +43,21 @@
 	#include "Auto Resolve.h"
 	#include "Soldier Functions.h" // added by SANDRO
 	#include "Drugs And Alcohol.h" // HEADROCK HAM 4: Get drunk level
-	#include "LOS.h" // HEADROCK HAM 4: Required for new shooting mechanism. Alternately, maybe move the functions to LOS.h.
 	#include "Campaign Types.h"	// added by Flugente
 	#include "CampaignStats.h"	// added by Flugente
 	#include "environment.h"	// added by silversurfer
 	// sevenfm
 	#include "Buildings.h"		// SameBuilding
+#include "connect.h"
+// anv: for taunts on miss
+#include "Civ Quotes.h"
+#include "GameInitOptionsScreen.h"
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-#include "connect.h"
 
-// anv: for taunts on miss
-#include "Civ Quotes.h"
-
-#include "GameInitOptionsScreen.h"
 
 // sevenfm: this global variable is needed to correctly set default number of bullets for autofire
 extern BOOLEAN gfAutofireInitBulletNum;

@@ -1,18 +1,15 @@
-#include <stdio.h>
-#include <string.h>
 #include "stdlib.h"
 #include "DEBUG.H"
 #include "MemMan.h"
 #include "Overhead Types.h"
 #include "Soldier Control.h" // I need this here - SANDRO
-#include "Animation Cache.h"
 #include "Animation Data.h"
 #include "Animation Control.h"
 #include "Weapons.h"
 #include "Soldier Ani.h"
 #include "random.h"
 #include "video.h"
-#include "vobject_blitters.h"
+#include "shading.h"
 #include "Sound Control.h"
 #include "Isometric Utils.h"
 #include "Handle UI.h"
@@ -33,11 +30,9 @@
 #include "merc entering.h"
 #include "Soldier Add.h"
 #include "Soldier Profile.h"
-#include "Soldier Functions.h"
 #include "Interface.h"
 #include "qarray.h"
 #include "Soldier macros.h"
-#include "Strategic Town Loyalty.h"
 #include "Squads.h"
 #include "worldman.h"
 #include "Structure Wrap.h"
@@ -45,16 +40,12 @@
 #include "pits.h"
 #include "Text.h"
 #include "NPC.h"
-#include "Meanwhile.h"
 #include "Explosion Control.h"
-#include "fov.h"
-#include "Campaign.h"
 #include "LOS.h"
 #include "GameSettings.h"
 #include "Boxing.h"
 #include "Drugs And Alcohol.h"
 #include "Smell.h"
-#include "GameSettings.h"
 #include "interface Dialogue.h"
 #include "Strategic Status.h"
 #include "Food.h"
@@ -64,15 +55,21 @@
 #include "Town Militia.h"				// added by Flugente
 #include "PreBattle Interface.h"		// added by Flugente
 #include "Rebel Command.h"
-
-// anv: for enemy taunts
 #include "Civ Quotes.h"
+#include "connect.h"
+#include "fresh_header.h"
+
+#ifdef JA2UB
+#else
+#include "Meanwhile.h"
+#endif // JA2UB
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-#include "connect.h"
-#include "fresh_header.h"
+
+
 #define		NO_JUMP											0
 #define		MAX_ANIFRAMES_PER_FLASH			3
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10

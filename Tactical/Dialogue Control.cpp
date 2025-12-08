@@ -34,8 +34,6 @@
 	#include "Map Screen Interface.h"
 	#include "Text.h"
 	#include "Merc Contract.h"
-	#include "Town Militia.h"
-	#include "Meanwhile.h"
 	#include "SkillCheck.h"
 	#include "Interface Control.h"
 	#include "Civ Quotes.h"
@@ -52,9 +50,15 @@
 #include <queue>
 
 #include "connect.h"
+
+#ifndef JA2UB
+#include "Town Militia.h"
+#include "Meanwhile.h"
+#endif // !JA2UB
+
+
 #ifdef JA2UB
 #include "Intro.h"
-#include "MapScreen Quotes.h"
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #include "Animation Control.h"

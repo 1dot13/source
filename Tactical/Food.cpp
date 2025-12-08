@@ -1,4 +1,3 @@
-	#include <math.h>
 	#include "sgp.h"
 	#include "Soldier Profile.h"
 	#include "Food.h"
@@ -14,11 +13,9 @@
 	#include "Sound Control.h"
 	#include "Assignments.h"
 	#include "Overhead.h"
-	#include "Isometric Utils.h"
 	#include "Campaign Types.h"
 	#include "Drugs And Alcohol.h"
 	#include "environment.h"
-	#include "WorldDat.h"
 	#include "Facilities.h"
 	#include "Soldier macros.h"
 	#include "strategicmap.h"

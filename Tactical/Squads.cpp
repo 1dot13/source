@@ -15,7 +15,6 @@
 	#include "screenids.h"
 	#include "Soldier macros.h"
 	#include "GameSettings.h"
-#include <vector>
 
 
 typedef struct

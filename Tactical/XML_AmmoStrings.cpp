@@ -1,5 +1,4 @@
 	#include "sgp.h"
-	#include "Overhead Types.h"
 	#include "Overhead.h"
 	#include "Text.h"
 	#include "Debug Control.h"

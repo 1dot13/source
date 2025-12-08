@@ -9,7 +9,7 @@
 	#include "sysutil.h"
 	#include "Font Control.h"
 	#include "Text.h"
-	#include "PopUpBox.h"
+	#include "Render Dirty.h"
 	#include "Cursors.h"
 	#include "Strategic Exit GUI.h"
 	#include "MercTextBox.h"
@@ -18,12 +18,10 @@
 	#include "Cursor Control.h"
 	#include "input.h"
 	#include "english.h"
-	#include "Text.h"
 	#include "Strategic Movement.h"
 	#include "Squads.h"
 	#include "Assignments.h"
 	#include "Soldier macros.h"
-	#include "Map Screen Interface Map.h"
 	#include "PreBattle Interface.h"
 	#include "strategic.h"
 	#include "MessageBoxScreen.h"
@@ -32,8 +30,6 @@
 	#include "Queen Command.h"		// added by Flugente
 
 #ifdef JA2UB
-#include "Explosion Control.h"
-#include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
 #endif
 

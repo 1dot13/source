@@ -1,6 +1,5 @@
 	#include "types.h"
 	#include "ArmsDealerInvInit.h"
-	//#include "Item Types.h"
 	#include "Arms Dealer Init.h"
 	#include "DEBUG.H"
 	#include "Weapons.h"

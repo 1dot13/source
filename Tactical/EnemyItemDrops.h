@@ -1,6 +1,8 @@
 #ifndef _ENEMY_ITEM_DROPS__H_
 #define	_ENEMY_ITEM_DROPS__H_
 
+#include "types.h"
+
 #define MAX_DROP_ITEMS		100
 
 typedef struct

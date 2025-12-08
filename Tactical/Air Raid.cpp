@@ -20,11 +20,9 @@
 	#include "Explosion Control.h"
 	#include "Interface.h"
 	#include "Music Control.h"
-	#include "Campaign Types.h"
 	#include "GameSettings.h"
 	#include "Text.h"
 	#include "Morale.h"
-	#include "Map Screen Helicopter.h"
 	#include "Structure Wrap.h"
 	#include "Meanwhile.h"
 

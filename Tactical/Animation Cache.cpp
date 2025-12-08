@@ -1,9 +1,5 @@
-	#include <stdio.h>
-	#include <string.h>
-
 	#include "types.h"
 	#include "WCheck.h"
-	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "Animation Cache.h"
 	#include "Animation Data.h"

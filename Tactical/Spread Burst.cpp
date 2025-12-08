@@ -1,10 +1,6 @@
-	#include <stdio.h>
-	#include <string.h>
 	#include "stdlib.h"
 	#include "DEBUG.H"
-	//#include "Soldier Control.h"
 	#include "Weapons.h"
-	#include "Cursor Control.h"
 	#include "Soldier Find.h"
 	#include "Isometric Utils.h"
 	#include "renderworld.h"

@@ -1,8 +1,7 @@
 #ifndef LOS_H
 #define LOS_H
 
-//#define LOS_DEBUG
-#include "WorldDat.h" // needed for MAX_TILESETS
+#include "Soldier Control.h"
 
 // fixed-point arithmetic definitions start here
 

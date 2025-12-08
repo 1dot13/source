@@ -1,9 +1,8 @@
-	#include "builddefines.h"
-
+	#include <string.h>
 	#include "worlddef.h"
-	#include "sysutil.h"
+	#include <Isometric Utils.h>
 	#include "WCheck.h"
-	#include "vobject_blitters.h"
+	#include <shading.h>
 	#include "Overhead.h"
 	#include "Bullets.h"
 	#include "LOS.h"

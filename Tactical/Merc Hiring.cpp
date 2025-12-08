@@ -1,25 +1,14 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "renderworld.h"
 	#include "Assignments.h"
 	#include "merc entering.h"
 	#include "Animation Control.h"
-	#include "Animation Data.h"
-	#include "Isometric Utils.h"
-	#include "Event Pump.h"
-	#include "Render Fun.h"
-	#include "Interface.h"
-	#include "sysutil.h"
-	#include "FileMan.h"
+	#include "Handle UI.h"
+	#include <Font Control.h>
 	#include "random.h"
-	#include "ai.h"
-	#include "Interactive Tiles.h"
-	#include "english.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Game Clock.h"
@@ -30,7 +19,6 @@
 	#include "strategicmap.h"
 	#include "strategic.h"
 	#include "Items.h"
-	#include "Soldier Add.h"
 	#include "history.h"
 	#include "Squads.h"
 	#include "Strategic Merc Handler.h"
@@ -43,12 +31,10 @@
 	#include "Merc Contract.h"
 	#include "LaptopSave.h"
 	#include "personnel.h"
-	#include "Auto Resolve.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Quests.h"
 	#include "GameSettings.h"
 	#include "DynamicDialogue.h"// added by Flugente
-	#include "Dialogue Control.h"	// added by Flugente
 #include "connect.h"
 #include "Map Information.h"
 
@@ -61,9 +47,6 @@
 #include "opplist.h"
 #include "Ja25Update.h"
 #include "ub_config.h"
-#endif
-
-#ifdef JA2UB
 #else
 	// anv: for Kulba's odyssey
 	#include "email.h"

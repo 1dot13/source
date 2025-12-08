@@ -5,36 +5,32 @@
 	#include "Isometric Utils.h"
 	#include "Interface Panels.h"
 	#include "Soldier macros.h"
-	#include "strategicmap.h"
 	#include "strategic.h"
 	#include "Animation Control.h"
-	#include "Soldier Create.h"
-	#include "Soldier Init List.h"
 	#include "Soldier Add.h"
 	#include "Map Information.h"
 	#include "fov.h"
 	#include "PATHAI.H"
 	#include "random.h"
 	#include "Render Fun.h"
-	#include "Meanwhile.h"
 	#include "Exit Grids.h"
-	#include "Interface.h"			// added by Flugente for zBackground
 	#include "renderworld.h"		// added by Flugente
-	#include "Vehicles.h"			// added by Flugente
 	#include "CampaignStats.h"		// added by Flugente
 	#include "worldman.h"			// added by Flugente for Water(...)
-
-#ifdef JA2UB
-#include "Ja25 Strategic Ai.h"
-#include "Ja25_Tactical.h"
-#include "ub_config.h"
-#endif
-
 #include "GameSettings.h"	// ary-05/05/2009 : add forced turn mode
 #include "Text.h"			//	: add forced turn mode
 #include "Font Control.h"	//	: add forced turn mode
 #include "message.h"		//  : add forced turn mode
 #include "connect.h"
+
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "ub_config.h"
+#else
+#include "Meanwhile.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;

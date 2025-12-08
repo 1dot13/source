@@ -1,6 +1,5 @@
 #include "types.h"
 #include "windows.h"
-//#include "Soldier Control.h"
 #include "input.h"
 #include "english.h"
 #include "Isometric Utils.h"
@@ -18,18 +17,12 @@
 #include "vsurface.h"
 #include "line.h"
 #include "LOS.h"
-// added by SANDRO
 #include "SkillCheck.h"
 #include "soldier profile type.h"
 #include "Soldier macros.h"
-#include "Encyclopedia_new.h"	///< Encyclopedia item visibility
-// sevenfm
 #include "ai.h"
 #include "AIInternals.h"
 #include "opplist.h"
-#include "Map Screen Interface.h"
-#include "Cheats.h"
-#include "Drugs And Alcohol.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

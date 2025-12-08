@@ -1,6 +1,5 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "Overhead Types.h"
 
@@ -31,22 +30,16 @@
 	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "DynamicDialogue.h"
+#include "email.h"
+#include "mercs.h"
 
 #ifdef JA2UB
-#include "Explosion Control.h"
-#include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
 #include "ub_config.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
 
-#include "email.h"
-#include "mercs.h"
 
 
 //forward declarations of common classes to eliminate includes

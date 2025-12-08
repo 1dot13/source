@@ -1,42 +1,25 @@
-	#include <wchar.h>
-	#include <stdio.h>
-	#include <string.h>
 	#include "Render Fun.h"
-	#include "stdlib.h"
 	#include "DEBUG.H"
-	#include "MemMan.h"
 	#include "Overhead Types.h"
 
-	#include "Animation Cache.h"
-	#include "Animation Data.h"
+	#include "EditorMercs.h"
+#include "Overhead.h"
 	#include "Animation Control.h"
 	#include "PATHAI.H"
-	#include "random.h"
 	#include "worldman.h"
 	#include "Isometric Utils.h"
 	#include "renderworld.h"
-	#include "video.h"
 	#include "Points.h"
-//	#include "Sound Control.h"
 	#include "lighting.h"
-	#include "Weapons.h"
-	#include "vobject_blitters.h"
-	#include "Handle UI.h"
-	#include "Event Pump.h"
 	#include "opplist.h"
 	#include "ai.h"
-	#include "Interface.h"
-	#include "lighting.h"
-	#include "faces.h"
-	#include "Soldier Profile.h"
-
+		
 	#ifdef NETWORKED
 	#include "Networking.h"
 	#include "NetworkEvent.h"
 	#endif
 
 	#include "Items.h"
-	#include "soundman.h"
 	#include "soldier tile.h"
 	#include "Soldier Add.h"
 	#include "fov.h"

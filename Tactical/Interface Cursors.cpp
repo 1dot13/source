@@ -1,9 +1,5 @@
-	#include <stdio.h>
-	#include <time.h>
 	#include "sgp.h"
 	#include "mousesystem.h"
-	#include "vsurface.h"
-	#include "input.h"
 	#include "Handle UI.h"
 	#include "Cursors.h"
 	#include "worlddef.h"
@@ -11,7 +7,6 @@
 	#include "Interface Cursors.h"
 	#include "Interface.h"
 	#include "Isometric Utils.h"
-	#include "Cursors.h"
 	#include "Sys Globals.h"
 	#include "Overhead.h"
 	#include "Interface Items.h"

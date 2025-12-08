@@ -1,40 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include "stdlib.h"
-#include "DEBUG.H"
-#include "math.h"
-#include "jascreens.h"
-#include "PATHAI.H"
-//#include "Soldier Control.h"
+#include <Button System.h>
 #include "Animation Control.h"
-#include "Animation Data.h"
-#include "Event Pump.h"
+#include "Soldier Find.h"
 #include "Timer Control.h"
 #include "Handle UI.h"
 #include "Isometric Utils.h"
 #include "input.h"
 #include "Overhead.h"
 #include "Sys Globals.h"
-#include "screenids.h"
 #include "Interface.h"
-#include "Cursor Control.h"
 #include "Interactive Tiles.h"
 #include "Spread burst.h"
-#include "world items.h"
 #include "Interface Items.h"
-#include "physics.h"
 #include "UI Cursors.h"
-#include "strategicmap.h"
-#include "Soldier Profile.h"
-#include "Soldier Create.h"
-#include "Soldier Add.h"
 #include "Dialogue Control.h"
 #include "interface Dialogue.h"
-#include "Interactive Tiles.h"
-#include "MessageBoxScreen.h"
-#include "gameloop.h"
-#include "Spread burst.h"
-#include "Explosion Control.h"
+#include <mousesystem.h>
 #include "message.h"
 #include "Strategic Exit GUI.h"
 #include "Assignments.h"
@@ -46,21 +26,19 @@
 #include "Soldier macros.h"
 #include "Render Dirty.h"
 #include "Militia Control.h"
-#include "Render Dirty.h"
-#include "Militia Control.h"
-///***dddd
 #include "Squads.h"
 #include "Interface Panels.h"
 #include "Soldier Functions.h"
-#include "SaveLoadMap.h"
-#include "WorldDat.h" //for gtileset
-#include "Debug Control.h" //for livelog
-
 #include "SkillMenu.h"			// sevenfm: need this for TraitsMenu
 #include "DisplayCover.h"		// added by Sevenfm
-
 #include "Vehicles.h"	// anv: for switching from soldier to vehicle
-#include "VehicleMenu.h"
+#include <types.h>
+#include "Item Types.h"
+#include "Items.h"
+#include "Overhead Types.h"
+#include "Soldier Control.h"
+#include "Weapons.h"
+#include <Font Control.h>
 
 
 

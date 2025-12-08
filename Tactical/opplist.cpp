@@ -1,8 +1,6 @@
 	#include "sgp.h"
-	//#include "ai.h"
 	#include "Isometric Utils.h"
 	#include "Overhead.h"
-	#include "math.h"
 	#include "Event Pump.h"
 	#include "random.h"
 	#include "Overhead Types.h"
@@ -26,15 +24,12 @@
 	#include "Soldier macros.h"
 	#include "Soldier Functions.h"
 	#include "Handle UI.h"
-	#include "Queen Command.h"
 	#include "Keys.h"
 	#include "Campaign.h"
 	#include "Soldier Init List.h"
 	#include "Music Control.h"
-	#include "Soldier Profile.h"
 	#include "strategicmap.h"
 	#include "Quests.h"
-	#include "Meanwhile.h"
 	#include "worldman.h"
 	#include "SkillCheck.h"
 	#include "GameSettings.h"
@@ -42,23 +37,23 @@
 	#include "Game Clock.h"
 	#include "Civ Quotes.h"
 	#include "Sound Control.h"
-	#include "Drugs And Alcohol.h"
 	#include "Interface.h"
 	#include "Explosion Control.h"//dnl ch40 200909
 	#include "Vehicles.h"
-
-#ifdef JA2UB
-#include "Ja25_Tactical.h"
-#endif
-
 #include "GameInitOptionsScreen.h"
-
-#include "Music Control.h"
-
 #include "connect.h"
 #include "../ModularizedTacticalAI/include/Plan.h"
 #include "../ModularizedTacticalAI/include/PlanFactoryLibrary.h"
 #include "../ModularizedTacticalAI/include/AbstractPlanFactory.h"
+
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#else
+#include "Meanwhile.h"
+#endif
+
+
 
 //rain
 //#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
