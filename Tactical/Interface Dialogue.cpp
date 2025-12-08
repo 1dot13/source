@@ -78,6 +78,9 @@
 // anv: for playable Speck
 #include "Speck Quotes.h"
 #include "mercs.h"
+#endif
+
+#ifndef _DEBUG
 #include "Cheats.h"
 #endif
 
