@@ -8,8 +8,6 @@
 	#include "Isometric Utils.h"
 	#include "Morale.h"
 	#include "Drugs And Alcohol.h"
-	#include "strategicmap.h"
-	// added by SANDRO
 	#include "GameSettings.h"
 	#include "Animation Data.h"
 	#include "Soldier Control.h"

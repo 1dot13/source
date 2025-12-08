@@ -1,10 +1,9 @@
 	#include "sgp.h"
-	#include "Overhead.h"
-	#include "Weapons.h"
+	#include "FileMan.h"
+#include "Item Types.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-//	#include "SectorLoadscreens.h"
 
 struct
 {

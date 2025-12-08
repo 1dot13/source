@@ -1,4 +1,3 @@
-	#include <memory.h>
 	#include "Inventory Choosing.h"
 	#include "Animation Data.h"
 	#include "Items.h"
@@ -15,7 +14,6 @@
 	#include "strategic.h"
 	#include "Game Clock.h"
 	#include "message.h"
-	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 	#include "Rebel Command.h"
 extern WorldItems gAllWorldItems;

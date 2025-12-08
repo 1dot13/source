@@ -2,7 +2,6 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-	#include "Interface.h"
 	#include "faces.h"
 
 struct

@@ -1,10 +1,7 @@
 	#include "builddefines.h"
 	#include "mapscreen.h"
 	#include <stdio.h>
-	#include <stdarg.h>
-	#include <time.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
@@ -19,7 +16,6 @@
 	#include "renderworld.h"
 	#include "Sys Globals.h"
 	#include "Cursors.h"
-	#include "Radar Screen.h"
 	#include "Font Control.h"
 	#include "Render Dirty.h"
 	#include "Utilities.h"
@@ -30,15 +26,12 @@
 	#include "Weapons.h"
 	#include "lighting.h"
 	#include "faces.h"
-	#include "mapscreen.h"
 	#include "message.h"
 	#include "Text.h"
 	#include "Interface Items.h"
-	#include "Font Control.h"
 	#include "Cursor Control.h"
 	#include "Interface Cursors.h"
 	#include "Interface Utils.h"
-	#include "Interface Items.h"
 	#include "WordWrap.h"
 	#include "Interface Control.h"
 	#include "vobject_blitters.h"
@@ -47,7 +40,6 @@
 	#include "physics.h"
 	#include "finances.h"
 	#include "UI Cursors.h"
-	#include "Handle UI.h"
 	#include "ShopKeeper Interface.h"
 	#include "Dialogue Control.h"
 	#include "english.h"
@@ -67,7 +59,6 @@
 	#include "Map Screen Interface Map.h"
 	#include "Interface Enhanced.h"
 	#include "InterfaceItemImages.h"
-	#include "Auto Resolve.h"
 	#include "popup_callback.h"
 	// BOB : quick attachment popup
 	#include "popup_class.h"
@@ -75,18 +66,9 @@
 	#include "SkillCheck.h"				// added by Flugente
 	#include "random.h"					// added by Flugente
 	#include "Explosion Control.h"		// added by Flugente
-	#include "Food.h"					// added by Flugente
-	#include "Encyclopedia_new.h"	//Moa: enc. item visibility
-	// sevenfm:
-	#include "Soldier Control.h"
 	#include "Sound Control.h"
 
-#include "Multi Language Graphic Utils.h"
 #include <language.hpp>
-
-#ifdef JA2UB
-#include "Ja25_Tactical.h"
-#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

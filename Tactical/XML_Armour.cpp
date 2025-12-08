@@ -1,6 +1,5 @@
 	#include "sgp.h"
 	#include "Weapons.h"
-	#include "Overhead.h"
 	#include "GameSettings.h"
 	#include "Debug Control.h"
 	#include "expat.h"

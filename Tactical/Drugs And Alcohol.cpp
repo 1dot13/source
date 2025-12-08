@@ -3,16 +3,13 @@
 	#include "Soldier Profile.h"
 	#include "Drugs And Alcohol.h"
 	#include "Items.h"
-	#include "Morale.h"
 	#include "Points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
 	#include "random.h"
 	#include "Text.h"
 	#include "Interface.h"
-	#include "Food.h"			// added by Flugente
-	#include "Animation Data.h"	// added by Flugente for SoldierBodyTypes
-	#include "CampaignStats.h"	// added by Flugente
+	#include "Overhead.h"
 	#include "DynamicDialogue.h"// added by Flugente
 
 //forward declarations of common classes to eliminate includes

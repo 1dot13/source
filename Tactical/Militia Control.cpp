@@ -5,7 +5,6 @@
 	#include "Campaign Types.h"
 	#include "Overhead.h"
 	#include "strategicmap.h"
-	#include "PreBattle Interface.h"
 	#include "Map Screen Interface.h"
 	#include "Queen Command.h"
 	#include "strategic.h"
@@ -28,7 +27,6 @@
 	#include "Isometric Utils.h"
 	#include "MilitiaSquads.h"
 	#include "MilitiaIndividual.h"	// added by Flugente
-	#include "CampaignStats.h"		// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

@@ -1,9 +1,7 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
@@ -30,9 +28,8 @@
 	#include "lighting.h"
 	#include "Interface Panels.h"
 	#include "PATHAI.H"
-	#include "vobject_blitters.h"
+	#include <shading.h>
 	#include "faces.h"
-	#include "Handle UI Plan.h"
 	#include "Interface Control.h"
 	#include "Interface Items.h"
 	#include "Soldier Profile.h"
@@ -46,15 +43,11 @@
 	#include "Soldier macros.h"
 	#include "Game Clock.h"
 	#include "physics.h"
-	#include "Map Screen Interface Map.h"
 	#include "line.h"
 	#include "Vehicles.h"
-	#include "MessageBoxScreen.h"
 	#include "GameSettings.h"
 	#include "Squads.h"
 	#include "message.h"
-    #include "strategicmap.h"
-	#include "Queen Command.h"
 	// HEADROCK HAM 4: Included for new CTH indicator
 	#include "Weapons.h"
 	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
@@ -65,14 +58,7 @@
 
 #include "InterfaceItemImages.h"
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
-#include "ub_config.h"
 #endif
 
 #include "connect.h"

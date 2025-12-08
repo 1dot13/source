@@ -1,14 +1,13 @@
+#include "Soldier Functions.h"
 #include "builddefines.h"
 #include <wchar.h>
 #include <stdio.h>
 #include <string.h>
 #include "WCheck.h"
-#include "Render Fun.h"
 #include "stdlib.h"
 #include "DEBUG.H"
 #include "MemMan.h"
 #include "Overhead Types.h"
-//#include "Soldier Control.h"
 #include "Animation Cache.h"
 #include "Animation Data.h"
 #include "Animation Control.h"
@@ -23,7 +22,7 @@
 #include "Points.h"
 #include "Sound Control.h"
 #include "Weapons.h"
-#include "vobject_blitters.h"
+#include "shading.h"
 #include "Handle UI.h"
 #include "Soldier Ani.h"
 #include "Event Pump.h"
@@ -33,12 +32,10 @@
 #include "lighting.h"
 #include "faces.h"
 #include "Soldier Profile.h"
-#include "GAP.H"
 #include "Campaign.h"
 #include "Soldier macros.h"
 #include "english.h"
 #include "Squads.h"
-
 #ifdef NETWORKED
 #include "Networking.h"
 #include "NetworkEvent.h"
@@ -52,9 +49,7 @@
 #include "Smell.h"
 #include "Keys.h"
 #include "Dialogue Control.h"
-#include "Soldier Functions.h"
 #include "rt time defines.h"
-#include "Exit Grids.h"
 #include "Quests.h"
 #include "message.h"
 #include "NPC.h"
@@ -70,7 +65,6 @@
 #include "Interface Control.h"
 #include "strategicmap.h"
 #include "Morale.h"
-#include "Meanwhile.h"
 #include "Drugs And Alcohol.h"
 #include "Boxing.h"
 #include "overhead map.h"
@@ -84,7 +78,6 @@
 #include "Campaign Types.h"
 #include "Strategic Status.h"
 #include "Civ Quotes.h"
-#include "Strategic Pathing.h"
 #include "Debug Control.h"
 #include "LOS.h" // added by SANDRO
 #include "CampaignStats.h"		// added by Flugente
@@ -97,22 +90,9 @@
 #include "MilitiaIndividual.h"	// added by Flugente
 #include "Arms Dealer Init.h"	// added by Flugente for armsDealerInfo[]
 #include "LuaInitNPCs.h"		// added by Flugente
-#include "SaveLoadMap.h"		// added by Flugente
 #include "qarray.h"				// added by Flugente
-
-#include "ub_config.h"
-#include "../ModularizedTacticalAI/include/Plan.h" // for plan destructor call
-
-#ifdef JA2UB
-#include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
-#endif
-
 #include "GameInitOptionsScreen.h"
-
 #include "fresh_header.h"
-
-
 #include "IMP Skill Trait.h"	// added by Flugente
 #include "Food.h"				// added by Flugente
 #include "Tactical Save.h"		// added by Flugente for AddItemsToUnLoadedSector()
@@ -120,6 +100,15 @@
 #include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
 #include "Strategic Town Loyalty.h"		// added by Flugente for gTownLoyalty
 #include "Rebel Command.h"
+
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#else
+#include "Meanwhile.h"
+#endif
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

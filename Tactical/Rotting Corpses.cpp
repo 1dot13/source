@@ -4,7 +4,6 @@
 	#include "WCheck.h"
 	#include "stdlib.h"
 	#include "DEBUG.H"
-	//#include "Soldier Control.h"
 	#include "Weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"
@@ -47,9 +46,6 @@
 	#include "ai.h"			// added by Flugente
 	#include "PreBattle Interface.h"	// added by Flugente
 	#include "Strategic Town Loyalty.h"	// added by Flugente
-
-#include "Animation Control.h"
-
 #include "GameInitOptionsScreen.h"
 
 //forward declarations of common classes to eliminate includes

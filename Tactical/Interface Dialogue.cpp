@@ -1,7 +1,6 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
-	#include "Encrypted File.h"
 	#include "faces.h"
 	#include "WCheck.h"
 	#include "Soldier Profile.h"
@@ -13,7 +12,6 @@
 	#include "Dialogue Control.h"
 	#include "renderworld.h"
 	#include "NPC.h"
-	#include "interface Dialogue.h"
 	#include "MercTextBox.h"
 	#include "message.h"
 	#include "Items.h"
@@ -26,7 +24,6 @@
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "Interactive Tiles.h"
-	#include "Soldier Profile.h"
 	#include "Interface Panels.h"
 	#include "Quests.h"
 	#include "Squads.h"
@@ -47,12 +44,9 @@
 	#include "GameSettings.h"
 	#include "Strategic Mines.h"
 	#include "Boxing.h"
-	#include "Items.h"
 	#include "worldman.h"
 	#include "Render Fun.h"
-	// including this for Strategic AI.h
 	#include "Strategic Movement.h"
-	#include "Strategic AI.h"
 	#include "Soldier Create.h"
 	#include "SkillCheck.h"
 	#include "Sound Control.h"
@@ -63,17 +57,12 @@
 	#include "Morale.h"
 	#include "personnel.h"
 	#include "Map Screen Interface.h"
-	#include "Queen Command.h"
 	#include "Campaign.h"
 	#include "BobbyRMailOrder.h"
 	#include "End Game.h"
 	#include "Map Screen Helicopter.h"
-	#include "Cheats.h"
-	#include "Overhead.h"
 	#include "Soldier Control.h"
-
 #include "LuaInitNPCs.h"
-#include "Text.h"
 #include "Luaglobal.h"
 
 
@@ -81,20 +70,15 @@
 #include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
 #include "Soldier macros.h"
 #include "LOS.h"
-#include "Soldier Control.h"
 #include "Ja25Update.h"
 #include "ub_config.h"
-#endif
-
-#ifdef JA2UB
 #else
-	// anv: for playable Speck
-	#include "Speck Quotes.h"
-	#include "mercs.h"
+// anv: for playable Speck
+#include "Speck Quotes.h"
+#include "mercs.h"
+#include "Cheats.h"
 #endif
 
 //forward declarations of common classes to eliminate includes

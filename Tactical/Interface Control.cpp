@@ -1,8 +1,6 @@
 	#include <stdio.h>
-	#include <time.h>
 	#include <math.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
@@ -13,7 +11,6 @@
 	#include "vsurface.h"
 	#include "input.h"
 	#include "Handle UI.h"
-	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "renderworld.h"
 	#include "Cursors.h"
@@ -25,7 +22,6 @@
 	#include "Interface Cursors.h"
 	#include "lighting.h"
 	#include "Interface Panels.h"
-	#include "PATHAI.H"
 	#include "vobject_blitters.h"
 	#include "faces.h"
 	#include "Handle UI Plan.h"
@@ -46,7 +42,6 @@
 	#include "GameSettings.h"
 	#include "Explosion Control.h"		// added by Flugente
 
-#include "connect.h"
 #include "Text.h"
 
 #ifdef JA2UB

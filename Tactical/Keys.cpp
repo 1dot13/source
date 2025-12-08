@@ -1,12 +1,7 @@
 	#include "builddefines.h"
-	#include <stdio.h>
-	#include <memory.h>
-
 	#include "types.h"
-
 	#include "Keys.h"
 	#include "DEBUG.H"
-	#include "Smoothing Utils.h"
 	#include "SkillCheck.h"
 	#include "opplist.h"
 	#include "Items.h"
@@ -20,7 +15,6 @@
 	#include "Tactical Save.h"
 	#include "Campaign Types.h"
 	#include "LOS.h"
-	#include "opplist.h"
 	#include "TileDat.h"
 	#include "Overhead.h"
 	#include "structure.h"

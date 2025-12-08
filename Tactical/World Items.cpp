@@ -1,15 +1,10 @@
 	#include "Items.h"
 	#include "handle Items.h"
 	#include "Overhead.h"
-	#include "Weapons.h"
 	#include "tiledef.h"
 	#include "worlddef.h"
-	#include "Interface.h"
-	#include "renderworld.h"
-	#include "Animation Control.h"
 	#include "Font Control.h"
 	#include "World items.h"
-	#include "DEBUG.H"
 	#include "Isometric Utils.h"
 	#include "Sys Globals.h"
 	#include "Tactical Save.h"
@@ -24,6 +19,8 @@
 	#include "message.h"
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #include "connect.h"
+
+
 #ifdef JA2EDITOR//dnl ch84 290114
 #include "Item Statistics.h"
 #endif

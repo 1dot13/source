@@ -12,12 +12,9 @@
 	#include "Rotting Corpses.h"
 	#include "Overhead.h"
 	#include "Keys.h"
-	#include "Soldier Create.h"
 	#include "Soldier Profile.h"
 	#include "Isometric Utils.h"
-	#include "Soldier Add.h"
 	#include "NPC.h"
-	#include "ai.h"
 	#include "Game Clock.h"
 	#include "Animation Control.h"
 	#include "Map Information.h"
@@ -27,14 +24,11 @@
 	#include "Quests.h"
 	#include "Animated ProgressBar.h"
 	#include "Text.h"
-	#include "Meanwhile.h"
 	#include "Enemy Soldier Save.h"
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
 	#include "PATHAI.H"
-	#include "GameVersion.h"
 	#include "strategic.h"
-	#include "Map Screen Interface Map.h"
 	#include "Strategic Status.h"
 	#include "Soldier macros.h"
 	#include "sgp.h"
@@ -42,8 +36,13 @@
 	#include "screenids.h"
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
-#include "Animation Control.h"
-#include <vfs/Core/vfs.h>
+
+#ifdef JA2UB
+#else
+#include "Meanwhile.h"
+#endif // JA2UB
+
+
 BOOLEAN gfWasInMeanwhile = FALSE;
 
 

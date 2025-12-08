@@ -1,13 +1,9 @@
 #include "builddefines.h"
 #include <stdio.h>
-#include <memory.h>
-
 #include "types.h"
-
 #include "strategicmap.h"
 #include "Overhead.h"
 #include "Isometric Utils.h"
-
 #include "Soldier Add.h"
 #include "Soldier Create.h"
 #include "Soldier Init List.h"
@@ -15,8 +11,6 @@
 #include "random.h"
 #include "Items.h"
 #include "GameSettings.h"
-
-
 #include "Map Information.h"
 #include "Soldier Profile.h"
 #include "Sys Globals.h"
@@ -27,12 +21,9 @@
 #include "Sound Control.h"
 #include "Quests.h"
 #include "Render Fun.h"
-#include "Meanwhile.h"
 #include "Map Screen Interface Map.h"
-#include "mapscreen.h"
 #include "Debug Control.h"
 #include "Inventory Choosing.h"
-#include "Strategic AI.h"
 #include "strategic.h"
 #include "Campaign Types.h"
 #include "ai.h"
@@ -43,12 +34,9 @@
 #include "screenids.h"
 #include "SaveLoadScreen.h"
 #include "Rotting Corpses.h"
-
 #include "connect.h"
 #include "Map Edgepoints.h"
 #include "Queen Command.h"
-
-#include "Map Edgepoints.h"
 #include "Campaign.h"			// added by Flugente for HighestPlayerProgressPercentage()
 #include "CampaignStats.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
@@ -56,6 +44,12 @@
 #include "LuaInitNPCs.h"		// added by Flugente
 #include "Soldier macros.h"		// added by Flugente
 #include "Creature Spreading.h"	// added by Flugente
+
+#ifdef JA2UB
+#else
+#include "Meanwhile.h"
+#include "Strategic AI.h"
+#endif // JA2UB
 
 
 BOOLEAN gfOriginalList = TRUE;

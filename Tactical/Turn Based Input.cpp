@@ -1,14 +1,11 @@
 #include "builddefines.h"
 #include <stdio.h>
-#include <string.h>
 #include "stdlib.h"
 #include "DEBUG.H"
-#include "math.h"
 #include "jascreens.h"
 #include "PATHAI.H"
 #include "Animation Control.h"
 #include "Animation Data.h"
-#include "Event Pump.h"
 #include "Timer Control.h"
 #include "Handle UI.h"
 #include "Isometric Utils.h"
@@ -22,9 +19,7 @@
 #include "Interactive Tiles.h"
 #include "Interface Cursors.h"
 #include "Weapons.h"
-#include "lighting.h"
 #include "Sound Control.h"
-#include "environment.h"
 #include "Music Control.h"
 #include "ai.h"
 #include "renderworld.h"
@@ -42,7 +37,6 @@
 #include "Interface Items.h"
 #include "physics.h"
 #include "UI Cursors.h"
-#include "worldman.h"
 #include "strategicmap.h"
 #include "Soldier Profile.h"
 #include "Soldier Create.h"
@@ -50,17 +44,14 @@
 #include "Dialogue Control.h"
 #include "interface Dialogue.h"
 #include "opplist.h"
-#include "Interactive Tiles.h"
 #include "MessageBoxScreen.h"
 #include "gameloop.h"
-
 #include "Spread burst.h"
 #include "Explosion Control.h"
 #include "QuestDebug.h"
 #include "Assignments.h"
-#include "editscreen.h"
 #include "SaveLoadGame.h"
-#include "LOS.h"
+#include "WorldDat.h"
 #include "Exit Grids.h"
 #include "Strategic Exit GUI.h"
 #include "Auto Bandage.h"
@@ -69,15 +60,10 @@
 #include "Interface Panels.h"
 #include "soldier tile.h"
 #include "Soldier Functions.h"
-#include "Game Events.h"
 #include "english.h"
 #include "random.h"
-#include "Assignments.h"
 #include "Map Screen Interface.h"
-#include "renderworld.h"
 #include	"Quest Debug System.h"
-//#include "medical.h"
-#include "Arms Dealer Init.h"
 #include "ShopKeeper Interface.h"
 #include "GameSettings.h"
 #include "Vehicles.h"
@@ -94,27 +80,25 @@
 #include "history.h"
 #include "Queen Command.h"
 #include "PreBattle Interface.h"
-#include "_Ja25EnglishText.h"
 #include "Militia Control.h"
 #include "Ambient Control.h"
 #include "Strategic AI.h"
 #include "VehicleMenu.h"
-
-#include "Quest Debug System.h"
 #include "connect.h"
 #include "fresh_header.h"
-
-#include "IMP Skill Trait.h"			// added by Flugente
 #include "SkillMenu.h"					// added by Flugente
 #include "Map Screen Interface Map Inventory.h"//dnl ch75 021113
-
-#include "DisplayCover.h"				// added by Sevenfm
 #include "InterfaceItemImages.h"		// added by Sevenfm
 #include "DynamicDialogueWidget.h"		// added by Flugente for DelayBoxDestructionBy(...)
-#include "Utilities.h"					// added by Flugente
 #include "AIInternals.h"				// sevenfm
-#include "Interface Cursors.h"			// sevenfm
 #include "strategic.h"					// shadooow for CreateNewMerc
+
+#ifdef JA2EDITOR
+#include "editscreen.h"
+#include "Map Edgepoints.h"
+#endif // JA2EDITOR
+
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -6329,7 +6313,6 @@ void EscapeUILock( )
 }
 
 #ifdef JA2BETAVERSION
-#include "Map Edgepoints.h"
 void ToggleMapEdgepoints()
 {
 #ifdef JA2EDITOR

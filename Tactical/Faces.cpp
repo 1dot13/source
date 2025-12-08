@@ -1,10 +1,7 @@
 	#include "builddefines.h"
-	#include "math.h"
 	#include <stdio.h>
-	#include <errno.h>
-
+	
 	#include "worlddef.h"
-	#include "renderworld.h"
 	#include "vsurface.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
@@ -12,7 +9,6 @@
 	#include "video.h"
 	#include "vobject_blitters.h"
 	#include "faces.h"
-	#include "Utilities.h"
 	#include "Overhead.h"
 	#include "GAP.H"
 	#include "Soldier Profile.h"
@@ -27,21 +23,19 @@
 	#include	"GameSettings.h"
 	#include "Squads.h"
 	#include "Interface.h"
-	#include "Quests.h"
-	#include "Animation Control.h"
+	#include <strategicmap.h>
 	#include "Drugs And Alcohol.h"
 	#include "Interface Items.h"
-	#include "Meanwhile.h"
-	#include "Map Screen Interface.h"
-	// HEADROCK HAM 3.2: Added two includes so that a function can read values of the Gun Range/hospital location
 	#include "Campaign Types.h"
-	#include "Strategic Event Handler.h"
 	#include "Food.h"	// added by Flugente
 	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
 	#include "strategic.h"			// added by Flugente
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
+#else
+#include "Meanwhile.h"
+#include "Map Screen Interface.h"
 #endif
 
 // Defines

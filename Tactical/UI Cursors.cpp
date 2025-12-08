@@ -15,7 +15,6 @@
 	#include "LOS.h"
 	#include "renderworld.h"
 	#include "Interface.h"
-	#include "UI Cursors.h"
 	#include "Cursors.h"
 	#include "Cursor Control.h"
 	#include "Structure Wrap.h"
@@ -27,7 +26,6 @@
 	#include "Interactive Tiles.h"
 	#include "PATHAI.H"
 	#include "SkillCheck.h" // added by SANDRO
-	#include "message.h" //ddd
 	#include "english.h"		// added by Flugente
 
 //forward declarations of common classes to eliminate includes

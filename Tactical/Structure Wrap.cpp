@@ -1,10 +1,8 @@
-	#include <stdio.h>
 	#include "DEBUG.H"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "Structure Wrap.h"
 	#include "Isometric Utils.h"
-	#include "worldman.h"
 	#include "Overhead.h"
 	#include "renderworld.h"
 	#include "strategicmap.h"

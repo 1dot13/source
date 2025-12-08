@@ -15,12 +15,8 @@
 	#include "LuaInitNPCs.h"	// added by Flugente
 
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
 #include "ub_config.h"
 #endif
 

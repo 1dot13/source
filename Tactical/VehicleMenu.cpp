@@ -1,12 +1,10 @@
 // anv: totally not a copy of SkillMenu.cpp
 
 #include "VehicleMenu.h"
-#include "soldier profile type.h"
+#include "mapscreen.h"
 #include "Overhead.h"
 #include "Text.h"
 #include "Isometric Utils.h"
-#include "DisplayCover.h"
-#include "worldman.h"
 #include "Vehicles.h"
 #include "Soldier macros.h"
 #include "Soldier Add.h"

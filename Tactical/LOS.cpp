@@ -1,8 +1,6 @@
 #include "connect.h"
 #include "builddefines.h"
 #include <stdio.h>
-
-#include <memory.h>
 #include <math.h>
 #include "WCheck.h"
 #include "Isometric Utils.h"
@@ -10,14 +8,11 @@
 #include "LOS.h"
 #include "Animation Control.h"
 #include "random.h"
-//#include "Soldier Control.h"
 #include "Event Pump.h"
 #include "Overhead.h"
 #include "Weapons.h"
-
 #include "opplist.h"
 #include "Bullets.h"
-
 #include "lighting.h"
 #include "phys math.h"
 #include "Items.h"
@@ -37,15 +32,11 @@
 #include "Points.h"
 #include "Smell.h"
 #include "Text.h"
-#include "Quests.h"
-#include "Items.h"
 #include "Item Types.h"
 #include "Vehicles.h"
 #include "fresh_header.h"
-#include "WorldDat.h"
 // HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.
 #include "Campaign Types.h"
-#include "soldier tile.h"		// added by Flugente
 #include "Sound Control.h"		// added by Flugente
 #include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
 #include "CampaignStats.h"		// added by Flugente

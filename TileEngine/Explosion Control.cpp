@@ -1,5 +1,5 @@
 #include "builddefines.h"
-
+#include "WorldDat.h"
 #include "DEBUG.H"
 #include "Weapons.h"
 #include "worldman.h"

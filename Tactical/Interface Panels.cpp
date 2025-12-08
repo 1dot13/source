@@ -1,8 +1,6 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <time.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
@@ -26,7 +24,6 @@
 	#include "Soldier Control.h"
 	#include "PATHAI.H"
 	#include "Weapons.h"
-	#include "lighting.h"
 	#include "faces.h"
 	#include "mapscreen.h"
 	#include "message.h"
@@ -35,7 +32,6 @@
 	#include "Interface Control.h"
 	#include "Interface Utils.h"
 	#include "Game Clock.h"
-	#include "mapscreen.h"
 	#include "Soldier macros.h"
 	#include "strategicmap.h"
 	#include "Soldier Functions.h"
@@ -51,7 +47,6 @@
 	#include "ShopKeeper Interface.h"
 	#include "english.h"
 	#include "Keys.h"
-	#include "Soldier Add.h"
 	#include "Vehicles.h"
 	#include "GameSettings.h"
 	#include "Dialogue Control.h"
@@ -62,7 +57,6 @@
 	#include "vobject_blitters.h"
 	#include "finances.h"
 	#include "LaptopSave.h"
-	#include "Cursor Control.h"
 	#include "MessageBoxScreen.h"
 	#include "WordWrap.h"
 	#include "Boxing.h"
@@ -70,9 +64,6 @@
 	// HEADROCK HAM 3.6: This is required for Stat Progress Bars
 	#include "Campaign.h"
 	#include "Food.h"	// added by Flugente
-
-//legion by Jazz
-#include "Interface Utils.h"
 #include <language.hpp>
 
 //forward declarations of common classes to eliminate includes

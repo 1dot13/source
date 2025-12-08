@@ -3,7 +3,6 @@
 	#include "Weapons.h"
 	#include "Soldier Control.h"
 	#include "Overhead.h"
-	#include "Handle UI.h"
 	#include "Animation Control.h"
 	#include "Points.h"
 	#include "Sound Control.h"
@@ -15,21 +14,17 @@
 	#include "Interface Panels.h"
 	#include "Explosion Control.h"
 	#include "Keys.h"
-	#include "faces.h"
-
+	#include <mapscreen.h>
+#include "soldier profile type.h"
 	#include "WCheck.h"
 	#include "Soldier Profile.h"
 	#include "SkillCheck.h"
 	#include "LOS.h"
 	#include "message.h"
 	#include "Text.h"
-
-	#include "fov.h"
 	#include "MessageBoxScreen.h"
-
 	#include "Interface Control.h"
 	#include "ShopKeeper Interface.h"
-
 	#include "GameSettings.h"
 	#include "environment.h"
 	#include "Auto Resolve.h"
@@ -42,26 +37,17 @@
 	#include "Smell.h"
 	#include "lighting.h"
 	#include "Utilities.h"
-	#include "english.h"
 	#include "Debug Control.h"
-
-	#include "math.h"
 	// THE_BOB : added for pocket popup definitions
 	#include <map>
 	#include "popup_definition.h"
-
 	#include "Drugs And Alcohol.h"
 	#include "Food.h"
-	#include "opplist.h"
-	#include "Sys Globals.h"//dnl ch74 201013
 	#include "CampaignStats.h"		// added by Flugente
-	#include "DisplayCover.h"		// added by Flugente
-	#include "Map Information.h"
 	#include "ai.h"					// added by Flugente
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
 #endif
 
 //forward declarations of common classes to eliminate includes

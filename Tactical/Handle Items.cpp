@@ -18,7 +18,6 @@
 	#include "Timer Control.h"
 	#include "WCheck.h"
 	#include "Interface Items.h"
-	#include "physics.h"
 	#include "Soldier Profile.h"
 	#include "interface Dialogue.h"
 	#include "Quests.h"
@@ -29,9 +28,7 @@
 	#include "ai.h"
 	#include "Soldier macros.h"
 	#include "Interface Panels.h"
-	#include "Strategic Town Loyalty.h"
 	#include "Soldier Functions.h"
-	#include "Map Screen Helicopter.h"
 	#include "PATHAI.H"
 	#include "fov.h"
 	#include "MessageBoxScreen.h"
@@ -57,9 +54,7 @@
 	#include "End Game.h"
 	#include "Interface Control.h"
 	#include "Map Screen Interface Map Inventory.h"
-	// added by SANDRO
 	#include "Morale.h"
-	// added by Flugente
 	#include "Drugs And Alcohol.h"
 	#include "Food.h"
 	// added by sevenfm - this is needed for _keydown(SHIFT) to work
@@ -75,13 +70,12 @@
 	#include "Game Clock.h"			// added by Flugente
 	#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
 	#include "DynamicDialogue.h" // added by Flugente for SoldierRelation()
-	#include "MessageBoxScreen.h"	// added by Flugente
 	#include "Map Screen Interface.h"		// added by Flugente
 	#include "Map Screen Interface Map.h"	// added by Flugente
+#include "WorldDat.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
 #endif
 
 #define					NUM_ITEMS_LISTED			8

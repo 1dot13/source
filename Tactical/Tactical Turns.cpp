@@ -1,17 +1,9 @@
 	#include "sgp.h"
 	#include "Game Clock.h"
-	#include "Font Control.h"
 	#include "Timer Control.h"
 	#include "Overhead.h"
-	#include "Game Clock.h"
-	#include "message.h"
 	#include "worlddef.h"
 	#include "Rotting Corpses.h"
-	#include "Soldier Create.h"
-	#include "Soldier Add.h"
-	#include "Isometric Utils.h"
-	#include "Animation Data.h"
-	#include "Animation Control.h"
 	#include "Tactical Turns.h"
 	#include "Smell.h"
 	#include "opplist.h"
@@ -19,14 +11,16 @@
 	#include "Dialogue Control.h"
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
-	#include "Campaign.h"
 	#include "Soldier macros.h"
-	#include "strategicmap.h"
-	#include "random.h"
 	#include "Explosion Control.h"
-	#include "Dialogue Control.h"	// added by Flugente
-
 #include "Reinforcement.h"
+
+#ifdef JA2UB
+#else
+#include "strategicmap.h"
+#include "random.h"
+#endif // JA2UB
+
 
 extern void DecayPublicOpplist( INT8 bTeam );
 

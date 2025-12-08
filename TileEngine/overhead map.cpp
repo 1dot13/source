@@ -1,6 +1,7 @@
 #include "builddefines.h"
 
-	#include "sysutil.h"
+#include "WorldDat.h"
+#include "sysutil.h"
 	#include "Utilities.h"
 	#include "renderworld.h"
 	#include "vobject_blitters.h"

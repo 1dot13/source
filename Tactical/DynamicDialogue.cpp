@@ -10,8 +10,6 @@
 #include "SaveLoadGame.h"
 #include "GameVersion.h"
 #include "Text.h"
-#include "MercTextBox.h"
-#include "Meanwhile.h"
 #include "soldier profile type.h"
 #include "Soldier Profile.h"
 #include "Interface.h"
@@ -29,6 +27,11 @@
 #include "connect.h"
 #include "Campaign.h"
 #include "Points.h"
+
+#ifndef JA2UB
+#include "Meanwhile.h"
+#endif // !JA2UB
+
 
 // event id counter
 // has to be saved/loaded/reset

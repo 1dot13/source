@@ -4,7 +4,6 @@
 	#include "PATHAI.H"
 	#include "Handle UI.h"
 	#include "Points.h"
-	#include "Weapons.h"
 	#include "renderworld.h"
 	#include "Animation Control.h"
 	#include "message.h"

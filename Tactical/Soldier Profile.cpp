@@ -1,25 +1,14 @@
-	#include <stdio.h>
 	#include <string.h>
-	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "renderworld.h"
-
-
-	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
-	#include "Event Pump.h"
 	#include "Render Fun.h"
 	#include "Interface.h"
-	#include "sysutil.h"
 	#include "FileMan.h"
 	#include "random.h"
-	#include "ai.h"
-	#include "Interactive Tiles.h"
 	#include "Soldier Ani.h"
-	#include "english.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Game Clock.h"
@@ -31,7 +20,6 @@
 	#include "Weapons.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Squads.h"
-	#include "Tactical Save.h"
 	#include "Quests.h"
 	#include "aim.h"
 	#include "interface Dialogue.h"
@@ -49,26 +37,20 @@
 	#include "Drugs And Alcohol.h" // added by Flugente
 	#include "Campaign.h"
 	#include "LuaInitNPCs.h"		// added by Flugente
-
-#include "aim.h"
 #include "AimFacialIndex.h"
-#include "mercs.h"
+#include "connect.h"
+
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#endif
-
-#include "ub_config.h"
-#include "XML.h"
-
-#ifdef JA2UB
 #else
 	// anv: for playable Speck
-	#include "Speck Quotes.h"
+#include "mercs.h"
+#include "Speck Quotes.h"
 	#include "LaptopSave.h"
 #endif
 
-#include "connect.h"
+
 #ifdef JA2EDITOR
 	extern BOOLEAN gfProfileDataLoaded;
 #endif

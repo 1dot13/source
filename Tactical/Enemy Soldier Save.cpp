@@ -1,36 +1,21 @@
 	#include "builddefines.h"
     #include "GameSettings.h"
 	#include <stdio.h>
-	#include <memory.h>
-
 	#include "types.h"
-
 	#include "strategicmap.h"
 	#include "Overhead.h"
-	#include "Isometric Utils.h"
-
-	#include "Soldier Add.h"
 	#include "Soldier Create.h"
 	#include "Soldier Init List.h"
 	#include "DEBUG.H"
 	#include "random.h"
 	#include "Items.h"
-
-
-	#include "Map Information.h"
-	#include "Soldier Profile.h"
-	#include "EditorMercs.h"
-	#include "Animation Data.h"
-	#include "message.h"
-	#include "Font Control.h"
 	#include "Campaign Types.h"
 	#include "Tactical Save.h"
 	#include "Game Clock.h"
 	#include "Queen Command.h"
-	#include "Scheduling.h"
 	#include "Soldier macros.h"		// added by Flugente
-
 #include "GameVersion.h"
+
 //ADB When a savegame is loaded, the enemy and civ stuff needs to be loaded and updated, but this can only happen
 //when the temp file is loaded which can happen much later, it cannot load convert and save when updating the savegame
 //therefore store a flag to load and convert later

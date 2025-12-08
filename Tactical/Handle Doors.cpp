@@ -1,6 +1,4 @@
-	#include "builddefines.h"
-	#include <stdio.h>
-	#include <time.h>
+	#include <wchar.h>
 	#include "sgp.h"
 	#include "worlddef.h"
 	#include "worldman.h"
@@ -29,21 +27,14 @@
 	#include "Isometric Utils.h"
 	#include "ai.h"
 	#include "Soldier macros.h"
-	#include "Event Pump.h"
 	#include "GameSettings.h"
 #include "fresh_header.h"
 #include "connect.h"
 #include <language.hpp>
 
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
-#include "ub_config.h"
 #endif
 
 BOOLEAN gfSetPerceivedDoorState = FALSE;

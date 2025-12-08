@@ -1,5 +1,4 @@
-	#include "builddefines.h"
-	#include <stdio.h>
+	#include <string.h>
 	#include "sgp.h"
 	#include "himage.h"
 	#include "vobject.h"
@@ -8,7 +7,6 @@
 	#include "Interface.h"
 	#include "sysutil.h"
 	#include "faces.h"
-	#include "Render Dirty.h"
 	#include "Weapons.h"
 	#include "Overhead.h"
 	#include "Soldier macros.h"

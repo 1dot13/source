@@ -1,9 +1,8 @@
-	#include <stdlib.h>
+	#include <cstdlib>
 	#include "Morale.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
-	#include "Map Screen Interface.h"
 	#include "message.h"
 	#include "Assignments.h"
 	#include "Strategic Movement.h"
@@ -17,24 +16,14 @@
 	#include "Campaign.h"
 	#include "mapscreen.h"
 	#include "Soldier macros.h"
-	#include "Event Pump.h"
-	// HEADROCK HAM 3.5: Added for facility effect on morale
 	#include "Facilities.h"
-	// addedd by SANDRO
 	#include "GameSettings.h"
 	#include "Isometric Utils.h"
 	#include "Food.h"
-	#include "Interface.h"			// added by Flugente
-	#include "finances.h"			// added by Flugente for EXTENDED_CONTRACT_BY_1_DAY
-	#include "Soldier Add.h"		// added by Flugente for MERC_TYPE__AIM_MERC
-	#include "CampaignStats.h"		// added by Flugente for gCurrentIncident
 	#include "DynamicDialogue.h"	// added by Flugente
-
 #include "connect.h"
 #include "fresh_header.h"
-
 #include "random.h"
-
 #include "Merc Contract.h"
 
 //#define MORALE_MOD_MAX 50		// morale *mod* range is -50 to 50, if you change this, check the decay formulas!

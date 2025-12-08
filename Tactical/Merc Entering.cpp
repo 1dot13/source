@@ -1,19 +1,17 @@
-	#include "builddefines.h"
-	#include <stdio.h>
+	#include <cstdlib>
+#include <vector>
 	#include <string.h>
-	#include "stdlib.h"
-	#include "DEBUG.H"
-	//#include "Soldier Control.h"
-	// HEADROCK HAM 3.5: Strange that this wasn't included.
+	#include <types.h>
 	#include "GameSettings.h"
-	#include "Weapons.h"
-	#include "handle items.h"
+	#include <soundman.h>
+#include <Campaign Types.h>
+#include "Overhead Types.h"
+#include "Soldier Control.h"
+#include <Timer Control.h>
 	#include "worlddef.h"
 	#include "Rotting Corpses.h"
-	#include "Tile Cache.h"
 	#include "Isometric Utils.h"
 	#include "Animation Control.h"
-	#include "Utilities.h"
 	#include "Game Clock.h"
 	#include "Soldier Create.h"
 	#include "renderworld.h"
@@ -25,7 +23,6 @@
 	#include "Handle UI.h"
 	#include "Squads.h"
 	#include "english.h"
-	#include "Cursor Control.h"
 	#include "Merc Hiring.h"
 	#include "Font Control.h"
 	#include "message.h"
@@ -43,7 +40,6 @@
 #include "ub_config.h"
 #endif
 
-#include "Music Control.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

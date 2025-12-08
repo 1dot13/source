@@ -14,7 +14,6 @@
 	#include "opplist.h"
 	#include "random.h"
 	#include "Assignments.h"
-	#include "Soldier Init List.h"
 	#include "Smell.h"
 	#include "Squads.h"
 	#include "Interface Panels.h"
@@ -34,7 +33,6 @@
 	#include "GameSettings.h"
 	#include "PreBattle Interface.h"
 	#include "Auto Resolve.h"
-	#include "Morale.h"
 	#include "ai.h"
 	#include "Strategic Mines.h"
 	#include "math.h"
@@ -43,17 +41,14 @@
 	#include "Soldier macros.h"		// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-
 #include "connect.h"
 #include "message.h"
-#include "fresh_header.h"
+#include "GameInitOptionsScreen.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
 #endif
 
-#include "GameInitOptionsScreen.h"
 
 extern INT32 GetTheStateOfDepartedMerc(INT32 iId);
 

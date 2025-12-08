@@ -1,15 +1,8 @@
-	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
-	#include "DEBUG.H"
-	#include "math.h"
-	#include "worlddef.h"
-	#include "renderworld.h"
-
-	#include "random.h"
-	#include "Campaign.h"
-
-#include "XML.h"
+#include "DEBUG.H"
+#include "worlddef.h"
+#include "random.h"
+#include "Campaign.h"
+#include <Store Inventory.h>
 
 //Jenilee: full randomization of mercs, including traits, gear kits and all statistics.
 //to use, set MERCS_RANDOM_STATS to 4 in JA2_Options.ini.

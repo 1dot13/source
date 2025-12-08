@@ -1,11 +1,9 @@
-	#include "builddefines.h"
+	#include <string.h>
 	#include "DEBUG.H"
 	#include "types.h"
-	//#include "mssw.h"
 	#include "GAP.H"
 	#include "Sound Control.h"
 	#include "soundman.h"
-	#include <stdio.h>
 	#include "FileMan.h"
 
 SUBSEQUENTSOUNDS subsequentsounds;

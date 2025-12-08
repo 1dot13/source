@@ -8,7 +8,8 @@
 #include "Overhead.h"
 #include "random.h"
 #include "Assignments.h"
-#include "Soldier Profile.h"
+#include <mapscreen.h>
+#include "soldier profile type.h"
 #include "Queen Command.h"
 #include "Quests.h"
 #include "finances.h"
