@@ -8,7 +8,6 @@
 	#include "Queen Command.h"
 	#include "Animation Data.h"
 	#include "Quests.h"
-	#include "Font.h"
 	#include "message.h"
 	#include "LOS.h"
 	#include "World Items.h"
@@ -18,9 +17,7 @@
 	#include "random.h"
 	#include "Strategic Movement.h"
 	#include "Strategic Pathing.h"
-	#include "Vehicles.h"
 	#include "Game Clock.h"
-	#include "Game Event Hook.h"
 	#include "Morale.h"
 	#include "GameSettings.h"
 	#include "Text.h"
@@ -29,9 +26,6 @@
 	#include "history.h"
 	#include "Meanwhile.h"
 	#include "Strategic Status.h"
-	// HEADROCK HAM B1: Added include for Dynamic Roaming Militia
-	#include "MilitiaSquads.h"
-	// HEADROCK HAM 3.6: Include for Facility Debt
 	#include "Facilities.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente

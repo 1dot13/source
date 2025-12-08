@@ -1,9 +1,7 @@
 	#include "Strategic Event Handler.h"
-	#include "MemMan.h"
-	#include "message.h"
+	#include <Windows.h>
 	#include "Items.h"
 	#include "Handle Items.h"
-	#include "LaptopSave.h"
 	#include "Tactical Save.h"
 	#include "strategicmap.h"
 	#include "Quests.h"
@@ -14,12 +12,6 @@
 	#include "random.h"
 	#include "Overhead.h"
 	#include "Strategic Town Loyalty.h"
-	#include "Soldier Init List.h"
-	#include "SaveLoadMap.h"
-	#include "Soldier Create.h"
-	#include "Soldier Add.h"
-	#include "renderworld.h"
-	#include "Soldier Profile.h"
 	#include "email.h"
 	#include "strategic.h"
 	#include "GameSettings.h"
@@ -30,7 +22,6 @@
 	#include "Rebel Command.h"
 
 #include "Luaglobal.h"
-#include "connect.h"
 #include "LuaInitNPCs.h"
 
 //forward declarations of common classes to eliminate includes

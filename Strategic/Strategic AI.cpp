@@ -13,7 +13,6 @@
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "strategic.h"
-	#include "Explosion Control.h"
 	#include "Town Militia.h"
 	#include "Overhead.h"
 	#include "Squads.h"
@@ -26,15 +25,12 @@
 	#include "Campaign Init.h"
 	#include "Game Init.h"
 	#include "PreBattle Interface.h"
-	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "Scheduling.h"
 	#include "Map Information.h"
 	#include "interface Dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
-	#include "Game Event Hook.h"
-	#include "Strategic Town Loyalty.h"
 	#include "Strategic Transport Groups.h"
 
 #include "GameInitOptionsScreen.h"

@@ -7,7 +7,6 @@
 	#include "strategicmap.h"
 	#include "Overhead.h"
 	#include "Strategic Town Loyalty.h"
-	#include "Utilities.h"
 	#include "random.h"
 	#include "Text.h"
 	#include "Map Screen Interface.h"
@@ -16,8 +15,6 @@
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Assignments.h"
-	#include "Squads.h"
-	#include "Soldier Create.h"
 	#include "Dialogue Control.h"
 	#include "GameSettings.h"
 	#include "Queen Command.h"
@@ -39,7 +36,6 @@
 #include "Soldier Control.h"
 #include "soldier profile type.h"
 
-#include "MilitiaSquads.h"
 #define SIZE_OF_MILITIA_COMPLETED_TRAINING_LIST 50
 
 // temporary local global variables

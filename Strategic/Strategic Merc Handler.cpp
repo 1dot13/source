@@ -16,7 +16,6 @@
 	#include "mercs.h"
 	#include "Mapscreen.h"
 	#include "Weapons.h"
-	#include "personnel.h"
 	#include "Strategic Movement.h"
 	#include "LaptopSave.h"
 	#include "message.h"
@@ -25,23 +24,17 @@
 	#include "strategic.h"
 	#include "strategicmap.h"
 	#include "Strategic Status.h"
-	#include "aim.h"
 	#include "email.h"
 	#include "Map Screen Interface.h"
 	#include "Campaign.h"
 	#include "Soldier Add.h"
 	#include "screenids.h"
-	#include "gameloop.h"
 	#include "jascreens.h"
 	#include "Soldier macros.h"
 	#include "finances.h"
 	#include "GameSettings.h"
 	#include "Quests.h"
-	// HEADROCK HAM B1: Additional Include for Dynamic Roaming Restrictions
-	#include "MilitiaSquads.h"
-	// HEADROCK HAM 3.6: Additional include for Facility Operating Deby
 	#include "Facilities.h"
-	// HEADROCK HAM 3.6: And another include, for militia upkeep costs.
 	#include "Town Militia.h"
 	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinionsDailyRefresh()
 

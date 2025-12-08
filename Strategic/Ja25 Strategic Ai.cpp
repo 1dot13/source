@@ -1,3 +1,4 @@
+#ifdef JA2UB
 #include "builddefines.h"
 
 	#include "strategicmap.h"
@@ -68,7 +69,6 @@
 	#include "Auto Resolve.h"
 	#include "Cursors.h"
 
-#ifdef JA2UB
 #include "Soldier Init List.h"
 #include "Dialogue Control.h"
 #include "Game Clock.h"

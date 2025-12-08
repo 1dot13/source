@@ -2,7 +2,6 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-	#include "Interface.h"
 	#include "Map Screen Interface Map.h"
 
 struct

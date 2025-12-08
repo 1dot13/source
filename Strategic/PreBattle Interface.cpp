@@ -16,7 +16,6 @@
 	#include "Strategic Pathing.h"
 	#include "Text.h"
 	#include "PopUpBox.h"
-	#include "Player Command.h"
 	#include "Cursors.h"
 	#include "Auto Resolve.h"
 	#include "Sound Control.h"
@@ -24,7 +23,6 @@
 	#include "Map Screen Interface Bottom.h"
 	#include "Overhead.h"
 	#include "Tactical Placement GUI.h"
-	#include "Town Militia.h"
 	#include "Campaign.h"
 	#include "GameSettings.h"
 	#include "random.h"
@@ -41,15 +39,13 @@
 	#include "Soldier macros.h"
 	#include "history.h"
 	#include "Cheats.h"
-	// added by SANDRO
 	#include "Tactical Save.h"
 	#include "message.h"
 	#include "CampaignStats.h"				// added by Flugente
 	#include "MilitiaSquads.h"				// added by Flugente
 	#include "SkillCheck.h"					// added by Flugente
 	#include "Strategic Transport Groups.h"
-	#include "Utilities.h"
-
+	
 #ifdef JA2UB
 #include "ub_config.h"
 #endif

@@ -1,7 +1,6 @@
 //Queen Command.c
 
 	#include "Queen Command.h"
-	#include "Strategic Event Handler.h"
 	#include "Overhead Types.h"
 	#include "strategicmap.h"
 	#include "Soldier Init List.h"
@@ -9,7 +8,7 @@
 	#include "random.h"
 	#include "Strategic Movement.h"
 	#include "Overhead.h"
-	#include "Strategic Pathing.h"
+	#include <Vehicles.h>
 	#include "strategic.h"
 	#include "message.h"
 	#include "Map Edgepoints.h"
@@ -33,7 +32,6 @@
 	#include "Animation Data.h"
 	#include "Game Clock.h"
 	#include "renderworld.h"
-	#include "Town Militia.h"
 	#include "Dialogue Control.h"
 	#include "Campaign Init.h"
 	#include "Meanwhile.h"

@@ -5,19 +5,15 @@
 	#include "Queen Command.h"
 	#include "Player Command.h"
 	#include "Font Control.h"
-	#include "Font.h"
 	#include "Text.h"
 	#include "Map Screen Interface Map.h"
 	#include "Map Screen Interface Border.h"
-	#include "Handle UI.h"
-	#include "NPC.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
-	#include "finances.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "strategic.h"
 	#include "Utilities.h"
-	#include "video.h"
+	#include <vsurface.h>
 	#include "Town Militia.h"
 	#include "HelpScreen.h"
 	#include "Map Screen Helicopter.h"
@@ -25,10 +21,7 @@
 	#include "GameSettings.h"
 	#include "DEBUG.H"
 	#include "Overhead.h"	// added by Flugente
-	#include "Game Clock.h"			// added by Flugente
-	#include "Game Event Hook.h"	// added by Flugente
-
-#include "Strategic Mines.h"
+		
 
 #define BOX_BUTTON_WIDTH 100
 #define BOX_BUTTON_HEIGHT 20
