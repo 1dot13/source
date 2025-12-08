@@ -1,7 +1,6 @@
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Render Dirty.h"
 	#include "vobject.h"
-	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "sysutil.h"
 	#include "Map Screen Interface Border.h"
@@ -28,7 +27,6 @@
 	#include "WordWrap.h"
 	#include "Soldier macros.h"
 	#include "rt time defines.h"
-	#include "Encyclopedia_new.h" //Moa: item visibility
 	#include "Town Militia.h"	// added by Flugente
 
 #include "ShopKeeper Interface.h"
@@ -36,10 +34,7 @@
 #include <algorithm>
 #include "InterfaceItemImages.h"
 #include "SaveLoadGame.h"//dnl ch51 081009
-#include "Map Information.h"//dnl ch51 091009
-#include "Interface Items.h"
 #include "Food.h"	// added by Flugente
-#include "Campaign Types.h"	// added by Flugente
 #include "mapscreen.h"
 
 //forward declarations of common classes to eliminate includes

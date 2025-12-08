@@ -1,4 +1,5 @@
-	#include "Map Screen Interface.h"
+#ifdef JA2UB
+#include "Map Screen Interface.h"
 	#include "string.h"
 	#include "Map Screen Interface Map.h"
 	#include "Font Control.h"
@@ -47,7 +48,6 @@
 
 #include "connect.h"
 
-	#ifdef JA2UB
 
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"

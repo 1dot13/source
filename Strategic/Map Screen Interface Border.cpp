@@ -11,21 +11,16 @@
 	#include "mapscreen.h"
 	#include "Render Dirty.h"
 	#include "Map Screen Interface Map.h"
-	#include "Map Screen Interface Border.h"
 	#include "Map Screen Interface.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Map Screen Helicopter.h"
 	#include "Text.h"
-	#include "Campaign Types.h"
-	#include "Strategic Town Loyalty.h"
-	#include "strategicmap.h"
 	#include "Assignments.h"
 	// HEADROCK HAM 4: Now accepts INI settings
 	#include "GameSettings.h"
 	// Also include Quests, for checking whether a fact is true.
 	#include "Quests.h"	
 	// HEADROCK HAM 5: Required for inventory filter popup
-	#include "popup_callback.h"
 	#include "popup_class.h"
 	#include "Queen Command.h"	// added by Flugente
 

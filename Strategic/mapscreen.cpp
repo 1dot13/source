@@ -1,7 +1,6 @@
 	#include "mapscreen.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h>
 	#include "gameloop.h"
 	#include "sgp.h"
 	#include "vobject.h"
@@ -17,12 +16,9 @@
 	#include "Font Control.h"
 	#include "Timer Control.h"
 	#include "Interface.h"
-	#include "Handle UI.h"
 	#include "Interface Items.h"
 	#include "Interface Utils.h"
-	#include "lighting.h"
 	#include <wchar.h>
-	#include <tchar.h>
 	#include "Cursors.h"
 	#include "Soldier Profile.h"
 	#include "Interface Panels.h"
@@ -60,7 +56,6 @@
 	#include "Dialogue Control.h"
 	#include "Map Screen Interface TownMine Info.h"
 	#include "PreBattle Interface.h"
-	#include "personnel.h"
 	#include "Animated ProgressBar.h"
 	#include "Queen Command.h"
 	#include "LaptopSave.h"
@@ -74,11 +69,9 @@
 	#include "Strategic Mines.h"
 	#include "SaveLoadScreen.h"
 	#include "Options Screen.h"
-	#include "Auto Resolve.h"
 	#include "Meanwhile.h"
 	#include "Campaign.h"
 	#include "random.h"
-	#include "Air Raid.h"
 	#include "Quests.h"
 	#include "Town Militia.h"
 	#include "Weapons.h"
@@ -98,13 +91,8 @@
 	#include "Strategic Status.h"
 	#include "Soldier Create.h"
 	#include "Animation Control.h"
-	// HEADROCK HAM 3.6: Include facilities for assignment display
-	#include "Facilities.h"
-	// HEADROCK HAM 4: Include Militia Squads for Manual Militia Restrictions toggle.
 	#include "MilitiaSquads.h"
 	#include "Auto Bandage.h"	// added by Flugente
-	#include "Food.h"				// added by Flugente
-	#include "Drugs And Alcohol.h"	// added by Flugente
 	#include "WordWrap.h"
 
 #include "connect.h" //hayden

@@ -8,7 +8,6 @@
 	#include "LaptopSave.h"
 	#include "Quests.h"
 	#include "Morale.h"
-	#include "Overhead.h"
 	#include "strategicmap.h"
 	#include "Map Screen Helicopter.h"
 	#include "Game Clock.h"
@@ -20,8 +19,6 @@
 	#include "PreBattle Interface.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
-	#include "interface Dialogue.h"
-	#include "random.h"
 	// HEADROCK HAM 3.6: Added for facility string printing...
 	#include "PopUpBox.h"
 	#include "CampaignStats.h"	// added by Flugente

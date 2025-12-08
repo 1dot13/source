@@ -37,20 +37,15 @@ to call into.
 #include "strategicmap.h"
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
-#include "Text.h"
 #include "Town Militia.h"
 #include "Vehicles.h"
 
 extern "C" {
 #include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
 }
 
-#include <lua.h>
 #include <lua_function.h>
 #include <lua_state.h>
-#include <lua_table.h>
 
 extern CHAR16 gzUserDefinedButton1[ 128 ];
 extern CHAR16 gzUserDefinedButton2[ 128 ];

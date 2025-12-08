@@ -13,8 +13,6 @@
 	#include "Soldier Profile.h"
 	#include "Overhead.h"
 	#include "Dialogue Control.h"
-	#include "gameloop.h"
-	#include "NPC.h"
 	#include "Assignments.h"
 	#include "strategic.h"
 	#include "Text.h"

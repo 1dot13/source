@@ -4,11 +4,7 @@
 #include "strategic.h"
 #include "Strategic Mines.h"
 #include "types.h"
-#include "memory.h"
 #include <stdio.h>
-#include <stdarg.h>
-#include <math.h>
-#include <time.h>
 #include "jascreens.h"
 #include "worlddef.h"
 #include "Soldier Control.h"
@@ -16,13 +12,11 @@
 #include "Interface Panels.h"
 #include "Isometric Utils.h"
 #include "Ambient Control.h"
-#include "worlddef.h"
 #include "WorldDat.h"
 #include "Text.h"
 #include "Soldier Add.h"
 #include "Soldier macros.h"
 #include "Strategic Pathing.h"
-#include "Soldier Create.h"
 #include "Handle UI.h"
 #include "faces.h"
 #include "renderworld.h"
@@ -36,7 +30,7 @@
 #include "message.h"
 #include "Font Control.h"
 #include "environment.h"
-#include "Game Events.h"
+#include "Game Event Hook.h"
 #include "Quests.h"
 #include "FileMan.h"
 #include "Animated ProgressBar.h"
@@ -51,7 +45,6 @@
 #include "Animation Control.h"
 #include "Squads.h"
 #include "worldman.h"
-#include "Overhead.h"
 #include "Strategic Town Loyalty.h"
 #include "Queen Command.h"
 #include "Cursor Control.h"
@@ -66,11 +59,8 @@
 #include "Tactical Placement GUI.h"
 #include "Map Screen Helicopter.h"
 #include "Map Edgepoints.h"
-#include "Player Command.h"
 #include "Event Pump.h"
 #include "Meanwhile.h"
-#include "Air Raid.h"
-#include "Strategic Mines.h"
 #include "Creature Spreading.h"
 #include "SaveLoadMap.h"
 #include "Militia Control.h"
@@ -84,12 +74,9 @@
 #include "Debug Control.h"
 #include "expat.h"
 #include "Loading Screen.h"
-#include "Queen Command.h"
 #include "Enemy Soldier Save.h"
 #include "NPC.h"
-#include "Strategic Event Handler.h"
 #include "MessageBoxScreen.h"
-#include "interface Dialogue.h"
 #include "Map Screen Interface.h"
 #include "history.h"
 #include "Bullets.h"
@@ -105,6 +92,7 @@
 #include "GameInitOptionsScreen.h"
 
 #ifdef JA2UB
+#include "interface Dialogue.h"
 #include "SaveLoadGame.h"
 #include "email.h"
 #include "Ja25 Strategic Ai.h"
@@ -121,12 +109,9 @@
 
 #include "connect.h" //hayden added alot ""'s to get around client spawing random/different placed AI
 #include "SaveLoadGame.h"
-#include "Strategic Mines.h"
 #include "Strategic Mines LUA.h"
 #include "UndergroundInit.h"
 
-#include "LuaInitNPCs.h"
-#include "Luaglobal.h"
 
 #include "sgp_logger.h"
 

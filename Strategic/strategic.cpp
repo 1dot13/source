@@ -1,24 +1,16 @@
 	#include "strategic.h"
 	#include "types.h"
 	#include "Squads.h"
-	#include "jascreens.h"
 	#include "Assignments.h"
 	#include "Interface Control.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
-	#include "personnel.h"
 	#include "Tactical Save.h"
 	#include "Isometric Utils.h"
 	#include "Vehicles.h"
 	#include "Game Clock.h"
-	#include "CampaignStats.h"		// added by Flugente
-	#include "MilitiaSquads.h"		// added by Flugente
-	#include "Game Event Hook.h"	// added by Flugente
-	#include "message.h"			// added by Flugente
-	#include "Text.h"				// added by Flugente
-	#include "Queen Command.h"		// added by Flugente
-
+						
 #ifdef JA2UB
 #else
 	// anv: for playable Speck

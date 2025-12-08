@@ -13,7 +13,6 @@
 #include "Strategic Mines.h"
 #include "Strategic Mines LUA.h"
 #include "UndergroundInit.h"
-#include <vfs/Core/vfs_debug.h>	// for CBasicException
 
 #include "connect.h"
 

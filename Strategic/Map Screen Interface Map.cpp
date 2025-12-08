@@ -19,7 +19,6 @@
 	#include "Squads.h"
 	#include "message.h"
 	#include "Soldier Profile.h"
-	#include "Player Command.h"
 	#include "Strategic Movement.h"
 	#include "Queen Command.h"
 	#include "Campaign Types.h"
@@ -28,7 +27,6 @@
 	#include "Vehicles.h"
 	#include "Map Screen Helicopter.h"
 	#include "Game Clock.h"
-	#include "finances.h"
 	#include "line.h"
 	#include "english.h"
 	#include "PreBattle Interface.h"
@@ -39,7 +37,6 @@
 	#include "Tactical Save.h"
 	#include "Map Information.h"
 	#include "Air Raid.h"
-	#include "Auto Resolve.h"
 	#include "ASD.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
@@ -50,10 +47,8 @@
 
 #include "Quests.h"
 #include "connect.h"
-#include "Strategic Mines.h"
 // HEADROCK HAM 3.5: included for detectionlevels
 #include "Facilities.h"
-#include "MilitiaSquads.h"
 
 #include "LaptopSave.h"
 #include <language.hpp>

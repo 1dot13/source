@@ -1,6 +1,5 @@
 	#include "builddefines.h"
 	#include <stdlib.h>
-	#include <memory.h>
 	#include "Strategic Movement.h"
 	#include "MemMan.h"
 	#include "DEBUG.H"
@@ -34,7 +33,6 @@
 	#include "Tactical Save.h"
 	#include "Player Command.h"
 	#include "Strategic AI.h"
-	#include "Town Militia.h"
 	#include "Music Control.h"
 	#include "Campaign.h"
 	#include "Isometric Utils.h"
@@ -53,7 +51,6 @@
 	#include "Strategic Transport Groups.h"
 
 #include "MilitiaSquads.h"
-#include "Vehicles.h"
 
 #ifdef JA2UB
 #include "Ja25Update.h"
