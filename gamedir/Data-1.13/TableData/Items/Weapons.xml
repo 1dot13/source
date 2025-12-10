@@ -13412,4 +13412,38 @@
 		<usOverheatingDamageThreshold>16000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1775</uiIndex>
+		<szWeaponName>Barrett M82A1</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>17</ubCalibre>
+		<ubReadyTime>26</ubReadyTime>
+		<ubShotsPer4Turns>6.57</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>56</ubImpact>
+		<ubDeadliness>77</ubDeadliness>
+		<bAccuracy>8</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>1100</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>100</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>419</sSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>24</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+		<nAccuracy>91</nAccuracy>
+		<ubAimLevels>5</ubAimLevels>
+		<Handling>18</Handling>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>240</usOverheatingSingleShotTemperature>
+	</WEAPON>
 </WEAPONLIST>
