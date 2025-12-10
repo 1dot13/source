@@ -53111,4 +53111,43 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1775</uiIndex>
+		<szItemName>M82A1</szItemName>
+		<szLongItemName>Barrett M82A1</szLongItemName>
+		<szItemDesc>The Model 82A1 is what you expect in a Barrett. Dependable. Reliable. Well-designed.</szItemDesc>
+		<szBRName>Barrett M82A1</szBRName>
+		<szBRDesc>The Model 82 series rifle is a rugged, dependable semi-automatic rifle. In simple terms, it has earned unmatched respect because it works in battlefield conditions. Chambered for .50 BMG rounds, you can expect it to pack a punch.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1775</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>375</ubGraphicNum>
+		<ubWeight>148</ubWeight>
+		<ItemSize>9</ItemSize>
+		<usPrice>14249</usPrice>
+		<ubCoolness>10</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>12</BR_ROF>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DirtIncreaseFactor>50</DirtIncreaseFactor>
+		<DamageChance>8</DamageChance>
+		<TransportGroupMinProgress>70</TransportGroupMinProgress>
+		<TransportGroupMaxProgress>100</TransportGroupMaxProgress>
+		<DefaultAttachment>208</DefaultAttachment>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<Unaerodynamic>1</Unaerodynamic>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

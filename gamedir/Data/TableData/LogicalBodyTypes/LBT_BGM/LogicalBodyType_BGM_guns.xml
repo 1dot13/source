@@ -12028,7 +12028,7 @@
 			<Surface name="BGM_WATER_RIFLE_AIM_PATRIOT" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_PATRIOT" animsurface="BGM_WATER_HIP_AIM" />
 		</LayerProp>
-		<!--<LayerProp filter="HasBigSniperInHand" palette="guns_v2">
+		<LayerProp filter="HasBigSniperInHand" palette="guns_v2">
 			<Surface name="BGM_RIFLE_OPEN_M82" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_M82" animsurface="BGMCROUCH_R_RDY" />
 			<Surface name="BGMRIFLE_WALK_RDY_HERO_M82" animsurface="BGMWALK_R_RDY2" />
@@ -12074,7 +12074,7 @@
 			<Surface name="BGM_WATER_RIFLE_WALK_M82" animsurface="BGMWATER_R_WALK" />
 			<Surface name="BGM_WATER_RIFLE_AIM_M82" animsurface="BGMWATER_R_AIM" />
 			<Surface name="BGM_WATER_RIFLE_HIP_M82" animsurface="BGM_WATER_HIP_AIM" />
-		</LayerProp>-->
+		</LayerProp>
 		<LayerProp filter="HasSniperInHand" palette="guns_v2">
 			<Surface name="BGM_RIFLE_OPEN_TRG42" animsurface="BGMOPEN" />
 			<Surface name="BGMRIFLE_WALK_CROUCH_TRG42" animsurface="BGMCROUCH_R_RDY" />

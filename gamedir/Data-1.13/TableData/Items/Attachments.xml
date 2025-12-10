@@ -3257,6 +3257,11 @@
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>1775</itemIndex><!-- Barrett M82A1 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex><!-- *** BIPOD -->
 		<itemIndex>18</itemIndex><!-- Dragunov SVD -->
 		<APCost>20</APCost>
@@ -3939,6 +3944,11 @@
 	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex>
 		<itemIndex>774</itemIndex><!-- VSSK Vykhlop -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>1775</itemIndex><!-- Barrett M82A1 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
@@ -7349,6 +7359,11 @@
 	<ATTACHMENT>
 		<attachmentIndex>241</attachmentIndex>
 		<itemIndex>1762</itemIndex><!-- FN PS90 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>1775</itemIndex><!-- Barrett M82A1 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
@@ -19972,6 +19987,11 @@
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>1005</attachmentIndex>
+		<itemIndex>1775</itemIndex><!-- Barrett M82A1 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex><!-- *** REFLEX SIGHT -->
 		<itemIndex>1</itemIndex><!-- Glock 17 -->
 		<APCost>20</APCost>
@@ -21920,6 +21940,11 @@
 	<ATTACHMENT>
 		<attachmentIndex>1007</attachmentIndex>
 		<itemIndex>1762</itemIndex><!-- FN PS90 -->
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1007</attachmentIndex>
+		<itemIndex>1775</itemIndex><!-- Barrett M82A1 -->
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT><!-- unfolded, folds to item 1745 -->
