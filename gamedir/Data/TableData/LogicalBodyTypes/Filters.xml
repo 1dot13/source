@@ -2046,13 +2046,11 @@
 			<HANDPOS op="in">774</HANDPOS>
 		</AND>
 	</Filter>
-<!-- Unused
 	<Filter name="HasBigSniperInHand">
 		<AND>
-			<HANDPOS op="in"></HANDPOS>
+			<HANDPOS op="in">1775</HANDPOS>
 		</AND>
 	</Filter>
--->
 	<Filter name="HasDragunovInHand">
 		<AND>
 			<HANDPOS op="in">18</HANDPOS>

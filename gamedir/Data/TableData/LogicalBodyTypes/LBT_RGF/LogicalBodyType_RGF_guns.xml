@@ -10018,7 +10018,7 @@
 			<Surface name="RGF_WATER_RIFLE_AIM_PATRIOT" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_PATRIOT" animsurface="RGF_WATER_HIP_AIM" />
 		</LayerProp>
-		<!--<LayerProp filter="HasBigSniperInHand" palette="guns_v2">
+		<LayerProp filter="HasBigSniperInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_M82" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_M82" animsurface="RGFCROUCH_R_RDY"/>
 			<Surface name="RGF_RIFLE_WALK_M82" animsurface="RGFWALK_R_RDY"/>
@@ -10040,9 +10040,6 @@
 			<Surface name="RGF_RIFLE_PRN_COWER_M82" animsurface="RGF_COWER_PRONE"/>
 			<Surface name="RGF_RIFLE_WALK_HURT_M82" animsurface="RGFHURTWALKINGR"/>
 			<Surface name="RGF_RIFLE_KICKDOOR_M82" animsurface="RGFKICKDOOR"/>
-			-<Surface name="RGF_RIFLE_SQUISH_M82" animsurface="RGF_SQUISH" />
-			<Surface name="RGF_RIFLE_LOOK_M82" animsurface="RGF_LOOK" />
-			<Surface name="RGF_RIFLE_SPIT_M82" animsurface="RGF_SPIT" />-
 			<Surface name="RGF_RIFLE_DRUNK_M82" animsurface="RGFDRUNK"/>
 			<Surface name="RGF_RIFLE_BAYONET_M82" animsurface="RGFBAYONET_S_S"/>
 			<Surface name="RGF_RIFLE_BAYONET_L_M82" animsurface="RGFBAYONET_S_P"/>
@@ -10054,7 +10051,7 @@
 			<Surface name="RGF_WATER_RIFLE_WALK_M82" animsurface="RGFWATER_R_WALK" />
 			<Surface name="RGF_WATER_RIFLE_AIM_M82" animsurface="RGFWATER_R_AIM" />
 			<Surface name="RGF_WATER_RIFLE_HIP_M82" animsurface="RGF_WATER_HIP_AIM" />
-		</LayerProp>-->
+		</LayerProp>
 		<LayerProp filter="HasSniperInHand" palette="guns_v2">
 			<Surface name="RGF_RIFLE_OPEN_TRG42" animsurface="RGFOPEN"/>
 			<Surface name="RGF_RIFLE_WALK_CROUCH_TRG42" animsurface="RGFCROUCH_R_RDY"/>
