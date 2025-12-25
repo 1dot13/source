@@ -463,13 +463,6 @@ BOOLEAN InitAI( void )
 	FILE *		DebugFile;
 #endif
 
-#ifdef _DEBUG
-	if (gfDisplayCoverValues)
-	{
-		//memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
-	}
-#endif
-
 	//If we are not loading a saved game ( if we are, this has already been called )
 	if( !( gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
@@ -849,10 +842,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 #ifdef JA2TESTVERSION
 				// display deadlock message
 				gfUIInDeadlock = TRUE;
-				gUIDeadlockedSoldier = pSoldier->ubID;
 				DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID.i, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
-
 				// If we are in beta version, also report message!
 #ifdef JA2BETAVERSION
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID.i );

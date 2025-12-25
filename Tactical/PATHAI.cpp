@@ -36,6 +36,9 @@
 #include "BinaryHeap.hpp"
 #include "opplist.h"
 #include "Weapons.h"
+#include "renderworld.h"
+#include "Cheats.h"
+#include "Handle UI.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

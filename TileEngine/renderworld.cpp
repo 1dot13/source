@@ -8005,6 +8005,11 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 
 
 #ifdef _DEBUG
+// From fov.cpp
+extern UINT8* gubGridNoMarkers;
+extern UINT8 gubGridNoValue;
+extern UINT8* gubFOVDebugInfoInfo;
+
 void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS )
 {
 	INT8				bXOddFlag = 0;
@@ -8214,6 +8219,17 @@ void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, I
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
+}
+
+
+void RenderFOVDebug()
+{
+	RenderFOVDebugInfo(gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS);
+}
+
+void RenderGridNoVisibleDebug()
+{
+	RenderGridNoVisibleDebugInfo(gsStartPointX_M, gsStartPointY_M, gsStartPointX_S, gsStartPointY_S, gsEndXS, gsEndYS);
 }
 #endif
 

@@ -184,6 +184,7 @@ extern UINT32		guiCurrentEvent;
 extern INT16			gsSelectedLevel;
 extern BOOLEAN		gfPlotNewMovement;
 extern UINT32		guiPendingOverrideEvent;
+extern UINT8 gRenderDebugInfoMode;
 
 
 // GLOBALS

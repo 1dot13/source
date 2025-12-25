@@ -519,7 +519,7 @@ void HandleRenderDebugInfoModes()
 				static INT32 previousLocation = NOWHERE;
 				static UINT8 previousStance = 0;
 
-				UINT16 usSoldierIndex = NOBODY;
+				SoldierID usSoldierIndex = NOBODY;
 				UINT32 uiMercFlags;
 				FindSoldierFromMouse(&usSoldierIndex, &uiMercFlags);
 				if (usSoldierIndex == NOBODY)
